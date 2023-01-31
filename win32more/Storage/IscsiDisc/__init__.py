@@ -17,8 +17,60 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _ADAPTER_OBJECT(Structure):
-    pass
+class ATA_PASS_THROUGH_DIRECT(Structure):
+    Length: UInt16
+    AtaFlags: UInt16
+    PathId: Byte
+    TargetId: Byte
+    Lun: Byte
+    ReservedAsUchar: Byte
+    DataTransferLength: UInt32
+    TimeOutValue: UInt32
+    ReservedAsUlong: UInt32
+    DataBuffer: c_void_p
+    PreviousTaskFile: Byte * 8
+    CurrentTaskFile: Byte * 8
+if ARCH in 'X64,ARM64':
+    class ATA_PASS_THROUGH_DIRECT32(Structure):
+        Length: UInt16
+        AtaFlags: UInt16
+        PathId: Byte
+        TargetId: Byte
+        Lun: Byte
+        ReservedAsUchar: Byte
+        DataTransferLength: UInt32
+        TimeOutValue: UInt32
+        ReservedAsUlong: UInt32
+        DataBuffer: c_void_p
+        PreviousTaskFile: Byte * 8
+        CurrentTaskFile: Byte * 8
+class ATA_PASS_THROUGH_EX(Structure):
+    Length: UInt16
+    AtaFlags: UInt16
+    PathId: Byte
+    TargetId: Byte
+    Lun: Byte
+    ReservedAsUchar: Byte
+    DataTransferLength: UInt32
+    TimeOutValue: UInt32
+    ReservedAsUlong: UInt32
+    DataBufferOffset: UIntPtr
+    PreviousTaskFile: Byte * 8
+    CurrentTaskFile: Byte * 8
+if ARCH in 'X64,ARM64':
+    class ATA_PASS_THROUGH_EX32(Structure):
+        Length: UInt16
+        AtaFlags: UInt16
+        PathId: Byte
+        TargetId: Byte
+        Lun: Byte
+        ReservedAsUchar: Byte
+        DataTransferLength: UInt32
+        TimeOutValue: UInt32
+        ReservedAsUlong: UInt32
+        DataBufferOffset: UInt32
+        PreviousTaskFile: Byte * 8
+        CurrentTaskFile: Byte * 8
 IOCTL_SCSI_BASE: UInt32 = 4
 ScsiRawInterfaceGuid: Guid = Guid('53f56309-b6bf-11d0-94-f2-00-a0-c9-1e-fb-8b')
 WmiScsiAddressGuid: Guid = Guid('53f5630f-b6bf-11d0-94-f2-00-a0-c9-1e-fb-8b')
@@ -358,60 +410,6 @@ def RemoveRadiusServerA(Address: win32more.Foundation.PSTR) -> UInt32: ...
 def ReportRadiusServerListW(BufferSizeInChar: POINTER(UInt32), Buffer: win32more.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('ISCSIDSC.dll')
 def ReportRadiusServerListA(BufferSizeInChar: POINTER(UInt32), Buffer: win32more.Foundation.PSTR) -> UInt32: ...
-class ATA_PASS_THROUGH_DIRECT(Structure):
-    Length: UInt16
-    AtaFlags: UInt16
-    PathId: Byte
-    TargetId: Byte
-    Lun: Byte
-    ReservedAsUchar: Byte
-    DataTransferLength: UInt32
-    TimeOutValue: UInt32
-    ReservedAsUlong: UInt32
-    DataBuffer: c_void_p
-    PreviousTaskFile: Byte * 8
-    CurrentTaskFile: Byte * 8
-if ARCH in 'X64,ARM64':
-    class ATA_PASS_THROUGH_DIRECT32(Structure):
-        Length: UInt16
-        AtaFlags: UInt16
-        PathId: Byte
-        TargetId: Byte
-        Lun: Byte
-        ReservedAsUchar: Byte
-        DataTransferLength: UInt32
-        TimeOutValue: UInt32
-        ReservedAsUlong: UInt32
-        DataBuffer: c_void_p
-        PreviousTaskFile: Byte * 8
-        CurrentTaskFile: Byte * 8
-class ATA_PASS_THROUGH_EX(Structure):
-    Length: UInt16
-    AtaFlags: UInt16
-    PathId: Byte
-    TargetId: Byte
-    Lun: Byte
-    ReservedAsUchar: Byte
-    DataTransferLength: UInt32
-    TimeOutValue: UInt32
-    ReservedAsUlong: UInt32
-    DataBufferOffset: UIntPtr
-    PreviousTaskFile: Byte * 8
-    CurrentTaskFile: Byte * 8
-if ARCH in 'X64,ARM64':
-    class ATA_PASS_THROUGH_EX32(Structure):
-        Length: UInt16
-        AtaFlags: UInt16
-        PathId: Byte
-        TargetId: Byte
-        Lun: Byte
-        ReservedAsUchar: Byte
-        DataTransferLength: UInt32
-        TimeOutValue: UInt32
-        ReservedAsUlong: UInt32
-        DataBufferOffset: UInt32
-        PreviousTaskFile: Byte * 8
-        CurrentTaskFile: Byte * 8
 class DSM_NOTIFICATION_REQUEST_BLOCK(Structure):
     Size: UInt32
     Version: UInt32
@@ -548,16 +546,6 @@ ISCSI_AUTH_TYPES = Int32
 ISCSI_NO_AUTH_TYPE: ISCSI_AUTH_TYPES = 0
 ISCSI_CHAP_AUTH_TYPE: ISCSI_AUTH_TYPES = 1
 ISCSI_MUTUAL_CHAP_AUTH_TYPE: ISCSI_AUTH_TYPES = 2
-class ISCSI_CONNECTION_INFO_EX(Structure):
-    ConnectionId: win32more.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID
-    State: Byte
-    Protocol: Byte
-    HeaderDigest: Byte
-    DataDigest: Byte
-    MaxRecvDataSegmentLength: UInt32
-    AuthType: win32more.Storage.IscsiDisc.ISCSI_AUTH_TYPES
-    EstimatedThroughput: UInt64
-    MaxDatagramSize: UInt32
 class ISCSI_CONNECTION_INFOA(Structure):
     ConnectionId: win32more.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID
     InitiatorAddress: win32more.Foundation.PSTR
@@ -572,6 +560,16 @@ class ISCSI_CONNECTION_INFOW(Structure):
     InitiatorSocket: UInt16
     TargetSocket: UInt16
     CID: Byte * 2
+class ISCSI_CONNECTION_INFO_EX(Structure):
+    ConnectionId: win32more.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID
+    State: Byte
+    Protocol: Byte
+    HeaderDigest: Byte
+    DataDigest: Byte
+    MaxRecvDataSegmentLength: UInt32
+    AuthType: win32more.Storage.IscsiDisc.ISCSI_AUTH_TYPES
+    EstimatedThroughput: UInt64
+    MaxDatagramSize: UInt32
 class ISCSI_DEVICE_ON_SESSIONA(Structure):
     InitiatorName: win32more.Foundation.CHAR * 256
     TargetName: win32more.Foundation.CHAR * 224
@@ -607,20 +605,6 @@ class ISCSI_LOGIN_OPTIONS(Structure):
     PasswordLength: UInt32
     Username: c_char_p_no
     Password: c_char_p_no
-class ISCSI_SESSION_INFO_EX(Structure):
-    SessionId: win32more.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID
-    InitialR2t: win32more.Foundation.BOOLEAN
-    ImmediateData: win32more.Foundation.BOOLEAN
-    Type: Byte
-    DataSequenceInOrder: win32more.Foundation.BOOLEAN
-    DataPduInOrder: win32more.Foundation.BOOLEAN
-    ErrorRecoveryLevel: Byte
-    MaxOutstandingR2t: UInt32
-    FirstBurstLength: UInt32
-    MaxBurstLength: UInt32
-    MaximumConnections: UInt32
-    ConnectionCount: UInt32
-    Connections: POINTER(win32more.Storage.IscsiDisc.ISCSI_CONNECTION_INFO_EX_head)
 class ISCSI_SESSION_INFOA(Structure):
     SessionId: win32more.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID
     InitiatorName: win32more.Foundation.PSTR
@@ -639,6 +623,20 @@ class ISCSI_SESSION_INFOW(Structure):
     TSID: Byte * 2
     ConnectionCount: UInt32
     Connections: POINTER(win32more.Storage.IscsiDisc.ISCSI_CONNECTION_INFOW_head)
+class ISCSI_SESSION_INFO_EX(Structure):
+    SessionId: win32more.Storage.IscsiDisc.ISCSI_UNIQUE_SESSION_ID
+    InitialR2t: win32more.Foundation.BOOLEAN
+    ImmediateData: win32more.Foundation.BOOLEAN
+    Type: Byte
+    DataSequenceInOrder: win32more.Foundation.BOOLEAN
+    DataPduInOrder: win32more.Foundation.BOOLEAN
+    ErrorRecoveryLevel: Byte
+    MaxOutstandingR2t: UInt32
+    FirstBurstLength: UInt32
+    MaxBurstLength: UInt32
+    MaximumConnections: UInt32
+    ConnectionCount: UInt32
+    Connections: POINTER(win32more.Storage.IscsiDisc.ISCSI_CONNECTION_INFO_EX_head)
 class ISCSI_TARGET_MAPPINGA(Structure):
     InitiatorName: win32more.Foundation.CHAR * 256
     TargetName: win32more.Foundation.CHAR * 224
@@ -657,12 +655,32 @@ class ISCSI_TARGET_MAPPINGW(Structure):
     OSTargetNumber: UInt32
     LUNCount: UInt32
     LUNList: POINTER(win32more.Storage.IscsiDisc.SCSI_LUN_LIST_head)
+class ISCSI_TARGET_PORTALA(Structure):
+    SymbolicName: win32more.Foundation.CHAR * 256
+    Address: win32more.Foundation.CHAR * 256
+    Socket: UInt16
+class ISCSI_TARGET_PORTALW(Structure):
+    SymbolicName: Char * 256
+    Address: Char * 256
+    Socket: UInt16
 class ISCSI_TARGET_PORTAL_GROUPA(Structure):
     Count: UInt32
     Portals: win32more.Storage.IscsiDisc.ISCSI_TARGET_PORTALA * 1
 class ISCSI_TARGET_PORTAL_GROUPW(Structure):
     Count: UInt32
     Portals: win32more.Storage.IscsiDisc.ISCSI_TARGET_PORTALW * 1
+class ISCSI_TARGET_PORTAL_INFOA(Structure):
+    InitiatorName: win32more.Foundation.CHAR * 256
+    InitiatorPortNumber: UInt32
+    SymbolicName: win32more.Foundation.CHAR * 256
+    Address: win32more.Foundation.CHAR * 256
+    Socket: UInt16
+class ISCSI_TARGET_PORTAL_INFOW(Structure):
+    InitiatorName: Char * 256
+    InitiatorPortNumber: UInt32
+    SymbolicName: Char * 256
+    Address: Char * 256
+    Socket: UInt16
 class ISCSI_TARGET_PORTAL_INFO_EXA(Structure):
     InitiatorName: win32more.Foundation.CHAR * 256
     InitiatorPortNumber: UInt32
@@ -679,26 +697,6 @@ class ISCSI_TARGET_PORTAL_INFO_EXW(Structure):
     Socket: UInt16
     SecurityFlags: UInt64
     LoginOptions: win32more.Storage.IscsiDisc.ISCSI_LOGIN_OPTIONS
-class ISCSI_TARGET_PORTAL_INFOA(Structure):
-    InitiatorName: win32more.Foundation.CHAR * 256
-    InitiatorPortNumber: UInt32
-    SymbolicName: win32more.Foundation.CHAR * 256
-    Address: win32more.Foundation.CHAR * 256
-    Socket: UInt16
-class ISCSI_TARGET_PORTAL_INFOW(Structure):
-    InitiatorName: Char * 256
-    InitiatorPortNumber: UInt32
-    SymbolicName: Char * 256
-    Address: Char * 256
-    Socket: UInt16
-class ISCSI_TARGET_PORTALA(Structure):
-    SymbolicName: win32more.Foundation.CHAR * 256
-    Address: win32more.Foundation.CHAR * 256
-    Socket: UInt16
-class ISCSI_TARGET_PORTALW(Structure):
-    SymbolicName: Char * 256
-    Address: Char * 256
-    Socket: UInt16
 class ISCSI_UNIQUE_SESSION_ID(Structure):
     AdapterUnique: UInt64
     AdapterSpecific: UInt64
@@ -706,56 +704,8 @@ class ISCSI_VERSION_INFO(Structure):
     MajorVersion: UInt32
     MinorVersion: UInt32
     BuildNumber: UInt32
-class MP_DEVICE_DATA_SET_RANGE(Structure):
-    StartingOffset: Int64
-    LengthInBytes: UInt64
-MP_STORAGE_DIAGNOSTIC_LEVEL = Int32
-MP_STORAGE_DIAGNOSTIC_LEVEL_MpStorageDiagnosticLevelDefault: MP_STORAGE_DIAGNOSTIC_LEVEL = 0
-MP_STORAGE_DIAGNOSTIC_LEVEL_MpStorageDiagnosticLevelMax: MP_STORAGE_DIAGNOSTIC_LEVEL = 1
-MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = Int32
-MP_STORAGE_DIAGNOSTIC_TARGET_TYPE_MpStorageDiagnosticTargetTypeUndefined: MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 0
-MP_STORAGE_DIAGNOSTIC_TARGET_TYPE_MpStorageDiagnosticTargetTypeMiniport: MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 2
-MP_STORAGE_DIAGNOSTIC_TARGET_TYPE_MpStorageDiagnosticTargetTypeHbaFirmware: MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 3
-MP_STORAGE_DIAGNOSTIC_TARGET_TYPE_MpStorageDiagnosticTargetTypeMax: MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 4
 class MPIO_PASS_THROUGH_PATH(Structure):
     PassThrough: win32more.Storage.IscsiDisc.SCSI_PASS_THROUGH
-    Version: UInt32
-    Length: UInt16
-    Flags: Byte
-    PortNumber: Byte
-    MpioPathId: UInt64
-class MPIO_PASS_THROUGH_PATH_DIRECT(Structure):
-    PassThrough: win32more.Storage.IscsiDisc.SCSI_PASS_THROUGH_DIRECT
-    Version: UInt32
-    Length: UInt16
-    Flags: Byte
-    PortNumber: Byte
-    MpioPathId: UInt64
-class MPIO_PASS_THROUGH_PATH_DIRECT_EX(Structure):
-    PassThroughOffset: UInt32
-    Version: UInt32
-    Length: UInt16
-    Flags: Byte
-    PortNumber: Byte
-    MpioPathId: UInt64
-if ARCH in 'X64,ARM64':
-    class MPIO_PASS_THROUGH_PATH_DIRECT32(Structure):
-        PassThrough: win32more.Storage.IscsiDisc.SCSI_PASS_THROUGH_DIRECT32
-        Version: UInt32
-        Length: UInt16
-        Flags: Byte
-        PortNumber: Byte
-        MpioPathId: UInt64
-if ARCH in 'X64,ARM64':
-    class MPIO_PASS_THROUGH_PATH_DIRECT32_EX(Structure):
-        PassThroughOffset: UInt32
-        Version: UInt32
-        Length: UInt16
-        Flags: Byte
-        PortNumber: Byte
-        MpioPathId: UInt64
-class MPIO_PASS_THROUGH_PATH_EX(Structure):
-    PassThroughOffset: UInt32
     Version: UInt32
     Length: UInt16
     Flags: Byte
@@ -777,38 +727,58 @@ if ARCH in 'X64,ARM64':
         Flags: Byte
         PortNumber: Byte
         MpioPathId: UInt64
+class MPIO_PASS_THROUGH_PATH_DIRECT(Structure):
+    PassThrough: win32more.Storage.IscsiDisc.SCSI_PASS_THROUGH_DIRECT
+    Version: UInt32
+    Length: UInt16
+    Flags: Byte
+    PortNumber: Byte
+    MpioPathId: UInt64
+if ARCH in 'X64,ARM64':
+    class MPIO_PASS_THROUGH_PATH_DIRECT32(Structure):
+        PassThrough: win32more.Storage.IscsiDisc.SCSI_PASS_THROUGH_DIRECT32
+        Version: UInt32
+        Length: UInt16
+        Flags: Byte
+        PortNumber: Byte
+        MpioPathId: UInt64
+if ARCH in 'X64,ARM64':
+    class MPIO_PASS_THROUGH_PATH_DIRECT32_EX(Structure):
+        PassThroughOffset: UInt32
+        Version: UInt32
+        Length: UInt16
+        Flags: Byte
+        PortNumber: Byte
+        MpioPathId: UInt64
+class MPIO_PASS_THROUGH_PATH_DIRECT_EX(Structure):
+    PassThroughOffset: UInt32
+    Version: UInt32
+    Length: UInt16
+    Flags: Byte
+    PortNumber: Byte
+    MpioPathId: UInt64
+class MPIO_PASS_THROUGH_PATH_EX(Structure):
+    PassThroughOffset: UInt32
+    Version: UInt32
+    Length: UInt16
+    Flags: Byte
+    PortNumber: Byte
+    MpioPathId: UInt64
+class MP_DEVICE_DATA_SET_RANGE(Structure):
+    StartingOffset: Int64
+    LengthInBytes: UInt64
+MP_STORAGE_DIAGNOSTIC_LEVEL = Int32
+MP_STORAGE_DIAGNOSTIC_LEVEL_MpStorageDiagnosticLevelDefault: MP_STORAGE_DIAGNOSTIC_LEVEL = 0
+MP_STORAGE_DIAGNOSTIC_LEVEL_MpStorageDiagnosticLevelMax: MP_STORAGE_DIAGNOSTIC_LEVEL = 1
+MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = Int32
+MP_STORAGE_DIAGNOSTIC_TARGET_TYPE_MpStorageDiagnosticTargetTypeUndefined: MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 0
+MP_STORAGE_DIAGNOSTIC_TARGET_TYPE_MpStorageDiagnosticTargetTypeMiniport: MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 2
+MP_STORAGE_DIAGNOSTIC_TARGET_TYPE_MpStorageDiagnosticTargetTypeHbaFirmware: MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 3
+MP_STORAGE_DIAGNOSTIC_TARGET_TYPE_MpStorageDiagnosticTargetTypeMax: MP_STORAGE_DIAGNOSTIC_TARGET_TYPE = 4
 class NTSCSI_UNICODE_STRING(Structure):
     Length: UInt16
     MaximumLength: UInt16
     Buffer: win32more.Foundation.PWSTR
-class NV_FEATURE_PARAMETER(Structure):
-    NVPowerModeEnabled: UInt16
-    NVParameterReserv1: UInt16
-    NVCmdEnabled: UInt16
-    NVParameterReserv2: UInt16
-    NVPowerModeVer: UInt16
-    NVCmdVer: UInt16
-    NVSize: UInt32
-    NVReadSpeed: UInt16
-    NVWrtSpeed: UInt16
-    DeviceSpinUpTime: UInt32
-class NV_SEP_CACHE_PARAMETER(Structure):
-    Version: UInt32
-    Size: UInt32
-    Flags: _Flags_e__Union
-    WriteCacheType: Byte
-    WriteCacheTypeEffective: Byte
-    ParameterReserve1: Byte * 3
-    class _Flags_e__Union(Union):
-        CacheFlags: _CacheFlags_e__Struct
-        CacheFlagsSet: Byte
-        class _CacheFlags_e__Struct(Structure):
-            _bitfield: Byte
-NV_SEP_WRITE_CACHE_TYPE = Int32
-NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeUnknown: NV_SEP_WRITE_CACHE_TYPE = 0
-NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeNone: NV_SEP_WRITE_CACHE_TYPE = 1
-NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeWriteBack: NV_SEP_WRITE_CACHE_TYPE = 2
-NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeWriteThrough: NV_SEP_WRITE_CACHE_TYPE = 3
 class NVCACHE_HINT_PAYLOAD(Structure):
     Command: Byte
     Feature7_0: Byte
@@ -851,6 +821,34 @@ NVCACHE_TYPE_NvCacheTypeUnknown: NVCACHE_TYPE = 0
 NVCACHE_TYPE_NvCacheTypeNone: NVCACHE_TYPE = 1
 NVCACHE_TYPE_NvCacheTypeWriteBack: NVCACHE_TYPE = 2
 NVCACHE_TYPE_NvCacheTypeWriteThrough: NVCACHE_TYPE = 3
+class NV_FEATURE_PARAMETER(Structure):
+    NVPowerModeEnabled: UInt16
+    NVParameterReserv1: UInt16
+    NVCmdEnabled: UInt16
+    NVParameterReserv2: UInt16
+    NVPowerModeVer: UInt16
+    NVCmdVer: UInt16
+    NVSize: UInt32
+    NVReadSpeed: UInt16
+    NVWrtSpeed: UInt16
+    DeviceSpinUpTime: UInt32
+class NV_SEP_CACHE_PARAMETER(Structure):
+    Version: UInt32
+    Size: UInt32
+    Flags: _Flags_e__Union
+    WriteCacheType: Byte
+    WriteCacheTypeEffective: Byte
+    ParameterReserve1: Byte * 3
+    class _Flags_e__Union(Union):
+        CacheFlags: _CacheFlags_e__Struct
+        CacheFlagsSet: Byte
+        class _CacheFlags_e__Struct(Structure):
+            _bitfield: Byte
+NV_SEP_WRITE_CACHE_TYPE = Int32
+NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeUnknown: NV_SEP_WRITE_CACHE_TYPE = 0
+NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeNone: NV_SEP_WRITE_CACHE_TYPE = 1
+NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeWriteBack: NV_SEP_WRITE_CACHE_TYPE = 2
+NV_SEP_WRITE_CACHE_TYPE_NVSEPWriteCacheTypeWriteThrough: NV_SEP_WRITE_CACHE_TYPE = 3
 @winfunctype_pointer
 def PDUMP_DEVICE_POWERON_ROUTINE(Context: c_void_p) -> Int32: ...
 class PERSISTENT_ISCSI_LOGIN_INFOA(Structure):
@@ -909,87 +907,6 @@ class SCSI_PASS_THROUGH(Structure):
     DataBufferOffset: UIntPtr
     SenseInfoOffset: UInt32
     Cdb: Byte * 16
-class SCSI_PASS_THROUGH_DIRECT(Structure):
-    Length: UInt16
-    ScsiStatus: Byte
-    PathId: Byte
-    TargetId: Byte
-    Lun: Byte
-    CdbLength: Byte
-    SenseInfoLength: Byte
-    DataIn: Byte
-    DataTransferLength: UInt32
-    TimeOutValue: UInt32
-    DataBuffer: c_void_p
-    SenseInfoOffset: UInt32
-    Cdb: Byte * 16
-class SCSI_PASS_THROUGH_DIRECT_EX(Structure):
-    Version: UInt32
-    Length: UInt32
-    CdbLength: UInt32
-    StorAddressLength: UInt32
-    ScsiStatus: Byte
-    SenseInfoLength: Byte
-    DataDirection: Byte
-    Reserved: Byte
-    TimeOutValue: UInt32
-    StorAddressOffset: UInt32
-    SenseInfoOffset: UInt32
-    DataOutTransferLength: UInt32
-    DataInTransferLength: UInt32
-    DataOutBuffer: c_void_p
-    DataInBuffer: c_void_p
-    Cdb: Byte * 1
-if ARCH in 'X64,ARM64':
-    class SCSI_PASS_THROUGH_DIRECT32(Structure):
-        Length: UInt16
-        ScsiStatus: Byte
-        PathId: Byte
-        TargetId: Byte
-        Lun: Byte
-        CdbLength: Byte
-        SenseInfoLength: Byte
-        DataIn: Byte
-        DataTransferLength: UInt32
-        TimeOutValue: UInt32
-        DataBuffer: c_void_p
-        SenseInfoOffset: UInt32
-        Cdb: Byte * 16
-if ARCH in 'X64,ARM64':
-    class SCSI_PASS_THROUGH_DIRECT32_EX(Structure):
-        Version: UInt32
-        Length: UInt32
-        CdbLength: UInt32
-        StorAddressLength: UInt32
-        ScsiStatus: Byte
-        SenseInfoLength: Byte
-        DataDirection: Byte
-        Reserved: Byte
-        TimeOutValue: UInt32
-        StorAddressOffset: UInt32
-        SenseInfoOffset: UInt32
-        DataOutTransferLength: UInt32
-        DataInTransferLength: UInt32
-        DataOutBuffer: c_void_p
-        DataInBuffer: c_void_p
-        Cdb: Byte * 1
-class SCSI_PASS_THROUGH_EX(Structure):
-    Version: UInt32
-    Length: UInt32
-    CdbLength: UInt32
-    StorAddressLength: UInt32
-    ScsiStatus: Byte
-    SenseInfoLength: Byte
-    DataDirection: Byte
-    Reserved: Byte
-    TimeOutValue: UInt32
-    StorAddressOffset: UInt32
-    SenseInfoOffset: UInt32
-    DataOutTransferLength: UInt32
-    DataInTransferLength: UInt32
-    DataOutBufferOffset: UIntPtr
-    DataInBufferOffset: UIntPtr
-    Cdb: Byte * 1
 if ARCH in 'X64,ARM64':
     class SCSI_PASS_THROUGH32(Structure):
         Length: UInt16
@@ -1023,6 +940,87 @@ if ARCH in 'X64,ARM64':
         DataOutBufferOffset: UInt32
         DataInBufferOffset: UInt32
         Cdb: Byte * 1
+class SCSI_PASS_THROUGH_DIRECT(Structure):
+    Length: UInt16
+    ScsiStatus: Byte
+    PathId: Byte
+    TargetId: Byte
+    Lun: Byte
+    CdbLength: Byte
+    SenseInfoLength: Byte
+    DataIn: Byte
+    DataTransferLength: UInt32
+    TimeOutValue: UInt32
+    DataBuffer: c_void_p
+    SenseInfoOffset: UInt32
+    Cdb: Byte * 16
+if ARCH in 'X64,ARM64':
+    class SCSI_PASS_THROUGH_DIRECT32(Structure):
+        Length: UInt16
+        ScsiStatus: Byte
+        PathId: Byte
+        TargetId: Byte
+        Lun: Byte
+        CdbLength: Byte
+        SenseInfoLength: Byte
+        DataIn: Byte
+        DataTransferLength: UInt32
+        TimeOutValue: UInt32
+        DataBuffer: c_void_p
+        SenseInfoOffset: UInt32
+        Cdb: Byte * 16
+if ARCH in 'X64,ARM64':
+    class SCSI_PASS_THROUGH_DIRECT32_EX(Structure):
+        Version: UInt32
+        Length: UInt32
+        CdbLength: UInt32
+        StorAddressLength: UInt32
+        ScsiStatus: Byte
+        SenseInfoLength: Byte
+        DataDirection: Byte
+        Reserved: Byte
+        TimeOutValue: UInt32
+        StorAddressOffset: UInt32
+        SenseInfoOffset: UInt32
+        DataOutTransferLength: UInt32
+        DataInTransferLength: UInt32
+        DataOutBuffer: c_void_p
+        DataInBuffer: c_void_p
+        Cdb: Byte * 1
+class SCSI_PASS_THROUGH_DIRECT_EX(Structure):
+    Version: UInt32
+    Length: UInt32
+    CdbLength: UInt32
+    StorAddressLength: UInt32
+    ScsiStatus: Byte
+    SenseInfoLength: Byte
+    DataDirection: Byte
+    Reserved: Byte
+    TimeOutValue: UInt32
+    StorAddressOffset: UInt32
+    SenseInfoOffset: UInt32
+    DataOutTransferLength: UInt32
+    DataInTransferLength: UInt32
+    DataOutBuffer: c_void_p
+    DataInBuffer: c_void_p
+    Cdb: Byte * 1
+class SCSI_PASS_THROUGH_EX(Structure):
+    Version: UInt32
+    Length: UInt32
+    CdbLength: UInt32
+    StorAddressLength: UInt32
+    ScsiStatus: Byte
+    SenseInfoLength: Byte
+    DataDirection: Byte
+    Reserved: Byte
+    TimeOutValue: UInt32
+    StorAddressOffset: UInt32
+    SenseInfoOffset: UInt32
+    DataOutTransferLength: UInt32
+    DataInTransferLength: UInt32
+    DataOutBufferOffset: UIntPtr
+    DataInBufferOffset: UIntPtr
+    Cdb: Byte * 1
 class SRB_IO_CONTROL(Structure):
     HeaderLength: UInt32
     Signature: Byte * 8
@@ -1106,6 +1104,8 @@ class STORAGE_FIRMWARE_SLOT_INFO_V2(Structure):
     ReadOnly: win32more.Foundation.BOOLEAN
     Reserved: Byte * 6
     Revision: Byte * 16
+TARGETPROTOCOLTYPE = Int32
+ISCSI_TCP_PROTOCOL_TYPE: TARGETPROTOCOLTYPE = 0
 TARGET_INFORMATION_CLASS = Int32
 TARGET_INFORMATION_CLASS_ProtocolType: TARGET_INFORMATION_CLASS = 0
 TARGET_INFORMATION_CLASS_TargetAlias: TARGET_INFORMATION_CLASS = 1
@@ -1115,9 +1115,8 @@ TARGET_INFORMATION_CLASS_PersistentTargetMappings: TARGET_INFORMATION_CLASS = 4
 TARGET_INFORMATION_CLASS_InitiatorName: TARGET_INFORMATION_CLASS = 5
 TARGET_INFORMATION_CLASS_TargetFlags: TARGET_INFORMATION_CLASS = 6
 TARGET_INFORMATION_CLASS_LoginOptions: TARGET_INFORMATION_CLASS = 7
-TARGETPROTOCOLTYPE = Int32
-ISCSI_TCP_PROTOCOL_TYPE: TARGETPROTOCOLTYPE = 0
-make_head(_module, '_ADAPTER_OBJECT')
+class _ADAPTER_OBJECT(Structure):
+    pass
 make_head(_module, 'ATA_PASS_THROUGH_DIRECT')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'ATA_PASS_THROUGH_DIRECT32')
@@ -1139,46 +1138,46 @@ make_head(_module, 'IDE_IO_CONTROL')
 make_head(_module, 'IKE_AUTHENTICATION_INFORMATION')
 make_head(_module, 'IKE_AUTHENTICATION_PRESHARED_KEY')
 make_head(_module, 'IO_SCSI_CAPABILITIES')
-make_head(_module, 'ISCSI_CONNECTION_INFO_EX')
 make_head(_module, 'ISCSI_CONNECTION_INFOA')
 make_head(_module, 'ISCSI_CONNECTION_INFOW')
+make_head(_module, 'ISCSI_CONNECTION_INFO_EX')
 make_head(_module, 'ISCSI_DEVICE_ON_SESSIONA')
 make_head(_module, 'ISCSI_DEVICE_ON_SESSIONW')
 make_head(_module, 'ISCSI_LOGIN_OPTIONS')
-make_head(_module, 'ISCSI_SESSION_INFO_EX')
 make_head(_module, 'ISCSI_SESSION_INFOA')
 make_head(_module, 'ISCSI_SESSION_INFOW')
+make_head(_module, 'ISCSI_SESSION_INFO_EX')
 make_head(_module, 'ISCSI_TARGET_MAPPINGA')
 make_head(_module, 'ISCSI_TARGET_MAPPINGW')
-make_head(_module, 'ISCSI_TARGET_PORTAL_GROUPA')
-make_head(_module, 'ISCSI_TARGET_PORTAL_GROUPW')
-make_head(_module, 'ISCSI_TARGET_PORTAL_INFO_EXA')
-make_head(_module, 'ISCSI_TARGET_PORTAL_INFO_EXW')
-make_head(_module, 'ISCSI_TARGET_PORTAL_INFOA')
-make_head(_module, 'ISCSI_TARGET_PORTAL_INFOW')
 make_head(_module, 'ISCSI_TARGET_PORTALA')
 make_head(_module, 'ISCSI_TARGET_PORTALW')
+make_head(_module, 'ISCSI_TARGET_PORTAL_GROUPA')
+make_head(_module, 'ISCSI_TARGET_PORTAL_GROUPW')
+make_head(_module, 'ISCSI_TARGET_PORTAL_INFOA')
+make_head(_module, 'ISCSI_TARGET_PORTAL_INFOW')
+make_head(_module, 'ISCSI_TARGET_PORTAL_INFO_EXA')
+make_head(_module, 'ISCSI_TARGET_PORTAL_INFO_EXW')
 make_head(_module, 'ISCSI_UNIQUE_SESSION_ID')
 make_head(_module, 'ISCSI_VERSION_INFO')
-make_head(_module, 'MP_DEVICE_DATA_SET_RANGE')
 make_head(_module, 'MPIO_PASS_THROUGH_PATH')
-make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT')
-make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT_EX')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT32')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT32_EX')
-make_head(_module, 'MPIO_PASS_THROUGH_PATH_EX')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'MPIO_PASS_THROUGH_PATH32')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'MPIO_PASS_THROUGH_PATH32_EX')
+make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT32_EX')
+make_head(_module, 'MPIO_PASS_THROUGH_PATH_DIRECT_EX')
+make_head(_module, 'MPIO_PASS_THROUGH_PATH_EX')
+make_head(_module, 'MP_DEVICE_DATA_SET_RANGE')
 make_head(_module, 'NTSCSI_UNICODE_STRING')
-make_head(_module, 'NV_FEATURE_PARAMETER')
-make_head(_module, 'NV_SEP_CACHE_PARAMETER')
 make_head(_module, 'NVCACHE_HINT_PAYLOAD')
 make_head(_module, 'NVCACHE_PRIORITY_LEVEL_DESCRIPTOR')
 make_head(_module, 'NVCACHE_REQUEST_BLOCK')
+make_head(_module, 'NV_FEATURE_PARAMETER')
+make_head(_module, 'NV_SEP_CACHE_PARAMETER')
 make_head(_module, 'PDUMP_DEVICE_POWERON_ROUTINE')
 make_head(_module, 'PERSISTENT_ISCSI_LOGIN_INFOA')
 make_head(_module, 'PERSISTENT_ISCSI_LOGIN_INFOW')
@@ -1188,17 +1187,17 @@ make_head(_module, 'SCSI_BUS_DATA')
 make_head(_module, 'SCSI_INQUIRY_DATA')
 make_head(_module, 'SCSI_LUN_LIST')
 make_head(_module, 'SCSI_PASS_THROUGH')
-make_head(_module, 'SCSI_PASS_THROUGH_DIRECT')
-make_head(_module, 'SCSI_PASS_THROUGH_DIRECT_EX')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'SCSI_PASS_THROUGH_DIRECT32')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'SCSI_PASS_THROUGH_DIRECT32_EX')
-make_head(_module, 'SCSI_PASS_THROUGH_EX')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'SCSI_PASS_THROUGH32')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'SCSI_PASS_THROUGH32_EX')
+make_head(_module, 'SCSI_PASS_THROUGH_DIRECT')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SCSI_PASS_THROUGH_DIRECT32')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'SCSI_PASS_THROUGH_DIRECT32_EX')
+make_head(_module, 'SCSI_PASS_THROUGH_DIRECT_EX')
+make_head(_module, 'SCSI_PASS_THROUGH_EX')
 make_head(_module, 'SRB_IO_CONTROL')
 make_head(_module, 'STORAGE_DIAGNOSTIC_MP_REQUEST')
 make_head(_module, 'STORAGE_ENDURANCE_DATA_DESCRIPTOR')
@@ -1210,6 +1209,7 @@ make_head(_module, 'STORAGE_FIRMWARE_INFO')
 make_head(_module, 'STORAGE_FIRMWARE_INFO_V2')
 make_head(_module, 'STORAGE_FIRMWARE_SLOT_INFO')
 make_head(_module, 'STORAGE_FIRMWARE_SLOT_INFO_V2')
+make_head(_module, '_ADAPTER_OBJECT')
 __all__ = [
     "ATA_FLAGS_48BIT_COMMAND",
     "ATA_FLAGS_DATA_IN",

@@ -19,8 +19,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _RO_REGISTRATION_COOKIE(Structure):
-    pass
 ACTIVATIONTYPE = Int32
 ACTIVATIONTYPE_UNCATEGORIZED: ACTIVATIONTYPE = 0
 ACTIVATIONTYPE_FROM_MONIKER: ACTIVATIONTYPE = 1
@@ -28,10 +26,10 @@ ACTIVATIONTYPE_FROM_DATA: ACTIVATIONTYPE = 2
 ACTIVATIONTYPE_FROM_STORAGE: ACTIVATIONTYPE = 4
 ACTIVATIONTYPE_FROM_STREAM: ACTIVATIONTYPE = 8
 ACTIVATIONTYPE_FROM_FILE: ACTIVATIONTYPE = 16
+APARTMENT_SHUTDOWN_REGISTRATION_COOKIE = IntPtr
 AgileReferenceOptions = Int32
 AGILEREFERENCE_DEFAULT: AgileReferenceOptions = 0
 AGILEREFERENCE_DELAYEDMARSHAL: AgileReferenceOptions = 1
-APARTMENT_SHUTDOWN_REGISTRATION_COOKIE = IntPtr
 MAX_ERROR_MESSAGE_CHARS: UInt32 = 512
 CastingSourceInfo_Property_PreferredSourceUriScheme: String = 'PreferredSourceUriScheme'
 CastingSourceInfo_Property_CastingTypes: String = 'CastingTypes'
@@ -495,6 +493,7 @@ def PINSPECT_HSTRING_CALLBACK(context: c_void_p, readAddress: UIntPtr, length: U
 def PINSPECT_HSTRING_CALLBACK2(context: c_void_p, readAddress: UInt64, length: UInt32, buffer: c_char_p_no) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PINSPECT_MEMORY_CALLBACK(context: c_void_p, readAddress: UIntPtr, length: UInt32, buffer: c_char_p_no) -> win32more.Foundation.HRESULT: ...
+ROPARAMIIDHANDLE = IntPtr
 RO_ERROR_REPORTING_FLAGS = UInt32
 RO_ERROR_REPORTING_NONE: RO_ERROR_REPORTING_FLAGS = 0
 RO_ERROR_REPORTING_SUPPRESSEXCEPTIONS: RO_ERROR_REPORTING_FLAGS = 1
@@ -504,7 +503,6 @@ RO_ERROR_REPORTING_SUPPRESSSETERRORINFO: RO_ERROR_REPORTING_FLAGS = 8
 RO_INIT_TYPE = Int32
 RO_INIT_SINGLETHREADED: RO_INIT_TYPE = 0
 RO_INIT_MULTITHREADED: RO_INIT_TYPE = 1
-ROPARAMIIDHANDLE = IntPtr
 class ServerInformation(Structure):
     dwServerPid: UInt32
     dwServerTid: UInt32
@@ -513,7 +511,8 @@ TrustLevel = Int32
 TrustLevel_BaseTrust: TrustLevel = 0
 TrustLevel_PartialTrust: TrustLevel = 1
 TrustLevel_FullTrust: TrustLevel = 2
-make_head(_module, '_RO_REGISTRATION_COOKIE')
+class _RO_REGISTRATION_COOKIE(Structure):
+    pass
 make_head(_module, 'DispatcherQueueOptions')
 make_head(_module, 'EventRegistrationToken')
 make_head(_module, 'HSTRING_HEADER')
@@ -562,6 +561,7 @@ make_head(_module, 'PINSPECT_HSTRING_CALLBACK')
 make_head(_module, 'PINSPECT_HSTRING_CALLBACK2')
 make_head(_module, 'PINSPECT_MEMORY_CALLBACK')
 make_head(_module, 'ServerInformation')
+make_head(_module, '_RO_REGISTRATION_COOKIE')
 __all__ = [
     "ACTIVATIONTYPE",
     "ACTIVATIONTYPE_FROM_DATA",

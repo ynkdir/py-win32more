@@ -20,12 +20,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _ISpeechRecoContextEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('7b8fcb42-0e9d-4f00-a0-48-7b-04-d6-17-9d-3d')
-class _ISpeechVoiceEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('a372acd1-3bef-4bbd-8f-fb-cb-3e-2b-41-6a-f8')
 SPDUI_EngineProperties: String = 'EngineProperties'
 SPDUI_AddRemoveWord: String = 'AddRemoveWord'
 SPDUI_UserTraining: String = 'UserTraining'
@@ -94,6 +88,31 @@ Speech_Max_Pron_Length: Int32 = 384
 Speech_StreamPos_Asap: Int32 = 0
 Speech_StreamPos_RealTime: Int32 = -1
 SpeechAllElements: Int32 = -1
+DISPIDSPRG = Int32
+DISPID_SRGId: DISPIDSPRG = 1
+DISPID_SRGRecoContext: DISPIDSPRG = 2
+DISPID_SRGState: DISPIDSPRG = 3
+DISPID_SRGRules: DISPIDSPRG = 4
+DISPID_SRGReset: DISPIDSPRG = 5
+DISPID_SRGCommit: DISPIDSPRG = 6
+DISPID_SRGCmdLoadFromFile: DISPIDSPRG = 7
+DISPID_SRGCmdLoadFromObject: DISPIDSPRG = 8
+DISPID_SRGCmdLoadFromResource: DISPIDSPRG = 9
+DISPID_SRGCmdLoadFromMemory: DISPIDSPRG = 10
+DISPID_SRGCmdLoadFromProprietaryGrammar: DISPIDSPRG = 11
+DISPID_SRGCmdSetRuleState: DISPIDSPRG = 12
+DISPID_SRGCmdSetRuleIdState: DISPIDSPRG = 13
+DISPID_SRGDictationLoad: DISPIDSPRG = 14
+DISPID_SRGDictationUnload: DISPIDSPRG = 15
+DISPID_SRGDictationSetState: DISPIDSPRG = 16
+DISPID_SRGSetWordSequenceData: DISPIDSPRG = 17
+DISPID_SRGSetTextSelection: DISPIDSPRG = 18
+DISPID_SRGIsPronounceable: DISPIDSPRG = 19
+DISPIDSPTSI = Int32
+DISPIDSPTSI_ActiveOffset: DISPIDSPTSI = 1
+DISPIDSPTSI_ActiveLength: DISPIDSPTSI = 2
+DISPIDSPTSI_SelectionOffset: DISPIDSPTSI = 3
+DISPIDSPTSI_SelectionLength: DISPIDSPTSI = 4
 DISPID_SpeechAudio = Int32
 DISPID_SAStatus: DISPID_SpeechAudio = 200
 DISPID_SABufferInfo: DISPID_SpeechAudio = 201
@@ -148,15 +167,6 @@ DISPID_SGRId: DISPID_SpeechGrammarRule = 4
 DISPID_SGRClear: DISPID_SpeechGrammarRule = 5
 DISPID_SGRAddResource: DISPID_SpeechGrammarRule = 6
 DISPID_SGRAddState: DISPID_SpeechGrammarRule = 7
-DISPID_SpeechGrammarRules = Int32
-DISPID_SGRsCount: DISPID_SpeechGrammarRules = 1
-DISPID_SGRsDynamic: DISPID_SpeechGrammarRules = 2
-DISPID_SGRsAdd: DISPID_SpeechGrammarRules = 3
-DISPID_SGRsCommit: DISPID_SpeechGrammarRules = 4
-DISPID_SGRsCommitAndSave: DISPID_SpeechGrammarRules = 5
-DISPID_SGRsFindRule: DISPID_SpeechGrammarRules = 6
-DISPID_SGRsItem: DISPID_SpeechGrammarRules = 0
-DISPID_SGRs_NewEnum: DISPID_SpeechGrammarRules = -4
 DISPID_SpeechGrammarRuleState = Int32
 DISPID_SGRSRule: DISPID_SpeechGrammarRuleState = 1
 DISPID_SGRSTransitions: DISPID_SpeechGrammarRuleState = 2
@@ -176,6 +186,15 @@ DISPID_SpeechGrammarRuleStateTransitions = Int32
 DISPID_SGRSTsCount: DISPID_SpeechGrammarRuleStateTransitions = 1
 DISPID_SGRSTsItem: DISPID_SpeechGrammarRuleStateTransitions = 0
 DISPID_SGRSTs_NewEnum: DISPID_SpeechGrammarRuleStateTransitions = -4
+DISPID_SpeechGrammarRules = Int32
+DISPID_SGRsCount: DISPID_SpeechGrammarRules = 1
+DISPID_SGRsDynamic: DISPID_SpeechGrammarRules = 2
+DISPID_SGRsAdd: DISPID_SpeechGrammarRules = 3
+DISPID_SGRsCommit: DISPID_SpeechGrammarRules = 4
+DISPID_SGRsCommitAndSave: DISPID_SpeechGrammarRules = 5
+DISPID_SGRsFindRule: DISPID_SpeechGrammarRules = 6
+DISPID_SGRsItem: DISPID_SpeechGrammarRules = 0
+DISPID_SGRs_NewEnum: DISPID_SpeechGrammarRules = -4
 DISPID_SpeechLexicon = Int32
 DISPID_SLGenerationId: DISPID_SpeechLexicon = 1
 DISPID_SLGetWords: DISPID_SpeechLexicon = 2
@@ -204,13 +223,13 @@ DISPID_SpeechLexiconWords = Int32
 DISPID_SLWsCount: DISPID_SpeechLexiconWords = 1
 DISPID_SLWsItem: DISPID_SpeechLexiconWords = 0
 DISPID_SLWs_NewEnum: DISPID_SpeechLexiconWords = -4
-DISPID_SpeechMemoryStream = Int32
-DISPID_SMSSetData: DISPID_SpeechMemoryStream = 100
-DISPID_SMSGetData: DISPID_SpeechMemoryStream = 101
 DISPID_SpeechMMSysAudio = Int32
 DISPID_SMSADeviceId: DISPID_SpeechMMSysAudio = 300
 DISPID_SMSALineId: DISPID_SpeechMMSysAudio = 301
 DISPID_SMSAMMHandle: DISPID_SpeechMMSysAudio = 302
+DISPID_SpeechMemoryStream = Int32
+DISPID_SMSSetData: DISPID_SpeechMemoryStream = 100
+DISPID_SMSGetData: DISPID_SpeechMemoryStream = 101
 DISPID_SpeechObjectToken = Int32
 DISPID_SOTId: DISPID_SpeechObjectToken = 1
 DISPID_SOTDataKey: DISPID_SpeechObjectToken = 2
@@ -359,6 +378,23 @@ DISPID_SRCEAdaptation: DISPID_SpeechRecoContextEvents = 15
 DISPID_SRCERecognitionForOtherContext: DISPID_SpeechRecoContextEvents = 16
 DISPID_SRCEAudioLevel: DISPID_SpeechRecoContextEvents = 17
 DISPID_SRCEEnginePrivate: DISPID_SpeechRecoContextEvents = 18
+DISPID_SpeechRecoResult = Int32
+DISPID_SRRRecoContext: DISPID_SpeechRecoResult = 1
+DISPID_SRRTimes: DISPID_SpeechRecoResult = 2
+DISPID_SRRAudioFormat: DISPID_SpeechRecoResult = 3
+DISPID_SRRPhraseInfo: DISPID_SpeechRecoResult = 4
+DISPID_SRRAlternates: DISPID_SpeechRecoResult = 5
+DISPID_SRRAudio: DISPID_SpeechRecoResult = 6
+DISPID_SRRSpeakAudio: DISPID_SpeechRecoResult = 7
+DISPID_SRRSaveToMemory: DISPID_SpeechRecoResult = 8
+DISPID_SRRDiscardResultInfo: DISPID_SpeechRecoResult = 9
+DISPID_SpeechRecoResult2 = Int32
+DISPID_SRRSetTextFeedback: DISPID_SpeechRecoResult2 = 12
+DISPID_SpeechRecoResultTimes = Int32
+DISPID_SRRTStreamTime: DISPID_SpeechRecoResultTimes = 1
+DISPID_SRRTLength: DISPID_SpeechRecoResultTimes = 2
+DISPID_SRRTTickCount: DISPID_SpeechRecoResultTimes = 3
+DISPID_SRRTOffsetFromStart: DISPID_SpeechRecoResultTimes = 4
 DISPID_SpeechRecognizer = Int32
 DISPID_SRRecognizer: DISPID_SpeechRecognizer = 1
 DISPID_SRAllowAudioInputFormatChangesOnNextSet: DISPID_SpeechRecognizer = 2
@@ -387,23 +423,6 @@ DISPID_SRSCurrentStreamNumber: DISPID_SpeechRecognizerStatus = 3
 DISPID_SRSNumberOfActiveRules: DISPID_SpeechRecognizerStatus = 4
 DISPID_SRSClsidEngine: DISPID_SpeechRecognizerStatus = 5
 DISPID_SRSSupportedLanguages: DISPID_SpeechRecognizerStatus = 6
-DISPID_SpeechRecoResult = Int32
-DISPID_SRRRecoContext: DISPID_SpeechRecoResult = 1
-DISPID_SRRTimes: DISPID_SpeechRecoResult = 2
-DISPID_SRRAudioFormat: DISPID_SpeechRecoResult = 3
-DISPID_SRRPhraseInfo: DISPID_SpeechRecoResult = 4
-DISPID_SRRAlternates: DISPID_SpeechRecoResult = 5
-DISPID_SRRAudio: DISPID_SpeechRecoResult = 6
-DISPID_SRRSpeakAudio: DISPID_SpeechRecoResult = 7
-DISPID_SRRSaveToMemory: DISPID_SpeechRecoResult = 8
-DISPID_SRRDiscardResultInfo: DISPID_SpeechRecoResult = 9
-DISPID_SpeechRecoResult2 = Int32
-DISPID_SRRSetTextFeedback: DISPID_SpeechRecoResult2 = 12
-DISPID_SpeechRecoResultTimes = Int32
-DISPID_SRRTStreamTime: DISPID_SpeechRecoResultTimes = 1
-DISPID_SRRTLength: DISPID_SpeechRecoResultTimes = 2
-DISPID_SRRTTickCount: DISPID_SpeechRecoResultTimes = 3
-DISPID_SRRTOffsetFromStart: DISPID_SpeechRecoResultTimes = 4
 DISPID_SpeechVoice = Int32
 DISPID_SVStatus: DISPID_SpeechVoice = 1
 DISPID_SVVoice: DISPID_SpeechVoice = 2
@@ -462,31 +481,6 @@ DISPID_SWFEExtraData: DISPID_SpeechWaveFormatEx = 7
 DISPID_SpeechXMLRecoResult = Int32
 DISPID_SRRGetXMLResult: DISPID_SpeechXMLRecoResult = 10
 DISPID_SRRGetXMLErrorInfo: DISPID_SpeechXMLRecoResult = 11
-DISPIDSPRG = Int32
-DISPID_SRGId: DISPIDSPRG = 1
-DISPID_SRGRecoContext: DISPIDSPRG = 2
-DISPID_SRGState: DISPIDSPRG = 3
-DISPID_SRGRules: DISPIDSPRG = 4
-DISPID_SRGReset: DISPIDSPRG = 5
-DISPID_SRGCommit: DISPIDSPRG = 6
-DISPID_SRGCmdLoadFromFile: DISPIDSPRG = 7
-DISPID_SRGCmdLoadFromObject: DISPIDSPRG = 8
-DISPID_SRGCmdLoadFromResource: DISPIDSPRG = 9
-DISPID_SRGCmdLoadFromMemory: DISPIDSPRG = 10
-DISPID_SRGCmdLoadFromProprietaryGrammar: DISPIDSPRG = 11
-DISPID_SRGCmdSetRuleState: DISPIDSPRG = 12
-DISPID_SRGCmdSetRuleIdState: DISPIDSPRG = 13
-DISPID_SRGDictationLoad: DISPIDSPRG = 14
-DISPID_SRGDictationUnload: DISPIDSPRG = 15
-DISPID_SRGDictationSetState: DISPIDSPRG = 16
-DISPID_SRGSetWordSequenceData: DISPIDSPRG = 17
-DISPID_SRGSetTextSelection: DISPIDSPRG = 18
-DISPID_SRGIsPronounceable: DISPIDSPRG = 19
-DISPIDSPTSI = Int32
-DISPIDSPTSI_ActiveOffset: DISPIDSPTSI = 1
-DISPIDSPTSI_ActiveLength: DISPIDSPTSI = 2
-DISPIDSPTSI_SelectionOffset: DISPIDSPTSI = 3
-DISPIDSPTSI_SelectionLength: DISPIDSPTSI = 4
 class IEnumSpObjectTokens(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('06b64f9e-7fda-11d2-b4-f2-00-c0-4f-79-73-96')
@@ -566,6 +560,556 @@ class ISpDisplayAlternates(c_void_p):
     def GetDisplayAlternates(pPhrase: POINTER(win32more.Media.Speech.SPDISPLAYPHRASE_head), cRequestCount: UInt32, ppCoMemPhrases: POINTER(POINTER(win32more.Media.Speech.SPDISPLAYPHRASE_head)), pcPhrasesReturned: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def SetFullStopTrailSpace(ulTrailSpace: UInt32) -> win32more.Foundation.HRESULT: ...
+class ISpEnginePronunciation(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c360ce4b-76d1-4214-ad-68-52-65-7d-50-83-da')
+    @commethod(3)
+    def Normalize(pszWord: win32more.Foundation.PWSTR, pszLeftContext: win32more.Foundation.PWSTR, pszRightContext: win32more.Foundation.PWSTR, LangID: UInt16, pNormalizationList: POINTER(win32more.Media.Speech.SPNORMALIZATIONLIST_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetPronunciations(pszWord: win32more.Foundation.PWSTR, pszLeftContext: win32more.Foundation.PWSTR, pszRightContext: win32more.Foundation.PWSTR, LangID: UInt16, pEnginePronunciationList: POINTER(win32more.Media.Speech.SPWORDPRONUNCIATIONLIST_head)) -> win32more.Foundation.HRESULT: ...
+class ISpEventSink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('be7a9cc9-5f9e-11d2-96-0f-00-c0-4f-8e-e6-28')
+    @commethod(3)
+    def AddEvents(pEventArray: POINTER(win32more.Media.Speech.SPEVENT_head), ulCount: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetEventInterest(pullEventInterest: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+class ISpEventSource(c_void_p):
+    extends: win32more.Media.Speech.ISpNotifySource
+    Guid = Guid('be7a9cce-5f9e-11d2-96-0f-00-c0-4f-8e-e6-28')
+    @commethod(10)
+    def SetInterest(ullEventInterest: UInt64, ullQueuedInterest: UInt64) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetEvents(ulCount: UInt32, pEventArray: POINTER(win32more.Media.Speech.SPEVENT_head), pulFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetInfo(pInfo: POINTER(win32more.Media.Speech.SPEVENTSOURCEINFO_head)) -> win32more.Foundation.HRESULT: ...
+class ISpEventSource2(c_void_p):
+    extends: win32more.Media.Speech.ISpEventSource
+    Guid = Guid('2373a435-6a4b-429e-a6-ac-d4-23-1a-61-97-5b')
+    @commethod(13)
+    def GetEventsEx(ulCount: UInt32, pEventArray: POINTER(win32more.Media.Speech.SPEVENTEX_head), pulFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class ISpGrammarBuilder(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('8137828f-591a-4a42-be-58-49-ea-7e-ba-ac-68')
+    @commethod(3)
+    def ResetGrammar(NewLanguage: UInt16) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetRule(pszRuleName: win32more.Foundation.PWSTR, dwRuleId: UInt32, dwAttributes: UInt32, fCreateIfNotExist: win32more.Foundation.BOOL, phInitialState: POINTER(POINTER(win32more.Media.Speech.SPSTATEHANDLE___head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ClearRule(hState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def CreateNewState(hState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), phState: POINTER(POINTER(win32more.Media.Speech.SPSTATEHANDLE___head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def AddWordTransition(hFromState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), hToState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), psz: win32more.Foundation.PWSTR, pszSeparators: win32more.Foundation.PWSTR, eWordType: win32more.Media.Speech.SPGRAMMARWORDTYPE, Weight: Single, pPropInfo: POINTER(win32more.Media.Speech.SPPROPERTYINFO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def AddRuleTransition(hFromState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), hToState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), hRule: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), Weight: Single, pPropInfo: POINTER(win32more.Media.Speech.SPPROPERTYINFO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def AddResource(hRuleState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), pszResourceName: win32more.Foundation.PWSTR, pszResourceValue: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Commit(dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+class ISpGrammarBuilder2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('8ab10026-20cc-4b20-8c-22-a4-9c-9b-a7-8f-60')
+    @commethod(3)
+    def AddTextSubset(hFromState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), hToState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), psz: win32more.Foundation.PWSTR, eMatchMode: win32more.Media.Speech.SPMATCHINGMODE) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetPhoneticAlphabet(phoneticALphabet: win32more.Media.Speech.PHONETICALPHABET) -> win32more.Foundation.HRESULT: ...
+class ISpLexicon(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('da41a7c2-5383-4db2-91-6b-6c-17-19-e3-db-58')
+    @commethod(3)
+    def GetPronunciations(pszWord: win32more.Foundation.PWSTR, LangID: UInt16, dwFlags: UInt32, pWordPronunciationList: POINTER(win32more.Media.Speech.SPWORDPRONUNCIATIONLIST_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def AddPronunciation(pszWord: win32more.Foundation.PWSTR, LangID: UInt16, ePartOfSpeech: win32more.Media.Speech.SPPARTOFSPEECH, pszPronunciation: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def RemovePronunciation(pszWord: win32more.Foundation.PWSTR, LangID: UInt16, ePartOfSpeech: win32more.Media.Speech.SPPARTOFSPEECH, pszPronunciation: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetGeneration(pdwGeneration: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetGenerationChange(dwFlags: UInt32, pdwGeneration: POINTER(UInt32), pWordList: POINTER(win32more.Media.Speech.SPWORDLIST_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetWords(dwFlags: UInt32, pdwGeneration: POINTER(UInt32), pdwCookie: POINTER(UInt32), pWordList: POINTER(win32more.Media.Speech.SPWORDLIST_head)) -> win32more.Foundation.HRESULT: ...
+class ISpMMSysAudio(c_void_p):
+    extends: win32more.Media.Speech.ISpAudio
+    Guid = Guid('15806f6e-1d70-4b48-98-e6-3b-1a-00-75-09-ab')
+    @commethod(26)
+    def GetDeviceId(puDeviceId: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def SetDeviceId(uDeviceId: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def GetMMHandle(pHandle: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def GetLineId(puLineId: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def SetLineId(uLineId: UInt32) -> win32more.Foundation.HRESULT: ...
+class ISpNotifyCallback(c_void_p):
+    extends: None
+    @commethod(0)
+    def NotifyCallback(wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+class ISpNotifySink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('259684dc-37c3-11d2-96-03-00-c0-4f-8e-e6-28')
+    @commethod(3)
+    def Notify() -> win32more.Foundation.HRESULT: ...
+class ISpNotifySource(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('5eff4aef-8487-11d2-96-1c-00-c0-4f-8e-e6-28')
+    @commethod(3)
+    def SetNotifySink(pNotifySink: win32more.Media.Speech.ISpNotifySink_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetNotifyWindowMessage(hWnd: win32more.Foundation.HWND, Msg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetNotifyCallbackFunction(pfnCallback: POINTER(win32more.Media.Speech.SPNOTIFYCALLBACK), wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetNotifyCallbackInterface(pSpCallback: win32more.Media.Speech.ISpNotifyCallback_head, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetNotifyWin32Event() -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def WaitForNotifyEvent(dwMilliseconds: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetNotifyEventHandle() -> win32more.Foundation.HANDLE: ...
+class ISpNotifyTranslator(c_void_p):
+    extends: win32more.Media.Speech.ISpNotifySink
+    Guid = Guid('aca16614-5d3d-11d2-96-0e-00-c0-4f-8e-e6-28')
+    @commethod(4)
+    def InitWindowMessage(hWnd: win32more.Foundation.HWND, Msg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def InitCallback(pfnCallback: POINTER(win32more.Media.Speech.SPNOTIFYCALLBACK), wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def InitSpNotifyCallback(pSpCallback: win32more.Media.Speech.ISpNotifyCallback_head, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def InitWin32Event(hEvent: win32more.Foundation.HANDLE, fCloseHandleOnRelease: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Wait(dwMilliseconds: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetEventHandle() -> win32more.Foundation.HANDLE: ...
+class ISpObjectToken(c_void_p):
+    extends: win32more.Media.Speech.ISpDataKey
+    Guid = Guid('14056589-e16c-11d2-bb-90-00-c0-4f-8e-e6-c0')
+    @commethod(15)
+    def SetId(pszCategoryId: win32more.Foundation.PWSTR, pszTokenId: win32more.Foundation.PWSTR, fCreateIfNotExist: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetId(ppszCoMemTokenId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetCategory(ppTokenCategory: POINTER(win32more.Media.Speech.ISpObjectTokenCategory_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def CreateInstance(pUnkOuter: win32more.System.Com.IUnknown_head, dwClsContext: UInt32, riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetStorageFileName(clsidCaller: POINTER(Guid), pszValueName: win32more.Foundation.PWSTR, pszFileNameSpecifier: win32more.Foundation.PWSTR, nFolder: UInt32, ppszFilePath: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def RemoveStorageFileName(clsidCaller: POINTER(Guid), pszKeyName: win32more.Foundation.PWSTR, fDeleteFile: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def Remove(pclsidCaller: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def IsUISupported(pszTypeOfUI: win32more.Foundation.PWSTR, pvExtraData: c_void_p, cbExtraData: UInt32, punkObject: win32more.System.Com.IUnknown_head, pfSupported: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def DisplayUI(hwndParent: win32more.Foundation.HWND, pszTitle: win32more.Foundation.PWSTR, pszTypeOfUI: win32more.Foundation.PWSTR, pvExtraData: c_void_p, cbExtraData: UInt32, punkObject: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def MatchesAttributes(pszAttributes: win32more.Foundation.PWSTR, pfMatches: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class ISpObjectTokenCategory(c_void_p):
+    extends: win32more.Media.Speech.ISpDataKey
+    Guid = Guid('2d3d3845-39af-4850-bb-f9-40-b4-97-80-01-1d')
+    @commethod(15)
+    def SetId(pszCategoryId: win32more.Foundation.PWSTR, fCreateIfNotExist: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetId(ppszCoMemCategoryId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetDataKey(spdkl: win32more.Media.Speech.SPDATAKEYLOCATION, ppDataKey: POINTER(win32more.Media.Speech.ISpDataKey_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def EnumTokens(pzsReqAttribs: win32more.Foundation.PWSTR, pszOptAttribs: win32more.Foundation.PWSTR, ppEnum: POINTER(win32more.Media.Speech.IEnumSpObjectTokens_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def SetDefaultTokenId(pszTokenId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def GetDefaultTokenId(ppszCoMemTokenId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+class ISpObjectTokenInit(c_void_p):
+    extends: win32more.Media.Speech.ISpObjectToken
+    Guid = Guid('b8aab0cf-346f-49d8-94-99-c8-b0-3f-16-1d-51')
+    @commethod(25)
+    def InitFromDataKey(pszCategoryId: win32more.Foundation.PWSTR, pszTokenId: win32more.Foundation.PWSTR, pDataKey: win32more.Media.Speech.ISpDataKey_head) -> win32more.Foundation.HRESULT: ...
+class ISpObjectWithToken(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('5b559f40-e952-11d2-bb-91-00-c0-4f-8e-e6-c0')
+    @commethod(3)
+    def SetObjectToken(pToken: win32more.Media.Speech.ISpObjectToken_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetObjectToken(ppToken: POINTER(win32more.Media.Speech.ISpObjectToken_head)) -> win32more.Foundation.HRESULT: ...
+class ISpPhoneConverter(c_void_p):
+    extends: win32more.Media.Speech.ISpObjectWithToken
+    Guid = Guid('8445c581-0cac-4a38-ab-fe-9b-2c-e2-82-64-55')
+    @commethod(5)
+    def PhoneToId(pszPhone: win32more.Foundation.PWSTR, pId: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def IdToPhone(pId: POINTER(UInt16), pszPhone: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class ISpPhoneticAlphabetConverter(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('133adcd4-19b4-4020-9f-dc-84-2e-78-25-3b-17')
+    @commethod(3)
+    def GetLangId(pLangID: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetLangId(LangID: UInt16) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SAPI2UPS(pszSAPIId: POINTER(UInt16), pszUPSId: POINTER(UInt16), cMaxLength: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def UPS2SAPI(pszUPSId: POINTER(UInt16), pszSAPIId: POINTER(UInt16), cMaxLength: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetMaxConvertLength(cSrcLength: UInt32, bSAPI2UPS: win32more.Foundation.BOOL, pcMaxDestLength: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class ISpPhoneticAlphabetSelection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b2745efd-42ce-48ca-81-f1-a9-6e-02-53-8a-90')
+    @commethod(3)
+    def IsAlphabetUPS(pfIsUPS: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetAlphabetToUPS(fForceUPS: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+class ISpPhrase(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1a5c0354-b621-4b5a-87-91-d3-06-ed-37-9e-53')
+    @commethod(3)
+    def GetPhrase(ppCoMemPhrase: POINTER(POINTER(win32more.Media.Speech.SPPHRASE_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetSerializedPhrase(ppCoMemPhrase: POINTER(POINTER(win32more.Media.Speech.SPSERIALIZEDPHRASE_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetText(ulStart: UInt32, ulCount: UInt32, fUseTextReplacements: win32more.Foundation.BOOL, ppszCoMemText: POINTER(win32more.Foundation.PWSTR), pbDisplayAttributes: c_char_p_no) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Discard(dwValueTypes: UInt32) -> win32more.Foundation.HRESULT: ...
+class ISpPhrase2(c_void_p):
+    extends: win32more.Media.Speech.ISpPhrase
+    Guid = Guid('f264da52-e457-4696-b8-56-a7-37-b7-17-af-79')
+    @commethod(7)
+    def GetXMLResult(ppszCoMemXMLResult: POINTER(win32more.Foundation.PWSTR), Options: win32more.Media.Speech.SPXMLRESULTOPTIONS) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetXMLErrorInfo(pSemanticErrorInfo: POINTER(win32more.Media.Speech.SPSEMANTICERRORINFO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetAudio(ulStartElement: UInt32, cElements: UInt32, ppStream: POINTER(win32more.Media.Speech.ISpStreamFormat_head)) -> win32more.Foundation.HRESULT: ...
+class ISpPhraseAlt(c_void_p):
+    extends: win32more.Media.Speech.ISpPhrase
+    Guid = Guid('8fcebc98-4e49-4067-9c-6c-d8-6a-0e-09-2e-3d')
+    @commethod(7)
+    def GetAltInfo(ppParent: POINTER(win32more.Media.Speech.ISpPhrase_head), pulStartElementInParent: POINTER(UInt32), pcElementsInParent: POINTER(UInt32), pcElementsInAlt: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Commit() -> win32more.Foundation.HRESULT: ...
+class ISpProperties(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('5b4fb971-b115-4de1-ad-97-e4-82-e3-bf-6e-e4')
+    @commethod(3)
+    def SetPropertyNum(pName: win32more.Foundation.PWSTR, lValue: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetPropertyNum(pName: win32more.Foundation.PWSTR, plValue: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetPropertyString(pName: win32more.Foundation.PWSTR, pValue: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetPropertyString(pName: win32more.Foundation.PWSTR, ppCoMemValue: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+class ISpRecoContext(c_void_p):
+    extends: win32more.Media.Speech.ISpEventSource
+    Guid = Guid('f740a62f-7c15-489e-82-34-94-0a-33-d9-27-2d')
+    @commethod(13)
+    def GetRecognizer(ppRecognizer: POINTER(win32more.Media.Speech.ISpRecognizer_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def CreateGrammar(ullGrammarId: UInt64, ppGrammar: POINTER(win32more.Media.Speech.ISpRecoGrammar_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetStatus(pStatus: POINTER(win32more.Media.Speech.SPRECOCONTEXTSTATUS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetMaxAlternates(pcAlternates: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def SetMaxAlternates(cAlternates: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def SetAudioOptions(Options: win32more.Media.Speech.SPAUDIOOPTIONS, pAudioFormatId: POINTER(Guid), pWaveFormatEx: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetAudioOptions(pOptions: POINTER(win32more.Media.Speech.SPAUDIOOPTIONS), pAudioFormatId: POINTER(Guid), ppCoMemWFEX: POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def DeserializeResult(pSerializedResult: POINTER(win32more.Media.Speech.SPSERIALIZEDRESULT_head), ppResult: POINTER(win32more.Media.Speech.ISpRecoResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def Bookmark(Options: win32more.Media.Speech.SPBOOKMARKOPTIONS, ullStreamPosition: UInt64, lparamEvent: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def SetAdaptationData(pAdaptationData: win32more.Foundation.PWSTR, cch: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def Pause(dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def Resume(dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def SetVoice(pVoice: win32more.Media.Speech.ISpVoice_head, fAllowFormatChanges: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def GetVoice(ppVoice: POINTER(win32more.Media.Speech.ISpVoice_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def SetVoicePurgeEvent(ullEventInterest: UInt64) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def GetVoicePurgeEvent(pullEventInterest: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def SetContextState(eContextState: win32more.Media.Speech.SPCONTEXTSTATE) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def GetContextState(peContextState: POINTER(win32more.Media.Speech.SPCONTEXTSTATE)) -> win32more.Foundation.HRESULT: ...
+class ISpRecoContext2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('bead311c-52ff-437f-94-64-6b-21-05-4c-a7-3d')
+    @commethod(3)
+    def SetGrammarOptions(eGrammarOptions: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetGrammarOptions(peGrammarOptions: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetAdaptationData2(pAdaptationData: win32more.Foundation.PWSTR, cch: UInt32, pTopicName: win32more.Foundation.PWSTR, eAdaptationSettings: UInt32, eRelevance: win32more.Media.Speech.SPADAPTATIONRELEVANCE) -> win32more.Foundation.HRESULT: ...
+class ISpRecoGrammar(c_void_p):
+    extends: win32more.Media.Speech.ISpGrammarBuilder
+    Guid = Guid('2177db29-7f45-47d0-85-54-06-7e-91-c8-05-02')
+    @commethod(11)
+    def GetGrammarId(pullGrammarId: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetRecoContext(ppRecoCtxt: POINTER(win32more.Media.Speech.ISpRecoContext_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def LoadCmdFromFile(pszFileName: win32more.Foundation.PWSTR, Options: win32more.Media.Speech.SPLOADOPTIONS) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def LoadCmdFromObject(rcid: POINTER(Guid), pszGrammarName: win32more.Foundation.PWSTR, Options: win32more.Media.Speech.SPLOADOPTIONS) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def LoadCmdFromResource(hModule: win32more.Foundation.HINSTANCE, pszResourceName: win32more.Foundation.PWSTR, pszResourceType: win32more.Foundation.PWSTR, wLanguage: UInt16, Options: win32more.Media.Speech.SPLOADOPTIONS) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def LoadCmdFromMemory(pGrammar: POINTER(win32more.Media.Speech.SPBINARYGRAMMAR_head), Options: win32more.Media.Speech.SPLOADOPTIONS) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def LoadCmdFromProprietaryGrammar(rguidParam: POINTER(Guid), pszStringParam: win32more.Foundation.PWSTR, pvDataPrarm: c_void_p, cbDataSize: UInt32, Options: win32more.Media.Speech.SPLOADOPTIONS) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def SetRuleState(pszName: win32more.Foundation.PWSTR, pReserved: c_void_p, NewState: win32more.Media.Speech.SPRULESTATE) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def SetRuleIdState(ulRuleId: UInt32, NewState: win32more.Media.Speech.SPRULESTATE) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def LoadDictation(pszTopicName: win32more.Foundation.PWSTR, Options: win32more.Media.Speech.SPLOADOPTIONS) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def UnloadDictation() -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def SetDictationState(NewState: win32more.Media.Speech.SPRULESTATE) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def SetWordSequenceData(pText: win32more.Foundation.PWSTR, cchText: UInt32, pInfo: POINTER(win32more.Media.Speech.SPTEXTSELECTIONINFO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def SetTextSelection(pInfo: POINTER(win32more.Media.Speech.SPTEXTSELECTIONINFO_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def IsPronounceable(pszWord: win32more.Foundation.PWSTR, pWordPronounceable: POINTER(win32more.Media.Speech.SPWORDPRONOUNCEABLE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def SetGrammarState(eGrammarState: win32more.Media.Speech.SPGRAMMARSTATE) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def SaveCmd(pStream: win32more.System.Com.IStream_head, ppszCoMemErrorText: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def GetGrammarState(peGrammarState: POINTER(win32more.Media.Speech.SPGRAMMARSTATE)) -> win32more.Foundation.HRESULT: ...
+class ISpRecoGrammar2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('4b37bc9e-9ed6-44a3-93-d3-18-f0-22-b7-9e-c3')
+    @commethod(3)
+    def GetRules(ppCoMemRules: POINTER(POINTER(win32more.Media.Speech.SPRULE_head)), puNumRules: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def LoadCmdFromFile2(pszFileName: win32more.Foundation.PWSTR, Options: win32more.Media.Speech.SPLOADOPTIONS, pszSharingUri: win32more.Foundation.PWSTR, pszBaseUri: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def LoadCmdFromMemory2(pGrammar: POINTER(win32more.Media.Speech.SPBINARYGRAMMAR_head), Options: win32more.Media.Speech.SPLOADOPTIONS, pszSharingUri: win32more.Foundation.PWSTR, pszBaseUri: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetRulePriority(pszRuleName: win32more.Foundation.PWSTR, ulRuleId: UInt32, nRulePriority: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetRuleWeight(pszRuleName: win32more.Foundation.PWSTR, ulRuleId: UInt32, flWeight: Single) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetDictationWeight(flWeight: Single) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetGrammarLoader(pLoader: win32more.Media.Speech.ISpeechResourceLoader_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetSMLSecurityManager(pSMLSecurityManager: win32more.System.Com.Urlmon.IInternetSecurityManager_head) -> win32more.Foundation.HRESULT: ...
+class ISpRecoResult(c_void_p):
+    extends: win32more.Media.Speech.ISpPhrase
+    Guid = Guid('20b053be-e235-43cd-9a-2a-8d-17-a4-8b-78-42')
+    @commethod(7)
+    def GetResultTimes(pTimes: POINTER(win32more.Media.Speech.SPRECORESULTTIMES_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetAlternates(ulStartElement: UInt32, cElements: UInt32, ulRequestCount: UInt32, ppPhrases: POINTER(win32more.Media.Speech.ISpPhraseAlt_head), pcPhrasesReturned: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetAudio(ulStartElement: UInt32, cElements: UInt32, ppStream: POINTER(win32more.Media.Speech.ISpStreamFormat_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SpeakAudio(ulStartElement: UInt32, cElements: UInt32, dwFlags: UInt32, pulStreamNumber: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Serialize(ppCoMemSerializedResult: POINTER(POINTER(win32more.Media.Speech.SPSERIALIZEDRESULT_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def ScaleAudio(pAudioFormatId: POINTER(Guid), pWaveFormatEx: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetRecoContext(ppRecoContext: POINTER(win32more.Media.Speech.ISpRecoContext_head)) -> win32more.Foundation.HRESULT: ...
+class ISpRecoResult2(c_void_p):
+    extends: win32more.Media.Speech.ISpRecoResult
+    Guid = Guid('27cac6c4-88f2-41f2-88-17-0c-95-e5-9f-1e-6e')
+    @commethod(14)
+    def CommitAlternate(pPhraseAlt: win32more.Media.Speech.ISpPhraseAlt_head, ppNewResult: POINTER(win32more.Media.Speech.ISpRecoResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def CommitText(ulStartElement: UInt32, cElements: UInt32, pszCorrectedData: win32more.Foundation.PWSTR, eCommitFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetTextFeedback(pszFeedback: win32more.Foundation.PWSTR, fSuccessful: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+class ISpRecognizer(c_void_p):
+    extends: win32more.Media.Speech.ISpProperties
+    Guid = Guid('c2b5f241-daa0-4507-9e-16-5a-1e-aa-2b-7a-5c')
+    @commethod(7)
+    def SetRecognizer(pRecognizer: win32more.Media.Speech.ISpObjectToken_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetRecognizer(ppRecognizer: POINTER(win32more.Media.Speech.ISpObjectToken_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetInput(pUnkInput: win32more.System.Com.IUnknown_head, fAllowFormatChanges: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetInputObjectToken(ppToken: POINTER(win32more.Media.Speech.ISpObjectToken_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetInputStream(ppStream: POINTER(win32more.Media.Speech.ISpStreamFormat_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def CreateRecoContext(ppNewCtxt: POINTER(win32more.Media.Speech.ISpRecoContext_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetRecoProfile(ppToken: POINTER(win32more.Media.Speech.ISpObjectToken_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SetRecoProfile(pToken: win32more.Media.Speech.ISpObjectToken_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def IsSharedInstance() -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetRecoState(pState: POINTER(win32more.Media.Speech.SPRECOSTATE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def SetRecoState(NewState: win32more.Media.Speech.SPRECOSTATE) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def GetStatus(pStatus: POINTER(win32more.Media.Speech.SPRECOGNIZERSTATUS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetFormat(WaveFormatType: win32more.Media.Speech.SPSTREAMFORMATTYPE, pFormatId: POINTER(Guid), ppCoMemWFEX: POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def IsUISupported(pszTypeOfUI: win32more.Foundation.PWSTR, pvExtraData: c_void_p, cbExtraData: UInt32, pfSupported: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def DisplayUI(hwndParent: win32more.Foundation.HWND, pszTitle: win32more.Foundation.PWSTR, pszTypeOfUI: win32more.Foundation.PWSTR, pvExtraData: c_void_p, cbExtraData: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def EmulateRecognition(pPhrase: win32more.Media.Speech.ISpPhrase_head) -> win32more.Foundation.HRESULT: ...
+class ISpRecognizer2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('8fc6d974-c81e-4098-93-c5-01-47-f6-1e-d4-d3')
+    @commethod(3)
+    def EmulateRecognitionEx(pPhrase: win32more.Media.Speech.ISpPhrase_head, dwCompareFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetTrainingState(fDoingTraining: win32more.Foundation.BOOL, fAdaptFromTrainingData: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ResetAcousticModelAdaptation() -> win32more.Foundation.HRESULT: ...
+class ISpRegDataKey(c_void_p):
+    extends: win32more.Media.Speech.ISpDataKey
+    Guid = Guid('92a66e2b-c830-4149-83-df-6f-c2-ba-1e-7a-5b')
+    @commethod(15)
+    def SetKey(hkey: win32more.System.Registry.HKEY, fReadOnly: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+class ISpResourceManager(c_void_p):
+    extends: win32more.System.Com.IServiceProvider
+    Guid = Guid('93384e18-5014-43d5-ad-bb-a7-8e-05-59-26-bd')
+    @commethod(4)
+    def SetObject(guidServiceId: POINTER(Guid), pUnkObject: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetObject(guidServiceId: POINTER(Guid), ObjectCLSID: POINTER(Guid), ObjectIID: POINTER(Guid), fReleaseWhenLastExternalRefReleased: win32more.Foundation.BOOL, ppObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class ISpSerializeState(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('21b501a0-0ec7-46c9-92-c3-a2-bc-78-4c-54-b9')
+    @commethod(3)
+    def GetSerializedState(ppbData: POINTER(c_char_p_no), pulSize: POINTER(UInt32), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetSerializedState(pbData: c_char_p_no, ulSize: UInt32, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
+class ISpShortcut(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('3df681e2-ea56-11d9-8b-de-f6-6b-ad-1e-3f-3a')
+    @commethod(3)
+    def AddShortcut(pszDisplay: win32more.Foundation.PWSTR, LangID: UInt16, pszSpoken: win32more.Foundation.PWSTR, shType: win32more.Media.Speech.SPSHORTCUTTYPE) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def RemoveShortcut(pszDisplay: win32more.Foundation.PWSTR, LangID: UInt16, pszSpoken: win32more.Foundation.PWSTR, shType: win32more.Media.Speech.SPSHORTCUTTYPE) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetShortcuts(LangID: UInt16, pShortcutpairList: POINTER(win32more.Media.Speech.SPSHORTCUTPAIRLIST_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetGeneration(pdwGeneration: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetWordsFromGenerationChange(pdwGeneration: POINTER(UInt32), pWordList: POINTER(win32more.Media.Speech.SPWORDLIST_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetWords(pdwGeneration: POINTER(UInt32), pdwCookie: POINTER(UInt32), pWordList: POINTER(win32more.Media.Speech.SPWORDLIST_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetShortcutsForGeneration(pdwGeneration: POINTER(UInt32), pdwCookie: POINTER(UInt32), pShortcutpairList: POINTER(win32more.Media.Speech.SPSHORTCUTPAIRLIST_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetGenerationChange(pdwGeneration: POINTER(UInt32), pShortcutpairList: POINTER(win32more.Media.Speech.SPSHORTCUTPAIRLIST_head)) -> win32more.Foundation.HRESULT: ...
+class ISpStream(c_void_p):
+    extends: win32more.Media.Speech.ISpStreamFormat
+    Guid = Guid('12e3cca9-7518-44c5-a5-e7-ba-5a-79-cb-92-9e')
+    @commethod(15)
+    def SetBaseStream(pStream: win32more.System.Com.IStream_head, rguidFormat: POINTER(Guid), pWaveFormatEx: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetBaseStream(ppStream: POINTER(win32more.System.Com.IStream_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def BindToFile(pszFileName: win32more.Foundation.PWSTR, eMode: win32more.Media.Speech.SPFILEMODE, pFormatId: POINTER(Guid), pWaveFormatEx: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), ullEventInterest: UInt64) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def Close() -> win32more.Foundation.HRESULT: ...
+class ISpStreamFormat(c_void_p):
+    extends: win32more.System.Com.IStream
+    Guid = Guid('bed530be-2606-4f4d-a1-c0-54-c5-cd-a5-56-6f')
+    @commethod(14)
+    def GetFormat(pguidFormatId: POINTER(Guid), ppCoMemWaveFormatEx: POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head))) -> win32more.Foundation.HRESULT: ...
+class ISpStreamFormatConverter(c_void_p):
+    extends: win32more.Media.Speech.ISpStreamFormat
+    Guid = Guid('678a932c-ea71-4446-9b-41-78-fd-a6-28-0a-29')
+    @commethod(15)
+    def SetBaseStream(pStream: win32more.Media.Speech.ISpStreamFormat_head, fSetFormatToBaseStreamFormat: win32more.Foundation.BOOL, fWriteToBaseStream: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetBaseStream(ppStream: POINTER(win32more.Media.Speech.ISpStreamFormat_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def SetFormat(rguidFormatIdOfConvertedStream: POINTER(Guid), pWaveFormatExOfConvertedStream: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def ResetSeekPosition() -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def ScaleConvertedToBaseOffset(ullOffsetConvertedStream: UInt64, pullOffsetBaseStream: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def ScaleBaseToConvertedOffset(ullOffsetBaseStream: UInt64, pullOffsetConvertedStream: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
+class ISpTranscript(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('10f63bce-201a-11d3-ac-70-00-c0-4f-8e-e6-c0')
+    @commethod(3)
+    def GetTranscript(ppszTranscript: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def AppendTranscript(pszTranscript: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class ISpVoice(c_void_p):
+    extends: win32more.Media.Speech.ISpEventSource
+    Guid = Guid('6c44df74-72b9-4992-a1-ec-ef-99-6e-04-22-d4')
+    @commethod(13)
+    def SetOutput(pUnkOutput: win32more.System.Com.IUnknown_head, fAllowFormatChanges: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetOutputObjectToken(ppObjectToken: POINTER(win32more.Media.Speech.ISpObjectToken_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetOutputStream(ppStream: POINTER(win32more.Media.Speech.ISpStreamFormat_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def Pause() -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def Resume() -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def SetVoice(pToken: win32more.Media.Speech.ISpObjectToken_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetVoice(ppToken: POINTER(win32more.Media.Speech.ISpObjectToken_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def Speak(pwcs: win32more.Foundation.PWSTR, dwFlags: UInt32, pulStreamNumber: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def SpeakStream(pStream: win32more.System.Com.IStream_head, dwFlags: UInt32, pulStreamNumber: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def GetStatus(pStatus: POINTER(win32more.Media.Speech.SPVOICESTATUS_head), ppszLastBookmark: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def Skip(pItemType: win32more.Foundation.PWSTR, lNumItems: Int32, pulNumSkipped: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def SetPriority(ePriority: win32more.Media.Speech.SPVPRIORITY) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def GetPriority(pePriority: POINTER(win32more.Media.Speech.SPVPRIORITY)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def SetAlertBoundary(eBoundary: win32more.Media.Speech.SPEVENTENUM) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def GetAlertBoundary(peBoundary: POINTER(win32more.Media.Speech.SPEVENTENUM)) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def SetRate(RateAdjust: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def GetRate(pRateAdjust: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def SetVolume(usVolume: UInt16) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def GetVolume(pusVolume: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def WaitUntilDone(msTimeout: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(33)
+    def SetSyncSpeakTimeout(msTimeout: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(34)
+    def GetSyncSpeakTimeout(pmsTimeout: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(35)
+    def SpeakCompleteEvent() -> win32more.Foundation.HANDLE: ...
+    @commethod(36)
+    def IsUISupported(pszTypeOfUI: win32more.Foundation.PWSTR, pvExtraData: c_void_p, cbExtraData: UInt32, pfSupported: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(37)
+    def DisplayUI(hwndParent: win32more.Foundation.HWND, pszTitle: win32more.Foundation.PWSTR, pszTypeOfUI: win32more.Foundation.PWSTR, pvExtraData: c_void_p, cbExtraData: UInt32) -> win32more.Foundation.HRESULT: ...
+class ISpXMLRecoResult(c_void_p):
+    extends: win32more.Media.Speech.ISpRecoResult
+    Guid = Guid('ae39362b-45a8-4074-9b-9e-cc-f4-9a-a2-d0-b6')
+    @commethod(14)
+    def GetXMLResult(ppszCoMemXMLResult: POINTER(win32more.Foundation.PWSTR), Options: win32more.Media.Speech.SPXMLRESULTOPTIONS) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetXMLErrorInfo(pSemanticErrorInfo: POINTER(win32more.Media.Speech.SPSEMANTICERRORINFO_head)) -> win32more.Foundation.HRESULT: ...
 class ISpeechAudio(c_void_p):
     extends: win32more.Media.Speech.ISpeechBaseStream
     Guid = Guid('cff8e175-019e-11d3-a0-8e-00-c0-4f-8e-f9-b5')
@@ -701,25 +1245,6 @@ class ISpeechGrammarRule(c_void_p):
     def AddResource(ResourceName: win32more.Foundation.BSTR, ResourceValue: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
     @commethod(13)
     def AddState(State: POINTER(win32more.Media.Speech.ISpeechGrammarRuleState_head)) -> win32more.Foundation.HRESULT: ...
-class ISpeechGrammarRules(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('6ffa3b44-fc2d-40d1-8a-fc-32-91-1c-7f-1a-d1')
-    @commethod(7)
-    def get_Count(Count: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def FindRule(RuleNameOrId: win32more.System.Com.VARIANT, Rule: POINTER(win32more.Media.Speech.ISpeechGrammarRule_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def Item(Index: Int32, Rule: POINTER(win32more.Media.Speech.ISpeechGrammarRule_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get__NewEnum(EnumVARIANT: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def get_Dynamic(Dynamic: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def Add(RuleName: win32more.Foundation.BSTR, Attributes: win32more.Media.Speech.SpeechRuleAttributes, RuleId: Int32, Rule: POINTER(win32more.Media.Speech.ISpeechGrammarRule_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def Commit() -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def CommitAndSave(ErrorText: POINTER(win32more.Foundation.BSTR), SaveStream: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
 class ISpeechGrammarRuleState(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('d4286f2c-ee67-45ae-b9-28-28-d6-95-36-2e-da')
@@ -761,6 +1286,25 @@ class ISpeechGrammarRuleStateTransitions(c_void_p):
     def Item(Index: Int32, Transition: POINTER(win32more.Media.Speech.ISpeechGrammarRuleStateTransition_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(9)
     def get__NewEnum(EnumVARIANT: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class ISpeechGrammarRules(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('6ffa3b44-fc2d-40d1-8a-fc-32-91-1c-7f-1a-d1')
+    @commethod(7)
+    def get_Count(Count: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def FindRule(RuleNameOrId: win32more.System.Com.VARIANT, Rule: POINTER(win32more.Media.Speech.ISpeechGrammarRule_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Item(Index: Int32, Rule: POINTER(win32more.Media.Speech.ISpeechGrammarRule_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get__NewEnum(EnumVARIANT: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Dynamic(Dynamic: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def Add(RuleName: win32more.Foundation.BSTR, Attributes: win32more.Media.Speech.SpeechRuleAttributes, RuleId: Int32, Rule: POINTER(win32more.Media.Speech.ISpeechGrammarRule_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def Commit() -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def CommitAndSave(ErrorText: POINTER(win32more.Foundation.BSTR), SaveStream: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
 class ISpeechLexicon(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('3da7627a-c7ae-4b23-87-08-63-8c-50-36-2c-25')
@@ -822,13 +1366,6 @@ class ISpeechLexiconWords(c_void_p):
     def Item(Index: Int32, Word: POINTER(win32more.Media.Speech.ISpeechLexiconWord_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(9)
     def get__NewEnum(EnumVARIANT: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-class ISpeechMemoryStream(c_void_p):
-    extends: win32more.Media.Speech.ISpeechBaseStream
-    Guid = Guid('eeb14b68-808b-4abe-a5-ea-b5-1d-a7-58-80-08')
-    @commethod(12)
-    def SetData(Data: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def GetData(pData: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
 class ISpeechMMSysAudio(c_void_p):
     extends: win32more.Media.Speech.ISpeechAudio
     Guid = Guid('3c76af6d-1fd7-4831-81-d1-3b-71-d5-a1-3c-44')
@@ -842,6 +1379,13 @@ class ISpeechMMSysAudio(c_void_p):
     def put_LineId(LineId: Int32) -> win32more.Foundation.HRESULT: ...
     @commethod(25)
     def get_MMHandle(Handle: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class ISpeechMemoryStream(c_void_p):
+    extends: win32more.Media.Speech.ISpeechBaseStream
+    Guid = Guid('eeb14b68-808b-4abe-a5-ea-b5-1d-a7-58-80-08')
+    @commethod(12)
+    def SetData(Data: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetData(pData: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
 class ISpeechObjectToken(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('c74a3adc-b727-4500-a8-4a-b5-26-72-1c-8b-8c')
@@ -1137,76 +1681,6 @@ class ISpeechRecoContext(c_void_p):
     def Bookmark(Options: win32more.Media.Speech.SpeechBookmarkOptions, StreamPos: win32more.System.Com.VARIANT, BookmarkId: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
     @commethod(31)
     def SetAdaptationData(AdaptationString: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-class ISpeechRecognizer(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('2d5f1c0c-bd75-4b08-94-78-3b-11-fe-a2-58-6c')
-    @commethod(7)
-    def putref_Recognizer(Recognizer: win32more.Media.Speech.ISpeechObjectToken_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_Recognizer(Recognizer: POINTER(win32more.Media.Speech.ISpeechObjectToken_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def put_AllowAudioInputFormatChangesOnNextSet(Allow: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_AllowAudioInputFormatChangesOnNextSet(Allow: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def putref_AudioInput(AudioInput: win32more.Media.Speech.ISpeechObjectToken_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def get_AudioInput(AudioInput: POINTER(win32more.Media.Speech.ISpeechObjectToken_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def putref_AudioInputStream(AudioInputStream: win32more.Media.Speech.ISpeechBaseStream_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def get_AudioInputStream(AudioInputStream: POINTER(win32more.Media.Speech.ISpeechBaseStream_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def get_IsShared(Shared: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def put_State(State: win32more.Media.Speech.SpeechRecognizerState) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def get_State(State: POINTER(win32more.Media.Speech.SpeechRecognizerState)) -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def get_Status(Status: POINTER(win32more.Media.Speech.ISpeechRecognizerStatus_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(19)
-    def putref_Profile(Profile: win32more.Media.Speech.ISpeechObjectToken_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(20)
-    def get_Profile(Profile: POINTER(win32more.Media.Speech.ISpeechObjectToken_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(21)
-    def EmulateRecognition(TextElements: win32more.System.Com.VARIANT, ElementDisplayAttributes: POINTER(win32more.System.Com.VARIANT_head), LanguageId: Int32) -> win32more.Foundation.HRESULT: ...
-    @commethod(22)
-    def CreateRecoContext(NewContext: POINTER(win32more.Media.Speech.ISpeechRecoContext_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(23)
-    def GetFormat(Type: win32more.Media.Speech.SpeechFormatType, Format: POINTER(win32more.Media.Speech.ISpeechAudioFormat_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(24)
-    def SetPropertyNumber(Name: win32more.Foundation.BSTR, Value: Int32, Supported: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(25)
-    def GetPropertyNumber(Name: win32more.Foundation.BSTR, Value: POINTER(Int32), Supported: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(26)
-    def SetPropertyString(Name: win32more.Foundation.BSTR, Value: win32more.Foundation.BSTR, Supported: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(27)
-    def GetPropertyString(Name: win32more.Foundation.BSTR, Value: POINTER(win32more.Foundation.BSTR), Supported: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(28)
-    def IsUISupported(TypeOfUI: win32more.Foundation.BSTR, ExtraData: POINTER(win32more.System.Com.VARIANT_head), Supported: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(29)
-    def DisplayUI(hWndParent: Int32, Title: win32more.Foundation.BSTR, TypeOfUI: win32more.Foundation.BSTR, ExtraData: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(30)
-    def GetRecognizers(RequiredAttributes: win32more.Foundation.BSTR, OptionalAttributes: win32more.Foundation.BSTR, ObjectTokens: POINTER(win32more.Media.Speech.ISpeechObjectTokens_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(31)
-    def GetAudioInputs(RequiredAttributes: win32more.Foundation.BSTR, OptionalAttributes: win32more.Foundation.BSTR, ObjectTokens: POINTER(win32more.Media.Speech.ISpeechObjectTokens_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(32)
-    def GetProfiles(RequiredAttributes: win32more.Foundation.BSTR, OptionalAttributes: win32more.Foundation.BSTR, ObjectTokens: POINTER(win32more.Media.Speech.ISpeechObjectTokens_head)) -> win32more.Foundation.HRESULT: ...
-class ISpeechRecognizerStatus(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('bff9e781-53ec-484e-bb-8a-0e-1b-55-51-e3-5c')
-    @commethod(7)
-    def get_AudioStatus(AudioStatus: POINTER(win32more.Media.Speech.ISpeechAudioStatus_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_CurrentStreamPosition(pCurrentStreamPos: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_CurrentStreamNumber(StreamNumber: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_NumberOfActiveRules(NumberOfActiveRules: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def get_ClsidEngine(ClsidEngine: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def get_SupportedLanguages(SupportedLanguages: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
 class ISpeechRecoGrammar(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('b6d6f79f-2158-4e50-b5-bc-9a-9c-cd-85-2a-09')
@@ -1316,6 +1790,76 @@ class ISpeechRecoResultTimes(c_void_p):
     def get_TickCount(TickCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
     @commethod(10)
     def get_OffsetFromStart(OffsetFromStart: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class ISpeechRecognizer(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('2d5f1c0c-bd75-4b08-94-78-3b-11-fe-a2-58-6c')
+    @commethod(7)
+    def putref_Recognizer(Recognizer: win32more.Media.Speech.ISpeechObjectToken_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Recognizer(Recognizer: POINTER(win32more.Media.Speech.ISpeechObjectToken_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def put_AllowAudioInputFormatChangesOnNextSet(Allow: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_AllowAudioInputFormatChangesOnNextSet(Allow: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def putref_AudioInput(AudioInput: win32more.Media.Speech.ISpeechObjectToken_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_AudioInput(AudioInput: POINTER(win32more.Media.Speech.ISpeechObjectToken_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def putref_AudioInputStream(AudioInputStream: win32more.Media.Speech.ISpeechBaseStream_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_AudioInputStream(AudioInputStream: POINTER(win32more.Media.Speech.ISpeechBaseStream_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_IsShared(Shared: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def put_State(State: win32more.Media.Speech.SpeechRecognizerState) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_State(State: POINTER(win32more.Media.Speech.SpeechRecognizerState)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_Status(Status: POINTER(win32more.Media.Speech.ISpeechRecognizerStatus_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def putref_Profile(Profile: win32more.Media.Speech.ISpeechObjectToken_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def get_Profile(Profile: POINTER(win32more.Media.Speech.ISpeechObjectToken_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def EmulateRecognition(TextElements: win32more.System.Com.VARIANT, ElementDisplayAttributes: POINTER(win32more.System.Com.VARIANT_head), LanguageId: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def CreateRecoContext(NewContext: POINTER(win32more.Media.Speech.ISpeechRecoContext_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(23)
+    def GetFormat(Type: win32more.Media.Speech.SpeechFormatType, Format: POINTER(win32more.Media.Speech.ISpeechAudioFormat_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(24)
+    def SetPropertyNumber(Name: win32more.Foundation.BSTR, Value: Int32, Supported: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(25)
+    def GetPropertyNumber(Name: win32more.Foundation.BSTR, Value: POINTER(Int32), Supported: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(26)
+    def SetPropertyString(Name: win32more.Foundation.BSTR, Value: win32more.Foundation.BSTR, Supported: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(27)
+    def GetPropertyString(Name: win32more.Foundation.BSTR, Value: POINTER(win32more.Foundation.BSTR), Supported: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(28)
+    def IsUISupported(TypeOfUI: win32more.Foundation.BSTR, ExtraData: POINTER(win32more.System.Com.VARIANT_head), Supported: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(29)
+    def DisplayUI(hWndParent: Int32, Title: win32more.Foundation.BSTR, TypeOfUI: win32more.Foundation.BSTR, ExtraData: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(30)
+    def GetRecognizers(RequiredAttributes: win32more.Foundation.BSTR, OptionalAttributes: win32more.Foundation.BSTR, ObjectTokens: POINTER(win32more.Media.Speech.ISpeechObjectTokens_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(31)
+    def GetAudioInputs(RequiredAttributes: win32more.Foundation.BSTR, OptionalAttributes: win32more.Foundation.BSTR, ObjectTokens: POINTER(win32more.Media.Speech.ISpeechObjectTokens_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(32)
+    def GetProfiles(RequiredAttributes: win32more.Foundation.BSTR, OptionalAttributes: win32more.Foundation.BSTR, ObjectTokens: POINTER(win32more.Media.Speech.ISpeechObjectTokens_head)) -> win32more.Foundation.HRESULT: ...
+class ISpeechRecognizerStatus(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('bff9e781-53ec-484e-bb-8a-0e-1b-55-51-e3-5c')
+    @commethod(7)
+    def get_AudioStatus(AudioStatus: POINTER(win32more.Media.Speech.ISpeechAudioStatus_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_CurrentStreamPosition(pCurrentStreamPos: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_CurrentStreamNumber(StreamNumber: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_NumberOfActiveRules(NumberOfActiveRules: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_ClsidEngine(ClsidEngine: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_SupportedLanguages(SupportedLanguages: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
 class ISpeechResourceLoader(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('b9ac5783-fcd0-4b21-b1-19-b4-f8-da-8f-d2-c3')
@@ -1476,556 +2020,6 @@ class ISpeechXMLRecoResult(c_void_p):
     def GetXMLResult(Options: win32more.Media.Speech.SPXMLRESULTOPTIONS, pResult: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
     @commethod(18)
     def GetXMLErrorInfo(LineNumber: POINTER(Int32), ScriptLine: POINTER(win32more.Foundation.BSTR), Source: POINTER(win32more.Foundation.BSTR), Description: POINTER(win32more.Foundation.BSTR), ResultCode: POINTER(Int32), IsError: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
-class ISpEnginePronunciation(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('c360ce4b-76d1-4214-ad-68-52-65-7d-50-83-da')
-    @commethod(3)
-    def Normalize(pszWord: win32more.Foundation.PWSTR, pszLeftContext: win32more.Foundation.PWSTR, pszRightContext: win32more.Foundation.PWSTR, LangID: UInt16, pNormalizationList: POINTER(win32more.Media.Speech.SPNORMALIZATIONLIST_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def GetPronunciations(pszWord: win32more.Foundation.PWSTR, pszLeftContext: win32more.Foundation.PWSTR, pszRightContext: win32more.Foundation.PWSTR, LangID: UInt16, pEnginePronunciationList: POINTER(win32more.Media.Speech.SPWORDPRONUNCIATIONLIST_head)) -> win32more.Foundation.HRESULT: ...
-class ISpEventSink(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('be7a9cc9-5f9e-11d2-96-0f-00-c0-4f-8e-e6-28')
-    @commethod(3)
-    def AddEvents(pEventArray: POINTER(win32more.Media.Speech.SPEVENT_head), ulCount: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def GetEventInterest(pullEventInterest: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
-class ISpEventSource(c_void_p):
-    extends: win32more.Media.Speech.ISpNotifySource
-    Guid = Guid('be7a9cce-5f9e-11d2-96-0f-00-c0-4f-8e-e6-28')
-    @commethod(10)
-    def SetInterest(ullEventInterest: UInt64, ullQueuedInterest: UInt64) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def GetEvents(ulCount: UInt32, pEventArray: POINTER(win32more.Media.Speech.SPEVENT_head), pulFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def GetInfo(pInfo: POINTER(win32more.Media.Speech.SPEVENTSOURCEINFO_head)) -> win32more.Foundation.HRESULT: ...
-class ISpEventSource2(c_void_p):
-    extends: win32more.Media.Speech.ISpEventSource
-    Guid = Guid('2373a435-6a4b-429e-a6-ac-d4-23-1a-61-97-5b')
-    @commethod(13)
-    def GetEventsEx(ulCount: UInt32, pEventArray: POINTER(win32more.Media.Speech.SPEVENTEX_head), pulFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-class ISpGrammarBuilder(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('8137828f-591a-4a42-be-58-49-ea-7e-ba-ac-68')
-    @commethod(3)
-    def ResetGrammar(NewLanguage: UInt16) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def GetRule(pszRuleName: win32more.Foundation.PWSTR, dwRuleId: UInt32, dwAttributes: UInt32, fCreateIfNotExist: win32more.Foundation.BOOL, phInitialState: POINTER(POINTER(win32more.Media.Speech.SPSTATEHANDLE___head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def ClearRule(hState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def CreateNewState(hState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), phState: POINTER(POINTER(win32more.Media.Speech.SPSTATEHANDLE___head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def AddWordTransition(hFromState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), hToState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), psz: win32more.Foundation.PWSTR, pszSeparators: win32more.Foundation.PWSTR, eWordType: win32more.Media.Speech.SPGRAMMARWORDTYPE, Weight: Single, pPropInfo: POINTER(win32more.Media.Speech.SPPROPERTYINFO_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def AddRuleTransition(hFromState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), hToState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), hRule: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), Weight: Single, pPropInfo: POINTER(win32more.Media.Speech.SPPROPERTYINFO_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def AddResource(hRuleState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), pszResourceName: win32more.Foundation.PWSTR, pszResourceValue: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def Commit(dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
-class ISpGrammarBuilder2(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('8ab10026-20cc-4b20-8c-22-a4-9c-9b-a7-8f-60')
-    @commethod(3)
-    def AddTextSubset(hFromState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), hToState: POINTER(win32more.Media.Speech.SPSTATEHANDLE___head), psz: win32more.Foundation.PWSTR, eMatchMode: win32more.Media.Speech.SPMATCHINGMODE) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def SetPhoneticAlphabet(phoneticALphabet: win32more.Media.Speech.PHONETICALPHABET) -> win32more.Foundation.HRESULT: ...
-class ISpLexicon(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('da41a7c2-5383-4db2-91-6b-6c-17-19-e3-db-58')
-    @commethod(3)
-    def GetPronunciations(pszWord: win32more.Foundation.PWSTR, LangID: UInt16, dwFlags: UInt32, pWordPronunciationList: POINTER(win32more.Media.Speech.SPWORDPRONUNCIATIONLIST_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def AddPronunciation(pszWord: win32more.Foundation.PWSTR, LangID: UInt16, ePartOfSpeech: win32more.Media.Speech.SPPARTOFSPEECH, pszPronunciation: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def RemovePronunciation(pszWord: win32more.Foundation.PWSTR, LangID: UInt16, ePartOfSpeech: win32more.Media.Speech.SPPARTOFSPEECH, pszPronunciation: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def GetGeneration(pdwGeneration: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def GetGenerationChange(dwFlags: UInt32, pdwGeneration: POINTER(UInt32), pWordList: POINTER(win32more.Media.Speech.SPWORDLIST_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def GetWords(dwFlags: UInt32, pdwGeneration: POINTER(UInt32), pdwCookie: POINTER(UInt32), pWordList: POINTER(win32more.Media.Speech.SPWORDLIST_head)) -> win32more.Foundation.HRESULT: ...
-class ISpMMSysAudio(c_void_p):
-    extends: win32more.Media.Speech.ISpAudio
-    Guid = Guid('15806f6e-1d70-4b48-98-e6-3b-1a-00-75-09-ab')
-    @commethod(26)
-    def GetDeviceId(puDeviceId: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(27)
-    def SetDeviceId(uDeviceId: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(28)
-    def GetMMHandle(pHandle: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
-    @commethod(29)
-    def GetLineId(puLineId: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(30)
-    def SetLineId(uLineId: UInt32) -> win32more.Foundation.HRESULT: ...
-class ISpNotifyCallback(c_void_p):
-    extends: None
-    @commethod(0)
-    def NotifyCallback(wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
-class ISpNotifySink(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('259684dc-37c3-11d2-96-03-00-c0-4f-8e-e6-28')
-    @commethod(3)
-    def Notify() -> win32more.Foundation.HRESULT: ...
-class ISpNotifySource(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('5eff4aef-8487-11d2-96-1c-00-c0-4f-8e-e6-28')
-    @commethod(3)
-    def SetNotifySink(pNotifySink: win32more.Media.Speech.ISpNotifySink_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def SetNotifyWindowMessage(hWnd: win32more.Foundation.HWND, Msg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def SetNotifyCallbackFunction(pfnCallback: POINTER(win32more.Media.Speech.SPNOTIFYCALLBACK), wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def SetNotifyCallbackInterface(pSpCallback: win32more.Media.Speech.ISpNotifyCallback_head, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def SetNotifyWin32Event() -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def WaitForNotifyEvent(dwMilliseconds: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def GetNotifyEventHandle() -> win32more.Foundation.HANDLE: ...
-class ISpNotifyTranslator(c_void_p):
-    extends: win32more.Media.Speech.ISpNotifySink
-    Guid = Guid('aca16614-5d3d-11d2-96-0e-00-c0-4f-8e-e6-28')
-    @commethod(4)
-    def InitWindowMessage(hWnd: win32more.Foundation.HWND, Msg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def InitCallback(pfnCallback: POINTER(win32more.Media.Speech.SPNOTIFYCALLBACK), wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def InitSpNotifyCallback(pSpCallback: win32more.Media.Speech.ISpNotifyCallback_head, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def InitWin32Event(hEvent: win32more.Foundation.HANDLE, fCloseHandleOnRelease: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def Wait(dwMilliseconds: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def GetEventHandle() -> win32more.Foundation.HANDLE: ...
-class ISpObjectToken(c_void_p):
-    extends: win32more.Media.Speech.ISpDataKey
-    Guid = Guid('14056589-e16c-11d2-bb-90-00-c0-4f-8e-e6-c0')
-    @commethod(15)
-    def SetId(pszCategoryId: win32more.Foundation.PWSTR, pszTokenId: win32more.Foundation.PWSTR, fCreateIfNotExist: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def GetId(ppszCoMemTokenId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def GetCategory(ppTokenCategory: POINTER(win32more.Media.Speech.ISpObjectTokenCategory_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def CreateInstance(pUnkOuter: win32more.System.Com.IUnknown_head, dwClsContext: UInt32, riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
-    @commethod(19)
-    def GetStorageFileName(clsidCaller: POINTER(Guid), pszValueName: win32more.Foundation.PWSTR, pszFileNameSpecifier: win32more.Foundation.PWSTR, nFolder: UInt32, ppszFilePath: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(20)
-    def RemoveStorageFileName(clsidCaller: POINTER(Guid), pszKeyName: win32more.Foundation.PWSTR, fDeleteFile: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-    @commethod(21)
-    def Remove(pclsidCaller: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
-    @commethod(22)
-    def IsUISupported(pszTypeOfUI: win32more.Foundation.PWSTR, pvExtraData: c_void_p, cbExtraData: UInt32, punkObject: win32more.System.Com.IUnknown_head, pfSupported: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(23)
-    def DisplayUI(hwndParent: win32more.Foundation.HWND, pszTitle: win32more.Foundation.PWSTR, pszTypeOfUI: win32more.Foundation.PWSTR, pvExtraData: c_void_p, cbExtraData: UInt32, punkObject: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(24)
-    def MatchesAttributes(pszAttributes: win32more.Foundation.PWSTR, pfMatches: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-class ISpObjectTokenCategory(c_void_p):
-    extends: win32more.Media.Speech.ISpDataKey
-    Guid = Guid('2d3d3845-39af-4850-bb-f9-40-b4-97-80-01-1d')
-    @commethod(15)
-    def SetId(pszCategoryId: win32more.Foundation.PWSTR, fCreateIfNotExist: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def GetId(ppszCoMemCategoryId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def GetDataKey(spdkl: win32more.Media.Speech.SPDATAKEYLOCATION, ppDataKey: POINTER(win32more.Media.Speech.ISpDataKey_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def EnumTokens(pzsReqAttribs: win32more.Foundation.PWSTR, pszOptAttribs: win32more.Foundation.PWSTR, ppEnum: POINTER(win32more.Media.Speech.IEnumSpObjectTokens_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(19)
-    def SetDefaultTokenId(pszTokenId: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(20)
-    def GetDefaultTokenId(ppszCoMemTokenId: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-class ISpObjectTokenInit(c_void_p):
-    extends: win32more.Media.Speech.ISpObjectToken
-    Guid = Guid('b8aab0cf-346f-49d8-94-99-c8-b0-3f-16-1d-51')
-    @commethod(25)
-    def InitFromDataKey(pszCategoryId: win32more.Foundation.PWSTR, pszTokenId: win32more.Foundation.PWSTR, pDataKey: win32more.Media.Speech.ISpDataKey_head) -> win32more.Foundation.HRESULT: ...
-class ISpObjectWithToken(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('5b559f40-e952-11d2-bb-91-00-c0-4f-8e-e6-c0')
-    @commethod(3)
-    def SetObjectToken(pToken: win32more.Media.Speech.ISpObjectToken_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def GetObjectToken(ppToken: POINTER(win32more.Media.Speech.ISpObjectToken_head)) -> win32more.Foundation.HRESULT: ...
-class ISpPhoneConverter(c_void_p):
-    extends: win32more.Media.Speech.ISpObjectWithToken
-    Guid = Guid('8445c581-0cac-4a38-ab-fe-9b-2c-e2-82-64-55')
-    @commethod(5)
-    def PhoneToId(pszPhone: win32more.Foundation.PWSTR, pId: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def IdToPhone(pId: POINTER(UInt16), pszPhone: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
-class ISpPhoneticAlphabetConverter(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('133adcd4-19b4-4020-9f-dc-84-2e-78-25-3b-17')
-    @commethod(3)
-    def GetLangId(pLangID: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def SetLangId(LangID: UInt16) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def SAPI2UPS(pszSAPIId: POINTER(UInt16), pszUPSId: POINTER(UInt16), cMaxLength: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def UPS2SAPI(pszUPSId: POINTER(UInt16), pszSAPIId: POINTER(UInt16), cMaxLength: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def GetMaxConvertLength(cSrcLength: UInt32, bSAPI2UPS: win32more.Foundation.BOOL, pcMaxDestLength: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-class ISpPhoneticAlphabetSelection(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('b2745efd-42ce-48ca-81-f1-a9-6e-02-53-8a-90')
-    @commethod(3)
-    def IsAlphabetUPS(pfIsUPS: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def SetAlphabetToUPS(fForceUPS: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-class ISpPhrase(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('1a5c0354-b621-4b5a-87-91-d3-06-ed-37-9e-53')
-    @commethod(3)
-    def GetPhrase(ppCoMemPhrase: POINTER(POINTER(win32more.Media.Speech.SPPHRASE_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def GetSerializedPhrase(ppCoMemPhrase: POINTER(POINTER(win32more.Media.Speech.SPSERIALIZEDPHRASE_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def GetText(ulStart: UInt32, ulCount: UInt32, fUseTextReplacements: win32more.Foundation.BOOL, ppszCoMemText: POINTER(win32more.Foundation.PWSTR), pbDisplayAttributes: c_char_p_no) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def Discard(dwValueTypes: UInt32) -> win32more.Foundation.HRESULT: ...
-class ISpPhrase2(c_void_p):
-    extends: win32more.Media.Speech.ISpPhrase
-    Guid = Guid('f264da52-e457-4696-b8-56-a7-37-b7-17-af-79')
-    @commethod(7)
-    def GetXMLResult(ppszCoMemXMLResult: POINTER(win32more.Foundation.PWSTR), Options: win32more.Media.Speech.SPXMLRESULTOPTIONS) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def GetXMLErrorInfo(pSemanticErrorInfo: POINTER(win32more.Media.Speech.SPSEMANTICERRORINFO_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def GetAudio(ulStartElement: UInt32, cElements: UInt32, ppStream: POINTER(win32more.Media.Speech.ISpStreamFormat_head)) -> win32more.Foundation.HRESULT: ...
-class ISpPhraseAlt(c_void_p):
-    extends: win32more.Media.Speech.ISpPhrase
-    Guid = Guid('8fcebc98-4e49-4067-9c-6c-d8-6a-0e-09-2e-3d')
-    @commethod(7)
-    def GetAltInfo(ppParent: POINTER(win32more.Media.Speech.ISpPhrase_head), pulStartElementInParent: POINTER(UInt32), pcElementsInParent: POINTER(UInt32), pcElementsInAlt: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def Commit() -> win32more.Foundation.HRESULT: ...
-class ISpProperties(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('5b4fb971-b115-4de1-ad-97-e4-82-e3-bf-6e-e4')
-    @commethod(3)
-    def SetPropertyNum(pName: win32more.Foundation.PWSTR, lValue: Int32) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def GetPropertyNum(pName: win32more.Foundation.PWSTR, plValue: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def SetPropertyString(pName: win32more.Foundation.PWSTR, pValue: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def GetPropertyString(pName: win32more.Foundation.PWSTR, ppCoMemValue: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-class ISpRecoContext(c_void_p):
-    extends: win32more.Media.Speech.ISpEventSource
-    Guid = Guid('f740a62f-7c15-489e-82-34-94-0a-33-d9-27-2d')
-    @commethod(13)
-    def GetRecognizer(ppRecognizer: POINTER(win32more.Media.Speech.ISpRecognizer_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def CreateGrammar(ullGrammarId: UInt64, ppGrammar: POINTER(win32more.Media.Speech.ISpRecoGrammar_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def GetStatus(pStatus: POINTER(win32more.Media.Speech.SPRECOCONTEXTSTATUS_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def GetMaxAlternates(pcAlternates: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def SetMaxAlternates(cAlternates: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def SetAudioOptions(Options: win32more.Media.Speech.SPAUDIOOPTIONS, pAudioFormatId: POINTER(Guid), pWaveFormatEx: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(19)
-    def GetAudioOptions(pOptions: POINTER(win32more.Media.Speech.SPAUDIOOPTIONS), pAudioFormatId: POINTER(Guid), ppCoMemWFEX: POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(20)
-    def DeserializeResult(pSerializedResult: POINTER(win32more.Media.Speech.SPSERIALIZEDRESULT_head), ppResult: POINTER(win32more.Media.Speech.ISpRecoResult_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(21)
-    def Bookmark(Options: win32more.Media.Speech.SPBOOKMARKOPTIONS, ullStreamPosition: UInt64, lparamEvent: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
-    @commethod(22)
-    def SetAdaptationData(pAdaptationData: win32more.Foundation.PWSTR, cch: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(23)
-    def Pause(dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(24)
-    def Resume(dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(25)
-    def SetVoice(pVoice: win32more.Media.Speech.ISpVoice_head, fAllowFormatChanges: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-    @commethod(26)
-    def GetVoice(ppVoice: POINTER(win32more.Media.Speech.ISpVoice_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(27)
-    def SetVoicePurgeEvent(ullEventInterest: UInt64) -> win32more.Foundation.HRESULT: ...
-    @commethod(28)
-    def GetVoicePurgeEvent(pullEventInterest: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
-    @commethod(29)
-    def SetContextState(eContextState: win32more.Media.Speech.SPCONTEXTSTATE) -> win32more.Foundation.HRESULT: ...
-    @commethod(30)
-    def GetContextState(peContextState: POINTER(win32more.Media.Speech.SPCONTEXTSTATE)) -> win32more.Foundation.HRESULT: ...
-class ISpRecoContext2(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('bead311c-52ff-437f-94-64-6b-21-05-4c-a7-3d')
-    @commethod(3)
-    def SetGrammarOptions(eGrammarOptions: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def GetGrammarOptions(peGrammarOptions: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def SetAdaptationData2(pAdaptationData: win32more.Foundation.PWSTR, cch: UInt32, pTopicName: win32more.Foundation.PWSTR, eAdaptationSettings: UInt32, eRelevance: win32more.Media.Speech.SPADAPTATIONRELEVANCE) -> win32more.Foundation.HRESULT: ...
-class ISpRecognizer(c_void_p):
-    extends: win32more.Media.Speech.ISpProperties
-    Guid = Guid('c2b5f241-daa0-4507-9e-16-5a-1e-aa-2b-7a-5c')
-    @commethod(7)
-    def SetRecognizer(pRecognizer: win32more.Media.Speech.ISpObjectToken_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def GetRecognizer(ppRecognizer: POINTER(win32more.Media.Speech.ISpObjectToken_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def SetInput(pUnkInput: win32more.System.Com.IUnknown_head, fAllowFormatChanges: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def GetInputObjectToken(ppToken: POINTER(win32more.Media.Speech.ISpObjectToken_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def GetInputStream(ppStream: POINTER(win32more.Media.Speech.ISpStreamFormat_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def CreateRecoContext(ppNewCtxt: POINTER(win32more.Media.Speech.ISpRecoContext_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def GetRecoProfile(ppToken: POINTER(win32more.Media.Speech.ISpObjectToken_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def SetRecoProfile(pToken: win32more.Media.Speech.ISpObjectToken_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def IsSharedInstance() -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def GetRecoState(pState: POINTER(win32more.Media.Speech.SPRECOSTATE)) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def SetRecoState(NewState: win32more.Media.Speech.SPRECOSTATE) -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def GetStatus(pStatus: POINTER(win32more.Media.Speech.SPRECOGNIZERSTATUS_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(19)
-    def GetFormat(WaveFormatType: win32more.Media.Speech.SPSTREAMFORMATTYPE, pFormatId: POINTER(Guid), ppCoMemWFEX: POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(20)
-    def IsUISupported(pszTypeOfUI: win32more.Foundation.PWSTR, pvExtraData: c_void_p, cbExtraData: UInt32, pfSupported: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(21)
-    def DisplayUI(hwndParent: win32more.Foundation.HWND, pszTitle: win32more.Foundation.PWSTR, pszTypeOfUI: win32more.Foundation.PWSTR, pvExtraData: c_void_p, cbExtraData: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(22)
-    def EmulateRecognition(pPhrase: win32more.Media.Speech.ISpPhrase_head) -> win32more.Foundation.HRESULT: ...
-class ISpRecognizer2(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('8fc6d974-c81e-4098-93-c5-01-47-f6-1e-d4-d3')
-    @commethod(3)
-    def EmulateRecognitionEx(pPhrase: win32more.Media.Speech.ISpPhrase_head, dwCompareFlags: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def SetTrainingState(fDoingTraining: win32more.Foundation.BOOL, fAdaptFromTrainingData: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def ResetAcousticModelAdaptation() -> win32more.Foundation.HRESULT: ...
-class ISpRecoGrammar(c_void_p):
-    extends: win32more.Media.Speech.ISpGrammarBuilder
-    Guid = Guid('2177db29-7f45-47d0-85-54-06-7e-91-c8-05-02')
-    @commethod(11)
-    def GetGrammarId(pullGrammarId: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def GetRecoContext(ppRecoCtxt: POINTER(win32more.Media.Speech.ISpRecoContext_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def LoadCmdFromFile(pszFileName: win32more.Foundation.PWSTR, Options: win32more.Media.Speech.SPLOADOPTIONS) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def LoadCmdFromObject(rcid: POINTER(Guid), pszGrammarName: win32more.Foundation.PWSTR, Options: win32more.Media.Speech.SPLOADOPTIONS) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def LoadCmdFromResource(hModule: win32more.Foundation.HINSTANCE, pszResourceName: win32more.Foundation.PWSTR, pszResourceType: win32more.Foundation.PWSTR, wLanguage: UInt16, Options: win32more.Media.Speech.SPLOADOPTIONS) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def LoadCmdFromMemory(pGrammar: POINTER(win32more.Media.Speech.SPBINARYGRAMMAR_head), Options: win32more.Media.Speech.SPLOADOPTIONS) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def LoadCmdFromProprietaryGrammar(rguidParam: POINTER(Guid), pszStringParam: win32more.Foundation.PWSTR, pvDataPrarm: c_void_p, cbDataSize: UInt32, Options: win32more.Media.Speech.SPLOADOPTIONS) -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def SetRuleState(pszName: win32more.Foundation.PWSTR, pReserved: c_void_p, NewState: win32more.Media.Speech.SPRULESTATE) -> win32more.Foundation.HRESULT: ...
-    @commethod(19)
-    def SetRuleIdState(ulRuleId: UInt32, NewState: win32more.Media.Speech.SPRULESTATE) -> win32more.Foundation.HRESULT: ...
-    @commethod(20)
-    def LoadDictation(pszTopicName: win32more.Foundation.PWSTR, Options: win32more.Media.Speech.SPLOADOPTIONS) -> win32more.Foundation.HRESULT: ...
-    @commethod(21)
-    def UnloadDictation() -> win32more.Foundation.HRESULT: ...
-    @commethod(22)
-    def SetDictationState(NewState: win32more.Media.Speech.SPRULESTATE) -> win32more.Foundation.HRESULT: ...
-    @commethod(23)
-    def SetWordSequenceData(pText: win32more.Foundation.PWSTR, cchText: UInt32, pInfo: POINTER(win32more.Media.Speech.SPTEXTSELECTIONINFO_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(24)
-    def SetTextSelection(pInfo: POINTER(win32more.Media.Speech.SPTEXTSELECTIONINFO_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(25)
-    def IsPronounceable(pszWord: win32more.Foundation.PWSTR, pWordPronounceable: POINTER(win32more.Media.Speech.SPWORDPRONOUNCEABLE)) -> win32more.Foundation.HRESULT: ...
-    @commethod(26)
-    def SetGrammarState(eGrammarState: win32more.Media.Speech.SPGRAMMARSTATE) -> win32more.Foundation.HRESULT: ...
-    @commethod(27)
-    def SaveCmd(pStream: win32more.System.Com.IStream_head, ppszCoMemErrorText: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(28)
-    def GetGrammarState(peGrammarState: POINTER(win32more.Media.Speech.SPGRAMMARSTATE)) -> win32more.Foundation.HRESULT: ...
-class ISpRecoGrammar2(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('4b37bc9e-9ed6-44a3-93-d3-18-f0-22-b7-9e-c3')
-    @commethod(3)
-    def GetRules(ppCoMemRules: POINTER(POINTER(win32more.Media.Speech.SPRULE_head)), puNumRules: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def LoadCmdFromFile2(pszFileName: win32more.Foundation.PWSTR, Options: win32more.Media.Speech.SPLOADOPTIONS, pszSharingUri: win32more.Foundation.PWSTR, pszBaseUri: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def LoadCmdFromMemory2(pGrammar: POINTER(win32more.Media.Speech.SPBINARYGRAMMAR_head), Options: win32more.Media.Speech.SPLOADOPTIONS, pszSharingUri: win32more.Foundation.PWSTR, pszBaseUri: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def SetRulePriority(pszRuleName: win32more.Foundation.PWSTR, ulRuleId: UInt32, nRulePriority: Int32) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def SetRuleWeight(pszRuleName: win32more.Foundation.PWSTR, ulRuleId: UInt32, flWeight: Single) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def SetDictationWeight(flWeight: Single) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def SetGrammarLoader(pLoader: win32more.Media.Speech.ISpeechResourceLoader_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def SetSMLSecurityManager(pSMLSecurityManager: win32more.System.Com.Urlmon.IInternetSecurityManager_head) -> win32more.Foundation.HRESULT: ...
-class ISpRecoResult(c_void_p):
-    extends: win32more.Media.Speech.ISpPhrase
-    Guid = Guid('20b053be-e235-43cd-9a-2a-8d-17-a4-8b-78-42')
-    @commethod(7)
-    def GetResultTimes(pTimes: POINTER(win32more.Media.Speech.SPRECORESULTTIMES_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def GetAlternates(ulStartElement: UInt32, cElements: UInt32, ulRequestCount: UInt32, ppPhrases: POINTER(win32more.Media.Speech.ISpPhraseAlt_head), pcPhrasesReturned: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def GetAudio(ulStartElement: UInt32, cElements: UInt32, ppStream: POINTER(win32more.Media.Speech.ISpStreamFormat_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def SpeakAudio(ulStartElement: UInt32, cElements: UInt32, dwFlags: UInt32, pulStreamNumber: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def Serialize(ppCoMemSerializedResult: POINTER(POINTER(win32more.Media.Speech.SPSERIALIZEDRESULT_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def ScaleAudio(pAudioFormatId: POINTER(Guid), pWaveFormatEx: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def GetRecoContext(ppRecoContext: POINTER(win32more.Media.Speech.ISpRecoContext_head)) -> win32more.Foundation.HRESULT: ...
-class ISpRecoResult2(c_void_p):
-    extends: win32more.Media.Speech.ISpRecoResult
-    Guid = Guid('27cac6c4-88f2-41f2-88-17-0c-95-e5-9f-1e-6e')
-    @commethod(14)
-    def CommitAlternate(pPhraseAlt: win32more.Media.Speech.ISpPhraseAlt_head, ppNewResult: POINTER(win32more.Media.Speech.ISpRecoResult_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def CommitText(ulStartElement: UInt32, cElements: UInt32, pszCorrectedData: win32more.Foundation.PWSTR, eCommitFlags: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def SetTextFeedback(pszFeedback: win32more.Foundation.PWSTR, fSuccessful: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-class ISpRegDataKey(c_void_p):
-    extends: win32more.Media.Speech.ISpDataKey
-    Guid = Guid('92a66e2b-c830-4149-83-df-6f-c2-ba-1e-7a-5b')
-    @commethod(15)
-    def SetKey(hkey: win32more.System.Registry.HKEY, fReadOnly: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-class ISpResourceManager(c_void_p):
-    extends: win32more.System.Com.IServiceProvider
-    Guid = Guid('93384e18-5014-43d5-ad-bb-a7-8e-05-59-26-bd')
-    @commethod(4)
-    def SetObject(guidServiceId: POINTER(Guid), pUnkObject: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def GetObject(guidServiceId: POINTER(Guid), ObjectCLSID: POINTER(Guid), ObjectIID: POINTER(Guid), fReleaseWhenLastExternalRefReleased: win32more.Foundation.BOOL, ppObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
-class ISpSerializeState(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('21b501a0-0ec7-46c9-92-c3-a2-bc-78-4c-54-b9')
-    @commethod(3)
-    def GetSerializedState(ppbData: POINTER(c_char_p_no), pulSize: POINTER(UInt32), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def SetSerializedState(pbData: c_char_p_no, ulSize: UInt32, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
-class ISpShortcut(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('3df681e2-ea56-11d9-8b-de-f6-6b-ad-1e-3f-3a')
-    @commethod(3)
-    def AddShortcut(pszDisplay: win32more.Foundation.PWSTR, LangID: UInt16, pszSpoken: win32more.Foundation.PWSTR, shType: win32more.Media.Speech.SPSHORTCUTTYPE) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def RemoveShortcut(pszDisplay: win32more.Foundation.PWSTR, LangID: UInt16, pszSpoken: win32more.Foundation.PWSTR, shType: win32more.Media.Speech.SPSHORTCUTTYPE) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def GetShortcuts(LangID: UInt16, pShortcutpairList: POINTER(win32more.Media.Speech.SPSHORTCUTPAIRLIST_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def GetGeneration(pdwGeneration: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def GetWordsFromGenerationChange(pdwGeneration: POINTER(UInt32), pWordList: POINTER(win32more.Media.Speech.SPWORDLIST_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def GetWords(pdwGeneration: POINTER(UInt32), pdwCookie: POINTER(UInt32), pWordList: POINTER(win32more.Media.Speech.SPWORDLIST_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def GetShortcutsForGeneration(pdwGeneration: POINTER(UInt32), pdwCookie: POINTER(UInt32), pShortcutpairList: POINTER(win32more.Media.Speech.SPSHORTCUTPAIRLIST_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def GetGenerationChange(pdwGeneration: POINTER(UInt32), pShortcutpairList: POINTER(win32more.Media.Speech.SPSHORTCUTPAIRLIST_head)) -> win32more.Foundation.HRESULT: ...
-class ISpStream(c_void_p):
-    extends: win32more.Media.Speech.ISpStreamFormat
-    Guid = Guid('12e3cca9-7518-44c5-a5-e7-ba-5a-79-cb-92-9e')
-    @commethod(15)
-    def SetBaseStream(pStream: win32more.System.Com.IStream_head, rguidFormat: POINTER(Guid), pWaveFormatEx: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def GetBaseStream(ppStream: POINTER(win32more.System.Com.IStream_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def BindToFile(pszFileName: win32more.Foundation.PWSTR, eMode: win32more.Media.Speech.SPFILEMODE, pFormatId: POINTER(Guid), pWaveFormatEx: POINTER(win32more.Media.Audio.WAVEFORMATEX_head), ullEventInterest: UInt64) -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def Close() -> win32more.Foundation.HRESULT: ...
-class ISpStreamFormat(c_void_p):
-    extends: win32more.System.Com.IStream
-    Guid = Guid('bed530be-2606-4f4d-a1-c0-54-c5-cd-a5-56-6f')
-    @commethod(14)
-    def GetFormat(pguidFormatId: POINTER(Guid), ppCoMemWaveFormatEx: POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head))) -> win32more.Foundation.HRESULT: ...
-class ISpStreamFormatConverter(c_void_p):
-    extends: win32more.Media.Speech.ISpStreamFormat
-    Guid = Guid('678a932c-ea71-4446-9b-41-78-fd-a6-28-0a-29')
-    @commethod(15)
-    def SetBaseStream(pStream: win32more.Media.Speech.ISpStreamFormat_head, fSetFormatToBaseStreamFormat: win32more.Foundation.BOOL, fWriteToBaseStream: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def GetBaseStream(ppStream: POINTER(win32more.Media.Speech.ISpStreamFormat_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def SetFormat(rguidFormatIdOfConvertedStream: POINTER(Guid), pWaveFormatExOfConvertedStream: POINTER(win32more.Media.Audio.WAVEFORMATEX_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def ResetSeekPosition() -> win32more.Foundation.HRESULT: ...
-    @commethod(19)
-    def ScaleConvertedToBaseOffset(ullOffsetConvertedStream: UInt64, pullOffsetBaseStream: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
-    @commethod(20)
-    def ScaleBaseToConvertedOffset(ullOffsetBaseStream: UInt64, pullOffsetConvertedStream: POINTER(UInt64)) -> win32more.Foundation.HRESULT: ...
-class ISpTranscript(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('10f63bce-201a-11d3-ac-70-00-c0-4f-8e-e6-c0')
-    @commethod(3)
-    def GetTranscript(ppszTranscript: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def AppendTranscript(pszTranscript: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
-class ISpVoice(c_void_p):
-    extends: win32more.Media.Speech.ISpEventSource
-    Guid = Guid('6c44df74-72b9-4992-a1-ec-ef-99-6e-04-22-d4')
-    @commethod(13)
-    def SetOutput(pUnkOutput: win32more.System.Com.IUnknown_head, fAllowFormatChanges: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def GetOutputObjectToken(ppObjectToken: POINTER(win32more.Media.Speech.ISpObjectToken_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def GetOutputStream(ppStream: POINTER(win32more.Media.Speech.ISpStreamFormat_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def Pause() -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def Resume() -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def SetVoice(pToken: win32more.Media.Speech.ISpObjectToken_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(19)
-    def GetVoice(ppToken: POINTER(win32more.Media.Speech.ISpObjectToken_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(20)
-    def Speak(pwcs: win32more.Foundation.PWSTR, dwFlags: UInt32, pulStreamNumber: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(21)
-    def SpeakStream(pStream: win32more.System.Com.IStream_head, dwFlags: UInt32, pulStreamNumber: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(22)
-    def GetStatus(pStatus: POINTER(win32more.Media.Speech.SPVOICESTATUS_head), ppszLastBookmark: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(23)
-    def Skip(pItemType: win32more.Foundation.PWSTR, lNumItems: Int32, pulNumSkipped: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(24)
-    def SetPriority(ePriority: win32more.Media.Speech.SPVPRIORITY) -> win32more.Foundation.HRESULT: ...
-    @commethod(25)
-    def GetPriority(pePriority: POINTER(win32more.Media.Speech.SPVPRIORITY)) -> win32more.Foundation.HRESULT: ...
-    @commethod(26)
-    def SetAlertBoundary(eBoundary: win32more.Media.Speech.SPEVENTENUM) -> win32more.Foundation.HRESULT: ...
-    @commethod(27)
-    def GetAlertBoundary(peBoundary: POINTER(win32more.Media.Speech.SPEVENTENUM)) -> win32more.Foundation.HRESULT: ...
-    @commethod(28)
-    def SetRate(RateAdjust: Int32) -> win32more.Foundation.HRESULT: ...
-    @commethod(29)
-    def GetRate(pRateAdjust: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(30)
-    def SetVolume(usVolume: UInt16) -> win32more.Foundation.HRESULT: ...
-    @commethod(31)
-    def GetVolume(pusVolume: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
-    @commethod(32)
-    def WaitUntilDone(msTimeout: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(33)
-    def SetSyncSpeakTimeout(msTimeout: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(34)
-    def GetSyncSpeakTimeout(pmsTimeout: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(35)
-    def SpeakCompleteEvent() -> win32more.Foundation.HANDLE: ...
-    @commethod(36)
-    def IsUISupported(pszTypeOfUI: win32more.Foundation.PWSTR, pvExtraData: c_void_p, cbExtraData: UInt32, pfSupported: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(37)
-    def DisplayUI(hwndParent: win32more.Foundation.HWND, pszTitle: win32more.Foundation.PWSTR, pszTypeOfUI: win32more.Foundation.PWSTR, pvExtraData: c_void_p, cbExtraData: UInt32) -> win32more.Foundation.HRESULT: ...
-class ISpXMLRecoResult(c_void_p):
-    extends: win32more.Media.Speech.ISpRecoResult
-    Guid = Guid('ae39362b-45a8-4074-9b-9e-cc-f4-9a-a2-d0-b6')
-    @commethod(14)
-    def GetXMLResult(ppszCoMemXMLResult: POINTER(win32more.Foundation.PWSTR), Options: win32more.Media.Speech.SPXMLRESULTOPTIONS) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def GetXMLErrorInfo(pSemanticErrorInfo: POINTER(win32more.Media.Speech.SPSEMANTICERRORINFO_head)) -> win32more.Foundation.HRESULT: ...
 PHONETICALPHABET = Int32
 PA_Ipa: PHONETICALPHABET = 0
 PA_Ups: PHONETICALPHABET = 1
@@ -2046,7 +2040,6 @@ class SPAUDIOBUFFERINFO(Structure):
     ulMsMinNotification: UInt32
     ulMsBufferSize: UInt32
     ulMsEventBias: UInt32
-SpAudioFormat = Guid('9ef96870-e160-4792-82-0d-48-cf-06-49-e4-ec')
 SPAUDIOOPTIONS = Int32
 SPAO_NONE: SPAUDIOOPTIONS = 0
 SPAO_RETAIN_AUDIO: SPAUDIOOPTIONS = 1
@@ -2084,11 +2077,9 @@ SPCOMMITFLAGS = Int32
 SPCF_NONE: SPCOMMITFLAGS = 0
 SPCF_ADD_TO_USER_LEXICON: SPCOMMITFLAGS = 1
 SPCF_DEFINITE_CORRECTION: SPCOMMITFLAGS = 2
-SpCompressedLexicon = Guid('90903716-2f42-11d3-9c-26-00-c0-4f-8e-f8-7c')
 SPCONTEXTSTATE = Int32
 SPCS_DISABLED: SPCONTEXTSTATE = 0
 SPCS_ENABLED: SPCONTEXTSTATE = 1
-SpCustomStream = Guid('8dbef13f-1948-4aa8-8c-f0-04-8e-eb-ed-95-d8')
 SPDATAKEYLOCATION = Int32
 SPDKL_DefaultLocation: SPDATAKEYLOCATION = 0
 SPDKL_CurrentUser: SPDATAKEYLOCATION = 1
@@ -2124,6 +2115,573 @@ SPF_NLP_MASK: SPEAKFLAGS = 64
 SPF_PARSE_MASK: SPEAKFLAGS = 384
 SPF_VOICE_MASK: SPEAKFLAGS = 511
 SPF_UNUSED_FLAGS: SPEAKFLAGS = -512
+SPENDSRSTREAMFLAGS = Int32
+SPESF_NONE: SPENDSRSTREAMFLAGS = 0
+SPESF_STREAM_RELEASED: SPENDSRSTREAMFLAGS = 1
+SPESF_EMULATED: SPENDSRSTREAMFLAGS = 2
+class SPEVENT(Structure):
+    _bitfield: Int32
+    ulStreamNum: UInt32
+    ullAudioStreamOffset: UInt64
+    wParam: win32more.Foundation.WPARAM
+    lParam: win32more.Foundation.LPARAM
+SPEVENTENUM = Int32
+SPEI_UNDEFINED: SPEVENTENUM = 0
+SPEI_START_INPUT_STREAM: SPEVENTENUM = 1
+SPEI_END_INPUT_STREAM: SPEVENTENUM = 2
+SPEI_VOICE_CHANGE: SPEVENTENUM = 3
+SPEI_TTS_BOOKMARK: SPEVENTENUM = 4
+SPEI_WORD_BOUNDARY: SPEVENTENUM = 5
+SPEI_PHONEME: SPEVENTENUM = 6
+SPEI_SENTENCE_BOUNDARY: SPEVENTENUM = 7
+SPEI_VISEME: SPEVENTENUM = 8
+SPEI_TTS_AUDIO_LEVEL: SPEVENTENUM = 9
+SPEI_TTS_PRIVATE: SPEVENTENUM = 15
+SPEI_MIN_TTS: SPEVENTENUM = 1
+SPEI_MAX_TTS: SPEVENTENUM = 15
+SPEI_END_SR_STREAM: SPEVENTENUM = 34
+SPEI_SOUND_START: SPEVENTENUM = 35
+SPEI_SOUND_END: SPEVENTENUM = 36
+SPEI_PHRASE_START: SPEVENTENUM = 37
+SPEI_RECOGNITION: SPEVENTENUM = 38
+SPEI_HYPOTHESIS: SPEVENTENUM = 39
+SPEI_SR_BOOKMARK: SPEVENTENUM = 40
+SPEI_PROPERTY_NUM_CHANGE: SPEVENTENUM = 41
+SPEI_PROPERTY_STRING_CHANGE: SPEVENTENUM = 42
+SPEI_FALSE_RECOGNITION: SPEVENTENUM = 43
+SPEI_INTERFERENCE: SPEVENTENUM = 44
+SPEI_REQUEST_UI: SPEVENTENUM = 45
+SPEI_RECO_STATE_CHANGE: SPEVENTENUM = 46
+SPEI_ADAPTATION: SPEVENTENUM = 47
+SPEI_START_SR_STREAM: SPEVENTENUM = 48
+SPEI_RECO_OTHER_CONTEXT: SPEVENTENUM = 49
+SPEI_SR_AUDIO_LEVEL: SPEVENTENUM = 50
+SPEI_SR_RETAINEDAUDIO: SPEVENTENUM = 51
+SPEI_SR_PRIVATE: SPEVENTENUM = 52
+SPEI_RESERVED4: SPEVENTENUM = 53
+SPEI_RESERVED5: SPEVENTENUM = 54
+SPEI_RESERVED6: SPEVENTENUM = 55
+SPEI_MIN_SR: SPEVENTENUM = 34
+SPEI_MAX_SR: SPEVENTENUM = 55
+SPEI_RESERVED1: SPEVENTENUM = 30
+SPEI_RESERVED2: SPEVENTENUM = 33
+SPEI_RESERVED3: SPEVENTENUM = 63
+class SPEVENTEX(Structure):
+    _bitfield: Int32
+    ulStreamNum: UInt32
+    ullAudioStreamOffset: UInt64
+    wParam: win32more.Foundation.WPARAM
+    lParam: win32more.Foundation.LPARAM
+    ullAudioTimeOffset: UInt64
+SPEVENTLPARAMTYPE = Int32
+SPET_LPARAM_IS_UNDEFINED: SPEVENTLPARAMTYPE = 0
+SPET_LPARAM_IS_TOKEN: SPEVENTLPARAMTYPE = 1
+SPET_LPARAM_IS_OBJECT: SPEVENTLPARAMTYPE = 2
+SPET_LPARAM_IS_POINTER: SPEVENTLPARAMTYPE = 3
+SPET_LPARAM_IS_STRING: SPEVENTLPARAMTYPE = 4
+class SPEVENTSOURCEINFO(Structure):
+    ullEventInterest: UInt64
+    ullQueuedInterest: UInt64
+    ulCount: UInt32
+SPFILEMODE = Int32
+SPFM_OPEN_READONLY: SPFILEMODE = 0
+SPFM_OPEN_READWRITE: SPFILEMODE = 1
+SPFM_CREATE: SPFILEMODE = 2
+SPFM_CREATE_ALWAYS: SPFILEMODE = 3
+SPFM_NUM_MODES: SPFILEMODE = 4
+SPGRAMMAROPTIONS = Int32
+SPGO_SAPI: SPGRAMMAROPTIONS = 1
+SPGO_SRGS: SPGRAMMAROPTIONS = 2
+SPGO_UPS: SPGRAMMAROPTIONS = 4
+SPGO_SRGS_MS_SCRIPT: SPGRAMMAROPTIONS = 8
+SPGO_SRGS_W3C_SCRIPT: SPGRAMMAROPTIONS = 256
+SPGO_SRGS_STG_SCRIPT: SPGRAMMAROPTIONS = 512
+SPGO_SRGS_SCRIPT: SPGRAMMAROPTIONS = 778
+SPGO_FILE: SPGRAMMAROPTIONS = 16
+SPGO_HTTP: SPGRAMMAROPTIONS = 32
+SPGO_RES: SPGRAMMAROPTIONS = 64
+SPGO_OBJECT: SPGRAMMAROPTIONS = 128
+SPGO_DEFAULT: SPGRAMMAROPTIONS = 1019
+SPGO_ALL: SPGRAMMAROPTIONS = 1023
+SPGRAMMARSTATE = Int32
+SPGS_DISABLED: SPGRAMMARSTATE = 0
+SPGS_ENABLED: SPGRAMMARSTATE = 1
+SPGS_EXCLUSIVE: SPGRAMMARSTATE = 3
+SPGRAMMARWORDTYPE = Int32
+SPWT_DISPLAY: SPGRAMMARWORDTYPE = 0
+SPWT_LEXICAL: SPGRAMMARWORDTYPE = 1
+SPWT_PRONUNCIATION: SPGRAMMARWORDTYPE = 2
+SPWT_LEXICAL_NO_SPECIAL_CHARS: SPGRAMMARWORDTYPE = 3
+SPINTERFERENCE = Int32
+SPINTERFERENCE_NONE: SPINTERFERENCE = 0
+SPINTERFERENCE_NOISE: SPINTERFERENCE = 1
+SPINTERFERENCE_NOSIGNAL: SPINTERFERENCE = 2
+SPINTERFERENCE_TOOLOUD: SPINTERFERENCE = 3
+SPINTERFERENCE_TOOQUIET: SPINTERFERENCE = 4
+SPINTERFERENCE_TOOFAST: SPINTERFERENCE = 5
+SPINTERFERENCE_TOOSLOW: SPINTERFERENCE = 6
+SPINTERFERENCE_LATENCY_WARNING: SPINTERFERENCE = 7
+SPINTERFERENCE_LATENCY_TRUNCATE_BEGIN: SPINTERFERENCE = 8
+SPINTERFERENCE_LATENCY_TRUNCATE_END: SPINTERFERENCE = 9
+SPLEXICONTYPE = Int32
+eLEXTYPE_USER: SPLEXICONTYPE = 1
+eLEXTYPE_APP: SPLEXICONTYPE = 2
+eLEXTYPE_VENDORLEXICON: SPLEXICONTYPE = 4
+eLEXTYPE_LETTERTOSOUND: SPLEXICONTYPE = 8
+eLEXTYPE_MORPHOLOGY: SPLEXICONTYPE = 16
+eLEXTYPE_RESERVED4: SPLEXICONTYPE = 32
+eLEXTYPE_USER_SHORTCUT: SPLEXICONTYPE = 64
+eLEXTYPE_RESERVED6: SPLEXICONTYPE = 128
+eLEXTYPE_RESERVED7: SPLEXICONTYPE = 256
+eLEXTYPE_RESERVED8: SPLEXICONTYPE = 512
+eLEXTYPE_RESERVED9: SPLEXICONTYPE = 1024
+eLEXTYPE_RESERVED10: SPLEXICONTYPE = 2048
+eLEXTYPE_PRIVATE1: SPLEXICONTYPE = 4096
+eLEXTYPE_PRIVATE2: SPLEXICONTYPE = 8192
+eLEXTYPE_PRIVATE3: SPLEXICONTYPE = 16384
+eLEXTYPE_PRIVATE4: SPLEXICONTYPE = 32768
+eLEXTYPE_PRIVATE5: SPLEXICONTYPE = 65536
+eLEXTYPE_PRIVATE6: SPLEXICONTYPE = 131072
+eLEXTYPE_PRIVATE7: SPLEXICONTYPE = 262144
+eLEXTYPE_PRIVATE8: SPLEXICONTYPE = 524288
+eLEXTYPE_PRIVATE9: SPLEXICONTYPE = 1048576
+eLEXTYPE_PRIVATE10: SPLEXICONTYPE = 2097152
+eLEXTYPE_PRIVATE11: SPLEXICONTYPE = 4194304
+eLEXTYPE_PRIVATE12: SPLEXICONTYPE = 8388608
+eLEXTYPE_PRIVATE13: SPLEXICONTYPE = 16777216
+eLEXTYPE_PRIVATE14: SPLEXICONTYPE = 33554432
+eLEXTYPE_PRIVATE15: SPLEXICONTYPE = 67108864
+eLEXTYPE_PRIVATE16: SPLEXICONTYPE = 134217728
+eLEXTYPE_PRIVATE17: SPLEXICONTYPE = 268435456
+eLEXTYPE_PRIVATE18: SPLEXICONTYPE = 536870912
+eLEXTYPE_PRIVATE19: SPLEXICONTYPE = 1073741824
+eLEXTYPE_PRIVATE20: SPLEXICONTYPE = -2147483648
+SPLOADOPTIONS = Int32
+SPLO_STATIC: SPLOADOPTIONS = 0
+SPLO_DYNAMIC: SPLOADOPTIONS = 1
+SPMATCHINGMODE = Int32
+SPMATCHINGMODE_AllWords: SPMATCHINGMODE = 0
+SPMATCHINGMODE_Subsequence: SPMATCHINGMODE = 1
+SPMATCHINGMODE_OrderedSubset: SPMATCHINGMODE = 3
+SPMATCHINGMODE_SubsequenceContentRequired: SPMATCHINGMODE = 5
+SPMATCHINGMODE_OrderedSubsetContentRequired: SPMATCHINGMODE = 7
+class SPNORMALIZATIONLIST(Structure):
+    ulSize: UInt32
+    ppszzNormalizedList: POINTER(POINTER(UInt16))
+@winfunctype_pointer
+def SPNOTIFYCALLBACK(wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> Void: ...
+SPPARTOFSPEECH = Int32
+SPPS_NotOverriden: SPPARTOFSPEECH = -1
+SPPS_Unknown: SPPARTOFSPEECH = 0
+SPPS_Noun: SPPARTOFSPEECH = 4096
+SPPS_Verb: SPPARTOFSPEECH = 8192
+SPPS_Modifier: SPPARTOFSPEECH = 12288
+SPPS_Function: SPPARTOFSPEECH = 16384
+SPPS_Interjection: SPPARTOFSPEECH = 20480
+SPPS_Noncontent: SPPARTOFSPEECH = 24576
+SPPS_LMA: SPPARTOFSPEECH = 28672
+SPPS_SuppressWord: SPPARTOFSPEECH = 61440
+class SPPHRASE(Structure):
+    Base: win32more.Media.Speech.SPPHRASE_50
+    pSML: win32more.Foundation.PWSTR
+    pSemanticErrorInfo: POINTER(win32more.Media.Speech.SPSEMANTICERRORINFO_head)
+class SPPHRASEELEMENT(Structure):
+    ulAudioTimeOffset: UInt32
+    ulAudioSizeTime: UInt32
+    ulAudioStreamOffset: UInt32
+    ulAudioSizeBytes: UInt32
+    ulRetainedStreamOffset: UInt32
+    ulRetainedSizeBytes: UInt32
+    pszDisplayText: win32more.Foundation.PWSTR
+    pszLexicalForm: win32more.Foundation.PWSTR
+    pszPronunciation: POINTER(UInt16)
+    bDisplayAttributes: Byte
+    RequiredConfidence: SByte
+    ActualConfidence: SByte
+    Reserved: Byte
+    SREngineConfidence: Single
+class SPPHRASEPROPERTY(Structure):
+    pszName: win32more.Foundation.PWSTR
+    Anonymous: _Anonymous_e__Union
+    pszValue: win32more.Foundation.PWSTR
+    vValue: win32more.System.Com.VARIANT
+    ulFirstElement: UInt32
+    ulCountOfElements: UInt32
+    pNextSibling: POINTER(win32more.Media.Speech.SPPHRASEPROPERTY_head)
+    pFirstChild: POINTER(win32more.Media.Speech.SPPHRASEPROPERTY_head)
+    SREngineConfidence: Single
+    Confidence: SByte
+    class _Anonymous_e__Union(Union):
+        ulId: UInt32
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            bType: Byte
+            bReserved: Byte
+            usArrayIndex: UInt16
+SPPHRASEPROPERTYUNIONTYPE = Int32
+SPPPUT_UNUSED: SPPHRASEPROPERTYUNIONTYPE = 0
+SPPPUT_ARRAY_INDEX: SPPHRASEPROPERTYUNIONTYPE = 1
+class SPPHRASEREPLACEMENT(Structure):
+    bDisplayAttributes: Byte
+    pszReplacementText: win32more.Foundation.PWSTR
+    ulFirstElement: UInt32
+    ulCountOfElements: UInt32
+SPPHRASERNG = Int32
+SPPR_ALL_ELEMENTS: SPPHRASERNG = -1
+class SPPHRASERULE(Structure):
+    pszName: win32more.Foundation.PWSTR
+    ulId: UInt32
+    ulFirstElement: UInt32
+    ulCountOfElements: UInt32
+    pNextSibling: POINTER(win32more.Media.Speech.SPPHRASERULE_head)
+    pFirstChild: POINTER(win32more.Media.Speech.SPPHRASERULE_head)
+    SREngineConfidence: Single
+    Confidence: SByte
+class SPPHRASE_50(Structure):
+    cbSize: UInt32
+    LangID: UInt16
+    wHomophoneGroupId: UInt16
+    ullGrammarID: UInt64
+    ftStartTime: UInt64
+    ullAudioStreamPosition: UInt64
+    ulAudioSizeBytes: UInt32
+    ulRetainedSizeBytes: UInt32
+    ulAudioSizeTime: UInt32
+    Rule: win32more.Media.Speech.SPPHRASERULE
+    pProperties: POINTER(win32more.Media.Speech.SPPHRASEPROPERTY_head)
+    pElements: POINTER(win32more.Media.Speech.SPPHRASEELEMENT_head)
+    cReplacements: UInt32
+    pReplacements: POINTER(win32more.Media.Speech.SPPHRASEREPLACEMENT_head)
+    SREngineID: Guid
+    ulSREnginePrivateDataSize: UInt32
+    pSREnginePrivateData: c_char_p_no
+SPPRONUNCIATIONFLAGS = Int32
+ePRONFLAG_USED: SPPRONUNCIATIONFLAGS = 1
+class SPPROPERTYINFO(Structure):
+    pszName: win32more.Foundation.PWSTR
+    ulId: UInt32
+    pszValue: win32more.Foundation.PWSTR
+    vValue: win32more.System.Com.VARIANT
+class SPRECOCONTEXTSTATUS(Structure):
+    eInterference: win32more.Media.Speech.SPINTERFERENCE
+    szRequestTypeOfUI: Char * 255
+    dwReserved1: UInt32
+    dwReserved2: UInt32
+SPRECOEVENTFLAGS = Int32
+SPREF_AutoPause: SPRECOEVENTFLAGS = 1
+SPREF_Emulated: SPRECOEVENTFLAGS = 2
+SPREF_SMLTimeout: SPRECOEVENTFLAGS = 4
+SPREF_ExtendableParse: SPRECOEVENTFLAGS = 8
+SPREF_ReSent: SPRECOEVENTFLAGS = 16
+SPREF_Hypothesis: SPRECOEVENTFLAGS = 32
+SPREF_FalseRecognition: SPRECOEVENTFLAGS = 64
+class SPRECOGNIZERSTATUS(Structure):
+    AudioStatus: win32more.Media.Speech.SPAUDIOSTATUS
+    ullRecognitionStreamPos: UInt64
+    ulStreamNumber: UInt32
+    ulNumActive: UInt32
+    clsidEngine: Guid
+    cLangIDs: UInt32
+    aLangID: UInt16 * 20
+    ullRecognitionStreamTime: UInt64
+class SPRECORESULTTIMES(Structure):
+    ftStreamTime: win32more.Foundation.FILETIME
+    ullLength: UInt64
+    dwTickCount: UInt32
+    ullStart: UInt64
+SPRECOSTATE = Int32
+SPRST_INACTIVE: SPRECOSTATE = 0
+SPRST_ACTIVE: SPRECOSTATE = 1
+SPRST_ACTIVE_ALWAYS: SPRECOSTATE = 2
+SPRST_INACTIVE_WITH_PURGE: SPRECOSTATE = 3
+SPRST_NUM_STATES: SPRECOSTATE = 4
+class SPRULE(Structure):
+    pszRuleName: win32more.Foundation.PWSTR
+    ulRuleId: UInt32
+    dwAttributes: UInt32
+SPRULESTATE = Int32
+SPRS_INACTIVE: SPRULESTATE = 0
+SPRS_ACTIVE: SPRULESTATE = 1
+SPRS_ACTIVE_WITH_AUTO_PAUSE: SPRULESTATE = 3
+SPRS_ACTIVE_USER_DELIMITED: SPRULESTATE = 4
+SPRUNSTATE = Int32
+SPRS_DONE: SPRUNSTATE = 1
+SPRS_IS_SPEAKING: SPRUNSTATE = 2
+class SPSEMANTICERRORINFO(Structure):
+    ulLineNumber: UInt32
+    pszScriptLine: win32more.Foundation.PWSTR
+    pszSource: win32more.Foundation.PWSTR
+    pszDescription: win32more.Foundation.PWSTR
+    hrResultCode: win32more.Foundation.HRESULT
+SPSEMANTICFORMAT = Int32
+SPSMF_SAPI_PROPERTIES: SPSEMANTICFORMAT = 0
+SPSMF_SRGS_SEMANTICINTERPRETATION_MS: SPSEMANTICFORMAT = 1
+SPSMF_SRGS_SAPIPROPERTIES: SPSEMANTICFORMAT = 2
+SPSMF_UPS: SPSEMANTICFORMAT = 4
+SPSMF_SRGS_SEMANTICINTERPRETATION_W3C: SPSEMANTICFORMAT = 8
+class SPSERIALIZEDEVENT(Structure):
+    _bitfield: Int32
+    ulStreamNum: UInt32
+    ullAudioStreamOffset: UInt64
+    SerializedwParam: UInt32
+    SerializedlParam: Int32
+class SPSERIALIZEDEVENT64(Structure):
+    _bitfield: Int32
+    ulStreamNum: UInt32
+    ullAudioStreamOffset: UInt64
+    SerializedwParam: UInt64
+    SerializedlParam: Int64
+class SPSERIALIZEDPHRASE(Structure):
+    ulSerializedSize: UInt32
+class SPSERIALIZEDRESULT(Structure):
+    ulSerializedSize: UInt32
+class SPSHORTCUTPAIR(Structure):
+    pNextSHORTCUTPAIR: POINTER(win32more.Media.Speech.SPSHORTCUTPAIR_head)
+    LangID: UInt16
+    shType: win32more.Media.Speech.SPSHORTCUTTYPE
+    pszDisplay: win32more.Foundation.PWSTR
+    pszSpoken: win32more.Foundation.PWSTR
+class SPSHORTCUTPAIRLIST(Structure):
+    ulSize: UInt32
+    pvBuffer: c_char_p_no
+    pFirstShortcutPair: POINTER(win32more.Media.Speech.SPSHORTCUTPAIR_head)
+SPSHORTCUTTYPE = Int32
+SPSHT_NotOverriden: SPSHORTCUTTYPE = -1
+SPSHT_Unknown: SPSHORTCUTTYPE = 0
+SPSHT_EMAIL: SPSHORTCUTTYPE = 4096
+SPSHT_OTHER: SPSHORTCUTTYPE = 8192
+SPPS_RESERVED1: SPSHORTCUTTYPE = 12288
+SPPS_RESERVED2: SPSHORTCUTTYPE = 16384
+SPPS_RESERVED3: SPSHORTCUTTYPE = 20480
+SPPS_RESERVED4: SPSHORTCUTTYPE = 61440
+class SPSTATEHANDLE__(Structure):
+    unused: Int32
+SPSTREAMFORMAT = Int32
+SPSF_Default: SPSTREAMFORMAT = -1
+SPSF_NoAssignedFormat: SPSTREAMFORMAT = 0
+SPSF_Text: SPSTREAMFORMAT = 1
+SPSF_NonStandardFormat: SPSTREAMFORMAT = 2
+SPSF_ExtendedAudioFormat: SPSTREAMFORMAT = 3
+SPSF_8kHz8BitMono: SPSTREAMFORMAT = 4
+SPSF_8kHz8BitStereo: SPSTREAMFORMAT = 5
+SPSF_8kHz16BitMono: SPSTREAMFORMAT = 6
+SPSF_8kHz16BitStereo: SPSTREAMFORMAT = 7
+SPSF_11kHz8BitMono: SPSTREAMFORMAT = 8
+SPSF_11kHz8BitStereo: SPSTREAMFORMAT = 9
+SPSF_11kHz16BitMono: SPSTREAMFORMAT = 10
+SPSF_11kHz16BitStereo: SPSTREAMFORMAT = 11
+SPSF_12kHz8BitMono: SPSTREAMFORMAT = 12
+SPSF_12kHz8BitStereo: SPSTREAMFORMAT = 13
+SPSF_12kHz16BitMono: SPSTREAMFORMAT = 14
+SPSF_12kHz16BitStereo: SPSTREAMFORMAT = 15
+SPSF_16kHz8BitMono: SPSTREAMFORMAT = 16
+SPSF_16kHz8BitStereo: SPSTREAMFORMAT = 17
+SPSF_16kHz16BitMono: SPSTREAMFORMAT = 18
+SPSF_16kHz16BitStereo: SPSTREAMFORMAT = 19
+SPSF_22kHz8BitMono: SPSTREAMFORMAT = 20
+SPSF_22kHz8BitStereo: SPSTREAMFORMAT = 21
+SPSF_22kHz16BitMono: SPSTREAMFORMAT = 22
+SPSF_22kHz16BitStereo: SPSTREAMFORMAT = 23
+SPSF_24kHz8BitMono: SPSTREAMFORMAT = 24
+SPSF_24kHz8BitStereo: SPSTREAMFORMAT = 25
+SPSF_24kHz16BitMono: SPSTREAMFORMAT = 26
+SPSF_24kHz16BitStereo: SPSTREAMFORMAT = 27
+SPSF_32kHz8BitMono: SPSTREAMFORMAT = 28
+SPSF_32kHz8BitStereo: SPSTREAMFORMAT = 29
+SPSF_32kHz16BitMono: SPSTREAMFORMAT = 30
+SPSF_32kHz16BitStereo: SPSTREAMFORMAT = 31
+SPSF_44kHz8BitMono: SPSTREAMFORMAT = 32
+SPSF_44kHz8BitStereo: SPSTREAMFORMAT = 33
+SPSF_44kHz16BitMono: SPSTREAMFORMAT = 34
+SPSF_44kHz16BitStereo: SPSTREAMFORMAT = 35
+SPSF_48kHz8BitMono: SPSTREAMFORMAT = 36
+SPSF_48kHz8BitStereo: SPSTREAMFORMAT = 37
+SPSF_48kHz16BitMono: SPSTREAMFORMAT = 38
+SPSF_48kHz16BitStereo: SPSTREAMFORMAT = 39
+SPSF_TrueSpeech_8kHz1BitMono: SPSTREAMFORMAT = 40
+SPSF_CCITT_ALaw_8kHzMono: SPSTREAMFORMAT = 41
+SPSF_CCITT_ALaw_8kHzStereo: SPSTREAMFORMAT = 42
+SPSF_CCITT_ALaw_11kHzMono: SPSTREAMFORMAT = 43
+SPSF_CCITT_ALaw_11kHzStereo: SPSTREAMFORMAT = 44
+SPSF_CCITT_ALaw_22kHzMono: SPSTREAMFORMAT = 45
+SPSF_CCITT_ALaw_22kHzStereo: SPSTREAMFORMAT = 46
+SPSF_CCITT_ALaw_44kHzMono: SPSTREAMFORMAT = 47
+SPSF_CCITT_ALaw_44kHzStereo: SPSTREAMFORMAT = 48
+SPSF_CCITT_uLaw_8kHzMono: SPSTREAMFORMAT = 49
+SPSF_CCITT_uLaw_8kHzStereo: SPSTREAMFORMAT = 50
+SPSF_CCITT_uLaw_11kHzMono: SPSTREAMFORMAT = 51
+SPSF_CCITT_uLaw_11kHzStereo: SPSTREAMFORMAT = 52
+SPSF_CCITT_uLaw_22kHzMono: SPSTREAMFORMAT = 53
+SPSF_CCITT_uLaw_22kHzStereo: SPSTREAMFORMAT = 54
+SPSF_CCITT_uLaw_44kHzMono: SPSTREAMFORMAT = 55
+SPSF_CCITT_uLaw_44kHzStereo: SPSTREAMFORMAT = 56
+SPSF_ADPCM_8kHzMono: SPSTREAMFORMAT = 57
+SPSF_ADPCM_8kHzStereo: SPSTREAMFORMAT = 58
+SPSF_ADPCM_11kHzMono: SPSTREAMFORMAT = 59
+SPSF_ADPCM_11kHzStereo: SPSTREAMFORMAT = 60
+SPSF_ADPCM_22kHzMono: SPSTREAMFORMAT = 61
+SPSF_ADPCM_22kHzStereo: SPSTREAMFORMAT = 62
+SPSF_ADPCM_44kHzMono: SPSTREAMFORMAT = 63
+SPSF_ADPCM_44kHzStereo: SPSTREAMFORMAT = 64
+SPSF_GSM610_8kHzMono: SPSTREAMFORMAT = 65
+SPSF_GSM610_11kHzMono: SPSTREAMFORMAT = 66
+SPSF_GSM610_22kHzMono: SPSTREAMFORMAT = 67
+SPSF_GSM610_44kHzMono: SPSTREAMFORMAT = 68
+SPSF_NUM_FORMATS: SPSTREAMFORMAT = 69
+SPSTREAMFORMATTYPE = Int32
+SPWF_INPUT: SPSTREAMFORMATTYPE = 0
+SPWF_SRENGINE: SPSTREAMFORMATTYPE = 1
+class SPTEXTSELECTIONINFO(Structure):
+    ulStartActiveOffset: UInt32
+    cchActiveChars: UInt32
+    ulStartSelection: UInt32
+    cchSelection: UInt32
+SPVACTIONS = Int32
+SPVA_Speak: SPVACTIONS = 0
+SPVA_Silence: SPVACTIONS = 1
+SPVA_Pronounce: SPVACTIONS = 2
+SPVA_Bookmark: SPVACTIONS = 3
+SPVA_SpellOut: SPVACTIONS = 4
+SPVA_Section: SPVACTIONS = 5
+SPVA_ParseUnknownTag: SPVACTIONS = 6
+SPVALUETYPE = Int32
+SPDF_PROPERTY: SPVALUETYPE = 1
+SPDF_REPLACEMENT: SPVALUETYPE = 2
+SPDF_RULE: SPVALUETYPE = 4
+SPDF_DISPLAYTEXT: SPVALUETYPE = 8
+SPDF_LEXICALFORM: SPVALUETYPE = 16
+SPDF_PRONUNCIATION: SPVALUETYPE = 32
+SPDF_AUDIO: SPVALUETYPE = 64
+SPDF_ALTERNATES: SPVALUETYPE = 128
+SPDF_ALL: SPVALUETYPE = 255
+class SPVCONTEXT(Structure):
+    pCategory: win32more.Foundation.PWSTR
+    pBefore: win32more.Foundation.PWSTR
+    pAfter: win32more.Foundation.PWSTR
+SPVFEATURE = Int32
+SPVFEATURE_STRESSED: SPVFEATURE = 1
+SPVFEATURE_EMPHASIS: SPVFEATURE = 2
+SPVISEMES = Int32
+SP_VISEME_0: SPVISEMES = 0
+SP_VISEME_1: SPVISEMES = 1
+SP_VISEME_2: SPVISEMES = 2
+SP_VISEME_3: SPVISEMES = 3
+SP_VISEME_4: SPVISEMES = 4
+SP_VISEME_5: SPVISEMES = 5
+SP_VISEME_6: SPVISEMES = 6
+SP_VISEME_7: SPVISEMES = 7
+SP_VISEME_8: SPVISEMES = 8
+SP_VISEME_9: SPVISEMES = 9
+SP_VISEME_10: SPVISEMES = 10
+SP_VISEME_11: SPVISEMES = 11
+SP_VISEME_12: SPVISEMES = 12
+SP_VISEME_13: SPVISEMES = 13
+SP_VISEME_14: SPVISEMES = 14
+SP_VISEME_15: SPVISEMES = 15
+SP_VISEME_16: SPVISEMES = 16
+SP_VISEME_17: SPVISEMES = 17
+SP_VISEME_18: SPVISEMES = 18
+SP_VISEME_19: SPVISEMES = 19
+SP_VISEME_20: SPVISEMES = 20
+SP_VISEME_21: SPVISEMES = 21
+SPVLIMITS = Int32
+SPMIN_VOLUME: SPVLIMITS = 0
+SPMAX_VOLUME: SPVLIMITS = 100
+SPMIN_RATE: SPVLIMITS = -10
+SPMAX_RATE: SPVLIMITS = 10
+class SPVOICESTATUS(Structure):
+    ulCurrentStream: UInt32
+    ulLastStreamQueued: UInt32
+    hrLastResult: win32more.Foundation.HRESULT
+    dwRunningState: UInt32
+    ulInputWordPos: UInt32
+    ulInputWordLen: UInt32
+    ulInputSentPos: UInt32
+    ulInputSentLen: UInt32
+    lBookmarkId: Int32
+    PhonemeId: UInt16
+    VisemeId: win32more.Media.Speech.SPVISEMES
+    dwReserved1: UInt32
+    dwReserved2: UInt32
+class SPVPITCH(Structure):
+    MiddleAdj: Int32
+    RangeAdj: Int32
+SPVPRIORITY = Int32
+SPVPRI_NORMAL: SPVPRIORITY = 0
+SPVPRI_ALERT: SPVPRIORITY = 1
+SPVPRI_OVER: SPVPRIORITY = 2
+class SPVSTATE(Structure):
+    eAction: win32more.Media.Speech.SPVACTIONS
+    LangID: UInt16
+    wReserved: UInt16
+    EmphAdj: Int32
+    RateAdj: Int32
+    Volume: UInt32
+    PitchAdj: win32more.Media.Speech.SPVPITCH
+    SilenceMSecs: UInt32
+    pPhoneIds: POINTER(UInt16)
+    ePartOfSpeech: win32more.Media.Speech.SPPARTOFSPEECH
+    Context: win32more.Media.Speech.SPVCONTEXT
+class SPWORD(Structure):
+    pNextWord: POINTER(win32more.Media.Speech.SPWORD_head)
+    LangID: UInt16
+    wReserved: UInt16
+    eWordType: win32more.Media.Speech.SPWORDTYPE
+    pszWord: win32more.Foundation.PWSTR
+    pFirstWordPronunciation: POINTER(win32more.Media.Speech.SPWORDPRONUNCIATION_head)
+class SPWORDLIST(Structure):
+    ulSize: UInt32
+    pvBuffer: c_char_p_no
+    pFirstWord: POINTER(win32more.Media.Speech.SPWORD_head)
+SPWORDPRONOUNCEABLE = Int32
+SPWP_UNKNOWN_WORD_UNPRONOUNCEABLE: SPWORDPRONOUNCEABLE = 0
+SPWP_UNKNOWN_WORD_PRONOUNCEABLE: SPWORDPRONOUNCEABLE = 1
+SPWP_KNOWN_WORD_PRONOUNCEABLE: SPWORDPRONOUNCEABLE = 2
+class SPWORDPRONUNCIATION(Structure):
+    pNextWordPronunciation: POINTER(win32more.Media.Speech.SPWORDPRONUNCIATION_head)
+    eLexiconType: win32more.Media.Speech.SPLEXICONTYPE
+    LangID: UInt16
+    wPronunciationFlags: UInt16
+    ePartOfSpeech: win32more.Media.Speech.SPPARTOFSPEECH
+    szPronunciation: UInt16 * 1
+class SPWORDPRONUNCIATIONLIST(Structure):
+    ulSize: UInt32
+    pvBuffer: c_char_p_no
+    pFirstWordPronunciation: POINTER(win32more.Media.Speech.SPWORDPRONUNCIATION_head)
+SPWORDTYPE = Int32
+eWORDTYPE_ADDED: SPWORDTYPE = 1
+eWORDTYPE_DELETED: SPWORDTYPE = 2
+SPXMLRESULTOPTIONS = Int32
+SPXRO_SML: SPXMLRESULTOPTIONS = 0
+SPXRO_Alternates_SML: SPXMLRESULTOPTIONS = 1
+SpAudioFormat = Guid('9ef96870-e160-4792-82-0d-48-cf-06-49-e4-ec')
+SpCompressedLexicon = Guid('90903716-2f42-11d3-9c-26-00-c0-4f-8e-f8-7c')
+SpCustomStream = Guid('8dbef13f-1948-4aa8-8c-f0-04-8e-eb-ed-95-d8')
+SpFileStream = Guid('947812b3-2ae1-4644-ba-86-9e-90-de-d7-ec-91')
+SpInProcRecoContext = Guid('73ad6842-ace0-45e8-a4-dd-87-95-88-1a-2c-2a')
+SpInprocRecognizer = Guid('41b89b6b-9399-11d2-96-23-00-c0-4f-8e-e6-28')
+SpLexicon = Guid('0655e396-25d0-11d3-9c-26-00-c0-4f-8e-f8-7c')
+SpMMAudioEnum = Guid('ab1890a0-e91f-11d2-bb-91-00-c0-4f-8e-e6-c0')
+SpMMAudioIn = Guid('cf3d2e50-53f2-11d2-96-0c-00-c0-4f-8e-e6-28')
+SpMMAudioOut = Guid('a8c680eb-3d32-11d2-9e-e7-00-c0-4f-79-73-96')
+SpMemoryStream = Guid('5fb7ef7d-dff4-468a-b6-b7-2f-cb-d1-88-f9-94')
+SpNotifyTranslator = Guid('e2ae5372-5d40-11d2-96-0e-00-c0-4f-8e-e6-28')
+SpNullPhoneConverter = Guid('455f24e9-7396-4a16-97-15-7c-0f-db-e3-ef-e3')
+SpObjectToken = Guid('ef411752-3736-4cb4-9c-8c-8e-f4-cc-b5-8e-fe')
+SpObjectTokenCategory = Guid('a910187f-0c7a-45ac-92-cc-59-ed-af-b7-7b-53')
+SpPhoneConverter = Guid('9185f743-1143-4c28-86-b5-bf-f1-4f-20-e5-c8')
+SpPhoneticAlphabetConverter = Guid('4f414126-dfe3-4629-99-ee-79-79-78-31-7e-ad')
+SpPhraseInfoBuilder = Guid('c23fc28d-c55f-4720-8b-32-91-f7-3c-2b-d5-d1')
+SpResourceManager = Guid('96749373-3391-11d2-9e-e3-00-c0-4f-79-73-96')
+SpSharedRecoContext = Guid('47206204-5eca-11d2-96-0f-00-c0-4f-8e-e6-28')
+SpSharedRecognizer = Guid('3bee4890-4fe9-4a37-8c-1e-5e-7e-12-79-1c-1f')
+SpShortcut = Guid('0d722f1a-9fcf-4e62-96-d8-6d-f8-f0-1a-26-aa')
+SpStream = Guid('715d9c59-4442-11d2-96-05-00-c0-4f-8e-e6-28')
+SpStreamFormatConverter = Guid('7013943a-e2ec-11d2-a0-86-00-c0-4f-8e-f9-b5')
+SpTextSelectionInformation = Guid('0f92030a-cbfd-4ab8-a1-64-ff-59-85-54-7f-f6')
+SpUnCompressedLexicon = Guid('c9e37c15-df92-4727-85-d6-72-e5-ee-b6-99-5a')
+SpVoice = Guid('96749377-3391-11d2-9e-e3-00-c0-4f-79-73-96')
+SpWaveFormatEx = Guid('c79a574c-63be-44b9-80-1f-28-3f-87-f8-98-be')
 SpeechAudioFormatType = Int32
 SpeechAudioFormatType_SAFTDefault: SpeechAudioFormatType = -1
 SpeechAudioFormatType_SAFTNoAssignedFormat: SpeechAudioFormatType = 0
@@ -2421,627 +2979,17 @@ SpeechWordPronounceable_SWPKnownWordPronounceable: SpeechWordPronounceable = 2
 SpeechWordType = Int32
 SpeechWordType_SWTAdded: SpeechWordType = 1
 SpeechWordType_SWTDeleted: SpeechWordType = 2
-SPENDSRSTREAMFLAGS = Int32
-SPESF_NONE: SPENDSRSTREAMFLAGS = 0
-SPESF_STREAM_RELEASED: SPENDSRSTREAMFLAGS = 1
-SPESF_EMULATED: SPENDSRSTREAMFLAGS = 2
-class SPEVENT(Structure):
-    _bitfield: Int32
-    ulStreamNum: UInt32
-    ullAudioStreamOffset: UInt64
-    wParam: win32more.Foundation.WPARAM
-    lParam: win32more.Foundation.LPARAM
-SPEVENTENUM = Int32
-SPEI_UNDEFINED: SPEVENTENUM = 0
-SPEI_START_INPUT_STREAM: SPEVENTENUM = 1
-SPEI_END_INPUT_STREAM: SPEVENTENUM = 2
-SPEI_VOICE_CHANGE: SPEVENTENUM = 3
-SPEI_TTS_BOOKMARK: SPEVENTENUM = 4
-SPEI_WORD_BOUNDARY: SPEVENTENUM = 5
-SPEI_PHONEME: SPEVENTENUM = 6
-SPEI_SENTENCE_BOUNDARY: SPEVENTENUM = 7
-SPEI_VISEME: SPEVENTENUM = 8
-SPEI_TTS_AUDIO_LEVEL: SPEVENTENUM = 9
-SPEI_TTS_PRIVATE: SPEVENTENUM = 15
-SPEI_MIN_TTS: SPEVENTENUM = 1
-SPEI_MAX_TTS: SPEVENTENUM = 15
-SPEI_END_SR_STREAM: SPEVENTENUM = 34
-SPEI_SOUND_START: SPEVENTENUM = 35
-SPEI_SOUND_END: SPEVENTENUM = 36
-SPEI_PHRASE_START: SPEVENTENUM = 37
-SPEI_RECOGNITION: SPEVENTENUM = 38
-SPEI_HYPOTHESIS: SPEVENTENUM = 39
-SPEI_SR_BOOKMARK: SPEVENTENUM = 40
-SPEI_PROPERTY_NUM_CHANGE: SPEVENTENUM = 41
-SPEI_PROPERTY_STRING_CHANGE: SPEVENTENUM = 42
-SPEI_FALSE_RECOGNITION: SPEVENTENUM = 43
-SPEI_INTERFERENCE: SPEVENTENUM = 44
-SPEI_REQUEST_UI: SPEVENTENUM = 45
-SPEI_RECO_STATE_CHANGE: SPEVENTENUM = 46
-SPEI_ADAPTATION: SPEVENTENUM = 47
-SPEI_START_SR_STREAM: SPEVENTENUM = 48
-SPEI_RECO_OTHER_CONTEXT: SPEVENTENUM = 49
-SPEI_SR_AUDIO_LEVEL: SPEVENTENUM = 50
-SPEI_SR_RETAINEDAUDIO: SPEVENTENUM = 51
-SPEI_SR_PRIVATE: SPEVENTENUM = 52
-SPEI_RESERVED4: SPEVENTENUM = 53
-SPEI_RESERVED5: SPEVENTENUM = 54
-SPEI_RESERVED6: SPEVENTENUM = 55
-SPEI_MIN_SR: SPEVENTENUM = 34
-SPEI_MAX_SR: SPEVENTENUM = 55
-SPEI_RESERVED1: SPEVENTENUM = 30
-SPEI_RESERVED2: SPEVENTENUM = 33
-SPEI_RESERVED3: SPEVENTENUM = 63
-class SPEVENTEX(Structure):
-    _bitfield: Int32
-    ulStreamNum: UInt32
-    ullAudioStreamOffset: UInt64
-    wParam: win32more.Foundation.WPARAM
-    lParam: win32more.Foundation.LPARAM
-    ullAudioTimeOffset: UInt64
-SPEVENTLPARAMTYPE = Int32
-SPET_LPARAM_IS_UNDEFINED: SPEVENTLPARAMTYPE = 0
-SPET_LPARAM_IS_TOKEN: SPEVENTLPARAMTYPE = 1
-SPET_LPARAM_IS_OBJECT: SPEVENTLPARAMTYPE = 2
-SPET_LPARAM_IS_POINTER: SPEVENTLPARAMTYPE = 3
-SPET_LPARAM_IS_STRING: SPEVENTLPARAMTYPE = 4
-class SPEVENTSOURCEINFO(Structure):
-    ullEventInterest: UInt64
-    ullQueuedInterest: UInt64
-    ulCount: UInt32
-SPFILEMODE = Int32
-SPFM_OPEN_READONLY: SPFILEMODE = 0
-SPFM_OPEN_READWRITE: SPFILEMODE = 1
-SPFM_CREATE: SPFILEMODE = 2
-SPFM_CREATE_ALWAYS: SPFILEMODE = 3
-SPFM_NUM_MODES: SPFILEMODE = 4
-SpFileStream = Guid('947812b3-2ae1-4644-ba-86-9e-90-de-d7-ec-91')
-SPGRAMMAROPTIONS = Int32
-SPGO_SAPI: SPGRAMMAROPTIONS = 1
-SPGO_SRGS: SPGRAMMAROPTIONS = 2
-SPGO_UPS: SPGRAMMAROPTIONS = 4
-SPGO_SRGS_MS_SCRIPT: SPGRAMMAROPTIONS = 8
-SPGO_SRGS_W3C_SCRIPT: SPGRAMMAROPTIONS = 256
-SPGO_SRGS_STG_SCRIPT: SPGRAMMAROPTIONS = 512
-SPGO_SRGS_SCRIPT: SPGRAMMAROPTIONS = 778
-SPGO_FILE: SPGRAMMAROPTIONS = 16
-SPGO_HTTP: SPGRAMMAROPTIONS = 32
-SPGO_RES: SPGRAMMAROPTIONS = 64
-SPGO_OBJECT: SPGRAMMAROPTIONS = 128
-SPGO_DEFAULT: SPGRAMMAROPTIONS = 1019
-SPGO_ALL: SPGRAMMAROPTIONS = 1023
-SPGRAMMARSTATE = Int32
-SPGS_DISABLED: SPGRAMMARSTATE = 0
-SPGS_ENABLED: SPGRAMMARSTATE = 1
-SPGS_EXCLUSIVE: SPGRAMMARSTATE = 3
-SPGRAMMARWORDTYPE = Int32
-SPWT_DISPLAY: SPGRAMMARWORDTYPE = 0
-SPWT_LEXICAL: SPGRAMMARWORDTYPE = 1
-SPWT_PRONUNCIATION: SPGRAMMARWORDTYPE = 2
-SPWT_LEXICAL_NO_SPECIAL_CHARS: SPGRAMMARWORDTYPE = 3
-SpInProcRecoContext = Guid('73ad6842-ace0-45e8-a4-dd-87-95-88-1a-2c-2a')
-SpInprocRecognizer = Guid('41b89b6b-9399-11d2-96-23-00-c0-4f-8e-e6-28')
-SPINTERFERENCE = Int32
-SPINTERFERENCE_NONE: SPINTERFERENCE = 0
-SPINTERFERENCE_NOISE: SPINTERFERENCE = 1
-SPINTERFERENCE_NOSIGNAL: SPINTERFERENCE = 2
-SPINTERFERENCE_TOOLOUD: SPINTERFERENCE = 3
-SPINTERFERENCE_TOOQUIET: SPINTERFERENCE = 4
-SPINTERFERENCE_TOOFAST: SPINTERFERENCE = 5
-SPINTERFERENCE_TOOSLOW: SPINTERFERENCE = 6
-SPINTERFERENCE_LATENCY_WARNING: SPINTERFERENCE = 7
-SPINTERFERENCE_LATENCY_TRUNCATE_BEGIN: SPINTERFERENCE = 8
-SPINTERFERENCE_LATENCY_TRUNCATE_END: SPINTERFERENCE = 9
-SpLexicon = Guid('0655e396-25d0-11d3-9c-26-00-c0-4f-8e-f8-7c')
-SPLEXICONTYPE = Int32
-eLEXTYPE_USER: SPLEXICONTYPE = 1
-eLEXTYPE_APP: SPLEXICONTYPE = 2
-eLEXTYPE_VENDORLEXICON: SPLEXICONTYPE = 4
-eLEXTYPE_LETTERTOSOUND: SPLEXICONTYPE = 8
-eLEXTYPE_MORPHOLOGY: SPLEXICONTYPE = 16
-eLEXTYPE_RESERVED4: SPLEXICONTYPE = 32
-eLEXTYPE_USER_SHORTCUT: SPLEXICONTYPE = 64
-eLEXTYPE_RESERVED6: SPLEXICONTYPE = 128
-eLEXTYPE_RESERVED7: SPLEXICONTYPE = 256
-eLEXTYPE_RESERVED8: SPLEXICONTYPE = 512
-eLEXTYPE_RESERVED9: SPLEXICONTYPE = 1024
-eLEXTYPE_RESERVED10: SPLEXICONTYPE = 2048
-eLEXTYPE_PRIVATE1: SPLEXICONTYPE = 4096
-eLEXTYPE_PRIVATE2: SPLEXICONTYPE = 8192
-eLEXTYPE_PRIVATE3: SPLEXICONTYPE = 16384
-eLEXTYPE_PRIVATE4: SPLEXICONTYPE = 32768
-eLEXTYPE_PRIVATE5: SPLEXICONTYPE = 65536
-eLEXTYPE_PRIVATE6: SPLEXICONTYPE = 131072
-eLEXTYPE_PRIVATE7: SPLEXICONTYPE = 262144
-eLEXTYPE_PRIVATE8: SPLEXICONTYPE = 524288
-eLEXTYPE_PRIVATE9: SPLEXICONTYPE = 1048576
-eLEXTYPE_PRIVATE10: SPLEXICONTYPE = 2097152
-eLEXTYPE_PRIVATE11: SPLEXICONTYPE = 4194304
-eLEXTYPE_PRIVATE12: SPLEXICONTYPE = 8388608
-eLEXTYPE_PRIVATE13: SPLEXICONTYPE = 16777216
-eLEXTYPE_PRIVATE14: SPLEXICONTYPE = 33554432
-eLEXTYPE_PRIVATE15: SPLEXICONTYPE = 67108864
-eLEXTYPE_PRIVATE16: SPLEXICONTYPE = 134217728
-eLEXTYPE_PRIVATE17: SPLEXICONTYPE = 268435456
-eLEXTYPE_PRIVATE18: SPLEXICONTYPE = 536870912
-eLEXTYPE_PRIVATE19: SPLEXICONTYPE = 1073741824
-eLEXTYPE_PRIVATE20: SPLEXICONTYPE = -2147483648
-SPLOADOPTIONS = Int32
-SPLO_STATIC: SPLOADOPTIONS = 0
-SPLO_DYNAMIC: SPLOADOPTIONS = 1
-SPMATCHINGMODE = Int32
-SPMATCHINGMODE_AllWords: SPMATCHINGMODE = 0
-SPMATCHINGMODE_Subsequence: SPMATCHINGMODE = 1
-SPMATCHINGMODE_OrderedSubset: SPMATCHINGMODE = 3
-SPMATCHINGMODE_SubsequenceContentRequired: SPMATCHINGMODE = 5
-SPMATCHINGMODE_OrderedSubsetContentRequired: SPMATCHINGMODE = 7
-SpMemoryStream = Guid('5fb7ef7d-dff4-468a-b6-b7-2f-cb-d1-88-f9-94')
-SpMMAudioEnum = Guid('ab1890a0-e91f-11d2-bb-91-00-c0-4f-8e-e6-c0')
-SpMMAudioIn = Guid('cf3d2e50-53f2-11d2-96-0c-00-c0-4f-8e-e6-28')
-SpMMAudioOut = Guid('a8c680eb-3d32-11d2-9e-e7-00-c0-4f-79-73-96')
-class SPNORMALIZATIONLIST(Structure):
-    ulSize: UInt32
-    ppszzNormalizedList: POINTER(POINTER(UInt16))
-@winfunctype_pointer
-def SPNOTIFYCALLBACK(wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> Void: ...
-SpNotifyTranslator = Guid('e2ae5372-5d40-11d2-96-0e-00-c0-4f-8e-e6-28')
-SpNullPhoneConverter = Guid('455f24e9-7396-4a16-97-15-7c-0f-db-e3-ef-e3')
-SpObjectToken = Guid('ef411752-3736-4cb4-9c-8c-8e-f4-cc-b5-8e-fe')
-SpObjectTokenCategory = Guid('a910187f-0c7a-45ac-92-cc-59-ed-af-b7-7b-53')
-SPPARTOFSPEECH = Int32
-SPPS_NotOverriden: SPPARTOFSPEECH = -1
-SPPS_Unknown: SPPARTOFSPEECH = 0
-SPPS_Noun: SPPARTOFSPEECH = 4096
-SPPS_Verb: SPPARTOFSPEECH = 8192
-SPPS_Modifier: SPPARTOFSPEECH = 12288
-SPPS_Function: SPPARTOFSPEECH = 16384
-SPPS_Interjection: SPPARTOFSPEECH = 20480
-SPPS_Noncontent: SPPARTOFSPEECH = 24576
-SPPS_LMA: SPPARTOFSPEECH = 28672
-SPPS_SuppressWord: SPPARTOFSPEECH = 61440
-SpPhoneConverter = Guid('9185f743-1143-4c28-86-b5-bf-f1-4f-20-e5-c8')
-SpPhoneticAlphabetConverter = Guid('4f414126-dfe3-4629-99-ee-79-79-78-31-7e-ad')
-class SPPHRASE(Structure):
-    Base: win32more.Media.Speech.SPPHRASE_50
-    pSML: win32more.Foundation.PWSTR
-    pSemanticErrorInfo: POINTER(win32more.Media.Speech.SPSEMANTICERRORINFO_head)
-class SPPHRASE_50(Structure):
-    cbSize: UInt32
-    LangID: UInt16
-    wHomophoneGroupId: UInt16
-    ullGrammarID: UInt64
-    ftStartTime: UInt64
-    ullAudioStreamPosition: UInt64
-    ulAudioSizeBytes: UInt32
-    ulRetainedSizeBytes: UInt32
-    ulAudioSizeTime: UInt32
-    Rule: win32more.Media.Speech.SPPHRASERULE
-    pProperties: POINTER(win32more.Media.Speech.SPPHRASEPROPERTY_head)
-    pElements: POINTER(win32more.Media.Speech.SPPHRASEELEMENT_head)
-    cReplacements: UInt32
-    pReplacements: POINTER(win32more.Media.Speech.SPPHRASEREPLACEMENT_head)
-    SREngineID: Guid
-    ulSREnginePrivateDataSize: UInt32
-    pSREnginePrivateData: c_char_p_no
-class SPPHRASEELEMENT(Structure):
-    ulAudioTimeOffset: UInt32
-    ulAudioSizeTime: UInt32
-    ulAudioStreamOffset: UInt32
-    ulAudioSizeBytes: UInt32
-    ulRetainedStreamOffset: UInt32
-    ulRetainedSizeBytes: UInt32
-    pszDisplayText: win32more.Foundation.PWSTR
-    pszLexicalForm: win32more.Foundation.PWSTR
-    pszPronunciation: POINTER(UInt16)
-    bDisplayAttributes: Byte
-    RequiredConfidence: SByte
-    ActualConfidence: SByte
-    Reserved: Byte
-    SREngineConfidence: Single
-SpPhraseInfoBuilder = Guid('c23fc28d-c55f-4720-8b-32-91-f7-3c-2b-d5-d1')
-class SPPHRASEPROPERTY(Structure):
-    pszName: win32more.Foundation.PWSTR
-    Anonymous: _Anonymous_e__Union
-    pszValue: win32more.Foundation.PWSTR
-    vValue: win32more.System.Com.VARIANT
-    ulFirstElement: UInt32
-    ulCountOfElements: UInt32
-    pNextSibling: POINTER(win32more.Media.Speech.SPPHRASEPROPERTY_head)
-    pFirstChild: POINTER(win32more.Media.Speech.SPPHRASEPROPERTY_head)
-    SREngineConfidence: Single
-    Confidence: SByte
-    class _Anonymous_e__Union(Union):
-        ulId: UInt32
-        Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(Structure):
-            bType: Byte
-            bReserved: Byte
-            usArrayIndex: UInt16
-SPPHRASEPROPERTYUNIONTYPE = Int32
-SPPPUT_UNUSED: SPPHRASEPROPERTYUNIONTYPE = 0
-SPPPUT_ARRAY_INDEX: SPPHRASEPROPERTYUNIONTYPE = 1
-class SPPHRASEREPLACEMENT(Structure):
-    bDisplayAttributes: Byte
-    pszReplacementText: win32more.Foundation.PWSTR
-    ulFirstElement: UInt32
-    ulCountOfElements: UInt32
-SPPHRASERNG = Int32
-SPPR_ALL_ELEMENTS: SPPHRASERNG = -1
-class SPPHRASERULE(Structure):
-    pszName: win32more.Foundation.PWSTR
-    ulId: UInt32
-    ulFirstElement: UInt32
-    ulCountOfElements: UInt32
-    pNextSibling: POINTER(win32more.Media.Speech.SPPHRASERULE_head)
-    pFirstChild: POINTER(win32more.Media.Speech.SPPHRASERULE_head)
-    SREngineConfidence: Single
-    Confidence: SByte
-SPPRONUNCIATIONFLAGS = Int32
-ePRONFLAG_USED: SPPRONUNCIATIONFLAGS = 1
-class SPPROPERTYINFO(Structure):
-    pszName: win32more.Foundation.PWSTR
-    ulId: UInt32
-    pszValue: win32more.Foundation.PWSTR
-    vValue: win32more.System.Com.VARIANT
-class SPRECOCONTEXTSTATUS(Structure):
-    eInterference: win32more.Media.Speech.SPINTERFERENCE
-    szRequestTypeOfUI: Char * 255
-    dwReserved1: UInt32
-    dwReserved2: UInt32
-SPRECOEVENTFLAGS = Int32
-SPREF_AutoPause: SPRECOEVENTFLAGS = 1
-SPREF_Emulated: SPRECOEVENTFLAGS = 2
-SPREF_SMLTimeout: SPRECOEVENTFLAGS = 4
-SPREF_ExtendableParse: SPRECOEVENTFLAGS = 8
-SPREF_ReSent: SPRECOEVENTFLAGS = 16
-SPREF_Hypothesis: SPRECOEVENTFLAGS = 32
-SPREF_FalseRecognition: SPRECOEVENTFLAGS = 64
-class SPRECOGNIZERSTATUS(Structure):
-    AudioStatus: win32more.Media.Speech.SPAUDIOSTATUS
-    ullRecognitionStreamPos: UInt64
-    ulStreamNumber: UInt32
-    ulNumActive: UInt32
-    clsidEngine: Guid
-    cLangIDs: UInt32
-    aLangID: UInt16 * 20
-    ullRecognitionStreamTime: UInt64
-class SPRECORESULTTIMES(Structure):
-    ftStreamTime: win32more.Foundation.FILETIME
-    ullLength: UInt64
-    dwTickCount: UInt32
-    ullStart: UInt64
-SPRECOSTATE = Int32
-SPRST_INACTIVE: SPRECOSTATE = 0
-SPRST_ACTIVE: SPRECOSTATE = 1
-SPRST_ACTIVE_ALWAYS: SPRECOSTATE = 2
-SPRST_INACTIVE_WITH_PURGE: SPRECOSTATE = 3
-SPRST_NUM_STATES: SPRECOSTATE = 4
-SpResourceManager = Guid('96749373-3391-11d2-9e-e3-00-c0-4f-79-73-96')
-class SPRULE(Structure):
-    pszRuleName: win32more.Foundation.PWSTR
-    ulRuleId: UInt32
-    dwAttributes: UInt32
-SPRULESTATE = Int32
-SPRS_INACTIVE: SPRULESTATE = 0
-SPRS_ACTIVE: SPRULESTATE = 1
-SPRS_ACTIVE_WITH_AUTO_PAUSE: SPRULESTATE = 3
-SPRS_ACTIVE_USER_DELIMITED: SPRULESTATE = 4
-SPRUNSTATE = Int32
-SPRS_DONE: SPRUNSTATE = 1
-SPRS_IS_SPEAKING: SPRUNSTATE = 2
-class SPSEMANTICERRORINFO(Structure):
-    ulLineNumber: UInt32
-    pszScriptLine: win32more.Foundation.PWSTR
-    pszSource: win32more.Foundation.PWSTR
-    pszDescription: win32more.Foundation.PWSTR
-    hrResultCode: win32more.Foundation.HRESULT
-SPSEMANTICFORMAT = Int32
-SPSMF_SAPI_PROPERTIES: SPSEMANTICFORMAT = 0
-SPSMF_SRGS_SEMANTICINTERPRETATION_MS: SPSEMANTICFORMAT = 1
-SPSMF_SRGS_SAPIPROPERTIES: SPSEMANTICFORMAT = 2
-SPSMF_UPS: SPSEMANTICFORMAT = 4
-SPSMF_SRGS_SEMANTICINTERPRETATION_W3C: SPSEMANTICFORMAT = 8
-class SPSERIALIZEDEVENT(Structure):
-    _bitfield: Int32
-    ulStreamNum: UInt32
-    ullAudioStreamOffset: UInt64
-    SerializedwParam: UInt32
-    SerializedlParam: Int32
-class SPSERIALIZEDEVENT64(Structure):
-    _bitfield: Int32
-    ulStreamNum: UInt32
-    ullAudioStreamOffset: UInt64
-    SerializedwParam: UInt64
-    SerializedlParam: Int64
-class SPSERIALIZEDPHRASE(Structure):
-    ulSerializedSize: UInt32
-class SPSERIALIZEDRESULT(Structure):
-    ulSerializedSize: UInt32
-SpSharedRecoContext = Guid('47206204-5eca-11d2-96-0f-00-c0-4f-8e-e6-28')
-SpSharedRecognizer = Guid('3bee4890-4fe9-4a37-8c-1e-5e-7e-12-79-1c-1f')
-SpShortcut = Guid('0d722f1a-9fcf-4e62-96-d8-6d-f8-f0-1a-26-aa')
-class SPSHORTCUTPAIR(Structure):
-    pNextSHORTCUTPAIR: POINTER(win32more.Media.Speech.SPSHORTCUTPAIR_head)
-    LangID: UInt16
-    shType: win32more.Media.Speech.SPSHORTCUTTYPE
-    pszDisplay: win32more.Foundation.PWSTR
-    pszSpoken: win32more.Foundation.PWSTR
-class SPSHORTCUTPAIRLIST(Structure):
-    ulSize: UInt32
-    pvBuffer: c_char_p_no
-    pFirstShortcutPair: POINTER(win32more.Media.Speech.SPSHORTCUTPAIR_head)
-SPSHORTCUTTYPE = Int32
-SPSHT_NotOverriden: SPSHORTCUTTYPE = -1
-SPSHT_Unknown: SPSHORTCUTTYPE = 0
-SPSHT_EMAIL: SPSHORTCUTTYPE = 4096
-SPSHT_OTHER: SPSHORTCUTTYPE = 8192
-SPPS_RESERVED1: SPSHORTCUTTYPE = 12288
-SPPS_RESERVED2: SPSHORTCUTTYPE = 16384
-SPPS_RESERVED3: SPSHORTCUTTYPE = 20480
-SPPS_RESERVED4: SPSHORTCUTTYPE = 61440
-class SPSTATEHANDLE__(Structure):
-    unused: Int32
-SpStream = Guid('715d9c59-4442-11d2-96-05-00-c0-4f-8e-e6-28')
-SPSTREAMFORMAT = Int32
-SPSF_Default: SPSTREAMFORMAT = -1
-SPSF_NoAssignedFormat: SPSTREAMFORMAT = 0
-SPSF_Text: SPSTREAMFORMAT = 1
-SPSF_NonStandardFormat: SPSTREAMFORMAT = 2
-SPSF_ExtendedAudioFormat: SPSTREAMFORMAT = 3
-SPSF_8kHz8BitMono: SPSTREAMFORMAT = 4
-SPSF_8kHz8BitStereo: SPSTREAMFORMAT = 5
-SPSF_8kHz16BitMono: SPSTREAMFORMAT = 6
-SPSF_8kHz16BitStereo: SPSTREAMFORMAT = 7
-SPSF_11kHz8BitMono: SPSTREAMFORMAT = 8
-SPSF_11kHz8BitStereo: SPSTREAMFORMAT = 9
-SPSF_11kHz16BitMono: SPSTREAMFORMAT = 10
-SPSF_11kHz16BitStereo: SPSTREAMFORMAT = 11
-SPSF_12kHz8BitMono: SPSTREAMFORMAT = 12
-SPSF_12kHz8BitStereo: SPSTREAMFORMAT = 13
-SPSF_12kHz16BitMono: SPSTREAMFORMAT = 14
-SPSF_12kHz16BitStereo: SPSTREAMFORMAT = 15
-SPSF_16kHz8BitMono: SPSTREAMFORMAT = 16
-SPSF_16kHz8BitStereo: SPSTREAMFORMAT = 17
-SPSF_16kHz16BitMono: SPSTREAMFORMAT = 18
-SPSF_16kHz16BitStereo: SPSTREAMFORMAT = 19
-SPSF_22kHz8BitMono: SPSTREAMFORMAT = 20
-SPSF_22kHz8BitStereo: SPSTREAMFORMAT = 21
-SPSF_22kHz16BitMono: SPSTREAMFORMAT = 22
-SPSF_22kHz16BitStereo: SPSTREAMFORMAT = 23
-SPSF_24kHz8BitMono: SPSTREAMFORMAT = 24
-SPSF_24kHz8BitStereo: SPSTREAMFORMAT = 25
-SPSF_24kHz16BitMono: SPSTREAMFORMAT = 26
-SPSF_24kHz16BitStereo: SPSTREAMFORMAT = 27
-SPSF_32kHz8BitMono: SPSTREAMFORMAT = 28
-SPSF_32kHz8BitStereo: SPSTREAMFORMAT = 29
-SPSF_32kHz16BitMono: SPSTREAMFORMAT = 30
-SPSF_32kHz16BitStereo: SPSTREAMFORMAT = 31
-SPSF_44kHz8BitMono: SPSTREAMFORMAT = 32
-SPSF_44kHz8BitStereo: SPSTREAMFORMAT = 33
-SPSF_44kHz16BitMono: SPSTREAMFORMAT = 34
-SPSF_44kHz16BitStereo: SPSTREAMFORMAT = 35
-SPSF_48kHz8BitMono: SPSTREAMFORMAT = 36
-SPSF_48kHz8BitStereo: SPSTREAMFORMAT = 37
-SPSF_48kHz16BitMono: SPSTREAMFORMAT = 38
-SPSF_48kHz16BitStereo: SPSTREAMFORMAT = 39
-SPSF_TrueSpeech_8kHz1BitMono: SPSTREAMFORMAT = 40
-SPSF_CCITT_ALaw_8kHzMono: SPSTREAMFORMAT = 41
-SPSF_CCITT_ALaw_8kHzStereo: SPSTREAMFORMAT = 42
-SPSF_CCITT_ALaw_11kHzMono: SPSTREAMFORMAT = 43
-SPSF_CCITT_ALaw_11kHzStereo: SPSTREAMFORMAT = 44
-SPSF_CCITT_ALaw_22kHzMono: SPSTREAMFORMAT = 45
-SPSF_CCITT_ALaw_22kHzStereo: SPSTREAMFORMAT = 46
-SPSF_CCITT_ALaw_44kHzMono: SPSTREAMFORMAT = 47
-SPSF_CCITT_ALaw_44kHzStereo: SPSTREAMFORMAT = 48
-SPSF_CCITT_uLaw_8kHzMono: SPSTREAMFORMAT = 49
-SPSF_CCITT_uLaw_8kHzStereo: SPSTREAMFORMAT = 50
-SPSF_CCITT_uLaw_11kHzMono: SPSTREAMFORMAT = 51
-SPSF_CCITT_uLaw_11kHzStereo: SPSTREAMFORMAT = 52
-SPSF_CCITT_uLaw_22kHzMono: SPSTREAMFORMAT = 53
-SPSF_CCITT_uLaw_22kHzStereo: SPSTREAMFORMAT = 54
-SPSF_CCITT_uLaw_44kHzMono: SPSTREAMFORMAT = 55
-SPSF_CCITT_uLaw_44kHzStereo: SPSTREAMFORMAT = 56
-SPSF_ADPCM_8kHzMono: SPSTREAMFORMAT = 57
-SPSF_ADPCM_8kHzStereo: SPSTREAMFORMAT = 58
-SPSF_ADPCM_11kHzMono: SPSTREAMFORMAT = 59
-SPSF_ADPCM_11kHzStereo: SPSTREAMFORMAT = 60
-SPSF_ADPCM_22kHzMono: SPSTREAMFORMAT = 61
-SPSF_ADPCM_22kHzStereo: SPSTREAMFORMAT = 62
-SPSF_ADPCM_44kHzMono: SPSTREAMFORMAT = 63
-SPSF_ADPCM_44kHzStereo: SPSTREAMFORMAT = 64
-SPSF_GSM610_8kHzMono: SPSTREAMFORMAT = 65
-SPSF_GSM610_11kHzMono: SPSTREAMFORMAT = 66
-SPSF_GSM610_22kHzMono: SPSTREAMFORMAT = 67
-SPSF_GSM610_44kHzMono: SPSTREAMFORMAT = 68
-SPSF_NUM_FORMATS: SPSTREAMFORMAT = 69
-SpStreamFormatConverter = Guid('7013943a-e2ec-11d2-a0-86-00-c0-4f-8e-f9-b5')
-SPSTREAMFORMATTYPE = Int32
-SPWF_INPUT: SPSTREAMFORMATTYPE = 0
-SPWF_SRENGINE: SPSTREAMFORMATTYPE = 1
-class SPTEXTSELECTIONINFO(Structure):
-    ulStartActiveOffset: UInt32
-    cchActiveChars: UInt32
-    ulStartSelection: UInt32
-    cchSelection: UInt32
-SpTextSelectionInformation = Guid('0f92030a-cbfd-4ab8-a1-64-ff-59-85-54-7f-f6')
-SpUnCompressedLexicon = Guid('c9e37c15-df92-4727-85-d6-72-e5-ee-b6-99-5a')
-SPVACTIONS = Int32
-SPVA_Speak: SPVACTIONS = 0
-SPVA_Silence: SPVACTIONS = 1
-SPVA_Pronounce: SPVACTIONS = 2
-SPVA_Bookmark: SPVACTIONS = 3
-SPVA_SpellOut: SPVACTIONS = 4
-SPVA_Section: SPVACTIONS = 5
-SPVA_ParseUnknownTag: SPVACTIONS = 6
-SPVALUETYPE = Int32
-SPDF_PROPERTY: SPVALUETYPE = 1
-SPDF_REPLACEMENT: SPVALUETYPE = 2
-SPDF_RULE: SPVALUETYPE = 4
-SPDF_DISPLAYTEXT: SPVALUETYPE = 8
-SPDF_LEXICALFORM: SPVALUETYPE = 16
-SPDF_PRONUNCIATION: SPVALUETYPE = 32
-SPDF_AUDIO: SPVALUETYPE = 64
-SPDF_ALTERNATES: SPVALUETYPE = 128
-SPDF_ALL: SPVALUETYPE = 255
-class SPVCONTEXT(Structure):
-    pCategory: win32more.Foundation.PWSTR
-    pBefore: win32more.Foundation.PWSTR
-    pAfter: win32more.Foundation.PWSTR
-SPVFEATURE = Int32
-SPVFEATURE_STRESSED: SPVFEATURE = 1
-SPVFEATURE_EMPHASIS: SPVFEATURE = 2
-SPVISEMES = Int32
-SP_VISEME_0: SPVISEMES = 0
-SP_VISEME_1: SPVISEMES = 1
-SP_VISEME_2: SPVISEMES = 2
-SP_VISEME_3: SPVISEMES = 3
-SP_VISEME_4: SPVISEMES = 4
-SP_VISEME_5: SPVISEMES = 5
-SP_VISEME_6: SPVISEMES = 6
-SP_VISEME_7: SPVISEMES = 7
-SP_VISEME_8: SPVISEMES = 8
-SP_VISEME_9: SPVISEMES = 9
-SP_VISEME_10: SPVISEMES = 10
-SP_VISEME_11: SPVISEMES = 11
-SP_VISEME_12: SPVISEMES = 12
-SP_VISEME_13: SPVISEMES = 13
-SP_VISEME_14: SPVISEMES = 14
-SP_VISEME_15: SPVISEMES = 15
-SP_VISEME_16: SPVISEMES = 16
-SP_VISEME_17: SPVISEMES = 17
-SP_VISEME_18: SPVISEMES = 18
-SP_VISEME_19: SPVISEMES = 19
-SP_VISEME_20: SPVISEMES = 20
-SP_VISEME_21: SPVISEMES = 21
-SPVLIMITS = Int32
-SPMIN_VOLUME: SPVLIMITS = 0
-SPMAX_VOLUME: SPVLIMITS = 100
-SPMIN_RATE: SPVLIMITS = -10
-SPMAX_RATE: SPVLIMITS = 10
-SpVoice = Guid('96749377-3391-11d2-9e-e3-00-c0-4f-79-73-96')
-class SPVOICESTATUS(Structure):
-    ulCurrentStream: UInt32
-    ulLastStreamQueued: UInt32
-    hrLastResult: win32more.Foundation.HRESULT
-    dwRunningState: UInt32
-    ulInputWordPos: UInt32
-    ulInputWordLen: UInt32
-    ulInputSentPos: UInt32
-    ulInputSentLen: UInt32
-    lBookmarkId: Int32
-    PhonemeId: UInt16
-    VisemeId: win32more.Media.Speech.SPVISEMES
-    dwReserved1: UInt32
-    dwReserved2: UInt32
-class SPVPITCH(Structure):
-    MiddleAdj: Int32
-    RangeAdj: Int32
-SPVPRIORITY = Int32
-SPVPRI_NORMAL: SPVPRIORITY = 0
-SPVPRI_ALERT: SPVPRIORITY = 1
-SPVPRI_OVER: SPVPRIORITY = 2
-class SPVSTATE(Structure):
-    eAction: win32more.Media.Speech.SPVACTIONS
-    LangID: UInt16
-    wReserved: UInt16
-    EmphAdj: Int32
-    RateAdj: Int32
-    Volume: UInt32
-    PitchAdj: win32more.Media.Speech.SPVPITCH
-    SilenceMSecs: UInt32
-    pPhoneIds: POINTER(UInt16)
-    ePartOfSpeech: win32more.Media.Speech.SPPARTOFSPEECH
-    Context: win32more.Media.Speech.SPVCONTEXT
-SpWaveFormatEx = Guid('c79a574c-63be-44b9-80-1f-28-3f-87-f8-98-be')
-class SPWORD(Structure):
-    pNextWord: POINTER(win32more.Media.Speech.SPWORD_head)
-    LangID: UInt16
-    wReserved: UInt16
-    eWordType: win32more.Media.Speech.SPWORDTYPE
-    pszWord: win32more.Foundation.PWSTR
-    pFirstWordPronunciation: POINTER(win32more.Media.Speech.SPWORDPRONUNCIATION_head)
-class SPWORDLIST(Structure):
-    ulSize: UInt32
-    pvBuffer: c_char_p_no
-    pFirstWord: POINTER(win32more.Media.Speech.SPWORD_head)
-SPWORDPRONOUNCEABLE = Int32
-SPWP_UNKNOWN_WORD_UNPRONOUNCEABLE: SPWORDPRONOUNCEABLE = 0
-SPWP_UNKNOWN_WORD_PRONOUNCEABLE: SPWORDPRONOUNCEABLE = 1
-SPWP_KNOWN_WORD_PRONOUNCEABLE: SPWORDPRONOUNCEABLE = 2
-class SPWORDPRONUNCIATION(Structure):
-    pNextWordPronunciation: POINTER(win32more.Media.Speech.SPWORDPRONUNCIATION_head)
-    eLexiconType: win32more.Media.Speech.SPLEXICONTYPE
-    LangID: UInt16
-    wPronunciationFlags: UInt16
-    ePartOfSpeech: win32more.Media.Speech.SPPARTOFSPEECH
-    szPronunciation: UInt16 * 1
-class SPWORDPRONUNCIATIONLIST(Structure):
-    ulSize: UInt32
-    pvBuffer: c_char_p_no
-    pFirstWordPronunciation: POINTER(win32more.Media.Speech.SPWORDPRONUNCIATION_head)
-SPWORDTYPE = Int32
-eWORDTYPE_ADDED: SPWORDTYPE = 1
-eWORDTYPE_DELETED: SPWORDTYPE = 2
-SPXMLRESULTOPTIONS = Int32
-SPXRO_SML: SPXMLRESULTOPTIONS = 0
-SPXRO_Alternates_SML: SPXMLRESULTOPTIONS = 1
-make_head(_module, '_ISpeechRecoContextEvents')
-make_head(_module, '_ISpeechVoiceEvents')
+class _ISpeechRecoContextEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('7b8fcb42-0e9d-4f00-a0-48-7b-04-d6-17-9d-3d')
+class _ISpeechVoiceEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('a372acd1-3bef-4bbd-8f-fb-cb-3e-2b-41-6a-f8')
 make_head(_module, 'IEnumSpObjectTokens')
 make_head(_module, 'ISpAudio')
 make_head(_module, 'ISpContainerLexicon')
 make_head(_module, 'ISpDataKey')
 make_head(_module, 'ISpDisplayAlternates')
-make_head(_module, 'ISpeechAudio')
-make_head(_module, 'ISpeechAudioBufferInfo')
-make_head(_module, 'ISpeechAudioFormat')
-make_head(_module, 'ISpeechAudioStatus')
-make_head(_module, 'ISpeechBaseStream')
-make_head(_module, 'ISpeechCustomStream')
-make_head(_module, 'ISpeechDataKey')
-make_head(_module, 'ISpeechFileStream')
-make_head(_module, 'ISpeechGrammarRule')
-make_head(_module, 'ISpeechGrammarRules')
-make_head(_module, 'ISpeechGrammarRuleState')
-make_head(_module, 'ISpeechGrammarRuleStateTransition')
-make_head(_module, 'ISpeechGrammarRuleStateTransitions')
-make_head(_module, 'ISpeechLexicon')
-make_head(_module, 'ISpeechLexiconPronunciation')
-make_head(_module, 'ISpeechLexiconPronunciations')
-make_head(_module, 'ISpeechLexiconWord')
-make_head(_module, 'ISpeechLexiconWords')
-make_head(_module, 'ISpeechMemoryStream')
-make_head(_module, 'ISpeechMMSysAudio')
-make_head(_module, 'ISpeechObjectToken')
-make_head(_module, 'ISpeechObjectTokenCategory')
-make_head(_module, 'ISpeechObjectTokens')
-make_head(_module, 'ISpeechPhoneConverter')
-make_head(_module, 'ISpeechPhraseAlternate')
-make_head(_module, 'ISpeechPhraseAlternates')
-make_head(_module, 'ISpeechPhraseElement')
-make_head(_module, 'ISpeechPhraseElements')
-make_head(_module, 'ISpeechPhraseInfo')
-make_head(_module, 'ISpeechPhraseInfoBuilder')
-make_head(_module, 'ISpeechPhraseProperties')
-make_head(_module, 'ISpeechPhraseProperty')
-make_head(_module, 'ISpeechPhraseReplacement')
-make_head(_module, 'ISpeechPhraseReplacements')
-make_head(_module, 'ISpeechPhraseRule')
-make_head(_module, 'ISpeechPhraseRules')
-make_head(_module, 'ISpeechRecoContext')
-make_head(_module, 'ISpeechRecognizer')
-make_head(_module, 'ISpeechRecognizerStatus')
-make_head(_module, 'ISpeechRecoGrammar')
-make_head(_module, 'ISpeechRecoResult')
-make_head(_module, 'ISpeechRecoResult2')
-make_head(_module, 'ISpeechRecoResultDispatch')
-make_head(_module, 'ISpeechRecoResultTimes')
-make_head(_module, 'ISpeechResourceLoader')
-make_head(_module, 'ISpeechTextSelectionInformation')
-make_head(_module, 'ISpeechVoice')
-make_head(_module, 'ISpeechVoiceStatus')
-make_head(_module, 'ISpeechWaveFormatEx')
-make_head(_module, 'ISpeechXMLRecoResult')
 make_head(_module, 'ISpEnginePronunciation')
 make_head(_module, 'ISpEventSink')
 make_head(_module, 'ISpEventSource')
@@ -3067,12 +3015,12 @@ make_head(_module, 'ISpPhraseAlt')
 make_head(_module, 'ISpProperties')
 make_head(_module, 'ISpRecoContext')
 make_head(_module, 'ISpRecoContext2')
-make_head(_module, 'ISpRecognizer')
-make_head(_module, 'ISpRecognizer2')
 make_head(_module, 'ISpRecoGrammar')
 make_head(_module, 'ISpRecoGrammar2')
 make_head(_module, 'ISpRecoResult')
 make_head(_module, 'ISpRecoResult2')
+make_head(_module, 'ISpRecognizer')
+make_head(_module, 'ISpRecognizer2')
 make_head(_module, 'ISpRegDataKey')
 make_head(_module, 'ISpResourceManager')
 make_head(_module, 'ISpSerializeState')
@@ -3083,6 +3031,56 @@ make_head(_module, 'ISpStreamFormatConverter')
 make_head(_module, 'ISpTranscript')
 make_head(_module, 'ISpVoice')
 make_head(_module, 'ISpXMLRecoResult')
+make_head(_module, 'ISpeechAudio')
+make_head(_module, 'ISpeechAudioBufferInfo')
+make_head(_module, 'ISpeechAudioFormat')
+make_head(_module, 'ISpeechAudioStatus')
+make_head(_module, 'ISpeechBaseStream')
+make_head(_module, 'ISpeechCustomStream')
+make_head(_module, 'ISpeechDataKey')
+make_head(_module, 'ISpeechFileStream')
+make_head(_module, 'ISpeechGrammarRule')
+make_head(_module, 'ISpeechGrammarRuleState')
+make_head(_module, 'ISpeechGrammarRuleStateTransition')
+make_head(_module, 'ISpeechGrammarRuleStateTransitions')
+make_head(_module, 'ISpeechGrammarRules')
+make_head(_module, 'ISpeechLexicon')
+make_head(_module, 'ISpeechLexiconPronunciation')
+make_head(_module, 'ISpeechLexiconPronunciations')
+make_head(_module, 'ISpeechLexiconWord')
+make_head(_module, 'ISpeechLexiconWords')
+make_head(_module, 'ISpeechMMSysAudio')
+make_head(_module, 'ISpeechMemoryStream')
+make_head(_module, 'ISpeechObjectToken')
+make_head(_module, 'ISpeechObjectTokenCategory')
+make_head(_module, 'ISpeechObjectTokens')
+make_head(_module, 'ISpeechPhoneConverter')
+make_head(_module, 'ISpeechPhraseAlternate')
+make_head(_module, 'ISpeechPhraseAlternates')
+make_head(_module, 'ISpeechPhraseElement')
+make_head(_module, 'ISpeechPhraseElements')
+make_head(_module, 'ISpeechPhraseInfo')
+make_head(_module, 'ISpeechPhraseInfoBuilder')
+make_head(_module, 'ISpeechPhraseProperties')
+make_head(_module, 'ISpeechPhraseProperty')
+make_head(_module, 'ISpeechPhraseReplacement')
+make_head(_module, 'ISpeechPhraseReplacements')
+make_head(_module, 'ISpeechPhraseRule')
+make_head(_module, 'ISpeechPhraseRules')
+make_head(_module, 'ISpeechRecoContext')
+make_head(_module, 'ISpeechRecoGrammar')
+make_head(_module, 'ISpeechRecoResult')
+make_head(_module, 'ISpeechRecoResult2')
+make_head(_module, 'ISpeechRecoResultDispatch')
+make_head(_module, 'ISpeechRecoResultTimes')
+make_head(_module, 'ISpeechRecognizer')
+make_head(_module, 'ISpeechRecognizerStatus')
+make_head(_module, 'ISpeechResourceLoader')
+make_head(_module, 'ISpeechTextSelectionInformation')
+make_head(_module, 'ISpeechVoice')
+make_head(_module, 'ISpeechVoiceStatus')
+make_head(_module, 'ISpeechWaveFormatEx')
+make_head(_module, 'ISpeechXMLRecoResult')
 make_head(_module, 'SPAUDIOBUFFERINFO')
 make_head(_module, 'SPAUDIOSTATUS')
 make_head(_module, 'SPBINARYGRAMMAR')
@@ -3094,11 +3092,11 @@ make_head(_module, 'SPEVENTSOURCEINFO')
 make_head(_module, 'SPNORMALIZATIONLIST')
 make_head(_module, 'SPNOTIFYCALLBACK')
 make_head(_module, 'SPPHRASE')
-make_head(_module, 'SPPHRASE_50')
 make_head(_module, 'SPPHRASEELEMENT')
 make_head(_module, 'SPPHRASEPROPERTY')
 make_head(_module, 'SPPHRASEREPLACEMENT')
 make_head(_module, 'SPPHRASERULE')
+make_head(_module, 'SPPHRASE_50')
 make_head(_module, 'SPPROPERTYINFO')
 make_head(_module, 'SPRECOCONTEXTSTATUS')
 make_head(_module, 'SPRECOGNIZERSTATUS')
@@ -3121,6 +3119,8 @@ make_head(_module, 'SPWORD')
 make_head(_module, 'SPWORDLIST')
 make_head(_module, 'SPWORDPRONUNCIATION')
 make_head(_module, 'SPWORDPRONUNCIATIONLIST')
+make_head(_module, '_ISpeechRecoContextEvents')
+make_head(_module, '_ISpeechVoiceEvents')
 __all__ = [
     "DEFAULT_WEIGHT",
     "DISPIDSPRG",

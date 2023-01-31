@@ -42,6 +42,24 @@ ADVF_DATAONSTOP: ADVF = 64
 ADVFCACHE_NOHANDLER: ADVF = 8
 ADVFCACHE_FORCEBUILTIN: ADVF = 16
 ADVFCACHE_ONSAVE: ADVF = 32
+APTTYPE = Int32
+APTTYPE_CURRENT: APTTYPE = -1
+APTTYPE_STA: APTTYPE = 0
+APTTYPE_MTA: APTTYPE = 1
+APTTYPE_NA: APTTYPE = 2
+APTTYPE_MAINSTA: APTTYPE = 3
+APTTYPEQUALIFIER = Int32
+APTTYPEQUALIFIER_NONE: APTTYPEQUALIFIER = 0
+APTTYPEQUALIFIER_IMPLICIT_MTA: APTTYPEQUALIFIER = 1
+APTTYPEQUALIFIER_NA_ON_MTA: APTTYPEQUALIFIER = 2
+APTTYPEQUALIFIER_NA_ON_STA: APTTYPEQUALIFIER = 3
+APTTYPEQUALIFIER_NA_ON_IMPLICIT_MTA: APTTYPEQUALIFIER = 4
+APTTYPEQUALIFIER_NA_ON_MAINSTA: APTTYPEQUALIFIER = 5
+APTTYPEQUALIFIER_APPLICATION_STA: APTTYPEQUALIFIER = 6
+APTTYPEQUALIFIER_RESERVED_1: APTTYPEQUALIFIER = 7
+class AUTHENTICATEINFO(Structure):
+    dwFlags: UInt32
+    dwReserved: UInt32
 MARSHALINTERFACE_MIN: UInt32 = 500
 ASYNC_MODE_COMPATIBILITY: Int32 = 1
 ASYNC_MODE_DEFAULT: Int32 = 0
@@ -304,21 +322,6 @@ def GetErrorInfo(dwReserved: UInt32, pperrinfo: POINTER(win32more.System.Com.IEr
 ApplicationType = Int32
 ApplicationType_ServerApplication: ApplicationType = 0
 ApplicationType_LibraryApplication: ApplicationType = 1
-APTTYPE = Int32
-APTTYPE_CURRENT: APTTYPE = -1
-APTTYPE_STA: APTTYPE = 0
-APTTYPE_MTA: APTTYPE = 1
-APTTYPE_NA: APTTYPE = 2
-APTTYPE_MAINSTA: APTTYPE = 3
-APTTYPEQUALIFIER = Int32
-APTTYPEQUALIFIER_NONE: APTTYPEQUALIFIER = 0
-APTTYPEQUALIFIER_IMPLICIT_MTA: APTTYPEQUALIFIER = 1
-APTTYPEQUALIFIER_NA_ON_MTA: APTTYPEQUALIFIER = 2
-APTTYPEQUALIFIER_NA_ON_STA: APTTYPEQUALIFIER = 3
-APTTYPEQUALIFIER_NA_ON_IMPLICIT_MTA: APTTYPEQUALIFIER = 4
-APTTYPEQUALIFIER_NA_ON_MAINSTA: APTTYPEQUALIFIER = 5
-APTTYPEQUALIFIER_APPLICATION_STA: APTTYPEQUALIFIER = 6
-APTTYPEQUALIFIER_RESERVED_1: APTTYPEQUALIFIER = 7
 class AsyncIAdviseSink(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('00000150-0000-0000-c0-00-00-00-00-00-00-46')
@@ -404,26 +407,6 @@ class AsyncIUnknown(c_void_p):
     def Begin_Release() -> win32more.Foundation.HRESULT: ...
     @commethod(8)
     def Finish_Release() -> UInt32: ...
-class AUTHENTICATEINFO(Structure):
-    dwFlags: UInt32
-    dwReserved: UInt32
-BIND_FLAGS = Int32
-BIND_MAYBOTHERUSER: BIND_FLAGS = 1
-BIND_JUSTTESTEXISTENCE: BIND_FLAGS = 2
-class BIND_OPTS(Structure):
-    cbStruct: UInt32
-    grfFlags: UInt32
-    grfMode: UInt32
-    dwTickCountDeadline: UInt32
-class BIND_OPTS2(Structure):
-    Base: win32more.System.Com.BIND_OPTS
-    dwTrackFlags: UInt32
-    dwClassContext: UInt32
-    locale: UInt32
-    pServerInfo: POINTER(win32more.System.Com.COSERVERINFO_head)
-class BIND_OPTS3(Structure):
-    Base: win32more.System.Com.BIND_OPTS2
-    hwnd: win32more.Foundation.HWND
 class BINDINFO(Structure):
     cbSize: UInt32
     szExtraInfo: win32more.Foundation.PWSTR
@@ -446,6 +429,23 @@ class BINDPTR(Union):
     lpfuncdesc: POINTER(win32more.System.Com.FUNCDESC_head)
     lpvardesc: POINTER(win32more.System.Com.VARDESC_head)
     lptcomp: win32more.System.Com.ITypeComp_head
+BIND_FLAGS = Int32
+BIND_MAYBOTHERUSER: BIND_FLAGS = 1
+BIND_JUSTTESTEXISTENCE: BIND_FLAGS = 2
+class BIND_OPTS(Structure):
+    cbStruct: UInt32
+    grfFlags: UInt32
+    grfMode: UInt32
+    dwTickCountDeadline: UInt32
+class BIND_OPTS2(Structure):
+    Base: win32more.System.Com.BIND_OPTS
+    dwTrackFlags: UInt32
+    dwClassContext: UInt32
+    locale: UInt32
+    pServerInfo: POINTER(win32more.System.Com.COSERVERINFO_head)
+class BIND_OPTS3(Structure):
+    Base: win32more.System.Com.BIND_OPTS2
+    hwnd: win32more.Foundation.HWND
 class BLOB(Structure):
     cbSize: UInt32
     pBlobData: c_char_p_no
@@ -507,28 +507,6 @@ CLSCTX_ACTIVATE_ARM32_SERVER: CLSCTX = 33554432
 CLSCTX_PS_DLL: CLSCTX = 2147483648
 CLSCTX_ALL: CLSCTX = 23
 CLSCTX_SERVER: CLSCTX = 21
-CO_DEVICE_CATALOG_COOKIE = IntPtr
-CO_MARSHALING_CONTEXT_ATTRIBUTES = Int32
-CO_MARSHALING_SOURCE_IS_APP_CONTAINER: CO_MARSHALING_CONTEXT_ATTRIBUTES = 0
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_1: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483648
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_2: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483647
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_3: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483646
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_4: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483645
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_5: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483644
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_6: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483643
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_7: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483642
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_8: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483641
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_9: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483640
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_10: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483639
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_11: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483638
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_12: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483637
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_13: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483636
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_14: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483635
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_15: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483634
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_16: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483633
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_17: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483632
-CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_18: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483631
-CO_MTA_USAGE_COOKIE = IntPtr
 class COAUTHIDENTITY(Structure):
     User: POINTER(UInt16)
     UserLength: UInt32
@@ -552,10 +530,6 @@ COINIT_DISABLE_OLE1DDE: COINIT = 4
 COINIT_SPEED_OVER_MEMORY: COINIT = 8
 COINITBASE = Int32
 COINITBASE_MULTITHREADED: COINITBASE = 0
-class ComCallData(Structure):
-    dwDispid: UInt32
-    dwReserved: UInt32
-    pUserDefined: c_void_p
 COMSD = Int32
 SD_LAUNCHPERMISSIONS: COMSD = 0
 SD_ACCESSPERMISSIONS: COMSD = 1
@@ -576,6 +550,28 @@ COWAIT_ALERTABLE: COWAIT_FLAGS = 2
 COWAIT_INPUTAVAILABLE: COWAIT_FLAGS = 4
 COWAIT_DISPATCH_CALLS: COWAIT_FLAGS = 8
 COWAIT_DISPATCH_WINDOW_MESSAGES: COWAIT_FLAGS = 16
+CO_DEVICE_CATALOG_COOKIE = IntPtr
+CO_MARSHALING_CONTEXT_ATTRIBUTES = Int32
+CO_MARSHALING_SOURCE_IS_APP_CONTAINER: CO_MARSHALING_CONTEXT_ATTRIBUTES = 0
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_1: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483648
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_2: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483647
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_3: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483646
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_4: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483645
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_5: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483644
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_6: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483643
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_7: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483642
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_8: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483641
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_9: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483640
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_10: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483639
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_11: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483638
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_12: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483637
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_13: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483636
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_14: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483635
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_15: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483634
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_16: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483633
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_17: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483632
+CO_MARSHALING_CONTEXT_ATTRIBUTE_RESERVED_18: CO_MARSHALING_CONTEXT_ATTRIBUTES = -2147483631
+CO_MTA_USAGE_COOKIE = IntPtr
 class CSPLATFORM(Structure):
     dwPlatformId: UInt32
     dwVersionHi: UInt32
@@ -597,6 +593,10 @@ class CY(Union):
     class _Anonymous_e__Struct(Structure):
         Lo: UInt32
         Hi: Int32
+class ComCallData(Structure):
+    dwDispid: UInt32
+    dwReserved: UInt32
+    pUserDefined: c_void_p
 DATADIR = Int32
 DATADIR_GET: DATADIR = 1
 DATADIR_SET: DATADIR = 2
@@ -678,10 +678,6 @@ EXTCONN = Int32
 EXTCONN_STRONG: EXTCONN = 1
 EXTCONN_WEAK: EXTCONN = 2
 EXTCONN_CALLABLE: EXTCONN = 4
-class FLAG_STGMEDIUM(Structure):
-    ContextFlags: Int32
-    fPassOwnership: Int32
-    Stgmed: win32more.System.Com.STGMEDIUM
 class FLAGGED_BYTE_BLOB(Structure):
     fFlags: UInt32
     clSize: UInt32
@@ -690,6 +686,10 @@ class FLAGGED_WORD_BLOB(Structure):
     fFlags: UInt32
     clSize: UInt32
     asData: UInt16 * 1
+class FLAG_STGMEDIUM(Structure):
+    ContextFlags: Int32
+    fPassOwnership: Int32
+    Stgmed: win32more.System.Com.STGMEDIUM
 class FORMATETC(Structure):
     cfFormat: UInt16
     ptd: POINTER(win32more.System.Com.DVTARGETDEVICE_head)
@@ -872,21 +872,6 @@ class IBindHost(c_void_p):
     def MonikerBindToStorage(pMk: win32more.System.Com.IMoniker_head, pBC: win32more.System.Com.IBindCtx_head, pBSC: win32more.System.Com.IBindStatusCallback_head, riid: POINTER(Guid), ppvObj: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
     @commethod(5)
     def MonikerBindToObject(pMk: win32more.System.Com.IMoniker_head, pBC: win32more.System.Com.IBindCtx_head, pBSC: win32more.System.Com.IBindStatusCallback_head, riid: POINTER(Guid), ppvObj: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
-class IBinding(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('79eac9c0-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
-    @commethod(3)
-    def Abort() -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def Suspend() -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def Resume() -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def SetPriority(nPriority: Int32) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def GetPriority(pnPriority: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def GetBindResult(pclsidProtocol: POINTER(Guid), pdwResult: POINTER(UInt32), pszResult: POINTER(win32more.Foundation.PWSTR), pdwReserved: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
 class IBindStatusCallback(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('79eac9c1-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
@@ -911,6 +896,21 @@ class IBindStatusCallbackEx(c_void_p):
     Guid = Guid('aaa74ef9-8ee7-4659-88-d9-f8-c5-04-da-73-cc')
     @commethod(11)
     def GetBindInfoEx(grfBINDF: POINTER(UInt32), pbindinfo: POINTER(win32more.System.Com.BINDINFO_head), grfBINDF2: POINTER(UInt32), pdwReserved: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IBinding(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9c0-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def Abort() -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Suspend() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Resume() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetPriority(nPriority: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetPriority(pnPriority: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetBindResult(pclsidProtocol: POINTER(Guid), pdwResult: POINTER(UInt32), pszResult: POINTER(win32more.Foundation.PWSTR), pdwReserved: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
 class IBlockingLock(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('30f3d47a-6447-11d1-8e-3c-00-c0-4f-b9-38-6d')
@@ -1034,6 +1034,15 @@ class IContextCallback(c_void_p):
     Guid = Guid('000001da-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def ContextCallback(pfnCallback: win32more.System.Com.PFNCONTEXTCALL, pParam: POINTER(win32more.System.Com.ComCallData_head), riid: POINTER(Guid), iMethod: Int32, pUnk: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+class IDLDESC(Structure):
+    dwReserved: UIntPtr
+    wIDLFlags: win32more.System.Com.IDLFLAGS
+IDLFLAGS = UInt16
+IDLFLAG_NONE: IDLFLAGS = 0
+IDLFLAG_FIN: IDLFLAGS = 1
+IDLFLAG_FOUT: IDLFLAGS = 2
+IDLFLAG_FLCID: IDLFLAGS = 4
+IDLFLAG_FRETVAL: IDLFLAGS = 8
 class IDataAdviseHolder(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('00000110-0000-0000-c0-00-00-00-00-00-00-46')
@@ -1077,15 +1086,6 @@ class IDispatch(c_void_p):
     def GetIDsOfNames(riid: POINTER(Guid), rgszNames: POINTER(win32more.Foundation.PWSTR), cNames: UInt32, lcid: UInt32, rgDispId: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
     @commethod(6)
     def Invoke(dispIdMember: Int32, riid: POINTER(Guid), lcid: UInt32, wFlags: win32more.System.Com.DISPATCH_FLAGS, pDispParams: POINTER(win32more.System.Com.DISPPARAMS_head), pVarResult: POINTER(win32more.System.Com.VARIANT_head), pExcepInfo: POINTER(win32more.System.Com.EXCEPINFO_head), puArgErr: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-class IDLDESC(Structure):
-    dwReserved: UIntPtr
-    wIDLFlags: win32more.System.Com.IDLFLAGS
-IDLFLAGS = UInt16
-IDLFLAG_NONE: IDLFLAGS = 0
-IDLFLAG_FIN: IDLFLAGS = 1
-IDLFLAG_FOUT: IDLFLAGS = 2
-IDLFLAG_FLCID: IDLFLAGS = 4
-IDLFLAG_FRETVAL: IDLFLAGS = 8
 class IEnumCATEGORYINFO(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('0002e011-0000-0000-c0-00-00-00-00-00-00-46')
@@ -1252,6 +1252,11 @@ class IInternalUnknown(c_void_p):
     Guid = Guid('00000021-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def QueryInternalInterface(riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+IMPLTYPEFLAGS = Int32
+IMPLTYPEFLAG_FDEFAULT: IMPLTYPEFLAGS = 1
+IMPLTYPEFLAG_FSOURCE: IMPLTYPEFLAGS = 2
+IMPLTYPEFLAG_FRESTRICTED: IMPLTYPEFLAGS = 4
+IMPLTYPEFLAG_FDEFAULTVTABLE: IMPLTYPEFLAGS = 8
 class IMachineGlobalObjectTable(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('26d709ac-f70b-4421-a9-6f-d2-87-8f-af-b0-0d')
@@ -1336,19 +1341,11 @@ class IMoniker(c_void_p):
     def ParseDisplayName(pbc: win32more.System.Com.IBindCtx_head, pmkToLeft: win32more.System.Com.IMoniker_head, pszDisplayName: win32more.Foundation.PWSTR, pchEaten: POINTER(UInt32), ppmkOut: POINTER(win32more.System.Com.IMoniker_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(22)
     def IsSystemMoniker(pdwMksys: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-IMPLTYPEFLAGS = Int32
-IMPLTYPEFLAG_FDEFAULT: IMPLTYPEFLAGS = 1
-IMPLTYPEFLAG_FSOURCE: IMPLTYPEFLAGS = 2
-IMPLTYPEFLAG_FRESTRICTED: IMPLTYPEFLAGS = 4
-IMPLTYPEFLAG_FDEFAULTVTABLE: IMPLTYPEFLAGS = 8
 class IMultiQI(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('00000020-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def QueryMultipleInterfaces(cMQIs: UInt32, pMQIs: POINTER(win32more.System.Com.MULTI_QI_head)) -> win32more.Foundation.HRESULT: ...
-class INoMarshal(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('ecc8691b-c1db-4dc0-85-5e-65-f6-c5-51-af-49')
 class INTERFACEINFO(Structure):
     pUnk: win32more.System.Com.IUnknown_head
     iid: Guid
@@ -1358,6 +1355,9 @@ INVOKE_FUNC: INVOKEKIND = 1
 INVOKE_PROPERTYGET: INVOKEKIND = 2
 INVOKE_PROPERTYPUT: INVOKEKIND = 4
 INVOKE_PROPERTYPUTREF: INVOKEKIND = 8
+class INoMarshal(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ecc8691b-c1db-4dc0-85-5e-65-f6-c5-51-af-49')
 class IOplockStorage(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('8d19c834-8879-11d1-83-e9-00-c0-4f-c2-c6-d4')
@@ -1365,6 +1365,13 @@ class IOplockStorage(c_void_p):
     def CreateStorageEx(pwcsName: win32more.Foundation.PWSTR, grfMode: UInt32, stgfmt: UInt32, grfAttrs: UInt32, riid: POINTER(Guid), ppstgOpen: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def OpenStorageEx(pwcsName: win32more.Foundation.PWSTR, grfMode: UInt32, stgfmt: UInt32, grfAttrs: UInt32, riid: POINTER(Guid), ppstgOpen: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class IPSFactoryBuffer(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d5f569d0-593b-101a-b5-69-08-00-2b-2d-bf-7a')
+    @commethod(3)
+    def CreateProxy(pUnkOuter: win32more.System.Com.IUnknown_head, riid: POINTER(Guid), ppProxy: POINTER(win32more.System.Com.IRpcProxyBuffer_head), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CreateStub(riid: POINTER(Guid), pUnkServer: win32more.System.Com.IUnknown_head, ppStub: POINTER(win32more.System.Com.IRpcStubBuffer_head)) -> win32more.Foundation.HRESULT: ...
 class IPersist(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('0000010c-0000-0000-c0-00-00-00-00-00-00-46')
@@ -1458,23 +1465,16 @@ class IProgressNotify(c_void_p):
     Guid = Guid('a9d758a0-4617-11cf-95-fc-00-aa-00-68-0d-b4')
     @commethod(3)
     def OnProgress(dwProgressCurrent: UInt32, dwProgressMaximum: UInt32, fAccurate: win32more.Foundation.BOOL, fOwner: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-class IPSFactoryBuffer(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('d5f569d0-593b-101a-b5-69-08-00-2b-2d-bf-7a')
-    @commethod(3)
-    def CreateProxy(pUnkOuter: win32more.System.Com.IUnknown_head, riid: POINTER(Guid), ppProxy: POINTER(win32more.System.Com.IRpcProxyBuffer_head), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def CreateStub(riid: POINTER(Guid), pUnkServer: win32more.System.Com.IUnknown_head, ppStub: POINTER(win32more.System.Com.IRpcStubBuffer_head)) -> win32more.Foundation.HRESULT: ...
-class IReleaseMarshalBuffers(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('eb0cb9e8-7996-11d2-87-2e-00-00-f8-08-08-59')
-    @commethod(3)
-    def ReleaseMarshalBuffer(pMsg: POINTER(win32more.System.Com.RPCOLEMESSAGE_head), dwFlags: UInt32, pChnl: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
 class IROTData(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('f29f6bc0-5021-11ce-aa-15-00-00-69-01-29-3f')
     @commethod(3)
     def GetComparisonData(pbData: c_char_p_no, cbMax: UInt32, pcbData: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IReleaseMarshalBuffers(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('eb0cb9e8-7996-11d2-87-2e-00-00-f8-08-08-59')
+    @commethod(3)
+    def ReleaseMarshalBuffer(pMsg: POINTER(win32more.System.Com.RPCOLEMESSAGE_head), dwFlags: UInt32, pChnl: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
 class IRpcChannelBuffer(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('d5f56b60-593b-101a-b5-69-08-00-2b-2d-bf-7a')
@@ -1965,8 +1965,6 @@ def LPEXCEPFINO_DEFERRED_FILLIN(pExcepInfo: POINTER(win32more.System.Com.EXCEPIN
 def LPFNCANUNLOADNOW() -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def LPFNGETCLASSOBJECT(param0: POINTER(Guid), param1: POINTER(Guid), param2: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
-class MachineGlobalObjectTableRegistrationToken__(Structure):
-    unused: Int32
 MEMCTX = Int32
 MEMCTX_TASK: MEMCTX = 1
 MEMCTX_SHARED: MEMCTX = 2
@@ -2009,6 +2007,8 @@ class MULTI_QI(Structure):
     pIID: POINTER(Guid)
     pItf: win32more.System.Com.IUnknown_head
     hr: win32more.Foundation.HRESULT
+class MachineGlobalObjectTableRegistrationToken__(Structure):
+    unused: Int32
 PENDINGMSG = Int32
 PENDINGMSG_CANCELCALL: PENDINGMSG = 0
 PENDINGMSG_WAITNOPROCESS: PENDINGMSG = 1
@@ -2031,30 +2031,9 @@ REGCLS_MULTI_SEPARATE: REGCLS = 2
 REGCLS_SUSPENDED: REGCLS = 4
 REGCLS_SURROGATE: REGCLS = 8
 REGCLS_AGILE: REGCLS = 16
-class RemSTGMEDIUM(Structure):
-    tymed: win32more.System.Com.TYMED
-    dwHandleType: UInt32
-    pData: UInt32
-    pUnkForRelease: UInt32
-    cbData: UInt32
-    data: Byte * 1
 ROT_FLAGS = UInt32
 ROTFLAGS_REGISTRATIONKEEPSALIVE: ROT_FLAGS = 1
 ROTFLAGS_ALLOWANYCLIENT: ROT_FLAGS = 2
-RPC_C_AUTHN_LEVEL = UInt32
-RPC_C_AUTHN_LEVEL_DEFAULT: RPC_C_AUTHN_LEVEL = 0
-RPC_C_AUTHN_LEVEL_NONE: RPC_C_AUTHN_LEVEL = 1
-RPC_C_AUTHN_LEVEL_CONNECT: RPC_C_AUTHN_LEVEL = 2
-RPC_C_AUTHN_LEVEL_CALL: RPC_C_AUTHN_LEVEL = 3
-RPC_C_AUTHN_LEVEL_PKT: RPC_C_AUTHN_LEVEL = 4
-RPC_C_AUTHN_LEVEL_PKT_INTEGRITY: RPC_C_AUTHN_LEVEL = 5
-RPC_C_AUTHN_LEVEL_PKT_PRIVACY: RPC_C_AUTHN_LEVEL = 6
-RPC_C_IMP_LEVEL = UInt32
-RPC_C_IMP_LEVEL_DEFAULT: RPC_C_IMP_LEVEL = 0
-RPC_C_IMP_LEVEL_ANONYMOUS: RPC_C_IMP_LEVEL = 1
-RPC_C_IMP_LEVEL_IDENTIFY: RPC_C_IMP_LEVEL = 2
-RPC_C_IMP_LEVEL_IMPERSONATE: RPC_C_IMP_LEVEL = 3
-RPC_C_IMP_LEVEL_DELEGATE: RPC_C_IMP_LEVEL = 4
 class RPCOLEMESSAGE(Structure):
     reserved1: c_void_p
     dataRepresentation: UInt32
@@ -2074,6 +2053,27 @@ RPCOPT_SERVER_LOCALITY_VALUES = Int32
 SERVER_LOCALITY_PROCESS_LOCAL: RPCOPT_SERVER_LOCALITY_VALUES = 0
 SERVER_LOCALITY_MACHINE_LOCAL: RPCOPT_SERVER_LOCALITY_VALUES = 1
 SERVER_LOCALITY_REMOTE: RPCOPT_SERVER_LOCALITY_VALUES = 2
+RPC_C_AUTHN_LEVEL = UInt32
+RPC_C_AUTHN_LEVEL_DEFAULT: RPC_C_AUTHN_LEVEL = 0
+RPC_C_AUTHN_LEVEL_NONE: RPC_C_AUTHN_LEVEL = 1
+RPC_C_AUTHN_LEVEL_CONNECT: RPC_C_AUTHN_LEVEL = 2
+RPC_C_AUTHN_LEVEL_CALL: RPC_C_AUTHN_LEVEL = 3
+RPC_C_AUTHN_LEVEL_PKT: RPC_C_AUTHN_LEVEL = 4
+RPC_C_AUTHN_LEVEL_PKT_INTEGRITY: RPC_C_AUTHN_LEVEL = 5
+RPC_C_AUTHN_LEVEL_PKT_PRIVACY: RPC_C_AUTHN_LEVEL = 6
+RPC_C_IMP_LEVEL = UInt32
+RPC_C_IMP_LEVEL_DEFAULT: RPC_C_IMP_LEVEL = 0
+RPC_C_IMP_LEVEL_ANONYMOUS: RPC_C_IMP_LEVEL = 1
+RPC_C_IMP_LEVEL_IDENTIFY: RPC_C_IMP_LEVEL = 2
+RPC_C_IMP_LEVEL_IMPERSONATE: RPC_C_IMP_LEVEL = 3
+RPC_C_IMP_LEVEL_DELEGATE: RPC_C_IMP_LEVEL = 4
+class RemSTGMEDIUM(Structure):
+    tymed: win32more.System.Com.TYMED
+    dwHandleType: UInt32
+    pData: UInt32
+    pUnkForRelease: UInt32
+    cbData: UInt32
+    data: Byte * 1
 class SAFEARRAY(Structure):
     cDims: UInt16
     fFeatures: win32more.System.Com.ADVANCED_FEATURE_FLAGS
@@ -2095,9 +2095,6 @@ SERVERCALL = Int32
 SERVERCALL_ISHANDLED: SERVERCALL = 0
 SERVERCALL_REJECTED: SERVERCALL = 1
 SERVERCALL_RETRYLATER: SERVERCALL = 2
-ShutdownType = Int32
-ShutdownType_IdleShutdown: ShutdownType = 0
-ShutdownType_ForcedShutdown: ShutdownType = 1
 class SOLE_AUTHENTICATION_INFO(Structure):
     dwAuthnSvc: UInt32
     dwAuthzSvc: UInt32
@@ -2173,11 +2170,6 @@ STGTY_STORAGE: STGTY = 1
 STGTY_STREAM: STGTY = 2
 STGTY_LOCKBYTES: STGTY = 3
 STGTY_PROPERTY: STGTY = 4
-class StorageLayout(Structure):
-    LayoutType: UInt32
-    pwcsElementName: win32more.Foundation.PWSTR
-    cOffset: win32more.Foundation.LARGE_INTEGER
-    cBytes: win32more.Foundation.LARGE_INTEGER
 STREAM_SEEK = UInt32
 STREAM_SEEK_SET: STREAM_SEEK = 0
 STREAM_SEEK_CUR: STREAM_SEEK = 1
@@ -2187,6 +2179,14 @@ SYS_WIN16: SYSKIND = 0
 SYS_WIN32: SYSKIND = 1
 SYS_MAC: SYSKIND = 2
 SYS_WIN64: SYSKIND = 3
+ShutdownType = Int32
+ShutdownType_IdleShutdown: ShutdownType = 0
+ShutdownType_ForcedShutdown: ShutdownType = 1
+class StorageLayout(Structure):
+    LayoutType: UInt32
+    pwcsElementName: win32more.Foundation.PWSTR
+    cOffset: win32more.Foundation.LARGE_INTEGER
+    cBytes: win32more.Foundation.LARGE_INTEGER
 THDTYPE = Int32
 THDTYPE_BLOCKMESSAGES: THDTYPE = 0
 THDTYPE_PROCESSMESSAGES: THDTYPE = 1
@@ -2250,23 +2250,6 @@ TYSPEC_FILENAME: TYSPEC = 3
 TYSPEC_PROGID: TYSPEC = 4
 TYSPEC_PACKAGENAME: TYSPEC = 5
 TYSPEC_OBJECTID: TYSPEC = 6
-class uCLSSPEC(Structure):
-    tyspec: UInt32
-    tagged_union: _tagged_union_e__Struct
-    class _tagged_union_e__Struct(Union):
-        clsid: Guid
-        pFileExt: win32more.Foundation.PWSTR
-        pMimeType: win32more.Foundation.PWSTR
-        pProgId: win32more.Foundation.PWSTR
-        pFileName: win32more.Foundation.PWSTR
-        ByName: _ByName_e__Struct
-        ByObjectId: _ByObjectId_e__Struct
-        class _ByName_e__Struct(Structure):
-            pPackageName: win32more.Foundation.PWSTR
-            PolicyId: Guid
-        class _ByObjectId_e__Struct(Structure):
-            ObjectId: Guid
-            PolicyId: Guid
 URI_CREATE_FLAGS = UInt32
 Uri_CREATE_ALLOW_RELATIVE: URI_CREATE_FLAGS = 1
 Uri_CREATE_ALLOW_IMPLICIT_WILDCARD_SCHEME: URI_CREATE_FLAGS = 2
@@ -2310,23 +2293,6 @@ Uri_PROPERTY_PORT: Uri_PROPERTY = 16
 Uri_PROPERTY_SCHEME: Uri_PROPERTY = 17
 Uri_PROPERTY_ZONE: Uri_PROPERTY = 18
 Uri_PROPERTY_DWORD_LAST: Uri_PROPERTY = 18
-class userFLAG_STGMEDIUM(Structure):
-    ContextFlags: Int32
-    fPassOwnership: Int32
-    Stgmed: win32more.System.Com.userSTGMEDIUM
-class userSTGMEDIUM(Structure):
-    pUnkForRelease: win32more.System.Com.IUnknown_head
-    class _STGMEDIUM_UNION(Structure):
-        tymed: UInt32
-        u: _u_e__Struct
-        class _u_e__Struct(Union):
-            hMetaFilePict: POINTER(win32more.System.SystemServices.userHMETAFILEPICT_head)
-            hHEnhMetaFile: POINTER(win32more.System.SystemServices.userHENHMETAFILE_head)
-            hGdiHandle: POINTER(win32more.System.Com.GDI_OBJECT_head)
-            hGlobal: POINTER(win32more.System.SystemServices.userHGLOBAL_head)
-            lpszFileName: win32more.Foundation.PWSTR
-            pstm: POINTER(win32more.System.Com.BYTE_BLOB_head)
-            pstg: POINTER(win32more.System.Com.BYTE_BLOB_head)
 class VARDESC(Structure):
     memid: Int32
     lpstrSchema: win32more.Foundation.PWSTR
@@ -2476,6 +2442,41 @@ class WORD_BLOB(Structure):
 class WORD_SIZEDARR(Structure):
     clSize: UInt32
     pData: POINTER(UInt16)
+class uCLSSPEC(Structure):
+    tyspec: UInt32
+    tagged_union: _tagged_union_e__Struct
+    class _tagged_union_e__Struct(Union):
+        clsid: Guid
+        pFileExt: win32more.Foundation.PWSTR
+        pMimeType: win32more.Foundation.PWSTR
+        pProgId: win32more.Foundation.PWSTR
+        pFileName: win32more.Foundation.PWSTR
+        ByName: _ByName_e__Struct
+        ByObjectId: _ByObjectId_e__Struct
+        class _ByName_e__Struct(Structure):
+            pPackageName: win32more.Foundation.PWSTR
+            PolicyId: Guid
+        class _ByObjectId_e__Struct(Structure):
+            ObjectId: Guid
+            PolicyId: Guid
+class userFLAG_STGMEDIUM(Structure):
+    ContextFlags: Int32
+    fPassOwnership: Int32
+    Stgmed: win32more.System.Com.userSTGMEDIUM
+class userSTGMEDIUM(Structure):
+    pUnkForRelease: win32more.System.Com.IUnknown_head
+    class _STGMEDIUM_UNION(Structure):
+        tymed: UInt32
+        u: _u_e__Struct
+        class _u_e__Struct(Union):
+            hMetaFilePict: POINTER(win32more.System.SystemServices.userHMETAFILEPICT_head)
+            hHEnhMetaFile: POINTER(win32more.System.SystemServices.userHENHMETAFILE_head)
+            hGdiHandle: POINTER(win32more.System.Com.GDI_OBJECT_head)
+            hGlobal: POINTER(win32more.System.SystemServices.userHGLOBAL_head)
+            lpszFileName: win32more.Foundation.PWSTR
+            pstm: POINTER(win32more.System.Com.BYTE_BLOB_head)
+            pstg: POINTER(win32more.System.Com.BYTE_BLOB_head)
+make_head(_module, 'AUTHENTICATEINFO')
 make_head(_module, 'AsyncIAdviseSink')
 make_head(_module, 'AsyncIAdviseSink2')
 make_head(_module, 'AsyncIMultiQI')
@@ -2483,34 +2484,33 @@ make_head(_module, 'AsyncIPipeByte')
 make_head(_module, 'AsyncIPipeDouble')
 make_head(_module, 'AsyncIPipeLong')
 make_head(_module, 'AsyncIUnknown')
-make_head(_module, 'AUTHENTICATEINFO')
+make_head(_module, 'BINDINFO')
+make_head(_module, 'BINDPTR')
 make_head(_module, 'BIND_OPTS')
 make_head(_module, 'BIND_OPTS2')
 make_head(_module, 'BIND_OPTS3')
-make_head(_module, 'BINDINFO')
-make_head(_module, 'BINDPTR')
 make_head(_module, 'BLOB')
 make_head(_module, 'BYTE_BLOB')
 make_head(_module, 'BYTE_SIZEDARR')
 make_head(_module, 'CATEGORYINFO')
 make_head(_module, 'COAUTHIDENTITY')
 make_head(_module, 'COAUTHINFO')
-make_head(_module, 'ComCallData')
 make_head(_module, 'CONNECTDATA')
 make_head(_module, 'COSERVERINFO')
 make_head(_module, 'CSPLATFORM')
 make_head(_module, 'CUSTDATA')
 make_head(_module, 'CUSTDATAITEM')
 make_head(_module, 'CY')
+make_head(_module, 'ComCallData')
 make_head(_module, 'DISPPARAMS')
 make_head(_module, 'DVTARGETDEVICE')
 make_head(_module, 'DWORD_BLOB')
 make_head(_module, 'DWORD_SIZEDARR')
 make_head(_module, 'ELEMDESC')
 make_head(_module, 'EXCEPINFO')
-make_head(_module, 'FLAG_STGMEDIUM')
 make_head(_module, 'FLAGGED_BYTE_BLOB')
 make_head(_module, 'FLAGGED_WORD_BLOB')
+make_head(_module, 'FLAG_STGMEDIUM')
 make_head(_module, 'FORMATETC')
 make_head(_module, 'FUNCDESC')
 make_head(_module, 'GDI_OBJECT')
@@ -2527,9 +2527,9 @@ make_head(_module, 'IAuthenticate')
 make_head(_module, 'IAuthenticateEx')
 make_head(_module, 'IBindCtx')
 make_head(_module, 'IBindHost')
-make_head(_module, 'IBinding')
 make_head(_module, 'IBindStatusCallback')
 make_head(_module, 'IBindStatusCallbackEx')
+make_head(_module, 'IBinding')
 make_head(_module, 'IBlockingLock')
 make_head(_module, 'ICallFactory')
 make_head(_module, 'ICancelMethodCalls')
@@ -2544,10 +2544,10 @@ make_head(_module, 'IConnectionPoint')
 make_head(_module, 'IConnectionPointContainer')
 make_head(_module, 'IContext')
 make_head(_module, 'IContextCallback')
+make_head(_module, 'IDLDESC')
 make_head(_module, 'IDataAdviseHolder')
 make_head(_module, 'IDataObject')
 make_head(_module, 'IDispatch')
-make_head(_module, 'IDLDESC')
 make_head(_module, 'IEnumCATEGORYINFO')
 make_head(_module, 'IEnumConnectionPoints')
 make_head(_module, 'IEnumConnections')
@@ -2572,9 +2572,10 @@ make_head(_module, 'IMalloc')
 make_head(_module, 'IMallocSpy')
 make_head(_module, 'IMoniker')
 make_head(_module, 'IMultiQI')
-make_head(_module, 'INoMarshal')
 make_head(_module, 'INTERFACEINFO')
+make_head(_module, 'INoMarshal')
 make_head(_module, 'IOplockStorage')
+make_head(_module, 'IPSFactoryBuffer')
 make_head(_module, 'IPersist')
 make_head(_module, 'IPersistFile')
 make_head(_module, 'IPersistMemory')
@@ -2586,9 +2587,8 @@ make_head(_module, 'IPipeLong')
 make_head(_module, 'IProcessInitControl')
 make_head(_module, 'IProcessLock')
 make_head(_module, 'IProgressNotify')
-make_head(_module, 'IPSFactoryBuffer')
-make_head(_module, 'IReleaseMarshalBuffers')
 make_head(_module, 'IROTData')
+make_head(_module, 'IReleaseMarshalBuffers')
 make_head(_module, 'IRpcChannelBuffer')
 make_head(_module, 'IRpcChannelBuffer2')
 make_head(_module, 'IRpcChannelBuffer3')
@@ -2628,12 +2628,12 @@ make_head(_module, 'IWaitMultiple')
 make_head(_module, 'LPEXCEPFINO_DEFERRED_FILLIN')
 make_head(_module, 'LPFNCANUNLOADNOW')
 make_head(_module, 'LPFNGETCLASSOBJECT')
-make_head(_module, 'MachineGlobalObjectTableRegistrationToken__')
 make_head(_module, 'MULTI_QI')
+make_head(_module, 'MachineGlobalObjectTableRegistrationToken__')
 make_head(_module, 'PFNCONTEXTCALL')
 make_head(_module, 'QUERYCONTEXT')
-make_head(_module, 'RemSTGMEDIUM')
 make_head(_module, 'RPCOLEMESSAGE')
+make_head(_module, 'RemSTGMEDIUM')
 make_head(_module, 'SAFEARRAY')
 make_head(_module, 'SAFEARRAYBOUND')
 make_head(_module, 'SChannelHookCallInfo')
@@ -2647,13 +2647,13 @@ make_head(_module, 'StorageLayout')
 make_head(_module, 'TLIBATTR')
 make_head(_module, 'TYPEATTR')
 make_head(_module, 'TYPEDESC')
-make_head(_module, 'uCLSSPEC')
-make_head(_module, 'userFLAG_STGMEDIUM')
-make_head(_module, 'userSTGMEDIUM')
 make_head(_module, 'VARDESC')
 make_head(_module, 'VARIANT')
 make_head(_module, 'WORD_BLOB')
 make_head(_module, 'WORD_SIZEDARR')
+make_head(_module, 'uCLSSPEC')
+make_head(_module, 'userFLAG_STGMEDIUM')
+make_head(_module, 'userSTGMEDIUM')
 __all__ = [
     "ADVANCED_FEATURE_FLAGS",
     "ADVF",

@@ -71,6 +71,32 @@ D3D_COMPONENT_MASK_Z: UInt32 = 4
 D3D_COMPONENT_MASK_W: UInt32 = 8
 D3D_TEXTURE_LAYOUT_ROW_MAJOR: Guid = Guid('b5dc234f-72bb-4bec-97-05-8c-f2-58-df-6b-6c')
 D3D_TEXTURE_LAYOUT_64KB_STANDARD_SWIZZLE: Guid = Guid('4c0f29e3-3f5f-4d35-84-c9-bc-09-83-b6-2c-28')
+class D3DMATRIX(Structure):
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        Anonymous: _Anonymous_e__Struct
+        m: Single * 16
+        class _Anonymous_e__Struct(Structure):
+            _11: Single
+            _12: Single
+            _13: Single
+            _14: Single
+            _21: Single
+            _22: Single
+            _23: Single
+            _24: Single
+            _31: Single
+            _32: Single
+            _33: Single
+            _34: Single
+            _41: Single
+            _42: Single
+            _43: Single
+            _44: Single
+class D3DVECTOR(Structure):
+    x: Single
+    y: Single
+    z: Single
 D3D_CBUFFER_TYPE = Int32
 D3D_CT_CBUFFER: D3D_CBUFFER_TYPE = 0
 D3D_CT_TBUFFER: D3D_CBUFFER_TYPE = 1
@@ -689,32 +715,6 @@ D3D11_TESSELLATOR_PARTITIONING_INTEGER: D3D_TESSELLATOR_PARTITIONING = 1
 D3D11_TESSELLATOR_PARTITIONING_POW2: D3D_TESSELLATOR_PARTITIONING = 2
 D3D11_TESSELLATOR_PARTITIONING_FRACTIONAL_ODD: D3D_TESSELLATOR_PARTITIONING = 3
 D3D11_TESSELLATOR_PARTITIONING_FRACTIONAL_EVEN: D3D_TESSELLATOR_PARTITIONING = 4
-class D3DMATRIX(Structure):
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        Anonymous: _Anonymous_e__Struct
-        m: Single * 16
-        class _Anonymous_e__Struct(Structure):
-            _11: Single
-            _12: Single
-            _13: Single
-            _14: Single
-            _21: Single
-            _22: Single
-            _23: Single
-            _24: Single
-            _31: Single
-            _32: Single
-            _33: Single
-            _34: Single
-            _41: Single
-            _42: Single
-            _43: Single
-            _44: Single
-class D3DVECTOR(Structure):
-    x: Single
-    y: Single
-    z: Single
 class ID3DBlob(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('8ba5fb08-5195-40e2-ac-58-0d-98-9c-3a-01-02')
@@ -737,9 +737,9 @@ class ID3DInclude(c_void_p):
     def Close(pData: c_void_p) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFN_DESTRUCTION_CALLBACK(pData: c_void_p) -> Void: ...
-make_head(_module, 'D3D_SHADER_MACRO')
 make_head(_module, 'D3DMATRIX')
 make_head(_module, 'D3DVECTOR')
+make_head(_module, 'D3D_SHADER_MACRO')
 make_head(_module, 'ID3DBlob')
 make_head(_module, 'ID3DDestructionNotifier')
 make_head(_module, 'ID3DInclude')

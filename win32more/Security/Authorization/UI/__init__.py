@@ -122,6 +122,14 @@ class SECURITY_OBJECT(Structure):
     cbData2: UInt32
     Id: UInt32
     fWellKnown: win32more.Foundation.BOOLEAN
+class SID_INFO(Structure):
+    pSid: win32more.Foundation.PSID
+    pwzCommonName: win32more.Foundation.PWSTR
+    pwzClass: win32more.Foundation.PWSTR
+    pwzUPN: win32more.Foundation.PWSTR
+class SID_INFO_LIST(Structure):
+    cItems: UInt32
+    aSidInfo: win32more.Security.Authorization.UI.SID_INFO * 1
 class SI_ACCESS(Structure):
     pguid: POINTER(Guid)
     mask: UInt32
@@ -169,14 +177,6 @@ SI_PAGE_OWNER: SI_PAGE_TYPE = 3
 SI_PAGE_EFFECTIVE: SI_PAGE_TYPE = 4
 SI_PAGE_TAKEOWNERSHIP: SI_PAGE_TYPE = 5
 SI_PAGE_SHARE: SI_PAGE_TYPE = 6
-class SID_INFO(Structure):
-    pSid: win32more.Foundation.PSID
-    pwzCommonName: win32more.Foundation.PWSTR
-    pwzClass: win32more.Foundation.PWSTR
-    pwzUPN: win32more.Foundation.PWSTR
-class SID_INFO_LIST(Structure):
-    cItems: UInt32
-    aSidInfo: win32more.Security.Authorization.UI.SID_INFO * 1
 make_head(_module, 'EFFPERM_RESULT_LIST')
 make_head(_module, 'IEffectivePermission')
 make_head(_module, 'IEffectivePermission2')
@@ -186,11 +186,11 @@ make_head(_module, 'ISecurityInformation3')
 make_head(_module, 'ISecurityInformation4')
 make_head(_module, 'ISecurityObjectTypeInfo')
 make_head(_module, 'SECURITY_OBJECT')
+make_head(_module, 'SID_INFO')
+make_head(_module, 'SID_INFO_LIST')
 make_head(_module, 'SI_ACCESS')
 make_head(_module, 'SI_INHERIT_TYPE')
 make_head(_module, 'SI_OBJECT_INFO')
-make_head(_module, 'SID_INFO')
-make_head(_module, 'SID_INFO_LIST')
 __all__ = [
     "CFSTR_ACLUI_SID_INFO_LIST",
     "CreateSecurityPage",

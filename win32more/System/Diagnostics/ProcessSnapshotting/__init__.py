@@ -45,14 +45,14 @@ class PSS_ALLOCATOR(Structure):
     Context: c_void_p
     AllocRoutine: IntPtr
     FreeRoutine: IntPtr
+class PSS_AUXILIARY_PAGES_INFORMATION(Structure):
+    AuxPagesCaptured: UInt32
 class PSS_AUXILIARY_PAGE_ENTRY(Structure):
     Address: c_void_p
     BasicInformation: win32more.System.Memory.MEMORY_BASIC_INFORMATION
     CaptureTime: win32more.Foundation.FILETIME
     PageContents: c_void_p
     PageSize: UInt32
-class PSS_AUXILIARY_PAGES_INFORMATION(Structure):
-    AuxPagesCaptured: UInt32
 PSS_CAPTURE_FLAGS = UInt32
 PSS_CAPTURE_NONE: PSS_CAPTURE_FLAGS = 0
 PSS_CAPTURE_VA_CLONE: PSS_CAPTURE_FLAGS = 1
@@ -260,8 +260,8 @@ PSS_WALK_VA_SPACE: PSS_WALK_INFORMATION_CLASS = 1
 PSS_WALK_HANDLES: PSS_WALK_INFORMATION_CLASS = 2
 PSS_WALK_THREADS: PSS_WALK_INFORMATION_CLASS = 3
 make_head(_module, 'PSS_ALLOCATOR')
-make_head(_module, 'PSS_AUXILIARY_PAGE_ENTRY')
 make_head(_module, 'PSS_AUXILIARY_PAGES_INFORMATION')
+make_head(_module, 'PSS_AUXILIARY_PAGE_ENTRY')
 make_head(_module, 'PSS_HANDLE_ENTRY')
 make_head(_module, 'PSS_HANDLE_INFORMATION')
 make_head(_module, 'PSS_HANDLE_TRACE_INFORMATION')

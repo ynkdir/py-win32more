@@ -303,6 +303,31 @@ class COPYDATASTRUCT(Structure):
     dwData: UIntPtr
     cbData: UInt32
     lpData: c_void_p
+class DDEACK(Structure):
+    _bitfield: UInt16
+class DDEADVISE(Structure):
+    _bitfield: UInt16
+    cfFormat: Int16
+class DDEDATA(Structure):
+    _bitfield: UInt16
+    cfFormat: Int16
+    Value: Byte * 1
+class DDELN(Structure):
+    _bitfield: UInt16
+    cfFormat: Int16
+class DDEML_MSG_HOOK_DATA(Structure):
+    uiLo: UIntPtr
+    uiHi: UIntPtr
+    cbData: UInt32
+    Data: UInt32 * 8
+class DDEPOKE(Structure):
+    _bitfield: UInt16
+    cfFormat: Int16
+    Value: Byte * 1
+class DDEUP(Structure):
+    _bitfield: UInt16
+    cfFormat: Int16
+    rgb: Byte * 1
 DDE_CLIENT_TRANSACTION_TYPE = UInt32
 XTYP_ADVSTART: DDE_CLIENT_TRANSACTION_TYPE = 4144
 XTYP_ADVSTOP: DDE_CLIENT_TRANSACTION_TYPE = 32832
@@ -353,31 +378,6 @@ DNS_REGISTER: DDE_NAME_SERVICE_CMD = 1
 DNS_UNREGISTER: DDE_NAME_SERVICE_CMD = 2
 DNS_FILTERON: DDE_NAME_SERVICE_CMD = 4
 DNS_FILTEROFF: DDE_NAME_SERVICE_CMD = 8
-class DDEACK(Structure):
-    _bitfield: UInt16
-class DDEADVISE(Structure):
-    _bitfield: UInt16
-    cfFormat: Int16
-class DDEDATA(Structure):
-    _bitfield: UInt16
-    cfFormat: Int16
-    Value: Byte * 1
-class DDELN(Structure):
-    _bitfield: UInt16
-    cfFormat: Int16
-class DDEML_MSG_HOOK_DATA(Structure):
-    uiLo: UIntPtr
-    uiHi: UIntPtr
-    cbData: UInt32
-    Data: UInt32 * 8
-class DDEPOKE(Structure):
-    _bitfield: UInt16
-    cfFormat: Int16
-    Value: Byte * 1
-class DDEUP(Structure):
-    _bitfield: UInt16
-    cfFormat: Int16
-    rgb: Byte * 1
 HCONV = IntPtr
 HCONVLIST = IntPtr
 HDDEDATA = IntPtr

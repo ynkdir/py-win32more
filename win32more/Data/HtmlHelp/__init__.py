@@ -275,6 +275,14 @@ class CProperty(Structure):
         lpszwData: win32more.Foundation.PWSTR
         lpvData: c_void_p
         dwValue: UInt32
+class HHNTRACK(Structure):
+    hdr: win32more.UI.Controls.NMHDR
+    pszCurUrl: win32more.Foundation.PSTR
+    idAction: Int32
+    phhWinType: POINTER(win32more.Data.HtmlHelp.HH_WINTYPE_head)
+class HHN_NOTIFY(Structure):
+    hdr: win32more.UI.Controls.NMHDR
+    pszUrl: win32more.Foundation.PSTR
 class HH_AKLINK(Structure):
     cbStruct: Int32
     fReserved: win32more.Foundation.BOOL
@@ -363,14 +371,6 @@ class HH_WINTYPE(Structure):
     rcMinSize: win32more.Foundation.RECT
     cbInfoTypes: Int32
     pszCustomTabs: POINTER(SByte)
-class HHN_NOTIFY(Structure):
-    hdr: win32more.UI.Controls.NMHDR
-    pszUrl: win32more.Foundation.PSTR
-class HHNTRACK(Structure):
-    hdr: win32more.UI.Controls.NMHDR
-    pszCurUrl: win32more.Foundation.PSTR
-    idAction: Int32
-    phhWinType: POINTER(win32more.Data.HtmlHelp.HH_WINTYPE_head)
 HTML_HELP_COMMAND = Int32
 HH_DISPLAY_TOPIC: HTML_HELP_COMMAND = 0
 HH_HELP_FINDER: HTML_HELP_COMMAND = 0
@@ -558,6 +558,13 @@ class IITWordWheel(c_void_p):
     def GetData(lEntry: Int32, lpITResult: win32more.Data.HtmlHelp.IITResultSet_head) -> win32more.Foundation.HRESULT: ...
     @commethod(15)
     def GetDataColumns(pRS: win32more.Data.HtmlHelp.IITResultSet_head) -> win32more.Foundation.HRESULT: ...
+class IStemSink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('fe77c330-7f42-11ce-be-57-00-aa-00-51-fe-20')
+    @commethod(3)
+    def PutAltWord(pwcInBuf: win32more.Foundation.PWSTR, cwc: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def PutWord(pwcInBuf: win32more.Foundation.PWSTR, cwc: UInt32) -> win32more.Foundation.HRESULT: ...
 class IStemmerConfig(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('8fa0d5a7-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
@@ -571,13 +578,6 @@ class IStemmerConfig(c_void_p):
     def GetControlInfo(pgrfStemFlags: POINTER(UInt32), pdwReserved: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
     @commethod(7)
     def LoadExternalStemmerData(pStream: win32more.System.Com.IStream_head, dwExtDataType: UInt32) -> win32more.Foundation.HRESULT: ...
-class IStemSink(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('fe77c330-7f42-11ce-be-57-00-aa-00-51-fe-20')
-    @commethod(3)
-    def PutAltWord(pwcInBuf: win32more.Foundation.PWSTR, cwc: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def PutWord(pwcInBuf: win32more.Foundation.PWSTR, cwc: UInt32) -> win32more.Foundation.HRESULT: ...
 class IWordBreakerConfig(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('8fa0d5a6-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
@@ -614,6 +614,8 @@ WORD_WHEEL_OPEN_FLAGS = UInt32
 ITWW_OPEN_CONNECT: WORD_WHEEL_OPEN_FLAGS = 0
 make_head(_module, 'COLUMNSTATUS')
 make_head(_module, 'CProperty')
+make_head(_module, 'HHNTRACK')
+make_head(_module, 'HHN_NOTIFY')
 make_head(_module, 'HH_AKLINK')
 make_head(_module, 'HH_ENUM_CAT')
 make_head(_module, 'HH_ENUM_IT')
@@ -622,8 +624,6 @@ make_head(_module, 'HH_GLOBAL_PROPERTY')
 make_head(_module, 'HH_POPUP')
 make_head(_module, 'HH_SET_INFOTYPE')
 make_head(_module, 'HH_WINTYPE')
-make_head(_module, 'HHN_NOTIFY')
-make_head(_module, 'HHNTRACK')
 make_head(_module, 'IITDatabase')
 make_head(_module, 'IITGroup')
 make_head(_module, 'IITPropList')
@@ -631,8 +631,8 @@ make_head(_module, 'IITQuery')
 make_head(_module, 'IITResultSet')
 make_head(_module, 'IITStopWordList')
 make_head(_module, 'IITWordWheel')
-make_head(_module, 'IStemmerConfig')
 make_head(_module, 'IStemSink')
+make_head(_module, 'IStemmerConfig')
 make_head(_module, 'IWordBreakerConfig')
 make_head(_module, 'PFNCOLHEAPFREE')
 make_head(_module, 'ROWSTATUS')

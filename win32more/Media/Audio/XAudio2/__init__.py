@@ -254,7 +254,6 @@ def CreateAudioReverb(ppApo: POINTER(win32more.System.Com.IUnknown_head)) -> win
 def CreateHrtfApo(init: POINTER(win32more.Media.Audio.XAudio2.HrtfApoInit_head), xApo: POINTER(win32more.Media.Audio.XAudio2.IXAPO_head)) -> win32more.Foundation.HRESULT: ...
 AudioReverb = Guid('c2633b16-471b-4498-b8-c5-4f-09-59-e2-ec-09')
 AudioVolumeMeter = Guid('4fc3b166-972a-40cf-bc-37-7d-b0-3d-b2-fb-a3')
-FXEcho = Guid('5039d740-f736-449a-84-d3-a5-62-02-55-7b-87')
 class FXECHO_INITDATA(Structure):
     MaxDelay: Single
     _pack_ = 1
@@ -278,16 +277,17 @@ class FXEQ_PARAMETERS(Structure):
     Gain3: Single
     Bandwidth3: Single
     _pack_ = 1
-FXMasteringLimiter = Guid('c4137916-2be1-46fd-85-99-44-15-36-f4-98-56')
+FXEcho = Guid('5039d740-f736-449a-84-d3-a5-62-02-55-7b-87')
 class FXMASTERINGLIMITER_PARAMETERS(Structure):
     Release: UInt32
     Loudness: UInt32
     _pack_ = 1
-FXReverb = Guid('7d9aca56-cb68-4807-b6-32-b1-37-35-2e-85-96')
+FXMasteringLimiter = Guid('c4137916-2be1-46fd-85-99-44-15-36-f4-98-56')
 class FXREVERB_PARAMETERS(Structure):
     Diffusion: Single
     RoomSize: Single
     _pack_ = 1
+FXReverb = Guid('7d9aca56-cb68-4807-b6-32-b1-37-35-2e-85-96')
 class HrtfApoInit(Structure):
     distanceDecay: POINTER(win32more.Media.Audio.XAudio2.HrtfDistanceDecay_head)
     directivity: POINTER(win32more.Media.Audio.XAudio2.HrtfDirectivity_head)
@@ -512,6 +512,52 @@ class XAPO_REGISTRATION_PROPERTIES(Structure):
     MinOutputBufferCount: UInt32
     MaxOutputBufferCount: UInt32
     _pack_ = 1
+class XAUDIO2FX_REVERB_I3DL2_PARAMETERS(Structure):
+    WetDryMix: Single
+    Room: Int32
+    RoomHF: Int32
+    RoomRolloffFactor: Single
+    DecayTime: Single
+    DecayHFRatio: Single
+    Reflections: Int32
+    ReflectionsDelay: Single
+    Reverb: Int32
+    ReverbDelay: Single
+    Diffusion: Single
+    Density: Single
+    HFReference: Single
+    _pack_ = 1
+class XAUDIO2FX_REVERB_PARAMETERS(Structure):
+    WetDryMix: Single
+    ReflectionsDelay: UInt32
+    ReverbDelay: Byte
+    RearDelay: Byte
+    SideDelay: Byte
+    PositionLeft: Byte
+    PositionRight: Byte
+    PositionMatrixLeft: Byte
+    PositionMatrixRight: Byte
+    EarlyDiffusion: Byte
+    LateDiffusion: Byte
+    LowEQGain: Byte
+    LowEQCutoff: Byte
+    HighEQGain: Byte
+    HighEQCutoff: Byte
+    RoomFilterFreq: Single
+    RoomFilterMain: Single
+    RoomFilterHF: Single
+    ReflectionsGain: Single
+    ReverbGain: Single
+    DecayTime: Single
+    Density: Single
+    RoomSize: Single
+    DisableLateField: win32more.Foundation.BOOL
+    _pack_ = 1
+class XAUDIO2FX_VOLUMEMETER_LEVELS(Structure):
+    pPeakLevels: POINTER(Single)
+    pRMSLevels: POINTER(Single)
+    ChannelCount: UInt32
+    _pack_ = 1
 class XAUDIO2_BUFFER(Structure):
     Flags: UInt32
     AudioBytes: UInt32
@@ -591,52 +637,6 @@ class XAUDIO2_VOICE_STATE(Structure):
     BuffersQueued: UInt32
     SamplesPlayed: UInt64
     _pack_ = 1
-class XAUDIO2FX_REVERB_I3DL2_PARAMETERS(Structure):
-    WetDryMix: Single
-    Room: Int32
-    RoomHF: Int32
-    RoomRolloffFactor: Single
-    DecayTime: Single
-    DecayHFRatio: Single
-    Reflections: Int32
-    ReflectionsDelay: Single
-    Reverb: Int32
-    ReverbDelay: Single
-    Diffusion: Single
-    Density: Single
-    HFReference: Single
-    _pack_ = 1
-class XAUDIO2FX_REVERB_PARAMETERS(Structure):
-    WetDryMix: Single
-    ReflectionsDelay: UInt32
-    ReverbDelay: Byte
-    RearDelay: Byte
-    SideDelay: Byte
-    PositionLeft: Byte
-    PositionRight: Byte
-    PositionMatrixLeft: Byte
-    PositionMatrixRight: Byte
-    EarlyDiffusion: Byte
-    LateDiffusion: Byte
-    LowEQGain: Byte
-    LowEQCutoff: Byte
-    HighEQGain: Byte
-    HighEQCutoff: Byte
-    RoomFilterFreq: Single
-    RoomFilterMain: Single
-    RoomFilterHF: Single
-    ReflectionsGain: Single
-    ReverbGain: Single
-    DecayTime: Single
-    Density: Single
-    RoomSize: Single
-    DisableLateField: win32more.Foundation.BOOL
-    _pack_ = 1
-class XAUDIO2FX_VOLUMEMETER_LEVELS(Structure):
-    pPeakLevels: POINTER(Single)
-    pRMSLevels: POINTER(Single)
-    ChannelCount: UInt32
-    _pack_ = 1
 make_head(_module, 'FXECHO_INITDATA')
 make_head(_module, 'FXECHO_PARAMETERS')
 make_head(_module, 'FXEQ_PARAMETERS')
@@ -663,6 +663,9 @@ make_head(_module, 'IXAudio2VoiceCallback')
 make_head(_module, 'XAPO_LOCKFORPROCESS_PARAMETERS')
 make_head(_module, 'XAPO_PROCESS_BUFFER_PARAMETERS')
 make_head(_module, 'XAPO_REGISTRATION_PROPERTIES')
+make_head(_module, 'XAUDIO2FX_REVERB_I3DL2_PARAMETERS')
+make_head(_module, 'XAUDIO2FX_REVERB_PARAMETERS')
+make_head(_module, 'XAUDIO2FX_VOLUMEMETER_LEVELS')
 make_head(_module, 'XAUDIO2_BUFFER')
 make_head(_module, 'XAUDIO2_BUFFER_WMA')
 make_head(_module, 'XAUDIO2_DEBUG_CONFIGURATION')
@@ -674,9 +677,6 @@ make_head(_module, 'XAUDIO2_SEND_DESCRIPTOR')
 make_head(_module, 'XAUDIO2_VOICE_DETAILS')
 make_head(_module, 'XAUDIO2_VOICE_SENDS')
 make_head(_module, 'XAUDIO2_VOICE_STATE')
-make_head(_module, 'XAUDIO2FX_REVERB_I3DL2_PARAMETERS')
-make_head(_module, 'XAUDIO2FX_REVERB_PARAMETERS')
-make_head(_module, 'XAUDIO2FX_VOLUMEMETER_LEVELS')
 __all__ = [
     "AudioReverb",
     "AudioVolumeMeter",

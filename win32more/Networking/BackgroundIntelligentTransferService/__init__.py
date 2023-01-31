@@ -241,17 +241,6 @@ class AsyncIBackgroundCopyCallback(c_void_p):
     def Begin_JobModification(pJob: win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head, dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
     @commethod(8)
     def Finish_JobModification() -> win32more.Foundation.HRESULT: ...
-BackgroundCopyManager = Guid('4991d34b-80a1-4291-83-b6-33-28-36-6b-90-97')
-BackgroundCopyManager1_5 = Guid('f087771f-d74f-4c1a-bb-8a-e1-6a-ca-91-24-ea')
-BackgroundCopyManager10_1 = Guid('4bd3e4e1-7bd4-4a2b-99-64-49-64-00-de-51-93')
-BackgroundCopyManager10_2 = Guid('4575438f-a6c8-4976-b0-fe-2f-26-b8-0d-95-9e')
-BackgroundCopyManager10_3 = Guid('5fd42ad5-c04e-4d36-ad-c7-e0-8f-f1-57-37-ad')
-BackgroundCopyManager2_0 = Guid('6d18ad12-bde3-4393-b3-11-09-9c-34-6e-6d-f9')
-BackgroundCopyManager2_5 = Guid('03ca98d6-ff5d-49b8-ab-c6-03-dd-84-12-70-20')
-BackgroundCopyManager3_0 = Guid('659cdea7-489e-11d9-a9-cd-00-0d-56-96-52-51')
-BackgroundCopyManager4_0 = Guid('bb6df56b-cace-11dc-99-92-00-19-b9-3a-3a-84')
-BackgroundCopyManager5_0 = Guid('1ecca34c-e88a-44e3-8d-6a-89-21-bd-e9-e4-52')
-BackgroundCopyQMgr = Guid('69ad4aee-51be-439b-a9-2c-86-ae-49-0e-8b-30')
 class BG_AUTH_CREDENTIALS(Structure):
     Target: win32more.Networking.BackgroundIntelligentTransferService.BG_AUTH_TARGET
     Scheme: win32more.Networking.BackgroundIntelligentTransferService.BG_AUTH_SCHEME
@@ -338,6 +327,7 @@ BG_JOB_TYPE_UPLOAD_REPLY: BG_JOB_TYPE = 2
 BG_TOKEN = UInt32
 BG_TOKEN_LOCAL_FILE: BG_TOKEN = 1
 BG_TOKEN_NETWORK: BG_TOKEN = 2
+BITSExtensionSetupFactory = Guid('efbbab68-7286-4783-94-bf-94-61-d8-b7-e7-e9')
 BITS_FILE_PROPERTY_ID = Int32
 BITS_FILE_PROPERTY_ID_HTTP_RESPONSE_HEADERS: BITS_FILE_PROPERTY_ID = 1
 class BITS_FILE_PROPERTY_VALUE(Union):
@@ -363,7 +353,17 @@ BITS_JOB_TRANSFER_POLICY_NOT_ROAMING: BITS_JOB_TRANSFER_POLICY = -2147483521
 BITS_JOB_TRANSFER_POLICY_NO_SURCHARGE: BITS_JOB_TRANSFER_POLICY = -2147483537
 BITS_JOB_TRANSFER_POLICY_STANDARD: BITS_JOB_TRANSFER_POLICY = -2147483545
 BITS_JOB_TRANSFER_POLICY_UNRESTRICTED: BITS_JOB_TRANSFER_POLICY = -2147483615
-BITSExtensionSetupFactory = Guid('efbbab68-7286-4783-94-bf-94-61-d8-b7-e7-e9')
+BackgroundCopyManager = Guid('4991d34b-80a1-4291-83-b6-33-28-36-6b-90-97')
+BackgroundCopyManager10_1 = Guid('4bd3e4e1-7bd4-4a2b-99-64-49-64-00-de-51-93')
+BackgroundCopyManager10_2 = Guid('4575438f-a6c8-4976-b0-fe-2f-26-b8-0d-95-9e')
+BackgroundCopyManager10_3 = Guid('5fd42ad5-c04e-4d36-ad-c7-e0-8f-f1-57-37-ad')
+BackgroundCopyManager1_5 = Guid('f087771f-d74f-4c1a-bb-8a-e1-6a-ca-91-24-ea')
+BackgroundCopyManager2_0 = Guid('6d18ad12-bde3-4393-b3-11-09-9c-34-6e-6d-f9')
+BackgroundCopyManager2_5 = Guid('03ca98d6-ff5d-49b8-ab-c6-03-dd-84-12-70-20')
+BackgroundCopyManager3_0 = Guid('659cdea7-489e-11d9-a9-cd-00-0d-56-96-52-51')
+BackgroundCopyManager4_0 = Guid('bb6df56b-cace-11dc-99-92-00-19-b9-3a-3a-84')
+BackgroundCopyManager5_0 = Guid('1ecca34c-e88a-44e3-8d-6a-89-21-bd-e9-e4-52')
+BackgroundCopyQMgr = Guid('69ad4aee-51be-439b-a9-2c-86-ae-49-0e-8b-30')
 class FILESETINFO(Structure):
     bstrRemoteFile: win32more.Foundation.BSTR
     bstrLocalFile: win32more.Foundation.BSTR
@@ -382,6 +382,22 @@ GROUPPROP_PROGRESSPERCENT: GROUPPROP = 9
 GROUPPROP_PROGRESSTIME: GROUPPROP = 10
 GROUPPROP_DISPLAYNAME: GROUPPROP = 11
 GROUPPROP_DESCRIPTION: GROUPPROP = 12
+class IBITSExtensionSetup(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('29cfbbf7-09e4-4b97-b0-bc-f2-28-7e-3d-8e-b3')
+    @commethod(7)
+    def EnableBITSUploads() -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def DisableBITSUploads() -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetCleanupTaskName(pTaskName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetCleanupTask(riid: POINTER(Guid), ppUnk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class IBITSExtensionSetupFactory(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('d5d2d542-5503-4e64-8b-48-72-ef-91-a3-2e-e1')
+    @commethod(7)
+    def GetObject(Path: win32more.Foundation.BSTR, ppExtensionSetup: POINTER(win32more.Networking.BackgroundIntelligentTransferService.IBITSExtensionSetup_head)) -> win32more.Foundation.HRESULT: ...
 class IBackgroundCopyCallback(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('97ea99c7-0186-4ad4-8d-f9-c5-b4-e0-ed-6b-22')
@@ -700,22 +716,6 @@ class IBackgroundCopyServerCertificateValidationCallback(c_void_p):
     Guid = Guid('4cec0d02-def7-4158-81-3a-c3-2a-46-94-5f-f7')
     @commethod(3)
     def ValidateServerCertificate(job: win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head, file: win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile_head, certLength: UInt32, certData: c_char_p_no, certEncodingType: UInt32, certStoreLength: UInt32, certStoreData: c_char_p_no) -> win32more.Foundation.HRESULT: ...
-class IBITSExtensionSetup(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('29cfbbf7-09e4-4b97-b0-bc-f2-28-7e-3d-8e-b3')
-    @commethod(7)
-    def EnableBITSUploads() -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def DisableBITSUploads() -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def GetCleanupTaskName(pTaskName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def GetCleanupTask(riid: POINTER(Guid), ppUnk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-class IBITSExtensionSetupFactory(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('d5d2d542-5503-4e64-8b-48-72-ef-91-a3-2e-e1')
-    @commethod(7)
-    def GetObject(Path: win32more.Foundation.BSTR, ppExtensionSetup: POINTER(win32more.Networking.BackgroundIntelligentTransferService.IBITSExtensionSetup_head)) -> win32more.Foundation.HRESULT: ...
 class IBitsPeer(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('659cdea2-489e-11d9-a9-cd-00-0d-56-96-52-51')
@@ -877,6 +877,8 @@ make_head(_module, 'BG_JOB_TIMES')
 make_head(_module, 'BITS_FILE_PROPERTY_VALUE')
 make_head(_module, 'BITS_JOB_PROPERTY_VALUE')
 make_head(_module, 'FILESETINFO')
+make_head(_module, 'IBITSExtensionSetup')
+make_head(_module, 'IBITSExtensionSetupFactory')
 make_head(_module, 'IBackgroundCopyCallback')
 make_head(_module, 'IBackgroundCopyCallback1')
 make_head(_module, 'IBackgroundCopyCallback2')
@@ -901,8 +903,6 @@ make_head(_module, 'IBackgroundCopyJobHttpOptions3')
 make_head(_module, 'IBackgroundCopyManager')
 make_head(_module, 'IBackgroundCopyQMgr')
 make_head(_module, 'IBackgroundCopyServerCertificateValidationCallback')
-make_head(_module, 'IBITSExtensionSetup')
-make_head(_module, 'IBITSExtensionSetupFactory')
 make_head(_module, 'IBitsPeer')
 make_head(_module, 'IBitsPeerCacheAdministration')
 make_head(_module, 'IBitsPeerCacheRecord')

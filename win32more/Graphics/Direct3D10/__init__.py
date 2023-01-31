@@ -525,6 +525,11 @@ D3D10_CULL_MODE = Int32
 D3D10_CULL_NONE: D3D10_CULL_MODE = 1
 D3D10_CULL_FRONT: D3D10_CULL_MODE = 2
 D3D10_CULL_BACK: D3D10_CULL_MODE = 3
+class D3D10_DEPTH_STENCILOP_DESC(Structure):
+    StencilFailOp: win32more.Graphics.Direct3D10.D3D10_STENCIL_OP
+    StencilDepthFailOp: win32more.Graphics.Direct3D10.D3D10_STENCIL_OP
+    StencilPassOp: win32more.Graphics.Direct3D10.D3D10_STENCIL_OP
+    StencilFunc: win32more.Graphics.Direct3D10.D3D10_COMPARISON_FUNC
 class D3D10_DEPTH_STENCIL_DESC(Structure):
     DepthEnable: win32more.Foundation.BOOL
     DepthWriteMask: win32more.Graphics.Direct3D10.D3D10_DEPTH_WRITE_MASK
@@ -545,11 +550,6 @@ class D3D10_DEPTH_STENCIL_VIEW_DESC(Structure):
         Texture2DArray: win32more.Graphics.Direct3D10.D3D10_TEX2D_ARRAY_DSV
         Texture2DMS: win32more.Graphics.Direct3D10.D3D10_TEX2DMS_DSV
         Texture2DMSArray: win32more.Graphics.Direct3D10.D3D10_TEX2DMS_ARRAY_DSV
-class D3D10_DEPTH_STENCILOP_DESC(Structure):
-    StencilFailOp: win32more.Graphics.Direct3D10.D3D10_STENCIL_OP
-    StencilDepthFailOp: win32more.Graphics.Direct3D10.D3D10_STENCIL_OP
-    StencilPassOp: win32more.Graphics.Direct3D10.D3D10_STENCIL_OP
-    StencilFunc: win32more.Graphics.Direct3D10.D3D10_COMPARISON_FUNC
 D3D10_DEPTH_WRITE_MASK = Int32
 D3D10_DEPTH_WRITE_MASK_ZERO: D3D10_DEPTH_WRITE_MASK = 0
 D3D10_DEPTH_WRITE_MASK_ALL: D3D10_DEPTH_WRITE_MASK = 1
@@ -710,8 +710,6 @@ D3D10_MAP_WRITE: D3D10_MAP = 2
 D3D10_MAP_READ_WRITE: D3D10_MAP = 3
 D3D10_MAP_WRITE_DISCARD: D3D10_MAP = 4
 D3D10_MAP_WRITE_NO_OVERWRITE: D3D10_MAP = 5
-D3D10_MAP_FLAG = Int32
-D3D10_MAP_FLAG_DO_NOT_WAIT: D3D10_MAP_FLAG = 1048576
 class D3D10_MAPPED_TEXTURE2D(Structure):
     pData: c_void_p
     RowPitch: UInt32
@@ -719,6 +717,8 @@ class D3D10_MAPPED_TEXTURE3D(Structure):
     pData: c_void_p
     RowPitch: UInt32
     DepthPitch: UInt32
+D3D10_MAP_FLAG = Int32
+D3D10_MAP_FLAG_DO_NOT_WAIT: D3D10_MAP_FLAG = 1048576
 class D3D10_MESSAGE(Structure):
     Category: win32more.Graphics.Direct3D10.D3D10_MESSAGE_CATEGORY
     Severity: win32more.Graphics.Direct3D10.D3D10_MESSAGE_SEVERITY
@@ -1443,12 +1443,6 @@ D3D10_SHADER_DEBUG_REG_UNUSED: D3D10_SHADER_DEBUG_REGTYPE = 10
 D3D11_SHADER_DEBUG_REG_INTERFACE_POINTERS: D3D10_SHADER_DEBUG_REGTYPE = 11
 D3D11_SHADER_DEBUG_REG_UAV: D3D10_SHADER_DEBUG_REGTYPE = 12
 D3D10_SHADER_DEBUG_REG_FORCE_DWORD: D3D10_SHADER_DEBUG_REGTYPE = 2147483647
-class D3D10_SHADER_DEBUG_SCOPE_INFO(Structure):
-    ScopeType: win32more.Graphics.Direct3D10.D3D10_SHADER_DEBUG_SCOPETYPE
-    Name: UInt32
-    uNameLen: UInt32
-    uVariables: UInt32
-    VariableData: UInt32
 D3D10_SHADER_DEBUG_SCOPETYPE = Int32
 D3D10_SHADER_DEBUG_SCOPE_GLOBAL: D3D10_SHADER_DEBUG_SCOPETYPE = 0
 D3D10_SHADER_DEBUG_SCOPE_BLOCK: D3D10_SHADER_DEBUG_SCOPETYPE = 1
@@ -1471,12 +1465,22 @@ class D3D10_SHADER_DEBUG_SCOPEVAR_INFO(Structure):
     ArrayStrides: UInt32
     uVariables: UInt32
     uFirstVariable: UInt32
+class D3D10_SHADER_DEBUG_SCOPE_INFO(Structure):
+    ScopeType: win32more.Graphics.Direct3D10.D3D10_SHADER_DEBUG_SCOPETYPE
+    Name: UInt32
+    uNameLen: UInt32
+    uVariables: UInt32
+    VariableData: UInt32
 class D3D10_SHADER_DEBUG_TOKEN_INFO(Structure):
     File: UInt32
     Line: UInt32
     Column: UInt32
     TokenLength: UInt32
     TokenId: UInt32
+D3D10_SHADER_DEBUG_VARTYPE = Int32
+D3D10_SHADER_DEBUG_VAR_VARIABLE: D3D10_SHADER_DEBUG_VARTYPE = 0
+D3D10_SHADER_DEBUG_VAR_FUNCTION: D3D10_SHADER_DEBUG_VARTYPE = 1
+D3D10_SHADER_DEBUG_VAR_FORCE_DWORD: D3D10_SHADER_DEBUG_VARTYPE = 2147483647
 class D3D10_SHADER_DEBUG_VAR_INFO(Structure):
     TokenId: UInt32
     Type: win32more.Graphics.Direct3D.D3D_SHADER_VARIABLE_TYPE
@@ -1484,10 +1488,6 @@ class D3D10_SHADER_DEBUG_VAR_INFO(Structure):
     Component: UInt32
     ScopeVar: UInt32
     ScopeVarOffset: UInt32
-D3D10_SHADER_DEBUG_VARTYPE = Int32
-D3D10_SHADER_DEBUG_VAR_VARIABLE: D3D10_SHADER_DEBUG_VARTYPE = 0
-D3D10_SHADER_DEBUG_VAR_FUNCTION: D3D10_SHADER_DEBUG_VARTYPE = 1
-D3D10_SHADER_DEBUG_VAR_FORCE_DWORD: D3D10_SHADER_DEBUG_VARTYPE = 2147483647
 class D3D10_SHADER_DESC(Structure):
     Version: UInt32
     Creator: win32more.Foundation.PSTR
@@ -1648,6 +1648,21 @@ class D3D10_TEX1D_RTV(Structure):
 class D3D10_TEX1D_SRV(Structure):
     MostDetailedMip: UInt32
     MipLevels: UInt32
+class D3D10_TEX2DMS_ARRAY_DSV(Structure):
+    FirstArraySlice: UInt32
+    ArraySize: UInt32
+class D3D10_TEX2DMS_ARRAY_RTV(Structure):
+    FirstArraySlice: UInt32
+    ArraySize: UInt32
+class D3D10_TEX2DMS_ARRAY_SRV(Structure):
+    FirstArraySlice: UInt32
+    ArraySize: UInt32
+class D3D10_TEX2DMS_DSV(Structure):
+    UnusedField_NothingToDefine: UInt32
+class D3D10_TEX2DMS_RTV(Structure):
+    UnusedField_NothingToDefine: UInt32
+class D3D10_TEX2DMS_SRV(Structure):
+    UnusedField_NothingToDefine: UInt32
 class D3D10_TEX2D_ARRAY_DSV(Structure):
     MipSlice: UInt32
     FirstArraySlice: UInt32
@@ -1668,21 +1683,6 @@ class D3D10_TEX2D_RTV(Structure):
 class D3D10_TEX2D_SRV(Structure):
     MostDetailedMip: UInt32
     MipLevels: UInt32
-class D3D10_TEX2DMS_ARRAY_DSV(Structure):
-    FirstArraySlice: UInt32
-    ArraySize: UInt32
-class D3D10_TEX2DMS_ARRAY_RTV(Structure):
-    FirstArraySlice: UInt32
-    ArraySize: UInt32
-class D3D10_TEX2DMS_ARRAY_SRV(Structure):
-    FirstArraySlice: UInt32
-    ArraySize: UInt32
-class D3D10_TEX2DMS_DSV(Structure):
-    UnusedField_NothingToDefine: UInt32
-class D3D10_TEX2DMS_RTV(Structure):
-    UnusedField_NothingToDefine: UInt32
-class D3D10_TEX2DMS_SRV(Structure):
-    UnusedField_NothingToDefine: UInt32
 class D3D10_TEX3D_RTV(Structure):
     MipSlice: UInt32
     FirstWSlice: UInt32
@@ -1698,12 +1698,6 @@ class D3D10_TEXCUBE_ARRAY_SRV1(Structure):
 class D3D10_TEXCUBE_SRV(Structure):
     MostDetailedMip: UInt32
     MipLevels: UInt32
-D3D10_TEXTURE_ADDRESS_MODE = Int32
-D3D10_TEXTURE_ADDRESS_WRAP: D3D10_TEXTURE_ADDRESS_MODE = 1
-D3D10_TEXTURE_ADDRESS_MIRROR: D3D10_TEXTURE_ADDRESS_MODE = 2
-D3D10_TEXTURE_ADDRESS_CLAMP: D3D10_TEXTURE_ADDRESS_MODE = 3
-D3D10_TEXTURE_ADDRESS_BORDER: D3D10_TEXTURE_ADDRESS_MODE = 4
-D3D10_TEXTURE_ADDRESS_MIRROR_ONCE: D3D10_TEXTURE_ADDRESS_MODE = 5
 class D3D10_TEXTURE1D_DESC(Structure):
     Width: UInt32
     MipLevels: UInt32
@@ -1741,6 +1735,12 @@ D3D10_TEXTURECUBE_FACE_POSITIVE_Y: D3D10_TEXTURECUBE_FACE = 2
 D3D10_TEXTURECUBE_FACE_NEGATIVE_Y: D3D10_TEXTURECUBE_FACE = 3
 D3D10_TEXTURECUBE_FACE_POSITIVE_Z: D3D10_TEXTURECUBE_FACE = 4
 D3D10_TEXTURECUBE_FACE_NEGATIVE_Z: D3D10_TEXTURECUBE_FACE = 5
+D3D10_TEXTURE_ADDRESS_MODE = Int32
+D3D10_TEXTURE_ADDRESS_WRAP: D3D10_TEXTURE_ADDRESS_MODE = 1
+D3D10_TEXTURE_ADDRESS_MIRROR: D3D10_TEXTURE_ADDRESS_MODE = 2
+D3D10_TEXTURE_ADDRESS_CLAMP: D3D10_TEXTURE_ADDRESS_MODE = 3
+D3D10_TEXTURE_ADDRESS_BORDER: D3D10_TEXTURE_ADDRESS_MODE = 4
+D3D10_TEXTURE_ADDRESS_MIRROR_ONCE: D3D10_TEXTURE_ADDRESS_MODE = 5
 D3D10_USAGE = Int32
 D3D10_USAGE_DEFAULT: D3D10_USAGE = 0
 D3D10_USAGE_IMMUTABLE: D3D10_USAGE = 1
@@ -2601,9 +2601,9 @@ class ID3D10View(c_void_p):
     @commethod(7)
     def GetResource(ppResource: POINTER(win32more.Graphics.Direct3D10.ID3D10Resource_head)) -> Void: ...
 @winfunctype_pointer
-def PFN_D3D10_CREATE_DEVICE_AND_SWAP_CHAIN1(param0: win32more.Graphics.Dxgi.IDXGIAdapter_head, param1: win32more.Graphics.Direct3D10.D3D10_DRIVER_TYPE, param2: win32more.Foundation.HINSTANCE, param3: UInt32, param4: win32more.Graphics.Direct3D10.D3D10_FEATURE_LEVEL1, param5: UInt32, param6: POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC_head), param7: POINTER(win32more.Graphics.Dxgi.IDXGISwapChain_head), param8: POINTER(win32more.Graphics.Direct3D10.ID3D10Device1_head)) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
 def PFN_D3D10_CREATE_DEVICE1(param0: win32more.Graphics.Dxgi.IDXGIAdapter_head, param1: win32more.Graphics.Direct3D10.D3D10_DRIVER_TYPE, param2: win32more.Foundation.HINSTANCE, param3: UInt32, param4: win32more.Graphics.Direct3D10.D3D10_FEATURE_LEVEL1, param5: UInt32, param6: POINTER(win32more.Graphics.Direct3D10.ID3D10Device1_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PFN_D3D10_CREATE_DEVICE_AND_SWAP_CHAIN1(param0: win32more.Graphics.Dxgi.IDXGIAdapter_head, param1: win32more.Graphics.Direct3D10.D3D10_DRIVER_TYPE, param2: win32more.Foundation.HINSTANCE, param3: UInt32, param4: win32more.Graphics.Direct3D10.D3D10_FEATURE_LEVEL1, param5: UInt32, param6: POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC_head), param7: POINTER(win32more.Graphics.Dxgi.IDXGISwapChain_head), param8: POINTER(win32more.Graphics.Direct3D10.ID3D10Device1_head)) -> win32more.Foundation.HRESULT: ...
 make_head(_module, 'D3D10_BLEND_DESC')
 make_head(_module, 'D3D10_BLEND_DESC1')
 make_head(_module, 'D3D10_BOX')
@@ -2612,9 +2612,9 @@ make_head(_module, 'D3D10_BUFFER_RTV')
 make_head(_module, 'D3D10_BUFFER_SRV')
 make_head(_module, 'D3D10_COUNTER_DESC')
 make_head(_module, 'D3D10_COUNTER_INFO')
+make_head(_module, 'D3D10_DEPTH_STENCILOP_DESC')
 make_head(_module, 'D3D10_DEPTH_STENCIL_DESC')
 make_head(_module, 'D3D10_DEPTH_STENCIL_VIEW_DESC')
-make_head(_module, 'D3D10_DEPTH_STENCILOP_DESC')
 make_head(_module, 'D3D10_EFFECT_DESC')
 make_head(_module, 'D3D10_EFFECT_SHADER_DESC')
 make_head(_module, 'D3D10_EFFECT_TYPE_DESC')
@@ -2642,8 +2642,8 @@ make_head(_module, 'D3D10_SHADER_DEBUG_INPUT_INFO')
 make_head(_module, 'D3D10_SHADER_DEBUG_INST_INFO')
 make_head(_module, 'D3D10_SHADER_DEBUG_OUTPUTREG_INFO')
 make_head(_module, 'D3D10_SHADER_DEBUG_OUTPUTVAR')
-make_head(_module, 'D3D10_SHADER_DEBUG_SCOPE_INFO')
 make_head(_module, 'D3D10_SHADER_DEBUG_SCOPEVAR_INFO')
+make_head(_module, 'D3D10_SHADER_DEBUG_SCOPE_INFO')
 make_head(_module, 'D3D10_SHADER_DEBUG_TOKEN_INFO')
 make_head(_module, 'D3D10_SHADER_DEBUG_VAR_INFO')
 make_head(_module, 'D3D10_SHADER_DESC')
@@ -2663,18 +2663,18 @@ make_head(_module, 'D3D10_TEX1D_ARRAY_SRV')
 make_head(_module, 'D3D10_TEX1D_DSV')
 make_head(_module, 'D3D10_TEX1D_RTV')
 make_head(_module, 'D3D10_TEX1D_SRV')
-make_head(_module, 'D3D10_TEX2D_ARRAY_DSV')
-make_head(_module, 'D3D10_TEX2D_ARRAY_RTV')
-make_head(_module, 'D3D10_TEX2D_ARRAY_SRV')
-make_head(_module, 'D3D10_TEX2D_DSV')
-make_head(_module, 'D3D10_TEX2D_RTV')
-make_head(_module, 'D3D10_TEX2D_SRV')
 make_head(_module, 'D3D10_TEX2DMS_ARRAY_DSV')
 make_head(_module, 'D3D10_TEX2DMS_ARRAY_RTV')
 make_head(_module, 'D3D10_TEX2DMS_ARRAY_SRV')
 make_head(_module, 'D3D10_TEX2DMS_DSV')
 make_head(_module, 'D3D10_TEX2DMS_RTV')
 make_head(_module, 'D3D10_TEX2DMS_SRV')
+make_head(_module, 'D3D10_TEX2D_ARRAY_DSV')
+make_head(_module, 'D3D10_TEX2D_ARRAY_RTV')
+make_head(_module, 'D3D10_TEX2D_ARRAY_SRV')
+make_head(_module, 'D3D10_TEX2D_DSV')
+make_head(_module, 'D3D10_TEX2D_RTV')
+make_head(_module, 'D3D10_TEX2D_SRV')
 make_head(_module, 'D3D10_TEX3D_RTV')
 make_head(_module, 'D3D10_TEX3D_SRV')
 make_head(_module, 'D3D10_TEXCUBE_ARRAY_SRV1')
@@ -2738,8 +2738,8 @@ make_head(_module, 'ID3D10Texture2D')
 make_head(_module, 'ID3D10Texture3D')
 make_head(_module, 'ID3D10VertexShader')
 make_head(_module, 'ID3D10View')
-make_head(_module, 'PFN_D3D10_CREATE_DEVICE_AND_SWAP_CHAIN1')
 make_head(_module, 'PFN_D3D10_CREATE_DEVICE1')
+make_head(_module, 'PFN_D3D10_CREATE_DEVICE_AND_SWAP_CHAIN1')
 __all__ = [
     "D3D10CompileEffectFromMemory",
     "D3D10CompileShader",

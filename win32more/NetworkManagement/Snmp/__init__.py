@@ -321,31 +321,8 @@ def PFNSNMPEXTENSIONQUERYEX(nRequestType: UInt32, nTransactionId: UInt32, pVarBi
 def PFNSNMPEXTENSIONTRAP(pEnterpriseOid: POINTER(win32more.NetworkManagement.Snmp.AsnObjectIdentifier_head), pGenericTrapId: POINTER(Int32), pSpecificTrapId: POINTER(Int32), pTimeStamp: POINTER(UInt32), pVarBindList: POINTER(win32more.NetworkManagement.Snmp.SnmpVarBindList_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFNSNMPSTARTUPEX(param0: POINTER(UInt32), param1: POINTER(UInt32), param2: POINTER(UInt32), param3: POINTER(UInt32), param4: POINTER(UInt32)) -> UInt32: ...
-class smiCNTR64(Structure):
-    hipart: UInt32
-    lopart: UInt32
-class smiOCTETS(Structure):
-    len: UInt32
-    ptr: c_char_p_no
-class smiOID(Structure):
-    len: UInt32
-    ptr: POINTER(UInt32)
-class smiVALUE(Structure):
-    syntax: UInt32
-    value: _value_e__Union
-    class _value_e__Union(Union):
-        sNumber: Int32
-        uNumber: UInt32
-        hNumber: win32more.NetworkManagement.Snmp.smiCNTR64
-        string: win32more.NetworkManagement.Snmp.smiOCTETS
-        oid: win32more.NetworkManagement.Snmp.smiOID
-        empty: Byte
-class smiVENDORINFO(Structure):
-    vendorName: win32more.Foundation.CHAR * 64
-    vendorContact: win32more.Foundation.CHAR * 64
-    vendorVersionId: win32more.Foundation.CHAR * 32
-    vendorVersionDate: win32more.Foundation.CHAR * 32
-    vendorEnterprise: UInt32
+@winfunctype_pointer
+def SNMPAPI_CALLBACK(hSession: IntPtr, hWnd: win32more.Foundation.HWND, wMsg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM, lpClientData: c_void_p) -> UInt32: ...
 SNMP_API_TRANSLATE_MODE = UInt32
 SNMPAPI_TRANSLATED: SNMP_API_TRANSLATE_MODE = 0
 SNMPAPI_UNTRANSLATED_V1: SNMP_API_TRANSLATE_MODE = 1
@@ -426,8 +403,6 @@ SNMP_PDU_TRAP: SNMP_PDU_TYPE = 167
 SNMP_STATUS = UInt32
 SNMPAPI_ON: SNMP_STATUS = 1
 SNMPAPI_OFF: SNMP_STATUS = 0
-@winfunctype_pointer
-def SNMPAPI_CALLBACK(hSession: IntPtr, hWnd: win32more.Foundation.HWND, wMsg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM, lpClientData: c_void_p) -> UInt32: ...
 class SnmpVarBind(Structure):
     name: win32more.NetworkManagement.Snmp.AsnObjectIdentifier
     value: win32more.NetworkManagement.Snmp.AsnAny
@@ -436,6 +411,31 @@ class SnmpVarBindList(Structure):
     list: POINTER(win32more.NetworkManagement.Snmp.SnmpVarBind_head)
     len: UInt32
     _pack_ = 4
+class smiCNTR64(Structure):
+    hipart: UInt32
+    lopart: UInt32
+class smiOCTETS(Structure):
+    len: UInt32
+    ptr: c_char_p_no
+class smiOID(Structure):
+    len: UInt32
+    ptr: POINTER(UInt32)
+class smiVALUE(Structure):
+    syntax: UInt32
+    value: _value_e__Union
+    class _value_e__Union(Union):
+        sNumber: Int32
+        uNumber: UInt32
+        hNumber: win32more.NetworkManagement.Snmp.smiCNTR64
+        string: win32more.NetworkManagement.Snmp.smiOCTETS
+        oid: win32more.NetworkManagement.Snmp.smiOID
+        empty: Byte
+class smiVENDORINFO(Structure):
+    vendorName: win32more.Foundation.CHAR * 64
+    vendorContact: win32more.Foundation.CHAR * 64
+    vendorVersionId: win32more.Foundation.CHAR * 32
+    vendorVersionDate: win32more.Foundation.CHAR * 32
+    vendorEnterprise: UInt32
 make_head(_module, 'AsnAny')
 make_head(_module, 'AsnObjectIdentifier')
 make_head(_module, 'AsnOctetString')
@@ -448,14 +448,14 @@ make_head(_module, 'PFNSNMPEXTENSIONQUERY')
 make_head(_module, 'PFNSNMPEXTENSIONQUERYEX')
 make_head(_module, 'PFNSNMPEXTENSIONTRAP')
 make_head(_module, 'PFNSNMPSTARTUPEX')
+make_head(_module, 'SNMPAPI_CALLBACK')
+make_head(_module, 'SnmpVarBind')
+make_head(_module, 'SnmpVarBindList')
 make_head(_module, 'smiCNTR64')
 make_head(_module, 'smiOCTETS')
 make_head(_module, 'smiOID')
 make_head(_module, 'smiVALUE')
 make_head(_module, 'smiVENDORINFO')
-make_head(_module, 'SNMPAPI_CALLBACK')
-make_head(_module, 'SnmpVarBind')
-make_head(_module, 'SnmpVarBindList')
 __all__ = [
     "ASN_APPLICATION",
     "ASN_CONSTRUCTOR",

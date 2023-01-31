@@ -161,10 +161,6 @@ class INTERACTION_CONTEXT_OUTPUT(Structure):
         manipulation: win32more.UI.InteractionContext.INTERACTION_ARGUMENTS_MANIPULATION
         tap: win32more.UI.InteractionContext.INTERACTION_ARGUMENTS_TAP
         crossSlide: win32more.UI.InteractionContext.INTERACTION_ARGUMENTS_CROSS_SLIDE
-@winfunctype_pointer
-def INTERACTION_CONTEXT_OUTPUT_CALLBACK(clientData: c_void_p, output: POINTER(win32more.UI.InteractionContext.INTERACTION_CONTEXT_OUTPUT_head)) -> Void: ...
-@winfunctype_pointer
-def INTERACTION_CONTEXT_OUTPUT_CALLBACK2(clientData: c_void_p, output: POINTER(win32more.UI.InteractionContext.INTERACTION_CONTEXT_OUTPUT2_head)) -> Void: ...
 class INTERACTION_CONTEXT_OUTPUT2(Structure):
     interactionId: win32more.UI.InteractionContext.INTERACTION_ID
     interactionFlags: win32more.UI.InteractionContext.INTERACTION_FLAGS
@@ -178,6 +174,10 @@ class INTERACTION_CONTEXT_OUTPUT2(Structure):
         manipulation: win32more.UI.InteractionContext.INTERACTION_ARGUMENTS_MANIPULATION
         tap: win32more.UI.InteractionContext.INTERACTION_ARGUMENTS_TAP
         crossSlide: win32more.UI.InteractionContext.INTERACTION_ARGUMENTS_CROSS_SLIDE
+@winfunctype_pointer
+def INTERACTION_CONTEXT_OUTPUT_CALLBACK(clientData: c_void_p, output: POINTER(win32more.UI.InteractionContext.INTERACTION_CONTEXT_OUTPUT_head)) -> Void: ...
+@winfunctype_pointer
+def INTERACTION_CONTEXT_OUTPUT_CALLBACK2(clientData: c_void_p, output: POINTER(win32more.UI.InteractionContext.INTERACTION_CONTEXT_OUTPUT2_head)) -> Void: ...
 INTERACTION_CONTEXT_PROPERTY = Int32
 INTERACTION_CONTEXT_PROPERTY_MEASUREMENT_UNITS: INTERACTION_CONTEXT_PROPERTY = 1
 INTERACTION_CONTEXT_PROPERTY_INTERACTION_UI_FEEDBACK: INTERACTION_CONTEXT_PROPERTY = 2
@@ -242,9 +242,9 @@ make_head(_module, 'INTERACTION_ARGUMENTS_MANIPULATION')
 make_head(_module, 'INTERACTION_ARGUMENTS_TAP')
 make_head(_module, 'INTERACTION_CONTEXT_CONFIGURATION')
 make_head(_module, 'INTERACTION_CONTEXT_OUTPUT')
+make_head(_module, 'INTERACTION_CONTEXT_OUTPUT2')
 make_head(_module, 'INTERACTION_CONTEXT_OUTPUT_CALLBACK')
 make_head(_module, 'INTERACTION_CONTEXT_OUTPUT_CALLBACK2')
-make_head(_module, 'INTERACTION_CONTEXT_OUTPUT2')
 make_head(_module, 'MANIPULATION_TRANSFORM')
 make_head(_module, 'MANIPULATION_VELOCITY')
 __all__ = [

@@ -1761,60 +1761,11 @@ class JET_ERRINFOBASIC_W(Structure):
     rgCategoricalHierarchy: Byte * 8
     lSourceLine: UInt32
     rgszSourceFile: Char * 64
-class JET_INDEX_COLUMN(Structure):
-    columnid: UInt32
-    relop: win32more.Storage.Jet.JET_RELOP
-    pv: c_void_p
-    cb: UInt32
-    grbit: UInt32
-class JET_INDEX_RANGE(Structure):
-    rgStartColumns: POINTER(win32more.Storage.Jet.JET_INDEX_COLUMN_head)
-    cStartColumns: UInt32
-    rgEndColumns: POINTER(win32more.Storage.Jet.JET_INDEX_COLUMN_head)
-    cEndColumns: UInt32
 JET_INDEXCHECKING = Int32
 JET_IndexCheckingOff: JET_INDEXCHECKING = 0
 JET_IndexCheckingOn: JET_INDEXCHECKING = 1
 JET_IndexCheckingDeferToOpenTable: JET_INDEXCHECKING = 2
 JET_IndexCheckingMax: JET_INDEXCHECKING = 3
-class JET_INDEXCREATE_A(Structure):
-    cbStruct: UInt32
-    szIndexName: win32more.Foundation.PSTR
-    szKey: win32more.Foundation.PSTR
-    cbKey: UInt32
-    grbit: UInt32
-    ulDensity: UInt32
-    Anonymous1: _Anonymous1_e__Union
-    Anonymous2: _Anonymous2_e__Union
-    rgconditionalcolumn: POINTER(win32more.Storage.Jet.JET_CONDITIONALCOLUMN_A_head)
-    cConditionalColumn: UInt32
-    err: Int32
-    cbKeyMost: UInt32
-    class _Anonymous1_e__Union(Union):
-        lcid: UInt32
-        pidxunicode: POINTER(win32more.Storage.Jet.JET_UNICODEINDEX_head)
-    class _Anonymous2_e__Union(Union):
-        cbVarSegMac: UInt32
-        ptuplelimits: POINTER(win32more.Storage.Jet.JET_TUPLELIMITS_head)
-class JET_INDEXCREATE_W(Structure):
-    cbStruct: UInt32
-    szIndexName: win32more.Foundation.PWSTR
-    szKey: win32more.Foundation.PWSTR
-    cbKey: UInt32
-    grbit: UInt32
-    ulDensity: UInt32
-    Anonymous1: _Anonymous1_e__Union
-    Anonymous2: _Anonymous2_e__Union
-    rgconditionalcolumn: POINTER(win32more.Storage.Jet.JET_CONDITIONALCOLUMN_W_head)
-    cConditionalColumn: UInt32
-    err: Int32
-    cbKeyMost: UInt32
-    class _Anonymous1_e__Union(Union):
-        lcid: UInt32
-        pidxunicode: POINTER(win32more.Storage.Jet.JET_UNICODEINDEX_head)
-    class _Anonymous2_e__Union(Union):
-        cbVarSegMac: UInt32
-        ptuplelimits: POINTER(win32more.Storage.Jet.JET_TUPLELIMITS_head)
 class JET_INDEXCREATE2_A(Structure):
     cbStruct: UInt32
     szIndexName: win32more.Foundation.PSTR
@@ -1889,6 +1840,44 @@ class JET_INDEXCREATE3_W(Structure):
     class _Anonymous_e__Union(Union):
         cbVarSegMac: UInt32
         ptuplelimits: POINTER(win32more.Storage.Jet.JET_TUPLELIMITS_head)
+class JET_INDEXCREATE_A(Structure):
+    cbStruct: UInt32
+    szIndexName: win32more.Foundation.PSTR
+    szKey: win32more.Foundation.PSTR
+    cbKey: UInt32
+    grbit: UInt32
+    ulDensity: UInt32
+    Anonymous1: _Anonymous1_e__Union
+    Anonymous2: _Anonymous2_e__Union
+    rgconditionalcolumn: POINTER(win32more.Storage.Jet.JET_CONDITIONALCOLUMN_A_head)
+    cConditionalColumn: UInt32
+    err: Int32
+    cbKeyMost: UInt32
+    class _Anonymous1_e__Union(Union):
+        lcid: UInt32
+        pidxunicode: POINTER(win32more.Storage.Jet.JET_UNICODEINDEX_head)
+    class _Anonymous2_e__Union(Union):
+        cbVarSegMac: UInt32
+        ptuplelimits: POINTER(win32more.Storage.Jet.JET_TUPLELIMITS_head)
+class JET_INDEXCREATE_W(Structure):
+    cbStruct: UInt32
+    szIndexName: win32more.Foundation.PWSTR
+    szKey: win32more.Foundation.PWSTR
+    cbKey: UInt32
+    grbit: UInt32
+    ulDensity: UInt32
+    Anonymous1: _Anonymous1_e__Union
+    Anonymous2: _Anonymous2_e__Union
+    rgconditionalcolumn: POINTER(win32more.Storage.Jet.JET_CONDITIONALCOLUMN_W_head)
+    cConditionalColumn: UInt32
+    err: Int32
+    cbKeyMost: UInt32
+    class _Anonymous1_e__Union(Union):
+        lcid: UInt32
+        pidxunicode: POINTER(win32more.Storage.Jet.JET_UNICODEINDEX_head)
+    class _Anonymous2_e__Union(Union):
+        cbVarSegMac: UInt32
+        ptuplelimits: POINTER(win32more.Storage.Jet.JET_TUPLELIMITS_head)
 if ARCH in 'X64,ARM64':
     class JET_INDEXID(Structure):
         cbStruct: UInt32
@@ -1921,6 +1910,17 @@ class JET_INDEXRANGE(Structure):
     cbStruct: UInt32
     tableid: win32more.Storage.StructuredStorage.JET_TABLEID
     grbit: UInt32
+class JET_INDEX_COLUMN(Structure):
+    columnid: UInt32
+    relop: win32more.Storage.Jet.JET_RELOP
+    pv: c_void_p
+    cb: UInt32
+    grbit: UInt32
+class JET_INDEX_RANGE(Structure):
+    rgStartColumns: POINTER(win32more.Storage.Jet.JET_INDEX_COLUMN_head)
+    cStartColumns: UInt32
+    rgEndColumns: POINTER(win32more.Storage.Jet.JET_INDEX_COLUMN_head)
+    cEndColumns: UInt32
 class JET_INSTANCE_INFO_A(Structure):
     hInstanceId: win32more.Storage.StructuredStorage.JET_INSTANCE
     szInstanceName: win32more.Foundation.PSTR
@@ -2216,32 +2216,6 @@ class JET_SPACEHINTS(Structure):
     ulGrowth: UInt32
     cbMinExtent: UInt32
     cbMaxExtent: UInt32
-class JET_TABLECREATE_A(Structure):
-    cbStruct: UInt32
-    szTableName: win32more.Foundation.PSTR
-    szTemplateTableName: win32more.Foundation.PSTR
-    ulPages: UInt32
-    ulDensity: UInt32
-    rgcolumncreate: POINTER(win32more.Storage.Jet.JET_COLUMNCREATE_A_head)
-    cColumns: UInt32
-    rgindexcreate: POINTER(win32more.Storage.Jet.JET_INDEXCREATE_A_head)
-    cIndexes: UInt32
-    grbit: UInt32
-    tableid: win32more.Storage.StructuredStorage.JET_TABLEID
-    cCreated: UInt32
-class JET_TABLECREATE_W(Structure):
-    cbStruct: UInt32
-    szTableName: win32more.Foundation.PWSTR
-    szTemplateTableName: win32more.Foundation.PWSTR
-    ulPages: UInt32
-    ulDensity: UInt32
-    rgcolumncreate: POINTER(win32more.Storage.Jet.JET_COLUMNCREATE_W_head)
-    cColumns: UInt32
-    rgindexcreate: POINTER(win32more.Storage.Jet.JET_INDEXCREATE_W_head)
-    cIndexes: UInt32
-    grbit: UInt32
-    tableid: win32more.Storage.StructuredStorage.JET_TABLEID
-    cCreated: UInt32
 class JET_TABLECREATE2_A(Structure):
     cbStruct: UInt32
     szTableName: win32more.Foundation.PSTR
@@ -2344,6 +2318,32 @@ class JET_TABLECREATE4_W(Structure):
     cbSeparateLV: UInt32
     tableid: win32more.Storage.StructuredStorage.JET_TABLEID
     cCreated: UInt32
+class JET_TABLECREATE_A(Structure):
+    cbStruct: UInt32
+    szTableName: win32more.Foundation.PSTR
+    szTemplateTableName: win32more.Foundation.PSTR
+    ulPages: UInt32
+    ulDensity: UInt32
+    rgcolumncreate: POINTER(win32more.Storage.Jet.JET_COLUMNCREATE_A_head)
+    cColumns: UInt32
+    rgindexcreate: POINTER(win32more.Storage.Jet.JET_INDEXCREATE_A_head)
+    cIndexes: UInt32
+    grbit: UInt32
+    tableid: win32more.Storage.StructuredStorage.JET_TABLEID
+    cCreated: UInt32
+class JET_TABLECREATE_W(Structure):
+    cbStruct: UInt32
+    szTableName: win32more.Foundation.PWSTR
+    szTemplateTableName: win32more.Foundation.PWSTR
+    ulPages: UInt32
+    ulDensity: UInt32
+    rgcolumncreate: POINTER(win32more.Storage.Jet.JET_COLUMNCREATE_W_head)
+    cColumns: UInt32
+    rgindexcreate: POINTER(win32more.Storage.Jet.JET_INDEXCREATE_W_head)
+    cIndexes: UInt32
+    grbit: UInt32
+    tableid: win32more.Storage.StructuredStorage.JET_TABLEID
+    cCreated: UInt32
 class JET_THREADSTATS(Structure):
     cbStruct: UInt32
     cPageReferenced: UInt32
@@ -2426,20 +2426,20 @@ make_head(_module, 'JET_ENUMCOLUMN')
 make_head(_module, 'JET_ENUMCOLUMNID')
 make_head(_module, 'JET_ENUMCOLUMNVALUE')
 make_head(_module, 'JET_ERRINFOBASIC_W')
-make_head(_module, 'JET_INDEX_COLUMN')
-make_head(_module, 'JET_INDEX_RANGE')
-make_head(_module, 'JET_INDEXCREATE_A')
-make_head(_module, 'JET_INDEXCREATE_W')
 make_head(_module, 'JET_INDEXCREATE2_A')
 make_head(_module, 'JET_INDEXCREATE2_W')
 make_head(_module, 'JET_INDEXCREATE3_A')
 make_head(_module, 'JET_INDEXCREATE3_W')
+make_head(_module, 'JET_INDEXCREATE_A')
+make_head(_module, 'JET_INDEXCREATE_W')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'JET_INDEXID')
 if ARCH in 'X86':
     make_head(_module, 'JET_INDEXID')
 make_head(_module, 'JET_INDEXLIST')
 make_head(_module, 'JET_INDEXRANGE')
+make_head(_module, 'JET_INDEX_COLUMN')
+make_head(_module, 'JET_INDEX_RANGE')
 make_head(_module, 'JET_INSTANCE_INFO_A')
 make_head(_module, 'JET_INSTANCE_INFO_W')
 make_head(_module, 'JET_LGPOS')
@@ -2488,14 +2488,14 @@ make_head(_module, 'JET_SETSYSPARAM_W')
 make_head(_module, 'JET_SIGNATURE')
 make_head(_module, 'JET_SNPROG')
 make_head(_module, 'JET_SPACEHINTS')
-make_head(_module, 'JET_TABLECREATE_A')
-make_head(_module, 'JET_TABLECREATE_W')
 make_head(_module, 'JET_TABLECREATE2_A')
 make_head(_module, 'JET_TABLECREATE2_W')
 make_head(_module, 'JET_TABLECREATE3_A')
 make_head(_module, 'JET_TABLECREATE3_W')
 make_head(_module, 'JET_TABLECREATE4_A')
 make_head(_module, 'JET_TABLECREATE4_W')
+make_head(_module, 'JET_TABLECREATE_A')
+make_head(_module, 'JET_TABLECREATE_W')
 make_head(_module, 'JET_THREADSTATS')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'JET_THREADSTATS2')

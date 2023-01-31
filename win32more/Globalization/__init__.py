@@ -3411,6 +3411,12 @@ class DetectEncodingInfo(Structure):
     nCodePage: UInt32
     nDocPercent: Int32
     nConfidence: Int32
+class ENUMTEXTMETRICA(Structure):
+    etmNewTextMetricEx: win32more.Globalization.NEWTEXTMETRICEXA
+    etmAxesList: win32more.Graphics.Gdi.AXESLISTA
+class ENUMTEXTMETRICW(Structure):
+    etmNewTextMetricEx: win32more.Globalization.NEWTEXTMETRICEXW
+    etmAxesList: win32more.Graphics.Gdi.AXESLISTW
 ENUM_DATE_FORMATS_FLAGS = UInt32
 DATE_SHORTDATE: ENUM_DATE_FORMATS_FLAGS = 1
 DATE_LONGDATE: ENUM_DATE_FORMATS_FLAGS = 2
@@ -3426,12 +3432,6 @@ CP_SUPPORTED: ENUM_SYSTEM_CODE_PAGES_FLAGS = 2
 ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS = UInt32
 LGRPID_INSTALLED: ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS = 1
 LGRPID_SUPPORTED: ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS = 2
-class ENUMTEXTMETRICA(Structure):
-    etmNewTextMetricEx: win32more.Globalization.NEWTEXTMETRICEXA
-    etmAxesList: win32more.Graphics.Gdi.AXESLISTA
-class ENUMTEXTMETRICW(Structure):
-    etmNewTextMetricEx: win32more.Globalization.NEWTEXTMETRICEXW
-    etmAxesList: win32more.Graphics.Gdi.AXESLISTW
 class FILEMUIINFO(Structure):
     dwSize: UInt32
     dwVersion: UInt32
@@ -3775,6 +3775,38 @@ IS_TEXT_UNICODE_NOT_ASCII_MASK: IS_TEXT_UNICODE_RESULT = 61440
 IS_VALID_LOCALE_FLAGS = UInt32
 LCID_INSTALLED: IS_VALID_LOCALE_FLAGS = 1
 LCID_SUPPORTED: IS_VALID_LOCALE_FLAGS = 2
+class ISpellCheckProvider(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('73e976e0-8ed4-4eb1-80-d7-1b-e0-a1-6b-0c-38')
+    @commethod(3)
+    def get_LanguageTag(value: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Check(text: win32more.Foundation.PWSTR, value: POINTER(win32more.Globalization.IEnumSpellingError_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Suggest(word: win32more.Foundation.PWSTR, value: POINTER(win32more.System.Com.IEnumString_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetOptionValue(optionId: win32more.Foundation.PWSTR, value: c_char_p_no) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetOptionValue(optionId: win32more.Foundation.PWSTR, value: Byte) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_OptionIds(value: POINTER(win32more.System.Com.IEnumString_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Id(value: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_LocalizedName(value: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetOptionDescription(optionId: win32more.Foundation.PWSTR, value: POINTER(win32more.Globalization.IOptionDescription_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def InitializeWordlist(wordlistType: win32more.Globalization.WORDLIST_TYPE, words: win32more.System.Com.IEnumString_head) -> win32more.Foundation.HRESULT: ...
+class ISpellCheckProviderFactory(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('9f671e11-77d6-4c92-ae-fb-61-52-15-e3-a4-be')
+    @commethod(3)
+    def get_SupportedLanguages(value: POINTER(win32more.System.Com.IEnumString_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def IsSupported(languageTag: win32more.Foundation.PWSTR, value: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CreateSpellCheckProvider(languageTag: win32more.Foundation.PWSTR, value: POINTER(win32more.Globalization.ISpellCheckProvider_head)) -> win32more.Foundation.HRESULT: ...
 class ISpellChecker(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('b6fd0b71-e2bc-4653-8d-05-f1-97-e4-12-77-0b')
@@ -3825,38 +3857,6 @@ class ISpellCheckerFactory(c_void_p):
     def IsSupported(languageTag: win32more.Foundation.PWSTR, value: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
     @commethod(5)
     def CreateSpellChecker(languageTag: win32more.Foundation.PWSTR, value: POINTER(win32more.Globalization.ISpellChecker_head)) -> win32more.Foundation.HRESULT: ...
-class ISpellCheckProvider(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('73e976e0-8ed4-4eb1-80-d7-1b-e0-a1-6b-0c-38')
-    @commethod(3)
-    def get_LanguageTag(value: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def Check(text: win32more.Foundation.PWSTR, value: POINTER(win32more.Globalization.IEnumSpellingError_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def Suggest(word: win32more.Foundation.PWSTR, value: POINTER(win32more.System.Com.IEnumString_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def GetOptionValue(optionId: win32more.Foundation.PWSTR, value: c_char_p_no) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def SetOptionValue(optionId: win32more.Foundation.PWSTR, value: Byte) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_OptionIds(value: POINTER(win32more.System.Com.IEnumString_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_Id(value: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_LocalizedName(value: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def GetOptionDescription(optionId: win32more.Foundation.PWSTR, value: POINTER(win32more.Globalization.IOptionDescription_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def InitializeWordlist(wordlistType: win32more.Globalization.WORDLIST_TYPE, words: win32more.System.Com.IEnumString_head) -> win32more.Foundation.HRESULT: ...
-class ISpellCheckProviderFactory(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('9f671e11-77d6-4c92-ae-fb-61-52-15-e3-a4-be')
-    @commethod(3)
-    def get_SupportedLanguages(value: POINTER(win32more.System.Com.IEnumString_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def IsSupported(languageTag: win32more.Foundation.PWSTR, value: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def CreateSpellCheckProvider(languageTag: win32more.Foundation.PWSTR, value: POINTER(win32more.Globalization.ISpellCheckProvider_head)) -> win32more.Foundation.HRESULT: ...
 class ISpellingError(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('b7c82d61-fbe8-4b47-9b-27-6c-0d-2e-0d-e0-a3')
@@ -3883,16 +3883,16 @@ def LANGGROUPLOCALE_ENUMPROCW(param0: UInt32, param1: UInt32, param2: win32more.
 def LANGUAGEGROUP_ENUMPROCA(param0: UInt32, param1: win32more.Foundation.PSTR, param2: win32more.Foundation.PSTR, param3: UInt32, param4: IntPtr) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def LANGUAGEGROUP_ENUMPROCW(param0: UInt32, param1: win32more.Foundation.PWSTR, param2: win32more.Foundation.PWSTR, param3: UInt32, param4: IntPtr) -> win32more.Foundation.BOOL: ...
+class LOCALESIGNATURE(Structure):
+    lsUsb: UInt32 * 4
+    lsCsbDefault: UInt32 * 2
+    lsCsbSupported: UInt32 * 2
 @winfunctype_pointer
 def LOCALE_ENUMPROCA(param0: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def LOCALE_ENUMPROCEX(param0: win32more.Foundation.PWSTR, param1: UInt32, param2: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def LOCALE_ENUMPROCW(param0: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
-class LOCALESIGNATURE(Structure):
-    lsUsb: UInt32 * 4
-    lsCsbDefault: UInt32 * 2
-    lsCsbSupported: UInt32 * 2
 class MAPPING_DATA_RANGE(Structure):
     dwStartIndex: UInt32
     dwEndIndex: UInt32
@@ -4075,65 +4075,6 @@ class RFC1766INFO(Structure):
     lcid: UInt32
     wszRfc1766: Char * 6
     wszLocaleName: Char * 32
-class SCRIPT_ANALYSIS(Structure):
-    _bitfield: UInt16
-    s: win32more.Globalization.SCRIPT_STATE
-class SCRIPT_CHARPROP(Structure):
-    _bitfield: UInt16
-class SCRIPT_CONTROL(Structure):
-    _bitfield: UInt32
-class SCRIPT_DIGITSUBSTITUTE(Structure):
-    _bitfield1: UInt32
-    _bitfield2: UInt32
-    dwReserved: UInt32
-class SCRIPT_FONTPROPERTIES(Structure):
-    cBytes: Int32
-    wgBlank: UInt16
-    wgDefault: UInt16
-    wgInvalid: UInt16
-    wgKashida: UInt16
-    iKashidaWidth: Int32
-class SCRIPT_GLYPHPROP(Structure):
-    sva: win32more.Globalization.SCRIPT_VISATTR
-    reserved: UInt16
-SCRIPT_IS_COMPLEX_FLAGS = UInt32
-SIC_ASCIIDIGIT: SCRIPT_IS_COMPLEX_FLAGS = 2
-SIC_COMPLEX: SCRIPT_IS_COMPLEX_FLAGS = 1
-SIC_NEUTRAL: SCRIPT_IS_COMPLEX_FLAGS = 4
-class SCRIPT_ITEM(Structure):
-    iCharPos: Int32
-    a: win32more.Globalization.SCRIPT_ANALYSIS
-SCRIPT_JUSTIFY = Int32
-SCRIPT_JUSTIFY_NONE: SCRIPT_JUSTIFY = 0
-SCRIPT_JUSTIFY_ARABIC_BLANK: SCRIPT_JUSTIFY = 1
-SCRIPT_JUSTIFY_CHARACTER: SCRIPT_JUSTIFY = 2
-SCRIPT_JUSTIFY_RESERVED1: SCRIPT_JUSTIFY = 3
-SCRIPT_JUSTIFY_BLANK: SCRIPT_JUSTIFY = 4
-SCRIPT_JUSTIFY_RESERVED2: SCRIPT_JUSTIFY = 5
-SCRIPT_JUSTIFY_RESERVED3: SCRIPT_JUSTIFY = 6
-SCRIPT_JUSTIFY_ARABIC_NORMAL: SCRIPT_JUSTIFY = 7
-SCRIPT_JUSTIFY_ARABIC_KASHIDA: SCRIPT_JUSTIFY = 8
-SCRIPT_JUSTIFY_ARABIC_ALEF: SCRIPT_JUSTIFY = 9
-SCRIPT_JUSTIFY_ARABIC_HA: SCRIPT_JUSTIFY = 10
-SCRIPT_JUSTIFY_ARABIC_RA: SCRIPT_JUSTIFY = 11
-SCRIPT_JUSTIFY_ARABIC_BA: SCRIPT_JUSTIFY = 12
-SCRIPT_JUSTIFY_ARABIC_BARA: SCRIPT_JUSTIFY = 13
-SCRIPT_JUSTIFY_ARABIC_SEEN: SCRIPT_JUSTIFY = 14
-SCRIPT_JUSTIFY_ARABIC_SEEN_M: SCRIPT_JUSTIFY = 15
-class SCRIPT_LOGATTR(Structure):
-    _bitfield: Byte
-class SCRIPT_PROPERTIES(Structure):
-    _bitfield1: UInt32
-    _bitfield2: UInt32
-class SCRIPT_STATE(Structure):
-    _bitfield: UInt16
-class SCRIPT_TABDEF(Structure):
-    cTabStops: Int32
-    iScale: Int32
-    pTabStops: POINTER(Int32)
-    iTabOrigin: Int32
-class SCRIPT_VISATTR(Structure):
-    _bitfield: UInt16
 SCRIPTCONTF = Int32
 SCRIPTCONTF_sidDefault: SCRIPTCONTF = 0
 SCRIPTCONTF_sidMerge: SCRIPTCONTF = 1
@@ -4194,7 +4135,65 @@ class SCRIPTINFO(Structure):
     wszDescription: Char * 48
     wszFixedWidthFont: Char * 32
     wszProportionalFont: Char * 32
-SpellCheckerFactory = Guid('7ab36653-1796-484b-bd-fa-e7-4f-1d-b7-c1-dc')
+class SCRIPT_ANALYSIS(Structure):
+    _bitfield: UInt16
+    s: win32more.Globalization.SCRIPT_STATE
+class SCRIPT_CHARPROP(Structure):
+    _bitfield: UInt16
+class SCRIPT_CONTROL(Structure):
+    _bitfield: UInt32
+class SCRIPT_DIGITSUBSTITUTE(Structure):
+    _bitfield1: UInt32
+    _bitfield2: UInt32
+    dwReserved: UInt32
+class SCRIPT_FONTPROPERTIES(Structure):
+    cBytes: Int32
+    wgBlank: UInt16
+    wgDefault: UInt16
+    wgInvalid: UInt16
+    wgKashida: UInt16
+    iKashidaWidth: Int32
+class SCRIPT_GLYPHPROP(Structure):
+    sva: win32more.Globalization.SCRIPT_VISATTR
+    reserved: UInt16
+SCRIPT_IS_COMPLEX_FLAGS = UInt32
+SIC_ASCIIDIGIT: SCRIPT_IS_COMPLEX_FLAGS = 2
+SIC_COMPLEX: SCRIPT_IS_COMPLEX_FLAGS = 1
+SIC_NEUTRAL: SCRIPT_IS_COMPLEX_FLAGS = 4
+class SCRIPT_ITEM(Structure):
+    iCharPos: Int32
+    a: win32more.Globalization.SCRIPT_ANALYSIS
+SCRIPT_JUSTIFY = Int32
+SCRIPT_JUSTIFY_NONE: SCRIPT_JUSTIFY = 0
+SCRIPT_JUSTIFY_ARABIC_BLANK: SCRIPT_JUSTIFY = 1
+SCRIPT_JUSTIFY_CHARACTER: SCRIPT_JUSTIFY = 2
+SCRIPT_JUSTIFY_RESERVED1: SCRIPT_JUSTIFY = 3
+SCRIPT_JUSTIFY_BLANK: SCRIPT_JUSTIFY = 4
+SCRIPT_JUSTIFY_RESERVED2: SCRIPT_JUSTIFY = 5
+SCRIPT_JUSTIFY_RESERVED3: SCRIPT_JUSTIFY = 6
+SCRIPT_JUSTIFY_ARABIC_NORMAL: SCRIPT_JUSTIFY = 7
+SCRIPT_JUSTIFY_ARABIC_KASHIDA: SCRIPT_JUSTIFY = 8
+SCRIPT_JUSTIFY_ARABIC_ALEF: SCRIPT_JUSTIFY = 9
+SCRIPT_JUSTIFY_ARABIC_HA: SCRIPT_JUSTIFY = 10
+SCRIPT_JUSTIFY_ARABIC_RA: SCRIPT_JUSTIFY = 11
+SCRIPT_JUSTIFY_ARABIC_BA: SCRIPT_JUSTIFY = 12
+SCRIPT_JUSTIFY_ARABIC_BARA: SCRIPT_JUSTIFY = 13
+SCRIPT_JUSTIFY_ARABIC_SEEN: SCRIPT_JUSTIFY = 14
+SCRIPT_JUSTIFY_ARABIC_SEEN_M: SCRIPT_JUSTIFY = 15
+class SCRIPT_LOGATTR(Structure):
+    _bitfield: Byte
+class SCRIPT_PROPERTIES(Structure):
+    _bitfield1: UInt32
+    _bitfield2: UInt32
+class SCRIPT_STATE(Structure):
+    _bitfield: UInt16
+class SCRIPT_TABDEF(Structure):
+    cTabStops: Int32
+    iScale: Int32
+    pTabStops: POINTER(Int32)
+    iTabOrigin: Int32
+class SCRIPT_VISATTR(Structure):
+    _bitfield: UInt16
 SYSGEOCLASS = Int32
 GEOCLASS_NATION: SYSGEOCLASS = 16
 GEOCLASS_REGION: SYSGEOCLASS = 14
@@ -4220,20 +4219,21 @@ GEO_NAME: SYSGEOTYPE = 17
 GEO_ID: SYSGEOTYPE = 18
 SYSNLS_FUNCTION = Int32
 COMPARE_STRING: SYSNLS_FUNCTION = 1
+SpellCheckerFactory = Guid('7ab36653-1796-484b-bd-fa-e7-4f-1d-b7-c1-dc')
 class TEXTRANGE_PROPERTIES(Structure):
     potfRecords: POINTER(win32more.Globalization.OPENTYPE_FEATURE_RECORD_head)
     cotfRecords: Int32
-TIME_FORMAT_FLAGS = UInt32
-TIME_NOMINUTESORSECONDS: TIME_FORMAT_FLAGS = 1
-TIME_NOSECONDS: TIME_FORMAT_FLAGS = 2
-TIME_NOTIMEMARKER: TIME_FORMAT_FLAGS = 4
-TIME_FORCE24HOURFORMAT: TIME_FORMAT_FLAGS = 8
 @winfunctype_pointer
 def TIMEFMT_ENUMPROCA(param0: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def TIMEFMT_ENUMPROCEX(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def TIMEFMT_ENUMPROCW(param0: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+TIME_FORMAT_FLAGS = UInt32
+TIME_NOMINUTESORSECONDS: TIME_FORMAT_FLAGS = 1
+TIME_NOSECONDS: TIME_FORMAT_FLAGS = 2
+TIME_NOTIMEMARKER: TIME_FORMAT_FLAGS = 4
+TIME_FORCE24HOURFORMAT: TIME_FORMAT_FLAGS = 8
 TRANSLATE_CHARSET_INFO_FLAGS = UInt32
 TCI_SRCCHARSET: TRANSLATE_CHARSET_INFO_FLAGS = 1
 TCI_SRCCODEPAGE: TRANSLATE_CHARSET_INFO_FLAGS = 2
@@ -4263,10 +4263,6 @@ UBIDI_MIRRORING_ON: UBiDiMirroring = 1
 UBiDiOrder = Int32
 UBIDI_LOGICAL: UBiDiOrder = 0
 UBIDI_VISUAL: UBiDiOrder = 1
-UBidiPairedBracketType = Int32
-U_BPT_NONE: UBidiPairedBracketType = 0
-U_BPT_OPEN: UBidiPairedBracketType = 1
-U_BPT_CLOSE: UBidiPairedBracketType = 2
 UBiDiReorderingMode = Int32
 UBIDI_REORDER_DEFAULT: UBiDiReorderingMode = 0
 UBIDI_REORDER_NUMBERS_SPECIAL: UBiDiReorderingMode = 1
@@ -4282,6 +4278,10 @@ UBIDI_OPTION_REMOVE_CONTROLS: UBiDiReorderingOption = 2
 UBIDI_OPTION_STREAMING: UBiDiReorderingOption = 4
 class UBiDiTransform(Structure):
     pass
+UBidiPairedBracketType = Int32
+U_BPT_NONE: UBidiPairedBracketType = 0
+U_BPT_OPEN: UBidiPairedBracketType = 1
+U_BPT_CLOSE: UBidiPairedBracketType = 2
 UBlockCode = Int32
 UBLOCK_NO_BLOCK: UBlockCode = 0
 UBLOCK_BASIC_LATIN: UBlockCode = 1
@@ -4602,6 +4602,42 @@ UBRK_CHARACTER: UBreakIteratorType = 0
 UBRK_WORD: UBreakIteratorType = 1
 UBRK_LINE: UBreakIteratorType = 2
 UBRK_SENTENCE: UBreakIteratorType = 3
+class UCPMap(Structure):
+    pass
+UCPMapRangeOption = Int32
+UCPMAP_RANGE_NORMAL: UCPMapRangeOption = 0
+UCPMAP_RANGE_FIXED_LEAD_SURROGATES: UCPMapRangeOption = 1
+UCPMAP_RANGE_FIXED_ALL_SURROGATES: UCPMapRangeOption = 2
+@cfunctype_pointer
+def UCPMapValueFilter(context: c_void_p, value: UInt32) -> UInt32: ...
+class UCPTrie(Structure):
+    index: POINTER(UInt16)
+    data: win32more.Globalization.UCPTrieData
+    indexLength: Int32
+    dataLength: Int32
+    highStart: Int32
+    shifted12HighStart: UInt16
+    type: SByte
+    valueWidth: SByte
+    reserved32: UInt32
+    reserved16: UInt16
+    index3NullOffset: UInt16
+    dataNullOffset: Int32
+    nullValue: UInt32
+class UCPTrieData(Union):
+    ptr0: c_void_p
+    ptr16: POINTER(UInt16)
+    ptr32: POINTER(UInt32)
+    ptr8: c_char_p_no
+UCPTrieType = Int32
+UCPTRIE_TYPE_ANY: UCPTrieType = -1
+UCPTRIE_TYPE_FAST: UCPTrieType = 0
+UCPTRIE_TYPE_SMALL: UCPTrieType = 1
+UCPTrieValueWidth = Int32
+UCPTRIE_VALUE_BITS_ANY: UCPTrieValueWidth = -1
+UCPTRIE_VALUE_BITS_16: UCPTrieValueWidth = 0
+UCPTRIE_VALUE_BITS_32: UCPTrieValueWidth = 1
+UCPTRIE_VALUE_BITS_8: UCPTrieValueWidth = 2
 UCalendarAMPMs = Int32
 UCAL_AM: UCalendarAMPMs = 0
 UCAL_PM: UCalendarAMPMs = 1
@@ -4826,14 +4862,6 @@ UColBoundMode = Int32
 UCOL_BOUND_LOWER: UColBoundMode = 0
 UCOL_BOUND_UPPER: UColBoundMode = 1
 UCOL_BOUND_UPPER_LONG: UColBoundMode = 2
-class UCollationElements(Structure):
-    pass
-UCollationResult = Int32
-UCOL_EQUAL: UCollationResult = 0
-UCOL_GREATER: UCollationResult = 1
-UCOL_LESS: UCollationResult = -1
-class UCollator(Structure):
-    pass
 UColReorderCode = Int32
 UCOL_REORDER_CODE_DEFAULT: UColReorderCode = -1
 UCOL_REORDER_CODE_NONE: UColReorderCode = 103
@@ -4847,6 +4875,14 @@ UCOL_REORDER_CODE_DIGIT: UColReorderCode = 4100
 UColRuleOption = Int32
 UCOL_TAILORING_ONLY: UColRuleOption = 0
 UCOL_FULL_RULES: UColRuleOption = 1
+class UCollationElements(Structure):
+    pass
+UCollationResult = Int32
+UCOL_EQUAL: UCollationResult = 0
+UCOL_GREATER: UCollationResult = 1
+UCOL_LESS: UCollationResult = -1
+class UCollator(Structure):
+    pass
 class UConstrainedFieldPosition(Structure):
     pass
 class UConverter(Structure):
@@ -4926,48 +4962,16 @@ UCNV_NUMBER_OF_SUPPORTED_CONVERTER_TYPES: UConverterType = 34
 UConverterUnicodeSet = Int32
 UCNV_ROUNDTRIP_SET: UConverterUnicodeSet = 0
 UCNV_ROUNDTRIP_AND_FALLBACK_SET: UConverterUnicodeSet = 1
-class UCPMap(Structure):
-    pass
-UCPMapRangeOption = Int32
-UCPMAP_RANGE_NORMAL: UCPMapRangeOption = 0
-UCPMAP_RANGE_FIXED_LEAD_SURROGATES: UCPMapRangeOption = 1
-UCPMAP_RANGE_FIXED_ALL_SURROGATES: UCPMapRangeOption = 2
-@cfunctype_pointer
-def UCPMapValueFilter(context: c_void_p, value: UInt32) -> UInt32: ...
-class UCPTrie(Structure):
-    index: POINTER(UInt16)
-    data: win32more.Globalization.UCPTrieData
-    indexLength: Int32
-    dataLength: Int32
-    highStart: Int32
-    shifted12HighStart: UInt16
-    type: SByte
-    valueWidth: SByte
-    reserved32: UInt32
-    reserved16: UInt16
-    index3NullOffset: UInt16
-    dataNullOffset: Int32
-    nullValue: UInt32
-class UCPTrieData(Union):
-    ptr0: c_void_p
-    ptr16: POINTER(UInt16)
-    ptr32: POINTER(UInt32)
-    ptr8: c_char_p_no
-UCPTrieType = Int32
-UCPTRIE_TYPE_ANY: UCPTrieType = -1
-UCPTRIE_TYPE_FAST: UCPTrieType = 0
-UCPTRIE_TYPE_SMALL: UCPTrieType = 1
-UCPTrieValueWidth = Int32
-UCPTRIE_VALUE_BITS_ANY: UCPTrieValueWidth = -1
-UCPTRIE_VALUE_BITS_16: UCPTrieValueWidth = 0
-UCPTRIE_VALUE_BITS_32: UCPTrieValueWidth = 1
-UCPTRIE_VALUE_BITS_8: UCPTrieValueWidth = 2
 UCurrCurrencyType = Int32
 UCURR_ALL: UCurrCurrencyType = 2147483647
 UCURR_COMMON: UCurrCurrencyType = 1
 UCURR_UNCOMMON: UCurrCurrencyType = 2
 UCURR_DEPRECATED: UCurrCurrencyType = 4
 UCURR_NON_DEPRECATED: UCurrCurrencyType = 8
+UCurrNameStyle = Int32
+UCURR_SYMBOL_NAME: UCurrNameStyle = 0
+UCURR_LONG_NAME: UCurrNameStyle = 1
+UCURR_NARROW_SYMBOL_NAME: UCurrNameStyle = 2
 UCurrencySpacing = Int32
 UNUM_CURRENCY_MATCH: UCurrencySpacing = 0
 UNUM_CURRENCY_SURROUNDING_MATCH: UCurrencySpacing = 1
@@ -4976,10 +4980,6 @@ UNUM_CURRENCY_SPACING_COUNT: UCurrencySpacing = 3
 UCurrencyUsage = Int32
 UCURR_USAGE_STANDARD: UCurrencyUsage = 0
 UCURR_USAGE_CASH: UCurrencyUsage = 1
-UCurrNameStyle = Int32
-UCURR_SYMBOL_NAME: UCurrNameStyle = 0
-UCURR_LONG_NAME: UCurrNameStyle = 1
-UCURR_NARROW_SYMBOL_NAME: UCurrNameStyle = 2
 UDateAbsoluteUnit = Int32
 UDAT_ABSOLUTE_SUNDAY: UDateAbsoluteUnit = 0
 UDAT_ABSOLUTE_MONDAY: UDateAbsoluteUnit = 1
@@ -5058,8 +5058,6 @@ UDAT_MEDIUM_RELATIVE: UDateFormatStyle = 130
 UDAT_SHORT_RELATIVE: UDateFormatStyle = 131
 UDAT_NONE: UDateFormatStyle = -1
 UDAT_PATTERN: UDateFormatStyle = -2
-class UDateFormatSymbols(Structure):
-    pass
 UDateFormatSymbolType = Int32
 UDAT_ERAS: UDateFormatSymbolType = 0
 UDAT_MONTHS: UDateFormatSymbolType = 1
@@ -5089,6 +5087,8 @@ UDAT_CYCLIC_YEARS_NARROW: UDateFormatSymbolType = 24
 UDAT_ZODIAC_NAMES_WIDE: UDateFormatSymbolType = 25
 UDAT_ZODIAC_NAMES_ABBREVIATED: UDateFormatSymbolType = 26
 UDAT_ZODIAC_NAMES_NARROW: UDateFormatSymbolType = 27
+class UDateFormatSymbols(Structure):
+    pass
 class UDateIntervalFormat(Structure):
     pass
 UDateRelativeDateTimeFormatterStyle = Int32
@@ -5104,6 +5104,10 @@ UDAT_RELATIVE_WEEKS: UDateRelativeUnit = 4
 UDAT_RELATIVE_MONTHS: UDateRelativeUnit = 5
 UDAT_RELATIVE_YEARS: UDateRelativeUnit = 6
 UDAT_RELATIVE_UNIT_COUNT: UDateRelativeUnit = 7
+UDateTimePGDisplayWidth = Int32
+UDATPG_WIDE: UDateTimePGDisplayWidth = 0
+UDATPG_ABBREVIATED: UDateTimePGDisplayWidth = 1
+UDATPG_NARROW: UDateTimePGDisplayWidth = 2
 UDateTimePatternConflict = Int32
 UDATPG_NO_CONFLICT: UDateTimePatternConflict = 0
 UDATPG_BASE_CONFLICT: UDateTimePatternConflict = 1
@@ -5130,10 +5134,6 @@ UDateTimePatternMatchOptions = Int32
 UDATPG_MATCH_NO_OPTIONS: UDateTimePatternMatchOptions = 0
 UDATPG_MATCH_HOUR_FIELD_LENGTH: UDateTimePatternMatchOptions = 2048
 UDATPG_MATCH_ALL_FIELDS_LENGTH: UDateTimePatternMatchOptions = 65535
-UDateTimePGDisplayWidth = Int32
-UDATPG_WIDE: UDateTimePGDisplayWidth = 0
-UDATPG_ABBREVIATED: UDateTimePGDisplayWidth = 1
-UDATPG_NARROW: UDateTimePGDisplayWidth = 2
 UDateTimeScale = Int32
 UDTS_JAVA_TIME: UDateTimeScale = 0
 UDTS_UNIX_TIME: UDateTimeScale = 1
@@ -5664,6 +5664,13 @@ UListFormatterWidth = Int32
 ULISTFMT_WIDTH_WIDE: UListFormatterWidth = 0
 ULISTFMT_WIDTH_SHORT: UListFormatterWidth = 1
 ULISTFMT_WIDTH_NARROW: UListFormatterWidth = 2
+ULocAvailableType = Int32
+ULOC_AVAILABLE_DEFAULT: ULocAvailableType = 0
+ULOC_AVAILABLE_ONLY_LEGACY_ALIASES: ULocAvailableType = 1
+ULOC_AVAILABLE_WITH_LEGACY_ALIASES: ULocAvailableType = 2
+ULocDataLocaleType = Int32
+ULOC_ACTUAL_LOCALE: ULocDataLocaleType = 0
+ULOC_VALID_LOCALE: ULocDataLocaleType = 1
 class ULocaleData(Structure):
     pass
 ULocaleDataDelimiterType = Int32
@@ -5678,13 +5685,6 @@ ULOCDATA_ES_INDEX: ULocaleDataExemplarSetType = 2
 ULOCDATA_ES_PUNCTUATION: ULocaleDataExemplarSetType = 3
 class ULocaleDisplayNames(Structure):
     pass
-ULocAvailableType = Int32
-ULOC_AVAILABLE_DEFAULT: ULocAvailableType = 0
-ULOC_AVAILABLE_ONLY_LEGACY_ALIASES: ULocAvailableType = 1
-ULOC_AVAILABLE_WITH_LEGACY_ALIASES: ULocAvailableType = 2
-ULocDataLocaleType = Int32
-ULOC_ACTUAL_LOCALE: ULocDataLocaleType = 0
-ULOC_VALID_LOCALE: ULocDataLocaleType = 1
 UMeasureFormatWidth = Int32
 UMEASFMT_WIDTH_WIDE: UMeasureFormatWidth = 0
 UMEASFMT_WIDTH_SHORT: UMeasureFormatWidth = 1
@@ -5869,8 +5869,6 @@ UNUM_SEVEN_DIGIT_SYMBOL: UNumberFormatSymbol = 24
 UNUM_EIGHT_DIGIT_SYMBOL: UNumberFormatSymbol = 25
 UNUM_NINE_DIGIT_SYMBOL: UNumberFormatSymbol = 26
 UNUM_EXPONENT_MULTIPLICATION_SYMBOL: UNumberFormatSymbol = 27
-class UNumberFormatter(Structure):
-    pass
 UNumberFormatTextAttribute = Int32
 UNUM_POSITIVE_PREFIX: UNumberFormatTextAttribute = 0
 UNUM_POSITIVE_SUFFIX: UNumberFormatTextAttribute = 1
@@ -5880,14 +5878,14 @@ UNUM_PADDING_CHARACTER: UNumberFormatTextAttribute = 4
 UNUM_CURRENCY_CODE: UNumberFormatTextAttribute = 5
 UNUM_DEFAULT_RULESET: UNumberFormatTextAttribute = 6
 UNUM_PUBLIC_RULESETS: UNumberFormatTextAttribute = 7
+class UNumberFormatter(Structure):
+    pass
 UNumberGroupingStrategy = Int32
 UNUM_GROUPING_OFF: UNumberGroupingStrategy = 0
 UNUM_GROUPING_MIN2: UNumberGroupingStrategy = 1
 UNUM_GROUPING_AUTO: UNumberGroupingStrategy = 2
 UNUM_GROUPING_ON_ALIGNED: UNumberGroupingStrategy = 3
 UNUM_GROUPING_THOUSANDS: UNumberGroupingStrategy = 4
-class UNumberingSystem(Structure):
-    pass
 UNumberRangeCollapse = Int32
 UNUM_RANGE_COLLAPSE_AUTO: UNumberRangeCollapse = 0
 UNUM_RANGE_COLLAPSE_NONE: UNumberRangeCollapse = 1
@@ -5918,6 +5916,8 @@ UNUM_UNIT_WIDTH_FULL_NAME: UNumberUnitWidth = 2
 UNUM_UNIT_WIDTH_ISO_CODE: UNumberUnitWidth = 3
 UNUM_UNIT_WIDTH_HIDDEN: UNumberUnitWidth = 4
 UNUM_UNIT_WIDTH_COUNT: UNumberUnitWidth = 5
+class UNumberingSystem(Structure):
+    pass
 UNumericType = Int32
 U_NT_NONE: UNumericType = 0
 U_NT_DECIMAL: UNumericType = 1
@@ -6102,6 +6102,15 @@ class UReplaceableCallbacks(Structure):
     replace: IntPtr
     extract: IntPtr
     copy: IntPtr
+UResType = Int32
+URES_NONE: UResType = -1
+URES_STRING: UResType = 0
+URES_BINARY: UResType = 1
+URES_TABLE: UResType = 2
+URES_ALIAS: UResType = 3
+URES_INT: UResType = 7
+URES_ARRAY: UResType = 8
+URES_INT_VECTOR: UResType = 14
 class UResourceBundle(Structure):
     pass
 URestrictionLevel = Int32
@@ -6112,15 +6121,6 @@ USPOOF_MODERATELY_RESTRICTIVE: URestrictionLevel = 1073741824
 USPOOF_MINIMALLY_RESTRICTIVE: URestrictionLevel = 1342177280
 USPOOF_UNRESTRICTIVE: URestrictionLevel = 1610612736
 USPOOF_RESTRICTION_LEVEL_MASK: URestrictionLevel = 2130706432
-UResType = Int32
-URES_NONE: UResType = -1
-URES_STRING: UResType = 0
-URES_BINARY: UResType = 1
-URES_TABLE: UResType = 2
-URES_ALIAS: UResType = 3
-URES_INT: UResType = 7
-URES_ARRAY: UResType = 8
-URES_INT_VECTOR: UResType = 14
 UScriptCode = Int32
 USCRIPT_INVALID_CODE: UScriptCode = -1
 USCRIPT_COMMON: UScriptCode = 0
@@ -6372,9 +6372,9 @@ USetSpanCondition = Int32
 USET_SPAN_NOT_CONTAINED: USetSpanCondition = 0
 USET_SPAN_CONTAINED: USetSpanCondition = 1
 USET_SPAN_SIMPLE: USetSpanCondition = 2
-class USpoofChecker(Structure):
-    pass
 class USpoofCheckResult(Structure):
+    pass
+class USpoofChecker(Structure):
     pass
 USpoofChecks = Int32
 USPOOF_SINGLE_SCRIPT_CONFUSABLE: USpoofChecks = 1
@@ -6678,22 +6678,22 @@ make_head(_module, 'IMultiLanguage')
 make_head(_module, 'IMultiLanguage2')
 make_head(_module, 'IMultiLanguage3')
 make_head(_module, 'IOptionDescription')
+make_head(_module, 'ISpellCheckProvider')
+make_head(_module, 'ISpellCheckProviderFactory')
 make_head(_module, 'ISpellChecker')
 make_head(_module, 'ISpellChecker2')
 make_head(_module, 'ISpellCheckerChangedEventHandler')
 make_head(_module, 'ISpellCheckerFactory')
-make_head(_module, 'ISpellCheckProvider')
-make_head(_module, 'ISpellCheckProviderFactory')
 make_head(_module, 'ISpellingError')
 make_head(_module, 'IUserDictionariesRegistrar')
 make_head(_module, 'LANGGROUPLOCALE_ENUMPROCA')
 make_head(_module, 'LANGGROUPLOCALE_ENUMPROCW')
 make_head(_module, 'LANGUAGEGROUP_ENUMPROCA')
 make_head(_module, 'LANGUAGEGROUP_ENUMPROCW')
+make_head(_module, 'LOCALESIGNATURE')
 make_head(_module, 'LOCALE_ENUMPROCA')
 make_head(_module, 'LOCALE_ENUMPROCEX')
 make_head(_module, 'LOCALE_ENUMPROCW')
-make_head(_module, 'LOCALESIGNATURE')
 make_head(_module, 'MAPPING_DATA_RANGE')
 make_head(_module, 'MAPPING_ENUM_OPTIONS')
 make_head(_module, 'MAPPING_OPTIONS')
@@ -6710,6 +6710,8 @@ make_head(_module, 'NUMBERFMTW')
 make_head(_module, 'OPENTYPE_FEATURE_RECORD')
 make_head(_module, 'PFN_MAPPINGCALLBACKPROC')
 make_head(_module, 'RFC1766INFO')
+make_head(_module, 'SCRIPTFONTINFO')
+make_head(_module, 'SCRIPTINFO')
 make_head(_module, 'SCRIPT_ANALYSIS')
 make_head(_module, 'SCRIPT_CHARPROP')
 make_head(_module, 'SCRIPT_CONTROL')
@@ -6722,8 +6724,6 @@ make_head(_module, 'SCRIPT_PROPERTIES')
 make_head(_module, 'SCRIPT_STATE')
 make_head(_module, 'SCRIPT_TABDEF')
 make_head(_module, 'SCRIPT_VISATTR')
-make_head(_module, 'SCRIPTFONTINFO')
-make_head(_module, 'SCRIPTINFO')
 make_head(_module, 'TEXTRANGE_PROPERTIES')
 make_head(_module, 'TIMEFMT_ENUMPROCA')
 make_head(_module, 'TIMEFMT_ENUMPROCEX')
@@ -6732,6 +6732,10 @@ make_head(_module, 'UBiDi')
 make_head(_module, 'UBiDiClassCallback')
 make_head(_module, 'UBiDiTransform')
 make_head(_module, 'UBreakIterator')
+make_head(_module, 'UCPMap')
+make_head(_module, 'UCPMapValueFilter')
+make_head(_module, 'UCPTrie')
+make_head(_module, 'UCPTrieData')
 make_head(_module, 'UCaseMap')
 make_head(_module, 'UCharEnumTypeRange')
 make_head(_module, 'UCharIterator')
@@ -6756,10 +6760,6 @@ make_head(_module, 'UConverterFromUnicodeArgs')
 make_head(_module, 'UConverterSelector')
 make_head(_module, 'UConverterToUCallback')
 make_head(_module, 'UConverterToUnicodeArgs')
-make_head(_module, 'UCPMap')
-make_head(_module, 'UCPMapValueFilter')
-make_head(_module, 'UCPTrie')
-make_head(_module, 'UCPTrieData')
 make_head(_module, 'UDateFormatSymbols')
 make_head(_module, 'UDateIntervalFormat')
 make_head(_module, 'UEnumCharNamesFn')
@@ -6802,8 +6802,8 @@ make_head(_module, 'UResourceBundle')
 make_head(_module, 'USearch')
 make_head(_module, 'USerializedSet')
 make_head(_module, 'USet')
-make_head(_module, 'USpoofChecker')
 make_head(_module, 'USpoofCheckResult')
+make_head(_module, 'USpoofChecker')
 make_head(_module, 'UStringCaseMapper')
 make_head(_module, 'UStringPrepProfile')
 make_head(_module, 'UStringSearch')

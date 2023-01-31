@@ -19,6 +19,13 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+class AAL5_PARAMETERS(Structure):
+    ForwardMaxCPCSSDUSize: UInt32
+    BackwardMaxCPCSSDUSize: UInt32
+    Mode: Byte
+    SSCSType: Byte
+class AALUSER_PARAMETERS(Structure):
+    UserDefined: UInt32
 class AAL_PARAMETERS_IE(Structure):
     AALType: win32more.Networking.WinSock.AAL_TYPE
     AALSpecificParameters: _AALSpecificParameters_e__Union
@@ -28,25 +35,10 @@ class AAL_PARAMETERS_IE(Structure):
 AAL_TYPE = Int32
 AALTYPE_5: AAL_TYPE = 5
 AALTYPE_USER: AAL_TYPE = 16
-class AAL5_PARAMETERS(Structure):
-    ForwardMaxCPCSSDUSize: UInt32
-    BackwardMaxCPCSSDUSize: UInt32
-    Mode: Byte
-    SSCSType: Byte
-class AALUSER_PARAMETERS(Structure):
-    UserDefined: UInt32
 ADDRESS_FAMILY = UInt16
 AF_INET: ADDRESS_FAMILY = 2
 AF_INET6: ADDRESS_FAMILY = 23
 AF_UNSPEC: ADDRESS_FAMILY = 0
-class ADDRINFO_DNS_SERVER(Structure):
-    ai_servertype: UInt32
-    ai_flags: UInt64
-    ai_addrlen: UInt32
-    ai_addr: POINTER(win32more.Networking.WinSock.SOCKADDR_head)
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        ai_template: win32more.Foundation.PWSTR
 class ADDRINFOA(Structure):
     ai_flags: Int32
     ai_family: Int32
@@ -185,9 +177,103 @@ class ADDRINFOW(Structure):
     ai_canonname: win32more.Foundation.PWSTR
     ai_addr: POINTER(win32more.Networking.WinSock.SOCKADDR_head)
     ai_next: POINTER(win32more.Networking.WinSock.ADDRINFOW_head)
+class ADDRINFO_DNS_SERVER(Structure):
+    ai_servertype: UInt32
+    ai_flags: UInt64
+    ai_addrlen: UInt32
+    ai_addr: POINTER(win32more.Networking.WinSock.SOCKADDR_head)
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        ai_template: win32more.Foundation.PWSTR
 class AFPROTOCOLS(Structure):
     iAddressFamily: Int32
     iProtocol: Int32
+ARP_HARDWARE_TYPE = Int32
+ARP_HW_ENET: ARP_HARDWARE_TYPE = 1
+ARP_HW_802: ARP_HARDWARE_TYPE = 6
+class ARP_HEADER(Structure):
+    HardwareAddressSpace: UInt16
+    ProtocolAddressSpace: UInt16
+    HardwareAddressLength: Byte
+    ProtocolAddressLength: Byte
+    Opcode: UInt16
+    SenderHardwareAddress: Byte * 1
+ARP_OPCODE = Int32
+ARP_REQUEST: ARP_OPCODE = 1
+ARP_RESPONSE: ARP_OPCODE = 2
+class ASSOCIATE_NAMERES_CONTEXT_INPUT(Structure):
+    TransportSettingId: win32more.Networking.WinSock.TRANSPORT_SETTING_ID
+    Handle: UInt64
+class ATM_ADDRESS(Structure):
+    AddressType: UInt32
+    NumofDigits: UInt32
+    Addr: Byte * 20
+class ATM_BHLI(Structure):
+    HighLayerInfoType: UInt32
+    HighLayerInfoLength: UInt32
+    HighLayerInfo: Byte * 8
+class ATM_BLLI(Structure):
+    Layer2Protocol: UInt32
+    Layer2UserSpecifiedProtocol: UInt32
+    Layer3Protocol: UInt32
+    Layer3UserSpecifiedProtocol: UInt32
+    Layer3IPI: UInt32
+    SnapID: Byte * 5
+class ATM_BLLI_IE(Structure):
+    Layer2Protocol: UInt32
+    Layer2Mode: Byte
+    Layer2WindowSize: Byte
+    Layer2UserSpecifiedProtocol: UInt32
+    Layer3Protocol: UInt32
+    Layer3Mode: Byte
+    Layer3DefaultPacketSize: Byte
+    Layer3PacketWindowSize: Byte
+    Layer3UserSpecifiedProtocol: UInt32
+    Layer3IPI: UInt32
+    SnapID: Byte * 5
+class ATM_BROADBAND_BEARER_CAPABILITY_IE(Structure):
+    BearerClass: Byte
+    TrafficType: Byte
+    TimingRequirements: Byte
+    ClippingSusceptability: Byte
+    UserPlaneConnectionConfig: Byte
+class ATM_CALLING_PARTY_NUMBER_IE(Structure):
+    ATM_Number: win32more.Networking.WinSock.ATM_ADDRESS
+    Presentation_Indication: Byte
+    Screening_Indicator: Byte
+class ATM_CAUSE_IE(Structure):
+    Location: Byte
+    Cause: Byte
+    DiagnosticsLength: Byte
+    Diagnostics: Byte * 4
+class ATM_CONNECTION_ID(Structure):
+    DeviceNumber: UInt32
+    VPI: UInt32
+    VCI: UInt32
+class ATM_PVC_PARAMS(Structure):
+    PvcConnectionId: win32more.Networking.WinSock.ATM_CONNECTION_ID
+    PvcQos: win32more.Networking.WinSock.QOS
+    _pack_ = 4
+class ATM_QOS_CLASS_IE(Structure):
+    QOSClassForward: Byte
+    QOSClassBackward: Byte
+class ATM_TD(Structure):
+    PeakCellRate_CLP0: UInt32
+    PeakCellRate_CLP01: UInt32
+    SustainableCellRate_CLP0: UInt32
+    SustainableCellRate_CLP01: UInt32
+    MaxBurstSize_CLP0: UInt32
+    MaxBurstSize_CLP01: UInt32
+    Tagging: win32more.Foundation.BOOL
+class ATM_TRAFFIC_DESCRIPTOR_IE(Structure):
+    Forward: win32more.Networking.WinSock.ATM_TD
+    Backward: win32more.Networking.WinSock.ATM_TD
+    BestEffort: win32more.Foundation.BOOL
+class ATM_TRANSIT_NETWORK_SELECTION_IE(Structure):
+    TypeOfNetworkId: Byte
+    NetworkIdPlan: Byte
+    NetworkIdLength: Byte
+    NetworkId: Byte * 1
 SOCKET_DEFAULT2_QM_POLICY: Guid = Guid('aec2ef9c-3a4d-4d3e-88-42-23-99-42-e3-9a-47')
 REAL_TIME_NOTIFICATION_CAPABILITY: Guid = Guid('6b59819a-5cae-492d-a9-01-2a-3c-2c-50-16-4f')
 REAL_TIME_NOTIFICATION_CAPABILITY_EX: Guid = Guid('6843da03-154a-4616-a5-08-44-37-12-95-f9-6b')
@@ -1747,92 +1833,6 @@ def SetSocketMediaStreamingMode(value: win32more.Foundation.BOOL) -> win32more.F
 def WSCWriteProviderOrder(lpwdCatalogEntryId: POINTER(UInt32), dwNumberOfEntries: UInt32) -> Int32: ...
 @winfunctype('WS2_32.dll')
 def WSCWriteNameSpaceOrder(lpProviderId: POINTER(Guid), dwNumberOfEntries: UInt32) -> Int32: ...
-ARP_HARDWARE_TYPE = Int32
-ARP_HW_ENET: ARP_HARDWARE_TYPE = 1
-ARP_HW_802: ARP_HARDWARE_TYPE = 6
-class ARP_HEADER(Structure):
-    HardwareAddressSpace: UInt16
-    ProtocolAddressSpace: UInt16
-    HardwareAddressLength: Byte
-    ProtocolAddressLength: Byte
-    Opcode: UInt16
-    SenderHardwareAddress: Byte * 1
-ARP_OPCODE = Int32
-ARP_REQUEST: ARP_OPCODE = 1
-ARP_RESPONSE: ARP_OPCODE = 2
-class ASSOCIATE_NAMERES_CONTEXT_INPUT(Structure):
-    TransportSettingId: win32more.Networking.WinSock.TRANSPORT_SETTING_ID
-    Handle: UInt64
-class ATM_ADDRESS(Structure):
-    AddressType: UInt32
-    NumofDigits: UInt32
-    Addr: Byte * 20
-class ATM_BHLI(Structure):
-    HighLayerInfoType: UInt32
-    HighLayerInfoLength: UInt32
-    HighLayerInfo: Byte * 8
-class ATM_BLLI(Structure):
-    Layer2Protocol: UInt32
-    Layer2UserSpecifiedProtocol: UInt32
-    Layer3Protocol: UInt32
-    Layer3UserSpecifiedProtocol: UInt32
-    Layer3IPI: UInt32
-    SnapID: Byte * 5
-class ATM_BLLI_IE(Structure):
-    Layer2Protocol: UInt32
-    Layer2Mode: Byte
-    Layer2WindowSize: Byte
-    Layer2UserSpecifiedProtocol: UInt32
-    Layer3Protocol: UInt32
-    Layer3Mode: Byte
-    Layer3DefaultPacketSize: Byte
-    Layer3PacketWindowSize: Byte
-    Layer3UserSpecifiedProtocol: UInt32
-    Layer3IPI: UInt32
-    SnapID: Byte * 5
-class ATM_BROADBAND_BEARER_CAPABILITY_IE(Structure):
-    BearerClass: Byte
-    TrafficType: Byte
-    TimingRequirements: Byte
-    ClippingSusceptability: Byte
-    UserPlaneConnectionConfig: Byte
-class ATM_CALLING_PARTY_NUMBER_IE(Structure):
-    ATM_Number: win32more.Networking.WinSock.ATM_ADDRESS
-    Presentation_Indication: Byte
-    Screening_Indicator: Byte
-class ATM_CAUSE_IE(Structure):
-    Location: Byte
-    Cause: Byte
-    DiagnosticsLength: Byte
-    Diagnostics: Byte * 4
-class ATM_CONNECTION_ID(Structure):
-    DeviceNumber: UInt32
-    VPI: UInt32
-    VCI: UInt32
-class ATM_PVC_PARAMS(Structure):
-    PvcConnectionId: win32more.Networking.WinSock.ATM_CONNECTION_ID
-    PvcQos: win32more.Networking.WinSock.QOS
-    _pack_ = 4
-class ATM_QOS_CLASS_IE(Structure):
-    QOSClassForward: Byte
-    QOSClassBackward: Byte
-class ATM_TD(Structure):
-    PeakCellRate_CLP0: UInt32
-    PeakCellRate_CLP01: UInt32
-    SustainableCellRate_CLP0: UInt32
-    SustainableCellRate_CLP01: UInt32
-    MaxBurstSize_CLP0: UInt32
-    MaxBurstSize_CLP01: UInt32
-    Tagging: win32more.Foundation.BOOL
-class ATM_TRAFFIC_DESCRIPTOR_IE(Structure):
-    Forward: win32more.Networking.WinSock.ATM_TD
-    Backward: win32more.Networking.WinSock.ATM_TD
-    BestEffort: win32more.Foundation.BOOL
-class ATM_TRANSIT_NETWORK_SELECTION_IE(Structure):
-    TypeOfNetworkId: Byte
-    NetworkIdPlan: Byte
-    NetworkIdLength: Byte
-    NetworkId: Byte * 1
 class CMSGHDR(Structure):
     cmsg_len: UIntPtr
     cmsg_level: Int32
@@ -1920,9 +1920,6 @@ class ETHERNET_HEADER(Structure):
     class _Anonymous_e__Union(Union):
         Type: UInt16
         Length: UInt16
-eWINDOW_ADVANCE_METHOD = Int32
-E_WINDOW_ADVANCE_BY_TIME: eWINDOW_ADVANCE_METHOD = 1
-E_WINDOW_USE_AS_DATA_CACHE: eWINDOW_ADVANCE_METHOD = 2
 FALLBACK_INDEX = Int32
 FALLBACK_INDEX_FallbackIndexTcpFastopen: FALLBACK_INDEX = 0
 FALLBACK_INDEX_FallbackIndexMax: FALLBACK_INDEX = 1
@@ -1958,22 +1955,6 @@ class HOSTENT(Structure):
     h_length: Int16
     h_addr_list: POINTER(POINTER(SByte))
 HWSAEVENT = IntPtr
-class ICMP_ERROR_INFO(Structure):
-    srcaddress: win32more.Networking.WinSock.SOCKADDR_INET
-    protocol: win32more.Networking.WinSock.IPPROTO
-    type: Byte
-    code: Byte
-class ICMP_HEADER(Structure):
-    Type: Byte
-    Code: Byte
-    Checksum: UInt16
-class ICMP_MESSAGE(Structure):
-    Header: win32more.Networking.WinSock.ICMP_HEADER
-    Data: _Data_e__Union
-    class _Data_e__Union(Union):
-        Data32: UInt32 * 1
-        Data16: UInt16 * 2
-        Data8: Byte * 4
 ICMP4_TIME_EXCEED_CODE = Int32
 ICMP4_TIME_EXCEED_TRANSIT: ICMP4_TIME_EXCEED_CODE = 0
 ICMP4_TIME_EXCEED_REASSEMBLY: ICMP4_TIME_EXCEED_CODE = 1
@@ -2007,23 +1988,22 @@ class ICMPV4_TIMESTAMP_MESSAGE(Structure):
     OriginateTimestamp: UInt32
     ReceiveTimestamp: UInt32
     TransmitTimestamp: UInt32
-class IGMP_HEADER(Structure):
-    Anonymous1: _Anonymous1_e__Union
-    Anonymous2: _Anonymous2_e__Union
+class ICMP_ERROR_INFO(Structure):
+    srcaddress: win32more.Networking.WinSock.SOCKADDR_INET
+    protocol: win32more.Networking.WinSock.IPPROTO
+    type: Byte
+    code: Byte
+class ICMP_HEADER(Structure):
+    Type: Byte
+    Code: Byte
     Checksum: UInt16
-    MulticastAddress: win32more.Networking.WinSock.IN_ADDR
-    class _Anonymous1_e__Union(Union):
-        Anonymous: _Anonymous_e__Struct
-        VersionType: Byte
-        class _Anonymous_e__Struct(Structure):
-            _bitfield: Byte
-    class _Anonymous2_e__Union(Union):
-        Reserved: Byte
-        MaxRespTime: Byte
-        Code: Byte
-IGMP_MAX_RESP_CODE_TYPE = Int32
-IGMP_MAX_RESP_CODE_TYPE_NORMAL: IGMP_MAX_RESP_CODE_TYPE = 0
-IGMP_MAX_RESP_CODE_TYPE_FLOAT: IGMP_MAX_RESP_CODE_TYPE = 1
+class ICMP_MESSAGE(Structure):
+    Header: win32more.Networking.WinSock.ICMP_HEADER
+    Data: _Data_e__Union
+    class _Data_e__Union(Union):
+        Data32: UInt32 * 1
+        Data16: UInt16 * 2
+        Data8: Byte * 4
 class IGMPV3_QUERY_HEADER(Structure):
     Type: Byte
     Anonymous1: _Anonymous1_e__Union
@@ -2053,31 +2033,23 @@ class IGMPV3_REPORT_RECORD_HEADER(Structure):
     AuxillaryDataLength: Byte
     SourceCount: UInt16
     MulticastAddress: win32more.Networking.WinSock.IN_ADDR
-class IN_ADDR(Structure):
-    S_un: _S_un_e__Union
-    class _S_un_e__Union(Union):
-        S_un_b: _S_un_b_e__Struct
-        S_un_w: _S_un_w_e__Struct
-        S_addr: UInt32
-        class _S_un_b_e__Struct(Structure):
-            s_b1: Byte
-            s_b2: Byte
-            s_b3: Byte
-            s_b4: Byte
-        class _S_un_w_e__Struct(Structure):
-            s_w1: UInt16
-            s_w2: UInt16
-class IN_PKTINFO(Structure):
-    ipi_addr: win32more.Networking.WinSock.IN_ADDR
-    ipi_ifindex: UInt32
-class IN_PKTINFO_EX(Structure):
-    pkt_info: win32more.Networking.WinSock.IN_PKTINFO
-    scope_id: win32more.Networking.WinSock.SCOPE_ID
-class IN_RECVERR(Structure):
-    protocol: win32more.Networking.WinSock.IPPROTO
-    info: UInt32
-    type: Byte
-    code: Byte
+class IGMP_HEADER(Structure):
+    Anonymous1: _Anonymous1_e__Union
+    Anonymous2: _Anonymous2_e__Union
+    Checksum: UInt16
+    MulticastAddress: win32more.Networking.WinSock.IN_ADDR
+    class _Anonymous1_e__Union(Union):
+        Anonymous: _Anonymous_e__Struct
+        VersionType: Byte
+        class _Anonymous_e__Struct(Structure):
+            _bitfield: Byte
+    class _Anonymous2_e__Union(Union):
+        Reserved: Byte
+        MaxRespTime: Byte
+        Code: Byte
+IGMP_MAX_RESP_CODE_TYPE = Int32
+IGMP_MAX_RESP_CODE_TYPE_NORMAL: IGMP_MAX_RESP_CODE_TYPE = 0
+IGMP_MAX_RESP_CODE_TYPE_FLOAT: IGMP_MAX_RESP_CODE_TYPE = 1
 class IN6_ADDR(Structure):
     u: _u_e__Union
     class _u_e__Union(Union):
@@ -2109,23 +2081,31 @@ class INTERFACE_INFO_EX(Structure):
     iiAddress: win32more.Networking.WinSock.SOCKET_ADDRESS
     iiBroadcastAddress: win32more.Networking.WinSock.SOCKET_ADDRESS
     iiNetmask: win32more.Networking.WinSock.SOCKET_ADDRESS
-class IP_MREQ(Structure):
-    imr_multiaddr: win32more.Networking.WinSock.IN_ADDR
-    imr_interface: win32more.Networking.WinSock.IN_ADDR
-class IP_MREQ_SOURCE(Structure):
-    imr_multiaddr: win32more.Networking.WinSock.IN_ADDR
-    imr_sourceaddr: win32more.Networking.WinSock.IN_ADDR
-    imr_interface: win32more.Networking.WinSock.IN_ADDR
-class IP_MSFILTER(Structure):
-    imsf_multiaddr: win32more.Networking.WinSock.IN_ADDR
-    imsf_interface: win32more.Networking.WinSock.IN_ADDR
-    imsf_fmode: win32more.Networking.WinSock.MULTICAST_MODE_TYPE
-    imsf_numsrc: UInt32
-    imsf_slist: win32more.Networking.WinSock.IN_ADDR * 1
-IP_OPTION_TIMESTAMP_FLAGS = Int32
-IP_OPTION_TIMESTAMP_ONLY: IP_OPTION_TIMESTAMP_FLAGS = 0
-IP_OPTION_TIMESTAMP_ADDRESS: IP_OPTION_TIMESTAMP_FLAGS = 1
-IP_OPTION_TIMESTAMP_SPECIFIC_ADDRESS: IP_OPTION_TIMESTAMP_FLAGS = 3
+class IN_ADDR(Structure):
+    S_un: _S_un_e__Union
+    class _S_un_e__Union(Union):
+        S_un_b: _S_un_b_e__Struct
+        S_un_w: _S_un_w_e__Struct
+        S_addr: UInt32
+        class _S_un_b_e__Struct(Structure):
+            s_b1: Byte
+            s_b2: Byte
+            s_b3: Byte
+            s_b4: Byte
+        class _S_un_w_e__Struct(Structure):
+            s_w1: UInt16
+            s_w2: UInt16
+class IN_PKTINFO(Structure):
+    ipi_addr: win32more.Networking.WinSock.IN_ADDR
+    ipi_ifindex: UInt32
+class IN_PKTINFO_EX(Structure):
+    pkt_info: win32more.Networking.WinSock.IN_PKTINFO
+    scope_id: win32more.Networking.WinSock.SCOPE_ID
+class IN_RECVERR(Structure):
+    protocol: win32more.Networking.WinSock.IPPROTO
+    info: UInt32
+    type: Byte
+    code: Byte
 IPPROTO = Int32
 IPPROTO_HOPOPTS: IPPROTO = 0
 IPPROTO_ICMP: IPPROTO = 1
@@ -2316,6 +2296,23 @@ class IPX_SPXCONNSTATUS_DATA(Structure):
     EstimatedRoundTripDelay: UInt16
     RetransmittedPackets: UInt16
     SuppressedPacket: UInt16
+class IP_MREQ(Structure):
+    imr_multiaddr: win32more.Networking.WinSock.IN_ADDR
+    imr_interface: win32more.Networking.WinSock.IN_ADDR
+class IP_MREQ_SOURCE(Structure):
+    imr_multiaddr: win32more.Networking.WinSock.IN_ADDR
+    imr_sourceaddr: win32more.Networking.WinSock.IN_ADDR
+    imr_interface: win32more.Networking.WinSock.IN_ADDR
+class IP_MSFILTER(Structure):
+    imsf_multiaddr: win32more.Networking.WinSock.IN_ADDR
+    imsf_interface: win32more.Networking.WinSock.IN_ADDR
+    imsf_fmode: win32more.Networking.WinSock.MULTICAST_MODE_TYPE
+    imsf_numsrc: UInt32
+    imsf_slist: win32more.Networking.WinSock.IN_ADDR * 1
+IP_OPTION_TIMESTAMP_FLAGS = Int32
+IP_OPTION_TIMESTAMP_ONLY: IP_OPTION_TIMESTAMP_FLAGS = 0
+IP_OPTION_TIMESTAMP_ADDRESS: IP_OPTION_TIMESTAMP_FLAGS = 1
+IP_OPTION_TIMESTAMP_SPECIFIC_ADDRESS: IP_OPTION_TIMESTAMP_FLAGS = 3
 class LINGER(Structure):
     l_onoff: UInt16
     l_linger: UInt16
@@ -2534,14 +2531,6 @@ def LPWSPSOCKET(af: Int32, type: Int32, protocol: Int32, lpProtocolInfo: POINTER
 def LPWSPSTARTUP(wVersionRequested: UInt16, lpWSPData: POINTER(win32more.Networking.WinSock.WSPDATA_head), lpProtocolInfo: POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head), UpcallTable: win32more.Networking.WinSock.WSPUPCALLTABLE, lpProcTable: POINTER(win32more.Networking.WinSock.WSPPROC_TABLE_head)) -> Int32: ...
 @winfunctype_pointer
 def LPWSPSTRINGTOADDRESS(AddressString: win32more.Foundation.PWSTR, AddressFamily: Int32, lpProtocolInfo: POINTER(win32more.Networking.WinSock.WSAPROTOCOL_INFOW_head), lpAddress: POINTER(win32more.Networking.WinSock.SOCKADDR_head), lpAddressLength: POINTER(Int32), lpErrno: POINTER(Int32)) -> Int32: ...
-class MLD_HEADER(Structure):
-    IcmpHeader: win32more.Networking.WinSock.ICMP_HEADER
-    MaxRespTime: UInt16
-    Reserved: UInt16
-    MulticastAddress: win32more.Networking.WinSock.IN6_ADDR
-MLD_MAX_RESP_CODE_TYPE = Int32
-MLD_MAX_RESP_CODE_TYPE_NORMAL: MLD_MAX_RESP_CODE_TYPE = 0
-MLD_MAX_RESP_CODE_TYPE_FLOAT: MLD_MAX_RESP_CODE_TYPE = 1
 class MLDV2_QUERY_HEADER(Structure):
     IcmpHeader: win32more.Networking.WinSock.ICMP_HEADER
     Anonymous1: _Anonymous1_e__Union
@@ -2569,6 +2558,14 @@ class MLDV2_REPORT_RECORD_HEADER(Structure):
     AuxillaryDataLength: Byte
     SourceCount: UInt16
     MulticastAddress: win32more.Networking.WinSock.IN6_ADDR
+class MLD_HEADER(Structure):
+    IcmpHeader: win32more.Networking.WinSock.ICMP_HEADER
+    MaxRespTime: UInt16
+    Reserved: UInt16
+    MulticastAddress: win32more.Networking.WinSock.IN6_ADDR
+MLD_MAX_RESP_CODE_TYPE = Int32
+MLD_MAX_RESP_CODE_TYPE_NORMAL: MLD_MAX_RESP_CODE_TYPE = 0
+MLD_MAX_RESP_CODE_TYPE_FLOAT: MLD_MAX_RESP_CODE_TYPE = 1
 MULTICAST_MODE_TYPE = Int32
 MCAST_INCLUDE: MULTICAST_MODE_TYPE = 0
 MCAST_EXCLUDE: MULTICAST_MODE_TYPE = 1
@@ -2629,16 +2626,16 @@ class ND_OPTION_PREFIX_INFO(Structure):
         class _Anonymous_e__Struct(Structure):
             nd_opt_pi_reserved3: Byte * 3
             nd_opt_pi_site_prefix_len: Byte
-class ND_OPTION_RD_HDR(Structure):
-    nd_opt_rh_type: Byte
-    nd_opt_rh_len: Byte
-    nd_opt_rh_reserved1: UInt16
-    nd_opt_rh_reserved2: UInt32
 class ND_OPTION_RDNSS(Structure):
     nd_opt_rdnss_type: Byte
     nd_opt_rdnss_len: Byte
     nd_opt_rdnss_reserved: UInt16
     nd_opt_rdnss_lifetime: UInt32
+class ND_OPTION_RD_HDR(Structure):
+    nd_opt_rh_type: Byte
+    nd_opt_rh_len: Byte
+    nd_opt_rh_reserved1: UInt16
+    nd_opt_rh_reserved2: UInt32
 class ND_OPTION_ROUTE_INFO(Structure):
     nd_opt_ri_type: Byte
     nd_opt_ri_len: Byte
@@ -2675,11 +2672,6 @@ class ND_ROUTER_ADVERT_HEADER(Structure):
     nd_ra_retransmit: UInt32
 class ND_ROUTER_SOLICIT_HEADER(Structure):
     nd_rs_hdr: win32more.Networking.WinSock.ICMP_MESSAGE
-class netent(Structure):
-    n_name: win32more.Foundation.PSTR
-    n_aliases: POINTER(POINTER(SByte))
-    n_addrtype: Int16
-    n_net: UInt32
 class NETRESOURCE2A(Structure):
     dwScope: UInt32
     dwType: UInt32
@@ -2704,6 +2696,51 @@ class NETRESOURCE2W(Structure):
     ServiceType: Guid
     dwProtocols: UInt32
     lpiProtocols: POINTER(Int32)
+class NLA_BLOB(Structure):
+    header: _header_e__Struct
+    data: _data_e__Union
+    class _header_e__Struct(Structure):
+        type: win32more.Networking.WinSock.NLA_BLOB_DATA_TYPE
+        dwSize: UInt32
+        nextOffset: UInt32
+    class _data_e__Union(Union):
+        rawData: win32more.Foundation.CHAR * 1
+        interfaceData: _interfaceData_e__Struct
+        locationData: _locationData_e__Struct
+        connectivity: _connectivity_e__Struct
+        ICS: _ICS_e__Struct
+        class _interfaceData_e__Struct(Structure):
+            dwType: UInt32
+            dwSpeed: UInt32
+            adapterName: win32more.Foundation.CHAR * 1
+        class _locationData_e__Struct(Structure):
+            information: win32more.Foundation.CHAR * 1
+        class _connectivity_e__Struct(Structure):
+            type: win32more.Networking.WinSock.NLA_CONNECTIVITY_TYPE
+            internet: win32more.Networking.WinSock.NLA_INTERNET
+        class _ICS_e__Struct(Structure):
+            remote: _remote_e__Struct
+            class _remote_e__Struct(Structure):
+                speed: UInt32
+                type: UInt32
+                state: UInt32
+                machineName: Char * 256
+                sharedAdapterName: Char * 256
+NLA_BLOB_DATA_TYPE = Int32
+NLA_RAW_DATA: NLA_BLOB_DATA_TYPE = 0
+NLA_INTERFACE: NLA_BLOB_DATA_TYPE = 1
+NLA_802_1X_LOCATION: NLA_BLOB_DATA_TYPE = 2
+NLA_CONNECTIVITY: NLA_BLOB_DATA_TYPE = 3
+NLA_ICS: NLA_BLOB_DATA_TYPE = 4
+NLA_CONNECTIVITY_TYPE = Int32
+NLA_NETWORK_AD_HOC: NLA_CONNECTIVITY_TYPE = 0
+NLA_NETWORK_MANAGED: NLA_CONNECTIVITY_TYPE = 1
+NLA_NETWORK_UNMANAGED: NLA_CONNECTIVITY_TYPE = 2
+NLA_NETWORK_UNKNOWN: NLA_CONNECTIVITY_TYPE = 3
+NLA_INTERNET = Int32
+NLA_INTERNET_UNKNOWN: NLA_INTERNET = 0
+NLA_INTERNET_NO: NLA_INTERNET = 1
+NLA_INTERNET_YES: NLA_INTERNET = 2
 NL_ADDRESS_TYPE = Int32
 NL_ADDRESS_TYPE_NlatUnspecified: NL_ADDRESS_TYPE = 0
 NL_ADDRESS_TYPE_NlatUnicast: NL_ADDRESS_TYPE = 1
@@ -2787,6 +2824,11 @@ NL_PREFIX_ORIGIN_IpPrefixOriginWellKnown: NL_PREFIX_ORIGIN = 2
 NL_PREFIX_ORIGIN_IpPrefixOriginDhcp: NL_PREFIX_ORIGIN = 3
 NL_PREFIX_ORIGIN_IpPrefixOriginRouterAdvertisement: NL_PREFIX_ORIGIN = 4
 NL_PREFIX_ORIGIN_IpPrefixOriginUnchanged: NL_PREFIX_ORIGIN = 16
+NL_ROUTER_DISCOVERY_BEHAVIOR = Int32
+NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryDisabled: NL_ROUTER_DISCOVERY_BEHAVIOR = 0
+NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryEnabled: NL_ROUTER_DISCOVERY_BEHAVIOR = 1
+NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryDhcp: NL_ROUTER_DISCOVERY_BEHAVIOR = 2
+NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryUnchanged: NL_ROUTER_DISCOVERY_BEHAVIOR = -1
 NL_ROUTE_ORIGIN = Int32
 NL_ROUTE_ORIGIN_NlroManual: NL_ROUTE_ORIGIN = 0
 NL_ROUTE_ORIGIN_NlroWellKnown: NL_ROUTE_ORIGIN = 1
@@ -2857,11 +2899,6 @@ NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_STATIC: NL_ROUTE_PROTOCOL = 10006
 NL_ROUTE_PROTOCOL_PROTO_IP_NT_STATIC: NL_ROUTE_PROTOCOL = 10006
 NL_ROUTE_PROTOCOL_MIB_IPPROTO_NT_STATIC_NON_DOD: NL_ROUTE_PROTOCOL = 10007
 NL_ROUTE_PROTOCOL_PROTO_IP_NT_STATIC_NON_DOD: NL_ROUTE_PROTOCOL = 10007
-NL_ROUTER_DISCOVERY_BEHAVIOR = Int32
-NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryDisabled: NL_ROUTER_DISCOVERY_BEHAVIOR = 0
-NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryEnabled: NL_ROUTER_DISCOVERY_BEHAVIOR = 1
-NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryDhcp: NL_ROUTER_DISCOVERY_BEHAVIOR = 2
-NL_ROUTER_DISCOVERY_BEHAVIOR_RouterDiscoveryUnchanged: NL_ROUTER_DISCOVERY_BEHAVIOR = -1
 NL_SUFFIX_ORIGIN = Int32
 NL_SUFFIX_ORIGIN_NlsoOther: NL_SUFFIX_ORIGIN = 0
 NL_SUFFIX_ORIGIN_NlsoManual: NL_SUFFIX_ORIGIN = 1
@@ -2876,51 +2913,6 @@ NL_SUFFIX_ORIGIN_IpSuffixOriginDhcp: NL_SUFFIX_ORIGIN = 3
 NL_SUFFIX_ORIGIN_IpSuffixOriginLinkLayerAddress: NL_SUFFIX_ORIGIN = 4
 NL_SUFFIX_ORIGIN_IpSuffixOriginRandom: NL_SUFFIX_ORIGIN = 5
 NL_SUFFIX_ORIGIN_IpSuffixOriginUnchanged: NL_SUFFIX_ORIGIN = 16
-class NLA_BLOB(Structure):
-    header: _header_e__Struct
-    data: _data_e__Union
-    class _header_e__Struct(Structure):
-        type: win32more.Networking.WinSock.NLA_BLOB_DATA_TYPE
-        dwSize: UInt32
-        nextOffset: UInt32
-    class _data_e__Union(Union):
-        rawData: win32more.Foundation.CHAR * 1
-        interfaceData: _interfaceData_e__Struct
-        locationData: _locationData_e__Struct
-        connectivity: _connectivity_e__Struct
-        ICS: _ICS_e__Struct
-        class _interfaceData_e__Struct(Structure):
-            dwType: UInt32
-            dwSpeed: UInt32
-            adapterName: win32more.Foundation.CHAR * 1
-        class _locationData_e__Struct(Structure):
-            information: win32more.Foundation.CHAR * 1
-        class _connectivity_e__Struct(Structure):
-            type: win32more.Networking.WinSock.NLA_CONNECTIVITY_TYPE
-            internet: win32more.Networking.WinSock.NLA_INTERNET
-        class _ICS_e__Struct(Structure):
-            remote: _remote_e__Struct
-            class _remote_e__Struct(Structure):
-                speed: UInt32
-                type: UInt32
-                state: UInt32
-                machineName: Char * 256
-                sharedAdapterName: Char * 256
-NLA_BLOB_DATA_TYPE = Int32
-NLA_RAW_DATA: NLA_BLOB_DATA_TYPE = 0
-NLA_INTERFACE: NLA_BLOB_DATA_TYPE = 1
-NLA_802_1X_LOCATION: NLA_BLOB_DATA_TYPE = 2
-NLA_CONNECTIVITY: NLA_BLOB_DATA_TYPE = 3
-NLA_ICS: NLA_BLOB_DATA_TYPE = 4
-NLA_CONNECTIVITY_TYPE = Int32
-NLA_NETWORK_AD_HOC: NLA_CONNECTIVITY_TYPE = 0
-NLA_NETWORK_MANAGED: NLA_CONNECTIVITY_TYPE = 1
-NLA_NETWORK_UNMANAGED: NLA_CONNECTIVITY_TYPE = 2
-NLA_NETWORK_UNKNOWN: NLA_CONNECTIVITY_TYPE = 3
-NLA_INTERNET = Int32
-NLA_INTERNET_UNKNOWN: NLA_INTERNET = 0
-NLA_INTERNET_NO: NLA_INTERNET = 1
-NLA_INTERNET_YES: NLA_INTERNET = 2
 class NPI_MODULEID(Structure):
     Length: UInt16
     Type: win32more.Networking.WinSock.NPI_MODULEID_TYPE
@@ -2931,6 +2923,30 @@ class NPI_MODULEID(Structure):
 NPI_MODULEID_TYPE = Int32
 MIT_GUID: NPI_MODULEID_TYPE = 1
 MIT_IF_LUID: NPI_MODULEID_TYPE = 2
+class NSPV2_ROUTINE(Structure):
+    cbSize: UInt32
+    dwMajorVersion: UInt32
+    dwMinorVersion: UInt32
+    NSPv2Startup: win32more.Networking.WinSock.LPNSPV2STARTUP
+    NSPv2Cleanup: win32more.Networking.WinSock.LPNSPV2CLEANUP
+    NSPv2LookupServiceBegin: win32more.Networking.WinSock.LPNSPV2LOOKUPSERVICEBEGIN
+    NSPv2LookupServiceNextEx: win32more.Networking.WinSock.LPNSPV2LOOKUPSERVICENEXTEX
+    NSPv2LookupServiceEnd: win32more.Networking.WinSock.LPNSPV2LOOKUPSERVICEEND
+    NSPv2SetServiceEx: win32more.Networking.WinSock.LPNSPV2SETSERVICEEX
+    NSPv2ClientSessionRundown: win32more.Networking.WinSock.LPNSPV2CLIENTSESSIONRUNDOWN
+class NSP_ROUTINE(Structure):
+    cbSize: UInt32
+    dwMajorVersion: UInt32
+    dwMinorVersion: UInt32
+    NSPCleanup: win32more.Networking.WinSock.LPNSPCLEANUP
+    NSPLookupServiceBegin: win32more.Networking.WinSock.LPNSPLOOKUPSERVICEBEGIN
+    NSPLookupServiceNext: win32more.Networking.WinSock.LPNSPLOOKUPSERVICENEXT
+    NSPLookupServiceEnd: win32more.Networking.WinSock.LPNSPLOOKUPSERVICEEND
+    NSPSetService: win32more.Networking.WinSock.LPNSPSETSERVICE
+    NSPInstallServiceClass: win32more.Networking.WinSock.LPNSPINSTALLSERVICECLASS
+    NSPRemoveServiceClass: win32more.Networking.WinSock.LPNSPREMOVESERVICECLASS
+    NSPGetServiceClassInfo: win32more.Networking.WinSock.LPNSPGETSERVICECLASSINFO
+    NSPIoctl: win32more.Networking.WinSock.LPNSPIOCTL
 class NS_INFOA(Structure):
     dwNameSpace: UInt32
     dwNameSpaceFlags: UInt32
@@ -2945,30 +2961,6 @@ class NS_SERVICE_INFOA(Structure):
 class NS_SERVICE_INFOW(Structure):
     dwNameSpace: UInt32
     ServiceInfo: win32more.Networking.WinSock.SERVICE_INFOW
-class NSP_ROUTINE(Structure):
-    cbSize: UInt32
-    dwMajorVersion: UInt32
-    dwMinorVersion: UInt32
-    NSPCleanup: win32more.Networking.WinSock.LPNSPCLEANUP
-    NSPLookupServiceBegin: win32more.Networking.WinSock.LPNSPLOOKUPSERVICEBEGIN
-    NSPLookupServiceNext: win32more.Networking.WinSock.LPNSPLOOKUPSERVICENEXT
-    NSPLookupServiceEnd: win32more.Networking.WinSock.LPNSPLOOKUPSERVICEEND
-    NSPSetService: win32more.Networking.WinSock.LPNSPSETSERVICE
-    NSPInstallServiceClass: win32more.Networking.WinSock.LPNSPINSTALLSERVICECLASS
-    NSPRemoveServiceClass: win32more.Networking.WinSock.LPNSPREMOVESERVICECLASS
-    NSPGetServiceClassInfo: win32more.Networking.WinSock.LPNSPGETSERVICECLASSINFO
-    NSPIoctl: win32more.Networking.WinSock.LPNSPIOCTL
-class NSPV2_ROUTINE(Structure):
-    cbSize: UInt32
-    dwMajorVersion: UInt32
-    dwMinorVersion: UInt32
-    NSPv2Startup: win32more.Networking.WinSock.LPNSPV2STARTUP
-    NSPv2Cleanup: win32more.Networking.WinSock.LPNSPV2CLEANUP
-    NSPv2LookupServiceBegin: win32more.Networking.WinSock.LPNSPV2LOOKUPSERVICEBEGIN
-    NSPv2LookupServiceNextEx: win32more.Networking.WinSock.LPNSPV2LOOKUPSERVICENEXTEX
-    NSPv2LookupServiceEnd: win32more.Networking.WinSock.LPNSPV2LOOKUPSERVICEEND
-    NSPv2SetServiceEx: win32more.Networking.WinSock.LPNSPV2SETSERVICEEX
-    NSPv2ClientSessionRundown: win32more.Networking.WinSock.LPNSPV2CLIENTSESSIONRUNDOWN
 PMTUD_STATE = Int32
 IP_PMTUDISC_NOT_SET: PMTUD_STATE = 0
 IP_PMTUDISC_DO: PMTUD_STATE = 1
@@ -3046,6 +3038,11 @@ RESOURCEDISPLAYTYPE_GROUP: RESOURCE_DISPLAY_TYPE = 5
 RESOURCEDISPLAYTYPE_SERVER: RESOURCE_DISPLAY_TYPE = 2
 RESOURCEDISPLAYTYPE_SHARE: RESOURCE_DISPLAY_TYPE = 3
 RESOURCEDISPLAYTYPE_TREE: RESOURCE_DISPLAY_TYPE = 10
+class RIORESULT(Structure):
+    Status: Int32
+    BytesTransferred: UInt32
+    SocketContext: UInt64
+    RequestContext: UInt64
 class RIO_BUF(Structure):
     BufferId: POINTER(win32more.Networking.WinSock.RIO_BUFFERID_t_head)
     Offset: UInt32
@@ -3089,11 +3086,6 @@ RIO_EVENT_COMPLETION: RIO_NOTIFICATION_COMPLETION_TYPE = 1
 RIO_IOCP_COMPLETION: RIO_NOTIFICATION_COMPLETION_TYPE = 2
 class RIO_RQ_t(Structure):
     pass
-class RIORESULT(Structure):
-    Status: Int32
-    BytesTransferred: UInt32
-    SocketContext: UInt64
-    RequestContext: UInt64
 class RM_FEC_INFO(Structure):
     FECBlockSize: UInt16
     FECProActivePackets: UInt16
@@ -3118,10 +3110,6 @@ class RM_RECEIVER_STATS(Structure):
     NumDataPacketsBuffered: UInt64
     TotalSelectiveNaksSent: UInt64
     TotalParityNaksSent: UInt64
-class RM_SEND_WINDOW(Structure):
-    RateKbitsPerSec: UInt32
-    WindowSizeInMSecs: UInt32
-    WindowSizeInBytes: UInt32
 class RM_SENDER_STATS(Structure):
     DataBytesSent: UInt64
     TotalBytesSent: UInt64
@@ -3136,6 +3124,10 @@ class RM_SENDER_STATS(Structure):
     RateKBitsPerSecOverall: UInt64
     RateKBitsPerSecLast: UInt64
     TotalODataPacketsSent: UInt64
+class RM_SEND_WINDOW(Structure):
+    RateKbitsPerSec: UInt32
+    WindowSizeInMSecs: UInt32
+    WindowSizeInBytes: UInt32
 class RSS_SCALABILITY_INFO(Structure):
     RssEnabled: win32more.Foundation.BOOLEAN
 class SCOPE_ID(Structure):
@@ -3250,13 +3242,6 @@ class SNAP_HEADER(Structure):
     Control: Byte
     Oui: Byte * 3
     Type: UInt16
-class SOCK_NOTIFY_REGISTRATION(Structure):
-    socket: win32more.Networking.WinSock.SOCKET
-    completionKey: c_void_p
-    eventFilter: UInt16
-    operation: Byte
-    triggerFlags: Byte
-    registrationResult: UInt32
 class SOCKADDR(Structure):
     sa_family: win32more.Networking.WinSock.ADDRESS_FAMILY
     sa_data: win32more.Foundation.CHAR * 14
@@ -3269,10 +3254,6 @@ class SOCKADDR_DL(Structure):
     sdl_family: win32more.Networking.WinSock.ADDRESS_FAMILY
     sdl_data: Byte * 8
     sdl_zero: Byte * 4
-class sockaddr_gen(Union):
-    Address: win32more.Networking.WinSock.SOCKADDR
-    AddressIn: win32more.Networking.WinSock.SOCKADDR_IN
-    AddressIn6: win32more.Networking.WinSock.sockaddr_in6_old
 class SOCKADDR_IN(Structure):
     sin_family: win32more.Networking.WinSock.ADDRESS_FAMILY
     sin_port: UInt16
@@ -3287,11 +3268,6 @@ class SOCKADDR_IN6(Structure):
     class _Anonymous_e__Union(Union):
         sin6_scope_id: UInt32
         sin6_scope_struct: win32more.Networking.WinSock.SCOPE_ID
-class sockaddr_in6_old(Structure):
-    sin6_family: Int16
-    sin6_port: UInt16
-    sin6_flowinfo: UInt32
-    sin6_addr: win32more.Networking.WinSock.IN6_ADDR
 class SOCKADDR_IN6_PAIR(Structure):
     SourceAddress: POINTER(win32more.Networking.WinSock.SOCKADDR_IN6_head)
     DestinationAddress: POINTER(win32more.Networking.WinSock.SOCKADDR_IN6_head)
@@ -3411,9 +3387,26 @@ class SOCKET_SECURITY_SETTINGS_IPSEC(Structure):
     AllStrings: Char * 1
 SOCKET_USAGE_TYPE = Int32
 SYSTEM_CRITICAL_SOCKET: SOCKET_USAGE_TYPE = 1
-class sockproto(Structure):
-    sp_family: UInt16
-    sp_protocol: UInt16
+class SOCK_NOTIFY_REGISTRATION(Structure):
+    socket: win32more.Networking.WinSock.SOCKET
+    completionKey: c_void_p
+    eventFilter: UInt16
+    operation: Byte
+    triggerFlags: Byte
+    registrationResult: UInt32
+TCPSTATE = Int32
+TCPSTATE_CLOSED: TCPSTATE = 0
+TCPSTATE_LISTEN: TCPSTATE = 1
+TCPSTATE_SYN_SENT: TCPSTATE = 2
+TCPSTATE_SYN_RCVD: TCPSTATE = 3
+TCPSTATE_ESTABLISHED: TCPSTATE = 4
+TCPSTATE_FIN_WAIT_1: TCPSTATE = 5
+TCPSTATE_FIN_WAIT_2: TCPSTATE = 6
+TCPSTATE_CLOSE_WAIT: TCPSTATE = 7
+TCPSTATE_CLOSING: TCPSTATE = 8
+TCPSTATE_LAST_ACK: TCPSTATE = 9
+TCPSTATE_TIME_WAIT: TCPSTATE = 10
+TCPSTATE_MAX: TCPSTATE = 11
 class TCP_ACK_FREQUENCY_PARAMETERS(Structure):
     TcpDelayedAckFrequency: Byte
 class TCP_HDR(Structure):
@@ -3489,10 +3482,6 @@ class TCP_INFO_v1(Structure):
 class TCP_INITIAL_RTO_PARAMETERS(Structure):
     Rtt: UInt16
     MaxSynRetransmissions: Byte
-class tcp_keepalive(Structure):
-    onoff: UInt32
-    keepalivetime: UInt32
-    keepaliveinterval: UInt32
 class TCP_OPT_FASTOPEN(Structure):
     Kind: Byte
     Length: Byte
@@ -3531,19 +3520,6 @@ class TCP_OPT_WS(Structure):
     Length: Byte
     ShiftCnt: Byte
     _pack_ = 1
-TCPSTATE = Int32
-TCPSTATE_CLOSED: TCPSTATE = 0
-TCPSTATE_LISTEN: TCPSTATE = 1
-TCPSTATE_SYN_SENT: TCPSTATE = 2
-TCPSTATE_SYN_RCVD: TCPSTATE = 3
-TCPSTATE_ESTABLISHED: TCPSTATE = 4
-TCPSTATE_FIN_WAIT_1: TCPSTATE = 5
-TCPSTATE_FIN_WAIT_2: TCPSTATE = 6
-TCPSTATE_CLOSE_WAIT: TCPSTATE = 7
-TCPSTATE_CLOSING: TCPSTATE = 8
-TCPSTATE_LAST_ACK: TCPSTATE = 9
-TCPSTATE_TIME_WAIT: TCPSTATE = 10
-TCPSTATE_MAX: TCPSTATE = 11
 class TIMESTAMPING_CONFIG(Structure):
     Flags: UInt32
     TxTimestampsBuffered: UInt16
@@ -3629,114 +3605,6 @@ class WINDOWS_IRDA_DEVICE_INFO(Structure):
     irdaDeviceHints1: Byte
     irdaDeviceHints2: Byte
     irdaCharSet: Byte
-WSA_COMPATIBILITY_BEHAVIOR_ID = Int32
-WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorAll: WSA_COMPATIBILITY_BEHAVIOR_ID = 0
-WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorReceiveBuffering: WSA_COMPATIBILITY_BEHAVIOR_ID = 1
-WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorAutoTuning: WSA_COMPATIBILITY_BEHAVIOR_ID = 2
-class WSA_COMPATIBILITY_MODE(Structure):
-    BehaviorId: win32more.Networking.WinSock.WSA_COMPATIBILITY_BEHAVIOR_ID
-    TargetOsVersion: UInt32
-WSA_ERROR = Int32
-WSA_IO_PENDING: WSA_ERROR = 997
-WSA_IO_INCOMPLETE: WSA_ERROR = 996
-WSA_INVALID_HANDLE: WSA_ERROR = 6
-WSA_INVALID_PARAMETER: WSA_ERROR = 87
-WSA_NOT_ENOUGH_MEMORY: WSA_ERROR = 8
-WSA_OPERATION_ABORTED: WSA_ERROR = 995
-WSA_WAIT_EVENT_0: WSA_ERROR = 0
-WSA_WAIT_IO_COMPLETION: WSA_ERROR = 192
-WSABASEERR: WSA_ERROR = 10000
-WSAEINTR: WSA_ERROR = 10004
-WSAEBADF: WSA_ERROR = 10009
-WSAEACCES: WSA_ERROR = 10013
-WSAEFAULT: WSA_ERROR = 10014
-WSAEINVAL: WSA_ERROR = 10022
-WSAEMFILE: WSA_ERROR = 10024
-WSAEWOULDBLOCK: WSA_ERROR = 10035
-WSAEINPROGRESS: WSA_ERROR = 10036
-WSAEALREADY: WSA_ERROR = 10037
-WSAENOTSOCK: WSA_ERROR = 10038
-WSAEDESTADDRREQ: WSA_ERROR = 10039
-WSAEMSGSIZE: WSA_ERROR = 10040
-WSAEPROTOTYPE: WSA_ERROR = 10041
-WSAENOPROTOOPT: WSA_ERROR = 10042
-WSAEPROTONOSUPPORT: WSA_ERROR = 10043
-WSAESOCKTNOSUPPORT: WSA_ERROR = 10044
-WSAEOPNOTSUPP: WSA_ERROR = 10045
-WSAEPFNOSUPPORT: WSA_ERROR = 10046
-WSAEAFNOSUPPORT: WSA_ERROR = 10047
-WSAEADDRINUSE: WSA_ERROR = 10048
-WSAEADDRNOTAVAIL: WSA_ERROR = 10049
-WSAENETDOWN: WSA_ERROR = 10050
-WSAENETUNREACH: WSA_ERROR = 10051
-WSAENETRESET: WSA_ERROR = 10052
-WSAECONNABORTED: WSA_ERROR = 10053
-WSAECONNRESET: WSA_ERROR = 10054
-WSAENOBUFS: WSA_ERROR = 10055
-WSAEISCONN: WSA_ERROR = 10056
-WSAENOTCONN: WSA_ERROR = 10057
-WSAESHUTDOWN: WSA_ERROR = 10058
-WSAETOOMANYREFS: WSA_ERROR = 10059
-WSAETIMEDOUT: WSA_ERROR = 10060
-WSAECONNREFUSED: WSA_ERROR = 10061
-WSAELOOP: WSA_ERROR = 10062
-WSAENAMETOOLONG: WSA_ERROR = 10063
-WSAEHOSTDOWN: WSA_ERROR = 10064
-WSAEHOSTUNREACH: WSA_ERROR = 10065
-WSAENOTEMPTY: WSA_ERROR = 10066
-WSAEPROCLIM: WSA_ERROR = 10067
-WSAEUSERS: WSA_ERROR = 10068
-WSAEDQUOT: WSA_ERROR = 10069
-WSAESTALE: WSA_ERROR = 10070
-WSAEREMOTE: WSA_ERROR = 10071
-WSASYSNOTREADY: WSA_ERROR = 10091
-WSAVERNOTSUPPORTED: WSA_ERROR = 10092
-WSANOTINITIALISED: WSA_ERROR = 10093
-WSAEDISCON: WSA_ERROR = 10101
-WSAENOMORE: WSA_ERROR = 10102
-WSAECANCELLED: WSA_ERROR = 10103
-WSAEINVALIDPROCTABLE: WSA_ERROR = 10104
-WSAEINVALIDPROVIDER: WSA_ERROR = 10105
-WSAEPROVIDERFAILEDINIT: WSA_ERROR = 10106
-WSASYSCALLFAILURE: WSA_ERROR = 10107
-WSASERVICE_NOT_FOUND: WSA_ERROR = 10108
-WSATYPE_NOT_FOUND: WSA_ERROR = 10109
-WSA_E_NO_MORE: WSA_ERROR = 10110
-WSA_E_CANCELLED: WSA_ERROR = 10111
-WSAEREFUSED: WSA_ERROR = 10112
-WSAHOST_NOT_FOUND: WSA_ERROR = 11001
-WSATRY_AGAIN: WSA_ERROR = 11002
-WSANO_RECOVERY: WSA_ERROR = 11003
-WSANO_DATA: WSA_ERROR = 11004
-WSA_QOS_RECEIVERS: WSA_ERROR = 11005
-WSA_QOS_SENDERS: WSA_ERROR = 11006
-WSA_QOS_NO_SENDERS: WSA_ERROR = 11007
-WSA_QOS_NO_RECEIVERS: WSA_ERROR = 11008
-WSA_QOS_REQUEST_CONFIRMED: WSA_ERROR = 11009
-WSA_QOS_ADMISSION_FAILURE: WSA_ERROR = 11010
-WSA_QOS_POLICY_FAILURE: WSA_ERROR = 11011
-WSA_QOS_BAD_STYLE: WSA_ERROR = 11012
-WSA_QOS_BAD_OBJECT: WSA_ERROR = 11013
-WSA_QOS_TRAFFIC_CTRL_ERROR: WSA_ERROR = 11014
-WSA_QOS_GENERIC_ERROR: WSA_ERROR = 11015
-WSA_QOS_ESERVICETYPE: WSA_ERROR = 11016
-WSA_QOS_EFLOWSPEC: WSA_ERROR = 11017
-WSA_QOS_EPROVSPECBUF: WSA_ERROR = 11018
-WSA_QOS_EFILTERSTYLE: WSA_ERROR = 11019
-WSA_QOS_EFILTERTYPE: WSA_ERROR = 11020
-WSA_QOS_EFILTERCOUNT: WSA_ERROR = 11021
-WSA_QOS_EOBJLENGTH: WSA_ERROR = 11022
-WSA_QOS_EFLOWCOUNT: WSA_ERROR = 11023
-WSA_QOS_EUNKOWNPSOBJ: WSA_ERROR = 11024
-WSA_QOS_EPOLICYOBJ: WSA_ERROR = 11025
-WSA_QOS_EFLOWDESC: WSA_ERROR = 11026
-WSA_QOS_EPSFLOWSPEC: WSA_ERROR = 11027
-WSA_QOS_EPSFILTERSPEC: WSA_ERROR = 11028
-WSA_QOS_ESDMODEOBJ: WSA_ERROR = 11029
-WSA_QOS_ESHAPERATEOBJ: WSA_ERROR = 11030
-WSA_QOS_RESERVED_PETYPE: WSA_ERROR = 11031
-WSA_SECURE_HOST_NOT_FOUND: WSA_ERROR = 11032
-WSA_IPSEC_NAME_POLICY_ERROR: WSA_ERROR = 11033
 class WSABUF(Structure):
     len: UInt32
     buf: win32more.Foundation.PSTR
@@ -3849,6 +3717,9 @@ class WSAPOLLFD(Structure):
     fd: win32more.Networking.WinSock.SOCKET
     events: Int16
     revents: Int16
+class WSAPROTOCOLCHAIN(Structure):
+    ChainLen: Int32
+    ChainEntries: UInt32 * 7
 class WSAPROTOCOL_INFOA(Structure):
     dwServiceFlags1: UInt32
     dwServiceFlags2: UInt32
@@ -3891,9 +3762,6 @@ class WSAPROTOCOL_INFOW(Structure):
     dwMessageSize: UInt32
     dwProviderReserved: UInt32
     szProtocol: Char * 256
-class WSAPROTOCOLCHAIN(Structure):
-    ChainLen: Int32
-    ChainEntries: UInt32 * 7
 class WSAQUERYSET2A(Structure):
     dwSize: UInt32
     lpszServiceInstanceName: win32more.Foundation.PSTR
@@ -3978,6 +3846,114 @@ class WSATHREADID(Structure):
 class WSAVERSION(Structure):
     dwVersion: UInt32
     ecHow: win32more.Networking.WinSock.WSAECOMPARATOR
+WSA_COMPATIBILITY_BEHAVIOR_ID = Int32
+WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorAll: WSA_COMPATIBILITY_BEHAVIOR_ID = 0
+WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorReceiveBuffering: WSA_COMPATIBILITY_BEHAVIOR_ID = 1
+WSA_COMPATIBILITY_BEHAVIOR_ID_WsaBehaviorAutoTuning: WSA_COMPATIBILITY_BEHAVIOR_ID = 2
+class WSA_COMPATIBILITY_MODE(Structure):
+    BehaviorId: win32more.Networking.WinSock.WSA_COMPATIBILITY_BEHAVIOR_ID
+    TargetOsVersion: UInt32
+WSA_ERROR = Int32
+WSA_IO_PENDING: WSA_ERROR = 997
+WSA_IO_INCOMPLETE: WSA_ERROR = 996
+WSA_INVALID_HANDLE: WSA_ERROR = 6
+WSA_INVALID_PARAMETER: WSA_ERROR = 87
+WSA_NOT_ENOUGH_MEMORY: WSA_ERROR = 8
+WSA_OPERATION_ABORTED: WSA_ERROR = 995
+WSA_WAIT_EVENT_0: WSA_ERROR = 0
+WSA_WAIT_IO_COMPLETION: WSA_ERROR = 192
+WSABASEERR: WSA_ERROR = 10000
+WSAEINTR: WSA_ERROR = 10004
+WSAEBADF: WSA_ERROR = 10009
+WSAEACCES: WSA_ERROR = 10013
+WSAEFAULT: WSA_ERROR = 10014
+WSAEINVAL: WSA_ERROR = 10022
+WSAEMFILE: WSA_ERROR = 10024
+WSAEWOULDBLOCK: WSA_ERROR = 10035
+WSAEINPROGRESS: WSA_ERROR = 10036
+WSAEALREADY: WSA_ERROR = 10037
+WSAENOTSOCK: WSA_ERROR = 10038
+WSAEDESTADDRREQ: WSA_ERROR = 10039
+WSAEMSGSIZE: WSA_ERROR = 10040
+WSAEPROTOTYPE: WSA_ERROR = 10041
+WSAENOPROTOOPT: WSA_ERROR = 10042
+WSAEPROTONOSUPPORT: WSA_ERROR = 10043
+WSAESOCKTNOSUPPORT: WSA_ERROR = 10044
+WSAEOPNOTSUPP: WSA_ERROR = 10045
+WSAEPFNOSUPPORT: WSA_ERROR = 10046
+WSAEAFNOSUPPORT: WSA_ERROR = 10047
+WSAEADDRINUSE: WSA_ERROR = 10048
+WSAEADDRNOTAVAIL: WSA_ERROR = 10049
+WSAENETDOWN: WSA_ERROR = 10050
+WSAENETUNREACH: WSA_ERROR = 10051
+WSAENETRESET: WSA_ERROR = 10052
+WSAECONNABORTED: WSA_ERROR = 10053
+WSAECONNRESET: WSA_ERROR = 10054
+WSAENOBUFS: WSA_ERROR = 10055
+WSAEISCONN: WSA_ERROR = 10056
+WSAENOTCONN: WSA_ERROR = 10057
+WSAESHUTDOWN: WSA_ERROR = 10058
+WSAETOOMANYREFS: WSA_ERROR = 10059
+WSAETIMEDOUT: WSA_ERROR = 10060
+WSAECONNREFUSED: WSA_ERROR = 10061
+WSAELOOP: WSA_ERROR = 10062
+WSAENAMETOOLONG: WSA_ERROR = 10063
+WSAEHOSTDOWN: WSA_ERROR = 10064
+WSAEHOSTUNREACH: WSA_ERROR = 10065
+WSAENOTEMPTY: WSA_ERROR = 10066
+WSAEPROCLIM: WSA_ERROR = 10067
+WSAEUSERS: WSA_ERROR = 10068
+WSAEDQUOT: WSA_ERROR = 10069
+WSAESTALE: WSA_ERROR = 10070
+WSAEREMOTE: WSA_ERROR = 10071
+WSASYSNOTREADY: WSA_ERROR = 10091
+WSAVERNOTSUPPORTED: WSA_ERROR = 10092
+WSANOTINITIALISED: WSA_ERROR = 10093
+WSAEDISCON: WSA_ERROR = 10101
+WSAENOMORE: WSA_ERROR = 10102
+WSAECANCELLED: WSA_ERROR = 10103
+WSAEINVALIDPROCTABLE: WSA_ERROR = 10104
+WSAEINVALIDPROVIDER: WSA_ERROR = 10105
+WSAEPROVIDERFAILEDINIT: WSA_ERROR = 10106
+WSASYSCALLFAILURE: WSA_ERROR = 10107
+WSASERVICE_NOT_FOUND: WSA_ERROR = 10108
+WSATYPE_NOT_FOUND: WSA_ERROR = 10109
+WSA_E_NO_MORE: WSA_ERROR = 10110
+WSA_E_CANCELLED: WSA_ERROR = 10111
+WSAEREFUSED: WSA_ERROR = 10112
+WSAHOST_NOT_FOUND: WSA_ERROR = 11001
+WSATRY_AGAIN: WSA_ERROR = 11002
+WSANO_RECOVERY: WSA_ERROR = 11003
+WSANO_DATA: WSA_ERROR = 11004
+WSA_QOS_RECEIVERS: WSA_ERROR = 11005
+WSA_QOS_SENDERS: WSA_ERROR = 11006
+WSA_QOS_NO_SENDERS: WSA_ERROR = 11007
+WSA_QOS_NO_RECEIVERS: WSA_ERROR = 11008
+WSA_QOS_REQUEST_CONFIRMED: WSA_ERROR = 11009
+WSA_QOS_ADMISSION_FAILURE: WSA_ERROR = 11010
+WSA_QOS_POLICY_FAILURE: WSA_ERROR = 11011
+WSA_QOS_BAD_STYLE: WSA_ERROR = 11012
+WSA_QOS_BAD_OBJECT: WSA_ERROR = 11013
+WSA_QOS_TRAFFIC_CTRL_ERROR: WSA_ERROR = 11014
+WSA_QOS_GENERIC_ERROR: WSA_ERROR = 11015
+WSA_QOS_ESERVICETYPE: WSA_ERROR = 11016
+WSA_QOS_EFLOWSPEC: WSA_ERROR = 11017
+WSA_QOS_EPROVSPECBUF: WSA_ERROR = 11018
+WSA_QOS_EFILTERSTYLE: WSA_ERROR = 11019
+WSA_QOS_EFILTERTYPE: WSA_ERROR = 11020
+WSA_QOS_EFILTERCOUNT: WSA_ERROR = 11021
+WSA_QOS_EOBJLENGTH: WSA_ERROR = 11022
+WSA_QOS_EFLOWCOUNT: WSA_ERROR = 11023
+WSA_QOS_EUNKOWNPSOBJ: WSA_ERROR = 11024
+WSA_QOS_EPOLICYOBJ: WSA_ERROR = 11025
+WSA_QOS_EFLOWDESC: WSA_ERROR = 11026
+WSA_QOS_EPSFLOWSPEC: WSA_ERROR = 11027
+WSA_QOS_EPSFILTERSPEC: WSA_ERROR = 11028
+WSA_QOS_ESDMODEOBJ: WSA_ERROR = 11029
+WSA_QOS_ESHAPERATEOBJ: WSA_ERROR = 11030
+WSA_QOS_RESERVED_PETYPE: WSA_ERROR = 11031
+WSA_SECURE_HOST_NOT_FOUND: WSA_ERROR = 11032
+WSA_IPSEC_NAME_POLICY_ERROR: WSA_ERROR = 11033
 class WSC_PROVIDER_AUDIT_INFO(Structure):
     RecordSize: UInt32
     Reserved: c_void_p
@@ -4035,10 +4011,33 @@ class WSPUPCALLTABLE(Structure):
     lpWPUSetEvent: win32more.Networking.WinSock.LPWPUSETEVENT
     lpWPUOpenCurrentThread: win32more.Networking.WinSock.LPWPUOPENCURRENTTHREAD
     lpWPUCloseThread: win32more.Networking.WinSock.LPWPUCLOSETHREAD
-make_head(_module, 'AAL_PARAMETERS_IE')
+eWINDOW_ADVANCE_METHOD = Int32
+E_WINDOW_ADVANCE_BY_TIME: eWINDOW_ADVANCE_METHOD = 1
+E_WINDOW_USE_AS_DATA_CACHE: eWINDOW_ADVANCE_METHOD = 2
+class netent(Structure):
+    n_name: win32more.Foundation.PSTR
+    n_aliases: POINTER(POINTER(SByte))
+    n_addrtype: Int16
+    n_net: UInt32
+class sockaddr_gen(Union):
+    Address: win32more.Networking.WinSock.SOCKADDR
+    AddressIn: win32more.Networking.WinSock.SOCKADDR_IN
+    AddressIn6: win32more.Networking.WinSock.sockaddr_in6_old
+class sockaddr_in6_old(Structure):
+    sin6_family: Int16
+    sin6_port: UInt16
+    sin6_flowinfo: UInt32
+    sin6_addr: win32more.Networking.WinSock.IN6_ADDR
+class sockproto(Structure):
+    sp_family: UInt16
+    sp_protocol: UInt16
+class tcp_keepalive(Structure):
+    onoff: UInt32
+    keepalivetime: UInt32
+    keepaliveinterval: UInt32
 make_head(_module, 'AAL5_PARAMETERS')
 make_head(_module, 'AALUSER_PARAMETERS')
-make_head(_module, 'ADDRINFO_DNS_SERVER')
+make_head(_module, 'AAL_PARAMETERS_IE')
 make_head(_module, 'ADDRINFOA')
 make_head(_module, 'ADDRINFOEX2A')
 make_head(_module, 'ADDRINFOEX2W')
@@ -4049,6 +4048,7 @@ make_head(_module, 'ADDRINFOEX6')
 make_head(_module, 'ADDRINFOEXA')
 make_head(_module, 'ADDRINFOEXW')
 make_head(_module, 'ADDRINFOW')
+make_head(_module, 'ADDRINFO_DNS_SERVER')
 make_head(_module, 'AFPROTOCOLS')
 make_head(_module, 'ARP_HEADER')
 make_head(_module, 'ASSOCIATE_NAMERES_CONTEXT_INPUT')
@@ -4082,22 +4082,18 @@ make_head(_module, 'GROUP_FILTER')
 make_head(_module, 'GROUP_REQ')
 make_head(_module, 'GROUP_SOURCE_REQ')
 make_head(_module, 'HOSTENT')
-make_head(_module, 'ICMP_ERROR_INFO')
-make_head(_module, 'ICMP_HEADER')
-make_head(_module, 'ICMP_MESSAGE')
 make_head(_module, 'ICMPV4_ADDRESS_MASK_MESSAGE')
 make_head(_module, 'ICMPV4_ROUTER_ADVERT_ENTRY')
 make_head(_module, 'ICMPV4_ROUTER_ADVERT_HEADER')
 make_head(_module, 'ICMPV4_ROUTER_SOLICIT')
 make_head(_module, 'ICMPV4_TIMESTAMP_MESSAGE')
-make_head(_module, 'IGMP_HEADER')
+make_head(_module, 'ICMP_ERROR_INFO')
+make_head(_module, 'ICMP_HEADER')
+make_head(_module, 'ICMP_MESSAGE')
 make_head(_module, 'IGMPV3_QUERY_HEADER')
 make_head(_module, 'IGMPV3_REPORT_HEADER')
 make_head(_module, 'IGMPV3_REPORT_RECORD_HEADER')
-make_head(_module, 'IN_ADDR')
-make_head(_module, 'IN_PKTINFO')
-make_head(_module, 'IN_PKTINFO_EX')
-make_head(_module, 'IN_RECVERR')
+make_head(_module, 'IGMP_HEADER')
 make_head(_module, 'IN6_ADDR')
 make_head(_module, 'IN6_PKTINFO')
 make_head(_module, 'IN6_PKTINFO_EX')
@@ -4107,9 +4103,10 @@ make_head(_module, 'INET_PORT_RESERVATION_INSTANCE')
 make_head(_module, 'INET_PORT_RESERVATION_TOKEN')
 make_head(_module, 'INTERFACE_INFO')
 make_head(_module, 'INTERFACE_INFO_EX')
-make_head(_module, 'IP_MREQ')
-make_head(_module, 'IP_MREQ_SOURCE')
-make_head(_module, 'IP_MSFILTER')
+make_head(_module, 'IN_ADDR')
+make_head(_module, 'IN_PKTINFO')
+make_head(_module, 'IN_PKTINFO_EX')
+make_head(_module, 'IN_RECVERR')
 make_head(_module, 'IPTLS_METADATA')
 make_head(_module, 'IPV4_HEADER')
 make_head(_module, 'IPV4_OPTION_HEADER')
@@ -4128,6 +4125,9 @@ make_head(_module, 'IPV6_ROUTING_HEADER')
 make_head(_module, 'IPX_ADDRESS_DATA')
 make_head(_module, 'IPX_NETNUM_DATA')
 make_head(_module, 'IPX_SPXCONNSTATUS_DATA')
+make_head(_module, 'IP_MREQ')
+make_head(_module, 'IP_MREQ_SOURCE')
+make_head(_module, 'IP_MSFILTER')
 make_head(_module, 'LINGER')
 make_head(_module, 'LM_IRPARMS')
 make_head(_module, 'LPBLOCKINGCALLBACK')
@@ -4233,10 +4233,10 @@ make_head(_module, 'LPWSPSHUTDOWN')
 make_head(_module, 'LPWSPSOCKET')
 make_head(_module, 'LPWSPSTARTUP')
 make_head(_module, 'LPWSPSTRINGTOADDRESS')
-make_head(_module, 'MLD_HEADER')
 make_head(_module, 'MLDV2_QUERY_HEADER')
 make_head(_module, 'MLDV2_REPORT_HEADER')
 make_head(_module, 'MLDV2_REPORT_RECORD_HEADER')
+make_head(_module, 'MLD_HEADER')
 make_head(_module, 'NAPI_DOMAIN_DESCRIPTION_BLOB')
 make_head(_module, 'NAPI_PROVIDER_INSTALLATION_BLOB')
 make_head(_module, 'ND_NEIGHBOR_ADVERT_HEADER')
@@ -4245,27 +4245,26 @@ make_head(_module, 'ND_OPTION_DNSSL')
 make_head(_module, 'ND_OPTION_HDR')
 make_head(_module, 'ND_OPTION_MTU')
 make_head(_module, 'ND_OPTION_PREFIX_INFO')
-make_head(_module, 'ND_OPTION_RD_HDR')
 make_head(_module, 'ND_OPTION_RDNSS')
+make_head(_module, 'ND_OPTION_RD_HDR')
 make_head(_module, 'ND_OPTION_ROUTE_INFO')
 make_head(_module, 'ND_REDIRECT_HEADER')
 make_head(_module, 'ND_ROUTER_ADVERT_HEADER')
 make_head(_module, 'ND_ROUTER_SOLICIT_HEADER')
-make_head(_module, 'netent')
 make_head(_module, 'NETRESOURCE2A')
 make_head(_module, 'NETRESOURCE2W')
+make_head(_module, 'NLA_BLOB')
 make_head(_module, 'NL_BANDWIDTH_INFORMATION')
 make_head(_module, 'NL_INTERFACE_OFFLOAD_ROD')
 make_head(_module, 'NL_NETWORK_CONNECTIVITY_HINT')
 make_head(_module, 'NL_PATH_BANDWIDTH_ROD')
-make_head(_module, 'NLA_BLOB')
 make_head(_module, 'NPI_MODULEID')
+make_head(_module, 'NSPV2_ROUTINE')
+make_head(_module, 'NSP_ROUTINE')
 make_head(_module, 'NS_INFOA')
 make_head(_module, 'NS_INFOW')
 make_head(_module, 'NS_SERVICE_INFOA')
 make_head(_module, 'NS_SERVICE_INFOW')
-make_head(_module, 'NSP_ROUTINE')
-make_head(_module, 'NSPV2_ROUTINE')
 make_head(_module, 'PRIORITY_STATUS')
 make_head(_module, 'PROTOCOL_INFOA')
 make_head(_module, 'PROTOCOL_INFOW')
@@ -4276,6 +4275,7 @@ make_head(_module, 'RCVALL_IF')
 make_head(_module, 'REAL_TIME_NOTIFICATION_SETTING_INPUT')
 make_head(_module, 'REAL_TIME_NOTIFICATION_SETTING_INPUT_EX')
 make_head(_module, 'REAL_TIME_NOTIFICATION_SETTING_OUTPUT')
+make_head(_module, 'RIORESULT')
 make_head(_module, 'RIO_BUF')
 make_head(_module, 'RIO_BUFFERID_t')
 make_head(_module, 'RIO_CMSG_BUFFER')
@@ -4283,11 +4283,10 @@ make_head(_module, 'RIO_CQ_t')
 make_head(_module, 'RIO_EXTENSION_FUNCTION_TABLE')
 make_head(_module, 'RIO_NOTIFICATION_COMPLETION')
 make_head(_module, 'RIO_RQ_t')
-make_head(_module, 'RIORESULT')
 make_head(_module, 'RM_FEC_INFO')
 make_head(_module, 'RM_RECEIVER_STATS')
-make_head(_module, 'RM_SEND_WINDOW')
 make_head(_module, 'RM_SENDER_STATS')
+make_head(_module, 'RM_SEND_WINDOW')
 make_head(_module, 'RSS_SCALABILITY_INFO')
 make_head(_module, 'SCOPE_ID')
 if ARCH in 'X64,ARM64':
@@ -4306,14 +4305,11 @@ make_head(_module, 'SERVICE_TYPE_VALUE')
 make_head(_module, 'SERVICE_TYPE_VALUE_ABSA')
 make_head(_module, 'SERVICE_TYPE_VALUE_ABSW')
 make_head(_module, 'SNAP_HEADER')
-make_head(_module, 'SOCK_NOTIFY_REGISTRATION')
 make_head(_module, 'SOCKADDR')
 make_head(_module, 'SOCKADDR_ATM')
 make_head(_module, 'SOCKADDR_DL')
-make_head(_module, 'sockaddr_gen')
 make_head(_module, 'SOCKADDR_IN')
 make_head(_module, 'SOCKADDR_IN6')
-make_head(_module, 'sockaddr_in6_old')
 make_head(_module, 'SOCKADDR_IN6_PAIR')
 make_head(_module, 'SOCKADDR_IN6_W2KSP1')
 make_head(_module, 'SOCKADDR_INET')
@@ -4335,14 +4331,13 @@ make_head(_module, 'SOCKET_SECURITY_QUERY_TEMPLATE')
 make_head(_module, 'SOCKET_SECURITY_QUERY_TEMPLATE_IPSEC2')
 make_head(_module, 'SOCKET_SECURITY_SETTINGS')
 make_head(_module, 'SOCKET_SECURITY_SETTINGS_IPSEC')
-make_head(_module, 'sockproto')
+make_head(_module, 'SOCK_NOTIFY_REGISTRATION')
 make_head(_module, 'TCP_ACK_FREQUENCY_PARAMETERS')
 make_head(_module, 'TCP_HDR')
 make_head(_module, 'TCP_ICW_PARAMETERS')
 make_head(_module, 'TCP_INFO_v0')
 make_head(_module, 'TCP_INFO_v1')
 make_head(_module, 'TCP_INITIAL_RTO_PARAMETERS')
-make_head(_module, 'tcp_keepalive')
 make_head(_module, 'TCP_OPT_FASTOPEN')
 make_head(_module, 'TCP_OPT_MSS')
 make_head(_module, 'TCP_OPT_SACK')
@@ -4362,7 +4357,6 @@ make_head(_module, 'WINDOWS_DEVICELIST')
 make_head(_module, 'WINDOWS_IAS_QUERY')
 make_head(_module, 'WINDOWS_IAS_SET')
 make_head(_module, 'WINDOWS_IRDA_DEVICE_INFO')
-make_head(_module, 'WSA_COMPATIBILITY_MODE')
 make_head(_module, 'WSABUF')
 make_head(_module, 'WSACOMPLETION')
 if ARCH in 'X64,ARM64':
@@ -4379,9 +4373,9 @@ make_head(_module, 'WSANSCLASSINFOA')
 make_head(_module, 'WSANSCLASSINFOW')
 make_head(_module, 'WSAPOLLDATA')
 make_head(_module, 'WSAPOLLFD')
+make_head(_module, 'WSAPROTOCOLCHAIN')
 make_head(_module, 'WSAPROTOCOL_INFOA')
 make_head(_module, 'WSAPROTOCOL_INFOW')
-make_head(_module, 'WSAPROTOCOLCHAIN')
 make_head(_module, 'WSAQUERYSET2A')
 make_head(_module, 'WSAQUERYSET2W')
 make_head(_module, 'WSAQUERYSETA')
@@ -4391,10 +4385,16 @@ make_head(_module, 'WSASERVICECLASSINFOA')
 make_head(_module, 'WSASERVICECLASSINFOW')
 make_head(_module, 'WSATHREADID')
 make_head(_module, 'WSAVERSION')
+make_head(_module, 'WSA_COMPATIBILITY_MODE')
 make_head(_module, 'WSC_PROVIDER_AUDIT_INFO')
 make_head(_module, 'WSPDATA')
 make_head(_module, 'WSPPROC_TABLE')
 make_head(_module, 'WSPUPCALLTABLE')
+make_head(_module, 'netent')
+make_head(_module, 'sockaddr_gen')
+make_head(_module, 'sockaddr_in6_old')
+make_head(_module, 'sockproto')
+make_head(_module, 'tcp_keepalive')
 __all__ = [
     "AAL5_MODE_MESSAGE",
     "AAL5_MODE_STREAMING",

@@ -2927,44 +2927,6 @@ class DMA_RESOURCE(Structure):
     DMA_Data: win32more.Devices.DeviceAndDriverInstallation.DMA_RANGE * 1
     _pack_ = 1
 if ARCH in 'X64,ARM64':
-    class FILE_IN_CABINET_INFO_A(Structure):
-        NameInCabinet: win32more.Foundation.PSTR
-        FileSize: UInt32
-        Win32Error: UInt32
-        DosDate: UInt16
-        DosTime: UInt16
-        DosAttribs: UInt16
-        FullTargetName: win32more.Foundation.CHAR * 260
-if ARCH in 'X86':
-    class FILE_IN_CABINET_INFO_A(Structure):
-        NameInCabinet: win32more.Foundation.PSTR
-        FileSize: UInt32
-        Win32Error: UInt32
-        DosDate: UInt16
-        DosTime: UInt16
-        DosAttribs: UInt16
-        FullTargetName: win32more.Foundation.CHAR * 260
-        _pack_ = 1
-if ARCH in 'X64,ARM64':
-    class FILE_IN_CABINET_INFO_W(Structure):
-        NameInCabinet: win32more.Foundation.PWSTR
-        FileSize: UInt32
-        Win32Error: UInt32
-        DosDate: UInt16
-        DosTime: UInt16
-        DosAttribs: UInt16
-        FullTargetName: Char * 260
-if ARCH in 'X86':
-    class FILE_IN_CABINET_INFO_W(Structure):
-        NameInCabinet: win32more.Foundation.PWSTR
-        FileSize: UInt32
-        Win32Error: UInt32
-        DosDate: UInt16
-        DosTime: UInt16
-        DosAttribs: UInt16
-        FullTargetName: Char * 260
-        _pack_ = 1
-if ARCH in 'X64,ARM64':
     class FILEPATHS_A(Structure):
         Target: win32more.Foundation.PSTR
         Source: win32more.Foundation.PSTR
@@ -3027,17 +2989,55 @@ if ARCH in 'X86':
         Source: win32more.Foundation.PWSTR
         Win32Error: UInt32
         Flags: UInt32
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class FILE_IN_CABINET_INFO_A(Structure):
+        NameInCabinet: win32more.Foundation.PSTR
+        FileSize: UInt32
+        Win32Error: UInt32
+        DosDate: UInt16
+        DosTime: UInt16
+        DosAttribs: UInt16
+        FullTargetName: win32more.Foundation.CHAR * 260
+if ARCH in 'X86':
+    class FILE_IN_CABINET_INFO_A(Structure):
+        NameInCabinet: win32more.Foundation.PSTR
+        FileSize: UInt32
+        Win32Error: UInt32
+        DosDate: UInt16
+        DosTime: UInt16
+        DosAttribs: UInt16
+        FullTargetName: win32more.Foundation.CHAR * 260
+        _pack_ = 1
+if ARCH in 'X64,ARM64':
+    class FILE_IN_CABINET_INFO_W(Structure):
+        NameInCabinet: win32more.Foundation.PWSTR
+        FileSize: UInt32
+        Win32Error: UInt32
+        DosDate: UInt16
+        DosTime: UInt16
+        DosAttribs: UInt16
+        FullTargetName: Char * 260
+if ARCH in 'X86':
+    class FILE_IN_CABINET_INFO_W(Structure):
+        NameInCabinet: win32more.Foundation.PWSTR
+        FileSize: UInt32
+        Win32Error: UInt32
+        DosDate: UInt16
+        DosTime: UInt16
+        DosAttribs: UInt16
+        FullTargetName: Char * 260
         _pack_ = 1
 HCMNOTIFICATION = IntPtr
 HDEVINFO = IntPtr
-class HWProfileInfo_sA(Structure):
-    HWPI_ulHWProfile: UInt32
-    HWPI_szFriendlyName: win32more.Foundation.CHAR * 80
-    HWPI_dwFlags: UInt32
-    _pack_ = 1
 class HWPROFILEINFO_W(Structure):
     HWPI_ulHWProfile: UInt32
     HWPI_szFriendlyName: Char * 80
+    HWPI_dwFlags: UInt32
+    _pack_ = 1
+class HWProfileInfo_sA(Structure):
+    HWPI_ulHWProfile: UInt32
+    HWPI_szFriendlyName: win32more.Foundation.CHAR * 80
     HWPI_dwFlags: UInt32
     _pack_ = 1
 if ARCH in 'X64,ARM64':
@@ -3200,13 +3200,6 @@ SPDIT_COMPATDRIVER: SETUP_DI_BUILD_DRIVER_DRIVER_TYPE = 2
 SETUP_FILE_OPERATION = UInt32
 FILEOP_DELETE: SETUP_FILE_OPERATION = 2
 FILEOP_COPY: SETUP_FILE_OPERATION = 0
-SetupFileLogInfo = Int32
-SetupFileLogInfo_SetupFileLogSourceFilename: SetupFileLogInfo = 0
-SetupFileLogInfo_SetupFileLogChecksum: SetupFileLogInfo = 1
-SetupFileLogInfo_SetupFileLogDiskTagfile: SetupFileLogInfo = 2
-SetupFileLogInfo_SetupFileLogDiskDescription: SetupFileLogInfo = 3
-SetupFileLogInfo_SetupFileLogOtherInfo: SetupFileLogInfo = 4
-SetupFileLogInfo_SetupFileLogMax: SetupFileLogInfo = 5
 if ARCH in 'X64,ARM64':
     class SOURCE_MEDIA_A(Structure):
         Reserved: win32more.Foundation.PSTR
@@ -4006,6 +3999,13 @@ if ARCH in 'X86':
         Scope: UInt32
         HwProfile: UInt32
         _pack_ = 1
+SetupFileLogInfo = Int32
+SetupFileLogInfo_SetupFileLogSourceFilename: SetupFileLogInfo = 0
+SetupFileLogInfo_SetupFileLogChecksum: SetupFileLogInfo = 1
+SetupFileLogInfo_SetupFileLogDiskTagfile: SetupFileLogInfo = 2
+SetupFileLogInfo_SetupFileLogDiskDescription: SetupFileLogInfo = 3
+SetupFileLogInfo_SetupFileLogOtherInfo: SetupFileLogInfo = 4
+SetupFileLogInfo_SetupFileLogMax: SetupFileLogInfo = 5
 make_head(_module, 'BUSNUMBER_DES')
 make_head(_module, 'BUSNUMBER_RANGE')
 make_head(_module, 'BUSNUMBER_RESOURCE')
@@ -4036,14 +4036,6 @@ make_head(_module, 'DMA_DES')
 make_head(_module, 'DMA_RANGE')
 make_head(_module, 'DMA_RESOURCE')
 if ARCH in 'X64,ARM64':
-    make_head(_module, 'FILE_IN_CABINET_INFO_A')
-if ARCH in 'X86':
-    make_head(_module, 'FILE_IN_CABINET_INFO_A')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'FILE_IN_CABINET_INFO_W')
-if ARCH in 'X86':
-    make_head(_module, 'FILE_IN_CABINET_INFO_W')
-if ARCH in 'X64,ARM64':
     make_head(_module, 'FILEPATHS_A')
 if ARCH in 'X86':
     make_head(_module, 'FILEPATHS_A')
@@ -4059,8 +4051,16 @@ if ARCH in 'X64,ARM64':
     make_head(_module, 'FILEPATHS_W')
 if ARCH in 'X86':
     make_head(_module, 'FILEPATHS_W')
-make_head(_module, 'HWProfileInfo_sA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FILE_IN_CABINET_INFO_A')
+if ARCH in 'X86':
+    make_head(_module, 'FILE_IN_CABINET_INFO_A')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FILE_IN_CABINET_INFO_W')
+if ARCH in 'X86':
+    make_head(_module, 'FILE_IN_CABINET_INFO_W')
 make_head(_module, 'HWPROFILEINFO_W')
+make_head(_module, 'HWProfileInfo_sA')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'INFCONTEXT')
 if ARCH in 'X86':

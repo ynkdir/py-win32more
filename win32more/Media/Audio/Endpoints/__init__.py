@@ -21,6 +21,11 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+class AUDIO_ENDPOINT_SHARED_CREATE_PARAMS(Structure):
+    u32Size: UInt32
+    u32TSSessionId: UInt32
+    targetEndpointConnectorType: win32more.Media.Audio.Endpoints.EndpointConnectorType
+    wfxDeviceFormat: win32more.Media.Audio.WAVEFORMATEX
 def DEVPKEY_AudioEndpointPlugin_FactoryCLSID():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('12d83bd7-cf12-46be-85-40-81-27-10-d3-02-1c'), pid=1)
 def DEVPKEY_AudioEndpointPlugin_DataFlow():
@@ -29,11 +34,6 @@ def DEVPKEY_AudioEndpointPlugin_PnPInterface():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('12d83bd7-cf12-46be-85-40-81-27-10-d3-02-1c'), pid=3)
 def DEVPKEY_AudioEndpointPlugin2_FactoryCLSID():
     return win32more.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('12d83bd7-cf12-46be-85-40-81-27-10-d3-02-1c'), pid=4)
-class AUDIO_ENDPOINT_SHARED_CREATE_PARAMS(Structure):
-    u32Size: UInt32
-    u32TSSessionId: UInt32
-    targetEndpointConnectorType: win32more.Media.Audio.Endpoints.EndpointConnectorType
-    wfxDeviceFormat: win32more.Media.Audio.WAVEFORMATEX
 DEVINTERFACE_AUDIOENDPOINTPLUGIN = Guid('9f2f7b66-65ac-4fa6-8a-e4-12-3c-78-b8-93-13')
 EndpointConnectorType = Int32
 EndpointConnectorType_eHostProcessConnector: EndpointConnectorType = 0
@@ -156,11 +156,11 @@ class IHardwareAudioEngineBase(c_void_p):
     def SetGfxState(pDevice: win32more.Media.Audio.IMMDevice_head, _bEnable: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
     @commethod(7)
     def GetGfxState(pDevice: win32more.Media.Audio.IMMDevice_head, _pbEnable: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+make_head(_module, 'AUDIO_ENDPOINT_SHARED_CREATE_PARAMS')
 make_head(_module, 'DEVPKEY_AudioEndpointPlugin_FactoryCLSID')
 make_head(_module, 'DEVPKEY_AudioEndpointPlugin_DataFlow')
 make_head(_module, 'DEVPKEY_AudioEndpointPlugin_PnPInterface')
 make_head(_module, 'DEVPKEY_AudioEndpointPlugin2_FactoryCLSID')
-make_head(_module, 'AUDIO_ENDPOINT_SHARED_CREATE_PARAMS')
 make_head(_module, 'IAudioEndpointFormatControl')
 make_head(_module, 'IAudioEndpointLastBufferControl')
 make_head(_module, 'IAudioEndpointOffloadStreamMeter')

@@ -98,6 +98,9 @@ class ACL_SIZE_INFORMATION(Structure):
     AceCount: UInt32
     AclBytesInUse: UInt32
     AclBytesFree: UInt32
+AUDIT_EVENT_TYPE = Int32
+AUDIT_EVENT_TYPE_AuditEventObjectAccess: AUDIT_EVENT_TYPE = 0
+AUDIT_EVENT_TYPE_AuditEventDirectoryServiceAccess: AUDIT_EVENT_TYPE = 1
 SECURITY_DYNAMIC_TRACKING: win32more.Foundation.BOOLEAN = 1
 SECURITY_STATIC_TRACKING: win32more.Foundation.BOOLEAN = 0
 SE_CREATE_TOKEN_NAME: String = 'SeCreateTokenPrivilege'
@@ -428,9 +431,13 @@ def LogonUserExA(lpszUsername: win32more.Foundation.PSTR, lpszDomain: win32more.
 def LogonUserExW(lpszUsername: win32more.Foundation.PWSTR, lpszDomain: win32more.Foundation.PWSTR, lpszPassword: win32more.Foundation.PWSTR, dwLogonType: win32more.Security.LOGON32_LOGON, dwLogonProvider: win32more.Security.LOGON32_PROVIDER, phToken: POINTER(win32more.Foundation.HANDLE), ppLogonSid: POINTER(win32more.Foundation.PSID), ppProfileBuffer: POINTER(c_void_p), pdwProfileLength: POINTER(UInt32), pQuotaLimits: POINTER(win32more.Security.QUOTA_LIMITS_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype('ntdll.dll')
 def RtlConvertSidToUnicodeString(UnicodeString: POINTER(win32more.Foundation.UNICODE_STRING_head), Sid: win32more.Foundation.PSID, AllocateDestinationString: win32more.Foundation.BOOLEAN) -> win32more.Foundation.NTSTATUS: ...
-AUDIT_EVENT_TYPE = Int32
-AUDIT_EVENT_TYPE_AuditEventObjectAccess: AUDIT_EVENT_TYPE = 0
-AUDIT_EVENT_TYPE_AuditEventDirectoryServiceAccess: AUDIT_EVENT_TYPE = 1
+class CLAIM_SECURITY_ATTRIBUTES_INFORMATION(Structure):
+    Version: UInt16
+    Reserved: UInt16
+    AttributeCount: UInt32
+    Attribute: _Attribute_e__Union
+    class _Attribute_e__Union(Union):
+        pAttributeV1: POINTER(win32more.Security.CLAIM_SECURITY_ATTRIBUTE_V1_head)
 CLAIM_SECURITY_ATTRIBUTE_FLAGS = UInt32
 CLAIM_SECURITY_ATTRIBUTE_NON_INHERITABLE: CLAIM_SECURITY_ATTRIBUTE_FLAGS = 1
 CLAIM_SECURITY_ATTRIBUTE_VALUE_CASE_SENSITIVE: CLAIM_SECURITY_ATTRIBUTE_FLAGS = 2
@@ -478,13 +485,6 @@ CLAIM_SECURITY_ATTRIBUTE_TYPE_OCTET_STRING: CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE 
 CLAIM_SECURITY_ATTRIBUTE_TYPE_FQBN: CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE = 4
 CLAIM_SECURITY_ATTRIBUTE_TYPE_SID: CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE = 5
 CLAIM_SECURITY_ATTRIBUTE_TYPE_BOOLEAN: CLAIM_SECURITY_ATTRIBUTE_VALUE_TYPE = 6
-class CLAIM_SECURITY_ATTRIBUTES_INFORMATION(Structure):
-    Version: UInt16
-    Reserved: UInt16
-    AttributeCount: UInt32
-    Attribute: _Attribute_e__Union
-    class _Attribute_e__Union(Union):
-        pAttributeV1: POINTER(win32more.Security.CLAIM_SECURITY_ATTRIBUTE_V1_head)
 CREATE_RESTRICTED_TOKEN_FLAGS = UInt32
 DISABLE_MAX_PRIVILEGE: CREATE_RESTRICTED_TOKEN_FLAGS = 1
 SANDBOX_INERT: CREATE_RESTRICTED_TOKEN_FLAGS = 2
@@ -573,36 +573,6 @@ class QUOTA_LIMITS(Structure):
     TimeLimit: win32more.Foundation.LARGE_INTEGER
 SAFER_LEVEL_HANDLE = IntPtr
 SC_HANDLE = IntPtr
-class SE_ACCESS_REPLY(Structure):
-    Size: UInt32
-    ResultListCount: UInt32
-    GrantedAccess: POINTER(UInt32)
-    AccessStatus: POINTER(UInt32)
-    AccessReason: POINTER(win32more.Security.ACCESS_REASONS_head)
-    Privileges: POINTER(POINTER(win32more.Security.PRIVILEGE_SET_head))
-class SE_ACCESS_REQUEST(Structure):
-    Size: UInt32
-    SeSecurityDescriptor: POINTER(win32more.Security.SE_SECURITY_DESCRIPTOR_head)
-    DesiredAccess: UInt32
-    PreviouslyGrantedAccess: UInt32
-    PrincipalSelfSid: win32more.Foundation.PSID
-    GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head)
-    ObjectTypeListCount: UInt32
-    ObjectTypeList: POINTER(win32more.Security.OBJECT_TYPE_LIST_head)
-class SE_IMPERSONATION_STATE(Structure):
-    Token: c_void_p
-    CopyOnOpen: win32more.Foundation.BOOLEAN
-    EffectiveOnly: win32more.Foundation.BOOLEAN
-    Level: win32more.Security.SECURITY_IMPERSONATION_LEVEL
-class SE_SECURITY_DESCRIPTOR(Structure):
-    Size: UInt32
-    Flags: UInt32
-    SecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR
-class SE_SID(Union):
-    Sid: win32more.Security.SID
-    Buffer: Byte * 68
-@winfunctype_pointer
-def SEC_THREAD_START(lpThreadParameter: c_void_p) -> UInt32: ...
 class SECURITY_ATTRIBUTES(Structure):
     nLength: UInt32
     lpSecurityDescriptor: c_void_p
@@ -665,6 +635,36 @@ class SECURITY_QUALITY_OF_SERVICE(Structure):
     ImpersonationLevel: win32more.Security.SECURITY_IMPERSONATION_LEVEL
     ContextTrackingMode: Byte
     EffectiveOnly: win32more.Foundation.BOOLEAN
+@winfunctype_pointer
+def SEC_THREAD_START(lpThreadParameter: c_void_p) -> UInt32: ...
+class SE_ACCESS_REPLY(Structure):
+    Size: UInt32
+    ResultListCount: UInt32
+    GrantedAccess: POINTER(UInt32)
+    AccessStatus: POINTER(UInt32)
+    AccessReason: POINTER(win32more.Security.ACCESS_REASONS_head)
+    Privileges: POINTER(POINTER(win32more.Security.PRIVILEGE_SET_head))
+class SE_ACCESS_REQUEST(Structure):
+    Size: UInt32
+    SeSecurityDescriptor: POINTER(win32more.Security.SE_SECURITY_DESCRIPTOR_head)
+    DesiredAccess: UInt32
+    PreviouslyGrantedAccess: UInt32
+    PrincipalSelfSid: win32more.Foundation.PSID
+    GenericMapping: POINTER(win32more.Security.GENERIC_MAPPING_head)
+    ObjectTypeListCount: UInt32
+    ObjectTypeList: POINTER(win32more.Security.OBJECT_TYPE_LIST_head)
+class SE_IMPERSONATION_STATE(Structure):
+    Token: c_void_p
+    CopyOnOpen: win32more.Foundation.BOOLEAN
+    EffectiveOnly: win32more.Foundation.BOOLEAN
+    Level: win32more.Security.SECURITY_IMPERSONATION_LEVEL
+class SE_SECURITY_DESCRIPTOR(Structure):
+    Size: UInt32
+    Flags: UInt32
+    SecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR
+class SE_SID(Union):
+    Sid: win32more.Security.SID
+    Buffer: Byte * 68
 class SID(Structure):
     Revision: Byte
     SubAuthorityCount: Byte
@@ -1056,11 +1056,11 @@ make_head(_module, 'ACE_HEADER')
 make_head(_module, 'ACL')
 make_head(_module, 'ACL_REVISION_INFORMATION')
 make_head(_module, 'ACL_SIZE_INFORMATION')
+make_head(_module, 'CLAIM_SECURITY_ATTRIBUTES_INFORMATION')
 make_head(_module, 'CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE')
 make_head(_module, 'CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE')
 make_head(_module, 'CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1')
 make_head(_module, 'CLAIM_SECURITY_ATTRIBUTE_V1')
-make_head(_module, 'CLAIM_SECURITY_ATTRIBUTES_INFORMATION')
 make_head(_module, 'GENERIC_MAPPING')
 make_head(_module, 'LLFILETIME')
 make_head(_module, 'LUID_AND_ATTRIBUTES')
@@ -1068,17 +1068,17 @@ make_head(_module, 'OBJECT_TYPE_LIST')
 make_head(_module, 'PLSA_AP_CALL_PACKAGE_UNTRUSTED')
 make_head(_module, 'PRIVILEGE_SET')
 make_head(_module, 'QUOTA_LIMITS')
-make_head(_module, 'SE_ACCESS_REPLY')
-make_head(_module, 'SE_ACCESS_REQUEST')
-make_head(_module, 'SE_IMPERSONATION_STATE')
-make_head(_module, 'SE_SECURITY_DESCRIPTOR')
-make_head(_module, 'SE_SID')
-make_head(_module, 'SEC_THREAD_START')
 make_head(_module, 'SECURITY_ATTRIBUTES')
 make_head(_module, 'SECURITY_CAPABILITIES')
 make_head(_module, 'SECURITY_DESCRIPTOR')
 make_head(_module, 'SECURITY_DESCRIPTOR_RELATIVE')
 make_head(_module, 'SECURITY_QUALITY_OF_SERVICE')
+make_head(_module, 'SEC_THREAD_START')
+make_head(_module, 'SE_ACCESS_REPLY')
+make_head(_module, 'SE_ACCESS_REQUEST')
+make_head(_module, 'SE_IMPERSONATION_STATE')
+make_head(_module, 'SE_SECURITY_DESCRIPTOR')
+make_head(_module, 'SE_SID')
 make_head(_module, 'SID')
 make_head(_module, 'SID_AND_ATTRIBUTES')
 make_head(_module, 'SID_AND_ATTRIBUTES_HASH')

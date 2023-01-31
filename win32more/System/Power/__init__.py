@@ -551,6 +551,10 @@ class MACHINE_PROCESSOR_POWER_POLICY(Structure):
     ProcessorPolicyDc: win32more.System.Power.PROCESSOR_POWER_POLICY
 @winfunctype_pointer
 def PDEVICE_NOTIFY_CALLBACK_ROUTINE(Context: c_void_p, Type: UInt32, Setting: c_void_p) -> UInt32: ...
+class POWERBROADCAST_SETTING(Structure):
+    PowerSetting: Guid
+    DataLength: UInt32
+    Data: Byte * 1
 POWER_ACTION = Int32
 POWER_ACTION_PowerActionNone: POWER_ACTION = 0
 POWER_ACTION_PowerActionReserved: POWER_ACTION = 1
@@ -730,10 +734,6 @@ POWER_SETTING_REGISTER_NOTIFICATION_FLAGS = UInt32
 DEVICE_NOTIFY_SERVICE_HANDLE: POWER_SETTING_REGISTER_NOTIFICATION_FLAGS = 1
 DEVICE_NOTIFY_CALLBACK: POWER_SETTING_REGISTER_NOTIFICATION_FLAGS = 2
 DEVICE_NOTIFY_WINDOW_HANDLE: POWER_SETTING_REGISTER_NOTIFICATION_FLAGS = 0
-class POWERBROADCAST_SETTING(Structure):
-    PowerSetting: Guid
-    DataLength: UInt32
-    Data: Byte * 1
 class PROCESSOR_OBJECT_INFO(Structure):
     PhysicalID: UInt32
     PBlkAddress: UInt32
@@ -975,9 +975,9 @@ make_head(_module, 'GLOBAL_USER_POWER_POLICY')
 make_head(_module, 'MACHINE_POWER_POLICY')
 make_head(_module, 'MACHINE_PROCESSOR_POWER_POLICY')
 make_head(_module, 'PDEVICE_NOTIFY_CALLBACK_ROUTINE')
+make_head(_module, 'POWERBROADCAST_SETTING')
 make_head(_module, 'POWER_ACTION_POLICY')
 make_head(_module, 'POWER_POLICY')
-make_head(_module, 'POWERBROADCAST_SETTING')
 make_head(_module, 'PROCESSOR_OBJECT_INFO')
 make_head(_module, 'PROCESSOR_OBJECT_INFO_EX')
 make_head(_module, 'PROCESSOR_POWER_INFORMATION')

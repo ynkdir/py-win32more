@@ -33,6 +33,11 @@ ActivityState_Max: ACTIVITY_STATE = 256
 ActivityState_Force_Dword: ACTIVITY_STATE = -1
 ACTIVITY_STATE_COUNT = Int32
 ACTIVITY_STATE_COUNT_ActivityStateCount: ACTIVITY_STATE_COUNT = 8
+AXIS = Int32
+AXIS_X: AXIS = 0
+AXIS_Y: AXIS = 1
+AXIS_Z: AXIS = 2
+AXIS_MAX: AXIS = 3
 GUID_DEVINTERFACE_SENSOR: Guid = Guid('ba1bb692-9b7a-4833-9a-1e-52-5e-d1-34-e7-e2')
 SENSOR_EVENT_STATE_CHANGED: Guid = Guid('bfd96016-6bd7-4560-ad-34-f2-f6-60-7e-8f-81')
 SENSOR_EVENT_DATA_UPDATED: Guid = Guid('2ed0f2a4-0087-41d3-87-db-67-73-37-0b-3c-88')
@@ -548,11 +553,6 @@ def InitPropVariantFromCLSIDArray(members: POINTER(Guid), size: UInt32, ppropvar
 def IsSensorSubscribed(subscriptionList: POINTER(win32more.Devices.Sensors.SENSOR_COLLECTION_LIST_head), currentType: Guid) -> win32more.Foundation.BOOLEAN: ...
 @winfunctype('SensorsUtilsV2.dll')
 def IsGUIDPresentInList(guidArray: POINTER(Guid), arrayLength: UInt32, guidElem: POINTER(Guid)) -> win32more.Foundation.BOOLEAN: ...
-AXIS = Int32
-AXIS_X: AXIS = 0
-AXIS_Y: AXIS = 1
-AXIS_Z: AXIS = 2
-AXIS_MAX: AXIS = 3
 ELEVATION_CHANGE_MODE = Int32
 ElevationChangeMode_Unknown: ELEVATION_CHANGE_MODE = 0
 ElevationChangeMode_Elevator: ELEVATION_CHANGE_MODE = 1
@@ -674,11 +674,6 @@ MagnetometerAccuracy_Unknown: MAGNETOMETER_ACCURACY = 0
 MagnetometerAccuracy_Unreliable: MAGNETOMETER_ACCURACY = 1
 MagnetometerAccuracy_Approximate: MAGNETOMETER_ACCURACY = 2
 MagnetometerAccuracy_High: MAGNETOMETER_ACCURACY = 3
-MagnetometerAccuracy = Int32
-MAGNETOMETER_ACCURACY_UNKNOWN: MagnetometerAccuracy = 0
-MAGNETOMETER_ACCURACY_UNRELIABLE: MagnetometerAccuracy = 1
-MAGNETOMETER_ACCURACY_APPROXIMATE: MagnetometerAccuracy = 2
-MAGNETOMETER_ACCURACY_HIGH: MagnetometerAccuracy = 3
 class MATRIX3X3(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
@@ -699,6 +694,11 @@ class MATRIX3X3(Structure):
             V1: win32more.Devices.Sensors.VEC3D
             V2: win32more.Devices.Sensors.VEC3D
             V3: win32more.Devices.Sensors.VEC3D
+MagnetometerAccuracy = Int32
+MAGNETOMETER_ACCURACY_UNKNOWN: MagnetometerAccuracy = 0
+MAGNETOMETER_ACCURACY_UNRELIABLE: MagnetometerAccuracy = 1
+MAGNETOMETER_ACCURACY_APPROXIMATE: MagnetometerAccuracy = 2
+MAGNETOMETER_ACCURACY_HIGH: MagnetometerAccuracy = 3
 PEDOMETER_STEP_TYPE = Int32
 PedometerStepType_Unknown: PEDOMETER_STEP_TYPE = 1
 PedometerStepType_Walking: PEDOMETER_STEP_TYPE = 2
@@ -716,7 +716,6 @@ class QUATERNION(Structure):
     Y: Single
     Z: Single
     W: Single
-Sensor = Guid('e97ced00-523a-4133-bf-6f-d3-a2-da-e7-f6-ba')
 class SENSOR_COLLECTION_LIST(Structure):
     AllocatedSizeInBytes: UInt32
     Count: UInt32
@@ -737,6 +736,14 @@ SensorState_Error: SENSOR_STATE = 3
 class SENSOR_VALUE_PAIR(Structure):
     Key: win32more.UI.Shell.PropertiesSystem.PROPERTYKEY
     Value: win32more.System.Com.StructuredStorage.PROPVARIANT
+SIMPLE_DEVICE_ORIENTATION = Int32
+SimpleDeviceOrientation_NotRotated: SIMPLE_DEVICE_ORIENTATION = 0
+SimpleDeviceOrientation_Rotated90DegreesCounterclockwise: SIMPLE_DEVICE_ORIENTATION = 1
+SimpleDeviceOrientation_Rotated180DegreesCounterclockwise: SIMPLE_DEVICE_ORIENTATION = 2
+SimpleDeviceOrientation_Rotated270DegreesCounterclockwise: SIMPLE_DEVICE_ORIENTATION = 3
+SimpleDeviceOrientation_Faceup: SIMPLE_DEVICE_ORIENTATION = 4
+SimpleDeviceOrientation_Facedown: SIMPLE_DEVICE_ORIENTATION = 5
+Sensor = Guid('e97ced00-523a-4133-bf-6f-d3-a2-da-e7-f6-ba')
 SensorCollection = Guid('79c43adb-a429-469f-aa-39-2f-2b-74-b7-59-37')
 SensorConnectionType = Int32
 SENSOR_CONNECTION_TYPE_PC_INTEGRATED: SensorConnectionType = 0
@@ -753,13 +760,6 @@ SENSOR_STATE_INITIALIZING: SensorState = 3
 SENSOR_STATE_ACCESS_DENIED: SensorState = 4
 SENSOR_STATE_ERROR: SensorState = 5
 SENSOR_STATE_MAX: SensorState = 5
-SIMPLE_DEVICE_ORIENTATION = Int32
-SimpleDeviceOrientation_NotRotated: SIMPLE_DEVICE_ORIENTATION = 0
-SimpleDeviceOrientation_Rotated90DegreesCounterclockwise: SIMPLE_DEVICE_ORIENTATION = 1
-SimpleDeviceOrientation_Rotated180DegreesCounterclockwise: SIMPLE_DEVICE_ORIENTATION = 2
-SimpleDeviceOrientation_Rotated270DegreesCounterclockwise: SIMPLE_DEVICE_ORIENTATION = 3
-SimpleDeviceOrientation_Faceup: SIMPLE_DEVICE_ORIENTATION = 4
-SimpleDeviceOrientation_Facedown: SIMPLE_DEVICE_ORIENTATION = 5
 SimpleDeviceOrientation = Int32
 SIMPLE_DEVICE_ORIENTATION_NOT_ROTATED: SimpleDeviceOrientation = 0
 SIMPLE_DEVICE_ORIENTATION_ROTATED_90: SimpleDeviceOrientation = 1

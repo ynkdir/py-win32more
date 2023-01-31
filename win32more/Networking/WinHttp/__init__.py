@@ -609,10 +609,6 @@ class URL_COMPONENTS(Structure):
     dwUrlPathLength: UInt32
     lpszExtraInfo: win32more.Foundation.PWSTR
     dwExtraInfoLength: UInt32
-WIN_HTTP_CREATE_URL_FLAGS = UInt32
-ICU_ESCAPE: WIN_HTTP_CREATE_URL_FLAGS = 2147483648
-ICU_REJECT_USERPWD: WIN_HTTP_CREATE_URL_FLAGS = 16384
-ICU_DECODE: WIN_HTTP_CREATE_URL_FLAGS = 268435456
 WINHTTP_ACCESS_TYPE = UInt32
 WINHTTP_ACCESS_TYPE_NO_PROXY: WINHTTP_ACCESS_TYPE = 1
 WINHTTP_ACCESS_TYPE_DEFAULT_PROXY: WINHTTP_ACCESS_TYPE = 0
@@ -759,6 +755,19 @@ class WINHTTP_PROXY_SETTINGS(Structure):
 class WINHTTP_QUERY_CONNECTION_GROUP_RESULT(Structure):
     cHosts: UInt32
     pHostConnectionGroups: POINTER(win32more.Networking.WinHttp.WINHTTP_HOST_CONNECTION_GROUP_head)
+if ARCH in 'X64,ARM64':
+    class WINHTTP_REQUEST_STATS(Structure):
+        ullFlags: UInt64
+        ulIndex: UInt32
+        cStats: UInt32
+        rgullStats: UInt64 * 32
+if ARCH in 'X86':
+    class WINHTTP_REQUEST_STATS(Structure):
+        ullFlags: UInt64
+        ulIndex: UInt32
+        cStats: UInt32
+        rgullStats: UInt64 * 32
+        _pack_ = 4
 WINHTTP_REQUEST_STAT_ENTRY = Int32
 WINHTTP_REQUEST_STAT_ENTRY_WinHttpConnectFailureCount: WINHTTP_REQUEST_STAT_ENTRY = 0
 WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyFailureCount: WINHTTP_REQUEST_STAT_ENTRY = 1
@@ -779,17 +788,13 @@ WINHTTP_REQUEST_STAT_ENTRY_WinHttpProxyTlsHandshakeServerLeg2Size: WINHTTP_REQUE
 WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestStatLast: WINHTTP_REQUEST_STAT_ENTRY = 16
 WINHTTP_REQUEST_STAT_ENTRY_WinHttpRequestStatMax: WINHTTP_REQUEST_STAT_ENTRY = 32
 if ARCH in 'X64,ARM64':
-    class WINHTTP_REQUEST_STATS(Structure):
-        ullFlags: UInt64
-        ulIndex: UInt32
-        cStats: UInt32
-        rgullStats: UInt64 * 32
+    class WINHTTP_REQUEST_TIMES(Structure):
+        cTimes: UInt32
+        rgullTimes: UInt64 * 64
 if ARCH in 'X86':
-    class WINHTTP_REQUEST_STATS(Structure):
-        ullFlags: UInt64
-        ulIndex: UInt32
-        cStats: UInt32
-        rgullStats: UInt64 * 32
+    class WINHTTP_REQUEST_TIMES(Structure):
+        cTimes: UInt32
+        rgullTimes: UInt64 * 64
         _pack_ = 4
 WINHTTP_REQUEST_TIME_ENTRY = Int32
 WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyDetectionStart: WINHTTP_REQUEST_TIME_ENTRY = 0
@@ -830,15 +835,6 @@ WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg3Start: WINHTTP_REQU
 WINHTTP_REQUEST_TIME_ENTRY_WinHttpProxyTlsHandshakeClientLeg3End: WINHTTP_REQUEST_TIME_ENTRY = 35
 WINHTTP_REQUEST_TIME_ENTRY_WinHttpRequestTimeLast: WINHTTP_REQUEST_TIME_ENTRY = 36
 WINHTTP_REQUEST_TIME_ENTRY_WinHttpRequestTimeMax: WINHTTP_REQUEST_TIME_ENTRY = 64
-if ARCH in 'X64,ARM64':
-    class WINHTTP_REQUEST_TIMES(Structure):
-        cTimes: UInt32
-        rgullTimes: UInt64 * 64
-if ARCH in 'X86':
-    class WINHTTP_REQUEST_TIMES(Structure):
-        cTimes: UInt32
-        rgullTimes: UInt64 * 64
-        _pack_ = 4
 if ARCH in 'X64,ARM64':
     class WINHTTP_RESOLVER_CACHE_CONFIG(Structure):
         ulMaxResolverCacheEntries: UInt32
@@ -894,6 +890,10 @@ WINHTTP_WEB_SOCKET_SHUTDOWN_OPERATION: WINHTTP_WEB_SOCKET_OPERATION = 3
 class WINHTTP_WEB_SOCKET_STATUS(Structure):
     dwBytesTransferred: UInt32
     eBufferType: win32more.Networking.WinHttp.WINHTTP_WEB_SOCKET_BUFFER_TYPE
+WIN_HTTP_CREATE_URL_FLAGS = UInt32
+ICU_ESCAPE: WIN_HTTP_CREATE_URL_FLAGS = 2147483648
+ICU_REJECT_USERPWD: WIN_HTTP_CREATE_URL_FLAGS = 16384
+ICU_DECODE: WIN_HTTP_CREATE_URL_FLAGS = 268435456
 make_head(_module, 'HTTP_VERSION_INFO')
 make_head(_module, 'URL_COMPONENTS')
 make_head(_module, 'WINHTTP_ASYNC_RESULT')

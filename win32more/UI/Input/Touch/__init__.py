@@ -17,15 +17,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _IManipulationEvents(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('4f62c8da-9c53-4b22-93-df-92-7a-86-2b-bb-03')
-    @commethod(3)
-    def ManipulationStarted(x: Single, y: Single) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def ManipulationDelta(x: Single, y: Single, translationDeltaX: Single, translationDeltaY: Single, scaleDelta: Single, expansionDelta: Single, rotationDelta: Single, cumulativeTranslationX: Single, cumulativeTranslationY: Single, cumulativeScale: Single, cumulativeExpansion: Single, cumulativeRotation: Single) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def ManipulationCompleted(x: Single, y: Single, cumulativeTranslationX: Single, cumulativeTranslationY: Single, cumulativeScale: Single, cumulativeExpansion: Single, cumulativeRotation: Single) -> win32more.Foundation.HRESULT: ...
 @winfunctype('USER32.dll')
 def GetTouchInputInfo(hTouchInput: win32more.UI.Input.Touch.HTOUCHINPUT, cInputs: UInt32, pInputs: POINTER(win32more.UI.Input.Touch.TOUCHINPUT_head), cbSize: Int32) -> win32more.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
@@ -259,13 +250,22 @@ TOUCHINPUTMASKF_MASK = UInt32
 TOUCHINPUTMASKF_TIMEFROMSYSTEM: TOUCHINPUTMASKF_MASK = 1
 TOUCHINPUTMASKF_EXTRAINFO: TOUCHINPUTMASKF_MASK = 2
 TOUCHINPUTMASKF_CONTACTAREA: TOUCHINPUTMASKF_MASK = 4
-make_head(_module, '_IManipulationEvents')
+class _IManipulationEvents(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('4f62c8da-9c53-4b22-93-df-92-7a-86-2b-bb-03')
+    @commethod(3)
+    def ManipulationStarted(x: Single, y: Single) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ManipulationDelta(x: Single, y: Single, translationDeltaX: Single, translationDeltaY: Single, scaleDelta: Single, expansionDelta: Single, rotationDelta: Single, cumulativeTranslationX: Single, cumulativeTranslationY: Single, cumulativeScale: Single, cumulativeExpansion: Single, cumulativeRotation: Single) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ManipulationCompleted(x: Single, y: Single, cumulativeTranslationX: Single, cumulativeTranslationY: Single, cumulativeScale: Single, cumulativeExpansion: Single, cumulativeRotation: Single) -> win32more.Foundation.HRESULT: ...
 make_head(_module, 'GESTURECONFIG')
 make_head(_module, 'GESTUREINFO')
 make_head(_module, 'GESTURENOTIFYSTRUCT')
 make_head(_module, 'IInertiaProcessor')
 make_head(_module, 'IManipulationProcessor')
 make_head(_module, 'TOUCHINPUT')
+make_head(_module, '_IManipulationEvents')
 __all__ = [
     "CloseGestureInfoHandle",
     "CloseTouchInputHandle",

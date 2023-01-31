@@ -854,6 +854,83 @@ class LDAP(Structure):
         Reserved1: Byte * 41
         sb_naddr: UIntPtr
         Reserved2: Byte * 24
+class LDAPAPIFeatureInfoA(Structure):
+    ldapaif_info_version: Int32
+    ldapaif_name: win32more.Foundation.PSTR
+    ldapaif_version: Int32
+class LDAPAPIFeatureInfoW(Structure):
+    ldapaif_info_version: Int32
+    ldapaif_name: win32more.Foundation.PWSTR
+    ldapaif_version: Int32
+class LDAPAPIInfoA(Structure):
+    ldapai_info_version: Int32
+    ldapai_api_version: Int32
+    ldapai_protocol_version: Int32
+    ldapai_extensions: POINTER(POINTER(SByte))
+    ldapai_vendor_name: win32more.Foundation.PSTR
+    ldapai_vendor_version: Int32
+class LDAPAPIInfoW(Structure):
+    ldapai_info_version: Int32
+    ldapai_api_version: Int32
+    ldapai_protocol_version: Int32
+    ldapai_extensions: POINTER(win32more.Foundation.PWSTR)
+    ldapai_vendor_name: win32more.Foundation.PWSTR
+    ldapai_vendor_version: Int32
+class LDAPControlA(Structure):
+    ldctl_oid: win32more.Foundation.PSTR
+    ldctl_value: win32more.Networking.Ldap.LDAP_BERVAL
+    ldctl_iscritical: win32more.Foundation.BOOLEAN
+class LDAPControlW(Structure):
+    ldctl_oid: win32more.Foundation.PWSTR
+    ldctl_value: win32more.Networking.Ldap.LDAP_BERVAL
+    ldctl_iscritical: win32more.Foundation.BOOLEAN
+class LDAPMessage(Structure):
+    lm_msgid: UInt32
+    lm_msgtype: UInt32
+    lm_ber: c_void_p
+    lm_chain: POINTER(win32more.Networking.Ldap.LDAPMessage_head)
+    lm_next: POINTER(win32more.Networking.Ldap.LDAPMessage_head)
+    lm_time: UInt32
+    Connection: POINTER(win32more.Networking.Ldap.LDAP_head)
+    Request: c_void_p
+    lm_returncode: UInt32
+    lm_referral: UInt16
+    lm_chased: win32more.Foundation.BOOLEAN
+    lm_eom: win32more.Foundation.BOOLEAN
+    ConnectionReferenced: win32more.Foundation.BOOLEAN
+class LDAPModA(Structure):
+    mod_op: UInt32
+    mod_type: win32more.Foundation.PSTR
+    mod_vals: _mod_vals_e__Union
+    class _mod_vals_e__Union(Union):
+        modv_strvals: POINTER(win32more.Foundation.PSTR)
+        modv_bvals: POINTER(POINTER(win32more.Networking.Ldap.LDAP_BERVAL_head))
+class LDAPModW(Structure):
+    mod_op: UInt32
+    mod_type: win32more.Foundation.PWSTR
+    mod_vals: _mod_vals_e__Union
+    class _mod_vals_e__Union(Union):
+        modv_strvals: POINTER(win32more.Foundation.PWSTR)
+        modv_bvals: POINTER(POINTER(win32more.Networking.Ldap.LDAP_BERVAL_head))
+class LDAPSearch(Structure):
+    pass
+class LDAPSortKeyA(Structure):
+    sk_attrtype: win32more.Foundation.PSTR
+    sk_matchruleoid: win32more.Foundation.PSTR
+    sk_reverseorder: win32more.Foundation.BOOLEAN
+class LDAPSortKeyW(Structure):
+    sk_attrtype: win32more.Foundation.PWSTR
+    sk_matchruleoid: win32more.Foundation.PWSTR
+    sk_reverseorder: win32more.Foundation.BOOLEAN
+class LDAPVLVInfo(Structure):
+    ldvlv_version: Int32
+    ldvlv_before_count: UInt32
+    ldvlv_after_count: UInt32
+    ldvlv_offset: UInt32
+    ldvlv_count: UInt32
+    ldvlv_attrvalue: POINTER(win32more.Networking.Ldap.LDAP_BERVAL_head)
+    ldvlv_context: POINTER(win32more.Networking.Ldap.LDAP_BERVAL_head)
+    ldvlv_extradata: c_void_p
 class LDAP_BERVAL(Structure):
     bv_len: UInt32
     bv_val: win32more.Foundation.PSTR
@@ -933,83 +1010,6 @@ class LDAP_VERSION_INFO(Structure):
     lv_size: UInt32
     lv_major: UInt32
     lv_minor: UInt32
-class LDAPAPIFeatureInfoA(Structure):
-    ldapaif_info_version: Int32
-    ldapaif_name: win32more.Foundation.PSTR
-    ldapaif_version: Int32
-class LDAPAPIFeatureInfoW(Structure):
-    ldapaif_info_version: Int32
-    ldapaif_name: win32more.Foundation.PWSTR
-    ldapaif_version: Int32
-class LDAPAPIInfoA(Structure):
-    ldapai_info_version: Int32
-    ldapai_api_version: Int32
-    ldapai_protocol_version: Int32
-    ldapai_extensions: POINTER(POINTER(SByte))
-    ldapai_vendor_name: win32more.Foundation.PSTR
-    ldapai_vendor_version: Int32
-class LDAPAPIInfoW(Structure):
-    ldapai_info_version: Int32
-    ldapai_api_version: Int32
-    ldapai_protocol_version: Int32
-    ldapai_extensions: POINTER(win32more.Foundation.PWSTR)
-    ldapai_vendor_name: win32more.Foundation.PWSTR
-    ldapai_vendor_version: Int32
-class LDAPControlA(Structure):
-    ldctl_oid: win32more.Foundation.PSTR
-    ldctl_value: win32more.Networking.Ldap.LDAP_BERVAL
-    ldctl_iscritical: win32more.Foundation.BOOLEAN
-class LDAPControlW(Structure):
-    ldctl_oid: win32more.Foundation.PWSTR
-    ldctl_value: win32more.Networking.Ldap.LDAP_BERVAL
-    ldctl_iscritical: win32more.Foundation.BOOLEAN
-class LDAPMessage(Structure):
-    lm_msgid: UInt32
-    lm_msgtype: UInt32
-    lm_ber: c_void_p
-    lm_chain: POINTER(win32more.Networking.Ldap.LDAPMessage_head)
-    lm_next: POINTER(win32more.Networking.Ldap.LDAPMessage_head)
-    lm_time: UInt32
-    Connection: POINTER(win32more.Networking.Ldap.LDAP_head)
-    Request: c_void_p
-    lm_returncode: UInt32
-    lm_referral: UInt16
-    lm_chased: win32more.Foundation.BOOLEAN
-    lm_eom: win32more.Foundation.BOOLEAN
-    ConnectionReferenced: win32more.Foundation.BOOLEAN
-class LDAPModA(Structure):
-    mod_op: UInt32
-    mod_type: win32more.Foundation.PSTR
-    mod_vals: _mod_vals_e__Union
-    class _mod_vals_e__Union(Union):
-        modv_strvals: POINTER(win32more.Foundation.PSTR)
-        modv_bvals: POINTER(POINTER(win32more.Networking.Ldap.LDAP_BERVAL_head))
-class LDAPModW(Structure):
-    mod_op: UInt32
-    mod_type: win32more.Foundation.PWSTR
-    mod_vals: _mod_vals_e__Union
-    class _mod_vals_e__Union(Union):
-        modv_strvals: POINTER(win32more.Foundation.PWSTR)
-        modv_bvals: POINTER(POINTER(win32more.Networking.Ldap.LDAP_BERVAL_head))
-class LDAPSearch(Structure):
-    pass
-class LDAPSortKeyA(Structure):
-    sk_attrtype: win32more.Foundation.PSTR
-    sk_matchruleoid: win32more.Foundation.PSTR
-    sk_reverseorder: win32more.Foundation.BOOLEAN
-class LDAPSortKeyW(Structure):
-    sk_attrtype: win32more.Foundation.PWSTR
-    sk_matchruleoid: win32more.Foundation.PWSTR
-    sk_reverseorder: win32more.Foundation.BOOLEAN
-class LDAPVLVInfo(Structure):
-    ldvlv_version: Int32
-    ldvlv_before_count: UInt32
-    ldvlv_after_count: UInt32
-    ldvlv_offset: UInt32
-    ldvlv_count: UInt32
-    ldvlv_attrvalue: POINTER(win32more.Networking.Ldap.LDAP_BERVAL_head)
-    ldvlv_context: POINTER(win32more.Networking.Ldap.LDAP_BERVAL_head)
-    ldvlv_extradata: c_void_p
 @cfunctype_pointer
 def NOTIFYOFNEWCONNECTION(PrimaryConnection: POINTER(win32more.Networking.Ldap.LDAP_head), ReferralFromConnection: POINTER(win32more.Networking.Ldap.LDAP_head), NewDN: win32more.Foundation.PWSTR, HostName: win32more.Foundation.PSTR, NewConnection: POINTER(win32more.Networking.Ldap.LDAP_head), PortNumber: UInt32, SecAuthIdentity: c_void_p, CurrentUser: c_void_p, ErrorCodeFromBind: UInt32) -> win32more.Foundation.BOOLEAN: ...
 @cfunctype_pointer
@@ -1022,10 +1022,6 @@ make_head(_module, 'BerElement')
 make_head(_module, 'DBGPRINT')
 make_head(_module, 'DEREFERENCECONNECTION')
 make_head(_module, 'LDAP')
-make_head(_module, 'LDAP_BERVAL')
-make_head(_module, 'LDAP_REFERRAL_CALLBACK')
-make_head(_module, 'LDAP_TIMEVAL')
-make_head(_module, 'LDAP_VERSION_INFO')
 make_head(_module, 'LDAPAPIFeatureInfoA')
 make_head(_module, 'LDAPAPIFeatureInfoW')
 make_head(_module, 'LDAPAPIInfoA')
@@ -1039,6 +1035,10 @@ make_head(_module, 'LDAPSearch')
 make_head(_module, 'LDAPSortKeyA')
 make_head(_module, 'LDAPSortKeyW')
 make_head(_module, 'LDAPVLVInfo')
+make_head(_module, 'LDAP_BERVAL')
+make_head(_module, 'LDAP_REFERRAL_CALLBACK')
+make_head(_module, 'LDAP_TIMEVAL')
+make_head(_module, 'LDAP_VERSION_INFO')
 make_head(_module, 'NOTIFYOFNEWCONNECTION')
 make_head(_module, 'QUERYCLIENTCERT')
 make_head(_module, 'QUERYFORCONNECTION')

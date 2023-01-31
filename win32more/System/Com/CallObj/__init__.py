@@ -21,6 +21,24 @@ def __dir__():
 def CoGetInterceptor(iidIntercepted: POINTER(Guid), punkOuter: win32more.System.Com.IUnknown_head, iid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
 @winfunctype('ole32.dll')
 def CoGetInterceptorFromTypeInfo(iidIntercepted: POINTER(Guid), punkOuter: win32more.System.Com.IUnknown_head, typeInfo: win32more.System.Com.ITypeInfo_head, iid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+class CALLFRAMEINFO(Structure):
+    iMethod: UInt32
+    fHasInValues: win32more.Foundation.BOOL
+    fHasInOutValues: win32more.Foundation.BOOL
+    fHasOutValues: win32more.Foundation.BOOL
+    fDerivesFromIDispatch: win32more.Foundation.BOOL
+    cInInterfacesMax: Int32
+    cInOutInterfacesMax: Int32
+    cOutInterfacesMax: Int32
+    cTopLevelInInterfaces: Int32
+    iid: Guid
+    cMethod: UInt32
+    cParams: UInt32
+class CALLFRAMEPARAMINFO(Structure):
+    fIn: win32more.Foundation.BOOLEAN
+    fOut: win32more.Foundation.BOOLEAN
+    stackOffset: UInt32
+    cbParam: UInt32
 CALLFRAME_COPY = Int32
 CALLFRAME_COPY_NESTED: CALLFRAME_COPY = 1
 CALLFRAME_COPY_INDEPENDENT: CALLFRAME_COPY = 2
@@ -47,24 +65,6 @@ CALLFRAME_WALK = Int32
 CALLFRAME_WALK_IN: CALLFRAME_WALK = 1
 CALLFRAME_WALK_INOUT: CALLFRAME_WALK = 2
 CALLFRAME_WALK_OUT: CALLFRAME_WALK = 4
-class CALLFRAMEINFO(Structure):
-    iMethod: UInt32
-    fHasInValues: win32more.Foundation.BOOL
-    fHasInOutValues: win32more.Foundation.BOOL
-    fHasOutValues: win32more.Foundation.BOOL
-    fDerivesFromIDispatch: win32more.Foundation.BOOL
-    cInInterfacesMax: Int32
-    cInOutInterfacesMax: Int32
-    cOutInterfacesMax: Int32
-    cTopLevelInInterfaces: Int32
-    iid: Guid
-    cMethod: UInt32
-    cParams: UInt32
-class CALLFRAMEPARAMINFO(Structure):
-    fIn: win32more.Foundation.BOOLEAN
-    fOut: win32more.Foundation.BOOLEAN
-    stackOffset: UInt32
-    cbParam: UInt32
 class ICallFrame(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('d573b4b0-894e-11d2-b8-b6-00-c0-4f-b9-61-8a')
@@ -148,9 +148,9 @@ class IInterfaceRelated(c_void_p):
     def SetIID(iid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def GetIID(piid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
-make_head(_module, 'CALLFRAME_MARSHALCONTEXT')
 make_head(_module, 'CALLFRAMEINFO')
 make_head(_module, 'CALLFRAMEPARAMINFO')
+make_head(_module, 'CALLFRAME_MARSHALCONTEXT')
 make_head(_module, 'ICallFrame')
 make_head(_module, 'ICallFrameEvents')
 make_head(_module, 'ICallFrameWalker')

@@ -66,16 +66,16 @@ class IUIContextualUI(c_void_p):
     Guid = Guid('eea11f37-7c46-437c-8e-55-b5-21-22-b2-92-93')
     @commethod(3)
     def ShowAtLocation(x: Int32, y: Int32) -> win32more.Foundation.HRESULT: ...
-class IUIEventingManager(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('3be6ea7f-9a9b-4198-93-68-9b-0f-92-3b-d5-34')
-    @commethod(3)
-    def SetEventLogger(eventLogger: win32more.UI.Ribbon.IUIEventLogger_head) -> win32more.Foundation.HRESULT: ...
 class IUIEventLogger(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('ec3e1034-dbf4-41a1-95-d5-03-e0-f1-02-6e-05')
     @commethod(3)
     def OnUIEvent(pEventParams: POINTER(win32more.UI.Ribbon.UI_EVENTPARAMS_head)) -> Void: ...
+class IUIEventingManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('3be6ea7f-9a9b-4198-93-68-9b-0f-92-3b-d5-34')
+    @commethod(3)
+    def SetEventLogger(eventLogger: win32more.UI.Ribbon.IUIEventLogger_head) -> win32more.Foundation.HRESULT: ...
 class IUIFramework(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('f4f0385d-6872-43a8-ad-09-4c-33-9c-b3-f5-c5')
@@ -121,6 +121,8 @@ class IUISimplePropertySet(c_void_p):
     Guid = Guid('c205bb48-5b1c-4219-a1-06-15-bd-0a-5f-24-e2')
     @commethod(3)
     def GetValue(key: POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), value: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+UIRibbonFramework = Guid('926749fa-2615-4987-88-45-c3-3e-65-f2-b9-57')
+UIRibbonImageFromBitmapFactory = Guid('0f7434b6-59b6-4250-99-9e-d1-68-d6-ae-42-93')
 UI_COLLECTIONCHANGE = Int32
 UI_COLLECTIONCHANGE_INSERT: UI_COLLECTIONCHANGE = 0
 UI_COLLECTIONCHANGE_REMOVE: UI_COLLECTIONCHANGE = 1
@@ -216,15 +218,13 @@ UI_VIEWVERB_CREATE: UI_VIEWVERB = 0
 UI_VIEWVERB_DESTROY: UI_VIEWVERB = 1
 UI_VIEWVERB_SIZE: UI_VIEWVERB = 2
 UI_VIEWVERB_ERROR: UI_VIEWVERB = 3
-UIRibbonFramework = Guid('926749fa-2615-4987-88-45-c3-3e-65-f2-b9-57')
-UIRibbonImageFromBitmapFactory = Guid('0f7434b6-59b6-4250-99-9e-d1-68-d6-ae-42-93')
 make_head(_module, 'IUIApplication')
 make_head(_module, 'IUICollection')
 make_head(_module, 'IUICollectionChangedEvent')
 make_head(_module, 'IUICommandHandler')
 make_head(_module, 'IUIContextualUI')
-make_head(_module, 'IUIEventingManager')
 make_head(_module, 'IUIEventLogger')
+make_head(_module, 'IUIEventingManager')
 make_head(_module, 'IUIFramework')
 make_head(_module, 'IUIImage')
 make_head(_module, 'IUIImageFromBitmap')

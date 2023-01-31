@@ -20,6 +20,14 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+class APPLICATION_EVENT_DATA(Structure):
+    cbApplicationEventData: UInt32
+    ApplicationId: Guid
+    EndpointId: Guid
+    dwEventId: UInt32
+    cbEventData: UInt32
+    bEventData: Byte * 1
+    _pack_ = 1
 SIDESHOW_ENDPOINT_SIMPLE_CONTENT_FORMAT: Guid = Guid('a9a5353f-2d4b-47ce-93-ee-75-9f-3a-7d-da-4f')
 SIDESHOW_ENDPOINT_ICAL: Guid = Guid('4dff36b5-9dde-4f76-9a-2a-96-43-50-47-06-3d')
 SIDESHOW_CAPABILITY_DEVICE_PROPERTIES: Guid = Guid('8abc88a8-857b-4ad7-a3-5a-b5-94-2f-49-2b-99')
@@ -59,14 +67,6 @@ SIDESHOW_EVENTID_APPLICATION_ENTER: UInt32 = 4294901760
 SIDESHOW_EVENTID_APPLICATION_EXIT: UInt32 = 4294901761
 CONTENT_ID_HOME: UInt32 = 1
 VERSION_1_WINDOWS_7: UInt32 = 0
-class APPLICATION_EVENT_DATA(Structure):
-    cbApplicationEventData: UInt32
-    ApplicationId: Guid
-    EndpointId: Guid
-    dwEventId: UInt32
-    cbEventData: UInt32
-    bEventData: Byte * 1
-    _pack_ = 1
 class CONTENT_MISSING_EVENT_DATA(Structure):
     cbContentMissingEventData: UInt32
     ApplicationId: Guid
@@ -248,6 +248,7 @@ SideShowKeyCollection = Guid('dfbbdbf8-18de-49b8-83-dc-eb-c7-27-c6-2d-94')
 SideShowNotification = Guid('0ce3e86f-d5cd-4525-a7-66-1a-ba-b1-a7-52-f5')
 SideShowPropVariantCollection = Guid('e640f415-539e-4923-96-cd-5f-09-3b-c2-50-cd')
 SideShowSession = Guid('e20543b9-f785-4ea2-98-1e-c4-ff-a7-6b-bc-7c')
+make_head(_module, 'APPLICATION_EVENT_DATA')
 make_head(_module, 'SIDESHOW_CAPABILITY_DEVICE_ID')
 make_head(_module, 'SIDESHOW_CAPABILITY_SCREEN_TYPE')
 make_head(_module, 'SIDESHOW_CAPABILITY_SCREEN_WIDTH')
@@ -261,7 +262,6 @@ make_head(_module, 'SIDESHOW_CAPABILITY_SUPPORTED_THEMES')
 make_head(_module, 'SIDESHOW_CAPABILITY_SUPPORTED_IMAGE_FORMATS')
 make_head(_module, 'SIDESHOW_CAPABILITY_CLIENT_AREA_WIDTH')
 make_head(_module, 'SIDESHOW_CAPABILITY_CLIENT_AREA_HEIGHT')
-make_head(_module, 'APPLICATION_EVENT_DATA')
 make_head(_module, 'CONTENT_MISSING_EVENT_DATA')
 make_head(_module, 'DEVICE_USER_CHANGE_EVENT_DATA')
 make_head(_module, 'EVENT_DATA_HEADER')

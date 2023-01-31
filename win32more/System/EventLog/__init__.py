@@ -132,9 +132,6 @@ def ReportEventA(hEventLog: win32more.System.EventLog.EventSourceHandle, wType: 
 def ReportEventW(hEventLog: win32more.System.EventLog.EventSourceHandle, wType: win32more.System.EventLog.REPORT_EVENT_TYPE, wCategory: UInt16, dwEventID: UInt32, lpUserSid: win32more.Foundation.PSID, wNumStrings: UInt16, dwDataSize: UInt32, lpStrings: POINTER(win32more.Foundation.PWSTR), lpRawData: c_void_p) -> win32more.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def GetEventLogInformation(hEventLog: win32more.System.EventLog.EventLogHandle, dwInfoLevel: UInt32, lpBuffer: c_void_p, cbBufSize: UInt32, pcbBytesNeeded: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
-class EVENTLOG_FULL_INFORMATION(Structure):
-    dwFull: UInt32
-EventLogHandle = IntPtr
 class EVENTLOGRECORD(Structure):
     Length: UInt32
     Reserved: UInt32
@@ -152,12 +149,13 @@ class EVENTLOGRECORD(Structure):
     UserSidOffset: UInt32
     DataLength: UInt32
     DataOffset: UInt32
+class EVENTLOG_FULL_INFORMATION(Structure):
+    dwFull: UInt32
 class EVENTSFORLOGFILE(Structure):
     ulSize: UInt32
     szLogicalLogFile: Char * 256
     ulNumRecords: UInt32
     pEventLogRecords: win32more.System.EventLog.EVENTLOGRECORD * 1
-EventSourceHandle = IntPtr
 EVT_CHANNEL_CLOCK_TYPE = Int32
 EVT_CHANNEL_CLOCK_TYPE_EvtChannelClockTypeSystemTime: EVT_CHANNEL_CLOCK_TYPE = 0
 EVT_CHANNEL_CLOCK_TYPE_EvtChannelClockTypeQPC: EVT_CHANNEL_CLOCK_TYPE = 1
@@ -229,6 +227,8 @@ EVT_FORMAT_MESSAGE_FLAGS_EvtFormatMessageProvider: EVT_FORMAT_MESSAGE_FLAGS = 7
 EVT_FORMAT_MESSAGE_FLAGS_EvtFormatMessageId: EVT_FORMAT_MESSAGE_FLAGS = 8
 EVT_FORMAT_MESSAGE_FLAGS_EvtFormatMessageXml: EVT_FORMAT_MESSAGE_FLAGS = 9
 EVT_HANDLE = IntPtr
+EVT_LOGIN_CLASS = Int32
+EVT_LOGIN_CLASS_EvtRpcLogin: EVT_LOGIN_CLASS = 1
 EVT_LOG_PROPERTY_ID = Int32
 EVT_LOG_PROPERTY_ID_EvtLogCreationTime: EVT_LOG_PROPERTY_ID = 0
 EVT_LOG_PROPERTY_ID_EvtLogLastAccessTime: EVT_LOG_PROPERTY_ID = 1
@@ -238,8 +238,6 @@ EVT_LOG_PROPERTY_ID_EvtLogAttributes: EVT_LOG_PROPERTY_ID = 4
 EVT_LOG_PROPERTY_ID_EvtLogNumberOfLogRecords: EVT_LOG_PROPERTY_ID = 5
 EVT_LOG_PROPERTY_ID_EvtLogOldestRecordNumber: EVT_LOG_PROPERTY_ID = 6
 EVT_LOG_PROPERTY_ID_EvtLogFull: EVT_LOG_PROPERTY_ID = 7
-EVT_LOGIN_CLASS = Int32
-EVT_LOGIN_CLASS_EvtRpcLogin: EVT_LOGIN_CLASS = 1
 EVT_OPEN_LOG_FLAGS = UInt32
 EVT_OPEN_LOG_FLAGS_EvtOpenChannelPath: EVT_OPEN_LOG_FLAGS = 1
 EVT_OPEN_LOG_FLAGS_EvtOpenFilePath: EVT_OPEN_LOG_FLAGS = 2
@@ -412,6 +410,8 @@ EVT_VARIANT_TYPE_EvtVarTypeHexInt32: EVT_VARIANT_TYPE = 20
 EVT_VARIANT_TYPE_EvtVarTypeHexInt64: EVT_VARIANT_TYPE = 21
 EVT_VARIANT_TYPE_EvtVarTypeEvtHandle: EVT_VARIANT_TYPE = 32
 EVT_VARIANT_TYPE_EvtVarTypeEvtXml: EVT_VARIANT_TYPE = 35
+EventLogHandle = IntPtr
+EventSourceHandle = IntPtr
 READ_EVENT_LOG_READ_FLAGS = UInt32
 EVENTLOG_SEEK_READ: READ_EVENT_LOG_READ_FLAGS = 2
 EVENTLOG_SEQUENTIAL_READ: READ_EVENT_LOG_READ_FLAGS = 1
@@ -422,8 +422,8 @@ EVENTLOG_AUDIT_SUCCESS: REPORT_EVENT_TYPE = 8
 EVENTLOG_ERROR_TYPE: REPORT_EVENT_TYPE = 1
 EVENTLOG_INFORMATION_TYPE: REPORT_EVENT_TYPE = 4
 EVENTLOG_WARNING_TYPE: REPORT_EVENT_TYPE = 2
-make_head(_module, 'EVENTLOG_FULL_INFORMATION')
 make_head(_module, 'EVENTLOGRECORD')
+make_head(_module, 'EVENTLOG_FULL_INFORMATION')
 make_head(_module, 'EVENTSFORLOGFILE')
 make_head(_module, 'EVT_RPC_LOGIN')
 make_head(_module, 'EVT_SUBSCRIBE_CALLBACK')

@@ -20,92 +20,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _AppEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('de46cbdd-53f5-4635-af-54-4f-e7-1e-92-3d-3f')
-    @commethod(7)
-    def OnQuit(Application: win32more.System.Mmc._Application_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def OnDocumentOpen(Document: win32more.System.Mmc.Document_head, New: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def OnDocumentClose(Document: win32more.System.Mmc.Document_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def OnSnapInAdded(Document: win32more.System.Mmc.Document_head, SnapIn: win32more.System.Mmc.SnapIn_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def OnSnapInRemoved(Document: win32more.System.Mmc.Document_head, SnapIn: win32more.System.Mmc.SnapIn_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def OnNewView(View: win32more.System.Mmc.View_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def OnViewClose(View: win32more.System.Mmc.View_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def OnViewChange(View: win32more.System.Mmc.View_head, NewOwnerNode: win32more.System.Mmc.Node_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def OnSelectionChange(View: win32more.System.Mmc.View_head, NewNodes: win32more.System.Mmc.Nodes_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def OnContextMenuExecuted(MenuItem: win32more.System.Mmc.MenuItem_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def OnToolbarButtonClicked() -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def OnListUpdated(View: win32more.System.Mmc.View_head) -> win32more.Foundation.HRESULT: ...
-class _Application(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('a3afb9cc-b653-4741-86-ab-f0-47-0e-c1-38-4c')
-    @commethod(7)
-    def Help() -> Void: ...
-    @commethod(8)
-    def Quit() -> Void: ...
-    @commethod(9)
-    def get_Document(Document: POINTER(win32more.System.Mmc.Document_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def Load(Filename: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def get_Frame(Frame: POINTER(win32more.System.Mmc.Frame_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def get_Visible(Visible: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def Show() -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def Hide() -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def get_UserControl(UserControl: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def put_UserControl(UserControl: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def get_VersionMajor(VersionMajor: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def get_VersionMinor(VersionMinor: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-_ColumnSortOrder = Int32
-SortOrder_Ascending: _ColumnSortOrder = 0
-SortOrder_Descending: _ColumnSortOrder = 1
-_DocumentMode = Int32
-DocumentMode_Author: _DocumentMode = 0
-DocumentMode_User: _DocumentMode = 1
-DocumentMode_User_MDI: _DocumentMode = 2
-DocumentMode_User_SDI: _DocumentMode = 3
-class _EventConnector(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('c0bccd30-de44-4528-84-03-a0-5a-6a-1c-c8-ea')
-    @commethod(7)
-    def ConnectTo(Application: win32more.System.Mmc._Application_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def Disconnect() -> win32more.Foundation.HRESULT: ...
-_ExportListOptions = Int32
-ExportListOptions_Default: _ExportListOptions = 0
-ExportListOptions_Unicode: _ExportListOptions = 1
-ExportListOptions_TabDelimited: _ExportListOptions = 2
-ExportListOptions_SelectedItemsOnly: _ExportListOptions = 4
-_ListViewMode = Int32
-ListMode_Small_Icons: _ListViewMode = 0
-ListMode_Large_Icons: _ListViewMode = 1
-ListMode_List: _ListViewMode = 2
-ListMode_Detail: _ListViewMode = 3
-ListMode_Filtered: _ListViewMode = 4
-_ViewOptions = Int32
-ViewOption_Default: _ViewOptions = 0
-ViewOption_ScopeTreeHidden: _ViewOptions = 1
-ViewOption_NoToolBars: _ViewOptions = 2
-ViewOption_NotPersistable: _ViewOptions = 4
-ViewOption_ActionPaneHidden: _ViewOptions = 8
 MMC_VER: UInt32 = 512
 MMC_PROP_CHANGEAFFECTSUI: UInt32 = 1
 MMC_PROP_MODIFIABLE: UInt32 = 2
@@ -228,6 +142,21 @@ CCM_SPECIAL_SUBMENU: CCM_SPECIAL = 2
 CCM_SPECIAL_DEFAULT_ITEM: CCM_SPECIAL = 4
 CCM_SPECIAL_INSERTION_POINT: CCM_SPECIAL = 8
 CCM_SPECIAL_TESTONLY: CCM_SPECIAL = 16
+class CONTEXTMENUITEM(Structure):
+    strName: win32more.Foundation.PWSTR
+    strStatusBarText: win32more.Foundation.PWSTR
+    lCommandID: Int32
+    lInsertionPointID: Int32
+    fFlags: Int32
+    fSpecialFlags: Int32
+class CONTEXTMENUITEM2(Structure):
+    strName: win32more.Foundation.PWSTR
+    strStatusBarText: win32more.Foundation.PWSTR
+    lCommandID: Int32
+    lInsertionPointID: Int32
+    fFlags: Int32
+    fSpecialFlags: Int32
+    strLanguageIndependentName: win32more.Foundation.PWSTR
 class Column(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('fd1c5f63-2b16-4d06-9a-b3-f4-53-50-b9-40-ab')
@@ -268,21 +197,6 @@ class ContextMenu(c_void_p):
     def get_Item(IndexOrPath: win32more.System.Com.VARIANT, MenuItem: POINTER(win32more.System.Mmc.MenuItem_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(9)
     def get_Count(Count: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-class CONTEXTMENUITEM(Structure):
-    strName: win32more.Foundation.PWSTR
-    strStatusBarText: win32more.Foundation.PWSTR
-    lCommandID: Int32
-    lInsertionPointID: Int32
-    fFlags: Int32
-    fSpecialFlags: Int32
-class CONTEXTMENUITEM2(Structure):
-    strName: win32more.Foundation.PWSTR
-    strStatusBarText: win32more.Foundation.PWSTR
-    lCommandID: Int32
-    lInsertionPointID: Int32
-    fFlags: Int32
-    fSpecialFlags: Int32
-    strLanguageIndependentName: win32more.Foundation.PWSTR
 DATA_OBJECT_TYPES = Int32
 CCT_SCOPE: DATA_OBJECT_TYPES = 32768
 CCT_RESULT: DATA_OBJECT_TYPES = 32769
@@ -433,14 +347,6 @@ class IComponentData2(c_void_p):
     Guid = Guid('cca0f2d2-82de-41b5-bf-47-3b-20-76-27-3d-5c')
     @commethod(10)
     def QueryDispatch(cookie: IntPtr, type: win32more.System.Mmc.DATA_OBJECT_TYPES, ppDispatch: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
-IconIdentifier = Int32
-Icon_None: IconIdentifier = 0
-Icon_Error: IconIdentifier = 32513
-Icon_Question: IconIdentifier = 32514
-Icon_Warning: IconIdentifier = 32515
-Icon_Information: IconIdentifier = 32516
-Icon_First: IconIdentifier = 32513
-Icon_Last: IconIdentifier = 32516
 class IConsole(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('43136eb1-d36c-11cf-ad-bc-00-aa-00-a8-00-33')
@@ -650,6 +556,11 @@ class IImageList(c_void_p):
     def ImageListSetIcon(pIcon: POINTER(IntPtr), nLoc: Int32) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def ImageListSetStrip(pBMapSm: POINTER(IntPtr), pBMapLg: POINTER(IntPtr), nStartLoc: Int32, cMask: win32more.Foundation.COLORREF) -> win32more.Foundation.HRESULT: ...
+class IMMCVersionInfo(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a8d2c5fe-cdcb-4b9d-bd-e5-a2-73-43-ff-54-bc')
+    @commethod(3)
+    def GetMMCVersion(pVersionMajor: POINTER(Int32), pVersionMinor: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
 class IMenuButton(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('951ed750-d080-11d0-b1-97-00-00-00-00-00-00')
@@ -670,11 +581,6 @@ class IMessageView(c_void_p):
     def SetIcon(id: win32more.System.Mmc.IconIdentifier) -> win32more.Foundation.HRESULT: ...
     @commethod(6)
     def Clear() -> win32more.Foundation.HRESULT: ...
-class IMMCVersionInfo(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('a8d2c5fe-cdcb-4b9d-bd-e5-a2-73-43-ff-54-bc')
-    @commethod(3)
-    def GetMMCVersion(pVersionMajor: POINTER(Int32), pVersionMinor: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
 class INodeProperties(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('15bc4d24-a522-4406-aa-55-07-49-53-7a-68-65')
@@ -840,25 +746,26 @@ class IViewExtensionCallback(c_void_p):
     Guid = Guid('34dd928a-7599-41e5-9f-5e-d6-bc-30-62-c2-da')
     @commethod(3)
     def AddView(pExtViewData: POINTER(win32more.System.Mmc.MMC_EXT_VIEW_DATA_head)) -> win32more.Foundation.HRESULT: ...
+IconIdentifier = Int32
+Icon_None: IconIdentifier = 0
+Icon_Error: IconIdentifier = 32513
+Icon_Question: IconIdentifier = 32514
+Icon_Warning: IconIdentifier = 32515
+Icon_Information: IconIdentifier = 32516
+Icon_First: IconIdentifier = 32513
+Icon_Last: IconIdentifier = 32516
 class MENUBUTTONDATA(Structure):
     idCommand: Int32
     x: Int32
     y: Int32
-class MenuItem(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('0178fad1-b361-4b27-96-ad-67-c5-7e-bf-2e-1d')
-    @commethod(7)
-    def get_DisplayName(DisplayName: POINTER(POINTER(UInt16))) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_LanguageIndependentName(LanguageIndependentName: POINTER(POINTER(UInt16))) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_Path(Path: POINTER(POINTER(UInt16))) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_LanguageIndependentPath(LanguageIndependentPath: POINTER(POINTER(UInt16))) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def Execute() -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def get_Enabled(Enabled: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class MMCBUTTON(Structure):
+    nBitmap: Int32
+    idCommand: Int32
+    fsState: Byte
+    fsType: Byte
+    lpButtonText: win32more.Foundation.PWSTR
+    lpTooltipText: win32more.Foundation.PWSTR
+MMCVersionInfo = Guid('d6fedb1d-cf21-4bd9-af-3b-c5-46-8e-9c-66-84')
 MMC_ACTION_TYPE = Int32
 MMC_ACTION_UNINITIALIZED: MMC_ACTION_TYPE = -1
 MMC_ACTION_ID: MMC_ACTION_TYPE = 0
@@ -907,6 +814,10 @@ class MMC_EXT_VIEW_DATA(Structure):
     pszViewTitle: win32more.Foundation.PWSTR
     pszTooltipText: win32more.Foundation.PWSTR
     bReplacesDefaultView: win32more.Foundation.BOOL
+class MMC_FILTERDATA(Structure):
+    pszText: win32more.Foundation.PWSTR
+    cchTextMax: Int32
+    lValue: Int32
 MMC_FILTER_CHANGE_CODE = Int32
 MFCC_DISABLE: MMC_FILTER_CHANGE_CODE = 0
 MFCC_ENABLE: MMC_FILTER_CHANGE_CODE = 1
@@ -915,10 +826,6 @@ MMC_FILTER_TYPE = Int32
 MMC_STRING_FILTER: MMC_FILTER_TYPE = 0
 MMC_INT_FILTER: MMC_FILTER_TYPE = 1
 MMC_FILTER_NOVALUE: MMC_FILTER_TYPE = 32768
-class MMC_FILTERDATA(Structure):
-    pszText: win32more.Foundation.PWSTR
-    cchTextMax: Int32
-    lValue: Int32
 class MMC_LISTPAD_INFO(Structure):
     szTitle: win32more.Foundation.PWSTR
     szButtonText: win32more.Foundation.PWSTR
@@ -1027,14 +934,21 @@ MMC_VIEW_TYPE_OCX: MMC_VIEW_TYPE = 2
 class MMC_VISIBLE_COLUMNS(Structure):
     nVisibleColumns: Int32
     rgVisibleCols: Int32 * 1
-class MMCBUTTON(Structure):
-    nBitmap: Int32
-    idCommand: Int32
-    fsState: Byte
-    fsType: Byte
-    lpButtonText: win32more.Foundation.PWSTR
-    lpTooltipText: win32more.Foundation.PWSTR
-MMCVersionInfo = Guid('d6fedb1d-cf21-4bd9-af-3b-c5-46-8e-9c-66-84')
+class MenuItem(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('0178fad1-b361-4b27-96-ad-67-c5-7e-bf-2e-1d')
+    @commethod(7)
+    def get_DisplayName(DisplayName: POINTER(POINTER(UInt16))) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_LanguageIndependentName(LanguageIndependentName: POINTER(POINTER(UInt16))) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Path(Path: POINTER(POINTER(UInt16))) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_LanguageIndependentPath(LanguageIndependentPath: POINTER(POINTER(UInt16))) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Execute() -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_Enabled(Enabled: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
 class Node(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('f81ed800-7839-4447-94-5d-8e-15-da-59-ca-55')
@@ -1088,21 +1002,6 @@ class RDITEMHDR(Structure):
     dwFlags: UInt32
     cookie: IntPtr
     lpReserved: win32more.Foundation.LPARAM
-class RESULT_VIEW_TYPE_INFO(Structure):
-    pstrPersistableViewDescription: win32more.Foundation.PWSTR
-    eViewType: win32more.System.Mmc.MMC_VIEW_TYPE
-    dwMiscOptions: UInt32
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        dwListOptions: UInt32
-        Anonymous1: _Anonymous1_e__Struct
-        Anonymous2: _Anonymous2_e__Struct
-        class _Anonymous1_e__Struct(Structure):
-            dwHTMLOptions: UInt32
-            pstrURL: win32more.Foundation.PWSTR
-        class _Anonymous2_e__Struct(Structure):
-            dwOCXOptions: UInt32
-            pUnkControl: win32more.System.Com.IUnknown_head
 class RESULTDATAITEM(Structure):
     mask: UInt32
     bScopeItem: win32more.Foundation.BOOL
@@ -1118,10 +1017,21 @@ class RESULTFINDINFO(Structure):
     psz: win32more.Foundation.PWSTR
     nStart: Int32
     dwOptions: UInt32
-class SColumnSetID(Structure):
-    dwFlags: UInt32
-    cBytes: UInt32
-    id: Byte * 1
+class RESULT_VIEW_TYPE_INFO(Structure):
+    pstrPersistableViewDescription: win32more.Foundation.PWSTR
+    eViewType: win32more.System.Mmc.MMC_VIEW_TYPE
+    dwMiscOptions: UInt32
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        dwListOptions: UInt32
+        Anonymous1: _Anonymous1_e__Struct
+        Anonymous2: _Anonymous2_e__Struct
+        class _Anonymous1_e__Struct(Structure):
+            dwHTMLOptions: UInt32
+            pstrURL: win32more.Foundation.PWSTR
+        class _Anonymous2_e__Struct(Structure):
+            dwOCXOptions: UInt32
+            pUnkControl: win32more.System.Com.IUnknown_head
 class SCOPEDATAITEM(Structure):
     mask: UInt32
     displayname: win32more.Foundation.PWSTR
@@ -1132,6 +1042,23 @@ class SCOPEDATAITEM(Structure):
     lParam: win32more.Foundation.LPARAM
     relativeID: IntPtr
     ID: IntPtr
+class SColumnSetID(Structure):
+    dwFlags: UInt32
+    cBytes: UInt32
+    id: Byte * 1
+class SMMCDataObjects(Structure):
+    count: UInt32
+    lpDataObject: win32more.System.Com.IDataObject_head * 1
+class SMMCObjectTypes(Structure):
+    count: UInt32
+    guid: Guid * 1
+class SNodeID(Structure):
+    cBytes: UInt32
+    id: Byte * 1
+class SNodeID2(Structure):
+    dwFlags: UInt32
+    cBytes: UInt32
+    id: Byte * 1
 class ScopeNamespace(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('ebbb48dc-1a3b-4d86-b7-86-c2-1b-28-38-90-12')
@@ -1145,12 +1072,6 @@ class ScopeNamespace(c_void_p):
     def GetRoot(Root: POINTER(win32more.System.Mmc.Node_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(11)
     def Expand(Node: win32more.System.Mmc.Node_head) -> win32more.Foundation.HRESULT: ...
-class SMMCDataObjects(Structure):
-    count: UInt32
-    lpDataObject: win32more.System.Com.IDataObject_head * 1
-class SMMCObjectTypes(Structure):
-    count: UInt32
-    guid: Guid * 1
 class SnapIn(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('3be910f6-3459-49c6-a1-bb-41-e6-be-9d-f3-ea')
@@ -1181,13 +1102,6 @@ class SnapIns(c_void_p):
     def Add(SnapinNameOrCLSID: win32more.Foundation.BSTR, ParentSnapin: win32more.System.Com.VARIANT, Properties: win32more.System.Com.VARIANT, SnapIn: POINTER(win32more.System.Mmc.SnapIn_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(11)
     def Remove(SnapIn: win32more.System.Mmc.SnapIn_head) -> win32more.Foundation.HRESULT: ...
-class SNodeID(Structure):
-    cBytes: UInt32
-    id: Byte * 1
-class SNodeID2(Structure):
-    dwFlags: UInt32
-    cBytes: UInt32
-    id: Byte * 1
 class View(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('6efc2da2-b38c-457e-9a-bb-ed-2d-18-9b-8c-38')
@@ -1286,15 +1200,98 @@ class Views(c_void_p):
     def Add(Node: win32more.System.Mmc.Node_head, viewOptions: win32more.System.Mmc._ViewOptions) -> win32more.Foundation.HRESULT: ...
     @commethod(10)
     def get__NewEnum(retval: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-make_head(_module, '_AppEvents')
-make_head(_module, '_Application')
-make_head(_module, '_EventConnector')
+class _AppEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('de46cbdd-53f5-4635-af-54-4f-e7-1e-92-3d-3f')
+    @commethod(7)
+    def OnQuit(Application: win32more.System.Mmc._Application_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def OnDocumentOpen(Document: win32more.System.Mmc.Document_head, New: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def OnDocumentClose(Document: win32more.System.Mmc.Document_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def OnSnapInAdded(Document: win32more.System.Mmc.Document_head, SnapIn: win32more.System.Mmc.SnapIn_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def OnSnapInRemoved(Document: win32more.System.Mmc.Document_head, SnapIn: win32more.System.Mmc.SnapIn_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def OnNewView(View: win32more.System.Mmc.View_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def OnViewClose(View: win32more.System.Mmc.View_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def OnViewChange(View: win32more.System.Mmc.View_head, NewOwnerNode: win32more.System.Mmc.Node_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def OnSelectionChange(View: win32more.System.Mmc.View_head, NewNodes: win32more.System.Mmc.Nodes_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def OnContextMenuExecuted(MenuItem: win32more.System.Mmc.MenuItem_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def OnToolbarButtonClicked() -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def OnListUpdated(View: win32more.System.Mmc.View_head) -> win32more.Foundation.HRESULT: ...
+class _Application(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('a3afb9cc-b653-4741-86-ab-f0-47-0e-c1-38-4c')
+    @commethod(7)
+    def Help() -> Void: ...
+    @commethod(8)
+    def Quit() -> Void: ...
+    @commethod(9)
+    def get_Document(Document: POINTER(win32more.System.Mmc.Document_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Load(Filename: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Frame(Frame: POINTER(win32more.System.Mmc.Frame_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_Visible(Visible: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def Show() -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def Hide() -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_UserControl(UserControl: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def put_UserControl(UserControl: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_VersionMajor(VersionMajor: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_VersionMinor(VersionMinor: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+_ColumnSortOrder = Int32
+SortOrder_Ascending: _ColumnSortOrder = 0
+SortOrder_Descending: _ColumnSortOrder = 1
+_DocumentMode = Int32
+DocumentMode_Author: _DocumentMode = 0
+DocumentMode_User: _DocumentMode = 1
+DocumentMode_User_MDI: _DocumentMode = 2
+DocumentMode_User_SDI: _DocumentMode = 3
+class _EventConnector(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('c0bccd30-de44-4528-84-03-a0-5a-6a-1c-c8-ea')
+    @commethod(7)
+    def ConnectTo(Application: win32more.System.Mmc._Application_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Disconnect() -> win32more.Foundation.HRESULT: ...
+_ExportListOptions = Int32
+ExportListOptions_Default: _ExportListOptions = 0
+ExportListOptions_Unicode: _ExportListOptions = 1
+ExportListOptions_TabDelimited: _ExportListOptions = 2
+ExportListOptions_SelectedItemsOnly: _ExportListOptions = 4
+_ListViewMode = Int32
+ListMode_Small_Icons: _ListViewMode = 0
+ListMode_Large_Icons: _ListViewMode = 1
+ListMode_List: _ListViewMode = 2
+ListMode_Detail: _ListViewMode = 3
+ListMode_Filtered: _ListViewMode = 4
+_ViewOptions = Int32
+ViewOption_Default: _ViewOptions = 0
+ViewOption_ScopeTreeHidden: _ViewOptions = 1
+ViewOption_NoToolBars: _ViewOptions = 2
+ViewOption_NotPersistable: _ViewOptions = 4
+ViewOption_ActionPaneHidden: _ViewOptions = 8
 make_head(_module, 'AppEvents')
+make_head(_module, 'CONTEXTMENUITEM')
+make_head(_module, 'CONTEXTMENUITEM2')
 make_head(_module, 'Column')
 make_head(_module, 'Columns')
 make_head(_module, 'ContextMenu')
-make_head(_module, 'CONTEXTMENUITEM')
-make_head(_module, 'CONTEXTMENUITEM2')
 make_head(_module, 'Document')
 make_head(_module, 'Extension')
 make_head(_module, 'Extensions')
@@ -1327,9 +1324,9 @@ make_head(_module, 'IExtendView')
 make_head(_module, 'IHeaderCtrl')
 make_head(_module, 'IHeaderCtrl2')
 make_head(_module, 'IImageList')
+make_head(_module, 'IMMCVersionInfo')
 make_head(_module, 'IMenuButton')
 make_head(_module, 'IMessageView')
-make_head(_module, 'IMMCVersionInfo')
 make_head(_module, 'INodeProperties')
 make_head(_module, 'IPropertySheetCallback')
 make_head(_module, 'IPropertySheetProvider')
@@ -1348,7 +1345,7 @@ make_head(_module, 'IStringTable')
 make_head(_module, 'IToolbar')
 make_head(_module, 'IViewExtensionCallback')
 make_head(_module, 'MENUBUTTONDATA')
-make_head(_module, 'MenuItem')
+make_head(_module, 'MMCBUTTON')
 make_head(_module, 'MMC_COLUMN_DATA')
 make_head(_module, 'MMC_COLUMN_SET_DATA')
 make_head(_module, 'MMC_EXPANDSYNC_STRUCT')
@@ -1364,27 +1361,30 @@ make_head(_module, 'MMC_TASK_DISPLAY_BITMAP')
 make_head(_module, 'MMC_TASK_DISPLAY_OBJECT')
 make_head(_module, 'MMC_TASK_DISPLAY_SYMBOL')
 make_head(_module, 'MMC_VISIBLE_COLUMNS')
-make_head(_module, 'MMCBUTTON')
+make_head(_module, 'MenuItem')
 make_head(_module, 'Node')
 make_head(_module, 'Nodes')
 make_head(_module, 'Properties')
 make_head(_module, 'Property')
 make_head(_module, 'RDCOMPARE')
 make_head(_module, 'RDITEMHDR')
-make_head(_module, 'RESULT_VIEW_TYPE_INFO')
 make_head(_module, 'RESULTDATAITEM')
 make_head(_module, 'RESULTFINDINFO')
-make_head(_module, 'SColumnSetID')
+make_head(_module, 'RESULT_VIEW_TYPE_INFO')
 make_head(_module, 'SCOPEDATAITEM')
-make_head(_module, 'ScopeNamespace')
+make_head(_module, 'SColumnSetID')
 make_head(_module, 'SMMCDataObjects')
 make_head(_module, 'SMMCObjectTypes')
-make_head(_module, 'SnapIn')
-make_head(_module, 'SnapIns')
 make_head(_module, 'SNodeID')
 make_head(_module, 'SNodeID2')
+make_head(_module, 'ScopeNamespace')
+make_head(_module, 'SnapIn')
+make_head(_module, 'SnapIns')
 make_head(_module, 'View')
 make_head(_module, 'Views')
+make_head(_module, '_AppEvents')
+make_head(_module, '_Application')
+make_head(_module, '_EventConnector')
 __all__ = [
     "AUTO_WIDTH",
     "AppEvents",

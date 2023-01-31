@@ -17,12 +17,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _WINIBIO_ENGINE_CONTEXT(Structure):
-    pass
-class _WINIBIO_SENSOR_CONTEXT(Structure):
-    pass
-class _WINIBIO_STORAGE_CONTEXT(Structure):
-    pass
 WINBIO_MAX_STRING_LEN: UInt32 = 256
 WINBIO_SCP_VERSION_1: UInt32 = 1
 WINBIO_SCP_RANDOM_SIZE_V1: UInt32 = 32
@@ -444,9 +438,9 @@ def PIBIO_STORAGE_FIRST_RECORD_FN(Pipeline: POINTER(win32more.Devices.BiometricF
 @winfunctype_pointer
 def PIBIO_STORAGE_GET_CURRENT_RECORD_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), RecordContents: POINTER(win32more.Devices.BiometricFramework.WINBIO_STORAGE_RECORD_head)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PIBIO_STORAGE_GET_DATA_FORMAT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Format: POINTER(Guid), Version: POINTER(win32more.Devices.BiometricFramework.WINBIO_VERSION_head)) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
 def PIBIO_STORAGE_GET_DATABASE_SIZE_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), AvailableRecordCount: POINTER(UIntPtr), TotalRecordCount: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PIBIO_STORAGE_GET_DATA_FORMAT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), Format: POINTER(Guid), Version: POINTER(win32more.Devices.BiometricFramework.WINBIO_VERSION_head)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PIBIO_STORAGE_GET_RECORD_COUNT_FN(Pipeline: POINTER(win32more.Devices.BiometricFramework.WINBIO_PIPELINE_head), RecordCount: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -1123,14 +1117,14 @@ class WINBIO_SENSOR_INTERFACE(Structure):
     StartCaptureEx: win32more.Devices.BiometricFramework.PIBIO_SENSOR_START_CAPTURE_EX_FN
     StartNotifyWake: win32more.Devices.BiometricFramework.PIBIO_SENSOR_START_NOTIFY_WAKE_FN
     FinishNotifyWake: win32more.Devices.BiometricFramework.PIBIO_SENSOR_FINISH_NOTIFY_WAKE_FN
-class WINBIO_SET_INDICATOR(Structure):
-    PayloadSize: UInt32
-    IndicatorStatus: UInt32
 WINBIO_SETTING_SOURCE = UInt32
 WINBIO_SETTING_SOURCE_INVALID: WINBIO_SETTING_SOURCE = 0
 WINBIO_SETTING_SOURCE_DEFAULT: WINBIO_SETTING_SOURCE = 1
 WINBIO_SETTING_SOURCE_LOCAL: WINBIO_SETTING_SOURCE = 3
 WINBIO_SETTING_SOURCE_POLICY: WINBIO_SETTING_SOURCE = 2
+class WINBIO_SET_INDICATOR(Structure):
+    PayloadSize: UInt32
+    IndicatorStatus: UInt32
 class WINBIO_STORAGE_INTERFACE(Structure):
     Version: win32more.Devices.BiometricFramework.WINBIO_ADAPTER_INTERFACE_VERSION
     Type: UInt32
@@ -1205,9 +1199,12 @@ class WINBIO_UPDATE_FIRMWARE(Structure):
 class WINBIO_VERSION(Structure):
     MajorVersion: UInt32
     MinorVersion: UInt32
-make_head(_module, '_WINIBIO_ENGINE_CONTEXT')
-make_head(_module, '_WINIBIO_SENSOR_CONTEXT')
-make_head(_module, '_WINIBIO_STORAGE_CONTEXT')
+class _WINIBIO_ENGINE_CONTEXT(Structure):
+    pass
+class _WINIBIO_SENSOR_CONTEXT(Structure):
+    pass
+class _WINIBIO_STORAGE_CONTEXT(Structure):
+    pass
 make_head(_module, 'PIBIO_ENGINE_ACCEPT_PRIVATE_SENSOR_TYPE_INFO_FN')
 make_head(_module, 'PIBIO_ENGINE_ACCEPT_SAMPLE_DATA_FN')
 make_head(_module, 'PIBIO_ENGINE_ACTIVATE_FN')
@@ -1312,8 +1309,8 @@ make_head(_module, 'PIBIO_STORAGE_DETACH_FN')
 make_head(_module, 'PIBIO_STORAGE_ERASE_DATABASE_FN')
 make_head(_module, 'PIBIO_STORAGE_FIRST_RECORD_FN')
 make_head(_module, 'PIBIO_STORAGE_GET_CURRENT_RECORD_FN')
-make_head(_module, 'PIBIO_STORAGE_GET_DATA_FORMAT_FN')
 make_head(_module, 'PIBIO_STORAGE_GET_DATABASE_SIZE_FN')
+make_head(_module, 'PIBIO_STORAGE_GET_DATA_FORMAT_FN')
 make_head(_module, 'PIBIO_STORAGE_GET_RECORD_COUNT_FN')
 make_head(_module, 'PIBIO_STORAGE_NEXT_RECORD_FN')
 make_head(_module, 'PIBIO_STORAGE_NOTIFY_DATABASE_CHANGE_FN')
@@ -1388,6 +1385,9 @@ make_head(_module, 'WINBIO_SUPPORTED_ALGORITHMS')
 make_head(_module, 'WINBIO_UNIT_SCHEMA')
 make_head(_module, 'WINBIO_UPDATE_FIRMWARE')
 make_head(_module, 'WINBIO_VERSION')
+make_head(_module, '_WINIBIO_ENGINE_CONTEXT')
+make_head(_module, '_WINIBIO_SENSOR_CONTEXT')
+make_head(_module, '_WINIBIO_STORAGE_CONTEXT')
 __all__ = [
     "FACILITY_NONE",
     "FACILITY_WINBIO",

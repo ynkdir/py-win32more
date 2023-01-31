@@ -15,6 +15,8 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+class APP_LOCAL_DEVICE_ID(Structure):
+    value: Byte * 32
 TRUE: win32more.Foundation.BOOL = 1
 FALSE: win32more.Foundation.BOOL = 0
 VARIANT_TRUE: win32more.Foundation.VARIANT_BOOL = -1
@@ -6575,8 +6577,6 @@ def SetLastError(dwErrCode: win32more.Foundation.WIN32_ERROR) -> Void: ...
 def SetLastErrorEx(dwErrCode: win32more.Foundation.WIN32_ERROR, dwType: UInt32) -> Void: ...
 @winfunctype('ntdll.dll')
 def RtlNtStatusToDosError(Status: win32more.Foundation.NTSTATUS) -> UInt32: ...
-class APP_LOCAL_DEVICE_ID(Structure):
-    value: Byte * 32
 BOOL = Int32
 BOOLEAN = Byte
 BSTR = c_wchar_p_no

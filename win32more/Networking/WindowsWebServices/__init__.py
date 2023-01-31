@@ -638,17 +638,14 @@ class WEBAUTHN_COSE_CREDENTIAL_PARAMETER(Structure):
 class WEBAUTHN_COSE_CREDENTIAL_PARAMETERS(Structure):
     cCredentialParameters: UInt32
     pCredentialParameters: POINTER(win32more.Networking.WindowsWebServices.WEBAUTHN_COSE_CREDENTIAL_PARAMETER_head)
-class WEBAUTHN_CRED_BLOB_EXTENSION(Structure):
-    cbCredBlob: UInt32
-    pbCredBlob: c_char_p_no
-class WEBAUTHN_CRED_PROTECT_EXTENSION_IN(Structure):
-    dwCredProtect: UInt32
-    bRequireCredProtect: win32more.Foundation.BOOL
 class WEBAUTHN_CREDENTIAL(Structure):
     dwVersion: UInt32
     cbId: UInt32
     pbId: c_char_p_no
     pwszCredentialType: win32more.Foundation.PWSTR
+class WEBAUTHN_CREDENTIALS(Structure):
+    cCredentials: UInt32
+    pCredentials: POINTER(win32more.Networking.WindowsWebServices.WEBAUTHN_CREDENTIAL_head)
 class WEBAUTHN_CREDENTIAL_ATTESTATION(Structure):
     dwVersion: UInt32
     pwszFormatType: win32more.Foundation.PWSTR
@@ -676,9 +673,12 @@ class WEBAUTHN_CREDENTIAL_EX(Structure):
 class WEBAUTHN_CREDENTIAL_LIST(Structure):
     cCredentials: UInt32
     ppCredentials: POINTER(POINTER(win32more.Networking.WindowsWebServices.WEBAUTHN_CREDENTIAL_EX_head))
-class WEBAUTHN_CREDENTIALS(Structure):
-    cCredentials: UInt32
-    pCredentials: POINTER(win32more.Networking.WindowsWebServices.WEBAUTHN_CREDENTIAL_head)
+class WEBAUTHN_CRED_BLOB_EXTENSION(Structure):
+    cbCredBlob: UInt32
+    pbCredBlob: c_char_p_no
+class WEBAUTHN_CRED_PROTECT_EXTENSION_IN(Structure):
+    dwCredProtect: UInt32
+    bRequireCredProtect: win32more.Foundation.BOOL
 class WEBAUTHN_EXTENSION(Structure):
     pwszExtensionIdentifier: win32more.Foundation.PWSTR
     cbExtension: UInt32
@@ -760,15 +760,18 @@ class WS_BOOL_DESCRIPTION(Structure):
 class WS_BUFFERS(Structure):
     bufferCount: UInt32
     buffers: POINTER(win32more.Networking.WindowsWebServices.WS_BYTES_head)
-class WS_BYTE_ARRAY_DESCRIPTION(Structure):
-    minByteCount: UInt32
-    maxByteCount: UInt32
 class WS_BYTES(Structure):
     length: UInt32
     bytes: c_char_p_no
 class WS_BYTES_DESCRIPTION(Structure):
     minByteCount: UInt32
     maxByteCount: UInt32
+class WS_BYTE_ARRAY_DESCRIPTION(Structure):
+    minByteCount: UInt32
+    maxByteCount: UInt32
+WS_CALLBACK_MODEL = Int32
+WS_SHORT_CALLBACK: WS_CALLBACK_MODEL = 0
+WS_LONG_CALLBACK: WS_CALLBACK_MODEL = 1
 class WS_CALL_PROPERTY(Structure):
     id: win32more.Networking.WindowsWebServices.WS_CALL_PROPERTY_ID
     value: c_void_p
@@ -778,13 +781,15 @@ WS_CALL_PROPERTY_CHECK_MUST_UNDERSTAND: WS_CALL_PROPERTY_ID = 0
 WS_CALL_PROPERTY_SEND_MESSAGE_CONTEXT: WS_CALL_PROPERTY_ID = 1
 WS_CALL_PROPERTY_RECEIVE_MESSAGE_CONTEXT: WS_CALL_PROPERTY_ID = 2
 WS_CALL_PROPERTY_CALL_ID: WS_CALL_PROPERTY_ID = 3
-WS_CALLBACK_MODEL = Int32
-WS_SHORT_CALLBACK: WS_CALLBACK_MODEL = 0
-WS_LONG_CALLBACK: WS_CALLBACK_MODEL = 1
 class WS_CAPI_ASYMMETRIC_SECURITY_KEY_HANDLE(Structure):
     keyHandle: win32more.Networking.WindowsWebServices.WS_SECURITY_KEY_HANDLE
     provider: UIntPtr
     keySpec: UInt32
+@winfunctype_pointer
+def WS_CERTIFICATE_VALIDATION_CALLBACK(certContext: POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head), state: c_void_p) -> win32more.Foundation.HRESULT: ...
+class WS_CERTIFICATE_VALIDATION_CALLBACK_CONTEXT(Structure):
+    callback: win32more.Networking.WindowsWebServices.WS_CERTIFICATE_VALIDATION_CALLBACK
+    state: c_void_p
 class WS_CERT_CREDENTIAL(Structure):
     credentialType: win32more.Networking.WindowsWebServices.WS_CERT_CREDENTIAL_TYPE
 WS_CERT_CREDENTIAL_TYPE = Int32
@@ -806,11 +811,6 @@ class WS_CERT_SIGNED_SAML_AUTHENTICATOR(Structure):
     decryptionCert: POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head)
     samlValidator: win32more.Networking.WindowsWebServices.WS_VALIDATE_SAML_CALLBACK
     samlValidatorCallbackState: c_void_p
-@winfunctype_pointer
-def WS_CERTIFICATE_VALIDATION_CALLBACK(certContext: POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head), state: c_void_p) -> win32more.Foundation.HRESULT: ...
-class WS_CERTIFICATE_VALIDATION_CALLBACK_CONTEXT(Structure):
-    callback: win32more.Networking.WindowsWebServices.WS_CERTIFICATE_VALIDATION_CALLBACK
-    state: c_void_p
 class WS_CHANNEL(Structure):
     pass
 WS_CHANNEL_BINDING = Int32
@@ -918,14 +918,14 @@ WS_CHANNEL_TYPE_DUPLEX: WS_CHANNEL_TYPE = 3
 WS_CHANNEL_TYPE_DUPLEX_SESSION: WS_CHANNEL_TYPE = 7
 WS_CHANNEL_TYPE_REQUEST: WS_CHANNEL_TYPE = 8
 WS_CHANNEL_TYPE_REPLY: WS_CHANNEL_TYPE = 16
-class WS_CHAR_ARRAY_DESCRIPTION(Structure):
-    minCharCount: UInt32
-    maxCharCount: UInt32
 WS_CHARSET = Int32
 WS_CHARSET_AUTO: WS_CHARSET = 0
 WS_CHARSET_UTF8: WS_CHARSET = 1
 WS_CHARSET_UTF16LE: WS_CHARSET = 2
 WS_CHARSET_UTF16BE: WS_CHARSET = 3
+class WS_CHAR_ARRAY_DESCRIPTION(Structure):
+    minCharCount: UInt32
+    maxCharCount: UInt32
 @winfunctype_pointer
 def WS_CLOSE_CHANNEL_CALLBACK(channelInstance: c_void_p, asyncContext: POINTER(win32more.Networking.WindowsWebServices.WS_ASYNC_CONTEXT_head), error: POINTER(win32more.Networking.WindowsWebServices.WS_ERROR_head)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -1217,6 +1217,14 @@ WS_HEAP_PROPERTY_ACTUAL_SIZE: WS_HEAP_PROPERTY_ID = 3
 class WS_HOST_NAMES(Structure):
     hostNames: POINTER(win32more.Networking.WindowsWebServices.WS_STRING_head)
     hostNameCount: UInt32
+class WS_HTTPS_URL(Structure):
+    url: win32more.Networking.WindowsWebServices.WS_URL
+    host: win32more.Networking.WindowsWebServices.WS_STRING
+    port: UInt16
+    portAsString: win32more.Networking.WindowsWebServices.WS_STRING
+    path: win32more.Networking.WindowsWebServices.WS_STRING
+    query: win32more.Networking.WindowsWebServices.WS_STRING
+    fragment: win32more.Networking.WindowsWebServices.WS_STRING
 class WS_HTTP_BINDING_TEMPLATE(Structure):
     channelProperties: win32more.Networking.WindowsWebServices.WS_CHANNEL_PROPERTIES
 class WS_HTTP_HEADER_AUTH_BINDING_TEMPLATE(Structure):
@@ -1331,14 +1339,6 @@ class WS_HTTP_URL(Structure):
     path: win32more.Networking.WindowsWebServices.WS_STRING
     query: win32more.Networking.WindowsWebServices.WS_STRING
     fragment: win32more.Networking.WindowsWebServices.WS_STRING
-class WS_HTTPS_URL(Structure):
-    url: win32more.Networking.WindowsWebServices.WS_URL
-    host: win32more.Networking.WindowsWebServices.WS_STRING
-    port: UInt16
-    portAsString: win32more.Networking.WindowsWebServices.WS_STRING
-    path: win32more.Networking.WindowsWebServices.WS_STRING
-    query: win32more.Networking.WindowsWebServices.WS_STRING
-    fragment: win32more.Networking.WindowsWebServices.WS_STRING
 class WS_INT16_DESCRIPTION(Structure):
     minValue: Int16
     maxValue: Int16
@@ -1355,8 +1355,6 @@ WS_IP_VERSION = Int32
 WS_IP_VERSION_4: WS_IP_VERSION = 1
 WS_IP_VERSION_6: WS_IP_VERSION = 2
 WS_IP_VERSION_AUTO: WS_IP_VERSION = 3
-@winfunctype_pointer
-def WS_IS_DEFAULT_VALUE_CALLBACK(descriptionData: c_void_p, value: c_void_p, defaultValue: c_void_p, valueSize: UInt32, isDefault: POINTER(win32more.Foundation.BOOL), error: POINTER(win32more.Networking.WindowsWebServices.WS_ERROR_head)) -> win32more.Foundation.HRESULT: ...
 class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT(Structure):
     bindingConstraint: win32more.Networking.WindowsWebServices.WS_SECURITY_BINDING_CONSTRAINT
     bindingUsage: win32more.Networking.WindowsWebServices.WS_MESSAGE_SECURITY_USAGE
@@ -1368,6 +1366,8 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT(Structure):
     class _out_e__Struct(Structure):
         issuerAddress: POINTER(win32more.Networking.WindowsWebServices.WS_ENDPOINT_ADDRESS_head)
         requestSecurityTokenTemplate: POINTER(win32more.Networking.WindowsWebServices.WS_XML_BUFFER_head)
+@winfunctype_pointer
+def WS_IS_DEFAULT_VALUE_CALLBACK(descriptionData: c_void_p, value: c_void_p, defaultValue: c_void_p, valueSize: UInt32, isDefault: POINTER(win32more.Foundation.BOOL), error: POINTER(win32more.Networking.WindowsWebServices.WS_ERROR_head)) -> win32more.Foundation.HRESULT: ...
 class WS_ITEM_RANGE(Structure):
     minItemCount: UInt32
     maxItemCount: UInt32
@@ -2838,13 +2838,13 @@ make_head(_module, 'WEBAUTHN_CLIENT_DATA')
 make_head(_module, 'WEBAUTHN_COMMON_ATTESTATION')
 make_head(_module, 'WEBAUTHN_COSE_CREDENTIAL_PARAMETER')
 make_head(_module, 'WEBAUTHN_COSE_CREDENTIAL_PARAMETERS')
-make_head(_module, 'WEBAUTHN_CRED_BLOB_EXTENSION')
-make_head(_module, 'WEBAUTHN_CRED_PROTECT_EXTENSION_IN')
 make_head(_module, 'WEBAUTHN_CREDENTIAL')
+make_head(_module, 'WEBAUTHN_CREDENTIALS')
 make_head(_module, 'WEBAUTHN_CREDENTIAL_ATTESTATION')
 make_head(_module, 'WEBAUTHN_CREDENTIAL_EX')
 make_head(_module, 'WEBAUTHN_CREDENTIAL_LIST')
-make_head(_module, 'WEBAUTHN_CREDENTIALS')
+make_head(_module, 'WEBAUTHN_CRED_BLOB_EXTENSION')
+make_head(_module, 'WEBAUTHN_CRED_PROTECT_EXTENSION_IN')
 make_head(_module, 'WEBAUTHN_EXTENSION')
 make_head(_module, 'WEBAUTHN_EXTENSIONS')
 make_head(_module, 'WEBAUTHN_RP_ENTITY_INFORMATION')
@@ -2864,18 +2864,18 @@ make_head(_module, 'WS_ASYNC_STATE')
 make_head(_module, 'WS_ATTRIBUTE_DESCRIPTION')
 make_head(_module, 'WS_BOOL_DESCRIPTION')
 make_head(_module, 'WS_BUFFERS')
-make_head(_module, 'WS_BYTE_ARRAY_DESCRIPTION')
 make_head(_module, 'WS_BYTES')
 make_head(_module, 'WS_BYTES_DESCRIPTION')
+make_head(_module, 'WS_BYTE_ARRAY_DESCRIPTION')
 make_head(_module, 'WS_CALL_PROPERTY')
 make_head(_module, 'WS_CAPI_ASYMMETRIC_SECURITY_KEY_HANDLE')
+make_head(_module, 'WS_CERTIFICATE_VALIDATION_CALLBACK')
+make_head(_module, 'WS_CERTIFICATE_VALIDATION_CALLBACK_CONTEXT')
 make_head(_module, 'WS_CERT_CREDENTIAL')
 make_head(_module, 'WS_CERT_ENDPOINT_IDENTITY')
 make_head(_module, 'WS_CERT_ISSUER_LIST_NOTIFICATION_CALLBACK')
 make_head(_module, 'WS_CERT_MESSAGE_SECURITY_BINDING_CONSTRAINT')
 make_head(_module, 'WS_CERT_SIGNED_SAML_AUTHENTICATOR')
-make_head(_module, 'WS_CERTIFICATE_VALIDATION_CALLBACK')
-make_head(_module, 'WS_CERTIFICATE_VALIDATION_CALLBACK_CONTEXT')
 make_head(_module, 'WS_CHANNEL')
 make_head(_module, 'WS_CHANNEL_DECODER')
 make_head(_module, 'WS_CHANNEL_ENCODER')
@@ -2944,6 +2944,7 @@ make_head(_module, 'WS_HEAP')
 make_head(_module, 'WS_HEAP_PROPERTIES')
 make_head(_module, 'WS_HEAP_PROPERTY')
 make_head(_module, 'WS_HOST_NAMES')
+make_head(_module, 'WS_HTTPS_URL')
 make_head(_module, 'WS_HTTP_BINDING_TEMPLATE')
 make_head(_module, 'WS_HTTP_HEADER_AUTH_BINDING_TEMPLATE')
 make_head(_module, 'WS_HTTP_HEADER_AUTH_POLICY_DESCRIPTION')
@@ -2969,13 +2970,12 @@ make_head(_module, 'WS_HTTP_SSL_USERNAME_POLICY_DESCRIPTION')
 make_head(_module, 'WS_HTTP_SSL_USERNAME_SECURITY_CONTEXT_BINDING_TEMPLATE')
 make_head(_module, 'WS_HTTP_SSL_USERNAME_SECURITY_CONTEXT_POLICY_DESCRIPTION')
 make_head(_module, 'WS_HTTP_URL')
-make_head(_module, 'WS_HTTPS_URL')
 make_head(_module, 'WS_INT16_DESCRIPTION')
 make_head(_module, 'WS_INT32_DESCRIPTION')
 make_head(_module, 'WS_INT64_DESCRIPTION')
 make_head(_module, 'WS_INT8_DESCRIPTION')
-make_head(_module, 'WS_IS_DEFAULT_VALUE_CALLBACK')
 make_head(_module, 'WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT')
+make_head(_module, 'WS_IS_DEFAULT_VALUE_CALLBACK')
 make_head(_module, 'WS_ITEM_RANGE')
 make_head(_module, 'WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING')
 make_head(_module, 'WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_CONSTRAINT')

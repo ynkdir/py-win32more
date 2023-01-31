@@ -70,17 +70,17 @@ class MAGIMAGEHEADER(Structure):
     stride: UInt32
     offset: UInt32
     cbSize: UIntPtr
-@winfunctype_pointer
-def MagImageScalingCallback(hwnd: win32more.Foundation.HWND, srcdata: c_void_p, srcheader: win32more.UI.Magnification.MAGIMAGEHEADER, destdata: c_void_p, destheader: win32more.UI.Magnification.MAGIMAGEHEADER, unclipped: win32more.Foundation.RECT, clipped: win32more.Foundation.RECT, dirty: win32more.Graphics.Gdi.HRGN) -> win32more.Foundation.BOOL: ...
 class MAGTRANSFORM(Structure):
     v: Single * 9
 MW_FILTERMODE = UInt32
 MW_FILTERMODE_EXCLUDE: MW_FILTERMODE = 0
 MW_FILTERMODE_INCLUDE: MW_FILTERMODE = 1
+@winfunctype_pointer
+def MagImageScalingCallback(hwnd: win32more.Foundation.HWND, srcdata: c_void_p, srcheader: win32more.UI.Magnification.MAGIMAGEHEADER, destdata: c_void_p, destheader: win32more.UI.Magnification.MAGIMAGEHEADER, unclipped: win32more.Foundation.RECT, clipped: win32more.Foundation.RECT, dirty: win32more.Graphics.Gdi.HRGN) -> win32more.Foundation.BOOL: ...
 make_head(_module, 'MAGCOLOREFFECT')
 make_head(_module, 'MAGIMAGEHEADER')
-make_head(_module, 'MagImageScalingCallback')
 make_head(_module, 'MAGTRANSFORM')
+make_head(_module, 'MagImageScalingCallback')
 __all__ = [
     "MAGCOLOREFFECT",
     "MAGIMAGEHEADER",

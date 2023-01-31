@@ -1970,6 +1970,22 @@ class PARAFORMAT(Structure):
     class _Anonymous_e__Union(Union):
         wReserved: UInt16
         wEffects: UInt16
+class PARAFORMAT2(Structure):
+    Base: win32more.UI.Controls.RichEdit.PARAFORMAT
+    dySpaceBefore: Int32
+    dySpaceAfter: Int32
+    dyLineSpacing: Int32
+    sStyle: Int16
+    bLineSpacingRule: Byte
+    bOutlineLevel: Byte
+    wShadingWeight: UInt16
+    wShadingStyle: win32more.UI.Controls.RichEdit.PARAFORMAT_SHADING_STYLE
+    wNumberingStart: UInt16
+    wNumberingStyle: win32more.UI.Controls.RichEdit.PARAFORMAT_NUMBERING_STYLE
+    wNumberingTab: UInt16
+    wBorderSpace: UInt16
+    wBorderWidth: UInt16
+    wBorders: win32more.UI.Controls.RichEdit.PARAFORMAT_BORDERS
 PARAFORMAT_ALIGNMENT = UInt16
 PFA_CENTER: PARAFORMAT_ALIGNMENT = 3
 PFA_LEFT: PARAFORMAT_ALIGNMENT = 1
@@ -2019,22 +2035,6 @@ PARAFORMAT_SHADING_STYLE_LIGHT_DOWN_DIAG: PARAFORMAT_SHADING_STYLE = 9
 PARAFORMAT_SHADING_STYLE_LIGHT_UP_DIAG: PARAFORMAT_SHADING_STYLE = 10
 PARAFORMAT_SHADING_STYLE_LIGHT_GRID: PARAFORMAT_SHADING_STYLE = 11
 PARAFORMAT_SHADING_STYLE_LIGHT_TRELLIS: PARAFORMAT_SHADING_STYLE = 12
-class PARAFORMAT2(Structure):
-    Base: win32more.UI.Controls.RichEdit.PARAFORMAT
-    dySpaceBefore: Int32
-    dySpaceAfter: Int32
-    dyLineSpacing: Int32
-    sStyle: Int16
-    bLineSpacingRule: Byte
-    bOutlineLevel: Byte
-    wShadingWeight: UInt16
-    wShadingStyle: win32more.UI.Controls.RichEdit.PARAFORMAT_SHADING_STYLE
-    wNumberingStart: UInt16
-    wNumberingStyle: win32more.UI.Controls.RichEdit.PARAFORMAT_NUMBERING_STYLE
-    wNumberingTab: UInt16
-    wBorderSpace: UInt16
-    wBorderWidth: UInt16
-    wBorders: win32more.UI.Controls.RichEdit.PARAFORMAT_BORDERS
 @winfunctype_pointer
 def PCreateTextServices(punkOuter: win32more.System.Com.IUnknown_head, pITextHost: win32more.UI.Controls.RichEdit.ITextHost_head, ppUnk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -2082,6 +2082,14 @@ class REQRESIZE(Structure):
     nmhdr: win32more.UI.Controls.NMHDR
     rc: win32more.Foundation.RECT
     _pack_ = 4
+class RICHEDIT_IMAGE_PARAMETERS(Structure):
+    xWidth: Int32
+    yHeight: Int32
+    Ascent: Int32
+    Type: win32more.Graphics.Gdi.TEXT_ALIGN_OPTIONS
+    pwszAlternateText: win32more.Foundation.PWSTR
+    pIStream: win32more.System.Com.IStream_head
+    _pack_ = 4
 RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE = UInt16
 SEL_EMPTY: RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE = 0
 SEL_TEXT: RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE = 1
@@ -2095,14 +2103,6 @@ REO_GETOBJ_PSTG: RICH_EDIT_GET_OBJECT_FLAGS = 2
 REO_GETOBJ_POLESITE: RICH_EDIT_GET_OBJECT_FLAGS = 4
 REO_GETOBJ_NO_INTERFACES: RICH_EDIT_GET_OBJECT_FLAGS = 0
 REO_GETOBJ_ALL_INTERFACES: RICH_EDIT_GET_OBJECT_FLAGS = 7
-class RICHEDIT_IMAGE_PARAMETERS(Structure):
-    xWidth: Int32
-    yHeight: Int32
-    Ascent: Int32
-    Type: win32more.Graphics.Gdi.TEXT_ALIGN_OPTIONS
-    pwszAlternateText: win32more.Foundation.PWSTR
-    pIStream: win32more.System.Com.IStream_head
-    _pack_ = 4
 class SELCHANGE(Structure):
     nmhdr: win32more.UI.Controls.NMHDR
     chrg: win32more.UI.Controls.RichEdit.CHARRANGE
@@ -2152,6 +2152,33 @@ class TEXTRANGEW(Structure):
     chrg: win32more.UI.Controls.RichEdit.CHARRANGE
     lpstrText: win32more.Foundation.PWSTR
     _pack_ = 4
+TXTBACKSTYLE = Int32
+TXTBACK_TRANSPARENT: TXTBACKSTYLE = 0
+TXTBACK_OPAQUE: TXTBACKSTYLE = 1
+TXTHITRESULT = Int32
+TXTHITRESULT_NOHIT: TXTHITRESULT = 0
+TXTHITRESULT_TRANSPARENT: TXTHITRESULT = 1
+TXTHITRESULT_CLOSE: TXTHITRESULT = 2
+TXTHITRESULT_HIT: TXTHITRESULT = 3
+TXTNATURALSIZE = Int32
+TXTNS_FITTOCONTENT2: TXTNATURALSIZE = 0
+TXTNS_FITTOCONTENT: TXTNATURALSIZE = 1
+TXTNS_ROUNDTOLINE: TXTNATURALSIZE = 2
+TXTNS_FITTOCONTENT3: TXTNATURALSIZE = 3
+TXTNS_FITTOCONTENTWSP: TXTNATURALSIZE = 4
+TXTNS_INCLUDELASTLINE: TXTNATURALSIZE = 1073741824
+TXTNS_EMU: TXTNATURALSIZE = -2147483648
+TXTVIEW = Int32
+TXTVIEW_ACTIVE: TXTVIEW = 0
+TXTVIEW_INACTIVE: TXTVIEW = -1
+UNDONAMEID = Int32
+UID_UNKNOWN: UNDONAMEID = 0
+UID_TYPING: UNDONAMEID = 1
+UID_DELETE: UNDONAMEID = 2
+UID_DRAGDROP: UNDONAMEID = 3
+UID_CUT: UNDONAMEID = 4
+UID_PASTE: UNDONAMEID = 5
+UID_AUTOTABLE: UNDONAMEID = 6
 tomConstants = Int32
 tomConstants_tomFalse: tomConstants = 0
 tomConstants_tomTrue: tomConstants = -1
@@ -2737,33 +2764,6 @@ tomConstants_tomRowUpdate: tomConstants = 1
 tomConstants_tomRowApplyDefault: tomConstants = 0
 tomConstants_tomCellStructureChangeOnly: tomConstants = 1
 tomConstants_tomRowHeightActual: tomConstants = 2059
-TXTBACKSTYLE = Int32
-TXTBACK_TRANSPARENT: TXTBACKSTYLE = 0
-TXTBACK_OPAQUE: TXTBACKSTYLE = 1
-TXTHITRESULT = Int32
-TXTHITRESULT_NOHIT: TXTHITRESULT = 0
-TXTHITRESULT_TRANSPARENT: TXTHITRESULT = 1
-TXTHITRESULT_CLOSE: TXTHITRESULT = 2
-TXTHITRESULT_HIT: TXTHITRESULT = 3
-TXTNATURALSIZE = Int32
-TXTNS_FITTOCONTENT2: TXTNATURALSIZE = 0
-TXTNS_FITTOCONTENT: TXTNATURALSIZE = 1
-TXTNS_ROUNDTOLINE: TXTNATURALSIZE = 2
-TXTNS_FITTOCONTENT3: TXTNATURALSIZE = 3
-TXTNS_FITTOCONTENTWSP: TXTNATURALSIZE = 4
-TXTNS_INCLUDELASTLINE: TXTNATURALSIZE = 1073741824
-TXTNS_EMU: TXTNATURALSIZE = -2147483648
-TXTVIEW = Int32
-TXTVIEW_ACTIVE: TXTVIEW = 0
-TXTVIEW_INACTIVE: TXTVIEW = -1
-UNDONAMEID = Int32
-UID_UNKNOWN: UNDONAMEID = 0
-UID_TYPING: UNDONAMEID = 1
-UID_DELETE: UNDONAMEID = 2
-UID_DRAGDROP: UNDONAMEID = 3
-UID_CUT: UNDONAMEID = 4
-UID_PASTE: UNDONAMEID = 5
-UID_AUTOTABLE: UNDONAMEID = 6
 make_head(_module, 'AutoCorrectProc')
 make_head(_module, 'BIDIOPTIONS')
 make_head(_module, 'CARET_INFO')

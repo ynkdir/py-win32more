@@ -17,23 +17,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class __DummyPinType__(Structure):
-    pinType: UInt32
-class __mbnapi_ReferenceRemainingTypes__(Structure):
-    bandClass: win32more.NetworkManagement.MobileBroadband.MBN_BAND_CLASS
-    contextConstants: win32more.NetworkManagement.MobileBroadband.MBN_CONTEXT_CONSTANTS
-    ctrlCaps: win32more.NetworkManagement.MobileBroadband.MBN_CTRL_CAPS
-    dataClass: win32more.NetworkManagement.MobileBroadband.MBN_DATA_CLASS
-    interfaceCapsConstants: win32more.NetworkManagement.MobileBroadband.MBN_INTERFACE_CAPS_CONSTANTS
-    pinConstants: win32more.NetworkManagement.MobileBroadband.MBN_PIN_CONSTANTS
-    providerConstants: win32more.NetworkManagement.MobileBroadband.MBN_PROVIDER_CONSTANTS
-    providerState: win32more.NetworkManagement.MobileBroadband.MBN_PROVIDER_STATE
-    registrationConstants: win32more.NetworkManagement.MobileBroadband.MBN_REGISTRATION_CONSTANTS
-    signalConstants: win32more.NetworkManagement.MobileBroadband.MBN_SIGNAL_CONSTANTS
-    smsCaps: win32more.NetworkManagement.MobileBroadband.MBN_SMS_CAPS
-    smsConstants: win32more.NetworkManagement.MobileBroadband.WWAEXT_SMS_CONSTANTS
-    wwaextSmsConstants: win32more.NetworkManagement.MobileBroadband.WWAEXT_SMS_CONSTANTS
-    smsStatusFlag: win32more.NetworkManagement.MobileBroadband.MBN_SMS_STATUS_FLAG
 class IDummyMBNUCMExt(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('dcbbbab6-ffff-4bbb-aa-ee-33-8e-36-8a-f6-fa')
@@ -150,6 +133,11 @@ class IMbnDeviceService(c_void_p):
     def get_IsCommandSessionOpen(value: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
     @commethod(14)
     def get_IsDataSessionOpen(value: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IMbnDeviceServiceStateEvents(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('5d3ff196-89ee-49d8-8b-60-33-ff-dd-ff-c5-8d')
+    @commethod(3)
+    def OnSessionsStateChange(interfaceID: win32more.Foundation.BSTR, stateChange: win32more.NetworkManagement.MobileBroadband.MBN_DEVICE_SERVICE_SESSIONS_STATE) -> win32more.Foundation.HRESULT: ...
 class IMbnDeviceServicesContext(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('fc5ac347-1592-4068-80-bb-6a-57-58-01-50-d8')
@@ -191,11 +179,6 @@ class IMbnDeviceServicesManager(c_void_p):
     Guid = Guid('20a26258-6811-4478-ac-1d-13-32-4e-45-e4-1c')
     @commethod(3)
     def GetDeviceServicesContext(networkInterfaceID: win32more.Foundation.BSTR, mbnDevicesContext: POINTER(win32more.NetworkManagement.MobileBroadband.IMbnDeviceServicesContext_head)) -> win32more.Foundation.HRESULT: ...
-class IMbnDeviceServiceStateEvents(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('5d3ff196-89ee-49d8-8b-60-33-ff-dd-ff-c5-8d')
-    @commethod(3)
-    def OnSessionsStateChange(interfaceID: win32more.Foundation.BSTR, stateChange: win32more.NetworkManagement.MobileBroadband.MBN_DEVICE_SERVICE_SESSIONS_STATE) -> win32more.Foundation.HRESULT: ...
 class IMbnInterface(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('dcbbbab6-2001-4bbb-aa-ee-33-8e-36-8a-f6-fa')
@@ -605,11 +588,11 @@ class MBN_DEVICE_SERVICE(Structure):
     deviceServiceID: win32more.Foundation.BSTR
     dataWriteSupported: win32more.Foundation.VARIANT_BOOL
     dataReadSupported: win32more.Foundation.VARIANT_BOOL
-MBN_DEVICE_SERVICE_SESSIONS_STATE = Int32
-MBN_DEVICE_SERVICE_SESSIONS_RESTORED: MBN_DEVICE_SERVICE_SESSIONS_STATE = 0
 MBN_DEVICE_SERVICES_INTERFACE_STATE = Int32
 MBN_DEVICE_SERVICES_CAPABLE_INTERFACE_ARRIVAL: MBN_DEVICE_SERVICES_INTERFACE_STATE = 0
 MBN_DEVICE_SERVICES_CAPABLE_INTERFACE_REMOVAL: MBN_DEVICE_SERVICES_INTERFACE_STATE = 1
+MBN_DEVICE_SERVICE_SESSIONS_STATE = Int32
+MBN_DEVICE_SERVICE_SESSIONS_RESTORED: MBN_DEVICE_SERVICE_SESSIONS_STATE = 0
 class MBN_INTERFACE_CAPS(Structure):
     cellularClass: win32more.NetworkManagement.MobileBroadband.MBN_CELLULAR_CLASS
     voiceClass: win32more.NetworkManagement.MobileBroadband.MBN_VOICE_CLASS
@@ -669,6 +652,11 @@ class MBN_PROVIDER(Structure):
     providerState: UInt32
     providerName: win32more.Foundation.BSTR
     dataClass: UInt32
+class MBN_PROVIDER2(Structure):
+    provider: win32more.NetworkManagement.MobileBroadband.MBN_PROVIDER
+    cellularClass: win32more.NetworkManagement.MobileBroadband.MBN_CELLULAR_CLASS
+    signalStrength: UInt32
+    signalError: UInt32
 MBN_PROVIDER_CONSTANTS = Int32
 MBN_PROVIDERNAME_LEN: MBN_PROVIDER_CONSTANTS = 20
 MBN_PROVIDERID_LEN: MBN_PROVIDER_CONSTANTS = 6
@@ -680,11 +668,6 @@ MBN_PROVIDER_STATE_PREFERRED: MBN_PROVIDER_STATE = 4
 MBN_PROVIDER_STATE_VISIBLE: MBN_PROVIDER_STATE = 8
 MBN_PROVIDER_STATE_REGISTERED: MBN_PROVIDER_STATE = 16
 MBN_PROVIDER_STATE_PREFERRED_MULTICARRIER: MBN_PROVIDER_STATE = 32
-class MBN_PROVIDER2(Structure):
-    provider: win32more.NetworkManagement.MobileBroadband.MBN_PROVIDER
-    cellularClass: win32more.NetworkManagement.MobileBroadband.MBN_CELLULAR_CLASS
-    signalStrength: UInt32
-    signalError: UInt32
 MBN_RADIO = Int32
 MBN_RADIO_OFF: MBN_RADIO = 0
 MBN_RADIO_ON: MBN_RADIO = 1
@@ -782,8 +765,23 @@ WWAEXT_SMS_CONSTANTS = Int32
 MBN_MESSAGE_INDEX_NONE: WWAEXT_SMS_CONSTANTS = 0
 MBN_CDMA_SHORT_MSG_SIZE_UNKNOWN: WWAEXT_SMS_CONSTANTS = 0
 MBN_CDMA_SHORT_MSG_SIZE_MAX: WWAEXT_SMS_CONSTANTS = 160
-make_head(_module, '__DummyPinType__')
-make_head(_module, '__mbnapi_ReferenceRemainingTypes__')
+class __DummyPinType__(Structure):
+    pinType: UInt32
+class __mbnapi_ReferenceRemainingTypes__(Structure):
+    bandClass: win32more.NetworkManagement.MobileBroadband.MBN_BAND_CLASS
+    contextConstants: win32more.NetworkManagement.MobileBroadband.MBN_CONTEXT_CONSTANTS
+    ctrlCaps: win32more.NetworkManagement.MobileBroadband.MBN_CTRL_CAPS
+    dataClass: win32more.NetworkManagement.MobileBroadband.MBN_DATA_CLASS
+    interfaceCapsConstants: win32more.NetworkManagement.MobileBroadband.MBN_INTERFACE_CAPS_CONSTANTS
+    pinConstants: win32more.NetworkManagement.MobileBroadband.MBN_PIN_CONSTANTS
+    providerConstants: win32more.NetworkManagement.MobileBroadband.MBN_PROVIDER_CONSTANTS
+    providerState: win32more.NetworkManagement.MobileBroadband.MBN_PROVIDER_STATE
+    registrationConstants: win32more.NetworkManagement.MobileBroadband.MBN_REGISTRATION_CONSTANTS
+    signalConstants: win32more.NetworkManagement.MobileBroadband.MBN_SIGNAL_CONSTANTS
+    smsCaps: win32more.NetworkManagement.MobileBroadband.MBN_SMS_CAPS
+    smsConstants: win32more.NetworkManagement.MobileBroadband.WWAEXT_SMS_CONSTANTS
+    wwaextSmsConstants: win32more.NetworkManagement.MobileBroadband.WWAEXT_SMS_CONSTANTS
+    smsStatusFlag: win32more.NetworkManagement.MobileBroadband.MBN_SMS_STATUS_FLAG
 make_head(_module, 'IDummyMBNUCMExt')
 make_head(_module, 'IMbnConnection')
 make_head(_module, 'IMbnConnectionContext')
@@ -796,10 +794,10 @@ make_head(_module, 'IMbnConnectionProfileEvents')
 make_head(_module, 'IMbnConnectionProfileManager')
 make_head(_module, 'IMbnConnectionProfileManagerEvents')
 make_head(_module, 'IMbnDeviceService')
+make_head(_module, 'IMbnDeviceServiceStateEvents')
 make_head(_module, 'IMbnDeviceServicesContext')
 make_head(_module, 'IMbnDeviceServicesEvents')
 make_head(_module, 'IMbnDeviceServicesManager')
-make_head(_module, 'IMbnDeviceServiceStateEvents')
 make_head(_module, 'IMbnInterface')
 make_head(_module, 'IMbnInterfaceEvents')
 make_head(_module, 'IMbnInterfaceManager')
@@ -834,6 +832,8 @@ make_head(_module, 'MBN_PROVIDER')
 make_head(_module, 'MBN_PROVIDER2')
 make_head(_module, 'MBN_SMS_FILTER')
 make_head(_module, 'MBN_SMS_STATUS_INFO')
+make_head(_module, '__DummyPinType__')
+make_head(_module, '__mbnapi_ReferenceRemainingTypes__')
 __all__ = [
     "IDummyMBNUCMExt",
     "IMbnConnection",

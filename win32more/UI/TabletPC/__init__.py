@@ -20,33 +20,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _IInkCollectorEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('11a583f2-712d-4fea-ab-cf-ab-4a-f3-8e-a0-6b')
-class _IInkEditEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('e3b0b797-a72e-46db-a0-d7-6c-9e-ba-8e-9b-bc')
-class _IInkEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('427b1865-ca3f-479a-83-a9-0f-42-0f-2a-00-73')
-class _IInkOverlayEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('31179b69-e563-489e-b1-6f-71-2f-1e-8a-06-51')
-class _IInkPictureEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('60ff4fee-22ff-4484-ac-c1-d3-08-d9-cd-7e-a3')
-class _IInkRecognitionEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('17bce92f-2e21-47fd-9d-33-3c-6a-fb-fd-8c-59')
-class _IInkStrokesEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('f33053ec-5d25-430a-92-8f-76-a6-49-1d-de-15')
-class _IMathInputControlEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('683336b5-a47d-4358-96-f9-87-5a-47-2a-e7-0a')
-class _IPenInputPanelEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('b7e489da-3719-439f-84-8f-e7-ac-bd-82-0f-17')
 ALT_BREAKS = Int32
 ALT_BREAKS_SAME: ALT_BREAKS = 0
 ALT_BREAKS_UNIQUE: ALT_BREAKS = 1
@@ -938,10 +911,6 @@ EventMask_InPlaceVisibilityChanged: EventMask = 512
 EventMask_TextInserting: EventMask = 1024
 EventMask_TextInserted: EventMask = 2048
 EventMask_All: EventMask = 4095
-class FLICK_DATA(Structure):
-    _bitfield: Int32
-class FLICK_POINT(Structure):
-    _bitfield: Int32
 FLICKACTION_COMMANDCODE = Int32
 FLICKACTION_COMMANDCODE_NULL: FLICKACTION_COMMANDCODE = 0
 FLICKACTION_COMMANDCODE_SCROLL: FLICKACTION_COMMANDCODE = 1
@@ -966,20 +935,24 @@ FLICKMODE_ON: FLICKMODE = 1
 FLICKMODE_LEARNING: FLICKMODE = 2
 FLICKMODE_MAX: FLICKMODE = 2
 FLICKMODE_DEFAULT: FLICKMODE = 1
+class FLICK_DATA(Structure):
+    _bitfield: Int32
+class FLICK_POINT(Structure):
+    _bitfield: Int32
 class GESTURE_DATA(Structure):
     gestureId: Int32
     recoConfidence: Int32
     strokeCount: Int32
-GestureRecognizer = Guid('ea30c654-c62c-441f-ac-00-95-f9-a1-96-78-2c')
 GET_DANDIDATE_FLAGS = Int32
 TCF_ALLOW_RECOGNITION: GET_DANDIDATE_FLAGS = 1
 TCF_FORCE_RECOGNITION: GET_DANDIDATE_FLAGS = 2
-HandwrittenTextInsertion = Guid('9f074ee2-e6e9-4d8a-a0-47-eb-5b-5c-3c-55-da')
+GestureRecognizer = Guid('ea30c654-c62c-441f-ac-00-95-f9-a1-96-78-2c')
 HRECOALT = IntPtr
 HRECOCONTEXT = IntPtr
 HRECOGNIZER = IntPtr
 HRECOLATTICE = IntPtr
 HRECOWORDLIST = IntPtr
+HandwrittenTextInsertion = Guid('9f074ee2-e6e9-4d8a-a0-47-eb-5b-5c-3c-55-da')
 class IDynamicRenderer(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('a079468e-7165-46f9-b7-af-98-ad-01-a9-30-09')
@@ -2273,310 +2246,16 @@ class IMathInputControl(c_void_p):
     def RemoveFunctionName(FunctionName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
     @commethod(23)
     def GetHoverIcon(HoverImage: POINTER(win32more.System.Ole.IPictureDisp_head)) -> win32more.Foundation.HRESULT: ...
-Ink = Guid('13de4a42-8d21-4c8e-bf-9c-8f-69-cb-06-8f-ca')
-INK_METRIC_FLAGS = Int32
-IMF_FONT_SELECTED_IN_HDC: INK_METRIC_FLAGS = 1
-IMF_ITALIC: INK_METRIC_FLAGS = 2
-IMF_BOLD: INK_METRIC_FLAGS = 4
-InkApplicationGesture = Int32
-IAG_AllGestures: InkApplicationGesture = 0
-IAG_NoGesture: InkApplicationGesture = 61440
-IAG_Scratchout: InkApplicationGesture = 61441
-IAG_Triangle: InkApplicationGesture = 61442
-IAG_Square: InkApplicationGesture = 61443
-IAG_Star: InkApplicationGesture = 61444
-IAG_Check: InkApplicationGesture = 61445
-IAG_Curlicue: InkApplicationGesture = 61456
-IAG_DoubleCurlicue: InkApplicationGesture = 61457
-IAG_Circle: InkApplicationGesture = 61472
-IAG_DoubleCircle: InkApplicationGesture = 61473
-IAG_SemiCircleLeft: InkApplicationGesture = 61480
-IAG_SemiCircleRight: InkApplicationGesture = 61481
-IAG_ChevronUp: InkApplicationGesture = 61488
-IAG_ChevronDown: InkApplicationGesture = 61489
-IAG_ChevronLeft: InkApplicationGesture = 61490
-IAG_ChevronRight: InkApplicationGesture = 61491
-IAG_ArrowUp: InkApplicationGesture = 61496
-IAG_ArrowDown: InkApplicationGesture = 61497
-IAG_ArrowLeft: InkApplicationGesture = 61498
-IAG_ArrowRight: InkApplicationGesture = 61499
-IAG_Up: InkApplicationGesture = 61528
-IAG_Down: InkApplicationGesture = 61529
-IAG_Left: InkApplicationGesture = 61530
-IAG_Right: InkApplicationGesture = 61531
-IAG_UpDown: InkApplicationGesture = 61536
-IAG_DownUp: InkApplicationGesture = 61537
-IAG_LeftRight: InkApplicationGesture = 61538
-IAG_RightLeft: InkApplicationGesture = 61539
-IAG_UpLeftLong: InkApplicationGesture = 61540
-IAG_UpRightLong: InkApplicationGesture = 61541
-IAG_DownLeftLong: InkApplicationGesture = 61542
-IAG_DownRightLong: InkApplicationGesture = 61543
-IAG_UpLeft: InkApplicationGesture = 61544
-IAG_UpRight: InkApplicationGesture = 61545
-IAG_DownLeft: InkApplicationGesture = 61546
-IAG_DownRight: InkApplicationGesture = 61547
-IAG_LeftUp: InkApplicationGesture = 61548
-IAG_LeftDown: InkApplicationGesture = 61549
-IAG_RightUp: InkApplicationGesture = 61550
-IAG_RightDown: InkApplicationGesture = 61551
-IAG_Exclamation: InkApplicationGesture = 61604
-IAG_Tap: InkApplicationGesture = 61680
-IAG_DoubleTap: InkApplicationGesture = 61681
-InkBoundingBoxMode = Int32
-IBBM_Default: InkBoundingBoxMode = 0
-IBBM_NoCurveFit: InkBoundingBoxMode = 1
-IBBM_CurveFit: InkBoundingBoxMode = 2
-IBBM_PointsOnly: InkBoundingBoxMode = 3
-IBBM_Union: InkBoundingBoxMode = 4
-InkClipboardFormats = Int32
-ICF_None: InkClipboardFormats = 0
-ICF_InkSerializedFormat: InkClipboardFormats = 1
-ICF_SketchInk: InkClipboardFormats = 2
-ICF_TextInk: InkClipboardFormats = 6
-ICF_EnhancedMetafile: InkClipboardFormats = 8
-ICF_Metafile: InkClipboardFormats = 32
-ICF_Bitmap: InkClipboardFormats = 64
-ICF_PasteMask: InkClipboardFormats = 7
-ICF_CopyMask: InkClipboardFormats = 127
-ICF_Default: InkClipboardFormats = 127
-InkClipboardModes = Int32
-ICB_Copy: InkClipboardModes = 0
-ICB_Cut: InkClipboardModes = 1
-ICB_ExtractOnly: InkClipboardModes = 48
-ICB_DelayedCopy: InkClipboardModes = 32
-ICB_Default: InkClipboardModes = 0
-InkCollectionMode = Int32
-ICM_InkOnly: InkCollectionMode = 0
-ICM_GestureOnly: InkCollectionMode = 1
-ICM_InkAndGesture: InkCollectionMode = 2
-InkCollector = Guid('43fb1553-ad74-4ee8-88-e4-3e-6d-aa-c9-15-db')
-InkCollectorEventInterest = Int32
-ICEI_DefaultEvents: InkCollectorEventInterest = -1
-ICEI_CursorDown: InkCollectorEventInterest = 0
-ICEI_Stroke: InkCollectorEventInterest = 1
-ICEI_NewPackets: InkCollectorEventInterest = 2
-ICEI_NewInAirPackets: InkCollectorEventInterest = 3
-ICEI_CursorButtonDown: InkCollectorEventInterest = 4
-ICEI_CursorButtonUp: InkCollectorEventInterest = 5
-ICEI_CursorInRange: InkCollectorEventInterest = 6
-ICEI_CursorOutOfRange: InkCollectorEventInterest = 7
-ICEI_SystemGesture: InkCollectorEventInterest = 8
-ICEI_TabletAdded: InkCollectorEventInterest = 9
-ICEI_TabletRemoved: InkCollectorEventInterest = 10
-ICEI_MouseDown: InkCollectorEventInterest = 11
-ICEI_MouseMove: InkCollectorEventInterest = 12
-ICEI_MouseUp: InkCollectorEventInterest = 13
-ICEI_MouseWheel: InkCollectorEventInterest = 14
-ICEI_DblClick: InkCollectorEventInterest = 15
-ICEI_AllEvents: InkCollectorEventInterest = 16
-InkCursorButtonState = Int32
-ICBS_Unavailable: InkCursorButtonState = 0
-ICBS_Up: InkCursorButtonState = 1
-ICBS_Down: InkCursorButtonState = 2
-InkDisp = Guid('937c1a34-151d-4610-9c-a6-a8-cc-9b-db-5d-83')
-InkDisplayMode = Int32
-IDM_Ink: InkDisplayMode = 0
-IDM_Text: InkDisplayMode = 1
-InkDivider = Guid('8854f6a0-4683-4ae7-91-91-75-2f-e6-46-12-c3')
-InkDivisionType = Int32
-IDT_Segment: InkDivisionType = 0
-IDT_Line: InkDivisionType = 1
-IDT_Paragraph: InkDivisionType = 2
-IDT_Drawing: InkDivisionType = 3
-InkDrawingAttributes = Guid('d8bf32a2-05a5-44c3-b3-aa-5e-80-ac-7d-25-76')
-InkEdit = Guid('e5ca59f5-57c4-4dd8-9b-d6-1d-ee-ed-d2-7a-f4')
-InkEditStatus = Int32
-IES_Idle: InkEditStatus = 0
-IES_Collecting: InkEditStatus = 1
-IES_Recognizing: InkEditStatus = 2
-InkExtractFlags = Int32
-IEF_CopyFromOriginal: InkExtractFlags = 0
-IEF_RemoveFromOriginal: InkExtractFlags = 1
-IEF_Default: InkExtractFlags = 1
-InkInsertMode = Int32
-IEM_InsertText: InkInsertMode = 0
-IEM_InsertInk: InkInsertMode = 1
 class INKMETRIC(Structure):
     iHeight: Int32
     iFontAscent: Int32
     iFontDescent: Int32
     dwFlags: UInt32
     color: win32more.Foundation.COLORREF
-InkMode = Int32
-IEM_Disabled: InkMode = 0
-IEM_Ink: InkMode = 1
-IEM_InkAndGesture: InkMode = 2
-InkMouseButton = Int32
-IMF_Left: InkMouseButton = 1
-IMF_Right: InkMouseButton = 2
-IMF_Middle: InkMouseButton = 4
-InkMousePointer = Int32
-IMP_Default: InkMousePointer = 0
-IMP_Arrow: InkMousePointer = 1
-IMP_Crosshair: InkMousePointer = 2
-IMP_Ibeam: InkMousePointer = 3
-IMP_SizeNESW: InkMousePointer = 4
-IMP_SizeNS: InkMousePointer = 5
-IMP_SizeNWSE: InkMousePointer = 6
-IMP_SizeWE: InkMousePointer = 7
-IMP_UpArrow: InkMousePointer = 8
-IMP_Hourglass: InkMousePointer = 9
-IMP_NoDrop: InkMousePointer = 10
-IMP_ArrowHourglass: InkMousePointer = 11
-IMP_ArrowQuestion: InkMousePointer = 12
-IMP_SizeAll: InkMousePointer = 13
-IMP_Hand: InkMousePointer = 14
-IMP_Custom: InkMousePointer = 99
-InkOverlay = Guid('65d00646-cde3-4a88-91-63-67-69-f0-f1-a9-7d')
-InkOverlayAttachMode = Int32
-IOAM_Behind: InkOverlayAttachMode = 0
-IOAM_InFront: InkOverlayAttachMode = 1
-InkOverlayEditingMode = Int32
-IOEM_Ink: InkOverlayEditingMode = 0
-IOEM_Delete: InkOverlayEditingMode = 1
-IOEM_Select: InkOverlayEditingMode = 2
-InkOverlayEraserMode = Int32
-IOERM_StrokeErase: InkOverlayEraserMode = 0
-IOERM_PointErase: InkOverlayEraserMode = 1
-InkPenTip = Int32
-IPT_Ball: InkPenTip = 0
-IPT_Rectangle: InkPenTip = 1
-InkPersistenceCompressionMode = Int32
-IPCM_Default: InkPersistenceCompressionMode = 0
-IPCM_MaximumCompression: InkPersistenceCompressionMode = 1
-IPCM_NoCompression: InkPersistenceCompressionMode = 2
-InkPersistenceFormat = Int32
-IPF_InkSerializedFormat: InkPersistenceFormat = 0
-IPF_Base64InkSerializedFormat: InkPersistenceFormat = 1
-IPF_GIF: InkPersistenceFormat = 2
-IPF_Base64GIF: InkPersistenceFormat = 3
-InkPicture = Guid('04a1e553-fe36-4fde-86-5e-34-41-94-e6-94-24')
-InkPictureSizeMode = Int32
-IPSM_AutoSize: InkPictureSizeMode = 0
-IPSM_CenterImage: InkPictureSizeMode = 1
-IPSM_Normal: InkPictureSizeMode = 2
-IPSM_StretchImage: InkPictureSizeMode = 3
-InkRasterOperation = Int32
-IRO_Black: InkRasterOperation = 1
-IRO_NotMergePen: InkRasterOperation = 2
-IRO_MaskNotPen: InkRasterOperation = 3
-IRO_NotCopyPen: InkRasterOperation = 4
-IRO_MaskPenNot: InkRasterOperation = 5
-IRO_Not: InkRasterOperation = 6
-IRO_XOrPen: InkRasterOperation = 7
-IRO_NotMaskPen: InkRasterOperation = 8
-IRO_MaskPen: InkRasterOperation = 9
-IRO_NotXOrPen: InkRasterOperation = 10
-IRO_NoOperation: InkRasterOperation = 11
-IRO_MergeNotPen: InkRasterOperation = 12
-IRO_CopyPen: InkRasterOperation = 13
-IRO_MergePenNot: InkRasterOperation = 14
-IRO_MergePen: InkRasterOperation = 15
-IRO_White: InkRasterOperation = 16
-InkRecognitionAlternatesSelection = Int32
-IRAS_Start: InkRecognitionAlternatesSelection = 0
-IRAS_DefaultCount: InkRecognitionAlternatesSelection = 10
-IRAS_All: InkRecognitionAlternatesSelection = -1
-InkRecognitionConfidence = Int32
-IRC_Strong: InkRecognitionConfidence = 0
-IRC_Intermediate: InkRecognitionConfidence = 1
-IRC_Poor: InkRecognitionConfidence = 2
-InkRecognitionModes = Int32
-IRM_None: InkRecognitionModes = 0
-IRM_WordModeOnly: InkRecognitionModes = 1
-IRM_Coerce: InkRecognitionModes = 2
-IRM_TopInkBreaksOnly: InkRecognitionModes = 4
-IRM_PrefixOk: InkRecognitionModes = 8
-IRM_LineMode: InkRecognitionModes = 16
-IRM_DisablePersonalization: InkRecognitionModes = 32
-IRM_AutoSpace: InkRecognitionModes = 64
-IRM_Max: InkRecognitionModes = 128
-InkRecognitionStatus = Int32
-IRS_NoError: InkRecognitionStatus = 0
-IRS_Interrupted: InkRecognitionStatus = 1
-IRS_ProcessFailed: InkRecognitionStatus = 2
-IRS_InkAddedFailed: InkRecognitionStatus = 4
-IRS_SetAutoCompletionModeFailed: InkRecognitionStatus = 8
-IRS_SetStrokesFailed: InkRecognitionStatus = 16
-IRS_SetGuideFailed: InkRecognitionStatus = 32
-IRS_SetFlagsFailed: InkRecognitionStatus = 64
-IRS_SetFactoidFailed: InkRecognitionStatus = 128
-IRS_SetPrefixSuffixFailed: InkRecognitionStatus = 256
-IRS_SetWordListFailed: InkRecognitionStatus = 512
-InkRecognizerCapabilities = Int32
-IRC_DontCare: InkRecognizerCapabilities = 1
-IRC_Object: InkRecognizerCapabilities = 2
-IRC_FreeInput: InkRecognizerCapabilities = 4
-IRC_LinedInput: InkRecognizerCapabilities = 8
-IRC_BoxedInput: InkRecognizerCapabilities = 16
-IRC_CharacterAutoCompletionInput: InkRecognizerCapabilities = 32
-IRC_RightAndDown: InkRecognizerCapabilities = 64
-IRC_LeftAndDown: InkRecognizerCapabilities = 128
-IRC_DownAndLeft: InkRecognizerCapabilities = 256
-IRC_DownAndRight: InkRecognizerCapabilities = 512
-IRC_ArbitraryAngle: InkRecognizerCapabilities = 1024
-IRC_Lattice: InkRecognizerCapabilities = 2048
-IRC_AdviseInkChange: InkRecognizerCapabilities = 4096
-IRC_StrokeReorder: InkRecognizerCapabilities = 8192
-IRC_Personalizable: InkRecognizerCapabilities = 16384
-IRC_PrefersArbitraryAngle: InkRecognizerCapabilities = 32768
-IRC_PrefersParagraphBreaking: InkRecognizerCapabilities = 65536
-IRC_PrefersSegmentation: InkRecognizerCapabilities = 131072
-IRC_Cursive: InkRecognizerCapabilities = 262144
-IRC_TextPrediction: InkRecognizerCapabilities = 524288
-IRC_Alpha: InkRecognizerCapabilities = 1048576
-IRC_Beta: InkRecognizerCapabilities = 2097152
-InkRecognizerCharacterAutoCompletionMode = Int32
-IRCACM_Full: InkRecognizerCharacterAutoCompletionMode = 0
-IRCACM_Prefix: InkRecognizerCharacterAutoCompletionMode = 1
-IRCACM_Random: InkRecognizerCharacterAutoCompletionMode = 2
-InkRecognizerContext = Guid('aac46a37-9229-4fc0-8c-ce-44-97-56-9b-f4-d1')
-InkRecognizerGuide = Guid('8770d941-a63a-4671-a3-75-28-55-a1-8e-ba-73')
-InkRecognizers = Guid('9fd4e808-f6e6-4e65-98-d3-aa-39-05-4c-12-55')
-class InkRecoGuide(Structure):
-    rectWritingBox: win32more.Foundation.RECT
-    rectDrawnBox: win32more.Foundation.RECT
-    cRows: Int32
-    cColumns: Int32
-    midline: Int32
-InkRectangle = Guid('43b07326-aae0-4b62-a8-3d-5f-d7-68-b7-35-3c')
-InkRenderer = Guid('9c1cc6e4-d7eb-4eeb-90-91-15-a7-c8-79-1e-d9')
-InkSelectionConstants = Int32
-ISC_FirstElement: InkSelectionConstants = 0
-ISC_AllElements: InkSelectionConstants = -1
-InkShiftKeyModifierFlags = Int32
-IKM_Shift: InkShiftKeyModifierFlags = 1
-IKM_Control: InkShiftKeyModifierFlags = 2
-IKM_Alt: InkShiftKeyModifierFlags = 4
-InkStrokes = Guid('48f491bc-240e-4860-b0-79-a1-e9-4d-3d-2c-86')
-InkSystemGesture = Int32
-ISG_Tap: InkSystemGesture = 16
-ISG_DoubleTap: InkSystemGesture = 17
-ISG_RightTap: InkSystemGesture = 18
-ISG_Drag: InkSystemGesture = 19
-ISG_RightDrag: InkSystemGesture = 20
-ISG_HoldEnter: InkSystemGesture = 21
-ISG_HoldLeave: InkSystemGesture = 22
-ISG_HoverEnter: InkSystemGesture = 23
-ISG_HoverLeave: InkSystemGesture = 24
-ISG_Flick: InkSystemGesture = 31
-InkTablets = Guid('6e4fcb12-510a-4d40-93-04-1d-a1-0a-e9-14-7c')
-InkTransform = Guid('e3d5d93c-1663-4a78-a1-a7-22-37-5d-fe-ba-ee')
-InkWordList = Guid('9de85094-f71f-44f1-84-71-15-a2-fa-76-fc-f3')
-InPlaceDirection = Int32
-InPlaceDirection_Auto: InPlaceDirection = 0
-InPlaceDirection_Bottom: InPlaceDirection = 1
-InPlaceDirection_Top: InPlaceDirection = 2
-InPlaceState = Int32
-InPlaceState_Auto: InPlaceState = 0
-InPlaceState_HoverTarget: InPlaceState = 1
-InPlaceState_Expanded: InPlaceState = 2
-InteractionMode = Int32
-InteractionMode_InPlace: InteractionMode = 0
-InteractionMode_Floating: InteractionMode = 1
-InteractionMode_DockedTop: InteractionMode = 2
-InteractionMode_DockedBottom: InteractionMode = 3
+INK_METRIC_FLAGS = Int32
+IMF_FONT_SELECTED_IN_HDC: INK_METRIC_FLAGS = 1
+IMF_ITALIC: INK_METRIC_FLAGS = 2
+IMF_BOLD: INK_METRIC_FLAGS = 4
 class IPenInputPanel(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('fa7a4083-5747-4040-a1-82-0b-0e-9f-d4-fa-c7')
@@ -2882,6 +2561,300 @@ class ITipAutoCompleteProvider(c_void_p):
     def UpdatePendingText(bstrPendingText: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def Show(fShow: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+InPlaceDirection = Int32
+InPlaceDirection_Auto: InPlaceDirection = 0
+InPlaceDirection_Bottom: InPlaceDirection = 1
+InPlaceDirection_Top: InPlaceDirection = 2
+InPlaceState = Int32
+InPlaceState_Auto: InPlaceState = 0
+InPlaceState_HoverTarget: InPlaceState = 1
+InPlaceState_Expanded: InPlaceState = 2
+Ink = Guid('13de4a42-8d21-4c8e-bf-9c-8f-69-cb-06-8f-ca')
+InkApplicationGesture = Int32
+IAG_AllGestures: InkApplicationGesture = 0
+IAG_NoGesture: InkApplicationGesture = 61440
+IAG_Scratchout: InkApplicationGesture = 61441
+IAG_Triangle: InkApplicationGesture = 61442
+IAG_Square: InkApplicationGesture = 61443
+IAG_Star: InkApplicationGesture = 61444
+IAG_Check: InkApplicationGesture = 61445
+IAG_Curlicue: InkApplicationGesture = 61456
+IAG_DoubleCurlicue: InkApplicationGesture = 61457
+IAG_Circle: InkApplicationGesture = 61472
+IAG_DoubleCircle: InkApplicationGesture = 61473
+IAG_SemiCircleLeft: InkApplicationGesture = 61480
+IAG_SemiCircleRight: InkApplicationGesture = 61481
+IAG_ChevronUp: InkApplicationGesture = 61488
+IAG_ChevronDown: InkApplicationGesture = 61489
+IAG_ChevronLeft: InkApplicationGesture = 61490
+IAG_ChevronRight: InkApplicationGesture = 61491
+IAG_ArrowUp: InkApplicationGesture = 61496
+IAG_ArrowDown: InkApplicationGesture = 61497
+IAG_ArrowLeft: InkApplicationGesture = 61498
+IAG_ArrowRight: InkApplicationGesture = 61499
+IAG_Up: InkApplicationGesture = 61528
+IAG_Down: InkApplicationGesture = 61529
+IAG_Left: InkApplicationGesture = 61530
+IAG_Right: InkApplicationGesture = 61531
+IAG_UpDown: InkApplicationGesture = 61536
+IAG_DownUp: InkApplicationGesture = 61537
+IAG_LeftRight: InkApplicationGesture = 61538
+IAG_RightLeft: InkApplicationGesture = 61539
+IAG_UpLeftLong: InkApplicationGesture = 61540
+IAG_UpRightLong: InkApplicationGesture = 61541
+IAG_DownLeftLong: InkApplicationGesture = 61542
+IAG_DownRightLong: InkApplicationGesture = 61543
+IAG_UpLeft: InkApplicationGesture = 61544
+IAG_UpRight: InkApplicationGesture = 61545
+IAG_DownLeft: InkApplicationGesture = 61546
+IAG_DownRight: InkApplicationGesture = 61547
+IAG_LeftUp: InkApplicationGesture = 61548
+IAG_LeftDown: InkApplicationGesture = 61549
+IAG_RightUp: InkApplicationGesture = 61550
+IAG_RightDown: InkApplicationGesture = 61551
+IAG_Exclamation: InkApplicationGesture = 61604
+IAG_Tap: InkApplicationGesture = 61680
+IAG_DoubleTap: InkApplicationGesture = 61681
+InkBoundingBoxMode = Int32
+IBBM_Default: InkBoundingBoxMode = 0
+IBBM_NoCurveFit: InkBoundingBoxMode = 1
+IBBM_CurveFit: InkBoundingBoxMode = 2
+IBBM_PointsOnly: InkBoundingBoxMode = 3
+IBBM_Union: InkBoundingBoxMode = 4
+InkClipboardFormats = Int32
+ICF_None: InkClipboardFormats = 0
+ICF_InkSerializedFormat: InkClipboardFormats = 1
+ICF_SketchInk: InkClipboardFormats = 2
+ICF_TextInk: InkClipboardFormats = 6
+ICF_EnhancedMetafile: InkClipboardFormats = 8
+ICF_Metafile: InkClipboardFormats = 32
+ICF_Bitmap: InkClipboardFormats = 64
+ICF_PasteMask: InkClipboardFormats = 7
+ICF_CopyMask: InkClipboardFormats = 127
+ICF_Default: InkClipboardFormats = 127
+InkClipboardModes = Int32
+ICB_Copy: InkClipboardModes = 0
+ICB_Cut: InkClipboardModes = 1
+ICB_ExtractOnly: InkClipboardModes = 48
+ICB_DelayedCopy: InkClipboardModes = 32
+ICB_Default: InkClipboardModes = 0
+InkCollectionMode = Int32
+ICM_InkOnly: InkCollectionMode = 0
+ICM_GestureOnly: InkCollectionMode = 1
+ICM_InkAndGesture: InkCollectionMode = 2
+InkCollector = Guid('43fb1553-ad74-4ee8-88-e4-3e-6d-aa-c9-15-db')
+InkCollectorEventInterest = Int32
+ICEI_DefaultEvents: InkCollectorEventInterest = -1
+ICEI_CursorDown: InkCollectorEventInterest = 0
+ICEI_Stroke: InkCollectorEventInterest = 1
+ICEI_NewPackets: InkCollectorEventInterest = 2
+ICEI_NewInAirPackets: InkCollectorEventInterest = 3
+ICEI_CursorButtonDown: InkCollectorEventInterest = 4
+ICEI_CursorButtonUp: InkCollectorEventInterest = 5
+ICEI_CursorInRange: InkCollectorEventInterest = 6
+ICEI_CursorOutOfRange: InkCollectorEventInterest = 7
+ICEI_SystemGesture: InkCollectorEventInterest = 8
+ICEI_TabletAdded: InkCollectorEventInterest = 9
+ICEI_TabletRemoved: InkCollectorEventInterest = 10
+ICEI_MouseDown: InkCollectorEventInterest = 11
+ICEI_MouseMove: InkCollectorEventInterest = 12
+ICEI_MouseUp: InkCollectorEventInterest = 13
+ICEI_MouseWheel: InkCollectorEventInterest = 14
+ICEI_DblClick: InkCollectorEventInterest = 15
+ICEI_AllEvents: InkCollectorEventInterest = 16
+InkCursorButtonState = Int32
+ICBS_Unavailable: InkCursorButtonState = 0
+ICBS_Up: InkCursorButtonState = 1
+ICBS_Down: InkCursorButtonState = 2
+InkDisp = Guid('937c1a34-151d-4610-9c-a6-a8-cc-9b-db-5d-83')
+InkDisplayMode = Int32
+IDM_Ink: InkDisplayMode = 0
+IDM_Text: InkDisplayMode = 1
+InkDivider = Guid('8854f6a0-4683-4ae7-91-91-75-2f-e6-46-12-c3')
+InkDivisionType = Int32
+IDT_Segment: InkDivisionType = 0
+IDT_Line: InkDivisionType = 1
+IDT_Paragraph: InkDivisionType = 2
+IDT_Drawing: InkDivisionType = 3
+InkDrawingAttributes = Guid('d8bf32a2-05a5-44c3-b3-aa-5e-80-ac-7d-25-76')
+InkEdit = Guid('e5ca59f5-57c4-4dd8-9b-d6-1d-ee-ed-d2-7a-f4')
+InkEditStatus = Int32
+IES_Idle: InkEditStatus = 0
+IES_Collecting: InkEditStatus = 1
+IES_Recognizing: InkEditStatus = 2
+InkExtractFlags = Int32
+IEF_CopyFromOriginal: InkExtractFlags = 0
+IEF_RemoveFromOriginal: InkExtractFlags = 1
+IEF_Default: InkExtractFlags = 1
+InkInsertMode = Int32
+IEM_InsertText: InkInsertMode = 0
+IEM_InsertInk: InkInsertMode = 1
+InkMode = Int32
+IEM_Disabled: InkMode = 0
+IEM_Ink: InkMode = 1
+IEM_InkAndGesture: InkMode = 2
+InkMouseButton = Int32
+IMF_Left: InkMouseButton = 1
+IMF_Right: InkMouseButton = 2
+IMF_Middle: InkMouseButton = 4
+InkMousePointer = Int32
+IMP_Default: InkMousePointer = 0
+IMP_Arrow: InkMousePointer = 1
+IMP_Crosshair: InkMousePointer = 2
+IMP_Ibeam: InkMousePointer = 3
+IMP_SizeNESW: InkMousePointer = 4
+IMP_SizeNS: InkMousePointer = 5
+IMP_SizeNWSE: InkMousePointer = 6
+IMP_SizeWE: InkMousePointer = 7
+IMP_UpArrow: InkMousePointer = 8
+IMP_Hourglass: InkMousePointer = 9
+IMP_NoDrop: InkMousePointer = 10
+IMP_ArrowHourglass: InkMousePointer = 11
+IMP_ArrowQuestion: InkMousePointer = 12
+IMP_SizeAll: InkMousePointer = 13
+IMP_Hand: InkMousePointer = 14
+IMP_Custom: InkMousePointer = 99
+InkOverlay = Guid('65d00646-cde3-4a88-91-63-67-69-f0-f1-a9-7d')
+InkOverlayAttachMode = Int32
+IOAM_Behind: InkOverlayAttachMode = 0
+IOAM_InFront: InkOverlayAttachMode = 1
+InkOverlayEditingMode = Int32
+IOEM_Ink: InkOverlayEditingMode = 0
+IOEM_Delete: InkOverlayEditingMode = 1
+IOEM_Select: InkOverlayEditingMode = 2
+InkOverlayEraserMode = Int32
+IOERM_StrokeErase: InkOverlayEraserMode = 0
+IOERM_PointErase: InkOverlayEraserMode = 1
+InkPenTip = Int32
+IPT_Ball: InkPenTip = 0
+IPT_Rectangle: InkPenTip = 1
+InkPersistenceCompressionMode = Int32
+IPCM_Default: InkPersistenceCompressionMode = 0
+IPCM_MaximumCompression: InkPersistenceCompressionMode = 1
+IPCM_NoCompression: InkPersistenceCompressionMode = 2
+InkPersistenceFormat = Int32
+IPF_InkSerializedFormat: InkPersistenceFormat = 0
+IPF_Base64InkSerializedFormat: InkPersistenceFormat = 1
+IPF_GIF: InkPersistenceFormat = 2
+IPF_Base64GIF: InkPersistenceFormat = 3
+InkPicture = Guid('04a1e553-fe36-4fde-86-5e-34-41-94-e6-94-24')
+InkPictureSizeMode = Int32
+IPSM_AutoSize: InkPictureSizeMode = 0
+IPSM_CenterImage: InkPictureSizeMode = 1
+IPSM_Normal: InkPictureSizeMode = 2
+IPSM_StretchImage: InkPictureSizeMode = 3
+InkRasterOperation = Int32
+IRO_Black: InkRasterOperation = 1
+IRO_NotMergePen: InkRasterOperation = 2
+IRO_MaskNotPen: InkRasterOperation = 3
+IRO_NotCopyPen: InkRasterOperation = 4
+IRO_MaskPenNot: InkRasterOperation = 5
+IRO_Not: InkRasterOperation = 6
+IRO_XOrPen: InkRasterOperation = 7
+IRO_NotMaskPen: InkRasterOperation = 8
+IRO_MaskPen: InkRasterOperation = 9
+IRO_NotXOrPen: InkRasterOperation = 10
+IRO_NoOperation: InkRasterOperation = 11
+IRO_MergeNotPen: InkRasterOperation = 12
+IRO_CopyPen: InkRasterOperation = 13
+IRO_MergePenNot: InkRasterOperation = 14
+IRO_MergePen: InkRasterOperation = 15
+IRO_White: InkRasterOperation = 16
+class InkRecoGuide(Structure):
+    rectWritingBox: win32more.Foundation.RECT
+    rectDrawnBox: win32more.Foundation.RECT
+    cRows: Int32
+    cColumns: Int32
+    midline: Int32
+InkRecognitionAlternatesSelection = Int32
+IRAS_Start: InkRecognitionAlternatesSelection = 0
+IRAS_DefaultCount: InkRecognitionAlternatesSelection = 10
+IRAS_All: InkRecognitionAlternatesSelection = -1
+InkRecognitionConfidence = Int32
+IRC_Strong: InkRecognitionConfidence = 0
+IRC_Intermediate: InkRecognitionConfidence = 1
+IRC_Poor: InkRecognitionConfidence = 2
+InkRecognitionModes = Int32
+IRM_None: InkRecognitionModes = 0
+IRM_WordModeOnly: InkRecognitionModes = 1
+IRM_Coerce: InkRecognitionModes = 2
+IRM_TopInkBreaksOnly: InkRecognitionModes = 4
+IRM_PrefixOk: InkRecognitionModes = 8
+IRM_LineMode: InkRecognitionModes = 16
+IRM_DisablePersonalization: InkRecognitionModes = 32
+IRM_AutoSpace: InkRecognitionModes = 64
+IRM_Max: InkRecognitionModes = 128
+InkRecognitionStatus = Int32
+IRS_NoError: InkRecognitionStatus = 0
+IRS_Interrupted: InkRecognitionStatus = 1
+IRS_ProcessFailed: InkRecognitionStatus = 2
+IRS_InkAddedFailed: InkRecognitionStatus = 4
+IRS_SetAutoCompletionModeFailed: InkRecognitionStatus = 8
+IRS_SetStrokesFailed: InkRecognitionStatus = 16
+IRS_SetGuideFailed: InkRecognitionStatus = 32
+IRS_SetFlagsFailed: InkRecognitionStatus = 64
+IRS_SetFactoidFailed: InkRecognitionStatus = 128
+IRS_SetPrefixSuffixFailed: InkRecognitionStatus = 256
+IRS_SetWordListFailed: InkRecognitionStatus = 512
+InkRecognizerCapabilities = Int32
+IRC_DontCare: InkRecognizerCapabilities = 1
+IRC_Object: InkRecognizerCapabilities = 2
+IRC_FreeInput: InkRecognizerCapabilities = 4
+IRC_LinedInput: InkRecognizerCapabilities = 8
+IRC_BoxedInput: InkRecognizerCapabilities = 16
+IRC_CharacterAutoCompletionInput: InkRecognizerCapabilities = 32
+IRC_RightAndDown: InkRecognizerCapabilities = 64
+IRC_LeftAndDown: InkRecognizerCapabilities = 128
+IRC_DownAndLeft: InkRecognizerCapabilities = 256
+IRC_DownAndRight: InkRecognizerCapabilities = 512
+IRC_ArbitraryAngle: InkRecognizerCapabilities = 1024
+IRC_Lattice: InkRecognizerCapabilities = 2048
+IRC_AdviseInkChange: InkRecognizerCapabilities = 4096
+IRC_StrokeReorder: InkRecognizerCapabilities = 8192
+IRC_Personalizable: InkRecognizerCapabilities = 16384
+IRC_PrefersArbitraryAngle: InkRecognizerCapabilities = 32768
+IRC_PrefersParagraphBreaking: InkRecognizerCapabilities = 65536
+IRC_PrefersSegmentation: InkRecognizerCapabilities = 131072
+IRC_Cursive: InkRecognizerCapabilities = 262144
+IRC_TextPrediction: InkRecognizerCapabilities = 524288
+IRC_Alpha: InkRecognizerCapabilities = 1048576
+IRC_Beta: InkRecognizerCapabilities = 2097152
+InkRecognizerCharacterAutoCompletionMode = Int32
+IRCACM_Full: InkRecognizerCharacterAutoCompletionMode = 0
+IRCACM_Prefix: InkRecognizerCharacterAutoCompletionMode = 1
+IRCACM_Random: InkRecognizerCharacterAutoCompletionMode = 2
+InkRecognizerContext = Guid('aac46a37-9229-4fc0-8c-ce-44-97-56-9b-f4-d1')
+InkRecognizerGuide = Guid('8770d941-a63a-4671-a3-75-28-55-a1-8e-ba-73')
+InkRecognizers = Guid('9fd4e808-f6e6-4e65-98-d3-aa-39-05-4c-12-55')
+InkRectangle = Guid('43b07326-aae0-4b62-a8-3d-5f-d7-68-b7-35-3c')
+InkRenderer = Guid('9c1cc6e4-d7eb-4eeb-90-91-15-a7-c8-79-1e-d9')
+InkSelectionConstants = Int32
+ISC_FirstElement: InkSelectionConstants = 0
+ISC_AllElements: InkSelectionConstants = -1
+InkShiftKeyModifierFlags = Int32
+IKM_Shift: InkShiftKeyModifierFlags = 1
+IKM_Control: InkShiftKeyModifierFlags = 2
+IKM_Alt: InkShiftKeyModifierFlags = 4
+InkStrokes = Guid('48f491bc-240e-4860-b0-79-a1-e9-4d-3d-2c-86')
+InkSystemGesture = Int32
+ISG_Tap: InkSystemGesture = 16
+ISG_DoubleTap: InkSystemGesture = 17
+ISG_RightTap: InkSystemGesture = 18
+ISG_Drag: InkSystemGesture = 19
+ISG_RightDrag: InkSystemGesture = 20
+ISG_HoldEnter: InkSystemGesture = 21
+ISG_HoldLeave: InkSystemGesture = 22
+ISG_HoverEnter: InkSystemGesture = 23
+ISG_HoverLeave: InkSystemGesture = 24
+ISG_Flick: InkSystemGesture = 31
+InkTablets = Guid('6e4fcb12-510a-4d40-93-04-1d-a1-0a-e9-14-7c')
+InkTransform = Guid('e3d5d93c-1663-4a78-a1-a7-22-37-5d-fe-ba-ee')
+InkWordList = Guid('9de85094-f71f-44f1-84-71-15-a2-fa-76-fc-f3')
+InteractionMode = Int32
+InteractionMode_InPlace: InteractionMode = 0
+InteractionMode_Floating: InteractionMode = 1
+InteractionMode_DockedTop: InteractionMode = 2
+InteractionMode_DockedBottom: InteractionMode = 3
 KEYMODIFIER = Int32
 KEYMODIFIER_CONTROL: KEYMODIFIER = 1
 KEYMODIFIER_MENU: KEYMODIFIER = 2
@@ -2900,7 +2873,6 @@ LM_DESCENDER: LINE_METRICS = 3
 class LINE_SEGMENT(Structure):
     PtA: win32more.Foundation.POINT
     PtB: win32more.Foundation.POINT
-MathInputControl = Guid('c561816c-14d8-4090-83-0c-98-d9-94-b2-1c-7b')
 MICUIELEMENT = Int32
 MICUIELEMENT_BUTTON_WRITE: MICUIELEMENT = 1
 MICUIELEMENT_BUTTON_ERASE: MICUIELEMENT = 2
@@ -2917,6 +2889,7 @@ MICUIELEMENTSTATE_NORMAL: MICUIELEMENTSTATE = 1
 MICUIELEMENTSTATE_HOT: MICUIELEMENTSTATE = 2
 MICUIELEMENTSTATE_PRESSED: MICUIELEMENTSTATE = 3
 MICUIELEMENTSTATE_DISABLED: MICUIELEMENTSTATE = 4
+MathInputControl = Guid('c561816c-14d8-4090-83-0c-98-d9-94-b2-1c-7b')
 MouseButton = Int32
 NO_BUTTON: MouseButton = 0
 LEFT_BUTTON: MouseButton = 1
@@ -2931,20 +2904,6 @@ class PACKET_DESCRIPTION(Structure):
 class PACKET_PROPERTY(Structure):
     guid: Guid
     PropertyMetrics: win32more.UI.TabletPC.PROPERTY_METRICS
-PanelInputArea = Int32
-PanelInputArea_Auto: PanelInputArea = 0
-PanelInputArea_Keyboard: PanelInputArea = 1
-PanelInputArea_WritingPad: PanelInputArea = 2
-PanelInputArea_CharacterPad: PanelInputArea = 3
-PanelType = Int32
-PT_Default: PanelType = 0
-PT_Inactive: PanelType = 1
-PT_Handwriting: PanelType = 2
-PT_Keyboard: PanelType = 3
-PenInputPanel = Guid('f744e496-1b5a-489e-81-dc-fb-d7-ac-62-98-a8')
-PenInputPanel_Internal = Guid('802b1fb9-056b-4720-b0-cc-80-d2-3b-71-17-1e')
-@winfunctype_pointer
-def PfnRecoCallback(param0: UInt32, param1: c_char_p_no, param2: win32more.UI.TabletPC.HRECOCONTEXT) -> win32more.Foundation.HRESULT: ...
 class PROPERTY_METRICS(Structure):
     nLogicalMin: Int32
     nLogicalMax: Int32
@@ -2968,35 +2927,20 @@ PROPERTY_UNITS_KELVIN: PROPERTY_UNITS = 13
 PROPERTY_UNITS_FAHRENHEIT: PROPERTY_UNITS = 14
 PROPERTY_UNITS_AMPERE: PROPERTY_UNITS = 15
 PROPERTY_UNITS_CANDELA: PROPERTY_UNITS = 16
-RealTimeStylus = Guid('e26b366d-f998-43ce-83-6f-cb-6d-90-44-32-b0')
-RealTimeStylusDataInterest = Int32
-RTSDI_AllData: RealTimeStylusDataInterest = -1
-RTSDI_None: RealTimeStylusDataInterest = 0
-RTSDI_Error: RealTimeStylusDataInterest = 1
-RTSDI_RealTimeStylusEnabled: RealTimeStylusDataInterest = 2
-RTSDI_RealTimeStylusDisabled: RealTimeStylusDataInterest = 4
-RTSDI_StylusNew: RealTimeStylusDataInterest = 8
-RTSDI_StylusInRange: RealTimeStylusDataInterest = 16
-RTSDI_InAirPackets: RealTimeStylusDataInterest = 32
-RTSDI_StylusOutOfRange: RealTimeStylusDataInterest = 64
-RTSDI_StylusDown: RealTimeStylusDataInterest = 128
-RTSDI_Packets: RealTimeStylusDataInterest = 256
-RTSDI_StylusUp: RealTimeStylusDataInterest = 512
-RTSDI_StylusButtonUp: RealTimeStylusDataInterest = 1024
-RTSDI_StylusButtonDown: RealTimeStylusDataInterest = 2048
-RTSDI_SystemEvents: RealTimeStylusDataInterest = 4096
-RTSDI_TabletAdded: RealTimeStylusDataInterest = 8192
-RTSDI_TabletRemoved: RealTimeStylusDataInterest = 16384
-RTSDI_CustomStylusDataAdded: RealTimeStylusDataInterest = 32768
-RTSDI_UpdateMapping: RealTimeStylusDataInterest = 65536
-RTSDI_DefaultEvents: RealTimeStylusDataInterest = 37766
-RealTimeStylusLockType = Int32
-RTSLT_ObjLock: RealTimeStylusLockType = 1
-RTSLT_SyncEventLock: RealTimeStylusLockType = 2
-RTSLT_AsyncEventLock: RealTimeStylusLockType = 4
-RTSLT_ExcludeCallback: RealTimeStylusLockType = 8
-RTSLT_SyncObjLock: RealTimeStylusLockType = 11
-RTSLT_AsyncObjLock: RealTimeStylusLockType = 13
+PanelInputArea = Int32
+PanelInputArea_Auto: PanelInputArea = 0
+PanelInputArea_Keyboard: PanelInputArea = 1
+PanelInputArea_WritingPad: PanelInputArea = 2
+PanelInputArea_CharacterPad: PanelInputArea = 3
+PanelType = Int32
+PT_Default: PanelType = 0
+PT_Inactive: PanelType = 1
+PT_Handwriting: PanelType = 2
+PT_Keyboard: PanelType = 3
+PenInputPanel = Guid('f744e496-1b5a-489e-81-dc-fb-d7-ac-62-98-a8')
+PenInputPanel_Internal = Guid('802b1fb9-056b-4720-b0-cc-80-d2-3b-71-17-1e')
+@winfunctype_pointer
+def PfnRecoCallback(param0: UInt32, param1: c_char_p_no, param2: win32more.UI.TabletPC.HRECOCONTEXT) -> win32more.Foundation.HRESULT: ...
 class RECO_ATTRS(Structure):
     dwRecoCapabilityFlags: UInt32
     awcVendorName: Char * 32
@@ -3047,14 +2991,53 @@ class RECO_RANGE(Structure):
 RECO_TYPE = Int32
 RECO_TYPE_WSTRING: RECO_TYPE = 0
 RECO_TYPE_WCHAR: RECO_TYPE = 1
+RealTimeStylus = Guid('e26b366d-f998-43ce-83-6f-cb-6d-90-44-32-b0')
+RealTimeStylusDataInterest = Int32
+RTSDI_AllData: RealTimeStylusDataInterest = -1
+RTSDI_None: RealTimeStylusDataInterest = 0
+RTSDI_Error: RealTimeStylusDataInterest = 1
+RTSDI_RealTimeStylusEnabled: RealTimeStylusDataInterest = 2
+RTSDI_RealTimeStylusDisabled: RealTimeStylusDataInterest = 4
+RTSDI_StylusNew: RealTimeStylusDataInterest = 8
+RTSDI_StylusInRange: RealTimeStylusDataInterest = 16
+RTSDI_InAirPackets: RealTimeStylusDataInterest = 32
+RTSDI_StylusOutOfRange: RealTimeStylusDataInterest = 64
+RTSDI_StylusDown: RealTimeStylusDataInterest = 128
+RTSDI_Packets: RealTimeStylusDataInterest = 256
+RTSDI_StylusUp: RealTimeStylusDataInterest = 512
+RTSDI_StylusButtonUp: RealTimeStylusDataInterest = 1024
+RTSDI_StylusButtonDown: RealTimeStylusDataInterest = 2048
+RTSDI_SystemEvents: RealTimeStylusDataInterest = 4096
+RTSDI_TabletAdded: RealTimeStylusDataInterest = 8192
+RTSDI_TabletRemoved: RealTimeStylusDataInterest = 16384
+RTSDI_CustomStylusDataAdded: RealTimeStylusDataInterest = 32768
+RTSDI_UpdateMapping: RealTimeStylusDataInterest = 65536
+RTSDI_DefaultEvents: RealTimeStylusDataInterest = 37766
+RealTimeStylusLockType = Int32
+RTSLT_ObjLock: RealTimeStylusLockType = 1
+RTSLT_SyncEventLock: RealTimeStylusLockType = 2
+RTSLT_AsyncEventLock: RealTimeStylusLockType = 4
+RTSLT_ExcludeCallback: RealTimeStylusLockType = 8
+RTSLT_SyncObjLock: RealTimeStylusLockType = 11
+RTSLT_AsyncObjLock: RealTimeStylusLockType = 13
+SCROLLDIRECTION = Int32
+SCROLLDIRECTION_UP: SCROLLDIRECTION = 0
+SCROLLDIRECTION_DOWN: SCROLLDIRECTION = 1
+class STROKE_RANGE(Structure):
+    iStrokeBegin: UInt32
+    iStrokeEnd: UInt32
+class SYSTEM_EVENT_DATA(Structure):
+    bModifier: Byte
+    wKey: Char
+    xPos: Int32
+    yPos: Int32
+    bCursorMode: Byte
+    dwButtonState: UInt32
 ScrollBarsConstants = Int32
 ScrollBarsConstants_rtfNone: ScrollBarsConstants = 0
 ScrollBarsConstants_rtfHorizontal: ScrollBarsConstants = 1
 ScrollBarsConstants_rtfVertical: ScrollBarsConstants = 2
 ScrollBarsConstants_rtfBoth: ScrollBarsConstants = 3
-SCROLLDIRECTION = Int32
-SCROLLDIRECTION_UP: SCROLLDIRECTION = 0
-SCROLLDIRECTION_DOWN: SCROLLDIRECTION = 1
 SelAlignmentConstants = Int32
 SelAlignmentConstants_rtfLeft: SelAlignmentConstants = 0
 SelAlignmentConstants_rtfRight: SelAlignmentConstants = 1
@@ -3071,9 +3054,6 @@ SHR_N: SelectionHitResult = 7
 SHR_S: SelectionHitResult = 8
 SHR_Selection: SelectionHitResult = 9
 SketchInk = Guid('f0291081-e87c-4e07-97-da-a0-a0-37-61-e5-86')
-class STROKE_RANGE(Structure):
-    iStrokeBegin: UInt32
-    iStrokeEnd: UInt32
 StrokeBuilder = Guid('e810cee7-6e51-4cb0-aa-3a-0b-98-5b-70-da-f7')
 class StylusInfo(Structure):
     tcid: UInt32
@@ -3083,13 +3063,6 @@ StylusQueue = Int32
 StylusQueue_SyncStylusQueue: StylusQueue = 1
 StylusQueue_AsyncStylusQueueImmediate: StylusQueue = 2
 StylusQueue_AsyncStylusQueue: StylusQueue = 3
-class SYSTEM_EVENT_DATA(Structure):
-    bModifier: Byte
-    wKey: Char
-    xPos: Int32
-    yPos: Int32
-    bCursorMode: Byte
-    dwButtonState: UInt32
 TabletDeviceKind = Int32
 TDK_Mouse: TabletDeviceKind = 0
 TDK_Pen: TabletDeviceKind = 1
@@ -3116,15 +3089,33 @@ VisualState_Floating: VisualState = 1
 VisualState_DockedTop: VisualState = 2
 VisualState_DockedBottom: VisualState = 3
 VisualState_Closed: VisualState = 4
-make_head(_module, '_IInkCollectorEvents')
-make_head(_module, '_IInkEditEvents')
-make_head(_module, '_IInkEvents')
-make_head(_module, '_IInkOverlayEvents')
-make_head(_module, '_IInkPictureEvents')
-make_head(_module, '_IInkRecognitionEvents')
-make_head(_module, '_IInkStrokesEvents')
-make_head(_module, '_IMathInputControlEvents')
-make_head(_module, '_IPenInputPanelEvents')
+class _IInkCollectorEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('11a583f2-712d-4fea-ab-cf-ab-4a-f3-8e-a0-6b')
+class _IInkEditEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('e3b0b797-a72e-46db-a0-d7-6c-9e-ba-8e-9b-bc')
+class _IInkEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('427b1865-ca3f-479a-83-a9-0f-42-0f-2a-00-73')
+class _IInkOverlayEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('31179b69-e563-489e-b1-6f-71-2f-1e-8a-06-51')
+class _IInkPictureEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('60ff4fee-22ff-4484-ac-c1-d3-08-d9-cd-7e-a3')
+class _IInkRecognitionEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('17bce92f-2e21-47fd-9d-33-3c-6a-fb-fd-8c-59')
+class _IInkStrokesEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('f33053ec-5d25-430a-92-8f-76-a6-49-1d-de-15')
+class _IMathInputControlEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('683336b5-a47d-4358-96-f9-87-5a-47-2a-e7-0a')
+class _IPenInputPanelEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('b7e489da-3719-439f-84-8f-e7-ac-bd-82-0f-17')
 make_head(_module, 'CHARACTER_RANGE')
 make_head(_module, 'DYNAMIC_RENDERER_CACHED_DATA')
 make_head(_module, 'FLICK_DATA')
@@ -3179,7 +3170,6 @@ make_head(_module, 'IInkWordList2')
 make_head(_module, 'IInputPanelWindowHandle')
 make_head(_module, 'IMathInputControl')
 make_head(_module, 'INKMETRIC')
-make_head(_module, 'InkRecoGuide')
 make_head(_module, 'IPenInputPanel')
 make_head(_module, 'IRealTimeStylus')
 make_head(_module, 'IRealTimeStylus2')
@@ -3195,12 +3185,13 @@ make_head(_module, 'ITextInputPanelEventSink')
 make_head(_module, 'ITextInputPanelRunInfo')
 make_head(_module, 'ITipAutoCompleteClient')
 make_head(_module, 'ITipAutoCompleteProvider')
+make_head(_module, 'InkRecoGuide')
 make_head(_module, 'LATTICE_METRICS')
 make_head(_module, 'LINE_SEGMENT')
 make_head(_module, 'PACKET_DESCRIPTION')
 make_head(_module, 'PACKET_PROPERTY')
-make_head(_module, 'PfnRecoCallback')
 make_head(_module, 'PROPERTY_METRICS')
+make_head(_module, 'PfnRecoCallback')
 make_head(_module, 'RECO_ATTRS')
 make_head(_module, 'RECO_GUIDE')
 make_head(_module, 'RECO_LATTICE')
@@ -3210,8 +3201,17 @@ make_head(_module, 'RECO_LATTICE_PROPERTIES')
 make_head(_module, 'RECO_LATTICE_PROPERTY')
 make_head(_module, 'RECO_RANGE')
 make_head(_module, 'STROKE_RANGE')
-make_head(_module, 'StylusInfo')
 make_head(_module, 'SYSTEM_EVENT_DATA')
+make_head(_module, 'StylusInfo')
+make_head(_module, '_IInkCollectorEvents')
+make_head(_module, '_IInkEditEvents')
+make_head(_module, '_IInkEvents')
+make_head(_module, '_IInkOverlayEvents')
+make_head(_module, '_IInkPictureEvents')
+make_head(_module, '_IInkRecognitionEvents')
+make_head(_module, '_IInkStrokesEvents')
+make_head(_module, '_IMathInputControlEvents')
+make_head(_module, '_IPenInputPanelEvents')
 __all__ = [
     "ALT_BREAKS",
     "ALT_BREAKS_FULL",

@@ -22,11 +22,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _ERROR_INFOW(Structure):
-    dwSize: UInt32
-    dwGenericError: UInt32
-    dwVendorError: UInt32
-    szExtendedErrorText: Char * 255
 prv_DEFAULT_PREFETCH_SIZE: UInt32 = 100
 FS_INITIALIZING: UInt32 = 536870912
 FS_DIALING: UInt32 = 536870913
@@ -412,6 +407,10 @@ def CanSendToFaxRecipient() -> win32more.Foundation.BOOL: ...
 def SendToFaxRecipient(sndMode: win32more.Devices.Fax.SendToMode, lpFileName: win32more.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('STI.dll')
 def StiCreateInstanceW(hinst: win32more.Foundation.HINSTANCE, dwVer: UInt32, ppSti: POINTER(win32more.Devices.Fax.IStillImageW_head), punkOuter: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+FAXROUTE_ENABLE = Int32
+QUERY_STATUS: FAXROUTE_ENABLE = -1
+STATUS_DISABLE: FAXROUTE_ENABLE = 0
+STATUS_ENABLE: FAXROUTE_ENABLE = 1
 FAX_ACCESS_RIGHTS_ENUM = Int32
 farSUBMIT_LOW: FAX_ACCESS_RIGHTS_ENUM = 1
 farSUBMIT_NORMAL: FAX_ACCESS_RIGHTS_ENUM = 2
@@ -542,16 +541,6 @@ FAX_COVERPAGE_TYPE_ENUM = Int32
 FAX_COVERPAGE_TYPE_ENUM_fcptNONE: FAX_COVERPAGE_TYPE_ENUM = 0
 FAX_COVERPAGE_TYPE_ENUM_fcptLOCAL: FAX_COVERPAGE_TYPE_ENUM = 1
 FAX_COVERPAGE_TYPE_ENUM_fcptSERVER: FAX_COVERPAGE_TYPE_ENUM = 2
-class FAX_DEV_STATUS(Structure):
-    SizeOfStruct: UInt32
-    StatusId: UInt32
-    StringId: UInt32
-    PageCount: UInt32
-    CSI: win32more.Foundation.PWSTR
-    CallerId: win32more.Foundation.PWSTR
-    RoutingInfo: win32more.Foundation.PWSTR
-    ErrorCode: UInt32
-    Reserved: UInt32 * 3
 FAX_DEVICE_RECEIVE_MODE_ENUM = Int32
 fdrmNO_ANSWER: FAX_DEVICE_RECEIVE_MODE_ENUM = 0
 fdrmAUTO_ANSWER: FAX_DEVICE_RECEIVE_MODE_ENUM = 1
@@ -598,6 +587,16 @@ class FAX_DEVICE_STATUSW(Structure):
     TotalPages: UInt32
     Tsid: win32more.Foundation.PWSTR
     UserName: win32more.Foundation.PWSTR
+class FAX_DEV_STATUS(Structure):
+    SizeOfStruct: UInt32
+    StatusId: UInt32
+    StringId: UInt32
+    PageCount: UInt32
+    CSI: win32more.Foundation.PWSTR
+    CallerId: win32more.Foundation.PWSTR
+    RoutingInfo: win32more.Foundation.PWSTR
+    ErrorCode: UInt32
+    Reserved: UInt32 * 3
 FAX_ENUM_DELIVERY_REPORT_TYPES = Int32
 DRT_NONE: FAX_ENUM_DELIVERY_REPORT_TYPES = 0
 DRT_EMAIL: FAX_ENUM_DELIVERY_REPORT_TYPES = 1
@@ -954,8 +953,8 @@ FaxAccountIncomingArchive = Guid('14b33db5-4c40-4ecf-9e-f8-a3-60-cb-e8-09-ed')
 FaxAccountIncomingQueue = Guid('9bcf6094-b4da-45f4-b8-d6-dd-eb-21-86-65-2c')
 FaxAccountOutgoingArchive = Guid('851e7af5-433a-4739-a2-df-ad-24-5c-2c-b9-8e')
 FaxAccountOutgoingQueue = Guid('feeceefb-c149-48ba-ba-b8-b7-91-e1-01-f6-2f')
-FaxAccounts = Guid('da1f94aa-ee2c-47c0-8f-4f-2a-21-70-75-b7-6e')
 FaxAccountSet = Guid('fbc23c4b-79e0-4291-bc-56-c1-2e-25-3b-bf-3a')
+FaxAccounts = Guid('da1f94aa-ee2c-47c0-8f-4f-2a-21-70-75-b7-6e')
 FaxActivity = Guid('cfef5d0e-e84d-462e-aa-bb-87-d3-1e-b0-4f-ef')
 FaxActivityLogging = Guid('f0a0294e-3bbd-48b8-8f-13-8c-59-1a-55-bd-bc')
 FaxConfiguration = Guid('5857326f-e7b3-41a7-9c-19-a9-1b-46-3e-2d-56')
@@ -994,10 +993,6 @@ FaxOutgoingQueue = Guid('7421169e-8c43-4b0d-bb-16-64-5c-8f-a4-03-57')
 FaxReceiptOptions = Guid('6982487b-227b-4c96-a6-1c-24-83-48-b0-5a-b6')
 FaxRecipient = Guid('60bf3301-7df8-4bd8-91-48-7b-58-01-f9-ef-df')
 FaxRecipients = Guid('ea9bdf53-10a9-4d4f-a0-67-63-c8-f8-4f-01-b0')
-FAXROUTE_ENABLE = Int32
-QUERY_STATUS: FAXROUTE_ENABLE = -1
-STATUS_DISABLE: FAXROUTE_ENABLE = 0
-STATUS_ENABLE: FAXROUTE_ENABLE = 1
 FaxSecurity = Guid('10c4ddde-abf0-43df-96-4f-7f-3a-c2-1a-4c-7b')
 FaxSecurity2 = Guid('735c1248-ec89-4c30-a1-27-65-6e-92-e3-c4-ea')
 FaxSender = Guid('265d84d0-1850-4360-b7-c8-75-8b-bb-5f-0b-96')
@@ -1089,15 +1084,6 @@ class IFaxAccountOutgoingQueue(c_void_p):
     def GetJobs(pFaxOutgoingJobs: POINTER(win32more.Devices.Fax.IFaxOutgoingJobs_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(8)
     def GetJob(bstrJobId: win32more.Foundation.BSTR, pFaxOutgoingJob: POINTER(win32more.Devices.Fax.IFaxOutgoingJob_head)) -> win32more.Foundation.HRESULT: ...
-class IFaxAccounts(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('93ea8162-8be7-42d1-ae-7b-ec-74-e2-d9-89-da')
-    @commethod(7)
-    def get__NewEnum(ppUnk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_Item(vIndex: win32more.System.Com.VARIANT, pFaxAccount: POINTER(win32more.Devices.Fax.IFaxAccount_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_Count(plCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
 class IFaxAccountSet(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('7428fbae-841e-47b8-86-f4-22-88-94-6d-ca-1b')
@@ -1109,6 +1095,15 @@ class IFaxAccountSet(c_void_p):
     def AddAccount(bstrAccountName: win32more.Foundation.BSTR, pFaxAccount: POINTER(win32more.Devices.Fax.IFaxAccount_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(10)
     def RemoveAccount(bstrAccountName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IFaxAccounts(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('93ea8162-8be7-42d1-ae-7b-ec-74-e2-d9-89-da')
+    @commethod(7)
+    def get__NewEnum(ppUnk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Item(vIndex: win32more.System.Com.VARIANT, pFaxAccount: POINTER(win32more.Devices.Fax.IFaxAccount_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Count(plCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
 class IFaxActivity(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('4b106f97-3df5-40f2-bc-3c-44-cb-81-15-eb-df')
@@ -2432,39 +2427,6 @@ class IStiDeviceControl(c_void_p):
     def GetMyDeviceOpenMode(pdwOpenMode: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
     @commethod(13)
     def WriteToErrorLog(dwMessageType: UInt32, pszMessage: win32more.Foundation.PWSTR, dwErrorCode: UInt32) -> win32more.Foundation.HRESULT: ...
-class IStillImageW(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('641bd880-2dc8-11d0-90-ea-00-aa-00-60-f8-6c')
-    @commethod(3)
-    def Initialize(hinst: win32more.Foundation.HINSTANCE, dwVersion: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def GetDeviceList(dwType: UInt32, dwFlags: UInt32, pdwItemsReturned: POINTER(UInt32), ppBuffer: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def GetDeviceInfo(pwszDeviceName: win32more.Foundation.PWSTR, ppBuffer: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def CreateDevice(pwszDeviceName: win32more.Foundation.PWSTR, dwMode: UInt32, pDevice: POINTER(win32more.Devices.Fax.IStiDevice_head), punkOuter: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def GetDeviceValue(pwszDeviceName: win32more.Foundation.PWSTR, pValueName: win32more.Foundation.PWSTR, pType: POINTER(UInt32), pData: c_char_p_no, cbData: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def SetDeviceValue(pwszDeviceName: win32more.Foundation.PWSTR, pValueName: win32more.Foundation.PWSTR, Type: UInt32, pData: c_char_p_no, cbData: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def GetSTILaunchInformation(pwszDeviceName: win32more.Foundation.PWSTR, pdwEventCode: POINTER(UInt32), pwszEventName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def RegisterLaunchApplication(pwszAppName: win32more.Foundation.PWSTR, pwszCommandLine: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def UnregisterLaunchApplication(pwszAppName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def EnableHwNotifications(pwszDeviceName: win32more.Foundation.PWSTR, bNewState: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def GetHwNotificationState(pwszDeviceName: win32more.Foundation.PWSTR, pbCurrentState: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def RefreshDeviceBus(pwszDeviceName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def LaunchApplicationForDevice(pwszDeviceName: win32more.Foundation.PWSTR, pwszAppName: win32more.Foundation.PWSTR, pStiNotify: POINTER(win32more.Devices.Fax.STINOTIFY_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def SetupDeviceParameters(param0: POINTER(win32more.Devices.Fax.STI_DEVICE_INFORMATIONW_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def WriteToErrorLog(dwMessageType: UInt32, pszMessage: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
 class IStiUSD(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('0c9bb460-51ac-11d0-90-ea-00-aa-00-60-f8-6c')
@@ -2500,32 +2462,39 @@ class IStiUSD(c_void_p):
     def GetNotificationData(lpNotify: POINTER(win32more.Devices.Fax.STINOTIFY_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(18)
     def GetLastErrorInfo(pLastErrorInfo: POINTER(win32more.Devices.Fax._ERROR_INFOW_head)) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def PFAX_EXT_CONFIG_CHANGE(param0: UInt32, param1: win32more.Foundation.PWSTR, param2: c_char_p_no, param3: UInt32) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def PFAX_EXT_FREE_BUFFER(param0: c_void_p) -> Void: ...
-@winfunctype_pointer
-def PFAX_EXT_GET_DATA(param0: UInt32, param1: win32more.Devices.Fax.FAX_ENUM_DEVICE_ID_SOURCE, param2: win32more.Foundation.PWSTR, param3: POINTER(c_char_p_no), param4: POINTER(UInt32)) -> UInt32: ...
-@winfunctype_pointer
-def PFAX_EXT_INITIALIZE_CONFIG(param0: win32more.Devices.Fax.PFAX_EXT_GET_DATA, param1: win32more.Devices.Fax.PFAX_EXT_SET_DATA, param2: win32more.Devices.Fax.PFAX_EXT_REGISTER_FOR_EVENTS, param3: win32more.Devices.Fax.PFAX_EXT_UNREGISTER_FOR_EVENTS, param4: win32more.Devices.Fax.PFAX_EXT_FREE_BUFFER) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def PFAX_EXT_REGISTER_FOR_EVENTS(param0: win32more.Foundation.HINSTANCE, param1: UInt32, param2: win32more.Devices.Fax.FAX_ENUM_DEVICE_ID_SOURCE, param3: win32more.Foundation.PWSTR, param4: win32more.Devices.Fax.PFAX_EXT_CONFIG_CHANGE) -> win32more.Foundation.HANDLE: ...
-@winfunctype_pointer
-def PFAX_EXT_SET_DATA(param0: win32more.Foundation.HINSTANCE, param1: UInt32, param2: win32more.Devices.Fax.FAX_ENUM_DEVICE_ID_SOURCE, param3: win32more.Foundation.PWSTR, param4: c_char_p_no, param5: UInt32) -> UInt32: ...
-@winfunctype_pointer
-def PFAX_EXT_UNREGISTER_FOR_EVENTS(param0: win32more.Foundation.HANDLE) -> UInt32: ...
-@winfunctype_pointer
-def PFAX_LINECALLBACK(FaxHandle: win32more.Foundation.HANDLE, hDevice: UInt32, dwMessage: UInt32, dwInstance: UIntPtr, dwParam1: UIntPtr, dwParam2: UIntPtr, dwParam3: UIntPtr) -> Void: ...
-@winfunctype_pointer
-def PFAX_RECIPIENT_CALLBACKA(FaxHandle: win32more.Foundation.HANDLE, RecipientNumber: UInt32, Context: c_void_p, JobParams: POINTER(win32more.Devices.Fax.FAX_JOB_PARAMA_head), CoverpageInfo: POINTER(win32more.Devices.Fax.FAX_COVERPAGE_INFOA_head)) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PFAX_RECIPIENT_CALLBACKW(FaxHandle: win32more.Foundation.HANDLE, RecipientNumber: UInt32, Context: c_void_p, JobParams: POINTER(win32more.Devices.Fax.FAX_JOB_PARAMW_head), CoverpageInfo: POINTER(win32more.Devices.Fax.FAX_COVERPAGE_INFOW_head)) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PFAX_ROUTING_INSTALLATION_CALLBACKW(FaxHandle: win32more.Foundation.HANDLE, Context: c_void_p, MethodName: win32more.Foundation.PWSTR, FriendlyName: win32more.Foundation.PWSTR, FunctionName: win32more.Foundation.PWSTR, Guid: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PFAX_SEND_CALLBACK(FaxHandle: win32more.Foundation.HANDLE, CallHandle: UInt32, Reserved1: UInt32, Reserved2: UInt32) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PFAX_SERVICE_CALLBACK(FaxHandle: win32more.Foundation.HANDLE, DeviceId: UInt32, Param1: UIntPtr, Param2: UIntPtr, Param3: UIntPtr) -> win32more.Foundation.BOOL: ...
+class IStillImageW(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('641bd880-2dc8-11d0-90-ea-00-aa-00-60-f8-6c')
+    @commethod(3)
+    def Initialize(hinst: win32more.Foundation.HINSTANCE, dwVersion: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetDeviceList(dwType: UInt32, dwFlags: UInt32, pdwItemsReturned: POINTER(UInt32), ppBuffer: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetDeviceInfo(pwszDeviceName: win32more.Foundation.PWSTR, ppBuffer: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def CreateDevice(pwszDeviceName: win32more.Foundation.PWSTR, dwMode: UInt32, pDevice: POINTER(win32more.Devices.Fax.IStiDevice_head), punkOuter: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetDeviceValue(pwszDeviceName: win32more.Foundation.PWSTR, pValueName: win32more.Foundation.PWSTR, pType: POINTER(UInt32), pData: c_char_p_no, cbData: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetDeviceValue(pwszDeviceName: win32more.Foundation.PWSTR, pValueName: win32more.Foundation.PWSTR, Type: UInt32, pData: c_char_p_no, cbData: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetSTILaunchInformation(pwszDeviceName: win32more.Foundation.PWSTR, pdwEventCode: POINTER(UInt32), pwszEventName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def RegisterLaunchApplication(pwszAppName: win32more.Foundation.PWSTR, pwszCommandLine: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def UnregisterLaunchApplication(pwszAppName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def EnableHwNotifications(pwszDeviceName: win32more.Foundation.PWSTR, bNewState: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetHwNotificationState(pwszDeviceName: win32more.Foundation.PWSTR, pbCurrentState: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def RefreshDeviceBus(pwszDeviceName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def LaunchApplicationForDevice(pwszDeviceName: win32more.Foundation.PWSTR, pwszAppName: win32more.Foundation.PWSTR, pStiNotify: POINTER(win32more.Devices.Fax.STINOTIFY_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetupDeviceParameters(param0: POINTER(win32more.Devices.Fax.STI_DEVICE_INFORMATIONW_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def WriteToErrorLog(dwMessageType: UInt32, pszMessage: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFAXABORT(FaxHandle: win32more.Foundation.HANDLE, JobId: UInt32) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -2682,10 +2651,43 @@ def PFAXSTARTPRINTJOBA(PrinterName: win32more.Foundation.PSTR, PrintInfo: POINTE
 def PFAXSTARTPRINTJOBW(PrinterName: win32more.Foundation.PWSTR, PrintInfo: POINTER(win32more.Devices.Fax.FAX_PRINT_INFOW_head), FaxJobId: POINTER(UInt32), FaxContextInfo: POINTER(win32more.Devices.Fax.FAX_CONTEXT_INFOW_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFAXUNREGISTERSERVICEPROVIDERW(DeviceProvider: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
-SendToMode = Int32
-SEND_TO_FAX_RECIPIENT_ATTACHMENT: SendToMode = 0
-class STI_DEV_CAPS(Structure):
-    dwGeneric: UInt32
+@winfunctype_pointer
+def PFAX_EXT_CONFIG_CHANGE(param0: UInt32, param1: win32more.Foundation.PWSTR, param2: c_char_p_no, param3: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PFAX_EXT_FREE_BUFFER(param0: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PFAX_EXT_GET_DATA(param0: UInt32, param1: win32more.Devices.Fax.FAX_ENUM_DEVICE_ID_SOURCE, param2: win32more.Foundation.PWSTR, param3: POINTER(c_char_p_no), param4: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def PFAX_EXT_INITIALIZE_CONFIG(param0: win32more.Devices.Fax.PFAX_EXT_GET_DATA, param1: win32more.Devices.Fax.PFAX_EXT_SET_DATA, param2: win32more.Devices.Fax.PFAX_EXT_REGISTER_FOR_EVENTS, param3: win32more.Devices.Fax.PFAX_EXT_UNREGISTER_FOR_EVENTS, param4: win32more.Devices.Fax.PFAX_EXT_FREE_BUFFER) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PFAX_EXT_REGISTER_FOR_EVENTS(param0: win32more.Foundation.HINSTANCE, param1: UInt32, param2: win32more.Devices.Fax.FAX_ENUM_DEVICE_ID_SOURCE, param3: win32more.Foundation.PWSTR, param4: win32more.Devices.Fax.PFAX_EXT_CONFIG_CHANGE) -> win32more.Foundation.HANDLE: ...
+@winfunctype_pointer
+def PFAX_EXT_SET_DATA(param0: win32more.Foundation.HINSTANCE, param1: UInt32, param2: win32more.Devices.Fax.FAX_ENUM_DEVICE_ID_SOURCE, param3: win32more.Foundation.PWSTR, param4: c_char_p_no, param5: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def PFAX_EXT_UNREGISTER_FOR_EVENTS(param0: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype_pointer
+def PFAX_LINECALLBACK(FaxHandle: win32more.Foundation.HANDLE, hDevice: UInt32, dwMessage: UInt32, dwInstance: UIntPtr, dwParam1: UIntPtr, dwParam2: UIntPtr, dwParam3: UIntPtr) -> Void: ...
+@winfunctype_pointer
+def PFAX_RECIPIENT_CALLBACKA(FaxHandle: win32more.Foundation.HANDLE, RecipientNumber: UInt32, Context: c_void_p, JobParams: POINTER(win32more.Devices.Fax.FAX_JOB_PARAMA_head), CoverpageInfo: POINTER(win32more.Devices.Fax.FAX_COVERPAGE_INFOA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PFAX_RECIPIENT_CALLBACKW(FaxHandle: win32more.Foundation.HANDLE, RecipientNumber: UInt32, Context: c_void_p, JobParams: POINTER(win32more.Devices.Fax.FAX_JOB_PARAMW_head), CoverpageInfo: POINTER(win32more.Devices.Fax.FAX_COVERPAGE_INFOW_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PFAX_ROUTING_INSTALLATION_CALLBACKW(FaxHandle: win32more.Foundation.HANDLE, Context: c_void_p, MethodName: win32more.Foundation.PWSTR, FriendlyName: win32more.Foundation.PWSTR, FunctionName: win32more.Foundation.PWSTR, Guid: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PFAX_SEND_CALLBACK(FaxHandle: win32more.Foundation.HANDLE, CallHandle: UInt32, Reserved1: UInt32, Reserved2: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PFAX_SERVICE_CALLBACK(FaxHandle: win32more.Foundation.HANDLE, DeviceId: UInt32, Param1: UIntPtr, Param2: UIntPtr, Param3: UIntPtr) -> win32more.Foundation.BOOL: ...
+class STINOTIFY(Structure):
+    dwSize: UInt32
+    guidNotificationCode: Guid
+    abNotificationData: Byte * 64
+class STISUBSCRIBE(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    dwFilter: UInt32
+    hWndNotify: win32more.Foundation.HWND
+    hEvent: win32more.Foundation.HANDLE
+    uiNotificationMessage: UInt32
 class STI_DEVICE_INFORMATIONW(Structure):
     dwSize: UInt32
     DeviceType: UInt32
@@ -2709,6 +2711,8 @@ class STI_DEVICE_STATUS(Structure):
     dwHardwareStatusCode: UInt32
     dwEventHandlingState: UInt32
     dwPollingInterval: UInt32
+class STI_DEV_CAPS(Structure):
+    dwGeneric: UInt32
 class STI_DIAG(Structure):
     dwSize: UInt32
     dwBasicDiagCode: UInt32
@@ -2731,18 +2735,13 @@ class STI_WIA_DEVICE_INFORMATIONW(Structure):
     pszLocalName: win32more.Foundation.PWSTR
     pszUiDll: win32more.Foundation.PWSTR
     pszServer: win32more.Foundation.PWSTR
-class STINOTIFY(Structure):
+SendToMode = Int32
+SEND_TO_FAX_RECIPIENT_ATTACHMENT: SendToMode = 0
+class _ERROR_INFOW(Structure):
     dwSize: UInt32
-    guidNotificationCode: Guid
-    abNotificationData: Byte * 64
-class STISUBSCRIBE(Structure):
-    dwSize: UInt32
-    dwFlags: UInt32
-    dwFilter: UInt32
-    hWndNotify: win32more.Foundation.HWND
-    hEvent: win32more.Foundation.HANDLE
-    uiNotificationMessage: UInt32
-make_head(_module, '_ERROR_INFOW')
+    dwGenericError: UInt32
+    dwVendorError: UInt32
+    szExtendedErrorText: Char * 255
 make_head(_module, 'DEVPKEY_WIA_DeviceType')
 make_head(_module, 'DEVPKEY_WIA_USDClassId')
 make_head(_module, 'FAX_CONFIGURATIONA')
@@ -2751,9 +2750,9 @@ make_head(_module, 'FAX_CONTEXT_INFOA')
 make_head(_module, 'FAX_CONTEXT_INFOW')
 make_head(_module, 'FAX_COVERPAGE_INFOA')
 make_head(_module, 'FAX_COVERPAGE_INFOW')
-make_head(_module, 'FAX_DEV_STATUS')
 make_head(_module, 'FAX_DEVICE_STATUSA')
 make_head(_module, 'FAX_DEVICE_STATUSW')
+make_head(_module, 'FAX_DEV_STATUS')
 make_head(_module, 'FAX_EVENTA')
 make_head(_module, 'FAX_EVENTW')
 make_head(_module, 'FAX_GLOBAL_ROUTING_INFOA')
@@ -2782,8 +2781,8 @@ make_head(_module, 'IFaxAccountIncomingQueue')
 make_head(_module, 'IFaxAccountNotify')
 make_head(_module, 'IFaxAccountOutgoingArchive')
 make_head(_module, 'IFaxAccountOutgoingQueue')
-make_head(_module, 'IFaxAccounts')
 make_head(_module, 'IFaxAccountSet')
+make_head(_module, 'IFaxAccounts')
 make_head(_module, 'IFaxActivity')
 make_head(_module, 'IFaxActivityLogging')
 make_head(_module, 'IFaxConfiguration')
@@ -2835,21 +2834,8 @@ make_head(_module, 'IFaxServerNotify')
 make_head(_module, 'IFaxServerNotify2')
 make_head(_module, 'IStiDevice')
 make_head(_module, 'IStiDeviceControl')
-make_head(_module, 'IStillImageW')
 make_head(_module, 'IStiUSD')
-make_head(_module, 'PFAX_EXT_CONFIG_CHANGE')
-make_head(_module, 'PFAX_EXT_FREE_BUFFER')
-make_head(_module, 'PFAX_EXT_GET_DATA')
-make_head(_module, 'PFAX_EXT_INITIALIZE_CONFIG')
-make_head(_module, 'PFAX_EXT_REGISTER_FOR_EVENTS')
-make_head(_module, 'PFAX_EXT_SET_DATA')
-make_head(_module, 'PFAX_EXT_UNREGISTER_FOR_EVENTS')
-make_head(_module, 'PFAX_LINECALLBACK')
-make_head(_module, 'PFAX_RECIPIENT_CALLBACKA')
-make_head(_module, 'PFAX_RECIPIENT_CALLBACKW')
-make_head(_module, 'PFAX_ROUTING_INSTALLATION_CALLBACKW')
-make_head(_module, 'PFAX_SEND_CALLBACK')
-make_head(_module, 'PFAX_SERVICE_CALLBACK')
+make_head(_module, 'IStillImageW')
 make_head(_module, 'PFAXABORT')
 make_head(_module, 'PFAXACCESSCHECK')
 make_head(_module, 'PFAXCLOSE')
@@ -2928,14 +2914,28 @@ make_head(_module, 'PFAXSETROUTINGINFOW')
 make_head(_module, 'PFAXSTARTPRINTJOBA')
 make_head(_module, 'PFAXSTARTPRINTJOBW')
 make_head(_module, 'PFAXUNREGISTERSERVICEPROVIDERW')
-make_head(_module, 'STI_DEV_CAPS')
+make_head(_module, 'PFAX_EXT_CONFIG_CHANGE')
+make_head(_module, 'PFAX_EXT_FREE_BUFFER')
+make_head(_module, 'PFAX_EXT_GET_DATA')
+make_head(_module, 'PFAX_EXT_INITIALIZE_CONFIG')
+make_head(_module, 'PFAX_EXT_REGISTER_FOR_EVENTS')
+make_head(_module, 'PFAX_EXT_SET_DATA')
+make_head(_module, 'PFAX_EXT_UNREGISTER_FOR_EVENTS')
+make_head(_module, 'PFAX_LINECALLBACK')
+make_head(_module, 'PFAX_RECIPIENT_CALLBACKA')
+make_head(_module, 'PFAX_RECIPIENT_CALLBACKW')
+make_head(_module, 'PFAX_ROUTING_INSTALLATION_CALLBACKW')
+make_head(_module, 'PFAX_SEND_CALLBACK')
+make_head(_module, 'PFAX_SERVICE_CALLBACK')
+make_head(_module, 'STINOTIFY')
+make_head(_module, 'STISUBSCRIBE')
 make_head(_module, 'STI_DEVICE_INFORMATIONW')
 make_head(_module, 'STI_DEVICE_STATUS')
+make_head(_module, 'STI_DEV_CAPS')
 make_head(_module, 'STI_DIAG')
 make_head(_module, 'STI_USD_CAPS')
 make_head(_module, 'STI_WIA_DEVICE_INFORMATIONW')
-make_head(_module, 'STINOTIFY')
-make_head(_module, 'STISUBSCRIBE')
+make_head(_module, '_ERROR_INFOW')
 __all__ = [
     "CF_MSFAXSRV_DEVICE_ID",
     "CF_MSFAXSRV_FSP_GUID",

@@ -18,10 +18,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-_AM_ASFWRITERCONFIG_PARAM = Int32
-AM_CONFIGASFWRITER_PARAM_AUTOINDEX: _AM_ASFWRITERCONFIG_PARAM = 1
-AM_CONFIGASFWRITER_PARAM_MULTIPASS: _AM_ASFWRITERCONFIG_PARAM = 2
-AM_CONFIGASFWRITER_PARAM_DONTCOMPRESS: _AM_ASFWRITERCONFIG_PARAM = 3
 class AM_WMT_EVENT_DATA(Structure):
     hrStatus: win32more.Foundation.HRESULT
     pData: c_void_p
@@ -564,21 +560,6 @@ class IWMCredentialCallback(c_void_p):
     Guid = Guid('342e0eb7-e651-450c-97-5b-2a-ce-2c-90-c4-8e')
     @commethod(3)
     def AcquireCredentials(pwszRealm: win32more.Foundation.PWSTR, pwszSite: win32more.Foundation.PWSTR, pwszUser: win32more.Foundation.PWSTR, cchUser: UInt32, pwszPassword: win32more.Foundation.PWSTR, cchPassword: UInt32, hrStatus: win32more.Foundation.HRESULT, pdwFlags: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-class IWMDeviceRegistration(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('f6211f03-8d21-4e94-93-e6-85-10-80-5f-2d-99')
-    @commethod(3)
-    def RegisterDevice(dwRegisterType: UInt32, pbCertificate: c_char_p_no, cbCertificate: UInt32, SerialNumber: win32more.Media.WindowsMediaFormat.DRM_VAL16, ppDevice: POINTER(win32more.Media.WindowsMediaFormat.IWMRegisteredDevice_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def UnregisterDevice(dwRegisterType: UInt32, pbCertificate: c_char_p_no, cbCertificate: UInt32, SerialNumber: win32more.Media.WindowsMediaFormat.DRM_VAL16) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def GetRegistrationStats(dwRegisterType: UInt32, pcRegisteredDevices: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def GetFirstRegisteredDevice(dwRegisterType: UInt32, ppDevice: POINTER(win32more.Media.WindowsMediaFormat.IWMRegisteredDevice_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def GetNextRegisteredDevice(ppDevice: POINTER(win32more.Media.WindowsMediaFormat.IWMRegisteredDevice_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def GetRegisteredDeviceByID(dwRegisterType: UInt32, pbCertificate: c_char_p_no, cbCertificate: UInt32, SerialNumber: win32more.Media.WindowsMediaFormat.DRM_VAL16, ppDevice: POINTER(win32more.Media.WindowsMediaFormat.IWMRegisteredDevice_head)) -> win32more.Foundation.HRESULT: ...
 class IWMDRMEditor(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('ff130ebc-a6c3-42a6-b4-01-c3-38-2c-3e-08-b3')
@@ -674,6 +655,21 @@ class IWMDRMWriter3(c_void_p):
     Guid = Guid('a7184082-a4aa-4dde-ac-9c-e7-5d-bd-11-17-ce')
     @commethod(8)
     def SetProtectStreamSamples(pImportInitStruct: POINTER(win32more.Media.WindowsMediaFormat.WMDRM_IMPORT_INIT_STRUCT_head)) -> win32more.Foundation.HRESULT: ...
+class IWMDeviceRegistration(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('f6211f03-8d21-4e94-93-e6-85-10-80-5f-2d-99')
+    @commethod(3)
+    def RegisterDevice(dwRegisterType: UInt32, pbCertificate: c_char_p_no, cbCertificate: UInt32, SerialNumber: win32more.Media.WindowsMediaFormat.DRM_VAL16, ppDevice: POINTER(win32more.Media.WindowsMediaFormat.IWMRegisteredDevice_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def UnregisterDevice(dwRegisterType: UInt32, pbCertificate: c_char_p_no, cbCertificate: UInt32, SerialNumber: win32more.Media.WindowsMediaFormat.DRM_VAL16) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetRegistrationStats(dwRegisterType: UInt32, pcRegisteredDevices: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetFirstRegisteredDevice(dwRegisterType: UInt32, ppDevice: POINTER(win32more.Media.WindowsMediaFormat.IWMRegisteredDevice_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetNextRegisteredDevice(ppDevice: POINTER(win32more.Media.WindowsMediaFormat.IWMRegisteredDevice_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetRegisteredDeviceByID(dwRegisterType: UInt32, pbCertificate: c_char_p_no, cbCertificate: UInt32, SerialNumber: win32more.Media.WindowsMediaFormat.DRM_VAL16, ppDevice: POINTER(win32more.Media.WindowsMediaFormat.IWMRegisteredDevice_head)) -> win32more.Foundation.HRESULT: ...
 class IWMGetSecureChannel(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('94bc0598-c3d2-11d3-be-df-00-c0-4f-61-29-86')
@@ -730,6 +726,11 @@ class IWMHeaderInfo3(c_void_p):
     def DeleteAttribute(wStreamNum: UInt16, wIndex: UInt16) -> win32more.Foundation.HRESULT: ...
     @commethod(23)
     def AddCodecInfo(pwszName: win32more.Foundation.PWSTR, pwszDescription: win32more.Foundation.PWSTR, codecType: win32more.Media.WindowsMediaFormat.WMT_CODEC_INFO_TYPE, cbCodecInfo: UInt16, pbCodecInfo: c_char_p_no) -> win32more.Foundation.HRESULT: ...
+class IWMIStreamProps(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6816dad3-2b4b-4c8e-81-49-87-4c-34-83-a7-53')
+    @commethod(3)
+    def GetProperty(pszName: win32more.Foundation.PWSTR, pType: POINTER(win32more.Media.WindowsMediaFormat.WMT_ATTR_DATATYPE), pValue: c_char_p_no, pdwSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
 class IWMImageInfo(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('9f0aa3b6-7267-4d89-88-f2-ba-91-5a-a5-c4-c6')
@@ -756,11 +757,6 @@ class IWMInputMediaProps(c_void_p):
     def GetConnectionName(pwszName: win32more.Foundation.PWSTR, pcchName: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
     @commethod(7)
     def GetGroupName(pwszName: win32more.Foundation.PWSTR, pcchName: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
-class IWMIStreamProps(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('6816dad3-2b4b-4c8e-81-49-87-4c-34-83-a7-53')
-    @commethod(3)
-    def GetProperty(pszName: win32more.Foundation.PWSTR, pType: POINTER(win32more.Media.WindowsMediaFormat.WMT_ATTR_DATATYPE), pValue: c_char_p_no, pdwSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
 class IWMLanguageList(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('df683f00-2d49-4d8e-92-b7-fb-19-f6-a0-dc-57')
@@ -1343,31 +1339,6 @@ class IWMSBufferAllocator(c_void_p):
     def AllocateBuffer(dwMaxBufferSize: UInt32, ppBuffer: POINTER(win32more.Media.WindowsMediaFormat.INSSBuffer_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def AllocatePageSizeBuffer(dwMaxBufferSize: UInt32, ppBuffer: POINTER(win32more.Media.WindowsMediaFormat.INSSBuffer_head)) -> win32more.Foundation.HRESULT: ...
-class IWMSecureChannel(c_void_p):
-    extends: win32more.Media.WindowsMediaFormat.IWMAuthorizer
-    Guid = Guid('2720598a-d0f2-4189-bd-10-91-c4-6e-f0-93-6f')
-    @commethod(6)
-    def WMSC_AddCertificate(pCert: win32more.Media.WindowsMediaFormat.IWMAuthorizer_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def WMSC_AddSignature(pbCertSig: c_char_p_no, cbCertSig: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def WMSC_Connect(pOtherSide: win32more.Media.WindowsMediaFormat.IWMSecureChannel_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def WMSC_IsConnected(pfIsConnected: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def WMSC_Disconnect() -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def WMSC_GetValidCertificate(ppbCertificate: POINTER(c_char_p_no), pdwSignature: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def WMSC_Encrypt(pbData: c_char_p_no, cbData: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def WMSC_Decrypt(pbData: c_char_p_no, cbData: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def WMSC_Lock() -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def WMSC_Unlock() -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def WMSC_SetSharedData(dwCertIndex: UInt32, pbSharedData: c_char_p_no) -> win32more.Foundation.HRESULT: ...
 class IWMSInternalAdminNetSource(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('8bb23e5f-d127-4afb-8d-02-ae-5b-66-d5-4c-78')
@@ -1421,6 +1392,31 @@ class IWMSInternalAdminNetSource3(c_void_p):
     def SetCredentialsEx2(bstrRealm: win32more.Foundation.BSTR, bstrUrl: win32more.Foundation.BSTR, fProxy: win32more.Foundation.BOOL, bstrName: win32more.Foundation.BSTR, bstrPassword: win32more.Foundation.BSTR, fPersist: win32more.Foundation.BOOL, fConfirmedGood: win32more.Foundation.BOOL, fClearTextAuthentication: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
     @commethod(13)
     def GetCredentialsEx2(bstrRealm: win32more.Foundation.BSTR, bstrUrl: win32more.Foundation.BSTR, fProxy: win32more.Foundation.BOOL, fClearTextAuthentication: win32more.Foundation.BOOL, pdwUrlPolicy: POINTER(win32more.Media.WindowsMediaFormat.NETSOURCE_URLCREDPOLICY_SETTINGS), pbstrName: POINTER(win32more.Foundation.BSTR), pbstrPassword: POINTER(win32more.Foundation.BSTR), pfConfirmedGood: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IWMSecureChannel(c_void_p):
+    extends: win32more.Media.WindowsMediaFormat.IWMAuthorizer
+    Guid = Guid('2720598a-d0f2-4189-bd-10-91-c4-6e-f0-93-6f')
+    @commethod(6)
+    def WMSC_AddCertificate(pCert: win32more.Media.WindowsMediaFormat.IWMAuthorizer_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def WMSC_AddSignature(pbCertSig: c_char_p_no, cbCertSig: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def WMSC_Connect(pOtherSide: win32more.Media.WindowsMediaFormat.IWMSecureChannel_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def WMSC_IsConnected(pfIsConnected: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def WMSC_Disconnect() -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def WMSC_GetValidCertificate(ppbCertificate: POINTER(c_char_p_no), pdwSignature: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def WMSC_Encrypt(pbData: c_char_p_no, cbData: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def WMSC_Decrypt(pbData: c_char_p_no, cbData: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def WMSC_Lock() -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def WMSC_Unlock() -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def WMSC_SetSharedData(dwCertIndex: UInt32, pbSharedData: c_char_p_no) -> win32more.Foundation.HRESULT: ...
 class IWMStatusCallback(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('6d7cdc70-9888-11d3-8e-dc-00-c0-4f-61-09-cf')
@@ -1765,133 +1761,6 @@ NETSOURCE_URLCREDPOLICY_SETTING_ANONYMOUSONLY: NETSOURCE_URLCREDPOLICY_SETTINGS 
 WEBSTREAM_SAMPLE_TYPE = Int32
 WEBSTREAM_SAMPLE_TYPE_FILE: WEBSTREAM_SAMPLE_TYPE = 1
 WEBSTREAM_SAMPLE_TYPE_RENDER: WEBSTREAM_SAMPLE_TYPE = 2
-class WM_ADDRESS_ACCESSENTRY(Structure):
-    dwIPAddress: UInt32
-    dwMask: UInt32
-WM_AETYPE = Int32
-WM_AETYPE_INCLUDE: WM_AETYPE = 105
-WM_AETYPE_EXCLUDE: WM_AETYPE = 101
-class WM_CLIENT_PROPERTIES(Structure):
-    dwIPAddress: UInt32
-    dwPort: UInt32
-class WM_CLIENT_PROPERTIES_EX(Structure):
-    cbSize: UInt32
-    pwszIPAddress: win32more.Foundation.PWSTR
-    pwszPort: win32more.Foundation.PWSTR
-    pwszDNSName: win32more.Foundation.PWSTR
-WM_DM_INTERLACED_TYPE = Int32
-WM_DM_NOTINTERLACED: WM_DM_INTERLACED_TYPE = 0
-WM_DM_DEINTERLACE_NORMAL: WM_DM_INTERLACED_TYPE = 1
-WM_DM_DEINTERLACE_HALFSIZE: WM_DM_INTERLACED_TYPE = 2
-WM_DM_DEINTERLACE_HALFSIZEDOUBLERATE: WM_DM_INTERLACED_TYPE = 3
-WM_DM_DEINTERLACE_INVERSETELECINE: WM_DM_INTERLACED_TYPE = 4
-WM_DM_DEINTERLACE_VERTICALHALFSIZEDOUBLERATE: WM_DM_INTERLACED_TYPE = 5
-WM_DM_IT_FIRST_FRAME_COHERENCY = Int32
-WM_DM_IT_DISABLE_COHERENT_MODE: WM_DM_IT_FIRST_FRAME_COHERENCY = 0
-WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_AA_TOP: WM_DM_IT_FIRST_FRAME_COHERENCY = 1
-WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_BB_TOP: WM_DM_IT_FIRST_FRAME_COHERENCY = 2
-WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_BC_TOP: WM_DM_IT_FIRST_FRAME_COHERENCY = 3
-WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_CD_TOP: WM_DM_IT_FIRST_FRAME_COHERENCY = 4
-WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_DD_TOP: WM_DM_IT_FIRST_FRAME_COHERENCY = 5
-WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_AA_BOTTOM: WM_DM_IT_FIRST_FRAME_COHERENCY = 6
-WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_BB_BOTTOM: WM_DM_IT_FIRST_FRAME_COHERENCY = 7
-WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_BC_BOTTOM: WM_DM_IT_FIRST_FRAME_COHERENCY = 8
-WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_CD_BOTTOM: WM_DM_IT_FIRST_FRAME_COHERENCY = 9
-WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_DD_BOTTOM: WM_DM_IT_FIRST_FRAME_COHERENCY = 10
-class WM_LEAKY_BUCKET_PAIR(Structure):
-    dwBitrate: UInt32
-    msBufferWindow: UInt32
-    _pack_ = 1
-class WM_MEDIA_TYPE(Structure):
-    majortype: Guid
-    subtype: Guid
-    bFixedSizeSamples: win32more.Foundation.BOOL
-    bTemporalCompression: win32more.Foundation.BOOL
-    lSampleSize: UInt32
-    formattype: Guid
-    pUnk: win32more.System.Com.IUnknown_head
-    cbFormat: UInt32
-    pbFormat: c_char_p_no
-class WM_PICTURE(Structure):
-    pwszMIMEType: win32more.Foundation.PWSTR
-    bPictureType: Byte
-    pwszDescription: win32more.Foundation.PWSTR
-    dwDataLen: UInt32
-    pbData: c_char_p_no
-    _pack_ = 1
-WM_PLAYBACK_DRC_LEVEL = Int32
-WM_PLAYBACK_DRC_HIGH: WM_PLAYBACK_DRC_LEVEL = 0
-WM_PLAYBACK_DRC_MEDIUM: WM_PLAYBACK_DRC_LEVEL = 1
-WM_PLAYBACK_DRC_LOW: WM_PLAYBACK_DRC_LEVEL = 2
-class WM_PORT_NUMBER_RANGE(Structure):
-    wPortBegin: UInt16
-    wPortEnd: UInt16
-class WM_READER_CLIENTINFO(Structure):
-    cbSize: UInt32
-    wszLang: win32more.Foundation.PWSTR
-    wszBrowserUserAgent: win32more.Foundation.PWSTR
-    wszBrowserWebPage: win32more.Foundation.PWSTR
-    qwReserved: UInt64
-    pReserved: POINTER(win32more.Foundation.LPARAM)
-    wszHostExe: win32more.Foundation.PWSTR
-    qwHostVersion: UInt64
-    wszPlayerUserAgent: win32more.Foundation.PWSTR
-class WM_READER_STATISTICS(Structure):
-    cbSize: UInt32
-    dwBandwidth: UInt32
-    cPacketsReceived: UInt32
-    cPacketsRecovered: UInt32
-    cPacketsLost: UInt32
-    wQuality: UInt16
-WM_SF_TYPE = Int32
-WM_SF_CLEANPOINT: WM_SF_TYPE = 1
-WM_SF_DISCONTINUITY: WM_SF_TYPE = 2
-WM_SF_DATALOSS: WM_SF_TYPE = 4
-WM_SFEX_TYPE = Int32
-WM_SFEX_NOTASYNCPOINT: WM_SFEX_TYPE = 2
-WM_SFEX_DATALOSS: WM_SFEX_TYPE = 4
-class WM_STREAM_PRIORITY_RECORD(Structure):
-    wStreamNumber: UInt16
-    fMandatory: win32more.Foundation.BOOL
-    _pack_ = 2
-class WM_STREAM_TYPE_INFO(Structure):
-    guidMajorType: Guid
-    cbFormat: UInt32
-    _pack_ = 1
-class WM_SYNCHRONISED_LYRICS(Structure):
-    bTimeStampFormat: Byte
-    bContentType: Byte
-    pwszContentDescriptor: win32more.Foundation.PWSTR
-    dwLyricsLen: UInt32
-    pbLyrics: c_char_p_no
-    _pack_ = 1
-class WM_USER_TEXT(Structure):
-    pwszDescription: win32more.Foundation.PWSTR
-    pwszText: win32more.Foundation.PWSTR
-    _pack_ = 1
-class WM_USER_WEB_URL(Structure):
-    pwszDescription: win32more.Foundation.PWSTR
-    pwszURL: win32more.Foundation.PWSTR
-    _pack_ = 1
-class WM_WRITER_STATISTICS(Structure):
-    qwSampleCount: UInt64
-    qwByteCount: UInt64
-    qwDroppedSampleCount: UInt64
-    qwDroppedByteCount: UInt64
-    dwCurrentBitrate: UInt32
-    dwAverageBitrate: UInt32
-    dwExpectedBitrate: UInt32
-    dwCurrentSampleRate: UInt32
-    dwAverageSampleRate: UInt32
-    dwExpectedSampleRate: UInt32
-class WM_WRITER_STATISTICS_EX(Structure):
-    dwBitratePlusOverhead: UInt32
-    dwCurrentSampleDropRateInQueue: UInt32
-    dwCurrentSampleDropRateInCodec: UInt32
-    dwCurrentSampleDropRateInMultiplexer: UInt32
-    dwTotalSampleDropsInQueue: UInt32
-    dwTotalSampleDropsInCodec: UInt32
-    dwTotalSampleDropsInMultiplexer: UInt32
 class WMDRM_IMPORT_INIT_STRUCT(Structure):
     dwVersion: UInt32
     cbEncryptedSessionKeyMessage: UInt32
@@ -1957,14 +1826,14 @@ WMT_IT_NONE: WMT_IMAGE_TYPE = 0
 WMT_IT_BITMAP: WMT_IMAGE_TYPE = 1
 WMT_IT_JPEG: WMT_IMAGE_TYPE = 2
 WMT_IT_GIF: WMT_IMAGE_TYPE = 3
-WMT_INDEX_TYPE = Int32
-WMT_IT_NEAREST_DATA_UNIT: WMT_INDEX_TYPE = 1
-WMT_IT_NEAREST_OBJECT: WMT_INDEX_TYPE = 2
-WMT_IT_NEAREST_CLEAN_POINT: WMT_INDEX_TYPE = 3
 WMT_INDEXER_TYPE = Int32
 WMT_IT_PRESENTATION_TIME: WMT_INDEXER_TYPE = 0
 WMT_IT_FRAME_NUMBERS: WMT_INDEXER_TYPE = 1
 WMT_IT_TIMECODE: WMT_INDEXER_TYPE = 2
+WMT_INDEX_TYPE = Int32
+WMT_IT_NEAREST_DATA_UNIT: WMT_INDEX_TYPE = 1
+WMT_IT_NEAREST_OBJECT: WMT_INDEX_TYPE = 2
+WMT_IT_NEAREST_CLEAN_POINT: WMT_INDEX_TYPE = 3
 WMT_MUSICSPEECH_CLASS_MODE = Int32
 WMT_MS_CLASS_MUSIC: WMT_MUSICSPEECH_CLASS_MODE = 0
 WMT_MS_CLASS_SPEECH: WMT_MUSICSPEECH_CLASS_MODE = 1
@@ -2171,6 +2040,137 @@ class WMVIDEOINFOHEADER2(Structure):
     dwReserved1: UInt32
     dwReserved2: UInt32
     bmiHeader: win32more.Graphics.Gdi.BITMAPINFOHEADER
+class WM_ADDRESS_ACCESSENTRY(Structure):
+    dwIPAddress: UInt32
+    dwMask: UInt32
+WM_AETYPE = Int32
+WM_AETYPE_INCLUDE: WM_AETYPE = 105
+WM_AETYPE_EXCLUDE: WM_AETYPE = 101
+class WM_CLIENT_PROPERTIES(Structure):
+    dwIPAddress: UInt32
+    dwPort: UInt32
+class WM_CLIENT_PROPERTIES_EX(Structure):
+    cbSize: UInt32
+    pwszIPAddress: win32more.Foundation.PWSTR
+    pwszPort: win32more.Foundation.PWSTR
+    pwszDNSName: win32more.Foundation.PWSTR
+WM_DM_INTERLACED_TYPE = Int32
+WM_DM_NOTINTERLACED: WM_DM_INTERLACED_TYPE = 0
+WM_DM_DEINTERLACE_NORMAL: WM_DM_INTERLACED_TYPE = 1
+WM_DM_DEINTERLACE_HALFSIZE: WM_DM_INTERLACED_TYPE = 2
+WM_DM_DEINTERLACE_HALFSIZEDOUBLERATE: WM_DM_INTERLACED_TYPE = 3
+WM_DM_DEINTERLACE_INVERSETELECINE: WM_DM_INTERLACED_TYPE = 4
+WM_DM_DEINTERLACE_VERTICALHALFSIZEDOUBLERATE: WM_DM_INTERLACED_TYPE = 5
+WM_DM_IT_FIRST_FRAME_COHERENCY = Int32
+WM_DM_IT_DISABLE_COHERENT_MODE: WM_DM_IT_FIRST_FRAME_COHERENCY = 0
+WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_AA_TOP: WM_DM_IT_FIRST_FRAME_COHERENCY = 1
+WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_BB_TOP: WM_DM_IT_FIRST_FRAME_COHERENCY = 2
+WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_BC_TOP: WM_DM_IT_FIRST_FRAME_COHERENCY = 3
+WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_CD_TOP: WM_DM_IT_FIRST_FRAME_COHERENCY = 4
+WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_DD_TOP: WM_DM_IT_FIRST_FRAME_COHERENCY = 5
+WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_AA_BOTTOM: WM_DM_IT_FIRST_FRAME_COHERENCY = 6
+WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_BB_BOTTOM: WM_DM_IT_FIRST_FRAME_COHERENCY = 7
+WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_BC_BOTTOM: WM_DM_IT_FIRST_FRAME_COHERENCY = 8
+WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_CD_BOTTOM: WM_DM_IT_FIRST_FRAME_COHERENCY = 9
+WM_DM_IT_FIRST_FRAME_IN_CLIP_IS_DD_BOTTOM: WM_DM_IT_FIRST_FRAME_COHERENCY = 10
+class WM_LEAKY_BUCKET_PAIR(Structure):
+    dwBitrate: UInt32
+    msBufferWindow: UInt32
+    _pack_ = 1
+class WM_MEDIA_TYPE(Structure):
+    majortype: Guid
+    subtype: Guid
+    bFixedSizeSamples: win32more.Foundation.BOOL
+    bTemporalCompression: win32more.Foundation.BOOL
+    lSampleSize: UInt32
+    formattype: Guid
+    pUnk: win32more.System.Com.IUnknown_head
+    cbFormat: UInt32
+    pbFormat: c_char_p_no
+class WM_PICTURE(Structure):
+    pwszMIMEType: win32more.Foundation.PWSTR
+    bPictureType: Byte
+    pwszDescription: win32more.Foundation.PWSTR
+    dwDataLen: UInt32
+    pbData: c_char_p_no
+    _pack_ = 1
+WM_PLAYBACK_DRC_LEVEL = Int32
+WM_PLAYBACK_DRC_HIGH: WM_PLAYBACK_DRC_LEVEL = 0
+WM_PLAYBACK_DRC_MEDIUM: WM_PLAYBACK_DRC_LEVEL = 1
+WM_PLAYBACK_DRC_LOW: WM_PLAYBACK_DRC_LEVEL = 2
+class WM_PORT_NUMBER_RANGE(Structure):
+    wPortBegin: UInt16
+    wPortEnd: UInt16
+class WM_READER_CLIENTINFO(Structure):
+    cbSize: UInt32
+    wszLang: win32more.Foundation.PWSTR
+    wszBrowserUserAgent: win32more.Foundation.PWSTR
+    wszBrowserWebPage: win32more.Foundation.PWSTR
+    qwReserved: UInt64
+    pReserved: POINTER(win32more.Foundation.LPARAM)
+    wszHostExe: win32more.Foundation.PWSTR
+    qwHostVersion: UInt64
+    wszPlayerUserAgent: win32more.Foundation.PWSTR
+class WM_READER_STATISTICS(Structure):
+    cbSize: UInt32
+    dwBandwidth: UInt32
+    cPacketsReceived: UInt32
+    cPacketsRecovered: UInt32
+    cPacketsLost: UInt32
+    wQuality: UInt16
+WM_SFEX_TYPE = Int32
+WM_SFEX_NOTASYNCPOINT: WM_SFEX_TYPE = 2
+WM_SFEX_DATALOSS: WM_SFEX_TYPE = 4
+WM_SF_TYPE = Int32
+WM_SF_CLEANPOINT: WM_SF_TYPE = 1
+WM_SF_DISCONTINUITY: WM_SF_TYPE = 2
+WM_SF_DATALOSS: WM_SF_TYPE = 4
+class WM_STREAM_PRIORITY_RECORD(Structure):
+    wStreamNumber: UInt16
+    fMandatory: win32more.Foundation.BOOL
+    _pack_ = 2
+class WM_STREAM_TYPE_INFO(Structure):
+    guidMajorType: Guid
+    cbFormat: UInt32
+    _pack_ = 1
+class WM_SYNCHRONISED_LYRICS(Structure):
+    bTimeStampFormat: Byte
+    bContentType: Byte
+    pwszContentDescriptor: win32more.Foundation.PWSTR
+    dwLyricsLen: UInt32
+    pbLyrics: c_char_p_no
+    _pack_ = 1
+class WM_USER_TEXT(Structure):
+    pwszDescription: win32more.Foundation.PWSTR
+    pwszText: win32more.Foundation.PWSTR
+    _pack_ = 1
+class WM_USER_WEB_URL(Structure):
+    pwszDescription: win32more.Foundation.PWSTR
+    pwszURL: win32more.Foundation.PWSTR
+    _pack_ = 1
+class WM_WRITER_STATISTICS(Structure):
+    qwSampleCount: UInt64
+    qwByteCount: UInt64
+    qwDroppedSampleCount: UInt64
+    qwDroppedByteCount: UInt64
+    dwCurrentBitrate: UInt32
+    dwAverageBitrate: UInt32
+    dwExpectedBitrate: UInt32
+    dwCurrentSampleRate: UInt32
+    dwAverageSampleRate: UInt32
+    dwExpectedSampleRate: UInt32
+class WM_WRITER_STATISTICS_EX(Structure):
+    dwBitratePlusOverhead: UInt32
+    dwCurrentSampleDropRateInQueue: UInt32
+    dwCurrentSampleDropRateInCodec: UInt32
+    dwCurrentSampleDropRateInMultiplexer: UInt32
+    dwTotalSampleDropsInQueue: UInt32
+    dwTotalSampleDropsInCodec: UInt32
+    dwTotalSampleDropsInMultiplexer: UInt32
+_AM_ASFWRITERCONFIG_PARAM = Int32
+AM_CONFIGASFWRITER_PARAM_AUTOINDEX: _AM_ASFWRITERCONFIG_PARAM = 1
+AM_CONFIGASFWRITER_PARAM_MULTIPASS: _AM_ASFWRITERCONFIG_PARAM = 2
+AM_CONFIGASFWRITER_PARAM_DONTCOMPRESS: _AM_ASFWRITERCONFIG_PARAM = 3
 make_head(_module, 'AM_WMT_EVENT_DATA')
 make_head(_module, 'DRM_COPY_OPL')
 make_head(_module, 'DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS')
@@ -2195,7 +2195,6 @@ make_head(_module, 'IWMCodecInfo')
 make_head(_module, 'IWMCodecInfo2')
 make_head(_module, 'IWMCodecInfo3')
 make_head(_module, 'IWMCredentialCallback')
-make_head(_module, 'IWMDeviceRegistration')
 make_head(_module, 'IWMDRMEditor')
 make_head(_module, 'IWMDRMMessageParser')
 make_head(_module, 'IWMDRMReader')
@@ -2207,15 +2206,16 @@ make_head(_module, 'IWMDRMTranscryptor2')
 make_head(_module, 'IWMDRMWriter')
 make_head(_module, 'IWMDRMWriter2')
 make_head(_module, 'IWMDRMWriter3')
+make_head(_module, 'IWMDeviceRegistration')
 make_head(_module, 'IWMGetSecureChannel')
 make_head(_module, 'IWMHeaderInfo')
 make_head(_module, 'IWMHeaderInfo2')
 make_head(_module, 'IWMHeaderInfo3')
+make_head(_module, 'IWMIStreamProps')
 make_head(_module, 'IWMImageInfo')
 make_head(_module, 'IWMIndexer')
 make_head(_module, 'IWMIndexer2')
 make_head(_module, 'IWMInputMediaProps')
-make_head(_module, 'IWMIStreamProps')
 make_head(_module, 'IWMLanguageList')
 make_head(_module, 'IWMLicenseBackup')
 make_head(_module, 'IWMLicenseRestore')
@@ -2258,10 +2258,10 @@ make_head(_module, 'IWMReaderTypeNegotiation')
 make_head(_module, 'IWMRegisterCallback')
 make_head(_module, 'IWMRegisteredDevice')
 make_head(_module, 'IWMSBufferAllocator')
-make_head(_module, 'IWMSecureChannel')
 make_head(_module, 'IWMSInternalAdminNetSource')
 make_head(_module, 'IWMSInternalAdminNetSource2')
 make_head(_module, 'IWMSInternalAdminNetSource3')
+make_head(_module, 'IWMSecureChannel')
 make_head(_module, 'IWMStatusCallback')
 make_head(_module, 'IWMStreamConfig')
 make_head(_module, 'IWMStreamConfig2')
@@ -2285,6 +2285,21 @@ make_head(_module, 'IWMWriterPostViewCallback')
 make_head(_module, 'IWMWriterPreprocess')
 make_head(_module, 'IWMWriterPushSink')
 make_head(_module, 'IWMWriterSink')
+make_head(_module, 'WMDRM_IMPORT_INIT_STRUCT')
+make_head(_module, 'WMMPEG2VIDEOINFO')
+make_head(_module, 'WMSCRIPTFORMAT')
+make_head(_module, 'WMT_BUFFER_SEGMENT')
+make_head(_module, 'WMT_COLORSPACEINFO_EXTENSION_DATA')
+make_head(_module, 'WMT_FILESINK_DATA_UNIT')
+make_head(_module, 'WMT_PAYLOAD_FRAGMENT')
+make_head(_module, 'WMT_TIMECODE_EXTENSION_DATA')
+make_head(_module, 'WMT_VIDEOIMAGE_SAMPLE')
+make_head(_module, 'WMT_VIDEOIMAGE_SAMPLE2')
+make_head(_module, 'WMT_WATERMARK_ENTRY')
+make_head(_module, 'WMT_WEBSTREAM_FORMAT')
+make_head(_module, 'WMT_WEBSTREAM_SAMPLE_HEADER')
+make_head(_module, 'WMVIDEOINFOHEADER')
+make_head(_module, 'WMVIDEOINFOHEADER2')
 make_head(_module, 'WM_ADDRESS_ACCESSENTRY')
 make_head(_module, 'WM_CLIENT_PROPERTIES')
 make_head(_module, 'WM_CLIENT_PROPERTIES_EX')
@@ -2301,21 +2316,6 @@ make_head(_module, 'WM_USER_TEXT')
 make_head(_module, 'WM_USER_WEB_URL')
 make_head(_module, 'WM_WRITER_STATISTICS')
 make_head(_module, 'WM_WRITER_STATISTICS_EX')
-make_head(_module, 'WMDRM_IMPORT_INIT_STRUCT')
-make_head(_module, 'WMMPEG2VIDEOINFO')
-make_head(_module, 'WMSCRIPTFORMAT')
-make_head(_module, 'WMT_BUFFER_SEGMENT')
-make_head(_module, 'WMT_COLORSPACEINFO_EXTENSION_DATA')
-make_head(_module, 'WMT_FILESINK_DATA_UNIT')
-make_head(_module, 'WMT_PAYLOAD_FRAGMENT')
-make_head(_module, 'WMT_TIMECODE_EXTENSION_DATA')
-make_head(_module, 'WMT_VIDEOIMAGE_SAMPLE')
-make_head(_module, 'WMT_VIDEOIMAGE_SAMPLE2')
-make_head(_module, 'WMT_WATERMARK_ENTRY')
-make_head(_module, 'WMT_WEBSTREAM_FORMAT')
-make_head(_module, 'WMT_WEBSTREAM_SAMPLE_HEADER')
-make_head(_module, 'WMVIDEOINFOHEADER')
-make_head(_module, 'WMVIDEOINFOHEADER2')
 __all__ = [
     "AM_CONFIGASFWRITER_PARAM_AUTOINDEX",
     "AM_CONFIGASFWRITER_PARAM_DONTCOMPRESS",

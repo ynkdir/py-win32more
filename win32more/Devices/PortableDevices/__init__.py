@@ -2007,6 +2007,23 @@ class IPortableDeviceManager(c_void_p):
     def GetDeviceProperty(pszPnPDeviceID: win32more.Foundation.PWSTR, pszDevicePropertyName: win32more.Foundation.PWSTR, pData: c_char_p_no, pcbData: POINTER(UInt32), pdwType: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
     @commethod(9)
     def GetPrivateDevices(pPnPDeviceIDs: POINTER(win32more.Foundation.PWSTR), pcPnPDeviceIDs: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IPortableDevicePropVariantCollection(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('89b2e422-4f1b-4316-bc-ef-a4-4a-fe-a8-3e-b3')
+    @commethod(3)
+    def GetCount(pcElems: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetAt(dwIndex: UInt32, pValue: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Add(pValue: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetType(pvt: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def ChangeType(vt: UInt16) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Clear() -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def RemoveAt(dwIndex: UInt32) -> win32more.Foundation.HRESULT: ...
 class IPortableDeviceProperties(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('7f6d695c-03df-4439-a8-09-59-26-6b-ee-e3-a6')
@@ -2044,23 +2061,6 @@ class IPortableDevicePropertiesBulkCallback(c_void_p):
     def OnProgress(pContext: POINTER(Guid), pResults: win32more.Devices.PortableDevices.IPortableDeviceValuesCollection_head) -> win32more.Foundation.HRESULT: ...
     @commethod(5)
     def OnEnd(pContext: POINTER(Guid), hrStatus: win32more.Foundation.HRESULT) -> win32more.Foundation.HRESULT: ...
-class IPortableDevicePropVariantCollection(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('89b2e422-4f1b-4316-bc-ef-a4-4a-fe-a8-3e-b3')
-    @commethod(3)
-    def GetCount(pcElems: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def GetAt(dwIndex: UInt32, pValue: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def Add(pValue: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def GetType(pvt: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def ChangeType(vt: UInt16) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def Clear() -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def RemoveAt(dwIndex: UInt32) -> win32more.Foundation.HRESULT: ...
 class IPortableDeviceResources(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('fd8878ac-d841-4d17-89-1c-e6-82-9c-db-69-34')
@@ -3095,10 +3095,10 @@ make_head(_module, 'IPortableDeviceDispatchFactory')
 make_head(_module, 'IPortableDeviceEventCallback')
 make_head(_module, 'IPortableDeviceKeyCollection')
 make_head(_module, 'IPortableDeviceManager')
+make_head(_module, 'IPortableDevicePropVariantCollection')
 make_head(_module, 'IPortableDeviceProperties')
 make_head(_module, 'IPortableDevicePropertiesBulk')
 make_head(_module, 'IPortableDevicePropertiesBulkCallback')
-make_head(_module, 'IPortableDevicePropVariantCollection')
 make_head(_module, 'IPortableDeviceResources')
 make_head(_module, 'IPortableDeviceService')
 make_head(_module, 'IPortableDeviceServiceActivation')

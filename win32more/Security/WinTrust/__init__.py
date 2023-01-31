@@ -492,28 +492,6 @@ class SPC_SP_OPUS_INFO(Structure):
 class SPC_STATEMENT_TYPE(Structure):
     cKeyPurposeId: UInt32
     rgpszKeyPurposeId: POINTER(win32more.Foundation.PSTR)
-class WIN_CERTIFICATE(Structure):
-    dwLength: UInt32
-    wRevision: UInt16
-    wCertificateType: UInt16
-    bCertificate: Byte * 1
-class WIN_SPUB_TRUSTED_PUBLISHER_DATA(Structure):
-    hClientToken: win32more.Foundation.HANDLE
-    lpCertificate: POINTER(win32more.Security.WinTrust.WIN_CERTIFICATE_head)
-class WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT(Structure):
-    hClientToken: win32more.Foundation.HANDLE
-    SubjectType: POINTER(Guid)
-    Subject: c_void_p
-class WIN_TRUST_ACTDATA_SUBJECT_ONLY(Structure):
-    SubjectType: POINTER(Guid)
-    Subject: c_void_p
-class WIN_TRUST_SUBJECT_FILE(Structure):
-    hFile: win32more.Foundation.HANDLE
-    lpPath: win32more.Foundation.PWSTR
-class WIN_TRUST_SUBJECT_FILE_AND_DISPLAY(Structure):
-    hFile: win32more.Foundation.HANDLE
-    lpPath: win32more.Foundation.PWSTR
-    lpDisplayName: win32more.Foundation.PWSTR
 class WINTRUST_BLOB_INFO(Structure):
     cbStruct: UInt32
     gSubject: Guid
@@ -635,6 +613,28 @@ class WINTRUST_SIGNATURE_SETTINGS(Structure):
 WINTRUST_SIGNATURE_SETTINGS_FLAGS = UInt32
 WSS_VERIFY_SPECIFIC: WINTRUST_SIGNATURE_SETTINGS_FLAGS = 1
 WSS_GET_SECONDARY_SIG_COUNT: WINTRUST_SIGNATURE_SETTINGS_FLAGS = 2
+class WIN_CERTIFICATE(Structure):
+    dwLength: UInt32
+    wRevision: UInt16
+    wCertificateType: UInt16
+    bCertificate: Byte * 1
+class WIN_SPUB_TRUSTED_PUBLISHER_DATA(Structure):
+    hClientToken: win32more.Foundation.HANDLE
+    lpCertificate: POINTER(win32more.Security.WinTrust.WIN_CERTIFICATE_head)
+class WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT(Structure):
+    hClientToken: win32more.Foundation.HANDLE
+    SubjectType: POINTER(Guid)
+    Subject: c_void_p
+class WIN_TRUST_ACTDATA_SUBJECT_ONLY(Structure):
+    SubjectType: POINTER(Guid)
+    Subject: c_void_p
+class WIN_TRUST_SUBJECT_FILE(Structure):
+    hFile: win32more.Foundation.HANDLE
+    lpPath: win32more.Foundation.PWSTR
+class WIN_TRUST_SUBJECT_FILE_AND_DISPLAY(Structure):
+    hFile: win32more.Foundation.HANDLE
+    lpPath: win32more.Foundation.PWSTR
+    lpDisplayName: win32more.Foundation.PWSTR
 class WTD_GENERIC_CHAIN_POLICY_CREATE_INFO(Structure):
     Anonymous: _Anonymous_e__Union
     hChainEngine: win32more.Security.Cryptography.HCERTCHAINENGINE
@@ -715,12 +715,6 @@ make_head(_module, 'SPC_SIGINFO')
 make_head(_module, 'SPC_SP_AGENCY_INFO')
 make_head(_module, 'SPC_SP_OPUS_INFO')
 make_head(_module, 'SPC_STATEMENT_TYPE')
-make_head(_module, 'WIN_CERTIFICATE')
-make_head(_module, 'WIN_SPUB_TRUSTED_PUBLISHER_DATA')
-make_head(_module, 'WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT')
-make_head(_module, 'WIN_TRUST_ACTDATA_SUBJECT_ONLY')
-make_head(_module, 'WIN_TRUST_SUBJECT_FILE')
-make_head(_module, 'WIN_TRUST_SUBJECT_FILE_AND_DISPLAY')
 make_head(_module, 'WINTRUST_BLOB_INFO')
 make_head(_module, 'WINTRUST_CATALOG_INFO')
 make_head(_module, 'WINTRUST_CERT_INFO')
@@ -728,6 +722,12 @@ make_head(_module, 'WINTRUST_DATA')
 make_head(_module, 'WINTRUST_FILE_INFO')
 make_head(_module, 'WINTRUST_SGNR_INFO')
 make_head(_module, 'WINTRUST_SIGNATURE_SETTINGS')
+make_head(_module, 'WIN_CERTIFICATE')
+make_head(_module, 'WIN_SPUB_TRUSTED_PUBLISHER_DATA')
+make_head(_module, 'WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT')
+make_head(_module, 'WIN_TRUST_ACTDATA_SUBJECT_ONLY')
+make_head(_module, 'WIN_TRUST_SUBJECT_FILE')
+make_head(_module, 'WIN_TRUST_SUBJECT_FILE_AND_DISPLAY')
 make_head(_module, 'WTD_GENERIC_CHAIN_POLICY_CREATE_INFO')
 make_head(_module, 'WTD_GENERIC_CHAIN_POLICY_DATA')
 make_head(_module, 'WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO')

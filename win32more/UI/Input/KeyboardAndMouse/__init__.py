@@ -308,10 +308,6 @@ INPUT_TYPE = UInt32
 INPUT_MOUSE: INPUT_TYPE = 0
 INPUT_KEYBOARD: INPUT_TYPE = 1
 INPUT_HARDWARE: INPUT_TYPE = 2
-class KBD_TYPE_INFO(Structure):
-    dwVersion: UInt32
-    dwType: UInt32
-    dwSubType: UInt32
 class KBDNLSTABLES(Structure):
     OEMIdentifier: UInt16
     LayoutInformation: UInt16
@@ -319,13 +315,6 @@ class KBDNLSTABLES(Structure):
     pVkToF: POINTER(win32more.UI.Input.KeyboardAndMouse.VK_F_head)
     NumOfMouseVKey: Int32
     pusMouseVKey: POINTER(UInt16)
-class KBDTABLE_DESC(Structure):
-    wszDllName: Char * 32
-    dwType: UInt32
-    dwSubType: UInt32
-class KBDTABLE_MULTI(Structure):
-    nTables: UInt32
-    aKbdTables: win32more.UI.Input.KeyboardAndMouse.KBDTABLE_DESC * 8
 class KBDTABLES(Structure):
     pCharModifiers: POINTER(win32more.UI.Input.KeyboardAndMouse.MODIFIERS_head)
     pVkToWcharTable: POINTER(win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHAR_TABLE_head)
@@ -343,17 +332,28 @@ class KBDTABLES(Structure):
     pLigature: POINTER(win32more.UI.Input.KeyboardAndMouse.LIGATURE1_head)
     dwType: UInt32
     dwSubType: UInt32
-KEYBD_EVENT_FLAGS = UInt32
-KEYEVENTF_EXTENDEDKEY: KEYBD_EVENT_FLAGS = 1
-KEYEVENTF_KEYUP: KEYBD_EVENT_FLAGS = 2
-KEYEVENTF_SCANCODE: KEYBD_EVENT_FLAGS = 8
-KEYEVENTF_UNICODE: KEYBD_EVENT_FLAGS = 4
+class KBDTABLE_DESC(Structure):
+    wszDllName: Char * 32
+    dwType: UInt32
+    dwSubType: UInt32
+class KBDTABLE_MULTI(Structure):
+    nTables: UInt32
+    aKbdTables: win32more.UI.Input.KeyboardAndMouse.KBDTABLE_DESC * 8
+class KBD_TYPE_INFO(Structure):
+    dwVersion: UInt32
+    dwType: UInt32
+    dwSubType: UInt32
 class KEYBDINPUT(Structure):
     wVk: win32more.UI.Input.KeyboardAndMouse.VIRTUAL_KEY
     wScan: UInt16
     dwFlags: win32more.UI.Input.KeyboardAndMouse.KEYBD_EVENT_FLAGS
     time: UInt32
     dwExtraInfo: UIntPtr
+KEYBD_EVENT_FLAGS = UInt32
+KEYEVENTF_EXTENDEDKEY: KEYBD_EVENT_FLAGS = 1
+KEYEVENTF_KEYUP: KEYBD_EVENT_FLAGS = 2
+KEYEVENTF_SCANCODE: KEYBD_EVENT_FLAGS = 8
+KEYEVENTF_UNICODE: KEYBD_EVENT_FLAGS = 4
 class LASTINPUTINFO(Structure):
     cbSize: UInt32
     dwTime: UInt32
@@ -387,6 +387,18 @@ class MODIFIERS(Structure):
     pVkToBit: POINTER(win32more.UI.Input.KeyboardAndMouse.VK_TO_BIT_head)
     wMaxModBits: UInt16
     ModNumber: Byte * 1
+class MOUSEINPUT(Structure):
+    dx: Int32
+    dy: Int32
+    mouseData: Int32
+    dwFlags: win32more.UI.Input.KeyboardAndMouse.MOUSE_EVENT_FLAGS
+    time: UInt32
+    dwExtraInfo: UIntPtr
+class MOUSEMOVEPOINT(Structure):
+    x: Int32
+    y: Int32
+    time: UInt32
+    dwExtraInfo: UIntPtr
 MOUSE_EVENT_FLAGS = UInt32
 MOUSEEVENTF_ABSOLUTE: MOUSE_EVENT_FLAGS = 32768
 MOUSEEVENTF_LEFTDOWN: MOUSE_EVENT_FLAGS = 2
@@ -402,18 +414,6 @@ MOUSEEVENTF_XUP: MOUSE_EVENT_FLAGS = 256
 MOUSEEVENTF_HWHEEL: MOUSE_EVENT_FLAGS = 4096
 MOUSEEVENTF_MOVE_NOCOALESCE: MOUSE_EVENT_FLAGS = 8192
 MOUSEEVENTF_VIRTUALDESK: MOUSE_EVENT_FLAGS = 16384
-class MOUSEINPUT(Structure):
-    dx: Int32
-    dy: Int32
-    mouseData: Int32
-    dwFlags: win32more.UI.Input.KeyboardAndMouse.MOUSE_EVENT_FLAGS
-    time: UInt32
-    dwExtraInfo: UIntPtr
-class MOUSEMOVEPOINT(Structure):
-    x: Int32
-    y: Int32
-    time: UInt32
-    dwExtraInfo: UIntPtr
 class TRACKMOUSEEVENT(Structure):
     cbSize: UInt32
     dwFlags: win32more.UI.Input.KeyboardAndMouse.TRACKMOUSEEVENT_FLAGS
@@ -669,10 +669,6 @@ class VK_FPARAM(Structure):
 class VK_TO_BIT(Structure):
     Vk: Byte
     ModBits: Byte
-class VK_TO_WCHAR_TABLE(Structure):
-    pVkToWchars: POINTER(win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHARS1_head)
-    nModifications: Byte
-    cbSize: Byte
 class VK_TO_WCHARS1(Structure):
     VirtualKey: Byte
     Attributes: Byte
@@ -713,6 +709,10 @@ class VK_TO_WCHARS9(Structure):
     VirtualKey: Byte
     Attributes: Byte
     wch: Char * 9
+class VK_TO_WCHAR_TABLE(Structure):
+    pVkToWchars: POINTER(win32more.UI.Input.KeyboardAndMouse.VK_TO_WCHARS1_head)
+    nModifications: Byte
+    cbSize: Byte
 class VK_VSC(Structure):
     Vk: Byte
     Vsc: Byte
@@ -725,11 +725,11 @@ class VSC_VK(Structure):
 make_head(_module, 'DEADKEY')
 make_head(_module, 'HARDWAREINPUT')
 make_head(_module, 'INPUT')
-make_head(_module, 'KBD_TYPE_INFO')
 make_head(_module, 'KBDNLSTABLES')
+make_head(_module, 'KBDTABLES')
 make_head(_module, 'KBDTABLE_DESC')
 make_head(_module, 'KBDTABLE_MULTI')
-make_head(_module, 'KBDTABLES')
+make_head(_module, 'KBD_TYPE_INFO')
 make_head(_module, 'KEYBDINPUT')
 make_head(_module, 'LASTINPUTINFO')
 make_head(_module, 'LIGATURE1')
@@ -744,7 +744,6 @@ make_head(_module, 'TRACKMOUSEEVENT')
 make_head(_module, 'VK_F')
 make_head(_module, 'VK_FPARAM')
 make_head(_module, 'VK_TO_BIT')
-make_head(_module, 'VK_TO_WCHAR_TABLE')
 make_head(_module, 'VK_TO_WCHARS1')
 make_head(_module, 'VK_TO_WCHARS10')
 make_head(_module, 'VK_TO_WCHARS2')
@@ -755,6 +754,7 @@ make_head(_module, 'VK_TO_WCHARS6')
 make_head(_module, 'VK_TO_WCHARS7')
 make_head(_module, 'VK_TO_WCHARS8')
 make_head(_module, 'VK_TO_WCHARS9')
+make_head(_module, 'VK_TO_WCHAR_TABLE')
 make_head(_module, 'VK_VSC')
 make_head(_module, 'VSC_LPWSTR')
 make_head(_module, 'VSC_VK')

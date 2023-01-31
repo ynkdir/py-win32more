@@ -94,11 +94,11 @@ CCR_OTHER: CONSTRAINT_CONFLICT_REASON = 0
 CCR_COLLISION: CONSTRAINT_CONFLICT_REASON = 1
 CCR_NOPARENT: CONSTRAINT_CONFLICT_REASON = 2
 CCR_IDENTITY: CONSTRAINT_CONFLICT_REASON = 3
-FILTER_COMBINATION_TYPE = Int32
-FCT_INTERSECTION: FILTER_COMBINATION_TYPE = 0
 FILTERING_TYPE = Int32
 FT_CURRENT_ITEMS_ONLY: FILTERING_TYPE = 0
 FT_CURRENT_ITEMS_AND_VERSIONS_FOR_MOVED_OUT_ITEMS: FILTERING_TYPE = 1
+FILTER_COMBINATION_TYPE = Int32
+FCT_INTERSECTION: FILTER_COMBINATION_TYPE = 0
 class IAsynchronousDataRetriever(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('9fc7e470-61ea-4a88-9b-e4-df-56-a2-7c-fe-f2')
@@ -227,14 +227,14 @@ class ICustomFilterInfo(c_void_p):
     Guid = Guid('1d335dff-6f88-4e4d-91-a8-a3-f3-51-cf-d4-73')
     @commethod(4)
     def GetSyncFilter(pISyncFilter: POINTER(win32more.System.WindowsSync.ISyncFilter_head)) -> win32more.Foundation.HRESULT: ...
-class ID_PARAMETER_PAIR(Structure):
-    fIsVariable: win32more.Foundation.BOOL
-    cbIdSize: UInt16
 class ID_PARAMETERS(Structure):
     dwSize: UInt32
     replicaId: win32more.System.WindowsSync.ID_PARAMETER_PAIR
     itemId: win32more.System.WindowsSync.ID_PARAMETER_PAIR
     changeUnitId: win32more.System.WindowsSync.ID_PARAMETER_PAIR
+class ID_PARAMETER_PAIR(Structure):
+    fIsVariable: win32more.Foundation.BOOL
+    cbIdSize: UInt16
 class IDataRetrieverCallback(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('71b4863b-f969-4676-bb-c3-3d-9f-dc-3f-b2-c7')
@@ -302,17 +302,6 @@ class IEnumSingleItemExceptions(c_void_p):
     def Reset() -> win32more.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(ppEnum: POINTER(win32more.System.WindowsSync.IEnumSingleItemExceptions_head)) -> win32more.Foundation.HRESULT: ...
-class IEnumSyncChanges(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('5f86be4a-5e78-4e32-ac-1c-c2-4f-d2-23-ef-85')
-    @commethod(3)
-    def Next(cChanges: UInt32, ppChange: POINTER(win32more.System.WindowsSync.ISyncChange_head), pcFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def Skip(cChanges: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def Reset() -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def Clone(ppEnum: POINTER(win32more.System.WindowsSync.IEnumSyncChanges_head)) -> win32more.Foundation.HRESULT: ...
 class IEnumSyncChangeUnits(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('346b35f1-8703-4c6d-ab-1a-4d-bc-a2-cf-f9-7f')
@@ -324,6 +313,17 @@ class IEnumSyncChangeUnits(c_void_p):
     def Reset() -> win32more.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(ppEnum: POINTER(win32more.System.WindowsSync.IEnumSyncChangeUnits_head)) -> win32more.Foundation.HRESULT: ...
+class IEnumSyncChanges(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('5f86be4a-5e78-4e32-ac-1c-c2-4f-d2-23-ef-85')
+    @commethod(3)
+    def Next(cChanges: UInt32, ppChange: POINTER(win32more.System.WindowsSync.ISyncChange_head), pcFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Skip(cChanges: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Clone(ppEnum: POINTER(win32more.System.WindowsSync.IEnumSyncChanges_head)) -> win32more.Foundation.HRESULT: ...
 class IEnumSyncProviderConfigUIInfos(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('f6be2602-17c6-4658-a2-d7-68-ed-33-30-f6-41')
@@ -739,13 +739,6 @@ class ISyncFullEnumerationChangeBatch2(c_void_p):
     Guid = Guid('e06449f4-a205-4b65-97-24-01-b2-21-01-ee-c1')
     @commethod(20)
     def AddMergeTombstoneMetadataToGroup(pbOwnerReplicaId: c_char_p_no, pbWinnerItemId: c_char_p_no, pbItemId: c_char_p_no, pChangeVersion: POINTER(win32more.System.WindowsSync.SYNC_VERSION_head), pCreationVersion: POINTER(win32more.System.WindowsSync.SYNC_VERSION_head), dwWorkForChange: UInt32, ppChangeBuilder: POINTER(win32more.System.WindowsSync.ISyncChangeBuilder_head)) -> win32more.Foundation.HRESULT: ...
-class ISynchronousDataRetriever(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('9b22f2a9-a4cd-4648-9d-8e-3a-51-0d-4d-a0-4b')
-    @commethod(3)
-    def GetIdParameters(pIdParameters: POINTER(win32more.System.WindowsSync.ID_PARAMETERS_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def LoadChangeData(pLoadChangeContext: win32more.System.WindowsSync.ILoadChangeContext_head, ppUnkData: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
 class ISyncKnowledge(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('615bbb53-c945-4203-bf-4b-2c-b6-59-19-a0-aa')
@@ -930,6 +923,13 @@ class ISyncSessionState2(c_void_p):
     def SetProviderWithError(fSelf: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
     @commethod(11)
     def GetSessionErrorStatus(phrSessionError: POINTER(win32more.Foundation.HRESULT)) -> win32more.Foundation.HRESULT: ...
+class ISynchronousDataRetriever(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('9b22f2a9-a4cd-4648-9d-8e-3a-51-0d-4d-a0-4b')
+    @commethod(3)
+    def GetIdParameters(pIdParameters: POINTER(win32more.System.WindowsSync.ID_PARAMETERS_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def LoadChangeData(pLoadChangeContext: win32more.System.WindowsSync.ILoadChangeContext_head, ppUnkData: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
 KNOWLEDGE_COOKIE_COMPARISON_RESULT = Int32
 KCCR_COOKIE_KNOWLEDGE_EQUAL: KNOWLEDGE_COOKIE_COMPARISON_RESULT = 0
 KCCR_COOKIE_KNOWLEDGE_CONTAINED: KNOWLEDGE_COOKIE_COMPARISON_RESULT = 1
@@ -1041,8 +1041,8 @@ make_head(_module, 'IConstructReplicaKeyMap')
 make_head(_module, 'ICoreFragment')
 make_head(_module, 'ICoreFragmentInspector')
 make_head(_module, 'ICustomFilterInfo')
-make_head(_module, 'ID_PARAMETER_PAIR')
 make_head(_module, 'ID_PARAMETERS')
+make_head(_module, 'ID_PARAMETER_PAIR')
 make_head(_module, 'IDataRetrieverCallback')
 make_head(_module, 'IEnumChangeUnitExceptions')
 make_head(_module, 'IEnumClockVector')
@@ -1050,8 +1050,8 @@ make_head(_module, 'IEnumFeedClockVector')
 make_head(_module, 'IEnumItemIds')
 make_head(_module, 'IEnumRangeExceptions')
 make_head(_module, 'IEnumSingleItemExceptions')
-make_head(_module, 'IEnumSyncChanges')
 make_head(_module, 'IEnumSyncChangeUnits')
+make_head(_module, 'IEnumSyncChanges')
 make_head(_module, 'IEnumSyncProviderConfigUIInfos')
 make_head(_module, 'IEnumSyncProviderInfos')
 make_head(_module, 'IFeedClockVector')
@@ -1097,7 +1097,6 @@ make_head(_module, 'ISyncFilterInfo2')
 make_head(_module, 'ISyncFullEnumerationChange')
 make_head(_module, 'ISyncFullEnumerationChangeBatch')
 make_head(_module, 'ISyncFullEnumerationChangeBatch2')
-make_head(_module, 'ISynchronousDataRetriever')
 make_head(_module, 'ISyncKnowledge')
 make_head(_module, 'ISyncKnowledge2')
 make_head(_module, 'ISyncMergeTombstoneChange')
@@ -1110,6 +1109,7 @@ make_head(_module, 'ISyncRegistrationChange')
 make_head(_module, 'ISyncSessionExtendedErrorInfo')
 make_head(_module, 'ISyncSessionState')
 make_head(_module, 'ISyncSessionState2')
+make_head(_module, 'ISynchronousDataRetriever')
 make_head(_module, 'SYNC_FILTER_CHANGE')
 make_head(_module, 'SYNC_RANGE')
 make_head(_module, 'SYNC_SESSION_STATISTICS')

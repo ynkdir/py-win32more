@@ -20,10 +20,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-_PERSIST_SPROPSTORE_FLAGS = Int32
-FPSPS_DEFAULT: _PERSIST_SPROPSTORE_FLAGS = 0
-FPSPS_READONLY: _PERSIST_SPROPSTORE_FLAGS = 1
-FPSPS_TREAT_NEW_VALUES_AS_DIRTY: _PERSIST_SPROPSTORE_FLAGS = 2
 PKEY_PIDSTR_MAX: UInt32 = 10
 @winfunctype('PROPSYS.dll')
 def PropVariantToWinRTPropertyValue(propvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
@@ -533,8 +529,6 @@ class INamedPropertyStore(c_void_p):
     def GetNameCount(pdwCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
     @commethod(6)
     def GetNameAt(iProp: UInt32, pbstrName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-InMemoryPropertyStore = Guid('9a02e012-6303-4e1e-b9-a1-63-0f-80-25-92-c5')
-InMemoryPropertyStoreMarshalByValue = Guid('d4ca0e2d-6da7-4b75-a9-7c-5f-30-6f-0e-ae-dc')
 class IObjectWithPropertyKey(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('fc0ca0a7-c316-4fd2-90-31-3e-62-8e-6d-4f-23')
@@ -770,6 +764,8 @@ class IPropertyUI(c_void_p):
     def FormatForDisplay(fmtid: POINTER(Guid), pid: UInt32, ppropvar: POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), puiff: win32more.UI.Shell.PropertiesSystem.PROPERTYUI_FORMAT_FLAGS, pwszText: win32more.Foundation.PWSTR, cchText: UInt32) -> win32more.Foundation.HRESULT: ...
     @commethod(10)
     def GetHelpInfo(fmtid: POINTER(Guid), pid: UInt32, pwszHelpFile: win32more.Foundation.PWSTR, cch: UInt32, puHelpID: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+InMemoryPropertyStore = Guid('9a02e012-6303-4e1e-b9-a1-63-0f-80-25-92-c5')
+InMemoryPropertyStoreMarshalByValue = Guid('d4ca0e2d-6da7-4b75-a9-7c-5f-30-6f-0e-ae-dc')
 PDOPSTATUS = Int32
 PDOPS_RUNNING: PDOPSTATUS = 1
 PDOPS_PAUSED: PDOPSTATUS = 2
@@ -914,7 +910,6 @@ PET_ENDRANGE: PROPENUMTYPE = 3
 class PROPERTYKEY(Structure):
     fmtid: Guid
     pid: UInt32
-PropertySystem = Guid('b8967f85-58ae-4f46-9f-b2-5d-79-04-79-8f-4b')
 PROPERTYUI_FLAGS = UInt32
 PUIF_DEFAULT: PROPERTYUI_FLAGS = 0
 PUIF_RIGHTALIGN: PROPERTYUI_FLAGS = 1
@@ -973,6 +968,7 @@ PSC_READONLY: PSC_STATE = 3
 PSTIME_FLAGS = UInt32
 PSTF_UTC: PSTIME_FLAGS = 0
 PSTF_LOCAL: PSTIME_FLAGS = 1
+PropertySystem = Guid('b8967f85-58ae-4f46-9f-b2-5d-79-04-79-8f-4b')
 class SERIALIZEDPROPSTORAGE(Structure):
     pass
 SYNC_ENGINE_STATE_FLAGS = UInt32
@@ -1000,6 +996,10 @@ STS_HASWARNING: SYNC_TRANSFER_STATUS = 128
 STS_EXCLUDED: SYNC_TRANSFER_STATUS = 256
 STS_INCOMPLETE: SYNC_TRANSFER_STATUS = 512
 STS_PLACEHOLDER_IFEMPTY: SYNC_TRANSFER_STATUS = 1024
+_PERSIST_SPROPSTORE_FLAGS = Int32
+FPSPS_DEFAULT: _PERSIST_SPROPSTORE_FLAGS = 0
+FPSPS_READONLY: _PERSIST_SPROPSTORE_FLAGS = 1
+FPSPS_TREAT_NEW_VALUES_AS_DIRTY: _PERSIST_SPROPSTORE_FLAGS = 2
 make_head(_module, 'ICreateObject')
 make_head(_module, 'IDelayedPropertyStoreFactory')
 make_head(_module, 'IInitializeWithFile')

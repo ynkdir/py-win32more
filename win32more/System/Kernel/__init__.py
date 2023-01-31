@@ -114,6 +114,9 @@ class NT_TIB(Structure):
     class _Anonymous_e__Union(Union):
         FiberData: c_void_p
         Version: UInt32
+class OBJECTID(Structure):
+    Lineage: Guid
+    Uniquifier: UInt32
 class OBJECT_ATTRIBUTES32(Structure):
     Length: UInt32
     RootDirectory: UInt32
@@ -128,9 +131,6 @@ class OBJECT_ATTRIBUTES64(Structure):
     Attributes: UInt32
     SecurityDescriptor: UInt64
     SecurityQualityOfService: UInt64
-class OBJECTID(Structure):
-    Lineage: Guid
-    Uniquifier: UInt32
 class PROCESSOR_NUMBER(Structure):
     Group: UInt16
     Number: Byte
@@ -240,9 +240,9 @@ make_head(_module, 'LIST_ENTRY')
 make_head(_module, 'LIST_ENTRY32')
 make_head(_module, 'LIST_ENTRY64')
 make_head(_module, 'NT_TIB')
+make_head(_module, 'OBJECTID')
 make_head(_module, 'OBJECT_ATTRIBUTES32')
 make_head(_module, 'OBJECT_ATTRIBUTES64')
-make_head(_module, 'OBJECTID')
 make_head(_module, 'PROCESSOR_NUMBER')
 make_head(_module, 'QUAD')
 make_head(_module, 'RTL_BALANCED_NODE')

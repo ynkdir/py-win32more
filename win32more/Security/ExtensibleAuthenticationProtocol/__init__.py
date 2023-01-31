@@ -325,10 +325,44 @@ def EapHostPeerGetIdentity(dwVersion: UInt32, dwFlags: UInt32, eapMethodType: wi
 def EapHostPeerGetEncryptedPassword(dwSizeofPassword: UInt32, szPassword: win32more.Foundation.PWSTR, ppszEncPassword: POINTER(win32more.Foundation.PWSTR)) -> UInt32: ...
 @winfunctype('eappprxy.dll')
 def EapHostPeerFreeRuntimeMemory(pData: c_char_p_no) -> Void: ...
+class EAPHOST_AUTH_INFO(Structure):
+    status: win32more.Security.ExtensibleAuthenticationProtocol.EAPHOST_AUTH_STATUS
+    dwErrorCode: UInt32
+    dwReasonCode: UInt32
+EAPHOST_AUTH_STATUS = Int32
+EAPHOST_AUTH_STATUS_EapHostInvalidSession: EAPHOST_AUTH_STATUS = 0
+EAPHOST_AUTH_STATUS_EapHostAuthNotStarted: EAPHOST_AUTH_STATUS = 1
+EAPHOST_AUTH_STATUS_EapHostAuthIdentityExchange: EAPHOST_AUTH_STATUS = 2
+EAPHOST_AUTH_STATUS_EapHostAuthNegotiatingType: EAPHOST_AUTH_STATUS = 3
+EAPHOST_AUTH_STATUS_EapHostAuthInProgress: EAPHOST_AUTH_STATUS = 4
+EAPHOST_AUTH_STATUS_EapHostAuthSucceeded: EAPHOST_AUTH_STATUS = 5
+EAPHOST_AUTH_STATUS_EapHostAuthFailed: EAPHOST_AUTH_STATUS = 6
+class EAPHOST_IDENTITY_UI_PARAMS(Structure):
+    eapMethodType: win32more.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE
+    dwFlags: UInt32
+    dwSizeofConnectionData: UInt32
+    pConnectionData: c_char_p_no
+    dwSizeofUserData: UInt32
+    pUserData: c_char_p_no
+    dwSizeofUserDataOut: UInt32
+    pUserDataOut: c_char_p_no
+    pwszIdentity: win32more.Foundation.PWSTR
+    dwError: UInt32
+    pEapError: POINTER(win32more.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head)
+class EAPHOST_INTERACTIVE_UI_PARAMS(Structure):
+    dwSizeofContextData: UInt32
+    pContextData: c_char_p_no
+    dwSizeofInteractiveUIData: UInt32
+    pInteractiveUIData: c_char_p_no
+    dwError: UInt32
+    pEapError: POINTER(win32more.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head)
 class EAP_ATTRIBUTE(Structure):
     eaType: win32more.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_TYPE
     dwLength: UInt32
     pValue: c_char_p_no
+class EAP_ATTRIBUTES(Structure):
+    dwNumberOfAttributes: UInt32
+    pAttribs: POINTER(win32more.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_head)
 EAP_ATTRIBUTE_TYPE = Int32
 EAP_ATTRIBUTE_TYPE_eatMinimum: EAP_ATTRIBUTE_TYPE = 0
 EAP_ATTRIBUTE_TYPE_eatUserName: EAP_ATTRIBUTE_TYPE = 1
@@ -428,9 +462,6 @@ EAP_ATTRIBUTE_TYPE_eatMethodId: EAP_ATTRIBUTE_TYPE = 9002
 EAP_ATTRIBUTE_TYPE_eatEMSK: EAP_ATTRIBUTE_TYPE = 9003
 EAP_ATTRIBUTE_TYPE_eatSessionId: EAP_ATTRIBUTE_TYPE = 9004
 EAP_ATTRIBUTE_TYPE_eatReserved: EAP_ATTRIBUTE_TYPE = -1
-class EAP_ATTRIBUTES(Structure):
-    dwNumberOfAttributes: UInt32
-    pAttribs: POINTER(win32more.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTE_head)
 class EAP_AUTHENTICATOR_METHOD_ROUTINES(Structure):
     dwSizeInBytes: UInt32
     pEapType: POINTER(win32more.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE_head)
@@ -630,37 +661,6 @@ class EapCredentialTypeData(Union):
     username_password: win32more.Security.ExtensibleAuthenticationProtocol.EapUsernamePasswordCredential
     certificate: win32more.Security.ExtensibleAuthenticationProtocol.EapCertificateCredential
     sim: win32more.Security.ExtensibleAuthenticationProtocol.EapSimCredential
-class EAPHOST_AUTH_INFO(Structure):
-    status: win32more.Security.ExtensibleAuthenticationProtocol.EAPHOST_AUTH_STATUS
-    dwErrorCode: UInt32
-    dwReasonCode: UInt32
-EAPHOST_AUTH_STATUS = Int32
-EAPHOST_AUTH_STATUS_EapHostInvalidSession: EAPHOST_AUTH_STATUS = 0
-EAPHOST_AUTH_STATUS_EapHostAuthNotStarted: EAPHOST_AUTH_STATUS = 1
-EAPHOST_AUTH_STATUS_EapHostAuthIdentityExchange: EAPHOST_AUTH_STATUS = 2
-EAPHOST_AUTH_STATUS_EapHostAuthNegotiatingType: EAPHOST_AUTH_STATUS = 3
-EAPHOST_AUTH_STATUS_EapHostAuthInProgress: EAPHOST_AUTH_STATUS = 4
-EAPHOST_AUTH_STATUS_EapHostAuthSucceeded: EAPHOST_AUTH_STATUS = 5
-EAPHOST_AUTH_STATUS_EapHostAuthFailed: EAPHOST_AUTH_STATUS = 6
-class EAPHOST_IDENTITY_UI_PARAMS(Structure):
-    eapMethodType: win32more.Security.ExtensibleAuthenticationProtocol.EAP_METHOD_TYPE
-    dwFlags: UInt32
-    dwSizeofConnectionData: UInt32
-    pConnectionData: c_char_p_no
-    dwSizeofUserData: UInt32
-    pUserData: c_char_p_no
-    dwSizeofUserDataOut: UInt32
-    pUserDataOut: c_char_p_no
-    pwszIdentity: win32more.Foundation.PWSTR
-    dwError: UInt32
-    pEapError: POINTER(win32more.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head)
-class EAPHOST_INTERACTIVE_UI_PARAMS(Structure):
-    dwSizeofContextData: UInt32
-    pContextData: c_char_p_no
-    dwSizeofInteractiveUIData: UInt32
-    pInteractiveUIData: c_char_p_no
-    dwError: UInt32
-    pEapError: POINTER(win32more.Security.ExtensibleAuthenticationProtocol.EAP_ERROR_head)
 EapHostPeerAuthParams = Int32
 EapHostPeerAuthParams_EapHostPeerAuthStatus: EapHostPeerAuthParams = 1
 EapHostPeerAuthParams_EapHostPeerIdentity: EapHostPeerAuthParams = 2
@@ -976,6 +976,9 @@ RAS_AUTH_ATTRIBUTE_TYPE_raatMethodId: RAS_AUTH_ATTRIBUTE_TYPE = 9002
 RAS_AUTH_ATTRIBUTE_TYPE_raatEMSK: RAS_AUTH_ATTRIBUTE_TYPE = 9003
 RAS_AUTH_ATTRIBUTE_TYPE_raatSessionId: RAS_AUTH_ATTRIBUTE_TYPE = 9004
 RAS_AUTH_ATTRIBUTE_TYPE_raatReserved: RAS_AUTH_ATTRIBUTE_TYPE = -1
+make_head(_module, 'EAPHOST_AUTH_INFO')
+make_head(_module, 'EAPHOST_IDENTITY_UI_PARAMS')
+make_head(_module, 'EAPHOST_INTERACTIVE_UI_PARAMS')
 make_head(_module, 'EAP_ATTRIBUTE')
 make_head(_module, 'EAP_ATTRIBUTES')
 make_head(_module, 'EAP_AUTHENTICATOR_METHOD_ROUTINES')
@@ -1002,9 +1005,6 @@ make_head(_module, 'EAP_UI_DATA_FORMAT')
 make_head(_module, 'EapCertificateCredential')
 make_head(_module, 'EapCredential')
 make_head(_module, 'EapCredentialTypeData')
-make_head(_module, 'EAPHOST_AUTH_INFO')
-make_head(_module, 'EAPHOST_IDENTITY_UI_PARAMS')
-make_head(_module, 'EAPHOST_INTERACTIVE_UI_PARAMS')
 make_head(_module, 'EapHostPeerMethodResult')
 make_head(_module, 'EapPacket')
 make_head(_module, 'EapPeerMethodOutput')

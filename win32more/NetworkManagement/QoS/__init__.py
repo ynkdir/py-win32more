@@ -19,6 +19,12 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+class ADDRESS_LIST_DESCRIPTOR(Structure):
+    MediaType: UInt32
+    AddressList: win32more.NetworkManagement.Ndis.NETWORK_ADDRESS_LIST
+class ADSPEC(Structure):
+    adspec_header: win32more.NetworkManagement.QoS.RsvpObjHdr
+    adspec_body: win32more.NetworkManagement.QoS.IS_ADSPEC_BODY
 class AD_GENERAL_PARAMS(Structure):
     IntServAwareHopCount: UInt32
     PathBandwidthEstimate: UInt32
@@ -30,12 +36,6 @@ class AD_GUARANTEED(Structure):
     DTotal: UInt32
     CSum: UInt32
     DSum: UInt32
-class ADDRESS_LIST_DESCRIPTOR(Structure):
-    MediaType: UInt32
-    AddressList: win32more.NetworkManagement.Ndis.NETWORK_ADDRESS_LIST
-class ADSPEC(Structure):
-    adspec_header: win32more.NetworkManagement.QoS.RsvpObjHdr
-    adspec_body: win32more.NetworkManagement.QoS.IS_ADSPEC_BODY
 QOS_MAX_OBJECT_STRING_LENGTH: UInt32 = 256
 QOS_TRAFFIC_GENERAL_ID_BASE: UInt32 = 4000
 SERVICETYPE_NOTRAFFIC: UInt32 = 0
@@ -661,20 +661,10 @@ class FILTER_SPEC(Structure):
     class _filt_u_e__Union(Union):
         filt_ipv4: win32more.NetworkManagement.QoS.Filter_Spec_IPv4
         filt_ipv4gpi: win32more.NetworkManagement.QoS.Filter_Spec_IPv4GPI
-class Filter_Spec_IPv4(Structure):
-    filt_ipaddr: win32more.Networking.WinSock.IN_ADDR
-    filt_unused: UInt16
-    filt_port: UInt16
-class Filter_Spec_IPv4GPI(Structure):
-    filt_ipaddr: win32more.Networking.WinSock.IN_ADDR
-    filt_gpi: UInt32
-FilterType = Int32
-FILTERSPECV4: FilterType = 1
-FILTERSPECV6: FilterType = 2
-FILTERSPECV6_FLOW: FilterType = 3
-FILTERSPECV4_GPI: FilterType = 4
-FILTERSPECV6_GPI: FilterType = 5
-FILTERSPEC_END: FilterType = 6
+class FLOWDESCRIPTOR(Structure):
+    FlowSpec: win32more.Networking.WinSock.FLOWSPEC
+    NumFilters: UInt32
+    FilterList: POINTER(win32more.NetworkManagement.QoS.RSVP_FILTERSPEC_head)
 class FLOW_DESC(Structure):
     u1: _u1_e__Union
     u2: _u2_e__Union
@@ -684,10 +674,20 @@ class FLOW_DESC(Structure):
     class _u2_e__Union(Union):
         stemp: POINTER(win32more.NetworkManagement.QoS.FILTER_SPEC_head)
         fspec: POINTER(win32more.NetworkManagement.QoS.FILTER_SPEC_head)
-class FLOWDESCRIPTOR(Structure):
-    FlowSpec: win32more.Networking.WinSock.FLOWSPEC
-    NumFilters: UInt32
-    FilterList: POINTER(win32more.NetworkManagement.QoS.RSVP_FILTERSPEC_head)
+FilterType = Int32
+FILTERSPECV4: FilterType = 1
+FILTERSPECV6: FilterType = 2
+FILTERSPECV6_FLOW: FilterType = 3
+FILTERSPECV4_GPI: FilterType = 4
+FILTERSPECV6_GPI: FilterType = 5
+FILTERSPEC_END: FilterType = 6
+class Filter_Spec_IPv4(Structure):
+    filt_ipaddr: win32more.Networking.WinSock.IN_ADDR
+    filt_unused: UInt16
+    filt_port: UInt16
+class Filter_Spec_IPv4GPI(Structure):
+    filt_ipaddr: win32more.Networking.WinSock.IN_ADDR
+    filt_gpi: UInt32
 class Gads_parms_t(Structure):
     Gads_serv_hdr: win32more.NetworkManagement.QoS.IntServServiceHdr
     Gads_Ctot_hdr: win32more.NetworkManagement.QoS.IntServParmHdr
@@ -727,6 +727,11 @@ class GuarFlowSpec(Structure):
 class GuarRspec(Structure):
     Guar_R: Single
     Guar_S: UInt32
+class IDPE_ATTR(Structure):
+    PeAttribLength: UInt16
+    PeAttribType: Byte
+    PeAttribSubType: Byte
+    PeAttribValue: Byte * 4
 class ID_ERROR_OBJECT(Structure):
     usIdErrLength: UInt16
     ucAType: Byte
@@ -734,23 +739,43 @@ class ID_ERROR_OBJECT(Structure):
     usReserved: UInt16
     usIdErrorValue: UInt16
     ucIdErrData: Byte * 4
-class IDPE_ATTR(Structure):
-    PeAttribLength: UInt16
-    PeAttribType: Byte
-    PeAttribSubType: Byte
-    PeAttribValue: Byte * 4
 class IN_ADDR_IPV4(Union):
     Addr: UInt32
     AddrBytes: Byte * 4
 class IN_ADDR_IPV6(Structure):
     Addr: Byte * 16
-int_serv_wkp = Int32
-IS_WKP_HOP_CNT: int_serv_wkp = 4
-IS_WKP_PATH_BW: int_serv_wkp = 6
-IS_WKP_MIN_LATENCY: int_serv_wkp = 8
-IS_WKP_COMPOSED_MTU: int_serv_wkp = 10
-IS_WKP_TB_TSPEC: int_serv_wkp = 127
-IS_WKP_Q_TSPEC: int_serv_wkp = 128
+class IPX_PATTERN(Structure):
+    Src: _Src_e__Struct
+    Dest: _Src_e__Struct
+    class _Src_e__Struct(Structure):
+        NetworkAddress: UInt32
+        NodeAddress: Byte * 6
+        Socket: UInt16
+class IP_PATTERN(Structure):
+    Reserved1: UInt32
+    Reserved2: UInt32
+    SrcAddr: UInt32
+    DstAddr: UInt32
+    S_un: _S_un_e__Union
+    ProtocolId: Byte
+    Reserved3: Byte * 3
+    class _S_un_e__Union(Union):
+        S_un_ports: _S_un_ports_e__Struct
+        S_un_icmp: _S_un_icmp_e__Struct
+        S_Spi: UInt32
+        class _S_un_ports_e__Struct(Structure):
+            s_srcport: UInt16
+            s_dstport: UInt16
+        class _S_un_icmp_e__Struct(Structure):
+            s_type: Byte
+            s_code: Byte
+            filler: UInt16
+class IS_ADSPEC_BODY(Structure):
+    adspec_mh: win32more.NetworkManagement.QoS.IntServMainHdr
+    adspec_genparms: win32more.NetworkManagement.QoS.GenAdspecParams
+class IS_FLOWSPEC(Structure):
+    flow_header: win32more.NetworkManagement.QoS.RsvpObjHdr
+    flow_body: win32more.NetworkManagement.QoS.IntServFlowSpec
 class IntServFlowSpec(Structure):
     spec_mh: win32more.NetworkManagement.QoS.IntServMainHdr
     spec_u: _spec_u_e__Union
@@ -776,38 +801,11 @@ class IntServTspecBody(Structure):
     class _tspec_u_e__Union(Union):
         gen_stspec: win32more.NetworkManagement.QoS.GenTspec
         qual_stspec: win32more.NetworkManagement.QoS.QualTspec
-class IP_PATTERN(Structure):
-    Reserved1: UInt32
-    Reserved2: UInt32
-    SrcAddr: UInt32
-    DstAddr: UInt32
-    S_un: _S_un_e__Union
-    ProtocolId: Byte
-    Reserved3: Byte * 3
-    class _S_un_e__Union(Union):
-        S_un_ports: _S_un_ports_e__Struct
-        S_un_icmp: _S_un_icmp_e__Struct
-        S_Spi: UInt32
-        class _S_un_ports_e__Struct(Structure):
-            s_srcport: UInt16
-            s_dstport: UInt16
-        class _S_un_icmp_e__Struct(Structure):
-            s_type: Byte
-            s_code: Byte
-            filler: UInt16
-class IPX_PATTERN(Structure):
-    Src: _Src_e__Struct
-    Dest: _Src_e__Struct
-    class _Src_e__Struct(Structure):
-        NetworkAddress: UInt32
-        NodeAddress: Byte * 6
-        Socket: UInt16
-class IS_ADSPEC_BODY(Structure):
-    adspec_mh: win32more.NetworkManagement.QoS.IntServMainHdr
-    adspec_genparms: win32more.NetworkManagement.QoS.GenAdspecParams
-class IS_FLOWSPEC(Structure):
-    flow_header: win32more.NetworkManagement.QoS.RsvpObjHdr
-    flow_body: win32more.NetworkManagement.QoS.IntServFlowSpec
+class LPMIPTABLE(Structure):
+    ulIfIndex: UInt32
+    MediaType: UInt32
+    IfIpAddr: win32more.Networking.WinSock.IN_ADDR
+    IfNetMask: win32more.Networking.WinSock.IN_ADDR
 LPM_HANDLE = IntPtr
 class LPM_INIT_INFO(Structure):
     PcmVersionNumber: UInt32
@@ -817,11 +815,6 @@ class LPM_INIT_INFO(Structure):
     FreeMemory: win32more.NetworkManagement.QoS.PFREEMEM
     PcmAdmitResultCallback: win32more.NetworkManagement.QoS.CBADMITRESULT
     GetRsvpObjectsCallback: win32more.NetworkManagement.QoS.CBGETRSVPOBJECTS
-class LPMIPTABLE(Structure):
-    ulIfIndex: UInt32
-    MediaType: UInt32
-    IfIpAddr: win32more.Networking.WinSock.IN_ADDR
-    IfNetMask: win32more.Networking.WinSock.IN_ADDR
 @winfunctype_pointer
 def PALLOCMEM(Size: UInt32) -> c_void_p: ...
 class PARAM_BUFFER(Structure):
@@ -859,13 +852,6 @@ class QOS_DIFFSERV_RULE(Structure):
 class QOS_DS_CLASS(Structure):
     ObjectHdr: win32more.NetworkManagement.QoS.QOS_OBJECT_HDR
     DSField: UInt32
-class QOS_FLOW_FUNDAMENTALS(Structure):
-    BottleneckBandwidthSet: win32more.Foundation.BOOL
-    BottleneckBandwidth: UInt64
-    AvailableBandwidthSet: win32more.Foundation.BOOL
-    AvailableBandwidth: UInt64
-    RTTSet: win32more.Foundation.BOOL
-    RTT: UInt32
 class QOS_FLOWRATE_OUTGOING(Structure):
     Bandwidth: UInt64
     ShapingBehavior: win32more.NetworkManagement.QoS.QOS_SHAPING
@@ -876,6 +862,13 @@ QOS_FLOWRATE_REASON_QOSFlowRateContentChange: QOS_FLOWRATE_REASON = 1
 QOS_FLOWRATE_REASON_QOSFlowRateCongestion: QOS_FLOWRATE_REASON = 2
 QOS_FLOWRATE_REASON_QOSFlowRateHigherContentEncoding: QOS_FLOWRATE_REASON = 3
 QOS_FLOWRATE_REASON_QOSFlowRateUserCaused: QOS_FLOWRATE_REASON = 4
+class QOS_FLOW_FUNDAMENTALS(Structure):
+    BottleneckBandwidthSet: win32more.Foundation.BOOL
+    BottleneckBandwidth: UInt64
+    AvailableBandwidthSet: win32more.Foundation.BOOL
+    AvailableBandwidth: UInt64
+    RTTSet: win32more.Foundation.BOOL
+    RTT: UInt32
 class QOS_FRIENDLY_NAME(Structure):
     ObjectHdr: win32more.NetworkManagement.QoS.QOS_OBJECT_HDR
     FriendlyName: Char * 256
@@ -975,9 +968,6 @@ class RSVP_HOP(Structure):
     hop_u: _hop_u_e__Union
     class _hop_u_e__Union(Union):
         hop_ipv4: win32more.NetworkManagement.QoS.Rsvp_Hop_IPv4
-class Rsvp_Hop_IPv4(Structure):
-    hop_ipaddr: win32more.Networking.WinSock.IN_ADDR
-    hop_LIH: UInt32
 class RSVP_MSG_OBJS(Structure):
     RsvpMsgType: Int32
     pRsvpSession: POINTER(win32more.NetworkManagement.QoS.RSVP_SESSION_head)
@@ -1025,16 +1015,12 @@ class RsvpObjHdr(Structure):
     obj_length: UInt16
     obj_class: Byte
     obj_ctype: Byte
-class Scope_list_ipv4(Structure):
-    scopl_ipaddr: win32more.Networking.WinSock.IN_ADDR * 1
+class Rsvp_Hop_IPv4(Structure):
+    hop_ipaddr: win32more.Networking.WinSock.IN_ADDR
+    hop_LIH: UInt32
 class SENDER_TSPEC(Structure):
     stspec_header: win32more.NetworkManagement.QoS.RsvpObjHdr
     stspec_body: win32more.NetworkManagement.QoS.IntServTspecBody
-class Session_IPv4(Structure):
-    sess_destaddr: win32more.Networking.WinSock.IN_ADDR
-    sess_protid: Byte
-    sess_flags: Byte
-    sess_destport: UInt16
 class SIPAEVENT_KSR_SIGNATURE_PAYLOAD(Structure):
     SignAlgID: UInt32
     SignatureLength: UInt32
@@ -1074,26 +1060,13 @@ class SIPAEVENT_VSM_IDK_RSA_INFO(Structure):
     ModulusSizeBytes: UInt32
     PublicKeyData: Byte * 1
     _pack_ = 1
-class TC_GEN_FILTER(Structure):
-    AddressType: UInt16
-    PatternSize: UInt32
-    Pattern: c_void_p
-    Mask: c_void_p
-class TC_GEN_FLOW(Structure):
-    SendingFlowspec: win32more.Networking.WinSock.FLOWSPEC
-    ReceivingFlowspec: win32more.Networking.WinSock.FLOWSPEC
-    TcObjectsLength: UInt32
-    TcObjects: win32more.NetworkManagement.QoS.QOS_OBJECT_HDR * 1
-class TC_IFC_DESCRIPTOR(Structure):
-    Length: UInt32
-    pInterfaceName: win32more.Foundation.PWSTR
-    pInterfaceID: win32more.Foundation.PWSTR
-    AddressListDesc: win32more.NetworkManagement.QoS.ADDRESS_LIST_DESCRIPTOR
-class TC_SUPPORTED_INFO_BUFFER(Structure):
-    InstanceIDLength: UInt16
-    InstanceID: Char * 256
-    InterfaceLuid: UInt64
-    AddrListDesc: win32more.NetworkManagement.QoS.ADDRESS_LIST_DESCRIPTOR
+class Scope_list_ipv4(Structure):
+    scopl_ipaddr: win32more.Networking.WinSock.IN_ADDR * 1
+class Session_IPv4(Structure):
+    sess_destaddr: win32more.Networking.WinSock.IN_ADDR
+    sess_protid: Byte
+    sess_flags: Byte
+    sess_destport: UInt16
 class TCG_PCClientPCREventStruct(Structure):
     pcrIndex: UInt32
     eventType: UInt32
@@ -1119,6 +1092,26 @@ def TCI_DEL_FLOW_COMPLETE_HANDLER(ClFlowCtx: win32more.Foundation.HANDLE, Status
 def TCI_MOD_FLOW_COMPLETE_HANDLER(ClFlowCtx: win32more.Foundation.HANDLE, Status: UInt32) -> Void: ...
 @winfunctype_pointer
 def TCI_NOTIFY_HANDLER(ClRegCtx: win32more.Foundation.HANDLE, ClIfcCtx: win32more.Foundation.HANDLE, Event: UInt32, SubCode: win32more.Foundation.HANDLE, BufSize: UInt32, Buffer: c_void_p) -> Void: ...
+class TC_GEN_FILTER(Structure):
+    AddressType: UInt16
+    PatternSize: UInt32
+    Pattern: c_void_p
+    Mask: c_void_p
+class TC_GEN_FLOW(Structure):
+    SendingFlowspec: win32more.Networking.WinSock.FLOWSPEC
+    ReceivingFlowspec: win32more.Networking.WinSock.FLOWSPEC
+    TcObjectsLength: UInt32
+    TcObjects: win32more.NetworkManagement.QoS.QOS_OBJECT_HDR * 1
+class TC_IFC_DESCRIPTOR(Structure):
+    Length: UInt32
+    pInterfaceName: win32more.Foundation.PWSTR
+    pInterfaceID: win32more.Foundation.PWSTR
+    AddressListDesc: win32more.NetworkManagement.QoS.ADDRESS_LIST_DESCRIPTOR
+class TC_SUPPORTED_INFO_BUFFER(Structure):
+    InstanceIDLength: UInt16
+    InstanceID: Char * 256
+    InterfaceLuid: UInt64
+    AddrListDesc: win32more.NetworkManagement.QoS.ADDRESS_LIST_DESCRIPTOR
 class WBCL_Iterator(Structure):
     firstElementPtr: c_void_p
     logSize: UInt32
@@ -1137,10 +1130,17 @@ class WBCL_LogHdr(Structure):
     entries: UInt32
     length: UInt32
     _pack_ = 1
-make_head(_module, 'AD_GENERAL_PARAMS')
-make_head(_module, 'AD_GUARANTEED')
+int_serv_wkp = Int32
+IS_WKP_HOP_CNT: int_serv_wkp = 4
+IS_WKP_PATH_BW: int_serv_wkp = 6
+IS_WKP_MIN_LATENCY: int_serv_wkp = 8
+IS_WKP_COMPOSED_MTU: int_serv_wkp = 10
+IS_WKP_TB_TSPEC: int_serv_wkp = 127
+IS_WKP_Q_TSPEC: int_serv_wkp = 128
 make_head(_module, 'ADDRESS_LIST_DESCRIPTOR')
 make_head(_module, 'ADSPEC')
+make_head(_module, 'AD_GENERAL_PARAMS')
+make_head(_module, 'AD_GUARANTEED')
 make_head(_module, 'CBADMITRESULT')
 make_head(_module, 'CBGETRSVPOBJECTS')
 make_head(_module, 'CONTROL_SERVICE')
@@ -1149,31 +1149,31 @@ make_head(_module, 'ENUMERATION_BUFFER')
 make_head(_module, 'ERROR_SPEC')
 make_head(_module, 'Error_Spec_IPv4')
 make_head(_module, 'FILTER_SPEC')
+make_head(_module, 'FLOWDESCRIPTOR')
+make_head(_module, 'FLOW_DESC')
 make_head(_module, 'Filter_Spec_IPv4')
 make_head(_module, 'Filter_Spec_IPv4GPI')
-make_head(_module, 'FLOW_DESC')
-make_head(_module, 'FLOWDESCRIPTOR')
 make_head(_module, 'Gads_parms_t')
 make_head(_module, 'GenAdspecParams')
 make_head(_module, 'GenTspec')
 make_head(_module, 'GenTspecParms')
 make_head(_module, 'GuarFlowSpec')
 make_head(_module, 'GuarRspec')
-make_head(_module, 'ID_ERROR_OBJECT')
 make_head(_module, 'IDPE_ATTR')
+make_head(_module, 'ID_ERROR_OBJECT')
 make_head(_module, 'IN_ADDR_IPV4')
 make_head(_module, 'IN_ADDR_IPV6')
+make_head(_module, 'IPX_PATTERN')
+make_head(_module, 'IP_PATTERN')
+make_head(_module, 'IS_ADSPEC_BODY')
+make_head(_module, 'IS_FLOWSPEC')
 make_head(_module, 'IntServFlowSpec')
 make_head(_module, 'IntServMainHdr')
 make_head(_module, 'IntServParmHdr')
 make_head(_module, 'IntServServiceHdr')
 make_head(_module, 'IntServTspecBody')
-make_head(_module, 'IP_PATTERN')
-make_head(_module, 'IPX_PATTERN')
-make_head(_module, 'IS_ADSPEC_BODY')
-make_head(_module, 'IS_FLOWSPEC')
-make_head(_module, 'LPM_INIT_INFO')
 make_head(_module, 'LPMIPTABLE')
+make_head(_module, 'LPM_INIT_INFO')
 make_head(_module, 'PALLOCMEM')
 make_head(_module, 'PARAM_BUFFER')
 make_head(_module, 'PFREEMEM')
@@ -1184,8 +1184,8 @@ make_head(_module, 'QOS_DESTADDR')
 make_head(_module, 'QOS_DIFFSERV')
 make_head(_module, 'QOS_DIFFSERV_RULE')
 make_head(_module, 'QOS_DS_CLASS')
-make_head(_module, 'QOS_FLOW_FUNDAMENTALS')
 make_head(_module, 'QOS_FLOWRATE_OUTGOING')
+make_head(_module, 'QOS_FLOW_FUNDAMENTALS')
 make_head(_module, 'QOS_FRIENDLY_NAME')
 make_head(_module, 'QOS_OBJECT_HDR')
 make_head(_module, 'QOS_PACKET_PRIORITY')
@@ -1206,7 +1206,6 @@ make_head(_module, 'RSVP_FILTERSPEC_V6')
 make_head(_module, 'RSVP_FILTERSPEC_V6_FLOW')
 make_head(_module, 'RSVP_FILTERSPEC_V6_GPI')
 make_head(_module, 'RSVP_HOP')
-make_head(_module, 'Rsvp_Hop_IPv4')
 make_head(_module, 'RSVP_MSG_OBJS')
 make_head(_module, 'RSVP_POLICY')
 make_head(_module, 'RSVP_POLICY_INFO')
@@ -1215,19 +1214,16 @@ make_head(_module, 'RSVP_SCOPE')
 make_head(_module, 'RSVP_SESSION')
 make_head(_module, 'RSVP_STATUS_INFO')
 make_head(_module, 'RsvpObjHdr')
-make_head(_module, 'Scope_list_ipv4')
+make_head(_module, 'Rsvp_Hop_IPv4')
 make_head(_module, 'SENDER_TSPEC')
-make_head(_module, 'Session_IPv4')
 make_head(_module, 'SIPAEVENT_KSR_SIGNATURE_PAYLOAD')
 make_head(_module, 'SIPAEVENT_REVOCATION_LIST_PAYLOAD')
 make_head(_module, 'SIPAEVENT_SBCP_INFO_PAYLOAD_V1')
 make_head(_module, 'SIPAEVENT_SI_POLICY_PAYLOAD')
 make_head(_module, 'SIPAEVENT_VSM_IDK_INFO_PAYLOAD')
 make_head(_module, 'SIPAEVENT_VSM_IDK_RSA_INFO')
-make_head(_module, 'TC_GEN_FILTER')
-make_head(_module, 'TC_GEN_FLOW')
-make_head(_module, 'TC_IFC_DESCRIPTOR')
-make_head(_module, 'TC_SUPPORTED_INFO_BUFFER')
+make_head(_module, 'Scope_list_ipv4')
+make_head(_module, 'Session_IPv4')
 make_head(_module, 'TCG_PCClientPCREventStruct')
 make_head(_module, 'TCG_PCClientTaggedEventStruct')
 make_head(_module, 'TCI_ADD_FLOW_COMPLETE_HANDLER')
@@ -1235,6 +1231,10 @@ make_head(_module, 'TCI_CLIENT_FUNC_LIST')
 make_head(_module, 'TCI_DEL_FLOW_COMPLETE_HANDLER')
 make_head(_module, 'TCI_MOD_FLOW_COMPLETE_HANDLER')
 make_head(_module, 'TCI_NOTIFY_HANDLER')
+make_head(_module, 'TC_GEN_FILTER')
+make_head(_module, 'TC_GEN_FLOW')
+make_head(_module, 'TC_IFC_DESCRIPTOR')
+make_head(_module, 'TC_SUPPORTED_INFO_BUFFER')
 make_head(_module, 'WBCL_Iterator')
 make_head(_module, 'WBCL_LogHdr')
 __all__ = [

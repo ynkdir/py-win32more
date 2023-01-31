@@ -75,24 +75,6 @@ class MS_ADDINFO_BLOB(Structure):
 class MS_ADDINFO_FLAT(Structure):
     cbStruct: UInt32
     pIndirectData: POINTER(win32more.Security.Cryptography.Sip.SIP_INDIRECT_DATA_head)
-@winfunctype_pointer
-def pCryptSIPCreateIndirectData(pSubjectInfo: POINTER(win32more.Security.Cryptography.Sip.SIP_SUBJECTINFO_head), pcbIndirectData: POINTER(UInt32), pIndirectData: POINTER(win32more.Security.Cryptography.Sip.SIP_INDIRECT_DATA_head)) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def pCryptSIPGetCaps(pSubjInfo: POINTER(win32more.Security.Cryptography.Sip.SIP_SUBJECTINFO_head), pCaps: POINTER(win32more.Security.Cryptography.Sip.SIP_CAP_SET_V3_head)) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def pCryptSIPGetSealedDigest(pSubjectInfo: POINTER(win32more.Security.Cryptography.Sip.SIP_SUBJECTINFO_head), pSig: c_char_p_no, dwSig: UInt32, pbDigest: c_char_p_no, pcbDigest: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def pCryptSIPGetSignedDataMsg(pSubjectInfo: POINTER(win32more.Security.Cryptography.Sip.SIP_SUBJECTINFO_head), pdwEncodingType: POINTER(UInt32), dwIndex: UInt32, pcbSignedDataMsg: POINTER(UInt32), pbSignedDataMsg: c_char_p_no) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def pCryptSIPPutSignedDataMsg(pSubjectInfo: POINTER(win32more.Security.Cryptography.Sip.SIP_SUBJECTINFO_head), dwEncodingType: UInt32, pdwIndex: POINTER(UInt32), cbSignedDataMsg: UInt32, pbSignedDataMsg: c_char_p_no) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def pCryptSIPRemoveSignedDataMsg(pSubjectInfo: POINTER(win32more.Security.Cryptography.Sip.SIP_SUBJECTINFO_head), dwIndex: UInt32) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def pCryptSIPVerifyIndirectData(pSubjectInfo: POINTER(win32more.Security.Cryptography.Sip.SIP_SUBJECTINFO_head), pIndirectData: POINTER(win32more.Security.Cryptography.Sip.SIP_INDIRECT_DATA_head)) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def pfnIsFileSupported(hFile: win32more.Foundation.HANDLE, pgSubject: POINTER(Guid)) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def pfnIsFileSupportedName(pwszFileName: win32more.Foundation.PWSTR, pgSubject: POINTER(Guid)) -> win32more.Foundation.BOOL: ...
 class SIP_ADD_NEWPROVIDER(Structure):
     cbStruct: UInt32
     pgSubject: POINTER(Guid)
@@ -154,8 +136,32 @@ class SIP_SUBJECTINFO(Structure):
         psFlat: POINTER(win32more.Security.Cryptography.Sip.MS_ADDINFO_FLAT_head)
         psCatMember: POINTER(win32more.Security.Cryptography.Catalog.MS_ADDINFO_CATALOGMEMBER_head)
         psBlob: POINTER(win32more.Security.Cryptography.Sip.MS_ADDINFO_BLOB_head)
+@winfunctype_pointer
+def pCryptSIPCreateIndirectData(pSubjectInfo: POINTER(win32more.Security.Cryptography.Sip.SIP_SUBJECTINFO_head), pcbIndirectData: POINTER(UInt32), pIndirectData: POINTER(win32more.Security.Cryptography.Sip.SIP_INDIRECT_DATA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def pCryptSIPGetCaps(pSubjInfo: POINTER(win32more.Security.Cryptography.Sip.SIP_SUBJECTINFO_head), pCaps: POINTER(win32more.Security.Cryptography.Sip.SIP_CAP_SET_V3_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def pCryptSIPGetSealedDigest(pSubjectInfo: POINTER(win32more.Security.Cryptography.Sip.SIP_SUBJECTINFO_head), pSig: c_char_p_no, dwSig: UInt32, pbDigest: c_char_p_no, pcbDigest: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def pCryptSIPGetSignedDataMsg(pSubjectInfo: POINTER(win32more.Security.Cryptography.Sip.SIP_SUBJECTINFO_head), pdwEncodingType: POINTER(UInt32), dwIndex: UInt32, pcbSignedDataMsg: POINTER(UInt32), pbSignedDataMsg: c_char_p_no) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def pCryptSIPPutSignedDataMsg(pSubjectInfo: POINTER(win32more.Security.Cryptography.Sip.SIP_SUBJECTINFO_head), dwEncodingType: UInt32, pdwIndex: POINTER(UInt32), cbSignedDataMsg: UInt32, pbSignedDataMsg: c_char_p_no) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def pCryptSIPRemoveSignedDataMsg(pSubjectInfo: POINTER(win32more.Security.Cryptography.Sip.SIP_SUBJECTINFO_head), dwIndex: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def pCryptSIPVerifyIndirectData(pSubjectInfo: POINTER(win32more.Security.Cryptography.Sip.SIP_SUBJECTINFO_head), pIndirectData: POINTER(win32more.Security.Cryptography.Sip.SIP_INDIRECT_DATA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def pfnIsFileSupported(hFile: win32more.Foundation.HANDLE, pgSubject: POINTER(Guid)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def pfnIsFileSupportedName(pwszFileName: win32more.Foundation.PWSTR, pgSubject: POINTER(Guid)) -> win32more.Foundation.BOOL: ...
 make_head(_module, 'MS_ADDINFO_BLOB')
 make_head(_module, 'MS_ADDINFO_FLAT')
+make_head(_module, 'SIP_ADD_NEWPROVIDER')
+make_head(_module, 'SIP_CAP_SET_V2')
+make_head(_module, 'SIP_CAP_SET_V3')
+make_head(_module, 'SIP_DISPATCH_INFO')
+make_head(_module, 'SIP_INDIRECT_DATA')
+make_head(_module, 'SIP_SUBJECTINFO')
 make_head(_module, 'pCryptSIPCreateIndirectData')
 make_head(_module, 'pCryptSIPGetCaps')
 make_head(_module, 'pCryptSIPGetSealedDigest')
@@ -165,12 +171,6 @@ make_head(_module, 'pCryptSIPRemoveSignedDataMsg')
 make_head(_module, 'pCryptSIPVerifyIndirectData')
 make_head(_module, 'pfnIsFileSupported')
 make_head(_module, 'pfnIsFileSupportedName')
-make_head(_module, 'SIP_ADD_NEWPROVIDER')
-make_head(_module, 'SIP_CAP_SET_V2')
-make_head(_module, 'SIP_CAP_SET_V3')
-make_head(_module, 'SIP_DISPATCH_INFO')
-make_head(_module, 'SIP_INDIRECT_DATA')
-make_head(_module, 'SIP_SUBJECTINFO')
 __all__ = [
     "CryptSIPAddProvider",
     "CryptSIPCreateIndirectData",

@@ -526,6 +526,13 @@ class IUIAnimationVariableIntegerChangeHandler2(c_void_p):
     Guid = Guid('829b6cf1-4f3a-4412-ae-09-b2-43-eb-4c-6b-58')
     @commethod(3)
     def OnIntegerValueChanged(storyboard: win32more.UI.Animation.IUIAnimationStoryboard2_head, variable: win32more.UI.Animation.IUIAnimationVariable2_head, newValue: POINTER(Int32), previousValue: POINTER(Int32), cDimension: UInt32) -> win32more.Foundation.HRESULT: ...
+UIAnimationManager = Guid('4c1fc63a-695c-47e8-a3-39-1a-19-4b-e3-d0-b8')
+UIAnimationManager2 = Guid('d25d8842-8884-4a4a-b3-21-09-13-14-37-9b-dd')
+UIAnimationTimer = Guid('bfcd4a0c-06b6-4384-b7-68-0d-aa-79-2c-38-0e')
+UIAnimationTransitionFactory = Guid('8a9b1cdd-fcd7-419c-8b-44-42-fd-17-db-18-87')
+UIAnimationTransitionFactory2 = Guid('84302f97-7f7b-4040-b1-90-72-ac-9d-18-e4-20')
+UIAnimationTransitionLibrary = Guid('1d6322ad-aa85-4ef5-a8-28-86-d7-10-67-d1-45')
+UIAnimationTransitionLibrary2 = Guid('812f944a-c5c8-4cd9-b0-a6-b3-da-80-2f-22-8d')
 UI_ANIMATION_DEPENDENCIES = UInt32
 UI_ANIMATION_DEPENDENCY_NONE: UI_ANIMATION_DEPENDENCIES = 0
 UI_ANIMATION_DEPENDENCY_INTERMEDIATE_VALUES: UI_ANIMATION_DEPENDENCIES = 1
@@ -577,13 +584,6 @@ UI_ANIMATION_TIMER_CLIENT_BUSY: UI_ANIMATION_TIMER_CLIENT_STATUS = 1
 UI_ANIMATION_UPDATE_RESULT = Int32
 UI_ANIMATION_UPDATE_NO_CHANGE: UI_ANIMATION_UPDATE_RESULT = 0
 UI_ANIMATION_UPDATE_VARIABLES_CHANGED: UI_ANIMATION_UPDATE_RESULT = 1
-UIAnimationManager = Guid('4c1fc63a-695c-47e8-a3-39-1a-19-4b-e3-d0-b8')
-UIAnimationManager2 = Guid('d25d8842-8884-4a4a-b3-21-09-13-14-37-9b-dd')
-UIAnimationTimer = Guid('bfcd4a0c-06b6-4384-b7-68-0d-aa-79-2c-38-0e')
-UIAnimationTransitionFactory = Guid('8a9b1cdd-fcd7-419c-8b-44-42-fd-17-db-18-87')
-UIAnimationTransitionFactory2 = Guid('84302f97-7f7b-4040-b1-90-72-ac-9d-18-e4-20')
-UIAnimationTransitionLibrary = Guid('1d6322ad-aa85-4ef5-a8-28-86-d7-10-67-d1-45')
-UIAnimationTransitionLibrary2 = Guid('812f944a-c5c8-4cd9-b0-a6-b3-da-80-2f-22-8d')
 make_head(_module, 'IUIAnimationInterpolator')
 make_head(_module, 'IUIAnimationInterpolator2')
 make_head(_module, 'IUIAnimationLoopIterationChangeHandler2')

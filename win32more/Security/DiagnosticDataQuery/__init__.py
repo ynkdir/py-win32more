@@ -87,10 +87,6 @@ def DdqGetDiagnosticRecordSummary(hSession: win32more.Security.HDIAGNOSTIC_DATA_
 def DdqSetTranscriptConfiguration(hSession: win32more.Security.HDIAGNOSTIC_DATA_QUERY_SESSION, desiredConfig: POINTER(win32more.Security.DiagnosticDataQuery.DIAGNOSTIC_DATA_EVENT_TRANSCRIPT_CONFIGURATION_head)) -> win32more.Foundation.HRESULT: ...
 @winfunctype('DiagnosticDataQuery.dll')
 def DdqGetTranscriptConfiguration(hSession: win32more.Security.HDIAGNOSTIC_DATA_QUERY_SESSION, currentConfig: POINTER(win32more.Security.DiagnosticDataQuery.DIAGNOSTIC_DATA_EVENT_TRANSCRIPT_CONFIGURATION_head)) -> win32more.Foundation.HRESULT: ...
-DdqAccessLevel = Int32
-DdqAccessLevel_NoData: DdqAccessLevel = 0
-DdqAccessLevel_CurrentUserData: DdqAccessLevel = 1
-DdqAccessLevel_AllUserData: DdqAccessLevel = 2
 class DIAGNOSTIC_DATA_EVENT_BINARY_STATS(Structure):
     moduleName: win32more.Foundation.PWSTR
     friendlyModuleName: win32more.Foundation.PWSTR
@@ -166,6 +162,10 @@ class DIAGNOSTIC_REPORT_PARAMETER(Structure):
 class DIAGNOSTIC_REPORT_SIGNATURE(Structure):
     eventName: Char * 65
     parameters: win32more.Security.DiagnosticDataQuery.DIAGNOSTIC_REPORT_PARAMETER * 10
+DdqAccessLevel = Int32
+DdqAccessLevel_NoData: DdqAccessLevel = 0
+DdqAccessLevel_CurrentUserData: DdqAccessLevel = 1
+DdqAccessLevel_AllUserData: DdqAccessLevel = 2
 make_head(_module, 'DIAGNOSTIC_DATA_EVENT_BINARY_STATS')
 make_head(_module, 'DIAGNOSTIC_DATA_EVENT_CATEGORY_DESCRIPTION')
 make_head(_module, 'DIAGNOSTIC_DATA_EVENT_PRODUCER_DESCRIPTION')

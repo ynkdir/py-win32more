@@ -18,6 +18,10 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+AUTHENTICATEF = Int32
+AUTHENTICATEF_PROXY: AUTHENTICATEF = 1
+AUTHENTICATEF_BASIC: AUTHENTICATEF = 2
+AUTHENTICATEF_HTTP: AUTHENTICATEF = 4
 MKSYS_URLMONIKER: UInt32 = 6
 URL_MK_LEGACY: UInt32 = 0
 URL_MK_UNIFORM: UInt32 = 1
@@ -465,10 +469,6 @@ def IsLoggingEnabledA(pszUrl: win32more.Foundation.PSTR) -> win32more.Foundation
 def IsLoggingEnabledW(pwszUrl: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOL: ...
 @winfunctype('urlmon.dll')
 def WriteHitLogging(lpLogginginfo: POINTER(win32more.System.Com.Urlmon.HIT_LOGGING_INFO_head)) -> win32more.Foundation.BOOL: ...
-AUTHENTICATEF = Int32
-AUTHENTICATEF_PROXY: AUTHENTICATEF = 1
-AUTHENTICATEF_BASIC: AUTHENTICATEF = 2
-AUTHENTICATEF_HTTP: AUTHENTICATEF = 4
 BINDF = Int32
 BINDF_ASYNCHRONOUS: BINDF = 1
 BINDF_ASYNCSTORAGE: BINDF = 2
@@ -743,13 +743,6 @@ class IDataFilter(c_void_p):
     def DoDecode(dwFlags: UInt32, lInBufferSize: Int32, pbInBuffer: c_char_p_no, lOutBufferSize: Int32, pbOutBuffer: c_char_p_no, lInBytesAvailable: Int32, plInBytesRead: POINTER(Int32), plOutBytesWritten: POINTER(Int32), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
     @commethod(5)
     def SetEncodingLevel(dwEncLevel: UInt32) -> win32more.Foundation.HRESULT: ...
-class IEncodingFilterFactory(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('70bdde00-c18e-11d0-a9-ce-00-60-97-94-23-11')
-    @commethod(3)
-    def FindBestFilter(pwzCodeIn: win32more.Foundation.PWSTR, pwzCodeOut: win32more.Foundation.PWSTR, info: win32more.System.Com.Urlmon.DATAINFO, ppDF: POINTER(win32more.System.Com.Urlmon.IDataFilter_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def GetDefaultFilter(pwzCodeIn: win32more.Foundation.PWSTR, pwzCodeOut: win32more.Foundation.PWSTR, ppDF: POINTER(win32more.System.Com.Urlmon.IDataFilter_head)) -> win32more.Foundation.HRESULT: ...
 IEObjectType = Int32
 IE_EPM_OBJECT_EVENT: IEObjectType = 0
 IE_EPM_OBJECT_MUTEX: IEObjectType = 1
@@ -759,6 +752,13 @@ IE_EPM_OBJECT_WAITABLE_TIMER: IEObjectType = 4
 IE_EPM_OBJECT_FILE: IEObjectType = 5
 IE_EPM_OBJECT_NAMED_PIPE: IEObjectType = 6
 IE_EPM_OBJECT_REGISTRY: IEObjectType = 7
+class IEncodingFilterFactory(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('70bdde00-c18e-11d0-a9-ce-00-60-97-94-23-11')
+    @commethod(3)
+    def FindBestFilter(pwzCodeIn: win32more.Foundation.PWSTR, pwzCodeOut: win32more.Foundation.PWSTR, info: win32more.System.Com.Urlmon.DATAINFO, ppDF: POINTER(win32more.System.Com.Urlmon.IDataFilter_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetDefaultFilter(pwzCodeIn: win32more.Foundation.PWSTR, pwzCodeOut: win32more.Foundation.PWSTR, ppDF: POINTER(win32more.System.Com.Urlmon.IDataFilter_head)) -> win32more.Foundation.HRESULT: ...
 class IGetBindHandle(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('af0ff408-129d-4b20-91-f0-02-bd-23-d8-83-52')
@@ -1066,11 +1066,6 @@ class IUriContainer(c_void_p):
     Guid = Guid('a158a630-ed6f-45fb-b9-87-f6-86-76-f5-77-52')
     @commethod(3)
     def GetIUri(ppIUri: POINTER(win32more.System.Com.IUri_head)) -> win32more.Foundation.HRESULT: ...
-class IWindowForBindingUI(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('79eac9d5-bafa-11ce-8c-82-00-aa-00-4b-a9-0b')
-    @commethod(3)
-    def GetWindow(rguidReason: POINTER(Guid), phwnd: POINTER(win32more.Foundation.HWND)) -> win32more.Foundation.HRESULT: ...
 class IWinInetCacheHints(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('dd1ec3b3-8391-4fdb-a9-e6-34-7c-3c-aa-a7-dd')
@@ -1103,6 +1098,11 @@ class IWinInetInfo(c_void_p):
     Guid = Guid('79eac9d6-bafa-11ce-8c-82-00-aa-00-4b-a9-0b')
     @commethod(3)
     def QueryOption(dwOption: UInt32, pBuffer: c_void_p, pcbBuf: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IWindowForBindingUI(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('79eac9d5-bafa-11ce-8c-82-00-aa-00-4b-a9-0b')
+    @commethod(3)
+    def GetWindow(rguidReason: POINTER(Guid), phwnd: POINTER(win32more.Foundation.HWND)) -> win32more.Foundation.HRESULT: ...
 class IWrappedProtocol(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('53c84785-8425-4dc5-97-1b-e5-8d-9c-19-f9-b6')
@@ -1177,9 +1177,6 @@ PI_NOMIMEHANDLER: PI_FLAGS = 32768
 PI_LOADAPPDIRECT: PI_FLAGS = 16384
 PD_FORCE_SWITCH: PI_FLAGS = 65536
 PI_PREFERDEFAULTHANDLER: PI_FLAGS = 131072
-class PROTOCOL_ARGUMENT(Structure):
-    szMethod: win32more.Foundation.PWSTR
-    szTargetUrl: win32more.Foundation.PWSTR
 class PROTOCOLDATA(Structure):
     grfFlags: UInt32
     dwState: UInt32
@@ -1191,6 +1188,9 @@ class PROTOCOLFILTERDATA(Structure):
     pProtocol: win32more.System.Com.Urlmon.IInternetProtocol_head
     pUnk: win32more.System.Com.IUnknown_head
     dwFilterFlags: UInt32
+class PROTOCOL_ARGUMENT(Structure):
+    szMethod: win32more.Foundation.PWSTR
+    szTargetUrl: win32more.Foundation.PWSTR
 PSUACTION = Int32
 PSU_DEFAULT: PSUACTION = 1
 PSU_SECURITY_URL_ONLY: PSUACTION = 2
@@ -1236,6 +1236,10 @@ QUERY_IS_SECURE: QUERYOPTION = 13
 QUERY_IS_SAFE: QUERYOPTION = 14
 QUERY_USES_HISTORYFOLDER: QUERYOPTION = 15
 QUERY_IS_CACHED_AND_USABLE_OFFLINE: QUERYOPTION = 16
+class REMSECURITY_ATTRIBUTES(Structure):
+    nLength: UInt32
+    lpSecurityDescriptor: UInt32
+    bInheritHandle: win32more.Foundation.BOOL
 class RemBINDINFO(Structure):
     cbSize: UInt32
     szExtraInfo: win32more.Foundation.PWSTR
@@ -1256,10 +1260,6 @@ class RemFORMATETC(Structure):
     dwAspect: UInt32
     lindex: Int32
     tymed: UInt32
-class REMSECURITY_ATTRIBUTES(Structure):
-    nLength: UInt32
-    lpSecurityDescriptor: UInt32
-    bInheritHandle: win32more.Foundation.BOOL
 class SOFTDISTINFO(Structure):
     cbSize: UInt32
     dwFlags: UInt32
@@ -1274,23 +1274,13 @@ class SOFTDISTINFO(Structure):
     dwAdvertisedVersionMS: UInt32
     dwAdvertisedVersionLS: UInt32
     dwReserved: UInt32
+SZM_FLAGS = Int32
+SZM_CREATE: SZM_FLAGS = 0
+SZM_DELETE: SZM_FLAGS = 1
 class StartParam(Structure):
     iid: Guid
     pIBindCtx: win32more.System.Com.IBindCtx_head
     pItf: win32more.System.Com.IUnknown_head
-SZM_FLAGS = Int32
-SZM_CREATE: SZM_FLAGS = 0
-SZM_DELETE: SZM_FLAGS = 1
-Uri_HOST_TYPE = Int32
-Uri_HOST_UNKNOWN: Uri_HOST_TYPE = 0
-Uri_HOST_DNS: Uri_HOST_TYPE = 1
-Uri_HOST_IPV4: Uri_HOST_TYPE = 2
-Uri_HOST_IPV6: Uri_HOST_TYPE = 3
-Uri_HOST_IDN: Uri_HOST_TYPE = 4
-URL_ENCODING = Int32
-URL_ENCODING_NONE: URL_ENCODING = 0
-URL_ENCODING_ENABLE_UTF8: URL_ENCODING = 268435456
-URL_ENCODING_DISABLE_UTF8: URL_ENCODING = 536870912
 URLTEMPLATE = Int32
 URLTEMPLATE_CUSTOM: URLTEMPLATE = 0
 URLTEMPLATE_PREDEFINED_MIN: URLTEMPLATE = 65536
@@ -1315,6 +1305,16 @@ URLZONEREG = Int32
 URLZONEREG_DEFAULT: URLZONEREG = 0
 URLZONEREG_HKLM: URLZONEREG = 1
 URLZONEREG_HKCU: URLZONEREG = 2
+URL_ENCODING = Int32
+URL_ENCODING_NONE: URL_ENCODING = 0
+URL_ENCODING_ENABLE_UTF8: URL_ENCODING = 268435456
+URL_ENCODING_DISABLE_UTF8: URL_ENCODING = 536870912
+Uri_HOST_TYPE = Int32
+Uri_HOST_UNKNOWN: Uri_HOST_TYPE = 0
+Uri_HOST_DNS: Uri_HOST_TYPE = 1
+Uri_HOST_IPV4: Uri_HOST_TYPE = 2
+Uri_HOST_IPV6: Uri_HOST_TYPE = 3
+Uri_HOST_IDN: Uri_HOST_TYPE = 4
 ZAFLAGS = Int32
 ZAFLAGS_CUSTOM_EDIT: ZAFLAGS = 1
 ZAFLAGS_ADD_SITES: ZAFLAGS = 2
@@ -1378,22 +1378,22 @@ make_head(_module, 'IPersistMoniker')
 make_head(_module, 'ISoftDistExt')
 make_head(_module, 'IUriBuilderFactory')
 make_head(_module, 'IUriContainer')
-make_head(_module, 'IWindowForBindingUI')
 make_head(_module, 'IWinInetCacheHints')
 make_head(_module, 'IWinInetCacheHints2')
 make_head(_module, 'IWinInetFileStream')
 make_head(_module, 'IWinInetHttpInfo')
 make_head(_module, 'IWinInetHttpTimeouts')
 make_head(_module, 'IWinInetInfo')
+make_head(_module, 'IWindowForBindingUI')
 make_head(_module, 'IWrappedProtocol')
 make_head(_module, 'IZoneIdentifier')
 make_head(_module, 'IZoneIdentifier2')
-make_head(_module, 'PROTOCOL_ARGUMENT')
 make_head(_module, 'PROTOCOLDATA')
 make_head(_module, 'PROTOCOLFILTERDATA')
+make_head(_module, 'PROTOCOL_ARGUMENT')
+make_head(_module, 'REMSECURITY_ATTRIBUTES')
 make_head(_module, 'RemBINDINFO')
 make_head(_module, 'RemFORMATETC')
-make_head(_module, 'REMSECURITY_ATTRIBUTES')
 make_head(_module, 'SOFTDISTINFO')
 make_head(_module, 'StartParam')
 make_head(_module, 'ZONEATTRIBUTES')

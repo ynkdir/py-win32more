@@ -23,6 +23,32 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+class APP_CACHE_DOWNLOAD_ENTRY(Structure):
+    pwszUrl: win32more.Foundation.PWSTR
+    dwEntryType: UInt32
+class APP_CACHE_DOWNLOAD_LIST(Structure):
+    dwEntryCount: UInt32
+    pEntries: POINTER(win32more.Networking.WinInet.APP_CACHE_DOWNLOAD_ENTRY_head)
+APP_CACHE_FINALIZE_STATE = Int32
+APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateIncomplete: APP_CACHE_FINALIZE_STATE = 0
+APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateManifestChange: APP_CACHE_FINALIZE_STATE = 1
+APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateComplete: APP_CACHE_FINALIZE_STATE = 2
+class APP_CACHE_GROUP_INFO(Structure):
+    pwszManifestUrl: win32more.Foundation.PWSTR
+    ftLastAccessTime: win32more.Foundation.FILETIME
+    ullSize: UInt64
+class APP_CACHE_GROUP_LIST(Structure):
+    dwAppCacheGroupCount: UInt32
+    pAppCacheGroups: POINTER(win32more.Networking.WinInet.APP_CACHE_GROUP_INFO_head)
+APP_CACHE_STATE = Int32
+APP_CACHE_STATE_AppCacheStateNoUpdateNeeded: APP_CACHE_STATE = 0
+APP_CACHE_STATE_AppCacheStateUpdateNeeded: APP_CACHE_STATE = 1
+APP_CACHE_STATE_AppCacheStateUpdateNeededNew: APP_CACHE_STATE = 2
+APP_CACHE_STATE_AppCacheStateUpdateNeededMasterOnly: APP_CACHE_STATE = 3
+class AUTO_PROXY_SCRIPT_BUFFER(Structure):
+    dwStructSize: UInt32
+    lpszScriptBuffer: win32more.Foundation.PSTR
+    dwScriptBufferSize: UInt32
 DIALPROP_USERNAME: String = 'UserName'
 DIALPROP_PASSWORD: String = 'Password'
 DIALPROP_DOMAIN: String = 'Domain'
@@ -1534,32 +1560,6 @@ def HttpWebSocketShutdown(hWebSocket: c_void_p, usStatus: UInt16, pvReason: c_vo
 def HttpWebSocketQueryCloseStatus(hWebSocket: c_void_p, pusStatus: POINTER(UInt16), pvReason: c_void_p, dwReasonLength: UInt32, pdwReasonLengthConsumed: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
 @winfunctype('WININET.dll')
 def InternetConvertUrlFromWireToWideChar(pcszUrl: win32more.Foundation.PSTR, cchUrl: UInt32, pcwszBaseUrl: win32more.Foundation.PWSTR, dwCodePageHost: UInt32, dwCodePagePath: UInt32, fEncodePathExtra: win32more.Foundation.BOOL, dwCodePageExtra: UInt32, ppwszConvertedUrl: POINTER(win32more.Foundation.PWSTR)) -> UInt32: ...
-class APP_CACHE_DOWNLOAD_ENTRY(Structure):
-    pwszUrl: win32more.Foundation.PWSTR
-    dwEntryType: UInt32
-class APP_CACHE_DOWNLOAD_LIST(Structure):
-    dwEntryCount: UInt32
-    pEntries: POINTER(win32more.Networking.WinInet.APP_CACHE_DOWNLOAD_ENTRY_head)
-APP_CACHE_FINALIZE_STATE = Int32
-APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateIncomplete: APP_CACHE_FINALIZE_STATE = 0
-APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateManifestChange: APP_CACHE_FINALIZE_STATE = 1
-APP_CACHE_FINALIZE_STATE_AppCacheFinalizeStateComplete: APP_CACHE_FINALIZE_STATE = 2
-class APP_CACHE_GROUP_INFO(Structure):
-    pwszManifestUrl: win32more.Foundation.PWSTR
-    ftLastAccessTime: win32more.Foundation.FILETIME
-    ullSize: UInt64
-class APP_CACHE_GROUP_LIST(Structure):
-    dwAppCacheGroupCount: UInt32
-    pAppCacheGroups: POINTER(win32more.Networking.WinInet.APP_CACHE_GROUP_INFO_head)
-APP_CACHE_STATE = Int32
-APP_CACHE_STATE_AppCacheStateNoUpdateNeeded: APP_CACHE_STATE = 0
-APP_CACHE_STATE_AppCacheStateUpdateNeeded: APP_CACHE_STATE = 1
-APP_CACHE_STATE_AppCacheStateUpdateNeededNew: APP_CACHE_STATE = 2
-APP_CACHE_STATE_AppCacheStateUpdateNeededMasterOnly: APP_CACHE_STATE = 3
-class AUTO_PROXY_SCRIPT_BUFFER(Structure):
-    dwStructSize: UInt32
-    lpszScriptBuffer: win32more.Foundation.PSTR
-    dwScriptBufferSize: UInt32
 class AutoProxyHelperFunctions(Structure):
     lpVtbl: POINTER(win32more.Networking.WinInet.AutoProxyHelperVtbl_head)
 class AutoProxyHelperVtbl(Structure):
@@ -1807,14 +1807,6 @@ class IDialEventSink(c_void_p):
     Guid = Guid('2d86f4ff-6e2d-4488-b2-e9-69-34-af-d4-1b-ea')
     @commethod(3)
     def OnEvent(dwEvent: UInt32, dwStatus: UInt32) -> win32more.Foundation.HRESULT: ...
-class IncomingCookieState(Structure):
-    cSession: Int32
-    cPersistent: Int32
-    cAccepted: Int32
-    cLeashed: Int32
-    cDowngraded: Int32
-    cBlocked: Int32
-    pszLocation: win32more.Foundation.PSTR
 INTERNET_ACCESS_TYPE = UInt32
 INTERNET_OPEN_TYPE_DIRECT: INTERNET_ACCESS_TYPE = 1
 INTERNET_OPEN_TYPE_PRECONFIG: INTERNET_ACCESS_TYPE = 0
@@ -2002,10 +1994,6 @@ class INTERNET_COOKIE(Structure):
     dwFlags: UInt32
     pszUrl: win32more.Foundation.PSTR
     pszP3PPolicy: win32more.Foundation.PSTR
-INTERNET_COOKIE_FLAGS = UInt32
-INTERNET_COOKIE_HTTPONLY: INTERNET_COOKIE_FLAGS = 8192
-INTERNET_COOKIE_THIRD_PARTY: INTERNET_COOKIE_FLAGS = 16
-INTERNET_FLAG_RESTRICTED_ZONE: INTERNET_COOKIE_FLAGS = 131072
 class INTERNET_COOKIE2(Structure):
     pwszName: win32more.Foundation.PWSTR
     pwszValue: win32more.Foundation.PWSTR
@@ -2014,6 +2002,10 @@ class INTERNET_COOKIE2(Structure):
     dwFlags: UInt32
     ftExpires: win32more.Foundation.FILETIME
     fExpiresSet: win32more.Foundation.BOOL
+INTERNET_COOKIE_FLAGS = UInt32
+INTERNET_COOKIE_HTTPONLY: INTERNET_COOKIE_FLAGS = 8192
+INTERNET_COOKIE_THIRD_PARTY: INTERNET_COOKIE_FLAGS = 16
+INTERNET_FLAG_RESTRICTED_ZONE: INTERNET_COOKIE_FLAGS = 131072
 class INTERNET_CREDENTIALS(Structure):
     lpcwszHostName: win32more.Foundation.PWSTR
     dwPort: UInt32
@@ -2049,18 +2041,6 @@ INTERNET_PER_CONN_AUTOCONFIG_SECONDARY_URL: INTERNET_PER_CONN = 6
 INTERNET_PER_CONN_AUTOCONFIG_RELOAD_DELAY_MINS: INTERNET_PER_CONN = 7
 INTERNET_PER_CONN_AUTOCONFIG_LAST_DETECT_TIME: INTERNET_PER_CONN = 8
 INTERNET_PER_CONN_AUTOCONFIG_LAST_DETECT_URL: INTERNET_PER_CONN = 9
-class INTERNET_PER_CONN_OPTION_LISTA(Structure):
-    dwSize: UInt32
-    pszConnection: win32more.Foundation.PSTR
-    dwOptionCount: UInt32
-    dwOptionError: UInt32
-    pOptions: POINTER(win32more.Networking.WinInet.INTERNET_PER_CONN_OPTIONA_head)
-class INTERNET_PER_CONN_OPTION_LISTW(Structure):
-    dwSize: UInt32
-    pszConnection: win32more.Foundation.PWSTR
-    dwOptionCount: UInt32
-    dwOptionError: UInt32
-    pOptions: POINTER(win32more.Networking.WinInet.INTERNET_PER_CONN_OPTIONW_head)
 class INTERNET_PER_CONN_OPTIONA(Structure):
     dwOption: win32more.Networking.WinInet.INTERNET_PER_CONN
     Value: _Value_e__Union
@@ -2075,6 +2055,18 @@ class INTERNET_PER_CONN_OPTIONW(Structure):
         dwValue: UInt32
         pszValue: win32more.Foundation.PWSTR
         ftValue: win32more.Foundation.FILETIME
+class INTERNET_PER_CONN_OPTION_LISTA(Structure):
+    dwSize: UInt32
+    pszConnection: win32more.Foundation.PSTR
+    dwOptionCount: UInt32
+    dwOptionError: UInt32
+    pOptions: POINTER(win32more.Networking.WinInet.INTERNET_PER_CONN_OPTIONA_head)
+class INTERNET_PER_CONN_OPTION_LISTW(Structure):
+    dwSize: UInt32
+    pszConnection: win32more.Foundation.PWSTR
+    dwOptionCount: UInt32
+    dwOptionError: UInt32
+    pOptions: POINTER(win32more.Networking.WinInet.INTERNET_PER_CONN_OPTIONW_head)
 class INTERNET_PREFETCH_STATUS(Structure):
     dwStatus: UInt32
     dwSize: UInt32
@@ -2130,6 +2122,24 @@ INTERNET_STATE_BUSY: INTERNET_STATE = 512
 class INTERNET_VERSION_INFO(Structure):
     dwMajorVersion: UInt32
     dwMinorVersion: UInt32
+class IProofOfPossessionCookieInfoManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('cdaece56-4edf-43df-b1-13-88-e4-55-6f-a1-bb')
+    @commethod(3)
+    def GetCookieInfoForUri(uri: win32more.Foundation.PWSTR, cookieInfoCount: POINTER(UInt32), cookieInfo: POINTER(POINTER(win32more.Networking.WinInet.ProofOfPossessionCookieInfo_head))) -> win32more.Foundation.HRESULT: ...
+class IProofOfPossessionCookieInfoManager2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('15e41407-b42f-4ae7-99-66-34-a0-87-b2-d7-13')
+    @commethod(3)
+    def GetCookieInfoWithUriForAccount(webAccount: win32more.System.WinRT.IInspectable_head, uri: win32more.Foundation.PWSTR, cookieInfoCount: POINTER(UInt32), cookieInfo: POINTER(POINTER(win32more.Networking.WinInet.ProofOfPossessionCookieInfo_head))) -> win32more.Foundation.HRESULT: ...
+class IncomingCookieState(Structure):
+    cSession: Int32
+    cPersistent: Int32
+    cAccepted: Int32
+    cLeashed: Int32
+    cDowngraded: Int32
+    cBlocked: Int32
+    pszLocation: win32more.Foundation.PSTR
 class InternetCookieHistory(Structure):
     fAccepted: win32more.Foundation.BOOL
     fLeashed: win32more.Foundation.BOOL
@@ -2143,16 +2153,6 @@ COOKIE_STATE_LEASH: InternetCookieState = 3
 COOKIE_STATE_DOWNGRADE: InternetCookieState = 4
 COOKIE_STATE_REJECT: InternetCookieState = 5
 COOKIE_STATE_MAX: InternetCookieState = 5
-class IProofOfPossessionCookieInfoManager(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('cdaece56-4edf-43df-b1-13-88-e4-55-6f-a1-bb')
-    @commethod(3)
-    def GetCookieInfoForUri(uri: win32more.Foundation.PWSTR, cookieInfoCount: POINTER(UInt32), cookieInfo: POINTER(POINTER(win32more.Networking.WinInet.ProofOfPossessionCookieInfo_head))) -> win32more.Foundation.HRESULT: ...
-class IProofOfPossessionCookieInfoManager2(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('15e41407-b42f-4ae7-99-66-34-a0-87-b2-d7-13')
-    @commethod(3)
-    def GetCookieInfoWithUriForAccount(webAccount: win32more.System.WinRT.IInspectable_head, uri: win32more.Foundation.PWSTR, cookieInfoCount: POINTER(UInt32), cookieInfo: POINTER(POINTER(win32more.Networking.WinInet.ProofOfPossessionCookieInfo_head))) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def LPINTERNET_STATUS_CALLBACK(hInternet: c_void_p, dwContext: UIntPtr, dwInternetStatus: UInt32, lpvStatusInformation: c_void_p, dwStatusInformationLength: UInt32) -> Void: ...
 class OutgoingCookieState(Structure):
@@ -2163,21 +2163,15 @@ class OutgoingCookieState(Structure):
 def PFN_AUTH_NOTIFY(param0: UIntPtr, param1: UInt32, param2: c_void_p) -> UInt32: ...
 @winfunctype_pointer
 def PFN_DIAL_HANDLER(param0: win32more.Foundation.HWND, param1: win32more.Foundation.PSTR, param2: UInt32, param3: POINTER(UInt32)) -> UInt32: ...
-@winfunctype_pointer
-def pfnInternetDeInitializeAutoProxyDll(lpszMime: win32more.Foundation.PSTR, dwReserved: UInt32) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def pfnInternetGetProxyInfo(lpszUrl: win32more.Foundation.PSTR, dwUrlLength: UInt32, lpszUrlHostName: win32more.Foundation.PSTR, dwUrlHostNameLength: UInt32, lplpszProxyHostName: POINTER(win32more.Foundation.PSTR), lpdwProxyHostNameLength: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def pfnInternetInitializeAutoProxyDll(dwVersion: UInt32, lpszDownloadedTempFile: win32more.Foundation.PSTR, lpszMime: win32more.Foundation.PSTR, lpAutoProxyCallbacks: POINTER(win32more.Networking.WinInet.AutoProxyHelperFunctions_head), lpAutoProxyScriptBuffer: POINTER(win32more.Networking.WinInet.AUTO_PROXY_SCRIPT_BUFFER_head)) -> win32more.Foundation.BOOL: ...
+PROXY_AUTO_DETECT_TYPE = UInt32
+PROXY_AUTO_DETECT_TYPE_DHCP: PROXY_AUTO_DETECT_TYPE = 1
+PROXY_AUTO_DETECT_TYPE_DNS_A: PROXY_AUTO_DETECT_TYPE = 2
 class ProofOfPossessionCookieInfo(Structure):
     name: win32more.Foundation.PWSTR
     data: win32more.Foundation.PWSTR
     flags: UInt32
     p3pHeader: win32more.Foundation.PWSTR
 ProofOfPossessionCookieInfoManager = Guid('a9927f85-a304-4390-8b-23-a7-5f-1c-66-86-00')
-PROXY_AUTO_DETECT_TYPE = UInt32
-PROXY_AUTO_DETECT_TYPE_DHCP: PROXY_AUTO_DETECT_TYPE = 1
-PROXY_AUTO_DETECT_TYPE_DNS_A: PROXY_AUTO_DETECT_TYPE = 2
 REQUEST_TIMES = Int32
 REQUEST_TIMES_NameResolutionStart: REQUEST_TIMES = 0
 REQUEST_TIMES_NameResolutionEnd: REQUEST_TIMES = 1
@@ -2186,6 +2180,22 @@ REQUEST_TIMES_ConnectionEstablishmentEnd: REQUEST_TIMES = 3
 REQUEST_TIMES_TLSHandshakeStart: REQUEST_TIMES = 4
 REQUEST_TIMES_TLSHandshakeEnd: REQUEST_TIMES = 5
 REQUEST_TIMES_HttpRequestTimeMax: REQUEST_TIMES = 32
+class URLCACHE_ENTRY_INFO(Structure):
+    pwszSourceUrlName: win32more.Foundation.PWSTR
+    pwszLocalFileName: win32more.Foundation.PWSTR
+    dwCacheEntryType: UInt32
+    dwUseCount: UInt32
+    dwHitRate: UInt32
+    dwSizeLow: UInt32
+    dwSizeHigh: UInt32
+    ftLastModifiedTime: win32more.Foundation.FILETIME
+    ftExpireTime: win32more.Foundation.FILETIME
+    ftLastAccessTime: win32more.Foundation.FILETIME
+    ftLastSyncTime: win32more.Foundation.FILETIME
+    pbHeaderInfo: c_char_p_no
+    cbHeaderInfoSize: UInt32
+    pbExtraData: c_char_p_no
+    cbExtraDataSize: UInt32
 URL_CACHE_LIMIT_TYPE = Int32
 URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeIE: URL_CACHE_LIMIT_TYPE = 0
 URL_CACHE_LIMIT_TYPE_UrlCacheLimitTypeIETotal: URL_CACHE_LIMIT_TYPE = 1
@@ -2224,22 +2234,6 @@ class URL_COMPONENTSW(Structure):
     dwUrlPathLength: UInt32
     lpszExtraInfo: win32more.Foundation.PWSTR
     dwExtraInfoLength: UInt32
-class URLCACHE_ENTRY_INFO(Structure):
-    pwszSourceUrlName: win32more.Foundation.PWSTR
-    pwszLocalFileName: win32more.Foundation.PWSTR
-    dwCacheEntryType: UInt32
-    dwUseCount: UInt32
-    dwHitRate: UInt32
-    dwSizeLow: UInt32
-    dwSizeHigh: UInt32
-    ftLastModifiedTime: win32more.Foundation.FILETIME
-    ftExpireTime: win32more.Foundation.FILETIME
-    ftLastAccessTime: win32more.Foundation.FILETIME
-    ftLastSyncTime: win32more.Foundation.FILETIME
-    pbHeaderInfo: c_char_p_no
-    cbHeaderInfoSize: UInt32
-    pbExtraData: c_char_p_no
-    cbExtraDataSize: UInt32
 class WININET_PROXY_INFO(Structure):
     fProxy: win32more.Foundation.BOOL
     fBypass: win32more.Foundation.BOOL
@@ -2259,6 +2253,12 @@ WININET_SYNC_MODE_DEFAULT: WININET_SYNC_MODE = 4
 WPAD_CACHE_DELETE = Int32
 WPAD_CACHE_DELETE_CURRENT: WPAD_CACHE_DELETE = 0
 WPAD_CACHE_DELETE_ALL: WPAD_CACHE_DELETE = 1
+@winfunctype_pointer
+def pfnInternetDeInitializeAutoProxyDll(lpszMime: win32more.Foundation.PSTR, dwReserved: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def pfnInternetGetProxyInfo(lpszUrl: win32more.Foundation.PSTR, dwUrlLength: UInt32, lpszUrlHostName: win32more.Foundation.PSTR, dwUrlHostNameLength: UInt32, lplpszProxyHostName: POINTER(win32more.Foundation.PSTR), lpdwProxyHostNameLength: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def pfnInternetInitializeAutoProxyDll(dwVersion: UInt32, lpszDownloadedTempFile: win32more.Foundation.PSTR, lpszMime: win32more.Foundation.PSTR, lpAutoProxyCallbacks: POINTER(win32more.Networking.WinInet.AutoProxyHelperFunctions_head), lpAutoProxyScriptBuffer: POINTER(win32more.Networking.WinInet.AUTO_PROXY_SCRIPT_BUFFER_head)) -> win32more.Foundation.BOOL: ...
 make_head(_module, 'APP_CACHE_DOWNLOAD_ENTRY')
 make_head(_module, 'APP_CACHE_DOWNLOAD_LIST')
 make_head(_module, 'APP_CACHE_GROUP_INFO')
@@ -2299,7 +2299,6 @@ make_head(_module, 'HTTP_WEB_SOCKET_ASYNC_RESULT')
 make_head(_module, 'IDialBranding')
 make_head(_module, 'IDialEngine')
 make_head(_module, 'IDialEventSink')
-make_head(_module, 'IncomingCookieState')
 make_head(_module, 'INTERNET_ASYNC_RESULT')
 make_head(_module, 'INTERNET_AUTH_NOTIFY_DATA')
 make_head(_module, 'INTERNET_BUFFERSA')
@@ -2324,32 +2323,33 @@ make_head(_module, 'INTERNET_CREDENTIALS')
 make_head(_module, 'INTERNET_DIAGNOSTIC_SOCKET_INFO')
 make_head(_module, 'INTERNET_DOWNLOAD_MODE_HANDLE')
 make_head(_module, 'INTERNET_END_BROWSER_SESSION_DATA')
-make_head(_module, 'INTERNET_PER_CONN_OPTION_LISTA')
-make_head(_module, 'INTERNET_PER_CONN_OPTION_LISTW')
 make_head(_module, 'INTERNET_PER_CONN_OPTIONA')
 make_head(_module, 'INTERNET_PER_CONN_OPTIONW')
+make_head(_module, 'INTERNET_PER_CONN_OPTION_LISTA')
+make_head(_module, 'INTERNET_PER_CONN_OPTION_LISTW')
 make_head(_module, 'INTERNET_PREFETCH_STATUS')
 make_head(_module, 'INTERNET_PROXY_INFO')
 make_head(_module, 'INTERNET_SECURITY_CONNECTION_INFO')
 make_head(_module, 'INTERNET_SECURITY_INFO')
 make_head(_module, 'INTERNET_SERVER_CONNECTION_STATE')
 make_head(_module, 'INTERNET_VERSION_INFO')
-make_head(_module, 'InternetCookieHistory')
 make_head(_module, 'IProofOfPossessionCookieInfoManager')
 make_head(_module, 'IProofOfPossessionCookieInfoManager2')
+make_head(_module, 'IncomingCookieState')
+make_head(_module, 'InternetCookieHistory')
 make_head(_module, 'LPINTERNET_STATUS_CALLBACK')
 make_head(_module, 'OutgoingCookieState')
 make_head(_module, 'PFN_AUTH_NOTIFY')
 make_head(_module, 'PFN_DIAL_HANDLER')
+make_head(_module, 'ProofOfPossessionCookieInfo')
+make_head(_module, 'URLCACHE_ENTRY_INFO')
+make_head(_module, 'URL_COMPONENTSA')
+make_head(_module, 'URL_COMPONENTSW')
+make_head(_module, 'WININET_PROXY_INFO')
+make_head(_module, 'WININET_PROXY_INFO_LIST')
 make_head(_module, 'pfnInternetDeInitializeAutoProxyDll')
 make_head(_module, 'pfnInternetGetProxyInfo')
 make_head(_module, 'pfnInternetInitializeAutoProxyDll')
-make_head(_module, 'ProofOfPossessionCookieInfo')
-make_head(_module, 'URL_COMPONENTSA')
-make_head(_module, 'URL_COMPONENTSW')
-make_head(_module, 'URLCACHE_ENTRY_INFO')
-make_head(_module, 'WININET_PROXY_INFO')
-make_head(_module, 'WININET_PROXY_INFO_LIST')
 __all__ = [
     "ANY_CACHE_ENTRY",
     "APP_CACHE_DOWNLOAD_ENTRY",

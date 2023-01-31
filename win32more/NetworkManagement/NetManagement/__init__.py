@@ -143,6 +143,26 @@ AF_OP_PRINT: AF_OP = 1
 AF_OP_COMM: AF_OP = 2
 AF_OP_SERVER: AF_OP = 4
 AF_OP_ACCOUNTS: AF_OP = 8
+class AT_ENUM(Structure):
+    JobId: UInt32
+    JobTime: UIntPtr
+    DaysOfMonth: UInt32
+    DaysOfWeek: Byte
+    Flags: Byte
+    Command: win32more.Foundation.PWSTR
+class AT_INFO(Structure):
+    JobTime: UIntPtr
+    DaysOfMonth: UInt32
+    DaysOfWeek: Byte
+    Flags: Byte
+    Command: win32more.Foundation.PWSTR
+class AUDIT_ENTRY(Structure):
+    ae_len: UInt32
+    ae_reserved: UInt32
+    ae_time: UInt32
+    ae_type: UInt32
+    ae_data_offset: UInt32
+    ae_data_size: UInt32
 NERR_BASE: UInt32 = 2100
 NERR_PasswordExpired: UInt32 = 2242
 CNLEN: UInt32 = 15
@@ -2561,26 +2581,6 @@ def RouterAssert(pszFailedAssertion: win32more.Foundation.PSTR, pszFileName: win
 def MprSetupProtocolEnum(dwTransportId: UInt32, lplpBuffer: POINTER(c_char_p_no), lpdwEntriesRead: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('rtutils.dll')
 def MprSetupProtocolFree(lpBuffer: c_void_p) -> UInt32: ...
-class AT_ENUM(Structure):
-    JobId: UInt32
-    JobTime: UIntPtr
-    DaysOfMonth: UInt32
-    DaysOfWeek: Byte
-    Flags: Byte
-    Command: win32more.Foundation.PWSTR
-class AT_INFO(Structure):
-    JobTime: UIntPtr
-    DaysOfMonth: UInt32
-    DaysOfWeek: Byte
-    Flags: Byte
-    Command: win32more.Foundation.PWSTR
-class AUDIT_ENTRY(Structure):
-    ae_len: UInt32
-    ae_reserved: UInt32
-    ae_time: UInt32
-    ae_type: UInt32
-    ae_data_offset: UInt32
-    ae_data_size: UInt32
 BIND_FLAGS1 = Int32
 NCN_ADD: BIND_FLAGS1 = 1
 NCN_REMOVE: BIND_FLAGS1 = 2
@@ -3001,6 +3001,71 @@ NCRL_TDI: NCPNP_RECONFIG_LAYER = 2
 NCRP_FLAGS = Int32
 NCRP_QUERY_PROPERTY_UI: NCRP_FLAGS = 1
 NCRP_SHOW_PROPERTY_UI: NCRP_FLAGS = 2
+class NETLOGON_INFO_1(Structure):
+    netlog1_flags: UInt32
+    netlog1_pdc_connection_status: UInt32
+class NETLOGON_INFO_2(Structure):
+    netlog2_flags: UInt32
+    netlog2_pdc_connection_status: UInt32
+    netlog2_trusted_dc_name: win32more.Foundation.PWSTR
+    netlog2_tc_connection_status: UInt32
+class NETLOGON_INFO_3(Structure):
+    netlog3_flags: UInt32
+    netlog3_logon_attempts: UInt32
+    netlog3_reserved1: UInt32
+    netlog3_reserved2: UInt32
+    netlog3_reserved3: UInt32
+    netlog3_reserved4: UInt32
+    netlog3_reserved5: UInt32
+class NETLOGON_INFO_4(Structure):
+    netlog4_trusted_dc_name: win32more.Foundation.PWSTR
+    netlog4_trusted_domain_name: win32more.Foundation.PWSTR
+NETSETUP_JOIN_STATUS = Int32
+NETSETUP_JOIN_STATUS_NetSetupUnknownStatus: NETSETUP_JOIN_STATUS = 0
+NETSETUP_JOIN_STATUS_NetSetupUnjoined: NETSETUP_JOIN_STATUS = 1
+NETSETUP_JOIN_STATUS_NetSetupWorkgroupName: NETSETUP_JOIN_STATUS = 2
+NETSETUP_JOIN_STATUS_NetSetupDomainName: NETSETUP_JOIN_STATUS = 3
+NETSETUP_NAME_TYPE = Int32
+NETSETUP_NAME_TYPE_NetSetupUnknown: NETSETUP_NAME_TYPE = 0
+NETSETUP_NAME_TYPE_NetSetupMachine: NETSETUP_NAME_TYPE = 1
+NETSETUP_NAME_TYPE_NetSetupWorkgroup: NETSETUP_NAME_TYPE = 2
+NETSETUP_NAME_TYPE_NetSetupDomain: NETSETUP_NAME_TYPE = 3
+NETSETUP_NAME_TYPE_NetSetupNonExistentDomain: NETSETUP_NAME_TYPE = 4
+NETSETUP_NAME_TYPE_NetSetupDnsMachine: NETSETUP_NAME_TYPE = 5
+NETSETUP_PROVISION = UInt32
+NETSETUP_PROVISION_DOWNLEVEL_PRIV_SUPPORT: NETSETUP_PROVISION = 1
+NETSETUP_PROVISION_REUSE_ACCOUNT: NETSETUP_PROVISION = 2
+NETSETUP_PROVISION_USE_DEFAULT_PASSWORD: NETSETUP_PROVISION = 4
+NETSETUP_PROVISION_SKIP_ACCOUNT_SEARCH: NETSETUP_PROVISION = 8
+NETSETUP_PROVISION_ROOT_CA_CERTS: NETSETUP_PROVISION = 16
+class NETSETUP_PROVISIONING_PARAMS(Structure):
+    dwVersion: UInt32
+    lpDomain: win32more.Foundation.PWSTR
+    lpHostName: win32more.Foundation.PWSTR
+    lpMachineAccountOU: win32more.Foundation.PWSTR
+    lpDcName: win32more.Foundation.PWSTR
+    dwProvisionOptions: win32more.NetworkManagement.NetManagement.NETSETUP_PROVISION
+    aCertTemplateNames: POINTER(win32more.Foundation.PWSTR)
+    cCertTemplateNames: UInt32
+    aMachinePolicyNames: POINTER(win32more.Foundation.PWSTR)
+    cMachinePolicyNames: UInt32
+    aMachinePolicyPaths: POINTER(win32more.Foundation.PWSTR)
+    cMachinePolicyPaths: UInt32
+    lpNetbiosName: win32more.Foundation.PWSTR
+    lpSiteName: win32more.Foundation.PWSTR
+    lpPrimaryDNSDomain: win32more.Foundation.PWSTR
+NETWORK_INSTALL_TIME = Int32
+NSF_PRIMARYINSTALL: NETWORK_INSTALL_TIME = 1
+NSF_POSTSYSINSTALL: NETWORK_INSTALL_TIME = 2
+class NETWORK_NAME(Structure):
+    Name: win32more.NetworkManagement.NetManagement.FLAT_STRING
+NETWORK_UPGRADE_TYPE = Int32
+NSF_WIN16_UPGRADE: NETWORK_UPGRADE_TYPE = 16
+NSF_WIN95_UPGRADE: NETWORK_UPGRADE_TYPE = 32
+NSF_WINNT_WKS_UPGRADE: NETWORK_UPGRADE_TYPE = 64
+NSF_WINNT_SVR_UPGRADE: NETWORK_UPGRADE_TYPE = 128
+NSF_WINNT_SBS_UPGRADE: NETWORK_UPGRADE_TYPE = 256
+NSF_COMPONENT_UPDATE: NETWORK_UPGRADE_TYPE = 512
 NET_COMPUTER_NAME_TYPE = Int32
 NET_COMPUTER_NAME_TYPE_NetPrimaryComputerName: NET_COMPUTER_NAME_TYPE = 0
 NET_COMPUTER_NAME_TYPE_NetAlternateComputerNames: NET_COMPUTER_NAME_TYPE = 1
@@ -3125,72 +3190,7 @@ class NET_VALIDATE_PERSISTED_FIELDS(Structure):
     BadPasswordCount: UInt32
     PasswordHistoryLength: UInt32
     PasswordHistory: POINTER(win32more.NetworkManagement.NetManagement.NET_VALIDATE_PASSWORD_HASH_head)
-class NETLOGON_INFO_1(Structure):
-    netlog1_flags: UInt32
-    netlog1_pdc_connection_status: UInt32
-class NETLOGON_INFO_2(Structure):
-    netlog2_flags: UInt32
-    netlog2_pdc_connection_status: UInt32
-    netlog2_trusted_dc_name: win32more.Foundation.PWSTR
-    netlog2_tc_connection_status: UInt32
-class NETLOGON_INFO_3(Structure):
-    netlog3_flags: UInt32
-    netlog3_logon_attempts: UInt32
-    netlog3_reserved1: UInt32
-    netlog3_reserved2: UInt32
-    netlog3_reserved3: UInt32
-    netlog3_reserved4: UInt32
-    netlog3_reserved5: UInt32
-class NETLOGON_INFO_4(Structure):
-    netlog4_trusted_dc_name: win32more.Foundation.PWSTR
-    netlog4_trusted_domain_name: win32more.Foundation.PWSTR
 NetProvisioning = Guid('2aa2b5fe-b846-4d07-81-0c-b2-1e-e4-53-20-e3')
-NETSETUP_JOIN_STATUS = Int32
-NETSETUP_JOIN_STATUS_NetSetupUnknownStatus: NETSETUP_JOIN_STATUS = 0
-NETSETUP_JOIN_STATUS_NetSetupUnjoined: NETSETUP_JOIN_STATUS = 1
-NETSETUP_JOIN_STATUS_NetSetupWorkgroupName: NETSETUP_JOIN_STATUS = 2
-NETSETUP_JOIN_STATUS_NetSetupDomainName: NETSETUP_JOIN_STATUS = 3
-NETSETUP_NAME_TYPE = Int32
-NETSETUP_NAME_TYPE_NetSetupUnknown: NETSETUP_NAME_TYPE = 0
-NETSETUP_NAME_TYPE_NetSetupMachine: NETSETUP_NAME_TYPE = 1
-NETSETUP_NAME_TYPE_NetSetupWorkgroup: NETSETUP_NAME_TYPE = 2
-NETSETUP_NAME_TYPE_NetSetupDomain: NETSETUP_NAME_TYPE = 3
-NETSETUP_NAME_TYPE_NetSetupNonExistentDomain: NETSETUP_NAME_TYPE = 4
-NETSETUP_NAME_TYPE_NetSetupDnsMachine: NETSETUP_NAME_TYPE = 5
-NETSETUP_PROVISION = UInt32
-NETSETUP_PROVISION_DOWNLEVEL_PRIV_SUPPORT: NETSETUP_PROVISION = 1
-NETSETUP_PROVISION_REUSE_ACCOUNT: NETSETUP_PROVISION = 2
-NETSETUP_PROVISION_USE_DEFAULT_PASSWORD: NETSETUP_PROVISION = 4
-NETSETUP_PROVISION_SKIP_ACCOUNT_SEARCH: NETSETUP_PROVISION = 8
-NETSETUP_PROVISION_ROOT_CA_CERTS: NETSETUP_PROVISION = 16
-class NETSETUP_PROVISIONING_PARAMS(Structure):
-    dwVersion: UInt32
-    lpDomain: win32more.Foundation.PWSTR
-    lpHostName: win32more.Foundation.PWSTR
-    lpMachineAccountOU: win32more.Foundation.PWSTR
-    lpDcName: win32more.Foundation.PWSTR
-    dwProvisionOptions: win32more.NetworkManagement.NetManagement.NETSETUP_PROVISION
-    aCertTemplateNames: POINTER(win32more.Foundation.PWSTR)
-    cCertTemplateNames: UInt32
-    aMachinePolicyNames: POINTER(win32more.Foundation.PWSTR)
-    cMachinePolicyNames: UInt32
-    aMachinePolicyPaths: POINTER(win32more.Foundation.PWSTR)
-    cMachinePolicyPaths: UInt32
-    lpNetbiosName: win32more.Foundation.PWSTR
-    lpSiteName: win32more.Foundation.PWSTR
-    lpPrimaryDNSDomain: win32more.Foundation.PWSTR
-NETWORK_INSTALL_TIME = Int32
-NSF_PRIMARYINSTALL: NETWORK_INSTALL_TIME = 1
-NSF_POSTSYSINSTALL: NETWORK_INSTALL_TIME = 2
-class NETWORK_NAME(Structure):
-    Name: win32more.NetworkManagement.NetManagement.FLAT_STRING
-NETWORK_UPGRADE_TYPE = Int32
-NSF_WIN16_UPGRADE: NETWORK_UPGRADE_TYPE = 16
-NSF_WIN95_UPGRADE: NETWORK_UPGRADE_TYPE = 32
-NSF_WINNT_WKS_UPGRADE: NETWORK_UPGRADE_TYPE = 64
-NSF_WINNT_SVR_UPGRADE: NETWORK_UPGRADE_TYPE = 128
-NSF_WINNT_SBS_UPGRADE: NETWORK_UPGRADE_TYPE = 256
-NSF_COMPONENT_UPDATE: NETWORK_UPGRADE_TYPE = 512
 class OBO_TOKEN(Structure):
     Type: win32more.NetworkManagement.NetManagement.OBO_TOKEN_TYPE
     pncc: win32more.NetworkManagement.NetManagement.INetCfgComponent_head
@@ -3844,63 +3844,6 @@ TRANSPORT_TYPE = Int32
 UseTransportType_None: TRANSPORT_TYPE = 0
 UseTransportType_Wsk: TRANSPORT_TYPE = 1
 UseTransportType_Quic: TRANSPORT_TYPE = 2
-class USE_INFO_0(Structure):
-    ui0_local: win32more.Foundation.PWSTR
-    ui0_remote: win32more.Foundation.PWSTR
-class USE_INFO_1(Structure):
-    ui1_local: win32more.Foundation.PWSTR
-    ui1_remote: win32more.Foundation.PWSTR
-    ui1_password: win32more.Foundation.PWSTR
-    ui1_status: UInt32
-    ui1_asg_type: win32more.NetworkManagement.NetManagement.USE_INFO_ASG_TYPE
-    ui1_refcount: UInt32
-    ui1_usecount: UInt32
-class USE_INFO_2(Structure):
-    ui2_local: win32more.Foundation.PWSTR
-    ui2_remote: win32more.Foundation.PWSTR
-    ui2_password: win32more.Foundation.PWSTR
-    ui2_status: UInt32
-    ui2_asg_type: win32more.NetworkManagement.NetManagement.USE_INFO_ASG_TYPE
-    ui2_refcount: UInt32
-    ui2_usecount: UInt32
-    ui2_username: win32more.Foundation.PWSTR
-    ui2_domainname: win32more.Foundation.PWSTR
-class USE_INFO_3(Structure):
-    ui3_ui2: win32more.NetworkManagement.NetManagement.USE_INFO_2
-    ui3_flags: UInt32
-class USE_INFO_4(Structure):
-    ui4_ui3: win32more.NetworkManagement.NetManagement.USE_INFO_3
-    ui4_auth_identity_length: UInt32
-    ui4_auth_identity: c_char_p_no
-class USE_INFO_5(Structure):
-    ui4_ui3: win32more.NetworkManagement.NetManagement.USE_INFO_3
-    ui4_auth_identity_length: UInt32
-    ui4_auth_identity: c_char_p_no
-    ui5_security_descriptor_length: UInt32
-    ui5_security_descriptor: c_char_p_no
-    ui5_use_options_length: UInt32
-    ui5_use_options: c_char_p_no
-USE_INFO_ASG_TYPE = UInt32
-USE_WILDCARD: USE_INFO_ASG_TYPE = 4294967295
-USE_DISKDEV: USE_INFO_ASG_TYPE = 0
-USE_SPOOLDEV: USE_INFO_ASG_TYPE = 1
-USE_IPC: USE_INFO_ASG_TYPE = 3
-class USE_OPTION_DEFERRED_CONNECTION_PARAMETERS(Structure):
-    Tag: UInt32
-    Length: UInt16
-    Reserved: UInt16
-class USE_OPTION_GENERIC(Structure):
-    Tag: UInt32
-    Length: UInt16
-    Reserved: UInt16
-class USE_OPTION_PROPERTIES(Structure):
-    Tag: UInt32
-    pInfo: c_void_p
-    Length: UIntPtr
-class USE_OPTION_TRANSPORT_PARAMETERS(Structure):
-    Tag: UInt32
-    Length: UInt16
-    Reserved: UInt16
 USER_ACCOUNT_FLAGS = UInt32
 UF_SCRIPT: USER_ACCOUNT_FLAGS = 1
 UF_ACCOUNTDISABLE: USER_ACCOUNT_FLAGS = 2
@@ -4167,6 +4110,63 @@ USER_PRIV = UInt32
 USER_PRIV_GUEST: USER_PRIV = 0
 USER_PRIV_USER: USER_PRIV = 1
 USER_PRIV_ADMIN: USER_PRIV = 2
+class USE_INFO_0(Structure):
+    ui0_local: win32more.Foundation.PWSTR
+    ui0_remote: win32more.Foundation.PWSTR
+class USE_INFO_1(Structure):
+    ui1_local: win32more.Foundation.PWSTR
+    ui1_remote: win32more.Foundation.PWSTR
+    ui1_password: win32more.Foundation.PWSTR
+    ui1_status: UInt32
+    ui1_asg_type: win32more.NetworkManagement.NetManagement.USE_INFO_ASG_TYPE
+    ui1_refcount: UInt32
+    ui1_usecount: UInt32
+class USE_INFO_2(Structure):
+    ui2_local: win32more.Foundation.PWSTR
+    ui2_remote: win32more.Foundation.PWSTR
+    ui2_password: win32more.Foundation.PWSTR
+    ui2_status: UInt32
+    ui2_asg_type: win32more.NetworkManagement.NetManagement.USE_INFO_ASG_TYPE
+    ui2_refcount: UInt32
+    ui2_usecount: UInt32
+    ui2_username: win32more.Foundation.PWSTR
+    ui2_domainname: win32more.Foundation.PWSTR
+class USE_INFO_3(Structure):
+    ui3_ui2: win32more.NetworkManagement.NetManagement.USE_INFO_2
+    ui3_flags: UInt32
+class USE_INFO_4(Structure):
+    ui4_ui3: win32more.NetworkManagement.NetManagement.USE_INFO_3
+    ui4_auth_identity_length: UInt32
+    ui4_auth_identity: c_char_p_no
+class USE_INFO_5(Structure):
+    ui4_ui3: win32more.NetworkManagement.NetManagement.USE_INFO_3
+    ui4_auth_identity_length: UInt32
+    ui4_auth_identity: c_char_p_no
+    ui5_security_descriptor_length: UInt32
+    ui5_security_descriptor: c_char_p_no
+    ui5_use_options_length: UInt32
+    ui5_use_options: c_char_p_no
+USE_INFO_ASG_TYPE = UInt32
+USE_WILDCARD: USE_INFO_ASG_TYPE = 4294967295
+USE_DISKDEV: USE_INFO_ASG_TYPE = 0
+USE_SPOOLDEV: USE_INFO_ASG_TYPE = 1
+USE_IPC: USE_INFO_ASG_TYPE = 3
+class USE_OPTION_DEFERRED_CONNECTION_PARAMETERS(Structure):
+    Tag: UInt32
+    Length: UInt16
+    Reserved: UInt16
+class USE_OPTION_GENERIC(Structure):
+    Tag: UInt32
+    Length: UInt16
+    Reserved: UInt16
+class USE_OPTION_PROPERTIES(Structure):
+    Tag: UInt32
+    pInfo: c_void_p
+    Length: UIntPtr
+class USE_OPTION_TRANSPORT_PARAMETERS(Structure):
+    Tag: UInt32
+    Length: UInt16
+    Reserved: UInt16
 class WKSTA_INFO_100(Structure):
     wki100_platform_id: UInt32
     wki100_computername: win32more.Foundation.PWSTR
@@ -4427,6 +4427,12 @@ make_head(_module, 'MPR_PROTOCOL_0')
 make_head(_module, 'MSA_INFO_0')
 make_head(_module, 'MSG_INFO_0')
 make_head(_module, 'MSG_INFO_1')
+make_head(_module, 'NETLOGON_INFO_1')
+make_head(_module, 'NETLOGON_INFO_2')
+make_head(_module, 'NETLOGON_INFO_3')
+make_head(_module, 'NETLOGON_INFO_4')
+make_head(_module, 'NETSETUP_PROVISIONING_PARAMS')
+make_head(_module, 'NETWORK_NAME')
 make_head(_module, 'NET_DISPLAY_GROUP')
 make_head(_module, 'NET_DISPLAY_MACHINE')
 make_head(_module, 'NET_DISPLAY_USER')
@@ -4436,12 +4442,6 @@ make_head(_module, 'NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG')
 make_head(_module, 'NET_VALIDATE_PASSWORD_HASH')
 make_head(_module, 'NET_VALIDATE_PASSWORD_RESET_INPUT_ARG')
 make_head(_module, 'NET_VALIDATE_PERSISTED_FIELDS')
-make_head(_module, 'NETLOGON_INFO_1')
-make_head(_module, 'NETLOGON_INFO_2')
-make_head(_module, 'NETLOGON_INFO_3')
-make_head(_module, 'NETLOGON_INFO_4')
-make_head(_module, 'NETSETUP_PROVISIONING_PARAMS')
-make_head(_module, 'NETWORK_NAME')
 make_head(_module, 'OBO_TOKEN')
 make_head(_module, 'PRINT_OTHER_INFO')
 make_head(_module, 'RASCON_IPUI')
@@ -4576,16 +4576,6 @@ make_head(_module, 'SMB_USE_OPTION_COMPRESSION_PARAMETERS')
 make_head(_module, 'STD_ALERT')
 make_head(_module, 'TIME_OF_DAY_INFO')
 make_head(_module, 'TRANSPORT_INFO')
-make_head(_module, 'USE_INFO_0')
-make_head(_module, 'USE_INFO_1')
-make_head(_module, 'USE_INFO_2')
-make_head(_module, 'USE_INFO_3')
-make_head(_module, 'USE_INFO_4')
-make_head(_module, 'USE_INFO_5')
-make_head(_module, 'USE_OPTION_DEFERRED_CONNECTION_PARAMETERS')
-make_head(_module, 'USE_OPTION_GENERIC')
-make_head(_module, 'USE_OPTION_PROPERTIES')
-make_head(_module, 'USE_OPTION_TRANSPORT_PARAMETERS')
 make_head(_module, 'USER_INFO_0')
 make_head(_module, 'USER_INFO_1')
 make_head(_module, 'USER_INFO_10')
@@ -4630,6 +4620,16 @@ make_head(_module, 'USER_MODALS_INFO_1007')
 make_head(_module, 'USER_MODALS_INFO_2')
 make_head(_module, 'USER_MODALS_INFO_3')
 make_head(_module, 'USER_OTHER_INFO')
+make_head(_module, 'USE_INFO_0')
+make_head(_module, 'USE_INFO_1')
+make_head(_module, 'USE_INFO_2')
+make_head(_module, 'USE_INFO_3')
+make_head(_module, 'USE_INFO_4')
+make_head(_module, 'USE_INFO_5')
+make_head(_module, 'USE_OPTION_DEFERRED_CONNECTION_PARAMETERS')
+make_head(_module, 'USE_OPTION_GENERIC')
+make_head(_module, 'USE_OPTION_PROPERTIES')
+make_head(_module, 'USE_OPTION_TRANSPORT_PARAMETERS')
 make_head(_module, 'WKSTA_INFO_100')
 make_head(_module, 'WKSTA_INFO_101')
 make_head(_module, 'WKSTA_INFO_1010')

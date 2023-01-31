@@ -98,8 +98,6 @@ def HcnReleaseGuestNetworkServicePortReservationHandle(PortReservationHandle: wi
 def HcnEnumerateGuestNetworkPortReservations(ReturnCount: POINTER(UInt32), PortEntries: POINTER(POINTER(win32more.System.HostComputeNetwork.HCN_PORT_RANGE_ENTRY_head))) -> win32more.Foundation.HRESULT: ...
 @winfunctype('computenetwork.dll')
 def HcnFreeGuestNetworkPortReservations(PortEntries: POINTER(win32more.System.HostComputeNetwork.HCN_PORT_RANGE_ENTRY_head)) -> Void: ...
-@winfunctype_pointer
-def HCN_NOTIFICATION_CALLBACK(NotificationType: UInt32, Context: c_void_p, NotificationStatus: win32more.Foundation.HRESULT, NotificationData: win32more.Foundation.PWSTR) -> Void: ...
 HCN_NOTIFICATIONS = Int32
 HCN_NOTIFICATIONS_HcnNotificationInvalid: HCN_NOTIFICATIONS = 0
 HCN_NOTIFICATIONS_HcnNotificationNetworkPreCreate: HCN_NOTIFICATIONS = 1
@@ -116,6 +114,8 @@ HCN_NOTIFICATIONS_HcnNotificationGuestNetworkServiceStateChanged: HCN_NOTIFICATI
 HCN_NOTIFICATIONS_HcnNotificationGuestNetworkServiceInterfaceStateChanged: HCN_NOTIFICATIONS = 18
 HCN_NOTIFICATIONS_HcnNotificationServiceDisconnect: HCN_NOTIFICATIONS = 16777216
 HCN_NOTIFICATIONS_HcnNotificationFlagsReserved: HCN_NOTIFICATIONS = -268435456
+@winfunctype_pointer
+def HCN_NOTIFICATION_CALLBACK(NotificationType: UInt32, Context: c_void_p, NotificationStatus: win32more.Foundation.HRESULT, NotificationData: win32more.Foundation.PWSTR) -> Void: ...
 HCN_PORT_ACCESS = Int32
 HCN_PORT_ACCESS_EXCLUSIVE: HCN_PORT_ACCESS = 1
 HCN_PORT_ACCESS_SHARED: HCN_PORT_ACCESS = 2

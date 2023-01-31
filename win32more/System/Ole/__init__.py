@@ -25,76 +25,15 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _wireBRECORD(Structure):
-    fFlags: UInt32
-    clSize: UInt32
-    pRecInfo: win32more.System.Ole.IRecordInfo_head
-    pRecord: c_char_p_no
-class _wireSAFEARRAY(Structure):
-    cDims: UInt16
-    fFeatures: UInt16
-    cbElements: UInt32
-    cLocks: UInt32
-    uArrayStructs: win32more.System.Ole.SAFEARRAYUNION
-    rgsabound: win32more.System.Com.SAFEARRAYBOUND * 1
-class _wireVARIANT(Structure):
-    clSize: UInt32
-    rpcReserved: UInt32
-    vt: UInt16
-    wReserved1: UInt16
-    wReserved2: UInt16
-    wReserved3: UInt16
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        llVal: Int64
-        lVal: Int32
-        bVal: Byte
-        iVal: Int16
-        fltVal: Single
-        dblVal: Double
-        boolVal: win32more.Foundation.VARIANT_BOOL
-        scode: Int32
-        cyVal: win32more.System.Com.CY
-        date: Double
-        bstrVal: POINTER(win32more.System.Com.FLAGGED_WORD_BLOB_head)
-        punkVal: win32more.System.Com.IUnknown_head
-        pdispVal: win32more.System.Com.IDispatch_head
-        parray: POINTER(POINTER(win32more.System.Ole._wireSAFEARRAY_head))
-        brecVal: POINTER(win32more.System.Ole._wireBRECORD_head)
-        pbVal: c_char_p_no
-        piVal: POINTER(Int16)
-        plVal: POINTER(Int32)
-        pllVal: POINTER(Int64)
-        pfltVal: POINTER(Single)
-        pdblVal: POINTER(Double)
-        pboolVal: POINTER(win32more.Foundation.VARIANT_BOOL)
-        pscode: POINTER(Int32)
-        pcyVal: POINTER(win32more.System.Com.CY_head)
-        pdate: POINTER(Double)
-        pbstrVal: POINTER(POINTER(win32more.System.Com.FLAGGED_WORD_BLOB_head))
-        ppunkVal: POINTER(win32more.System.Com.IUnknown_head)
-        ppdispVal: POINTER(win32more.System.Com.IDispatch_head)
-        pparray: POINTER(POINTER(POINTER(win32more.System.Ole._wireSAFEARRAY_head)))
-        pvarVal: POINTER(POINTER(win32more.System.Ole._wireVARIANT_head))
-        cVal: win32more.Foundation.CHAR
-        uiVal: UInt16
-        ulVal: UInt32
-        ullVal: UInt64
-        intVal: Int32
-        uintVal: UInt32
-        decVal: win32more.Foundation.DECIMAL
-        pdecVal: POINTER(win32more.Foundation.DECIMAL_head)
-        pcVal: win32more.Foundation.PSTR
-        puiVal: POINTER(UInt16)
-        pulVal: POINTER(UInt32)
-        pullVal: POINTER(UInt64)
-        pintVal: POINTER(Int32)
-        puintVal: POINTER(UInt32)
 ACTIVATEFLAGS = Int32
 ACTIVATE_WINDOWLESS: ACTIVATEFLAGS = 1
 ACTIVEOBJECT_FLAGS = UInt32
 ACTIVEOBJECT_STRONG: ACTIVEOBJECT_FLAGS = 0
 ACTIVEOBJECT_WEAK: ACTIVEOBJECT_FLAGS = 1
+class ARRAYDESC(Structure):
+    tdescElem: win32more.System.Com.TYPEDESC
+    cDims: UInt16
+    rgbounds: win32more.System.Com.SAFEARRAYBOUND * 1
 CTL_E_ILLEGALFUNCTIONCALL: Int32 = -2146828283
 CONNECT_E_FIRST: Int32 = -2147220992
 SELFREG_E_FIRST: Int32 = -2147220992
@@ -1489,10 +1428,6 @@ def OleUIPromptUserA(nTemplate: Int32, hwndParent: win32more.Foundation.HWND) ->
 def OleUIUpdateLinksW(lpOleUILinkCntr: win32more.System.Ole.IOleUILinkContainerW_head, hwndParent: win32more.Foundation.HWND, lpszTitle: win32more.Foundation.PWSTR, cLinks: Int32) -> win32more.Foundation.BOOL: ...
 @winfunctype('oledlg.dll')
 def OleUIUpdateLinksA(lpOleUILinkCntr: win32more.System.Ole.IOleUILinkContainerA_head, hwndParent: win32more.Foundation.HWND, lpszTitle: win32more.Foundation.PSTR, cLinks: Int32) -> win32more.Foundation.BOOL: ...
-class ARRAYDESC(Structure):
-    tdescElem: win32more.System.Com.TYPEDESC
-    cDims: UInt16
-    rgbounds: win32more.System.Com.SAFEARRAYBOUND * 1
 BINDSPEED = Int32
 BINDSPEED_INDEFINITE: BINDSPEED = 1
 BINDSPEED_MODERATE: BINDSPEED = 2
@@ -1511,6 +1446,15 @@ class CALPOLESTR(Structure):
 class CAUUID(Structure):
     cElems: UInt32
     pElems: POINTER(Guid)
+CHANGEKIND = Int32
+CHANGEKIND_ADDMEMBER: CHANGEKIND = 0
+CHANGEKIND_DELETEMEMBER: CHANGEKIND = 1
+CHANGEKIND_SETNAMES: CHANGEKIND = 2
+CHANGEKIND_SETDOCUMENTATION: CHANGEKIND = 3
+CHANGEKIND_GENERAL: CHANGEKIND = 4
+CHANGEKIND_INVALIDATE: CHANGEKIND = 5
+CHANGEKIND_CHANGEFAILED: CHANGEKIND = 6
+CHANGEKIND_MAX: CHANGEKIND = 7
 CHANGE_ICON_FLAGS = Int32
 CIF_SHOWHELP: CHANGE_ICON_FLAGS = 1
 CIF_SELECTCURRENT: CHANGE_ICON_FLAGS = 2
@@ -1522,15 +1466,6 @@ CSF_SHOWHELP: CHANGE_SOURCE_FLAGS = 1
 CSF_VALIDSOURCE: CHANGE_SOURCE_FLAGS = 2
 CSF_ONLYGETSOURCE: CHANGE_SOURCE_FLAGS = 4
 CSF_EXPLORER: CHANGE_SOURCE_FLAGS = 8
-CHANGEKIND = Int32
-CHANGEKIND_ADDMEMBER: CHANGEKIND = 0
-CHANGEKIND_DELETEMEMBER: CHANGEKIND = 1
-CHANGEKIND_SETNAMES: CHANGEKIND = 2
-CHANGEKIND_SETDOCUMENTATION: CHANGEKIND = 3
-CHANGEKIND_GENERAL: CHANGEKIND = 4
-CHANGEKIND_INVALIDATE: CHANGEKIND = 5
-CHANGEKIND_CHANGEFAILED: CHANGEKIND = 6
-CHANGEKIND_MAX: CHANGEKIND = 7
 class CLEANLOCALSTORAGE(Structure):
     pInterface: win32more.System.Com.IUnknown_head
     pStorage: c_void_p
@@ -1808,6 +1743,21 @@ class ICreateTypeLib2(c_void_p):
     def SetHelpStringContext(dwHelpStringContext: UInt32) -> win32more.Foundation.HRESULT: ...
     @commethod(16)
     def SetHelpStringDll(szFileName: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class IDispError(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a6ef9861-c720-11d0-93-37-00-a0-c9-0d-ca-a9')
+    @commethod(3)
+    def QueryErrorInfo(guidErrorType: Guid, ppde: POINTER(win32more.System.Ole.IDispError_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetNext(ppde: POINTER(win32more.System.Ole.IDispError_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetHresult(phr: POINTER(win32more.Foundation.HRESULT)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetSource(pbstrSource: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetHelpInfo(pbstrFileName: POINTER(win32more.Foundation.BSTR), pdwContext: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetDescription(pbstrDescription: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
 class IDispatchEx(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('a6ef9860-c720-11d0-93-37-00-a0-c9-0d-ca-a9')
@@ -1827,21 +1777,6 @@ class IDispatchEx(c_void_p):
     def GetNextDispID(grfdex: UInt32, id: Int32, pid: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
     @commethod(14)
     def GetNameSpaceParent(ppunk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-class IDispError(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('a6ef9861-c720-11d0-93-37-00-a0-c9-0d-ca-a9')
-    @commethod(3)
-    def QueryErrorInfo(guidErrorType: Guid, ppde: POINTER(win32more.System.Ole.IDispError_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def GetNext(ppde: POINTER(win32more.System.Ole.IDispError_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def GetHresult(phr: POINTER(win32more.Foundation.HRESULT)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def GetSource(pbstrSource: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def GetHelpInfo(pbstrFileName: POINTER(win32more.Foundation.BSTR), pdwContext: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def GetDescription(pbstrDescription: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
 class IDropSource(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('00000121-0000-0000-c0-00-00-00-00-00-00-46')
@@ -1874,6 +1809,17 @@ class IEnterpriseDropTarget(c_void_p):
     def SetDropSourceEnterpriseId(identity: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def IsEvaluatingEdpPolicy(value: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IEnumOLEVERB(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('00000104-0000-0000-c0-00-00-00-00-00-00-46')
+    @commethod(3)
+    def Next(celt: UInt32, rgelt: POINTER(win32more.System.Ole.OLEVERB_head), pceltFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Skip(celt: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Clone(ppenum: POINTER(win32more.System.Ole.IEnumOLEVERB_head)) -> win32more.Foundation.HRESULT: ...
 class IEnumOleDocumentViews(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('b722bcc8-4e68-101b-a2-bc-00-aa-00-40-47-70')
@@ -1896,17 +1842,6 @@ class IEnumOleUndoUnits(c_void_p):
     def Reset() -> win32more.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(ppEnum: POINTER(win32more.System.Ole.IEnumOleUndoUnits_head)) -> win32more.Foundation.HRESULT: ...
-class IEnumOLEVERB(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('00000104-0000-0000-c0-00-00-00-00-00-00-46')
-    @commethod(3)
-    def Next(celt: UInt32, rgelt: POINTER(win32more.System.Ole.OLEVERB_head), pceltFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def Skip(celt: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def Reset() -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def Clone(ppenum: POINTER(win32more.System.Ole.IEnumOLEVERB_head)) -> win32more.Foundation.HRESULT: ...
 class IEnumVARIANT(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('00020404-0000-0000-c0-00-00-00-00-00-00-46')
@@ -1975,6 +1910,9 @@ class IFontDisp(c_void_p):
 class IFontEventsDisp(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('4ef6100a-af88-11d0-98-46-00-c0-4f-c2-99-93')
+IGNOREMIME = Int32
+IGNOREMIME_PROMPT: IGNOREMIME = 1
+IGNOREMIME_TEXT: IGNOREMIME = 2
 class IGetOleObject(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('8a701da0-4feb-101b-a8-2e-08-00-2b-2b-23-37')
@@ -1985,9 +1923,6 @@ class IGetVBAObject(c_void_p):
     Guid = Guid('91733a60-3f4c-101b-a3-f6-00-aa-00-34-e4-e9')
     @commethod(3)
     def GetObject(riid: POINTER(Guid), ppvObj: POINTER(c_void_p), dwReserved: UInt32) -> win32more.Foundation.HRESULT: ...
-IGNOREMIME = Int32
-IGNOREMIME_PROMPT: IGNOREMIME = 1
-IGNOREMIME_TEXT: IGNOREMIME = 2
 INSERT_OBJECT_FLAGS = UInt32
 IOF_SHOWHELP: INSERT_OBJECT_FLAGS = 1
 IOF_SELECTCREATENEW: INSERT_OBJECT_FLAGS = 2
@@ -2648,6 +2583,11 @@ class IPropertyPageSite(c_void_p):
     def GetPageContainer(ppUnk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(6)
     def TranslateAccelerator(pMsg: POINTER(win32more.UI.WindowsAndMessaging.MSG_head)) -> win32more.Foundation.HRESULT: ...
+class IProtectFocus(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('d81f90a3-8156-44f7-ad-28-5a-bb-87-00-32-74')
+    @commethod(3)
+    def AllowFocusChange(pfAllow: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
 class IProtectedModeMenuServices(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('73c105ee-9dff-4a07-b8-3c-7e-ff-29-0c-26-6e')
@@ -2657,11 +2597,6 @@ class IProtectedModeMenuServices(c_void_p):
     def LoadMenu(pszModuleName: win32more.Foundation.PWSTR, pszMenuName: win32more.Foundation.PWSTR, phMenu: POINTER(win32more.UI.WindowsAndMessaging.HMENU)) -> win32more.Foundation.HRESULT: ...
     @commethod(5)
     def LoadMenuID(pszModuleName: win32more.Foundation.PWSTR, wResourceID: UInt16, phMenu: POINTER(win32more.UI.WindowsAndMessaging.HMENU)) -> win32more.Foundation.HRESULT: ...
-class IProtectFocus(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('d81f90a3-8156-44f7-ad-28-5a-bb-87-00-32-74')
-    @commethod(3)
-    def AllowFocusChange(pfAllow: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
 class IProvideClassInfo(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('b196b283-bab4-101a-b6-9c-00-aa-00-34-1d-07')
@@ -2763,11 +2698,6 @@ class ITypeMarshal(c_void_p):
     def Unmarshal(pvType: c_void_p, dwFlags: UInt32, cbBufferLength: UInt32, pBuffer: c_char_p_no, pcbRead: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
     @commethod(6)
     def Free(pvType: c_void_p) -> win32more.Foundation.HRESULT: ...
-class IVariantChangeType(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('a6ef9862-c720-11d0-93-37-00-a0-c9-0d-ca-a9')
-    @commethod(3)
-    def ChangeType(pvarDst: POINTER(win32more.System.Com.VARIANT_head), pvarSrc: POINTER(win32more.System.Com.VARIANT_head), lcid: UInt32, vtNew: win32more.System.Com.VARENUM) -> win32more.Foundation.HRESULT: ...
 class IVBFormat(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('9849fd60-3768-101b-8d-72-ae-61-64-ff-e3-cf')
@@ -2778,6 +2708,11 @@ class IVBGetControl(c_void_p):
     Guid = Guid('40a050a0-3c31-101b-a8-2e-08-00-2b-2b-23-37')
     @commethod(3)
     def EnumControls(dwOleContF: win32more.System.Ole.OLECONTF, dwWhich: win32more.System.Ole.ENUM_CONTROLS_WHICH_FLAGS, ppenumUnk: POINTER(win32more.System.Com.IEnumUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class IVariantChangeType(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('a6ef9862-c720-11d0-93-37-00-a0-c9-0d-ca-a9')
+    @commethod(3)
+    def ChangeType(pvarDst: POINTER(win32more.System.Com.VARIANT_head), pvarSrc: POINTER(win32more.System.Com.VARIANT_head), lcid: UInt32, vtNew: win32more.System.Com.VARENUM) -> win32more.Foundation.HRESULT: ...
 class IViewObject(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('0000010d-0000-0000-c0-00-00-00-00-00-00-46')
@@ -2879,11 +2814,6 @@ NUMPRS_USE_ALL: NUMPARSE_FLAGS = 4096
 NUMPRS_STD: NUMPARSE_FLAGS = 8191
 NUMPRS_NEG: NUMPARSE_FLAGS = 65536
 NUMPRS_INEXACT: NUMPARSE_FLAGS = 131072
-OBJECT_PROPERTIES_FLAGS = UInt32
-OPF_OBJECTISLINK: OBJECT_PROPERTIES_FLAGS = 1
-OPF_NOFILLDEFAULT: OBJECT_PROPERTIES_FLAGS = 2
-OPF_SHOWHELP: OBJECT_PROPERTIES_FLAGS = 4
-OPF_DISABLECONVERT: OBJECT_PROPERTIES_FLAGS = 8
 class OBJECTDESCRIPTOR(Structure):
     cbSize: UInt32
     clsid: Guid
@@ -2893,6 +2823,11 @@ class OBJECTDESCRIPTOR(Structure):
     dwStatus: UInt32
     dwFullUserTypeName: UInt32
     dwSrcOfCopy: UInt32
+OBJECT_PROPERTIES_FLAGS = UInt32
+OPF_OBJECTISLINK: OBJECT_PROPERTIES_FLAGS = 1
+OPF_NOFILLDEFAULT: OBJECT_PROPERTIES_FLAGS = 2
+OPF_SHOWHELP: OBJECT_PROPERTIES_FLAGS = 4
+OPF_DISABLECONVERT: OBJECT_PROPERTIES_FLAGS = 8
 class OCPFIPARAMS(Structure):
     cbStructSize: UInt32
     hWndOwner: win32more.Foundation.HWND
@@ -2905,11 +2840,6 @@ class OCPFIPARAMS(Structure):
     lpPages: POINTER(Guid)
     lcid: UInt32
     dispidInitialProperty: Int32
-OLE_HANDLE = UInt32
-OLE_TRISTATE = Int32
-OLE_TRISTATE_triUnchecked: OLE_TRISTATE = 0
-OLE_TRISTATE_triChecked: OLE_TRISTATE = 1
-OLE_TRISTATE_triGray: OLE_TRISTATE = 2
 OLECLOSE = Int32
 OLECLOSE_SAVEIFDIRTY: OLECLOSE = 0
 OLECLOSE_NOSAVE: OLECLOSE = 1
@@ -3525,6 +3455,11 @@ OLEWHICHMK = Int32
 OLEWHICHMK_CONTAINER: OLEWHICHMK = 1
 OLEWHICHMK_OBJREL: OLEWHICHMK = 2
 OLEWHICHMK_OBJFULL: OLEWHICHMK = 3
+OLE_HANDLE = UInt32
+OLE_TRISTATE = Int32
+OLE_TRISTATE_triUnchecked: OLE_TRISTATE = 0
+OLE_TRISTATE_triChecked: OLE_TRISTATE = 1
+OLE_TRISTATE_triGray: OLE_TRISTATE = 2
 PAGEACTION_UI = Int32
 PAGEACTION_UI_DEFAULT: PAGEACTION_UI = 0
 PAGEACTION_UI_MODAL: PAGEACTION_UI = 1
@@ -3673,6 +3608,20 @@ REGKIND = Int32
 REGKIND_DEFAULT: REGKIND = 0
 REGKIND_REGISTER: REGKIND = 1
 REGKIND_NONE: REGKIND = 2
+class SAFEARRAYUNION(Structure):
+    sfType: UInt32
+    u: _u_e__Struct
+    class _u_e__Struct(Union):
+        BstrStr: win32more.System.Ole.SAFEARR_BSTR
+        UnknownStr: win32more.System.Ole.SAFEARR_UNKNOWN
+        DispatchStr: win32more.System.Ole.SAFEARR_DISPATCH
+        VariantStr: win32more.System.Ole.SAFEARR_VARIANT
+        RecordStr: win32more.System.Ole.SAFEARR_BRECORD
+        HaveIidStr: win32more.System.Ole.SAFEARR_HAVEIID
+        ByteStr: win32more.System.Com.BYTE_SIZEDARR
+        WordStr: win32more.System.Com.WORD_SIZEDARR
+        LongStr: win32more.System.Com.DWORD_SIZEDARR
+        HyperStr: win32more.System.Com.HYPER_SIZEDARR
 class SAFEARR_BRECORD(Structure):
     Size: UInt32
     aRecord: POINTER(POINTER(win32more.System.Ole._wireBRECORD_head))
@@ -3692,20 +3641,6 @@ class SAFEARR_UNKNOWN(Structure):
 class SAFEARR_VARIANT(Structure):
     Size: UInt32
     aVariant: POINTER(POINTER(win32more.System.Ole._wireVARIANT_head))
-class SAFEARRAYUNION(Structure):
-    sfType: UInt32
-    u: _u_e__Struct
-    class _u_e__Struct(Union):
-        BstrStr: win32more.System.Ole.SAFEARR_BSTR
-        UnknownStr: win32more.System.Ole.SAFEARR_UNKNOWN
-        DispatchStr: win32more.System.Ole.SAFEARR_DISPATCH
-        VariantStr: win32more.System.Ole.SAFEARR_VARIANT
-        RecordStr: win32more.System.Ole.SAFEARR_BRECORD
-        HaveIidStr: win32more.System.Ole.SAFEARR_HAVEIID
-        ByteStr: win32more.System.Com.BYTE_SIZEDARR
-        WordStr: win32more.System.Com.WORD_SIZEDARR
-        LongStr: win32more.System.Com.DWORD_SIZEDARR
-        HyperStr: win32more.System.Com.HYPER_SIZEDARR
 SF_TYPE = Int32
 SF_ERROR: SF_TYPE = 10
 SF_I1: SF_TYPE = 16
@@ -3803,10 +3738,6 @@ VARFORMAT_PARENTHESES = Int32
 VARFORMAT_PARENTHESES_SYSTEMDEFAULT: VARFORMAT_PARENTHESES = -2
 VARFORMAT_PARENTHESES_USED: VARFORMAT_PARENTHESES = -1
 VARFORMAT_PARENTHESES_NOTUSED: VARFORMAT_PARENTHESES = 0
-VIEW_OBJECT_PROPERTIES_FLAGS = UInt32
-VPF_SELECTRELATIVE: VIEW_OBJECT_PROPERTIES_FLAGS = 1
-VPF_DISABLERELATIVE: VIEW_OBJECT_PROPERTIES_FLAGS = 2
-VPF_DISABLESCALE: VIEW_OBJECT_PROPERTIES_FLAGS = 4
 VIEWSTATUS = Int32
 VIEWSTATUS_OPAQUE: VIEWSTATUS = 1
 VIEWSTATUS_SOLIDBKGND: VIEWSTATUS = 2
@@ -3814,6 +3745,10 @@ VIEWSTATUS_DVASPECTOPAQUE: VIEWSTATUS = 4
 VIEWSTATUS_DVASPECTTRANSPARENT: VIEWSTATUS = 8
 VIEWSTATUS_SURFACE: VIEWSTATUS = 16
 VIEWSTATUS_3DSURFACE: VIEWSTATUS = 32
+VIEW_OBJECT_PROPERTIES_FLAGS = UInt32
+VPF_SELECTRELATIVE: VIEW_OBJECT_PROPERTIES_FLAGS = 1
+VPF_DISABLERELATIVE: VIEW_OBJECT_PROPERTIES_FLAGS = 2
+VPF_DISABLESCALE: VIEW_OBJECT_PROPERTIES_FLAGS = 4
 WPCSETTING = Int32
 WPCSETTING_LOGGING_ENABLED: WPCSETTING = 1
 WPCSETTING_FILEDOWNLOAD_BLOCKED: WPCSETTING = 2
@@ -3823,9 +3758,71 @@ XFORMCOORDS_SIZE: XFORMCOORDS = 2
 XFORMCOORDS_HIMETRICTOCONTAINER: XFORMCOORDS = 4
 XFORMCOORDS_CONTAINERTOHIMETRIC: XFORMCOORDS = 8
 XFORMCOORDS_EVENTCOMPAT: XFORMCOORDS = 16
-make_head(_module, '_wireBRECORD')
-make_head(_module, '_wireSAFEARRAY')
-make_head(_module, '_wireVARIANT')
+class _wireBRECORD(Structure):
+    fFlags: UInt32
+    clSize: UInt32
+    pRecInfo: win32more.System.Ole.IRecordInfo_head
+    pRecord: c_char_p_no
+class _wireSAFEARRAY(Structure):
+    cDims: UInt16
+    fFeatures: UInt16
+    cbElements: UInt32
+    cLocks: UInt32
+    uArrayStructs: win32more.System.Ole.SAFEARRAYUNION
+    rgsabound: win32more.System.Com.SAFEARRAYBOUND * 1
+class _wireVARIANT(Structure):
+    clSize: UInt32
+    rpcReserved: UInt32
+    vt: UInt16
+    wReserved1: UInt16
+    wReserved2: UInt16
+    wReserved3: UInt16
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        llVal: Int64
+        lVal: Int32
+        bVal: Byte
+        iVal: Int16
+        fltVal: Single
+        dblVal: Double
+        boolVal: win32more.Foundation.VARIANT_BOOL
+        scode: Int32
+        cyVal: win32more.System.Com.CY
+        date: Double
+        bstrVal: POINTER(win32more.System.Com.FLAGGED_WORD_BLOB_head)
+        punkVal: win32more.System.Com.IUnknown_head
+        pdispVal: win32more.System.Com.IDispatch_head
+        parray: POINTER(POINTER(win32more.System.Ole._wireSAFEARRAY_head))
+        brecVal: POINTER(win32more.System.Ole._wireBRECORD_head)
+        pbVal: c_char_p_no
+        piVal: POINTER(Int16)
+        plVal: POINTER(Int32)
+        pllVal: POINTER(Int64)
+        pfltVal: POINTER(Single)
+        pdblVal: POINTER(Double)
+        pboolVal: POINTER(win32more.Foundation.VARIANT_BOOL)
+        pscode: POINTER(Int32)
+        pcyVal: POINTER(win32more.System.Com.CY_head)
+        pdate: POINTER(Double)
+        pbstrVal: POINTER(POINTER(win32more.System.Com.FLAGGED_WORD_BLOB_head))
+        ppunkVal: POINTER(win32more.System.Com.IUnknown_head)
+        ppdispVal: POINTER(win32more.System.Com.IDispatch_head)
+        pparray: POINTER(POINTER(POINTER(win32more.System.Ole._wireSAFEARRAY_head)))
+        pvarVal: POINTER(POINTER(win32more.System.Ole._wireVARIANT_head))
+        cVal: win32more.Foundation.CHAR
+        uiVal: UInt16
+        ulVal: UInt32
+        ullVal: UInt64
+        intVal: Int32
+        uintVal: UInt32
+        decVal: win32more.Foundation.DECIMAL
+        pdecVal: POINTER(win32more.Foundation.DECIMAL_head)
+        pcVal: win32more.Foundation.PSTR
+        puiVal: POINTER(UInt16)
+        pulVal: POINTER(UInt32)
+        pullVal: POINTER(UInt64)
+        pintVal: POINTER(Int32)
+        puintVal: POINTER(UInt32)
 make_head(_module, 'ARRAYDESC')
 make_head(_module, 'CADWORD')
 make_head(_module, 'CALPOLESTR')
@@ -3845,15 +3842,15 @@ make_head(_module, 'ICreateTypeInfo')
 make_head(_module, 'ICreateTypeInfo2')
 make_head(_module, 'ICreateTypeLib')
 make_head(_module, 'ICreateTypeLib2')
-make_head(_module, 'IDispatchEx')
 make_head(_module, 'IDispError')
+make_head(_module, 'IDispatchEx')
 make_head(_module, 'IDropSource')
 make_head(_module, 'IDropSourceNotify')
 make_head(_module, 'IDropTarget')
 make_head(_module, 'IEnterpriseDropTarget')
+make_head(_module, 'IEnumOLEVERB')
 make_head(_module, 'IEnumOleDocumentViews')
 make_head(_module, 'IEnumOleUndoUnits')
-make_head(_module, 'IEnumOLEVERB')
 make_head(_module, 'IEnumVARIANT')
 make_head(_module, 'IFont')
 make_head(_module, 'IFontDisp')
@@ -3909,8 +3906,8 @@ make_head(_module, 'IPropertyNotifySink')
 make_head(_module, 'IPropertyPage')
 make_head(_module, 'IPropertyPage2')
 make_head(_module, 'IPropertyPageSite')
-make_head(_module, 'IProtectedModeMenuServices')
 make_head(_module, 'IProtectFocus')
+make_head(_module, 'IProtectedModeMenuServices')
 make_head(_module, 'IProvideClassInfo')
 make_head(_module, 'IProvideClassInfo2')
 make_head(_module, 'IProvideMultipleClassInfo')
@@ -3922,9 +3919,9 @@ make_head(_module, 'ISpecifyPropertyPages')
 make_head(_module, 'ITypeChangeEvents')
 make_head(_module, 'ITypeFactory')
 make_head(_module, 'ITypeMarshal')
-make_head(_module, 'IVariantChangeType')
 make_head(_module, 'IVBFormat')
 make_head(_module, 'IVBGetControl')
+make_head(_module, 'IVariantChangeType')
 make_head(_module, 'IViewObject')
 make_head(_module, 'IViewObject2')
 make_head(_module, 'IViewObjectEx')
@@ -3974,14 +3971,17 @@ make_head(_module, 'POINTF')
 make_head(_module, 'PROPPAGEINFO')
 make_head(_module, 'QACONTAINER')
 make_head(_module, 'QACONTROL')
+make_head(_module, 'SAFEARRAYUNION')
 make_head(_module, 'SAFEARR_BRECORD')
 make_head(_module, 'SAFEARR_BSTR')
 make_head(_module, 'SAFEARR_DISPATCH')
 make_head(_module, 'SAFEARR_HAVEIID')
 make_head(_module, 'SAFEARR_UNKNOWN')
 make_head(_module, 'SAFEARR_VARIANT')
-make_head(_module, 'SAFEARRAYUNION')
 make_head(_module, 'UDATE')
+make_head(_module, '_wireBRECORD')
+make_head(_module, '_wireSAFEARRAY')
+make_head(_module, '_wireVARIANT')
 __all__ = [
     "ACTIVATEFLAGS",
     "ACTIVATE_WINDOWLESS",

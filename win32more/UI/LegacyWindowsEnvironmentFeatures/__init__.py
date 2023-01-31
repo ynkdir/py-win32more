@@ -40,17 +40,6 @@ EVCF_SETTINGSMODE: EMPTY_VOLUME_CACHE_FLAGS = 32
 EVCF_OUTOFDISKSPACE: EMPTY_VOLUME_CACHE_FLAGS = 64
 EVCF_USERCONSENTOBTAINED: EMPTY_VOLUME_CACHE_FLAGS = 128
 EVCF_SYSTEMAUTORUN: EMPTY_VOLUME_CACHE_FLAGS = 256
-class IActiveDesktopP(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('52502ee0-ec80-11d0-89-ab-00-c0-4f-c2-97-2d')
-    @commethod(3)
-    def SetSafeMode(dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def EnsureUpdateHTML() -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def SetScheme(pwszSchemeName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def GetScheme(pwszSchemeName: win32more.Foundation.PWSTR, pdwcchBuffer: POINTER(UInt32), dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
 class IADesktopP2(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('b22754e2-4574-11d1-98-88-00-60-97-de-ac-f9')
@@ -62,6 +51,17 @@ class IADesktopP2(c_void_p):
     def UpdateAllDesktopSubscriptions() -> win32more.Foundation.HRESULT: ...
     @commethod(6)
     def MakeDynamicChanges(pOleObj: win32more.System.Ole.IOleObject_head) -> win32more.Foundation.HRESULT: ...
+class IActiveDesktopP(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('52502ee0-ec80-11d0-89-ab-00-c0-4f-c2-97-2d')
+    @commethod(3)
+    def SetSafeMode(dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def EnsureUpdateHTML() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetScheme(pwszSchemeName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetScheme(pwszSchemeName: win32more.Foundation.PWSTR, pdwcchBuffer: POINTER(UInt32), dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
 class IBriefcaseInitiator(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('99180164-da16-101a-93-5c-44-45-53-54-00-00')
@@ -115,8 +115,8 @@ RECONCILEF_RESUMERECONCILIATION: RECONCILEF = 16
 RECONCILEF_YOUMAYDOTHEUPDATES: RECONCILEF = 32
 RECONCILEF_ONLYYOUWERECHANGED: RECONCILEF = 64
 ALL_RECONCILE_FLAGS: RECONCILEF = 127
-make_head(_module, 'IActiveDesktopP')
 make_head(_module, 'IADesktopP2')
+make_head(_module, 'IActiveDesktopP')
 make_head(_module, 'IBriefcaseInitiator')
 make_head(_module, 'IEmptyVolumeCache')
 make_head(_module, 'IEmptyVolumeCache2')

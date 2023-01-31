@@ -17,29 +17,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class __msxml6_ReferenceRemainingTypes__(Structure):
-    __tagDomNodeType__: win32more.Data.Xml.MsXml.DOMNodeType
-    __domNodeType__: win32more.Data.Xml.MsXml.DOMNodeType
-    __serverXmlHttpOptionEnum__: win32more.Data.Xml.MsXml.SERVERXMLHTTP_OPTION
-    __serverXmlHttpOption__: win32more.Data.Xml.MsXml.SERVERXMLHTTP_OPTION
-    __serverCertOptionEnum__: win32more.Data.Xml.MsXml.SXH_SERVER_CERT_OPTION
-    __serverCertOption__: win32more.Data.Xml.MsXml.SXH_SERVER_CERT_OPTION
-    __proxySettingEnum__: win32more.Data.Xml.MsXml.SXH_PROXY_SETTING
-    __proxySetting__: win32more.Data.Xml.MsXml.SXH_PROXY_SETTING
-    __somItemTypeEnum__: win32more.Data.Xml.MsXml.SOMITEMTYPE
-    __somItemType__: win32more.Data.Xml.MsXml.SOMITEMTYPE
-    __schemaUseEnum__: win32more.Data.Xml.MsXml.SCHEMAUSE
-    __schemaUse__: win32more.Data.Xml.MsXml.SCHEMAUSE
-    __schemaDerivationMethodEnum__: win32more.Data.Xml.MsXml.SCHEMADERIVATIONMETHOD
-    __schemaDerivationMethod__: win32more.Data.Xml.MsXml.SCHEMADERIVATIONMETHOD
-    __schemaContentTypeEnum__: win32more.Data.Xml.MsXml.SCHEMACONTENTTYPE
-    __schemaContentType__: win32more.Data.Xml.MsXml.SCHEMACONTENTTYPE
-    __schemaProcessContentsEnum__: win32more.Data.Xml.MsXml.SCHEMAPROCESSCONTENTS
-    __schemaProcessContents__: win32more.Data.Xml.MsXml.SCHEMAPROCESSCONTENTS
-    __schemaWhitespaceEnum__: win32more.Data.Xml.MsXml.SCHEMAWHITESPACE
-    __schemaWhitespace__: win32more.Data.Xml.MsXml.SCHEMAWHITESPACE
-    __schemaTypeVarietyEnum__: win32more.Data.Xml.MsXml.SCHEMATYPEVARIETY
-    __schemaTypeVariety__: win32more.Data.Xml.MsXml.SCHEMATYPEVARIETY
 E_XML_NOTWF: Int32 = -1072897501
 E_XML_NODTD: Int32 = -1072897500
 E_XML_INVALID: Int32 = -1072897499
@@ -800,6 +777,13 @@ class ISAXContentHandler(c_void_p):
     def processingInstruction(pwchTarget: win32more.Foundation.PWSTR, cchTarget: Int32, pwchData: win32more.Foundation.PWSTR, cchData: Int32) -> win32more.Foundation.HRESULT: ...
     @commethod(13)
     def skippedEntity(pwchName: win32more.Foundation.PWSTR, cchName: Int32) -> win32more.Foundation.HRESULT: ...
+class ISAXDTDHandler(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('e15c1baf-afb3-4d60-8c-36-19-a8-c4-5d-ef-ed')
+    @commethod(3)
+    def notationDecl(pwchName: win32more.Foundation.PWSTR, cchName: Int32, pwchPublicId: win32more.Foundation.PWSTR, cchPublicId: Int32, pwchSystemId: win32more.Foundation.PWSTR, cchSystemId: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def unparsedEntityDecl(pwchName: win32more.Foundation.PWSTR, cchName: Int32, pwchPublicId: win32more.Foundation.PWSTR, cchPublicId: Int32, pwchSystemId: win32more.Foundation.PWSTR, cchSystemId: Int32, pwchNotationName: win32more.Foundation.PWSTR, cchNotationName: Int32) -> win32more.Foundation.HRESULT: ...
 class ISAXDeclHandler(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('862629ac-771a-47b2-83-37-4e-68-43-c1-be-90')
@@ -811,13 +795,6 @@ class ISAXDeclHandler(c_void_p):
     def internalEntityDecl(pwchName: win32more.Foundation.PWSTR, cchName: Int32, pwchValue: win32more.Foundation.PWSTR, cchValue: Int32) -> win32more.Foundation.HRESULT: ...
     @commethod(6)
     def externalEntityDecl(pwchName: win32more.Foundation.PWSTR, cchName: Int32, pwchPublicId: win32more.Foundation.PWSTR, cchPublicId: Int32, pwchSystemId: win32more.Foundation.PWSTR, cchSystemId: Int32) -> win32more.Foundation.HRESULT: ...
-class ISAXDTDHandler(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('e15c1baf-afb3-4d60-8c-36-19-a8-c4-5d-ef-ed')
-    @commethod(3)
-    def notationDecl(pwchName: win32more.Foundation.PWSTR, cchName: Int32, pwchPublicId: win32more.Foundation.PWSTR, cchPublicId: Int32, pwchSystemId: win32more.Foundation.PWSTR, cchSystemId: Int32) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def unparsedEntityDecl(pwchName: win32more.Foundation.PWSTR, cchName: Int32, pwchPublicId: win32more.Foundation.PWSTR, cchPublicId: Int32, pwchSystemId: win32more.Foundation.PWSTR, cchSystemId: Int32, pwchNotationName: win32more.Foundation.PWSTR, cchNotationName: Int32) -> win32more.Foundation.HRESULT: ...
 class ISAXEntityResolver(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('99bca7bd-e8c4-4d5f-a0-cf-6d-90-79-01-ff-07')
@@ -1195,6 +1172,13 @@ class IVBSAXContentHandler(c_void_p):
     def processingInstruction(strTarget: POINTER(win32more.Foundation.BSTR), strData: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
     @commethod(17)
     def skippedEntity(strName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class IVBSAXDTDHandler(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('24fb3297-302d-4620-ba-39-3a-73-2d-85-05-58')
+    @commethod(7)
+    def notationDecl(strName: POINTER(win32more.Foundation.BSTR), strPublicId: POINTER(win32more.Foundation.BSTR), strSystemId: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def unparsedEntityDecl(strName: POINTER(win32more.Foundation.BSTR), strPublicId: POINTER(win32more.Foundation.BSTR), strSystemId: POINTER(win32more.Foundation.BSTR), strNotationName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
 class IVBSAXDeclHandler(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('e8917260-7579-4be1-b5-dd-7a-fb-fa-6f-07-7b')
@@ -1206,13 +1190,6 @@ class IVBSAXDeclHandler(c_void_p):
     def internalEntityDecl(strName: POINTER(win32more.Foundation.BSTR), strValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
     @commethod(10)
     def externalEntityDecl(strName: POINTER(win32more.Foundation.BSTR), strPublicId: POINTER(win32more.Foundation.BSTR), strSystemId: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-class IVBSAXDTDHandler(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('24fb3297-302d-4620-ba-39-3a-73-2d-85-05-58')
-    @commethod(7)
-    def notationDecl(strName: POINTER(win32more.Foundation.BSTR), strPublicId: POINTER(win32more.Foundation.BSTR), strSystemId: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def unparsedEntityDecl(strName: POINTER(win32more.Foundation.BSTR), strPublicId: POINTER(win32more.Foundation.BSTR), strSystemId: POINTER(win32more.Foundation.BSTR), strNotationName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
 class IVBSAXEntityResolver(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('0c05d096-f45b-4aca-ad-1a-aa-0b-c2-55-18-dc')
@@ -1308,72 +1285,6 @@ class IXMLAttribute(c_void_p):
     def get_name(n: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
     @commethod(8)
     def get_value(v: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-class IXMLDocument(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('f52e2b61-18a1-11d1-b1-05-00-80-5f-49-91-6b')
-    @commethod(7)
-    def get_root(p: POINTER(win32more.Data.Xml.MsXml.IXMLElement_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_fileSize(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_fileModifiedDate(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_fileUpdatedDate(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def get_URL(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def put_URL(p: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def get_mimeType(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def get_readyState(pl: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def get_charset(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def put_charset(p: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def get_version(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def get_doctype(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(19)
-    def get_dtdURL(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(20)
-    def createElement(vType: win32more.System.Com.VARIANT, var1: win32more.System.Com.VARIANT, ppElem: POINTER(win32more.Data.Xml.MsXml.IXMLElement_head)) -> win32more.Foundation.HRESULT: ...
-class IXMLDocument2(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('2b8de2fe-8d2d-11d1-b2-fc-00-c0-4f-d9-15-a9')
-    @commethod(7)
-    def get_root(p: POINTER(win32more.Data.Xml.MsXml.IXMLElement2_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_fileSize(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_fileModifiedDate(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_fileUpdatedDate(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def get_URL(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def put_URL(p: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def get_mimeType(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def get_readyState(pl: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def get_charset(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def put_charset(p: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def get_version(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def get_doctype(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(19)
-    def get_dtdURL(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(20)
-    def createElement(vType: win32more.System.Com.VARIANT, var1: win32more.System.Com.VARIANT, ppElem: POINTER(win32more.Data.Xml.MsXml.IXMLElement2_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(21)
-    def get_async(pf: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(22)
-    def put_async(f: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
 class IXMLDOMAttribute(c_void_p):
     extends: win32more.Data.Xml.MsXml.IXMLDOMNode
     Guid = Guid('2933bf85-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
@@ -1790,6 +1701,72 @@ class IXMLDSOControl(c_void_p):
     def put_JavaDSOCompatible(fJavaDSOCompatible: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
     @commethod(11)
     def get_readyState(state: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IXMLDocument(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('f52e2b61-18a1-11d1-b1-05-00-80-5f-49-91-6b')
+    @commethod(7)
+    def get_root(p: POINTER(win32more.Data.Xml.MsXml.IXMLElement_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_fileSize(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_fileModifiedDate(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_fileUpdatedDate(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_URL(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_URL(p: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_mimeType(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_readyState(pl: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_charset(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def put_charset(p: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_version(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_doctype(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_dtdURL(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def createElement(vType: win32more.System.Com.VARIANT, var1: win32more.System.Com.VARIANT, ppElem: POINTER(win32more.Data.Xml.MsXml.IXMLElement_head)) -> win32more.Foundation.HRESULT: ...
+class IXMLDocument2(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('2b8de2fe-8d2d-11d1-b2-fc-00-c0-4f-d9-15-a9')
+    @commethod(7)
+    def get_root(p: POINTER(win32more.Data.Xml.MsXml.IXMLElement2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_fileSize(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_fileModifiedDate(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_fileUpdatedDate(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_URL(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_URL(p: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_mimeType(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_readyState(pl: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_charset(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def put_charset(p: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_version(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_doctype(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_dtdURL(p: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def createElement(vType: win32more.System.Com.VARIANT, var1: win32more.System.Com.VARIANT, ppElem: POINTER(win32more.Data.Xml.MsXml.IXMLElement2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def get_async(pf: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def put_async(f: win32more.Foundation.VARIANT_BOOL) -> win32more.Foundation.HRESULT: ...
 class IXMLElement(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('3f7f31ac-e15f-11d0-9c-25-00-c0-4f-c9-9c-8e')
@@ -1862,37 +1839,6 @@ class IXMLError(c_void_p):
     Guid = Guid('948c5ad3-c58d-11d0-9c-0b-00-c0-4f-c9-9c-8e')
     @commethod(3)
     def GetErrorInfo(pErrorReturn: POINTER(win32more.Data.Xml.MsXml.XML_ERROR_head)) -> win32more.Foundation.HRESULT: ...
-class IXMLHttpRequest(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('ed8c108d-4349-11d2-91-a4-00-c0-4f-79-69-e8')
-    @commethod(7)
-    def open(bstrMethod: win32more.Foundation.BSTR, bstrUrl: win32more.Foundation.BSTR, varAsync: win32more.System.Com.VARIANT, bstrUser: win32more.System.Com.VARIANT, bstrPassword: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def setRequestHeader(bstrHeader: win32more.Foundation.BSTR, bstrValue: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def getResponseHeader(bstrHeader: win32more.Foundation.BSTR, pbstrValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def getAllResponseHeaders(pbstrHeaders: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def send(varBody: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def abort() -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def get_status(plStatus: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def get_statusText(pbstrStatus: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def get_responseXML(ppBody: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def get_responseText(pbstrBody: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def get_responseBody(pvarBody: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def get_responseStream(pvarBody: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(19)
-    def get_readyState(plState: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(20)
-    def put_onreadystatechange(pReadyStateSink: win32more.System.Com.IDispatch_head) -> win32more.Foundation.HRESULT: ...
 class IXMLHTTPRequest(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('ed8c108d-4349-11d2-91-a4-00-c0-4f-79-69-e8')
@@ -1972,6 +1918,37 @@ class IXMLHTTPRequest3Callback(c_void_p):
     def OnServerCertificateReceived(pXHR: win32more.Data.Xml.MsXml.IXMLHTTPRequest3_head, dwCertificateErrors: UInt32, cServerCertificateChain: UInt32, rgServerCertificateChain: POINTER(win32more.Data.Xml.MsXml.XHR_CERT_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(9)
     def OnClientCertificateRequested(pXHR: win32more.Data.Xml.MsXml.IXMLHTTPRequest3_head, cIssuerList: UInt32, rgpwszIssuerList: POINTER(POINTER(UInt16))) -> win32more.Foundation.HRESULT: ...
+class IXMLHttpRequest(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('ed8c108d-4349-11d2-91-a4-00-c0-4f-79-69-e8')
+    @commethod(7)
+    def open(bstrMethod: win32more.Foundation.BSTR, bstrUrl: win32more.Foundation.BSTR, varAsync: win32more.System.Com.VARIANT, bstrUser: win32more.System.Com.VARIANT, bstrPassword: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def setRequestHeader(bstrHeader: win32more.Foundation.BSTR, bstrValue: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def getResponseHeader(bstrHeader: win32more.Foundation.BSTR, pbstrValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def getAllResponseHeaders(pbstrHeaders: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def send(varBody: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def abort() -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_status(plStatus: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_statusText(pbstrStatus: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_responseXML(ppBody: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_responseText(pbstrBody: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_responseBody(pvarBody: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def get_responseStream(pvarBody: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def get_readyState(plState: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def put_onreadystatechange(pReadyStateSink: win32more.System.Com.IDispatch_head) -> win32more.Foundation.HRESULT: ...
 class IXSLProcessor(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('2933bf92-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
@@ -2077,7 +2054,6 @@ SXH_OPTION_URL_CODEPAGE: SERVERXMLHTTP_OPTION = 0
 SXH_OPTION_ESCAPE_PERCENT_IN_URL: SERVERXMLHTTP_OPTION = 1
 SXH_OPTION_IGNORE_SERVER_SSL_CERT_ERROR_FLAGS: SERVERXMLHTTP_OPTION = 2
 SXH_OPTION_SELECT_CLIENT_SSL_CERT: SERVERXMLHTTP_OPTION = 3
-ServerXMLHTTP60 = Guid('88d96a0b-f192-11d4-a6-5f-00-40-96-32-51-e5')
 SOMITEMTYPE = Int32
 SOMITEM_SCHEMA: SOMITEMTYPE = 4096
 SOMITEM_ATTRIBUTE: SOMITEMTYPE = 4097
@@ -2163,6 +2139,7 @@ SXH_SERVER_CERT_IGNORE_WRONG_USAGE: SXH_SERVER_CERT_OPTION = 512
 SXH_SERVER_CERT_IGNORE_CERT_CN_INVALID: SXH_SERVER_CERT_OPTION = 4096
 SXH_SERVER_CERT_IGNORE_CERT_DATE_INVALID: SXH_SERVER_CERT_OPTION = 8192
 SXH_SERVER_CERT_IGNORE_ALL_SERVER_ERRORS: SXH_SERVER_CERT_OPTION = 13056
+ServerXMLHTTP60 = Guid('88d96a0b-f192-11d4-a6-5f-00-40-96-32-51-e5')
 XHR_AUTH = Int32
 XHR_AUTH_ALL: XHR_AUTH = 0
 XHR_AUTH_NONE: XHR_AUTH = 1
@@ -2226,20 +2203,11 @@ XHR_PROP_IGNORE_CERT_ERRORS: XHR_PROPERTY = 8
 XHR_PROP_ONDATA_THRESHOLD: XHR_PROPERTY = 9
 XHR_PROP_SET_ENTERPRISEID: XHR_PROPERTY = 10
 XHR_PROP_MAX_CONNECTIONS: XHR_PROPERTY = 11
-class XML_ERROR(Structure):
-    _nLine: UInt32
-    _pchBuf: win32more.Foundation.BSTR
-    _cchBuf: UInt32
-    _ich: UInt32
-    _pszFound: win32more.Foundation.BSTR
-    _pszExpected: win32more.Foundation.BSTR
-    _reserved1: UInt32
-    _reserved2: UInt32
-XMLDocument = Guid('cfc399af-d876-11d0-9c-10-00-c0-4f-c9-9c-8e')
 class XMLDOMDocumentEvents(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('3efaa427-272f-11d2-83-6f-00-00-f8-7a-77-82')
 XMLDSOControl = Guid('550dda30-0541-11d2-9c-a9-00-60-b0-ec-3d-39')
+XMLDocument = Guid('cfc399af-d876-11d0-9c-10-00-c0-4f-c9-9c-8e')
 XMLELEM_TYPE = Int32
 XMLELEMTYPE_ELEMENT: XMLELEM_TYPE = 0
 XMLELEMTYPE_TEXT: XMLELEM_TYPE = 1
@@ -2251,8 +2219,39 @@ XMLELEMTYPE_OTHER: XMLELEM_TYPE = 6
 XMLHTTP60 = Guid('88d96a0a-f192-11d4-a6-5f-00-40-96-32-51-e5')
 XMLHTTPRequest = Guid('ed8c108e-4349-11d2-91-a4-00-c0-4f-79-69-e8')
 XMLSchemaCache60 = Guid('88d96a07-f192-11d4-a6-5f-00-40-96-32-51-e5')
+class XML_ERROR(Structure):
+    _nLine: UInt32
+    _pchBuf: win32more.Foundation.BSTR
+    _cchBuf: UInt32
+    _ich: UInt32
+    _pszFound: win32more.Foundation.BSTR
+    _pszExpected: win32more.Foundation.BSTR
+    _reserved1: UInt32
+    _reserved2: UInt32
 XSLTemplate60 = Guid('88d96a08-f192-11d4-a6-5f-00-40-96-32-51-e5')
-make_head(_module, '__msxml6_ReferenceRemainingTypes__')
+class __msxml6_ReferenceRemainingTypes__(Structure):
+    __tagDomNodeType__: win32more.Data.Xml.MsXml.DOMNodeType
+    __domNodeType__: win32more.Data.Xml.MsXml.DOMNodeType
+    __serverXmlHttpOptionEnum__: win32more.Data.Xml.MsXml.SERVERXMLHTTP_OPTION
+    __serverXmlHttpOption__: win32more.Data.Xml.MsXml.SERVERXMLHTTP_OPTION
+    __serverCertOptionEnum__: win32more.Data.Xml.MsXml.SXH_SERVER_CERT_OPTION
+    __serverCertOption__: win32more.Data.Xml.MsXml.SXH_SERVER_CERT_OPTION
+    __proxySettingEnum__: win32more.Data.Xml.MsXml.SXH_PROXY_SETTING
+    __proxySetting__: win32more.Data.Xml.MsXml.SXH_PROXY_SETTING
+    __somItemTypeEnum__: win32more.Data.Xml.MsXml.SOMITEMTYPE
+    __somItemType__: win32more.Data.Xml.MsXml.SOMITEMTYPE
+    __schemaUseEnum__: win32more.Data.Xml.MsXml.SCHEMAUSE
+    __schemaUse__: win32more.Data.Xml.MsXml.SCHEMAUSE
+    __schemaDerivationMethodEnum__: win32more.Data.Xml.MsXml.SCHEMADERIVATIONMETHOD
+    __schemaDerivationMethod__: win32more.Data.Xml.MsXml.SCHEMADERIVATIONMETHOD
+    __schemaContentTypeEnum__: win32more.Data.Xml.MsXml.SCHEMACONTENTTYPE
+    __schemaContentType__: win32more.Data.Xml.MsXml.SCHEMACONTENTTYPE
+    __schemaProcessContentsEnum__: win32more.Data.Xml.MsXml.SCHEMAPROCESSCONTENTS
+    __schemaProcessContents__: win32more.Data.Xml.MsXml.SCHEMAPROCESSCONTENTS
+    __schemaWhitespaceEnum__: win32more.Data.Xml.MsXml.SCHEMAWHITESPACE
+    __schemaWhitespace__: win32more.Data.Xml.MsXml.SCHEMAWHITESPACE
+    __schemaTypeVarietyEnum__: win32more.Data.Xml.MsXml.SCHEMATYPEVARIETY
+    __schemaTypeVariety__: win32more.Data.Xml.MsXml.SCHEMATYPEVARIETY
 make_head(_module, 'IMXAttributes')
 make_head(_module, 'IMXNamespaceManager')
 make_head(_module, 'IMXNamespacePrefixes')
@@ -2262,8 +2261,8 @@ make_head(_module, 'IMXWriter')
 make_head(_module, 'IMXXMLFilter')
 make_head(_module, 'ISAXAttributes')
 make_head(_module, 'ISAXContentHandler')
-make_head(_module, 'ISAXDeclHandler')
 make_head(_module, 'ISAXDTDHandler')
+make_head(_module, 'ISAXDeclHandler')
 make_head(_module, 'ISAXEntityResolver')
 make_head(_module, 'ISAXErrorHandler')
 make_head(_module, 'ISAXLexicalHandler')
@@ -2289,8 +2288,8 @@ make_head(_module, 'IServerXMLHTTPRequest2')
 make_head(_module, 'IVBMXNamespaceManager')
 make_head(_module, 'IVBSAXAttributes')
 make_head(_module, 'IVBSAXContentHandler')
-make_head(_module, 'IVBSAXDeclHandler')
 make_head(_module, 'IVBSAXDTDHandler')
+make_head(_module, 'IVBSAXDeclHandler')
 make_head(_module, 'IVBSAXEntityResolver')
 make_head(_module, 'IVBSAXErrorHandler')
 make_head(_module, 'IVBSAXLexicalHandler')
@@ -2298,8 +2297,6 @@ make_head(_module, 'IVBSAXLocator')
 make_head(_module, 'IVBSAXXMLFilter')
 make_head(_module, 'IVBSAXXMLReader')
 make_head(_module, 'IXMLAttribute')
-make_head(_module, 'IXMLDocument')
-make_head(_module, 'IXMLDocument2')
 make_head(_module, 'IXMLDOMAttribute')
 make_head(_module, 'IXMLDOMCDATASection')
 make_head(_module, 'IXMLDOMCharacterData')
@@ -2326,23 +2323,26 @@ make_head(_module, 'IXMLDOMSchemaCollection2')
 make_head(_module, 'IXMLDOMSelection')
 make_head(_module, 'IXMLDOMText')
 make_head(_module, 'IXMLDSOControl')
+make_head(_module, 'IXMLDocument')
+make_head(_module, 'IXMLDocument2')
 make_head(_module, 'IXMLElement')
 make_head(_module, 'IXMLElement2')
 make_head(_module, 'IXMLElementCollection')
 make_head(_module, 'IXMLError')
-make_head(_module, 'IXMLHttpRequest')
 make_head(_module, 'IXMLHTTPRequest')
 make_head(_module, 'IXMLHTTPRequest2')
 make_head(_module, 'IXMLHTTPRequest2Callback')
 make_head(_module, 'IXMLHTTPRequest3')
 make_head(_module, 'IXMLHTTPRequest3Callback')
+make_head(_module, 'IXMLHttpRequest')
 make_head(_module, 'IXSLProcessor')
 make_head(_module, 'IXSLTemplate')
 make_head(_module, 'IXTLRuntime')
 make_head(_module, 'XHR_CERT')
 make_head(_module, 'XHR_COOKIE')
-make_head(_module, 'XML_ERROR')
 make_head(_module, 'XMLDOMDocumentEvents')
+make_head(_module, 'XML_ERROR')
+make_head(_module, '__msxml6_ReferenceRemainingTypes__')
 __all__ = [
     "DISPID_DOM_ATTRIBUTE",
     "DISPID_DOM_ATTRIBUTE_GETNAME",

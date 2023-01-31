@@ -57,10 +57,6 @@ class HistogramHeader(Structure):
     FourCC: UInt32
     ChannelMasks: UInt32
     Grid: win32more.Media.Streaming.HistogramGrid
-class MetadataTimeStamps(Structure):
-    Flags: UInt32
-    Device: Int64
-    Presentation: Int64
 MF_MEDIASOURCE_STATUS_INFO = Int32
 MF_MEDIASOURCE_STATUS_INFO_FULLYSUPPORTED: MF_MEDIASOURCE_STATUS_INFO = 0
 MF_MEDIASOURCE_STATUS_INFO_UNKNOWN: MF_MEDIASOURCE_STATUS_INFO = 1
@@ -68,6 +64,10 @@ MF_TRANSFER_VIDEO_FRAME_FLAGS = Int32
 MF_TRANSFER_VIDEO_FRAME_DEFAULT: MF_TRANSFER_VIDEO_FRAME_FLAGS = 0
 MF_TRANSFER_VIDEO_FRAME_STRETCH: MF_TRANSFER_VIDEO_FRAME_FLAGS = 1
 MF_TRANSFER_VIDEO_FRAME_IGNORE_PAR: MF_TRANSFER_VIDEO_FRAME_FLAGS = 2
+class MetadataTimeStamps(Structure):
+    Flags: UInt32
+    Device: Int64
+    Presentation: Int64
 make_head(_module, 'CapturedMetadataExposureCompensation')
 make_head(_module, 'CapturedMetadataISOGains')
 make_head(_module, 'CapturedMetadataWhiteBalanceGains')

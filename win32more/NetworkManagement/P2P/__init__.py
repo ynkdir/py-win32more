@@ -633,13 +633,37 @@ DRT_ACTIVE: DRT_STATUS = 0
 DRT_ALONE: DRT_STATUS = 1
 DRT_NO_NETWORK: DRT_STATUS = 10
 DRT_FAULTED: DRT_STATUS = 20
+class PEERDIST_CLIENT_BASIC_INFO(Structure):
+    fFlashCrowd: win32more.Foundation.BOOL
+PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = Int32
+PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS_PeerDistClientBasicInfo: PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = 0
+PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS_MaximumPeerDistClientInfoByHandlesClass: PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = 1
+class PEERDIST_CONTENT_TAG(Structure):
+    Data: Byte * 16
+class PEERDIST_PUBLICATION_OPTIONS(Structure):
+    dwVersion: UInt32
+    dwFlags: UInt32
+class PEERDIST_RETRIEVAL_OPTIONS(Structure):
+    cbSize: UInt32
+    dwContentInfoMinVersion: UInt32
+    dwContentInfoMaxVersion: UInt32
+    dwReserved: UInt32
+PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE = UInt32
+PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_1: PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE = 1
+PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_2: PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE = 2
+PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION: PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE = 2
+PEERDIST_STATUS = Int32
+PEERDIST_STATUS_DISABLED: PEERDIST_STATUS = 0
+PEERDIST_STATUS_UNAVAILABLE: PEERDIST_STATUS = 1
+PEERDIST_STATUS_AVAILABLE: PEERDIST_STATUS = 2
+class PEERDIST_STATUS_INFO(Structure):
+    cbSize: UInt32
+    status: win32more.NetworkManagement.P2P.PEERDIST_STATUS
+    dwMinVer: win32more.NetworkManagement.P2P.PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE
+    dwMaxVer: win32more.NetworkManagement.P2P.PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE
 class PEER_ADDRESS(Structure):
     dwSize: UInt32
     sin6: win32more.Networking.WinSock.SOCKADDR_IN6
-class PEER_APP_LAUNCH_INFO(Structure):
-    pContact: POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)
-    pEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)
-    pInvitation: POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_head)
 class PEER_APPLICATION(Structure):
     id: Guid
     data: win32more.NetworkManagement.P2P.PEER_DATA
@@ -652,6 +676,10 @@ class PEER_APPLICATION_REGISTRATION_INFO(Structure):
 PEER_APPLICATION_REGISTRATION_TYPE = Int32
 PEER_APPLICATION_CURRENT_USER: PEER_APPLICATION_REGISTRATION_TYPE = 0
 PEER_APPLICATION_ALL_USERS: PEER_APPLICATION_REGISTRATION_TYPE = 1
+class PEER_APP_LAUNCH_INFO(Structure):
+    pContact: POINTER(win32more.NetworkManagement.P2P.PEER_CONTACT_head)
+    pEndpoint: POINTER(win32more.NetworkManagement.P2P.PEER_ENDPOINT_head)
+    pInvitation: POINTER(win32more.NetworkManagement.P2P.PEER_INVITATION_head)
 PEER_CHANGE_TYPE = Int32
 PEER_CHANGE_ADDED: PEER_CHANGE_TYPE = 0
 PEER_CHANGE_DELETED: PEER_CHANGE_TYPE = 1
@@ -1025,34 +1053,6 @@ class PEER_VERSION_DATA(Structure):
 PEER_WATCH_PERMISSION = Int32
 PEER_WATCH_BLOCKED: PEER_WATCH_PERMISSION = 0
 PEER_WATCH_ALLOWED: PEER_WATCH_PERMISSION = 1
-class PEERDIST_CLIENT_BASIC_INFO(Structure):
-    fFlashCrowd: win32more.Foundation.BOOL
-PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = Int32
-PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS_PeerDistClientBasicInfo: PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = 0
-PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS_MaximumPeerDistClientInfoByHandlesClass: PEERDIST_CLIENT_INFO_BY_HANDLE_CLASS = 1
-class PEERDIST_CONTENT_TAG(Structure):
-    Data: Byte * 16
-class PEERDIST_PUBLICATION_OPTIONS(Structure):
-    dwVersion: UInt32
-    dwFlags: UInt32
-class PEERDIST_RETRIEVAL_OPTIONS(Structure):
-    cbSize: UInt32
-    dwContentInfoMinVersion: UInt32
-    dwContentInfoMaxVersion: UInt32
-    dwReserved: UInt32
-PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE = UInt32
-PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_1: PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE = 1
-PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_2: PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE = 2
-PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION: PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE = 2
-PEERDIST_STATUS = Int32
-PEERDIST_STATUS_DISABLED: PEERDIST_STATUS = 0
-PEERDIST_STATUS_UNAVAILABLE: PEERDIST_STATUS = 1
-PEERDIST_STATUS_AVAILABLE: PEERDIST_STATUS = 2
-class PEERDIST_STATUS_INFO(Structure):
-    cbSize: UInt32
-    status: win32more.NetworkManagement.P2P.PEERDIST_STATUS
-    dwMinVer: win32more.NetworkManagement.P2P.PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE
-    dwMaxVer: win32more.NetworkManagement.P2P.PEERDIST_RETRIEVAL_OPTIONS_CONTENTINFO_VERSION_VALUE
 @winfunctype_pointer
 def PFNPEER_FREE_SECURITY_DATA(hGraph: c_void_p, pvContext: c_void_p, pSecurityData: POINTER(win32more.NetworkManagement.P2P.PEER_DATA_head)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -1061,6 +1061,36 @@ def PFNPEER_ON_PASSWORD_AUTH_FAILED(hGraph: c_void_p, pvContext: c_void_p) -> wi
 def PFNPEER_SECURE_RECORD(hGraph: c_void_p, pvContext: c_void_p, pRecord: POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head), changeType: win32more.NetworkManagement.P2P.PEER_RECORD_CHANGE_TYPE, ppSecurityData: POINTER(POINTER(win32more.NetworkManagement.P2P.PEER_DATA_head))) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFNPEER_VALIDATE_RECORD(hGraph: c_void_p, pvContext: c_void_p, pRecord: POINTER(win32more.NetworkManagement.P2P.PEER_RECORD_head), changeType: win32more.NetworkManagement.P2P.PEER_RECORD_CHANGE_TYPE) -> win32more.Foundation.HRESULT: ...
+class PNRPCLOUDINFO(Structure):
+    dwSize: UInt32
+    Cloud: win32more.NetworkManagement.P2P.PNRP_CLOUD_ID
+    enCloudState: win32more.NetworkManagement.P2P.PNRP_CLOUD_STATE
+    enCloudFlags: win32more.NetworkManagement.P2P.PNRP_CLOUD_FLAGS
+class PNRPINFO_V1(Structure):
+    dwSize: UInt32
+    lpwszIdentity: win32more.Foundation.PWSTR
+    nMaxResolve: UInt32
+    dwTimeout: UInt32
+    dwLifetime: UInt32
+    enResolveCriteria: win32more.NetworkManagement.P2P.PNRP_RESOLVE_CRITERIA
+    dwFlags: UInt32
+    saHint: win32more.Networking.WinSock.SOCKET_ADDRESS
+    enNameState: win32more.NetworkManagement.P2P.PNRP_REGISTERED_ID_STATE
+class PNRPINFO_V2(Structure):
+    dwSize: UInt32
+    lpwszIdentity: win32more.Foundation.PWSTR
+    nMaxResolve: UInt32
+    dwTimeout: UInt32
+    dwLifetime: UInt32
+    enResolveCriteria: win32more.NetworkManagement.P2P.PNRP_RESOLVE_CRITERIA
+    dwFlags: UInt32
+    saHint: win32more.Networking.WinSock.SOCKET_ADDRESS
+    enNameState: win32more.NetworkManagement.P2P.PNRP_REGISTERED_ID_STATE
+    enExtendedPayloadType: win32more.NetworkManagement.P2P.PNRP_EXTENDED_PAYLOAD_TYPE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        blobPayload: win32more.System.Com.BLOB
+        pwszPayload: win32more.Foundation.PWSTR
 PNRP_CLOUD_FLAGS = Int32
 PNRP_CLOUD_NO_FLAGS: PNRP_CLOUD_FLAGS = 0
 PNRP_CLOUD_NAME_LOCAL: PNRP_CLOUD_FLAGS = 1
@@ -1098,36 +1128,6 @@ PNRP_SCOPE_ANY: PNRP_SCOPE = 0
 PNRP_GLOBAL_SCOPE: PNRP_SCOPE = 1
 PNRP_SITE_LOCAL_SCOPE: PNRP_SCOPE = 2
 PNRP_LINK_LOCAL_SCOPE: PNRP_SCOPE = 3
-class PNRPCLOUDINFO(Structure):
-    dwSize: UInt32
-    Cloud: win32more.NetworkManagement.P2P.PNRP_CLOUD_ID
-    enCloudState: win32more.NetworkManagement.P2P.PNRP_CLOUD_STATE
-    enCloudFlags: win32more.NetworkManagement.P2P.PNRP_CLOUD_FLAGS
-class PNRPINFO_V1(Structure):
-    dwSize: UInt32
-    lpwszIdentity: win32more.Foundation.PWSTR
-    nMaxResolve: UInt32
-    dwTimeout: UInt32
-    dwLifetime: UInt32
-    enResolveCriteria: win32more.NetworkManagement.P2P.PNRP_RESOLVE_CRITERIA
-    dwFlags: UInt32
-    saHint: win32more.Networking.WinSock.SOCKET_ADDRESS
-    enNameState: win32more.NetworkManagement.P2P.PNRP_REGISTERED_ID_STATE
-class PNRPINFO_V2(Structure):
-    dwSize: UInt32
-    lpwszIdentity: win32more.Foundation.PWSTR
-    nMaxResolve: UInt32
-    dwTimeout: UInt32
-    dwLifetime: UInt32
-    enResolveCriteria: win32more.NetworkManagement.P2P.PNRP_RESOLVE_CRITERIA
-    dwFlags: UInt32
-    saHint: win32more.Networking.WinSock.SOCKET_ADDRESS
-    enNameState: win32more.NetworkManagement.P2P.PNRP_REGISTERED_ID_STATE
-    enExtendedPayloadType: win32more.NetworkManagement.P2P.PNRP_EXTENDED_PAYLOAD_TYPE
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        blobPayload: win32more.System.Com.BLOB
-        pwszPayload: win32more.Foundation.PWSTR
 make_head(_module, 'DRT_ADDRESS')
 make_head(_module, 'DRT_ADDRESS_LIST')
 make_head(_module, 'DRT_BOOTSTRAP_PROVIDER')
@@ -1139,10 +1139,15 @@ make_head(_module, 'DRT_SEARCH_INFO')
 make_head(_module, 'DRT_SEARCH_RESULT')
 make_head(_module, 'DRT_SECURITY_PROVIDER')
 make_head(_module, 'DRT_SETTINGS')
+make_head(_module, 'PEERDIST_CLIENT_BASIC_INFO')
+make_head(_module, 'PEERDIST_CONTENT_TAG')
+make_head(_module, 'PEERDIST_PUBLICATION_OPTIONS')
+make_head(_module, 'PEERDIST_RETRIEVAL_OPTIONS')
+make_head(_module, 'PEERDIST_STATUS_INFO')
 make_head(_module, 'PEER_ADDRESS')
-make_head(_module, 'PEER_APP_LAUNCH_INFO')
 make_head(_module, 'PEER_APPLICATION')
 make_head(_module, 'PEER_APPLICATION_REGISTRATION_INFO')
+make_head(_module, 'PEER_APP_LAUNCH_INFO')
 make_head(_module, 'PEER_COLLAB_EVENT_DATA')
 make_head(_module, 'PEER_COLLAB_EVENT_REGISTRATION')
 make_head(_module, 'PEER_CONNECTION_INFO')
@@ -1184,19 +1189,14 @@ make_head(_module, 'PEER_PRESENCE_INFO')
 make_head(_module, 'PEER_RECORD')
 make_head(_module, 'PEER_SECURITY_INTERFACE')
 make_head(_module, 'PEER_VERSION_DATA')
-make_head(_module, 'PEERDIST_CLIENT_BASIC_INFO')
-make_head(_module, 'PEERDIST_CONTENT_TAG')
-make_head(_module, 'PEERDIST_PUBLICATION_OPTIONS')
-make_head(_module, 'PEERDIST_RETRIEVAL_OPTIONS')
-make_head(_module, 'PEERDIST_STATUS_INFO')
 make_head(_module, 'PFNPEER_FREE_SECURITY_DATA')
 make_head(_module, 'PFNPEER_ON_PASSWORD_AUTH_FAILED')
 make_head(_module, 'PFNPEER_SECURE_RECORD')
 make_head(_module, 'PFNPEER_VALIDATE_RECORD')
-make_head(_module, 'PNRP_CLOUD_ID')
 make_head(_module, 'PNRPCLOUDINFO')
 make_head(_module, 'PNRPINFO_V1')
 make_head(_module, 'PNRPINFO_V2')
+make_head(_module, 'PNRP_CLOUD_ID')
 __all__ = [
     "DRT_ACTIVE",
     "DRT_ADDRESS",

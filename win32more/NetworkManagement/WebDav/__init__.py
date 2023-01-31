@@ -16,6 +16,10 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+AUTHNEXTSTEP = Int32
+AUTHNEXTSTEP_DefaultBehavior: AUTHNEXTSTEP = 0
+AUTHNEXTSTEP_RetryRequest: AUTHNEXTSTEP = 1
+AUTHNEXTSTEP_CancelRequest: AUTHNEXTSTEP = 2
 DAV_AUTHN_SCHEME_BASIC: UInt32 = 1
 DAV_AUTHN_SCHEME_NTLM: UInt32 = 2
 DAV_AUTHN_SCHEME_PASSPORT: UInt32 = 4
@@ -45,10 +49,6 @@ def DavCancelConnectionsToServer(lpName: win32more.Foundation.PWSTR, fForce: win
 def DavRegisterAuthCallback(CallBack: win32more.NetworkManagement.WebDav.PFNDAVAUTHCALLBACK, Version: UInt32) -> UInt32: ...
 @winfunctype('davclnt.dll')
 def DavUnregisterAuthCallback(hCallback: UInt32) -> Void: ...
-AUTHNEXTSTEP = Int32
-AUTHNEXTSTEP_DefaultBehavior: AUTHNEXTSTEP = 0
-AUTHNEXTSTEP_RetryRequest: AUTHNEXTSTEP = 1
-AUTHNEXTSTEP_CancelRequest: AUTHNEXTSTEP = 2
 class DAV_CALLBACK_AUTH_BLOB(Structure):
     pBuffer: c_void_p
     ulSize: UInt32

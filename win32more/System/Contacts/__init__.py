@@ -122,7 +122,6 @@ CONTACTLABEL_WAB_ANNIVERSARY: String = 'wab:Anniversary'
 CONTACTLABEL_WAB_SOCIALNETWORK: String = 'wab:SocialNetwork'
 CONTACTLABEL_WAB_SCHOOL: String = 'wab:School'
 CONTACTLABEL_WAB_WISHLIST: String = 'wab:WishList'
-Contact = Guid('61b68808-8eee-4fd1-ac-b8-3d-80-4c-8d-b0-56')
 class CONTACT_AGGREGATION_BLOB(Structure):
     dwCount: UInt32
     lpb: c_char_p_no
@@ -133,6 +132,7 @@ CACO_EXTERNAL_ONLY: CONTACT_AGGREGATION_COLLECTION_OPTIONS = 2
 CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS = Int32
 CA_CREATE_LOCAL: CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS = 0
 CA_CREATE_EXTERNAL: CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS = 1
+Contact = Guid('61b68808-8eee-4fd1-ac-b8-3d-80-4c-8d-b0-56')
 ContactManager = Guid('7165c8ab-af88-42bd-86-fd-53-10-b4-28-5a-02')
 class IContact(c_void_p):
     extends: win32more.System.Com.IUnknown

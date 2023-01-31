@@ -165,16 +165,16 @@ def LoadIFilterEx(pwcsPath: win32more.Foundation.PWSTR, dwFlags: UInt32, riid: P
 def BindIFilterFromStorage(pStg: win32more.System.Com.StructuredStorage.IStorage_head, pUnkOuter: win32more.System.Com.IUnknown_head, ppIUnk: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
 @winfunctype('query.dll')
 def BindIFilterFromStream(pStm: win32more.System.Com.IStream_head, pUnkOuter: win32more.System.Com.IUnknown_head, ppIUnk: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+CHUNKSTATE = Int32
+CHUNK_TEXT: CHUNKSTATE = 1
+CHUNK_VALUE: CHUNKSTATE = 2
+CHUNK_FILTER_OWNED_VALUE: CHUNKSTATE = 4
 CHUNK_BREAKTYPE = Int32
 CHUNK_NO_BREAK: CHUNK_BREAKTYPE = 0
 CHUNK_EOW: CHUNK_BREAKTYPE = 1
 CHUNK_EOS: CHUNK_BREAKTYPE = 2
 CHUNK_EOP: CHUNK_BREAKTYPE = 3
 CHUNK_EOC: CHUNK_BREAKTYPE = 4
-CHUNKSTATE = Int32
-CHUNK_TEXT: CHUNKSTATE = 1
-CHUNK_VALUE: CHUNKSTATE = 2
-CHUNK_FILTER_OWNED_VALUE: CHUNKSTATE = 4
 class CI_STATE(Structure):
     cbStruct: UInt32
     cWordList: UInt32
@@ -231,19 +231,6 @@ class FILTERREGION(Structure):
 class FULLPROPSPEC(Structure):
     guidPropSet: Guid
     psProperty: win32more.System.Com.StructuredStorage.PROPSPEC
-class IFilter(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('89bcb740-6119-101a-bc-b7-00-dd-01-06-55-af')
-    @commethod(3)
-    def Init(grfFlags: UInt32, cAttributes: UInt32, aAttributes: POINTER(win32more.Storage.IndexServer.FULLPROPSPEC_head), pFlags: POINTER(UInt32)) -> Int32: ...
-    @commethod(4)
-    def GetChunk(pStat: POINTER(win32more.Storage.IndexServer.STAT_CHUNK_head)) -> Int32: ...
-    @commethod(5)
-    def GetText(pcwcBuffer: POINTER(UInt32), awcBuffer: win32more.Foundation.PWSTR) -> Int32: ...
-    @commethod(6)
-    def GetValue(ppPropValue: POINTER(POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))) -> Int32: ...
-    @commethod(7)
-    def BindRegion(origPos: win32more.Storage.IndexServer.FILTERREGION, riid: POINTER(Guid), ppunk: POINTER(c_void_p)) -> Int32: ...
 IFILTER_FLAGS = Int32
 IFILTER_FLAGS_OLE_PROPERTIES: IFILTER_FLAGS = 1
 IFILTER_INIT = Int32
@@ -260,6 +247,19 @@ IFILTER_INIT_FILTER_OWNED_VALUE_OK: IFILTER_INIT = 512
 IFILTER_INIT_FILTER_AGGRESSIVE_BREAK: IFILTER_INIT = 1024
 IFILTER_INIT_DISABLE_EMBEDDED: IFILTER_INIT = 2048
 IFILTER_INIT_EMIT_FORMATTING: IFILTER_INIT = 4096
+class IFilter(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('89bcb740-6119-101a-bc-b7-00-dd-01-06-55-af')
+    @commethod(3)
+    def Init(grfFlags: UInt32, cAttributes: UInt32, aAttributes: POINTER(win32more.Storage.IndexServer.FULLPROPSPEC_head), pFlags: POINTER(UInt32)) -> Int32: ...
+    @commethod(4)
+    def GetChunk(pStat: POINTER(win32more.Storage.IndexServer.STAT_CHUNK_head)) -> Int32: ...
+    @commethod(5)
+    def GetText(pcwcBuffer: POINTER(UInt32), awcBuffer: win32more.Foundation.PWSTR) -> Int32: ...
+    @commethod(6)
+    def GetValue(ppPropValue: POINTER(POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head))) -> Int32: ...
+    @commethod(7)
+    def BindRegion(origPos: win32more.Storage.IndexServer.FILTERREGION, riid: POINTER(Guid), ppunk: POINTER(c_void_p)) -> Int32: ...
 class IPhraseSink(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('cc906ff0-c058-101a-b5-54-08-00-2b-33-b0-e6')

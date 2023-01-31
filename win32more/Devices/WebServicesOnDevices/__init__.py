@@ -263,6 +263,165 @@ class IWSDInboundAttachment(c_void_p):
     def Read(pBuffer: c_char_p_no, dwBytesToRead: UInt32, pdwNumberOfBytesRead: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def Close() -> win32more.Foundation.HRESULT: ...
+class IWSDMessageParameters(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1fafe8a2-e6fc-4b80-b6-cf-b7-d4-5c-41-6d-7c')
+    @commethod(3)
+    def GetLocalAddress(ppAddress: POINTER(win32more.Devices.WebServicesOnDevices.IWSDAddress_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetLocalAddress(pAddress: win32more.Devices.WebServicesOnDevices.IWSDAddress_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetRemoteAddress(ppAddress: POINTER(win32more.Devices.WebServicesOnDevices.IWSDAddress_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetRemoteAddress(pAddress: win32more.Devices.WebServicesOnDevices.IWSDAddress_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetLowerParameters(ppTxParams: POINTER(win32more.Devices.WebServicesOnDevices.IWSDMessageParameters_head)) -> win32more.Foundation.HRESULT: ...
+class IWSDMetadataExchange(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('06996d57-1d67-4928-93-07-3d-78-33-fd-b8-46')
+    @commethod(3)
+    def GetMetadata(MetadataOut: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_METADATA_SECTION_LIST_head))) -> win32more.Foundation.HRESULT: ...
+class IWSDOutboundAttachment(c_void_p):
+    extends: win32more.Devices.WebServicesOnDevices.IWSDAttachment
+    Guid = Guid('aa302f8d-5a22-4ba5-b3-92-aa-84-86-f4-c1-5d')
+    @commethod(3)
+    def Write(pBuffer: c_char_p_no, dwBytesToWrite: UInt32, pdwNumberOfBytesWritten: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Close() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Abort() -> win32more.Foundation.HRESULT: ...
+class IWSDSSLClientCertificate(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('de105e87-a0da-418e-98-ad-27-b9-ee-d8-7b-dc')
+    @commethod(3)
+    def GetClientCertificate(ppCertContext: POINTER(POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetMappedAccessToken(phToken: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.HRESULT: ...
+class IWSDScopeMatchingRule(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('fcafe424-fef5-481a-bd-9f-33-ce-05-74-25-6f')
+    @commethod(3)
+    def GetScopeRule(ppszScopeMatchingRule: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def MatchScopes(pszScope1: win32more.Foundation.PWSTR, pszScope2: win32more.Foundation.PWSTR, pfMatch: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IWSDServiceMessaging(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('94974cf4-0cab-460d-a3-f6-7a-0a-d6-23-c0-e6')
+    @commethod(3)
+    def SendResponse(pBody: c_void_p, pOperation: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), pMessageParameters: win32more.Devices.WebServicesOnDevices.IWSDMessageParameters_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def FaultRequest(pRequestHeader: POINTER(win32more.Devices.WebServicesOnDevices.WSD_SOAP_HEADER_head), pMessageParameters: win32more.Devices.WebServicesOnDevices.IWSDMessageParameters_head, pFault: POINTER(win32more.Devices.WebServicesOnDevices.WSD_SOAP_FAULT_head)) -> win32more.Foundation.HRESULT: ...
+class IWSDServiceProxy(c_void_p):
+    extends: win32more.Devices.WebServicesOnDevices.IWSDMetadataExchange
+    Guid = Guid('d4c7fb9c-03ab-4175-9d-67-09-4f-af-eb-f4-87')
+    @commethod(4)
+    def BeginGetMetadata(ppResult: POINTER(win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def EndGetMetadata(pResult: win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head, ppMetadata: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_METADATA_SECTION_LIST_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetServiceMetadata(ppServiceMetadata: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_SERVICE_METADATA_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SubscribeToOperation(pOperation: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), pUnknown: win32more.System.Com.IUnknown_head, pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), ppAny: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def UnsubscribeToOperation(pOperation: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetEventingStatusCallback(pStatus: win32more.Devices.WebServicesOnDevices.IWSDEventingStatus_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetEndpointProxy(ppProxy: POINTER(win32more.Devices.WebServicesOnDevices.IWSDEndpointProxy_head)) -> win32more.Foundation.HRESULT: ...
+class IWSDServiceProxyEventing(c_void_p):
+    extends: win32more.Devices.WebServicesOnDevices.IWSDServiceProxy
+    Guid = Guid('f9279d6d-1012-4a94-b8-cc-fd-35-d2-20-2b-fe')
+    @commethod(11)
+    def SubscribeToMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pUnknown: win32more.System.Com.IUnknown_head, pExpires: POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head), pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), ppExpires: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head)), ppAny: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def BeginSubscribeToMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pUnknown: win32more.System.Com.IUnknown_head, pExpires: POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head), pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), pAsyncState: win32more.System.Com.IUnknown_head, pAsyncCallback: win32more.Devices.WebServicesOnDevices.IWSDAsyncCallback_head, ppResult: POINTER(win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def EndSubscribeToMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pResult: win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head, ppExpires: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head)), ppAny: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def UnsubscribeToMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def BeginUnsubscribeToMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), pAsyncState: win32more.System.Com.IUnknown_head, pAsyncCallback: win32more.Devices.WebServicesOnDevices.IWSDAsyncCallback_head, ppResult: POINTER(win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def EndUnsubscribeToMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pResult: win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def RenewMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pExpires: POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head), pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), ppExpires: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head)), ppAny: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def BeginRenewMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pExpires: POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head), pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), pAsyncState: win32more.System.Com.IUnknown_head, pAsyncCallback: win32more.Devices.WebServicesOnDevices.IWSDAsyncCallback_head, ppResult: POINTER(win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def EndRenewMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pResult: win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head, ppExpires: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head)), ppAny: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(20)
+    def GetStatusForMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), ppExpires: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head)), ppAny: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def BeginGetStatusForMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), pAsyncState: win32more.System.Com.IUnknown_head, pAsyncCallback: win32more.Devices.WebServicesOnDevices.IWSDAsyncCallback_head, ppResult: POINTER(win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(22)
+    def EndGetStatusForMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pResult: win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head, ppExpires: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head)), ppAny: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head))) -> win32more.Foundation.HRESULT: ...
+class IWSDSignatureProperty(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('03ce20aa-71c4-45e2-b3-2e-37-66-c6-1c-79-0f')
+    @commethod(3)
+    def IsMessageSigned(pbSigned: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def IsMessageSignatureTrusted(pbSignatureTrusted: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetKeyInfo(pbKeyInfo: c_char_p_no, pdwKeyInfoSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetSignature(pbSignature: c_char_p_no, pdwSignatureSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetSignedInfoHash(pbSignedInfoHash: c_char_p_no, pdwHashSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IWSDTransportAddress(c_void_p):
+    extends: win32more.Devices.WebServicesOnDevices.IWSDAddress
+    Guid = Guid('70d23498-4ee6-4340-a3-df-d8-45-d2-23-54-67')
+    @commethod(5)
+    def GetPort(pwPort: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetPort(wPort: UInt16) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetTransportAddress(ppszAddress: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetTransportAddressEx(fSafe: win32more.Foundation.BOOL, ppszAddress: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SetTransportAddress(pszAddress: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+class IWSDUdpAddress(c_void_p):
+    extends: win32more.Devices.WebServicesOnDevices.IWSDTransportAddress
+    Guid = Guid('74d6124a-a441-4f78-a1-eb-97-a8-d1-99-68-93')
+    @commethod(10)
+    def SetSockaddr(pSockAddr: POINTER(win32more.Networking.WinSock.SOCKADDR_STORAGE_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetSockaddr(pSockAddr: POINTER(win32more.Networking.WinSock.SOCKADDR_STORAGE_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def SetExclusive(fExclusive: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetExclusive() -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SetMessageType(messageType: win32more.Devices.WebServicesOnDevices.WSDUdpMessageType) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetMessageType(pMessageType: POINTER(win32more.Devices.WebServicesOnDevices.WSDUdpMessageType)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def SetTTL(dwTTL: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetTTL(pdwTTL: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def SetAlias(pAlias: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetAlias(pAlias: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+class IWSDUdpMessageParameters(c_void_p):
+    extends: win32more.Devices.WebServicesOnDevices.IWSDMessageParameters
+    Guid = Guid('9934149f-8f0c-447b-aa-0b-73-12-4b-0c-a7-f0')
+    @commethod(8)
+    def SetRetransmitParams(pParams: POINTER(win32more.Devices.WebServicesOnDevices.WSDUdpRetransmitParams_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetRetransmitParams(pParams: POINTER(win32more.Devices.WebServicesOnDevices.WSDUdpRetransmitParams_head)) -> win32more.Foundation.HRESULT: ...
+class IWSDXMLContext(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('75d8f3ee-3e5a-43b4-a1-5a-bc-f6-88-74-60-c0')
+    @commethod(3)
+    def AddNamespace(pszUri: win32more.Foundation.PWSTR, pszSuggestedPrefix: win32more.Foundation.PWSTR, ppNamespace: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAMESPACE_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def AddNameToNamespace(pszUri: win32more.Foundation.PWSTR, pszName: win32more.Foundation.PWSTR, ppName: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAME_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetNamespaces(pNamespaces: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAMESPACE_head)), wNamespacesCount: UInt16, bLayerNumber: Byte) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetTypes(pTypes: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_TYPE_head)), dwTypesCount: UInt32, bLayerNumber: Byte) -> win32more.Foundation.HRESULT: ...
 class IWSDiscoveredService(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('4bad8a3b-b374-4420-96-32-aa-c9-45-b3-74-aa')
@@ -352,165 +511,6 @@ class IWSDiscoveryPublisherNotify(c_void_p):
     def ProbeHandler(pSoap: POINTER(win32more.Devices.WebServicesOnDevices.WSD_SOAP_MESSAGE_head), pMessageParameters: win32more.Devices.WebServicesOnDevices.IWSDMessageParameters_head) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def ResolveHandler(pSoap: POINTER(win32more.Devices.WebServicesOnDevices.WSD_SOAP_MESSAGE_head), pMessageParameters: win32more.Devices.WebServicesOnDevices.IWSDMessageParameters_head) -> win32more.Foundation.HRESULT: ...
-class IWSDMessageParameters(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('1fafe8a2-e6fc-4b80-b6-cf-b7-d4-5c-41-6d-7c')
-    @commethod(3)
-    def GetLocalAddress(ppAddress: POINTER(win32more.Devices.WebServicesOnDevices.IWSDAddress_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def SetLocalAddress(pAddress: win32more.Devices.WebServicesOnDevices.IWSDAddress_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def GetRemoteAddress(ppAddress: POINTER(win32more.Devices.WebServicesOnDevices.IWSDAddress_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def SetRemoteAddress(pAddress: win32more.Devices.WebServicesOnDevices.IWSDAddress_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def GetLowerParameters(ppTxParams: POINTER(win32more.Devices.WebServicesOnDevices.IWSDMessageParameters_head)) -> win32more.Foundation.HRESULT: ...
-class IWSDMetadataExchange(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('06996d57-1d67-4928-93-07-3d-78-33-fd-b8-46')
-    @commethod(3)
-    def GetMetadata(MetadataOut: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_METADATA_SECTION_LIST_head))) -> win32more.Foundation.HRESULT: ...
-class IWSDOutboundAttachment(c_void_p):
-    extends: win32more.Devices.WebServicesOnDevices.IWSDAttachment
-    Guid = Guid('aa302f8d-5a22-4ba5-b3-92-aa-84-86-f4-c1-5d')
-    @commethod(3)
-    def Write(pBuffer: c_char_p_no, dwBytesToWrite: UInt32, pdwNumberOfBytesWritten: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def Close() -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def Abort() -> win32more.Foundation.HRESULT: ...
-class IWSDScopeMatchingRule(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('fcafe424-fef5-481a-bd-9f-33-ce-05-74-25-6f')
-    @commethod(3)
-    def GetScopeRule(ppszScopeMatchingRule: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def MatchScopes(pszScope1: win32more.Foundation.PWSTR, pszScope2: win32more.Foundation.PWSTR, pfMatch: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-class IWSDServiceMessaging(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('94974cf4-0cab-460d-a3-f6-7a-0a-d6-23-c0-e6')
-    @commethod(3)
-    def SendResponse(pBody: c_void_p, pOperation: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), pMessageParameters: win32more.Devices.WebServicesOnDevices.IWSDMessageParameters_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def FaultRequest(pRequestHeader: POINTER(win32more.Devices.WebServicesOnDevices.WSD_SOAP_HEADER_head), pMessageParameters: win32more.Devices.WebServicesOnDevices.IWSDMessageParameters_head, pFault: POINTER(win32more.Devices.WebServicesOnDevices.WSD_SOAP_FAULT_head)) -> win32more.Foundation.HRESULT: ...
-class IWSDServiceProxy(c_void_p):
-    extends: win32more.Devices.WebServicesOnDevices.IWSDMetadataExchange
-    Guid = Guid('d4c7fb9c-03ab-4175-9d-67-09-4f-af-eb-f4-87')
-    @commethod(4)
-    def BeginGetMetadata(ppResult: POINTER(win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def EndGetMetadata(pResult: win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head, ppMetadata: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_METADATA_SECTION_LIST_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def GetServiceMetadata(ppServiceMetadata: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_SERVICE_METADATA_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def SubscribeToOperation(pOperation: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), pUnknown: win32more.System.Com.IUnknown_head, pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), ppAny: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def UnsubscribeToOperation(pOperation: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def SetEventingStatusCallback(pStatus: win32more.Devices.WebServicesOnDevices.IWSDEventingStatus_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def GetEndpointProxy(ppProxy: POINTER(win32more.Devices.WebServicesOnDevices.IWSDEndpointProxy_head)) -> win32more.Foundation.HRESULT: ...
-class IWSDServiceProxyEventing(c_void_p):
-    extends: win32more.Devices.WebServicesOnDevices.IWSDServiceProxy
-    Guid = Guid('f9279d6d-1012-4a94-b8-cc-fd-35-d2-20-2b-fe')
-    @commethod(11)
-    def SubscribeToMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pUnknown: win32more.System.Com.IUnknown_head, pExpires: POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head), pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), ppExpires: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head)), ppAny: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def BeginSubscribeToMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pUnknown: win32more.System.Com.IUnknown_head, pExpires: POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head), pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), pAsyncState: win32more.System.Com.IUnknown_head, pAsyncCallback: win32more.Devices.WebServicesOnDevices.IWSDAsyncCallback_head, ppResult: POINTER(win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def EndSubscribeToMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pResult: win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head, ppExpires: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head)), ppAny: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def UnsubscribeToMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def BeginUnsubscribeToMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), pAsyncState: win32more.System.Com.IUnknown_head, pAsyncCallback: win32more.Devices.WebServicesOnDevices.IWSDAsyncCallback_head, ppResult: POINTER(win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def EndUnsubscribeToMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pResult: win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def RenewMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pExpires: POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head), pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), ppExpires: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head)), ppAny: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def BeginRenewMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pExpires: POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head), pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), pAsyncState: win32more.System.Com.IUnknown_head, pAsyncCallback: win32more.Devices.WebServicesOnDevices.IWSDAsyncCallback_head, ppResult: POINTER(win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(19)
-    def EndRenewMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pResult: win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head, ppExpires: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head)), ppAny: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(20)
-    def GetStatusForMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), ppExpires: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head)), ppAny: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(21)
-    def BeginGetStatusForMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pAny: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), pAsyncState: win32more.System.Com.IUnknown_head, pAsyncCallback: win32more.Devices.WebServicesOnDevices.IWSDAsyncCallback_head, ppResult: POINTER(win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(22)
-    def EndGetStatusForMultipleOperations(pOperations: POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pResult: win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head, ppExpires: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head)), ppAny: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head))) -> win32more.Foundation.HRESULT: ...
-class IWSDSignatureProperty(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('03ce20aa-71c4-45e2-b3-2e-37-66-c6-1c-79-0f')
-    @commethod(3)
-    def IsMessageSigned(pbSigned: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def IsMessageSignatureTrusted(pbSignatureTrusted: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def GetKeyInfo(pbKeyInfo: c_char_p_no, pdwKeyInfoSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def GetSignature(pbSignature: c_char_p_no, pdwSignatureSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def GetSignedInfoHash(pbSignedInfoHash: c_char_p_no, pdwHashSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-class IWSDSSLClientCertificate(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('de105e87-a0da-418e-98-ad-27-b9-ee-d8-7b-dc')
-    @commethod(3)
-    def GetClientCertificate(ppCertContext: POINTER(POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def GetMappedAccessToken(phToken: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.HRESULT: ...
-class IWSDTransportAddress(c_void_p):
-    extends: win32more.Devices.WebServicesOnDevices.IWSDAddress
-    Guid = Guid('70d23498-4ee6-4340-a3-df-d8-45-d2-23-54-67')
-    @commethod(5)
-    def GetPort(pwPort: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def SetPort(wPort: UInt16) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def GetTransportAddress(ppszAddress: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def GetTransportAddressEx(fSafe: win32more.Foundation.BOOL, ppszAddress: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def SetTransportAddress(pszAddress: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
-class IWSDUdpAddress(c_void_p):
-    extends: win32more.Devices.WebServicesOnDevices.IWSDTransportAddress
-    Guid = Guid('74d6124a-a441-4f78-a1-eb-97-a8-d1-99-68-93')
-    @commethod(10)
-    def SetSockaddr(pSockAddr: POINTER(win32more.Networking.WinSock.SOCKADDR_STORAGE_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def GetSockaddr(pSockAddr: POINTER(win32more.Networking.WinSock.SOCKADDR_STORAGE_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def SetExclusive(fExclusive: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def GetExclusive() -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def SetMessageType(messageType: win32more.Devices.WebServicesOnDevices.WSDUdpMessageType) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def GetMessageType(pMessageType: POINTER(win32more.Devices.WebServicesOnDevices.WSDUdpMessageType)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def SetTTL(dwTTL: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def GetTTL(pdwTTL: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def SetAlias(pAlias: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
-    @commethod(19)
-    def GetAlias(pAlias: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
-class IWSDUdpMessageParameters(c_void_p):
-    extends: win32more.Devices.WebServicesOnDevices.IWSDMessageParameters
-    Guid = Guid('9934149f-8f0c-447b-aa-0b-73-12-4b-0c-a7-f0')
-    @commethod(8)
-    def SetRetransmitParams(pParams: POINTER(win32more.Devices.WebServicesOnDevices.WSDUdpRetransmitParams_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def GetRetransmitParams(pParams: POINTER(win32more.Devices.WebServicesOnDevices.WSDUdpRetransmitParams_head)) -> win32more.Foundation.HRESULT: ...
-class IWSDXMLContext(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('75d8f3ee-3e5a-43b4-a1-5a-bc-f6-88-74-60-c0')
-    @commethod(3)
-    def AddNamespace(pszUri: win32more.Foundation.PWSTR, pszSuggestedPrefix: win32more.Foundation.PWSTR, ppNamespace: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAMESPACE_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def AddNameToNamespace(pszUri: win32more.Foundation.PWSTR, pszName: win32more.Foundation.PWSTR, ppName: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAME_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def SetNamespaces(pNamespaces: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAMESPACE_head)), wNamespacesCount: UInt16, bLayerNumber: Byte) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def SetTypes(pTypes: POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_TYPE_head)), dwTypesCount: UInt32, bLayerNumber: Byte) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PWSD_SOAP_MESSAGE_HANDLER(thisUnknown: win32more.System.Com.IUnknown_head, event: POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENT_head)) -> win32more.Foundation.HRESULT: ...
 class REQUESTBODY_GetStatus(Structure):
@@ -543,6 +543,109 @@ class RESPONSEBODY_SubscriptionEnd(Structure):
     Status: win32more.Foundation.PWSTR
     Reason: POINTER(win32more.Devices.WebServicesOnDevices.WSD_LOCALIZED_STRING_head)
     Any: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head)
+WSDEventType = Int32
+WSDET_NONE: WSDEventType = 0
+WSDET_INCOMING_MESSAGE: WSDEventType = 1
+WSDET_INCOMING_FAULT: WSDEventType = 2
+WSDET_TRANSMISSION_FAILURE: WSDEventType = 3
+WSDET_RESPONSE_TIMEOUT: WSDEventType = 4
+WSDUdpMessageType = Int32
+ONE_WAY: WSDUdpMessageType = 0
+TWO_WAY: WSDUdpMessageType = 1
+class WSDUdpRetransmitParams(Structure):
+    ulSendDelay: UInt32
+    ulRepeat: UInt32
+    ulRepeatMinDelay: UInt32
+    ulRepeatMaxDelay: UInt32
+    ulRepeatUpperDelay: UInt32
+class WSDXML_ATTRIBUTE(Structure):
+    Element: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head)
+    Next: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ATTRIBUTE_head)
+    Name: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAME_head)
+    Value: win32more.Foundation.PWSTR
+class WSDXML_ELEMENT(Structure):
+    Node: win32more.Devices.WebServicesOnDevices.WSDXML_NODE
+    Name: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAME_head)
+    FirstAttribute: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ATTRIBUTE_head)
+    FirstChild: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NODE_head)
+    PrefixMappings: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_PREFIX_MAPPING_head)
+class WSDXML_ELEMENT_LIST(Structure):
+    Next: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_LIST_head)
+    Element: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head)
+class WSDXML_NAME(Structure):
+    Space: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAMESPACE_head)
+    LocalName: win32more.Foundation.PWSTR
+class WSDXML_NAMESPACE(Structure):
+    Uri: win32more.Foundation.PWSTR
+    PreferredPrefix: win32more.Foundation.PWSTR
+    Names: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAME_head)
+    NamesCount: UInt16
+    Encoding: UInt16
+class WSDXML_NODE(Structure):
+    ElementType = 0
+    TextType = 1
+    Type: Int32
+    Parent: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head)
+    Next: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NODE_head)
+WSDXML_OP = Int32
+WSDXML_OP_OpNone: WSDXML_OP = 0
+WSDXML_OP_OpEndOfTable: WSDXML_OP = 1
+WSDXML_OP_OpBeginElement_: WSDXML_OP = 2
+WSDXML_OP_OpBeginAnyElement: WSDXML_OP = 3
+WSDXML_OP_OpEndElement: WSDXML_OP = 4
+WSDXML_OP_OpElement_: WSDXML_OP = 5
+WSDXML_OP_OpAnyElement: WSDXML_OP = 6
+WSDXML_OP_OpAnyElements: WSDXML_OP = 7
+WSDXML_OP_OpAnyText: WSDXML_OP = 8
+WSDXML_OP_OpAttribute_: WSDXML_OP = 9
+WSDXML_OP_OpBeginChoice: WSDXML_OP = 10
+WSDXML_OP_OpEndChoice: WSDXML_OP = 11
+WSDXML_OP_OpBeginSequence: WSDXML_OP = 12
+WSDXML_OP_OpEndSequence: WSDXML_OP = 13
+WSDXML_OP_OpBeginAll: WSDXML_OP = 14
+WSDXML_OP_OpEndAll: WSDXML_OP = 15
+WSDXML_OP_OpAnything: WSDXML_OP = 16
+WSDXML_OP_OpAnyNumber: WSDXML_OP = 17
+WSDXML_OP_OpOneOrMore: WSDXML_OP = 18
+WSDXML_OP_OpOptional: WSDXML_OP = 19
+WSDXML_OP_OpFormatBool_: WSDXML_OP = 20
+WSDXML_OP_OpFormatInt8_: WSDXML_OP = 21
+WSDXML_OP_OpFormatInt16_: WSDXML_OP = 22
+WSDXML_OP_OpFormatInt32_: WSDXML_OP = 23
+WSDXML_OP_OpFormatInt64_: WSDXML_OP = 24
+WSDXML_OP_OpFormatUInt8_: WSDXML_OP = 25
+WSDXML_OP_OpFormatUInt16_: WSDXML_OP = 26
+WSDXML_OP_OpFormatUInt32_: WSDXML_OP = 27
+WSDXML_OP_OpFormatUInt64_: WSDXML_OP = 28
+WSDXML_OP_OpFormatUnicodeString_: WSDXML_OP = 29
+WSDXML_OP_OpFormatDom_: WSDXML_OP = 30
+WSDXML_OP_OpFormatStruct_: WSDXML_OP = 31
+WSDXML_OP_OpFormatUri_: WSDXML_OP = 32
+WSDXML_OP_OpFormatUuidUri_: WSDXML_OP = 33
+WSDXML_OP_OpFormatName_: WSDXML_OP = 34
+WSDXML_OP_OpFormatListInsertTail_: WSDXML_OP = 35
+WSDXML_OP_OpFormatType_: WSDXML_OP = 36
+WSDXML_OP_OpFormatDynamicType_: WSDXML_OP = 37
+WSDXML_OP_OpFormatLookupType_: WSDXML_OP = 38
+WSDXML_OP_OpFormatDuration_: WSDXML_OP = 39
+WSDXML_OP_OpFormatDateTime_: WSDXML_OP = 40
+WSDXML_OP_OpFormatFloat_: WSDXML_OP = 41
+WSDXML_OP_OpFormatDouble_: WSDXML_OP = 42
+WSDXML_OP_OpProcess_: WSDXML_OP = 43
+WSDXML_OP_OpQualifiedAttribute_: WSDXML_OP = 44
+WSDXML_OP_OpFormatXMLDeclaration_: WSDXML_OP = 45
+WSDXML_OP_OpFormatMax: WSDXML_OP = 46
+class WSDXML_PREFIX_MAPPING(Structure):
+    Refs: UInt32
+    Next: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_PREFIX_MAPPING_head)
+    Space: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAMESPACE_head)
+    Prefix: win32more.Foundation.PWSTR
+class WSDXML_TEXT(Structure):
+    Node: win32more.Devices.WebServicesOnDevices.WSDXML_NODE
+    Text: win32more.Foundation.PWSTR
+class WSDXML_TYPE(Structure):
+    Uri: win32more.Foundation.PWSTR
+    Table: c_char_p_no
 class WSD_APP_SEQUENCE(Structure):
     InstanceId: UInt64
     SequenceId: win32more.Foundation.PWSTR
@@ -682,12 +785,12 @@ class WSD_PROBE_MATCH(Structure):
     XAddrs: POINTER(win32more.Devices.WebServicesOnDevices.WSD_URI_LIST_head)
     MetadataVersion: UInt64
     Any: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head)
-class WSD_PROBE_MATCH_LIST(Structure):
-    Next: POINTER(win32more.Devices.WebServicesOnDevices.WSD_PROBE_MATCH_LIST_head)
-    Element: POINTER(win32more.Devices.WebServicesOnDevices.WSD_PROBE_MATCH_head)
 class WSD_PROBE_MATCHES(Structure):
     ProbeMatch: POINTER(win32more.Devices.WebServicesOnDevices.WSD_PROBE_MATCH_LIST_head)
     Any: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head)
+class WSD_PROBE_MATCH_LIST(Structure):
+    Next: POINTER(win32more.Devices.WebServicesOnDevices.WSD_PROBE_MATCH_LIST_head)
+    Element: POINTER(win32more.Devices.WebServicesOnDevices.WSD_PROBE_MATCH_head)
 WSD_PROTOCOL_TYPE = Int32
 WSD_PT_NONE: WSD_PROTOCOL_TYPE = 0
 WSD_PT_UDP: WSD_PROTOCOL_TYPE = 1
@@ -799,109 +902,6 @@ class WSD_UNKNOWN_LOOKUP(Structure):
 class WSD_URI_LIST(Structure):
     Next: POINTER(win32more.Devices.WebServicesOnDevices.WSD_URI_LIST_head)
     Element: win32more.Foundation.PWSTR
-WSDEventType = Int32
-WSDET_NONE: WSDEventType = 0
-WSDET_INCOMING_MESSAGE: WSDEventType = 1
-WSDET_INCOMING_FAULT: WSDEventType = 2
-WSDET_TRANSMISSION_FAILURE: WSDEventType = 3
-WSDET_RESPONSE_TIMEOUT: WSDEventType = 4
-WSDUdpMessageType = Int32
-ONE_WAY: WSDUdpMessageType = 0
-TWO_WAY: WSDUdpMessageType = 1
-class WSDUdpRetransmitParams(Structure):
-    ulSendDelay: UInt32
-    ulRepeat: UInt32
-    ulRepeatMinDelay: UInt32
-    ulRepeatMaxDelay: UInt32
-    ulRepeatUpperDelay: UInt32
-class WSDXML_ATTRIBUTE(Structure):
-    Element: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head)
-    Next: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ATTRIBUTE_head)
-    Name: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAME_head)
-    Value: win32more.Foundation.PWSTR
-class WSDXML_ELEMENT(Structure):
-    Node: win32more.Devices.WebServicesOnDevices.WSDXML_NODE
-    Name: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAME_head)
-    FirstAttribute: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ATTRIBUTE_head)
-    FirstChild: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NODE_head)
-    PrefixMappings: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_PREFIX_MAPPING_head)
-class WSDXML_ELEMENT_LIST(Structure):
-    Next: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_LIST_head)
-    Element: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head)
-class WSDXML_NAME(Structure):
-    Space: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAMESPACE_head)
-    LocalName: win32more.Foundation.PWSTR
-class WSDXML_NAMESPACE(Structure):
-    Uri: win32more.Foundation.PWSTR
-    PreferredPrefix: win32more.Foundation.PWSTR
-    Names: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAME_head)
-    NamesCount: UInt16
-    Encoding: UInt16
-class WSDXML_NODE(Structure):
-    ElementType = 0
-    TextType = 1
-    Type: Int32
-    Parent: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head)
-    Next: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NODE_head)
-WSDXML_OP = Int32
-WSDXML_OP_OpNone: WSDXML_OP = 0
-WSDXML_OP_OpEndOfTable: WSDXML_OP = 1
-WSDXML_OP_OpBeginElement_: WSDXML_OP = 2
-WSDXML_OP_OpBeginAnyElement: WSDXML_OP = 3
-WSDXML_OP_OpEndElement: WSDXML_OP = 4
-WSDXML_OP_OpElement_: WSDXML_OP = 5
-WSDXML_OP_OpAnyElement: WSDXML_OP = 6
-WSDXML_OP_OpAnyElements: WSDXML_OP = 7
-WSDXML_OP_OpAnyText: WSDXML_OP = 8
-WSDXML_OP_OpAttribute_: WSDXML_OP = 9
-WSDXML_OP_OpBeginChoice: WSDXML_OP = 10
-WSDXML_OP_OpEndChoice: WSDXML_OP = 11
-WSDXML_OP_OpBeginSequence: WSDXML_OP = 12
-WSDXML_OP_OpEndSequence: WSDXML_OP = 13
-WSDXML_OP_OpBeginAll: WSDXML_OP = 14
-WSDXML_OP_OpEndAll: WSDXML_OP = 15
-WSDXML_OP_OpAnything: WSDXML_OP = 16
-WSDXML_OP_OpAnyNumber: WSDXML_OP = 17
-WSDXML_OP_OpOneOrMore: WSDXML_OP = 18
-WSDXML_OP_OpOptional: WSDXML_OP = 19
-WSDXML_OP_OpFormatBool_: WSDXML_OP = 20
-WSDXML_OP_OpFormatInt8_: WSDXML_OP = 21
-WSDXML_OP_OpFormatInt16_: WSDXML_OP = 22
-WSDXML_OP_OpFormatInt32_: WSDXML_OP = 23
-WSDXML_OP_OpFormatInt64_: WSDXML_OP = 24
-WSDXML_OP_OpFormatUInt8_: WSDXML_OP = 25
-WSDXML_OP_OpFormatUInt16_: WSDXML_OP = 26
-WSDXML_OP_OpFormatUInt32_: WSDXML_OP = 27
-WSDXML_OP_OpFormatUInt64_: WSDXML_OP = 28
-WSDXML_OP_OpFormatUnicodeString_: WSDXML_OP = 29
-WSDXML_OP_OpFormatDom_: WSDXML_OP = 30
-WSDXML_OP_OpFormatStruct_: WSDXML_OP = 31
-WSDXML_OP_OpFormatUri_: WSDXML_OP = 32
-WSDXML_OP_OpFormatUuidUri_: WSDXML_OP = 33
-WSDXML_OP_OpFormatName_: WSDXML_OP = 34
-WSDXML_OP_OpFormatListInsertTail_: WSDXML_OP = 35
-WSDXML_OP_OpFormatType_: WSDXML_OP = 36
-WSDXML_OP_OpFormatDynamicType_: WSDXML_OP = 37
-WSDXML_OP_OpFormatLookupType_: WSDXML_OP = 38
-WSDXML_OP_OpFormatDuration_: WSDXML_OP = 39
-WSDXML_OP_OpFormatDateTime_: WSDXML_OP = 40
-WSDXML_OP_OpFormatFloat_: WSDXML_OP = 41
-WSDXML_OP_OpFormatDouble_: WSDXML_OP = 42
-WSDXML_OP_OpProcess_: WSDXML_OP = 43
-WSDXML_OP_OpQualifiedAttribute_: WSDXML_OP = 44
-WSDXML_OP_OpFormatXMLDeclaration_: WSDXML_OP = 45
-WSDXML_OP_OpFormatMax: WSDXML_OP = 46
-class WSDXML_PREFIX_MAPPING(Structure):
-    Refs: UInt32
-    Next: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_PREFIX_MAPPING_head)
-    Space: POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAMESPACE_head)
-    Prefix: win32more.Foundation.PWSTR
-class WSDXML_TEXT(Structure):
-    Node: win32more.Devices.WebServicesOnDevices.WSDXML_NODE
-    Text: win32more.Foundation.PWSTR
-class WSDXML_TYPE(Structure):
-    Uri: win32more.Foundation.PWSTR
-    Table: c_char_p_no
 make_head(_module, 'IWSDAddress')
 make_head(_module, 'IWSDAsyncCallback')
 make_head(_module, 'IWSDAsyncResult')
@@ -915,24 +915,24 @@ make_head(_module, 'IWSDHttpAddress')
 make_head(_module, 'IWSDHttpAuthParameters')
 make_head(_module, 'IWSDHttpMessageParameters')
 make_head(_module, 'IWSDInboundAttachment')
-make_head(_module, 'IWSDiscoveredService')
-make_head(_module, 'IWSDiscoveryProvider')
-make_head(_module, 'IWSDiscoveryProviderNotify')
-make_head(_module, 'IWSDiscoveryPublisher')
-make_head(_module, 'IWSDiscoveryPublisherNotify')
 make_head(_module, 'IWSDMessageParameters')
 make_head(_module, 'IWSDMetadataExchange')
 make_head(_module, 'IWSDOutboundAttachment')
+make_head(_module, 'IWSDSSLClientCertificate')
 make_head(_module, 'IWSDScopeMatchingRule')
 make_head(_module, 'IWSDServiceMessaging')
 make_head(_module, 'IWSDServiceProxy')
 make_head(_module, 'IWSDServiceProxyEventing')
 make_head(_module, 'IWSDSignatureProperty')
-make_head(_module, 'IWSDSSLClientCertificate')
 make_head(_module, 'IWSDTransportAddress')
 make_head(_module, 'IWSDUdpAddress')
 make_head(_module, 'IWSDUdpMessageParameters')
 make_head(_module, 'IWSDXMLContext')
+make_head(_module, 'IWSDiscoveredService')
+make_head(_module, 'IWSDiscoveryProvider')
+make_head(_module, 'IWSDiscoveryProviderNotify')
+make_head(_module, 'IWSDiscoveryPublisher')
+make_head(_module, 'IWSDiscoveryPublisherNotify')
 make_head(_module, 'PWSD_SOAP_MESSAGE_HANDLER')
 make_head(_module, 'REQUESTBODY_GetStatus')
 make_head(_module, 'REQUESTBODY_Renew')
@@ -943,6 +943,16 @@ make_head(_module, 'RESPONSEBODY_GetStatus')
 make_head(_module, 'RESPONSEBODY_Renew')
 make_head(_module, 'RESPONSEBODY_Subscribe')
 make_head(_module, 'RESPONSEBODY_SubscriptionEnd')
+make_head(_module, 'WSDUdpRetransmitParams')
+make_head(_module, 'WSDXML_ATTRIBUTE')
+make_head(_module, 'WSDXML_ELEMENT')
+make_head(_module, 'WSDXML_ELEMENT_LIST')
+make_head(_module, 'WSDXML_NAME')
+make_head(_module, 'WSDXML_NAMESPACE')
+make_head(_module, 'WSDXML_NODE')
+make_head(_module, 'WSDXML_PREFIX_MAPPING')
+make_head(_module, 'WSDXML_TEXT')
+make_head(_module, 'WSDXML_TYPE')
 make_head(_module, 'WSD_APP_SEQUENCE')
 make_head(_module, 'WSD_BYE')
 make_head(_module, 'WSD_CONFIG_ADDRESSES')
@@ -970,8 +980,8 @@ make_head(_module, 'WSD_OPERATION')
 make_head(_module, 'WSD_PORT_TYPE')
 make_head(_module, 'WSD_PROBE')
 make_head(_module, 'WSD_PROBE_MATCH')
-make_head(_module, 'WSD_PROBE_MATCH_LIST')
 make_head(_module, 'WSD_PROBE_MATCHES')
+make_head(_module, 'WSD_PROBE_MATCH_LIST')
 make_head(_module, 'WSD_REFERENCE_PARAMETERS')
 make_head(_module, 'WSD_REFERENCE_PROPERTIES')
 make_head(_module, 'WSD_RELATIONSHIP_METADATA')
@@ -996,16 +1006,6 @@ make_head(_module, 'WSD_THIS_DEVICE_METADATA')
 make_head(_module, 'WSD_THIS_MODEL_METADATA')
 make_head(_module, 'WSD_UNKNOWN_LOOKUP')
 make_head(_module, 'WSD_URI_LIST')
-make_head(_module, 'WSDUdpRetransmitParams')
-make_head(_module, 'WSDXML_ATTRIBUTE')
-make_head(_module, 'WSDXML_ELEMENT')
-make_head(_module, 'WSDXML_ELEMENT_LIST')
-make_head(_module, 'WSDXML_NAME')
-make_head(_module, 'WSDXML_NAMESPACE')
-make_head(_module, 'WSDXML_NODE')
-make_head(_module, 'WSDXML_PREFIX_MAPPING')
-make_head(_module, 'WSDXML_TEXT')
-make_head(_module, 'WSDXML_TYPE')
 __all__ = [
     "DeviceDiscoveryMechanism",
     "DeviceDiscoveryMechanism_DirectedDiscovery",

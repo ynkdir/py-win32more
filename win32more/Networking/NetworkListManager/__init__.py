@@ -179,7 +179,6 @@ class INetworkListManagerEvents(c_void_p):
     Guid = Guid('dcb00001-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
     @commethod(3)
     def ConnectivityChanged(newConnectivity: win32more.Networking.NetworkListManager.NLM_CONNECTIVITY) -> win32more.Foundation.HRESULT: ...
-NetworkListManager = Guid('dcb00c01-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
 NLM_CONNECTION_COST = Int32
 NLM_CONNECTION_COST_UNKNOWN: NLM_CONNECTION_COST = 0
 NLM_CONNECTION_COST_UNRESTRICTED: NLM_CONNECTION_COST = 1
@@ -246,6 +245,7 @@ class NLM_SOCKADDR(Structure):
 class NLM_USAGE_DATA(Structure):
     UsageInMegabytes: UInt32
     LastSyncTime: win32more.Foundation.FILETIME
+NetworkListManager = Guid('dcb00c01-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
 make_head(_module, 'IEnumNetworkConnections')
 make_head(_module, 'IEnumNetworks')
 make_head(_module, 'INetwork')

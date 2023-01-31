@@ -762,12 +762,152 @@ def DhcpV4EnumPoliciesEx(ServerIpAddress: win32more.Foundation.PWSTR, ResumeHand
 class DATE_TIME(Structure):
     dwLowDateTime: UInt32
     dwHighDateTime: UInt32
+class DHCPAPI_PARAMS(Structure):
+    Flags: UInt32
+    OptionId: UInt32
+    IsVendor: win32more.Foundation.BOOL
+    Data: c_char_p_no
+    nBytesData: UInt32
+class DHCPCAPI_CLASSID(Structure):
+    Flags: UInt32
+    Data: c_char_p_no
+    nBytesData: UInt32
+class DHCPCAPI_PARAMS_ARRAY(Structure):
+    nParams: UInt32
+    Params: POINTER(win32more.NetworkManagement.Dhcp.DHCPAPI_PARAMS_head)
+class DHCPDS_SERVER(Structure):
+    Version: UInt32
+    ServerName: win32more.Foundation.PWSTR
+    ServerAddress: UInt32
+    Flags: UInt32
+    State: UInt32
+    DsLocation: win32more.Foundation.PWSTR
+    DsLocType: UInt32
+class DHCPDS_SERVERS(Structure):
+    Flags: UInt32
+    NumElements: UInt32
+    Servers: POINTER(win32more.NetworkManagement.Dhcp.DHCPDS_SERVER_head)
+class DHCPV4_FAILOVER_CLIENT_INFO(Structure):
+    ClientIpAddress: UInt32
+    SubnetMask: UInt32
+    ClientHardwareAddress: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+    ClientName: win32more.Foundation.PWSTR
+    ClientComment: win32more.Foundation.PWSTR
+    ClientLeaseExpires: win32more.NetworkManagement.Dhcp.DATE_TIME
+    OwnerHost: win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO
+    bClientType: Byte
+    AddressState: Byte
+    Status: win32more.NetworkManagement.Dhcp.QuarantineStatus
+    ProbationEnds: win32more.NetworkManagement.Dhcp.DATE_TIME
+    QuarantineCapable: win32more.Foundation.BOOL
+    SentPotExpTime: UInt32
+    AckPotExpTime: UInt32
+    RecvPotExpTime: UInt32
+    StartTime: UInt32
+    CltLastTransTime: UInt32
+    LastBndUpdTime: UInt32
+    BndMsgStatus: UInt32
+    PolicyName: win32more.Foundation.PWSTR
+    Flags: Byte
+class DHCPV4_FAILOVER_CLIENT_INFO_ARRAY(Structure):
+    NumElements: UInt32
+    Clients: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPV4_FAILOVER_CLIENT_INFO_head))
+class DHCPV4_FAILOVER_CLIENT_INFO_EX(Structure):
+    ClientIpAddress: UInt32
+    SubnetMask: UInt32
+    ClientHardwareAddress: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
+    ClientName: win32more.Foundation.PWSTR
+    ClientComment: win32more.Foundation.PWSTR
+    ClientLeaseExpires: win32more.NetworkManagement.Dhcp.DATE_TIME
+    OwnerHost: win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO
+    bClientType: Byte
+    AddressState: Byte
+    Status: win32more.NetworkManagement.Dhcp.QuarantineStatus
+    ProbationEnds: win32more.NetworkManagement.Dhcp.DATE_TIME
+    QuarantineCapable: win32more.Foundation.BOOL
+    SentPotExpTime: UInt32
+    AckPotExpTime: UInt32
+    RecvPotExpTime: UInt32
+    StartTime: UInt32
+    CltLastTransTime: UInt32
+    LastBndUpdTime: UInt32
+    BndMsgStatus: UInt32
+    PolicyName: win32more.Foundation.PWSTR
+    Flags: Byte
+    AddressStateEx: UInt32
+class DHCPV6CAPI_CLASSID(Structure):
+    Flags: UInt32
+    Data: c_char_p_no
+    nBytesData: UInt32
+class DHCPV6CAPI_PARAMS(Structure):
+    Flags: UInt32
+    OptionId: UInt32
+    IsVendor: win32more.Foundation.BOOL
+    Data: c_char_p_no
+    nBytesData: UInt32
+class DHCPV6CAPI_PARAMS_ARRAY(Structure):
+    nParams: UInt32
+    Params: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6CAPI_PARAMS_head)
+class DHCPV6Prefix(Structure):
+    prefix: Byte * 16
+    prefixLength: UInt32
+    preferredLifeTime: UInt32
+    validLifeTime: UInt32
+    status: win32more.NetworkManagement.Dhcp.StatusCode
+class DHCPV6PrefixLeaseInformation(Structure):
+    nPrefixes: UInt32
+    prefixArray: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6Prefix_head)
+    iaid: UInt32
+    T1: Int64
+    T2: Int64
+    MaxLeaseExpirationTime: Int64
+    LastRenewalTime: Int64
+    status: win32more.NetworkManagement.Dhcp.StatusCode
+    ServerId: c_char_p_no
+    ServerIdLen: UInt32
+class DHCPV6_BIND_ELEMENT(Structure):
+    Flags: UInt32
+    fBoundToDHCPServer: win32more.Foundation.BOOL
+    AdapterPrimaryAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
+    AdapterSubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
+    IfDescription: win32more.Foundation.PWSTR
+    IpV6IfIndex: UInt32
+    IfIdSize: UInt32
+    IfId: c_char_p_no
+class DHCPV6_BIND_ELEMENT_ARRAY(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_BIND_ELEMENT_head)
+class DHCPV6_IP_ARRAY(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS_head)
+class DHCPV6_STATELESS_PARAMS(Structure):
+    Status: win32more.Foundation.BOOL
+    PurgeInterval: UInt32
+DHCPV6_STATELESS_PARAM_TYPE = Int32
+DHCPV6_STATELESS_PARAM_TYPE_DhcpStatelessPurgeInterval: DHCPV6_STATELESS_PARAM_TYPE = 1
+DHCPV6_STATELESS_PARAM_TYPE_DhcpStatelessStatus: DHCPV6_STATELESS_PARAM_TYPE = 2
+class DHCPV6_STATELESS_SCOPE_STATS(Structure):
+    SubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
+    NumStatelessClientsAdded: UInt64
+    NumStatelessClientsRemoved: UInt64
+class DHCPV6_STATELESS_STATS(Structure):
+    NumScopes: UInt32
+    ScopeStats: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_STATELESS_SCOPE_STATS_head)
 class DHCP_ADDR_PATTERN(Structure):
     MatchHWType: win32more.Foundation.BOOL
     HWType: Byte
     IsWildcard: win32more.Foundation.BOOL
     Length: Byte
     Pattern: Byte * 255
+class DHCP_ALL_OPTIONS(Structure):
+    Flags: UInt32
+    NonVendorOptions: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_ARRAY_head)
+    NumVendorOptions: UInt32
+    VendorOptions: POINTER(_Anonymous_e__Struct)
+    class _Anonymous_e__Struct(Structure):
+        Option: win32more.NetworkManagement.Dhcp.DHCP_OPTION
+        VendorName: win32more.Foundation.PWSTR
+        ClassName: win32more.Foundation.PWSTR
 class DHCP_ALL_OPTION_VALUES(Structure):
     Flags: UInt32
     NumElements: UInt32
@@ -786,15 +926,6 @@ class DHCP_ALL_OPTION_VALUES_PB(Structure):
         VendorName: win32more.Foundation.PWSTR
         IsVendor: win32more.Foundation.BOOL
         OptionsArray: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_ARRAY_head)
-class DHCP_ALL_OPTIONS(Structure):
-    Flags: UInt32
-    NonVendorOptions: POINTER(win32more.NetworkManagement.Dhcp.DHCP_OPTION_ARRAY_head)
-    NumVendorOptions: UInt32
-    VendorOptions: POINTER(_Anonymous_e__Struct)
-    class _Anonymous_e__Struct(Structure):
-        Option: win32more.NetworkManagement.Dhcp.DHCP_OPTION
-        VendorName: win32more.Foundation.PWSTR
-        ClassName: win32more.Foundation.PWSTR
 class DHCP_ATTRIB(Structure):
     DhcpAttribId: UInt32
     DhcpAttribType: UInt32
@@ -1037,6 +1168,9 @@ class DHCP_HOST_INFO_V6(Structure):
     IpAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
     NetBiosName: win32more.Foundation.PWSTR
     HostName: win32more.Foundation.PWSTR
+class DHCP_IPV6_ADDRESS(Structure):
+    HighOrderBits: UInt64
+    LowOrderBits: UInt64
 class DHCP_IP_ARRAY(Structure):
     NumElements: UInt32
     Elements: POINTER(UInt32)
@@ -1070,9 +1204,6 @@ class DHCP_IP_RESERVATION_V6(Structure):
     ReservedIpAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
     ReservedForClient: POINTER(win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA_head)
     InterfaceId: UInt32
-class DHCP_IPV6_ADDRESS(Structure):
-    HighOrderBits: UInt64
-    LowOrderBits: UInt64
 class DHCP_MIB_INFO(Structure):
     Discovers: UInt32
     Offers: UInt32
@@ -1234,40 +1365,6 @@ class DHCP_PERF_STATS(Structure):
     dwNumPacketsInQuarWaitingQueue: UInt32
     dwNumPacketsInQuarReadyQueue: UInt32
     dwNumPacketsInQuarDecisionQueue: UInt32
-DHCP_POL_ATTR_TYPE = Int32
-DHCP_POL_ATTR_TYPE_DhcpAttrHWAddr: DHCP_POL_ATTR_TYPE = 0
-DHCP_POL_ATTR_TYPE_DhcpAttrOption: DHCP_POL_ATTR_TYPE = 1
-DHCP_POL_ATTR_TYPE_DhcpAttrSubOption: DHCP_POL_ATTR_TYPE = 2
-DHCP_POL_ATTR_TYPE_DhcpAttrFqdn: DHCP_POL_ATTR_TYPE = 3
-DHCP_POL_ATTR_TYPE_DhcpAttrFqdnSingleLabel: DHCP_POL_ATTR_TYPE = 4
-DHCP_POL_COMPARATOR = Int32
-DHCP_POL_COMPARATOR_DhcpCompEqual: DHCP_POL_COMPARATOR = 0
-DHCP_POL_COMPARATOR_DhcpCompNotEqual: DHCP_POL_COMPARATOR = 1
-DHCP_POL_COMPARATOR_DhcpCompBeginsWith: DHCP_POL_COMPARATOR = 2
-DHCP_POL_COMPARATOR_DhcpCompNotBeginWith: DHCP_POL_COMPARATOR = 3
-DHCP_POL_COMPARATOR_DhcpCompEndsWith: DHCP_POL_COMPARATOR = 4
-DHCP_POL_COMPARATOR_DhcpCompNotEndWith: DHCP_POL_COMPARATOR = 5
-class DHCP_POL_COND(Structure):
-    ParentExpr: UInt32
-    Type: win32more.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE
-    OptionID: UInt32
-    SubOptionID: UInt32
-    VendorName: win32more.Foundation.PWSTR
-    Operator: win32more.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR
-    Value: c_char_p_no
-    ValueLength: UInt32
-class DHCP_POL_COND_ARRAY(Structure):
-    NumElements: UInt32
-    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POL_COND_head)
-class DHCP_POL_EXPR(Structure):
-    ParentExpr: UInt32
-    Operator: win32more.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER
-class DHCP_POL_EXPR_ARRAY(Structure):
-    NumElements: UInt32
-    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POL_EXPR_head)
-DHCP_POL_LOGIC_OPER = Int32
-DHCP_POL_LOGIC_OPER_DhcpLogicalOr: DHCP_POL_LOGIC_OPER = 0
-DHCP_POL_LOGIC_OPER_DhcpLogicalAnd: DHCP_POL_LOGIC_OPER = 1
 class DHCP_POLICY(Structure):
     PolicyName: win32more.Foundation.PWSTR
     IsGlobalPolicy: win32more.Foundation.BOOL
@@ -1303,6 +1400,40 @@ DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyRanges: DHCP_POLICY_FIELDS_TO_UPDAT
 DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyDescr: DHCP_POLICY_FIELDS_TO_UPDATE = 16
 DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyStatus: DHCP_POLICY_FIELDS_TO_UPDATE = 32
 DHCP_POLICY_FIELDS_TO_UPDATE_DhcpUpdatePolicyDnsSuffix: DHCP_POLICY_FIELDS_TO_UPDATE = 64
+DHCP_POL_ATTR_TYPE = Int32
+DHCP_POL_ATTR_TYPE_DhcpAttrHWAddr: DHCP_POL_ATTR_TYPE = 0
+DHCP_POL_ATTR_TYPE_DhcpAttrOption: DHCP_POL_ATTR_TYPE = 1
+DHCP_POL_ATTR_TYPE_DhcpAttrSubOption: DHCP_POL_ATTR_TYPE = 2
+DHCP_POL_ATTR_TYPE_DhcpAttrFqdn: DHCP_POL_ATTR_TYPE = 3
+DHCP_POL_ATTR_TYPE_DhcpAttrFqdnSingleLabel: DHCP_POL_ATTR_TYPE = 4
+DHCP_POL_COMPARATOR = Int32
+DHCP_POL_COMPARATOR_DhcpCompEqual: DHCP_POL_COMPARATOR = 0
+DHCP_POL_COMPARATOR_DhcpCompNotEqual: DHCP_POL_COMPARATOR = 1
+DHCP_POL_COMPARATOR_DhcpCompBeginsWith: DHCP_POL_COMPARATOR = 2
+DHCP_POL_COMPARATOR_DhcpCompNotBeginWith: DHCP_POL_COMPARATOR = 3
+DHCP_POL_COMPARATOR_DhcpCompEndsWith: DHCP_POL_COMPARATOR = 4
+DHCP_POL_COMPARATOR_DhcpCompNotEndWith: DHCP_POL_COMPARATOR = 5
+class DHCP_POL_COND(Structure):
+    ParentExpr: UInt32
+    Type: win32more.NetworkManagement.Dhcp.DHCP_POL_ATTR_TYPE
+    OptionID: UInt32
+    SubOptionID: UInt32
+    VendorName: win32more.Foundation.PWSTR
+    Operator: win32more.NetworkManagement.Dhcp.DHCP_POL_COMPARATOR
+    Value: c_char_p_no
+    ValueLength: UInt32
+class DHCP_POL_COND_ARRAY(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POL_COND_head)
+class DHCP_POL_EXPR(Structure):
+    ParentExpr: UInt32
+    Operator: win32more.NetworkManagement.Dhcp.DHCP_POL_LOGIC_OPER
+class DHCP_POL_EXPR_ARRAY(Structure):
+    NumElements: UInt32
+    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_POL_EXPR_head)
+DHCP_POL_LOGIC_OPER = Int32
+DHCP_POL_LOGIC_OPER_DhcpLogicalOr: DHCP_POL_LOGIC_OPER = 0
+DHCP_POL_LOGIC_OPER_DhcpLogicalAnd: DHCP_POL_LOGIC_OPER = 1
 class DHCP_PROPERTY(Structure):
     ID: win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_ID
     Type: win32more.NetworkManagement.Dhcp.DHCP_PROPERTY_TYPE
@@ -1551,137 +1682,6 @@ class DHCP_SUPER_SCOPE_TABLE_ENTRY(Structure):
     SuperScopeNumber: UInt32
     NextInSuperScope: UInt32
     SuperScopeName: win32more.Foundation.PWSTR
-class DHCPAPI_PARAMS(Structure):
-    Flags: UInt32
-    OptionId: UInt32
-    IsVendor: win32more.Foundation.BOOL
-    Data: c_char_p_no
-    nBytesData: UInt32
-class DHCPCAPI_CLASSID(Structure):
-    Flags: UInt32
-    Data: c_char_p_no
-    nBytesData: UInt32
-class DHCPCAPI_PARAMS_ARRAY(Structure):
-    nParams: UInt32
-    Params: POINTER(win32more.NetworkManagement.Dhcp.DHCPAPI_PARAMS_head)
-class DHCPDS_SERVER(Structure):
-    Version: UInt32
-    ServerName: win32more.Foundation.PWSTR
-    ServerAddress: UInt32
-    Flags: UInt32
-    State: UInt32
-    DsLocation: win32more.Foundation.PWSTR
-    DsLocType: UInt32
-class DHCPDS_SERVERS(Structure):
-    Flags: UInt32
-    NumElements: UInt32
-    Servers: POINTER(win32more.NetworkManagement.Dhcp.DHCPDS_SERVER_head)
-class DHCPV4_FAILOVER_CLIENT_INFO(Structure):
-    ClientIpAddress: UInt32
-    SubnetMask: UInt32
-    ClientHardwareAddress: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
-    ClientName: win32more.Foundation.PWSTR
-    ClientComment: win32more.Foundation.PWSTR
-    ClientLeaseExpires: win32more.NetworkManagement.Dhcp.DATE_TIME
-    OwnerHost: win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO
-    bClientType: Byte
-    AddressState: Byte
-    Status: win32more.NetworkManagement.Dhcp.QuarantineStatus
-    ProbationEnds: win32more.NetworkManagement.Dhcp.DATE_TIME
-    QuarantineCapable: win32more.Foundation.BOOL
-    SentPotExpTime: UInt32
-    AckPotExpTime: UInt32
-    RecvPotExpTime: UInt32
-    StartTime: UInt32
-    CltLastTransTime: UInt32
-    LastBndUpdTime: UInt32
-    BndMsgStatus: UInt32
-    PolicyName: win32more.Foundation.PWSTR
-    Flags: Byte
-class DHCPV4_FAILOVER_CLIENT_INFO_ARRAY(Structure):
-    NumElements: UInt32
-    Clients: POINTER(POINTER(win32more.NetworkManagement.Dhcp.DHCPV4_FAILOVER_CLIENT_INFO_head))
-class DHCPV4_FAILOVER_CLIENT_INFO_EX(Structure):
-    ClientIpAddress: UInt32
-    SubnetMask: UInt32
-    ClientHardwareAddress: win32more.NetworkManagement.Dhcp.DHCP_BINARY_DATA
-    ClientName: win32more.Foundation.PWSTR
-    ClientComment: win32more.Foundation.PWSTR
-    ClientLeaseExpires: win32more.NetworkManagement.Dhcp.DATE_TIME
-    OwnerHost: win32more.NetworkManagement.Dhcp.DHCP_HOST_INFO
-    bClientType: Byte
-    AddressState: Byte
-    Status: win32more.NetworkManagement.Dhcp.QuarantineStatus
-    ProbationEnds: win32more.NetworkManagement.Dhcp.DATE_TIME
-    QuarantineCapable: win32more.Foundation.BOOL
-    SentPotExpTime: UInt32
-    AckPotExpTime: UInt32
-    RecvPotExpTime: UInt32
-    StartTime: UInt32
-    CltLastTransTime: UInt32
-    LastBndUpdTime: UInt32
-    BndMsgStatus: UInt32
-    PolicyName: win32more.Foundation.PWSTR
-    Flags: Byte
-    AddressStateEx: UInt32
-class DHCPV6_BIND_ELEMENT(Structure):
-    Flags: UInt32
-    fBoundToDHCPServer: win32more.Foundation.BOOL
-    AdapterPrimaryAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
-    AdapterSubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
-    IfDescription: win32more.Foundation.PWSTR
-    IpV6IfIndex: UInt32
-    IfIdSize: UInt32
-    IfId: c_char_p_no
-class DHCPV6_BIND_ELEMENT_ARRAY(Structure):
-    NumElements: UInt32
-    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_BIND_ELEMENT_head)
-class DHCPV6_IP_ARRAY(Structure):
-    NumElements: UInt32
-    Elements: POINTER(win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS_head)
-DHCPV6_STATELESS_PARAM_TYPE = Int32
-DHCPV6_STATELESS_PARAM_TYPE_DhcpStatelessPurgeInterval: DHCPV6_STATELESS_PARAM_TYPE = 1
-DHCPV6_STATELESS_PARAM_TYPE_DhcpStatelessStatus: DHCPV6_STATELESS_PARAM_TYPE = 2
-class DHCPV6_STATELESS_PARAMS(Structure):
-    Status: win32more.Foundation.BOOL
-    PurgeInterval: UInt32
-class DHCPV6_STATELESS_SCOPE_STATS(Structure):
-    SubnetAddress: win32more.NetworkManagement.Dhcp.DHCP_IPV6_ADDRESS
-    NumStatelessClientsAdded: UInt64
-    NumStatelessClientsRemoved: UInt64
-class DHCPV6_STATELESS_STATS(Structure):
-    NumScopes: UInt32
-    ScopeStats: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6_STATELESS_SCOPE_STATS_head)
-class DHCPV6CAPI_CLASSID(Structure):
-    Flags: UInt32
-    Data: c_char_p_no
-    nBytesData: UInt32
-class DHCPV6CAPI_PARAMS(Structure):
-    Flags: UInt32
-    OptionId: UInt32
-    IsVendor: win32more.Foundation.BOOL
-    Data: c_char_p_no
-    nBytesData: UInt32
-class DHCPV6CAPI_PARAMS_ARRAY(Structure):
-    nParams: UInt32
-    Params: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6CAPI_PARAMS_head)
-class DHCPV6Prefix(Structure):
-    prefix: Byte * 16
-    prefixLength: UInt32
-    preferredLifeTime: UInt32
-    validLifeTime: UInt32
-    status: win32more.NetworkManagement.Dhcp.StatusCode
-class DHCPV6PrefixLeaseInformation(Structure):
-    nPrefixes: UInt32
-    prefixArray: POINTER(win32more.NetworkManagement.Dhcp.DHCPV6Prefix_head)
-    iaid: UInt32
-    T1: Int64
-    T2: Int64
-    MaxLeaseExpirationTime: Int64
-    LastRenewalTime: Int64
-    status: win32more.NetworkManagement.Dhcp.StatusCode
-    ServerId: c_char_p_no
-    ServerIdLen: UInt32
 class DWORD_DWORD(Structure):
     DWord1: UInt32
     DWord2: UInt32
@@ -1756,10 +1756,29 @@ STATUS_UNSPECIFIED_FAILURE: StatusCode = 1
 STATUS_NO_BINDING: StatusCode = 3
 STATUS_NOPREFIX_AVAIL: StatusCode = 6
 make_head(_module, 'DATE_TIME')
+make_head(_module, 'DHCPAPI_PARAMS')
+make_head(_module, 'DHCPCAPI_CLASSID')
+make_head(_module, 'DHCPCAPI_PARAMS_ARRAY')
+make_head(_module, 'DHCPDS_SERVER')
+make_head(_module, 'DHCPDS_SERVERS')
+make_head(_module, 'DHCPV4_FAILOVER_CLIENT_INFO')
+make_head(_module, 'DHCPV4_FAILOVER_CLIENT_INFO_ARRAY')
+make_head(_module, 'DHCPV4_FAILOVER_CLIENT_INFO_EX')
+make_head(_module, 'DHCPV6CAPI_CLASSID')
+make_head(_module, 'DHCPV6CAPI_PARAMS')
+make_head(_module, 'DHCPV6CAPI_PARAMS_ARRAY')
+make_head(_module, 'DHCPV6Prefix')
+make_head(_module, 'DHCPV6PrefixLeaseInformation')
+make_head(_module, 'DHCPV6_BIND_ELEMENT')
+make_head(_module, 'DHCPV6_BIND_ELEMENT_ARRAY')
+make_head(_module, 'DHCPV6_IP_ARRAY')
+make_head(_module, 'DHCPV6_STATELESS_PARAMS')
+make_head(_module, 'DHCPV6_STATELESS_SCOPE_STATS')
+make_head(_module, 'DHCPV6_STATELESS_STATS')
 make_head(_module, 'DHCP_ADDR_PATTERN')
+make_head(_module, 'DHCP_ALL_OPTIONS')
 make_head(_module, 'DHCP_ALL_OPTION_VALUES')
 make_head(_module, 'DHCP_ALL_OPTION_VALUES_PB')
-make_head(_module, 'DHCP_ALL_OPTIONS')
 make_head(_module, 'DHCP_ATTRIB')
 make_head(_module, 'DHCP_ATTRIB_ARRAY')
 make_head(_module, 'DHCP_BINARY_DATA')
@@ -1797,6 +1816,7 @@ make_head(_module, 'DHCP_FILTER_GLOBAL_INFO')
 make_head(_module, 'DHCP_FILTER_RECORD')
 make_head(_module, 'DHCP_HOST_INFO')
 make_head(_module, 'DHCP_HOST_INFO_V6')
+make_head(_module, 'DHCP_IPV6_ADDRESS')
 make_head(_module, 'DHCP_IP_ARRAY')
 make_head(_module, 'DHCP_IP_CLUSTER')
 make_head(_module, 'DHCP_IP_RANGE')
@@ -1806,7 +1826,6 @@ make_head(_module, 'DHCP_IP_RESERVATION')
 make_head(_module, 'DHCP_IP_RESERVATION_INFO')
 make_head(_module, 'DHCP_IP_RESERVATION_V4')
 make_head(_module, 'DHCP_IP_RESERVATION_V6')
-make_head(_module, 'DHCP_IPV6_ADDRESS')
 make_head(_module, 'DHCP_MIB_INFO')
 make_head(_module, 'DHCP_MIB_INFO_V5')
 make_head(_module, 'DHCP_MIB_INFO_V6')
@@ -1823,14 +1842,14 @@ make_head(_module, 'DHCP_OPTION_SCOPE_UNION6')
 make_head(_module, 'DHCP_OPTION_VALUE')
 make_head(_module, 'DHCP_OPTION_VALUE_ARRAY')
 make_head(_module, 'DHCP_PERF_STATS')
-make_head(_module, 'DHCP_POL_COND')
-make_head(_module, 'DHCP_POL_COND_ARRAY')
-make_head(_module, 'DHCP_POL_EXPR')
-make_head(_module, 'DHCP_POL_EXPR_ARRAY')
 make_head(_module, 'DHCP_POLICY')
 make_head(_module, 'DHCP_POLICY_ARRAY')
 make_head(_module, 'DHCP_POLICY_EX')
 make_head(_module, 'DHCP_POLICY_EX_ARRAY')
+make_head(_module, 'DHCP_POL_COND')
+make_head(_module, 'DHCP_POL_COND_ARRAY')
+make_head(_module, 'DHCP_POL_EXPR')
+make_head(_module, 'DHCP_POL_EXPR_ARRAY')
 make_head(_module, 'DHCP_PROPERTY')
 make_head(_module, 'DHCP_PROPERTY_ARRAY')
 make_head(_module, 'DHCP_RESERVATION_INFO_ARRAY')
@@ -1862,25 +1881,6 @@ make_head(_module, 'DHCP_SUBNET_INFO_V6')
 make_head(_module, 'DHCP_SUBNET_INFO_VQ')
 make_head(_module, 'DHCP_SUPER_SCOPE_TABLE')
 make_head(_module, 'DHCP_SUPER_SCOPE_TABLE_ENTRY')
-make_head(_module, 'DHCPAPI_PARAMS')
-make_head(_module, 'DHCPCAPI_CLASSID')
-make_head(_module, 'DHCPCAPI_PARAMS_ARRAY')
-make_head(_module, 'DHCPDS_SERVER')
-make_head(_module, 'DHCPDS_SERVERS')
-make_head(_module, 'DHCPV4_FAILOVER_CLIENT_INFO')
-make_head(_module, 'DHCPV4_FAILOVER_CLIENT_INFO_ARRAY')
-make_head(_module, 'DHCPV4_FAILOVER_CLIENT_INFO_EX')
-make_head(_module, 'DHCPV6_BIND_ELEMENT')
-make_head(_module, 'DHCPV6_BIND_ELEMENT_ARRAY')
-make_head(_module, 'DHCPV6_IP_ARRAY')
-make_head(_module, 'DHCPV6_STATELESS_PARAMS')
-make_head(_module, 'DHCPV6_STATELESS_SCOPE_STATS')
-make_head(_module, 'DHCPV6_STATELESS_STATS')
-make_head(_module, 'DHCPV6CAPI_CLASSID')
-make_head(_module, 'DHCPV6CAPI_PARAMS')
-make_head(_module, 'DHCPV6CAPI_PARAMS_ARRAY')
-make_head(_module, 'DHCPV6Prefix')
-make_head(_module, 'DHCPV6PrefixLeaseInformation')
 make_head(_module, 'DWORD_DWORD')
 make_head(_module, 'LPDHCP_CONTROL')
 make_head(_module, 'LPDHCP_DELETE_CLIENT')

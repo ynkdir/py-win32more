@@ -21,58 +21,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _HCHANGE(Structure):
-    pass
-class _HCLUSCRYPTPROVIDER(Structure):
-    pass
-class _HCLUSENUM(Structure):
-    pass
-class _HCLUSENUMEX(Structure):
-    pass
-class _HCLUSTER(Structure):
-    pass
-class _HGROUP(Structure):
-    pass
-class _HGROUPENUM(Structure):
-    pass
-class _HGROUPENUMEX(Structure):
-    pass
-class _HGROUPSET(Structure):
-    pass
-class _HGROUPSETENUM(Structure):
-    pass
-class _HNETINTERFACE(Structure):
-    pass
-class _HNETINTERFACEENUM(Structure):
-    pass
-class _HNETWORK(Structure):
-    pass
-class _HNETWORKENUM(Structure):
-    pass
-class _HNODE(Structure):
-    pass
-class _HNODEENUM(Structure):
-    pass
-class _HNODEENUMEX(Structure):
-    pass
-class _HREGBATCH(Structure):
-    pass
-class _HREGBATCHNOTIFICATION(Structure):
-    pass
-class _HREGBATCHPORT(Structure):
-    pass
-class _HREGREADBATCH(Structure):
-    pass
-class _HREGREADBATCHREPLY(Structure):
-    pass
-class _HRESENUM(Structure):
-    pass
-class _HRESENUMEX(Structure):
-    pass
-class _HRESOURCE(Structure):
-    pass
-class _HRESTYPEENUM(Structure):
-    pass
 CLUSTER_VERSION_FLAG_MIXED_MODE: UInt32 = 1
 CLUSTER_VERSION_UNKNOWN: UInt32 = 4294967295
 NT4_MAJOR_VERSION: UInt32 = 1
@@ -1674,194 +1622,6 @@ CLUADMEX_OT_RESOURCE: CLUADMEX_OBJECT_TYPE = 4
 CLUADMEX_OT_RESOURCETYPE: CLUADMEX_OBJECT_TYPE = 5
 CLUADMEX_OT_NETWORK: CLUADMEX_OBJECT_TYPE = 6
 CLUADMEX_OT_NETINTERFACE: CLUADMEX_OBJECT_TYPE = 7
-CLUS_AFFINITY_RULE_TYPE = Int32
-CLUS_AFFINITY_RULE_NONE: CLUS_AFFINITY_RULE_TYPE = 0
-CLUS_AFFINITY_RULE_SAME_FAULT_DOMAIN: CLUS_AFFINITY_RULE_TYPE = 1
-CLUS_AFFINITY_RULE_SAME_NODE: CLUS_AFFINITY_RULE_TYPE = 2
-CLUS_AFFINITY_RULE_DIFFERENT_FAULT_DOMAIN: CLUS_AFFINITY_RULE_TYPE = 3
-CLUS_AFFINITY_RULE_DIFFERENT_NODE: CLUS_AFFINITY_RULE_TYPE = 4
-CLUS_AFFINITY_RULE_MIN: CLUS_AFFINITY_RULE_TYPE = 0
-CLUS_AFFINITY_RULE_MAX: CLUS_AFFINITY_RULE_TYPE = 4
-CLUS_CHARACTERISTICS = Int32
-CLUS_CHAR_UNKNOWN: CLUS_CHARACTERISTICS = 0
-CLUS_CHAR_QUORUM: CLUS_CHARACTERISTICS = 1
-CLUS_CHAR_DELETE_REQUIRES_ALL_NODES: CLUS_CHARACTERISTICS = 2
-CLUS_CHAR_LOCAL_QUORUM: CLUS_CHARACTERISTICS = 4
-CLUS_CHAR_LOCAL_QUORUM_DEBUG: CLUS_CHARACTERISTICS = 8
-CLUS_CHAR_REQUIRES_STATE_CHANGE_REASON: CLUS_CHARACTERISTICS = 16
-CLUS_CHAR_BROADCAST_DELETE: CLUS_CHARACTERISTICS = 32
-CLUS_CHAR_SINGLE_CLUSTER_INSTANCE: CLUS_CHARACTERISTICS = 64
-CLUS_CHAR_SINGLE_GROUP_INSTANCE: CLUS_CHARACTERISTICS = 128
-CLUS_CHAR_COEXIST_IN_SHARED_VOLUME_GROUP: CLUS_CHARACTERISTICS = 256
-CLUS_CHAR_PLACEMENT_DATA: CLUS_CHARACTERISTICS = 512
-CLUS_CHAR_MONITOR_DETACH: CLUS_CHARACTERISTICS = 1024
-CLUS_CHAR_MONITOR_REATTACH: CLUS_CHARACTERISTICS = 2048
-CLUS_CHAR_OPERATION_CONTEXT: CLUS_CHARACTERISTICS = 4096
-CLUS_CHAR_CLONES: CLUS_CHARACTERISTICS = 8192
-CLUS_CHAR_NOT_PREEMPTABLE: CLUS_CHARACTERISTICS = 16384
-CLUS_CHAR_NOTIFY_NEW_OWNER: CLUS_CHARACTERISTICS = 32768
-CLUS_CHAR_SUPPORTS_UNMONITORED_STATE: CLUS_CHARACTERISTICS = 65536
-CLUS_CHAR_INFRASTRUCTURE: CLUS_CHARACTERISTICS = 131072
-CLUS_CHAR_VETO_DRAIN: CLUS_CHARACTERISTICS = 262144
-CLUS_CHAR_DRAIN_LOCAL_OFFLINE: CLUS_CHARACTERISTICS = 524288
-class CLUS_CHKDSK_INFO(Structure):
-    PartitionNumber: UInt32
-    ChkdskState: UInt32
-    FileIdCount: UInt32
-    FileIdList: UInt64 * 1
-class CLUS_CREATE_INFRASTRUCTURE_FILESERVER_INPUT(Structure):
-    FileServerName: Char * 16
-class CLUS_CREATE_INFRASTRUCTURE_FILESERVER_OUTPUT(Structure):
-    FileServerName: Char * 260
-class CLUS_CSV_MAINTENANCE_MODE_INFO(Structure):
-    InMaintenance: win32more.Foundation.BOOL
-    VolumeName: Char * 260
-class CLUS_CSV_VOLUME_INFO(Structure):
-    VolumeOffset: win32more.Foundation.ULARGE_INTEGER
-    PartitionNumber: UInt32
-    FaultState: win32more.Networking.Clustering.CLUSTER_CSV_VOLUME_FAULT_STATE
-    BackupState: win32more.Networking.Clustering.CLUSTER_SHARED_VOLUME_BACKUP_STATE
-    szVolumeFriendlyName: Char * 260
-    szVolumeName: Char * 50
-class CLUS_CSV_VOLUME_NAME(Structure):
-    VolumeOffset: win32more.Foundation.LARGE_INTEGER
-    szVolumeName: Char * 260
-    szRootPath: Char * 263
-class CLUS_DISK_NUMBER_INFO(Structure):
-    DiskNumber: UInt32
-    BytesPerSector: UInt32
-class CLUS_DNN_LEADER_STATUS(Structure):
-    IsOnline: win32more.Foundation.BOOL
-    IsFileServerPresent: win32more.Foundation.BOOL
-class CLUS_DNN_SODAFS_CLONE_STATUS(Structure):
-    NodeId: UInt32
-    Status: win32more.Networking.Clustering.CLUSTER_RESOURCE_STATE
-CLUS_FLAGS = Int32
-CLUS_FLAG_CORE: CLUS_FLAGS = 1
-class CLUS_FORCE_QUORUM_INFO(Structure):
-    dwSize: UInt32
-    dwNodeBitMask: UInt32
-    dwMaxNumberofNodes: UInt32
-    multiszNodeList: Char * 1
-class CLUS_FTSET_INFO(Structure):
-    dwRootSignature: UInt32
-    dwFtType: UInt32
-CLUS_GROUP_START_SETTING = Int32
-CLUS_GROUP_START_ALWAYS: CLUS_GROUP_START_SETTING = 0
-CLUS_GROUP_DO_NOT_START: CLUS_GROUP_START_SETTING = 1
-CLUS_GROUP_START_ALLOWED: CLUS_GROUP_START_SETTING = 2
-class CLUS_MAINTENANCE_MODE_INFO(Structure):
-    InMaintenance: win32more.Foundation.BOOL
-class CLUS_MAINTENANCE_MODE_INFOEX(Structure):
-    InMaintenance: win32more.Foundation.BOOL
-    MaintainenceModeType: win32more.Networking.Clustering.MAINTENANCE_MODE_TYPE_ENUM
-    InternalState: win32more.Networking.Clustering.CLUSTER_RESOURCE_STATE
-    Signature: UInt32
-class CLUS_NETNAME_IP_INFO_ENTRY(Structure):
-    NodeId: UInt32
-    AddressSize: UInt32
-    Address: Byte * 1
-class CLUS_NETNAME_IP_INFO_FOR_MULTICHANNEL(Structure):
-    szName: Char * 64
-    NumEntries: UInt32
-    IpInfo: win32more.Networking.Clustering.CLUS_NETNAME_IP_INFO_ENTRY * 1
-class CLUS_NETNAME_PWD_INFO(Structure):
-    Flags: UInt32
-    Password: Char * 16
-    CreatingDC: Char * 258
-    ObjectGuid: Char * 64
-class CLUS_NETNAME_PWD_INFOEX(Structure):
-    Flags: UInt32
-    Password: Char * 128
-    CreatingDC: Char * 258
-    ObjectGuid: Char * 64
-class CLUS_NETNAME_VS_TOKEN_INFO(Structure):
-    ProcessID: UInt32
-    DesiredAccess: UInt32
-    InheritHandle: win32more.Foundation.BOOL
-class CLUS_PARTITION_INFO(Structure):
-    dwFlags: UInt32
-    szDeviceName: Char * 260
-    szVolumeLabel: Char * 260
-    dwSerialNumber: UInt32
-    rgdwMaximumComponentLength: UInt32
-    dwFileSystemFlags: UInt32
-    szFileSystem: Char * 32
-class CLUS_PARTITION_INFO_EX(Structure):
-    dwFlags: UInt32
-    szDeviceName: Char * 260
-    szVolumeLabel: Char * 260
-    dwSerialNumber: UInt32
-    rgdwMaximumComponentLength: UInt32
-    dwFileSystemFlags: UInt32
-    szFileSystem: Char * 32
-    TotalSizeInBytes: win32more.Foundation.ULARGE_INTEGER
-    FreeSizeInBytes: win32more.Foundation.ULARGE_INTEGER
-    DeviceNumber: UInt32
-    PartitionNumber: UInt32
-    VolumeGuid: Guid
-class CLUS_PARTITION_INFO_EX2(Structure):
-    GptPartitionId: Guid
-    szPartitionName: Char * 260
-    EncryptionFlags: UInt32
-class CLUS_PROVIDER_STATE_CHANGE_INFO(Structure):
-    dwSize: UInt32
-    resourceState: win32more.Networking.Clustering.CLUSTER_RESOURCE_STATE
-    szProviderId: Char * 1
-class CLUS_RESOURCE_CLASS_INFO(Structure):
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        Anonymous: _Anonymous_e__Struct
-        li: win32more.Foundation.ULARGE_INTEGER
-        class _Anonymous_e__Struct(Structure):
-            Anonymous: _Anonymous_e__Union
-            SubClass: UInt32
-            class _Anonymous_e__Union(Union):
-                dw: UInt32
-                rc: win32more.Networking.Clustering.CLUSTER_RESOURCE_CLASS
-CLUS_RESSUBCLASS = Int32
-CLUS_RESSUBCLASS_SHARED: CLUS_RESSUBCLASS = -2147483648
-CLUS_RESSUBCLASS_NETWORK = Int32
-CLUS_RESSUBCLASS_NETWORK_INTERNET_PROTOCOL: CLUS_RESSUBCLASS_NETWORK = -2147483648
-CLUS_RESSUBCLASS_STORAGE = Int32
-CLUS_RESSUBCLASS_STORAGE_SHARED_BUS: CLUS_RESSUBCLASS_STORAGE = -2147483648
-CLUS_RESSUBCLASS_STORAGE_DISK: CLUS_RESSUBCLASS_STORAGE = 1073741824
-CLUS_RESSUBCLASS_STORAGE_REPLICATION: CLUS_RESSUBCLASS_STORAGE = 268435456
-class CLUS_SCSI_ADDRESS(Structure):
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        Anonymous: _Anonymous_e__Struct
-        dw: UInt32
-        class _Anonymous_e__Struct(Structure):
-            PortNumber: Byte
-            PathId: Byte
-            TargetId: Byte
-            Lun: Byte
-class CLUS_SET_MAINTENANCE_MODE_INPUT(Structure):
-    InMaintenance: win32more.Foundation.BOOL
-    ExtraParameterSize: UInt32
-    ExtraParameter: Byte * 1
-class CLUS_SHARED_VOLUME_BACKUP_MODE(Structure):
-    BackupState: win32more.Networking.Clustering.CLUSTER_SHARED_VOLUME_BACKUP_STATE
-    DelayTimerInSecs: UInt32
-    VolumeName: Char * 260
-class CLUS_STARTING_PARAMS(Structure):
-    dwSize: UInt32
-    bForm: win32more.Foundation.BOOL
-    bFirst: win32more.Foundation.BOOL
-class CLUS_STORAGE_GET_AVAILABLE_DRIVELETTERS(Structure):
-    AvailDrivelettersMask: UInt32
-class CLUS_STORAGE_REMAP_DRIVELETTER(Structure):
-    CurrentDriveLetterMask: UInt32
-    TargetDriveLetterMask: UInt32
-class CLUS_STORAGE_SET_DRIVELETTER(Structure):
-    PartitionNumber: UInt32
-    DriveLetterMask: UInt32
-class CLUS_WORKER(Structure):
-    hThread: win32more.Foundation.HANDLE
-    Terminate: win32more.Foundation.BOOL
-ClusApplication = Guid('f2e606e5-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusCryptoKeys = Guid('f2e6072b-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
 CLUSCTL_AFFINITYRULE_CODES = Int32
 CLUSCTL_AFFINITYRULE_GET_COMMON_PROPERTIES: CLUSCTL_AFFINITYRULE_CODES = 150995033
 CLUSCTL_AFFINITYRULE_GET_RO_COMMON_PROPERTIES: CLUSCTL_AFFINITYRULE_CODES = 150995029
@@ -1907,6 +1667,16 @@ CLUSCTL_CLUSTER_ENUM_AFFINITY_RULE_NAMES: CLUSCTL_CLUSTER_CODES = 117452253
 CLUSCTL_CLUSTER_GET_NODES_IN_FD: CLUSCTL_CLUSTER_CODES = 117452257
 CLUSCTL_CLUSTER_FORCE_FLUSH_DB: CLUSCTL_CLUSTER_CODES = 121646566
 CLUSCTL_CLUSTER_GET_CLMUSR_TOKEN: CLUSCTL_CLUSTER_CODES = 117440877
+CLUSCTL_GROUPSET_CODES = Int32
+CLUSCTL_GROUPSET_GET_COMMON_PROPERTIES: CLUSCTL_GROUPSET_CODES = 134217817
+CLUSCTL_GROUPSET_GET_RO_COMMON_PROPERTIES: CLUSCTL_GROUPSET_CODES = 134217813
+CLUSCTL_GROUPSET_SET_COMMON_PROPERTIES: CLUSCTL_GROUPSET_CODES = 138412126
+CLUSCTL_GROUPSET_GET_GROUPS: CLUSCTL_GROUPSET_CODES = 134229361
+CLUSCTL_GROUPSET_GET_PROVIDER_GROUPS: CLUSCTL_GROUPSET_CODES = 134229365
+CLUSCTL_GROUPSET_GET_PROVIDER_GROUPSETS: CLUSCTL_GROUPSET_CODES = 134229369
+CLUSCTL_GROUP_GET_PROVIDER_GROUPS: CLUSCTL_GROUPSET_CODES = 134229373
+CLUSCTL_GROUP_GET_PROVIDER_GROUPSETS: CLUSCTL_GROUPSET_CODES = 134229377
+CLUSCTL_GROUPSET_GET_ID: CLUSCTL_GROUPSET_CODES = 134217785
 CLUSCTL_GROUP_CODES = Int32
 CLUSCTL_GROUP_UNKNOWN: CLUSCTL_GROUP_CODES = 50331648
 CLUSCTL_GROUP_GET_CHARACTERISTICS: CLUSCTL_GROUP_CODES = 50331653
@@ -1933,16 +1703,6 @@ class CLUSCTL_GROUP_GET_LAST_MOVE_TIME_OUTPUT(Structure):
     GetTickCount64: UInt64
     GetSystemTime: win32more.Foundation.SYSTEMTIME
     NodeId: UInt32
-CLUSCTL_GROUPSET_CODES = Int32
-CLUSCTL_GROUPSET_GET_COMMON_PROPERTIES: CLUSCTL_GROUPSET_CODES = 134217817
-CLUSCTL_GROUPSET_GET_RO_COMMON_PROPERTIES: CLUSCTL_GROUPSET_CODES = 134217813
-CLUSCTL_GROUPSET_SET_COMMON_PROPERTIES: CLUSCTL_GROUPSET_CODES = 138412126
-CLUSCTL_GROUPSET_GET_GROUPS: CLUSCTL_GROUPSET_CODES = 134229361
-CLUSCTL_GROUPSET_GET_PROVIDER_GROUPS: CLUSCTL_GROUPSET_CODES = 134229365
-CLUSCTL_GROUPSET_GET_PROVIDER_GROUPSETS: CLUSCTL_GROUPSET_CODES = 134229369
-CLUSCTL_GROUP_GET_PROVIDER_GROUPS: CLUSCTL_GROUPSET_CODES = 134229373
-CLUSCTL_GROUP_GET_PROVIDER_GROUPSETS: CLUSCTL_GROUPSET_CODES = 134229377
-CLUSCTL_GROUPSET_GET_ID: CLUSCTL_GROUPSET_CODES = 134217785
 CLUSCTL_NETINTERFACE_CODES = Int32
 CLUSCTL_NETINTERFACE_UNKNOWN: CLUSCTL_NETINTERFACE_CODES = 100663296
 CLUSCTL_NETINTERFACE_GET_CHARACTERISTICS: CLUSCTL_NETINTERFACE_CODES = 100663301
@@ -2190,8 +1950,6 @@ CLUSCTL_RESOURCE_TYPE_NOTIFY_DRAIN_COMPLETE: CLUSCTL_RESOURCE_TYPE_CODES = 34611
 class CLUSCTL_RESOURCE_TYPE_STORAGE_GET_AVAILABLE_DISKS_EX2_INPUT(Structure):
     dwFlags: UInt32
     guidPoolFilter: Guid
-ClusDisk = Guid('f2e60723-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusDisks = Guid('f2e60725-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
 CLUSGROUP_TYPE = Int32
 CLUSGROUP_TYPE_ClusGroupTypeCoreCluster: CLUSGROUP_TYPE = 1
 CLUSGROUP_TYPE_ClusGroupTypeAvailableStorage: CLUSGROUP_TYPE = 2
@@ -2223,17 +1981,6 @@ CLUSGROUP_TYPE_ClusGroupTypeCrossClusterOrchestrator: CLUSGROUP_TYPE = 121
 CLUSGROUP_TYPE_ClusGroupTypeInfrastructureFileServer: CLUSGROUP_TYPE = 122
 CLUSGROUP_TYPE_ClusGroupTypeCoreSddc: CLUSGROUP_TYPE = 123
 CLUSGROUP_TYPE_ClusGroupTypeUnknown: CLUSGROUP_TYPE = 9999
-ClusNetInterface = Guid('f2e606ed-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusNetInterfaces = Guid('f2e606ef-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusNetwork = Guid('f2e606f1-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusNetworkNetInterfaces = Guid('f2e606f5-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusNetworks = Guid('f2e606f3-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusNode = Guid('f2e606f7-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusNodeNetInterfaces = Guid('f2e606fb-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusNodes = Guid('f2e606f9-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusPartition = Guid('f2e6071f-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusPartitionEx = Guid('53d51d26-b51b-4a79-b2-c3-50-48-d9-3a-98-fc')
-ClusPartitions = Guid('f2e60721-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
 class CLUSPROP_BINARY(Structure):
     Base: win32more.Networking.Clustering.CLUSPROP_VALUE
     rgb: Byte * 1
@@ -2343,28 +2090,29 @@ class CLUSPROP_VALUE(Structure):
 class CLUSPROP_WORD(Structure):
     Base: win32more.Networking.Clustering.CLUSPROP_VALUE
     w: UInt16
-ClusProperties = Guid('f2e606ff-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusProperty = Guid('f2e606fd-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusPropertyValue = Guid('f2e60719-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusPropertyValueData = Guid('f2e6071d-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusPropertyValues = Guid('f2e6071b-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusRefObject = Guid('f2e60701-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusRegistryKeys = Guid('f2e60729-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusResDependencies = Guid('f2e60703-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusResDependents = Guid('f2e6072d-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusResGroup = Guid('f2e60705-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusResGroupPreferredOwnerNodes = Guid('f2e606e7-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusResGroupResources = Guid('f2e606e9-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusResGroups = Guid('f2e60707-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusResource = Guid('f2e60709-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusResources = Guid('f2e6070b-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusResPossibleOwnerNodes = Guid('f2e6070d-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusResType = Guid('f2e6070f-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusResTypePossibleOwnerNodes = Guid('f2e60717-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusResTypeResources = Guid('f2e60713-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusResTypes = Guid('f2e60711-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-ClusScsiAddress = Guid('f2e60727-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-Cluster = Guid('f2e606e3-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+CLUSTERSET_OBJECT_TYPE = Int32
+CLUSTERSET_OBJECT_TYPE_NONE: CLUSTERSET_OBJECT_TYPE = 0
+CLUSTERSET_OBJECT_TYPE_MEMBER: CLUSTERSET_OBJECT_TYPE = 1
+CLUSTERSET_OBJECT_TYPE_WORKLOAD: CLUSTERSET_OBJECT_TYPE = 2
+CLUSTERSET_OBJECT_TYPE_DATABASE: CLUSTERSET_OBJECT_TYPE = 3
+class CLUSTERVERSIONINFO(Structure):
+    dwVersionInfoSize: UInt32
+    MajorVersion: UInt16
+    MinorVersion: UInt16
+    BuildNumber: UInt16
+    szVendorId: Char * 64
+    szCSDVersion: Char * 64
+    dwClusterHighestVersion: UInt32
+    dwClusterLowestVersion: UInt32
+    dwFlags: UInt32
+    dwReserved: UInt32
+class CLUSTERVERSIONINFO_NT4(Structure):
+    dwVersionInfoSize: UInt32
+    MajorVersion: UInt16
+    MinorVersion: UInt16
+    BuildNumber: UInt16
+    szVendorId: Char * 64
+    szCSDVersion: Char * 64
 class CLUSTER_AVAILABILITY_SET_CONFIG(Structure):
     dwVersion: UInt32
     dwUpdateDomains: UInt32
@@ -2425,6 +2173,17 @@ CLUSTER_CHANGE_CLUSTER_RENAME_V2: CLUSTER_CHANGE_CLUSTER_V2 = 1024
 CLUSTER_CHANGE_CLUSTER_MEMBERSHIP_V2: CLUSTER_CHANGE_CLUSTER_V2 = 2048
 CLUSTER_CHANGE_CLUSTER_UPGRADED_V2: CLUSTER_CHANGE_CLUSTER_V2 = 4096
 CLUSTER_CHANGE_CLUSTER_ALL_V2: CLUSTER_CHANGE_CLUSTER_V2 = 8191
+CLUSTER_CHANGE_GROUPSET_V2 = Int32
+CLUSTER_CHANGE_GROUPSET_DELETED_v2: CLUSTER_CHANGE_GROUPSET_V2 = 1
+CLUSTER_CHANGE_GROUPSET_COMMON_PROPERTY_V2: CLUSTER_CHANGE_GROUPSET_V2 = 2
+CLUSTER_CHANGE_GROUPSET_PRIVATE_PROPERTY_V2: CLUSTER_CHANGE_GROUPSET_V2 = 4
+CLUSTER_CHANGE_GROUPSET_STATE_V2: CLUSTER_CHANGE_GROUPSET_V2 = 8
+CLUSTER_CHANGE_GROUPSET_GROUP_ADDED: CLUSTER_CHANGE_GROUPSET_V2 = 16
+CLUSTER_CHANGE_GROUPSET_GROUP_REMOVED: CLUSTER_CHANGE_GROUPSET_V2 = 32
+CLUSTER_CHANGE_GROUPSET_DEPENDENCIES_V2: CLUSTER_CHANGE_GROUPSET_V2 = 64
+CLUSTER_CHANGE_GROUPSET_DEPENDENTS_V2: CLUSTER_CHANGE_GROUPSET_V2 = 128
+CLUSTER_CHANGE_GROUPSET_HANDLE_CLOSE_v2: CLUSTER_CHANGE_GROUPSET_V2 = 256
+CLUSTER_CHANGE_GROUPSET_ALL_V2: CLUSTER_CHANGE_GROUPSET_V2 = 511
 CLUSTER_CHANGE_GROUP_V2 = Int32
 CLUSTER_CHANGE_GROUP_DELETED_V2: CLUSTER_CHANGE_GROUP_V2 = 1
 CLUSTER_CHANGE_GROUP_COMMON_PROPERTY_V2: CLUSTER_CHANGE_GROUP_V2 = 2
@@ -2437,17 +2196,6 @@ CLUSTER_CHANGE_GROUP_RESOURCE_GAINED_V2: CLUSTER_CHANGE_GROUP_V2 = 128
 CLUSTER_CHANGE_GROUP_RESOURCE_LOST_V2: CLUSTER_CHANGE_GROUP_V2 = 256
 CLUSTER_CHANGE_GROUP_HANDLE_CLOSE_V2: CLUSTER_CHANGE_GROUP_V2 = 512
 CLUSTER_CHANGE_GROUP_ALL_V2: CLUSTER_CHANGE_GROUP_V2 = 1023
-CLUSTER_CHANGE_GROUPSET_V2 = Int32
-CLUSTER_CHANGE_GROUPSET_DELETED_v2: CLUSTER_CHANGE_GROUPSET_V2 = 1
-CLUSTER_CHANGE_GROUPSET_COMMON_PROPERTY_V2: CLUSTER_CHANGE_GROUPSET_V2 = 2
-CLUSTER_CHANGE_GROUPSET_PRIVATE_PROPERTY_V2: CLUSTER_CHANGE_GROUPSET_V2 = 4
-CLUSTER_CHANGE_GROUPSET_STATE_V2: CLUSTER_CHANGE_GROUPSET_V2 = 8
-CLUSTER_CHANGE_GROUPSET_GROUP_ADDED: CLUSTER_CHANGE_GROUPSET_V2 = 16
-CLUSTER_CHANGE_GROUPSET_GROUP_REMOVED: CLUSTER_CHANGE_GROUPSET_V2 = 32
-CLUSTER_CHANGE_GROUPSET_DEPENDENCIES_V2: CLUSTER_CHANGE_GROUPSET_V2 = 64
-CLUSTER_CHANGE_GROUPSET_DEPENDENTS_V2: CLUSTER_CHANGE_GROUPSET_V2 = 128
-CLUSTER_CHANGE_GROUPSET_HANDLE_CLOSE_v2: CLUSTER_CHANGE_GROUPSET_V2 = 256
-CLUSTER_CHANGE_GROUPSET_ALL_V2: CLUSTER_CHANGE_GROUPSET_V2 = 511
 CLUSTER_CHANGE_NETINTERFACE_V2 = Int32
 CLUSTER_CHANGE_NETINTERFACE_DELETED_V2: CLUSTER_CHANGE_NETINTERFACE_V2 = 1
 CLUSTER_CHANGE_NETINTERFACE_COMMON_PROPERTY_V2: CLUSTER_CHANGE_NETINTERFACE_V2 = 2
@@ -2885,10 +2633,6 @@ CLUSTER_ROLE_STATE = Int32
 CLUSTER_ROLE_STATE_ClusterRoleUnknown: CLUSTER_ROLE_STATE = -1
 CLUSTER_ROLE_STATE_ClusterRoleClustered: CLUSTER_ROLE_STATE = 0
 CLUSTER_ROLE_STATE_ClusterRoleUnclustered: CLUSTER_ROLE_STATE = 1
-class CLUSTER_SET_PASSWORD_STATUS(Structure):
-    NodeId: UInt32
-    SetAttempted: win32more.Foundation.BOOLEAN
-    ReturnStatus: UInt32
 CLUSTER_SETUP_PHASE = Int32
 CLUSTER_SETUP_PHASE_ClusterSetupPhaseInitialize: CLUSTER_SETUP_PHASE = 1
 CLUSTER_SETUP_PHASE_ClusterSetupPhaseValidateNodeState: CLUSTER_SETUP_PHASE = 100
@@ -2927,6 +2671,10 @@ CLUSTER_SETUP_PHASE_TYPE_ClusterSetupPhaseStart: CLUSTER_SETUP_PHASE_TYPE = 1
 CLUSTER_SETUP_PHASE_TYPE_ClusterSetupPhaseContinue: CLUSTER_SETUP_PHASE_TYPE = 2
 CLUSTER_SETUP_PHASE_TYPE_ClusterSetupPhaseEnd: CLUSTER_SETUP_PHASE_TYPE = 3
 CLUSTER_SETUP_PHASE_TYPE_ClusterSetupPhaseReport: CLUSTER_SETUP_PHASE_TYPE = 4
+class CLUSTER_SET_PASSWORD_STATUS(Structure):
+    NodeId: UInt32
+    SetAttempted: win32more.Foundation.BOOLEAN
+    ReturnStatus: UInt32
 CLUSTER_SHARED_VOLUME_BACKUP_STATE = Int32
 CLUSTER_SHARED_VOLUME_BACKUP_STATE_VolumeBackupNone: CLUSTER_SHARED_VOLUME_BACKUP_STATE = 0
 CLUSTER_SHARED_VOLUME_BACKUP_STATE_VolumeBackupInProgress: CLUSTER_SHARED_VOLUME_BACKUP_STATE = 1
@@ -2998,31 +2746,192 @@ class CLUSTER_VALIDATE_NETNAME(Structure):
     szNetworkName: Char * 1
 class CLUSTER_VALIDATE_PATH(Structure):
     szPath: Char * 1
-ClusterNames = Guid('f2e606eb-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-CLUSTERSET_OBJECT_TYPE = Int32
-CLUSTERSET_OBJECT_TYPE_NONE: CLUSTERSET_OBJECT_TYPE = 0
-CLUSTERSET_OBJECT_TYPE_MEMBER: CLUSTERSET_OBJECT_TYPE = 1
-CLUSTERSET_OBJECT_TYPE_WORKLOAD: CLUSTERSET_OBJECT_TYPE = 2
-CLUSTERSET_OBJECT_TYPE_DATABASE: CLUSTERSET_OBJECT_TYPE = 3
-class CLUSTERVERSIONINFO(Structure):
-    dwVersionInfoSize: UInt32
-    MajorVersion: UInt16
-    MinorVersion: UInt16
-    BuildNumber: UInt16
-    szVendorId: Char * 64
-    szCSDVersion: Char * 64
-    dwClusterHighestVersion: UInt32
-    dwClusterLowestVersion: UInt32
+CLUS_AFFINITY_RULE_TYPE = Int32
+CLUS_AFFINITY_RULE_NONE: CLUS_AFFINITY_RULE_TYPE = 0
+CLUS_AFFINITY_RULE_SAME_FAULT_DOMAIN: CLUS_AFFINITY_RULE_TYPE = 1
+CLUS_AFFINITY_RULE_SAME_NODE: CLUS_AFFINITY_RULE_TYPE = 2
+CLUS_AFFINITY_RULE_DIFFERENT_FAULT_DOMAIN: CLUS_AFFINITY_RULE_TYPE = 3
+CLUS_AFFINITY_RULE_DIFFERENT_NODE: CLUS_AFFINITY_RULE_TYPE = 4
+CLUS_AFFINITY_RULE_MIN: CLUS_AFFINITY_RULE_TYPE = 0
+CLUS_AFFINITY_RULE_MAX: CLUS_AFFINITY_RULE_TYPE = 4
+CLUS_CHARACTERISTICS = Int32
+CLUS_CHAR_UNKNOWN: CLUS_CHARACTERISTICS = 0
+CLUS_CHAR_QUORUM: CLUS_CHARACTERISTICS = 1
+CLUS_CHAR_DELETE_REQUIRES_ALL_NODES: CLUS_CHARACTERISTICS = 2
+CLUS_CHAR_LOCAL_QUORUM: CLUS_CHARACTERISTICS = 4
+CLUS_CHAR_LOCAL_QUORUM_DEBUG: CLUS_CHARACTERISTICS = 8
+CLUS_CHAR_REQUIRES_STATE_CHANGE_REASON: CLUS_CHARACTERISTICS = 16
+CLUS_CHAR_BROADCAST_DELETE: CLUS_CHARACTERISTICS = 32
+CLUS_CHAR_SINGLE_CLUSTER_INSTANCE: CLUS_CHARACTERISTICS = 64
+CLUS_CHAR_SINGLE_GROUP_INSTANCE: CLUS_CHARACTERISTICS = 128
+CLUS_CHAR_COEXIST_IN_SHARED_VOLUME_GROUP: CLUS_CHARACTERISTICS = 256
+CLUS_CHAR_PLACEMENT_DATA: CLUS_CHARACTERISTICS = 512
+CLUS_CHAR_MONITOR_DETACH: CLUS_CHARACTERISTICS = 1024
+CLUS_CHAR_MONITOR_REATTACH: CLUS_CHARACTERISTICS = 2048
+CLUS_CHAR_OPERATION_CONTEXT: CLUS_CHARACTERISTICS = 4096
+CLUS_CHAR_CLONES: CLUS_CHARACTERISTICS = 8192
+CLUS_CHAR_NOT_PREEMPTABLE: CLUS_CHARACTERISTICS = 16384
+CLUS_CHAR_NOTIFY_NEW_OWNER: CLUS_CHARACTERISTICS = 32768
+CLUS_CHAR_SUPPORTS_UNMONITORED_STATE: CLUS_CHARACTERISTICS = 65536
+CLUS_CHAR_INFRASTRUCTURE: CLUS_CHARACTERISTICS = 131072
+CLUS_CHAR_VETO_DRAIN: CLUS_CHARACTERISTICS = 262144
+CLUS_CHAR_DRAIN_LOCAL_OFFLINE: CLUS_CHARACTERISTICS = 524288
+class CLUS_CHKDSK_INFO(Structure):
+    PartitionNumber: UInt32
+    ChkdskState: UInt32
+    FileIdCount: UInt32
+    FileIdList: UInt64 * 1
+class CLUS_CREATE_INFRASTRUCTURE_FILESERVER_INPUT(Structure):
+    FileServerName: Char * 16
+class CLUS_CREATE_INFRASTRUCTURE_FILESERVER_OUTPUT(Structure):
+    FileServerName: Char * 260
+class CLUS_CSV_MAINTENANCE_MODE_INFO(Structure):
+    InMaintenance: win32more.Foundation.BOOL
+    VolumeName: Char * 260
+class CLUS_CSV_VOLUME_INFO(Structure):
+    VolumeOffset: win32more.Foundation.ULARGE_INTEGER
+    PartitionNumber: UInt32
+    FaultState: win32more.Networking.Clustering.CLUSTER_CSV_VOLUME_FAULT_STATE
+    BackupState: win32more.Networking.Clustering.CLUSTER_SHARED_VOLUME_BACKUP_STATE
+    szVolumeFriendlyName: Char * 260
+    szVolumeName: Char * 50
+class CLUS_CSV_VOLUME_NAME(Structure):
+    VolumeOffset: win32more.Foundation.LARGE_INTEGER
+    szVolumeName: Char * 260
+    szRootPath: Char * 263
+class CLUS_DISK_NUMBER_INFO(Structure):
+    DiskNumber: UInt32
+    BytesPerSector: UInt32
+class CLUS_DNN_LEADER_STATUS(Structure):
+    IsOnline: win32more.Foundation.BOOL
+    IsFileServerPresent: win32more.Foundation.BOOL
+class CLUS_DNN_SODAFS_CLONE_STATUS(Structure):
+    NodeId: UInt32
+    Status: win32more.Networking.Clustering.CLUSTER_RESOURCE_STATE
+CLUS_FLAGS = Int32
+CLUS_FLAG_CORE: CLUS_FLAGS = 1
+class CLUS_FORCE_QUORUM_INFO(Structure):
+    dwSize: UInt32
+    dwNodeBitMask: UInt32
+    dwMaxNumberofNodes: UInt32
+    multiszNodeList: Char * 1
+class CLUS_FTSET_INFO(Structure):
+    dwRootSignature: UInt32
+    dwFtType: UInt32
+CLUS_GROUP_START_SETTING = Int32
+CLUS_GROUP_START_ALWAYS: CLUS_GROUP_START_SETTING = 0
+CLUS_GROUP_DO_NOT_START: CLUS_GROUP_START_SETTING = 1
+CLUS_GROUP_START_ALLOWED: CLUS_GROUP_START_SETTING = 2
+class CLUS_MAINTENANCE_MODE_INFO(Structure):
+    InMaintenance: win32more.Foundation.BOOL
+class CLUS_MAINTENANCE_MODE_INFOEX(Structure):
+    InMaintenance: win32more.Foundation.BOOL
+    MaintainenceModeType: win32more.Networking.Clustering.MAINTENANCE_MODE_TYPE_ENUM
+    InternalState: win32more.Networking.Clustering.CLUSTER_RESOURCE_STATE
+    Signature: UInt32
+class CLUS_NETNAME_IP_INFO_ENTRY(Structure):
+    NodeId: UInt32
+    AddressSize: UInt32
+    Address: Byte * 1
+class CLUS_NETNAME_IP_INFO_FOR_MULTICHANNEL(Structure):
+    szName: Char * 64
+    NumEntries: UInt32
+    IpInfo: win32more.Networking.Clustering.CLUS_NETNAME_IP_INFO_ENTRY * 1
+class CLUS_NETNAME_PWD_INFO(Structure):
+    Flags: UInt32
+    Password: Char * 16
+    CreatingDC: Char * 258
+    ObjectGuid: Char * 64
+class CLUS_NETNAME_PWD_INFOEX(Structure):
+    Flags: UInt32
+    Password: Char * 128
+    CreatingDC: Char * 258
+    ObjectGuid: Char * 64
+class CLUS_NETNAME_VS_TOKEN_INFO(Structure):
+    ProcessID: UInt32
+    DesiredAccess: UInt32
+    InheritHandle: win32more.Foundation.BOOL
+class CLUS_PARTITION_INFO(Structure):
     dwFlags: UInt32
-    dwReserved: UInt32
-class CLUSTERVERSIONINFO_NT4(Structure):
-    dwVersionInfoSize: UInt32
-    MajorVersion: UInt16
-    MinorVersion: UInt16
-    BuildNumber: UInt16
-    szVendorId: Char * 64
-    szCSDVersion: Char * 64
-ClusVersion = Guid('f2e60715-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+    szDeviceName: Char * 260
+    szVolumeLabel: Char * 260
+    dwSerialNumber: UInt32
+    rgdwMaximumComponentLength: UInt32
+    dwFileSystemFlags: UInt32
+    szFileSystem: Char * 32
+class CLUS_PARTITION_INFO_EX(Structure):
+    dwFlags: UInt32
+    szDeviceName: Char * 260
+    szVolumeLabel: Char * 260
+    dwSerialNumber: UInt32
+    rgdwMaximumComponentLength: UInt32
+    dwFileSystemFlags: UInt32
+    szFileSystem: Char * 32
+    TotalSizeInBytes: win32more.Foundation.ULARGE_INTEGER
+    FreeSizeInBytes: win32more.Foundation.ULARGE_INTEGER
+    DeviceNumber: UInt32
+    PartitionNumber: UInt32
+    VolumeGuid: Guid
+class CLUS_PARTITION_INFO_EX2(Structure):
+    GptPartitionId: Guid
+    szPartitionName: Char * 260
+    EncryptionFlags: UInt32
+class CLUS_PROVIDER_STATE_CHANGE_INFO(Structure):
+    dwSize: UInt32
+    resourceState: win32more.Networking.Clustering.CLUSTER_RESOURCE_STATE
+    szProviderId: Char * 1
+class CLUS_RESOURCE_CLASS_INFO(Structure):
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        Anonymous: _Anonymous_e__Struct
+        li: win32more.Foundation.ULARGE_INTEGER
+        class _Anonymous_e__Struct(Structure):
+            Anonymous: _Anonymous_e__Union
+            SubClass: UInt32
+            class _Anonymous_e__Union(Union):
+                dw: UInt32
+                rc: win32more.Networking.Clustering.CLUSTER_RESOURCE_CLASS
+CLUS_RESSUBCLASS = Int32
+CLUS_RESSUBCLASS_SHARED: CLUS_RESSUBCLASS = -2147483648
+CLUS_RESSUBCLASS_NETWORK = Int32
+CLUS_RESSUBCLASS_NETWORK_INTERNET_PROTOCOL: CLUS_RESSUBCLASS_NETWORK = -2147483648
+CLUS_RESSUBCLASS_STORAGE = Int32
+CLUS_RESSUBCLASS_STORAGE_SHARED_BUS: CLUS_RESSUBCLASS_STORAGE = -2147483648
+CLUS_RESSUBCLASS_STORAGE_DISK: CLUS_RESSUBCLASS_STORAGE = 1073741824
+CLUS_RESSUBCLASS_STORAGE_REPLICATION: CLUS_RESSUBCLASS_STORAGE = 268435456
+class CLUS_SCSI_ADDRESS(Structure):
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        Anonymous: _Anonymous_e__Struct
+        dw: UInt32
+        class _Anonymous_e__Struct(Structure):
+            PortNumber: Byte
+            PathId: Byte
+            TargetId: Byte
+            Lun: Byte
+class CLUS_SET_MAINTENANCE_MODE_INPUT(Structure):
+    InMaintenance: win32more.Foundation.BOOL
+    ExtraParameterSize: UInt32
+    ExtraParameter: Byte * 1
+class CLUS_SHARED_VOLUME_BACKUP_MODE(Structure):
+    BackupState: win32more.Networking.Clustering.CLUSTER_SHARED_VOLUME_BACKUP_STATE
+    DelayTimerInSecs: UInt32
+    VolumeName: Char * 260
+class CLUS_STARTING_PARAMS(Structure):
+    dwSize: UInt32
+    bForm: win32more.Foundation.BOOL
+    bFirst: win32more.Foundation.BOOL
+class CLUS_STORAGE_GET_AVAILABLE_DRIVELETTERS(Structure):
+    AvailDrivelettersMask: UInt32
+class CLUS_STORAGE_REMAP_DRIVELETTER(Structure):
+    CurrentDriveLetterMask: UInt32
+    TargetDriveLetterMask: UInt32
+class CLUS_STORAGE_SET_DRIVELETTER(Structure):
+    PartitionNumber: UInt32
+    DriveLetterMask: UInt32
+class CLUS_WORKER(Structure):
+    hThread: win32more.Foundation.HANDLE
+    Terminate: win32more.Foundation.BOOL
 class CREATE_CLUSTER_CONFIG(Structure):
     dwVersion: UInt32
     lpszClusterName: win32more.Foundation.PWSTR
@@ -3043,6 +2952,45 @@ class CREATE_CLUSTER_NAME_ACCOUNT(Structure):
     managementPointType: win32more.Networking.Clustering.CLUSTER_MGMT_POINT_TYPE
     managementPointResType: win32more.Networking.Clustering.CLUSTER_MGMT_POINT_RESTYPE
     bUpgradeVCOs: win32more.Foundation.BOOLEAN
+ClusApplication = Guid('f2e606e5-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusCryptoKeys = Guid('f2e6072b-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusDisk = Guid('f2e60723-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusDisks = Guid('f2e60725-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusNetInterface = Guid('f2e606ed-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusNetInterfaces = Guid('f2e606ef-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusNetwork = Guid('f2e606f1-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusNetworkNetInterfaces = Guid('f2e606f5-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusNetworks = Guid('f2e606f3-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusNode = Guid('f2e606f7-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusNodeNetInterfaces = Guid('f2e606fb-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusNodes = Guid('f2e606f9-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusPartition = Guid('f2e6071f-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusPartitionEx = Guid('53d51d26-b51b-4a79-b2-c3-50-48-d9-3a-98-fc')
+ClusPartitions = Guid('f2e60721-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusProperties = Guid('f2e606ff-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusProperty = Guid('f2e606fd-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusPropertyValue = Guid('f2e60719-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusPropertyValueData = Guid('f2e6071d-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusPropertyValues = Guid('f2e6071b-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusRefObject = Guid('f2e60701-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusRegistryKeys = Guid('f2e60729-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusResDependencies = Guid('f2e60703-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusResDependents = Guid('f2e6072d-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusResGroup = Guid('f2e60705-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusResGroupPreferredOwnerNodes = Guid('f2e606e7-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusResGroupResources = Guid('f2e606e9-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusResGroups = Guid('f2e60707-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusResPossibleOwnerNodes = Guid('f2e6070d-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusResType = Guid('f2e6070f-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusResTypePossibleOwnerNodes = Guid('f2e60717-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusResTypeResources = Guid('f2e60713-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusResTypes = Guid('f2e60711-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusResource = Guid('f2e60709-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusResources = Guid('f2e6070b-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusScsiAddress = Guid('f2e60727-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusVersion = Guid('f2e60715-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+Cluster = Guid('f2e606e3-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+ClusterNames = Guid('f2e606eb-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
 DomainNames = Guid('f2e606e1-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
 FAILURE_TYPE = Int32
 FAILURE_TYPE_GENERAL: FAILURE_TYPE = 0
@@ -3593,6 +3541,87 @@ class ISClusResGroups(c_void_p):
     def CreateItem(bstrResourceGroupName: win32more.Foundation.BSTR, ppResourceGroup: POINTER(win32more.Networking.Clustering.ISClusResGroup_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(12)
     def DeleteItem(varIndex: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+class ISClusResPossibleOwnerNodes(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('f2e6070e-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+    @commethod(7)
+    def get_Count(plCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get__NewEnum(retval: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Refresh() -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Item(varIndex: win32more.System.Com.VARIANT, ppNode: POINTER(win32more.Networking.Clustering.ISClusNode_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def AddItem(pNode: win32more.Networking.Clustering.ISClusNode_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def RemoveItem(varIndex: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_Modified(pvarModified: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class ISClusResType(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('f2e60710-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+    @commethod(7)
+    def get_CommonProperties(ppProperties: POINTER(win32more.Networking.Clustering.ISClusProperties_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_PrivateProperties(ppProperties: POINTER(win32more.Networking.Clustering.ISClusProperties_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_CommonROProperties(ppProperties: POINTER(win32more.Networking.Clustering.ISClusProperties_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_PrivateROProperties(ppProperties: POINTER(win32more.Networking.Clustering.ISClusProperties_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Name(pbstrName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def Delete() -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_Cluster(ppCluster: POINTER(win32more.Networking.Clustering.ISCluster_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_Resources(ppClusterResTypeResources: POINTER(win32more.Networking.Clustering.ISClusResTypeResources_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_PossibleOwnerNodes(ppOwnerNodes: POINTER(win32more.Networking.Clustering.ISClusResTypePossibleOwnerNodes_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_AvailableDisks(ppAvailableDisks: POINTER(win32more.Networking.Clustering.ISClusDisks_head)) -> win32more.Foundation.HRESULT: ...
+class ISClusResTypePossibleOwnerNodes(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('f2e60718-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+    @commethod(7)
+    def get_Count(plCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get__NewEnum(retval: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Refresh() -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Item(varIndex: win32more.System.Com.VARIANT, ppNode: POINTER(win32more.Networking.Clustering.ISClusNode_head)) -> win32more.Foundation.HRESULT: ...
+class ISClusResTypeResources(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('f2e60714-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+    @commethod(7)
+    def get_Count(plCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get__NewEnum(retval: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Refresh() -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Item(varIndex: win32more.System.Com.VARIANT, ppClusResource: POINTER(win32more.Networking.Clustering.ISClusResource_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def CreateItem(bstrResourceName: win32more.Foundation.BSTR, bstrGroupName: win32more.Foundation.BSTR, dwFlags: win32more.Networking.Clustering.CLUSTER_RESOURCE_CREATE_FLAGS, ppClusterResource: POINTER(win32more.Networking.Clustering.ISClusResource_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def DeleteItem(varIndex: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+class ISClusResTypes(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('f2e60712-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+    @commethod(7)
+    def get_Count(plCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get__NewEnum(retval: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def Refresh() -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Item(varIndex: win32more.System.Com.VARIANT, ppClusResType: POINTER(win32more.Networking.Clustering.ISClusResType_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def CreateItem(bstrResourceTypeName: win32more.Foundation.BSTR, bstrDisplayName: win32more.Foundation.BSTR, bstrResourceTypeDll: win32more.Foundation.BSTR, dwLooksAlivePollInterval: Int32, dwIsAlivePollInterval: Int32, ppResourceType: POINTER(win32more.Networking.Clustering.ISClusResType_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def DeleteItem(varIndex: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
 class ISClusResource(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('f2e6070a-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
@@ -3675,87 +3704,6 @@ class ISClusResources(c_void_p):
     def CreateItem(bstrResourceName: win32more.Foundation.BSTR, bstrResourceType: win32more.Foundation.BSTR, bstrGroupName: win32more.Foundation.BSTR, dwFlags: win32more.Networking.Clustering.CLUSTER_RESOURCE_CREATE_FLAGS, ppClusterResource: POINTER(win32more.Networking.Clustering.ISClusResource_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(12)
     def DeleteItem(varIndex: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
-class ISClusResPossibleOwnerNodes(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('f2e6070e-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-    @commethod(7)
-    def get_Count(plCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get__NewEnum(retval: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def Refresh() -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_Item(varIndex: win32more.System.Com.VARIANT, ppNode: POINTER(win32more.Networking.Clustering.ISClusNode_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def AddItem(pNode: win32more.Networking.Clustering.ISClusNode_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def RemoveItem(varIndex: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def get_Modified(pvarModified: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
-class ISClusResType(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('f2e60710-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-    @commethod(7)
-    def get_CommonProperties(ppProperties: POINTER(win32more.Networking.Clustering.ISClusProperties_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_PrivateProperties(ppProperties: POINTER(win32more.Networking.Clustering.ISClusProperties_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_CommonROProperties(ppProperties: POINTER(win32more.Networking.Clustering.ISClusProperties_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_PrivateROProperties(ppProperties: POINTER(win32more.Networking.Clustering.ISClusProperties_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def get_Name(pbstrName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def Delete() -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def get_Cluster(ppCluster: POINTER(win32more.Networking.Clustering.ISCluster_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def get_Resources(ppClusterResTypeResources: POINTER(win32more.Networking.Clustering.ISClusResTypeResources_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def get_PossibleOwnerNodes(ppOwnerNodes: POINTER(win32more.Networking.Clustering.ISClusResTypePossibleOwnerNodes_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def get_AvailableDisks(ppAvailableDisks: POINTER(win32more.Networking.Clustering.ISClusDisks_head)) -> win32more.Foundation.HRESULT: ...
-class ISClusResTypePossibleOwnerNodes(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('f2e60718-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-    @commethod(7)
-    def get_Count(plCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get__NewEnum(retval: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def Refresh() -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_Item(varIndex: win32more.System.Com.VARIANT, ppNode: POINTER(win32more.Networking.Clustering.ISClusNode_head)) -> win32more.Foundation.HRESULT: ...
-class ISClusResTypeResources(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('f2e60714-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-    @commethod(7)
-    def get_Count(plCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get__NewEnum(retval: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def Refresh() -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_Item(varIndex: win32more.System.Com.VARIANT, ppClusResource: POINTER(win32more.Networking.Clustering.ISClusResource_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def CreateItem(bstrResourceName: win32more.Foundation.BSTR, bstrGroupName: win32more.Foundation.BSTR, dwFlags: win32more.Networking.Clustering.CLUSTER_RESOURCE_CREATE_FLAGS, ppClusterResource: POINTER(win32more.Networking.Clustering.ISClusResource_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def DeleteItem(varIndex: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
-class ISClusResTypes(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('f2e60712-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-    @commethod(7)
-    def get_Count(plCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get__NewEnum(retval: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def Refresh() -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_Item(varIndex: win32more.System.Com.VARIANT, ppClusResType: POINTER(win32more.Networking.Clustering.ISClusResType_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def CreateItem(bstrResourceTypeName: win32more.Foundation.BSTR, bstrDisplayName: win32more.Foundation.BSTR, bstrResourceTypeDll: win32more.Foundation.BSTR, dwLooksAlivePollInterval: Int32, dwIsAlivePollInterval: Int32, ppResourceType: POINTER(win32more.Networking.Clustering.ISClusResType_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def DeleteItem(varIndex: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
 class ISClusScsiAddress(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('f2e60728-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
@@ -3767,6 +3715,29 @@ class ISClusScsiAddress(c_void_p):
     def get_TargetId(pvarTargetId: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(10)
     def get_Lun(pvarLun: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class ISClusVersion(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('f2e60716-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
+    @commethod(7)
+    def get_Name(pbstrClusterName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_MajorVersion(pnMajorVersion: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_MinorVersion(pnMinorVersion: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_BuildNumber(pnBuildNumber: POINTER(Int16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_VendorId(pbstrVendorId: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_CSDVersion(pbstrCSDVersion: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_ClusterHighestVersion(pnClusterHighestVersion: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_ClusterLowestVersion(pnClusterLowestVersion: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_Flags(pnFlags: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_MixedVersion(pvarMixedVersion: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
 class ISCluster(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('f2e606e4-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
@@ -3825,29 +3796,6 @@ class ISClusterNames(c_void_p):
     def get_Item(varIndex: win32more.System.Com.VARIANT, pbstrClusterName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
     @commethod(11)
     def get_DomainName(pbstrDomainName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-class ISClusVersion(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('f2e60716-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
-    @commethod(7)
-    def get_Name(pbstrClusterName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_MajorVersion(pnMajorVersion: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_MinorVersion(pnMinorVersion: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_BuildNumber(pnBuildNumber: POINTER(Int16)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def get_VendorId(pbstrVendorId: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def get_CSDVersion(pbstrCSDVersion: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def get_ClusterHighestVersion(pnClusterHighestVersion: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def get_ClusterLowestVersion(pnClusterLowestVersion: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def get_Flags(pnFlags: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def get_MixedVersion(pvarMixedVersion: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
 class ISDomainNames(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('f2e606e2-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
@@ -3935,29 +3883,15 @@ NODE_CLUSTER_STATE_ClusterStateNotInstalled: NODE_CLUSTER_STATE = 0
 NODE_CLUSTER_STATE_ClusterStateNotConfigured: NODE_CLUSTER_STATE = 1
 NODE_CLUSTER_STATE_ClusterStateNotRunning: NODE_CLUSTER_STATE = 3
 NODE_CLUSTER_STATE_ClusterStateRunning: NODE_CLUSTER_STATE = 19
+class NOTIFY_FILTER_AND_TYPE(Structure):
+    dwObjectType: UInt32
+    FilterFlags: Int64
 class NodeUtilizationInfoElement(Structure):
     Id: UInt64
     AvailableMemory: UInt64
     AvailableMemoryAfterReclamation: UInt64
-class NOTIFY_FILTER_AND_TYPE(Structure):
-    dwObjectType: UInt32
-    FilterFlags: Int64
 @winfunctype_pointer
 def PARBITRATE_ROUTINE(Resource: c_void_p, LostQuorumResource: win32more.Networking.Clustering.PQUORUM_RESOURCE_LOST) -> UInt32: ...
-class PaxosTagCStruct(Structure):
-    __padding__PaxosTagVtable: UInt64
-    __padding__NextEpochVtable: UInt64
-    __padding__NextEpoch_DateTimeVtable: UInt64
-    NextEpoch_DateTime_ticks: UInt64
-    NextEpoch_Value: Int32
-    __padding__BoundryNextEpoch: UInt32
-    __padding__EpochVtable: UInt64
-    __padding__Epoch_DateTimeVtable: UInt64
-    Epoch_DateTime_ticks: UInt64
-    Epoch_Value: Int32
-    __padding__BoundryEpoch: UInt32
-    Sequence: Int32
-    __padding__BoundrySequence: UInt32
 @winfunctype_pointer
 def PBEGIN_RESCALL_AS_USER_ROUTINE(Resource: c_void_p, TokenHandle: win32more.Foundation.HANDLE, ControlCode: UInt32, InBuffer: c_void_p, InBufferSize: UInt32, OutBuffer: c_void_p, OutBufferSize: UInt32, BytesReturned: POINTER(UInt32), context: Int64, ReturnedAsynchronously: POINTER(win32more.Foundation.BOOL)) -> UInt32: ...
 @winfunctype_pointer
@@ -3969,13 +3903,15 @@ def PBEGIN_RESTYPECALL_ROUTINE(ResourceTypeName: win32more.Foundation.PWSTR, Con
 @winfunctype_pointer
 def PCANCEL_ROUTINE(Resource: c_void_p, CancelFlags_RESERVED: UInt32) -> UInt32: ...
 @winfunctype_pointer
-def PCHANGE_RES_TYPE_PROCESS_FOR_DUMPS(resourceTypeName: win32more.Foundation.PWSTR, processName: win32more.Foundation.PWSTR, processId: UInt32, isAdd: win32more.Foundation.BOOL) -> UInt32: ...
-@winfunctype_pointer
 def PCHANGE_RESOURCE_PROCESS_FOR_DUMPS(resource: IntPtr, processName: win32more.Foundation.PWSTR, processId: UInt32, isAdd: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype_pointer
+def PCHANGE_RES_TYPE_PROCESS_FOR_DUMPS(resourceTypeName: win32more.Foundation.PWSTR, processName: win32more.Foundation.PWSTR, processId: UInt32, isAdd: win32more.Foundation.BOOL) -> UInt32: ...
 @winfunctype_pointer
 def PCLOSE_CLUSTER_CRYPT_PROVIDER(hClusCryptProvider: POINTER(win32more.Networking.Clustering._HCLUSCRYPTPROVIDER_head)) -> UInt32: ...
 @winfunctype_pointer
 def PCLOSE_ROUTINE(Resource: c_void_p) -> Void: ...
+@winfunctype_pointer
+def PCLUSAPIClusWorkerCheckTerminate(lpWorker: POINTER(win32more.Networking.Clustering.CLUS_WORKER_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PCLUSAPI_ADD_CLUSTER_GROUP_DEPENDENCY(hDependentGroup: POINTER(win32more.Networking.Clustering._HGROUP_head), hProviderGroup: POINTER(win32more.Networking.Clustering._HGROUP_head)) -> UInt32: ...
 @winfunctype_pointer
@@ -4009,19 +3945,15 @@ def PCLUSAPI_CLOSE_CLUSTER_GROUP(hGroup: POINTER(win32more.Networking.Clustering
 @winfunctype_pointer
 def PCLUSAPI_CLOSE_CLUSTER_GROUP_GROUPSET(hGroupSet: POINTER(win32more.Networking.Clustering._HGROUPSET_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
-def PCLUSAPI_CLOSE_CLUSTER_NET_INTERFACE(hNetInterface: POINTER(win32more.Networking.Clustering._HNETINTERFACE_head)) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
 def PCLUSAPI_CLOSE_CLUSTER_NETWORK(hNetwork: POINTER(win32more.Networking.Clustering._HNETWORK_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PCLUSAPI_CLOSE_CLUSTER_NET_INTERFACE(hNetInterface: POINTER(win32more.Networking.Clustering._HNETINTERFACE_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PCLUSAPI_CLOSE_CLUSTER_NODE(hNode: POINTER(win32more.Networking.Clustering._HNODE_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PCLUSAPI_CLOSE_CLUSTER_NOTIFY_PORT(hChange: POINTER(win32more.Networking.Clustering._HCHANGE_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PCLUSAPI_CLOSE_CLUSTER_RESOURCE(hResource: POINTER(win32more.Networking.Clustering._HRESOURCE_head)) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PCLUSAPI_CLUS_WORKER_CREATE(lpWorker: POINTER(win32more.Networking.Clustering.CLUS_WORKER_head), lpStartAddress: win32more.Networking.Clustering.PWORKER_START_ROUTINE, lpParameter: c_void_p) -> UInt32: ...
-@winfunctype_pointer
-def PCLUSAPI_CLUS_WORKER_TERMINATE(lpWorker: POINTER(win32more.Networking.Clustering.CLUS_WORKER_head)) -> Void: ...
 @winfunctype_pointer
 def PCLUSAPI_CLUSTER_ADD_GROUP_TO_AFFINITY_RULE(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), ruleName: win32more.Foundation.PWSTR, hGroup: POINTER(win32more.Networking.Clustering._HGROUP_head)) -> UInt32: ...
 @winfunctype_pointer
@@ -4065,8 +3997,6 @@ def PCLUSAPI_CLUSTER_GROUP_OPEN_ENUM(hGroup: POINTER(win32more.Networking.Cluste
 @winfunctype_pointer
 def PCLUSAPI_CLUSTER_GROUP_OPEN_ENUM_EX(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpszProperties: win32more.Foundation.PWSTR, cbProperties: UInt32, lpszRoProperties: win32more.Foundation.PWSTR, cbRoProperties: UInt32, dwFlags: UInt32) -> POINTER(win32more.Networking.Clustering._HGROUPENUMEX_head): ...
 @winfunctype_pointer
-def PCLUSAPI_CLUSTER_NET_INTERFACE_CONTROL(hNetInterface: POINTER(win32more.Networking.Clustering._HNETINTERFACE_head), hHostNode: POINTER(win32more.Networking.Clustering._HNODE_head), dwControlCode: UInt32, lpInBuffer: c_void_p, nInBufferSize: UInt32, lpOutBuffer: c_void_p, nOutBufferSize: UInt32, lpBytesReturned: POINTER(UInt32)) -> UInt32: ...
-@winfunctype_pointer
 def PCLUSAPI_CLUSTER_NETWORK_CLOSE_ENUM(hNetworkEnum: POINTER(win32more.Networking.Clustering._HNETWORKENUM_head)) -> UInt32: ...
 @winfunctype_pointer
 def PCLUSAPI_CLUSTER_NETWORK_CONTROL(hNetwork: POINTER(win32more.Networking.Clustering._HNETWORK_head), hHostNode: POINTER(win32more.Networking.Clustering._HNODE_head), dwControlCode: UInt32, lpInBuffer: c_void_p, nInBufferSize: UInt32, lpOutBuffer: c_void_p, nOutBufferSize: UInt32, lpBytesReturned: POINTER(UInt32)) -> UInt32: ...
@@ -4076,6 +4006,8 @@ def PCLUSAPI_CLUSTER_NETWORK_ENUM(hNetworkEnum: POINTER(win32more.Networking.Clu
 def PCLUSAPI_CLUSTER_NETWORK_GET_ENUM_COUNT(hNetworkEnum: POINTER(win32more.Networking.Clustering._HNETWORKENUM_head)) -> UInt32: ...
 @winfunctype_pointer
 def PCLUSAPI_CLUSTER_NETWORK_OPEN_ENUM(hNetwork: POINTER(win32more.Networking.Clustering._HNETWORK_head), dwType: UInt32) -> POINTER(win32more.Networking.Clustering._HNETWORKENUM_head): ...
+@winfunctype_pointer
+def PCLUSAPI_CLUSTER_NET_INTERFACE_CONTROL(hNetInterface: POINTER(win32more.Networking.Clustering._HNETINTERFACE_head), hHostNode: POINTER(win32more.Networking.Clustering._HNODE_head), dwControlCode: UInt32, lpInBuffer: c_void_p, nInBufferSize: UInt32, lpOutBuffer: c_void_p, nOutBufferSize: UInt32, lpBytesReturned: POINTER(UInt32)) -> UInt32: ...
 @winfunctype_pointer
 def PCLUSAPI_CLUSTER_NODE_CLOSE_ENUM(hNodeEnum: POINTER(win32more.Networking.Clustering._HNODEENUM_head)) -> UInt32: ...
 @winfunctype_pointer
@@ -4163,6 +4095,10 @@ def PCLUSAPI_CLUSTER_RESOURCE_TYPE_OPEN_ENUM(hCluster: POINTER(win32more.Network
 @winfunctype_pointer
 def PCLUSAPI_CLUSTER_UPGRADE(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), perform: win32more.Foundation.BOOL, pfnProgressCallback: win32more.Networking.Clustering.PCLUSTER_UPGRADE_PROGRESS_CALLBACK, pvCallbackArg: c_void_p) -> UInt32: ...
 @winfunctype_pointer
+def PCLUSAPI_CLUS_WORKER_CREATE(lpWorker: POINTER(win32more.Networking.Clustering.CLUS_WORKER_head), lpStartAddress: win32more.Networking.Clustering.PWORKER_START_ROUTINE, lpParameter: c_void_p) -> UInt32: ...
+@winfunctype_pointer
+def PCLUSAPI_CLUS_WORKER_TERMINATE(lpWorker: POINTER(win32more.Networking.Clustering.CLUS_WORKER_head)) -> Void: ...
+@winfunctype_pointer
 def PCLUSAPI_CREATE_CLUSTER(pConfig: POINTER(win32more.Networking.Clustering.CREATE_CLUSTER_CONFIG_head), pfnProgressCallback: win32more.Networking.Clustering.PCLUSTER_SETUP_PROGRESS_CALLBACK, pvCallbackArg: c_void_p) -> POINTER(win32more.Networking.Clustering._HCLUSTER_head): ...
 @winfunctype_pointer
 def PCLUSAPI_CREATE_CLUSTER_AVAILABILITY_SET(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpAvailabilitySetName: win32more.Foundation.PWSTR, pAvailabilitySetConfig: POINTER(win32more.Networking.Clustering.CLUSTER_AVAILABILITY_SET_CONFIG_head)) -> POINTER(win32more.Networking.Clustering._HGROUPSET_head): ...
@@ -4171,9 +4107,9 @@ def PCLUSAPI_CREATE_CLUSTER_CNOLESS(pConfig: POINTER(win32more.Networking.Cluste
 @winfunctype_pointer
 def PCLUSAPI_CREATE_CLUSTER_GROUP(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpszGroupName: win32more.Foundation.PWSTR) -> POINTER(win32more.Networking.Clustering._HGROUP_head): ...
 @winfunctype_pointer
-def PCLUSAPI_CREATE_CLUSTER_GROUP_GROUPSET(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpszGroupSetName: win32more.Foundation.PWSTR) -> POINTER(win32more.Networking.Clustering._HGROUPSET_head): ...
-@winfunctype_pointer
 def PCLUSAPI_CREATE_CLUSTER_GROUPEX(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpszGroupName: win32more.Foundation.PWSTR, pGroupInfo: POINTER(win32more.Networking.Clustering.CLUSTER_CREATE_GROUP_INFO_head)) -> POINTER(win32more.Networking.Clustering._HGROUP_head): ...
+@winfunctype_pointer
+def PCLUSAPI_CREATE_CLUSTER_GROUP_GROUPSET(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpszGroupSetName: win32more.Foundation.PWSTR) -> POINTER(win32more.Networking.Clustering._HGROUPSET_head): ...
 @winfunctype_pointer
 def PCLUSAPI_CREATE_CLUSTER_NAME_ACCOUNT(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), pConfig: POINTER(win32more.Networking.Clustering.CREATE_CLUSTER_NAME_ACCOUNT_head), pfnProgressCallback: win32more.Networking.Clustering.PCLUSTER_SETUP_PROGRESS_CALLBACK, pvCallbackArg: c_void_p) -> UInt32: ...
 @winfunctype_pointer
@@ -4207,9 +4143,9 @@ def PCLUSAPI_GET_CLUSTER_FROM_GROUP(hGroup: POINTER(win32more.Networking.Cluster
 @winfunctype_pointer
 def PCLUSAPI_GET_CLUSTER_FROM_GROUP_GROUPSET(hGroupSet: POINTER(win32more.Networking.Clustering._HGROUPSET_head)) -> POINTER(win32more.Networking.Clustering._HCLUSTER_head): ...
 @winfunctype_pointer
-def PCLUSAPI_GET_CLUSTER_FROM_NET_INTERFACE(hNetInterface: POINTER(win32more.Networking.Clustering._HNETINTERFACE_head)) -> POINTER(win32more.Networking.Clustering._HCLUSTER_head): ...
-@winfunctype_pointer
 def PCLUSAPI_GET_CLUSTER_FROM_NETWORK(hNetwork: POINTER(win32more.Networking.Clustering._HNETWORK_head)) -> POINTER(win32more.Networking.Clustering._HCLUSTER_head): ...
+@winfunctype_pointer
+def PCLUSAPI_GET_CLUSTER_FROM_NET_INTERFACE(hNetInterface: POINTER(win32more.Networking.Clustering._HNETINTERFACE_head)) -> POINTER(win32more.Networking.Clustering._HCLUSTER_head): ...
 @winfunctype_pointer
 def PCLUSAPI_GET_CLUSTER_FROM_NODE(hNode: POINTER(win32more.Networking.Clustering._HNODE_head)) -> POINTER(win32more.Networking.Clustering._HCLUSTER_head): ...
 @winfunctype_pointer
@@ -4223,17 +4159,17 @@ def PCLUSAPI_GET_CLUSTER_INFORMATION(hCluster: POINTER(win32more.Networking.Clus
 @winfunctype_pointer
 def PCLUSAPI_GET_CLUSTER_KEY(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), samDesired: UInt32) -> win32more.System.Registry.HKEY: ...
 @winfunctype_pointer
-def PCLUSAPI_GET_CLUSTER_NET_INTERFACE(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpszNodeName: win32more.Foundation.PWSTR, lpszNetworkName: win32more.Foundation.PWSTR, lpszInterfaceName: win32more.Foundation.PWSTR, lpcchInterfaceName: POINTER(UInt32)) -> UInt32: ...
-@winfunctype_pointer
-def PCLUSAPI_GET_CLUSTER_NET_INTERFACE_KEY(hNetInterface: POINTER(win32more.Networking.Clustering._HNETINTERFACE_head), samDesired: UInt32) -> win32more.System.Registry.HKEY: ...
-@winfunctype_pointer
-def PCLUSAPI_GET_CLUSTER_NET_INTERFACE_STATE(hNetInterface: POINTER(win32more.Networking.Clustering._HNETINTERFACE_head)) -> win32more.Networking.Clustering.CLUSTER_NETINTERFACE_STATE: ...
-@winfunctype_pointer
 def PCLUSAPI_GET_CLUSTER_NETWORK_ID(hNetwork: POINTER(win32more.Networking.Clustering._HNETWORK_head), lpszNetworkId: win32more.Foundation.PWSTR, lpcchName: POINTER(UInt32)) -> UInt32: ...
 @winfunctype_pointer
 def PCLUSAPI_GET_CLUSTER_NETWORK_KEY(hNetwork: POINTER(win32more.Networking.Clustering._HNETWORK_head), samDesired: UInt32) -> win32more.System.Registry.HKEY: ...
 @winfunctype_pointer
 def PCLUSAPI_GET_CLUSTER_NETWORK_STATE(hNetwork: POINTER(win32more.Networking.Clustering._HNETWORK_head)) -> win32more.Networking.Clustering.CLUSTER_NETWORK_STATE: ...
+@winfunctype_pointer
+def PCLUSAPI_GET_CLUSTER_NET_INTERFACE(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpszNodeName: win32more.Foundation.PWSTR, lpszNetworkName: win32more.Foundation.PWSTR, lpszInterfaceName: win32more.Foundation.PWSTR, lpcchInterfaceName: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def PCLUSAPI_GET_CLUSTER_NET_INTERFACE_KEY(hNetInterface: POINTER(win32more.Networking.Clustering._HNETINTERFACE_head), samDesired: UInt32) -> win32more.System.Registry.HKEY: ...
+@winfunctype_pointer
+def PCLUSAPI_GET_CLUSTER_NET_INTERFACE_STATE(hNetInterface: POINTER(win32more.Networking.Clustering._HNETINTERFACE_head)) -> win32more.Networking.Clustering.CLUSTER_NETINTERFACE_STATE: ...
 @winfunctype_pointer
 def PCLUSAPI_GET_CLUSTER_NODE_ID(hNode: POINTER(win32more.Networking.Clustering._HNODE_head), lpszNodeId: win32more.Foundation.PWSTR, lpcchName: POINTER(UInt32)) -> UInt32: ...
 @winfunctype_pointer
@@ -4283,13 +4219,13 @@ def PCLUSAPI_OPEN_CLUSTER_GROUP_EX(hCluster: POINTER(win32more.Networking.Cluste
 @winfunctype_pointer
 def PCLUSAPI_OPEN_CLUSTER_GROUP_GROUPSET(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpszGroupSetName: win32more.Foundation.PWSTR) -> POINTER(win32more.Networking.Clustering._HGROUPSET_head): ...
 @winfunctype_pointer
-def PCLUSAPI_OPEN_CLUSTER_NET_INTERFACE(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpszInterfaceName: win32more.Foundation.PWSTR) -> POINTER(win32more.Networking.Clustering._HNETINTERFACE_head): ...
-@winfunctype_pointer
 def PCLUSAPI_OPEN_CLUSTER_NETINTERFACE_EX(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpszNetInterfaceName: win32more.Foundation.PWSTR, dwDesiredAccess: UInt32, lpdwGrantedAccess: POINTER(UInt32)) -> POINTER(win32more.Networking.Clustering._HNETINTERFACE_head): ...
 @winfunctype_pointer
 def PCLUSAPI_OPEN_CLUSTER_NETWORK(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpszNetworkName: win32more.Foundation.PWSTR) -> POINTER(win32more.Networking.Clustering._HNETWORK_head): ...
 @winfunctype_pointer
 def PCLUSAPI_OPEN_CLUSTER_NETWORK_EX(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpszNetworkName: win32more.Foundation.PWSTR, dwDesiredAccess: UInt32, lpdwGrantedAccess: POINTER(UInt32)) -> POINTER(win32more.Networking.Clustering._HNETWORK_head): ...
+@winfunctype_pointer
+def PCLUSAPI_OPEN_CLUSTER_NET_INTERFACE(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpszInterfaceName: win32more.Foundation.PWSTR) -> POINTER(win32more.Networking.Clustering._HNETINTERFACE_head): ...
 @winfunctype_pointer
 def PCLUSAPI_OPEN_CLUSTER_NODE(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpszNodeName: win32more.Foundation.PWSTR) -> POINTER(win32more.Networking.Clustering._HNODE_head): ...
 @winfunctype_pointer
@@ -4353,11 +4289,9 @@ def PCLUSAPI_SET_CLUSTER_SERVICE_ACCOUNT_PASSWORD(lpszClusterName: win32more.Fou
 @winfunctype_pointer
 def PCLUSAPI_SET_GROUP_DEPENDENCY_EXPRESSION(hGroupSet: POINTER(win32more.Networking.Clustering._HGROUP_head), lpszDependencyExpression: win32more.Foundation.PWSTR) -> UInt32: ...
 @winfunctype_pointer
-def PCLUSAPI_SetClusterName(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpszNewClusterName: win32more.Foundation.PWSTR) -> UInt32: ...
-@winfunctype_pointer
 def PCLUSAPI_SHARED_VOLUME_SET_SNAPSHOT_STATE(guidSnapshotSet: Guid, lpszVolumeName: win32more.Foundation.PWSTR, state: win32more.Networking.Clustering.CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE) -> UInt32: ...
 @winfunctype_pointer
-def PCLUSAPIClusWorkerCheckTerminate(lpWorker: POINTER(win32more.Networking.Clustering.CLUS_WORKER_head)) -> win32more.Foundation.BOOL: ...
+def PCLUSAPI_SetClusterName(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), lpszNewClusterName: win32more.Foundation.PWSTR) -> UInt32: ...
 @winfunctype_pointer
 def PCLUSTER_CLEAR_BACKUP_STATE_FOR_SHARED_VOLUME(lpszVolumePathName: win32more.Foundation.PWSTR) -> UInt32: ...
 @winfunctype_pointer
@@ -4399,9 +4333,9 @@ def PCLUSTER_REG_READ_BATCH_ADD_COMMAND(hRegReadBatch: POINTER(win32more.Network
 @winfunctype_pointer
 def PCLUSTER_REG_READ_BATCH_REPLY_NEXT_COMMAND(hRegReadBatchReply: POINTER(win32more.Networking.Clustering._HREGREADBATCHREPLY_head), pBatchCommand: POINTER(win32more.Networking.Clustering.CLUSTER_READ_BATCH_COMMAND_head)) -> Int32: ...
 @winfunctype_pointer
-def PCLUSTER_SET_ACCOUNT_ACCESS(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), szAccountSID: win32more.Foundation.PWSTR, dwAccess: UInt32, dwControlType: UInt32) -> UInt32: ...
-@winfunctype_pointer
 def PCLUSTER_SETUP_PROGRESS_CALLBACK(pvCallbackArg: c_void_p, eSetupPhase: win32more.Networking.Clustering.CLUSTER_SETUP_PHASE, ePhaseType: win32more.Networking.Clustering.CLUSTER_SETUP_PHASE_TYPE, ePhaseSeverity: win32more.Networking.Clustering.CLUSTER_SETUP_PHASE_SEVERITY, dwPercentComplete: UInt32, lpszObjectName: win32more.Foundation.PWSTR, dwStatus: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PCLUSTER_SET_ACCOUNT_ACCESS(hCluster: POINTER(win32more.Networking.Clustering._HCLUSTER_head), szAccountSID: win32more.Foundation.PWSTR, dwAccess: UInt32, dwControlType: UInt32) -> UInt32: ...
 @winfunctype_pointer
 def PCLUSTER_UPGRADE_PROGRESS_CALLBACK(pvCallbackArg: c_void_p, eUpgradePhase: win32more.Networking.Clustering.CLUSTER_UPGRADE_PHASE) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -4471,8 +4405,6 @@ def PRELEASE_ROUTINE(Resource: c_void_p) -> UInt32: ...
 @winfunctype_pointer
 def PREQUEST_DUMP_ROUTINE(ResourceHandle: IntPtr, DumpDueToCallInProgress: win32more.Foundation.BOOL, DumpDelayInMs: UInt32) -> UInt32: ...
 @winfunctype_pointer
-def PRES_UTIL_VERIFY_SHUTDOWN_SAFE(flags: UInt32, reason: UInt32, pResult: POINTER(UInt32)) -> UInt32: ...
-@winfunctype_pointer
 def PRESET_ALL_APPINSTANCE_VERSIONS() -> UInt32: ...
 @winfunctype_pointer
 def PRESOURCE_CONTROL_ROUTINE(Resource: c_void_p, ControlCode: UInt32, InBuffer: c_void_p, InBufferSize: UInt32, OutBuffer: c_void_p, OutBufferSize: UInt32, BytesReturned: POINTER(UInt32)) -> UInt32: ...
@@ -4505,9 +4437,9 @@ def PRESUTIL_FIND_DEPENDENT_DISK_RESOURCE_DRIVE_LETTER(hCluster: POINTER(win32mo
 @winfunctype_pointer
 def PRESUTIL_FIND_DWORD_PROPERTY(pPropertyList: c_void_p, cbPropertyListSize: UInt32, pszPropertyName: win32more.Foundation.PWSTR, pdwPropertyValue: POINTER(UInt32)) -> UInt32: ...
 @winfunctype_pointer
-def PRESUTIL_FIND_EXPAND_SZ_PROPERTY(pPropertyList: c_void_p, cbPropertyListSize: UInt32, pszPropertyName: win32more.Foundation.PWSTR, pszPropertyValue: POINTER(win32more.Foundation.PWSTR)) -> UInt32: ...
-@winfunctype_pointer
 def PRESUTIL_FIND_EXPANDED_SZ_PROPERTY(pPropertyList: c_void_p, cbPropertyListSize: UInt32, pszPropertyName: win32more.Foundation.PWSTR, pszPropertyValue: POINTER(win32more.Foundation.PWSTR)) -> UInt32: ...
+@winfunctype_pointer
+def PRESUTIL_FIND_EXPAND_SZ_PROPERTY(pPropertyList: c_void_p, cbPropertyListSize: UInt32, pszPropertyName: win32more.Foundation.PWSTR, pszPropertyValue: POINTER(win32more.Foundation.PWSTR)) -> UInt32: ...
 @winfunctype_pointer
 def PRESUTIL_FIND_FILETIME_PROPERTY(pPropertyList: c_void_p, cbPropertyListSize: UInt32, pszPropertyName: win32more.Foundation.PWSTR, pftPropertyValue: POINTER(win32more.Foundation.FILETIME_head)) -> UInt32: ...
 @winfunctype_pointer
@@ -4593,9 +4525,9 @@ def PRESUTIL_PROPERTY_LIST_FROM_PARAMETER_BLOCK(pPropertyTable: POINTER(win32mor
 @winfunctype_pointer
 def PRESUTIL_REMOVE_RESOURCE_SERVICE_ENVIRONMENT(pszServiceName: win32more.Foundation.PWSTR, pfnLogEvent: win32more.Networking.Clustering.PLOG_EVENT_ROUTINE, hResourceHandle: IntPtr) -> UInt32: ...
 @winfunctype_pointer
-def PRESUTIL_RESOURCE_TYPES_EQUAL(lpszResourceTypeName: win32more.Foundation.PWSTR, hResource: POINTER(win32more.Networking.Clustering._HRESOURCE_head)) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
 def PRESUTIL_RESOURCES_EQUAL(hSelf: POINTER(win32more.Networking.Clustering._HRESOURCE_head), hResource: POINTER(win32more.Networking.Clustering._HRESOURCE_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PRESUTIL_RESOURCE_TYPES_EQUAL(lpszResourceTypeName: win32more.Foundation.PWSTR, hResource: POINTER(win32more.Networking.Clustering._HRESOURCE_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PRESUTIL_SET_BINARY_VALUE(hkeyClusterKey: win32more.System.Registry.HKEY, pszValueName: win32more.Foundation.PWSTR, pbNewValue: c_char_p_no, cbNewValueSize: UInt32, ppbOutValue: POINTER(c_char_p_no), pcbOutValueSize: POINTER(UInt32)) -> UInt32: ...
 @winfunctype_pointer
@@ -4643,6 +4575,8 @@ def PRESUTIL_VERIFY_RESOURCE_SERVICE(pszServiceName: win32more.Foundation.PWSTR)
 @winfunctype_pointer
 def PRESUTIL_VERIFY_SERVICE(hServiceHandle: win32more.Security.SC_HANDLE) -> UInt32: ...
 @winfunctype_pointer
+def PRES_UTIL_VERIFY_SHUTDOWN_SAFE(flags: UInt32, reason: UInt32, pResult: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
 def PSET_INTERNAL_STATE(param0: IntPtr, stateType: win32more.Networking.Clustering.CLUSTER_RESOURCE_APPLICATION_STATE, active: win32more.Foundation.BOOL) -> UInt32: ...
 @winfunctype_pointer
 def PSET_RESOURCE_INMEMORY_NODELOCAL_PROPERTIES_ROUTINE(ResourceHandle: IntPtr, propertyListBuffer: c_char_p_no, propertyListBufferSize: UInt32) -> UInt32: ...
@@ -4664,6 +4598,20 @@ def PSTARTUP_ROUTINE(ResourceType: win32more.Foundation.PWSTR, MinVersionSupport
 def PTERMINATE_ROUTINE(Resource: c_void_p) -> Void: ...
 @winfunctype_pointer
 def PWORKER_START_ROUTINE(pWorker: POINTER(win32more.Networking.Clustering.CLUS_WORKER_head), lpThreadParameter: c_void_p) -> UInt32: ...
+class PaxosTagCStruct(Structure):
+    __padding__PaxosTagVtable: UInt64
+    __padding__NextEpochVtable: UInt64
+    __padding__NextEpoch_DateTimeVtable: UInt64
+    NextEpoch_DateTime_ticks: UInt64
+    NextEpoch_Value: Int32
+    __padding__BoundryNextEpoch: UInt32
+    __padding__EpochVtable: UInt64
+    __padding__Epoch_DateTimeVtable: UInt64
+    Epoch_DateTime_ticks: UInt64
+    Epoch_Value: Int32
+    __padding__BoundryEpoch: UInt32
+    Sequence: Int32
+    __padding__BoundrySequence: UInt32
 RESDLL_CONTEXT_OPERATION_TYPE = Int32
 RESDLL_CONTEXT_OPERATION_TYPE_ResdllContextOperationTypeFailback: RESDLL_CONTEXT_OPERATION_TYPE = 0
 RESDLL_CONTEXT_OPERATION_TYPE_ResdllContextOperationTypeDrain: RESDLL_CONTEXT_OPERATION_TYPE = 1
@@ -4714,9 +4662,6 @@ class RESOURCE_STATUS_EX(Structure):
 class RESOURCE_TERMINAL_FAILURE_INFO_BUFFER(Structure):
     isTerminalFailure: win32more.Foundation.BOOL
     restartPeriodRemaining: UInt32
-class ResourceUtilizationInfoElement(Structure):
-    PhysicalNumaId: UInt64
-    CurrentMemory: UInt64
 class RESUTIL_FILETIME_DATA(Structure):
     Default: win32more.Foundation.FILETIME
     Minimum: win32more.Foundation.FILETIME
@@ -4745,6 +4690,9 @@ class RESUTIL_ULARGEINT_DATA(Structure):
     Default: win32more.Foundation.ULARGE_INTEGER
     Minimum: win32more.Foundation.ULARGE_INTEGER
     Maximum: win32more.Foundation.ULARGE_INTEGER
+class ResourceUtilizationInfoElement(Structure):
+    PhysicalNumaId: UInt64
+    CurrentMemory: UInt64
 @winfunctype_pointer
 def SET_APP_INSTANCE_CSV_FLAGS(ProcessHandle: win32more.Foundation.HANDLE, Mask: UInt32, Flags: UInt32) -> UInt32: ...
 SR_DISK_REPLICATION_ELIGIBLE = Int32
@@ -4829,38 +4777,113 @@ class WitnessTagUpdateHelper(Structure):
     Version: Int32
     paxosToSet: win32more.Networking.Clustering.PaxosTagCStruct
     paxosToValidate: win32more.Networking.Clustering.PaxosTagCStruct
-make_head(_module, '_HCHANGE')
-make_head(_module, '_HCLUSCRYPTPROVIDER')
-make_head(_module, '_HCLUSENUM')
-make_head(_module, '_HCLUSENUMEX')
-make_head(_module, '_HCLUSTER')
-make_head(_module, '_HGROUP')
-make_head(_module, '_HGROUPENUM')
-make_head(_module, '_HGROUPENUMEX')
-make_head(_module, '_HGROUPSET')
-make_head(_module, '_HGROUPSETENUM')
-make_head(_module, '_HNETINTERFACE')
-make_head(_module, '_HNETINTERFACEENUM')
-make_head(_module, '_HNETWORK')
-make_head(_module, '_HNETWORKENUM')
-make_head(_module, '_HNODE')
-make_head(_module, '_HNODEENUM')
-make_head(_module, '_HNODEENUMEX')
-make_head(_module, '_HREGBATCH')
-make_head(_module, '_HREGBATCHNOTIFICATION')
-make_head(_module, '_HREGBATCHPORT')
-make_head(_module, '_HREGREADBATCH')
-make_head(_module, '_HREGREADBATCHREPLY')
-make_head(_module, '_HRESENUM')
-make_head(_module, '_HRESENUMEX')
-make_head(_module, '_HRESOURCE')
-make_head(_module, '_HRESTYPEENUM')
+class _HCHANGE(Structure):
+    pass
+class _HCLUSCRYPTPROVIDER(Structure):
+    pass
+class _HCLUSENUM(Structure):
+    pass
+class _HCLUSENUMEX(Structure):
+    pass
+class _HCLUSTER(Structure):
+    pass
+class _HGROUP(Structure):
+    pass
+class _HGROUPENUM(Structure):
+    pass
+class _HGROUPENUMEX(Structure):
+    pass
+class _HGROUPSET(Structure):
+    pass
+class _HGROUPSETENUM(Structure):
+    pass
+class _HNETINTERFACE(Structure):
+    pass
+class _HNETINTERFACEENUM(Structure):
+    pass
+class _HNETWORK(Structure):
+    pass
+class _HNETWORKENUM(Structure):
+    pass
+class _HNODE(Structure):
+    pass
+class _HNODEENUM(Structure):
+    pass
+class _HNODEENUMEX(Structure):
+    pass
+class _HREGBATCH(Structure):
+    pass
+class _HREGBATCHNOTIFICATION(Structure):
+    pass
+class _HREGBATCHPORT(Structure):
+    pass
+class _HREGREADBATCH(Structure):
+    pass
+class _HREGREADBATCHREPLY(Structure):
+    pass
+class _HRESENUM(Structure):
+    pass
+class _HRESENUMEX(Structure):
+    pass
+class _HRESOURCE(Structure):
+    pass
+class _HRESTYPEENUM(Structure):
+    pass
 make_head(_module, 'CLRES_CALLBACK_FUNCTION_TABLE')
 make_head(_module, 'CLRES_FUNCTION_TABLE')
 make_head(_module, 'CLRES_V1_FUNCTIONS')
 make_head(_module, 'CLRES_V2_FUNCTIONS')
 make_head(_module, 'CLRES_V3_FUNCTIONS')
 make_head(_module, 'CLRES_V4_FUNCTIONS')
+make_head(_module, 'CLUSCTL_GROUP_GET_LAST_MOVE_TIME_OUTPUT')
+make_head(_module, 'CLUSCTL_RESOURCE_STATE_CHANGE_REASON_STRUCT')
+make_head(_module, 'CLUSCTL_RESOURCE_TYPE_STORAGE_GET_AVAILABLE_DISKS_EX2_INPUT')
+make_head(_module, 'CLUSPROP_BINARY')
+make_head(_module, 'CLUSPROP_BUFFER_HELPER')
+make_head(_module, 'CLUSPROP_DWORD')
+make_head(_module, 'CLUSPROP_FILETIME')
+make_head(_module, 'CLUSPROP_FTSET_INFO')
+make_head(_module, 'CLUSPROP_LARGE_INTEGER')
+make_head(_module, 'CLUSPROP_LIST')
+make_head(_module, 'CLUSPROP_LONG')
+make_head(_module, 'CLUSPROP_PARTITION_INFO')
+make_head(_module, 'CLUSPROP_PARTITION_INFO_EX')
+make_head(_module, 'CLUSPROP_PARTITION_INFO_EX2')
+make_head(_module, 'CLUSPROP_REQUIRED_DEPENDENCY')
+make_head(_module, 'CLUSPROP_RESOURCE_CLASS')
+make_head(_module, 'CLUSPROP_RESOURCE_CLASS_INFO')
+make_head(_module, 'CLUSPROP_SCSI_ADDRESS')
+make_head(_module, 'CLUSPROP_SECURITY_DESCRIPTOR')
+make_head(_module, 'CLUSPROP_SYNTAX')
+make_head(_module, 'CLUSPROP_SZ')
+make_head(_module, 'CLUSPROP_ULARGE_INTEGER')
+make_head(_module, 'CLUSPROP_VALUE')
+make_head(_module, 'CLUSPROP_WORD')
+make_head(_module, 'CLUSTERVERSIONINFO')
+make_head(_module, 'CLUSTERVERSIONINFO_NT4')
+make_head(_module, 'CLUSTER_AVAILABILITY_SET_CONFIG')
+make_head(_module, 'CLUSTER_BATCH_COMMAND')
+make_head(_module, 'CLUSTER_CREATE_GROUP_INFO')
+make_head(_module, 'CLUSTER_ENUM_ITEM')
+make_head(_module, 'CLUSTER_GROUP_ENUM_ITEM')
+make_head(_module, 'CLUSTER_HEALTH_FAULT')
+make_head(_module, 'CLUSTER_HEALTH_FAULT_ARRAY')
+make_head(_module, 'CLUSTER_IP_ENTRY')
+make_head(_module, 'CLUSTER_MEMBERSHIP_INFO')
+make_head(_module, 'CLUSTER_READ_BATCH_COMMAND')
+make_head(_module, 'CLUSTER_RESOURCE_ENUM_ITEM')
+make_head(_module, 'CLUSTER_SET_PASSWORD_STATUS')
+make_head(_module, 'CLUSTER_SHARED_VOLUME_RENAME_GUID_INPUT')
+make_head(_module, 'CLUSTER_SHARED_VOLUME_RENAME_INPUT')
+make_head(_module, 'CLUSTER_SHARED_VOLUME_RENAME_INPUT_GUID_NAME')
+make_head(_module, 'CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME')
+make_head(_module, 'CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME')
+make_head(_module, 'CLUSTER_SHARED_VOLUME_STATE_INFO')
+make_head(_module, 'CLUSTER_SHARED_VOLUME_STATE_INFO_EX')
+make_head(_module, 'CLUSTER_VALIDATE_CSV_FILENAME')
+make_head(_module, 'CLUSTER_VALIDATE_DIRECTORY')
+make_head(_module, 'CLUSTER_VALIDATE_NETNAME')
+make_head(_module, 'CLUSTER_VALIDATE_PATH')
 make_head(_module, 'CLUS_CHKDSK_INFO')
 make_head(_module, 'CLUS_CREATE_INFRASTRUCTURE_FILESERVER_INPUT')
 make_head(_module, 'CLUS_CREATE_INFRASTRUCTURE_FILESERVER_OUTPUT')
@@ -4892,55 +4915,6 @@ make_head(_module, 'CLUS_STORAGE_GET_AVAILABLE_DRIVELETTERS')
 make_head(_module, 'CLUS_STORAGE_REMAP_DRIVELETTER')
 make_head(_module, 'CLUS_STORAGE_SET_DRIVELETTER')
 make_head(_module, 'CLUS_WORKER')
-make_head(_module, 'CLUSCTL_GROUP_GET_LAST_MOVE_TIME_OUTPUT')
-make_head(_module, 'CLUSCTL_RESOURCE_STATE_CHANGE_REASON_STRUCT')
-make_head(_module, 'CLUSCTL_RESOURCE_TYPE_STORAGE_GET_AVAILABLE_DISKS_EX2_INPUT')
-make_head(_module, 'CLUSPROP_BINARY')
-make_head(_module, 'CLUSPROP_BUFFER_HELPER')
-make_head(_module, 'CLUSPROP_DWORD')
-make_head(_module, 'CLUSPROP_FILETIME')
-make_head(_module, 'CLUSPROP_FTSET_INFO')
-make_head(_module, 'CLUSPROP_LARGE_INTEGER')
-make_head(_module, 'CLUSPROP_LIST')
-make_head(_module, 'CLUSPROP_LONG')
-make_head(_module, 'CLUSPROP_PARTITION_INFO')
-make_head(_module, 'CLUSPROP_PARTITION_INFO_EX')
-make_head(_module, 'CLUSPROP_PARTITION_INFO_EX2')
-make_head(_module, 'CLUSPROP_REQUIRED_DEPENDENCY')
-make_head(_module, 'CLUSPROP_RESOURCE_CLASS')
-make_head(_module, 'CLUSPROP_RESOURCE_CLASS_INFO')
-make_head(_module, 'CLUSPROP_SCSI_ADDRESS')
-make_head(_module, 'CLUSPROP_SECURITY_DESCRIPTOR')
-make_head(_module, 'CLUSPROP_SYNTAX')
-make_head(_module, 'CLUSPROP_SZ')
-make_head(_module, 'CLUSPROP_ULARGE_INTEGER')
-make_head(_module, 'CLUSPROP_VALUE')
-make_head(_module, 'CLUSPROP_WORD')
-make_head(_module, 'CLUSTER_AVAILABILITY_SET_CONFIG')
-make_head(_module, 'CLUSTER_BATCH_COMMAND')
-make_head(_module, 'CLUSTER_CREATE_GROUP_INFO')
-make_head(_module, 'CLUSTER_ENUM_ITEM')
-make_head(_module, 'CLUSTER_GROUP_ENUM_ITEM')
-make_head(_module, 'CLUSTER_HEALTH_FAULT')
-make_head(_module, 'CLUSTER_HEALTH_FAULT_ARRAY')
-make_head(_module, 'CLUSTER_IP_ENTRY')
-make_head(_module, 'CLUSTER_MEMBERSHIP_INFO')
-make_head(_module, 'CLUSTER_READ_BATCH_COMMAND')
-make_head(_module, 'CLUSTER_RESOURCE_ENUM_ITEM')
-make_head(_module, 'CLUSTER_SET_PASSWORD_STATUS')
-make_head(_module, 'CLUSTER_SHARED_VOLUME_RENAME_GUID_INPUT')
-make_head(_module, 'CLUSTER_SHARED_VOLUME_RENAME_INPUT')
-make_head(_module, 'CLUSTER_SHARED_VOLUME_RENAME_INPUT_GUID_NAME')
-make_head(_module, 'CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME')
-make_head(_module, 'CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME')
-make_head(_module, 'CLUSTER_SHARED_VOLUME_STATE_INFO')
-make_head(_module, 'CLUSTER_SHARED_VOLUME_STATE_INFO_EX')
-make_head(_module, 'CLUSTER_VALIDATE_CSV_FILENAME')
-make_head(_module, 'CLUSTER_VALIDATE_DIRECTORY')
-make_head(_module, 'CLUSTER_VALIDATE_NETNAME')
-make_head(_module, 'CLUSTER_VALIDATE_PATH')
-make_head(_module, 'CLUSTERVERSIONINFO')
-make_head(_module, 'CLUSTERVERSIONINFO_NT4')
 make_head(_module, 'CREATE_CLUSTER_CONFIG')
 make_head(_module, 'CREATE_CLUSTER_NAME_ACCOUNT')
 make_head(_module, 'FILESHARE_CHANGE')
@@ -4984,17 +4958,17 @@ make_head(_module, 'ISClusResGroup')
 make_head(_module, 'ISClusResGroupPreferredOwnerNodes')
 make_head(_module, 'ISClusResGroupResources')
 make_head(_module, 'ISClusResGroups')
-make_head(_module, 'ISClusResource')
-make_head(_module, 'ISClusResources')
 make_head(_module, 'ISClusResPossibleOwnerNodes')
 make_head(_module, 'ISClusResType')
 make_head(_module, 'ISClusResTypePossibleOwnerNodes')
 make_head(_module, 'ISClusResTypeResources')
 make_head(_module, 'ISClusResTypes')
+make_head(_module, 'ISClusResource')
+make_head(_module, 'ISClusResources')
 make_head(_module, 'ISClusScsiAddress')
+make_head(_module, 'ISClusVersion')
 make_head(_module, 'ISCluster')
 make_head(_module, 'ISClusterNames')
-make_head(_module, 'ISClusVersion')
 make_head(_module, 'ISDomainNames')
 make_head(_module, 'IWCContextMenuCallback')
 make_head(_module, 'IWCPropertySheetCallback')
@@ -5010,19 +4984,19 @@ make_head(_module, 'LPNODE_CALLBACK')
 make_head(_module, 'LPRESOURCE_CALLBACK')
 make_head(_module, 'LPRESOURCE_CALLBACK_EX')
 make_head(_module, 'MONITOR_STATE')
-make_head(_module, 'NodeUtilizationInfoElement')
 make_head(_module, 'NOTIFY_FILTER_AND_TYPE')
+make_head(_module, 'NodeUtilizationInfoElement')
 make_head(_module, 'PARBITRATE_ROUTINE')
-make_head(_module, 'PaxosTagCStruct')
 make_head(_module, 'PBEGIN_RESCALL_AS_USER_ROUTINE')
 make_head(_module, 'PBEGIN_RESCALL_ROUTINE')
 make_head(_module, 'PBEGIN_RESTYPECALL_AS_USER_ROUTINE')
 make_head(_module, 'PBEGIN_RESTYPECALL_ROUTINE')
 make_head(_module, 'PCANCEL_ROUTINE')
-make_head(_module, 'PCHANGE_RES_TYPE_PROCESS_FOR_DUMPS')
 make_head(_module, 'PCHANGE_RESOURCE_PROCESS_FOR_DUMPS')
+make_head(_module, 'PCHANGE_RES_TYPE_PROCESS_FOR_DUMPS')
 make_head(_module, 'PCLOSE_CLUSTER_CRYPT_PROVIDER')
 make_head(_module, 'PCLOSE_ROUTINE')
+make_head(_module, 'PCLUSAPIClusWorkerCheckTerminate')
 make_head(_module, 'PCLUSAPI_ADD_CLUSTER_GROUP_DEPENDENCY')
 make_head(_module, 'PCLUSAPI_ADD_CLUSTER_GROUP_GROUPSET_DEPENDENCY')
 make_head(_module, 'PCLUSAPI_ADD_CLUSTER_GROUP_TO_GROUP_GROUPSET_DEPENDENCY')
@@ -5039,13 +5013,11 @@ make_head(_module, 'PCLUSAPI_CHANGE_CLUSTER_RESOURCE_GROUP_EX')
 make_head(_module, 'PCLUSAPI_CLOSE_CLUSTER')
 make_head(_module, 'PCLUSAPI_CLOSE_CLUSTER_GROUP')
 make_head(_module, 'PCLUSAPI_CLOSE_CLUSTER_GROUP_GROUPSET')
-make_head(_module, 'PCLUSAPI_CLOSE_CLUSTER_NET_INTERFACE')
 make_head(_module, 'PCLUSAPI_CLOSE_CLUSTER_NETWORK')
+make_head(_module, 'PCLUSAPI_CLOSE_CLUSTER_NET_INTERFACE')
 make_head(_module, 'PCLUSAPI_CLOSE_CLUSTER_NODE')
 make_head(_module, 'PCLUSAPI_CLOSE_CLUSTER_NOTIFY_PORT')
 make_head(_module, 'PCLUSAPI_CLOSE_CLUSTER_RESOURCE')
-make_head(_module, 'PCLUSAPI_CLUS_WORKER_CREATE')
-make_head(_module, 'PCLUSAPI_CLUS_WORKER_TERMINATE')
 make_head(_module, 'PCLUSAPI_CLUSTER_ADD_GROUP_TO_AFFINITY_RULE')
 make_head(_module, 'PCLUSAPI_CLUSTER_ADD_GROUP_TO_GROUP_GROUPSET')
 make_head(_module, 'PCLUSAPI_CLUSTER_AFFINITY_RULE_CONTROL')
@@ -5067,12 +5039,12 @@ make_head(_module, 'PCLUSAPI_CLUSTER_GROUP_GET_ENUM_COUNT_EX')
 make_head(_module, 'PCLUSAPI_CLUSTER_GROUP_GROUPSET_CONTROL')
 make_head(_module, 'PCLUSAPI_CLUSTER_GROUP_OPEN_ENUM')
 make_head(_module, 'PCLUSAPI_CLUSTER_GROUP_OPEN_ENUM_EX')
-make_head(_module, 'PCLUSAPI_CLUSTER_NET_INTERFACE_CONTROL')
 make_head(_module, 'PCLUSAPI_CLUSTER_NETWORK_CLOSE_ENUM')
 make_head(_module, 'PCLUSAPI_CLUSTER_NETWORK_CONTROL')
 make_head(_module, 'PCLUSAPI_CLUSTER_NETWORK_ENUM')
 make_head(_module, 'PCLUSAPI_CLUSTER_NETWORK_GET_ENUM_COUNT')
 make_head(_module, 'PCLUSAPI_CLUSTER_NETWORK_OPEN_ENUM')
+make_head(_module, 'PCLUSAPI_CLUSTER_NET_INTERFACE_CONTROL')
 make_head(_module, 'PCLUSAPI_CLUSTER_NODE_CLOSE_ENUM')
 make_head(_module, 'PCLUSAPI_CLUSTER_NODE_CLOSE_ENUM_EX')
 make_head(_module, 'PCLUSAPI_CLUSTER_NODE_CONTROL')
@@ -5116,12 +5088,14 @@ make_head(_module, 'PCLUSAPI_CLUSTER_RESOURCE_TYPE_ENUM')
 make_head(_module, 'PCLUSAPI_CLUSTER_RESOURCE_TYPE_GET_ENUM_COUNT')
 make_head(_module, 'PCLUSAPI_CLUSTER_RESOURCE_TYPE_OPEN_ENUM')
 make_head(_module, 'PCLUSAPI_CLUSTER_UPGRADE')
+make_head(_module, 'PCLUSAPI_CLUS_WORKER_CREATE')
+make_head(_module, 'PCLUSAPI_CLUS_WORKER_TERMINATE')
 make_head(_module, 'PCLUSAPI_CREATE_CLUSTER')
 make_head(_module, 'PCLUSAPI_CREATE_CLUSTER_AVAILABILITY_SET')
 make_head(_module, 'PCLUSAPI_CREATE_CLUSTER_CNOLESS')
 make_head(_module, 'PCLUSAPI_CREATE_CLUSTER_GROUP')
-make_head(_module, 'PCLUSAPI_CREATE_CLUSTER_GROUP_GROUPSET')
 make_head(_module, 'PCLUSAPI_CREATE_CLUSTER_GROUPEX')
+make_head(_module, 'PCLUSAPI_CREATE_CLUSTER_GROUP_GROUPSET')
 make_head(_module, 'PCLUSAPI_CREATE_CLUSTER_NAME_ACCOUNT')
 make_head(_module, 'PCLUSAPI_CREATE_CLUSTER_NOTIFY_PORT')
 make_head(_module, 'PCLUSAPI_CREATE_CLUSTER_NOTIFY_PORT_V2')
@@ -5138,20 +5112,20 @@ make_head(_module, 'PCLUSAPI_EVICT_CLUSTER_NODE_EX')
 make_head(_module, 'PCLUSAPI_FAIL_CLUSTER_RESOURCE')
 make_head(_module, 'PCLUSAPI_GET_CLUSTER_FROM_GROUP')
 make_head(_module, 'PCLUSAPI_GET_CLUSTER_FROM_GROUP_GROUPSET')
-make_head(_module, 'PCLUSAPI_GET_CLUSTER_FROM_NET_INTERFACE')
 make_head(_module, 'PCLUSAPI_GET_CLUSTER_FROM_NETWORK')
+make_head(_module, 'PCLUSAPI_GET_CLUSTER_FROM_NET_INTERFACE')
 make_head(_module, 'PCLUSAPI_GET_CLUSTER_FROM_NODE')
 make_head(_module, 'PCLUSAPI_GET_CLUSTER_FROM_RESOURCE')
 make_head(_module, 'PCLUSAPI_GET_CLUSTER_GROUP_KEY')
 make_head(_module, 'PCLUSAPI_GET_CLUSTER_GROUP_STATE')
 make_head(_module, 'PCLUSAPI_GET_CLUSTER_INFORMATION')
 make_head(_module, 'PCLUSAPI_GET_CLUSTER_KEY')
-make_head(_module, 'PCLUSAPI_GET_CLUSTER_NET_INTERFACE')
-make_head(_module, 'PCLUSAPI_GET_CLUSTER_NET_INTERFACE_KEY')
-make_head(_module, 'PCLUSAPI_GET_CLUSTER_NET_INTERFACE_STATE')
 make_head(_module, 'PCLUSAPI_GET_CLUSTER_NETWORK_ID')
 make_head(_module, 'PCLUSAPI_GET_CLUSTER_NETWORK_KEY')
 make_head(_module, 'PCLUSAPI_GET_CLUSTER_NETWORK_STATE')
+make_head(_module, 'PCLUSAPI_GET_CLUSTER_NET_INTERFACE')
+make_head(_module, 'PCLUSAPI_GET_CLUSTER_NET_INTERFACE_KEY')
+make_head(_module, 'PCLUSAPI_GET_CLUSTER_NET_INTERFACE_STATE')
 make_head(_module, 'PCLUSAPI_GET_CLUSTER_NODE_ID')
 make_head(_module, 'PCLUSAPI_GET_CLUSTER_NODE_KEY')
 make_head(_module, 'PCLUSAPI_GET_CLUSTER_NODE_STATE')
@@ -5176,10 +5150,10 @@ make_head(_module, 'PCLUSAPI_OPEN_CLUSTER_EX')
 make_head(_module, 'PCLUSAPI_OPEN_CLUSTER_GROUP')
 make_head(_module, 'PCLUSAPI_OPEN_CLUSTER_GROUP_EX')
 make_head(_module, 'PCLUSAPI_OPEN_CLUSTER_GROUP_GROUPSET')
-make_head(_module, 'PCLUSAPI_OPEN_CLUSTER_NET_INTERFACE')
 make_head(_module, 'PCLUSAPI_OPEN_CLUSTER_NETINTERFACE_EX')
 make_head(_module, 'PCLUSAPI_OPEN_CLUSTER_NETWORK')
 make_head(_module, 'PCLUSAPI_OPEN_CLUSTER_NETWORK_EX')
+make_head(_module, 'PCLUSAPI_OPEN_CLUSTER_NET_INTERFACE')
 make_head(_module, 'PCLUSAPI_OPEN_CLUSTER_NODE')
 make_head(_module, 'PCLUSAPI_OPEN_CLUSTER_NODE_EX')
 make_head(_module, 'PCLUSAPI_OPEN_CLUSTER_RESOURCE')
@@ -5211,9 +5185,8 @@ make_head(_module, 'PCLUSAPI_SET_CLUSTER_RESOURCE_DEPENDENCY_EXPRESSION')
 make_head(_module, 'PCLUSAPI_SET_CLUSTER_RESOURCE_NAME')
 make_head(_module, 'PCLUSAPI_SET_CLUSTER_SERVICE_ACCOUNT_PASSWORD')
 make_head(_module, 'PCLUSAPI_SET_GROUP_DEPENDENCY_EXPRESSION')
-make_head(_module, 'PCLUSAPI_SetClusterName')
 make_head(_module, 'PCLUSAPI_SHARED_VOLUME_SET_SNAPSHOT_STATE')
-make_head(_module, 'PCLUSAPIClusWorkerCheckTerminate')
+make_head(_module, 'PCLUSAPI_SetClusterName')
 make_head(_module, 'PCLUSTER_CLEAR_BACKUP_STATE_FOR_SHARED_VOLUME')
 make_head(_module, 'PCLUSTER_DECRYPT')
 make_head(_module, 'PCLUSTER_ENCRYPT')
@@ -5234,8 +5207,8 @@ make_head(_module, 'PCLUSTER_REG_CREATE_READ_BATCH')
 make_head(_module, 'PCLUSTER_REG_GET_BATCH_NOTIFICATION')
 make_head(_module, 'PCLUSTER_REG_READ_BATCH_ADD_COMMAND')
 make_head(_module, 'PCLUSTER_REG_READ_BATCH_REPLY_NEXT_COMMAND')
-make_head(_module, 'PCLUSTER_SET_ACCOUNT_ACCESS')
 make_head(_module, 'PCLUSTER_SETUP_PROGRESS_CALLBACK')
+make_head(_module, 'PCLUSTER_SET_ACCOUNT_ACCESS')
 make_head(_module, 'PCLUSTER_UPGRADE_PROGRESS_CALLBACK')
 make_head(_module, 'PEND_CONTROL_CALL')
 make_head(_module, 'PEND_TYPE_CONTROL_CALL')
@@ -5261,7 +5234,6 @@ make_head(_module, 'PREGISTER_APPINSTANCE')
 make_head(_module, 'PREGISTER_APPINSTANCE_VERSION')
 make_head(_module, 'PRELEASE_ROUTINE')
 make_head(_module, 'PREQUEST_DUMP_ROUTINE')
-make_head(_module, 'PRES_UTIL_VERIFY_SHUTDOWN_SAFE')
 make_head(_module, 'PRESET_ALL_APPINSTANCE_VERSIONS')
 make_head(_module, 'PRESOURCE_CONTROL_ROUTINE')
 make_head(_module, 'PRESOURCE_TYPE_CONTROL_ROUTINE')
@@ -5278,8 +5250,8 @@ make_head(_module, 'PRESUTIL_EXPAND_ENVIRONMENT_STRINGS')
 make_head(_module, 'PRESUTIL_FIND_BINARY_PROPERTY')
 make_head(_module, 'PRESUTIL_FIND_DEPENDENT_DISK_RESOURCE_DRIVE_LETTER')
 make_head(_module, 'PRESUTIL_FIND_DWORD_PROPERTY')
-make_head(_module, 'PRESUTIL_FIND_EXPAND_SZ_PROPERTY')
 make_head(_module, 'PRESUTIL_FIND_EXPANDED_SZ_PROPERTY')
+make_head(_module, 'PRESUTIL_FIND_EXPAND_SZ_PROPERTY')
 make_head(_module, 'PRESUTIL_FIND_FILETIME_PROPERTY')
 make_head(_module, 'PRESUTIL_FIND_LONG_PROPERTY')
 make_head(_module, 'PRESUTIL_FIND_MULTI_SZ_PROPERTY')
@@ -5322,8 +5294,8 @@ make_head(_module, 'PRESUTIL_IS_PATH_VALID')
 make_head(_module, 'PRESUTIL_IS_RESOURCE_CLASS_EQUAL')
 make_head(_module, 'PRESUTIL_PROPERTY_LIST_FROM_PARAMETER_BLOCK')
 make_head(_module, 'PRESUTIL_REMOVE_RESOURCE_SERVICE_ENVIRONMENT')
-make_head(_module, 'PRESUTIL_RESOURCE_TYPES_EQUAL')
 make_head(_module, 'PRESUTIL_RESOURCES_EQUAL')
+make_head(_module, 'PRESUTIL_RESOURCE_TYPES_EQUAL')
 make_head(_module, 'PRESUTIL_SET_BINARY_VALUE')
 make_head(_module, 'PRESUTIL_SET_DWORD_VALUE')
 make_head(_module, 'PRESUTIL_SET_EXPAND_SZ_VALUE')
@@ -5347,6 +5319,7 @@ make_head(_module, 'PRESUTIL_VERIFY_PRIVATE_PROPERTY_LIST')
 make_head(_module, 'PRESUTIL_VERIFY_PROPERTY_TABLE')
 make_head(_module, 'PRESUTIL_VERIFY_RESOURCE_SERVICE')
 make_head(_module, 'PRESUTIL_VERIFY_SERVICE')
+make_head(_module, 'PRES_UTIL_VERIFY_SHUTDOWN_SAFE')
 make_head(_module, 'PSET_INTERNAL_STATE')
 make_head(_module, 'PSET_RESOURCE_INMEMORY_NODELOCAL_PROPERTIES_ROUTINE')
 make_head(_module, 'PSET_RESOURCE_LOCKED_MODE_EX_ROUTINE')
@@ -5358,16 +5331,17 @@ make_head(_module, 'PSTARTUP_EX_ROUTINE')
 make_head(_module, 'PSTARTUP_ROUTINE')
 make_head(_module, 'PTERMINATE_ROUTINE')
 make_head(_module, 'PWORKER_START_ROUTINE')
+make_head(_module, 'PaxosTagCStruct')
 make_head(_module, 'RESOURCE_FAILURE_INFO')
 make_head(_module, 'RESOURCE_FAILURE_INFO_BUFFER')
 make_head(_module, 'RESOURCE_STATUS')
 make_head(_module, 'RESOURCE_STATUS_EX')
 make_head(_module, 'RESOURCE_TERMINAL_FAILURE_INFO_BUFFER')
-make_head(_module, 'ResourceUtilizationInfoElement')
 make_head(_module, 'RESUTIL_FILETIME_DATA')
 make_head(_module, 'RESUTIL_LARGEINT_DATA')
 make_head(_module, 'RESUTIL_PROPERTY_ITEM')
 make_head(_module, 'RESUTIL_ULARGEINT_DATA')
+make_head(_module, 'ResourceUtilizationInfoElement')
 make_head(_module, 'SET_APP_INSTANCE_CSV_FLAGS')
 make_head(_module, 'SR_RESOURCE_TYPE_ADD_REPLICATION_GROUP')
 make_head(_module, 'SR_RESOURCE_TYPE_ADD_REPLICATION_GROUP_RESULT')
@@ -5382,6 +5356,32 @@ make_head(_module, 'SR_RESOURCE_TYPE_REPLICATED_PARTITION_ARRAY')
 make_head(_module, 'SR_RESOURCE_TYPE_REPLICATED_PARTITION_INFO')
 make_head(_module, 'WitnessTagHelper')
 make_head(_module, 'WitnessTagUpdateHelper')
+make_head(_module, '_HCHANGE')
+make_head(_module, '_HCLUSCRYPTPROVIDER')
+make_head(_module, '_HCLUSENUM')
+make_head(_module, '_HCLUSENUMEX')
+make_head(_module, '_HCLUSTER')
+make_head(_module, '_HGROUP')
+make_head(_module, '_HGROUPENUM')
+make_head(_module, '_HGROUPENUMEX')
+make_head(_module, '_HGROUPSET')
+make_head(_module, '_HGROUPSETENUM')
+make_head(_module, '_HNETINTERFACE')
+make_head(_module, '_HNETINTERFACEENUM')
+make_head(_module, '_HNETWORK')
+make_head(_module, '_HNETWORKENUM')
+make_head(_module, '_HNODE')
+make_head(_module, '_HNODEENUM')
+make_head(_module, '_HNODEENUMEX')
+make_head(_module, '_HREGBATCH')
+make_head(_module, '_HREGBATCHNOTIFICATION')
+make_head(_module, '_HREGBATCHPORT')
+make_head(_module, '_HREGREADBATCH')
+make_head(_module, '_HREGREADBATCHREPLY')
+make_head(_module, '_HRESENUM')
+make_head(_module, '_HRESENUMEX')
+make_head(_module, '_HRESOURCE')
+make_head(_module, '_HRESTYPEENUM')
 __all__ = [
     "AddClusterGroupDependency",
     "AddClusterGroupSetDependency",

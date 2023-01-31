@@ -16,22 +16,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _DnsRecordOptA(Structure):
-    pNext: POINTER(win32more.NetworkManagement.Dns.DNS_RECORDA_head)
-    pName: win32more.Foundation.PSTR
-    wType: UInt16
-    wDataLength: UInt16
-    Flags: _Flags_e__Union
-    ExtHeader: win32more.NetworkManagement.Dns.DNS_HEADER_EXT
-    wPayloadSize: UInt16
-    wReserved: UInt16
-    Data: _Data_e__Union
-    class _Flags_e__Union(Union):
-        DW: UInt32
-        S: win32more.NetworkManagement.Dns.DNS_RECORD_FLAGS
-    class _Data_e__Union(Union):
-        OPT: win32more.NetworkManagement.Dns.DNS_OPT_DATA
-        Opt: win32more.NetworkManagement.Dns.DNS_OPT_DATA
 SIZEOF_IP4_ADDRESS: UInt32 = 4
 IP4_ADDRESS_STRING_LENGTH: UInt32 = 16
 IP4_ADDRESS_STRING_BUFFER_LENGTH: UInt32 = 16
@@ -384,8 +368,6 @@ def DnsServiceRegisterCancel(pCancelHandle: POINTER(win32more.NetworkManagement.
 def DnsStartMulticastQuery(pQueryRequest: POINTER(win32more.NetworkManagement.Dns.MDNS_QUERY_REQUEST_head), pHandle: POINTER(win32more.NetworkManagement.Dns.MDNS_QUERY_HANDLE_head)) -> Int32: ...
 @winfunctype('DNSAPI.dll')
 def DnsStopMulticastQuery(pHandle: POINTER(win32more.NetworkManagement.Dns.MDNS_QUERY_HANDLE_head)) -> Int32: ...
-class DNS_A_DATA(Structure):
-    IpAddress: UInt32
 class DNS_AAAA_DATA(Structure):
     Ip6Address: win32more.NetworkManagement.Dns.IP6_ADDRESS
 class DNS_ADDR(Structure):
@@ -412,6 +394,8 @@ class DNS_APPLICATION_SETTINGS(Structure):
 class DNS_ATMA_DATA(Structure):
     AddressType: Byte
     Address: Byte * 20
+class DNS_A_DATA(Structure):
+    IpAddress: UInt32
 DNS_CHARSET = Int32
 DNS_CHARSET_DnsCharSetUnknown: DNS_CHARSET = 0
 DNS_CHARSET_DnsCharSetUnicode: DNS_CHARSET = 1
@@ -596,6 +580,21 @@ class DNS_NAPTR_DATAW(Structure):
     pService: win32more.Foundation.PWSTR
     pRegularExpression: win32more.Foundation.PWSTR
     pReplacement: win32more.Foundation.PWSTR
+class DNS_NSEC3PARAM_DATA(Structure):
+    chAlgorithm: Byte
+    bFlags: Byte
+    wIterations: UInt16
+    bSaltLength: Byte
+    bPad: Byte * 3
+    pbSalt: Byte * 1
+class DNS_NSEC3_DATA(Structure):
+    chAlgorithm: Byte
+    bFlags: Byte
+    wIterations: UInt16
+    bSaltLength: Byte
+    bHashLength: Byte
+    wTypeBitMapsLength: UInt16
+    chData: Byte * 1
 class DNS_NSEC_DATAA(Structure):
     pNextDomainName: win32more.Foundation.PSTR
     wTypeBitMapsLength: UInt16
@@ -606,21 +605,6 @@ class DNS_NSEC_DATAW(Structure):
     wTypeBitMapsLength: UInt16
     wPad: UInt16
     TypeBitMaps: Byte * 1
-class DNS_NSEC3_DATA(Structure):
-    chAlgorithm: Byte
-    bFlags: Byte
-    wIterations: UInt16
-    bSaltLength: Byte
-    bHashLength: Byte
-    wTypeBitMapsLength: UInt16
-    chData: Byte * 1
-class DNS_NSEC3PARAM_DATA(Structure):
-    chAlgorithm: Byte
-    bFlags: Byte
-    wIterations: UInt16
-    bSaltLength: Byte
-    bPad: Byte * 3
-    pbSalt: Byte * 1
 class DNS_NULL_DATA(Structure):
     dwByteCount: UInt32
     Data: Byte * 1
@@ -709,24 +693,6 @@ class DNS_QUERY_RESULT(Structure):
     QueryOptions: UInt64
     pQueryRecords: POINTER(win32more.NetworkManagement.Dns.DNS_RECORDA_head)
     Reserved: c_void_p
-class DNS_RECORD_FLAGS(Structure):
-    _bitfield: UInt32
-class DNS_RECORD_OPTW(Structure):
-    pNext: POINTER(win32more.NetworkManagement.Dns.DNS_RECORDW_head)
-    pName: win32more.Foundation.PWSTR
-    wType: UInt16
-    wDataLength: UInt16
-    Flags: _Flags_e__Union
-    ExtHeader: win32more.NetworkManagement.Dns.DNS_HEADER_EXT
-    wPayloadSize: UInt16
-    wReserved: UInt16
-    Data: _Data_e__Union
-    class _Flags_e__Union(Union):
-        DW: UInt32
-        S: win32more.NetworkManagement.Dns.DNS_RECORD_FLAGS
-    class _Data_e__Union(Union):
-        OPT: win32more.NetworkManagement.Dns.DNS_OPT_DATA
-        Opt: win32more.NetworkManagement.Dns.DNS_OPT_DATA
 class DNS_RECORDA(Structure):
     pNext: POINTER(win32more.NetworkManagement.Dns.DNS_RECORDA_head)
     pName: win32more.Foundation.PSTR
@@ -921,6 +887,24 @@ class DNS_RECORDW(Structure):
         UNKNOWN: win32more.NetworkManagement.Dns.DNS_UNKNOWN_DATA
         Unknown: win32more.NetworkManagement.Dns.DNS_UNKNOWN_DATA
         pDataPtr: c_char_p_no
+class DNS_RECORD_FLAGS(Structure):
+    _bitfield: UInt32
+class DNS_RECORD_OPTW(Structure):
+    pNext: POINTER(win32more.NetworkManagement.Dns.DNS_RECORDW_head)
+    pName: win32more.Foundation.PWSTR
+    wType: UInt16
+    wDataLength: UInt16
+    Flags: _Flags_e__Union
+    ExtHeader: win32more.NetworkManagement.Dns.DNS_HEADER_EXT
+    wPayloadSize: UInt16
+    wReserved: UInt16
+    Data: _Data_e__Union
+    class _Flags_e__Union(Union):
+        DW: UInt32
+        S: win32more.NetworkManagement.Dns.DNS_RECORD_FLAGS
+    class _Data_e__Union(Union):
+        OPT: win32more.NetworkManagement.Dns.DNS_OPT_DATA
+        Opt: win32more.NetworkManagement.Dns.DNS_OPT_DATA
 class DNS_RRSET(Structure):
     pFirstRR: POINTER(win32more.NetworkManagement.Dns.DNS_RECORDA_head)
     pLastRR: POINTER(win32more.NetworkManagement.Dns.DNS_RECORDA_head)
@@ -1151,12 +1135,6 @@ DNS_TYPE_NBSTAT: DNS_TYPE = 65282
 class DNS_UNKNOWN_DATA(Structure):
     dwByteCount: UInt32
     bData: Byte * 1
-class DNS_WINS_DATA(Structure):
-    dwMappingFlag: UInt32
-    dwLookupTimeout: UInt32
-    dwCacheTimeout: UInt32
-    cWinsServerCount: UInt32
-    WinsServers: UInt32 * 1
 class DNS_WINSR_DATAA(Structure):
     dwMappingFlag: UInt32
     dwLookupTimeout: UInt32
@@ -1167,6 +1145,12 @@ class DNS_WINSR_DATAW(Structure):
     dwLookupTimeout: UInt32
     dwCacheTimeout: UInt32
     pNameResultDomain: win32more.Foundation.PWSTR
+class DNS_WINS_DATA(Structure):
+    dwMappingFlag: UInt32
+    dwLookupTimeout: UInt32
+    dwCacheTimeout: UInt32
+    cWinsServerCount: UInt32
+    WinsServers: UInt32 * 1
 class DNS_WIRE_QUESTION(Structure):
     QuestionType: UInt16
     QuestionClass: UInt16
@@ -1223,13 +1207,28 @@ def PDNS_SERVICE_REGISTER_COMPLETE(Status: UInt32, pQueryContext: c_void_p, pIns
 def PDNS_SERVICE_RESOLVE_COMPLETE(Status: UInt32, pQueryContext: c_void_p, pInstance: POINTER(win32more.NetworkManagement.Dns.DNS_SERVICE_INSTANCE_head)) -> Void: ...
 @winfunctype_pointer
 def PMDNS_QUERY_CALLBACK(pQueryContext: c_void_p, pQueryHandle: POINTER(win32more.NetworkManagement.Dns.MDNS_QUERY_HANDLE_head), pQueryResults: POINTER(win32more.NetworkManagement.Dns.DNS_QUERY_RESULT_head)) -> Void: ...
-make_head(_module, '_DnsRecordOptA')
-make_head(_module, 'DNS_A_DATA')
+class _DnsRecordOptA(Structure):
+    pNext: POINTER(win32more.NetworkManagement.Dns.DNS_RECORDA_head)
+    pName: win32more.Foundation.PSTR
+    wType: UInt16
+    wDataLength: UInt16
+    Flags: _Flags_e__Union
+    ExtHeader: win32more.NetworkManagement.Dns.DNS_HEADER_EXT
+    wPayloadSize: UInt16
+    wReserved: UInt16
+    Data: _Data_e__Union
+    class _Flags_e__Union(Union):
+        DW: UInt32
+        S: win32more.NetworkManagement.Dns.DNS_RECORD_FLAGS
+    class _Data_e__Union(Union):
+        OPT: win32more.NetworkManagement.Dns.DNS_OPT_DATA
+        Opt: win32more.NetworkManagement.Dns.DNS_OPT_DATA
 make_head(_module, 'DNS_AAAA_DATA')
 make_head(_module, 'DNS_ADDR')
 make_head(_module, 'DNS_ADDR_ARRAY')
 make_head(_module, 'DNS_APPLICATION_SETTINGS')
 make_head(_module, 'DNS_ATMA_DATA')
+make_head(_module, 'DNS_A_DATA')
 make_head(_module, 'DNS_CONNECTION_IFINDEX_ENTRY')
 make_head(_module, 'DNS_CONNECTION_IFINDEX_LIST')
 make_head(_module, 'DNS_CONNECTION_NAME')
@@ -1254,10 +1253,10 @@ make_head(_module, 'DNS_MX_DATAA')
 make_head(_module, 'DNS_MX_DATAW')
 make_head(_module, 'DNS_NAPTR_DATAA')
 make_head(_module, 'DNS_NAPTR_DATAW')
+make_head(_module, 'DNS_NSEC3PARAM_DATA')
+make_head(_module, 'DNS_NSEC3_DATA')
 make_head(_module, 'DNS_NSEC_DATAA')
 make_head(_module, 'DNS_NSEC_DATAW')
-make_head(_module, 'DNS_NSEC3_DATA')
-make_head(_module, 'DNS_NSEC3PARAM_DATA')
 make_head(_module, 'DNS_NULL_DATA')
 make_head(_module, 'DNS_NXT_DATAA')
 make_head(_module, 'DNS_NXT_DATAW')
@@ -1270,10 +1269,10 @@ make_head(_module, 'DNS_QUERY_CANCEL')
 make_head(_module, 'DNS_QUERY_REQUEST')
 make_head(_module, 'DNS_QUERY_REQUEST3')
 make_head(_module, 'DNS_QUERY_RESULT')
-make_head(_module, 'DNS_RECORD_FLAGS')
-make_head(_module, 'DNS_RECORD_OPTW')
 make_head(_module, 'DNS_RECORDA')
 make_head(_module, 'DNS_RECORDW')
+make_head(_module, 'DNS_RECORD_FLAGS')
+make_head(_module, 'DNS_RECORD_OPTW')
 make_head(_module, 'DNS_RRSET')
 make_head(_module, 'DNS_SERVICE_BROWSE_REQUEST')
 make_head(_module, 'DNS_SERVICE_CANCEL')
@@ -1294,9 +1293,9 @@ make_head(_module, 'DNS_TSIG_DATAW')
 make_head(_module, 'DNS_TXT_DATAA')
 make_head(_module, 'DNS_TXT_DATAW')
 make_head(_module, 'DNS_UNKNOWN_DATA')
-make_head(_module, 'DNS_WINS_DATA')
 make_head(_module, 'DNS_WINSR_DATAA')
 make_head(_module, 'DNS_WINSR_DATAW')
+make_head(_module, 'DNS_WINS_DATA')
 make_head(_module, 'DNS_WIRE_QUESTION')
 make_head(_module, 'DNS_WIRE_RECORD')
 make_head(_module, 'DNS_WKS_DATA')
@@ -1312,6 +1311,7 @@ make_head(_module, 'PDNS_SERVICE_BROWSE_CALLBACK')
 make_head(_module, 'PDNS_SERVICE_REGISTER_COMPLETE')
 make_head(_module, 'PDNS_SERVICE_RESOLVE_COMPLETE')
 make_head(_module, 'PMDNS_QUERY_CALLBACK')
+make_head(_module, '_DnsRecordOptA')
 __all__ = [
     "DNSREC_ADDITIONAL",
     "DNSREC_ANSWER",

@@ -19,6 +19,17 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+class AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_PARA(Structure):
+    cbSize: UInt32
+    dwRegPolicySettings: UInt32
+    pSignerInfo: POINTER(win32more.Security.Cryptography.CMSG_SIGNER_INFO_head)
+class AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_STATUS(Structure):
+    cbSize: UInt32
+    fCommercial: win32more.Foundation.BOOL
+class AUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA(Structure):
+    cbSize: UInt32
+    dwRegPolicySettings: UInt32
+    fCommercial: win32more.Foundation.BOOL
 CERT_COMPARE_SHIFT: Int32 = 16
 BCRYPT_OBJECT_ALIGNMENT: UInt32 = 16
 BCRYPT_KDF_HASH: String = 'HASH'
@@ -3660,22 +3671,11 @@ def CloseCryptoHandle(hCrypto: POINTER(win32more.Security.Cryptography.INFORMATI
 def GenerateDerivedKey(hCrypto: POINTER(win32more.Security.Cryptography.INFORMATIONCARD_CRYPTO_HANDLE_head), cbLabel: UInt32, pLabel: c_char_p_no, cbNonce: UInt32, pNonce: c_char_p_no, derivedKeyLength: UInt32, offset: UInt32, algId: win32more.Foundation.PWSTR, pcbKey: POINTER(UInt32), ppKey: POINTER(c_char_p_no)) -> win32more.Foundation.HRESULT: ...
 @winfunctype('infocardapi.dll')
 def GetBrowserToken(dwParamType: UInt32, pParam: c_void_p, pcbToken: POINTER(UInt32), ppToken: POINTER(c_char_p_no)) -> win32more.Foundation.HRESULT: ...
-class AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_PARA(Structure):
-    cbSize: UInt32
-    dwRegPolicySettings: UInt32
-    pSignerInfo: POINTER(win32more.Security.Cryptography.CMSG_SIGNER_INFO_head)
-class AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_STATUS(Structure):
-    cbSize: UInt32
-    fCommercial: win32more.Foundation.BOOL
-class AUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA(Structure):
-    cbSize: UInt32
-    dwRegPolicySettings: UInt32
-    fCommercial: win32more.Foundation.BOOL
-BCRYPT_ALG_HANDLE = IntPtr
 class BCRYPT_ALGORITHM_IDENTIFIER(Structure):
     pszName: win32more.Foundation.PWSTR
     dwClass: UInt32
     dwFlags: UInt32
+BCRYPT_ALG_HANDLE = IntPtr
 class BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO(Structure):
     cbSize: UInt32
     dwInfoVersion: UInt32
@@ -3733,9 +3733,6 @@ class BCRYPT_DSA_PARAMETER_HEADER_V2(Structure):
     cbSeedLength: UInt32
     cbGroupSize: UInt32
     Count: Byte * 4
-class BCRYPT_ECC_CURVE_NAMES(Structure):
-    dwEccCurveNames: UInt32
-    pEccCurveNames: POINTER(win32more.Foundation.PWSTR)
 class BCRYPT_ECCFULLKEY_BLOB(Structure):
     dwMagic: UInt32
     dwVersion: UInt32
@@ -3748,6 +3745,9 @@ class BCRYPT_ECCFULLKEY_BLOB(Structure):
 class BCRYPT_ECCKEY_BLOB(Structure):
     dwMagic: UInt32
     cbKey: UInt32
+class BCRYPT_ECC_CURVE_NAMES(Structure):
+    dwEccCurveNames: UInt32
+    pEccCurveNames: POINTER(win32more.Foundation.PWSTR)
 BCRYPT_HANDLE = IntPtr
 BCRYPT_HASH_HANDLE = IntPtr
 BCRYPT_HASH_OPERATION_TYPE = Int32
@@ -3865,15 +3865,18 @@ ENUM_SETUPPROP_PARENTCANAME: CASetupProperty = 13
 ENUM_SETUPPROP_REQUESTFILE: CASetupProperty = 14
 ENUM_SETUPPROP_WEBCAMACHINE: CASetupProperty = 15
 ENUM_SETUPPROP_WEBCANAME: CASetupProperty = 16
-CCertificateEnrollmentPolicyServerSetup = Guid('afe2fa32-41b1-459d-a5-de-49-ad-d8-a7-21-82')
-CCertificateEnrollmentServerSetup = Guid('9902f3bc-88af-4cf8-ae-62-71-40-53-15-52-b6')
 CCertSrvSetup = Guid('961f180f-f55c-413d-a9-b3-7d-2a-f4-d8-e4-2f')
 CCertSrvSetupKeyInformation = Guid('38373906-5433-4633-b0-fb-29-b7-e7-82-62-e1')
+CCertificateEnrollmentPolicyServerSetup = Guid('afe2fa32-41b1-459d-a5-de-49-ad-d8-a7-21-82')
+CCertificateEnrollmentServerSetup = Guid('9902f3bc-88af-4cf8-ae-62-71-40-53-15-52-b6')
 CEPSetupProperty = Int32
 ENUM_CEPSETUPPROP_AUTHENTICATION: CEPSetupProperty = 0
 ENUM_CEPSETUPPROP_SSLCERTHASH: CEPSetupProperty = 1
 ENUM_CEPSETUPPROP_URL: CEPSetupProperty = 2
 ENUM_CEPSETUPPROP_KEYBASED_RENEWAL: CEPSetupProperty = 3
+class CERTIFICATE_CHAIN_BLOB(Structure):
+    certCount: UInt32
+    rawCertificates: POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
 class CERT_ACCESS_DESCRIPTION(Structure):
     pszAccessMethod: win32more.Foundation.PSTR
     AccessLocation: win32more.Security.Cryptography.CERT_ALT_NAME_ENTRY
@@ -3894,24 +3897,24 @@ class CERT_ALT_NAME_INFO(Structure):
 class CERT_AUTHORITY_INFO_ACCESS(Structure):
     cAccDescr: UInt32
     rgAccDescr: POINTER(win32more.Security.Cryptography.CERT_ACCESS_DESCRIPTION_head)
-class CERT_AUTHORITY_KEY_ID_INFO(Structure):
-    KeyId: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
-    CertIssuer: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
-    CertSerialNumber: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
 class CERT_AUTHORITY_KEY_ID2_INFO(Structure):
     KeyId: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
     AuthorityCertIssuer: win32more.Security.Cryptography.CERT_ALT_NAME_INFO
     AuthorityCertSerialNumber: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+class CERT_AUTHORITY_KEY_ID_INFO(Structure):
+    KeyId: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+    CertIssuer: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+    CertSerialNumber: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+class CERT_BASIC_CONSTRAINTS2_INFO(Structure):
+    fCA: win32more.Foundation.BOOL
+    fPathLenConstraint: win32more.Foundation.BOOL
+    dwPathLenConstraint: UInt32
 class CERT_BASIC_CONSTRAINTS_INFO(Structure):
     SubjectType: win32more.Security.Cryptography.CRYPT_BIT_BLOB
     fPathLenConstraint: win32more.Foundation.BOOL
     dwPathLenConstraint: UInt32
     cSubtreesConstraint: UInt32
     rgSubtreesConstraint: POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
-class CERT_BASIC_CONSTRAINTS2_INFO(Structure):
-    fCA: win32more.Foundation.BOOL
-    fPathLenConstraint: win32more.Foundation.BOOL
-    dwPathLenConstraint: UInt32
 class CERT_BIOMETRIC_DATA(Structure):
     dwTypeOfBiometricDataChoice: win32more.Security.Cryptography.CERT_BIOMETRIC_DATA_TYPE
     Anonymous: _Anonymous_e__Union
@@ -4140,6 +4143,10 @@ class CERT_INFO(Structure):
 class CERT_ISSUER_SERIAL_NUMBER(Structure):
     Issuer: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
     SerialNumber: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+class CERT_KEYGEN_REQUEST_INFO(Structure):
+    dwVersion: UInt32
+    SubjectPublicKeyInfo: win32more.Security.Cryptography.CERT_PUBLIC_KEY_INFO
+    pwszChallengeString: win32more.Foundation.PWSTR
 class CERT_KEY_ATTRIBUTES_INFO(Structure):
     KeyId: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
     IntendedKeyUsage: win32more.Security.Cryptography.CRYPT_BIT_BLOB
@@ -4159,10 +4166,6 @@ class CERT_KEY_USAGE_RESTRICTION_INFO(Structure):
     cCertPolicyId: UInt32
     rgCertPolicyId: POINTER(win32more.Security.Cryptography.CERT_POLICY_ID_head)
     RestrictedKeyUsage: win32more.Security.Cryptography.CRYPT_BIT_BLOB
-class CERT_KEYGEN_REQUEST_INFO(Structure):
-    dwVersion: UInt32
-    SubjectPublicKeyInfo: win32more.Security.Cryptography.CERT_PUBLIC_KEY_INFO
-    pwszChallengeString: win32more.Foundation.PWSTR
 class CERT_LDAP_STORE_OPENED_PARA(Structure):
     pvLdapSessionHandle: c_void_p
     pwszLdapUrl: win32more.Foundation.PWSTR
@@ -4275,6 +4278,12 @@ class CERT_PHYSICAL_STORE_INFO(Structure):
 class CERT_POLICIES_INFO(Structure):
     cPolicyInfo: UInt32
     rgPolicyInfo: POINTER(win32more.Security.Cryptography.CERT_POLICY_INFO_head)
+class CERT_POLICY95_QUALIFIER1(Structure):
+    pszPracticesReference: win32more.Foundation.PWSTR
+    pszNoticeIdentifier: win32more.Foundation.PSTR
+    pszNSINoticeIdentifier: win32more.Foundation.PSTR
+    cCPSURLs: UInt32
+    rgCPSURLs: POINTER(win32more.Security.Cryptography.CPS_URLS_head)
 class CERT_POLICY_CONSTRAINTS_INFO(Structure):
     fRequireExplicitPolicy: win32more.Foundation.BOOL
     dwRequireExplicitPolicySkipCerts: UInt32
@@ -4303,12 +4312,6 @@ class CERT_POLICY_QUALIFIER_NOTICE_REFERENCE(Structure):
 class CERT_POLICY_QUALIFIER_USER_NOTICE(Structure):
     pNoticeReference: POINTER(win32more.Security.Cryptography.CERT_POLICY_QUALIFIER_NOTICE_REFERENCE_head)
     pszDisplayText: win32more.Foundation.PWSTR
-class CERT_POLICY95_QUALIFIER1(Structure):
-    pszPracticesReference: win32more.Foundation.PWSTR
-    pszNoticeIdentifier: win32more.Foundation.PSTR
-    pszNSINoticeIdentifier: win32more.Foundation.PSTR
-    cCPSURLs: UInt32
-    rgCPSURLs: POINTER(win32more.Security.Cryptography.CPS_URLS_head)
 class CERT_PRIVATE_KEY_VALIDITY(Structure):
     NotBefore: win32more.Foundation.FILETIME
     NotAfter: win32more.Foundation.FILETIME
@@ -4595,19 +4598,6 @@ class CERT_X942_DH_PARAMETERS(Structure):
 class CERT_X942_DH_VALIDATION_PARAMS(Structure):
     seed: win32more.Security.Cryptography.CRYPT_BIT_BLOB
     pgenCounter: UInt32
-class CERTIFICATE_CHAIN_BLOB(Structure):
-    certCount: UInt32
-    rawCertificates: POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
-CertKeyType = UInt32
-CertKeyType_KeyTypeOther: CertKeyType = 0
-CertKeyType_KeyTypeVirtualSmartCard: CertKeyType = 1
-CertKeyType_KeyTypePhysicalSmartCard: CertKeyType = 2
-CertKeyType_KeyTypePassport: CertKeyType = 3
-CertKeyType_KeyTypePassportRemote: CertKeyType = 4
-CertKeyType_KeyTypePassportSmartCard: CertKeyType = 5
-CertKeyType_KeyTypeHardware: CertKeyType = 6
-CertKeyType_KeyTypeSoftware: CertKeyType = 7
-CertKeyType_KeyTypeSelfSigned: CertKeyType = 8
 CESSetupProperty = Int32
 ENUM_CESSETUPPROP_USE_IISAPPPOOLIDENTITY: CESSetupProperty = 0
 ENUM_CESSETUPPROP_CACONFIG: CESSetupProperty = 1
@@ -4678,17 +4668,6 @@ class CMC_TAGGED_REQUEST(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         pTaggedCertRequest: POINTER(win32more.Security.Cryptography.CMC_TAGGED_CERT_REQUEST_head)
-class CMS_DH_KEY_INFO(Structure):
-    dwVersion: UInt32
-    Algid: UInt32
-    pszContentEncObjId: win32more.Foundation.PSTR
-    PubInfo: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
-    pReserved: c_void_p
-class CMS_KEY_INFO(Structure):
-    dwVersion: UInt32
-    Algid: UInt32
-    pbOID: c_char_p_no
-    cbOID: UInt32
 CMSCEPSetup = Guid('aa4f5c02-8e7c-49c4-94-fa-67-a5-cc-5e-ad-b4')
 class CMSG_CMS_RECIPIENT_INFO(Structure):
     dwRecipientChoice: UInt32
@@ -4961,6 +4940,17 @@ class CMSG_STREAM_INFO(Structure):
     cbContent: UInt32
     pfnStreamOutput: win32more.Security.Cryptography.PFN_CMSG_STREAM_OUTPUT
     pvArg: c_void_p
+class CMS_DH_KEY_INFO(Structure):
+    dwVersion: UInt32
+    Algid: UInt32
+    pszContentEncObjId: win32more.Foundation.PSTR
+    PubInfo: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+    pReserved: c_void_p
+class CMS_KEY_INFO(Structure):
+    dwVersion: UInt32
+    Algid: UInt32
+    pbOID: c_char_p_no
+    cbOID: UInt32
 class CPS_URLS(Structure):
     pszURL: win32more.Foundation.PWSTR
     pAlgorithm: POINTER(win32more.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head)
@@ -4975,14 +4965,14 @@ class CRL_DIST_POINT(Structure):
     DistPointName: win32more.Security.Cryptography.CRL_DIST_POINT_NAME
     ReasonFlags: win32more.Security.Cryptography.CRYPT_BIT_BLOB
     CRLIssuer: win32more.Security.Cryptography.CERT_ALT_NAME_INFO
+class CRL_DIST_POINTS_INFO(Structure):
+    cDistPoint: UInt32
+    rgDistPoint: POINTER(win32more.Security.Cryptography.CRL_DIST_POINT_head)
 class CRL_DIST_POINT_NAME(Structure):
     dwDistPointNameChoice: UInt32
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         FullName: win32more.Security.Cryptography.CERT_ALT_NAME_INFO
-class CRL_DIST_POINTS_INFO(Structure):
-    cDistPoint: UInt32
-    rgDistPoint: POINTER(win32more.Security.Cryptography.CRL_DIST_POINT_head)
 class CRL_ENTRY(Structure):
     SerialNumber: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
     RevocationDate: win32more.Foundation.FILETIME
@@ -5015,6 +5005,31 @@ class CROSS_CERT_DIST_POINTS_INFO(Structure):
     dwSyncDeltaTime: UInt32
     cDistPoint: UInt32
     rgDistPoint: POINTER(win32more.Security.Cryptography.CERT_ALT_NAME_INFO_head)
+class CRYPTNET_URL_CACHE_FLUSH_INFO(Structure):
+    cbSize: UInt32
+    dwExemptSeconds: UInt32
+    ExpireTime: win32more.Foundation.FILETIME
+class CRYPTNET_URL_CACHE_PRE_FETCH_INFO(Structure):
+    cbSize: UInt32
+    dwObjectType: UInt32
+    dwError: UInt32
+    dwReserved: UInt32
+    ThisUpdateTime: win32more.Foundation.FILETIME
+    NextUpdateTime: win32more.Foundation.FILETIME
+    PublishTime: win32more.Foundation.FILETIME
+class CRYPTNET_URL_CACHE_RESPONSE_INFO(Structure):
+    cbSize: UInt32
+    wResponseType: UInt16
+    wResponseFlags: UInt16
+    LastModifiedTime: win32more.Foundation.FILETIME
+    dwMaxAge: UInt32
+    pwszETag: win32more.Foundation.PWSTR
+    dwProxyId: UInt32
+class CRYPTPROTECT_PROMPTSTRUCT(Structure):
+    cbSize: UInt32
+    dwPromptFlags: UInt32
+    hwndApp: win32more.Foundation.HWND
+    szPrompt: win32more.Foundation.PWSTR
 class CRYPT_3DES_KEY_STATE(Structure):
     Key: Byte * 24
     IV: Byte * 8
@@ -5047,12 +5062,12 @@ class CRYPT_ATTRIBUTE(Structure):
     pszObjId: win32more.Foundation.PSTR
     cValue: UInt32
     rgValue: POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
-class CRYPT_ATTRIBUTE_TYPE_VALUE(Structure):
-    pszObjId: win32more.Foundation.PSTR
-    Value: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
 class CRYPT_ATTRIBUTES(Structure):
     cAttr: UInt32
     rgAttr: POINTER(win32more.Security.Cryptography.CRYPT_ATTRIBUTE_head)
+class CRYPT_ATTRIBUTE_TYPE_VALUE(Structure):
+    pszObjId: win32more.Foundation.PSTR
+    Value: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
 class CRYPT_BIT_BLOB(Structure):
     cbData: UInt32
     pbData: c_char_p_no
@@ -5067,24 +5082,24 @@ class CRYPT_CONTENT_INFO_SEQUENCE_OF_ANY(Structure):
     pszObjId: win32more.Foundation.PSTR
     cValue: UInt32
     rgValue: POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+class CRYPT_CONTEXTS(Structure):
+    cContexts: UInt32
+    rgpszContexts: POINTER(win32more.Foundation.PWSTR)
 class CRYPT_CONTEXT_CONFIG(Structure):
     dwFlags: win32more.Security.Cryptography.CRYPT_CONTEXT_CONFIG_FLAGS
     dwReserved: UInt32
 CRYPT_CONTEXT_CONFIG_FLAGS = UInt32
 CRYPT_EXCLUSIVE: CRYPT_CONTEXT_CONFIG_FLAGS = 1
 CRYPT_OVERRIDE: CRYPT_CONTEXT_CONFIG_FLAGS = 65536
+class CRYPT_CONTEXT_FUNCTIONS(Structure):
+    cFunctions: UInt32
+    rgpszFunctions: POINTER(win32more.Foundation.PWSTR)
 class CRYPT_CONTEXT_FUNCTION_CONFIG(Structure):
     dwFlags: UInt32
     dwReserved: UInt32
 class CRYPT_CONTEXT_FUNCTION_PROVIDERS(Structure):
     cProviders: UInt32
     rgpszProviders: POINTER(win32more.Foundation.PWSTR)
-class CRYPT_CONTEXT_FUNCTIONS(Structure):
-    cFunctions: UInt32
-    rgpszFunctions: POINTER(win32more.Foundation.PWSTR)
-class CRYPT_CONTEXTS(Structure):
-    cContexts: UInt32
-    rgpszContexts: POINTER(win32more.Foundation.PWSTR)
 class CRYPT_CREDENTIALS(Structure):
     cbSize: UInt32
     pszCredentialsOid: win32more.Foundation.PSTR
@@ -5134,6 +5149,9 @@ class CRYPT_ENCODE_PARA(Structure):
     cbSize: UInt32
     pfnAlloc: win32more.Security.Cryptography.PFN_CRYPT_ALLOC
     pfnFree: win32more.Security.Cryptography.PFN_CRYPT_FREE
+class CRYPT_ENCRYPTED_PRIVATE_KEY_INFO(Structure):
+    EncryptionAlgorithm: win32more.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
+    EncryptedPrivateKey: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
 class CRYPT_ENCRYPT_MESSAGE_PARA(Structure):
     cbSize: UInt32
     dwMsgEncodingType: UInt32
@@ -5142,9 +5160,6 @@ class CRYPT_ENCRYPT_MESSAGE_PARA(Structure):
     pvEncryptionAuxInfo: c_void_p
     dwFlags: UInt32
     dwInnerContentType: UInt32
-class CRYPT_ENCRYPTED_PRIVATE_KEY_INFO(Structure):
-    EncryptionAlgorithm: win32more.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
-    EncryptedPrivateKey: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
 class CRYPT_ENROLLMENT_NAME_VALUE_PAIR(Structure):
     pwszName: win32more.Foundation.PWSTR
     pwszValue: win32more.Foundation.PWSTR
@@ -5334,6 +5349,9 @@ class CRYPT_PROPERTY_REF(Structure):
     pszProperty: win32more.Foundation.PWSTR
     cbValue: UInt32
     pbValue: c_char_p_no
+class CRYPT_PROVIDERS(Structure):
+    cProviders: UInt32
+    rgpszProviders: POINTER(win32more.Foundation.PWSTR)
 class CRYPT_PROVIDER_REF(Structure):
     dwInterface: UInt32
     pszFunction: win32more.Foundation.PWSTR
@@ -5350,9 +5368,6 @@ class CRYPT_PROVIDER_REG(Structure):
     rgpszAliases: POINTER(win32more.Foundation.PWSTR)
     pUM: POINTER(win32more.Security.Cryptography.CRYPT_IMAGE_REG_head)
     pKM: POINTER(win32more.Security.Cryptography.CRYPT_IMAGE_REG_head)
-class CRYPT_PROVIDERS(Structure):
-    cProviders: UInt32
-    rgpszProviders: POINTER(win32more.Foundation.PWSTR)
 class CRYPT_PSOURCE_ALGORITHM(Structure):
     pszObjId: win32more.Foundation.PSTR
     EncodingParameters: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -5378,15 +5393,15 @@ class CRYPT_RETRIEVE_AUX_INFO(Structure):
     dwHttpStatusCode: UInt32
     ppwszErrorResponseHeaders: POINTER(win32more.Foundation.PWSTR)
     ppErrorContentBlob: POINTER(POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head))
+class CRYPT_RSAES_OAEP_PARAMETERS(Structure):
+    HashAlgorithm: win32more.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
+    MaskGenAlgorithm: win32more.Security.Cryptography.CRYPT_MASK_GEN_ALGORITHM
+    PSourceAlgorithm: win32more.Security.Cryptography.CRYPT_PSOURCE_ALGORITHM
 class CRYPT_RSA_SSA_PSS_PARAMETERS(Structure):
     HashAlgorithm: win32more.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     MaskGenAlgorithm: win32more.Security.Cryptography.CRYPT_MASK_GEN_ALGORITHM
     dwSaltLength: UInt32
     dwTrailerField: UInt32
-class CRYPT_RSAES_OAEP_PARAMETERS(Structure):
-    HashAlgorithm: win32more.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
-    MaskGenAlgorithm: win32more.Security.Cryptography.CRYPT_MASK_GEN_ALGORITHM
-    PSourceAlgorithm: win32more.Security.Cryptography.CRYPT_PSOURCE_ALGORITHM
 class CRYPT_SEQUENCE_OF_ANY(Structure):
     cValue: UInt32
     rgValue: POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
@@ -5451,12 +5466,6 @@ CRYPT_STRING_STRICT: CRYPT_STRING = 536870912
 CRYPT_STRING_BASE64_ANY: CRYPT_STRING = 6
 CRYPT_STRING_ANY: CRYPT_STRING = 7
 CRYPT_STRING_HEX_ANY: CRYPT_STRING = 8
-class CRYPT_TIME_STAMP_REQUEST_INFO(Structure):
-    pszTimeStampAlgorithm: win32more.Foundation.PSTR
-    pszContentType: win32more.Foundation.PSTR
-    Content: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
-    cAttribute: UInt32
-    rgAttribute: POINTER(win32more.Security.Cryptography.CRYPT_ATTRIBUTE_head)
 class CRYPT_TIMESTAMP_ACCURACY(Structure):
     dwSeconds: UInt32
     dwMillis: UInt32
@@ -5508,6 +5517,12 @@ TIMESTAMP_STATUS_REVOCATION_WARNING: CRYPT_TIMESTAMP_RESPONSE_STATUS = 4
 TIMESTAMP_STATUS_REVOKED: CRYPT_TIMESTAMP_RESPONSE_STATUS = 5
 CRYPT_TIMESTAMP_VERSION = UInt32
 TIMESTAMP_VERSION: CRYPT_TIMESTAMP_VERSION = 1
+class CRYPT_TIME_STAMP_REQUEST_INFO(Structure):
+    pszTimeStampAlgorithm: win32more.Foundation.PSTR
+    pszContentType: win32more.Foundation.PSTR
+    Content: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+    cAttribute: UInt32
+    rgAttribute: POINTER(win32more.Security.Cryptography.CRYPT_ATTRIBUTE_head)
 class CRYPT_URL_ARRAY(Structure):
     cUrl: UInt32
     rgwszUrl: POINTER(win32more.Foundation.PWSTR)
@@ -5596,6 +5611,25 @@ CRYPT_XML_GROUP_ID_SIGN: CRYPT_XML_GROUP_ID = 2
 class CRYPT_XML_ISSUER_SERIAL(Structure):
     wszIssuer: win32more.Foundation.PWSTR
     wszSerial: win32more.Foundation.PWSTR
+class CRYPT_XML_KEYINFO_PARAM(Structure):
+    wszId: win32more.Foundation.PWSTR
+    wszKeyName: win32more.Foundation.PWSTR
+    SKI: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
+    wszSubjectName: win32more.Foundation.PWSTR
+    cCertificate: UInt32
+    rgCertificate: POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+    cCRL: UInt32
+    rgCRL: POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
+CRYPT_XML_KEYINFO_SPEC = Int32
+CRYPT_XML_KEYINFO_SPEC_NONE: CRYPT_XML_KEYINFO_SPEC = 0
+CRYPT_XML_KEYINFO_SPEC_ENCODED: CRYPT_XML_KEYINFO_SPEC = 1
+CRYPT_XML_KEYINFO_SPEC_PARAM: CRYPT_XML_KEYINFO_SPEC = 2
+CRYPT_XML_KEYINFO_TYPE = UInt32
+CRYPT_XML_KEYINFO_TYPE_KEYNAME: CRYPT_XML_KEYINFO_TYPE = 1
+CRYPT_XML_KEYINFO_TYPE_KEYVALUE: CRYPT_XML_KEYINFO_TYPE = 2
+CRYPT_XML_KEYINFO_TYPE_RETRIEVAL: CRYPT_XML_KEYINFO_TYPE = 3
+CRYPT_XML_KEYINFO_TYPE_X509DATA: CRYPT_XML_KEYINFO_TYPE = 4
+CRYPT_XML_KEYINFO_TYPE_CUSTOM: CRYPT_XML_KEYINFO_TYPE = 5
 class CRYPT_XML_KEY_DSA_KEY_VALUE(Structure):
     P: win32more.Security.Cryptography.CRYPT_XML_DATA_BLOB
     Q: win32more.Security.Cryptography.CRYPT_XML_DATA_BLOB
@@ -5640,25 +5674,6 @@ CRYPT_XML_KEY_VALUE_TYPE_DSA: CRYPT_XML_KEY_VALUE_TYPE = 1
 CRYPT_XML_KEY_VALUE_TYPE_RSA: CRYPT_XML_KEY_VALUE_TYPE = 2
 CRYPT_XML_KEY_VALUE_TYPE_ECDSA: CRYPT_XML_KEY_VALUE_TYPE = 3
 CRYPT_XML_KEY_VALUE_TYPE_CUSTOM: CRYPT_XML_KEY_VALUE_TYPE = 4
-class CRYPT_XML_KEYINFO_PARAM(Structure):
-    wszId: win32more.Foundation.PWSTR
-    wszKeyName: win32more.Foundation.PWSTR
-    SKI: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
-    wszSubjectName: win32more.Foundation.PWSTR
-    cCertificate: UInt32
-    rgCertificate: POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
-    cCRL: UInt32
-    rgCRL: POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head)
-CRYPT_XML_KEYINFO_SPEC = Int32
-CRYPT_XML_KEYINFO_SPEC_NONE: CRYPT_XML_KEYINFO_SPEC = 0
-CRYPT_XML_KEYINFO_SPEC_ENCODED: CRYPT_XML_KEYINFO_SPEC = 1
-CRYPT_XML_KEYINFO_SPEC_PARAM: CRYPT_XML_KEYINFO_SPEC = 2
-CRYPT_XML_KEYINFO_TYPE = UInt32
-CRYPT_XML_KEYINFO_TYPE_KEYNAME: CRYPT_XML_KEYINFO_TYPE = 1
-CRYPT_XML_KEYINFO_TYPE_KEYVALUE: CRYPT_XML_KEYINFO_TYPE = 2
-CRYPT_XML_KEYINFO_TYPE_RETRIEVAL: CRYPT_XML_KEYINFO_TYPE = 3
-CRYPT_XML_KEYINFO_TYPE_X509DATA: CRYPT_XML_KEYINFO_TYPE = 4
-CRYPT_XML_KEYINFO_TYPE_CUSTOM: CRYPT_XML_KEYINFO_TYPE = 5
 class CRYPT_XML_OBJECT(Structure):
     cbSize: UInt32
     hObject: c_void_p
@@ -5759,53 +5774,6 @@ CRYPT_XML_X509DATA_TYPE_SUBJECT_NAME: CRYPT_XML_X509DATA_TYPE = 3
 CRYPT_XML_X509DATA_TYPE_CERTIFICATE: CRYPT_XML_X509DATA_TYPE = 4
 CRYPT_XML_X509DATA_TYPE_CRL: CRYPT_XML_X509DATA_TYPE = 5
 CRYPT_XML_X509DATA_TYPE_CUSTOM: CRYPT_XML_X509DATA_TYPE = 6
-class CRYPTNET_URL_CACHE_FLUSH_INFO(Structure):
-    cbSize: UInt32
-    dwExemptSeconds: UInt32
-    ExpireTime: win32more.Foundation.FILETIME
-class CRYPTNET_URL_CACHE_PRE_FETCH_INFO(Structure):
-    cbSize: UInt32
-    dwObjectType: UInt32
-    dwError: UInt32
-    dwReserved: UInt32
-    ThisUpdateTime: win32more.Foundation.FILETIME
-    NextUpdateTime: win32more.Foundation.FILETIME
-    PublishTime: win32more.Foundation.FILETIME
-class CRYPTNET_URL_CACHE_RESPONSE_INFO(Structure):
-    cbSize: UInt32
-    wResponseType: UInt16
-    wResponseFlags: UInt16
-    LastModifiedTime: win32more.Foundation.FILETIME
-    dwMaxAge: UInt32
-    pwszETag: win32more.Foundation.PWSTR
-    dwProxyId: UInt32
-class CRYPTPROTECT_PROMPTSTRUCT(Structure):
-    cbSize: UInt32
-    dwPromptFlags: UInt32
-    hwndApp: win32more.Foundation.HWND
-    szPrompt: win32more.Foundation.PWSTR
-@winfunctype_pointer
-def CryptXmlDllCloseDigest(hDigest: c_void_p) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def CryptXmlDllCreateDigest(pDigestMethod: POINTER(win32more.Security.Cryptography.CRYPT_XML_ALGORITHM_head), pcbSize: POINTER(UInt32), phDigest: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def CryptXmlDllCreateKey(pEncoded: POINTER(win32more.Security.Cryptography.CRYPT_XML_BLOB_head), phKey: POINTER(win32more.Security.Cryptography.BCRYPT_KEY_HANDLE)) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def CryptXmlDllDigestData(hDigest: c_void_p, pbData: c_char_p_no, cbData: UInt32) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def CryptXmlDllEncodeAlgorithm(pAlgInfo: POINTER(win32more.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO_head), dwCharset: win32more.Security.Cryptography.CRYPT_XML_CHARSET, pvCallbackState: c_void_p, pfnWrite: win32more.Security.Cryptography.PFN_CRYPT_XML_WRITE_CALLBACK) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def CryptXmlDllEncodeKeyValue(hKey: win32more.Security.Cryptography.NCRYPT_KEY_HANDLE, dwCharset: win32more.Security.Cryptography.CRYPT_XML_CHARSET, pvCallbackState: c_void_p, pfnWrite: win32more.Security.Cryptography.PFN_CRYPT_XML_WRITE_CALLBACK) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def CryptXmlDllFinalizeDigest(hDigest: c_void_p, pbDigest: c_char_p_no, cbDigest: UInt32) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def CryptXmlDllGetAlgorithmInfo(pXmlAlgorithm: POINTER(win32more.Security.Cryptography.CRYPT_XML_ALGORITHM_head), ppAlgInfo: POINTER(POINTER(win32more.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO_head))) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def CryptXmlDllGetInterface(dwFlags: UInt32, pMethod: POINTER(win32more.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO_head), pInterface: POINTER(win32more.Security.Cryptography.CRYPT_XML_CRYPTOGRAPHIC_INTERFACE_head)) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def CryptXmlDllSignData(pSignatureMethod: POINTER(win32more.Security.Cryptography.CRYPT_XML_ALGORITHM_head), hCryptProvOrNCryptKey: win32more.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec: UInt32, pbInput: c_char_p_no, cbInput: UInt32, pbOutput: c_char_p_no, cbOutput: UInt32, pcbResult: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def CryptXmlDllVerifySignature(pSignatureMethod: POINTER(win32more.Security.Cryptography.CRYPT_XML_ALGORITHM_head), hKey: win32more.Security.Cryptography.BCRYPT_KEY_HANDLE, pbInput: c_char_p_no, cbInput: UInt32, pbSignature: c_char_p_no, cbSignature: UInt32) -> win32more.Foundation.HRESULT: ...
 class CTL_ANY_SUBJECT_INFO(Structure):
     SubjectAlgorithm: win32more.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER
     SubjectIdentifier: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
@@ -5865,15 +5833,47 @@ class CTL_VERIFY_USAGE_STATUS(Structure):
     dwCtlEntryIndex: UInt32
     ppSigner: POINTER(POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head))
     dwSignerIndex: UInt32
-Direction = Int32
-Direction_DirectionEncrypt: Direction = 1
-Direction_DirectionDecrypt: Direction = 2
+CertKeyType = UInt32
+CertKeyType_KeyTypeOther: CertKeyType = 0
+CertKeyType_KeyTypeVirtualSmartCard: CertKeyType = 1
+CertKeyType_KeyTypePhysicalSmartCard: CertKeyType = 2
+CertKeyType_KeyTypePassport: CertKeyType = 3
+CertKeyType_KeyTypePassportRemote: CertKeyType = 4
+CertKeyType_KeyTypePassportSmartCard: CertKeyType = 5
+CertKeyType_KeyTypeHardware: CertKeyType = 6
+CertKeyType_KeyTypeSoftware: CertKeyType = 7
+CertKeyType_KeyTypeSelfSigned: CertKeyType = 8
+@winfunctype_pointer
+def CryptXmlDllCloseDigest(hDigest: c_void_p) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def CryptXmlDllCreateDigest(pDigestMethod: POINTER(win32more.Security.Cryptography.CRYPT_XML_ALGORITHM_head), pcbSize: POINTER(UInt32), phDigest: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def CryptXmlDllCreateKey(pEncoded: POINTER(win32more.Security.Cryptography.CRYPT_XML_BLOB_head), phKey: POINTER(win32more.Security.Cryptography.BCRYPT_KEY_HANDLE)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def CryptXmlDllDigestData(hDigest: c_void_p, pbData: c_char_p_no, cbData: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def CryptXmlDllEncodeAlgorithm(pAlgInfo: POINTER(win32more.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO_head), dwCharset: win32more.Security.Cryptography.CRYPT_XML_CHARSET, pvCallbackState: c_void_p, pfnWrite: win32more.Security.Cryptography.PFN_CRYPT_XML_WRITE_CALLBACK) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def CryptXmlDllEncodeKeyValue(hKey: win32more.Security.Cryptography.NCRYPT_KEY_HANDLE, dwCharset: win32more.Security.Cryptography.CRYPT_XML_CHARSET, pvCallbackState: c_void_p, pfnWrite: win32more.Security.Cryptography.PFN_CRYPT_XML_WRITE_CALLBACK) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def CryptXmlDllFinalizeDigest(hDigest: c_void_p, pbDigest: c_char_p_no, cbDigest: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def CryptXmlDllGetAlgorithmInfo(pXmlAlgorithm: POINTER(win32more.Security.Cryptography.CRYPT_XML_ALGORITHM_head), ppAlgInfo: POINTER(POINTER(win32more.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO_head))) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def CryptXmlDllGetInterface(dwFlags: UInt32, pMethod: POINTER(win32more.Security.Cryptography.CRYPT_XML_ALGORITHM_INFO_head), pInterface: POINTER(win32more.Security.Cryptography.CRYPT_XML_CRYPTOGRAPHIC_INTERFACE_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def CryptXmlDllSignData(pSignatureMethod: POINTER(win32more.Security.Cryptography.CRYPT_XML_ALGORITHM_head), hCryptProvOrNCryptKey: win32more.Security.Cryptography.HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec: UInt32, pbInput: c_char_p_no, cbInput: UInt32, pbOutput: c_char_p_no, cbOutput: UInt32, pcbResult: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def CryptXmlDllVerifySignature(pSignatureMethod: POINTER(win32more.Security.Cryptography.CRYPT_XML_ALGORITHM_head), hKey: win32more.Security.Cryptography.BCRYPT_KEY_HANDLE, pbInput: c_char_p_no, cbInput: UInt32, pbSignature: c_char_p_no, cbSignature: UInt32) -> win32more.Foundation.HRESULT: ...
 DSAFIPSVERSION_ENUM = Int32
 DSA_FIPS186_2: DSAFIPSVERSION_ENUM = 0
 DSA_FIPS186_3: DSAFIPSVERSION_ENUM = 1
 class DSSSEED(Structure):
     counter: UInt32
     seed: Byte * 20
+Direction = Int32
+Direction_DirectionEncrypt: Direction = 1
+Direction_DirectionDecrypt: Direction = 2
 ECC_CURVE_ALG_ID_ENUM = Int32
 BCRYPT_NO_CURVE_GENERATION_ALG_ID: ECC_CURVE_ALG_ID_ENUM = 0
 ECC_CURVE_TYPE_ENUM = Int32
@@ -5903,11 +5903,6 @@ class GENERIC_XML_TOKEN(Structure):
     internalTokenReference: win32more.Foundation.PWSTR
     externalTokenReference: win32more.Foundation.PWSTR
     _pack_ = 1
-HandleType = Int32
-HandleType_Asymmetric: HandleType = 1
-HandleType_Symmetric: HandleType = 2
-HandleType_Transform: HandleType = 3
-HandleType_Hash: HandleType = 4
 HASHALGORITHM_ENUM = Int32
 DSA_HASH_ALGORITHM_SHA1: HASHALGORITHM_ENUM = 0
 DSA_HASH_ALGORITHM_SHA256: HASHALGORITHM_ENUM = 1
@@ -5935,38 +5930,11 @@ class HTTPSPolicyCallbackData(Structure):
     class _Anonymous_e__Union(Union):
         cbStruct: UInt32
         cbSize: UInt32
-class ICertificateEnrollmentPolicyServerSetup(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('859252cc-238c-4a88-b8-fd-a3-7e-7d-04-e6-8b')
-    @commethod(7)
-    def get_ErrorString(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def InitializeInstallDefaults() -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def GetProperty(propertyId: win32more.Security.Cryptography.CEPSetupProperty, pPropertyValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def SetProperty(propertyId: win32more.Security.Cryptography.CEPSetupProperty, pPropertyValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def Install() -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def UnInstall(pAuthKeyBasedRenewal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
-class ICertificateEnrollmentServerSetup(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('70027fdb-9dd9-4921-89-44-b3-5c-b3-1b-d2-ec')
-    @commethod(7)
-    def get_ErrorString(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def InitializeInstallDefaults() -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def GetProperty(propertyId: win32more.Security.Cryptography.CESSetupProperty, pPropertyValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def SetProperty(propertyId: win32more.Security.Cryptography.CESSetupProperty, pPropertyValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def SetApplicationPoolCredentials(bstrUsername: win32more.Foundation.BSTR, bstrPassword: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def Install() -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def UnInstall(pCAConfig: POINTER(win32more.System.Com.VARIANT_head), pAuthentication: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+HandleType = Int32
+HandleType_Asymmetric: HandleType = 1
+HandleType_Symmetric: HandleType = 2
+HandleType_Transform: HandleType = 3
+HandleType_Hash: HandleType = 4
 class ICertSrvSetup(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('b760a1bb-4784-44c0-8f-12-55-5f-07-80-ff-25')
@@ -6048,6 +6016,38 @@ class ICertSrvSetupKeyInformationCollection(c_void_p):
     def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
     @commethod(10)
     def Add(pIKeyInformation: win32more.Security.Cryptography.ICertSrvSetupKeyInformation_head) -> win32more.Foundation.HRESULT: ...
+class ICertificateEnrollmentPolicyServerSetup(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('859252cc-238c-4a88-b8-fd-a3-7e-7d-04-e6-8b')
+    @commethod(7)
+    def get_ErrorString(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def InitializeInstallDefaults() -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetProperty(propertyId: win32more.Security.Cryptography.CEPSetupProperty, pPropertyValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetProperty(propertyId: win32more.Security.Cryptography.CEPSetupProperty, pPropertyValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Install() -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def UnInstall(pAuthKeyBasedRenewal: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class ICertificateEnrollmentServerSetup(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('70027fdb-9dd9-4921-89-44-b3-5c-b3-1b-d2-ec')
+    @commethod(7)
+    def get_ErrorString(pVal: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def InitializeInstallDefaults() -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetProperty(propertyId: win32more.Security.Cryptography.CESSetupProperty, pPropertyValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetProperty(propertyId: win32more.Security.Cryptography.CESSetupProperty, pPropertyValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def SetApplicationPoolCredentials(bstrUsername: win32more.Foundation.BSTR, bstrPassword: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def Install() -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def UnInstall(pCAConfig: POINTER(win32more.System.Com.VARIANT_head), pAuthentication: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
 class IMSCEPSetup(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('4f7761bb-9f3b-4592-9e-e0-9a-73-25-9c-31-3e')
@@ -6326,18 +6326,16 @@ class OCSP_SIGNATURE_INFO(Structure):
 class OCSP_SIGNED_REQUEST_INFO(Structure):
     ToBeSigned: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB
     pOptionalSignatureInfo: POINTER(win32more.Security.Cryptography.OCSP_SIGNATURE_INFO_head)
-PaddingMode = Int32
-PaddingMode_None: PaddingMode = 1
-PaddingMode_PKCS7: PaddingMode = 2
-PaddingMode_Zeros: PaddingMode = 3
-PaddingMode_ANSIX923: PaddingMode = 4
-PaddingMode_ISO10126: PaddingMode = 5
 @winfunctype_pointer
 def PCRYPT_DECRYPT_PRIVATE_KEY_FUNC(Algorithm: win32more.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER, EncryptedPrivateKey: win32more.Security.Cryptography.CRYPT_INTEGER_BLOB, pbClearTextKey: c_char_p_no, pcbClearTextKey: POINTER(UInt32), pVoidDecryptFunc: c_void_p) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PCRYPT_ENCRYPT_PRIVATE_KEY_FUNC(pAlgorithm: POINTER(win32more.Security.Cryptography.CRYPT_ALGORITHM_IDENTIFIER_head), pClearTextPrivateKey: POINTER(win32more.Security.Cryptography.CRYPT_INTEGER_BLOB_head), pbEncryptedKey: c_char_p_no, pcbEncryptedKey: POINTER(UInt32), pVoidEncryptFunc: c_void_p) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PCRYPT_RESOLVE_HCRYPTPROV_FUNC(pPrivateKeyInfo: POINTER(win32more.Security.Cryptography.CRYPT_PRIVATE_KEY_INFO_head), phCryptProv: POINTER(UIntPtr), pVoidResolveFunc: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PFNCryptStreamOutputCallback(pvCallbackCtxt: c_void_p, pbData: c_char_p_no, cbData: UIntPtr, fFinal: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PFNCryptStreamOutputCallbackEx(pvCallbackCtxt: c_void_p, pbData: c_char_p_no, cbData: UIntPtr, hDescriptor: win32more.Security.NCRYPT_DESCRIPTOR_HANDLE, fFinal: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFN_CANCEL_ASYNC_RETRIEVAL_FUNC(hAsyncRetrieve: win32more.Security.Cryptography.HCRYPTASYNC) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -6498,10 +6496,6 @@ def PFN_IMPORT_PUBLIC_KEY_INFO_EX2_FUNC(dwCertEncodingType: win32more.Security.C
 def PFN_NCRYPT_ALLOC(cbSize: UIntPtr) -> c_void_p: ...
 @winfunctype_pointer
 def PFN_NCRYPT_FREE(pv: c_void_p) -> Void: ...
-@winfunctype_pointer
-def PFNCryptStreamOutputCallback(pvCallbackCtxt: c_void_p, pbData: c_char_p_no, cbData: UIntPtr, fFinal: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def PFNCryptStreamOutputCallbackEx(pvCallbackCtxt: c_void_p, pbData: c_char_p_no, cbData: UIntPtr, hDescriptor: win32more.Security.NCRYPT_DESCRIPTOR_HANDLE, fFinal: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
 class PKCS12_PBES2_EXPORT_PARAMS(Structure):
     dwSize: UInt32
     hNcryptDescriptor: c_void_p
@@ -6549,6 +6543,12 @@ class PUBLICKEYSTRUC(Structure):
     bVersion: Byte
     reserved: UInt16
     aiKeyAlg: UInt32
+PaddingMode = Int32
+PaddingMode_None: PaddingMode = 1
+PaddingMode_PKCS7: PaddingMode = 2
+PaddingMode_Zeros: PaddingMode = 3
+PaddingMode_ANSIX923: PaddingMode = 4
+PaddingMode_ISO10126: PaddingMode = 5
 class RECIPIENTPOLICY(Structure):
     recipient: win32more.Security.Cryptography.ENDPOINTADDRESS
     issuer: win32more.Security.Cryptography.ENDPOINTADDRESS
@@ -6611,9 +6611,9 @@ make_head(_module, 'BCRYPT_DSA_KEY_BLOB')
 make_head(_module, 'BCRYPT_DSA_KEY_BLOB_V2')
 make_head(_module, 'BCRYPT_DSA_PARAMETER_HEADER')
 make_head(_module, 'BCRYPT_DSA_PARAMETER_HEADER_V2')
-make_head(_module, 'BCRYPT_ECC_CURVE_NAMES')
 make_head(_module, 'BCRYPT_ECCFULLKEY_BLOB')
 make_head(_module, 'BCRYPT_ECCKEY_BLOB')
+make_head(_module, 'BCRYPT_ECC_CURVE_NAMES')
 make_head(_module, 'BCRYPT_INTERFACE_VERSION')
 make_head(_module, 'BCRYPT_KEY_BLOB')
 make_head(_module, 'BCRYPT_KEY_DATA_BLOB_HEADER')
@@ -6629,14 +6629,15 @@ make_head(_module, 'BCRYPT_PSS_PADDING_INFO')
 make_head(_module, 'BCRYPT_RSAKEY_BLOB')
 make_head(_module, 'BCryptBuffer')
 make_head(_module, 'BCryptBufferDesc')
+make_head(_module, 'CERTIFICATE_CHAIN_BLOB')
 make_head(_module, 'CERT_ACCESS_DESCRIPTION')
 make_head(_module, 'CERT_ALT_NAME_ENTRY')
 make_head(_module, 'CERT_ALT_NAME_INFO')
 make_head(_module, 'CERT_AUTHORITY_INFO_ACCESS')
-make_head(_module, 'CERT_AUTHORITY_KEY_ID_INFO')
 make_head(_module, 'CERT_AUTHORITY_KEY_ID2_INFO')
-make_head(_module, 'CERT_BASIC_CONSTRAINTS_INFO')
+make_head(_module, 'CERT_AUTHORITY_KEY_ID_INFO')
 make_head(_module, 'CERT_BASIC_CONSTRAINTS2_INFO')
+make_head(_module, 'CERT_BASIC_CONSTRAINTS_INFO')
 make_head(_module, 'CERT_BIOMETRIC_DATA')
 make_head(_module, 'CERT_BIOMETRIC_EXT_INFO')
 make_head(_module, 'CERT_CHAIN')
@@ -6661,10 +6662,10 @@ make_head(_module, 'CERT_HASHED_URL')
 make_head(_module, 'CERT_ID')
 make_head(_module, 'CERT_INFO')
 make_head(_module, 'CERT_ISSUER_SERIAL_NUMBER')
+make_head(_module, 'CERT_KEYGEN_REQUEST_INFO')
 make_head(_module, 'CERT_KEY_ATTRIBUTES_INFO')
 make_head(_module, 'CERT_KEY_CONTEXT')
 make_head(_module, 'CERT_KEY_USAGE_RESTRICTION_INFO')
-make_head(_module, 'CERT_KEYGEN_REQUEST_INFO')
 make_head(_module, 'CERT_LDAP_STORE_OPENED_PARA')
 make_head(_module, 'CERT_LOGOTYPE_AUDIO')
 make_head(_module, 'CERT_LOGOTYPE_AUDIO_INFO')
@@ -6685,6 +6686,7 @@ make_head(_module, 'CERT_OTHER_NAME')
 make_head(_module, 'CERT_PAIR')
 make_head(_module, 'CERT_PHYSICAL_STORE_INFO')
 make_head(_module, 'CERT_POLICIES_INFO')
+make_head(_module, 'CERT_POLICY95_QUALIFIER1')
 make_head(_module, 'CERT_POLICY_CONSTRAINTS_INFO')
 make_head(_module, 'CERT_POLICY_ID')
 make_head(_module, 'CERT_POLICY_INFO')
@@ -6693,7 +6695,6 @@ make_head(_module, 'CERT_POLICY_MAPPINGS_INFO')
 make_head(_module, 'CERT_POLICY_QUALIFIER_INFO')
 make_head(_module, 'CERT_POLICY_QUALIFIER_NOTICE_REFERENCE')
 make_head(_module, 'CERT_POLICY_QUALIFIER_USER_NOTICE')
-make_head(_module, 'CERT_POLICY95_QUALIFIER1')
 make_head(_module, 'CERT_PRIVATE_KEY_VALIDITY')
 make_head(_module, 'CERT_PUBLIC_KEY_INFO')
 make_head(_module, 'CERT_QC_STATEMENT')
@@ -6728,7 +6729,6 @@ make_head(_module, 'CERT_TRUST_STATUS')
 make_head(_module, 'CERT_USAGE_MATCH')
 make_head(_module, 'CERT_X942_DH_PARAMETERS')
 make_head(_module, 'CERT_X942_DH_VALIDATION_PARAMS')
-make_head(_module, 'CERTIFICATE_CHAIN_BLOB')
 make_head(_module, 'CLAIMLIST')
 make_head(_module, 'CMC_ADD_ATTRIBUTES_INFO')
 make_head(_module, 'CMC_ADD_EXTENSIONS_INFO')
@@ -6741,8 +6741,6 @@ make_head(_module, 'CMC_TAGGED_CERT_REQUEST')
 make_head(_module, 'CMC_TAGGED_CONTENT_INFO')
 make_head(_module, 'CMC_TAGGED_OTHER_MSG')
 make_head(_module, 'CMC_TAGGED_REQUEST')
-make_head(_module, 'CMS_DH_KEY_INFO')
-make_head(_module, 'CMS_KEY_INFO')
 make_head(_module, 'CMSG_CMS_RECIPIENT_INFO')
 make_head(_module, 'CMSG_CMS_SIGNER_INFO')
 make_head(_module, 'CMSG_CNG_CONTENT_DECRYPT_INFO')
@@ -6778,34 +6776,40 @@ make_head(_module, 'CMSG_SIGNER_ENCODE_INFO')
 make_head(_module, 'CMSG_SIGNER_INFO')
 make_head(_module, 'CMSG_SP3_COMPATIBLE_AUX_INFO')
 make_head(_module, 'CMSG_STREAM_INFO')
+make_head(_module, 'CMS_DH_KEY_INFO')
+make_head(_module, 'CMS_KEY_INFO')
 make_head(_module, 'CPS_URLS')
 make_head(_module, 'CRL_CONTEXT')
 make_head(_module, 'CRL_DIST_POINT')
-make_head(_module, 'CRL_DIST_POINT_NAME')
 make_head(_module, 'CRL_DIST_POINTS_INFO')
+make_head(_module, 'CRL_DIST_POINT_NAME')
 make_head(_module, 'CRL_ENTRY')
 make_head(_module, 'CRL_FIND_ISSUED_FOR_PARA')
 make_head(_module, 'CRL_INFO')
 make_head(_module, 'CRL_ISSUING_DIST_POINT')
 make_head(_module, 'CRL_REVOCATION_INFO')
 make_head(_module, 'CROSS_CERT_DIST_POINTS_INFO')
+make_head(_module, 'CRYPTNET_URL_CACHE_FLUSH_INFO')
+make_head(_module, 'CRYPTNET_URL_CACHE_PRE_FETCH_INFO')
+make_head(_module, 'CRYPTNET_URL_CACHE_RESPONSE_INFO')
+make_head(_module, 'CRYPTPROTECT_PROMPTSTRUCT')
 make_head(_module, 'CRYPT_3DES_KEY_STATE')
 make_head(_module, 'CRYPT_AES_128_KEY_STATE')
 make_head(_module, 'CRYPT_AES_256_KEY_STATE')
 make_head(_module, 'CRYPT_ALGORITHM_IDENTIFIER')
 make_head(_module, 'CRYPT_ASYNC_RETRIEVAL_COMPLETION')
 make_head(_module, 'CRYPT_ATTRIBUTE')
-make_head(_module, 'CRYPT_ATTRIBUTE_TYPE_VALUE')
 make_head(_module, 'CRYPT_ATTRIBUTES')
+make_head(_module, 'CRYPT_ATTRIBUTE_TYPE_VALUE')
 make_head(_module, 'CRYPT_BIT_BLOB')
 make_head(_module, 'CRYPT_BLOB_ARRAY')
 make_head(_module, 'CRYPT_CONTENT_INFO')
 make_head(_module, 'CRYPT_CONTENT_INFO_SEQUENCE_OF_ANY')
+make_head(_module, 'CRYPT_CONTEXTS')
 make_head(_module, 'CRYPT_CONTEXT_CONFIG')
+make_head(_module, 'CRYPT_CONTEXT_FUNCTIONS')
 make_head(_module, 'CRYPT_CONTEXT_FUNCTION_CONFIG')
 make_head(_module, 'CRYPT_CONTEXT_FUNCTION_PROVIDERS')
-make_head(_module, 'CRYPT_CONTEXT_FUNCTIONS')
-make_head(_module, 'CRYPT_CONTEXTS')
 make_head(_module, 'CRYPT_CREDENTIALS')
 make_head(_module, 'CRYPT_CSP_PROVIDER')
 make_head(_module, 'CRYPT_DECODE_PARA')
@@ -6815,8 +6819,8 @@ make_head(_module, 'CRYPT_DES_KEY_STATE')
 make_head(_module, 'CRYPT_ECC_CMS_SHARED_INFO')
 make_head(_module, 'CRYPT_ECC_PRIVATE_KEY_INFO')
 make_head(_module, 'CRYPT_ENCODE_PARA')
-make_head(_module, 'CRYPT_ENCRYPT_MESSAGE_PARA')
 make_head(_module, 'CRYPT_ENCRYPTED_PRIVATE_KEY_INFO')
+make_head(_module, 'CRYPT_ENCRYPT_MESSAGE_PARA')
 make_head(_module, 'CRYPT_ENROLLMENT_NAME_VALUE_PAIR')
 make_head(_module, 'CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO')
 make_head(_module, 'CRYPT_HASH_INFO')
@@ -6841,28 +6845,28 @@ make_head(_module, 'CRYPT_PKCS8_EXPORT_PARAMS')
 make_head(_module, 'CRYPT_PKCS8_IMPORT_PARAMS')
 make_head(_module, 'CRYPT_PRIVATE_KEY_INFO')
 make_head(_module, 'CRYPT_PROPERTY_REF')
+make_head(_module, 'CRYPT_PROVIDERS')
 make_head(_module, 'CRYPT_PROVIDER_REF')
 make_head(_module, 'CRYPT_PROVIDER_REFS')
 make_head(_module, 'CRYPT_PROVIDER_REG')
-make_head(_module, 'CRYPT_PROVIDERS')
 make_head(_module, 'CRYPT_PSOURCE_ALGORITHM')
 make_head(_module, 'CRYPT_RC2_CBC_PARAMETERS')
 make_head(_module, 'CRYPT_RC4_KEY_STATE')
 make_head(_module, 'CRYPT_RETRIEVE_AUX_INFO')
-make_head(_module, 'CRYPT_RSA_SSA_PSS_PARAMETERS')
 make_head(_module, 'CRYPT_RSAES_OAEP_PARAMETERS')
+make_head(_module, 'CRYPT_RSA_SSA_PSS_PARAMETERS')
 make_head(_module, 'CRYPT_SEQUENCE_OF_ANY')
 make_head(_module, 'CRYPT_SIGN_MESSAGE_PARA')
 make_head(_module, 'CRYPT_SMART_CARD_ROOT_INFO')
 make_head(_module, 'CRYPT_SMIME_CAPABILITIES')
 make_head(_module, 'CRYPT_SMIME_CAPABILITY')
-make_head(_module, 'CRYPT_TIME_STAMP_REQUEST_INFO')
 make_head(_module, 'CRYPT_TIMESTAMP_ACCURACY')
 make_head(_module, 'CRYPT_TIMESTAMP_CONTEXT')
 make_head(_module, 'CRYPT_TIMESTAMP_INFO')
 make_head(_module, 'CRYPT_TIMESTAMP_PARA')
 make_head(_module, 'CRYPT_TIMESTAMP_REQUEST')
 make_head(_module, 'CRYPT_TIMESTAMP_RESPONSE')
+make_head(_module, 'CRYPT_TIME_STAMP_REQUEST_INFO')
 make_head(_module, 'CRYPT_URL_ARRAY')
 make_head(_module, 'CRYPT_URL_INFO')
 make_head(_module, 'CRYPT_VERIFY_CERT_SIGN_STRONG_PROPERTIES_INFO')
@@ -6877,13 +6881,13 @@ make_head(_module, 'CRYPT_XML_DATA_BLOB')
 make_head(_module, 'CRYPT_XML_DATA_PROVIDER')
 make_head(_module, 'CRYPT_XML_DOC_CTXT')
 make_head(_module, 'CRYPT_XML_ISSUER_SERIAL')
+make_head(_module, 'CRYPT_XML_KEYINFO_PARAM')
 make_head(_module, 'CRYPT_XML_KEY_DSA_KEY_VALUE')
 make_head(_module, 'CRYPT_XML_KEY_ECDSA_KEY_VALUE')
 make_head(_module, 'CRYPT_XML_KEY_INFO')
 make_head(_module, 'CRYPT_XML_KEY_INFO_ITEM')
 make_head(_module, 'CRYPT_XML_KEY_RSA_KEY_VALUE')
 make_head(_module, 'CRYPT_XML_KEY_VALUE')
-make_head(_module, 'CRYPT_XML_KEYINFO_PARAM')
 make_head(_module, 'CRYPT_XML_OBJECT')
 make_head(_module, 'CRYPT_XML_PROPERTY')
 make_head(_module, 'CRYPT_XML_REFERENCE')
@@ -6895,10 +6899,16 @@ make_head(_module, 'CRYPT_XML_TRANSFORM_CHAIN_CONFIG')
 make_head(_module, 'CRYPT_XML_TRANSFORM_INFO')
 make_head(_module, 'CRYPT_XML_X509DATA')
 make_head(_module, 'CRYPT_XML_X509DATA_ITEM')
-make_head(_module, 'CRYPTNET_URL_CACHE_FLUSH_INFO')
-make_head(_module, 'CRYPTNET_URL_CACHE_PRE_FETCH_INFO')
-make_head(_module, 'CRYPTNET_URL_CACHE_RESPONSE_INFO')
-make_head(_module, 'CRYPTPROTECT_PROMPTSTRUCT')
+make_head(_module, 'CTL_ANY_SUBJECT_INFO')
+make_head(_module, 'CTL_CONTEXT')
+make_head(_module, 'CTL_ENTRY')
+make_head(_module, 'CTL_FIND_SUBJECT_PARA')
+make_head(_module, 'CTL_FIND_USAGE_PARA')
+make_head(_module, 'CTL_INFO')
+make_head(_module, 'CTL_USAGE')
+make_head(_module, 'CTL_USAGE_MATCH')
+make_head(_module, 'CTL_VERIFY_USAGE_PARA')
+make_head(_module, 'CTL_VERIFY_USAGE_STATUS')
 make_head(_module, 'CryptXmlDllCloseDigest')
 make_head(_module, 'CryptXmlDllCreateDigest')
 make_head(_module, 'CryptXmlDllCreateKey')
@@ -6910,16 +6920,6 @@ make_head(_module, 'CryptXmlDllGetAlgorithmInfo')
 make_head(_module, 'CryptXmlDllGetInterface')
 make_head(_module, 'CryptXmlDllSignData')
 make_head(_module, 'CryptXmlDllVerifySignature')
-make_head(_module, 'CTL_ANY_SUBJECT_INFO')
-make_head(_module, 'CTL_CONTEXT')
-make_head(_module, 'CTL_ENTRY')
-make_head(_module, 'CTL_FIND_SUBJECT_PARA')
-make_head(_module, 'CTL_FIND_USAGE_PARA')
-make_head(_module, 'CTL_INFO')
-make_head(_module, 'CTL_USAGE')
-make_head(_module, 'CTL_USAGE_MATCH')
-make_head(_module, 'CTL_VERIFY_USAGE_PARA')
-make_head(_module, 'CTL_VERIFY_USAGE_STATUS')
 make_head(_module, 'DSSSEED')
 make_head(_module, 'ENDPOINTADDRESS')
 make_head(_module, 'ENDPOINTADDRESS2')
@@ -6928,11 +6928,11 @@ make_head(_module, 'EV_EXTRA_CERT_CHAIN_POLICY_STATUS')
 make_head(_module, 'GENERIC_XML_TOKEN')
 make_head(_module, 'HMAC_INFO')
 make_head(_module, 'HTTPSPolicyCallbackData')
-make_head(_module, 'ICertificateEnrollmentPolicyServerSetup')
-make_head(_module, 'ICertificateEnrollmentServerSetup')
 make_head(_module, 'ICertSrvSetup')
 make_head(_module, 'ICertSrvSetupKeyInformation')
 make_head(_module, 'ICertSrvSetupKeyInformationCollection')
+make_head(_module, 'ICertificateEnrollmentPolicyServerSetup')
+make_head(_module, 'ICertificateEnrollmentServerSetup')
 make_head(_module, 'IMSCEPSetup')
 make_head(_module, 'INFORMATIONCARD_ASYMMETRIC_CRYPTO_PARAMETERS')
 make_head(_module, 'INFORMATIONCARD_CRYPTO_HANDLE')
@@ -6977,6 +6977,8 @@ make_head(_module, 'OCSP_SIGNED_REQUEST_INFO')
 make_head(_module, 'PCRYPT_DECRYPT_PRIVATE_KEY_FUNC')
 make_head(_module, 'PCRYPT_ENCRYPT_PRIVATE_KEY_FUNC')
 make_head(_module, 'PCRYPT_RESOLVE_HCRYPTPROV_FUNC')
+make_head(_module, 'PFNCryptStreamOutputCallback')
+make_head(_module, 'PFNCryptStreamOutputCallbackEx')
 make_head(_module, 'PFN_CANCEL_ASYNC_RETRIEVAL_FUNC')
 make_head(_module, 'PFN_CERT_CHAIN_FIND_BY_ISSUER_CALLBACK')
 make_head(_module, 'PFN_CERT_CREATE_CONTEXT_SORT_FUNC')
@@ -7057,8 +7059,6 @@ make_head(_module, 'PFN_IMPORT_PRIV_KEY_FUNC')
 make_head(_module, 'PFN_IMPORT_PUBLIC_KEY_INFO_EX2_FUNC')
 make_head(_module, 'PFN_NCRYPT_ALLOC')
 make_head(_module, 'PFN_NCRYPT_FREE')
-make_head(_module, 'PFNCryptStreamOutputCallback')
-make_head(_module, 'PFNCryptStreamOutputCallbackEx')
 make_head(_module, 'PKCS12_PBES2_EXPORT_PARAMS')
 make_head(_module, 'POLICY_ELEMENT')
 make_head(_module, 'PRIVKEYVER3')

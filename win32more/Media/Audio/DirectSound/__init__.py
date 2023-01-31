@@ -735,11 +735,6 @@ class IDirectSoundCaptureFXNoiseSuppress(c_void_p):
     def GetAllParameters(pDscFxNoiseSuppress: POINTER(win32more.Media.Audio.DirectSound.DSCFXNoiseSuppress_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(5)
     def Reset() -> win32more.Foundation.HRESULT: ...
-class IDirectSoundFullDuplex(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('edcb4c7a-daab-4216-a4-2e-6c-50-59-6d-dc-1d')
-    @commethod(3)
-    def Initialize(pCaptureGuid: POINTER(Guid), pRenderGuid: POINTER(Guid), lpDscBufferDesc: POINTER(win32more.Media.Audio.DirectSound.DSCBUFFERDESC_head), lpDsBufferDesc: POINTER(win32more.Media.Audio.DirectSound.DSBUFFERDESC_head), hWnd: win32more.Foundation.HWND, dwLevel: UInt32, lplpDirectSoundCaptureBuffer8: POINTER(win32more.Media.Audio.DirectSound.IDirectSoundCaptureBuffer8_head), lplpDirectSoundBuffer8: POINTER(win32more.Media.Audio.DirectSound.IDirectSoundBuffer8_head)) -> win32more.Foundation.HRESULT: ...
 class IDirectSoundFXChorus(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('880842e3-145f-43e6-a9-34-a7-18-06-e5-05-47')
@@ -811,6 +806,11 @@ class IDirectSoundFXWavesReverb(c_void_p):
     def SetAllParameters(pcDsFxWavesReverb: POINTER(win32more.Media.Audio.DirectSound.DSFXWavesReverb_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def GetAllParameters(pDsFxWavesReverb: POINTER(win32more.Media.Audio.DirectSound.DSFXWavesReverb_head)) -> win32more.Foundation.HRESULT: ...
+class IDirectSoundFullDuplex(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('edcb4c7a-daab-4216-a4-2e-6c-50-59-6d-dc-1d')
+    @commethod(3)
+    def Initialize(pCaptureGuid: POINTER(Guid), pRenderGuid: POINTER(Guid), lpDscBufferDesc: POINTER(win32more.Media.Audio.DirectSound.DSCBUFFERDESC_head), lpDsBufferDesc: POINTER(win32more.Media.Audio.DirectSound.DSBUFFERDESC_head), hWnd: win32more.Foundation.HWND, dwLevel: UInt32, lplpDirectSoundCaptureBuffer8: POINTER(win32more.Media.Audio.DirectSound.IDirectSoundCaptureBuffer8_head), lplpDirectSoundBuffer8: POINTER(win32more.Media.Audio.DirectSound.IDirectSoundBuffer8_head)) -> win32more.Foundation.HRESULT: ...
 class IDirectSoundNotify(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('b0210783-89cd-11d0-af-08-00-a0-c9-25-cd-16')
@@ -855,7 +855,6 @@ make_head(_module, 'IDirectSoundCaptureBuffer')
 make_head(_module, 'IDirectSoundCaptureBuffer8')
 make_head(_module, 'IDirectSoundCaptureFXAec')
 make_head(_module, 'IDirectSoundCaptureFXNoiseSuppress')
-make_head(_module, 'IDirectSoundFullDuplex')
 make_head(_module, 'IDirectSoundFXChorus')
 make_head(_module, 'IDirectSoundFXCompressor')
 make_head(_module, 'IDirectSoundFXDistortion')
@@ -865,6 +864,7 @@ make_head(_module, 'IDirectSoundFXGargle')
 make_head(_module, 'IDirectSoundFXI3DL2Reverb')
 make_head(_module, 'IDirectSoundFXParamEq')
 make_head(_module, 'IDirectSoundFXWavesReverb')
+make_head(_module, 'IDirectSoundFullDuplex')
 make_head(_module, 'IDirectSoundNotify')
 make_head(_module, 'LPDSENUMCALLBACKA')
 make_head(_module, 'LPDSENUMCALLBACKW')

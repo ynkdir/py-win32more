@@ -1166,6 +1166,9 @@ VDS_ISCSI_LOGIN_TYPE = Int32
 VDS_ILT_MANUAL: VDS_ISCSI_LOGIN_TYPE = 0
 VDS_ILT_PERSISTENT: VDS_ISCSI_LOGIN_TYPE = 1
 VDS_ILT_BOOT: VDS_ISCSI_LOGIN_TYPE = 2
+class VDS_ISCSI_PORTALGROUP_PROP(Structure):
+    id: Guid
+    tag: UInt16
 class VDS_ISCSI_PORTAL_PROP(Structure):
     id: Guid
     address: win32more.Storage.VirtualDiskService.VDS_IPADDRESS
@@ -1176,9 +1179,6 @@ VDS_IPS_ONLINE: VDS_ISCSI_PORTAL_STATUS = 1
 VDS_IPS_NOT_READY: VDS_ISCSI_PORTAL_STATUS = 2
 VDS_IPS_OFFLINE: VDS_ISCSI_PORTAL_STATUS = 4
 VDS_IPS_FAILED: VDS_ISCSI_PORTAL_STATUS = 5
-class VDS_ISCSI_PORTALGROUP_PROP(Structure):
-    id: Guid
-    tag: UInt16
 class VDS_ISCSI_SHARED_SECRET(Structure):
     pSharedSecret: c_char_p_no
     ulSharedSecretSize: UInt32
@@ -1482,6 +1482,12 @@ class VDS_POOL_ATTRIBUTES(Structure):
 class VDS_POOL_CUSTOM_ATTRIBUTES(Structure):
     pwszName: win32more.Foundation.PWSTR
     pwszValue: win32more.Foundation.PWSTR
+class VDS_PORTAL_GROUP_NOTIFICATION(Structure):
+    ulEvent: UInt32
+    portalGroupId: Guid
+class VDS_PORTAL_NOTIFICATION(Structure):
+    ulEvent: UInt32
+    portalId: Guid
 class VDS_PORT_NOTIFICATION(Structure):
     ulEvent: win32more.Storage.VirtualDiskService.VDS_NF_PORT
     portId: Guid
@@ -1497,12 +1503,6 @@ VDS_PRS_NOT_READY: VDS_PORT_STATUS = 2
 VDS_PRS_OFFLINE: VDS_PORT_STATUS = 4
 VDS_PRS_FAILED: VDS_PORT_STATUS = 5
 VDS_PRS_REMOVED: VDS_PORT_STATUS = 8
-class VDS_PORTAL_GROUP_NOTIFICATION(Structure):
-    ulEvent: UInt32
-    portalGroupId: Guid
-class VDS_PORTAL_NOTIFICATION(Structure):
-    ulEvent: UInt32
-    portalId: Guid
 VDS_PROVIDER_FLAG = Int32
 VDS_PF_DYNAMIC: VDS_PROVIDER_FLAG = 1
 VDS_PF_INTERNAL_HARDWARE_PROVIDER: VDS_PROVIDER_FLAG = 2
@@ -1789,8 +1789,8 @@ make_head(_module, 'VDS_IPADDRESS')
 make_head(_module, 'VDS_ISCSI_INITIATOR_ADAPTER_PROP')
 make_head(_module, 'VDS_ISCSI_INITIATOR_PORTAL_PROP')
 make_head(_module, 'VDS_ISCSI_IPSEC_KEY')
-make_head(_module, 'VDS_ISCSI_PORTAL_PROP')
 make_head(_module, 'VDS_ISCSI_PORTALGROUP_PROP')
+make_head(_module, 'VDS_ISCSI_PORTAL_PROP')
 make_head(_module, 'VDS_ISCSI_SHARED_SECRET')
 make_head(_module, 'VDS_ISCSI_TARGET_PROP')
 make_head(_module, 'VDS_LUN_INFORMATION')
@@ -1806,10 +1806,10 @@ make_head(_module, 'VDS_PATH_INFO')
 make_head(_module, 'VDS_PATH_POLICY')
 make_head(_module, 'VDS_POOL_ATTRIBUTES')
 make_head(_module, 'VDS_POOL_CUSTOM_ATTRIBUTES')
-make_head(_module, 'VDS_PORT_NOTIFICATION')
-make_head(_module, 'VDS_PORT_PROP')
 make_head(_module, 'VDS_PORTAL_GROUP_NOTIFICATION')
 make_head(_module, 'VDS_PORTAL_NOTIFICATION')
+make_head(_module, 'VDS_PORT_NOTIFICATION')
+make_head(_module, 'VDS_PORT_PROP')
 make_head(_module, 'VDS_PROVIDER_PROP')
 make_head(_module, 'VDS_SERVICE_NOTIFICATION')
 make_head(_module, 'VDS_STORAGE_DEVICE_ID_DESCRIPTOR')

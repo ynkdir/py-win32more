@@ -227,10 +227,6 @@ class FILTER_VOLUME_STANDARD_INFORMATION(Structure):
     FileSystemType: win32more.Storage.InstallableFileSystems.FLT_FILESYSTEM_TYPE
     FilterVolumeNameLength: UInt16
     FilterVolumeName: Char * 1
-FilterFindHandle = IntPtr
-FilterInstanceFindHandle = IntPtr
-FilterVolumeFindHandle = IntPtr
-FilterVolumeInstanceFindHandle = IntPtr
 FLT_FILESYSTEM_TYPE = Int32
 FLT_FSTYPE_UNKNOWN: FLT_FILESYSTEM_TYPE = 0
 FLT_FSTYPE_RAW: FLT_FILESYSTEM_TYPE = 1
@@ -263,6 +259,10 @@ FLT_FSTYPE_CSVFS: FLT_FILESYSTEM_TYPE = 27
 FLT_FSTYPE_REFS: FLT_FILESYSTEM_TYPE = 28
 FLT_FSTYPE_OPENAFS: FLT_FILESYSTEM_TYPE = 29
 FLT_FSTYPE_CIMFS: FLT_FILESYSTEM_TYPE = 30
+FilterFindHandle = IntPtr
+FilterInstanceFindHandle = IntPtr
+FilterVolumeFindHandle = IntPtr
+FilterVolumeInstanceFindHandle = IntPtr
 HFILTER = IntPtr
 HFILTER_INSTANCE = IntPtr
 class INSTANCE_AGGREGATE_STANDARD_INFORMATION(Structure):

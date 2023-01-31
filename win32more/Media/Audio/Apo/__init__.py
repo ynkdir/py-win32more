@@ -19,6 +19,134 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+class APOInitBaseStruct(Structure):
+    cbSize: UInt32
+    clsid: Guid
+class APOInitSystemEffects(Structure):
+    APOInit: win32more.Media.Audio.Apo.APOInitBaseStruct
+    pAPOEndpointProperties: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head
+    pAPOSystemEffectsProperties: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head
+    pReserved: c_void_p
+    pDeviceCollection: win32more.Media.Audio.IMMDeviceCollection_head
+class APOInitSystemEffects2(Structure):
+    APOInit: win32more.Media.Audio.Apo.APOInitBaseStruct
+    pAPOEndpointProperties: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head
+    pAPOSystemEffectsProperties: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head
+    pReserved: c_void_p
+    pDeviceCollection: win32more.Media.Audio.IMMDeviceCollection_head
+    nSoftwareIoDeviceInCollection: UInt32
+    nSoftwareIoConnectorIndex: UInt32
+    AudioProcessingMode: Guid
+    InitializeForDiscoveryOnly: win32more.Foundation.BOOL
+class APOInitSystemEffects3(Structure):
+    APOInit: win32more.Media.Audio.Apo.APOInitBaseStruct
+    pAPOEndpointProperties: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head
+    pServiceProvider: win32more.System.Com.IServiceProvider_head
+    pDeviceCollection: win32more.Media.Audio.IMMDeviceCollection_head
+    nSoftwareIoDeviceInCollection: UInt32
+    nSoftwareIoConnectorIndex: UInt32
+    AudioProcessingMode: Guid
+    InitializeForDiscoveryOnly: win32more.Foundation.BOOL
+APO_BUFFER_FLAGS = Int32
+BUFFER_INVALID: APO_BUFFER_FLAGS = 0
+BUFFER_VALID: APO_BUFFER_FLAGS = 1
+BUFFER_SILENT: APO_BUFFER_FLAGS = 2
+APO_CONNECTION_BUFFER_TYPE = Int32
+APO_CONNECTION_BUFFER_TYPE_ALLOCATED: APO_CONNECTION_BUFFER_TYPE = 0
+APO_CONNECTION_BUFFER_TYPE_EXTERNAL: APO_CONNECTION_BUFFER_TYPE = 1
+APO_CONNECTION_BUFFER_TYPE_DEPENDANT: APO_CONNECTION_BUFFER_TYPE = 2
+class APO_CONNECTION_DESCRIPTOR(Structure):
+    Type: win32more.Media.Audio.Apo.APO_CONNECTION_BUFFER_TYPE
+    pBuffer: UIntPtr
+    u32MaxFrameCount: UInt32
+    pFormat: win32more.Media.Audio.Apo.IAudioMediaType_head
+    u32Signature: UInt32
+class APO_CONNECTION_PROPERTY(Structure):
+    pBuffer: UIntPtr
+    u32ValidFrameCount: UInt32
+    u32BufferFlags: win32more.Media.Audio.Apo.APO_BUFFER_FLAGS
+    u32Signature: UInt32
+class APO_CONNECTION_PROPERTY_V2(Structure):
+    property: win32more.Media.Audio.Apo.APO_CONNECTION_PROPERTY
+    u64QPCTime: UInt64
+APO_FLAG = Int32
+APO_FLAG_NONE: APO_FLAG = 0
+APO_FLAG_INPLACE: APO_FLAG = 1
+APO_FLAG_SAMPLESPERFRAME_MUST_MATCH: APO_FLAG = 2
+APO_FLAG_FRAMESPERSECOND_MUST_MATCH: APO_FLAG = 4
+APO_FLAG_BITSPERSAMPLE_MUST_MATCH: APO_FLAG = 8
+APO_FLAG_MIXER: APO_FLAG = 16
+APO_FLAG_DEFAULT: APO_FLAG = 14
+APO_LOG_LEVEL = Int32
+APO_LOG_LEVEL_ALWAYS: APO_LOG_LEVEL = 0
+APO_LOG_LEVEL_CRITICAL: APO_LOG_LEVEL = 1
+APO_LOG_LEVEL_ERROR: APO_LOG_LEVEL = 2
+APO_LOG_LEVEL_WARNING: APO_LOG_LEVEL = 3
+APO_LOG_LEVEL_INFO: APO_LOG_LEVEL = 4
+APO_LOG_LEVEL_VERBOSE: APO_LOG_LEVEL = 5
+class APO_NOTIFICATION(Structure):
+    type: win32more.Media.Audio.Apo.APO_NOTIFICATION_TYPE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        audioEndpointVolumeChange: win32more.Media.Audio.Apo.AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION
+        audioEndpointPropertyChange: win32more.Media.Audio.Apo.AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION
+        audioSystemEffectsPropertyChange: win32more.Media.Audio.Apo.AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION
+class APO_NOTIFICATION_DESCRIPTOR(Structure):
+    type: win32more.Media.Audio.Apo.APO_NOTIFICATION_TYPE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        audioEndpointVolume: win32more.Media.Audio.Apo.AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR
+        audioEndpointPropertyChange: win32more.Media.Audio.Apo.AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR
+        audioSystemEffectsPropertyChange: win32more.Media.Audio.Apo.AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR
+APO_NOTIFICATION_TYPE = Int32
+APO_NOTIFICATION_TYPE_NONE: APO_NOTIFICATION_TYPE = 0
+APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME: APO_NOTIFICATION_TYPE = 1
+APO_NOTIFICATION_TYPE_ENDPOINT_PROPERTY_CHANGE: APO_NOTIFICATION_TYPE = 2
+APO_NOTIFICATION_TYPE_SYSTEM_EFFECTS_PROPERTY_CHANGE: APO_NOTIFICATION_TYPE = 3
+class APO_REG_PROPERTIES(Structure):
+    clsid: Guid
+    Flags: win32more.Media.Audio.Apo.APO_FLAG
+    szFriendlyName: Char * 256
+    szCopyrightInfo: Char * 256
+    u32MajorVersion: UInt32
+    u32MinorVersion: UInt32
+    u32MinInputConnections: UInt32
+    u32MaxInputConnections: UInt32
+    u32MinOutputConnections: UInt32
+    u32MaxOutputConnections: UInt32
+    u32MaxInstances: UInt32
+    u32NumAPOInterfaces: UInt32
+    iidAPOInterfaceList: Guid * 1
+class AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR(Structure):
+    device: win32more.Media.Audio.IMMDevice_head
+class AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION(Structure):
+    endpoint: win32more.Media.Audio.IMMDevice_head
+    propertyStore: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head
+    propertyKey: win32more.UI.Shell.PropertiesSystem.PROPERTYKEY
+class AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR(Structure):
+    device: win32more.Media.Audio.IMMDevice_head
+class AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION(Structure):
+    endpoint: win32more.Media.Audio.IMMDevice_head
+    volume: POINTER(win32more.Media.Audio.AUDIO_VOLUME_NOTIFICATION_DATA_head)
+AUDIO_FLOW_TYPE = Int32
+AUDIO_FLOW_PULL: AUDIO_FLOW_TYPE = 0
+AUDIO_FLOW_PUSH: AUDIO_FLOW_TYPE = 1
+class AUDIO_SYSTEMEFFECT(Structure):
+    id: Guid
+    canSetState: win32more.Foundation.BOOL
+    state: win32more.Media.Audio.Apo.AUDIO_SYSTEMEFFECT_STATE
+class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR(Structure):
+    device: win32more.Media.Audio.IMMDevice_head
+    propertyStoreContext: Guid
+class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION(Structure):
+    endpoint: win32more.Media.Audio.IMMDevice_head
+    propertyStoreContext: Guid
+    propertyStoreType: win32more.Media.Audio.AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE
+    propertyStore: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head
+    propertyKey: win32more.UI.Shell.PropertiesSystem.PROPERTYKEY
+AUDIO_SYSTEMEFFECT_STATE = Int32
+AUDIO_SYSTEMEFFECT_STATE_OFF: AUDIO_SYSTEMEFFECT_STATE = 0
+AUDIO_SYSTEMEFFECT_STATE_ON: AUDIO_SYSTEMEFFECT_STATE = 1
 APOERR_ALREADY_INITIALIZED: win32more.Foundation.HRESULT = -2005073919
 APOERR_NOT_INITIALIZED: win32more.Foundation.HRESULT = -2005073918
 APOERR_FORMAT_NOT_SUPPORTED: win32more.Foundation.HRESULT = -2005073917
@@ -102,134 +230,6 @@ SID_AudioProcessingObjectLoggingService: Guid = Guid('8b8008af-09f9-456e-a1-73-b
 AUDIOMEDIATYPE_EQUAL_FORMAT_TYPES: UInt32 = 2
 AUDIOMEDIATYPE_EQUAL_FORMAT_DATA: UInt32 = 4
 AUDIOMEDIATYPE_EQUAL_FORMAT_USER_DATA: UInt32 = 8
-APO_BUFFER_FLAGS = Int32
-BUFFER_INVALID: APO_BUFFER_FLAGS = 0
-BUFFER_VALID: APO_BUFFER_FLAGS = 1
-BUFFER_SILENT: APO_BUFFER_FLAGS = 2
-APO_CONNECTION_BUFFER_TYPE = Int32
-APO_CONNECTION_BUFFER_TYPE_ALLOCATED: APO_CONNECTION_BUFFER_TYPE = 0
-APO_CONNECTION_BUFFER_TYPE_EXTERNAL: APO_CONNECTION_BUFFER_TYPE = 1
-APO_CONNECTION_BUFFER_TYPE_DEPENDANT: APO_CONNECTION_BUFFER_TYPE = 2
-class APO_CONNECTION_DESCRIPTOR(Structure):
-    Type: win32more.Media.Audio.Apo.APO_CONNECTION_BUFFER_TYPE
-    pBuffer: UIntPtr
-    u32MaxFrameCount: UInt32
-    pFormat: win32more.Media.Audio.Apo.IAudioMediaType_head
-    u32Signature: UInt32
-class APO_CONNECTION_PROPERTY(Structure):
-    pBuffer: UIntPtr
-    u32ValidFrameCount: UInt32
-    u32BufferFlags: win32more.Media.Audio.Apo.APO_BUFFER_FLAGS
-    u32Signature: UInt32
-class APO_CONNECTION_PROPERTY_V2(Structure):
-    property: win32more.Media.Audio.Apo.APO_CONNECTION_PROPERTY
-    u64QPCTime: UInt64
-APO_FLAG = Int32
-APO_FLAG_NONE: APO_FLAG = 0
-APO_FLAG_INPLACE: APO_FLAG = 1
-APO_FLAG_SAMPLESPERFRAME_MUST_MATCH: APO_FLAG = 2
-APO_FLAG_FRAMESPERSECOND_MUST_MATCH: APO_FLAG = 4
-APO_FLAG_BITSPERSAMPLE_MUST_MATCH: APO_FLAG = 8
-APO_FLAG_MIXER: APO_FLAG = 16
-APO_FLAG_DEFAULT: APO_FLAG = 14
-APO_LOG_LEVEL = Int32
-APO_LOG_LEVEL_ALWAYS: APO_LOG_LEVEL = 0
-APO_LOG_LEVEL_CRITICAL: APO_LOG_LEVEL = 1
-APO_LOG_LEVEL_ERROR: APO_LOG_LEVEL = 2
-APO_LOG_LEVEL_WARNING: APO_LOG_LEVEL = 3
-APO_LOG_LEVEL_INFO: APO_LOG_LEVEL = 4
-APO_LOG_LEVEL_VERBOSE: APO_LOG_LEVEL = 5
-class APO_NOTIFICATION(Structure):
-    type: win32more.Media.Audio.Apo.APO_NOTIFICATION_TYPE
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        audioEndpointVolumeChange: win32more.Media.Audio.Apo.AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION
-        audioEndpointPropertyChange: win32more.Media.Audio.Apo.AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION
-        audioSystemEffectsPropertyChange: win32more.Media.Audio.Apo.AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION
-class APO_NOTIFICATION_DESCRIPTOR(Structure):
-    type: win32more.Media.Audio.Apo.APO_NOTIFICATION_TYPE
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        audioEndpointVolume: win32more.Media.Audio.Apo.AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR
-        audioEndpointPropertyChange: win32more.Media.Audio.Apo.AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR
-        audioSystemEffectsPropertyChange: win32more.Media.Audio.Apo.AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR
-APO_NOTIFICATION_TYPE = Int32
-APO_NOTIFICATION_TYPE_NONE: APO_NOTIFICATION_TYPE = 0
-APO_NOTIFICATION_TYPE_ENDPOINT_VOLUME: APO_NOTIFICATION_TYPE = 1
-APO_NOTIFICATION_TYPE_ENDPOINT_PROPERTY_CHANGE: APO_NOTIFICATION_TYPE = 2
-APO_NOTIFICATION_TYPE_SYSTEM_EFFECTS_PROPERTY_CHANGE: APO_NOTIFICATION_TYPE = 3
-class APO_REG_PROPERTIES(Structure):
-    clsid: Guid
-    Flags: win32more.Media.Audio.Apo.APO_FLAG
-    szFriendlyName: Char * 256
-    szCopyrightInfo: Char * 256
-    u32MajorVersion: UInt32
-    u32MinorVersion: UInt32
-    u32MinInputConnections: UInt32
-    u32MaxInputConnections: UInt32
-    u32MinOutputConnections: UInt32
-    u32MaxOutputConnections: UInt32
-    u32MaxInstances: UInt32
-    u32NumAPOInterfaces: UInt32
-    iidAPOInterfaceList: Guid * 1
-class APOInitBaseStruct(Structure):
-    cbSize: UInt32
-    clsid: Guid
-class APOInitSystemEffects(Structure):
-    APOInit: win32more.Media.Audio.Apo.APOInitBaseStruct
-    pAPOEndpointProperties: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head
-    pAPOSystemEffectsProperties: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head
-    pReserved: c_void_p
-    pDeviceCollection: win32more.Media.Audio.IMMDeviceCollection_head
-class APOInitSystemEffects2(Structure):
-    APOInit: win32more.Media.Audio.Apo.APOInitBaseStruct
-    pAPOEndpointProperties: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head
-    pAPOSystemEffectsProperties: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head
-    pReserved: c_void_p
-    pDeviceCollection: win32more.Media.Audio.IMMDeviceCollection_head
-    nSoftwareIoDeviceInCollection: UInt32
-    nSoftwareIoConnectorIndex: UInt32
-    AudioProcessingMode: Guid
-    InitializeForDiscoveryOnly: win32more.Foundation.BOOL
-class APOInitSystemEffects3(Structure):
-    APOInit: win32more.Media.Audio.Apo.APOInitBaseStruct
-    pAPOEndpointProperties: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head
-    pServiceProvider: win32more.System.Com.IServiceProvider_head
-    pDeviceCollection: win32more.Media.Audio.IMMDeviceCollection_head
-    nSoftwareIoDeviceInCollection: UInt32
-    nSoftwareIoConnectorIndex: UInt32
-    AudioProcessingMode: Guid
-    InitializeForDiscoveryOnly: win32more.Foundation.BOOL
-class AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR(Structure):
-    device: win32more.Media.Audio.IMMDevice_head
-class AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION(Structure):
-    endpoint: win32more.Media.Audio.IMMDevice_head
-    propertyStore: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head
-    propertyKey: win32more.UI.Shell.PropertiesSystem.PROPERTYKEY
-class AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR(Structure):
-    device: win32more.Media.Audio.IMMDevice_head
-class AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION(Structure):
-    endpoint: win32more.Media.Audio.IMMDevice_head
-    volume: POINTER(win32more.Media.Audio.AUDIO_VOLUME_NOTIFICATION_DATA_head)
-AUDIO_FLOW_TYPE = Int32
-AUDIO_FLOW_PULL: AUDIO_FLOW_TYPE = 0
-AUDIO_FLOW_PUSH: AUDIO_FLOW_TYPE = 1
-class AUDIO_SYSTEMEFFECT(Structure):
-    id: Guid
-    canSetState: win32more.Foundation.BOOL
-    state: win32more.Media.Audio.Apo.AUDIO_SYSTEMEFFECT_STATE
-AUDIO_SYSTEMEFFECT_STATE = Int32
-AUDIO_SYSTEMEFFECT_STATE_OFF: AUDIO_SYSTEMEFFECT_STATE = 0
-AUDIO_SYSTEMEFFECT_STATE_ON: AUDIO_SYSTEMEFFECT_STATE = 1
-class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR(Structure):
-    device: win32more.Media.Audio.IMMDevice_head
-    propertyStoreContext: Guid
-class AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION(Structure):
-    endpoint: win32more.Media.Audio.IMMDevice_head
-    propertyStoreContext: Guid
-    propertyStoreType: win32more.Media.Audio.AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE
-    propertyStore: win32more.UI.Shell.PropertiesSystem.IPropertyStore_head
-    propertyKey: win32more.UI.Shell.PropertiesSystem.PROPERTYKEY
 class AudioFXExtensionParams(Structure):
     AddPageParam: win32more.Foundation.LPARAM
     pwstrEndpointID: win32more.Foundation.PWSTR
@@ -363,6 +363,23 @@ class UNCOMPRESSEDAUDIOFORMAT(Structure):
     dwValidBitsPerSample: UInt32
     fFramesPerSecond: Single
     dwChannelMask: UInt32
+make_head(_module, 'APOInitBaseStruct')
+make_head(_module, 'APOInitSystemEffects')
+make_head(_module, 'APOInitSystemEffects2')
+make_head(_module, 'APOInitSystemEffects3')
+make_head(_module, 'APO_CONNECTION_DESCRIPTOR')
+make_head(_module, 'APO_CONNECTION_PROPERTY')
+make_head(_module, 'APO_CONNECTION_PROPERTY_V2')
+make_head(_module, 'APO_NOTIFICATION')
+make_head(_module, 'APO_NOTIFICATION_DESCRIPTOR')
+make_head(_module, 'APO_REG_PROPERTIES')
+make_head(_module, 'AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR')
+make_head(_module, 'AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION')
+make_head(_module, 'AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR')
+make_head(_module, 'AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION')
+make_head(_module, 'AUDIO_SYSTEMEFFECT')
+make_head(_module, 'AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR')
+make_head(_module, 'AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION')
 make_head(_module, 'PKEY_FX_Association')
 make_head(_module, 'PKEY_FX_PreMixEffectClsid')
 make_head(_module, 'PKEY_FX_PostMixEffectClsid')
@@ -393,23 +410,6 @@ make_head(_module, 'PKEY_EFX_KeywordDetector_ProcessingModes_Supported_For_Strea
 make_head(_module, 'PKEY_SFX_Offload_ProcessingModes_Supported_For_Streaming')
 make_head(_module, 'PKEY_MFX_Offload_ProcessingModes_Supported_For_Streaming')
 make_head(_module, 'PKEY_APO_SWFallback_ProcessingModes')
-make_head(_module, 'APO_CONNECTION_DESCRIPTOR')
-make_head(_module, 'APO_CONNECTION_PROPERTY')
-make_head(_module, 'APO_CONNECTION_PROPERTY_V2')
-make_head(_module, 'APO_NOTIFICATION')
-make_head(_module, 'APO_NOTIFICATION_DESCRIPTOR')
-make_head(_module, 'APO_REG_PROPERTIES')
-make_head(_module, 'APOInitBaseStruct')
-make_head(_module, 'APOInitSystemEffects')
-make_head(_module, 'APOInitSystemEffects2')
-make_head(_module, 'APOInitSystemEffects3')
-make_head(_module, 'AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR')
-make_head(_module, 'AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION')
-make_head(_module, 'AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR')
-make_head(_module, 'AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION')
-make_head(_module, 'AUDIO_SYSTEMEFFECT')
-make_head(_module, 'AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR')
-make_head(_module, 'AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION')
 make_head(_module, 'AudioFXExtensionParams')
 make_head(_module, 'FNAPONOTIFICATIONCALLBACK')
 make_head(_module, 'IApoAcousticEchoCancellation')

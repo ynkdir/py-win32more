@@ -27,16 +27,56 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-@winfunctype_pointer
-def _CPSUICALLBACK(pCPSUICBParam: POINTER(win32more.Graphics.Printing.CPSUICBPARAM_head)) -> Int32: ...
-class _SPLCLIENT_INFO_2_V3(Structure):
-    hSplPrinter: UInt64
 class ADDJOB_INFO_1A(Structure):
     Path: win32more.Foundation.PSTR
     JobId: UInt32
 class ADDJOB_INFO_1W(Structure):
     Path: win32more.Foundation.PWSTR
     JobId: UInt32
+class ATTRIBUTE_INFO_1(Structure):
+    dwJobNumberOfPagesPerSide: UInt32
+    dwDrvNumberOfPagesPerSide: UInt32
+    dwNupBorderFlags: UInt32
+    dwJobPageOrderFlags: UInt32
+    dwDrvPageOrderFlags: UInt32
+    dwJobNumberOfCopies: UInt32
+    dwDrvNumberOfCopies: UInt32
+class ATTRIBUTE_INFO_2(Structure):
+    dwJobNumberOfPagesPerSide: UInt32
+    dwDrvNumberOfPagesPerSide: UInt32
+    dwNupBorderFlags: UInt32
+    dwJobPageOrderFlags: UInt32
+    dwDrvPageOrderFlags: UInt32
+    dwJobNumberOfCopies: UInt32
+    dwDrvNumberOfCopies: UInt32
+    dwColorOptimization: UInt32
+class ATTRIBUTE_INFO_3(Structure):
+    dwJobNumberOfPagesPerSide: UInt32
+    dwDrvNumberOfPagesPerSide: UInt32
+    dwNupBorderFlags: UInt32
+    dwJobPageOrderFlags: UInt32
+    dwDrvPageOrderFlags: UInt32
+    dwJobNumberOfCopies: UInt32
+    dwDrvNumberOfCopies: UInt32
+    dwColorOptimization: UInt32
+    dmPrintQuality: Int16
+    dmYResolution: Int16
+class ATTRIBUTE_INFO_4(Structure):
+    dwJobNumberOfPagesPerSide: UInt32
+    dwDrvNumberOfPagesPerSide: UInt32
+    dwNupBorderFlags: UInt32
+    dwJobPageOrderFlags: UInt32
+    dwDrvPageOrderFlags: UInt32
+    dwJobNumberOfCopies: UInt32
+    dwDrvNumberOfCopies: UInt32
+    dwColorOptimization: UInt32
+    dmPrintQuality: Int16
+    dmYResolution: Int16
+    dwDuplexFlags: UInt32
+    dwNupDirection: UInt32
+    dwBookletFlags: UInt32
+    dwScalingPercentX: UInt32
+    dwScalingPercentY: UInt32
 USB_PRINTER_INTERFACE_CLASSIC: UInt32 = 1
 USB_PRINTER_INTERFACE_IPP: UInt32 = 2
 USB_PRINTER_INTERFACE_DUAL: UInt32 = 3
@@ -1859,50 +1899,6 @@ def AddPrintDeviceObject(hPrinter: win32more.Foundation.HANDLE, phDeviceObject: 
 def UpdatePrintDeviceObject(hPrinter: win32more.Foundation.HANDLE, hDeviceObject: win32more.Foundation.HANDLE) -> win32more.Foundation.HRESULT: ...
 @winfunctype('SPOOLSS.dll')
 def RemovePrintDeviceObject(hDeviceObject: win32more.Foundation.HANDLE) -> win32more.Foundation.HRESULT: ...
-class ATTRIBUTE_INFO_1(Structure):
-    dwJobNumberOfPagesPerSide: UInt32
-    dwDrvNumberOfPagesPerSide: UInt32
-    dwNupBorderFlags: UInt32
-    dwJobPageOrderFlags: UInt32
-    dwDrvPageOrderFlags: UInt32
-    dwJobNumberOfCopies: UInt32
-    dwDrvNumberOfCopies: UInt32
-class ATTRIBUTE_INFO_2(Structure):
-    dwJobNumberOfPagesPerSide: UInt32
-    dwDrvNumberOfPagesPerSide: UInt32
-    dwNupBorderFlags: UInt32
-    dwJobPageOrderFlags: UInt32
-    dwDrvPageOrderFlags: UInt32
-    dwJobNumberOfCopies: UInt32
-    dwDrvNumberOfCopies: UInt32
-    dwColorOptimization: UInt32
-class ATTRIBUTE_INFO_3(Structure):
-    dwJobNumberOfPagesPerSide: UInt32
-    dwDrvNumberOfPagesPerSide: UInt32
-    dwNupBorderFlags: UInt32
-    dwJobPageOrderFlags: UInt32
-    dwDrvPageOrderFlags: UInt32
-    dwJobNumberOfCopies: UInt32
-    dwDrvNumberOfCopies: UInt32
-    dwColorOptimization: UInt32
-    dmPrintQuality: Int16
-    dmYResolution: Int16
-class ATTRIBUTE_INFO_4(Structure):
-    dwJobNumberOfPagesPerSide: UInt32
-    dwDrvNumberOfPagesPerSide: UInt32
-    dwNupBorderFlags: UInt32
-    dwJobPageOrderFlags: UInt32
-    dwDrvPageOrderFlags: UInt32
-    dwJobNumberOfCopies: UInt32
-    dwDrvNumberOfCopies: UInt32
-    dwColorOptimization: UInt32
-    dmPrintQuality: Int16
-    dmYResolution: Int16
-    dwDuplexFlags: UInt32
-    dwNupDirection: UInt32
-    dwBookletFlags: UInt32
-    dwScalingPercentX: UInt32
-    dwScalingPercentY: UInt32
 class BIDI_DATA(Structure):
     dwBidiType: UInt32
     u: _u_e__Union
@@ -1940,12 +1936,12 @@ BIDI_STRING: BIDI_TYPE = 4
 BIDI_TEXT: BIDI_TYPE = 5
 BIDI_ENUM: BIDI_TYPE = 6
 BIDI_BLOB: BIDI_TYPE = 7
-BidiRequest = Guid('b9162a23-45f9-47cc-80-f5-fe-0f-e9-b9-e1-a2')
-BidiRequestContainer = Guid('fc5b8a24-db05-4a01-83-88-22-ed-f6-c2-bb-ba')
-BidiSpl = Guid('2a614240-a4c5-4c33-bd-87-1b-c7-09-33-16-39')
 class BINARY_CONTAINER(Structure):
     cbBuf: UInt32
     pData: c_char_p_no
+BidiRequest = Guid('b9162a23-45f9-47cc-80-f5-fe-0f-e9-b9-e1-a2')
+BidiRequestContainer = Guid('fc5b8a24-db05-4a01-83-88-22-ed-f6-c2-bb-ba')
+BidiSpl = Guid('2a614240-a4c5-4c33-bd-87-1b-c7-09-33-16-39')
 class BranchOfficeJobData(Structure):
     eEventType: win32more.Graphics.Printing.EBranchOfficeJobEventType
     JobId: UInt32
@@ -2046,16 +2042,16 @@ class CUSTOMSIZEPARAM(Structure):
     dwOrder: Int32
     lMinVal: Int32
     lMaxVal: Int32
+class DATATYPES_INFO_1A(Structure):
+    pName: win32more.Foundation.PSTR
+class DATATYPES_INFO_1W(Structure):
+    pName: win32more.Foundation.PWSTR
 class DATA_HEADER(Structure):
     dwSignature: UInt32
     wSize: UInt16
     wDataID: UInt16
     dwDataSize: UInt32
     dwReserved: UInt32
-class DATATYPES_INFO_1A(Structure):
-    pName: win32more.Foundation.PSTR
-class DATATYPES_INFO_1W(Structure):
-    pName: win32more.Foundation.PWSTR
 class DELETE_PORT_DATA_1(Structure):
     psztPortName: Char * 64
     Reserved: Byte * 98
@@ -2084,6 +2080,30 @@ class DLGPAGE(Structure):
     class _Anonymous_e__Union(Union):
         DlgTemplateID: UInt16
         hDlgTemplate: win32more.Foundation.HANDLE
+class DOCEVENT_CREATEDCPRE(Structure):
+    pszDriver: win32more.Foundation.PWSTR
+    pszDevice: win32more.Foundation.PWSTR
+    pdm: POINTER(win32more.Graphics.Gdi.DEVMODEW_head)
+    bIC: win32more.Foundation.BOOL
+class DOCEVENT_ESCAPE(Structure):
+    iEscape: Int32
+    cjInput: Int32
+    pvInData: c_void_p
+class DOCEVENT_FILTER(Structure):
+    cbSize: UInt32
+    cElementsAllocated: UInt32
+    cElementsNeeded: UInt32
+    cElementsReturned: UInt32
+    aDocEventCall: UInt32 * 1
+class DOCUMENTPROPERTYHEADER(Structure):
+    cbSize: UInt16
+    Reserved: UInt16
+    hPrinter: win32more.Foundation.HANDLE
+    pszPrinterName: POINTER(SByte)
+    pdmIn: POINTER(win32more.Graphics.Gdi.DEVMODEA_head)
+    pdmOut: POINTER(win32more.Graphics.Gdi.DEVMODEA_head)
+    cbOut: UInt32
+    fMode: UInt32
 class DOC_INFO_1A(Structure):
     pDocName: win32more.Foundation.PSTR
     pOutputFile: win32more.Foundation.PSTR
@@ -2114,30 +2134,6 @@ class DOC_INFO_3W(Structure):
     pOutputFile: win32more.Foundation.PWSTR
     pDatatype: win32more.Foundation.PWSTR
     dwFlags: UInt32
-class DOCEVENT_CREATEDCPRE(Structure):
-    pszDriver: win32more.Foundation.PWSTR
-    pszDevice: win32more.Foundation.PWSTR
-    pdm: POINTER(win32more.Graphics.Gdi.DEVMODEW_head)
-    bIC: win32more.Foundation.BOOL
-class DOCEVENT_ESCAPE(Structure):
-    iEscape: Int32
-    cjInput: Int32
-    pvInData: c_void_p
-class DOCEVENT_FILTER(Structure):
-    cbSize: UInt32
-    cElementsAllocated: UInt32
-    cElementsNeeded: UInt32
-    cElementsReturned: UInt32
-    aDocEventCall: UInt32 * 1
-class DOCUMENTPROPERTYHEADER(Structure):
-    cbSize: UInt16
-    Reserved: UInt16
-    hPrinter: win32more.Foundation.HANDLE
-    pszPrinterName: POINTER(SByte)
-    pdmIn: POINTER(win32more.Graphics.Gdi.DEVMODEA_head)
-    pdmOut: POINTER(win32more.Graphics.Gdi.DEVMODEA_head)
-    cbOut: UInt32
-    fMode: UInt32
 class DRIVER_INFO_1A(Structure):
     pName: win32more.Foundation.PSTR
 class DRIVER_INFO_1W(Structure):
@@ -2373,23 +2369,6 @@ EPrintXPSJobProgress_kResourceAdded: EPrintXPSJobProgress = 6
 EPrintXPSJobProgress_kFontAdded: EPrintXPSJobProgress = 7
 EPrintXPSJobProgress_kImageAdded: EPrintXPSJobProgress = 8
 EPrintXPSJobProgress_kXpsDocumentCommitted: EPrintXPSJobProgress = 9
-EXpsCompressionOptions = Int32
-Compression_NotCompressed: EXpsCompressionOptions = 0
-Compression_Normal: EXpsCompressionOptions = 1
-Compression_Small: EXpsCompressionOptions = 2
-Compression_Fast: EXpsCompressionOptions = 3
-EXpsFontOptions = Int32
-Font_Normal: EXpsFontOptions = 0
-Font_Obfusticate: EXpsFontOptions = 1
-EXpsFontRestriction = Int32
-Xps_Restricted_Font_Installable: EXpsFontRestriction = 0
-Xps_Restricted_Font_NoEmbedding: EXpsFontRestriction = 2
-Xps_Restricted_Font_PreviewPrint: EXpsFontRestriction = 4
-Xps_Restricted_Font_Editable: EXpsFontRestriction = 8
-EXpsJobConsumption = Int32
-XpsJob_DocumentSequenceAdded: EXpsJobConsumption = 0
-XpsJob_FixedDocumentAdded: EXpsJobConsumption = 1
-XpsJob_FixedPageAdded: EXpsJobConsumption = 2
 class EXTCHKBOX(Structure):
     cbSize: UInt16
     Flags: UInt16
@@ -2440,6 +2419,23 @@ class EXTTEXTMETRIC(Structure):
     emStrikeOutWidth: Int16
     emKernPairs: UInt16
     emKernTracks: UInt16
+EXpsCompressionOptions = Int32
+Compression_NotCompressed: EXpsCompressionOptions = 0
+Compression_Normal: EXpsCompressionOptions = 1
+Compression_Small: EXpsCompressionOptions = 2
+Compression_Fast: EXpsCompressionOptions = 3
+EXpsFontOptions = Int32
+Font_Normal: EXpsFontOptions = 0
+Font_Obfusticate: EXpsFontOptions = 1
+EXpsFontRestriction = Int32
+Xps_Restricted_Font_Installable: EXpsFontRestriction = 0
+Xps_Restricted_Font_NoEmbedding: EXpsFontRestriction = 2
+Xps_Restricted_Font_PreviewPrint: EXpsFontRestriction = 4
+Xps_Restricted_Font_Editable: EXpsFontRestriction = 8
+EXpsJobConsumption = Int32
+XpsJob_DocumentSequenceAdded: EXpsJobConsumption = 0
+XpsJob_FixedDocumentAdded: EXpsJobConsumption = 1
+XpsJob_FixedPageAdded: EXpsJobConsumption = 2
 class FORM_INFO_1A(Structure):
     Flags: UInt32
     pName: win32more.Foundation.PSTR
@@ -2608,18 +2604,6 @@ class IInterFilterCommunicator(c_void_p):
     def RequestReader(ppIReader: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def RequestWriter(ppIWriter: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
-class ImgErrorInfo(Structure):
-    description: win32more.Foundation.BSTR
-    guid: Guid
-    helpContext: UInt32
-    helpFile: win32more.Foundation.BSTR
-    source: win32more.Foundation.BSTR
-    devDescription: win32more.Foundation.BSTR
-    errorID: Guid
-    cUserParameters: UInt32
-    aUserParameters: POINTER(win32more.Foundation.BSTR)
-    userFallback: win32more.Foundation.BSTR
-    exceptionID: UInt32
 class INSERTPSUIPAGE_INFO(Structure):
     cbSize: UInt16
     Type: Byte
@@ -2810,183 +2794,6 @@ class IPrintCoreUI2(c_void_p):
     def EnumOptions(poemuiobj: POINTER(win32more.Graphics.Printing.OEMUIOBJ_head), dwFlags: UInt32, pszFeatureKeyword: win32more.Foundation.PSTR, pmszOptionList: win32more.Foundation.PSTR, cbSize: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
     @commethod(15)
     def QuerySimulationSupport(hPrinter: win32more.Foundation.HANDLE, dwLevel: UInt32, pCaps: c_char_p_no, cbSize: UInt32, pcbNeeded: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-class IPrinterBidiSetRequestCallback(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('c52d32dd-f2b4-4052-85-02-ec-43-05-ec-b7-1f')
-    @commethod(3)
-    def Completed(bstrResponse: win32more.Foundation.BSTR, hrStatus: win32more.Foundation.HRESULT) -> win32more.Foundation.HRESULT: ...
-class IPrinterExtensionAsyncOperation(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('108d6a23-6a4b-4552-94-48-68-b4-27-18-6a-cd')
-    @commethod(3)
-    def Cancel() -> win32more.Foundation.HRESULT: ...
-class IPrinterExtensionContext(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('39843bf2-c4d2-41fd-b4-b2-ae-db-ee-5e-19-00')
-    @commethod(7)
-    def get_PrinterQueue(ppQueue: POINTER(win32more.Graphics.Printing.IPrinterQueue_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_PrintSchemaTicket(ppTicket: POINTER(win32more.Graphics.Printing.IPrintSchemaTicket_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_DriverProperties(ppPropertyBag: POINTER(win32more.Graphics.Printing.IPrinterPropertyBag_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_UserProperties(ppPropertyBag: POINTER(win32more.Graphics.Printing.IPrinterPropertyBag_head)) -> win32more.Foundation.HRESULT: ...
-class IPrinterExtensionContextCollection(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('fb476970-9bab-4861-81-1e-3e-98-b0-c5-ad-df')
-    @commethod(7)
-    def get_Count(pulCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def GetAt(ulIndex: UInt32, ppContext: POINTER(win32more.Graphics.Printing.IPrinterExtensionContext_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get__NewEnum(ppUnk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-class IPrinterExtensionEvent(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('c093cb63-5ef5-4585-af-8e-4d-56-37-48-7b-57')
-    @commethod(7)
-    def OnDriverEvent(pEventArgs: win32more.Graphics.Printing.IPrinterExtensionEventArgs_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def OnPrinterQueuesEnumerated(pContextCollection: win32more.Graphics.Printing.IPrinterExtensionContextCollection_head) -> win32more.Foundation.HRESULT: ...
-class IPrinterExtensionEventArgs(c_void_p):
-    extends: win32more.Graphics.Printing.IPrinterExtensionContext
-    Guid = Guid('39843bf4-c4d2-41fd-b4-b2-ae-db-ee-5e-19-00')
-    @commethod(11)
-    def get_BidiNotification(pbstrBidiNotification: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def get_ReasonId(pReasonId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def get_Request(ppRequest: POINTER(win32more.Graphics.Printing.IPrinterExtensionRequest_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def get_SourceApplication(pbstrApplication: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def get_DetailedReasonId(pDetailedReasonId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def get_WindowModal(pbModal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def get_WindowParent(phwndParent: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.HRESULT: ...
-class IPrinterExtensionManager(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('93c6eb8c-b001-4355-96-29-8e-8a-1b-3f-8e-77')
-    @commethod(3)
-    def EnableEvents(printerDriverId: Guid) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def DisableEvents() -> win32more.Foundation.HRESULT: ...
-class IPrinterExtensionRequest(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('39843bf3-c4d2-41fd-b4-b2-ae-db-ee-5e-19-00')
-    @commethod(7)
-    def Cancel(hrStatus: win32more.Foundation.HRESULT, bstrLogMessage: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def Complete() -> win32more.Foundation.HRESULT: ...
-class IPrinterPropertyBag(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('fea77364-df95-4a23-a9-05-01-9b-79-a8-e4-81')
-    @commethod(7)
-    def GetBool(bstrName: win32more.Foundation.BSTR, pbValue: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def SetBool(bstrName: win32more.Foundation.BSTR, bValue: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def GetInt32(bstrName: win32more.Foundation.BSTR, pnValue: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def SetInt32(bstrName: win32more.Foundation.BSTR, nValue: Int32) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def GetString(bstrName: win32more.Foundation.BSTR, pbstrValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def SetString(bstrName: win32more.Foundation.BSTR, bstrValue: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def GetBytes(bstrName: win32more.Foundation.BSTR, pcbValue: POINTER(UInt32), ppValue: POINTER(c_char_p_no)) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def SetBytes(bstrName: win32more.Foundation.BSTR, cbValue: UInt32, pValue: c_char_p_no) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def GetReadStream(bstrName: win32more.Foundation.BSTR, ppValue: POINTER(win32more.System.Com.IStream_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def GetWriteStream(bstrName: win32more.Foundation.BSTR, ppValue: POINTER(win32more.System.Com.IStream_head)) -> win32more.Foundation.HRESULT: ...
-class IPrinterQueue(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('3580a828-07fe-4b94-ac-1a-75-7d-9d-2d-30-56')
-    @commethod(7)
-    def get_Handle(phPrinter: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_Name(pbstrName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def SendBidiQuery(bstrBidiQuery: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def GetProperties(ppPropertyBag: POINTER(win32more.Graphics.Printing.IPrinterPropertyBag_head)) -> win32more.Foundation.HRESULT: ...
-class IPrinterQueue2(c_void_p):
-    extends: win32more.Graphics.Printing.IPrinterQueue
-    Guid = Guid('8cd444e8-c9bb-49b3-8e-38-e0-32-09-41-61-31')
-    @commethod(11)
-    def SendBidiSetRequestAsync(bstrBidiRequest: win32more.Foundation.BSTR, pCallback: win32more.Graphics.Printing.IPrinterBidiSetRequestCallback_head, ppAsyncOperation: POINTER(win32more.Graphics.Printing.IPrinterExtensionAsyncOperation_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def GetPrinterQueueView(ulViewOffset: UInt32, ulViewSize: UInt32, ppJobView: POINTER(win32more.Graphics.Printing.IPrinterQueueView_head)) -> win32more.Foundation.HRESULT: ...
-class IPrinterQueueEvent(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('214685f6-7b78-4681-87-e0-49-5f-73-92-73-d1')
-    @commethod(7)
-    def OnBidiResponseReceived(bstrResponse: win32more.Foundation.BSTR, hrStatus: win32more.Foundation.HRESULT) -> win32more.Foundation.HRESULT: ...
-class IPrinterQueueView(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('476e2969-3b2b-4b3f-82-77-cf-f6-05-60-42-aa')
-    @commethod(7)
-    def SetViewRange(ulViewOffset: UInt32, ulViewSize: UInt32) -> win32more.Foundation.HRESULT: ...
-class IPrinterQueueViewEvent(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('c5b6042b-fd21-404a-a0-ef-e2-fb-b5-2b-90-80')
-    @commethod(7)
-    def OnChanged(pCollection: win32more.Graphics.Printing.IPrintJobCollection_head, ulViewOffset: UInt32, ulViewSize: UInt32, ulCountJobsInPrintQueue: UInt32) -> win32more.Foundation.HRESULT: ...
-class IPrinterScriptablePropertyBag(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('91c7765f-ed57-49ad-8b-01-dc-24-81-6a-52-94')
-    @commethod(7)
-    def GetBool(bstrName: win32more.Foundation.BSTR, pbValue: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def SetBool(bstrName: win32more.Foundation.BSTR, bValue: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def GetInt32(bstrName: win32more.Foundation.BSTR, pnValue: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def SetInt32(bstrName: win32more.Foundation.BSTR, nValue: Int32) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def GetString(bstrName: win32more.Foundation.BSTR, pbstrValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def SetString(bstrName: win32more.Foundation.BSTR, bstrValue: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def GetBytes(bstrName: win32more.Foundation.BSTR, ppArray: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def SetBytes(bstrName: win32more.Foundation.BSTR, pArray: win32more.System.Com.IDispatch_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def GetReadStream(bstrName: win32more.Foundation.BSTR, ppStream: POINTER(win32more.Graphics.Printing.IPrinterScriptableStream_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def GetWriteStream(bstrName: win32more.Foundation.BSTR, ppStream: POINTER(win32more.Graphics.Printing.IPrinterScriptableStream_head)) -> win32more.Foundation.HRESULT: ...
-class IPrinterScriptablePropertyBag2(c_void_p):
-    extends: win32more.Graphics.Printing.IPrinterScriptablePropertyBag
-    Guid = Guid('2a1c53c4-8638-4b3e-b5-18-27-73-c9-45-56-a3')
-    @commethod(17)
-    def GetReadStreamAsXML(bstrName: win32more.Foundation.BSTR, ppXmlNode: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-class IPrinterScriptableSequentialStream(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('2072838a-316f-467a-a9-49-27-f6-8c-44-a8-54')
-    @commethod(7)
-    def Read(cbRead: Int32, ppArray: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def Write(pArray: win32more.System.Com.IDispatch_head, pcbWritten: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-class IPrinterScriptableStream(c_void_p):
-    extends: win32more.Graphics.Printing.IPrinterScriptableSequentialStream
-    Guid = Guid('7edf9a92-4750-41a5-a1-7f-87-9a-6f-4f-7d-cb')
-    @commethod(9)
-    def Commit() -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def Seek(lOffset: Int32, streamSeek: win32more.System.Com.STREAM_SEEK, plPosition: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def SetSize(lSize: Int32) -> win32more.Foundation.HRESULT: ...
-class IPrinterScriptContext(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('066acbca-8881-49c9-bb-98-fa-e1-6b-48-89-e1')
-    @commethod(7)
-    def get_DriverProperties(ppPropertyBag: POINTER(win32more.Graphics.Printing.IPrinterScriptablePropertyBag_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_QueueProperties(ppPropertyBag: POINTER(win32more.Graphics.Printing.IPrinterScriptablePropertyBag_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_UserProperties(ppPropertyBag: POINTER(win32more.Graphics.Printing.IPrinterScriptablePropertyBag_head)) -> win32more.Foundation.HRESULT: ...
 class IPrintJob(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('b771dab8-1282-41b7-85-8c-f2-06-e4-d2-05-77')
@@ -3315,6 +3122,183 @@ class IPrintWriteStreamFlush(c_void_p):
     Guid = Guid('07d11ff8-1753-4873-b7-49-6c-da-f0-68-e4-c3')
     @commethod(3)
     def FlushData() -> win32more.Foundation.HRESULT: ...
+class IPrinterBidiSetRequestCallback(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('c52d32dd-f2b4-4052-85-02-ec-43-05-ec-b7-1f')
+    @commethod(3)
+    def Completed(bstrResponse: win32more.Foundation.BSTR, hrStatus: win32more.Foundation.HRESULT) -> win32more.Foundation.HRESULT: ...
+class IPrinterExtensionAsyncOperation(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('108d6a23-6a4b-4552-94-48-68-b4-27-18-6a-cd')
+    @commethod(3)
+    def Cancel() -> win32more.Foundation.HRESULT: ...
+class IPrinterExtensionContext(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('39843bf2-c4d2-41fd-b4-b2-ae-db-ee-5e-19-00')
+    @commethod(7)
+    def get_PrinterQueue(ppQueue: POINTER(win32more.Graphics.Printing.IPrinterQueue_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_PrintSchemaTicket(ppTicket: POINTER(win32more.Graphics.Printing.IPrintSchemaTicket_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_DriverProperties(ppPropertyBag: POINTER(win32more.Graphics.Printing.IPrinterPropertyBag_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_UserProperties(ppPropertyBag: POINTER(win32more.Graphics.Printing.IPrinterPropertyBag_head)) -> win32more.Foundation.HRESULT: ...
+class IPrinterExtensionContextCollection(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('fb476970-9bab-4861-81-1e-3e-98-b0-c5-ad-df')
+    @commethod(7)
+    def get_Count(pulCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetAt(ulIndex: UInt32, ppContext: POINTER(win32more.Graphics.Printing.IPrinterExtensionContext_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(ppUnk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class IPrinterExtensionEvent(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('c093cb63-5ef5-4585-af-8e-4d-56-37-48-7b-57')
+    @commethod(7)
+    def OnDriverEvent(pEventArgs: win32more.Graphics.Printing.IPrinterExtensionEventArgs_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def OnPrinterQueuesEnumerated(pContextCollection: win32more.Graphics.Printing.IPrinterExtensionContextCollection_head) -> win32more.Foundation.HRESULT: ...
+class IPrinterExtensionEventArgs(c_void_p):
+    extends: win32more.Graphics.Printing.IPrinterExtensionContext
+    Guid = Guid('39843bf4-c4d2-41fd-b4-b2-ae-db-ee-5e-19-00')
+    @commethod(11)
+    def get_BidiNotification(pbstrBidiNotification: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_ReasonId(pReasonId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_Request(ppRequest: POINTER(win32more.Graphics.Printing.IPrinterExtensionRequest_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_SourceApplication(pbstrApplication: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_DetailedReasonId(pDetailedReasonId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def get_WindowModal(pbModal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def get_WindowParent(phwndParent: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.HRESULT: ...
+class IPrinterExtensionManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('93c6eb8c-b001-4355-96-29-8e-8a-1b-3f-8e-77')
+    @commethod(3)
+    def EnableEvents(printerDriverId: Guid) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def DisableEvents() -> win32more.Foundation.HRESULT: ...
+class IPrinterExtensionRequest(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('39843bf3-c4d2-41fd-b4-b2-ae-db-ee-5e-19-00')
+    @commethod(7)
+    def Cancel(hrStatus: win32more.Foundation.HRESULT, bstrLogMessage: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Complete() -> win32more.Foundation.HRESULT: ...
+class IPrinterPropertyBag(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('fea77364-df95-4a23-a9-05-01-9b-79-a8-e4-81')
+    @commethod(7)
+    def GetBool(bstrName: win32more.Foundation.BSTR, pbValue: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetBool(bstrName: win32more.Foundation.BSTR, bValue: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetInt32(bstrName: win32more.Foundation.BSTR, pnValue: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetInt32(bstrName: win32more.Foundation.BSTR, nValue: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetString(bstrName: win32more.Foundation.BSTR, pbstrValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def SetString(bstrName: win32more.Foundation.BSTR, bstrValue: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetBytes(bstrName: win32more.Foundation.BSTR, pcbValue: POINTER(UInt32), ppValue: POINTER(c_char_p_no)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SetBytes(bstrName: win32more.Foundation.BSTR, cbValue: UInt32, pValue: c_char_p_no) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetReadStream(bstrName: win32more.Foundation.BSTR, ppValue: POINTER(win32more.System.Com.IStream_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetWriteStream(bstrName: win32more.Foundation.BSTR, ppValue: POINTER(win32more.System.Com.IStream_head)) -> win32more.Foundation.HRESULT: ...
+class IPrinterQueue(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('3580a828-07fe-4b94-ac-1a-75-7d-9d-2d-30-56')
+    @commethod(7)
+    def get_Handle(phPrinter: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Name(pbstrName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def SendBidiQuery(bstrBidiQuery: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetProperties(ppPropertyBag: POINTER(win32more.Graphics.Printing.IPrinterPropertyBag_head)) -> win32more.Foundation.HRESULT: ...
+class IPrinterQueue2(c_void_p):
+    extends: win32more.Graphics.Printing.IPrinterQueue
+    Guid = Guid('8cd444e8-c9bb-49b3-8e-38-e0-32-09-41-61-31')
+    @commethod(11)
+    def SendBidiSetRequestAsync(bstrBidiRequest: win32more.Foundation.BSTR, pCallback: win32more.Graphics.Printing.IPrinterBidiSetRequestCallback_head, ppAsyncOperation: POINTER(win32more.Graphics.Printing.IPrinterExtensionAsyncOperation_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def GetPrinterQueueView(ulViewOffset: UInt32, ulViewSize: UInt32, ppJobView: POINTER(win32more.Graphics.Printing.IPrinterQueueView_head)) -> win32more.Foundation.HRESULT: ...
+class IPrinterQueueEvent(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('214685f6-7b78-4681-87-e0-49-5f-73-92-73-d1')
+    @commethod(7)
+    def OnBidiResponseReceived(bstrResponse: win32more.Foundation.BSTR, hrStatus: win32more.Foundation.HRESULT) -> win32more.Foundation.HRESULT: ...
+class IPrinterQueueView(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('476e2969-3b2b-4b3f-82-77-cf-f6-05-60-42-aa')
+    @commethod(7)
+    def SetViewRange(ulViewOffset: UInt32, ulViewSize: UInt32) -> win32more.Foundation.HRESULT: ...
+class IPrinterQueueViewEvent(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('c5b6042b-fd21-404a-a0-ef-e2-fb-b5-2b-90-80')
+    @commethod(7)
+    def OnChanged(pCollection: win32more.Graphics.Printing.IPrintJobCollection_head, ulViewOffset: UInt32, ulViewSize: UInt32, ulCountJobsInPrintQueue: UInt32) -> win32more.Foundation.HRESULT: ...
+class IPrinterScriptContext(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('066acbca-8881-49c9-bb-98-fa-e1-6b-48-89-e1')
+    @commethod(7)
+    def get_DriverProperties(ppPropertyBag: POINTER(win32more.Graphics.Printing.IPrinterScriptablePropertyBag_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_QueueProperties(ppPropertyBag: POINTER(win32more.Graphics.Printing.IPrinterScriptablePropertyBag_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_UserProperties(ppPropertyBag: POINTER(win32more.Graphics.Printing.IPrinterScriptablePropertyBag_head)) -> win32more.Foundation.HRESULT: ...
+class IPrinterScriptablePropertyBag(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('91c7765f-ed57-49ad-8b-01-dc-24-81-6a-52-94')
+    @commethod(7)
+    def GetBool(bstrName: win32more.Foundation.BSTR, pbValue: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetBool(bstrName: win32more.Foundation.BSTR, bValue: win32more.Foundation.BOOL) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetInt32(bstrName: win32more.Foundation.BSTR, pnValue: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def SetInt32(bstrName: win32more.Foundation.BSTR, nValue: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def GetString(bstrName: win32more.Foundation.BSTR, pbstrValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def SetString(bstrName: win32more.Foundation.BSTR, bstrValue: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def GetBytes(bstrName: win32more.Foundation.BSTR, ppArray: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SetBytes(bstrName: win32more.Foundation.BSTR, pArray: win32more.System.Com.IDispatch_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def GetReadStream(bstrName: win32more.Foundation.BSTR, ppStream: POINTER(win32more.Graphics.Printing.IPrinterScriptableStream_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetWriteStream(bstrName: win32more.Foundation.BSTR, ppStream: POINTER(win32more.Graphics.Printing.IPrinterScriptableStream_head)) -> win32more.Foundation.HRESULT: ...
+class IPrinterScriptablePropertyBag2(c_void_p):
+    extends: win32more.Graphics.Printing.IPrinterScriptablePropertyBag
+    Guid = Guid('2a1c53c4-8638-4b3e-b5-18-27-73-c9-45-56-a3')
+    @commethod(17)
+    def GetReadStreamAsXML(bstrName: win32more.Foundation.BSTR, ppXmlNode: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class IPrinterScriptableSequentialStream(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('2072838a-316f-467a-a9-49-27-f6-8c-44-a8-54')
+    @commethod(7)
+    def Read(cbRead: Int32, ppArray: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Write(pArray: win32more.System.Com.IDispatch_head, pcbWritten: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IPrinterScriptableStream(c_void_p):
+    extends: win32more.Graphics.Printing.IPrinterScriptableSequentialStream
+    Guid = Guid('7edf9a92-4750-41a5-a1-7f-87-9a-6f-4f-7d-cb')
+    @commethod(9)
+    def Commit() -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Seek(lOffset: Int32, streamSeek: win32more.System.Com.STREAM_SEEK, plPosition: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def SetSize(lSize: Int32) -> win32more.Foundation.HRESULT: ...
 class IXpsDocument(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('e8d907db-62a9-4a95-ab-e7-e0-17-63-dd-30-f8')
@@ -3382,6 +3366,18 @@ class IXpsRasterizerNotificationCallback(c_void_p):
     Guid = Guid('9ab8fd0d-cb94-49c2-9c-b0-97-ec-1d-54-69-d2')
     @commethod(3)
     def Continue() -> win32more.Foundation.HRESULT: ...
+class ImgErrorInfo(Structure):
+    description: win32more.Foundation.BSTR
+    guid: Guid
+    helpContext: UInt32
+    helpFile: win32more.Foundation.BSTR
+    source: win32more.Foundation.BSTR
+    devDescription: win32more.Foundation.BSTR
+    errorID: Guid
+    cUserParameters: UInt32
+    aUserParameters: POINTER(win32more.Foundation.BSTR)
+    userFallback: win32more.Foundation.BSTR
+    exceptionID: UInt32
 class JOB_INFO_1A(Structure):
     JobId: UInt32
     pPrinterName: win32more.Foundation.PSTR
@@ -3545,18 +3541,6 @@ class MONITOR(Structure):
     pfnXcvOpenPort: IntPtr
     pfnXcvDataPort: IntPtr
     pfnXcvClosePort: IntPtr
-class MONITOR_INFO_1A(Structure):
-    pName: win32more.Foundation.PSTR
-class MONITOR_INFO_1W(Structure):
-    pName: win32more.Foundation.PWSTR
-class MONITOR_INFO_2A(Structure):
-    pName: win32more.Foundation.PSTR
-    pEnvironment: win32more.Foundation.PSTR
-    pDLLName: win32more.Foundation.PSTR
-class MONITOR_INFO_2W(Structure):
-    pName: win32more.Foundation.PWSTR
-    pEnvironment: win32more.Foundation.PWSTR
-    pDLLName: win32more.Foundation.PWSTR
 class MONITOR2(Structure):
     cbSize: UInt32
     pfnEnumPorts: IntPtr
@@ -3608,6 +3592,18 @@ class MONITORUI(Structure):
     pfnAddPortUI: IntPtr
     pfnConfigurePortUI: IntPtr
     pfnDeletePortUI: IntPtr
+class MONITOR_INFO_1A(Structure):
+    pName: win32more.Foundation.PSTR
+class MONITOR_INFO_1W(Structure):
+    pName: win32more.Foundation.PWSTR
+class MONITOR_INFO_2A(Structure):
+    pName: win32more.Foundation.PSTR
+    pEnvironment: win32more.Foundation.PSTR
+    pDLLName: win32more.Foundation.PSTR
+class MONITOR_INFO_2W(Structure):
+    pName: win32more.Foundation.PWSTR
+    pEnvironment: win32more.Foundation.PWSTR
+    pDLLName: win32more.Foundation.PWSTR
 class MXDC_ESCAPE_HEADER_T(Structure):
     cbInput: UInt32
     cbOutput: UInt32
@@ -3634,17 +3630,6 @@ class MXDC_PRINTTICKET_ESCAPE_T(Structure):
     mxdcEscape: win32more.Graphics.Printing.MXDC_ESCAPE_HEADER_T
     printTicketData: win32more.Graphics.Printing.MXDC_PRINTTICKET_DATA_T
     _pack_ = 1
-MXDC_S0_PAGE_ENUMS = Int32
-MXDC_RESOURCE_TTF: MXDC_S0_PAGE_ENUMS = 0
-MXDC_RESOURCE_JPEG: MXDC_S0_PAGE_ENUMS = 1
-MXDC_RESOURCE_PNG: MXDC_S0_PAGE_ENUMS = 2
-MXDC_RESOURCE_TIFF: MXDC_S0_PAGE_ENUMS = 3
-MXDC_RESOURCE_WDP: MXDC_S0_PAGE_ENUMS = 4
-MXDC_RESOURCE_DICTIONARY: MXDC_S0_PAGE_ENUMS = 5
-MXDC_RESOURCE_ICC_PROFILE: MXDC_S0_PAGE_ENUMS = 6
-MXDC_RESOURCE_JPEG_THUMBNAIL: MXDC_S0_PAGE_ENUMS = 7
-MXDC_RESOURCE_PNG_THUMBNAIL: MXDC_S0_PAGE_ENUMS = 8
-MXDC_RESOURCE_MAX: MXDC_S0_PAGE_ENUMS = 9
 class MXDC_S0PAGE_DATA_T(Structure):
     dwSize: UInt32
     bData: Byte * 1
@@ -3657,6 +3642,17 @@ class MXDC_S0PAGE_RESOURCE_ESCAPE_T(Structure):
     mxdcEscape: win32more.Graphics.Printing.MXDC_ESCAPE_HEADER_T
     xpsS0PageResourcePassthrough: win32more.Graphics.Printing.MXDC_XPS_S0PAGE_RESOURCE_T
     _pack_ = 1
+MXDC_S0_PAGE_ENUMS = Int32
+MXDC_RESOURCE_TTF: MXDC_S0_PAGE_ENUMS = 0
+MXDC_RESOURCE_JPEG: MXDC_S0_PAGE_ENUMS = 1
+MXDC_RESOURCE_PNG: MXDC_S0_PAGE_ENUMS = 2
+MXDC_RESOURCE_TIFF: MXDC_S0_PAGE_ENUMS = 3
+MXDC_RESOURCE_WDP: MXDC_S0_PAGE_ENUMS = 4
+MXDC_RESOURCE_DICTIONARY: MXDC_S0_PAGE_ENUMS = 5
+MXDC_RESOURCE_ICC_PROFILE: MXDC_S0_PAGE_ENUMS = 6
+MXDC_RESOURCE_JPEG_THUMBNAIL: MXDC_S0_PAGE_ENUMS = 7
+MXDC_RESOURCE_PNG_THUMBNAIL: MXDC_S0_PAGE_ENUMS = 8
+MXDC_RESOURCE_MAX: MXDC_S0_PAGE_ENUMS = 9
 class MXDC_XPS_S0PAGE_RESOURCE_T(Structure):
     dwSize: UInt32
     dwResourceType: UInt32
@@ -3678,10 +3674,6 @@ NOTIFICATION_CONFIG_CREATE_EVENT: NOTIFICATION_CONFIG_FLAGS = 1
 NOTIFICATION_CONFIG_REGISTER_CALLBACK: NOTIFICATION_CONFIG_FLAGS = 2
 NOTIFICATION_CONFIG_EVENT_TRIGGER: NOTIFICATION_CONFIG_FLAGS = 4
 NOTIFICATION_CONFIG_ASYNC_CHANNEL: NOTIFICATION_CONFIG_FLAGS = 8
-class OEM_DMEXTRAHEADER(Structure):
-    dwSize: UInt32
-    dwSignature: UInt32
-    dwVersion: UInt32
 @winfunctype_pointer
 def OEMCUIPCALLBACK(param0: POINTER(win32more.Graphics.Printing.CPSUICBPARAM_head), param1: POINTER(win32more.Graphics.Printing.OEMCUIPPARAM_head)) -> Int32: ...
 class OEMCUIPPARAM(Structure):
@@ -3735,6 +3727,10 @@ class OEMUIPSPARAM(Structure):
     pOEMUserData: c_void_p
     dwFlags: UInt32
     pOemEntry: c_void_p
+class OEM_DMEXTRAHEADER(Structure):
+    dwSize: UInt32
+    dwSignature: UInt32
+    dwVersion: UInt32
 class OIEXT(Structure):
     cbSize: UInt16
     Flags: UInt16
@@ -3788,19 +3784,16 @@ class OPTTYPE(Structure):
     Style: UInt16
     wReserved: UInt16 * 3
     dwReserved: UIntPtr * 3
-PageCountType = Int32
-PageCountType_FinalPageCount: PageCountType = 0
-PageCountType_IntermediatePageCount: PageCountType = 1
+@winfunctype_pointer
+def PFNCOMPROPSHEET(hComPropSheet: win32more.Foundation.HANDLE, Function: UInt32, lParam1: win32more.Foundation.LPARAM, lParam2: win32more.Foundation.LPARAM) -> IntPtr: ...
+@winfunctype_pointer
+def PFNPROPSHEETUI(pPSUIInfo: POINTER(win32more.Graphics.Printing.PROPSHEETUI_INFO_head), lParam: win32more.Foundation.LPARAM) -> Int32: ...
 @winfunctype_pointer
 def PFN_DrvGetDriverSetting(pdriverobj: c_void_p, Feature: win32more.Foundation.PSTR, pOutput: c_void_p, cbSize: UInt32, pcbNeeded: POINTER(UInt32), pdwOptionsReturned: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_DrvUpdateUISetting(pdriverobj: c_void_p, pOptItem: c_void_p, dwPreviousSelection: UInt32, dwMode: UInt32) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_DrvUpgradeRegistrySetting(hPrinter: win32more.Foundation.HANDLE, pFeature: win32more.Foundation.PSTR, pOption: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PFNCOMPROPSHEET(hComPropSheet: win32more.Foundation.HANDLE, Function: UInt32, lParam1: win32more.Foundation.LPARAM, lParam2: win32more.Foundation.LPARAM) -> IntPtr: ...
-@winfunctype_pointer
-def PFNPROPSHEETUI(pPSUIInfo: POINTER(win32more.Graphics.Printing.PROPSHEETUI_INFO_head), lParam: win32more.Foundation.LPARAM) -> Int32: ...
 class PORT_DATA_1(Structure):
     sztPortName: Char * 64
     dwVersion: UInt32
@@ -3859,49 +3852,6 @@ class PORT_INFO_3W(Structure):
     dwStatus: UInt32
     pszStatus: win32more.Foundation.PWSTR
     dwSeverity: UInt32
-PRINT_EXECUTION_CONTEXT = Int32
-PRINT_EXECUTION_CONTEXT_APPLICATION: PRINT_EXECUTION_CONTEXT = 0
-PRINT_EXECUTION_CONTEXT_SPOOLER_SERVICE: PRINT_EXECUTION_CONTEXT = 1
-PRINT_EXECUTION_CONTEXT_SPOOLER_ISOLATION_HOST: PRINT_EXECUTION_CONTEXT = 2
-PRINT_EXECUTION_CONTEXT_FILTER_PIPELINE: PRINT_EXECUTION_CONTEXT = 3
-PRINT_EXECUTION_CONTEXT_WOW64: PRINT_EXECUTION_CONTEXT = 4
-class PRINT_EXECUTION_DATA(Structure):
-    context: win32more.Graphics.Printing.PRINT_EXECUTION_CONTEXT
-    clientAppPID: UInt32
-class PRINT_FEATURE_OPTION(Structure):
-    pszFeature: win32more.Foundation.PSTR
-    pszOption: win32more.Foundation.PSTR
-PrintAsyncNotifyConversationStyle = Int32
-PrintAsyncNotifyConversationStyle_kBiDirectional: PrintAsyncNotifyConversationStyle = 0
-PrintAsyncNotifyConversationStyle_kUniDirectional: PrintAsyncNotifyConversationStyle = 1
-PrintAsyncNotifyError = Int32
-CHANNEL_CLOSED_BY_SERVER: PrintAsyncNotifyError = 1
-CHANNEL_CLOSED_BY_ANOTHER_LISTENER: PrintAsyncNotifyError = 2
-CHANNEL_CLOSED_BY_SAME_LISTENER: PrintAsyncNotifyError = 3
-CHANNEL_RELEASED_BY_LISTENER: PrintAsyncNotifyError = 4
-UNIRECTIONAL_NOTIFICATION_LOST: PrintAsyncNotifyError = 5
-ASYNC_NOTIFICATION_FAILURE: PrintAsyncNotifyError = 6
-NO_LISTENERS: PrintAsyncNotifyError = 7
-CHANNEL_ALREADY_CLOSED: PrintAsyncNotifyError = 8
-CHANNEL_ALREADY_OPENED: PrintAsyncNotifyError = 9
-CHANNEL_WAITING_FOR_CLIENT_NOTIFICATION: PrintAsyncNotifyError = 10
-CHANNEL_NOT_OPENED: PrintAsyncNotifyError = 11
-ASYNC_CALL_ALREADY_PARKED: PrintAsyncNotifyError = 12
-NOT_REGISTERED: PrintAsyncNotifyError = 13
-ALREADY_UNREGISTERED: PrintAsyncNotifyError = 14
-ALREADY_REGISTERED: PrintAsyncNotifyError = 15
-CHANNEL_ACQUIRED: PrintAsyncNotifyError = 16
-ASYNC_CALL_IN_PROGRESS: PrintAsyncNotifyError = 17
-MAX_NOTIFICATION_SIZE_EXCEEDED: PrintAsyncNotifyError = 18
-INTERNAL_NOTIFICATION_QUEUE_IS_FULL: PrintAsyncNotifyError = 19
-INVALID_NOTIFICATION_TYPE: PrintAsyncNotifyError = 20
-MAX_REGISTRATION_COUNT_EXCEEDED: PrintAsyncNotifyError = 21
-MAX_CHANNEL_COUNT_EXCEEDED: PrintAsyncNotifyError = 22
-LOCAL_ONLY_REGISTRATION: PrintAsyncNotifyError = 23
-REMOTE_ONLY_REGISTRATION: PrintAsyncNotifyError = 24
-PrintAsyncNotifyUserFilter = Int32
-PrintAsyncNotifyUserFilter_kPerUser: PrintAsyncNotifyUserFilter = 0
-PrintAsyncNotifyUserFilter_kAllUsers: PrintAsyncNotifyUserFilter = 1
 PRINTER_ACCESS_RIGHTS = UInt32
 PRINTER_ALL_ACCESS: PRINTER_ACCESS_RIGHTS = 983052
 PRINTER_READ: PRINTER_ACCESS_RIGHTS = 131080
@@ -4080,20 +4030,17 @@ class PRINTER_NOTIFY_OPTIONS_TYPE(Structure):
     Reserved2: UInt32
     Count: UInt32
     pFields: POINTER(UInt16)
-PRINTER_OPTION_FLAGS = Int32
-PRINTER_OPTION_NO_CACHE: PRINTER_OPTION_FLAGS = 1
-PRINTER_OPTION_CACHE: PRINTER_OPTION_FLAGS = 2
-PRINTER_OPTION_CLIENT_CHANGE: PRINTER_OPTION_FLAGS = 4
-PRINTER_OPTION_NO_CLIENT_DATA: PRINTER_OPTION_FLAGS = 8
 class PRINTER_OPTIONSA(Structure):
     cbSize: UInt32
     dwFlags: win32more.Graphics.Printing.PRINTER_OPTION_FLAGS
 class PRINTER_OPTIONSW(Structure):
     cbSize: UInt32
     dwFlags: win32more.Graphics.Printing.PRINTER_OPTION_FLAGS
-PrinterExtensionManager = Guid('331b60da-9e90-4dd0-9c-84-ea-c4-e6-59-b6-1f')
-PrinterQueue = Guid('eb54c230-798c-4c9e-b4-61-29-fa-d0-40-39-b1')
-PrinterQueueView = Guid('eb54c231-798c-4c9e-b4-61-29-fa-d0-40-39-b1')
+PRINTER_OPTION_FLAGS = Int32
+PRINTER_OPTION_NO_CACHE: PRINTER_OPTION_FLAGS = 1
+PRINTER_OPTION_CACHE: PRINTER_OPTION_FLAGS = 2
+PRINTER_OPTION_CLIENT_CHANGE: PRINTER_OPTION_FLAGS = 4
+PRINTER_OPTION_NO_CLIENT_DATA: PRINTER_OPTION_FLAGS = 8
 class PRINTIFI32(Structure):
     cjThis: UInt32
     cjIfiExtra: UInt32
@@ -4154,24 +4101,14 @@ class PRINTIFI32(Structure):
     cKerningPairs: UInt32
     ulPanoseCulture: UInt32
     panose: win32more.Graphics.Gdi.PANOSE
-PrintJobStatus = Int32
-PrintJobStatus_Paused: PrintJobStatus = 1
-PrintJobStatus_Error: PrintJobStatus = 2
-PrintJobStatus_Deleting: PrintJobStatus = 4
-PrintJobStatus_Spooling: PrintJobStatus = 8
-PrintJobStatus_Printing: PrintJobStatus = 16
-PrintJobStatus_Offline: PrintJobStatus = 32
-PrintJobStatus_PaperOut: PrintJobStatus = 64
-PrintJobStatus_Printed: PrintJobStatus = 128
-PrintJobStatus_Deleted: PrintJobStatus = 256
-PrintJobStatus_BlockedDeviceQueue: PrintJobStatus = 512
-PrintJobStatus_UserIntervention: PrintJobStatus = 1024
-PrintJobStatus_Restarted: PrintJobStatus = 2048
-PrintJobStatus_Complete: PrintJobStatus = 4096
-PrintJobStatus_Retained: PrintJobStatus = 8192
-class PrintNamedProperty(Structure):
-    propertyName: win32more.Foundation.PWSTR
-    propertyValue: win32more.Graphics.Printing.PrintPropertyValue
+class PRINTPROCESSOROPENDATA(Structure):
+    pDevMode: POINTER(win32more.Graphics.Gdi.DEVMODEA_head)
+    pDatatype: win32more.Foundation.PWSTR
+    pParameters: win32more.Foundation.PWSTR
+    pDocumentName: win32more.Foundation.PWSTR
+    JobId: UInt32
+    pOutputFile: win32more.Foundation.PWSTR
+    pPrinterName: win32more.Foundation.PWSTR
 class PRINTPROCESSOR_CAPS_1(Structure):
     dwLevel: UInt32
     dwNupOptions: UInt32
@@ -4191,29 +4128,6 @@ class PRINTPROCESSOR_INFO_1A(Structure):
     pName: win32more.Foundation.PSTR
 class PRINTPROCESSOR_INFO_1W(Structure):
     pName: win32more.Foundation.PWSTR
-class PRINTPROCESSOROPENDATA(Structure):
-    pDevMode: POINTER(win32more.Graphics.Gdi.DEVMODEA_head)
-    pDatatype: win32more.Foundation.PWSTR
-    pParameters: win32more.Foundation.PWSTR
-    pDocumentName: win32more.Foundation.PWSTR
-    JobId: UInt32
-    pOutputFile: win32more.Foundation.PWSTR
-    pPrinterName: win32more.Foundation.PWSTR
-class PrintPropertiesCollection(Structure):
-    numberOfProperties: UInt32
-    propertiesCollection: POINTER(win32more.Graphics.Printing.PrintNamedProperty_head)
-class PrintPropertyValue(Structure):
-    ePropertyType: win32more.Graphics.Printing.EPrintPropertyType
-    value: _value_e__Union
-    class _value_e__Union(Union):
-        propertyByte: Byte
-        propertyString: win32more.Foundation.PWSTR
-        propertyInt32: Int32
-        propertyInt64: Int64
-        propertyBlob: _propertyBlob_e__Struct
-        class _propertyBlob_e__Struct(Structure):
-            cbBuf: UInt32
-            pBuf: c_void_p
 class PRINTPROVIDOR(Structure):
     fpOpenPrinter: IntPtr
     fpSetJob: IntPtr
@@ -4321,19 +4235,18 @@ class PRINTPROVIDOR(Structure):
     fpIppSetJobAttributes: IntPtr
     fpIppGetPrinterAttributes: IntPtr
     fpIppSetPrinterAttributes: IntPtr
-PrintSchemaAsyncOperation = Guid('43b2f83d-10f2-48ab-83-1b-55-fd-bd-bd-34-a4')
-PrintSchemaConstrainedSetting = Int32
-PrintSchemaConstrainedSetting_None: PrintSchemaConstrainedSetting = 0
-PrintSchemaConstrainedSetting_PrintTicket: PrintSchemaConstrainedSetting = 1
-PrintSchemaConstrainedSetting_Admin: PrintSchemaConstrainedSetting = 2
-PrintSchemaConstrainedSetting_Device: PrintSchemaConstrainedSetting = 3
-PrintSchemaParameterDataType = Int32
-PrintSchemaParameterDataType_Integer: PrintSchemaParameterDataType = 0
-PrintSchemaParameterDataType_NumericString: PrintSchemaParameterDataType = 1
-PrintSchemaParameterDataType_String: PrintSchemaParameterDataType = 2
-PrintSchemaSelectionType = Int32
-PrintSchemaSelectionType_PickOne: PrintSchemaSelectionType = 0
-PrintSchemaSelectionType_PickMany: PrintSchemaSelectionType = 1
+PRINT_EXECUTION_CONTEXT = Int32
+PRINT_EXECUTION_CONTEXT_APPLICATION: PRINT_EXECUTION_CONTEXT = 0
+PRINT_EXECUTION_CONTEXT_SPOOLER_SERVICE: PRINT_EXECUTION_CONTEXT = 1
+PRINT_EXECUTION_CONTEXT_SPOOLER_ISOLATION_HOST: PRINT_EXECUTION_CONTEXT = 2
+PRINT_EXECUTION_CONTEXT_FILTER_PIPELINE: PRINT_EXECUTION_CONTEXT = 3
+PRINT_EXECUTION_CONTEXT_WOW64: PRINT_EXECUTION_CONTEXT = 4
+class PRINT_EXECUTION_DATA(Structure):
+    context: win32more.Graphics.Printing.PRINT_EXECUTION_CONTEXT
+    clientAppPID: UInt32
+class PRINT_FEATURE_OPTION(Structure):
+    pszFeature: win32more.Foundation.PSTR
+    pszOption: win32more.Foundation.PSTR
 class PROPSHEETUI_GETICON_INFO(Structure):
     cbSize: UInt16
     Flags: UInt16
@@ -4385,6 +4298,89 @@ class PUBLISHERINFO(Structure):
     dwMode: UInt32
     wMinoutlinePPEM: UInt16
     wMaxbitmapPPEM: UInt16
+PageCountType = Int32
+PageCountType_FinalPageCount: PageCountType = 0
+PageCountType_IntermediatePageCount: PageCountType = 1
+PrintAsyncNotifyConversationStyle = Int32
+PrintAsyncNotifyConversationStyle_kBiDirectional: PrintAsyncNotifyConversationStyle = 0
+PrintAsyncNotifyConversationStyle_kUniDirectional: PrintAsyncNotifyConversationStyle = 1
+PrintAsyncNotifyError = Int32
+CHANNEL_CLOSED_BY_SERVER: PrintAsyncNotifyError = 1
+CHANNEL_CLOSED_BY_ANOTHER_LISTENER: PrintAsyncNotifyError = 2
+CHANNEL_CLOSED_BY_SAME_LISTENER: PrintAsyncNotifyError = 3
+CHANNEL_RELEASED_BY_LISTENER: PrintAsyncNotifyError = 4
+UNIRECTIONAL_NOTIFICATION_LOST: PrintAsyncNotifyError = 5
+ASYNC_NOTIFICATION_FAILURE: PrintAsyncNotifyError = 6
+NO_LISTENERS: PrintAsyncNotifyError = 7
+CHANNEL_ALREADY_CLOSED: PrintAsyncNotifyError = 8
+CHANNEL_ALREADY_OPENED: PrintAsyncNotifyError = 9
+CHANNEL_WAITING_FOR_CLIENT_NOTIFICATION: PrintAsyncNotifyError = 10
+CHANNEL_NOT_OPENED: PrintAsyncNotifyError = 11
+ASYNC_CALL_ALREADY_PARKED: PrintAsyncNotifyError = 12
+NOT_REGISTERED: PrintAsyncNotifyError = 13
+ALREADY_UNREGISTERED: PrintAsyncNotifyError = 14
+ALREADY_REGISTERED: PrintAsyncNotifyError = 15
+CHANNEL_ACQUIRED: PrintAsyncNotifyError = 16
+ASYNC_CALL_IN_PROGRESS: PrintAsyncNotifyError = 17
+MAX_NOTIFICATION_SIZE_EXCEEDED: PrintAsyncNotifyError = 18
+INTERNAL_NOTIFICATION_QUEUE_IS_FULL: PrintAsyncNotifyError = 19
+INVALID_NOTIFICATION_TYPE: PrintAsyncNotifyError = 20
+MAX_REGISTRATION_COUNT_EXCEEDED: PrintAsyncNotifyError = 21
+MAX_CHANNEL_COUNT_EXCEEDED: PrintAsyncNotifyError = 22
+LOCAL_ONLY_REGISTRATION: PrintAsyncNotifyError = 23
+REMOTE_ONLY_REGISTRATION: PrintAsyncNotifyError = 24
+PrintAsyncNotifyUserFilter = Int32
+PrintAsyncNotifyUserFilter_kPerUser: PrintAsyncNotifyUserFilter = 0
+PrintAsyncNotifyUserFilter_kAllUsers: PrintAsyncNotifyUserFilter = 1
+PrintJobStatus = Int32
+PrintJobStatus_Paused: PrintJobStatus = 1
+PrintJobStatus_Error: PrintJobStatus = 2
+PrintJobStatus_Deleting: PrintJobStatus = 4
+PrintJobStatus_Spooling: PrintJobStatus = 8
+PrintJobStatus_Printing: PrintJobStatus = 16
+PrintJobStatus_Offline: PrintJobStatus = 32
+PrintJobStatus_PaperOut: PrintJobStatus = 64
+PrintJobStatus_Printed: PrintJobStatus = 128
+PrintJobStatus_Deleted: PrintJobStatus = 256
+PrintJobStatus_BlockedDeviceQueue: PrintJobStatus = 512
+PrintJobStatus_UserIntervention: PrintJobStatus = 1024
+PrintJobStatus_Restarted: PrintJobStatus = 2048
+PrintJobStatus_Complete: PrintJobStatus = 4096
+PrintJobStatus_Retained: PrintJobStatus = 8192
+class PrintNamedProperty(Structure):
+    propertyName: win32more.Foundation.PWSTR
+    propertyValue: win32more.Graphics.Printing.PrintPropertyValue
+class PrintPropertiesCollection(Structure):
+    numberOfProperties: UInt32
+    propertiesCollection: POINTER(win32more.Graphics.Printing.PrintNamedProperty_head)
+class PrintPropertyValue(Structure):
+    ePropertyType: win32more.Graphics.Printing.EPrintPropertyType
+    value: _value_e__Union
+    class _value_e__Union(Union):
+        propertyByte: Byte
+        propertyString: win32more.Foundation.PWSTR
+        propertyInt32: Int32
+        propertyInt64: Int64
+        propertyBlob: _propertyBlob_e__Struct
+        class _propertyBlob_e__Struct(Structure):
+            cbBuf: UInt32
+            pBuf: c_void_p
+PrintSchemaAsyncOperation = Guid('43b2f83d-10f2-48ab-83-1b-55-fd-bd-bd-34-a4')
+PrintSchemaConstrainedSetting = Int32
+PrintSchemaConstrainedSetting_None: PrintSchemaConstrainedSetting = 0
+PrintSchemaConstrainedSetting_PrintTicket: PrintSchemaConstrainedSetting = 1
+PrintSchemaConstrainedSetting_Admin: PrintSchemaConstrainedSetting = 2
+PrintSchemaConstrainedSetting_Device: PrintSchemaConstrainedSetting = 3
+PrintSchemaParameterDataType = Int32
+PrintSchemaParameterDataType_Integer: PrintSchemaParameterDataType = 0
+PrintSchemaParameterDataType_NumericString: PrintSchemaParameterDataType = 1
+PrintSchemaParameterDataType_String: PrintSchemaParameterDataType = 2
+PrintSchemaSelectionType = Int32
+PrintSchemaSelectionType_PickOne: PrintSchemaSelectionType = 0
+PrintSchemaSelectionType_PickMany: PrintSchemaSelectionType = 1
+PrinterExtensionManager = Guid('331b60da-9e90-4dd0-9c-84-ea-c4-e6-59-b6-1f')
+PrinterQueue = Guid('eb54c230-798c-4c9e-b4-61-29-fa-d0-40-39-b1')
+PrinterQueueView = Guid('eb54c231-798c-4c9e-b4-61-29-fa-d0-40-39-b1')
 @winfunctype_pointer
 def ROUTER_NOTIFY_CALLBACK(dwCommand: UInt32, pContext: c_void_p, dwColor: UInt32, pNofityInfo: POINTER(win32more.Graphics.Printing.PRINTER_NOTIFY_INFO_head), fdwFlags: UInt32, pdwResult: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
 class SETRESULT_INFO(Structure):
@@ -4463,6 +4459,34 @@ class UFF_FONTDIRECTORY(Structure):
     offVarData: UInt32
 UI_TYPE = Int32
 UI_TYPE_kMessageBox: UI_TYPE = 0
+class UNIDRVINFO(Structure):
+    dwSize: UInt32
+    flGenFlags: UInt32
+    wType: UInt16
+    fCaps: UInt16
+    wXRes: UInt16
+    wYRes: UInt16
+    sYAdjust: Int16
+    sYMoved: Int16
+    wPrivateData: UInt16
+    sShift: Int16
+    SelectFont: win32more.Graphics.Printing.INVOC
+    UnSelectFont: win32more.Graphics.Printing.INVOC
+    wReserved: UInt16 * 4
+class UNIDRV_PRIVATE_DEVMODE(Structure):
+    wReserved: UInt16 * 4
+    wSize: UInt16
+class UNIFM_HDR(Structure):
+    dwSize: UInt32
+    dwVersion: UInt32
+    ulDefaultCodepage: UInt32
+    lGlyphSetDataRCID: Int32
+    loUnidrvInfo: UInt32
+    loIFIMetrics: UInt32
+    loExtTextMetric: UInt32
+    loWidthTable: UInt32
+    loKernPair: UInt32
+    dwReserved: UInt32 * 2
 class UNI_CODEPAGEINFO(Structure):
     dwCodePage: UInt32
     SelectSymbolSet: win32more.Graphics.Printing.INVOC
@@ -4478,34 +4502,6 @@ class UNI_GLYPHSETDATA(Structure):
     dwCodePageCount: UInt32
     loCodePageOffset: UInt32
     loMapTableOffset: UInt32
-    dwReserved: UInt32 * 2
-class UNIDRV_PRIVATE_DEVMODE(Structure):
-    wReserved: UInt16 * 4
-    wSize: UInt16
-class UNIDRVINFO(Structure):
-    dwSize: UInt32
-    flGenFlags: UInt32
-    wType: UInt16
-    fCaps: UInt16
-    wXRes: UInt16
-    wYRes: UInt16
-    sYAdjust: Int16
-    sYMoved: Int16
-    wPrivateData: UInt16
-    sShift: Int16
-    SelectFont: win32more.Graphics.Printing.INVOC
-    UnSelectFont: win32more.Graphics.Printing.INVOC
-    wReserved: UInt16 * 4
-class UNIFM_HDR(Structure):
-    dwSize: UInt32
-    dwVersion: UInt32
-    ulDefaultCodepage: UInt32
-    lGlyphSetDataRCID: Int32
-    loUnidrvInfo: UInt32
-    loIFIMetrics: UInt32
-    loExtTextMetric: UInt32
-    loWidthTable: UInt32
-    loKernPair: UInt32
     dwReserved: UInt32 * 2
 class USERDATA(Structure):
     dwSize: UInt32
@@ -4530,8 +4526,10 @@ XPSRAS_PIXEL_FORMAT_128BPP_PRGBA_FLOAT_SCRGB: XPSRAS_PIXEL_FORMAT = 3
 XPSRAS_RENDERING_MODE = Int32
 XPSRAS_RENDERING_MODE_ANTIALIASED: XPSRAS_RENDERING_MODE = 0
 XPSRAS_RENDERING_MODE_ALIASED: XPSRAS_RENDERING_MODE = 1
-make_head(_module, '_CPSUICALLBACK')
-make_head(_module, '_SPLCLIENT_INFO_2_V3')
+@winfunctype_pointer
+def _CPSUICALLBACK(pCPSUICBParam: POINTER(win32more.Graphics.Printing.CPSUICBPARAM_head)) -> Int32: ...
+class _SPLCLIENT_INFO_2_V3(Structure):
+    hSplPrinter: UInt64
 make_head(_module, 'ADDJOB_INFO_1A')
 make_head(_module, 'ADDJOB_INFO_1W')
 make_head(_module, 'ATTRIBUTE_INFO_1')
@@ -4558,23 +4556,23 @@ make_head(_module, 'CORE_PRINTER_DRIVERW')
 make_head(_module, 'CPSUICBPARAM')
 make_head(_module, 'CPSUIDATABLOCK')
 make_head(_module, 'CUSTOMSIZEPARAM')
-make_head(_module, 'DATA_HEADER')
 make_head(_module, 'DATATYPES_INFO_1A')
 make_head(_module, 'DATATYPES_INFO_1W')
+make_head(_module, 'DATA_HEADER')
 make_head(_module, 'DELETE_PORT_DATA_1')
 make_head(_module, 'DEVICEPROPERTYHEADER')
 make_head(_module, 'DEVQUERYPRINT_INFO')
 make_head(_module, 'DLGPAGE')
+make_head(_module, 'DOCEVENT_CREATEDCPRE')
+make_head(_module, 'DOCEVENT_ESCAPE')
+make_head(_module, 'DOCEVENT_FILTER')
+make_head(_module, 'DOCUMENTPROPERTYHEADER')
 make_head(_module, 'DOC_INFO_1A')
 make_head(_module, 'DOC_INFO_1W')
 make_head(_module, 'DOC_INFO_2A')
 make_head(_module, 'DOC_INFO_2W')
 make_head(_module, 'DOC_INFO_3A')
 make_head(_module, 'DOC_INFO_3W')
-make_head(_module, 'DOCEVENT_CREATEDCPRE')
-make_head(_module, 'DOCEVENT_ESCAPE')
-make_head(_module, 'DOCEVENT_FILTER')
-make_head(_module, 'DOCUMENTPROPERTYHEADER')
 make_head(_module, 'DRIVER_INFO_1A')
 make_head(_module, 'DRIVER_INFO_1W')
 make_head(_module, 'DRIVER_INFO_2A')
@@ -4613,7 +4611,6 @@ make_head(_module, 'IFixedPage')
 make_head(_module, 'IImgCreateErrorInfo')
 make_head(_module, 'IImgErrorInfo')
 make_head(_module, 'IInterFilterCommunicator')
-make_head(_module, 'ImgErrorInfo')
 make_head(_module, 'INSERTPSUIPAGE_INFO')
 make_head(_module, 'INVOC')
 make_head(_module, 'IPartBase')
@@ -4640,25 +4637,6 @@ make_head(_module, 'IPrintCoreHelperPS')
 make_head(_module, 'IPrintCoreHelperUni')
 make_head(_module, 'IPrintCoreHelperUni2')
 make_head(_module, 'IPrintCoreUI2')
-make_head(_module, 'IPrinterBidiSetRequestCallback')
-make_head(_module, 'IPrinterExtensionAsyncOperation')
-make_head(_module, 'IPrinterExtensionContext')
-make_head(_module, 'IPrinterExtensionContextCollection')
-make_head(_module, 'IPrinterExtensionEvent')
-make_head(_module, 'IPrinterExtensionEventArgs')
-make_head(_module, 'IPrinterExtensionManager')
-make_head(_module, 'IPrinterExtensionRequest')
-make_head(_module, 'IPrinterPropertyBag')
-make_head(_module, 'IPrinterQueue')
-make_head(_module, 'IPrinterQueue2')
-make_head(_module, 'IPrinterQueueEvent')
-make_head(_module, 'IPrinterQueueView')
-make_head(_module, 'IPrinterQueueViewEvent')
-make_head(_module, 'IPrinterScriptablePropertyBag')
-make_head(_module, 'IPrinterScriptablePropertyBag2')
-make_head(_module, 'IPrinterScriptableSequentialStream')
-make_head(_module, 'IPrinterScriptableStream')
-make_head(_module, 'IPrinterScriptContext')
 make_head(_module, 'IPrintJob')
 make_head(_module, 'IPrintJobCollection')
 make_head(_module, 'IPrintOemCommon')
@@ -4694,6 +4672,25 @@ make_head(_module, 'IPrintTicketProvider2')
 make_head(_module, 'IPrintUnidiAsyncNotifyRegistration')
 make_head(_module, 'IPrintWriteStream')
 make_head(_module, 'IPrintWriteStreamFlush')
+make_head(_module, 'IPrinterBidiSetRequestCallback')
+make_head(_module, 'IPrinterExtensionAsyncOperation')
+make_head(_module, 'IPrinterExtensionContext')
+make_head(_module, 'IPrinterExtensionContextCollection')
+make_head(_module, 'IPrinterExtensionEvent')
+make_head(_module, 'IPrinterExtensionEventArgs')
+make_head(_module, 'IPrinterExtensionManager')
+make_head(_module, 'IPrinterExtensionRequest')
+make_head(_module, 'IPrinterPropertyBag')
+make_head(_module, 'IPrinterQueue')
+make_head(_module, 'IPrinterQueue2')
+make_head(_module, 'IPrinterQueueEvent')
+make_head(_module, 'IPrinterQueueView')
+make_head(_module, 'IPrinterQueueViewEvent')
+make_head(_module, 'IPrinterScriptContext')
+make_head(_module, 'IPrinterScriptablePropertyBag')
+make_head(_module, 'IPrinterScriptablePropertyBag2')
+make_head(_module, 'IPrinterScriptableSequentialStream')
+make_head(_module, 'IPrinterScriptableStream')
 make_head(_module, 'IXpsDocument')
 make_head(_module, 'IXpsDocumentConsumer')
 make_head(_module, 'IXpsDocumentProvider')
@@ -4703,6 +4700,7 @@ make_head(_module, 'IXpsRasterizationFactory1')
 make_head(_module, 'IXpsRasterizationFactory2')
 make_head(_module, 'IXpsRasterizer')
 make_head(_module, 'IXpsRasterizerNotificationCallback')
+make_head(_module, 'ImgErrorInfo')
 make_head(_module, 'JOB_INFO_1A')
 make_head(_module, 'JOB_INFO_1W')
 make_head(_module, 'JOB_INFO_2A')
@@ -4714,15 +4712,15 @@ make_head(_module, 'KERNDATA')
 make_head(_module, 'MAPTABLE')
 make_head(_module, 'MESSAGEBOX_PARAMS')
 make_head(_module, 'MONITOR')
-make_head(_module, 'MONITOR_INFO_1A')
-make_head(_module, 'MONITOR_INFO_1W')
-make_head(_module, 'MONITOR_INFO_2A')
-make_head(_module, 'MONITOR_INFO_2W')
 make_head(_module, 'MONITOR2')
 make_head(_module, 'MONITOREX')
 make_head(_module, 'MONITORINIT')
 make_head(_module, 'MONITORREG')
 make_head(_module, 'MONITORUI')
+make_head(_module, 'MONITOR_INFO_1A')
+make_head(_module, 'MONITOR_INFO_1W')
+make_head(_module, 'MONITOR_INFO_2A')
+make_head(_module, 'MONITOR_INFO_2W')
 make_head(_module, 'MXDC_ESCAPE_HEADER_T')
 make_head(_module, 'MXDC_GET_FILENAME_DATA_T')
 make_head(_module, 'MXDC_PRINTTICKET_DATA_T')
@@ -4732,7 +4730,6 @@ make_head(_module, 'MXDC_S0PAGE_PASSTHROUGH_ESCAPE_T')
 make_head(_module, 'MXDC_S0PAGE_RESOURCE_ESCAPE_T')
 make_head(_module, 'MXDC_XPS_S0PAGE_RESOURCE_T')
 make_head(_module, 'NOTIFICATION_CONFIG_1')
-make_head(_module, 'OEM_DMEXTRAHEADER')
 make_head(_module, 'OEMCUIPCALLBACK')
 make_head(_module, 'OEMCUIPPARAM')
 make_head(_module, 'OEMDMPARAM')
@@ -4740,16 +4737,17 @@ make_head(_module, 'OEMFONTINSTPARAM')
 make_head(_module, 'OEMUIOBJ')
 make_head(_module, 'OEMUIPROCS')
 make_head(_module, 'OEMUIPSPARAM')
+make_head(_module, 'OEM_DMEXTRAHEADER')
 make_head(_module, 'OIEXT')
 make_head(_module, 'OPTCOMBO')
 make_head(_module, 'OPTITEM')
 make_head(_module, 'OPTPARAM')
 make_head(_module, 'OPTTYPE')
+make_head(_module, 'PFNCOMPROPSHEET')
+make_head(_module, 'PFNPROPSHEETUI')
 make_head(_module, 'PFN_DrvGetDriverSetting')
 make_head(_module, 'PFN_DrvUpdateUISetting')
 make_head(_module, 'PFN_DrvUpgradeRegistrySetting')
-make_head(_module, 'PFNCOMPROPSHEET')
-make_head(_module, 'PFNPROPSHEETUI')
 make_head(_module, 'PORT_DATA_1')
 make_head(_module, 'PORT_DATA_2')
 make_head(_module, 'PORT_DATA_LIST_1')
@@ -4759,8 +4757,6 @@ make_head(_module, 'PORT_INFO_2A')
 make_head(_module, 'PORT_INFO_2W')
 make_head(_module, 'PORT_INFO_3A')
 make_head(_module, 'PORT_INFO_3W')
-make_head(_module, 'PRINT_EXECUTION_DATA')
-make_head(_module, 'PRINT_FEATURE_OPTION')
 make_head(_module, 'PRINTER_CONNECTION_INFO_1A')
 make_head(_module, 'PRINTER_CONNECTION_INFO_1W')
 make_head(_module, 'PRINTER_DEFAULTSA')
@@ -4792,15 +4788,14 @@ make_head(_module, 'PRINTER_NOTIFY_OPTIONS_TYPE')
 make_head(_module, 'PRINTER_OPTIONSA')
 make_head(_module, 'PRINTER_OPTIONSW')
 make_head(_module, 'PRINTIFI32')
-make_head(_module, 'PrintNamedProperty')
+make_head(_module, 'PRINTPROCESSOROPENDATA')
 make_head(_module, 'PRINTPROCESSOR_CAPS_1')
 make_head(_module, 'PRINTPROCESSOR_CAPS_2')
 make_head(_module, 'PRINTPROCESSOR_INFO_1A')
 make_head(_module, 'PRINTPROCESSOR_INFO_1W')
-make_head(_module, 'PRINTPROCESSOROPENDATA')
-make_head(_module, 'PrintPropertiesCollection')
-make_head(_module, 'PrintPropertyValue')
 make_head(_module, 'PRINTPROVIDOR')
+make_head(_module, 'PRINT_EXECUTION_DATA')
+make_head(_module, 'PRINT_FEATURE_OPTION')
 make_head(_module, 'PROPSHEETUI_GETICON_INFO')
 make_head(_module, 'PROPSHEETUI_INFO')
 make_head(_module, 'PROPSHEETUI_INFO_HEADER')
@@ -4811,6 +4806,9 @@ make_head(_module, 'PROVIDOR_INFO_2W')
 make_head(_module, 'PSCRIPT5_PRIVATE_DEVMODE')
 make_head(_module, 'PSPINFO')
 make_head(_module, 'PUBLISHERINFO')
+make_head(_module, 'PrintNamedProperty')
+make_head(_module, 'PrintPropertiesCollection')
+make_head(_module, 'PrintPropertyValue')
 make_head(_module, 'ROUTER_NOTIFY_CALLBACK')
 make_head(_module, 'SETRESULT_INFO')
 make_head(_module, 'SHOWUIPARAMS')
@@ -4825,14 +4823,16 @@ make_head(_module, 'SPLCLIENT_INFO_3_VISTA')
 make_head(_module, 'TRANSDATA')
 make_head(_module, 'UFF_FILEHEADER')
 make_head(_module, 'UFF_FONTDIRECTORY')
+make_head(_module, 'UNIDRVINFO')
+make_head(_module, 'UNIDRV_PRIVATE_DEVMODE')
+make_head(_module, 'UNIFM_HDR')
 make_head(_module, 'UNI_CODEPAGEINFO')
 make_head(_module, 'UNI_GLYPHSETDATA')
-make_head(_module, 'UNIDRV_PRIVATE_DEVMODE')
-make_head(_module, 'UNIDRVINFO')
-make_head(_module, 'UNIFM_HDR')
 make_head(_module, 'USERDATA')
 make_head(_module, 'WIDTHRUN')
 make_head(_module, 'WIDTHTABLE')
+make_head(_module, '_CPSUICALLBACK')
+make_head(_module, '_SPLCLIENT_INFO_2_V3')
 __all__ = [
     "ADDJOB_INFO_1A",
     "ADDJOB_INFO_1W",

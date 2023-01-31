@@ -55,6 +55,20 @@ class IIndependentFlipFramePresentStatistics(c_void_p):
     def GetDisplayedTime() -> win32more.Graphics.CompositionSwapchain.SystemInterruptTime: ...
     @commethod(9)
     def GetPresentDuration() -> win32more.Graphics.CompositionSwapchain.SystemInterruptTime: ...
+class IPresentStatistics(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('b44b8bda-7282-495d-9d-d7-ce-ad-d8-b4-bb-86')
+    @commethod(3)
+    def GetPresentId() -> UInt64: ...
+    @commethod(4)
+    def GetKind() -> win32more.Graphics.CompositionSwapchain.PresentStatisticsKind: ...
+class IPresentStatusPresentStatistics(c_void_p):
+    extends: win32more.Graphics.CompositionSwapchain.IPresentStatistics
+    Guid = Guid('c9ed2a41-79cb-435e-96-4e-c8-55-30-55-42-0c')
+    @commethod(5)
+    def GetCompositionFrameId() -> UInt64: ...
+    @commethod(6)
+    def GetPresentStatus() -> win32more.Graphics.CompositionSwapchain.PresentStatus: ...
 class IPresentationBuffer(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('2e217d3a-5abb-4138-9a-13-a7-75-59-3c-89-ca')
@@ -124,27 +138,6 @@ class IPresentationSurface(c_void_p):
     def SetDisableReadback(value: Byte) -> win32more.Foundation.HRESULT: ...
     @commethod(11)
     def SetLetterboxingMargins(leftLetterboxSize: Single, topLetterboxSize: Single, rightLetterboxSize: Single, bottomLetterboxSize: Single) -> win32more.Foundation.HRESULT: ...
-class IPresentStatistics(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('b44b8bda-7282-495d-9d-d7-ce-ad-d8-b4-bb-86')
-    @commethod(3)
-    def GetPresentId() -> UInt64: ...
-    @commethod(4)
-    def GetKind() -> win32more.Graphics.CompositionSwapchain.PresentStatisticsKind: ...
-class IPresentStatusPresentStatistics(c_void_p):
-    extends: win32more.Graphics.CompositionSwapchain.IPresentStatistics
-    Guid = Guid('c9ed2a41-79cb-435e-96-4e-c8-55-30-55-42-0c')
-    @commethod(5)
-    def GetCompositionFrameId() -> UInt64: ...
-    @commethod(6)
-    def GetPresentStatus() -> win32more.Graphics.CompositionSwapchain.PresentStatus: ...
-class PresentationTransform(Structure):
-    M11: Single
-    M12: Single
-    M21: Single
-    M22: Single
-    M31: Single
-    M32: Single
 PresentStatisticsKind = Int32
 PresentStatisticsKind_PresentStatus: PresentStatisticsKind = 1
 PresentStatisticsKind_CompositionFrame: PresentStatisticsKind = 2
@@ -153,18 +146,25 @@ PresentStatus = Int32
 PresentStatus_Queued: PresentStatus = 0
 PresentStatus_Skipped: PresentStatus = 1
 PresentStatus_Canceled: PresentStatus = 2
+class PresentationTransform(Structure):
+    M11: Single
+    M12: Single
+    M21: Single
+    M22: Single
+    M31: Single
+    M32: Single
 class SystemInterruptTime(Structure):
     value: UInt64
 make_head(_module, 'CompositionFrameDisplayInstance')
 make_head(_module, 'ICompositionFramePresentStatistics')
 make_head(_module, 'IIndependentFlipFramePresentStatistics')
+make_head(_module, 'IPresentStatistics')
+make_head(_module, 'IPresentStatusPresentStatistics')
 make_head(_module, 'IPresentationBuffer')
 make_head(_module, 'IPresentationContent')
 make_head(_module, 'IPresentationFactory')
 make_head(_module, 'IPresentationManager')
 make_head(_module, 'IPresentationSurface')
-make_head(_module, 'IPresentStatistics')
-make_head(_module, 'IPresentStatusPresentStatistics')
 make_head(_module, 'PresentationTransform')
 make_head(_module, 'SystemInterruptTime')
 __all__ = [

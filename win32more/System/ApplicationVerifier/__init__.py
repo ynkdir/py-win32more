@@ -16,13 +16,12 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-AVRF_MAX_TRACES: UInt32 = 32
-@winfunctype('verifier.dll')
-def VerifierEnumerateResource(Process: win32more.Foundation.HANDLE, Flags: win32more.System.ApplicationVerifier.VERIFIER_ENUM_RESOURCE_FLAGS, ResourceType: win32more.System.ApplicationVerifier.eAvrfResourceTypes, ResourceCallback: win32more.System.ApplicationVerifier.AVRF_RESOURCE_ENUMERATE_CALLBACK, EnumerationContext: c_void_p) -> UInt32: ...
 class AVRF_BACKTRACE_INFORMATION(Structure):
     Depth: UInt32
     Index: UInt32
     ReturnAddresses: UInt64 * 32
+@winfunctype_pointer
+def AVRF_HANDLEOPERATION_ENUMERATE_CALLBACK(HandleOperation: POINTER(win32more.System.ApplicationVerifier.AVRF_HANDLE_OPERATION_head), EnumerationContext: c_void_p, EnumerationLevel: POINTER(UInt32)) -> UInt32: ...
 class AVRF_HANDLE_OPERATION(Structure):
     Handle: UInt64
     ProcessId: UInt32
@@ -31,7 +30,7 @@ class AVRF_HANDLE_OPERATION(Structure):
     Spare0: UInt32
     BackTraceInformation: win32more.System.ApplicationVerifier.AVRF_BACKTRACE_INFORMATION
 @winfunctype_pointer
-def AVRF_HANDLEOPERATION_ENUMERATE_CALLBACK(HandleOperation: POINTER(win32more.System.ApplicationVerifier.AVRF_HANDLE_OPERATION_head), EnumerationContext: c_void_p, EnumerationLevel: POINTER(UInt32)) -> UInt32: ...
+def AVRF_HEAPALLOCATION_ENUMERATE_CALLBACK(HeapAllocation: POINTER(win32more.System.ApplicationVerifier.AVRF_HEAP_ALLOCATION_head), EnumerationContext: c_void_p, EnumerationLevel: POINTER(UInt32)) -> UInt32: ...
 class AVRF_HEAP_ALLOCATION(Structure):
     HeapHandle: UInt64
     UserAllocation: UInt64
@@ -43,9 +42,13 @@ class AVRF_HEAP_ALLOCATION(Structure):
     HeapContext: UInt64
     BackTraceInformation: POINTER(win32more.System.ApplicationVerifier.AVRF_BACKTRACE_INFORMATION_head)
 @winfunctype_pointer
-def AVRF_HEAPALLOCATION_ENUMERATE_CALLBACK(HeapAllocation: POINTER(win32more.System.ApplicationVerifier.AVRF_HEAP_ALLOCATION_head), EnumerationContext: c_void_p, EnumerationLevel: POINTER(UInt32)) -> UInt32: ...
-@winfunctype_pointer
 def AVRF_RESOURCE_ENUMERATE_CALLBACK(ResourceDescription: c_void_p, EnumerationContext: c_void_p, EnumerationLevel: POINTER(UInt32)) -> UInt32: ...
+AVRF_MAX_TRACES: UInt32 = 32
+@winfunctype('verifier.dll')
+def VerifierEnumerateResource(Process: win32more.Foundation.HANDLE, Flags: win32more.System.ApplicationVerifier.VERIFIER_ENUM_RESOURCE_FLAGS, ResourceType: win32more.System.ApplicationVerifier.eAvrfResourceTypes, ResourceCallback: win32more.System.ApplicationVerifier.AVRF_RESOURCE_ENUMERATE_CALLBACK, EnumerationContext: c_void_p) -> UInt32: ...
+VERIFIER_ENUM_RESOURCE_FLAGS = UInt32
+AVRF_ENUM_RESOURCES_FLAGS_DONT_RESOLVE_TRACES: VERIFIER_ENUM_RESOURCE_FLAGS = 2
+AVRF_ENUM_RESOURCES_FLAGS_SUSPEND: VERIFIER_ENUM_RESOURCE_FLAGS = 1
 eAvrfResourceTypes = Int32
 eAvrfResourceTypes_AvrfResourceHeapAllocation: eAvrfResourceTypes = 0
 eAvrfResourceTypes_AvrfResourceHandleTrace: eAvrfResourceTypes = 1
@@ -66,14 +69,11 @@ eUserAllocationState = Int32
 eUserAllocationState_AllocationStateUnknown: eUserAllocationState = 0
 eUserAllocationState_AllocationStateBusy: eUserAllocationState = 1
 eUserAllocationState_AllocationStateFree: eUserAllocationState = 2
-VERIFIER_ENUM_RESOURCE_FLAGS = UInt32
-AVRF_ENUM_RESOURCES_FLAGS_DONT_RESOLVE_TRACES: VERIFIER_ENUM_RESOURCE_FLAGS = 2
-AVRF_ENUM_RESOURCES_FLAGS_SUSPEND: VERIFIER_ENUM_RESOURCE_FLAGS = 1
 make_head(_module, 'AVRF_BACKTRACE_INFORMATION')
-make_head(_module, 'AVRF_HANDLE_OPERATION')
 make_head(_module, 'AVRF_HANDLEOPERATION_ENUMERATE_CALLBACK')
-make_head(_module, 'AVRF_HEAP_ALLOCATION')
+make_head(_module, 'AVRF_HANDLE_OPERATION')
 make_head(_module, 'AVRF_HEAPALLOCATION_ENUMERATE_CALLBACK')
+make_head(_module, 'AVRF_HEAP_ALLOCATION')
 make_head(_module, 'AVRF_RESOURCE_ENUMERATE_CALLBACK')
 __all__ = [
     "AVRF_BACKTRACE_INFORMATION",

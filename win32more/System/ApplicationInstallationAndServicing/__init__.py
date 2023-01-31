@@ -20,6 +20,26 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+class ACTCTXA(Structure):
+    cbSize: UInt32
+    dwFlags: UInt32
+    lpSource: win32more.Foundation.PSTR
+    wProcessorArchitecture: UInt16
+    wLangId: UInt16
+    lpAssemblyDirectory: win32more.Foundation.PSTR
+    lpResourceName: win32more.Foundation.PSTR
+    lpApplicationName: win32more.Foundation.PSTR
+    hModule: win32more.Foundation.HINSTANCE
+class ACTCTXW(Structure):
+    cbSize: UInt32
+    dwFlags: UInt32
+    lpSource: win32more.Foundation.PWSTR
+    wProcessorArchitecture: UInt16
+    wLangId: UInt16
+    lpAssemblyDirectory: win32more.Foundation.PWSTR
+    lpResourceName: win32more.Foundation.PWSTR
+    lpApplicationName: win32more.Foundation.PWSTR
+    hModule: win32more.Foundation.HINSTANCE
 ACTCTX_COMPATIBILITY_ELEMENT_TYPE = Int32
 ACTCTX_COMPATIBILITY_ELEMENT_TYPE_UNKNOWN: ACTCTX_COMPATIBILITY_ELEMENT_TYPE = 0
 ACTCTX_COMPATIBILITY_ELEMENT_TYPE_OS: ACTCTX_COMPATIBILITY_ELEMENT_TYPE = 1
@@ -44,26 +64,6 @@ class ACTCTX_SECTION_KEYED_DATA(Structure):
     ulAssemblyRosterIndex: UInt32
     ulFlags: UInt32
     AssemblyMetadata: win32more.System.WindowsProgramming.ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA
-class ACTCTXA(Structure):
-    cbSize: UInt32
-    dwFlags: UInt32
-    lpSource: win32more.Foundation.PSTR
-    wProcessorArchitecture: UInt16
-    wLangId: UInt16
-    lpAssemblyDirectory: win32more.Foundation.PSTR
-    lpResourceName: win32more.Foundation.PSTR
-    lpApplicationName: win32more.Foundation.PSTR
-    hModule: win32more.Foundation.HINSTANCE
-class ACTCTXW(Structure):
-    cbSize: UInt32
-    dwFlags: UInt32
-    lpSource: win32more.Foundation.PWSTR
-    wProcessorArchitecture: UInt16
-    wLangId: UInt16
-    lpAssemblyDirectory: win32more.Foundation.PWSTR
-    lpResourceName: win32more.Foundation.PWSTR
-    lpApplicationName: win32more.Foundation.PWSTR
-    hModule: win32more.Foundation.HINSTANCE
 class ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION(Structure):
     ulFlags: UInt32
     ulEncodedAssemblyIdentityLength: UInt32
@@ -110,6 +110,66 @@ class ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION(Structure):
 ADVERTISEFLAGS = Int32
 ADVERTISEFLAGS_MACHINEASSIGN: ADVERTISEFLAGS = 0
 ADVERTISEFLAGS_USERASSIGN: ADVERTISEFLAGS = 1
+ASM_BIND_FLAGS = UInt32
+ASM_BINDF_FORCE_CACHE_INSTALL: ASM_BIND_FLAGS = 1
+ASM_BINDF_RFS_INTEGRITY_CHECK: ASM_BIND_FLAGS = 2
+ASM_BINDF_RFS_MODULE_CHECK: ASM_BIND_FLAGS = 4
+ASM_BINDF_BINPATH_PROBE_ONLY: ASM_BIND_FLAGS = 8
+ASM_BINDF_SHARED_BINPATH_HINT: ASM_BIND_FLAGS = 16
+ASM_BINDF_PARENT_ASM_HINT: ASM_BIND_FLAGS = 32
+ASM_CMP_FLAGS = Int32
+ASM_CMPF_NAME: ASM_CMP_FLAGS = 1
+ASM_CMPF_MAJOR_VERSION: ASM_CMP_FLAGS = 2
+ASM_CMPF_MINOR_VERSION: ASM_CMP_FLAGS = 4
+ASM_CMPF_BUILD_NUMBER: ASM_CMP_FLAGS = 8
+ASM_CMPF_REVISION_NUMBER: ASM_CMP_FLAGS = 16
+ASM_CMPF_PUBLIC_KEY_TOKEN: ASM_CMP_FLAGS = 32
+ASM_CMPF_CULTURE: ASM_CMP_FLAGS = 64
+ASM_CMPF_CUSTOM: ASM_CMP_FLAGS = 128
+ASM_CMPF_ALL: ASM_CMP_FLAGS = 255
+ASM_CMPF_DEFAULT: ASM_CMP_FLAGS = 256
+ASM_DISPLAY_FLAGS = Int32
+ASM_DISPLAYF_VERSION: ASM_DISPLAY_FLAGS = 1
+ASM_DISPLAYF_CULTURE: ASM_DISPLAY_FLAGS = 2
+ASM_DISPLAYF_PUBLIC_KEY_TOKEN: ASM_DISPLAY_FLAGS = 4
+ASM_DISPLAYF_PUBLIC_KEY: ASM_DISPLAY_FLAGS = 8
+ASM_DISPLAYF_CUSTOM: ASM_DISPLAY_FLAGS = 16
+ASM_DISPLAYF_PROCESSORARCHITECTURE: ASM_DISPLAY_FLAGS = 32
+ASM_DISPLAYF_LANGUAGEID: ASM_DISPLAY_FLAGS = 64
+ASM_NAME = Int32
+ASM_NAME_PUBLIC_KEY: ASM_NAME = 0
+ASM_NAME_PUBLIC_KEY_TOKEN: ASM_NAME = 1
+ASM_NAME_HASH_VALUE: ASM_NAME = 2
+ASM_NAME_NAME: ASM_NAME = 3
+ASM_NAME_MAJOR_VERSION: ASM_NAME = 4
+ASM_NAME_MINOR_VERSION: ASM_NAME = 5
+ASM_NAME_BUILD_NUMBER: ASM_NAME = 6
+ASM_NAME_REVISION_NUMBER: ASM_NAME = 7
+ASM_NAME_CULTURE: ASM_NAME = 8
+ASM_NAME_PROCESSOR_ID_ARRAY: ASM_NAME = 9
+ASM_NAME_OSINFO_ARRAY: ASM_NAME = 10
+ASM_NAME_HASH_ALGID: ASM_NAME = 11
+ASM_NAME_ALIAS: ASM_NAME = 12
+ASM_NAME_CODEBASE_URL: ASM_NAME = 13
+ASM_NAME_CODEBASE_LASTMOD: ASM_NAME = 14
+ASM_NAME_NULL_PUBLIC_KEY: ASM_NAME = 15
+ASM_NAME_NULL_PUBLIC_KEY_TOKEN: ASM_NAME = 16
+ASM_NAME_CUSTOM: ASM_NAME = 17
+ASM_NAME_NULL_CUSTOM: ASM_NAME = 18
+ASM_NAME_MVID: ASM_NAME = 19
+ASM_NAME_MAX_PARAMS: ASM_NAME = 20
+class ASSEMBLY_FILE_DETAILED_INFORMATION(Structure):
+    ulFlags: UInt32
+    ulFilenameLength: UInt32
+    ulPathLength: UInt32
+    lpFileName: win32more.Foundation.PWSTR
+    lpFilePath: win32more.Foundation.PWSTR
+class ASSEMBLY_INFO(Structure):
+    cbAssemblyInfo: UInt32
+    dwAssemblyFlags: UInt32
+    uliAssemblySizeInKB: win32more.Foundation.ULARGE_INTEGER
+    pszCurrentAssemblyPathBuf: win32more.Foundation.PWSTR
+    cchBuf: UInt32
 UIALL: UInt32 = 32768
 LOGTOKEN_TYPE_MASK: UInt32 = 3
 LOGTOKEN_UNSPECIFIED: UInt32 = 0
@@ -1367,66 +1427,6 @@ def FindActCtxSectionGuid(dwFlags: UInt32, lpExtensionGuid: POINTER(Guid), ulSec
 def QueryActCtxW(dwFlags: UInt32, hActCtx: win32more.Foundation.HANDLE, pvSubInstance: c_void_p, ulInfoClass: UInt32, pvBuffer: c_void_p, cbBuffer: UIntPtr, pcbWrittenOrRequired: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def QueryActCtxSettingsW(dwFlags: UInt32, hActCtx: win32more.Foundation.HANDLE, settingsNameSpace: win32more.Foundation.PWSTR, settingName: win32more.Foundation.PWSTR, pvBuffer: win32more.Foundation.PWSTR, dwBuffer: UIntPtr, pdwWrittenOrRequired: POINTER(UIntPtr)) -> win32more.Foundation.BOOL: ...
-ASM_BIND_FLAGS = UInt32
-ASM_BINDF_FORCE_CACHE_INSTALL: ASM_BIND_FLAGS = 1
-ASM_BINDF_RFS_INTEGRITY_CHECK: ASM_BIND_FLAGS = 2
-ASM_BINDF_RFS_MODULE_CHECK: ASM_BIND_FLAGS = 4
-ASM_BINDF_BINPATH_PROBE_ONLY: ASM_BIND_FLAGS = 8
-ASM_BINDF_SHARED_BINPATH_HINT: ASM_BIND_FLAGS = 16
-ASM_BINDF_PARENT_ASM_HINT: ASM_BIND_FLAGS = 32
-ASM_CMP_FLAGS = Int32
-ASM_CMPF_NAME: ASM_CMP_FLAGS = 1
-ASM_CMPF_MAJOR_VERSION: ASM_CMP_FLAGS = 2
-ASM_CMPF_MINOR_VERSION: ASM_CMP_FLAGS = 4
-ASM_CMPF_BUILD_NUMBER: ASM_CMP_FLAGS = 8
-ASM_CMPF_REVISION_NUMBER: ASM_CMP_FLAGS = 16
-ASM_CMPF_PUBLIC_KEY_TOKEN: ASM_CMP_FLAGS = 32
-ASM_CMPF_CULTURE: ASM_CMP_FLAGS = 64
-ASM_CMPF_CUSTOM: ASM_CMP_FLAGS = 128
-ASM_CMPF_ALL: ASM_CMP_FLAGS = 255
-ASM_CMPF_DEFAULT: ASM_CMP_FLAGS = 256
-ASM_DISPLAY_FLAGS = Int32
-ASM_DISPLAYF_VERSION: ASM_DISPLAY_FLAGS = 1
-ASM_DISPLAYF_CULTURE: ASM_DISPLAY_FLAGS = 2
-ASM_DISPLAYF_PUBLIC_KEY_TOKEN: ASM_DISPLAY_FLAGS = 4
-ASM_DISPLAYF_PUBLIC_KEY: ASM_DISPLAY_FLAGS = 8
-ASM_DISPLAYF_CUSTOM: ASM_DISPLAY_FLAGS = 16
-ASM_DISPLAYF_PROCESSORARCHITECTURE: ASM_DISPLAY_FLAGS = 32
-ASM_DISPLAYF_LANGUAGEID: ASM_DISPLAY_FLAGS = 64
-ASM_NAME = Int32
-ASM_NAME_PUBLIC_KEY: ASM_NAME = 0
-ASM_NAME_PUBLIC_KEY_TOKEN: ASM_NAME = 1
-ASM_NAME_HASH_VALUE: ASM_NAME = 2
-ASM_NAME_NAME: ASM_NAME = 3
-ASM_NAME_MAJOR_VERSION: ASM_NAME = 4
-ASM_NAME_MINOR_VERSION: ASM_NAME = 5
-ASM_NAME_BUILD_NUMBER: ASM_NAME = 6
-ASM_NAME_REVISION_NUMBER: ASM_NAME = 7
-ASM_NAME_CULTURE: ASM_NAME = 8
-ASM_NAME_PROCESSOR_ID_ARRAY: ASM_NAME = 9
-ASM_NAME_OSINFO_ARRAY: ASM_NAME = 10
-ASM_NAME_HASH_ALGID: ASM_NAME = 11
-ASM_NAME_ALIAS: ASM_NAME = 12
-ASM_NAME_CODEBASE_URL: ASM_NAME = 13
-ASM_NAME_CODEBASE_LASTMOD: ASM_NAME = 14
-ASM_NAME_NULL_PUBLIC_KEY: ASM_NAME = 15
-ASM_NAME_NULL_PUBLIC_KEY_TOKEN: ASM_NAME = 16
-ASM_NAME_CUSTOM: ASM_NAME = 17
-ASM_NAME_NULL_CUSTOM: ASM_NAME = 18
-ASM_NAME_MVID: ASM_NAME = 19
-ASM_NAME_MAX_PARAMS: ASM_NAME = 20
-class ASSEMBLY_FILE_DETAILED_INFORMATION(Structure):
-    ulFlags: UInt32
-    ulFilenameLength: UInt32
-    ulPathLength: UInt32
-    lpFileName: win32more.Foundation.PWSTR
-    lpFilePath: win32more.Foundation.PWSTR
-class ASSEMBLY_INFO(Structure):
-    cbAssemblyInfo: UInt32
-    dwAssemblyFlags: UInt32
-    uliAssemblySizeInKB: win32more.Foundation.ULARGE_INTEGER
-    pszCurrentAssemblyPathBuf: win32more.Foundation.PWSTR
-    cchBuf: UInt32
 class COMPATIBILITY_CONTEXT_ELEMENT(Structure):
     Id: Guid
     Type: win32more.System.ApplicationInstallationAndServicing.ACTCTX_COMPATIBILITY_ELEMENT_TYPE
@@ -1461,6 +1461,11 @@ class FUSION_INSTALL_REFERENCE(Structure):
     guidScheme: Guid
     szIdentifier: win32more.Foundation.PWSTR
     szNonCannonicalData: win32more.Foundation.PWSTR
+IASSEMBLYCACHE_UNINSTALL_DISPOSITION = UInt32
+IASSEMBLYCACHE_UNINSTALL_DISPOSITION_UNINSTALLED: IASSEMBLYCACHE_UNINSTALL_DISPOSITION = 1
+IASSEMBLYCACHE_UNINSTALL_DISPOSITION_STILL_IN_USE: IASSEMBLYCACHE_UNINSTALL_DISPOSITION = 2
+IASSEMBLYCACHE_UNINSTALL_DISPOSITION_ALREADY_UNINSTALLED: IASSEMBLYCACHE_UNINSTALL_DISPOSITION = 3
+IASSEMBLYCACHE_UNINSTALL_DISPOSITION_DELETE_PENDING: IASSEMBLYCACHE_UNINSTALL_DISPOSITION = 4
 class IAssemblyCache(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('e707dcde-d1cd-11d2-ba-b9-00-c0-4f-8e-ce-ae')
@@ -1474,11 +1479,6 @@ class IAssemblyCache(c_void_p):
     def Reserved(ppUnk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(7)
     def InstallAssembly(dwFlags: UInt32, pszManifestFilePath: win32more.Foundation.PWSTR, pRefData: POINTER(win32more.System.ApplicationInstallationAndServicing.FUSION_INSTALL_REFERENCE_head)) -> win32more.Foundation.HRESULT: ...
-IASSEMBLYCACHE_UNINSTALL_DISPOSITION = UInt32
-IASSEMBLYCACHE_UNINSTALL_DISPOSITION_UNINSTALLED: IASSEMBLYCACHE_UNINSTALL_DISPOSITION = 1
-IASSEMBLYCACHE_UNINSTALL_DISPOSITION_STILL_IN_USE: IASSEMBLYCACHE_UNINSTALL_DISPOSITION = 2
-IASSEMBLYCACHE_UNINSTALL_DISPOSITION_ALREADY_UNINSTALLED: IASSEMBLYCACHE_UNINSTALL_DISPOSITION = 3
-IASSEMBLYCACHE_UNINSTALL_DISPOSITION_DELETE_PENDING: IASSEMBLYCACHE_UNINSTALL_DISPOSITION = 4
 class IAssemblyCacheItem(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('9e3aaeb4-d1cd-11d2-ba-b9-00-c0-4f-8e-ce-ae')
@@ -1712,10 +1712,6 @@ INSTALLTYPE = Int32
 INSTALLTYPE_DEFAULT: INSTALLTYPE = 0
 INSTALLTYPE_NETWORK_IMAGE: INSTALLTYPE = 1
 INSTALLTYPE_SINGLE_INSTANCE: INSTALLTYPE = 2
-@winfunctype_pointer
-def INSTALLUI_HANDLERA(pvContext: c_void_p, iMessageType: UInt32, szMessage: win32more.Foundation.PSTR) -> Int32: ...
-@winfunctype_pointer
-def INSTALLUI_HANDLERW(pvContext: c_void_p, iMessageType: UInt32, szMessage: win32more.Foundation.PWSTR) -> Int32: ...
 INSTALLUILEVEL = Int32
 INSTALLUILEVEL_NOCHANGE: INSTALLUILEVEL = 0
 INSTALLUILEVEL_DEFAULT: INSTALLUILEVEL = 1
@@ -1728,6 +1724,10 @@ INSTALLUILEVEL_PROGRESSONLY: INSTALLUILEVEL = 64
 INSTALLUILEVEL_HIDECANCEL: INSTALLUILEVEL = 32
 INSTALLUILEVEL_SOURCERESONLY: INSTALLUILEVEL = 256
 INSTALLUILEVEL_UACONLY: INSTALLUILEVEL = 512
+@winfunctype_pointer
+def INSTALLUI_HANDLERA(pvContext: c_void_p, iMessageType: UInt32, szMessage: win32more.Foundation.PSTR) -> Int32: ...
+@winfunctype_pointer
+def INSTALLUI_HANDLERW(pvContext: c_void_p, iMessageType: UInt32, szMessage: win32more.Foundation.PWSTR) -> Int32: ...
 class IPMApplicationInfo(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('50afb58a-438c-4088-97-89-f8-c4-89-98-29-c7')
@@ -2314,102 +2314,6 @@ MSICOSTTREE_SELFONLY: MSICOSTTREE = 0
 MSICOSTTREE_CHILDREN: MSICOSTTREE = 1
 MSICOSTTREE_PARENTS: MSICOSTTREE = 2
 MSICOSTTREE_RESERVED: MSICOSTTREE = 3
-msidbAssemblyAttributes = Int32
-msidbAssemblyAttributes_msidbAssemblyAttributesURT: msidbAssemblyAttributes = 0
-msidbAssemblyAttributes_msidbAssemblyAttributesWin32: msidbAssemblyAttributes = 1
-msidbClassAttributes = Int32
-msidbClassAttributes_msidbClassAttributesRelativePath: msidbClassAttributes = 1
-msidbComponentAttributes = Int32
-msidbComponentAttributes_msidbComponentAttributesLocalOnly: msidbComponentAttributes = 0
-msidbComponentAttributes_msidbComponentAttributesSourceOnly: msidbComponentAttributes = 1
-msidbComponentAttributes_msidbComponentAttributesOptional: msidbComponentAttributes = 2
-msidbComponentAttributes_msidbComponentAttributesRegistryKeyPath: msidbComponentAttributes = 4
-msidbComponentAttributes_msidbComponentAttributesSharedDllRefCount: msidbComponentAttributes = 8
-msidbComponentAttributes_msidbComponentAttributesPermanent: msidbComponentAttributes = 16
-msidbComponentAttributes_msidbComponentAttributesODBCDataSource: msidbComponentAttributes = 32
-msidbComponentAttributes_msidbComponentAttributesTransitive: msidbComponentAttributes = 64
-msidbComponentAttributes_msidbComponentAttributesNeverOverwrite: msidbComponentAttributes = 128
-msidbComponentAttributes_msidbComponentAttributes64bit: msidbComponentAttributes = 256
-msidbComponentAttributes_msidbComponentAttributesDisableRegistryReflection: msidbComponentAttributes = 512
-msidbComponentAttributes_msidbComponentAttributesUninstallOnSupersedence: msidbComponentAttributes = 1024
-msidbComponentAttributes_msidbComponentAttributesShared: msidbComponentAttributes = 2048
-msidbControlAttributes = Int32
-msidbControlAttributes_msidbControlAttributesVisible: msidbControlAttributes = 1
-msidbControlAttributes_msidbControlAttributesEnabled: msidbControlAttributes = 2
-msidbControlAttributes_msidbControlAttributesSunken: msidbControlAttributes = 4
-msidbControlAttributes_msidbControlAttributesIndirect: msidbControlAttributes = 8
-msidbControlAttributes_msidbControlAttributesInteger: msidbControlAttributes = 16
-msidbControlAttributes_msidbControlAttributesRTLRO: msidbControlAttributes = 32
-msidbControlAttributes_msidbControlAttributesRightAligned: msidbControlAttributes = 64
-msidbControlAttributes_msidbControlAttributesLeftScroll: msidbControlAttributes = 128
-msidbControlAttributes_msidbControlAttributesBiDi: msidbControlAttributes = 224
-msidbControlAttributes_msidbControlAttributesTransparent: msidbControlAttributes = 65536
-msidbControlAttributes_msidbControlAttributesNoPrefix: msidbControlAttributes = 131072
-msidbControlAttributes_msidbControlAttributesNoWrap: msidbControlAttributes = 262144
-msidbControlAttributes_msidbControlAttributesFormatSize: msidbControlAttributes = 524288
-msidbControlAttributes_msidbControlAttributesUsersLanguage: msidbControlAttributes = 1048576
-msidbControlAttributes_msidbControlAttributesMultiline: msidbControlAttributes = 65536
-msidbControlAttributes_msidbControlAttributesPasswordInput: msidbControlAttributes = 2097152
-msidbControlAttributes_msidbControlAttributesProgress95: msidbControlAttributes = 65536
-msidbControlAttributes_msidbControlAttributesRemovableVolume: msidbControlAttributes = 65536
-msidbControlAttributes_msidbControlAttributesFixedVolume: msidbControlAttributes = 131072
-msidbControlAttributes_msidbControlAttributesRemoteVolume: msidbControlAttributes = 262144
-msidbControlAttributes_msidbControlAttributesCDROMVolume: msidbControlAttributes = 524288
-msidbControlAttributes_msidbControlAttributesRAMDiskVolume: msidbControlAttributes = 1048576
-msidbControlAttributes_msidbControlAttributesFloppyVolume: msidbControlAttributes = 2097152
-msidbControlAttributes_msidbControlShowRollbackCost: msidbControlAttributes = 4194304
-msidbControlAttributes_msidbControlAttributesSorted: msidbControlAttributes = 65536
-msidbControlAttributes_msidbControlAttributesComboList: msidbControlAttributes = 131072
-msidbControlAttributes_msidbControlAttributesImageHandle: msidbControlAttributes = 65536
-msidbControlAttributes_msidbControlAttributesPushLike: msidbControlAttributes = 131072
-msidbControlAttributes_msidbControlAttributesBitmap: msidbControlAttributes = 262144
-msidbControlAttributes_msidbControlAttributesIcon: msidbControlAttributes = 524288
-msidbControlAttributes_msidbControlAttributesFixedSize: msidbControlAttributes = 1048576
-msidbControlAttributes_msidbControlAttributesIconSize16: msidbControlAttributes = 2097152
-msidbControlAttributes_msidbControlAttributesIconSize32: msidbControlAttributes = 4194304
-msidbControlAttributes_msidbControlAttributesIconSize48: msidbControlAttributes = 6291456
-msidbControlAttributes_msidbControlAttributesElevationShield: msidbControlAttributes = 8388608
-msidbControlAttributes_msidbControlAttributesHasBorder: msidbControlAttributes = 16777216
-msidbCustomActionType = Int32
-msidbCustomActionType_msidbCustomActionTypeDll: msidbCustomActionType = 1
-msidbCustomActionType_msidbCustomActionTypeExe: msidbCustomActionType = 2
-msidbCustomActionType_msidbCustomActionTypeTextData: msidbCustomActionType = 3
-msidbCustomActionType_msidbCustomActionTypeJScript: msidbCustomActionType = 5
-msidbCustomActionType_msidbCustomActionTypeVBScript: msidbCustomActionType = 6
-msidbCustomActionType_msidbCustomActionTypeInstall: msidbCustomActionType = 7
-msidbCustomActionType_msidbCustomActionTypeBinaryData: msidbCustomActionType = 0
-msidbCustomActionType_msidbCustomActionTypeSourceFile: msidbCustomActionType = 16
-msidbCustomActionType_msidbCustomActionTypeDirectory: msidbCustomActionType = 32
-msidbCustomActionType_msidbCustomActionTypeProperty: msidbCustomActionType = 48
-msidbCustomActionType_msidbCustomActionTypeContinue: msidbCustomActionType = 64
-msidbCustomActionType_msidbCustomActionTypeAsync: msidbCustomActionType = 128
-msidbCustomActionType_msidbCustomActionTypeFirstSequence: msidbCustomActionType = 256
-msidbCustomActionType_msidbCustomActionTypeOncePerProcess: msidbCustomActionType = 512
-msidbCustomActionType_msidbCustomActionTypeClientRepeat: msidbCustomActionType = 768
-msidbCustomActionType_msidbCustomActionTypeInScript: msidbCustomActionType = 1024
-msidbCustomActionType_msidbCustomActionTypeRollback: msidbCustomActionType = 256
-msidbCustomActionType_msidbCustomActionTypeCommit: msidbCustomActionType = 512
-msidbCustomActionType_msidbCustomActionTypeNoImpersonate: msidbCustomActionType = 2048
-msidbCustomActionType_msidbCustomActionTypeTSAware: msidbCustomActionType = 16384
-msidbCustomActionType_msidbCustomActionType64BitScript: msidbCustomActionType = 4096
-msidbCustomActionType_msidbCustomActionTypeHideTarget: msidbCustomActionType = 8192
-msidbCustomActionType_msidbCustomActionTypePatchUninstall: msidbCustomActionType = 32768
-msidbDialogAttributes = Int32
-msidbDialogAttributes_msidbDialogAttributesVisible: msidbDialogAttributes = 1
-msidbDialogAttributes_msidbDialogAttributesModal: msidbDialogAttributes = 2
-msidbDialogAttributes_msidbDialogAttributesMinimize: msidbDialogAttributes = 4
-msidbDialogAttributes_msidbDialogAttributesSysModal: msidbDialogAttributes = 8
-msidbDialogAttributes_msidbDialogAttributesKeepModeless: msidbDialogAttributes = 16
-msidbDialogAttributes_msidbDialogAttributesTrackDiskSpace: msidbDialogAttributes = 32
-msidbDialogAttributes_msidbDialogAttributesUseCustomPalette: msidbDialogAttributes = 64
-msidbDialogAttributes_msidbDialogAttributesRTLRO: msidbDialogAttributes = 128
-msidbDialogAttributes_msidbDialogAttributesRightAligned: msidbDialogAttributes = 256
-msidbDialogAttributes_msidbDialogAttributesLeftScroll: msidbDialogAttributes = 512
-msidbDialogAttributes_msidbDialogAttributesBiDi: msidbDialogAttributes = 896
-msidbDialogAttributes_msidbDialogAttributesError: msidbDialogAttributes = 65536
-msidbEmbeddedUIAttributes = Int32
-msidbEmbeddedUIAttributes_msidbEmbeddedUI: msidbEmbeddedUIAttributes = 1
-msidbEmbeddedUIAttributes_msidbEmbeddedHandlesBasic: msidbEmbeddedUIAttributes = 2
 MSIDBERROR = Int32
 MSIDBERROR_INVALIDARG: MSIDBERROR = -3
 MSIDBERROR_MOREDATA: MSIDBERROR = -2
@@ -2444,94 +2348,10 @@ MSIDBERROR_BADCABINET: MSIDBERROR = 26
 MSIDBERROR_BADSHORTCUT: MSIDBERROR = 27
 MSIDBERROR_STRINGOVERFLOW: MSIDBERROR = 28
 MSIDBERROR_BADLOCALIZEATTRIB: MSIDBERROR = 29
-msidbFeatureAttributes = Int32
-msidbFeatureAttributes_msidbFeatureAttributesFavorLocal: msidbFeatureAttributes = 0
-msidbFeatureAttributes_msidbFeatureAttributesFavorSource: msidbFeatureAttributes = 1
-msidbFeatureAttributes_msidbFeatureAttributesFollowParent: msidbFeatureAttributes = 2
-msidbFeatureAttributes_msidbFeatureAttributesFavorAdvertise: msidbFeatureAttributes = 4
-msidbFeatureAttributes_msidbFeatureAttributesDisallowAdvertise: msidbFeatureAttributes = 8
-msidbFeatureAttributes_msidbFeatureAttributesUIDisallowAbsent: msidbFeatureAttributes = 16
-msidbFeatureAttributes_msidbFeatureAttributesNoUnsupportedAdvertise: msidbFeatureAttributes = 32
-msidbFileAttributes = Int32
-msidbFileAttributes_msidbFileAttributesReadOnly: msidbFileAttributes = 1
-msidbFileAttributes_msidbFileAttributesHidden: msidbFileAttributes = 2
-msidbFileAttributes_msidbFileAttributesSystem: msidbFileAttributes = 4
-msidbFileAttributes_msidbFileAttributesReserved0: msidbFileAttributes = 8
-msidbFileAttributes_msidbFileAttributesIsolatedComp: msidbFileAttributes = 16
-msidbFileAttributes_msidbFileAttributesReserved1: msidbFileAttributes = 64
-msidbFileAttributes_msidbFileAttributesReserved2: msidbFileAttributes = 128
-msidbFileAttributes_msidbFileAttributesReserved3: msidbFileAttributes = 256
-msidbFileAttributes_msidbFileAttributesVital: msidbFileAttributes = 512
-msidbFileAttributes_msidbFileAttributesChecksum: msidbFileAttributes = 1024
-msidbFileAttributes_msidbFileAttributesPatchAdded: msidbFileAttributes = 4096
-msidbFileAttributes_msidbFileAttributesNoncompressed: msidbFileAttributes = 8192
-msidbFileAttributes_msidbFileAttributesCompressed: msidbFileAttributes = 16384
-msidbFileAttributes_msidbFileAttributesReserved4: msidbFileAttributes = 32768
-msidbIniFileAction = Int32
-msidbIniFileAction_msidbIniFileActionAddLine: msidbIniFileAction = 0
-msidbIniFileAction_msidbIniFileActionCreateLine: msidbIniFileAction = 1
-msidbIniFileAction_msidbIniFileActionRemoveLine: msidbIniFileAction = 2
-msidbIniFileAction_msidbIniFileActionAddTag: msidbIniFileAction = 3
-msidbIniFileAction_msidbIniFileActionRemoveTag: msidbIniFileAction = 4
-msidbLocatorType = Int32
-msidbLocatorType_msidbLocatorTypeDirectory: msidbLocatorType = 0
-msidbLocatorType_msidbLocatorTypeFileName: msidbLocatorType = 1
-msidbLocatorType_msidbLocatorTypeRawValue: msidbLocatorType = 2
-msidbLocatorType_msidbLocatorType64bit: msidbLocatorType = 16
-msidbMoveFileOptions = Int32
-msidbMoveFileOptions_msidbMoveFileOptionsMove: msidbMoveFileOptions = 1
-msidbODBCDataSourceRegistration = Int32
-msidbODBCDataSourceRegistration_msidbODBCDataSourceRegistrationPerMachine: msidbODBCDataSourceRegistration = 0
-msidbODBCDataSourceRegistration_msidbODBCDataSourceRegistrationPerUser: msidbODBCDataSourceRegistration = 1
-msidbPatchAttributes = Int32
-msidbPatchAttributes_msidbPatchAttributesNonVital: msidbPatchAttributes = 1
-msidbRegistryRoot = Int32
-msidbRegistryRoot_msidbRegistryRootClassesRoot: msidbRegistryRoot = 0
-msidbRegistryRoot_msidbRegistryRootCurrentUser: msidbRegistryRoot = 1
-msidbRegistryRoot_msidbRegistryRootLocalMachine: msidbRegistryRoot = 2
-msidbRegistryRoot_msidbRegistryRootUsers: msidbRegistryRoot = 3
-msidbRemoveFileInstallMode = Int32
-msidbRemoveFileInstallMode_msidbRemoveFileInstallModeOnInstall: msidbRemoveFileInstallMode = 1
-msidbRemoveFileInstallMode_msidbRemoveFileInstallModeOnRemove: msidbRemoveFileInstallMode = 2
-msidbRemoveFileInstallMode_msidbRemoveFileInstallModeOnBoth: msidbRemoveFileInstallMode = 3
-msidbServiceConfigEvent = Int32
-msidbServiceConfigEvent_msidbServiceConfigEventInstall: msidbServiceConfigEvent = 1
-msidbServiceConfigEvent_msidbServiceConfigEventUninstall: msidbServiceConfigEvent = 2
-msidbServiceConfigEvent_msidbServiceConfigEventReinstall: msidbServiceConfigEvent = 4
-msidbServiceControlEvent = Int32
-msidbServiceControlEvent_msidbServiceControlEventStart: msidbServiceControlEvent = 1
-msidbServiceControlEvent_msidbServiceControlEventStop: msidbServiceControlEvent = 2
-msidbServiceControlEvent_msidbServiceControlEventDelete: msidbServiceControlEvent = 8
-msidbServiceControlEvent_msidbServiceControlEventUninstallStart: msidbServiceControlEvent = 16
-msidbServiceControlEvent_msidbServiceControlEventUninstallStop: msidbServiceControlEvent = 32
-msidbServiceControlEvent_msidbServiceControlEventUninstallDelete: msidbServiceControlEvent = 128
-msidbServiceInstallErrorControl = Int32
-msidbServiceInstallErrorControl_msidbServiceInstallErrorControlVital: msidbServiceInstallErrorControl = 32768
 MSIDBSTATE = Int32
 MSIDBSTATE_ERROR: MSIDBSTATE = -1
 MSIDBSTATE_READ: MSIDBSTATE = 0
 MSIDBSTATE_WRITE: MSIDBSTATE = 1
-msidbSumInfoSourceType = Int32
-msidbSumInfoSourceType_msidbSumInfoSourceTypeSFN: msidbSumInfoSourceType = 1
-msidbSumInfoSourceType_msidbSumInfoSourceTypeCompressed: msidbSumInfoSourceType = 2
-msidbSumInfoSourceType_msidbSumInfoSourceTypeAdminImage: msidbSumInfoSourceType = 4
-msidbSumInfoSourceType_msidbSumInfoSourceTypeLUAPackage: msidbSumInfoSourceType = 8
-msidbTextStyleStyleBits = Int32
-msidbTextStyleStyleBits_msidbTextStyleStyleBitsBold: msidbTextStyleStyleBits = 1
-msidbTextStyleStyleBits_msidbTextStyleStyleBitsItalic: msidbTextStyleStyleBits = 2
-msidbTextStyleStyleBits_msidbTextStyleStyleBitsUnderline: msidbTextStyleStyleBits = 4
-msidbTextStyleStyleBits_msidbTextStyleStyleBitsStrike: msidbTextStyleStyleBits = 8
-msidbUpgradeAttributes = Int32
-msidbUpgradeAttributes_msidbUpgradeAttributesMigrateFeatures: msidbUpgradeAttributes = 1
-msidbUpgradeAttributes_msidbUpgradeAttributesOnlyDetect: msidbUpgradeAttributes = 2
-msidbUpgradeAttributes_msidbUpgradeAttributesIgnoreRemoveFailure: msidbUpgradeAttributes = 4
-msidbUpgradeAttributes_msidbUpgradeAttributesVersionMinInclusive: msidbUpgradeAttributes = 256
-msidbUpgradeAttributes_msidbUpgradeAttributesVersionMaxInclusive: msidbUpgradeAttributes = 512
-msidbUpgradeAttributes_msidbUpgradeAttributesLanguagesExclusive: msidbUpgradeAttributes = 1024
-msifiFastInstallBits = Int32
-msifiFastInstallBits_msifiFastInstallNoSR: msifiFastInstallBits = 1
-msifiFastInstallBits_msifiFastInstallQuickCosting: msifiFastInstallBits = 2
-msifiFastInstallBits_msifiFastInstallLessPrgMsg: msifiFastInstallBits = 4
 class MSIFILEHASHINFO(Structure):
     dwFileHashInfoSize: UInt32
     dwData: UInt32 * 4
@@ -2581,15 +2401,6 @@ MSIPATCHSTATE_SUPERSEDED: MSIPATCHSTATE = 2
 MSIPATCHSTATE_OBSOLETED: MSIPATCHSTATE = 4
 MSIPATCHSTATE_REGISTERED: MSIPATCHSTATE = 8
 MSIPATCHSTATE_ALL: MSIPATCHSTATE = 15
-msirbRebootReason = Int32
-msirbRebootReason_msirbRebootUndeterminedReason: msirbRebootReason = 0
-msirbRebootReason_msirbRebootInUseFilesReason: msirbRebootReason = 1
-msirbRebootReason_msirbRebootScheduleRebootReason: msirbRebootReason = 2
-msirbRebootReason_msirbRebootForceRebootReason: msirbRebootReason = 3
-msirbRebootReason_msirbRebootCustomActionReason: msirbRebootReason = 4
-msirbRebootType = Int32
-msirbRebootType_msirbRebootImmediate: msirbRebootType = 1
-msirbRebootType_msirbRebootDeferred: msirbRebootType = 2
 MSIRUNMODE = Int32
 MSIRUNMODE_ADMIN: MSIRUNMODE = 0
 MSIRUNMODE_ADVERTISE: MSIRUNMODE = 1
@@ -2643,15 +2454,6 @@ MSITRANSFORM_VALIDATE_NEWEQUALBASEVERSION: MSITRANSFORM_VALIDATE = 256
 MSITRANSFORM_VALIDATE_NEWGREATEREQUALBASEVERSION: MSITRANSFORM_VALIDATE = 512
 MSITRANSFORM_VALIDATE_NEWGREATERBASEVERSION: MSITRANSFORM_VALIDATE = 1024
 MSITRANSFORM_VALIDATE_UPGRADECODE: MSITRANSFORM_VALIDATE = 2048
-msmErrorType = Int32
-msmErrorType_msmErrorLanguageUnsupported: msmErrorType = 1
-msmErrorType_msmErrorLanguageFailed: msmErrorType = 2
-msmErrorType_msmErrorExclusion: msmErrorType = 3
-msmErrorType_msmErrorTableMerge: msmErrorType = 4
-msmErrorType_msmErrorResequenceMerge: msmErrorType = 5
-msmErrorType_msmErrorFileCreate: msmErrorType = 6
-msmErrorType_msmErrorDirCreate: msmErrorType = 7
-msmErrorType_msmErrorFeatureRequired: msmErrorType = 8
 MsmMerge = Guid('0adda830-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
 PACKMAN_RUNTIME = Int32
 PACKMAN_RUNTIME_NATIVE: PACKMAN_RUNTIME = 1
@@ -2718,6 +2520,9 @@ class PATCH_RETAIN_RANGE(Structure):
     OffsetInNewFile: UInt32
 @winfunctype_pointer
 def PINSTALLUI_HANDLER_RECORD(pvContext: c_void_p, iMessageType: UInt32, hRecord: win32more.System.ApplicationInstallationAndServicing.MSIHANDLE) -> Int32: ...
+class PMSIHANDLE(Structure):
+    m_h: win32more.System.ApplicationInstallationAndServicing.MSIHANDLE
+PMSvc = Guid('b9e511fc-e364-497a-a1-21-b7-b3-61-2c-ed-ce')
 PM_ACTIVATION_POLICY = Int32
 PM_ACTIVATION_POLICY_RESUME: PM_ACTIVATION_POLICY = 0
 PM_ACTIVATION_POLICY_RESUMESAMEPARAMS: PM_ACTIVATION_POLICY = 1
@@ -2727,10 +2532,6 @@ PM_ACTIVATION_POLICY_MULTISESSION: PM_ACTIVATION_POLICY = 4
 PM_ACTIVATION_POLICY_REPLACE_IGNOREFOREGROUND: PM_ACTIVATION_POLICY = 5
 PM_ACTIVATION_POLICY_UNKNOWN: PM_ACTIVATION_POLICY = 6
 PM_ACTIVATION_POLICY_INVALID: PM_ACTIVATION_POLICY = 7
-PM_APP_GENRE = Int32
-PM_APP_GENRE_GAMES: PM_APP_GENRE = 0
-PM_APP_GENRE_OTHER: PM_APP_GENRE = 1
-PM_APP_GENRE_INVALID: PM_APP_GENRE = 2
 PM_APPLICATION_HUBTYPE = Int32
 PM_APPLICATION_HUBTYPE_NONMUSIC: PM_APPLICATION_HUBTYPE = 0
 PM_APPLICATION_HUBTYPE_MUSIC: PM_APPLICATION_HUBTYPE = 1
@@ -2759,6 +2560,10 @@ PM_APPLICATION_STATE_INVALID: PM_APPLICATION_STATE = 11
 class PM_APPTASKTYPE(Structure):
     ProductID: Guid
     TaskType: win32more.System.ApplicationInstallationAndServicing.PM_TASK_TYPE
+PM_APP_GENRE = Int32
+PM_APP_GENRE_GAMES: PM_APP_GENRE = 0
+PM_APP_GENRE_OTHER: PM_APP_GENRE = 1
+PM_APP_GENRE_INVALID: PM_APP_GENRE = 2
 class PM_BSATASKID(Structure):
     ProductID: Guid
     TaskID: win32more.Foundation.BSTR
@@ -2870,12 +2675,6 @@ class PM_STARTAPPBLOB(Structure):
     IsModern: win32more.Foundation.BOOL
     IsModernLightUp: win32more.Foundation.BOOL
     LightUpSupportMask: UInt16
-PM_STARTTILE_TYPE = Int32
-PM_STARTTILE_TYPE_PRIMARY: PM_STARTTILE_TYPE = 1
-PM_STARTTILE_TYPE_SECONDARY: PM_STARTTILE_TYPE = 2
-PM_STARTTILE_TYPE_APPLIST: PM_STARTTILE_TYPE = 3
-PM_STARTTILE_TYPE_APPLISTPRIMARY: PM_STARTTILE_TYPE = 4
-PM_STARTTILE_TYPE_INVALID: PM_STARTTILE_TYPE = 5
 class PM_STARTTILEBLOB(Structure):
     cbSize: UInt32
     ProductID: Guid
@@ -2890,6 +2689,12 @@ class PM_STARTTILEBLOB(Structure):
     IsRestoring: win32more.Foundation.BOOL
     IsModern: win32more.Foundation.BOOL
     InvocationInfo: win32more.System.ApplicationInstallationAndServicing.PM_INVOCATIONINFO
+PM_STARTTILE_TYPE = Int32
+PM_STARTTILE_TYPE_PRIMARY: PM_STARTTILE_TYPE = 1
+PM_STARTTILE_TYPE_SECONDARY: PM_STARTTILE_TYPE = 2
+PM_STARTTILE_TYPE_APPLIST: PM_STARTTILE_TYPE = 3
+PM_STARTTILE_TYPE_APPLISTPRIMARY: PM_STARTTILE_TYPE = 4
+PM_STARTTILE_TYPE_INVALID: PM_STARTTILE_TYPE = 5
 PM_TASK_TRANSITION = Int32
 PM_TASK_TRANSITION_DEFAULT: PM_TASK_TRANSITION = 0
 PM_TASK_TRANSITION_NONE: PM_TASK_TRANSITION = 1
@@ -2938,9 +2743,6 @@ class PM_UPDATEINFO_LEGACY(Structure):
     pbLicense: c_char_p_no
     cbLicense: UInt32
     MarketplaceAppVersion: win32more.Foundation.BSTR
-class PMSIHANDLE(Structure):
-    m_h: win32more.System.ApplicationInstallationAndServicing.MSIHANDLE
-PMSvc = Guid('b9e511fc-e364-497a-a1-21-b7-b3-61-2c-ed-ce')
 @winfunctype_pointer
 def PPATCH_PROGRESS_CALLBACK(CallbackContext: c_void_p, CurrentPosition: UInt32, MaximumPosition: UInt32) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -3054,9 +2856,207 @@ USERINFOSTATE_INVALIDARG: USERINFOSTATE = -2
 USERINFOSTATE_UNKNOWN: USERINFOSTATE = -1
 USERINFOSTATE_ABSENT: USERINFOSTATE = 0
 USERINFOSTATE_PRESENT: USERINFOSTATE = 1
-make_head(_module, 'ACTCTX_SECTION_KEYED_DATA')
+msidbAssemblyAttributes = Int32
+msidbAssemblyAttributes_msidbAssemblyAttributesURT: msidbAssemblyAttributes = 0
+msidbAssemblyAttributes_msidbAssemblyAttributesWin32: msidbAssemblyAttributes = 1
+msidbClassAttributes = Int32
+msidbClassAttributes_msidbClassAttributesRelativePath: msidbClassAttributes = 1
+msidbComponentAttributes = Int32
+msidbComponentAttributes_msidbComponentAttributesLocalOnly: msidbComponentAttributes = 0
+msidbComponentAttributes_msidbComponentAttributesSourceOnly: msidbComponentAttributes = 1
+msidbComponentAttributes_msidbComponentAttributesOptional: msidbComponentAttributes = 2
+msidbComponentAttributes_msidbComponentAttributesRegistryKeyPath: msidbComponentAttributes = 4
+msidbComponentAttributes_msidbComponentAttributesSharedDllRefCount: msidbComponentAttributes = 8
+msidbComponentAttributes_msidbComponentAttributesPermanent: msidbComponentAttributes = 16
+msidbComponentAttributes_msidbComponentAttributesODBCDataSource: msidbComponentAttributes = 32
+msidbComponentAttributes_msidbComponentAttributesTransitive: msidbComponentAttributes = 64
+msidbComponentAttributes_msidbComponentAttributesNeverOverwrite: msidbComponentAttributes = 128
+msidbComponentAttributes_msidbComponentAttributes64bit: msidbComponentAttributes = 256
+msidbComponentAttributes_msidbComponentAttributesDisableRegistryReflection: msidbComponentAttributes = 512
+msidbComponentAttributes_msidbComponentAttributesUninstallOnSupersedence: msidbComponentAttributes = 1024
+msidbComponentAttributes_msidbComponentAttributesShared: msidbComponentAttributes = 2048
+msidbControlAttributes = Int32
+msidbControlAttributes_msidbControlAttributesVisible: msidbControlAttributes = 1
+msidbControlAttributes_msidbControlAttributesEnabled: msidbControlAttributes = 2
+msidbControlAttributes_msidbControlAttributesSunken: msidbControlAttributes = 4
+msidbControlAttributes_msidbControlAttributesIndirect: msidbControlAttributes = 8
+msidbControlAttributes_msidbControlAttributesInteger: msidbControlAttributes = 16
+msidbControlAttributes_msidbControlAttributesRTLRO: msidbControlAttributes = 32
+msidbControlAttributes_msidbControlAttributesRightAligned: msidbControlAttributes = 64
+msidbControlAttributes_msidbControlAttributesLeftScroll: msidbControlAttributes = 128
+msidbControlAttributes_msidbControlAttributesBiDi: msidbControlAttributes = 224
+msidbControlAttributes_msidbControlAttributesTransparent: msidbControlAttributes = 65536
+msidbControlAttributes_msidbControlAttributesNoPrefix: msidbControlAttributes = 131072
+msidbControlAttributes_msidbControlAttributesNoWrap: msidbControlAttributes = 262144
+msidbControlAttributes_msidbControlAttributesFormatSize: msidbControlAttributes = 524288
+msidbControlAttributes_msidbControlAttributesUsersLanguage: msidbControlAttributes = 1048576
+msidbControlAttributes_msidbControlAttributesMultiline: msidbControlAttributes = 65536
+msidbControlAttributes_msidbControlAttributesPasswordInput: msidbControlAttributes = 2097152
+msidbControlAttributes_msidbControlAttributesProgress95: msidbControlAttributes = 65536
+msidbControlAttributes_msidbControlAttributesRemovableVolume: msidbControlAttributes = 65536
+msidbControlAttributes_msidbControlAttributesFixedVolume: msidbControlAttributes = 131072
+msidbControlAttributes_msidbControlAttributesRemoteVolume: msidbControlAttributes = 262144
+msidbControlAttributes_msidbControlAttributesCDROMVolume: msidbControlAttributes = 524288
+msidbControlAttributes_msidbControlAttributesRAMDiskVolume: msidbControlAttributes = 1048576
+msidbControlAttributes_msidbControlAttributesFloppyVolume: msidbControlAttributes = 2097152
+msidbControlAttributes_msidbControlShowRollbackCost: msidbControlAttributes = 4194304
+msidbControlAttributes_msidbControlAttributesSorted: msidbControlAttributes = 65536
+msidbControlAttributes_msidbControlAttributesComboList: msidbControlAttributes = 131072
+msidbControlAttributes_msidbControlAttributesImageHandle: msidbControlAttributes = 65536
+msidbControlAttributes_msidbControlAttributesPushLike: msidbControlAttributes = 131072
+msidbControlAttributes_msidbControlAttributesBitmap: msidbControlAttributes = 262144
+msidbControlAttributes_msidbControlAttributesIcon: msidbControlAttributes = 524288
+msidbControlAttributes_msidbControlAttributesFixedSize: msidbControlAttributes = 1048576
+msidbControlAttributes_msidbControlAttributesIconSize16: msidbControlAttributes = 2097152
+msidbControlAttributes_msidbControlAttributesIconSize32: msidbControlAttributes = 4194304
+msidbControlAttributes_msidbControlAttributesIconSize48: msidbControlAttributes = 6291456
+msidbControlAttributes_msidbControlAttributesElevationShield: msidbControlAttributes = 8388608
+msidbControlAttributes_msidbControlAttributesHasBorder: msidbControlAttributes = 16777216
+msidbCustomActionType = Int32
+msidbCustomActionType_msidbCustomActionTypeDll: msidbCustomActionType = 1
+msidbCustomActionType_msidbCustomActionTypeExe: msidbCustomActionType = 2
+msidbCustomActionType_msidbCustomActionTypeTextData: msidbCustomActionType = 3
+msidbCustomActionType_msidbCustomActionTypeJScript: msidbCustomActionType = 5
+msidbCustomActionType_msidbCustomActionTypeVBScript: msidbCustomActionType = 6
+msidbCustomActionType_msidbCustomActionTypeInstall: msidbCustomActionType = 7
+msidbCustomActionType_msidbCustomActionTypeBinaryData: msidbCustomActionType = 0
+msidbCustomActionType_msidbCustomActionTypeSourceFile: msidbCustomActionType = 16
+msidbCustomActionType_msidbCustomActionTypeDirectory: msidbCustomActionType = 32
+msidbCustomActionType_msidbCustomActionTypeProperty: msidbCustomActionType = 48
+msidbCustomActionType_msidbCustomActionTypeContinue: msidbCustomActionType = 64
+msidbCustomActionType_msidbCustomActionTypeAsync: msidbCustomActionType = 128
+msidbCustomActionType_msidbCustomActionTypeFirstSequence: msidbCustomActionType = 256
+msidbCustomActionType_msidbCustomActionTypeOncePerProcess: msidbCustomActionType = 512
+msidbCustomActionType_msidbCustomActionTypeClientRepeat: msidbCustomActionType = 768
+msidbCustomActionType_msidbCustomActionTypeInScript: msidbCustomActionType = 1024
+msidbCustomActionType_msidbCustomActionTypeRollback: msidbCustomActionType = 256
+msidbCustomActionType_msidbCustomActionTypeCommit: msidbCustomActionType = 512
+msidbCustomActionType_msidbCustomActionTypeNoImpersonate: msidbCustomActionType = 2048
+msidbCustomActionType_msidbCustomActionTypeTSAware: msidbCustomActionType = 16384
+msidbCustomActionType_msidbCustomActionType64BitScript: msidbCustomActionType = 4096
+msidbCustomActionType_msidbCustomActionTypeHideTarget: msidbCustomActionType = 8192
+msidbCustomActionType_msidbCustomActionTypePatchUninstall: msidbCustomActionType = 32768
+msidbDialogAttributes = Int32
+msidbDialogAttributes_msidbDialogAttributesVisible: msidbDialogAttributes = 1
+msidbDialogAttributes_msidbDialogAttributesModal: msidbDialogAttributes = 2
+msidbDialogAttributes_msidbDialogAttributesMinimize: msidbDialogAttributes = 4
+msidbDialogAttributes_msidbDialogAttributesSysModal: msidbDialogAttributes = 8
+msidbDialogAttributes_msidbDialogAttributesKeepModeless: msidbDialogAttributes = 16
+msidbDialogAttributes_msidbDialogAttributesTrackDiskSpace: msidbDialogAttributes = 32
+msidbDialogAttributes_msidbDialogAttributesUseCustomPalette: msidbDialogAttributes = 64
+msidbDialogAttributes_msidbDialogAttributesRTLRO: msidbDialogAttributes = 128
+msidbDialogAttributes_msidbDialogAttributesRightAligned: msidbDialogAttributes = 256
+msidbDialogAttributes_msidbDialogAttributesLeftScroll: msidbDialogAttributes = 512
+msidbDialogAttributes_msidbDialogAttributesBiDi: msidbDialogAttributes = 896
+msidbDialogAttributes_msidbDialogAttributesError: msidbDialogAttributes = 65536
+msidbEmbeddedUIAttributes = Int32
+msidbEmbeddedUIAttributes_msidbEmbeddedUI: msidbEmbeddedUIAttributes = 1
+msidbEmbeddedUIAttributes_msidbEmbeddedHandlesBasic: msidbEmbeddedUIAttributes = 2
+msidbFeatureAttributes = Int32
+msidbFeatureAttributes_msidbFeatureAttributesFavorLocal: msidbFeatureAttributes = 0
+msidbFeatureAttributes_msidbFeatureAttributesFavorSource: msidbFeatureAttributes = 1
+msidbFeatureAttributes_msidbFeatureAttributesFollowParent: msidbFeatureAttributes = 2
+msidbFeatureAttributes_msidbFeatureAttributesFavorAdvertise: msidbFeatureAttributes = 4
+msidbFeatureAttributes_msidbFeatureAttributesDisallowAdvertise: msidbFeatureAttributes = 8
+msidbFeatureAttributes_msidbFeatureAttributesUIDisallowAbsent: msidbFeatureAttributes = 16
+msidbFeatureAttributes_msidbFeatureAttributesNoUnsupportedAdvertise: msidbFeatureAttributes = 32
+msidbFileAttributes = Int32
+msidbFileAttributes_msidbFileAttributesReadOnly: msidbFileAttributes = 1
+msidbFileAttributes_msidbFileAttributesHidden: msidbFileAttributes = 2
+msidbFileAttributes_msidbFileAttributesSystem: msidbFileAttributes = 4
+msidbFileAttributes_msidbFileAttributesReserved0: msidbFileAttributes = 8
+msidbFileAttributes_msidbFileAttributesIsolatedComp: msidbFileAttributes = 16
+msidbFileAttributes_msidbFileAttributesReserved1: msidbFileAttributes = 64
+msidbFileAttributes_msidbFileAttributesReserved2: msidbFileAttributes = 128
+msidbFileAttributes_msidbFileAttributesReserved3: msidbFileAttributes = 256
+msidbFileAttributes_msidbFileAttributesVital: msidbFileAttributes = 512
+msidbFileAttributes_msidbFileAttributesChecksum: msidbFileAttributes = 1024
+msidbFileAttributes_msidbFileAttributesPatchAdded: msidbFileAttributes = 4096
+msidbFileAttributes_msidbFileAttributesNoncompressed: msidbFileAttributes = 8192
+msidbFileAttributes_msidbFileAttributesCompressed: msidbFileAttributes = 16384
+msidbFileAttributes_msidbFileAttributesReserved4: msidbFileAttributes = 32768
+msidbIniFileAction = Int32
+msidbIniFileAction_msidbIniFileActionAddLine: msidbIniFileAction = 0
+msidbIniFileAction_msidbIniFileActionCreateLine: msidbIniFileAction = 1
+msidbIniFileAction_msidbIniFileActionRemoveLine: msidbIniFileAction = 2
+msidbIniFileAction_msidbIniFileActionAddTag: msidbIniFileAction = 3
+msidbIniFileAction_msidbIniFileActionRemoveTag: msidbIniFileAction = 4
+msidbLocatorType = Int32
+msidbLocatorType_msidbLocatorTypeDirectory: msidbLocatorType = 0
+msidbLocatorType_msidbLocatorTypeFileName: msidbLocatorType = 1
+msidbLocatorType_msidbLocatorTypeRawValue: msidbLocatorType = 2
+msidbLocatorType_msidbLocatorType64bit: msidbLocatorType = 16
+msidbMoveFileOptions = Int32
+msidbMoveFileOptions_msidbMoveFileOptionsMove: msidbMoveFileOptions = 1
+msidbODBCDataSourceRegistration = Int32
+msidbODBCDataSourceRegistration_msidbODBCDataSourceRegistrationPerMachine: msidbODBCDataSourceRegistration = 0
+msidbODBCDataSourceRegistration_msidbODBCDataSourceRegistrationPerUser: msidbODBCDataSourceRegistration = 1
+msidbPatchAttributes = Int32
+msidbPatchAttributes_msidbPatchAttributesNonVital: msidbPatchAttributes = 1
+msidbRegistryRoot = Int32
+msidbRegistryRoot_msidbRegistryRootClassesRoot: msidbRegistryRoot = 0
+msidbRegistryRoot_msidbRegistryRootCurrentUser: msidbRegistryRoot = 1
+msidbRegistryRoot_msidbRegistryRootLocalMachine: msidbRegistryRoot = 2
+msidbRegistryRoot_msidbRegistryRootUsers: msidbRegistryRoot = 3
+msidbRemoveFileInstallMode = Int32
+msidbRemoveFileInstallMode_msidbRemoveFileInstallModeOnInstall: msidbRemoveFileInstallMode = 1
+msidbRemoveFileInstallMode_msidbRemoveFileInstallModeOnRemove: msidbRemoveFileInstallMode = 2
+msidbRemoveFileInstallMode_msidbRemoveFileInstallModeOnBoth: msidbRemoveFileInstallMode = 3
+msidbServiceConfigEvent = Int32
+msidbServiceConfigEvent_msidbServiceConfigEventInstall: msidbServiceConfigEvent = 1
+msidbServiceConfigEvent_msidbServiceConfigEventUninstall: msidbServiceConfigEvent = 2
+msidbServiceConfigEvent_msidbServiceConfigEventReinstall: msidbServiceConfigEvent = 4
+msidbServiceControlEvent = Int32
+msidbServiceControlEvent_msidbServiceControlEventStart: msidbServiceControlEvent = 1
+msidbServiceControlEvent_msidbServiceControlEventStop: msidbServiceControlEvent = 2
+msidbServiceControlEvent_msidbServiceControlEventDelete: msidbServiceControlEvent = 8
+msidbServiceControlEvent_msidbServiceControlEventUninstallStart: msidbServiceControlEvent = 16
+msidbServiceControlEvent_msidbServiceControlEventUninstallStop: msidbServiceControlEvent = 32
+msidbServiceControlEvent_msidbServiceControlEventUninstallDelete: msidbServiceControlEvent = 128
+msidbServiceInstallErrorControl = Int32
+msidbServiceInstallErrorControl_msidbServiceInstallErrorControlVital: msidbServiceInstallErrorControl = 32768
+msidbSumInfoSourceType = Int32
+msidbSumInfoSourceType_msidbSumInfoSourceTypeSFN: msidbSumInfoSourceType = 1
+msidbSumInfoSourceType_msidbSumInfoSourceTypeCompressed: msidbSumInfoSourceType = 2
+msidbSumInfoSourceType_msidbSumInfoSourceTypeAdminImage: msidbSumInfoSourceType = 4
+msidbSumInfoSourceType_msidbSumInfoSourceTypeLUAPackage: msidbSumInfoSourceType = 8
+msidbTextStyleStyleBits = Int32
+msidbTextStyleStyleBits_msidbTextStyleStyleBitsBold: msidbTextStyleStyleBits = 1
+msidbTextStyleStyleBits_msidbTextStyleStyleBitsItalic: msidbTextStyleStyleBits = 2
+msidbTextStyleStyleBits_msidbTextStyleStyleBitsUnderline: msidbTextStyleStyleBits = 4
+msidbTextStyleStyleBits_msidbTextStyleStyleBitsStrike: msidbTextStyleStyleBits = 8
+msidbUpgradeAttributes = Int32
+msidbUpgradeAttributes_msidbUpgradeAttributesMigrateFeatures: msidbUpgradeAttributes = 1
+msidbUpgradeAttributes_msidbUpgradeAttributesOnlyDetect: msidbUpgradeAttributes = 2
+msidbUpgradeAttributes_msidbUpgradeAttributesIgnoreRemoveFailure: msidbUpgradeAttributes = 4
+msidbUpgradeAttributes_msidbUpgradeAttributesVersionMinInclusive: msidbUpgradeAttributes = 256
+msidbUpgradeAttributes_msidbUpgradeAttributesVersionMaxInclusive: msidbUpgradeAttributes = 512
+msidbUpgradeAttributes_msidbUpgradeAttributesLanguagesExclusive: msidbUpgradeAttributes = 1024
+msifiFastInstallBits = Int32
+msifiFastInstallBits_msifiFastInstallNoSR: msifiFastInstallBits = 1
+msifiFastInstallBits_msifiFastInstallQuickCosting: msifiFastInstallBits = 2
+msifiFastInstallBits_msifiFastInstallLessPrgMsg: msifiFastInstallBits = 4
+msirbRebootReason = Int32
+msirbRebootReason_msirbRebootUndeterminedReason: msirbRebootReason = 0
+msirbRebootReason_msirbRebootInUseFilesReason: msirbRebootReason = 1
+msirbRebootReason_msirbRebootScheduleRebootReason: msirbRebootReason = 2
+msirbRebootReason_msirbRebootForceRebootReason: msirbRebootReason = 3
+msirbRebootReason_msirbRebootCustomActionReason: msirbRebootReason = 4
+msirbRebootType = Int32
+msirbRebootType_msirbRebootImmediate: msirbRebootType = 1
+msirbRebootType_msirbRebootDeferred: msirbRebootType = 2
+msmErrorType = Int32
+msmErrorType_msmErrorLanguageUnsupported: msmErrorType = 1
+msmErrorType_msmErrorLanguageFailed: msmErrorType = 2
+msmErrorType_msmErrorExclusion: msmErrorType = 3
+msmErrorType_msmErrorTableMerge: msmErrorType = 4
+msmErrorType_msmErrorResequenceMerge: msmErrorType = 5
+msmErrorType_msmErrorFileCreate: msmErrorType = 6
+msmErrorType_msmErrorDirCreate: msmErrorType = 7
+msmErrorType_msmErrorFeatureRequired: msmErrorType = 8
 make_head(_module, 'ACTCTXA')
 make_head(_module, 'ACTCTXW')
+make_head(_module, 'ACTCTX_SECTION_KEYED_DATA')
 make_head(_module, 'ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION')
 make_head(_module, 'ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION')
 make_head(_module, 'ACTIVATION_CONTEXT_DETAILED_INFORMATION')
@@ -3125,6 +3125,7 @@ make_head(_module, 'PATCH_OLD_FILE_INFO_W')
 make_head(_module, 'PATCH_OPTION_DATA')
 make_head(_module, 'PATCH_RETAIN_RANGE')
 make_head(_module, 'PINSTALLUI_HANDLER_RECORD')
+make_head(_module, 'PMSIHANDLE')
 make_head(_module, 'PM_APPTASKTYPE')
 make_head(_module, 'PM_BSATASKID')
 make_head(_module, 'PM_BWTASKID')
@@ -3136,7 +3137,6 @@ make_head(_module, 'PM_STARTAPPBLOB')
 make_head(_module, 'PM_STARTTILEBLOB')
 make_head(_module, 'PM_UPDATEINFO')
 make_head(_module, 'PM_UPDATEINFO_LEGACY')
-make_head(_module, 'PMSIHANDLE')
 make_head(_module, 'PPATCH_PROGRESS_CALLBACK')
 make_head(_module, 'PPATCH_SYMLOAD_CALLBACK')
 make_head(_module, 'PROTECTED_FILE_DATA')

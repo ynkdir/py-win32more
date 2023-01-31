@@ -765,33 +765,6 @@ class PXE_ADDRESS(Structure):
     class _Anonymous_e__Union(Union):
         bAddress: Byte * 16
         uIpAddress: UInt32
-class PXE_DHCP_MESSAGE(Structure):
-    Operation: Byte
-    HardwareAddressType: Byte
-    HardwareAddressLength: Byte
-    HopCount: Byte
-    TransactionID: UInt32
-    SecondsSinceBoot: UInt16
-    Reserved: UInt16
-    ClientIpAddress: UInt32
-    YourIpAddress: UInt32
-    BootstrapServerAddress: UInt32
-    RelayAgentIpAddress: UInt32
-    HardwareAddress: Byte * 16
-    HostName: Byte * 64
-    BootFileName: Byte * 128
-    Anonymous: _Anonymous_e__Union
-    Option: win32more.System.DeploymentServices.PXE_DHCP_OPTION
-    _pack_ = 1
-    class _Anonymous_e__Union(Union):
-        bMagicCookie: Byte * 4
-        uMagicCookie: UInt32
-        _pack_ = 1
-class PXE_DHCP_OPTION(Structure):
-    OptionType: Byte
-    OptionLength: Byte
-    OptionValue: Byte * 1
-    _pack_ = 1
 class PXE_DHCPV6_MESSAGE(Structure):
     MessageType: Byte
     TransactionIDByte1: Byte
@@ -819,6 +792,33 @@ class PXE_DHCPV6_RELAY_MESSAGE(Structure):
     LinkAddress: Byte * 16
     PeerAddress: Byte * 16
     Options: win32more.System.DeploymentServices.PXE_DHCPV6_OPTION * 1
+    _pack_ = 1
+class PXE_DHCP_MESSAGE(Structure):
+    Operation: Byte
+    HardwareAddressType: Byte
+    HardwareAddressLength: Byte
+    HopCount: Byte
+    TransactionID: UInt32
+    SecondsSinceBoot: UInt16
+    Reserved: UInt16
+    ClientIpAddress: UInt32
+    YourIpAddress: UInt32
+    BootstrapServerAddress: UInt32
+    RelayAgentIpAddress: UInt32
+    HardwareAddress: Byte * 16
+    HostName: Byte * 64
+    BootFileName: Byte * 128
+    Anonymous: _Anonymous_e__Union
+    Option: win32more.System.DeploymentServices.PXE_DHCP_OPTION
+    _pack_ = 1
+    class _Anonymous_e__Union(Union):
+        bMagicCookie: Byte * 4
+        uMagicCookie: UInt32
+        _pack_ = 1
+class PXE_DHCP_OPTION(Structure):
+    OptionType: Byte
+    OptionLength: Byte
+    OptionValue: Byte * 1
     _pack_ = 1
 class PXE_PROVIDER(Structure):
     uSizeOfStruct: UInt32
@@ -852,52 +852,6 @@ WDS_TRANSPORTPROVIDER_DUMP_STATE: TRANSPORTPROVIDER_CALLBACK_ID = 9
 WDS_TRANSPORTPROVIDER_REFRESH_SETTINGS: TRANSPORTPROVIDER_CALLBACK_ID = 10
 WDS_TRANSPORTPROVIDER_GET_CONTENT_METADATA: TRANSPORTPROVIDER_CALLBACK_ID = 11
 WDS_TRANSPORTPROVIDER_MAX_CALLBACKS: TRANSPORTPROVIDER_CALLBACK_ID = 12
-class WDS_CLI_CRED(Structure):
-    pwszUserName: win32more.Foundation.PWSTR
-    pwszDomain: win32more.Foundation.PWSTR
-    pwszPassword: win32more.Foundation.PWSTR
-WDS_CLI_FIRMWARE_TYPE = Int32
-WDS_CLI_FIRMWARE_UNKNOWN: WDS_CLI_FIRMWARE_TYPE = 0
-WDS_CLI_FIRMWARE_BIOS: WDS_CLI_FIRMWARE_TYPE = 1
-WDS_CLI_FIRMWARE_EFI: WDS_CLI_FIRMWARE_TYPE = 2
-WDS_CLI_IMAGE_PARAM_TYPE = Int32
-WDS_CLI_IMAGE_PARAM_UNKNOWN: WDS_CLI_IMAGE_PARAM_TYPE = 0
-WDS_CLI_IMAGE_PARAM_SPARSE_FILE: WDS_CLI_IMAGE_PARAM_TYPE = 1
-WDS_CLI_IMAGE_PARAM_SUPPORTED_FIRMWARES: WDS_CLI_IMAGE_PARAM_TYPE = 2
-WDS_CLI_IMAGE_TYPE = Int32
-WDS_CLI_IMAGE_TYPE_UNKNOWN: WDS_CLI_IMAGE_TYPE = 0
-WDS_CLI_IMAGE_TYPE_WIM: WDS_CLI_IMAGE_TYPE = 1
-WDS_CLI_IMAGE_TYPE_VHD: WDS_CLI_IMAGE_TYPE = 2
-WDS_CLI_IMAGE_TYPE_VHDX: WDS_CLI_IMAGE_TYPE = 3
-class WDS_TRANSPORTCLIENT_CALLBACKS(Structure):
-    SessionStart: win32more.System.DeploymentServices.PFN_WdsTransportClientSessionStart
-    SessionStartEx: win32more.System.DeploymentServices.PFN_WdsTransportClientSessionStartEx
-    ReceiveContents: win32more.System.DeploymentServices.PFN_WdsTransportClientReceiveContents
-    ReceiveMetadata: win32more.System.DeploymentServices.PFN_WdsTransportClientReceiveMetadata
-    SessionComplete: win32more.System.DeploymentServices.PFN_WdsTransportClientSessionComplete
-    SessionNegotiate: win32more.System.DeploymentServices.PFN_WdsTransportClientSessionNegotiate
-class WDS_TRANSPORTCLIENT_REQUEST(Structure):
-    ulLength: UInt32
-    ulApiVersion: UInt32
-    ulAuthLevel: win32more.System.DeploymentServices.WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL
-    pwszServer: win32more.Foundation.PWSTR
-    pwszNamespace: win32more.Foundation.PWSTR
-    pwszObjectName: win32more.Foundation.PWSTR
-    ulCacheSize: UInt32
-    ulProtocol: UInt32
-    pvProtocolData: c_void_p
-    ulProtocolDataLength: UInt32
-WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL = UInt32
-WDS_TRANSPORTCLIENT_AUTH: WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL = 1
-WDS_TRANSPORTCLIENT_NO_AUTH: WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL = 2
-class WDS_TRANSPORTPROVIDER_INIT_PARAMS(Structure):
-    ulLength: UInt32
-    ulMcServerVersion: UInt32
-    hRegistryKey: win32more.System.Registry.HKEY
-    hProvider: win32more.Foundation.HANDLE
-class WDS_TRANSPORTPROVIDER_SETTINGS(Structure):
-    ulLength: UInt32
-    ulProviderVersion: UInt32
 WDSTRANSPORT_DIAGNOSTICS_COMPONENT_FLAGS = Int32
 WDSTRANSPORT_DIAGNOSTICS_COMPONENT_FLAGS_WdsTptDiagnosticsComponentPxe: WDSTRANSPORT_DIAGNOSTICS_COMPONENT_FLAGS = 1
 WDSTRANSPORT_DIAGNOSTICS_COMPONENT_FLAGS_WdsTptDiagnosticsComponentTftp: WDSTRANSPORT_DIAGNOSTICS_COMPONENT_FLAGS = 2
@@ -947,6 +901,52 @@ WDSTRANSPORT_TFTP_CAPABILITY_WdsTptTftpCapVariableWindow: WDSTRANSPORT_TFTP_CAPA
 WDSTRANSPORT_UDP_PORT_POLICY = Int32
 WDSTRANSPORT_UDP_PORT_POLICY_WdsTptUdpPortPolicyDynamic: WDSTRANSPORT_UDP_PORT_POLICY = 0
 WDSTRANSPORT_UDP_PORT_POLICY_WdsTptUdpPortPolicyFixed: WDSTRANSPORT_UDP_PORT_POLICY = 1
+class WDS_CLI_CRED(Structure):
+    pwszUserName: win32more.Foundation.PWSTR
+    pwszDomain: win32more.Foundation.PWSTR
+    pwszPassword: win32more.Foundation.PWSTR
+WDS_CLI_FIRMWARE_TYPE = Int32
+WDS_CLI_FIRMWARE_UNKNOWN: WDS_CLI_FIRMWARE_TYPE = 0
+WDS_CLI_FIRMWARE_BIOS: WDS_CLI_FIRMWARE_TYPE = 1
+WDS_CLI_FIRMWARE_EFI: WDS_CLI_FIRMWARE_TYPE = 2
+WDS_CLI_IMAGE_PARAM_TYPE = Int32
+WDS_CLI_IMAGE_PARAM_UNKNOWN: WDS_CLI_IMAGE_PARAM_TYPE = 0
+WDS_CLI_IMAGE_PARAM_SPARSE_FILE: WDS_CLI_IMAGE_PARAM_TYPE = 1
+WDS_CLI_IMAGE_PARAM_SUPPORTED_FIRMWARES: WDS_CLI_IMAGE_PARAM_TYPE = 2
+WDS_CLI_IMAGE_TYPE = Int32
+WDS_CLI_IMAGE_TYPE_UNKNOWN: WDS_CLI_IMAGE_TYPE = 0
+WDS_CLI_IMAGE_TYPE_WIM: WDS_CLI_IMAGE_TYPE = 1
+WDS_CLI_IMAGE_TYPE_VHD: WDS_CLI_IMAGE_TYPE = 2
+WDS_CLI_IMAGE_TYPE_VHDX: WDS_CLI_IMAGE_TYPE = 3
+class WDS_TRANSPORTCLIENT_CALLBACKS(Structure):
+    SessionStart: win32more.System.DeploymentServices.PFN_WdsTransportClientSessionStart
+    SessionStartEx: win32more.System.DeploymentServices.PFN_WdsTransportClientSessionStartEx
+    ReceiveContents: win32more.System.DeploymentServices.PFN_WdsTransportClientReceiveContents
+    ReceiveMetadata: win32more.System.DeploymentServices.PFN_WdsTransportClientReceiveMetadata
+    SessionComplete: win32more.System.DeploymentServices.PFN_WdsTransportClientSessionComplete
+    SessionNegotiate: win32more.System.DeploymentServices.PFN_WdsTransportClientSessionNegotiate
+class WDS_TRANSPORTCLIENT_REQUEST(Structure):
+    ulLength: UInt32
+    ulApiVersion: UInt32
+    ulAuthLevel: win32more.System.DeploymentServices.WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL
+    pwszServer: win32more.Foundation.PWSTR
+    pwszNamespace: win32more.Foundation.PWSTR
+    pwszObjectName: win32more.Foundation.PWSTR
+    ulCacheSize: UInt32
+    ulProtocol: UInt32
+    pvProtocolData: c_void_p
+    ulProtocolDataLength: UInt32
+WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL = UInt32
+WDS_TRANSPORTCLIENT_AUTH: WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL = 1
+WDS_TRANSPORTCLIENT_NO_AUTH: WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL = 2
+class WDS_TRANSPORTPROVIDER_INIT_PARAMS(Structure):
+    ulLength: UInt32
+    ulMcServerVersion: UInt32
+    hRegistryKey: win32more.System.Registry.HKEY
+    hProvider: win32more.Foundation.HANDLE
+class WDS_TRANSPORTPROVIDER_SETTINGS(Structure):
+    ulLength: UInt32
+    ulProviderVersion: UInt32
 WdsTransportCacheable = Guid('70590b16-f146-46bd-bd-9d-4a-aa-90-08-4b-f5')
 WdsTransportClient = Guid('66d2c5e9-0ff6-49ec-97-33-da-fb-1e-01-df-1c')
 WdsTransportCollection = Guid('c7f18b09-391e-436e-b1-0b-c3-ef-46-f2-c3-4f')
@@ -1002,13 +1002,13 @@ make_head(_module, 'PFN_WdsTransportClientSessionNegotiate')
 make_head(_module, 'PFN_WdsTransportClientSessionStart')
 make_head(_module, 'PFN_WdsTransportClientSessionStartEx')
 make_head(_module, 'PXE_ADDRESS')
-make_head(_module, 'PXE_DHCP_MESSAGE')
-make_head(_module, 'PXE_DHCP_OPTION')
 make_head(_module, 'PXE_DHCPV6_MESSAGE')
 make_head(_module, 'PXE_DHCPV6_MESSAGE_HEADER')
 make_head(_module, 'PXE_DHCPV6_NESTED_RELAY_MESSAGE')
 make_head(_module, 'PXE_DHCPV6_OPTION')
 make_head(_module, 'PXE_DHCPV6_RELAY_MESSAGE')
+make_head(_module, 'PXE_DHCP_MESSAGE')
+make_head(_module, 'PXE_DHCP_OPTION')
 make_head(_module, 'PXE_PROVIDER')
 make_head(_module, 'TRANSPORTCLIENT_SESSION_INFO')
 make_head(_module, 'WDS_CLI_CRED')

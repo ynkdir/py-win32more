@@ -36,14 +36,14 @@ class DML_ACTIVATION_ELU_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     Alpha: Single
+class DML_ACTIVATION_HARDMAX_OPERATOR_DESC(Structure):
+    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
 class DML_ACTIVATION_HARD_SIGMOID_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     Alpha: Single
     Beta: Single
-class DML_ACTIVATION_HARDMAX_OPERATOR_DESC(Structure):
-    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
 class DML_ACTIVATION_IDENTITY_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -261,15 +261,15 @@ class DML_CUMULATIVE_SUMMATION_OPERATOR_DESC(Structure):
 DML_DEPTH_SPACE_ORDER = Int32
 DML_DEPTH_SPACE_ORDER_DEPTH_COLUMN_ROW: DML_DEPTH_SPACE_ORDER = 0
 DML_DEPTH_SPACE_ORDER_COLUMN_ROW_DEPTH: DML_DEPTH_SPACE_ORDER = 1
-class DML_DEPTH_TO_SPACE_OPERATOR_DESC(Structure):
-    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BlockSize: UInt32
 class DML_DEPTH_TO_SPACE1_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     BlockSize: UInt32
     Order: win32more.AI.MachineLearning.DirectML.DML_DEPTH_SPACE_ORDER
+class DML_DEPTH_TO_SPACE_OPERATOR_DESC(Structure):
+    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    BlockSize: UInt32
 class DML_DIAGONAL_MATRIX_OPERATOR_DESC(Structure):
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     Offset: Int32
@@ -283,28 +283,32 @@ class DML_ELEMENT_WISE_ABS_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
-class DML_ELEMENT_WISE_ACOS_OPERATOR_DESC(Structure):
-    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
 class DML_ELEMENT_WISE_ACOSH_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
-class DML_ELEMENT_WISE_ADD_OPERATOR_DESC(Structure):
-    ATensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+class DML_ELEMENT_WISE_ACOS_OPERATOR_DESC(Structure):
+    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
 class DML_ELEMENT_WISE_ADD1_OPERATOR_DESC(Structure):
     ATensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     BTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     FusedActivation: POINTER(win32more.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head)
+class DML_ELEMENT_WISE_ADD_OPERATOR_DESC(Structure):
+    ATensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    BTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+class DML_ELEMENT_WISE_ASINH_OPERATOR_DESC(Structure):
+    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
 class DML_ELEMENT_WISE_ASIN_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
-class DML_ELEMENT_WISE_ASINH_OPERATOR_DESC(Structure):
+class DML_ELEMENT_WISE_ATANH_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
@@ -316,10 +320,6 @@ class DML_ELEMENT_WISE_ATAN_YX_OPERATOR_DESC(Structure):
     ATensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     BTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-class DML_ELEMENT_WISE_ATANH_OPERATOR_DESC(Structure):
-    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
 class DML_ELEMENT_WISE_BIT_AND_OPERATOR_DESC(Structure):
     ATensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     BTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -367,11 +367,11 @@ class DML_ELEMENT_WISE_CONSTANT_POW_OPERATOR_DESC(Structure):
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
     Exponent: Single
-class DML_ELEMENT_WISE_COS_OPERATOR_DESC(Structure):
+class DML_ELEMENT_WISE_COSH_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
-class DML_ELEMENT_WISE_COSH_OPERATOR_DESC(Structure):
+class DML_ELEMENT_WISE_COS_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
@@ -416,10 +416,6 @@ class DML_ELEMENT_WISE_IS_INFINITY_OPERATOR_DESC(Structure):
 class DML_ELEMENT_WISE_IS_NAN_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-class DML_ELEMENT_WISE_LOG_OPERATOR_DESC(Structure):
-    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
 class DML_ELEMENT_WISE_LOGICAL_AND_OPERATOR_DESC(Structure):
     ATensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     BTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -455,6 +451,10 @@ class DML_ELEMENT_WISE_LOGICAL_XOR_OPERATOR_DESC(Structure):
     ATensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     BTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+class DML_ELEMENT_WISE_LOG_OPERATOR_DESC(Structure):
+    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
 class DML_ELEMENT_WISE_MAX_OPERATOR_DESC(Structure):
     ATensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     BTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -484,11 +484,6 @@ class DML_ELEMENT_WISE_POW_OPERATOR_DESC(Structure):
     ExponentTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
-class DML_ELEMENT_WISE_QUANTIZE_LINEAR_OPERATOR_DESC(Structure):
-    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ZeroPointTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
 class DML_ELEMENT_WISE_QUANTIZED_LINEAR_ADD_OPERATOR_DESC(Structure):
     ATensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     AScaleTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -498,6 +493,11 @@ class DML_ELEMENT_WISE_QUANTIZED_LINEAR_ADD_OPERATOR_DESC(Structure):
     BZeroPointTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputScaleTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputZeroPointTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+class DML_ELEMENT_WISE_QUANTIZE_LINEAR_OPERATOR_DESC(Structure):
+    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ScaleTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ZeroPointTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
 class DML_ELEMENT_WISE_RECIP_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -510,11 +510,11 @@ class DML_ELEMENT_WISE_ROUND_OPERATOR_DESC(Structure):
 class DML_ELEMENT_WISE_SIGN_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-class DML_ELEMENT_WISE_SIN_OPERATOR_DESC(Structure):
+class DML_ELEMENT_WISE_SINH_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
-class DML_ELEMENT_WISE_SINH_OPERATOR_DESC(Structure):
+class DML_ELEMENT_WISE_SIN_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
@@ -526,11 +526,11 @@ class DML_ELEMENT_WISE_SUBTRACT_OPERATOR_DESC(Structure):
     ATensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     BTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-class DML_ELEMENT_WISE_TAN_OPERATOR_DESC(Structure):
+class DML_ELEMENT_WISE_TANH_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
-class DML_ELEMENT_WISE_TANH_OPERATOR_DESC(Structure):
+class DML_ELEMENT_WISE_TAN_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     ScaleBias: POINTER(win32more.AI.MachineLearning.DirectML.DML_SCALE_BIAS_head)
@@ -577,12 +577,6 @@ class DML_GATHER_ELEMENTS_OPERATOR_DESC(Structure):
     IndicesTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     Axis: UInt32
-class DML_GATHER_ND_OPERATOR_DESC(Structure):
-    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    IndicesTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    InputDimensionCount: UInt32
-    IndicesDimensionCount: UInt32
 class DML_GATHER_ND1_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     IndicesTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -590,6 +584,12 @@ class DML_GATHER_ND1_OPERATOR_DESC(Structure):
     InputDimensionCount: UInt32
     IndicesDimensionCount: UInt32
     BatchDimensionCount: UInt32
+class DML_GATHER_ND_OPERATOR_DESC(Structure):
+    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    IndicesTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputDimensionCount: UInt32
+    IndicesDimensionCount: UInt32
 class DML_GATHER_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     IndicesTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -726,24 +726,6 @@ class DML_MATRIX_MULTIPLY_INTEGER_OPERATOR_DESC(Structure):
 DML_MATRIX_TRANSFORM = Int32
 DML_MATRIX_TRANSFORM_NONE: DML_MATRIX_TRANSFORM = 0
 DML_MATRIX_TRANSFORM_TRANSPOSE: DML_MATRIX_TRANSFORM = 1
-class DML_MAX_POOLING_GRAD_OPERATOR_DESC(Structure):
-    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    InputGradientTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputGradientTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    DimensionCount: UInt32
-    Strides: POINTER(UInt32)
-    WindowSize: POINTER(UInt32)
-    StartPadding: POINTER(UInt32)
-    EndPadding: POINTER(UInt32)
-    Dilations: POINTER(UInt32)
-class DML_MAX_POOLING_OPERATOR_DESC(Structure):
-    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    DimensionCount: UInt32
-    Strides: POINTER(UInt32)
-    WindowSize: POINTER(UInt32)
-    StartPadding: POINTER(UInt32)
-    EndPadding: POINTER(UInt32)
 class DML_MAX_POOLING1_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -763,19 +745,28 @@ class DML_MAX_POOLING2_OPERATOR_DESC(Structure):
     StartPadding: POINTER(UInt32)
     EndPadding: POINTER(UInt32)
     Dilations: POINTER(UInt32)
+class DML_MAX_POOLING_GRAD_OPERATOR_DESC(Structure):
+    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InputGradientTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputGradientTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    DimensionCount: UInt32
+    Strides: POINTER(UInt32)
+    WindowSize: POINTER(UInt32)
+    StartPadding: POINTER(UInt32)
+    EndPadding: POINTER(UInt32)
+    Dilations: POINTER(UInt32)
+class DML_MAX_POOLING_OPERATOR_DESC(Structure):
+    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    DimensionCount: UInt32
+    Strides: POINTER(UInt32)
+    WindowSize: POINTER(UInt32)
+    StartPadding: POINTER(UInt32)
+    EndPadding: POINTER(UInt32)
 class DML_MAX_UNPOOLING_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     IndicesTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-class DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC(Structure):
-    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ScaleTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BiasTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    CrossChannel: win32more.Foundation.BOOL
-    NormalizeVariance: win32more.Foundation.BOOL
-    Epsilon: Single
-    FusedActivation: POINTER(win32more.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head)
 class DML_MEAN_VARIANCE_NORMALIZATION1_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     ScaleTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -783,6 +774,15 @@ class DML_MEAN_VARIANCE_NORMALIZATION1_OPERATOR_DESC(Structure):
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     AxisCount: UInt32
     Axes: POINTER(UInt32)
+    NormalizeVariance: win32more.Foundation.BOOL
+    Epsilon: Single
+    FusedActivation: POINTER(win32more.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head)
+class DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC(Structure):
+    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ScaleTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    BiasTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    CrossChannel: win32more.Foundation.BOOL
     NormalizeVariance: win32more.Foundation.BOOL
     Epsilon: Single
     FusedActivation: POINTER(win32more.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head)
@@ -1028,6 +1028,14 @@ class DML_REDUCE_OPERATOR_DESC(Structure):
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     AxisCount: UInt32
     Axes: POINTER(UInt32)
+class DML_RESAMPLE1_OPERATOR_DESC(Structure):
+    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    InterpolationMode: win32more.AI.MachineLearning.DirectML.DML_INTERPOLATION_MODE
+    DimensionCount: UInt32
+    Scales: POINTER(Single)
+    InputPixelOffsets: POINTER(Single)
+    OutputPixelOffsets: POINTER(Single)
 class DML_RESAMPLE_GRAD_OPERATOR_DESC(Structure):
     InputGradientTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputGradientTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -1042,14 +1050,6 @@ class DML_RESAMPLE_OPERATOR_DESC(Structure):
     InterpolationMode: win32more.AI.MachineLearning.DirectML.DML_INTERPOLATION_MODE
     ScaleCount: UInt32
     Scales: POINTER(Single)
-class DML_RESAMPLE1_OPERATOR_DESC(Structure):
-    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    InterpolationMode: win32more.AI.MachineLearning.DirectML.DML_INTERPOLATION_MODE
-    DimensionCount: UInt32
-    Scales: POINTER(Single)
-    InputPixelOffsets: POINTER(Single)
-    OutputPixelOffsets: POINTER(Single)
 class DML_REVERSE_SUBSEQUENCES_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     SequenceLengthsTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -1067,18 +1067,6 @@ class DML_RNN_OPERATOR_DESC(Structure):
     ActivationDescCount: UInt32
     ActivationDescs: POINTER(win32more.AI.MachineLearning.DirectML.DML_OPERATOR_DESC_head)
     Direction: win32more.AI.MachineLearning.DirectML.DML_RECURRENT_NETWORK_DIRECTION
-class DML_ROI_ALIGN_OPERATOR_DESC(Structure):
-    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ROITensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BatchIndicesTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    ReductionFunction: win32more.AI.MachineLearning.DirectML.DML_REDUCE_FUNCTION
-    InterpolationMode: win32more.AI.MachineLearning.DirectML.DML_INTERPOLATION_MODE
-    SpatialScaleX: Single
-    SpatialScaleY: Single
-    OutOfBoundsInputValue: Single
-    MinimumSamplesPerOutput: UInt32
-    MaximumSamplesPerOutput: UInt32
 class DML_ROI_ALIGN1_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     ROITensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -1094,6 +1082,18 @@ class DML_ROI_ALIGN1_OPERATOR_DESC(Structure):
     MinimumSamplesPerOutput: UInt32
     MaximumSamplesPerOutput: UInt32
     AlignRegionsToCorners: win32more.Foundation.BOOL
+class DML_ROI_ALIGN_OPERATOR_DESC(Structure):
+    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ROITensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    BatchIndicesTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    ReductionFunction: win32more.AI.MachineLearning.DirectML.DML_REDUCE_FUNCTION
+    InterpolationMode: win32more.AI.MachineLearning.DirectML.DML_INTERPOLATION_MODE
+    SpatialScaleX: Single
+    SpatialScaleY: Single
+    OutOfBoundsInputValue: Single
+    MinimumSamplesPerOutput: UInt32
+    MaximumSamplesPerOutput: UInt32
 class DML_ROI_POOLING_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     ROITensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -1135,6 +1135,13 @@ class DML_SCATTER_OPERATOR_DESC(Structure):
 class DML_SIZE_2D(Structure):
     Width: UInt32
     Height: UInt32
+class DML_SLICE1_OPERATOR_DESC(Structure):
+    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    DimensionCount: UInt32
+    InputWindowOffsets: POINTER(UInt32)
+    InputWindowSizes: POINTER(UInt32)
+    InputWindowStrides: POINTER(Int32)
 class DML_SLICE_GRAD_OPERATOR_DESC(Structure):
     InputGradientTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputGradientTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -1149,22 +1156,15 @@ class DML_SLICE_OPERATOR_DESC(Structure):
     Offsets: POINTER(UInt32)
     Sizes: POINTER(UInt32)
     Strides: POINTER(UInt32)
-class DML_SLICE1_OPERATOR_DESC(Structure):
-    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    DimensionCount: UInt32
-    InputWindowOffsets: POINTER(UInt32)
-    InputWindowSizes: POINTER(UInt32)
-    InputWindowStrides: POINTER(Int32)
-class DML_SPACE_TO_DEPTH_OPERATOR_DESC(Structure):
-    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    BlockSize: UInt32
 class DML_SPACE_TO_DEPTH1_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     BlockSize: UInt32
     Order: win32more.AI.MachineLearning.DirectML.DML_DEPTH_SPACE_ORDER
+class DML_SPACE_TO_DEPTH_OPERATOR_DESC(Structure):
+    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    BlockSize: UInt32
 class DML_SPLIT_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputCount: UInt32
@@ -1197,12 +1197,6 @@ class DML_TILE_OPERATOR_DESC(Structure):
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     RepeatsCount: UInt32
     Repeats: POINTER(UInt32)
-class DML_TOP_K_OPERATOR_DESC(Structure):
-    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputValueTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    OutputIndexTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
-    Axis: UInt32
-    K: UInt32
 class DML_TOP_K1_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputValueTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -1210,6 +1204,12 @@ class DML_TOP_K1_OPERATOR_DESC(Structure):
     Axis: UInt32
     K: UInt32
     AxisDirection: win32more.AI.MachineLearning.DirectML.DML_AXIS_DIRECTION
+class DML_TOP_K_OPERATOR_DESC(Structure):
+    InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputValueTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    OutputIndexTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
+    Axis: UInt32
+    K: UInt32
 class DML_UPSAMPLE_2D_OPERATOR_DESC(Structure):
     InputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
     OutputTensor: POINTER(win32more.AI.MachineLearning.DirectML.DML_TENSOR_DESC_head)
@@ -1309,8 +1309,8 @@ class IDMLPageable(c_void_p):
     Guid = Guid('b1ab0825-4542-4a4b-86-17-6d-de-6e-8f-62-01')
 make_head(_module, 'DML_ACTIVATION_CELU_OPERATOR_DESC')
 make_head(_module, 'DML_ACTIVATION_ELU_OPERATOR_DESC')
-make_head(_module, 'DML_ACTIVATION_HARD_SIGMOID_OPERATOR_DESC')
 make_head(_module, 'DML_ACTIVATION_HARDMAX_OPERATOR_DESC')
+make_head(_module, 'DML_ACTIVATION_HARD_SIGMOID_OPERATOR_DESC')
 make_head(_module, 'DML_ACTIVATION_IDENTITY_OPERATOR_DESC')
 make_head(_module, 'DML_ACTIVATION_LEAKY_RELU_OPERATOR_DESC')
 make_head(_module, 'DML_ACTIVATION_LINEAR_OPERATOR_DESC')
@@ -1346,20 +1346,20 @@ make_head(_module, 'DML_CONVOLUTION_INTEGER_OPERATOR_DESC')
 make_head(_module, 'DML_CONVOLUTION_OPERATOR_DESC')
 make_head(_module, 'DML_CUMULATIVE_PRODUCT_OPERATOR_DESC')
 make_head(_module, 'DML_CUMULATIVE_SUMMATION_OPERATOR_DESC')
-make_head(_module, 'DML_DEPTH_TO_SPACE_OPERATOR_DESC')
 make_head(_module, 'DML_DEPTH_TO_SPACE1_OPERATOR_DESC')
+make_head(_module, 'DML_DEPTH_TO_SPACE_OPERATOR_DESC')
 make_head(_module, 'DML_DIAGONAL_MATRIX_OPERATOR_DESC')
 make_head(_module, 'DML_DYNAMIC_QUANTIZE_LINEAR_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_ABS_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_ACOS_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_ACOSH_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_ADD_OPERATOR_DESC')
+make_head(_module, 'DML_ELEMENT_WISE_ACOS_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_ADD1_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_ASIN_OPERATOR_DESC')
+make_head(_module, 'DML_ELEMENT_WISE_ADD_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_ASINH_OPERATOR_DESC')
+make_head(_module, 'DML_ELEMENT_WISE_ASIN_OPERATOR_DESC')
+make_head(_module, 'DML_ELEMENT_WISE_ATANH_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_ATAN_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_ATAN_YX_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_ATANH_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_BIT_AND_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_BIT_COUNT_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_BIT_NOT_OPERATOR_DESC')
@@ -1371,8 +1371,8 @@ make_head(_module, 'DML_ELEMENT_WISE_CEIL_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_CLIP_GRAD_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_CLIP_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_CONSTANT_POW_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_COS_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_COSH_OPERATOR_DESC')
+make_head(_module, 'DML_ELEMENT_WISE_COS_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_DEQUANTIZE_LINEAR_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_DIFFERENCE_SQUARE_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_DIVIDE_OPERATOR_DESC')
@@ -1383,7 +1383,6 @@ make_head(_module, 'DML_ELEMENT_WISE_IDENTITY_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_IF_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_IS_INFINITY_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_IS_NAN_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_LOG_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_LOGICAL_AND_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_LOGICAL_EQUALS_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_LOGICAL_GREATER_THAN_OPERATOR_DESC')
@@ -1393,6 +1392,7 @@ make_head(_module, 'DML_ELEMENT_WISE_LOGICAL_LESS_THAN_OR_EQUAL_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_LOGICAL_NOT_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_LOGICAL_OR_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_LOGICAL_XOR_OPERATOR_DESC')
+make_head(_module, 'DML_ELEMENT_WISE_LOG_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_MAX_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_MEAN_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_MIN_OPERATOR_DESC')
@@ -1400,17 +1400,17 @@ make_head(_module, 'DML_ELEMENT_WISE_MODULUS_FLOOR_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_MODULUS_TRUNCATE_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_MULTIPLY_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_POW_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_QUANTIZE_LINEAR_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_QUANTIZED_LINEAR_ADD_OPERATOR_DESC')
+make_head(_module, 'DML_ELEMENT_WISE_QUANTIZE_LINEAR_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_RECIP_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_ROUND_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_SIGN_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_SIN_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_SINH_OPERATOR_DESC')
+make_head(_module, 'DML_ELEMENT_WISE_SIN_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_SQRT_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_SUBTRACT_OPERATOR_DESC')
-make_head(_module, 'DML_ELEMENT_WISE_TAN_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_TANH_OPERATOR_DESC')
+make_head(_module, 'DML_ELEMENT_WISE_TAN_OPERATOR_DESC')
 make_head(_module, 'DML_ELEMENT_WISE_THRESHOLD_OPERATOR_DESC')
 make_head(_module, 'DML_FEATURE_DATA_FEATURE_LEVELS')
 make_head(_module, 'DML_FEATURE_DATA_TENSOR_DATA_TYPE_SUPPORT')
@@ -1419,8 +1419,8 @@ make_head(_module, 'DML_FEATURE_QUERY_TENSOR_DATA_TYPE_SUPPORT')
 make_head(_module, 'DML_FILL_VALUE_CONSTANT_OPERATOR_DESC')
 make_head(_module, 'DML_FILL_VALUE_SEQUENCE_OPERATOR_DESC')
 make_head(_module, 'DML_GATHER_ELEMENTS_OPERATOR_DESC')
-make_head(_module, 'DML_GATHER_ND_OPERATOR_DESC')
 make_head(_module, 'DML_GATHER_ND1_OPERATOR_DESC')
+make_head(_module, 'DML_GATHER_ND_OPERATOR_DESC')
 make_head(_module, 'DML_GATHER_OPERATOR_DESC')
 make_head(_module, 'DML_GEMM_OPERATOR_DESC')
 make_head(_module, 'DML_GRAPH_DESC')
@@ -1436,13 +1436,13 @@ make_head(_module, 'DML_LP_NORMALIZATION_OPERATOR_DESC')
 make_head(_module, 'DML_LP_POOLING_OPERATOR_DESC')
 make_head(_module, 'DML_LSTM_OPERATOR_DESC')
 make_head(_module, 'DML_MATRIX_MULTIPLY_INTEGER_OPERATOR_DESC')
-make_head(_module, 'DML_MAX_POOLING_GRAD_OPERATOR_DESC')
-make_head(_module, 'DML_MAX_POOLING_OPERATOR_DESC')
 make_head(_module, 'DML_MAX_POOLING1_OPERATOR_DESC')
 make_head(_module, 'DML_MAX_POOLING2_OPERATOR_DESC')
+make_head(_module, 'DML_MAX_POOLING_GRAD_OPERATOR_DESC')
+make_head(_module, 'DML_MAX_POOLING_OPERATOR_DESC')
 make_head(_module, 'DML_MAX_UNPOOLING_OPERATOR_DESC')
-make_head(_module, 'DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC')
 make_head(_module, 'DML_MEAN_VARIANCE_NORMALIZATION1_OPERATOR_DESC')
+make_head(_module, 'DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC')
 make_head(_module, 'DML_NONZERO_COORDINATES_OPERATOR_DESC')
 make_head(_module, 'DML_ONE_HOT_OPERATOR_DESC')
 make_head(_module, 'DML_OPERATOR_DESC')
@@ -1453,29 +1453,29 @@ make_head(_module, 'DML_QUANTIZED_LINEAR_CONVOLUTION_OPERATOR_DESC')
 make_head(_module, 'DML_QUANTIZED_LINEAR_MATRIX_MULTIPLY_OPERATOR_DESC')
 make_head(_module, 'DML_RANDOM_GENERATOR_OPERATOR_DESC')
 make_head(_module, 'DML_REDUCE_OPERATOR_DESC')
+make_head(_module, 'DML_RESAMPLE1_OPERATOR_DESC')
 make_head(_module, 'DML_RESAMPLE_GRAD_OPERATOR_DESC')
 make_head(_module, 'DML_RESAMPLE_OPERATOR_DESC')
-make_head(_module, 'DML_RESAMPLE1_OPERATOR_DESC')
 make_head(_module, 'DML_REVERSE_SUBSEQUENCES_OPERATOR_DESC')
 make_head(_module, 'DML_RNN_OPERATOR_DESC')
-make_head(_module, 'DML_ROI_ALIGN_OPERATOR_DESC')
 make_head(_module, 'DML_ROI_ALIGN1_OPERATOR_DESC')
+make_head(_module, 'DML_ROI_ALIGN_OPERATOR_DESC')
 make_head(_module, 'DML_ROI_POOLING_OPERATOR_DESC')
 make_head(_module, 'DML_SCALAR_UNION')
 make_head(_module, 'DML_SCALE_BIAS')
 make_head(_module, 'DML_SCATTER_ND_OPERATOR_DESC')
 make_head(_module, 'DML_SCATTER_OPERATOR_DESC')
 make_head(_module, 'DML_SIZE_2D')
+make_head(_module, 'DML_SLICE1_OPERATOR_DESC')
 make_head(_module, 'DML_SLICE_GRAD_OPERATOR_DESC')
 make_head(_module, 'DML_SLICE_OPERATOR_DESC')
-make_head(_module, 'DML_SLICE1_OPERATOR_DESC')
-make_head(_module, 'DML_SPACE_TO_DEPTH_OPERATOR_DESC')
 make_head(_module, 'DML_SPACE_TO_DEPTH1_OPERATOR_DESC')
+make_head(_module, 'DML_SPACE_TO_DEPTH_OPERATOR_DESC')
 make_head(_module, 'DML_SPLIT_OPERATOR_DESC')
 make_head(_module, 'DML_TENSOR_DESC')
 make_head(_module, 'DML_TILE_OPERATOR_DESC')
-make_head(_module, 'DML_TOP_K_OPERATOR_DESC')
 make_head(_module, 'DML_TOP_K1_OPERATOR_DESC')
+make_head(_module, 'DML_TOP_K_OPERATOR_DESC')
 make_head(_module, 'DML_UPSAMPLE_2D_OPERATOR_DESC')
 make_head(_module, 'DML_VALUE_SCALE_2D_OPERATOR_DESC')
 make_head(_module, 'IDMLBindingTable')

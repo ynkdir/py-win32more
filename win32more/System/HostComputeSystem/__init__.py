@@ -174,11 +174,6 @@ HCS_EVENT_TYPE_HcsEventSystemGuestConnectionClosed: HCS_EVENT_TYPE = 6
 HCS_EVENT_TYPE_HcsEventProcessExited: HCS_EVENT_TYPE = 65536
 HCS_EVENT_TYPE_HcsEventOperationCallback: HCS_EVENT_TYPE = 16777216
 HCS_EVENT_TYPE_HcsEventServiceDisconnect: HCS_EVENT_TYPE = 33554432
-@winfunctype_pointer
-def HCS_NOTIFICATION_CALLBACK(notificationType: UInt32, context: c_void_p, notificationStatus: win32more.Foundation.HRESULT, notificationData: win32more.Foundation.PWSTR) -> Void: ...
-HCS_NOTIFICATION_FLAGS = Int32
-HCS_NOTIFICATION_FLAGS_HcsNotificationFlagSuccess: HCS_NOTIFICATION_FLAGS = 0
-HCS_NOTIFICATION_FLAGS_HcsNotificationFlagFailure: HCS_NOTIFICATION_FLAGS = -2147483648
 HCS_NOTIFICATIONS = Int32
 HCS_NOTIFICATIONS_HcsNotificationInvalid: HCS_NOTIFICATIONS = 0
 HCS_NOTIFICATIONS_HcsNotificationSystemExited: HCS_NOTIFICATIONS = 1
@@ -201,6 +196,11 @@ HCS_NOTIFICATIONS_HcsNotificationSystemPassThru: HCS_NOTIFICATIONS = 16
 HCS_NOTIFICATIONS_HcsNotificationProcessExited: HCS_NOTIFICATIONS = 65536
 HCS_NOTIFICATIONS_HcsNotificationServiceDisconnect: HCS_NOTIFICATIONS = 16777216
 HCS_NOTIFICATIONS_HcsNotificationFlagsReserved: HCS_NOTIFICATIONS = -268435456
+@winfunctype_pointer
+def HCS_NOTIFICATION_CALLBACK(notificationType: UInt32, context: c_void_p, notificationStatus: win32more.Foundation.HRESULT, notificationData: win32more.Foundation.PWSTR) -> Void: ...
+HCS_NOTIFICATION_FLAGS = Int32
+HCS_NOTIFICATION_FLAGS_HcsNotificationFlagSuccess: HCS_NOTIFICATION_FLAGS = 0
+HCS_NOTIFICATION_FLAGS_HcsNotificationFlagFailure: HCS_NOTIFICATION_FLAGS = -2147483648
 HCS_OPERATION = IntPtr
 @winfunctype_pointer
 def HCS_OPERATION_COMPLETION(operation: win32more.System.HostComputeSystem.HCS_OPERATION, context: c_void_p) -> Void: ...

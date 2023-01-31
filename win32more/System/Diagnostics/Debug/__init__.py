@@ -32,15 +32,15 @@ if ARCH in 'X86':
         Offset: UInt32
         Segment: UInt16
         Mode: win32more.System.Diagnostics.Debug.ADDRESS_MODE
+class ADDRESS64(Structure):
+    Offset: UInt64
+    Segment: UInt16
+    Mode: win32more.System.Diagnostics.Debug.ADDRESS_MODE
 ADDRESS_MODE = Int32
 ADDRESS_MODE_AddrMode1616: ADDRESS_MODE = 0
 ADDRESS_MODE_AddrMode1632: ADDRESS_MODE = 1
 ADDRESS_MODE_AddrModeReal: ADDRESS_MODE = 2
 ADDRESS_MODE_AddrModeFlat: ADDRESS_MODE = 3
-class ADDRESS64(Structure):
-    Offset: UInt64
-    Segment: UInt16
-    Mode: win32more.System.Diagnostics.Debug.ADDRESS_MODE
 class AER_BRIDGE_DESCRIPTOR_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsUSHORT: UInt16
@@ -67,6 +67,68 @@ class API_VERSION(Structure):
     MinorVersion: UInt16
     Revision: UInt16
     Reserved: UInt16
+APPLICATION_NODE_EVENT_FILTER = Int32
+FILTER_EXCLUDE_NOTHING: APPLICATION_NODE_EVENT_FILTER = 0
+FILTER_EXCLUDE_ANONYMOUS_CODE: APPLICATION_NODE_EVENT_FILTER = 1
+FILTER_EXCLUDE_EVAL_CODE: APPLICATION_NODE_EVENT_FILTER = 2
+if ARCH in 'X86,X64':
+    class ARM64_NT_CONTEXT(Structure):
+        ContextFlags: UInt32
+        Cpsr: UInt32
+        Anonymous: _Anonymous_e__Union
+        Sp: UInt64
+        Pc: UInt64
+        V: win32more.System.Diagnostics.Debug.ARM64_NT_NEON128 * 32
+        Fpcr: UInt32
+        Fpsr: UInt32
+        Bcr: UInt32 * 8
+        Bvr: UInt64 * 8
+        Wcr: UInt32 * 2
+        Wvr: UInt64 * 2
+        class _Anonymous_e__Union(Union):
+            Anonymous: _Anonymous_e__Struct
+            X: UInt64 * 31
+            class _Anonymous_e__Struct(Structure):
+                X0: UInt64
+                X1: UInt64
+                X2: UInt64
+                X3: UInt64
+                X4: UInt64
+                X5: UInt64
+                X6: UInt64
+                X7: UInt64
+                X8: UInt64
+                X9: UInt64
+                X10: UInt64
+                X11: UInt64
+                X12: UInt64
+                X13: UInt64
+                X14: UInt64
+                X15: UInt64
+                X16: UInt64
+                X17: UInt64
+                X18: UInt64
+                X19: UInt64
+                X20: UInt64
+                X21: UInt64
+                X22: UInt64
+                X23: UInt64
+                X24: UInt64
+                X25: UInt64
+                X26: UInt64
+                X27: UInt64
+                X28: UInt64
+                Fp: UInt64
+                Lr: UInt64
+class ARM64_NT_NEON128(Union):
+    Anonymous: _Anonymous_e__Struct
+    D: Double * 2
+    S: Single * 4
+    H: UInt16 * 8
+    B: Byte * 16
+    class _Anonymous_e__Struct(Structure):
+        Low: UInt64
+        High: Int64
 WOW64_CONTEXT_i386: UInt32 = 65536
 WOW64_CONTEXT_i486: UInt32 = 65536
 WOW64_CONTEXT_EXCEPTION_ACTIVE: UInt32 = 134217728
@@ -2096,68 +2158,6 @@ if ARCH in 'X86,X64':
 if ARCH in 'X86,X64':
     @winfunctype('KERNEL32.dll')
     def SetXStateFeaturesMask(Context: POINTER(win32more.System.Diagnostics.Debug.CONTEXT_head), FeatureMask: UInt64) -> win32more.Foundation.BOOL: ...
-APPLICATION_NODE_EVENT_FILTER = Int32
-FILTER_EXCLUDE_NOTHING: APPLICATION_NODE_EVENT_FILTER = 0
-FILTER_EXCLUDE_ANONYMOUS_CODE: APPLICATION_NODE_EVENT_FILTER = 1
-FILTER_EXCLUDE_EVAL_CODE: APPLICATION_NODE_EVENT_FILTER = 2
-if ARCH in 'X86,X64':
-    class ARM64_NT_CONTEXT(Structure):
-        ContextFlags: UInt32
-        Cpsr: UInt32
-        Anonymous: _Anonymous_e__Union
-        Sp: UInt64
-        Pc: UInt64
-        V: win32more.System.Diagnostics.Debug.ARM64_NT_NEON128 * 32
-        Fpcr: UInt32
-        Fpsr: UInt32
-        Bcr: UInt32 * 8
-        Bvr: UInt64 * 8
-        Wcr: UInt32 * 2
-        Wvr: UInt64 * 2
-        class _Anonymous_e__Union(Union):
-            Anonymous: _Anonymous_e__Struct
-            X: UInt64 * 31
-            class _Anonymous_e__Struct(Structure):
-                X0: UInt64
-                X1: UInt64
-                X2: UInt64
-                X3: UInt64
-                X4: UInt64
-                X5: UInt64
-                X6: UInt64
-                X7: UInt64
-                X8: UInt64
-                X9: UInt64
-                X10: UInt64
-                X11: UInt64
-                X12: UInt64
-                X13: UInt64
-                X14: UInt64
-                X15: UInt64
-                X16: UInt64
-                X17: UInt64
-                X18: UInt64
-                X19: UInt64
-                X20: UInt64
-                X21: UInt64
-                X22: UInt64
-                X23: UInt64
-                X24: UInt64
-                X25: UInt64
-                X26: UInt64
-                X27: UInt64
-                X28: UInt64
-                Fp: UInt64
-                Lr: UInt64
-class ARM64_NT_NEON128(Union):
-    Anonymous: _Anonymous_e__Struct
-    D: Double * 2
-    S: Single * 4
-    H: UInt16 * 8
-    B: Byte * 16
-    class _Anonymous_e__Struct(Structure):
-        Low: UInt64
-        High: Int64
 class ArrayDimension(Structure):
     LowerBound: Int64
     Length: UInt64
@@ -2728,13 +2728,6 @@ class BUSDATA(Structure):
     Buffer: c_void_p
     Offset: UInt32
     Length: UInt32
-CallingConventionKind = Int32
-CallingConventionKind_CallingConventionUnknown: CallingConventionKind = 0
-CallingConventionKind_CallingConventionCDecl: CallingConventionKind = 1
-CallingConventionKind_CallingConventionFastCall: CallingConventionKind = 2
-CallingConventionKind_CallingConventionStdCall: CallingConventionKind = 3
-CallingConventionKind_CallingConventionSysCall: CallingConventionKind = 4
-CallingConventionKind_CallingConventionThisCall: CallingConventionKind = 5
 CDebugDocumentHelper = Guid('83b8bca6-687c-11d0-a4-05-00-aa-00-60-27-5c')
 if ARCH in 'ARM64':
     class CONTEXT(Structure):
@@ -2908,6 +2901,13 @@ class CREATE_THREAD_DEBUG_INFO(Structure):
     hThread: win32more.Foundation.HANDLE
     lpThreadLocalBase: c_void_p
     lpStartAddress: win32more.System.Threading.LPTHREAD_START_ROUTINE
+CallingConventionKind = Int32
+CallingConventionKind_CallingConventionUnknown: CallingConventionKind = 0
+CallingConventionKind_CallingConventionCDecl: CallingConventionKind = 1
+CallingConventionKind_CallingConventionFastCall: CallingConventionKind = 2
+CallingConventionKind_CallingConventionStdCall: CallingConventionKind = 3
+CallingConventionKind_CallingConventionSysCall: CallingConventionKind = 4
+CallingConventionKind_CallingConventionThisCall: CallingConventionKind = 5
 class DBGHELP_DATA_REPORT_STRUCT(Structure):
     pBinPathNonExist: win32more.Foundation.PWSTR
     pSymbolPathNonExist: win32more.Foundation.PWSTR
@@ -3178,6 +3178,10 @@ class DEBUG_SPECIFIC_FILTER_PARAMETERS(Structure):
     TextSize: UInt32
     CommandSize: UInt32
     ArgumentSize: UInt32
+DEBUG_STACKFRAME_TYPE = Int32
+DST_SCRIPT_FRAME: DEBUG_STACKFRAME_TYPE = 0
+DST_INTERNAL_FRAME: DEBUG_STACKFRAME_TYPE = 1
+DST_INVOCATION_FRAME: DEBUG_STACKFRAME_TYPE = 2
 class DEBUG_STACK_FRAME(Structure):
     InstructionOffset: UInt64
     ReturnOffset: UInt64
@@ -3200,10 +3204,6 @@ class DEBUG_STACK_FRAME_EX(Structure):
     FrameNumber: UInt32
     InlineFrameContext: UInt32
     Reserved1: UInt32
-DEBUG_STACKFRAME_TYPE = Int32
-DST_SCRIPT_FRAME: DEBUG_STACKFRAME_TYPE = 0
-DST_INTERNAL_FRAME: DEBUG_STACKFRAME_TYPE = 1
-DST_INVOCATION_FRAME: DEBUG_STACKFRAME_TYPE = 2
 class DEBUG_SYMBOL_ENTRY(Structure):
     ModuleBase: UInt64
     Offset: UInt64
@@ -3292,32 +3292,6 @@ class DEBUG_VALUE(Structure):
         class _F128Parts64_e__Struct(Structure):
             LowPart: UInt64
             HighPart: Int64
-class DebugBaseEventCallbacks(c_void_p):
-    extends: win32more.System.Diagnostics.Debug.IDebugEventCallbacks
-class DebugBaseEventCallbacksWide(c_void_p):
-    extends: win32more.System.Diagnostics.Debug.IDebugEventCallbacksWide
-DebugHelper = Guid('0bfcc060-8c1d-11d0-ac-cd-00-aa-00-60-27-5c')
-class DebugPropertyInfo(Structure):
-    m_dwValidFields: UInt32
-    m_bstrName: win32more.Foundation.BSTR
-    m_bstrType: win32more.Foundation.BSTR
-    m_bstrValue: win32more.Foundation.BSTR
-    m_bstrFullName: win32more.Foundation.BSTR
-    m_dwAttrib: UInt32
-    m_pDebugProp: win32more.System.Diagnostics.Debug.IDebugProperty_head
-class DebugStackFrameDescriptor(Structure):
-    pdsf: win32more.System.Diagnostics.Debug.IDebugStackFrame_head
-    dwMin: UInt32
-    dwLim: UInt32
-    fFinal: win32more.Foundation.BOOL
-    punkFinal: win32more.System.Com.IUnknown_head
-class DebugStackFrameDescriptor64(Structure):
-    pdsf: win32more.System.Diagnostics.Debug.IDebugStackFrame_head
-    dwMin: UInt64
-    dwLim: UInt64
-    fFinal: win32more.Foundation.BOOL
-    punkFinal: win32more.System.Com.IUnknown_head
-DefaultDebugSessionProvider = Guid('834128a2-51f4-11d0-8f-20-00-80-5f-2c-d0-64')
 @winfunctype_pointer
 def DIGEST_FUNCTION(refdata: c_void_p, pData: c_char_p_no, dwLength: UInt32) -> win32more.Foundation.BOOL: ...
 if ARCH in 'ARM64':
@@ -3451,19 +3425,36 @@ DUMP_TYPE_TRIAGE: DUMP_TYPE = 4
 DUMP_TYPE_BITMAP_FULL: DUMP_TYPE = 5
 DUMP_TYPE_BITMAP_KERNEL: DUMP_TYPE = 6
 DUMP_TYPE_AUTOMATIC: DUMP_TYPE = 7
-ErrorClass = Int32
-ErrorClass_ErrorClassWarning: ErrorClass = 0
-ErrorClass_ErrorClassError: ErrorClass = 1
+class DebugBaseEventCallbacks(c_void_p):
+    extends: win32more.System.Diagnostics.Debug.IDebugEventCallbacks
+class DebugBaseEventCallbacksWide(c_void_p):
+    extends: win32more.System.Diagnostics.Debug.IDebugEventCallbacksWide
+DebugHelper = Guid('0bfcc060-8c1d-11d0-ac-cd-00-aa-00-60-27-5c')
+class DebugPropertyInfo(Structure):
+    m_dwValidFields: UInt32
+    m_bstrName: win32more.Foundation.BSTR
+    m_bstrType: win32more.Foundation.BSTR
+    m_bstrValue: win32more.Foundation.BSTR
+    m_bstrFullName: win32more.Foundation.BSTR
+    m_dwAttrib: UInt32
+    m_pDebugProp: win32more.System.Diagnostics.Debug.IDebugProperty_head
+class DebugStackFrameDescriptor(Structure):
+    pdsf: win32more.System.Diagnostics.Debug.IDebugStackFrame_head
+    dwMin: UInt32
+    dwLim: UInt32
+    fFinal: win32more.Foundation.BOOL
+    punkFinal: win32more.System.Com.IUnknown_head
+class DebugStackFrameDescriptor64(Structure):
+    pdsf: win32more.System.Diagnostics.Debug.IDebugStackFrame_head
+    dwMin: UInt64
+    dwLim: UInt64
+    fFinal: win32more.Foundation.BOOL
+    punkFinal: win32more.System.Com.IUnknown_head
+DefaultDebugSessionProvider = Guid('834128a2-51f4-11d0-8f-20-00-80-5f-2c-d0-64')
 ERRORRESUMEACTION = Int32
 ERRORRESUMEACTION_ReexecuteErrorStatement: ERRORRESUMEACTION = 0
 ERRORRESUMEACTION_AbortCallAndReturnErrorToCaller: ERRORRESUMEACTION = 1
 ERRORRESUMEACTION_SkipErrorStatement: ERRORRESUMEACTION = 2
-EX_PROP_INFO_FLAGS = Int32
-EX_PROP_INFO_ID: EX_PROP_INFO_FLAGS = 256
-EX_PROP_INFO_NTYPE: EX_PROP_INFO_FLAGS = 512
-EX_PROP_INFO_NVALUE: EX_PROP_INFO_FLAGS = 1024
-EX_PROP_INFO_LOCKBYTES: EX_PROP_INFO_FLAGS = 2048
-EX_PROP_INFO_DEBUGEXTPROP: EX_PROP_INFO_FLAGS = 4096
 class EXCEPTION_DEBUG_INFO(Structure):
     ExceptionRecord: win32more.System.Diagnostics.Debug.EXCEPTION_RECORD
     dwFirstChance: UInt32
@@ -3496,6 +3487,21 @@ class EXIT_PROCESS_DEBUG_INFO(Structure):
     dwExitCode: UInt32
 class EXIT_THREAD_DEBUG_INFO(Structure):
     dwExitCode: UInt32
+class EXTSTACKTRACE(Structure):
+    FramePointer: UInt32
+    ProgramCounter: UInt32
+    ReturnAddress: UInt32
+    Args: UInt32 * 4
+class EXTSTACKTRACE32(Structure):
+    FramePointer: UInt32
+    ProgramCounter: UInt32
+    ReturnAddress: UInt32
+    Args: UInt32 * 4
+class EXTSTACKTRACE64(Structure):
+    FramePointer: UInt64
+    ProgramCounter: UInt64
+    ReturnAddress: UInt64
+    Args: UInt64 * 4
 class EXT_API_VERSION(Structure):
     MajorVersion: UInt16
     MinorVersion: UInt16
@@ -3557,6 +3563,15 @@ class EXT_TYPED_DATA(Structure):
     DataBytesNeeded: UInt32
     Status: win32more.Foundation.HRESULT
     Reserved: UInt64 * 8
+EX_PROP_INFO_FLAGS = Int32
+EX_PROP_INFO_ID: EX_PROP_INFO_FLAGS = 256
+EX_PROP_INFO_NTYPE: EX_PROP_INFO_FLAGS = 512
+EX_PROP_INFO_NVALUE: EX_PROP_INFO_FLAGS = 1024
+EX_PROP_INFO_LOCKBYTES: EX_PROP_INFO_FLAGS = 2048
+EX_PROP_INFO_DEBUGEXTPROP: EX_PROP_INFO_FLAGS = 4096
+ErrorClass = Int32
+ErrorClass_ErrorClassWarning: ErrorClass = 0
+ErrorClass_ErrorClassError: ErrorClass = 1
 class ExtendedDebugPropertyInfo(Structure):
     dwValidFields: UInt32
     pszName: win32more.Foundation.PWSTR
@@ -3570,21 +3585,6 @@ class ExtendedDebugPropertyInfo(Structure):
     varValue: win32more.System.Com.VARIANT
     plbValue: win32more.System.Com.StructuredStorage.ILockBytes_head
     pDebugExtProp: win32more.System.Diagnostics.Debug.IDebugExtendedProperty_head
-class EXTSTACKTRACE(Structure):
-    FramePointer: UInt32
-    ProgramCounter: UInt32
-    ReturnAddress: UInt32
-    Args: UInt32 * 4
-class EXTSTACKTRACE32(Structure):
-    FramePointer: UInt32
-    ProgramCounter: UInt32
-    ReturnAddress: UInt32
-    Args: UInt32 * 4
-class EXTSTACKTRACE64(Structure):
-    FramePointer: UInt64
-    ProgramCounter: UInt64
-    ReturnAddress: UInt64
-    Args: UInt64 * 4
 FACILITY_CODE = UInt32
 FACILITY_NULL: FACILITY_CODE = 0
 FACILITY_RPC: FACILITY_CODE = 1
@@ -10590,17 +10590,6 @@ class IEnumJsStackFrames(c_void_p):
     def Next(cFrameCount: UInt32, pFrames: POINTER(win32more.System.Diagnostics.Debug.JS_NATIVE_FRAME_head), pcFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def Reset() -> win32more.Foundation.HRESULT: ...
-class IEnumRemoteDebugApplications(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('51973c3b-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
-    @commethod(3)
-    def Next(celt: UInt32, ppda: POINTER(win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head), pceltFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def Skip(celt: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def Reset() -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def Clone(ppessd: POINTER(win32more.System.Diagnostics.Debug.IEnumRemoteDebugApplications_head)) -> win32more.Foundation.HRESULT: ...
 class IEnumRemoteDebugApplicationThreads(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('51973c3c-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
@@ -10612,6 +10601,17 @@ class IEnumRemoteDebugApplicationThreads(c_void_p):
     def Reset() -> win32more.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(pperdat: POINTER(win32more.System.Diagnostics.Debug.IEnumRemoteDebugApplicationThreads_head)) -> win32more.Foundation.HRESULT: ...
+class IEnumRemoteDebugApplications(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('51973c3b-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    @commethod(3)
+    def Next(celt: UInt32, ppda: POINTER(win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head), pceltFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Skip(celt: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Clone(ppessd: POINTER(win32more.System.Diagnostics.Debug.IEnumRemoteDebugApplications_head)) -> win32more.Foundation.HRESULT: ...
 class IEquatableConcept(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('c52d5d3d-609d-4d5d-8a-82-46-b0-ac-de-c4-f4')
@@ -10744,31 +10744,332 @@ class IKeyStore(c_void_p):
     def SetKeyValue(key: win32more.Foundation.PWSTR, object: win32more.System.Diagnostics.Debug.IModelObject_head) -> win32more.Foundation.HRESULT: ...
     @commethod(7)
     def ClearKeys() -> win32more.Foundation.HRESULT: ...
-class IMachineDebugManager(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('51973c2c-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
-    @commethod(3)
-    def AddApplication(pda: win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head, pdwAppCookie: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def RemoveApplication(dwAppCookie: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def EnumApplications(ppeda: POINTER(win32more.System.Diagnostics.Debug.IEnumRemoteDebugApplications_head)) -> win32more.Foundation.HRESULT: ...
-class IMachineDebugManagerCookie(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('51973c2d-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
-    @commethod(3)
-    def AddApplication(pda: win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head, dwDebugAppCookie: UInt32, pdwAppCookie: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def RemoveApplication(dwDebugAppCookie: UInt32, dwAppCookie: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def EnumApplications(ppeda: POINTER(win32more.System.Diagnostics.Debug.IEnumRemoteDebugApplications_head)) -> win32more.Foundation.HRESULT: ...
-class IMachineDebugManagerEvents(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('51973c2e-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
-    @commethod(3)
-    def onAddApplication(pda: win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head, dwAppCookie: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def onRemoveApplication(pda: win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head, dwAppCookie: UInt32) -> win32more.Foundation.HRESULT: ...
+class IMAGEHLP_CBA_EVENT(Structure):
+    severity: win32more.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY
+    code: UInt32
+    desc: win32more.Foundation.PSTR
+    object: c_void_p
+class IMAGEHLP_CBA_EVENTW(Structure):
+    severity: win32more.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY
+    code: UInt32
+    desc: win32more.Foundation.PWSTR
+    object: c_void_p
+IMAGEHLP_CBA_EVENT_SEVERITY = UInt32
+IMAGEHLP_CBA_EVENT_SEVERITY_sevInfo: IMAGEHLP_CBA_EVENT_SEVERITY = 0
+IMAGEHLP_CBA_EVENT_SEVERITY_sevProblem: IMAGEHLP_CBA_EVENT_SEVERITY = 1
+IMAGEHLP_CBA_EVENT_SEVERITY_sevAttn: IMAGEHLP_CBA_EVENT_SEVERITY = 2
+IMAGEHLP_CBA_EVENT_SEVERITY_sevFatal: IMAGEHLP_CBA_EVENT_SEVERITY = 3
+class IMAGEHLP_CBA_READ_MEMORY(Structure):
+    addr: UInt64
+    buf: c_void_p
+    bytes: UInt32
+    bytesread: POINTER(UInt32)
+if ARCH in 'X86':
+    class IMAGEHLP_DEFERRED_SYMBOL_LOAD(Structure):
+        SizeOfStruct: UInt32
+        BaseOfImage: UInt32
+        CheckSum: UInt32
+        TimeDateStamp: UInt32
+        FileName: win32more.Foundation.CHAR * 260
+        Reparse: win32more.Foundation.BOOLEAN
+        hFile: win32more.Foundation.HANDLE
+class IMAGEHLP_DEFERRED_SYMBOL_LOAD64(Structure):
+    SizeOfStruct: UInt32
+    BaseOfImage: UInt64
+    CheckSum: UInt32
+    TimeDateStamp: UInt32
+    FileName: win32more.Foundation.CHAR * 260
+    Reparse: win32more.Foundation.BOOLEAN
+    hFile: win32more.Foundation.HANDLE
+    Flags: UInt32
+class IMAGEHLP_DEFERRED_SYMBOL_LOADW64(Structure):
+    SizeOfStruct: UInt32
+    BaseOfImage: UInt64
+    CheckSum: UInt32
+    TimeDateStamp: UInt32
+    FileName: Char * 261
+    Reparse: win32more.Foundation.BOOLEAN
+    hFile: win32more.Foundation.HANDLE
+    Flags: UInt32
+if ARCH in 'X86':
+    class IMAGEHLP_DUPLICATE_SYMBOL(Structure):
+        SizeOfStruct: UInt32
+        NumberOfDups: UInt32
+        Symbol: POINTER(win32more.System.Diagnostics.Debug.IMAGEHLP_SYMBOL_head)
+        SelectedSymbol: UInt32
+class IMAGEHLP_DUPLICATE_SYMBOL64(Structure):
+    SizeOfStruct: UInt32
+    NumberOfDups: UInt32
+    Symbol: POINTER(win32more.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64_head)
+    SelectedSymbol: UInt32
+IMAGEHLP_EXTENDED_OPTIONS = Int32
+SYMOPT_EX_DISABLEACCESSTIMEUPDATE: IMAGEHLP_EXTENDED_OPTIONS = 0
+SYMOPT_EX_LASTVALIDDEBUGDIRECTORY: IMAGEHLP_EXTENDED_OPTIONS = 1
+SYMOPT_EX_NOIMPLICITPATTERNSEARCH: IMAGEHLP_EXTENDED_OPTIONS = 2
+SYMOPT_EX_NEVERLOADSYMBOLS: IMAGEHLP_EXTENDED_OPTIONS = 3
+SYMOPT_EX_MAX: IMAGEHLP_EXTENDED_OPTIONS = 4
+IMAGEHLP_GET_TYPE_INFO_FLAGS = UInt32
+IMAGEHLP_GET_TYPE_INFO_CHILDREN: IMAGEHLP_GET_TYPE_INFO_FLAGS = 2
+IMAGEHLP_GET_TYPE_INFO_UNCACHED: IMAGEHLP_GET_TYPE_INFO_FLAGS = 1
+class IMAGEHLP_GET_TYPE_INFO_PARAMS(Structure):
+    SizeOfStruct: UInt32
+    Flags: win32more.System.Diagnostics.Debug.IMAGEHLP_GET_TYPE_INFO_FLAGS
+    NumIds: UInt32
+    TypeIds: POINTER(UInt32)
+    TagFilter: UInt64
+    NumReqs: UInt32
+    ReqKinds: POINTER(win32more.System.Diagnostics.Debug.IMAGEHLP_SYMBOL_TYPE_INFO)
+    ReqOffsets: POINTER(UIntPtr)
+    ReqSizes: POINTER(UInt32)
+    ReqStride: UIntPtr
+    BufferSize: UIntPtr
+    Buffer: c_void_p
+    EntriesMatched: UInt32
+    EntriesFilled: UInt32
+    TagsFound: UInt64
+    AllReqsValid: UInt64
+    NumReqsValid: UInt32
+    ReqsValid: POINTER(UInt64)
+IMAGEHLP_HD_TYPE = Int32
+IMAGEHLP_HD_TYPE_hdBase: IMAGEHLP_HD_TYPE = 0
+IMAGEHLP_HD_TYPE_hdSym: IMAGEHLP_HD_TYPE = 1
+IMAGEHLP_HD_TYPE_hdSrc: IMAGEHLP_HD_TYPE = 2
+IMAGEHLP_HD_TYPE_hdMax: IMAGEHLP_HD_TYPE = 3
+class IMAGEHLP_JIT_SYMBOLMAP(Structure):
+    SizeOfStruct: UInt32
+    Address: UInt64
+    BaseOfImage: UInt64
+if ARCH in 'X86':
+    class IMAGEHLP_LINE(Structure):
+        SizeOfStruct: UInt32
+        Key: c_void_p
+        LineNumber: UInt32
+        FileName: win32more.Foundation.PSTR
+        Address: UInt32
+class IMAGEHLP_LINE64(Structure):
+    SizeOfStruct: UInt32
+    Key: c_void_p
+    LineNumber: UInt32
+    FileName: win32more.Foundation.PSTR
+    Address: UInt64
+if ARCH in 'X86':
+    class IMAGEHLP_LINEW(Structure):
+        SizeOfStruct: UInt32
+        Key: c_void_p
+        LineNumber: UInt32
+        FileName: win32more.Foundation.PSTR
+        Address: UInt64
+class IMAGEHLP_LINEW64(Structure):
+    SizeOfStruct: UInt32
+    Key: c_void_p
+    LineNumber: UInt32
+    FileName: win32more.Foundation.PWSTR
+    Address: UInt64
+if ARCH in 'X86':
+    class IMAGEHLP_MODULE(Structure):
+        SizeOfStruct: UInt32
+        BaseOfImage: UInt32
+        ImageSize: UInt32
+        TimeDateStamp: UInt32
+        CheckSum: UInt32
+        NumSyms: UInt32
+        SymType: win32more.System.Diagnostics.Debug.SYM_TYPE
+        ModuleName: win32more.Foundation.CHAR * 32
+        ImageName: win32more.Foundation.CHAR * 256
+        LoadedImageName: win32more.Foundation.CHAR * 256
+class IMAGEHLP_MODULE64(Structure):
+    SizeOfStruct: UInt32
+    BaseOfImage: UInt64
+    ImageSize: UInt32
+    TimeDateStamp: UInt32
+    CheckSum: UInt32
+    NumSyms: UInt32
+    SymType: win32more.System.Diagnostics.Debug.SYM_TYPE
+    ModuleName: win32more.Foundation.CHAR * 32
+    ImageName: win32more.Foundation.CHAR * 256
+    LoadedImageName: win32more.Foundation.CHAR * 256
+    LoadedPdbName: win32more.Foundation.CHAR * 256
+    CVSig: UInt32
+    CVData: win32more.Foundation.CHAR * 780
+    PdbSig: UInt32
+    PdbSig70: Guid
+    PdbAge: UInt32
+    PdbUnmatched: win32more.Foundation.BOOL
+    DbgUnmatched: win32more.Foundation.BOOL
+    LineNumbers: win32more.Foundation.BOOL
+    GlobalSymbols: win32more.Foundation.BOOL
+    TypeInfo: win32more.Foundation.BOOL
+    SourceIndexed: win32more.Foundation.BOOL
+    Publics: win32more.Foundation.BOOL
+    MachineType: UInt32
+    Reserved: UInt32
+class IMAGEHLP_MODULE64_EX(Structure):
+    Module: win32more.System.Diagnostics.Debug.IMAGEHLP_MODULE64
+    RegionFlags: UInt32
+if ARCH in 'X86':
+    class IMAGEHLP_MODULEW(Structure):
+        SizeOfStruct: UInt32
+        BaseOfImage: UInt32
+        ImageSize: UInt32
+        TimeDateStamp: UInt32
+        CheckSum: UInt32
+        NumSyms: UInt32
+        SymType: win32more.System.Diagnostics.Debug.SYM_TYPE
+        ModuleName: Char * 32
+        ImageName: Char * 256
+        LoadedImageName: Char * 256
+class IMAGEHLP_MODULEW64(Structure):
+    SizeOfStruct: UInt32
+    BaseOfImage: UInt64
+    ImageSize: UInt32
+    TimeDateStamp: UInt32
+    CheckSum: UInt32
+    NumSyms: UInt32
+    SymType: win32more.System.Diagnostics.Debug.SYM_TYPE
+    ModuleName: Char * 32
+    ImageName: Char * 256
+    LoadedImageName: Char * 256
+    LoadedPdbName: Char * 256
+    CVSig: UInt32
+    CVData: Char * 780
+    PdbSig: UInt32
+    PdbSig70: Guid
+    PdbAge: UInt32
+    PdbUnmatched: win32more.Foundation.BOOL
+    DbgUnmatched: win32more.Foundation.BOOL
+    LineNumbers: win32more.Foundation.BOOL
+    GlobalSymbols: win32more.Foundation.BOOL
+    TypeInfo: win32more.Foundation.BOOL
+    SourceIndexed: win32more.Foundation.BOOL
+    Publics: win32more.Foundation.BOOL
+    MachineType: UInt32
+    Reserved: UInt32
+class IMAGEHLP_MODULEW64_EX(Structure):
+    Module: win32more.System.Diagnostics.Debug.IMAGEHLP_MODULEW64
+    RegionFlags: UInt32
+IMAGEHLP_SF_TYPE = Int32
+IMAGEHLP_SF_TYPE_sfImage: IMAGEHLP_SF_TYPE = 0
+IMAGEHLP_SF_TYPE_sfDbg: IMAGEHLP_SF_TYPE = 1
+IMAGEHLP_SF_TYPE_sfPdb: IMAGEHLP_SF_TYPE = 2
+IMAGEHLP_SF_TYPE_sfMpd: IMAGEHLP_SF_TYPE = 3
+IMAGEHLP_SF_TYPE_sfMax: IMAGEHLP_SF_TYPE = 4
+class IMAGEHLP_STACK_FRAME(Structure):
+    InstructionOffset: UInt64
+    ReturnOffset: UInt64
+    FrameOffset: UInt64
+    StackOffset: UInt64
+    BackingStoreOffset: UInt64
+    FuncTableEntry: UInt64
+    Params: UInt64 * 4
+    Reserved: UInt64 * 5
+    Virtual: win32more.Foundation.BOOL
+    Reserved2: UInt32
+IMAGEHLP_STATUS_REASON = Int32
+IMAGEHLP_STATUS_REASON_BindOutOfMemory: IMAGEHLP_STATUS_REASON = 0
+IMAGEHLP_STATUS_REASON_BindRvaToVaFailed: IMAGEHLP_STATUS_REASON = 1
+IMAGEHLP_STATUS_REASON_BindNoRoomInImage: IMAGEHLP_STATUS_REASON = 2
+IMAGEHLP_STATUS_REASON_BindImportModuleFailed: IMAGEHLP_STATUS_REASON = 3
+IMAGEHLP_STATUS_REASON_BindImportProcedureFailed: IMAGEHLP_STATUS_REASON = 4
+IMAGEHLP_STATUS_REASON_BindImportModule: IMAGEHLP_STATUS_REASON = 5
+IMAGEHLP_STATUS_REASON_BindImportProcedure: IMAGEHLP_STATUS_REASON = 6
+IMAGEHLP_STATUS_REASON_BindForwarder: IMAGEHLP_STATUS_REASON = 7
+IMAGEHLP_STATUS_REASON_BindForwarderNOT: IMAGEHLP_STATUS_REASON = 8
+IMAGEHLP_STATUS_REASON_BindImageModified: IMAGEHLP_STATUS_REASON = 9
+IMAGEHLP_STATUS_REASON_BindExpandFileHeaders: IMAGEHLP_STATUS_REASON = 10
+IMAGEHLP_STATUS_REASON_BindImageComplete: IMAGEHLP_STATUS_REASON = 11
+IMAGEHLP_STATUS_REASON_BindMismatchedSymbols: IMAGEHLP_STATUS_REASON = 12
+IMAGEHLP_STATUS_REASON_BindSymbolsNotUpdated: IMAGEHLP_STATUS_REASON = 13
+IMAGEHLP_STATUS_REASON_BindImportProcedure32: IMAGEHLP_STATUS_REASON = 14
+IMAGEHLP_STATUS_REASON_BindImportProcedure64: IMAGEHLP_STATUS_REASON = 15
+IMAGEHLP_STATUS_REASON_BindForwarder32: IMAGEHLP_STATUS_REASON = 16
+IMAGEHLP_STATUS_REASON_BindForwarder64: IMAGEHLP_STATUS_REASON = 17
+IMAGEHLP_STATUS_REASON_BindForwarderNOT32: IMAGEHLP_STATUS_REASON = 18
+IMAGEHLP_STATUS_REASON_BindForwarderNOT64: IMAGEHLP_STATUS_REASON = 19
+if ARCH in 'X86':
+    class IMAGEHLP_SYMBOL(Structure):
+        SizeOfStruct: UInt32
+        Address: UInt32
+        Size: UInt32
+        Flags: UInt32
+        MaxNameLength: UInt32
+        Name: win32more.Foundation.CHAR * 1
+class IMAGEHLP_SYMBOL64(Structure):
+    SizeOfStruct: UInt32
+    Address: UInt64
+    Size: UInt32
+    Flags: UInt32
+    MaxNameLength: UInt32
+    Name: win32more.Foundation.CHAR * 1
+class IMAGEHLP_SYMBOL64_PACKAGE(Structure):
+    sym: win32more.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64
+    name: win32more.Foundation.CHAR * 2001
+if ARCH in 'X86':
+    class IMAGEHLP_SYMBOLW(Structure):
+        SizeOfStruct: UInt32
+        Address: UInt32
+        Size: UInt32
+        Flags: UInt32
+        MaxNameLength: UInt32
+        Name: Char * 1
+class IMAGEHLP_SYMBOLW64(Structure):
+    SizeOfStruct: UInt32
+    Address: UInt64
+    Size: UInt32
+    Flags: UInt32
+    MaxNameLength: UInt32
+    Name: Char * 1
+class IMAGEHLP_SYMBOLW64_PACKAGE(Structure):
+    sym: win32more.System.Diagnostics.Debug.IMAGEHLP_SYMBOLW64
+    name: Char * 2001
+if ARCH in 'X86':
+    class IMAGEHLP_SYMBOLW_PACKAGE(Structure):
+        sym: win32more.System.Diagnostics.Debug.IMAGEHLP_SYMBOLW
+        name: Char * 2001
+if ARCH in 'X86':
+    class IMAGEHLP_SYMBOL_PACKAGE(Structure):
+        sym: win32more.System.Diagnostics.Debug.IMAGEHLP_SYMBOL
+        name: win32more.Foundation.CHAR * 2001
+class IMAGEHLP_SYMBOL_SRC(Structure):
+    sizeofstruct: UInt32
+    type: UInt32
+    file: win32more.Foundation.CHAR * 260
+IMAGEHLP_SYMBOL_TYPE_INFO = Int32
+TI_GET_SYMTAG: IMAGEHLP_SYMBOL_TYPE_INFO = 0
+TI_GET_SYMNAME: IMAGEHLP_SYMBOL_TYPE_INFO = 1
+TI_GET_LENGTH: IMAGEHLP_SYMBOL_TYPE_INFO = 2
+TI_GET_TYPE: IMAGEHLP_SYMBOL_TYPE_INFO = 3
+TI_GET_TYPEID: IMAGEHLP_SYMBOL_TYPE_INFO = 4
+TI_GET_BASETYPE: IMAGEHLP_SYMBOL_TYPE_INFO = 5
+TI_GET_ARRAYINDEXTYPEID: IMAGEHLP_SYMBOL_TYPE_INFO = 6
+TI_FINDCHILDREN: IMAGEHLP_SYMBOL_TYPE_INFO = 7
+TI_GET_DATAKIND: IMAGEHLP_SYMBOL_TYPE_INFO = 8
+TI_GET_ADDRESSOFFSET: IMAGEHLP_SYMBOL_TYPE_INFO = 9
+TI_GET_OFFSET: IMAGEHLP_SYMBOL_TYPE_INFO = 10
+TI_GET_VALUE: IMAGEHLP_SYMBOL_TYPE_INFO = 11
+TI_GET_COUNT: IMAGEHLP_SYMBOL_TYPE_INFO = 12
+TI_GET_CHILDRENCOUNT: IMAGEHLP_SYMBOL_TYPE_INFO = 13
+TI_GET_BITPOSITION: IMAGEHLP_SYMBOL_TYPE_INFO = 14
+TI_GET_VIRTUALBASECLASS: IMAGEHLP_SYMBOL_TYPE_INFO = 15
+TI_GET_VIRTUALTABLESHAPEID: IMAGEHLP_SYMBOL_TYPE_INFO = 16
+TI_GET_VIRTUALBASEPOINTEROFFSET: IMAGEHLP_SYMBOL_TYPE_INFO = 17
+TI_GET_CLASSPARENTID: IMAGEHLP_SYMBOL_TYPE_INFO = 18
+TI_GET_NESTED: IMAGEHLP_SYMBOL_TYPE_INFO = 19
+TI_GET_SYMINDEX: IMAGEHLP_SYMBOL_TYPE_INFO = 20
+TI_GET_LEXICALPARENT: IMAGEHLP_SYMBOL_TYPE_INFO = 21
+TI_GET_ADDRESS: IMAGEHLP_SYMBOL_TYPE_INFO = 22
+TI_GET_THISADJUST: IMAGEHLP_SYMBOL_TYPE_INFO = 23
+TI_GET_UDTKIND: IMAGEHLP_SYMBOL_TYPE_INFO = 24
+TI_IS_EQUIV_TO: IMAGEHLP_SYMBOL_TYPE_INFO = 25
+TI_GET_CALLING_CONVENTION: IMAGEHLP_SYMBOL_TYPE_INFO = 26
+TI_IS_CLOSE_EQUIV_TO: IMAGEHLP_SYMBOL_TYPE_INFO = 27
+TI_GTIEX_REQS_VALID: IMAGEHLP_SYMBOL_TYPE_INFO = 28
+TI_GET_VIRTUALBASEOFFSET: IMAGEHLP_SYMBOL_TYPE_INFO = 29
+TI_GET_VIRTUALBASEDISPINDEX: IMAGEHLP_SYMBOL_TYPE_INFO = 30
+TI_GET_IS_REFERENCE: IMAGEHLP_SYMBOL_TYPE_INFO = 31
+TI_GET_INDIRECTVIRTUALBASECLASS: IMAGEHLP_SYMBOL_TYPE_INFO = 32
+TI_GET_VIRTUALBASETABLETYPE: IMAGEHLP_SYMBOL_TYPE_INFO = 33
+TI_GET_OBJECTPOINTERTYPE: IMAGEHLP_SYMBOL_TYPE_INFO = 34
+IMAGEHLP_SYMBOL_TYPE_INFO_MAX: IMAGEHLP_SYMBOL_TYPE_INFO = 35
 class IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY(Structure):
     BeginAddress: UInt32
     Anonymous: _Anonymous_e__Union
@@ -11055,11 +11356,6 @@ class IMAGE_NT_HEADERS64(Structure):
     Signature: UInt32
     FileHeader: win32more.System.Diagnostics.Debug.IMAGE_FILE_HEADER
     OptionalHeader: win32more.System.Diagnostics.Debug.IMAGE_OPTIONAL_HEADER64
-IMAGE_OPTIONAL_HEADER_MAGIC = UInt16
-IMAGE_NT_OPTIONAL_HDR_MAGIC: IMAGE_OPTIONAL_HEADER_MAGIC = 523
-IMAGE_NT_OPTIONAL_HDR32_MAGIC: IMAGE_OPTIONAL_HEADER_MAGIC = 267
-IMAGE_NT_OPTIONAL_HDR64_MAGIC: IMAGE_OPTIONAL_HEADER_MAGIC = 523
-IMAGE_ROM_OPTIONAL_HDR_MAGIC: IMAGE_OPTIONAL_HEADER_MAGIC = 263
 class IMAGE_OPTIONAL_HEADER32(Structure):
     Magic: win32more.System.Diagnostics.Debug.IMAGE_OPTIONAL_HEADER_MAGIC
     MajorLinkerVersion: Byte
@@ -11124,6 +11420,11 @@ class IMAGE_OPTIONAL_HEADER64(Structure):
     NumberOfRvaAndSizes: UInt32
     DataDirectory: win32more.System.Diagnostics.Debug.IMAGE_DATA_DIRECTORY * 16
     _pack_ = 4
+IMAGE_OPTIONAL_HEADER_MAGIC = UInt16
+IMAGE_NT_OPTIONAL_HDR_MAGIC: IMAGE_OPTIONAL_HEADER_MAGIC = 523
+IMAGE_NT_OPTIONAL_HDR32_MAGIC: IMAGE_OPTIONAL_HEADER_MAGIC = 267
+IMAGE_NT_OPTIONAL_HDR64_MAGIC: IMAGE_OPTIONAL_HEADER_MAGIC = 523
+IMAGE_ROM_OPTIONAL_HDR_MAGIC: IMAGE_OPTIONAL_HEADER_MAGIC = 263
 class IMAGE_ROM_HEADERS(Structure):
     FileHeader: win32more.System.Diagnostics.Debug.IMAGE_FILE_HEADER
     OptionalHeader: win32more.System.Diagnostics.Debug.IMAGE_ROM_OPTIONAL_HEADER
@@ -11218,332 +11519,31 @@ IMAGE_SUBSYSTEM_EFI_ROM: IMAGE_SUBSYSTEM = 13
 IMAGE_SUBSYSTEM_XBOX: IMAGE_SUBSYSTEM = 14
 IMAGE_SUBSYSTEM_WINDOWS_BOOT_APPLICATION: IMAGE_SUBSYSTEM = 16
 IMAGE_SUBSYSTEM_XBOX_CODE_CATALOG: IMAGE_SUBSYSTEM = 17
-class IMAGEHLP_CBA_EVENT(Structure):
-    severity: win32more.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY
-    code: UInt32
-    desc: win32more.Foundation.PSTR
-    object: c_void_p
-IMAGEHLP_CBA_EVENT_SEVERITY = UInt32
-IMAGEHLP_CBA_EVENT_SEVERITY_sevInfo: IMAGEHLP_CBA_EVENT_SEVERITY = 0
-IMAGEHLP_CBA_EVENT_SEVERITY_sevProblem: IMAGEHLP_CBA_EVENT_SEVERITY = 1
-IMAGEHLP_CBA_EVENT_SEVERITY_sevAttn: IMAGEHLP_CBA_EVENT_SEVERITY = 2
-IMAGEHLP_CBA_EVENT_SEVERITY_sevFatal: IMAGEHLP_CBA_EVENT_SEVERITY = 3
-class IMAGEHLP_CBA_EVENTW(Structure):
-    severity: win32more.System.Diagnostics.Debug.IMAGEHLP_CBA_EVENT_SEVERITY
-    code: UInt32
-    desc: win32more.Foundation.PWSTR
-    object: c_void_p
-class IMAGEHLP_CBA_READ_MEMORY(Structure):
-    addr: UInt64
-    buf: c_void_p
-    bytes: UInt32
-    bytesread: POINTER(UInt32)
-if ARCH in 'X86':
-    class IMAGEHLP_DEFERRED_SYMBOL_LOAD(Structure):
-        SizeOfStruct: UInt32
-        BaseOfImage: UInt32
-        CheckSum: UInt32
-        TimeDateStamp: UInt32
-        FileName: win32more.Foundation.CHAR * 260
-        Reparse: win32more.Foundation.BOOLEAN
-        hFile: win32more.Foundation.HANDLE
-class IMAGEHLP_DEFERRED_SYMBOL_LOAD64(Structure):
-    SizeOfStruct: UInt32
-    BaseOfImage: UInt64
-    CheckSum: UInt32
-    TimeDateStamp: UInt32
-    FileName: win32more.Foundation.CHAR * 260
-    Reparse: win32more.Foundation.BOOLEAN
-    hFile: win32more.Foundation.HANDLE
-    Flags: UInt32
-class IMAGEHLP_DEFERRED_SYMBOL_LOADW64(Structure):
-    SizeOfStruct: UInt32
-    BaseOfImage: UInt64
-    CheckSum: UInt32
-    TimeDateStamp: UInt32
-    FileName: Char * 261
-    Reparse: win32more.Foundation.BOOLEAN
-    hFile: win32more.Foundation.HANDLE
-    Flags: UInt32
-if ARCH in 'X86':
-    class IMAGEHLP_DUPLICATE_SYMBOL(Structure):
-        SizeOfStruct: UInt32
-        NumberOfDups: UInt32
-        Symbol: POINTER(win32more.System.Diagnostics.Debug.IMAGEHLP_SYMBOL_head)
-        SelectedSymbol: UInt32
-class IMAGEHLP_DUPLICATE_SYMBOL64(Structure):
-    SizeOfStruct: UInt32
-    NumberOfDups: UInt32
-    Symbol: POINTER(win32more.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64_head)
-    SelectedSymbol: UInt32
-IMAGEHLP_EXTENDED_OPTIONS = Int32
-SYMOPT_EX_DISABLEACCESSTIMEUPDATE: IMAGEHLP_EXTENDED_OPTIONS = 0
-SYMOPT_EX_LASTVALIDDEBUGDIRECTORY: IMAGEHLP_EXTENDED_OPTIONS = 1
-SYMOPT_EX_NOIMPLICITPATTERNSEARCH: IMAGEHLP_EXTENDED_OPTIONS = 2
-SYMOPT_EX_NEVERLOADSYMBOLS: IMAGEHLP_EXTENDED_OPTIONS = 3
-SYMOPT_EX_MAX: IMAGEHLP_EXTENDED_OPTIONS = 4
-IMAGEHLP_GET_TYPE_INFO_FLAGS = UInt32
-IMAGEHLP_GET_TYPE_INFO_CHILDREN: IMAGEHLP_GET_TYPE_INFO_FLAGS = 2
-IMAGEHLP_GET_TYPE_INFO_UNCACHED: IMAGEHLP_GET_TYPE_INFO_FLAGS = 1
-class IMAGEHLP_GET_TYPE_INFO_PARAMS(Structure):
-    SizeOfStruct: UInt32
-    Flags: win32more.System.Diagnostics.Debug.IMAGEHLP_GET_TYPE_INFO_FLAGS
-    NumIds: UInt32
-    TypeIds: POINTER(UInt32)
-    TagFilter: UInt64
-    NumReqs: UInt32
-    ReqKinds: POINTER(win32more.System.Diagnostics.Debug.IMAGEHLP_SYMBOL_TYPE_INFO)
-    ReqOffsets: POINTER(UIntPtr)
-    ReqSizes: POINTER(UInt32)
-    ReqStride: UIntPtr
-    BufferSize: UIntPtr
-    Buffer: c_void_p
-    EntriesMatched: UInt32
-    EntriesFilled: UInt32
-    TagsFound: UInt64
-    AllReqsValid: UInt64
-    NumReqsValid: UInt32
-    ReqsValid: POINTER(UInt64)
-IMAGEHLP_HD_TYPE = Int32
-IMAGEHLP_HD_TYPE_hdBase: IMAGEHLP_HD_TYPE = 0
-IMAGEHLP_HD_TYPE_hdSym: IMAGEHLP_HD_TYPE = 1
-IMAGEHLP_HD_TYPE_hdSrc: IMAGEHLP_HD_TYPE = 2
-IMAGEHLP_HD_TYPE_hdMax: IMAGEHLP_HD_TYPE = 3
-class IMAGEHLP_JIT_SYMBOLMAP(Structure):
-    SizeOfStruct: UInt32
-    Address: UInt64
-    BaseOfImage: UInt64
-if ARCH in 'X86':
-    class IMAGEHLP_LINE(Structure):
-        SizeOfStruct: UInt32
-        Key: c_void_p
-        LineNumber: UInt32
-        FileName: win32more.Foundation.PSTR
-        Address: UInt32
-class IMAGEHLP_LINE64(Structure):
-    SizeOfStruct: UInt32
-    Key: c_void_p
-    LineNumber: UInt32
-    FileName: win32more.Foundation.PSTR
-    Address: UInt64
-if ARCH in 'X86':
-    class IMAGEHLP_LINEW(Structure):
-        SizeOfStruct: UInt32
-        Key: c_void_p
-        LineNumber: UInt32
-        FileName: win32more.Foundation.PSTR
-        Address: UInt64
-class IMAGEHLP_LINEW64(Structure):
-    SizeOfStruct: UInt32
-    Key: c_void_p
-    LineNumber: UInt32
-    FileName: win32more.Foundation.PWSTR
-    Address: UInt64
-if ARCH in 'X86':
-    class IMAGEHLP_MODULE(Structure):
-        SizeOfStruct: UInt32
-        BaseOfImage: UInt32
-        ImageSize: UInt32
-        TimeDateStamp: UInt32
-        CheckSum: UInt32
-        NumSyms: UInt32
-        SymType: win32more.System.Diagnostics.Debug.SYM_TYPE
-        ModuleName: win32more.Foundation.CHAR * 32
-        ImageName: win32more.Foundation.CHAR * 256
-        LoadedImageName: win32more.Foundation.CHAR * 256
-class IMAGEHLP_MODULE64(Structure):
-    SizeOfStruct: UInt32
-    BaseOfImage: UInt64
-    ImageSize: UInt32
-    TimeDateStamp: UInt32
-    CheckSum: UInt32
-    NumSyms: UInt32
-    SymType: win32more.System.Diagnostics.Debug.SYM_TYPE
-    ModuleName: win32more.Foundation.CHAR * 32
-    ImageName: win32more.Foundation.CHAR * 256
-    LoadedImageName: win32more.Foundation.CHAR * 256
-    LoadedPdbName: win32more.Foundation.CHAR * 256
-    CVSig: UInt32
-    CVData: win32more.Foundation.CHAR * 780
-    PdbSig: UInt32
-    PdbSig70: Guid
-    PdbAge: UInt32
-    PdbUnmatched: win32more.Foundation.BOOL
-    DbgUnmatched: win32more.Foundation.BOOL
-    LineNumbers: win32more.Foundation.BOOL
-    GlobalSymbols: win32more.Foundation.BOOL
-    TypeInfo: win32more.Foundation.BOOL
-    SourceIndexed: win32more.Foundation.BOOL
-    Publics: win32more.Foundation.BOOL
-    MachineType: UInt32
-    Reserved: UInt32
-class IMAGEHLP_MODULE64_EX(Structure):
-    Module: win32more.System.Diagnostics.Debug.IMAGEHLP_MODULE64
-    RegionFlags: UInt32
-if ARCH in 'X86':
-    class IMAGEHLP_MODULEW(Structure):
-        SizeOfStruct: UInt32
-        BaseOfImage: UInt32
-        ImageSize: UInt32
-        TimeDateStamp: UInt32
-        CheckSum: UInt32
-        NumSyms: UInt32
-        SymType: win32more.System.Diagnostics.Debug.SYM_TYPE
-        ModuleName: Char * 32
-        ImageName: Char * 256
-        LoadedImageName: Char * 256
-class IMAGEHLP_MODULEW64(Structure):
-    SizeOfStruct: UInt32
-    BaseOfImage: UInt64
-    ImageSize: UInt32
-    TimeDateStamp: UInt32
-    CheckSum: UInt32
-    NumSyms: UInt32
-    SymType: win32more.System.Diagnostics.Debug.SYM_TYPE
-    ModuleName: Char * 32
-    ImageName: Char * 256
-    LoadedImageName: Char * 256
-    LoadedPdbName: Char * 256
-    CVSig: UInt32
-    CVData: Char * 780
-    PdbSig: UInt32
-    PdbSig70: Guid
-    PdbAge: UInt32
-    PdbUnmatched: win32more.Foundation.BOOL
-    DbgUnmatched: win32more.Foundation.BOOL
-    LineNumbers: win32more.Foundation.BOOL
-    GlobalSymbols: win32more.Foundation.BOOL
-    TypeInfo: win32more.Foundation.BOOL
-    SourceIndexed: win32more.Foundation.BOOL
-    Publics: win32more.Foundation.BOOL
-    MachineType: UInt32
-    Reserved: UInt32
-class IMAGEHLP_MODULEW64_EX(Structure):
-    Module: win32more.System.Diagnostics.Debug.IMAGEHLP_MODULEW64
-    RegionFlags: UInt32
-IMAGEHLP_SF_TYPE = Int32
-IMAGEHLP_SF_TYPE_sfImage: IMAGEHLP_SF_TYPE = 0
-IMAGEHLP_SF_TYPE_sfDbg: IMAGEHLP_SF_TYPE = 1
-IMAGEHLP_SF_TYPE_sfPdb: IMAGEHLP_SF_TYPE = 2
-IMAGEHLP_SF_TYPE_sfMpd: IMAGEHLP_SF_TYPE = 3
-IMAGEHLP_SF_TYPE_sfMax: IMAGEHLP_SF_TYPE = 4
-class IMAGEHLP_STACK_FRAME(Structure):
-    InstructionOffset: UInt64
-    ReturnOffset: UInt64
-    FrameOffset: UInt64
-    StackOffset: UInt64
-    BackingStoreOffset: UInt64
-    FuncTableEntry: UInt64
-    Params: UInt64 * 4
-    Reserved: UInt64 * 5
-    Virtual: win32more.Foundation.BOOL
-    Reserved2: UInt32
-IMAGEHLP_STATUS_REASON = Int32
-IMAGEHLP_STATUS_REASON_BindOutOfMemory: IMAGEHLP_STATUS_REASON = 0
-IMAGEHLP_STATUS_REASON_BindRvaToVaFailed: IMAGEHLP_STATUS_REASON = 1
-IMAGEHLP_STATUS_REASON_BindNoRoomInImage: IMAGEHLP_STATUS_REASON = 2
-IMAGEHLP_STATUS_REASON_BindImportModuleFailed: IMAGEHLP_STATUS_REASON = 3
-IMAGEHLP_STATUS_REASON_BindImportProcedureFailed: IMAGEHLP_STATUS_REASON = 4
-IMAGEHLP_STATUS_REASON_BindImportModule: IMAGEHLP_STATUS_REASON = 5
-IMAGEHLP_STATUS_REASON_BindImportProcedure: IMAGEHLP_STATUS_REASON = 6
-IMAGEHLP_STATUS_REASON_BindForwarder: IMAGEHLP_STATUS_REASON = 7
-IMAGEHLP_STATUS_REASON_BindForwarderNOT: IMAGEHLP_STATUS_REASON = 8
-IMAGEHLP_STATUS_REASON_BindImageModified: IMAGEHLP_STATUS_REASON = 9
-IMAGEHLP_STATUS_REASON_BindExpandFileHeaders: IMAGEHLP_STATUS_REASON = 10
-IMAGEHLP_STATUS_REASON_BindImageComplete: IMAGEHLP_STATUS_REASON = 11
-IMAGEHLP_STATUS_REASON_BindMismatchedSymbols: IMAGEHLP_STATUS_REASON = 12
-IMAGEHLP_STATUS_REASON_BindSymbolsNotUpdated: IMAGEHLP_STATUS_REASON = 13
-IMAGEHLP_STATUS_REASON_BindImportProcedure32: IMAGEHLP_STATUS_REASON = 14
-IMAGEHLP_STATUS_REASON_BindImportProcedure64: IMAGEHLP_STATUS_REASON = 15
-IMAGEHLP_STATUS_REASON_BindForwarder32: IMAGEHLP_STATUS_REASON = 16
-IMAGEHLP_STATUS_REASON_BindForwarder64: IMAGEHLP_STATUS_REASON = 17
-IMAGEHLP_STATUS_REASON_BindForwarderNOT32: IMAGEHLP_STATUS_REASON = 18
-IMAGEHLP_STATUS_REASON_BindForwarderNOT64: IMAGEHLP_STATUS_REASON = 19
-if ARCH in 'X86':
-    class IMAGEHLP_SYMBOL(Structure):
-        SizeOfStruct: UInt32
-        Address: UInt32
-        Size: UInt32
-        Flags: UInt32
-        MaxNameLength: UInt32
-        Name: win32more.Foundation.CHAR * 1
-if ARCH in 'X86':
-    class IMAGEHLP_SYMBOL_PACKAGE(Structure):
-        sym: win32more.System.Diagnostics.Debug.IMAGEHLP_SYMBOL
-        name: win32more.Foundation.CHAR * 2001
-class IMAGEHLP_SYMBOL_SRC(Structure):
-    sizeofstruct: UInt32
-    type: UInt32
-    file: win32more.Foundation.CHAR * 260
-IMAGEHLP_SYMBOL_TYPE_INFO = Int32
-TI_GET_SYMTAG: IMAGEHLP_SYMBOL_TYPE_INFO = 0
-TI_GET_SYMNAME: IMAGEHLP_SYMBOL_TYPE_INFO = 1
-TI_GET_LENGTH: IMAGEHLP_SYMBOL_TYPE_INFO = 2
-TI_GET_TYPE: IMAGEHLP_SYMBOL_TYPE_INFO = 3
-TI_GET_TYPEID: IMAGEHLP_SYMBOL_TYPE_INFO = 4
-TI_GET_BASETYPE: IMAGEHLP_SYMBOL_TYPE_INFO = 5
-TI_GET_ARRAYINDEXTYPEID: IMAGEHLP_SYMBOL_TYPE_INFO = 6
-TI_FINDCHILDREN: IMAGEHLP_SYMBOL_TYPE_INFO = 7
-TI_GET_DATAKIND: IMAGEHLP_SYMBOL_TYPE_INFO = 8
-TI_GET_ADDRESSOFFSET: IMAGEHLP_SYMBOL_TYPE_INFO = 9
-TI_GET_OFFSET: IMAGEHLP_SYMBOL_TYPE_INFO = 10
-TI_GET_VALUE: IMAGEHLP_SYMBOL_TYPE_INFO = 11
-TI_GET_COUNT: IMAGEHLP_SYMBOL_TYPE_INFO = 12
-TI_GET_CHILDRENCOUNT: IMAGEHLP_SYMBOL_TYPE_INFO = 13
-TI_GET_BITPOSITION: IMAGEHLP_SYMBOL_TYPE_INFO = 14
-TI_GET_VIRTUALBASECLASS: IMAGEHLP_SYMBOL_TYPE_INFO = 15
-TI_GET_VIRTUALTABLESHAPEID: IMAGEHLP_SYMBOL_TYPE_INFO = 16
-TI_GET_VIRTUALBASEPOINTEROFFSET: IMAGEHLP_SYMBOL_TYPE_INFO = 17
-TI_GET_CLASSPARENTID: IMAGEHLP_SYMBOL_TYPE_INFO = 18
-TI_GET_NESTED: IMAGEHLP_SYMBOL_TYPE_INFO = 19
-TI_GET_SYMINDEX: IMAGEHLP_SYMBOL_TYPE_INFO = 20
-TI_GET_LEXICALPARENT: IMAGEHLP_SYMBOL_TYPE_INFO = 21
-TI_GET_ADDRESS: IMAGEHLP_SYMBOL_TYPE_INFO = 22
-TI_GET_THISADJUST: IMAGEHLP_SYMBOL_TYPE_INFO = 23
-TI_GET_UDTKIND: IMAGEHLP_SYMBOL_TYPE_INFO = 24
-TI_IS_EQUIV_TO: IMAGEHLP_SYMBOL_TYPE_INFO = 25
-TI_GET_CALLING_CONVENTION: IMAGEHLP_SYMBOL_TYPE_INFO = 26
-TI_IS_CLOSE_EQUIV_TO: IMAGEHLP_SYMBOL_TYPE_INFO = 27
-TI_GTIEX_REQS_VALID: IMAGEHLP_SYMBOL_TYPE_INFO = 28
-TI_GET_VIRTUALBASEOFFSET: IMAGEHLP_SYMBOL_TYPE_INFO = 29
-TI_GET_VIRTUALBASEDISPINDEX: IMAGEHLP_SYMBOL_TYPE_INFO = 30
-TI_GET_IS_REFERENCE: IMAGEHLP_SYMBOL_TYPE_INFO = 31
-TI_GET_INDIRECTVIRTUALBASECLASS: IMAGEHLP_SYMBOL_TYPE_INFO = 32
-TI_GET_VIRTUALBASETABLETYPE: IMAGEHLP_SYMBOL_TYPE_INFO = 33
-TI_GET_OBJECTPOINTERTYPE: IMAGEHLP_SYMBOL_TYPE_INFO = 34
-IMAGEHLP_SYMBOL_TYPE_INFO_MAX: IMAGEHLP_SYMBOL_TYPE_INFO = 35
-class IMAGEHLP_SYMBOL64(Structure):
-    SizeOfStruct: UInt32
-    Address: UInt64
-    Size: UInt32
-    Flags: UInt32
-    MaxNameLength: UInt32
-    Name: win32more.Foundation.CHAR * 1
-class IMAGEHLP_SYMBOL64_PACKAGE(Structure):
-    sym: win32more.System.Diagnostics.Debug.IMAGEHLP_SYMBOL64
-    name: win32more.Foundation.CHAR * 2001
-if ARCH in 'X86':
-    class IMAGEHLP_SYMBOLW(Structure):
-        SizeOfStruct: UInt32
-        Address: UInt32
-        Size: UInt32
-        Flags: UInt32
-        MaxNameLength: UInt32
-        Name: Char * 1
-if ARCH in 'X86':
-    class IMAGEHLP_SYMBOLW_PACKAGE(Structure):
-        sym: win32more.System.Diagnostics.Debug.IMAGEHLP_SYMBOLW
-        name: Char * 2001
-class IMAGEHLP_SYMBOLW64(Structure):
-    SizeOfStruct: UInt32
-    Address: UInt64
-    Size: UInt32
-    Flags: UInt32
-    MaxNameLength: UInt32
-    Name: Char * 1
-class IMAGEHLP_SYMBOLW64_PACKAGE(Structure):
-    sym: win32more.System.Diagnostics.Debug.IMAGEHLP_SYMBOLW64
-    name: Char * 2001
+class IMachineDebugManager(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('51973c2c-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    @commethod(3)
+    def AddApplication(pda: win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head, pdwAppCookie: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def RemoveApplication(dwAppCookie: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def EnumApplications(ppeda: POINTER(win32more.System.Diagnostics.Debug.IEnumRemoteDebugApplications_head)) -> win32more.Foundation.HRESULT: ...
+class IMachineDebugManagerCookie(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('51973c2d-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    @commethod(3)
+    def AddApplication(pda: win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head, dwDebugAppCookie: UInt32, pdwAppCookie: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def RemoveApplication(dwDebugAppCookie: UInt32, dwAppCookie: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def EnumApplications(ppeda: POINTER(win32more.System.Diagnostics.Debug.IEnumRemoteDebugApplications_head)) -> win32more.Foundation.HRESULT: ...
+class IMachineDebugManagerEvents(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('51973c2e-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    @commethod(3)
+    def onAddApplication(pda: win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head, dwAppCookie: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def onRemoveApplication(pda: win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head, dwAppCookie: UInt32) -> win32more.Foundation.HRESULT: ...
 class IModelIterator(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('e4622136-927d-4490-87-4f-58-1f-3e-4e-36-88')
@@ -11661,28 +11661,16 @@ class INLINE_FRAME_CONTEXT(Union):
         FrameId: Byte
         FrameType: Byte
         FrameSignature: UInt16
-IntrinsicKind = Int32
-IntrinsicKind_IntrinsicVoid: IntrinsicKind = 0
-IntrinsicKind_IntrinsicBool: IntrinsicKind = 1
-IntrinsicKind_IntrinsicChar: IntrinsicKind = 2
-IntrinsicKind_IntrinsicWChar: IntrinsicKind = 3
-IntrinsicKind_IntrinsicInt: IntrinsicKind = 4
-IntrinsicKind_IntrinsicUInt: IntrinsicKind = 5
-IntrinsicKind_IntrinsicLong: IntrinsicKind = 6
-IntrinsicKind_IntrinsicULong: IntrinsicKind = 7
-IntrinsicKind_IntrinsicFloat: IntrinsicKind = 8
-IntrinsicKind_IntrinsicHRESULT: IntrinsicKind = 9
-IntrinsicKind_IntrinsicChar16: IntrinsicKind = 10
-IntrinsicKind_IntrinsicChar32: IntrinsicKind = 11
-class IObjectSafety(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('cb5bdc81-93c1-11cf-8f-20-00-80-5f-2c-d0-64')
-    @commethod(3)
-    def GetInterfaceSafetyOptions(riid: POINTER(Guid), pdwSupportedOptions: POINTER(UInt32), pdwEnabledOptions: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def SetInterfaceSafetyOptions(riid: POINTER(Guid), dwOptionSetMask: UInt32, dwEnabledOptions: UInt32) -> win32more.Foundation.HRESULT: ...
 class IOSPACE(Structure):
     Address: UInt32
+    Length: UInt32
+    Data: UInt32
+class IOSPACE32(Structure):
+    Address: UInt32
+    Length: UInt32
+    Data: UInt32
+class IOSPACE64(Structure):
+    Address: UInt64
     Length: UInt32
     Data: UInt32
 class IOSPACE_EX(Structure):
@@ -11706,25 +11694,13 @@ class IOSPACE_EX64(Structure):
     InterfaceType: UInt32
     BusNumber: UInt32
     AddressSpace: UInt32
-class IOSPACE32(Structure):
-    Address: UInt32
-    Length: UInt32
-    Data: UInt32
-class IOSPACE64(Structure):
-    Address: UInt64
-    Length: UInt32
-    Data: UInt32
-class IPerPropertyBrowsing2(c_void_p):
+class IObjectSafety(c_void_p):
     extends: win32more.System.Com.IUnknown
-    Guid = Guid('51973c54-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    Guid = Guid('cb5bdc81-93c1-11cf-8f-20-00-80-5f-2c-d0-64')
     @commethod(3)
-    def GetDisplayString(dispid: Int32, pBstr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    def GetInterfaceSafetyOptions(riid: POINTER(Guid), pdwSupportedOptions: POINTER(UInt32), pdwEnabledOptions: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
-    def MapPropertyToPage(dispid: Int32, pClsidPropPage: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def GetPredefinedStrings(dispid: Int32, pCaStrings: POINTER(win32more.System.Ole.CALPOLESTR_head), pCaCookies: POINTER(win32more.System.Ole.CADWORD_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def SetPredefinedValue(dispid: Int32, dwCookie: UInt32) -> win32more.Foundation.HRESULT: ...
+    def SetInterfaceSafetyOptions(riid: POINTER(Guid), dwOptionSetMask: UInt32, dwEnabledOptions: UInt32) -> win32more.Foundation.HRESULT: ...
 class IPMI_OS_SEL_RECORD(Structure):
     Signature: UInt32
     Version: UInt32
@@ -11745,6 +11721,17 @@ IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeDriver: IPMI_OS_SEL_RECORD_TYPE = 7
 IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeBugcheckRecovery: IPMI_OS_SEL_RECORD_TYPE = 8
 IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeBugcheckData: IPMI_OS_SEL_RECORD_TYPE = 9
 IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeMax: IPMI_OS_SEL_RECORD_TYPE = 10
+class IPerPropertyBrowsing2(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('51973c54-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    @commethod(3)
+    def GetDisplayString(dispid: Int32, pBstr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def MapPropertyToPage(dispid: Int32, pClsidPropPage: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetPredefinedStrings(dispid: Int32, pCaStrings: POINTER(win32more.System.Ole.CALPOLESTR_head), pCaCookies: POINTER(win32more.System.Ole.CADWORD_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetPredefinedValue(dispid: Int32, dwCookie: UInt32) -> win32more.Foundation.HRESULT: ...
 class IPreferredRuntimeTypeConcept(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('9d6c1d7b-a76f-4618-80-68-5f-76-bd-9a-4e-8a')
@@ -11981,6 +11968,19 @@ class IWebAppDiagnosticsSetup(c_void_p):
     def DiagnosticsSupported(pRetVal: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def CreateObjectWithSiteAtWebApp(rclsid: POINTER(Guid), dwClsContext: UInt32, riid: POINTER(Guid), hPassToObject: UIntPtr) -> win32more.Foundation.HRESULT: ...
+IntrinsicKind = Int32
+IntrinsicKind_IntrinsicVoid: IntrinsicKind = 0
+IntrinsicKind_IntrinsicBool: IntrinsicKind = 1
+IntrinsicKind_IntrinsicChar: IntrinsicKind = 2
+IntrinsicKind_IntrinsicWChar: IntrinsicKind = 3
+IntrinsicKind_IntrinsicInt: IntrinsicKind = 4
+IntrinsicKind_IntrinsicUInt: IntrinsicKind = 5
+IntrinsicKind_IntrinsicLong: IntrinsicKind = 6
+IntrinsicKind_IntrinsicULong: IntrinsicKind = 7
+IntrinsicKind_IntrinsicFloat: IntrinsicKind = 8
+IntrinsicKind_IntrinsicHRESULT: IntrinsicKind = 9
+IntrinsicKind_IntrinsicChar16: IntrinsicKind = 10
+IntrinsicKind_IntrinsicChar32: IntrinsicKind = 11
 class JS_NATIVE_FRAME(Structure):
     InstructionOffset: UInt64
     ReturnOffset: UInt64
@@ -12335,11 +12335,6 @@ if ARCH in 'ARM64':
         D13: POINTER(UInt64)
         D14: POINTER(UInt64)
         D15: POINTER(UInt64)
-LanguageKind = Int32
-LanguageKind_LanguageUnknown: LanguageKind = 0
-LanguageKind_LanguageC: LanguageKind = 1
-LanguageKind_LanguageCPP: LanguageKind = 2
-LanguageKind_LanguageAssembly: LanguageKind = 3
 class LDT_ENTRY(Structure):
     LimitLow: UInt16
     BaseLow: UInt16
@@ -12354,13 +12349,6 @@ class LDT_ENTRY(Structure):
             BaseHi: Byte
         class _Bits_e__Struct(Structure):
             _bitfield: UInt32
-class LOAD_DLL_DEBUG_INFO(Structure):
-    hFile: win32more.Foundation.HANDLE
-    lpBaseOfDll: c_void_p
-    dwDebugInfoFileOffset: UInt32
-    nDebugInfoSize: UInt32
-    lpImageName: c_void_p
-    fUnicode: UInt16
 if ARCH in 'X64,ARM64':
     class LOADED_IMAGE(Structure):
         ModuleName: win32more.Foundation.PSTR
@@ -12393,6 +12381,22 @@ if ARCH in 'X86':
         Version: Byte
         Links: win32more.System.Kernel.LIST_ENTRY
         SizeOfImage: UInt32
+class LOAD_DLL_DEBUG_INFO(Structure):
+    hFile: win32more.Foundation.HANDLE
+    lpBaseOfDll: c_void_p
+    dwDebugInfoFileOffset: UInt32
+    nDebugInfoSize: UInt32
+    lpImageName: c_void_p
+    fUnicode: UInt16
+@winfunctype_pointer
+def LPCALL_BACK_USER_INTERRUPT_ROUTINE() -> UInt32: ...
+@winfunctype_pointer
+def LPTOP_LEVEL_EXCEPTION_FILTER(ExceptionInfo: POINTER(win32more.System.Diagnostics.Debug.EXCEPTION_POINTERS_head)) -> Int32: ...
+LanguageKind = Int32
+LanguageKind_LanguageUnknown: LanguageKind = 0
+LanguageKind_LanguageC: LanguageKind = 1
+LanguageKind_LanguageCPP: LanguageKind = 2
+LanguageKind_LanguageAssembly: LanguageKind = 3
 class Location(Structure):
     HostDefined: UInt64
     Offset: UInt64
@@ -12401,15 +12405,9 @@ LocationKind_LocationMember: LocationKind = 0
 LocationKind_LocationStatic: LocationKind = 1
 LocationKind_LocationConstant: LocationKind = 2
 LocationKind_LocationNone: LocationKind = 3
-@winfunctype_pointer
-def LPCALL_BACK_USER_INTERRUPT_ROUTINE() -> UInt32: ...
-@winfunctype_pointer
-def LPTOP_LEVEL_EXCEPTION_FILTER(ExceptionInfo: POINTER(win32more.System.Diagnostics.Debug.EXCEPTION_POINTERS_head)) -> Int32: ...
 class M128A(Structure):
     Low: UInt64
     High: Int64
-MachineDebugManager_DEBUG = Guid('49769cec-3a55-4bb0-b6-97-88-fe-de-77-e8-ea')
-MachineDebugManager_RETAIL = Guid('0c0a3666-30c9-11d0-8f-20-00-80-5f-2c-d0-64')
 class MINIDUMP_CALLBACK_INFORMATION(Structure):
     CallbackRoutine: win32more.System.Diagnostics.Debug.MINIDUMP_CALLBACK_ROUTINE
     CallbackParam: c_void_p
@@ -12612,6 +12610,11 @@ class MINIDUMP_LOCATION_DESCRIPTOR64(Structure):
     DataSize: UInt64
     Rva: UInt64
     _pack_ = 4
+class MINIDUMP_MEMORY64_LIST(Structure):
+    NumberOfMemoryRanges: UInt64
+    BaseRva: UInt64
+    MemoryRanges: win32more.System.Diagnostics.Debug.MINIDUMP_MEMORY_DESCRIPTOR64 * 1
+    _pack_ = 4
 class MINIDUMP_MEMORY_DESCRIPTOR(Structure):
     StartOfMemoryRange: UInt64
     Memory: win32more.System.Diagnostics.Debug.MINIDUMP_LOCATION_DESCRIPTOR
@@ -12639,11 +12642,6 @@ class MINIDUMP_MEMORY_INFO_LIST(Structure):
 class MINIDUMP_MEMORY_LIST(Structure):
     NumberOfMemoryRanges: UInt32
     MemoryRanges: win32more.System.Diagnostics.Debug.MINIDUMP_MEMORY_DESCRIPTOR * 1
-    _pack_ = 4
-class MINIDUMP_MEMORY64_LIST(Structure):
-    NumberOfMemoryRanges: UInt64
-    BaseRva: UInt64
-    MemoryRanges: win32more.System.Diagnostics.Debug.MINIDUMP_MEMORY_DESCRIPTOR64 * 1
     _pack_ = 4
 class MINIDUMP_MISC_INFO(Structure):
     SizeOfInfo: UInt32
@@ -13167,17 +13165,6 @@ class MINIDUMP_VM_PRE_READ_CALLBACK(Structure):
 class MINIDUMP_VM_QUERY_CALLBACK(Structure):
     Offset: UInt64
     _pack_ = 4
-ModelObjectKind = Int32
-ModelObjectKind_ObjectPropertyAccessor: ModelObjectKind = 0
-ModelObjectKind_ObjectContext: ModelObjectKind = 1
-ModelObjectKind_ObjectTargetObject: ModelObjectKind = 2
-ModelObjectKind_ObjectTargetObjectReference: ModelObjectKind = 3
-ModelObjectKind_ObjectSynthetic: ModelObjectKind = 4
-ModelObjectKind_ObjectNoValue: ModelObjectKind = 5
-ModelObjectKind_ObjectError: ModelObjectKind = 6
-ModelObjectKind_ObjectIntrinsic: ModelObjectKind = 7
-ModelObjectKind_ObjectMethod: ModelObjectKind = 8
-ModelObjectKind_ObjectKeyReference: ModelObjectKind = 9
 class MODLOAD_CVMISC(Structure):
     oCV: UInt32
     cCV: UIntPtr
@@ -13209,6 +13196,19 @@ MODULE_WRITE_FLAGS_ModuleWriteCvRecord: MODULE_WRITE_FLAGS = 8
 MODULE_WRITE_FLAGS_ModuleReferencedByMemory: MODULE_WRITE_FLAGS = 16
 MODULE_WRITE_FLAGS_ModuleWriteTlsData: MODULE_WRITE_FLAGS = 32
 MODULE_WRITE_FLAGS_ModuleWriteCodeSegs: MODULE_WRITE_FLAGS = 64
+MachineDebugManager_DEBUG = Guid('49769cec-3a55-4bb0-b6-97-88-fe-de-77-e8-ea')
+MachineDebugManager_RETAIL = Guid('0c0a3666-30c9-11d0-8f-20-00-80-5f-2c-d0-64')
+ModelObjectKind = Int32
+ModelObjectKind_ObjectPropertyAccessor: ModelObjectKind = 0
+ModelObjectKind_ObjectContext: ModelObjectKind = 1
+ModelObjectKind_ObjectTargetObject: ModelObjectKind = 2
+ModelObjectKind_ObjectTargetObjectReference: ModelObjectKind = 3
+ModelObjectKind_ObjectSynthetic: ModelObjectKind = 4
+ModelObjectKind_ObjectNoValue: ModelObjectKind = 5
+ModelObjectKind_ObjectError: ModelObjectKind = 6
+ModelObjectKind_ObjectIntrinsic: ModelObjectKind = 7
+ModelObjectKind_ObjectMethod: ModelObjectKind = 8
+ModelObjectKind_ObjectKeyReference: ModelObjectKind = 9
 OBJECT_ATTRIB_FLAGS = Int32
 OBJECT_ATTRIB_NO_ATTRIB: OBJECT_ATTRIB_FLAGS = 0
 OBJECT_ATTRIB_NO_NAME: OBJECT_ATTRIB_FLAGS = 1
@@ -13302,6 +13302,10 @@ def PENUMLOADED_MODULES_CALLBACKW64(ModuleName: win32more.Foundation.PWSTR, Modu
 @winfunctype_pointer
 def PENUMSOURCEFILETOKENSCALLBACK(token: c_void_p, size: UIntPtr) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
+def PFINDFILEINPATHCALLBACK(filename: win32more.Foundation.PSTR, context: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PFINDFILEINPATHCALLBACKW(filename: win32more.Foundation.PWSTR, context: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
 def PFIND_DEBUG_FILE_CALLBACK(FileHandle: win32more.Foundation.HANDLE, FileName: win32more.Foundation.PSTR, CallerData: c_void_p) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFIND_DEBUG_FILE_CALLBACKW(FileHandle: win32more.Foundation.HANDLE, FileName: win32more.Foundation.PWSTR, CallerData: c_void_p) -> win32more.Foundation.BOOL: ...
@@ -13309,10 +13313,6 @@ def PFIND_DEBUG_FILE_CALLBACKW(FileHandle: win32more.Foundation.HANDLE, FileName
 def PFIND_EXE_FILE_CALLBACK(FileHandle: win32more.Foundation.HANDLE, FileName: win32more.Foundation.PSTR, CallerData: c_void_p) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFIND_EXE_FILE_CALLBACKW(FileHandle: win32more.Foundation.HANDLE, FileName: win32more.Foundation.PWSTR, CallerData: c_void_p) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PFINDFILEINPATHCALLBACK(filename: win32more.Foundation.PSTR, context: c_void_p) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PFINDFILEINPATHCALLBACKW(filename: win32more.Foundation.PWSTR, context: c_void_p) -> win32more.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype_pointer
     def PFUNCTION_TABLE_ACCESS_ROUTINE(hProcess: win32more.Foundation.HANDLE, AddrBase: UInt32) -> c_void_p: ...
@@ -13371,49 +13371,25 @@ class POINTER_SEARCH_PHYSICAL(Structure):
     MatchOffsets: POINTER(UInt64)
     MatchOffsetsSize: UInt32
     MatchOffsetsCount: UInt32
-PointerKind = Int32
-PointerKind_PointerStandard: PointerKind = 0
-PointerKind_PointerReference: PointerKind = 1
-PointerKind_PointerRValueReference: PointerKind = 2
-PointerKind_PointerCXHat: PointerKind = 3
-PointerKind_PointerManagedReference: PointerKind = 4
 if ARCH in 'X86':
     @winfunctype_pointer
     def PREAD_PROCESS_MEMORY_ROUTINE(hProcess: win32more.Foundation.HANDLE, lpBaseAddress: UInt32, lpBuffer: c_void_p, nSize: UInt32, lpNumberOfBytesRead: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PREAD_PROCESS_MEMORY_ROUTINE64(hProcess: win32more.Foundation.HANDLE, qwBaseAddress: UInt64, lpBuffer: c_void_p, nSize: UInt32, lpNumberOfBytesRead: POINTER(UInt32)) -> win32more.Foundation.BOOL: ...
-PreferredFormat = Int32
-PreferredFormat_FormatNone: PreferredFormat = 0
-PreferredFormat_FormatSingleCharacter: PreferredFormat = 1
-PreferredFormat_FormatQuotedString: PreferredFormat = 2
-PreferredFormat_FormatString: PreferredFormat = 3
-PreferredFormat_FormatQuotedUnicodeString: PreferredFormat = 4
-PreferredFormat_FormatUnicodeString: PreferredFormat = 5
-PreferredFormat_FormatQuotedUTF8String: PreferredFormat = 6
-PreferredFormat_FormatUTF8String: PreferredFormat = 7
-PreferredFormat_FormatBSTRString: PreferredFormat = 8
-PreferredFormat_FormatQuotedHString: PreferredFormat = 9
-PreferredFormat_FormatHString: PreferredFormat = 10
-PreferredFormat_FormatRaw: PreferredFormat = 11
-PreferredFormat_FormatEnumNameOnly: PreferredFormat = 12
-PreferredFormat_FormatEscapedStringWithQuote: PreferredFormat = 13
-PreferredFormat_FormatUTF32String: PreferredFormat = 14
-PreferredFormat_FormatQuotedUTF32String: PreferredFormat = 15
-class PROCESS_NAME_ENTRY(Structure):
-    ProcessId: UInt32
-    NameOffset: UInt32
-    NameSize: UInt32
-    NextEntry: UInt32
-ProcessDebugManager = Guid('78a51822-51f4-11d0-8f-20-00-80-5f-2c-d0-64')
+class PROCESSORINFO(Structure):
+    Processor: UInt16
+    NumberProcessors: UInt16
 PROCESSOR_ARCHITECTURE = UInt16
 PROCESSOR_ARCHITECTURE_AMD64: PROCESSOR_ARCHITECTURE = 9
 PROCESSOR_ARCHITECTURE_IA64: PROCESSOR_ARCHITECTURE = 6
 PROCESSOR_ARCHITECTURE_INTEL: PROCESSOR_ARCHITECTURE = 0
 PROCESSOR_ARCHITECTURE_ARM: PROCESSOR_ARCHITECTURE = 5
 PROCESSOR_ARCHITECTURE_UNKNOWN: PROCESSOR_ARCHITECTURE = 65535
-class PROCESSORINFO(Structure):
-    Processor: UInt16
-    NumberProcessors: UInt16
+class PROCESS_NAME_ENTRY(Structure):
+    ProcessId: UInt32
+    NameOffset: UInt32
+    NameSize: UInt32
+    NextEntry: UInt32
 PROFILER_EVENT_MASK = UInt32
 PROFILER_EVENT_MASK_TRACE_SCRIPT_FUNCTION_CALL: PROFILER_EVENT_MASK = 1
 PROFILER_EVENT_MASK_TRACE_NATIVE_FUNCTION_CALL: PROFILER_EVENT_MASK = 2
@@ -13533,48 +13509,6 @@ PROP_INFO_ATTRIBUTES: PROP_INFO_FLAGS = 8
 PROP_INFO_DEBUGPROP: PROP_INFO_FLAGS = 16
 PROP_INFO_AUTOEXPAND: PROP_INFO_FLAGS = 134217728
 @winfunctype_pointer
-def PSYM_DUMP_FIELD_CALLBACK(pField: POINTER(win32more.System.Diagnostics.Debug.FIELD_INFO_head), UserContext: c_void_p) -> UInt32: ...
-@winfunctype_pointer
-def PSYM_ENUMERATESYMBOLS_CALLBACK(pSymInfo: POINTER(win32more.System.Diagnostics.Debug.SYMBOL_INFO_head), SymbolSize: UInt32, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYM_ENUMERATESYMBOLS_CALLBACKW(pSymInfo: POINTER(win32more.System.Diagnostics.Debug.SYMBOL_INFOW_head), SymbolSize: UInt32, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYM_ENUMLINES_CALLBACK(LineInfo: POINTER(win32more.System.Diagnostics.Debug.SRCCODEINFO_head), UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYM_ENUMLINES_CALLBACKW(LineInfo: POINTER(win32more.System.Diagnostics.Debug.SRCCODEINFOW_head), UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
-if ARCH in 'X86':
-    @winfunctype_pointer
-    def PSYM_ENUMMODULES_CALLBACK(ModuleName: win32more.Foundation.PSTR, BaseOfDll: UInt32, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYM_ENUMMODULES_CALLBACK64(ModuleName: win32more.Foundation.PSTR, BaseOfDll: UInt64, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYM_ENUMMODULES_CALLBACKW64(ModuleName: win32more.Foundation.PWSTR, BaseOfDll: UInt64, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYM_ENUMPROCESSES_CALLBACK(hProcess: win32more.Foundation.HANDLE, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYM_ENUMSOURCEFILES_CALLBACK(pSourceFile: POINTER(win32more.System.Diagnostics.Debug.SOURCEFILE_head), UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYM_ENUMSOURCEFILES_CALLBACKW(pSourceFile: POINTER(win32more.System.Diagnostics.Debug.SOURCEFILEW_head), UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
-if ARCH in 'X86':
-    @winfunctype_pointer
-    def PSYM_ENUMSYMBOLS_CALLBACK(SymbolName: win32more.Foundation.PSTR, SymbolAddress: UInt32, SymbolSize: UInt32, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYM_ENUMSYMBOLS_CALLBACK64(SymbolName: win32more.Foundation.PSTR, SymbolAddress: UInt64, SymbolSize: UInt32, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYM_ENUMSYMBOLS_CALLBACK64W(SymbolName: win32more.Foundation.PWSTR, SymbolAddress: UInt64, SymbolSize: UInt32, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
-if ARCH in 'X86':
-    @winfunctype_pointer
-    def PSYM_ENUMSYMBOLS_CALLBACKW(SymbolName: win32more.Foundation.PWSTR, SymbolAddress: UInt32, SymbolSize: UInt32, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYMBOL_FUNCENTRY_CALLBACK(hProcess: win32more.Foundation.HANDLE, AddrBase: UInt32, UserContext: c_void_p) -> c_void_p: ...
-@winfunctype_pointer
-def PSYMBOL_FUNCENTRY_CALLBACK64(hProcess: win32more.Foundation.HANDLE, AddrBase: UInt64, UserContext: UInt64) -> c_void_p: ...
-if ARCH in 'X86':
-    @winfunctype_pointer
-    def PSYMBOL_REGISTERED_CALLBACK(hProcess: win32more.Foundation.HANDLE, ActionCode: UInt32, CallbackData: c_void_p, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PSYMBOL_REGISTERED_CALLBACK64(hProcess: win32more.Foundation.HANDLE, ActionCode: UInt32, CallbackData: UInt64, UserContext: UInt64) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
 def PSYMBOLSERVERBYINDEXPROC(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.PSTR, param2: win32more.Foundation.PSTR, param3: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PSYMBOLSERVERBYINDEXPROCA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.PSTR, param2: win32more.Foundation.PSTR, param3: win32more.Foundation.PSTR) -> win32more.Foundation.BOOL: ...
@@ -13642,6 +13576,48 @@ def PSYMBOLSERVERSTORESUPPLEMENTW(param0: win32more.Foundation.PWSTR, param1: wi
 def PSYMBOLSERVERVERSION() -> UInt32: ...
 @winfunctype_pointer
 def PSYMBOLSERVERWEXPROC(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.PWSTR, param2: c_void_p, param3: UInt32, param4: UInt32, param5: win32more.Foundation.PWSTR, param6: POINTER(win32more.System.Diagnostics.Debug.SYMSRV_EXTENDED_OUTPUT_DATA_head)) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PSYMBOL_FUNCENTRY_CALLBACK(hProcess: win32more.Foundation.HANDLE, AddrBase: UInt32, UserContext: c_void_p) -> c_void_p: ...
+@winfunctype_pointer
+def PSYMBOL_FUNCENTRY_CALLBACK64(hProcess: win32more.Foundation.HANDLE, AddrBase: UInt64, UserContext: UInt64) -> c_void_p: ...
+if ARCH in 'X86':
+    @winfunctype_pointer
+    def PSYMBOL_REGISTERED_CALLBACK(hProcess: win32more.Foundation.HANDLE, ActionCode: UInt32, CallbackData: c_void_p, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PSYMBOL_REGISTERED_CALLBACK64(hProcess: win32more.Foundation.HANDLE, ActionCode: UInt32, CallbackData: UInt64, UserContext: UInt64) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PSYM_DUMP_FIELD_CALLBACK(pField: POINTER(win32more.System.Diagnostics.Debug.FIELD_INFO_head), UserContext: c_void_p) -> UInt32: ...
+@winfunctype_pointer
+def PSYM_ENUMERATESYMBOLS_CALLBACK(pSymInfo: POINTER(win32more.System.Diagnostics.Debug.SYMBOL_INFO_head), SymbolSize: UInt32, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PSYM_ENUMERATESYMBOLS_CALLBACKW(pSymInfo: POINTER(win32more.System.Diagnostics.Debug.SYMBOL_INFOW_head), SymbolSize: UInt32, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PSYM_ENUMLINES_CALLBACK(LineInfo: POINTER(win32more.System.Diagnostics.Debug.SRCCODEINFO_head), UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PSYM_ENUMLINES_CALLBACKW(LineInfo: POINTER(win32more.System.Diagnostics.Debug.SRCCODEINFOW_head), UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
+if ARCH in 'X86':
+    @winfunctype_pointer
+    def PSYM_ENUMMODULES_CALLBACK(ModuleName: win32more.Foundation.PSTR, BaseOfDll: UInt32, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PSYM_ENUMMODULES_CALLBACK64(ModuleName: win32more.Foundation.PSTR, BaseOfDll: UInt64, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PSYM_ENUMMODULES_CALLBACKW64(ModuleName: win32more.Foundation.PWSTR, BaseOfDll: UInt64, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PSYM_ENUMPROCESSES_CALLBACK(hProcess: win32more.Foundation.HANDLE, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PSYM_ENUMSOURCEFILES_CALLBACK(pSourceFile: POINTER(win32more.System.Diagnostics.Debug.SOURCEFILE_head), UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PSYM_ENUMSOURCEFILES_CALLBACKW(pSourceFile: POINTER(win32more.System.Diagnostics.Debug.SOURCEFILEW_head), UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
+if ARCH in 'X86':
+    @winfunctype_pointer
+    def PSYM_ENUMSYMBOLS_CALLBACK(SymbolName: win32more.Foundation.PSTR, SymbolAddress: UInt32, SymbolSize: UInt32, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PSYM_ENUMSYMBOLS_CALLBACK64(SymbolName: win32more.Foundation.PSTR, SymbolAddress: UInt64, SymbolSize: UInt32, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def PSYM_ENUMSYMBOLS_CALLBACK64W(SymbolName: win32more.Foundation.PWSTR, SymbolAddress: UInt64, SymbolSize: UInt32, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
+if ARCH in 'X86':
+    @winfunctype_pointer
+    def PSYM_ENUMSYMBOLS_CALLBACKW(SymbolName: win32more.Foundation.PWSTR, SymbolAddress: UInt32, SymbolSize: UInt32, UserContext: c_void_p) -> win32more.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype_pointer
     def PTRANSLATE_ADDRESS_ROUTINE(hProcess: win32more.Foundation.HANDLE, hThread: win32more.Foundation.HANDLE, lpaddr: POINTER(win32more.System.Diagnostics.Debug.ADDRESS_head)) -> UInt32: ...
@@ -13692,13 +13668,13 @@ def PWINDBG_GET_THREAD_CONTEXT_ROUTINE(Processor: UInt32, lpContext: POINTER(win
 @winfunctype_pointer
 def PWINDBG_IOCTL_ROUTINE(IoctlType: UInt16, lpvData: c_void_p, cbSize: UInt32) -> UInt32: ...
 @winfunctype_pointer
-def PWINDBG_OLD_EXTENSION_ROUTINE(dwCurrentPc: UInt32, lpExtensionApis: POINTER(win32more.System.Diagnostics.Debug.WINDBG_EXTENSION_APIS_head), lpArgumentString: win32more.Foundation.PSTR) -> Void: ...
-@winfunctype_pointer
 def PWINDBG_OLDKD_EXTENSION_ROUTINE(dwCurrentPc: UInt32, lpExtensionApis: POINTER(win32more.System.Diagnostics.Debug.WINDBG_OLDKD_EXTENSION_APIS_head), lpArgumentString: win32more.Foundation.PSTR) -> Void: ...
 @winfunctype_pointer
 def PWINDBG_OLDKD_READ_PHYSICAL_MEMORY(address: UInt64, buffer: c_void_p, count: UInt32, bytesread: POINTER(UInt32)) -> UInt32: ...
 @winfunctype_pointer
 def PWINDBG_OLDKD_WRITE_PHYSICAL_MEMORY(address: UInt64, buffer: c_void_p, length: UInt32, byteswritten: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def PWINDBG_OLD_EXTENSION_ROUTINE(dwCurrentPc: UInt32, lpExtensionApis: POINTER(win32more.System.Diagnostics.Debug.WINDBG_EXTENSION_APIS_head), lpArgumentString: win32more.Foundation.PSTR) -> Void: ...
 @cfunctype_pointer
 def PWINDBG_OUTPUT_ROUTINE(lpFormat: win32more.Foundation.PSTR) -> Void: ...
 @winfunctype_pointer
@@ -13721,12 +13697,30 @@ def PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE(offset: UIntPtr, lpBuffer: c_void_p, cb
 def PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE32(offset: UInt32, lpBuffer: c_void_p, cb: UInt32, lpcbBytesWritten: POINTER(UInt32)) -> UInt32: ...
 @winfunctype_pointer
 def PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE64(offset: UInt64, lpBuffer: c_void_p, cb: UInt32, lpcbBytesWritten: POINTER(UInt32)) -> UInt32: ...
-RawSearchFlags = Int32
-RawSearchFlags_RawSearchNone: RawSearchFlags = 0
-RawSearchFlags_RawSearchNoBases: RawSearchFlags = 1
-class READ_WRITE_MSR(Structure):
-    Msr: UInt32
-    Value: Int64
+PointerKind = Int32
+PointerKind_PointerStandard: PointerKind = 0
+PointerKind_PointerReference: PointerKind = 1
+PointerKind_PointerRValueReference: PointerKind = 2
+PointerKind_PointerCXHat: PointerKind = 3
+PointerKind_PointerManagedReference: PointerKind = 4
+PreferredFormat = Int32
+PreferredFormat_FormatNone: PreferredFormat = 0
+PreferredFormat_FormatSingleCharacter: PreferredFormat = 1
+PreferredFormat_FormatQuotedString: PreferredFormat = 2
+PreferredFormat_FormatString: PreferredFormat = 3
+PreferredFormat_FormatQuotedUnicodeString: PreferredFormat = 4
+PreferredFormat_FormatUnicodeString: PreferredFormat = 5
+PreferredFormat_FormatQuotedUTF8String: PreferredFormat = 6
+PreferredFormat_FormatUTF8String: PreferredFormat = 7
+PreferredFormat_FormatBSTRString: PreferredFormat = 8
+PreferredFormat_FormatQuotedHString: PreferredFormat = 9
+PreferredFormat_FormatHString: PreferredFormat = 10
+PreferredFormat_FormatRaw: PreferredFormat = 11
+PreferredFormat_FormatEnumNameOnly: PreferredFormat = 12
+PreferredFormat_FormatEscapedStringWithQuote: PreferredFormat = 13
+PreferredFormat_FormatUTF32String: PreferredFormat = 14
+PreferredFormat_FormatQuotedUTF32String: PreferredFormat = 15
+ProcessDebugManager = Guid('78a51822-51f4-11d0-8f-20-00-80-5f-2c-d0-64')
 class READCONTROLSPACE(Structure):
     Processor: UInt16
     Address: UInt32
@@ -13742,6 +13736,9 @@ class READCONTROLSPACE64(Structure):
     Address: UInt64
     BufLen: UInt32
     Buf: Byte * 1
+class READ_WRITE_MSR(Structure):
+    Msr: UInt32
+    Value: Int64
 class RIP_INFO(Structure):
     dwError: UInt32
     dwType: win32more.System.Diagnostics.Debug.RIP_INFO_TYPE
@@ -13754,63 +13751,9 @@ UNW_FLAG_NHANDLER: RTL_VIRTUAL_UNWIND_HANDLER_TYPE = 0
 UNW_FLAG_EHANDLER: RTL_VIRTUAL_UNWIND_HANDLER_TYPE = 1
 UNW_FLAG_UHANDLER: RTL_VIRTUAL_UNWIND_HANDLER_TYPE = 2
 UNW_FLAG_CHAININFO: RTL_VIRTUAL_UNWIND_HANDLER_TYPE = 4
-SCRIPT_DEBUGGER_OPTIONS = Int32
-SDO_NONE: SCRIPT_DEBUGGER_OPTIONS = 0
-SDO_ENABLE_FIRST_CHANCE_EXCEPTIONS: SCRIPT_DEBUGGER_OPTIONS = 1
-SDO_ENABLE_WEB_WORKER_SUPPORT: SCRIPT_DEBUGGER_OPTIONS = 2
-SDO_ENABLE_NONUSER_CODE_SUPPORT: SCRIPT_DEBUGGER_OPTIONS = 4
-SDO_ENABLE_LIBRARY_STACK_FRAME: SCRIPT_DEBUGGER_OPTIONS = 8
-SCRIPT_ERROR_DEBUG_EXCEPTION_THROWN_KIND = Int32
-ETK_FIRST_CHANCE: SCRIPT_ERROR_DEBUG_EXCEPTION_THROWN_KIND = 0
-ETK_USER_UNHANDLED: SCRIPT_ERROR_DEBUG_EXCEPTION_THROWN_KIND = 1
-ETK_UNHANDLED: SCRIPT_ERROR_DEBUG_EXCEPTION_THROWN_KIND = 2
-SCRIPT_INVOCATION_CONTEXT_TYPE = Int32
-SICT_Event: SCRIPT_INVOCATION_CONTEXT_TYPE = 0
-SICT_SetTimeout: SCRIPT_INVOCATION_CONTEXT_TYPE = 1
-SICT_SetInterval: SCRIPT_INVOCATION_CONTEXT_TYPE = 2
-SICT_SetImmediate: SCRIPT_INVOCATION_CONTEXT_TYPE = 3
-SICT_RequestAnimationFrame: SCRIPT_INVOCATION_CONTEXT_TYPE = 4
-SICT_ToString: SCRIPT_INVOCATION_CONTEXT_TYPE = 5
-SICT_MutationObserverCheckpoint: SCRIPT_INVOCATION_CONTEXT_TYPE = 6
-SICT_WWAExecUnsafeLocalFunction: SCRIPT_INVOCATION_CONTEXT_TYPE = 7
-SICT_WWAExecAtPriority: SCRIPT_INVOCATION_CONTEXT_TYPE = 8
-ScriptChangeKind = Int32
-ScriptChangeKind_ScriptRename: ScriptChangeKind = 0
-ScriptDebugEvent = Int32
-ScriptDebugEvent_ScriptDebugBreakpoint: ScriptDebugEvent = 0
-ScriptDebugEvent_ScriptDebugStep: ScriptDebugEvent = 1
-ScriptDebugEvent_ScriptDebugException: ScriptDebugEvent = 2
-ScriptDebugEvent_ScriptDebugAsyncBreak: ScriptDebugEvent = 3
-ScriptDebugEventFilter = Int32
-ScriptDebugEventFilter_ScriptDebugEventFilterEntry: ScriptDebugEventFilter = 0
-ScriptDebugEventFilter_ScriptDebugEventFilterException: ScriptDebugEventFilter = 1
-ScriptDebugEventFilter_ScriptDebugEventFilterUnhandledException: ScriptDebugEventFilter = 2
-ScriptDebugEventFilter_ScriptDebugEventFilterAbort: ScriptDebugEventFilter = 3
-class ScriptDebugEventInformation(Structure):
-    DebugEvent: win32more.System.Diagnostics.Debug.ScriptDebugEvent
-    EventPosition: win32more.System.Diagnostics.Debug.ScriptDebugPosition
-    EventSpanEnd: win32more.System.Diagnostics.Debug.ScriptDebugPosition
-    u: _u_e__Union
-    class _u_e__Union(Union):
-        ExceptionInformation: _ExceptionInformation_e__Struct
-        BreakpointInformation: _BreakpointInformation_e__Struct
-        class _ExceptionInformation_e__Struct(Structure):
-            IsUncaught: Byte
-        class _BreakpointInformation_e__Struct(Structure):
-            BreakpointId: UInt64
-class ScriptDebugPosition(Structure):
-    Line: UInt32
-    Column: UInt32
-ScriptDebugState = Int32
-ScriptDebugState_ScriptDebugNoDebugger: ScriptDebugState = 0
-ScriptDebugState_ScriptDebugNotExecuting: ScriptDebugState = 1
-ScriptDebugState_ScriptDebugExecuting: ScriptDebugState = 2
-ScriptDebugState_ScriptDebugBreak: ScriptDebugState = 3
-ScriptExecutionKind = Int32
-ScriptExecutionKind_ScriptExecutionNormal: ScriptExecutionKind = 0
-ScriptExecutionKind_ScriptExecutionStepIn: ScriptExecutionKind = 1
-ScriptExecutionKind_ScriptExecutionStepOut: ScriptExecutionKind = 2
-ScriptExecutionKind_ScriptExecutionStepOver: ScriptExecutionKind = 3
+RawSearchFlags = Int32
+RawSearchFlags_RawSearchNone: RawSearchFlags = 0
+RawSearchFlags_RawSearchNoBases: RawSearchFlags = 1
 SCRIPTGCTYPE = Int32
 SCRIPTGCTYPE_NORMAL: SCRIPTGCTYPE = 0
 SCRIPTGCTYPE_EXHAUSTIVE: SCRIPTGCTYPE = 1
@@ -13845,18 +13788,32 @@ SCRIPTUICHANDLING_NOUIDEFAULT: SCRIPTUICHANDLING = 2
 SCRIPTUICITEM = Int32
 SCRIPTUICITEM_INPUTBOX: SCRIPTUICITEM = 1
 SCRIPTUICITEM_MSGBOX: SCRIPTUICITEM = 2
+SCRIPT_DEBUGGER_OPTIONS = Int32
+SDO_NONE: SCRIPT_DEBUGGER_OPTIONS = 0
+SDO_ENABLE_FIRST_CHANCE_EXCEPTIONS: SCRIPT_DEBUGGER_OPTIONS = 1
+SDO_ENABLE_WEB_WORKER_SUPPORT: SCRIPT_DEBUGGER_OPTIONS = 2
+SDO_ENABLE_NONUSER_CODE_SUPPORT: SCRIPT_DEBUGGER_OPTIONS = 4
+SDO_ENABLE_LIBRARY_STACK_FRAME: SCRIPT_DEBUGGER_OPTIONS = 8
+SCRIPT_ERROR_DEBUG_EXCEPTION_THROWN_KIND = Int32
+ETK_FIRST_CHANCE: SCRIPT_ERROR_DEBUG_EXCEPTION_THROWN_KIND = 0
+ETK_USER_UNHANDLED: SCRIPT_ERROR_DEBUG_EXCEPTION_THROWN_KIND = 1
+ETK_UNHANDLED: SCRIPT_ERROR_DEBUG_EXCEPTION_THROWN_KIND = 2
+SCRIPT_INVOCATION_CONTEXT_TYPE = Int32
+SICT_Event: SCRIPT_INVOCATION_CONTEXT_TYPE = 0
+SICT_SetTimeout: SCRIPT_INVOCATION_CONTEXT_TYPE = 1
+SICT_SetInterval: SCRIPT_INVOCATION_CONTEXT_TYPE = 2
+SICT_SetImmediate: SCRIPT_INVOCATION_CONTEXT_TYPE = 3
+SICT_RequestAnimationFrame: SCRIPT_INVOCATION_CONTEXT_TYPE = 4
+SICT_ToString: SCRIPT_INVOCATION_CONTEXT_TYPE = 5
+SICT_MutationObserverCheckpoint: SCRIPT_INVOCATION_CONTEXT_TYPE = 6
+SICT_WWAExecUnsafeLocalFunction: SCRIPT_INVOCATION_CONTEXT_TYPE = 7
+SICT_WWAExecAtPriority: SCRIPT_INVOCATION_CONTEXT_TYPE = 8
 class SEARCHMEMORY(Structure):
     SearchAddress: UInt64
     SearchLength: UInt64
     FoundAddress: UInt64
     PatternLength: UInt32
     Pattern: c_void_p
-SignatureComparison = Int32
-SignatureComparison_Unrelated: SignatureComparison = 0
-SignatureComparison_Ambiguous: SignatureComparison = 1
-SignatureComparison_LessSpecific: SignatureComparison = 2
-SignatureComparison_MoreSpecific: SignatureComparison = 3
-SignatureComparison_Identical: SignatureComparison = 4
 class SOURCEFILE(Structure):
     ModBase: UInt64
     FileName: win32more.Foundation.PSTR
@@ -13879,16 +13836,6 @@ class SRCCODEINFOW(Structure):
     FileName: Char * 261
     LineNumber: UInt32
     Address: UInt64
-class STACK_SRC_INFO(Structure):
-    ImagePath: win32more.Foundation.PWSTR
-    ModuleName: win32more.Foundation.PWSTR
-    Function: win32more.Foundation.PWSTR
-    Displacement: UInt32
-    Row: UInt32
-    Column: UInt32
-class STACK_SYM_FRAME_INFO(Structure):
-    StackFrameEx: win32more.System.Diagnostics.Debug.DEBUG_STACK_FRAME_EX
-    SrcInfo: win32more.System.Diagnostics.Debug.STACK_SRC_INFO
 if ARCH in 'X86':
     class STACKFRAME(Structure):
         AddrPC: win32more.System.Diagnostics.Debug.ADDRESS
@@ -13902,6 +13849,18 @@ if ARCH in 'X86':
         Reserved: UInt32 * 3
         KdHelp: win32more.System.Diagnostics.Debug.KDHELP
         AddrBStore: win32more.System.Diagnostics.Debug.ADDRESS
+class STACKFRAME64(Structure):
+    AddrPC: win32more.System.Diagnostics.Debug.ADDRESS64
+    AddrReturn: win32more.System.Diagnostics.Debug.ADDRESS64
+    AddrFrame: win32more.System.Diagnostics.Debug.ADDRESS64
+    AddrStack: win32more.System.Diagnostics.Debug.ADDRESS64
+    AddrBStore: win32more.System.Diagnostics.Debug.ADDRESS64
+    FuncTableEntry: c_void_p
+    Params: UInt64 * 4
+    Far: win32more.Foundation.BOOL
+    Virtual: win32more.Foundation.BOOL
+    Reserved: UInt64 * 3
+    KdHelp: win32more.System.Diagnostics.Debug.KDHELP64
 class STACKFRAME_EX(Structure):
     AddrPC: win32more.System.Diagnostics.Debug.ADDRESS64
     AddrReturn: win32more.System.Diagnostics.Debug.ADDRESS64
@@ -13916,18 +13875,109 @@ class STACKFRAME_EX(Structure):
     KdHelp: win32more.System.Diagnostics.Debug.KDHELP64
     StackFrameSize: UInt32
     InlineFrameContext: UInt32
-class STACKFRAME64(Structure):
-    AddrPC: win32more.System.Diagnostics.Debug.ADDRESS64
-    AddrReturn: win32more.System.Diagnostics.Debug.ADDRESS64
-    AddrFrame: win32more.System.Diagnostics.Debug.ADDRESS64
-    AddrStack: win32more.System.Diagnostics.Debug.ADDRESS64
-    AddrBStore: win32more.System.Diagnostics.Debug.ADDRESS64
-    FuncTableEntry: c_void_p
-    Params: UInt64 * 4
-    Far: win32more.Foundation.BOOL
-    Virtual: win32more.Foundation.BOOL
-    Reserved: UInt64 * 3
-    KdHelp: win32more.System.Diagnostics.Debug.KDHELP64
+class STACK_SRC_INFO(Structure):
+    ImagePath: win32more.Foundation.PWSTR
+    ModuleName: win32more.Foundation.PWSTR
+    Function: win32more.Foundation.PWSTR
+    Displacement: UInt32
+    Row: UInt32
+    Column: UInt32
+class STACK_SYM_FRAME_INFO(Structure):
+    StackFrameEx: win32more.System.Diagnostics.Debug.DEBUG_STACK_FRAME_EX
+    SrcInfo: win32more.System.Diagnostics.Debug.STACK_SRC_INFO
+@winfunctype_pointer
+def SYMADDSOURCESTREAM(param0: win32more.Foundation.HANDLE, param1: UInt64, param2: win32more.Foundation.PSTR, param3: c_char_p_no, param4: UIntPtr) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def SYMADDSOURCESTREAMA(param0: win32more.Foundation.HANDLE, param1: UInt64, param2: win32more.Foundation.PSTR, param3: c_char_p_no, param4: UIntPtr) -> win32more.Foundation.BOOL: ...
+class SYMBOL_INFO(Structure):
+    SizeOfStruct: UInt32
+    TypeIndex: UInt32
+    Reserved: UInt64 * 2
+    Index: UInt32
+    Size: UInt32
+    ModBase: UInt64
+    Flags: win32more.System.Diagnostics.Debug.SYMBOL_INFO_FLAGS
+    Value: UInt64
+    Address: UInt64
+    Register: UInt32
+    Scope: UInt32
+    Tag: UInt32
+    NameLen: UInt32
+    MaxNameLen: UInt32
+    Name: win32more.Foundation.CHAR * 1
+class SYMBOL_INFOW(Structure):
+    SizeOfStruct: UInt32
+    TypeIndex: UInt32
+    Reserved: UInt64 * 2
+    Index: UInt32
+    Size: UInt32
+    ModBase: UInt64
+    Flags: win32more.System.Diagnostics.Debug.SYMBOL_INFO_FLAGS
+    Value: UInt64
+    Address: UInt64
+    Register: UInt32
+    Scope: UInt32
+    Tag: UInt32
+    NameLen: UInt32
+    MaxNameLen: UInt32
+    Name: Char * 1
+class SYMBOL_INFO_EX(Structure):
+    SizeOfStruct: UInt32
+    TypeOfInfo: UInt32
+    Offset: UInt64
+    Line: UInt32
+    Displacement: UInt32
+    Reserved: UInt32 * 4
+SYMBOL_INFO_FLAGS = UInt32
+SYMFLAG_CLR_TOKEN: SYMBOL_INFO_FLAGS = 262144
+SYMFLAG_CONSTANT: SYMBOL_INFO_FLAGS = 256
+SYMFLAG_EXPORT: SYMBOL_INFO_FLAGS = 512
+SYMFLAG_FORWARDER: SYMBOL_INFO_FLAGS = 1024
+SYMFLAG_FRAMEREL: SYMBOL_INFO_FLAGS = 32
+SYMFLAG_FUNCTION: SYMBOL_INFO_FLAGS = 2048
+SYMFLAG_ILREL: SYMBOL_INFO_FLAGS = 65536
+SYMFLAG_LOCAL: SYMBOL_INFO_FLAGS = 128
+SYMFLAG_METADATA: SYMBOL_INFO_FLAGS = 131072
+SYMFLAG_PARAMETER: SYMBOL_INFO_FLAGS = 64
+SYMFLAG_REGISTER: SYMBOL_INFO_FLAGS = 8
+SYMFLAG_REGREL: SYMBOL_INFO_FLAGS = 16
+SYMFLAG_SLOT: SYMBOL_INFO_FLAGS = 32768
+SYMFLAG_THUNK: SYMBOL_INFO_FLAGS = 8192
+SYMFLAG_TLSREL: SYMBOL_INFO_FLAGS = 16384
+SYMFLAG_VALUEPRESENT: SYMBOL_INFO_FLAGS = 1
+SYMFLAG_VIRTUAL: SYMBOL_INFO_FLAGS = 4096
+class SYMBOL_INFO_PACKAGE(Structure):
+    si: win32more.System.Diagnostics.Debug.SYMBOL_INFO
+    name: win32more.Foundation.CHAR * 2001
+class SYMBOL_INFO_PACKAGEW(Structure):
+    si: win32more.System.Diagnostics.Debug.SYMBOL_INFOW
+    name: Char * 2001
+class SYMSRV_EXTENDED_OUTPUT_DATA(Structure):
+    sizeOfStruct: UInt32
+    version: UInt32
+    filePtrMsg: Char * 261
+class SYMSRV_INDEX_INFO(Structure):
+    sizeofstruct: UInt32
+    file: win32more.Foundation.CHAR * 261
+    stripped: win32more.Foundation.BOOL
+    timestamp: UInt32
+    size: UInt32
+    dbgfile: win32more.Foundation.CHAR * 261
+    pdbfile: win32more.Foundation.CHAR * 261
+    guid: Guid
+    sig: UInt32
+    age: UInt32
+class SYMSRV_INDEX_INFOW(Structure):
+    sizeofstruct: UInt32
+    file: Char * 261
+    stripped: win32more.Foundation.BOOL
+    timestamp: UInt32
+    size: UInt32
+    dbgfile: Char * 261
+    pdbfile: Char * 261
+    guid: Guid
+    sig: UInt32
+    age: UInt32
 class SYM_DUMP_PARAM(Structure):
     size: UInt32
     sName: c_char_p_no
@@ -13972,73 +14022,49 @@ SYM_TYPE_SymSym: SYM_TYPE = 6
 SYM_TYPE_SymDia: SYM_TYPE = 7
 SYM_TYPE_SymVirtual: SYM_TYPE = 8
 SYM_TYPE_NumSymTypes: SYM_TYPE = 9
-@winfunctype_pointer
-def SYMADDSOURCESTREAM(param0: win32more.Foundation.HANDLE, param1: UInt64, param2: win32more.Foundation.PSTR, param3: c_char_p_no, param4: UIntPtr) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def SYMADDSOURCESTREAMA(param0: win32more.Foundation.HANDLE, param1: UInt64, param2: win32more.Foundation.PSTR, param3: c_char_p_no, param4: UIntPtr) -> win32more.Foundation.BOOL: ...
-class SYMBOL_INFO(Structure):
-    SizeOfStruct: UInt32
-    TypeIndex: UInt32
-    Reserved: UInt64 * 2
-    Index: UInt32
-    Size: UInt32
-    ModBase: UInt64
-    Flags: win32more.System.Diagnostics.Debug.SYMBOL_INFO_FLAGS
-    Value: UInt64
-    Address: UInt64
-    Register: UInt32
-    Scope: UInt32
-    Tag: UInt32
-    NameLen: UInt32
-    MaxNameLen: UInt32
-    Name: win32more.Foundation.CHAR * 1
-class SYMBOL_INFO_EX(Structure):
-    SizeOfStruct: UInt32
-    TypeOfInfo: UInt32
-    Offset: UInt64
+ScriptChangeKind = Int32
+ScriptChangeKind_ScriptRename: ScriptChangeKind = 0
+ScriptDebugEvent = Int32
+ScriptDebugEvent_ScriptDebugBreakpoint: ScriptDebugEvent = 0
+ScriptDebugEvent_ScriptDebugStep: ScriptDebugEvent = 1
+ScriptDebugEvent_ScriptDebugException: ScriptDebugEvent = 2
+ScriptDebugEvent_ScriptDebugAsyncBreak: ScriptDebugEvent = 3
+ScriptDebugEventFilter = Int32
+ScriptDebugEventFilter_ScriptDebugEventFilterEntry: ScriptDebugEventFilter = 0
+ScriptDebugEventFilter_ScriptDebugEventFilterException: ScriptDebugEventFilter = 1
+ScriptDebugEventFilter_ScriptDebugEventFilterUnhandledException: ScriptDebugEventFilter = 2
+ScriptDebugEventFilter_ScriptDebugEventFilterAbort: ScriptDebugEventFilter = 3
+class ScriptDebugEventInformation(Structure):
+    DebugEvent: win32more.System.Diagnostics.Debug.ScriptDebugEvent
+    EventPosition: win32more.System.Diagnostics.Debug.ScriptDebugPosition
+    EventSpanEnd: win32more.System.Diagnostics.Debug.ScriptDebugPosition
+    u: _u_e__Union
+    class _u_e__Union(Union):
+        ExceptionInformation: _ExceptionInformation_e__Struct
+        BreakpointInformation: _BreakpointInformation_e__Struct
+        class _ExceptionInformation_e__Struct(Structure):
+            IsUncaught: Byte
+        class _BreakpointInformation_e__Struct(Structure):
+            BreakpointId: UInt64
+class ScriptDebugPosition(Structure):
     Line: UInt32
-    Displacement: UInt32
-    Reserved: UInt32 * 4
-SYMBOL_INFO_FLAGS = UInt32
-SYMFLAG_CLR_TOKEN: SYMBOL_INFO_FLAGS = 262144
-SYMFLAG_CONSTANT: SYMBOL_INFO_FLAGS = 256
-SYMFLAG_EXPORT: SYMBOL_INFO_FLAGS = 512
-SYMFLAG_FORWARDER: SYMBOL_INFO_FLAGS = 1024
-SYMFLAG_FRAMEREL: SYMBOL_INFO_FLAGS = 32
-SYMFLAG_FUNCTION: SYMBOL_INFO_FLAGS = 2048
-SYMFLAG_ILREL: SYMBOL_INFO_FLAGS = 65536
-SYMFLAG_LOCAL: SYMBOL_INFO_FLAGS = 128
-SYMFLAG_METADATA: SYMBOL_INFO_FLAGS = 131072
-SYMFLAG_PARAMETER: SYMBOL_INFO_FLAGS = 64
-SYMFLAG_REGISTER: SYMBOL_INFO_FLAGS = 8
-SYMFLAG_REGREL: SYMBOL_INFO_FLAGS = 16
-SYMFLAG_SLOT: SYMBOL_INFO_FLAGS = 32768
-SYMFLAG_THUNK: SYMBOL_INFO_FLAGS = 8192
-SYMFLAG_TLSREL: SYMBOL_INFO_FLAGS = 16384
-SYMFLAG_VALUEPRESENT: SYMBOL_INFO_FLAGS = 1
-SYMFLAG_VIRTUAL: SYMBOL_INFO_FLAGS = 4096
-class SYMBOL_INFO_PACKAGE(Structure):
-    si: win32more.System.Diagnostics.Debug.SYMBOL_INFO
-    name: win32more.Foundation.CHAR * 2001
-class SYMBOL_INFO_PACKAGEW(Structure):
-    si: win32more.System.Diagnostics.Debug.SYMBOL_INFOW
-    name: Char * 2001
-class SYMBOL_INFOW(Structure):
-    SizeOfStruct: UInt32
-    TypeIndex: UInt32
-    Reserved: UInt64 * 2
-    Index: UInt32
-    Size: UInt32
-    ModBase: UInt64
-    Flags: win32more.System.Diagnostics.Debug.SYMBOL_INFO_FLAGS
-    Value: UInt64
-    Address: UInt64
-    Register: UInt32
-    Scope: UInt32
-    Tag: UInt32
-    NameLen: UInt32
-    MaxNameLen: UInt32
-    Name: Char * 1
+    Column: UInt32
+ScriptDebugState = Int32
+ScriptDebugState_ScriptDebugNoDebugger: ScriptDebugState = 0
+ScriptDebugState_ScriptDebugNotExecuting: ScriptDebugState = 1
+ScriptDebugState_ScriptDebugExecuting: ScriptDebugState = 2
+ScriptDebugState_ScriptDebugBreak: ScriptDebugState = 3
+ScriptExecutionKind = Int32
+ScriptExecutionKind_ScriptExecutionNormal: ScriptExecutionKind = 0
+ScriptExecutionKind_ScriptExecutionStepIn: ScriptExecutionKind = 1
+ScriptExecutionKind_ScriptExecutionStepOut: ScriptExecutionKind = 2
+ScriptExecutionKind_ScriptExecutionStepOver: ScriptExecutionKind = 3
+SignatureComparison = Int32
+SignatureComparison_Unrelated: SignatureComparison = 0
+SignatureComparison_Ambiguous: SignatureComparison = 1
+SignatureComparison_LessSpecific: SignatureComparison = 2
+SignatureComparison_MoreSpecific: SignatureComparison = 3
+SignatureComparison_Identical: SignatureComparison = 4
 SymbolKind = Int32
 SymbolKind_Symbol: SymbolKind = 0
 SymbolKind_SymbolModule: SymbolKind = 1
@@ -14053,32 +14079,6 @@ SymbolSearchOptions = Int32
 SymbolSearchOptions_SymbolSearchNone: SymbolSearchOptions = 0
 SymbolSearchOptions_SymbolSearchCompletion: SymbolSearchOptions = 1
 SymbolSearchOptions_SymbolSearchCaseInsensitive: SymbolSearchOptions = 2
-class SYMSRV_EXTENDED_OUTPUT_DATA(Structure):
-    sizeOfStruct: UInt32
-    version: UInt32
-    filePtrMsg: Char * 261
-class SYMSRV_INDEX_INFO(Structure):
-    sizeofstruct: UInt32
-    file: win32more.Foundation.CHAR * 261
-    stripped: win32more.Foundation.BOOL
-    timestamp: UInt32
-    size: UInt32
-    dbgfile: win32more.Foundation.CHAR * 261
-    pdbfile: win32more.Foundation.CHAR * 261
-    guid: Guid
-    sig: UInt32
-    age: UInt32
-class SYMSRV_INDEX_INFOW(Structure):
-    sizeofstruct: UInt32
-    file: Char * 261
-    stripped: win32more.Foundation.BOOL
-    timestamp: UInt32
-    size: UInt32
-    dbgfile: Char * 261
-    pdbfile: Char * 261
-    guid: Guid
-    sig: UInt32
-    age: UInt32
 class TEXT_DOCUMENT_ARRAY(Structure):
     dwCount: UInt32
     Members: POINTER(win32more.System.Diagnostics.Debug.IDebugDocumentText_head)
@@ -14133,9 +14133,6 @@ if ARCH in 'X64':
     class UNWIND_HISTORY_TABLE_ENTRY(Structure):
         ImageBase: UIntPtr
         FunctionEntry: POINTER(win32more.System.Diagnostics.Debug.IMAGE_RUNTIME_FUNCTION_ENTRY_head)
-VarArgsKind = Int32
-VarArgsKind_VarArgsNone: VarArgsKind = 0
-VarArgsKind_VarArgsCStyle: VarArgsKind = 1
 VER_PLATFORM = UInt32
 VER_PLATFORM_WIN32s: VER_PLATFORM = 0
 VER_PLATFORM_WIN32_WINDOWS: VER_PLATFORM = 1
@@ -14146,10 +14143,9 @@ class VIRTUAL_TO_PHYSICAL(Structure):
     PdeAddress: UInt64
     Virtual: UInt64
     Physical: UInt64
-WAIT_CHAIN_THREAD_OPTIONS = UInt32
-WCT_OUT_OF_PROC_COM_FLAG: WAIT_CHAIN_THREAD_OPTIONS = 2
-WCT_OUT_OF_PROC_CS_FLAG: WAIT_CHAIN_THREAD_OPTIONS = 4
-WCT_OUT_OF_PROC_FLAG: WAIT_CHAIN_THREAD_OPTIONS = 1
+VarArgsKind = Int32
+VarArgsKind_VarArgsNone: VarArgsKind = 0
+VarArgsKind_VarArgsCStyle: VarArgsKind = 1
 class WAITCHAIN_NODE_INFO(Structure):
     ObjectType: win32more.System.Diagnostics.Debug.WCT_OBJECT_TYPE
     ObjectStatus: win32more.System.Diagnostics.Debug.WCT_OBJECT_STATUS
@@ -14166,6 +14162,10 @@ class WAITCHAIN_NODE_INFO(Structure):
             ThreadId: UInt32
             WaitTime: UInt32
             ContextSwitches: UInt32
+WAIT_CHAIN_THREAD_OPTIONS = UInt32
+WCT_OUT_OF_PROC_COM_FLAG: WAIT_CHAIN_THREAD_OPTIONS = 2
+WCT_OUT_OF_PROC_CS_FLAG: WAIT_CHAIN_THREAD_OPTIONS = 4
+WCT_OUT_OF_PROC_FLAG: WAIT_CHAIN_THREAD_OPTIONS = 1
 WCT_OBJECT_STATUS = Int32
 WCT_OBJECT_STATUS_WctStatusNoAccess: WCT_OBJECT_STATUS = 1
 WCT_OBJECT_STATUS_WctStatusRunning: WCT_OBJECT_STATUS = 2
@@ -14519,6 +14519,15 @@ class WHEA_XPF_CMC_DESCRIPTOR(Structure):
     Notify: win32more.System.Diagnostics.Debug.WHEA_NOTIFICATION_DESCRIPTOR
     Banks: win32more.System.Diagnostics.Debug.WHEA_XPF_MC_BANK_DESCRIPTOR * 32
     _pack_ = 1
+class WHEA_XPF_MCE_DESCRIPTOR(Structure):
+    Type: UInt16
+    Enabled: Byte
+    NumberOfBanks: Byte
+    Flags: win32more.System.Diagnostics.Debug.XPF_MCE_FLAGS
+    MCG_Capability: UInt64
+    MCG_GlobalControl: UInt64
+    Banks: win32more.System.Diagnostics.Debug.WHEA_XPF_MC_BANK_DESCRIPTOR * 32
+    _pack_ = 1
 class WHEA_XPF_MC_BANK_DESCRIPTOR(Structure):
     BankNumber: Byte
     ClearOnInitialization: win32more.Foundation.BOOLEAN
@@ -14529,15 +14538,6 @@ class WHEA_XPF_MC_BANK_DESCRIPTOR(Structure):
     AddressMsr: UInt32
     MiscMsr: UInt32
     ControlData: UInt64
-    _pack_ = 1
-class WHEA_XPF_MCE_DESCRIPTOR(Structure):
-    Type: UInt16
-    Enabled: Byte
-    NumberOfBanks: Byte
-    Flags: win32more.System.Diagnostics.Debug.XPF_MCE_FLAGS
-    MCG_Capability: UInt64
-    MCG_GlobalControl: UInt64
-    Banks: win32more.System.Diagnostics.Debug.WHEA_XPF_MC_BANK_DESCRIPTOR * 32
     _pack_ = 1
 class WHEA_XPF_NMI_DESCRIPTOR(Structure):
     Type: UInt16
@@ -14582,13 +14582,6 @@ class WINDBG_EXTENSION_APIS64(Structure):
     lpSetThreadContextRoutine: win32more.System.Diagnostics.Debug.PWINDBG_SET_THREAD_CONTEXT_ROUTINE
     lpIoctlRoutine: win32more.System.Diagnostics.Debug.PWINDBG_IOCTL_ROUTINE
     lpStackTraceRoutine: win32more.System.Diagnostics.Debug.PWINDBG_STACKTRACE_ROUTINE64
-class WINDBG_OLD_EXTENSION_APIS(Structure):
-    nSize: UInt32
-    lpOutputRoutine: win32more.System.Diagnostics.Debug.PWINDBG_OUTPUT_ROUTINE
-    lpGetExpressionRoutine: win32more.System.Diagnostics.Debug.PWINDBG_GET_EXPRESSION
-    lpGetSymbolRoutine: win32more.System.Diagnostics.Debug.PWINDBG_GET_SYMBOL
-    lpDisasmRoutine: win32more.System.Diagnostics.Debug.PWINDBG_DISASM
-    lpCheckControlCRoutine: win32more.System.Diagnostics.Debug.PWINDBG_CHECK_CONTROL_C
 class WINDBG_OLDKD_EXTENSION_APIS(Structure):
     nSize: UInt32
     lpOutputRoutine: win32more.System.Diagnostics.Debug.PWINDBG_OUTPUT_ROUTINE
@@ -14600,6 +14593,13 @@ class WINDBG_OLDKD_EXTENSION_APIS(Structure):
     lpWriteVirtualMemRoutine: win32more.System.Diagnostics.Debug.PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE32
     lpReadPhysicalMemRoutine: win32more.System.Diagnostics.Debug.PWINDBG_OLDKD_READ_PHYSICAL_MEMORY
     lpWritePhysicalMemRoutine: win32more.System.Diagnostics.Debug.PWINDBG_OLDKD_WRITE_PHYSICAL_MEMORY
+class WINDBG_OLD_EXTENSION_APIS(Structure):
+    nSize: UInt32
+    lpOutputRoutine: win32more.System.Diagnostics.Debug.PWINDBG_OUTPUT_ROUTINE
+    lpGetExpressionRoutine: win32more.System.Diagnostics.Debug.PWINDBG_GET_EXPRESSION
+    lpGetSymbolRoutine: win32more.System.Diagnostics.Debug.PWINDBG_GET_SYMBOL
+    lpDisasmRoutine: win32more.System.Diagnostics.Debug.PWINDBG_DISASM
+    lpCheckControlCRoutine: win32more.System.Diagnostics.Debug.PWINDBG_CHECK_CONTROL_C
 class WOW64_CONTEXT(Structure):
     ContextFlags: UInt32
     Dr0: UInt32
@@ -14653,11 +14653,6 @@ class WOW64_LDT_ENTRY(Structure):
             BaseHi: Byte
         class _Bits_e__Struct(Structure):
             _bitfield: UInt32
-class XPF_MC_BANK_FLAGS(Union):
-    Anonymous: _Anonymous_e__Struct
-    AsUCHAR: Byte
-    class _Anonymous_e__Struct(Structure):
-        _bitfield: Byte
 class XPF_MCE_FLAGS(Union):
     Anonymous: _Anonymous_e__Struct
     AsULONG: UInt32
@@ -14665,6 +14660,11 @@ class XPF_MCE_FLAGS(Union):
     class _Anonymous_e__Struct(Structure):
         _bitfield: UInt32
         _pack_ = 1
+class XPF_MC_BANK_FLAGS(Union):
+    Anonymous: _Anonymous_e__Struct
+    AsUCHAR: Byte
+    class _Anonymous_e__Struct(Structure):
+        _bitfield: Byte
 class XSAVE_AREA(Structure):
     LegacyState: win32more.System.Diagnostics.Debug.XSAVE_FORMAT
     Header: win32more.System.Diagnostics.Debug.XSAVE_AREA_HEADER
@@ -14708,12 +14708,6 @@ if ARCH in 'X86':
         FloatRegisters: win32more.System.Diagnostics.Debug.M128A * 8
         XmmRegisters: win32more.System.Diagnostics.Debug.M128A * 8
         Reserved4: Byte * 224
-class XSTATE_CONFIG_FEATURE_MSC_INFO(Structure):
-    SizeOfInfo: UInt32
-    ContextSize: UInt32
-    EnabledFeatures: UInt64
-    Features: win32more.System.Diagnostics.Debug.XSTATE_FEATURE * 64
-    _pack_ = 4
 class XSTATE_CONFIGURATION(Structure):
     EnabledFeatures: UInt64
     EnabledVolatileFeatures: UInt64
@@ -14733,6 +14727,12 @@ class XSTATE_CONFIGURATION(Structure):
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
+class XSTATE_CONFIG_FEATURE_MSC_INFO(Structure):
+    SizeOfInfo: UInt32
+    ContextSize: UInt32
+    EnabledFeatures: UInt64
+    Features: win32more.System.Diagnostics.Debug.XSTATE_FEATURE * 64
+    _pack_ = 4
 if ARCH in 'X64,ARM64':
     class XSTATE_CONTEXT(Structure):
         Mask: UInt64
@@ -14818,11 +14818,6 @@ make_head(_module, 'DEBUG_SYMBOL_SOURCE_ENTRY')
 make_head(_module, 'DEBUG_THREAD_BASIC_INFORMATION')
 make_head(_module, 'DEBUG_TYPED_DATA')
 make_head(_module, 'DEBUG_VALUE')
-make_head(_module, 'DebugBaseEventCallbacks')
-make_head(_module, 'DebugBaseEventCallbacksWide')
-make_head(_module, 'DebugPropertyInfo')
-make_head(_module, 'DebugStackFrameDescriptor')
-make_head(_module, 'DebugStackFrameDescriptor64')
 make_head(_module, 'DIGEST_FUNCTION')
 if ARCH in 'ARM64':
     make_head(_module, 'DISPATCHER_CONTEXT')
@@ -14831,6 +14826,11 @@ if ARCH in 'X64':
 make_head(_module, 'DUMP_FILE_ATTRIBUTES')
 make_head(_module, 'DUMP_HEADER32')
 make_head(_module, 'DUMP_HEADER64')
+make_head(_module, 'DebugBaseEventCallbacks')
+make_head(_module, 'DebugBaseEventCallbacksWide')
+make_head(_module, 'DebugPropertyInfo')
+make_head(_module, 'DebugStackFrameDescriptor')
+make_head(_module, 'DebugStackFrameDescriptor64')
 make_head(_module, 'EXCEPTION_DEBUG_INFO')
 make_head(_module, 'EXCEPTION_POINTERS')
 make_head(_module, 'EXCEPTION_RECORD')
@@ -14838,14 +14838,14 @@ make_head(_module, 'EXCEPTION_RECORD32')
 make_head(_module, 'EXCEPTION_RECORD64')
 make_head(_module, 'EXIT_PROCESS_DEBUG_INFO')
 make_head(_module, 'EXIT_THREAD_DEBUG_INFO')
+make_head(_module, 'EXTSTACKTRACE')
+make_head(_module, 'EXTSTACKTRACE32')
+make_head(_module, 'EXTSTACKTRACE64')
 make_head(_module, 'EXT_API_VERSION')
 make_head(_module, 'EXT_FIND_FILE')
 make_head(_module, 'EXT_MATCH_PATTERN_A')
 make_head(_module, 'EXT_TYPED_DATA')
 make_head(_module, 'ExtendedDebugPropertyInfo')
-make_head(_module, 'EXTSTACKTRACE')
-make_head(_module, 'EXTSTACKTRACE32')
-make_head(_module, 'EXTSTACKTRACE64')
 make_head(_module, 'FIELD_INFO')
 make_head(_module, 'FPO_DATA')
 make_head(_module, 'GET_CONTEXT_EX')
@@ -15057,8 +15057,8 @@ make_head(_module, 'IEnumDebugPropertyInfo')
 make_head(_module, 'IEnumDebugStackFrames')
 make_head(_module, 'IEnumDebugStackFrames64')
 make_head(_module, 'IEnumJsStackFrames')
-make_head(_module, 'IEnumRemoteDebugApplications')
 make_head(_module, 'IEnumRemoteDebugApplicationThreads')
+make_head(_module, 'IEnumRemoteDebugApplications')
 make_head(_module, 'IEquatableConcept')
 make_head(_module, 'IHostDataModelAccess')
 make_head(_module, 'IIndexableConcept')
@@ -15073,30 +15073,6 @@ make_head(_module, 'IJsDebugStackWalker')
 make_head(_module, 'IJsEnumDebugProperty')
 make_head(_module, 'IKeyEnumerator')
 make_head(_module, 'IKeyStore')
-make_head(_module, 'IMachineDebugManager')
-make_head(_module, 'IMachineDebugManagerCookie')
-make_head(_module, 'IMachineDebugManagerEvents')
-make_head(_module, 'IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY')
-make_head(_module, 'IMAGE_COFF_SYMBOLS_HEADER')
-make_head(_module, 'IMAGE_COR20_HEADER')
-make_head(_module, 'IMAGE_DATA_DIRECTORY')
-make_head(_module, 'IMAGE_DEBUG_DIRECTORY')
-if ARCH in 'X86':
-    make_head(_module, 'IMAGE_DEBUG_INFORMATION')
-make_head(_module, 'IMAGE_FILE_HEADER')
-make_head(_module, 'IMAGE_FUNCTION_ENTRY')
-make_head(_module, 'IMAGE_FUNCTION_ENTRY64')
-make_head(_module, 'IMAGE_LOAD_CONFIG_CODE_INTEGRITY')
-make_head(_module, 'IMAGE_LOAD_CONFIG_DIRECTORY32')
-make_head(_module, 'IMAGE_LOAD_CONFIG_DIRECTORY64')
-make_head(_module, 'IMAGE_NT_HEADERS32')
-make_head(_module, 'IMAGE_NT_HEADERS64')
-make_head(_module, 'IMAGE_OPTIONAL_HEADER32')
-make_head(_module, 'IMAGE_OPTIONAL_HEADER64')
-make_head(_module, 'IMAGE_ROM_HEADERS')
-make_head(_module, 'IMAGE_ROM_OPTIONAL_HEADER')
-make_head(_module, 'IMAGE_RUNTIME_FUNCTION_ENTRY')
-make_head(_module, 'IMAGE_SECTION_HEADER')
 make_head(_module, 'IMAGEHLP_CBA_EVENT')
 make_head(_module, 'IMAGEHLP_CBA_EVENTW')
 make_head(_module, 'IMAGEHLP_CBA_READ_MEMORY')
@@ -15126,17 +15102,41 @@ make_head(_module, 'IMAGEHLP_MODULEW64_EX')
 make_head(_module, 'IMAGEHLP_STACK_FRAME')
 if ARCH in 'X86':
     make_head(_module, 'IMAGEHLP_SYMBOL')
-if ARCH in 'X86':
-    make_head(_module, 'IMAGEHLP_SYMBOL_PACKAGE')
-make_head(_module, 'IMAGEHLP_SYMBOL_SRC')
 make_head(_module, 'IMAGEHLP_SYMBOL64')
 make_head(_module, 'IMAGEHLP_SYMBOL64_PACKAGE')
 if ARCH in 'X86':
     make_head(_module, 'IMAGEHLP_SYMBOLW')
-if ARCH in 'X86':
-    make_head(_module, 'IMAGEHLP_SYMBOLW_PACKAGE')
 make_head(_module, 'IMAGEHLP_SYMBOLW64')
 make_head(_module, 'IMAGEHLP_SYMBOLW64_PACKAGE')
+if ARCH in 'X86':
+    make_head(_module, 'IMAGEHLP_SYMBOLW_PACKAGE')
+if ARCH in 'X86':
+    make_head(_module, 'IMAGEHLP_SYMBOL_PACKAGE')
+make_head(_module, 'IMAGEHLP_SYMBOL_SRC')
+make_head(_module, 'IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY')
+make_head(_module, 'IMAGE_COFF_SYMBOLS_HEADER')
+make_head(_module, 'IMAGE_COR20_HEADER')
+make_head(_module, 'IMAGE_DATA_DIRECTORY')
+make_head(_module, 'IMAGE_DEBUG_DIRECTORY')
+if ARCH in 'X86':
+    make_head(_module, 'IMAGE_DEBUG_INFORMATION')
+make_head(_module, 'IMAGE_FILE_HEADER')
+make_head(_module, 'IMAGE_FUNCTION_ENTRY')
+make_head(_module, 'IMAGE_FUNCTION_ENTRY64')
+make_head(_module, 'IMAGE_LOAD_CONFIG_CODE_INTEGRITY')
+make_head(_module, 'IMAGE_LOAD_CONFIG_DIRECTORY32')
+make_head(_module, 'IMAGE_LOAD_CONFIG_DIRECTORY64')
+make_head(_module, 'IMAGE_NT_HEADERS32')
+make_head(_module, 'IMAGE_NT_HEADERS64')
+make_head(_module, 'IMAGE_OPTIONAL_HEADER32')
+make_head(_module, 'IMAGE_OPTIONAL_HEADER64')
+make_head(_module, 'IMAGE_ROM_HEADERS')
+make_head(_module, 'IMAGE_ROM_OPTIONAL_HEADER')
+make_head(_module, 'IMAGE_RUNTIME_FUNCTION_ENTRY')
+make_head(_module, 'IMAGE_SECTION_HEADER')
+make_head(_module, 'IMachineDebugManager')
+make_head(_module, 'IMachineDebugManagerCookie')
+make_head(_module, 'IMachineDebugManagerEvents')
 make_head(_module, 'IModelIterator')
 make_head(_module, 'IModelKeyReference')
 make_head(_module, 'IModelKeyReference2')
@@ -15144,15 +15144,15 @@ make_head(_module, 'IModelMethod')
 make_head(_module, 'IModelObject')
 make_head(_module, 'IModelPropertyAccessor')
 make_head(_module, 'INLINE_FRAME_CONTEXT')
-make_head(_module, 'IObjectSafety')
 make_head(_module, 'IOSPACE')
+make_head(_module, 'IOSPACE32')
+make_head(_module, 'IOSPACE64')
 make_head(_module, 'IOSPACE_EX')
 make_head(_module, 'IOSPACE_EX32')
 make_head(_module, 'IOSPACE_EX64')
-make_head(_module, 'IOSPACE32')
-make_head(_module, 'IOSPACE64')
-make_head(_module, 'IPerPropertyBrowsing2')
+make_head(_module, 'IObjectSafety')
 make_head(_module, 'IPMI_OS_SEL_RECORD')
+make_head(_module, 'IPerPropertyBrowsing2')
 make_head(_module, 'IPreferredRuntimeTypeConcept')
 make_head(_module, 'IProcessDebugManager32')
 make_head(_module, 'IProcessDebugManager64')
@@ -15187,14 +15187,14 @@ if ARCH in 'X86':
 if ARCH in 'ARM64':
     make_head(_module, 'KNONVOLATILE_CONTEXT_POINTERS_ARM64')
 make_head(_module, 'LDT_ENTRY')
-make_head(_module, 'LOAD_DLL_DEBUG_INFO')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'LOADED_IMAGE')
 if ARCH in 'X86':
     make_head(_module, 'LOADED_IMAGE')
-make_head(_module, 'Location')
+make_head(_module, 'LOAD_DLL_DEBUG_INFO')
 make_head(_module, 'LPCALL_BACK_USER_INTERRUPT_ROUTINE')
 make_head(_module, 'LPTOP_LEVEL_EXCEPTION_FILTER')
+make_head(_module, 'Location')
 make_head(_module, 'M128A')
 make_head(_module, 'MINIDUMP_CALLBACK_INFORMATION')
 make_head(_module, 'MINIDUMP_CALLBACK_INPUT')
@@ -15218,12 +15218,12 @@ make_head(_module, 'MINIDUMP_INCLUDE_THREAD_CALLBACK')
 make_head(_module, 'MINIDUMP_IO_CALLBACK')
 make_head(_module, 'MINIDUMP_LOCATION_DESCRIPTOR')
 make_head(_module, 'MINIDUMP_LOCATION_DESCRIPTOR64')
+make_head(_module, 'MINIDUMP_MEMORY64_LIST')
 make_head(_module, 'MINIDUMP_MEMORY_DESCRIPTOR')
 make_head(_module, 'MINIDUMP_MEMORY_DESCRIPTOR64')
 make_head(_module, 'MINIDUMP_MEMORY_INFO')
 make_head(_module, 'MINIDUMP_MEMORY_INFO_LIST')
 make_head(_module, 'MINIDUMP_MEMORY_LIST')
-make_head(_module, 'MINIDUMP_MEMORY64_LIST')
 make_head(_module, 'MINIDUMP_MISC_INFO')
 make_head(_module, 'MINIDUMP_MISC_INFO_2')
 make_head(_module, 'MINIDUMP_MISC_INFO_3')
@@ -15298,12 +15298,12 @@ if ARCH in 'X86':
 make_head(_module, 'PENUMLOADED_MODULES_CALLBACK64')
 make_head(_module, 'PENUMLOADED_MODULES_CALLBACKW64')
 make_head(_module, 'PENUMSOURCEFILETOKENSCALLBACK')
+make_head(_module, 'PFINDFILEINPATHCALLBACK')
+make_head(_module, 'PFINDFILEINPATHCALLBACKW')
 make_head(_module, 'PFIND_DEBUG_FILE_CALLBACK')
 make_head(_module, 'PFIND_DEBUG_FILE_CALLBACKW')
 make_head(_module, 'PFIND_EXE_FILE_CALLBACK')
 make_head(_module, 'PFIND_EXE_FILE_CALLBACKW')
-make_head(_module, 'PFINDFILEINPATHCALLBACK')
-make_head(_module, 'PFINDFILEINPATHCALLBACKW')
 if ARCH in 'X86':
     make_head(_module, 'PFUNCTION_TABLE_ACCESS_ROUTINE')
 make_head(_module, 'PFUNCTION_TABLE_ACCESS_ROUTINE64')
@@ -15328,8 +15328,8 @@ make_head(_module, 'POINTER_SEARCH_PHYSICAL')
 if ARCH in 'X86':
     make_head(_module, 'PREAD_PROCESS_MEMORY_ROUTINE')
 make_head(_module, 'PREAD_PROCESS_MEMORY_ROUTINE64')
-make_head(_module, 'PROCESS_NAME_ENTRY')
 make_head(_module, 'PROCESSORINFO')
+make_head(_module, 'PROCESS_NAME_ENTRY')
 make_head(_module, 'PROFILER_HEAP_OBJECT')
 make_head(_module, 'PROFILER_HEAP_OBJECT_OPTIONAL_INFO')
 make_head(_module, 'PROFILER_HEAP_OBJECT_RELATIONSHIP')
@@ -15337,29 +15337,6 @@ make_head(_module, 'PROFILER_HEAP_OBJECT_RELATIONSHIP_LIST')
 make_head(_module, 'PROFILER_HEAP_OBJECT_SCOPE_LIST')
 make_head(_module, 'PROFILER_HEAP_SUMMARY')
 make_head(_module, 'PROFILER_PROPERTY_TYPE_SUBSTRING_INFO')
-make_head(_module, 'PSYM_DUMP_FIELD_CALLBACK')
-make_head(_module, 'PSYM_ENUMERATESYMBOLS_CALLBACK')
-make_head(_module, 'PSYM_ENUMERATESYMBOLS_CALLBACKW')
-make_head(_module, 'PSYM_ENUMLINES_CALLBACK')
-make_head(_module, 'PSYM_ENUMLINES_CALLBACKW')
-if ARCH in 'X86':
-    make_head(_module, 'PSYM_ENUMMODULES_CALLBACK')
-make_head(_module, 'PSYM_ENUMMODULES_CALLBACK64')
-make_head(_module, 'PSYM_ENUMMODULES_CALLBACKW64')
-make_head(_module, 'PSYM_ENUMPROCESSES_CALLBACK')
-make_head(_module, 'PSYM_ENUMSOURCEFILES_CALLBACK')
-make_head(_module, 'PSYM_ENUMSOURCEFILES_CALLBACKW')
-if ARCH in 'X86':
-    make_head(_module, 'PSYM_ENUMSYMBOLS_CALLBACK')
-make_head(_module, 'PSYM_ENUMSYMBOLS_CALLBACK64')
-make_head(_module, 'PSYM_ENUMSYMBOLS_CALLBACK64W')
-if ARCH in 'X86':
-    make_head(_module, 'PSYM_ENUMSYMBOLS_CALLBACKW')
-make_head(_module, 'PSYMBOL_FUNCENTRY_CALLBACK')
-make_head(_module, 'PSYMBOL_FUNCENTRY_CALLBACK64')
-if ARCH in 'X86':
-    make_head(_module, 'PSYMBOL_REGISTERED_CALLBACK')
-make_head(_module, 'PSYMBOL_REGISTERED_CALLBACK64')
 make_head(_module, 'PSYMBOLSERVERBYINDEXPROC')
 make_head(_module, 'PSYMBOLSERVERBYINDEXPROCA')
 make_head(_module, 'PSYMBOLSERVERBYINDEXPROCW')
@@ -15394,6 +15371,29 @@ make_head(_module, 'PSYMBOLSERVERSTORESUPPLEMENT')
 make_head(_module, 'PSYMBOLSERVERSTORESUPPLEMENTW')
 make_head(_module, 'PSYMBOLSERVERVERSION')
 make_head(_module, 'PSYMBOLSERVERWEXPROC')
+make_head(_module, 'PSYMBOL_FUNCENTRY_CALLBACK')
+make_head(_module, 'PSYMBOL_FUNCENTRY_CALLBACK64')
+if ARCH in 'X86':
+    make_head(_module, 'PSYMBOL_REGISTERED_CALLBACK')
+make_head(_module, 'PSYMBOL_REGISTERED_CALLBACK64')
+make_head(_module, 'PSYM_DUMP_FIELD_CALLBACK')
+make_head(_module, 'PSYM_ENUMERATESYMBOLS_CALLBACK')
+make_head(_module, 'PSYM_ENUMERATESYMBOLS_CALLBACKW')
+make_head(_module, 'PSYM_ENUMLINES_CALLBACK')
+make_head(_module, 'PSYM_ENUMLINES_CALLBACKW')
+if ARCH in 'X86':
+    make_head(_module, 'PSYM_ENUMMODULES_CALLBACK')
+make_head(_module, 'PSYM_ENUMMODULES_CALLBACK64')
+make_head(_module, 'PSYM_ENUMMODULES_CALLBACKW64')
+make_head(_module, 'PSYM_ENUMPROCESSES_CALLBACK')
+make_head(_module, 'PSYM_ENUMSOURCEFILES_CALLBACK')
+make_head(_module, 'PSYM_ENUMSOURCEFILES_CALLBACKW')
+if ARCH in 'X86':
+    make_head(_module, 'PSYM_ENUMSYMBOLS_CALLBACK')
+make_head(_module, 'PSYM_ENUMSYMBOLS_CALLBACK64')
+make_head(_module, 'PSYM_ENUMSYMBOLS_CALLBACK64W')
+if ARCH in 'X86':
+    make_head(_module, 'PSYM_ENUMSYMBOLS_CALLBACKW')
 if ARCH in 'X86':
     make_head(_module, 'PTRANSLATE_ADDRESS_ROUTINE')
 make_head(_module, 'PTRANSLATE_ADDRESS_ROUTINE64')
@@ -15419,10 +15419,10 @@ make_head(_module, 'PWINDBG_GET_SYMBOL32')
 make_head(_module, 'PWINDBG_GET_SYMBOL64')
 make_head(_module, 'PWINDBG_GET_THREAD_CONTEXT_ROUTINE')
 make_head(_module, 'PWINDBG_IOCTL_ROUTINE')
-make_head(_module, 'PWINDBG_OLD_EXTENSION_ROUTINE')
 make_head(_module, 'PWINDBG_OLDKD_EXTENSION_ROUTINE')
 make_head(_module, 'PWINDBG_OLDKD_READ_PHYSICAL_MEMORY')
 make_head(_module, 'PWINDBG_OLDKD_WRITE_PHYSICAL_MEMORY')
+make_head(_module, 'PWINDBG_OLD_EXTENSION_ROUTINE')
 make_head(_module, 'PWINDBG_OUTPUT_ROUTINE')
 make_head(_module, 'PWINDBG_READ_PROCESS_MEMORY_ROUTINE')
 make_head(_module, 'PWINDBG_READ_PROCESS_MEMORY_ROUTINE32')
@@ -15434,35 +15434,35 @@ make_head(_module, 'PWINDBG_STACKTRACE_ROUTINE64')
 make_head(_module, 'PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE')
 make_head(_module, 'PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE32')
 make_head(_module, 'PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE64')
-make_head(_module, 'READ_WRITE_MSR')
 make_head(_module, 'READCONTROLSPACE')
 make_head(_module, 'READCONTROLSPACE32')
 make_head(_module, 'READCONTROLSPACE64')
+make_head(_module, 'READ_WRITE_MSR')
 make_head(_module, 'RIP_INFO')
-make_head(_module, 'ScriptDebugEventInformation')
-make_head(_module, 'ScriptDebugPosition')
 make_head(_module, 'SEARCHMEMORY')
 make_head(_module, 'SOURCEFILE')
 make_head(_module, 'SOURCEFILEW')
 make_head(_module, 'SRCCODEINFO')
 make_head(_module, 'SRCCODEINFOW')
-make_head(_module, 'STACK_SRC_INFO')
-make_head(_module, 'STACK_SYM_FRAME_INFO')
 if ARCH in 'X86':
     make_head(_module, 'STACKFRAME')
-make_head(_module, 'STACKFRAME_EX')
 make_head(_module, 'STACKFRAME64')
-make_head(_module, 'SYM_DUMP_PARAM')
+make_head(_module, 'STACKFRAME_EX')
+make_head(_module, 'STACK_SRC_INFO')
+make_head(_module, 'STACK_SYM_FRAME_INFO')
 make_head(_module, 'SYMADDSOURCESTREAM')
 make_head(_module, 'SYMADDSOURCESTREAMA')
 make_head(_module, 'SYMBOL_INFO')
+make_head(_module, 'SYMBOL_INFOW')
 make_head(_module, 'SYMBOL_INFO_EX')
 make_head(_module, 'SYMBOL_INFO_PACKAGE')
 make_head(_module, 'SYMBOL_INFO_PACKAGEW')
-make_head(_module, 'SYMBOL_INFOW')
 make_head(_module, 'SYMSRV_EXTENDED_OUTPUT_DATA')
 make_head(_module, 'SYMSRV_INDEX_INFO')
 make_head(_module, 'SYMSRV_INDEX_INFOW')
+make_head(_module, 'SYM_DUMP_PARAM')
+make_head(_module, 'ScriptDebugEventInformation')
+make_head(_module, 'ScriptDebugPosition')
 make_head(_module, 'TEXT_DOCUMENT_ARRAY')
 make_head(_module, 'TI_FINDCHILDREN_PARAMS')
 make_head(_module, 'TRANSLATE_VIRTUAL_TO_PHYSICAL')
@@ -15501,28 +15501,28 @@ make_head(_module, 'WHEA_NOTIFICATION_DESCRIPTOR')
 make_head(_module, 'WHEA_NOTIFICATION_FLAGS')
 make_head(_module, 'WHEA_PCI_SLOT_NUMBER')
 make_head(_module, 'WHEA_XPF_CMC_DESCRIPTOR')
-make_head(_module, 'WHEA_XPF_MC_BANK_DESCRIPTOR')
 make_head(_module, 'WHEA_XPF_MCE_DESCRIPTOR')
+make_head(_module, 'WHEA_XPF_MC_BANK_DESCRIPTOR')
 make_head(_module, 'WHEA_XPF_NMI_DESCRIPTOR')
 make_head(_module, 'WINDBG_EXTENSION_APIS')
 make_head(_module, 'WINDBG_EXTENSION_APIS32')
 make_head(_module, 'WINDBG_EXTENSION_APIS64')
-make_head(_module, 'WINDBG_OLD_EXTENSION_APIS')
 make_head(_module, 'WINDBG_OLDKD_EXTENSION_APIS')
+make_head(_module, 'WINDBG_OLD_EXTENSION_APIS')
 make_head(_module, 'WOW64_CONTEXT')
 make_head(_module, 'WOW64_DESCRIPTOR_TABLE_ENTRY')
 make_head(_module, 'WOW64_FLOATING_SAVE_AREA')
 make_head(_module, 'WOW64_LDT_ENTRY')
-make_head(_module, 'XPF_MC_BANK_FLAGS')
 make_head(_module, 'XPF_MCE_FLAGS')
+make_head(_module, 'XPF_MC_BANK_FLAGS')
 make_head(_module, 'XSAVE_AREA')
 make_head(_module, 'XSAVE_AREA_HEADER')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'XSAVE_FORMAT')
 if ARCH in 'X86':
     make_head(_module, 'XSAVE_FORMAT')
-make_head(_module, 'XSTATE_CONFIG_FEATURE_MSC_INFO')
 make_head(_module, 'XSTATE_CONFIGURATION')
+make_head(_module, 'XSTATE_CONFIG_FEATURE_MSC_INFO')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'XSTATE_CONTEXT')
 if ARCH in 'X86':

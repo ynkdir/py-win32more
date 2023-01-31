@@ -20,6 +20,9 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+class ARP_SEND_REPLY(Structure):
+    DestAddress: UInt32
+    SrcAddress: UInt32
 ANY_SIZE: UInt32 = 1
 MAXLEN_PHYSADDR: UInt32 = 8
 MAXLEN_IFDESCR: UInt32 = 256
@@ -857,9 +860,6 @@ def PfDeleteLog() -> UInt32: ...
 def PfGetInterfaceStatistics(pInterface: c_void_p, ppfStats: POINTER(win32more.NetworkManagement.IpHelper.PF_INTERFACE_STATS_head), pdwBufferSize: POINTER(UInt32), fResetCounters: win32more.Foundation.BOOL) -> UInt32: ...
 @winfunctype('IPHLPAPI.dll')
 def PfTestPacket(pInInterface: c_void_p, pOutInterface: c_void_p, cBytes: UInt32, pbPacket: c_char_p_no, ppAction: POINTER(win32more.NetworkManagement.IpHelper.PFFORWARD_ACTION)) -> UInt32: ...
-class ARP_SEND_REPLY(Structure):
-    DestAddress: UInt32
-    SrcAddress: UInt32
 class DNS_DOH_SERVER_SETTINGS(Structure):
     Template: win32more.Foundation.PWSTR
     Flags: UInt64
@@ -874,10 +874,6 @@ class DNS_INTERFACE_SETTINGS(Structure):
     EnableLLMNR: UInt32
     QueryAdapterName: UInt32
     ProfileNameServer: win32more.Foundation.PWSTR
-class DNS_INTERFACE_SETTINGS_EX(Structure):
-    SettingsV1: win32more.NetworkManagement.IpHelper.DNS_INTERFACE_SETTINGS
-    DisableUnconstrainedQueries: UInt32
-    SupplementalSearchList: win32more.Foundation.PWSTR
 class DNS_INTERFACE_SETTINGS3(Structure):
     Version: UInt32
     Flags: UInt64
@@ -895,6 +891,10 @@ class DNS_INTERFACE_SETTINGS3(Structure):
     ServerProperties: POINTER(win32more.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_head)
     cProfileServerProperties: UInt32
     ProfileServerProperties: POINTER(win32more.NetworkManagement.IpHelper.DNS_SERVER_PROPERTY_head)
+class DNS_INTERFACE_SETTINGS_EX(Structure):
+    SettingsV1: win32more.NetworkManagement.IpHelper.DNS_INTERFACE_SETTINGS
+    DisableUnconstrainedQueries: UInt32
+    SupplementalSearchList: win32more.Foundation.PWSTR
 class DNS_SERVER_PROPERTY(Structure):
     Version: UInt32
     ServerIndex: UInt32
@@ -945,23 +945,6 @@ GF_FRAGMENTS: GLOBAL_FILTER = 2
 GF_STRONGHOST: GLOBAL_FILTER = 8
 GF_FRAGCACHE: GLOBAL_FILTER = 9
 HIFTIMESTAMPCHANGE = IntPtr
-class ICMP_ECHO_REPLY(Structure):
-    Address: UInt32
-    Status: UInt32
-    RoundTripTime: UInt32
-    DataSize: UInt16
-    Reserved: UInt16
-    Data: c_void_p
-    Options: win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION
-if ARCH in 'X64,ARM64':
-    class ICMP_ECHO_REPLY32(Structure):
-        Address: UInt32
-        Status: UInt32
-        RoundTripTime: UInt32
-        DataSize: UInt16
-        Reserved: UInt16
-        Data: c_void_p
-        Options: win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION32
 ICMP4_TYPE = Int32
 ICMP4_ECHO_REPLY: ICMP4_TYPE = 0
 ICMP4_DST_UNREACH: ICMP4_TYPE = 3
@@ -992,11 +975,27 @@ ND_NEIGHBOR_SOLICIT: ICMP6_TYPE = 135
 ND_NEIGHBOR_ADVERT: ICMP6_TYPE = 136
 ND_REDIRECT: ICMP6_TYPE = 137
 ICMP6_V2_MEMBERSHIP_REPORT: ICMP6_TYPE = 143
-IcmpHandle = IntPtr
 class ICMPV6_ECHO_REPLY_LH(Structure):
     Address: win32more.NetworkManagement.IpHelper.IPV6_ADDRESS_EX
     Status: UInt32
     RoundTripTime: UInt32
+class ICMP_ECHO_REPLY(Structure):
+    Address: UInt32
+    Status: UInt32
+    RoundTripTime: UInt32
+    DataSize: UInt16
+    Reserved: UInt16
+    Data: c_void_p
+    Options: win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION
+if ARCH in 'X64,ARM64':
+    class ICMP_ECHO_REPLY32(Structure):
+        Address: UInt32
+        Status: UInt32
+        RoundTripTime: UInt32
+        DataSize: UInt16
+        Reserved: UInt16
+        Data: c_void_p
+        Options: win32more.NetworkManagement.IpHelper.IP_OPTION_INFORMATION32
 IF_ACCESS_TYPE = Int32
 IF_ACCESS_LOOPBACK: IF_ACCESS_TYPE = 1
 IF_ACCESS_BROADCAST: IF_ACCESS_TYPE = 2
@@ -1036,6 +1035,12 @@ IF_OPER_STATUS_DISCONNECTED: INTERNAL_IF_OPER_STATUS = 2
 IF_OPER_STATUS_CONNECTING: INTERNAL_IF_OPER_STATUS = 3
 IF_OPER_STATUS_CONNECTED: INTERNAL_IF_OPER_STATUS = 4
 IF_OPER_STATUS_OPERATIONAL: INTERNAL_IF_OPER_STATUS = 5
+class IPV6_ADDRESS_EX(Structure):
+    sin6_port: UInt16
+    sin6_flowinfo: UInt32
+    sin6_addr: UInt16 * 8
+    sin6_scope_id: UInt32
+    _pack_ = 1
 class IP_ADAPTER_ADDRESSES_LH(Structure):
     Anonymous1: _Anonymous1_e__Union
     Next: POINTER(win32more.NetworkManagement.IpHelper.IP_ADAPTER_ADDRESSES_LH_head)
@@ -1232,16 +1237,16 @@ class IP_ADAPTER_WINS_SERVER_ADDRESS_LH(Structure):
         class _Anonymous_e__Struct(Structure):
             Length: UInt32
             Reserved: UInt32
-class IP_ADDR_STRING(Structure):
-    Next: POINTER(win32more.NetworkManagement.IpHelper.IP_ADDR_STRING_head)
-    IpAddress: win32more.NetworkManagement.IpHelper.IP_ADDRESS_STRING
-    IpMask: win32more.NetworkManagement.IpHelper.IP_ADDRESS_STRING
-    Context: UInt32
 class IP_ADDRESS_PREFIX(Structure):
     Prefix: win32more.Networking.WinSock.SOCKADDR_INET
     PrefixLength: Byte
 class IP_ADDRESS_STRING(Structure):
     String: win32more.Foundation.CHAR * 16
+class IP_ADDR_STRING(Structure):
+    Next: POINTER(win32more.NetworkManagement.IpHelper.IP_ADDR_STRING_head)
+    IpAddress: win32more.NetworkManagement.IpHelper.IP_ADDRESS_STRING
+    IpMask: win32more.NetworkManagement.IpHelper.IP_ADDRESS_STRING
+    Context: UInt32
 class IP_INTERFACE_INFO(Structure):
     NumAdapters: Int32
     Adapter: win32more.NetworkManagement.IpHelper.IP_ADAPTER_INDEX_MAP * 1
@@ -1278,12 +1283,28 @@ class IP_PER_ADAPTER_INFO_W2KSP1(Structure):
 class IP_UNIDIRECTIONAL_ADAPTER_ADDRESS(Structure):
     NumAdapters: UInt32
     Address: UInt32 * 1
-class IPV6_ADDRESS_EX(Structure):
-    sin6_port: UInt16
-    sin6_flowinfo: UInt32
-    sin6_addr: UInt16 * 8
-    sin6_scope_id: UInt32
-    _pack_ = 1
+IcmpHandle = IntPtr
+class MIBICMPINFO(Structure):
+    icmpInStats: win32more.NetworkManagement.IpHelper.MIBICMPSTATS
+    icmpOutStats: win32more.NetworkManagement.IpHelper.MIBICMPSTATS
+class MIBICMPSTATS(Structure):
+    dwMsgs: UInt32
+    dwErrors: UInt32
+    dwDestUnreachs: UInt32
+    dwTimeExcds: UInt32
+    dwParmProbs: UInt32
+    dwSrcQuenchs: UInt32
+    dwRedirects: UInt32
+    dwEchos: UInt32
+    dwEchoReps: UInt32
+    dwTimestamps: UInt32
+    dwTimestampReps: UInt32
+    dwAddrMasks: UInt32
+    dwAddrMaskReps: UInt32
+class MIBICMPSTATS_EX_XPSP1(Structure):
+    dwMsgs: UInt32
+    dwErrors: UInt32
+    rgdwTypeCount: UInt32 * 256
 class MIB_ANYCASTIPADDRESS_ROW(Structure):
     Address: win32more.Networking.WinSock.SOCKADDR_INET
     InterfaceLuid: win32more.NetworkManagement.Ndis.NET_LUID_LH
@@ -1303,6 +1324,48 @@ class MIB_ICMP(Structure):
 class MIB_ICMP_EX_XPSP1(Structure):
     icmpInStats: win32more.NetworkManagement.IpHelper.MIBICMPSTATS_EX_XPSP1
     icmpOutStats: win32more.NetworkManagement.IpHelper.MIBICMPSTATS_EX_XPSP1
+class MIB_IFNUMBER(Structure):
+    dwValue: UInt32
+class MIB_IFROW(Structure):
+    wszName: Char * 256
+    dwIndex: UInt32
+    dwType: UInt32
+    dwMtu: UInt32
+    dwSpeed: UInt32
+    dwPhysAddrLen: UInt32
+    bPhysAddr: Byte * 8
+    dwAdminStatus: UInt32
+    dwOperStatus: win32more.NetworkManagement.IpHelper.INTERNAL_IF_OPER_STATUS
+    dwLastChange: UInt32
+    dwInOctets: UInt32
+    dwInUcastPkts: UInt32
+    dwInNUcastPkts: UInt32
+    dwInDiscards: UInt32
+    dwInErrors: UInt32
+    dwInUnknownProtos: UInt32
+    dwOutOctets: UInt32
+    dwOutUcastPkts: UInt32
+    dwOutNUcastPkts: UInt32
+    dwOutDiscards: UInt32
+    dwOutErrors: UInt32
+    dwOutQLen: UInt32
+    dwDescrLen: UInt32
+    bDescr: Byte * 256
+class MIB_IFSTACK_ROW(Structure):
+    HigherLayerInterfaceIndex: UInt32
+    LowerLayerInterfaceIndex: UInt32
+class MIB_IFSTACK_TABLE(Structure):
+    NumEntries: UInt32
+    Table: win32more.NetworkManagement.IpHelper.MIB_IFSTACK_ROW * 1
+class MIB_IFSTATUS(Structure):
+    dwIfIndex: UInt32
+    dwAdminStatus: UInt32
+    dwOperationalStatus: UInt32
+    bMHbeatActive: win32more.Foundation.BOOL
+    bMHbeatAlive: win32more.Foundation.BOOL
+class MIB_IFTABLE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_IFROW * 1
 MIB_IF_ENTRY_LEVEL = Int32
 MIB_IF_ENTRY_LEVEL_MibIfEntryNormal: MIB_IF_ENTRY_LEVEL = 0
 MIB_IF_ENTRY_LEVEL_MibIfEntryNormalWithoutStatistics: MIB_IF_ENTRY_LEVEL = 2
@@ -1350,64 +1413,19 @@ class MIB_IF_ROW2(Structure):
     OutQLen: UInt64
     class _InterfaceAndOperStatusFlags_e__Struct(Structure):
         _bitfield: Byte
+class MIB_IF_TABLE2(Structure):
+    NumEntries: UInt32
+    Table: win32more.NetworkManagement.IpHelper.MIB_IF_ROW2 * 1
 MIB_IF_TABLE_LEVEL = Int32
 MIB_IF_TABLE_LEVEL_MibIfTableNormal: MIB_IF_TABLE_LEVEL = 0
 MIB_IF_TABLE_LEVEL_MibIfTableRaw: MIB_IF_TABLE_LEVEL = 1
 MIB_IF_TABLE_LEVEL_MibIfTableNormalWithoutStatistics: MIB_IF_TABLE_LEVEL = 2
-class MIB_IF_TABLE2(Structure):
-    NumEntries: UInt32
-    Table: win32more.NetworkManagement.IpHelper.MIB_IF_ROW2 * 1
-class MIB_IFNUMBER(Structure):
-    dwValue: UInt32
-class MIB_IFROW(Structure):
-    wszName: Char * 256
-    dwIndex: UInt32
-    dwType: UInt32
-    dwMtu: UInt32
-    dwSpeed: UInt32
-    dwPhysAddrLen: UInt32
-    bPhysAddr: Byte * 8
-    dwAdminStatus: UInt32
-    dwOperStatus: win32more.NetworkManagement.IpHelper.INTERNAL_IF_OPER_STATUS
-    dwLastChange: UInt32
-    dwInOctets: UInt32
-    dwInUcastPkts: UInt32
-    dwInNUcastPkts: UInt32
-    dwInDiscards: UInt32
-    dwInErrors: UInt32
-    dwInUnknownProtos: UInt32
-    dwOutOctets: UInt32
-    dwOutUcastPkts: UInt32
-    dwOutNUcastPkts: UInt32
-    dwOutDiscards: UInt32
-    dwOutErrors: UInt32
-    dwOutQLen: UInt32
-    dwDescrLen: UInt32
-    bDescr: Byte * 256
-class MIB_IFSTACK_ROW(Structure):
-    HigherLayerInterfaceIndex: UInt32
-    LowerLayerInterfaceIndex: UInt32
-class MIB_IFSTACK_TABLE(Structure):
-    NumEntries: UInt32
-    Table: win32more.NetworkManagement.IpHelper.MIB_IFSTACK_ROW * 1
-class MIB_IFSTATUS(Structure):
-    dwIfIndex: UInt32
-    dwAdminStatus: UInt32
-    dwOperationalStatus: UInt32
-    bMHbeatActive: win32more.Foundation.BOOL
-    bMHbeatAlive: win32more.Foundation.BOOL
-class MIB_IFTABLE(Structure):
-    dwNumEntries: UInt32
-    table: win32more.NetworkManagement.IpHelper.MIB_IFROW * 1
 class MIB_INVERTEDIFSTACK_ROW(Structure):
     LowerLayerInterfaceIndex: UInt32
     HigherLayerInterfaceIndex: UInt32
 class MIB_INVERTEDIFSTACK_TABLE(Structure):
     NumEntries: UInt32
     Table: win32more.NetworkManagement.IpHelper.MIB_INVERTEDIFSTACK_ROW * 1
-class MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES(Structure):
-    InboundBandwidthInformation: win32more.Networking.WinSock.NL_BANDWIDTH_INFORMATION
-    OutboundBandwidthInformation: win32more.Networking.WinSock.NL_BANDWIDTH_INFORMATION
 class MIB_IPADDRROW_W2K(Structure):
     dwAddr: UInt32
     dwIndex: UInt32
@@ -1434,30 +1452,6 @@ class MIB_IPDESTROW(Structure):
 class MIB_IPDESTTABLE(Structure):
     dwNumEntries: UInt32
     table: win32more.NetworkManagement.IpHelper.MIB_IPDESTROW * 1
-class MIB_IPFORWARD_ROW2(Structure):
-    InterfaceLuid: win32more.NetworkManagement.Ndis.NET_LUID_LH
-    InterfaceIndex: UInt32
-    DestinationPrefix: win32more.NetworkManagement.IpHelper.IP_ADDRESS_PREFIX
-    NextHop: win32more.Networking.WinSock.SOCKADDR_INET
-    SitePrefixLength: Byte
-    ValidLifetime: UInt32
-    PreferredLifetime: UInt32
-    Metric: UInt32
-    Protocol: win32more.Networking.WinSock.NL_ROUTE_PROTOCOL
-    Loopback: win32more.Foundation.BOOLEAN
-    AutoconfigureAddress: win32more.Foundation.BOOLEAN
-    Publish: win32more.Foundation.BOOLEAN
-    Immortal: win32more.Foundation.BOOLEAN
-    Age: UInt32
-    Origin: win32more.Networking.WinSock.NL_ROUTE_ORIGIN
-class MIB_IPFORWARD_TABLE2(Structure):
-    NumEntries: UInt32
-    Table: win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2 * 1
-MIB_IPFORWARD_TYPE = Int32
-MIB_IPROUTE_TYPE_OTHER: MIB_IPFORWARD_TYPE = 1
-MIB_IPROUTE_TYPE_INVALID: MIB_IPFORWARD_TYPE = 2
-MIB_IPROUTE_TYPE_DIRECT: MIB_IPFORWARD_TYPE = 3
-MIB_IPROUTE_TYPE_INDIRECT: MIB_IPFORWARD_TYPE = 4
 class MIB_IPFORWARDNUMBER(Structure):
     dwValue: UInt32
 class MIB_IPFORWARDROW(Structure):
@@ -1484,6 +1478,30 @@ class MIB_IPFORWARDROW(Structure):
 class MIB_IPFORWARDTABLE(Structure):
     dwNumEntries: UInt32
     table: win32more.NetworkManagement.IpHelper.MIB_IPFORWARDROW * 1
+class MIB_IPFORWARD_ROW2(Structure):
+    InterfaceLuid: win32more.NetworkManagement.Ndis.NET_LUID_LH
+    InterfaceIndex: UInt32
+    DestinationPrefix: win32more.NetworkManagement.IpHelper.IP_ADDRESS_PREFIX
+    NextHop: win32more.Networking.WinSock.SOCKADDR_INET
+    SitePrefixLength: Byte
+    ValidLifetime: UInt32
+    PreferredLifetime: UInt32
+    Metric: UInt32
+    Protocol: win32more.Networking.WinSock.NL_ROUTE_PROTOCOL
+    Loopback: win32more.Foundation.BOOLEAN
+    AutoconfigureAddress: win32more.Foundation.BOOLEAN
+    Publish: win32more.Foundation.BOOLEAN
+    Immortal: win32more.Foundation.BOOLEAN
+    Age: UInt32
+    Origin: win32more.Networking.WinSock.NL_ROUTE_ORIGIN
+class MIB_IPFORWARD_TABLE2(Structure):
+    NumEntries: UInt32
+    Table: win32more.NetworkManagement.IpHelper.MIB_IPFORWARD_ROW2 * 1
+MIB_IPFORWARD_TYPE = Int32
+MIB_IPROUTE_TYPE_OTHER: MIB_IPFORWARD_TYPE = 1
+MIB_IPROUTE_TYPE_INVALID: MIB_IPFORWARD_TYPE = 2
+MIB_IPROUTE_TYPE_DIRECT: MIB_IPFORWARD_TYPE = 3
+MIB_IPROUTE_TYPE_INDIRECT: MIB_IPFORWARD_TYPE = 4
 class MIB_IPINTERFACE_ROW(Structure):
     Family: win32more.Networking.WinSock.ADDRESS_FAMILY
     InterfaceLuid: win32more.NetworkManagement.Ndis.NET_LUID_LH
@@ -1632,6 +1650,24 @@ class MIB_IPMCAST_SCOPE(Structure):
     dwGroupMask: UInt32
     snNameBuffer: UInt16 * 256
     dwStatus: UInt32
+class MIB_IPNETROW_LH(Structure):
+    dwIndex: UInt32
+    dwPhysAddrLen: UInt32
+    bPhysAddr: Byte * 8
+    dwAddr: UInt32
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        dwType: UInt32
+        Type: win32more.NetworkManagement.IpHelper.MIB_IPNET_TYPE
+class MIB_IPNETROW_W2K(Structure):
+    dwIndex: UInt32
+    dwPhysAddrLen: UInt32
+    bPhysAddr: Byte * 8
+    dwAddr: UInt32
+    dwType: UInt32
+class MIB_IPNETTABLE(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_IPNETROW_LH * 1
 class MIB_IPNET_ROW2(Structure):
     Address: win32more.Networking.WinSock.SOCKADDR_INET
     InterfaceIndex: UInt32
@@ -1657,24 +1693,6 @@ MIB_IPNET_TYPE_OTHER: MIB_IPNET_TYPE = 1
 MIB_IPNET_TYPE_INVALID: MIB_IPNET_TYPE = 2
 MIB_IPNET_TYPE_DYNAMIC: MIB_IPNET_TYPE = 3
 MIB_IPNET_TYPE_STATIC: MIB_IPNET_TYPE = 4
-class MIB_IPNETROW_LH(Structure):
-    dwIndex: UInt32
-    dwPhysAddrLen: UInt32
-    bPhysAddr: Byte * 8
-    dwAddr: UInt32
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        dwType: UInt32
-        Type: win32more.NetworkManagement.IpHelper.MIB_IPNET_TYPE
-class MIB_IPNETROW_W2K(Structure):
-    dwIndex: UInt32
-    dwPhysAddrLen: UInt32
-    bPhysAddr: Byte * 8
-    dwAddr: UInt32
-    dwType: UInt32
-class MIB_IPNETTABLE(Structure):
-    dwNumEntries: UInt32
-    table: win32more.NetworkManagement.IpHelper.MIB_IPNETROW_LH * 1
 class MIB_IPPATH_ROW(Structure):
     Source: win32more.Networking.WinSock.SOCKADDR_INET
     Destination: win32more.Networking.WinSock.SOCKADDR_INET
@@ -1748,6 +1766,9 @@ class MIB_IPSTATS_W2K(Structure):
     dwNumIf: UInt32
     dwNumAddr: UInt32
     dwNumRoutes: UInt32
+class MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES(Structure):
+    InboundBandwidthInformation: win32more.Networking.WinSock.NL_BANDWIDTH_INFORMATION
+    OutboundBandwidthInformation: win32more.Networking.WinSock.NL_BANDWIDTH_INFORMATION
 class MIB_MCAST_LIMIT_ROW(Structure):
     dwTtl: UInt32
     dwRateLimit: UInt32
@@ -1788,20 +1809,6 @@ class MIB_PROXYARP(Structure):
     dwIfIndex: UInt32
 class MIB_ROUTESTATE(Structure):
     bRoutesSetToStack: win32more.Foundation.BOOL
-MIB_TCP_STATE = Int32
-MIB_TCP_STATE_CLOSED: MIB_TCP_STATE = 1
-MIB_TCP_STATE_LISTEN: MIB_TCP_STATE = 2
-MIB_TCP_STATE_SYN_SENT: MIB_TCP_STATE = 3
-MIB_TCP_STATE_SYN_RCVD: MIB_TCP_STATE = 4
-MIB_TCP_STATE_ESTAB: MIB_TCP_STATE = 5
-MIB_TCP_STATE_FIN_WAIT1: MIB_TCP_STATE = 6
-MIB_TCP_STATE_FIN_WAIT2: MIB_TCP_STATE = 7
-MIB_TCP_STATE_CLOSE_WAIT: MIB_TCP_STATE = 8
-MIB_TCP_STATE_CLOSING: MIB_TCP_STATE = 9
-MIB_TCP_STATE_LAST_ACK: MIB_TCP_STATE = 10
-MIB_TCP_STATE_TIME_WAIT: MIB_TCP_STATE = 11
-MIB_TCP_STATE_DELETE_TCB: MIB_TCP_STATE = 12
-MIB_TCP_STATE_RESERVED: MIB_TCP_STATE = 100
 class MIB_TCP6ROW(Structure):
     State: win32more.NetworkManagement.IpHelper.MIB_TCP_STATE
     LocalAddr: win32more.Networking.WinSock.IN6_ADDR
@@ -1810,6 +1817,16 @@ class MIB_TCP6ROW(Structure):
     RemoteAddr: win32more.Networking.WinSock.IN6_ADDR
     dwRemoteScopeId: UInt32
     dwRemotePort: UInt32
+class MIB_TCP6ROW2(Structure):
+    LocalAddr: win32more.Networking.WinSock.IN6_ADDR
+    dwLocalScopeId: UInt32
+    dwLocalPort: UInt32
+    RemoteAddr: win32more.Networking.WinSock.IN6_ADDR
+    dwRemoteScopeId: UInt32
+    dwRemotePort: UInt32
+    State: win32more.NetworkManagement.IpHelper.MIB_TCP_STATE
+    dwOwningPid: UInt32
+    dwOffloadState: win32more.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE
 class MIB_TCP6ROW_OWNER_MODULE(Structure):
     ucLocalAddr: Byte * 16
     dwLocalScopeId: UInt32
@@ -1830,28 +1847,26 @@ class MIB_TCP6ROW_OWNER_PID(Structure):
     dwRemotePort: UInt32
     dwState: UInt32
     dwOwningPid: UInt32
-class MIB_TCP6ROW2(Structure):
-    LocalAddr: win32more.Networking.WinSock.IN6_ADDR
-    dwLocalScopeId: UInt32
-    dwLocalPort: UInt32
-    RemoteAddr: win32more.Networking.WinSock.IN6_ADDR
-    dwRemoteScopeId: UInt32
-    dwRemotePort: UInt32
-    State: win32more.NetworkManagement.IpHelper.MIB_TCP_STATE
-    dwOwningPid: UInt32
-    dwOffloadState: win32more.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE
 class MIB_TCP6TABLE(Structure):
     dwNumEntries: UInt32
     table: win32more.NetworkManagement.IpHelper.MIB_TCP6ROW * 1
+class MIB_TCP6TABLE2(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_TCP6ROW2 * 1
 class MIB_TCP6TABLE_OWNER_MODULE(Structure):
     dwNumEntries: UInt32
     table: win32more.NetworkManagement.IpHelper.MIB_TCP6ROW_OWNER_MODULE * 1
 class MIB_TCP6TABLE_OWNER_PID(Structure):
     dwNumEntries: UInt32
     table: win32more.NetworkManagement.IpHelper.MIB_TCP6ROW_OWNER_PID * 1
-class MIB_TCP6TABLE2(Structure):
-    dwNumEntries: UInt32
-    table: win32more.NetworkManagement.IpHelper.MIB_TCP6ROW2 * 1
+class MIB_TCPROW2(Structure):
+    dwState: UInt32
+    dwLocalAddr: UInt32
+    dwLocalPort: UInt32
+    dwRemoteAddr: UInt32
+    dwRemotePort: UInt32
+    dwOwningPid: UInt32
+    dwOffloadState: win32more.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE
 class MIB_TCPROW_LH(Structure):
     Anonymous: _Anonymous_e__Union
     dwLocalAddr: UInt32
@@ -1883,14 +1898,22 @@ class MIB_TCPROW_W2K(Structure):
     dwLocalPort: UInt32
     dwRemoteAddr: UInt32
     dwRemotePort: UInt32
-class MIB_TCPROW2(Structure):
-    dwState: UInt32
-    dwLocalAddr: UInt32
-    dwLocalPort: UInt32
-    dwRemoteAddr: UInt32
-    dwRemotePort: UInt32
-    dwOwningPid: UInt32
-    dwOffloadState: win32more.NetworkManagement.IpHelper.TCP_CONNECTION_OFFLOAD_STATE
+class MIB_TCPSTATS2(Structure):
+    RtoAlgorithm: win32more.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM
+    dwRtoMin: UInt32
+    dwRtoMax: UInt32
+    dwMaxConn: UInt32
+    dwActiveOpens: UInt32
+    dwPassiveOpens: UInt32
+    dwAttemptFails: UInt32
+    dwEstabResets: UInt32
+    dwCurrEstab: UInt32
+    dw64InSegs: UInt64
+    dw64OutSegs: UInt64
+    dwRetransSegs: UInt32
+    dwInErrs: UInt32
+    dwOutRsts: UInt32
+    dwNumConns: UInt32
 class MIB_TCPSTATS_LH(Structure):
     Anonymous: _Anonymous_e__Union
     dwRtoMin: UInt32
@@ -1926,38 +1949,52 @@ class MIB_TCPSTATS_W2K(Structure):
     dwInErrs: UInt32
     dwOutRsts: UInt32
     dwNumConns: UInt32
-class MIB_TCPSTATS2(Structure):
-    RtoAlgorithm: win32more.NetworkManagement.IpHelper.TCP_RTO_ALGORITHM
-    dwRtoMin: UInt32
-    dwRtoMax: UInt32
-    dwMaxConn: UInt32
-    dwActiveOpens: UInt32
-    dwPassiveOpens: UInt32
-    dwAttemptFails: UInt32
-    dwEstabResets: UInt32
-    dwCurrEstab: UInt32
-    dw64InSegs: UInt64
-    dw64OutSegs: UInt64
-    dwRetransSegs: UInt32
-    dwInErrs: UInt32
-    dwOutRsts: UInt32
-    dwNumConns: UInt32
 class MIB_TCPTABLE(Structure):
     dwNumEntries: UInt32
     table: win32more.NetworkManagement.IpHelper.MIB_TCPROW_LH * 1
+class MIB_TCPTABLE2(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_TCPROW2 * 1
 class MIB_TCPTABLE_OWNER_MODULE(Structure):
     dwNumEntries: UInt32
     table: win32more.NetworkManagement.IpHelper.MIB_TCPROW_OWNER_MODULE * 1
 class MIB_TCPTABLE_OWNER_PID(Structure):
     dwNumEntries: UInt32
     table: win32more.NetworkManagement.IpHelper.MIB_TCPROW_OWNER_PID * 1
-class MIB_TCPTABLE2(Structure):
-    dwNumEntries: UInt32
-    table: win32more.NetworkManagement.IpHelper.MIB_TCPROW2 * 1
+MIB_TCP_STATE = Int32
+MIB_TCP_STATE_CLOSED: MIB_TCP_STATE = 1
+MIB_TCP_STATE_LISTEN: MIB_TCP_STATE = 2
+MIB_TCP_STATE_SYN_SENT: MIB_TCP_STATE = 3
+MIB_TCP_STATE_SYN_RCVD: MIB_TCP_STATE = 4
+MIB_TCP_STATE_ESTAB: MIB_TCP_STATE = 5
+MIB_TCP_STATE_FIN_WAIT1: MIB_TCP_STATE = 6
+MIB_TCP_STATE_FIN_WAIT2: MIB_TCP_STATE = 7
+MIB_TCP_STATE_CLOSE_WAIT: MIB_TCP_STATE = 8
+MIB_TCP_STATE_CLOSING: MIB_TCP_STATE = 9
+MIB_TCP_STATE_LAST_ACK: MIB_TCP_STATE = 10
+MIB_TCP_STATE_TIME_WAIT: MIB_TCP_STATE = 11
+MIB_TCP_STATE_DELETE_TCB: MIB_TCP_STATE = 12
+MIB_TCP_STATE_RESERVED: MIB_TCP_STATE = 100
 class MIB_UDP6ROW(Structure):
     dwLocalAddr: win32more.Networking.WinSock.IN6_ADDR
     dwLocalScopeId: UInt32
     dwLocalPort: UInt32
+class MIB_UDP6ROW2(Structure):
+    ucLocalAddr: Byte * 16
+    dwLocalScopeId: UInt32
+    dwLocalPort: UInt32
+    dwOwningPid: UInt32
+    liCreateTimestamp: win32more.Foundation.LARGE_INTEGER
+    Anonymous: _Anonymous_e__Union
+    OwningModuleInfo: UInt64 * 16
+    ucRemoteAddr: Byte * 16
+    dwRemoteScopeId: UInt32
+    dwRemotePort: UInt32
+    class _Anonymous_e__Union(Union):
+        Anonymous: _Anonymous_e__Struct
+        dwFlags: Int32
+        class _Anonymous_e__Struct(Structure):
+            _bitfield: Int32
 class MIB_UDP6ROW_OWNER_MODULE(Structure):
     ucLocalAddr: Byte * 16
     dwLocalScopeId: UInt32
@@ -1976,37 +2013,35 @@ class MIB_UDP6ROW_OWNER_PID(Structure):
     dwLocalScopeId: UInt32
     dwLocalPort: UInt32
     dwOwningPid: UInt32
-class MIB_UDP6ROW2(Structure):
-    ucLocalAddr: Byte * 16
-    dwLocalScopeId: UInt32
-    dwLocalPort: UInt32
-    dwOwningPid: UInt32
-    liCreateTimestamp: win32more.Foundation.LARGE_INTEGER
-    Anonymous: _Anonymous_e__Union
-    OwningModuleInfo: UInt64 * 16
-    ucRemoteAddr: Byte * 16
-    dwRemoteScopeId: UInt32
-    dwRemotePort: UInt32
-    class _Anonymous_e__Union(Union):
-        Anonymous: _Anonymous_e__Struct
-        dwFlags: Int32
-        class _Anonymous_e__Struct(Structure):
-            _bitfield: Int32
 class MIB_UDP6TABLE(Structure):
     dwNumEntries: UInt32
     table: win32more.NetworkManagement.IpHelper.MIB_UDP6ROW * 1
+class MIB_UDP6TABLE2(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_UDP6ROW2 * 1
 class MIB_UDP6TABLE_OWNER_MODULE(Structure):
     dwNumEntries: UInt32
     table: win32more.NetworkManagement.IpHelper.MIB_UDP6ROW_OWNER_MODULE * 1
 class MIB_UDP6TABLE_OWNER_PID(Structure):
     dwNumEntries: UInt32
     table: win32more.NetworkManagement.IpHelper.MIB_UDP6ROW_OWNER_PID * 1
-class MIB_UDP6TABLE2(Structure):
-    dwNumEntries: UInt32
-    table: win32more.NetworkManagement.IpHelper.MIB_UDP6ROW2 * 1
 class MIB_UDPROW(Structure):
     dwLocalAddr: UInt32
     dwLocalPort: UInt32
+class MIB_UDPROW2(Structure):
+    dwLocalAddr: UInt32
+    dwLocalPort: UInt32
+    dwOwningPid: UInt32
+    liCreateTimestamp: win32more.Foundation.LARGE_INTEGER
+    Anonymous: _Anonymous_e__Union
+    OwningModuleInfo: UInt64 * 16
+    dwRemoteAddr: UInt32
+    dwRemotePort: UInt32
+    class _Anonymous_e__Union(Union):
+        Anonymous: _Anonymous_e__Struct
+        dwFlags: Int32
+        class _Anonymous_e__Struct(Structure):
+            _bitfield: Int32
 class MIB_UDPROW_OWNER_MODULE(Structure):
     dwLocalAddr: UInt32
     dwLocalPort: UInt32
@@ -2023,20 +2058,6 @@ class MIB_UDPROW_OWNER_PID(Structure):
     dwLocalAddr: UInt32
     dwLocalPort: UInt32
     dwOwningPid: UInt32
-class MIB_UDPROW2(Structure):
-    dwLocalAddr: UInt32
-    dwLocalPort: UInt32
-    dwOwningPid: UInt32
-    liCreateTimestamp: win32more.Foundation.LARGE_INTEGER
-    Anonymous: _Anonymous_e__Union
-    OwningModuleInfo: UInt64 * 16
-    dwRemoteAddr: UInt32
-    dwRemotePort: UInt32
-    class _Anonymous_e__Union(Union):
-        Anonymous: _Anonymous_e__Struct
-        dwFlags: Int32
-        class _Anonymous_e__Struct(Structure):
-            _bitfield: Int32
 class MIB_UDPSTATS(Structure):
     dwInDatagrams: UInt32
     dwNoPorts: UInt32
@@ -2052,15 +2073,15 @@ class MIB_UDPSTATS2(Structure):
 class MIB_UDPTABLE(Structure):
     dwNumEntries: UInt32
     table: win32more.NetworkManagement.IpHelper.MIB_UDPROW * 1
+class MIB_UDPTABLE2(Structure):
+    dwNumEntries: UInt32
+    table: win32more.NetworkManagement.IpHelper.MIB_UDPROW2 * 1
 class MIB_UDPTABLE_OWNER_MODULE(Structure):
     dwNumEntries: UInt32
     table: win32more.NetworkManagement.IpHelper.MIB_UDPROW_OWNER_MODULE * 1
 class MIB_UDPTABLE_OWNER_PID(Structure):
     dwNumEntries: UInt32
     table: win32more.NetworkManagement.IpHelper.MIB_UDPROW_OWNER_PID * 1
-class MIB_UDPTABLE2(Structure):
-    dwNumEntries: UInt32
-    table: win32more.NetworkManagement.IpHelper.MIB_UDPROW2 * 1
 class MIB_UNICASTIPADDRESS_ROW(Structure):
     Address: win32more.Networking.WinSock.SOCKADDR_INET
     InterfaceLuid: win32more.NetworkManagement.Ndis.NET_LUID_LH
@@ -2077,32 +2098,31 @@ class MIB_UNICASTIPADDRESS_ROW(Structure):
 class MIB_UNICASTIPADDRESS_TABLE(Structure):
     NumEntries: UInt32
     Table: win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW * 1
-class MIBICMPINFO(Structure):
-    icmpInStats: win32more.NetworkManagement.IpHelper.MIBICMPSTATS
-    icmpOutStats: win32more.NetworkManagement.IpHelper.MIBICMPSTATS
-class MIBICMPSTATS(Structure):
-    dwMsgs: UInt32
-    dwErrors: UInt32
-    dwDestUnreachs: UInt32
-    dwTimeExcds: UInt32
-    dwParmProbs: UInt32
-    dwSrcQuenchs: UInt32
-    dwRedirects: UInt32
-    dwEchos: UInt32
-    dwEchoReps: UInt32
-    dwTimestamps: UInt32
-    dwTimestampReps: UInt32
-    dwAddrMasks: UInt32
-    dwAddrMaskReps: UInt32
-class MIBICMPSTATS_EX_XPSP1(Structure):
-    dwMsgs: UInt32
-    dwErrors: UInt32
-    rgdwTypeCount: UInt32 * 256
 NET_ADDRESS_FORMAT = Int32
 NET_ADDRESS_FORMAT_UNSPECIFIED: NET_ADDRESS_FORMAT = 0
 NET_ADDRESS_DNS_NAME: NET_ADDRESS_FORMAT = 1
 NET_ADDRESS_IPV4: NET_ADDRESS_FORMAT = 2
 NET_ADDRESS_IPV6: NET_ADDRESS_FORMAT = 3
+PFADDRESSTYPE = Int32
+PF_IPV4: PFADDRESSTYPE = 0
+PF_IPV6: PFADDRESSTYPE = 1
+PFFORWARD_ACTION = Int32
+PF_ACTION_FORWARD: PFFORWARD_ACTION = 0
+PF_ACTION_DROP: PFFORWARD_ACTION = 1
+PFFRAMETYPE = Int32
+PFFT_FILTER: PFFRAMETYPE = 1
+PFFT_FRAG: PFFRAMETYPE = 2
+PFFT_SPOOF: PFFRAMETYPE = 3
+class PFLOGFRAME(Structure):
+    Timestamp: win32more.Foundation.LARGE_INTEGER
+    pfeTypeOfFrame: win32more.NetworkManagement.IpHelper.PFFRAMETYPE
+    dwTotalSizeUsed: UInt32
+    dwFilterRule: UInt32
+    wSizeOfAdditionalData: UInt16
+    wSizeOfIpHeader: UInt16
+    dwInterfaceName: UInt32
+    dwIPIndex: UInt32
+    bPacketData: Byte * 1
 class PF_FILTER_DESCRIPTOR(Structure):
     dwFilterFlags: UInt32
     dwRule: UInt32
@@ -2141,26 +2161,6 @@ class PF_LATEBIND_INFO(Structure):
     SrcAddr: c_char_p_no
     DstAddr: c_char_p_no
     Mask: c_char_p_no
-PFADDRESSTYPE = Int32
-PF_IPV4: PFADDRESSTYPE = 0
-PF_IPV6: PFADDRESSTYPE = 1
-PFFORWARD_ACTION = Int32
-PF_ACTION_FORWARD: PFFORWARD_ACTION = 0
-PF_ACTION_DROP: PFFORWARD_ACTION = 1
-PFFRAMETYPE = Int32
-PFFT_FILTER: PFFRAMETYPE = 1
-PFFT_FRAG: PFFRAMETYPE = 2
-PFFT_SPOOF: PFFRAMETYPE = 3
-class PFLOGFRAME(Structure):
-    Timestamp: win32more.Foundation.LARGE_INTEGER
-    pfeTypeOfFrame: win32more.NetworkManagement.IpHelper.PFFRAMETYPE
-    dwTotalSizeUsed: UInt32
-    dwFilterRule: UInt32
-    wSizeOfAdditionalData: UInt16
-    wSizeOfIpHeader: UInt16
-    dwInterfaceName: UInt32
-    dwIPIndex: UInt32
-    bPacketData: Byte * 1
 @winfunctype_pointer
 def PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK(CallerContext: c_void_p) -> Void: ...
 @winfunctype_pointer
@@ -2175,6 +2175,11 @@ def PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK(CallerContext: c_void_p, AddressTab
 def PTEREDO_PORT_CHANGE_CALLBACK(CallerContext: c_void_p, Port: UInt16, NotificationType: win32more.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE) -> Void: ...
 @winfunctype_pointer
 def PUNICAST_IPADDRESS_CHANGE_CALLBACK(CallerContext: c_void_p, Row: POINTER(win32more.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW_head), NotificationType: win32more.NetworkManagement.IpHelper.MIB_NOTIFICATION_TYPE) -> Void: ...
+class TCPIP_OWNER_MODULE_BASIC_INFO(Structure):
+    pModuleName: win32more.Foundation.PWSTR
+    pModulePath: win32more.Foundation.PWSTR
+TCPIP_OWNER_MODULE_INFO_CLASS = Int32
+TCPIP_OWNER_MODULE_INFO_BASIC: TCPIP_OWNER_MODULE_INFO_CLASS = 0
 TCP_BOOLEAN_OPTIONAL = Int32
 TCP_BOOLEAN_OPTIONAL_TcpBoolOptDisabled: TCP_BOOLEAN_OPTIONAL = 0
 TCP_BOOLEAN_OPTIONAL_TcpBoolOptEnabled: TCP_BOOLEAN_OPTIONAL = 1
@@ -2364,11 +2369,6 @@ TCP_TABLE_OWNER_PID_ALL: TCP_TABLE_CLASS = 5
 TCP_TABLE_OWNER_MODULE_LISTENER: TCP_TABLE_CLASS = 6
 TCP_TABLE_OWNER_MODULE_CONNECTIONS: TCP_TABLE_CLASS = 7
 TCP_TABLE_OWNER_MODULE_ALL: TCP_TABLE_CLASS = 8
-class TCPIP_OWNER_MODULE_BASIC_INFO(Structure):
-    pModuleName: win32more.Foundation.PWSTR
-    pModulePath: win32more.Foundation.PWSTR
-TCPIP_OWNER_MODULE_INFO_CLASS = Int32
-TCPIP_OWNER_MODULE_INFO_BASIC: TCPIP_OWNER_MODULE_INFO_CLASS = 0
 UDP_TABLE_CLASS = Int32
 UDP_TABLE_BASIC: UDP_TABLE_CLASS = 0
 UDP_TABLE_OWNER_PID: UDP_TABLE_CLASS = 1
@@ -2376,21 +2376,22 @@ UDP_TABLE_OWNER_MODULE: UDP_TABLE_CLASS = 2
 make_head(_module, 'ARP_SEND_REPLY')
 make_head(_module, 'DNS_DOH_SERVER_SETTINGS')
 make_head(_module, 'DNS_INTERFACE_SETTINGS')
-make_head(_module, 'DNS_INTERFACE_SETTINGS_EX')
 make_head(_module, 'DNS_INTERFACE_SETTINGS3')
+make_head(_module, 'DNS_INTERFACE_SETTINGS_EX')
 make_head(_module, 'DNS_SERVER_PROPERTY')
 make_head(_module, 'DNS_SERVER_PROPERTY_TYPES')
 make_head(_module, 'DNS_SETTINGS')
 make_head(_module, 'DNS_SETTINGS2')
 make_head(_module, 'FIXED_INFO_W2KSP1')
+make_head(_module, 'ICMPV6_ECHO_REPLY_LH')
 make_head(_module, 'ICMP_ECHO_REPLY')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'ICMP_ECHO_REPLY32')
-make_head(_module, 'ICMPV6_ECHO_REPLY_LH')
 make_head(_module, 'INTERFACE_HARDWARE_CROSSTIMESTAMP')
 make_head(_module, 'INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES')
 make_head(_module, 'INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES')
 make_head(_module, 'INTERFACE_TIMESTAMP_CAPABILITIES')
+make_head(_module, 'IPV6_ADDRESS_EX')
 make_head(_module, 'IP_ADAPTER_ADDRESSES_LH')
 make_head(_module, 'IP_ADAPTER_ADDRESSES_XP')
 make_head(_module, 'IP_ADAPTER_ANYCAST_ADDRESS_XP')
@@ -2405,9 +2406,9 @@ make_head(_module, 'IP_ADAPTER_PREFIX_XP')
 make_head(_module, 'IP_ADAPTER_UNICAST_ADDRESS_LH')
 make_head(_module, 'IP_ADAPTER_UNICAST_ADDRESS_XP')
 make_head(_module, 'IP_ADAPTER_WINS_SERVER_ADDRESS_LH')
-make_head(_module, 'IP_ADDR_STRING')
 make_head(_module, 'IP_ADDRESS_PREFIX')
 make_head(_module, 'IP_ADDRESS_STRING')
+make_head(_module, 'IP_ADDR_STRING')
 make_head(_module, 'IP_INTERFACE_INFO')
 make_head(_module, 'IP_INTERFACE_NAME_INFO_W2KSP1')
 make_head(_module, 'IP_MCAST_COUNTER_INFO')
@@ -2416,34 +2417,35 @@ if ARCH in 'X64,ARM64':
     make_head(_module, 'IP_OPTION_INFORMATION32')
 make_head(_module, 'IP_PER_ADAPTER_INFO_W2KSP1')
 make_head(_module, 'IP_UNIDIRECTIONAL_ADAPTER_ADDRESS')
-make_head(_module, 'IPV6_ADDRESS_EX')
+make_head(_module, 'MIBICMPINFO')
+make_head(_module, 'MIBICMPSTATS')
+make_head(_module, 'MIBICMPSTATS_EX_XPSP1')
 make_head(_module, 'MIB_ANYCASTIPADDRESS_ROW')
 make_head(_module, 'MIB_ANYCASTIPADDRESS_TABLE')
 make_head(_module, 'MIB_BEST_IF')
 make_head(_module, 'MIB_BOUNDARYROW')
 make_head(_module, 'MIB_ICMP')
 make_head(_module, 'MIB_ICMP_EX_XPSP1')
-make_head(_module, 'MIB_IF_ROW2')
-make_head(_module, 'MIB_IF_TABLE2')
 make_head(_module, 'MIB_IFNUMBER')
 make_head(_module, 'MIB_IFROW')
 make_head(_module, 'MIB_IFSTACK_ROW')
 make_head(_module, 'MIB_IFSTACK_TABLE')
 make_head(_module, 'MIB_IFSTATUS')
 make_head(_module, 'MIB_IFTABLE')
+make_head(_module, 'MIB_IF_ROW2')
+make_head(_module, 'MIB_IF_TABLE2')
 make_head(_module, 'MIB_INVERTEDIFSTACK_ROW')
 make_head(_module, 'MIB_INVERTEDIFSTACK_TABLE')
-make_head(_module, 'MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES')
 make_head(_module, 'MIB_IPADDRROW_W2K')
 make_head(_module, 'MIB_IPADDRROW_XP')
 make_head(_module, 'MIB_IPADDRTABLE')
 make_head(_module, 'MIB_IPDESTROW')
 make_head(_module, 'MIB_IPDESTTABLE')
-make_head(_module, 'MIB_IPFORWARD_ROW2')
-make_head(_module, 'MIB_IPFORWARD_TABLE2')
 make_head(_module, 'MIB_IPFORWARDNUMBER')
 make_head(_module, 'MIB_IPFORWARDROW')
 make_head(_module, 'MIB_IPFORWARDTABLE')
+make_head(_module, 'MIB_IPFORWARD_ROW2')
+make_head(_module, 'MIB_IPFORWARD_TABLE2')
 make_head(_module, 'MIB_IPINTERFACE_ROW')
 make_head(_module, 'MIB_IPINTERFACE_TABLE')
 make_head(_module, 'MIB_IPMCAST_BOUNDARY')
@@ -2459,15 +2461,16 @@ make_head(_module, 'MIB_IPMCAST_OIF_STATS_W2K')
 make_head(_module, 'MIB_IPMCAST_OIF_W2K')
 make_head(_module, 'MIB_IPMCAST_OIF_XP')
 make_head(_module, 'MIB_IPMCAST_SCOPE')
-make_head(_module, 'MIB_IPNET_ROW2')
-make_head(_module, 'MIB_IPNET_TABLE2')
 make_head(_module, 'MIB_IPNETROW_LH')
 make_head(_module, 'MIB_IPNETROW_W2K')
 make_head(_module, 'MIB_IPNETTABLE')
+make_head(_module, 'MIB_IPNET_ROW2')
+make_head(_module, 'MIB_IPNET_TABLE2')
 make_head(_module, 'MIB_IPPATH_ROW')
 make_head(_module, 'MIB_IPPATH_TABLE')
 make_head(_module, 'MIB_IPSTATS_LH')
 make_head(_module, 'MIB_IPSTATS_W2K')
+make_head(_module, 'MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES')
 make_head(_module, 'MIB_MCAST_LIMIT_ROW')
 make_head(_module, 'MIB_MFE_STATS_TABLE')
 make_head(_module, 'MIB_MFE_STATS_TABLE_EX_XP')
@@ -2479,53 +2482,50 @@ make_head(_module, 'MIB_OPAQUE_QUERY')
 make_head(_module, 'MIB_PROXYARP')
 make_head(_module, 'MIB_ROUTESTATE')
 make_head(_module, 'MIB_TCP6ROW')
+make_head(_module, 'MIB_TCP6ROW2')
 make_head(_module, 'MIB_TCP6ROW_OWNER_MODULE')
 make_head(_module, 'MIB_TCP6ROW_OWNER_PID')
-make_head(_module, 'MIB_TCP6ROW2')
 make_head(_module, 'MIB_TCP6TABLE')
+make_head(_module, 'MIB_TCP6TABLE2')
 make_head(_module, 'MIB_TCP6TABLE_OWNER_MODULE')
 make_head(_module, 'MIB_TCP6TABLE_OWNER_PID')
-make_head(_module, 'MIB_TCP6TABLE2')
+make_head(_module, 'MIB_TCPROW2')
 make_head(_module, 'MIB_TCPROW_LH')
 make_head(_module, 'MIB_TCPROW_OWNER_MODULE')
 make_head(_module, 'MIB_TCPROW_OWNER_PID')
 make_head(_module, 'MIB_TCPROW_W2K')
-make_head(_module, 'MIB_TCPROW2')
+make_head(_module, 'MIB_TCPSTATS2')
 make_head(_module, 'MIB_TCPSTATS_LH')
 make_head(_module, 'MIB_TCPSTATS_W2K')
-make_head(_module, 'MIB_TCPSTATS2')
 make_head(_module, 'MIB_TCPTABLE')
+make_head(_module, 'MIB_TCPTABLE2')
 make_head(_module, 'MIB_TCPTABLE_OWNER_MODULE')
 make_head(_module, 'MIB_TCPTABLE_OWNER_PID')
-make_head(_module, 'MIB_TCPTABLE2')
 make_head(_module, 'MIB_UDP6ROW')
+make_head(_module, 'MIB_UDP6ROW2')
 make_head(_module, 'MIB_UDP6ROW_OWNER_MODULE')
 make_head(_module, 'MIB_UDP6ROW_OWNER_PID')
-make_head(_module, 'MIB_UDP6ROW2')
 make_head(_module, 'MIB_UDP6TABLE')
+make_head(_module, 'MIB_UDP6TABLE2')
 make_head(_module, 'MIB_UDP6TABLE_OWNER_MODULE')
 make_head(_module, 'MIB_UDP6TABLE_OWNER_PID')
-make_head(_module, 'MIB_UDP6TABLE2')
 make_head(_module, 'MIB_UDPROW')
+make_head(_module, 'MIB_UDPROW2')
 make_head(_module, 'MIB_UDPROW_OWNER_MODULE')
 make_head(_module, 'MIB_UDPROW_OWNER_PID')
-make_head(_module, 'MIB_UDPROW2')
 make_head(_module, 'MIB_UDPSTATS')
 make_head(_module, 'MIB_UDPSTATS2')
 make_head(_module, 'MIB_UDPTABLE')
+make_head(_module, 'MIB_UDPTABLE2')
 make_head(_module, 'MIB_UDPTABLE_OWNER_MODULE')
 make_head(_module, 'MIB_UDPTABLE_OWNER_PID')
-make_head(_module, 'MIB_UDPTABLE2')
 make_head(_module, 'MIB_UNICASTIPADDRESS_ROW')
 make_head(_module, 'MIB_UNICASTIPADDRESS_TABLE')
-make_head(_module, 'MIBICMPINFO')
-make_head(_module, 'MIBICMPSTATS')
-make_head(_module, 'MIBICMPSTATS_EX_XPSP1')
+make_head(_module, 'PFLOGFRAME')
 make_head(_module, 'PF_FILTER_DESCRIPTOR')
 make_head(_module, 'PF_FILTER_STATS')
 make_head(_module, 'PF_INTERFACE_STATS')
 make_head(_module, 'PF_LATEBIND_INFO')
-make_head(_module, 'PFLOGFRAME')
 make_head(_module, 'PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK')
 make_head(_module, 'PIPFORWARD_CHANGE_CALLBACK')
 make_head(_module, 'PIPINTERFACE_CHANGE_CALLBACK')
@@ -2533,6 +2533,7 @@ make_head(_module, 'PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK')
 make_head(_module, 'PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK')
 make_head(_module, 'PTEREDO_PORT_CHANGE_CALLBACK')
 make_head(_module, 'PUNICAST_IPADDRESS_CHANGE_CALLBACK')
+make_head(_module, 'TCPIP_OWNER_MODULE_BASIC_INFO')
 make_head(_module, 'TCP_ESTATS_BANDWIDTH_ROD_v0')
 make_head(_module, 'TCP_ESTATS_BANDWIDTH_RW_v0')
 make_head(_module, 'TCP_ESTATS_DATA_ROD_v0')
@@ -2552,7 +2553,6 @@ make_head(_module, 'TCP_ESTATS_SND_CONG_ROS_v0')
 make_head(_module, 'TCP_ESTATS_SND_CONG_RW_v0')
 make_head(_module, 'TCP_ESTATS_SYN_OPTS_ROS_v0')
 make_head(_module, 'TCP_RESERVE_PORT_RANGE')
-make_head(_module, 'TCPIP_OWNER_MODULE_BASIC_INFO')
 __all__ = [
     "ANY_SIZE",
     "ARP_SEND_REPLY",

@@ -102,9 +102,6 @@ class DFS_GET_PKT_ENTRY_STATE_ARG(Structure):
     Buffer: Char * 1
 class DFS_INFO_1(Structure):
     EntryPath: win32more.Foundation.PWSTR
-if ARCH in 'X64,ARM64':
-    class DFS_INFO_1_32(Structure):
-        EntryPath: UInt32
 class DFS_INFO_100(Structure):
     Comment: win32more.Foundation.PWSTR
 class DFS_INFO_101(Structure):
@@ -136,25 +133,31 @@ class DFS_INFO_107(Structure):
 class DFS_INFO_150(Structure):
     SdLengthReserved: UInt32
     pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR
+if ARCH in 'X64,ARM64':
+    class DFS_INFO_1_32(Structure):
+        EntryPath: UInt32
 class DFS_INFO_2(Structure):
     EntryPath: win32more.Foundation.PWSTR
     Comment: win32more.Foundation.PWSTR
     State: UInt32
     NumberOfStorages: UInt32
+class DFS_INFO_200(Structure):
+    FtDfsName: win32more.Foundation.PWSTR
 if ARCH in 'X64,ARM64':
     class DFS_INFO_2_32(Structure):
         EntryPath: UInt32
         Comment: UInt32
         State: UInt32
         NumberOfStorages: UInt32
-class DFS_INFO_200(Structure):
-    FtDfsName: win32more.Foundation.PWSTR
 class DFS_INFO_3(Structure):
     EntryPath: win32more.Foundation.PWSTR
     Comment: win32more.Foundation.PWSTR
     State: UInt32
     NumberOfStorages: UInt32
     Storage: POINTER(win32more.Storage.DistributedFileSystem.DFS_STORAGE_INFO_head)
+class DFS_INFO_300(Structure):
+    Flags: UInt32
+    DfsName: win32more.Foundation.PWSTR
 if ARCH in 'X64,ARM64':
     class DFS_INFO_3_32(Structure):
         EntryPath: UInt32
@@ -162,9 +165,6 @@ if ARCH in 'X64,ARM64':
         State: UInt32
         NumberOfStorages: UInt32
         Storage: UInt32
-class DFS_INFO_300(Structure):
-    Flags: UInt32
-    DfsName: win32more.Foundation.PWSTR
 class DFS_INFO_4(Structure):
     EntryPath: win32more.Foundation.PWSTR
     Comment: win32more.Foundation.PWSTR
@@ -274,8 +274,6 @@ DFS_TARGET_PRIORITY_CLASS_DfsSiteCostLowPriorityClass: DFS_TARGET_PRIORITY_CLASS
 DFS_TARGET_PRIORITY_CLASS_DfsGlobalLowPriorityClass: DFS_TARGET_PRIORITY_CLASS = 4
 make_head(_module, 'DFS_GET_PKT_ENTRY_STATE_ARG')
 make_head(_module, 'DFS_INFO_1')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'DFS_INFO_1_32')
 make_head(_module, 'DFS_INFO_100')
 make_head(_module, 'DFS_INFO_101')
 make_head(_module, 'DFS_INFO_102')
@@ -285,14 +283,16 @@ make_head(_module, 'DFS_INFO_105')
 make_head(_module, 'DFS_INFO_106')
 make_head(_module, 'DFS_INFO_107')
 make_head(_module, 'DFS_INFO_150')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DFS_INFO_1_32')
 make_head(_module, 'DFS_INFO_2')
+make_head(_module, 'DFS_INFO_200')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'DFS_INFO_2_32')
-make_head(_module, 'DFS_INFO_200')
 make_head(_module, 'DFS_INFO_3')
+make_head(_module, 'DFS_INFO_300')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'DFS_INFO_3_32')
-make_head(_module, 'DFS_INFO_300')
 make_head(_module, 'DFS_INFO_4')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'DFS_INFO_4_32')

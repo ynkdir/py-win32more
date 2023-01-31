@@ -41,6 +41,46 @@ class ALLOCATOR_PROPERTIES_EX(Structure):
     NextSegments: POINTER(POINTER(win32more.Media.KernelStreaming.IKsAllocatorEx_head))
     InsideFactors: UInt32
     NumberPins: UInt32
+APO_CLASS_UUID = Guid('5989fce8-9cd0-467d-8a-6a-54-19-e3-15-29-d4')
+AUDIOENDPOINT_CLASS_UUID = Guid('c166523c-fe0c-4a94-a5-86-f1-a8-0c-fb-bf-3e')
+AUDIOPOSTURE_ORIENTATION = Int32
+AUDIOPOSTURE_ORIENTATION_NOTROTATED: AUDIOPOSTURE_ORIENTATION = 0
+AUDIOPOSTURE_ORIENTATION_ROTATED90DEGREESCOUNTERCLOCKWISE: AUDIOPOSTURE_ORIENTATION = 1
+AUDIOPOSTURE_ORIENTATION_ROTATED180DEGREESCOUNTERCLOCKWISE: AUDIOPOSTURE_ORIENTATION = 2
+AUDIOPOSTURE_ORIENTATION_ROTATED270DEGREESCOUNTERCLOCKWISE: AUDIOPOSTURE_ORIENTATION = 3
+class AUDIORESOURCEMANAGEMENT_RESOURCEGROUP(Structure):
+    ResourceGroupAcquired: win32more.Foundation.BOOL
+    ResourceGroupName: Char * 256
+AUDIO_CURVE_TYPE = Int32
+AUDIO_CURVE_TYPE_NONE: AUDIO_CURVE_TYPE = 0
+AUDIO_CURVE_TYPE_WINDOWS_FADE: AUDIO_CURVE_TYPE = 1
+AUDIO_EFFECT_TYPE_ACOUSTIC_ECHO_CANCELLATION = Guid('6f64adbe-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_AUTOMATIC_GAIN_CONTROL = Guid('6f64adc0-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_BASS_BOOST = Guid('6f64adc5-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_BASS_MANAGEMENT = Guid('6f64adca-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_BEAMFORMING = Guid('6f64adc1-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_CONSTANT_TONE_REMOVAL = Guid('6f64adc2-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_DEEP_NOISE_SUPPRESSION = Guid('6f64add0-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_DYNAMIC_RANGE_COMPRESSION = Guid('6f64adce-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_ENVIRONMENTAL_EFFECTS = Guid('6f64adcb-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_EQUALIZER = Guid('6f64adc3-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_FAR_FIELD_BEAMFORMING = Guid('6f64adcf-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_LOUDNESS_EQUALIZER = Guid('6f64adc4-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_NOISE_SUPPRESSION = Guid('6f64adbf-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_ROOM_CORRECTION = Guid('6f64adc9-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_SPEAKER_COMPENSATION = Guid('6f64adcd-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_SPEAKER_FILL = Guid('6f64adc8-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_SPEAKER_PROTECTION = Guid('6f64adcc-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_VIRTUAL_HEADPHONES = Guid('6f64adc7-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_EFFECT_TYPE_VIRTUAL_SURROUND = Guid('6f64adc6-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
+AUDIO_SIGNALPROCESSINGMODE_COMMUNICATIONS = Guid('98951333-b9cd-48b1-a0-a3-ff-40-68-2d-73-f7')
+AUDIO_SIGNALPROCESSINGMODE_DEFAULT = Guid('c18e2f7e-933d-4965-b7-d1-1e-ef-22-8d-2a-f3')
+AUDIO_SIGNALPROCESSINGMODE_FAR_FIELD_SPEECH = Guid('28941cba-3be6-4a78-9a-76-30-fd-91-55-9b-64')
+AUDIO_SIGNALPROCESSINGMODE_MEDIA = Guid('4780004e-7133-41d8-8c-74-66-0d-ad-d2-c0-ee')
+AUDIO_SIGNALPROCESSINGMODE_MOVIE = Guid('b26feb0d-ec94-477c-94-94-d1-ab-8e-75-3f-6e')
+AUDIO_SIGNALPROCESSINGMODE_NOTIFICATION = Guid('9cf2a70b-f377-403b-bd-6b-36-08-63-e0-35-5c')
+AUDIO_SIGNALPROCESSINGMODE_RAW = Guid('9e90ea20-b493-4fd1-a1-a8-7e-13-61-a9-56-cf')
+AUDIO_SIGNALPROCESSINGMODE_SPEECH = Guid('fc1cfc9b-b9d6-4cfa-b5-e0-4b-b2-16-68-78-b2')
 IOCTL_KS_PROPERTY: UInt32 = 3080195
 IOCTL_KS_ENABLE_EVENT: UInt32 = 3080199
 IOCTL_KS_DISABLE_EVENT: UInt32 = 3080203
@@ -700,48 +740,8 @@ def KsCreateClock2(ConnectionHandle: win32more.Foundation.HANDLE, ClockCreate: P
 def KsCreatePin2(FilterHandle: win32more.Foundation.HANDLE, Connect: POINTER(win32more.Media.KernelStreaming.KSPIN_CONNECT_head), DesiredAccess: UInt32, ConnectionHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.HRESULT: ...
 @winfunctype('ksuser.dll')
 def KsCreateTopologyNode2(ParentHandle: win32more.Foundation.HANDLE, NodeCreate: POINTER(win32more.Media.KernelStreaming.KSNODE_CREATE_head), DesiredAccess: UInt32, NodeHandle: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.HRESULT: ...
-APO_CLASS_UUID = Guid('5989fce8-9cd0-467d-8a-6a-54-19-e3-15-29-d4')
-AUDIO_CURVE_TYPE = Int32
-AUDIO_CURVE_TYPE_NONE: AUDIO_CURVE_TYPE = 0
-AUDIO_CURVE_TYPE_WINDOWS_FADE: AUDIO_CURVE_TYPE = 1
-AUDIO_EFFECT_TYPE_ACOUSTIC_ECHO_CANCELLATION = Guid('6f64adbe-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_AUTOMATIC_GAIN_CONTROL = Guid('6f64adc0-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_BASS_BOOST = Guid('6f64adc5-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_BASS_MANAGEMENT = Guid('6f64adca-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_BEAMFORMING = Guid('6f64adc1-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_CONSTANT_TONE_REMOVAL = Guid('6f64adc2-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_DEEP_NOISE_SUPPRESSION = Guid('6f64add0-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_DYNAMIC_RANGE_COMPRESSION = Guid('6f64adce-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_ENVIRONMENTAL_EFFECTS = Guid('6f64adcb-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_EQUALIZER = Guid('6f64adc3-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_FAR_FIELD_BEAMFORMING = Guid('6f64adcf-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_LOUDNESS_EQUALIZER = Guid('6f64adc4-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_NOISE_SUPPRESSION = Guid('6f64adbf-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_ROOM_CORRECTION = Guid('6f64adc9-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_SPEAKER_COMPENSATION = Guid('6f64adcd-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_SPEAKER_FILL = Guid('6f64adc8-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_SPEAKER_PROTECTION = Guid('6f64adcc-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_VIRTUAL_HEADPHONES = Guid('6f64adc7-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_EFFECT_TYPE_VIRTUAL_SURROUND = Guid('6f64adc6-8211-11e2-8c-70-2c-27-d7-f0-01-fa')
-AUDIO_SIGNALPROCESSINGMODE_COMMUNICATIONS = Guid('98951333-b9cd-48b1-a0-a3-ff-40-68-2d-73-f7')
-AUDIO_SIGNALPROCESSINGMODE_DEFAULT = Guid('c18e2f7e-933d-4965-b7-d1-1e-ef-22-8d-2a-f3')
-AUDIO_SIGNALPROCESSINGMODE_FAR_FIELD_SPEECH = Guid('28941cba-3be6-4a78-9a-76-30-fd-91-55-9b-64')
-AUDIO_SIGNALPROCESSINGMODE_MEDIA = Guid('4780004e-7133-41d8-8c-74-66-0d-ad-d2-c0-ee')
-AUDIO_SIGNALPROCESSINGMODE_MOVIE = Guid('b26feb0d-ec94-477c-94-94-d1-ab-8e-75-3f-6e')
-AUDIO_SIGNALPROCESSINGMODE_NOTIFICATION = Guid('9cf2a70b-f377-403b-bd-6b-36-08-63-e0-35-5c')
-AUDIO_SIGNALPROCESSINGMODE_RAW = Guid('9e90ea20-b493-4fd1-a1-a8-7e-13-61-a9-56-cf')
-AUDIO_SIGNALPROCESSINGMODE_SPEECH = Guid('fc1cfc9b-b9d6-4cfa-b5-e0-4b-b2-16-68-78-b2')
-AUDIOENDPOINT_CLASS_UUID = Guid('c166523c-fe0c-4a94-a5-86-f1-a8-0c-fb-bf-3e')
-AUDIOPOSTURE_ORIENTATION = Int32
-AUDIOPOSTURE_ORIENTATION_NOTROTATED: AUDIOPOSTURE_ORIENTATION = 0
-AUDIOPOSTURE_ORIENTATION_ROTATED90DEGREESCOUNTERCLOCKWISE: AUDIOPOSTURE_ORIENTATION = 1
-AUDIOPOSTURE_ORIENTATION_ROTATED180DEGREESCOUNTERCLOCKWISE: AUDIOPOSTURE_ORIENTATION = 2
-AUDIOPOSTURE_ORIENTATION_ROTATED270DEGREESCOUNTERCLOCKWISE: AUDIOPOSTURE_ORIENTATION = 3
-class AUDIORESOURCEMANAGEMENT_RESOURCEGROUP(Structure):
-    ResourceGroupAcquired: win32more.Foundation.BOOL
-    ResourceGroupName: Char * 256
-BLUETOOTH_MIDI_DATAIO_CHARACTERISTIC = Guid('7772e5db-3868-4112-a1-a9-f2-66-9d-10-6b-f3')
 BLUETOOTHLE_MIDI_SERVICE_UUID = Guid('03b80e5a-ede8-4b33-a7-51-6c-e3-4e-c4-c7-00')
+BLUETOOTH_MIDI_DATAIO_CHARACTERISTIC = Guid('7772e5db-3868-4112-a1-a9-f2-66-9d-10-6b-f3')
 CAPTURE_MEMORY_ALLOCATION_FLAGS = Int32
 KS_CAPTURE_ALLOC_INVALID: CAPTURE_MEMORY_ALLOCATION_FLAGS = 0
 KS_CAPTURE_ALLOC_SYSTEM: CAPTURE_MEMORY_ALLOCATION_FLAGS = 1
@@ -930,519 +930,6 @@ class INTERLEAVED_AUDIO_FORMAT_INFORMATION(Structure):
     InterleavedChannelCount: UInt32
     InterleavedChannelStartPosition: UInt32
     InterleavedChannelMask: UInt32
-class KS_AM_ExactRateChange(Structure):
-    OutputZeroTime: Int64
-    Rate: Int32
-KS_AM_PROPERTY_TS_RATE_CHANGE = Int32
-KS_AM_RATE_SimpleRateChange: KS_AM_PROPERTY_TS_RATE_CHANGE = 1
-KS_AM_RATE_ExactRateChange: KS_AM_PROPERTY_TS_RATE_CHANGE = 2
-KS_AM_RATE_MaxFullDataRate: KS_AM_PROPERTY_TS_RATE_CHANGE = 3
-KS_AM_RATE_Step: KS_AM_PROPERTY_TS_RATE_CHANGE = 4
-class KS_AM_SimpleRateChange(Structure):
-    StartTime: Int64
-    Rate: Int32
-KS_AMPixAspectRatio = Int32
-KS_PixAspectRatio_NTSC4x3: KS_AMPixAspectRatio = 0
-KS_PixAspectRatio_NTSC16x9: KS_AMPixAspectRatio = 1
-KS_PixAspectRatio_PAL4x3: KS_AMPixAspectRatio = 2
-KS_PixAspectRatio_PAL16x9: KS_AMPixAspectRatio = 3
-KS_AMVP_MODE = Int32
-KS_AMVP_MODE_WEAVE: KS_AMVP_MODE = 0
-KS_AMVP_MODE_BOBINTERLEAVED: KS_AMVP_MODE = 1
-KS_AMVP_MODE_BOBNONINTERLEAVED: KS_AMVP_MODE = 2
-KS_AMVP_MODE_SKIPEVEN: KS_AMVP_MODE = 3
-KS_AMVP_MODE_SKIPODD: KS_AMVP_MODE = 4
-KS_AMVP_SELECTFORMATBY = Int32
-KS_AMVP_DO_NOT_CARE: KS_AMVP_SELECTFORMATBY = 0
-KS_AMVP_BEST_BANDWIDTH: KS_AMVP_SELECTFORMATBY = 1
-KS_AMVP_INPUT_SAME_AS_OUTPUT: KS_AMVP_SELECTFORMATBY = 2
-class KS_AMVPDATAINFO(Structure):
-    dwSize: UInt32
-    dwMicrosecondsPerField: UInt32
-    amvpDimInfo: win32more.Media.KernelStreaming.KS_AMVPDIMINFO
-    dwPictAspectRatioX: UInt32
-    dwPictAspectRatioY: UInt32
-    bEnableDoubleClock: win32more.Foundation.BOOL
-    bEnableVACT: win32more.Foundation.BOOL
-    bDataIsInterlaced: win32more.Foundation.BOOL
-    lHalfLinesOdd: Int32
-    bFieldPolarityInverted: win32more.Foundation.BOOL
-    dwNumLinesInVREF: UInt32
-    lHalfLinesEven: Int32
-    dwReserved1: UInt32
-class KS_AMVPDIMINFO(Structure):
-    dwFieldWidth: UInt32
-    dwFieldHeight: UInt32
-    dwVBIWidth: UInt32
-    dwVBIHeight: UInt32
-    rcValidRegion: win32more.Foundation.RECT
-class KS_AMVPSIZE(Structure):
-    dwWidth: UInt32
-    dwHeight: UInt32
-class KS_ANALOGVIDEOINFO(Structure):
-    rcSource: win32more.Foundation.RECT
-    rcTarget: win32more.Foundation.RECT
-    dwActiveWidth: UInt32
-    dwActiveHeight: UInt32
-    AvgTimePerFrame: Int64
-KS_AnalogVideoStandard = Int32
-KS_AnalogVideo_None: KS_AnalogVideoStandard = 0
-KS_AnalogVideo_NTSC_M: KS_AnalogVideoStandard = 1
-KS_AnalogVideo_NTSC_M_J: KS_AnalogVideoStandard = 2
-KS_AnalogVideo_NTSC_433: KS_AnalogVideoStandard = 4
-KS_AnalogVideo_PAL_B: KS_AnalogVideoStandard = 16
-KS_AnalogVideo_PAL_D: KS_AnalogVideoStandard = 32
-KS_AnalogVideo_PAL_G: KS_AnalogVideoStandard = 64
-KS_AnalogVideo_PAL_H: KS_AnalogVideoStandard = 128
-KS_AnalogVideo_PAL_I: KS_AnalogVideoStandard = 256
-KS_AnalogVideo_PAL_M: KS_AnalogVideoStandard = 512
-KS_AnalogVideo_PAL_N: KS_AnalogVideoStandard = 1024
-KS_AnalogVideo_PAL_60: KS_AnalogVideoStandard = 2048
-KS_AnalogVideo_SECAM_B: KS_AnalogVideoStandard = 4096
-KS_AnalogVideo_SECAM_D: KS_AnalogVideoStandard = 8192
-KS_AnalogVideo_SECAM_G: KS_AnalogVideoStandard = 16384
-KS_AnalogVideo_SECAM_H: KS_AnalogVideoStandard = 32768
-KS_AnalogVideo_SECAM_K: KS_AnalogVideoStandard = 65536
-KS_AnalogVideo_SECAM_K1: KS_AnalogVideoStandard = 131072
-KS_AnalogVideo_SECAM_L: KS_AnalogVideoStandard = 262144
-KS_AnalogVideo_SECAM_L1: KS_AnalogVideoStandard = 524288
-KS_AnalogVideo_PAL_N_COMBO: KS_AnalogVideoStandard = 1048576
-class KS_BITMAPINFOHEADER(Structure):
-    biSize: UInt32
-    biWidth: Int32
-    biHeight: Int32
-    biPlanes: UInt16
-    biBitCount: UInt16
-    biCompression: UInt32
-    biSizeImage: UInt32
-    biXPelsPerMeter: Int32
-    biYPelsPerMeter: Int32
-    biClrUsed: UInt32
-    biClrImportant: UInt32
-KS_CameraControlAsyncOperation = Int32
-KS_CAMERACONTROL_ASYNC_START: KS_CameraControlAsyncOperation = 1
-KS_CAMERACONTROL_ASYNC_STOP: KS_CameraControlAsyncOperation = 2
-KS_CAMERACONTROL_ASYNC_RESET: KS_CameraControlAsyncOperation = 3
-class KS_COLCON(Structure):
-    _bitfield1: Byte
-    _bitfield2: Byte
-    _bitfield3: Byte
-    _bitfield4: Byte
-class KS_COMPRESSION(Structure):
-    RatioNumerator: UInt32
-    RatioDenominator: UInt32
-    RatioConstantMargin: UInt32
-KS_CompressionCaps = Int32
-KS_CompressionCaps_CanQuality: KS_CompressionCaps = 1
-KS_CompressionCaps_CanCrunch: KS_CompressionCaps = 2
-KS_CompressionCaps_CanKeyFrame: KS_CompressionCaps = 4
-KS_CompressionCaps_CanBFrame: KS_CompressionCaps = 8
-KS_CompressionCaps_CanWindow: KS_CompressionCaps = 16
-class KS_COPY_MACROVISION(Structure):
-    MACROVISIONLevel: UInt32
-KS_COPY_MACROVISION_LEVEL = Int32
-KS_MACROVISION_DISABLED: KS_COPY_MACROVISION_LEVEL = 0
-KS_MACROVISION_LEVEL1: KS_COPY_MACROVISION_LEVEL = 1
-KS_MACROVISION_LEVEL2: KS_COPY_MACROVISION_LEVEL = 2
-KS_MACROVISION_LEVEL3: KS_COPY_MACROVISION_LEVEL = 3
-class KS_DATAFORMAT_H264VIDEOINFO(Structure):
-    DataFormat: win32more.Media.KernelStreaming.KSDATAFORMAT
-    H264VideoInfoHeader: win32more.Media.KernelStreaming.KS_H264VIDEOINFO
-class KS_DATAFORMAT_IMAGEINFO(Structure):
-    DataFormat: win32more.Media.KernelStreaming.KSDATAFORMAT
-    ImageInfoHeader: win32more.Media.KernelStreaming.KS_BITMAPINFOHEADER
-class KS_DATAFORMAT_MPEGVIDEOINFO2(Structure):
-    DataFormat: win32more.Media.KernelStreaming.KSDATAFORMAT
-    MpegVideoInfoHeader2: win32more.Media.KernelStreaming.KS_MPEGVIDEOINFO2
-class KS_DATAFORMAT_VBIINFOHEADER(Structure):
-    DataFormat: win32more.Media.KernelStreaming.KSDATAFORMAT
-    VBIInfoHeader: win32more.Media.KernelStreaming.KS_VBIINFOHEADER
-class KS_DATAFORMAT_VIDEOINFO_PALETTE(Structure):
-    DataFormat: win32more.Media.KernelStreaming.KSDATAFORMAT
-    VideoInfo: win32more.Media.KernelStreaming.KS_VIDEOINFO
-class KS_DATAFORMAT_VIDEOINFOHEADER(Structure):
-    DataFormat: win32more.Media.KernelStreaming.KSDATAFORMAT
-    VideoInfoHeader: win32more.Media.KernelStreaming.KS_VIDEOINFOHEADER
-class KS_DATAFORMAT_VIDEOINFOHEADER2(Structure):
-    DataFormat: win32more.Media.KernelStreaming.KSDATAFORMAT
-    VideoInfoHeader2: win32more.Media.KernelStreaming.KS_VIDEOINFOHEADER2
-class KS_DATARANGE_ANALOGVIDEO(Structure):
-    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
-    AnalogVideoInfo: win32more.Media.KernelStreaming.KS_ANALOGVIDEOINFO
-class KS_DATARANGE_H264_VIDEO(Structure):
-    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
-    bFixedSizeSamples: win32more.Foundation.BOOL
-    bTemporalCompression: win32more.Foundation.BOOL
-    StreamDescriptionFlags: UInt32
-    MemoryAllocationFlags: UInt32
-    ConfigCaps: win32more.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
-    VideoInfoHeader: win32more.Media.KernelStreaming.KS_H264VIDEOINFO
-class KS_DATARANGE_IMAGE(Structure):
-    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
-    ConfigCaps: win32more.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
-    ImageInfoHeader: win32more.Media.KernelStreaming.KS_BITMAPINFOHEADER
-class KS_DATARANGE_MPEG1_VIDEO(Structure):
-    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
-    bFixedSizeSamples: win32more.Foundation.BOOL
-    bTemporalCompression: win32more.Foundation.BOOL
-    StreamDescriptionFlags: UInt32
-    MemoryAllocationFlags: UInt32
-    ConfigCaps: win32more.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
-    VideoInfoHeader: win32more.Media.KernelStreaming.KS_MPEG1VIDEOINFO
-class KS_DATARANGE_MPEG2_VIDEO(Structure):
-    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
-    bFixedSizeSamples: win32more.Foundation.BOOL
-    bTemporalCompression: win32more.Foundation.BOOL
-    StreamDescriptionFlags: UInt32
-    MemoryAllocationFlags: UInt32
-    ConfigCaps: win32more.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
-    VideoInfoHeader: win32more.Media.KernelStreaming.KS_MPEGVIDEOINFO2
-class KS_DATARANGE_VIDEO(Structure):
-    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
-    bFixedSizeSamples: win32more.Foundation.BOOL
-    bTemporalCompression: win32more.Foundation.BOOL
-    StreamDescriptionFlags: UInt32
-    MemoryAllocationFlags: UInt32
-    ConfigCaps: win32more.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
-    VideoInfoHeader: win32more.Media.KernelStreaming.KS_VIDEOINFOHEADER
-class KS_DATARANGE_VIDEO_PALETTE(Structure):
-    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
-    bFixedSizeSamples: win32more.Foundation.BOOL
-    bTemporalCompression: win32more.Foundation.BOOL
-    StreamDescriptionFlags: UInt32
-    MemoryAllocationFlags: UInt32
-    ConfigCaps: win32more.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
-    VideoInfo: win32more.Media.KernelStreaming.KS_VIDEOINFO
-class KS_DATARANGE_VIDEO_VBI(Structure):
-    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
-    bFixedSizeSamples: win32more.Foundation.BOOL
-    bTemporalCompression: win32more.Foundation.BOOL
-    StreamDescriptionFlags: UInt32
-    MemoryAllocationFlags: UInt32
-    ConfigCaps: win32more.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
-    VBIInfoHeader: win32more.Media.KernelStreaming.KS_VBIINFOHEADER
-class KS_DATARANGE_VIDEO2(Structure):
-    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
-    bFixedSizeSamples: win32more.Foundation.BOOL
-    bTemporalCompression: win32more.Foundation.BOOL
-    StreamDescriptionFlags: UInt32
-    MemoryAllocationFlags: UInt32
-    ConfigCaps: win32more.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
-    VideoInfoHeader: win32more.Media.KernelStreaming.KS_VIDEOINFOHEADER2
-class KS_DVD_YCrCb(Structure):
-    Reserved: Byte
-    Y: Byte
-    Cr: Byte
-    Cb: Byte
-class KS_DVD_YUV(Structure):
-    Reserved: Byte
-    Y: Byte
-    V: Byte
-    U: Byte
-class KS_DVDCOPY_BUSKEY(Structure):
-    BusKey: Byte * 5
-    Reserved: Byte * 1
-class KS_DVDCOPY_CHLGKEY(Structure):
-    ChlgKey: Byte * 10
-    Reserved: Byte * 2
-class KS_DVDCOPY_DISCKEY(Structure):
-    DiscKey: Byte * 2048
-class KS_DVDCOPY_REGION(Structure):
-    Reserved: Byte
-    RegionData: Byte
-    Reserved2: Byte * 2
-class KS_DVDCOPY_SET_COPY_STATE(Structure):
-    DVDCopyState: UInt32
-class KS_DVDCOPY_TITLEKEY(Structure):
-    KeyFlags: UInt32
-    ReservedNT: UInt32 * 2
-    TitleKey: Byte * 6
-    Reserved: Byte * 2
-KS_DVDCOPYSTATE = Int32
-KS_DVDCOPYSTATE_INITIALIZE: KS_DVDCOPYSTATE = 0
-KS_DVDCOPYSTATE_INITIALIZE_TITLE: KS_DVDCOPYSTATE = 1
-KS_DVDCOPYSTATE_AUTHENTICATION_NOT_REQUIRED: KS_DVDCOPYSTATE = 2
-KS_DVDCOPYSTATE_AUTHENTICATION_REQUIRED: KS_DVDCOPYSTATE = 3
-KS_DVDCOPYSTATE_DONE: KS_DVDCOPYSTATE = 4
-class KS_FRAME_INFO(Structure):
-    ExtendedHeaderSize: UInt32
-    dwFrameFlags: UInt32
-    PictureNumber: Int64
-    DropCount: Int64
-    hDirectDraw: win32more.Foundation.HANDLE
-    hSurfaceHandle: win32more.Foundation.HANDLE
-    DirectDrawRect: win32more.Foundation.RECT
-    Anonymous1: _Anonymous1_e__Union
-    Reserved2: UInt32
-    Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Union(Union):
-        lSurfacePitch: Int32
-        Reserved1: UInt32
-    class _Anonymous2_e__Union(Union):
-        Anonymous: _Anonymous_e__Struct
-        FrameCompletionNumber: UInt64
-        class _Anonymous_e__Struct(Structure):
-            Reserved3: UInt32
-            Reserved4: UInt32
-class KS_FRAMING_ITEM(Structure):
-    MemoryType: Guid
-    BusType: Guid
-    MemoryFlags: UInt32
-    BusFlags: UInt32
-    Flags: UInt32
-    Frames: UInt32
-    Anonymous: _Anonymous_e__Union
-    MemoryTypeWeight: UInt32
-    PhysicalRange: win32more.Media.KernelStreaming.KS_FRAMING_RANGE
-    FramingRange: win32more.Media.KernelStreaming.KS_FRAMING_RANGE_WEIGHTED
-    class _Anonymous_e__Union(Union):
-        FileAlignment: UInt32
-        FramePitch: Int32
-class KS_FRAMING_RANGE(Structure):
-    MinFrameSize: UInt32
-    MaxFrameSize: UInt32
-    Stepping: UInt32
-class KS_FRAMING_RANGE_WEIGHTED(Structure):
-    Range: win32more.Media.KernelStreaming.KS_FRAMING_RANGE
-    InPlaceWeight: UInt32
-    NotInPlaceWeight: UInt32
-class KS_H264VIDEOINFO(Structure):
-    wWidth: UInt16
-    wHeight: UInt16
-    wSARwidth: UInt16
-    wSARheight: UInt16
-    wProfile: UInt16
-    bLevelIDC: Byte
-    wConstrainedToolset: UInt16
-    bmSupportedUsages: UInt32
-    bmCapabilities: UInt16
-    bmSVCCapabilities: UInt32
-    bmMVCCapabilities: UInt32
-    dwFrameInterval: UInt32
-    bMaxCodecConfigDelay: Byte
-    bmSupportedSliceModes: Byte
-    bmSupportedSyncFrameTypes: Byte
-    bResolutionScaling: Byte
-    bSimulcastSupport: Byte
-    bmSupportedRateControlModes: Byte
-    wMaxMBperSecOneResolutionNoScalability: UInt16
-    wMaxMBperSecTwoResolutionsNoScalability: UInt16
-    wMaxMBperSecThreeResolutionsNoScalability: UInt16
-    wMaxMBperSecFourResolutionsNoScalability: UInt16
-    wMaxMBperSecOneResolutionTemporalScalability: UInt16
-    wMaxMBperSecTwoResolutionsTemporalScalablility: UInt16
-    wMaxMBperSecThreeResolutionsTemporalScalability: UInt16
-    wMaxMBperSecFourResolutionsTemporalScalability: UInt16
-    wMaxMBperSecOneResolutionTemporalQualityScalability: UInt16
-    wMaxMBperSecTwoResolutionsTemporalQualityScalability: UInt16
-    wMaxMBperSecThreeResolutionsTemporalQualityScalablity: UInt16
-    wMaxMBperSecFourResolutionsTemporalQualityScalability: UInt16
-    wMaxMBperSecOneResolutionTemporalSpatialScalability: UInt16
-    wMaxMBperSecTwoResolutionsTemporalSpatialScalability: UInt16
-    wMaxMBperSecThreeResolutionsTemporalSpatialScalablity: UInt16
-    wMaxMBperSecFourResolutionsTemporalSpatialScalability: UInt16
-    wMaxMBperSecOneResolutionFullScalability: UInt16
-    wMaxMBperSecTwoResolutionsFullScalability: UInt16
-    wMaxMBperSecThreeResolutionsFullScalability: UInt16
-    wMaxMBperSecFourResolutionsFullScalability: UInt16
-KS_LogicalMemoryType = Int32
-KS_MemoryTypeDontCare: KS_LogicalMemoryType = 0
-KS_MemoryTypeKernelPaged: KS_LogicalMemoryType = 1
-KS_MemoryTypeKernelNonPaged: KS_LogicalMemoryType = 2
-KS_MemoryTypeDeviceHostMapped: KS_LogicalMemoryType = 3
-KS_MemoryTypeDeviceSpecific: KS_LogicalMemoryType = 4
-KS_MemoryTypeUser: KS_LogicalMemoryType = 5
-KS_MemoryTypeAnyHost: KS_LogicalMemoryType = 6
-class KS_MPEG1VIDEOINFO(Structure):
-    hdr: win32more.Media.KernelStreaming.KS_VIDEOINFOHEADER
-    dwStartTimeCode: UInt32
-    cbSequenceHeader: UInt32
-    bSequenceHeader: Byte * 1
-KS_MPEG2Level = Int32
-KS_MPEG2Level_Low: KS_MPEG2Level = 0
-KS_MPEG2Level_Main: KS_MPEG2Level = 1
-KS_MPEG2Level_High1440: KS_MPEG2Level = 2
-KS_MPEG2Level_High: KS_MPEG2Level = 3
-KS_MPEG2Profile = Int32
-KS_MPEG2Profile_Simple: KS_MPEG2Profile = 0
-KS_MPEG2Profile_Main: KS_MPEG2Profile = 1
-KS_MPEG2Profile_SNRScalable: KS_MPEG2Profile = 2
-KS_MPEG2Profile_SpatiallyScalable: KS_MPEG2Profile = 3
-KS_MPEG2Profile_High: KS_MPEG2Profile = 4
-class KS_MPEGAUDIOINFO(Structure):
-    dwFlags: UInt32
-    dwReserved1: UInt32
-    dwReserved2: UInt32
-    dwReserved3: UInt32
-class KS_MPEGVIDEOINFO2(Structure):
-    hdr: win32more.Media.KernelStreaming.KS_VIDEOINFOHEADER2
-    dwStartTimeCode: UInt32
-    cbSequenceHeader: UInt32
-    dwProfile: UInt32
-    dwLevel: UInt32
-    dwFlags: UInt32
-    bSequenceHeader: UInt32 * 1
-KS_PhysicalConnectorType = Int32
-KS_PhysConn_Video_Tuner: KS_PhysicalConnectorType = 1
-KS_PhysConn_Video_Composite: KS_PhysicalConnectorType = 2
-KS_PhysConn_Video_SVideo: KS_PhysicalConnectorType = 3
-KS_PhysConn_Video_RGB: KS_PhysicalConnectorType = 4
-KS_PhysConn_Video_YRYBY: KS_PhysicalConnectorType = 5
-KS_PhysConn_Video_SerialDigital: KS_PhysicalConnectorType = 6
-KS_PhysConn_Video_ParallelDigital: KS_PhysicalConnectorType = 7
-KS_PhysConn_Video_SCSI: KS_PhysicalConnectorType = 8
-KS_PhysConn_Video_AUX: KS_PhysicalConnectorType = 9
-KS_PhysConn_Video_1394: KS_PhysicalConnectorType = 10
-KS_PhysConn_Video_USB: KS_PhysicalConnectorType = 11
-KS_PhysConn_Video_VideoDecoder: KS_PhysicalConnectorType = 12
-KS_PhysConn_Video_VideoEncoder: KS_PhysicalConnectorType = 13
-KS_PhysConn_Video_SCART: KS_PhysicalConnectorType = 14
-KS_PhysConn_Audio_Tuner: KS_PhysicalConnectorType = 4096
-KS_PhysConn_Audio_Line: KS_PhysicalConnectorType = 4097
-KS_PhysConn_Audio_Mic: KS_PhysicalConnectorType = 4098
-KS_PhysConn_Audio_AESDigital: KS_PhysicalConnectorType = 4099
-KS_PhysConn_Audio_SPDIFDigital: KS_PhysicalConnectorType = 4100
-KS_PhysConn_Audio_SCSI: KS_PhysicalConnectorType = 4101
-KS_PhysConn_Audio_AUX: KS_PhysicalConnectorType = 4102
-KS_PhysConn_Audio_1394: KS_PhysicalConnectorType = 4103
-KS_PhysConn_Audio_USB: KS_PhysicalConnectorType = 4104
-KS_PhysConn_Audio_AudioDecoder: KS_PhysicalConnectorType = 4105
-class KS_RGBQUAD(Structure):
-    rgbBlue: Byte
-    rgbGreen: Byte
-    rgbRed: Byte
-    rgbReserved: Byte
-KS_SECURE_CAMERA_SCENARIO_ID = Guid('ae53fc6e-8d89-4488-9d-2e-4d-00-87-31-c5-fd')
-KS_SEEKING_CAPABILITIES = Int32
-KS_SEEKING_CanSeekAbsolute: KS_SEEKING_CAPABILITIES = 1
-KS_SEEKING_CanSeekForwards: KS_SEEKING_CAPABILITIES = 2
-KS_SEEKING_CanSeekBackwards: KS_SEEKING_CAPABILITIES = 4
-KS_SEEKING_CanGetCurrentPos: KS_SEEKING_CAPABILITIES = 8
-KS_SEEKING_CanGetStopPos: KS_SEEKING_CAPABILITIES = 16
-KS_SEEKING_CanGetDuration: KS_SEEKING_CAPABILITIES = 32
-KS_SEEKING_CanPlayBackwards: KS_SEEKING_CAPABILITIES = 64
-KS_SEEKING_FLAGS = Int32
-KS_SEEKING_NoPositioning: KS_SEEKING_FLAGS = 0
-KS_SEEKING_AbsolutePositioning: KS_SEEKING_FLAGS = 1
-KS_SEEKING_RelativePositioning: KS_SEEKING_FLAGS = 2
-KS_SEEKING_IncrementalPositioning: KS_SEEKING_FLAGS = 3
-KS_SEEKING_PositioningBitsMask: KS_SEEKING_FLAGS = 3
-KS_SEEKING_SeekToKeyFrame: KS_SEEKING_FLAGS = 4
-KS_SEEKING_ReturnTime: KS_SEEKING_FLAGS = 8
-class KS_TRUECOLORINFO(Structure):
-    dwBitMasks: UInt32 * 3
-    bmiColors: win32more.Media.KernelStreaming.KS_RGBQUAD * 256
-KS_TUNER_STRATEGY = Int32
-KS_TUNER_STRATEGY_PLL: KS_TUNER_STRATEGY = 1
-KS_TUNER_STRATEGY_SIGNAL_STRENGTH: KS_TUNER_STRATEGY = 2
-KS_TUNER_STRATEGY_DRIVER_TUNES: KS_TUNER_STRATEGY = 4
-KS_TUNER_TUNING_FLAGS = Int32
-KS_TUNER_TUNING_EXACT: KS_TUNER_TUNING_FLAGS = 1
-KS_TUNER_TUNING_FINE: KS_TUNER_TUNING_FLAGS = 2
-KS_TUNER_TUNING_COARSE: KS_TUNER_TUNING_FLAGS = 3
-class KS_TVTUNER_CHANGE_INFO(Structure):
-    dwFlags: UInt32
-    dwCountryCode: UInt32
-    dwAnalogVideoStandard: UInt32
-    dwChannel: UInt32
-class KS_VBI_FRAME_INFO(Structure):
-    ExtendedHeaderSize: UInt32
-    dwFrameFlags: UInt32
-    PictureNumber: Int64
-    DropCount: Int64
-    dwSamplingFrequency: UInt32
-    TvTunerChangeInfo: win32more.Media.KernelStreaming.KS_TVTUNER_CHANGE_INFO
-    VBIInfoHeader: win32more.Media.KernelStreaming.KS_VBIINFOHEADER
-class KS_VBIINFOHEADER(Structure):
-    StartLine: UInt32
-    EndLine: UInt32
-    SamplingFrequency: UInt32
-    MinLineStartTime: UInt32
-    MaxLineStartTime: UInt32
-    ActualLineStartTime: UInt32
-    ActualLineEndTime: UInt32
-    VideoStandard: UInt32
-    SamplesPerLine: UInt32
-    StrideInBytes: UInt32
-    BufferSize: UInt32
-class KS_VIDEO_STREAM_CONFIG_CAPS(Structure):
-    guid: Guid
-    VideoStandard: UInt32
-    InputSize: win32more.Foundation.SIZE
-    MinCroppingSize: win32more.Foundation.SIZE
-    MaxCroppingSize: win32more.Foundation.SIZE
-    CropGranularityX: Int32
-    CropGranularityY: Int32
-    CropAlignX: Int32
-    CropAlignY: Int32
-    MinOutputSize: win32more.Foundation.SIZE
-    MaxOutputSize: win32more.Foundation.SIZE
-    OutputGranularityX: Int32
-    OutputGranularityY: Int32
-    StretchTapsX: Int32
-    StretchTapsY: Int32
-    ShrinkTapsX: Int32
-    ShrinkTapsY: Int32
-    MinFrameInterval: Int64
-    MaxFrameInterval: Int64
-    MinBitsPerSecond: Int32
-    MaxBitsPerSecond: Int32
-KS_VideoControlFlags = Int32
-KS_VideoControlFlag_FlipHorizontal: KS_VideoControlFlags = 1
-KS_VideoControlFlag_FlipVertical: KS_VideoControlFlags = 2
-KS_Obsolete_VideoControlFlag_ExternalTriggerEnable: KS_VideoControlFlags = 16
-KS_Obsolete_VideoControlFlag_Trigger: KS_VideoControlFlags = 32
-KS_VideoControlFlag_ExternalTriggerEnable: KS_VideoControlFlags = 4
-KS_VideoControlFlag_Trigger: KS_VideoControlFlags = 8
-KS_VideoControlFlag_IndependentImagePin: KS_VideoControlFlags = 64
-KS_VideoControlFlag_StillCapturePreviewFrame: KS_VideoControlFlags = 128
-KS_VideoControlFlag_StartPhotoSequenceCapture: KS_VideoControlFlags = 256
-KS_VideoControlFlag_StopPhotoSequenceCapture: KS_VideoControlFlags = 512
-KS_VIDEODECODER_FLAGS = Int32
-KS_VIDEODECODER_FLAGS_CAN_DISABLE_OUTPUT: KS_VIDEODECODER_FLAGS = 1
-KS_VIDEODECODER_FLAGS_CAN_USE_VCR_LOCKING: KS_VIDEODECODER_FLAGS = 2
-KS_VIDEODECODER_FLAGS_CAN_INDICATE_LOCKED: KS_VIDEODECODER_FLAGS = 4
-class KS_VIDEOINFO(Structure):
-    rcSource: win32more.Foundation.RECT
-    rcTarget: win32more.Foundation.RECT
-    dwBitRate: UInt32
-    dwBitErrorRate: UInt32
-    AvgTimePerFrame: Int64
-    bmiHeader: win32more.Media.KernelStreaming.KS_BITMAPINFOHEADER
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        bmiColors: win32more.Media.KernelStreaming.KS_RGBQUAD * 256
-        dwBitMasks: UInt32 * 3
-        TrueColorInfo: win32more.Media.KernelStreaming.KS_TRUECOLORINFO
-class KS_VIDEOINFOHEADER(Structure):
-    rcSource: win32more.Foundation.RECT
-    rcTarget: win32more.Foundation.RECT
-    dwBitRate: UInt32
-    dwBitErrorRate: UInt32
-    AvgTimePerFrame: Int64
-    bmiHeader: win32more.Media.KernelStreaming.KS_BITMAPINFOHEADER
-class KS_VIDEOINFOHEADER2(Structure):
-    rcSource: win32more.Foundation.RECT
-    rcTarget: win32more.Foundation.RECT
-    dwBitRate: UInt32
-    dwBitErrorRate: UInt32
-    AvgTimePerFrame: Int64
-    dwInterlaceFlags: UInt32
-    dwCopyProtectFlags: UInt32
-    dwPictAspectRatioX: UInt32
-    dwPictAspectRatioY: UInt32
-    Anonymous: _Anonymous_e__Union
-    dwReserved2: UInt32
-    bmiHeader: win32more.Media.KernelStreaming.KS_BITMAPINFOHEADER
-    class _Anonymous_e__Union(Union):
-        dwControlFlags: UInt32
-        dwReserved1: UInt32
-KS_VideoStreamingHints = Int32
-KS_StreamingHint_FrameInterval: KS_VideoStreamingHints = 256
-KS_StreamingHint_KeyFrameRate: KS_VideoStreamingHints = 512
-KS_StreamingHint_PFrameRate: KS_VideoStreamingHints = 1024
-KS_StreamingHint_CompQuality: KS_VideoStreamingHints = 2048
-KS_StreamingHint_CompWindowSize: KS_VideoStreamingHints = 4096
 class KSAC3_ALTERNATE_AUDIO(Structure):
     fStereo: win32more.Foundation.BOOL
     DualMode: UInt32
@@ -1462,6 +949,9 @@ KSALGORITHMINSTANCE_SYSTEM_ACOUSTIC_ECHO_CANCEL = Guid('1c22c56d-9879-4f5b-a3-89
 KSALGORITHMINSTANCE_SYSTEM_AGC = Guid('950e55b9-877c-4c67-be-08-e4-7b-56-11-13-0a')
 KSALGORITHMINSTANCE_SYSTEM_MICROPHONE_ARRAY_PROCESSOR = Guid('b6f5a0a0-9e61-4f8c-91-e3-76-cf-0f-3c-47-1f')
 KSALGORITHMINSTANCE_SYSTEM_NOISE_SUPPRESS = Guid('5ab0882e-7274-4516-87-7d-4e-ee-99-ba-4f-d0')
+KSALLOCATORMODE = Int32
+KsAllocatorMode_User: KSALLOCATORMODE = 0
+KsAllocatorMode_Kernel: KSALLOCATORMODE = 1
 class KSALLOCATOR_FRAMING(Structure):
     Anonymous1: _Anonymous1_e__Union
     PoolType: UInt32
@@ -1481,17 +971,14 @@ class KSALLOCATOR_FRAMING_EX(Structure):
     OutputCompression: win32more.Media.KernelStreaming.KS_COMPRESSION
     PinWeight: UInt32
     FramingItem: win32more.Media.KernelStreaming.KS_FRAMING_ITEM * 1
-KSALLOCATORMODE = Int32
-KsAllocatorMode_User: KSALLOCATORMODE = 0
-KsAllocatorMode_Kernel: KSALLOCATORMODE = 1
 class KSATTRIBUTE(Structure):
     Size: UInt32
     Flags: UInt32
     Attribute: Guid
+KSATTRIBUTEID_AUDIOSIGNALPROCESSING_MODE = Guid('e1f89eb5-5f46-419b-96-7b-ff-67-70-b9-84-01')
 class KSATTRIBUTE_AUDIOSIGNALPROCESSING_MODE(Structure):
     AttributeHeader: win32more.Media.KernelStreaming.KSATTRIBUTE
     SignalProcessingMode: Guid
-KSATTRIBUTEID_AUDIOSIGNALPROCESSING_MODE = Guid('e1f89eb5-5f46-419b-96-7b-ff-67-70-b9-84-01')
 KSAUDFNAME_3D_CENTER = Guid('9f0670b4-991f-11d2-ac-4d-00-c0-4f-8e-fb-68')
 KSAUDFNAME_3D_DEPTH = Guid('63ff5747-991f-11d2-ac-4d-00-c0-4f-8e-fb-68')
 KSAUDFNAME_3D_STEREO = Guid('185fede2-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
@@ -1510,10 +997,10 @@ KSAUDFNAME_LINE_MUTE = Guid('185fedec-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
 KSAUDFNAME_LINE_VOLUME = Guid('185fedeb-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
 KSAUDFNAME_MASTER_MUTE = Guid('185fede4-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
 KSAUDFNAME_MASTER_VOLUME = Guid('185fede3-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
+KSAUDFNAME_MICROPHONE_BOOST = Guid('2bc31d6a-96e3-11d2-ac-4c-00-c0-4f-8e-fb-68')
 KSAUDFNAME_MIC_IN_VOLUME = Guid('185fedf5-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
 KSAUDFNAME_MIC_MUTE = Guid('185fedee-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
 KSAUDFNAME_MIC_VOLUME = Guid('185feded-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-KSAUDFNAME_MICROPHONE_BOOST = Guid('2bc31d6a-96e3-11d2-ac-4c-00-c0-4f-8e-fb-68')
 KSAUDFNAME_MIDI = Guid('185fedf8-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
 KSAUDFNAME_MIDI_IN_VOLUME = Guid('185fedf2-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
 KSAUDFNAME_MIDI_MUTE = Guid('185fede8-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
@@ -1543,74 +1030,6 @@ KSAUDFNAME_WAVE_IN_VOLUME = Guid('185fedf6-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
 KSAUDFNAME_WAVE_MUTE = Guid('185fede6-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
 KSAUDFNAME_WAVE_OUT_MIX = Guid('185fee00-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
 KSAUDFNAME_WAVE_VOLUME = Guid('185fede5-9905-11d1-95-a9-00-c0-4f-b9-25-d3')
-class KSAUDIO_CHANNEL_CONFIG(Structure):
-    ActiveSpeakerPositions: Int32
-class KSAUDIO_COPY_PROTECTION(Structure):
-    fCopyrighted: win32more.Foundation.BOOL
-    fOriginal: win32more.Foundation.BOOL
-class KSAUDIO_DYNAMIC_RANGE(Structure):
-    QuietCompression: UInt32
-    LoudCompression: UInt32
-class KSAUDIO_MIC_ARRAY_GEOMETRY(Structure):
-    usVersion: UInt16
-    usMicArrayType: UInt16
-    wVerticalAngleBegin: Int16
-    wVerticalAngleEnd: Int16
-    wHorizontalAngleBegin: Int16
-    wHorizontalAngleEnd: Int16
-    usFrequencyBandLo: UInt16
-    usFrequencyBandHi: UInt16
-    usNumberOfMicrophones: UInt16
-    KsMicCoord: win32more.Media.KernelStreaming.KSAUDIO_MICROPHONE_COORDINATES * 1
-class KSAUDIO_MICROPHONE_COORDINATES(Structure):
-    usType: UInt16
-    wXCoord: Int16
-    wYCoord: Int16
-    wZCoord: Int16
-    wVerticalAngle: Int16
-    wHorizontalAngle: Int16
-class KSAUDIO_MIX_CAPS(Structure):
-    Mute: win32more.Foundation.BOOL
-    Minimum: Int32
-    Maximum: Int32
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        Reset: Int32
-        Resolution: Int32
-class KSAUDIO_MIXCAP_TABLE(Structure):
-    InputChannels: UInt32
-    OutputChannels: UInt32
-    Capabilities: win32more.Media.KernelStreaming.KSAUDIO_MIX_CAPS * 1
-class KSAUDIO_MIXLEVEL(Structure):
-    Mute: win32more.Foundation.BOOL
-    Level: Int32
-class KSAUDIO_PACKETSIZE_CONSTRAINTS(Structure):
-    MinPacketPeriodInHns: UInt32
-    PacketSizeFileAlignment: UInt32
-    Reserved: UInt32
-    NumProcessingModeConstraints: UInt32
-    ProcessingModeConstraints: win32more.Media.KernelStreaming.KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT * 1
-class KSAUDIO_PACKETSIZE_CONSTRAINTS2(Structure):
-    MinPacketPeriodInHns: UInt32
-    PacketSizeFileAlignment: UInt32
-    MaxPacketSizeInBytes: UInt32
-    NumProcessingModeConstraints: UInt32
-    ProcessingModeConstraints: win32more.Media.KernelStreaming.KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT * 1
-class KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT(Structure):
-    ProcessingMode: Guid
-    SamplesPerProcessingPacket: UInt32
-    ProcessingPacketDurationInHns: UInt32
-class KSAUDIO_POSITION(Structure):
-    PlayOffset: UInt64
-    WriteOffset: UInt64
-class KSAUDIO_POSITIONEX(Structure):
-    TimerFrequency: win32more.Foundation.LARGE_INTEGER
-    TimeStamp1: win32more.Foundation.LARGE_INTEGER
-    Position: win32more.Media.KernelStreaming.KSAUDIO_POSITION
-    TimeStamp2: win32more.Foundation.LARGE_INTEGER
-class KSAUDIO_PRESENTATION_POSITION(Structure):
-    u64PositionInBlocks: UInt64
-    u64QPCPosition: UInt64
 class KSAUDIOENGINE_BUFFER_SIZE_RANGE(Structure):
     MinBufferBytes: UInt32
     MaxBufferBytes: UInt32
@@ -1642,6 +1061,87 @@ class KSAUDIOMODULE_PROPERTY(Structure):
     Property: win32more.Media.KernelStreaming.KSIDENTIFIER
     ClassId: Guid
     InstanceId: UInt32
+class KSAUDIO_CHANNEL_CONFIG(Structure):
+    ActiveSpeakerPositions: Int32
+class KSAUDIO_COPY_PROTECTION(Structure):
+    fCopyrighted: win32more.Foundation.BOOL
+    fOriginal: win32more.Foundation.BOOL
+class KSAUDIO_DYNAMIC_RANGE(Structure):
+    QuietCompression: UInt32
+    LoudCompression: UInt32
+class KSAUDIO_MICROPHONE_COORDINATES(Structure):
+    usType: UInt16
+    wXCoord: Int16
+    wYCoord: Int16
+    wZCoord: Int16
+    wVerticalAngle: Int16
+    wHorizontalAngle: Int16
+class KSAUDIO_MIC_ARRAY_GEOMETRY(Structure):
+    usVersion: UInt16
+    usMicArrayType: UInt16
+    wVerticalAngleBegin: Int16
+    wVerticalAngleEnd: Int16
+    wHorizontalAngleBegin: Int16
+    wHorizontalAngleEnd: Int16
+    usFrequencyBandLo: UInt16
+    usFrequencyBandHi: UInt16
+    usNumberOfMicrophones: UInt16
+    KsMicCoord: win32more.Media.KernelStreaming.KSAUDIO_MICROPHONE_COORDINATES * 1
+class KSAUDIO_MIXCAP_TABLE(Structure):
+    InputChannels: UInt32
+    OutputChannels: UInt32
+    Capabilities: win32more.Media.KernelStreaming.KSAUDIO_MIX_CAPS * 1
+class KSAUDIO_MIXLEVEL(Structure):
+    Mute: win32more.Foundation.BOOL
+    Level: Int32
+class KSAUDIO_MIX_CAPS(Structure):
+    Mute: win32more.Foundation.BOOL
+    Minimum: Int32
+    Maximum: Int32
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        Reset: Int32
+        Resolution: Int32
+class KSAUDIO_PACKETSIZE_CONSTRAINTS(Structure):
+    MinPacketPeriodInHns: UInt32
+    PacketSizeFileAlignment: UInt32
+    Reserved: UInt32
+    NumProcessingModeConstraints: UInt32
+    ProcessingModeConstraints: win32more.Media.KernelStreaming.KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT * 1
+class KSAUDIO_PACKETSIZE_CONSTRAINTS2(Structure):
+    MinPacketPeriodInHns: UInt32
+    PacketSizeFileAlignment: UInt32
+    MaxPacketSizeInBytes: UInt32
+    NumProcessingModeConstraints: UInt32
+    ProcessingModeConstraints: win32more.Media.KernelStreaming.KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT * 1
+class KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT(Structure):
+    ProcessingMode: Guid
+    SamplesPerProcessingPacket: UInt32
+    ProcessingPacketDurationInHns: UInt32
+class KSAUDIO_POSITION(Structure):
+    PlayOffset: UInt64
+    WriteOffset: UInt64
+class KSAUDIO_POSITIONEX(Structure):
+    TimerFrequency: win32more.Foundation.LARGE_INTEGER
+    TimeStamp1: win32more.Foundation.LARGE_INTEGER
+    Position: win32more.Media.KernelStreaming.KSAUDIO_POSITION
+    TimeStamp2: win32more.Foundation.LARGE_INTEGER
+class KSAUDIO_PRESENTATION_POSITION(Structure):
+    u64PositionInBlocks: UInt64
+    u64QPCPosition: UInt64
+KSCAMERAPROFILE_BalancedVideoAndPhoto = Guid('6b52b017-42c7-4a21-bf-e3-23-f0-09-14-98-87')
+KSCAMERAPROFILE_CompressedCamera = Guid('0e34cdc1-27ad-437f-ab-de-02-b6-29-f3-7b-44')
+KSCAMERAPROFILE_FaceAuth_Mode = Guid('81361b22-700b-4546-a2-d4-c5-2e-90-7b-fc-27')
+KSCAMERAPROFILE_HDRWithWCGPhoto = Guid('9bf6f1ff-b555-4625-b3-26-a4-6d-ef-31-8f-b7')
+KSCAMERAPROFILE_HDRWithWCGVideo = Guid('4b27c336-4924-4989-b9-94-fd-af-1d-c7-cd-85')
+KSCAMERAPROFILE_HighFrameRate = Guid('566e6113-8c35-48e7-b8-9f-d2-3f-dc-12-19-dc')
+KSCAMERAPROFILE_HighQualityPhoto = Guid('32440725-961b-4ca3-b5-b2-85-4e-71-9d-9e-1b')
+KSCAMERAPROFILE_Legacy = Guid('b4894d81-62b7-4eec-87-40-80-65-8c-4a-9d-3e')
+KSCAMERAPROFILE_PhotoSequence = Guid('02399d9d-4ee8-49ba-bc-07-5f-f1-56-53-14-13')
+KSCAMERAPROFILE_VariablePhotoSequence = Guid('9ff2cb56-e75a-49b1-a9-28-99-85-d5-94-6f-87')
+KSCAMERAPROFILE_VideoConferencing = Guid('c5444a88-e1bf-4597-b2-dd-9e-1e-ad-86-4b-b8')
+KSCAMERAPROFILE_VideoHDR8 = Guid('d4f3f4ec-bdff-4314-b1-d4-00-8e-28-1f-74-e7')
+KSCAMERAPROFILE_VideoRecording = Guid('a0e517e8-8f8c-4f6f-9a-57-46-fc-2f-64-7e-c0')
 class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS(Structure):
     Resolution: win32more.Foundation.SIZE
     MaxFrameRate: _MaxFrameRate_e__Struct
@@ -1698,6 +1198,9 @@ class KSCAMERA_EXTENDEDPROP_HEADER(Structure):
     Result: UInt32
     Flags: UInt64
     Capability: UInt64
+class KSCAMERA_EXTENDEDPROP_METADATAINFO(Structure):
+    BufferAlignment: Int32
+    MaxMetadataBufferSize: UInt32
 KSCAMERA_EXTENDEDPROP_MetadataAlignment = Int32
 KSCAMERA_EXTENDEDPROP_MetadataAlignment_16: KSCAMERA_EXTENDEDPROP_MetadataAlignment = 4
 KSCAMERA_EXTENDEDPROP_MetadataAlignment_32: KSCAMERA_EXTENDEDPROP_MetadataAlignment = 5
@@ -1709,9 +1212,6 @@ KSCAMERA_EXTENDEDPROP_MetadataAlignment_1024: KSCAMERA_EXTENDEDPROP_MetadataAlig
 KSCAMERA_EXTENDEDPROP_MetadataAlignment_2048: KSCAMERA_EXTENDEDPROP_MetadataAlignment = 11
 KSCAMERA_EXTENDEDPROP_MetadataAlignment_4096: KSCAMERA_EXTENDEDPROP_MetadataAlignment = 12
 KSCAMERA_EXTENDEDPROP_MetadataAlignment_8192: KSCAMERA_EXTENDEDPROP_MetadataAlignment = 13
-class KSCAMERA_EXTENDEDPROP_METADATAINFO(Structure):
-    BufferAlignment: Int32
-    MaxMetadataBufferSize: UInt32
 class KSCAMERA_EXTENDEDPROP_PHOTOMODE(Structure):
     RequestedHistoryFrames: UInt32
     MaxHistoryFrames: UInt32
@@ -1721,6 +1221,9 @@ class KSCAMERA_EXTENDEDPROP_PROFILE(Structure):
     ProfileId: Guid
     Index: UInt32
     Reserved: UInt32
+KSCAMERA_EXTENDEDPROP_ROITYPE = Int32
+KSCAMERA_EXTENDEDPROP_ROITYPE_UNKNOWN: KSCAMERA_EXTENDEDPROP_ROITYPE = 0
+KSCAMERA_EXTENDEDPROP_ROITYPE_FACE: KSCAMERA_EXTENDEDPROP_ROITYPE = 1
 class KSCAMERA_EXTENDEDPROP_ROI_CONFIGCAPS(Structure):
     ControlId: UInt32
     MaxNumberOfROIs: UInt32
@@ -1752,9 +1255,6 @@ class KSCAMERA_EXTENDEDPROP_ROI_ISPCONTROLHEADER(Structure):
 class KSCAMERA_EXTENDEDPROP_ROI_WHITEBALANCE(Structure):
     ROIInfo: win32more.Media.KernelStreaming.KSCAMERA_EXTENDEDPROP_ROI_INFO
     Reserved: UInt64
-KSCAMERA_EXTENDEDPROP_ROITYPE = Int32
-KSCAMERA_EXTENDEDPROP_ROITYPE_UNKNOWN: KSCAMERA_EXTENDEDPROP_ROITYPE = 0
-KSCAMERA_EXTENDEDPROP_ROITYPE_FACE: KSCAMERA_EXTENDEDPROP_ROITYPE = 1
 class KSCAMERA_EXTENDEDPROP_VALUE(Structure):
     Value: _Value_e__Union
     class _Value_e__Union(Union):
@@ -1907,19 +1407,6 @@ class KSCAMERA_PROFILE_PININFO(Structure):
         class _Anonymous_e__Struct(Structure):
             PinIndex: UInt16
             ProfileSensorType: UInt16
-KSCAMERAPROFILE_BalancedVideoAndPhoto = Guid('6b52b017-42c7-4a21-bf-e3-23-f0-09-14-98-87')
-KSCAMERAPROFILE_CompressedCamera = Guid('0e34cdc1-27ad-437f-ab-de-02-b6-29-f3-7b-44')
-KSCAMERAPROFILE_FaceAuth_Mode = Guid('81361b22-700b-4546-a2-d4-c5-2e-90-7b-fc-27')
-KSCAMERAPROFILE_HDRWithWCGPhoto = Guid('9bf6f1ff-b555-4625-b3-26-a4-6d-ef-31-8f-b7')
-KSCAMERAPROFILE_HDRWithWCGVideo = Guid('4b27c336-4924-4989-b9-94-fd-af-1d-c7-cd-85')
-KSCAMERAPROFILE_HighFrameRate = Guid('566e6113-8c35-48e7-b8-9f-d2-3f-dc-12-19-dc')
-KSCAMERAPROFILE_HighQualityPhoto = Guid('32440725-961b-4ca3-b5-b2-85-4e-71-9d-9e-1b')
-KSCAMERAPROFILE_Legacy = Guid('b4894d81-62b7-4eec-87-40-80-65-8c-4a-9d-3e')
-KSCAMERAPROFILE_PhotoSequence = Guid('02399d9d-4ee8-49ba-bc-07-5f-f1-56-53-14-13')
-KSCAMERAPROFILE_VariablePhotoSequence = Guid('9ff2cb56-e75a-49b1-a9-28-99-85-d5-94-6f-87')
-KSCAMERAPROFILE_VideoConferencing = Guid('c5444a88-e1bf-4597-b2-dd-9e-1e-ad-86-4b-b8')
-KSCAMERAPROFILE_VideoHDR8 = Guid('d4f3f4ec-bdff-4314-b1-d4-00-8e-28-1f-74-e7')
-KSCAMERAPROFILE_VideoRecording = Guid('a0e517e8-8f8c-4f6f-9a-57-46-fc-2f-64-7e-c0')
 KSCATEGORY_ACOUSTIC_ECHO_CANCEL = Guid('bf963d80-c559-11d0-8a-2b-00-a0-c9-25-5a-c1')
 KSCATEGORY_AUDIO = Guid('6994ad04-93ef-11d0-a3-cc-00-a0-c9-22-31-96')
 KSCATEGORY_BRIDGE = Guid('085aff00-62ce-11cf-a5-d6-28-db-04-c1-00-00')
@@ -2021,9 +1508,9 @@ KSDATAFORMAT_SUBTYPE_IEC61937_DOLBY_MAT21 = Guid('0000030c-0cea-0010-80-00-00-aa
 KSDATAFORMAT_SUBTYPE_IEC61937_DOLBY_MLP = Guid('0000000c-0cea-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_SUBTYPE_IEC61937_DST = Guid('0000000d-0cea-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_SUBTYPE_IEC61937_DTS = Guid('00000008-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_IEC61937_DTS_HD = Guid('0000000b-0cea-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_SUBTYPE_IEC61937_DTSX_E1 = Guid('0000010b-0cea-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_SUBTYPE_IEC61937_DTSX_E2 = Guid('0000030b-0cea-0010-80-00-00-aa-00-38-9b-71')
+KSDATAFORMAT_SUBTYPE_IEC61937_DTS_HD = Guid('0000000b-0cea-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_SUBTYPE_IEC61937_MPEG1 = Guid('00000003-0cea-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_SUBTYPE_IEC61937_MPEG2 = Guid('00000004-0cea-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_SUBTYPE_IEC61937_MPEG3 = Guid('00000005-0cea-0010-80-00-00-aa-00-38-9b-71')
@@ -2037,21 +1524,21 @@ KSDATAFORMAT_SUBTYPE_L16_IR = Guid('00000051-0002-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_SUBTYPE_L8 = Guid('00000032-0000-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_SUBTYPE_L8_CUSTOM = Guid('00000032-8000-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_SUBTYPE_L8_IR = Guid('00000032-0002-0010-80-00-00-aa-00-38-9b-71')
+KSDATAFORMAT_SUBTYPE_LPCM_AUDIO = Guid('e06d8032-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
 KSDATAFORMAT_SUBTYPE_Line21_BytePair = Guid('6e8d4a22-310c-11d0-b7-9a-00-aa-00-37-67-a7')
 KSDATAFORMAT_SUBTYPE_Line21_GOPPacket = Guid('6e8d4a23-310c-11d0-b7-9a-00-aa-00-37-67-a7')
-KSDATAFORMAT_SUBTYPE_LPCM_AUDIO = Guid('e06d8032-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
 KSDATAFORMAT_SUBTYPE_MIDI = Guid('1d262760-e957-11cf-a5-d6-28-db-04-c1-00-00')
 KSDATAFORMAT_SUBTYPE_MIDI_BUS = Guid('2ca15fa0-6cfe-11cf-a5-d6-28-db-04-c1-00-00')
 KSDATAFORMAT_SUBTYPE_MJPG_CUSTOM = Guid('47504a4d-8000-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_SUBTYPE_MJPG_DEPTH = Guid('47504a4d-0004-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_SUBTYPE_MJPG_IR = Guid('47504a4d-0002-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_MPEG_HEAAC = Guid('00001610-0000-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_SUBTYPE_MPEG1Packet = Guid('e436eb80-524f-11ce-9f-53-00-20-af-0b-a7-70')
 KSDATAFORMAT_SUBTYPE_MPEG1Payload = Guid('e436eb81-524f-11ce-9f-53-00-20-af-0b-a7-70')
 KSDATAFORMAT_SUBTYPE_MPEG1Video = Guid('e436eb86-524f-11ce-9f-53-00-20-af-0b-a7-70')
 KSDATAFORMAT_SUBTYPE_MPEG2_AUDIO = Guid('e06d802b-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
 KSDATAFORMAT_SUBTYPE_MPEG2_VIDEO = Guid('e06d8026-db46-11cf-b4-d1-00-80-5f-6c-bb-ea')
 KSDATAFORMAT_SUBTYPE_MPEGLAYER3 = Guid('00000055-0000-0010-80-00-00-aa-00-38-9b-71')
+KSDATAFORMAT_SUBTYPE_MPEG_HEAAC = Guid('00001610-0000-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_SUBTYPE_NABTS = Guid('f72a76e2-eb0a-11d0-ac-e4-00-00-c0-cc-16-ba')
 KSDATAFORMAT_SUBTYPE_NABTS_FEC = Guid('e757bca1-39ac-11d1-a9-f5-00-c0-4f-bb-de-8f')
 KSDATAFORMAT_SUBTYPE_NONE = Guid('e436eb8e-524f-11ce-9f-53-00-20-af-0b-a7-70')
@@ -2072,9 +1559,9 @@ KSDATAFORMAT_SUBTYPE_TELETEXT = Guid('f72a76e3-eb0a-11d0-ac-e4-00-00-c0-cc-16-ba
 KSDATAFORMAT_SUBTYPE_VPVBI = Guid('5a9b6a41-1a22-11d1-ba-d9-00-60-97-44-11-1a')
 KSDATAFORMAT_SUBTYPE_VPVideo = Guid('5a9b6a40-1a22-11d1-ba-d9-00-60-97-44-11-1a')
 KSDATAFORMAT_SUBTYPE_WAVEFORMATEX = Guid('00000000-0000-0010-80-00-00-aa-00-38-9b-71')
-KSDATAFORMAT_SUBTYPE_WMAUDIO_LOSSLESS = Guid('00000163-0000-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_SUBTYPE_WMAUDIO2 = Guid('00000161-0000-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_SUBTYPE_WMAUDIO3 = Guid('00000162-0000-0010-80-00-00-aa-00-38-9b-71')
+KSDATAFORMAT_SUBTYPE_WMAUDIO_LOSSLESS = Guid('00000163-0000-0010-80-00-00-aa-00-38-9b-71')
 KSDATAFORMAT_TYPE_ANALOGAUDIO = Guid('0482dee1-7817-11cf-8a-03-00-aa-00-6e-cb-65')
 KSDATAFORMAT_TYPE_ANALOGVIDEO = Guid('0482dde1-7817-11cf-8a-03-00-aa-00-6e-cb-65')
 KSDATAFORMAT_TYPE_AUDIO = Guid('73647561-0000-0010-80-00-00-aa-00-38-9b-71')
@@ -2107,12 +1594,12 @@ class KSDATARANGE_MUSIC(Structure):
     Channels: UInt32
     Notes: UInt32
     ChannelMask: UInt32
+KSDEGRADESETID_Standard = Guid('9f564180-704c-11d0-a5-d6-28-db-04-c1-00-00')
 KSDEGRADE_STANDARD = Int32
 KSDEGRADE_STANDARD_SAMPLE: KSDEGRADE_STANDARD = 0
 KSDEGRADE_STANDARD_QUALITY: KSDEGRADE_STANDARD = 1
 KSDEGRADE_STANDARD_COMPUTATION: KSDEGRADE_STANDARD = 2
 KSDEGRADE_STANDARD_SKIP: KSDEGRADE_STANDARD = 3
-KSDEGRADESETID_Standard = Guid('9f564180-704c-11d0-a5-d6-28-db-04-c1-00-00')
 class KSDEVICE_PROFILE_INFO(Structure):
     Type: UInt32
     Size: UInt32
@@ -2203,17 +1690,45 @@ class KSDS3D_LISTENER_ALL(Structure):
 class KSDS3D_LISTENER_ORIENTATION(Structure):
     Front: win32more.Media.KernelStreaming.DS3DVECTOR
     Top: win32more.Media.KernelStreaming.DS3DVECTOR
-class KSE_NODE(Structure):
-    Event: win32more.Media.KernelStreaming.KSIDENTIFIER
-    NodeId: UInt32
-    Reserved: UInt32
-class KSE_PIN(Structure):
-    Event: win32more.Media.KernelStreaming.KSIDENTIFIER
-    PinId: UInt32
-    Reserved: UInt32
 class KSERROR(Structure):
     Context: c_void_p
     Status: UInt32
+class KSEVENTDATA(Structure):
+    NotificationType: UInt32
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        EventHandle: _EventHandle_e__Struct
+        SemaphoreHandle: _SemaphoreHandle_e__Struct
+        Alignment: _Alignment_e__Struct
+        class _EventHandle_e__Struct(Structure):
+            Event: win32more.Foundation.HANDLE
+            Reserved: UIntPtr * 2
+        class _SemaphoreHandle_e__Struct(Structure):
+            Semaphore: win32more.Foundation.HANDLE
+            Reserved: UInt32
+            Adjustment: Int32
+        class _Alignment_e__Struct(Structure):
+            Unused: c_void_p
+            Alignment: IntPtr * 2
+KSEVENTSETID_AudioControlChange = Guid('e85e9698-fa2f-11d1-95-bd-00-c0-4f-b9-25-d3')
+KSEVENTSETID_CameraAsyncControl = Guid('22a11754-9701-4088-b3-3f-6b-9c-bc-52-df-5e')
+KSEVENTSETID_CameraEvent = Guid('7899b2e0-6b43-4964-9d-2a-a2-1f-40-61-f5-76')
+KSEVENTSETID_Clock = Guid('364d8e20-62c7-11cf-a5-d6-28-db-04-c1-00-00')
+KSEVENTSETID_Connection = Guid('7f4bcbe0-9ea5-11cf-a5-d6-28-db-04-c1-00-00')
+KSEVENTSETID_Device = Guid('288296ec-9f94-41b4-a1-53-aa-31-ae-ec-b3-3f')
+KSEVENTSETID_DynamicFormatChange = Guid('162ac456-83d7-4239-96-df-c7-5f-fa-13-8b-c6')
+KSEVENTSETID_EXTDEV_Command = Guid('109c7988-b3cb-11d2-b4-8e-00-60-97-b3-39-1b')
+KSEVENTSETID_ExtendedCameraControl = Guid('571c92c9-13a2-47e3-a6-49-d2-a7-78-16-63-84')
+KSEVENTSETID_LoopedStreaming = Guid('4682b940-c6ef-11d0-96-d8-00-aa-00-51-e5-1d')
+KSEVENTSETID_PinCapsChange = Guid('dd4f192e-3b78-49ad-a5-34-2c-31-5b-82-20-00')
+KSEVENTSETID_SoundDetector = Guid('69785c9b-fc2d-49d6-ac-32-47-99-f8-7d-e9-f6')
+KSEVENTSETID_StreamAllocator = Guid('75d95571-073c-11d0-a1-61-00-20-af-d1-56-e4')
+KSEVENTSETID_Telephony = Guid('b77f12b4-ceb4-4484-8d-5e-52-c1-e7-d8-76-2d')
+KSEVENTSETID_VIDCAPTOSTI = Guid('db47de20-f628-11d1-ba-41-00-a0-c9-0d-2b-05')
+KSEVENTSETID_VIDCAP_TVAUDIO = Guid('6a2e0651-28e4-11d0-a1-8c-00-a0-c9-11-89-56')
+KSEVENTSETID_VPNotify = Guid('20c5598e-d3c8-11d0-8d-fc-00-c0-4f-d7-c0-8b')
+KSEVENTSETID_VPVBINotify = Guid('ec529b01-1a1f-11d1-ba-d9-00-60-97-44-11-1a')
+KSEVENTSETID_VolumeLimit = Guid('da168465-3a7c-4858-9d-4a-3e-8e-24-70-1a-ef')
 KSEVENT_AUDIO_CONTROL_CHANGE = Int32
 KSEVENT_CONTROL_CHANGE: KSEVENT_AUDIO_CONTROL_CHANGE = 0
 KSEVENT_CAMERACONTROL = Int32
@@ -2288,42 +1803,14 @@ KSEVENT_VPNOTIFY = Int32
 KSEVENT_VPNOTIFY_FORMATCHANGE: KSEVENT_VPNOTIFY = 0
 KSEVENT_VPVBINOTIFY = Int32
 KSEVENT_VPVBINOTIFY_FORMATCHANGE: KSEVENT_VPVBINOTIFY = 0
-class KSEVENTDATA(Structure):
-    NotificationType: UInt32
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        EventHandle: _EventHandle_e__Struct
-        SemaphoreHandle: _SemaphoreHandle_e__Struct
-        Alignment: _Alignment_e__Struct
-        class _EventHandle_e__Struct(Structure):
-            Event: win32more.Foundation.HANDLE
-            Reserved: UIntPtr * 2
-        class _SemaphoreHandle_e__Struct(Structure):
-            Semaphore: win32more.Foundation.HANDLE
-            Reserved: UInt32
-            Adjustment: Int32
-        class _Alignment_e__Struct(Structure):
-            Unused: c_void_p
-            Alignment: IntPtr * 2
-KSEVENTSETID_AudioControlChange = Guid('e85e9698-fa2f-11d1-95-bd-00-c0-4f-b9-25-d3')
-KSEVENTSETID_CameraAsyncControl = Guid('22a11754-9701-4088-b3-3f-6b-9c-bc-52-df-5e')
-KSEVENTSETID_CameraEvent = Guid('7899b2e0-6b43-4964-9d-2a-a2-1f-40-61-f5-76')
-KSEVENTSETID_Clock = Guid('364d8e20-62c7-11cf-a5-d6-28-db-04-c1-00-00')
-KSEVENTSETID_Connection = Guid('7f4bcbe0-9ea5-11cf-a5-d6-28-db-04-c1-00-00')
-KSEVENTSETID_Device = Guid('288296ec-9f94-41b4-a1-53-aa-31-ae-ec-b3-3f')
-KSEVENTSETID_DynamicFormatChange = Guid('162ac456-83d7-4239-96-df-c7-5f-fa-13-8b-c6')
-KSEVENTSETID_EXTDEV_Command = Guid('109c7988-b3cb-11d2-b4-8e-00-60-97-b3-39-1b')
-KSEVENTSETID_ExtendedCameraControl = Guid('571c92c9-13a2-47e3-a6-49-d2-a7-78-16-63-84')
-KSEVENTSETID_LoopedStreaming = Guid('4682b940-c6ef-11d0-96-d8-00-aa-00-51-e5-1d')
-KSEVENTSETID_PinCapsChange = Guid('dd4f192e-3b78-49ad-a5-34-2c-31-5b-82-20-00')
-KSEVENTSETID_SoundDetector = Guid('69785c9b-fc2d-49d6-ac-32-47-99-f8-7d-e9-f6')
-KSEVENTSETID_StreamAllocator = Guid('75d95571-073c-11d0-a1-61-00-20-af-d1-56-e4')
-KSEVENTSETID_Telephony = Guid('b77f12b4-ceb4-4484-8d-5e-52-c1-e7-d8-76-2d')
-KSEVENTSETID_VIDCAP_TVAUDIO = Guid('6a2e0651-28e4-11d0-a1-8c-00-a0-c9-11-89-56')
-KSEVENTSETID_VIDCAPTOSTI = Guid('db47de20-f628-11d1-ba-41-00-a0-c9-0d-2b-05')
-KSEVENTSETID_VolumeLimit = Guid('da168465-3a7c-4858-9d-4a-3e-8e-24-70-1a-ef')
-KSEVENTSETID_VPNotify = Guid('20c5598e-d3c8-11d0-8d-fc-00-c0-4f-d7-c0-8b')
-KSEVENTSETID_VPVBINotify = Guid('ec529b01-1a1f-11d1-ba-d9-00-60-97-44-11-1a')
+class KSE_NODE(Structure):
+    Event: win32more.Media.KernelStreaming.KSIDENTIFIER
+    NodeId: UInt32
+    Reserved: UInt32
+class KSE_PIN(Structure):
+    Event: win32more.Media.KernelStreaming.KSIDENTIFIER
+    PinId: UInt32
+    Reserved: UInt32
 class KSFRAMETIME(Structure):
     Duration: Int64
     FrameFlags: UInt32
@@ -2342,6 +1829,9 @@ class KSIDENTIFIER(Structure):
             Set: Guid
             Id: UInt32
             Flags: UInt32
+KSINTERFACESETID_FileIo = Guid('8c6f932c-e771-11d0-b8-ff-00-a0-c9-22-31-96')
+KSINTERFACESETID_Media = Guid('3a13eb40-30a7-11d0-a5-d6-28-db-04-c1-00-00')
+KSINTERFACESETID_Standard = Guid('1a8766a0-62ce-11cf-a5-d6-28-db-04-c1-00-00')
 KSINTERFACE_FILEIO = Int32
 KSINTERFACE_FILEIO_STREAMING: KSINTERFACE_FILEIO = 0
 KSINTERFACE_MEDIA = Int32
@@ -2352,9 +1842,6 @@ KSINTERFACE_STANDARD = Int32
 KSINTERFACE_STANDARD_STREAMING: KSINTERFACE_STANDARD = 0
 KSINTERFACE_STANDARD_LOOPED_STREAMING: KSINTERFACE_STANDARD = 1
 KSINTERFACE_STANDARD_CONTROL: KSINTERFACE_STANDARD = 2
-KSINTERFACESETID_FileIo = Guid('8c6f932c-e771-11d0-b8-ff-00-a0-c9-22-31-96')
-KSINTERFACESETID_Media = Guid('3a13eb40-30a7-11d0-a5-d6-28-db-04-c1-00-00')
-KSINTERFACESETID_Standard = Guid('1a8766a0-62ce-11cf-a5-d6-28-db-04-c1-00-00')
 class KSINTERVAL(Structure):
     TimeBase: Int64
     Interval: Int64
@@ -2382,10 +1869,6 @@ class KSJACK_SINK_INFORMATION(Structure):
     SinkDescriptionLength: Byte
     SinkDescription: Char * 32
     PortId: win32more.Foundation.LUID
-class KSM_NODE(Structure):
-    Method: win32more.Media.KernelStreaming.KSIDENTIFIER
-    NodeId: UInt32
-    Reserved: UInt32
 KSMEDIUMSETID_MidiBus = Guid('05908040-3246-11d0-a5-d6-28-db-04-c1-00-00')
 KSMEDIUMSETID_Standard = Guid('4747b320-62ce-11cf-a5-d6-28-db-04-c1-00-00')
 KSMEDIUMSETID_VPBus = Guid('a18c15ec-ce43-11d0-ab-e7-00-a0-c9-22-31-96')
@@ -2394,6 +1877,9 @@ KSMEMORY_TYPE_KERNEL_NONPAGED = Guid('4a6d5fc4-7895-11d1-b0-69-00-a0-c9-06-28-02
 KSMEMORY_TYPE_KERNEL_PAGED = Guid('d833f8f8-7894-11d1-b0-69-00-a0-c9-06-28-02')
 KSMEMORY_TYPE_SYSTEM = Guid('091bb638-603f-11d1-b0-67-00-a0-c9-06-28-02')
 KSMEMORY_TYPE_USER = Guid('8cb0fc28-7893-11d1-b0-69-00-a0-c9-06-28-02')
+KSMETHODSETID_StreamAllocator = Guid('cf6e4341-ec87-11cf-a1-30-00-20-af-d1-56-e4')
+KSMETHODSETID_StreamIo = Guid('65d003ca-1523-11d2-b2-7a-00-a0-c9-22-31-96')
+KSMETHODSETID_Wavetable = Guid('dcef31eb-d907-11d0-95-83-00-c0-4f-b9-25-d3')
 KSMETHOD_STREAMALLOCATOR = Int32
 KSMETHOD_STREAMALLOCATOR_ALLOC: KSMETHOD_STREAMALLOCATOR = 0
 KSMETHOD_STREAMALLOCATOR_FREE: KSMETHOD_STREAMALLOCATOR = 1
@@ -2405,9 +1891,6 @@ KSMETHOD_WAVETABLE_WAVE_ALLOC: KSMETHOD_WAVETABLE = 0
 KSMETHOD_WAVETABLE_WAVE_FREE: KSMETHOD_WAVETABLE = 1
 KSMETHOD_WAVETABLE_WAVE_FIND: KSMETHOD_WAVETABLE = 2
 KSMETHOD_WAVETABLE_WAVE_WRITE: KSMETHOD_WAVETABLE = 3
-KSMETHODSETID_StreamAllocator = Guid('cf6e4341-ec87-11cf-a1-30-00-20-af-d1-56-e4')
-KSMETHODSETID_StreamIo = Guid('65d003ca-1523-11d2-b2-7a-00-a0-c9-22-31-96')
-KSMETHODSETID_Wavetable = Guid('dcef31eb-d907-11d0-95-83-00-c0-4f-b9-25-d3')
 KSMFT_CATEGORY_AUDIO_DECODER = Guid('9ea73fb4-ef7a-4559-8d-5d-71-9d-8f-04-26-c7')
 KSMFT_CATEGORY_AUDIO_EFFECT = Guid('11064c48-3648-4ed0-93-2e-05-ce-8a-c8-11-b7')
 KSMFT_CATEGORY_AUDIO_ENCODER = Guid('91c64bd0-f91e-4d8c-92-76-db-24-82-79-d9-75')
@@ -2441,22 +1924,23 @@ class KSMULTIPLE_DATA_PROP(Structure):
 class KSMULTIPLE_ITEM(Structure):
     Size: UInt32
     Count: UInt32
+class KSMUSICFORMAT(Structure):
+    TimeDeltaMs: UInt32
+    ByteCount: UInt32
 KSMUSIC_TECHNOLOGY_FMSYNTH = Guid('252c5c80-62e9-11cf-a5-d6-28-db-04-c1-00-00')
 KSMUSIC_TECHNOLOGY_PORT = Guid('86c92e60-62e8-11cf-a5-d6-28-db-04-c1-00-00')
 KSMUSIC_TECHNOLOGY_SQSYNTH = Guid('0ecf4380-62e9-11cf-a5-d6-28-db-04-c1-00-00')
 KSMUSIC_TECHNOLOGY_SWSYNTH = Guid('37407736-3620-11d1-85-d3-00-00-f8-75-43-80')
 KSMUSIC_TECHNOLOGY_WAVETABLE = Guid('394ec7c0-62e9-11cf-a5-d6-28-db-04-c1-00-00')
-class KSMUSICFORMAT(Structure):
-    TimeDeltaMs: UInt32
-    ByteCount: UInt32
+class KSM_NODE(Structure):
+    Method: win32more.Media.KernelStreaming.KSIDENTIFIER
+    NodeId: UInt32
+    Reserved: UInt32
 KSNAME_Allocator = Guid('642f5d00-4791-11d0-a5-d6-28-db-04-c1-00-00')
 KSNAME_Clock = Guid('53172480-4791-11d0-a5-d6-28-db-04-c1-00-00')
 KSNAME_Filter = Guid('9b365890-165f-11d0-a1-95-00-20-af-d1-56-e4')
 KSNAME_Pin = Guid('146f1a80-4791-11d0-a5-d6-28-db-04-c1-00-00')
 KSNAME_TopologyNode = Guid('0621061a-ee75-11d0-b9-15-00-a0-c9-22-31-96')
-class KSNODE_CREATE(Structure):
-    CreateFlags: UInt32
-    Node: UInt32
 class KSNODEPROPERTY(Structure):
     Property: win32more.Media.KernelStreaming.KSIDENTIFIER
     NodeId: UInt32
@@ -2530,9 +2014,9 @@ KSNODETYPE_EXTERNAL_UNDEFINED = Guid('dff21fe0-f70f-11d0-b9-17-00-a0-c9-22-31-96
 KSNODETYPE_FM_RX = Guid('834a733c-f485-41c0-a6-2b-51-30-25-01-4e-40')
 KSNODETYPE_HANDSET = Guid('dff21de1-f70f-11d0-b9-17-00-a0-c9-22-31-96')
 KSNODETYPE_HDMI_INTERFACE = Guid('d1b9cc2a-f519-417f-91-c9-55-fa-65-48-10-01')
-KSNODETYPE_HEAD_MOUNTED_DISPLAY_AUDIO = Guid('dff21ce3-f70f-11d0-b9-17-00-a0-c9-22-31-96')
 KSNODETYPE_HEADPHONES = Guid('dff21ce2-f70f-11d0-b9-17-00-a0-c9-22-31-96')
 KSNODETYPE_HEADSET = Guid('dff21de2-f70f-11d0-b9-17-00-a0-c9-22-31-96')
+KSNODETYPE_HEAD_MOUNTED_DISPLAY_AUDIO = Guid('dff21ce3-f70f-11d0-b9-17-00-a0-c9-22-31-96')
 KSNODETYPE_INPUT_UNDEFINED = Guid('dff21be0-f70f-11d0-b9-17-00-a0-c9-22-31-96')
 KSNODETYPE_LEGACY_AUDIO_CONNECTOR = Guid('dff21fe4-f70f-11d0-b9-17-00-a0-c9-22-31-96')
 KSNODETYPE_LEVEL_CALIBRATION_NOISE_SOURCE = Guid('dff220e1-f70f-11d0-b9-17-00-a0-c9-22-31-96')
@@ -2589,24 +2073,11 @@ KSNODETYPE_VIDEO_PROCESSING = Guid('dff229e5-f70f-11d0-b9-17-00-a0-c9-22-31-96')
 KSNODETYPE_VIDEO_SELECTOR = Guid('dff229e4-f70f-11d0-b9-17-00-a0-c9-22-31-96')
 KSNODETYPE_VIDEO_STREAMING = Guid('dff229e1-f70f-11d0-b9-17-00-a0-c9-22-31-96')
 KSNODETYPE_VOLUME = Guid('3a5acc00-c557-11d0-8a-2b-00-a0-c9-25-5a-c1')
+class KSNODE_CREATE(Structure):
+    CreateFlags: UInt32
+    Node: UInt32
 KSNOTIFICATIONID_AudioModule = Guid('9c2220f0-d9a6-4d5c-a0-36-57-38-57-fd-50-d2')
 KSNOTIFICATIONID_SoundDetector = Guid('6389d844-bb32-4c4c-a8-02-f4-b4-b7-7a-fe-ad')
-class KSP_NODE(Structure):
-    Property: win32more.Media.KernelStreaming.KSIDENTIFIER
-    NodeId: UInt32
-    Reserved: UInt32
-class KSP_PIN(Structure):
-    Property: win32more.Media.KernelStreaming.KSIDENTIFIER
-    PinId: UInt32
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        Reserved: UInt32
-        Flags: UInt32
-class KSP_TIMEFORMAT(Structure):
-    Property: win32more.Media.KernelStreaming.KSIDENTIFIER
-    SourceFormat: Guid
-    TargetFormat: Guid
-    Time: Int64
 class KSPIN_CINSTANCES(Structure):
     PossibleCount: UInt32
     CurrentCount: UInt32
@@ -2645,6 +2116,9 @@ KSPROPERTY_ALLOCATOR_CLEANUP_CACHEDMDLPAGES: KSPPROPERTY_ALLOCATOR_MDLCACHING = 
 class KSPRIORITY(Structure):
     PriorityClass: UInt32
     PrioritySubClass: UInt32
+KSPROPERTYSETID_ExtendedCameraControl = Guid('1cb79112-c0d2-4213-9c-a6-cd-4f-db-92-79-72')
+KSPROPERTYSETID_NetworkCameraControl = Guid('0e780f09-5745-4e3a-bc-9f-f2-26-ea-43-a6-ec')
+KSPROPERTYSETID_PerFrameSettingControl = Guid('f1f3e261-dee6-4537-bf-f5-ee-20-6d-b5-4a-ac')
 KSPROPERTY_AC3 = Int32
 KSPROPERTY_AC3_ERROR_CONCEALMENT: KSPROPERTY_AC3 = 1
 KSPROPERTY_AC3_ALTERNATE_AUDIO: KSPROPERTY_AC3 = 2
@@ -2807,9 +2281,6 @@ class KSPROPERTY_BOUNDS_LONGLONG(Union):
 KSPROPERTY_BTAUDIO = Int32
 KSPROPERTY_ONESHOT_RECONNECT: KSPROPERTY_BTAUDIO = 0
 KSPROPERTY_ONESHOT_DISCONNECT: KSPROPERTY_BTAUDIO = 1
-KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_FLAGS = Int32
-KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_CLEAR: KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_FLAGS = 0
-KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_SET: KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_FLAGS = 1
 KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = Int32
 KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOMODE: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 0
 KSPROPERTY_CAMERACONTROL_EXTENDED_PHOTOFRAMERATE: KSPROPERTY_CAMERACONTROL_EXTENDED_PROPERTY = 1
@@ -2908,23 +2379,26 @@ class KSPROPERTY_CAMERACONTROL_S(Structure):
     Value: Int32
     Flags: UInt32
     Capabilities: UInt32
-class KSPROPERTY_CAMERACONTROL_S_EX(Structure):
-    Property: win32more.Media.KernelStreaming.KSIDENTIFIER
-    Value: Int32
-    Flags: UInt32
-    Capabilities: UInt32
-    FocusRect: win32more.Foundation.RECT
 class KSPROPERTY_CAMERACONTROL_S2(Structure):
     Property: win32more.Media.KernelStreaming.KSIDENTIFIER
     Value1: Int32
     Flags: UInt32
     Capabilities: UInt32
     Value2: Int32
-KSPROPERTY_CAMERACONTROL_VIDEO_STABILIZATION_MODE = Int32
-KSPROPERTY_CAMERACONTROL_VIDEO_STABILIZATION_MODE_PROPERTY_ID: KSPROPERTY_CAMERACONTROL_VIDEO_STABILIZATION_MODE = 0
+class KSPROPERTY_CAMERACONTROL_S_EX(Structure):
+    Property: win32more.Media.KernelStreaming.KSIDENTIFIER
+    Value: Int32
+    Flags: UInt32
+    Capabilities: UInt32
+    FocusRect: win32more.Foundation.RECT
 class KSPROPERTY_CAMERACONTROL_VIDEOSTABILIZATION_MODE_S(Structure):
     VideoStabilizationMode: UInt32
     Capabilities: UInt32
+KSPROPERTY_CAMERACONTROL_VIDEO_STABILIZATION_MODE = Int32
+KSPROPERTY_CAMERACONTROL_VIDEO_STABILIZATION_MODE_PROPERTY_ID: KSPROPERTY_CAMERACONTROL_VIDEO_STABILIZATION_MODE = 0
+KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_FLAGS = Int32
+KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_CLEAR: KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_FLAGS = 0
+KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_SET: KSPROPERTY_CAMERA_PHOTOTRIGGERTIME_FLAGS = 1
 KSPROPERTY_CLOCK = Int32
 KSPROPERTY_CLOCK_TIME: KSPROPERTY_CLOCK = 0
 KSPROPERTY_CLOCK_PHYSICALTIME: KSPROPERTY_CLOCK = 1
@@ -3323,6 +2797,12 @@ class KSPROPERTY_TUNER_IF_MEDIUM_S(Structure):
 class KSPROPERTY_TUNER_INPUT_S(Structure):
     Property: win32more.Media.KernelStreaming.KSIDENTIFIER
     InputIndex: UInt32
+KSPROPERTY_TUNER_MODES = Int32
+KSPROPERTY_TUNER_MODE_TV: KSPROPERTY_TUNER_MODES = 1
+KSPROPERTY_TUNER_MODE_FM_RADIO: KSPROPERTY_TUNER_MODES = 2
+KSPROPERTY_TUNER_MODE_AM_RADIO: KSPROPERTY_TUNER_MODES = 4
+KSPROPERTY_TUNER_MODE_DSS: KSPROPERTY_TUNER_MODES = 8
+KSPROPERTY_TUNER_MODE_ATSC: KSPROPERTY_TUNER_MODES = 16
 class KSPROPERTY_TUNER_MODE_CAPS_S(Structure):
     Property: win32more.Media.KernelStreaming.KSIDENTIFIER
     Mode: UInt32
@@ -3336,12 +2816,6 @@ class KSPROPERTY_TUNER_MODE_CAPS_S(Structure):
 class KSPROPERTY_TUNER_MODE_S(Structure):
     Property: win32more.Media.KernelStreaming.KSIDENTIFIER
     Mode: UInt32
-KSPROPERTY_TUNER_MODES = Int32
-KSPROPERTY_TUNER_MODE_TV: KSPROPERTY_TUNER_MODES = 1
-KSPROPERTY_TUNER_MODE_FM_RADIO: KSPROPERTY_TUNER_MODES = 2
-KSPROPERTY_TUNER_MODE_AM_RADIO: KSPROPERTY_TUNER_MODES = 4
-KSPROPERTY_TUNER_MODE_DSS: KSPROPERTY_TUNER_MODES = 8
-KSPROPERTY_TUNER_MODE_ATSC: KSPROPERTY_TUNER_MODES = 16
 class KSPROPERTY_TUNER_NETWORKTYPE_SCAN_CAPS_S(Structure):
     Property: win32more.Media.KernelStreaming.KSIDENTIFIER
     NetworkType: Guid
@@ -3534,15 +3008,15 @@ class KSPROPERTY_VIDEODECODER_CAPS_S(Structure):
 class KSPROPERTY_VIDEODECODER_S(Structure):
     Property: win32more.Media.KernelStreaming.KSIDENTIFIER
     Value: UInt32
-class KSPROPERTY_VIDEODECODER_STATUS_S(Structure):
-    Property: win32more.Media.KernelStreaming.KSIDENTIFIER
-    NumberOfLines: UInt32
-    SignalLocked: UInt32
 class KSPROPERTY_VIDEODECODER_STATUS2_S(Structure):
     Property: win32more.Media.KernelStreaming.KSIDENTIFIER
     NumberOfLines: UInt32
     SignalLocked: UInt32
     ChromaLock: UInt32
+class KSPROPERTY_VIDEODECODER_STATUS_S(Structure):
+    Property: win32more.Media.KernelStreaming.KSIDENTIFIER
+    NumberOfLines: UInt32
+    SignalLocked: UInt32
 class KSPROPERTY_VIDEOENCODER_S(Structure):
     Property: win32more.Media.KernelStreaming.KSIDENTIFIER
     Value: Int32
@@ -3600,9 +3074,6 @@ KSPROPERTY_WAVE_BUFFER: KSPROPERTY_WAVE = 3
 KSPROPERTY_WAVE_FREQUENCY: KSPROPERTY_WAVE = 4
 KSPROPERTY_WAVE_VOLUME: KSPROPERTY_WAVE = 5
 KSPROPERTY_WAVE_PAN: KSPROPERTY_WAVE = 6
-KSPROPERTYSETID_ExtendedCameraControl = Guid('1cb79112-c0d2-4213-9c-a6-cd-4f-db-92-79-72')
-KSPROPERTYSETID_NetworkCameraControl = Guid('0e780f09-5745-4e3a-bc-9f-f2-26-ea-43-a6-ec')
-KSPROPERTYSETID_PerFrameSettingControl = Guid('f1f3e261-dee6-4537-bf-f5-ee-20-6d-b5-4a-ac')
 KSPROPSETID_AC3 = Guid('bfabe720-6e1f-11d0-bc-f2-44-45-53-54-00-00')
 KSPROPSETID_Audio = Guid('45ffaaa0-6e1b-11d0-bc-f2-44-45-53-54-00-00')
 KSPROPSETID_AudioBufferDuration = Guid('4e73c07f-23cc-4955-a7-ea-3d-a5-02-49-62-90')
@@ -3629,10 +3100,10 @@ KSPROPSETID_Hrtf3d = Guid('b66decb0-a083-11d0-85-1e-00-c0-4f-d9-ba-f3')
 KSPROPSETID_InterleavedAudio = Guid('e9ebe550-d619-4c0a-97-6b-70-62-32-2b-30-06')
 KSPROPSETID_Itd3d = Guid('6429f090-9fd9-11d0-a7-5b-00-a0-c9-03-65-e3')
 KSPROPSETID_Jack = Guid('4509f757-2d46-4637-8e-62-ce-7d-b9-44-f5-7b')
+KSPROPSETID_MPEG4_MediaType_Attributes = Guid('ff6c4bfa-07a9-4c7b-a2-37-67-2f-9d-68-06-5f')
 KSPROPSETID_MediaSeeking = Guid('ee904f0c-d09b-11d0-ab-e9-00-a0-c9-22-31-96')
 KSPROPSETID_MemoryTransport = Guid('0a3d1c5d-5243-4819-9e-d0-ae-e8-04-4c-ee-2b')
 KSPROPSETID_Mpeg2Vid = Guid('c8e11b60-0cc9-11d0-bd-69-00-35-05-c1-03-a9')
-KSPROPSETID_MPEG4_MediaType_Attributes = Guid('ff6c4bfa-07a9-4c7b-a2-37-67-2f-9d-68-06-5f')
 KSPROPSETID_OverlayUpdate = Guid('490ea5cf-7681-11d1-a2-1c-00-a0-c9-22-31-96')
 KSPROPSETID_Pin = Guid('8c134960-51ad-11cf-87-8a-94-f8-01-c1-00-00')
 KSPROPSETID_PinMDLCacheClearProp = Guid('bd718a7b-97fc-40c7-88-ce-d3-ff-06-f5-5b-16')
@@ -3643,11 +3114,11 @@ KSPROPSETID_SoundDetector2 = Guid('fe07e322-450c-4bd5-84-ca-a9-48-50-0e-a6-aa')
 KSPROPSETID_Stream = Guid('65aaba60-98ae-11cf-a1-0d-00-20-af-d1-56-e4')
 KSPROPSETID_StreamAllocator = Guid('cf6e4342-ec87-11cf-a1-30-00-20-af-d1-56-e4')
 KSPROPSETID_StreamInterface = Guid('1fdd8ee1-9cd3-11d0-82-aa-00-00-f8-22-fe-8a')
+KSPROPSETID_TSRateChange = Guid('a503c5c0-1d1d-11d1-ad-80-44-45-53-54-00-00')
 KSPROPSETID_TelephonyControl = Guid('b6df7eb1-d099-489f-a6-a0-c0-10-6f-08-87-a7')
 KSPROPSETID_TelephonyTopology = Guid('abf25c7e-0e64-4e32-b1-90-d0-f6-d7-c5-3e-97')
 KSPROPSETID_Topology = Guid('720d4ac0-7533-11d0-a5-d6-28-db-04-c1-00-00')
 KSPROPSETID_TopologyNode = Guid('45ffaaa1-6e1b-11d0-bc-f2-44-45-53-54-00-00')
-KSPROPSETID_TSRateChange = Guid('a503c5c0-1d1d-11d1-ad-80-44-45-53-54-00-00')
 KSPROPSETID_VBICAP_PROPERTIES = Guid('f162c607-7b35-496f-ad-7f-2d-ca-3b-46-b7-18')
 KSPROPSETID_VBICodecFiltering = Guid('cafeb0ca-8715-11d0-bd-6a-00-35-c0-ed-ba-be')
 KSPROPSETID_VPConfig = Guid('bc29a660-30e3-11d0-9e-69-00-c0-4f-d7-c1-5b')
@@ -3655,6 +3126,22 @@ KSPROPSETID_VPVBIConfig = Guid('ec529b00-1a1f-11d1-ba-d9-00-60-97-44-11-1a')
 KSPROPSETID_VramCapture = Guid('e73face3-2880-4902-b7-99-88-d0-cd-63-4e-0f')
 KSPROPSETID_Wave = Guid('924e54b0-630f-11cf-ad-a7-08-00-3e-30-49-4a')
 KSPROPTYPESETID_General = Guid('97e99ba0-bdea-11cf-a5-d6-28-db-04-c1-00-00')
+class KSP_NODE(Structure):
+    Property: win32more.Media.KernelStreaming.KSIDENTIFIER
+    NodeId: UInt32
+    Reserved: UInt32
+class KSP_PIN(Structure):
+    Property: win32more.Media.KernelStreaming.KSIDENTIFIER
+    PinId: UInt32
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        Reserved: UInt32
+        Flags: UInt32
+class KSP_TIMEFORMAT(Structure):
+    Property: win32more.Media.KernelStreaming.KSIDENTIFIER
+    SourceFormat: Guid
+    TargetFormat: Guid
+    Time: Int64
 class KSQUALITY(Structure):
     Context: c_void_p
     Proportion: UInt32
@@ -3695,9 +3182,17 @@ class KSRTAUDIO_BUFFER(Structure):
     BufferAddress: c_void_p
     ActualBufferSize: UInt32
     CallMemoryBarrier: win32more.Foundation.BOOL
+class KSRTAUDIO_BUFFER32(Structure):
+    BufferAddress: UInt32
+    ActualBufferSize: UInt32
+    CallMemoryBarrier: win32more.Foundation.BOOL
 class KSRTAUDIO_BUFFER_PROPERTY(Structure):
     Property: win32more.Media.KernelStreaming.KSIDENTIFIER
     BaseAddress: c_void_p
+    RequestedBufferSize: UInt32
+class KSRTAUDIO_BUFFER_PROPERTY32(Structure):
+    Property: win32more.Media.KernelStreaming.KSIDENTIFIER
+    BaseAddress: UInt32
     RequestedBufferSize: UInt32
 class KSRTAUDIO_BUFFER_PROPERTY_WITH_NOTIFICATION(Structure):
     Property: win32more.Media.KernelStreaming.KSIDENTIFIER
@@ -3709,14 +3204,6 @@ class KSRTAUDIO_BUFFER_PROPERTY_WITH_NOTIFICATION32(Structure):
     BaseAddress: UInt32
     RequestedBufferSize: UInt32
     NotificationCount: UInt32
-class KSRTAUDIO_BUFFER_PROPERTY32(Structure):
-    Property: win32more.Media.KernelStreaming.KSIDENTIFIER
-    BaseAddress: UInt32
-    RequestedBufferSize: UInt32
-class KSRTAUDIO_BUFFER32(Structure):
-    BufferAddress: UInt32
-    ActualBufferSize: UInt32
-    CallMemoryBarrier: win32more.Foundation.BOOL
 class KSRTAUDIO_GETREADPACKET_INFO(Structure):
     PacketNumber: UInt32
     Flags: UInt32
@@ -3732,18 +3219,18 @@ class KSRTAUDIO_HWREGISTER(Structure):
     Numerator: UInt64
     Denominator: UInt64
     Accuracy: UInt32
-class KSRTAUDIO_HWREGISTER_PROPERTY(Structure):
-    Property: win32more.Media.KernelStreaming.KSIDENTIFIER
-    BaseAddress: c_void_p
-class KSRTAUDIO_HWREGISTER_PROPERTY32(Structure):
-    Property: win32more.Media.KernelStreaming.KSIDENTIFIER
-    BaseAddress: UInt32
 class KSRTAUDIO_HWREGISTER32(Structure):
     Register: UInt32
     Width: UInt32
     Numerator: UInt64
     Denominator: UInt64
     Accuracy: UInt32
+class KSRTAUDIO_HWREGISTER_PROPERTY(Structure):
+    Property: win32more.Media.KernelStreaming.KSIDENTIFIER
+    BaseAddress: c_void_p
+class KSRTAUDIO_HWREGISTER_PROPERTY32(Structure):
+    Property: win32more.Media.KernelStreaming.KSIDENTIFIER
+    BaseAddress: UInt32
 class KSRTAUDIO_NOTIFICATION_EVENT_PROPERTY(Structure):
     Property: win32more.Media.KernelStreaming.KSIDENTIFIER
     NotificationEvent: win32more.Foundation.HANDLE
@@ -3769,6 +3256,14 @@ KSSTATE_STOP: KSSTATE = 0
 KSSTATE_ACQUIRE: KSSTATE = 1
 KSSTATE_PAUSE: KSSTATE = 2
 KSSTATE_RUN: KSSTATE = 3
+class KSSTREAMALLOCATOR_STATUS(Structure):
+    Framing: win32more.Media.KernelStreaming.KSALLOCATOR_FRAMING
+    AllocatedFrames: UInt32
+    Reserved: UInt32
+class KSSTREAMALLOCATOR_STATUS_EX(Structure):
+    Framing: win32more.Media.KernelStreaming.KSALLOCATOR_FRAMING_EX
+    AllocatedFrames: UInt32
+    Reserved: UInt32
 if ARCH in 'X64,ARM64':
     class KSSTREAM_HEADER(Structure):
         Size: UInt32
@@ -3811,14 +3306,6 @@ class KSSTREAM_UVC_METADATATYPE_TIMESTAMP(Structure):
         SCRToken: UInt16
         class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
-class KSSTREAMALLOCATOR_STATUS(Structure):
-    Framing: win32more.Media.KernelStreaming.KSALLOCATOR_FRAMING
-    AllocatedFrames: UInt32
-    Reserved: UInt32
-class KSSTREAMALLOCATOR_STATUS_EX(Structure):
-    Framing: win32more.Media.KernelStreaming.KSALLOCATOR_FRAMING_EX
-    AllocatedFrames: UInt32
-    Reserved: UInt32
 class KSTELEPHONY_CALLCONTROL(Structure):
     CallType: win32more.Media.KernelStreaming.TELEPHONY_CALLTYPE
     CallControlOp: win32more.Media.KernelStreaming.TELEPHONY_CALLCONTROLOP
@@ -3868,6 +3355,13 @@ class KSVPSURFACEPARAMS(Structure):
     dwPitch: UInt32
     dwXOrigin: UInt32
     dwYOrigin: UInt32
+class KSWAVETABLE_WAVE_DESC(Structure):
+    Identifier: win32more.Media.KernelStreaming.KSIDENTIFIER
+    Size: UInt32
+    Looped: win32more.Foundation.BOOL
+    LoopPoint: UInt32
+    InROM: win32more.Foundation.BOOL
+    Format: win32more.Media.KernelStreaming.KSDATAFORMAT
 class KSWAVE_BUFFER(Structure):
     Attributes: UInt32
     BufferSize: UInt32
@@ -3906,13 +3400,519 @@ class KSWAVE_OUTPUT_CAPABILITIES(Structure):
 class KSWAVE_VOLUME(Structure):
     LeftAttenuation: Int32
     RightAttenuation: Int32
-class KSWAVETABLE_WAVE_DESC(Structure):
-    Identifier: win32more.Media.KernelStreaming.KSIDENTIFIER
-    Size: UInt32
-    Looped: win32more.Foundation.BOOL
-    LoopPoint: UInt32
-    InROM: win32more.Foundation.BOOL
-    Format: win32more.Media.KernelStreaming.KSDATAFORMAT
+KS_AMPixAspectRatio = Int32
+KS_PixAspectRatio_NTSC4x3: KS_AMPixAspectRatio = 0
+KS_PixAspectRatio_NTSC16x9: KS_AMPixAspectRatio = 1
+KS_PixAspectRatio_PAL4x3: KS_AMPixAspectRatio = 2
+KS_PixAspectRatio_PAL16x9: KS_AMPixAspectRatio = 3
+class KS_AMVPDATAINFO(Structure):
+    dwSize: UInt32
+    dwMicrosecondsPerField: UInt32
+    amvpDimInfo: win32more.Media.KernelStreaming.KS_AMVPDIMINFO
+    dwPictAspectRatioX: UInt32
+    dwPictAspectRatioY: UInt32
+    bEnableDoubleClock: win32more.Foundation.BOOL
+    bEnableVACT: win32more.Foundation.BOOL
+    bDataIsInterlaced: win32more.Foundation.BOOL
+    lHalfLinesOdd: Int32
+    bFieldPolarityInverted: win32more.Foundation.BOOL
+    dwNumLinesInVREF: UInt32
+    lHalfLinesEven: Int32
+    dwReserved1: UInt32
+class KS_AMVPDIMINFO(Structure):
+    dwFieldWidth: UInt32
+    dwFieldHeight: UInt32
+    dwVBIWidth: UInt32
+    dwVBIHeight: UInt32
+    rcValidRegion: win32more.Foundation.RECT
+class KS_AMVPSIZE(Structure):
+    dwWidth: UInt32
+    dwHeight: UInt32
+KS_AMVP_MODE = Int32
+KS_AMVP_MODE_WEAVE: KS_AMVP_MODE = 0
+KS_AMVP_MODE_BOBINTERLEAVED: KS_AMVP_MODE = 1
+KS_AMVP_MODE_BOBNONINTERLEAVED: KS_AMVP_MODE = 2
+KS_AMVP_MODE_SKIPEVEN: KS_AMVP_MODE = 3
+KS_AMVP_MODE_SKIPODD: KS_AMVP_MODE = 4
+KS_AMVP_SELECTFORMATBY = Int32
+KS_AMVP_DO_NOT_CARE: KS_AMVP_SELECTFORMATBY = 0
+KS_AMVP_BEST_BANDWIDTH: KS_AMVP_SELECTFORMATBY = 1
+KS_AMVP_INPUT_SAME_AS_OUTPUT: KS_AMVP_SELECTFORMATBY = 2
+class KS_AM_ExactRateChange(Structure):
+    OutputZeroTime: Int64
+    Rate: Int32
+KS_AM_PROPERTY_TS_RATE_CHANGE = Int32
+KS_AM_RATE_SimpleRateChange: KS_AM_PROPERTY_TS_RATE_CHANGE = 1
+KS_AM_RATE_ExactRateChange: KS_AM_PROPERTY_TS_RATE_CHANGE = 2
+KS_AM_RATE_MaxFullDataRate: KS_AM_PROPERTY_TS_RATE_CHANGE = 3
+KS_AM_RATE_Step: KS_AM_PROPERTY_TS_RATE_CHANGE = 4
+class KS_AM_SimpleRateChange(Structure):
+    StartTime: Int64
+    Rate: Int32
+class KS_ANALOGVIDEOINFO(Structure):
+    rcSource: win32more.Foundation.RECT
+    rcTarget: win32more.Foundation.RECT
+    dwActiveWidth: UInt32
+    dwActiveHeight: UInt32
+    AvgTimePerFrame: Int64
+KS_AnalogVideoStandard = Int32
+KS_AnalogVideo_None: KS_AnalogVideoStandard = 0
+KS_AnalogVideo_NTSC_M: KS_AnalogVideoStandard = 1
+KS_AnalogVideo_NTSC_M_J: KS_AnalogVideoStandard = 2
+KS_AnalogVideo_NTSC_433: KS_AnalogVideoStandard = 4
+KS_AnalogVideo_PAL_B: KS_AnalogVideoStandard = 16
+KS_AnalogVideo_PAL_D: KS_AnalogVideoStandard = 32
+KS_AnalogVideo_PAL_G: KS_AnalogVideoStandard = 64
+KS_AnalogVideo_PAL_H: KS_AnalogVideoStandard = 128
+KS_AnalogVideo_PAL_I: KS_AnalogVideoStandard = 256
+KS_AnalogVideo_PAL_M: KS_AnalogVideoStandard = 512
+KS_AnalogVideo_PAL_N: KS_AnalogVideoStandard = 1024
+KS_AnalogVideo_PAL_60: KS_AnalogVideoStandard = 2048
+KS_AnalogVideo_SECAM_B: KS_AnalogVideoStandard = 4096
+KS_AnalogVideo_SECAM_D: KS_AnalogVideoStandard = 8192
+KS_AnalogVideo_SECAM_G: KS_AnalogVideoStandard = 16384
+KS_AnalogVideo_SECAM_H: KS_AnalogVideoStandard = 32768
+KS_AnalogVideo_SECAM_K: KS_AnalogVideoStandard = 65536
+KS_AnalogVideo_SECAM_K1: KS_AnalogVideoStandard = 131072
+KS_AnalogVideo_SECAM_L: KS_AnalogVideoStandard = 262144
+KS_AnalogVideo_SECAM_L1: KS_AnalogVideoStandard = 524288
+KS_AnalogVideo_PAL_N_COMBO: KS_AnalogVideoStandard = 1048576
+class KS_BITMAPINFOHEADER(Structure):
+    biSize: UInt32
+    biWidth: Int32
+    biHeight: Int32
+    biPlanes: UInt16
+    biBitCount: UInt16
+    biCompression: UInt32
+    biSizeImage: UInt32
+    biXPelsPerMeter: Int32
+    biYPelsPerMeter: Int32
+    biClrUsed: UInt32
+    biClrImportant: UInt32
+class KS_COLCON(Structure):
+    _bitfield1: Byte
+    _bitfield2: Byte
+    _bitfield3: Byte
+    _bitfield4: Byte
+class KS_COMPRESSION(Structure):
+    RatioNumerator: UInt32
+    RatioDenominator: UInt32
+    RatioConstantMargin: UInt32
+class KS_COPY_MACROVISION(Structure):
+    MACROVISIONLevel: UInt32
+KS_COPY_MACROVISION_LEVEL = Int32
+KS_MACROVISION_DISABLED: KS_COPY_MACROVISION_LEVEL = 0
+KS_MACROVISION_LEVEL1: KS_COPY_MACROVISION_LEVEL = 1
+KS_MACROVISION_LEVEL2: KS_COPY_MACROVISION_LEVEL = 2
+KS_MACROVISION_LEVEL3: KS_COPY_MACROVISION_LEVEL = 3
+KS_CameraControlAsyncOperation = Int32
+KS_CAMERACONTROL_ASYNC_START: KS_CameraControlAsyncOperation = 1
+KS_CAMERACONTROL_ASYNC_STOP: KS_CameraControlAsyncOperation = 2
+KS_CAMERACONTROL_ASYNC_RESET: KS_CameraControlAsyncOperation = 3
+KS_CompressionCaps = Int32
+KS_CompressionCaps_CanQuality: KS_CompressionCaps = 1
+KS_CompressionCaps_CanCrunch: KS_CompressionCaps = 2
+KS_CompressionCaps_CanKeyFrame: KS_CompressionCaps = 4
+KS_CompressionCaps_CanBFrame: KS_CompressionCaps = 8
+KS_CompressionCaps_CanWindow: KS_CompressionCaps = 16
+class KS_DATAFORMAT_H264VIDEOINFO(Structure):
+    DataFormat: win32more.Media.KernelStreaming.KSDATAFORMAT
+    H264VideoInfoHeader: win32more.Media.KernelStreaming.KS_H264VIDEOINFO
+class KS_DATAFORMAT_IMAGEINFO(Structure):
+    DataFormat: win32more.Media.KernelStreaming.KSDATAFORMAT
+    ImageInfoHeader: win32more.Media.KernelStreaming.KS_BITMAPINFOHEADER
+class KS_DATAFORMAT_MPEGVIDEOINFO2(Structure):
+    DataFormat: win32more.Media.KernelStreaming.KSDATAFORMAT
+    MpegVideoInfoHeader2: win32more.Media.KernelStreaming.KS_MPEGVIDEOINFO2
+class KS_DATAFORMAT_VBIINFOHEADER(Structure):
+    DataFormat: win32more.Media.KernelStreaming.KSDATAFORMAT
+    VBIInfoHeader: win32more.Media.KernelStreaming.KS_VBIINFOHEADER
+class KS_DATAFORMAT_VIDEOINFOHEADER(Structure):
+    DataFormat: win32more.Media.KernelStreaming.KSDATAFORMAT
+    VideoInfoHeader: win32more.Media.KernelStreaming.KS_VIDEOINFOHEADER
+class KS_DATAFORMAT_VIDEOINFOHEADER2(Structure):
+    DataFormat: win32more.Media.KernelStreaming.KSDATAFORMAT
+    VideoInfoHeader2: win32more.Media.KernelStreaming.KS_VIDEOINFOHEADER2
+class KS_DATAFORMAT_VIDEOINFO_PALETTE(Structure):
+    DataFormat: win32more.Media.KernelStreaming.KSDATAFORMAT
+    VideoInfo: win32more.Media.KernelStreaming.KS_VIDEOINFO
+class KS_DATARANGE_ANALOGVIDEO(Structure):
+    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
+    AnalogVideoInfo: win32more.Media.KernelStreaming.KS_ANALOGVIDEOINFO
+class KS_DATARANGE_H264_VIDEO(Structure):
+    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
+    bFixedSizeSamples: win32more.Foundation.BOOL
+    bTemporalCompression: win32more.Foundation.BOOL
+    StreamDescriptionFlags: UInt32
+    MemoryAllocationFlags: UInt32
+    ConfigCaps: win32more.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
+    VideoInfoHeader: win32more.Media.KernelStreaming.KS_H264VIDEOINFO
+class KS_DATARANGE_IMAGE(Structure):
+    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
+    ConfigCaps: win32more.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
+    ImageInfoHeader: win32more.Media.KernelStreaming.KS_BITMAPINFOHEADER
+class KS_DATARANGE_MPEG1_VIDEO(Structure):
+    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
+    bFixedSizeSamples: win32more.Foundation.BOOL
+    bTemporalCompression: win32more.Foundation.BOOL
+    StreamDescriptionFlags: UInt32
+    MemoryAllocationFlags: UInt32
+    ConfigCaps: win32more.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
+    VideoInfoHeader: win32more.Media.KernelStreaming.KS_MPEG1VIDEOINFO
+class KS_DATARANGE_MPEG2_VIDEO(Structure):
+    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
+    bFixedSizeSamples: win32more.Foundation.BOOL
+    bTemporalCompression: win32more.Foundation.BOOL
+    StreamDescriptionFlags: UInt32
+    MemoryAllocationFlags: UInt32
+    ConfigCaps: win32more.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
+    VideoInfoHeader: win32more.Media.KernelStreaming.KS_MPEGVIDEOINFO2
+class KS_DATARANGE_VIDEO(Structure):
+    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
+    bFixedSizeSamples: win32more.Foundation.BOOL
+    bTemporalCompression: win32more.Foundation.BOOL
+    StreamDescriptionFlags: UInt32
+    MemoryAllocationFlags: UInt32
+    ConfigCaps: win32more.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
+    VideoInfoHeader: win32more.Media.KernelStreaming.KS_VIDEOINFOHEADER
+class KS_DATARANGE_VIDEO2(Structure):
+    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
+    bFixedSizeSamples: win32more.Foundation.BOOL
+    bTemporalCompression: win32more.Foundation.BOOL
+    StreamDescriptionFlags: UInt32
+    MemoryAllocationFlags: UInt32
+    ConfigCaps: win32more.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
+    VideoInfoHeader: win32more.Media.KernelStreaming.KS_VIDEOINFOHEADER2
+class KS_DATARANGE_VIDEO_PALETTE(Structure):
+    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
+    bFixedSizeSamples: win32more.Foundation.BOOL
+    bTemporalCompression: win32more.Foundation.BOOL
+    StreamDescriptionFlags: UInt32
+    MemoryAllocationFlags: UInt32
+    ConfigCaps: win32more.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
+    VideoInfo: win32more.Media.KernelStreaming.KS_VIDEOINFO
+class KS_DATARANGE_VIDEO_VBI(Structure):
+    DataRange: win32more.Media.KernelStreaming.KSDATAFORMAT
+    bFixedSizeSamples: win32more.Foundation.BOOL
+    bTemporalCompression: win32more.Foundation.BOOL
+    StreamDescriptionFlags: UInt32
+    MemoryAllocationFlags: UInt32
+    ConfigCaps: win32more.Media.KernelStreaming.KS_VIDEO_STREAM_CONFIG_CAPS
+    VBIInfoHeader: win32more.Media.KernelStreaming.KS_VBIINFOHEADER
+KS_DVDCOPYSTATE = Int32
+KS_DVDCOPYSTATE_INITIALIZE: KS_DVDCOPYSTATE = 0
+KS_DVDCOPYSTATE_INITIALIZE_TITLE: KS_DVDCOPYSTATE = 1
+KS_DVDCOPYSTATE_AUTHENTICATION_NOT_REQUIRED: KS_DVDCOPYSTATE = 2
+KS_DVDCOPYSTATE_AUTHENTICATION_REQUIRED: KS_DVDCOPYSTATE = 3
+KS_DVDCOPYSTATE_DONE: KS_DVDCOPYSTATE = 4
+class KS_DVDCOPY_BUSKEY(Structure):
+    BusKey: Byte * 5
+    Reserved: Byte * 1
+class KS_DVDCOPY_CHLGKEY(Structure):
+    ChlgKey: Byte * 10
+    Reserved: Byte * 2
+class KS_DVDCOPY_DISCKEY(Structure):
+    DiscKey: Byte * 2048
+class KS_DVDCOPY_REGION(Structure):
+    Reserved: Byte
+    RegionData: Byte
+    Reserved2: Byte * 2
+class KS_DVDCOPY_SET_COPY_STATE(Structure):
+    DVDCopyState: UInt32
+class KS_DVDCOPY_TITLEKEY(Structure):
+    KeyFlags: UInt32
+    ReservedNT: UInt32 * 2
+    TitleKey: Byte * 6
+    Reserved: Byte * 2
+class KS_DVD_YCrCb(Structure):
+    Reserved: Byte
+    Y: Byte
+    Cr: Byte
+    Cb: Byte
+class KS_DVD_YUV(Structure):
+    Reserved: Byte
+    Y: Byte
+    V: Byte
+    U: Byte
+class KS_FRAME_INFO(Structure):
+    ExtendedHeaderSize: UInt32
+    dwFrameFlags: UInt32
+    PictureNumber: Int64
+    DropCount: Int64
+    hDirectDraw: win32more.Foundation.HANDLE
+    hSurfaceHandle: win32more.Foundation.HANDLE
+    DirectDrawRect: win32more.Foundation.RECT
+    Anonymous1: _Anonymous1_e__Union
+    Reserved2: UInt32
+    Anonymous2: _Anonymous2_e__Union
+    class _Anonymous1_e__Union(Union):
+        lSurfacePitch: Int32
+        Reserved1: UInt32
+    class _Anonymous2_e__Union(Union):
+        Anonymous: _Anonymous_e__Struct
+        FrameCompletionNumber: UInt64
+        class _Anonymous_e__Struct(Structure):
+            Reserved3: UInt32
+            Reserved4: UInt32
+class KS_FRAMING_ITEM(Structure):
+    MemoryType: Guid
+    BusType: Guid
+    MemoryFlags: UInt32
+    BusFlags: UInt32
+    Flags: UInt32
+    Frames: UInt32
+    Anonymous: _Anonymous_e__Union
+    MemoryTypeWeight: UInt32
+    PhysicalRange: win32more.Media.KernelStreaming.KS_FRAMING_RANGE
+    FramingRange: win32more.Media.KernelStreaming.KS_FRAMING_RANGE_WEIGHTED
+    class _Anonymous_e__Union(Union):
+        FileAlignment: UInt32
+        FramePitch: Int32
+class KS_FRAMING_RANGE(Structure):
+    MinFrameSize: UInt32
+    MaxFrameSize: UInt32
+    Stepping: UInt32
+class KS_FRAMING_RANGE_WEIGHTED(Structure):
+    Range: win32more.Media.KernelStreaming.KS_FRAMING_RANGE
+    InPlaceWeight: UInt32
+    NotInPlaceWeight: UInt32
+class KS_H264VIDEOINFO(Structure):
+    wWidth: UInt16
+    wHeight: UInt16
+    wSARwidth: UInt16
+    wSARheight: UInt16
+    wProfile: UInt16
+    bLevelIDC: Byte
+    wConstrainedToolset: UInt16
+    bmSupportedUsages: UInt32
+    bmCapabilities: UInt16
+    bmSVCCapabilities: UInt32
+    bmMVCCapabilities: UInt32
+    dwFrameInterval: UInt32
+    bMaxCodecConfigDelay: Byte
+    bmSupportedSliceModes: Byte
+    bmSupportedSyncFrameTypes: Byte
+    bResolutionScaling: Byte
+    bSimulcastSupport: Byte
+    bmSupportedRateControlModes: Byte
+    wMaxMBperSecOneResolutionNoScalability: UInt16
+    wMaxMBperSecTwoResolutionsNoScalability: UInt16
+    wMaxMBperSecThreeResolutionsNoScalability: UInt16
+    wMaxMBperSecFourResolutionsNoScalability: UInt16
+    wMaxMBperSecOneResolutionTemporalScalability: UInt16
+    wMaxMBperSecTwoResolutionsTemporalScalablility: UInt16
+    wMaxMBperSecThreeResolutionsTemporalScalability: UInt16
+    wMaxMBperSecFourResolutionsTemporalScalability: UInt16
+    wMaxMBperSecOneResolutionTemporalQualityScalability: UInt16
+    wMaxMBperSecTwoResolutionsTemporalQualityScalability: UInt16
+    wMaxMBperSecThreeResolutionsTemporalQualityScalablity: UInt16
+    wMaxMBperSecFourResolutionsTemporalQualityScalability: UInt16
+    wMaxMBperSecOneResolutionTemporalSpatialScalability: UInt16
+    wMaxMBperSecTwoResolutionsTemporalSpatialScalability: UInt16
+    wMaxMBperSecThreeResolutionsTemporalSpatialScalablity: UInt16
+    wMaxMBperSecFourResolutionsTemporalSpatialScalability: UInt16
+    wMaxMBperSecOneResolutionFullScalability: UInt16
+    wMaxMBperSecTwoResolutionsFullScalability: UInt16
+    wMaxMBperSecThreeResolutionsFullScalability: UInt16
+    wMaxMBperSecFourResolutionsFullScalability: UInt16
+KS_LogicalMemoryType = Int32
+KS_MemoryTypeDontCare: KS_LogicalMemoryType = 0
+KS_MemoryTypeKernelPaged: KS_LogicalMemoryType = 1
+KS_MemoryTypeKernelNonPaged: KS_LogicalMemoryType = 2
+KS_MemoryTypeDeviceHostMapped: KS_LogicalMemoryType = 3
+KS_MemoryTypeDeviceSpecific: KS_LogicalMemoryType = 4
+KS_MemoryTypeUser: KS_LogicalMemoryType = 5
+KS_MemoryTypeAnyHost: KS_LogicalMemoryType = 6
+class KS_MPEG1VIDEOINFO(Structure):
+    hdr: win32more.Media.KernelStreaming.KS_VIDEOINFOHEADER
+    dwStartTimeCode: UInt32
+    cbSequenceHeader: UInt32
+    bSequenceHeader: Byte * 1
+KS_MPEG2Level = Int32
+KS_MPEG2Level_Low: KS_MPEG2Level = 0
+KS_MPEG2Level_Main: KS_MPEG2Level = 1
+KS_MPEG2Level_High1440: KS_MPEG2Level = 2
+KS_MPEG2Level_High: KS_MPEG2Level = 3
+KS_MPEG2Profile = Int32
+KS_MPEG2Profile_Simple: KS_MPEG2Profile = 0
+KS_MPEG2Profile_Main: KS_MPEG2Profile = 1
+KS_MPEG2Profile_SNRScalable: KS_MPEG2Profile = 2
+KS_MPEG2Profile_SpatiallyScalable: KS_MPEG2Profile = 3
+KS_MPEG2Profile_High: KS_MPEG2Profile = 4
+class KS_MPEGAUDIOINFO(Structure):
+    dwFlags: UInt32
+    dwReserved1: UInt32
+    dwReserved2: UInt32
+    dwReserved3: UInt32
+class KS_MPEGVIDEOINFO2(Structure):
+    hdr: win32more.Media.KernelStreaming.KS_VIDEOINFOHEADER2
+    dwStartTimeCode: UInt32
+    cbSequenceHeader: UInt32
+    dwProfile: UInt32
+    dwLevel: UInt32
+    dwFlags: UInt32
+    bSequenceHeader: UInt32 * 1
+KS_PhysicalConnectorType = Int32
+KS_PhysConn_Video_Tuner: KS_PhysicalConnectorType = 1
+KS_PhysConn_Video_Composite: KS_PhysicalConnectorType = 2
+KS_PhysConn_Video_SVideo: KS_PhysicalConnectorType = 3
+KS_PhysConn_Video_RGB: KS_PhysicalConnectorType = 4
+KS_PhysConn_Video_YRYBY: KS_PhysicalConnectorType = 5
+KS_PhysConn_Video_SerialDigital: KS_PhysicalConnectorType = 6
+KS_PhysConn_Video_ParallelDigital: KS_PhysicalConnectorType = 7
+KS_PhysConn_Video_SCSI: KS_PhysicalConnectorType = 8
+KS_PhysConn_Video_AUX: KS_PhysicalConnectorType = 9
+KS_PhysConn_Video_1394: KS_PhysicalConnectorType = 10
+KS_PhysConn_Video_USB: KS_PhysicalConnectorType = 11
+KS_PhysConn_Video_VideoDecoder: KS_PhysicalConnectorType = 12
+KS_PhysConn_Video_VideoEncoder: KS_PhysicalConnectorType = 13
+KS_PhysConn_Video_SCART: KS_PhysicalConnectorType = 14
+KS_PhysConn_Audio_Tuner: KS_PhysicalConnectorType = 4096
+KS_PhysConn_Audio_Line: KS_PhysicalConnectorType = 4097
+KS_PhysConn_Audio_Mic: KS_PhysicalConnectorType = 4098
+KS_PhysConn_Audio_AESDigital: KS_PhysicalConnectorType = 4099
+KS_PhysConn_Audio_SPDIFDigital: KS_PhysicalConnectorType = 4100
+KS_PhysConn_Audio_SCSI: KS_PhysicalConnectorType = 4101
+KS_PhysConn_Audio_AUX: KS_PhysicalConnectorType = 4102
+KS_PhysConn_Audio_1394: KS_PhysicalConnectorType = 4103
+KS_PhysConn_Audio_USB: KS_PhysicalConnectorType = 4104
+KS_PhysConn_Audio_AudioDecoder: KS_PhysicalConnectorType = 4105
+class KS_RGBQUAD(Structure):
+    rgbBlue: Byte
+    rgbGreen: Byte
+    rgbRed: Byte
+    rgbReserved: Byte
+KS_SECURE_CAMERA_SCENARIO_ID = Guid('ae53fc6e-8d89-4488-9d-2e-4d-00-87-31-c5-fd')
+KS_SEEKING_CAPABILITIES = Int32
+KS_SEEKING_CanSeekAbsolute: KS_SEEKING_CAPABILITIES = 1
+KS_SEEKING_CanSeekForwards: KS_SEEKING_CAPABILITIES = 2
+KS_SEEKING_CanSeekBackwards: KS_SEEKING_CAPABILITIES = 4
+KS_SEEKING_CanGetCurrentPos: KS_SEEKING_CAPABILITIES = 8
+KS_SEEKING_CanGetStopPos: KS_SEEKING_CAPABILITIES = 16
+KS_SEEKING_CanGetDuration: KS_SEEKING_CAPABILITIES = 32
+KS_SEEKING_CanPlayBackwards: KS_SEEKING_CAPABILITIES = 64
+KS_SEEKING_FLAGS = Int32
+KS_SEEKING_NoPositioning: KS_SEEKING_FLAGS = 0
+KS_SEEKING_AbsolutePositioning: KS_SEEKING_FLAGS = 1
+KS_SEEKING_RelativePositioning: KS_SEEKING_FLAGS = 2
+KS_SEEKING_IncrementalPositioning: KS_SEEKING_FLAGS = 3
+KS_SEEKING_PositioningBitsMask: KS_SEEKING_FLAGS = 3
+KS_SEEKING_SeekToKeyFrame: KS_SEEKING_FLAGS = 4
+KS_SEEKING_ReturnTime: KS_SEEKING_FLAGS = 8
+class KS_TRUECOLORINFO(Structure):
+    dwBitMasks: UInt32 * 3
+    bmiColors: win32more.Media.KernelStreaming.KS_RGBQUAD * 256
+KS_TUNER_STRATEGY = Int32
+KS_TUNER_STRATEGY_PLL: KS_TUNER_STRATEGY = 1
+KS_TUNER_STRATEGY_SIGNAL_STRENGTH: KS_TUNER_STRATEGY = 2
+KS_TUNER_STRATEGY_DRIVER_TUNES: KS_TUNER_STRATEGY = 4
+KS_TUNER_TUNING_FLAGS = Int32
+KS_TUNER_TUNING_EXACT: KS_TUNER_TUNING_FLAGS = 1
+KS_TUNER_TUNING_FINE: KS_TUNER_TUNING_FLAGS = 2
+KS_TUNER_TUNING_COARSE: KS_TUNER_TUNING_FLAGS = 3
+class KS_TVTUNER_CHANGE_INFO(Structure):
+    dwFlags: UInt32
+    dwCountryCode: UInt32
+    dwAnalogVideoStandard: UInt32
+    dwChannel: UInt32
+class KS_VBIINFOHEADER(Structure):
+    StartLine: UInt32
+    EndLine: UInt32
+    SamplingFrequency: UInt32
+    MinLineStartTime: UInt32
+    MaxLineStartTime: UInt32
+    ActualLineStartTime: UInt32
+    ActualLineEndTime: UInt32
+    VideoStandard: UInt32
+    SamplesPerLine: UInt32
+    StrideInBytes: UInt32
+    BufferSize: UInt32
+class KS_VBI_FRAME_INFO(Structure):
+    ExtendedHeaderSize: UInt32
+    dwFrameFlags: UInt32
+    PictureNumber: Int64
+    DropCount: Int64
+    dwSamplingFrequency: UInt32
+    TvTunerChangeInfo: win32more.Media.KernelStreaming.KS_TVTUNER_CHANGE_INFO
+    VBIInfoHeader: win32more.Media.KernelStreaming.KS_VBIINFOHEADER
+KS_VIDEODECODER_FLAGS = Int32
+KS_VIDEODECODER_FLAGS_CAN_DISABLE_OUTPUT: KS_VIDEODECODER_FLAGS = 1
+KS_VIDEODECODER_FLAGS_CAN_USE_VCR_LOCKING: KS_VIDEODECODER_FLAGS = 2
+KS_VIDEODECODER_FLAGS_CAN_INDICATE_LOCKED: KS_VIDEODECODER_FLAGS = 4
+class KS_VIDEOINFO(Structure):
+    rcSource: win32more.Foundation.RECT
+    rcTarget: win32more.Foundation.RECT
+    dwBitRate: UInt32
+    dwBitErrorRate: UInt32
+    AvgTimePerFrame: Int64
+    bmiHeader: win32more.Media.KernelStreaming.KS_BITMAPINFOHEADER
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        bmiColors: win32more.Media.KernelStreaming.KS_RGBQUAD * 256
+        dwBitMasks: UInt32 * 3
+        TrueColorInfo: win32more.Media.KernelStreaming.KS_TRUECOLORINFO
+class KS_VIDEOINFOHEADER(Structure):
+    rcSource: win32more.Foundation.RECT
+    rcTarget: win32more.Foundation.RECT
+    dwBitRate: UInt32
+    dwBitErrorRate: UInt32
+    AvgTimePerFrame: Int64
+    bmiHeader: win32more.Media.KernelStreaming.KS_BITMAPINFOHEADER
+class KS_VIDEOINFOHEADER2(Structure):
+    rcSource: win32more.Foundation.RECT
+    rcTarget: win32more.Foundation.RECT
+    dwBitRate: UInt32
+    dwBitErrorRate: UInt32
+    AvgTimePerFrame: Int64
+    dwInterlaceFlags: UInt32
+    dwCopyProtectFlags: UInt32
+    dwPictAspectRatioX: UInt32
+    dwPictAspectRatioY: UInt32
+    Anonymous: _Anonymous_e__Union
+    dwReserved2: UInt32
+    bmiHeader: win32more.Media.KernelStreaming.KS_BITMAPINFOHEADER
+    class _Anonymous_e__Union(Union):
+        dwControlFlags: UInt32
+        dwReserved1: UInt32
+class KS_VIDEO_STREAM_CONFIG_CAPS(Structure):
+    guid: Guid
+    VideoStandard: UInt32
+    InputSize: win32more.Foundation.SIZE
+    MinCroppingSize: win32more.Foundation.SIZE
+    MaxCroppingSize: win32more.Foundation.SIZE
+    CropGranularityX: Int32
+    CropGranularityY: Int32
+    CropAlignX: Int32
+    CropAlignY: Int32
+    MinOutputSize: win32more.Foundation.SIZE
+    MaxOutputSize: win32more.Foundation.SIZE
+    OutputGranularityX: Int32
+    OutputGranularityY: Int32
+    StretchTapsX: Int32
+    StretchTapsY: Int32
+    ShrinkTapsX: Int32
+    ShrinkTapsY: Int32
+    MinFrameInterval: Int64
+    MaxFrameInterval: Int64
+    MinBitsPerSecond: Int32
+    MaxBitsPerSecond: Int32
+KS_VideoControlFlags = Int32
+KS_VideoControlFlag_FlipHorizontal: KS_VideoControlFlags = 1
+KS_VideoControlFlag_FlipVertical: KS_VideoControlFlags = 2
+KS_Obsolete_VideoControlFlag_ExternalTriggerEnable: KS_VideoControlFlags = 16
+KS_Obsolete_VideoControlFlag_Trigger: KS_VideoControlFlags = 32
+KS_VideoControlFlag_ExternalTriggerEnable: KS_VideoControlFlags = 4
+KS_VideoControlFlag_Trigger: KS_VideoControlFlags = 8
+KS_VideoControlFlag_IndependentImagePin: KS_VideoControlFlags = 64
+KS_VideoControlFlag_StillCapturePreviewFrame: KS_VideoControlFlags = 128
+KS_VideoControlFlag_StartPhotoSequenceCapture: KS_VideoControlFlags = 256
+KS_VideoControlFlag_StopPhotoSequenceCapture: KS_VideoControlFlags = 512
+KS_VideoStreamingHints = Int32
+KS_StreamingHint_FrameInterval: KS_VideoStreamingHints = 256
+KS_StreamingHint_KeyFrameRate: KS_VideoStreamingHints = 512
+KS_StreamingHint_PFrameRate: KS_VideoStreamingHints = 1024
+KS_StreamingHint_CompQuality: KS_VideoStreamingHints = 2048
+KS_StreamingHint_CompWindowSize: KS_VideoStreamingHints = 4096
 class LOOPEDSTREAMING_POSITION_EVENT_DATA(Structure):
     KsEventData: win32more.Media.KernelStreaming.KSEVENTDATA
     Position: UInt64
@@ -3927,6 +3927,11 @@ class MF_MDL_SHARED_PAYLOAD_KEY(Union):
         pHandle: UInt32
         fHandle: UInt32
         uPayload: UInt64
+class NABTSFEC_BUFFER(Structure):
+    dataSize: UInt32
+    groupID: UInt16
+    Reserved: UInt16
+    data: Byte * 448
 class NABTS_BUFFER(Structure):
     ScanlinesRequested: win32more.Media.KernelStreaming.VBICODECFILTERING_SCANLINES
     PictureNumber: Int64
@@ -3935,11 +3940,6 @@ class NABTS_BUFFER(Structure):
 class NABTS_BUFFER_LINE(Structure):
     Confidence: Byte
     Bytes: Byte * 36
-class NABTSFEC_BUFFER(Structure):
-    dataSize: UInt32
-    groupID: UInt16
-    Reserved: UInt16
-    data: Byte * 448
 class OPTIMAL_WEIGHT_TOTALS(Structure):
     MinTotalNominator: Int64
     MaxTotalNominator: Int64
@@ -4028,9 +4028,6 @@ TELEPHONY_PROVIDERCHANGEOP = Int32
 TELEPHONY_PROVIDERCHANGEOP_END: TELEPHONY_PROVIDERCHANGEOP = 0
 TELEPHONY_PROVIDERCHANGEOP_BEGIN: TELEPHONY_PROVIDERCHANGEOP = 1
 TELEPHONY_PROVIDERCHANGEOP_CANCEL: TELEPHONY_PROVIDERCHANGEOP = 2
-class TRANSPORT_STATE(Structure):
-    Mode: UInt32
-    State: UInt32
 class TRANSPORTAUDIOPARMS(Structure):
     EnableOutput: Int32
     EnableRecord: Int32
@@ -4085,6 +4082,9 @@ class TRANSPORTSTATUS(Structure):
 class TRANSPORTVIDEOPARMS(Structure):
     OutputMode: Int32
     Input: Int32
+class TRANSPORT_STATE(Structure):
+    Mode: UInt32
+    State: UInt32
 class TUNER_ANALOG_CAPS_S(Structure):
     Mode: UInt32
     StandardsSupported: UInt32
@@ -4175,10 +4175,10 @@ class WST_BUFFER_LINE(Structure):
     Confidence: Byte
     Bytes: Byte * 42
 make_head(_module, 'ALLOCATOR_PROPERTIES_EX')
+make_head(_module, 'AUDIORESOURCEMANAGEMENT_RESOURCEGROUP')
 make_head(_module, 'DEVPKEY_KsAudio_PacketSize_Constraints')
 make_head(_module, 'DEVPKEY_KsAudio_Controller_DeviceInterface_Path')
 make_head(_module, 'DEVPKEY_KsAudio_PacketSize_Constraints2')
-make_head(_module, 'AUDIORESOURCEMANAGEMENT_RESOURCEGROUP')
 make_head(_module, 'CC_BYTE_PAIR')
 make_head(_module, 'CC_HW_FIELD')
 make_head(_module, 'DEVCAPS')
@@ -4196,57 +4196,6 @@ make_head(_module, 'IKsPin')
 make_head(_module, 'IKsPropertySet')
 make_head(_module, 'IKsTopology')
 make_head(_module, 'INTERLEAVED_AUDIO_FORMAT_INFORMATION')
-make_head(_module, 'KS_AM_ExactRateChange')
-make_head(_module, 'KS_AM_SimpleRateChange')
-make_head(_module, 'KS_AMVPDATAINFO')
-make_head(_module, 'KS_AMVPDIMINFO')
-make_head(_module, 'KS_AMVPSIZE')
-make_head(_module, 'KS_ANALOGVIDEOINFO')
-make_head(_module, 'KS_BITMAPINFOHEADER')
-make_head(_module, 'KS_COLCON')
-make_head(_module, 'KS_COMPRESSION')
-make_head(_module, 'KS_COPY_MACROVISION')
-make_head(_module, 'KS_DATAFORMAT_H264VIDEOINFO')
-make_head(_module, 'KS_DATAFORMAT_IMAGEINFO')
-make_head(_module, 'KS_DATAFORMAT_MPEGVIDEOINFO2')
-make_head(_module, 'KS_DATAFORMAT_VBIINFOHEADER')
-make_head(_module, 'KS_DATAFORMAT_VIDEOINFO_PALETTE')
-make_head(_module, 'KS_DATAFORMAT_VIDEOINFOHEADER')
-make_head(_module, 'KS_DATAFORMAT_VIDEOINFOHEADER2')
-make_head(_module, 'KS_DATARANGE_ANALOGVIDEO')
-make_head(_module, 'KS_DATARANGE_H264_VIDEO')
-make_head(_module, 'KS_DATARANGE_IMAGE')
-make_head(_module, 'KS_DATARANGE_MPEG1_VIDEO')
-make_head(_module, 'KS_DATARANGE_MPEG2_VIDEO')
-make_head(_module, 'KS_DATARANGE_VIDEO')
-make_head(_module, 'KS_DATARANGE_VIDEO_PALETTE')
-make_head(_module, 'KS_DATARANGE_VIDEO_VBI')
-make_head(_module, 'KS_DATARANGE_VIDEO2')
-make_head(_module, 'KS_DVD_YCrCb')
-make_head(_module, 'KS_DVD_YUV')
-make_head(_module, 'KS_DVDCOPY_BUSKEY')
-make_head(_module, 'KS_DVDCOPY_CHLGKEY')
-make_head(_module, 'KS_DVDCOPY_DISCKEY')
-make_head(_module, 'KS_DVDCOPY_REGION')
-make_head(_module, 'KS_DVDCOPY_SET_COPY_STATE')
-make_head(_module, 'KS_DVDCOPY_TITLEKEY')
-make_head(_module, 'KS_FRAME_INFO')
-make_head(_module, 'KS_FRAMING_ITEM')
-make_head(_module, 'KS_FRAMING_RANGE')
-make_head(_module, 'KS_FRAMING_RANGE_WEIGHTED')
-make_head(_module, 'KS_H264VIDEOINFO')
-make_head(_module, 'KS_MPEG1VIDEOINFO')
-make_head(_module, 'KS_MPEGAUDIOINFO')
-make_head(_module, 'KS_MPEGVIDEOINFO2')
-make_head(_module, 'KS_RGBQUAD')
-make_head(_module, 'KS_TRUECOLORINFO')
-make_head(_module, 'KS_TVTUNER_CHANGE_INFO')
-make_head(_module, 'KS_VBI_FRAME_INFO')
-make_head(_module, 'KS_VBIINFOHEADER')
-make_head(_module, 'KS_VIDEO_STREAM_CONFIG_CAPS')
-make_head(_module, 'KS_VIDEOINFO')
-make_head(_module, 'KS_VIDEOINFOHEADER')
-make_head(_module, 'KS_VIDEOINFOHEADER2')
 make_head(_module, 'KSAC3_ALTERNATE_AUDIO')
 make_head(_module, 'KSAC3_BIT_STREAM_MODE')
 make_head(_module, 'KSAC3_DIALOGUE_LEVEL')
@@ -4257,26 +4206,26 @@ make_head(_module, 'KSALLOCATOR_FRAMING')
 make_head(_module, 'KSALLOCATOR_FRAMING_EX')
 make_head(_module, 'KSATTRIBUTE')
 make_head(_module, 'KSATTRIBUTE_AUDIOSIGNALPROCESSING_MODE')
-make_head(_module, 'KSAUDIO_CHANNEL_CONFIG')
-make_head(_module, 'KSAUDIO_COPY_PROTECTION')
-make_head(_module, 'KSAUDIO_DYNAMIC_RANGE')
-make_head(_module, 'KSAUDIO_MIC_ARRAY_GEOMETRY')
-make_head(_module, 'KSAUDIO_MICROPHONE_COORDINATES')
-make_head(_module, 'KSAUDIO_MIX_CAPS')
-make_head(_module, 'KSAUDIO_MIXCAP_TABLE')
-make_head(_module, 'KSAUDIO_MIXLEVEL')
-make_head(_module, 'KSAUDIO_PACKETSIZE_CONSTRAINTS')
-make_head(_module, 'KSAUDIO_PACKETSIZE_CONSTRAINTS2')
-make_head(_module, 'KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT')
-make_head(_module, 'KSAUDIO_POSITION')
-make_head(_module, 'KSAUDIO_POSITIONEX')
-make_head(_module, 'KSAUDIO_PRESENTATION_POSITION')
 make_head(_module, 'KSAUDIOENGINE_BUFFER_SIZE_RANGE')
 make_head(_module, 'KSAUDIOENGINE_DESCRIPTOR')
 make_head(_module, 'KSAUDIOENGINE_VOLUMELEVEL')
 make_head(_module, 'KSAUDIOMODULE_DESCRIPTOR')
 make_head(_module, 'KSAUDIOMODULE_NOTIFICATION')
 make_head(_module, 'KSAUDIOMODULE_PROPERTY')
+make_head(_module, 'KSAUDIO_CHANNEL_CONFIG')
+make_head(_module, 'KSAUDIO_COPY_PROTECTION')
+make_head(_module, 'KSAUDIO_DYNAMIC_RANGE')
+make_head(_module, 'KSAUDIO_MICROPHONE_COORDINATES')
+make_head(_module, 'KSAUDIO_MIC_ARRAY_GEOMETRY')
+make_head(_module, 'KSAUDIO_MIXCAP_TABLE')
+make_head(_module, 'KSAUDIO_MIXLEVEL')
+make_head(_module, 'KSAUDIO_MIX_CAPS')
+make_head(_module, 'KSAUDIO_PACKETSIZE_CONSTRAINTS')
+make_head(_module, 'KSAUDIO_PACKETSIZE_CONSTRAINTS2')
+make_head(_module, 'KSAUDIO_PACKETSIZE_PROCESSINGMODE_CONSTRAINT')
+make_head(_module, 'KSAUDIO_POSITION')
+make_head(_module, 'KSAUDIO_POSITIONEX')
+make_head(_module, 'KSAUDIO_PRESENTATION_POSITION')
 make_head(_module, 'KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS')
 make_head(_module, 'KSCAMERA_EXTENDEDPROP_CAMERAOFFSET')
 make_head(_module, 'KSCAMERA_EXTENDEDPROP_DIGITALWINDOW_CONFIGCAPS')
@@ -4332,13 +4281,13 @@ make_head(_module, 'KSDS3D_ITD_PARAMS')
 make_head(_module, 'KSDS3D_ITD_PARAMS_MSG')
 make_head(_module, 'KSDS3D_LISTENER_ALL')
 make_head(_module, 'KSDS3D_LISTENER_ORIENTATION')
-make_head(_module, 'KSE_NODE')
-make_head(_module, 'KSE_PIN')
 make_head(_module, 'KSERROR')
+make_head(_module, 'KSEVENTDATA')
 make_head(_module, 'KSEVENT_TIME_INTERVAL')
 make_head(_module, 'KSEVENT_TIME_MARK')
 make_head(_module, 'KSEVENT_TUNER_INITIATE_SCAN_S')
-make_head(_module, 'KSEVENTDATA')
+make_head(_module, 'KSE_NODE')
+make_head(_module, 'KSE_PIN')
 make_head(_module, 'KSFRAMETIME')
 make_head(_module, 'KSGOP_USERDATA')
 make_head(_module, 'KSIDENTIFIER')
@@ -4346,12 +4295,11 @@ make_head(_module, 'KSINTERVAL')
 make_head(_module, 'KSJACK_DESCRIPTION')
 make_head(_module, 'KSJACK_DESCRIPTION2')
 make_head(_module, 'KSJACK_SINK_INFORMATION')
-make_head(_module, 'KSM_NODE')
 make_head(_module, 'KSMPEGVID_RECT')
 make_head(_module, 'KSMULTIPLE_DATA_PROP')
 make_head(_module, 'KSMULTIPLE_ITEM')
 make_head(_module, 'KSMUSICFORMAT')
-make_head(_module, 'KSNODE_CREATE')
+make_head(_module, 'KSM_NODE')
 make_head(_module, 'KSNODEPROPERTY')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'KSNODEPROPERTY_AUDIO_3D_LISTENER')
@@ -4363,9 +4311,7 @@ if ARCH in 'X64,ARM64':
     make_head(_module, 'KSNODEPROPERTY_AUDIO_PROPERTY')
 if ARCH in 'X86':
     make_head(_module, 'KSNODEPROPERTY_AUDIO_PROPERTY')
-make_head(_module, 'KSP_NODE')
-make_head(_module, 'KSP_PIN')
-make_head(_module, 'KSP_TIMEFORMAT')
+make_head(_module, 'KSNODE_CREATE')
 make_head(_module, 'KSPIN_CINSTANCES')
 make_head(_module, 'KSPIN_CONNECT')
 make_head(_module, 'KSPIN_MDL_CACHING_NOTIFICATION')
@@ -4385,8 +4331,8 @@ make_head(_module, 'KSPROPERTY_CAMERACONTROL_NODE_S')
 make_head(_module, 'KSPROPERTY_CAMERACONTROL_NODE_S2')
 make_head(_module, 'KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_S')
 make_head(_module, 'KSPROPERTY_CAMERACONTROL_S')
-make_head(_module, 'KSPROPERTY_CAMERACONTROL_S_EX')
 make_head(_module, 'KSPROPERTY_CAMERACONTROL_S2')
+make_head(_module, 'KSPROPERTY_CAMERACONTROL_S_EX')
 make_head(_module, 'KSPROPERTY_CAMERACONTROL_VIDEOSTABILIZATION_MODE_S')
 make_head(_module, 'KSPROPERTY_CROSSBAR_ACTIVE_S')
 make_head(_module, 'KSPROPERTY_CROSSBAR_CAPS_S')
@@ -4445,13 +4391,16 @@ make_head(_module, 'KSPROPERTY_VIDEOCONTROL_FRAME_RATES_S')
 make_head(_module, 'KSPROPERTY_VIDEOCONTROL_MODE_S')
 make_head(_module, 'KSPROPERTY_VIDEODECODER_CAPS_S')
 make_head(_module, 'KSPROPERTY_VIDEODECODER_S')
-make_head(_module, 'KSPROPERTY_VIDEODECODER_STATUS_S')
 make_head(_module, 'KSPROPERTY_VIDEODECODER_STATUS2_S')
+make_head(_module, 'KSPROPERTY_VIDEODECODER_STATUS_S')
 make_head(_module, 'KSPROPERTY_VIDEOENCODER_S')
 make_head(_module, 'KSPROPERTY_VIDEOPROCAMP_NODE_S')
 make_head(_module, 'KSPROPERTY_VIDEOPROCAMP_NODE_S2')
 make_head(_module, 'KSPROPERTY_VIDEOPROCAMP_S')
 make_head(_module, 'KSPROPERTY_VIDEOPROCAMP_S2')
+make_head(_module, 'KSP_NODE')
+make_head(_module, 'KSP_PIN')
+make_head(_module, 'KSP_TIMEFORMAT')
 make_head(_module, 'KSQUALITY')
 make_head(_module, 'KSQUALITY_MANAGER')
 make_head(_module, 'KSQUERYBUFFER')
@@ -4460,23 +4409,25 @@ make_head(_module, 'KSRATE_CAPABILITY')
 make_head(_module, 'KSRELATIVEEVENT')
 make_head(_module, 'KSRESOLUTION')
 make_head(_module, 'KSRTAUDIO_BUFFER')
+make_head(_module, 'KSRTAUDIO_BUFFER32')
 make_head(_module, 'KSRTAUDIO_BUFFER_PROPERTY')
+make_head(_module, 'KSRTAUDIO_BUFFER_PROPERTY32')
 make_head(_module, 'KSRTAUDIO_BUFFER_PROPERTY_WITH_NOTIFICATION')
 make_head(_module, 'KSRTAUDIO_BUFFER_PROPERTY_WITH_NOTIFICATION32')
-make_head(_module, 'KSRTAUDIO_BUFFER_PROPERTY32')
-make_head(_module, 'KSRTAUDIO_BUFFER32')
 make_head(_module, 'KSRTAUDIO_GETREADPACKET_INFO')
 make_head(_module, 'KSRTAUDIO_HWLATENCY')
 make_head(_module, 'KSRTAUDIO_HWREGISTER')
+make_head(_module, 'KSRTAUDIO_HWREGISTER32')
 make_head(_module, 'KSRTAUDIO_HWREGISTER_PROPERTY')
 make_head(_module, 'KSRTAUDIO_HWREGISTER_PROPERTY32')
-make_head(_module, 'KSRTAUDIO_HWREGISTER32')
 make_head(_module, 'KSRTAUDIO_NOTIFICATION_EVENT_PROPERTY')
 make_head(_module, 'KSRTAUDIO_NOTIFICATION_EVENT_PROPERTY32')
 make_head(_module, 'KSRTAUDIO_PACKETVREGISTER')
 make_head(_module, 'KSRTAUDIO_PACKETVREGISTER_PROPERTY')
 make_head(_module, 'KSRTAUDIO_SETWRITEPACKET_INFO')
 make_head(_module, 'KSSOUNDDETECTORPROPERTY')
+make_head(_module, 'KSSTREAMALLOCATOR_STATUS')
+make_head(_module, 'KSSTREAMALLOCATOR_STATUS_EX')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'KSSTREAM_HEADER')
 if ARCH in 'X86':
@@ -4484,8 +4435,6 @@ if ARCH in 'X86':
 make_head(_module, 'KSSTREAM_METADATA_INFO')
 make_head(_module, 'KSSTREAM_UVC_METADATA')
 make_head(_module, 'KSSTREAM_UVC_METADATATYPE_TIMESTAMP')
-make_head(_module, 'KSSTREAMALLOCATOR_STATUS')
-make_head(_module, 'KSSTREAMALLOCATOR_STATUS_EX')
 make_head(_module, 'KSTELEPHONY_CALLCONTROL')
 make_head(_module, 'KSTELEPHONY_CALLINFO')
 make_head(_module, 'KSTELEPHONY_PROVIDERCHANGE')
@@ -4497,28 +4446,79 @@ make_head(_module, 'KSTOPOLOGY_ENDPOINTIDPAIR')
 make_head(_module, 'KSVPMAXPIXELRATE')
 make_head(_module, 'KSVPSIZE_PROP')
 make_head(_module, 'KSVPSURFACEPARAMS')
+make_head(_module, 'KSWAVETABLE_WAVE_DESC')
 make_head(_module, 'KSWAVE_BUFFER')
 make_head(_module, 'KSWAVE_COMPATCAPS')
 make_head(_module, 'KSWAVE_INPUT_CAPABILITIES')
 make_head(_module, 'KSWAVE_OUTPUT_CAPABILITIES')
 make_head(_module, 'KSWAVE_VOLUME')
-make_head(_module, 'KSWAVETABLE_WAVE_DESC')
+make_head(_module, 'KS_AMVPDATAINFO')
+make_head(_module, 'KS_AMVPDIMINFO')
+make_head(_module, 'KS_AMVPSIZE')
+make_head(_module, 'KS_AM_ExactRateChange')
+make_head(_module, 'KS_AM_SimpleRateChange')
+make_head(_module, 'KS_ANALOGVIDEOINFO')
+make_head(_module, 'KS_BITMAPINFOHEADER')
+make_head(_module, 'KS_COLCON')
+make_head(_module, 'KS_COMPRESSION')
+make_head(_module, 'KS_COPY_MACROVISION')
+make_head(_module, 'KS_DATAFORMAT_H264VIDEOINFO')
+make_head(_module, 'KS_DATAFORMAT_IMAGEINFO')
+make_head(_module, 'KS_DATAFORMAT_MPEGVIDEOINFO2')
+make_head(_module, 'KS_DATAFORMAT_VBIINFOHEADER')
+make_head(_module, 'KS_DATAFORMAT_VIDEOINFOHEADER')
+make_head(_module, 'KS_DATAFORMAT_VIDEOINFOHEADER2')
+make_head(_module, 'KS_DATAFORMAT_VIDEOINFO_PALETTE')
+make_head(_module, 'KS_DATARANGE_ANALOGVIDEO')
+make_head(_module, 'KS_DATARANGE_H264_VIDEO')
+make_head(_module, 'KS_DATARANGE_IMAGE')
+make_head(_module, 'KS_DATARANGE_MPEG1_VIDEO')
+make_head(_module, 'KS_DATARANGE_MPEG2_VIDEO')
+make_head(_module, 'KS_DATARANGE_VIDEO')
+make_head(_module, 'KS_DATARANGE_VIDEO2')
+make_head(_module, 'KS_DATARANGE_VIDEO_PALETTE')
+make_head(_module, 'KS_DATARANGE_VIDEO_VBI')
+make_head(_module, 'KS_DVDCOPY_BUSKEY')
+make_head(_module, 'KS_DVDCOPY_CHLGKEY')
+make_head(_module, 'KS_DVDCOPY_DISCKEY')
+make_head(_module, 'KS_DVDCOPY_REGION')
+make_head(_module, 'KS_DVDCOPY_SET_COPY_STATE')
+make_head(_module, 'KS_DVDCOPY_TITLEKEY')
+make_head(_module, 'KS_DVD_YCrCb')
+make_head(_module, 'KS_DVD_YUV')
+make_head(_module, 'KS_FRAME_INFO')
+make_head(_module, 'KS_FRAMING_ITEM')
+make_head(_module, 'KS_FRAMING_RANGE')
+make_head(_module, 'KS_FRAMING_RANGE_WEIGHTED')
+make_head(_module, 'KS_H264VIDEOINFO')
+make_head(_module, 'KS_MPEG1VIDEOINFO')
+make_head(_module, 'KS_MPEGAUDIOINFO')
+make_head(_module, 'KS_MPEGVIDEOINFO2')
+make_head(_module, 'KS_RGBQUAD')
+make_head(_module, 'KS_TRUECOLORINFO')
+make_head(_module, 'KS_TVTUNER_CHANGE_INFO')
+make_head(_module, 'KS_VBIINFOHEADER')
+make_head(_module, 'KS_VBI_FRAME_INFO')
+make_head(_module, 'KS_VIDEOINFO')
+make_head(_module, 'KS_VIDEOINFOHEADER')
+make_head(_module, 'KS_VIDEOINFOHEADER2')
+make_head(_module, 'KS_VIDEO_STREAM_CONFIG_CAPS')
 make_head(_module, 'LOOPEDSTREAMING_POSITION_EVENT_DATA')
 make_head(_module, 'MEDIUM_INFO')
 make_head(_module, 'MF_MDL_SHARED_PAYLOAD_KEY')
+make_head(_module, 'NABTSFEC_BUFFER')
 make_head(_module, 'NABTS_BUFFER')
 make_head(_module, 'NABTS_BUFFER_LINE')
-make_head(_module, 'NABTSFEC_BUFFER')
 make_head(_module, 'OPTIMAL_WEIGHT_TOTALS')
 make_head(_module, 'PIPE_DIMENSIONS')
 make_head(_module, 'PIPE_TERMINATION')
 make_head(_module, 'SECURE_BUFFER_INFO')
 make_head(_module, 'SOUNDDETECTOR_PATTERNHEADER')
-make_head(_module, 'TRANSPORT_STATE')
 make_head(_module, 'TRANSPORTAUDIOPARMS')
 make_head(_module, 'TRANSPORTBASICPARMS')
 make_head(_module, 'TRANSPORTSTATUS')
 make_head(_module, 'TRANSPORTVIDEOPARMS')
+make_head(_module, 'TRANSPORT_STATE')
 make_head(_module, 'TUNER_ANALOG_CAPS_S')
 make_head(_module, 'VBICAP_PROPERTIES_PROTECTION_S')
 make_head(_module, 'VBICODECFILTERING_CC_SUBSTREAMS')

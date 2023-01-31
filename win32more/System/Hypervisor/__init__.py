@@ -959,6 +959,11 @@ class WHV_PROCESSOR_FEATURES(Union):
     AsUINT64: UInt64
     class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
+class WHV_PROCESSOR_FEATURES1(Union):
+    Anonymous: _Anonymous_e__Struct
+    AsUINT64: UInt64
+    class _Anonymous_e__Struct(Structure):
+        _bitfield: UInt64
 class WHV_PROCESSOR_FEATURES_BANKS(Structure):
     BanksCount: UInt32
     Reserved0: UInt32
@@ -969,11 +974,6 @@ class WHV_PROCESSOR_FEATURES_BANKS(Structure):
         class _Anonymous_e__Struct(Structure):
             Bank0: win32more.System.Hypervisor.WHV_PROCESSOR_FEATURES
             Bank1: win32more.System.Hypervisor.WHV_PROCESSOR_FEATURES1
-class WHV_PROCESSOR_FEATURES1(Union):
-    Anonymous: _Anonymous_e__Struct
-    AsUINT64: UInt64
-    class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt64
 class WHV_PROCESSOR_INTERCEPT_COUNTER(Structure):
     Count: UInt64
     Time100ns: UInt64
@@ -1261,10 +1261,10 @@ class WHV_REGISTER_VALUE(Union):
     ExtIntEvent: win32more.System.Hypervisor.WHV_X64_PENDING_EXT_INT_EVENT
     InternalActivity: win32more.System.Hypervisor.WHV_INTERNAL_ACTIVITY_REGISTER
     PendingDebugException: win32more.System.Hypervisor.WHV_X64_PENDING_DEBUG_EXCEPTION
-WHV_RUN_VP_CANCEL_REASON = Int32
-WHV_RUN_VP_CANCEL_REASON_WHvRunVpCancelReasonUser: WHV_RUN_VP_CANCEL_REASON = 0
 class WHV_RUN_VP_CANCELED_CONTEXT(Structure):
     CancelReason: win32more.System.Hypervisor.WHV_RUN_VP_CANCEL_REASON
+WHV_RUN_VP_CANCEL_REASON = Int32
+WHV_RUN_VP_CANCEL_REASON_WHvRunVpCancelReasonUser: WHV_RUN_VP_CANCEL_REASON = 0
 class WHV_RUN_VP_EXIT_CONTEXT(Structure):
     ExitReason: win32more.System.Hypervisor.WHV_RUN_VP_EXIT_REASON
     Reserved: UInt32
@@ -1399,28 +1399,6 @@ WHV_VIRTUAL_PROCESSOR_STATE_TYPE_WHvVirtualProcessorStateTypeSynicEventFlagPage:
 WHV_VIRTUAL_PROCESSOR_STATE_TYPE_WHvVirtualProcessorStateTypeSynicTimerState: WHV_VIRTUAL_PROCESSOR_STATE_TYPE = 2
 WHV_VIRTUAL_PROCESSOR_STATE_TYPE_WHvVirtualProcessorStateTypeInterruptControllerState2: WHV_VIRTUAL_PROCESSOR_STATE_TYPE = 4096
 WHV_VIRTUAL_PROCESSOR_STATE_TYPE_WHvVirtualProcessorStateTypeXsaveState: WHV_VIRTUAL_PROCESSOR_STATE_TYPE = 4097
-class WHV_VP_EXCEPTION_CONTEXT(Structure):
-    InstructionByteCount: Byte
-    Reserved: Byte * 3
-    InstructionBytes: Byte * 16
-    ExceptionInfo: win32more.System.Hypervisor.WHV_VP_EXCEPTION_INFO
-    ExceptionType: Byte
-    Reserved2: Byte * 3
-    ErrorCode: UInt32
-    ExceptionParameter: UInt64
-class WHV_VP_EXCEPTION_INFO(Union):
-    Anonymous: _Anonymous_e__Struct
-    AsUINT32: UInt32
-    class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
-class WHV_VP_EXIT_CONTEXT(Structure):
-    ExecutionState: win32more.System.Hypervisor.WHV_X64_VP_EXECUTION_STATE
-    _bitfield: Byte
-    Reserved: Byte
-    Reserved2: UInt32
-    Cs: win32more.System.Hypervisor.WHV_X64_SEGMENT_REGISTER
-    Rip: UInt64
-    Rflags: UInt64
 class WHV_VPCI_DEVICE_NOTIFICATION(Structure):
     NotificationType: win32more.System.Hypervisor.WHV_VPCI_DEVICE_NOTIFICATION_TYPE
     Reserved1: UInt32
@@ -1475,6 +1453,28 @@ WHV_VPCI_MMIO_RANGE_FLAGS_WHvVpciMmioRangeFlagReadAccess: WHV_VPCI_MMIO_RANGE_FL
 WHV_VPCI_MMIO_RANGE_FLAGS_WHvVpciMmioRangeFlagWriteAccess: WHV_VPCI_MMIO_RANGE_FLAGS = 2
 class WHV_VPCI_PROBED_BARS(Structure):
     Value: UInt32 * 6
+class WHV_VP_EXCEPTION_CONTEXT(Structure):
+    InstructionByteCount: Byte
+    Reserved: Byte * 3
+    InstructionBytes: Byte * 16
+    ExceptionInfo: win32more.System.Hypervisor.WHV_VP_EXCEPTION_INFO
+    ExceptionType: Byte
+    Reserved2: Byte * 3
+    ErrorCode: UInt32
+    ExceptionParameter: UInt64
+class WHV_VP_EXCEPTION_INFO(Union):
+    Anonymous: _Anonymous_e__Struct
+    AsUINT32: UInt32
+    class _Anonymous_e__Struct(Structure):
+        _bitfield: UInt32
+class WHV_VP_EXIT_CONTEXT(Structure):
+    ExecutionState: win32more.System.Hypervisor.WHV_X64_VP_EXECUTION_STATE
+    _bitfield: Byte
+    Reserved: Byte
+    Reserved2: UInt32
+    Cs: win32more.System.Hypervisor.WHV_X64_SEGMENT_REGISTER
+    Rip: UInt64
+    Rflags: UInt64
 class WHV_X64_APIC_EOI_CONTEXT(Structure):
     InterruptVector: UInt32
 class WHV_X64_APIC_INIT_SIPI_CONTEXT(Structure):
@@ -1545,13 +1545,13 @@ class WHV_X64_FP_REGISTER(Union):
     class _Anonymous_e__Struct(Structure):
         Mantissa: UInt64
         _bitfield: UInt64
+class WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT(Structure):
+    DeliverableType: win32more.System.Hypervisor.WHV_X64_PENDING_INTERRUPTION_TYPE
 class WHV_X64_INTERRUPT_STATE_REGISTER(Union):
     Anonymous: _Anonymous_e__Struct
     AsUINT64: UInt64
     class _Anonymous_e__Struct(Structure):
         _bitfield: UInt64
-class WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT(Structure):
-    DeliverableType: win32more.System.Hypervisor.WHV_X64_PENDING_INTERRUPTION_TYPE
 class WHV_X64_IO_PORT_ACCESS_CONTEXT(Structure):
     InstructionByteCount: Byte
     Reserved: Byte * 3
@@ -1725,8 +1725,8 @@ make_head(_module, 'WHV_PARTITION_PROPERTY')
 make_head(_module, 'WHV_PROCESSOR_APIC_COUNTERS')
 make_head(_module, 'WHV_PROCESSOR_EVENT_COUNTERS')
 make_head(_module, 'WHV_PROCESSOR_FEATURES')
-make_head(_module, 'WHV_PROCESSOR_FEATURES_BANKS')
 make_head(_module, 'WHV_PROCESSOR_FEATURES1')
+make_head(_module, 'WHV_PROCESSOR_FEATURES_BANKS')
 make_head(_module, 'WHV_PROCESSOR_INTERCEPT_COUNTER')
 make_head(_module, 'WHV_PROCESSOR_INTERCEPT_COUNTERS')
 make_head(_module, 'WHV_PROCESSOR_PERFMON_FEATURES')
@@ -1746,15 +1746,15 @@ make_head(_module, 'WHV_TRANSLATE_GVA_RESULT')
 make_head(_module, 'WHV_TRIGGER_PARAMETERS')
 make_head(_module, 'WHV_UINT128')
 make_head(_module, 'WHV_VIRTUAL_PROCESSOR_PROPERTY')
-make_head(_module, 'WHV_VP_EXCEPTION_CONTEXT')
-make_head(_module, 'WHV_VP_EXCEPTION_INFO')
-make_head(_module, 'WHV_VP_EXIT_CONTEXT')
 make_head(_module, 'WHV_VPCI_DEVICE_NOTIFICATION')
 make_head(_module, 'WHV_VPCI_DEVICE_REGISTER')
 make_head(_module, 'WHV_VPCI_HARDWARE_IDS')
 make_head(_module, 'WHV_VPCI_INTERRUPT_TARGET')
 make_head(_module, 'WHV_VPCI_MMIO_MAPPING')
 make_head(_module, 'WHV_VPCI_PROBED_BARS')
+make_head(_module, 'WHV_VP_EXCEPTION_CONTEXT')
+make_head(_module, 'WHV_VP_EXCEPTION_INFO')
+make_head(_module, 'WHV_VP_EXIT_CONTEXT')
 make_head(_module, 'WHV_X64_APIC_EOI_CONTEXT')
 make_head(_module, 'WHV_X64_APIC_INIT_SIPI_CONTEXT')
 make_head(_module, 'WHV_X64_APIC_SMI_CONTEXT')
@@ -1765,8 +1765,8 @@ make_head(_module, 'WHV_X64_CPUID_RESULT2')
 make_head(_module, 'WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER')
 make_head(_module, 'WHV_X64_FP_CONTROL_STATUS_REGISTER')
 make_head(_module, 'WHV_X64_FP_REGISTER')
-make_head(_module, 'WHV_X64_INTERRUPT_STATE_REGISTER')
 make_head(_module, 'WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT')
+make_head(_module, 'WHV_X64_INTERRUPT_STATE_REGISTER')
 make_head(_module, 'WHV_X64_IO_PORT_ACCESS_CONTEXT')
 make_head(_module, 'WHV_X64_IO_PORT_ACCESS_INFO')
 make_head(_module, 'WHV_X64_MSR_ACCESS_CONTEXT')

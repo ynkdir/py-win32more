@@ -37,6 +37,93 @@ class ADPCMWAVEFORMAT(Structure):
     wNumCoef: UInt16
     aCoef: win32more.Media.Multimedia.ADPCMCOEFSET * 1
     _pack_ = 1
+class APTXWAVEFORMAT(Structure):
+    wfx: win32more.Media.Audio.WAVEFORMATEX
+    _pack_ = 1
+class AUDIOFILE_AF10WAVEFORMAT(Structure):
+    wfx: win32more.Media.Audio.WAVEFORMATEX
+    _pack_ = 1
+class AUDIOFILE_AF36WAVEFORMAT(Structure):
+    wfx: win32more.Media.Audio.WAVEFORMATEX
+    _pack_ = 1
+class AVICOMPRESSOPTIONS(Structure):
+    fccType: UInt32
+    fccHandler: UInt32
+    dwKeyFrameEvery: UInt32
+    dwQuality: UInt32
+    dwBytesPerSecond: UInt32
+    dwFlags: UInt32
+    lpFormat: c_void_p
+    cbFormat: UInt32
+    lpParms: c_void_p
+    cbParms: UInt32
+    dwInterleaveEvery: UInt32
+class AVIFILEINFOA(Structure):
+    dwMaxBytesPerSec: UInt32
+    dwFlags: UInt32
+    dwCaps: UInt32
+    dwStreams: UInt32
+    dwSuggestedBufferSize: UInt32
+    dwWidth: UInt32
+    dwHeight: UInt32
+    dwScale: UInt32
+    dwRate: UInt32
+    dwLength: UInt32
+    dwEditCount: UInt32
+    szFileType: win32more.Foundation.CHAR * 64
+class AVIFILEINFOW(Structure):
+    dwMaxBytesPerSec: UInt32
+    dwFlags: UInt32
+    dwCaps: UInt32
+    dwStreams: UInt32
+    dwSuggestedBufferSize: UInt32
+    dwWidth: UInt32
+    dwHeight: UInt32
+    dwScale: UInt32
+    dwRate: UInt32
+    dwLength: UInt32
+    dwEditCount: UInt32
+    szFileType: Char * 64
+@winfunctype_pointer
+def AVISAVECALLBACK(param0: Int32) -> win32more.Foundation.BOOL: ...
+class AVISTREAMINFOA(Structure):
+    fccType: UInt32
+    fccHandler: UInt32
+    dwFlags: UInt32
+    dwCaps: UInt32
+    wPriority: UInt16
+    wLanguage: UInt16
+    dwScale: UInt32
+    dwRate: UInt32
+    dwStart: UInt32
+    dwLength: UInt32
+    dwInitialFrames: UInt32
+    dwSuggestedBufferSize: UInt32
+    dwQuality: UInt32
+    dwSampleSize: UInt32
+    rcFrame: win32more.Foundation.RECT
+    dwEditCount: UInt32
+    dwFormatChangeCount: UInt32
+    szName: win32more.Foundation.CHAR * 64
+class AVISTREAMINFOW(Structure):
+    fccType: UInt32
+    fccHandler: UInt32
+    dwFlags: UInt32
+    dwCaps: UInt32
+    wPriority: UInt16
+    wLanguage: UInt16
+    dwScale: UInt32
+    dwRate: UInt32
+    dwStart: UInt32
+    dwLength: UInt32
+    dwInitialFrames: UInt32
+    dwSuggestedBufferSize: UInt32
+    dwQuality: UInt32
+    dwSampleSize: UInt32
+    rcFrame: win32more.Foundation.RECT
+    dwEditCount: UInt32
+    dwFormatChangeCount: UInt32
+    szName: Char * 64
 WM_CAP_START: UInt32 = 1024
 MODM_USER: UInt32 = 16384
 MIDM_USER: UInt32 = 16384
@@ -5025,93 +5112,6 @@ def mmTaskSignal(h: UInt32) -> win32more.Foundation.BOOL: ...
 def mmTaskYield() -> Void: ...
 @winfunctype('WINMM.dll')
 def mmGetCurrentTask() -> UInt32: ...
-class APTXWAVEFORMAT(Structure):
-    wfx: win32more.Media.Audio.WAVEFORMATEX
-    _pack_ = 1
-class AUDIOFILE_AF10WAVEFORMAT(Structure):
-    wfx: win32more.Media.Audio.WAVEFORMATEX
-    _pack_ = 1
-class AUDIOFILE_AF36WAVEFORMAT(Structure):
-    wfx: win32more.Media.Audio.WAVEFORMATEX
-    _pack_ = 1
-class AVICOMPRESSOPTIONS(Structure):
-    fccType: UInt32
-    fccHandler: UInt32
-    dwKeyFrameEvery: UInt32
-    dwQuality: UInt32
-    dwBytesPerSecond: UInt32
-    dwFlags: UInt32
-    lpFormat: c_void_p
-    cbFormat: UInt32
-    lpParms: c_void_p
-    cbParms: UInt32
-    dwInterleaveEvery: UInt32
-class AVIFILEINFOA(Structure):
-    dwMaxBytesPerSec: UInt32
-    dwFlags: UInt32
-    dwCaps: UInt32
-    dwStreams: UInt32
-    dwSuggestedBufferSize: UInt32
-    dwWidth: UInt32
-    dwHeight: UInt32
-    dwScale: UInt32
-    dwRate: UInt32
-    dwLength: UInt32
-    dwEditCount: UInt32
-    szFileType: win32more.Foundation.CHAR * 64
-class AVIFILEINFOW(Structure):
-    dwMaxBytesPerSec: UInt32
-    dwFlags: UInt32
-    dwCaps: UInt32
-    dwStreams: UInt32
-    dwSuggestedBufferSize: UInt32
-    dwWidth: UInt32
-    dwHeight: UInt32
-    dwScale: UInt32
-    dwRate: UInt32
-    dwLength: UInt32
-    dwEditCount: UInt32
-    szFileType: Char * 64
-@winfunctype_pointer
-def AVISAVECALLBACK(param0: Int32) -> win32more.Foundation.BOOL: ...
-class AVISTREAMINFOA(Structure):
-    fccType: UInt32
-    fccHandler: UInt32
-    dwFlags: UInt32
-    dwCaps: UInt32
-    wPriority: UInt16
-    wLanguage: UInt16
-    dwScale: UInt32
-    dwRate: UInt32
-    dwStart: UInt32
-    dwLength: UInt32
-    dwInitialFrames: UInt32
-    dwSuggestedBufferSize: UInt32
-    dwQuality: UInt32
-    dwSampleSize: UInt32
-    rcFrame: win32more.Foundation.RECT
-    dwEditCount: UInt32
-    dwFormatChangeCount: UInt32
-    szName: win32more.Foundation.CHAR * 64
-class AVISTREAMINFOW(Structure):
-    fccType: UInt32
-    fccHandler: UInt32
-    dwFlags: UInt32
-    dwCaps: UInt32
-    wPriority: UInt16
-    wLanguage: UInt16
-    dwScale: UInt32
-    dwRate: UInt32
-    dwStart: UInt32
-    dwLength: UInt32
-    dwInitialFrames: UInt32
-    dwSuggestedBufferSize: UInt32
-    dwQuality: UInt32
-    dwSampleSize: UInt32
-    rcFrame: win32more.Foundation.RECT
-    dwEditCount: UInt32
-    dwFormatChangeCount: UInt32
-    szName: Char * 64
 @winfunctype_pointer
 def CAPCONTROLCALLBACK(hWnd: win32more.Foundation.HWND, nState: Int32) -> win32more.Foundation.LRESULT: ...
 class CAPDRIVERCAPS(Structure):
@@ -5868,13 +5868,6 @@ class MCI_DGV_SAVE_PARMSW(Structure):
     lpstrFileName: win32more.Foundation.PWSTR
     rc: win32more.Foundation.RECT
     _pack_ = 1
-class MCI_DGV_SET_PARMS(Structure):
-    dwCallback: UIntPtr
-    dwTimeFormat: UInt32
-    dwAudio: UInt32
-    dwFileFormat: UInt32
-    dwSpeed: UInt32
-    _pack_ = 1
 class MCI_DGV_SETAUDIO_PARMSA(Structure):
     dwCallback: UIntPtr
     dwItem: UInt32
@@ -5908,6 +5901,13 @@ class MCI_DGV_SETVIDEO_PARMSW(Structure):
     lpstrAlgorithm: win32more.Foundation.PWSTR
     lpstrQuality: win32more.Foundation.PWSTR
     dwSourceNumber: UInt32
+    _pack_ = 1
+class MCI_DGV_SET_PARMS(Structure):
+    dwCallback: UIntPtr
+    dwTimeFormat: UInt32
+    dwAudio: UInt32
+    dwFileFormat: UInt32
+    dwSpeed: UInt32
     _pack_ = 1
 class MCI_DGV_SIGNAL_PARMS(Structure):
     dwCallback: UIntPtr
@@ -6229,14 +6229,6 @@ class OLIOPRWAVEFORMAT(Structure):
 class OLISBCWAVEFORMAT(Structure):
     wfx: win32more.Media.Audio.WAVEFORMATEX
     _pack_ = 1
-class s_RIFFWAVE_inst(Structure):
-    bUnshiftedNote: Byte
-    chFineTune: win32more.Foundation.CHAR
-    chGain: win32more.Foundation.CHAR
-    bLowNote: Byte
-    bHighNote: Byte
-    bLowVelocity: Byte
-    bHighVelocity: Byte
 class SIERRAADPCMWAVEFORMAT(Structure):
     wfx: win32more.Media.Audio.WAVEFORMATEX
     wRevision: UInt16
@@ -6297,6 +6289,14 @@ class YAMAHA_ADPCMWAVEFORMAT(Structure):
     _pack_ = 1
 @winfunctype_pointer
 def YIELDPROC(mciId: UInt32, dwYieldData: UInt32) -> UInt32: ...
+class s_RIFFWAVE_inst(Structure):
+    bUnshiftedNote: Byte
+    chFineTune: win32more.Foundation.CHAR
+    chGain: win32more.Foundation.CHAR
+    bLowNote: Byte
+    bHighNote: Byte
+    bLowVelocity: Byte
+    bHighVelocity: Byte
 make_head(_module, 'ADPCMCOEFSET')
 make_head(_module, 'ADPCMEWAVEFORMAT')
 make_head(_module, 'ADPCMWAVEFORMAT')
@@ -6410,11 +6410,11 @@ make_head(_module, 'MCI_DGV_RESTORE_PARMSA')
 make_head(_module, 'MCI_DGV_RESTORE_PARMSW')
 make_head(_module, 'MCI_DGV_SAVE_PARMSA')
 make_head(_module, 'MCI_DGV_SAVE_PARMSW')
-make_head(_module, 'MCI_DGV_SET_PARMS')
 make_head(_module, 'MCI_DGV_SETAUDIO_PARMSA')
 make_head(_module, 'MCI_DGV_SETAUDIO_PARMSW')
 make_head(_module, 'MCI_DGV_SETVIDEO_PARMSA')
 make_head(_module, 'MCI_DGV_SETVIDEO_PARMSW')
+make_head(_module, 'MCI_DGV_SET_PARMS')
 make_head(_module, 'MCI_DGV_SIGNAL_PARMS')
 make_head(_module, 'MCI_DGV_STATUS_PARMSA')
 make_head(_module, 'MCI_DGV_STATUS_PARMSW')
@@ -6470,7 +6470,6 @@ make_head(_module, 'OLICELPWAVEFORMAT')
 make_head(_module, 'OLIGSMWAVEFORMAT')
 make_head(_module, 'OLIOPRWAVEFORMAT')
 make_head(_module, 'OLISBCWAVEFORMAT')
-make_head(_module, 's_RIFFWAVE_inst')
 make_head(_module, 'SIERRAADPCMWAVEFORMAT')
 make_head(_module, 'SONARCWAVEFORMAT')
 make_head(_module, 'TIMEREVENT')
@@ -6482,6 +6481,7 @@ make_head(_module, 'WMAUDIO2WAVEFORMAT')
 make_head(_module, 'WMAUDIO3WAVEFORMAT')
 make_head(_module, 'YAMAHA_ADPCMWAVEFORMAT')
 make_head(_module, 'YIELDPROC')
+make_head(_module, 's_RIFFWAVE_inst')
 __all__ = [
     "ACMDM_BASE",
     "ACM_MPEG_COPYRIGHT",

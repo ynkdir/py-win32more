@@ -17,6 +17,13 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+APPLICATIONTYPE = Int32
+LOCAL_APPLICATIONTYPE: APPLICATIONTYPE = 0
+CLUSTERRESOURCE_APPLICATIONTYPE: APPLICATIONTYPE = 1
+AUTHENTICATION_LEVEL = Int32
+NO_AUTHENTICATION_REQUIRED: AUTHENTICATION_LEVEL = 0
+INCOMING_AUTHENTICATION_REQUIRED: AUTHENTICATION_LEVEL = 1
+MUTUAL_AUTHENTICATION_REQUIRED: AUTHENTICATION_LEVEL = 2
 DTCINSTALL_E_CLIENT_ALREADY_INSTALLED: Int32 = 384
 DTCINSTALL_E_SERVER_ALREADY_INSTALLED: Int32 = 385
 XA_SWITCH_F_DTC: UInt32 = 1
@@ -94,34 +101,8 @@ def DtcGetTransactionManagerC(i_pszHost: win32more.Foundation.PSTR, i_pszTmName:
 def DtcGetTransactionManagerExA(i_pszHost: win32more.Foundation.PSTR, i_pszTmName: win32more.Foundation.PSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: c_void_p, o_ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
 @cfunctype('XOLEHLP.dll')
 def DtcGetTransactionManagerExW(i_pwszHost: win32more.Foundation.PWSTR, i_pwszTmName: win32more.Foundation.PWSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: c_void_p, o_ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
-APPLICATIONTYPE = Int32
-LOCAL_APPLICATIONTYPE: APPLICATIONTYPE = 0
-CLUSTERRESOURCE_APPLICATIONTYPE: APPLICATIONTYPE = 1
-AUTHENTICATION_LEVEL = Int32
-NO_AUTHENTICATION_REQUIRED: AUTHENTICATION_LEVEL = 0
-INCOMING_AUTHENTICATION_REQUIRED: AUTHENTICATION_LEVEL = 1
-MUTUAL_AUTHENTICATION_REQUIRED: AUTHENTICATION_LEVEL = 2
 class BOID(Structure):
     rgb: Byte * 16
-@cfunctype_pointer
-def DTC_GET_TRANSACTION_MANAGER(pszHost: win32more.Foundation.PSTR, pszTmName: win32more.Foundation.PSTR, rid: POINTER(Guid), dwReserved1: UInt32, wcbReserved2: UInt16, pvReserved2: c_void_p, ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
-@cfunctype_pointer
-def DTC_GET_TRANSACTION_MANAGER_EX_A(i_pszHost: win32more.Foundation.PSTR, i_pszTmName: win32more.Foundation.PSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: c_void_p, o_ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
-@cfunctype_pointer
-def DTC_GET_TRANSACTION_MANAGER_EX_W(i_pwszHost: win32more.Foundation.PWSTR, i_pwszTmName: win32more.Foundation.PWSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: c_void_p, o_ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def DTC_INSTALL_CLIENT(i_pszRemoteTmHostName: POINTER(SByte), i_dwProtocol: UInt32, i_dwOverwrite: UInt32) -> win32more.Foundation.HRESULT: ...
-DTC_STATUS_ = Int32
-DTC_STATUS_UNKNOWN: DTC_STATUS_ = 0
-DTC_STATUS_STARTING: DTC_STATUS_ = 1
-DTC_STATUS_STARTED: DTC_STATUS_ = 2
-DTC_STATUS_PAUSING: DTC_STATUS_ = 3
-DTC_STATUS_PAUSED: DTC_STATUS_ = 4
-DTC_STATUS_CONTINUING: DTC_STATUS_ = 5
-DTC_STATUS_STOPPING: DTC_STATUS_ = 6
-DTC_STATUS_STOPPED: DTC_STATUS_ = 7
-DTC_STATUS_E_CANTCONTROL: DTC_STATUS_ = 8
-DTC_STATUS_FAILED: DTC_STATUS_ = 9
 DTCINITIATEDRECOVERYWORK = Int32
 DTCINITIATEDRECOVERYWORK_CHECKLUSTATUS: DTCINITIATEDRECOVERYWORK = 1
 DTCINITIATEDRECOVERYWORK_TRANS: DTCINITIATEDRECOVERYWORK = 2
@@ -158,6 +139,25 @@ DTCLUXLNRESPONSE_OK_SENDOURXLNBACK: DTCLUXLNRESPONSE = 1
 DTCLUXLNRESPONSE_OK_SENDCONFIRMATION: DTCLUXLNRESPONSE = 2
 DTCLUXLNRESPONSE_LOGNAMEMISMATCH: DTCLUXLNRESPONSE = 3
 DTCLUXLNRESPONSE_COLDWARMMISMATCH: DTCLUXLNRESPONSE = 4
+@cfunctype_pointer
+def DTC_GET_TRANSACTION_MANAGER(pszHost: win32more.Foundation.PSTR, pszTmName: win32more.Foundation.PSTR, rid: POINTER(Guid), dwReserved1: UInt32, wcbReserved2: UInt16, pvReserved2: c_void_p, ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@cfunctype_pointer
+def DTC_GET_TRANSACTION_MANAGER_EX_A(i_pszHost: win32more.Foundation.PSTR, i_pszTmName: win32more.Foundation.PSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: c_void_p, o_ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@cfunctype_pointer
+def DTC_GET_TRANSACTION_MANAGER_EX_W(i_pwszHost: win32more.Foundation.PWSTR, i_pwszTmName: win32more.Foundation.PWSTR, i_riid: POINTER(Guid), i_grfOptions: UInt32, i_pvConfigParams: c_void_p, o_ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def DTC_INSTALL_CLIENT(i_pszRemoteTmHostName: POINTER(SByte), i_dwProtocol: UInt32, i_dwOverwrite: UInt32) -> win32more.Foundation.HRESULT: ...
+DTC_STATUS_ = Int32
+DTC_STATUS_UNKNOWN: DTC_STATUS_ = 0
+DTC_STATUS_STARTING: DTC_STATUS_ = 1
+DTC_STATUS_STARTED: DTC_STATUS_ = 2
+DTC_STATUS_PAUSING: DTC_STATUS_ = 3
+DTC_STATUS_PAUSED: DTC_STATUS_ = 4
+DTC_STATUS_CONTINUING: DTC_STATUS_ = 5
+DTC_STATUS_STOPPING: DTC_STATUS_ = 6
+DTC_STATUS_STOPPED: DTC_STATUS_ = 7
+DTC_STATUS_E_CANTCONTROL: DTC_STATUS_ = 8
+DTC_STATUS_FAILED: DTC_STATUS_ = 9
 class IDtcLuConfigure(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('4131e760-1aea-11d0-94-4b-00-a0-c9-05-41-6e')
@@ -434,6 +434,13 @@ class IPrepareInfo2(c_void_p):
     def GetPrepareInfoSize(pcbPrepInfo: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def GetPrepareInfo(cbPrepareInfo: UInt32, pPrepInfo: c_char_p_no) -> win32more.Foundation.HRESULT: ...
+class IRMHelper(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('e793f6d1-f53d-11cf-a6-0d-00-a0-c9-05-41-6e')
+    @commethod(3)
+    def RMCount(dwcTotalNumberOfRMs: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def RMInfo(pXa_Switch: POINTER(win32more.System.DistributedTransactionCoordinator.xa_switch_t_head), fCDeclCallingConv: win32more.Foundation.BOOL, pszOpenString: win32more.Foundation.PSTR, pszCloseString: win32more.Foundation.PSTR, guidRMRecovery: Guid) -> win32more.Foundation.HRESULT: ...
 class IResourceManager(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('13741d21-87eb-11ce-80-81-00-80-c7-58-52-7e')
@@ -472,13 +479,6 @@ class IResourceManagerSink(c_void_p):
     Guid = Guid('0d563181-defb-11ce-ae-d1-00-aa-00-51-e2-c4')
     @commethod(3)
     def TMDown() -> win32more.Foundation.HRESULT: ...
-class IRMHelper(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('e793f6d1-f53d-11cf-a6-0d-00-a0-c9-05-41-6e')
-    @commethod(3)
-    def RMCount(dwcTotalNumberOfRMs: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def RMInfo(pXa_Switch: POINTER(win32more.System.DistributedTransactionCoordinator.xa_switch_t_head), fCDeclCallingConv: win32more.Foundation.BOOL, pszOpenString: win32more.Foundation.PSTR, pszCloseString: win32more.Foundation.PSTR, guidRMRecovery: Guid) -> win32more.Foundation.HRESULT: ...
 ISOFLAG = Int32
 ISOFLAG_RETAIN_COMMIT_DC: ISOFLAG = 1
 ISOFLAG_RETAIN_COMMIT: ISOFLAG = 2
@@ -750,64 +750,6 @@ class PROXY_CONFIG_PARAMS(Structure):
     wcThreadsMax: UInt16
 TX_MISC_CONSTANTS = Int32
 MAX_TRAN_DESC: TX_MISC_CONSTANTS = 40
-@cfunctype_pointer
-def XA_CLOSE_EPT(param0: win32more.Foundation.PSTR, param1: Int32, param2: Int32) -> Int32: ...
-@cfunctype_pointer
-def XA_COMMIT_EPT(param0: POINTER(win32more.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
-@cfunctype_pointer
-def XA_COMPLETE_EPT(param0: POINTER(Int32), param1: POINTER(Int32), param2: Int32, param3: Int32) -> Int32: ...
-@cfunctype_pointer
-def XA_END_EPT(param0: POINTER(win32more.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
-@cfunctype_pointer
-def XA_FORGET_EPT(param0: POINTER(win32more.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
-@cfunctype_pointer
-def XA_OPEN_EPT(param0: win32more.Foundation.PSTR, param1: Int32, param2: Int32) -> Int32: ...
-@cfunctype_pointer
-def XA_PREPARE_EPT(param0: POINTER(win32more.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
-@cfunctype_pointer
-def XA_RECOVER_EPT(param0: POINTER(win32more.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32, param3: Int32) -> Int32: ...
-@cfunctype_pointer
-def XA_ROLLBACK_EPT(param0: POINTER(win32more.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
-@cfunctype_pointer
-def XA_START_EPT(param0: POINTER(win32more.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
-class xa_switch_t(Structure):
-    name: win32more.Foundation.CHAR * 32
-    flags: Int32
-    version: Int32
-    xa_open_entry: IntPtr
-    xa_close_entry: IntPtr
-    xa_start_entry: IntPtr
-    xa_end_entry: IntPtr
-    xa_rollback_entry: IntPtr
-    xa_prepare_entry: IntPtr
-    xa_commit_entry: IntPtr
-    xa_recover_entry: IntPtr
-    xa_forget_entry: IntPtr
-    xa_complete_entry: IntPtr
-XACT_DTC_CONSTANTS = Int32
-XACT_E_CONNECTION_REQUEST_DENIED: XACT_DTC_CONSTANTS = -2147168000
-XACT_E_TOOMANY_ENLISTMENTS: XACT_DTC_CONSTANTS = -2147167999
-XACT_E_DUPLICATE_GUID: XACT_DTC_CONSTANTS = -2147167998
-XACT_E_NOTSINGLEPHASE: XACT_DTC_CONSTANTS = -2147167997
-XACT_E_RECOVERYALREADYDONE: XACT_DTC_CONSTANTS = -2147167996
-XACT_E_PROTOCOL: XACT_DTC_CONSTANTS = -2147167995
-XACT_E_RM_FAILURE: XACT_DTC_CONSTANTS = -2147167994
-XACT_E_RECOVERY_FAILED: XACT_DTC_CONSTANTS = -2147167993
-XACT_E_LU_NOT_FOUND: XACT_DTC_CONSTANTS = -2147167992
-XACT_E_DUPLICATE_LU: XACT_DTC_CONSTANTS = -2147167991
-XACT_E_LU_NOT_CONNECTED: XACT_DTC_CONSTANTS = -2147167990
-XACT_E_DUPLICATE_TRANSID: XACT_DTC_CONSTANTS = -2147167989
-XACT_E_LU_BUSY: XACT_DTC_CONSTANTS = -2147167988
-XACT_E_LU_NO_RECOVERY_PROCESS: XACT_DTC_CONSTANTS = -2147167987
-XACT_E_LU_DOWN: XACT_DTC_CONSTANTS = -2147167986
-XACT_E_LU_RECOVERING: XACT_DTC_CONSTANTS = -2147167985
-XACT_E_LU_RECOVERY_MISMATCH: XACT_DTC_CONSTANTS = -2147167984
-XACT_E_RM_UNAVAILABLE: XACT_DTC_CONSTANTS = -2147167983
-XACT_E_LRMRECOVERYALREADYDONE: XACT_DTC_CONSTANTS = -2147167982
-XACT_E_NOLASTRESOURCEINTERFACE: XACT_DTC_CONSTANTS = -2147167981
-XACT_S_NONOTIFY: XACT_DTC_CONSTANTS = 315648
-XACT_OK_NONOTIFY: XACT_DTC_CONSTANTS = 315649
-dwUSER_MS_SQLSERVER: XACT_DTC_CONSTANTS = 65535
 XACTCONST = Int32
 XACTCONST_TIMEOUTINFINITE: XACTCONST = 0
 XACTHEURISTIC = Int32
@@ -869,11 +811,69 @@ class XACTTRANSINFO(Structure):
     grfRMSupported: UInt32
     grfTCSupportedRetaining: UInt32
     grfRMSupportedRetaining: UInt32
+XACT_DTC_CONSTANTS = Int32
+XACT_E_CONNECTION_REQUEST_DENIED: XACT_DTC_CONSTANTS = -2147168000
+XACT_E_TOOMANY_ENLISTMENTS: XACT_DTC_CONSTANTS = -2147167999
+XACT_E_DUPLICATE_GUID: XACT_DTC_CONSTANTS = -2147167998
+XACT_E_NOTSINGLEPHASE: XACT_DTC_CONSTANTS = -2147167997
+XACT_E_RECOVERYALREADYDONE: XACT_DTC_CONSTANTS = -2147167996
+XACT_E_PROTOCOL: XACT_DTC_CONSTANTS = -2147167995
+XACT_E_RM_FAILURE: XACT_DTC_CONSTANTS = -2147167994
+XACT_E_RECOVERY_FAILED: XACT_DTC_CONSTANTS = -2147167993
+XACT_E_LU_NOT_FOUND: XACT_DTC_CONSTANTS = -2147167992
+XACT_E_DUPLICATE_LU: XACT_DTC_CONSTANTS = -2147167991
+XACT_E_LU_NOT_CONNECTED: XACT_DTC_CONSTANTS = -2147167990
+XACT_E_DUPLICATE_TRANSID: XACT_DTC_CONSTANTS = -2147167989
+XACT_E_LU_BUSY: XACT_DTC_CONSTANTS = -2147167988
+XACT_E_LU_NO_RECOVERY_PROCESS: XACT_DTC_CONSTANTS = -2147167987
+XACT_E_LU_DOWN: XACT_DTC_CONSTANTS = -2147167986
+XACT_E_LU_RECOVERING: XACT_DTC_CONSTANTS = -2147167985
+XACT_E_LU_RECOVERY_MISMATCH: XACT_DTC_CONSTANTS = -2147167984
+XACT_E_RM_UNAVAILABLE: XACT_DTC_CONSTANTS = -2147167983
+XACT_E_LRMRECOVERYALREADYDONE: XACT_DTC_CONSTANTS = -2147167982
+XACT_E_NOLASTRESOURCEINTERFACE: XACT_DTC_CONSTANTS = -2147167981
+XACT_S_NONOTIFY: XACT_DTC_CONSTANTS = 315648
+XACT_OK_NONOTIFY: XACT_DTC_CONSTANTS = 315649
+dwUSER_MS_SQLSERVER: XACT_DTC_CONSTANTS = 65535
+@cfunctype_pointer
+def XA_CLOSE_EPT(param0: win32more.Foundation.PSTR, param1: Int32, param2: Int32) -> Int32: ...
+@cfunctype_pointer
+def XA_COMMIT_EPT(param0: POINTER(win32more.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
+@cfunctype_pointer
+def XA_COMPLETE_EPT(param0: POINTER(Int32), param1: POINTER(Int32), param2: Int32, param3: Int32) -> Int32: ...
+@cfunctype_pointer
+def XA_END_EPT(param0: POINTER(win32more.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
+@cfunctype_pointer
+def XA_FORGET_EPT(param0: POINTER(win32more.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
+@cfunctype_pointer
+def XA_OPEN_EPT(param0: win32more.Foundation.PSTR, param1: Int32, param2: Int32) -> Int32: ...
+@cfunctype_pointer
+def XA_PREPARE_EPT(param0: POINTER(win32more.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
+@cfunctype_pointer
+def XA_RECOVER_EPT(param0: POINTER(win32more.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32, param3: Int32) -> Int32: ...
+@cfunctype_pointer
+def XA_ROLLBACK_EPT(param0: POINTER(win32more.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
+@cfunctype_pointer
+def XA_START_EPT(param0: POINTER(win32more.System.DistributedTransactionCoordinator.XID_head), param1: Int32, param2: Int32) -> Int32: ...
 class XID(Structure):
     formatID: Int32
     gtrid_length: Int32
     bqual_length: Int32
     data: win32more.Foundation.CHAR * 128
+class xa_switch_t(Structure):
+    name: win32more.Foundation.CHAR * 32
+    flags: Int32
+    version: Int32
+    xa_open_entry: IntPtr
+    xa_close_entry: IntPtr
+    xa_start_entry: IntPtr
+    xa_end_entry: IntPtr
+    xa_rollback_entry: IntPtr
+    xa_prepare_entry: IntPtr
+    xa_commit_entry: IntPtr
+    xa_recover_entry: IntPtr
+    xa_forget_entry: IntPtr
+    xa_complete_entry: IntPtr
 make_head(_module, 'BOID')
 make_head(_module, 'DTC_GET_TRANSACTION_MANAGER')
 make_head(_module, 'DTC_GET_TRANSACTION_MANAGER_EX_A')
@@ -905,13 +905,13 @@ make_head(_module, 'IKernelTransaction')
 make_head(_module, 'ILastResourceManager')
 make_head(_module, 'IPrepareInfo')
 make_head(_module, 'IPrepareInfo2')
+make_head(_module, 'IRMHelper')
 make_head(_module, 'IResourceManager')
 make_head(_module, 'IResourceManager2')
 make_head(_module, 'IResourceManagerFactory')
 make_head(_module, 'IResourceManagerFactory2')
 make_head(_module, 'IResourceManagerRejoinable')
 make_head(_module, 'IResourceManagerSink')
-make_head(_module, 'IRMHelper')
 make_head(_module, 'ITipHelper')
 make_head(_module, 'ITipPullSink')
 make_head(_module, 'ITipTransaction')
@@ -948,6 +948,9 @@ make_head(_module, 'IXATransLookup2')
 make_head(_module, 'OLE_TM_CONFIG_PARAMS_V1')
 make_head(_module, 'OLE_TM_CONFIG_PARAMS_V2')
 make_head(_module, 'PROXY_CONFIG_PARAMS')
+make_head(_module, 'XACTOPT')
+make_head(_module, 'XACTSTATS')
+make_head(_module, 'XACTTRANSINFO')
 make_head(_module, 'XA_CLOSE_EPT')
 make_head(_module, 'XA_COMMIT_EPT')
 make_head(_module, 'XA_COMPLETE_EPT')
@@ -958,11 +961,8 @@ make_head(_module, 'XA_PREPARE_EPT')
 make_head(_module, 'XA_RECOVER_EPT')
 make_head(_module, 'XA_ROLLBACK_EPT')
 make_head(_module, 'XA_START_EPT')
-make_head(_module, 'xa_switch_t')
-make_head(_module, 'XACTOPT')
-make_head(_module, 'XACTSTATS')
-make_head(_module, 'XACTTRANSINFO')
 make_head(_module, 'XID')
+make_head(_module, 'xa_switch_t')
 __all__ = [
     "APPLICATIONTYPE",
     "AUTHENTICATION_LEVEL",

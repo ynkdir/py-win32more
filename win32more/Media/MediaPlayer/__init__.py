@@ -21,9 +21,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _WMPOCXEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('6bf52a51-394a-11d3-b1-53-00-c0-4f-79-fa-a6')
 CLSID_XFeedsManager: Guid = Guid('fe6b11c3-c72e-4061-86-c6-9d-16-31-21-f2-29')
 WMPGC_FLAGS_ALLOW_PREROLL: UInt32 = 1
 WMPGC_FLAGS_SUPPRESS_DIALOGS: UInt32 = 2
@@ -722,7 +719,6 @@ WMProfile_V80_56VideoOnly: Guid = Guid('6e2a6955-81df-4943-ba-50-68-a9-86-a7-08-
 WMProfile_V80_FAIRVBRVideo: Guid = Guid('3510a862-5850-4886-83-5f-d7-8e-c6-a6-40-42')
 WMProfile_V80_HIGHVBRVideo: Guid = Guid('0f10d9d3-3b04-4fb0-a3-d3-88-d4-ac-85-4a-cc')
 WMProfile_V80_BESTVBRVideo: Guid = Guid('048439ba-309c-440e-9c-b4-3d-cc-a3-75-64-23')
-FeedFolderWatcher = Guid('281001ed-7765-4cb0-84-af-e9-b3-87-af-01-ff')
 FEEDS_BACKGROUNDSYNC_ACTION = Int32
 FBSA_DISABLE: FEEDS_BACKGROUNDSYNC_ACTION = 0
 FBSA_ENABLE: FEEDS_BACKGROUNDSYNC_ACTION = 1
@@ -787,8 +783,9 @@ FEEDS_XML_SORT_PROPERTY = Int32
 FXSP_NONE: FEEDS_XML_SORT_PROPERTY = 0
 FXSP_PUBDATE: FEEDS_XML_SORT_PROPERTY = 1
 FXSP_DOWNLOADTIME: FEEDS_XML_SORT_PROPERTY = 2
-FeedsManager = Guid('faeb54c4-f66f-4806-83-a0-80-52-99-f5-e3-ad')
+FeedFolderWatcher = Guid('281001ed-7765-4cb0-84-af-e9-b3-87-af-01-ff')
 FeedWatcher = Guid('18a6737b-f433-4687-89-bc-a1-b4-df-b9-f1-23')
+FeedsManager = Guid('faeb54c4-f66f-4806-83-a0-80-52-99-f5-e3-ad')
 class IFeed(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('f7f915d8-2ede-42bc-98-e7-a5-d0-50-63-a7-57')
@@ -1431,6 +1428,21 @@ class IWMPCore3(c_void_p):
     def newPlaylist(bstrName: win32more.Foundation.BSTR, bstrURL: win32more.Foundation.BSTR, ppPlaylist: POINTER(win32more.Media.MediaPlayer.IWMPPlaylist_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(30)
     def newMedia(bstrURL: win32more.Foundation.BSTR, ppMedia: POINTER(win32more.Media.MediaPlayer.IWMPMedia_head)) -> win32more.Foundation.HRESULT: ...
+class IWMPDVD(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('8da61686-4668-4a5c-ae-5d-80-31-93-29-3d-be')
+    @commethod(7)
+    def get_isAvailable(bstrItem: win32more.Foundation.BSTR, pIsAvailable: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_domain(strDomain: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def topMenu() -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def titleMenu() -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def back() -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def resume() -> win32more.Foundation.HRESULT: ...
 class IWMPDownloadCollection(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('0a319c7f-85f9-436c-b8-8e-82-fd-88-00-0e-1c')
@@ -1477,21 +1489,6 @@ class IWMPDownloadManager(c_void_p):
     def getDownloadCollection(lCollectionId: Int32, ppCollection: POINTER(win32more.Media.MediaPlayer.IWMPDownloadCollection_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(8)
     def createDownloadCollection(ppCollection: POINTER(win32more.Media.MediaPlayer.IWMPDownloadCollection_head)) -> win32more.Foundation.HRESULT: ...
-class IWMPDVD(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('8da61686-4668-4a5c-ae-5d-80-31-93-29-3d-be')
-    @commethod(7)
-    def get_isAvailable(bstrItem: win32more.Foundation.BSTR, pIsAvailable: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_domain(strDomain: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def topMenu() -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def titleMenu() -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def back() -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def resume() -> win32more.Foundation.HRESULT: ...
 class IWMPEffects(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('d3984c13-c3cb-48e2-8b-e5-51-68-34-0b-4f-35')
@@ -2744,19 +2741,6 @@ class TimedLevel(Structure):
     waveform: Byte * 2048
     state: Int32
     timeStamp: Int64
-WindowsMediaPlayer = Guid('6bf52a52-394a-11d3-b1-53-00-c0-4f-79-fa-a6')
-class WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC(Structure):
-    dwCurrentTransactionID: UInt32
-    dwReturnedObjectCount: UInt32
-    dwUnretrievedObjectCount: UInt32
-    dwDeletedObjectStartingOffset: UInt32
-    dwFlags: UInt32
-    wsObjectPathnameList: Char * 1
-    _pack_ = 1
-class WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE(Structure):
-    dwChangesSinceTransactionID: UInt32
-    dwResultSetStartingIndex: UInt32
-    _pack_ = 1
 WMPAccountType = Int32
 WMPAccountType_wmpatBuyOnly: WMPAccountType = 1
 WMPAccountType_wmpatSubscription: WMPAccountType = 2
@@ -2835,19 +2819,6 @@ WMPPartnerNotification_wmpsnBackgroundProcessingBegin: WMPPartnerNotification = 
 WMPPartnerNotification_wmpsnBackgroundProcessingEnd: WMPPartnerNotification = 2
 WMPPartnerNotification_wmpsnCatalogDownloadFailure: WMPPartnerNotification = 3
 WMPPartnerNotification_wmpsnCatalogDownloadComplete: WMPPartnerNotification = 4
-WMPPlaylistChangeEventType = Int32
-WMPPlaylistChangeEventType_wmplcUnknown: WMPPlaylistChangeEventType = 0
-WMPPlaylistChangeEventType_wmplcClear: WMPPlaylistChangeEventType = 1
-WMPPlaylistChangeEventType_wmplcInfoChange: WMPPlaylistChangeEventType = 2
-WMPPlaylistChangeEventType_wmplcMove: WMPPlaylistChangeEventType = 3
-WMPPlaylistChangeEventType_wmplcDelete: WMPPlaylistChangeEventType = 4
-WMPPlaylistChangeEventType_wmplcInsert: WMPPlaylistChangeEventType = 5
-WMPPlaylistChangeEventType_wmplcAppend: WMPPlaylistChangeEventType = 6
-WMPPlaylistChangeEventType_wmplcPrivate: WMPPlaylistChangeEventType = 7
-WMPPlaylistChangeEventType_wmplcNameChange: WMPPlaylistChangeEventType = 8
-WMPPlaylistChangeEventType_wmplcMorph: WMPPlaylistChangeEventType = 9
-WMPPlaylistChangeEventType_wmplcSort: WMPPlaylistChangeEventType = 10
-WMPPlaylistChangeEventType_wmplcLast: WMPPlaylistChangeEventType = 11
 WMPPlayState = Int32
 WMPPlayState_wmppsUndefined: WMPPlayState = 0
 WMPPlayState_wmppsStopped: WMPPlayState = 1
@@ -2862,6 +2833,19 @@ WMPPlayState_wmppsTransitioning: WMPPlayState = 9
 WMPPlayState_wmppsReady: WMPPlayState = 10
 WMPPlayState_wmppsReconnecting: WMPPlayState = 11
 WMPPlayState_wmppsLast: WMPPlayState = 12
+WMPPlaylistChangeEventType = Int32
+WMPPlaylistChangeEventType_wmplcUnknown: WMPPlaylistChangeEventType = 0
+WMPPlaylistChangeEventType_wmplcClear: WMPPlaylistChangeEventType = 1
+WMPPlaylistChangeEventType_wmplcInfoChange: WMPPlaylistChangeEventType = 2
+WMPPlaylistChangeEventType_wmplcMove: WMPPlaylistChangeEventType = 3
+WMPPlaylistChangeEventType_wmplcDelete: WMPPlaylistChangeEventType = 4
+WMPPlaylistChangeEventType_wmplcInsert: WMPPlaylistChangeEventType = 5
+WMPPlaylistChangeEventType_wmplcAppend: WMPPlaylistChangeEventType = 6
+WMPPlaylistChangeEventType_wmplcPrivate: WMPPlaylistChangeEventType = 7
+WMPPlaylistChangeEventType_wmplcNameChange: WMPPlaylistChangeEventType = 8
+WMPPlaylistChangeEventType_wmplcMorph: WMPPlaylistChangeEventType = 9
+WMPPlaylistChangeEventType_wmplcSort: WMPPlaylistChangeEventType = 10
+WMPPlaylistChangeEventType_wmplcLast: WMPPlaylistChangeEventType = 11
 WMPPlugin_Caps = Int32
 WMPPlugin_Caps_CannotConvertFormats: WMPPlugin_Caps = 1
 WMPRemoteMediaServices = Guid('df333473-2cf7-4be2-90-7f-9a-ad-56-61-36-4f')
@@ -2916,7 +2900,22 @@ WMPTransactionType = Int32
 WMPTransactionType_wmpttNoTransaction: WMPTransactionType = 0
 WMPTransactionType_wmpttDownload: WMPTransactionType = 1
 WMPTransactionType_wmpttBuy: WMPTransactionType = 2
-make_head(_module, '_WMPOCXEvents')
+class WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC(Structure):
+    dwCurrentTransactionID: UInt32
+    dwReturnedObjectCount: UInt32
+    dwUnretrievedObjectCount: UInt32
+    dwDeletedObjectStartingOffset: UInt32
+    dwFlags: UInt32
+    wsObjectPathnameList: Char * 1
+    _pack_ = 1
+class WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE(Structure):
+    dwChangesSinceTransactionID: UInt32
+    dwResultSetStartingIndex: UInt32
+    _pack_ = 1
+WindowsMediaPlayer = Guid('6bf52a52-394a-11d3-b1-53-00-c0-4f-79-fa-a6')
+class _WMPOCXEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('6bf52a51-394a-11d3-b1-53-00-c0-4f-79-fa-a6')
 make_head(_module, 'IFeed')
 make_head(_module, 'IFeed2')
 make_head(_module, 'IFeedEnclosure')
@@ -2945,11 +2944,11 @@ make_head(_module, 'IWMPConvert')
 make_head(_module, 'IWMPCore')
 make_head(_module, 'IWMPCore2')
 make_head(_module, 'IWMPCore3')
+make_head(_module, 'IWMPDVD')
 make_head(_module, 'IWMPDownloadCollection')
 make_head(_module, 'IWMPDownloadItem')
 make_head(_module, 'IWMPDownloadItem2')
 make_head(_module, 'IWMPDownloadManager')
-make_head(_module, 'IWMPDVD')
 make_head(_module, 'IWMPEffects')
 make_head(_module, 'IWMPEffects2')
 make_head(_module, 'IWMPError')
@@ -3024,9 +3023,10 @@ make_head(_module, 'IXFeedItem2')
 make_head(_module, 'IXFeedsEnum')
 make_head(_module, 'IXFeedsManager')
 make_head(_module, 'TimedLevel')
+make_head(_module, 'WMPContextMenuInfo')
 make_head(_module, 'WMP_WMDM_METADATA_ROUND_TRIP_DEVICE2PC')
 make_head(_module, 'WMP_WMDM_METADATA_ROUND_TRIP_PC2DEVICE')
-make_head(_module, 'WMPContextMenuInfo')
+make_head(_module, '_WMPOCXEvents')
 __all__ = [
     "CLSID_WMPMediaPluginRegistrar",
     "CLSID_WMPSkinManager",

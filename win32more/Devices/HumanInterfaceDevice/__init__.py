@@ -19,8 +19,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _HIDP_PREPARSED_DATA(Structure):
-    pass
 DIRECTINPUT_VERSION: UInt32 = 2048
 JOY_HW_NONE: UInt32 = 0
 JOY_HW_CUSTOM: UInt32 = 1
@@ -2725,20 +2723,6 @@ class DIDEVICEIMAGEINFOW(Structure):
     rgptCalloutLine: win32more.Foundation.POINT * 5
     rcCalloutRect: win32more.Foundation.RECT
     dwTextAlign: UInt32
-class DIDEVICEINSTANCE_DX3A(Structure):
-    dwSize: UInt32
-    guidInstance: Guid
-    guidProduct: Guid
-    dwDevType: UInt32
-    tszInstanceName: win32more.Foundation.CHAR * 260
-    tszProductName: win32more.Foundation.CHAR * 260
-class DIDEVICEINSTANCE_DX3W(Structure):
-    dwSize: UInt32
-    guidInstance: Guid
-    guidProduct: Guid
-    dwDevType: UInt32
-    tszInstanceName: Char * 260
-    tszProductName: Char * 260
 class DIDEVICEINSTANCEA(Structure):
     dwSize: UInt32
     guidInstance: Guid
@@ -2759,6 +2743,20 @@ class DIDEVICEINSTANCEW(Structure):
     guidFFDriver: Guid
     wUsagePage: UInt16
     wUsage: UInt16
+class DIDEVICEINSTANCE_DX3A(Structure):
+    dwSize: UInt32
+    guidInstance: Guid
+    guidProduct: Guid
+    dwDevType: UInt32
+    tszInstanceName: win32more.Foundation.CHAR * 260
+    tszProductName: win32more.Foundation.CHAR * 260
+class DIDEVICEINSTANCE_DX3W(Structure):
+    dwSize: UInt32
+    guidInstance: Guid
+    guidProduct: Guid
+    dwDevType: UInt32
+    tszInstanceName: Char * 260
+    tszProductName: Char * 260
 class DIDEVICEOBJECTDATA(Structure):
     dwOfs: UInt32
     dwData: UInt32
@@ -2770,20 +2768,6 @@ class DIDEVICEOBJECTDATA_DX3(Structure):
     dwData: UInt32
     dwTimeStamp: UInt32
     dwSequence: UInt32
-class DIDEVICEOBJECTINSTANCE_DX3A(Structure):
-    dwSize: UInt32
-    guidType: Guid
-    dwOfs: UInt32
-    dwType: UInt32
-    dwFlags: UInt32
-    tszName: win32more.Foundation.CHAR * 260
-class DIDEVICEOBJECTINSTANCE_DX3W(Structure):
-    dwSize: UInt32
-    guidType: Guid
-    dwOfs: UInt32
-    dwType: UInt32
-    dwFlags: UInt32
-    tszName: Char * 260
 class DIDEVICEOBJECTINSTANCEA(Structure):
     dwSize: UInt32
     guidType: Guid
@@ -2816,6 +2800,20 @@ class DIDEVICEOBJECTINSTANCEW(Structure):
     dwDimension: UInt32
     wExponent: UInt16
     wReportId: UInt16
+class DIDEVICEOBJECTINSTANCE_DX3A(Structure):
+    dwSize: UInt32
+    guidType: Guid
+    dwOfs: UInt32
+    dwType: UInt32
+    dwFlags: UInt32
+    tszName: win32more.Foundation.CHAR * 260
+class DIDEVICEOBJECTINSTANCE_DX3W(Structure):
+    dwSize: UInt32
+    guidType: Guid
+    dwOfs: UInt32
+    dwType: UInt32
+    dwFlags: UInt32
+    tszName: Char * 260
 class DIDEVICESTATE(Structure):
     dwSize: UInt32
     dwState: UInt32
@@ -2840,20 +2838,6 @@ class DIEFFECT(Structure):
     cbTypeSpecificParams: UInt32
     lpvTypeSpecificParams: c_void_p
     dwStartDelay: UInt32
-class DIEFFECT_DX5(Structure):
-    dwSize: UInt32
-    dwFlags: UInt32
-    dwDuration: UInt32
-    dwSamplePeriod: UInt32
-    dwGain: UInt32
-    dwTriggerButton: UInt32
-    dwTriggerRepeatInterval: UInt32
-    cAxes: UInt32
-    rgdwAxes: POINTER(UInt32)
-    rglDirection: POINTER(Int32)
-    lpEnvelope: POINTER(win32more.Devices.HumanInterfaceDevice.DIENVELOPE_head)
-    cbTypeSpecificParams: UInt32
-    lpvTypeSpecificParams: c_void_p
 class DIEFFECTATTRIBUTES(Structure):
     dwEffectId: UInt32
     dwEffType: UInt32
@@ -2874,6 +2858,20 @@ class DIEFFECTINFOW(Structure):
     dwStaticParams: UInt32
     dwDynamicParams: UInt32
     tszName: Char * 260
+class DIEFFECT_DX5(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    dwDuration: UInt32
+    dwSamplePeriod: UInt32
+    dwGain: UInt32
+    dwTriggerButton: UInt32
+    dwTriggerRepeatInterval: UInt32
+    cAxes: UInt32
+    rgdwAxes: POINTER(UInt32)
+    rglDirection: POINTER(Int32)
+    lpEnvelope: POINTER(win32more.Devices.HumanInterfaceDevice.DIENVELOPE_head)
+    cbTypeSpecificParams: UInt32
+    lpvTypeSpecificParams: c_void_p
 class DIEFFESCAPE(Structure):
     dwSize: UInt32
     dwCommand: UInt32
@@ -3076,20 +3074,6 @@ GPIO_BUTTON_OEM_CUSTOM2: GPIOBUTTONS_BUTTON_TYPE = 14
 GPIO_BUTTON_OEM_CUSTOM3: GPIOBUTTONS_BUTTON_TYPE = 15
 GPIO_BUTTON_COUNT_MIN: GPIOBUTTONS_BUTTON_TYPE = 5
 GPIO_BUTTON_COUNT: GPIOBUTTONS_BUTTON_TYPE = 16
-class HID_COLLECTION_INFORMATION(Structure):
-    DescriptorSize: UInt32
-    Polled: win32more.Foundation.BOOLEAN
-    Reserved1: Byte * 1
-    VendorID: UInt16
-    ProductID: UInt16
-    VersionNumber: UInt16
-class HID_DRIVER_CONFIG(Structure):
-    Size: UInt32
-    RingBufferSize: UInt32
-class HID_XFER_PACKET(Structure):
-    reportBuffer: c_char_p_no
-    reportBufferLen: UInt32
-    reportId: Byte
 class HIDD_ATTRIBUTES(Structure):
     Size: UInt32
     VendorID: UInt16
@@ -3243,6 +3227,20 @@ class HIDP_VALUE_CAPS(Structure):
             Reserved3: UInt16
             DataIndex: UInt16
             Reserved4: UInt16
+class HID_COLLECTION_INFORMATION(Structure):
+    DescriptorSize: UInt32
+    Polled: win32more.Foundation.BOOLEAN
+    Reserved1: Byte * 1
+    VendorID: UInt16
+    ProductID: UInt16
+    VersionNumber: UInt16
+class HID_DRIVER_CONFIG(Structure):
+    Size: UInt32
+    RingBufferSize: UInt32
+class HID_XFER_PACKET(Structure):
+    reportBuffer: c_char_p_no
+    reportBufferLen: UInt32
+    reportId: Byte
 class IDirectInput2A(c_void_p):
     extends: win32more.Devices.HumanInterfaceDevice.IDirectInputA
     Guid = Guid('5944e662-aa8a-11cf-bf-c7-44-45-53-54-00-00')
@@ -3826,7 +3824,8 @@ def PHIDP_INSERT_SCANCODES(Context: c_void_p, NewScanCodes: win32more.Foundation
 class USAGE_AND_PAGE(Structure):
     Usage: UInt16
     UsagePage: UInt16
-make_head(_module, '_HIDP_PREPARSED_DATA')
+class _HIDP_PREPARSED_DATA(Structure):
+    pass
 make_head(_module, 'DEVPKEY_DeviceInterface_HID_UsagePage')
 make_head(_module, 'DEVPKEY_DeviceInterface_HID_UsageId')
 make_head(_module, 'DEVPKEY_DeviceInterface_HID_IsReadOnly')
@@ -3853,23 +3852,23 @@ make_head(_module, 'DIDEVICEIMAGEINFOA')
 make_head(_module, 'DIDEVICEIMAGEINFOHEADERA')
 make_head(_module, 'DIDEVICEIMAGEINFOHEADERW')
 make_head(_module, 'DIDEVICEIMAGEINFOW')
-make_head(_module, 'DIDEVICEINSTANCE_DX3A')
-make_head(_module, 'DIDEVICEINSTANCE_DX3W')
 make_head(_module, 'DIDEVICEINSTANCEA')
 make_head(_module, 'DIDEVICEINSTANCEW')
+make_head(_module, 'DIDEVICEINSTANCE_DX3A')
+make_head(_module, 'DIDEVICEINSTANCE_DX3W')
 make_head(_module, 'DIDEVICEOBJECTDATA')
 make_head(_module, 'DIDEVICEOBJECTDATA_DX3')
-make_head(_module, 'DIDEVICEOBJECTINSTANCE_DX3A')
-make_head(_module, 'DIDEVICEOBJECTINSTANCE_DX3W')
 make_head(_module, 'DIDEVICEOBJECTINSTANCEA')
 make_head(_module, 'DIDEVICEOBJECTINSTANCEW')
+make_head(_module, 'DIDEVICEOBJECTINSTANCE_DX3A')
+make_head(_module, 'DIDEVICEOBJECTINSTANCE_DX3W')
 make_head(_module, 'DIDEVICESTATE')
 make_head(_module, 'DIDRIVERVERSIONS')
 make_head(_module, 'DIEFFECT')
-make_head(_module, 'DIEFFECT_DX5')
 make_head(_module, 'DIEFFECTATTRIBUTES')
 make_head(_module, 'DIEFFECTINFOA')
 make_head(_module, 'DIEFFECTINFOW')
+make_head(_module, 'DIEFFECT_DX5')
 make_head(_module, 'DIEFFESCAPE')
 make_head(_module, 'DIENVELOPE')
 make_head(_module, 'DIFFDEVICEATTRIBUTES')
@@ -3901,9 +3900,6 @@ make_head(_module, 'DIPROPPOINTER')
 make_head(_module, 'DIPROPRANGE')
 make_head(_module, 'DIPROPSTRING')
 make_head(_module, 'DIRAMPFORCE')
-make_head(_module, 'HID_COLLECTION_INFORMATION')
-make_head(_module, 'HID_DRIVER_CONFIG')
-make_head(_module, 'HID_XFER_PACKET')
 make_head(_module, 'HIDD_ATTRIBUTES')
 make_head(_module, 'HIDD_CONFIGURATION')
 make_head(_module, 'HIDP_BUTTON_ARRAY_DATA')
@@ -3915,6 +3911,9 @@ make_head(_module, 'HIDP_KEYBOARD_MODIFIER_STATE')
 make_head(_module, 'HIDP_LINK_COLLECTION_NODE')
 make_head(_module, 'HIDP_UNKNOWN_TOKEN')
 make_head(_module, 'HIDP_VALUE_CAPS')
+make_head(_module, 'HID_COLLECTION_INFORMATION')
+make_head(_module, 'HID_DRIVER_CONFIG')
+make_head(_module, 'HID_XFER_PACKET')
 make_head(_module, 'IDirectInput2A')
 make_head(_module, 'IDirectInput2W')
 make_head(_module, 'IDirectInput7A')
@@ -3972,6 +3971,7 @@ make_head(_module, 'MOUSE_UNIT_ID_PARAMETER')
 make_head(_module, 'PFN_HidP_GetVersionInternal')
 make_head(_module, 'PHIDP_INSERT_SCANCODES')
 make_head(_module, 'USAGE_AND_PAGE')
+make_head(_module, '_HIDP_PREPARSED_DATA')
 __all__ = [
     "BALLPOINT_I8042_HARDWARE",
     "BALLPOINT_SERIAL_HARDWARE",

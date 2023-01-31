@@ -19,6 +19,22 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+ATTRIBUTE_TYPE = Int32
+AT_INVALID: ATTRIBUTE_TYPE = 0
+AT_BOOLEAN: ATTRIBUTE_TYPE = 1
+AT_INT8: ATTRIBUTE_TYPE = 2
+AT_UINT8: ATTRIBUTE_TYPE = 3
+AT_INT16: ATTRIBUTE_TYPE = 4
+AT_UINT16: ATTRIBUTE_TYPE = 5
+AT_INT32: ATTRIBUTE_TYPE = 6
+AT_UINT32: ATTRIBUTE_TYPE = 7
+AT_INT64: ATTRIBUTE_TYPE = 8
+AT_UINT64: ATTRIBUTE_TYPE = 9
+AT_STRING: ATTRIBUTE_TYPE = 10
+AT_GUID: ATTRIBUTE_TYPE = 11
+AT_LIFE_TIME: ATTRIBUTE_TYPE = 12
+AT_SOCKADDR: ATTRIBUTE_TYPE = 13
+AT_OCTET_STRING: ATTRIBUTE_TYPE = 14
 NDF_ERROR_START: UInt32 = 63744
 NDF_E_LENGTH_EXCEEDED: win32more.Foundation.HRESULT = -2146895616
 NDF_E_NOHELPERCLASS: win32more.Foundation.HRESULT = -2146895615
@@ -81,25 +97,6 @@ def NdfRepairIncident(Handle: c_void_p, RepairEx: POINTER(win32more.NetworkManag
 def NdfCancelIncident(Handle: c_void_p) -> win32more.Foundation.HRESULT: ...
 @winfunctype('NDFAPI.dll')
 def NdfGetTraceFile(Handle: c_void_p, TraceFileLocation: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-ATTRIBUTE_TYPE = Int32
-AT_INVALID: ATTRIBUTE_TYPE = 0
-AT_BOOLEAN: ATTRIBUTE_TYPE = 1
-AT_INT8: ATTRIBUTE_TYPE = 2
-AT_UINT8: ATTRIBUTE_TYPE = 3
-AT_INT16: ATTRIBUTE_TYPE = 4
-AT_UINT16: ATTRIBUTE_TYPE = 5
-AT_INT32: ATTRIBUTE_TYPE = 6
-AT_UINT32: ATTRIBUTE_TYPE = 7
-AT_INT64: ATTRIBUTE_TYPE = 8
-AT_UINT64: ATTRIBUTE_TYPE = 9
-AT_STRING: ATTRIBUTE_TYPE = 10
-AT_GUID: ATTRIBUTE_TYPE = 11
-AT_LIFE_TIME: ATTRIBUTE_TYPE = 12
-AT_SOCKADDR: ATTRIBUTE_TYPE = 13
-AT_OCTET_STRING: ATTRIBUTE_TYPE = 14
-class DIAG_SOCKADDR(Structure):
-    family: UInt16
-    data: win32more.Foundation.CHAR * 126
 DIAGNOSIS_STATUS = Int32
 DS_NOT_IMPLEMENTED: DIAGNOSIS_STATUS = 0
 DS_CONFIRMED: DIAGNOSIS_STATUS = 1
@@ -107,6 +104,9 @@ DS_REJECTED: DIAGNOSIS_STATUS = 2
 DS_INDETERMINATE: DIAGNOSIS_STATUS = 3
 DS_DEFERRED: DIAGNOSIS_STATUS = 4
 DS_PASSTHROUGH: DIAGNOSIS_STATUS = 5
+class DIAG_SOCKADDR(Structure):
+    family: UInt16
+    data: win32more.Foundation.CHAR * 126
 class DiagnosticsInfo(Structure):
     cost: Int32
     flags: UInt32
@@ -129,14 +129,14 @@ class HELPER_ATTRIBUTE(Structure):
         LifeTime: win32more.NetworkManagement.NetworkDiagnosticsFramework.LIFE_TIME
         Address: win32more.NetworkManagement.NetworkDiagnosticsFramework.DIAG_SOCKADDR
         OctetString: win32more.NetworkManagement.NetworkDiagnosticsFramework.OCTET_STRING
-class HelperAttributeInfo(Structure):
-    pwszName: win32more.Foundation.PWSTR
-    type: win32more.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE
 class HYPOTHESIS(Structure):
     pwszClassName: win32more.Foundation.PWSTR
     pwszDescription: win32more.Foundation.PWSTR
     celt: UInt32
     rgAttributes: POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head)
+class HelperAttributeInfo(Structure):
+    pwszName: win32more.Foundation.PWSTR
+    type: win32more.NetworkManagement.NetworkDiagnosticsFramework.ATTRIBUTE_TYPE
 class HypothesisResult(Structure):
     hypothesis: win32more.NetworkManagement.NetworkDiagnosticsFramework.HYPOTHESIS
     pathStatus: win32more.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS
@@ -276,8 +276,8 @@ class UiInfo(Structure):
 make_head(_module, 'DIAG_SOCKADDR')
 make_head(_module, 'DiagnosticsInfo')
 make_head(_module, 'HELPER_ATTRIBUTE')
-make_head(_module, 'HelperAttributeInfo')
 make_head(_module, 'HYPOTHESIS')
+make_head(_module, 'HelperAttributeInfo')
 make_head(_module, 'HypothesisResult')
 make_head(_module, 'INetDiagExtensibleHelper')
 make_head(_module, 'INetDiagHelper')

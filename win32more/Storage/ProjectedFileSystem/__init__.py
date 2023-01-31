@@ -54,6 +54,15 @@ def PrjFileNameMatch(fileNameToCheck: win32more.Foundation.PWSTR, pattern: win32
 def PrjFileNameCompare(fileName1: win32more.Foundation.PWSTR, fileName2: win32more.Foundation.PWSTR) -> Int32: ...
 @winfunctype('PROJECTEDFSLIB.dll')
 def PrjDoesNameContainWildCards(fileName: win32more.Foundation.PWSTR) -> win32more.Foundation.BOOLEAN: ...
+class PRJ_CALLBACKS(Structure):
+    StartDirectoryEnumerationCallback: win32more.Storage.ProjectedFileSystem.PRJ_START_DIRECTORY_ENUMERATION_CB
+    EndDirectoryEnumerationCallback: win32more.Storage.ProjectedFileSystem.PRJ_END_DIRECTORY_ENUMERATION_CB
+    GetDirectoryEnumerationCallback: win32more.Storage.ProjectedFileSystem.PRJ_GET_DIRECTORY_ENUMERATION_CB
+    GetPlaceholderInfoCallback: win32more.Storage.ProjectedFileSystem.PRJ_GET_PLACEHOLDER_INFO_CB
+    GetFileDataCallback: win32more.Storage.ProjectedFileSystem.PRJ_GET_FILE_DATA_CB
+    QueryFileNameCallback: win32more.Storage.ProjectedFileSystem.PRJ_QUERY_FILE_NAME_CB
+    NotificationCallback: win32more.Storage.ProjectedFileSystem.PRJ_NOTIFICATION_CB
+    CancelCommandCallback: win32more.Storage.ProjectedFileSystem.PRJ_CANCEL_COMMAND_CB
 class PRJ_CALLBACK_DATA(Structure):
     Size: UInt32
     Flags: win32more.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA_FLAGS
@@ -69,15 +78,6 @@ class PRJ_CALLBACK_DATA(Structure):
 PRJ_CALLBACK_DATA_FLAGS = Int32
 PRJ_CB_DATA_FLAG_ENUM_RESTART_SCAN: PRJ_CALLBACK_DATA_FLAGS = 1
 PRJ_CB_DATA_FLAG_ENUM_RETURN_SINGLE_ENTRY: PRJ_CALLBACK_DATA_FLAGS = 2
-class PRJ_CALLBACKS(Structure):
-    StartDirectoryEnumerationCallback: win32more.Storage.ProjectedFileSystem.PRJ_START_DIRECTORY_ENUMERATION_CB
-    EndDirectoryEnumerationCallback: win32more.Storage.ProjectedFileSystem.PRJ_END_DIRECTORY_ENUMERATION_CB
-    GetDirectoryEnumerationCallback: win32more.Storage.ProjectedFileSystem.PRJ_GET_DIRECTORY_ENUMERATION_CB
-    GetPlaceholderInfoCallback: win32more.Storage.ProjectedFileSystem.PRJ_GET_PLACEHOLDER_INFO_CB
-    GetFileDataCallback: win32more.Storage.ProjectedFileSystem.PRJ_GET_FILE_DATA_CB
-    QueryFileNameCallback: win32more.Storage.ProjectedFileSystem.PRJ_QUERY_FILE_NAME_CB
-    NotificationCallback: win32more.Storage.ProjectedFileSystem.PRJ_NOTIFICATION_CB
-    CancelCommandCallback: win32more.Storage.ProjectedFileSystem.PRJ_CANCEL_COMMAND_CB
 @winfunctype_pointer
 def PRJ_CANCEL_COMMAND_CB(callbackData: POINTER(win32more.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA_head)) -> Void: ...
 class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS(Structure):
@@ -96,8 +96,6 @@ PRJ_COMPLETE_COMMAND_TYPE_ENUMERATION: PRJ_COMPLETE_COMMAND_TYPE = 2
 PRJ_DIR_ENTRY_BUFFER_HANDLE = IntPtr
 @winfunctype_pointer
 def PRJ_END_DIRECTORY_ENUMERATION_CB(callbackData: POINTER(win32more.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA_head), enumerationId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
-PRJ_EXT_INFO_TYPE = Int32
-PRJ_EXT_INFO_TYPE_SYMLINK: PRJ_EXT_INFO_TYPE = 1
 class PRJ_EXTENDED_INFO(Structure):
     InfoType: win32more.Storage.ProjectedFileSystem.PRJ_EXT_INFO_TYPE
     NextInfoOffset: UInt32
@@ -106,6 +104,8 @@ class PRJ_EXTENDED_INFO(Structure):
         Symlink: _Symlink_e__Struct
         class _Symlink_e__Struct(Structure):
             TargetName: win32more.Foundation.PWSTR
+PRJ_EXT_INFO_TYPE = Int32
+PRJ_EXT_INFO_TYPE_SYMLINK: PRJ_EXT_INFO_TYPE = 1
 class PRJ_FILE_BASIC_INFO(Structure):
     IsDirectory: win32more.Foundation.BOOLEAN
     FileSize: Int64
@@ -194,8 +194,6 @@ class PRJ_PLACEHOLDER_VERSION_INFO(Structure):
     ContentID: Byte * 128
 @winfunctype_pointer
 def PRJ_QUERY_FILE_NAME_CB(callbackData: POINTER(win32more.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA_head)) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def PRJ_START_DIRECTORY_ENUMERATION_CB(callbackData: POINTER(win32more.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA_head), enumerationId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
 PRJ_STARTVIRTUALIZING_FLAGS = UInt32
 PRJ_FLAG_NONE: PRJ_STARTVIRTUALIZING_FLAGS = 0
 PRJ_FLAG_USE_NEGATIVE_PATH_CACHE: PRJ_STARTVIRTUALIZING_FLAGS = 1
@@ -205,6 +203,8 @@ class PRJ_STARTVIRTUALIZING_OPTIONS(Structure):
     ConcurrentThreadCount: UInt32
     NotificationMappings: POINTER(win32more.Storage.ProjectedFileSystem.PRJ_NOTIFICATION_MAPPING_head)
     NotificationMappingsCount: UInt32
+@winfunctype_pointer
+def PRJ_START_DIRECTORY_ENUMERATION_CB(callbackData: POINTER(win32more.Storage.ProjectedFileSystem.PRJ_CALLBACK_DATA_head), enumerationId: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
 PRJ_UPDATE_FAILURE_CAUSES = UInt32
 PRJ_UPDATE_FAILURE_CAUSE_NONE: PRJ_UPDATE_FAILURE_CAUSES = 0
 PRJ_UPDATE_FAILURE_CAUSE_DIRTY_METADATA: PRJ_UPDATE_FAILURE_CAUSES = 1
@@ -223,8 +223,8 @@ PRJ_UPDATE_MAX_VAL: PRJ_UPDATE_TYPES = 64
 class PRJ_VIRTUALIZATION_INSTANCE_INFO(Structure):
     InstanceID: Guid
     WriteAlignment: UInt32
-make_head(_module, 'PRJ_CALLBACK_DATA')
 make_head(_module, 'PRJ_CALLBACKS')
+make_head(_module, 'PRJ_CALLBACK_DATA')
 make_head(_module, 'PRJ_CANCEL_COMMAND_CB')
 make_head(_module, 'PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS')
 make_head(_module, 'PRJ_END_DIRECTORY_ENUMERATION_CB')
@@ -239,8 +239,8 @@ make_head(_module, 'PRJ_NOTIFICATION_PARAMETERS')
 make_head(_module, 'PRJ_PLACEHOLDER_INFO')
 make_head(_module, 'PRJ_PLACEHOLDER_VERSION_INFO')
 make_head(_module, 'PRJ_QUERY_FILE_NAME_CB')
-make_head(_module, 'PRJ_START_DIRECTORY_ENUMERATION_CB')
 make_head(_module, 'PRJ_STARTVIRTUALIZING_OPTIONS')
+make_head(_module, 'PRJ_START_DIRECTORY_ENUMERATION_CB')
 make_head(_module, 'PRJ_VIRTUALIZATION_INSTANCE_INFO')
 __all__ = [
     "PRJ_CALLBACKS",

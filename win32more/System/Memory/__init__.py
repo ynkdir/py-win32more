@@ -290,30 +290,6 @@ LMEM_ZEROINIT: LOCAL_ALLOC_FLAGS = 64
 LPTR: LOCAL_ALLOC_FLAGS = 64
 NONZEROLHND: LOCAL_ALLOC_FLAGS = 2
 NONZEROLPTR: LOCAL_ALLOC_FLAGS = 0
-class MEM_ADDRESS_REQUIREMENTS(Structure):
-    LowestStartingAddress: c_void_p
-    HighestEndingAddress: c_void_p
-    Alignment: UIntPtr
-class MEM_EXTENDED_PARAMETER(Structure):
-    Anonymous1: _Anonymous1_e__Struct
-    Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Struct(Structure):
-        _bitfield: UInt64
-    class _Anonymous2_e__Union(Union):
-        ULong64: UInt64
-        Pointer: c_void_p
-        Size: UIntPtr
-        Handle: win32more.Foundation.HANDLE
-        ULong: UInt32
-MEM_EXTENDED_PARAMETER_TYPE = Int32
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterInvalidType: MEM_EXTENDED_PARAMETER_TYPE = 0
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterAddressRequirements: MEM_EXTENDED_PARAMETER_TYPE = 1
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterNumaNode: MEM_EXTENDED_PARAMETER_TYPE = 2
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterPartitionHandle: MEM_EXTENDED_PARAMETER_TYPE = 3
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterUserPhysicalHandle: MEM_EXTENDED_PARAMETER_TYPE = 4
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterAttributeFlags: MEM_EXTENDED_PARAMETER_TYPE = 5
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterImageMachine: MEM_EXTENDED_PARAMETER_TYPE = 6
-MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterMax: MEM_EXTENDED_PARAMETER_TYPE = 7
 if ARCH in 'X64,ARM64':
     class MEMORY_BASIC_INFORMATION(Structure):
         BaseAddress: c_void_p
@@ -354,6 +330,30 @@ class MEMORY_BASIC_INFORMATION64(Structure):
 MEMORY_RESOURCE_NOTIFICATION_TYPE = Int32
 MEMORY_RESOURCE_NOTIFICATION_TYPE_LowMemoryResourceNotification: MEMORY_RESOURCE_NOTIFICATION_TYPE = 0
 MEMORY_RESOURCE_NOTIFICATION_TYPE_HighMemoryResourceNotification: MEMORY_RESOURCE_NOTIFICATION_TYPE = 1
+class MEM_ADDRESS_REQUIREMENTS(Structure):
+    LowestStartingAddress: c_void_p
+    HighestEndingAddress: c_void_p
+    Alignment: UIntPtr
+class MEM_EXTENDED_PARAMETER(Structure):
+    Anonymous1: _Anonymous1_e__Struct
+    Anonymous2: _Anonymous2_e__Union
+    class _Anonymous1_e__Struct(Structure):
+        _bitfield: UInt64
+    class _Anonymous2_e__Union(Union):
+        ULong64: UInt64
+        Pointer: c_void_p
+        Size: UIntPtr
+        Handle: win32more.Foundation.HANDLE
+        ULong: UInt32
+MEM_EXTENDED_PARAMETER_TYPE = Int32
+MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterInvalidType: MEM_EXTENDED_PARAMETER_TYPE = 0
+MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterAddressRequirements: MEM_EXTENDED_PARAMETER_TYPE = 1
+MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterNumaNode: MEM_EXTENDED_PARAMETER_TYPE = 2
+MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterPartitionHandle: MEM_EXTENDED_PARAMETER_TYPE = 3
+MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterUserPhysicalHandle: MEM_EXTENDED_PARAMETER_TYPE = 4
+MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterAttributeFlags: MEM_EXTENDED_PARAMETER_TYPE = 5
+MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterImageMachine: MEM_EXTENDED_PARAMETER_TYPE = 6
+MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterMax: MEM_EXTENDED_PARAMETER_TYPE = 7
 OFFER_PRIORITY = Int32
 OFFER_PRIORITY_VmOfferPriorityVeryLow: OFFER_PRIORITY = 1
 OFFER_PRIORITY_VmOfferPriorityLow: OFFER_PRIORITY = 2
@@ -480,14 +480,14 @@ class WIN32_MEMORY_REGION_INFORMATION(Structure):
             _bitfield: UInt32
 make_head(_module, 'CFG_CALL_TARGET_INFO')
 make_head(_module, 'HEAP_SUMMARY')
-make_head(_module, 'MEM_ADDRESS_REQUIREMENTS')
-make_head(_module, 'MEM_EXTENDED_PARAMETER')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'MEMORY_BASIC_INFORMATION')
 if ARCH in 'X86':
     make_head(_module, 'MEMORY_BASIC_INFORMATION')
 make_head(_module, 'MEMORY_BASIC_INFORMATION32')
 make_head(_module, 'MEMORY_BASIC_INFORMATION64')
+make_head(_module, 'MEM_ADDRESS_REQUIREMENTS')
+make_head(_module, 'MEM_EXTENDED_PARAMETER')
 make_head(_module, 'PBAD_MEMORY_CALLBACK_ROUTINE')
 make_head(_module, 'PROCESS_HEAP_ENTRY')
 make_head(_module, 'PSECURE_MEMORY_CACHE_CALLBACK')

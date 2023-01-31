@@ -18,37 +18,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class __UPV(Union):
-    i: Int16
-    l: Int32
-    ul: UInt32
-    flt: Single
-    dbl: Double
-    b: UInt16
-    cur: win32more.System.Com.CY
-    at: Double
-    ft: win32more.Foundation.FILETIME
-    lpszA: win32more.Foundation.PSTR
-    bin: win32more.System.AddressBook.SBinary
-    lpszW: win32more.Foundation.PWSTR
-    lpguid: POINTER(Guid)
-    li: win32more.Foundation.LARGE_INTEGER
-    MVi: win32more.System.AddressBook.SShortArray
-    MVl: win32more.System.AddressBook.SLongArray
-    MVflt: win32more.System.AddressBook.SRealArray
-    MVdbl: win32more.System.AddressBook.SDoubleArray
-    MVcur: win32more.System.AddressBook.SCurrencyArray
-    MVat: win32more.System.AddressBook.SAppTimeArray
-    MVft: win32more.System.AddressBook.SDateTimeArray
-    MVbin: win32more.System.AddressBook.SBinaryArray
-    MVszA: win32more.System.AddressBook.SLPSTRArray
-    MVszW: win32more.System.AddressBook.SWStringArray
-    MVguid: win32more.System.AddressBook.SGuidArray
-    MVli: win32more.System.AddressBook.SLargeIntegerArray
-    err: Int32
-    x: Int32
-class _WABACTIONITEM(Structure):
-    pass
 class ADRENTRY(Structure):
     ulReserved1: UInt32
     cValues: UInt32
@@ -503,9 +472,6 @@ class EXTENDED_NOTIFICATION(Structure):
     ulEvent: UInt32
     cb: UInt32
     pbEventParameters: c_char_p_no
-class FlagList(Structure):
-    cFlags: UInt32
-    ulFlag: UInt32 * 1
 class FLATENTRY(Structure):
     cb: UInt32
     abEntry: Byte * 1
@@ -517,6 +483,9 @@ class FLATMTSIDLIST(Structure):
     cMTSIDs: UInt32
     cbMTSIDs: UInt32
     abMTSIDs: Byte * 1
+class FlagList(Structure):
+    cFlags: UInt32
+    ulFlag: UInt32 * 1
 Gender = Int32
 Gender_genderUnspecified: Gender = 0
 Gender_genderFemale: Gender = 1
@@ -581,8 +550,6 @@ class IDistList(c_void_p):
     def DeleteEntries(lpEntries: POINTER(win32more.System.AddressBook.SBinaryArray_head), ulFlags: UInt32) -> win32more.Foundation.HRESULT: ...
     @commethod(22)
     def ResolveNames(lpPropTagArray: POINTER(win32more.System.AddressBook.SPropTagArray_head), ulFlags: UInt32, lpAdrList: POINTER(win32more.System.AddressBook.ADRLIST_head), lpFlagList: POINTER(win32more.System.AddressBook.FlagList_head)) -> win32more.Foundation.HRESULT: ...
-class IMailUser(c_void_p):
-    extends: win32more.System.AddressBook.IMAPIProp
 class IMAPIAdviseSink(c_void_p):
     extends: win32more.System.Com.IUnknown
     @commethod(3)
@@ -725,6 +692,8 @@ class IMAPITable(c_void_p):
     def GetCollapseState(ulFlags: UInt32, cbInstanceKey: UInt32, lpbInstanceKey: c_char_p_no, lpcbCollapseState: POINTER(UInt32), lppbCollapseState: POINTER(c_char_p_no)) -> win32more.Foundation.HRESULT: ...
     @commethod(25)
     def SetCollapseState(ulFlags: UInt32, cbCollapseState: UInt32, pbCollapseState: c_char_p_no, lpbkLocation: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IMailUser(c_void_p):
+    extends: win32more.System.AddressBook.IMAPIProp
 class IMessage(c_void_p):
     extends: win32more.System.AddressBook.IMAPIProp
     @commethod(14)
@@ -975,25 +944,21 @@ class SExistRestriction(Structure):
 class SGuidArray(Structure):
     cValues: UInt32
     lpguid: POINTER(Guid)
+class SLPSTRArray(Structure):
+    cValues: UInt32
+    lppszA: POINTER(win32more.Foundation.PSTR)
 class SLargeIntegerArray(Structure):
     cValues: UInt32
     lpli: POINTER(win32more.Foundation.LARGE_INTEGER_head)
 class SLongArray(Structure):
     cValues: UInt32
     lpl: POINTER(Int32)
-class SLPSTRArray(Structure):
-    cValues: UInt32
-    lppszA: POINTER(win32more.Foundation.PSTR)
 class SNotRestriction(Structure):
     ulReserved: UInt32
     lpRes: POINTER(win32more.System.AddressBook.SRestriction_head)
 class SOrRestriction(Structure):
     cRes: UInt32
     lpRes: POINTER(win32more.System.AddressBook.SRestriction_head)
-class SPropertyRestriction(Structure):
-    relop: UInt32
-    ulPropTag: UInt32
-    lpProp: POINTER(win32more.System.AddressBook.SPropValue_head)
 class SPropProblem(Structure):
     ulIndex: UInt32
     ulPropTag: UInt32
@@ -1008,6 +973,10 @@ class SPropValue(Structure):
     ulPropTag: UInt32
     dwAlignPad: UInt32
     Value: win32more.System.AddressBook.__UPV
+class SPropertyRestriction(Structure):
+    relop: UInt32
+    ulPropTag: UInt32
+    lpProp: POINTER(win32more.System.AddressBook.SPropValue_head)
 class SRealArray(Structure):
     cValues: UInt32
     lpflt: POINTER(Single)
@@ -1066,12 +1035,6 @@ class TABLE_NOTIFICATION(Structure):
     propPrior: win32more.System.AddressBook.SPropValue
     row: win32more.System.AddressBook.SRow
     ulPad: UInt32
-class WAB_PARAM(Structure):
-    cbSize: UInt32
-    hwnd: win32more.Foundation.HWND
-    szFileName: win32more.Foundation.PSTR
-    ulFlags: UInt32
-    guidPSExt: Guid
 class WABEXTDISPLAY(Structure):
     cbSize: UInt32
     lpWABObject: win32more.System.AddressBook.IWABObject_head
@@ -1088,8 +1051,43 @@ class WABIMPORTPARAM(Structure):
     hWnd: win32more.Foundation.HWND
     ulFlags: UInt32
     lpszFileName: win32more.Foundation.PSTR
-make_head(_module, '__UPV')
-make_head(_module, '_WABACTIONITEM')
+class WAB_PARAM(Structure):
+    cbSize: UInt32
+    hwnd: win32more.Foundation.HWND
+    szFileName: win32more.Foundation.PSTR
+    ulFlags: UInt32
+    guidPSExt: Guid
+class _WABACTIONITEM(Structure):
+    pass
+class __UPV(Union):
+    i: Int16
+    l: Int32
+    ul: UInt32
+    flt: Single
+    dbl: Double
+    b: UInt16
+    cur: win32more.System.Com.CY
+    at: Double
+    ft: win32more.Foundation.FILETIME
+    lpszA: win32more.Foundation.PSTR
+    bin: win32more.System.AddressBook.SBinary
+    lpszW: win32more.Foundation.PWSTR
+    lpguid: POINTER(Guid)
+    li: win32more.Foundation.LARGE_INTEGER
+    MVi: win32more.System.AddressBook.SShortArray
+    MVl: win32more.System.AddressBook.SLongArray
+    MVflt: win32more.System.AddressBook.SRealArray
+    MVdbl: win32more.System.AddressBook.SDoubleArray
+    MVcur: win32more.System.AddressBook.SCurrencyArray
+    MVat: win32more.System.AddressBook.SAppTimeArray
+    MVft: win32more.System.AddressBook.SDateTimeArray
+    MVbin: win32more.System.AddressBook.SBinaryArray
+    MVszA: win32more.System.AddressBook.SLPSTRArray
+    MVszW: win32more.System.AddressBook.SWStringArray
+    MVguid: win32more.System.AddressBook.SGuidArray
+    MVli: win32more.System.AddressBook.SLargeIntegerArray
+    err: Int32
+    x: Int32
 make_head(_module, 'ADRENTRY')
 make_head(_module, 'ADRLIST')
 make_head(_module, 'ADRPARM')
@@ -1111,15 +1109,14 @@ make_head(_module, 'DTPAGE')
 make_head(_module, 'ENTRYID')
 make_head(_module, 'ERROR_NOTIFICATION')
 make_head(_module, 'EXTENDED_NOTIFICATION')
-make_head(_module, 'FlagList')
 make_head(_module, 'FLATENTRY')
 make_head(_module, 'FLATENTRYLIST')
 make_head(_module, 'FLATMTSIDLIST')
+make_head(_module, 'FlagList')
 make_head(_module, 'IABContainer')
 make_head(_module, 'IAddrBook')
 make_head(_module, 'IAttach')
 make_head(_module, 'IDistList')
-make_head(_module, 'IMailUser')
 make_head(_module, 'IMAPIAdviseSink')
 make_head(_module, 'IMAPIContainer')
 make_head(_module, 'IMAPIControl')
@@ -1128,6 +1125,7 @@ make_head(_module, 'IMAPIProgress')
 make_head(_module, 'IMAPIProp')
 make_head(_module, 'IMAPIStatus')
 make_head(_module, 'IMAPITable')
+make_head(_module, 'IMailUser')
 make_head(_module, 'IMessage')
 make_head(_module, 'IMsgStore')
 make_head(_module, 'IProfSect')
@@ -1173,16 +1171,16 @@ make_head(_module, 'SDateTimeArray')
 make_head(_module, 'SDoubleArray')
 make_head(_module, 'SExistRestriction')
 make_head(_module, 'SGuidArray')
+make_head(_module, 'SLPSTRArray')
 make_head(_module, 'SLargeIntegerArray')
 make_head(_module, 'SLongArray')
-make_head(_module, 'SLPSTRArray')
 make_head(_module, 'SNotRestriction')
 make_head(_module, 'SOrRestriction')
-make_head(_module, 'SPropertyRestriction')
 make_head(_module, 'SPropProblem')
 make_head(_module, 'SPropProblemArray')
 make_head(_module, 'SPropTagArray')
 make_head(_module, 'SPropValue')
+make_head(_module, 'SPropertyRestriction')
 make_head(_module, 'SRealArray')
 make_head(_module, 'SRestriction')
 make_head(_module, 'SRow')
@@ -1195,9 +1193,11 @@ make_head(_module, 'SSubRestriction')
 make_head(_module, 'STATUS_OBJECT_NOTIFICATION')
 make_head(_module, 'SWStringArray')
 make_head(_module, 'TABLE_NOTIFICATION')
-make_head(_module, 'WAB_PARAM')
 make_head(_module, 'WABEXTDISPLAY')
 make_head(_module, 'WABIMPORTPARAM')
+make_head(_module, 'WAB_PARAM')
+make_head(_module, '_WABACTIONITEM')
+make_head(_module, '__UPV')
 __all__ = [
     "ADRENTRY",
     "ADRLIST",

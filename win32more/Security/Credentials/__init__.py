@@ -448,6 +448,121 @@ class BINARY_BLOB_CREDENTIAL_INFO(Structure):
 class CERT_CREDENTIAL_INFO(Structure):
     cbSize: UInt32
     rgbHashOfCert: Byte * 20
+class CREDENTIALA(Structure):
+    Flags: win32more.Security.Credentials.CRED_FLAGS
+    Type: win32more.Security.Credentials.CRED_TYPE
+    TargetName: win32more.Foundation.PSTR
+    Comment: win32more.Foundation.PSTR
+    LastWritten: win32more.Foundation.FILETIME
+    CredentialBlobSize: UInt32
+    CredentialBlob: c_char_p_no
+    Persist: win32more.Security.Credentials.CRED_PERSIST
+    AttributeCount: UInt32
+    Attributes: POINTER(win32more.Security.Credentials.CREDENTIAL_ATTRIBUTEA_head)
+    TargetAlias: win32more.Foundation.PSTR
+    UserName: win32more.Foundation.PSTR
+class CREDENTIALW(Structure):
+    Flags: win32more.Security.Credentials.CRED_FLAGS
+    Type: win32more.Security.Credentials.CRED_TYPE
+    TargetName: win32more.Foundation.PWSTR
+    Comment: win32more.Foundation.PWSTR
+    LastWritten: win32more.Foundation.FILETIME
+    CredentialBlobSize: UInt32
+    CredentialBlob: c_char_p_no
+    Persist: win32more.Security.Credentials.CRED_PERSIST
+    AttributeCount: UInt32
+    Attributes: POINTER(win32more.Security.Credentials.CREDENTIAL_ATTRIBUTEW_head)
+    TargetAlias: win32more.Foundation.PWSTR
+    UserName: win32more.Foundation.PWSTR
+class CREDENTIAL_ATTRIBUTEA(Structure):
+    Keyword: win32more.Foundation.PSTR
+    Flags: UInt32
+    ValueSize: UInt32
+    Value: c_char_p_no
+class CREDENTIAL_ATTRIBUTEW(Structure):
+    Keyword: win32more.Foundation.PWSTR
+    Flags: UInt32
+    ValueSize: UInt32
+    Value: c_char_p_no
+class CREDENTIAL_TARGET_INFORMATIONA(Structure):
+    TargetName: win32more.Foundation.PSTR
+    NetbiosServerName: win32more.Foundation.PSTR
+    DnsServerName: win32more.Foundation.PSTR
+    NetbiosDomainName: win32more.Foundation.PSTR
+    DnsDomainName: win32more.Foundation.PSTR
+    DnsTreeName: win32more.Foundation.PSTR
+    PackageName: win32more.Foundation.PSTR
+    Flags: UInt32
+    CredTypeCount: UInt32
+    CredTypes: POINTER(UInt32)
+class CREDENTIAL_TARGET_INFORMATIONW(Structure):
+    TargetName: win32more.Foundation.PWSTR
+    NetbiosServerName: win32more.Foundation.PWSTR
+    DnsServerName: win32more.Foundation.PWSTR
+    NetbiosDomainName: win32more.Foundation.PWSTR
+    DnsDomainName: win32more.Foundation.PWSTR
+    DnsTreeName: win32more.Foundation.PWSTR
+    PackageName: win32more.Foundation.PWSTR
+    Flags: UInt32
+    CredTypeCount: UInt32
+    CredTypes: POINTER(UInt32)
+CREDSPP_SUBMIT_TYPE = Int32
+CREDSPP_SUBMIT_TYPE_CredsspPasswordCreds: CREDSPP_SUBMIT_TYPE = 2
+CREDSPP_SUBMIT_TYPE_CredsspSchannelCreds: CREDSPP_SUBMIT_TYPE = 4
+CREDSPP_SUBMIT_TYPE_CredsspCertificateCreds: CREDSPP_SUBMIT_TYPE = 13
+CREDSPP_SUBMIT_TYPE_CredsspSubmitBufferBoth: CREDSPP_SUBMIT_TYPE = 50
+CREDSPP_SUBMIT_TYPE_CredsspSubmitBufferBothOld: CREDSPP_SUBMIT_TYPE = 51
+CREDSPP_SUBMIT_TYPE_CredsspCredEx: CREDSPP_SUBMIT_TYPE = 100
+class CREDSSP_CRED(Structure):
+    Type: win32more.Security.Credentials.CREDSPP_SUBMIT_TYPE
+    pSchannelCred: c_void_p
+    pSpnegoCred: c_void_p
+class CREDSSP_CRED_EX(Structure):
+    Type: win32more.Security.Credentials.CREDSPP_SUBMIT_TYPE
+    Version: UInt32
+    Flags: UInt32
+    Reserved: UInt32
+    Cred: win32more.Security.Credentials.CREDSSP_CRED
+CREDUIWIN_FLAGS = UInt32
+CREDUIWIN_GENERIC: CREDUIWIN_FLAGS = 1
+CREDUIWIN_CHECKBOX: CREDUIWIN_FLAGS = 2
+CREDUIWIN_AUTHPACKAGE_ONLY: CREDUIWIN_FLAGS = 16
+CREDUIWIN_IN_CRED_ONLY: CREDUIWIN_FLAGS = 32
+CREDUIWIN_ENUMERATE_ADMINS: CREDUIWIN_FLAGS = 256
+CREDUIWIN_ENUMERATE_CURRENT_USER: CREDUIWIN_FLAGS = 512
+CREDUIWIN_SECURE_PROMPT: CREDUIWIN_FLAGS = 4096
+CREDUIWIN_PREPROMPTING: CREDUIWIN_FLAGS = 8192
+CREDUIWIN_PACK_32_WOW: CREDUIWIN_FLAGS = 268435456
+CREDUI_FLAGS = UInt32
+CREDUI_FLAGS_ALWAYS_SHOW_UI: CREDUI_FLAGS = 128
+CREDUI_FLAGS_COMPLETE_USERNAME: CREDUI_FLAGS = 2048
+CREDUI_FLAGS_DO_NOT_PERSIST: CREDUI_FLAGS = 2
+CREDUI_FLAGS_EXCLUDE_CERTIFICATES: CREDUI_FLAGS = 8
+CREDUI_FLAGS_EXPECT_CONFIRMATION: CREDUI_FLAGS = 131072
+CREDUI_FLAGS_GENERIC_CREDENTIALS: CREDUI_FLAGS = 262144
+CREDUI_FLAGS_INCORRECT_PASSWORD: CREDUI_FLAGS = 1
+CREDUI_FLAGS_KEEP_USERNAME: CREDUI_FLAGS = 1048576
+CREDUI_FLAGS_PASSWORD_ONLY_OK: CREDUI_FLAGS = 512
+CREDUI_FLAGS_PERSIST: CREDUI_FLAGS = 4096
+CREDUI_FLAGS_REQUEST_ADMINISTRATOR: CREDUI_FLAGS = 4
+CREDUI_FLAGS_REQUIRE_CERTIFICATE: CREDUI_FLAGS = 16
+CREDUI_FLAGS_REQUIRE_SMARTCARD: CREDUI_FLAGS = 256
+CREDUI_FLAGS_SERVER_CREDENTIAL: CREDUI_FLAGS = 16384
+CREDUI_FLAGS_SHOW_SAVE_CHECK_BOX: CREDUI_FLAGS = 64
+CREDUI_FLAGS_USERNAME_TARGET_CREDENTIALS: CREDUI_FLAGS = 524288
+CREDUI_FLAGS_VALIDATE_USERNAME: CREDUI_FLAGS = 1024
+class CREDUI_INFOA(Structure):
+    cbSize: UInt32
+    hwndParent: win32more.Foundation.HWND
+    pszMessageText: win32more.Foundation.PSTR
+    pszCaptionText: win32more.Foundation.PSTR
+    hbmBanner: win32more.Graphics.Gdi.HBITMAP
+class CREDUI_INFOW(Structure):
+    cbSize: UInt32
+    hwndParent: win32more.Foundation.HWND
+    pszMessageText: win32more.Foundation.PWSTR
+    pszCaptionText: win32more.Foundation.PWSTR
+    hbmBanner: win32more.Graphics.Gdi.HBITMAP
 CRED_ENUMERATE_FLAGS = UInt32
 CRED_ENUMERATE_ALL_CREDENTIALS: CRED_ENUMERATE_FLAGS = 1
 CRED_FLAGS = UInt32
@@ -491,121 +606,6 @@ CRED_TYPE_GENERIC_CERTIFICATE: CRED_TYPE = 5
 CRED_TYPE_DOMAIN_EXTENDED: CRED_TYPE = 6
 CRED_TYPE_MAXIMUM: CRED_TYPE = 7
 CRED_TYPE_MAXIMUM_EX: CRED_TYPE = 1007
-class CREDENTIAL_ATTRIBUTEA(Structure):
-    Keyword: win32more.Foundation.PSTR
-    Flags: UInt32
-    ValueSize: UInt32
-    Value: c_char_p_no
-class CREDENTIAL_ATTRIBUTEW(Structure):
-    Keyword: win32more.Foundation.PWSTR
-    Flags: UInt32
-    ValueSize: UInt32
-    Value: c_char_p_no
-class CREDENTIAL_TARGET_INFORMATIONA(Structure):
-    TargetName: win32more.Foundation.PSTR
-    NetbiosServerName: win32more.Foundation.PSTR
-    DnsServerName: win32more.Foundation.PSTR
-    NetbiosDomainName: win32more.Foundation.PSTR
-    DnsDomainName: win32more.Foundation.PSTR
-    DnsTreeName: win32more.Foundation.PSTR
-    PackageName: win32more.Foundation.PSTR
-    Flags: UInt32
-    CredTypeCount: UInt32
-    CredTypes: POINTER(UInt32)
-class CREDENTIAL_TARGET_INFORMATIONW(Structure):
-    TargetName: win32more.Foundation.PWSTR
-    NetbiosServerName: win32more.Foundation.PWSTR
-    DnsServerName: win32more.Foundation.PWSTR
-    NetbiosDomainName: win32more.Foundation.PWSTR
-    DnsDomainName: win32more.Foundation.PWSTR
-    DnsTreeName: win32more.Foundation.PWSTR
-    PackageName: win32more.Foundation.PWSTR
-    Flags: UInt32
-    CredTypeCount: UInt32
-    CredTypes: POINTER(UInt32)
-class CREDENTIALA(Structure):
-    Flags: win32more.Security.Credentials.CRED_FLAGS
-    Type: win32more.Security.Credentials.CRED_TYPE
-    TargetName: win32more.Foundation.PSTR
-    Comment: win32more.Foundation.PSTR
-    LastWritten: win32more.Foundation.FILETIME
-    CredentialBlobSize: UInt32
-    CredentialBlob: c_char_p_no
-    Persist: win32more.Security.Credentials.CRED_PERSIST
-    AttributeCount: UInt32
-    Attributes: POINTER(win32more.Security.Credentials.CREDENTIAL_ATTRIBUTEA_head)
-    TargetAlias: win32more.Foundation.PSTR
-    UserName: win32more.Foundation.PSTR
-class CREDENTIALW(Structure):
-    Flags: win32more.Security.Credentials.CRED_FLAGS
-    Type: win32more.Security.Credentials.CRED_TYPE
-    TargetName: win32more.Foundation.PWSTR
-    Comment: win32more.Foundation.PWSTR
-    LastWritten: win32more.Foundation.FILETIME
-    CredentialBlobSize: UInt32
-    CredentialBlob: c_char_p_no
-    Persist: win32more.Security.Credentials.CRED_PERSIST
-    AttributeCount: UInt32
-    Attributes: POINTER(win32more.Security.Credentials.CREDENTIAL_ATTRIBUTEW_head)
-    TargetAlias: win32more.Foundation.PWSTR
-    UserName: win32more.Foundation.PWSTR
-CREDSPP_SUBMIT_TYPE = Int32
-CREDSPP_SUBMIT_TYPE_CredsspPasswordCreds: CREDSPP_SUBMIT_TYPE = 2
-CREDSPP_SUBMIT_TYPE_CredsspSchannelCreds: CREDSPP_SUBMIT_TYPE = 4
-CREDSPP_SUBMIT_TYPE_CredsspCertificateCreds: CREDSPP_SUBMIT_TYPE = 13
-CREDSPP_SUBMIT_TYPE_CredsspSubmitBufferBoth: CREDSPP_SUBMIT_TYPE = 50
-CREDSPP_SUBMIT_TYPE_CredsspSubmitBufferBothOld: CREDSPP_SUBMIT_TYPE = 51
-CREDSPP_SUBMIT_TYPE_CredsspCredEx: CREDSPP_SUBMIT_TYPE = 100
-class CREDSSP_CRED(Structure):
-    Type: win32more.Security.Credentials.CREDSPP_SUBMIT_TYPE
-    pSchannelCred: c_void_p
-    pSpnegoCred: c_void_p
-class CREDSSP_CRED_EX(Structure):
-    Type: win32more.Security.Credentials.CREDSPP_SUBMIT_TYPE
-    Version: UInt32
-    Flags: UInt32
-    Reserved: UInt32
-    Cred: win32more.Security.Credentials.CREDSSP_CRED
-CREDUI_FLAGS = UInt32
-CREDUI_FLAGS_ALWAYS_SHOW_UI: CREDUI_FLAGS = 128
-CREDUI_FLAGS_COMPLETE_USERNAME: CREDUI_FLAGS = 2048
-CREDUI_FLAGS_DO_NOT_PERSIST: CREDUI_FLAGS = 2
-CREDUI_FLAGS_EXCLUDE_CERTIFICATES: CREDUI_FLAGS = 8
-CREDUI_FLAGS_EXPECT_CONFIRMATION: CREDUI_FLAGS = 131072
-CREDUI_FLAGS_GENERIC_CREDENTIALS: CREDUI_FLAGS = 262144
-CREDUI_FLAGS_INCORRECT_PASSWORD: CREDUI_FLAGS = 1
-CREDUI_FLAGS_KEEP_USERNAME: CREDUI_FLAGS = 1048576
-CREDUI_FLAGS_PASSWORD_ONLY_OK: CREDUI_FLAGS = 512
-CREDUI_FLAGS_PERSIST: CREDUI_FLAGS = 4096
-CREDUI_FLAGS_REQUEST_ADMINISTRATOR: CREDUI_FLAGS = 4
-CREDUI_FLAGS_REQUIRE_CERTIFICATE: CREDUI_FLAGS = 16
-CREDUI_FLAGS_REQUIRE_SMARTCARD: CREDUI_FLAGS = 256
-CREDUI_FLAGS_SERVER_CREDENTIAL: CREDUI_FLAGS = 16384
-CREDUI_FLAGS_SHOW_SAVE_CHECK_BOX: CREDUI_FLAGS = 64
-CREDUI_FLAGS_USERNAME_TARGET_CREDENTIALS: CREDUI_FLAGS = 524288
-CREDUI_FLAGS_VALIDATE_USERNAME: CREDUI_FLAGS = 1024
-class CREDUI_INFOA(Structure):
-    cbSize: UInt32
-    hwndParent: win32more.Foundation.HWND
-    pszMessageText: win32more.Foundation.PSTR
-    pszCaptionText: win32more.Foundation.PSTR
-    hbmBanner: win32more.Graphics.Gdi.HBITMAP
-class CREDUI_INFOW(Structure):
-    cbSize: UInt32
-    hwndParent: win32more.Foundation.HWND
-    pszMessageText: win32more.Foundation.PWSTR
-    pszCaptionText: win32more.Foundation.PWSTR
-    hbmBanner: win32more.Graphics.Gdi.HBITMAP
-CREDUIWIN_FLAGS = UInt32
-CREDUIWIN_GENERIC: CREDUIWIN_FLAGS = 1
-CREDUIWIN_CHECKBOX: CREDUIWIN_FLAGS = 2
-CREDUIWIN_AUTHPACKAGE_ONLY: CREDUIWIN_FLAGS = 16
-CREDUIWIN_IN_CRED_ONLY: CREDUIWIN_FLAGS = 32
-CREDUIWIN_ENUMERATE_ADMINS: CREDUIWIN_FLAGS = 256
-CREDUIWIN_ENUMERATE_CURRENT_USER: CREDUIWIN_FLAGS = 512
-CREDUIWIN_SECURE_PROMPT: CREDUIWIN_FLAGS = 4096
-CREDUIWIN_PREPROMPTING: CREDUIWIN_FLAGS = 8192
-CREDUIWIN_PACK_32_WOW: CREDUIWIN_FLAGS = 268435456
 class KeyCredentialManagerInfo(Structure):
     containerId: Guid
 KeyCredentialManagerOperationErrorStates = UInt32
@@ -629,72 +629,6 @@ def LPOCNCONNPROCA(param0: UIntPtr, param1: win32more.Foundation.PSTR, param2: w
 def LPOCNCONNPROCW(param0: UIntPtr, param1: win32more.Foundation.PWSTR, param2: win32more.Foundation.PWSTR, param3: c_void_p) -> UIntPtr: ...
 @winfunctype_pointer
 def LPOCNDSCPROC(param0: UIntPtr, param1: UIntPtr, param2: c_void_p) -> Void: ...
-class OPENCARD_SEARCH_CRITERIAA(Structure):
-    dwStructSize: UInt32
-    lpstrGroupNames: win32more.Foundation.PSTR
-    nMaxGroupNames: UInt32
-    rgguidInterfaces: POINTER(Guid)
-    cguidInterfaces: UInt32
-    lpstrCardNames: win32more.Foundation.PSTR
-    nMaxCardNames: UInt32
-    lpfnCheck: win32more.Security.Credentials.LPOCNCHKPROC
-    lpfnConnect: win32more.Security.Credentials.LPOCNCONNPROCA
-    lpfnDisconnect: win32more.Security.Credentials.LPOCNDSCPROC
-    pvUserData: c_void_p
-    dwShareMode: UInt32
-    dwPreferredProtocols: UInt32
-class OPENCARD_SEARCH_CRITERIAW(Structure):
-    dwStructSize: UInt32
-    lpstrGroupNames: win32more.Foundation.PWSTR
-    nMaxGroupNames: UInt32
-    rgguidInterfaces: POINTER(Guid)
-    cguidInterfaces: UInt32
-    lpstrCardNames: win32more.Foundation.PWSTR
-    nMaxCardNames: UInt32
-    lpfnCheck: win32more.Security.Credentials.LPOCNCHKPROC
-    lpfnConnect: win32more.Security.Credentials.LPOCNCONNPROCW
-    lpfnDisconnect: win32more.Security.Credentials.LPOCNDSCPROC
-    pvUserData: c_void_p
-    dwShareMode: UInt32
-    dwPreferredProtocols: UInt32
-class OPENCARDNAME_EXA(Structure):
-    dwStructSize: UInt32
-    hSCardContext: UIntPtr
-    hwndOwner: win32more.Foundation.HWND
-    dwFlags: UInt32
-    lpstrTitle: win32more.Foundation.PSTR
-    lpstrSearchDesc: win32more.Foundation.PSTR
-    hIcon: win32more.UI.WindowsAndMessaging.HICON
-    pOpenCardSearchCriteria: POINTER(win32more.Security.Credentials.OPENCARD_SEARCH_CRITERIAA_head)
-    lpfnConnect: win32more.Security.Credentials.LPOCNCONNPROCA
-    pvUserData: c_void_p
-    dwShareMode: UInt32
-    dwPreferredProtocols: UInt32
-    lpstrRdr: win32more.Foundation.PSTR
-    nMaxRdr: UInt32
-    lpstrCard: win32more.Foundation.PSTR
-    nMaxCard: UInt32
-    dwActiveProtocol: UInt32
-    hCardHandle: UIntPtr
-class OPENCARDNAME_EXW(Structure):
-    dwStructSize: UInt32
-    hSCardContext: UIntPtr
-    hwndOwner: win32more.Foundation.HWND
-    dwFlags: UInt32
-    lpstrTitle: win32more.Foundation.PWSTR
-    lpstrSearchDesc: win32more.Foundation.PWSTR
-    hIcon: win32more.UI.WindowsAndMessaging.HICON
-    pOpenCardSearchCriteria: POINTER(win32more.Security.Credentials.OPENCARD_SEARCH_CRITERIAW_head)
-    lpfnConnect: win32more.Security.Credentials.LPOCNCONNPROCW
-    pvUserData: c_void_p
-    dwShareMode: UInt32
-    dwPreferredProtocols: UInt32
-    lpstrRdr: win32more.Foundation.PWSTR
-    nMaxRdr: UInt32
-    lpstrCard: win32more.Foundation.PWSTR
-    nMaxCard: UInt32
-    dwActiveProtocol: UInt32
-    hCardHandle: UIntPtr
 class OPENCARDNAMEA(Structure):
     dwStructSize: UInt32
     hwndOwner: win32more.Foundation.HWND
@@ -743,6 +677,72 @@ class OPENCARDNAMEW(Structure):
     lpfnCheck: win32more.Security.Credentials.LPOCNCHKPROC
     lpfnDisconnect: win32more.Security.Credentials.LPOCNDSCPROC
     hCardHandle: UIntPtr
+class OPENCARDNAME_EXA(Structure):
+    dwStructSize: UInt32
+    hSCardContext: UIntPtr
+    hwndOwner: win32more.Foundation.HWND
+    dwFlags: UInt32
+    lpstrTitle: win32more.Foundation.PSTR
+    lpstrSearchDesc: win32more.Foundation.PSTR
+    hIcon: win32more.UI.WindowsAndMessaging.HICON
+    pOpenCardSearchCriteria: POINTER(win32more.Security.Credentials.OPENCARD_SEARCH_CRITERIAA_head)
+    lpfnConnect: win32more.Security.Credentials.LPOCNCONNPROCA
+    pvUserData: c_void_p
+    dwShareMode: UInt32
+    dwPreferredProtocols: UInt32
+    lpstrRdr: win32more.Foundation.PSTR
+    nMaxRdr: UInt32
+    lpstrCard: win32more.Foundation.PSTR
+    nMaxCard: UInt32
+    dwActiveProtocol: UInt32
+    hCardHandle: UIntPtr
+class OPENCARDNAME_EXW(Structure):
+    dwStructSize: UInt32
+    hSCardContext: UIntPtr
+    hwndOwner: win32more.Foundation.HWND
+    dwFlags: UInt32
+    lpstrTitle: win32more.Foundation.PWSTR
+    lpstrSearchDesc: win32more.Foundation.PWSTR
+    hIcon: win32more.UI.WindowsAndMessaging.HICON
+    pOpenCardSearchCriteria: POINTER(win32more.Security.Credentials.OPENCARD_SEARCH_CRITERIAW_head)
+    lpfnConnect: win32more.Security.Credentials.LPOCNCONNPROCW
+    pvUserData: c_void_p
+    dwShareMode: UInt32
+    dwPreferredProtocols: UInt32
+    lpstrRdr: win32more.Foundation.PWSTR
+    nMaxRdr: UInt32
+    lpstrCard: win32more.Foundation.PWSTR
+    nMaxCard: UInt32
+    dwActiveProtocol: UInt32
+    hCardHandle: UIntPtr
+class OPENCARD_SEARCH_CRITERIAA(Structure):
+    dwStructSize: UInt32
+    lpstrGroupNames: win32more.Foundation.PSTR
+    nMaxGroupNames: UInt32
+    rgguidInterfaces: POINTER(Guid)
+    cguidInterfaces: UInt32
+    lpstrCardNames: win32more.Foundation.PSTR
+    nMaxCardNames: UInt32
+    lpfnCheck: win32more.Security.Credentials.LPOCNCHKPROC
+    lpfnConnect: win32more.Security.Credentials.LPOCNCONNPROCA
+    lpfnDisconnect: win32more.Security.Credentials.LPOCNDSCPROC
+    pvUserData: c_void_p
+    dwShareMode: UInt32
+    dwPreferredProtocols: UInt32
+class OPENCARD_SEARCH_CRITERIAW(Structure):
+    dwStructSize: UInt32
+    lpstrGroupNames: win32more.Foundation.PWSTR
+    nMaxGroupNames: UInt32
+    rgguidInterfaces: POINTER(Guid)
+    cguidInterfaces: UInt32
+    lpstrCardNames: win32more.Foundation.PWSTR
+    nMaxCardNames: UInt32
+    lpfnCheck: win32more.Security.Credentials.LPOCNCHKPROC
+    lpfnConnect: win32more.Security.Credentials.LPOCNCONNPROCW
+    lpfnDisconnect: win32more.Security.Credentials.LPOCNDSCPROC
+    pvUserData: c_void_p
+    dwShareMode: UInt32
+    dwPreferredProtocols: UInt32
 class READER_SEL_REQUEST(Structure):
     dwShareMode: UInt32
     dwPreferredProtocols: UInt32
@@ -833,12 +833,12 @@ class USERNAME_TARGET_CREDENTIAL_INFO(Structure):
     UserName: win32more.Foundation.PWSTR
 make_head(_module, 'BINARY_BLOB_CREDENTIAL_INFO')
 make_head(_module, 'CERT_CREDENTIAL_INFO')
+make_head(_module, 'CREDENTIALA')
+make_head(_module, 'CREDENTIALW')
 make_head(_module, 'CREDENTIAL_ATTRIBUTEA')
 make_head(_module, 'CREDENTIAL_ATTRIBUTEW')
 make_head(_module, 'CREDENTIAL_TARGET_INFORMATIONA')
 make_head(_module, 'CREDENTIAL_TARGET_INFORMATIONW')
-make_head(_module, 'CREDENTIALA')
-make_head(_module, 'CREDENTIALW')
 make_head(_module, 'CREDSSP_CRED')
 make_head(_module, 'CREDSSP_CRED_EX')
 make_head(_module, 'CREDUI_INFOA')
@@ -848,12 +848,12 @@ make_head(_module, 'LPOCNCHKPROC')
 make_head(_module, 'LPOCNCONNPROCA')
 make_head(_module, 'LPOCNCONNPROCW')
 make_head(_module, 'LPOCNDSCPROC')
-make_head(_module, 'OPENCARD_SEARCH_CRITERIAA')
-make_head(_module, 'OPENCARD_SEARCH_CRITERIAW')
-make_head(_module, 'OPENCARDNAME_EXA')
-make_head(_module, 'OPENCARDNAME_EXW')
 make_head(_module, 'OPENCARDNAMEA')
 make_head(_module, 'OPENCARDNAMEW')
+make_head(_module, 'OPENCARDNAME_EXA')
+make_head(_module, 'OPENCARDNAME_EXW')
+make_head(_module, 'OPENCARD_SEARCH_CRITERIAA')
+make_head(_module, 'OPENCARD_SEARCH_CRITERIAW')
 make_head(_module, 'READER_SEL_REQUEST')
 make_head(_module, 'READER_SEL_RESPONSE')
 make_head(_module, 'SCARD_ATRMASK')

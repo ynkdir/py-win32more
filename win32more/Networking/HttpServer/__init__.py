@@ -201,18 +201,26 @@ def HttpDeleteServiceConfiguration(ServiceHandle: win32more.Foundation.HANDLE, C
 def HttpQueryServiceConfiguration(ServiceHandle: win32more.Foundation.HANDLE, ConfigId: win32more.Networking.HttpServer.HTTP_SERVICE_CONFIG_ID, pInput: c_void_p, InputLength: UInt32, pOutput: c_void_p, OutputLength: UInt32, pReturnLength: POINTER(UInt32), pOverlapped: POINTER(win32more.System.IO.OVERLAPPED_head)) -> UInt32: ...
 @winfunctype('HTTPAPI.dll')
 def HttpGetExtension(Version: win32more.Networking.HttpServer.HTTPAPI_VERSION, Extension: UInt32, Buffer: c_void_p, BufferSize: UInt32) -> UInt32: ...
+class HTTP2_SETTINGS_LIMITS_PARAM(Structure):
+    Http2MaxSettingsPerFrame: UInt32
+    Http2MaxSettingsPerMinute: UInt32
+class HTTP2_WINDOW_SIZE_PARAM(Structure):
+    Http2ReceiveWindowSize: UInt32
+class HTTPAPI_VERSION(Structure):
+    HttpApiMajorVersion: UInt16
+    HttpApiMinorVersion: UInt16
 HTTP_503_RESPONSE_VERBOSITY = Int32
 HTTP_503_RESPONSE_VERBOSITY_Http503ResponseVerbosityBasic: HTTP_503_RESPONSE_VERBOSITY = 0
 HTTP_503_RESPONSE_VERBOSITY_Http503ResponseVerbosityLimited: HTTP_503_RESPONSE_VERBOSITY = 1
 HTTP_503_RESPONSE_VERBOSITY_Http503ResponseVerbosityFull: HTTP_503_RESPONSE_VERBOSITY = 2
-HTTP_AUTH_STATUS = Int32
-HTTP_AUTH_STATUS_HttpAuthStatusSuccess: HTTP_AUTH_STATUS = 0
-HTTP_AUTH_STATUS_HttpAuthStatusNotAuthenticated: HTTP_AUTH_STATUS = 1
-HTTP_AUTH_STATUS_HttpAuthStatusFailure: HTTP_AUTH_STATUS = 2
 HTTP_AUTHENTICATION_HARDENING_LEVELS = Int32
 HTTP_AUTHENTICATION_HARDENING_LEVELS_HttpAuthenticationHardeningLegacy: HTTP_AUTHENTICATION_HARDENING_LEVELS = 0
 HTTP_AUTHENTICATION_HARDENING_LEVELS_HttpAuthenticationHardeningMedium: HTTP_AUTHENTICATION_HARDENING_LEVELS = 1
 HTTP_AUTHENTICATION_HARDENING_LEVELS_HttpAuthenticationHardeningStrict: HTTP_AUTHENTICATION_HARDENING_LEVELS = 2
+HTTP_AUTH_STATUS = Int32
+HTTP_AUTH_STATUS_HttpAuthStatusSuccess: HTTP_AUTH_STATUS = 0
+HTTP_AUTH_STATUS_HttpAuthStatusNotAuthenticated: HTTP_AUTH_STATUS = 1
+HTTP_AUTH_STATUS_HttpAuthStatusFailure: HTTP_AUTH_STATUS = 2
 class HTTP_BANDWIDTH_LIMIT_INFO(Structure):
     Flags: win32more.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     MaxBandwidth: UInt32
@@ -375,6 +383,32 @@ class HTTP_KNOWN_HEADER(Structure):
 class HTTP_LISTEN_ENDPOINT_INFO(Structure):
     Flags: win32more.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     EnableSharing: win32more.Foundation.BOOLEAN
+class HTTP_LOGGING_INFO(Structure):
+    Flags: win32more.Networking.HttpServer.HTTP_PROPERTY_FLAGS
+    LoggingFlags: UInt32
+    SoftwareName: win32more.Foundation.PWSTR
+    SoftwareNameLength: UInt16
+    DirectoryNameLength: UInt16
+    DirectoryName: win32more.Foundation.PWSTR
+    Format: win32more.Networking.HttpServer.HTTP_LOGGING_TYPE
+    Fields: UInt32
+    pExtFields: c_void_p
+    NumOfExtFields: UInt16
+    MaxRecordSize: UInt16
+    RolloverType: win32more.Networking.HttpServer.HTTP_LOGGING_ROLLOVER_TYPE
+    RolloverSize: UInt32
+    pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR
+HTTP_LOGGING_ROLLOVER_TYPE = Int32
+HTTP_LOGGING_ROLLOVER_TYPE_HttpLoggingRolloverSize: HTTP_LOGGING_ROLLOVER_TYPE = 0
+HTTP_LOGGING_ROLLOVER_TYPE_HttpLoggingRolloverDaily: HTTP_LOGGING_ROLLOVER_TYPE = 1
+HTTP_LOGGING_ROLLOVER_TYPE_HttpLoggingRolloverWeekly: HTTP_LOGGING_ROLLOVER_TYPE = 2
+HTTP_LOGGING_ROLLOVER_TYPE_HttpLoggingRolloverMonthly: HTTP_LOGGING_ROLLOVER_TYPE = 3
+HTTP_LOGGING_ROLLOVER_TYPE_HttpLoggingRolloverHourly: HTTP_LOGGING_ROLLOVER_TYPE = 4
+HTTP_LOGGING_TYPE = Int32
+HTTP_LOGGING_TYPE_HttpLoggingTypeW3C: HTTP_LOGGING_TYPE = 0
+HTTP_LOGGING_TYPE_HttpLoggingTypeIIS: HTTP_LOGGING_TYPE = 1
+HTTP_LOGGING_TYPE_HttpLoggingTypeNCSA: HTTP_LOGGING_TYPE = 2
+HTTP_LOGGING_TYPE_HttpLoggingTypeRaw: HTTP_LOGGING_TYPE = 3
 class HTTP_LOG_DATA(Structure):
     Type: win32more.Networking.HttpServer.HTTP_LOG_DATA_TYPE
 HTTP_LOG_DATA_TYPE = Int32
@@ -410,32 +444,6 @@ class HTTP_LOG_FIELDS_DATA(Structure):
     Win32Status: UInt32
     MethodNum: win32more.Networking.HttpServer.HTTP_VERB
     SubStatus: UInt16
-class HTTP_LOGGING_INFO(Structure):
-    Flags: win32more.Networking.HttpServer.HTTP_PROPERTY_FLAGS
-    LoggingFlags: UInt32
-    SoftwareName: win32more.Foundation.PWSTR
-    SoftwareNameLength: UInt16
-    DirectoryNameLength: UInt16
-    DirectoryName: win32more.Foundation.PWSTR
-    Format: win32more.Networking.HttpServer.HTTP_LOGGING_TYPE
-    Fields: UInt32
-    pExtFields: c_void_p
-    NumOfExtFields: UInt16
-    MaxRecordSize: UInt16
-    RolloverType: win32more.Networking.HttpServer.HTTP_LOGGING_ROLLOVER_TYPE
-    RolloverSize: UInt32
-    pSecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR
-HTTP_LOGGING_ROLLOVER_TYPE = Int32
-HTTP_LOGGING_ROLLOVER_TYPE_HttpLoggingRolloverSize: HTTP_LOGGING_ROLLOVER_TYPE = 0
-HTTP_LOGGING_ROLLOVER_TYPE_HttpLoggingRolloverDaily: HTTP_LOGGING_ROLLOVER_TYPE = 1
-HTTP_LOGGING_ROLLOVER_TYPE_HttpLoggingRolloverWeekly: HTTP_LOGGING_ROLLOVER_TYPE = 2
-HTTP_LOGGING_ROLLOVER_TYPE_HttpLoggingRolloverMonthly: HTTP_LOGGING_ROLLOVER_TYPE = 3
-HTTP_LOGGING_ROLLOVER_TYPE_HttpLoggingRolloverHourly: HTTP_LOGGING_ROLLOVER_TYPE = 4
-HTTP_LOGGING_TYPE = Int32
-HTTP_LOGGING_TYPE_HttpLoggingTypeW3C: HTTP_LOGGING_TYPE = 0
-HTTP_LOGGING_TYPE_HttpLoggingTypeIIS: HTTP_LOGGING_TYPE = 1
-HTTP_LOGGING_TYPE_HttpLoggingTypeNCSA: HTTP_LOGGING_TYPE = 2
-HTTP_LOGGING_TYPE_HttpLoggingTypeRaw: HTTP_LOGGING_TYPE = 3
 class HTTP_MULTIPLE_KNOWN_HEADERS(Structure):
     HeaderId: win32more.Networking.HttpServer.HTTP_HEADER_ID
     Flags: UInt32
@@ -950,14 +958,9 @@ class HTTP_WSK_API_TIMINGS(Structure):
     ReleaseSum: UInt64
     ControlSocketCount: UInt64
     ControlSocketSum: UInt64
-class HTTP2_SETTINGS_LIMITS_PARAM(Structure):
-    Http2MaxSettingsPerFrame: UInt32
-    Http2MaxSettingsPerMinute: UInt32
-class HTTP2_WINDOW_SIZE_PARAM(Structure):
-    Http2ReceiveWindowSize: UInt32
-class HTTPAPI_VERSION(Structure):
-    HttpApiMajorVersion: UInt16
-    HttpApiMinorVersion: UInt16
+make_head(_module, 'HTTP2_SETTINGS_LIMITS_PARAM')
+make_head(_module, 'HTTP2_WINDOW_SIZE_PARAM')
+make_head(_module, 'HTTPAPI_VERSION')
 make_head(_module, 'HTTP_BANDWIDTH_LIMIT_INFO')
 make_head(_module, 'HTTP_BINDING_INFO')
 make_head(_module, 'HTTP_BYTE_RANGE')
@@ -972,9 +975,9 @@ make_head(_module, 'HTTP_ERROR_HEADERS_PARAM')
 make_head(_module, 'HTTP_FLOWRATE_INFO')
 make_head(_module, 'HTTP_KNOWN_HEADER')
 make_head(_module, 'HTTP_LISTEN_ENDPOINT_INFO')
+make_head(_module, 'HTTP_LOGGING_INFO')
 make_head(_module, 'HTTP_LOG_DATA')
 make_head(_module, 'HTTP_LOG_FIELDS_DATA')
-make_head(_module, 'HTTP_LOGGING_INFO')
 make_head(_module, 'HTTP_MULTIPLE_KNOWN_HEADERS')
 make_head(_module, 'HTTP_PERFORMANCE_PARAM')
 make_head(_module, 'HTTP_PROPERTY_FLAGS')
@@ -1044,9 +1047,6 @@ make_head(_module, 'HTTP_TRANSPORT_ADDRESS')
 make_head(_module, 'HTTP_UNKNOWN_HEADER')
 make_head(_module, 'HTTP_VERSION')
 make_head(_module, 'HTTP_WSK_API_TIMINGS')
-make_head(_module, 'HTTP2_SETTINGS_LIMITS_PARAM')
-make_head(_module, 'HTTP2_WINDOW_SIZE_PARAM')
-make_head(_module, 'HTTPAPI_VERSION')
 __all__ = [
     "HTTP2_SETTINGS_LIMITS_PARAM",
     "HTTP2_WINDOW_SIZE_PARAM",

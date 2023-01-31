@@ -80,20 +80,16 @@ def ShowCustomizeUserProfileUIForUser(user: win32more.System.WinRT.IInspectable_
 def ShowUserSettingsUI(completionRoutine: win32more.Gaming.GameUICompletionRoutine, context: c_void_p) -> win32more.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-gaming-tcui-l1-1-4.dll')
 def ShowUserSettingsUIForUser(user: win32more.System.WinRT.IInspectable_head, completionRoutine: win32more.Gaming.GameUICompletionRoutine, context: c_void_p) -> win32more.Foundation.HRESULT: ...
-GAME_INSTALL_SCOPE = Int32
-GIS_NOT_INSTALLED: GAME_INSTALL_SCOPE = 1
-GIS_CURRENT_USER: GAME_INSTALL_SCOPE = 2
-GIS_ALL_USERS: GAME_INSTALL_SCOPE = 3
-GameExplorer = Guid('9a5ea990-3034-4d6f-91-28-01-f3-c6-10-22-bc')
-GameStatistics = Guid('dbc85a2c-c0dc-4961-b6-e2-d2-8b-62-c1-1a-d4')
 GAMESTATS_OPEN_RESULT = Int32
 GAMESTATS_OPEN_CREATED: GAMESTATS_OPEN_RESULT = 0
 GAMESTATS_OPEN_OPENED: GAMESTATS_OPEN_RESULT = 1
 GAMESTATS_OPEN_TYPE = Int32
 GAMESTATS_OPEN_OPENORCREATE: GAMESTATS_OPEN_TYPE = 0
 GAMESTATS_OPEN_OPENONLY: GAMESTATS_OPEN_TYPE = 1
-@winfunctype_pointer
-def GameUICompletionRoutine(returnCode: win32more.Foundation.HRESULT, context: c_void_p) -> Void: ...
+GAME_INSTALL_SCOPE = Int32
+GIS_NOT_INSTALLED: GAME_INSTALL_SCOPE = 1
+GIS_CURRENT_USER: GAME_INSTALL_SCOPE = 2
+GIS_ALL_USERS: GAME_INSTALL_SCOPE = 3
 GAMING_DEVICE_DEVICE_ID = Int32
 GAMING_DEVICE_DEVICE_ID_NONE: GAMING_DEVICE_DEVICE_ID = 0
 GAMING_DEVICE_DEVICE_ID_XBOX_ONE: GAMING_DEVICE_DEVICE_ID = 1988865574
@@ -106,6 +102,10 @@ class GAMING_DEVICE_MODEL_INFORMATION(Structure):
 GAMING_DEVICE_VENDOR_ID = Int32
 GAMING_DEVICE_VENDOR_ID_NONE: GAMING_DEVICE_VENDOR_ID = 0
 GAMING_DEVICE_VENDOR_ID_MICROSOFT: GAMING_DEVICE_VENDOR_ID = -1024700366
+GameExplorer = Guid('9a5ea990-3034-4d6f-91-28-01-f3-c6-10-22-bc')
+GameStatistics = Guid('dbc85a2c-c0dc-4961-b6-e2-d2-8b-62-c1-1a-d4')
+@winfunctype_pointer
+def GameUICompletionRoutine(returnCode: win32more.Foundation.HRESULT, context: c_void_p) -> Void: ...
 class IGameExplorer(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('e7b2fb72-d728-49b3-a5-f2-18-eb-f5-f1-34-9e')
@@ -264,8 +264,8 @@ XBL_IDP_AUTH_TOKEN_STATUS_VIEW_NOT_SET: XBL_IDP_AUTH_TOKEN_STATUS = 7
 XBL_IDP_AUTH_TOKEN_STATUS_UNKNOWN: XBL_IDP_AUTH_TOKEN_STATUS = -1
 XblIdpAuthManager = Guid('ce23534b-56d8-4978-86-a2-7e-e5-70-64-04-68')
 XblIdpAuthTokenResult = Guid('9f493441-744a-410c-ae-2b-9a-22-f7-c7-73-1f')
-make_head(_module, 'GameUICompletionRoutine')
 make_head(_module, 'GAMING_DEVICE_MODEL_INFORMATION')
+make_head(_module, 'GameUICompletionRoutine')
 make_head(_module, 'IGameExplorer')
 make_head(_module, 'IGameExplorer2')
 make_head(_module, 'IGameStatistics')

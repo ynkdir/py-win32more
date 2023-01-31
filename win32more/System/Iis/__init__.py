@@ -18,8 +18,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _IIS_CRYPTO_BLOB(Structure):
-    pass
 IISADMIN_EXTENSIONS_REG_KEYA: String = 'SOFTWARE\\Microsoft\\InetStp\\Extensions'
 IISADMIN_EXTENSIONS_REG_KEYW: String = 'SOFTWARE\\Microsoft\\InetStp\\Extensions'
 IISADMIN_EXTENSIONS_REG_KEY: String = 'SOFTWARE\\Microsoft\\InetStp\\Extensions'
@@ -1140,6 +1138,11 @@ class HTTP_FILTER_ACCESS_DENIED(Structure):
     pszURL: win32more.Foundation.PSTR
     pszPhysicalPath: win32more.Foundation.PSTR
     dwReason: UInt32
+class HTTP_FILTER_AUTHENT(Structure):
+    pszUser: win32more.Foundation.PSTR
+    cbUserBuff: UInt32
+    pszPassword: win32more.Foundation.PSTR
+    cbPasswordBuff: UInt32
 class HTTP_FILTER_AUTH_COMPLETE_INFO(Structure):
     GetHeader: IntPtr
     SetHeader: IntPtr
@@ -1148,11 +1151,6 @@ class HTTP_FILTER_AUTH_COMPLETE_INFO(Structure):
     HttpStatus: UInt32
     fResetAuth: win32more.Foundation.BOOL
     dwReserved: UInt32
-class HTTP_FILTER_AUTHENT(Structure):
-    pszUser: win32more.Foundation.PSTR
-    cbUserBuff: UInt32
-    pszPassword: win32more.Foundation.PSTR
-    cbPasswordBuff: UInt32
 class HTTP_FILTER_CONTEXT(Structure):
     cbSize: UInt32
     Revision: UInt32
@@ -1414,6 +1412,14 @@ class MD_CHANGE_OBJECT_W(Structure):
     dwMDChangeType: UInt32
     dwMDNumDataIDs: UInt32
     pdwMDDataIDs: POINTER(UInt32)
+METADATATYPES = Int32
+ALL_METADATA: METADATATYPES = 0
+DWORD_METADATA: METADATATYPES = 1
+STRING_METADATA: METADATATYPES = 2
+BINARY_METADATA: METADATATYPES = 3
+EXPANDSZ_METADATA: METADATATYPES = 4
+MULTISZ_METADATA: METADATATYPES = 5
+INVALID_END_METADATA: METADATATYPES = 6
 class METADATA_GETALL_INTERNAL_RECORD(Structure):
     dwMDIdentifier: UInt32
     dwMDAttributes: UInt32
@@ -1444,14 +1450,6 @@ class METADATA_RECORD(Structure):
     dwMDDataLen: UInt32
     pbMDData: c_char_p_no
     dwMDDataTag: UInt32
-METADATATYPES = Int32
-ALL_METADATA: METADATATYPES = 0
-DWORD_METADATA: METADATATYPES = 1
-STRING_METADATA: METADATATYPES = 2
-BINARY_METADATA: METADATATYPES = 3
-EXPANDSZ_METADATA: METADATATYPES = 4
-MULTISZ_METADATA: METADATATYPES = 5
-INVALID_END_METADATA: METADATATYPES = 6
 @winfunctype_pointer
 def PFN_GETEXTENSIONVERSION(pVer: POINTER(win32more.System.Iis.HSE_VERSION_INFO_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -1527,7 +1525,8 @@ SF_STATUS_REQ_NEXT_NOTIFICATION: SF_STATUS_TYPE = 134217730
 SF_STATUS_REQ_HANDLED_NOTIFICATION: SF_STATUS_TYPE = 134217731
 SF_STATUS_REQ_ERROR: SF_STATUS_TYPE = 134217732
 SF_STATUS_REQ_READ_NEXT: SF_STATUS_TYPE = 134217733
-make_head(_module, '_IIS_CRYPTO_BLOB')
+class _IIS_CRYPTO_BLOB(Structure):
+    pass
 make_head(_module, 'AsyncIFtpAuthenticationProvider')
 make_head(_module, 'AsyncIFtpAuthorizationProvider')
 make_head(_module, 'AsyncIFtpHomeDirectoryProvider')
@@ -1555,8 +1554,8 @@ make_head(_module, 'HSE_URL_MAPEX_INFO')
 make_head(_module, 'HSE_VECTOR_ELEMENT')
 make_head(_module, 'HSE_VERSION_INFO')
 make_head(_module, 'HTTP_FILTER_ACCESS_DENIED')
-make_head(_module, 'HTTP_FILTER_AUTH_COMPLETE_INFO')
 make_head(_module, 'HTTP_FILTER_AUTHENT')
+make_head(_module, 'HTTP_FILTER_AUTH_COMPLETE_INFO')
 make_head(_module, 'HTTP_FILTER_CONTEXT')
 make_head(_module, 'HTTP_FILTER_LOG')
 make_head(_module, 'HTTP_FILTER_PREPROC_HEADERS')
@@ -1598,6 +1597,7 @@ make_head(_module, 'PFN_WEB_CORE_SET_METADATA_DLL_ENTRY')
 make_head(_module, 'PFN_WEB_CORE_SHUTDOWN')
 make_head(_module, 'POST_PROCESS_PARAMETERS')
 make_head(_module, 'PRE_PROCESS_PARAMETERS')
+make_head(_module, '_IIS_CRYPTO_BLOB')
 __all__ = [
     "ADMINDATA_MAX_NAME_LEN",
     "ALL_METADATA",

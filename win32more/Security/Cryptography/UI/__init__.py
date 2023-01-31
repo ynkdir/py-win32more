@@ -128,6 +128,10 @@ class CERT_FILTER_EXTENSION_MATCH(Structure):
     dwTestOperation: UInt32
     pbTestData: c_char_p_no
     cbTestData: UInt32
+class CERT_SELECTUI_INPUT(Structure):
+    hStore: win32more.Security.Cryptography.HCERTSTORE
+    prgpChain: POINTER(POINTER(win32more.Security.Cryptography.CERT_CHAIN_CONTEXT_head))
+    cChain: UInt32
 class CERT_SELECT_STRUCT_A(Structure):
     dwSize: UInt32
     hwndParent: win32more.Foundation.HWND
@@ -171,10 +175,6 @@ class CERT_SELECT_STRUCT_W(Structure):
     szHelpFileName: win32more.Foundation.PWSTR
     dwHelpId: UInt32
     hprov: UIntPtr
-class CERT_SELECTUI_INPUT(Structure):
-    hStore: win32more.Security.Cryptography.HCERTSTORE
-    prgpChain: POINTER(POINTER(win32more.Security.Cryptography.CERT_CHAIN_CONTEXT_head))
-    cChain: UInt32
 class CERT_VERIFY_CERTIFICATE_TRUST(Structure):
     cbSize: UInt32
     pccert: POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head)
@@ -481,9 +481,9 @@ def PFNCMHOOKPROC(hwndDialog: win32more.Foundation.HWND, message: UInt32, wParam
 def PFNTRUSTHELPER(pCertContext: POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head), lCustData: win32more.Foundation.LPARAM, fLeafCertificate: win32more.Foundation.BOOL, pbTrustBlob: c_char_p_no) -> win32more.Foundation.HRESULT: ...
 make_head(_module, 'CERT_FILTER_DATA')
 make_head(_module, 'CERT_FILTER_EXTENSION_MATCH')
+make_head(_module, 'CERT_SELECTUI_INPUT')
 make_head(_module, 'CERT_SELECT_STRUCT_A')
 make_head(_module, 'CERT_SELECT_STRUCT_W')
-make_head(_module, 'CERT_SELECTUI_INPUT')
 make_head(_module, 'CERT_VERIFY_CERTIFICATE_TRUST')
 make_head(_module, 'CERT_VIEWPROPERTIES_STRUCT_A')
 make_head(_module, 'CERT_VIEWPROPERTIES_STRUCT_W')

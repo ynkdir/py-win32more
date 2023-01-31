@@ -17,6 +17,7 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+AdSyncTask = Guid('2ae64751-b728-4d6b-97-a0-b2-da-2e-7d-2a-3b')
 AdrClientDisplayFlags = Int32
 AdrClientDisplayFlags_AllowEmailRequests: AdrClientDisplayFlags = 1
 AdrClientDisplayFlags_ShowDeviceTroubleshooting: AdrClientDisplayFlags = 2
@@ -35,7 +36,6 @@ AdrEmailFlags_PutAdminOnToLine: AdrEmailFlags = 2
 AdrEmailFlags_IncludeDeviceClaims: AdrEmailFlags = 4
 AdrEmailFlags_IncludeUserInfo: AdrEmailFlags = 8
 AdrEmailFlags_GenerateEventLog: AdrEmailFlags = 16
-AdSyncTask = Guid('2ae64751-b728-4d6b-97-a0-b2-da-2e-7d-2a-3b')
 FSRM_DISPID_FEATURE_MASK: UInt32 = 251658240
 FSRM_DISPID_INTERFACE_A_MASK: UInt32 = 15728640
 FSRM_DISPID_INTERFACE_B_MASK: UInt32 = 983040

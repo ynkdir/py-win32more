@@ -17,9 +17,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _DMSMQEventEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('d7d6e078-dccd-11d0-aa-4b-00-60-97-0d-eb-ae')
 PRLT: UInt32 = 0
 PRLE: UInt32 = 1
 PRGT: UInt32 = 2
@@ -1973,7 +1970,9 @@ XACT_STATUS = Int32
 MQ_XACT_STATUS_XACT: XACT_STATUS = 0
 MQ_XACT_STATUS_NOT_XACT: XACT_STATUS = 1
 MQ_XACT_STATUS_UNKNOWN: XACT_STATUS = 2
-make_head(_module, '_DMSMQEventEvents')
+class _DMSMQEventEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('d7d6e078-dccd-11d0-aa-4b-00-60-97-0d-eb-ae')
 make_head(_module, 'IMSMQApplication')
 make_head(_module, 'IMSMQApplication2')
 make_head(_module, 'IMSMQApplication3')
@@ -2016,6 +2015,7 @@ make_head(_module, 'IMSMQTransaction3')
 make_head(_module, 'IMSMQTransactionDispenser')
 make_head(_module, 'IMSMQTransactionDispenser2')
 make_head(_module, 'IMSMQTransactionDispenser3')
+make_head(_module, '_DMSMQEventEvents')
 __all__ = [
     "DEFAULT_M_ACKNOWLEDGE",
     "DEFAULT_M_APPSPECIFIC",

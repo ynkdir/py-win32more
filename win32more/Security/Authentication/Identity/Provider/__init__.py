@@ -199,15 +199,6 @@ IDENTITY_URL_IFEXISTS_WIZARD: IDENTITY_URL = 3
 IDENTITY_URL_ACCOUNT_SETTINGS: IDENTITY_URL = 4
 IDENTITY_URL_RESTORE_WIZARD: IDENTITY_URL = 5
 IDENTITY_URL_CONNECT_WIZARD: IDENTITY_URL = 6
-IdentityUpdateEvent = UInt32
-IDENTITY_ASSOCIATED: IdentityUpdateEvent = 1
-IDENTITY_DISASSOCIATED: IdentityUpdateEvent = 2
-IDENTITY_CREATED: IdentityUpdateEvent = 4
-IDENTITY_IMPORTED: IdentityUpdateEvent = 8
-IDENTITY_DELETED: IdentityUpdateEvent = 16
-IDENTITY_PROPCHANGED: IdentityUpdateEvent = 32
-IDENTITY_CONNECTED: IdentityUpdateEvent = 64
-IDENTITY_DISCONNECTED: IdentityUpdateEvent = 128
 class IIdentityAdvise(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('4e982fed-d14b-440c-b8-d6-bb-38-64-53-d3-86')
@@ -261,6 +252,15 @@ class IIdentityStoreEx(c_void_p):
     def CreateConnectedIdentity(LocalName: win32more.Foundation.PWSTR, ConnectedName: win32more.Foundation.PWSTR, ProviderGUID: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def DeleteConnectedIdentity(ConnectedName: win32more.Foundation.PWSTR, ProviderGUID: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+IdentityUpdateEvent = UInt32
+IDENTITY_ASSOCIATED: IdentityUpdateEvent = 1
+IDENTITY_DISASSOCIATED: IdentityUpdateEvent = 2
+IDENTITY_CREATED: IdentityUpdateEvent = 4
+IDENTITY_IMPORTED: IdentityUpdateEvent = 8
+IDENTITY_DELETED: IdentityUpdateEvent = 16
+IDENTITY_PROPCHANGED: IdentityUpdateEvent = 32
+IDENTITY_CONNECTED: IdentityUpdateEvent = 64
+IDENTITY_DISCONNECTED: IdentityUpdateEvent = 128
 make_head(_module, 'AsyncIAssociatedIdentityProvider')
 make_head(_module, 'AsyncIConnectedIdentityProvider')
 make_head(_module, 'AsyncIIdentityAdvise')

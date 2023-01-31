@@ -308,12 +308,6 @@ class IUserInputString(c_void_p):
     def GetMruEntryAt(nIndex: UInt32, pbstrMruEntry: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
     @commethod(12)
     def GetImage(nSize: UInt32, phBitmap: POINTER(win32more.Graphics.Gdi.HBITMAP), phIcon: POINTER(win32more.UI.WindowsAndMessaging.HICON)) -> win32more.Foundation.HRESULT: ...
-PhotoAcquire = Guid('00f26e02-e9f2-4a9f-9f-dd-5a-96-2f-b2-6a-98')
-PhotoAcquireAutoPlayDropTarget = Guid('00f20eb5-8fd6-4d9d-b7-5e-36-80-17-66-c8-f1')
-PhotoAcquireAutoPlayHWEventHandler = Guid('00f2b433-44e4-4d88-b2-b0-26-98-a0-a9-1d-ba')
-PhotoAcquireDeviceSelectionDialog = Guid('00f29a34-b8a1-482c-bc-f8-3a-c7-b0-fe-8f-62')
-PhotoAcquireOptionsDialog = Guid('00f210a1-62f0-438b-9f-7e-96-18-d7-2a-18-31')
-PhotoProgressDialog = Guid('00f24ca0-748f-4e8a-89-4f-0e-03-57-c6-79-9f')
 PROGRESS_DIALOG_CHECKBOX_ID = Int32
 PROGRESS_DIALOG_CHECKBOX_ID_DEFAULT: PROGRESS_DIALOG_CHECKBOX_ID = 0
 PROGRESS_DIALOG_IMAGE_TYPE = Int32
@@ -321,6 +315,12 @@ PROGRESS_DIALOG_ICON_SMALL: PROGRESS_DIALOG_IMAGE_TYPE = 0
 PROGRESS_DIALOG_ICON_LARGE: PROGRESS_DIALOG_IMAGE_TYPE = 1
 PROGRESS_DIALOG_ICON_THUMBNAIL: PROGRESS_DIALOG_IMAGE_TYPE = 2
 PROGRESS_DIALOG_BITMAP_THUMBNAIL: PROGRESS_DIALOG_IMAGE_TYPE = 3
+PhotoAcquire = Guid('00f26e02-e9f2-4a9f-9f-dd-5a-96-2f-b2-6a-98')
+PhotoAcquireAutoPlayDropTarget = Guid('00f20eb5-8fd6-4d9d-b7-5e-36-80-17-66-c8-f1')
+PhotoAcquireAutoPlayHWEventHandler = Guid('00f2b433-44e4-4d88-b2-b0-26-98-a0-a9-1d-ba')
+PhotoAcquireDeviceSelectionDialog = Guid('00f29a34-b8a1-482c-bc-f8-3a-c7-b0-fe-8f-62')
+PhotoAcquireOptionsDialog = Guid('00f210a1-62f0-438b-9f-7e-96-18-d7-2a-18-31')
+PhotoProgressDialog = Guid('00f24ca0-748f-4e8a-89-4f-0e-03-57-c6-79-9f')
 USER_INPUT_STRING_TYPE = Int32
 USER_INPUT_DEFAULT: USER_INPUT_STRING_TYPE = 0
 USER_INPUT_PATH_ELEMENT: USER_INPUT_STRING_TYPE = 1

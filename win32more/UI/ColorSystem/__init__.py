@@ -344,9 +344,6 @@ def ColorProfileGetDisplayList(scope: win32more.UI.ColorSystem.WCS_PROFILE_MANAG
 def ColorProfileGetDisplayDefault(scope: win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE, targetAdapterID: win32more.Foundation.LUID, sourceID: UInt32, profileType: win32more.UI.ColorSystem.COLORPROFILETYPE, profileSubType: win32more.UI.ColorSystem.COLORPROFILESUBTYPE, profileName: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
 @winfunctype('mscms.dll')
 def ColorProfileGetDisplayUserScope(targetAdapterID: win32more.Foundation.LUID, sourceID: UInt32, scope: POINTER(win32more.UI.ColorSystem.WCS_PROFILE_MANAGEMENT_SCOPE)) -> win32more.Foundation.HRESULT: ...
-class BlackInformation(Structure):
-    fBlackOnly: win32more.Foundation.BOOL
-    blackWeight: Single
 BMFORMAT = Int32
 BM_x555RGB: BMFORMAT = 0
 BM_x555XYZ: BMFORMAT = 257
@@ -389,6 +386,9 @@ BM_S2DOT13FIXED_scARGB: BMFORMAT = 1540
 BM_R10G10B10A2: BMFORMAT = 1793
 BM_R10G10B10A2_XR: BMFORMAT = 1794
 BM_R16G16B16A16_FLOAT: BMFORMAT = 1795
+class BlackInformation(Structure):
+    fBlackOnly: win32more.Foundation.BOOL
+    blackWeight: Single
 class CMYKCOLOR(Structure):
     cyan: UInt16
     magenta: UInt16
@@ -408,10 +408,6 @@ class COLOR(Union):
     class _Anonymous_e__Struct(Structure):
         reserved1: UInt32
         reserved2: c_void_p
-COLOR_MATCH_TO_TARGET_ACTION = Int32
-CS_ENABLE: COLOR_MATCH_TO_TARGET_ACTION = 1
-CS_DISABLE: COLOR_MATCH_TO_TARGET_ACTION = 2
-CS_DELETE_TRANSFORM: COLOR_MATCH_TO_TARGET_ACTION = 3
 COLORDATATYPE = Int32
 COLOR_BYTE: COLORDATATYPE = 1
 COLOR_WORD: COLORDATATYPE = 2
@@ -488,6 +484,10 @@ COLOR_6_CHANNEL: COLORTYPE = 9
 COLOR_7_CHANNEL: COLORTYPE = 10
 COLOR_8_CHANNEL: COLORTYPE = 11
 COLOR_NAMED: COLORTYPE = 12
+COLOR_MATCH_TO_TARGET_ACTION = Int32
+CS_ENABLE: COLOR_MATCH_TO_TARGET_ACTION = 1
+CS_DISABLE: COLOR_MATCH_TO_TARGET_ACTION = 2
+CS_DELETE_TRANSFORM: COLOR_MATCH_TO_TARGET_ACTION = 3
 class EMRCREATECOLORSPACE(Structure):
     emr: win32more.Graphics.Gdi.EMR
     ihCS: UInt32
@@ -541,6 +541,12 @@ class ENUMTYPEW(Structure):
     dwRenderingIntent: UInt32
     dwCreator: UInt32
     dwDeviceClass: UInt32
+class GENERIC3CHANNEL(Structure):
+    ch1: UInt16
+    ch2: UInt16
+    ch3: UInt16
+class GRAYCOLOR(Structure):
+    gray: UInt16
 class GamutBoundaryDescription(Structure):
     pPrimaries: POINTER(win32more.UI.ColorSystem.PrimaryJabColors_head)
     cNeutralSamples: UInt32
@@ -557,15 +563,13 @@ class GamutShell(Structure):
     pTriangles: POINTER(win32more.UI.ColorSystem.GamutShellTriangle_head)
 class GamutShellTriangle(Structure):
     aVertexIndex: UInt32 * 3
-class GENERIC3CHANNEL(Structure):
-    ch1: UInt16
-    ch2: UInt16
-    ch3: UInt16
-class GRAYCOLOR(Structure):
-    gray: UInt16
 HCOLORSPACE = IntPtr
 class HiFiCOLOR(Structure):
     channel: Byte * 8
+@winfunctype_pointer
+def ICMENUMPROCA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.LPARAM) -> Int32: ...
+@winfunctype_pointer
+def ICMENUMPROCW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.LPARAM) -> Int32: ...
 ICM_COMMAND = UInt32
 ICM_ADDPROFILE: ICM_COMMAND = 1
 ICM_DELETEPROFILE: ICM_COMMAND = 2
@@ -579,10 +583,6 @@ ICM_OFF: ICM_MODE = 1
 ICM_ON: ICM_MODE = 2
 ICM_QUERY: ICM_MODE = 3
 ICM_DONE_OUTSIDEDC: ICM_MODE = 4
-@winfunctype_pointer
-def ICMENUMPROCA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.LPARAM) -> Int32: ...
-@winfunctype_pointer
-def ICMENUMPROCW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.LPARAM) -> Int32: ...
 class IDeviceModelPlugIn(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('1cd63475-07c4-46fe-a9-03-d6-55-31-6d-11-fd')
@@ -615,18 +615,14 @@ class IGamutMapModelPlugIn(c_void_p):
     def Initialize(bstrXml: win32more.Foundation.BSTR, pSrcPlugIn: win32more.UI.ColorSystem.IDeviceModelPlugIn_head, pDestPlugIn: win32more.UI.ColorSystem.IDeviceModelPlugIn_head, pSrcGBD: POINTER(win32more.UI.ColorSystem.GamutBoundaryDescription_head), pDestGBD: POINTER(win32more.UI.ColorSystem.GamutBoundaryDescription_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def SourceToDestinationAppearanceColors(cColors: UInt32, pInputColors: POINTER(win32more.UI.ColorSystem.JChColorF_head), pOutputColors: POINTER(win32more.UI.ColorSystem.JChColorF_head)) -> win32more.Foundation.HRESULT: ...
-class JabColorF(Structure):
-    J: Single
-    a: Single
-    b: Single
 class JChColorF(Structure):
     J: Single
     C: Single
     h: Single
-class LabCOLOR(Structure):
-    L: UInt16
-    a: UInt16
-    b: UInt16
+class JabColorF(Structure):
+    J: Single
+    a: Single
+    b: Single
 class LOGCOLORSPACEA(Structure):
     lcsSignature: UInt32
     lcsVersion: UInt32
@@ -651,36 +647,22 @@ class LOGCOLORSPACEW(Structure):
     lcsFilename: Char * 260
 @winfunctype_pointer
 def LPBMCALLBACKFN(param0: UInt32, param1: UInt32, param2: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+class LabCOLOR(Structure):
+    L: UInt16
+    a: UInt16
+    b: UInt16
+class NAMEDCOLOR(Structure):
+    dwIndex: UInt32
 class NAMED_PROFILE_INFO(Structure):
     dwFlags: UInt32
     dwCount: UInt32
     dwCountDevCoordinates: UInt32
     szPrefix: SByte * 32
     szSuffix: SByte * 32
-class NAMEDCOLOR(Structure):
-    dwIndex: UInt32
 @winfunctype_pointer
 def PCMSCALLBACKA(param0: POINTER(win32more.UI.ColorSystem.COLORMATCHSETUPA_head), param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PCMSCALLBACKW(param0: POINTER(win32more.UI.ColorSystem.COLORMATCHSETUPW_head), param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
-class PrimaryJabColors(Structure):
-    red: win32more.UI.ColorSystem.JabColorF
-    yellow: win32more.UI.ColorSystem.JabColorF
-    green: win32more.UI.ColorSystem.JabColorF
-    cyan: win32more.UI.ColorSystem.JabColorF
-    blue: win32more.UI.ColorSystem.JabColorF
-    magenta: win32more.UI.ColorSystem.JabColorF
-    black: win32more.UI.ColorSystem.JabColorF
-    white: win32more.UI.ColorSystem.JabColorF
-class PrimaryXYZColors(Structure):
-    red: win32more.UI.ColorSystem.XYZColorF
-    yellow: win32more.UI.ColorSystem.XYZColorF
-    green: win32more.UI.ColorSystem.XYZColorF
-    cyan: win32more.UI.ColorSystem.XYZColorF
-    blue: win32more.UI.ColorSystem.XYZColorF
-    magenta: win32more.UI.ColorSystem.XYZColorF
-    black: win32more.UI.ColorSystem.XYZColorF
-    white: win32more.UI.ColorSystem.XYZColorF
 class PROFILE(Structure):
     dwType: UInt32
     pProfileData: c_void_p
@@ -703,6 +685,24 @@ class PROFILEHEADER(Structure):
     phIlluminant: win32more.Graphics.Gdi.CIEXYZ
     phCreator: UInt32
     phReserved: Byte * 44
+class PrimaryJabColors(Structure):
+    red: win32more.UI.ColorSystem.JabColorF
+    yellow: win32more.UI.ColorSystem.JabColorF
+    green: win32more.UI.ColorSystem.JabColorF
+    cyan: win32more.UI.ColorSystem.JabColorF
+    blue: win32more.UI.ColorSystem.JabColorF
+    magenta: win32more.UI.ColorSystem.JabColorF
+    black: win32more.UI.ColorSystem.JabColorF
+    white: win32more.UI.ColorSystem.JabColorF
+class PrimaryXYZColors(Structure):
+    red: win32more.UI.ColorSystem.XYZColorF
+    yellow: win32more.UI.ColorSystem.XYZColorF
+    green: win32more.UI.ColorSystem.XYZColorF
+    cyan: win32more.UI.ColorSystem.XYZColorF
+    blue: win32more.UI.ColorSystem.XYZColorF
+    magenta: win32more.UI.ColorSystem.XYZColorF
+    black: win32more.UI.ColorSystem.XYZColorF
+    white: win32more.UI.ColorSystem.XYZColorF
 class RGBCOLOR(Structure):
     red: UInt16
     green: UInt16
@@ -743,30 +743,30 @@ make_head(_module, 'EMRCREATECOLORSPACE')
 make_head(_module, 'EMRCREATECOLORSPACEW')
 make_head(_module, 'ENUMTYPEA')
 make_head(_module, 'ENUMTYPEW')
+make_head(_module, 'GENERIC3CHANNEL')
+make_head(_module, 'GRAYCOLOR')
 make_head(_module, 'GamutBoundaryDescription')
 make_head(_module, 'GamutShell')
 make_head(_module, 'GamutShellTriangle')
-make_head(_module, 'GENERIC3CHANNEL')
-make_head(_module, 'GRAYCOLOR')
 make_head(_module, 'HiFiCOLOR')
 make_head(_module, 'ICMENUMPROCA')
 make_head(_module, 'ICMENUMPROCW')
 make_head(_module, 'IDeviceModelPlugIn')
 make_head(_module, 'IGamutMapModelPlugIn')
-make_head(_module, 'JabColorF')
 make_head(_module, 'JChColorF')
-make_head(_module, 'LabCOLOR')
+make_head(_module, 'JabColorF')
 make_head(_module, 'LOGCOLORSPACEA')
 make_head(_module, 'LOGCOLORSPACEW')
 make_head(_module, 'LPBMCALLBACKFN')
-make_head(_module, 'NAMED_PROFILE_INFO')
+make_head(_module, 'LabCOLOR')
 make_head(_module, 'NAMEDCOLOR')
+make_head(_module, 'NAMED_PROFILE_INFO')
 make_head(_module, 'PCMSCALLBACKA')
 make_head(_module, 'PCMSCALLBACKW')
-make_head(_module, 'PrimaryJabColors')
-make_head(_module, 'PrimaryXYZColors')
 make_head(_module, 'PROFILE')
 make_head(_module, 'PROFILEHEADER')
+make_head(_module, 'PrimaryJabColors')
+make_head(_module, 'PrimaryXYZColors')
 make_head(_module, 'RGBCOLOR')
 make_head(_module, 'WCS_DEVICE_MHC2_CAPABILITIES')
 make_head(_module, 'WCS_DEVICE_VCGT_CAPABILITIES')

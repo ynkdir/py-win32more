@@ -45,51 +45,6 @@ def DevGetObjectPropertiesEx(ObjectType: win32more.Devices.DeviceQuery.DEV_OBJEC
 def DevFreeObjectProperties(cPropertyCount: UInt32, pProperties: POINTER(win32more.Devices.Properties.DEVPROPERTY_head)) -> Void: ...
 @winfunctype('api-ms-win-devices-query-l1-1-0.dll')
 def DevFindProperty(pKey: POINTER(win32more.Devices.Properties.DEVPROPKEY_head), Store: win32more.Devices.Properties.DEVPROPSTORE, pszLocaleName: win32more.Foundation.PWSTR, cProperties: UInt32, pProperties: POINTER(win32more.Devices.Properties.DEVPROPERTY_head)) -> POINTER(win32more.Devices.Properties.DEVPROPERTY_head): ...
-class DEV_OBJECT(Structure):
-    ObjectType: win32more.Devices.DeviceQuery.DEV_OBJECT_TYPE
-    pszObjectId: win32more.Foundation.PWSTR
-    cPropertyCount: UInt32
-    pProperties: POINTER(win32more.Devices.Properties.DEVPROPERTY_head)
-DEV_OBJECT_TYPE = Int32
-DEV_OBJECT_TYPE_DevObjectTypeUnknown: DEV_OBJECT_TYPE = 0
-DEV_OBJECT_TYPE_DevObjectTypeDeviceInterface: DEV_OBJECT_TYPE = 1
-DEV_OBJECT_TYPE_DevObjectTypeDeviceContainer: DEV_OBJECT_TYPE = 2
-DEV_OBJECT_TYPE_DevObjectTypeDevice: DEV_OBJECT_TYPE = 3
-DEV_OBJECT_TYPE_DevObjectTypeDeviceInterfaceClass: DEV_OBJECT_TYPE = 4
-DEV_OBJECT_TYPE_DevObjectTypeAEP: DEV_OBJECT_TYPE = 5
-DEV_OBJECT_TYPE_DevObjectTypeAEPContainer: DEV_OBJECT_TYPE = 6
-DEV_OBJECT_TYPE_DevObjectTypeDeviceInstallerClass: DEV_OBJECT_TYPE = 7
-DEV_OBJECT_TYPE_DevObjectTypeDeviceInterfaceDisplay: DEV_OBJECT_TYPE = 8
-DEV_OBJECT_TYPE_DevObjectTypeDeviceContainerDisplay: DEV_OBJECT_TYPE = 9
-DEV_OBJECT_TYPE_DevObjectTypeAEPService: DEV_OBJECT_TYPE = 10
-DEV_OBJECT_TYPE_DevObjectTypeDevicePanel: DEV_OBJECT_TYPE = 11
-DEV_QUERY_FLAGS = Int32
-DEV_QUERY_FLAGS_DevQueryFlagNone: DEV_QUERY_FLAGS = 0
-DEV_QUERY_FLAGS_DevQueryFlagUpdateResults: DEV_QUERY_FLAGS = 1
-DEV_QUERY_FLAGS_DevQueryFlagAllProperties: DEV_QUERY_FLAGS = 2
-DEV_QUERY_FLAGS_DevQueryFlagLocalize: DEV_QUERY_FLAGS = 4
-DEV_QUERY_FLAGS_DevQueryFlagAsyncClose: DEV_QUERY_FLAGS = 8
-class DEV_QUERY_PARAMETER(Structure):
-    Key: win32more.Devices.Properties.DEVPROPKEY
-    Type: UInt32
-    BufferSize: UInt32
-    Buffer: c_void_p
-DEV_QUERY_RESULT_ACTION = Int32
-DEV_QUERY_RESULT_ACTION_DevQueryResultStateChange: DEV_QUERY_RESULT_ACTION = 0
-DEV_QUERY_RESULT_ACTION_DevQueryResultAdd: DEV_QUERY_RESULT_ACTION = 1
-DEV_QUERY_RESULT_ACTION_DevQueryResultUpdate: DEV_QUERY_RESULT_ACTION = 2
-DEV_QUERY_RESULT_ACTION_DevQueryResultRemove: DEV_QUERY_RESULT_ACTION = 3
-class DEV_QUERY_RESULT_ACTION_DATA(Structure):
-    Action: win32more.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION
-    Data: _DEV_QUERY_RESULT_UPDATE_PAYLOAD
-    class _DEV_QUERY_RESULT_UPDATE_PAYLOAD(Union):
-        State: win32more.Devices.DeviceQuery.DEV_QUERY_STATE
-        DeviceObject: win32more.Devices.DeviceQuery.DEV_OBJECT
-DEV_QUERY_STATE = Int32
-DEV_QUERY_STATE_DevQueryStateInitialized: DEV_QUERY_STATE = 0
-DEV_QUERY_STATE_DevQueryStateEnumCompleted: DEV_QUERY_STATE = 1
-DEV_QUERY_STATE_DevQueryStateAborted: DEV_QUERY_STATE = 2
-DEV_QUERY_STATE_DevQueryStateClosed: DEV_QUERY_STATE = 3
 class DEVPROP_FILTER_EXPRESSION(Structure):
     Operator: win32more.Devices.DeviceQuery.DEVPROP_OPERATOR
     Property: win32more.Devices.Properties.DEVPROPERTY
@@ -136,14 +91,59 @@ DEVPROP_OPERATOR_MASK_MODIFIER: DEVPROP_OPERATOR = 983040
 DEVPROP_OPERATOR_MASK_NOT_LOGICAL: DEVPROP_OPERATOR = 4027580415
 DEVPROP_OPERATOR_MASK_LOGICAL: DEVPROP_OPERATOR = 267386880
 DEVPROP_OPERATOR_MASK_ARRAY: DEVPROP_OPERATOR = 4026531840
+class DEV_OBJECT(Structure):
+    ObjectType: win32more.Devices.DeviceQuery.DEV_OBJECT_TYPE
+    pszObjectId: win32more.Foundation.PWSTR
+    cPropertyCount: UInt32
+    pProperties: POINTER(win32more.Devices.Properties.DEVPROPERTY_head)
+DEV_OBJECT_TYPE = Int32
+DEV_OBJECT_TYPE_DevObjectTypeUnknown: DEV_OBJECT_TYPE = 0
+DEV_OBJECT_TYPE_DevObjectTypeDeviceInterface: DEV_OBJECT_TYPE = 1
+DEV_OBJECT_TYPE_DevObjectTypeDeviceContainer: DEV_OBJECT_TYPE = 2
+DEV_OBJECT_TYPE_DevObjectTypeDevice: DEV_OBJECT_TYPE = 3
+DEV_OBJECT_TYPE_DevObjectTypeDeviceInterfaceClass: DEV_OBJECT_TYPE = 4
+DEV_OBJECT_TYPE_DevObjectTypeAEP: DEV_OBJECT_TYPE = 5
+DEV_OBJECT_TYPE_DevObjectTypeAEPContainer: DEV_OBJECT_TYPE = 6
+DEV_OBJECT_TYPE_DevObjectTypeDeviceInstallerClass: DEV_OBJECT_TYPE = 7
+DEV_OBJECT_TYPE_DevObjectTypeDeviceInterfaceDisplay: DEV_OBJECT_TYPE = 8
+DEV_OBJECT_TYPE_DevObjectTypeDeviceContainerDisplay: DEV_OBJECT_TYPE = 9
+DEV_OBJECT_TYPE_DevObjectTypeAEPService: DEV_OBJECT_TYPE = 10
+DEV_OBJECT_TYPE_DevObjectTypeDevicePanel: DEV_OBJECT_TYPE = 11
+DEV_QUERY_FLAGS = Int32
+DEV_QUERY_FLAGS_DevQueryFlagNone: DEV_QUERY_FLAGS = 0
+DEV_QUERY_FLAGS_DevQueryFlagUpdateResults: DEV_QUERY_FLAGS = 1
+DEV_QUERY_FLAGS_DevQueryFlagAllProperties: DEV_QUERY_FLAGS = 2
+DEV_QUERY_FLAGS_DevQueryFlagLocalize: DEV_QUERY_FLAGS = 4
+DEV_QUERY_FLAGS_DevQueryFlagAsyncClose: DEV_QUERY_FLAGS = 8
+class DEV_QUERY_PARAMETER(Structure):
+    Key: win32more.Devices.Properties.DEVPROPKEY
+    Type: UInt32
+    BufferSize: UInt32
+    Buffer: c_void_p
+DEV_QUERY_RESULT_ACTION = Int32
+DEV_QUERY_RESULT_ACTION_DevQueryResultStateChange: DEV_QUERY_RESULT_ACTION = 0
+DEV_QUERY_RESULT_ACTION_DevQueryResultAdd: DEV_QUERY_RESULT_ACTION = 1
+DEV_QUERY_RESULT_ACTION_DevQueryResultUpdate: DEV_QUERY_RESULT_ACTION = 2
+DEV_QUERY_RESULT_ACTION_DevQueryResultRemove: DEV_QUERY_RESULT_ACTION = 3
+class DEV_QUERY_RESULT_ACTION_DATA(Structure):
+    Action: win32more.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION
+    Data: _DEV_QUERY_RESULT_UPDATE_PAYLOAD
+    class _DEV_QUERY_RESULT_UPDATE_PAYLOAD(Union):
+        State: win32more.Devices.DeviceQuery.DEV_QUERY_STATE
+        DeviceObject: win32more.Devices.DeviceQuery.DEV_OBJECT
+DEV_QUERY_STATE = Int32
+DEV_QUERY_STATE_DevQueryStateInitialized: DEV_QUERY_STATE = 0
+DEV_QUERY_STATE_DevQueryStateEnumCompleted: DEV_QUERY_STATE = 1
+DEV_QUERY_STATE_DevQueryStateAborted: DEV_QUERY_STATE = 2
+DEV_QUERY_STATE_DevQueryStateClosed: DEV_QUERY_STATE = 3
 class HDEVQUERY__(Structure):
     unused: Int32
 @winfunctype_pointer
 def PDEV_QUERY_RESULT_CALLBACK(hDevQuery: POINTER(win32more.Devices.DeviceQuery.HDEVQUERY___head), pContext: c_void_p, pActionData: POINTER(win32more.Devices.DeviceQuery.DEV_QUERY_RESULT_ACTION_DATA_head)) -> Void: ...
+make_head(_module, 'DEVPROP_FILTER_EXPRESSION')
 make_head(_module, 'DEV_OBJECT')
 make_head(_module, 'DEV_QUERY_PARAMETER')
 make_head(_module, 'DEV_QUERY_RESULT_ACTION_DATA')
-make_head(_module, 'DEVPROP_FILTER_EXPRESSION')
 make_head(_module, 'HDEVQUERY__')
 make_head(_module, 'PDEV_QUERY_RESULT_CALLBACK')
 __all__ = [

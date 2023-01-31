@@ -159,12 +159,6 @@ EFaultRepRetVal_frrvErrDoubleFault: EFaultRepRetVal = 10
 HREPORT = IntPtr
 HREPORTSTORE = IntPtr
 @winfunctype_pointer
-def pfn_ADDEREXCLUDEDAPPLICATIONA(param0: win32more.Foundation.PSTR) -> win32more.System.ErrorReporting.EFaultRepRetVal: ...
-@winfunctype_pointer
-def pfn_ADDEREXCLUDEDAPPLICATIONW(param0: win32more.Foundation.PWSTR) -> win32more.System.ErrorReporting.EFaultRepRetVal: ...
-@winfunctype_pointer
-def pfn_REPORTFAULT(param0: POINTER(win32more.System.Diagnostics.Debug.EXCEPTION_POINTERS_head), param1: UInt32) -> win32more.System.ErrorReporting.EFaultRepRetVal: ...
-@winfunctype_pointer
 def PFN_WER_RUNTIME_EXCEPTION_DEBUGGER_LAUNCH(pContext: c_void_p, pExceptionInformation: POINTER(win32more.System.ErrorReporting.WER_RUNTIME_EXCEPTION_INFORMATION_head), pbIsCustomDebugger: POINTER(win32more.Foundation.BOOL), pwszDebuggerLaunch: win32more.Foundation.PWSTR, pchDebuggerLaunch: POINTER(UInt32), pbIsDebuggerAutolaunch: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFN_WER_RUNTIME_EXCEPTION_EVENT(pContext: c_void_p, pExceptionInformation: POINTER(win32more.System.ErrorReporting.WER_RUNTIME_EXCEPTION_INFORMATION_head), pbOwnershipClaimed: POINTER(win32more.Foundation.BOOL), pwszEventName: win32more.Foundation.PWSTR, pchSize: POINTER(UInt32), pdwSignatureCount: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
@@ -407,9 +401,12 @@ WER_SUBMIT_RESULT_WerThrottled: WER_SUBMIT_RESULT = 10
 WER_SUBMIT_RESULT_WerReportUploadedCab: WER_SUBMIT_RESULT = 11
 WER_SUBMIT_RESULT_WerStorageLocationNotFound: WER_SUBMIT_RESULT = 12
 WER_SUBMIT_RESULT_WerSubmitResultMax: WER_SUBMIT_RESULT = 13
-make_head(_module, 'pfn_ADDEREXCLUDEDAPPLICATIONA')
-make_head(_module, 'pfn_ADDEREXCLUDEDAPPLICATIONW')
-make_head(_module, 'pfn_REPORTFAULT')
+@winfunctype_pointer
+def pfn_ADDEREXCLUDEDAPPLICATIONA(param0: win32more.Foundation.PSTR) -> win32more.System.ErrorReporting.EFaultRepRetVal: ...
+@winfunctype_pointer
+def pfn_ADDEREXCLUDEDAPPLICATIONW(param0: win32more.Foundation.PWSTR) -> win32more.System.ErrorReporting.EFaultRepRetVal: ...
+@winfunctype_pointer
+def pfn_REPORTFAULT(param0: POINTER(win32more.System.Diagnostics.Debug.EXCEPTION_POINTERS_head), param1: UInt32) -> win32more.System.ErrorReporting.EFaultRepRetVal: ...
 make_head(_module, 'PFN_WER_RUNTIME_EXCEPTION_DEBUGGER_LAUNCH')
 make_head(_module, 'PFN_WER_RUNTIME_EXCEPTION_EVENT')
 make_head(_module, 'PFN_WER_RUNTIME_EXCEPTION_EVENT_SIGNATURE')
@@ -427,6 +424,9 @@ make_head(_module, 'WER_REPORT_METADATA_V3')
 make_head(_module, 'WER_REPORT_PARAMETER')
 make_head(_module, 'WER_REPORT_SIGNATURE')
 make_head(_module, 'WER_RUNTIME_EXCEPTION_INFORMATION')
+make_head(_module, 'pfn_ADDEREXCLUDEDAPPLICATIONA')
+make_head(_module, 'pfn_ADDEREXCLUDEDAPPLICATIONW')
+make_head(_module, 'pfn_REPORTFAULT')
 __all__ = [
     "APPCRASH_EVENT",
     "AddERExcludedApplicationA",

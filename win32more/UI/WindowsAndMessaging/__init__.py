@@ -52,6 +52,10 @@ AW_VER_NEGATIVE: ANIMATE_WINDOW_FLAGS = 8
 class ANIMATIONINFO(Structure):
     cbSize: UInt32
     iMinAnimate: Int32
+class AUDIODESCRIPTION(Structure):
+    cbSize: UInt32
+    Enabled: win32more.Foundation.BOOL
+    Locale: UInt32
 WM_DEVICECHANGE: UInt32 = 537
 BSM_VXDS: UInt32 = 1
 BSM_NETDRIVER: UInt32 = 2
@@ -2197,28 +2201,24 @@ def MrmCreateConfig(platformVersion: win32more.UI.WindowsAndMessaging.MrmPlatfor
 def MrmCreateConfigInMemory(platformVersion: win32more.UI.WindowsAndMessaging.MrmPlatformVersion, defaultQualifiers: win32more.Foundation.PWSTR, outputXmlData: POINTER(c_char_p_no), outputXmlSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
 @winfunctype('MrmSupport.dll')
 def MrmGetPriFileContentChecksum(priFile: win32more.Foundation.PWSTR, checksum: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-class AUDIODESCRIPTION(Structure):
-    cbSize: UInt32
-    Enabled: win32more.Foundation.BOOL
-    Locale: UInt32
 CASCADE_WINDOWS_HOW = UInt32
 MDITILE_SKIPDISABLED: CASCADE_WINDOWS_HOW = 2
 MDITILE_ZORDER: CASCADE_WINDOWS_HOW = 4
+class CBTACTIVATESTRUCT(Structure):
+    fMouse: win32more.Foundation.BOOL
+    hWndActive: win32more.Foundation.HWND
 class CBT_CREATEWNDA(Structure):
     lpcs: POINTER(win32more.UI.WindowsAndMessaging.CREATESTRUCTA_head)
     hwndInsertAfter: win32more.Foundation.HWND
 class CBT_CREATEWNDW(Structure):
     lpcs: POINTER(win32more.UI.WindowsAndMessaging.CREATESTRUCTW_head)
     hwndInsertAfter: win32more.Foundation.HWND
-class CBTACTIVATESTRUCT(Structure):
-    fMouse: win32more.Foundation.BOOL
-    hWndActive: win32more.Foundation.HWND
-CHANGE_WINDOW_MESSAGE_FILTER_FLAGS = UInt32
-MSGFLT_ADD: CHANGE_WINDOW_MESSAGE_FILTER_FLAGS = 1
-MSGFLT_REMOVE: CHANGE_WINDOW_MESSAGE_FILTER_FLAGS = 2
 class CHANGEFILTERSTRUCT(Structure):
     cbSize: UInt32
     ExtStatus: win32more.UI.WindowsAndMessaging.MSGFLTINFO_STATUS
+CHANGE_WINDOW_MESSAGE_FILTER_FLAGS = UInt32
+MSGFLT_ADD: CHANGE_WINDOW_MESSAGE_FILTER_FLAGS = 1
+MSGFLT_REMOVE: CHANGE_WINDOW_MESSAGE_FILTER_FLAGS = 2
 class CLIENTCREATESTRUCT(Structure):
     hWindowMenu: win32more.Foundation.HANDLE
     idFirstChild: UInt32
@@ -2264,11 +2264,6 @@ class CURSORSHAPE(Structure):
     cbWidth: Int32
     Planes: Byte
     BitsPixel: Byte
-CWP_FLAGS = UInt32
-CWP_ALL: CWP_FLAGS = 0
-CWP_SKIPINVISIBLE: CWP_FLAGS = 1
-CWP_SKIPDISABLED: CWP_FLAGS = 2
-CWP_SKIPTRANSPARENT: CWP_FLAGS = 4
 class CWPRETSTRUCT(Structure):
     lResult: win32more.Foundation.LRESULT
     lParam: win32more.Foundation.LPARAM
@@ -2280,6 +2275,11 @@ class CWPSTRUCT(Structure):
     wParam: win32more.Foundation.WPARAM
     message: UInt32
     hwnd: win32more.Foundation.HWND
+CWP_FLAGS = UInt32
+CWP_ALL: CWP_FLAGS = 0
+CWP_SKIPINVISIBLE: CWP_FLAGS = 1
+CWP_SKIPDISABLED: CWP_FLAGS = 2
+CWP_SKIPTRANSPARENT: CWP_FLAGS = 4
 class DEBUGHOOKINFO(Structure):
     idThread: UInt32
     idThreadInstaller: UInt32
@@ -2508,64 +2508,6 @@ class MDINEXTMENU(Structure):
     hmenuIn: win32more.UI.WindowsAndMessaging.HMENU
     hmenuNext: win32more.UI.WindowsAndMessaging.HMENU
     hwndNext: win32more.Foundation.HWND
-MENU_ITEM_FLAGS = UInt32
-MF_BYCOMMAND: MENU_ITEM_FLAGS = 0
-MF_BYPOSITION: MENU_ITEM_FLAGS = 1024
-MF_BITMAP: MENU_ITEM_FLAGS = 4
-MF_CHECKED: MENU_ITEM_FLAGS = 8
-MF_DISABLED: MENU_ITEM_FLAGS = 2
-MF_ENABLED: MENU_ITEM_FLAGS = 0
-MF_GRAYED: MENU_ITEM_FLAGS = 1
-MF_MENUBARBREAK: MENU_ITEM_FLAGS = 32
-MF_MENUBREAK: MENU_ITEM_FLAGS = 64
-MF_OWNERDRAW: MENU_ITEM_FLAGS = 256
-MF_POPUP: MENU_ITEM_FLAGS = 16
-MF_SEPARATOR: MENU_ITEM_FLAGS = 2048
-MF_STRING: MENU_ITEM_FLAGS = 0
-MF_UNCHECKED: MENU_ITEM_FLAGS = 0
-MF_INSERT: MENU_ITEM_FLAGS = 0
-MF_CHANGE: MENU_ITEM_FLAGS = 128
-MF_APPEND: MENU_ITEM_FLAGS = 256
-MF_DELETE: MENU_ITEM_FLAGS = 512
-MF_REMOVE: MENU_ITEM_FLAGS = 4096
-MF_USECHECKBITMAPS: MENU_ITEM_FLAGS = 512
-MF_UNHILITE: MENU_ITEM_FLAGS = 0
-MF_HILITE: MENU_ITEM_FLAGS = 128
-MF_DEFAULT: MENU_ITEM_FLAGS = 4096
-MF_SYSMENU: MENU_ITEM_FLAGS = 8192
-MF_HELP: MENU_ITEM_FLAGS = 16384
-MF_RIGHTJUSTIFY: MENU_ITEM_FLAGS = 16384
-MF_MOUSESELECT: MENU_ITEM_FLAGS = 32768
-MF_END: MENU_ITEM_FLAGS = 128
-MENU_ITEM_MASK = UInt32
-MIIM_BITMAP: MENU_ITEM_MASK = 128
-MIIM_CHECKMARKS: MENU_ITEM_MASK = 8
-MIIM_DATA: MENU_ITEM_MASK = 32
-MIIM_FTYPE: MENU_ITEM_MASK = 256
-MIIM_ID: MENU_ITEM_MASK = 2
-MIIM_STATE: MENU_ITEM_MASK = 1
-MIIM_STRING: MENU_ITEM_MASK = 64
-MIIM_SUBMENU: MENU_ITEM_MASK = 4
-MIIM_TYPE: MENU_ITEM_MASK = 16
-MENU_ITEM_STATE = UInt32
-MFS_GRAYED: MENU_ITEM_STATE = 3
-MFS_DISABLED: MENU_ITEM_STATE = 3
-MFS_CHECKED: MENU_ITEM_STATE = 8
-MFS_HILITE: MENU_ITEM_STATE = 128
-MFS_ENABLED: MENU_ITEM_STATE = 0
-MFS_UNCHECKED: MENU_ITEM_STATE = 0
-MFS_UNHILITE: MENU_ITEM_STATE = 0
-MFS_DEFAULT: MENU_ITEM_STATE = 4096
-MENU_ITEM_TYPE = UInt32
-MFT_BITMAP: MENU_ITEM_TYPE = 4
-MFT_MENUBARBREAK: MENU_ITEM_TYPE = 32
-MFT_MENUBREAK: MENU_ITEM_TYPE = 64
-MFT_OWNERDRAW: MENU_ITEM_TYPE = 256
-MFT_RADIOCHECK: MENU_ITEM_TYPE = 512
-MFT_RIGHTJUSTIFY: MENU_ITEM_TYPE = 16384
-MFT_RIGHTORDER: MENU_ITEM_TYPE = 8192
-MFT_SEPARATOR: MENU_ITEM_TYPE = 2048
-MFT_STRING: MENU_ITEM_TYPE = 0
 class MENUBARINFO(Structure):
     cbSize: UInt32
     rcBar: win32more.Foundation.RECT
@@ -2636,17 +2578,64 @@ class MENUITEMTEMPLATE(Structure):
 class MENUITEMTEMPLATEHEADER(Structure):
     versionNumber: UInt16
     offset: UInt16
-class MESSAGE_RESOURCE_BLOCK(Structure):
-    LowId: UInt32
-    HighId: UInt32
-    OffsetToEntries: UInt32
-class MESSAGE_RESOURCE_DATA(Structure):
-    NumberOfBlocks: UInt32
-    Blocks: win32more.UI.WindowsAndMessaging.MESSAGE_RESOURCE_BLOCK * 1
-class MESSAGE_RESOURCE_ENTRY(Structure):
-    Length: UInt16
-    Flags: UInt16
-    Text: Byte * 1
+MENU_ITEM_FLAGS = UInt32
+MF_BYCOMMAND: MENU_ITEM_FLAGS = 0
+MF_BYPOSITION: MENU_ITEM_FLAGS = 1024
+MF_BITMAP: MENU_ITEM_FLAGS = 4
+MF_CHECKED: MENU_ITEM_FLAGS = 8
+MF_DISABLED: MENU_ITEM_FLAGS = 2
+MF_ENABLED: MENU_ITEM_FLAGS = 0
+MF_GRAYED: MENU_ITEM_FLAGS = 1
+MF_MENUBARBREAK: MENU_ITEM_FLAGS = 32
+MF_MENUBREAK: MENU_ITEM_FLAGS = 64
+MF_OWNERDRAW: MENU_ITEM_FLAGS = 256
+MF_POPUP: MENU_ITEM_FLAGS = 16
+MF_SEPARATOR: MENU_ITEM_FLAGS = 2048
+MF_STRING: MENU_ITEM_FLAGS = 0
+MF_UNCHECKED: MENU_ITEM_FLAGS = 0
+MF_INSERT: MENU_ITEM_FLAGS = 0
+MF_CHANGE: MENU_ITEM_FLAGS = 128
+MF_APPEND: MENU_ITEM_FLAGS = 256
+MF_DELETE: MENU_ITEM_FLAGS = 512
+MF_REMOVE: MENU_ITEM_FLAGS = 4096
+MF_USECHECKBITMAPS: MENU_ITEM_FLAGS = 512
+MF_UNHILITE: MENU_ITEM_FLAGS = 0
+MF_HILITE: MENU_ITEM_FLAGS = 128
+MF_DEFAULT: MENU_ITEM_FLAGS = 4096
+MF_SYSMENU: MENU_ITEM_FLAGS = 8192
+MF_HELP: MENU_ITEM_FLAGS = 16384
+MF_RIGHTJUSTIFY: MENU_ITEM_FLAGS = 16384
+MF_MOUSESELECT: MENU_ITEM_FLAGS = 32768
+MF_END: MENU_ITEM_FLAGS = 128
+MENU_ITEM_MASK = UInt32
+MIIM_BITMAP: MENU_ITEM_MASK = 128
+MIIM_CHECKMARKS: MENU_ITEM_MASK = 8
+MIIM_DATA: MENU_ITEM_MASK = 32
+MIIM_FTYPE: MENU_ITEM_MASK = 256
+MIIM_ID: MENU_ITEM_MASK = 2
+MIIM_STATE: MENU_ITEM_MASK = 1
+MIIM_STRING: MENU_ITEM_MASK = 64
+MIIM_SUBMENU: MENU_ITEM_MASK = 4
+MIIM_TYPE: MENU_ITEM_MASK = 16
+MENU_ITEM_STATE = UInt32
+MFS_GRAYED: MENU_ITEM_STATE = 3
+MFS_DISABLED: MENU_ITEM_STATE = 3
+MFS_CHECKED: MENU_ITEM_STATE = 8
+MFS_HILITE: MENU_ITEM_STATE = 128
+MFS_ENABLED: MENU_ITEM_STATE = 0
+MFS_UNCHECKED: MENU_ITEM_STATE = 0
+MFS_UNHILITE: MENU_ITEM_STATE = 0
+MFS_DEFAULT: MENU_ITEM_STATE = 4096
+MENU_ITEM_TYPE = UInt32
+MFT_BITMAP: MENU_ITEM_TYPE = 4
+MFT_MENUBARBREAK: MENU_ITEM_TYPE = 32
+MFT_MENUBREAK: MENU_ITEM_TYPE = 64
+MFT_OWNERDRAW: MENU_ITEM_TYPE = 256
+MFT_RADIOCHECK: MENU_ITEM_TYPE = 512
+MFT_RIGHTJUSTIFY: MENU_ITEM_TYPE = 16384
+MFT_RIGHTORDER: MENU_ITEM_TYPE = 8192
+MFT_SEPARATOR: MENU_ITEM_TYPE = 2048
+MFT_STRING: MENU_ITEM_TYPE = 0
 MESSAGEBOX_RESULT = Int32
 IDOK: MESSAGEBOX_RESULT = 1
 IDCANCEL: MESSAGEBOX_RESULT = 2
@@ -2699,6 +2688,17 @@ MB_ICONMASK: MESSAGEBOX_STYLE = 240
 MB_DEFMASK: MESSAGEBOX_STYLE = 3840
 MB_MODEMASK: MESSAGEBOX_STYLE = 12288
 MB_MISCMASK: MESSAGEBOX_STYLE = 49152
+class MESSAGE_RESOURCE_BLOCK(Structure):
+    LowId: UInt32
+    HighId: UInt32
+    OffsetToEntries: UInt32
+class MESSAGE_RESOURCE_DATA(Structure):
+    NumberOfBlocks: UInt32
+    Blocks: win32more.UI.WindowsAndMessaging.MESSAGE_RESOURCE_BLOCK * 1
+class MESSAGE_RESOURCE_ENTRY(Structure):
+    Length: UInt16
+    Flags: UInt16
+    Text: Byte * 1
 class MINIMIZEDMETRICS(Structure):
     cbSize: UInt32
     iWidth: Int32
@@ -2724,6 +2724,53 @@ class MOUSEHOOKSTRUCT(Structure):
 class MOUSEHOOKSTRUCTEX(Structure):
     Base: win32more.UI.WindowsAndMessaging.MOUSEHOOKSTRUCT
     mouseData: UInt32
+class MSG(Structure):
+    hwnd: win32more.Foundation.HWND
+    message: UInt32
+    wParam: win32more.Foundation.WPARAM
+    lParam: win32more.Foundation.LPARAM
+    time: UInt32
+    pt: win32more.Foundation.POINT
+@winfunctype_pointer
+def MSGBOXCALLBACK(lpHelpInfo: POINTER(win32more.UI.Shell.HELPINFO_head)) -> Void: ...
+class MSGBOXPARAMSA(Structure):
+    cbSize: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    hInstance: win32more.Foundation.HINSTANCE
+    lpszText: win32more.Foundation.PSTR
+    lpszCaption: win32more.Foundation.PSTR
+    dwStyle: win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE
+    lpszIcon: win32more.Foundation.PSTR
+    dwContextHelpId: UIntPtr
+    lpfnMsgBoxCallback: win32more.UI.WindowsAndMessaging.MSGBOXCALLBACK
+    dwLanguageId: UInt32
+class MSGBOXPARAMSW(Structure):
+    cbSize: UInt32
+    hwndOwner: win32more.Foundation.HWND
+    hInstance: win32more.Foundation.HINSTANCE
+    lpszText: win32more.Foundation.PWSTR
+    lpszCaption: win32more.Foundation.PWSTR
+    dwStyle: win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE
+    lpszIcon: win32more.Foundation.PWSTR
+    dwContextHelpId: UIntPtr
+    lpfnMsgBoxCallback: win32more.UI.WindowsAndMessaging.MSGBOXCALLBACK
+    dwLanguageId: UInt32
+MSGFLTINFO_STATUS = UInt32
+MSGFLTINFO_NONE: MSGFLTINFO_STATUS = 0
+MSGFLTINFO_ALLOWED_HIGHER: MSGFLTINFO_STATUS = 3
+MSGFLTINFO_ALREADYALLOWED_FORWND: MSGFLTINFO_STATUS = 1
+MSGFLTINFO_ALREADYDISALLOWED_FORWND: MSGFLTINFO_STATUS = 2
+MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = UInt32
+MWMO_NONE: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 0
+MWMO_ALERTABLE: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 2
+MWMO_INPUTAVAILABLE: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 4
+MWMO_WAITALL: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 1
+class MSLLHOOKSTRUCT(Structure):
+    pt: win32more.Foundation.POINT
+    mouseData: UInt32
+    flags: UInt32
+    time: UInt32
+    dwExtraInfo: UIntPtr
 MrmDumpType = Int32
 MrmDumpType_Basic: MrmDumpType = 0
 MrmDumpType_Detailed: MrmDumpType = 1
@@ -2755,53 +2802,6 @@ MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityVerbose: MrmR
 MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityInfo: MrmResourceIndexerMessageSeverity = 1
 MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityWarning: MrmResourceIndexerMessageSeverity = 2
 MrmResourceIndexerMessageSeverity_MrmResourceIndexerMessageSeverityError: MrmResourceIndexerMessageSeverity = 3
-class MSG(Structure):
-    hwnd: win32more.Foundation.HWND
-    message: UInt32
-    wParam: win32more.Foundation.WPARAM
-    lParam: win32more.Foundation.LPARAM
-    time: UInt32
-    pt: win32more.Foundation.POINT
-MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = UInt32
-MWMO_NONE: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 0
-MWMO_ALERTABLE: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 2
-MWMO_INPUTAVAILABLE: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 4
-MWMO_WAITALL: MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS = 1
-@winfunctype_pointer
-def MSGBOXCALLBACK(lpHelpInfo: POINTER(win32more.UI.Shell.HELPINFO_head)) -> Void: ...
-class MSGBOXPARAMSA(Structure):
-    cbSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hInstance: win32more.Foundation.HINSTANCE
-    lpszText: win32more.Foundation.PSTR
-    lpszCaption: win32more.Foundation.PSTR
-    dwStyle: win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE
-    lpszIcon: win32more.Foundation.PSTR
-    dwContextHelpId: UIntPtr
-    lpfnMsgBoxCallback: win32more.UI.WindowsAndMessaging.MSGBOXCALLBACK
-    dwLanguageId: UInt32
-class MSGBOXPARAMSW(Structure):
-    cbSize: UInt32
-    hwndOwner: win32more.Foundation.HWND
-    hInstance: win32more.Foundation.HINSTANCE
-    lpszText: win32more.Foundation.PWSTR
-    lpszCaption: win32more.Foundation.PWSTR
-    dwStyle: win32more.UI.WindowsAndMessaging.MESSAGEBOX_STYLE
-    lpszIcon: win32more.Foundation.PWSTR
-    dwContextHelpId: UIntPtr
-    lpfnMsgBoxCallback: win32more.UI.WindowsAndMessaging.MSGBOXCALLBACK
-    dwLanguageId: UInt32
-MSGFLTINFO_STATUS = UInt32
-MSGFLTINFO_NONE: MSGFLTINFO_STATUS = 0
-MSGFLTINFO_ALLOWED_HIGHER: MSGFLTINFO_STATUS = 3
-MSGFLTINFO_ALREADYALLOWED_FORWND: MSGFLTINFO_STATUS = 1
-MSGFLTINFO_ALREADYDISALLOWED_FORWND: MSGFLTINFO_STATUS = 2
-class MSLLHOOKSTRUCT(Structure):
-    pt: win32more.Foundation.POINT
-    mouseData: UInt32
-    flags: UInt32
-    time: UInt32
-    dwExtraInfo: UIntPtr
 @winfunctype_pointer
 def NAMEENUMPROCA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -2897,6 +2897,14 @@ QS_POSTMESSAGE: QUEUE_STATUS_FLAGS = 8
 QS_RAWINPUT: QUEUE_STATUS_FLAGS = 1024
 QS_SENDMESSAGE: QUEUE_STATUS_FLAGS = 64
 QS_TIMER: QUEUE_STATUS_FLAGS = 16
+class SCROLLBARINFO(Structure):
+    cbSize: UInt32
+    rcScrollBar: win32more.Foundation.RECT
+    dxyLineButton: Int32
+    xyThumbTop: Int32
+    xyThumbBottom: Int32
+    reserved: Int32
+    rgstate: UInt32 * 6
 SCROLLBAR_COMMAND = Int32
 SB_LINEUP: SCROLLBAR_COMMAND = 0
 SB_LINELEFT: SCROLLBAR_COMMAND = 0
@@ -2918,14 +2926,6 @@ SB_CTL: SCROLLBAR_CONSTANTS = 2
 SB_HORZ: SCROLLBAR_CONSTANTS = 0
 SB_VERT: SCROLLBAR_CONSTANTS = 1
 SB_BOTH: SCROLLBAR_CONSTANTS = 3
-class SCROLLBARINFO(Structure):
-    cbSize: UInt32
-    rcScrollBar: win32more.Foundation.RECT
-    dxyLineButton: Int32
-    xyThumbTop: Int32
-    xyThumbBottom: Int32
-    reserved: Int32
-    rgstate: UInt32 * 6
 class SCROLLINFO(Structure):
     cbSize: UInt32
     fMask: win32more.UI.WindowsAndMessaging.SCROLLINFO_MASK
@@ -2941,14 +2941,14 @@ SIF_PAGE: SCROLLINFO_MASK = 2
 SIF_POS: SCROLLINFO_MASK = 4
 SIF_RANGE: SCROLLINFO_MASK = 1
 SIF_TRACKPOS: SCROLLINFO_MASK = 16
+@winfunctype_pointer
+def SENDASYNCPROC(param0: win32more.Foundation.HWND, param1: UInt32, param2: UIntPtr, param3: win32more.Foundation.LRESULT) -> Void: ...
 SEND_MESSAGE_TIMEOUT_FLAGS = UInt32
 SMTO_ABORTIFHUNG: SEND_MESSAGE_TIMEOUT_FLAGS = 2
 SMTO_BLOCK: SEND_MESSAGE_TIMEOUT_FLAGS = 1
 SMTO_NORMAL: SEND_MESSAGE_TIMEOUT_FLAGS = 0
 SMTO_NOTIMEOUTIFNOTHUNG: SEND_MESSAGE_TIMEOUT_FLAGS = 8
 SMTO_ERRORONEXIT: SEND_MESSAGE_TIMEOUT_FLAGS = 32
-@winfunctype_pointer
-def SENDASYNCPROC(param0: win32more.Foundation.HWND, param1: UInt32, param2: UIntPtr, param3: win32more.Foundation.LRESULT) -> Void: ...
 SET_WINDOW_POS_FLAGS = UInt32
 SWP_ASYNCWINDOWPOS: SET_WINDOW_POS_FLAGS = 16384
 SWP_DEFERERASE: SET_WINDOW_POS_FLAGS = 8192
@@ -3395,11 +3395,6 @@ TPM_VERNEGANIMATION: TRACK_POPUP_MENU_FLAGS = 8192
 TPM_NOANIMATION: TRACK_POPUP_MENU_FLAGS = 16384
 TPM_LAYOUTRTL: TRACK_POPUP_MENU_FLAGS = 32768
 TPM_WORKAREA: TRACK_POPUP_MENU_FLAGS = 65536
-UPDATE_LAYERED_WINDOW_FLAGS = UInt32
-ULW_ALPHA: UPDATE_LAYERED_WINDOW_FLAGS = 2
-ULW_COLORKEY: UPDATE_LAYERED_WINDOW_FLAGS = 1
-ULW_OPAQUE: UPDATE_LAYERED_WINDOW_FLAGS = 4
-ULW_EX_NORESIZE: UPDATE_LAYERED_WINDOW_FLAGS = 8
 class UPDATELAYEREDWINDOWINFO(Structure):
     cbSize: UInt32
     hdcDst: win32more.Graphics.Gdi.HDC
@@ -3411,6 +3406,57 @@ class UPDATELAYEREDWINDOWINFO(Structure):
     pblend: POINTER(win32more.Graphics.Gdi.BLENDFUNCTION_head)
     dwFlags: win32more.UI.WindowsAndMessaging.UPDATE_LAYERED_WINDOW_FLAGS
     prcDirty: POINTER(win32more.Foundation.RECT_head)
+UPDATE_LAYERED_WINDOW_FLAGS = UInt32
+ULW_ALPHA: UPDATE_LAYERED_WINDOW_FLAGS = 2
+ULW_COLORKEY: UPDATE_LAYERED_WINDOW_FLAGS = 1
+ULW_OPAQUE: UPDATE_LAYERED_WINDOW_FLAGS = 4
+ULW_EX_NORESIZE: UPDATE_LAYERED_WINDOW_FLAGS = 8
+class WINDOWINFO(Structure):
+    cbSize: UInt32
+    rcWindow: win32more.Foundation.RECT
+    rcClient: win32more.Foundation.RECT
+    dwStyle: win32more.UI.WindowsAndMessaging.WINDOW_STYLE
+    dwExStyle: win32more.UI.WindowsAndMessaging.WINDOW_EX_STYLE
+    dwWindowStatus: UInt32
+    cxWindowBorders: UInt32
+    cyWindowBorders: UInt32
+    atomWindowType: UInt16
+    wCreatorVersion: UInt16
+class WINDOWPLACEMENT(Structure):
+    length: UInt32
+    flags: win32more.UI.WindowsAndMessaging.WINDOWPLACEMENT_FLAGS
+    showCmd: win32more.UI.WindowsAndMessaging.SHOW_WINDOW_CMD
+    ptMinPosition: win32more.Foundation.POINT
+    ptMaxPosition: win32more.Foundation.POINT
+    rcNormalPosition: win32more.Foundation.RECT
+WINDOWPLACEMENT_FLAGS = UInt32
+WPF_ASYNCWINDOWPLACEMENT: WINDOWPLACEMENT_FLAGS = 4
+WPF_RESTORETOMAXIMIZED: WINDOWPLACEMENT_FLAGS = 2
+WPF_SETMINPOSITION: WINDOWPLACEMENT_FLAGS = 1
+class WINDOWPOS(Structure):
+    hwnd: win32more.Foundation.HWND
+    hwndInsertAfter: win32more.Foundation.HWND
+    x: Int32
+    y: Int32
+    cx: Int32
+    cy: Int32
+    flags: win32more.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS
+WINDOWS_HOOK_ID = Int32
+WH_CALLWNDPROC: WINDOWS_HOOK_ID = 4
+WH_CALLWNDPROCRET: WINDOWS_HOOK_ID = 12
+WH_CBT: WINDOWS_HOOK_ID = 5
+WH_DEBUG: WINDOWS_HOOK_ID = 9
+WH_FOREGROUNDIDLE: WINDOWS_HOOK_ID = 11
+WH_GETMESSAGE: WINDOWS_HOOK_ID = 3
+WH_JOURNALPLAYBACK: WINDOWS_HOOK_ID = 1
+WH_JOURNALRECORD: WINDOWS_HOOK_ID = 0
+WH_KEYBOARD: WINDOWS_HOOK_ID = 2
+WH_KEYBOARD_LL: WINDOWS_HOOK_ID = 13
+WH_MOUSE: WINDOWS_HOOK_ID = 7
+WH_MOUSE_LL: WINDOWS_HOOK_ID = 14
+WH_MSGFILTER: WINDOWS_HOOK_ID = -1
+WH_SHELL: WINDOWS_HOOK_ID = 10
+WH_SYSMSGFILTER: WINDOWS_HOOK_ID = 6
 WINDOW_DISPLAY_AFFINITY = UInt32
 WDA_NONE: WINDOW_DISPLAY_AFFINITY = 0
 WDA_MONITOR: WINDOW_DISPLAY_AFFINITY = 1
@@ -3489,66 +3535,6 @@ WS_OVERLAPPEDWINDOW: WINDOW_STYLE = 13565952
 WS_POPUPWINDOW: WINDOW_STYLE = 2156396544
 WS_CHILDWINDOW: WINDOW_STYLE = 1073741824
 WS_ACTIVECAPTION: WINDOW_STYLE = 1
-class WINDOWINFO(Structure):
-    cbSize: UInt32
-    rcWindow: win32more.Foundation.RECT
-    rcClient: win32more.Foundation.RECT
-    dwStyle: win32more.UI.WindowsAndMessaging.WINDOW_STYLE
-    dwExStyle: win32more.UI.WindowsAndMessaging.WINDOW_EX_STYLE
-    dwWindowStatus: UInt32
-    cxWindowBorders: UInt32
-    cyWindowBorders: UInt32
-    atomWindowType: UInt16
-    wCreatorVersion: UInt16
-class WINDOWPLACEMENT(Structure):
-    length: UInt32
-    flags: win32more.UI.WindowsAndMessaging.WINDOWPLACEMENT_FLAGS
-    showCmd: win32more.UI.WindowsAndMessaging.SHOW_WINDOW_CMD
-    ptMinPosition: win32more.Foundation.POINT
-    ptMaxPosition: win32more.Foundation.POINT
-    rcNormalPosition: win32more.Foundation.RECT
-WINDOWPLACEMENT_FLAGS = UInt32
-WPF_ASYNCWINDOWPLACEMENT: WINDOWPLACEMENT_FLAGS = 4
-WPF_RESTORETOMAXIMIZED: WINDOWPLACEMENT_FLAGS = 2
-WPF_SETMINPOSITION: WINDOWPLACEMENT_FLAGS = 1
-class WINDOWPOS(Structure):
-    hwnd: win32more.Foundation.HWND
-    hwndInsertAfter: win32more.Foundation.HWND
-    x: Int32
-    y: Int32
-    cx: Int32
-    cy: Int32
-    flags: win32more.UI.WindowsAndMessaging.SET_WINDOW_POS_FLAGS
-WINDOWS_HOOK_ID = Int32
-WH_CALLWNDPROC: WINDOWS_HOOK_ID = 4
-WH_CALLWNDPROCRET: WINDOWS_HOOK_ID = 12
-WH_CBT: WINDOWS_HOOK_ID = 5
-WH_DEBUG: WINDOWS_HOOK_ID = 9
-WH_FOREGROUNDIDLE: WINDOWS_HOOK_ID = 11
-WH_GETMESSAGE: WINDOWS_HOOK_ID = 3
-WH_JOURNALPLAYBACK: WINDOWS_HOOK_ID = 1
-WH_JOURNALRECORD: WINDOWS_HOOK_ID = 0
-WH_KEYBOARD: WINDOWS_HOOK_ID = 2
-WH_KEYBOARD_LL: WINDOWS_HOOK_ID = 13
-WH_MOUSE: WINDOWS_HOOK_ID = 7
-WH_MOUSE_LL: WINDOWS_HOOK_ID = 14
-WH_MSGFILTER: WINDOWS_HOOK_ID = -1
-WH_SHELL: WINDOWS_HOOK_ID = 10
-WH_SYSMSGFILTER: WINDOWS_HOOK_ID = 6
-WNDCLASS_STYLES = UInt32
-CS_VREDRAW: WNDCLASS_STYLES = 1
-CS_HREDRAW: WNDCLASS_STYLES = 2
-CS_DBLCLKS: WNDCLASS_STYLES = 8
-CS_OWNDC: WNDCLASS_STYLES = 32
-CS_CLASSDC: WNDCLASS_STYLES = 64
-CS_PARENTDC: WNDCLASS_STYLES = 128
-CS_NOCLOSE: WNDCLASS_STYLES = 512
-CS_SAVEBITS: WNDCLASS_STYLES = 2048
-CS_BYTEALIGNCLIENT: WNDCLASS_STYLES = 4096
-CS_BYTEALIGNWINDOW: WNDCLASS_STYLES = 8192
-CS_GLOBALCLASS: WNDCLASS_STYLES = 16384
-CS_IME: WNDCLASS_STYLES = 65536
-CS_DROPSHADOW: WNDCLASS_STYLES = 131072
 class WNDCLASSA(Structure):
     style: win32more.UI.WindowsAndMessaging.WNDCLASS_STYLES
     lpfnWndProc: win32more.UI.WindowsAndMessaging.WNDPROC
@@ -3597,6 +3583,20 @@ class WNDCLASSW(Structure):
     hbrBackground: win32more.Graphics.Gdi.HBRUSH
     lpszMenuName: win32more.Foundation.PWSTR
     lpszClassName: win32more.Foundation.PWSTR
+WNDCLASS_STYLES = UInt32
+CS_VREDRAW: WNDCLASS_STYLES = 1
+CS_HREDRAW: WNDCLASS_STYLES = 2
+CS_DBLCLKS: WNDCLASS_STYLES = 8
+CS_OWNDC: WNDCLASS_STYLES = 32
+CS_CLASSDC: WNDCLASS_STYLES = 64
+CS_PARENTDC: WNDCLASS_STYLES = 128
+CS_NOCLOSE: WNDCLASS_STYLES = 512
+CS_SAVEBITS: WNDCLASS_STYLES = 2048
+CS_BYTEALIGNCLIENT: WNDCLASS_STYLES = 4096
+CS_BYTEALIGNWINDOW: WNDCLASS_STYLES = 8192
+CS_GLOBALCLASS: WNDCLASS_STYLES = 16384
+CS_IME: WNDCLASS_STYLES = 65536
+CS_DROPSHADOW: WNDCLASS_STYLES = 131072
 @winfunctype_pointer
 def WNDENUMPROC(param0: win32more.Foundation.HWND, param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -3605,9 +3605,9 @@ make_head(_module, 'ACCEL')
 make_head(_module, 'ALTTABINFO')
 make_head(_module, 'ANIMATIONINFO')
 make_head(_module, 'AUDIODESCRIPTION')
+make_head(_module, 'CBTACTIVATESTRUCT')
 make_head(_module, 'CBT_CREATEWNDA')
 make_head(_module, 'CBT_CREATEWNDW')
-make_head(_module, 'CBTACTIVATESTRUCT')
 make_head(_module, 'CHANGEFILTERSTRUCT')
 make_head(_module, 'CLIENTCREATESTRUCT')
 make_head(_module, 'CREATESTRUCTA')
@@ -3650,13 +3650,13 @@ make_head(_module, 'MINIMIZEDMETRICS')
 make_head(_module, 'MINMAXINFO')
 make_head(_module, 'MOUSEHOOKSTRUCT')
 make_head(_module, 'MOUSEHOOKSTRUCTEX')
-make_head(_module, 'MrmResourceIndexerHandle')
-make_head(_module, 'MrmResourceIndexerMessage')
 make_head(_module, 'MSG')
 make_head(_module, 'MSGBOXCALLBACK')
 make_head(_module, 'MSGBOXPARAMSA')
 make_head(_module, 'MSGBOXPARAMSW')
 make_head(_module, 'MSLLHOOKSTRUCT')
+make_head(_module, 'MrmResourceIndexerHandle')
+make_head(_module, 'MrmResourceIndexerMessage')
 make_head(_module, 'NAMEENUMPROCA')
 make_head(_module, 'NAMEENUMPROCW')
 make_head(_module, 'NCCALCSIZE_PARAMS')

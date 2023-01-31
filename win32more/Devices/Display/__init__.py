@@ -24,6 +24,16 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+AR_STATE = Int32
+AR_ENABLED: AR_STATE = 0
+AR_DISABLED: AR_STATE = 1
+AR_SUPPRESSED: AR_STATE = 2
+AR_REMOTESESSION: AR_STATE = 4
+AR_MULTIMON: AR_STATE = 8
+AR_NOSENSOR: AR_STATE = 16
+AR_NOT_SUPPORTED: AR_STATE = 32
+AR_DOCKED: AR_STATE = 64
+AR_LAPTOP: AR_STATE = 128
 class Adapter(Structure):
     AdapterName: Char * 128
     numSources: Int32
@@ -1013,16 +1023,6 @@ def GetAutoRotationState(pState: POINTER(win32more.Devices.Display.AR_STATE)) ->
 def GetDisplayAutoRotationPreferences(pOrientation: POINTER(win32more.Devices.Display.ORIENTATION_PREFERENCE)) -> win32more.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def SetDisplayAutoRotationPreferences(orientation: win32more.Devices.Display.ORIENTATION_PREFERENCE) -> win32more.Foundation.BOOL: ...
-AR_STATE = Int32
-AR_ENABLED: AR_STATE = 0
-AR_DISABLED: AR_STATE = 1
-AR_SUPPRESSED: AR_STATE = 2
-AR_REMOTESESSION: AR_STATE = 4
-AR_MULTIMON: AR_STATE = 8
-AR_NOSENSOR: AR_STATE = 16
-AR_NOT_SUPPORTED: AR_STATE = 32
-AR_DOCKED: AR_STATE = 64
-AR_LAPTOP: AR_STATE = 128
 BACKLIGHT_OPTIMIZATION_LEVEL = Int32
 BACKLIGHT_OPTIMIZATION_LEVEL_BacklightOptimizationDisable: BACKLIGHT_OPTIMIZATION_LEVEL = 0
 BACKLIGHT_OPTIMIZATION_LEVEL_BacklightOptimizationDesktop: BACKLIGHT_OPTIMIZATION_LEVEL = 1
@@ -1036,9 +1036,6 @@ class BACKLIGHT_REDUCTION_GAMMA_RAMP(Structure):
 class BANK_POSITION(Structure):
     ReadBankPosition: UInt32
     WriteBankPosition: UInt32
-BlackScreenDiagnosticsCalloutParam = Int32
-BlackScreenDiagnosticsCalloutParam_BlackScreenDiagnosticsData: BlackScreenDiagnosticsCalloutParam = 1
-BlackScreenDiagnosticsCalloutParam_BlackScreenDisplayRecovery: BlackScreenDiagnosticsCalloutParam = 2
 class BLENDOBJ(Structure):
     BlendFunction: win32more.Graphics.Gdi.BLENDFUNCTION
 BRIGHTNESS_INTERFACE_VERSION = Int32
@@ -1061,6 +1058,9 @@ class BRUSHOBJ(Structure):
     iSolidColor: UInt32
     pvRbrush: c_void_p
     flColorType: UInt32
+BlackScreenDiagnosticsCalloutParam = Int32
+BlackScreenDiagnosticsCalloutParam_BlackScreenDiagnosticsData: BlackScreenDiagnosticsCalloutParam = 1
+BlackScreenDiagnosticsCalloutParam_BlackScreenDisplayRecovery: BlackScreenDiagnosticsCalloutParam = 2
 class CDDDXGK_REDIRBITMAPPRESENTINFO(Structure):
     NumDirtyRects: UInt32
     DirtyRect: POINTER(win32more.Foundation.RECT_head)
@@ -1201,10 +1201,6 @@ class DEVINFO(Structure):
     flGraphicsCaps2: UInt32
 DHPDEV = IntPtr
 DHSURF = IntPtr
-class DISPLAY_BRIGHTNESS(Structure):
-    ucDisplayPolicy: Byte
-    ucACBrightness: Byte
-    ucDCBrightness: Byte
 class DISPLAYCONFIG_2DREGION(Structure):
     cx: UInt32
     cy: UInt32
@@ -1441,12 +1437,10 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO(Structure):
         videoStandard: UInt32
         class _AdditionalSignalInfo_e__Struct(Structure):
             _bitfield: UInt32
-class DisplayMode(Structure):
-    DeviceName: Char * 32
-    devMode: win32more.Graphics.Gdi.DEVMODEW
-class DisplayModes(Structure):
-    numDisplayModes: Int32
-    displayMode: win32more.Devices.Display.DisplayMode * 1
+class DISPLAY_BRIGHTNESS(Structure):
+    ucDisplayPolicy: Byte
+    ucACBrightness: Byte
+    ucDCBrightness: Byte
 class DRH_APIBITMAPDATA(Structure):
     pso: POINTER(win32more.Devices.Display.SURFOBJ_head)
     b: win32more.Foundation.BOOL
@@ -1472,11 +1466,20 @@ class DXGK_WIN32K_PARAM_DATA(Structure):
     NumPathArrayElements: UInt32
     NumModeArrayElements: UInt32
     SDCFlags: UInt32
+class DisplayMode(Structure):
+    DeviceName: Char * 32
+    devMode: win32more.Graphics.Gdi.DEVMODEW
+class DisplayModes(Structure):
+    numDisplayModes: Int32
+    displayMode: win32more.Devices.Display.DisplayMode * 1
 class EMFINFO(Structure):
     nSize: UInt32
     hdc: win32more.Graphics.Gdi.HDC
     pvEMF: c_char_p_no
     pvCurrentRecord: c_char_p_no
+class ENGSAFESEMAPHORE(Structure):
+    hsem: win32more.Devices.Display.HSEMAPHORE
+    lCount: Int32
 ENG_DEVICE_ATTRIBUTE = Int32
 QDA_RESERVED: ENG_DEVICE_ATTRIBUTE = 0
 QDA_ACCELERATION_LEVEL: ENG_DEVICE_ATTRIBUTE = 1
@@ -1497,9 +1500,6 @@ class ENG_TIME_FIELDS(Structure):
     usSecond: UInt16
     usMilliseconds: UInt16
     usWeekday: UInt16
-class ENGSAFESEMAPHORE(Structure):
-    hsem: win32more.Devices.Display.HSEMAPHORE
-    lCount: Int32
 class ENUMRECTS(Structure):
     c: UInt32
     arcl: win32more.Foundation.RECTL * 1
@@ -1558,14 +1558,6 @@ if ARCH in 'X86':
         eXY: UInt32
         eYX: UInt32
         eYY: UInt32
-if ARCH in 'X64,ARM64':
-    class FLOAT_LONG(Union):
-        e: Single
-        l: Int32
-if ARCH in 'X86':
-    class FLOAT_LONG(Union):
-        e: UInt32
-        l: Int32
 if ARCH in 'X86':
     class FLOATOBJ(Structure):
         ul1: UInt32
@@ -1586,9 +1578,14 @@ if ARCH in 'X86':
         eM22: win32more.Devices.Display.FLOATOBJ
         eDx: win32more.Devices.Display.FLOATOBJ
         eDy: win32more.Devices.Display.FLOATOBJ
-class FONT_IMAGE_INFO(Structure):
-    FontSize: win32more.System.Console.COORD
-    ImageBits: c_char_p_no
+if ARCH in 'X64,ARM64':
+    class FLOAT_LONG(Union):
+        e: Single
+        l: Int32
+if ARCH in 'X86':
+    class FLOAT_LONG(Union):
+        e: UInt32
+        l: Int32
 class FONTDIFF(Structure):
     jReserved1: Byte
     jReserved2: Byte
@@ -1622,6 +1619,9 @@ class FONTSIM(Structure):
     dpBold: Int32
     dpItalic: Int32
     dpBoldItalic: Int32
+class FONT_IMAGE_INFO(Structure):
+    FontSize: win32more.System.Console.COORD
+    ImageBits: c_char_p_no
 @winfunctype_pointer
 def FREEOBJPROC(pDriverObj: POINTER(win32more.Devices.Display.DRIVEROBJ_head)) -> win32more.Foundation.BOOL: ...
 class FSCNTL_SCREEN_INFO(Structure):
@@ -1646,6 +1646,10 @@ class FSVIDEO_SCREEN_INFORMATION(Structure):
 class FSVIDEO_WRITE_TO_FRAME_BUFFER(Structure):
     SrcBuffer: POINTER(win32more.Devices.Display.CHAR_IMAGE_INFO_head)
     DestScreen: win32more.Devices.Display.FSCNTL_SCREEN_INFO
+class GAMMARAMP(Structure):
+    Red: UInt16 * 256
+    Green: UInt16 * 256
+    Blue: UInt16 * 256
 class GAMMA_RAMP_DXGI_1(Structure):
     Scale: win32more.Devices.Display.GAMMA_RAMP_RGB
     Offset: win32more.Devices.Display.GAMMA_RAMP_RGB
@@ -1655,10 +1659,6 @@ class GAMMA_RAMP_RGB(Structure):
     Green: Single
     Blue: Single
 class GAMMA_RAMP_RGB256x3x16(Structure):
-    Red: UInt16 * 256
-    Green: UInt16 * 256
-    Blue: UInt16 * 256
-class GAMMARAMP(Structure):
     Red: UInt16 * 256
     Green: UInt16 * 256
     Blue: UInt16 * 256
@@ -2359,10 +2359,6 @@ SDC_VIRTUAL_MODE_AWARE: SET_DISPLAY_CONFIG_FLAGS = 32768
 SDC_VIRTUAL_REFRESH_RATE_AWARE: SET_DISPLAY_CONFIG_FLAGS = 131072
 @cfunctype_pointer
 def SORTCOMP(pv1: c_void_p, pv2: c_void_p) -> Int32: ...
-class Sources(Structure):
-    sourceId: UInt32
-    numTargets: Int32
-    aTargets: UInt32 * 1
 class STROBJ(Structure):
     cGlyphs: UInt32
     flAccel: UInt32
@@ -2384,6 +2380,10 @@ class SURFOBJ(Structure):
     iBitmapFormat: UInt32
     iType: UInt16
     fjBitmap: UInt16
+class Sources(Structure):
+    sourceId: UInt32
+    numTargets: Int32
+    aTargets: UInt32 * 1
 class TYPE1_FONT(Structure):
     hPFM: win32more.Foundation.HANDLE
     hPFB: win32more.Foundation.HANDLE
@@ -2391,6 +2391,30 @@ class TYPE1_FONT(Structure):
 class VGA_CHAR(Structure):
     Char: win32more.Foundation.CHAR
     Attributes: win32more.Foundation.CHAR
+class VIDEOPARAMETERS(Structure):
+    Guid: Guid
+    dwOffset: UInt32
+    dwCommand: UInt32
+    dwFlags: UInt32
+    dwMode: UInt32
+    dwTVStandard: UInt32
+    dwAvailableModes: UInt32
+    dwAvailableTVStandard: UInt32
+    dwFlickerFilter: UInt32
+    dwOverScanX: UInt32
+    dwOverScanY: UInt32
+    dwMaxUnscaledX: UInt32
+    dwMaxUnscaledY: UInt32
+    dwPositionX: UInt32
+    dwPositionY: UInt32
+    dwBrightness: UInt32
+    dwContrast: UInt32
+    dwCPType: UInt32
+    dwCPCommand: UInt32
+    dwCPStandard: UInt32
+    dwCPKey: UInt32
+    bCP_APSTriggerBits: UInt32
+    bOEMCopyProtection: Byte * 256
 class VIDEO_BANK_SELECT(Structure):
     Length: UInt32
     Size: UInt32
@@ -2650,30 +2674,6 @@ VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE_VideoUpdateCursor: VIDEO_WIN32K_CALLBACKS_PAR
 VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE_VideoDisableMultiPlaneOverlay: VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 14
 VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE_VideoDesktopDuplicationChange: VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 15
 VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE_VideoBlackScreenDiagnostics: VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE = 16
-class VIDEOPARAMETERS(Structure):
-    Guid: Guid
-    dwOffset: UInt32
-    dwCommand: UInt32
-    dwFlags: UInt32
-    dwMode: UInt32
-    dwTVStandard: UInt32
-    dwAvailableModes: UInt32
-    dwAvailableTVStandard: UInt32
-    dwFlickerFilter: UInt32
-    dwOverScanX: UInt32
-    dwOverScanY: UInt32
-    dwMaxUnscaledX: UInt32
-    dwMaxUnscaledY: UInt32
-    dwPositionX: UInt32
-    dwPositionY: UInt32
-    dwBrightness: UInt32
-    dwContrast: UInt32
-    dwCPType: UInt32
-    dwCPCommand: UInt32
-    dwCPStandard: UInt32
-    dwCPKey: UInt32
-    bCP_APSTriggerBits: UInt32
-    bOEMCopyProtection: Byte * 256
 class WCRUN(Structure):
     wcLow: Char
     cGlyphs: UInt16
@@ -2741,7 +2741,6 @@ make_head(_module, 'COLORSPACE_TRANSFORM_TARGET_CAPS')
 make_head(_module, 'DEVHTADJDATA')
 make_head(_module, 'DEVHTINFO')
 make_head(_module, 'DEVINFO')
-make_head(_module, 'DISPLAY_BRIGHTNESS')
 make_head(_module, 'DISPLAYCONFIG_2DREGION')
 make_head(_module, 'DISPLAYCONFIG_ADAPTER_NAME')
 make_head(_module, 'DISPLAYCONFIG_DESKTOP_IMAGE_INFO')
@@ -2766,17 +2765,18 @@ make_head(_module, 'DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS')
 make_head(_module, 'DISPLAYCONFIG_TARGET_MODE')
 make_head(_module, 'DISPLAYCONFIG_TARGET_PREFERRED_MODE')
 make_head(_module, 'DISPLAYCONFIG_VIDEO_SIGNAL_INFO')
-make_head(_module, 'DisplayMode')
-make_head(_module, 'DisplayModes')
+make_head(_module, 'DISPLAY_BRIGHTNESS')
 make_head(_module, 'DRH_APIBITMAPDATA')
 make_head(_module, 'DRIVEROBJ')
 make_head(_module, 'DRVENABLEDATA')
 make_head(_module, 'DRVFN')
 make_head(_module, 'DXGK_WIN32K_PARAM_DATA')
+make_head(_module, 'DisplayMode')
+make_head(_module, 'DisplayModes')
 make_head(_module, 'EMFINFO')
+make_head(_module, 'ENGSAFESEMAPHORE')
 make_head(_module, 'ENG_EVENT')
 make_head(_module, 'ENG_TIME_FIELDS')
-make_head(_module, 'ENGSAFESEMAPHORE')
 make_head(_module, 'ENUMRECTS')
 make_head(_module, 'FD_DEVICEMETRICS')
 make_head(_module, 'FD_GLYPHATTR')
@@ -2787,21 +2787,21 @@ if ARCH in 'X64,ARM64':
     make_head(_module, 'FD_XFORM')
 if ARCH in 'X86':
     make_head(_module, 'FD_XFORM')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'FLOAT_LONG')
-if ARCH in 'X86':
-    make_head(_module, 'FLOAT_LONG')
 if ARCH in 'X86':
     make_head(_module, 'FLOATOBJ')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'FLOATOBJ_XFORM')
 if ARCH in 'X86':
     make_head(_module, 'FLOATOBJ_XFORM')
-make_head(_module, 'FONT_IMAGE_INFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'FLOAT_LONG')
+if ARCH in 'X86':
+    make_head(_module, 'FLOAT_LONG')
 make_head(_module, 'FONTDIFF')
 make_head(_module, 'FONTINFO')
 make_head(_module, 'FONTOBJ')
 make_head(_module, 'FONTSIM')
+make_head(_module, 'FONT_IMAGE_INFO')
 make_head(_module, 'FREEOBJPROC')
 make_head(_module, 'FSCNTL_SCREEN_INFO')
 make_head(_module, 'FSVIDEO_COPY_FRAME_BUFFER')
@@ -2810,10 +2810,10 @@ make_head(_module, 'FSVIDEO_MODE_INFORMATION')
 make_head(_module, 'FSVIDEO_REVERSE_MOUSE_POINTER')
 make_head(_module, 'FSVIDEO_SCREEN_INFORMATION')
 make_head(_module, 'FSVIDEO_WRITE_TO_FRAME_BUFFER')
+make_head(_module, 'GAMMARAMP')
 make_head(_module, 'GAMMA_RAMP_DXGI_1')
 make_head(_module, 'GAMMA_RAMP_RGB')
 make_head(_module, 'GAMMA_RAMP_RGB256x3x16')
-make_head(_module, 'GAMMARAMP')
 make_head(_module, 'GDIINFO')
 make_head(_module, 'GLYPHBITS')
 make_head(_module, 'GLYPHDATA')
@@ -2957,11 +2957,12 @@ make_head(_module, 'RECTFX')
 make_head(_module, 'RUN')
 make_head(_module, 'SET_ACTIVE_COLOR_PROFILE_NAME')
 make_head(_module, 'SORTCOMP')
-make_head(_module, 'Sources')
 make_head(_module, 'STROBJ')
 make_head(_module, 'SURFOBJ')
+make_head(_module, 'Sources')
 make_head(_module, 'TYPE1_FONT')
 make_head(_module, 'VGA_CHAR')
+make_head(_module, 'VIDEOPARAMETERS')
 make_head(_module, 'VIDEO_BANK_SELECT')
 make_head(_module, 'VIDEO_BRIGHTNESS_POLICY')
 make_head(_module, 'VIDEO_CLUT')
@@ -2995,7 +2996,6 @@ make_head(_module, 'VIDEO_SHARE_MEMORY_INFORMATION')
 make_head(_module, 'VIDEO_VDM')
 make_head(_module, 'VIDEO_WIN32K_CALLBACKS')
 make_head(_module, 'VIDEO_WIN32K_CALLBACKS_PARAMS')
-make_head(_module, 'VIDEOPARAMETERS')
 make_head(_module, 'WCRUN')
 make_head(_module, 'WNDOBJ')
 make_head(_module, 'WNDOBJCHANGEPROC')

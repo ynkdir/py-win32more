@@ -20,6 +20,13 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+class ASYNC_DUPLICATE_EXTENTS_STATUS(Structure):
+    Version: UInt32
+    State: win32more.System.Ioctl.DUPLICATE_EXTENTS_STATE
+    SourceFileOffset: UInt64
+    TargetFileOffset: UInt64
+    ByteCount: UInt64
+    BytesDuplicated: UInt64
 IOCTL_STORAGE_BASE: UInt32 = 45
 IOCTL_SCMBUS_BASE: UInt32 = 89
 IOCTL_DISK_BASE: UInt32 = 7
@@ -1054,13 +1061,6 @@ CONTAINER_ROOT_INFO_VALID_FLAGS: UInt32 = 1023
 PROJFS_PROTOCOL_VERSION: UInt32 = 3
 EFS_TRACKED_OFFSET_HEADER_FLAG: UInt32 = 1
 SPACES_TRACKED_OFFSET_HEADER_FLAG: UInt32 = 2
-class ASYNC_DUPLICATE_EXTENTS_STATUS(Structure):
-    Version: UInt32
-    State: win32more.System.Ioctl.DUPLICATE_EXTENTS_STATE
-    SourceFileOffset: UInt64
-    TargetFileOffset: UInt64
-    ByteCount: UInt64
-    BytesDuplicated: UInt64
 class BIN_COUNT(Structure):
     BinRange: win32more.System.Ioctl.BIN_RANGE
     BinCount: UInt32
@@ -1232,6 +1232,11 @@ class CREATE_DISK_MBR(Structure):
 class CREATE_USN_JOURNAL_DATA(Structure):
     MaximumSize: UInt64
     AllocationDelta: UInt64
+CSVFS_DISK_CONNECTIVITY = Int32
+CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityNone: CSVFS_DISK_CONNECTIVITY = 0
+CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityMdsNodeOnly: CSVFS_DISK_CONNECTIVITY = 1
+CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivitySubsetOfNodes: CSVFS_DISK_CONNECTIVITY = 2
+CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityAllNodes: CSVFS_DISK_CONNECTIVITY = 3
 CSV_CONTROL_OP = Int32
 CSV_CONTROL_OP_CsvControlStartRedirectFile: CSV_CONTROL_OP = 2
 CSV_CONTROL_OP_CsvControlStopRedirectFile: CSV_CONTROL_OP = 3
@@ -1304,11 +1309,6 @@ class CSV_QUERY_VOLUME_REDIRECT_STATE(Structure):
     DiskConnectivity: win32more.System.Ioctl.CSVFS_DISK_CONNECTIVITY
 class CSV_SET_VOLUME_ID(Structure):
     VolumeId: Guid
-CSVFS_DISK_CONNECTIVITY = Int32
-CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityNone: CSVFS_DISK_CONNECTIVITY = 0
-CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityMdsNodeOnly: CSVFS_DISK_CONNECTIVITY = 1
-CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivitySubsetOfNodes: CSVFS_DISK_CONNECTIVITY = 2
-CSVFS_DISK_CONNECTIVITY_CsvFsDiskConnectivityAllNodes: CSVFS_DISK_CONNECTIVITY = 3
 class DECRYPTION_STATUS_BUFFER(Structure):
     NoEncryptedStreams: win32more.Foundation.BOOLEAN
 class DELETE_USN_JOURNAL_DATA(Structure):
@@ -1318,6 +1318,82 @@ DETECTION_TYPE = Int32
 DETECTION_TYPE_DetectNone: DETECTION_TYPE = 0
 DETECTION_TYPE_DetectInt13: DETECTION_TYPE = 1
 DETECTION_TYPE_DetectExInt13: DETECTION_TYPE = 2
+DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = Int32
+DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE_TCCollectionBugCheck: DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = 1
+DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE_TCCollectionApplicationRequested: DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = 2
+DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE_TCCollectionDeviceRequested: DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = 3
+class DEVICEDUMP_PRIVATE_SUBSECTION(Structure):
+    dwFlags: UInt32
+    GPLogId: win32more.System.Ioctl.GP_LOG_PAGE_DESCRIPTOR
+    bData: Byte * 1
+    _pack_ = 1
+class DEVICEDUMP_PUBLIC_SUBSECTION(Structure):
+    dwFlags: UInt32
+    GPLogTable: win32more.System.Ioctl.GP_LOG_PAGE_DESCRIPTOR * 16
+    szDescription: win32more.Foundation.CHAR * 16
+    bData: Byte * 1
+    _pack_ = 1
+class DEVICEDUMP_RESTRICTED_SUBSECTION(Structure):
+    bData: Byte * 1
+class DEVICEDUMP_SECTION_HEADER(Structure):
+    guidDeviceDataId: Guid
+    sOrganizationID: Byte * 16
+    dwFirmwareRevision: UInt32
+    sModelNumber: Byte * 32
+    szDeviceManufacturingID: Byte * 32
+    dwFlags: UInt32
+    bRestrictedPrivateDataVersion: UInt32
+    dwFirmwareIssueId: UInt32
+    szIssueDescriptionString: Byte * 132
+    _pack_ = 1
+class DEVICEDUMP_STORAGEDEVICE_DATA(Structure):
+    Descriptor: win32more.System.Ioctl.DEVICEDUMP_STRUCTURE_VERSION
+    SectionHeader: win32more.System.Ioctl.DEVICEDUMP_SECTION_HEADER
+    dwBufferSize: UInt32
+    dwReasonForCollection: UInt32
+    PublicData: win32more.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER
+    RestrictedData: win32more.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER
+    PrivateData: win32more.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER
+    _pack_ = 1
+class DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP(Structure):
+    Descriptor: win32more.System.Ioctl.DEVICEDUMP_STRUCTURE_VERSION
+    dwReasonForCollection: UInt32
+    cDriverName: Byte * 16
+    uiNumRecords: UInt32
+    RecordArray: win32more.System.Ioctl.DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD * 1
+    _pack_ = 1
+class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD(Structure):
+    Cdb: Byte * 16
+    Command: Byte * 16
+    StartTime: UInt64
+    EndTime: UInt64
+    OperationStatus: UInt32
+    OperationError: UInt32
+    StackSpecific: _StackSpecific_e__Union
+    _pack_ = 1
+    class _StackSpecific_e__Union(Union):
+        ExternalStack: _ExternalStack_e__Struct
+        AtaPort: _AtaPort_e__Struct
+        StorPort: _StorPort_e__Struct
+        class _ExternalStack_e__Struct(Structure):
+            dwReserved: UInt32
+            _pack_ = 1
+        class _AtaPort_e__Struct(Structure):
+            dwAtaPortSpecific: UInt32
+            _pack_ = 1
+        class _StorPort_e__Struct(Structure):
+            SrbTag: UInt32
+            _pack_ = 1
+class DEVICEDUMP_STRUCTURE_VERSION(Structure):
+    dwSignature: UInt32
+    dwVersion: UInt32
+    dwSize: UInt32
+    _pack_ = 1
+class DEVICEDUMP_SUBSECTION_POINTER(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    dwOffset: UInt32
+    _pack_ = 1
 class DEVICE_COPY_OFFLOAD_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
@@ -1330,6 +1406,11 @@ class DEVICE_COPY_OFFLOAD_DESCRIPTOR(Structure):
     OptimalTransferLengthPerDescriptor: UInt32
     OptimalTransferLengthGranularity: UInt16
     Reserved: Byte * 2
+class DEVICE_DATA_SET_LBP_STATE_PARAMETERS(Structure):
+    Version: UInt32
+    Size: UInt32
+    Flags: UInt32
+    OutputVersion: UInt32
 class DEVICE_DATA_SET_LB_PROVISIONING_STATE(Structure):
     Size: UInt32
     Version: UInt32
@@ -1346,11 +1427,6 @@ class DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2(Structure):
     SlabAllocationBitMapBitCount: UInt32
     SlabAllocationBitMapLength: UInt32
     SlabAllocationBitMap: UInt32 * 1
-class DEVICE_DATA_SET_LBP_STATE_PARAMETERS(Structure):
-    Version: UInt32
-    Size: UInt32
-    Flags: UInt32
-    OutputVersion: UInt32
 class DEVICE_DATA_SET_RANGE(Structure):
     StartingOffset: Int64
     LengthInBytes: UInt64
@@ -1588,82 +1664,6 @@ class DEVICE_WRITE_AGGREGATION_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
     BenefitsFromWriteAggregation: win32more.Foundation.BOOLEAN
-DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = Int32
-DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE_TCCollectionBugCheck: DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = 1
-DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE_TCCollectionApplicationRequested: DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = 2
-DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE_TCCollectionDeviceRequested: DEVICEDUMP_COLLECTION_TYPEIDE_NOTIFICATION_TYPE = 3
-class DEVICEDUMP_PRIVATE_SUBSECTION(Structure):
-    dwFlags: UInt32
-    GPLogId: win32more.System.Ioctl.GP_LOG_PAGE_DESCRIPTOR
-    bData: Byte * 1
-    _pack_ = 1
-class DEVICEDUMP_PUBLIC_SUBSECTION(Structure):
-    dwFlags: UInt32
-    GPLogTable: win32more.System.Ioctl.GP_LOG_PAGE_DESCRIPTOR * 16
-    szDescription: win32more.Foundation.CHAR * 16
-    bData: Byte * 1
-    _pack_ = 1
-class DEVICEDUMP_RESTRICTED_SUBSECTION(Structure):
-    bData: Byte * 1
-class DEVICEDUMP_SECTION_HEADER(Structure):
-    guidDeviceDataId: Guid
-    sOrganizationID: Byte * 16
-    dwFirmwareRevision: UInt32
-    sModelNumber: Byte * 32
-    szDeviceManufacturingID: Byte * 32
-    dwFlags: UInt32
-    bRestrictedPrivateDataVersion: UInt32
-    dwFirmwareIssueId: UInt32
-    szIssueDescriptionString: Byte * 132
-    _pack_ = 1
-class DEVICEDUMP_STORAGEDEVICE_DATA(Structure):
-    Descriptor: win32more.System.Ioctl.DEVICEDUMP_STRUCTURE_VERSION
-    SectionHeader: win32more.System.Ioctl.DEVICEDUMP_SECTION_HEADER
-    dwBufferSize: UInt32
-    dwReasonForCollection: UInt32
-    PublicData: win32more.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER
-    RestrictedData: win32more.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER
-    PrivateData: win32more.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER
-    _pack_ = 1
-class DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP(Structure):
-    Descriptor: win32more.System.Ioctl.DEVICEDUMP_STRUCTURE_VERSION
-    dwReasonForCollection: UInt32
-    cDriverName: Byte * 16
-    uiNumRecords: UInt32
-    RecordArray: win32more.System.Ioctl.DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD * 1
-    _pack_ = 1
-class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD(Structure):
-    Cdb: Byte * 16
-    Command: Byte * 16
-    StartTime: UInt64
-    EndTime: UInt64
-    OperationStatus: UInt32
-    OperationError: UInt32
-    StackSpecific: _StackSpecific_e__Union
-    _pack_ = 1
-    class _StackSpecific_e__Union(Union):
-        ExternalStack: _ExternalStack_e__Struct
-        AtaPort: _AtaPort_e__Struct
-        StorPort: _StorPort_e__Struct
-        class _ExternalStack_e__Struct(Structure):
-            dwReserved: UInt32
-            _pack_ = 1
-        class _AtaPort_e__Struct(Structure):
-            dwAtaPortSpecific: UInt32
-            _pack_ = 1
-        class _StorPort_e__Struct(Structure):
-            SrbTag: UInt32
-            _pack_ = 1
-class DEVICEDUMP_STRUCTURE_VERSION(Structure):
-    dwSignature: UInt32
-    dwVersion: UInt32
-    dwSize: UInt32
-    _pack_ = 1
-class DEVICEDUMP_SUBSECTION_POINTER(Structure):
-    dwSize: UInt32
-    dwFlags: UInt32
-    dwOffset: UInt32
-    _pack_ = 1
 class DISK_CACHE_INFORMATION(Structure):
     ParametersSavable: win32more.Foundation.BOOLEAN
     ReadCacheEnabled: win32more.Foundation.BOOLEAN
@@ -1699,6 +1699,10 @@ class DISK_DETECTION_INFO(Structure):
         class _Anonymous_e__Struct(Structure):
             Int13: win32more.System.Ioctl.DISK_INT13_INFO
             ExInt13: win32more.System.Ioctl.DISK_EX_INT13_INFO
+class DISK_EXTENT(Structure):
+    DiskNumber: UInt32
+    StartingOffset: win32more.Foundation.LARGE_INTEGER
+    ExtentLength: win32more.Foundation.LARGE_INTEGER
 class DISK_EX_INT13_INFO(Structure):
     ExBufferSize: UInt16
     ExFlags: UInt16
@@ -1708,10 +1712,6 @@ class DISK_EX_INT13_INFO(Structure):
     ExSectorsPerDrive: UInt64
     ExSectorSize: UInt16
     ExReserved: UInt16
-class DISK_EXTENT(Structure):
-    DiskNumber: UInt32
-    StartingOffset: win32more.Foundation.LARGE_INTEGER
-    ExtentLength: win32more.Foundation.LARGE_INTEGER
 class DISK_GEOMETRY(Structure):
     Cylinders: win32more.Foundation.LARGE_INTEGER
     MediaType: win32more.System.Ioctl.MEDIA_TYPE
@@ -1780,6 +1780,12 @@ class DISK_RECORD(Structure):
     NumberOfBytes: UInt32
     DeviceNumber: Byte
     ReadRequest: win32more.Foundation.BOOLEAN
+class DRIVERSTATUS(Structure):
+    bDriverError: Byte
+    bIDEError: Byte
+    bReserved: Byte * 2
+    dwReserved: UInt32 * 2
+    _pack_ = 1
 class DRIVE_LAYOUT_INFORMATION(Structure):
     PartitionCount: UInt32
     Signature: UInt32
@@ -1800,17 +1806,17 @@ class DRIVE_LAYOUT_INFORMATION_GPT(Structure):
 class DRIVE_LAYOUT_INFORMATION_MBR(Structure):
     Signature: UInt32
     CheckSum: UInt32
-class DRIVERSTATUS(Structure):
-    bDriverError: Byte
-    bIDEError: Byte
-    bReserved: Byte * 2
-    dwReserved: UInt32 * 2
-    _pack_ = 1
 class DUPLICATE_EXTENTS_DATA(Structure):
     FileHandle: win32more.Foundation.HANDLE
     SourceFileOffset: win32more.Foundation.LARGE_INTEGER
     TargetFileOffset: win32more.Foundation.LARGE_INTEGER
     ByteCount: win32more.Foundation.LARGE_INTEGER
+if ARCH in 'X64,ARM64':
+    class DUPLICATE_EXTENTS_DATA32(Structure):
+        FileHandle: UInt32
+        SourceFileOffset: win32more.Foundation.LARGE_INTEGER
+        TargetFileOffset: win32more.Foundation.LARGE_INTEGER
+        ByteCount: win32more.Foundation.LARGE_INTEGER
 class DUPLICATE_EXTENTS_DATA_EX(Structure):
     Size: UIntPtr
     FileHandle: win32more.Foundation.HANDLE
@@ -1826,12 +1832,6 @@ if ARCH in 'X64,ARM64':
         TargetFileOffset: win32more.Foundation.LARGE_INTEGER
         ByteCount: win32more.Foundation.LARGE_INTEGER
         Flags: UInt32
-if ARCH in 'X64,ARM64':
-    class DUPLICATE_EXTENTS_DATA32(Structure):
-        FileHandle: UInt32
-        SourceFileOffset: win32more.Foundation.LARGE_INTEGER
-        TargetFileOffset: win32more.Foundation.LARGE_INTEGER
-        ByteCount: win32more.Foundation.LARGE_INTEGER
 DUPLICATE_EXTENTS_STATE = Int32
 DUPLICATE_EXTENTS_STATE_FileSnapStateInactive: DUPLICATE_EXTENTS_STATE = 0
 DUPLICATE_EXTENTS_STATE_FileSnapStateSource: DUPLICATE_EXTENTS_STATE = 1
@@ -1893,6 +1893,42 @@ class FAT_STATISTICS(Structure):
     NonCachedWriteBytes: UInt32
     NonCachedDiskReads: UInt32
     NonCachedDiskWrites: UInt32
+class FILESYSTEM_STATISTICS(Structure):
+    FileSystemType: win32more.System.Ioctl.FILESYSTEM_STATISTICS_TYPE
+    Version: UInt16
+    SizeOfCompleteStructure: UInt32
+    UserFileReads: UInt32
+    UserFileReadBytes: UInt32
+    UserDiskReads: UInt32
+    UserFileWrites: UInt32
+    UserFileWriteBytes: UInt32
+    UserDiskWrites: UInt32
+    MetaDataReads: UInt32
+    MetaDataReadBytes: UInt32
+    MetaDataDiskReads: UInt32
+    MetaDataWrites: UInt32
+    MetaDataWriteBytes: UInt32
+    MetaDataDiskWrites: UInt32
+class FILESYSTEM_STATISTICS_EX(Structure):
+    FileSystemType: win32more.System.Ioctl.FILESYSTEM_STATISTICS_TYPE
+    Version: UInt16
+    SizeOfCompleteStructure: UInt32
+    UserFileReads: UInt64
+    UserFileReadBytes: UInt64
+    UserDiskReads: UInt64
+    UserFileWrites: UInt64
+    UserFileWriteBytes: UInt64
+    UserDiskWrites: UInt64
+    MetaDataReads: UInt64
+    MetaDataReadBytes: UInt64
+    MetaDataDiskReads: UInt64
+    MetaDataWrites: UInt64
+    MetaDataWriteBytes: UInt64
+    MetaDataDiskWrites: UInt64
+FILESYSTEM_STATISTICS_TYPE = UInt16
+FILESYSTEM_STATISTICS_TYPE_EXFAT: FILESYSTEM_STATISTICS_TYPE = 3
+FILESYSTEM_STATISTICS_TYPE_FAT: FILESYSTEM_STATISTICS_TYPE = 2
+FILESYSTEM_STATISTICS_TYPE_NTFS: FILESYSTEM_STATISTICS_TYPE = 1
 class FILE_ALLOCATED_RANGE_BUFFER(Structure):
     FileOffset: win32more.Foundation.LARGE_INTEGER
     Length: win32more.Foundation.LARGE_INTEGER
@@ -2052,42 +2088,6 @@ class FILE_ZERO_DATA_INFORMATION_EX(Structure):
     FileOffset: win32more.Foundation.LARGE_INTEGER
     BeyondFinalZero: win32more.Foundation.LARGE_INTEGER
     Flags: UInt32
-class FILESYSTEM_STATISTICS(Structure):
-    FileSystemType: win32more.System.Ioctl.FILESYSTEM_STATISTICS_TYPE
-    Version: UInt16
-    SizeOfCompleteStructure: UInt32
-    UserFileReads: UInt32
-    UserFileReadBytes: UInt32
-    UserDiskReads: UInt32
-    UserFileWrites: UInt32
-    UserFileWriteBytes: UInt32
-    UserDiskWrites: UInt32
-    MetaDataReads: UInt32
-    MetaDataReadBytes: UInt32
-    MetaDataDiskReads: UInt32
-    MetaDataWrites: UInt32
-    MetaDataWriteBytes: UInt32
-    MetaDataDiskWrites: UInt32
-class FILESYSTEM_STATISTICS_EX(Structure):
-    FileSystemType: win32more.System.Ioctl.FILESYSTEM_STATISTICS_TYPE
-    Version: UInt16
-    SizeOfCompleteStructure: UInt32
-    UserFileReads: UInt64
-    UserFileReadBytes: UInt64
-    UserDiskReads: UInt64
-    UserFileWrites: UInt64
-    UserFileWriteBytes: UInt64
-    UserDiskWrites: UInt64
-    MetaDataReads: UInt64
-    MetaDataReadBytes: UInt64
-    MetaDataDiskReads: UInt64
-    MetaDataWrites: UInt64
-    MetaDataWriteBytes: UInt64
-    MetaDataDiskWrites: UInt64
-FILESYSTEM_STATISTICS_TYPE = UInt16
-FILESYSTEM_STATISTICS_TYPE_EXFAT: FILESYSTEM_STATISTICS_TYPE = 3
-FILESYSTEM_STATISTICS_TYPE_FAT: FILESYSTEM_STATISTICS_TYPE = 2
-FILESYSTEM_STATISTICS_TYPE_NTFS: FILESYSTEM_STATISTICS_TYPE = 1
 class FIND_BY_SID_DATA(Structure):
     Restart: UInt32
     Sid: win32more.Security.SID
@@ -2111,52 +2111,6 @@ class FORMAT_PARAMETERS(Structure):
     EndCylinderNumber: UInt32
     StartHeadNumber: UInt32
     EndHeadNumber: UInt32
-FS_BPIO_INFLAGS = Int32
-FSBPIO_INFL_None: FS_BPIO_INFLAGS = 0
-FSBPIO_INFL_SKIP_STORAGE_STACK_QUERY: FS_BPIO_INFLAGS = 1
-class FS_BPIO_INFO(Structure):
-    ActiveBypassIoCount: UInt32
-    StorageDriverNameLen: UInt16
-    StorageDriverName: Char * 32
-class FS_BPIO_INPUT(Structure):
-    Operation: win32more.System.Ioctl.FS_BPIO_OPERATIONS
-    InFlags: win32more.System.Ioctl.FS_BPIO_INFLAGS
-    Reserved1: UInt64
-    Reserved2: UInt64
-FS_BPIO_OPERATIONS = Int32
-FS_BPIO_OP_ENABLE: FS_BPIO_OPERATIONS = 1
-FS_BPIO_OP_DISABLE: FS_BPIO_OPERATIONS = 2
-FS_BPIO_OP_QUERY: FS_BPIO_OPERATIONS = 3
-FS_BPIO_OP_VOLUME_STACK_PAUSE: FS_BPIO_OPERATIONS = 4
-FS_BPIO_OP_VOLUME_STACK_RESUME: FS_BPIO_OPERATIONS = 5
-FS_BPIO_OP_STREAM_PAUSE: FS_BPIO_OPERATIONS = 6
-FS_BPIO_OP_STREAM_RESUME: FS_BPIO_OPERATIONS = 7
-FS_BPIO_OP_GET_INFO: FS_BPIO_OPERATIONS = 8
-FS_BPIO_OP_MAX_OPERATION: FS_BPIO_OPERATIONS = 9
-FS_BPIO_OUTFLAGS = Int32
-FSBPIO_OUTFL_None: FS_BPIO_OUTFLAGS = 0
-FSBPIO_OUTFL_VOLUME_STACK_BYPASS_PAUSED: FS_BPIO_OUTFLAGS = 1
-FSBPIO_OUTFL_STREAM_BYPASS_PAUSED: FS_BPIO_OUTFLAGS = 2
-FSBPIO_OUTFL_FILTER_ATTACH_BLOCKED: FS_BPIO_OUTFLAGS = 4
-FSBPIO_OUTFL_COMPATIBLE_STORAGE_DRIVER: FS_BPIO_OUTFLAGS = 8
-class FS_BPIO_OUTPUT(Structure):
-    Operation: win32more.System.Ioctl.FS_BPIO_OPERATIONS
-    OutFlags: win32more.System.Ioctl.FS_BPIO_OUTFLAGS
-    Reserved1: UInt64
-    Reserved2: UInt64
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        Enable: win32more.System.Ioctl.FS_BPIO_RESULTS
-        Query: win32more.System.Ioctl.FS_BPIO_RESULTS
-        VolumeStackResume: win32more.System.Ioctl.FS_BPIO_RESULTS
-        StreamResume: win32more.System.Ioctl.FS_BPIO_RESULTS
-        GetInfo: win32more.System.Ioctl.FS_BPIO_INFO
-class FS_BPIO_RESULTS(Structure):
-    OpStatus: UInt32
-    FailingDriverNameLen: UInt16
-    FailingDriverName: Char * 32
-    FailureReasonLen: UInt16
-    FailureReason: Char * 128
 class FSCTL_GET_INTEGRITY_INFORMATION_BUFFER(Structure):
     ChecksumAlgorithm: UInt16
     Reserved: UInt16
@@ -2221,6 +2175,60 @@ class FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX(Structure):
     Flags: UInt32
     Version: Byte
     Reserved2: Byte * 7
+FS_BPIO_INFLAGS = Int32
+FSBPIO_INFL_None: FS_BPIO_INFLAGS = 0
+FSBPIO_INFL_SKIP_STORAGE_STACK_QUERY: FS_BPIO_INFLAGS = 1
+class FS_BPIO_INFO(Structure):
+    ActiveBypassIoCount: UInt32
+    StorageDriverNameLen: UInt16
+    StorageDriverName: Char * 32
+class FS_BPIO_INPUT(Structure):
+    Operation: win32more.System.Ioctl.FS_BPIO_OPERATIONS
+    InFlags: win32more.System.Ioctl.FS_BPIO_INFLAGS
+    Reserved1: UInt64
+    Reserved2: UInt64
+FS_BPIO_OPERATIONS = Int32
+FS_BPIO_OP_ENABLE: FS_BPIO_OPERATIONS = 1
+FS_BPIO_OP_DISABLE: FS_BPIO_OPERATIONS = 2
+FS_BPIO_OP_QUERY: FS_BPIO_OPERATIONS = 3
+FS_BPIO_OP_VOLUME_STACK_PAUSE: FS_BPIO_OPERATIONS = 4
+FS_BPIO_OP_VOLUME_STACK_RESUME: FS_BPIO_OPERATIONS = 5
+FS_BPIO_OP_STREAM_PAUSE: FS_BPIO_OPERATIONS = 6
+FS_BPIO_OP_STREAM_RESUME: FS_BPIO_OPERATIONS = 7
+FS_BPIO_OP_GET_INFO: FS_BPIO_OPERATIONS = 8
+FS_BPIO_OP_MAX_OPERATION: FS_BPIO_OPERATIONS = 9
+FS_BPIO_OUTFLAGS = Int32
+FSBPIO_OUTFL_None: FS_BPIO_OUTFLAGS = 0
+FSBPIO_OUTFL_VOLUME_STACK_BYPASS_PAUSED: FS_BPIO_OUTFLAGS = 1
+FSBPIO_OUTFL_STREAM_BYPASS_PAUSED: FS_BPIO_OUTFLAGS = 2
+FSBPIO_OUTFL_FILTER_ATTACH_BLOCKED: FS_BPIO_OUTFLAGS = 4
+FSBPIO_OUTFL_COMPATIBLE_STORAGE_DRIVER: FS_BPIO_OUTFLAGS = 8
+class FS_BPIO_OUTPUT(Structure):
+    Operation: win32more.System.Ioctl.FS_BPIO_OPERATIONS
+    OutFlags: win32more.System.Ioctl.FS_BPIO_OUTFLAGS
+    Reserved1: UInt64
+    Reserved2: UInt64
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        Enable: win32more.System.Ioctl.FS_BPIO_RESULTS
+        Query: win32more.System.Ioctl.FS_BPIO_RESULTS
+        VolumeStackResume: win32more.System.Ioctl.FS_BPIO_RESULTS
+        StreamResume: win32more.System.Ioctl.FS_BPIO_RESULTS
+        GetInfo: win32more.System.Ioctl.FS_BPIO_INFO
+class FS_BPIO_RESULTS(Structure):
+    OpStatus: UInt32
+    FailingDriverNameLen: UInt16
+    FailingDriverName: Char * 32
+    FailureReasonLen: UInt16
+    FailureReason: Char * 128
+class GETVERSIONINPARAMS(Structure):
+    bVersion: Byte
+    bRevision: Byte
+    bReserved: Byte
+    bIDEDeviceMap: Byte
+    fCapabilities: UInt32
+    dwReserved: UInt32 * 4
+    _pack_ = 1
 class GET_CHANGER_PARAMETERS(Structure):
     Size: UInt32
     NumberTransportElements: UInt16
@@ -2283,24 +2291,16 @@ class GET_MEDIA_TYPES(Structure):
     DeviceType: UInt32
     MediaInfoCount: UInt32
     MediaInfo: win32more.System.Ioctl.DEVICE_MEDIA_INFO * 1
-class GETVERSIONINPARAMS(Structure):
-    bVersion: Byte
-    bRevision: Byte
-    bReserved: Byte
-    bIDEDeviceMap: Byte
-    fCapabilities: UInt32
-    dwReserved: UInt32 * 4
-    _pack_ = 1
-class GP_LOG_PAGE_DESCRIPTOR(Structure):
-    LogAddress: UInt16
-    LogSectors: UInt16
-    _pack_ = 1
 GPT_ATTRIBUTES = UInt64
 GPT_ATTRIBUTE_PLATFORM_REQUIRED: GPT_ATTRIBUTES = 1
 GPT_BASIC_DATA_ATTRIBUTE_NO_DRIVE_LETTER: GPT_ATTRIBUTES = 9223372036854775808
 GPT_BASIC_DATA_ATTRIBUTE_HIDDEN: GPT_ATTRIBUTES = 4611686018427387904
 GPT_BASIC_DATA_ATTRIBUTE_SHADOW_COPY: GPT_ATTRIBUTES = 2305843009213693952
 GPT_BASIC_DATA_ATTRIBUTE_READ_ONLY: GPT_ATTRIBUTES = 1152921504606846976
+class GP_LOG_PAGE_DESCRIPTOR(Structure):
+    LogAddress: UInt16
+    LogSectors: UInt16
+    _pack_ = 1
 class HISTOGRAM_BUCKET(Structure):
     Reads: UInt32
     Writes: UInt32
@@ -2841,10 +2841,6 @@ class REQUEST_OPLOCK_OUTPUT_BUFFER(Structure):
 class REQUEST_RAW_ENCRYPTED_DATA(Structure):
     FileOffset: Int64
     Length: UInt32
-class RETRIEVAL_POINTER_BASE(Structure):
-    FileAreaOffset: win32more.Foundation.LARGE_INTEGER
-class RETRIEVAL_POINTER_COUNT(Structure):
-    ExtentCount: UInt32
 class RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER(Structure):
     ExtentCount: UInt32
     StartingVcn: win32more.Foundation.LARGE_INTEGER
@@ -2860,6 +2856,15 @@ class RETRIEVAL_POINTERS_BUFFER(Structure):
     class _Anonymous_e__Struct(Structure):
         NextVcn: win32more.Foundation.LARGE_INTEGER
         Lcn: win32more.Foundation.LARGE_INTEGER
+class RETRIEVAL_POINTER_BASE(Structure):
+    FileAreaOffset: win32more.Foundation.LARGE_INTEGER
+class RETRIEVAL_POINTER_COUNT(Structure):
+    ExtentCount: UInt32
+class SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO(Structure):
+    Version: UInt32
+    Size: UInt32
+    DeviceCount: UInt32
+    Devices: win32more.System.Ioctl.SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO * 1
 class SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO(Structure):
     DeviceGuid: Guid
     DeviceNumber: UInt32
@@ -2867,11 +2872,6 @@ class SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO(Structure):
     DeviceSize: UInt64
     class _Flags_e__Struct(Structure):
         _bitfield: UInt32
-class SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO(Structure):
-    Version: UInt32
-    Size: UInt32
-    DeviceCount: UInt32
-    Devices: win32more.System.Ioctl.SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO * 1
 class SCM_BUS_DEDICATED_MEMORY_STATE(Structure):
     ActivateState: win32more.Foundation.BOOLEAN
 SCM_BUS_FIRMWARE_ACTIVATION_STATE = Int32
@@ -2923,16 +2923,16 @@ class SCM_LD_INTERLEAVE_SET_INFO(Structure):
     Size: UInt32
     InterleaveSetSize: UInt32
     InterleaveSet: win32more.System.Ioctl.SCM_INTERLEAVED_PD_INFO * 1
-class SCM_LOGICAL_DEVICE_INSTANCE(Structure):
-    Version: UInt32
-    Size: UInt32
-    DeviceGuid: Guid
-    SymbolicLink: Char * 256
 class SCM_LOGICAL_DEVICES(Structure):
     Version: UInt32
     Size: UInt32
     DeviceCount: UInt32
     Devices: win32more.System.Ioctl.SCM_LOGICAL_DEVICE_INSTANCE * 1
+class SCM_LOGICAL_DEVICE_INSTANCE(Structure):
+    Version: UInt32
+    Size: UInt32
+    DeviceGuid: Guid
+    SymbolicLink: Char * 256
 class SCM_PD_DESCRIPTOR_HEADER(Structure):
     Version: UInt32
     Size: UInt32
@@ -3147,16 +3147,16 @@ SCM_PD_SET_TYPE = Int32
 ScmPhysicalDeviceSet_Descriptor: SCM_PD_SET_TYPE = 0
 ScmPhysicalDeviceSet_IsSupported: SCM_PD_SET_TYPE = 1
 ScmPhysicalDeviceSet_Max: SCM_PD_SET_TYPE = 2
-class SCM_PHYSICAL_DEVICE_INSTANCE(Structure):
-    Version: UInt32
-    Size: UInt32
-    NfitHandle: UInt32
-    SymbolicLink: Char * 256
 class SCM_PHYSICAL_DEVICES(Structure):
     Version: UInt32
     Size: UInt32
     DeviceCount: UInt32
     Devices: win32more.System.Ioctl.SCM_PHYSICAL_DEVICE_INSTANCE * 1
+class SCM_PHYSICAL_DEVICE_INSTANCE(Structure):
+    Version: UInt32
+    Size: UInt32
+    NfitHandle: UInt32
+    SymbolicLink: Char * 256
 class SCM_REGION(Structure):
     Version: UInt32
     Size: UInt32
@@ -3170,14 +3170,14 @@ class SCM_REGION(Structure):
     BaseSPA: UInt64
     SPAOffset: UInt64
     RegionOffset: UInt64
-SCM_REGION_FLAG = Int32
-SCM_REGION_FLAG_ScmRegionFlagNone: SCM_REGION_FLAG = 0
-SCM_REGION_FLAG_ScmRegionFlagLabel: SCM_REGION_FLAG = 1
 class SCM_REGIONS(Structure):
     Version: UInt32
     Size: UInt32
     RegionCount: UInt32
     Regions: win32more.System.Ioctl.SCM_REGION * 1
+SCM_REGION_FLAG = Int32
+SCM_REGION_FLAG_ScmRegionFlagNone: SCM_REGION_FLAG = 0
+SCM_REGION_FLAG_ScmRegionFlagLabel: SCM_REGION_FLAG = 1
 class SD_CHANGE_MACHINE_SID_INPUT(Structure):
     CurrentMachineSIDOffset: UInt16
     CurrentMachineSIDLength: UInt16
@@ -3367,6 +3367,11 @@ class STORAGE_COUNTER(Structure):
         class _ManufactureDate_e__Struct(Structure):
             Week: UInt32
             Year: UInt32
+class STORAGE_COUNTERS(Structure):
+    Version: UInt32
+    Size: UInt32
+    NumberOfCounters: UInt32
+    Counters: win32more.System.Ioctl.STORAGE_COUNTER * 1
 STORAGE_COUNTER_TYPE = Int32
 STORAGE_COUNTER_TYPE_StorageCounterTypeUnknown: STORAGE_COUNTER_TYPE = 0
 STORAGE_COUNTER_TYPE_StorageCounterTypeTemperatureCelsius: STORAGE_COUNTER_TYPE = 1
@@ -3390,11 +3395,6 @@ STORAGE_COUNTER_TYPE_StorageCounterTypeReadLatency100NSMax: STORAGE_COUNTER_TYPE
 STORAGE_COUNTER_TYPE_StorageCounterTypeWriteLatency100NSMax: STORAGE_COUNTER_TYPE = 19
 STORAGE_COUNTER_TYPE_StorageCounterTypeFlushLatency100NSMax: STORAGE_COUNTER_TYPE = 20
 STORAGE_COUNTER_TYPE_StorageCounterTypeMax: STORAGE_COUNTER_TYPE = 21
-class STORAGE_COUNTERS(Structure):
-    Version: UInt32
-    Size: UInt32
-    NumberOfCounters: UInt32
-    Counters: win32more.System.Ioctl.STORAGE_COUNTER * 1
 STORAGE_CRYPTO_ALGORITHM_ID = Int32
 STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmUnknown: STORAGE_CRYPTO_ALGORITHM_ID = 0
 STORAGE_CRYPTO_ALGORITHM_ID_StorageCryptoAlgorithmXTSAES: STORAGE_CRYPTO_ALGORITHM_ID = 1
@@ -3494,6 +3494,11 @@ class STORAGE_DEVICE_NUMBER(Structure):
     DeviceType: UInt32
     DeviceNumber: UInt32
     PartitionNumber: UInt32
+class STORAGE_DEVICE_NUMBERS(Structure):
+    Version: UInt32
+    Size: UInt32
+    NumberOfDevices: UInt32
+    Devices: win32more.System.Ioctl.STORAGE_DEVICE_NUMBER * 1
 class STORAGE_DEVICE_NUMBER_EX(Structure):
     Version: UInt32
     Size: UInt32
@@ -3502,11 +3507,6 @@ class STORAGE_DEVICE_NUMBER_EX(Structure):
     DeviceNumber: UInt32
     DeviceGuid: Guid
     PartitionNumber: UInt32
-class STORAGE_DEVICE_NUMBERS(Structure):
-    Version: UInt32
-    Size: UInt32
-    NumberOfDevices: UInt32
-    Devices: win32more.System.Ioctl.STORAGE_DEVICE_NUMBER * 1
 class STORAGE_DEVICE_POWER_CAP(Structure):
     Version: UInt32
     Size: UInt32
@@ -3668,10 +3668,6 @@ class STORAGE_HW_FIRMWARE_SLOT_INFO(Structure):
     _bitfield: Byte
     Reserved1: Byte * 6
     Revision: Byte * 16
-STORAGE_ID_NAA_FORMAT = Int32
-STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEEExtended: STORAGE_ID_NAA_FORMAT = 2
-STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEERegistered: STORAGE_ID_NAA_FORMAT = 3
-STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEEERegisteredExtended: STORAGE_ID_NAA_FORMAT = 5
 class STORAGE_IDENTIFIER(Structure):
     CodeSet: win32more.System.Ioctl.STORAGE_IDENTIFIER_CODE_SET
     Type: win32more.System.Ioctl.STORAGE_IDENTIFIER_TYPE
@@ -3703,6 +3699,10 @@ class STORAGE_IDLE_POWERUP_REASON(Structure):
     Version: UInt32
     Size: UInt32
     PowerupReason: win32more.System.Ioctl.STORAGE_POWERUP_REASON_TYPE
+STORAGE_ID_NAA_FORMAT = Int32
+STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEEExtended: STORAGE_ID_NAA_FORMAT = 2
+STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEERegistered: STORAGE_ID_NAA_FORMAT = 3
+STORAGE_ID_NAA_FORMAT_StorageIdNAAFormatIEEEERegisteredExtended: STORAGE_ID_NAA_FORMAT = 5
 class STORAGE_LB_PROVISIONING_MAP_RESOURCES(Structure):
     Size: UInt32
     Version: UInt32
@@ -4207,33 +4207,6 @@ class STORAGE_WRITE_CACHE_PROPERTY(Structure):
     FlushCacheSupported: win32more.Foundation.BOOLEAN
     UserDefinedPowerProtection: win32more.Foundation.BOOLEAN
     NVCacheEnabled: win32more.Foundation.BOOLEAN
-STORAGE_ZONE_CONDITION = Int32
-STORAGE_ZONE_CONDITION_ZoneConditionConventional: STORAGE_ZONE_CONDITION = 0
-STORAGE_ZONE_CONDITION_ZoneConditionEmpty: STORAGE_ZONE_CONDITION = 1
-STORAGE_ZONE_CONDITION_ZoneConditionImplicitlyOpened: STORAGE_ZONE_CONDITION = 2
-STORAGE_ZONE_CONDITION_ZoneConditionExplicitlyOpened: STORAGE_ZONE_CONDITION = 3
-STORAGE_ZONE_CONDITION_ZoneConditionClosed: STORAGE_ZONE_CONDITION = 4
-STORAGE_ZONE_CONDITION_ZoneConditionReadOnly: STORAGE_ZONE_CONDITION = 13
-STORAGE_ZONE_CONDITION_ZoneConditionFull: STORAGE_ZONE_CONDITION = 14
-STORAGE_ZONE_CONDITION_ZoneConditionOffline: STORAGE_ZONE_CONDITION = 15
-class STORAGE_ZONE_DESCRIPTOR(Structure):
-    Size: UInt32
-    ZoneType: win32more.System.Ioctl.STORAGE_ZONE_TYPES
-    ZoneCondition: win32more.System.Ioctl.STORAGE_ZONE_CONDITION
-    ResetWritePointerRecommend: win32more.Foundation.BOOLEAN
-    Reserved0: Byte * 3
-    ZoneSize: UInt64
-    WritePointerOffset: UInt64
-class STORAGE_ZONE_GROUP(Structure):
-    ZoneCount: UInt32
-    ZoneType: win32more.System.Ioctl.STORAGE_ZONE_TYPES
-    ZoneSize: UInt64
-STORAGE_ZONE_TYPES = Int32
-STORAGE_ZONE_TYPES_ZoneTypeUnknown: STORAGE_ZONE_TYPES = 0
-STORAGE_ZONE_TYPES_ZoneTypeConventional: STORAGE_ZONE_TYPES = 1
-STORAGE_ZONE_TYPES_ZoneTypeSequentialWriteRequired: STORAGE_ZONE_TYPES = 2
-STORAGE_ZONE_TYPES_ZoneTypeSequentialWritePreferred: STORAGE_ZONE_TYPES = 3
-STORAGE_ZONE_TYPES_ZoneTypeMax: STORAGE_ZONE_TYPES = 4
 class STORAGE_ZONED_DEVICE_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
@@ -4262,6 +4235,43 @@ STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeAndLengthMayDifferent: STORAGE_ZONES_
 STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeSameLengthSame: STORAGE_ZONES_ATTRIBUTES = 1
 STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeSameLastZoneLengthDifferent: STORAGE_ZONES_ATTRIBUTES = 2
 STORAGE_ZONES_ATTRIBUTES_ZonesAttributeTypeMayDifferentLengthSame: STORAGE_ZONES_ATTRIBUTES = 3
+STORAGE_ZONE_CONDITION = Int32
+STORAGE_ZONE_CONDITION_ZoneConditionConventional: STORAGE_ZONE_CONDITION = 0
+STORAGE_ZONE_CONDITION_ZoneConditionEmpty: STORAGE_ZONE_CONDITION = 1
+STORAGE_ZONE_CONDITION_ZoneConditionImplicitlyOpened: STORAGE_ZONE_CONDITION = 2
+STORAGE_ZONE_CONDITION_ZoneConditionExplicitlyOpened: STORAGE_ZONE_CONDITION = 3
+STORAGE_ZONE_CONDITION_ZoneConditionClosed: STORAGE_ZONE_CONDITION = 4
+STORAGE_ZONE_CONDITION_ZoneConditionReadOnly: STORAGE_ZONE_CONDITION = 13
+STORAGE_ZONE_CONDITION_ZoneConditionFull: STORAGE_ZONE_CONDITION = 14
+STORAGE_ZONE_CONDITION_ZoneConditionOffline: STORAGE_ZONE_CONDITION = 15
+class STORAGE_ZONE_DESCRIPTOR(Structure):
+    Size: UInt32
+    ZoneType: win32more.System.Ioctl.STORAGE_ZONE_TYPES
+    ZoneCondition: win32more.System.Ioctl.STORAGE_ZONE_CONDITION
+    ResetWritePointerRecommend: win32more.Foundation.BOOLEAN
+    Reserved0: Byte * 3
+    ZoneSize: UInt64
+    WritePointerOffset: UInt64
+class STORAGE_ZONE_GROUP(Structure):
+    ZoneCount: UInt32
+    ZoneType: win32more.System.Ioctl.STORAGE_ZONE_TYPES
+    ZoneSize: UInt64
+STORAGE_ZONE_TYPES = Int32
+STORAGE_ZONE_TYPES_ZoneTypeUnknown: STORAGE_ZONE_TYPES = 0
+STORAGE_ZONE_TYPES_ZoneTypeConventional: STORAGE_ZONE_TYPES = 1
+STORAGE_ZONE_TYPES_ZoneTypeSequentialWriteRequired: STORAGE_ZONE_TYPES = 2
+STORAGE_ZONE_TYPES_ZoneTypeSequentialWritePreferred: STORAGE_ZONE_TYPES = 3
+STORAGE_ZONE_TYPES_ZoneTypeMax: STORAGE_ZONE_TYPES = 4
+class STREAMS_ASSOCIATE_ID_INPUT_BUFFER(Structure):
+    Flags: UInt32
+    StreamId: UInt32
+class STREAMS_QUERY_ID_OUTPUT_BUFFER(Structure):
+    StreamId: UInt32
+class STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER(Structure):
+    OptimalWriteSize: UInt32
+    StreamGranularitySize: UInt32
+    StreamIdMin: UInt32
+    StreamIdMax: UInt32
 class STREAM_EXTENT_ENTRY(Structure):
     Flags: UInt32
     ExtentInformation: _ExtentInformation_e__Union
@@ -4306,16 +4316,6 @@ class STREAM_LAYOUT_ENTRY(Structure):
     AttributeFlags: UInt32
     StreamIdentifierLength: UInt32
     StreamIdentifier: Char * 1
-class STREAMS_ASSOCIATE_ID_INPUT_BUFFER(Structure):
-    Flags: UInt32
-    StreamId: UInt32
-class STREAMS_QUERY_ID_OUTPUT_BUFFER(Structure):
-    StreamId: UInt32
-class STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER(Structure):
-    OptimalWriteSize: UInt32
-    StreamGranularitySize: UInt32
-    StreamIdMin: UInt32
-    StreamIdMax: UInt32
 class TAPE_GET_STATISTICS(Structure):
     Operation: UInt32
 class TAPE_STATISTICS(Structure):
@@ -4346,6 +4346,15 @@ class TXFS_GET_TRANSACTED_VERSION(Structure):
     ThisMiniVersion: UInt16
     FirstMiniVersion: UInt16
     LatestMiniVersion: UInt16
+class TXFS_LIST_TRANSACTIONS(Structure):
+    NumberOfTransactions: UInt64
+    BufferSizeRequired: UInt64
+class TXFS_LIST_TRANSACTIONS_ENTRY(Structure):
+    TransactionId: Guid
+    TransactionState: UInt32
+    Reserved1: UInt32
+    Reserved2: UInt32
+    Reserved3: Int64
 class TXFS_LIST_TRANSACTION_LOCKED_FILES(Structure):
     KtmTransaction: Guid
     NumberOfFiles: UInt64
@@ -4359,15 +4368,6 @@ class TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY(Structure):
     Reserved2: UInt32
     Reserved3: Int64
     FileName: Char * 1
-class TXFS_LIST_TRANSACTIONS(Structure):
-    NumberOfTransactions: UInt64
-    BufferSizeRequired: UInt64
-class TXFS_LIST_TRANSACTIONS_ENTRY(Structure):
-    TransactionId: Guid
-    TransactionState: UInt32
-    Reserved1: UInt32
-    Reserved2: UInt32
-    Reserved3: Int64
 class TXFS_MODIFY_RM(Structure):
     Flags: win32more.System.Ioctl.TXFS_RMF_LAGS
     LogContainerCountMax: UInt32
@@ -4555,15 +4555,6 @@ class USN_TRACK_MODIFIED_RANGES(Structure):
 class VERIFY_INFORMATION(Structure):
     StartingOffset: win32more.Foundation.LARGE_INTEGER
     Length: UInt32
-VIRTUAL_STORAGE_BEHAVIOR_CODE = Int32
-VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorUndefined: VIRTUAL_STORAGE_BEHAVIOR_CODE = 0
-VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorCacheWriteThrough: VIRTUAL_STORAGE_BEHAVIOR_CODE = 1
-VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorCacheWriteBack: VIRTUAL_STORAGE_BEHAVIOR_CODE = 2
-VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorStopIoProcessing: VIRTUAL_STORAGE_BEHAVIOR_CODE = 3
-VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorRestartIoProcessing: VIRTUAL_STORAGE_BEHAVIOR_CODE = 4
-class VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT(Structure):
-    Size: UInt32
-    BehaviorCode: win32more.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE
 class VIRTUALIZATION_INSTANCE_INFO_INPUT(Structure):
     NumberOfWorkerThreads: UInt32
     Flags: UInt32
@@ -4575,6 +4566,15 @@ class VIRTUALIZATION_INSTANCE_INFO_INPUT_EX(Structure):
     ProviderMajorVersion: UInt16
 class VIRTUALIZATION_INSTANCE_INFO_OUTPUT(Structure):
     VirtualizationInstanceID: Guid
+VIRTUAL_STORAGE_BEHAVIOR_CODE = Int32
+VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorUndefined: VIRTUAL_STORAGE_BEHAVIOR_CODE = 0
+VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorCacheWriteThrough: VIRTUAL_STORAGE_BEHAVIOR_CODE = 1
+VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorCacheWriteBack: VIRTUAL_STORAGE_BEHAVIOR_CODE = 2
+VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorStopIoProcessing: VIRTUAL_STORAGE_BEHAVIOR_CODE = 3
+VIRTUAL_STORAGE_BEHAVIOR_CODE_VirtualStorageBehaviorRestartIoProcessing: VIRTUAL_STORAGE_BEHAVIOR_CODE = 4
+class VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT(Structure):
+    Size: UInt32
+    BehaviorCode: win32more.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE
 class VOLUME_BITMAP_BUFFER(Structure):
     StartingLcn: win32more.Foundation.LARGE_INTEGER
     BitmapSize: win32more.Foundation.LARGE_INTEGER
@@ -4637,6 +4637,7 @@ WRITE_THROUGH_WriteThroughSupported: WRITE_THROUGH = 2
 class WRITE_USN_REASON_INPUT(Structure):
     Flags: UInt32
     UsnReasonToWrite: UInt32
+make_head(_module, 'ASYNC_DUPLICATE_EXTENTS_STATUS')
 make_head(_module, 'DEVPKEY_Storage_Portable')
 make_head(_module, 'DEVPKEY_Storage_Removable_Media')
 make_head(_module, 'DEVPKEY_Storage_System_Critical')
@@ -4645,7 +4646,6 @@ make_head(_module, 'DEVPKEY_Storage_Partition_Number')
 make_head(_module, 'DEVPKEY_Storage_Mbr_Type')
 make_head(_module, 'DEVPKEY_Storage_Gpt_Type')
 make_head(_module, 'DEVPKEY_Storage_Gpt_Name')
-make_head(_module, 'ASYNC_DUPLICATE_EXTENTS_STATUS')
 make_head(_module, 'BIN_COUNT')
 make_head(_module, 'BIN_RANGE')
 make_head(_module, 'BIN_RESULTS')
@@ -4687,10 +4687,19 @@ make_head(_module, 'CSV_QUERY_VOLUME_REDIRECT_STATE')
 make_head(_module, 'CSV_SET_VOLUME_ID')
 make_head(_module, 'DECRYPTION_STATUS_BUFFER')
 make_head(_module, 'DELETE_USN_JOURNAL_DATA')
+make_head(_module, 'DEVICEDUMP_PRIVATE_SUBSECTION')
+make_head(_module, 'DEVICEDUMP_PUBLIC_SUBSECTION')
+make_head(_module, 'DEVICEDUMP_RESTRICTED_SUBSECTION')
+make_head(_module, 'DEVICEDUMP_SECTION_HEADER')
+make_head(_module, 'DEVICEDUMP_STORAGEDEVICE_DATA')
+make_head(_module, 'DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP')
+make_head(_module, 'DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD')
+make_head(_module, 'DEVICEDUMP_STRUCTURE_VERSION')
+make_head(_module, 'DEVICEDUMP_SUBSECTION_POINTER')
 make_head(_module, 'DEVICE_COPY_OFFLOAD_DESCRIPTOR')
+make_head(_module, 'DEVICE_DATA_SET_LBP_STATE_PARAMETERS')
 make_head(_module, 'DEVICE_DATA_SET_LB_PROVISIONING_STATE')
 make_head(_module, 'DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2')
-make_head(_module, 'DEVICE_DATA_SET_LBP_STATE_PARAMETERS')
 make_head(_module, 'DEVICE_DATA_SET_RANGE')
 make_head(_module, 'DEVICE_DATA_SET_REPAIR_OUTPUT')
 make_head(_module, 'DEVICE_DATA_SET_REPAIR_PARAMETERS')
@@ -4724,20 +4733,11 @@ make_head(_module, 'DEVICE_STORAGE_ADDRESS_RANGE')
 make_head(_module, 'DEVICE_STORAGE_RANGE_ATTRIBUTES')
 make_head(_module, 'DEVICE_TRIM_DESCRIPTOR')
 make_head(_module, 'DEVICE_WRITE_AGGREGATION_DESCRIPTOR')
-make_head(_module, 'DEVICEDUMP_PRIVATE_SUBSECTION')
-make_head(_module, 'DEVICEDUMP_PUBLIC_SUBSECTION')
-make_head(_module, 'DEVICEDUMP_RESTRICTED_SUBSECTION')
-make_head(_module, 'DEVICEDUMP_SECTION_HEADER')
-make_head(_module, 'DEVICEDUMP_STORAGEDEVICE_DATA')
-make_head(_module, 'DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP')
-make_head(_module, 'DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD')
-make_head(_module, 'DEVICEDUMP_STRUCTURE_VERSION')
-make_head(_module, 'DEVICEDUMP_SUBSECTION_POINTER')
 make_head(_module, 'DISK_CACHE_INFORMATION')
 make_head(_module, 'DISK_CONTROLLER_NUMBER')
 make_head(_module, 'DISK_DETECTION_INFO')
-make_head(_module, 'DISK_EX_INT13_INFO')
 make_head(_module, 'DISK_EXTENT')
+make_head(_module, 'DISK_EX_INT13_INFO')
 make_head(_module, 'DISK_GEOMETRY')
 make_head(_module, 'DISK_GEOMETRY_EX')
 make_head(_module, 'DISK_GROW_PARTITION')
@@ -4747,23 +4747,25 @@ make_head(_module, 'DISK_LOGGING')
 make_head(_module, 'DISK_PARTITION_INFO')
 make_head(_module, 'DISK_PERFORMANCE')
 make_head(_module, 'DISK_RECORD')
+make_head(_module, 'DRIVERSTATUS')
 make_head(_module, 'DRIVE_LAYOUT_INFORMATION')
 make_head(_module, 'DRIVE_LAYOUT_INFORMATION_EX')
 make_head(_module, 'DRIVE_LAYOUT_INFORMATION_GPT')
 make_head(_module, 'DRIVE_LAYOUT_INFORMATION_MBR')
-make_head(_module, 'DRIVERSTATUS')
 make_head(_module, 'DUPLICATE_EXTENTS_DATA')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'DUPLICATE_EXTENTS_DATA32')
 make_head(_module, 'DUPLICATE_EXTENTS_DATA_EX')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'DUPLICATE_EXTENTS_DATA_EX32')
-if ARCH in 'X64,ARM64':
-    make_head(_module, 'DUPLICATE_EXTENTS_DATA32')
 make_head(_module, 'ENCRYPTED_DATA_INFO')
 make_head(_module, 'ENCRYPTION_BUFFER')
 make_head(_module, 'ENCRYPTION_KEY_CTRL_INPUT')
 make_head(_module, 'EXFAT_STATISTICS')
 make_head(_module, 'EXTENDED_ENCRYPTED_DATA_INFO')
 make_head(_module, 'FAT_STATISTICS')
+make_head(_module, 'FILESYSTEM_STATISTICS')
+make_head(_module, 'FILESYSTEM_STATISTICS_EX')
 make_head(_module, 'FILE_ALLOCATED_RANGE_BUFFER')
 make_head(_module, 'FILE_DESIRED_STORAGE_CLASS_INFORMATION')
 make_head(_module, 'FILE_FS_PERSISTENT_VOLUME_INFORMATION')
@@ -4794,16 +4796,10 @@ make_head(_module, 'FILE_SYSTEM_RECOGNITION_INFORMATION')
 make_head(_module, 'FILE_TYPE_NOTIFICATION_INPUT')
 make_head(_module, 'FILE_ZERO_DATA_INFORMATION')
 make_head(_module, 'FILE_ZERO_DATA_INFORMATION_EX')
-make_head(_module, 'FILESYSTEM_STATISTICS')
-make_head(_module, 'FILESYSTEM_STATISTICS_EX')
 make_head(_module, 'FIND_BY_SID_DATA')
 make_head(_module, 'FIND_BY_SID_OUTPUT')
 make_head(_module, 'FORMAT_EX_PARAMETERS')
 make_head(_module, 'FORMAT_PARAMETERS')
-make_head(_module, 'FS_BPIO_INFO')
-make_head(_module, 'FS_BPIO_INPUT')
-make_head(_module, 'FS_BPIO_OUTPUT')
-make_head(_module, 'FS_BPIO_RESULTS')
 make_head(_module, 'FSCTL_GET_INTEGRITY_INFORMATION_BUFFER')
 make_head(_module, 'FSCTL_OFFLOAD_READ_INPUT')
 make_head(_module, 'FSCTL_OFFLOAD_READ_OUTPUT')
@@ -4815,6 +4811,11 @@ make_head(_module, 'FSCTL_QUERY_REGION_INFO_OUTPUT')
 make_head(_module, 'FSCTL_QUERY_STORAGE_CLASSES_OUTPUT')
 make_head(_module, 'FSCTL_SET_INTEGRITY_INFORMATION_BUFFER')
 make_head(_module, 'FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX')
+make_head(_module, 'FS_BPIO_INFO')
+make_head(_module, 'FS_BPIO_INPUT')
+make_head(_module, 'FS_BPIO_OUTPUT')
+make_head(_module, 'FS_BPIO_RESULTS')
+make_head(_module, 'GETVERSIONINPARAMS')
 make_head(_module, 'GET_CHANGER_PARAMETERS')
 make_head(_module, 'GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST')
 make_head(_module, 'GET_DISK_ATTRIBUTES')
@@ -4822,7 +4823,6 @@ make_head(_module, 'GET_FILTER_FILE_IDENTIFIER_INPUT')
 make_head(_module, 'GET_FILTER_FILE_IDENTIFIER_OUTPUT')
 make_head(_module, 'GET_LENGTH_INFORMATION')
 make_head(_module, 'GET_MEDIA_TYPES')
-make_head(_module, 'GETVERSIONINPARAMS')
 make_head(_module, 'GP_LOG_PAGE_DESCRIPTOR')
 make_head(_module, 'HISTOGRAM_BUCKET')
 make_head(_module, 'IDEREGS')
@@ -4879,20 +4879,20 @@ make_head(_module, 'REPAIR_COPIES_OUTPUT')
 make_head(_module, 'REQUEST_OPLOCK_INPUT_BUFFER')
 make_head(_module, 'REQUEST_OPLOCK_OUTPUT_BUFFER')
 make_head(_module, 'REQUEST_RAW_ENCRYPTED_DATA')
-make_head(_module, 'RETRIEVAL_POINTER_BASE')
-make_head(_module, 'RETRIEVAL_POINTER_COUNT')
 make_head(_module, 'RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER')
 make_head(_module, 'RETRIEVAL_POINTERS_BUFFER')
-make_head(_module, 'SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO')
+make_head(_module, 'RETRIEVAL_POINTER_BASE')
+make_head(_module, 'RETRIEVAL_POINTER_COUNT')
 make_head(_module, 'SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO')
+make_head(_module, 'SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO')
 make_head(_module, 'SCM_BUS_DEDICATED_MEMORY_STATE')
 make_head(_module, 'SCM_BUS_PROPERTY_QUERY')
 make_head(_module, 'SCM_BUS_PROPERTY_SET')
 make_head(_module, 'SCM_BUS_RUNTIME_FW_ACTIVATION_INFO')
 make_head(_module, 'SCM_INTERLEAVED_PD_INFO')
 make_head(_module, 'SCM_LD_INTERLEAVE_SET_INFO')
-make_head(_module, 'SCM_LOGICAL_DEVICE_INSTANCE')
 make_head(_module, 'SCM_LOGICAL_DEVICES')
+make_head(_module, 'SCM_LOGICAL_DEVICE_INSTANCE')
 make_head(_module, 'SCM_PD_DESCRIPTOR_HEADER')
 make_head(_module, 'SCM_PD_DEVICE_HANDLE')
 make_head(_module, 'SCM_PD_DEVICE_INFO')
@@ -4916,8 +4916,8 @@ make_head(_module, 'SCM_PD_REINITIALIZE_MEDIA_INPUT')
 make_head(_module, 'SCM_PD_REINITIALIZE_MEDIA_OUTPUT')
 make_head(_module, 'SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE')
 make_head(_module, 'SCM_PD_RUNTIME_FW_ACTIVATION_INFO')
-make_head(_module, 'SCM_PHYSICAL_DEVICE_INSTANCE')
 make_head(_module, 'SCM_PHYSICAL_DEVICES')
+make_head(_module, 'SCM_PHYSICAL_DEVICE_INSTANCE')
 make_head(_module, 'SCM_REGION')
 make_head(_module, 'SCM_REGIONS')
 make_head(_module, 'SD_CHANGE_MACHINE_SID_INPUT')
@@ -4966,8 +4966,8 @@ make_head(_module, 'STORAGE_DEVICE_LOCATION_DESCRIPTOR')
 make_head(_module, 'STORAGE_DEVICE_MANAGEMENT_STATUS')
 make_head(_module, 'STORAGE_DEVICE_NUMA_PROPERTY')
 make_head(_module, 'STORAGE_DEVICE_NUMBER')
-make_head(_module, 'STORAGE_DEVICE_NUMBER_EX')
 make_head(_module, 'STORAGE_DEVICE_NUMBERS')
+make_head(_module, 'STORAGE_DEVICE_NUMBER_EX')
 make_head(_module, 'STORAGE_DEVICE_POWER_CAP')
 make_head(_module, 'STORAGE_DEVICE_RESILIENCY_DESCRIPTOR')
 make_head(_module, 'STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY')
@@ -5028,24 +5028,24 @@ make_head(_module, 'STORAGE_TEMPERATURE_THRESHOLD')
 make_head(_module, 'STORAGE_TIER')
 make_head(_module, 'STORAGE_TIER_REGION')
 make_head(_module, 'STORAGE_WRITE_CACHE_PROPERTY')
+make_head(_module, 'STORAGE_ZONED_DEVICE_DESCRIPTOR')
 make_head(_module, 'STORAGE_ZONE_DESCRIPTOR')
 make_head(_module, 'STORAGE_ZONE_GROUP')
-make_head(_module, 'STORAGE_ZONED_DEVICE_DESCRIPTOR')
-make_head(_module, 'STREAM_EXTENT_ENTRY')
-make_head(_module, 'STREAM_INFORMATION_ENTRY')
-make_head(_module, 'STREAM_LAYOUT_ENTRY')
 make_head(_module, 'STREAMS_ASSOCIATE_ID_INPUT_BUFFER')
 make_head(_module, 'STREAMS_QUERY_ID_OUTPUT_BUFFER')
 make_head(_module, 'STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER')
+make_head(_module, 'STREAM_EXTENT_ENTRY')
+make_head(_module, 'STREAM_INFORMATION_ENTRY')
+make_head(_module, 'STREAM_LAYOUT_ENTRY')
 make_head(_module, 'TAPE_GET_STATISTICS')
 make_head(_module, 'TAPE_STATISTICS')
 make_head(_module, 'TXFS_CREATE_MINIVERSION_INFO')
 make_head(_module, 'TXFS_GET_METADATA_INFO_OUT')
 make_head(_module, 'TXFS_GET_TRANSACTED_VERSION')
-make_head(_module, 'TXFS_LIST_TRANSACTION_LOCKED_FILES')
-make_head(_module, 'TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY')
 make_head(_module, 'TXFS_LIST_TRANSACTIONS')
 make_head(_module, 'TXFS_LIST_TRANSACTIONS_ENTRY')
+make_head(_module, 'TXFS_LIST_TRANSACTION_LOCKED_FILES')
+make_head(_module, 'TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY')
 make_head(_module, 'TXFS_MODIFY_RM')
 make_head(_module, 'TXFS_QUERY_RM_INFORMATION')
 make_head(_module, 'TXFS_READ_BACKUP_INFORMATION_OUT')
@@ -5066,10 +5066,10 @@ make_head(_module, 'USN_RECORD_V3')
 make_head(_module, 'USN_RECORD_V4')
 make_head(_module, 'USN_TRACK_MODIFIED_RANGES')
 make_head(_module, 'VERIFY_INFORMATION')
-make_head(_module, 'VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT')
 make_head(_module, 'VIRTUALIZATION_INSTANCE_INFO_INPUT')
 make_head(_module, 'VIRTUALIZATION_INSTANCE_INFO_INPUT_EX')
 make_head(_module, 'VIRTUALIZATION_INSTANCE_INFO_OUTPUT')
+make_head(_module, 'VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT')
 make_head(_module, 'VOLUME_BITMAP_BUFFER')
 make_head(_module, 'VOLUME_DISK_EXTENTS')
 make_head(_module, 'VOLUME_GET_GPT_ATTRIBUTES_INFORMATION')

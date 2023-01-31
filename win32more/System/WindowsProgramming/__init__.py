@@ -22,10 +22,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _D3DHAL_CALLBACKS(Structure):
-    pass
-class _D3DHAL_GLOBALDRIVERDATA(Structure):
-    pass
 class ACTCTX_SECTION_KEYED_DATA_2600(Structure):
     cbSize: UInt32
     ulDataFormatVersion: UInt32
@@ -46,6 +42,8 @@ class ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA(Structure):
 class ACTIVATION_CONTEXT_BASIC_INFORMATION(Structure):
     hActCtx: win32more.Foundation.HANDLE
     dwFlags: UInt32
+@winfunctype_pointer
+def APPLICATION_RECOVERY_CALLBACK(pvParameter: c_void_p) -> UInt32: ...
 WLDP_DLL: String = 'WLDP.DLL'
 WLDP_GETLOCKDOWNPOLICY_FN: String = 'WldpGetLockdownPolicy'
 WLDP_ISCLASSINAPPROVEDLIST_FN: String = 'WldpIsClassInApprovedList'
@@ -1137,8 +1135,6 @@ def WldpIsDynamicCodePolicyEnabled(isEnabled: POINTER(win32more.Foundation.BOOL)
 def WldpQueryDynamicCodeTrust(fileHandle: win32more.Foundation.HANDLE, baseImage: c_void_p, imageSize: UInt32) -> win32more.Foundation.HRESULT: ...
 @winfunctype('Wldp.dll')
 def WldpQueryDeviceSecurityInformation(information: POINTER(win32more.System.WindowsProgramming.WLDP_DEVICE_SECURITY_INFORMATION_head), informationLength: UInt32, returnLength: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def APPLICATION_RECOVERY_CALLBACK(pvParameter: c_void_p) -> UInt32: ...
 class CABINFOA(Structure):
     pszCab: win32more.Foundation.PSTR
     pszInf: win32more.Foundation.PSTR
@@ -1151,6 +1147,12 @@ class CABINFOW(Structure):
     pszSection: win32more.Foundation.PWSTR
     szSrcPath: Char * 260
     dwFlags: UInt32
+class CLIENT_ID(Structure):
+    UniqueProcess: win32more.Foundation.HANDLE
+    UniqueThread: win32more.Foundation.HANDLE
+class CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG(Structure):
+    Size: UInt32
+    TriggerId: win32more.Foundation.PWSTR
 CameraUIControl = Guid('16d5a2be-b1c5-47b3-8e-ae-cc-bc-f4-52-c7-e8')
 CameraUIControlCaptureMode = Int32
 CameraUIControlCaptureMode_PhotoOrVideo: CameraUIControlCaptureMode = 0
@@ -1172,12 +1174,6 @@ CameraUIControlVideoFormat_Wmv: CameraUIControlVideoFormat = 1
 CameraUIControlViewType = Int32
 CameraUIControlViewType_SingleItem: CameraUIControlViewType = 0
 CameraUIControlViewType_ItemList: CameraUIControlViewType = 1
-class CLIENT_ID(Structure):
-    UniqueProcess: win32more.Foundation.HANDLE
-    UniqueThread: win32more.Foundation.HANDLE
-class CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG(Structure):
-    Size: UInt32
-    TriggerId: win32more.Foundation.PWSTR
 class DATETIME(Structure):
     year: UInt16
     month: UInt16
@@ -1244,7 +1240,6 @@ DECISION_LOCATION_PROVIDER_BUILT_IN_LIST: DECISION_LOCATION = 6
 DECISION_LOCATION_ENFORCE_STATE_LIST: DECISION_LOCATION = 7
 DECISION_LOCATION_NOT_FOUND: DECISION_LOCATION = 8
 DECISION_LOCATION_UNKNOWN: DECISION_LOCATION = 9
-DefaultBrowserSyncSettings = Guid('3ac83423-3112-4aa6-9b-5b-1f-eb-23-d0-c5-f9')
 if ARCH in 'X64,ARM64':
     class DELAYLOAD_INFO(Structure):
         Size: UInt32
@@ -1271,10 +1266,11 @@ class DELAYLOAD_PROC_DESCRIPTOR(Structure):
     class _Description_e__Union(Union):
         Name: win32more.Foundation.PSTR
         Ordinal: UInt32
-EditionUpgradeBroker = Guid('c4270827-4f39-45df-92-88-12-ff-6b-85-a9-21')
-EditionUpgradeHelper = Guid('01776df3-b9af-4e50-9b-1c-56-e9-31-16-d7-04')
+DefaultBrowserSyncSettings = Guid('3ac83423-3112-4aa6-9b-5b-1f-eb-23-d0-c5-f9')
 @winfunctype_pointer
 def ENUM_CALLBACK(lpSurfaceInfo: POINTER(win32more.System.WindowsProgramming.DCISURFACEINFO_head), lpContext: c_void_p) -> Void: ...
+EditionUpgradeBroker = Guid('c4270827-4f39-45df-92-88-12-ff-6b-85-a9-21')
+EditionUpgradeHelper = Guid('01776df3-b9af-4e50-9b-1c-56-e9-31-16-d7-04')
 FEATURE_CHANGE_TIME = Int32
 FEATURE_CHANGE_TIME_READ: FEATURE_CHANGE_TIME = 0
 FEATURE_CHANGE_TIME_MODULE_RELOAD: FEATURE_CHANGE_TIME = 1
@@ -1307,6 +1303,7 @@ class FILE_DISPOSITION_INFO_EX(Structure):
     Flags: UInt32
 FILE_INFORMATION_CLASS = Int32
 FILE_INFORMATION_CLASS_FileDirectoryInformation: FILE_INFORMATION_CLASS = 1
+HWINWATCH = IntPtr
 class HW_PROFILE_INFOA(Structure):
     dwDockInfo: UInt32
     szHwProfileGuid: win32more.Foundation.CHAR * 39
@@ -1315,7 +1312,6 @@ class HW_PROFILE_INFOW(Structure):
     dwDockInfo: UInt32
     szHwProfileGuid: Char * 39
     szHwProfileName: Char * 80
-HWINWATCH = IntPtr
 class ICameraUIControl(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('b8733adf-3d68-4b8f-bb-08-e2-8a-0b-ed-03-76')
@@ -1564,9 +1560,9 @@ def PWLDP_QUERYDEVICESECURITYINFORMATION_API(information: POINTER(win32more.Syst
 @winfunctype_pointer
 def PWLDP_QUERYDYNAMICODETRUST_API(fileHandle: win32more.Foundation.HANDLE, baseImage: c_void_p, imageSize: UInt32) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PWLDP_QUERYPOLICYSETTINGENABLED_API(Setting: win32more.System.WindowsProgramming.WLDP_POLICY_SETTING, Enabled: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
 def PWLDP_QUERYPOLICYSETTINGENABLED2_API(Setting: win32more.Foundation.PWSTR, Enabled: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def PWLDP_QUERYPOLICYSETTINGENABLED_API(Setting: win32more.System.WindowsProgramming.WLDP_POLICY_SETTING, Enabled: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PWLDP_QUERYWINDOWSLOCKDOWNMODE_API(lockdownMode: POINTER(win32more.System.WindowsProgramming.WLDP_WINDOWS_LOCKDOWN_MODE)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -1629,6 +1625,12 @@ class SYSTEM_PERFORMANCE_INFORMATION(Structure):
 class SYSTEM_POLICY_INFORMATION(Structure):
     Reserved1: c_void_p * 2
     Reserved2: UInt32 * 3
+class SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION(Structure):
+    IdleTime: win32more.Foundation.LARGE_INTEGER
+    KernelTime: win32more.Foundation.LARGE_INTEGER
+    UserTime: win32more.Foundation.LARGE_INTEGER
+    Reserved1: win32more.Foundation.LARGE_INTEGER * 2
+    Reserved2: UInt32
 class SYSTEM_PROCESS_INFORMATION(Structure):
     NextEntryOffset: UInt32
     NumberOfThreads: UInt32
@@ -1653,12 +1655,6 @@ class SYSTEM_PROCESS_INFORMATION(Structure):
     PeakPagefileUsage: UIntPtr
     PrivatePageCount: UIntPtr
     Reserved7: win32more.Foundation.LARGE_INTEGER * 6
-class SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION(Structure):
-    IdleTime: win32more.Foundation.LARGE_INTEGER
-    KernelTime: win32more.Foundation.LARGE_INTEGER
-    UserTime: win32more.Foundation.LARGE_INTEGER
-    Reserved1: win32more.Foundation.LARGE_INTEGER * 2
-    Reserved2: UInt32
 class SYSTEM_REGISTRY_QUOTA_INFORMATION(Structure):
     RegistryQuotaAllowed: UInt32
     RegistryQuotaUsed: UInt32
@@ -1675,36 +1671,20 @@ class SYSTEM_THREAD_INFORMATION(Structure):
     WaitReason: UInt32
 class SYSTEM_TIMEOFDAY_INFORMATION(Structure):
     Reserved1: Byte * 48
+if ARCH in 'X64,ARM64':
+    class TCP_REQUEST_QUERY_INFORMATION_EX32_XP(Structure):
+        ID: win32more.System.WindowsProgramming.TDIObjectID
+        Context: UInt32 * 4
 class TCP_REQUEST_QUERY_INFORMATION_EX_W2K(Structure):
     ID: win32more.System.WindowsProgramming.TDIObjectID
     Context: Byte * 16
 class TCP_REQUEST_QUERY_INFORMATION_EX_XP(Structure):
     ID: win32more.System.WindowsProgramming.TDIObjectID
     Context: UIntPtr * 4
-if ARCH in 'X64,ARM64':
-    class TCP_REQUEST_QUERY_INFORMATION_EX32_XP(Structure):
-        ID: win32more.System.WindowsProgramming.TDIObjectID
-        Context: UInt32 * 4
 class TCP_REQUEST_SET_INFORMATION_EX(Structure):
     ID: win32more.System.WindowsProgramming.TDIObjectID
     BufferSize: UInt32
     Buffer: Byte * 1
-class TDI_TL_IO_CONTROL_ENDPOINT(Structure):
-    Type: win32more.System.WindowsProgramming.TDI_TL_IO_CONTROL_TYPE
-    Level: UInt32
-    Anonymous: _Anonymous_e__Union
-    InputBuffer: c_void_p
-    InputBufferLength: UInt32
-    OutputBuffer: c_void_p
-    OutputBufferLength: UInt32
-    class _Anonymous_e__Union(Union):
-        IoControlCode: UInt32
-        OptionName: UInt32
-TDI_TL_IO_CONTROL_TYPE = Int32
-TDI_TL_IO_CONTROL_TYPE_EndpointIoControlType: TDI_TL_IO_CONTROL_TYPE = 0
-TDI_TL_IO_CONTROL_TYPE_SetSockOptIoControlType: TDI_TL_IO_CONTROL_TYPE = 1
-TDI_TL_IO_CONTROL_TYPE_GetSockOptIoControlType: TDI_TL_IO_CONTROL_TYPE = 2
-TDI_TL_IO_CONTROL_TYPE_SocketIoControlType: TDI_TL_IO_CONTROL_TYPE = 3
 TDIENTITY_ENTITY_TYPE = UInt32
 GENERIC_ENTITY: TDIENTITY_ENTITY_TYPE = 0
 AT_ENTITY: TDIENTITY_ENTITY_TYPE = 640
@@ -1722,6 +1702,22 @@ class TDIObjectID(Structure):
     toi_class: UInt32
     toi_type: UInt32
     toi_id: UInt32
+class TDI_TL_IO_CONTROL_ENDPOINT(Structure):
+    Type: win32more.System.WindowsProgramming.TDI_TL_IO_CONTROL_TYPE
+    Level: UInt32
+    Anonymous: _Anonymous_e__Union
+    InputBuffer: c_void_p
+    InputBufferLength: UInt32
+    OutputBuffer: c_void_p
+    OutputBufferLength: UInt32
+    class _Anonymous_e__Union(Union):
+        IoControlCode: UInt32
+        OptionName: UInt32
+TDI_TL_IO_CONTROL_TYPE = Int32
+TDI_TL_IO_CONTROL_TYPE_EndpointIoControlType: TDI_TL_IO_CONTROL_TYPE = 0
+TDI_TL_IO_CONTROL_TYPE_SetSockOptIoControlType: TDI_TL_IO_CONTROL_TYPE = 1
+TDI_TL_IO_CONTROL_TYPE_GetSockOptIoControlType: TDI_TL_IO_CONTROL_TYPE = 2
+TDI_TL_IO_CONTROL_TYPE_SocketIoControlType: TDI_TL_IO_CONTROL_TYPE = 3
 class THREAD_NAME_INFORMATION(Structure):
     ThreadName: win32more.Foundation.UNICODE_STRING
 class UNDETERMINESTRUCT(Structure):
@@ -1791,8 +1787,10 @@ WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NONE: WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 0
 WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NOUNLOCK: WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 1
 WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NOUNLOCK_PERMANENT: WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 2
 WLDP_WINDOWS_LOCKDOWN_RESTRICTION_MAX: WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 3
-make_head(_module, '_D3DHAL_CALLBACKS')
-make_head(_module, '_D3DHAL_GLOBALDRIVERDATA')
+class _D3DHAL_CALLBACKS(Structure):
+    pass
+class _D3DHAL_GLOBALDRIVERDATA(Structure):
+    pass
 make_head(_module, 'ACTCTX_SECTION_KEYED_DATA_2600')
 make_head(_module, 'ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA')
 make_head(_module, 'ACTIVATION_CONTEXT_BASIC_INFORMATION')
@@ -1856,8 +1854,8 @@ make_head(_module, 'PWLDP_ISPRODUCTIONCONFIGURATION_API')
 make_head(_module, 'PWLDP_ISWCOSPRODUCTIONCONFIGURATION_API')
 make_head(_module, 'PWLDP_QUERYDEVICESECURITYINFORMATION_API')
 make_head(_module, 'PWLDP_QUERYDYNAMICODETRUST_API')
-make_head(_module, 'PWLDP_QUERYPOLICYSETTINGENABLED_API')
 make_head(_module, 'PWLDP_QUERYPOLICYSETTINGENABLED2_API')
+make_head(_module, 'PWLDP_QUERYPOLICYSETTINGENABLED_API')
 make_head(_module, 'PWLDP_QUERYWINDOWSLOCKDOWNMODE_API')
 make_head(_module, 'PWLDP_QUERYWINDOWSLOCKDOWNRESTRICTION_API')
 make_head(_module, 'PWLDP_RESETPRODUCTIONCONFIGURATION_API')
@@ -1877,25 +1875,27 @@ make_head(_module, 'SYSTEM_INTERRUPT_INFORMATION')
 make_head(_module, 'SYSTEM_LOOKASIDE_INFORMATION')
 make_head(_module, 'SYSTEM_PERFORMANCE_INFORMATION')
 make_head(_module, 'SYSTEM_POLICY_INFORMATION')
-make_head(_module, 'SYSTEM_PROCESS_INFORMATION')
 make_head(_module, 'SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION')
+make_head(_module, 'SYSTEM_PROCESS_INFORMATION')
 make_head(_module, 'SYSTEM_REGISTRY_QUOTA_INFORMATION')
 make_head(_module, 'SYSTEM_THREAD_INFORMATION')
 make_head(_module, 'SYSTEM_TIMEOFDAY_INFORMATION')
-make_head(_module, 'TCP_REQUEST_QUERY_INFORMATION_EX_W2K')
-make_head(_module, 'TCP_REQUEST_QUERY_INFORMATION_EX_XP')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'TCP_REQUEST_QUERY_INFORMATION_EX32_XP')
+make_head(_module, 'TCP_REQUEST_QUERY_INFORMATION_EX_W2K')
+make_head(_module, 'TCP_REQUEST_QUERY_INFORMATION_EX_XP')
 make_head(_module, 'TCP_REQUEST_SET_INFORMATION_EX')
-make_head(_module, 'TDI_TL_IO_CONTROL_ENDPOINT')
 make_head(_module, 'TDIEntityID')
 make_head(_module, 'TDIObjectID')
+make_head(_module, 'TDI_TL_IO_CONTROL_ENDPOINT')
 make_head(_module, 'THREAD_NAME_INFORMATION')
 make_head(_module, 'UNDETERMINESTRUCT')
 make_head(_module, 'WINSTATIONINFORMATIONW')
 make_head(_module, 'WINWATCHNOTIFYPROC')
 make_head(_module, 'WLDP_DEVICE_SECURITY_INFORMATION')
 make_head(_module, 'WLDP_HOST_INFORMATION')
+make_head(_module, '_D3DHAL_CALLBACKS')
+make_head(_module, '_D3DHAL_GLOBALDRIVERDATA')
 __all__ = [
     "AADBE_ADD_ENTRY",
     "AADBE_DEL_ENTRY",

@@ -21,13 +21,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _DEV_BROADCAST_HEADER(Structure):
-    dbcd_size: UInt32
-    dbcd_devicetype: UInt32
-    dbcd_reserved: UInt32
-class _DEV_BROADCAST_USERDEFINED(Structure):
-    dbud_dbh: win32more.System.SystemServices.DEV_BROADCAST_HDR
-    dbud_szName: win32more.Foundation.CHAR * 1
 ACCESS_REASON_TYPE = Int32
 ACCESS_REASON_TYPE_AccessReasonNone: ACCESS_REASON_TYPE = 0
 ACCESS_REASON_TYPE_AccessReasonAllowedAce: ACCESS_REASON_TYPE = 65536
@@ -99,6 +92,77 @@ class ANON_OBJECT_HEADER_V2(Structure):
     MetaDataOffset: UInt32
 @winfunctype_pointer
 def APC_CALLBACK_FUNCTION(param0: UInt32, param1: c_void_p, param2: c_void_p) -> Void: ...
+APPCOMMAND_ID = UInt32
+APPCOMMAND_BROWSER_BACKWARD: APPCOMMAND_ID = 1
+APPCOMMAND_BROWSER_FORWARD: APPCOMMAND_ID = 2
+APPCOMMAND_BROWSER_REFRESH: APPCOMMAND_ID = 3
+APPCOMMAND_BROWSER_STOP: APPCOMMAND_ID = 4
+APPCOMMAND_BROWSER_SEARCH: APPCOMMAND_ID = 5
+APPCOMMAND_BROWSER_FAVORITES: APPCOMMAND_ID = 6
+APPCOMMAND_BROWSER_HOME: APPCOMMAND_ID = 7
+APPCOMMAND_VOLUME_MUTE: APPCOMMAND_ID = 8
+APPCOMMAND_VOLUME_DOWN: APPCOMMAND_ID = 9
+APPCOMMAND_VOLUME_UP: APPCOMMAND_ID = 10
+APPCOMMAND_MEDIA_NEXTTRACK: APPCOMMAND_ID = 11
+APPCOMMAND_MEDIA_PREVIOUSTRACK: APPCOMMAND_ID = 12
+APPCOMMAND_MEDIA_STOP: APPCOMMAND_ID = 13
+APPCOMMAND_MEDIA_PLAY_PAUSE: APPCOMMAND_ID = 14
+APPCOMMAND_LAUNCH_MAIL: APPCOMMAND_ID = 15
+APPCOMMAND_LAUNCH_MEDIA_SELECT: APPCOMMAND_ID = 16
+APPCOMMAND_LAUNCH_APP1: APPCOMMAND_ID = 17
+APPCOMMAND_LAUNCH_APP2: APPCOMMAND_ID = 18
+APPCOMMAND_BASS_DOWN: APPCOMMAND_ID = 19
+APPCOMMAND_BASS_BOOST: APPCOMMAND_ID = 20
+APPCOMMAND_BASS_UP: APPCOMMAND_ID = 21
+APPCOMMAND_TREBLE_DOWN: APPCOMMAND_ID = 22
+APPCOMMAND_TREBLE_UP: APPCOMMAND_ID = 23
+APPCOMMAND_MICROPHONE_VOLUME_MUTE: APPCOMMAND_ID = 24
+APPCOMMAND_MICROPHONE_VOLUME_DOWN: APPCOMMAND_ID = 25
+APPCOMMAND_MICROPHONE_VOLUME_UP: APPCOMMAND_ID = 26
+APPCOMMAND_HELP: APPCOMMAND_ID = 27
+APPCOMMAND_FIND: APPCOMMAND_ID = 28
+APPCOMMAND_NEW: APPCOMMAND_ID = 29
+APPCOMMAND_OPEN: APPCOMMAND_ID = 30
+APPCOMMAND_CLOSE: APPCOMMAND_ID = 31
+APPCOMMAND_SAVE: APPCOMMAND_ID = 32
+APPCOMMAND_PRINT: APPCOMMAND_ID = 33
+APPCOMMAND_UNDO: APPCOMMAND_ID = 34
+APPCOMMAND_REDO: APPCOMMAND_ID = 35
+APPCOMMAND_COPY: APPCOMMAND_ID = 36
+APPCOMMAND_CUT: APPCOMMAND_ID = 37
+APPCOMMAND_PASTE: APPCOMMAND_ID = 38
+APPCOMMAND_REPLY_TO_MAIL: APPCOMMAND_ID = 39
+APPCOMMAND_FORWARD_MAIL: APPCOMMAND_ID = 40
+APPCOMMAND_SEND_MAIL: APPCOMMAND_ID = 41
+APPCOMMAND_SPELL_CHECK: APPCOMMAND_ID = 42
+APPCOMMAND_DICTATE_OR_COMMAND_CONTROL_TOGGLE: APPCOMMAND_ID = 43
+APPCOMMAND_MIC_ON_OFF_TOGGLE: APPCOMMAND_ID = 44
+APPCOMMAND_CORRECTION_LIST: APPCOMMAND_ID = 45
+APPCOMMAND_MEDIA_PLAY: APPCOMMAND_ID = 46
+APPCOMMAND_MEDIA_PAUSE: APPCOMMAND_ID = 47
+APPCOMMAND_MEDIA_RECORD: APPCOMMAND_ID = 48
+APPCOMMAND_MEDIA_FAST_FORWARD: APPCOMMAND_ID = 49
+APPCOMMAND_MEDIA_REWIND: APPCOMMAND_ID = 50
+APPCOMMAND_MEDIA_CHANNEL_UP: APPCOMMAND_ID = 51
+APPCOMMAND_MEDIA_CHANNEL_DOWN: APPCOMMAND_ID = 52
+APPCOMMAND_DELETE: APPCOMMAND_ID = 53
+APPCOMMAND_DWM_FLIP3D: APPCOMMAND_ID = 54
+class APPLICATIONLAUNCH_SETTING_VALUE(Structure):
+    ActivationTime: win32more.Foundation.LARGE_INTEGER
+    Flags: UInt32
+    ButtonInstanceID: UInt32
+ARM64_FNPDATA_CR = Int32
+ARM64_FNPDATA_CR_PdataCrUnchained: ARM64_FNPDATA_CR = 0
+ARM64_FNPDATA_CR_PdataCrUnchainedSavedLr: ARM64_FNPDATA_CR = 1
+ARM64_FNPDATA_CR_PdataCrChainedWithPac: ARM64_FNPDATA_CR = 2
+ARM64_FNPDATA_CR_PdataCrChained: ARM64_FNPDATA_CR = 3
+ARM64_FNPDATA_FLAGS = Int32
+ARM64_FNPDATA_FLAGS_PdataRefToFullXdata: ARM64_FNPDATA_FLAGS = 0
+ARM64_FNPDATA_FLAGS_PdataPackedUnwindFunction: ARM64_FNPDATA_FLAGS = 1
+ARM64_FNPDATA_FLAGS_PdataPackedUnwindFragment: ARM64_FNPDATA_FLAGS = 2
+ATF_FLAGS = UInt32
+ATF_TIMEOUTON: ATF_FLAGS = 1
+ATF_ONOFFFEEDBACK: ATF_FLAGS = 2
 _MM_HINT_T0: UInt32 = 1
 _MM_HINT_T1: UInt32 = 2
 _MM_HINT_T2: UInt32 = 3
@@ -3198,77 +3262,6 @@ GUID_DEVINTERFACE_DMP: Guid = Guid('25b4e268-2a05-496e-80-3b-26-68-37-fb-da-4b')
 GUID_DEVINTERFACE_DMS: Guid = Guid('c96037ae-a558-4470-b4-32-11-5a-31-b8-55-53')
 @winfunctype('USER32.dll')
 def UnregisterDeviceNotification(Handle: c_void_p) -> win32more.Foundation.BOOL: ...
-APPCOMMAND_ID = UInt32
-APPCOMMAND_BROWSER_BACKWARD: APPCOMMAND_ID = 1
-APPCOMMAND_BROWSER_FORWARD: APPCOMMAND_ID = 2
-APPCOMMAND_BROWSER_REFRESH: APPCOMMAND_ID = 3
-APPCOMMAND_BROWSER_STOP: APPCOMMAND_ID = 4
-APPCOMMAND_BROWSER_SEARCH: APPCOMMAND_ID = 5
-APPCOMMAND_BROWSER_FAVORITES: APPCOMMAND_ID = 6
-APPCOMMAND_BROWSER_HOME: APPCOMMAND_ID = 7
-APPCOMMAND_VOLUME_MUTE: APPCOMMAND_ID = 8
-APPCOMMAND_VOLUME_DOWN: APPCOMMAND_ID = 9
-APPCOMMAND_VOLUME_UP: APPCOMMAND_ID = 10
-APPCOMMAND_MEDIA_NEXTTRACK: APPCOMMAND_ID = 11
-APPCOMMAND_MEDIA_PREVIOUSTRACK: APPCOMMAND_ID = 12
-APPCOMMAND_MEDIA_STOP: APPCOMMAND_ID = 13
-APPCOMMAND_MEDIA_PLAY_PAUSE: APPCOMMAND_ID = 14
-APPCOMMAND_LAUNCH_MAIL: APPCOMMAND_ID = 15
-APPCOMMAND_LAUNCH_MEDIA_SELECT: APPCOMMAND_ID = 16
-APPCOMMAND_LAUNCH_APP1: APPCOMMAND_ID = 17
-APPCOMMAND_LAUNCH_APP2: APPCOMMAND_ID = 18
-APPCOMMAND_BASS_DOWN: APPCOMMAND_ID = 19
-APPCOMMAND_BASS_BOOST: APPCOMMAND_ID = 20
-APPCOMMAND_BASS_UP: APPCOMMAND_ID = 21
-APPCOMMAND_TREBLE_DOWN: APPCOMMAND_ID = 22
-APPCOMMAND_TREBLE_UP: APPCOMMAND_ID = 23
-APPCOMMAND_MICROPHONE_VOLUME_MUTE: APPCOMMAND_ID = 24
-APPCOMMAND_MICROPHONE_VOLUME_DOWN: APPCOMMAND_ID = 25
-APPCOMMAND_MICROPHONE_VOLUME_UP: APPCOMMAND_ID = 26
-APPCOMMAND_HELP: APPCOMMAND_ID = 27
-APPCOMMAND_FIND: APPCOMMAND_ID = 28
-APPCOMMAND_NEW: APPCOMMAND_ID = 29
-APPCOMMAND_OPEN: APPCOMMAND_ID = 30
-APPCOMMAND_CLOSE: APPCOMMAND_ID = 31
-APPCOMMAND_SAVE: APPCOMMAND_ID = 32
-APPCOMMAND_PRINT: APPCOMMAND_ID = 33
-APPCOMMAND_UNDO: APPCOMMAND_ID = 34
-APPCOMMAND_REDO: APPCOMMAND_ID = 35
-APPCOMMAND_COPY: APPCOMMAND_ID = 36
-APPCOMMAND_CUT: APPCOMMAND_ID = 37
-APPCOMMAND_PASTE: APPCOMMAND_ID = 38
-APPCOMMAND_REPLY_TO_MAIL: APPCOMMAND_ID = 39
-APPCOMMAND_FORWARD_MAIL: APPCOMMAND_ID = 40
-APPCOMMAND_SEND_MAIL: APPCOMMAND_ID = 41
-APPCOMMAND_SPELL_CHECK: APPCOMMAND_ID = 42
-APPCOMMAND_DICTATE_OR_COMMAND_CONTROL_TOGGLE: APPCOMMAND_ID = 43
-APPCOMMAND_MIC_ON_OFF_TOGGLE: APPCOMMAND_ID = 44
-APPCOMMAND_CORRECTION_LIST: APPCOMMAND_ID = 45
-APPCOMMAND_MEDIA_PLAY: APPCOMMAND_ID = 46
-APPCOMMAND_MEDIA_PAUSE: APPCOMMAND_ID = 47
-APPCOMMAND_MEDIA_RECORD: APPCOMMAND_ID = 48
-APPCOMMAND_MEDIA_FAST_FORWARD: APPCOMMAND_ID = 49
-APPCOMMAND_MEDIA_REWIND: APPCOMMAND_ID = 50
-APPCOMMAND_MEDIA_CHANNEL_UP: APPCOMMAND_ID = 51
-APPCOMMAND_MEDIA_CHANNEL_DOWN: APPCOMMAND_ID = 52
-APPCOMMAND_DELETE: APPCOMMAND_ID = 53
-APPCOMMAND_DWM_FLIP3D: APPCOMMAND_ID = 54
-class APPLICATIONLAUNCH_SETTING_VALUE(Structure):
-    ActivationTime: win32more.Foundation.LARGE_INTEGER
-    Flags: UInt32
-    ButtonInstanceID: UInt32
-ARM64_FNPDATA_CR = Int32
-ARM64_FNPDATA_CR_PdataCrUnchained: ARM64_FNPDATA_CR = 0
-ARM64_FNPDATA_CR_PdataCrUnchainedSavedLr: ARM64_FNPDATA_CR = 1
-ARM64_FNPDATA_CR_PdataCrChainedWithPac: ARM64_FNPDATA_CR = 2
-ARM64_FNPDATA_CR_PdataCrChained: ARM64_FNPDATA_CR = 3
-ARM64_FNPDATA_FLAGS = Int32
-ARM64_FNPDATA_FLAGS_PdataRefToFullXdata: ARM64_FNPDATA_FLAGS = 0
-ARM64_FNPDATA_FLAGS_PdataPackedUnwindFunction: ARM64_FNPDATA_FLAGS = 1
-ARM64_FNPDATA_FLAGS_PdataPackedUnwindFragment: ARM64_FNPDATA_FLAGS = 2
-ATF_FLAGS = UInt32
-ATF_TIMEOUTON: ATF_FLAGS = 1
-ATF_ONOFFFEEDBACK: ATF_FLAGS = 2
 class AtlThunkData_t(Structure):
     pass
 CFE_UNDERLINE = UInt32
@@ -3295,6 +3288,30 @@ CFU_UNDERLINE: CFE_UNDERLINE = 1
 CFU_UNDERLINENONE: CFE_UNDERLINE = 0
 class COMPONENT_FILTER(Structure):
     ComponentFlags: UInt32
+class DEVICE_EVENT_BECOMING_READY(Structure):
+    Version: UInt32
+    Reason: UInt32
+    Estimated100msToReady: UInt32
+class DEVICE_EVENT_EXTERNAL_REQUEST(Structure):
+    Version: UInt32
+    DeviceClass: UInt32
+    ButtonStatus: UInt16
+    Request: UInt16
+    SystemTime: win32more.Foundation.LARGE_INTEGER
+class DEVICE_EVENT_GENERIC_DATA(Structure):
+    EventNumber: UInt32
+class DEVICE_EVENT_MOUNT(Structure):
+    Version: UInt32
+    Flags: UInt32
+    FileSystemNameLength: UInt32
+    FileSystemNameOffset: UInt32
+class DEVICE_EVENT_RBC_DATA(Structure):
+    EventNumber: UInt32
+    SenseQualifier: Byte
+    SenseCode: Byte
+    SenseKey: Byte
+    Reserved: Byte
+    Information: UInt32
 class DEV_BROADCAST_DEVICEINTERFACE_A(Structure):
     dbcc_size: UInt32
     dbcc_devicetype: UInt32
@@ -3380,30 +3397,6 @@ class DEV_BROADCAST_VOLUME(Structure):
 DEV_BROADCAST_VOLUME_FLAGS = UInt16
 DBTF_MEDIA: DEV_BROADCAST_VOLUME_FLAGS = 1
 DBTF_NET: DEV_BROADCAST_VOLUME_FLAGS = 2
-class DEVICE_EVENT_BECOMING_READY(Structure):
-    Version: UInt32
-    Reason: UInt32
-    Estimated100msToReady: UInt32
-class DEVICE_EVENT_EXTERNAL_REQUEST(Structure):
-    Version: UInt32
-    DeviceClass: UInt32
-    ButtonStatus: UInt16
-    Request: UInt16
-    SystemTime: win32more.Foundation.LARGE_INTEGER
-class DEVICE_EVENT_GENERIC_DATA(Structure):
-    EventNumber: UInt32
-class DEVICE_EVENT_MOUNT(Structure):
-    Version: UInt32
-    Flags: UInt32
-    FileSystemNameLength: UInt32
-    FileSystemNameOffset: UInt32
-class DEVICE_EVENT_RBC_DATA(Structure):
-    EventNumber: UInt32
-    SenseQualifier: Byte
-    SenseCode: Byte
-    SenseKey: Byte
-    Reserved: Byte
-    Information: UInt32
 class DISK_HEALTH_NOTIFICATION_DATA(Structure):
     DeviceGuid: Guid
 class DISPATCHER_CONTEXT_NONVOLREG_ARM64(Union):
@@ -3467,12 +3460,6 @@ IGP_SENTENCE: IGP_ID = 12
 IGP_UI: IGP_ID = 16
 IGP_SETCOMPSTR: IGP_ID = 20
 IGP_SELECT: IGP_ID = 24
-class IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY(Structure):
-    BeginAddress: UInt32
-    EndAddress: UInt32
-    ExceptionHandler: UInt32
-    HandlerData: UInt32
-    PrologEndAddress: UInt32
 class IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY(Structure):
     BeginAddress: UInt64
     EndAddress: UInt64
@@ -3480,6 +3467,12 @@ class IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY(Structure):
     HandlerData: UInt64
     PrologEndAddress: UInt64
     _pack_ = 4
+class IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY(Structure):
+    BeginAddress: UInt32
+    EndAddress: UInt32
+    ExceptionHandler: UInt32
+    HandlerData: UInt32
+    PrologEndAddress: UInt32
 class IMAGE_ARCHITECTURE_ENTRY(Structure):
     FixupInstRVA: UInt32
     NewInst: UInt32
@@ -3494,6 +3487,11 @@ class IMAGE_ARCHIVE_MEMBER_HEADER(Structure):
     Mode: Byte * 8
     Size: Byte * 10
     EndHeader: Byte * 2
+class IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_XDATA(Union):
+    HeaderData: UInt32
+    Anonymous: _Anonymous_e__Struct
+    class _Anonymous_e__Struct(Structure):
+        _bitfield: UInt32
 class IMAGE_ARM_RUNTIME_FUNCTION_ENTRY(Structure):
     BeginAddress: UInt32
     Anonymous: _Anonymous_e__Union
@@ -3502,11 +3500,6 @@ class IMAGE_ARM_RUNTIME_FUNCTION_ENTRY(Structure):
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_XDATA(Union):
-    HeaderData: UInt32
-    Anonymous: _Anonymous_e__Struct
-    class _Anonymous_e__Struct(Structure):
-        _bitfield: UInt32
 class IMAGE_AUX_SYMBOL(Union):
     Sym: _Sym_e__Struct
     File: _File_e__Struct
@@ -3631,9 +3624,6 @@ class IMAGE_DOS_HEADER(Structure):
     e_res2: UInt16 * 10
     e_lfanew: Int32
     _pack_ = 2
-class IMAGE_DYNAMIC_RELOCATION_TABLE(Structure):
-    Version: UInt32
-    Size: UInt32
 class IMAGE_DYNAMIC_RELOCATION32(Structure):
     Symbol: UInt32
     BaseRelocSize: UInt32
@@ -3656,6 +3646,9 @@ class IMAGE_DYNAMIC_RELOCATION64_V2(Structure):
     SymbolGroup: UInt32
     Flags: UInt32
     _pack_ = 1
+class IMAGE_DYNAMIC_RELOCATION_TABLE(Structure):
+    Version: UInt32
+    Size: UInt32
 class IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER(Structure):
     EpilogueCount: UInt32
     EpilogueByteCount: Byte
@@ -3818,9 +3811,6 @@ class IMAGE_RESOURCE_DATA_ENTRY(Structure):
     Size: UInt32
     CodePage: UInt32
     Reserved: UInt32
-class IMAGE_RESOURCE_DIR_STRING_U(Structure):
-    Length: UInt16
-    NameString: Char * 1
 class IMAGE_RESOURCE_DIRECTORY(Structure):
     Characteristics: UInt32
     TimeDateStamp: UInt32
@@ -3845,6 +3835,9 @@ class IMAGE_RESOURCE_DIRECTORY_ENTRY(Structure):
 class IMAGE_RESOURCE_DIRECTORY_STRING(Structure):
     Length: UInt16
     NameString: win32more.Foundation.CHAR * 1
+class IMAGE_RESOURCE_DIR_STRING_U(Structure):
+    Length: UInt16
+    NameString: Char * 1
 class IMAGE_SEPARATE_DEBUG_HEADER(Structure):
     Signature: UInt16
     Flags: UInt16
@@ -4027,18 +4020,6 @@ KTMOBJECT_ENLISTMENT: KTMOBJECT_TYPE = 3
 KTMOBJECT_INVALID: KTMOBJECT_TYPE = 4
 class MAXVERSIONTESTED_INFO(Structure):
     MaxVersionTested: UInt64
-MEM_DEDICATED_ATTRIBUTE_TYPE = Int32
-MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeReadBandwidth: MEM_DEDICATED_ATTRIBUTE_TYPE = 0
-MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeReadLatency: MEM_DEDICATED_ATTRIBUTE_TYPE = 1
-MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeWriteBandwidth: MEM_DEDICATED_ATTRIBUTE_TYPE = 2
-MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeWriteLatency: MEM_DEDICATED_ATTRIBUTE_TYPE = 3
-MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeMax: MEM_DEDICATED_ATTRIBUTE_TYPE = 4
-MEM_SECTION_EXTENDED_PARAMETER_TYPE = Int32
-MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterInvalidType: MEM_SECTION_EXTENDED_PARAMETER_TYPE = 0
-MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterUserPhysicalFlags: MEM_SECTION_EXTENDED_PARAMETER_TYPE = 1
-MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterNumaNode: MEM_SECTION_EXTENDED_PARAMETER_TYPE = 2
-MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterSigningLevel: MEM_SECTION_EXTENDED_PARAMETER_TYPE = 3
-MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterMax: MEM_SECTION_EXTENDED_PARAMETER_TYPE = 4
 class MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE(Structure):
     Type: win32more.System.SystemServices.MEM_DEDICATED_ATTRIBUTE_TYPE
     Reserved: UInt32
@@ -4051,6 +4032,18 @@ class MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION(Structure):
     AttributeCount: UInt32
     Reserved: UInt32
     TypeId: UInt64
+MEM_DEDICATED_ATTRIBUTE_TYPE = Int32
+MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeReadBandwidth: MEM_DEDICATED_ATTRIBUTE_TYPE = 0
+MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeReadLatency: MEM_DEDICATED_ATTRIBUTE_TYPE = 1
+MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeWriteBandwidth: MEM_DEDICATED_ATTRIBUTE_TYPE = 2
+MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeWriteLatency: MEM_DEDICATED_ATTRIBUTE_TYPE = 3
+MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeMax: MEM_DEDICATED_ATTRIBUTE_TYPE = 4
+MEM_SECTION_EXTENDED_PARAMETER_TYPE = Int32
+MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterInvalidType: MEM_SECTION_EXTENDED_PARAMETER_TYPE = 0
+MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterUserPhysicalFlags: MEM_SECTION_EXTENDED_PARAMETER_TYPE = 1
+MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterNumaNode: MEM_SECTION_EXTENDED_PARAMETER_TYPE = 2
+MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterSigningLevel: MEM_SECTION_EXTENDED_PARAMETER_TYPE = 3
+MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterMax: MEM_SECTION_EXTENDED_PARAMETER_TYPE = 4
 MODIFIERKEYS_FLAGS = UInt32
 MK_LBUTTON: MODIFIERKEYS_FLAGS = 1
 MK_RBUTTON: MODIFIERKEYS_FLAGS = 2
@@ -4214,6 +4207,10 @@ POWER_USER_PRESENCE_TYPE = Int32
 POWER_USER_PRESENCE_TYPE_UserNotPresent: POWER_USER_PRESENCE_TYPE = 0
 POWER_USER_PRESENCE_TYPE_UserPresent: POWER_USER_PRESENCE_TYPE = 1
 POWER_USER_PRESENCE_TYPE_UserUnknown: POWER_USER_PRESENCE_TYPE = 255
+class PPM_IDLESTATE_EVENT(Structure):
+    NewState: UInt32
+    OldState: UInt32
+    Processors: UInt64
 class PPM_IDLE_ACCOUNTING(Structure):
     StateCount: UInt32
     TotalTransitions: UInt32
@@ -4247,10 +4244,6 @@ class PPM_IDLE_STATE_BUCKET_EX(Structure):
     MinTimeUs: UInt32
     MaxTimeUs: UInt32
     Count: UInt32
-class PPM_IDLESTATE_EVENT(Structure):
-    NewState: UInt32
-    OldState: UInt32
-    Processors: UInt64
 class PPM_PERFSTATE_DOMAIN_EVENT(Structure):
     State: UInt32
     Latency: UInt32
@@ -4262,11 +4255,11 @@ class PPM_PERFSTATE_EVENT(Structure):
     Latency: UInt32
     Speed: UInt32
     Processor: UInt32
-class PPM_THERMAL_POLICY_EVENT(Structure):
-    Mode: Byte
-    Processors: UInt64
 class PPM_THERMALCHANGE_EVENT(Structure):
     ThermalConstraint: UInt32
+    Processors: UInt64
+class PPM_THERMAL_POLICY_EVENT(Structure):
+    Mode: Byte
     Processors: UInt64
 class PPM_WMI_IDLE_STATE(Structure):
     Latency: UInt32
@@ -4357,6 +4350,40 @@ class PPM_WMI_PERF_STATES_EX(Structure):
     Reserved1: UInt32
     Reserved2: UInt64
     State: win32more.System.SystemServices.PPM_WMI_PERF_STATE * 1
+class PROCESSOR_IDLESTATE_INFO(Structure):
+    TimeCheck: UInt32
+    DemotePercent: Byte
+    PromotePercent: Byte
+    Spare: Byte * 2
+class PROCESSOR_IDLESTATE_POLICY(Structure):
+    Revision: UInt16
+    Flags: _Flags_e__Union
+    PolicyCount: UInt32
+    Policy: win32more.System.SystemServices.PROCESSOR_IDLESTATE_INFO * 3
+    class _Flags_e__Union(Union):
+        AsWORD: UInt16
+        Anonymous: _Anonymous_e__Struct
+        class _Anonymous_e__Struct(Structure):
+            _bitfield: UInt16
+class PROCESSOR_PERFSTATE_POLICY(Structure):
+    Revision: UInt32
+    MaxThrottle: Byte
+    MinThrottle: Byte
+    BusyAdjThreshold: Byte
+    Anonymous: _Anonymous_e__Union
+    TimeCheck: UInt32
+    IncreaseTime: UInt32
+    DecreaseTime: UInt32
+    IncreasePercent: UInt32
+    DecreasePercent: UInt32
+    class _Anonymous_e__Union(Union):
+        Spare: Byte
+        Flags: _Flags_e__Union
+        class _Flags_e__Union(Union):
+            AsBYTE: Byte
+            Anonymous: _Anonymous_e__Struct
+            class _Anonymous_e__Struct(Structure):
+                _bitfield: Byte
 class PROCESS_MITIGATION_ASLR_POLICY(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
@@ -4470,40 +4497,6 @@ class PROCESS_MITIGATION_USER_SHADOW_STACK_POLICY(Structure):
         Anonymous: _Anonymous_e__Struct
         class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
-class PROCESSOR_IDLESTATE_INFO(Structure):
-    TimeCheck: UInt32
-    DemotePercent: Byte
-    PromotePercent: Byte
-    Spare: Byte * 2
-class PROCESSOR_IDLESTATE_POLICY(Structure):
-    Revision: UInt16
-    Flags: _Flags_e__Union
-    PolicyCount: UInt32
-    Policy: win32more.System.SystemServices.PROCESSOR_IDLESTATE_INFO * 3
-    class _Flags_e__Union(Union):
-        AsWORD: UInt16
-        Anonymous: _Anonymous_e__Struct
-        class _Anonymous_e__Struct(Structure):
-            _bitfield: UInt16
-class PROCESSOR_PERFSTATE_POLICY(Structure):
-    Revision: UInt32
-    MaxThrottle: Byte
-    MinThrottle: Byte
-    BusyAdjThreshold: Byte
-    Anonymous: _Anonymous_e__Union
-    TimeCheck: UInt32
-    IncreaseTime: UInt32
-    DecreaseTime: UInt32
-    IncreasePercent: UInt32
-    DecreasePercent: UInt32
-    class _Anonymous_e__Union(Union):
-        Spare: Byte
-        Flags: _Flags_e__Union
-        class _Flags_e__Union(Union):
-            AsBYTE: Byte
-            Anonymous: _Anonymous_e__Struct
-            class _Anonymous_e__Struct(Structure):
-                _bitfield: Byte
 if ARCH in 'ARM64':
     @winfunctype_pointer
     def PTERMINATION_HANDLER(_abnormal_termination: win32more.Foundation.BOOLEAN, EstablisherFrame: UInt64) -> Void: ...
@@ -4554,6 +4547,24 @@ class REDBOOK_DIGITAL_AUDIO_EXTRACTION_INFO(Structure):
     Accurate: UInt32
     Supported: UInt32
     AccurateMask0: UInt32
+class RESOURCEMANAGER_BASIC_INFORMATION(Structure):
+    ResourceManagerId: Guid
+    DescriptionLength: UInt32
+    Description: Char * 1
+class RESOURCEMANAGER_COMPLETION_INFORMATION(Structure):
+    IoCompletionPortHandle: win32more.Foundation.HANDLE
+    CompletionKey: UIntPtr
+RESOURCEMANAGER_INFORMATION_CLASS = Int32
+RESOURCEMANAGER_INFORMATION_CLASS_ResourceManagerBasicInformation: RESOURCEMANAGER_INFORMATION_CLASS = 0
+RESOURCEMANAGER_INFORMATION_CLASS_ResourceManagerCompletionInformation: RESOURCEMANAGER_INFORMATION_CLASS = 1
+class RESUME_PERFORMANCE(Structure):
+    PostTimeMs: UInt32
+    TotalResumeTimeMs: UInt64
+    ResumeCompleteTimestamp: UInt64
+RTL_UMS_SCHEDULER_REASON = Int32
+RTL_UMS_SCHEDULER_REASON_UmsSchedulerStartup: RTL_UMS_SCHEDULER_REASON = 0
+RTL_UMS_SCHEDULER_REASON_UmsSchedulerThreadBlocked: RTL_UMS_SCHEDULER_REASON = 1
+RTL_UMS_SCHEDULER_REASON_UmsSchedulerThreadYield: RTL_UMS_SCHEDULER_REASON = 2
 class RemHBITMAP(Structure):
     cbData: UInt32
     data: Byte * 1
@@ -4582,11 +4593,6 @@ class RemotableHandle(Structure):
     class _u_e__Struct(Union):
         hInproc: Int32
         hRemote: Int32
-class remoteMETAFILEPICT(Structure):
-    mm: Int32
-    xExt: Int32
-    yExt: Int32
-    hMF: POINTER(win32more.System.SystemServices.userHMETAFILE_head)
 ReplacesCorHdrNumericDefines = Int32
 COMIMAGE_FLAGS_ILONLY: ReplacesCorHdrNumericDefines = 1
 COMIMAGE_FLAGS_32BITREQUIRED: ReplacesCorHdrNumericDefines = 2
@@ -4613,24 +4619,6 @@ COR_VTABLE_CALL_MOST_DERIVED: ReplacesCorHdrNumericDefines = 16
 IMAGE_COR_EATJ_THUNK_SIZE: ReplacesCorHdrNumericDefines = 32
 MAX_CLASS_NAME: ReplacesCorHdrNumericDefines = 1024
 MAX_PACKAGE_NAME: ReplacesCorHdrNumericDefines = 1024
-class RESOURCEMANAGER_BASIC_INFORMATION(Structure):
-    ResourceManagerId: Guid
-    DescriptionLength: UInt32
-    Description: Char * 1
-class RESOURCEMANAGER_COMPLETION_INFORMATION(Structure):
-    IoCompletionPortHandle: win32more.Foundation.HANDLE
-    CompletionKey: UIntPtr
-RESOURCEMANAGER_INFORMATION_CLASS = Int32
-RESOURCEMANAGER_INFORMATION_CLASS_ResourceManagerBasicInformation: RESOURCEMANAGER_INFORMATION_CLASS = 0
-RESOURCEMANAGER_INFORMATION_CLASS_ResourceManagerCompletionInformation: RESOURCEMANAGER_INFORMATION_CLASS = 1
-class RESUME_PERFORMANCE(Structure):
-    PostTimeMs: UInt32
-    TotalResumeTimeMs: UInt64
-    ResumeCompleteTimestamp: UInt64
-RTL_UMS_SCHEDULER_REASON = Int32
-RTL_UMS_SCHEDULER_REASON_UmsSchedulerStartup: RTL_UMS_SCHEDULER_REASON = 0
-RTL_UMS_SCHEDULER_REASON_UmsSchedulerThreadBlocked: RTL_UMS_SCHEDULER_REASON = 1
-RTL_UMS_SCHEDULER_REASON_UmsSchedulerThreadYield: RTL_UMS_SCHEDULER_REASON = 2
 class SCOPE_TABLE_AMD64(Structure):
     Count: UInt32
     ScopeRecord: _Anonymous_e__Struct * 1
@@ -4696,28 +4684,6 @@ class SCRUB_PARITY_EXTENT_DATA(Structure):
     NumberOfParityExtents: UInt16
     MaximumNumberOfParityExtents: UInt16
     ParityExtents: win32more.System.SystemServices.SCRUB_PARITY_EXTENT * 1
-SE_IMAGE_SIGNATURE_TYPE = Int32
-SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureNone: SE_IMAGE_SIGNATURE_TYPE = 0
-SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureEmbedded: SE_IMAGE_SIGNATURE_TYPE = 1
-SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureCache: SE_IMAGE_SIGNATURE_TYPE = 2
-SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureCatalogCached: SE_IMAGE_SIGNATURE_TYPE = 3
-SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureCatalogNotCached: SE_IMAGE_SIGNATURE_TYPE = 4
-SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureCatalogHint: SE_IMAGE_SIGNATURE_TYPE = 5
-SE_IMAGE_SIGNATURE_TYPE_SeImageSignaturePackageCatalog: SE_IMAGE_SIGNATURE_TYPE = 6
-SE_IMAGE_SIGNATURE_TYPE_SeImageSignaturePplMitigated: SE_IMAGE_SIGNATURE_TYPE = 7
-SE_LEARNING_MODE_DATA_TYPE = Int32
-SE_LEARNING_MODE_DATA_TYPE_SeLearningModeInvalidType: SE_LEARNING_MODE_DATA_TYPE = 0
-SE_LEARNING_MODE_DATA_TYPE_SeLearningModeSettings: SE_LEARNING_MODE_DATA_TYPE = 1
-SE_LEARNING_MODE_DATA_TYPE_SeLearningModeMax: SE_LEARNING_MODE_DATA_TYPE = 2
-class SE_TOKEN_USER(Structure):
-    Anonymous1: _Anonymous1_e__Union
-    Anonymous2: _Anonymous2_e__Union
-    class _Anonymous1_e__Union(Union):
-        TokenUser: win32more.Security.TOKEN_USER
-        User: win32more.Security.SID_AND_ATTRIBUTES
-    class _Anonymous2_e__Union(Union):
-        Sid: win32more.Security.SID
-        Buffer: Byte * 68
 SECTION_FLAGS = UInt32
 SECTION_ALL_ACCESS: SECTION_FLAGS = 983071
 SECTION_QUERY: SECTION_FLAGS = 1
@@ -4760,6 +4726,28 @@ SERVICE_NODE_TYPE_Win32ServiceOwnProcess: SERVICE_NODE_TYPE = 16
 SERVICE_NODE_TYPE_Win32ServiceShareProcess: SERVICE_NODE_TYPE = 32
 SERVICE_NODE_TYPE_AdapterType: SERVICE_NODE_TYPE = 4
 SERVICE_NODE_TYPE_RecognizerType: SERVICE_NODE_TYPE = 8
+SE_IMAGE_SIGNATURE_TYPE = Int32
+SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureNone: SE_IMAGE_SIGNATURE_TYPE = 0
+SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureEmbedded: SE_IMAGE_SIGNATURE_TYPE = 1
+SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureCache: SE_IMAGE_SIGNATURE_TYPE = 2
+SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureCatalogCached: SE_IMAGE_SIGNATURE_TYPE = 3
+SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureCatalogNotCached: SE_IMAGE_SIGNATURE_TYPE = 4
+SE_IMAGE_SIGNATURE_TYPE_SeImageSignatureCatalogHint: SE_IMAGE_SIGNATURE_TYPE = 5
+SE_IMAGE_SIGNATURE_TYPE_SeImageSignaturePackageCatalog: SE_IMAGE_SIGNATURE_TYPE = 6
+SE_IMAGE_SIGNATURE_TYPE_SeImageSignaturePplMitigated: SE_IMAGE_SIGNATURE_TYPE = 7
+SE_LEARNING_MODE_DATA_TYPE = Int32
+SE_LEARNING_MODE_DATA_TYPE_SeLearningModeInvalidType: SE_LEARNING_MODE_DATA_TYPE = 0
+SE_LEARNING_MODE_DATA_TYPE_SeLearningModeSettings: SE_LEARNING_MODE_DATA_TYPE = 1
+SE_LEARNING_MODE_DATA_TYPE_SeLearningModeMax: SE_LEARNING_MODE_DATA_TYPE = 2
+class SE_TOKEN_USER(Structure):
+    Anonymous1: _Anonymous1_e__Union
+    Anonymous2: _Anonymous2_e__Union
+    class _Anonymous1_e__Union(Union):
+        TokenUser: win32more.Security.TOKEN_USER
+        User: win32more.Security.SID_AND_ATTRIBUTES
+    class _Anonymous2_e__Union(Union):
+        Sid: win32more.Security.SID
+        Buffer: Byte * 68
 SFGAO_FLAGS = UInt32
 SFGAO_CANCOPY: SFGAO_FLAGS = 1
 SFGAO_CANMOVE: SFGAO_FLAGS = 2
@@ -4800,15 +4788,6 @@ SFGAO_PKEYSFGAOMASK: SFGAO_FLAGS = 2164539392
 class SHARED_VIRTUAL_DISK_SUPPORT(Structure):
     SharedVirtualDiskSupport: win32more.System.SystemServices.SharedVirtualDiskSupportType
     HandleState: win32more.System.SystemServices.SharedVirtualDiskHandleState
-SharedVirtualDiskHandleState = Int32
-SharedVirtualDiskHandleState_SharedVirtualDiskHandleStateNone: SharedVirtualDiskHandleState = 0
-SharedVirtualDiskHandleState_SharedVirtualDiskHandleStateFileShared: SharedVirtualDiskHandleState = 1
-SharedVirtualDiskHandleState_SharedVirtualDiskHandleStateHandleShared: SharedVirtualDiskHandleState = 3
-SharedVirtualDiskSupportType = Int32
-SharedVirtualDiskSupportType_SharedVirtualDisksUnsupported: SharedVirtualDiskSupportType = 0
-SharedVirtualDiskSupportType_SharedVirtualDisksSupported: SharedVirtualDiskSupportType = 1
-SharedVirtualDiskSupportType_SharedVirtualDiskSnapshotsSupported: SharedVirtualDiskSupportType = 3
-SharedVirtualDiskSupportType_SharedVirtualDiskCDPSnapshotsSupported: SharedVirtualDiskSupportType = 7
 class SHUFFLE_FILE_DATA(Structure):
     StartingOffset: Int64
     Length: Int64
@@ -4855,6 +4834,15 @@ SS_ELLIPSISMASK: STATIC_STYLES = 49152
 class SUPPORTED_OS_INFO(Structure):
     MajorVersion: UInt16
     MinorVersion: UInt16
+SharedVirtualDiskHandleState = Int32
+SharedVirtualDiskHandleState_SharedVirtualDiskHandleStateNone: SharedVirtualDiskHandleState = 0
+SharedVirtualDiskHandleState_SharedVirtualDiskHandleStateFileShared: SharedVirtualDiskHandleState = 1
+SharedVirtualDiskHandleState_SharedVirtualDiskHandleStateHandleShared: SharedVirtualDiskHandleState = 3
+SharedVirtualDiskSupportType = Int32
+SharedVirtualDiskSupportType_SharedVirtualDisksUnsupported: SharedVirtualDiskSupportType = 0
+SharedVirtualDiskSupportType_SharedVirtualDisksSupported: SharedVirtualDiskSupportType = 1
+SharedVirtualDiskSupportType_SharedVirtualDiskSnapshotsSupported: SharedVirtualDiskSupportType = 3
+SharedVirtualDiskSupportType_SharedVirtualDiskCDPSnapshotsSupported: SharedVirtualDiskSupportType = 7
 class TAPE_CREATE_PARTITION(Structure):
     Method: UInt32
     Count: UInt32
@@ -4945,18 +4933,37 @@ class TP_CLEANUP_GROUP(Structure):
     pass
 class TP_POOL(Structure):
     pass
+class TRANSACTIONMANAGER_BASIC_INFORMATION(Structure):
+    TmIdentity: Guid
+    VirtualClock: win32more.Foundation.LARGE_INTEGER
+TRANSACTIONMANAGER_INFORMATION_CLASS = Int32
+TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerBasicInformation: TRANSACTIONMANAGER_INFORMATION_CLASS = 0
+TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerLogInformation: TRANSACTIONMANAGER_INFORMATION_CLASS = 1
+TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerLogPathInformation: TRANSACTIONMANAGER_INFORMATION_CLASS = 2
+TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerRecoveryInformation: TRANSACTIONMANAGER_INFORMATION_CLASS = 4
+TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerOnlineProbeInformation: TRANSACTIONMANAGER_INFORMATION_CLASS = 3
+TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerOldestTransactionInformation: TRANSACTIONMANAGER_INFORMATION_CLASS = 5
+class TRANSACTIONMANAGER_LOGPATH_INFORMATION(Structure):
+    LogPathLength: UInt32
+    LogPath: Char * 1
+class TRANSACTIONMANAGER_LOG_INFORMATION(Structure):
+    LogIdentity: Guid
+class TRANSACTIONMANAGER_OLDEST_INFORMATION(Structure):
+    OldestTransactionGuid: Guid
+class TRANSACTIONMANAGER_RECOVERY_INFORMATION(Structure):
+    LastRecoveredLsn: UInt64
 class TRANSACTION_BASIC_INFORMATION(Structure):
     TransactionId: Guid
     State: UInt32
     Outcome: UInt32
 class TRANSACTION_BIND_INFORMATION(Structure):
     TmHandle: win32more.Foundation.HANDLE
-class TRANSACTION_ENLISTMENT_PAIR(Structure):
-    EnlistmentId: Guid
-    ResourceManagerId: Guid
 class TRANSACTION_ENLISTMENTS_INFORMATION(Structure):
     NumberOfEnlistments: UInt32
     EnlistmentPair: win32more.System.SystemServices.TRANSACTION_ENLISTMENT_PAIR * 1
+class TRANSACTION_ENLISTMENT_PAIR(Structure):
+    EnlistmentId: Guid
+    ResourceManagerId: Guid
 TRANSACTION_INFORMATION_CLASS = Int32
 TRANSACTION_INFORMATION_CLASS_TransactionBasicInformation: TRANSACTION_INFORMATION_CLASS = 0
 TRANSACTION_INFORMATION_CLASS_TransactionPropertiesInformation: TRANSACTION_INFORMATION_CLASS = 1
@@ -4982,25 +4989,6 @@ TRANSACTION_STATE_TransactionStateIndoubt: TRANSACTION_STATE = 2
 TRANSACTION_STATE_TransactionStateCommittedNotify: TRANSACTION_STATE = 3
 class TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION(Structure):
     SuperiorEnlistmentPair: win32more.System.SystemServices.TRANSACTION_ENLISTMENT_PAIR
-class TRANSACTIONMANAGER_BASIC_INFORMATION(Structure):
-    TmIdentity: Guid
-    VirtualClock: win32more.Foundation.LARGE_INTEGER
-TRANSACTIONMANAGER_INFORMATION_CLASS = Int32
-TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerBasicInformation: TRANSACTIONMANAGER_INFORMATION_CLASS = 0
-TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerLogInformation: TRANSACTIONMANAGER_INFORMATION_CLASS = 1
-TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerLogPathInformation: TRANSACTIONMANAGER_INFORMATION_CLASS = 2
-TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerRecoveryInformation: TRANSACTIONMANAGER_INFORMATION_CLASS = 4
-TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerOnlineProbeInformation: TRANSACTIONMANAGER_INFORMATION_CLASS = 3
-TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerOldestTransactionInformation: TRANSACTIONMANAGER_INFORMATION_CLASS = 5
-class TRANSACTIONMANAGER_LOG_INFORMATION(Structure):
-    LogIdentity: Guid
-class TRANSACTIONMANAGER_LOGPATH_INFORMATION(Structure):
-    LogPathLength: UInt32
-    LogPath: Char * 1
-class TRANSACTIONMANAGER_OLDEST_INFORMATION(Structure):
-    OldestTransactionGuid: Guid
-class TRANSACTIONMANAGER_RECOVERY_INFORMATION(Structure):
-    LastRecoveredLsn: UInt64
 class UMS_CREATE_THREAD_ATTRIBUTES(Structure):
     UmsVersion: UInt32
     UmsContext: c_void_p
@@ -5011,6 +4999,30 @@ USER_ACTIVITY_PRESENCE_PowerUserNotPresent: USER_ACTIVITY_PRESENCE = 1
 USER_ACTIVITY_PRESENCE_PowerUserInactive: USER_ACTIVITY_PRESENCE = 2
 USER_ACTIVITY_PRESENCE_PowerUserMaximum: USER_ACTIVITY_PRESENCE = 3
 USER_ACTIVITY_PRESENCE_PowerUserInvalid: USER_ACTIVITY_PRESENCE = 3
+class VolLockBroadcast(Structure):
+    vlb_dbh: win32more.System.SystemServices.DEV_BROADCAST_HDR
+    vlb_owner: UInt32
+    vlb_perms: Byte
+    vlb_lockType: Byte
+    vlb_drive: Byte
+    vlb_flags: Byte
+@winfunctype_pointer
+def WORKERCALLBACKFUNC(param0: c_void_p) -> Void: ...
+class XSAVE_CET_U_FORMAT(Structure):
+    Ia32CetUMsr: UInt64
+    Ia32Pl3SspMsr: UInt64
+class _DEV_BROADCAST_HEADER(Structure):
+    dbcd_size: UInt32
+    dbcd_devicetype: UInt32
+    dbcd_reserved: UInt32
+class _DEV_BROADCAST_USERDEFINED(Structure):
+    dbud_dbh: win32more.System.SystemServices.DEV_BROADCAST_HDR
+    dbud_szName: win32more.Foundation.CHAR * 1
+class remoteMETAFILEPICT(Structure):
+    mm: Int32
+    xExt: Int32
+    yExt: Int32
+    hMF: POINTER(win32more.System.SystemServices.userHMETAFILE_head)
 class userBITMAP(Structure):
     bmType: Int32
     bmWidth: Int32
@@ -5068,20 +5080,6 @@ class userHPALETTE(Structure):
         hInproc: Int32
         hRemote: POINTER(win32more.Graphics.Gdi.LOGPALETTE_head)
         hInproc64: Int64
-class VolLockBroadcast(Structure):
-    vlb_dbh: win32more.System.SystemServices.DEV_BROADCAST_HDR
-    vlb_owner: UInt32
-    vlb_perms: Byte
-    vlb_lockType: Byte
-    vlb_drive: Byte
-    vlb_flags: Byte
-@winfunctype_pointer
-def WORKERCALLBACKFUNC(param0: c_void_p) -> Void: ...
-class XSAVE_CET_U_FORMAT(Structure):
-    Ia32CetUMsr: UInt64
-    Ia32Pl3SspMsr: UInt64
-make_head(_module, '_DEV_BROADCAST_HEADER')
-make_head(_module, '_DEV_BROADCAST_USERDEFINED')
 make_head(_module, 'ANON_OBJECT_HEADER')
 make_head(_module, 'ANON_OBJECT_HEADER_BIGOBJ')
 make_head(_module, 'ANON_OBJECT_HEADER_V2')
@@ -5089,6 +5087,11 @@ make_head(_module, 'APC_CALLBACK_FUNCTION')
 make_head(_module, 'APPLICATIONLAUNCH_SETTING_VALUE')
 make_head(_module, 'AtlThunkData_t')
 make_head(_module, 'COMPONENT_FILTER')
+make_head(_module, 'DEVICE_EVENT_BECOMING_READY')
+make_head(_module, 'DEVICE_EVENT_EXTERNAL_REQUEST')
+make_head(_module, 'DEVICE_EVENT_GENERIC_DATA')
+make_head(_module, 'DEVICE_EVENT_MOUNT')
+make_head(_module, 'DEVICE_EVENT_RBC_DATA')
 make_head(_module, 'DEV_BROADCAST_DEVICEINTERFACE_A')
 make_head(_module, 'DEV_BROADCAST_DEVICEINTERFACE_W')
 make_head(_module, 'DEV_BROADCAST_DEVNODE')
@@ -5101,11 +5104,6 @@ make_head(_module, 'DEV_BROADCAST_OEM')
 make_head(_module, 'DEV_BROADCAST_PORT_A')
 make_head(_module, 'DEV_BROADCAST_PORT_W')
 make_head(_module, 'DEV_BROADCAST_VOLUME')
-make_head(_module, 'DEVICE_EVENT_BECOMING_READY')
-make_head(_module, 'DEVICE_EVENT_EXTERNAL_REQUEST')
-make_head(_module, 'DEVICE_EVENT_GENERIC_DATA')
-make_head(_module, 'DEVICE_EVENT_MOUNT')
-make_head(_module, 'DEVICE_EVENT_RBC_DATA')
 make_head(_module, 'DISK_HEALTH_NOTIFICATION_DATA')
 make_head(_module, 'DISPATCHER_CONTEXT_NONVOLREG_ARM64')
 make_head(_module, 'ENLISTMENT_BASIC_INFORMATION')
@@ -5114,13 +5112,13 @@ make_head(_module, 'GDI_NONREMOTE')
 make_head(_module, 'GUID_IO_DISK_CLONE_ARRIVAL_INFORMATION')
 make_head(_module, 'HEAP_OPTIMIZE_RESOURCES_INFORMATION')
 make_head(_module, 'HIBERFILE_BUCKET')
-make_head(_module, 'IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY')
 make_head(_module, 'IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY')
+make_head(_module, 'IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY')
 make_head(_module, 'IMAGE_ARCHITECTURE_ENTRY')
 make_head(_module, 'IMAGE_ARCHITECTURE_HEADER')
 make_head(_module, 'IMAGE_ARCHIVE_MEMBER_HEADER')
-make_head(_module, 'IMAGE_ARM_RUNTIME_FUNCTION_ENTRY')
 make_head(_module, 'IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY_XDATA')
+make_head(_module, 'IMAGE_ARM_RUNTIME_FUNCTION_ENTRY')
 make_head(_module, 'IMAGE_AUX_SYMBOL')
 make_head(_module, 'IMAGE_AUX_SYMBOL_EX')
 make_head(_module, 'IMAGE_AUX_SYMBOL_TOKEN_DEF')
@@ -5130,11 +5128,11 @@ make_head(_module, 'IMAGE_BOUND_IMPORT_DESCRIPTOR')
 make_head(_module, 'IMAGE_CE_RUNTIME_FUNCTION_ENTRY')
 make_head(_module, 'IMAGE_DEBUG_MISC')
 make_head(_module, 'IMAGE_DOS_HEADER')
-make_head(_module, 'IMAGE_DYNAMIC_RELOCATION_TABLE')
 make_head(_module, 'IMAGE_DYNAMIC_RELOCATION32')
 make_head(_module, 'IMAGE_DYNAMIC_RELOCATION32_V2')
 make_head(_module, 'IMAGE_DYNAMIC_RELOCATION64')
 make_head(_module, 'IMAGE_DYNAMIC_RELOCATION64_V2')
+make_head(_module, 'IMAGE_DYNAMIC_RELOCATION_TABLE')
 make_head(_module, 'IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER')
 make_head(_module, 'IMAGE_EXPORT_DIRECTORY')
 make_head(_module, 'IMAGE_HOT_PATCH_BASE')
@@ -5151,10 +5149,10 @@ make_head(_module, 'IMAGE_POLICY_METADATA')
 make_head(_module, 'IMAGE_PROLOGUE_DYNAMIC_RELOCATION_HEADER')
 make_head(_module, 'IMAGE_RELOCATION')
 make_head(_module, 'IMAGE_RESOURCE_DATA_ENTRY')
-make_head(_module, 'IMAGE_RESOURCE_DIR_STRING_U')
 make_head(_module, 'IMAGE_RESOURCE_DIRECTORY')
 make_head(_module, 'IMAGE_RESOURCE_DIRECTORY_ENTRY')
 make_head(_module, 'IMAGE_RESOURCE_DIRECTORY_STRING')
+make_head(_module, 'IMAGE_RESOURCE_DIR_STRING_U')
 make_head(_module, 'IMAGE_SEPARATE_DEBUG_HEADER')
 make_head(_module, 'IMAGE_SWITCHTABLE_BRANCH_DYNAMIC_RELOCATION')
 make_head(_module, 'IMAGE_SYMBOL')
@@ -5191,16 +5189,16 @@ make_head(_module, 'POWER_SESSION_RIT_STATE')
 make_head(_module, 'POWER_SESSION_TIMEOUTS')
 make_head(_module, 'POWER_SESSION_WINLOGON')
 make_head(_module, 'POWER_USER_PRESENCE')
+make_head(_module, 'PPM_IDLESTATE_EVENT')
 make_head(_module, 'PPM_IDLE_ACCOUNTING')
 make_head(_module, 'PPM_IDLE_ACCOUNTING_EX')
 make_head(_module, 'PPM_IDLE_STATE_ACCOUNTING')
 make_head(_module, 'PPM_IDLE_STATE_ACCOUNTING_EX')
 make_head(_module, 'PPM_IDLE_STATE_BUCKET_EX')
-make_head(_module, 'PPM_IDLESTATE_EVENT')
 make_head(_module, 'PPM_PERFSTATE_DOMAIN_EVENT')
 make_head(_module, 'PPM_PERFSTATE_EVENT')
-make_head(_module, 'PPM_THERMAL_POLICY_EVENT')
 make_head(_module, 'PPM_THERMALCHANGE_EVENT')
+make_head(_module, 'PPM_THERMAL_POLICY_EVENT')
 make_head(_module, 'PPM_WMI_IDLE_STATE')
 make_head(_module, 'PPM_WMI_IDLE_STATES')
 make_head(_module, 'PPM_WMI_IDLE_STATES_EX')
@@ -5208,6 +5206,9 @@ make_head(_module, 'PPM_WMI_LEGACY_PERFSTATE')
 make_head(_module, 'PPM_WMI_PERF_STATE')
 make_head(_module, 'PPM_WMI_PERF_STATES')
 make_head(_module, 'PPM_WMI_PERF_STATES_EX')
+make_head(_module, 'PROCESSOR_IDLESTATE_INFO')
+make_head(_module, 'PROCESSOR_IDLESTATE_POLICY')
+make_head(_module, 'PROCESSOR_PERFSTATE_POLICY')
 make_head(_module, 'PROCESS_MITIGATION_ASLR_POLICY')
 make_head(_module, 'PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY')
 make_head(_module, 'PROCESS_MITIGATION_CHILD_PROCESS_POLICY')
@@ -5224,9 +5225,6 @@ make_head(_module, 'PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY')
 make_head(_module, 'PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY')
 make_head(_module, 'PROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY')
 make_head(_module, 'PROCESS_MITIGATION_USER_SHADOW_STACK_POLICY')
-make_head(_module, 'PROCESSOR_IDLESTATE_INFO')
-make_head(_module, 'PROCESSOR_IDLESTATE_POLICY')
-make_head(_module, 'PROCESSOR_PERFSTATE_POLICY')
 if ARCH in 'ARM64':
     make_head(_module, 'PTERMINATION_HANDLER')
 if ARCH in 'X64':
@@ -5238,6 +5236,9 @@ make_head(_module, 'REARRANGE_FILE_DATA')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'REARRANGE_FILE_DATA32')
 make_head(_module, 'REDBOOK_DIGITAL_AUDIO_EXTRACTION_INFO')
+make_head(_module, 'RESOURCEMANAGER_BASIC_INFORMATION')
+make_head(_module, 'RESOURCEMANAGER_COMPLETION_INFORMATION')
+make_head(_module, 'RESUME_PERFORMANCE')
 make_head(_module, 'RemHBITMAP')
 make_head(_module, 'RemHBRUSH')
 make_head(_module, 'RemHENHMETAFILE')
@@ -5245,10 +5246,6 @@ make_head(_module, 'RemHGLOBAL')
 make_head(_module, 'RemHMETAFILEPICT')
 make_head(_module, 'RemHPALETTE')
 make_head(_module, 'RemotableHandle')
-make_head(_module, 'remoteMETAFILEPICT')
-make_head(_module, 'RESOURCEMANAGER_BASIC_INFORMATION')
-make_head(_module, 'RESOURCEMANAGER_COMPLETION_INFORMATION')
-make_head(_module, 'RESUME_PERFORMANCE')
 make_head(_module, 'SCOPE_TABLE_AMD64')
 make_head(_module, 'SCOPE_TABLE_ARM')
 make_head(_module, 'SCOPE_TABLE_ARM64')
@@ -5256,9 +5253,9 @@ make_head(_module, 'SCRUB_DATA_INPUT')
 make_head(_module, 'SCRUB_DATA_OUTPUT')
 make_head(_module, 'SCRUB_PARITY_EXTENT')
 make_head(_module, 'SCRUB_PARITY_EXTENT_DATA')
-make_head(_module, 'SE_TOKEN_USER')
 make_head(_module, 'SECURITY_OBJECT_AI_PARAMS')
 make_head(_module, 'SERVERSILO_BASIC_INFORMATION')
+make_head(_module, 'SE_TOKEN_USER')
 make_head(_module, 'SHARED_VIRTUAL_DISK_SUPPORT')
 make_head(_module, 'SHUFFLE_FILE_DATA')
 make_head(_module, 'SILOOBJECT_BASIC_INFORMATION')
@@ -5274,20 +5271,26 @@ make_head(_module, 'TOKEN_BNO_ISOLATION_INFORMATION')
 make_head(_module, 'TOKEN_SID_INFORMATION')
 make_head(_module, 'TP_CLEANUP_GROUP')
 make_head(_module, 'TP_POOL')
+make_head(_module, 'TRANSACTIONMANAGER_BASIC_INFORMATION')
+make_head(_module, 'TRANSACTIONMANAGER_LOGPATH_INFORMATION')
+make_head(_module, 'TRANSACTIONMANAGER_LOG_INFORMATION')
+make_head(_module, 'TRANSACTIONMANAGER_OLDEST_INFORMATION')
+make_head(_module, 'TRANSACTIONMANAGER_RECOVERY_INFORMATION')
 make_head(_module, 'TRANSACTION_BASIC_INFORMATION')
 make_head(_module, 'TRANSACTION_BIND_INFORMATION')
-make_head(_module, 'TRANSACTION_ENLISTMENT_PAIR')
 make_head(_module, 'TRANSACTION_ENLISTMENTS_INFORMATION')
+make_head(_module, 'TRANSACTION_ENLISTMENT_PAIR')
 make_head(_module, 'TRANSACTION_LIST_ENTRY')
 make_head(_module, 'TRANSACTION_LIST_INFORMATION')
 make_head(_module, 'TRANSACTION_PROPERTIES_INFORMATION')
 make_head(_module, 'TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION')
-make_head(_module, 'TRANSACTIONMANAGER_BASIC_INFORMATION')
-make_head(_module, 'TRANSACTIONMANAGER_LOG_INFORMATION')
-make_head(_module, 'TRANSACTIONMANAGER_LOGPATH_INFORMATION')
-make_head(_module, 'TRANSACTIONMANAGER_OLDEST_INFORMATION')
-make_head(_module, 'TRANSACTIONMANAGER_RECOVERY_INFORMATION')
 make_head(_module, 'UMS_CREATE_THREAD_ATTRIBUTES')
+make_head(_module, 'VolLockBroadcast')
+make_head(_module, 'WORKERCALLBACKFUNC')
+make_head(_module, 'XSAVE_CET_U_FORMAT')
+make_head(_module, '_DEV_BROADCAST_HEADER')
+make_head(_module, '_DEV_BROADCAST_USERDEFINED')
+make_head(_module, 'remoteMETAFILEPICT')
 make_head(_module, 'userBITMAP')
 make_head(_module, 'userCLIPFORMAT')
 make_head(_module, 'userHBITMAP')
@@ -5296,9 +5299,6 @@ make_head(_module, 'userHGLOBAL')
 make_head(_module, 'userHMETAFILE')
 make_head(_module, 'userHMETAFILEPICT')
 make_head(_module, 'userHPALETTE')
-make_head(_module, 'VolLockBroadcast')
-make_head(_module, 'WORKERCALLBACKFUNC')
-make_head(_module, 'XSAVE_CET_U_FORMAT')
 __all__ = [
     "ACCESS_ALLOWED_ACE_TYPE",
     "ACCESS_ALLOWED_CALLBACK_ACE_TYPE",

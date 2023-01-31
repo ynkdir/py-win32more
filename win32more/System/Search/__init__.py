@@ -42,6 +42,15 @@ PERM_EXECUTE: ACCESS_MASKENUM = 536870912
 PERM_READ: ACCESS_MASKENUM = -2147483648
 PERM_UPDATE: ACCESS_MASKENUM = 1073741824
 PERM_DROP: ACCESS_MASKENUM = 256
+class AUTHENTICATION_INFO(Structure):
+    dwSize: UInt32
+    atAuthenticationType: win32more.System.Search.AUTH_TYPE
+    pcwszUser: win32more.Foundation.PWSTR
+    pcwszPassword: win32more.Foundation.PWSTR
+AUTH_TYPE = Int32
+eAUTH_TYPE_ANONYMOUS: AUTH_TYPE = 0
+eAUTH_TYPE_NTLM: AUTH_TYPE = 1
+eAUTH_TYPE_BASIC: AUTH_TYPE = 2
 SI_TEMPORARY: UInt32 = 2147483648
 SUBSINFO_ALLFLAGS: UInt32 = 61311
 RS_READY: UInt32 = 1
@@ -3935,41 +3944,12 @@ def SQLProceduresA(hstmt: c_void_p, szCatalogName: c_char_p_no, cbCatalogName: I
 def SQLTablePrivilegesA(hstmt: c_void_p, szCatalogName: c_char_p_no, cbCatalogName: Int16, szSchemaName: c_char_p_no, cbSchemaName: Int16, szTableName: c_char_p_no, cbTableName: Int16) -> Int16: ...
 @winfunctype('ODBC32.dll')
 def SQLDriversA(henv: c_void_p, fDirection: UInt16, szDriverDesc: c_char_p_no, cbDriverDescMax: Int16, pcbDriverDesc: POINTER(Int16), szDriverAttributes: c_char_p_no, cbDrvrAttrMax: Int16, pcbDrvrAttr: POINTER(Int16)) -> Int16: ...
-AUTH_TYPE = Int32
-eAUTH_TYPE_ANONYMOUS: AUTH_TYPE = 0
-eAUTH_TYPE_NTLM: AUTH_TYPE = 1
-eAUTH_TYPE_BASIC: AUTH_TYPE = 2
-class AUTHENTICATION_INFO(Structure):
-    dwSize: UInt32
-    atAuthenticationType: win32more.System.Search.AUTH_TYPE
-    pcwszUser: win32more.Foundation.PWSTR
-    pcwszPassword: win32more.Foundation.PWSTR
 class BUCKETCATEGORIZE(Structure):
     cBuckets: UInt32
     Distribution: UInt32
 CASE_REQUIREMENT = Int32
 CASE_REQUIREMENT_ANY: CASE_REQUIREMENT = 0
 CASE_REQUIREMENT_UPPER_IF_AQS: CASE_REQUIREMENT = 1
-CatalogPausedReason = Int32
-CATALOG_PAUSED_REASON_NONE: CatalogPausedReason = 0
-CATALOG_PAUSED_REASON_HIGH_IO: CatalogPausedReason = 1
-CATALOG_PAUSED_REASON_HIGH_CPU: CatalogPausedReason = 2
-CATALOG_PAUSED_REASON_HIGH_NTF_RATE: CatalogPausedReason = 3
-CATALOG_PAUSED_REASON_LOW_BATTERY: CatalogPausedReason = 4
-CATALOG_PAUSED_REASON_LOW_MEMORY: CatalogPausedReason = 5
-CATALOG_PAUSED_REASON_LOW_DISK: CatalogPausedReason = 6
-CATALOG_PAUSED_REASON_DELAYED_RECOVERY: CatalogPausedReason = 7
-CATALOG_PAUSED_REASON_USER_ACTIVE: CatalogPausedReason = 8
-CATALOG_PAUSED_REASON_EXTERNAL: CatalogPausedReason = 9
-CATALOG_PAUSED_REASON_UPGRADING: CatalogPausedReason = 10
-CatalogStatus = Int32
-CATALOG_STATUS_IDLE: CatalogStatus = 0
-CATALOG_STATUS_PAUSED: CatalogStatus = 1
-CATALOG_STATUS_RECOVERING: CatalogStatus = 2
-CATALOG_STATUS_FULL_CRAWL: CatalogStatus = 3
-CATALOG_STATUS_INCREMENTAL_CRAWL: CatalogStatus = 4
-CATALOG_STATUS_PROCESSING_NOTIFICATIONS: CatalogStatus = 5
-CATALOG_STATUS_SHUTTING_DOWN: CatalogStatus = 6
 class CATEGORIZATION(Structure):
     ulCatType: UInt32
     Anonymous: _Anonymous_e__Union
@@ -3994,7 +3974,6 @@ CLUSIONREASON_GROUPPOLICY: CLUSION_REASON = 3
 class COLUMNSET(Structure):
     cCol: UInt32
     aCol: POINTER(win32more.Storage.IndexServer.FULLPROPSPEC_head)
-CompoundCondition = Guid('116f8d13-101e-4fa5-84-d4-ff-82-79-38-19-35')
 CONDITION_CREATION_OPTIONS = UInt32
 CONDITION_CREATION_DEFAULT: CONDITION_CREATION_OPTIONS = 0
 CONDITION_CREATION_NONE: CONDITION_CREATION_OPTIONS = 0
@@ -4003,7 +3982,6 @@ CONDITION_CREATION_VECTOR_AND: CONDITION_CREATION_OPTIONS = 2
 CONDITION_CREATION_VECTOR_OR: CONDITION_CREATION_OPTIONS = 4
 CONDITION_CREATION_VECTOR_LEAF: CONDITION_CREATION_OPTIONS = 8
 CONDITION_CREATION_USE_CONTENT_LOCALE: CONDITION_CREATION_OPTIONS = 16
-ConditionFactory = Guid('e03e85b0-7be3-4000-ba-98-6c-13-de-9f-a4-86')
 class CONTENTRESTRICTION(Structure):
     prop: win32more.Storage.IndexServer.FULLPROPSPEC
     pwcsPhrase: win32more.Foundation.PWSTR
@@ -4019,46 +3997,32 @@ CSearchLanguageSupport = Guid('6a68cc80-4337-4dbc-bd-27-fb-fb-10-53-82-0b')
 CSearchManager = Guid('7d096c5f-ac08-4f1f-be-b7-5c-22-c5-17-ce-39')
 CSearchRoot = Guid('30766bd2-ea1c-4f28-bf-27-0b-44-e2-f6-8d-b7')
 CSearchScopeRule = Guid('e63de750-3bd7-4be5-9c-84-6b-42-81-98-8c-44')
-DataLinks = Guid('2206cdb2-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
-class DataSource(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('7c0ffab3-cd84-11d0-94-9a-00-a0-c9-11-10-ed')
-    @commethod(3)
-    def getDataMember(bstrDM: POINTER(UInt16), riid: POINTER(Guid), ppunk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def getDataMemberName(lIndex: Int32, pbstrDM: POINTER(POINTER(UInt16))) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def getDataMemberCount(plCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def addDataSourceListener(pDSL: win32more.System.Search.DataSourceListener_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def removeDataSourceListener(pDSL: win32more.System.Search.DataSourceListener_head) -> win32more.Foundation.HRESULT: ...
-class DataSourceListener(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('7c0ffab2-cd84-11d0-94-9a-00-a0-c9-11-10-ed')
-    @commethod(3)
-    def dataMemberChanged(bstrDM: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def dataMemberAdded(bstrDM: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def dataMemberRemoved(bstrDM: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
-class DataSourceObject(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('0ae9a4e4-18d4-11d1-b3-b3-00-aa-00-c1-a9-24')
+CatalogPausedReason = Int32
+CATALOG_PAUSED_REASON_NONE: CatalogPausedReason = 0
+CATALOG_PAUSED_REASON_HIGH_IO: CatalogPausedReason = 1
+CATALOG_PAUSED_REASON_HIGH_CPU: CatalogPausedReason = 2
+CATALOG_PAUSED_REASON_HIGH_NTF_RATE: CatalogPausedReason = 3
+CATALOG_PAUSED_REASON_LOW_BATTERY: CatalogPausedReason = 4
+CATALOG_PAUSED_REASON_LOW_MEMORY: CatalogPausedReason = 5
+CATALOG_PAUSED_REASON_LOW_DISK: CatalogPausedReason = 6
+CATALOG_PAUSED_REASON_DELAYED_RECOVERY: CatalogPausedReason = 7
+CATALOG_PAUSED_REASON_USER_ACTIVE: CatalogPausedReason = 8
+CATALOG_PAUSED_REASON_EXTERNAL: CatalogPausedReason = 9
+CATALOG_PAUSED_REASON_UPGRADING: CatalogPausedReason = 10
+CatalogStatus = Int32
+CATALOG_STATUS_IDLE: CatalogStatus = 0
+CATALOG_STATUS_PAUSED: CatalogStatus = 1
+CATALOG_STATUS_RECOVERING: CatalogStatus = 2
+CATALOG_STATUS_FULL_CRAWL: CatalogStatus = 3
+CATALOG_STATUS_INCREMENTAL_CRAWL: CatalogStatus = 4
+CATALOG_STATUS_PROCESSING_NOTIFICATIONS: CatalogStatus = 5
+CATALOG_STATUS_SHUTTING_DOWN: CatalogStatus = 6
+CompoundCondition = Guid('116f8d13-101e-4fa5-84-d4-ff-82-79-38-19-35')
+ConditionFactory = Guid('e03e85b0-7be3-4000-ba-98-6c-13-de-9f-a4-86')
 class DATE_STRUCT(Structure):
     year: Int16
     month: UInt16
     day: UInt16
-class DB_NUMERIC(Structure):
-    precision: Byte
-    scale: Byte
-    sign: Byte
-    val: Byte * 16
-class DB_VARNUMERIC(Structure):
-    precision: Byte
-    scale: SByte
-    sign: Byte
-    val: Byte * 1
 DBACCESSORFLAGSENUM = Int32
 DBACCESSOR_INVALID: DBACCESSORFLAGSENUM = 0
 DBACCESSOR_PASSBYREF: DBACCESSORFLAGSENUM = 1
@@ -4423,9 +4387,6 @@ if ARCH in 'X86':
         piid: POINTER(Guid)
         pSession: win32more.System.Com.IUnknown_head
         _pack_ = 2
-DBINDEX_COL_ORDERENUM = Int32
-DBINDEX_COL_ORDER_ASC: DBINDEX_COL_ORDERENUM = 0
-DBINDEX_COL_ORDER_DESC: DBINDEX_COL_ORDERENUM = 1
 if ARCH in 'X64,ARM64':
     class DBINDEXCOLUMNDESC(Structure):
         pColumnID: POINTER(win32more.Storage.IndexServer.DBID_head)
@@ -4435,6 +4396,9 @@ if ARCH in 'X86':
         pColumnID: POINTER(win32more.Storage.IndexServer.DBID_head)
         eIndexColOrder: UInt32
         _pack_ = 2
+DBINDEX_COL_ORDERENUM = Int32
+DBINDEX_COL_ORDER_ASC: DBINDEX_COL_ORDERENUM = 0
+DBINDEX_COL_ORDER_DESC: DBINDEX_COL_ORDERENUM = 1
 DBLITERALENUM = Int32
 DBLITERAL_INVALID: DBLITERALENUM = 0
 DBLITERAL_BINARY_LITERAL: DBLITERALENUM = 1
@@ -5208,6 +5172,16 @@ DBWATCHNOTIFYENUM = Int32
 DBWATCHNOTIFY_ROWSCHANGED: DBWATCHNOTIFYENUM = 1
 DBWATCHNOTIFY_QUERYDONE: DBWATCHNOTIFYENUM = 2
 DBWATCHNOTIFY_QUERYREEXECUTED: DBWATCHNOTIFYENUM = 3
+class DB_NUMERIC(Structure):
+    precision: Byte
+    scale: Byte
+    sign: Byte
+    val: Byte * 16
+class DB_VARNUMERIC(Structure):
+    precision: Byte
+    scale: SByte
+    sign: Byte
+    val: Byte * 1
 class DCINFO(Structure):
     eInfoType: UInt32
     vData: win32more.System.Com.VARIANT
@@ -5217,6 +5191,32 @@ DELIVERY_AGENT_FLAGS = Int32
 DELIVERY_AGENT_FLAG_NO_BROADCAST: DELIVERY_AGENT_FLAGS = 4
 DELIVERY_AGENT_FLAG_NO_RESTRICTIONS: DELIVERY_AGENT_FLAGS = 8
 DELIVERY_AGENT_FLAG_SILENT_DIAL: DELIVERY_AGENT_FLAGS = 16
+DataLinks = Guid('2206cdb2-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
+class DataSource(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('7c0ffab3-cd84-11d0-94-9a-00-a0-c9-11-10-ed')
+    @commethod(3)
+    def getDataMember(bstrDM: POINTER(UInt16), riid: POINTER(Guid), ppunk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def getDataMemberName(lIndex: Int32, pbstrDM: POINTER(POINTER(UInt16))) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def getDataMemberCount(plCount: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def addDataSourceListener(pDSL: win32more.System.Search.DataSourceListener_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def removeDataSourceListener(pDSL: win32more.System.Search.DataSourceListener_head) -> win32more.Foundation.HRESULT: ...
+class DataSourceListener(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('7c0ffab2-cd84-11d0-94-9a-00-a0-c9-11-10-ed')
+    @commethod(3)
+    def dataMemberChanged(bstrDM: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def dataMemberAdded(bstrDM: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def dataMemberRemoved(bstrDM: POINTER(UInt16)) -> win32more.Foundation.HRESULT: ...
+class DataSourceObject(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('0ae9a4e4-18d4-11d1-b3-b3-00-aa-00-c1-a9-24')
 EBindInfoOptions = Int32
 BIO_BINDER: EBindInfoOptions = 1
 if ARCH in 'X64,ARM64':
@@ -5239,10 +5239,10 @@ class FILTERED_DATA_SOURCES(Structure):
     pwcsMime: win32more.Foundation.PWSTR
     pClsid: POINTER(Guid)
     pwcsOverride: win32more.Foundation.PWSTR
-FilterRegistration = Guid('9e175b8d-f52a-11d8-b9-a5-50-50-54-50-30-30')
 FOLLOW_FLAGS = Int32
 FF_INDEXCOMPLEXURLS: FOLLOW_FLAGS = 1
 FF_SUPPRESSINDEXING: FOLLOW_FLAGS = 2
+FilterRegistration = Guid('9e175b8d-f52a-11d8-b9-a5-50-50-54-50-30-30')
 HACCESSOR = UIntPtr
 class HITRANGE(Structure):
     iPosition: UInt32
@@ -5473,41 +5473,6 @@ class ICreateRow(c_void_p):
     Guid = Guid('0c733ab2-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def CreateRow(pUnkOuter: win32more.System.Com.IUnknown_head, pwszURL: win32more.Foundation.PWSTR, dwBindURLFlags: UInt32, rguid: POINTER(Guid), riid: POINTER(Guid), pAuthenticate: win32more.System.Com.IAuthenticate_head, pImplSession: POINTER(win32more.System.Search.DBIMPLICITSESSION_head), pdwBindStatus: POINTER(UInt32), ppwszNewURL: POINTER(win32more.Foundation.PWSTR), ppUnk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-class IDataConvert(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('0c733a8d-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
-    @commethod(3)
-    def DataConvert(wSrcType: UInt16, wDstType: UInt16, cbSrcLength: UIntPtr, pcbDstLength: POINTER(UIntPtr), pSrc: c_void_p, pDst: c_void_p, cbDstMaxLength: UIntPtr, dbsSrcStatus: UInt32, pdbsStatus: POINTER(UInt32), bPrecision: Byte, bScale: Byte, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def CanConvert(wSrcType: UInt16, wDstType: UInt16) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def GetConversionSize(wSrcType: UInt16, wDstType: UInt16, pcbSrcLength: POINTER(UIntPtr), pcbDstLength: POINTER(UIntPtr), pSrc: c_void_p) -> win32more.Foundation.HRESULT: ...
-class IDataInitialize(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('2206ccb1-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
-    @commethod(3)
-    def GetDataSource(pUnkOuter: win32more.System.Com.IUnknown_head, dwClsCtx: UInt32, pwszInitializationString: win32more.Foundation.PWSTR, riid: POINTER(Guid), ppDataSource: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def GetInitializationString(pDataSource: win32more.System.Com.IUnknown_head, fIncludePassword: Byte, ppwszInitString: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def CreateDBInstance(clsidProvider: POINTER(Guid), pUnkOuter: win32more.System.Com.IUnknown_head, dwClsCtx: UInt32, pwszReserved: win32more.Foundation.PWSTR, riid: POINTER(Guid), ppDataSource: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def CreateDBInstanceEx(clsidProvider: POINTER(Guid), pUnkOuter: win32more.System.Com.IUnknown_head, dwClsCtx: UInt32, pwszReserved: win32more.Foundation.PWSTR, pServerInfo: POINTER(win32more.System.Com.COSERVERINFO_head), cmq: UInt32, rgmqResults: POINTER(win32more.System.Com.MULTI_QI_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def LoadStringFromStorage(pwszFileName: win32more.Foundation.PWSTR, ppwszInitializationString: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def WriteStringToStorage(pwszFileName: win32more.Foundation.PWSTR, pwszInitializationString: win32more.Foundation.PWSTR, dwCreationDisposition: UInt32) -> win32more.Foundation.HRESULT: ...
-class IDataSourceLocator(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('2206ccb2-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
-    @commethod(7)
-    def get_hWnd(phwndParent: POINTER(win32more.Foundation.HWND)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def put_hWnd(hwndParent: win32more.Foundation.HWND) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def PromptNew(ppADOConnection: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def PromptEdit(ppADOConnection: POINTER(win32more.System.Com.IDispatch_head), pbSuccess: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
 class IDBAsynchNotify(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('0c733a96-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
@@ -5601,6 +5566,41 @@ class IDCInfo(c_void_p):
     def GetInfo(cInfo: UInt32, rgeInfoType: POINTER(UInt32), prgInfo: POINTER(POINTER(win32more.System.Search.DCINFO_head))) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def SetInfo(cInfo: UInt32, rgInfo: POINTER(win32more.System.Search.DCINFO_head)) -> win32more.Foundation.HRESULT: ...
+class IDataConvert(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0c733a8d-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    @commethod(3)
+    def DataConvert(wSrcType: UInt16, wDstType: UInt16, cbSrcLength: UIntPtr, pcbDstLength: POINTER(UIntPtr), pSrc: c_void_p, pDst: c_void_p, cbDstMaxLength: UIntPtr, dbsSrcStatus: UInt32, pdbsStatus: POINTER(UInt32), bPrecision: Byte, bScale: Byte, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def CanConvert(wSrcType: UInt16, wDstType: UInt16) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetConversionSize(wSrcType: UInt16, wDstType: UInt16, pcbSrcLength: POINTER(UIntPtr), pcbDstLength: POINTER(UIntPtr), pSrc: c_void_p) -> win32more.Foundation.HRESULT: ...
+class IDataInitialize(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('2206ccb1-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
+    @commethod(3)
+    def GetDataSource(pUnkOuter: win32more.System.Com.IUnknown_head, dwClsCtx: UInt32, pwszInitializationString: win32more.Foundation.PWSTR, riid: POINTER(Guid), ppDataSource: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetInitializationString(pDataSource: win32more.System.Com.IUnknown_head, fIncludePassword: Byte, ppwszInitString: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CreateDBInstance(clsidProvider: POINTER(Guid), pUnkOuter: win32more.System.Com.IUnknown_head, dwClsCtx: UInt32, pwszReserved: win32more.Foundation.PWSTR, riid: POINTER(Guid), ppDataSource: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def CreateDBInstanceEx(clsidProvider: POINTER(Guid), pUnkOuter: win32more.System.Com.IUnknown_head, dwClsCtx: UInt32, pwszReserved: win32more.Foundation.PWSTR, pServerInfo: POINTER(win32more.System.Com.COSERVERINFO_head), cmq: UInt32, rgmqResults: POINTER(win32more.System.Com.MULTI_QI_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def LoadStringFromStorage(pwszFileName: win32more.Foundation.PWSTR, ppwszInitializationString: POINTER(win32more.Foundation.PWSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def WriteStringToStorage(pwszFileName: win32more.Foundation.PWSTR, pwszInitializationString: win32more.Foundation.PWSTR, dwCreationDisposition: UInt32) -> win32more.Foundation.HRESULT: ...
+class IDataSourceLocator(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('2206ccb2-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
+    @commethod(7)
+    def get_hWnd(phwndParent: POINTER(win32more.Foundation.HWND)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_hWnd(hwndParent: win32more.Foundation.HWND) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def PromptNew(ppADOConnection: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def PromptEdit(ppADOConnection: POINTER(win32more.System.Com.IDispatch_head), pbSuccess: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
 class IEntity(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('24264891-e80b-4fd3-b7-ce-4f-f2-fa-e8-93-1f')
@@ -5775,6 +5775,14 @@ class IMultipleResults(c_void_p):
     Guid = Guid('0c733a90-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetResult(pUnkOuter: win32more.System.Com.IUnknown_head, lResultFlag: IntPtr, riid: POINTER(Guid), pcRowsAffected: POINTER(IntPtr), ppRowset: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+class INCREMENTAL_ACCESS_INFO(Structure):
+    dwSize: UInt32
+    ftLastModifiedTime: win32more.Foundation.FILETIME
+INTERVAL_LIMIT_KIND = Int32
+ILK_EXPLICIT_INCLUDED: INTERVAL_LIMIT_KIND = 0
+ILK_EXPLICIT_EXCLUDED: INTERVAL_LIMIT_KIND = 1
+ILK_NEGATIVE_INFINITY: INTERVAL_LIMIT_KIND = 2
+ILK_POSITIVE_INFINITY: INTERVAL_LIMIT_KIND = 3
 class INamedEntity(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('abdbd0b1-7d54-49fb-ab-5c-bf-f4-13-00-04-cd')
@@ -5787,15 +5795,6 @@ class INamedEntityCollector(c_void_p):
     Guid = Guid('af2440f6-8afc-47d0-9a-7f-39-6a-0a-cf-b4-3d')
     @commethod(3)
     def Add(beginSpan: UInt32, endSpan: UInt32, beginActual: UInt32, endActual: UInt32, pType: win32more.System.Search.IEntity_head, pszValue: win32more.Foundation.PWSTR, certainty: win32more.System.Search.NAMED_ENTITY_CERTAINTY) -> win32more.Foundation.HRESULT: ...
-class INCREMENTAL_ACCESS_INFO(Structure):
-    dwSize: UInt32
-    ftLastModifiedTime: win32more.Foundation.FILETIME
-Interval = Guid('d957171f-4bf9-4de2-bc-d5-c7-0a-7c-a5-58-36')
-INTERVAL_LIMIT_KIND = Int32
-ILK_EXPLICIT_INCLUDED: INTERVAL_LIMIT_KIND = 0
-ILK_EXPLICIT_EXCLUDED: INTERVAL_LIMIT_KIND = 1
-ILK_NEGATIVE_INFINITY: INTERVAL_LIMIT_KIND = 2
-ILK_POSITIVE_INFINITY: INTERVAL_LIMIT_KIND = 3
 class IObjectAccessControl(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('0c733aa3-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
@@ -5809,11 +5808,6 @@ class IObjectAccessControl(c_void_p):
     def SetObjectAccessRights(pObject: POINTER(win32more.System.Search.SEC_OBJECT_head), cAccessEntries: UInt32, prgAccessEntries: POINTER(win32more.Security.Authorization.EXPLICIT_ACCESS_W_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(7)
     def SetObjectOwner(pObject: POINTER(win32more.System.Search.SEC_OBJECT_head), pOwner: POINTER(win32more.Security.Authorization.TRUSTEE_W_head)) -> win32more.Foundation.HRESULT: ...
-class IOpenRowset(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('0c733a69-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
-    @commethod(3)
-    def OpenRowset(pUnkOuter: win32more.System.Com.IUnknown_head, pTableID: POINTER(win32more.Storage.IndexServer.DBID_head), pIndexID: POINTER(win32more.Storage.IndexServer.DBID_head), riid: POINTER(Guid), cPropertySets: UInt32, rgPropertySets: POINTER(win32more.System.Search.DBPROPSET_head), ppRowset: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
 class IOpLockStatus(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('c731065d-ac80-11d1-8d-f3-00-c0-4f-b6-ef-4f')
@@ -5823,6 +5817,11 @@ class IOpLockStatus(c_void_p):
     def IsOplockBroken(pfIsOplockBroken: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
     @commethod(5)
     def GetOplockEventHandle(phOplockEv: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.HRESULT: ...
+class IOpenRowset(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0c733a69-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    @commethod(3)
+    def OpenRowset(pUnkOuter: win32more.System.Com.IUnknown_head, pTableID: POINTER(win32more.Storage.IndexServer.DBID_head), pIndexID: POINTER(win32more.Storage.IndexServer.DBID_head), riid: POINTER(Guid), cPropertySets: UInt32, rgPropertySets: POINTER(win32more.System.Search.DBPROPSET_head), ppRowset: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
 class IParentRowset(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('0c733aaa-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
@@ -6188,6 +6187,26 @@ class IRowsetWithParameters(c_void_p):
     def GetParameterInfo(pcParams: POINTER(UIntPtr), prgParamInfo: POINTER(POINTER(win32more.System.Search.DBPARAMINFO_head)), ppNamesBuffer: POINTER(POINTER(UInt16))) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def Requery(pParams: POINTER(win32more.System.Search.DBPARAMS_head), pulErrorParam: POINTER(UInt32), phReserved: POINTER(UIntPtr)) -> win32more.Foundation.HRESULT: ...
+class ISQLErrorInfo(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0c733a74-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    @commethod(3)
+    def GetSQLInfo(pbstrSQLState: POINTER(win32more.Foundation.BSTR), plNativeError: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class ISQLGetDiagField(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('228972f1-b5ff-11d0-8a-80-00-c0-4f-d6-11-cd')
+    @commethod(3)
+    def GetDiagField(pDiagInfo: POINTER(win32more.System.Search.KAGGETDIAG_head)) -> win32more.Foundation.HRESULT: ...
+class ISQLRequestDiagFields(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('228972f0-b5ff-11d0-8a-80-00-c0-4f-d6-11-cd')
+    @commethod(3)
+    def RequestDiagFields(cDiagFields: UInt32, rgDiagFields: POINTER(win32more.System.Search.KAGREQDIAG_head)) -> win32more.Foundation.HRESULT: ...
+class ISQLServerErrorInfo(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('5cf4ca12-ef21-11d0-97-e7-00-c0-4f-c2-ad-98')
+    @commethod(3)
+    def GetErrorInfo(ppErrorInfo: POINTER(POINTER(win32more.System.Search.SSERRORINFO_head)), ppStringsBuffer: POINTER(POINTER(UInt16))) -> win32more.Foundation.HRESULT: ...
 class ISchemaLocalizerSupport(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('ca3fdca2-bfbe-4eed-90-d7-0c-ae-f0-a1-bd-a1')
@@ -6579,26 +6598,6 @@ class ISourcesRowset(c_void_p):
     Guid = Guid('0c733a1e-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetSourcesRowset(pUnkOuter: win32more.System.Com.IUnknown_head, riid: POINTER(Guid), cPropertySets: UInt32, rgProperties: POINTER(win32more.System.Search.DBPROPSET_head), ppSourcesRowset: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-class ISQLErrorInfo(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('0c733a74-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
-    @commethod(3)
-    def GetSQLInfo(pbstrSQLState: POINTER(win32more.Foundation.BSTR), plNativeError: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-class ISQLGetDiagField(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('228972f1-b5ff-11d0-8a-80-00-c0-4f-d6-11-cd')
-    @commethod(3)
-    def GetDiagField(pDiagInfo: POINTER(win32more.System.Search.KAGGETDIAG_head)) -> win32more.Foundation.HRESULT: ...
-class ISQLRequestDiagFields(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('228972f0-b5ff-11d0-8a-80-00-c0-4f-d6-11-cd')
-    @commethod(3)
-    def RequestDiagFields(cDiagFields: UInt32, rgDiagFields: POINTER(win32more.System.Search.KAGREQDIAG_head)) -> win32more.Foundation.HRESULT: ...
-class ISQLServerErrorInfo(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('5cf4ca12-ef21-11d0-97-e7-00-c0-4f-c2-ad-98')
-    @commethod(3)
-    def GetErrorInfo(ppErrorInfo: POINTER(POINTER(win32more.System.Search.SSERRORINFO_head)), ppStringsBuffer: POINTER(POINTER(UInt16))) -> win32more.Foundation.HRESULT: ...
 class IStemmer(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('efbaf140-7f42-11ce-be-57-00-aa-00-51-fe-20')
@@ -6661,6 +6660,15 @@ class ISubscriptionMgr2(c_void_p):
     def AbortItems(dwNumCookies: UInt32, pCookies: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
     @commethod(17)
     def AbortAll() -> win32more.Foundation.HRESULT: ...
+class ITEMPROP(Structure):
+    variantValue: win32more.System.Com.VARIANT
+    pwszName: win32more.Foundation.PWSTR
+class ITEM_INFO(Structure):
+    dwSize: UInt32
+    pcwszFromEMail: win32more.Foundation.PWSTR
+    pcwszApplicationName: win32more.Foundation.PWSTR
+    pcwszCatalogName: win32more.Foundation.PWSTR
+    pcwszContentClass: win32more.Foundation.PWSTR
 class ITableCreation(c_void_p):
     extends: win32more.System.Search.ITableDefinition
     Guid = Guid('0c733abc-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
@@ -6693,15 +6701,6 @@ class ITableRename(c_void_p):
     def RenameColumn(pTableId: POINTER(win32more.Storage.IndexServer.DBID_head), pOldColumnId: POINTER(win32more.Storage.IndexServer.DBID_head), pNewColumnId: POINTER(win32more.Storage.IndexServer.DBID_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def RenameTable(pOldTableId: POINTER(win32more.Storage.IndexServer.DBID_head), pOldIndexId: POINTER(win32more.Storage.IndexServer.DBID_head), pNewTableId: POINTER(win32more.Storage.IndexServer.DBID_head), pNewIndexId: POINTER(win32more.Storage.IndexServer.DBID_head)) -> win32more.Foundation.HRESULT: ...
-class ITEM_INFO(Structure):
-    dwSize: UInt32
-    pcwszFromEMail: win32more.Foundation.PWSTR
-    pcwszApplicationName: win32more.Foundation.PWSTR
-    pcwszCatalogName: win32more.Foundation.PWSTR
-    pcwszContentClass: win32more.Foundation.PWSTR
-class ITEMPROP(Structure):
-    variantValue: win32more.System.Com.VARIANT
-    pwszName: win32more.Foundation.PWSTR
 class ITokenCollection(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('22d8b4f2-f577-4adb-a3-35-c2-ae-88-41-6f-ab')
@@ -6882,6 +6881,7 @@ class IWordSink(c_void_p):
     def EndAltPhrase() -> win32more.Foundation.HRESULT: ...
     @commethod(7)
     def PutBreak(breakType: win32more.Storage.IndexServer.WORDREP_BREAK_TYPE) -> win32more.Foundation.HRESULT: ...
+Interval = Guid('d957171f-4bf9-4de2-bc-d5-c7-0a-7c-a5-58-36')
 class KAGGETDIAG(Structure):
     ulSize: UInt32
     vDiagInfo: win32more.System.Com.VARIANT
@@ -6893,11 +6893,11 @@ class KAGREQDIAG(Structure):
 KAGREQDIAGFLAGSENUM = Int32
 KAGREQDIAGFLAGS_HEADER: KAGREQDIAGFLAGSENUM = 1
 KAGREQDIAGFLAGS_RECORD: KAGREQDIAGFLAGSENUM = 2
-LeafCondition = Guid('52f15c89-5a17-48e1-bb-cd-46-a3-f8-9c-7c-c2')
 LOCKMODEENUM = Int32
 LOCKMODE_INVALID: LOCKMODEENUM = 0
 LOCKMODE_EXCLUSIVE: LOCKMODEENUM = 1
 LOCKMODE_SHARED: LOCKMODEENUM = 2
+LeafCondition = Guid('52f15c89-5a17-48e1-bb-cd-46-a3-f8-9c-7c-c2')
 if ARCH in 'X64,ARM64':
     class MDAXISINFO(Structure):
         cbSize: UIntPtr
@@ -6917,9 +6917,9 @@ if ARCH in 'X86':
         _pack_ = 2
 MSDAINITIALIZE = Guid('2206cdb0-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
 MSDAORA = Guid('e8cc4cbe-fdff-11d0-b8-65-00-a0-c9-08-1c-1d')
-MSDAORA_ERROR = Guid('e8cc4cbf-fdff-11d0-b8-65-00-a0-c9-08-1c-1d')
 MSDAORA8 = Guid('7f06a373-dd6a-43db-b4-e0-1f-c1-21-e5-e6-2b')
 MSDAORA8_ERROR = Guid('7f06a374-dd6a-43db-b4-e0-1f-c1-21-e5-e6-2b')
+MSDAORA_ERROR = Guid('e8cc4cbf-fdff-11d0-b8-65-00-a0-c9-08-1c-1d')
 MSDSDBINITPROPENUM = Int32
 DBPROP_MSDS_DBINIT_DATAPROVIDER: MSDSDBINITPROPENUM = 2
 MSDSSESSIONPROPENUM = Int32
@@ -6932,13 +6932,13 @@ class NATLANGUAGERESTRICTION(Structure):
     prop: win32more.Storage.IndexServer.FULLPROPSPEC
     pwcsPhrase: win32more.Foundation.PWSTR
     lcid: UInt32
-NegationCondition = Guid('8de9c74c-605a-4acd-be-e3-2b-22-2a-a2-d2-3d')
 class NODERESTRICTION(Structure):
     cRes: UInt32
     paRes: POINTER(POINTER(win32more.System.Search.RESTRICTION_head))
     reserved: UInt32
 class NOTRESTRICTION(Structure):
     pRes: POINTER(win32more.System.Search.RESTRICTION_head)
+NegationCondition = Guid('8de9c74c-605a-4acd-be-e3-2b-22-2a-a2-d2-3d')
 class ODBC_VS_ARGS(Structure):
     pguidEvent: POINTER(Guid)
     dwFlags: UInt32
@@ -7113,7 +7113,6 @@ if ARCH in 'X86':
         cArray: UInt32
         rgArray: POINTER(win32more.System.Com.VARIANT_head)
         _pack_ = 2
-RootBinder = Guid('ff151822-b0bf-11d1-a8-0d-00-00-00-00-00-00')
 ROWSETEVENT_ITEMSTATE = Int32
 ROWSETEVENT_ITEMSTATE_NOTINROWSET: ROWSETEVENT_ITEMSTATE = 0
 ROWSETEVENT_ITEMSTATE_INROWSET: ROWSETEVENT_ITEMSTATE = 1
@@ -7122,6 +7121,7 @@ ROWSETEVENT_TYPE = Int32
 ROWSETEVENT_TYPE_DATAEXPIRED: ROWSETEVENT_TYPE = 0
 ROWSETEVENT_TYPE_FOREGROUNDLOST: ROWSETEVENT_TYPE = 1
 ROWSETEVENT_TYPE_SCOPESTATISTICS: ROWSETEVENT_TYPE = 2
+RootBinder = Guid('ff151822-b0bf-11d1-a8-0d-00-00-00-00-00-00')
 class SEARCH_COLUMN_PROPERTIES(Structure):
     Value: win32more.System.Com.StructuredStorage.PROPVARIANT
     lcid: UInt32
@@ -7187,29 +7187,6 @@ class SORTKEY(Structure):
 class SORTSET(Structure):
     cCol: UInt32
     aCol: POINTER(win32more.System.Search.SORTKEY_head)
-@winfunctype_pointer
-def SQL_ASYNC_NOTIFICATION_CALLBACK(pContext: c_void_p, fLast: win32more.Foundation.BOOL) -> Int16: ...
-class SQL_DAY_SECOND_STRUCT(Structure):
-    day: UInt32
-    hour: UInt32
-    minute: UInt32
-    second: UInt32
-    fraction: UInt32
-class SQL_INTERVAL_STRUCT(Structure):
-    interval_type: win32more.System.Search.SQLINTERVAL
-    interval_sign: Int16
-    intval: _intval_e__Union
-    class _intval_e__Union(Union):
-        year_month: win32more.System.Search.SQL_YEAR_MONTH_STRUCT
-        day_second: win32more.System.Search.SQL_DAY_SECOND_STRUCT
-class SQL_NUMERIC_STRUCT(Structure):
-    precision: Byte
-    scale: SByte
-    sign: Byte
-    val: Byte * 16
-class SQL_YEAR_MONTH_STRUCT(Structure):
-    year: UInt32
-    month: UInt32
 SQLINTERVAL = Int32
 SQL_IS_YEAR: SQLINTERVAL = 1
 SQL_IS_MONTH: SQLINTERVAL = 2
@@ -7282,6 +7259,29 @@ VT_SS_SMALLDATETIME: SQLVARENUM = 206
 VT_SS_BINARY: SQLVARENUM = 207
 VT_SS_VARBINARY: SQLVARENUM = 208
 VT_SS_UNKNOWN: SQLVARENUM = 209
+@winfunctype_pointer
+def SQL_ASYNC_NOTIFICATION_CALLBACK(pContext: c_void_p, fLast: win32more.Foundation.BOOL) -> Int16: ...
+class SQL_DAY_SECOND_STRUCT(Structure):
+    day: UInt32
+    hour: UInt32
+    minute: UInt32
+    second: UInt32
+    fraction: UInt32
+class SQL_INTERVAL_STRUCT(Structure):
+    interval_type: win32more.System.Search.SQLINTERVAL
+    interval_sign: Int16
+    intval: _intval_e__Union
+    class _intval_e__Union(Union):
+        year_month: win32more.System.Search.SQL_YEAR_MONTH_STRUCT
+        day_second: win32more.System.Search.SQL_DAY_SECOND_STRUCT
+class SQL_NUMERIC_STRUCT(Structure):
+    precision: Byte
+    scale: SByte
+    sign: Byte
+    val: Byte * 16
+class SQL_YEAR_MONTH_STRUCT(Structure):
+    year: UInt32
+    month: UInt32
 class SSERRORINFO(Structure):
     pwszMessage: win32more.Foundation.PWSTR
     pwszServer: win32more.Foundation.PWSTR
@@ -7420,7 +7420,6 @@ class SUBSCRIPTIONITEMINFO(Structure):
     dwPriority: UInt32
     ScheduleGroup: Guid
     clsidAgent: Guid
-SubscriptionMgr = Guid('abbe31d0-6dae-11d0-be-ca-00-c0-4f-d9-40-be')
 SUBSCRIPTIONSCHEDULE = Int32
 SUBSSCHED_AUTO: SUBSCRIPTIONSCHEDULE = 0
 SUBSSCHED_DAILY: SUBSCRIPTIONSCHEDULE = 1
@@ -7433,15 +7432,12 @@ SUBSTYPE_CHANNEL: SUBSCRIPTIONTYPE = 1
 SUBSTYPE_DESKTOPURL: SUBSCRIPTIONTYPE = 2
 SUBSTYPE_EXTERNAL: SUBSCRIPTIONTYPE = 3
 SUBSTYPE_DESKTOPCHANNEL: SUBSCRIPTIONTYPE = 4
+SubscriptionMgr = Guid('abbe31d0-6dae-11d0-be-ca-00-c0-4f-d9-40-be')
 class TEXT_SOURCE(Structure):
     pfnFillTextBuffer: win32more.System.Search.PFNFILLTEXTBUFFER
     awcBuffer: win32more.Foundation.PWSTR
     iEnd: UInt32
     iCur: UInt32
-class TIME_STRUCT(Structure):
-    hour: UInt16
-    minute: UInt16
-    second: UInt16
 class TIMEOUT_INFO(Structure):
     dwSize: UInt32
     dwConnectTimeout: UInt32
@@ -7454,6 +7450,10 @@ class TIMESTAMP_STRUCT(Structure):
     minute: UInt16
     second: UInt16
     fraction: UInt32
+class TIME_STRUCT(Structure):
+    hour: UInt16
+    minute: UInt16
+    second: UInt16
 class VECTORRESTRICTION(Structure):
     Node: win32more.System.Search.NODERESTRICTION
     RankMethod: UInt32
@@ -7472,12 +7472,7 @@ make_head(_module, 'CATEGORIZATION')
 make_head(_module, 'CATEGORIZATIONSET')
 make_head(_module, 'COLUMNSET')
 make_head(_module, 'CONTENTRESTRICTION')
-make_head(_module, 'DataSource')
-make_head(_module, 'DataSourceListener')
-make_head(_module, 'DataSourceObject')
 make_head(_module, 'DATE_STRUCT')
-make_head(_module, 'DB_NUMERIC')
-make_head(_module, 'DB_VARNUMERIC')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'DBBINDEXT')
 if ARCH in 'X86':
@@ -7577,7 +7572,12 @@ if ARCH in 'X64,ARM64':
     make_head(_module, 'DBVECTOR')
 if ARCH in 'X86':
     make_head(_module, 'DBVECTOR')
+make_head(_module, 'DB_NUMERIC')
+make_head(_module, 'DB_VARNUMERIC')
 make_head(_module, 'DCINFO')
+make_head(_module, 'DataSource')
+make_head(_module, 'DataSourceListener')
+make_head(_module, 'DataSourceObject')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'ERRORINFO')
 if ARCH in 'X86':
@@ -7610,9 +7610,6 @@ make_head(_module, 'IConditionFactory2')
 make_head(_module, 'IConditionGenerator')
 make_head(_module, 'IConvertType')
 make_head(_module, 'ICreateRow')
-make_head(_module, 'IDataConvert')
-make_head(_module, 'IDataInitialize')
-make_head(_module, 'IDataSourceLocator')
 make_head(_module, 'IDBAsynchNotify')
 make_head(_module, 'IDBAsynchStatus')
 make_head(_module, 'IDBBinderProperties')
@@ -7626,6 +7623,9 @@ make_head(_module, 'IDBProperties')
 make_head(_module, 'IDBSchemaCommand')
 make_head(_module, 'IDBSchemaRowset')
 make_head(_module, 'IDCInfo')
+make_head(_module, 'IDataConvert')
+make_head(_module, 'IDataInitialize')
+make_head(_module, 'IDataSourceLocator')
 make_head(_module, 'IEntity')
 make_head(_module, 'IEnumItemProperties')
 make_head(_module, 'IEnumSearchRoots')
@@ -7646,12 +7646,12 @@ make_head(_module, 'IMDFind')
 make_head(_module, 'IMDRangeRowset')
 make_head(_module, 'IMetaData')
 make_head(_module, 'IMultipleResults')
+make_head(_module, 'INCREMENTAL_ACCESS_INFO')
 make_head(_module, 'INamedEntity')
 make_head(_module, 'INamedEntityCollector')
-make_head(_module, 'INCREMENTAL_ACCESS_INFO')
 make_head(_module, 'IObjectAccessControl')
-make_head(_module, 'IOpenRowset')
 make_head(_module, 'IOpLockStatus')
+make_head(_module, 'IOpenRowset')
 make_head(_module, 'IParentRowset')
 make_head(_module, 'IProtocolHandlerSite')
 make_head(_module, 'IProvideMoniker')
@@ -7698,6 +7698,10 @@ make_head(_module, 'IRowsetWatchAll')
 make_head(_module, 'IRowsetWatchNotify')
 make_head(_module, 'IRowsetWatchRegion')
 make_head(_module, 'IRowsetWithParameters')
+make_head(_module, 'ISQLErrorInfo')
+make_head(_module, 'ISQLGetDiagField')
+make_head(_module, 'ISQLRequestDiagFields')
+make_head(_module, 'ISQLServerErrorInfo')
 make_head(_module, 'ISchemaLocalizerSupport')
 make_head(_module, 'ISchemaLock')
 make_head(_module, 'ISchemaProvider')
@@ -7725,20 +7729,16 @@ make_head(_module, 'IService')
 make_head(_module, 'ISessionProperties')
 make_head(_module, 'ISimpleCommandCreator')
 make_head(_module, 'ISourcesRowset')
-make_head(_module, 'ISQLErrorInfo')
-make_head(_module, 'ISQLGetDiagField')
-make_head(_module, 'ISQLRequestDiagFields')
-make_head(_module, 'ISQLServerErrorInfo')
 make_head(_module, 'IStemmer')
 make_head(_module, 'ISubscriptionItem')
 make_head(_module, 'ISubscriptionMgr')
 make_head(_module, 'ISubscriptionMgr2')
+make_head(_module, 'ITEMPROP')
+make_head(_module, 'ITEM_INFO')
 make_head(_module, 'ITableCreation')
 make_head(_module, 'ITableDefinition')
 make_head(_module, 'ITableDefinitionWithConstraints')
 make_head(_module, 'ITableRename')
-make_head(_module, 'ITEM_INFO')
-make_head(_module, 'ITEMPROP')
 make_head(_module, 'ITokenCollection')
 make_head(_module, 'ITransactionJoin')
 make_head(_module, 'ITransactionLocal')
@@ -7793,20 +7793,20 @@ if ARCH in 'X86':
     make_head(_module, 'SEC_OBJECT_ELEMENT')
 make_head(_module, 'SORTKEY')
 make_head(_module, 'SORTSET')
+make_head(_module, 'SQLPERF')
 make_head(_module, 'SQL_ASYNC_NOTIFICATION_CALLBACK')
 make_head(_module, 'SQL_DAY_SECOND_STRUCT')
 make_head(_module, 'SQL_INTERVAL_STRUCT')
 make_head(_module, 'SQL_NUMERIC_STRUCT')
 make_head(_module, 'SQL_YEAR_MONTH_STRUCT')
-make_head(_module, 'SQLPERF')
 make_head(_module, 'SSERRORINFO')
 make_head(_module, 'SSVARIANT')
 make_head(_module, 'SUBSCRIPTIONINFO')
 make_head(_module, 'SUBSCRIPTIONITEMINFO')
 make_head(_module, 'TEXT_SOURCE')
-make_head(_module, 'TIME_STRUCT')
 make_head(_module, 'TIMEOUT_INFO')
 make_head(_module, 'TIMESTAMP_STRUCT')
+make_head(_module, 'TIME_STRUCT')
 make_head(_module, 'VECTORRESTRICTION')
 __all__ = [
     "ACCESS_MASKENUM",

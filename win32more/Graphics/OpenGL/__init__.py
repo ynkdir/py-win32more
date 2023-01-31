@@ -1567,8 +1567,6 @@ def GLUtessCombineProc(param0: POINTER(Double), param1: POINTER(c_void_p), param
 def GLUtessEdgeFlagDataProc(param0: Byte, param1: c_void_p) -> Void: ...
 @winfunctype_pointer
 def GLUtessEdgeFlagProc(param0: Byte) -> Void: ...
-class GLUtesselator(Structure):
-    pass
 @winfunctype_pointer
 def GLUtessEndDataProc(param0: c_void_p) -> Void: ...
 @winfunctype_pointer
@@ -1581,6 +1579,8 @@ def GLUtessErrorProc(param0: UInt32) -> Void: ...
 def GLUtessVertexDataProc(param0: c_void_p, param1: c_void_p) -> Void: ...
 @winfunctype_pointer
 def GLUtessVertexProc(param0: c_void_p) -> Void: ...
+class GLUtesselator(Structure):
+    pass
 class GLYPHMETRICSFLOAT(Structure):
     gmfBlackBoxX: Single
     gmfBlackBoxY: Single
@@ -1715,13 +1715,13 @@ make_head(_module, 'GLUtessCombineDataProc')
 make_head(_module, 'GLUtessCombineProc')
 make_head(_module, 'GLUtessEdgeFlagDataProc')
 make_head(_module, 'GLUtessEdgeFlagProc')
-make_head(_module, 'GLUtesselator')
 make_head(_module, 'GLUtessEndDataProc')
 make_head(_module, 'GLUtessEndProc')
 make_head(_module, 'GLUtessErrorDataProc')
 make_head(_module, 'GLUtessErrorProc')
 make_head(_module, 'GLUtessVertexDataProc')
 make_head(_module, 'GLUtessVertexProc')
+make_head(_module, 'GLUtesselator')
 make_head(_module, 'GLYPHMETRICSFLOAT')
 make_head(_module, 'LAYERPLANEDESCRIPTOR')
 make_head(_module, 'PFNGLADDSWAPHINTRECTWINPROC')

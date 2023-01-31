@@ -990,18 +990,208 @@ CH_DESCRIPTION_TYPE = Int32
 ch_description_type_logical: CH_DESCRIPTION_TYPE = 1
 ch_description_type_center_frequency: CH_DESCRIPTION_TYPE = 2
 ch_description_type_phy_specific: CH_DESCRIPTION_TYPE = 3
-DOT11_AC_PARAM = Int32
-dot11_AC_param_BE: DOT11_AC_PARAM = 0
-dot11_AC_param_BK: DOT11_AC_PARAM = 1
-dot11_AC_param_VI: DOT11_AC_PARAM = 2
-dot11_AC_param_VO: DOT11_AC_PARAM = 3
-dot11_AC_param_max: DOT11_AC_PARAM = 4
+@winfunctype_pointer
+def DOT11EXTIHV_ADAPTER_RESET(hIhvExtAdapter: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_CONTROL(hIhvExtAdapter: win32more.Foundation.HANDLE, dwInBufferSize: UInt32, pInBuffer: c_char_p_no, dwOutBufferSize: UInt32, pOutBuffer: c_char_p_no, pdwBytesReturned: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_CREATE_DISCOVERY_PROFILES(hIhvExtAdapter: win32more.Foundation.HANDLE, bInsecure: win32more.Foundation.BOOL, pIhvProfileParams: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head), pConnectableBssid: POINTER(win32more.NetworkManagement.WiFi.DOT11_BSS_LIST_head), pIhvDiscoveryProfileList: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_DISCOVERY_PROFILE_LIST_head), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_DEINIT_ADAPTER(hIhvExtAdapter: win32more.Foundation.HANDLE) -> Void: ...
+@winfunctype_pointer
+def DOT11EXTIHV_DEINIT_SERVICE() -> Void: ...
+@winfunctype_pointer
+def DOT11EXTIHV_GET_VERSION_INFO(pDot11IHVVersionInfo: POINTER(win32more.NetworkManagement.WiFi.DOT11_IHV_VERSION_INFO_head)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_INIT_ADAPTER(pDot11Adapter: POINTER(win32more.NetworkManagement.WiFi.DOT11_ADAPTER_head), hDot11SvcHandle: win32more.Foundation.HANDLE, phIhvExtAdapter: POINTER(win32more.Foundation.HANDLE)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_INIT_SERVICE(dwVerNumUsed: UInt32, pDot11ExtAPI: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_APIS_head), pvReserved: c_void_p, pDot11IHVHandlers: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_HANDLERS_head)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_INIT_VIRTUAL_STATION(pDot11ExtVSAPI: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_VIRTUAL_STATION_APIS_head), pvReserved: c_void_p) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_IS_UI_REQUEST_PENDING(guidUIRequest: Guid, pbIsRequestPending: POINTER(win32more.Foundation.BOOL)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_ONEX_INDICATE_RESULT(hIhvExtAdapter: win32more.Foundation.HANDLE, msOneXResult: win32more.NetworkManagement.WiFi.DOT11_MSONEX_RESULT, pDot11MsOneXResultParams: POINTER(win32more.NetworkManagement.WiFi.DOT11_MSONEX_RESULT_PARAMS_head)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_PERFORM_CAPABILITY_MATCH(hIhvExtAdapter: win32more.Foundation.HANDLE, pIhvProfileParams: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head), pIhvConnProfile: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head), pIhvSecProfile: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head), pConnectableBssid: POINTER(win32more.NetworkManagement.WiFi.DOT11_BSS_LIST_head), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_PERFORM_POST_ASSOCIATE(hIhvExtAdapter: win32more.Foundation.HANDLE, hSecuritySessionID: win32more.Foundation.HANDLE, pPortState: POINTER(win32more.NetworkManagement.WiFi.DOT11_PORT_STATE_head), uDot11AssocParamsBytes: UInt32, pDot11AssocParams: POINTER(win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_COMPLETION_PARAMETERS_head)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_PERFORM_PRE_ASSOCIATE(hIhvExtAdapter: win32more.Foundation.HANDLE, hConnectSession: win32more.Foundation.HANDLE, pIhvProfileParams: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head), pIhvConnProfile: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head), pIhvSecProfile: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head), pConnectableBssid: POINTER(win32more.NetworkManagement.WiFi.DOT11_BSS_LIST_head), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_PROCESS_SESSION_CHANGE(uEventType: UInt32, pSessionNotification: POINTER(win32more.System.RemoteDesktop.WTSSESSION_NOTIFICATION_head)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_PROCESS_UI_RESPONSE(guidUIRequest: Guid, dwByteCount: UInt32, pvResponseBuffer: c_void_p) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_QUERY_UI_REQUEST(hIhvExtAdapter: win32more.Foundation.HANDLE, connectionPhase: win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTION_PHASE, ppIhvUIRequest: POINTER(POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_UI_REQUEST_head))) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_RECEIVE_INDICATION(hIhvExtAdapter: win32more.Foundation.HANDLE, indicationType: win32more.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE, uBufferLength: UInt32, pvBuffer: c_void_p) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_RECEIVE_PACKET(hIhvExtAdapter: win32more.Foundation.HANDLE, dwInBufferSize: UInt32, pvInBuffer: c_void_p) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_SEND_PACKET_COMPLETION(hSendCompletion: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_STOP_POST_ASSOCIATE(hIhvExtAdapter: win32more.Foundation.HANDLE, pPeer: POINTER(c_char_p_no), dot11AssocStatus: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXTIHV_VALIDATE_PROFILE(hIhvExtAdapter: win32more.Foundation.HANDLE, pIhvProfileParams: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head), pIhvConnProfile: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head), pIhvSecProfile: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_ALLOCATE_BUFFER(dwByteCount: UInt32, ppvBuffer: POINTER(c_void_p)) -> UInt32: ...
+class DOT11EXT_APIS(Structure):
+    Dot11ExtAllocateBuffer: win32more.NetworkManagement.WiFi.DOT11EXT_ALLOCATE_BUFFER
+    Dot11ExtFreeBuffer: win32more.NetworkManagement.WiFi.DOT11EXT_FREE_BUFFER
+    Dot11ExtSetProfileCustomUserData: win32more.NetworkManagement.WiFi.DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA
+    Dot11ExtGetProfileCustomUserData: win32more.NetworkManagement.WiFi.DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA
+    Dot11ExtSetCurrentProfile: win32more.NetworkManagement.WiFi.DOT11EXT_SET_CURRENT_PROFILE
+    Dot11ExtSendUIRequest: win32more.NetworkManagement.WiFi.DOT11EXT_SEND_UI_REQUEST
+    Dot11ExtPreAssociateCompletion: win32more.NetworkManagement.WiFi.DOT11EXT_PRE_ASSOCIATE_COMPLETION
+    Dot11ExtPostAssociateCompletion: win32more.NetworkManagement.WiFi.DOT11EXT_POST_ASSOCIATE_COMPLETION
+    Dot11ExtSendNotification: win32more.NetworkManagement.WiFi.DOT11EXT_SEND_NOTIFICATION
+    Dot11ExtSendPacket: win32more.NetworkManagement.WiFi.DOT11EXT_SEND_PACKET
+    Dot11ExtSetEtherTypeHandling: win32more.NetworkManagement.WiFi.DOT11EXT_SET_ETHERTYPE_HANDLING
+    Dot11ExtSetAuthAlgorithm: win32more.NetworkManagement.WiFi.DOT11EXT_SET_AUTH_ALGORITHM
+    Dot11ExtSetUnicastCipherAlgorithm: win32more.NetworkManagement.WiFi.DOT11EXT_SET_UNICAST_CIPHER_ALGORITHM
+    Dot11ExtSetMulticastCipherAlgorithm: win32more.NetworkManagement.WiFi.DOT11EXT_SET_MULTICAST_CIPHER_ALGORITHM
+    Dot11ExtSetDefaultKey: win32more.NetworkManagement.WiFi.DOT11EXT_SET_DEFAULT_KEY
+    Dot11ExtSetKeyMappingKey: win32more.NetworkManagement.WiFi.DOT11EXT_SET_KEY_MAPPING_KEY
+    Dot11ExtSetDefaultKeyId: win32more.NetworkManagement.WiFi.DOT11EXT_SET_DEFAULT_KEY_ID
+    Dot11ExtNicSpecificExtension: win32more.NetworkManagement.WiFi.DOT11EXT_NIC_SPECIFIC_EXTENSION
+    Dot11ExtSetExcludeUnencrypted: win32more.NetworkManagement.WiFi.DOT11EXT_SET_EXCLUDE_UNENCRYPTED
+    Dot11ExtStartOneX: win32more.NetworkManagement.WiFi.DOT11EXT_ONEX_START
+    Dot11ExtStopOneX: win32more.NetworkManagement.WiFi.DOT11EXT_ONEX_STOP
+    Dot11ExtProcessSecurityPacket: win32more.NetworkManagement.WiFi.DOT11EXT_PROCESS_ONEX_PACKET
+@winfunctype_pointer
+def DOT11EXT_FREE_BUFFER(pvMemory: c_void_p) -> Void: ...
+@winfunctype_pointer
+def DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA(hDot11SvcHandle: win32more.Foundation.HANDLE, hConnectSession: win32more.Foundation.HANDLE, dwSessionID: UInt32, pdwDataSize: POINTER(UInt32), ppvData: POINTER(c_void_p)) -> UInt32: ...
+DOT11EXT_IHV_CONNECTION_PHASE = Int32
+connection_phase_any: DOT11EXT_IHV_CONNECTION_PHASE = 0
+connection_phase_initial_connection: DOT11EXT_IHV_CONNECTION_PHASE = 1
+connection_phase_post_l3_connection: DOT11EXT_IHV_CONNECTION_PHASE = 2
+class DOT11EXT_IHV_CONNECTIVITY_PROFILE(Structure):
+    pszXmlFragmentIhvConnectivity: win32more.Foundation.PWSTR
+class DOT11EXT_IHV_DISCOVERY_PROFILE(Structure):
+    IhvConnectivityProfile: win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE
+    IhvSecurityProfile: win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE
+class DOT11EXT_IHV_DISCOVERY_PROFILE_LIST(Structure):
+    dwCount: UInt32
+    pIhvDiscoveryProfiles: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_DISCOVERY_PROFILE_head)
+class DOT11EXT_IHV_HANDLERS(Structure):
+    Dot11ExtIhvDeinitService: win32more.NetworkManagement.WiFi.DOT11EXTIHV_DEINIT_SERVICE
+    Dot11ExtIhvInitAdapter: win32more.NetworkManagement.WiFi.DOT11EXTIHV_INIT_ADAPTER
+    Dot11ExtIhvDeinitAdapter: win32more.NetworkManagement.WiFi.DOT11EXTIHV_DEINIT_ADAPTER
+    Dot11ExtIhvPerformPreAssociate: win32more.NetworkManagement.WiFi.DOT11EXTIHV_PERFORM_PRE_ASSOCIATE
+    Dot11ExtIhvAdapterReset: win32more.NetworkManagement.WiFi.DOT11EXTIHV_ADAPTER_RESET
+    Dot11ExtIhvPerformPostAssociate: win32more.NetworkManagement.WiFi.DOT11EXTIHV_PERFORM_POST_ASSOCIATE
+    Dot11ExtIhvStopPostAssociate: win32more.NetworkManagement.WiFi.DOT11EXTIHV_STOP_POST_ASSOCIATE
+    Dot11ExtIhvValidateProfile: win32more.NetworkManagement.WiFi.DOT11EXTIHV_VALIDATE_PROFILE
+    Dot11ExtIhvPerformCapabilityMatch: win32more.NetworkManagement.WiFi.DOT11EXTIHV_PERFORM_CAPABILITY_MATCH
+    Dot11ExtIhvCreateDiscoveryProfiles: win32more.NetworkManagement.WiFi.DOT11EXTIHV_CREATE_DISCOVERY_PROFILES
+    Dot11ExtIhvProcessSessionChange: win32more.NetworkManagement.WiFi.DOT11EXTIHV_PROCESS_SESSION_CHANGE
+    Dot11ExtIhvReceiveIndication: win32more.NetworkManagement.WiFi.DOT11EXTIHV_RECEIVE_INDICATION
+    Dot11ExtIhvReceivePacket: win32more.NetworkManagement.WiFi.DOT11EXTIHV_RECEIVE_PACKET
+    Dot11ExtIhvSendPacketCompletion: win32more.NetworkManagement.WiFi.DOT11EXTIHV_SEND_PACKET_COMPLETION
+    Dot11ExtIhvIsUIRequestPending: win32more.NetworkManagement.WiFi.DOT11EXTIHV_IS_UI_REQUEST_PENDING
+    Dot11ExtIhvProcessUIResponse: win32more.NetworkManagement.WiFi.DOT11EXTIHV_PROCESS_UI_RESPONSE
+    Dot11ExtIhvQueryUIRequest: win32more.NetworkManagement.WiFi.DOT11EXTIHV_QUERY_UI_REQUEST
+    Dot11ExtIhvOnexIndicateResult: win32more.NetworkManagement.WiFi.DOT11EXTIHV_ONEX_INDICATE_RESULT
+    Dot11ExtIhvControl: win32more.NetworkManagement.WiFi.DOT11EXTIHV_CONTROL
+DOT11EXT_IHV_INDICATION_TYPE = Int32
+DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeNicSpecificNotification: DOT11EXT_IHV_INDICATION_TYPE = 0
+DOT11EXT_IHV_INDICATION_TYPE_IndicationTypePmkidCandidateList: DOT11EXT_IHV_INDICATION_TYPE = 1
+DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeTkipMicFailure: DOT11EXT_IHV_INDICATION_TYPE = 2
+DOT11EXT_IHV_INDICATION_TYPE_IndicationTypePhyStateChange: DOT11EXT_IHV_INDICATION_TYPE = 3
+DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeLinkQuality: DOT11EXT_IHV_INDICATION_TYPE = 4
+class DOT11EXT_IHV_PARAMS(Structure):
+    dot11ExtIhvProfileParams: win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS
+    wstrProfileName: Char * 256
+    dwProfileTypeFlags: UInt32
+    interfaceGuid: Guid
+class DOT11EXT_IHV_PROFILE_PARAMS(Structure):
+    pSsidList: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SSID_LIST_head)
+    BssType: win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE
+    pMSSecuritySettings: POINTER(win32more.NetworkManagement.WiFi.DOT11_MSSECURITY_SETTINGS_head)
+class DOT11EXT_IHV_SECURITY_PROFILE(Structure):
+    pszXmlFragmentIhvSecurity: win32more.Foundation.PWSTR
+    bUseMSOnex: win32more.Foundation.BOOL
+class DOT11EXT_IHV_SSID_LIST(Structure):
+    ulCount: UInt32
+    SSIDs: win32more.NetworkManagement.WiFi.DOT11_SSID * 1
+class DOT11EXT_IHV_UI_REQUEST(Structure):
+    dwSessionId: UInt32
+    guidUIRequest: Guid
+    UIPageClsid: Guid
+    dwByteCount: UInt32
+    pvUIRequest: c_char_p_no
+@winfunctype_pointer
+def DOT11EXT_NIC_SPECIFIC_EXTENSION(hDot11SvcHandle: win32more.Foundation.HANDLE, dwInBufferSize: UInt32, pvInBuffer: c_void_p, pdwOutBufferSize: POINTER(UInt32), pvOutBuffer: c_void_p) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_ONEX_START(hDot11SvcHandle: win32more.Foundation.HANDLE, pEapAttributes: POINTER(win32more.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES_head)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_ONEX_STOP(hDot11SvcHandle: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_POST_ASSOCIATE_COMPLETION(hDot11SvcHandle: win32more.Foundation.HANDLE, hSecuritySessionID: win32more.Foundation.HANDLE, pPeer: POINTER(c_char_p_no), dwReasonCode: UInt32, dwWin32Error: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_PRE_ASSOCIATE_COMPLETION(hDot11SvcHandle: win32more.Foundation.HANDLE, hConnectSession: win32more.Foundation.HANDLE, dwReasonCode: UInt32, dwWin32Error: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_PROCESS_ONEX_PACKET(hDot11SvcHandle: win32more.Foundation.HANDLE, dwInPacketSize: UInt32, pvInPacket: c_void_p) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES(hDot11SvcHandle: win32more.Foundation.HANDLE, pbIsVirtualStation: POINTER(win32more.Foundation.BOOL), pgPrimary: POINTER(Guid), pvReserved: c_void_p) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_RELEASE_VIRTUAL_STATION(hDot11PrimaryHandle: win32more.Foundation.HANDLE, pvReserved: c_void_p) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_REQUEST_VIRTUAL_STATION(hDot11PrimaryHandle: win32more.Foundation.HANDLE, pvReserved: c_void_p) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_SEND_NOTIFICATION(hDot11SvcHandle: win32more.Foundation.HANDLE, pNotificationData: POINTER(win32more.NetworkManagement.WiFi.L2_NOTIFICATION_DATA_head)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_SEND_PACKET(hDot11SvcHandle: win32more.Foundation.HANDLE, uPacketLen: UInt32, pvPacket: c_void_p, hSendCompletion: win32more.Foundation.HANDLE) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_SEND_UI_REQUEST(hDot11SvcHandle: win32more.Foundation.HANDLE, pIhvUIRequest: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_UI_REQUEST_head)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_SET_AUTH_ALGORITHM(hDot11SvcHandle: win32more.Foundation.HANDLE, dwAuthAlgo: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_SET_CURRENT_PROFILE(hDot11SvcHandle: win32more.Foundation.HANDLE, hConnectSession: win32more.Foundation.HANDLE, pIhvConnProfile: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head), pIhvSecProfile: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_SET_DEFAULT_KEY(hDot11SvcHandle: win32more.Foundation.HANDLE, pKey: POINTER(win32more.NetworkManagement.WiFi.DOT11_CIPHER_DEFAULT_KEY_VALUE_head), dot11Direction: win32more.NetworkManagement.WiFi.DOT11_DIRECTION) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_SET_DEFAULT_KEY_ID(hDot11SvcHandle: win32more.Foundation.HANDLE, uDefaultKeyId: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_SET_ETHERTYPE_HANDLING(hDot11SvcHandle: win32more.Foundation.HANDLE, uMaxBackLog: UInt32, uNumOfExemption: UInt32, pExemption: POINTER(win32more.NetworkManagement.WiFi.DOT11_PRIVACY_EXEMPTION_head), uNumOfRegistration: UInt32, pusRegistration: POINTER(UInt16)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_SET_EXCLUDE_UNENCRYPTED(hDot11SvcHandle: win32more.Foundation.HANDLE, bExcludeUnencrypted: win32more.Foundation.BOOL) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_SET_KEY_MAPPING_KEY(hDot11SvcHandle: win32more.Foundation.HANDLE, pKey: POINTER(win32more.NetworkManagement.WiFi.DOT11_CIPHER_KEY_MAPPING_KEY_VALUE_head)) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_SET_MULTICAST_CIPHER_ALGORITHM(hDot11SvcHandle: win32more.Foundation.HANDLE, dwMulticastCipherAlgo: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA(hDot11SvcHandle: win32more.Foundation.HANDLE, hConnectSession: win32more.Foundation.HANDLE, dwSessionID: UInt32, dwDataSize: UInt32, pvData: c_void_p) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_SET_UNICAST_CIPHER_ALGORITHM(hDot11SvcHandle: win32more.Foundation.HANDLE, dwUnicastCipherAlgo: UInt32) -> UInt32: ...
+@winfunctype_pointer
+def DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES(hDot11SvcHandle: win32more.Foundation.HANDLE, hConnectSession: win32more.Foundation.HANDLE, dwNumProperties: UInt32, pProperties: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_VIRTUAL_STATION_AP_PROPERTY_head), pvReserved: c_void_p) -> UInt32: ...
+class DOT11EXT_VIRTUAL_STATION_APIS(Structure):
+    Dot11ExtRequestVirtualStation: win32more.NetworkManagement.WiFi.DOT11EXT_REQUEST_VIRTUAL_STATION
+    Dot11ExtReleaseVirtualStation: win32more.NetworkManagement.WiFi.DOT11EXT_RELEASE_VIRTUAL_STATION
+    Dot11ExtQueryVirtualStationProperties: win32more.NetworkManagement.WiFi.DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES
+    Dot11ExtSetVirtualStationAPProperties: win32more.NetworkManagement.WiFi.DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES
+class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY(Structure):
+    dot11SSID: win32more.NetworkManagement.WiFi.DOT11_SSID
+    dot11AuthAlgo: win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM
+    dot11CipherAlgo: win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM
+    bIsPassPhrase: win32more.Foundation.BOOL
+    dwKeyLength: UInt32
+    ucKeyData: Byte * 64
 class DOT11_ACCESSNETWORKOPTIONS(Structure):
     AccessNetworkType: Byte
     Internet: Byte
     ASRA: Byte
     ESR: Byte
     UESA: Byte
+DOT11_AC_PARAM = Int32
+dot11_AC_param_BE: DOT11_AC_PARAM = 0
+dot11_AC_param_BK: DOT11_AC_PARAM = 1
+dot11_AC_param_VI: DOT11_AC_PARAM = 2
+dot11_AC_param_VO: DOT11_AC_PARAM = 3
+dot11_AC_param_max: DOT11_AC_PARAM = 4
 class DOT11_ADAPTER(Structure):
     gAdapterId: Guid
     pszDescription: win32more.Foundation.PWSTR
@@ -1154,6 +1344,14 @@ DOT11_BAND = Int32
 dot11_band_2p4g: DOT11_BAND = 1
 dot11_band_4p9g: DOT11_BAND = 2
 dot11_band_5g: DOT11_BAND = 3
+class DOT11_BSSID_CANDIDATE(Structure):
+    BSSID: Byte * 6
+    uFlags: UInt32
+class DOT11_BSSID_LIST(Structure):
+    Header: win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
+    uNumOfEntries: UInt32
+    uTotalNumOfEntries: UInt32
+    BSSIDs: Byte * 6
 class DOT11_BSS_DESCRIPTION(Structure):
     uReserved: UInt32
     dot11BSSID: Byte * 6
@@ -1191,14 +1389,6 @@ DOT11_BSS_TYPE = Int32
 dot11_BSS_type_infrastructure: DOT11_BSS_TYPE = 1
 dot11_BSS_type_independent: DOT11_BSS_TYPE = 2
 dot11_BSS_type_any: DOT11_BSS_TYPE = 3
-class DOT11_BSSID_CANDIDATE(Structure):
-    BSSID: Byte * 6
-    uFlags: UInt32
-class DOT11_BSSID_LIST(Structure):
-    Header: win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
-    uNumOfEntries: UInt32
-    uTotalNumOfEntries: UInt32
-    BSSIDs: Byte * 6
 class DOT11_BYTE_ARRAY(Structure):
     Header: win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     uNumOfBytes: UInt32
@@ -1464,10 +1654,6 @@ class DOT11_GO_NEGOTIATION_RESPONSE_SEND_COMPLETE_PARAMETERS(Structure):
     Status: Int32
     uIEsOffset: UInt32
     uIEsLength: UInt32
-DOT11_HOP_ALGO_ADOPTED = Int32
-dot11_hop_algo_current: DOT11_HOP_ALGO_ADOPTED = 0
-dot11_hop_algo_hop_index: DOT11_HOP_ALGO_ADOPTED = 1
-dot11_hop_algo_hcc: DOT11_HOP_ALGO_ADOPTED = 2
 class DOT11_HOPPING_PATTERN_ENTRY(Structure):
     uHoppingPatternIndex: UInt32
     uRandomTableFieldNumber: UInt32
@@ -1475,6 +1661,10 @@ class DOT11_HOPPING_PATTERN_ENTRY_LIST(Structure):
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     dot11HoppingPatternEntry: win32more.NetworkManagement.WiFi.DOT11_HOPPING_PATTERN_ENTRY * 1
+DOT11_HOP_ALGO_ADOPTED = Int32
+dot11_hop_algo_current: DOT11_HOP_ALGO_ADOPTED = 0
+dot11_hop_algo_hop_index: DOT11_HOP_ALGO_ADOPTED = 1
+dot11_hop_algo_hcc: DOT11_HOP_ALGO_ADOPTED = 2
 class DOT11_HRDSSS_PHY_ATTRIBUTES(Structure):
     bShortPreambleOptionImplemented: win32more.Foundation.BOOLEAN
     bPBCCOptionImplemented: win32more.Foundation.BOOLEAN
@@ -2093,13 +2283,13 @@ class DOT11_RECV_SENSITIVITY_LIST(Structure):
     class _Anonymous_e__Union(Union):
         dot11PhyType: win32more.NetworkManagement.WiFi.DOT11_PHY_TYPE
         uPhyId: UInt32
-class DOT11_REG_DOMAIN_VALUE(Structure):
-    uRegDomainsSupportIndex: UInt32
-    uRegDomainsSupportValue: UInt32
 class DOT11_REG_DOMAINS_SUPPORT_VALUE(Structure):
     uNumOfEntries: UInt32
     uTotalNumOfEntries: UInt32
     dot11RegDomainValue: win32more.NetworkManagement.WiFi.DOT11_REG_DOMAIN_VALUE * 1
+class DOT11_REG_DOMAIN_VALUE(Structure):
+    uRegDomainsSupportIndex: UInt32
+    uRegDomainsSupportValue: UInt32
 class DOT11_RESET_REQUEST(Structure):
     dot11ResetType: win32more.NetworkManagement.WiFi.DOT11_RESET_TYPE
     dot11MacAddress: Byte * 6
@@ -2571,196 +2761,6 @@ DOT11_WPS_PASSWORD_ID_WFD_SERVICES: DOT11_WPS_DEVICE_PASSWORD_ID = 8
 DOT11_WPS_PASSWORD_ID_OOB_RANGE_MIN: DOT11_WPS_DEVICE_PASSWORD_ID = 16
 DOT11_WPS_PASSWORD_ID_OOB_RANGE_MAX: DOT11_WPS_DEVICE_PASSWORD_ID = 65535
 Dot11AdHocManager = Guid('dd06a84f-83bd-4d01-8a-b9-23-89-fe-a0-86-9e')
-@winfunctype_pointer
-def DOT11EXT_ALLOCATE_BUFFER(dwByteCount: UInt32, ppvBuffer: POINTER(c_void_p)) -> UInt32: ...
-class DOT11EXT_APIS(Structure):
-    Dot11ExtAllocateBuffer: win32more.NetworkManagement.WiFi.DOT11EXT_ALLOCATE_BUFFER
-    Dot11ExtFreeBuffer: win32more.NetworkManagement.WiFi.DOT11EXT_FREE_BUFFER
-    Dot11ExtSetProfileCustomUserData: win32more.NetworkManagement.WiFi.DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA
-    Dot11ExtGetProfileCustomUserData: win32more.NetworkManagement.WiFi.DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA
-    Dot11ExtSetCurrentProfile: win32more.NetworkManagement.WiFi.DOT11EXT_SET_CURRENT_PROFILE
-    Dot11ExtSendUIRequest: win32more.NetworkManagement.WiFi.DOT11EXT_SEND_UI_REQUEST
-    Dot11ExtPreAssociateCompletion: win32more.NetworkManagement.WiFi.DOT11EXT_PRE_ASSOCIATE_COMPLETION
-    Dot11ExtPostAssociateCompletion: win32more.NetworkManagement.WiFi.DOT11EXT_POST_ASSOCIATE_COMPLETION
-    Dot11ExtSendNotification: win32more.NetworkManagement.WiFi.DOT11EXT_SEND_NOTIFICATION
-    Dot11ExtSendPacket: win32more.NetworkManagement.WiFi.DOT11EXT_SEND_PACKET
-    Dot11ExtSetEtherTypeHandling: win32more.NetworkManagement.WiFi.DOT11EXT_SET_ETHERTYPE_HANDLING
-    Dot11ExtSetAuthAlgorithm: win32more.NetworkManagement.WiFi.DOT11EXT_SET_AUTH_ALGORITHM
-    Dot11ExtSetUnicastCipherAlgorithm: win32more.NetworkManagement.WiFi.DOT11EXT_SET_UNICAST_CIPHER_ALGORITHM
-    Dot11ExtSetMulticastCipherAlgorithm: win32more.NetworkManagement.WiFi.DOT11EXT_SET_MULTICAST_CIPHER_ALGORITHM
-    Dot11ExtSetDefaultKey: win32more.NetworkManagement.WiFi.DOT11EXT_SET_DEFAULT_KEY
-    Dot11ExtSetKeyMappingKey: win32more.NetworkManagement.WiFi.DOT11EXT_SET_KEY_MAPPING_KEY
-    Dot11ExtSetDefaultKeyId: win32more.NetworkManagement.WiFi.DOT11EXT_SET_DEFAULT_KEY_ID
-    Dot11ExtNicSpecificExtension: win32more.NetworkManagement.WiFi.DOT11EXT_NIC_SPECIFIC_EXTENSION
-    Dot11ExtSetExcludeUnencrypted: win32more.NetworkManagement.WiFi.DOT11EXT_SET_EXCLUDE_UNENCRYPTED
-    Dot11ExtStartOneX: win32more.NetworkManagement.WiFi.DOT11EXT_ONEX_START
-    Dot11ExtStopOneX: win32more.NetworkManagement.WiFi.DOT11EXT_ONEX_STOP
-    Dot11ExtProcessSecurityPacket: win32more.NetworkManagement.WiFi.DOT11EXT_PROCESS_ONEX_PACKET
-@winfunctype_pointer
-def DOT11EXT_FREE_BUFFER(pvMemory: c_void_p) -> Void: ...
-@winfunctype_pointer
-def DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA(hDot11SvcHandle: win32more.Foundation.HANDLE, hConnectSession: win32more.Foundation.HANDLE, dwSessionID: UInt32, pdwDataSize: POINTER(UInt32), ppvData: POINTER(c_void_p)) -> UInt32: ...
-DOT11EXT_IHV_CONNECTION_PHASE = Int32
-connection_phase_any: DOT11EXT_IHV_CONNECTION_PHASE = 0
-connection_phase_initial_connection: DOT11EXT_IHV_CONNECTION_PHASE = 1
-connection_phase_post_l3_connection: DOT11EXT_IHV_CONNECTION_PHASE = 2
-class DOT11EXT_IHV_CONNECTIVITY_PROFILE(Structure):
-    pszXmlFragmentIhvConnectivity: win32more.Foundation.PWSTR
-class DOT11EXT_IHV_DISCOVERY_PROFILE(Structure):
-    IhvConnectivityProfile: win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE
-    IhvSecurityProfile: win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE
-class DOT11EXT_IHV_DISCOVERY_PROFILE_LIST(Structure):
-    dwCount: UInt32
-    pIhvDiscoveryProfiles: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_DISCOVERY_PROFILE_head)
-class DOT11EXT_IHV_HANDLERS(Structure):
-    Dot11ExtIhvDeinitService: win32more.NetworkManagement.WiFi.DOT11EXTIHV_DEINIT_SERVICE
-    Dot11ExtIhvInitAdapter: win32more.NetworkManagement.WiFi.DOT11EXTIHV_INIT_ADAPTER
-    Dot11ExtIhvDeinitAdapter: win32more.NetworkManagement.WiFi.DOT11EXTIHV_DEINIT_ADAPTER
-    Dot11ExtIhvPerformPreAssociate: win32more.NetworkManagement.WiFi.DOT11EXTIHV_PERFORM_PRE_ASSOCIATE
-    Dot11ExtIhvAdapterReset: win32more.NetworkManagement.WiFi.DOT11EXTIHV_ADAPTER_RESET
-    Dot11ExtIhvPerformPostAssociate: win32more.NetworkManagement.WiFi.DOT11EXTIHV_PERFORM_POST_ASSOCIATE
-    Dot11ExtIhvStopPostAssociate: win32more.NetworkManagement.WiFi.DOT11EXTIHV_STOP_POST_ASSOCIATE
-    Dot11ExtIhvValidateProfile: win32more.NetworkManagement.WiFi.DOT11EXTIHV_VALIDATE_PROFILE
-    Dot11ExtIhvPerformCapabilityMatch: win32more.NetworkManagement.WiFi.DOT11EXTIHV_PERFORM_CAPABILITY_MATCH
-    Dot11ExtIhvCreateDiscoveryProfiles: win32more.NetworkManagement.WiFi.DOT11EXTIHV_CREATE_DISCOVERY_PROFILES
-    Dot11ExtIhvProcessSessionChange: win32more.NetworkManagement.WiFi.DOT11EXTIHV_PROCESS_SESSION_CHANGE
-    Dot11ExtIhvReceiveIndication: win32more.NetworkManagement.WiFi.DOT11EXTIHV_RECEIVE_INDICATION
-    Dot11ExtIhvReceivePacket: win32more.NetworkManagement.WiFi.DOT11EXTIHV_RECEIVE_PACKET
-    Dot11ExtIhvSendPacketCompletion: win32more.NetworkManagement.WiFi.DOT11EXTIHV_SEND_PACKET_COMPLETION
-    Dot11ExtIhvIsUIRequestPending: win32more.NetworkManagement.WiFi.DOT11EXTIHV_IS_UI_REQUEST_PENDING
-    Dot11ExtIhvProcessUIResponse: win32more.NetworkManagement.WiFi.DOT11EXTIHV_PROCESS_UI_RESPONSE
-    Dot11ExtIhvQueryUIRequest: win32more.NetworkManagement.WiFi.DOT11EXTIHV_QUERY_UI_REQUEST
-    Dot11ExtIhvOnexIndicateResult: win32more.NetworkManagement.WiFi.DOT11EXTIHV_ONEX_INDICATE_RESULT
-    Dot11ExtIhvControl: win32more.NetworkManagement.WiFi.DOT11EXTIHV_CONTROL
-DOT11EXT_IHV_INDICATION_TYPE = Int32
-DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeNicSpecificNotification: DOT11EXT_IHV_INDICATION_TYPE = 0
-DOT11EXT_IHV_INDICATION_TYPE_IndicationTypePmkidCandidateList: DOT11EXT_IHV_INDICATION_TYPE = 1
-DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeTkipMicFailure: DOT11EXT_IHV_INDICATION_TYPE = 2
-DOT11EXT_IHV_INDICATION_TYPE_IndicationTypePhyStateChange: DOT11EXT_IHV_INDICATION_TYPE = 3
-DOT11EXT_IHV_INDICATION_TYPE_IndicationTypeLinkQuality: DOT11EXT_IHV_INDICATION_TYPE = 4
-class DOT11EXT_IHV_PARAMS(Structure):
-    dot11ExtIhvProfileParams: win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS
-    wstrProfileName: Char * 256
-    dwProfileTypeFlags: UInt32
-    interfaceGuid: Guid
-class DOT11EXT_IHV_PROFILE_PARAMS(Structure):
-    pSsidList: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SSID_LIST_head)
-    BssType: win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE
-    pMSSecuritySettings: POINTER(win32more.NetworkManagement.WiFi.DOT11_MSSECURITY_SETTINGS_head)
-class DOT11EXT_IHV_SECURITY_PROFILE(Structure):
-    pszXmlFragmentIhvSecurity: win32more.Foundation.PWSTR
-    bUseMSOnex: win32more.Foundation.BOOL
-class DOT11EXT_IHV_SSID_LIST(Structure):
-    ulCount: UInt32
-    SSIDs: win32more.NetworkManagement.WiFi.DOT11_SSID * 1
-class DOT11EXT_IHV_UI_REQUEST(Structure):
-    dwSessionId: UInt32
-    guidUIRequest: Guid
-    UIPageClsid: Guid
-    dwByteCount: UInt32
-    pvUIRequest: c_char_p_no
-@winfunctype_pointer
-def DOT11EXT_NIC_SPECIFIC_EXTENSION(hDot11SvcHandle: win32more.Foundation.HANDLE, dwInBufferSize: UInt32, pvInBuffer: c_void_p, pdwOutBufferSize: POINTER(UInt32), pvOutBuffer: c_void_p) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_ONEX_START(hDot11SvcHandle: win32more.Foundation.HANDLE, pEapAttributes: POINTER(win32more.Security.ExtensibleAuthenticationProtocol.EAP_ATTRIBUTES_head)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_ONEX_STOP(hDot11SvcHandle: win32more.Foundation.HANDLE) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_POST_ASSOCIATE_COMPLETION(hDot11SvcHandle: win32more.Foundation.HANDLE, hSecuritySessionID: win32more.Foundation.HANDLE, pPeer: POINTER(c_char_p_no), dwReasonCode: UInt32, dwWin32Error: UInt32) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_PRE_ASSOCIATE_COMPLETION(hDot11SvcHandle: win32more.Foundation.HANDLE, hConnectSession: win32more.Foundation.HANDLE, dwReasonCode: UInt32, dwWin32Error: UInt32) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_PROCESS_ONEX_PACKET(hDot11SvcHandle: win32more.Foundation.HANDLE, dwInPacketSize: UInt32, pvInPacket: c_void_p) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES(hDot11SvcHandle: win32more.Foundation.HANDLE, pbIsVirtualStation: POINTER(win32more.Foundation.BOOL), pgPrimary: POINTER(Guid), pvReserved: c_void_p) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_RELEASE_VIRTUAL_STATION(hDot11PrimaryHandle: win32more.Foundation.HANDLE, pvReserved: c_void_p) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_REQUEST_VIRTUAL_STATION(hDot11PrimaryHandle: win32more.Foundation.HANDLE, pvReserved: c_void_p) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_SEND_NOTIFICATION(hDot11SvcHandle: win32more.Foundation.HANDLE, pNotificationData: POINTER(win32more.NetworkManagement.WiFi.L2_NOTIFICATION_DATA_head)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_SEND_PACKET(hDot11SvcHandle: win32more.Foundation.HANDLE, uPacketLen: UInt32, pvPacket: c_void_p, hSendCompletion: win32more.Foundation.HANDLE) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_SEND_UI_REQUEST(hDot11SvcHandle: win32more.Foundation.HANDLE, pIhvUIRequest: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_UI_REQUEST_head)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_SET_AUTH_ALGORITHM(hDot11SvcHandle: win32more.Foundation.HANDLE, dwAuthAlgo: UInt32) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_SET_CURRENT_PROFILE(hDot11SvcHandle: win32more.Foundation.HANDLE, hConnectSession: win32more.Foundation.HANDLE, pIhvConnProfile: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head), pIhvSecProfile: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_SET_DEFAULT_KEY(hDot11SvcHandle: win32more.Foundation.HANDLE, pKey: POINTER(win32more.NetworkManagement.WiFi.DOT11_CIPHER_DEFAULT_KEY_VALUE_head), dot11Direction: win32more.NetworkManagement.WiFi.DOT11_DIRECTION) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_SET_DEFAULT_KEY_ID(hDot11SvcHandle: win32more.Foundation.HANDLE, uDefaultKeyId: UInt32) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_SET_ETHERTYPE_HANDLING(hDot11SvcHandle: win32more.Foundation.HANDLE, uMaxBackLog: UInt32, uNumOfExemption: UInt32, pExemption: POINTER(win32more.NetworkManagement.WiFi.DOT11_PRIVACY_EXEMPTION_head), uNumOfRegistration: UInt32, pusRegistration: POINTER(UInt16)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_SET_EXCLUDE_UNENCRYPTED(hDot11SvcHandle: win32more.Foundation.HANDLE, bExcludeUnencrypted: win32more.Foundation.BOOL) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_SET_KEY_MAPPING_KEY(hDot11SvcHandle: win32more.Foundation.HANDLE, pKey: POINTER(win32more.NetworkManagement.WiFi.DOT11_CIPHER_KEY_MAPPING_KEY_VALUE_head)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_SET_MULTICAST_CIPHER_ALGORITHM(hDot11SvcHandle: win32more.Foundation.HANDLE, dwMulticastCipherAlgo: UInt32) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA(hDot11SvcHandle: win32more.Foundation.HANDLE, hConnectSession: win32more.Foundation.HANDLE, dwSessionID: UInt32, dwDataSize: UInt32, pvData: c_void_p) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_SET_UNICAST_CIPHER_ALGORITHM(hDot11SvcHandle: win32more.Foundation.HANDLE, dwUnicastCipherAlgo: UInt32) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES(hDot11SvcHandle: win32more.Foundation.HANDLE, hConnectSession: win32more.Foundation.HANDLE, dwNumProperties: UInt32, pProperties: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_VIRTUAL_STATION_AP_PROPERTY_head), pvReserved: c_void_p) -> UInt32: ...
-class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY(Structure):
-    dot11SSID: win32more.NetworkManagement.WiFi.DOT11_SSID
-    dot11AuthAlgo: win32more.NetworkManagement.WiFi.DOT11_AUTH_ALGORITHM
-    dot11CipherAlgo: win32more.NetworkManagement.WiFi.DOT11_CIPHER_ALGORITHM
-    bIsPassPhrase: win32more.Foundation.BOOL
-    dwKeyLength: UInt32
-    ucKeyData: Byte * 64
-class DOT11EXT_VIRTUAL_STATION_APIS(Structure):
-    Dot11ExtRequestVirtualStation: win32more.NetworkManagement.WiFi.DOT11EXT_REQUEST_VIRTUAL_STATION
-    Dot11ExtReleaseVirtualStation: win32more.NetworkManagement.WiFi.DOT11EXT_RELEASE_VIRTUAL_STATION
-    Dot11ExtQueryVirtualStationProperties: win32more.NetworkManagement.WiFi.DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES
-    Dot11ExtSetVirtualStationAPProperties: win32more.NetworkManagement.WiFi.DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES
-@winfunctype_pointer
-def DOT11EXTIHV_ADAPTER_RESET(hIhvExtAdapter: win32more.Foundation.HANDLE) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_CONTROL(hIhvExtAdapter: win32more.Foundation.HANDLE, dwInBufferSize: UInt32, pInBuffer: c_char_p_no, dwOutBufferSize: UInt32, pOutBuffer: c_char_p_no, pdwBytesReturned: POINTER(UInt32)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_CREATE_DISCOVERY_PROFILES(hIhvExtAdapter: win32more.Foundation.HANDLE, bInsecure: win32more.Foundation.BOOL, pIhvProfileParams: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head), pConnectableBssid: POINTER(win32more.NetworkManagement.WiFi.DOT11_BSS_LIST_head), pIhvDiscoveryProfileList: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_DISCOVERY_PROFILE_LIST_head), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_DEINIT_ADAPTER(hIhvExtAdapter: win32more.Foundation.HANDLE) -> Void: ...
-@winfunctype_pointer
-def DOT11EXTIHV_DEINIT_SERVICE() -> Void: ...
-@winfunctype_pointer
-def DOT11EXTIHV_GET_VERSION_INFO(pDot11IHVVersionInfo: POINTER(win32more.NetworkManagement.WiFi.DOT11_IHV_VERSION_INFO_head)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_INIT_ADAPTER(pDot11Adapter: POINTER(win32more.NetworkManagement.WiFi.DOT11_ADAPTER_head), hDot11SvcHandle: win32more.Foundation.HANDLE, phIhvExtAdapter: POINTER(win32more.Foundation.HANDLE)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_INIT_SERVICE(dwVerNumUsed: UInt32, pDot11ExtAPI: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_APIS_head), pvReserved: c_void_p, pDot11IHVHandlers: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_HANDLERS_head)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_INIT_VIRTUAL_STATION(pDot11ExtVSAPI: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_VIRTUAL_STATION_APIS_head), pvReserved: c_void_p) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_IS_UI_REQUEST_PENDING(guidUIRequest: Guid, pbIsRequestPending: POINTER(win32more.Foundation.BOOL)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_ONEX_INDICATE_RESULT(hIhvExtAdapter: win32more.Foundation.HANDLE, msOneXResult: win32more.NetworkManagement.WiFi.DOT11_MSONEX_RESULT, pDot11MsOneXResultParams: POINTER(win32more.NetworkManagement.WiFi.DOT11_MSONEX_RESULT_PARAMS_head)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_PERFORM_CAPABILITY_MATCH(hIhvExtAdapter: win32more.Foundation.HANDLE, pIhvProfileParams: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head), pIhvConnProfile: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head), pIhvSecProfile: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head), pConnectableBssid: POINTER(win32more.NetworkManagement.WiFi.DOT11_BSS_LIST_head), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_PERFORM_POST_ASSOCIATE(hIhvExtAdapter: win32more.Foundation.HANDLE, hSecuritySessionID: win32more.Foundation.HANDLE, pPortState: POINTER(win32more.NetworkManagement.WiFi.DOT11_PORT_STATE_head), uDot11AssocParamsBytes: UInt32, pDot11AssocParams: POINTER(win32more.NetworkManagement.WiFi.DOT11_ASSOCIATION_COMPLETION_PARAMETERS_head)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_PERFORM_PRE_ASSOCIATE(hIhvExtAdapter: win32more.Foundation.HANDLE, hConnectSession: win32more.Foundation.HANDLE, pIhvProfileParams: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head), pIhvConnProfile: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head), pIhvSecProfile: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head), pConnectableBssid: POINTER(win32more.NetworkManagement.WiFi.DOT11_BSS_LIST_head), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_PROCESS_SESSION_CHANGE(uEventType: UInt32, pSessionNotification: POINTER(win32more.System.RemoteDesktop.WTSSESSION_NOTIFICATION_head)) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_PROCESS_UI_RESPONSE(guidUIRequest: Guid, dwByteCount: UInt32, pvResponseBuffer: c_void_p) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_QUERY_UI_REQUEST(hIhvExtAdapter: win32more.Foundation.HANDLE, connectionPhase: win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTION_PHASE, ppIhvUIRequest: POINTER(POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_UI_REQUEST_head))) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_RECEIVE_INDICATION(hIhvExtAdapter: win32more.Foundation.HANDLE, indicationType: win32more.NetworkManagement.WiFi.DOT11EXT_IHV_INDICATION_TYPE, uBufferLength: UInt32, pvBuffer: c_void_p) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_RECEIVE_PACKET(hIhvExtAdapter: win32more.Foundation.HANDLE, dwInBufferSize: UInt32, pvInBuffer: c_void_p) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_SEND_PACKET_COMPLETION(hSendCompletion: win32more.Foundation.HANDLE) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_STOP_POST_ASSOCIATE(hIhvExtAdapter: win32more.Foundation.HANDLE, pPeer: POINTER(c_char_p_no), dot11AssocStatus: UInt32) -> UInt32: ...
-@winfunctype_pointer
-def DOT11EXTIHV_VALIDATE_PROFILE(hIhvExtAdapter: win32more.Foundation.HANDLE, pIhvProfileParams: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_PROFILE_PARAMS_head), pIhvConnProfile: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_CONNECTIVITY_PROFILE_head), pIhvSecProfile: POINTER(win32more.NetworkManagement.WiFi.DOT11EXT_IHV_SECURITY_PROFILE_head), pdwReasonCode: POINTER(UInt32)) -> UInt32: ...
 class IDot11AdHocInterface(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('8f10cc2b-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
@@ -2995,6 +2995,10 @@ class WDIAG_IHV_WLAN_ID(Structure):
     BssType: win32more.NetworkManagement.WiFi.DOT11_BSS_TYPE
     dwFlags: UInt32
     dwReasonCode: UInt32
+class WFDSVC_CONNECTION_CAPABILITY(Structure):
+    bNew: win32more.Foundation.BOOLEAN
+    bClient: win32more.Foundation.BOOLEAN
+    bGO: win32more.Foundation.BOOLEAN
 class WFD_GROUP_ID(Structure):
     DeviceAddress: Byte * 6
     GroupSSID: win32more.NetworkManagement.WiFi.DOT11_SSID
@@ -3006,14 +3010,6 @@ WFD_ROLE_TYPE_DEVICE: WFD_ROLE_TYPE = 1
 WFD_ROLE_TYPE_GROUP_OWNER: WFD_ROLE_TYPE = 2
 WFD_ROLE_TYPE_CLIENT: WFD_ROLE_TYPE = 4
 WFD_ROLE_TYPE_MAX: WFD_ROLE_TYPE = 5
-class WFDSVC_CONNECTION_CAPABILITY(Structure):
-    bNew: win32more.Foundation.BOOLEAN
-    bClient: win32more.Foundation.BOOLEAN
-    bGO: win32more.Foundation.BOOLEAN
-WL_DISPLAY_PAGES = Int32
-WL_DISPLAY_PAGES_WLConnectionPage: WL_DISPLAY_PAGES = 0
-WL_DISPLAY_PAGES_WLSecurityPage: WL_DISPLAY_PAGES = 1
-WL_DISPLAY_PAGES_WLAdvPage: WL_DISPLAY_PAGES = 2
 WLAN_ADHOC_NETWORK_STATE = Int32
 wlan_adhoc_network_state_formed: WLAN_ADHOC_NETWORK_STATE = 0
 wlan_adhoc_network_state_connected: WLAN_ADHOC_NETWORK_STATE = 1
@@ -3468,6 +3464,10 @@ class WLAN_STATISTICS(Structure):
     MacMcastCounters: win32more.NetworkManagement.WiFi.WLAN_MAC_FRAME_STATISTICS
     dwNumberOfPhys: UInt32
     PhyCounters: win32more.NetworkManagement.WiFi.WLAN_PHY_FRAME_STATISTICS * 1
+WL_DISPLAY_PAGES = Int32
+WL_DISPLAY_PAGES_WLConnectionPage: WL_DISPLAY_PAGES = 0
+WL_DISPLAY_PAGES_WLSecurityPage: WL_DISPLAY_PAGES = 1
+WL_DISPLAY_PAGES_WLAdvPage: WL_DISPLAY_PAGES = 2
 make_head(_module, 'DEVPKEY_WiFiDirect_DeviceAddress')
 make_head(_module, 'DEVPKEY_WiFiDirect_InterfaceAddress')
 make_head(_module, 'DEVPKEY_WiFiDirect_InterfaceGuid')
@@ -3507,6 +3507,66 @@ make_head(_module, 'DEVPKEY_WiFiDirectServices_AdvertisementId')
 make_head(_module, 'DEVPKEY_WiFiDirectServices_ServiceConfigMethods')
 make_head(_module, 'DEVPKEY_WiFiDirectServices_RequestServiceInformation')
 make_head(_module, 'DEVPKEY_WiFi_InterfaceGuid')
+make_head(_module, 'DOT11EXTIHV_ADAPTER_RESET')
+make_head(_module, 'DOT11EXTIHV_CONTROL')
+make_head(_module, 'DOT11EXTIHV_CREATE_DISCOVERY_PROFILES')
+make_head(_module, 'DOT11EXTIHV_DEINIT_ADAPTER')
+make_head(_module, 'DOT11EXTIHV_DEINIT_SERVICE')
+make_head(_module, 'DOT11EXTIHV_GET_VERSION_INFO')
+make_head(_module, 'DOT11EXTIHV_INIT_ADAPTER')
+make_head(_module, 'DOT11EXTIHV_INIT_SERVICE')
+make_head(_module, 'DOT11EXTIHV_INIT_VIRTUAL_STATION')
+make_head(_module, 'DOT11EXTIHV_IS_UI_REQUEST_PENDING')
+make_head(_module, 'DOT11EXTIHV_ONEX_INDICATE_RESULT')
+make_head(_module, 'DOT11EXTIHV_PERFORM_CAPABILITY_MATCH')
+make_head(_module, 'DOT11EXTIHV_PERFORM_POST_ASSOCIATE')
+make_head(_module, 'DOT11EXTIHV_PERFORM_PRE_ASSOCIATE')
+make_head(_module, 'DOT11EXTIHV_PROCESS_SESSION_CHANGE')
+make_head(_module, 'DOT11EXTIHV_PROCESS_UI_RESPONSE')
+make_head(_module, 'DOT11EXTIHV_QUERY_UI_REQUEST')
+make_head(_module, 'DOT11EXTIHV_RECEIVE_INDICATION')
+make_head(_module, 'DOT11EXTIHV_RECEIVE_PACKET')
+make_head(_module, 'DOT11EXTIHV_SEND_PACKET_COMPLETION')
+make_head(_module, 'DOT11EXTIHV_STOP_POST_ASSOCIATE')
+make_head(_module, 'DOT11EXTIHV_VALIDATE_PROFILE')
+make_head(_module, 'DOT11EXT_ALLOCATE_BUFFER')
+make_head(_module, 'DOT11EXT_APIS')
+make_head(_module, 'DOT11EXT_FREE_BUFFER')
+make_head(_module, 'DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA')
+make_head(_module, 'DOT11EXT_IHV_CONNECTIVITY_PROFILE')
+make_head(_module, 'DOT11EXT_IHV_DISCOVERY_PROFILE')
+make_head(_module, 'DOT11EXT_IHV_DISCOVERY_PROFILE_LIST')
+make_head(_module, 'DOT11EXT_IHV_HANDLERS')
+make_head(_module, 'DOT11EXT_IHV_PARAMS')
+make_head(_module, 'DOT11EXT_IHV_PROFILE_PARAMS')
+make_head(_module, 'DOT11EXT_IHV_SECURITY_PROFILE')
+make_head(_module, 'DOT11EXT_IHV_SSID_LIST')
+make_head(_module, 'DOT11EXT_IHV_UI_REQUEST')
+make_head(_module, 'DOT11EXT_NIC_SPECIFIC_EXTENSION')
+make_head(_module, 'DOT11EXT_ONEX_START')
+make_head(_module, 'DOT11EXT_ONEX_STOP')
+make_head(_module, 'DOT11EXT_POST_ASSOCIATE_COMPLETION')
+make_head(_module, 'DOT11EXT_PRE_ASSOCIATE_COMPLETION')
+make_head(_module, 'DOT11EXT_PROCESS_ONEX_PACKET')
+make_head(_module, 'DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES')
+make_head(_module, 'DOT11EXT_RELEASE_VIRTUAL_STATION')
+make_head(_module, 'DOT11EXT_REQUEST_VIRTUAL_STATION')
+make_head(_module, 'DOT11EXT_SEND_NOTIFICATION')
+make_head(_module, 'DOT11EXT_SEND_PACKET')
+make_head(_module, 'DOT11EXT_SEND_UI_REQUEST')
+make_head(_module, 'DOT11EXT_SET_AUTH_ALGORITHM')
+make_head(_module, 'DOT11EXT_SET_CURRENT_PROFILE')
+make_head(_module, 'DOT11EXT_SET_DEFAULT_KEY')
+make_head(_module, 'DOT11EXT_SET_DEFAULT_KEY_ID')
+make_head(_module, 'DOT11EXT_SET_ETHERTYPE_HANDLING')
+make_head(_module, 'DOT11EXT_SET_EXCLUDE_UNENCRYPTED')
+make_head(_module, 'DOT11EXT_SET_KEY_MAPPING_KEY')
+make_head(_module, 'DOT11EXT_SET_MULTICAST_CIPHER_ALGORITHM')
+make_head(_module, 'DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA')
+make_head(_module, 'DOT11EXT_SET_UNICAST_CIPHER_ALGORITHM')
+make_head(_module, 'DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES')
+make_head(_module, 'DOT11EXT_VIRTUAL_STATION_APIS')
+make_head(_module, 'DOT11EXT_VIRTUAL_STATION_AP_PROPERTY')
 make_head(_module, 'DOT11_ACCESSNETWORKOPTIONS')
 make_head(_module, 'DOT11_ADAPTER')
 make_head(_module, 'DOT11_ADDITIONAL_IE')
@@ -3522,12 +3582,12 @@ make_head(_module, 'DOT11_AUTH_CIPHER_PAIR')
 make_head(_module, 'DOT11_AUTH_CIPHER_PAIR_LIST')
 make_head(_module, 'DOT11_AVAILABLE_CHANNEL_LIST')
 make_head(_module, 'DOT11_AVAILABLE_FREQUENCY_LIST')
+make_head(_module, 'DOT11_BSSID_CANDIDATE')
+make_head(_module, 'DOT11_BSSID_LIST')
 make_head(_module, 'DOT11_BSS_DESCRIPTION')
 make_head(_module, 'DOT11_BSS_ENTRY')
 make_head(_module, 'DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO')
 make_head(_module, 'DOT11_BSS_LIST')
-make_head(_module, 'DOT11_BSSID_CANDIDATE')
-make_head(_module, 'DOT11_BSSID_LIST')
 make_head(_module, 'DOT11_BYTE_ARRAY')
 make_head(_module, 'DOT11_CAN_SUSTAIN_AP_PARAMETERS')
 make_head(_module, 'DOT11_CHANNEL_HINT')
@@ -3651,8 +3711,8 @@ make_head(_module, 'DOT11_RECV_EXTENSION_INFO')
 make_head(_module, 'DOT11_RECV_EXTENSION_INFO_V2')
 make_head(_module, 'DOT11_RECV_SENSITIVITY')
 make_head(_module, 'DOT11_RECV_SENSITIVITY_LIST')
-make_head(_module, 'DOT11_REG_DOMAIN_VALUE')
 make_head(_module, 'DOT11_REG_DOMAINS_SUPPORT_VALUE')
+make_head(_module, 'DOT11_REG_DOMAIN_VALUE')
 make_head(_module, 'DOT11_RESET_REQUEST')
 make_head(_module, 'DOT11_ROAMING_COMPLETION_PARAMETERS')
 make_head(_module, 'DOT11_ROAMING_START_PARAMETERS')
@@ -3723,66 +3783,6 @@ make_head(_module, 'DOT11_WME_AC_PARAMETERS_LIST')
 make_head(_module, 'DOT11_WME_UPDATE_IE')
 make_head(_module, 'DOT11_WPA_TSC')
 make_head(_module, 'DOT11_WPS_DEVICE_NAME')
-make_head(_module, 'DOT11EXT_ALLOCATE_BUFFER')
-make_head(_module, 'DOT11EXT_APIS')
-make_head(_module, 'DOT11EXT_FREE_BUFFER')
-make_head(_module, 'DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA')
-make_head(_module, 'DOT11EXT_IHV_CONNECTIVITY_PROFILE')
-make_head(_module, 'DOT11EXT_IHV_DISCOVERY_PROFILE')
-make_head(_module, 'DOT11EXT_IHV_DISCOVERY_PROFILE_LIST')
-make_head(_module, 'DOT11EXT_IHV_HANDLERS')
-make_head(_module, 'DOT11EXT_IHV_PARAMS')
-make_head(_module, 'DOT11EXT_IHV_PROFILE_PARAMS')
-make_head(_module, 'DOT11EXT_IHV_SECURITY_PROFILE')
-make_head(_module, 'DOT11EXT_IHV_SSID_LIST')
-make_head(_module, 'DOT11EXT_IHV_UI_REQUEST')
-make_head(_module, 'DOT11EXT_NIC_SPECIFIC_EXTENSION')
-make_head(_module, 'DOT11EXT_ONEX_START')
-make_head(_module, 'DOT11EXT_ONEX_STOP')
-make_head(_module, 'DOT11EXT_POST_ASSOCIATE_COMPLETION')
-make_head(_module, 'DOT11EXT_PRE_ASSOCIATE_COMPLETION')
-make_head(_module, 'DOT11EXT_PROCESS_ONEX_PACKET')
-make_head(_module, 'DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES')
-make_head(_module, 'DOT11EXT_RELEASE_VIRTUAL_STATION')
-make_head(_module, 'DOT11EXT_REQUEST_VIRTUAL_STATION')
-make_head(_module, 'DOT11EXT_SEND_NOTIFICATION')
-make_head(_module, 'DOT11EXT_SEND_PACKET')
-make_head(_module, 'DOT11EXT_SEND_UI_REQUEST')
-make_head(_module, 'DOT11EXT_SET_AUTH_ALGORITHM')
-make_head(_module, 'DOT11EXT_SET_CURRENT_PROFILE')
-make_head(_module, 'DOT11EXT_SET_DEFAULT_KEY')
-make_head(_module, 'DOT11EXT_SET_DEFAULT_KEY_ID')
-make_head(_module, 'DOT11EXT_SET_ETHERTYPE_HANDLING')
-make_head(_module, 'DOT11EXT_SET_EXCLUDE_UNENCRYPTED')
-make_head(_module, 'DOT11EXT_SET_KEY_MAPPING_KEY')
-make_head(_module, 'DOT11EXT_SET_MULTICAST_CIPHER_ALGORITHM')
-make_head(_module, 'DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA')
-make_head(_module, 'DOT11EXT_SET_UNICAST_CIPHER_ALGORITHM')
-make_head(_module, 'DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES')
-make_head(_module, 'DOT11EXT_VIRTUAL_STATION_AP_PROPERTY')
-make_head(_module, 'DOT11EXT_VIRTUAL_STATION_APIS')
-make_head(_module, 'DOT11EXTIHV_ADAPTER_RESET')
-make_head(_module, 'DOT11EXTIHV_CONTROL')
-make_head(_module, 'DOT11EXTIHV_CREATE_DISCOVERY_PROFILES')
-make_head(_module, 'DOT11EXTIHV_DEINIT_ADAPTER')
-make_head(_module, 'DOT11EXTIHV_DEINIT_SERVICE')
-make_head(_module, 'DOT11EXTIHV_GET_VERSION_INFO')
-make_head(_module, 'DOT11EXTIHV_INIT_ADAPTER')
-make_head(_module, 'DOT11EXTIHV_INIT_SERVICE')
-make_head(_module, 'DOT11EXTIHV_INIT_VIRTUAL_STATION')
-make_head(_module, 'DOT11EXTIHV_IS_UI_REQUEST_PENDING')
-make_head(_module, 'DOT11EXTIHV_ONEX_INDICATE_RESULT')
-make_head(_module, 'DOT11EXTIHV_PERFORM_CAPABILITY_MATCH')
-make_head(_module, 'DOT11EXTIHV_PERFORM_POST_ASSOCIATE')
-make_head(_module, 'DOT11EXTIHV_PERFORM_PRE_ASSOCIATE')
-make_head(_module, 'DOT11EXTIHV_PROCESS_SESSION_CHANGE')
-make_head(_module, 'DOT11EXTIHV_PROCESS_UI_RESPONSE')
-make_head(_module, 'DOT11EXTIHV_QUERY_UI_REQUEST')
-make_head(_module, 'DOT11EXTIHV_RECEIVE_INDICATION')
-make_head(_module, 'DOT11EXTIHV_RECEIVE_PACKET')
-make_head(_module, 'DOT11EXTIHV_SEND_PACKET_COMPLETION')
-make_head(_module, 'DOT11EXTIHV_STOP_POST_ASSOCIATE')
-make_head(_module, 'DOT11EXTIHV_VALIDATE_PROFILE')
 make_head(_module, 'IDot11AdHocInterface')
 make_head(_module, 'IDot11AdHocInterfaceNotificationSink')
 make_head(_module, 'IDot11AdHocManager')
@@ -3801,9 +3801,9 @@ make_head(_module, 'ONEX_STATUS')
 make_head(_module, 'ONEX_USER_INFO')
 make_head(_module, 'ONEX_VARIABLE_BLOB')
 make_head(_module, 'WDIAG_IHV_WLAN_ID')
+make_head(_module, 'WFDSVC_CONNECTION_CAPABILITY')
 make_head(_module, 'WFD_GROUP_ID')
 make_head(_module, 'WFD_OPEN_SESSION_COMPLETE_CALLBACK')
-make_head(_module, 'WFDSVC_CONNECTION_CAPABILITY')
 make_head(_module, 'WLAN_ASSOCIATION_ATTRIBUTES')
 make_head(_module, 'WLAN_AUTH_CIPHER_PAIR_LIST')
 make_head(_module, 'WLAN_AVAILABLE_NETWORK')

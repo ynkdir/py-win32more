@@ -884,6 +884,9 @@ class DWRITE_STRIKETHROUGH(Structure):
     flowDirection: win32more.Graphics.DirectWrite.DWRITE_FLOW_DIRECTION
     localeName: win32more.Foundation.PWSTR
     measuringMode: win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE
+DWRITE_TEXTURE_TYPE = Int32
+DWRITE_TEXTURE_ALIASED_1x1: DWRITE_TEXTURE_TYPE = 0
+DWRITE_TEXTURE_CLEARTYPE_3x1: DWRITE_TEXTURE_TYPE = 1
 DWRITE_TEXT_ALIGNMENT = Int32
 DWRITE_TEXT_ALIGNMENT_LEADING: DWRITE_TEXT_ALIGNMENT = 0
 DWRITE_TEXT_ALIGNMENT_TRAILING: DWRITE_TEXT_ALIGNMENT = 1
@@ -908,9 +911,6 @@ class DWRITE_TEXT_METRICS1(Structure):
 class DWRITE_TEXT_RANGE(Structure):
     startPosition: UInt32
     length: UInt32
-DWRITE_TEXTURE_TYPE = Int32
-DWRITE_TEXTURE_ALIASED_1x1: DWRITE_TEXTURE_TYPE = 0
-DWRITE_TEXTURE_CLEARTYPE_3x1: DWRITE_TEXTURE_TYPE = 1
 class DWRITE_TRIMMING(Structure):
     granularity: win32more.Graphics.DirectWrite.DWRITE_TRIMMING_GRANULARITY
     delimiter: UInt32
@@ -1656,6 +1656,13 @@ class IDWriteGlyphRunAnalysis(c_void_p):
     def CreateAlphaTexture(textureType: win32more.Graphics.DirectWrite.DWRITE_TEXTURE_TYPE, textureBounds: POINTER(win32more.Foundation.RECT_head), alphaValues: c_char_p_no, bufferSize: UInt32) -> win32more.Foundation.HRESULT: ...
     @commethod(5)
     def GetAlphaBlendParams(renderingParams: win32more.Graphics.DirectWrite.IDWriteRenderingParams_head, blendGamma: POINTER(Single), blendEnhancedContrast: POINTER(Single), blendClearTypeLevel: POINTER(Single)) -> win32more.Foundation.HRESULT: ...
+class IDWriteInMemoryFontFileLoader(c_void_p):
+    extends: win32more.Graphics.DirectWrite.IDWriteFontFileLoader
+    Guid = Guid('dc102f47-a12d-4b1c-82-2d-9e-11-7e-33-04-3f')
+    @commethod(4)
+    def CreateInMemoryFontFileReference(factory: win32more.Graphics.DirectWrite.IDWriteFactory_head, fontData: c_void_p, fontDataSize: UInt32, ownerObject: win32more.System.Com.IUnknown_head, fontFile: POINTER(win32more.Graphics.DirectWrite.IDWriteFontFile_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetFileCount() -> UInt32: ...
 class IDWriteInlineObject(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('8339fde3-106f-47ab-83-73-1c-62-95-eb-10-b3')
@@ -1667,13 +1674,6 @@ class IDWriteInlineObject(c_void_p):
     def GetOverhangMetrics(overhangs: POINTER(win32more.Graphics.DirectWrite.DWRITE_OVERHANG_METRICS_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(6)
     def GetBreakConditions(breakConditionBefore: POINTER(win32more.Graphics.DirectWrite.DWRITE_BREAK_CONDITION), breakConditionAfter: POINTER(win32more.Graphics.DirectWrite.DWRITE_BREAK_CONDITION)) -> win32more.Foundation.HRESULT: ...
-class IDWriteInMemoryFontFileLoader(c_void_p):
-    extends: win32more.Graphics.DirectWrite.IDWriteFontFileLoader
-    Guid = Guid('dc102f47-a12d-4b1c-82-2d-9e-11-7e-33-04-3f')
-    @commethod(4)
-    def CreateInMemoryFontFileReference(factory: win32more.Graphics.DirectWrite.IDWriteFactory_head, fontData: c_void_p, fontDataSize: UInt32, ownerObject: win32more.System.Com.IUnknown_head, fontFile: POINTER(win32more.Graphics.DirectWrite.IDWriteFontFile_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def GetFileCount() -> UInt32: ...
 class IDWriteLocalFontFileLoader(c_void_p):
     extends: win32more.Graphics.DirectWrite.IDWriteFontFileLoader
     Guid = Guid('b2d9f3ec-c9fe-4a11-a2-ec-d8-62-08-f7-c0-a2')
@@ -2208,8 +2208,8 @@ make_head(_module, 'IDWriteFontSetBuilder2')
 make_head(_module, 'IDWriteGdiInterop')
 make_head(_module, 'IDWriteGdiInterop1')
 make_head(_module, 'IDWriteGlyphRunAnalysis')
-make_head(_module, 'IDWriteInlineObject')
 make_head(_module, 'IDWriteInMemoryFontFileLoader')
+make_head(_module, 'IDWriteInlineObject')
 make_head(_module, 'IDWriteLocalFontFileLoader')
 make_head(_module, 'IDWriteLocalizedStrings')
 make_head(_module, 'IDWriteNumberSubstitution')

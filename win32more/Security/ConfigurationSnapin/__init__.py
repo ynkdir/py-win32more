@@ -71,10 +71,6 @@ class ISceSvcAttachmentPersistInfo(c_void_p):
     @commethod(5)
     def FreeBuffer(pvData: c_void_p) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
-def PF_ConfigAnalyzeService(pSceCbInfo: POINTER(win32more.Security.ConfigurationSnapin.SCESVC_CALLBACK_INFO_head)) -> UInt32: ...
-@winfunctype_pointer
-def PF_UpdateService(pSceCbInfo: POINTER(win32more.Security.ConfigurationSnapin.SCESVC_CALLBACK_INFO_head), ServiceInfo: POINTER(win32more.Security.ConfigurationSnapin.SCESVC_CONFIGURATION_INFO_head)) -> UInt32: ...
-@winfunctype_pointer
 def PFSCE_FREE_INFO(pvServiceInfo: c_void_p) -> UInt32: ...
 @cfunctype_pointer
 def PFSCE_LOG_INFO(ErrLevel: win32more.Security.ConfigurationSnapin.SCE_LOG_ERR_LEVEL, Win32rc: UInt32, pErrFmt: POINTER(SByte)) -> UInt32: ...
@@ -82,11 +78,10 @@ def PFSCE_LOG_INFO(ErrLevel: win32more.Security.ConfigurationSnapin.SCE_LOG_ERR_
 def PFSCE_QUERY_INFO(sceHandle: c_void_p, sceType: win32more.Security.ConfigurationSnapin.SCESVC_INFO_TYPE, lpPrefix: POINTER(SByte), bExact: win32more.Foundation.BOOL, ppvInfo: POINTER(c_void_p), psceEnumHandle: POINTER(UInt32)) -> UInt32: ...
 @winfunctype_pointer
 def PFSCE_SET_INFO(sceHandle: c_void_p, sceType: win32more.Security.ConfigurationSnapin.SCESVC_INFO_TYPE, lpPrefix: POINTER(SByte), bExact: win32more.Foundation.BOOL, pvInfo: c_void_p) -> UInt32: ...
-SCE_LOG_ERR_LEVEL = UInt32
-SCE_LOG_LEVEL_ALWAYS: SCE_LOG_ERR_LEVEL = 0
-SCE_LOG_LEVEL_ERROR: SCE_LOG_ERR_LEVEL = 1
-SCE_LOG_LEVEL_DETAIL: SCE_LOG_ERR_LEVEL = 2
-SCE_LOG_LEVEL_DEBUG: SCE_LOG_ERR_LEVEL = 3
+@winfunctype_pointer
+def PF_ConfigAnalyzeService(pSceCbInfo: POINTER(win32more.Security.ConfigurationSnapin.SCESVC_CALLBACK_INFO_head)) -> UInt32: ...
+@winfunctype_pointer
+def PF_UpdateService(pSceCbInfo: POINTER(win32more.Security.ConfigurationSnapin.SCESVC_CALLBACK_INFO_head), ServiceInfo: POINTER(win32more.Security.ConfigurationSnapin.SCESVC_CONFIGURATION_INFO_head)) -> UInt32: ...
 class SCESVC_ANALYSIS_INFO(Structure):
     Count: UInt32
     Lines: POINTER(win32more.Security.ConfigurationSnapin.SCESVC_ANALYSIS_LINE_head)
@@ -112,14 +107,19 @@ SCESVC_INFO_TYPE_SceSvcConfigurationInfo: SCESVC_INFO_TYPE = 0
 SCESVC_INFO_TYPE_SceSvcMergedPolicyInfo: SCESVC_INFO_TYPE = 1
 SCESVC_INFO_TYPE_SceSvcAnalysisInfo: SCESVC_INFO_TYPE = 2
 SCESVC_INFO_TYPE_SceSvcInternalUse: SCESVC_INFO_TYPE = 3
+SCE_LOG_ERR_LEVEL = UInt32
+SCE_LOG_LEVEL_ALWAYS: SCE_LOG_ERR_LEVEL = 0
+SCE_LOG_LEVEL_ERROR: SCE_LOG_ERR_LEVEL = 1
+SCE_LOG_LEVEL_DETAIL: SCE_LOG_ERR_LEVEL = 2
+SCE_LOG_LEVEL_DEBUG: SCE_LOG_ERR_LEVEL = 3
 make_head(_module, 'ISceSvcAttachmentData')
 make_head(_module, 'ISceSvcAttachmentPersistInfo')
-make_head(_module, 'PF_ConfigAnalyzeService')
-make_head(_module, 'PF_UpdateService')
 make_head(_module, 'PFSCE_FREE_INFO')
 make_head(_module, 'PFSCE_LOG_INFO')
 make_head(_module, 'PFSCE_QUERY_INFO')
 make_head(_module, 'PFSCE_SET_INFO')
+make_head(_module, 'PF_ConfigAnalyzeService')
+make_head(_module, 'PF_UpdateService')
 make_head(_module, 'SCESVC_ANALYSIS_INFO')
 make_head(_module, 'SCESVC_ANALYSIS_LINE')
 make_head(_module, 'SCESVC_CALLBACK_INFO')

@@ -20,13 +20,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class IPrinting3DManagerInterop(c_void_p):
-    extends: win32more.System.WinRT.IInspectable
-    Guid = Guid('9ca31010-1484-4587-b2-6b-dd-df-9f-9c-ae-cd')
-    @commethod(6)
-    def GetForWindow(appWindow: win32more.Foundation.HWND, riid: POINTER(Guid), printManager: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def ShowPrintUIForWindowAsync(appWindow: win32more.Foundation.HWND, riid: POINTER(Guid), asyncOperation: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
 class IPrintManagerInterop(c_void_p):
     extends: win32more.System.WinRT.IInspectable
     Guid = Guid('c5435a42-8d43-4e7b-a6-8a-ef-31-1e-39-20-87')
@@ -73,13 +66,20 @@ class IPrintWorkflowXpsReceiver2(c_void_p):
     Guid = Guid('023bcc0c-dfab-4a61-b0-74-49-0c-69-95-58-0d')
     @commethod(8)
     def Failed(XpsError: win32more.Foundation.HRESULT) -> win32more.Foundation.HRESULT: ...
-make_head(_module, 'IPrinting3DManagerInterop')
+class IPrinting3DManagerInterop(c_void_p):
+    extends: win32more.System.WinRT.IInspectable
+    Guid = Guid('9ca31010-1484-4587-b2-6b-dd-df-9f-9c-ae-cd')
+    @commethod(6)
+    def GetForWindow(appWindow: win32more.Foundation.HWND, riid: POINTER(Guid), printManager: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def ShowPrintUIForWindowAsync(appWindow: win32more.Foundation.HWND, riid: POINTER(Guid), asyncOperation: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
 make_head(_module, 'IPrintManagerInterop')
 make_head(_module, 'IPrintWorkflowConfigurationNative')
 make_head(_module, 'IPrintWorkflowObjectModelSourceFileContentNative')
 make_head(_module, 'IPrintWorkflowXpsObjectModelTargetPackageNative')
 make_head(_module, 'IPrintWorkflowXpsReceiver')
 make_head(_module, 'IPrintWorkflowXpsReceiver2')
+make_head(_module, 'IPrinting3DManagerInterop')
 __all__ = [
     "IPrintManagerInterop",
     "IPrintWorkflowConfigurationNative",

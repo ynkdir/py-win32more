@@ -102,6 +102,9 @@ AE_LASTITEM: ADDRESS_EVENT = 8
 ADDRESS_STATE = Int32
 AS_INSERVICE: ADDRESS_STATE = 0
 AS_OUTOFSERVICE: ADDRESS_STATE = 1
+AGENTHANDLER_EVENT = Int32
+AHE_NEW_AGENTHANDLER: AGENTHANDLER_EVENT = 0
+AHE_AGENTHANDLER_REMOVED: AGENTHANDLER_EVENT = 1
 AGENT_EVENT = Int32
 AE_NOT_READY: AGENT_EVENT = 0
 AE_READY: AGENT_EVENT = 1
@@ -129,9 +132,8 @@ AS_BUSY_ACD: AGENT_STATE = 2
 AS_BUSY_INCOMING: AGENT_STATE = 3
 AS_BUSY_OUTGOING: AGENT_STATE = 4
 AS_UNKNOWN: AGENT_STATE = 5
-AGENTHANDLER_EVENT = Int32
-AHE_NEW_AGENTHANDLER: AGENTHANDLER_EVENT = 0
-AHE_AGENTHANDLER_REMOVED: AGENTHANDLER_EVENT = 1
+@winfunctype_pointer
+def ASYNC_COMPLETION(dwRequestID: UInt32, lResult: Int32) -> Void: ...
 TAPI_CURRENT_VERSION: UInt32 = 131074
 LINE_ADDRESSSTATE: Int32 = 0
 LINE_CALLINFO: Int32 = 1
@@ -1764,51 +1766,6 @@ def OpenTnefStream(lpvSupport: c_void_p, lpStream: win32more.System.Com.IStream_
 def OpenTnefStreamEx(lpvSupport: c_void_p, lpStream: win32more.System.Com.IStream_head, lpszStreamName: POINTER(SByte), ulFlags: UInt32, lpMessage: win32more.System.AddressBook.IMessage_head, wKeyVal: UInt16, lpAdressBook: win32more.System.AddressBook.IAddrBook_head, lppTNEF: POINTER(win32more.Devices.Tapi.ITnef_head)) -> win32more.Foundation.HRESULT: ...
 @winfunctype('MAPI32.dll')
 def GetTnefStreamCodepage(lpStream: win32more.System.Com.IStream_head, lpulCodepage: POINTER(UInt32), lpulSubCodepage: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def ASYNC_COMPLETION(dwRequestID: UInt32, lResult: Int32) -> Void: ...
-CALL_MEDIA_EVENT = Int32
-CME_NEW_STREAM: CALL_MEDIA_EVENT = 0
-CME_STREAM_FAIL: CALL_MEDIA_EVENT = 1
-CME_TERMINAL_FAIL: CALL_MEDIA_EVENT = 2
-CME_STREAM_NOT_USED: CALL_MEDIA_EVENT = 3
-CME_STREAM_ACTIVE: CALL_MEDIA_EVENT = 4
-CME_STREAM_INACTIVE: CALL_MEDIA_EVENT = 5
-CME_LASTITEM: CALL_MEDIA_EVENT = 5
-CALL_MEDIA_EVENT_CAUSE = Int32
-CMC_UNKNOWN: CALL_MEDIA_EVENT_CAUSE = 0
-CMC_BAD_DEVICE: CALL_MEDIA_EVENT_CAUSE = 1
-CMC_CONNECT_FAIL: CALL_MEDIA_EVENT_CAUSE = 2
-CMC_LOCAL_REQUEST: CALL_MEDIA_EVENT_CAUSE = 3
-CMC_REMOTE_REQUEST: CALL_MEDIA_EVENT_CAUSE = 4
-CMC_MEDIA_TIMEOUT: CALL_MEDIA_EVENT_CAUSE = 5
-CMC_MEDIA_RECOVERED: CALL_MEDIA_EVENT_CAUSE = 6
-CMC_QUALITY_OF_SERVICE: CALL_MEDIA_EVENT_CAUSE = 7
-CALL_NOTIFICATION_EVENT = Int32
-CNE_OWNER: CALL_NOTIFICATION_EVENT = 0
-CNE_MONITOR: CALL_NOTIFICATION_EVENT = 1
-CNE_LASTITEM: CALL_NOTIFICATION_EVENT = 1
-CALL_PRIVILEGE = Int32
-CP_OWNER: CALL_PRIVILEGE = 0
-CP_MONITOR: CALL_PRIVILEGE = 1
-CALL_STATE = Int32
-CS_IDLE: CALL_STATE = 0
-CS_INPROGRESS: CALL_STATE = 1
-CS_CONNECTED: CALL_STATE = 2
-CS_DISCONNECTED: CALL_STATE = 3
-CS_OFFERING: CALL_STATE = 4
-CS_HOLD: CALL_STATE = 5
-CS_QUEUED: CALL_STATE = 6
-CS_LASTITEM: CALL_STATE = 6
-CALL_STATE_EVENT_CAUSE = Int32
-CEC_NONE: CALL_STATE_EVENT_CAUSE = 0
-CEC_DISCONNECT_NORMAL: CALL_STATE_EVENT_CAUSE = 1
-CEC_DISCONNECT_BUSY: CALL_STATE_EVENT_CAUSE = 2
-CEC_DISCONNECT_BADADDRESS: CALL_STATE_EVENT_CAUSE = 3
-CEC_DISCONNECT_NOANSWER: CALL_STATE_EVENT_CAUSE = 4
-CEC_DISCONNECT_CANCELLED: CALL_STATE_EVENT_CAUSE = 5
-CEC_DISCONNECT_REJECTED: CALL_STATE_EVENT_CAUSE = 6
-CEC_DISCONNECT_FAILED: CALL_STATE_EVENT_CAUSE = 7
-CEC_DISCONNECT_BLOCKED: CALL_STATE_EVENT_CAUSE = 8
 CALLHUB_EVENT = Int32
 CHE_CALLJOIN: CALLHUB_EVENT = 0
 CHE_CALLLEAVE: CALLHUB_EVENT = 1
@@ -1818,6 +1775,35 @@ CHE_LASTITEM: CALLHUB_EVENT = 3
 CALLHUB_STATE = Int32
 CHS_ACTIVE: CALLHUB_STATE = 0
 CHS_IDLE: CALLHUB_STATE = 1
+CALLINFOCHANGE_CAUSE = Int32
+CIC_OTHER: CALLINFOCHANGE_CAUSE = 0
+CIC_DEVSPECIFIC: CALLINFOCHANGE_CAUSE = 1
+CIC_BEARERMODE: CALLINFOCHANGE_CAUSE = 2
+CIC_RATE: CALLINFOCHANGE_CAUSE = 3
+CIC_APPSPECIFIC: CALLINFOCHANGE_CAUSE = 4
+CIC_CALLID: CALLINFOCHANGE_CAUSE = 5
+CIC_RELATEDCALLID: CALLINFOCHANGE_CAUSE = 6
+CIC_ORIGIN: CALLINFOCHANGE_CAUSE = 7
+CIC_REASON: CALLINFOCHANGE_CAUSE = 8
+CIC_COMPLETIONID: CALLINFOCHANGE_CAUSE = 9
+CIC_NUMOWNERINCR: CALLINFOCHANGE_CAUSE = 10
+CIC_NUMOWNERDECR: CALLINFOCHANGE_CAUSE = 11
+CIC_NUMMONITORS: CALLINFOCHANGE_CAUSE = 12
+CIC_TRUNK: CALLINFOCHANGE_CAUSE = 13
+CIC_CALLERID: CALLINFOCHANGE_CAUSE = 14
+CIC_CALLEDID: CALLINFOCHANGE_CAUSE = 15
+CIC_CONNECTEDID: CALLINFOCHANGE_CAUSE = 16
+CIC_REDIRECTIONID: CALLINFOCHANGE_CAUSE = 17
+CIC_REDIRECTINGID: CALLINFOCHANGE_CAUSE = 18
+CIC_USERUSERINFO: CALLINFOCHANGE_CAUSE = 19
+CIC_HIGHLEVELCOMP: CALLINFOCHANGE_CAUSE = 20
+CIC_LOWLEVELCOMP: CALLINFOCHANGE_CAUSE = 21
+CIC_CHARGINGINFO: CALLINFOCHANGE_CAUSE = 22
+CIC_TREATMENT: CALLINFOCHANGE_CAUSE = 23
+CIC_CALLDATA: CALLINFOCHANGE_CAUSE = 24
+CIC_PRIVILEGE: CALLINFOCHANGE_CAUSE = 25
+CIC_MEDIATYPE: CALLINFOCHANGE_CAUSE = 26
+CIC_LASTITEM: CALLINFOCHANGE_CAUSE = 26
 CALLINFO_BUFFER = Int32
 CIB_USERUSERINFO: CALLINFO_BUFFER = 0
 CIB_DEVSPECIFICBUFFER: CALLINFO_BUFFER = 1
@@ -1866,35 +1852,49 @@ CIS_CALLEDPARTYFRIENDLYNAME: CALLINFO_STRING = 10
 CIS_COMMENT: CALLINFO_STRING = 11
 CIS_DISPLAYABLEADDRESS: CALLINFO_STRING = 12
 CIS_CALLINGPARTYID: CALLINFO_STRING = 13
-CALLINFOCHANGE_CAUSE = Int32
-CIC_OTHER: CALLINFOCHANGE_CAUSE = 0
-CIC_DEVSPECIFIC: CALLINFOCHANGE_CAUSE = 1
-CIC_BEARERMODE: CALLINFOCHANGE_CAUSE = 2
-CIC_RATE: CALLINFOCHANGE_CAUSE = 3
-CIC_APPSPECIFIC: CALLINFOCHANGE_CAUSE = 4
-CIC_CALLID: CALLINFOCHANGE_CAUSE = 5
-CIC_RELATEDCALLID: CALLINFOCHANGE_CAUSE = 6
-CIC_ORIGIN: CALLINFOCHANGE_CAUSE = 7
-CIC_REASON: CALLINFOCHANGE_CAUSE = 8
-CIC_COMPLETIONID: CALLINFOCHANGE_CAUSE = 9
-CIC_NUMOWNERINCR: CALLINFOCHANGE_CAUSE = 10
-CIC_NUMOWNERDECR: CALLINFOCHANGE_CAUSE = 11
-CIC_NUMMONITORS: CALLINFOCHANGE_CAUSE = 12
-CIC_TRUNK: CALLINFOCHANGE_CAUSE = 13
-CIC_CALLERID: CALLINFOCHANGE_CAUSE = 14
-CIC_CALLEDID: CALLINFOCHANGE_CAUSE = 15
-CIC_CONNECTEDID: CALLINFOCHANGE_CAUSE = 16
-CIC_REDIRECTIONID: CALLINFOCHANGE_CAUSE = 17
-CIC_REDIRECTINGID: CALLINFOCHANGE_CAUSE = 18
-CIC_USERUSERINFO: CALLINFOCHANGE_CAUSE = 19
-CIC_HIGHLEVELCOMP: CALLINFOCHANGE_CAUSE = 20
-CIC_LOWLEVELCOMP: CALLINFOCHANGE_CAUSE = 21
-CIC_CHARGINGINFO: CALLINFOCHANGE_CAUSE = 22
-CIC_TREATMENT: CALLINFOCHANGE_CAUSE = 23
-CIC_CALLDATA: CALLINFOCHANGE_CAUSE = 24
-CIC_PRIVILEGE: CALLINFOCHANGE_CAUSE = 25
-CIC_MEDIATYPE: CALLINFOCHANGE_CAUSE = 26
-CIC_LASTITEM: CALLINFOCHANGE_CAUSE = 26
+CALL_MEDIA_EVENT = Int32
+CME_NEW_STREAM: CALL_MEDIA_EVENT = 0
+CME_STREAM_FAIL: CALL_MEDIA_EVENT = 1
+CME_TERMINAL_FAIL: CALL_MEDIA_EVENT = 2
+CME_STREAM_NOT_USED: CALL_MEDIA_EVENT = 3
+CME_STREAM_ACTIVE: CALL_MEDIA_EVENT = 4
+CME_STREAM_INACTIVE: CALL_MEDIA_EVENT = 5
+CME_LASTITEM: CALL_MEDIA_EVENT = 5
+CALL_MEDIA_EVENT_CAUSE = Int32
+CMC_UNKNOWN: CALL_MEDIA_EVENT_CAUSE = 0
+CMC_BAD_DEVICE: CALL_MEDIA_EVENT_CAUSE = 1
+CMC_CONNECT_FAIL: CALL_MEDIA_EVENT_CAUSE = 2
+CMC_LOCAL_REQUEST: CALL_MEDIA_EVENT_CAUSE = 3
+CMC_REMOTE_REQUEST: CALL_MEDIA_EVENT_CAUSE = 4
+CMC_MEDIA_TIMEOUT: CALL_MEDIA_EVENT_CAUSE = 5
+CMC_MEDIA_RECOVERED: CALL_MEDIA_EVENT_CAUSE = 6
+CMC_QUALITY_OF_SERVICE: CALL_MEDIA_EVENT_CAUSE = 7
+CALL_NOTIFICATION_EVENT = Int32
+CNE_OWNER: CALL_NOTIFICATION_EVENT = 0
+CNE_MONITOR: CALL_NOTIFICATION_EVENT = 1
+CNE_LASTITEM: CALL_NOTIFICATION_EVENT = 1
+CALL_PRIVILEGE = Int32
+CP_OWNER: CALL_PRIVILEGE = 0
+CP_MONITOR: CALL_PRIVILEGE = 1
+CALL_STATE = Int32
+CS_IDLE: CALL_STATE = 0
+CS_INPROGRESS: CALL_STATE = 1
+CS_CONNECTED: CALL_STATE = 2
+CS_DISCONNECTED: CALL_STATE = 3
+CS_OFFERING: CALL_STATE = 4
+CS_HOLD: CALL_STATE = 5
+CS_QUEUED: CALL_STATE = 6
+CS_LASTITEM: CALL_STATE = 6
+CALL_STATE_EVENT_CAUSE = Int32
+CEC_NONE: CALL_STATE_EVENT_CAUSE = 0
+CEC_DISCONNECT_NORMAL: CALL_STATE_EVENT_CAUSE = 1
+CEC_DISCONNECT_BUSY: CALL_STATE_EVENT_CAUSE = 2
+CEC_DISCONNECT_BADADDRESS: CALL_STATE_EVENT_CAUSE = 3
+CEC_DISCONNECT_NOANSWER: CALL_STATE_EVENT_CAUSE = 4
+CEC_DISCONNECT_CANCELLED: CALL_STATE_EVENT_CAUSE = 5
+CEC_DISCONNECT_REJECTED: CALL_STATE_EVENT_CAUSE = 6
+CEC_DISCONNECT_FAILED: CALL_STATE_EVENT_CAUSE = 7
+CEC_DISCONNECT_BLOCKED: CALL_STATE_EVENT_CAUSE = 8
 DIRECTORY_OBJECT_TYPE = Int32
 OT_CONFERENCE: DIRECTORY_OBJECT_TYPE = 1
 OT_USER: DIRECTORY_OBJECT_TYPE = 2
@@ -1905,7 +1905,6 @@ DISCONNECT_CODE = Int32
 DC_NORMAL: DISCONNECT_CODE = 0
 DC_NOANSWER: DISCONNECT_CODE = 1
 DC_REJECTED: DISCONNECT_CODE = 2
-DispatchMapper = Guid('e9225296-c759-11d1-a0-2b-00-c0-4f-b6-80-9f')
 class DTR(Structure):
     wYear: UInt16
     wMonth: UInt16
@@ -1915,6 +1914,7 @@ class DTR(Structure):
     wSecond: UInt16
     wDayOfWeek: UInt16
     _pack_ = 1
+DispatchMapper = Guid('e9225296-c759-11d1-a0-2b-00-c0-4f-b6-80-9f')
 FINISH_MODE = Int32
 FM_ASTRANSFER: FINISH_MODE = 0
 FM_ASCONFERENCE: FINISH_MODE = 1
@@ -2256,6 +2256,22 @@ class ITACDGroupEvent(c_void_p):
     def get_Group(ppGroup: POINTER(win32more.Devices.Tapi.ITACDGroup_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(8)
     def get_Event(pEvent: POINTER(win32more.Devices.Tapi.ACDGROUP_EVENT)) -> win32more.Foundation.HRESULT: ...
+class ITAMMediaFormat(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0364eb00-4a77-11d1-a6-71-00-60-97-c9-a2-e8')
+    @commethod(3)
+    def get_MediaFormat(ppmt: POINTER(POINTER(win32more.Media.MediaFoundation.AM_MEDIA_TYPE_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def put_MediaFormat(pmt: POINTER(win32more.Media.MediaFoundation.AM_MEDIA_TYPE_head)) -> win32more.Foundation.HRESULT: ...
+class ITASRTerminalEvent(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('ee016a02-4fa9-467c-93-3f-5a-15-b1-23-77-d7')
+    @commethod(7)
+    def get_Terminal(ppTerminal: POINTER(win32more.Devices.Tapi.ITTerminal_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Call(ppCall: POINTER(win32more.Devices.Tapi.ITCallInfo_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Error(phrErrorCode: POINTER(win32more.Foundation.HRESULT)) -> win32more.Foundation.HRESULT: ...
 class ITAddress(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('b1efc386-9355-11d0-83-5c-00-aa-00-3c-ca-bd')
@@ -2508,22 +2524,6 @@ class ITAllocatorProperties(c_void_p):
     def SetBufferSize(BufferSize: UInt32) -> win32more.Foundation.HRESULT: ...
     @commethod(8)
     def GetBufferSize(pBufferSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-class ITAMMediaFormat(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('0364eb00-4a77-11d1-a6-71-00-60-97-c9-a2-e8')
-    @commethod(3)
-    def get_MediaFormat(ppmt: POINTER(POINTER(win32more.Media.MediaFoundation.AM_MEDIA_TYPE_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def put_MediaFormat(pmt: POINTER(win32more.Media.MediaFoundation.AM_MEDIA_TYPE_head)) -> win32more.Foundation.HRESULT: ...
-class ITASRTerminalEvent(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('ee016a02-4fa9-467c-93-3f-5a-15-b1-23-77-d7')
-    @commethod(7)
-    def get_Terminal(ppTerminal: POINTER(win32more.Devices.Tapi.ITTerminal_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_Call(ppCall: POINTER(win32more.Devices.Tapi.ITCallInfo_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_Error(phrErrorCode: POINTER(win32more.Foundation.HRESULT)) -> win32more.Foundation.HRESULT: ...
 class ITAutomatedPhoneControl(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('1ee1af0e-6159-4a61-b7-9b-6a-4b-a3-fc-9d-fc')
@@ -2717,23 +2717,6 @@ class ITCallInfoChangeEvent(c_void_p):
     def get_Cause(pCIC: POINTER(win32more.Devices.Tapi.CALLINFOCHANGE_CAUSE)) -> win32more.Foundation.HRESULT: ...
     @commethod(9)
     def get_CallbackInstance(plCallbackInstance: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-class ITCallingCard(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('0c4d8f00-8ddb-11d1-a0-9e-00-80-5f-c1-47-d3')
-    @commethod(7)
-    def get_PermanentCardID(plCardID: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_NumberOfDigits(plDigits: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_Options(plOptions: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_CardName(ppCardName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def get_SameAreaDialingRule(ppRule: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def get_LongDistanceDialingRule(ppRule: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def get_InternationalDialingRule(ppRule: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
 class ITCallMediaEvent(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('ff36b87f-ec3a-11d0-8e-e4-00-c0-4f-b6-80-9f')
@@ -2769,6 +2752,23 @@ class ITCallStateEvent(c_void_p):
     def get_Cause(pCEC: POINTER(win32more.Devices.Tapi.CALL_STATE_EVENT_CAUSE)) -> win32more.Foundation.HRESULT: ...
     @commethod(10)
     def get_CallbackInstance(plCallbackInstance: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class ITCallingCard(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('0c4d8f00-8ddb-11d1-a0-9e-00-80-5f-c1-47-d3')
+    @commethod(7)
+    def get_PermanentCardID(plCardID: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_NumberOfDigits(plDigits: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Options(plOptions: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_CardName(ppCardName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_SameAreaDialingRule(ppRule: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_LongDistanceDialingRule(ppRule: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_InternationalDialingRule(ppRule: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
 class ITCollection(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('5ec5acf2-9c02-11d0-83-62-00-aa-00-3c-ca-bd')
@@ -3096,6 +3096,21 @@ class ITLocationInfo(c_void_p):
     def get_TollPrefixList(ppTollList: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
     @commethod(17)
     def get_CancelCallWaitingCode(ppCode: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class ITMSPAddress(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('ee3bd600-3868-11d2-a0-45-00-c0-4f-b6-80-9f')
+    @commethod(3)
+    def Initialize(hEvent: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Shutdown() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def CreateMSPCall(hCall: POINTER(Int32), dwReserved: UInt32, dwMediaType: UInt32, pOuterUnknown: win32more.System.Com.IUnknown_head, ppStreamControl: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def ShutdownMSPCall(pStreamControl: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def ReceiveTSPData(pMSPCall: win32more.System.Com.IUnknown_head, pBuffer: c_char_p_no, dwSize: UInt32) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def GetEvent(pdwSize: POINTER(UInt32), pEventBuffer: c_char_p_no) -> win32more.Foundation.HRESULT: ...
 class ITMediaControl(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('c445dde8-5199-4bc7-98-07-5f-fb-92-e4-2e-09')
@@ -3128,21 +3143,6 @@ class ITMediaSupport(c_void_p):
     def get_MediaTypes(plMediaTypes: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
     @commethod(8)
     def QueryMediaType(lMediaType: Int32, pfSupport: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
-class ITMSPAddress(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('ee3bd600-3868-11d2-a0-45-00-c0-4f-b6-80-9f')
-    @commethod(3)
-    def Initialize(hEvent: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def Shutdown() -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def CreateMSPCall(hCall: POINTER(Int32), dwReserved: UInt32, dwMediaType: UInt32, pOuterUnknown: win32more.System.Com.IUnknown_head, ppStreamControl: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def ShutdownMSPCall(pStreamControl: win32more.System.Com.IUnknown_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def ReceiveTSPData(pMSPCall: win32more.System.Com.IUnknown_head, pBuffer: c_char_p_no, dwSize: UInt32) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def GetEvent(pdwSize: POINTER(UInt32), pEventBuffer: c_char_p_no) -> win32more.Foundation.HRESULT: ...
 class ITMultiTrackTerminal(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('fe040091-ade8-4072-95-c9-bf-7d-e8-c5-4b-44')
@@ -3158,22 +3158,6 @@ class ITMultiTrackTerminal(c_void_p):
     def get_DirectionsInUse(plDirectionsInUsed: POINTER(win32more.Devices.Tapi.TERMINAL_DIRECTION)) -> win32more.Foundation.HRESULT: ...
     @commethod(12)
     def RemoveTrackTerminal(pTrackTerminalToRemove: win32more.Devices.Tapi.ITTerminal_head) -> win32more.Foundation.HRESULT: ...
-class ITnef(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    @commethod(3)
-    def AddProps(ulFlags: UInt32, ulElemID: UInt32, lpvData: c_void_p, lpPropList: POINTER(win32more.System.AddressBook.SPropTagArray_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def ExtractProps(ulFlags: UInt32, lpPropList: POINTER(win32more.System.AddressBook.SPropTagArray_head), lpProblems: POINTER(POINTER(win32more.Devices.Tapi.STnefProblemArray_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def Finish(ulFlags: UInt32, lpKey: POINTER(UInt16), lpProblems: POINTER(POINTER(win32more.Devices.Tapi.STnefProblemArray_head))) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def OpenTaggedBody(lpMessage: win32more.System.AddressBook.IMessage_head, ulFlags: UInt32, lppStream: POINTER(win32more.System.Com.IStream_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def SetProps(ulFlags: UInt32, ulElemID: UInt32, cValues: UInt32, lpProps: POINTER(win32more.System.AddressBook.SPropValue_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def EncodeRecips(ulFlags: UInt32, lpRecipientTable: win32more.System.AddressBook.IMAPITable_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def FinishComponent(ulFlags: UInt32, ulComponentID: UInt32, lpCustomPropList: POINTER(win32more.System.AddressBook.SPropTagArray_head), lpCustomProps: POINTER(win32more.System.AddressBook.SPropValue_head), lpPropList: POINTER(win32more.System.AddressBook.SPropTagArray_head), lpProblems: POINTER(POINTER(win32more.Devices.Tapi.STnefProblemArray_head))) -> win32more.Foundation.HRESULT: ...
 class ITPhone(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('09d48db4-10cc-4388-9d-e7-a8-46-56-18-97-5a')
@@ -3569,6 +3553,15 @@ class ITTAPIObjectEvent2(c_void_p):
     Guid = Guid('359dda6e-68ce-4383-bf-0b-16-91-33-c4-1b-46')
     @commethod(11)
     def get_Phone(ppPhone: POINTER(win32more.Devices.Tapi.ITPhone_head)) -> win32more.Foundation.HRESULT: ...
+class ITTTSTerminalEvent(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('d964788f-95a5-461d-ab-0c-b9-90-0a-6c-27-13')
+    @commethod(7)
+    def get_Terminal(ppTerminal: POINTER(win32more.Devices.Tapi.ITTerminal_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Call(ppCall: POINTER(win32more.Devices.Tapi.ITCallInfo_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Error(phrErrorCode: POINTER(win32more.Foundation.HRESULT)) -> win32more.Foundation.HRESULT: ...
 class ITTerminal(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('b1efc38a-9355-11d0-83-5c-00-aa-00-3c-ca-bd')
@@ -3630,15 +3623,22 @@ class ITToneTerminalEvent(c_void_p):
     def get_Call(ppCall: POINTER(win32more.Devices.Tapi.ITCallInfo_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(9)
     def get_Error(phrErrorCode: POINTER(win32more.Foundation.HRESULT)) -> win32more.Foundation.HRESULT: ...
-class ITTTSTerminalEvent(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('d964788f-95a5-461d-ab-0c-b9-90-0a-6c-27-13')
+class ITnef(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    @commethod(3)
+    def AddProps(ulFlags: UInt32, ulElemID: UInt32, lpvData: c_void_p, lpPropList: POINTER(win32more.System.AddressBook.SPropTagArray_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def ExtractProps(ulFlags: UInt32, lpPropList: POINTER(win32more.System.AddressBook.SPropTagArray_head), lpProblems: POINTER(POINTER(win32more.Devices.Tapi.STnefProblemArray_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Finish(ulFlags: UInt32, lpKey: POINTER(UInt16), lpProblems: POINTER(POINTER(win32more.Devices.Tapi.STnefProblemArray_head))) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def OpenTaggedBody(lpMessage: win32more.System.AddressBook.IMessage_head, ulFlags: UInt32, lppStream: POINTER(win32more.System.Com.IStream_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(7)
-    def get_Terminal(ppTerminal: POINTER(win32more.Devices.Tapi.ITTerminal_head)) -> win32more.Foundation.HRESULT: ...
+    def SetProps(ulFlags: UInt32, ulElemID: UInt32, cValues: UInt32, lpProps: POINTER(win32more.System.AddressBook.SPropValue_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(8)
-    def get_Call(ppCall: POINTER(win32more.Devices.Tapi.ITCallInfo_head)) -> win32more.Foundation.HRESULT: ...
+    def EncodeRecips(ulFlags: UInt32, lpRecipientTable: win32more.System.AddressBook.IMAPITable_head) -> win32more.Foundation.HRESULT: ...
     @commethod(9)
-    def get_Error(phrErrorCode: POINTER(win32more.Foundation.HRESULT)) -> win32more.Foundation.HRESULT: ...
+    def FinishComponent(ulFlags: UInt32, ulComponentID: UInt32, lpCustomPropList: POINTER(win32more.System.AddressBook.SPropTagArray_head), lpCustomProps: POINTER(win32more.System.AddressBook.SPropValue_head), lpPropList: POINTER(win32more.System.AddressBook.SPropTagArray_head), lpProblems: POINTER(POINTER(win32more.Devices.Tapi.STnefProblemArray_head))) -> win32more.Foundation.HRESULT: ...
 class LINEADDRESSCAPS(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
@@ -4466,7 +4466,6 @@ def LPGETTNEFSTREAMCODEPAGE(lpStream: win32more.System.Com.IStream_head, lpulCod
 def LPOPENTNEFSTREAM(lpvSupport: c_void_p, lpStream: win32more.System.Com.IStream_head, lpszStreamName: POINTER(SByte), ulFlags: UInt32, lpMessage: win32more.System.AddressBook.IMessage_head, wKeyVal: UInt16, lppTNEF: POINTER(win32more.Devices.Tapi.ITnef_head)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def LPOPENTNEFSTREAMEX(lpvSupport: c_void_p, lpStream: win32more.System.Com.IStream_head, lpszStreamName: POINTER(SByte), ulFlags: UInt32, lpMessage: win32more.System.AddressBook.IMessage_head, wKeyVal: UInt16, lpAdressBook: win32more.System.AddressBook.IAddrBook_head, lppTNEF: POINTER(win32more.Devices.Tapi.ITnef_head)) -> win32more.Foundation.HRESULT: ...
-McastAddressAllocation = Guid('df0daef2-a289-11d1-86-97-00-60-08-b0-e5-d2')
 MSP_ADDRESS_EVENT = Int32
 ADDRESS_TERMINAL_AVAILABLE: MSP_ADDRESS_EVENT = 0
 ADDRESS_TERMINAL_UNAVAILABLE: MSP_ADDRESS_EVENT = 1
@@ -4539,6 +4538,7 @@ class MSP_EVENT_INFO(Structure):
         class _MSP_TONE_TERMINAL_EVENT_INFO_e__Struct(Structure):
             pToneTerminal: win32more.Devices.Tapi.ITTerminal_head
             hrErrorCode: win32more.Foundation.HRESULT
+McastAddressAllocation = Guid('df0daef2-a289-11d1-86-97-00-60-08-b0-e5-d2')
 class NSID(Structure):
     dwSize: UInt32
     uchType: Byte * 16
@@ -4548,125 +4548,6 @@ class NSID(Structure):
     class _address_e__Union(Union):
         alias: win32more.Devices.Tapi.ADDRALIAS
         rgchInterNet: win32more.Foundation.CHAR * 1
-PHONE_BUTTON_FUNCTION = Int32
-PBF_UNKNOWN: PHONE_BUTTON_FUNCTION = 0
-PBF_CONFERENCE: PHONE_BUTTON_FUNCTION = 1
-PBF_TRANSFER: PHONE_BUTTON_FUNCTION = 2
-PBF_DROP: PHONE_BUTTON_FUNCTION = 3
-PBF_HOLD: PHONE_BUTTON_FUNCTION = 4
-PBF_RECALL: PHONE_BUTTON_FUNCTION = 5
-PBF_DISCONNECT: PHONE_BUTTON_FUNCTION = 6
-PBF_CONNECT: PHONE_BUTTON_FUNCTION = 7
-PBF_MSGWAITON: PHONE_BUTTON_FUNCTION = 8
-PBF_MSGWAITOFF: PHONE_BUTTON_FUNCTION = 9
-PBF_SELECTRING: PHONE_BUTTON_FUNCTION = 10
-PBF_ABBREVDIAL: PHONE_BUTTON_FUNCTION = 11
-PBF_FORWARD: PHONE_BUTTON_FUNCTION = 12
-PBF_PICKUP: PHONE_BUTTON_FUNCTION = 13
-PBF_RINGAGAIN: PHONE_BUTTON_FUNCTION = 14
-PBF_PARK: PHONE_BUTTON_FUNCTION = 15
-PBF_REJECT: PHONE_BUTTON_FUNCTION = 16
-PBF_REDIRECT: PHONE_BUTTON_FUNCTION = 17
-PBF_MUTE: PHONE_BUTTON_FUNCTION = 18
-PBF_VOLUMEUP: PHONE_BUTTON_FUNCTION = 19
-PBF_VOLUMEDOWN: PHONE_BUTTON_FUNCTION = 20
-PBF_SPEAKERON: PHONE_BUTTON_FUNCTION = 21
-PBF_SPEAKEROFF: PHONE_BUTTON_FUNCTION = 22
-PBF_FLASH: PHONE_BUTTON_FUNCTION = 23
-PBF_DATAON: PHONE_BUTTON_FUNCTION = 24
-PBF_DATAOFF: PHONE_BUTTON_FUNCTION = 25
-PBF_DONOTDISTURB: PHONE_BUTTON_FUNCTION = 26
-PBF_INTERCOM: PHONE_BUTTON_FUNCTION = 27
-PBF_BRIDGEDAPP: PHONE_BUTTON_FUNCTION = 28
-PBF_BUSY: PHONE_BUTTON_FUNCTION = 29
-PBF_CALLAPP: PHONE_BUTTON_FUNCTION = 30
-PBF_DATETIME: PHONE_BUTTON_FUNCTION = 31
-PBF_DIRECTORY: PHONE_BUTTON_FUNCTION = 32
-PBF_COVER: PHONE_BUTTON_FUNCTION = 33
-PBF_CALLID: PHONE_BUTTON_FUNCTION = 34
-PBF_LASTNUM: PHONE_BUTTON_FUNCTION = 35
-PBF_NIGHTSRV: PHONE_BUTTON_FUNCTION = 36
-PBF_SENDCALLS: PHONE_BUTTON_FUNCTION = 37
-PBF_MSGINDICATOR: PHONE_BUTTON_FUNCTION = 38
-PBF_REPDIAL: PHONE_BUTTON_FUNCTION = 39
-PBF_SETREPDIAL: PHONE_BUTTON_FUNCTION = 40
-PBF_SYSTEMSPEED: PHONE_BUTTON_FUNCTION = 41
-PBF_STATIONSPEED: PHONE_BUTTON_FUNCTION = 42
-PBF_CAMPON: PHONE_BUTTON_FUNCTION = 43
-PBF_SAVEREPEAT: PHONE_BUTTON_FUNCTION = 44
-PBF_QUEUECALL: PHONE_BUTTON_FUNCTION = 45
-PBF_NONE: PHONE_BUTTON_FUNCTION = 46
-PBF_SEND: PHONE_BUTTON_FUNCTION = 47
-PHONE_BUTTON_MODE = Int32
-PBM_DUMMY: PHONE_BUTTON_MODE = 0
-PBM_CALL: PHONE_BUTTON_MODE = 1
-PBM_FEATURE: PHONE_BUTTON_MODE = 2
-PBM_KEYPAD: PHONE_BUTTON_MODE = 3
-PBM_LOCAL: PHONE_BUTTON_MODE = 4
-PBM_DISPLAY: PHONE_BUTTON_MODE = 5
-PHONE_BUTTON_STATE = Int32
-PBS_UP: PHONE_BUTTON_STATE = 1
-PBS_DOWN: PHONE_BUTTON_STATE = 2
-PBS_UNKNOWN: PHONE_BUTTON_STATE = 4
-PBS_UNAVAIL: PHONE_BUTTON_STATE = 8
-PHONE_EVENT = Int32
-PE_DISPLAY: PHONE_EVENT = 0
-PE_LAMPMODE: PHONE_EVENT = 1
-PE_RINGMODE: PHONE_EVENT = 2
-PE_RINGVOLUME: PHONE_EVENT = 3
-PE_HOOKSWITCH: PHONE_EVENT = 4
-PE_CAPSCHANGE: PHONE_EVENT = 5
-PE_BUTTON: PHONE_EVENT = 6
-PE_CLOSE: PHONE_EVENT = 7
-PE_NUMBERGATHERED: PHONE_EVENT = 8
-PE_DIALING: PHONE_EVENT = 9
-PE_ANSWER: PHONE_EVENT = 10
-PE_DISCONNECT: PHONE_EVENT = 11
-PE_LASTITEM: PHONE_EVENT = 11
-PHONE_HOOK_SWITCH_DEVICE = Int32
-PHSD_HANDSET: PHONE_HOOK_SWITCH_DEVICE = 1
-PHSD_SPEAKERPHONE: PHONE_HOOK_SWITCH_DEVICE = 2
-PHSD_HEADSET: PHONE_HOOK_SWITCH_DEVICE = 4
-PHONE_HOOK_SWITCH_STATE = Int32
-PHSS_ONHOOK: PHONE_HOOK_SWITCH_STATE = 1
-PHSS_OFFHOOK_MIC_ONLY: PHONE_HOOK_SWITCH_STATE = 2
-PHSS_OFFHOOK_SPEAKER_ONLY: PHONE_HOOK_SWITCH_STATE = 4
-PHSS_OFFHOOK: PHONE_HOOK_SWITCH_STATE = 8
-PHONE_LAMP_MODE = Int32
-LM_DUMMY: PHONE_LAMP_MODE = 1
-LM_OFF: PHONE_LAMP_MODE = 2
-LM_STEADY: PHONE_LAMP_MODE = 4
-LM_WINK: PHONE_LAMP_MODE = 8
-LM_FLASH: PHONE_LAMP_MODE = 16
-LM_FLUTTER: PHONE_LAMP_MODE = 32
-LM_BROKENFLUTTER: PHONE_LAMP_MODE = 64
-LM_UNKNOWN: PHONE_LAMP_MODE = 128
-PHONE_PRIVILEGE = Int32
-PP_OWNER: PHONE_PRIVILEGE = 0
-PP_MONITOR: PHONE_PRIVILEGE = 1
-PHONE_TONE = Int32
-PT_KEYPADZERO: PHONE_TONE = 0
-PT_KEYPADONE: PHONE_TONE = 1
-PT_KEYPADTWO: PHONE_TONE = 2
-PT_KEYPADTHREE: PHONE_TONE = 3
-PT_KEYPADFOUR: PHONE_TONE = 4
-PT_KEYPADFIVE: PHONE_TONE = 5
-PT_KEYPADSIX: PHONE_TONE = 6
-PT_KEYPADSEVEN: PHONE_TONE = 7
-PT_KEYPADEIGHT: PHONE_TONE = 8
-PT_KEYPADNINE: PHONE_TONE = 9
-PT_KEYPADSTAR: PHONE_TONE = 10
-PT_KEYPADPOUND: PHONE_TONE = 11
-PT_KEYPADA: PHONE_TONE = 12
-PT_KEYPADB: PHONE_TONE = 13
-PT_KEYPADC: PHONE_TONE = 14
-PT_KEYPADD: PHONE_TONE = 15
-PT_NORMALDIALTONE: PHONE_TONE = 16
-PT_EXTERNALDIALTONE: PHONE_TONE = 17
-PT_BUSY: PHONE_TONE = 18
-PT_RINGBACK: PHONE_TONE = 19
-PT_ERRORTONE: PHONE_TONE = 20
-PT_SILENCE: PHONE_TONE = 21
 class PHONEBUTTONINFO(Structure):
     dwTotalSize: UInt32
     dwNeededSize: UInt32
@@ -4801,6 +4682,125 @@ class PHONESTATUS(Structure):
     dwDevSpecificOffset: UInt32
     dwPhoneFeatures: UInt32
     _pack_ = 1
+PHONE_BUTTON_FUNCTION = Int32
+PBF_UNKNOWN: PHONE_BUTTON_FUNCTION = 0
+PBF_CONFERENCE: PHONE_BUTTON_FUNCTION = 1
+PBF_TRANSFER: PHONE_BUTTON_FUNCTION = 2
+PBF_DROP: PHONE_BUTTON_FUNCTION = 3
+PBF_HOLD: PHONE_BUTTON_FUNCTION = 4
+PBF_RECALL: PHONE_BUTTON_FUNCTION = 5
+PBF_DISCONNECT: PHONE_BUTTON_FUNCTION = 6
+PBF_CONNECT: PHONE_BUTTON_FUNCTION = 7
+PBF_MSGWAITON: PHONE_BUTTON_FUNCTION = 8
+PBF_MSGWAITOFF: PHONE_BUTTON_FUNCTION = 9
+PBF_SELECTRING: PHONE_BUTTON_FUNCTION = 10
+PBF_ABBREVDIAL: PHONE_BUTTON_FUNCTION = 11
+PBF_FORWARD: PHONE_BUTTON_FUNCTION = 12
+PBF_PICKUP: PHONE_BUTTON_FUNCTION = 13
+PBF_RINGAGAIN: PHONE_BUTTON_FUNCTION = 14
+PBF_PARK: PHONE_BUTTON_FUNCTION = 15
+PBF_REJECT: PHONE_BUTTON_FUNCTION = 16
+PBF_REDIRECT: PHONE_BUTTON_FUNCTION = 17
+PBF_MUTE: PHONE_BUTTON_FUNCTION = 18
+PBF_VOLUMEUP: PHONE_BUTTON_FUNCTION = 19
+PBF_VOLUMEDOWN: PHONE_BUTTON_FUNCTION = 20
+PBF_SPEAKERON: PHONE_BUTTON_FUNCTION = 21
+PBF_SPEAKEROFF: PHONE_BUTTON_FUNCTION = 22
+PBF_FLASH: PHONE_BUTTON_FUNCTION = 23
+PBF_DATAON: PHONE_BUTTON_FUNCTION = 24
+PBF_DATAOFF: PHONE_BUTTON_FUNCTION = 25
+PBF_DONOTDISTURB: PHONE_BUTTON_FUNCTION = 26
+PBF_INTERCOM: PHONE_BUTTON_FUNCTION = 27
+PBF_BRIDGEDAPP: PHONE_BUTTON_FUNCTION = 28
+PBF_BUSY: PHONE_BUTTON_FUNCTION = 29
+PBF_CALLAPP: PHONE_BUTTON_FUNCTION = 30
+PBF_DATETIME: PHONE_BUTTON_FUNCTION = 31
+PBF_DIRECTORY: PHONE_BUTTON_FUNCTION = 32
+PBF_COVER: PHONE_BUTTON_FUNCTION = 33
+PBF_CALLID: PHONE_BUTTON_FUNCTION = 34
+PBF_LASTNUM: PHONE_BUTTON_FUNCTION = 35
+PBF_NIGHTSRV: PHONE_BUTTON_FUNCTION = 36
+PBF_SENDCALLS: PHONE_BUTTON_FUNCTION = 37
+PBF_MSGINDICATOR: PHONE_BUTTON_FUNCTION = 38
+PBF_REPDIAL: PHONE_BUTTON_FUNCTION = 39
+PBF_SETREPDIAL: PHONE_BUTTON_FUNCTION = 40
+PBF_SYSTEMSPEED: PHONE_BUTTON_FUNCTION = 41
+PBF_STATIONSPEED: PHONE_BUTTON_FUNCTION = 42
+PBF_CAMPON: PHONE_BUTTON_FUNCTION = 43
+PBF_SAVEREPEAT: PHONE_BUTTON_FUNCTION = 44
+PBF_QUEUECALL: PHONE_BUTTON_FUNCTION = 45
+PBF_NONE: PHONE_BUTTON_FUNCTION = 46
+PBF_SEND: PHONE_BUTTON_FUNCTION = 47
+PHONE_BUTTON_MODE = Int32
+PBM_DUMMY: PHONE_BUTTON_MODE = 0
+PBM_CALL: PHONE_BUTTON_MODE = 1
+PBM_FEATURE: PHONE_BUTTON_MODE = 2
+PBM_KEYPAD: PHONE_BUTTON_MODE = 3
+PBM_LOCAL: PHONE_BUTTON_MODE = 4
+PBM_DISPLAY: PHONE_BUTTON_MODE = 5
+PHONE_BUTTON_STATE = Int32
+PBS_UP: PHONE_BUTTON_STATE = 1
+PBS_DOWN: PHONE_BUTTON_STATE = 2
+PBS_UNKNOWN: PHONE_BUTTON_STATE = 4
+PBS_UNAVAIL: PHONE_BUTTON_STATE = 8
+PHONE_EVENT = Int32
+PE_DISPLAY: PHONE_EVENT = 0
+PE_LAMPMODE: PHONE_EVENT = 1
+PE_RINGMODE: PHONE_EVENT = 2
+PE_RINGVOLUME: PHONE_EVENT = 3
+PE_HOOKSWITCH: PHONE_EVENT = 4
+PE_CAPSCHANGE: PHONE_EVENT = 5
+PE_BUTTON: PHONE_EVENT = 6
+PE_CLOSE: PHONE_EVENT = 7
+PE_NUMBERGATHERED: PHONE_EVENT = 8
+PE_DIALING: PHONE_EVENT = 9
+PE_ANSWER: PHONE_EVENT = 10
+PE_DISCONNECT: PHONE_EVENT = 11
+PE_LASTITEM: PHONE_EVENT = 11
+PHONE_HOOK_SWITCH_DEVICE = Int32
+PHSD_HANDSET: PHONE_HOOK_SWITCH_DEVICE = 1
+PHSD_SPEAKERPHONE: PHONE_HOOK_SWITCH_DEVICE = 2
+PHSD_HEADSET: PHONE_HOOK_SWITCH_DEVICE = 4
+PHONE_HOOK_SWITCH_STATE = Int32
+PHSS_ONHOOK: PHONE_HOOK_SWITCH_STATE = 1
+PHSS_OFFHOOK_MIC_ONLY: PHONE_HOOK_SWITCH_STATE = 2
+PHSS_OFFHOOK_SPEAKER_ONLY: PHONE_HOOK_SWITCH_STATE = 4
+PHSS_OFFHOOK: PHONE_HOOK_SWITCH_STATE = 8
+PHONE_LAMP_MODE = Int32
+LM_DUMMY: PHONE_LAMP_MODE = 1
+LM_OFF: PHONE_LAMP_MODE = 2
+LM_STEADY: PHONE_LAMP_MODE = 4
+LM_WINK: PHONE_LAMP_MODE = 8
+LM_FLASH: PHONE_LAMP_MODE = 16
+LM_FLUTTER: PHONE_LAMP_MODE = 32
+LM_BROKENFLUTTER: PHONE_LAMP_MODE = 64
+LM_UNKNOWN: PHONE_LAMP_MODE = 128
+PHONE_PRIVILEGE = Int32
+PP_OWNER: PHONE_PRIVILEGE = 0
+PP_MONITOR: PHONE_PRIVILEGE = 1
+PHONE_TONE = Int32
+PT_KEYPADZERO: PHONE_TONE = 0
+PT_KEYPADONE: PHONE_TONE = 1
+PT_KEYPADTWO: PHONE_TONE = 2
+PT_KEYPADTHREE: PHONE_TONE = 3
+PT_KEYPADFOUR: PHONE_TONE = 4
+PT_KEYPADFIVE: PHONE_TONE = 5
+PT_KEYPADSIX: PHONE_TONE = 6
+PT_KEYPADSEVEN: PHONE_TONE = 7
+PT_KEYPADEIGHT: PHONE_TONE = 8
+PT_KEYPADNINE: PHONE_TONE = 9
+PT_KEYPADSTAR: PHONE_TONE = 10
+PT_KEYPADPOUND: PHONE_TONE = 11
+PT_KEYPADA: PHONE_TONE = 12
+PT_KEYPADB: PHONE_TONE = 13
+PT_KEYPADC: PHONE_TONE = 14
+PT_KEYPADD: PHONE_TONE = 15
+PT_NORMALDIALTONE: PHONE_TONE = 16
+PT_EXTERNALDIALTONE: PHONE_TONE = 17
+PT_BUSY: PHONE_TONE = 18
+PT_RINGBACK: PHONE_TONE = 19
+PT_ERRORTONE: PHONE_TONE = 20
+PT_SILENCE: PHONE_TONE = 21
 QOS_EVENT = Int32
 QE_NOQOS: QOS_EVENT = 1
 QE_ADMISSIONFAILURE: QOS_EVENT = 2
@@ -4818,13 +4818,13 @@ class RENDDATA(Structure):
     dyHeight: UInt16
     dwFlags: UInt32
     _pack_ = 1
-Rendezvous = Guid('f1029e5b-cb5b-11d0-8d-59-00-c0-4f-d9-1a-c0')
-RequestMakeCall = Guid('ac48ffe0-f8c4-11d1-a0-30-00-c0-4f-b6-80-9f')
 RND_ADVERTISING_SCOPE = Int32
 RAS_LOCAL: RND_ADVERTISING_SCOPE = 1
 RAS_SITE: RND_ADVERTISING_SCOPE = 2
 RAS_REGION: RND_ADVERTISING_SCOPE = 3
 RAS_WORLD: RND_ADVERTISING_SCOPE = 4
+Rendezvous = Guid('f1029e5b-cb5b-11d0-8d-59-00-c0-4f-d9-1a-c0')
+RequestMakeCall = Guid('ac48ffe0-f8c4-11d1-a0-30-00-c0-4f-b6-80-9f')
 class STnefProblem(Structure):
     ulComponent: UInt32
     ulAttribute: UInt32
@@ -4834,6 +4834,14 @@ class STnefProblemArray(Structure):
     cProblem: UInt32
     aProblem: win32more.Devices.Tapi.STnefProblem * 1
 TAPI = Guid('21d6d48e-a88b-11d0-83-dd-00-aa-00-3c-ca-bd')
+TAPIOBJECT_EVENT = Int32
+TE_ADDRESSCREATE: TAPIOBJECT_EVENT = 0
+TE_ADDRESSREMOVE: TAPIOBJECT_EVENT = 1
+TE_REINIT: TAPIOBJECT_EVENT = 2
+TE_TRANSLATECHANGE: TAPIOBJECT_EVENT = 3
+TE_ADDRESSCLOSE: TAPIOBJECT_EVENT = 4
+TE_PHONECREATE: TAPIOBJECT_EVENT = 5
+TE_PHONEREMOVE: TAPIOBJECT_EVENT = 6
 class TAPI_CUSTOMTONE(Structure):
     dwFrequency: UInt32
     dwCadenceOn: UInt32
@@ -4891,14 +4899,6 @@ TTM_RINGBACK: TAPI_TONEMODE = 2
 TTM_BUSY: TAPI_TONEMODE = 4
 TTM_BEEP: TAPI_TONEMODE = 8
 TTM_BILLING: TAPI_TONEMODE = 16
-TAPIOBJECT_EVENT = Int32
-TE_ADDRESSCREATE: TAPIOBJECT_EVENT = 0
-TE_ADDRESSREMOVE: TAPIOBJECT_EVENT = 1
-TE_REINIT: TAPIOBJECT_EVENT = 2
-TE_TRANSLATECHANGE: TAPIOBJECT_EVENT = 3
-TE_ADDRESSCLOSE: TAPIOBJECT_EVENT = 4
-TE_PHONECREATE: TAPIOBJECT_EVENT = 5
-TE_PHONEREMOVE: TAPIOBJECT_EVENT = 6
 TERMINAL_DIRECTION = Int32
 TD_CAPTURE: TERMINAL_DIRECTION = 0
 TD_RENDER: TERMINAL_DIRECTION = 1
@@ -4977,6 +4977,8 @@ make_head(_module, 'IMcastLeaseInfo')
 make_head(_module, 'IMcastScope')
 make_head(_module, 'ITACDGroup')
 make_head(_module, 'ITACDGroupEvent')
+make_head(_module, 'ITAMMediaFormat')
+make_head(_module, 'ITASRTerminalEvent')
 make_head(_module, 'ITAddress')
 make_head(_module, 'ITAddress2')
 make_head(_module, 'ITAddressCapabilities')
@@ -4991,8 +4993,6 @@ make_head(_module, 'ITAgentHandlerEvent')
 make_head(_module, 'ITAgentSession')
 make_head(_module, 'ITAgentSessionEvent')
 make_head(_module, 'ITAllocatorProperties')
-make_head(_module, 'ITAMMediaFormat')
-make_head(_module, 'ITASRTerminalEvent')
 make_head(_module, 'ITAutomatedPhoneControl')
 make_head(_module, 'ITBasicAudioTerminal')
 make_head(_module, 'ITBasicCallControl')
@@ -5002,10 +5002,10 @@ make_head(_module, 'ITCallHubEvent')
 make_head(_module, 'ITCallInfo')
 make_head(_module, 'ITCallInfo2')
 make_head(_module, 'ITCallInfoChangeEvent')
-make_head(_module, 'ITCallingCard')
 make_head(_module, 'ITCallMediaEvent')
 make_head(_module, 'ITCallNotificationEvent')
 make_head(_module, 'ITCallStateEvent')
+make_head(_module, 'ITCallingCard')
 make_head(_module, 'ITCollection')
 make_head(_module, 'ITCollection2')
 make_head(_module, 'ITCustomTone')
@@ -5029,13 +5029,12 @@ make_head(_module, 'ITLegacyCallMediaControl')
 make_head(_module, 'ITLegacyCallMediaControl2')
 make_head(_module, 'ITLegacyWaveSupport')
 make_head(_module, 'ITLocationInfo')
+make_head(_module, 'ITMSPAddress')
 make_head(_module, 'ITMediaControl')
 make_head(_module, 'ITMediaPlayback')
 make_head(_module, 'ITMediaRecord')
 make_head(_module, 'ITMediaSupport')
-make_head(_module, 'ITMSPAddress')
 make_head(_module, 'ITMultiTrackTerminal')
-make_head(_module, 'ITnef')
 make_head(_module, 'ITPhone')
 make_head(_module, 'ITPhoneDeviceSpecificEvent')
 make_head(_module, 'ITPhoneEvent')
@@ -5063,12 +5062,13 @@ make_head(_module, 'ITTAPIDispatchEventNotification')
 make_head(_module, 'ITTAPIEventNotification')
 make_head(_module, 'ITTAPIObjectEvent')
 make_head(_module, 'ITTAPIObjectEvent2')
+make_head(_module, 'ITTTSTerminalEvent')
 make_head(_module, 'ITTerminal')
 make_head(_module, 'ITTerminalSupport')
 make_head(_module, 'ITTerminalSupport2')
 make_head(_module, 'ITToneDetectionEvent')
 make_head(_module, 'ITToneTerminalEvent')
-make_head(_module, 'ITTTSTerminalEvent')
+make_head(_module, 'ITnef')
 make_head(_module, 'LINEADDRESSCAPS')
 make_head(_module, 'LINEADDRESSSTATUS')
 make_head(_module, 'LINEAGENTACTIVITYENTRY')

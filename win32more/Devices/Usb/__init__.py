@@ -17,183 +17,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _URB_BULK_OR_INTERRUPT_TRANSFER(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    PipeHandle: c_void_p
-    TransferFlags: UInt32
-    TransferBufferLength: UInt32
-    TransferBuffer: c_void_p
-    TransferBufferMDL: c_void_p
-    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
-    hca: win32more.Devices.Usb._URB_HCD_AREA
-class _URB_CONTROL_DESCRIPTOR_REQUEST(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    Reserved: c_void_p
-    Reserved0: UInt32
-    TransferBufferLength: UInt32
-    TransferBuffer: c_void_p
-    TransferBufferMDL: c_void_p
-    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
-    hca: win32more.Devices.Usb._URB_HCD_AREA
-    Reserved1: UInt16
-    Index: Byte
-    DescriptorType: Byte
-    LanguageId: UInt16
-    Reserved2: UInt16
-class _URB_CONTROL_FEATURE_REQUEST(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    Reserved: c_void_p
-    Reserved2: UInt32
-    Reserved3: UInt32
-    Reserved4: c_void_p
-    Reserved5: c_void_p
-    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
-    hca: win32more.Devices.Usb._URB_HCD_AREA
-    Reserved0: UInt16
-    FeatureSelector: UInt16
-    Index: UInt16
-    Reserved1: UInt16
-class _URB_CONTROL_GET_CONFIGURATION_REQUEST(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    Reserved: c_void_p
-    Reserved0: UInt32
-    TransferBufferLength: UInt32
-    TransferBuffer: c_void_p
-    TransferBufferMDL: c_void_p
-    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
-    hca: win32more.Devices.Usb._URB_HCD_AREA
-    Reserved1: Byte * 8
-class _URB_CONTROL_GET_INTERFACE_REQUEST(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    Reserved: c_void_p
-    Reserved0: UInt32
-    TransferBufferLength: UInt32
-    TransferBuffer: c_void_p
-    TransferBufferMDL: c_void_p
-    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
-    hca: win32more.Devices.Usb._URB_HCD_AREA
-    Reserved1: Byte * 4
-    Interface: UInt16
-    Reserved2: UInt16
-class _URB_CONTROL_GET_STATUS_REQUEST(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    Reserved: c_void_p
-    Reserved0: UInt32
-    TransferBufferLength: UInt32
-    TransferBuffer: c_void_p
-    TransferBufferMDL: c_void_p
-    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
-    hca: win32more.Devices.Usb._URB_HCD_AREA
-    Reserved1: Byte * 4
-    Index: UInt16
-    Reserved2: UInt16
-class _URB_CONTROL_TRANSFER(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    PipeHandle: c_void_p
-    TransferFlags: UInt32
-    TransferBufferLength: UInt32
-    TransferBuffer: c_void_p
-    TransferBufferMDL: c_void_p
-    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
-    hca: win32more.Devices.Usb._URB_HCD_AREA
-    SetupPacket: Byte * 8
-class _URB_CONTROL_TRANSFER_EX(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    PipeHandle: c_void_p
-    TransferFlags: UInt32
-    TransferBufferLength: UInt32
-    TransferBuffer: c_void_p
-    TransferBufferMDL: c_void_p
-    Timeout: UInt32
-    hca: win32more.Devices.Usb._URB_HCD_AREA
-    SetupPacket: Byte * 8
-class _URB_CONTROL_VENDOR_OR_CLASS_REQUEST(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    Reserved: c_void_p
-    TransferFlags: UInt32
-    TransferBufferLength: UInt32
-    TransferBuffer: c_void_p
-    TransferBufferMDL: c_void_p
-    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
-    hca: win32more.Devices.Usb._URB_HCD_AREA
-    RequestTypeReservedBits: Byte
-    Request: Byte
-    Value: UInt16
-    Index: UInt16
-    Reserved1: UInt16
-class _URB_FRAME_LENGTH_CONTROL(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-class _URB_GET_CURRENT_FRAME_NUMBER(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    FrameNumber: UInt32
-class _URB_GET_FRAME_LENGTH(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    FrameLength: UInt32
-    FrameNumber: UInt32
-class _URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    PipeHandle: c_void_p
-    MaximumSendPathDelayInMilliSeconds: UInt32
-    MaximumCompletionPathDelayInMilliSeconds: UInt32
-class _URB_HCD_AREA(Structure):
-    Reserved8: c_void_p * 8
-class _URB_HEADER(Structure):
-    Length: UInt16
-    Function: UInt16
-    Status: Int32
-    UsbdDeviceHandle: c_void_p
-    UsbdFlags: UInt32
-class _URB_ISOCH_TRANSFER(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    PipeHandle: c_void_p
-    TransferFlags: UInt32
-    TransferBufferLength: UInt32
-    TransferBuffer: c_void_p
-    TransferBufferMDL: c_void_p
-    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
-    hca: win32more.Devices.Usb._URB_HCD_AREA
-    StartFrame: UInt32
-    NumberOfPackets: UInt32
-    ErrorCount: UInt32
-    IsoPacket: win32more.Devices.Usb.USBD_ISO_PACKET_DESCRIPTOR * 1
-class _URB_OPEN_STATIC_STREAMS(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    PipeHandle: c_void_p
-    NumberOfStreams: UInt32
-    StreamInfoVersion: UInt16
-    StreamInfoSize: UInt16
-    Streams: POINTER(win32more.Devices.Usb.USBD_STREAM_INFORMATION_head)
-class _URB_OS_FEATURE_DESCRIPTOR_REQUEST(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    Reserved: c_void_p
-    Reserved0: UInt32
-    TransferBufferLength: UInt32
-    TransferBuffer: c_void_p
-    TransferBufferMDL: c_void_p
-    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
-    hca: win32more.Devices.Usb._URB_HCD_AREA
-    _bitfield: Byte
-    Reserved2: Byte
-    InterfaceNumber: Byte
-    MS_PageIndex: Byte
-    MS_FeatureDescriptorIndex: UInt16
-    Reserved3: UInt16
-class _URB_PIPE_REQUEST(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    PipeHandle: c_void_p
-    Reserved: UInt32
-class _URB_SELECT_CONFIGURATION(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    ConfigurationDescriptor: POINTER(win32more.Devices.Usb.USB_CONFIGURATION_DESCRIPTOR_head)
-    ConfigurationHandle: c_void_p
-    Interface: win32more.Devices.Usb.USBD_INTERFACE_INFORMATION
-class _URB_SELECT_INTERFACE(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    ConfigurationHandle: c_void_p
-    Interface: win32more.Devices.Usb.USBD_INTERFACE_INFORMATION
-class _URB_SET_FRAME_LENGTH(Structure):
-    Hdr: win32more.Devices.Usb._URB_HEADER
-    FrameLengthDelta: Int32
 class ALTERNATE_INTERFACE(Structure):
     InterfaceNumber: UInt16
     AlternateInterfaceNumber: UInt16
@@ -903,6 +726,244 @@ class URB(Structure):
         UrbOSFeatureDescriptorRequest: win32more.Devices.Usb._URB_OS_FEATURE_DESCRIPTOR_REQUEST
         UrbOpenStaticStreams: win32more.Devices.Usb._URB_OPEN_STATIC_STREAMS
         UrbGetIsochPipeTransferPathDelays: win32more.Devices.Usb._URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS
+class USBD_DEVICE_INFORMATION(Structure):
+    OffsetNext: UInt32
+    UsbdDeviceHandle: c_void_p
+    DeviceDescriptor: win32more.Devices.Usb.USB_DEVICE_DESCRIPTOR
+class USBD_ENDPOINT_OFFLOAD_INFORMATION(Structure):
+    Size: UInt32
+    EndpointAddress: UInt16
+    ResourceId: UInt32
+    Mode: win32more.Devices.Usb.USBD_ENDPOINT_OFFLOAD_MODE
+    _bitfield1: UInt32
+    _bitfield2: UInt32
+    TransferSegmentLA: win32more.Foundation.LARGE_INTEGER
+    TransferSegmentVA: c_void_p
+    TransferRingSize: UIntPtr
+    TransferRingInitialCycleBit: UInt32
+    MessageNumber: UInt32
+    EventRingSegmentLA: win32more.Foundation.LARGE_INTEGER
+    EventRingSegmentVA: c_void_p
+    EventRingSize: UIntPtr
+    EventRingInitialCycleBit: UInt32
+    _pack_ = 1
+USBD_ENDPOINT_OFFLOAD_MODE = Int32
+USBD_ENDPOINT_OFFLOAD_MODE_UsbdEndpointOffloadModeNotSupported: USBD_ENDPOINT_OFFLOAD_MODE = 0
+USBD_ENDPOINT_OFFLOAD_MODE_UsbdEndpointOffloadSoftwareAssisted: USBD_ENDPOINT_OFFLOAD_MODE = 1
+USBD_ENDPOINT_OFFLOAD_MODE_UsbdEndpointOffloadHardwareAssisted: USBD_ENDPOINT_OFFLOAD_MODE = 2
+class USBD_INTERFACE_INFORMATION(Structure):
+    Length: UInt16
+    InterfaceNumber: Byte
+    AlternateSetting: Byte
+    Class: Byte
+    SubClass: Byte
+    Protocol: Byte
+    Reserved: Byte
+    InterfaceHandle: c_void_p
+    NumberOfPipes: UInt32
+    Pipes: win32more.Devices.Usb.USBD_PIPE_INFORMATION * 1
+class USBD_ISO_PACKET_DESCRIPTOR(Structure):
+    Offset: UInt32
+    Length: UInt32
+    Status: Int32
+class USBD_PIPE_INFORMATION(Structure):
+    MaximumPacketSize: UInt16
+    EndpointAddress: Byte
+    Interval: Byte
+    PipeType: win32more.Devices.Usb.USBD_PIPE_TYPE
+    PipeHandle: c_void_p
+    MaximumTransferSize: UInt32
+    PipeFlags: UInt32
+USBD_PIPE_TYPE = Int32
+USBD_PIPE_TYPE_UsbdPipeTypeControl: USBD_PIPE_TYPE = 0
+USBD_PIPE_TYPE_UsbdPipeTypeIsochronous: USBD_PIPE_TYPE = 1
+USBD_PIPE_TYPE_UsbdPipeTypeBulk: USBD_PIPE_TYPE = 2
+USBD_PIPE_TYPE_UsbdPipeTypeInterrupt: USBD_PIPE_TYPE = 3
+class USBD_STREAM_INFORMATION(Structure):
+    PipeHandle: c_void_p
+    StreamID: UInt32
+    MaximumTransferSize: UInt32
+    PipeFlags: UInt32
+class USBD_VERSION_INFORMATION(Structure):
+    USBDI_Version: UInt32
+    Supported_USB_Version: UInt32
+class USBFN_BUS_CONFIGURATION_INFO(Structure):
+    ConfigurationName: Char * 40
+    IsCurrent: win32more.Foundation.BOOLEAN
+    IsActive: win32more.Foundation.BOOLEAN
+USBFN_BUS_SPEED = Int32
+USBFN_BUS_SPEED_UsbfnBusSpeedLow: USBFN_BUS_SPEED = 0
+USBFN_BUS_SPEED_UsbfnBusSpeedFull: USBFN_BUS_SPEED = 1
+USBFN_BUS_SPEED_UsbfnBusSpeedHigh: USBFN_BUS_SPEED = 2
+USBFN_BUS_SPEED_UsbfnBusSpeedSuper: USBFN_BUS_SPEED = 3
+USBFN_BUS_SPEED_UsbfnBusSpeedMaximum: USBFN_BUS_SPEED = 4
+class USBFN_CLASS_INFORMATION_PACKET(Structure):
+    FullSpeedClassInterface: win32more.Devices.Usb.USBFN_CLASS_INTERFACE
+    HighSpeedClassInterface: win32more.Devices.Usb.USBFN_CLASS_INTERFACE
+    InterfaceName: Char * 40
+    InterfaceGuid: Char * 39
+    HasInterfaceGuid: win32more.Foundation.BOOLEAN
+    SuperSpeedClassInterface: win32more.Devices.Usb.USBFN_CLASS_INTERFACE
+class USBFN_CLASS_INFORMATION_PACKET_EX(Structure):
+    FullSpeedClassInterfaceEx: win32more.Devices.Usb.USBFN_CLASS_INTERFACE_EX
+    HighSpeedClassInterfaceEx: win32more.Devices.Usb.USBFN_CLASS_INTERFACE_EX
+    SuperSpeedClassInterfaceEx: win32more.Devices.Usb.USBFN_CLASS_INTERFACE_EX
+    InterfaceName: Char * 40
+    InterfaceGuid: Char * 39
+    HasInterfaceGuid: win32more.Foundation.BOOLEAN
+class USBFN_CLASS_INTERFACE(Structure):
+    InterfaceNumber: Byte
+    PipeCount: Byte
+    PipeArr: win32more.Devices.Usb.USBFN_PIPE_INFORMATION * 16
+class USBFN_CLASS_INTERFACE_EX(Structure):
+    BaseInterfaceNumber: Byte
+    InterfaceCount: Byte
+    PipeCount: Byte
+    PipeArr: win32more.Devices.Usb.USBFN_PIPE_INFORMATION * 16
+USBFN_DEVICE_STATE = Int32
+USBFN_DEVICE_STATE_UsbfnDeviceStateMinimum: USBFN_DEVICE_STATE = 0
+USBFN_DEVICE_STATE_UsbfnDeviceStateAttached: USBFN_DEVICE_STATE = 1
+USBFN_DEVICE_STATE_UsbfnDeviceStateDefault: USBFN_DEVICE_STATE = 2
+USBFN_DEVICE_STATE_UsbfnDeviceStateDetached: USBFN_DEVICE_STATE = 3
+USBFN_DEVICE_STATE_UsbfnDeviceStateAddressed: USBFN_DEVICE_STATE = 4
+USBFN_DEVICE_STATE_UsbfnDeviceStateConfigured: USBFN_DEVICE_STATE = 5
+USBFN_DEVICE_STATE_UsbfnDeviceStateSuspended: USBFN_DEVICE_STATE = 6
+USBFN_DEVICE_STATE_UsbfnDeviceStateStateMaximum: USBFN_DEVICE_STATE = 7
+USBFN_DIRECTION = Int32
+USBFN_DIRECTION_UsbfnDirectionMinimum: USBFN_DIRECTION = 0
+USBFN_DIRECTION_UsbfnDirectionIn: USBFN_DIRECTION = 1
+USBFN_DIRECTION_UsbfnDirectionOut: USBFN_DIRECTION = 2
+USBFN_DIRECTION_UsbfnDirectionTx: USBFN_DIRECTION = 1
+USBFN_DIRECTION_UsbfnDirectionRx: USBFN_DIRECTION = 2
+USBFN_DIRECTION_UsbfnDirectionMaximum: USBFN_DIRECTION = 3
+USBFN_EVENT = Int32
+USBFN_EVENT_UsbfnEventMinimum: USBFN_EVENT = 0
+USBFN_EVENT_UsbfnEventAttach: USBFN_EVENT = 1
+USBFN_EVENT_UsbfnEventReset: USBFN_EVENT = 2
+USBFN_EVENT_UsbfnEventDetach: USBFN_EVENT = 3
+USBFN_EVENT_UsbfnEventSuspend: USBFN_EVENT = 4
+USBFN_EVENT_UsbfnEventResume: USBFN_EVENT = 5
+USBFN_EVENT_UsbfnEventSetupPacket: USBFN_EVENT = 6
+USBFN_EVENT_UsbfnEventConfigured: USBFN_EVENT = 7
+USBFN_EVENT_UsbfnEventUnConfigured: USBFN_EVENT = 8
+USBFN_EVENT_UsbfnEventPortType: USBFN_EVENT = 9
+USBFN_EVENT_UsbfnEventBusTearDown: USBFN_EVENT = 10
+USBFN_EVENT_UsbfnEventSetInterface: USBFN_EVENT = 11
+USBFN_EVENT_UsbfnEventMaximum: USBFN_EVENT = 12
+class USBFN_INTERFACE_INFO(Structure):
+    InterfaceNumber: Byte
+    Speed: win32more.Devices.Usb.USBFN_BUS_SPEED
+    Size: UInt16
+    InterfaceDescriptorSet: Byte * 1
+class USBFN_NOTIFICATION(Structure):
+    Event: win32more.Devices.Usb.USBFN_EVENT
+    u: _u_e__Union
+    class _u_e__Union(Union):
+        BusSpeed: win32more.Devices.Usb.USBFN_BUS_SPEED
+        SetupPacket: win32more.Devices.Usb.USB_DEFAULT_PIPE_SETUP_PACKET
+        ConfigurationValue: UInt16
+        PortType: win32more.Devices.Usb.USBFN_PORT_TYPE
+        AlternateInterface: win32more.Devices.Usb.ALTERNATE_INTERFACE
+class USBFN_PIPE_INFORMATION(Structure):
+    EpDesc: win32more.Devices.Usb.USB_ENDPOINT_DESCRIPTOR
+    PipeId: UInt32
+USBFN_PORT_TYPE = Int32
+USBFN_PORT_TYPE_UsbfnUnknownPort: USBFN_PORT_TYPE = 0
+USBFN_PORT_TYPE_UsbfnStandardDownstreamPort: USBFN_PORT_TYPE = 1
+USBFN_PORT_TYPE_UsbfnChargingDownstreamPort: USBFN_PORT_TYPE = 2
+USBFN_PORT_TYPE_UsbfnDedicatedChargingPort: USBFN_PORT_TYPE = 3
+USBFN_PORT_TYPE_UsbfnInvalidDedicatedChargingPort: USBFN_PORT_TYPE = 4
+USBFN_PORT_TYPE_UsbfnProprietaryDedicatedChargingPort: USBFN_PORT_TYPE = 5
+USBFN_PORT_TYPE_UsbfnPortTypeMaximum: USBFN_PORT_TYPE = 6
+class USBFN_USB_STRING(Structure):
+    StringIndex: Byte
+    UsbString: Char * 255
+class USBSCAN_GET_DESCRIPTOR(Structure):
+    DescriptorType: Byte
+    Index: Byte
+    LanguageId: UInt16
+class USBSCAN_PIPE_CONFIGURATION(Structure):
+    NumberOfPipes: UInt32
+    PipeInfo: win32more.Devices.Usb.USBSCAN_PIPE_INFORMATION * 8
+class USBSCAN_PIPE_INFORMATION(Structure):
+    MaximumPacketSize: UInt16
+    EndpointAddress: Byte
+    Interval: Byte
+    PipeType: win32more.Devices.Usb.RAW_PIPE_TYPE
+class USBSCAN_TIMEOUT(Structure):
+    TimeoutRead: UInt32
+    TimeoutWrite: UInt32
+    TimeoutEvent: UInt32
+class USBUSER_BANDWIDTH_INFO_REQUEST(Structure):
+    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
+    BandwidthInformation: win32more.Devices.Usb.USB_BANDWIDTH_INFO
+    _pack_ = 1
+class USBUSER_BUS_STATISTICS_0_REQUEST(Structure):
+    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
+    BusStatistics0: win32more.Devices.Usb.USB_BUS_STATISTICS_0
+    _pack_ = 1
+class USBUSER_CLOSE_RAW_DEVICE(Structure):
+    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
+    Parameters: win32more.Devices.Usb.USB_CLOSE_RAW_DEVICE_PARAMETERS
+    _pack_ = 1
+class USBUSER_CONTROLLER_INFO_0(Structure):
+    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
+    Info0: win32more.Devices.Usb.USB_CONTROLLER_INFO_0
+    _pack_ = 1
+class USBUSER_CONTROLLER_UNICODE_NAME(Structure):
+    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
+    UnicodeName: win32more.Devices.Usb.USB_UNICODE_NAME
+    _pack_ = 1
+class USBUSER_GET_DRIVER_VERSION(Structure):
+    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
+    Parameters: win32more.Devices.Usb.USB_DRIVER_VERSION_PARAMETERS
+    _pack_ = 1
+class USBUSER_GET_USB2HW_VERSION(Structure):
+    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
+    Parameters: win32more.Devices.Usb.USB_USB2HW_VERSION_PARAMETERS
+    _pack_ = 1
+class USBUSER_OPEN_RAW_DEVICE(Structure):
+    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
+    Parameters: win32more.Devices.Usb.USB_OPEN_RAW_DEVICE_PARAMETERS
+    _pack_ = 1
+class USBUSER_PASS_THRU_REQUEST(Structure):
+    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
+    PassThru: win32more.Devices.Usb.USB_PASS_THRU_PARAMETERS
+    _pack_ = 1
+class USBUSER_POWER_INFO_REQUEST(Structure):
+    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
+    PowerInformation: win32more.Devices.Usb.USB_POWER_INFO
+    _pack_ = 1
+class USBUSER_RAW_RESET_ROOT_PORT(Structure):
+    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
+    Parameters: win32more.Devices.Usb.RAW_RESET_PORT_PARAMETERS
+    _pack_ = 1
+class USBUSER_REFRESH_HCT_REG(Structure):
+    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
+    Flags: UInt32
+    _pack_ = 1
+class USBUSER_REQUEST_HEADER(Structure):
+    UsbUserRequest: UInt32
+    UsbUserStatusCode: win32more.Devices.Usb.USB_USER_ERROR_CODE
+    RequestBufferLength: UInt32
+    ActualBufferLength: UInt32
+    _pack_ = 1
+class USBUSER_ROOTPORT_FEATURE_REQUEST(Structure):
+    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
+    Parameters: win32more.Devices.Usb.RAW_ROOTPORT_FEATURE
+    _pack_ = 1
+class USBUSER_ROOTPORT_PARAMETERS(Structure):
+    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
+    Parameters: win32more.Devices.Usb.RAW_ROOTPORT_PARAMETERS
+    _pack_ = 1
+class USBUSER_SEND_ONE_PACKET(Structure):
+    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
+    PacketParameters: win32more.Devices.Usb.PACKET_PARAMETERS
+    _pack_ = 1
+class USBUSER_SEND_RAW_COMMAND(Structure):
+    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
+    Parameters: win32more.Devices.Usb.USB_SEND_RAW_COMMAND_PARAMETERS
+    _pack_ = 1
 class USB_20_PORT_CHANGE(Union):
     AsUshort16: UInt16
     Anonymous: _Anonymous_e__Struct
@@ -1161,16 +1222,6 @@ class USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR(Structure):
         class _Anonymous_e__Struct(Structure):
             _bitfield: UInt32
             _pack_ = 1
-class USB_DEVICE_CAPABILITY_SUPERSPEED_USB_DESCRIPTOR(Structure):
-    bLength: Byte
-    bDescriptorType: Byte
-    bDevCapabilityType: Byte
-    bmAttributes: Byte
-    wSpeedsSupported: UInt16
-    bFunctionalitySupport: Byte
-    bU1DevExitLat: Byte
-    wU2DevExitLat: UInt16
-    _pack_ = 1
 class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED(Union):
     AsUlong32: UInt32
     Anonymous: _Anonymous_e__Struct
@@ -1202,6 +1253,16 @@ class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR(Structure):
         class _Anonymous_e__Struct(Structure):
             _bitfield: UInt16
             _pack_ = 1
+class USB_DEVICE_CAPABILITY_SUPERSPEED_USB_DESCRIPTOR(Structure):
+    bLength: Byte
+    bDescriptorType: Byte
+    bDevCapabilityType: Byte
+    bmAttributes: Byte
+    wSpeedsSupported: UInt16
+    bFunctionalitySupport: Byte
+    bU1DevExitLat: Byte
+    wU2DevExitLat: UInt16
+    _pack_ = 1
 class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
@@ -1460,6 +1521,12 @@ class USB_STRING_DESCRIPTOR(Structure):
     bDescriptorType: Byte
     bString: Char * 1
     _pack_ = 1
+class USB_SUPERSPEEDPLUS_ISOCH_ENDPOINT_COMPANION_DESCRIPTOR(Structure):
+    bLength: Byte
+    bDescriptorType: Byte
+    wReserved: UInt16
+    dwBytesPerInterval: UInt32
+    _pack_ = 1
 class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR(Structure):
     bLength: Byte
     bDescriptorType: Byte
@@ -1475,12 +1542,6 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR(Structure):
             _bitfield: Byte
         class _Isochronous_e__Struct(Structure):
             _bitfield: Byte
-class USB_SUPERSPEEDPLUS_ISOCH_ENDPOINT_COMPANION_DESCRIPTOR(Structure):
-    bLength: Byte
-    bDescriptorType: Byte
-    wReserved: UInt16
-    dwBytesPerInterval: UInt32
-    _pack_ = 1
 class USB_UNICODE_NAME(Structure):
     Length: UInt32
     String: Char * 1
@@ -1500,244 +1561,6 @@ USB_USER_ERROR_CODE_UsbUserBufferTooSmall: USB_USER_ERROR_CODE = 7
 USB_USER_ERROR_CODE_UsbUserErrorNotMapped: USB_USER_ERROR_CODE = 8
 USB_USER_ERROR_CODE_UsbUserDeviceNotStarted: USB_USER_ERROR_CODE = 9
 USB_USER_ERROR_CODE_UsbUserNoDeviceConnected: USB_USER_ERROR_CODE = 10
-class USBD_DEVICE_INFORMATION(Structure):
-    OffsetNext: UInt32
-    UsbdDeviceHandle: c_void_p
-    DeviceDescriptor: win32more.Devices.Usb.USB_DEVICE_DESCRIPTOR
-class USBD_ENDPOINT_OFFLOAD_INFORMATION(Structure):
-    Size: UInt32
-    EndpointAddress: UInt16
-    ResourceId: UInt32
-    Mode: win32more.Devices.Usb.USBD_ENDPOINT_OFFLOAD_MODE
-    _bitfield1: UInt32
-    _bitfield2: UInt32
-    TransferSegmentLA: win32more.Foundation.LARGE_INTEGER
-    TransferSegmentVA: c_void_p
-    TransferRingSize: UIntPtr
-    TransferRingInitialCycleBit: UInt32
-    MessageNumber: UInt32
-    EventRingSegmentLA: win32more.Foundation.LARGE_INTEGER
-    EventRingSegmentVA: c_void_p
-    EventRingSize: UIntPtr
-    EventRingInitialCycleBit: UInt32
-    _pack_ = 1
-USBD_ENDPOINT_OFFLOAD_MODE = Int32
-USBD_ENDPOINT_OFFLOAD_MODE_UsbdEndpointOffloadModeNotSupported: USBD_ENDPOINT_OFFLOAD_MODE = 0
-USBD_ENDPOINT_OFFLOAD_MODE_UsbdEndpointOffloadSoftwareAssisted: USBD_ENDPOINT_OFFLOAD_MODE = 1
-USBD_ENDPOINT_OFFLOAD_MODE_UsbdEndpointOffloadHardwareAssisted: USBD_ENDPOINT_OFFLOAD_MODE = 2
-class USBD_INTERFACE_INFORMATION(Structure):
-    Length: UInt16
-    InterfaceNumber: Byte
-    AlternateSetting: Byte
-    Class: Byte
-    SubClass: Byte
-    Protocol: Byte
-    Reserved: Byte
-    InterfaceHandle: c_void_p
-    NumberOfPipes: UInt32
-    Pipes: win32more.Devices.Usb.USBD_PIPE_INFORMATION * 1
-class USBD_ISO_PACKET_DESCRIPTOR(Structure):
-    Offset: UInt32
-    Length: UInt32
-    Status: Int32
-class USBD_PIPE_INFORMATION(Structure):
-    MaximumPacketSize: UInt16
-    EndpointAddress: Byte
-    Interval: Byte
-    PipeType: win32more.Devices.Usb.USBD_PIPE_TYPE
-    PipeHandle: c_void_p
-    MaximumTransferSize: UInt32
-    PipeFlags: UInt32
-USBD_PIPE_TYPE = Int32
-USBD_PIPE_TYPE_UsbdPipeTypeControl: USBD_PIPE_TYPE = 0
-USBD_PIPE_TYPE_UsbdPipeTypeIsochronous: USBD_PIPE_TYPE = 1
-USBD_PIPE_TYPE_UsbdPipeTypeBulk: USBD_PIPE_TYPE = 2
-USBD_PIPE_TYPE_UsbdPipeTypeInterrupt: USBD_PIPE_TYPE = 3
-class USBD_STREAM_INFORMATION(Structure):
-    PipeHandle: c_void_p
-    StreamID: UInt32
-    MaximumTransferSize: UInt32
-    PipeFlags: UInt32
-class USBD_VERSION_INFORMATION(Structure):
-    USBDI_Version: UInt32
-    Supported_USB_Version: UInt32
-class USBFN_BUS_CONFIGURATION_INFO(Structure):
-    ConfigurationName: Char * 40
-    IsCurrent: win32more.Foundation.BOOLEAN
-    IsActive: win32more.Foundation.BOOLEAN
-USBFN_BUS_SPEED = Int32
-USBFN_BUS_SPEED_UsbfnBusSpeedLow: USBFN_BUS_SPEED = 0
-USBFN_BUS_SPEED_UsbfnBusSpeedFull: USBFN_BUS_SPEED = 1
-USBFN_BUS_SPEED_UsbfnBusSpeedHigh: USBFN_BUS_SPEED = 2
-USBFN_BUS_SPEED_UsbfnBusSpeedSuper: USBFN_BUS_SPEED = 3
-USBFN_BUS_SPEED_UsbfnBusSpeedMaximum: USBFN_BUS_SPEED = 4
-class USBFN_CLASS_INFORMATION_PACKET(Structure):
-    FullSpeedClassInterface: win32more.Devices.Usb.USBFN_CLASS_INTERFACE
-    HighSpeedClassInterface: win32more.Devices.Usb.USBFN_CLASS_INTERFACE
-    InterfaceName: Char * 40
-    InterfaceGuid: Char * 39
-    HasInterfaceGuid: win32more.Foundation.BOOLEAN
-    SuperSpeedClassInterface: win32more.Devices.Usb.USBFN_CLASS_INTERFACE
-class USBFN_CLASS_INFORMATION_PACKET_EX(Structure):
-    FullSpeedClassInterfaceEx: win32more.Devices.Usb.USBFN_CLASS_INTERFACE_EX
-    HighSpeedClassInterfaceEx: win32more.Devices.Usb.USBFN_CLASS_INTERFACE_EX
-    SuperSpeedClassInterfaceEx: win32more.Devices.Usb.USBFN_CLASS_INTERFACE_EX
-    InterfaceName: Char * 40
-    InterfaceGuid: Char * 39
-    HasInterfaceGuid: win32more.Foundation.BOOLEAN
-class USBFN_CLASS_INTERFACE(Structure):
-    InterfaceNumber: Byte
-    PipeCount: Byte
-    PipeArr: win32more.Devices.Usb.USBFN_PIPE_INFORMATION * 16
-class USBFN_CLASS_INTERFACE_EX(Structure):
-    BaseInterfaceNumber: Byte
-    InterfaceCount: Byte
-    PipeCount: Byte
-    PipeArr: win32more.Devices.Usb.USBFN_PIPE_INFORMATION * 16
-USBFN_DEVICE_STATE = Int32
-USBFN_DEVICE_STATE_UsbfnDeviceStateMinimum: USBFN_DEVICE_STATE = 0
-USBFN_DEVICE_STATE_UsbfnDeviceStateAttached: USBFN_DEVICE_STATE = 1
-USBFN_DEVICE_STATE_UsbfnDeviceStateDefault: USBFN_DEVICE_STATE = 2
-USBFN_DEVICE_STATE_UsbfnDeviceStateDetached: USBFN_DEVICE_STATE = 3
-USBFN_DEVICE_STATE_UsbfnDeviceStateAddressed: USBFN_DEVICE_STATE = 4
-USBFN_DEVICE_STATE_UsbfnDeviceStateConfigured: USBFN_DEVICE_STATE = 5
-USBFN_DEVICE_STATE_UsbfnDeviceStateSuspended: USBFN_DEVICE_STATE = 6
-USBFN_DEVICE_STATE_UsbfnDeviceStateStateMaximum: USBFN_DEVICE_STATE = 7
-USBFN_DIRECTION = Int32
-USBFN_DIRECTION_UsbfnDirectionMinimum: USBFN_DIRECTION = 0
-USBFN_DIRECTION_UsbfnDirectionIn: USBFN_DIRECTION = 1
-USBFN_DIRECTION_UsbfnDirectionOut: USBFN_DIRECTION = 2
-USBFN_DIRECTION_UsbfnDirectionTx: USBFN_DIRECTION = 1
-USBFN_DIRECTION_UsbfnDirectionRx: USBFN_DIRECTION = 2
-USBFN_DIRECTION_UsbfnDirectionMaximum: USBFN_DIRECTION = 3
-USBFN_EVENT = Int32
-USBFN_EVENT_UsbfnEventMinimum: USBFN_EVENT = 0
-USBFN_EVENT_UsbfnEventAttach: USBFN_EVENT = 1
-USBFN_EVENT_UsbfnEventReset: USBFN_EVENT = 2
-USBFN_EVENT_UsbfnEventDetach: USBFN_EVENT = 3
-USBFN_EVENT_UsbfnEventSuspend: USBFN_EVENT = 4
-USBFN_EVENT_UsbfnEventResume: USBFN_EVENT = 5
-USBFN_EVENT_UsbfnEventSetupPacket: USBFN_EVENT = 6
-USBFN_EVENT_UsbfnEventConfigured: USBFN_EVENT = 7
-USBFN_EVENT_UsbfnEventUnConfigured: USBFN_EVENT = 8
-USBFN_EVENT_UsbfnEventPortType: USBFN_EVENT = 9
-USBFN_EVENT_UsbfnEventBusTearDown: USBFN_EVENT = 10
-USBFN_EVENT_UsbfnEventSetInterface: USBFN_EVENT = 11
-USBFN_EVENT_UsbfnEventMaximum: USBFN_EVENT = 12
-class USBFN_INTERFACE_INFO(Structure):
-    InterfaceNumber: Byte
-    Speed: win32more.Devices.Usb.USBFN_BUS_SPEED
-    Size: UInt16
-    InterfaceDescriptorSet: Byte * 1
-class USBFN_NOTIFICATION(Structure):
-    Event: win32more.Devices.Usb.USBFN_EVENT
-    u: _u_e__Union
-    class _u_e__Union(Union):
-        BusSpeed: win32more.Devices.Usb.USBFN_BUS_SPEED
-        SetupPacket: win32more.Devices.Usb.USB_DEFAULT_PIPE_SETUP_PACKET
-        ConfigurationValue: UInt16
-        PortType: win32more.Devices.Usb.USBFN_PORT_TYPE
-        AlternateInterface: win32more.Devices.Usb.ALTERNATE_INTERFACE
-class USBFN_PIPE_INFORMATION(Structure):
-    EpDesc: win32more.Devices.Usb.USB_ENDPOINT_DESCRIPTOR
-    PipeId: UInt32
-USBFN_PORT_TYPE = Int32
-USBFN_PORT_TYPE_UsbfnUnknownPort: USBFN_PORT_TYPE = 0
-USBFN_PORT_TYPE_UsbfnStandardDownstreamPort: USBFN_PORT_TYPE = 1
-USBFN_PORT_TYPE_UsbfnChargingDownstreamPort: USBFN_PORT_TYPE = 2
-USBFN_PORT_TYPE_UsbfnDedicatedChargingPort: USBFN_PORT_TYPE = 3
-USBFN_PORT_TYPE_UsbfnInvalidDedicatedChargingPort: USBFN_PORT_TYPE = 4
-USBFN_PORT_TYPE_UsbfnProprietaryDedicatedChargingPort: USBFN_PORT_TYPE = 5
-USBFN_PORT_TYPE_UsbfnPortTypeMaximum: USBFN_PORT_TYPE = 6
-class USBFN_USB_STRING(Structure):
-    StringIndex: Byte
-    UsbString: Char * 255
-class USBSCAN_GET_DESCRIPTOR(Structure):
-    DescriptorType: Byte
-    Index: Byte
-    LanguageId: UInt16
-class USBSCAN_PIPE_CONFIGURATION(Structure):
-    NumberOfPipes: UInt32
-    PipeInfo: win32more.Devices.Usb.USBSCAN_PIPE_INFORMATION * 8
-class USBSCAN_PIPE_INFORMATION(Structure):
-    MaximumPacketSize: UInt16
-    EndpointAddress: Byte
-    Interval: Byte
-    PipeType: win32more.Devices.Usb.RAW_PIPE_TYPE
-class USBSCAN_TIMEOUT(Structure):
-    TimeoutRead: UInt32
-    TimeoutWrite: UInt32
-    TimeoutEvent: UInt32
-class USBUSER_BANDWIDTH_INFO_REQUEST(Structure):
-    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
-    BandwidthInformation: win32more.Devices.Usb.USB_BANDWIDTH_INFO
-    _pack_ = 1
-class USBUSER_BUS_STATISTICS_0_REQUEST(Structure):
-    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
-    BusStatistics0: win32more.Devices.Usb.USB_BUS_STATISTICS_0
-    _pack_ = 1
-class USBUSER_CLOSE_RAW_DEVICE(Structure):
-    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
-    Parameters: win32more.Devices.Usb.USB_CLOSE_RAW_DEVICE_PARAMETERS
-    _pack_ = 1
-class USBUSER_CONTROLLER_INFO_0(Structure):
-    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
-    Info0: win32more.Devices.Usb.USB_CONTROLLER_INFO_0
-    _pack_ = 1
-class USBUSER_CONTROLLER_UNICODE_NAME(Structure):
-    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
-    UnicodeName: win32more.Devices.Usb.USB_UNICODE_NAME
-    _pack_ = 1
-class USBUSER_GET_DRIVER_VERSION(Structure):
-    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
-    Parameters: win32more.Devices.Usb.USB_DRIVER_VERSION_PARAMETERS
-    _pack_ = 1
-class USBUSER_GET_USB2HW_VERSION(Structure):
-    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
-    Parameters: win32more.Devices.Usb.USB_USB2HW_VERSION_PARAMETERS
-    _pack_ = 1
-class USBUSER_OPEN_RAW_DEVICE(Structure):
-    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
-    Parameters: win32more.Devices.Usb.USB_OPEN_RAW_DEVICE_PARAMETERS
-    _pack_ = 1
-class USBUSER_PASS_THRU_REQUEST(Structure):
-    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
-    PassThru: win32more.Devices.Usb.USB_PASS_THRU_PARAMETERS
-    _pack_ = 1
-class USBUSER_POWER_INFO_REQUEST(Structure):
-    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
-    PowerInformation: win32more.Devices.Usb.USB_POWER_INFO
-    _pack_ = 1
-class USBUSER_RAW_RESET_ROOT_PORT(Structure):
-    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
-    Parameters: win32more.Devices.Usb.RAW_RESET_PORT_PARAMETERS
-    _pack_ = 1
-class USBUSER_REFRESH_HCT_REG(Structure):
-    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
-    Flags: UInt32
-    _pack_ = 1
-class USBUSER_REQUEST_HEADER(Structure):
-    UsbUserRequest: UInt32
-    UsbUserStatusCode: win32more.Devices.Usb.USB_USER_ERROR_CODE
-    RequestBufferLength: UInt32
-    ActualBufferLength: UInt32
-    _pack_ = 1
-class USBUSER_ROOTPORT_FEATURE_REQUEST(Structure):
-    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
-    Parameters: win32more.Devices.Usb.RAW_ROOTPORT_FEATURE
-    _pack_ = 1
-class USBUSER_ROOTPORT_PARAMETERS(Structure):
-    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
-    Parameters: win32more.Devices.Usb.RAW_ROOTPORT_PARAMETERS
-    _pack_ = 1
-class USBUSER_SEND_ONE_PACKET(Structure):
-    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
-    PacketParameters: win32more.Devices.Usb.PACKET_PARAMETERS
-    _pack_ = 1
-class USBUSER_SEND_RAW_COMMAND(Structure):
-    Header: win32more.Devices.Usb.USBUSER_REQUEST_HEADER
-    Parameters: win32more.Devices.Usb.USB_SEND_RAW_COMMAND_PARAMETERS
-    _pack_ = 1
 WDMUSB_POWER_STATE = Int32
 WDMUSB_POWER_STATE_WdmUsbPowerNotMapped: WDMUSB_POWER_STATE = 0
 WDMUSB_POWER_STATE_WdmUsbPowerSystemUnspecified: WDMUSB_POWER_STATE = 100
@@ -1784,28 +1607,183 @@ class WINUSB_SETUP_PACKET(Structure):
     Index: UInt16
     Length: UInt16
     _pack_ = 1
-make_head(_module, '_URB_BULK_OR_INTERRUPT_TRANSFER')
-make_head(_module, '_URB_CONTROL_DESCRIPTOR_REQUEST')
-make_head(_module, '_URB_CONTROL_FEATURE_REQUEST')
-make_head(_module, '_URB_CONTROL_GET_CONFIGURATION_REQUEST')
-make_head(_module, '_URB_CONTROL_GET_INTERFACE_REQUEST')
-make_head(_module, '_URB_CONTROL_GET_STATUS_REQUEST')
-make_head(_module, '_URB_CONTROL_TRANSFER')
-make_head(_module, '_URB_CONTROL_TRANSFER_EX')
-make_head(_module, '_URB_CONTROL_VENDOR_OR_CLASS_REQUEST')
-make_head(_module, '_URB_FRAME_LENGTH_CONTROL')
-make_head(_module, '_URB_GET_CURRENT_FRAME_NUMBER')
-make_head(_module, '_URB_GET_FRAME_LENGTH')
-make_head(_module, '_URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS')
-make_head(_module, '_URB_HCD_AREA')
-make_head(_module, '_URB_HEADER')
-make_head(_module, '_URB_ISOCH_TRANSFER')
-make_head(_module, '_URB_OPEN_STATIC_STREAMS')
-make_head(_module, '_URB_OS_FEATURE_DESCRIPTOR_REQUEST')
-make_head(_module, '_URB_PIPE_REQUEST')
-make_head(_module, '_URB_SELECT_CONFIGURATION')
-make_head(_module, '_URB_SELECT_INTERFACE')
-make_head(_module, '_URB_SET_FRAME_LENGTH')
+class _URB_BULK_OR_INTERRUPT_TRANSFER(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    PipeHandle: c_void_p
+    TransferFlags: UInt32
+    TransferBufferLength: UInt32
+    TransferBuffer: c_void_p
+    TransferBufferMDL: c_void_p
+    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
+    hca: win32more.Devices.Usb._URB_HCD_AREA
+class _URB_CONTROL_DESCRIPTOR_REQUEST(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    Reserved: c_void_p
+    Reserved0: UInt32
+    TransferBufferLength: UInt32
+    TransferBuffer: c_void_p
+    TransferBufferMDL: c_void_p
+    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
+    hca: win32more.Devices.Usb._URB_HCD_AREA
+    Reserved1: UInt16
+    Index: Byte
+    DescriptorType: Byte
+    LanguageId: UInt16
+    Reserved2: UInt16
+class _URB_CONTROL_FEATURE_REQUEST(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    Reserved: c_void_p
+    Reserved2: UInt32
+    Reserved3: UInt32
+    Reserved4: c_void_p
+    Reserved5: c_void_p
+    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
+    hca: win32more.Devices.Usb._URB_HCD_AREA
+    Reserved0: UInt16
+    FeatureSelector: UInt16
+    Index: UInt16
+    Reserved1: UInt16
+class _URB_CONTROL_GET_CONFIGURATION_REQUEST(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    Reserved: c_void_p
+    Reserved0: UInt32
+    TransferBufferLength: UInt32
+    TransferBuffer: c_void_p
+    TransferBufferMDL: c_void_p
+    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
+    hca: win32more.Devices.Usb._URB_HCD_AREA
+    Reserved1: Byte * 8
+class _URB_CONTROL_GET_INTERFACE_REQUEST(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    Reserved: c_void_p
+    Reserved0: UInt32
+    TransferBufferLength: UInt32
+    TransferBuffer: c_void_p
+    TransferBufferMDL: c_void_p
+    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
+    hca: win32more.Devices.Usb._URB_HCD_AREA
+    Reserved1: Byte * 4
+    Interface: UInt16
+    Reserved2: UInt16
+class _URB_CONTROL_GET_STATUS_REQUEST(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    Reserved: c_void_p
+    Reserved0: UInt32
+    TransferBufferLength: UInt32
+    TransferBuffer: c_void_p
+    TransferBufferMDL: c_void_p
+    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
+    hca: win32more.Devices.Usb._URB_HCD_AREA
+    Reserved1: Byte * 4
+    Index: UInt16
+    Reserved2: UInt16
+class _URB_CONTROL_TRANSFER(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    PipeHandle: c_void_p
+    TransferFlags: UInt32
+    TransferBufferLength: UInt32
+    TransferBuffer: c_void_p
+    TransferBufferMDL: c_void_p
+    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
+    hca: win32more.Devices.Usb._URB_HCD_AREA
+    SetupPacket: Byte * 8
+class _URB_CONTROL_TRANSFER_EX(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    PipeHandle: c_void_p
+    TransferFlags: UInt32
+    TransferBufferLength: UInt32
+    TransferBuffer: c_void_p
+    TransferBufferMDL: c_void_p
+    Timeout: UInt32
+    hca: win32more.Devices.Usb._URB_HCD_AREA
+    SetupPacket: Byte * 8
+class _URB_CONTROL_VENDOR_OR_CLASS_REQUEST(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    Reserved: c_void_p
+    TransferFlags: UInt32
+    TransferBufferLength: UInt32
+    TransferBuffer: c_void_p
+    TransferBufferMDL: c_void_p
+    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
+    hca: win32more.Devices.Usb._URB_HCD_AREA
+    RequestTypeReservedBits: Byte
+    Request: Byte
+    Value: UInt16
+    Index: UInt16
+    Reserved1: UInt16
+class _URB_FRAME_LENGTH_CONTROL(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+class _URB_GET_CURRENT_FRAME_NUMBER(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    FrameNumber: UInt32
+class _URB_GET_FRAME_LENGTH(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    FrameLength: UInt32
+    FrameNumber: UInt32
+class _URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    PipeHandle: c_void_p
+    MaximumSendPathDelayInMilliSeconds: UInt32
+    MaximumCompletionPathDelayInMilliSeconds: UInt32
+class _URB_HCD_AREA(Structure):
+    Reserved8: c_void_p * 8
+class _URB_HEADER(Structure):
+    Length: UInt16
+    Function: UInt16
+    Status: Int32
+    UsbdDeviceHandle: c_void_p
+    UsbdFlags: UInt32
+class _URB_ISOCH_TRANSFER(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    PipeHandle: c_void_p
+    TransferFlags: UInt32
+    TransferBufferLength: UInt32
+    TransferBuffer: c_void_p
+    TransferBufferMDL: c_void_p
+    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
+    hca: win32more.Devices.Usb._URB_HCD_AREA
+    StartFrame: UInt32
+    NumberOfPackets: UInt32
+    ErrorCount: UInt32
+    IsoPacket: win32more.Devices.Usb.USBD_ISO_PACKET_DESCRIPTOR * 1
+class _URB_OPEN_STATIC_STREAMS(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    PipeHandle: c_void_p
+    NumberOfStreams: UInt32
+    StreamInfoVersion: UInt16
+    StreamInfoSize: UInt16
+    Streams: POINTER(win32more.Devices.Usb.USBD_STREAM_INFORMATION_head)
+class _URB_OS_FEATURE_DESCRIPTOR_REQUEST(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    Reserved: c_void_p
+    Reserved0: UInt32
+    TransferBufferLength: UInt32
+    TransferBuffer: c_void_p
+    TransferBufferMDL: c_void_p
+    UrbLink: POINTER(win32more.Devices.Usb.URB_head)
+    hca: win32more.Devices.Usb._URB_HCD_AREA
+    _bitfield: Byte
+    Reserved2: Byte
+    InterfaceNumber: Byte
+    MS_PageIndex: Byte
+    MS_FeatureDescriptorIndex: UInt16
+    Reserved3: UInt16
+class _URB_PIPE_REQUEST(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    PipeHandle: c_void_p
+    Reserved: UInt32
+class _URB_SELECT_CONFIGURATION(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    ConfigurationDescriptor: POINTER(win32more.Devices.Usb.USB_CONFIGURATION_DESCRIPTOR_head)
+    ConfigurationHandle: c_void_p
+    Interface: win32more.Devices.Usb.USBD_INTERFACE_INFORMATION
+class _URB_SELECT_INTERFACE(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    ConfigurationHandle: c_void_p
+    Interface: win32more.Devices.Usb.USBD_INTERFACE_INFORMATION
+class _URB_SET_FRAME_LENGTH(Structure):
+    Hdr: win32more.Devices.Usb._URB_HEADER
+    FrameLengthDelta: Int32
 make_head(_module, 'ALTERNATE_INTERFACE')
 make_head(_module, 'BM_REQUEST_TYPE')
 make_head(_module, 'CHANNEL_INFO')
@@ -1819,67 +1797,6 @@ make_head(_module, 'RAW_RESET_PORT_PARAMETERS')
 make_head(_module, 'RAW_ROOTPORT_FEATURE')
 make_head(_module, 'RAW_ROOTPORT_PARAMETERS')
 make_head(_module, 'URB')
-make_head(_module, 'USB_20_PORT_CHANGE')
-make_head(_module, 'USB_20_PORT_STATUS')
-make_head(_module, 'USB_30_HUB_DESCRIPTOR')
-make_head(_module, 'USB_30_PORT_CHANGE')
-make_head(_module, 'USB_30_PORT_STATUS')
-make_head(_module, 'USB_BANDWIDTH_INFO')
-make_head(_module, 'USB_BOS_DESCRIPTOR')
-make_head(_module, 'USB_BUS_STATISTICS_0')
-make_head(_module, 'USB_CLOSE_RAW_DEVICE_PARAMETERS')
-make_head(_module, 'USB_COMMON_DESCRIPTOR')
-make_head(_module, 'USB_CONFIGURATION_DESCRIPTOR')
-make_head(_module, 'USB_CONFIGURATION_POWER_DESCRIPTOR')
-make_head(_module, 'USB_CONTROLLER_INFO_0')
-make_head(_module, 'USB_DEFAULT_PIPE_SETUP_PACKET')
-make_head(_module, 'USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_CONTAINER_ID_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_FIRMWARE_STATUS_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_PLATFORM_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_SUPERSPEED_USB_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED')
-make_head(_module, 'USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_QUALIFIER_DESCRIPTOR')
-make_head(_module, 'USB_DEVICE_STATUS')
-make_head(_module, 'USB_DRIVER_VERSION_PARAMETERS')
-make_head(_module, 'USB_ENDPOINT_DESCRIPTOR')
-make_head(_module, 'USB_ENDPOINT_STATUS')
-make_head(_module, 'USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION')
-make_head(_module, 'USB_FUNCTION_SUSPEND_OPTIONS')
-make_head(_module, 'USB_HIGH_SPEED_MAXPACKET')
-make_head(_module, 'USB_HUB_30_PORT_REMOTE_WAKE_MASK')
-make_head(_module, 'USB_HUB_CHANGE')
-make_head(_module, 'USB_HUB_DESCRIPTOR')
-make_head(_module, 'USB_HUB_STATUS')
-make_head(_module, 'USB_HUB_STATUS_AND_CHANGE')
-make_head(_module, 'USB_IDLE_CALLBACK')
-make_head(_module, 'USB_IDLE_CALLBACK_INFO')
-make_head(_module, 'USB_INTERFACE_ASSOCIATION_DESCRIPTOR')
-make_head(_module, 'USB_INTERFACE_DESCRIPTOR')
-make_head(_module, 'USB_INTERFACE_POWER_DESCRIPTOR')
-make_head(_module, 'USB_INTERFACE_STATUS')
-make_head(_module, 'USB_OPEN_RAW_DEVICE_PARAMETERS')
-make_head(_module, 'USB_PASS_THRU_PARAMETERS')
-make_head(_module, 'USB_PORT_CHANGE')
-make_head(_module, 'USB_PORT_EXT_STATUS')
-make_head(_module, 'USB_PORT_EXT_STATUS_AND_CHANGE')
-make_head(_module, 'USB_PORT_STATUS')
-make_head(_module, 'USB_PORT_STATUS_AND_CHANGE')
-make_head(_module, 'USB_POWER_INFO')
-make_head(_module, 'USB_SEND_RAW_COMMAND_PARAMETERS')
-make_head(_module, 'USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION')
-make_head(_module, 'USB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION')
-make_head(_module, 'USB_STRING_DESCRIPTOR')
-make_head(_module, 'USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR')
-make_head(_module, 'USB_SUPERSPEEDPLUS_ISOCH_ENDPOINT_COMPANION_DESCRIPTOR')
-make_head(_module, 'USB_UNICODE_NAME')
-make_head(_module, 'USB_USB2HW_VERSION_PARAMETERS')
 make_head(_module, 'USBD_DEVICE_INFORMATION')
 make_head(_module, 'USBD_ENDPOINT_OFFLOAD_INFORMATION')
 make_head(_module, 'USBD_INTERFACE_INFORMATION')
@@ -1917,9 +1834,92 @@ make_head(_module, 'USBUSER_ROOTPORT_FEATURE_REQUEST')
 make_head(_module, 'USBUSER_ROOTPORT_PARAMETERS')
 make_head(_module, 'USBUSER_SEND_ONE_PACKET')
 make_head(_module, 'USBUSER_SEND_RAW_COMMAND')
+make_head(_module, 'USB_20_PORT_CHANGE')
+make_head(_module, 'USB_20_PORT_STATUS')
+make_head(_module, 'USB_30_HUB_DESCRIPTOR')
+make_head(_module, 'USB_30_PORT_CHANGE')
+make_head(_module, 'USB_30_PORT_STATUS')
+make_head(_module, 'USB_BANDWIDTH_INFO')
+make_head(_module, 'USB_BOS_DESCRIPTOR')
+make_head(_module, 'USB_BUS_STATISTICS_0')
+make_head(_module, 'USB_CLOSE_RAW_DEVICE_PARAMETERS')
+make_head(_module, 'USB_COMMON_DESCRIPTOR')
+make_head(_module, 'USB_CONFIGURATION_DESCRIPTOR')
+make_head(_module, 'USB_CONFIGURATION_POWER_DESCRIPTOR')
+make_head(_module, 'USB_CONTROLLER_INFO_0')
+make_head(_module, 'USB_DEFAULT_PIPE_SETUP_PACKET')
+make_head(_module, 'USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR')
+make_head(_module, 'USB_DEVICE_CAPABILITY_CONTAINER_ID_DESCRIPTOR')
+make_head(_module, 'USB_DEVICE_CAPABILITY_DESCRIPTOR')
+make_head(_module, 'USB_DEVICE_CAPABILITY_FIRMWARE_STATUS_DESCRIPTOR')
+make_head(_module, 'USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR')
+make_head(_module, 'USB_DEVICE_CAPABILITY_PLATFORM_DESCRIPTOR')
+make_head(_module, 'USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR')
+make_head(_module, 'USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED')
+make_head(_module, 'USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR')
+make_head(_module, 'USB_DEVICE_CAPABILITY_SUPERSPEED_USB_DESCRIPTOR')
+make_head(_module, 'USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR')
+make_head(_module, 'USB_DEVICE_DESCRIPTOR')
+make_head(_module, 'USB_DEVICE_QUALIFIER_DESCRIPTOR')
+make_head(_module, 'USB_DEVICE_STATUS')
+make_head(_module, 'USB_DRIVER_VERSION_PARAMETERS')
+make_head(_module, 'USB_ENDPOINT_DESCRIPTOR')
+make_head(_module, 'USB_ENDPOINT_STATUS')
+make_head(_module, 'USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION')
+make_head(_module, 'USB_FUNCTION_SUSPEND_OPTIONS')
+make_head(_module, 'USB_HIGH_SPEED_MAXPACKET')
+make_head(_module, 'USB_HUB_30_PORT_REMOTE_WAKE_MASK')
+make_head(_module, 'USB_HUB_CHANGE')
+make_head(_module, 'USB_HUB_DESCRIPTOR')
+make_head(_module, 'USB_HUB_STATUS')
+make_head(_module, 'USB_HUB_STATUS_AND_CHANGE')
+make_head(_module, 'USB_IDLE_CALLBACK')
+make_head(_module, 'USB_IDLE_CALLBACK_INFO')
+make_head(_module, 'USB_INTERFACE_ASSOCIATION_DESCRIPTOR')
+make_head(_module, 'USB_INTERFACE_DESCRIPTOR')
+make_head(_module, 'USB_INTERFACE_POWER_DESCRIPTOR')
+make_head(_module, 'USB_INTERFACE_STATUS')
+make_head(_module, 'USB_OPEN_RAW_DEVICE_PARAMETERS')
+make_head(_module, 'USB_PASS_THRU_PARAMETERS')
+make_head(_module, 'USB_PORT_CHANGE')
+make_head(_module, 'USB_PORT_EXT_STATUS')
+make_head(_module, 'USB_PORT_EXT_STATUS_AND_CHANGE')
+make_head(_module, 'USB_PORT_STATUS')
+make_head(_module, 'USB_PORT_STATUS_AND_CHANGE')
+make_head(_module, 'USB_POWER_INFO')
+make_head(_module, 'USB_SEND_RAW_COMMAND_PARAMETERS')
+make_head(_module, 'USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION')
+make_head(_module, 'USB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION')
+make_head(_module, 'USB_STRING_DESCRIPTOR')
+make_head(_module, 'USB_SUPERSPEEDPLUS_ISOCH_ENDPOINT_COMPANION_DESCRIPTOR')
+make_head(_module, 'USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR')
+make_head(_module, 'USB_UNICODE_NAME')
+make_head(_module, 'USB_USB2HW_VERSION_PARAMETERS')
 make_head(_module, 'WINUSB_PIPE_INFORMATION')
 make_head(_module, 'WINUSB_PIPE_INFORMATION_EX')
 make_head(_module, 'WINUSB_SETUP_PACKET')
+make_head(_module, '_URB_BULK_OR_INTERRUPT_TRANSFER')
+make_head(_module, '_URB_CONTROL_DESCRIPTOR_REQUEST')
+make_head(_module, '_URB_CONTROL_FEATURE_REQUEST')
+make_head(_module, '_URB_CONTROL_GET_CONFIGURATION_REQUEST')
+make_head(_module, '_URB_CONTROL_GET_INTERFACE_REQUEST')
+make_head(_module, '_URB_CONTROL_GET_STATUS_REQUEST')
+make_head(_module, '_URB_CONTROL_TRANSFER')
+make_head(_module, '_URB_CONTROL_TRANSFER_EX')
+make_head(_module, '_URB_CONTROL_VENDOR_OR_CLASS_REQUEST')
+make_head(_module, '_URB_FRAME_LENGTH_CONTROL')
+make_head(_module, '_URB_GET_CURRENT_FRAME_NUMBER')
+make_head(_module, '_URB_GET_FRAME_LENGTH')
+make_head(_module, '_URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS')
+make_head(_module, '_URB_HCD_AREA')
+make_head(_module, '_URB_HEADER')
+make_head(_module, '_URB_ISOCH_TRANSFER')
+make_head(_module, '_URB_OPEN_STATIC_STREAMS')
+make_head(_module, '_URB_OS_FEATURE_DESCRIPTOR_REQUEST')
+make_head(_module, '_URB_PIPE_REQUEST')
+make_head(_module, '_URB_SELECT_CONFIGURATION')
+make_head(_module, '_URB_SELECT_INTERFACE')
+make_head(_module, '_URB_SET_FRAME_LENGTH')
 __all__ = [
     "ALLOW_PARTIAL_READS",
     "ALL_PIPE",

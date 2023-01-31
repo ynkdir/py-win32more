@@ -16,6 +16,14 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+AUTHENTICATION_REQUIREMENTS = Int32
+AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequired: AUTHENTICATION_REQUIREMENTS = 0
+AUTHENTICATION_REQUIREMENTS_MITMProtectionRequired: AUTHENTICATION_REQUIREMENTS = 1
+AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequiredBonding: AUTHENTICATION_REQUIREMENTS = 2
+AUTHENTICATION_REQUIREMENTS_MITMProtectionRequiredBonding: AUTHENTICATION_REQUIREMENTS = 3
+AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequiredGeneralBonding: AUTHENTICATION_REQUIREMENTS = 4
+AUTHENTICATION_REQUIREMENTS_MITMProtectionRequiredGeneralBonding: AUTHENTICATION_REQUIREMENTS = 5
+AUTHENTICATION_REQUIREMENTS_MITMProtectionNotDefined: AUTHENTICATION_REQUIREMENTS = 255
 BTH_MAJORVERSION: UInt32 = 2
 BTH_MINORVERSION: UInt32 = 1
 GUID_BTHPORT_DEVICE_INTERFACE: Guid = Guid('0850302a-b344-4fda-9b-e9-90-57-6b-8d-46-f0')
@@ -889,14 +897,6 @@ def BluetoothGATTSetDescriptorValue(hDevice: win32more.Foundation.HANDLE, Descri
 def BluetoothGATTRegisterEvent(hService: win32more.Foundation.HANDLE, EventType: win32more.Devices.Bluetooth.BTH_LE_GATT_EVENT_TYPE, EventParameterIn: c_void_p, Callback: win32more.Devices.Bluetooth.PFNBLUETOOTH_GATT_EVENT_CALLBACK, CallbackContext: c_void_p, pEventHandle: POINTER(IntPtr), Flags: UInt32) -> win32more.Foundation.HRESULT: ...
 @winfunctype('BluetoothApis.dll')
 def BluetoothGATTUnregisterEvent(EventHandle: IntPtr, Flags: UInt32) -> win32more.Foundation.HRESULT: ...
-AUTHENTICATION_REQUIREMENTS = Int32
-AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequired: AUTHENTICATION_REQUIREMENTS = 0
-AUTHENTICATION_REQUIREMENTS_MITMProtectionRequired: AUTHENTICATION_REQUIREMENTS = 1
-AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequiredBonding: AUTHENTICATION_REQUIREMENTS = 2
-AUTHENTICATION_REQUIREMENTS_MITMProtectionRequiredBonding: AUTHENTICATION_REQUIREMENTS = 3
-AUTHENTICATION_REQUIREMENTS_MITMProtectionNotRequiredGeneralBonding: AUTHENTICATION_REQUIREMENTS = 4
-AUTHENTICATION_REQUIREMENTS_MITMProtectionRequiredGeneralBonding: AUTHENTICATION_REQUIREMENTS = 5
-AUTHENTICATION_REQUIREMENTS_MITMProtectionNotDefined: AUTHENTICATION_REQUIREMENTS = 255
 class BLUETOOTH_ADDRESS(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
@@ -1144,6 +1144,8 @@ NodeContainerType = Int32
 NodeContainerType_NodeContainerTypeSequence: NodeContainerType = 0
 NodeContainerType_NodeContainerTypeAlternative: NodeContainerType = 1
 @winfunctype_pointer
+def PFNBLUETOOTH_GATT_EVENT_CALLBACK(EventType: win32more.Devices.Bluetooth.BTH_LE_GATT_EVENT_TYPE, EventOutParameter: c_void_p, Context: c_void_p) -> Void: ...
+@winfunctype_pointer
 def PFN_AUTHENTICATION_CALLBACK(pvParam: c_void_p, pDevice: POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head)) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_AUTHENTICATION_CALLBACK_EX(pvParam: c_void_p, pAuthCallbackParams: POINTER(win32more.Devices.Bluetooth.BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS_head)) -> win32more.Foundation.BOOL: ...
@@ -1151,8 +1153,6 @@ def PFN_AUTHENTICATION_CALLBACK_EX(pvParam: c_void_p, pAuthCallbackParams: POINT
 def PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK(uAttribId: UInt32, pValueStream: c_char_p_no, cbStreamSize: UInt32, pvParam: c_void_p) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def PFN_DEVICE_CALLBACK(pvParam: c_void_p, pDevice: POINTER(win32more.Devices.Bluetooth.BLUETOOTH_DEVICE_INFO_head)) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def PFNBLUETOOTH_GATT_EVENT_CALLBACK(EventType: win32more.Devices.Bluetooth.BTH_LE_GATT_EVENT_TYPE, EventOutParameter: c_void_p, Context: c_void_p) -> Void: ...
 class RFCOMM_COMMAND(Structure):
     CmdType: UInt32
     Data: _Data_e__Union
@@ -1245,6 +1245,12 @@ SDP_TYPE_CONTAINER: SDP_TYPE = 32
 class SDP_ULARGE_INTEGER_16(Structure):
     LowPart: UInt64
     HighPart: UInt64
+class SOCKADDR_BTH(Structure):
+    addressFamily: UInt16
+    btAddr: UInt64
+    serviceClassId: Guid
+    port: UInt32
+    _pack_ = 1
 class SdpAttributeRange(Structure):
     minAttribute: UInt16
     maxAttribute: UInt16
@@ -1255,12 +1261,6 @@ class SdpQueryUuidUnion(Union):
     uuid128: Guid
     uuid32: UInt32
     uuid16: UInt16
-class SOCKADDR_BTH(Structure):
-    addressFamily: UInt16
-    btAddr: UInt64
-    serviceClassId: Guid
-    port: UInt32
-    _pack_ = 1
 make_head(_module, 'BLUETOOTH_ADDRESS')
 make_head(_module, 'BLUETOOTH_AUTHENTICATE_RESPONSE')
 make_head(_module, 'BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS')
@@ -1294,11 +1294,11 @@ make_head(_module, 'BTH_QUERY_DEVICE')
 make_head(_module, 'BTH_QUERY_SERVICE')
 make_head(_module, 'BTH_RADIO_IN_RANGE')
 make_head(_module, 'BTH_SET_SERVICE')
+make_head(_module, 'PFNBLUETOOTH_GATT_EVENT_CALLBACK')
 make_head(_module, 'PFN_AUTHENTICATION_CALLBACK')
 make_head(_module, 'PFN_AUTHENTICATION_CALLBACK_EX')
 make_head(_module, 'PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK')
 make_head(_module, 'PFN_DEVICE_CALLBACK')
-make_head(_module, 'PFNBLUETOOTH_GATT_EVENT_CALLBACK')
 make_head(_module, 'RFCOMM_COMMAND')
 make_head(_module, 'RFCOMM_MSC_DATA')
 make_head(_module, 'RFCOMM_RLS_DATA')
@@ -1307,10 +1307,10 @@ make_head(_module, 'SDP_ELEMENT_DATA')
 make_head(_module, 'SDP_LARGE_INTEGER_16')
 make_head(_module, 'SDP_STRING_TYPE_DATA')
 make_head(_module, 'SDP_ULARGE_INTEGER_16')
+make_head(_module, 'SOCKADDR_BTH')
 make_head(_module, 'SdpAttributeRange')
 make_head(_module, 'SdpQueryUuid')
 make_head(_module, 'SdpQueryUuidUnion')
-make_head(_module, 'SOCKADDR_BTH')
 __all__ = [
     "A2DP_SINK_SUPPORTED_FEATURES_AMPLIFIER",
     "A2DP_SINK_SUPPORTED_FEATURES_HEADPHONE",

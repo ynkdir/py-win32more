@@ -17,18 +17,12 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class __ReferenceRemainingTypes__(Structure):
-    __ctrlLevel__: win32more.System.DesktopSharing.CTRL_LEVEL
-    __attendeeDisconnectReason__: win32more.System.DesktopSharing.ATTENDEE_DISCONNECT_REASON
-    __channelPriority__: win32more.System.DesktopSharing.CHANNEL_PRIORITY
-    __channelFlags__: win32more.System.DesktopSharing.CHANNEL_FLAGS
-    __channelAccessEnum__: win32more.System.DesktopSharing.CHANNEL_ACCESS_ENUM
-    __rdpencomapiAttendeeFlags__: win32more.System.DesktopSharing.RDPENCOMAPI_ATTENDEE_FLAGS
-    __rdpsrapiWndFlags__: win32more.System.DesktopSharing.RDPSRAPI_WND_FLAGS
-    __rdpsrapiAppFlags__: win32more.System.DesktopSharing.RDPSRAPI_APP_FLAGS
-class _IRDPSessionEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('98a97042-6698-40e9-8e-fd-b3-20-09-90-00-4b')
+ATTENDEE_DISCONNECT_REASON = Int32
+ATTENDEE_DISCONNECT_REASON_MIN: ATTENDEE_DISCONNECT_REASON = 0
+ATTENDEE_DISCONNECT_REASON_APP: ATTENDEE_DISCONNECT_REASON = 0
+ATTENDEE_DISCONNECT_REASON_ERR: ATTENDEE_DISCONNECT_REASON = 1
+ATTENDEE_DISCONNECT_REASON_CLI: ATTENDEE_DISCONNECT_REASON = 2
+ATTENDEE_DISCONNECT_REASON_MAX: ATTENDEE_DISCONNECT_REASON = 2
 DISPID_RDPSRAPI_METHOD_OPEN: UInt32 = 100
 DISPID_RDPSRAPI_METHOD_CLOSE: UInt32 = 101
 DISPID_RDPSRAPI_METHOD_SETSHAREDRECT: UInt32 = 102
@@ -153,12 +147,6 @@ DISPID_RDPSRAPI_EVENT_ON_STREAM_CLOSED: UInt32 = 634
 DISPID_RDPSRAPI_EVENT_VIEW_MOUSE_BUTTON_RECEIVED: UInt32 = 700
 DISPID_RDPSRAPI_EVENT_VIEW_MOUSE_MOVE_RECEIVED: UInt32 = 701
 DISPID_RDPSRAPI_EVENT_VIEW_MOUSE_WHEEL_RECEIVED: UInt32 = 702
-ATTENDEE_DISCONNECT_REASON = Int32
-ATTENDEE_DISCONNECT_REASON_MIN: ATTENDEE_DISCONNECT_REASON = 0
-ATTENDEE_DISCONNECT_REASON_APP: ATTENDEE_DISCONNECT_REASON = 0
-ATTENDEE_DISCONNECT_REASON_ERR: ATTENDEE_DISCONNECT_REASON = 1
-ATTENDEE_DISCONNECT_REASON_CLI: ATTENDEE_DISCONNECT_REASON = 2
-ATTENDEE_DISCONNECT_REASON_MAX: ATTENDEE_DISCONNECT_REASON = 2
 CHANNEL_ACCESS_ENUM = Int32
 CHANNEL_ACCESS_ENUM_NONE: CHANNEL_ACCESS_ENUM = 0
 CHANNEL_ACCESS_ENUM_SENDRECEIVE: CHANNEL_ACCESS_ENUM = 1
@@ -534,7 +522,19 @@ CONST_ATTENDEE_ID_EVERYONE: RDPENCOMAPI_CONSTANTS = -1
 CONST_ATTENDEE_ID_HOST: RDPENCOMAPI_CONSTANTS = 0
 CONST_CONN_INTERVAL: RDPENCOMAPI_CONSTANTS = 50
 CONST_ATTENDEE_ID_DEFAULT: RDPENCOMAPI_CONSTANTS = -1
-RDPSession = Guid('9b78f0e6-3e05-4a5b-b2-e8-e7-43-a8-95-6b-65')
+RDPSRAPIApplication = Guid('c116a484-4b25-4b9f-8a-54-b9-34-b0-6e-57-fa')
+RDPSRAPIApplicationFilter = Guid('e35ace89-c7e8-427e-a4-f9-b9-da-07-28-26-bd')
+RDPSRAPIApplicationList = Guid('9e31c815-7433-4876-97-fb-ed-59-fe-2b-aa-22')
+RDPSRAPIAttendee = Guid('74f93bb5-755f-488e-8a-29-23-90-10-8a-ef-55')
+RDPSRAPIAttendeeDisconnectInfo = Guid('b47d7250-5bdb-405d-b4-87-ca-ad-9c-56-f4-f8')
+RDPSRAPIAttendeeManager = Guid('d7b13a01-f7d4-42a6-85-95-12-fc-8c-24-e8-51')
+RDPSRAPIFrameBuffer = Guid('a4f66bcc-538e-4101-95-1d-30-84-7a-db-51-01')
+RDPSRAPIInvitation = Guid('49174dc6-0731-4b5e-8e-e1-83-a6-3d-38-68-fa')
+RDPSRAPIInvitationManager = Guid('53d9c9db-75ab-4271-94-8a-4c-4e-b3-6a-8f-2b')
+RDPSRAPISessionProperties = Guid('dd7594ff-ea2a-4c06-8f-df-13-2d-e4-8b-65-10')
+RDPSRAPITcpConnectionInfo = Guid('be49db3f-ebb6-4278-8c-e0-d5-45-58-33-ea-ee')
+RDPSRAPIWindow = Guid('03cf46db-ce45-4d36-86-ed-ed-28-b7-43-98-bf')
+RDPSRAPIWindowList = Guid('9c21e2b8-5dd4-42cc-81-ba-1c-09-98-52-e6-fa')
 RDPSRAPI_APP_FLAGS = Int32
 APP_FLAG_PRIVILEGED: RDPSRAPI_APP_FLAGS = 1
 RDPSRAPI_KBD_CODE_TYPE = Int32
@@ -554,24 +554,22 @@ RDPSRAPI_MOUSE_BUTTON_XBUTTON2: RDPSRAPI_MOUSE_BUTTON_TYPE = 4
 RDPSRAPI_MOUSE_BUTTON_XBUTTON3: RDPSRAPI_MOUSE_BUTTON_TYPE = 5
 RDPSRAPI_WND_FLAGS = Int32
 WND_FLAG_PRIVILEGED: RDPSRAPI_WND_FLAGS = 1
-RDPSRAPIApplication = Guid('c116a484-4b25-4b9f-8a-54-b9-34-b0-6e-57-fa')
-RDPSRAPIApplicationFilter = Guid('e35ace89-c7e8-427e-a4-f9-b9-da-07-28-26-bd')
-RDPSRAPIApplicationList = Guid('9e31c815-7433-4876-97-fb-ed-59-fe-2b-aa-22')
-RDPSRAPIAttendee = Guid('74f93bb5-755f-488e-8a-29-23-90-10-8a-ef-55')
-RDPSRAPIAttendeeDisconnectInfo = Guid('b47d7250-5bdb-405d-b4-87-ca-ad-9c-56-f4-f8')
-RDPSRAPIAttendeeManager = Guid('d7b13a01-f7d4-42a6-85-95-12-fc-8c-24-e8-51')
-RDPSRAPIFrameBuffer = Guid('a4f66bcc-538e-4101-95-1d-30-84-7a-db-51-01')
-RDPSRAPIInvitation = Guid('49174dc6-0731-4b5e-8e-e1-83-a6-3d-38-68-fa')
-RDPSRAPIInvitationManager = Guid('53d9c9db-75ab-4271-94-8a-4c-4e-b3-6a-8f-2b')
-RDPSRAPISessionProperties = Guid('dd7594ff-ea2a-4c06-8f-df-13-2d-e4-8b-65-10')
-RDPSRAPITcpConnectionInfo = Guid('be49db3f-ebb6-4278-8c-e0-d5-45-58-33-ea-ee')
-RDPSRAPIWindow = Guid('03cf46db-ce45-4d36-86-ed-ed-28-b7-43-98-bf')
-RDPSRAPIWindowList = Guid('9c21e2b8-5dd4-42cc-81-ba-1c-09-98-52-e6-fa')
+RDPSession = Guid('9b78f0e6-3e05-4a5b-b2-e8-e7-43-a8-95-6b-65')
 RDPTransportStreamBuffer = Guid('8d4a1c69-f17f-4549-a6-99-76-1c-6e-6b-5c-0a')
 RDPTransportStreamEvents = Guid('31e3ab20-5350-483f-9d-c6-67-48-66-5e-fd-eb')
 RDPViewer = Guid('32be5ed2-5c86-480f-a9-14-0f-f8-88-5a-1b-3f')
-make_head(_module, '__ReferenceRemainingTypes__')
-make_head(_module, '_IRDPSessionEvents')
+class _IRDPSessionEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('98a97042-6698-40e9-8e-fd-b3-20-09-90-00-4b')
+class __ReferenceRemainingTypes__(Structure):
+    __ctrlLevel__: win32more.System.DesktopSharing.CTRL_LEVEL
+    __attendeeDisconnectReason__: win32more.System.DesktopSharing.ATTENDEE_DISCONNECT_REASON
+    __channelPriority__: win32more.System.DesktopSharing.CHANNEL_PRIORITY
+    __channelFlags__: win32more.System.DesktopSharing.CHANNEL_FLAGS
+    __channelAccessEnum__: win32more.System.DesktopSharing.CHANNEL_ACCESS_ENUM
+    __rdpencomapiAttendeeFlags__: win32more.System.DesktopSharing.RDPENCOMAPI_ATTENDEE_FLAGS
+    __rdpsrapiWndFlags__: win32more.System.DesktopSharing.RDPSRAPI_WND_FLAGS
+    __rdpsrapiAppFlags__: win32more.System.DesktopSharing.RDPSRAPI_APP_FLAGS
 make_head(_module, 'IRDPSRAPIApplication')
 make_head(_module, 'IRDPSRAPIApplicationFilter')
 make_head(_module, 'IRDPSRAPIApplicationList')
@@ -599,6 +597,8 @@ make_head(_module, 'IRDPSRAPIVirtualChannelManager')
 make_head(_module, 'IRDPSRAPIWindow')
 make_head(_module, 'IRDPSRAPIWindowList')
 make_head(_module, 'IRDPViewerInputSink')
+make_head(_module, '_IRDPSessionEvents')
+make_head(_module, '__ReferenceRemainingTypes__')
 __all__ = [
     "APP_FLAG_PRIVILEGED",
     "ATTENDEE_DISCONNECT_REASON",

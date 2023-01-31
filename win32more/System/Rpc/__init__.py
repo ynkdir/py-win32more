@@ -19,15 +19,13 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _NDR_ASYNC_MESSAGE(Structure):
-    pass
-class _NDR_CORRELATION_INFO(Structure):
-    pass
-class _NDR_PROC_CONTEXT(Structure):
-    pass
-class _NDR_SCONTEXT(Structure):
-    pad: c_void_p * 2
-    userContext: c_void_p
+class ARRAY_INFO(Structure):
+    Dimension: Int32
+    BufferConformanceMark: POINTER(UInt32)
+    BufferVarianceMark: POINTER(UInt32)
+    MaxCountArray: POINTER(UInt32)
+    OffsetArray: POINTER(UInt32)
+    ActualCountArray: POINTER(UInt32)
 RPC_C_BINDING_INFINITE_TIMEOUT: UInt32 = 10
 RPC_C_BINDING_MIN_TIMEOUT: UInt32 = 0
 RPC_C_BINDING_DEFAULT_TIMEOUT: UInt32 = 5
@@ -1274,13 +1272,6 @@ def NdrMesSimpleTypeAlignSizeAll(Handle: c_void_p, pProxyInfo: POINTER(win32more
 def RpcCertGeneratePrincipalNameW(Context: POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head), Flags: UInt32, pBuffer: POINTER(POINTER(UInt16))) -> win32more.System.Rpc.RPC_STATUS: ...
 @winfunctype('RPCRT4.dll')
 def RpcCertGeneratePrincipalNameA(Context: POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head), Flags: UInt32, pBuffer: POINTER(c_char_p_no)) -> win32more.System.Rpc.RPC_STATUS: ...
-class ARRAY_INFO(Structure):
-    Dimension: Int32
-    BufferConformanceMark: POINTER(UInt32)
-    BufferVarianceMark: POINTER(UInt32)
-    MaxCountArray: POINTER(UInt32)
-    OffsetArray: POINTER(UInt32)
-    ActualCountArray: POINTER(UInt32)
 class BinaryParam(Structure):
     Buffer: c_void_p
     Size: Int16
@@ -1339,6 +1330,10 @@ def GENERIC_UNBIND_ROUTINE(param0: c_void_p, param1: c_char_p_no) -> Void: ...
 GROUP_NAME_SYNTAX = UInt32
 RPC_C_NS_SYNTAX_DEFAULT: GROUP_NAME_SYNTAX = 0
 RPC_C_NS_SYNTAX_DCE: GROUP_NAME_SYNTAX = 3
+IDL_CS_CONVERT = Int32
+IDL_CS_NO_CONVERT: IDL_CS_CONVERT = 0
+IDL_CS_IN_PLACE_CONVERT: IDL_CS_CONVERT = 1
+IDL_CS_NEW_BUFFER_CONVERT: IDL_CS_CONVERT = 2
 @winfunctype_pointer
 def I_RpcFreeCalloutStateFn(CallOutState: POINTER(win32more.System.Rpc.RDR_CALLOUT_STATE_head)) -> Void: ...
 @winfunctype_pointer
@@ -1367,10 +1362,6 @@ def I_RpcProxyIsValidMachineFn(Machine: POINTER(UInt16), DotMachine: POINTER(UIn
 def I_RpcProxyUpdatePerfCounterBackendServerFn(MachineName: POINTER(UInt16), IsConnectEvent: Int32) -> Void: ...
 @winfunctype_pointer
 def I_RpcProxyUpdatePerfCounterFn(Counter: win32more.System.Rpc.RpcPerfCounters, ModifyTrend: Int32, Size: UInt32) -> Void: ...
-IDL_CS_CONVERT = Int32
-IDL_CS_NO_CONVERT: IDL_CS_CONVERT = 0
-IDL_CS_IN_PLACE_CONVERT: IDL_CS_CONVERT = 1
-IDL_CS_NEW_BUFFER_CONVERT: IDL_CS_CONVERT = 2
 LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION = Int32
 LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION_MarshalDirectionMarshal: LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION = 0
 LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION_MarshalDirectionUnmarshal: LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION = 1
@@ -1415,6 +1406,13 @@ class MIDL_SERVER_INFO(Structure):
     ProcString: c_char_p_no
     FmtStringOffset: POINTER(UInt16)
     ThunkTable: POINTER(win32more.System.Rpc.STUB_THUNK)
+    pTransferSyntax: POINTER(win32more.System.Rpc.RPC_SYNTAX_IDENTIFIER_head)
+    nCount: UIntPtr
+    pSyntaxInfo: POINTER(win32more.System.Rpc.MIDL_SYNTAX_INFO_head)
+class MIDL_STUBLESS_PROXY_INFO(Structure):
+    pStubDesc: POINTER(win32more.System.Rpc.MIDL_STUB_DESC_head)
+    ProcFormatString: c_char_p_no
+    FormatStringOffset: POINTER(UInt16)
     pTransferSyntax: POINTER(win32more.System.Rpc.RPC_SYNTAX_IDENTIFIER_head)
     nCount: UIntPtr
     pSyntaxInfo: POINTER(win32more.System.Rpc.MIDL_SYNTAX_INFO_head)
@@ -1503,13 +1501,6 @@ class MIDL_STUB_MESSAGE(Structure):
     Reserved51_3: IntPtr
     Reserved51_4: IntPtr
     Reserved51_5: IntPtr
-class MIDL_STUBLESS_PROXY_INFO(Structure):
-    pStubDesc: POINTER(win32more.System.Rpc.MIDL_STUB_DESC_head)
-    ProcFormatString: c_char_p_no
-    FormatStringOffset: POINTER(UInt16)
-    pTransferSyntax: POINTER(win32more.System.Rpc.RPC_SYNTAX_IDENTIFIER_head)
-    nCount: UIntPtr
-    pSyntaxInfo: POINTER(win32more.System.Rpc.MIDL_SYNTAX_INFO_head)
 class MIDL_SYNTAX_INFO(Structure):
     TransferSyntax: win32more.System.Rpc.RPC_SYNTAX_IDENTIFIER
     DispatchTable: POINTER(win32more.System.Rpc.RPC_DISPATCH_TABLE_head)
@@ -1529,47 +1520,15 @@ class MIDL_WINRT_TYPE_SERIALIZATION_INFO(Structure):
     FormatStringSize: UInt16
     TypeOffset: UInt16
     StubDesc: POINTER(win32more.System.Rpc.MIDL_STUB_DESC_head)
-class NDR_ALLOC_ALL_NODES_CONTEXT(Structure):
-    pass
-class NDR_CS_ROUTINES(Structure):
-    pSizeConvertRoutines: POINTER(win32more.System.Rpc.NDR_CS_SIZE_CONVERT_ROUTINES_head)
-    pTagGettingRoutines: POINTER(win32more.System.Rpc.CS_TAG_GETTING_ROUTINE)
-class NDR_CS_SIZE_CONVERT_ROUTINES(Structure):
-    pfnNetSize: win32more.System.Rpc.CS_TYPE_NET_SIZE_ROUTINE
-    pfnToNetCs: win32more.System.Rpc.CS_TYPE_TO_NETCS_ROUTINE
-    pfnLocalSize: win32more.System.Rpc.CS_TYPE_LOCAL_SIZE_ROUTINE
-    pfnFromNetCs: win32more.System.Rpc.CS_TYPE_FROM_NETCS_ROUTINE
-class NDR_EXPR_DESC(Structure):
-    pOffset: POINTER(UInt16)
-    pFormatExpr: c_char_p_no
-@winfunctype_pointer
-def NDR_NOTIFY_ROUTINE() -> Void: ...
-@winfunctype_pointer
-def NDR_NOTIFY2_ROUTINE(flag: Byte) -> Void: ...
-class NDR_POINTER_QUEUE_STATE(Structure):
-    pass
-@winfunctype_pointer
-def NDR_RUNDOWN(context: c_void_p) -> Void: ...
-class NDR_SCONTEXT_1(Structure):
-    pad: c_void_p * 2
-    userContext: c_void_p
-class NDR_USER_MARSHAL_INFO(Structure):
-    InformationLevel: UInt32
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        Level1: win32more.System.Rpc.NDR_USER_MARSHAL_INFO_LEVEL1
-class NDR_USER_MARSHAL_INFO_LEVEL1(Structure):
-    Buffer: c_void_p
-    BufferSize: UInt32
-    pfnAllocate: IntPtr
-    pfnFree: IntPtr
-    pRpcChannelBuffer: win32more.System.Com.IRpcChannelBuffer_head
-    Reserved: UIntPtr * 5
 class NDR64_ARRAY_ELEMENT_INFO(Structure):
     ElementMemSize: UInt32
     Element: c_void_p
 class NDR64_ARRAY_FLAGS(Structure):
     _bitfield: Byte
+class NDR64_BINDINGS(Union):
+    Primitive: win32more.System.Rpc.NDR64_BIND_PRIMITIVE
+    Generic: win32more.System.Rpc.NDR64_BIND_GENERIC
+    Context: win32more.System.Rpc.NDR64_BIND_CONTEXT
 class NDR64_BIND_AND_NOTIFY_EXTENSION(Structure):
     Binding: win32more.System.Rpc.NDR64_BIND_CONTEXT
     NotifyIndex: UInt16
@@ -1590,10 +1549,6 @@ class NDR64_BIND_PRIMITIVE(Structure):
     Flags: Byte
     StackOffset: UInt16
     Reserved: UInt16
-class NDR64_BINDINGS(Union):
-    Primitive: win32more.System.Rpc.NDR64_BIND_PRIMITIVE
-    Generic: win32more.System.Rpc.NDR64_BIND_GENERIC
-    Context: win32more.System.Rpc.NDR64_BIND_CONTEXT
 class NDR64_BOGUS_ARRAY_HEADER_FORMAT(Structure):
     FormatCode: Byte
     Alignment: Byte
@@ -1615,6 +1570,8 @@ class NDR64_BUFFER_ALIGN_FORMAT(Structure):
     Alignment: Byte
     Reserved: UInt16
     Reserved2: UInt32
+class NDR64_CONFORMANT_STRING_FORMAT(Structure):
+    Header: win32more.System.Rpc.NDR64_STRING_HEADER_FORMAT
 class NDR64_CONF_ARRAY_HEADER_FORMAT(Structure):
     FormatCode: Byte
     Alignment: Byte
@@ -1652,8 +1609,6 @@ class NDR64_CONF_VAR_BOGUS_ARRAY_HEADER_FORMAT(Structure):
     ConfDescription: c_void_p
     VarDescription: c_void_p
     OffsetDescription: c_void_p
-class NDR64_CONFORMANT_STRING_FORMAT(Structure):
-    Header: win32more.System.Rpc.NDR64_STRING_HEADER_FORMAT
 class NDR64_CONSTANT_IID_FORMAT(Structure):
     FormatCode: Byte
     Flags: Byte
@@ -1703,16 +1658,16 @@ class NDR64_EXPR_VAR(Structure):
     VarType: Byte
     Reserved: UInt16
     Offset: UInt32
+class NDR64_FIXED_REPEAT_FORMAT(Structure):
+    RepeatFormat: win32more.System.Rpc.NDR64_REPEAT_FORMAT
+    Iterations: UInt32
+    Reserved: UInt32
 class NDR64_FIX_ARRAY_HEADER_FORMAT(Structure):
     FormatCode: Byte
     Alignment: Byte
     Flags: win32more.System.Rpc.NDR64_ARRAY_FLAGS
     Reserved: Byte
     TotalSize: UInt32
-class NDR64_FIXED_REPEAT_FORMAT(Structure):
-    RepeatFormat: win32more.System.Rpc.NDR64_REPEAT_FORMAT
-    Iterations: UInt32
-    Reserved: UInt32
 class NDR64_IID_FLAGS(Structure):
     _bitfield: Byte
 class NDR64_IID_FORMAT(Structure):
@@ -1725,11 +1680,6 @@ class NDR64_MEMPAD_FORMAT(Structure):
     Reserve1: Byte
     MemPad: UInt16
     Reserved2: UInt32
-class NDR64_NO_REPEAT_FORMAT(Structure):
-    FormatCode: Byte
-    Flags: Byte
-    Reserved1: UInt16
-    Reserved2: UInt32
 class NDR64_NON_CONFORMANT_STRING_FORMAT(Structure):
     Header: win32more.System.Rpc.NDR64_STRING_HEADER_FORMAT
     TotalSize: UInt32
@@ -1741,6 +1691,11 @@ class NDR64_NON_ENCAPSULATED_UNION(Structure):
     MemorySize: UInt32
     Switch: c_void_p
     Reserved: UInt32
+class NDR64_NO_REPEAT_FORMAT(Structure):
+    FormatCode: Byte
+    Flags: Byte
+    Reserved1: UInt16
+    Reserved2: UInt32
 class NDR64_PARAM_FLAGS(Structure):
     _bitfield: UInt16
 class NDR64_PARAM_FORMAT(Structure):
@@ -1779,6 +1734,11 @@ class NDR64_PROC_FORMAT(Structure):
     FloatDoubleMask: UInt16
     NumberOfParams: UInt16
     ExtensionSize: UInt16
+class NDR64_RANGED_STRING_FORMAT(Structure):
+    Header: win32more.System.Rpc.NDR64_STRING_HEADER_FORMAT
+    Reserved: UInt32
+    Min: UInt64
+    Max: UInt64
 class NDR64_RANGE_FORMAT(Structure):
     FormatCode: Byte
     RangeType: Byte
@@ -1795,11 +1755,6 @@ class NDR64_RANGE_PIPE_FORMAT(Structure):
     BufferSize: UInt32
     MinValue: UInt32
     MaxValue: UInt32
-class NDR64_RANGED_STRING_FORMAT(Structure):
-    Header: win32more.System.Rpc.NDR64_STRING_HEADER_FORMAT
-    Reserved: UInt32
-    Min: UInt64
-    Max: UInt64
 class NDR64_REPEAT_FORMAT(Structure):
     FormatCode: Byte
     Flags: win32more.System.Rpc.NDR64_POINTER_REPEAT_FLAGS
@@ -1886,6 +1841,42 @@ class NDR64_VAR_ARRAY_HEADER_FORMAT(Structure):
     TotalSize: UInt32
     ElementSize: UInt32
     VarDescriptor: c_void_p
+class NDR_ALLOC_ALL_NODES_CONTEXT(Structure):
+    pass
+class NDR_CS_ROUTINES(Structure):
+    pSizeConvertRoutines: POINTER(win32more.System.Rpc.NDR_CS_SIZE_CONVERT_ROUTINES_head)
+    pTagGettingRoutines: POINTER(win32more.System.Rpc.CS_TAG_GETTING_ROUTINE)
+class NDR_CS_SIZE_CONVERT_ROUTINES(Structure):
+    pfnNetSize: win32more.System.Rpc.CS_TYPE_NET_SIZE_ROUTINE
+    pfnToNetCs: win32more.System.Rpc.CS_TYPE_TO_NETCS_ROUTINE
+    pfnLocalSize: win32more.System.Rpc.CS_TYPE_LOCAL_SIZE_ROUTINE
+    pfnFromNetCs: win32more.System.Rpc.CS_TYPE_FROM_NETCS_ROUTINE
+class NDR_EXPR_DESC(Structure):
+    pOffset: POINTER(UInt16)
+    pFormatExpr: c_char_p_no
+@winfunctype_pointer
+def NDR_NOTIFY2_ROUTINE(flag: Byte) -> Void: ...
+@winfunctype_pointer
+def NDR_NOTIFY_ROUTINE() -> Void: ...
+class NDR_POINTER_QUEUE_STATE(Structure):
+    pass
+@winfunctype_pointer
+def NDR_RUNDOWN(context: c_void_p) -> Void: ...
+class NDR_SCONTEXT_1(Structure):
+    pad: c_void_p * 2
+    userContext: c_void_p
+class NDR_USER_MARSHAL_INFO(Structure):
+    InformationLevel: UInt32
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        Level1: win32more.System.Rpc.NDR_USER_MARSHAL_INFO_LEVEL1
+class NDR_USER_MARSHAL_INFO_LEVEL1(Structure):
+    Buffer: c_void_p
+    BufferSize: UInt32
+    pfnAllocate: IntPtr
+    pfnFree: IntPtr
+    pRpcChannelBuffer: win32more.System.Com.IRpcChannelBuffer_head
+    Reserved: UIntPtr * 5
 @winfunctype_pointer
 def PFN_RPCNOTIFICATION_ROUTINE(pAsync: POINTER(win32more.System.Rpc.RPC_ASYNC_STATE_head), Context: c_void_p, Event: win32more.System.Rpc.RPC_ASYNC_EVENT) -> Void: ...
 PROXY_PHASE = Int32
@@ -1911,6 +1902,8 @@ class RDR_CALLOUT_STATE(Structure):
     SessionId: Guid
     Interface: win32more.System.Rpc.RPC_SYNTAX_IDENTIFIER
     CertContext: c_void_p
+@winfunctype_pointer
+def RPCLT_PDU_FILTER_FUNC(Buffer: c_void_p, BufferLength: UInt32, fDatagram: Int32) -> Void: ...
 @winfunctype_pointer
 def RPC_ADDRESS_CHANGE_FN(arg: c_void_p) -> Void: ...
 RPC_ADDRESS_CHANGE_TYPE = Int32
@@ -2001,31 +1994,6 @@ class RPC_BINDING_VECTOR(Structure):
     BindingH: c_void_p * 1
 @winfunctype_pointer
 def RPC_BLOCKING_FN(hWnd: c_void_p, Context: c_void_p, hSyncEvent: c_void_p) -> win32more.System.Rpc.RPC_STATUS: ...
-RPC_C_AUTHN_INFO_TYPE = UInt32
-RPC_C_AUTHN_INFO_NONE: RPC_C_AUTHN_INFO_TYPE = 0
-RPC_C_AUTHN_INFO_TYPE_HTTP: RPC_C_AUTHN_INFO_TYPE = 1
-RPC_C_HTTP_AUTHN_TARGET = UInt32
-RPC_C_HTTP_AUTHN_TARGET_SERVER: RPC_C_HTTP_AUTHN_TARGET = 1
-RPC_C_HTTP_AUTHN_TARGET_PROXY: RPC_C_HTTP_AUTHN_TARGET = 2
-RPC_C_HTTP_FLAGS = UInt32
-RPC_C_HTTP_FLAG_USE_SSL: RPC_C_HTTP_FLAGS = 1
-RPC_C_HTTP_FLAG_USE_FIRST_AUTH_SCHEME: RPC_C_HTTP_FLAGS = 2
-RPC_C_HTTP_FLAG_IGNORE_CERT_CN_INVALID: RPC_C_HTTP_FLAGS = 8
-RPC_C_HTTP_FLAG_ENABLE_CERT_REVOCATION_CHECK: RPC_C_HTTP_FLAGS = 16
-class RPC_C_OPT_COOKIE_AUTH_DESCRIPTOR(Structure):
-    BufferSize: UInt32
-    Buffer: win32more.Foundation.PSTR
-RPC_C_QOS_CAPABILITIES = UInt32
-RPC_C_QOS_CAPABILITIES_DEFAULT: RPC_C_QOS_CAPABILITIES = 0
-RPC_C_QOS_CAPABILITIES_MUTUAL_AUTH: RPC_C_QOS_CAPABILITIES = 1
-RPC_C_QOS_CAPABILITIES_MAKE_FULLSIC: RPC_C_QOS_CAPABILITIES = 2
-RPC_C_QOS_CAPABILITIES_ANY_AUTHORITY: RPC_C_QOS_CAPABILITIES = 4
-RPC_C_QOS_CAPABILITIES_IGNORE_DELEGATE_FAILURE: RPC_C_QOS_CAPABILITIES = 8
-RPC_C_QOS_CAPABILITIES_LOCAL_MA_HINT: RPC_C_QOS_CAPABILITIES = 16
-RPC_C_QOS_CAPABILITIES_SCHANNEL_FULL_AUTH_IDENTITY: RPC_C_QOS_CAPABILITIES = 32
-RPC_C_QOS_IDENTITY = UInt32
-RPC_C_QOS_IDENTITY_STATIC: RPC_C_QOS_IDENTITY = 0
-RPC_C_QOS_IDENTITY_DYNAMIC: RPC_C_QOS_IDENTITY = 1
 class RPC_CALL_ATTRIBUTES_V1_A(Structure):
     Version: UInt32
     Flags: UInt32
@@ -2150,6 +2118,31 @@ class RPC_CLIENT_INTERFACE(Structure):
     Reserved: UIntPtr
     InterpreterInfo: c_void_p
     Flags: UInt32
+RPC_C_AUTHN_INFO_TYPE = UInt32
+RPC_C_AUTHN_INFO_NONE: RPC_C_AUTHN_INFO_TYPE = 0
+RPC_C_AUTHN_INFO_TYPE_HTTP: RPC_C_AUTHN_INFO_TYPE = 1
+RPC_C_HTTP_AUTHN_TARGET = UInt32
+RPC_C_HTTP_AUTHN_TARGET_SERVER: RPC_C_HTTP_AUTHN_TARGET = 1
+RPC_C_HTTP_AUTHN_TARGET_PROXY: RPC_C_HTTP_AUTHN_TARGET = 2
+RPC_C_HTTP_FLAGS = UInt32
+RPC_C_HTTP_FLAG_USE_SSL: RPC_C_HTTP_FLAGS = 1
+RPC_C_HTTP_FLAG_USE_FIRST_AUTH_SCHEME: RPC_C_HTTP_FLAGS = 2
+RPC_C_HTTP_FLAG_IGNORE_CERT_CN_INVALID: RPC_C_HTTP_FLAGS = 8
+RPC_C_HTTP_FLAG_ENABLE_CERT_REVOCATION_CHECK: RPC_C_HTTP_FLAGS = 16
+class RPC_C_OPT_COOKIE_AUTH_DESCRIPTOR(Structure):
+    BufferSize: UInt32
+    Buffer: win32more.Foundation.PSTR
+RPC_C_QOS_CAPABILITIES = UInt32
+RPC_C_QOS_CAPABILITIES_DEFAULT: RPC_C_QOS_CAPABILITIES = 0
+RPC_C_QOS_CAPABILITIES_MUTUAL_AUTH: RPC_C_QOS_CAPABILITIES = 1
+RPC_C_QOS_CAPABILITIES_MAKE_FULLSIC: RPC_C_QOS_CAPABILITIES = 2
+RPC_C_QOS_CAPABILITIES_ANY_AUTHORITY: RPC_C_QOS_CAPABILITIES = 4
+RPC_C_QOS_CAPABILITIES_IGNORE_DELEGATE_FAILURE: RPC_C_QOS_CAPABILITIES = 8
+RPC_C_QOS_CAPABILITIES_LOCAL_MA_HINT: RPC_C_QOS_CAPABILITIES = 16
+RPC_C_QOS_CAPABILITIES_SCHANNEL_FULL_AUTH_IDENTITY: RPC_C_QOS_CAPABILITIES = 32
+RPC_C_QOS_IDENTITY = UInt32
+RPC_C_QOS_IDENTITY_STATIC: RPC_C_QOS_IDENTITY = 0
+RPC_C_QOS_IDENTITY_DYNAMIC: RPC_C_QOS_IDENTITY = 1
 @winfunctype_pointer
 def RPC_DISPATCH_FUNCTION(Message: POINTER(win32more.System.Rpc.RPC_MESSAGE_head)) -> Void: ...
 class RPC_DISPATCH_TABLE(Structure):
@@ -2315,6 +2308,10 @@ class RPC_MESSAGE(Structure):
 def RPC_MGMT_AUTHORIZATION_FN(ClientBinding: c_void_p, RequestedMgmtOperation: UInt32, Status: POINTER(win32more.System.Rpc.RPC_STATUS)) -> Int32: ...
 @winfunctype_pointer
 def RPC_NEW_HTTP_PROXY_CHANNEL(RedirectorStage: win32more.System.Rpc.RPC_HTTP_REDIRECTOR_STAGE, ServerName: POINTER(UInt16), ServerPort: POINTER(UInt16), RemoteUser: POINTER(UInt16), AuthType: POINTER(UInt16), ResourceUuid: c_void_p, SessionId: c_void_p, Interface: c_void_p, Reserved: c_void_p, Flags: UInt32, NewServerName: POINTER(POINTER(UInt16)), NewServerPort: POINTER(POINTER(UInt16))) -> win32more.System.Rpc.RPC_STATUS: ...
+RPC_NOTIFICATIONS = Int32
+RPC_NOTIFICATIONS_RpcNotificationCallNone: RPC_NOTIFICATIONS = 0
+RPC_NOTIFICATIONS_RpcNotificationClientDisconnect: RPC_NOTIFICATIONS = 1
+RPC_NOTIFICATIONS_RpcNotificationCallCancel: RPC_NOTIFICATIONS = 2
 RPC_NOTIFICATION_TYPES = Int32
 RPC_NOTIFICATION_TYPES_RpcNotificationTypeNone: RPC_NOTIFICATION_TYPES = 0
 RPC_NOTIFICATION_TYPES_RpcNotificationTypeEvent: RPC_NOTIFICATION_TYPES = 1
@@ -2322,10 +2319,6 @@ RPC_NOTIFICATION_TYPES_RpcNotificationTypeApc: RPC_NOTIFICATION_TYPES = 2
 RPC_NOTIFICATION_TYPES_RpcNotificationTypeIoc: RPC_NOTIFICATION_TYPES = 3
 RPC_NOTIFICATION_TYPES_RpcNotificationTypeHwnd: RPC_NOTIFICATION_TYPES = 4
 RPC_NOTIFICATION_TYPES_RpcNotificationTypeCallback: RPC_NOTIFICATION_TYPES = 5
-RPC_NOTIFICATIONS = Int32
-RPC_NOTIFICATIONS_RpcNotificationCallNone: RPC_NOTIFICATIONS = 0
-RPC_NOTIFICATIONS_RpcNotificationClientDisconnect: RPC_NOTIFICATIONS = 1
-RPC_NOTIFICATIONS_RpcNotificationCallCancel: RPC_NOTIFICATIONS = 2
 @winfunctype_pointer
 def RPC_OBJECT_INQ_FN(ObjectUuid: POINTER(Guid), TypeUuid: POINTER(Guid), Status: POINTER(win32more.System.Rpc.RPC_STATUS)) -> Void: ...
 class RPC_POLICY(Structure):
@@ -2341,10 +2334,6 @@ class RPC_PROTSEQ_VECTORA(Structure):
 class RPC_PROTSEQ_VECTORW(Structure):
     Count: UInt32
     Protseq: POINTER(UInt16) * 1
-class RPC_SEC_CONTEXT_KEY_INFO(Structure):
-    EncryptAlgorithm: UInt32
-    KeySize: UInt32
-    SignatureAlgorithm: UInt32
 @winfunctype_pointer
 def RPC_SECURITY_CALLBACK_FN(Context: c_void_p) -> Void: ...
 class RPC_SECURITY_QOS(Structure):
@@ -2436,6 +2425,10 @@ class RPC_SECURITY_QOS_V5_W(Structure):
     ServerSecurityDescriptor: c_void_p
     class _u_e__Union(Union):
         HttpCredentials: POINTER(win32more.System.Rpc.RPC_HTTP_TRANSPORT_CREDENTIALS_W_head)
+class RPC_SEC_CONTEXT_KEY_INFO(Structure):
+    EncryptAlgorithm: UInt32
+    KeySize: UInt32
+    SignatureAlgorithm: UInt32
 class RPC_SERVER_INTERFACE(Structure):
     Length: UInt32
     InterfaceId: win32more.System.Rpc.RPC_SYNTAX_IDENTIFIER
@@ -2576,8 +2569,6 @@ RpcLocalAddressFormat = Int32
 RpcLocalAddressFormat_rlafInvalid: RpcLocalAddressFormat = 0
 RpcLocalAddressFormat_rlafIPv4: RpcLocalAddressFormat = 1
 RpcLocalAddressFormat_rlafIPv6: RpcLocalAddressFormat = 2
-@winfunctype_pointer
-def RPCLT_PDU_FILTER_FUNC(Buffer: c_void_p, BufferLength: UInt32, fDatagram: Int32) -> Void: ...
 RpcPerfCounters = Int32
 RpcPerfCounters_RpcCurrentUniqueUser: RpcPerfCounters = 1
 RpcPerfCounters_RpcBackEndConnectionAttempts: RpcPerfCounters = 2
@@ -2622,22 +2613,6 @@ STUB_MARSHAL: STUB_PHASE = 2
 STUB_CALL_SERVER_NO_HRESULT: STUB_PHASE = 3
 @winfunctype_pointer
 def STUB_THUNK(param0: POINTER(win32more.System.Rpc.MIDL_STUB_MESSAGE_head)) -> Void: ...
-system_handle_t = Int32
-SYSTEM_HANDLE_FILE: system_handle_t = 0
-SYSTEM_HANDLE_SEMAPHORE: system_handle_t = 1
-SYSTEM_HANDLE_EVENT: system_handle_t = 2
-SYSTEM_HANDLE_MUTEX: system_handle_t = 3
-SYSTEM_HANDLE_PROCESS: system_handle_t = 4
-SYSTEM_HANDLE_TOKEN: system_handle_t = 5
-SYSTEM_HANDLE_SECTION: system_handle_t = 6
-SYSTEM_HANDLE_REG_KEY: system_handle_t = 7
-SYSTEM_HANDLE_THREAD: system_handle_t = 8
-SYSTEM_HANDLE_COMPOSITION_OBJECT: system_handle_t = 9
-SYSTEM_HANDLE_SOCKET: system_handle_t = 10
-SYSTEM_HANDLE_JOB: system_handle_t = 11
-SYSTEM_HANDLE_PIPE: system_handle_t = 12
-SYSTEM_HANDLE_MAX: system_handle_t = 12
-SYSTEM_HANDLE_INVALID: system_handle_t = 255
 class USER_MARSHAL_CB(Structure):
     Flags: UInt32
     pStubMsg: POINTER(win32more.System.Rpc.MIDL_STUB_MESSAGE_head)
@@ -2677,10 +2652,31 @@ class XMIT_ROUTINE_QUINTUPLE(Structure):
     pfnTranslateFromXmit: win32more.System.Rpc.XMIT_HELPER_ROUTINE
     pfnFreeXmit: win32more.System.Rpc.XMIT_HELPER_ROUTINE
     pfnFreeInst: win32more.System.Rpc.XMIT_HELPER_ROUTINE
-make_head(_module, '_NDR_ASYNC_MESSAGE')
-make_head(_module, '_NDR_CORRELATION_INFO')
-make_head(_module, '_NDR_PROC_CONTEXT')
-make_head(_module, '_NDR_SCONTEXT')
+class _NDR_ASYNC_MESSAGE(Structure):
+    pass
+class _NDR_CORRELATION_INFO(Structure):
+    pass
+class _NDR_PROC_CONTEXT(Structure):
+    pass
+class _NDR_SCONTEXT(Structure):
+    pad: c_void_p * 2
+    userContext: c_void_p
+system_handle_t = Int32
+SYSTEM_HANDLE_FILE: system_handle_t = 0
+SYSTEM_HANDLE_SEMAPHORE: system_handle_t = 1
+SYSTEM_HANDLE_EVENT: system_handle_t = 2
+SYSTEM_HANDLE_MUTEX: system_handle_t = 3
+SYSTEM_HANDLE_PROCESS: system_handle_t = 4
+SYSTEM_HANDLE_TOKEN: system_handle_t = 5
+SYSTEM_HANDLE_SECTION: system_handle_t = 6
+SYSTEM_HANDLE_REG_KEY: system_handle_t = 7
+SYSTEM_HANDLE_THREAD: system_handle_t = 8
+SYSTEM_HANDLE_COMPOSITION_OBJECT: system_handle_t = 9
+SYSTEM_HANDLE_SOCKET: system_handle_t = 10
+SYSTEM_HANDLE_JOB: system_handle_t = 11
+SYSTEM_HANDLE_PIPE: system_handle_t = 12
+SYSTEM_HANDLE_MAX: system_handle_t = 12
+SYSTEM_HANDLE_INVALID: system_handle_t = 255
 make_head(_module, 'ARRAY_INFO')
 make_head(_module, 'BinaryParam')
 make_head(_module, 'CLIENT_CALL_RETURN')
@@ -2716,39 +2712,28 @@ make_head(_module, 'MIDL_INTERFACE_METHOD_PROPERTIES')
 make_head(_module, 'MIDL_METHOD_PROPERTY')
 make_head(_module, 'MIDL_METHOD_PROPERTY_MAP')
 make_head(_module, 'MIDL_SERVER_INFO')
+make_head(_module, 'MIDL_STUBLESS_PROXY_INFO')
 make_head(_module, 'MIDL_STUB_DESC')
 make_head(_module, 'MIDL_STUB_MESSAGE')
-make_head(_module, 'MIDL_STUBLESS_PROXY_INFO')
 make_head(_module, 'MIDL_SYNTAX_INFO')
 make_head(_module, 'MIDL_TYPE_PICKLING_INFO')
 make_head(_module, 'MIDL_WINRT_TYPE_SERIALIZATION_INFO')
-make_head(_module, 'NDR_ALLOC_ALL_NODES_CONTEXT')
-make_head(_module, 'NDR_CS_ROUTINES')
-make_head(_module, 'NDR_CS_SIZE_CONVERT_ROUTINES')
-make_head(_module, 'NDR_EXPR_DESC')
-make_head(_module, 'NDR_NOTIFY_ROUTINE')
-make_head(_module, 'NDR_NOTIFY2_ROUTINE')
-make_head(_module, 'NDR_POINTER_QUEUE_STATE')
-make_head(_module, 'NDR_RUNDOWN')
-make_head(_module, 'NDR_SCONTEXT_1')
-make_head(_module, 'NDR_USER_MARSHAL_INFO')
-make_head(_module, 'NDR_USER_MARSHAL_INFO_LEVEL1')
 make_head(_module, 'NDR64_ARRAY_ELEMENT_INFO')
 make_head(_module, 'NDR64_ARRAY_FLAGS')
+make_head(_module, 'NDR64_BINDINGS')
 make_head(_module, 'NDR64_BIND_AND_NOTIFY_EXTENSION')
 make_head(_module, 'NDR64_BIND_CONTEXT')
 make_head(_module, 'NDR64_BIND_GENERIC')
 make_head(_module, 'NDR64_BIND_PRIMITIVE')
-make_head(_module, 'NDR64_BINDINGS')
 make_head(_module, 'NDR64_BOGUS_ARRAY_HEADER_FORMAT')
 make_head(_module, 'NDR64_BOGUS_STRUCTURE_HEADER_FORMAT')
 make_head(_module, 'NDR64_BUFFER_ALIGN_FORMAT')
+make_head(_module, 'NDR64_CONFORMANT_STRING_FORMAT')
 make_head(_module, 'NDR64_CONF_ARRAY_HEADER_FORMAT')
 make_head(_module, 'NDR64_CONF_BOGUS_STRUCTURE_HEADER_FORMAT')
 make_head(_module, 'NDR64_CONF_STRUCTURE_HEADER_FORMAT')
 make_head(_module, 'NDR64_CONF_VAR_ARRAY_HEADER_FORMAT')
 make_head(_module, 'NDR64_CONF_VAR_BOGUS_ARRAY_HEADER_FORMAT')
-make_head(_module, 'NDR64_CONFORMANT_STRING_FORMAT')
 make_head(_module, 'NDR64_CONSTANT_IID_FORMAT')
 make_head(_module, 'NDR64_CONTEXT_HANDLE_FLAGS')
 make_head(_module, 'NDR64_CONTEXT_HANDLE_FORMAT')
@@ -2759,14 +2744,14 @@ make_head(_module, 'NDR64_EXPR_CONST64')
 make_head(_module, 'NDR64_EXPR_NOOP')
 make_head(_module, 'NDR64_EXPR_OPERATOR')
 make_head(_module, 'NDR64_EXPR_VAR')
-make_head(_module, 'NDR64_FIX_ARRAY_HEADER_FORMAT')
 make_head(_module, 'NDR64_FIXED_REPEAT_FORMAT')
+make_head(_module, 'NDR64_FIX_ARRAY_HEADER_FORMAT')
 make_head(_module, 'NDR64_IID_FLAGS')
 make_head(_module, 'NDR64_IID_FORMAT')
 make_head(_module, 'NDR64_MEMPAD_FORMAT')
-make_head(_module, 'NDR64_NO_REPEAT_FORMAT')
 make_head(_module, 'NDR64_NON_CONFORMANT_STRING_FORMAT')
 make_head(_module, 'NDR64_NON_ENCAPSULATED_UNION')
+make_head(_module, 'NDR64_NO_REPEAT_FORMAT')
 make_head(_module, 'NDR64_PARAM_FLAGS')
 make_head(_module, 'NDR64_PARAM_FORMAT')
 make_head(_module, 'NDR64_PIPE_FLAGS')
@@ -2776,9 +2761,9 @@ make_head(_module, 'NDR64_POINTER_INSTANCE_HEADER_FORMAT')
 make_head(_module, 'NDR64_POINTER_REPEAT_FLAGS')
 make_head(_module, 'NDR64_PROC_FLAGS')
 make_head(_module, 'NDR64_PROC_FORMAT')
+make_head(_module, 'NDR64_RANGED_STRING_FORMAT')
 make_head(_module, 'NDR64_RANGE_FORMAT')
 make_head(_module, 'NDR64_RANGE_PIPE_FORMAT')
-make_head(_module, 'NDR64_RANGED_STRING_FORMAT')
 make_head(_module, 'NDR64_REPEAT_FORMAT')
 make_head(_module, 'NDR64_RPC_FLAGS')
 make_head(_module, 'NDR64_SIMPLE_MEMBER_FORMAT')
@@ -2797,9 +2782,21 @@ make_head(_module, 'NDR64_UNION_ARM_SELECTOR')
 make_head(_module, 'NDR64_USER_MARSHAL_FLAGS')
 make_head(_module, 'NDR64_USER_MARSHAL_FORMAT')
 make_head(_module, 'NDR64_VAR_ARRAY_HEADER_FORMAT')
+make_head(_module, 'NDR_ALLOC_ALL_NODES_CONTEXT')
+make_head(_module, 'NDR_CS_ROUTINES')
+make_head(_module, 'NDR_CS_SIZE_CONVERT_ROUTINES')
+make_head(_module, 'NDR_EXPR_DESC')
+make_head(_module, 'NDR_NOTIFY2_ROUTINE')
+make_head(_module, 'NDR_NOTIFY_ROUTINE')
+make_head(_module, 'NDR_POINTER_QUEUE_STATE')
+make_head(_module, 'NDR_RUNDOWN')
+make_head(_module, 'NDR_SCONTEXT_1')
+make_head(_module, 'NDR_USER_MARSHAL_INFO')
+make_head(_module, 'NDR_USER_MARSHAL_INFO_LEVEL1')
 make_head(_module, 'PFN_RPCNOTIFICATION_ROUTINE')
 make_head(_module, 'PRPC_RUNDOWN')
 make_head(_module, 'RDR_CALLOUT_STATE')
+make_head(_module, 'RPCLT_PDU_FILTER_FUNC')
 make_head(_module, 'RPC_ADDRESS_CHANGE_FN')
 make_head(_module, 'RPC_ASYNC_NOTIFICATION_INFO')
 make_head(_module, 'RPC_ASYNC_STATE')
@@ -2811,7 +2808,6 @@ make_head(_module, 'RPC_BINDING_HANDLE_TEMPLATE_V1_A')
 make_head(_module, 'RPC_BINDING_HANDLE_TEMPLATE_V1_W')
 make_head(_module, 'RPC_BINDING_VECTOR')
 make_head(_module, 'RPC_BLOCKING_FN')
-make_head(_module, 'RPC_C_OPT_COOKIE_AUTH_DESCRIPTOR')
 make_head(_module, 'RPC_CALL_ATTRIBUTES_V1_A')
 make_head(_module, 'RPC_CALL_ATTRIBUTES_V1_W')
 make_head(_module, 'RPC_CALL_ATTRIBUTES_V2_A')
@@ -2823,6 +2819,7 @@ make_head(_module, 'RPC_CLIENT_ALLOC')
 make_head(_module, 'RPC_CLIENT_FREE')
 make_head(_module, 'RPC_CLIENT_INFORMATION1')
 make_head(_module, 'RPC_CLIENT_INTERFACE')
+make_head(_module, 'RPC_C_OPT_COOKIE_AUTH_DESCRIPTOR')
 make_head(_module, 'RPC_DISPATCH_FUNCTION')
 make_head(_module, 'RPC_DISPATCH_TABLE')
 make_head(_module, 'RPC_EE_INFO_PARAM')
@@ -2853,7 +2850,6 @@ make_head(_module, 'RPC_POLICY')
 make_head(_module, 'RPC_PROTSEQ_ENDPOINT')
 make_head(_module, 'RPC_PROTSEQ_VECTORA')
 make_head(_module, 'RPC_PROTSEQ_VECTORW')
-make_head(_module, 'RPC_SEC_CONTEXT_KEY_INFO')
 make_head(_module, 'RPC_SECURITY_CALLBACK_FN')
 make_head(_module, 'RPC_SECURITY_QOS')
 make_head(_module, 'RPC_SECURITY_QOS_V2_A')
@@ -2864,13 +2860,13 @@ make_head(_module, 'RPC_SECURITY_QOS_V4_A')
 make_head(_module, 'RPC_SECURITY_QOS_V4_W')
 make_head(_module, 'RPC_SECURITY_QOS_V5_A')
 make_head(_module, 'RPC_SECURITY_QOS_V5_W')
+make_head(_module, 'RPC_SEC_CONTEXT_KEY_INFO')
 make_head(_module, 'RPC_SERVER_INTERFACE')
 make_head(_module, 'RPC_SETFILTER_FUNC')
 make_head(_module, 'RPC_STATS_VECTOR')
 make_head(_module, 'RPC_SYNTAX_IDENTIFIER')
 make_head(_module, 'RPC_TRANSFER_SYNTAX')
 make_head(_module, 'RPC_VERSION')
-make_head(_module, 'RPCLT_PDU_FILTER_FUNC')
 make_head(_module, 'SCONTEXT_QUEUE')
 make_head(_module, 'SEC_WINNT_AUTH_IDENTITY_A')
 make_head(_module, 'SEC_WINNT_AUTH_IDENTITY_W')
@@ -2885,6 +2881,10 @@ make_head(_module, 'USER_MARSHAL_UNMARSHALLING_ROUTINE')
 make_head(_module, 'UUID_VECTOR')
 make_head(_module, 'XMIT_HELPER_ROUTINE')
 make_head(_module, 'XMIT_ROUTINE_QUINTUPLE')
+make_head(_module, '_NDR_ASYNC_MESSAGE')
+make_head(_module, '_NDR_CORRELATION_INFO')
+make_head(_module, '_NDR_PROC_CONTEXT')
+make_head(_module, '_NDR_SCONTEXT')
 __all__ = [
     "ARRAY_INFO",
     "BinaryParam",

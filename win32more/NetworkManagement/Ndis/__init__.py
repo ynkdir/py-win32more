@@ -2232,19 +2232,6 @@ class NDIS_INTERRUPT_MODERATION_PARAMETERS(Structure):
     Header: win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
     Flags: UInt32
     InterruptModeration: win32more.NetworkManagement.Ndis.NDIS_INTERRUPT_MODERATION
-class NDIS_IP_OPER_STATE(Structure):
-    Header: win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
-    Flags: UInt32
-    IpOperationalStatus: win32more.NetworkManagement.Ndis.NDIS_IP_OPER_STATUS
-class NDIS_IP_OPER_STATUS(Structure):
-    AddressFamily: UInt32
-    OperationalStatus: win32more.NetworkManagement.Ndis.NET_IF_OPER_STATUS
-    OperationalStatusFlags: UInt32
-class NDIS_IP_OPER_STATUS_INFO(Structure):
-    Header: win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
-    Flags: UInt32
-    NumberofAddressFamiliesReturned: UInt32
-    IpOperationalStatus: win32more.NetworkManagement.Ndis.NDIS_IP_OPER_STATUS * 32
 class NDIS_IPSEC_OFFLOAD_V1(Structure):
     Supported: _Supported_e__Struct
     IPv4AH: _IPv4AH_e__Struct
@@ -2259,6 +2246,19 @@ class NDIS_IPSEC_OFFLOAD_V1(Structure):
         _bitfield: UInt32
     class _IPv4ESP_e__Struct(Structure):
         _bitfield: UInt32
+class NDIS_IP_OPER_STATE(Structure):
+    Header: win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
+    Flags: UInt32
+    IpOperationalStatus: win32more.NetworkManagement.Ndis.NDIS_IP_OPER_STATUS
+class NDIS_IP_OPER_STATUS(Structure):
+    AddressFamily: UInt32
+    OperationalStatus: win32more.NetworkManagement.Ndis.NET_IF_OPER_STATUS
+    OperationalStatusFlags: UInt32
+class NDIS_IP_OPER_STATUS_INFO(Structure):
+    Header: win32more.NetworkManagement.Ndis.NDIS_OBJECT_HEADER
+    Flags: UInt32
+    NumberofAddressFamiliesReturned: UInt32
+    IpOperationalStatus: win32more.NetworkManagement.Ndis.NDIS_IP_OPER_STATUS * 32
 class NDIS_IRDA_PACKET_INFO(Structure):
     ExtraBOFs: UInt32
     MinTurnAroundTime: UInt32
@@ -2807,6 +2807,27 @@ NDK_RDMA_TECHNOLOGY_NdkMaxTechnology: NDK_RDMA_TECHNOLOGY = 5
 class NDK_VERSION(Structure):
     Major: UInt16
     Minor: UInt16
+class NETWORK_ADDRESS(Structure):
+    AddressLength: UInt16
+    AddressType: UInt16
+    Address: Byte * 1
+class NETWORK_ADDRESS_IP(Structure):
+    sin_port: UInt16
+    IN_ADDR: UInt32
+    sin_zero: Byte * 8
+class NETWORK_ADDRESS_IP6(Structure):
+    sin6_port: UInt16
+    sin6_flowinfo: UInt32
+    sin6_addr: UInt16 * 8
+    sin6_scope_id: UInt32
+class NETWORK_ADDRESS_IPX(Structure):
+    NetworkAddress: UInt32
+    NodeAddress: Byte * 6
+    Socket: UInt16
+class NETWORK_ADDRESS_LIST(Structure):
+    AddressCount: Int32
+    AddressType: UInt16
+    Address: win32more.NetworkManagement.Ndis.NETWORK_ADDRESS * 1
 NET_IF_ACCESS_TYPE = Int32
 NET_IF_ACCESS_LOOPBACK: NET_IF_ACCESS_TYPE = 1
 NET_IF_ACCESS_BROADCAST: NET_IF_ACCESS_TYPE = 2
@@ -2863,27 +2884,6 @@ class NET_PHYSICAL_LOCATION_LH(Structure):
     BusNumber: UInt32
     SlotNumber: UInt32
     FunctionNumber: UInt32
-class NETWORK_ADDRESS(Structure):
-    AddressLength: UInt16
-    AddressType: UInt16
-    Address: Byte * 1
-class NETWORK_ADDRESS_IP(Structure):
-    sin_port: UInt16
-    IN_ADDR: UInt32
-    sin_zero: Byte * 8
-class NETWORK_ADDRESS_IP6(Structure):
-    sin6_port: UInt16
-    sin6_flowinfo: UInt32
-    sin6_addr: UInt16 * 8
-    sin6_scope_id: UInt32
-class NETWORK_ADDRESS_IPX(Structure):
-    NetworkAddress: UInt32
-    NodeAddress: Byte * 6
-    Socket: UInt16
-class NETWORK_ADDRESS_LIST(Structure):
-    AddressCount: Int32
-    AddressType: UInt16
-    Address: win32more.NetworkManagement.Ndis.NETWORK_ADDRESS * 1
 class OFFLOAD_ALGO_INFO(Structure):
     algoIdentifier: UInt32
     algoKeylen: UInt32
@@ -3002,10 +3002,10 @@ make_head(_module, 'NDIS_GUID')
 make_head(_module, 'NDIS_HARDWARE_CROSSTIMESTAMP')
 make_head(_module, 'NDIS_INTERFACE_INFORMATION')
 make_head(_module, 'NDIS_INTERRUPT_MODERATION_PARAMETERS')
+make_head(_module, 'NDIS_IPSEC_OFFLOAD_V1')
 make_head(_module, 'NDIS_IP_OPER_STATE')
 make_head(_module, 'NDIS_IP_OPER_STATUS')
 make_head(_module, 'NDIS_IP_OPER_STATUS_INFO')
-make_head(_module, 'NDIS_IPSEC_OFFLOAD_V1')
 make_head(_module, 'NDIS_IRDA_PACKET_INFO')
 make_head(_module, 'NDIS_LINK_PARAMETERS')
 make_head(_module, 'NDIS_LINK_SPEED')
@@ -3053,15 +3053,15 @@ make_head(_module, 'NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V1')
 make_head(_module, 'NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V2')
 make_head(_module, 'NDK_ADAPTER_INFO')
 make_head(_module, 'NDK_VERSION')
-make_head(_module, 'NET_IF_ALIAS_LH')
-make_head(_module, 'NET_IF_RCV_ADDRESS_LH')
-make_head(_module, 'NET_LUID_LH')
-make_head(_module, 'NET_PHYSICAL_LOCATION_LH')
 make_head(_module, 'NETWORK_ADDRESS')
 make_head(_module, 'NETWORK_ADDRESS_IP')
 make_head(_module, 'NETWORK_ADDRESS_IP6')
 make_head(_module, 'NETWORK_ADDRESS_IPX')
 make_head(_module, 'NETWORK_ADDRESS_LIST')
+make_head(_module, 'NET_IF_ALIAS_LH')
+make_head(_module, 'NET_IF_RCV_ADDRESS_LH')
+make_head(_module, 'NET_LUID_LH')
+make_head(_module, 'NET_PHYSICAL_LOCATION_LH')
 make_head(_module, 'OFFLOAD_ALGO_INFO')
 make_head(_module, 'OFFLOAD_IPSEC_ADD_SA')
 make_head(_module, 'OFFLOAD_IPSEC_ADD_UDPESP_SA')

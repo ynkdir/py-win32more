@@ -18,8 +18,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _SC_NOTIFICATION_REGISTRATION(Structure):
-    pass
 SERVICE_ALL_ACCESS: UInt32 = 983551
 SC_MANAGER_ALL_ACCESS: UInt32 = 983103
 SERVICES_ACTIVE_DATABASEW: String = 'ServicesActive'
@@ -267,14 +265,6 @@ ENUM_SERVICE_STATE = UInt32
 SERVICE_ACTIVE: ENUM_SERVICE_STATE = 1
 SERVICE_INACTIVE: ENUM_SERVICE_STATE = 2
 SERVICE_STATE_ALL: ENUM_SERVICE_STATE = 3
-class ENUM_SERVICE_STATUS_PROCESSA(Structure):
-    lpServiceName: win32more.Foundation.PSTR
-    lpDisplayName: win32more.Foundation.PSTR
-    ServiceStatusProcess: win32more.System.Services.SERVICE_STATUS_PROCESS
-class ENUM_SERVICE_STATUS_PROCESSW(Structure):
-    lpServiceName: win32more.Foundation.PWSTR
-    lpDisplayName: win32more.Foundation.PWSTR
-    ServiceStatusProcess: win32more.System.Services.SERVICE_STATUS_PROCESS
 class ENUM_SERVICE_STATUSA(Structure):
     lpServiceName: win32more.Foundation.PSTR
     lpDisplayName: win32more.Foundation.PSTR
@@ -283,6 +273,14 @@ class ENUM_SERVICE_STATUSW(Structure):
     lpServiceName: win32more.Foundation.PWSTR
     lpDisplayName: win32more.Foundation.PWSTR
     ServiceStatus: win32more.System.Services.SERVICE_STATUS
+class ENUM_SERVICE_STATUS_PROCESSA(Structure):
+    lpServiceName: win32more.Foundation.PSTR
+    lpDisplayName: win32more.Foundation.PSTR
+    ServiceStatusProcess: win32more.System.Services.SERVICE_STATUS_PROCESS
+class ENUM_SERVICE_STATUS_PROCESSW(Structure):
+    lpServiceName: win32more.Foundation.PWSTR
+    lpDisplayName: win32more.Foundation.PWSTR
+    ServiceStatusProcess: win32more.System.Services.SERVICE_STATUS_PROCESS
 ENUM_SERVICE_TYPE = UInt32
 SERVICE_DRIVER: ENUM_SERVICE_TYPE = 11
 SERVICE_KERNEL_DRIVER: ENUM_SERVICE_TYPE = 1
@@ -396,8 +394,6 @@ SERVICE_ERROR_CRITICAL: SERVICE_ERROR = 3
 SERVICE_ERROR_IGNORE: SERVICE_ERROR = 0
 SERVICE_ERROR_NORMAL: SERVICE_ERROR = 1
 SERVICE_ERROR_SEVERE: SERVICE_ERROR = 2
-class SERVICE_FAILURE_ACTIONS_FLAG(Structure):
-    fFailureActionsOnNonCrashFailures: win32more.Foundation.BOOL
 class SERVICE_FAILURE_ACTIONSA(Structure):
     dwResetPeriod: UInt32
     lpRebootMsg: win32more.Foundation.PSTR
@@ -410,6 +406,8 @@ class SERVICE_FAILURE_ACTIONSW(Structure):
     lpCommand: win32more.Foundation.PWSTR
     cActions: UInt32
     lpsaActions: POINTER(win32more.System.Services.SC_ACTION_head)
+class SERVICE_FAILURE_ACTIONS_FLAG(Structure):
+    fFailureActionsOnNonCrashFailures: win32more.Foundation.BOOL
 class SERVICE_LAUNCH_PROTECTED_INFO(Structure):
     dwLaunchProtected: UInt32
 @winfunctype_pointer
@@ -548,11 +546,12 @@ SERVICE_TRIGGER_TYPE_FIREWALL_PORT_EVENT: SERVICE_TRIGGER_TYPE = 4
 SERVICE_TRIGGER_TYPE_GROUP_POLICY: SERVICE_TRIGGER_TYPE = 5
 SERVICE_TRIGGER_TYPE_IP_ADDRESS_AVAILABILITY: SERVICE_TRIGGER_TYPE = 2
 SERVICE_TRIGGER_TYPE_NETWORK_ENDPOINT: SERVICE_TRIGGER_TYPE = 6
-make_head(_module, '_SC_NOTIFICATION_REGISTRATION')
-make_head(_module, 'ENUM_SERVICE_STATUS_PROCESSA')
-make_head(_module, 'ENUM_SERVICE_STATUS_PROCESSW')
+class _SC_NOTIFICATION_REGISTRATION(Structure):
+    pass
 make_head(_module, 'ENUM_SERVICE_STATUSA')
 make_head(_module, 'ENUM_SERVICE_STATUSW')
+make_head(_module, 'ENUM_SERVICE_STATUS_PROCESSA')
+make_head(_module, 'ENUM_SERVICE_STATUS_PROCESSW')
 make_head(_module, 'HANDLER_FUNCTION')
 make_head(_module, 'HANDLER_FUNCTION_EX')
 make_head(_module, 'LPHANDLER_FUNCTION')
@@ -572,9 +571,9 @@ make_head(_module, 'SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM')
 make_head(_module, 'SERVICE_DELAYED_AUTO_START_INFO')
 make_head(_module, 'SERVICE_DESCRIPTIONA')
 make_head(_module, 'SERVICE_DESCRIPTIONW')
-make_head(_module, 'SERVICE_FAILURE_ACTIONS_FLAG')
 make_head(_module, 'SERVICE_FAILURE_ACTIONSA')
 make_head(_module, 'SERVICE_FAILURE_ACTIONSW')
+make_head(_module, 'SERVICE_FAILURE_ACTIONS_FLAG')
 make_head(_module, 'SERVICE_LAUNCH_PROTECTED_INFO')
 make_head(_module, 'SERVICE_MAIN_FUNCTIONA')
 make_head(_module, 'SERVICE_MAIN_FUNCTIONW')
@@ -596,6 +595,7 @@ make_head(_module, 'SERVICE_TRIGGER')
 make_head(_module, 'SERVICE_TRIGGER_CUSTOM_STATE_ID')
 make_head(_module, 'SERVICE_TRIGGER_INFO')
 make_head(_module, 'SERVICE_TRIGGER_SPECIFIC_DATA_ITEM')
+make_head(_module, '_SC_NOTIFICATION_REGISTRATION')
 __all__ = [
     "CUSTOM_SYSTEM_STATE_CHANGE_EVENT_GUID",
     "ChangeServiceConfig2A",

@@ -894,17 +894,6 @@ class IRTCProfileEvent2(c_void_p):
     Guid = Guid('62e56edc-03fa-4121-94-fb-23-49-3f-d0-ae-64')
     @commethod(10)
     def get_EventType(pEventType: POINTER(win32more.System.RealTimeCommunications.RTC_PROFILE_EVENT_TYPE)) -> win32more.Foundation.HRESULT: ...
-class IRTCRegistrationStateChangeEvent(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('62d0991b-50ab-4f02-b9-48-ca-94-f2-6f-8f-95')
-    @commethod(7)
-    def get_Profile(ppProfile: POINTER(win32more.System.RealTimeCommunications.IRTCProfile_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_State(penState: POINTER(win32more.System.RealTimeCommunications.RTC_REGISTRATION_STATE)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_StatusCode(plStatusCode: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_StatusText(pbstrStatusText: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
 class IRTCReInviteEvent(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('11558d84-204c-43e7-99-b0-20-34-e9-41-7f-7d')
@@ -918,6 +907,17 @@ class IRTCReInviteEvent(c_void_p):
     def get_State(pState: POINTER(win32more.System.RealTimeCommunications.RTC_REINVITE_STATE)) -> win32more.Foundation.HRESULT: ...
     @commethod(11)
     def GetRemoteSessionDescription(pbstrContentType: POINTER(win32more.Foundation.BSTR), pbstrSessionDescription: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class IRTCRegistrationStateChangeEvent(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('62d0991b-50ab-4f02-b9-48-ca-94-f2-6f-8f-95')
+    @commethod(7)
+    def get_Profile(ppProfile: POINTER(win32more.System.RealTimeCommunications.IRTCProfile_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_State(penState: POINTER(win32more.System.RealTimeCommunications.RTC_REGISTRATION_STATE)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_StatusCode(plStatusCode: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_StatusText(pbstrStatusText: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
 class IRTCRoamingEvent(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('79960a6b-0cb1-4dc8-a8-05-73-18-e9-99-02-e8')
@@ -1036,6 +1036,17 @@ class IRTCSessionPortManagement(c_void_p):
     Guid = Guid('a072f1d6-0286-4e1f-85-f2-17-a2-94-84-56-ec')
     @commethod(3)
     def SetPortManager(pPortManager: win32more.System.RealTimeCommunications.IRTCPortManager_head) -> win32more.Foundation.HRESULT: ...
+class IRTCSessionReferStatusEvent(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('3d8fc2cd-5d76-44ab-bb-68-2a-80-35-3b-34-a2')
+    @commethod(7)
+    def get_Session(ppSession: POINTER(win32more.System.RealTimeCommunications.IRTCSession2_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_ReferStatus(penReferStatus: POINTER(win32more.System.RealTimeCommunications.RTC_SESSION_REFER_STATUS)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_StatusCode(plStatusCode: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_StatusText(pbstrStatusText: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
 class IRTCSessionReferredEvent(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('176a6828-4fcc-4f28-a8-62-04-59-7a-6c-f1-c4')
@@ -1053,17 +1064,6 @@ class IRTCSessionReferredEvent(c_void_p):
     def Reject() -> win32more.Foundation.HRESULT: ...
     @commethod(13)
     def SetReferredSessionState(enState: win32more.System.RealTimeCommunications.RTC_SESSION_STATE) -> win32more.Foundation.HRESULT: ...
-class IRTCSessionReferStatusEvent(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('3d8fc2cd-5d76-44ab-bb-68-2a-80-35-3b-34-a2')
-    @commethod(7)
-    def get_Session(ppSession: POINTER(win32more.System.RealTimeCommunications.IRTCSession2_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_ReferStatus(penReferStatus: POINTER(win32more.System.RealTimeCommunications.RTC_SESSION_REFER_STATUS)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_StatusCode(plStatusCode: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_StatusText(pbstrStatusText: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
 class IRTCSessionStateChangeEvent(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('b5bad703-5952-48b3-93-21-7f-45-00-52-15-06')
@@ -1165,6 +1165,7 @@ class ITransportSettingsInternal(c_void_p):
     def ApplySetting(Setting: POINTER(win32more.System.RealTimeCommunications.TRANSPORT_SETTING_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def QuerySetting(Setting: POINTER(win32more.System.RealTimeCommunications.TRANSPORT_SETTING_head)) -> win32more.Foundation.HRESULT: ...
+RTCClient = Guid('7a42ea29-a2b7-40c4-b0-91-f6-f0-24-aa-89-be')
 RTC_ACE_SCOPE = Int32
 RTCAS_SCOPE_USER: RTC_ACE_SCOPE = 0
 RTCAS_SCOPE_DOMAIN: RTC_ACE_SCOPE = 1
@@ -1409,7 +1410,6 @@ RTCWS_ALLOWED: RTC_WATCHER_STATE = 2
 RTCWS_BLOCKED: RTC_WATCHER_STATE = 3
 RTCWS_DENIED: RTC_WATCHER_STATE = 4
 RTCWS_PROMPT: RTC_WATCHER_STATE = 5
-RTCClient = Guid('7a42ea29-a2b7-40c4-b0-91-f6-f0-24-aa-89-be')
 class TRANSPORT_SETTING(Structure):
     SettingId: win32more.Networking.WinSock.TRANSPORT_SETTING_ID
     Length: POINTER(UInt32)
@@ -1457,8 +1457,8 @@ make_head(_module, 'IRTCProfile')
 make_head(_module, 'IRTCProfile2')
 make_head(_module, 'IRTCProfileEvent')
 make_head(_module, 'IRTCProfileEvent2')
-make_head(_module, 'IRTCRegistrationStateChangeEvent')
 make_head(_module, 'IRTCReInviteEvent')
+make_head(_module, 'IRTCRegistrationStateChangeEvent')
 make_head(_module, 'IRTCRoamingEvent')
 make_head(_module, 'IRTCSession')
 make_head(_module, 'IRTCSession2')
@@ -1467,8 +1467,8 @@ make_head(_module, 'IRTCSessionDescriptionManager')
 make_head(_module, 'IRTCSessionOperationCompleteEvent')
 make_head(_module, 'IRTCSessionOperationCompleteEvent2')
 make_head(_module, 'IRTCSessionPortManagement')
-make_head(_module, 'IRTCSessionReferredEvent')
 make_head(_module, 'IRTCSessionReferStatusEvent')
+make_head(_module, 'IRTCSessionReferredEvent')
 make_head(_module, 'IRTCSessionStateChangeEvent')
 make_head(_module, 'IRTCSessionStateChangeEvent2')
 make_head(_module, 'IRTCUserSearch')

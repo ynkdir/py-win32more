@@ -20,12 +20,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _ICivicAddressReportFactoryEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('c96039ff-72ec-4617-89-bd-84-d8-8b-ed-c7-22')
-class _ILatLongReportFactoryEvents(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('16ee6cb7-ab3c-424b-84-9f-26-9b-e5-51-fc-bc')
 GNSS_DRIVER_VERSION_1: UInt32 = 1
 GNSS_DRIVER_VERSION_2: UInt32 = 2
 GNSS_DRIVER_VERSION_3: UInt32 = 3
@@ -139,6 +133,17 @@ GNSS_AGNSS_REQUEST_TYPE = Int32
 GNSS_AGNSS_TimeInjection: GNSS_AGNSS_REQUEST_TYPE = 1
 GNSS_AGNSS_PositionInjection: GNSS_AGNSS_REQUEST_TYPE = 2
 GNSS_AGNSS_BlobInjection: GNSS_AGNSS_REQUEST_TYPE = 3
+class GNSS_BREADCRUMBING_ALERT_DATA(Structure):
+    Size: UInt32
+    Version: UInt32
+    Unused: Byte * 512
+class GNSS_BREADCRUMBING_PARAM(Structure):
+    Size: UInt32
+    Version: UInt32
+    MaximumHorizontalUncertainty: UInt32
+    MinDistanceBetweenFixes: UInt32
+    MaximumErrorTimeoutMs: UInt32
+    Unused: Byte * 512
 class GNSS_BREADCRUMB_LIST(Structure):
     Size: UInt32
     Version: UInt32
@@ -158,17 +163,6 @@ class GNSS_BREADCRUMB_V1(Structure):
     Heading: Int16
     HeadingAccuracy: Byte
     FixSuccess: Byte
-class GNSS_BREADCRUMBING_ALERT_DATA(Structure):
-    Size: UInt32
-    Version: UInt32
-    Unused: Byte * 512
-class GNSS_BREADCRUMBING_PARAM(Structure):
-    Size: UInt32
-    Version: UInt32
-    MaximumHorizontalUncertainty: UInt32
-    MinDistanceBetweenFixes: UInt32
-    MaximumErrorTimeoutMs: UInt32
-    Unused: Byte * 512
 class GNSS_CHIPSETINFO(Structure):
     Size: UInt32
     Version: UInt32
@@ -224,13 +218,6 @@ class GNSS_DISTANCETRACKING_PARAM(Structure):
     Size: UInt32
     Version: UInt32
     MovementThreshold: UInt32
-GNSS_DRIVER_REQUEST = Int32
-SUPL_CONFIG_DATA: GNSS_DRIVER_REQUEST = 1
-class GNSS_DRIVER_REQUEST_DATA(Structure):
-    Size: UInt32
-    Version: UInt32
-    Request: win32more.Devices.Geolocation.GNSS_DRIVER_REQUEST
-    RequestFlag: UInt32
 class GNSS_DRIVERCOMMAND_PARAM(Structure):
     Size: UInt32
     Version: UInt32
@@ -253,6 +240,13 @@ GNSS_SetNiTimeoutInterval: GNSS_DRIVERCOMMAND_TYPE = 15
 GNSS_ResetGeofencesTracking: GNSS_DRIVERCOMMAND_TYPE = 16
 GNSS_SetSuplVersion2: GNSS_DRIVERCOMMAND_TYPE = 17
 GNSS_CustomCommand: GNSS_DRIVERCOMMAND_TYPE = 256
+GNSS_DRIVER_REQUEST = Int32
+SUPL_CONFIG_DATA: GNSS_DRIVER_REQUEST = 1
+class GNSS_DRIVER_REQUEST_DATA(Structure):
+    Size: UInt32
+    Version: UInt32
+    Request: win32more.Devices.Geolocation.GNSS_DRIVER_REQUEST
+    RequestFlag: UInt32
 class GNSS_ERRORINFO(Structure):
     Size: UInt32
     Version: UInt32
@@ -389,6 +383,11 @@ class GNSS_FIXDATA_SATELLITE(Structure):
     Version: UInt32
     SatelliteCount: UInt32
     SatelliteArray: win32more.Devices.Geolocation.GNSS_SATELLITEINFO * 64
+GNSS_FIXSESSIONTYPE = Int32
+GNSS_FixSession_SingleShot: GNSS_FIXSESSIONTYPE = 1
+GNSS_FixSession_DistanceTracking: GNSS_FIXSESSIONTYPE = 2
+GNSS_FixSession_ContinuousTracking: GNSS_FIXSESSIONTYPE = 3
+GNSS_FixSession_LKG: GNSS_FIXSESSIONTYPE = 4
 class GNSS_FIXSESSION_PARAM(Structure):
     Size: UInt32
     Version: UInt32
@@ -406,11 +405,12 @@ class GNSS_FIXSESSION_PARAM(Structure):
         ContinuousParam: win32more.Devices.Geolocation.GNSS_CONTINUOUSTRACKING_PARAM
         LkgFixParam: win32more.Devices.Geolocation.GNSS_LKGFIX_PARAM
         UnusedParam: Byte * 268
-GNSS_FIXSESSIONTYPE = Int32
-GNSS_FixSession_SingleShot: GNSS_FIXSESSIONTYPE = 1
-GNSS_FixSession_DistanceTracking: GNSS_FIXSESSIONTYPE = 2
-GNSS_FixSession_ContinuousTracking: GNSS_FIXSESSIONTYPE = 3
-GNSS_FixSession_LKG: GNSS_FIXSESSIONTYPE = 4
+class GNSS_GEOFENCES_TRACKINGSTATUS_DATA(Structure):
+    Size: UInt32
+    Version: UInt32
+    Status: win32more.Foundation.NTSTATUS
+    StatusTimeStamp: win32more.Foundation.FILETIME
+    Unused: Byte * 512
 class GNSS_GEOFENCE_ALERT_DATA(Structure):
     Size: UInt32
     Version: UInt32
@@ -441,12 +441,6 @@ GNSS_GEOFENCE_STATE = Int32
 GNSS_GeofenceState_Unknown: GNSS_GEOFENCE_STATE = 0
 GNSS_GeofenceState_Entered: GNSS_GEOFENCE_STATE = 1
 GNSS_GeofenceState_Exited: GNSS_GEOFENCE_STATE = 2
-class GNSS_GEOFENCES_TRACKINGSTATUS_DATA(Structure):
-    Size: UInt32
-    Version: UInt32
-    Status: win32more.Foundation.NTSTATUS
-    StatusTimeStamp: win32more.Foundation.FILETIME
-    Unused: Byte * 512
 class GNSS_GEOREGION(Structure):
     Size: UInt32
     Version: UInt32
@@ -455,12 +449,12 @@ class GNSS_GEOREGION(Structure):
     class _Anonymous_e__Union(Union):
         Circle: win32more.Devices.Geolocation.GNSS_GEOREGION_CIRCLE
         Unused: Byte * 512
+GNSS_GEOREGIONTYPE = Int32
+GNSS_GeoRegion_Circle: GNSS_GEOREGIONTYPE = 1
 class GNSS_GEOREGION_CIRCLE(Structure):
     Latitude: Double
     Longitude: Double
     RadiusInMeters: Double
-GNSS_GEOREGIONTYPE = Int32
-GNSS_GeoRegion_Circle: GNSS_GEOREGIONTYPE = 1
 class GNSS_LKGFIX_PARAM(Structure):
     Size: UInt32
     Version: UInt32
@@ -728,34 +722,38 @@ class ILocationReportFactory(c_void_p):
     def put_DesiredAccuracy(desiredAccuracy: UInt32) -> win32more.Foundation.HRESULT: ...
     @commethod(14)
     def RequestPermissions(hWnd: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-LatLongReport = Guid('ed81c073-1f84-4ca8-a1-61-18-3c-77-6b-c6-51')
-LatLongReportFactory = Guid('9dcc3cc8-8609-4863-ba-d4-03-60-1f-4c-65-e8')
-Location = Guid('e5b8e079-ee6d-4e33-a4-38-c8-7f-2e-95-92-54')
 LOCATION_REPORT_STATUS = Int32
 REPORT_NOT_SUPPORTED: LOCATION_REPORT_STATUS = 0
 REPORT_ERROR: LOCATION_REPORT_STATUS = 1
 REPORT_ACCESS_DENIED: LOCATION_REPORT_STATUS = 2
 REPORT_INITIALIZING: LOCATION_REPORT_STATUS = 3
 REPORT_RUNNING: LOCATION_REPORT_STATUS = 4
-make_head(_module, '_ICivicAddressReportFactoryEvents')
-make_head(_module, '_ILatLongReportFactoryEvents')
+LatLongReport = Guid('ed81c073-1f84-4ca8-a1-61-18-3c-77-6b-c6-51')
+LatLongReportFactory = Guid('9dcc3cc8-8609-4863-ba-d4-03-60-1f-4c-65-e8')
+Location = Guid('e5b8e079-ee6d-4e33-a4-38-c8-7f-2e-95-92-54')
+class _ICivicAddressReportFactoryEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('c96039ff-72ec-4617-89-bd-84-d8-8b-ed-c7-22')
+class _ILatLongReportFactoryEvents(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('16ee6cb7-ab3c-424b-84-9f-26-9b-e5-51-fc-bc')
 make_head(_module, 'GNSS_AGNSS_INJECT')
 make_head(_module, 'GNSS_AGNSS_INJECTBLOB')
 make_head(_module, 'GNSS_AGNSS_INJECTPOSITION')
 make_head(_module, 'GNSS_AGNSS_INJECTTIME')
 make_head(_module, 'GNSS_AGNSS_REQUEST_PARAM')
-make_head(_module, 'GNSS_BREADCRUMB_LIST')
-make_head(_module, 'GNSS_BREADCRUMB_V1')
 make_head(_module, 'GNSS_BREADCRUMBING_ALERT_DATA')
 make_head(_module, 'GNSS_BREADCRUMBING_PARAM')
+make_head(_module, 'GNSS_BREADCRUMB_LIST')
+make_head(_module, 'GNSS_BREADCRUMB_V1')
 make_head(_module, 'GNSS_CHIPSETINFO')
 make_head(_module, 'GNSS_CONTINUOUSTRACKING_PARAM')
 make_head(_module, 'GNSS_CP_NI_INFO')
 make_head(_module, 'GNSS_CWTESTDATA')
 make_head(_module, 'GNSS_DEVICE_CAPABILITY')
 make_head(_module, 'GNSS_DISTANCETRACKING_PARAM')
-make_head(_module, 'GNSS_DRIVER_REQUEST_DATA')
 make_head(_module, 'GNSS_DRIVERCOMMAND_PARAM')
+make_head(_module, 'GNSS_DRIVER_REQUEST_DATA')
 make_head(_module, 'GNSS_ERRORINFO')
 make_head(_module, 'GNSS_EVENT')
 make_head(_module, 'GNSS_EVENT_2')
@@ -767,11 +765,11 @@ make_head(_module, 'GNSS_FIXDATA_BASIC')
 make_head(_module, 'GNSS_FIXDATA_BASIC_2')
 make_head(_module, 'GNSS_FIXDATA_SATELLITE')
 make_head(_module, 'GNSS_FIXSESSION_PARAM')
+make_head(_module, 'GNSS_GEOFENCES_TRACKINGSTATUS_DATA')
 make_head(_module, 'GNSS_GEOFENCE_ALERT_DATA')
 make_head(_module, 'GNSS_GEOFENCE_CREATE_PARAM')
 make_head(_module, 'GNSS_GEOFENCE_CREATE_RESPONSE')
 make_head(_module, 'GNSS_GEOFENCE_DELETE_PARAM')
-make_head(_module, 'GNSS_GEOFENCES_TRACKINGSTATUS_DATA')
 make_head(_module, 'GNSS_GEOREGION')
 make_head(_module, 'GNSS_GEOREGION_CIRCLE')
 make_head(_module, 'GNSS_LKGFIX_PARAM')
@@ -803,6 +801,8 @@ make_head(_module, 'ILocationEvents')
 make_head(_module, 'ILocationPower')
 make_head(_module, 'ILocationReport')
 make_head(_module, 'ILocationReportFactory')
+make_head(_module, '_ICivicAddressReportFactoryEvents')
+make_head(_module, '_ILatLongReportFactoryEvents')
 __all__ = [
     "BREADCRUMBING_UNSUPPORTED",
     "BREADCRUMBING_VERSION_1",

@@ -161,13 +161,6 @@ class TEMP_BP_NOTE(Structure):
     Seg: UInt16
     Offset: UInt32
     bPM: win32more.Foundation.BOOL
-class VDM_SEGINFO(Structure):
-    Selector: UInt16
-    SegNumber: UInt16
-    Length: UInt32
-    Type: UInt16
-    ModuleName: win32more.Foundation.CHAR * 9
-    FileName: win32more.Foundation.CHAR * 255
 @winfunctype_pointer
 def VDMBREAKTHREADPROC(param0: win32more.Foundation.HANDLE) -> win32more.Foundation.BOOL: ...
 if ARCH in 'X64,ARM64':
@@ -297,6 +290,13 @@ def VDMSETDBGFLAGSPROC(param0: win32more.Foundation.HANDLE, param1: UInt32) -> w
 def VDMSTARTTASKINWOWPROC(param0: UInt32, param1: win32more.Foundation.PSTR, param2: UInt16) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer
 def VDMTERMINATETASKINWOWPROC(param0: UInt32, param1: UInt16) -> win32more.Foundation.BOOL: ...
+class VDM_SEGINFO(Structure):
+    Selector: UInt16
+    SegNumber: UInt16
+    Length: UInt32
+    Type: UInt16
+    ModuleName: win32more.Foundation.CHAR * 9
+    FileName: win32more.Foundation.CHAR * 255
 make_head(_module, 'DEBUGEVENTPROC')
 make_head(_module, 'GLOBALENTRY')
 make_head(_module, 'IMAGE_NOTE')
@@ -306,7 +306,6 @@ make_head(_module, 'SEGMENT_NOTE')
 make_head(_module, 'TASKENUMPROC')
 make_head(_module, 'TASKENUMPROCEX')
 make_head(_module, 'TEMP_BP_NOTE')
-make_head(_module, 'VDM_SEGINFO')
 make_head(_module, 'VDMBREAKTHREADPROC')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'VDMCONTEXT')
@@ -346,6 +345,7 @@ if ARCH in 'X86':
 make_head(_module, 'VDMSETDBGFLAGSPROC')
 make_head(_module, 'VDMSTARTTASKINWOWPROC')
 make_head(_module, 'VDMTERMINATETASKINWOWPROC')
+make_head(_module, 'VDM_SEGINFO')
 __all__ = [
     "DBG_ATTACH",
     "DBG_BREAK",

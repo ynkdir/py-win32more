@@ -1113,9 +1113,6 @@ CCertEncodeDateArray = Guid('301f77b0-a470-11d0-88-21-00-a0-c9-03-b8-3c')
 CCertEncodeLongArray = Guid('4e0680a0-a0a2-11d0-88-21-00-a0-c9-03-b8-3c')
 CCertEncodeStringArray = Guid('19a76fe0-7494-11d0-88-16-00-a0-c9-03-b8-3c')
 CCertGetConfig = Guid('c6cc49b0-ce17-11d0-88-33-00-a0-c9-03-b8-3c')
-CCertificateAttestationChallenge = Guid('1362ada1-eb60-456a-b6-e1-11-80-50-db-74-1b')
-CCertificatePolicies = Guid('884e201f-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
-CCertificatePolicy = Guid('884e201e-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CCertProperties = Guid('884e202f-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CCertProperty = Guid('884e202e-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CCertPropertyArchived = Guid('884e2037-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
@@ -1134,67 +1131,14 @@ CCertRequest = Guid('98aff3f0-5524-11d0-88-12-00-a0-c9-03-b8-3c')
 CCertServerExit = Guid('4c4a5e40-732c-11d0-88-16-00-a0-c9-03-b8-3c')
 CCertServerPolicy = Guid('aa000926-ffbe-11cf-88-00-00-a0-c9-03-b8-3c')
 CCertView = Guid('a12d0f7a-1e84-11d1-9b-d6-00-c0-4f-b6-83-fa')
+CCertificateAttestationChallenge = Guid('1362ada1-eb60-456a-b6-e1-11-80-50-db-74-1b')
+CCertificatePolicies = Guid('884e201f-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
+CCertificatePolicy = Guid('884e201e-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CCryptAttribute = Guid('884e202c-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CCryptAttributes = Guid('884e202d-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CCspInformation = Guid('884e2007-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CCspInformations = Guid('884e2008-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CCspStatus = Guid('884e2009-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
-CEnroll = Guid('43f8f289-7a20-11d0-8f-06-00-c0-4f-c2-95-e1')
-CEnroll2 = Guid('127698e4-e730-4e5c-a2-b1-21-49-0a-70-c8-a1')
-CERT_ALT_NAME = UInt32
-CERT_ALT_NAME_RFC822_NAME: CERT_ALT_NAME = 2
-CERT_ALT_NAME_DNS_NAME: CERT_ALT_NAME = 3
-CERT_ALT_NAME_URL: CERT_ALT_NAME = 7
-CERT_ALT_NAME_REGISTERED_ID: CERT_ALT_NAME = 9
-CERT_ALT_NAME_DIRECTORY_NAME: CERT_ALT_NAME = 5
-CERT_ALT_NAME_IP_ADDRESS: CERT_ALT_NAME = 8
-CERT_ALT_NAME_OTHER_NAME: CERT_ALT_NAME = 1
-CERT_CREATE_REQUEST_FLAGS = UInt32
-XECR_CMC: CERT_CREATE_REQUEST_FLAGS = 3
-XECR_PKCS10_V1_5: CERT_CREATE_REQUEST_FLAGS = 4
-XECR_PKCS10_V2_0: CERT_CREATE_REQUEST_FLAGS = 1
-XECR_PKCS7: CERT_CREATE_REQUEST_FLAGS = 2
-CERT_DELETE_ROW_FLAGS = UInt32
-CDR_EXPIRED: CERT_DELETE_ROW_FLAGS = 1
-CDR_REQUEST_LAST_CHANGED: CERT_DELETE_ROW_FLAGS = 2
-CERT_EXIT_EVENT_MASK = UInt32
-EXITEVENT_CERTDENIED: CERT_EXIT_EVENT_MASK = 4
-EXITEVENT_CERTISSUED: CERT_EXIT_EVENT_MASK = 1
-EXITEVENT_CERTPENDING: CERT_EXIT_EVENT_MASK = 2
-EXITEVENT_CERTRETRIEVEPENDING: CERT_EXIT_EVENT_MASK = 16
-EXITEVENT_CERTREVOKED: CERT_EXIT_EVENT_MASK = 8
-EXITEVENT_CRLISSUED: CERT_EXIT_EVENT_MASK = 32
-EXITEVENT_SHUTDOWN: CERT_EXIT_EVENT_MASK = 64
-CERT_GET_CONFIG_FLAGS = UInt32
-CC_DEFAULTCONFIG: CERT_GET_CONFIG_FLAGS = 0
-CC_FIRSTCONFIG: CERT_GET_CONFIG_FLAGS = 2
-CC_LOCALACTIVECONFIG: CERT_GET_CONFIG_FLAGS = 4
-CC_LOCALCONFIG: CERT_GET_CONFIG_FLAGS = 3
-CC_UIPICKCONFIG: CERT_GET_CONFIG_FLAGS = 1
-CC_UIPICKCONFIGSKIPLOCALCA: CERT_GET_CONFIG_FLAGS = 5
-CERT_IMPORT_FLAGS = UInt32
-CR_IN_BASE64HEADER: CERT_IMPORT_FLAGS = 0
-CR_IN_BASE64: CERT_IMPORT_FLAGS = 1
-CR_IN_BINARY: CERT_IMPORT_FLAGS = 2
-CERT_PROPERTY_TYPE = UInt32
-PROPTYPE_BINARY: CERT_PROPERTY_TYPE = 3
-PROPTYPE_DATE: CERT_PROPERTY_TYPE = 2
-PROPTYPE_LONG: CERT_PROPERTY_TYPE = 1
-PROPTYPE_STRING: CERT_PROPERTY_TYPE = 4
-CERT_REQUEST_OUT_TYPE = UInt32
-CR_OUT_BASE64HEADER: CERT_REQUEST_OUT_TYPE = 0
-CR_OUT_BASE64: CERT_REQUEST_OUT_TYPE = 1
-CR_OUT_BINARY: CERT_REQUEST_OUT_TYPE = 2
-CERT_VIEW_COLUMN_INDEX = Int32
-CV_COLUMN_LOG_DEFAULT: CERT_VIEW_COLUMN_INDEX = -2
-CV_COLUMN_LOG_FAILED_DEFAULT: CERT_VIEW_COLUMN_INDEX = -3
-CV_COLUMN_QUEUE_DEFAULT: CERT_VIEW_COLUMN_INDEX = -1
-CERT_VIEW_SEEK_OPERATOR_FLAGS = UInt32
-CVR_SEEK_EQ: CERT_VIEW_SEEK_OPERATOR_FLAGS = 1
-CVR_SEEK_LE: CERT_VIEW_SEEK_OPERATOR_FLAGS = 4
-CVR_SEEK_LT: CERT_VIEW_SEEK_OPERATOR_FLAGS = 2
-CVR_SEEK_GE: CERT_VIEW_SEEK_OPERATOR_FLAGS = 8
-CVR_SEEK_GT: CERT_VIEW_SEEK_OPERATOR_FLAGS = 16
 CERTADMIN_GET_ROLES_FLAGS = UInt32
 CA_ACCESS_ADMIN: CERTADMIN_GET_ROLES_FLAGS = 1
 CA_ACCESS_AUDITOR: CERTADMIN_GET_ROLES_FLAGS = 4
@@ -1751,22 +1695,66 @@ class CERTVIEWRESTRICTION(Structure):
     SortOrder: Int32
     pbValue: c_char_p_no
     cbValue: UInt32
+CERT_ALT_NAME = UInt32
+CERT_ALT_NAME_RFC822_NAME: CERT_ALT_NAME = 2
+CERT_ALT_NAME_DNS_NAME: CERT_ALT_NAME = 3
+CERT_ALT_NAME_URL: CERT_ALT_NAME = 7
+CERT_ALT_NAME_REGISTERED_ID: CERT_ALT_NAME = 9
+CERT_ALT_NAME_DIRECTORY_NAME: CERT_ALT_NAME = 5
+CERT_ALT_NAME_IP_ADDRESS: CERT_ALT_NAME = 8
+CERT_ALT_NAME_OTHER_NAME: CERT_ALT_NAME = 1
+CERT_CREATE_REQUEST_FLAGS = UInt32
+XECR_CMC: CERT_CREATE_REQUEST_FLAGS = 3
+XECR_PKCS10_V1_5: CERT_CREATE_REQUEST_FLAGS = 4
+XECR_PKCS10_V2_0: CERT_CREATE_REQUEST_FLAGS = 1
+XECR_PKCS7: CERT_CREATE_REQUEST_FLAGS = 2
+CERT_DELETE_ROW_FLAGS = UInt32
+CDR_EXPIRED: CERT_DELETE_ROW_FLAGS = 1
+CDR_REQUEST_LAST_CHANGED: CERT_DELETE_ROW_FLAGS = 2
+CERT_EXIT_EVENT_MASK = UInt32
+EXITEVENT_CERTDENIED: CERT_EXIT_EVENT_MASK = 4
+EXITEVENT_CERTISSUED: CERT_EXIT_EVENT_MASK = 1
+EXITEVENT_CERTPENDING: CERT_EXIT_EVENT_MASK = 2
+EXITEVENT_CERTRETRIEVEPENDING: CERT_EXIT_EVENT_MASK = 16
+EXITEVENT_CERTREVOKED: CERT_EXIT_EVENT_MASK = 8
+EXITEVENT_CRLISSUED: CERT_EXIT_EVENT_MASK = 32
+EXITEVENT_SHUTDOWN: CERT_EXIT_EVENT_MASK = 64
+CERT_GET_CONFIG_FLAGS = UInt32
+CC_DEFAULTCONFIG: CERT_GET_CONFIG_FLAGS = 0
+CC_FIRSTCONFIG: CERT_GET_CONFIG_FLAGS = 2
+CC_LOCALACTIVECONFIG: CERT_GET_CONFIG_FLAGS = 4
+CC_LOCALCONFIG: CERT_GET_CONFIG_FLAGS = 3
+CC_UIPICKCONFIG: CERT_GET_CONFIG_FLAGS = 1
+CC_UIPICKCONFIGSKIPLOCALCA: CERT_GET_CONFIG_FLAGS = 5
+CERT_IMPORT_FLAGS = UInt32
+CR_IN_BASE64HEADER: CERT_IMPORT_FLAGS = 0
+CR_IN_BASE64: CERT_IMPORT_FLAGS = 1
+CR_IN_BINARY: CERT_IMPORT_FLAGS = 2
+CERT_PROPERTY_TYPE = UInt32
+PROPTYPE_BINARY: CERT_PROPERTY_TYPE = 3
+PROPTYPE_DATE: CERT_PROPERTY_TYPE = 2
+PROPTYPE_LONG: CERT_PROPERTY_TYPE = 1
+PROPTYPE_STRING: CERT_PROPERTY_TYPE = 4
+CERT_REQUEST_OUT_TYPE = UInt32
+CR_OUT_BASE64HEADER: CERT_REQUEST_OUT_TYPE = 0
+CR_OUT_BASE64: CERT_REQUEST_OUT_TYPE = 1
+CR_OUT_BINARY: CERT_REQUEST_OUT_TYPE = 2
+CERT_VIEW_COLUMN_INDEX = Int32
+CV_COLUMN_LOG_DEFAULT: CERT_VIEW_COLUMN_INDEX = -2
+CV_COLUMN_LOG_FAILED_DEFAULT: CERT_VIEW_COLUMN_INDEX = -3
+CV_COLUMN_QUEUE_DEFAULT: CERT_VIEW_COLUMN_INDEX = -1
+CERT_VIEW_SEEK_OPERATOR_FLAGS = UInt32
+CVR_SEEK_EQ: CERT_VIEW_SEEK_OPERATOR_FLAGS = 1
+CVR_SEEK_LE: CERT_VIEW_SEEK_OPERATOR_FLAGS = 4
+CVR_SEEK_LT: CERT_VIEW_SEEK_OPERATOR_FLAGS = 2
+CVR_SEEK_GE: CERT_VIEW_SEEK_OPERATOR_FLAGS = 8
+CVR_SEEK_GT: CERT_VIEW_SEEK_OPERATOR_FLAGS = 16
+CEnroll = Guid('43f8f289-7a20-11d0-8f-06-00-c0-4f-c2-95-e1')
+CEnroll2 = Guid('127698e4-e730-4e5c-a2-b1-21-49-0a-70-c8-a1')
 CObjectId = Guid('884e2000-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CObjectIds = Guid('884e2001-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
-CommitTemplateFlags = Int32
-CommitTemplateFlags_CommitFlagSaveTemplateGenerateOID: CommitTemplateFlags = 1
-CommitTemplateFlags_CommitFlagSaveTemplateUseCurrentOID: CommitTemplateFlags = 2
-CommitTemplateFlags_CommitFlagSaveTemplateOverwrite: CommitTemplateFlags = 3
-CommitTemplateFlags_CommitFlagDeleteTemplate: CommitTemplateFlags = 4
 CPolicyQualifier = Guid('884e201c-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CPolicyQualifiers = Guid('884e201d-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
-CR_DISP = UInt32
-CR_DISP_DENIED: CR_DISP = 2
-CR_DISP_ERROR: CR_DISP = 1
-CR_DISP_INCOMPLETE: CR_DISP = 0
-CR_DISP_ISSUED: CR_DISP = 3
-CR_DISP_ISSUED_OUT_OF_BAND: CR_DISP = 4
-CR_DISP_UNDER_SUBMISSION: CR_DISP = 5
 CRLRevocationReason = Int32
 XCN_CRL_REASON_UNSPECIFIED: CRLRevocationReason = 0
 XCN_CRL_REASON_KEY_COMPROMISE: CRLRevocationReason = 1
@@ -1778,6 +1766,13 @@ XCN_CRL_REASON_CERTIFICATE_HOLD: CRLRevocationReason = 6
 XCN_CRL_REASON_REMOVE_FROM_CRL: CRLRevocationReason = 8
 XCN_CRL_REASON_PRIVILEGE_WITHDRAWN: CRLRevocationReason = 9
 XCN_CRL_REASON_AA_COMPROMISE: CRLRevocationReason = 10
+CR_DISP = UInt32
+CR_DISP_DENIED: CR_DISP = 2
+CR_DISP_ERROR: CR_DISP = 1
+CR_DISP_INCOMPLETE: CR_DISP = 0
+CR_DISP_ISSUED: CR_DISP = 3
+CR_DISP_ISSUED_OUT_OF_BAND: CR_DISP = 4
+CR_DISP_UNDER_SUBMISSION: CR_DISP = 5
 CSBACKUP_TYPE = UInt32
 CSBACKUP_TYPE_FULL: CSBACKUP_TYPE = 1
 CSBACKUP_TYPE_LOGS_ONLY: CSBACKUP_TYPE = 2
@@ -1829,11 +1824,11 @@ CX509ExtensionCertificatePolicies = Guid('884e2020-217d-11da-b2-a4-00-0e-7b-bb-2
 CX509ExtensionEnhancedKeyUsage = Guid('884e2010-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CX509ExtensionKeyUsage = Guid('884e200f-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CX509ExtensionMSApplicationPolicies = Guid('884e2021-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
-CX509Extensions = Guid('884e200e-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CX509ExtensionSmimeCapabilities = Guid('884e201b-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CX509ExtensionSubjectKeyIdentifier = Guid('884e2017-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CX509ExtensionTemplate = Guid('884e2012-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CX509ExtensionTemplateName = Guid('884e2011-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
+CX509Extensions = Guid('884e200e-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CX509MachineEnrollmentFactory = Guid('884e2051-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CX509NameValuePair = Guid('884e203f-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CX509PolicyServerListManager = Guid('91f39029-217f-11da-b2-a4-00-0e-7b-bb-2b-09')
@@ -1842,6 +1837,11 @@ CX509PrivateKey = Guid('884e200c-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CX509PublicKey = Guid('884e200b-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CX509SCEPEnrollment = Guid('884e2061-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
 CX509SCEPEnrollmentHelper = Guid('884e2062-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
+CommitTemplateFlags = Int32
+CommitTemplateFlags_CommitFlagSaveTemplateGenerateOID: CommitTemplateFlags = 1
+CommitTemplateFlags_CommitFlagSaveTemplateUseCurrentOID: CommitTemplateFlags = 2
+CommitTemplateFlags_CommitFlagSaveTemplateOverwrite: CommitTemplateFlags = 3
+CommitTemplateFlags_CommitFlagDeleteTemplate: CommitTemplateFlags = 4
 DelayRetryAction = Int32
 DelayRetryAction_DelayRetryUnknown: DelayRetryAction = 0
 DelayRetryAction_DelayRetryNone: DelayRetryAction = 1
@@ -1849,6 +1849,22 @@ DelayRetryAction_DelayRetryShort: DelayRetryAction = 2
 DelayRetryAction_DelayRetryLong: DelayRetryAction = 3
 DelayRetryAction_DelayRetrySuccess: DelayRetryAction = 4
 DelayRetryAction_DelayRetryPastSuccess: DelayRetryAction = 5
+ENUM_CATYPES = Int32
+ENUM_ENTERPRISE_ROOTCA: ENUM_CATYPES = 0
+ENUM_ENTERPRISE_SUBCA: ENUM_CATYPES = 1
+ENUM_STANDALONE_ROOTCA: ENUM_CATYPES = 3
+ENUM_STANDALONE_SUBCA: ENUM_CATYPES = 4
+ENUM_UNKNOWN_CA: ENUM_CATYPES = 5
+ENUM_CERT_COLUMN_VALUE_FLAGS = UInt32
+CV_OUT_BASE64: ENUM_CERT_COLUMN_VALUE_FLAGS = 1
+CV_OUT_BASE64HEADER: ENUM_CERT_COLUMN_VALUE_FLAGS = 0
+CV_OUT_BASE64REQUESTHEADER: ENUM_CERT_COLUMN_VALUE_FLAGS = 3
+CV_OUT_BASE64X509CRLHEADER: ENUM_CERT_COLUMN_VALUE_FLAGS = 9
+CV_OUT_BINARY: ENUM_CERT_COLUMN_VALUE_FLAGS = 2
+CV_OUT_HEX: ENUM_CERT_COLUMN_VALUE_FLAGS = 4
+CV_OUT_HEXADDR: ENUM_CERT_COLUMN_VALUE_FLAGS = 10
+CV_OUT_HEXASCII: ENUM_CERT_COLUMN_VALUE_FLAGS = 5
+CV_OUT_HEXASCIIADDR: ENUM_CERT_COLUMN_VALUE_FLAGS = 11
 EncodingType = Int32
 XCN_CRYPT_STRING_BASE64HEADER: EncodingType = 0
 XCN_CRYPT_STRING_BASE64: EncodingType = 1
@@ -1937,22 +1953,6 @@ EnrollmentTemplateProperty_TemplatePropSecurityDescriptor: EnrollmentTemplatePro
 EnrollmentTemplateProperty_TemplatePropExtensions: EnrollmentTemplateProperty = 29
 EnrollmentTemplateProperty_TemplatePropValidityPeriod: EnrollmentTemplateProperty = 30
 EnrollmentTemplateProperty_TemplatePropRenewalPeriod: EnrollmentTemplateProperty = 31
-ENUM_CATYPES = Int32
-ENUM_ENTERPRISE_ROOTCA: ENUM_CATYPES = 0
-ENUM_ENTERPRISE_SUBCA: ENUM_CATYPES = 1
-ENUM_STANDALONE_ROOTCA: ENUM_CATYPES = 3
-ENUM_STANDALONE_SUBCA: ENUM_CATYPES = 4
-ENUM_UNKNOWN_CA: ENUM_CATYPES = 5
-ENUM_CERT_COLUMN_VALUE_FLAGS = UInt32
-CV_OUT_BASE64: ENUM_CERT_COLUMN_VALUE_FLAGS = 1
-CV_OUT_BASE64HEADER: ENUM_CERT_COLUMN_VALUE_FLAGS = 0
-CV_OUT_BASE64REQUESTHEADER: ENUM_CERT_COLUMN_VALUE_FLAGS = 3
-CV_OUT_BASE64X509CRLHEADER: ENUM_CERT_COLUMN_VALUE_FLAGS = 9
-CV_OUT_BINARY: ENUM_CERT_COLUMN_VALUE_FLAGS = 2
-CV_OUT_HEX: ENUM_CERT_COLUMN_VALUE_FLAGS = 4
-CV_OUT_HEXADDR: ENUM_CERT_COLUMN_VALUE_FLAGS = 10
-CV_OUT_HEXASCII: ENUM_CERT_COLUMN_VALUE_FLAGS = 5
-CV_OUT_HEXASCIIADDR: ENUM_CERT_COLUMN_VALUE_FLAGS = 11
 @winfunctype_pointer
 def FNCERTSRVBACKUPCLOSE(hbc: c_void_p) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -2519,70 +2519,6 @@ class ICertGetConfig(c_void_p):
     Guid = Guid('c7ea09c0-ce17-11d0-88-33-00-a0-c9-03-b8-3c')
     @commethod(7)
     def GetConfig(Flags: win32more.Security.Cryptography.Certificates.CERT_GET_CONFIG_FLAGS, pstrOut: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-class ICertificateAttestationChallenge(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('6f175a7c-4a3a-40ae-9d-ba-59-2f-d6-bb-f9-b8')
-    @commethod(7)
-    def Initialize(Encoding: win32more.Security.Cryptography.Certificates.EncodingType, strPendingFullCmcResponseWithChallenge: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def DecryptChallenge(Encoding: win32more.Security.Cryptography.Certificates.EncodingType, pstrEnvelopedPkcs7ReencryptedToCA: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_RequestID(pstrRequestID: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-class ICertificateAttestationChallenge2(c_void_p):
-    extends: win32more.Security.Cryptography.Certificates.ICertificateAttestationChallenge
-    Guid = Guid('4631334d-e266-47d6-bd-79-be-53-cb-2e-27-53')
-    @commethod(10)
-    def put_KeyContainerName(Value: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def put_KeyBlob(Encoding: win32more.Security.Cryptography.Certificates.EncodingType, Value: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-class ICertificatePolicies(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('728ab31f-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
-    @commethod(7)
-    def get_ItemByIndex(Index: Int32, pVal: POINTER(win32more.Security.Cryptography.Certificates.ICertificatePolicy_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get__NewEnum(pVal: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def Add(pVal: win32more.Security.Cryptography.Certificates.ICertificatePolicy_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def Remove(Index: Int32) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def Clear() -> win32more.Foundation.HRESULT: ...
-class ICertificatePolicy(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('728ab31e-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
-    @commethod(7)
-    def Initialize(pValue: win32more.Security.Cryptography.Certificates.IObjectId_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_ObjectId(ppValue: POINTER(win32more.Security.Cryptography.Certificates.IObjectId_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_PolicyQualifiers(ppValue: POINTER(win32more.Security.Cryptography.Certificates.IPolicyQualifiers_head)) -> win32more.Foundation.HRESULT: ...
-class ICertificationAuthorities(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('13b79005-2181-11da-b2-a4-00-0e-7b-bb-2b-09')
-    @commethod(7)
-    def get_ItemByIndex(Index: Int32, pVal: POINTER(win32more.Security.Cryptography.Certificates.ICertificationAuthority_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get__NewEnum(pVal: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def Add(pVal: win32more.Security.Cryptography.Certificates.ICertificationAuthority_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def Remove(Index: Int32) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def Clear() -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def ComputeSiteCosts() -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def get_ItemByName(strName: win32more.Foundation.BSTR, ppValue: POINTER(win32more.Security.Cryptography.Certificates.ICertificationAuthority_head)) -> win32more.Foundation.HRESULT: ...
-class ICertificationAuthority(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('835d1f61-1e95-4bc8-b4-d3-97-6c-42-b9-68-f7')
-    @commethod(7)
-    def get_Property(property: win32more.Security.Cryptography.Certificates.EnrollmentCAProperty, pValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
 class ICertManageModule(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('e7d7ad42-bd3d-11d1-9a-4d-00-c0-4f-c2-97-eb')
@@ -2899,6 +2835,70 @@ class ICertView2(c_void_p):
     Guid = Guid('d594b282-8851-4b61-9c-66-3e-da-df-84-88-63')
     @commethod(15)
     def SetTable(Table: win32more.Security.Cryptography.Certificates.CVRC_TABLE) -> win32more.Foundation.HRESULT: ...
+class ICertificateAttestationChallenge(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('6f175a7c-4a3a-40ae-9d-ba-59-2f-d6-bb-f9-b8')
+    @commethod(7)
+    def Initialize(Encoding: win32more.Security.Cryptography.Certificates.EncodingType, strPendingFullCmcResponseWithChallenge: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def DecryptChallenge(Encoding: win32more.Security.Cryptography.Certificates.EncodingType, pstrEnvelopedPkcs7ReencryptedToCA: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_RequestID(pstrRequestID: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class ICertificateAttestationChallenge2(c_void_p):
+    extends: win32more.Security.Cryptography.Certificates.ICertificateAttestationChallenge
+    Guid = Guid('4631334d-e266-47d6-bd-79-be-53-cb-2e-27-53')
+    @commethod(10)
+    def put_KeyContainerName(Value: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def put_KeyBlob(Encoding: win32more.Security.Cryptography.Certificates.EncodingType, Value: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class ICertificatePolicies(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('728ab31f-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
+    @commethod(7)
+    def get_ItemByIndex(Index: Int32, pVal: POINTER(win32more.Security.Cryptography.Certificates.ICertificatePolicy_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(pVal: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Add(pVal: win32more.Security.Cryptography.Certificates.ICertificatePolicy_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Remove(Index: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def Clear() -> win32more.Foundation.HRESULT: ...
+class ICertificatePolicy(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('728ab31e-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
+    @commethod(7)
+    def Initialize(pValue: win32more.Security.Cryptography.Certificates.IObjectId_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_ObjectId(ppValue: POINTER(win32more.Security.Cryptography.Certificates.IObjectId_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_PolicyQualifiers(ppValue: POINTER(win32more.Security.Cryptography.Certificates.IPolicyQualifiers_head)) -> win32more.Foundation.HRESULT: ...
+class ICertificationAuthorities(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('13b79005-2181-11da-b2-a4-00-0e-7b-bb-2b-09')
+    @commethod(7)
+    def get_ItemByIndex(Index: Int32, pVal: POINTER(win32more.Security.Cryptography.Certificates.ICertificationAuthority_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(pVal: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Add(pVal: win32more.Security.Cryptography.Certificates.ICertificationAuthority_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Remove(Index: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def Clear() -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def ComputeSiteCosts() -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_ItemByName(strName: win32more.Foundation.BSTR, ppValue: POINTER(win32more.Security.Cryptography.Certificates.ICertificationAuthority_head)) -> win32more.Foundation.HRESULT: ...
+class ICertificationAuthority(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('835d1f61-1e95-4bc8-b4-d3-97-6c-42-b9-68-f7')
+    @commethod(7)
+    def get_Property(property: win32more.Security.Cryptography.Certificates.EnrollmentCAProperty, pValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
 class ICryptAttribute(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('728ab32c-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
@@ -3398,20 +3398,6 @@ class IEnumCERTVIEWROW(c_void_p):
     def Clone(ppenum: POINTER(win32more.Security.Cryptography.Certificates.IEnumCERTVIEWROW_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(14)
     def GetMaxIndex(pIndex: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-ImportPFXFlags = Int32
-ImportPFXFlags_ImportNone: ImportPFXFlags = 0
-ImportPFXFlags_ImportMachineContext: ImportPFXFlags = 1
-ImportPFXFlags_ImportForceOverwrite: ImportPFXFlags = 2
-ImportPFXFlags_ImportSilent: ImportPFXFlags = 4
-ImportPFXFlags_ImportSaveProperties: ImportPFXFlags = 8
-ImportPFXFlags_ImportExportable: ImportPFXFlags = 16
-ImportPFXFlags_ImportExportableEncrypted: ImportPFXFlags = 32
-ImportPFXFlags_ImportNoUserProtected: ImportPFXFlags = 64
-ImportPFXFlags_ImportUserProtected: ImportPFXFlags = 128
-ImportPFXFlags_ImportUserProtectedHigh: ImportPFXFlags = 256
-ImportPFXFlags_ImportInstallCertificate: ImportPFXFlags = 512
-ImportPFXFlags_ImportInstallChain: ImportPFXFlags = 1024
-ImportPFXFlags_ImportInstallChainAndRoot: ImportPFXFlags = 2048
 class INDESPolicy(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('13ca515d-431d-46cc-8c-2e-1d-a2-69-bb-d6-25')
@@ -3425,50 +3411,6 @@ class INDESPolicy(c_void_p):
     def VerifyRequest(pctbRequest: POINTER(win32more.Security.Cryptography.Certificates.CERTTRANSBLOB_head), pctbSigningCertEncoded: POINTER(win32more.Security.Cryptography.Certificates.CERTTRANSBLOB_head), pwszTemplate: win32more.Foundation.PWSTR, pwszTransactionId: win32more.Foundation.PWSTR, pfVerified: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
     @commethod(7)
     def Notify(pwszChallenge: win32more.Foundation.PWSTR, pwszTransactionId: win32more.Foundation.PWSTR, disposition: win32more.Security.Cryptography.Certificates.X509SCEPDisposition, lastHResult: Int32, pctbIssuedCertEncoded: POINTER(win32more.Security.Cryptography.Certificates.CERTTRANSBLOB_head)) -> win32more.Foundation.HRESULT: ...
-InnerRequestLevel = Int32
-InnerRequestLevel_LevelInnermost: InnerRequestLevel = 0
-InnerRequestLevel_LevelNext: InnerRequestLevel = 1
-InstallResponseRestrictionFlags = Int32
-InstallResponseRestrictionFlags_AllowNone: InstallResponseRestrictionFlags = 0
-InstallResponseRestrictionFlags_AllowNoOutstandingRequest: InstallResponseRestrictionFlags = 1
-InstallResponseRestrictionFlags_AllowUntrustedCertificate: InstallResponseRestrictionFlags = 2
-InstallResponseRestrictionFlags_AllowUntrustedRoot: InstallResponseRestrictionFlags = 4
-class IObjectId(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('728ab300-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
-    @commethod(7)
-    def InitializeFromName(Name: win32more.Security.Cryptography.Certificates.CERTENROLL_OBJECTID) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def InitializeFromValue(strValue: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def InitializeFromAlgorithmName(GroupId: win32more.Security.Cryptography.Certificates.ObjectIdGroupId, KeyFlags: win32more.Security.Cryptography.Certificates.ObjectIdPublicKeyFlags, AlgFlags: win32more.Security.Cryptography.Certificates.AlgorithmFlags, strAlgorithmName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_Name(pValue: POINTER(win32more.Security.Cryptography.Certificates.CERTENROLL_OBJECTID)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def get_FriendlyName(pValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def put_FriendlyName(Value: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def get_Value(pValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def GetAlgorithmName(GroupId: win32more.Security.Cryptography.Certificates.ObjectIdGroupId, KeyFlags: win32more.Security.Cryptography.Certificates.ObjectIdPublicKeyFlags, pstrAlgorithmName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-class IObjectIds(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('728ab301-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
-    @commethod(7)
-    def get_ItemByIndex(Index: Int32, pVal: POINTER(win32more.Security.Cryptography.Certificates.IObjectId_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get__NewEnum(pVal: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def Add(pVal: win32more.Security.Cryptography.Certificates.IObjectId_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def Remove(Index: Int32) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def Clear() -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def AddRange(pValue: win32more.Security.Cryptography.Certificates.IObjectIds_head) -> win32more.Foundation.HRESULT: ...
 class IOCSPAdmin(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('322e830d-67db-4fe9-95-77-45-96-d9-f0-92-94')
@@ -3588,6 +3530,42 @@ class IOCSPPropertyCollection(c_void_p):
     def InitializeFromProperties(pVarProperties: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(14)
     def GetAllProperties(pVarProperties: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IObjectId(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('728ab300-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
+    @commethod(7)
+    def InitializeFromName(Name: win32more.Security.Cryptography.Certificates.CERTENROLL_OBJECTID) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def InitializeFromValue(strValue: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def InitializeFromAlgorithmName(GroupId: win32more.Security.Cryptography.Certificates.ObjectIdGroupId, KeyFlags: win32more.Security.Cryptography.Certificates.ObjectIdPublicKeyFlags, AlgFlags: win32more.Security.Cryptography.Certificates.AlgorithmFlags, strAlgorithmName: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_Name(pValue: POINTER(win32more.Security.Cryptography.Certificates.CERTENROLL_OBJECTID)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_FriendlyName(pValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def put_FriendlyName(Value: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_Value(pValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def GetAlgorithmName(GroupId: win32more.Security.Cryptography.Certificates.ObjectIdGroupId, KeyFlags: win32more.Security.Cryptography.Certificates.ObjectIdPublicKeyFlags, pstrAlgorithmName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class IObjectIds(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('728ab301-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
+    @commethod(7)
+    def get_ItemByIndex(Index: Int32, pVal: POINTER(win32more.Security.Cryptography.Certificates.IObjectId_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(pVal: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Add(pVal: win32more.Security.Cryptography.Certificates.IObjectId_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Remove(Index: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def Clear() -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def AddRange(pValue: win32more.Security.Cryptography.Certificates.IObjectIds_head) -> win32more.Foundation.HRESULT: ...
 class IPolicyQualifier(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('728ab31c-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
@@ -4195,6 +4173,19 @@ class IX509CertificateTemplate(c_void_p):
     Guid = Guid('54244a13-555a-4e22-89-6d-1b-0e-52-f7-64-06')
     @commethod(7)
     def get_Property(property: win32more.Security.Cryptography.Certificates.EnrollmentTemplateProperty, pValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IX509CertificateTemplateWritable(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('f49466a7-395a-4e9e-b6-e7-32-b3-31-60-0d-c0')
+    @commethod(7)
+    def Initialize(pValue: win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def Commit(commitFlags: win32more.Security.Cryptography.Certificates.CommitTemplateFlags, strServerContext: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_Property(property: win32more.Security.Cryptography.Certificates.EnrollmentTemplateProperty, pValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def put_Property(property: win32more.Security.Cryptography.Certificates.EnrollmentTemplateProperty, value: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_Template(ppValue: POINTER(win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head)) -> win32more.Foundation.HRESULT: ...
 class IX509CertificateTemplates(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('13b79003-2181-11da-b2-a4-00-0e-7b-bb-2b-09')
@@ -4214,19 +4205,6 @@ class IX509CertificateTemplates(c_void_p):
     def get_ItemByName(bstrName: win32more.Foundation.BSTR, ppValue: POINTER(win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(14)
     def get_ItemByOid(pOid: win32more.Security.Cryptography.Certificates.IObjectId_head, ppValue: POINTER(win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head)) -> win32more.Foundation.HRESULT: ...
-class IX509CertificateTemplateWritable(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('f49466a7-395a-4e9e-b6-e7-32-b3-31-60-0d-c0')
-    @commethod(7)
-    def Initialize(pValue: win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def Commit(commitFlags: win32more.Security.Cryptography.Certificates.CommitTemplateFlags, strServerContext: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_Property(property: win32more.Security.Cryptography.Certificates.EnrollmentTemplateProperty, pValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def put_Property(property: win32more.Security.Cryptography.Certificates.EnrollmentTemplateProperty, value: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def get_Template(ppValue: POINTER(win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head)) -> win32more.Foundation.HRESULT: ...
 class IX509EndorsementKey(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('b11cd855-f4c4-4fc6-b7-10-44-22-23-7f-09-e9')
@@ -4486,25 +4464,6 @@ class IX509ExtensionMSApplicationPolicies(c_void_p):
     def InitializeDecode(Encoding: win32more.Security.Cryptography.Certificates.EncodingType, strEncodedData: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
     @commethod(14)
     def get_Policies(ppValue: POINTER(win32more.Security.Cryptography.Certificates.ICertificatePolicies_head)) -> win32more.Foundation.HRESULT: ...
-class IX509Extensions(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('728ab30e-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
-    @commethod(7)
-    def get_ItemByIndex(Index: Int32, pVal: POINTER(win32more.Security.Cryptography.Certificates.IX509Extension_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get__NewEnum(pVal: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def Add(pVal: win32more.Security.Cryptography.Certificates.IX509Extension_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def Remove(Index: Int32) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def Clear() -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def get_IndexByObjectId(pObjectId: win32more.Security.Cryptography.Certificates.IObjectId_head, pIndex: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def AddRange(pValue: win32more.Security.Cryptography.Certificates.IX509Extensions_head) -> win32more.Foundation.HRESULT: ...
 class IX509ExtensionSmimeCapabilities(c_void_p):
     extends: win32more.Security.Cryptography.Certificates.IX509Extension
     Guid = Guid('728ab31b-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
@@ -4545,6 +4504,25 @@ class IX509ExtensionTemplateName(c_void_p):
     def InitializeDecode(Encoding: win32more.Security.Cryptography.Certificates.EncodingType, strEncodedData: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
     @commethod(14)
     def get_TemplateName(pValue: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+class IX509Extensions(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('728ab30e-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
+    @commethod(7)
+    def get_ItemByIndex(Index: Int32, pVal: POINTER(win32more.Security.Cryptography.Certificates.IX509Extension_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_Count(pVal: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get__NewEnum(pVal: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def Add(pVal: win32more.Security.Cryptography.Certificates.IX509Extension_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def Remove(Index: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def Clear() -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_IndexByObjectId(pObjectId: win32more.Security.Cryptography.Certificates.IObjectId_head, pIndex: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def AddRange(pValue: win32more.Security.Cryptography.Certificates.IX509Extensions_head) -> win32more.Foundation.HRESULT: ...
 class IX509MachineEnrollmentFactory(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('728ab352-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
@@ -4889,6 +4867,28 @@ class IX509SignatureInformation(c_void_p):
     def GetSignatureAlgorithm(Pkcs7Signature: win32more.Foundation.VARIANT_BOOL, SignatureKey: win32more.Foundation.VARIANT_BOOL, ppValue: POINTER(win32more.Security.Cryptography.Certificates.IObjectId_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(19)
     def SetDefaultValues() -> win32more.Foundation.HRESULT: ...
+ImportPFXFlags = Int32
+ImportPFXFlags_ImportNone: ImportPFXFlags = 0
+ImportPFXFlags_ImportMachineContext: ImportPFXFlags = 1
+ImportPFXFlags_ImportForceOverwrite: ImportPFXFlags = 2
+ImportPFXFlags_ImportSilent: ImportPFXFlags = 4
+ImportPFXFlags_ImportSaveProperties: ImportPFXFlags = 8
+ImportPFXFlags_ImportExportable: ImportPFXFlags = 16
+ImportPFXFlags_ImportExportableEncrypted: ImportPFXFlags = 32
+ImportPFXFlags_ImportNoUserProtected: ImportPFXFlags = 64
+ImportPFXFlags_ImportUserProtected: ImportPFXFlags = 128
+ImportPFXFlags_ImportUserProtectedHigh: ImportPFXFlags = 256
+ImportPFXFlags_ImportInstallCertificate: ImportPFXFlags = 512
+ImportPFXFlags_ImportInstallChain: ImportPFXFlags = 1024
+ImportPFXFlags_ImportInstallChainAndRoot: ImportPFXFlags = 2048
+InnerRequestLevel = Int32
+InnerRequestLevel_LevelInnermost: InnerRequestLevel = 0
+InnerRequestLevel_LevelNext: InnerRequestLevel = 1
+InstallResponseRestrictionFlags = Int32
+InstallResponseRestrictionFlags_AllowNone: InstallResponseRestrictionFlags = 0
+InstallResponseRestrictionFlags_AllowNoOutstandingRequest: InstallResponseRestrictionFlags = 1
+InstallResponseRestrictionFlags_AllowUntrustedCertificate: InstallResponseRestrictionFlags = 2
+InstallResponseRestrictionFlags_AllowUntrustedRoot: InstallResponseRestrictionFlags = 4
 KeyAttestationClaimType = Int32
 XCN_NCRYPT_CLAIM_NONE: KeyAttestationClaimType = 0
 XCN_NCRYPT_CLAIM_AUTHORITY_AND_SUBJECT: KeyAttestationClaimType = 3
@@ -4901,6 +4901,21 @@ KeyIdentifierHashAlgorithm_SKIHashSha1: KeyIdentifierHashAlgorithm = 1
 KeyIdentifierHashAlgorithm_SKIHashCapiSha1: KeyIdentifierHashAlgorithm = 2
 KeyIdentifierHashAlgorithm_SKIHashSha256: KeyIdentifierHashAlgorithm = 3
 KeyIdentifierHashAlgorithm_SKIHashHPKP: KeyIdentifierHashAlgorithm = 5
+OCSPAdmin = Guid('d3f73511-92c9-47cb-8f-f2-8d-89-1a-7c-4d-e4')
+OCSPPropertyCollection = Guid('f935a528-ba8a-4dd9-ba-79-f2-83-27-5c-b2-de')
+OCSPRequestFlag = Int32
+OCSP_RF_REJECT_SIGNED_REQUESTS: OCSPRequestFlag = 1
+OCSPSigningFlag = Int32
+OCSP_SF_SILENT: OCSPSigningFlag = 1
+OCSP_SF_USE_CACERT: OCSPSigningFlag = 2
+OCSP_SF_ALLOW_SIGNINGCERT_AUTORENEWAL: OCSPSigningFlag = 4
+OCSP_SF_FORCE_SIGNINGCERT_ISSUER_ISCA: OCSPSigningFlag = 8
+OCSP_SF_AUTODISCOVER_SIGNINGCERT: OCSPSigningFlag = 16
+OCSP_SF_MANUAL_ASSIGN_SIGNINGCERT: OCSPSigningFlag = 32
+OCSP_SF_RESPONDER_ID_KEYHASH: OCSPSigningFlag = 64
+OCSP_SF_RESPONDER_ID_NAME: OCSPSigningFlag = 128
+OCSP_SF_ALLOW_NONCE_EXTENSION: OCSPSigningFlag = 256
+OCSP_SF_ALLOW_SIGNINGCERT_AUTOENROLLMENT: OCSPSigningFlag = 512
 ObjectIdGroupId = Int32
 XCN_CRYPT_ANY_GROUP_ID: ObjectIdGroupId = 0
 XCN_CRYPT_HASH_ALG_OID_GROUP_ID: ObjectIdGroupId = 1
@@ -4926,21 +4941,6 @@ ObjectIdPublicKeyFlags = Int32
 XCN_CRYPT_OID_INFO_PUBKEY_ANY: ObjectIdPublicKeyFlags = 0
 XCN_CRYPT_OID_INFO_PUBKEY_SIGN_KEY_FLAG: ObjectIdPublicKeyFlags = -2147483648
 XCN_CRYPT_OID_INFO_PUBKEY_ENCRYPT_KEY_FLAG: ObjectIdPublicKeyFlags = 1073741824
-OCSPAdmin = Guid('d3f73511-92c9-47cb-8f-f2-8d-89-1a-7c-4d-e4')
-OCSPPropertyCollection = Guid('f935a528-ba8a-4dd9-ba-79-f2-83-27-5c-b2-de')
-OCSPRequestFlag = Int32
-OCSP_RF_REJECT_SIGNED_REQUESTS: OCSPRequestFlag = 1
-OCSPSigningFlag = Int32
-OCSP_SF_SILENT: OCSPSigningFlag = 1
-OCSP_SF_USE_CACERT: OCSPSigningFlag = 2
-OCSP_SF_ALLOW_SIGNINGCERT_AUTORENEWAL: OCSPSigningFlag = 4
-OCSP_SF_FORCE_SIGNINGCERT_ISSUER_ISCA: OCSPSigningFlag = 8
-OCSP_SF_AUTODISCOVER_SIGNINGCERT: OCSPSigningFlag = 16
-OCSP_SF_MANUAL_ASSIGN_SIGNINGCERT: OCSPSigningFlag = 32
-OCSP_SF_RESPONDER_ID_KEYHASH: OCSPSigningFlag = 64
-OCSP_SF_RESPONDER_ID_NAME: OCSPSigningFlag = 128
-OCSP_SF_ALLOW_NONCE_EXTENSION: OCSPSigningFlag = 256
-OCSP_SF_ALLOW_SIGNINGCERT_AUTOENROLLMENT: OCSPSigningFlag = 512
 PENDING_REQUEST_DESIRED_PROPERTY = UInt32
 XEPR_CADNS: PENDING_REQUEST_DESIRED_PROPERTY = 1
 XEPR_CAFRIENDLYNAME: PENDING_REQUEST_DESIRED_PROPERTY = 3
@@ -5266,12 +5266,6 @@ make_head(_module, 'ICertEncodeStringArray2')
 make_head(_module, 'ICertExit')
 make_head(_module, 'ICertExit2')
 make_head(_module, 'ICertGetConfig')
-make_head(_module, 'ICertificateAttestationChallenge')
-make_head(_module, 'ICertificateAttestationChallenge2')
-make_head(_module, 'ICertificatePolicies')
-make_head(_module, 'ICertificatePolicy')
-make_head(_module, 'ICertificationAuthorities')
-make_head(_module, 'ICertificationAuthority')
 make_head(_module, 'ICertManageModule')
 make_head(_module, 'ICertPolicy')
 make_head(_module, 'ICertPolicy2')
@@ -5298,6 +5292,12 @@ make_head(_module, 'ICertServerExit')
 make_head(_module, 'ICertServerPolicy')
 make_head(_module, 'ICertView')
 make_head(_module, 'ICertView2')
+make_head(_module, 'ICertificateAttestationChallenge')
+make_head(_module, 'ICertificateAttestationChallenge2')
+make_head(_module, 'ICertificatePolicies')
+make_head(_module, 'ICertificatePolicy')
+make_head(_module, 'ICertificationAuthorities')
+make_head(_module, 'ICertificationAuthority')
 make_head(_module, 'ICryptAttribute')
 make_head(_module, 'ICryptAttributes')
 make_head(_module, 'ICspAlgorithm')
@@ -5314,13 +5314,13 @@ make_head(_module, 'IEnumCERTVIEWCOLUMN')
 make_head(_module, 'IEnumCERTVIEWEXTENSION')
 make_head(_module, 'IEnumCERTVIEWROW')
 make_head(_module, 'INDESPolicy')
-make_head(_module, 'IObjectId')
-make_head(_module, 'IObjectIds')
 make_head(_module, 'IOCSPAdmin')
 make_head(_module, 'IOCSPCAConfiguration')
 make_head(_module, 'IOCSPCAConfigurationCollection')
 make_head(_module, 'IOCSPProperty')
 make_head(_module, 'IOCSPPropertyCollection')
+make_head(_module, 'IObjectId')
+make_head(_module, 'IObjectIds')
 make_head(_module, 'IPolicyQualifier')
 make_head(_module, 'IPolicyQualifiers')
 make_head(_module, 'ISignerCertificate')
@@ -5352,8 +5352,8 @@ make_head(_module, 'IX509CertificateRevocationList')
 make_head(_module, 'IX509CertificateRevocationListEntries')
 make_head(_module, 'IX509CertificateRevocationListEntry')
 make_head(_module, 'IX509CertificateTemplate')
-make_head(_module, 'IX509CertificateTemplates')
 make_head(_module, 'IX509CertificateTemplateWritable')
+make_head(_module, 'IX509CertificateTemplates')
 make_head(_module, 'IX509EndorsementKey')
 make_head(_module, 'IX509Enrollment')
 make_head(_module, 'IX509Enrollment2')
@@ -5369,11 +5369,11 @@ make_head(_module, 'IX509ExtensionCertificatePolicies')
 make_head(_module, 'IX509ExtensionEnhancedKeyUsage')
 make_head(_module, 'IX509ExtensionKeyUsage')
 make_head(_module, 'IX509ExtensionMSApplicationPolicies')
-make_head(_module, 'IX509Extensions')
 make_head(_module, 'IX509ExtensionSmimeCapabilities')
 make_head(_module, 'IX509ExtensionSubjectKeyIdentifier')
 make_head(_module, 'IX509ExtensionTemplate')
 make_head(_module, 'IX509ExtensionTemplateName')
+make_head(_module, 'IX509Extensions')
 make_head(_module, 'IX509MachineEnrollmentFactory')
 make_head(_module, 'IX509NameValuePair')
 make_head(_module, 'IX509NameValuePairs')

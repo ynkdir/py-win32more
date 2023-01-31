@@ -492,6 +492,11 @@ AutoDownloadMode = Int32
 AutoDownloadMode_adLetWindowsUpdateDecide: AutoDownloadMode = 0
 AutoDownloadMode_adNeverAutoDownload: AutoDownloadMode = 1
 AutoDownloadMode_adAlwaysAutoDownload: AutoDownloadMode = 2
+AutoSelectionMode = Int32
+AutoSelectionMode_asLetWindowsUpdateDecide: AutoSelectionMode = 0
+AutoSelectionMode_asAutoSelectIfDownloaded: AutoSelectionMode = 1
+AutoSelectionMode_asNeverAutoSelect: AutoSelectionMode = 2
+AutoSelectionMode_asAlwaysAutoSelect: AutoSelectionMode = 3
 AutomaticUpdates = Guid('bfe18e9c-6d87-4450-b3-7c-e0-2f-0b-37-38-03')
 AutomaticUpdatesNotificationLevel = Int32
 AutomaticUpdatesNotificationLevel_aunlNotConfigured: AutomaticUpdatesNotificationLevel = 0
@@ -517,11 +522,6 @@ AutomaticUpdatesScheduledInstallationDay_ausidEverySaturday: AutomaticUpdatesSch
 AutomaticUpdatesUserType = Int32
 AutomaticUpdatesUserType_auutCurrentUser: AutomaticUpdatesUserType = 1
 AutomaticUpdatesUserType_auutLocalAdministrator: AutomaticUpdatesUserType = 2
-AutoSelectionMode = Int32
-AutoSelectionMode_asLetWindowsUpdateDecide: AutoSelectionMode = 0
-AutoSelectionMode_asAutoSelectIfDownloaded: AutoSelectionMode = 1
-AutoSelectionMode_asNeverAutoSelect: AutoSelectionMode = 2
-AutoSelectionMode_asAlwaysAutoSelect: AutoSelectionMode = 3
 DeploymentAction = Int32
 DeploymentAction_daNone: DeploymentAction = 0
 DeploymentAction_daInstallation: DeploymentAction = 1
@@ -789,15 +789,6 @@ class IInvalidProductLicenseException(c_void_p):
     Guid = Guid('a37d00f5-7bb0-4953-b4-14-f9-e9-83-26-f2-e8')
     @commethod(10)
     def get_Product(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-InstallationAgent = Guid('317e92fc-1679-46fd-a0-b5-f0-89-14-dd-86-23')
-InstallationImpact = Int32
-InstallationImpact_iiNormal: InstallationImpact = 0
-InstallationImpact_iiMinor: InstallationImpact = 1
-InstallationImpact_iiRequiresExclusiveHandling: InstallationImpact = 2
-InstallationRebootBehavior = Int32
-InstallationRebootBehavior_irbNeverReboots: InstallationRebootBehavior = 0
-InstallationRebootBehavior_irbAlwaysRequiresReboot: InstallationRebootBehavior = 1
-InstallationRebootBehavior_irbCanRequestReboot: InstallationRebootBehavior = 2
 class ISearchCompletedCallback(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('88aee058-d4b0-4725-a2-f1-81-4a-67-ae-96-4c')
@@ -1021,6 +1012,13 @@ class IUpdateDownloadContentCollection(c_void_p):
     def get__NewEnum(retval: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(9)
     def get_Count(retval: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+class IUpdateDownloadResult(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('bf99af76-b575-42ad-8a-a4-33-cb-b5-47-7a-f1')
+    @commethod(7)
+    def get_HResult(retval: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_ResultCode(retval: POINTER(win32more.System.UpdateAgent.OperationResultCode)) -> win32more.Foundation.HRESULT: ...
 class IUpdateDownloader(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('68f1c6f9-7ecc-4666-a4-64-24-7f-e1-24-96-c3')
@@ -1046,13 +1044,6 @@ class IUpdateDownloader(c_void_p):
     def Download(retval: POINTER(win32more.System.UpdateAgent.IDownloadResult_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(17)
     def EndDownload(value: win32more.System.UpdateAgent.IDownloadJob_head, retval: POINTER(win32more.System.UpdateAgent.IDownloadResult_head)) -> win32more.Foundation.HRESULT: ...
-class IUpdateDownloadResult(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('bf99af76-b575-42ad-8a-a4-33-cb-b5-47-7a-f1')
-    @commethod(7)
-    def get_HResult(retval: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_ResultCode(retval: POINTER(win32more.System.UpdateAgent.OperationResultCode)) -> win32more.Foundation.HRESULT: ...
 class IUpdateException(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('a376dd5e-09d4-427f-af-7c-fe-d5-b6-e1-c1-d6')
@@ -1482,6 +1473,15 @@ class IWindowsUpdateAgentInfo(c_void_p):
     Guid = Guid('85713fa1-7796-4fa2-be-3b-e2-d6-12-4d-d3-73')
     @commethod(7)
     def GetInfo(varInfoIdentifier: win32more.System.Com.VARIANT, retval: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+InstallationAgent = Guid('317e92fc-1679-46fd-a0-b5-f0-89-14-dd-86-23')
+InstallationImpact = Int32
+InstallationImpact_iiNormal: InstallationImpact = 0
+InstallationImpact_iiMinor: InstallationImpact = 1
+InstallationImpact_iiRequiresExclusiveHandling: InstallationImpact = 2
+InstallationRebootBehavior = Int32
+InstallationRebootBehavior_irbNeverReboots: InstallationRebootBehavior = 0
+InstallationRebootBehavior_irbAlwaysRequiresReboot: InstallationRebootBehavior = 1
+InstallationRebootBehavior_irbCanRequestReboot: InstallationRebootBehavior = 2
 OperationResultCode = Int32
 OperationResultCode_orcNotStarted: OperationResultCode = 0
 OperationResultCode_orcInProgress: OperationResultCode = 1
@@ -1571,8 +1571,8 @@ make_head(_module, 'IUpdateCollection')
 make_head(_module, 'IUpdateDownloadContent')
 make_head(_module, 'IUpdateDownloadContent2')
 make_head(_module, 'IUpdateDownloadContentCollection')
-make_head(_module, 'IUpdateDownloader')
 make_head(_module, 'IUpdateDownloadResult')
+make_head(_module, 'IUpdateDownloader')
 make_head(_module, 'IUpdateException')
 make_head(_module, 'IUpdateExceptionCollection')
 make_head(_module, 'IUpdateHistoryEntry')

@@ -1190,10 +1190,6 @@ REG_FULL_RESOURCE_DESCRIPTOR: REG_VALUE_TYPE = 9
 REG_RESOURCE_REQUIREMENTS_LIST: REG_VALUE_TYPE = 10
 REG_QWORD: REG_VALUE_TYPE = 11
 REG_QWORD_LITTLE_ENDIAN: REG_VALUE_TYPE = 11
-class val_context(Structure):
-    valuelen: Int32
-    value_context: c_void_p
-    val_buff_ptr: c_void_p
 class VALENTA(Structure):
     ve_valuename: win32more.Foundation.PSTR
     ve_valuelen: UInt32
@@ -1204,14 +1200,18 @@ class VALENTW(Structure):
     ve_valuelen: UInt32
     ve_valueptr: UIntPtr
     ve_type: win32more.System.Registry.REG_VALUE_TYPE
+class val_context(Structure):
+    valuelen: Int32
+    value_context: c_void_p
+    val_buff_ptr: c_void_p
 make_head(_module, 'DSKTLSYSTEMTIME')
 make_head(_module, 'PQUERYHANDLER')
 make_head(_module, 'PVALUEA')
 make_head(_module, 'PVALUEW')
 make_head(_module, 'REG_PROVIDER')
-make_head(_module, 'val_context')
 make_head(_module, 'VALENTA')
 make_head(_module, 'VALENTW')
+make_head(_module, 'val_context')
 __all__ = [
     "AGP_FLAG_NO_1X_RATE",
     "AGP_FLAG_NO_2X_RATE",

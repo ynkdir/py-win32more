@@ -267,6 +267,18 @@ class DXGI_MATRIX_3X2_F(Structure):
 DXGI_MEMORY_SEGMENT_GROUP = Int32
 DXGI_MEMORY_SEGMENT_GROUP_LOCAL: DXGI_MEMORY_SEGMENT_GROUP = 0
 DXGI_MEMORY_SEGMENT_GROUP_NON_LOCAL: DXGI_MEMORY_SEGMENT_GROUP = 1
+class DXGI_MODE_DESC1(Structure):
+    Width: UInt32
+    Height: UInt32
+    RefreshRate: win32more.Graphics.Dxgi.Common.DXGI_RATIONAL
+    Format: win32more.Graphics.Dxgi.Common.DXGI_FORMAT
+    ScanlineOrdering: win32more.Graphics.Dxgi.Common.DXGI_MODE_SCANLINE_ORDER
+    Scaling: win32more.Graphics.Dxgi.Common.DXGI_MODE_SCALING
+    Stereo: win32more.Foundation.BOOL
+DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS = Int32
+DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_NOMINAL_RANGE: DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS = 1
+DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_BT709: DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS = 2
+DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_xvYCC: DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS = 4
 DXGI_Message_Id = Int32
 DXGI_MSG_IDXGISwapChain_CreationOrResizeBuffers_InvalidOutputWindow: DXGI_Message_Id = 0
 DXGI_MSG_IDXGISwapChain_CreationOrResizeBuffers_BufferWidthInferred: DXGI_Message_Id = 1
@@ -599,18 +611,6 @@ DXGI_MSG_Phone_IDXGIFactory_CreateSwapChain_FLIP_Modern_CoreWindow_Only: DXGI_Me
 DXGI_MSG_Phone_IDXGISwapChain_Present1_RequiresOverlays: DXGI_Message_Id = 1029
 DXGI_MSG_Phone_IDXGISwapChain_SetBackgroundColor_FlipSequentialRequired: DXGI_Message_Id = 1030
 DXGI_MSG_Phone_IDXGISwapChain_GetBackgroundColor_FlipSequentialRequired: DXGI_Message_Id = 1031
-class DXGI_MODE_DESC1(Structure):
-    Width: UInt32
-    Height: UInt32
-    RefreshRate: win32more.Graphics.Dxgi.Common.DXGI_RATIONAL
-    Format: win32more.Graphics.Dxgi.Common.DXGI_FORMAT
-    ScanlineOrdering: win32more.Graphics.Dxgi.Common.DXGI_MODE_SCANLINE_ORDER
-    Scaling: win32more.Graphics.Dxgi.Common.DXGI_MODE_SCALING
-    Stereo: win32more.Foundation.BOOL
-DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS = Int32
-DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_NOMINAL_RANGE: DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS = 1
-DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_BT709: DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS = 2
-DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAG_xvYCC: DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS = 4
 DXGI_OFFER_RESOURCE_FLAGS = Int32
 DXGI_OFFER_RESOURCE_FLAG_ALLOW_DECOMMIT: DXGI_OFFER_RESOURCE_FLAGS = 1
 DXGI_OFFER_RESOURCE_PRIORITY = Int32

@@ -813,7 +813,6 @@ class IWSManSession(c_void_p):
     def get_Timeout(value: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
     @commethod(18)
     def put_Timeout(value: Int32) -> win32more.Foundation.HRESULT: ...
-WSMan = Guid('bced617b-ec03-420b-85-08-97-7d-c7-a6-86-bd')
 class WSMAN_API(Structure):
     pass
 class WSMAN_AUTHENTICATION_CREDENTIALS(Structure):
@@ -988,6 +987,7 @@ class WSMAN_STREAM_ID_SET(Structure):
 class WSMAN_USERNAME_PASSWORD_CREDS(Structure):
     username: win32more.Foundation.PWSTR
     password: win32more.Foundation.PWSTR
+WSMan = Guid('bced617b-ec03-420b-85-08-97-7d-c7-a6-86-bd')
 WSManAuthenticationFlags = Int32
 WSMAN_FLAG_DEFAULT_AUTHENTICATION: WSManAuthenticationFlags = 0
 WSMAN_FLAG_NO_AUTHENTICATION: WSManAuthenticationFlags = 1

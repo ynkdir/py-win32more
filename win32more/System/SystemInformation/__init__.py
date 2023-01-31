@@ -447,6 +447,44 @@ class NUMA_NODE_RELATIONSHIP(Structure):
     class _Anonymous_e__Union(Union):
         GroupMask: win32more.System.SystemInformation.GROUP_AFFINITY
         GroupMasks: win32more.System.SystemInformation.GROUP_AFFINITY * 1
+class OSVERSIONINFOA(Structure):
+    dwOSVersionInfoSize: UInt32
+    dwMajorVersion: UInt32
+    dwMinorVersion: UInt32
+    dwBuildNumber: UInt32
+    dwPlatformId: UInt32
+    szCSDVersion: win32more.Foundation.CHAR * 128
+class OSVERSIONINFOEXA(Structure):
+    dwOSVersionInfoSize: UInt32
+    dwMajorVersion: UInt32
+    dwMinorVersion: UInt32
+    dwBuildNumber: UInt32
+    dwPlatformId: UInt32
+    szCSDVersion: win32more.Foundation.CHAR * 128
+    wServicePackMajor: UInt16
+    wServicePackMinor: UInt16
+    wSuiteMask: UInt16
+    wProductType: Byte
+    wReserved: Byte
+class OSVERSIONINFOEXW(Structure):
+    dwOSVersionInfoSize: UInt32
+    dwMajorVersion: UInt32
+    dwMinorVersion: UInt32
+    dwBuildNumber: UInt32
+    dwPlatformId: UInt32
+    szCSDVersion: Char * 128
+    wServicePackMajor: UInt16
+    wServicePackMinor: UInt16
+    wSuiteMask: UInt16
+    wProductType: Byte
+    wReserved: Byte
+class OSVERSIONINFOW(Structure):
+    dwOSVersionInfoSize: UInt32
+    dwMajorVersion: UInt32
+    dwMinorVersion: UInt32
+    dwBuildNumber: UInt32
+    dwPlatformId: UInt32
+    szCSDVersion: Char * 128
 OS_DEPLOYEMENT_STATE_VALUES = Int32
 OS_DEPLOYMENT_STANDARD: OS_DEPLOYEMENT_STATE_VALUES = 1
 OS_DEPLOYMENT_COMPACT: OS_DEPLOYEMENT_STATE_VALUES = 2
@@ -547,44 +585,6 @@ PRODUCT_ULTIMATE_N: OS_PRODUCT_TYPE = 28
 PRODUCT_UNDEFINED: OS_PRODUCT_TYPE = 0
 PRODUCT_WEB_SERVER: OS_PRODUCT_TYPE = 17
 PRODUCT_WEB_SERVER_CORE: OS_PRODUCT_TYPE = 29
-class OSVERSIONINFOA(Structure):
-    dwOSVersionInfoSize: UInt32
-    dwMajorVersion: UInt32
-    dwMinorVersion: UInt32
-    dwBuildNumber: UInt32
-    dwPlatformId: UInt32
-    szCSDVersion: win32more.Foundation.CHAR * 128
-class OSVERSIONINFOEXA(Structure):
-    dwOSVersionInfoSize: UInt32
-    dwMajorVersion: UInt32
-    dwMinorVersion: UInt32
-    dwBuildNumber: UInt32
-    dwPlatformId: UInt32
-    szCSDVersion: win32more.Foundation.CHAR * 128
-    wServicePackMajor: UInt16
-    wServicePackMinor: UInt16
-    wSuiteMask: UInt16
-    wProductType: Byte
-    wReserved: Byte
-class OSVERSIONINFOEXW(Structure):
-    dwOSVersionInfoSize: UInt32
-    dwMajorVersion: UInt32
-    dwMinorVersion: UInt32
-    dwBuildNumber: UInt32
-    dwPlatformId: UInt32
-    szCSDVersion: Char * 128
-    wServicePackMajor: UInt16
-    wServicePackMinor: UInt16
-    wSuiteMask: UInt16
-    wProductType: Byte
-    wReserved: Byte
-class OSVERSIONINFOW(Structure):
-    dwOSVersionInfoSize: UInt32
-    dwMajorVersion: UInt32
-    dwMinorVersion: UInt32
-    dwBuildNumber: UInt32
-    dwPlatformId: UInt32
-    szCSDVersion: Char * 128
 @winfunctype_pointer
 def PGET_SYSTEM_WOW64_DIRECTORY_A(lpBuffer: win32more.Foundation.PSTR, uSize: UInt32) -> UInt32: ...
 @winfunctype_pointer

@@ -1824,6 +1824,54 @@ class VAL(Structure):
     pHandle: POINTER(win32more.Foundation.HANDLE)
     lReserved: Int32
     szVal: win32more.Foundation.CHAR * 255
+class WIAS_CHANGED_VALUE_INFO(Structure):
+    bChanged: win32more.Foundation.BOOL
+    vt: Int32
+    Old: _Old_e__Union
+    Current: _Current_e__Union
+    class _Old_e__Union(Union):
+        lVal: Int32
+        fltVal: Single
+        bstrVal: win32more.Foundation.BSTR
+        guidVal: Guid
+    class _Current_e__Union(Union):
+        lVal: Int32
+        fltVal: Single
+        bstrVal: win32more.Foundation.BSTR
+        guidVal: Guid
+class WIAS_DOWN_SAMPLE_INFO(Structure):
+    ulOriginalWidth: UInt32
+    ulOriginalHeight: UInt32
+    ulBitsPerPixel: UInt32
+    ulXRes: UInt32
+    ulYRes: UInt32
+    ulDownSampledWidth: UInt32
+    ulDownSampledHeight: UInt32
+    ulActualSize: UInt32
+    ulDestBufSize: UInt32
+    ulSrcBufSize: UInt32
+    pSrcBuffer: c_char_p_no
+    pDestBuffer: c_char_p_no
+class WIAS_ENDORSER_INFO(Structure):
+    ulPageCount: UInt32
+    ulNumEndorserValues: UInt32
+    pEndorserValues: POINTER(win32more.Devices.ImageAcquisition.WIAS_ENDORSER_VALUE_head)
+class WIAS_ENDORSER_VALUE(Structure):
+    wszTokenName: win32more.Foundation.PWSTR
+    wszValue: win32more.Foundation.PWSTR
+WIAVIDEO_STATE = Int32
+WIAVIDEO_NO_VIDEO: WIAVIDEO_STATE = 1
+WIAVIDEO_CREATING_VIDEO: WIAVIDEO_STATE = 2
+WIAVIDEO_VIDEO_CREATED: WIAVIDEO_STATE = 3
+WIAVIDEO_VIDEO_PLAYING: WIAVIDEO_STATE = 4
+WIAVIDEO_VIDEO_PAUSED: WIAVIDEO_STATE = 5
+WIAVIDEO_DESTROYING_VIDEO: WIAVIDEO_STATE = 6
+class WIA_BARCODES(Structure):
+    Tag: UInt32
+    Version: UInt32
+    Size: UInt32
+    Count: UInt32
+    Barcodes: win32more.Devices.ImageAcquisition.WIA_BARCODE_INFO * 1
 class WIA_BARCODE_INFO(Structure):
     Size: UInt32
     Type: UInt32
@@ -1834,12 +1882,6 @@ class WIA_BARCODE_INFO(Structure):
     Rotation: UInt32
     Length: UInt32
     Text: Char * 1
-class WIA_BARCODES(Structure):
-    Tag: UInt32
-    Version: UInt32
-    Size: UInt32
-    Count: UInt32
-    Barcodes: win32more.Devices.ImageAcquisition.WIA_BARCODE_INFO * 1
 class WIA_DATA_CALLBACK_HEADER(Structure):
     lSize: Int32
     guidFormatID: Guid
@@ -1895,14 +1937,14 @@ class WIA_MICR_INFO(Structure):
     Page: UInt32
     Length: UInt32
     Text: Char * 1
-class WIA_PATCH_CODE_INFO(Structure):
-    Type: UInt32
 class WIA_PATCH_CODES(Structure):
     Tag: UInt32
     Version: UInt32
     Size: UInt32
     Count: UInt32
     PatchCodes: win32more.Devices.ImageAcquisition.WIA_PATCH_CODE_INFO * 1
+class WIA_PATCH_CODE_INFO(Structure):
+    Type: UInt32
 class WIA_PROPERTY_CONTEXT(Structure):
     cProps: UInt32
     pProps: POINTER(UInt32)
@@ -1977,54 +2019,12 @@ class WIA_RAW_HEADER(Structure):
 WiaDevMgr = Guid('a1f4e726-8cf1-11d1-bf-92-00-60-08-1e-d8-11')
 WiaDevMgr2 = Guid('b6c292bc-7c88-41ee-8b-54-8e-c9-26-17-e5-99')
 WiaLog = Guid('a1e75357-881a-419e-83-e2-bb-16-db-19-7c-68')
-class WIAS_CHANGED_VALUE_INFO(Structure):
-    bChanged: win32more.Foundation.BOOL
-    vt: Int32
-    Old: _Old_e__Union
-    Current: _Current_e__Union
-    class _Old_e__Union(Union):
-        lVal: Int32
-        fltVal: Single
-        bstrVal: win32more.Foundation.BSTR
-        guidVal: Guid
-    class _Current_e__Union(Union):
-        lVal: Int32
-        fltVal: Single
-        bstrVal: win32more.Foundation.BSTR
-        guidVal: Guid
-class WIAS_DOWN_SAMPLE_INFO(Structure):
-    ulOriginalWidth: UInt32
-    ulOriginalHeight: UInt32
-    ulBitsPerPixel: UInt32
-    ulXRes: UInt32
-    ulYRes: UInt32
-    ulDownSampledWidth: UInt32
-    ulDownSampledHeight: UInt32
-    ulActualSize: UInt32
-    ulDestBufSize: UInt32
-    ulSrcBufSize: UInt32
-    pSrcBuffer: c_char_p_no
-    pDestBuffer: c_char_p_no
-class WIAS_ENDORSER_INFO(Structure):
-    ulPageCount: UInt32
-    ulNumEndorserValues: UInt32
-    pEndorserValues: POINTER(win32more.Devices.ImageAcquisition.WIAS_ENDORSER_VALUE_head)
-class WIAS_ENDORSER_VALUE(Structure):
-    wszTokenName: win32more.Foundation.PWSTR
-    wszValue: win32more.Foundation.PWSTR
 class WiaTransferParams(Structure):
     lMessage: Int32
     lPercentComplete: Int32
     ulTransferredBytes: UInt64
     hrErrorStatus: win32more.Foundation.HRESULT
 WiaVideo = Guid('3908c3cd-4478-4536-af-2f-10-c2-5d-4e-f8-9a')
-WIAVIDEO_STATE = Int32
-WIAVIDEO_NO_VIDEO: WIAVIDEO_STATE = 1
-WIAVIDEO_CREATING_VIDEO: WIAVIDEO_STATE = 2
-WIAVIDEO_VIDEO_CREATED: WIAVIDEO_STATE = 3
-WIAVIDEO_VIDEO_PLAYING: WIAVIDEO_STATE = 4
-WIAVIDEO_VIDEO_PAUSED: WIAVIDEO_STATE = 5
-WIAVIDEO_DESTROYING_VIDEO: WIAVIDEO_STATE = 6
 make_head(_module, 'DEVICEDIALOGDATA')
 make_head(_module, 'DEVICEDIALOGDATA2')
 make_head(_module, 'DeviceDialogFunction')
@@ -2065,8 +2065,12 @@ make_head(_module, 'SCANINFO')
 make_head(_module, 'SCANWINDOW')
 make_head(_module, 'TWAIN_CAPABILITY')
 make_head(_module, 'VAL')
-make_head(_module, 'WIA_BARCODE_INFO')
+make_head(_module, 'WIAS_CHANGED_VALUE_INFO')
+make_head(_module, 'WIAS_DOWN_SAMPLE_INFO')
+make_head(_module, 'WIAS_ENDORSER_INFO')
+make_head(_module, 'WIAS_ENDORSER_VALUE')
 make_head(_module, 'WIA_BARCODES')
+make_head(_module, 'WIA_BARCODE_INFO')
 make_head(_module, 'WIA_DATA_CALLBACK_HEADER')
 make_head(_module, 'WIA_DATA_TRANSFER_INFO')
 make_head(_module, 'WIA_DEV_CAP')
@@ -2076,16 +2080,12 @@ make_head(_module, 'WIA_EXTENDED_TRANSFER_INFO')
 make_head(_module, 'WIA_FORMAT_INFO')
 make_head(_module, 'WIA_MICR')
 make_head(_module, 'WIA_MICR_INFO')
-make_head(_module, 'WIA_PATCH_CODE_INFO')
 make_head(_module, 'WIA_PATCH_CODES')
+make_head(_module, 'WIA_PATCH_CODE_INFO')
 make_head(_module, 'WIA_PROPERTY_CONTEXT')
 make_head(_module, 'WIA_PROPERTY_INFO')
 make_head(_module, 'WIA_PROPID_TO_NAME')
 make_head(_module, 'WIA_RAW_HEADER')
-make_head(_module, 'WIAS_CHANGED_VALUE_INFO')
-make_head(_module, 'WIAS_DOWN_SAMPLE_INFO')
-make_head(_module, 'WIAS_ENDORSER_INFO')
-make_head(_module, 'WIAS_ENDORSER_VALUE')
 make_head(_module, 'WiaTransferParams')
 __all__ = [
     "ADVANCED_DUP",

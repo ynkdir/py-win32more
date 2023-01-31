@@ -25,8 +25,6 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-class _HMAPPER(Structure):
-    pass
 @winfunctype_pointer
 def ACCEPT_SECURITY_CONTEXT_FN(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: POINTER(win32more.Security.Credentials.SecHandle_head), param2: POINTER(win32more.Security.Authentication.Identity.SecBufferDesc_head), param3: UInt32, param4: UInt32, param5: POINTER(win32more.Security.Credentials.SecHandle_head), param6: POINTER(win32more.Security.Authentication.Identity.SecBufferDesc_head), param7: POINTER(UInt32), param8: POINTER(win32more.Foundation.LARGE_INTEGER_head)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -37,6 +35,40 @@ def ACQUIRE_CREDENTIALS_HANDLE_FN_W(param0: POINTER(UInt16), param1: POINTER(UIn
 def ADD_CREDENTIALS_FN_A(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: POINTER(SByte), param2: POINTER(SByte), param3: UInt32, param4: c_void_p, param5: win32more.Security.Authentication.Identity.SEC_GET_KEY_FN, param6: c_void_p, param7: POINTER(win32more.Foundation.LARGE_INTEGER_head)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def ADD_CREDENTIALS_FN_W(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: POINTER(UInt16), param2: POINTER(UInt16), param3: UInt32, param4: c_void_p, param5: win32more.Security.Authentication.Identity.SEC_GET_KEY_FN, param6: c_void_p, param7: POINTER(win32more.Foundation.LARGE_INTEGER_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def APPLY_CONTROL_TOKEN_FN(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: POINTER(win32more.Security.Authentication.Identity.SecBufferDesc_head)) -> win32more.Foundation.HRESULT: ...
+ASC_REQ_FLAGS = UInt32
+ASC_REQ_DELEGATE: ASC_REQ_FLAGS = 1
+ASC_REQ_MUTUAL_AUTH: ASC_REQ_FLAGS = 2
+ASC_REQ_REPLAY_DETECT: ASC_REQ_FLAGS = 4
+ASC_REQ_SEQUENCE_DETECT: ASC_REQ_FLAGS = 8
+ASC_REQ_CONFIDENTIALITY: ASC_REQ_FLAGS = 16
+ASC_REQ_USE_SESSION_KEY: ASC_REQ_FLAGS = 32
+ASC_REQ_SESSION_TICKET: ASC_REQ_FLAGS = 64
+ASC_REQ_ALLOCATE_MEMORY: ASC_REQ_FLAGS = 256
+ASC_REQ_USE_DCE_STYLE: ASC_REQ_FLAGS = 512
+ASC_REQ_DATAGRAM: ASC_REQ_FLAGS = 1024
+ASC_REQ_CONNECTION: ASC_REQ_FLAGS = 2048
+ASC_REQ_CALL_LEVEL: ASC_REQ_FLAGS = 4096
+ASC_REQ_FRAGMENT_SUPPLIED: ASC_REQ_FLAGS = 8192
+ASC_REQ_EXTENDED_ERROR: ASC_REQ_FLAGS = 32768
+ASC_REQ_STREAM: ASC_REQ_FLAGS = 65536
+ASC_REQ_INTEGRITY: ASC_REQ_FLAGS = 131072
+ASC_REQ_LICENSING: ASC_REQ_FLAGS = 262144
+ASC_REQ_IDENTIFY: ASC_REQ_FLAGS = 524288
+ASC_REQ_ALLOW_NULL_SESSION: ASC_REQ_FLAGS = 1048576
+ASC_REQ_ALLOW_NON_USER_LOGONS: ASC_REQ_FLAGS = 2097152
+ASC_REQ_ALLOW_CONTEXT_REPLAY: ASC_REQ_FLAGS = 4194304
+ASC_REQ_FRAGMENT_TO_FIT: ASC_REQ_FLAGS = 8388608
+ASC_REQ_NO_TOKEN: ASC_REQ_FLAGS = 16777216
+ASC_REQ_PROXY_BINDINGS: ASC_REQ_FLAGS = 67108864
+ASC_REQ_ALLOW_MISSING_BINDINGS: ASC_REQ_FLAGS = 268435456
+ASC_REQ_HIGH_FLAGS = UInt64
+ASC_REQ_MESSAGES: ASC_REQ_HIGH_FLAGS = 4294967296
+class AUDIT_POLICY_INFORMATION(Structure):
+    AuditSubCategoryGuid: Guid
+    AuditingInformation: UInt32
+    AuditCategoryGuid: Guid
 NTLMSP_NAME_A: String = 'NTLM'
 NTLMSP_NAME: String = 'NTLM'
 MICROSOFT_KERBEROS_NAME_A: String = 'Kerberos'
@@ -1849,40 +1881,6 @@ def SLGetGenuineInformation(pQueryId: POINTER(Guid), pwszValueName: win32more.Fo
 def SLQueryLicenseValueFromApp(valueName: win32more.Foundation.PWSTR, valueType: POINTER(UInt32), dataBuffer: c_void_p, dataSize: UInt32, resultDataSize: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
 @winfunctype('SAS.dll')
 def SendSAS(AsUser: win32more.Foundation.BOOL) -> Void: ...
-@winfunctype_pointer
-def APPLY_CONTROL_TOKEN_FN(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: POINTER(win32more.Security.Authentication.Identity.SecBufferDesc_head)) -> win32more.Foundation.HRESULT: ...
-ASC_REQ_FLAGS = UInt32
-ASC_REQ_DELEGATE: ASC_REQ_FLAGS = 1
-ASC_REQ_MUTUAL_AUTH: ASC_REQ_FLAGS = 2
-ASC_REQ_REPLAY_DETECT: ASC_REQ_FLAGS = 4
-ASC_REQ_SEQUENCE_DETECT: ASC_REQ_FLAGS = 8
-ASC_REQ_CONFIDENTIALITY: ASC_REQ_FLAGS = 16
-ASC_REQ_USE_SESSION_KEY: ASC_REQ_FLAGS = 32
-ASC_REQ_SESSION_TICKET: ASC_REQ_FLAGS = 64
-ASC_REQ_ALLOCATE_MEMORY: ASC_REQ_FLAGS = 256
-ASC_REQ_USE_DCE_STYLE: ASC_REQ_FLAGS = 512
-ASC_REQ_DATAGRAM: ASC_REQ_FLAGS = 1024
-ASC_REQ_CONNECTION: ASC_REQ_FLAGS = 2048
-ASC_REQ_CALL_LEVEL: ASC_REQ_FLAGS = 4096
-ASC_REQ_FRAGMENT_SUPPLIED: ASC_REQ_FLAGS = 8192
-ASC_REQ_EXTENDED_ERROR: ASC_REQ_FLAGS = 32768
-ASC_REQ_STREAM: ASC_REQ_FLAGS = 65536
-ASC_REQ_INTEGRITY: ASC_REQ_FLAGS = 131072
-ASC_REQ_LICENSING: ASC_REQ_FLAGS = 262144
-ASC_REQ_IDENTIFY: ASC_REQ_FLAGS = 524288
-ASC_REQ_ALLOW_NULL_SESSION: ASC_REQ_FLAGS = 1048576
-ASC_REQ_ALLOW_NON_USER_LOGONS: ASC_REQ_FLAGS = 2097152
-ASC_REQ_ALLOW_CONTEXT_REPLAY: ASC_REQ_FLAGS = 4194304
-ASC_REQ_FRAGMENT_TO_FIT: ASC_REQ_FLAGS = 8388608
-ASC_REQ_NO_TOKEN: ASC_REQ_FLAGS = 16777216
-ASC_REQ_PROXY_BINDINGS: ASC_REQ_FLAGS = 67108864
-ASC_REQ_ALLOW_MISSING_BINDINGS: ASC_REQ_FLAGS = 268435456
-ASC_REQ_HIGH_FLAGS = UInt64
-ASC_REQ_MESSAGES: ASC_REQ_HIGH_FLAGS = 4294967296
-class AUDIT_POLICY_INFORMATION(Structure):
-    AuditSubCategoryGuid: Guid
-    AuditingInformation: UInt32
-    AuditCategoryGuid: Guid
 class CENTRAL_ACCESS_POLICY(Structure):
     CAPID: win32more.Foundation.PSID
     Name: win32more.Foundation.UNICODE_STRING
@@ -1917,13 +1915,13 @@ CRED_FETCH_CredFetchForced: CRED_FETCH = 2
 @winfunctype_pointer
 def CredFreeCredentialsFn(Count: UInt32, Credentials: POINTER(POINTER(win32more.Security.Authentication.Identity.ENCRYPTED_CREDENTIALW_head))) -> Void: ...
 @winfunctype_pointer
-def CrediUnmarshalandDecodeStringFn(MarshaledString: win32more.Foundation.PWSTR, Blob: POINTER(c_char_p_no), BlobSize: POINTER(UInt32), IsFailureFatal: c_char_p_no) -> win32more.Foundation.NTSTATUS: ...
-@winfunctype_pointer
 def CredReadDomainCredentialsFn(LogonId: POINTER(win32more.Foundation.LUID_head), CredFlags: UInt32, TargetInfo: POINTER(win32more.Security.Credentials.CREDENTIAL_TARGET_INFORMATIONW_head), Flags: UInt32, Count: POINTER(UInt32), Credential: POINTER(POINTER(POINTER(win32more.Security.Authentication.Identity.ENCRYPTED_CREDENTIALW_head)))) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def CredReadFn(LogonId: POINTER(win32more.Foundation.LUID_head), CredFlags: UInt32, TargetName: win32more.Foundation.PWSTR, Type: UInt32, Flags: UInt32, Credential: POINTER(POINTER(win32more.Security.Authentication.Identity.ENCRYPTED_CREDENTIALW_head))) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def CredWriteFn(LogonId: POINTER(win32more.Foundation.LUID_head), CredFlags: UInt32, Credential: POINTER(win32more.Security.Authentication.Identity.ENCRYPTED_CREDENTIALW_head), Flags: UInt32) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype_pointer
+def CrediUnmarshalandDecodeStringFn(MarshaledString: win32more.Foundation.PWSTR, Blob: POINTER(c_char_p_no), BlobSize: POINTER(UInt32), IsFailureFatal: c_char_p_no) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def DECRYPT_MESSAGE_FN(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: POINTER(win32more.Security.Authentication.Identity.SecBufferDesc_head), param2: UInt32, param3: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -1941,28 +1939,15 @@ DOMAIN_PASSWORD_NO_CLEAR_CHANGE: DOMAIN_PASSWORD_PROPERTIES = 4
 DOMAIN_LOCKOUT_ADMINS: DOMAIN_PASSWORD_PROPERTIES = 8
 DOMAIN_PASSWORD_STORE_CLEARTEXT: DOMAIN_PASSWORD_PROPERTIES = 16
 DOMAIN_REFUSE_PASSWORD_CHANGE: DOMAIN_PASSWORD_PROPERTIES = 32
-@winfunctype_pointer
-def ENCRYPT_MESSAGE_FN(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: UInt32, param2: POINTER(win32more.Security.Authentication.Identity.SecBufferDesc_head), param3: UInt32) -> win32more.Foundation.HRESULT: ...
 class ENCRYPTED_CREDENTIALW(Structure):
     Cred: win32more.Security.Credentials.CREDENTIALW
     ClearCredentialBlobSize: UInt32
 @winfunctype_pointer
+def ENCRYPT_MESSAGE_FN(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: UInt32, param2: POINTER(win32more.Security.Authentication.Identity.SecBufferDesc_head), param3: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
 def ENUMERATE_SECURITY_PACKAGES_FN_A(param0: POINTER(UInt32), param1: POINTER(POINTER(win32more.Security.Authentication.Identity.SecPkgInfoA_head))) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def ENUMERATE_SECURITY_PACKAGES_FN_W(param0: POINTER(UInt32), param1: POINTER(POINTER(win32more.Security.Authentication.Identity.SecPkgInfoW_head))) -> win32more.Foundation.HRESULT: ...
-eTlsHashAlgorithm = Int32
-TlsHashAlgorithm_None: eTlsHashAlgorithm = 0
-TlsHashAlgorithm_Md5: eTlsHashAlgorithm = 1
-TlsHashAlgorithm_Sha1: eTlsHashAlgorithm = 2
-TlsHashAlgorithm_Sha224: eTlsHashAlgorithm = 3
-TlsHashAlgorithm_Sha256: eTlsHashAlgorithm = 4
-TlsHashAlgorithm_Sha384: eTlsHashAlgorithm = 5
-TlsHashAlgorithm_Sha512: eTlsHashAlgorithm = 6
-eTlsSignatureAlgorithm = Int32
-TlsSignatureAlgorithm_Anonymous: eTlsSignatureAlgorithm = 0
-TlsSignatureAlgorithm_Rsa: eTlsSignatureAlgorithm = 1
-TlsSignatureAlgorithm_Dsa: eTlsSignatureAlgorithm = 2
-TlsSignatureAlgorithm_Ecdsa: eTlsSignatureAlgorithm = 3
 EXPORT_SECURITY_CONTEXT_FLAGS = UInt32
 SECPKG_CONTEXT_EXPORT_RESET_NEW: EXPORT_SECURITY_CONTEXT_FLAGS = 1
 SECPKG_CONTEXT_EXPORT_DELETE_OLD: EXPORT_SECURITY_CONTEXT_FLAGS = 2
@@ -1998,13 +1983,13 @@ def IMPORT_SECURITY_CONTEXT_FN_A(param0: POINTER(SByte), param1: POINTER(win32mo
 @winfunctype_pointer
 def IMPORT_SECURITY_CONTEXT_FN_W(param0: POINTER(UInt16), param1: POINTER(win32more.Security.Authentication.Identity.SecBuffer_head), param2: c_void_p, param3: POINTER(win32more.Security.Credentials.SecHandle_head)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
-def INIT_SECURITY_INTERFACE_A() -> POINTER(win32more.Security.Authentication.Identity.SecurityFunctionTableA_head): ...
-@winfunctype_pointer
-def INIT_SECURITY_INTERFACE_W() -> POINTER(win32more.Security.Authentication.Identity.SecurityFunctionTableW_head): ...
-@winfunctype_pointer
 def INITIALIZE_SECURITY_CONTEXT_FN_A(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: POINTER(win32more.Security.Credentials.SecHandle_head), param2: POINTER(SByte), param3: UInt32, param4: UInt32, param5: UInt32, param6: POINTER(win32more.Security.Authentication.Identity.SecBufferDesc_head), param7: UInt32, param8: POINTER(win32more.Security.Credentials.SecHandle_head), param9: POINTER(win32more.Security.Authentication.Identity.SecBufferDesc_head), param10: POINTER(UInt32), param11: POINTER(win32more.Foundation.LARGE_INTEGER_head)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def INITIALIZE_SECURITY_CONTEXT_FN_W(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: POINTER(win32more.Security.Credentials.SecHandle_head), param2: POINTER(UInt16), param3: UInt32, param4: UInt32, param5: UInt32, param6: POINTER(win32more.Security.Authentication.Identity.SecBufferDesc_head), param7: UInt32, param8: POINTER(win32more.Security.Credentials.SecHandle_head), param9: POINTER(win32more.Security.Authentication.Identity.SecBufferDesc_head), param10: POINTER(UInt32), param11: POINTER(win32more.Foundation.LARGE_INTEGER_head)) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def INIT_SECURITY_INTERFACE_A() -> POINTER(win32more.Security.Authentication.Identity.SecurityFunctionTableA_head): ...
+@winfunctype_pointer
+def INIT_SECURITY_INTERFACE_W() -> POINTER(win32more.Security.Authentication.Identity.SecurityFunctionTableW_head): ...
 ISC_REQ_FLAGS = UInt32
 ISC_REQ_DELEGATE: ISC_REQ_FLAGS = 1
 ISC_REQ_MUTUAL_AUTH: ISC_REQ_FLAGS = 2
@@ -2046,6 +2031,9 @@ class KDC_PROXY_CACHE_ENTRY_DATA(Structure):
     CredUserName: win32more.Foundation.UNICODE_STRING
     CredDomainName: win32more.Foundation.UNICODE_STRING
     GlobalCache: win32more.Foundation.BOOLEAN
+KERB_ADDRESS_TYPE = UInt32
+DS_INET_ADDRESS: KERB_ADDRESS_TYPE = 1
+DS_NETBIOS_ADDRESS: KERB_ADDRESS_TYPE = 2
 class KERB_ADD_BINDING_CACHE_ENTRY_EX_REQUEST(Structure):
     MessageType: win32more.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     RealmName: win32more.Foundation.UNICODE_STRING
@@ -2068,9 +2056,6 @@ class KERB_ADD_CREDENTIALS_REQUEST_EX(Structure):
     Credentials: win32more.Security.Authentication.Identity.KERB_ADD_CREDENTIALS_REQUEST
     PrincipalNameCount: UInt32
     PrincipalNames: win32more.Foundation.UNICODE_STRING * 1
-KERB_ADDRESS_TYPE = UInt32
-DS_INET_ADDRESS: KERB_ADDRESS_TYPE = 1
-DS_NETBIOS_ADDRESS: KERB_ADDRESS_TYPE = 2
 class KERB_AUTH_DATA(Structure):
     Type: UInt32
     Length: UInt32
@@ -2134,6 +2119,10 @@ class KERB_CRYPTO_KEY(Structure):
     KeyType: win32more.Security.Authentication.Identity.KERB_CRYPTO_KEY_TYPE
     Length: UInt32
     Value: c_char_p_no
+class KERB_CRYPTO_KEY32(Structure):
+    KeyType: Int32
+    Length: UInt32
+    Offset: UInt32
 KERB_CRYPTO_KEY_TYPE = Int32
 KERB_ETYPE_DES_CBC_CRC: KERB_CRYPTO_KEY_TYPE = 1
 KERB_ETYPE_DES_CBC_MD4: KERB_CRYPTO_KEY_TYPE = 2
@@ -2141,10 +2130,6 @@ KERB_ETYPE_DES_CBC_MD5: KERB_CRYPTO_KEY_TYPE = 3
 KERB_ETYPE_NULL: KERB_CRYPTO_KEY_TYPE = 0
 KERB_ETYPE_RC4_HMAC_NT: KERB_CRYPTO_KEY_TYPE = 23
 KERB_ETYPE_RC4_MD4: KERB_CRYPTO_KEY_TYPE = -128
-class KERB_CRYPTO_KEY32(Structure):
-    KeyType: Int32
-    Length: UInt32
-    Offset: UInt32
 class KERB_DECRYPT_REQUEST(Structure):
     MessageType: win32more.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: win32more.Foundation.LUID
@@ -2317,10 +2302,6 @@ class KERB_QUERY_S4U2PROXY_CACHE_RESPONSE(Structure):
     MessageType: win32more.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     CountOfCreds: UInt32
     Creds: POINTER(win32more.Security.Authentication.Identity.KERB_S4U2PROXY_CRED_head)
-class KERB_QUERY_TKT_CACHE_EX_RESPONSE(Structure):
-    MessageType: win32more.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
-    CountOfTickets: UInt32
-    Tickets: win32more.Security.Authentication.Identity.KERB_TICKET_CACHE_INFO_EX * 1
 class KERB_QUERY_TKT_CACHE_EX2_RESPONSE(Structure):
     MessageType: win32more.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     CountOfTickets: UInt32
@@ -2329,6 +2310,10 @@ class KERB_QUERY_TKT_CACHE_EX3_RESPONSE(Structure):
     MessageType: win32more.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     CountOfTickets: UInt32
     Tickets: win32more.Security.Authentication.Identity.KERB_TICKET_CACHE_INFO_EX3 * 1
+class KERB_QUERY_TKT_CACHE_EX_RESPONSE(Structure):
+    MessageType: win32more.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
+    CountOfTickets: UInt32
+    Tickets: win32more.Security.Authentication.Identity.KERB_TICKET_CACHE_INFO_EX * 1
 class KERB_QUERY_TKT_CACHE_REQUEST(Structure):
     MessageType: win32more.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: win32more.Foundation.LUID
@@ -2371,11 +2356,6 @@ class KERB_RETRIEVE_TKT_REQUEST(Structure):
     CredentialsHandle: win32more.Security.Credentials.SecHandle
 class KERB_RETRIEVE_TKT_RESPONSE(Structure):
     Ticket: win32more.Security.Authentication.Identity.KERB_EXTERNAL_TICKET
-class KERB_S4U_LOGON(Structure):
-    MessageType: win32more.Security.Authentication.Identity.KERB_LOGON_SUBMIT_TYPE
-    Flags: UInt32
-    ClientUpn: win32more.Foundation.UNICODE_STRING
-    ClientRealm: win32more.Foundation.UNICODE_STRING
 class KERB_S4U2PROXY_CACHE_ENTRY_INFO(Structure):
     ServerName: win32more.Foundation.UNICODE_STRING
     Flags: UInt32
@@ -2389,6 +2369,11 @@ class KERB_S4U2PROXY_CRED(Structure):
     Expiry: win32more.Foundation.LARGE_INTEGER
     CountOfEntries: UInt32
     Entries: POINTER(win32more.Security.Authentication.Identity.KERB_S4U2PROXY_CACHE_ENTRY_INFO_head)
+class KERB_S4U_LOGON(Structure):
+    MessageType: win32more.Security.Authentication.Identity.KERB_LOGON_SUBMIT_TYPE
+    Flags: UInt32
+    ClientUpn: win32more.Foundation.UNICODE_STRING
+    ClientRealm: win32more.Foundation.UNICODE_STRING
 class KERB_SETPASSWORD_EX_REQUEST(Structure):
     MessageType: win32more.Security.Authentication.Identity.KERB_PROTOCOL_MESSAGE_TYPE
     LogonId: win32more.Foundation.LUID
@@ -2726,37 +2711,9 @@ class LSA_TRUST_INFORMATION(Structure):
     Sid: win32more.Foundation.PSID
 @winfunctype_pointer
 def MAKE_SIGNATURE_FN(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: UInt32, param2: POINTER(win32more.Security.Authentication.Identity.SecBufferDesc_head), param3: UInt32) -> win32more.Foundation.HRESULT: ...
-MSV_SUB_AUTHENTICATION_FILTER = UInt32
-LOGON_GUEST: MSV_SUB_AUTHENTICATION_FILTER = 1
-LOGON_NOENCRYPTION: MSV_SUB_AUTHENTICATION_FILTER = 2
-LOGON_CACHED_ACCOUNT: MSV_SUB_AUTHENTICATION_FILTER = 4
-LOGON_USED_LM_PASSWORD: MSV_SUB_AUTHENTICATION_FILTER = 8
-LOGON_EXTRA_SIDS: MSV_SUB_AUTHENTICATION_FILTER = 32
-LOGON_SUBAUTH_SESSION_KEY: MSV_SUB_AUTHENTICATION_FILTER = 64
-LOGON_SERVER_TRUST_ACCOUNT: MSV_SUB_AUTHENTICATION_FILTER = 128
-LOGON_PROFILE_PATH_RETURNED: MSV_SUB_AUTHENTICATION_FILTER = 1024
-LOGON_RESOURCE_GROUPS: MSV_SUB_AUTHENTICATION_FILTER = 512
-MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = UInt32
-MSV1_0_CLEARTEXT_PASSWORD_ALLOWED: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 2
-MSV1_0_UPDATE_LOGON_STATISTICS: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 4
-MSV1_0_RETURN_USER_PARAMETERS: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 8
-MSV1_0_DONT_TRY_GUEST_ACCOUNT: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 16
-MSV1_0_ALLOW_SERVER_TRUST_ACCOUNT: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 32
-MSV1_0_RETURN_PASSWORD_EXPIRY: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 64
-MSV1_0_ALLOW_WORKSTATION_TRUST_ACCOUNT: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 2048
-MSV1_0_TRY_GUEST_ACCOUNT_ONLY: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 256
-MSV1_0_RETURN_PROFILE_PATH: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 512
-MSV1_0_TRY_SPECIFIED_DOMAIN_ONLY: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 1024
-MSV_SUPPLEMENTAL_CREDENTIAL_FLAGS = UInt32
-MSV1_0_CRED_LM_PRESENT: MSV_SUPPLEMENTAL_CREDENTIAL_FLAGS = 1
-MSV1_0_CRED_NT_PRESENT: MSV_SUPPLEMENTAL_CREDENTIAL_FLAGS = 2
-MSV1_0_CRED_VERSION: MSV_SUPPLEMENTAL_CREDENTIAL_FLAGS = 0
 MSV1_0 = UInt32
 MSV1_0_PASSTHRU: MSV1_0 = 1
 MSV1_0_GUEST_LOGON: MSV1_0 = 2
-class MSV1_0_AV_PAIR(Structure):
-    AvId: UInt16
-    AvLen: UInt16
 MSV1_0_AVID = Int32
 MSV1_0_AVID_MsvAvEOL: MSV1_0_AVID = 0
 MSV1_0_AVID_MsvAvNbComputerName: MSV1_0_AVID = 1
@@ -2769,6 +2726,9 @@ MSV1_0_AVID_MsvAvTimestamp: MSV1_0_AVID = 7
 MSV1_0_AVID_MsvAvRestrictions: MSV1_0_AVID = 8
 MSV1_0_AVID_MsvAvTargetName: MSV1_0_AVID = 9
 MSV1_0_AVID_MsvAvChannelBindings: MSV1_0_AVID = 10
+class MSV1_0_AV_PAIR(Structure):
+    AvId: UInt16
+    AvLen: UInt16
 class MSV1_0_CHANGEPASSWORD_REQUEST(Structure):
     MessageType: win32more.Security.Authentication.Identity.MSV1_0_PROTOCOL_MESSAGE_TYPE
     DomainName: win32more.Foundation.UNICODE_STRING
@@ -2954,6 +2914,31 @@ class MSV1_0_VALIDATION_INFO(Structure):
     UserFlags: UInt32
     WhichFields: UInt32
     UserId: UInt32
+MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = UInt32
+MSV1_0_CLEARTEXT_PASSWORD_ALLOWED: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 2
+MSV1_0_UPDATE_LOGON_STATISTICS: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 4
+MSV1_0_RETURN_USER_PARAMETERS: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 8
+MSV1_0_DONT_TRY_GUEST_ACCOUNT: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 16
+MSV1_0_ALLOW_SERVER_TRUST_ACCOUNT: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 32
+MSV1_0_RETURN_PASSWORD_EXPIRY: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 64
+MSV1_0_ALLOW_WORKSTATION_TRUST_ACCOUNT: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 2048
+MSV1_0_TRY_GUEST_ACCOUNT_ONLY: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 256
+MSV1_0_RETURN_PROFILE_PATH: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 512
+MSV1_0_TRY_SPECIFIED_DOMAIN_ONLY: MSV_SUBAUTH_LOGON_PARAMETER_CONTROL = 1024
+MSV_SUB_AUTHENTICATION_FILTER = UInt32
+LOGON_GUEST: MSV_SUB_AUTHENTICATION_FILTER = 1
+LOGON_NOENCRYPTION: MSV_SUB_AUTHENTICATION_FILTER = 2
+LOGON_CACHED_ACCOUNT: MSV_SUB_AUTHENTICATION_FILTER = 4
+LOGON_USED_LM_PASSWORD: MSV_SUB_AUTHENTICATION_FILTER = 8
+LOGON_EXTRA_SIDS: MSV_SUB_AUTHENTICATION_FILTER = 32
+LOGON_SUBAUTH_SESSION_KEY: MSV_SUB_AUTHENTICATION_FILTER = 64
+LOGON_SERVER_TRUST_ACCOUNT: MSV_SUB_AUTHENTICATION_FILTER = 128
+LOGON_PROFILE_PATH_RETURNED: MSV_SUB_AUTHENTICATION_FILTER = 1024
+LOGON_RESOURCE_GROUPS: MSV_SUB_AUTHENTICATION_FILTER = 512
+MSV_SUPPLEMENTAL_CREDENTIAL_FLAGS = UInt32
+MSV1_0_CRED_LM_PRESENT: MSV_SUPPLEMENTAL_CREDENTIAL_FLAGS = 1
+MSV1_0_CRED_NT_PRESENT: MSV_SUPPLEMENTAL_CREDENTIAL_FLAGS = 2
+MSV1_0_CRED_VERSION: MSV_SUPPLEMENTAL_CREDENTIAL_FLAGS = 0
 class NEGOTIATE_CALLER_NAME_REQUEST(Structure):
     MessageType: UInt32
     LogonId: win32more.Foundation.LUID
@@ -3009,10 +2994,6 @@ class NETLOGON_SERVICE_INFO(Structure):
     Identity: win32more.Security.Authentication.Identity.NETLOGON_LOGON_IDENTITY_INFO
     LmOwfPassword: win32more.System.PasswordManagement.LM_OWF_PASSWORD
     NtOwfPassword: win32more.System.PasswordManagement.LM_OWF_PASSWORD
-class PctPublicKey(Structure):
-    Type: UInt32
-    cbKey: UInt32
-    pKey: Byte * 1
 @winfunctype_pointer
 def PKSEC_CREATE_CONTEXT_LIST(Type: win32more.Security.Authentication.Identity.KSEC_CONTEXT_TYPE) -> c_void_p: ...
 @winfunctype_pointer
@@ -3027,9 +3008,6 @@ def PKSEC_REFERENCE_LIST_ENTRY(Entry: POINTER(win32more.Security.Authentication.
 def PKSEC_SERIALIZE_SCHANNEL_AUTH_DATA(pvAuthData: c_void_p, Size: POINTER(UInt32), SerializedData: POINTER(c_void_p)) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PKSEC_SERIALIZE_WINNT_AUTH_DATA(pvAuthData: c_void_p, Size: POINTER(UInt32), SerializedData: POINTER(c_void_p)) -> win32more.Foundation.NTSTATUS: ...
-class PKU2U_CERT_BLOB(Structure):
-    CertOffset: UInt32
-    CertLength: UInt16
 class PKU2U_CERTIFICATE_S4U_LOGON(Structure):
     MessageType: win32more.Security.Authentication.Identity.PKU2U_LOGON_SUBMIT_TYPE
     Flags: UInt32
@@ -3037,6 +3015,9 @@ class PKU2U_CERTIFICATE_S4U_LOGON(Structure):
     DomainName: win32more.Foundation.UNICODE_STRING
     CertificateLength: UInt32
     Certificate: c_char_p_no
+class PKU2U_CERT_BLOB(Structure):
+    CertOffset: UInt32
+    CertLength: UInt16
 class PKU2U_CREDUI_CONTEXT(Structure):
     Version: UInt64
     cbHeaderLength: UInt16
@@ -3082,13 +3063,13 @@ def PLSA_AUDIT_LOGON(Status: win32more.Foundation.NTSTATUS, SubStatus: win32more
 @winfunctype_pointer
 def PLSA_AUDIT_LOGON_EX(Status: win32more.Foundation.NTSTATUS, SubStatus: win32more.Foundation.NTSTATUS, AccountName: POINTER(win32more.Foundation.UNICODE_STRING_head), AuthenticatingAuthority: POINTER(win32more.Foundation.UNICODE_STRING_head), WorkstationName: POINTER(win32more.Foundation.UNICODE_STRING_head), UserSid: win32more.Foundation.PSID, LogonType: win32more.Security.Authentication.Identity.SECURITY_LOGON_TYPE, ImpersonationLevel: win32more.Security.SECURITY_IMPERSONATION_LEVEL, TokenSource: POINTER(win32more.Security.TOKEN_SOURCE_head), LogonId: POINTER(win32more.Foundation.LUID_head)) -> Void: ...
 @winfunctype_pointer
-def PLSA_CALL_PACKAGE(AuthenticationPackage: POINTER(win32more.Foundation.UNICODE_STRING_head), ProtocolSubmitBuffer: c_void_p, SubmitBufferLength: UInt32, ProtocolReturnBuffer: POINTER(c_void_p), ReturnBufferLength: POINTER(UInt32), ProtocolStatus: POINTER(Int32)) -> win32more.Foundation.NTSTATUS: ...
+def PLSA_CALLBACK_FUNCTION(Argument1: UIntPtr, Argument2: UIntPtr, InputBuffer: POINTER(win32more.Security.Authentication.Identity.SecBuffer_head), OutputBuffer: POINTER(win32more.Security.Authentication.Identity.SecBuffer_head)) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_CALL_PACKAGE_PASSTHROUGH(AuthenticationPackage: POINTER(win32more.Foundation.UNICODE_STRING_head), ClientBufferBase: c_void_p, ProtocolSubmitBuffer: c_void_p, SubmitBufferLength: UInt32, ProtocolReturnBuffer: POINTER(c_void_p), ReturnBufferLength: POINTER(UInt32), ProtocolStatus: POINTER(Int32)) -> win32more.Foundation.NTSTATUS: ...
+def PLSA_CALL_PACKAGE(AuthenticationPackage: POINTER(win32more.Foundation.UNICODE_STRING_head), ProtocolSubmitBuffer: c_void_p, SubmitBufferLength: UInt32, ProtocolReturnBuffer: POINTER(c_void_p), ReturnBufferLength: POINTER(UInt32), ProtocolStatus: POINTER(Int32)) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_CALL_PACKAGEEX(AuthenticationPackage: POINTER(win32more.Foundation.UNICODE_STRING_head), ClientBufferBase: c_void_p, ProtocolSubmitBuffer: c_void_p, SubmitBufferLength: UInt32, ProtocolReturnBuffer: POINTER(c_void_p), ReturnBufferLength: POINTER(UInt32), ProtocolStatus: POINTER(Int32)) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def PLSA_CALLBACK_FUNCTION(Argument1: UIntPtr, Argument2: UIntPtr, InputBuffer: POINTER(win32more.Security.Authentication.Identity.SecBuffer_head), OutputBuffer: POINTER(win32more.Security.Authentication.Identity.SecBuffer_head)) -> win32more.Foundation.NTSTATUS: ...
+def PLSA_CALL_PACKAGE_PASSTHROUGH(AuthenticationPackage: POINTER(win32more.Foundation.UNICODE_STRING_head), ClientBufferBase: c_void_p, ProtocolSubmitBuffer: c_void_p, SubmitBufferLength: UInt32, ProtocolReturnBuffer: POINTER(c_void_p), ReturnBufferLength: POINTER(UInt32), ProtocolStatus: POINTER(Int32)) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def PLSA_CANCEL_NOTIFICATION(NotifyHandle: win32more.Foundation.HANDLE) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -3193,6 +3174,10 @@ class POLICY_ACCOUNT_DOMAIN_INFO(Structure):
 class POLICY_AUDIT_CATEGORIES_INFO(Structure):
     MaximumCategoryCount: UInt32
     SubCategoriesInfo: POINTER(win32more.Security.Authentication.Identity.POLICY_AUDIT_SUBCATEGORIES_INFO_head)
+class POLICY_AUDIT_EVENTS_INFO(Structure):
+    AuditingMode: win32more.Foundation.BOOLEAN
+    EventAuditingOptions: POINTER(UInt32)
+    MaximumAuditEventCount: UInt32
 POLICY_AUDIT_EVENT_TYPE = Int32
 POLICY_AUDIT_EVENT_TYPE_AuditCategorySystem: POLICY_AUDIT_EVENT_TYPE = 0
 POLICY_AUDIT_EVENT_TYPE_AuditCategoryLogon: POLICY_AUDIT_EVENT_TYPE = 1
@@ -3203,10 +3188,6 @@ POLICY_AUDIT_EVENT_TYPE_AuditCategoryPolicyChange: POLICY_AUDIT_EVENT_TYPE = 5
 POLICY_AUDIT_EVENT_TYPE_AuditCategoryAccountManagement: POLICY_AUDIT_EVENT_TYPE = 6
 POLICY_AUDIT_EVENT_TYPE_AuditCategoryDirectoryServiceAccess: POLICY_AUDIT_EVENT_TYPE = 7
 POLICY_AUDIT_EVENT_TYPE_AuditCategoryAccountLogon: POLICY_AUDIT_EVENT_TYPE = 8
-class POLICY_AUDIT_EVENTS_INFO(Structure):
-    AuditingMode: win32more.Foundation.BOOLEAN
-    EventAuditingOptions: POINTER(UInt32)
-    MaximumAuditEventCount: UInt32
 class POLICY_AUDIT_FULL_QUERY_INFO(Structure):
     ShutDownOnFull: win32more.Foundation.BOOLEAN
     LogIsFull: win32more.Foundation.BOOLEAN
@@ -3306,6 +3287,10 @@ def PSAM_INIT_NOTIFICATION_ROUTINE() -> win32more.Foundation.BOOLEAN: ...
 def PSAM_PASSWORD_FILTER_ROUTINE(AccountName: POINTER(win32more.Foundation.UNICODE_STRING_head), FullName: POINTER(win32more.Foundation.UNICODE_STRING_head), Password: POINTER(win32more.Foundation.UNICODE_STRING_head), SetOperation: win32more.Foundation.BOOLEAN) -> win32more.Foundation.BOOLEAN: ...
 @winfunctype_pointer
 def PSAM_PASSWORD_NOTIFICATION_ROUTINE(UserName: POINTER(win32more.Foundation.UNICODE_STRING_head), RelativeId: UInt32, NewPassword: POINTER(win32more.Foundation.UNICODE_STRING_head)) -> win32more.Foundation.NTSTATUS: ...
+class PctPublicKey(Structure):
+    Type: UInt32
+    cbKey: UInt32
+    pKey: Byte * 1
 @winfunctype_pointer
 def QUERY_CONTEXT_ATTRIBUTES_EX_FN_A(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: UInt32, param2: c_void_p, param3: UInt32) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -3343,29 +3328,6 @@ class SAM_REGISTER_MAPPING_TABLE(Structure):
 SASL_AUTHZID_STATE = Int32
 Sasl_AuthZIDForbidden: SASL_AUTHZID_STATE = 0
 Sasl_AuthZIDProcessed: SASL_AUTHZID_STATE = 1
-class SCH_CRED(Structure):
-    dwVersion: UInt32
-    cCreds: UInt32
-    paSecret: POINTER(c_void_p)
-    paPublic: POINTER(c_void_p)
-    cMappers: UInt32
-    aphMappers: POINTER(POINTER(win32more.Security.Authentication.Identity._HMAPPER_head))
-class SCH_CRED_PUBLIC_CERTCHAIN(Structure):
-    dwType: UInt32
-    cbCertChain: UInt32
-    pCertChain: c_char_p_no
-class SCH_CRED_SECRET_CAPI(Structure):
-    dwType: UInt32
-    hProv: UIntPtr
-class SCH_CRED_SECRET_PRIVKEY(Structure):
-    dwType: UInt32
-    pPrivateKey: c_char_p_no
-    cbPrivateKey: UInt32
-    pszPassword: win32more.Foundation.PSTR
-class SCH_EXTENSION_DATA(Structure):
-    ExtensionType: UInt16
-    pExtData: c_char_p_no
-    cbExtData: UInt32
 class SCHANNEL_ALERT_TOKEN(Structure):
     dwTokenType: UInt32
     dwAlertType: win32more.Security.Authentication.Identity.SCHANNEL_ALERT_TOKEN_ALERT_TYPE
@@ -3429,228 +3391,29 @@ class SCHANNEL_SESSION_TOKEN(Structure):
 SCHANNEL_SESSION_TOKEN_FLAGS = UInt32
 SSL_SESSION_ENABLE_RECONNECTS: SCHANNEL_SESSION_TOKEN_FLAGS = 1
 SSL_SESSION_DISABLE_RECONNECTS: SCHANNEL_SESSION_TOKEN_FLAGS = 2
-SchGetExtensionsOptions = UInt32
-SCH_EXTENSIONS_OPTIONS_NONE: SchGetExtensionsOptions = 0
-SCH_NO_RECORD_HEADER: SchGetExtensionsOptions = 1
-class SE_ADT_ACCESS_REASON(Structure):
-    AccessMask: UInt32
-    AccessReasons: UInt32 * 32
-    ObjectTypeIndex: UInt32
-    AccessGranted: UInt32
-    SecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR
-class SE_ADT_CLAIMS(Structure):
-    Length: UInt32
-    Claims: c_void_p
-class SE_ADT_OBJECT_TYPE(Structure):
-    ObjectType: Guid
-    Flags: UInt16
-    Level: UInt16
-    AccessMask: UInt32
-class SE_ADT_PARAMETER_ARRAY(Structure):
-    CategoryId: UInt32
-    AuditId: UInt32
-    ParameterCount: UInt32
-    Length: UInt32
-    FlatSubCategoryId: UInt16
-    Type: UInt16
-    Flags: UInt32
-    Parameters: win32more.Security.Authentication.Identity.SE_ADT_PARAMETER_ARRAY_ENTRY * 32
-class SE_ADT_PARAMETER_ARRAY_ENTRY(Structure):
-    Type: win32more.Security.Authentication.Identity.SE_ADT_PARAMETER_TYPE
-    Length: UInt32
-    Data: UIntPtr * 2
-    Address: c_void_p
-class SE_ADT_PARAMETER_ARRAY_EX(Structure):
-    CategoryId: UInt32
-    AuditId: UInt32
-    Version: UInt32
-    ParameterCount: UInt32
-    Length: UInt32
-    FlatSubCategoryId: UInt16
-    Type: UInt16
-    Flags: UInt32
-    Parameters: win32more.Security.Authentication.Identity.SE_ADT_PARAMETER_ARRAY_ENTRY * 32
-SE_ADT_PARAMETER_TYPE = Int32
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeNone: SE_ADT_PARAMETER_TYPE = 0
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeString: SE_ADT_PARAMETER_TYPE = 1
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeFileSpec: SE_ADT_PARAMETER_TYPE = 2
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeUlong: SE_ADT_PARAMETER_TYPE = 3
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeSid: SE_ADT_PARAMETER_TYPE = 4
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeLogonId: SE_ADT_PARAMETER_TYPE = 5
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeNoLogonId: SE_ADT_PARAMETER_TYPE = 6
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeAccessMask: SE_ADT_PARAMETER_TYPE = 7
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypePrivs: SE_ADT_PARAMETER_TYPE = 8
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeObjectTypes: SE_ADT_PARAMETER_TYPE = 9
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeHexUlong: SE_ADT_PARAMETER_TYPE = 10
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypePtr: SE_ADT_PARAMETER_TYPE = 11
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeTime: SE_ADT_PARAMETER_TYPE = 12
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeGuid: SE_ADT_PARAMETER_TYPE = 13
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeLuid: SE_ADT_PARAMETER_TYPE = 14
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeHexInt64: SE_ADT_PARAMETER_TYPE = 15
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeStringList: SE_ADT_PARAMETER_TYPE = 16
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeSidList: SE_ADT_PARAMETER_TYPE = 17
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeDuration: SE_ADT_PARAMETER_TYPE = 18
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeUserAccountControl: SE_ADT_PARAMETER_TYPE = 19
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeNoUac: SE_ADT_PARAMETER_TYPE = 20
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeMessage: SE_ADT_PARAMETER_TYPE = 21
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeDateTime: SE_ADT_PARAMETER_TYPE = 22
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeSockAddr: SE_ADT_PARAMETER_TYPE = 23
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeSD: SE_ADT_PARAMETER_TYPE = 24
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeLogonHours: SE_ADT_PARAMETER_TYPE = 25
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeLogonIdNoSid: SE_ADT_PARAMETER_TYPE = 26
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeUlongNoConv: SE_ADT_PARAMETER_TYPE = 27
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeSockAddrNoPort: SE_ADT_PARAMETER_TYPE = 28
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeAccessReason: SE_ADT_PARAMETER_TYPE = 29
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeStagingReason: SE_ADT_PARAMETER_TYPE = 30
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeResourceAttribute: SE_ADT_PARAMETER_TYPE = 31
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeClaims: SE_ADT_PARAMETER_TYPE = 32
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeLogonIdAsSid: SE_ADT_PARAMETER_TYPE = 33
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeMultiSzString: SE_ADT_PARAMETER_TYPE = 34
-SE_ADT_PARAMETER_TYPE_SeAdtParmTypeLogonIdEx: SE_ADT_PARAMETER_TYPE = 35
-class SEC_APPLICATION_PROTOCOL_LIST(Structure):
-    ProtoNegoExt: win32more.Security.Authentication.Identity.SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT
-    ProtocolListSize: UInt16
-    ProtocolList: Byte * 1
-SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT = Int32
-SecApplicationProtocolNegotiationExt_None: SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT = 0
-SecApplicationProtocolNegotiationExt_NPN: SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT = 1
-SecApplicationProtocolNegotiationExt_ALPN: SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT = 2
-SEC_APPLICATION_PROTOCOL_NEGOTIATION_STATUS = Int32
-SecApplicationProtocolNegotiationStatus_None: SEC_APPLICATION_PROTOCOL_NEGOTIATION_STATUS = 0
-SecApplicationProtocolNegotiationStatus_Success: SEC_APPLICATION_PROTOCOL_NEGOTIATION_STATUS = 1
-SecApplicationProtocolNegotiationStatus_SelectedClientOnly: SEC_APPLICATION_PROTOCOL_NEGOTIATION_STATUS = 2
-class SEC_APPLICATION_PROTOCOLS(Structure):
-    ProtocolListsSize: UInt32
-    ProtocolLists: win32more.Security.Authentication.Identity.SEC_APPLICATION_PROTOCOL_LIST * 1
-class SEC_CHANNEL_BINDINGS(Structure):
-    dwInitiatorAddrType: UInt32
-    cbInitiatorLength: UInt32
-    dwInitiatorOffset: UInt32
-    dwAcceptorAddrType: UInt32
-    cbAcceptorLength: UInt32
-    dwAcceptorOffset: UInt32
-    cbApplicationDataLength: UInt32
-    dwApplicationDataOffset: UInt32
-class SEC_DTLS_MTU(Structure):
-    PathMTU: UInt16
-class SEC_FLAGS(Structure):
-    Flags: UInt64
-@winfunctype_pointer
-def SEC_GET_KEY_FN(Arg: c_void_p, Principal: c_void_p, KeyVer: UInt32, Key: POINTER(c_void_p), Status: POINTER(win32more.Foundation.HRESULT)) -> Void: ...
-class SEC_NEGOTIATION_INFO(Structure):
-    Size: UInt32
-    NameLength: UInt32
-    Name: POINTER(UInt16)
-    Reserved: c_void_p
-class SEC_PRESHAREDKEY(Structure):
-    KeySize: UInt16
-    Key: Byte * 1
-class SEC_PRESHAREDKEY_IDENTITY(Structure):
-    KeyIdentitySize: UInt16
-    KeyIdentity: Byte * 1
-class SEC_SRTP_MASTER_KEY_IDENTIFIER(Structure):
-    MasterKeyIdentifierSize: Byte
-    MasterKeyIdentifier: Byte * 1
-class SEC_SRTP_PROTECTION_PROFILES(Structure):
-    ProfilesSize: UInt16
-    ProfilesList: UInt16 * 1
-class SEC_TOKEN_BINDING(Structure):
-    MajorVersion: Byte
-    MinorVersion: Byte
-    KeyParametersSize: UInt16
-    KeyParameters: Byte * 1
-SEC_TRAFFIC_SECRET_TYPE = Int32
-SecTrafficSecret_None: SEC_TRAFFIC_SECRET_TYPE = 0
-SecTrafficSecret_Client: SEC_TRAFFIC_SECRET_TYPE = 1
-SecTrafficSecret_Server: SEC_TRAFFIC_SECRET_TYPE = 2
-class SEC_TRAFFIC_SECRETS(Structure):
-    SymmetricAlgId: Char * 64
-    ChainingMode: Char * 64
-    HashAlgId: Char * 64
-    KeySize: UInt16
-    IvSize: UInt16
-    MsgSequenceStart: UInt16
-    MsgSequenceEnd: UInt16
-    TrafficSecretType: win32more.Security.Authentication.Identity.SEC_TRAFFIC_SECRET_TYPE
-    TrafficSecretSize: UInt16
-    TrafficSecret: Byte * 1
-class SEC_WINNT_AUTH_IDENTITY_EX2(Structure):
-    Version: UInt32
-    cbHeaderLength: UInt16
-    cbStructureLength: UInt32
-    UserOffset: UInt32
-    UserLength: UInt16
-    DomainOffset: UInt32
-    DomainLength: UInt16
-    PackedCredentialsOffset: UInt32
-    PackedCredentialsLength: UInt16
-    Flags: UInt32
-    PackageListOffset: UInt32
-    PackageListLength: UInt16
-class SEC_WINNT_AUTH_IDENTITY_EX32(Structure):
-    Version: UInt32
-    Length: UInt32
-    User: UInt32
-    UserLength: UInt32
-    Domain: UInt32
-    DomainLength: UInt32
-    Password: UInt32
-    PasswordLength: UInt32
-    Flags: UInt32
-    PackageList: UInt32
-    PackageListLength: UInt32
-class SEC_WINNT_AUTH_IDENTITY_EXA(Structure):
-    Version: UInt32
-    Length: UInt32
-    User: c_char_p_no
-    UserLength: UInt32
-    Domain: c_char_p_no
-    DomainLength: UInt32
-    Password: c_char_p_no
-    PasswordLength: UInt32
-    Flags: UInt32
-    PackageList: c_char_p_no
-    PackageListLength: UInt32
-class SEC_WINNT_AUTH_IDENTITY_EXW(Structure):
-    Version: UInt32
-    Length: UInt32
-    User: POINTER(UInt16)
-    UserLength: UInt32
-    Domain: POINTER(UInt16)
-    DomainLength: UInt32
-    Password: POINTER(UInt16)
-    PasswordLength: UInt32
-    Flags: UInt32
-    PackageList: POINTER(UInt16)
-    PackageListLength: UInt32
-class SEC_WINNT_AUTH_IDENTITY_INFO(Union):
-    AuthIdExw: win32more.Security.Authentication.Identity.SEC_WINNT_AUTH_IDENTITY_EXW
-    AuthIdExa: win32more.Security.Authentication.Identity.SEC_WINNT_AUTH_IDENTITY_EXA
-    AuthId_a: win32more.System.Rpc.SEC_WINNT_AUTH_IDENTITY_A
-    AuthId_w: win32more.System.Rpc.SEC_WINNT_AUTH_IDENTITY_W
-    AuthIdEx2: win32more.Security.Authentication.Identity.SEC_WINNT_AUTH_IDENTITY_EX2
-class SEC_WINNT_AUTH_IDENTITY32(Structure):
-    User: UInt32
-    UserLength: UInt32
-    Domain: UInt32
-    DomainLength: UInt32
-    Password: UInt32
-    PasswordLength: UInt32
-    Flags: UInt32
-class SecBuffer(Structure):
-    cbBuffer: UInt32
-    BufferType: UInt32
-    pvBuffer: c_void_p
-class SecBufferDesc(Structure):
-    ulVersion: UInt32
-    cBuffers: UInt32
-    pBuffers: POINTER(win32more.Security.Authentication.Identity.SecBuffer_head)
-SecDelegationType = Int32
-SecDelegationType_SecFull: SecDelegationType = 0
-SecDelegationType_SecService: SecDelegationType = 1
-SecDelegationType_SecTree: SecDelegationType = 2
-SecDelegationType_SecDirectory: SecDelegationType = 3
-SecDelegationType_SecObject: SecDelegationType = 4
+class SCH_CRED(Structure):
+    dwVersion: UInt32
+    cCreds: UInt32
+    paSecret: POINTER(c_void_p)
+    paPublic: POINTER(c_void_p)
+    cMappers: UInt32
+    aphMappers: POINTER(POINTER(win32more.Security.Authentication.Identity._HMAPPER_head))
+class SCH_CRED_PUBLIC_CERTCHAIN(Structure):
+    dwType: UInt32
+    cbCertChain: UInt32
+    pCertChain: c_char_p_no
+class SCH_CRED_SECRET_CAPI(Structure):
+    dwType: UInt32
+    hProv: UIntPtr
+class SCH_CRED_SECRET_PRIVKEY(Structure):
+    dwType: UInt32
+    pPrivateKey: c_char_p_no
+    cbPrivateKey: UInt32
+    pszPassword: win32more.Foundation.PSTR
+class SCH_EXTENSION_DATA(Structure):
+    ExtensionType: UInt16
+    pExtData: c_char_p_no
+    cbExtData: UInt32
 class SECPKG_APP_MODE_INFO(Structure):
     UserFunction: UInt32
     Argument1: UIntPtr
@@ -3748,12 +3511,6 @@ class SECPKG_CONTEXT_THUNKS(Structure):
 SECPKG_CRED = UInt32
 SECPKG_CRED_INBOUND: SECPKG_CRED = 1
 SECPKG_CRED_OUTBOUND: SECPKG_CRED = 2
-SECPKG_CRED_CLASS = Int32
-SecPkgCredClass_None: SECPKG_CRED_CLASS = 0
-SecPkgCredClass_Ephemeral: SECPKG_CRED_CLASS = 10
-SecPkgCredClass_PersistedGeneric: SECPKG_CRED_CLASS = 20
-SecPkgCredClass_PersistedSpecific: SECPKG_CRED_CLASS = 30
-SecPkgCredClass_Explicit: SECPKG_CRED_CLASS = 40
 class SECPKG_CREDENTIAL(Structure):
     Version: UInt64
     cbHeaderLength: UInt16
@@ -3769,6 +3526,12 @@ class SECPKG_CREDENTIAL(Structure):
     PrincipalName: win32more.Security.Authentication.Identity.SECPKG_BYTE_VECTOR
     PackageList: win32more.Security.Authentication.Identity.SECPKG_BYTE_VECTOR
     MarshaledSuppliedCreds: win32more.Security.Authentication.Identity.SECPKG_BYTE_VECTOR
+SECPKG_CRED_CLASS = Int32
+SecPkgCredClass_None: SECPKG_CRED_CLASS = 0
+SecPkgCredClass_Ephemeral: SECPKG_CRED_CLASS = 10
+SecPkgCredClass_PersistedGeneric: SECPKG_CRED_CLASS = 20
+SecPkgCredClass_PersistedSpecific: SECPKG_CRED_CLASS = 30
+SecPkgCredClass_Explicit: SECPKG_CRED_CLASS = 40
 class SECPKG_DLL_FUNCTIONS(Structure):
     AllocateHeap: win32more.Security.Authentication.Identity.PLSA_ALLOCATE_LSA_HEAP
     FreeHeap: win32more.Security.Authentication.Identity.PLSA_FREE_LSA_HEAP
@@ -3854,6 +3617,16 @@ class SECPKG_FUNCTION_TABLE(Structure):
 class SECPKG_GSS_INFO(Structure):
     EncodedIdLength: UInt32
     EncodedId: Byte * 4
+class SECPKG_KERNEL_FUNCTIONS(Structure):
+    AllocateHeap: win32more.Security.Authentication.Identity.PLSA_ALLOCATE_LSA_HEAP
+    FreeHeap: win32more.Security.Authentication.Identity.PLSA_FREE_LSA_HEAP
+    CreateContextList: win32more.Security.Authentication.Identity.PKSEC_CREATE_CONTEXT_LIST
+    InsertListEntry: win32more.Security.Authentication.Identity.PKSEC_INSERT_LIST_ENTRY
+    ReferenceListEntry: win32more.Security.Authentication.Identity.PKSEC_REFERENCE_LIST_ENTRY
+    DereferenceListEntry: win32more.Security.Authentication.Identity.PKSEC_DEREFERENCE_LIST_ENTRY
+    SerializeWinntAuthData: win32more.Security.Authentication.Identity.PKSEC_SERIALIZE_WINNT_AUTH_DATA
+    SerializeSchannelAuthData: win32more.Security.Authentication.Identity.PKSEC_SERIALIZE_SCHANNEL_AUTH_DATA
+    LocatePackageById: win32more.Security.Authentication.Identity.PKSEC_LOCATE_PKG_BY_ID
 class SECPKG_KERNEL_FUNCTION_TABLE(Structure):
     Initialize: win32more.Security.Authentication.Identity.KspInitPackageFn
     DeleteContext: win32more.Security.Authentication.Identity.KspDeleteContextFn
@@ -3870,16 +3643,6 @@ class SECPKG_KERNEL_FUNCTION_TABLE(Structure):
     ImportContext: win32more.Security.Authentication.Identity.SpImportSecurityContextFn
     SetPackagePagingMode: win32more.Security.Authentication.Identity.KspSetPagingModeFn
     SerializeAuthData: win32more.Security.Authentication.Identity.KspSerializeAuthDataFn
-class SECPKG_KERNEL_FUNCTIONS(Structure):
-    AllocateHeap: win32more.Security.Authentication.Identity.PLSA_ALLOCATE_LSA_HEAP
-    FreeHeap: win32more.Security.Authentication.Identity.PLSA_FREE_LSA_HEAP
-    CreateContextList: win32more.Security.Authentication.Identity.PKSEC_CREATE_CONTEXT_LIST
-    InsertListEntry: win32more.Security.Authentication.Identity.PKSEC_INSERT_LIST_ENTRY
-    ReferenceListEntry: win32more.Security.Authentication.Identity.PKSEC_REFERENCE_LIST_ENTRY
-    DereferenceListEntry: win32more.Security.Authentication.Identity.PKSEC_DEREFERENCE_LIST_ENTRY
-    SerializeWinntAuthData: win32more.Security.Authentication.Identity.PKSEC_SERIALIZE_WINNT_AUTH_DATA
-    SerializeSchannelAuthData: win32more.Security.Authentication.Identity.PKSEC_SERIALIZE_SCHANNEL_AUTH_DATA
-    LocatePackageById: win32more.Security.Authentication.Identity.PKSEC_LOCATE_PKG_BY_ID
 class SECPKG_MUTUAL_AUTH_LEVEL(Structure):
     MutualAuthLevel: UInt32
 SECPKG_NAME_TYPE = Int32
@@ -4000,6 +3763,375 @@ class SECPKG_USER_FUNCTION_TABLE(Structure):
     MarshalAttributeData: win32more.Security.Authentication.Identity.SpMarshalAttributeDataFn
 class SECPKG_WOW_CLIENT_DLL(Structure):
     WowClientDllPath: win32more.Foundation.UNICODE_STRING
+class SECURITY_LOGON_SESSION_DATA(Structure):
+    Size: UInt32
+    LogonId: win32more.Foundation.LUID
+    UserName: win32more.Foundation.UNICODE_STRING
+    LogonDomain: win32more.Foundation.UNICODE_STRING
+    AuthenticationPackage: win32more.Foundation.UNICODE_STRING
+    LogonType: UInt32
+    Session: UInt32
+    Sid: win32more.Foundation.PSID
+    LogonTime: win32more.Foundation.LARGE_INTEGER
+    LogonServer: win32more.Foundation.UNICODE_STRING
+    DnsDomainName: win32more.Foundation.UNICODE_STRING
+    Upn: win32more.Foundation.UNICODE_STRING
+    UserFlags: UInt32
+    LastLogonInfo: win32more.Security.Authentication.Identity.LSA_LAST_INTER_LOGON_INFO
+    LogonScript: win32more.Foundation.UNICODE_STRING
+    ProfilePath: win32more.Foundation.UNICODE_STRING
+    HomeDirectory: win32more.Foundation.UNICODE_STRING
+    HomeDirectoryDrive: win32more.Foundation.UNICODE_STRING
+    LogoffTime: win32more.Foundation.LARGE_INTEGER
+    KickOffTime: win32more.Foundation.LARGE_INTEGER
+    PasswordLastSet: win32more.Foundation.LARGE_INTEGER
+    PasswordCanChange: win32more.Foundation.LARGE_INTEGER
+    PasswordMustChange: win32more.Foundation.LARGE_INTEGER
+SECURITY_LOGON_TYPE = Int32
+SECURITY_LOGON_TYPE_UndefinedLogonType: SECURITY_LOGON_TYPE = 0
+SECURITY_LOGON_TYPE_Interactive: SECURITY_LOGON_TYPE = 2
+SECURITY_LOGON_TYPE_Network: SECURITY_LOGON_TYPE = 3
+SECURITY_LOGON_TYPE_Batch: SECURITY_LOGON_TYPE = 4
+SECURITY_LOGON_TYPE_Service: SECURITY_LOGON_TYPE = 5
+SECURITY_LOGON_TYPE_Proxy: SECURITY_LOGON_TYPE = 6
+SECURITY_LOGON_TYPE_Unlock: SECURITY_LOGON_TYPE = 7
+SECURITY_LOGON_TYPE_NetworkCleartext: SECURITY_LOGON_TYPE = 8
+SECURITY_LOGON_TYPE_NewCredentials: SECURITY_LOGON_TYPE = 9
+SECURITY_LOGON_TYPE_RemoteInteractive: SECURITY_LOGON_TYPE = 10
+SECURITY_LOGON_TYPE_CachedInteractive: SECURITY_LOGON_TYPE = 11
+SECURITY_LOGON_TYPE_CachedRemoteInteractive: SECURITY_LOGON_TYPE = 12
+SECURITY_LOGON_TYPE_CachedUnlock: SECURITY_LOGON_TYPE = 13
+class SECURITY_PACKAGE_OPTIONS(Structure):
+    Size: UInt32
+    Type: win32more.Security.Authentication.Identity.SECURITY_PACKAGE_OPTIONS_TYPE
+    Flags: UInt32
+    SignatureSize: UInt32
+    Signature: c_void_p
+SECURITY_PACKAGE_OPTIONS_TYPE = UInt32
+SECPKG_OPTIONS_TYPE_UNKNOWN: SECURITY_PACKAGE_OPTIONS_TYPE = 0
+SECPKG_OPTIONS_TYPE_LSA: SECURITY_PACKAGE_OPTIONS_TYPE = 1
+SECPKG_OPTIONS_TYPE_SSPI: SECURITY_PACKAGE_OPTIONS_TYPE = 2
+class SECURITY_USER_DATA(Structure):
+    UserName: win32more.Foundation.UNICODE_STRING
+    LogonDomainName: win32more.Foundation.UNICODE_STRING
+    LogonServer: win32more.Foundation.UNICODE_STRING
+    pSid: win32more.Foundation.PSID
+class SEC_APPLICATION_PROTOCOLS(Structure):
+    ProtocolListsSize: UInt32
+    ProtocolLists: win32more.Security.Authentication.Identity.SEC_APPLICATION_PROTOCOL_LIST * 1
+class SEC_APPLICATION_PROTOCOL_LIST(Structure):
+    ProtoNegoExt: win32more.Security.Authentication.Identity.SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT
+    ProtocolListSize: UInt16
+    ProtocolList: Byte * 1
+SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT = Int32
+SecApplicationProtocolNegotiationExt_None: SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT = 0
+SecApplicationProtocolNegotiationExt_NPN: SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT = 1
+SecApplicationProtocolNegotiationExt_ALPN: SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT = 2
+SEC_APPLICATION_PROTOCOL_NEGOTIATION_STATUS = Int32
+SecApplicationProtocolNegotiationStatus_None: SEC_APPLICATION_PROTOCOL_NEGOTIATION_STATUS = 0
+SecApplicationProtocolNegotiationStatus_Success: SEC_APPLICATION_PROTOCOL_NEGOTIATION_STATUS = 1
+SecApplicationProtocolNegotiationStatus_SelectedClientOnly: SEC_APPLICATION_PROTOCOL_NEGOTIATION_STATUS = 2
+class SEC_CHANNEL_BINDINGS(Structure):
+    dwInitiatorAddrType: UInt32
+    cbInitiatorLength: UInt32
+    dwInitiatorOffset: UInt32
+    dwAcceptorAddrType: UInt32
+    cbAcceptorLength: UInt32
+    dwAcceptorOffset: UInt32
+    cbApplicationDataLength: UInt32
+    dwApplicationDataOffset: UInt32
+class SEC_DTLS_MTU(Structure):
+    PathMTU: UInt16
+class SEC_FLAGS(Structure):
+    Flags: UInt64
+@winfunctype_pointer
+def SEC_GET_KEY_FN(Arg: c_void_p, Principal: c_void_p, KeyVer: UInt32, Key: POINTER(c_void_p), Status: POINTER(win32more.Foundation.HRESULT)) -> Void: ...
+class SEC_NEGOTIATION_INFO(Structure):
+    Size: UInt32
+    NameLength: UInt32
+    Name: POINTER(UInt16)
+    Reserved: c_void_p
+class SEC_PRESHAREDKEY(Structure):
+    KeySize: UInt16
+    Key: Byte * 1
+class SEC_PRESHAREDKEY_IDENTITY(Structure):
+    KeyIdentitySize: UInt16
+    KeyIdentity: Byte * 1
+class SEC_SRTP_MASTER_KEY_IDENTIFIER(Structure):
+    MasterKeyIdentifierSize: Byte
+    MasterKeyIdentifier: Byte * 1
+class SEC_SRTP_PROTECTION_PROFILES(Structure):
+    ProfilesSize: UInt16
+    ProfilesList: UInt16 * 1
+class SEC_TOKEN_BINDING(Structure):
+    MajorVersion: Byte
+    MinorVersion: Byte
+    KeyParametersSize: UInt16
+    KeyParameters: Byte * 1
+class SEC_TRAFFIC_SECRETS(Structure):
+    SymmetricAlgId: Char * 64
+    ChainingMode: Char * 64
+    HashAlgId: Char * 64
+    KeySize: UInt16
+    IvSize: UInt16
+    MsgSequenceStart: UInt16
+    MsgSequenceEnd: UInt16
+    TrafficSecretType: win32more.Security.Authentication.Identity.SEC_TRAFFIC_SECRET_TYPE
+    TrafficSecretSize: UInt16
+    TrafficSecret: Byte * 1
+SEC_TRAFFIC_SECRET_TYPE = Int32
+SecTrafficSecret_None: SEC_TRAFFIC_SECRET_TYPE = 0
+SecTrafficSecret_Client: SEC_TRAFFIC_SECRET_TYPE = 1
+SecTrafficSecret_Server: SEC_TRAFFIC_SECRET_TYPE = 2
+class SEC_WINNT_AUTH_IDENTITY32(Structure):
+    User: UInt32
+    UserLength: UInt32
+    Domain: UInt32
+    DomainLength: UInt32
+    Password: UInt32
+    PasswordLength: UInt32
+    Flags: UInt32
+class SEC_WINNT_AUTH_IDENTITY_EX2(Structure):
+    Version: UInt32
+    cbHeaderLength: UInt16
+    cbStructureLength: UInt32
+    UserOffset: UInt32
+    UserLength: UInt16
+    DomainOffset: UInt32
+    DomainLength: UInt16
+    PackedCredentialsOffset: UInt32
+    PackedCredentialsLength: UInt16
+    Flags: UInt32
+    PackageListOffset: UInt32
+    PackageListLength: UInt16
+class SEC_WINNT_AUTH_IDENTITY_EX32(Structure):
+    Version: UInt32
+    Length: UInt32
+    User: UInt32
+    UserLength: UInt32
+    Domain: UInt32
+    DomainLength: UInt32
+    Password: UInt32
+    PasswordLength: UInt32
+    Flags: UInt32
+    PackageList: UInt32
+    PackageListLength: UInt32
+class SEC_WINNT_AUTH_IDENTITY_EXA(Structure):
+    Version: UInt32
+    Length: UInt32
+    User: c_char_p_no
+    UserLength: UInt32
+    Domain: c_char_p_no
+    DomainLength: UInt32
+    Password: c_char_p_no
+    PasswordLength: UInt32
+    Flags: UInt32
+    PackageList: c_char_p_no
+    PackageListLength: UInt32
+class SEC_WINNT_AUTH_IDENTITY_EXW(Structure):
+    Version: UInt32
+    Length: UInt32
+    User: POINTER(UInt16)
+    UserLength: UInt32
+    Domain: POINTER(UInt16)
+    DomainLength: UInt32
+    Password: POINTER(UInt16)
+    PasswordLength: UInt32
+    Flags: UInt32
+    PackageList: POINTER(UInt16)
+    PackageListLength: UInt32
+class SEC_WINNT_AUTH_IDENTITY_INFO(Union):
+    AuthIdExw: win32more.Security.Authentication.Identity.SEC_WINNT_AUTH_IDENTITY_EXW
+    AuthIdExa: win32more.Security.Authentication.Identity.SEC_WINNT_AUTH_IDENTITY_EXA
+    AuthId_a: win32more.System.Rpc.SEC_WINNT_AUTH_IDENTITY_A
+    AuthId_w: win32more.System.Rpc.SEC_WINNT_AUTH_IDENTITY_W
+    AuthIdEx2: win32more.Security.Authentication.Identity.SEC_WINNT_AUTH_IDENTITY_EX2
+class SEND_GENERIC_TLS_EXTENSION(Structure):
+    ExtensionType: UInt16
+    HandshakeType: UInt16
+    Flags: UInt32
+    BufferSize: UInt16
+    Buffer: Byte * 1
+@winfunctype_pointer
+def SET_CONTEXT_ATTRIBUTES_FN_A(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: UInt32, param2: c_void_p, param3: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def SET_CONTEXT_ATTRIBUTES_FN_W(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: UInt32, param2: c_void_p, param3: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def SET_CREDENTIALS_ATTRIBUTES_FN_A(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: UInt32, param2: c_void_p, param3: UInt32) -> win32more.Foundation.HRESULT: ...
+@winfunctype_pointer
+def SET_CREDENTIALS_ATTRIBUTES_FN_W(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: UInt32, param2: c_void_p, param3: UInt32) -> win32more.Foundation.HRESULT: ...
+class SE_ADT_ACCESS_REASON(Structure):
+    AccessMask: UInt32
+    AccessReasons: UInt32 * 32
+    ObjectTypeIndex: UInt32
+    AccessGranted: UInt32
+    SecurityDescriptor: win32more.Security.PSECURITY_DESCRIPTOR
+class SE_ADT_CLAIMS(Structure):
+    Length: UInt32
+    Claims: c_void_p
+class SE_ADT_OBJECT_TYPE(Structure):
+    ObjectType: Guid
+    Flags: UInt16
+    Level: UInt16
+    AccessMask: UInt32
+class SE_ADT_PARAMETER_ARRAY(Structure):
+    CategoryId: UInt32
+    AuditId: UInt32
+    ParameterCount: UInt32
+    Length: UInt32
+    FlatSubCategoryId: UInt16
+    Type: UInt16
+    Flags: UInt32
+    Parameters: win32more.Security.Authentication.Identity.SE_ADT_PARAMETER_ARRAY_ENTRY * 32
+class SE_ADT_PARAMETER_ARRAY_ENTRY(Structure):
+    Type: win32more.Security.Authentication.Identity.SE_ADT_PARAMETER_TYPE
+    Length: UInt32
+    Data: UIntPtr * 2
+    Address: c_void_p
+class SE_ADT_PARAMETER_ARRAY_EX(Structure):
+    CategoryId: UInt32
+    AuditId: UInt32
+    Version: UInt32
+    ParameterCount: UInt32
+    Length: UInt32
+    FlatSubCategoryId: UInt16
+    Type: UInt16
+    Flags: UInt32
+    Parameters: win32more.Security.Authentication.Identity.SE_ADT_PARAMETER_ARRAY_ENTRY * 32
+SE_ADT_PARAMETER_TYPE = Int32
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeNone: SE_ADT_PARAMETER_TYPE = 0
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeString: SE_ADT_PARAMETER_TYPE = 1
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeFileSpec: SE_ADT_PARAMETER_TYPE = 2
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeUlong: SE_ADT_PARAMETER_TYPE = 3
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeSid: SE_ADT_PARAMETER_TYPE = 4
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeLogonId: SE_ADT_PARAMETER_TYPE = 5
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeNoLogonId: SE_ADT_PARAMETER_TYPE = 6
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeAccessMask: SE_ADT_PARAMETER_TYPE = 7
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypePrivs: SE_ADT_PARAMETER_TYPE = 8
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeObjectTypes: SE_ADT_PARAMETER_TYPE = 9
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeHexUlong: SE_ADT_PARAMETER_TYPE = 10
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypePtr: SE_ADT_PARAMETER_TYPE = 11
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeTime: SE_ADT_PARAMETER_TYPE = 12
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeGuid: SE_ADT_PARAMETER_TYPE = 13
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeLuid: SE_ADT_PARAMETER_TYPE = 14
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeHexInt64: SE_ADT_PARAMETER_TYPE = 15
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeStringList: SE_ADT_PARAMETER_TYPE = 16
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeSidList: SE_ADT_PARAMETER_TYPE = 17
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeDuration: SE_ADT_PARAMETER_TYPE = 18
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeUserAccountControl: SE_ADT_PARAMETER_TYPE = 19
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeNoUac: SE_ADT_PARAMETER_TYPE = 20
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeMessage: SE_ADT_PARAMETER_TYPE = 21
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeDateTime: SE_ADT_PARAMETER_TYPE = 22
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeSockAddr: SE_ADT_PARAMETER_TYPE = 23
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeSD: SE_ADT_PARAMETER_TYPE = 24
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeLogonHours: SE_ADT_PARAMETER_TYPE = 25
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeLogonIdNoSid: SE_ADT_PARAMETER_TYPE = 26
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeUlongNoConv: SE_ADT_PARAMETER_TYPE = 27
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeSockAddrNoPort: SE_ADT_PARAMETER_TYPE = 28
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeAccessReason: SE_ADT_PARAMETER_TYPE = 29
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeStagingReason: SE_ADT_PARAMETER_TYPE = 30
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeResourceAttribute: SE_ADT_PARAMETER_TYPE = 31
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeClaims: SE_ADT_PARAMETER_TYPE = 32
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeLogonIdAsSid: SE_ADT_PARAMETER_TYPE = 33
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeMultiSzString: SE_ADT_PARAMETER_TYPE = 34
+SE_ADT_PARAMETER_TYPE_SeAdtParmTypeLogonIdEx: SE_ADT_PARAMETER_TYPE = 35
+SLDATATYPE = UInt32
+SL_DATA_NONE: SLDATATYPE = 0
+SL_DATA_SZ: SLDATATYPE = 1
+SL_DATA_DWORD: SLDATATYPE = 4
+SL_DATA_BINARY: SLDATATYPE = 3
+SL_DATA_MULTI_SZ: SLDATATYPE = 7
+SL_DATA_SUM: SLDATATYPE = 100
+SLIDTYPE = Int32
+SL_ID_APPLICATION: SLIDTYPE = 0
+SL_ID_PRODUCT_SKU: SLIDTYPE = 1
+SL_ID_LICENSE_FILE: SLIDTYPE = 2
+SL_ID_LICENSE: SLIDTYPE = 3
+SL_ID_PKEY: SLIDTYPE = 4
+SL_ID_ALL_LICENSES: SLIDTYPE = 5
+SL_ID_ALL_LICENSE_FILES: SLIDTYPE = 6
+SL_ID_STORE_TOKEN: SLIDTYPE = 7
+SL_ID_LAST: SLIDTYPE = 8
+SLLICENSINGSTATUS = Int32
+SL_LICENSING_STATUS_UNLICENSED: SLLICENSINGSTATUS = 0
+SL_LICENSING_STATUS_LICENSED: SLLICENSINGSTATUS = 1
+SL_LICENSING_STATUS_IN_GRACE_PERIOD: SLLICENSINGSTATUS = 2
+SL_LICENSING_STATUS_NOTIFICATION: SLLICENSINGSTATUS = 3
+SL_LICENSING_STATUS_LAST: SLLICENSINGSTATUS = 4
+SLREFERRALTYPE = Int32
+SL_REFERRALTYPE_SKUID: SLREFERRALTYPE = 0
+SL_REFERRALTYPE_APPID: SLREFERRALTYPE = 1
+SL_REFERRALTYPE_OVERRIDE_SKUID: SLREFERRALTYPE = 2
+SL_REFERRALTYPE_OVERRIDE_APPID: SLREFERRALTYPE = 3
+SL_REFERRALTYPE_BEST_MATCH: SLREFERRALTYPE = 4
+class SL_ACTIVATION_INFO_HEADER(Structure):
+    cbSize: UInt32
+    type: win32more.Security.Authentication.Identity.SL_ACTIVATION_TYPE
+SL_ACTIVATION_TYPE = Int32
+SL_ACTIVATION_TYPE_DEFAULT: SL_ACTIVATION_TYPE = 0
+SL_ACTIVATION_TYPE_ACTIVE_DIRECTORY: SL_ACTIVATION_TYPE = 1
+class SL_AD_ACTIVATION_INFO(Structure):
+    header: win32more.Security.Authentication.Identity.SL_ACTIVATION_INFO_HEADER
+    pwszProductKey: win32more.Foundation.PWSTR
+    pwszActivationObjectName: win32more.Foundation.PWSTR
+SL_GENUINE_STATE = Int32
+SL_GEN_STATE_IS_GENUINE: SL_GENUINE_STATE = 0
+SL_GEN_STATE_INVALID_LICENSE: SL_GENUINE_STATE = 1
+SL_GEN_STATE_TAMPERED: SL_GENUINE_STATE = 2
+SL_GEN_STATE_OFFLINE: SL_GENUINE_STATE = 3
+SL_GEN_STATE_LAST: SL_GENUINE_STATE = 4
+class SL_LICENSING_STATUS(Structure):
+    SkuId: Guid
+    eStatus: win32more.Security.Authentication.Identity.SLLICENSINGSTATUS
+    dwGraceTime: UInt32
+    dwTotalGraceDays: UInt32
+    hrReason: win32more.Foundation.HRESULT
+    qwValidityExpiration: UInt64
+class SL_NONGENUINE_UI_OPTIONS(Structure):
+    cbSize: UInt32
+    pComponentId: POINTER(Guid)
+    hResultUI: win32more.Foundation.HRESULT
+class SL_SYSTEM_POLICY_INFORMATION(Structure):
+    Reserved1: c_void_p * 2
+    Reserved2: UInt32 * 3
+class SR_SECURITY_DESCRIPTOR(Structure):
+    Length: UInt32
+    SecurityDescriptor: c_char_p_no
+@winfunctype_pointer
+def SSL_CRACK_CERTIFICATE_FN(pbCertificate: c_char_p_no, cbCertificate: UInt32, VerifySignature: win32more.Foundation.BOOL, ppCertificate: POINTER(POINTER(win32more.Security.Authentication.Identity.X509Certificate_head))) -> win32more.Foundation.BOOL: ...
+class SSL_CREDENTIAL_CERTIFICATE(Structure):
+    cbPrivateKey: UInt32
+    pPrivateKey: c_char_p_no
+    cbCertificate: UInt32
+    pCertificate: c_char_p_no
+    pszPassword: win32more.Foundation.PSTR
+@winfunctype_pointer
+def SSL_EMPTY_CACHE_FN_A(pszTargetName: win32more.Foundation.PSTR, dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def SSL_EMPTY_CACHE_FN_W(pszTargetName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def SSL_FREE_CERTIFICATE_FN(pCertificate: POINTER(win32more.Security.Authentication.Identity.X509Certificate_head)) -> Void: ...
+class SUBSCRIBE_GENERIC_TLS_EXTENSION(Structure):
+    Flags: UInt32
+    SubscriptionsCount: UInt32
+    Subscriptions: win32more.Security.Authentication.Identity.TLS_EXTENSION_SUBSCRIPTION * 1
+SchGetExtensionsOptions = UInt32
+SCH_EXTENSIONS_OPTIONS_NONE: SchGetExtensionsOptions = 0
+SCH_NO_RECORD_HEADER: SchGetExtensionsOptions = 1
+class SecBuffer(Structure):
+    cbBuffer: UInt32
+    BufferType: UInt32
+    pvBuffer: c_void_p
+class SecBufferDesc(Structure):
+    ulVersion: UInt32
+    cBuffers: UInt32
+    pBuffers: POINTER(win32more.Security.Authentication.Identity.SecBuffer_head)
+SecDelegationType = Int32
+SecDelegationType_SecFull: SecDelegationType = 0
+SecDelegationType_SecService: SecDelegationType = 1
+SecDelegationType_SecTree: SecDelegationType = 2
+SecDelegationType_SecDirectory: SecDelegationType = 3
+SecDelegationType_SecObject: SecDelegationType = 4
 class SecPkgContext_AccessToken(Structure):
     AccessToken: c_void_p
 class SecPkgContext_ApplicationProtocol(Structure):
@@ -4017,13 +4149,6 @@ class SecPkgContext_AuthzID(Structure):
 class SecPkgContext_Bindings(Structure):
     BindingsLength: UInt32
     Bindings: POINTER(win32more.Security.Authentication.Identity.SEC_CHANNEL_BINDINGS_head)
-class SecPkgContext_Certificates(Structure):
-    cCertificates: UInt32
-    cbCertificateChain: UInt32
-    pbCertificateChain: c_char_p_no
-class SecPkgContext_CertificateValidationResult(Structure):
-    dwChainErrorStatus: UInt32
-    hrVerifyChainStatus: win32more.Foundation.HRESULT
 class SecPkgContext_CertInfo(Structure):
     dwVersion: UInt32
     cbSubjectName: UInt32
@@ -4031,6 +4156,13 @@ class SecPkgContext_CertInfo(Structure):
     cbIssuerName: UInt32
     pwszIssuerName: win32more.Foundation.PWSTR
     dwKeySize: UInt32
+class SecPkgContext_CertificateValidationResult(Structure):
+    dwChainErrorStatus: UInt32
+    hrVerifyChainStatus: win32more.Foundation.HRESULT
+class SecPkgContext_Certificates(Structure):
+    cCertificates: UInt32
+    cbCertificateChain: UInt32
+    pbCertificateChain: c_char_p_no
 class SecPkgContext_CipherInfo(Structure):
     dwVersion: UInt32
     dwProtocol: UInt32
@@ -4069,15 +4201,15 @@ class SecPkgContext_ConnectionInfoEx(Structure):
     dwHashStrength: UInt32
     szExchange: Char * 64
     dwExchStrength: UInt32
+class SecPkgContext_CredInfo(Structure):
+    CredClass: win32more.Security.Authentication.Identity.SECPKG_CRED_CLASS
+    IsPromptingNeeded: UInt32
 class SecPkgContext_CredentialNameA(Structure):
     CredentialType: UInt32
     sCredentialName: POINTER(SByte)
 class SecPkgContext_CredentialNameW(Structure):
     CredentialType: UInt32
     sCredentialName: POINTER(UInt16)
-class SecPkgContext_CredInfo(Structure):
-    CredClass: win32more.Security.Authentication.Identity.SECPKG_CRED_CLASS
-    IsPromptingNeeded: UInt32
 class SecPkgContext_DceInfo(Structure):
     AuthzSvc: UInt32
     pPac: c_void_p
@@ -4110,6 +4242,12 @@ class SecPkgContext_KeyInfoW(Structure):
 class SecPkgContext_KeyingMaterial(Structure):
     cbKeyingMaterial: UInt32
     pbKeyingMaterial: c_char_p_no
+class SecPkgContext_KeyingMaterialInfo(Structure):
+    cbLabel: UInt16
+    pszLabel: win32more.Foundation.PSTR
+    cbContextValue: UInt16
+    pbContextValue: c_char_p_no
+    cbKeyingMaterial: UInt32
 class SecPkgContext_KeyingMaterial_Inproc(Structure):
     cbLabel: UInt16
     pszLabel: win32more.Foundation.PSTR
@@ -4117,12 +4255,6 @@ class SecPkgContext_KeyingMaterial_Inproc(Structure):
     pbContextValue: c_char_p_no
     cbKeyingMaterial: UInt32
     pbKeyingMaterial: c_char_p_no
-class SecPkgContext_KeyingMaterialInfo(Structure):
-    cbLabel: UInt16
-    pszLabel: win32more.Foundation.PSTR
-    cbContextValue: UInt16
-    pbContextValue: c_char_p_no
-    cbKeyingMaterial: UInt32
 class SecPkgContext_LastClientTokenStatus(Structure):
     LastClientTokenStatus: win32more.Security.Authentication.Identity.SECPKG_ATTR_LCT_STATUS
 class SecPkgContext_Lifespan(Structure):
@@ -4299,59 +4431,6 @@ class SecPkgInfoW(Structure):
     cbMaxToken: UInt32
     Name: POINTER(UInt16)
     Comment: POINTER(UInt16)
-class SECURITY_LOGON_SESSION_DATA(Structure):
-    Size: UInt32
-    LogonId: win32more.Foundation.LUID
-    UserName: win32more.Foundation.UNICODE_STRING
-    LogonDomain: win32more.Foundation.UNICODE_STRING
-    AuthenticationPackage: win32more.Foundation.UNICODE_STRING
-    LogonType: UInt32
-    Session: UInt32
-    Sid: win32more.Foundation.PSID
-    LogonTime: win32more.Foundation.LARGE_INTEGER
-    LogonServer: win32more.Foundation.UNICODE_STRING
-    DnsDomainName: win32more.Foundation.UNICODE_STRING
-    Upn: win32more.Foundation.UNICODE_STRING
-    UserFlags: UInt32
-    LastLogonInfo: win32more.Security.Authentication.Identity.LSA_LAST_INTER_LOGON_INFO
-    LogonScript: win32more.Foundation.UNICODE_STRING
-    ProfilePath: win32more.Foundation.UNICODE_STRING
-    HomeDirectory: win32more.Foundation.UNICODE_STRING
-    HomeDirectoryDrive: win32more.Foundation.UNICODE_STRING
-    LogoffTime: win32more.Foundation.LARGE_INTEGER
-    KickOffTime: win32more.Foundation.LARGE_INTEGER
-    PasswordLastSet: win32more.Foundation.LARGE_INTEGER
-    PasswordCanChange: win32more.Foundation.LARGE_INTEGER
-    PasswordMustChange: win32more.Foundation.LARGE_INTEGER
-SECURITY_LOGON_TYPE = Int32
-SECURITY_LOGON_TYPE_UndefinedLogonType: SECURITY_LOGON_TYPE = 0
-SECURITY_LOGON_TYPE_Interactive: SECURITY_LOGON_TYPE = 2
-SECURITY_LOGON_TYPE_Network: SECURITY_LOGON_TYPE = 3
-SECURITY_LOGON_TYPE_Batch: SECURITY_LOGON_TYPE = 4
-SECURITY_LOGON_TYPE_Service: SECURITY_LOGON_TYPE = 5
-SECURITY_LOGON_TYPE_Proxy: SECURITY_LOGON_TYPE = 6
-SECURITY_LOGON_TYPE_Unlock: SECURITY_LOGON_TYPE = 7
-SECURITY_LOGON_TYPE_NetworkCleartext: SECURITY_LOGON_TYPE = 8
-SECURITY_LOGON_TYPE_NewCredentials: SECURITY_LOGON_TYPE = 9
-SECURITY_LOGON_TYPE_RemoteInteractive: SECURITY_LOGON_TYPE = 10
-SECURITY_LOGON_TYPE_CachedInteractive: SECURITY_LOGON_TYPE = 11
-SECURITY_LOGON_TYPE_CachedRemoteInteractive: SECURITY_LOGON_TYPE = 12
-SECURITY_LOGON_TYPE_CachedUnlock: SECURITY_LOGON_TYPE = 13
-class SECURITY_PACKAGE_OPTIONS(Structure):
-    Size: UInt32
-    Type: win32more.Security.Authentication.Identity.SECURITY_PACKAGE_OPTIONS_TYPE
-    Flags: UInt32
-    SignatureSize: UInt32
-    Signature: c_void_p
-SECURITY_PACKAGE_OPTIONS_TYPE = UInt32
-SECPKG_OPTIONS_TYPE_UNKNOWN: SECURITY_PACKAGE_OPTIONS_TYPE = 0
-SECPKG_OPTIONS_TYPE_LSA: SECURITY_PACKAGE_OPTIONS_TYPE = 1
-SECPKG_OPTIONS_TYPE_SSPI: SECURITY_PACKAGE_OPTIONS_TYPE = 2
-class SECURITY_USER_DATA(Structure):
-    UserName: win32more.Foundation.UNICODE_STRING
-    LogonDomainName: win32more.Foundation.UNICODE_STRING
-    LogonServer: win32more.Foundation.UNICODE_STRING
-    pSid: win32more.Foundation.PSID
 class SecurityFunctionTableA(Structure):
     dwVersion: UInt32
     EnumerateSecurityPackagesA: win32more.Security.Authentication.Identity.ENUMERATE_SECURITY_PACKAGES_FN_A
@@ -4418,79 +4497,6 @@ class SecurityFunctionTableW(Structure):
     ChangeAccountPasswordW: win32more.Security.Authentication.Identity.CHANGE_PASSWORD_FN_W
     QueryContextAttributesExW: win32more.Security.Authentication.Identity.QUERY_CONTEXT_ATTRIBUTES_EX_FN_W
     QueryCredentialsAttributesExW: win32more.Security.Authentication.Identity.QUERY_CREDENTIALS_ATTRIBUTES_EX_FN_W
-class SEND_GENERIC_TLS_EXTENSION(Structure):
-    ExtensionType: UInt16
-    HandshakeType: UInt16
-    Flags: UInt32
-    BufferSize: UInt16
-    Buffer: Byte * 1
-@winfunctype_pointer
-def SET_CONTEXT_ATTRIBUTES_FN_A(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: UInt32, param2: c_void_p, param3: UInt32) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def SET_CONTEXT_ATTRIBUTES_FN_W(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: UInt32, param2: c_void_p, param3: UInt32) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def SET_CREDENTIALS_ATTRIBUTES_FN_A(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: UInt32, param2: c_void_p, param3: UInt32) -> win32more.Foundation.HRESULT: ...
-@winfunctype_pointer
-def SET_CREDENTIALS_ATTRIBUTES_FN_W(param0: POINTER(win32more.Security.Credentials.SecHandle_head), param1: UInt32, param2: c_void_p, param3: UInt32) -> win32more.Foundation.HRESULT: ...
-class SL_ACTIVATION_INFO_HEADER(Structure):
-    cbSize: UInt32
-    type: win32more.Security.Authentication.Identity.SL_ACTIVATION_TYPE
-SL_ACTIVATION_TYPE = Int32
-SL_ACTIVATION_TYPE_DEFAULT: SL_ACTIVATION_TYPE = 0
-SL_ACTIVATION_TYPE_ACTIVE_DIRECTORY: SL_ACTIVATION_TYPE = 1
-class SL_AD_ACTIVATION_INFO(Structure):
-    header: win32more.Security.Authentication.Identity.SL_ACTIVATION_INFO_HEADER
-    pwszProductKey: win32more.Foundation.PWSTR
-    pwszActivationObjectName: win32more.Foundation.PWSTR
-SL_GENUINE_STATE = Int32
-SL_GEN_STATE_IS_GENUINE: SL_GENUINE_STATE = 0
-SL_GEN_STATE_INVALID_LICENSE: SL_GENUINE_STATE = 1
-SL_GEN_STATE_TAMPERED: SL_GENUINE_STATE = 2
-SL_GEN_STATE_OFFLINE: SL_GENUINE_STATE = 3
-SL_GEN_STATE_LAST: SL_GENUINE_STATE = 4
-class SL_LICENSING_STATUS(Structure):
-    SkuId: Guid
-    eStatus: win32more.Security.Authentication.Identity.SLLICENSINGSTATUS
-    dwGraceTime: UInt32
-    dwTotalGraceDays: UInt32
-    hrReason: win32more.Foundation.HRESULT
-    qwValidityExpiration: UInt64
-class SL_NONGENUINE_UI_OPTIONS(Structure):
-    cbSize: UInt32
-    pComponentId: POINTER(Guid)
-    hResultUI: win32more.Foundation.HRESULT
-class SL_SYSTEM_POLICY_INFORMATION(Structure):
-    Reserved1: c_void_p * 2
-    Reserved2: UInt32 * 3
-SLDATATYPE = UInt32
-SL_DATA_NONE: SLDATATYPE = 0
-SL_DATA_SZ: SLDATATYPE = 1
-SL_DATA_DWORD: SLDATATYPE = 4
-SL_DATA_BINARY: SLDATATYPE = 3
-SL_DATA_MULTI_SZ: SLDATATYPE = 7
-SL_DATA_SUM: SLDATATYPE = 100
-SLIDTYPE = Int32
-SL_ID_APPLICATION: SLIDTYPE = 0
-SL_ID_PRODUCT_SKU: SLIDTYPE = 1
-SL_ID_LICENSE_FILE: SLIDTYPE = 2
-SL_ID_LICENSE: SLIDTYPE = 3
-SL_ID_PKEY: SLIDTYPE = 4
-SL_ID_ALL_LICENSES: SLIDTYPE = 5
-SL_ID_ALL_LICENSE_FILES: SLIDTYPE = 6
-SL_ID_STORE_TOKEN: SLIDTYPE = 7
-SL_ID_LAST: SLIDTYPE = 8
-SLLICENSINGSTATUS = Int32
-SL_LICENSING_STATUS_UNLICENSED: SLLICENSINGSTATUS = 0
-SL_LICENSING_STATUS_LICENSED: SLLICENSINGSTATUS = 1
-SL_LICENSING_STATUS_IN_GRACE_PERIOD: SLLICENSINGSTATUS = 2
-SL_LICENSING_STATUS_NOTIFICATION: SLLICENSINGSTATUS = 3
-SL_LICENSING_STATUS_LAST: SLLICENSINGSTATUS = 4
-SLREFERRALTYPE = Int32
-SL_REFERRALTYPE_SKUID: SLREFERRALTYPE = 0
-SL_REFERRALTYPE_APPID: SLREFERRALTYPE = 1
-SL_REFERRALTYPE_OVERRIDE_SKUID: SLREFERRALTYPE = 2
-SL_REFERRALTYPE_OVERRIDE_APPID: SLREFERRALTYPE = 3
-SL_REFERRALTYPE_BEST_MATCH: SLREFERRALTYPE = 4
 @winfunctype_pointer
 def SpAcceptCredentialsFn(LogonType: win32more.Security.Authentication.Identity.SECURITY_LOGON_TYPE, AccountName: POINTER(win32more.Foundation.UNICODE_STRING_head), PrimaryCredentials: POINTER(win32more.Security.Authentication.Identity.SECPKG_PRIMARY_CRED_head), SupplementalCredentials: POINTER(win32more.Security.Authentication.Identity.SECPKG_SUPPLEMENTAL_CRED_head)) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -4520,9 +4526,9 @@ def SpFreeCredentialsHandleFn(CredentialHandle: UIntPtr) -> win32more.Foundation
 @winfunctype_pointer
 def SpGetContextTokenFn(ContextHandle: UIntPtr, ImpersonationToken: POINTER(win32more.Foundation.HANDLE)) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def SpGetCredentialsFn(CredentialHandle: UIntPtr, Credentials: POINTER(win32more.Security.Authentication.Identity.SecBuffer_head)) -> win32more.Foundation.NTSTATUS: ...
-@winfunctype_pointer
 def SpGetCredUIContextFn(ContextHandle: UIntPtr, CredType: POINTER(Guid), FlatCredUIContextLength: POINTER(UInt32), FlatCredUIContext: POINTER(c_char_p_no)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype_pointer
+def SpGetCredentialsFn(CredentialHandle: UIntPtr, Credentials: POINTER(win32more.Security.Authentication.Identity.SecBuffer_head)) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def SpGetExtendedInformationFn(Class: win32more.Security.Authentication.Identity.SECPKG_EXTENDED_INFORMATION_CLASS, ppInformation: POINTER(POINTER(win32more.Security.Authentication.Identity.SECPKG_EXTENDED_INFORMATION_head))) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -4538,11 +4544,11 @@ def SpGetUserInfoFn(LogonId: POINTER(win32more.Foundation.LUID_head), Flags: UIn
 @winfunctype_pointer
 def SpImportSecurityContextFn(pPackedContext: POINTER(win32more.Security.Authentication.Identity.SecBuffer_head), Token: win32more.Foundation.HANDLE, phContext: POINTER(UIntPtr)) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def SpInitializeFn(PackageId: UIntPtr, Parameters: POINTER(win32more.Security.Authentication.Identity.SECPKG_PARAMETERS_head), FunctionTable: POINTER(win32more.Security.Authentication.Identity.LSA_SECPKG_FUNCTION_TABLE_head)) -> win32more.Foundation.NTSTATUS: ...
-@winfunctype_pointer
 def SpInitLsaModeContextFn(CredentialHandle: UIntPtr, ContextHandle: UIntPtr, TargetName: POINTER(win32more.Foundation.UNICODE_STRING_head), ContextRequirements: UInt32, TargetDataRep: UInt32, InputBuffers: POINTER(win32more.Security.Authentication.Identity.SecBufferDesc_head), NewContextHandle: POINTER(UIntPtr), OutputBuffers: POINTER(win32more.Security.Authentication.Identity.SecBufferDesc_head), ContextAttributes: POINTER(UInt32), ExpirationTime: POINTER(win32more.Foundation.LARGE_INTEGER_head), MappedContext: POINTER(win32more.Foundation.BOOLEAN), ContextData: POINTER(win32more.Security.Authentication.Identity.SecBuffer_head)) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def SpInitUserModeContextFn(ContextHandle: UIntPtr, PackedContext: POINTER(win32more.Security.Authentication.Identity.SecBuffer_head)) -> win32more.Foundation.NTSTATUS: ...
+@winfunctype_pointer
+def SpInitializeFn(PackageId: UIntPtr, Parameters: POINTER(win32more.Security.Authentication.Identity.SECPKG_PARAMETERS_head), FunctionTable: POINTER(win32more.Security.Authentication.Identity.LSA_SECPKG_FUNCTION_TABLE_head)) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def SpInstanceInitFn(Version: UInt32, FunctionTable: POINTER(win32more.Security.Authentication.Identity.SECPKG_DLL_FUNCTIONS_head), UserFunctions: POINTER(c_void_p)) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -4581,31 +4587,10 @@ def SpUserModeInitializeFn(LsaVersion: UInt32, PackageVersion: POINTER(UInt32), 
 def SpValidateTargetInfoFn(ClientRequest: POINTER(c_void_p), ProtocolSubmitBuffer: c_void_p, ClientBufferBase: c_void_p, SubmitBufferLength: UInt32, TargetInfo: POINTER(win32more.Security.Authentication.Identity.SECPKG_TARGETINFO_head)) -> win32more.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def SpVerifySignatureFn(ContextHandle: UIntPtr, MessageBuffers: POINTER(win32more.Security.Authentication.Identity.SecBufferDesc_head), MessageSequenceNumber: UInt32, QualityOfProtection: POINTER(UInt32)) -> win32more.Foundation.NTSTATUS: ...
-class SR_SECURITY_DESCRIPTOR(Structure):
-    Length: UInt32
-    SecurityDescriptor: c_char_p_no
-@winfunctype_pointer
-def SSL_CRACK_CERTIFICATE_FN(pbCertificate: c_char_p_no, cbCertificate: UInt32, VerifySignature: win32more.Foundation.BOOL, ppCertificate: POINTER(POINTER(win32more.Security.Authentication.Identity.X509Certificate_head))) -> win32more.Foundation.BOOL: ...
-class SSL_CREDENTIAL_CERTIFICATE(Structure):
-    cbPrivateKey: UInt32
-    pPrivateKey: c_char_p_no
-    cbCertificate: UInt32
-    pCertificate: c_char_p_no
-    pszPassword: win32more.Foundation.PSTR
-@winfunctype_pointer
-def SSL_EMPTY_CACHE_FN_A(pszTargetName: win32more.Foundation.PSTR, dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def SSL_EMPTY_CACHE_FN_W(pszTargetName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def SSL_FREE_CERTIFICATE_FN(pCertificate: POINTER(win32more.Security.Authentication.Identity.X509Certificate_head)) -> Void: ...
 @winfunctype_pointer
 def SslGetExtensionsFn(clientHello: c_char_p_no, clientHelloByteSize: UInt32, genericExtensions: POINTER(win32more.Security.Authentication.Identity.SCH_EXTENSION_DATA_head), genericExtensionsCount: Byte, bytesToRead: POINTER(UInt32), flags: win32more.Security.Authentication.Identity.SchGetExtensionsOptions) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def SslGetServerIdentityFn(ClientHello: c_char_p_no, ClientHelloSize: UInt32, ServerIdentity: POINTER(c_char_p_no), ServerIdentitySize: POINTER(UInt32), Flags: UInt32) -> win32more.Foundation.HRESULT: ...
-class SUBSCRIBE_GENERIC_TLS_EXTENSION(Structure):
-    Flags: UInt32
-    SubscriptionsCount: UInt32
-    Subscriptions: win32more.Security.Authentication.Identity.TLS_EXTENSION_SUBSCRIPTION * 1
 class TLS_EXTENSION_SUBSCRIPTION(Structure):
     ExtensionType: UInt16
     HandshakeType: UInt16
@@ -4757,7 +4742,21 @@ class X509Certificate(Structure):
     pszIssuer: win32more.Foundation.PSTR
     pszSubject: win32more.Foundation.PSTR
     pPublicKey: POINTER(win32more.Security.Authentication.Identity.PctPublicKey_head)
-make_head(_module, '_HMAPPER')
+class _HMAPPER(Structure):
+    pass
+eTlsHashAlgorithm = Int32
+TlsHashAlgorithm_None: eTlsHashAlgorithm = 0
+TlsHashAlgorithm_Md5: eTlsHashAlgorithm = 1
+TlsHashAlgorithm_Sha1: eTlsHashAlgorithm = 2
+TlsHashAlgorithm_Sha224: eTlsHashAlgorithm = 3
+TlsHashAlgorithm_Sha256: eTlsHashAlgorithm = 4
+TlsHashAlgorithm_Sha384: eTlsHashAlgorithm = 5
+TlsHashAlgorithm_Sha512: eTlsHashAlgorithm = 6
+eTlsSignatureAlgorithm = Int32
+TlsSignatureAlgorithm_Anonymous: eTlsSignatureAlgorithm = 0
+TlsSignatureAlgorithm_Rsa: eTlsSignatureAlgorithm = 1
+TlsSignatureAlgorithm_Dsa: eTlsSignatureAlgorithm = 2
+TlsSignatureAlgorithm_Ecdsa: eTlsSignatureAlgorithm = 3
 make_head(_module, 'ACCEPT_SECURITY_CONTEXT_FN')
 make_head(_module, 'ACQUIRE_CREDENTIALS_HANDLE_FN_A')
 make_head(_module, 'ACQUIRE_CREDENTIALS_HANDLE_FN_W')
@@ -4772,15 +4771,15 @@ make_head(_module, 'CHANGE_PASSWORD_FN_W')
 make_head(_module, 'CLEAR_BLOCK')
 make_head(_module, 'COMPLETE_AUTH_TOKEN_FN')
 make_head(_module, 'CredFreeCredentialsFn')
-make_head(_module, 'CrediUnmarshalandDecodeStringFn')
 make_head(_module, 'CredReadDomainCredentialsFn')
 make_head(_module, 'CredReadFn')
 make_head(_module, 'CredWriteFn')
+make_head(_module, 'CrediUnmarshalandDecodeStringFn')
 make_head(_module, 'DECRYPT_MESSAGE_FN')
 make_head(_module, 'DELETE_SECURITY_CONTEXT_FN')
 make_head(_module, 'DOMAIN_PASSWORD_INFORMATION')
-make_head(_module, 'ENCRYPT_MESSAGE_FN')
 make_head(_module, 'ENCRYPTED_CREDENTIALW')
+make_head(_module, 'ENCRYPT_MESSAGE_FN')
 make_head(_module, 'ENUMERATE_SECURITY_PACKAGES_FN_A')
 make_head(_module, 'ENUMERATE_SECURITY_PACKAGES_FN_W')
 make_head(_module, 'EXPORT_SECURITY_CONTEXT_FN')
@@ -4790,10 +4789,10 @@ make_head(_module, 'ICcgDomainAuthCredentials')
 make_head(_module, 'IMPERSONATE_SECURITY_CONTEXT_FN')
 make_head(_module, 'IMPORT_SECURITY_CONTEXT_FN_A')
 make_head(_module, 'IMPORT_SECURITY_CONTEXT_FN_W')
-make_head(_module, 'INIT_SECURITY_INTERFACE_A')
-make_head(_module, 'INIT_SECURITY_INTERFACE_W')
 make_head(_module, 'INITIALIZE_SECURITY_CONTEXT_FN_A')
 make_head(_module, 'INITIALIZE_SECURITY_CONTEXT_FN_W')
+make_head(_module, 'INIT_SECURITY_INTERFACE_A')
+make_head(_module, 'INIT_SECURITY_INTERFACE_W')
 make_head(_module, 'KDC_PROXY_CACHE_ENTRY_DATA')
 make_head(_module, 'KERB_ADD_BINDING_CACHE_ENTRY_EX_REQUEST')
 make_head(_module, 'KERB_ADD_BINDING_CACHE_ENTRY_REQUEST')
@@ -4835,9 +4834,9 @@ make_head(_module, 'KERB_QUERY_KDC_PROXY_CACHE_REQUEST')
 make_head(_module, 'KERB_QUERY_KDC_PROXY_CACHE_RESPONSE')
 make_head(_module, 'KERB_QUERY_S4U2PROXY_CACHE_REQUEST')
 make_head(_module, 'KERB_QUERY_S4U2PROXY_CACHE_RESPONSE')
-make_head(_module, 'KERB_QUERY_TKT_CACHE_EX_RESPONSE')
 make_head(_module, 'KERB_QUERY_TKT_CACHE_EX2_RESPONSE')
 make_head(_module, 'KERB_QUERY_TKT_CACHE_EX3_RESPONSE')
+make_head(_module, 'KERB_QUERY_TKT_CACHE_EX_RESPONSE')
 make_head(_module, 'KERB_QUERY_TKT_CACHE_REQUEST')
 make_head(_module, 'KERB_QUERY_TKT_CACHE_RESPONSE')
 make_head(_module, 'KERB_REFRESH_POLICY_REQUEST')
@@ -4847,9 +4846,9 @@ make_head(_module, 'KERB_RETRIEVE_KEY_TAB_REQUEST')
 make_head(_module, 'KERB_RETRIEVE_KEY_TAB_RESPONSE')
 make_head(_module, 'KERB_RETRIEVE_TKT_REQUEST')
 make_head(_module, 'KERB_RETRIEVE_TKT_RESPONSE')
-make_head(_module, 'KERB_S4U_LOGON')
 make_head(_module, 'KERB_S4U2PROXY_CACHE_ENTRY_INFO')
 make_head(_module, 'KERB_S4U2PROXY_CRED')
+make_head(_module, 'KERB_S4U_LOGON')
 make_head(_module, 'KERB_SETPASSWORD_EX_REQUEST')
 make_head(_module, 'KERB_SETPASSWORD_REQUEST')
 make_head(_module, 'KERB_SMART_CARD_LOGON')
@@ -4930,7 +4929,6 @@ make_head(_module, 'NETLOGON_INTERACTIVE_INFO')
 make_head(_module, 'NETLOGON_LOGON_IDENTITY_INFO')
 make_head(_module, 'NETLOGON_NETWORK_INFO')
 make_head(_module, 'NETLOGON_SERVICE_INFO')
-make_head(_module, 'PctPublicKey')
 make_head(_module, 'PKSEC_CREATE_CONTEXT_LIST')
 make_head(_module, 'PKSEC_DEREFERENCE_LIST_ENTRY')
 make_head(_module, 'PKSEC_INSERT_LIST_ENTRY')
@@ -4938,8 +4936,8 @@ make_head(_module, 'PKSEC_LOCATE_PKG_BY_ID')
 make_head(_module, 'PKSEC_REFERENCE_LIST_ENTRY')
 make_head(_module, 'PKSEC_SERIALIZE_SCHANNEL_AUTH_DATA')
 make_head(_module, 'PKSEC_SERIALIZE_WINNT_AUTH_DATA')
-make_head(_module, 'PKU2U_CERT_BLOB')
 make_head(_module, 'PKU2U_CERTIFICATE_S4U_LOGON')
+make_head(_module, 'PKU2U_CERT_BLOB')
 make_head(_module, 'PKU2U_CREDUI_CONTEXT')
 make_head(_module, 'PLSA_ADD_CREDENTIAL')
 make_head(_module, 'PLSA_ALLOCATE_CLIENT_BUFFER')
@@ -4959,10 +4957,10 @@ make_head(_module, 'PLSA_AP_PRE_LOGON_USER_SURROGATE')
 make_head(_module, 'PLSA_AUDIT_ACCOUNT_LOGON')
 make_head(_module, 'PLSA_AUDIT_LOGON')
 make_head(_module, 'PLSA_AUDIT_LOGON_EX')
-make_head(_module, 'PLSA_CALL_PACKAGE')
-make_head(_module, 'PLSA_CALL_PACKAGE_PASSTHROUGH')
-make_head(_module, 'PLSA_CALL_PACKAGEEX')
 make_head(_module, 'PLSA_CALLBACK_FUNCTION')
+make_head(_module, 'PLSA_CALL_PACKAGE')
+make_head(_module, 'PLSA_CALL_PACKAGEEX')
+make_head(_module, 'PLSA_CALL_PACKAGE_PASSTHROUGH')
 make_head(_module, 'PLSA_CANCEL_NOTIFICATION')
 make_head(_module, 'PLSA_CHECK_PROTECTED_USER_BY_TOKEN')
 make_head(_module, 'PLSA_CLIENT_CALLBACK')
@@ -5037,6 +5035,7 @@ make_head(_module, 'PSAM_CREDENTIAL_UPDATE_REGISTER_ROUTINE')
 make_head(_module, 'PSAM_INIT_NOTIFICATION_ROUTINE')
 make_head(_module, 'PSAM_PASSWORD_FILTER_ROUTINE')
 make_head(_module, 'PSAM_PASSWORD_NOTIFICATION_ROUTINE')
+make_head(_module, 'PctPublicKey')
 make_head(_module, 'QUERY_CONTEXT_ATTRIBUTES_EX_FN_A')
 make_head(_module, 'QUERY_CONTEXT_ATTRIBUTES_EX_FN_W')
 make_head(_module, 'QUERY_CONTEXT_ATTRIBUTES_FN_A')
@@ -5052,44 +5051,17 @@ make_head(_module, 'REVERT_SECURITY_CONTEXT_FN')
 make_head(_module, 'SAM_REGISTER_MAPPING_ELEMENT')
 make_head(_module, 'SAM_REGISTER_MAPPING_LIST')
 make_head(_module, 'SAM_REGISTER_MAPPING_TABLE')
-make_head(_module, 'SCH_CRED')
-make_head(_module, 'SCH_CRED_PUBLIC_CERTCHAIN')
-make_head(_module, 'SCH_CRED_SECRET_CAPI')
-make_head(_module, 'SCH_CRED_SECRET_PRIVKEY')
-make_head(_module, 'SCH_EXTENSION_DATA')
 make_head(_module, 'SCHANNEL_ALERT_TOKEN')
 make_head(_module, 'SCHANNEL_CERT_HASH')
 make_head(_module, 'SCHANNEL_CERT_HASH_STORE')
 make_head(_module, 'SCHANNEL_CLIENT_SIGNATURE')
 make_head(_module, 'SCHANNEL_CRED')
 make_head(_module, 'SCHANNEL_SESSION_TOKEN')
-make_head(_module, 'SE_ADT_ACCESS_REASON')
-make_head(_module, 'SE_ADT_CLAIMS')
-make_head(_module, 'SE_ADT_OBJECT_TYPE')
-make_head(_module, 'SE_ADT_PARAMETER_ARRAY')
-make_head(_module, 'SE_ADT_PARAMETER_ARRAY_ENTRY')
-make_head(_module, 'SE_ADT_PARAMETER_ARRAY_EX')
-make_head(_module, 'SEC_APPLICATION_PROTOCOL_LIST')
-make_head(_module, 'SEC_APPLICATION_PROTOCOLS')
-make_head(_module, 'SEC_CHANNEL_BINDINGS')
-make_head(_module, 'SEC_DTLS_MTU')
-make_head(_module, 'SEC_FLAGS')
-make_head(_module, 'SEC_GET_KEY_FN')
-make_head(_module, 'SEC_NEGOTIATION_INFO')
-make_head(_module, 'SEC_PRESHAREDKEY')
-make_head(_module, 'SEC_PRESHAREDKEY_IDENTITY')
-make_head(_module, 'SEC_SRTP_MASTER_KEY_IDENTIFIER')
-make_head(_module, 'SEC_SRTP_PROTECTION_PROFILES')
-make_head(_module, 'SEC_TOKEN_BINDING')
-make_head(_module, 'SEC_TRAFFIC_SECRETS')
-make_head(_module, 'SEC_WINNT_AUTH_IDENTITY_EX2')
-make_head(_module, 'SEC_WINNT_AUTH_IDENTITY_EX32')
-make_head(_module, 'SEC_WINNT_AUTH_IDENTITY_EXA')
-make_head(_module, 'SEC_WINNT_AUTH_IDENTITY_EXW')
-make_head(_module, 'SEC_WINNT_AUTH_IDENTITY_INFO')
-make_head(_module, 'SEC_WINNT_AUTH_IDENTITY32')
-make_head(_module, 'SecBuffer')
-make_head(_module, 'SecBufferDesc')
+make_head(_module, 'SCH_CRED')
+make_head(_module, 'SCH_CRED_PUBLIC_CERTCHAIN')
+make_head(_module, 'SCH_CRED_SECRET_CAPI')
+make_head(_module, 'SCH_CRED_SECRET_PRIVKEY')
+make_head(_module, 'SCH_EXTENSION_DATA')
 make_head(_module, 'SECPKG_APP_MODE_INFO')
 make_head(_module, 'SECPKG_BYTE_VECTOR')
 make_head(_module, 'SECPKG_CALL_INFO')
@@ -5107,8 +5079,8 @@ make_head(_module, 'SECPKG_EXTENDED_INFORMATION')
 make_head(_module, 'SECPKG_EXTRA_OIDS')
 make_head(_module, 'SECPKG_FUNCTION_TABLE')
 make_head(_module, 'SECPKG_GSS_INFO')
-make_head(_module, 'SECPKG_KERNEL_FUNCTION_TABLE')
 make_head(_module, 'SECPKG_KERNEL_FUNCTIONS')
+make_head(_module, 'SECPKG_KERNEL_FUNCTION_TABLE')
 make_head(_module, 'SECPKG_MUTUAL_AUTH_LEVEL')
 make_head(_module, 'SECPKG_NEGO2_INFO')
 make_head(_module, 'SECPKG_PARAMETERS')
@@ -5126,23 +5098,70 @@ make_head(_module, 'SECPKG_SURROGATE_LOGON_ENTRY')
 make_head(_module, 'SECPKG_TARGETINFO')
 make_head(_module, 'SECPKG_USER_FUNCTION_TABLE')
 make_head(_module, 'SECPKG_WOW_CLIENT_DLL')
+make_head(_module, 'SECURITY_LOGON_SESSION_DATA')
+make_head(_module, 'SECURITY_PACKAGE_OPTIONS')
+make_head(_module, 'SECURITY_USER_DATA')
+make_head(_module, 'SEC_APPLICATION_PROTOCOLS')
+make_head(_module, 'SEC_APPLICATION_PROTOCOL_LIST')
+make_head(_module, 'SEC_CHANNEL_BINDINGS')
+make_head(_module, 'SEC_DTLS_MTU')
+make_head(_module, 'SEC_FLAGS')
+make_head(_module, 'SEC_GET_KEY_FN')
+make_head(_module, 'SEC_NEGOTIATION_INFO')
+make_head(_module, 'SEC_PRESHAREDKEY')
+make_head(_module, 'SEC_PRESHAREDKEY_IDENTITY')
+make_head(_module, 'SEC_SRTP_MASTER_KEY_IDENTIFIER')
+make_head(_module, 'SEC_SRTP_PROTECTION_PROFILES')
+make_head(_module, 'SEC_TOKEN_BINDING')
+make_head(_module, 'SEC_TRAFFIC_SECRETS')
+make_head(_module, 'SEC_WINNT_AUTH_IDENTITY32')
+make_head(_module, 'SEC_WINNT_AUTH_IDENTITY_EX2')
+make_head(_module, 'SEC_WINNT_AUTH_IDENTITY_EX32')
+make_head(_module, 'SEC_WINNT_AUTH_IDENTITY_EXA')
+make_head(_module, 'SEC_WINNT_AUTH_IDENTITY_EXW')
+make_head(_module, 'SEC_WINNT_AUTH_IDENTITY_INFO')
+make_head(_module, 'SEND_GENERIC_TLS_EXTENSION')
+make_head(_module, 'SET_CONTEXT_ATTRIBUTES_FN_A')
+make_head(_module, 'SET_CONTEXT_ATTRIBUTES_FN_W')
+make_head(_module, 'SET_CREDENTIALS_ATTRIBUTES_FN_A')
+make_head(_module, 'SET_CREDENTIALS_ATTRIBUTES_FN_W')
+make_head(_module, 'SE_ADT_ACCESS_REASON')
+make_head(_module, 'SE_ADT_CLAIMS')
+make_head(_module, 'SE_ADT_OBJECT_TYPE')
+make_head(_module, 'SE_ADT_PARAMETER_ARRAY')
+make_head(_module, 'SE_ADT_PARAMETER_ARRAY_ENTRY')
+make_head(_module, 'SE_ADT_PARAMETER_ARRAY_EX')
+make_head(_module, 'SL_ACTIVATION_INFO_HEADER')
+make_head(_module, 'SL_AD_ACTIVATION_INFO')
+make_head(_module, 'SL_LICENSING_STATUS')
+make_head(_module, 'SL_NONGENUINE_UI_OPTIONS')
+make_head(_module, 'SL_SYSTEM_POLICY_INFORMATION')
+make_head(_module, 'SR_SECURITY_DESCRIPTOR')
+make_head(_module, 'SSL_CRACK_CERTIFICATE_FN')
+make_head(_module, 'SSL_CREDENTIAL_CERTIFICATE')
+make_head(_module, 'SSL_EMPTY_CACHE_FN_A')
+make_head(_module, 'SSL_EMPTY_CACHE_FN_W')
+make_head(_module, 'SSL_FREE_CERTIFICATE_FN')
+make_head(_module, 'SUBSCRIBE_GENERIC_TLS_EXTENSION')
+make_head(_module, 'SecBuffer')
+make_head(_module, 'SecBufferDesc')
 make_head(_module, 'SecPkgContext_AccessToken')
 make_head(_module, 'SecPkgContext_ApplicationProtocol')
 make_head(_module, 'SecPkgContext_AuthorityA')
 make_head(_module, 'SecPkgContext_AuthorityW')
 make_head(_module, 'SecPkgContext_AuthzID')
 make_head(_module, 'SecPkgContext_Bindings')
-make_head(_module, 'SecPkgContext_Certificates')
-make_head(_module, 'SecPkgContext_CertificateValidationResult')
 make_head(_module, 'SecPkgContext_CertInfo')
+make_head(_module, 'SecPkgContext_CertificateValidationResult')
+make_head(_module, 'SecPkgContext_Certificates')
 make_head(_module, 'SecPkgContext_CipherInfo')
 make_head(_module, 'SecPkgContext_ClientCertPolicyResult')
 make_head(_module, 'SecPkgContext_ClientSpecifiedTarget')
 make_head(_module, 'SecPkgContext_ConnectionInfo')
 make_head(_module, 'SecPkgContext_ConnectionInfoEx')
+make_head(_module, 'SecPkgContext_CredInfo')
 make_head(_module, 'SecPkgContext_CredentialNameA')
 make_head(_module, 'SecPkgContext_CredentialNameW')
-make_head(_module, 'SecPkgContext_CredInfo')
 make_head(_module, 'SecPkgContext_DceInfo')
 make_head(_module, 'SecPkgContext_EapKeyBlock')
 make_head(_module, 'SecPkgContext_EapPrfInfo')
@@ -5152,8 +5171,8 @@ make_head(_module, 'SecPkgContext_IssuerListInfoEx')
 make_head(_module, 'SecPkgContext_KeyInfoA')
 make_head(_module, 'SecPkgContext_KeyInfoW')
 make_head(_module, 'SecPkgContext_KeyingMaterial')
-make_head(_module, 'SecPkgContext_KeyingMaterial_Inproc')
 make_head(_module, 'SecPkgContext_KeyingMaterialInfo')
+make_head(_module, 'SecPkgContext_KeyingMaterial_Inproc')
 make_head(_module, 'SecPkgContext_LastClientTokenStatus')
 make_head(_module, 'SecPkgContext_Lifespan')
 make_head(_module, 'SecPkgContext_LocalCredentialInfo')
@@ -5203,21 +5222,8 @@ make_head(_module, 'SecPkgCredentials_SSIProviderA')
 make_head(_module, 'SecPkgCredentials_SSIProviderW')
 make_head(_module, 'SecPkgInfoA')
 make_head(_module, 'SecPkgInfoW')
-make_head(_module, 'SECURITY_LOGON_SESSION_DATA')
-make_head(_module, 'SECURITY_PACKAGE_OPTIONS')
-make_head(_module, 'SECURITY_USER_DATA')
 make_head(_module, 'SecurityFunctionTableA')
 make_head(_module, 'SecurityFunctionTableW')
-make_head(_module, 'SEND_GENERIC_TLS_EXTENSION')
-make_head(_module, 'SET_CONTEXT_ATTRIBUTES_FN_A')
-make_head(_module, 'SET_CONTEXT_ATTRIBUTES_FN_W')
-make_head(_module, 'SET_CREDENTIALS_ATTRIBUTES_FN_A')
-make_head(_module, 'SET_CREDENTIALS_ATTRIBUTES_FN_W')
-make_head(_module, 'SL_ACTIVATION_INFO_HEADER')
-make_head(_module, 'SL_AD_ACTIVATION_INFO')
-make_head(_module, 'SL_LICENSING_STATUS')
-make_head(_module, 'SL_NONGENUINE_UI_OPTIONS')
-make_head(_module, 'SL_SYSTEM_POLICY_INFORMATION')
 make_head(_module, 'SpAcceptCredentialsFn')
 make_head(_module, 'SpAcceptLsaModeContextFn')
 make_head(_module, 'SpAcquireCredentialsHandleFn')
@@ -5232,8 +5238,8 @@ make_head(_module, 'SpExportSecurityContextFn')
 make_head(_module, 'SpFormatCredentialsFn')
 make_head(_module, 'SpFreeCredentialsHandleFn')
 make_head(_module, 'SpGetContextTokenFn')
-make_head(_module, 'SpGetCredentialsFn')
 make_head(_module, 'SpGetCredUIContextFn')
+make_head(_module, 'SpGetCredentialsFn')
 make_head(_module, 'SpGetExtendedInformationFn')
 make_head(_module, 'SpGetInfoFn')
 make_head(_module, 'SpGetRemoteCredGuardLogonBufferFn')
@@ -5241,9 +5247,9 @@ make_head(_module, 'SpGetRemoteCredGuardSupplementalCredsFn')
 make_head(_module, 'SpGetTbalSupplementalCredsFn')
 make_head(_module, 'SpGetUserInfoFn')
 make_head(_module, 'SpImportSecurityContextFn')
-make_head(_module, 'SpInitializeFn')
 make_head(_module, 'SpInitLsaModeContextFn')
 make_head(_module, 'SpInitUserModeContextFn')
+make_head(_module, 'SpInitializeFn')
 make_head(_module, 'SpInstanceInitFn')
 make_head(_module, 'SpLsaModeInitializeFn')
 make_head(_module, 'SpMakeSignatureFn')
@@ -5263,15 +5269,8 @@ make_head(_module, 'SpUpdateCredentialsFn')
 make_head(_module, 'SpUserModeInitializeFn')
 make_head(_module, 'SpValidateTargetInfoFn')
 make_head(_module, 'SpVerifySignatureFn')
-make_head(_module, 'SR_SECURITY_DESCRIPTOR')
-make_head(_module, 'SSL_CRACK_CERTIFICATE_FN')
-make_head(_module, 'SSL_CREDENTIAL_CERTIFICATE')
-make_head(_module, 'SSL_EMPTY_CACHE_FN_A')
-make_head(_module, 'SSL_EMPTY_CACHE_FN_W')
-make_head(_module, 'SSL_FREE_CERTIFICATE_FN')
 make_head(_module, 'SslGetExtensionsFn')
 make_head(_module, 'SslGetServerIdentityFn')
-make_head(_module, 'SUBSCRIBE_GENERIC_TLS_EXTENSION')
 make_head(_module, 'TLS_EXTENSION_SUBSCRIPTION')
 make_head(_module, 'TOKENBINDING_IDENTIFIER')
 make_head(_module, 'TOKENBINDING_KEY_TYPES')
@@ -5291,6 +5290,7 @@ make_head(_module, 'USER_ALL_INFORMATION')
 make_head(_module, 'USER_SESSION_KEY')
 make_head(_module, 'VERIFY_SIGNATURE_FN')
 make_head(_module, 'X509Certificate')
+make_head(_module, '_HMAPPER')
 __all__ = [
     "ACCEPT_SECURITY_CONTEXT_FN",
     "ACCOUNT_ADJUST_PRIVILEGES",

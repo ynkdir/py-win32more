@@ -19,13 +19,13 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+ANCHOR_CHANGE_HISTORY_FLAGS = UInt32
+TS_CH_PRECEDING_DEL: ANCHOR_CHANGE_HISTORY_FLAGS = 1
+TS_CH_FOLLOWING_DEL: ANCHOR_CHANGE_HISTORY_FLAGS = 2
 AccClientDocMgr = Guid('fc48cc30-4f3e-4fa1-80-3b-ad-0e-19-6a-83-b1')
 AccDictionary = Guid('6572ee16-5fe5-4331-bb-6d-76-a4-9c-56-e4-23')
 AccServerDocMgr = Guid('6089a37e-eb8a-482d-bd-6f-f9-f4-69-04-d1-6d')
 AccStore = Guid('5440837f-4bff-4ae5-a1-b1-77-22-ec-c6-33-2a')
-ANCHOR_CHANGE_HISTORY_FLAGS = UInt32
-TS_CH_PRECEDING_DEL: ANCHOR_CHANGE_HISTORY_FLAGS = 1
-TS_CH_FOLLOWING_DEL: ANCHOR_CHANGE_HISTORY_FLAGS = 2
 GUID_PROP_TEXTOWNER: Guid = Guid('f1e2d520-0969-11d3-8d-f0-00-10-5a-27-99-b5')
 GUID_PROP_ATTRIBUTE: Guid = Guid('34b45670-7526-11d2-a1-47-00-10-5a-27-99-b5')
 GUID_PROP_LANGID: Guid = Guid('3280ce20-8032-11d2-b6-03-00-10-5a-27-99-b5')
@@ -558,16 +558,16 @@ class IClonableWrapper(c_void_p):
     Guid = Guid('b33e75ff-e84c-4dca-a2-5c-33-b8-dc-00-33-74')
     @commethod(3)
     def CloneNewWrapper(riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
-class ICoCreatedLocally(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('0a53eb6c-1908-4742-8c-ff-2c-ee-2e-93-f9-4c')
-    @commethod(3)
-    def LocalInit(punkLocalObject: win32more.System.Com.IUnknown_head, riidParam: POINTER(Guid), punkParam: win32more.System.Com.IUnknown_head, varParam: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
 class ICoCreateLocally(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('03de00aa-f272-41e3-99-cb-03-c5-e8-11-4e-a0')
     @commethod(3)
     def CoCreateLocally(rclsid: POINTER(Guid), dwClsContext: UInt32, riid: POINTER(Guid), punk: POINTER(win32more.System.Com.IUnknown_head), riidParam: POINTER(Guid), punkParam: win32more.System.Com.IUnknown_head, varParam: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+class ICoCreatedLocally(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('0a53eb6c-1908-4742-8c-ff-2c-ee-2e-93-f9-4c')
+    @commethod(3)
+    def LocalInit(punkLocalObject: win32more.System.Com.IUnknown_head, riidParam: POINTER(Guid), punkParam: win32more.System.Com.IUnknown_head, varParam: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
 class IDocWrap(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('dcd285fe-0be0-43bd-99-c9-aa-ae-c5-13-c5-55')
@@ -608,17 +608,6 @@ class IEnumTfCandidates(c_void_p):
     def Reset() -> win32more.Foundation.HRESULT: ...
     @commethod(6)
     def Skip(ulCount: UInt32) -> win32more.Foundation.HRESULT: ...
-class IEnumTfContexts(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('8f1a7ea6-1654-4502-a8-6e-b2-90-23-44-d5-07')
-    @commethod(3)
-    def Clone(ppEnum: POINTER(win32more.UI.TextServices.IEnumTfContexts_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def Next(ulCount: UInt32, rgContext: POINTER(win32more.UI.TextServices.ITfContext_head), pcFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def Reset() -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def Skip(ulCount: UInt32) -> win32more.Foundation.HRESULT: ...
 class IEnumTfContextViews(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('f0c0f8dd-cf38-44e1-bb-0f-68-cf-0d-55-1c-78')
@@ -626,6 +615,17 @@ class IEnumTfContextViews(c_void_p):
     def Clone(ppEnum: POINTER(win32more.UI.TextServices.IEnumTfContextViews_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def Next(ulCount: UInt32, rgViews: POINTER(win32more.UI.TextServices.ITfContextView_head), pcFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset() -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def Skip(ulCount: UInt32) -> win32more.Foundation.HRESULT: ...
+class IEnumTfContexts(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('8f1a7ea6-1654-4502-a8-6e-b2-90-23-44-d5-07')
+    @commethod(3)
+    def Clone(ppEnum: POINTER(win32more.UI.TextServices.IEnumTfContexts_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def Next(ulCount: UInt32, rgContext: POINTER(win32more.UI.TextServices.ITfContext_head), pcFetched: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
     @commethod(5)
     def Reset() -> win32more.Foundation.HRESULT: ...
     @commethod(6)
@@ -756,81 +756,6 @@ class IInternalDocWrap(c_void_p):
     Guid = Guid('e1aa6466-9db4-40ba-be-03-77-c3-8e-8e-60-b2')
     @commethod(3)
     def NotifyRevoke() -> win32more.Foundation.HRESULT: ...
-InputScope = Int32
-IS_DEFAULT: InputScope = 0
-IS_URL: InputScope = 1
-IS_FILE_FULLFILEPATH: InputScope = 2
-IS_FILE_FILENAME: InputScope = 3
-IS_EMAIL_USERNAME: InputScope = 4
-IS_EMAIL_SMTPEMAILADDRESS: InputScope = 5
-IS_LOGINNAME: InputScope = 6
-IS_PERSONALNAME_FULLNAME: InputScope = 7
-IS_PERSONALNAME_PREFIX: InputScope = 8
-IS_PERSONALNAME_GIVENNAME: InputScope = 9
-IS_PERSONALNAME_MIDDLENAME: InputScope = 10
-IS_PERSONALNAME_SURNAME: InputScope = 11
-IS_PERSONALNAME_SUFFIX: InputScope = 12
-IS_ADDRESS_FULLPOSTALADDRESS: InputScope = 13
-IS_ADDRESS_POSTALCODE: InputScope = 14
-IS_ADDRESS_STREET: InputScope = 15
-IS_ADDRESS_STATEORPROVINCE: InputScope = 16
-IS_ADDRESS_CITY: InputScope = 17
-IS_ADDRESS_COUNTRYNAME: InputScope = 18
-IS_ADDRESS_COUNTRYSHORTNAME: InputScope = 19
-IS_CURRENCY_AMOUNTANDSYMBOL: InputScope = 20
-IS_CURRENCY_AMOUNT: InputScope = 21
-IS_DATE_FULLDATE: InputScope = 22
-IS_DATE_MONTH: InputScope = 23
-IS_DATE_DAY: InputScope = 24
-IS_DATE_YEAR: InputScope = 25
-IS_DATE_MONTHNAME: InputScope = 26
-IS_DATE_DAYNAME: InputScope = 27
-IS_DIGITS: InputScope = 28
-IS_NUMBER: InputScope = 29
-IS_ONECHAR: InputScope = 30
-IS_PASSWORD: InputScope = 31
-IS_TELEPHONE_FULLTELEPHONENUMBER: InputScope = 32
-IS_TELEPHONE_COUNTRYCODE: InputScope = 33
-IS_TELEPHONE_AREACODE: InputScope = 34
-IS_TELEPHONE_LOCALNUMBER: InputScope = 35
-IS_TIME_FULLTIME: InputScope = 36
-IS_TIME_HOUR: InputScope = 37
-IS_TIME_MINORSEC: InputScope = 38
-IS_NUMBER_FULLWIDTH: InputScope = 39
-IS_ALPHANUMERIC_HALFWIDTH: InputScope = 40
-IS_ALPHANUMERIC_FULLWIDTH: InputScope = 41
-IS_CURRENCY_CHINESE: InputScope = 42
-IS_BOPOMOFO: InputScope = 43
-IS_HIRAGANA: InputScope = 44
-IS_KATAKANA_HALFWIDTH: InputScope = 45
-IS_KATAKANA_FULLWIDTH: InputScope = 46
-IS_HANJA: InputScope = 47
-IS_HANGUL_HALFWIDTH: InputScope = 48
-IS_HANGUL_FULLWIDTH: InputScope = 49
-IS_SEARCH: InputScope = 50
-IS_FORMULA: InputScope = 51
-IS_SEARCH_INCREMENTAL: InputScope = 52
-IS_CHINESE_HALFWIDTH: InputScope = 53
-IS_CHINESE_FULLWIDTH: InputScope = 54
-IS_NATIVE_SCRIPT: InputScope = 55
-IS_YOMI: InputScope = 56
-IS_TEXT: InputScope = 57
-IS_CHAT: InputScope = 58
-IS_NAME_OR_PHONENUMBER: InputScope = 59
-IS_EMAILNAME_OR_ADDRESS: InputScope = 60
-IS_PRIVATE: InputScope = 61
-IS_MAPS: InputScope = 62
-IS_NUMERIC_PASSWORD: InputScope = 63
-IS_NUMERIC_PIN: InputScope = 64
-IS_ALPHANUMERIC_PIN: InputScope = 65
-IS_ALPHANUMERIC_PIN_SET: InputScope = 66
-IS_FORMULA_NUMBER: InputScope = 67
-IS_CHAT_WITHOUT_EMOJI: InputScope = 68
-IS_PHRASELIST: InputScope = -1
-IS_REGULAREXPRESSION: InputScope = -2
-IS_SRGS: InputScope = -3
-IS_XML: InputScope = -4
-IS_ENUMSTRING: InputScope = -5
 INSERT_TEXT_AT_SELECTION_FLAGS = UInt32
 TF_IAS_NOQUERY: INSERT_TEXT_AT_SELECTION_FLAGS = 1
 TF_IAS_QUERYONLY: INSERT_TEXT_AT_SELECTION_FLAGS = 2
@@ -1460,13 +1385,6 @@ class ITfFnGetSAPIObject(c_void_p):
     Guid = Guid('5c0ab7ea-167d-4f59-bf-b5-46-93-75-5e-90-ca')
     @commethod(4)
     def Get(sObj: win32more.UI.TextServices.TfSapiObject, ppunk: POINTER(win32more.System.Com.IUnknown_head)) -> win32more.Foundation.HRESULT: ...
-class ITfFnLangProfileUtil(c_void_p):
-    extends: win32more.UI.TextServices.ITfFunction
-    Guid = Guid('a87a8574-a6c1-4e15-99-f0-3d-39-65-f5-48-eb')
-    @commethod(4)
-    def RegisterActiveProfiles() -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def IsProfileAvailableForLang(langid: UInt16, pfAvailable: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
 class ITfFnLMInternal(c_void_p):
     extends: win32more.UI.TextServices.ITfFnLMProcessor
     Guid = Guid('04b825b1-ac9a-4f7b-b5-ad-c7-16-8f-1e-e4-45')
@@ -1489,6 +1407,13 @@ class ITfFnLMProcessor(c_void_p):
     def InvokeKey(fUp: win32more.Foundation.BOOL, vKey: win32more.Foundation.WPARAM, lparamKeyData: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
     @commethod(10)
     def InvokeFunc(pic: win32more.UI.TextServices.ITfContext_head, refguidFunc: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+class ITfFnLangProfileUtil(c_void_p):
+    extends: win32more.UI.TextServices.ITfFunction
+    Guid = Guid('a87a8574-a6c1-4e15-99-f0-3d-39-65-f5-48-eb')
+    @commethod(4)
+    def RegisterActiveProfiles() -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def IsProfileAvailableForLang(langid: UInt16, pfAvailable: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
 class ITfFnPlayBack(c_void_p):
     extends: win32more.UI.TextServices.ITfFunction
     Guid = Guid('a3a416a4-0f64-11d3-b5-b7-00-c0-4f-c3-24-a1')
@@ -1562,6 +1487,11 @@ class ITfInputProcessorProfileMgr(c_void_p):
     def UnregisterProfile(rclsid: POINTER(Guid), langid: UInt16, guidProfile: POINTER(Guid), dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
     @commethod(10)
     def GetActiveProfile(catid: POINTER(Guid), pProfile: POINTER(win32more.UI.TextServices.TF_INPUTPROCESSORPROFILE_head)) -> win32more.Foundation.HRESULT: ...
+class ITfInputProcessorProfileSubstituteLayout(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('4fd67194-1002-4513-bf-f2-c0-dd-f6-25-85-52')
+    @commethod(3)
+    def GetSubstituteKeyboardLayout(rclsid: POINTER(Guid), langid: UInt16, guidProfile: POINTER(Guid), phKL: POINTER(win32more.UI.TextServices.HKL)) -> win32more.Foundation.HRESULT: ...
 class ITfInputProcessorProfiles(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('1f02b6c5-7842-4ee6-8a-0b-9a-24-18-3a-95-ca')
@@ -1606,11 +1536,6 @@ class ITfInputProcessorProfilesEx(c_void_p):
     Guid = Guid('892f230f-fe00-4a41-a9-8e-fc-d6-de-0d-35-ef')
     @commethod(21)
     def SetLanguageProfileDisplayName(rclsid: POINTER(Guid), langid: UInt16, guidProfile: POINTER(Guid), pchFile: win32more.Foundation.PWSTR, cchFile: UInt32, uResId: UInt32) -> win32more.Foundation.HRESULT: ...
-class ITfInputProcessorProfileSubstituteLayout(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('4fd67194-1002-4513-bf-f2-c0-dd-f6-25-85-52')
-    @commethod(3)
-    def GetSubstituteKeyboardLayout(rclsid: POINTER(Guid), langid: UInt16, guidProfile: POINTER(Guid), phKL: POINTER(win32more.UI.TextServices.HKL)) -> win32more.Foundation.HRESULT: ...
 class ITfInputScope(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('fde1eaee-6924-4cdf-91-e7-da-38-cf-f5-55-9d')
@@ -1664,6 +1589,13 @@ class ITfKeyEventSink(c_void_p):
     def OnKeyUp(pic: win32more.UI.TextServices.ITfContext_head, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM, pfEaten: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
     @commethod(8)
     def OnPreservedKey(pic: win32more.UI.TextServices.ITfContext_head, rguid: POINTER(Guid), pfEaten: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class ITfKeyTraceEventSink(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('1cd4c13b-1c36-4191-a7-0a-7f-3e-61-1f-36-7d')
+    @commethod(3)
+    def OnKeyTraceDown(wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def OnKeyTraceUp(wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
 class ITfKeystrokeMgr(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('aa80e7f0-2021-11d2-93-e0-00-60-b0-67-b8-6e')
@@ -1695,13 +1627,13 @@ class ITfKeystrokeMgr(c_void_p):
     def GetPreservedKeyDescription(rguid: POINTER(Guid), pbstrDesc: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
     @commethod(16)
     def SimulatePreservedKey(pic: win32more.UI.TextServices.ITfContext_head, rguid: POINTER(Guid), pfEaten: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-class ITfKeyTraceEventSink(c_void_p):
+class ITfLMLattice(c_void_p):
     extends: win32more.System.Com.IUnknown
-    Guid = Guid('1cd4c13b-1c36-4191-a7-0a-7f-3e-61-1f-36-7d')
+    Guid = Guid('d4236675-a5bf-4570-9d-42-5d-6d-7b-02-d5-9b')
     @commethod(3)
-    def OnKeyTraceDown(wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+    def QueryType(rguidType: POINTER(Guid), pfSupported: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
-    def OnKeyTraceUp(wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
+    def EnumLatticeElements(dwFrameStart: UInt32, rguidType: POINTER(Guid), ppEnum: POINTER(win32more.UI.TextServices.IEnumTfLatticeElements_head)) -> win32more.Foundation.HRESULT: ...
 class ITfLangBarEventSink(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('18a4e900-e0ae-11d2-af-dd-00-10-5a-27-99-b5')
@@ -1834,13 +1766,13 @@ class ITfLanguageProfileNotifySink(c_void_p):
     def OnLanguageChange(langid: UInt16, pfAccept: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def OnLanguageChanged() -> win32more.Foundation.HRESULT: ...
-class ITfLMLattice(c_void_p):
+class ITfMSAAControl(c_void_p):
     extends: win32more.System.Com.IUnknown
-    Guid = Guid('d4236675-a5bf-4570-9d-42-5d-6d-7b-02-d5-9b')
+    Guid = Guid('b5f8fb3b-393f-4f7c-84-cb-50-49-24-c2-70-5a')
     @commethod(3)
-    def QueryType(rguidType: POINTER(Guid), pfSupported: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+    def SystemEnableMSAA() -> win32more.Foundation.HRESULT: ...
     @commethod(4)
-    def EnumLatticeElements(dwFrameStart: UInt32, rguidType: POINTER(Guid), ppEnum: POINTER(win32more.UI.TextServices.IEnumTfLatticeElements_head)) -> win32more.Foundation.HRESULT: ...
+    def SystemDisableMSAA() -> win32more.Foundation.HRESULT: ...
 class ITfMenu(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('6f8a98e4-aaa0-4f15-8c-5b-07-e0-df-0a-3d-d8')
@@ -1876,13 +1808,6 @@ class ITfMouseTrackerACP(c_void_p):
     def AdviseMouseSink(range: win32more.UI.TextServices.ITfRangeACP_head, pSink: win32more.UI.TextServices.ITfMouseSink_head, pdwCookie: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
     @commethod(4)
     def UnadviseMouseSink(dwCookie: UInt32) -> win32more.Foundation.HRESULT: ...
-class ITfMSAAControl(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('b5f8fb3b-393f-4f7c-84-cb-50-49-24-c2-70-5a')
-    @commethod(3)
-    def SystemEnableMSAA() -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def SystemDisableMSAA() -> win32more.Foundation.HRESULT: ...
 class ITfPersistentPropertyLoaderACP(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('4ef89150-0807-11d3-8d-f0-00-10-5a-27-99-b5')
@@ -1989,6 +1914,17 @@ class ITfRangeBackup(c_void_p):
     Guid = Guid('463a506d-6992-49d2-9b-88-93-d5-5e-70-bb-16')
     @commethod(3)
     def Restore(ec: UInt32, pRange: win32more.UI.TextServices.ITfRange_head) -> win32more.Foundation.HRESULT: ...
+class ITfReadOnlyProperty(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('17d49a3d-f8b8-4b2f-b2-54-52-31-9d-d6-4c-53')
+    @commethod(3)
+    def GetType(pguid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def EnumRanges(ec: UInt32, ppEnum: POINTER(win32more.UI.TextServices.IEnumTfRanges_head), pTargetRange: win32more.UI.TextServices.ITfRange_head) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetValue(ec: UInt32, pRange: win32more.UI.TextServices.ITfRange_head, pvarValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetContext(ppContext: POINTER(win32more.UI.TextServices.ITfContext_head)) -> win32more.Foundation.HRESULT: ...
 class ITfReadingInformationUIElement(c_void_p):
     extends: win32more.UI.TextServices.ITfUIElement
     Guid = Guid('ea1ea139-19df-11d7-a6-d2-00-06-5b-84-43-5c')
@@ -2004,17 +1940,6 @@ class ITfReadingInformationUIElement(c_void_p):
     def GetErrorIndex(pErrorIndex: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
     @commethod(12)
     def IsVerticalOrderPreferred(pfVertical: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-class ITfReadOnlyProperty(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('17d49a3d-f8b8-4b2f-b2-54-52-31-9d-d6-4c-53')
-    @commethod(3)
-    def GetType(pguid: POINTER(Guid)) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def EnumRanges(ec: UInt32, ppEnum: POINTER(win32more.UI.TextServices.IEnumTfRanges_head), pTargetRange: win32more.UI.TextServices.ITfRange_head) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def GetValue(ec: UInt32, pRange: win32more.UI.TextServices.ITfRange_head, pvarValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def GetContext(ppContext: POINTER(win32more.UI.TextServices.ITfContext_head)) -> win32more.Foundation.HRESULT: ...
 class ITfReverseConversion(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('a415e162-157d-417d-8a-8c-0a-b2-6c-7d-27-81')
@@ -2269,6 +2194,81 @@ class IVersionInfo(c_void_p):
     def GetComponentDescription(ulSub: UInt32, pImplStr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
     @commethod(7)
     def GetInstanceDescription(ulSub: UInt32, pImplStr: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+InputScope = Int32
+IS_DEFAULT: InputScope = 0
+IS_URL: InputScope = 1
+IS_FILE_FULLFILEPATH: InputScope = 2
+IS_FILE_FILENAME: InputScope = 3
+IS_EMAIL_USERNAME: InputScope = 4
+IS_EMAIL_SMTPEMAILADDRESS: InputScope = 5
+IS_LOGINNAME: InputScope = 6
+IS_PERSONALNAME_FULLNAME: InputScope = 7
+IS_PERSONALNAME_PREFIX: InputScope = 8
+IS_PERSONALNAME_GIVENNAME: InputScope = 9
+IS_PERSONALNAME_MIDDLENAME: InputScope = 10
+IS_PERSONALNAME_SURNAME: InputScope = 11
+IS_PERSONALNAME_SUFFIX: InputScope = 12
+IS_ADDRESS_FULLPOSTALADDRESS: InputScope = 13
+IS_ADDRESS_POSTALCODE: InputScope = 14
+IS_ADDRESS_STREET: InputScope = 15
+IS_ADDRESS_STATEORPROVINCE: InputScope = 16
+IS_ADDRESS_CITY: InputScope = 17
+IS_ADDRESS_COUNTRYNAME: InputScope = 18
+IS_ADDRESS_COUNTRYSHORTNAME: InputScope = 19
+IS_CURRENCY_AMOUNTANDSYMBOL: InputScope = 20
+IS_CURRENCY_AMOUNT: InputScope = 21
+IS_DATE_FULLDATE: InputScope = 22
+IS_DATE_MONTH: InputScope = 23
+IS_DATE_DAY: InputScope = 24
+IS_DATE_YEAR: InputScope = 25
+IS_DATE_MONTHNAME: InputScope = 26
+IS_DATE_DAYNAME: InputScope = 27
+IS_DIGITS: InputScope = 28
+IS_NUMBER: InputScope = 29
+IS_ONECHAR: InputScope = 30
+IS_PASSWORD: InputScope = 31
+IS_TELEPHONE_FULLTELEPHONENUMBER: InputScope = 32
+IS_TELEPHONE_COUNTRYCODE: InputScope = 33
+IS_TELEPHONE_AREACODE: InputScope = 34
+IS_TELEPHONE_LOCALNUMBER: InputScope = 35
+IS_TIME_FULLTIME: InputScope = 36
+IS_TIME_HOUR: InputScope = 37
+IS_TIME_MINORSEC: InputScope = 38
+IS_NUMBER_FULLWIDTH: InputScope = 39
+IS_ALPHANUMERIC_HALFWIDTH: InputScope = 40
+IS_ALPHANUMERIC_FULLWIDTH: InputScope = 41
+IS_CURRENCY_CHINESE: InputScope = 42
+IS_BOPOMOFO: InputScope = 43
+IS_HIRAGANA: InputScope = 44
+IS_KATAKANA_HALFWIDTH: InputScope = 45
+IS_KATAKANA_FULLWIDTH: InputScope = 46
+IS_HANJA: InputScope = 47
+IS_HANGUL_HALFWIDTH: InputScope = 48
+IS_HANGUL_FULLWIDTH: InputScope = 49
+IS_SEARCH: InputScope = 50
+IS_FORMULA: InputScope = 51
+IS_SEARCH_INCREMENTAL: InputScope = 52
+IS_CHINESE_HALFWIDTH: InputScope = 53
+IS_CHINESE_FULLWIDTH: InputScope = 54
+IS_NATIVE_SCRIPT: InputScope = 55
+IS_YOMI: InputScope = 56
+IS_TEXT: InputScope = 57
+IS_CHAT: InputScope = 58
+IS_NAME_OR_PHONENUMBER: InputScope = 59
+IS_EMAILNAME_OR_ADDRESS: InputScope = 60
+IS_PRIVATE: InputScope = 61
+IS_MAPS: InputScope = 62
+IS_NUMERIC_PASSWORD: InputScope = 63
+IS_NUMERIC_PIN: InputScope = 64
+IS_ALPHANUMERIC_PIN: InputScope = 65
+IS_ALPHANUMERIC_PIN_SET: InputScope = 66
+IS_FORMULA_NUMBER: InputScope = 67
+IS_CHAT_WITHOUT_EMOJI: InputScope = 68
+IS_PHRASELIST: InputScope = -1
+IS_REGULAREXPRESSION: InputScope = -2
+IS_SRGS: InputScope = -3
+IS_XML: InputScope = -4
+IS_ENUMSTRING: InputScope = -5
 LANG_BAR_ITEM_ICON_MODE_FLAGS = UInt32
 TF_DTLBI_NONE: LANG_BAR_ITEM_ICON_MODE_FLAGS = 0
 TF_DTLBI_USEPROFILEICON: LANG_BAR_ITEM_ICON_MODE_FLAGS = 1
@@ -2375,6 +2375,35 @@ class TF_SELECTION(Structure):
 class TF_SELECTIONSTYLE(Structure):
     ase: win32more.UI.TextServices.TfActiveSelEnd
     fInterimChar: win32more.Foundation.BOOL
+TKBLayoutType = Int32
+TKBLT_UNDEFINED: TKBLayoutType = 0
+TKBLT_CLASSIC: TKBLayoutType = 1
+TKBLT_OPTIMIZED: TKBLayoutType = 2
+class TS_ATTRVAL(Structure):
+    idAttr: Guid
+    dwOverlapId: UInt32
+    varValue: win32more.System.Com.VARIANT
+class TS_RUNINFO(Structure):
+    uCount: UInt32
+    type: win32more.UI.TextServices.TsRunType
+class TS_SELECTIONSTYLE(Structure):
+    ase: win32more.UI.TextServices.TsActiveSelEnd
+    fInterimChar: win32more.Foundation.BOOL
+class TS_SELECTION_ACP(Structure):
+    acpStart: Int32
+    acpEnd: Int32
+    style: win32more.UI.TextServices.TS_SELECTIONSTYLE
+class TS_SELECTION_ANCHOR(Structure):
+    paStart: win32more.UI.TextServices.IAnchor_head
+    paEnd: win32more.UI.TextServices.IAnchor_head
+    style: win32more.UI.TextServices.TS_SELECTIONSTYLE
+class TS_STATUS(Structure):
+    dwDynamicFlags: UInt32
+    dwStaticFlags: UInt32
+class TS_TEXTCHANGE(Structure):
+    acpStart: Int32
+    acpOldEnd: Int32
+    acpNewEnd: Int32
 TfActiveSelEnd = Int32
 TF_AE_NONE: TfActiveSelEnd = 0
 TF_AE_START: TfActiveSelEnd = 1
@@ -2392,10 +2421,6 @@ TF_GRAVITY_FORWARD: TfGravity = 1
 TfIntegratableCandidateListSelectionStyle = Int32
 STYLE_ACTIVE_SELECTION: TfIntegratableCandidateListSelectionStyle = 0
 STYLE_IMPLIED_SELECTION: TfIntegratableCandidateListSelectionStyle = 1
-TfLayoutCode = Int32
-TF_LC_CREATE: TfLayoutCode = 0
-TF_LC_CHANGE: TfLayoutCode = 1
-TF_LC_DESTROY: TfLayoutCode = 2
 TfLBBalloonStyle = Int32
 TF_LB_BALLOON_RECO: TfLBBalloonStyle = 0
 TF_LB_BALLOON_SHOW: TfLBBalloonStyle = 1
@@ -2403,6 +2428,10 @@ TF_LB_BALLOON_MISS: TfLBBalloonStyle = 2
 TfLBIClick = Int32
 TF_LBI_CLK_RIGHT: TfLBIClick = 1
 TF_LBI_CLK_LEFT: TfLBIClick = 2
+TfLayoutCode = Int32
+TF_LC_CREATE: TfLayoutCode = 0
+TF_LC_CHANGE: TfLayoutCode = 1
+TF_LC_DESTROY: TfLayoutCode = 2
 TfSapiObject = Int32
 GETIF_RESMGR: TfSapiObject = 0
 GETIF_RECOCONTEXT: TfSapiObject = 1
@@ -2413,35 +2442,6 @@ GETIF_RECOGNIZERNOINIT: TfSapiObject = 5
 TfShiftDir = Int32
 TF_SD_BACKWARD: TfShiftDir = 0
 TF_SD_FORWARD: TfShiftDir = 1
-TKBLayoutType = Int32
-TKBLT_UNDEFINED: TKBLayoutType = 0
-TKBLT_CLASSIC: TKBLayoutType = 1
-TKBLT_OPTIMIZED: TKBLayoutType = 2
-class TS_ATTRVAL(Structure):
-    idAttr: Guid
-    dwOverlapId: UInt32
-    varValue: win32more.System.Com.VARIANT
-class TS_RUNINFO(Structure):
-    uCount: UInt32
-    type: win32more.UI.TextServices.TsRunType
-class TS_SELECTION_ACP(Structure):
-    acpStart: Int32
-    acpEnd: Int32
-    style: win32more.UI.TextServices.TS_SELECTIONSTYLE
-class TS_SELECTION_ANCHOR(Structure):
-    paStart: win32more.UI.TextServices.IAnchor_head
-    paEnd: win32more.UI.TextServices.IAnchor_head
-    style: win32more.UI.TextServices.TS_SELECTIONSTYLE
-class TS_SELECTIONSTYLE(Structure):
-    ase: win32more.UI.TextServices.TsActiveSelEnd
-    fInterimChar: win32more.Foundation.BOOL
-class TS_STATUS(Structure):
-    dwDynamicFlags: UInt32
-    dwStaticFlags: UInt32
-class TS_TEXTCHANGE(Structure):
-    acpStart: Int32
-    acpOldEnd: Int32
-    acpNewEnd: Int32
 TsActiveSelEnd = Int32
 TS_AE_NONE: TsActiveSelEnd = 0
 TS_AE_START: TsActiveSelEnd = 1
@@ -2466,14 +2466,14 @@ make_head(_module, 'IAccServerDocMgr')
 make_head(_module, 'IAccStore')
 make_head(_module, 'IAnchor')
 make_head(_module, 'IClonableWrapper')
-make_head(_module, 'ICoCreatedLocally')
 make_head(_module, 'ICoCreateLocally')
+make_head(_module, 'ICoCreatedLocally')
 make_head(_module, 'IDocWrap')
 make_head(_module, 'IEnumITfCompositionView')
 make_head(_module, 'IEnumSpeechCommands')
 make_head(_module, 'IEnumTfCandidates')
-make_head(_module, 'IEnumTfContexts')
 make_head(_module, 'IEnumTfContextViews')
+make_head(_module, 'IEnumTfContexts')
 make_head(_module, 'IEnumTfDisplayAttributeInfo')
 make_head(_module, 'IEnumTfDocumentMgrs')
 make_head(_module, 'IEnumTfFunctionProviders')
@@ -2539,9 +2539,9 @@ make_head(_module, 'ITfFnCustomSpeechCommand')
 make_head(_module, 'ITfFnGetLinguisticAlternates')
 make_head(_module, 'ITfFnGetPreferredTouchKeyboardLayout')
 make_head(_module, 'ITfFnGetSAPIObject')
-make_head(_module, 'ITfFnLangProfileUtil')
 make_head(_module, 'ITfFnLMInternal')
 make_head(_module, 'ITfFnLMProcessor')
+make_head(_module, 'ITfFnLangProfileUtil')
 make_head(_module, 'ITfFnPlayBack')
 make_head(_module, 'ITfFnPropertyUIStatus')
 make_head(_module, 'ITfFnReconversion')
@@ -2551,16 +2551,17 @@ make_head(_module, 'ITfFunction')
 make_head(_module, 'ITfFunctionProvider')
 make_head(_module, 'ITfInputProcessorProfileActivationSink')
 make_head(_module, 'ITfInputProcessorProfileMgr')
+make_head(_module, 'ITfInputProcessorProfileSubstituteLayout')
 make_head(_module, 'ITfInputProcessorProfiles')
 make_head(_module, 'ITfInputProcessorProfilesEx')
-make_head(_module, 'ITfInputProcessorProfileSubstituteLayout')
 make_head(_module, 'ITfInputScope')
 make_head(_module, 'ITfInputScope2')
 make_head(_module, 'ITfInsertAtSelection')
 make_head(_module, 'ITfIntegratableCandidateListUIElement')
 make_head(_module, 'ITfKeyEventSink')
-make_head(_module, 'ITfKeystrokeMgr')
 make_head(_module, 'ITfKeyTraceEventSink')
+make_head(_module, 'ITfKeystrokeMgr')
+make_head(_module, 'ITfLMLattice')
 make_head(_module, 'ITfLangBarEventSink')
 make_head(_module, 'ITfLangBarItem')
 make_head(_module, 'ITfLangBarItemBalloon')
@@ -2571,13 +2572,12 @@ make_head(_module, 'ITfLangBarItemMgr')
 make_head(_module, 'ITfLangBarItemSink')
 make_head(_module, 'ITfLangBarMgr')
 make_head(_module, 'ITfLanguageProfileNotifySink')
-make_head(_module, 'ITfLMLattice')
+make_head(_module, 'ITfMSAAControl')
 make_head(_module, 'ITfMenu')
 make_head(_module, 'ITfMessagePump')
 make_head(_module, 'ITfMouseSink')
 make_head(_module, 'ITfMouseTracker')
 make_head(_module, 'ITfMouseTrackerACP')
-make_head(_module, 'ITfMSAAControl')
 make_head(_module, 'ITfPersistentPropertyLoaderACP')
 make_head(_module, 'ITfPreservedKeyNotifySink')
 make_head(_module, 'ITfProperty')
@@ -2586,8 +2586,8 @@ make_head(_module, 'ITfQueryEmbedded')
 make_head(_module, 'ITfRange')
 make_head(_module, 'ITfRangeACP')
 make_head(_module, 'ITfRangeBackup')
-make_head(_module, 'ITfReadingInformationUIElement')
 make_head(_module, 'ITfReadOnlyProperty')
+make_head(_module, 'ITfReadingInformationUIElement')
 make_head(_module, 'ITfReverseConversion')
 make_head(_module, 'ITfReverseConversionList')
 make_head(_module, 'ITfReverseConversionMgr')
@@ -2631,9 +2631,9 @@ make_head(_module, 'TF_SELECTION')
 make_head(_module, 'TF_SELECTIONSTYLE')
 make_head(_module, 'TS_ATTRVAL')
 make_head(_module, 'TS_RUNINFO')
+make_head(_module, 'TS_SELECTIONSTYLE')
 make_head(_module, 'TS_SELECTION_ACP')
 make_head(_module, 'TS_SELECTION_ANCHOR')
-make_head(_module, 'TS_SELECTIONSTYLE')
 make_head(_module, 'TS_STATUS')
 make_head(_module, 'TS_TEXTCHANGE')
 __all__ = [

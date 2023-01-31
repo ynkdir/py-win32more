@@ -102,6 +102,10 @@ class BSMINFO(Structure):
     hdesk: win32more.System.StationsAndDesktops.HDESK
     hwnd: win32more.Foundation.HWND
     luid: win32more.Foundation.LUID
+@winfunctype_pointer
+def DESKTOPENUMPROCA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
+@winfunctype_pointer
+def DESKTOPENUMPROCW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
 DESKTOP_ACCESS_FLAGS = UInt32
 DESKTOP_DELETE: DESKTOP_ACCESS_FLAGS = 65536
 DESKTOP_READ_CONTROL: DESKTOP_ACCESS_FLAGS = 131072
@@ -119,12 +123,12 @@ DESKTOP_WRITEOBJECTS: DESKTOP_ACCESS_FLAGS = 128
 DESKTOP_SWITCHDESKTOP: DESKTOP_ACCESS_FLAGS = 256
 DESKTOP_CONTROL_FLAGS = UInt32
 DF_ALLOWOTHERACCOUNTHOOK: DESKTOP_CONTROL_FLAGS = 1
-@winfunctype_pointer
-def DESKTOPENUMPROCA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
-@winfunctype_pointer
-def DESKTOPENUMPROCW(param0: win32more.Foundation.PWSTR, param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
 HDESK = IntPtr
 HWINSTA = IntPtr
+class USEROBJECTFLAGS(Structure):
+    fInherit: win32more.Foundation.BOOL
+    fReserved: win32more.Foundation.BOOL
+    dwFlags: UInt32
 USER_OBJECT_INFORMATION_INDEX = UInt32
 UOI_FLAGS: USER_OBJECT_INFORMATION_INDEX = 1
 UOI_HEAPSIZE: USER_OBJECT_INFORMATION_INDEX = 5
@@ -132,10 +136,6 @@ UOI_IO: USER_OBJECT_INFORMATION_INDEX = 6
 UOI_NAME: USER_OBJECT_INFORMATION_INDEX = 2
 UOI_TYPE: USER_OBJECT_INFORMATION_INDEX = 3
 UOI_USER_SID: USER_OBJECT_INFORMATION_INDEX = 4
-class USEROBJECTFLAGS(Structure):
-    fInherit: win32more.Foundation.BOOL
-    fReserved: win32more.Foundation.BOOL
-    dwFlags: UInt32
 @winfunctype_pointer
 def WINSTAENUMPROCA(param0: win32more.Foundation.PSTR, param1: win32more.Foundation.LPARAM) -> win32more.Foundation.BOOL: ...
 @winfunctype_pointer

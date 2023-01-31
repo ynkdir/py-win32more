@@ -26,8 +26,84 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
-AccessControlEntry = Guid('b75ac000-9bdd-11d0-85-2c-00-c0-4f-d8-d5-03')
-AccessControlList = Guid('b85ea052-9bdd-11d0-85-2c-00-c0-4f-d8-d5-03')
+ADSI_DIALECT_ENUM = Int32
+ADSI_DIALECT_LDAP: ADSI_DIALECT_ENUM = 0
+ADSI_DIALECT_SQL: ADSI_DIALECT_ENUM = 1
+class ADSPROPERROR(Structure):
+    hwndPage: win32more.Foundation.HWND
+    pszPageTitle: win32more.Foundation.PWSTR
+    pszObjPath: win32more.Foundation.PWSTR
+    pszObjClass: win32more.Foundation.PWSTR
+    hr: win32more.Foundation.HRESULT
+    pszError: win32more.Foundation.PWSTR
+class ADSPROPINITPARAMS(Structure):
+    dwSize: UInt32
+    dwFlags: UInt32
+    hr: win32more.Foundation.HRESULT
+    pDsObj: win32more.Networking.ActiveDirectory.IDirectoryObject_head
+    pwzCN: win32more.Foundation.PWSTR
+    pWritableAttrs: POINTER(win32more.Networking.ActiveDirectory.ADS_ATTR_INFO_head)
+ADSTYPE = Int32
+ADSTYPE_INVALID: ADSTYPE = 0
+ADSTYPE_DN_STRING: ADSTYPE = 1
+ADSTYPE_CASE_EXACT_STRING: ADSTYPE = 2
+ADSTYPE_CASE_IGNORE_STRING: ADSTYPE = 3
+ADSTYPE_PRINTABLE_STRING: ADSTYPE = 4
+ADSTYPE_NUMERIC_STRING: ADSTYPE = 5
+ADSTYPE_BOOLEAN: ADSTYPE = 6
+ADSTYPE_INTEGER: ADSTYPE = 7
+ADSTYPE_OCTET_STRING: ADSTYPE = 8
+ADSTYPE_UTC_TIME: ADSTYPE = 9
+ADSTYPE_LARGE_INTEGER: ADSTYPE = 10
+ADSTYPE_PROV_SPECIFIC: ADSTYPE = 11
+ADSTYPE_OBJECT_CLASS: ADSTYPE = 12
+ADSTYPE_CASEIGNORE_LIST: ADSTYPE = 13
+ADSTYPE_OCTET_LIST: ADSTYPE = 14
+ADSTYPE_PATH: ADSTYPE = 15
+ADSTYPE_POSTALADDRESS: ADSTYPE = 16
+ADSTYPE_TIMESTAMP: ADSTYPE = 17
+ADSTYPE_BACKLINK: ADSTYPE = 18
+ADSTYPE_TYPEDNAME: ADSTYPE = 19
+ADSTYPE_HOLD: ADSTYPE = 20
+ADSTYPE_NETADDRESS: ADSTYPE = 21
+ADSTYPE_REPLICAPOINTER: ADSTYPE = 22
+ADSTYPE_FAXNUMBER: ADSTYPE = 23
+ADSTYPE_EMAIL: ADSTYPE = 24
+ADSTYPE_NT_SECURITY_DESCRIPTOR: ADSTYPE = 25
+ADSTYPE_UNKNOWN: ADSTYPE = 26
+ADSTYPE_DN_WITH_BINARY: ADSTYPE = 27
+ADSTYPE_DN_WITH_STRING: ADSTYPE = 28
+class ADSVALUE(Structure):
+    dwType: win32more.Networking.ActiveDirectory.ADSTYPE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        DNString: POINTER(UInt16)
+        CaseExactString: POINTER(UInt16)
+        CaseIgnoreString: POINTER(UInt16)
+        PrintableString: POINTER(UInt16)
+        NumericString: POINTER(UInt16)
+        Boolean: UInt32
+        Integer: UInt32
+        OctetString: win32more.Networking.ActiveDirectory.ADS_OCTET_STRING
+        UTCTime: win32more.Foundation.SYSTEMTIME
+        LargeInteger: win32more.Foundation.LARGE_INTEGER
+        ClassName: POINTER(UInt16)
+        ProviderSpecific: win32more.Networking.ActiveDirectory.ADS_PROV_SPECIFIC
+        pCaseIgnoreList: POINTER(win32more.Networking.ActiveDirectory.ADS_CASEIGNORE_LIST_head)
+        pOctetList: POINTER(win32more.Networking.ActiveDirectory.ADS_OCTET_LIST_head)
+        pPath: POINTER(win32more.Networking.ActiveDirectory.ADS_PATH_head)
+        pPostalAddress: POINTER(win32more.Networking.ActiveDirectory.ADS_POSTALADDRESS_head)
+        Timestamp: win32more.Networking.ActiveDirectory.ADS_TIMESTAMP
+        BackLink: win32more.Networking.ActiveDirectory.ADS_BACKLINK
+        pTypedName: POINTER(win32more.Networking.ActiveDirectory.ADS_TYPEDNAME_head)
+        Hold: win32more.Networking.ActiveDirectory.ADS_HOLD
+        pNetAddress: POINTER(win32more.Networking.ActiveDirectory.ADS_NETADDRESS_head)
+        pReplicaPointer: POINTER(win32more.Networking.ActiveDirectory.ADS_REPLICAPOINTER_head)
+        pFaxNumber: POINTER(win32more.Networking.ActiveDirectory.ADS_FAXNUMBER_head)
+        Email: win32more.Networking.ActiveDirectory.ADS_EMAIL
+        SecurityDescriptor: win32more.Networking.ActiveDirectory.ADS_NT_SECURITY_DESCRIPTOR
+        pDNWithBinary: POINTER(win32more.Networking.ActiveDirectory.ADS_DN_WITH_BINARY_head)
+        pDNWithString: POINTER(win32more.Networking.ActiveDirectory.ADS_DN_WITH_STRING_head)
 ADS_ACEFLAG_ENUM = Int32
 ADS_ACEFLAG_INHERIT_ACE: ADS_ACEFLAG_ENUM = 2
 ADS_ACEFLAG_NO_PROPAGATE_INHERIT_ACE: ADS_ACEFLAG_ENUM = 4
@@ -284,13 +360,6 @@ ADS_SD_FORMAT_RAW: ADS_SD_FORMAT_ENUM = 2
 ADS_SD_FORMAT_HEXSTRING: ADS_SD_FORMAT_ENUM = 3
 ADS_SD_REVISION_ENUM = Int32
 ADS_SD_REVISION_DS: ADS_SD_REVISION_ENUM = 4
-class ADS_SEARCH_COLUMN(Structure):
-    pszAttrName: win32more.Foundation.PWSTR
-    dwADsType: win32more.Networking.ActiveDirectory.ADSTYPE
-    pADsValues: POINTER(win32more.Networking.ActiveDirectory.ADSVALUE_head)
-    dwNumValues: UInt32
-    hReserved: win32more.Foundation.HANDLE
-ADS_SEARCH_HANDLE = IntPtr
 ADS_SEARCHPREF_ENUM = Int32
 ADS_SEARCHPREF_ASYNCHRONOUS: ADS_SEARCHPREF_ENUM = 0
 ADS_SEARCHPREF_DEREF_ALIASES: ADS_SEARCHPREF_ENUM = 1
@@ -315,6 +384,13 @@ class ADS_SEARCHPREF_INFO(Structure):
     dwSearchPref: win32more.Networking.ActiveDirectory.ADS_SEARCHPREF_ENUM
     vValue: win32more.Networking.ActiveDirectory.ADSVALUE
     dwStatus: win32more.Networking.ActiveDirectory.ADS_STATUSENUM
+class ADS_SEARCH_COLUMN(Structure):
+    pszAttrName: win32more.Foundation.PWSTR
+    dwADsType: win32more.Networking.ActiveDirectory.ADSTYPE
+    pADsValues: POINTER(win32more.Networking.ActiveDirectory.ADSVALUE_head)
+    dwNumValues: UInt32
+    hReserved: win32more.Foundation.HANDLE
+ADS_SEARCH_HANDLE = IntPtr
 ADS_SECURITY_INFO_ENUM = Int32
 ADS_SECURITY_INFO_OWNER: ADS_SECURITY_INFO_ENUM = 1
 ADS_SECURITY_INFO_GROUP: ADS_SECURITY_INFO_ENUM = 2
@@ -381,86 +457,10 @@ class ADS_VLV(Structure):
     pszTarget: win32more.Foundation.PWSTR
     dwContextIDLength: UInt32
     lpContextID: c_char_p_no
-ADSI_DIALECT_ENUM = Int32
-ADSI_DIALECT_LDAP: ADSI_DIALECT_ENUM = 0
-ADSI_DIALECT_SQL: ADSI_DIALECT_ENUM = 1
-class ADSPROPERROR(Structure):
-    hwndPage: win32more.Foundation.HWND
-    pszPageTitle: win32more.Foundation.PWSTR
-    pszObjPath: win32more.Foundation.PWSTR
-    pszObjClass: win32more.Foundation.PWSTR
-    hr: win32more.Foundation.HRESULT
-    pszError: win32more.Foundation.PWSTR
-class ADSPROPINITPARAMS(Structure):
-    dwSize: UInt32
-    dwFlags: UInt32
-    hr: win32more.Foundation.HRESULT
-    pDsObj: win32more.Networking.ActiveDirectory.IDirectoryObject_head
-    pwzCN: win32more.Foundation.PWSTR
-    pWritableAttrs: POINTER(win32more.Networking.ActiveDirectory.ADS_ATTR_INFO_head)
-ADsSecurityUtility = Guid('f270c64a-ffb8-4ae4-85-fe-3a-75-e5-34-79-66')
-ADSTYPE = Int32
-ADSTYPE_INVALID: ADSTYPE = 0
-ADSTYPE_DN_STRING: ADSTYPE = 1
-ADSTYPE_CASE_EXACT_STRING: ADSTYPE = 2
-ADSTYPE_CASE_IGNORE_STRING: ADSTYPE = 3
-ADSTYPE_PRINTABLE_STRING: ADSTYPE = 4
-ADSTYPE_NUMERIC_STRING: ADSTYPE = 5
-ADSTYPE_BOOLEAN: ADSTYPE = 6
-ADSTYPE_INTEGER: ADSTYPE = 7
-ADSTYPE_OCTET_STRING: ADSTYPE = 8
-ADSTYPE_UTC_TIME: ADSTYPE = 9
-ADSTYPE_LARGE_INTEGER: ADSTYPE = 10
-ADSTYPE_PROV_SPECIFIC: ADSTYPE = 11
-ADSTYPE_OBJECT_CLASS: ADSTYPE = 12
-ADSTYPE_CASEIGNORE_LIST: ADSTYPE = 13
-ADSTYPE_OCTET_LIST: ADSTYPE = 14
-ADSTYPE_PATH: ADSTYPE = 15
-ADSTYPE_POSTALADDRESS: ADSTYPE = 16
-ADSTYPE_TIMESTAMP: ADSTYPE = 17
-ADSTYPE_BACKLINK: ADSTYPE = 18
-ADSTYPE_TYPEDNAME: ADSTYPE = 19
-ADSTYPE_HOLD: ADSTYPE = 20
-ADSTYPE_NETADDRESS: ADSTYPE = 21
-ADSTYPE_REPLICAPOINTER: ADSTYPE = 22
-ADSTYPE_FAXNUMBER: ADSTYPE = 23
-ADSTYPE_EMAIL: ADSTYPE = 24
-ADSTYPE_NT_SECURITY_DESCRIPTOR: ADSTYPE = 25
-ADSTYPE_UNKNOWN: ADSTYPE = 26
-ADSTYPE_DN_WITH_BINARY: ADSTYPE = 27
-ADSTYPE_DN_WITH_STRING: ADSTYPE = 28
-class ADSVALUE(Structure):
-    dwType: win32more.Networking.ActiveDirectory.ADSTYPE
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(Union):
-        DNString: POINTER(UInt16)
-        CaseExactString: POINTER(UInt16)
-        CaseIgnoreString: POINTER(UInt16)
-        PrintableString: POINTER(UInt16)
-        NumericString: POINTER(UInt16)
-        Boolean: UInt32
-        Integer: UInt32
-        OctetString: win32more.Networking.ActiveDirectory.ADS_OCTET_STRING
-        UTCTime: win32more.Foundation.SYSTEMTIME
-        LargeInteger: win32more.Foundation.LARGE_INTEGER
-        ClassName: POINTER(UInt16)
-        ProviderSpecific: win32more.Networking.ActiveDirectory.ADS_PROV_SPECIFIC
-        pCaseIgnoreList: POINTER(win32more.Networking.ActiveDirectory.ADS_CASEIGNORE_LIST_head)
-        pOctetList: POINTER(win32more.Networking.ActiveDirectory.ADS_OCTET_LIST_head)
-        pPath: POINTER(win32more.Networking.ActiveDirectory.ADS_PATH_head)
-        pPostalAddress: POINTER(win32more.Networking.ActiveDirectory.ADS_POSTALADDRESS_head)
-        Timestamp: win32more.Networking.ActiveDirectory.ADS_TIMESTAMP
-        BackLink: win32more.Networking.ActiveDirectory.ADS_BACKLINK
-        pTypedName: POINTER(win32more.Networking.ActiveDirectory.ADS_TYPEDNAME_head)
-        Hold: win32more.Networking.ActiveDirectory.ADS_HOLD
-        pNetAddress: POINTER(win32more.Networking.ActiveDirectory.ADS_NETADDRESS_head)
-        pReplicaPointer: POINTER(win32more.Networking.ActiveDirectory.ADS_REPLICAPOINTER_head)
-        pFaxNumber: POINTER(win32more.Networking.ActiveDirectory.ADS_FAXNUMBER_head)
-        Email: win32more.Networking.ActiveDirectory.ADS_EMAIL
-        SecurityDescriptor: win32more.Networking.ActiveDirectory.ADS_NT_SECURITY_DESCRIPTOR
-        pDNWithBinary: POINTER(win32more.Networking.ActiveDirectory.ADS_DN_WITH_BINARY_head)
-        pDNWithString: POINTER(win32more.Networking.ActiveDirectory.ADS_DN_WITH_STRING_head)
 ADSystemInfo = Guid('50b6327f-afd1-11d2-9c-b9-00-00-f8-7a-36-9e')
+ADsSecurityUtility = Guid('f270c64a-ffb8-4ae4-85-fe-3a-75-e5-34-79-66')
+AccessControlEntry = Guid('b75ac000-9bdd-11d0-85-2c-00-c0-4f-d8-d5-03')
+AccessControlList = Guid('b85ea052-9bdd-11d0-85-2c-00-c0-4f-d8-d5-03')
 WM_ADSPROP_NOTIFY_PAGEINIT: UInt32 = 2125
 WM_ADSPROP_NOTIFY_PAGEHWND: UInt32 = 2126
 WM_ADSPROP_NOTIFY_CHANGE: UInt32 = 2127
@@ -1480,7 +1480,6 @@ def DsGetDcNextA(GetDcContextHandle: win32more.Foundation.HANDLE, SockAddressCou
 @winfunctype('NETAPI32.dll')
 def DsGetDcCloseW(GetDcContextHandle: win32more.Networking.ActiveDirectory.GetDcContextHandle) -> Void: ...
 BackLink = Guid('fcbf906f-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
-CaseIgnoreList = Guid('15f88a55-4680-11d1-a3-b4-00-c0-4f-b9-50-dc')
 class CQFORM(Structure):
     cbStruct: UInt32
     dwFlags: UInt32
@@ -1496,8 +1495,19 @@ class CQPAGE(Structure):
     idPageTemplate: Int32
     pDlgProc: win32more.UI.WindowsAndMessaging.DLGPROC
     lParam: win32more.Foundation.LPARAM
+CaseIgnoreList = Guid('15f88a55-4680-11d1-a3-b4-00-c0-4f-b9-50-dc')
 DNWithBinary = Guid('7e99c0a3-f935-11d2-ba-96-00-c0-4f-b6-d0-d1')
 DNWithString = Guid('334857cc-f934-11d2-ba-96-00-c0-4f-b6-d0-d1')
+class DOMAINDESC(Structure):
+    pszName: win32more.Foundation.PWSTR
+    pszPath: win32more.Foundation.PWSTR
+    pszNCName: win32more.Foundation.PWSTR
+    pszTrustParent: win32more.Foundation.PWSTR
+    pszObjectClass: win32more.Foundation.PWSTR
+    ulFlags: UInt32
+    fDownLevel: win32more.Foundation.BOOL
+    pdChildList: POINTER(win32more.Networking.ActiveDirectory.DOMAINDESC_head)
+    pdNextSibling: POINTER(win32more.Networking.ActiveDirectory.DOMAINDESC_head)
 class DOMAIN_CONTROLLER_INFOA(Structure):
     DomainControllerName: win32more.Foundation.PSTR
     DomainControllerAddress: win32more.Foundation.PSTR
@@ -1522,481 +1532,6 @@ class DOMAIN_TREE(Structure):
     dsSize: UInt32
     dwCount: UInt32
     aDomains: win32more.Networking.ActiveDirectory.DOMAINDESC * 1
-class DOMAINDESC(Structure):
-    pszName: win32more.Foundation.PWSTR
-    pszPath: win32more.Foundation.PWSTR
-    pszNCName: win32more.Foundation.PWSTR
-    pszTrustParent: win32more.Foundation.PWSTR
-    pszObjectClass: win32more.Foundation.PWSTR
-    ulFlags: UInt32
-    fDownLevel: win32more.Foundation.BOOL
-    pdChildList: POINTER(win32more.Networking.ActiveDirectory.DOMAINDESC_head)
-    pdNextSibling: POINTER(win32more.Networking.ActiveDirectory.DOMAINDESC_head)
-class DS_DOMAIN_CONTROLLER_INFO_1A(Structure):
-    NetbiosName: win32more.Foundation.PSTR
-    DnsHostName: win32more.Foundation.PSTR
-    SiteName: win32more.Foundation.PSTR
-    ComputerObjectName: win32more.Foundation.PSTR
-    ServerObjectName: win32more.Foundation.PSTR
-    fIsPdc: win32more.Foundation.BOOL
-    fDsEnabled: win32more.Foundation.BOOL
-class DS_DOMAIN_CONTROLLER_INFO_1W(Structure):
-    NetbiosName: win32more.Foundation.PWSTR
-    DnsHostName: win32more.Foundation.PWSTR
-    SiteName: win32more.Foundation.PWSTR
-    ComputerObjectName: win32more.Foundation.PWSTR
-    ServerObjectName: win32more.Foundation.PWSTR
-    fIsPdc: win32more.Foundation.BOOL
-    fDsEnabled: win32more.Foundation.BOOL
-class DS_DOMAIN_CONTROLLER_INFO_2A(Structure):
-    NetbiosName: win32more.Foundation.PSTR
-    DnsHostName: win32more.Foundation.PSTR
-    SiteName: win32more.Foundation.PSTR
-    SiteObjectName: win32more.Foundation.PSTR
-    ComputerObjectName: win32more.Foundation.PSTR
-    ServerObjectName: win32more.Foundation.PSTR
-    NtdsDsaObjectName: win32more.Foundation.PSTR
-    fIsPdc: win32more.Foundation.BOOL
-    fDsEnabled: win32more.Foundation.BOOL
-    fIsGc: win32more.Foundation.BOOL
-    SiteObjectGuid: Guid
-    ComputerObjectGuid: Guid
-    ServerObjectGuid: Guid
-    NtdsDsaObjectGuid: Guid
-class DS_DOMAIN_CONTROLLER_INFO_2W(Structure):
-    NetbiosName: win32more.Foundation.PWSTR
-    DnsHostName: win32more.Foundation.PWSTR
-    SiteName: win32more.Foundation.PWSTR
-    SiteObjectName: win32more.Foundation.PWSTR
-    ComputerObjectName: win32more.Foundation.PWSTR
-    ServerObjectName: win32more.Foundation.PWSTR
-    NtdsDsaObjectName: win32more.Foundation.PWSTR
-    fIsPdc: win32more.Foundation.BOOL
-    fDsEnabled: win32more.Foundation.BOOL
-    fIsGc: win32more.Foundation.BOOL
-    SiteObjectGuid: Guid
-    ComputerObjectGuid: Guid
-    ServerObjectGuid: Guid
-    NtdsDsaObjectGuid: Guid
-class DS_DOMAIN_CONTROLLER_INFO_3A(Structure):
-    NetbiosName: win32more.Foundation.PSTR
-    DnsHostName: win32more.Foundation.PSTR
-    SiteName: win32more.Foundation.PSTR
-    SiteObjectName: win32more.Foundation.PSTR
-    ComputerObjectName: win32more.Foundation.PSTR
-    ServerObjectName: win32more.Foundation.PSTR
-    NtdsDsaObjectName: win32more.Foundation.PSTR
-    fIsPdc: win32more.Foundation.BOOL
-    fDsEnabled: win32more.Foundation.BOOL
-    fIsGc: win32more.Foundation.BOOL
-    fIsRodc: win32more.Foundation.BOOL
-    SiteObjectGuid: Guid
-    ComputerObjectGuid: Guid
-    ServerObjectGuid: Guid
-    NtdsDsaObjectGuid: Guid
-class DS_DOMAIN_CONTROLLER_INFO_3W(Structure):
-    NetbiosName: win32more.Foundation.PWSTR
-    DnsHostName: win32more.Foundation.PWSTR
-    SiteName: win32more.Foundation.PWSTR
-    SiteObjectName: win32more.Foundation.PWSTR
-    ComputerObjectName: win32more.Foundation.PWSTR
-    ServerObjectName: win32more.Foundation.PWSTR
-    NtdsDsaObjectName: win32more.Foundation.PWSTR
-    fIsPdc: win32more.Foundation.BOOL
-    fDsEnabled: win32more.Foundation.BOOL
-    fIsGc: win32more.Foundation.BOOL
-    fIsRodc: win32more.Foundation.BOOL
-    SiteObjectGuid: Guid
-    ComputerObjectGuid: Guid
-    ServerObjectGuid: Guid
-    NtdsDsaObjectGuid: Guid
-class DS_DOMAIN_TRUSTSA(Structure):
-    NetbiosDomainName: win32more.Foundation.PSTR
-    DnsDomainName: win32more.Foundation.PSTR
-    Flags: UInt32
-    ParentIndex: UInt32
-    TrustType: UInt32
-    TrustAttributes: UInt32
-    DomainSid: win32more.Foundation.PSID
-    DomainGuid: Guid
-class DS_DOMAIN_TRUSTSW(Structure):
-    NetbiosDomainName: win32more.Foundation.PWSTR
-    DnsDomainName: win32more.Foundation.PWSTR
-    Flags: UInt32
-    ParentIndex: UInt32
-    TrustType: UInt32
-    TrustAttributes: UInt32
-    DomainSid: win32more.Foundation.PSID
-    DomainGuid: Guid
-DS_KCC_TASKID = Int32
-DS_KCC_TASKID_UPDATE_TOPOLOGY: DS_KCC_TASKID = 0
-DS_MANGLE_FOR = Int32
-DS_MANGLE_UNKNOWN: DS_MANGLE_FOR = 0
-DS_MANGLE_OBJECT_RDN_FOR_DELETION: DS_MANGLE_FOR = 1
-DS_MANGLE_OBJECT_RDN_FOR_NAME_CONFLICT: DS_MANGLE_FOR = 2
-DS_NAME_ERROR = Int32
-DS_NAME_NO_ERROR: DS_NAME_ERROR = 0
-DS_NAME_ERROR_RESOLVING: DS_NAME_ERROR = 1
-DS_NAME_ERROR_NOT_FOUND: DS_NAME_ERROR = 2
-DS_NAME_ERROR_NOT_UNIQUE: DS_NAME_ERROR = 3
-DS_NAME_ERROR_NO_MAPPING: DS_NAME_ERROR = 4
-DS_NAME_ERROR_DOMAIN_ONLY: DS_NAME_ERROR = 5
-DS_NAME_ERROR_NO_SYNTACTICAL_MAPPING: DS_NAME_ERROR = 6
-DS_NAME_ERROR_TRUST_REFERRAL: DS_NAME_ERROR = 7
-DS_NAME_FLAGS = Int32
-DS_NAME_NO_FLAGS: DS_NAME_FLAGS = 0
-DS_NAME_FLAG_SYNTACTICAL_ONLY: DS_NAME_FLAGS = 1
-DS_NAME_FLAG_EVAL_AT_DC: DS_NAME_FLAGS = 2
-DS_NAME_FLAG_GCVERIFY: DS_NAME_FLAGS = 4
-DS_NAME_FLAG_TRUST_REFERRAL: DS_NAME_FLAGS = 8
-DS_NAME_FORMAT = Int32
-DS_UNKNOWN_NAME: DS_NAME_FORMAT = 0
-DS_FQDN_1779_NAME: DS_NAME_FORMAT = 1
-DS_NT4_ACCOUNT_NAME: DS_NAME_FORMAT = 2
-DS_DISPLAY_NAME: DS_NAME_FORMAT = 3
-DS_UNIQUE_ID_NAME: DS_NAME_FORMAT = 6
-DS_CANONICAL_NAME: DS_NAME_FORMAT = 7
-DS_USER_PRINCIPAL_NAME: DS_NAME_FORMAT = 8
-DS_CANONICAL_NAME_EX: DS_NAME_FORMAT = 9
-DS_SERVICE_PRINCIPAL_NAME: DS_NAME_FORMAT = 10
-DS_SID_OR_SID_HISTORY_NAME: DS_NAME_FORMAT = 11
-DS_DNS_DOMAIN_NAME: DS_NAME_FORMAT = 12
-class DS_NAME_RESULT_ITEMA(Structure):
-    status: UInt32
-    pDomain: win32more.Foundation.PSTR
-    pName: win32more.Foundation.PSTR
-class DS_NAME_RESULT_ITEMW(Structure):
-    status: UInt32
-    pDomain: win32more.Foundation.PWSTR
-    pName: win32more.Foundation.PWSTR
-class DS_NAME_RESULTA(Structure):
-    cItems: UInt32
-    rItems: POINTER(win32more.Networking.ActiveDirectory.DS_NAME_RESULT_ITEMA_head)
-class DS_NAME_RESULTW(Structure):
-    cItems: UInt32
-    rItems: POINTER(win32more.Networking.ActiveDirectory.DS_NAME_RESULT_ITEMW_head)
-class DS_REPL_ATTR_META_DATA(Structure):
-    pszAttributeName: win32more.Foundation.PWSTR
-    dwVersion: UInt32
-    ftimeLastOriginatingChange: win32more.Foundation.FILETIME
-    uuidLastOriginatingDsaInvocationID: Guid
-    usnOriginatingChange: Int64
-    usnLocalChange: Int64
-class DS_REPL_ATTR_META_DATA_2(Structure):
-    pszAttributeName: win32more.Foundation.PWSTR
-    dwVersion: UInt32
-    ftimeLastOriginatingChange: win32more.Foundation.FILETIME
-    uuidLastOriginatingDsaInvocationID: Guid
-    usnOriginatingChange: Int64
-    usnLocalChange: Int64
-    pszLastOriginatingDsaDN: win32more.Foundation.PWSTR
-class DS_REPL_ATTR_META_DATA_BLOB(Structure):
-    oszAttributeName: UInt32
-    dwVersion: UInt32
-    ftimeLastOriginatingChange: win32more.Foundation.FILETIME
-    uuidLastOriginatingDsaInvocationID: Guid
-    usnOriginatingChange: Int64
-    usnLocalChange: Int64
-    oszLastOriginatingDsaDN: UInt32
-class DS_REPL_ATTR_VALUE_META_DATA(Structure):
-    cNumEntries: UInt32
-    dwEnumerationContext: UInt32
-    rgMetaData: win32more.Networking.ActiveDirectory.DS_REPL_VALUE_META_DATA * 1
-class DS_REPL_ATTR_VALUE_META_DATA_2(Structure):
-    cNumEntries: UInt32
-    dwEnumerationContext: UInt32
-    rgMetaData: win32more.Networking.ActiveDirectory.DS_REPL_VALUE_META_DATA_2 * 1
-class DS_REPL_ATTR_VALUE_META_DATA_EXT(Structure):
-    cNumEntries: UInt32
-    dwEnumerationContext: UInt32
-    rgMetaData: win32more.Networking.ActiveDirectory.DS_REPL_VALUE_META_DATA_EXT * 1
-class DS_REPL_CURSOR(Structure):
-    uuidSourceDsaInvocationID: Guid
-    usnAttributeFilter: Int64
-class DS_REPL_CURSOR_2(Structure):
-    uuidSourceDsaInvocationID: Guid
-    usnAttributeFilter: Int64
-    ftimeLastSyncSuccess: win32more.Foundation.FILETIME
-class DS_REPL_CURSOR_3W(Structure):
-    uuidSourceDsaInvocationID: Guid
-    usnAttributeFilter: Int64
-    ftimeLastSyncSuccess: win32more.Foundation.FILETIME
-    pszSourceDsaDN: win32more.Foundation.PWSTR
-class DS_REPL_CURSOR_BLOB(Structure):
-    uuidSourceDsaInvocationID: Guid
-    usnAttributeFilter: Int64
-    ftimeLastSyncSuccess: win32more.Foundation.FILETIME
-    oszSourceDsaDN: UInt32
-class DS_REPL_CURSORS(Structure):
-    cNumCursors: UInt32
-    dwReserved: UInt32
-    rgCursor: win32more.Networking.ActiveDirectory.DS_REPL_CURSOR * 1
-class DS_REPL_CURSORS_2(Structure):
-    cNumCursors: UInt32
-    dwEnumerationContext: UInt32
-    rgCursor: win32more.Networking.ActiveDirectory.DS_REPL_CURSOR_2 * 1
-class DS_REPL_CURSORS_3W(Structure):
-    cNumCursors: UInt32
-    dwEnumerationContext: UInt32
-    rgCursor: win32more.Networking.ActiveDirectory.DS_REPL_CURSOR_3W * 1
-DS_REPL_INFO_TYPE = Int32
-DS_REPL_INFO_NEIGHBORS: DS_REPL_INFO_TYPE = 0
-DS_REPL_INFO_CURSORS_FOR_NC: DS_REPL_INFO_TYPE = 1
-DS_REPL_INFO_METADATA_FOR_OBJ: DS_REPL_INFO_TYPE = 2
-DS_REPL_INFO_KCC_DSA_CONNECT_FAILURES: DS_REPL_INFO_TYPE = 3
-DS_REPL_INFO_KCC_DSA_LINK_FAILURES: DS_REPL_INFO_TYPE = 4
-DS_REPL_INFO_PENDING_OPS: DS_REPL_INFO_TYPE = 5
-DS_REPL_INFO_METADATA_FOR_ATTR_VALUE: DS_REPL_INFO_TYPE = 6
-DS_REPL_INFO_CURSORS_2_FOR_NC: DS_REPL_INFO_TYPE = 7
-DS_REPL_INFO_CURSORS_3_FOR_NC: DS_REPL_INFO_TYPE = 8
-DS_REPL_INFO_METADATA_2_FOR_OBJ: DS_REPL_INFO_TYPE = 9
-DS_REPL_INFO_METADATA_2_FOR_ATTR_VALUE: DS_REPL_INFO_TYPE = 10
-DS_REPL_INFO_METADATA_EXT_FOR_ATTR_VALUE: DS_REPL_INFO_TYPE = 11
-DS_REPL_INFO_TYPE_MAX: DS_REPL_INFO_TYPE = 12
-class DS_REPL_KCC_DSA_FAILURESW(Structure):
-    cNumEntries: UInt32
-    dwReserved: UInt32
-    rgDsaFailure: win32more.Networking.ActiveDirectory.DS_REPL_KCC_DSA_FAILUREW * 1
-class DS_REPL_KCC_DSA_FAILUREW(Structure):
-    pszDsaDN: win32more.Foundation.PWSTR
-    uuidDsaObjGuid: Guid
-    ftimeFirstFailure: win32more.Foundation.FILETIME
-    cNumFailures: UInt32
-    dwLastResult: UInt32
-class DS_REPL_KCC_DSA_FAILUREW_BLOB(Structure):
-    oszDsaDN: UInt32
-    uuidDsaObjGuid: Guid
-    ftimeFirstFailure: win32more.Foundation.FILETIME
-    cNumFailures: UInt32
-    dwLastResult: UInt32
-class DS_REPL_NEIGHBORSW(Structure):
-    cNumNeighbors: UInt32
-    dwReserved: UInt32
-    rgNeighbor: win32more.Networking.ActiveDirectory.DS_REPL_NEIGHBORW * 1
-class DS_REPL_NEIGHBORW(Structure):
-    pszNamingContext: win32more.Foundation.PWSTR
-    pszSourceDsaDN: win32more.Foundation.PWSTR
-    pszSourceDsaAddress: win32more.Foundation.PWSTR
-    pszAsyncIntersiteTransportDN: win32more.Foundation.PWSTR
-    dwReplicaFlags: UInt32
-    dwReserved: UInt32
-    uuidNamingContextObjGuid: Guid
-    uuidSourceDsaObjGuid: Guid
-    uuidSourceDsaInvocationID: Guid
-    uuidAsyncIntersiteTransportObjGuid: Guid
-    usnLastObjChangeSynced: Int64
-    usnAttributeFilter: Int64
-    ftimeLastSyncSuccess: win32more.Foundation.FILETIME
-    ftimeLastSyncAttempt: win32more.Foundation.FILETIME
-    dwLastSyncResult: UInt32
-    cNumConsecutiveSyncFailures: UInt32
-class DS_REPL_NEIGHBORW_BLOB(Structure):
-    oszNamingContext: UInt32
-    oszSourceDsaDN: UInt32
-    oszSourceDsaAddress: UInt32
-    oszAsyncIntersiteTransportDN: UInt32
-    dwReplicaFlags: UInt32
-    dwReserved: UInt32
-    uuidNamingContextObjGuid: Guid
-    uuidSourceDsaObjGuid: Guid
-    uuidSourceDsaInvocationID: Guid
-    uuidAsyncIntersiteTransportObjGuid: Guid
-    usnLastObjChangeSynced: Int64
-    usnAttributeFilter: Int64
-    ftimeLastSyncSuccess: win32more.Foundation.FILETIME
-    ftimeLastSyncAttempt: win32more.Foundation.FILETIME
-    dwLastSyncResult: UInt32
-    cNumConsecutiveSyncFailures: UInt32
-class DS_REPL_OBJ_META_DATA(Structure):
-    cNumEntries: UInt32
-    dwReserved: UInt32
-    rgMetaData: win32more.Networking.ActiveDirectory.DS_REPL_ATTR_META_DATA * 1
-class DS_REPL_OBJ_META_DATA_2(Structure):
-    cNumEntries: UInt32
-    dwReserved: UInt32
-    rgMetaData: win32more.Networking.ActiveDirectory.DS_REPL_ATTR_META_DATA_2 * 1
-DS_REPL_OP_TYPE = Int32
-DS_REPL_OP_TYPE_SYNC: DS_REPL_OP_TYPE = 0
-DS_REPL_OP_TYPE_ADD: DS_REPL_OP_TYPE = 1
-DS_REPL_OP_TYPE_DELETE: DS_REPL_OP_TYPE = 2
-DS_REPL_OP_TYPE_MODIFY: DS_REPL_OP_TYPE = 3
-DS_REPL_OP_TYPE_UPDATE_REFS: DS_REPL_OP_TYPE = 4
-class DS_REPL_OPW(Structure):
-    ftimeEnqueued: win32more.Foundation.FILETIME
-    ulSerialNumber: UInt32
-    ulPriority: UInt32
-    OpType: win32more.Networking.ActiveDirectory.DS_REPL_OP_TYPE
-    ulOptions: UInt32
-    pszNamingContext: win32more.Foundation.PWSTR
-    pszDsaDN: win32more.Foundation.PWSTR
-    pszDsaAddress: win32more.Foundation.PWSTR
-    uuidNamingContextObjGuid: Guid
-    uuidDsaObjGuid: Guid
-class DS_REPL_OPW_BLOB(Structure):
-    ftimeEnqueued: win32more.Foundation.FILETIME
-    ulSerialNumber: UInt32
-    ulPriority: UInt32
-    OpType: win32more.Networking.ActiveDirectory.DS_REPL_OP_TYPE
-    ulOptions: UInt32
-    oszNamingContext: UInt32
-    oszDsaDN: UInt32
-    oszDsaAddress: UInt32
-    uuidNamingContextObjGuid: Guid
-    uuidDsaObjGuid: Guid
-class DS_REPL_PENDING_OPSW(Structure):
-    ftimeCurrentOpStarted: win32more.Foundation.FILETIME
-    cNumPendingOps: UInt32
-    rgPendingOp: win32more.Networking.ActiveDirectory.DS_REPL_OPW * 1
-class DS_REPL_QUEUE_STATISTICSW(Structure):
-    ftimeCurrentOpStarted: win32more.Foundation.FILETIME
-    cNumPendingOps: UInt32
-    ftimeOldestSync: win32more.Foundation.FILETIME
-    ftimeOldestAdd: win32more.Foundation.FILETIME
-    ftimeOldestMod: win32more.Foundation.FILETIME
-    ftimeOldestDel: win32more.Foundation.FILETIME
-    ftimeOldestUpdRefs: win32more.Foundation.FILETIME
-class DS_REPL_VALUE_META_DATA(Structure):
-    pszAttributeName: win32more.Foundation.PWSTR
-    pszObjectDn: win32more.Foundation.PWSTR
-    cbData: UInt32
-    pbData: c_char_p_no
-    ftimeDeleted: win32more.Foundation.FILETIME
-    ftimeCreated: win32more.Foundation.FILETIME
-    dwVersion: UInt32
-    ftimeLastOriginatingChange: win32more.Foundation.FILETIME
-    uuidLastOriginatingDsaInvocationID: Guid
-    usnOriginatingChange: Int64
-    usnLocalChange: Int64
-class DS_REPL_VALUE_META_DATA_2(Structure):
-    pszAttributeName: win32more.Foundation.PWSTR
-    pszObjectDn: win32more.Foundation.PWSTR
-    cbData: UInt32
-    pbData: c_char_p_no
-    ftimeDeleted: win32more.Foundation.FILETIME
-    ftimeCreated: win32more.Foundation.FILETIME
-    dwVersion: UInt32
-    ftimeLastOriginatingChange: win32more.Foundation.FILETIME
-    uuidLastOriginatingDsaInvocationID: Guid
-    usnOriginatingChange: Int64
-    usnLocalChange: Int64
-    pszLastOriginatingDsaDN: win32more.Foundation.PWSTR
-class DS_REPL_VALUE_META_DATA_BLOB(Structure):
-    oszAttributeName: UInt32
-    oszObjectDn: UInt32
-    cbData: UInt32
-    obData: UInt32
-    ftimeDeleted: win32more.Foundation.FILETIME
-    ftimeCreated: win32more.Foundation.FILETIME
-    dwVersion: UInt32
-    ftimeLastOriginatingChange: win32more.Foundation.FILETIME
-    uuidLastOriginatingDsaInvocationID: Guid
-    usnOriginatingChange: Int64
-    usnLocalChange: Int64
-    oszLastOriginatingDsaDN: UInt32
-class DS_REPL_VALUE_META_DATA_BLOB_EXT(Structure):
-    oszAttributeName: UInt32
-    oszObjectDn: UInt32
-    cbData: UInt32
-    obData: UInt32
-    ftimeDeleted: win32more.Foundation.FILETIME
-    ftimeCreated: win32more.Foundation.FILETIME
-    dwVersion: UInt32
-    ftimeLastOriginatingChange: win32more.Foundation.FILETIME
-    uuidLastOriginatingDsaInvocationID: Guid
-    usnOriginatingChange: Int64
-    usnLocalChange: Int64
-    oszLastOriginatingDsaDN: UInt32
-    dwUserIdentifier: UInt32
-    dwPriorLinkState: UInt32
-    dwCurrentLinkState: UInt32
-class DS_REPL_VALUE_META_DATA_EXT(Structure):
-    pszAttributeName: win32more.Foundation.PWSTR
-    pszObjectDn: win32more.Foundation.PWSTR
-    cbData: UInt32
-    pbData: c_char_p_no
-    ftimeDeleted: win32more.Foundation.FILETIME
-    ftimeCreated: win32more.Foundation.FILETIME
-    dwVersion: UInt32
-    ftimeLastOriginatingChange: win32more.Foundation.FILETIME
-    uuidLastOriginatingDsaInvocationID: Guid
-    usnOriginatingChange: Int64
-    usnLocalChange: Int64
-    pszLastOriginatingDsaDN: win32more.Foundation.PWSTR
-    dwUserIdentifier: UInt32
-    dwPriorLinkState: UInt32
-    dwCurrentLinkState: UInt32
-class DS_REPSYNCALL_ERRINFOA(Structure):
-    pszSvrId: win32more.Foundation.PSTR
-    error: win32more.Networking.ActiveDirectory.DS_REPSYNCALL_ERROR
-    dwWin32Err: UInt32
-    pszSrcId: win32more.Foundation.PSTR
-class DS_REPSYNCALL_ERRINFOW(Structure):
-    pszSvrId: win32more.Foundation.PWSTR
-    error: win32more.Networking.ActiveDirectory.DS_REPSYNCALL_ERROR
-    dwWin32Err: UInt32
-    pszSrcId: win32more.Foundation.PWSTR
-DS_REPSYNCALL_ERROR = Int32
-DS_REPSYNCALL_WIN32_ERROR_CONTACTING_SERVER: DS_REPSYNCALL_ERROR = 0
-DS_REPSYNCALL_WIN32_ERROR_REPLICATING: DS_REPSYNCALL_ERROR = 1
-DS_REPSYNCALL_SERVER_UNREACHABLE: DS_REPSYNCALL_ERROR = 2
-DS_REPSYNCALL_EVENT = Int32
-DS_REPSYNCALL_EVENT_ERROR: DS_REPSYNCALL_EVENT = 0
-DS_REPSYNCALL_EVENT_SYNC_STARTED: DS_REPSYNCALL_EVENT = 1
-DS_REPSYNCALL_EVENT_SYNC_COMPLETED: DS_REPSYNCALL_EVENT = 2
-DS_REPSYNCALL_EVENT_FINISHED: DS_REPSYNCALL_EVENT = 3
-class DS_REPSYNCALL_SYNCA(Structure):
-    pszSrcId: win32more.Foundation.PSTR
-    pszDstId: win32more.Foundation.PSTR
-    pszNC: win32more.Foundation.PSTR
-    pguidSrc: POINTER(Guid)
-    pguidDst: POINTER(Guid)
-class DS_REPSYNCALL_SYNCW(Structure):
-    pszSrcId: win32more.Foundation.PWSTR
-    pszDstId: win32more.Foundation.PWSTR
-    pszNC: win32more.Foundation.PWSTR
-    pguidSrc: POINTER(Guid)
-    pguidDst: POINTER(Guid)
-class DS_REPSYNCALL_UPDATEA(Structure):
-    event: win32more.Networking.ActiveDirectory.DS_REPSYNCALL_EVENT
-    pErrInfo: POINTER(win32more.Networking.ActiveDirectory.DS_REPSYNCALL_ERRINFOA_head)
-    pSync: POINTER(win32more.Networking.ActiveDirectory.DS_REPSYNCALL_SYNCA_head)
-class DS_REPSYNCALL_UPDATEW(Structure):
-    event: win32more.Networking.ActiveDirectory.DS_REPSYNCALL_EVENT
-    pErrInfo: POINTER(win32more.Networking.ActiveDirectory.DS_REPSYNCALL_ERRINFOW_head)
-    pSync: POINTER(win32more.Networking.ActiveDirectory.DS_REPSYNCALL_SYNCW_head)
-class DS_SCHEMA_GUID_MAPA(Structure):
-    guid: Guid
-    guidType: UInt32
-    pName: win32more.Foundation.PSTR
-class DS_SCHEMA_GUID_MAPW(Structure):
-    guid: Guid
-    guidType: UInt32
-    pName: win32more.Foundation.PWSTR
-class DS_SELECTION(Structure):
-    pwzName: win32more.Foundation.PWSTR
-    pwzADsPath: win32more.Foundation.PWSTR
-    pwzClass: win32more.Foundation.PWSTR
-    pwzUPN: win32more.Foundation.PWSTR
-    pvarFetchedAttributes: POINTER(win32more.System.Com.VARIANT_head)
-    flScopeType: UInt32
-class DS_SELECTION_LIST(Structure):
-    cItems: UInt32
-    cFetchedAttributes: UInt32
-    aDsSelection: win32more.Networking.ActiveDirectory.DS_SELECTION * 1
-class DS_SITE_COST_INFO(Structure):
-    errorCode: UInt32
-    cost: UInt32
-DS_SPN_NAME_TYPE = Int32
-DS_SPN_DNS_HOST: DS_SPN_NAME_TYPE = 0
-DS_SPN_DN_HOST: DS_SPN_NAME_TYPE = 1
-DS_SPN_NB_HOST: DS_SPN_NAME_TYPE = 2
-DS_SPN_DOMAIN: DS_SPN_NAME_TYPE = 3
-DS_SPN_NB_DOMAIN: DS_SPN_NAME_TYPE = 4
-DS_SPN_SERVICE: DS_SPN_NAME_TYPE = 5
-DS_SPN_WRITE_OP = Int32
-DS_SPN_ADD_SPN_OP: DS_SPN_WRITE_OP = 0
-DS_SPN_REPLACE_SPN_OP: DS_SPN_WRITE_OP = 1
-DS_SPN_DELETE_SPN_OP: DS_SPN_WRITE_OP = 2
 class DSA_NEWOBJ_DISPINFO(Structure):
     dwSize: UInt32
     hObjClassIcon: win32more.UI.WindowsAndMessaging.HICON
@@ -2160,6 +1695,471 @@ DSROLE_SERVER_STATE_DsRoleServerBackup: DSROLE_SERVER_STATE = 2
 class DSROLE_UPGRADE_STATUS_INFO(Structure):
     OperationState: UInt32
     PreviousServerState: win32more.Networking.ActiveDirectory.DSROLE_SERVER_STATE
+class DS_DOMAIN_CONTROLLER_INFO_1A(Structure):
+    NetbiosName: win32more.Foundation.PSTR
+    DnsHostName: win32more.Foundation.PSTR
+    SiteName: win32more.Foundation.PSTR
+    ComputerObjectName: win32more.Foundation.PSTR
+    ServerObjectName: win32more.Foundation.PSTR
+    fIsPdc: win32more.Foundation.BOOL
+    fDsEnabled: win32more.Foundation.BOOL
+class DS_DOMAIN_CONTROLLER_INFO_1W(Structure):
+    NetbiosName: win32more.Foundation.PWSTR
+    DnsHostName: win32more.Foundation.PWSTR
+    SiteName: win32more.Foundation.PWSTR
+    ComputerObjectName: win32more.Foundation.PWSTR
+    ServerObjectName: win32more.Foundation.PWSTR
+    fIsPdc: win32more.Foundation.BOOL
+    fDsEnabled: win32more.Foundation.BOOL
+class DS_DOMAIN_CONTROLLER_INFO_2A(Structure):
+    NetbiosName: win32more.Foundation.PSTR
+    DnsHostName: win32more.Foundation.PSTR
+    SiteName: win32more.Foundation.PSTR
+    SiteObjectName: win32more.Foundation.PSTR
+    ComputerObjectName: win32more.Foundation.PSTR
+    ServerObjectName: win32more.Foundation.PSTR
+    NtdsDsaObjectName: win32more.Foundation.PSTR
+    fIsPdc: win32more.Foundation.BOOL
+    fDsEnabled: win32more.Foundation.BOOL
+    fIsGc: win32more.Foundation.BOOL
+    SiteObjectGuid: Guid
+    ComputerObjectGuid: Guid
+    ServerObjectGuid: Guid
+    NtdsDsaObjectGuid: Guid
+class DS_DOMAIN_CONTROLLER_INFO_2W(Structure):
+    NetbiosName: win32more.Foundation.PWSTR
+    DnsHostName: win32more.Foundation.PWSTR
+    SiteName: win32more.Foundation.PWSTR
+    SiteObjectName: win32more.Foundation.PWSTR
+    ComputerObjectName: win32more.Foundation.PWSTR
+    ServerObjectName: win32more.Foundation.PWSTR
+    NtdsDsaObjectName: win32more.Foundation.PWSTR
+    fIsPdc: win32more.Foundation.BOOL
+    fDsEnabled: win32more.Foundation.BOOL
+    fIsGc: win32more.Foundation.BOOL
+    SiteObjectGuid: Guid
+    ComputerObjectGuid: Guid
+    ServerObjectGuid: Guid
+    NtdsDsaObjectGuid: Guid
+class DS_DOMAIN_CONTROLLER_INFO_3A(Structure):
+    NetbiosName: win32more.Foundation.PSTR
+    DnsHostName: win32more.Foundation.PSTR
+    SiteName: win32more.Foundation.PSTR
+    SiteObjectName: win32more.Foundation.PSTR
+    ComputerObjectName: win32more.Foundation.PSTR
+    ServerObjectName: win32more.Foundation.PSTR
+    NtdsDsaObjectName: win32more.Foundation.PSTR
+    fIsPdc: win32more.Foundation.BOOL
+    fDsEnabled: win32more.Foundation.BOOL
+    fIsGc: win32more.Foundation.BOOL
+    fIsRodc: win32more.Foundation.BOOL
+    SiteObjectGuid: Guid
+    ComputerObjectGuid: Guid
+    ServerObjectGuid: Guid
+    NtdsDsaObjectGuid: Guid
+class DS_DOMAIN_CONTROLLER_INFO_3W(Structure):
+    NetbiosName: win32more.Foundation.PWSTR
+    DnsHostName: win32more.Foundation.PWSTR
+    SiteName: win32more.Foundation.PWSTR
+    SiteObjectName: win32more.Foundation.PWSTR
+    ComputerObjectName: win32more.Foundation.PWSTR
+    ServerObjectName: win32more.Foundation.PWSTR
+    NtdsDsaObjectName: win32more.Foundation.PWSTR
+    fIsPdc: win32more.Foundation.BOOL
+    fDsEnabled: win32more.Foundation.BOOL
+    fIsGc: win32more.Foundation.BOOL
+    fIsRodc: win32more.Foundation.BOOL
+    SiteObjectGuid: Guid
+    ComputerObjectGuid: Guid
+    ServerObjectGuid: Guid
+    NtdsDsaObjectGuid: Guid
+class DS_DOMAIN_TRUSTSA(Structure):
+    NetbiosDomainName: win32more.Foundation.PSTR
+    DnsDomainName: win32more.Foundation.PSTR
+    Flags: UInt32
+    ParentIndex: UInt32
+    TrustType: UInt32
+    TrustAttributes: UInt32
+    DomainSid: win32more.Foundation.PSID
+    DomainGuid: Guid
+class DS_DOMAIN_TRUSTSW(Structure):
+    NetbiosDomainName: win32more.Foundation.PWSTR
+    DnsDomainName: win32more.Foundation.PWSTR
+    Flags: UInt32
+    ParentIndex: UInt32
+    TrustType: UInt32
+    TrustAttributes: UInt32
+    DomainSid: win32more.Foundation.PSID
+    DomainGuid: Guid
+DS_KCC_TASKID = Int32
+DS_KCC_TASKID_UPDATE_TOPOLOGY: DS_KCC_TASKID = 0
+DS_MANGLE_FOR = Int32
+DS_MANGLE_UNKNOWN: DS_MANGLE_FOR = 0
+DS_MANGLE_OBJECT_RDN_FOR_DELETION: DS_MANGLE_FOR = 1
+DS_MANGLE_OBJECT_RDN_FOR_NAME_CONFLICT: DS_MANGLE_FOR = 2
+DS_NAME_ERROR = Int32
+DS_NAME_NO_ERROR: DS_NAME_ERROR = 0
+DS_NAME_ERROR_RESOLVING: DS_NAME_ERROR = 1
+DS_NAME_ERROR_NOT_FOUND: DS_NAME_ERROR = 2
+DS_NAME_ERROR_NOT_UNIQUE: DS_NAME_ERROR = 3
+DS_NAME_ERROR_NO_MAPPING: DS_NAME_ERROR = 4
+DS_NAME_ERROR_DOMAIN_ONLY: DS_NAME_ERROR = 5
+DS_NAME_ERROR_NO_SYNTACTICAL_MAPPING: DS_NAME_ERROR = 6
+DS_NAME_ERROR_TRUST_REFERRAL: DS_NAME_ERROR = 7
+DS_NAME_FLAGS = Int32
+DS_NAME_NO_FLAGS: DS_NAME_FLAGS = 0
+DS_NAME_FLAG_SYNTACTICAL_ONLY: DS_NAME_FLAGS = 1
+DS_NAME_FLAG_EVAL_AT_DC: DS_NAME_FLAGS = 2
+DS_NAME_FLAG_GCVERIFY: DS_NAME_FLAGS = 4
+DS_NAME_FLAG_TRUST_REFERRAL: DS_NAME_FLAGS = 8
+DS_NAME_FORMAT = Int32
+DS_UNKNOWN_NAME: DS_NAME_FORMAT = 0
+DS_FQDN_1779_NAME: DS_NAME_FORMAT = 1
+DS_NT4_ACCOUNT_NAME: DS_NAME_FORMAT = 2
+DS_DISPLAY_NAME: DS_NAME_FORMAT = 3
+DS_UNIQUE_ID_NAME: DS_NAME_FORMAT = 6
+DS_CANONICAL_NAME: DS_NAME_FORMAT = 7
+DS_USER_PRINCIPAL_NAME: DS_NAME_FORMAT = 8
+DS_CANONICAL_NAME_EX: DS_NAME_FORMAT = 9
+DS_SERVICE_PRINCIPAL_NAME: DS_NAME_FORMAT = 10
+DS_SID_OR_SID_HISTORY_NAME: DS_NAME_FORMAT = 11
+DS_DNS_DOMAIN_NAME: DS_NAME_FORMAT = 12
+class DS_NAME_RESULTA(Structure):
+    cItems: UInt32
+    rItems: POINTER(win32more.Networking.ActiveDirectory.DS_NAME_RESULT_ITEMA_head)
+class DS_NAME_RESULTW(Structure):
+    cItems: UInt32
+    rItems: POINTER(win32more.Networking.ActiveDirectory.DS_NAME_RESULT_ITEMW_head)
+class DS_NAME_RESULT_ITEMA(Structure):
+    status: UInt32
+    pDomain: win32more.Foundation.PSTR
+    pName: win32more.Foundation.PSTR
+class DS_NAME_RESULT_ITEMW(Structure):
+    status: UInt32
+    pDomain: win32more.Foundation.PWSTR
+    pName: win32more.Foundation.PWSTR
+class DS_REPL_ATTR_META_DATA(Structure):
+    pszAttributeName: win32more.Foundation.PWSTR
+    dwVersion: UInt32
+    ftimeLastOriginatingChange: win32more.Foundation.FILETIME
+    uuidLastOriginatingDsaInvocationID: Guid
+    usnOriginatingChange: Int64
+    usnLocalChange: Int64
+class DS_REPL_ATTR_META_DATA_2(Structure):
+    pszAttributeName: win32more.Foundation.PWSTR
+    dwVersion: UInt32
+    ftimeLastOriginatingChange: win32more.Foundation.FILETIME
+    uuidLastOriginatingDsaInvocationID: Guid
+    usnOriginatingChange: Int64
+    usnLocalChange: Int64
+    pszLastOriginatingDsaDN: win32more.Foundation.PWSTR
+class DS_REPL_ATTR_META_DATA_BLOB(Structure):
+    oszAttributeName: UInt32
+    dwVersion: UInt32
+    ftimeLastOriginatingChange: win32more.Foundation.FILETIME
+    uuidLastOriginatingDsaInvocationID: Guid
+    usnOriginatingChange: Int64
+    usnLocalChange: Int64
+    oszLastOriginatingDsaDN: UInt32
+class DS_REPL_ATTR_VALUE_META_DATA(Structure):
+    cNumEntries: UInt32
+    dwEnumerationContext: UInt32
+    rgMetaData: win32more.Networking.ActiveDirectory.DS_REPL_VALUE_META_DATA * 1
+class DS_REPL_ATTR_VALUE_META_DATA_2(Structure):
+    cNumEntries: UInt32
+    dwEnumerationContext: UInt32
+    rgMetaData: win32more.Networking.ActiveDirectory.DS_REPL_VALUE_META_DATA_2 * 1
+class DS_REPL_ATTR_VALUE_META_DATA_EXT(Structure):
+    cNumEntries: UInt32
+    dwEnumerationContext: UInt32
+    rgMetaData: win32more.Networking.ActiveDirectory.DS_REPL_VALUE_META_DATA_EXT * 1
+class DS_REPL_CURSOR(Structure):
+    uuidSourceDsaInvocationID: Guid
+    usnAttributeFilter: Int64
+class DS_REPL_CURSORS(Structure):
+    cNumCursors: UInt32
+    dwReserved: UInt32
+    rgCursor: win32more.Networking.ActiveDirectory.DS_REPL_CURSOR * 1
+class DS_REPL_CURSORS_2(Structure):
+    cNumCursors: UInt32
+    dwEnumerationContext: UInt32
+    rgCursor: win32more.Networking.ActiveDirectory.DS_REPL_CURSOR_2 * 1
+class DS_REPL_CURSORS_3W(Structure):
+    cNumCursors: UInt32
+    dwEnumerationContext: UInt32
+    rgCursor: win32more.Networking.ActiveDirectory.DS_REPL_CURSOR_3W * 1
+class DS_REPL_CURSOR_2(Structure):
+    uuidSourceDsaInvocationID: Guid
+    usnAttributeFilter: Int64
+    ftimeLastSyncSuccess: win32more.Foundation.FILETIME
+class DS_REPL_CURSOR_3W(Structure):
+    uuidSourceDsaInvocationID: Guid
+    usnAttributeFilter: Int64
+    ftimeLastSyncSuccess: win32more.Foundation.FILETIME
+    pszSourceDsaDN: win32more.Foundation.PWSTR
+class DS_REPL_CURSOR_BLOB(Structure):
+    uuidSourceDsaInvocationID: Guid
+    usnAttributeFilter: Int64
+    ftimeLastSyncSuccess: win32more.Foundation.FILETIME
+    oszSourceDsaDN: UInt32
+DS_REPL_INFO_TYPE = Int32
+DS_REPL_INFO_NEIGHBORS: DS_REPL_INFO_TYPE = 0
+DS_REPL_INFO_CURSORS_FOR_NC: DS_REPL_INFO_TYPE = 1
+DS_REPL_INFO_METADATA_FOR_OBJ: DS_REPL_INFO_TYPE = 2
+DS_REPL_INFO_KCC_DSA_CONNECT_FAILURES: DS_REPL_INFO_TYPE = 3
+DS_REPL_INFO_KCC_DSA_LINK_FAILURES: DS_REPL_INFO_TYPE = 4
+DS_REPL_INFO_PENDING_OPS: DS_REPL_INFO_TYPE = 5
+DS_REPL_INFO_METADATA_FOR_ATTR_VALUE: DS_REPL_INFO_TYPE = 6
+DS_REPL_INFO_CURSORS_2_FOR_NC: DS_REPL_INFO_TYPE = 7
+DS_REPL_INFO_CURSORS_3_FOR_NC: DS_REPL_INFO_TYPE = 8
+DS_REPL_INFO_METADATA_2_FOR_OBJ: DS_REPL_INFO_TYPE = 9
+DS_REPL_INFO_METADATA_2_FOR_ATTR_VALUE: DS_REPL_INFO_TYPE = 10
+DS_REPL_INFO_METADATA_EXT_FOR_ATTR_VALUE: DS_REPL_INFO_TYPE = 11
+DS_REPL_INFO_TYPE_MAX: DS_REPL_INFO_TYPE = 12
+class DS_REPL_KCC_DSA_FAILURESW(Structure):
+    cNumEntries: UInt32
+    dwReserved: UInt32
+    rgDsaFailure: win32more.Networking.ActiveDirectory.DS_REPL_KCC_DSA_FAILUREW * 1
+class DS_REPL_KCC_DSA_FAILUREW(Structure):
+    pszDsaDN: win32more.Foundation.PWSTR
+    uuidDsaObjGuid: Guid
+    ftimeFirstFailure: win32more.Foundation.FILETIME
+    cNumFailures: UInt32
+    dwLastResult: UInt32
+class DS_REPL_KCC_DSA_FAILUREW_BLOB(Structure):
+    oszDsaDN: UInt32
+    uuidDsaObjGuid: Guid
+    ftimeFirstFailure: win32more.Foundation.FILETIME
+    cNumFailures: UInt32
+    dwLastResult: UInt32
+class DS_REPL_NEIGHBORSW(Structure):
+    cNumNeighbors: UInt32
+    dwReserved: UInt32
+    rgNeighbor: win32more.Networking.ActiveDirectory.DS_REPL_NEIGHBORW * 1
+class DS_REPL_NEIGHBORW(Structure):
+    pszNamingContext: win32more.Foundation.PWSTR
+    pszSourceDsaDN: win32more.Foundation.PWSTR
+    pszSourceDsaAddress: win32more.Foundation.PWSTR
+    pszAsyncIntersiteTransportDN: win32more.Foundation.PWSTR
+    dwReplicaFlags: UInt32
+    dwReserved: UInt32
+    uuidNamingContextObjGuid: Guid
+    uuidSourceDsaObjGuid: Guid
+    uuidSourceDsaInvocationID: Guid
+    uuidAsyncIntersiteTransportObjGuid: Guid
+    usnLastObjChangeSynced: Int64
+    usnAttributeFilter: Int64
+    ftimeLastSyncSuccess: win32more.Foundation.FILETIME
+    ftimeLastSyncAttempt: win32more.Foundation.FILETIME
+    dwLastSyncResult: UInt32
+    cNumConsecutiveSyncFailures: UInt32
+class DS_REPL_NEIGHBORW_BLOB(Structure):
+    oszNamingContext: UInt32
+    oszSourceDsaDN: UInt32
+    oszSourceDsaAddress: UInt32
+    oszAsyncIntersiteTransportDN: UInt32
+    dwReplicaFlags: UInt32
+    dwReserved: UInt32
+    uuidNamingContextObjGuid: Guid
+    uuidSourceDsaObjGuid: Guid
+    uuidSourceDsaInvocationID: Guid
+    uuidAsyncIntersiteTransportObjGuid: Guid
+    usnLastObjChangeSynced: Int64
+    usnAttributeFilter: Int64
+    ftimeLastSyncSuccess: win32more.Foundation.FILETIME
+    ftimeLastSyncAttempt: win32more.Foundation.FILETIME
+    dwLastSyncResult: UInt32
+    cNumConsecutiveSyncFailures: UInt32
+class DS_REPL_OBJ_META_DATA(Structure):
+    cNumEntries: UInt32
+    dwReserved: UInt32
+    rgMetaData: win32more.Networking.ActiveDirectory.DS_REPL_ATTR_META_DATA * 1
+class DS_REPL_OBJ_META_DATA_2(Structure):
+    cNumEntries: UInt32
+    dwReserved: UInt32
+    rgMetaData: win32more.Networking.ActiveDirectory.DS_REPL_ATTR_META_DATA_2 * 1
+class DS_REPL_OPW(Structure):
+    ftimeEnqueued: win32more.Foundation.FILETIME
+    ulSerialNumber: UInt32
+    ulPriority: UInt32
+    OpType: win32more.Networking.ActiveDirectory.DS_REPL_OP_TYPE
+    ulOptions: UInt32
+    pszNamingContext: win32more.Foundation.PWSTR
+    pszDsaDN: win32more.Foundation.PWSTR
+    pszDsaAddress: win32more.Foundation.PWSTR
+    uuidNamingContextObjGuid: Guid
+    uuidDsaObjGuid: Guid
+class DS_REPL_OPW_BLOB(Structure):
+    ftimeEnqueued: win32more.Foundation.FILETIME
+    ulSerialNumber: UInt32
+    ulPriority: UInt32
+    OpType: win32more.Networking.ActiveDirectory.DS_REPL_OP_TYPE
+    ulOptions: UInt32
+    oszNamingContext: UInt32
+    oszDsaDN: UInt32
+    oszDsaAddress: UInt32
+    uuidNamingContextObjGuid: Guid
+    uuidDsaObjGuid: Guid
+DS_REPL_OP_TYPE = Int32
+DS_REPL_OP_TYPE_SYNC: DS_REPL_OP_TYPE = 0
+DS_REPL_OP_TYPE_ADD: DS_REPL_OP_TYPE = 1
+DS_REPL_OP_TYPE_DELETE: DS_REPL_OP_TYPE = 2
+DS_REPL_OP_TYPE_MODIFY: DS_REPL_OP_TYPE = 3
+DS_REPL_OP_TYPE_UPDATE_REFS: DS_REPL_OP_TYPE = 4
+class DS_REPL_PENDING_OPSW(Structure):
+    ftimeCurrentOpStarted: win32more.Foundation.FILETIME
+    cNumPendingOps: UInt32
+    rgPendingOp: win32more.Networking.ActiveDirectory.DS_REPL_OPW * 1
+class DS_REPL_QUEUE_STATISTICSW(Structure):
+    ftimeCurrentOpStarted: win32more.Foundation.FILETIME
+    cNumPendingOps: UInt32
+    ftimeOldestSync: win32more.Foundation.FILETIME
+    ftimeOldestAdd: win32more.Foundation.FILETIME
+    ftimeOldestMod: win32more.Foundation.FILETIME
+    ftimeOldestDel: win32more.Foundation.FILETIME
+    ftimeOldestUpdRefs: win32more.Foundation.FILETIME
+class DS_REPL_VALUE_META_DATA(Structure):
+    pszAttributeName: win32more.Foundation.PWSTR
+    pszObjectDn: win32more.Foundation.PWSTR
+    cbData: UInt32
+    pbData: c_char_p_no
+    ftimeDeleted: win32more.Foundation.FILETIME
+    ftimeCreated: win32more.Foundation.FILETIME
+    dwVersion: UInt32
+    ftimeLastOriginatingChange: win32more.Foundation.FILETIME
+    uuidLastOriginatingDsaInvocationID: Guid
+    usnOriginatingChange: Int64
+    usnLocalChange: Int64
+class DS_REPL_VALUE_META_DATA_2(Structure):
+    pszAttributeName: win32more.Foundation.PWSTR
+    pszObjectDn: win32more.Foundation.PWSTR
+    cbData: UInt32
+    pbData: c_char_p_no
+    ftimeDeleted: win32more.Foundation.FILETIME
+    ftimeCreated: win32more.Foundation.FILETIME
+    dwVersion: UInt32
+    ftimeLastOriginatingChange: win32more.Foundation.FILETIME
+    uuidLastOriginatingDsaInvocationID: Guid
+    usnOriginatingChange: Int64
+    usnLocalChange: Int64
+    pszLastOriginatingDsaDN: win32more.Foundation.PWSTR
+class DS_REPL_VALUE_META_DATA_BLOB(Structure):
+    oszAttributeName: UInt32
+    oszObjectDn: UInt32
+    cbData: UInt32
+    obData: UInt32
+    ftimeDeleted: win32more.Foundation.FILETIME
+    ftimeCreated: win32more.Foundation.FILETIME
+    dwVersion: UInt32
+    ftimeLastOriginatingChange: win32more.Foundation.FILETIME
+    uuidLastOriginatingDsaInvocationID: Guid
+    usnOriginatingChange: Int64
+    usnLocalChange: Int64
+    oszLastOriginatingDsaDN: UInt32
+class DS_REPL_VALUE_META_DATA_BLOB_EXT(Structure):
+    oszAttributeName: UInt32
+    oszObjectDn: UInt32
+    cbData: UInt32
+    obData: UInt32
+    ftimeDeleted: win32more.Foundation.FILETIME
+    ftimeCreated: win32more.Foundation.FILETIME
+    dwVersion: UInt32
+    ftimeLastOriginatingChange: win32more.Foundation.FILETIME
+    uuidLastOriginatingDsaInvocationID: Guid
+    usnOriginatingChange: Int64
+    usnLocalChange: Int64
+    oszLastOriginatingDsaDN: UInt32
+    dwUserIdentifier: UInt32
+    dwPriorLinkState: UInt32
+    dwCurrentLinkState: UInt32
+class DS_REPL_VALUE_META_DATA_EXT(Structure):
+    pszAttributeName: win32more.Foundation.PWSTR
+    pszObjectDn: win32more.Foundation.PWSTR
+    cbData: UInt32
+    pbData: c_char_p_no
+    ftimeDeleted: win32more.Foundation.FILETIME
+    ftimeCreated: win32more.Foundation.FILETIME
+    dwVersion: UInt32
+    ftimeLastOriginatingChange: win32more.Foundation.FILETIME
+    uuidLastOriginatingDsaInvocationID: Guid
+    usnOriginatingChange: Int64
+    usnLocalChange: Int64
+    pszLastOriginatingDsaDN: win32more.Foundation.PWSTR
+    dwUserIdentifier: UInt32
+    dwPriorLinkState: UInt32
+    dwCurrentLinkState: UInt32
+class DS_REPSYNCALL_ERRINFOA(Structure):
+    pszSvrId: win32more.Foundation.PSTR
+    error: win32more.Networking.ActiveDirectory.DS_REPSYNCALL_ERROR
+    dwWin32Err: UInt32
+    pszSrcId: win32more.Foundation.PSTR
+class DS_REPSYNCALL_ERRINFOW(Structure):
+    pszSvrId: win32more.Foundation.PWSTR
+    error: win32more.Networking.ActiveDirectory.DS_REPSYNCALL_ERROR
+    dwWin32Err: UInt32
+    pszSrcId: win32more.Foundation.PWSTR
+DS_REPSYNCALL_ERROR = Int32
+DS_REPSYNCALL_WIN32_ERROR_CONTACTING_SERVER: DS_REPSYNCALL_ERROR = 0
+DS_REPSYNCALL_WIN32_ERROR_REPLICATING: DS_REPSYNCALL_ERROR = 1
+DS_REPSYNCALL_SERVER_UNREACHABLE: DS_REPSYNCALL_ERROR = 2
+DS_REPSYNCALL_EVENT = Int32
+DS_REPSYNCALL_EVENT_ERROR: DS_REPSYNCALL_EVENT = 0
+DS_REPSYNCALL_EVENT_SYNC_STARTED: DS_REPSYNCALL_EVENT = 1
+DS_REPSYNCALL_EVENT_SYNC_COMPLETED: DS_REPSYNCALL_EVENT = 2
+DS_REPSYNCALL_EVENT_FINISHED: DS_REPSYNCALL_EVENT = 3
+class DS_REPSYNCALL_SYNCA(Structure):
+    pszSrcId: win32more.Foundation.PSTR
+    pszDstId: win32more.Foundation.PSTR
+    pszNC: win32more.Foundation.PSTR
+    pguidSrc: POINTER(Guid)
+    pguidDst: POINTER(Guid)
+class DS_REPSYNCALL_SYNCW(Structure):
+    pszSrcId: win32more.Foundation.PWSTR
+    pszDstId: win32more.Foundation.PWSTR
+    pszNC: win32more.Foundation.PWSTR
+    pguidSrc: POINTER(Guid)
+    pguidDst: POINTER(Guid)
+class DS_REPSYNCALL_UPDATEA(Structure):
+    event: win32more.Networking.ActiveDirectory.DS_REPSYNCALL_EVENT
+    pErrInfo: POINTER(win32more.Networking.ActiveDirectory.DS_REPSYNCALL_ERRINFOA_head)
+    pSync: POINTER(win32more.Networking.ActiveDirectory.DS_REPSYNCALL_SYNCA_head)
+class DS_REPSYNCALL_UPDATEW(Structure):
+    event: win32more.Networking.ActiveDirectory.DS_REPSYNCALL_EVENT
+    pErrInfo: POINTER(win32more.Networking.ActiveDirectory.DS_REPSYNCALL_ERRINFOW_head)
+    pSync: POINTER(win32more.Networking.ActiveDirectory.DS_REPSYNCALL_SYNCW_head)
+class DS_SCHEMA_GUID_MAPA(Structure):
+    guid: Guid
+    guidType: UInt32
+    pName: win32more.Foundation.PSTR
+class DS_SCHEMA_GUID_MAPW(Structure):
+    guid: Guid
+    guidType: UInt32
+    pName: win32more.Foundation.PWSTR
+class DS_SELECTION(Structure):
+    pwzName: win32more.Foundation.PWSTR
+    pwzADsPath: win32more.Foundation.PWSTR
+    pwzClass: win32more.Foundation.PWSTR
+    pwzUPN: win32more.Foundation.PWSTR
+    pvarFetchedAttributes: POINTER(win32more.System.Com.VARIANT_head)
+    flScopeType: UInt32
+class DS_SELECTION_LIST(Structure):
+    cItems: UInt32
+    cFetchedAttributes: UInt32
+    aDsSelection: win32more.Networking.ActiveDirectory.DS_SELECTION * 1
+class DS_SITE_COST_INFO(Structure):
+    errorCode: UInt32
+    cost: UInt32
+DS_SPN_NAME_TYPE = Int32
+DS_SPN_DNS_HOST: DS_SPN_NAME_TYPE = 0
+DS_SPN_DN_HOST: DS_SPN_NAME_TYPE = 1
+DS_SPN_NB_HOST: DS_SPN_NAME_TYPE = 2
+DS_SPN_DOMAIN: DS_SPN_NAME_TYPE = 3
+DS_SPN_NB_DOMAIN: DS_SPN_NAME_TYPE = 4
+DS_SPN_SERVICE: DS_SPN_NAME_TYPE = 5
+DS_SPN_WRITE_OP = Int32
+DS_SPN_ADD_SPN_OP: DS_SPN_WRITE_OP = 0
+DS_SPN_REPLACE_SPN_OP: DS_SPN_WRITE_OP = 1
+DS_SPN_DELETE_SPN_OP: DS_SPN_WRITE_OP = 2
 Email = Guid('8f92a857-478e-11d1-a3-b4-00-c0-4f-b9-50-dc')
 FaxNumber = Guid('a5062215-4681-11d1-a3-b4-00-c0-4f-b9-50-dc')
 GetDcContextHandle = IntPtr
@@ -2193,6 +2193,35 @@ class IADs(c_void_p):
     def PutEx(lnControlCode: Int32, bstrName: win32more.Foundation.BSTR, vProp: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
     @commethod(19)
     def GetInfoEx(vProperties: win32more.System.Com.VARIANT, lnReserved: Int32) -> win32more.Foundation.HRESULT: ...
+class IADsADSystemInfo(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('5bb11929-afd1-11d2-9c-b9-00-00-f8-7a-36-9e')
+    @commethod(7)
+    def get_UserName(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_ComputerName(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_SiteName(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def get_DomainShortName(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def get_DomainDNSName(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def get_ForestDNSName(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def get_PDCRoleOwner(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def get_SchemaRoleOwner(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def get_IsNativeMode(retval: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def GetAnyDCName(pszDCName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def GetDCSiteName(szServer: win32more.Foundation.BSTR, pszSiteName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(18)
+    def RefreshSchemaCache() -> win32more.Foundation.HRESULT: ...
+    @commethod(19)
+    def GetTrees(pvTrees: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
 class IADsAccessControlEntry(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('b4f3a14c-9bdd-11d0-85-2c-00-c0-4f-d8-d5-03')
@@ -2260,35 +2289,6 @@ class IADsAcl(c_void_p):
     def put_Privileges(lnPrivileges: Int32) -> win32more.Foundation.HRESULT: ...
     @commethod(13)
     def CopyAcl(ppAcl: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
-class IADsADSystemInfo(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('5bb11929-afd1-11d2-9c-b9-00-00-f8-7a-36-9e')
-    @commethod(7)
-    def get_UserName(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_ComputerName(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_SiteName(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def get_DomainShortName(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def get_DomainDNSName(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def get_ForestDNSName(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def get_PDCRoleOwner(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def get_SchemaRoleOwner(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def get_IsNativeMode(retval: POINTER(win32more.Foundation.VARIANT_BOOL)) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def GetAnyDCName(pszDCName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def GetDCSiteName(szServer: win32more.Foundation.BSTR, pszSiteName: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(18)
-    def RefreshSchemaCache() -> win32more.Foundation.HRESULT: ...
-    @commethod(19)
-    def GetTrees(pvTrees: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
 class IADsAggregatee(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('1346ce8c-9039-11d0-85-28-00-c0-4f-d8-d5-03')
@@ -2498,11 +2498,6 @@ class IADsContainer(c_void_p):
     def CopyHere(SourceName: win32more.Foundation.BSTR, NewName: win32more.Foundation.BSTR, ppObject: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(17)
     def MoveHere(SourceName: win32more.Foundation.BSTR, NewName: win32more.Foundation.BSTR, ppObject: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
-class IADsDeleteOps(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('b2bd0902-8878-11d1-8c-21-00-c0-4f-d8-d5-03')
-    @commethod(7)
-    def DeleteObject(lnFlags: Int32) -> win32more.Foundation.HRESULT: ...
 class IADsDNWithBinary(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('7e99c0a2-f935-11d2-ba-96-00-c0-4f-b6-d0-d1')
@@ -2525,6 +2520,11 @@ class IADsDNWithString(c_void_p):
     def get_DNString(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
     @commethod(10)
     def put_DNString(bstrDNString: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IADsDeleteOps(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('b2bd0902-8878-11d1-8c-21-00-c0-4f-d8-d5-03')
+    @commethod(7)
+    def DeleteObject(lnFlags: Int32) -> win32more.Foundation.HRESULT: ...
 class IADsDomain(c_void_p):
     extends: win32more.Networking.ActiveDirectory.IADs
     Guid = Guid('00e4c220-fd16-11ce-ab-c4-02-60-8c-9e-75-53')
@@ -2699,13 +2699,6 @@ class IADsMembers(c_void_p):
     def get_Filter(pvFilter: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(10)
     def put_Filter(pvFilter: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
-class IADsNamespaces(c_void_p):
-    extends: win32more.Networking.ActiveDirectory.IADs
-    Guid = Guid('28b96ba0-b330-11cf-a9-ad-00-aa-00-6b-c1-49')
-    @commethod(20)
-    def get_DefaultContainer(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
-    @commethod(21)
-    def put_DefaultContainer(bstrDefaultContainer: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
 class IADsNameTranslate(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('b1b272a3-3625-11d1-a3-a4-00-c0-4f-b9-50-dc')
@@ -2723,6 +2716,13 @@ class IADsNameTranslate(c_void_p):
     def SetEx(lnFormatType: Int32, pvar: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
     @commethod(13)
     def GetEx(lnFormatType: Int32, pvar: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+class IADsNamespaces(c_void_p):
+    extends: win32more.Networking.ActiveDirectory.IADs
+    Guid = Guid('28b96ba0-b330-11cf-a9-ad-00-aa-00-6b-c1-49')
+    @commethod(20)
+    def get_DefaultContainer(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
+    @commethod(21)
+    def put_DefaultContainer(bstrDefaultContainer: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
 class IADsNetAddress(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('b21a50a9-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
@@ -2761,25 +2761,6 @@ class IADsO(c_void_p):
     def get_SeeAlso(retval: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
     @commethod(31)
     def put_SeeAlso(vSeeAlso: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
-class IADsObjectOptions(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('46f14fda-232b-11d1-a8-08-00-c0-4f-d8-d5-a8')
-    @commethod(7)
-    def GetOption(lnOption: Int32, pvValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def SetOption(lnOption: Int32, vValue: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
-class IADsOctetList(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('7b28b80f-4680-11d1-a3-b4-00-c0-4f-b9-50-dc')
-    @commethod(7)
-    def get_OctetList(retval: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def put_OctetList(vOctetList: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
-class IADsOpenDSObject(c_void_p):
-    extends: win32more.System.Com.IDispatch
-    Guid = Guid('ddf2891e-0f9c-11d0-8a-d4-00-c0-4f-d8-d5-03')
-    @commethod(7)
-    def OpenDSObject(lpszDNName: win32more.Foundation.BSTR, lpszUserName: win32more.Foundation.BSTR, lpszPassword: win32more.Foundation.BSTR, lnReserved: Int32, ppOleDsObj: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
 class IADsOU(c_void_p):
     extends: win32more.Networking.ActiveDirectory.IADs
     Guid = Guid('a2f733b8-effe-11cf-8a-bc-00-c0-4f-d8-d5-03')
@@ -2811,6 +2792,25 @@ class IADsOU(c_void_p):
     def get_BusinessCategory(retval: POINTER(win32more.Foundation.BSTR)) -> win32more.Foundation.HRESULT: ...
     @commethod(33)
     def put_BusinessCategory(bstrBusinessCategory: win32more.Foundation.BSTR) -> win32more.Foundation.HRESULT: ...
+class IADsObjectOptions(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('46f14fda-232b-11d1-a8-08-00-c0-4f-d8-d5-a8')
+    @commethod(7)
+    def GetOption(lnOption: Int32, pvValue: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetOption(lnOption: Int32, vValue: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+class IADsOctetList(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('7b28b80f-4680-11d1-a3-b4-00-c0-4f-b9-50-dc')
+    @commethod(7)
+    def get_OctetList(retval: POINTER(win32more.System.Com.VARIANT_head)) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def put_OctetList(vOctetList: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+class IADsOpenDSObject(c_void_p):
+    extends: win32more.System.Com.IDispatch
+    Guid = Guid('ddf2891e-0f9c-11d0-8a-d4-00-c0-4f-d8-d5-03')
+    @commethod(7)
+    def OpenDSObject(lpszDNName: win32more.Foundation.BSTR, lpszUserName: win32more.Foundation.BSTR, lpszPassword: win32more.Foundation.BSTR, lnReserved: Int32, ppOleDsObj: POINTER(win32more.System.Com.IDispatch_head)) -> win32more.Foundation.HRESULT: ...
 class IADsPath(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('b287fcd5-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
@@ -3714,7 +3714,6 @@ class IQueryForm(c_void_p):
     def AddForms(pAddFormsProc: win32more.Networking.ActiveDirectory.LPCQADDFORMSPROC, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
     @commethod(5)
     def AddPages(pAddPagesProc: win32more.Networking.ActiveDirectory.LPCQADDPAGESPROC, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
-LargeInteger = Guid('927971f5-0939-11d1-8b-e1-00-c0-4f-d8-d5-03')
 @winfunctype_pointer
 def LPCQADDFORMSPROC(lParam: win32more.Foundation.LPARAM, pForm: POINTER(win32more.Networking.ActiveDirectory.CQFORM_head)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -3723,9 +3722,9 @@ def LPCQADDPAGESPROC(lParam: win32more.Foundation.LPARAM, clsidForm: POINTER(Gui
 def LPCQPAGEPROC(pPage: POINTER(win32more.Networking.ActiveDirectory.CQPAGE_head), hwnd: win32more.Foundation.HWND, uMsg: UInt32, wParam: win32more.Foundation.WPARAM, lParam: win32more.Foundation.LPARAM) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
 def LPDSENUMATTRIBUTES(lParam: win32more.Foundation.LPARAM, pszAttributeName: win32more.Foundation.PWSTR, pszDisplayName: win32more.Foundation.PWSTR, dwFlags: UInt32) -> win32more.Foundation.HRESULT: ...
+LargeInteger = Guid('927971f5-0939-11d1-8b-e1-00-c0-4f-d8-d5-03')
 NameTranslate = Guid('274fae1f-3626-11d1-a3-a4-00-c0-4f-b9-50-dc')
 NetAddress = Guid('b0b71247-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
-OctetList = Guid('1241400f-4680-11d1-a3-b4-00-c0-4f-b9-50-dc')
 class OPENQUERYWINDOW(Structure):
     cbStruct: UInt32
     dwFlags: UInt32
@@ -3737,6 +3736,7 @@ class OPENQUERYWINDOW(Structure):
     class _Anonymous_e__Union(Union):
         pFormParameters: c_void_p
         ppbFormParameters: win32more.System.Com.StructuredStorage.IPropertyBag_head
+OctetList = Guid('1241400f-4680-11d1-a3-b4-00-c0-4f-b9-50-dc')
 Path = Guid('b2538919-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
 Pathname = Guid('080d0d78-f421-11d0-a3-6e-00-c0-4f-b9-50-dc')
 PostalAddress = Guid('0a75afcd-4680-11d1-a3-b4-00-c0-4f-b9-50-dc')
@@ -3755,6 +3755,9 @@ SecurityDescriptor = Guid('b958f73c-9bdd-11d0-85-2c-00-c0-4f-d8-d5-03')
 Timestamp = Guid('b2bed2eb-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
 TypedName = Guid('b33143cb-4080-11d1-a3-ac-00-c0-4f-b9-50-dc')
 WinNTSystemInfo = Guid('66182ec4-afd1-11d2-9c-b9-00-00-f8-7a-36-9e')
+make_head(_module, 'ADSPROPERROR')
+make_head(_module, 'ADSPROPINITPARAMS')
+make_head(_module, 'ADSVALUE')
 make_head(_module, 'ADS_ATTR_DEF')
 make_head(_module, 'ADS_ATTR_INFO')
 make_head(_module, 'ADS_BACKLINK')
@@ -3774,21 +3777,39 @@ make_head(_module, 'ADS_PATH')
 make_head(_module, 'ADS_POSTALADDRESS')
 make_head(_module, 'ADS_PROV_SPECIFIC')
 make_head(_module, 'ADS_REPLICAPOINTER')
-make_head(_module, 'ADS_SEARCH_COLUMN')
 make_head(_module, 'ADS_SEARCHPREF_INFO')
+make_head(_module, 'ADS_SEARCH_COLUMN')
 make_head(_module, 'ADS_SORTKEY')
 make_head(_module, 'ADS_TIMESTAMP')
 make_head(_module, 'ADS_TYPEDNAME')
 make_head(_module, 'ADS_VLV')
-make_head(_module, 'ADSPROPERROR')
-make_head(_module, 'ADSPROPINITPARAMS')
-make_head(_module, 'ADSVALUE')
 make_head(_module, 'CQFORM')
 make_head(_module, 'CQPAGE')
+make_head(_module, 'DOMAINDESC')
 make_head(_module, 'DOMAIN_CONTROLLER_INFOA')
 make_head(_module, 'DOMAIN_CONTROLLER_INFOW')
 make_head(_module, 'DOMAIN_TREE')
-make_head(_module, 'DOMAINDESC')
+make_head(_module, 'DSA_NEWOBJ_DISPINFO')
+make_head(_module, 'DSBITEMA')
+make_head(_module, 'DSBITEMW')
+make_head(_module, 'DSBROWSEINFOA')
+make_head(_module, 'DSBROWSEINFOW')
+make_head(_module, 'DSCLASSCREATIONINFO')
+make_head(_module, 'DSCOLUMN')
+make_head(_module, 'DSDISPLAYSPECOPTIONS')
+make_head(_module, 'DSOBJECT')
+make_head(_module, 'DSOBJECTNAMES')
+make_head(_module, 'DSOP_FILTER_FLAGS')
+make_head(_module, 'DSOP_INIT_INFO')
+make_head(_module, 'DSOP_SCOPE_INIT_INFO')
+make_head(_module, 'DSOP_UPLEVEL_FILTER_FLAGS')
+make_head(_module, 'DSPROPERTYPAGEINFO')
+make_head(_module, 'DSQUERYCLASSLIST')
+make_head(_module, 'DSQUERYINITPARAMS')
+make_head(_module, 'DSQUERYPARAMS')
+make_head(_module, 'DSROLE_OPERATION_STATE_INFO')
+make_head(_module, 'DSROLE_PRIMARY_DOMAIN_INFO_BASIC')
+make_head(_module, 'DSROLE_UPGRADE_STATUS_INFO')
 make_head(_module, 'DS_DOMAIN_CONTROLLER_INFO_1A')
 make_head(_module, 'DS_DOMAIN_CONTROLLER_INFO_1W')
 make_head(_module, 'DS_DOMAIN_CONTROLLER_INFO_2A')
@@ -3797,10 +3818,10 @@ make_head(_module, 'DS_DOMAIN_CONTROLLER_INFO_3A')
 make_head(_module, 'DS_DOMAIN_CONTROLLER_INFO_3W')
 make_head(_module, 'DS_DOMAIN_TRUSTSA')
 make_head(_module, 'DS_DOMAIN_TRUSTSW')
-make_head(_module, 'DS_NAME_RESULT_ITEMA')
-make_head(_module, 'DS_NAME_RESULT_ITEMW')
 make_head(_module, 'DS_NAME_RESULTA')
 make_head(_module, 'DS_NAME_RESULTW')
+make_head(_module, 'DS_NAME_RESULT_ITEMA')
+make_head(_module, 'DS_NAME_RESULT_ITEMW')
 make_head(_module, 'DS_REPL_ATTR_META_DATA')
 make_head(_module, 'DS_REPL_ATTR_META_DATA_2')
 make_head(_module, 'DS_REPL_ATTR_META_DATA_BLOB')
@@ -3808,12 +3829,12 @@ make_head(_module, 'DS_REPL_ATTR_VALUE_META_DATA')
 make_head(_module, 'DS_REPL_ATTR_VALUE_META_DATA_2')
 make_head(_module, 'DS_REPL_ATTR_VALUE_META_DATA_EXT')
 make_head(_module, 'DS_REPL_CURSOR')
-make_head(_module, 'DS_REPL_CURSOR_2')
-make_head(_module, 'DS_REPL_CURSOR_3W')
-make_head(_module, 'DS_REPL_CURSOR_BLOB')
 make_head(_module, 'DS_REPL_CURSORS')
 make_head(_module, 'DS_REPL_CURSORS_2')
 make_head(_module, 'DS_REPL_CURSORS_3W')
+make_head(_module, 'DS_REPL_CURSOR_2')
+make_head(_module, 'DS_REPL_CURSOR_3W')
+make_head(_module, 'DS_REPL_CURSOR_BLOB')
 make_head(_module, 'DS_REPL_KCC_DSA_FAILURESW')
 make_head(_module, 'DS_REPL_KCC_DSA_FAILUREW')
 make_head(_module, 'DS_REPL_KCC_DSA_FAILUREW_BLOB')
@@ -3842,32 +3863,11 @@ make_head(_module, 'DS_SCHEMA_GUID_MAPW')
 make_head(_module, 'DS_SELECTION')
 make_head(_module, 'DS_SELECTION_LIST')
 make_head(_module, 'DS_SITE_COST_INFO')
-make_head(_module, 'DSA_NEWOBJ_DISPINFO')
-make_head(_module, 'DSBITEMA')
-make_head(_module, 'DSBITEMW')
-make_head(_module, 'DSBROWSEINFOA')
-make_head(_module, 'DSBROWSEINFOW')
-make_head(_module, 'DSCLASSCREATIONINFO')
-make_head(_module, 'DSCOLUMN')
-make_head(_module, 'DSDISPLAYSPECOPTIONS')
-make_head(_module, 'DSOBJECT')
-make_head(_module, 'DSOBJECTNAMES')
-make_head(_module, 'DSOP_FILTER_FLAGS')
-make_head(_module, 'DSOP_INIT_INFO')
-make_head(_module, 'DSOP_SCOPE_INIT_INFO')
-make_head(_module, 'DSOP_UPLEVEL_FILTER_FLAGS')
-make_head(_module, 'DSPROPERTYPAGEINFO')
-make_head(_module, 'DSQUERYCLASSLIST')
-make_head(_module, 'DSQUERYINITPARAMS')
-make_head(_module, 'DSQUERYPARAMS')
-make_head(_module, 'DSROLE_OPERATION_STATE_INFO')
-make_head(_module, 'DSROLE_PRIMARY_DOMAIN_INFO_BASIC')
-make_head(_module, 'DSROLE_UPGRADE_STATUS_INFO')
 make_head(_module, 'IADs')
+make_head(_module, 'IADsADSystemInfo')
 make_head(_module, 'IADsAccessControlEntry')
 make_head(_module, 'IADsAccessControlList')
 make_head(_module, 'IADsAcl')
-make_head(_module, 'IADsADSystemInfo')
 make_head(_module, 'IADsAggregatee')
 make_head(_module, 'IADsAggregator')
 make_head(_module, 'IADsBackLink')
@@ -3877,9 +3877,9 @@ make_head(_module, 'IADsCollection')
 make_head(_module, 'IADsComputer')
 make_head(_module, 'IADsComputerOperations')
 make_head(_module, 'IADsContainer')
-make_head(_module, 'IADsDeleteOps')
 make_head(_module, 'IADsDNWithBinary')
 make_head(_module, 'IADsDNWithString')
+make_head(_module, 'IADsDeleteOps')
 make_head(_module, 'IADsDomain')
 make_head(_module, 'IADsEmail')
 make_head(_module, 'IADsExtension')
@@ -3892,14 +3892,14 @@ make_head(_module, 'IADsHold')
 make_head(_module, 'IADsLargeInteger')
 make_head(_module, 'IADsLocality')
 make_head(_module, 'IADsMembers')
-make_head(_module, 'IADsNamespaces')
 make_head(_module, 'IADsNameTranslate')
+make_head(_module, 'IADsNamespaces')
 make_head(_module, 'IADsNetAddress')
 make_head(_module, 'IADsO')
+make_head(_module, 'IADsOU')
 make_head(_module, 'IADsObjectOptions')
 make_head(_module, 'IADsOctetList')
 make_head(_module, 'IADsOpenDSObject')
-make_head(_module, 'IADsOU')
 make_head(_module, 'IADsPath')
 make_head(_module, 'IADsPathname')
 make_head(_module, 'IADsPostalAddress')

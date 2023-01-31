@@ -18,15 +18,15 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+class ACCESSTIMEOUT(Structure):
+    cbSize: UInt32
+    dwFlags: UInt32
+    iTimeOutMSec: UInt32
 ACC_UTILITY_STATE_FLAGS = UInt32
 ANRUS_ON_SCREEN_KEYBOARD_ACTIVE: ACC_UTILITY_STATE_FLAGS = 1
 ANRUS_TOUCH_MODIFICATION_ACTIVE: ACC_UTILITY_STATE_FLAGS = 2
 ANRUS_PRIORITY_AUDIO_ACTIVE: ACC_UTILITY_STATE_FLAGS = 4
 ANRUS_PRIORITY_AUDIO_ACTIVE_NODUCK: ACC_UTILITY_STATE_FLAGS = 8
-class ACCESSTIMEOUT(Structure):
-    cbSize: UInt32
-    dwFlags: UInt32
-    iTimeOutMSec: UInt32
 ActiveEnd = Int32
 ActiveEnd_None: ActiveEnd = 0
 ActiveEnd_Start: ActiveEnd = 1
@@ -846,6 +846,9 @@ BulletStyle_FilledSquareBullet: BulletStyle = 4
 BulletStyle_DashBullet: BulletStyle = 5
 BulletStyle_Other: BulletStyle = -1
 CAccPropServices = Guid('b5f8350b-0548-48b1-a6-ee-88-bd-00-b4-a5-e7')
+CUIAutomation = Guid('ff48dba4-60ef-4201-aa-87-54-10-3e-ef-59-4e')
+CUIAutomation8 = Guid('e22ad333-b25f-460c-83-d0-05-81-10-73-95-c9')
+CUIAutomationRegistrar = Guid('6e29fabf-9977-42d1-8d-0e-ca-7e-61-ad-87-e6')
 CapStyle = Int32
 CapStyle_None: CapStyle = 0
 CapStyle_SmallCap: CapStyle = 1
@@ -875,9 +878,6 @@ ConditionType_Not: ConditionType = 5
 ConnectionRecoveryBehaviorOptions = Int32
 ConnectionRecoveryBehaviorOptions_Disabled: ConnectionRecoveryBehaviorOptions = 0
 ConnectionRecoveryBehaviorOptions_Enabled: ConnectionRecoveryBehaviorOptions = 1
-CUIAutomation = Guid('ff48dba4-60ef-4201-aa-87-54-10-3e-ef-59-4e')
-CUIAutomation8 = Guid('e22ad333-b25f-460c-83-d0-05-81-10-73-95-c9')
-CUIAutomationRegistrar = Guid('6e29fabf-9977-42d1-8d-0e-ca-7e-61-ad-87-e6')
 DockPosition = Int32
 DockPosition_Top: DockPosition = 0
 DockPosition_Left: DockPosition = 1
@@ -904,12 +904,6 @@ ExpandCollapseState_LeafNode: ExpandCollapseState = 3
 class ExtendedProperty(Structure):
     PropertyName: win32more.Foundation.BSTR
     PropertyValue: win32more.Foundation.BSTR
-FillType = Int32
-FillType_None: FillType = 0
-FillType_Color: FillType = 1
-FillType_Gradient: FillType = 2
-FillType_Picture: FillType = 3
-FillType_Pattern: FillType = 4
 class FILTERKEYS(Structure):
     cbSize: UInt32
     dwFlags: UInt32
@@ -917,6 +911,12 @@ class FILTERKEYS(Structure):
     iDelayMSec: UInt32
     iRepeatMSec: UInt32
     iBounceMSec: UInt32
+FillType = Int32
+FillType_None: FillType = 0
+FillType_Color: FillType = 1
+FillType_Gradient: FillType = 2
+FillType_Picture: FillType = 3
+FillType_Pattern: FillType = 4
 FlowDirections = Int32
 FlowDirections_Default: FlowDirections = 0
 FlowDirections_RightToLeft: FlowDirections = 1
@@ -939,16 +939,59 @@ HCF_HOTKEYSOUND: HIGHCONTRASTW_FLAGS = 16
 HCF_INDICATOR: HIGHCONTRASTW_FLAGS = 32
 HCF_HOTKEYAVAILABLE: HIGHCONTRASTW_FLAGS = 64
 HCF_OPTION_NOTHEMECHANGE: HIGHCONTRASTW_FLAGS = 4096
-HorizontalTextAlignment = Int32
-HorizontalTextAlignment_Left: HorizontalTextAlignment = 0
-HorizontalTextAlignment_Centered: HorizontalTextAlignment = 1
-HorizontalTextAlignment_Right: HorizontalTextAlignment = 2
-HorizontalTextAlignment_Justified: HorizontalTextAlignment = 3
 HUIAEVENT = IntPtr
 HUIANODE = IntPtr
 HUIAPATTERNOBJECT = IntPtr
 HUIATEXTRANGE = IntPtr
 HWINEVENTHOOK = IntPtr
+HorizontalTextAlignment = Int32
+HorizontalTextAlignment_Left: HorizontalTextAlignment = 0
+HorizontalTextAlignment_Centered: HorizontalTextAlignment = 1
+HorizontalTextAlignment_Right: HorizontalTextAlignment = 2
+HorizontalTextAlignment_Justified: HorizontalTextAlignment = 3
+class IAccIdentity(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('7852b78d-1cfd-41c1-a6-15-9c-0c-85-96-0b-5f')
+    @commethod(3)
+    def GetIdentityString(dwIDChild: UInt32, ppIDString: POINTER(c_char_p_no), pdwIDStringLen: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+class IAccPropServer(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('76c0dbbb-15e0-4e7b-b6-1b-20-ee-ea-20-01-e0')
+    @commethod(3)
+    def GetPropValue(pIDString: c_char_p_no, dwIDStringLen: UInt32, idProp: Guid, pvarValue: POINTER(win32more.System.Com.VARIANT_head), pfHasProp: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
+class IAccPropServices(c_void_p):
+    extends: win32more.System.Com.IUnknown
+    Guid = Guid('6e26e776-04f0-495d-80-e4-33-30-35-2e-31-69')
+    @commethod(3)
+    def SetPropValue(pIDString: c_char_p_no, dwIDStringLen: UInt32, idProp: Guid, var: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetPropServer(pIDString: c_char_p_no, dwIDStringLen: UInt32, paProps: POINTER(Guid), cProps: Int32, pServer: win32more.UI.Accessibility.IAccPropServer_head, annoScope: win32more.UI.Accessibility.AnnoScope) -> win32more.Foundation.HRESULT: ...
+    @commethod(5)
+    def ClearProps(pIDString: c_char_p_no, dwIDStringLen: UInt32, paProps: POINTER(Guid), cProps: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetHwndProp(hwnd: win32more.Foundation.HWND, idObject: UInt32, idChild: UInt32, idProp: Guid, var: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetHwndPropStr(hwnd: win32more.Foundation.HWND, idObject: UInt32, idChild: UInt32, idProp: Guid, str: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetHwndPropServer(hwnd: win32more.Foundation.HWND, idObject: UInt32, idChild: UInt32, paProps: POINTER(Guid), cProps: Int32, pServer: win32more.UI.Accessibility.IAccPropServer_head, annoScope: win32more.UI.Accessibility.AnnoScope) -> win32more.Foundation.HRESULT: ...
+    @commethod(9)
+    def ClearHwndProps(hwnd: win32more.Foundation.HWND, idObject: UInt32, idChild: UInt32, paProps: POINTER(Guid), cProps: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(10)
+    def ComposeHwndIdentityString(hwnd: win32more.Foundation.HWND, idObject: UInt32, idChild: UInt32, ppIDString: POINTER(c_char_p_no), pdwIDStringLen: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(11)
+    def DecomposeHwndIdentityString(pIDString: c_char_p_no, dwIDStringLen: UInt32, phwnd: POINTER(win32more.Foundation.HWND), pidObject: POINTER(UInt32), pidChild: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(12)
+    def SetHmenuProp(hmenu: win32more.UI.WindowsAndMessaging.HMENU, idChild: UInt32, idProp: Guid, var: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
+    @commethod(13)
+    def SetHmenuPropStr(hmenu: win32more.UI.WindowsAndMessaging.HMENU, idChild: UInt32, idProp: Guid, str: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
+    @commethod(14)
+    def SetHmenuPropServer(hmenu: win32more.UI.WindowsAndMessaging.HMENU, idChild: UInt32, paProps: POINTER(Guid), cProps: Int32, pServer: win32more.UI.Accessibility.IAccPropServer_head, annoScope: win32more.UI.Accessibility.AnnoScope) -> win32more.Foundation.HRESULT: ...
+    @commethod(15)
+    def ClearHmenuProps(hmenu: win32more.UI.WindowsAndMessaging.HMENU, idChild: UInt32, paProps: POINTER(Guid), cProps: Int32) -> win32more.Foundation.HRESULT: ...
+    @commethod(16)
+    def ComposeHmenuIdentityString(hmenu: win32more.UI.WindowsAndMessaging.HMENU, idChild: UInt32, ppIDString: POINTER(c_char_p_no), pdwIDStringLen: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
+    @commethod(17)
+    def DecomposeHmenuIdentityString(pIDString: c_char_p_no, dwIDStringLen: UInt32, phmenu: POINTER(win32more.UI.WindowsAndMessaging.HMENU), pidChild: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
 class IAccessible(c_void_p):
     extends: win32more.System.Com.IDispatch
     Guid = Guid('618736e0-3c3d-11cf-81-0c-00-aa-00-38-9b-71')
@@ -1028,49 +1071,6 @@ class IAccessibleWindowlessSite(c_void_p):
     def QueryObjectIdRanges(pRangesOwner: win32more.UI.Accessibility.IAccessibleHandler_head, psaRanges: POINTER(POINTER(win32more.System.Com.SAFEARRAY_head))) -> win32more.Foundation.HRESULT: ...
     @commethod(6)
     def GetParentAccessible(ppParent: POINTER(win32more.UI.Accessibility.IAccessible_head)) -> win32more.Foundation.HRESULT: ...
-class IAccIdentity(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('7852b78d-1cfd-41c1-a6-15-9c-0c-85-96-0b-5f')
-    @commethod(3)
-    def GetIdentityString(dwIDChild: UInt32, ppIDString: POINTER(c_char_p_no), pdwIDStringLen: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-class IAccPropServer(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('76c0dbbb-15e0-4e7b-b6-1b-20-ee-ea-20-01-e0')
-    @commethod(3)
-    def GetPropValue(pIDString: c_char_p_no, dwIDStringLen: UInt32, idProp: Guid, pvarValue: POINTER(win32more.System.Com.VARIANT_head), pfHasProp: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-class IAccPropServices(c_void_p):
-    extends: win32more.System.Com.IUnknown
-    Guid = Guid('6e26e776-04f0-495d-80-e4-33-30-35-2e-31-69')
-    @commethod(3)
-    def SetPropValue(pIDString: c_char_p_no, dwIDStringLen: UInt32, idProp: Guid, var: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
-    @commethod(4)
-    def SetPropServer(pIDString: c_char_p_no, dwIDStringLen: UInt32, paProps: POINTER(Guid), cProps: Int32, pServer: win32more.UI.Accessibility.IAccPropServer_head, annoScope: win32more.UI.Accessibility.AnnoScope) -> win32more.Foundation.HRESULT: ...
-    @commethod(5)
-    def ClearProps(pIDString: c_char_p_no, dwIDStringLen: UInt32, paProps: POINTER(Guid), cProps: Int32) -> win32more.Foundation.HRESULT: ...
-    @commethod(6)
-    def SetHwndProp(hwnd: win32more.Foundation.HWND, idObject: UInt32, idChild: UInt32, idProp: Guid, var: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
-    @commethod(7)
-    def SetHwndPropStr(hwnd: win32more.Foundation.HWND, idObject: UInt32, idChild: UInt32, idProp: Guid, str: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(8)
-    def SetHwndPropServer(hwnd: win32more.Foundation.HWND, idObject: UInt32, idChild: UInt32, paProps: POINTER(Guid), cProps: Int32, pServer: win32more.UI.Accessibility.IAccPropServer_head, annoScope: win32more.UI.Accessibility.AnnoScope) -> win32more.Foundation.HRESULT: ...
-    @commethod(9)
-    def ClearHwndProps(hwnd: win32more.Foundation.HWND, idObject: UInt32, idChild: UInt32, paProps: POINTER(Guid), cProps: Int32) -> win32more.Foundation.HRESULT: ...
-    @commethod(10)
-    def ComposeHwndIdentityString(hwnd: win32more.Foundation.HWND, idObject: UInt32, idChild: UInt32, ppIDString: POINTER(c_char_p_no), pdwIDStringLen: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(11)
-    def DecomposeHwndIdentityString(pIDString: c_char_p_no, dwIDStringLen: UInt32, phwnd: POINTER(win32more.Foundation.HWND), pidObject: POINTER(UInt32), pidChild: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(12)
-    def SetHmenuProp(hmenu: win32more.UI.WindowsAndMessaging.HMENU, idChild: UInt32, idProp: Guid, var: win32more.System.Com.VARIANT) -> win32more.Foundation.HRESULT: ...
-    @commethod(13)
-    def SetHmenuPropStr(hmenu: win32more.UI.WindowsAndMessaging.HMENU, idChild: UInt32, idProp: Guid, str: win32more.Foundation.PWSTR) -> win32more.Foundation.HRESULT: ...
-    @commethod(14)
-    def SetHmenuPropServer(hmenu: win32more.UI.WindowsAndMessaging.HMENU, idChild: UInt32, paProps: POINTER(Guid), cProps: Int32, pServer: win32more.UI.Accessibility.IAccPropServer_head, annoScope: win32more.UI.Accessibility.AnnoScope) -> win32more.Foundation.HRESULT: ...
-    @commethod(15)
-    def ClearHmenuProps(hmenu: win32more.UI.WindowsAndMessaging.HMENU, idChild: UInt32, paProps: POINTER(Guid), cProps: Int32) -> win32more.Foundation.HRESULT: ...
-    @commethod(16)
-    def ComposeHmenuIdentityString(hmenu: win32more.UI.WindowsAndMessaging.HMENU, idChild: UInt32, ppIDString: POINTER(c_char_p_no), pdwIDStringLen: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
-    @commethod(17)
-    def DecomposeHmenuIdentityString(pIDString: c_char_p_no, dwIDStringLen: UInt32, phmenu: POINTER(win32more.UI.WindowsAndMessaging.HMENU), pidChild: POINTER(UInt32)) -> win32more.Foundation.HRESULT: ...
 class IAnnotationProvider(c_void_p):
     extends: win32more.System.Com.IUnknown
     Guid = Guid('f95c7e80-bd63-4601-97-82-44-5e-bf-f0-11-fc')
@@ -2835,10 +2835,6 @@ class IWindowProvider(c_void_p):
     def get_WindowInteractionState(pRetVal: POINTER(win32more.UI.Accessibility.WindowInteractionState)) -> win32more.Foundation.HRESULT: ...
     @commethod(11)
     def get_IsTopmost(pRetVal: POINTER(win32more.Foundation.BOOL)) -> win32more.Foundation.HRESULT: ...
-LiveSetting = Int32
-LiveSetting_Off: LiveSetting = 0
-LiveSetting_Polite: LiveSetting = 1
-LiveSetting_Assertive: LiveSetting = 2
 @winfunctype_pointer
 def LPFNACCESSIBLECHILDREN(paccContainer: win32more.UI.Accessibility.IAccessible_head, iChildStart: Int32, cChildren: Int32, rgvarChildren: POINTER(win32more.System.Com.VARIANT_head), pcObtained: POINTER(Int32)) -> win32more.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -2851,6 +2847,10 @@ def LPFNCREATESTDACCESSIBLEOBJECT(hwnd: win32more.Foundation.HWND, idObject: Int
 def LPFNLRESULTFROMOBJECT(riid: POINTER(Guid), wParam: win32more.Foundation.WPARAM, punk: win32more.System.Com.IUnknown_head) -> win32more.Foundation.LRESULT: ...
 @winfunctype_pointer
 def LPFNOBJECTFROMLRESULT(lResult: win32more.Foundation.LRESULT, riid: POINTER(Guid), wParam: win32more.Foundation.WPARAM, ppvObject: POINTER(c_void_p)) -> win32more.Foundation.HRESULT: ...
+LiveSetting = Int32
+LiveSetting_Off: LiveSetting = 0
+LiveSetting_Polite: LiveSetting = 1
+LiveSetting_Assertive: LiveSetting = 2
 class MOUSEKEYS(Structure):
     cbSize: UInt32
     dwFlags: UInt32
@@ -2917,6 +2917,99 @@ RowOrColumnMajor = Int32
 RowOrColumnMajor_RowMajor: RowOrColumnMajor = 0
 RowOrColumnMajor_ColumnMajor: RowOrColumnMajor = 1
 RowOrColumnMajor_Indeterminate: RowOrColumnMajor = 2
+class SERIALKEYSA(Structure):
+    cbSize: UInt32
+    dwFlags: win32more.UI.Accessibility.SERIALKEYS_FLAGS
+    lpszActivePort: win32more.Foundation.PSTR
+    lpszPort: win32more.Foundation.PSTR
+    iBaudRate: UInt32
+    iPortState: UInt32
+    iActive: UInt32
+class SERIALKEYSW(Structure):
+    cbSize: UInt32
+    dwFlags: win32more.UI.Accessibility.SERIALKEYS_FLAGS
+    lpszActivePort: win32more.Foundation.PWSTR
+    lpszPort: win32more.Foundation.PWSTR
+    iBaudRate: UInt32
+    iPortState: UInt32
+    iActive: UInt32
+SERIALKEYS_FLAGS = UInt32
+SERKF_AVAILABLE: SERIALKEYS_FLAGS = 2
+SERKF_INDICATOR: SERIALKEYS_FLAGS = 4
+SERKF_SERIALKEYSON: SERIALKEYS_FLAGS = 1
+class SOUNDSENTRYA(Structure):
+    cbSize: UInt32
+    dwFlags: win32more.UI.Accessibility.SOUNDSENTRY_FLAGS
+    iFSTextEffect: win32more.UI.Accessibility.SOUNDSENTRY_TEXT_EFFECT
+    iFSTextEffectMSec: UInt32
+    iFSTextEffectColorBits: UInt32
+    iFSGrafEffect: win32more.UI.Accessibility.SOUND_SENTRY_GRAPHICS_EFFECT
+    iFSGrafEffectMSec: UInt32
+    iFSGrafEffectColor: UInt32
+    iWindowsEffect: win32more.UI.Accessibility.SOUNDSENTRY_WINDOWS_EFFECT
+    iWindowsEffectMSec: UInt32
+    lpszWindowsEffectDLL: win32more.Foundation.PSTR
+    iWindowsEffectOrdinal: UInt32
+class SOUNDSENTRYW(Structure):
+    cbSize: UInt32
+    dwFlags: win32more.UI.Accessibility.SOUNDSENTRY_FLAGS
+    iFSTextEffect: win32more.UI.Accessibility.SOUNDSENTRY_TEXT_EFFECT
+    iFSTextEffectMSec: UInt32
+    iFSTextEffectColorBits: UInt32
+    iFSGrafEffect: win32more.UI.Accessibility.SOUND_SENTRY_GRAPHICS_EFFECT
+    iFSGrafEffectMSec: UInt32
+    iFSGrafEffectColor: UInt32
+    iWindowsEffect: win32more.UI.Accessibility.SOUNDSENTRY_WINDOWS_EFFECT
+    iWindowsEffectMSec: UInt32
+    lpszWindowsEffectDLL: win32more.Foundation.PWSTR
+    iWindowsEffectOrdinal: UInt32
+SOUNDSENTRY_FLAGS = UInt32
+SSF_SOUNDSENTRYON: SOUNDSENTRY_FLAGS = 1
+SSF_AVAILABLE: SOUNDSENTRY_FLAGS = 2
+SSF_INDICATOR: SOUNDSENTRY_FLAGS = 4
+SOUNDSENTRY_TEXT_EFFECT = UInt32
+SSTF_BORDER: SOUNDSENTRY_TEXT_EFFECT = 2
+SSTF_CHARS: SOUNDSENTRY_TEXT_EFFECT = 1
+SSTF_DISPLAY: SOUNDSENTRY_TEXT_EFFECT = 3
+SSTF_NONE: SOUNDSENTRY_TEXT_EFFECT = 0
+SOUNDSENTRY_WINDOWS_EFFECT = UInt32
+SSWF_CUSTOM: SOUNDSENTRY_WINDOWS_EFFECT = 4
+SSWF_DISPLAY: SOUNDSENTRY_WINDOWS_EFFECT = 3
+SSWF_NONE: SOUNDSENTRY_WINDOWS_EFFECT = 0
+SSWF_TITLE: SOUNDSENTRY_WINDOWS_EFFECT = 1
+SSWF_WINDOW: SOUNDSENTRY_WINDOWS_EFFECT = 2
+SOUND_SENTRY_GRAPHICS_EFFECT = UInt32
+SSGF_DISPLAY: SOUND_SENTRY_GRAPHICS_EFFECT = 3
+SSGF_NONE: SOUND_SENTRY_GRAPHICS_EFFECT = 0
+class STICKYKEYS(Structure):
+    cbSize: UInt32
+    dwFlags: win32more.UI.Accessibility.STICKYKEYS_FLAGS
+STICKYKEYS_FLAGS = UInt32
+SKF_STICKYKEYSON: STICKYKEYS_FLAGS = 1
+SKF_AVAILABLE: STICKYKEYS_FLAGS = 2
+SKF_HOTKEYACTIVE: STICKYKEYS_FLAGS = 4
+SKF_CONFIRMHOTKEY: STICKYKEYS_FLAGS = 8
+SKF_HOTKEYSOUND: STICKYKEYS_FLAGS = 16
+SKF_INDICATOR: STICKYKEYS_FLAGS = 32
+SKF_AUDIBLEFEEDBACK: STICKYKEYS_FLAGS = 64
+SKF_TRISTATE: STICKYKEYS_FLAGS = 128
+SKF_TWOKEYSOFF: STICKYKEYS_FLAGS = 256
+SKF_LALTLATCHED: STICKYKEYS_FLAGS = 268435456
+SKF_LCTLLATCHED: STICKYKEYS_FLAGS = 67108864
+SKF_LSHIFTLATCHED: STICKYKEYS_FLAGS = 16777216
+SKF_RALTLATCHED: STICKYKEYS_FLAGS = 536870912
+SKF_RCTLLATCHED: STICKYKEYS_FLAGS = 134217728
+SKF_RSHIFTLATCHED: STICKYKEYS_FLAGS = 33554432
+SKF_LWINLATCHED: STICKYKEYS_FLAGS = 1073741824
+SKF_RWINLATCHED: STICKYKEYS_FLAGS = 2147483648
+SKF_LALTLOCKED: STICKYKEYS_FLAGS = 1048576
+SKF_LCTLLOCKED: STICKYKEYS_FLAGS = 262144
+SKF_LSHIFTLOCKED: STICKYKEYS_FLAGS = 65536
+SKF_RALTLOCKED: STICKYKEYS_FLAGS = 2097152
+SKF_RCTLLOCKED: STICKYKEYS_FLAGS = 524288
+SKF_RSHIFTLOCKED: STICKYKEYS_FLAGS = 131072
+SKF_LWINLOCKED: STICKYKEYS_FLAGS = 4194304
+SKF_RWINLOCKED: STICKYKEYS_FLAGS = 8388608
 SayAsInterpretAs = Int32
 SayAsInterpretAs_None: SayAsInterpretAs = 0
 SayAsInterpretAs_Spell: SayAsInterpretAs = 1
@@ -2951,99 +3044,6 @@ ScrollAmount_SmallDecrement: ScrollAmount = 1
 ScrollAmount_NoAmount: ScrollAmount = 2
 ScrollAmount_LargeIncrement: ScrollAmount = 3
 ScrollAmount_SmallIncrement: ScrollAmount = 4
-SERIALKEYS_FLAGS = UInt32
-SERKF_AVAILABLE: SERIALKEYS_FLAGS = 2
-SERKF_INDICATOR: SERIALKEYS_FLAGS = 4
-SERKF_SERIALKEYSON: SERIALKEYS_FLAGS = 1
-class SERIALKEYSA(Structure):
-    cbSize: UInt32
-    dwFlags: win32more.UI.Accessibility.SERIALKEYS_FLAGS
-    lpszActivePort: win32more.Foundation.PSTR
-    lpszPort: win32more.Foundation.PSTR
-    iBaudRate: UInt32
-    iPortState: UInt32
-    iActive: UInt32
-class SERIALKEYSW(Structure):
-    cbSize: UInt32
-    dwFlags: win32more.UI.Accessibility.SERIALKEYS_FLAGS
-    lpszActivePort: win32more.Foundation.PWSTR
-    lpszPort: win32more.Foundation.PWSTR
-    iBaudRate: UInt32
-    iPortState: UInt32
-    iActive: UInt32
-SOUND_SENTRY_GRAPHICS_EFFECT = UInt32
-SSGF_DISPLAY: SOUND_SENTRY_GRAPHICS_EFFECT = 3
-SSGF_NONE: SOUND_SENTRY_GRAPHICS_EFFECT = 0
-SOUNDSENTRY_FLAGS = UInt32
-SSF_SOUNDSENTRYON: SOUNDSENTRY_FLAGS = 1
-SSF_AVAILABLE: SOUNDSENTRY_FLAGS = 2
-SSF_INDICATOR: SOUNDSENTRY_FLAGS = 4
-SOUNDSENTRY_TEXT_EFFECT = UInt32
-SSTF_BORDER: SOUNDSENTRY_TEXT_EFFECT = 2
-SSTF_CHARS: SOUNDSENTRY_TEXT_EFFECT = 1
-SSTF_DISPLAY: SOUNDSENTRY_TEXT_EFFECT = 3
-SSTF_NONE: SOUNDSENTRY_TEXT_EFFECT = 0
-SOUNDSENTRY_WINDOWS_EFFECT = UInt32
-SSWF_CUSTOM: SOUNDSENTRY_WINDOWS_EFFECT = 4
-SSWF_DISPLAY: SOUNDSENTRY_WINDOWS_EFFECT = 3
-SSWF_NONE: SOUNDSENTRY_WINDOWS_EFFECT = 0
-SSWF_TITLE: SOUNDSENTRY_WINDOWS_EFFECT = 1
-SSWF_WINDOW: SOUNDSENTRY_WINDOWS_EFFECT = 2
-class SOUNDSENTRYA(Structure):
-    cbSize: UInt32
-    dwFlags: win32more.UI.Accessibility.SOUNDSENTRY_FLAGS
-    iFSTextEffect: win32more.UI.Accessibility.SOUNDSENTRY_TEXT_EFFECT
-    iFSTextEffectMSec: UInt32
-    iFSTextEffectColorBits: UInt32
-    iFSGrafEffect: win32more.UI.Accessibility.SOUND_SENTRY_GRAPHICS_EFFECT
-    iFSGrafEffectMSec: UInt32
-    iFSGrafEffectColor: UInt32
-    iWindowsEffect: win32more.UI.Accessibility.SOUNDSENTRY_WINDOWS_EFFECT
-    iWindowsEffectMSec: UInt32
-    lpszWindowsEffectDLL: win32more.Foundation.PSTR
-    iWindowsEffectOrdinal: UInt32
-class SOUNDSENTRYW(Structure):
-    cbSize: UInt32
-    dwFlags: win32more.UI.Accessibility.SOUNDSENTRY_FLAGS
-    iFSTextEffect: win32more.UI.Accessibility.SOUNDSENTRY_TEXT_EFFECT
-    iFSTextEffectMSec: UInt32
-    iFSTextEffectColorBits: UInt32
-    iFSGrafEffect: win32more.UI.Accessibility.SOUND_SENTRY_GRAPHICS_EFFECT
-    iFSGrafEffectMSec: UInt32
-    iFSGrafEffectColor: UInt32
-    iWindowsEffect: win32more.UI.Accessibility.SOUNDSENTRY_WINDOWS_EFFECT
-    iWindowsEffectMSec: UInt32
-    lpszWindowsEffectDLL: win32more.Foundation.PWSTR
-    iWindowsEffectOrdinal: UInt32
-class STICKYKEYS(Structure):
-    cbSize: UInt32
-    dwFlags: win32more.UI.Accessibility.STICKYKEYS_FLAGS
-STICKYKEYS_FLAGS = UInt32
-SKF_STICKYKEYSON: STICKYKEYS_FLAGS = 1
-SKF_AVAILABLE: STICKYKEYS_FLAGS = 2
-SKF_HOTKEYACTIVE: STICKYKEYS_FLAGS = 4
-SKF_CONFIRMHOTKEY: STICKYKEYS_FLAGS = 8
-SKF_HOTKEYSOUND: STICKYKEYS_FLAGS = 16
-SKF_INDICATOR: STICKYKEYS_FLAGS = 32
-SKF_AUDIBLEFEEDBACK: STICKYKEYS_FLAGS = 64
-SKF_TRISTATE: STICKYKEYS_FLAGS = 128
-SKF_TWOKEYSOFF: STICKYKEYS_FLAGS = 256
-SKF_LALTLATCHED: STICKYKEYS_FLAGS = 268435456
-SKF_LCTLLATCHED: STICKYKEYS_FLAGS = 67108864
-SKF_LSHIFTLATCHED: STICKYKEYS_FLAGS = 16777216
-SKF_RALTLATCHED: STICKYKEYS_FLAGS = 536870912
-SKF_RCTLLATCHED: STICKYKEYS_FLAGS = 134217728
-SKF_RSHIFTLATCHED: STICKYKEYS_FLAGS = 33554432
-SKF_LWINLATCHED: STICKYKEYS_FLAGS = 1073741824
-SKF_RWINLATCHED: STICKYKEYS_FLAGS = 2147483648
-SKF_LALTLOCKED: STICKYKEYS_FLAGS = 1048576
-SKF_LCTLLOCKED: STICKYKEYS_FLAGS = 262144
-SKF_LSHIFTLOCKED: STICKYKEYS_FLAGS = 65536
-SKF_RALTLOCKED: STICKYKEYS_FLAGS = 2097152
-SKF_RCTLLOCKED: STICKYKEYS_FLAGS = 524288
-SKF_RSHIFTLOCKED: STICKYKEYS_FLAGS = 131072
-SKF_LWINLOCKED: STICKYKEYS_FLAGS = 4194304
-SKF_RWINLOCKED: STICKYKEYS_FLAGS = 8388608
 StructureChangeType = Int32
 StructureChangeType_ChildAdded: StructureChangeType = 0
 StructureChangeType_ChildRemoved: StructureChangeType = 1
@@ -3062,6 +3062,9 @@ SynchronizedInputType_LeftMouseUp: SynchronizedInputType = 4
 SynchronizedInputType_LeftMouseDown: SynchronizedInputType = 8
 SynchronizedInputType_RightMouseUp: SynchronizedInputType = 16
 SynchronizedInputType_RightMouseDown: SynchronizedInputType = 32
+class TOGGLEKEYS(Structure):
+    cbSize: UInt32
+    dwFlags: UInt32
 TextDecorationLineStyle = Int32
 TextDecorationLineStyle_None: TextDecorationLineStyle = 0
 TextDecorationLineStyle_Single: TextDecorationLineStyle = 1
@@ -3099,9 +3102,6 @@ TextUnit_Line: TextUnit = 3
 TextUnit_Paragraph: TextUnit = 4
 TextUnit_Page: TextUnit = 5
 TextUnit_Document: TextUnit = 6
-class TOGGLEKEYS(Structure):
-    cbSize: UInt32
-    dwFlags: UInt32
 ToggleState = Int32
 ToggleState_Off: ToggleState = 0
 ToggleState_On: ToggleState = 1
@@ -3520,6 +3520,66 @@ UIA_LineSpacingAttributeId: UIA_TEXTATTRIBUTE_ID = 40040
 UIA_BeforeParagraphSpacingAttributeId: UIA_TEXTATTRIBUTE_ID = 40041
 UIA_AfterParagraphSpacingAttributeId: UIA_TEXTATTRIBUTE_ID = 40042
 UIA_SayAsInterpretAsAttributeId: UIA_TEXTATTRIBUTE_ID = 40043
+class UIAutomationEventInfo(Structure):
+    guid: Guid
+    pProgrammaticName: win32more.Foundation.PWSTR
+class UIAutomationMethodInfo(Structure):
+    pProgrammaticName: win32more.Foundation.PWSTR
+    doSetFocus: win32more.Foundation.BOOL
+    cInParameters: UInt32
+    cOutParameters: UInt32
+    pParameterTypes: POINTER(win32more.UI.Accessibility.UIAutomationType)
+    pParameterNames: POINTER(win32more.Foundation.PWSTR)
+class UIAutomationParameter(Structure):
+    type: win32more.UI.Accessibility.UIAutomationType
+    pData: c_void_p
+class UIAutomationPatternInfo(Structure):
+    guid: Guid
+    pProgrammaticName: win32more.Foundation.PWSTR
+    providerInterfaceId: Guid
+    clientInterfaceId: Guid
+    cProperties: UInt32
+    pProperties: POINTER(win32more.UI.Accessibility.UIAutomationPropertyInfo_head)
+    cMethods: UInt32
+    pMethods: POINTER(win32more.UI.Accessibility.UIAutomationMethodInfo_head)
+    cEvents: UInt32
+    pEvents: POINTER(win32more.UI.Accessibility.UIAutomationEventInfo_head)
+    pPatternHandler: win32more.UI.Accessibility.IUIAutomationPatternHandler_head
+class UIAutomationPropertyInfo(Structure):
+    guid: Guid
+    pProgrammaticName: win32more.Foundation.PWSTR
+    type: win32more.UI.Accessibility.UIAutomationType
+UIAutomationType = Int32
+UIAutomationType_Int: UIAutomationType = 1
+UIAutomationType_Bool: UIAutomationType = 2
+UIAutomationType_String: UIAutomationType = 3
+UIAutomationType_Double: UIAutomationType = 4
+UIAutomationType_Point: UIAutomationType = 5
+UIAutomationType_Rect: UIAutomationType = 6
+UIAutomationType_Element: UIAutomationType = 7
+UIAutomationType_Array: UIAutomationType = 65536
+UIAutomationType_Out: UIAutomationType = 131072
+UIAutomationType_IntArray: UIAutomationType = 65537
+UIAutomationType_BoolArray: UIAutomationType = 65538
+UIAutomationType_StringArray: UIAutomationType = 65539
+UIAutomationType_DoubleArray: UIAutomationType = 65540
+UIAutomationType_PointArray: UIAutomationType = 65541
+UIAutomationType_RectArray: UIAutomationType = 65542
+UIAutomationType_ElementArray: UIAutomationType = 65543
+UIAutomationType_OutInt: UIAutomationType = 131073
+UIAutomationType_OutBool: UIAutomationType = 131074
+UIAutomationType_OutString: UIAutomationType = 131075
+UIAutomationType_OutDouble: UIAutomationType = 131076
+UIAutomationType_OutPoint: UIAutomationType = 131077
+UIAutomationType_OutRect: UIAutomationType = 131078
+UIAutomationType_OutElement: UIAutomationType = 131079
+UIAutomationType_OutIntArray: UIAutomationType = 196609
+UIAutomationType_OutBoolArray: UIAutomationType = 196610
+UIAutomationType_OutStringArray: UIAutomationType = 196611
+UIAutomationType_OutDoubleArray: UIAutomationType = 196612
+UIAutomationType_OutPointArray: UIAutomationType = 196613
+UIAutomationType_OutRectArray: UIAutomationType = 196614
+UIAutomationType_OutElementArray: UIAutomationType = 196615
 class UiaAndOrCondition(Structure):
     ConditionType: win32more.UI.Accessibility.ConditionType
     ppConditions: POINTER(POINTER(win32more.UI.Accessibility.UiaCondition_head))
@@ -3593,66 +3653,6 @@ class UiaTextEditTextChangedEventArgs(Structure):
     EventId: Int32
     TextEditChangeType: win32more.UI.Accessibility.TextEditChangeType
     pTextChange: POINTER(win32more.System.Com.SAFEARRAY_head)
-class UIAutomationEventInfo(Structure):
-    guid: Guid
-    pProgrammaticName: win32more.Foundation.PWSTR
-class UIAutomationMethodInfo(Structure):
-    pProgrammaticName: win32more.Foundation.PWSTR
-    doSetFocus: win32more.Foundation.BOOL
-    cInParameters: UInt32
-    cOutParameters: UInt32
-    pParameterTypes: POINTER(win32more.UI.Accessibility.UIAutomationType)
-    pParameterNames: POINTER(win32more.Foundation.PWSTR)
-class UIAutomationParameter(Structure):
-    type: win32more.UI.Accessibility.UIAutomationType
-    pData: c_void_p
-class UIAutomationPatternInfo(Structure):
-    guid: Guid
-    pProgrammaticName: win32more.Foundation.PWSTR
-    providerInterfaceId: Guid
-    clientInterfaceId: Guid
-    cProperties: UInt32
-    pProperties: POINTER(win32more.UI.Accessibility.UIAutomationPropertyInfo_head)
-    cMethods: UInt32
-    pMethods: POINTER(win32more.UI.Accessibility.UIAutomationMethodInfo_head)
-    cEvents: UInt32
-    pEvents: POINTER(win32more.UI.Accessibility.UIAutomationEventInfo_head)
-    pPatternHandler: win32more.UI.Accessibility.IUIAutomationPatternHandler_head
-class UIAutomationPropertyInfo(Structure):
-    guid: Guid
-    pProgrammaticName: win32more.Foundation.PWSTR
-    type: win32more.UI.Accessibility.UIAutomationType
-UIAutomationType = Int32
-UIAutomationType_Int: UIAutomationType = 1
-UIAutomationType_Bool: UIAutomationType = 2
-UIAutomationType_String: UIAutomationType = 3
-UIAutomationType_Double: UIAutomationType = 4
-UIAutomationType_Point: UIAutomationType = 5
-UIAutomationType_Rect: UIAutomationType = 6
-UIAutomationType_Element: UIAutomationType = 7
-UIAutomationType_Array: UIAutomationType = 65536
-UIAutomationType_Out: UIAutomationType = 131072
-UIAutomationType_IntArray: UIAutomationType = 65537
-UIAutomationType_BoolArray: UIAutomationType = 65538
-UIAutomationType_StringArray: UIAutomationType = 65539
-UIAutomationType_DoubleArray: UIAutomationType = 65540
-UIAutomationType_PointArray: UIAutomationType = 65541
-UIAutomationType_RectArray: UIAutomationType = 65542
-UIAutomationType_ElementArray: UIAutomationType = 65543
-UIAutomationType_OutInt: UIAutomationType = 131073
-UIAutomationType_OutBool: UIAutomationType = 131074
-UIAutomationType_OutString: UIAutomationType = 131075
-UIAutomationType_OutDouble: UIAutomationType = 131076
-UIAutomationType_OutPoint: UIAutomationType = 131077
-UIAutomationType_OutRect: UIAutomationType = 131078
-UIAutomationType_OutElement: UIAutomationType = 131079
-UIAutomationType_OutIntArray: UIAutomationType = 196609
-UIAutomationType_OutBoolArray: UIAutomationType = 196610
-UIAutomationType_OutStringArray: UIAutomationType = 196611
-UIAutomationType_OutDoubleArray: UIAutomationType = 196612
-UIAutomationType_OutPointArray: UIAutomationType = 196613
-UIAutomationType_OutRectArray: UIAutomationType = 196614
-UIAutomationType_OutElementArray: UIAutomationType = 196615
 class UiaWindowClosedEventArgs(Structure):
     Type: win32more.UI.Accessibility.EventArgsType
     EventId: Int32
@@ -3665,6 +3665,8 @@ VisualEffects_Reflection: VisualEffects = 2
 VisualEffects_Glow: VisualEffects = 4
 VisualEffects_SoftEdges: VisualEffects = 8
 VisualEffects_Bevel: VisualEffects = 16
+@winfunctype_pointer
+def WINEVENTPROC(hWinEventHook: win32more.UI.Accessibility.HWINEVENTHOOK, event: UInt32, hwnd: win32more.Foundation.HWND, idObject: Int32, idChild: Int32, idEventThread: UInt32, dwmsEventTime: UInt32) -> Void: ...
 WindowInteractionState = Int32
 WindowInteractionState_Running: WindowInteractionState = 0
 WindowInteractionState_Closing: WindowInteractionState = 1
@@ -3675,8 +3677,6 @@ WindowVisualState = Int32
 WindowVisualState_Normal: WindowVisualState = 0
 WindowVisualState_Maximized: WindowVisualState = 1
 WindowVisualState_Minimized: WindowVisualState = 2
-@winfunctype_pointer
-def WINEVENTPROC(hWinEventHook: win32more.UI.Accessibility.HWINEVENTHOOK, event: UInt32, hwnd: win32more.Foundation.HWND, idObject: Int32, idChild: Int32, idEventThread: UInt32, dwmsEventTime: UInt32) -> Void: ...
 ZoomUnit = Int32
 ZoomUnit_NoAmount: ZoomUnit = 0
 ZoomUnit_LargeDecrement: ZoomUnit = 1
@@ -3688,14 +3688,14 @@ make_head(_module, 'ExtendedProperty')
 make_head(_module, 'FILTERKEYS')
 make_head(_module, 'HIGHCONTRASTA')
 make_head(_module, 'HIGHCONTRASTW')
+make_head(_module, 'IAccIdentity')
+make_head(_module, 'IAccPropServer')
+make_head(_module, 'IAccPropServices')
 make_head(_module, 'IAccessible')
 make_head(_module, 'IAccessibleEx')
 make_head(_module, 'IAccessibleHandler')
 make_head(_module, 'IAccessibleHostingElementProviders')
 make_head(_module, 'IAccessibleWindowlessSite')
-make_head(_module, 'IAccIdentity')
-make_head(_module, 'IAccPropServer')
-make_head(_module, 'IAccPropServices')
 make_head(_module, 'IAnnotationProvider')
 make_head(_module, 'ICustomNavigationProvider')
 make_head(_module, 'IDockProvider')
@@ -3838,6 +3838,11 @@ make_head(_module, 'SOUNDSENTRYA')
 make_head(_module, 'SOUNDSENTRYW')
 make_head(_module, 'STICKYKEYS')
 make_head(_module, 'TOGGLEKEYS')
+make_head(_module, 'UIAutomationEventInfo')
+make_head(_module, 'UIAutomationMethodInfo')
+make_head(_module, 'UIAutomationParameter')
+make_head(_module, 'UIAutomationPatternInfo')
+make_head(_module, 'UIAutomationPropertyInfo')
 make_head(_module, 'UiaAndOrCondition')
 make_head(_module, 'UiaAsyncContentLoadedEventArgs')
 make_head(_module, 'UiaCacheRequest')
@@ -3855,11 +3860,6 @@ make_head(_module, 'UiaProviderCallback')
 make_head(_module, 'UiaRect')
 make_head(_module, 'UiaStructureChangedEventArgs')
 make_head(_module, 'UiaTextEditTextChangedEventArgs')
-make_head(_module, 'UIAutomationEventInfo')
-make_head(_module, 'UIAutomationMethodInfo')
-make_head(_module, 'UIAutomationParameter')
-make_head(_module, 'UIAutomationPatternInfo')
-make_head(_module, 'UIAutomationPropertyInfo')
 make_head(_module, 'UiaWindowClosedEventArgs')
 make_head(_module, 'WINEVENTPROC')
 __all__ = [
