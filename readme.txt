@@ -2,7 +2,11 @@ Python bindings for Win32 API generated from win32metadata.
 
 https://github.com/microsoft/win32metadata
 
-TO GENERATE:
+Usage:
+
+> py generate.py json/Windows.Win32.json.xz
+
+How to get latest metadata:
 
 # Download Windows.Win32.winmd
 > nuget install -ExcludeVersion -Prerelease Microsoft.Windows.SDK.Win32Metadata
@@ -12,9 +16,6 @@ TO GENERATE:
 > cd winmd-printer
 > dotnet run ..\Microsoft.Windows.SDK.Win32Metadata\Windows.Win32.winmd > ..\Windows.Win32.json
 > cd ..
-
-# Generate Python code
-> py generate.py Windows.Win32.json
 
 not maintained.
 not tested.
