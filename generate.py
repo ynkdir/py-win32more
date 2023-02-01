@@ -1,6 +1,7 @@
 from __future__ import annotations
 import json
 import keyword
+import lzma
 import re
 import sys
 from pathlib import Path
@@ -1069,8 +1070,14 @@ class PyGenerator:
         writer.write("__all__ = sorted(nameindex)\n")
 
 
+def xopen(path: str) -> TextIO:
+    if path.endswith(".xz"):
+        return lzma.open(path)
+    return open(path)
+
+
 def main() -> None:
-    with open(sys.argv[1]) as f:
+    with xopen(sys.argv[1]) as f:
         typedefs = [TypeDefinition(typedef) for typedef in json.load(f)]
     pp = Preprocessor()
     typedefs = pp.filter_public(typedefs)
