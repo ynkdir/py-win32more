@@ -1,6 +1,6 @@
 from contextlib import contextmanager
 from ctypes import WinError
-from win32more.all import (FAILED, PWSTR,
+from Windows.all import (FAILED, PWSTR,
     S_OK, CLSCTX_INPROC_SERVER, SPF_DEFAULT, SpVoice, SpObjectTokenCategory,
     CoInitialize, CoUninitialize, CoCreateInstance, CoTaskMemFree,
     ISpObjectToken, ISpObjectTokenCategory, IEnumSpObjectTokens, ISpVoice)

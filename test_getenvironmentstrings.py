@@ -1,4 +1,4 @@
-from win32more.all import PWSTR, GetEnvironmentStringsW, FreeEnvironmentStringsW
+from Windows.all import PWSTR, GetEnvironmentStringsW, FreeEnvironmentStringsW
 from ctypes import c_void_p, c_wchar, sizeof, cast, wstring_at
 
 # Unsafe case for c_wchar_p to python str auto-conversion.

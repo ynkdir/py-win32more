@@ -2,7 +2,7 @@
 
 from contextlib import ExitStack
 from ctypes import pointer, byref, WinError
-from win32more.all import *
+from Windows.all import *
 
 # missing constants in win32metadata
 LOCALE_SYSTEM_DEFAULT = 2048

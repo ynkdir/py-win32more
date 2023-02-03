@@ -1,4 +1,4 @@
-import win32more.all as win32
+import Windows.all as win32
 from ctypes import cast, byref, resize, POINTER
 from ctypes.wintypes import ULONG
 import socket

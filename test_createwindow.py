@@ -1,6 +1,6 @@
 # https://learn.microsoft.com/en-us/windows/win32/learnwin32/your-first-windows-program
 
-import win32more.all as win32
+import Windows.all as win32
 
 def WinMain():
     hInstance = win32.GetModuleHandleW(None)

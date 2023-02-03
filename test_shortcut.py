@@ -1,4 +1,4 @@
-import win32more.all as win32
+import Windows.all as win32
 from pathlib import Path
 
 win32.CoInitialize(None)
