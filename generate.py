@@ -7,7 +7,6 @@ import sys
 from pathlib import Path
 from typing import TypeAlias, Generator, Any, TextIO, Self
 
-PACKAGE_NAME = "win32more"
 BASE_EXPORTS = [
     "ARCH",
     "MissingType",
@@ -373,11 +372,11 @@ class FieldDefinition:
             guid, rest = self.get_custom_attribute("Windows.Win32.Interop.GuidAttribute").guid_value()
             assert len(rest) == 0
             return f"Guid('{guid}')"
-        elif self.signature.kind == "Type" and self.signature.name == f"{PACKAGE_NAME}.Devices.Properties.DEVPROPKEY":
+        elif self.signature.kind == "Type" and self.signature.name == f"Windows.Win32.Devices.Properties.DEVPROPKEY":
             guid, rest = self.get_custom_attribute("Windows.Win32.Interop.PropertyKeyAttribute").guid_value()
             assert len(rest) == 1
             return f"{self.signature.name}(fmtid=Guid('{guid}'), pid={rest[0]})"
-        elif self.signature.kind == "Type" and self.signature.name == f"{PACKAGE_NAME}.UI.Shell.PropertiesSystem.PROPERTYKEY":
+        elif self.signature.kind == "Type" and self.signature.name == f"Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY":
             guid, rest = self.get_custom_attribute("Windows.Win32.Interop.PropertyKeyAttribute").guid_value()
             assert len(rest) == 1
             return f"{self.signature.name}(fmtid=Guid('{guid}'), pid={rest[0]})"
@@ -775,18 +774,6 @@ class Preprocessor:
                         sys.stderr.write(f"DEBUG: name conflict '{td.namespace}.{fd.name}'\n")
                         fd["Name"] = f"{fd['Name']}_CONSTANT"
 
-    def patch_namespace(self, typedefs: list[TypeDefinition], packagename: str) -> None:
-        def patch(name: str) -> str:
-            return re.sub(r"^Windows.Win32.", f"{packagename}.", name)
-
-        for td in typedefs:
-            td["Namespace"] = patch(td["Namespace"])
-            for ii in td.interface_implementations:
-                ii.interface.type_reference["Namespace"] = patch(ii.interface.type_reference["Namespace"])
-            for t in self.foreach_type(td):
-                t = t.get_element_type()
-                t["Name"] = patch(t["Name"])
-
     def patch_keyword_name(self, typedefs: list[TypeDefinition]) -> None:
         for td in typedefs:
             self.patch_keyword_name_td(td)
@@ -1006,7 +993,7 @@ class PyGenerator:
     def write_header(self, writer: TextIO, import_namespaces: set[str]) -> None:
         writer.write("from __future__ import annotations\n")
         writer.write("from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n")
-        writer.write(f"from {PACKAGE_NAME}.base import {BASE_EXPORTS_CSV}\n")
+        writer.write(f"from Windows.base import {BASE_EXPORTS_CSV}\n")
         for namespace in sorted(import_namespaces):
             writer.write(f"import {namespace}\n")
         writer.write("import sys\n")
@@ -1062,7 +1049,7 @@ class PyGenerator:
         writer.write("    return __all__\n")
         writer.write("nameindex = {\n")
         for name in BASE_EXPORTS:
-            writer.write(f"'{name}': '{PACKAGE_NAME}.base',\n")
+            writer.write(f"'{name}': 'Windows.base',\n")
         for namespace in sorted(export_names_groupby_namespace):
             for name in sorted(export_names_groupby_namespace[namespace]):
                 writer.write(f"'{name}': '{namespace}',\n")
@@ -1087,7 +1074,6 @@ def main() -> None:
     pp.patch_com_vtbl_index(typedefs)
     pp.patch_name_conflict(typedefs)
     pp.patch_keyword_name(typedefs)
-    pp.patch_namespace(typedefs, PACKAGE_NAME)
     ns_mod: dict[str, list[TypeDefinition]] = {}
     for td in typedefs:
         if td.namespace not in ns_mod:
@@ -1117,7 +1103,7 @@ def main() -> None:
                 pg.write_make_head(writer, td)
             pg.write_footer(writer, export_names, export_names_optional)
         export_names_groupby_namespace[namespace] = export_names
-    with open(f"{PACKAGE_NAME}/all.py", "w") as writer:
+    with open(f"Windows/all.py", "w") as writer:
         pg.write_all(writer, export_names_groupby_namespace)
 
 
