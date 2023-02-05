@@ -12,7 +12,7 @@ Usage:
 selector.txt format is:
 
 # namespace
-Windows.Win32.Com
+Windows.Win32.System.Com
 # fullname
 Windows.Win32.UI.WindowsAndMessaging.MessageBoxW
 # just name
