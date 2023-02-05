@@ -6,6 +6,20 @@ Usage:
 
 > py generate.py json/Windows.Win32.json.xz
 
+# Generate one file module for specific api set.
+> py generate.py -s selector.txt -o win32.py json/Windows.Win32.json.xz
+
+selector.txt format is:
+
+# namespace
+Windows.Win32.Com
+# fullname
+Windows.Win32.UI.WindowsAndMessaging.MessageBoxW
+# just name
+CreateFileW
+MB_OK
+
+
 How to get latest metadata:
 
 # Download Windows.Win32.winmd

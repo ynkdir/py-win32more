@@ -1,11 +1,12 @@
 from __future__ import annotations
+import argparse
 import json
 import keyword
 import lzma
 import re
 import sys
 from pathlib import Path
-from typing import TypeAlias, Generator, Any, TextIO, Self
+from typing import TypeAlias, Iterable, Any, TextIO, Self
 
 BASE_EXPORTS = [
     "ARCH",
@@ -789,7 +790,7 @@ class Preprocessor:
         for nested_type in td.nested_types:
             self.patch_keyword_name_td(nested_type)
 
-    def foreach_type(self, td: TypeDefinition) -> Generator[TType, None, None]:
+    def foreach_type(self, td: TypeDefinition) -> Iterable[TType]:
         for fd in td.fields:
             yield fd.signature
         for md in td.method_definitions:
@@ -840,6 +841,17 @@ class Preprocessor:
                     if md.name not in export_names_arch:
                         export_names_arch[md.name] = set()
                     export_names_arch[md.name] |= {x.upper() for x in arch}
+
+    def patch_namespace_one(self, typedefs: list[TypeDefinition], namespace: str) -> None:
+        for td in typedefs:
+            td["Namespace"] = namespace
+            for ii in td.interface_implementations:
+                ii.interface.type_reference["Namespace"] = namespace
+            for t in self.foreach_type(td):
+                t = t.get_element_type()
+                if "." in t["Name"]:
+                    _namespace, name = t["Name"].rsplit(".", 1)
+                    t["Name"] = f"{namespace}.{name}"
 
 
 class PyGenerator:
@@ -990,10 +1002,12 @@ class PyGenerator:
             writer.write(f"    @commethod({vtbl_index})\n")
             writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
 
-    def write_header(self, writer: TextIO, import_namespaces: set[str]) -> None:
-        writer.write("from __future__ import annotations\n")
+    def write_header(self, writer: TextIO, import_namespaces: set[str], is_one=False) -> None:
+        if not is_one:
+            writer.write("from __future__ import annotations\n")
         writer.write("from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n")
-        writer.write(f"from Windows.base import {BASE_EXPORTS_CSV}\n")
+        if not is_one:
+            writer.write(f"from Windows.base import {BASE_EXPORTS_CSV}\n")
         for namespace in sorted(import_namespaces):
             writer.write(f"import {namespace}\n")
         writer.write("import sys\n")
@@ -1057,15 +1071,98 @@ class PyGenerator:
         writer.write("__all__ = sorted(nameindex)\n")
 
 
-def xopen(path: str) -> TextIO:
-    if path.endswith(".xz"):
-        return lzma.open(path)
-    return open(path)
+class Selector:
+    def __init__(self) -> None:
+        self.selectors: list[str] = []
+
+    def read_selector(self, path: Path) -> None:
+        for line in path.read_text().splitlines():
+            line = re.sub(r"#.*", "", line).strip()
+            if line != "":
+                self.selectors.append(line)
+
+    def select(self, typedefs: Iterable[TypeDefinition]) -> Iterable[TypeDefinition]:
+        ns: dict[str, list[TypeDefinition]] = {}
+        for td in typedefs:
+            if td.fullname not in ns:
+                ns[td.fullname] = []
+            ns[td.fullname].append(td)
+        selected = set()
+        for td in self.find_match(typedefs):
+            if id(td) in selected:
+                continue
+            selected.add(id(td))
+            yield td
+            yield from self.select_dependencies(td, ns, selected)
+
+    def select_dependencies(self, td: TypeDefinition, ns: dict[str, list[TypeDefinition]], selected: set[int]) -> Iterable[TypeDefinition]:
+        for name in self.find_dependencies(td):
+            if name not in ns:
+                continue
+            for td_ref in ns[name]:
+                if id(td_ref) in selected:
+                    continue
+                selected.add(id(td_ref))
+                yield td_ref
+                yield from self.select_dependencies(td_ref, ns, selected)
+
+    def find_match(self, typedefs: Iterable[TypeDefinition]) -> Iterable[TypeDefinition]:
+        for td in typedefs:
+            if self.is_match(td.namespace):
+                yield td
+            elif self.is_match(td.name):
+                yield td
+            elif self.is_match(td.fullname):
+                yield td
+            elif td.kind == "object":  # Apis
+                fields = []
+                for fd in td.fields:  # constants
+                    if self.is_match(fd.name):
+                        fields.append(fd)
+                    elif self.is_match(f"{td.namespace}.{fd.name}"):
+                        fields.append(fd)
+                method_definitions = []
+                for md in td.method_definitions:  # functions
+                    if self.is_match(md.name):
+                        method_definitions.append(md)
+                    elif self.is_match(f"{td.namespace}.{md.name}"):
+                        method_definitions.append(md)
+                if fields or method_definitions:
+                    td["Fields"] = fields
+                    td["MethodDefinitions"] = method_definitions
+                    yield td
+            elif td.kind == "enum":
+                for fd in td.fields:
+                    if self.is_match(fd.name):
+                        yield td
+                        break
+                    elif self.is_match(f"{td.namespace}.{fd.name}"):
+                        yield td
+                        break
+
+    def is_match(self, name) -> bool:
+        for sel in self.selectors:
+            if name == sel:
+                return True
+        return False
+
+    def find_dependencies(self, td: TypeDefinition) -> Iterable[str]:
+        for ii in td.interface_implementations:
+            yield ii.interface.type_reference.fullname
+        for t in self.foreach_type(td):
+            yield t.get_element_type().name
+
+    def foreach_type(self, td: TypeDefinition) -> Iterable[TType]:
+        for fd in td.fields:
+            yield fd.signature
+        for md in td.method_definitions:
+            yield md.signature.return_type
+            yield from md.signature.parameter_types
+        for nested_type in td.nested_types:
+            yield from self.foreach_type(nested_type)
 
 
-def main() -> None:
-    with xopen(sys.argv[1]) as f:
-        typedefs = [TypeDefinition(typedef) for typedef in json.load(f)]
+def generate(typedefs: list[TypeDefinition]) -> None:
     pp = Preprocessor()
     typedefs = pp.filter_public(typedefs)
     typedefs = pp.sort(typedefs)
@@ -1105,6 +1202,61 @@ def main() -> None:
         export_names_groupby_namespace[namespace] = export_names
     with open(f"Windows/all.py", "w") as writer:
         pg.write_all(writer, export_names_groupby_namespace)
+
+
+def generate_one(typedefs: list[TypeDefinition], writer: TextIO) -> None:
+    pp = Preprocessor()
+    typedefs = pp.filter_public(typedefs)
+    typedefs = pp.sort(typedefs)
+    pp.patch_link_typedef(typedefs)
+    pp.patch_enum(typedefs)
+    pp.patch_com_vtbl_index(typedefs)
+    pp.patch_name_conflict(typedefs)
+    pp.patch_keyword_name(typedefs)
+    pp.patch_namespace_one(typedefs, "_module")
+    pg = PyGenerator()
+    export_names: set[str] = set()
+    export_names_arch: dict[str, set[str]] = {}
+    for td in typedefs:
+        pp.collect_export_name(td, export_names)
+        pp.collect_export_name_arch(td, export_names_arch)
+    export_names_optional = [name for name, arch in export_names_arch.items() if arch and arch != {"X86", "X64", "ARM64"}]
+    writer.write("from __future__ import annotations\n")
+    writer.write((Path(__file__).parent / "Windows\\base.py").read_text())
+    pg.write_header(writer, set(), True)
+    for td in typedefs:
+        pg.emit(writer, td)
+    for td in typedefs:
+        pg.write_make_head(writer, td)
+    pg.write_footer(writer, export_names, export_names_optional)
+
+
+def xopen(path: str) -> TextIO:
+    if path.endswith(".xz"):
+        return lzma.open(path)
+    return open(path)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Metadata to Python generator")
+    parser.add_argument("-o", "--one", help="out to one file")
+    parser.add_argument("-s", "--selector", help="selector.txt")
+    parser.add_argument("metadata", help="metadata.json")
+    args = parser.parse_args()
+
+    with xopen(args.metadata) as f:
+        typedefs = [TypeDefinition(typedef) for typedef in json.load(f)]
+
+    if args.selector is not None:
+        selector = Selector()
+        selector.read_selector(Path(args.selector))
+        typedefs = list(selector.select(typedefs))
+
+    if args.one is not None:
+        with open(args.one, "w") as writer:
+            generate_one(typedefs, writer)
+    else:
+        generate(typedefs)
 
 
 if __name__ == "__main__":
