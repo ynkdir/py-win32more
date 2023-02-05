@@ -736,7 +736,17 @@ class Preprocessor:
                 ii.interface.type_reference["_typedef"] = ns[ii.interface.type_reference.fullname]
             for t in self.foreach_type(td):
                 t = t.get_element_type()
-                t["_typedef"] = ns.get(t["Name"])
+                t["_typedef"] = ns.get(t.name)
+            self.patch_link_nestedtype(td)
+
+    def patch_link_nestedtype(self, td: TypeDefinition) -> None:
+        ns = {nested_type.fullname: nested_type for nested_type in td.nested_types}
+        for fd in td.fields:
+            t = fd.signature.get_element_type()
+            if t.is_nested:
+                t["_typedef"] = ns[t.name]
+        for nested_type in td.nested_types:
+            self.patch_link_nestedtype(nested_type)
 
     # FIXME: enum value name? (NAME or ENUM_NAME or ENUM.Name?)
     def patch_enum(self, typedefs: list[TypeDefinition]) -> None:
@@ -849,6 +859,10 @@ class Preprocessor:
                 ii.interface.type_reference["Namespace"] = namespace
             for t in self.foreach_type(td):
                 t = t.get_element_type()
+                if t["Name"].startswith("System."):
+                    continue
+                if t.is_nested:
+                    continue
                 if "." in t["Name"]:
                     _namespace, name = t["Name"].rsplit(".", 1)
                     t["Name"] = f"{namespace}.{name}"
@@ -1118,15 +1132,15 @@ class Selector:
                 fields = []
                 for fd in td.fields:  # constants
                     if self.is_match(fd.name):
-                        fields.append(fd)
+                        fields.append(fd.js)
                     elif self.is_match(f"{td.namespace}.{fd.name}"):
-                        fields.append(fd)
+                        fields.append(fd.js)
                 method_definitions = []
                 for md in td.method_definitions:  # functions
                     if self.is_match(md.name):
-                        method_definitions.append(md)
+                        method_definitions.append(md.js)
                     elif self.is_match(f"{td.namespace}.{md.name}"):
-                        method_definitions.append(md)
+                        method_definitions.append(md.js)
                 if fields or method_definitions:
                     td["Fields"] = fields
                     td["MethodDefinitions"] = method_definitions
@@ -1164,8 +1178,6 @@ class Selector:
 
 def generate(typedefs: list[TypeDefinition]) -> None:
     pp = Preprocessor()
-    typedefs = pp.filter_public(typedefs)
-    typedefs = pp.sort(typedefs)
     pp.patch_link_typedef(typedefs)
     pp.patch_enum(typedefs)
     pp.patch_com_vtbl_index(typedefs)
@@ -1206,8 +1218,6 @@ def generate(typedefs: list[TypeDefinition]) -> None:
 
 def generate_one(typedefs: list[TypeDefinition], writer: TextIO) -> None:
     pp = Preprocessor()
-    typedefs = pp.filter_public(typedefs)
-    typedefs = pp.sort(typedefs)
     pp.patch_link_typedef(typedefs)
     pp.patch_enum(typedefs)
     pp.patch_com_vtbl_index(typedefs)
@@ -1246,6 +1256,10 @@ def main() -> None:
 
     with xopen(args.metadata) as f:
         typedefs = [TypeDefinition(typedef) for typedef in json.load(f)]
+
+    pp = Preprocessor()
+    typedefs = pp.filter_public(typedefs)
+    typedefs = pp.sort(typedefs)
 
     if args.selector is not None:
         selector = Selector()
