@@ -5,8 +5,9 @@ import keyword
 import lzma
 import re
 import sys
+from collections.abc import Iterable
 from pathlib import Path
-from typing import TypeAlias, Iterable, Any, TextIO, Self
+from typing import TypeAlias, Any, TextIO, Self
 
 BASE_EXPORTS = [
     "ARCH",
