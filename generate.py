@@ -1088,13 +1088,16 @@ class PyGenerator:
 
 class Selector:
     def __init__(self) -> None:
-        self.selectors: list[str] = []
+        self.selectors: set[str] = set()
 
     def read_selector(self, path: Path) -> None:
         for line in path.read_text().splitlines():
             line = re.sub(r"#.*", "", line).strip()
             if line != "":
-                self.selectors.append(line)
+                self.selectors.add(line)
+
+    def is_match(self, name) -> bool:
+        return name in self.selectors
 
     def select(self, typedefs: Iterable[TypeDefinition]) -> Iterable[TypeDefinition]:
         ns: dict[str, list[TypeDefinition]] = {}
@@ -1154,12 +1157,6 @@ class Selector:
                     elif self.is_match(f"{td.namespace}.{fd.name}"):
                         yield td
                         break
-
-    def is_match(self, name) -> bool:
-        for sel in self.selectors:
-            if name == sel:
-                return True
-        return False
 
     def find_dependencies(self, td: TypeDefinition) -> Iterable[str]:
         for ii in td.interface_implementations:
