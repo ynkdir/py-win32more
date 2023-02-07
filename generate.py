@@ -1117,12 +1117,12 @@ class Selector:
         for name in self.find_dependencies(td):
             if name not in ns:
                 continue
-            for td_ref in ns[name]:
-                if id(td_ref) in selected:
+            for td_depended in ns[name]:
+                if id(td_depended) in selected:
                     continue
-                selected.add(id(td_ref))
-                yield td_ref
-                yield from self.select_dependencies(td_ref, ns, selected)
+                selected.add(id(td_depended))
+                yield td_depended
+                yield from self.select_dependencies(td_depended, ns, selected)
 
     def find_match(self, typedefs: Iterable[TypeDefinition]) -> Iterable[TypeDefinition]:
         for td in typedefs:
