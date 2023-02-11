@@ -1016,14 +1016,38 @@ class PyGenerator:
             writer.write(f"    @commethod({vtbl_index})\n")
             writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
 
-    def write_header(self, writer: TextIO, import_namespaces: set[str], is_one=False) -> None:
-        if not is_one:
-            writer.write("from __future__ import annotations\n")
+    def write_header(self, writer: TextIO, import_namespaces: set[str]) -> None:
+        self.write_import_annotations(writer)
+        self.write_import_ctypes(writer)
+        self.write_import_base(writer)
+        self.write_import_namespaces(writer, import_namespaces)
+        self.write_getattr(writer)
+        self.write_dir(writer)
+
+    def write_header_one(self, writer: TextIO) -> None:
+        self.write_import_annotations(writer)
+        self.write_import_ctypes(writer)
+        self.write_include_base(writer)
+        self.write_getattr(writer)
+        self.write_dir(writer)
+
+    def write_import_annotations(self, writer: TextIO) -> None:
+        writer.write("from __future__ import annotations\n")
+
+    def write_import_ctypes(self, writer: TextIO) -> None:
         writer.write("from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n")
-        if not is_one:
-            writer.write(f"from Windows.base import {BASE_EXPORTS_CSV}\n")
+
+    def write_import_base(self, writer: TextIO) -> None:
+        writer.write(f"from Windows.base import {BASE_EXPORTS_CSV}\n")
+
+    def write_include_base(self, writer: TextIO) -> None:
+        writer.write((Path(__file__).parent / "Windows\\base.py").read_text())
+
+    def write_import_namespaces(self, writer: TextIO, import_namespaces: set[str]) -> None:
         for namespace in sorted(import_namespaces):
             writer.write(f"import {namespace}\n")
+
+    def write_getattr(self, writer: TextIO) -> None:
         writer.write("import sys\n")
         writer.write("_module = sys.modules[__name__]\n")
         writer.write("def __getattr__(name):\n")
@@ -1035,6 +1059,8 @@ class PyGenerator:
         writer.write("        raise AttributeError(f\"module '{__name__}' has no attribute '{name}'\") from None\n")
         writer.write("    setattr(_module, name, press(prototype))\n")
         writer.write("    return getattr(_module, name)\n")
+
+    def write_dir(self, writer: TextIO) -> None:
         writer.write("def __dir__():\n")
         writer.write("    return __all__\n")
 
@@ -1228,9 +1254,7 @@ def generate_one(typedefs: list[TypeDefinition], writer: TextIO) -> None:
         pp.collect_export_name(td, export_names)
         pp.collect_export_name_arch(td, export_names_arch)
     export_names_optional = [name for name, arch in export_names_arch.items() if arch and arch != {"X86", "X64", "ARM64"}]
-    writer.write("from __future__ import annotations\n")
-    writer.write((Path(__file__).parent / "Windows\\base.py").read_text())
-    pg.write_header(writer, set(), True)
+    pg.write_header_one(writer)
     for td in typedefs:
         pg.emit(writer, td)
     for td in typedefs:
