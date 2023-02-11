@@ -61,10 +61,20 @@ class TType:
         return self["Kind"]
 
     @property
+    def namespace(self) -> str:
+        if self["Namespace"] is None:
+            raise KeyError()
+        return self["Namespace"]
+
+    @property
     def name(self) -> str:
         if self["Name"] is None:
             raise KeyError()
         return self["Name"]
+
+    @property
+    def fullname(self) -> str:
+        return f"{self.namespace}.{self.name}"
 
     @property
     def type(self) -> TType:
@@ -103,7 +113,7 @@ class TType:
                 elif self.type.kind == "Primitive" and self.type.name == "Char":
                     return "c_wchar_p_no"  # safe?
                 elif self.type.is_struct:
-                    return f"POINTER({self.type.name}_head)"
+                    return f"POINTER({self.type.fullname}_head)"
                 else:
                     return f"POINTER({self.type.pytype})"
             case "SZArray":
@@ -112,16 +122,16 @@ class TType:
                 return f"{self.type.pytype} * {self.size}"
             case "Type":
                 if self.is_nested:
-                    return self.name[1:]  # remove first "."
+                    return self.name
                 elif self.is_guid:
                     return "Guid"
                 elif self.is_missing:
-                    sys.stderr.write(f"DEBUG: missing type '{self.name}'\n")
+                    sys.stderr.write(f"DEBUG: missing type '{self.fullname}'\n")
                     return "MissingType"
                 elif self.is_com:
-                    return f"{self.name}_head"
+                    return f"{self.fullname}_head"
                 else:
-                    return self.name
+                    return self.fullname
             case _:
                 raise NotImplementedError()
 
@@ -134,14 +144,13 @@ class TType:
             case _:
                 raise NotImplementedError()
 
-    # e.g. "._Anonymous_e_Struct"
     @property
     def is_nested(self) -> bool:
-        return self.kind == "Type" and self.name.startswith(".")
+        return self.kind == "Type" and self.namespace == ""
 
     @property
     def is_guid(self) -> bool:
-        return self.kind == "Type" and self.name == "System.Guid"
+        return self.kind == "Type" and self.fullname == "System.Guid"
 
     # missing type which is not defined in current winmd.
     @property
@@ -387,18 +396,18 @@ class FieldDefinition:
     def pyvalue(self) -> str:
         if "HasDefault" in self.attributes:
             return ascii(self.default_value.value)
-        elif self.signature.kind == "Type" and self.signature.name == "System.Guid":
+        elif self.signature.kind == "Type" and self.signature.fullname == "System.Guid":
             guid, rest = self.custom_attributes.get("Windows.Win32.Interop.GuidAttribute").guid_value()
             assert len(rest) == 0
             return f"Guid('{guid}')"
-        elif self.signature.kind == "Type" and self.signature.name == f"Windows.Win32.Devices.Properties.DEVPROPKEY":
+        elif self.signature.kind == "Type" and self.signature.fullname == f"Windows.Win32.Devices.Properties.DEVPROPKEY":
             guid, rest = self.custom_attributes.get("Windows.Win32.Interop.PropertyKeyAttribute").guid_value()
             assert len(rest) == 1
-            return f"{self.signature.name}(fmtid=Guid('{guid}'), pid={rest[0]})"
-        elif self.signature.kind == "Type" and self.signature.name == f"Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY":
+            return f"{self.signature.fullname}(fmtid=Guid('{guid}'), pid={rest[0]})"
+        elif self.signature.kind == "Type" and self.signature.fullname == f"Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY":
             guid, rest = self.custom_attributes.get("Windows.Win32.Interop.PropertyKeyAttribute").guid_value()
             assert len(rest) == 1
-            return f"{self.signature.name}(fmtid=Guid('{guid}'), pid={rest[0]})"
+            return f"{self.signature.fullname}(fmtid=Guid('{guid}'), pid={rest[0]})"
         else:
             # FIXME:
             raise NotImplementedError()
@@ -736,11 +745,12 @@ class Preprocessor:
                 ii.interface.type_reference["_typedef"] = ns[ii.interface.type_reference.fullname]
             for t in self.foreach_type(td):
                 t = t.get_element_type()
-                t["_typedef"] = ns.get(t.name)
+                if t.kind == "Type":
+                    t["_typedef"] = ns.get(t.fullname)
             self.patch_link_nestedtype(td)
 
     def patch_link_nestedtype(self, td: TypeDefinition) -> None:
-        ns = {nested_type.fullname: nested_type for nested_type in td.nested_types}
+        ns = {nested_type.name: nested_type for nested_type in td.nested_types}
         for fd in td.fields:
             t = fd.signature.get_element_type()
             if t.is_nested:
@@ -809,18 +819,13 @@ class Preprocessor:
         for nested_type in td.nested_types:
             yield from self.foreach_type(nested_type)
 
-    def get_namespace(self, fullname: str) -> str:
-        if "." not in fullname:
-            return ""
-        return fullname.rsplit(".", 1)[0]
-
     def collect_import_namespace(self, td: TypeDefinition, import_namespaces: set[str]) -> None:
         for ii in td.interface_implementations:
             import_namespaces.add(ii.interface.type_reference.namespace)
         for t in self.foreach_type(td):
             t = t.get_element_type()
             if t.kind == "Type" and not t.is_nested and not t.is_guid and not t.is_missing:
-                import_namespaces.add(self.get_namespace(t.name))
+                import_namespaces.add(t.namespace)
 
     def collect_export_name(self, td: TypeDefinition, export_names: set[str]) -> None:
         match td.kind:
@@ -859,13 +864,8 @@ class Preprocessor:
                 ii.interface.type_reference["Namespace"] = namespace
             for t in self.foreach_type(td):
                 t = t.get_element_type()
-                if t["Name"].startswith("System."):
-                    continue
-                if t.is_nested:
-                    continue
-                if "." in t["Name"]:
-                    _namespace, name = t["Name"].rsplit(".", 1)
-                    t["Name"] = f"{namespace}.{name}"
+                if t.kind == "Type" and t.namespace != "System" and t.namespace != "":
+                    t["Namespace"] = namespace
 
 
 class PyGenerator:
@@ -1187,7 +1187,9 @@ class Selector:
         for ii in td.interface_implementations:
             yield ii.interface.type_reference.fullname
         for t in self.foreach_type(td):
-            yield t.get_element_type().name
+            t = t.get_element_type()
+            if t.kind == "Type":
+                yield t.fullname
 
     def foreach_type(self, td: TypeDefinition) -> Iterable[TType]:
         for fd in td.fields:
