@@ -1192,12 +1192,6 @@ class Selector:
 
 
 def generate(typedefs: list[TypeDefinition]) -> None:
-    pp = Preprocessor()
-    pp.patch_link_typedef(typedefs)
-    pp.patch_enum(typedefs)
-    pp.patch_com_vtbl_index(typedefs)
-    pp.patch_name_conflict(typedefs)
-    pp.patch_keyword_name(typedefs)
     ns_mod: dict[str, list[TypeDefinition]] = {}
     for td in typedefs:
         if td.namespace not in ns_mod:
@@ -1233,13 +1227,6 @@ def generate(typedefs: list[TypeDefinition]) -> None:
 
 
 def generate_one(typedefs: list[TypeDefinition], writer: TextIO) -> None:
-    pp = Preprocessor()
-    pp.patch_link_typedef(typedefs)
-    pp.patch_enum(typedefs)
-    pp.patch_com_vtbl_index(typedefs)
-    pp.patch_name_conflict(typedefs)
-    pp.patch_keyword_name(typedefs)
-    pp.patch_namespace_one(typedefs, "_module")
     pg = PyGenerator()
     export_names: set[str] = set()
     export_names_arch = defaultdict(set)
@@ -1281,7 +1268,14 @@ def main() -> None:
         selector.read_selector(Path(args.selector))
         typedefs = list(selector.select(typedefs))
 
+    pp.patch_link_typedef(typedefs)
+    pp.patch_enum(typedefs)
+    pp.patch_com_vtbl_index(typedefs)
+    pp.patch_name_conflict(typedefs)
+    pp.patch_keyword_name(typedefs)
+
     if args.one is not None:
+        pp.patch_namespace_one(typedefs, "_module")
         with open(args.one, "w") as writer:
             generate_one(typedefs, writer)
     else:
