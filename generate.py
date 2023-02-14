@@ -5,6 +5,7 @@ import keyword
 import lzma
 import re
 import sys
+from collections import defaultdict
 from collections.abc import Collection, Iterable, Iterator
 from pathlib import Path
 from typing import TypeAlias, Any, TextIO, Self
@@ -251,6 +252,51 @@ class TypeDefinition:
                     return "struct"
             case _:
                 raise NotImplementedError()
+
+    def enumerate_types(self) -> Iterable[TType]:
+        for fd in self.fields:
+            yield fd.signature
+        for md in self.method_definitions:
+            yield md.signature.return_type
+            yield from md.signature.parameter_types
+        for nested_type in self.nested_types:
+            yield from nested_type.enumerate_types()
+
+    def enumerate_importing_namespaces(self) -> Iterable[str]:
+        for ii in self.interface_implementations:
+            yield ii.interface.type_reference.namespace
+        for t in self.enumerate_types():
+            t = t.get_element_type()
+            if t.kind == "Type" and not t.is_nested and not t.is_guid and not t.is_missing:
+                yield t.namespace
+
+    def enumerate_exporting_names(self) -> Iterable[str]:
+        match self.kind:
+            case "object":
+                for fd in self.fields:
+                    yield fd.name
+                for md in self.method_definitions:
+                    yield md.name
+            case "enum":
+                yield self.name
+                for fd in self.fields[1:]:
+                    yield fd.name
+            case "function_pointer" | "native_typedef" | "clsid" | "union" | "struct" | "com":
+                yield self.name
+            case _:
+                raise NotImplementedError()
+
+    def enumerate_names_having_architecture_attribute(self) -> Iterable[tuple[str, str]]:
+        if self.custom_attributes.has("Windows.Win32.Interop.SupportedArchitectureAttribute"):
+            archs = self.custom_attributes.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value
+            for arch in archs:
+                yield self.name, arch.upper()
+        if self.kind == "object":
+            for md in self.method_definitions:
+                if md.custom_attributes.has("Windows.Win32.Interop.SupportedArchitectureAttribute"):
+                    archs = md.custom_attributes.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value
+                    for arch in archs:
+                        yield md.name, arch.upper()
 
 
 class CustomAttributeCollection(Collection):
@@ -743,7 +789,7 @@ class Preprocessor:
         for td in typedefs:
             for ii in td.interface_implementations:
                 ii.interface.type_reference["_typedef"] = ns[ii.interface.type_reference.fullname]
-            for t in self.foreach_type(td):
+            for t in td.enumerate_types():
                 t = t.get_element_type()
                 if t.kind == "Type":
                     t["_typedef"] = ns.get(t.fullname)
@@ -810,59 +856,12 @@ class Preprocessor:
         for nested_type in td.nested_types:
             self.patch_keyword_name_td(nested_type)
 
-    def foreach_type(self, td: TypeDefinition) -> Iterable[TType]:
-        for fd in td.fields:
-            yield fd.signature
-        for md in td.method_definitions:
-            yield md.signature.return_type
-            yield from md.signature.parameter_types
-        for nested_type in td.nested_types:
-            yield from self.foreach_type(nested_type)
-
-    def collect_import_namespace(self, td: TypeDefinition, import_namespaces: set[str]) -> None:
-        for ii in td.interface_implementations:
-            import_namespaces.add(ii.interface.type_reference.namespace)
-        for t in self.foreach_type(td):
-            t = t.get_element_type()
-            if t.kind == "Type" and not t.is_nested and not t.is_guid and not t.is_missing:
-                import_namespaces.add(t.namespace)
-
-    def collect_export_name(self, td: TypeDefinition, export_names: set[str]) -> None:
-        match td.kind:
-            case "object":
-                for fd in td.fields:
-                    export_names.add(fd.name)
-                for md in td.method_definitions:
-                    export_names.add(md.name)
-            case "enum":
-                export_names.add(td.name)
-                for fd in td.fields[1:]:
-                    export_names.add(fd.name)
-            case "function_pointer" | "native_typedef" | "clsid" | "union" | "struct" | "com":
-                export_names.add(td.name)
-            case _:
-                raise NotImplementedError()
-
-    def collect_export_name_arch(self, td: TypeDefinition, export_names_arch: dict[str, set[str]]) -> None:
-        if td.custom_attributes.has("Windows.Win32.Interop.SupportedArchitectureAttribute"):
-            arch = td.custom_attributes.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value
-            if td.name not in export_names_arch:
-                export_names_arch[td.name] = set()
-            export_names_arch[td.name] |= {x.upper() for x in arch}
-        if td.kind == "object":
-            for md in td.method_definitions:
-                if md.custom_attributes.has("Windows.Win32.Interop.SupportedArchitectureAttribute"):
-                    arch = md.custom_attributes.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value
-                    if md.name not in export_names_arch:
-                        export_names_arch[md.name] = set()
-                    export_names_arch[md.name] |= {x.upper() for x in arch}
-
     def patch_namespace_one(self, typedefs: list[TypeDefinition], namespace: str) -> None:
         for td in typedefs:
             td["Namespace"] = namespace
             for ii in td.interface_implementations:
                 ii.interface.type_reference["Namespace"] = namespace
-            for t in self.foreach_type(td):
+            for t in td.enumerate_types():
                 t = t.get_element_type()
                 if t.kind == "Type" and t.namespace != "System" and t.namespace != "":
                     t["Namespace"] = namespace
@@ -1186,19 +1185,10 @@ class Selector:
     def find_dependencies(self, td: TypeDefinition) -> Iterable[str]:
         for ii in td.interface_implementations:
             yield ii.interface.type_reference.fullname
-        for t in self.foreach_type(td):
+        for t in td.enumerate_types():
             t = t.get_element_type()
             if t.kind == "Type":
                 yield t.fullname
-
-    def foreach_type(self, td: TypeDefinition) -> Iterable[TType]:
-        for fd in td.fields:
-            yield fd.signature
-        for md in td.method_definitions:
-            yield md.signature.return_type
-            yield from md.signature.parameter_types
-        for nested_type in td.nested_types:
-            yield from self.foreach_type(nested_type)
 
 
 def generate(typedefs: list[TypeDefinition]) -> None:
@@ -1223,12 +1213,13 @@ def generate(typedefs: list[TypeDefinition]) -> None:
                 (d / "__init__.py").write_text("")
         import_namespaces: set[str] = {namespace}
         export_names: set[str] = set()
-        export_names_arch: dict[str, set[str]] = {}
+        export_names_arch = defaultdict(set)
         for td in ns_mod[namespace]:
-            pp.collect_import_namespace(td, import_namespaces)
-            pp.collect_export_name(td, export_names)
-            pp.collect_export_name_arch(td, export_names_arch)
-        export_names_optional = [name for name, arch in export_names_arch.items() if arch and arch != {"X86", "X64", "ARM64"}]
+            import_namespaces |= set(td.enumerate_importing_namespaces())
+            export_names |= set(td.enumerate_exporting_names())
+            for name, arch in td.enumerate_names_having_architecture_attribute():
+                export_names_arch[name].add(arch)
+        export_names_optional = [name for name, archs in export_names_arch.items() if archs and archs != {"X86", "X64", "ARM64"}]
         with (p / "__init__.py").open("w") as writer:
             pg.write_header(writer, import_namespaces)
             for td in ns_mod[namespace]:
@@ -1251,11 +1242,12 @@ def generate_one(typedefs: list[TypeDefinition], writer: TextIO) -> None:
     pp.patch_namespace_one(typedefs, "_module")
     pg = PyGenerator()
     export_names: set[str] = set()
-    export_names_arch: dict[str, set[str]] = {}
+    export_names_arch = defaultdict(set)
     for td in typedefs:
-        pp.collect_export_name(td, export_names)
-        pp.collect_export_name_arch(td, export_names_arch)
-    export_names_optional = [name for name, arch in export_names_arch.items() if arch and arch != {"X86", "X64", "ARM64"}]
+        export_names |= set(td.enumerate_exporting_names())
+        for name, arch in td.enumerate_names_having_architecture_attribute():
+            export_names_arch[name].add(arch)
+    export_names_optional = [name for name, archs in export_names_arch.items() if archs and archs != {"X86", "X64", "ARM64"}]
     pg.write_header_one(writer)
     for td in typedefs:
         pg.emit(writer, td)
