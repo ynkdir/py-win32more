@@ -299,35 +299,6 @@ class TypeDefinition:
                         yield md.name, arch.upper()
 
 
-class CustomAttributeCollection(Collection):
-    def __init__(self, js: JsonType) -> None:
-        self.js = js
-
-    def __contains__(self, value: object) -> bool:
-        for ca in self:
-            if value == ca:
-                return True
-        return False
-
-    def __iter__(self) -> Iterator[CustomAttribute]:
-        return (CustomAttribute(ca) for ca in self.js)
-
-    def __len__(self) -> int:
-        return len(self.js)
-
-    def has(self, type_: str) -> bool:
-        for ca in self:
-            if ca.type == type_:
-                return True
-        return False
-
-    def get(self, type_: str) -> CustomAttribute:
-        for ca in self:
-            if ca.type == type_:
-                return ca
-        raise KeyError()
-
-
 class CustomAttribute:
     def __init__(self, js: JsonType) -> None:
         self.js = js
@@ -354,6 +325,35 @@ class CustomAttribute:
         v = [fa.value for fa in self.fixed_arguments]
         guid = f"{v[0]:08x}-{v[1]:04x}-{v[2]:04x}-{v[3]:02x}-{v[4]:02x}-{v[5]:02x}-{v[6]:02x}-{v[7]:02x}-{v[8]:02x}-{v[9]:02x}-{v[10]:02x}"
         return guid, v[11:]
+
+
+class CustomAttributeCollection(Collection[CustomAttribute]):
+    def __init__(self, js: JsonType) -> None:
+        self.js = js
+
+    def __contains__(self, value: object) -> bool:
+        for ca in self:
+            if value == ca:
+                return True
+        return False
+
+    def __iter__(self) -> Iterator[CustomAttribute]:
+        return (CustomAttribute(ca) for ca in self.js)
+
+    def __len__(self) -> int:
+        return len(self.js)
+
+    def has(self, type_: str) -> bool:
+        for ca in self:
+            if ca.type == type_:
+                return True
+        return False
+
+    def get(self, type_: str) -> CustomAttribute:
+        for ca in self:
+            if ca.type == type_:
+                return ca
+        raise KeyError()
 
 
 class CustomAttributeFixedArgument:
