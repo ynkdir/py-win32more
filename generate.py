@@ -6,9 +6,9 @@ import lzma
 import re
 import sys
 from collections import defaultdict
-from collections.abc import Collection, Iterable, Iterator
+from collections.abc import Collection, Iterable, Iterator, Mapping, MutableSequence
 from pathlib import Path
-from typing import TypeAlias, Any, TextIO, Self
+from typing import TypeAlias, Any, TextIO, Self, overload
 
 BASE_EXPORTS = [
     "ARCH",
@@ -776,17 +776,73 @@ class ModuleReference:
         return CustomAttributeCollection(self["CustomAttributes"])
 
 
+class Metadata(MutableSequence[TypeDefinition]):
+    def __init__(self, typedefs: Iterable[TypeDefinition] = []) -> None:
+        self.typedefs = list(typedefs)
+
+    def __len__(self) -> int:
+        return len(self.typedefs)
+
+    @overload
+    def __getitem__(self, key: int) -> TypeDefinition:
+        ...
+
+    @overload
+    def __getitem__(self, key: slice) -> MutableSequence[TypeDefinition]:
+        ...
+
+    def __getitem__(self, key):
+        return self.typedefs[key]
+
+    @overload
+    def __setitem__(self, key: int, value: TypeDefinition) -> None:
+        ...
+
+    @overload
+    def __setitem__(self, key: slice, value: Iterable[TypeDefinition]) -> None:
+        ...
+
+    def __setitem__(self, key, value) -> None:
+        self.typedefs[key] = value
+
+    @overload
+    def __delitem__(self, key: int) -> None:
+        ...
+
+    @overload
+    def __delitem__(self, key: slice) -> None:
+        ...
+
+    def __delitem__(self, key) -> None:
+        del self.typedefs[key]
+
+    def insert(self, i: int, value: TypeDefinition) -> None:
+        self.typedefs.insert(i, value)
+
+    def group_by_namespace(self) -> Mapping[str, Metadata]:
+        meta_group_by_namespace: Mapping[str, Metadata] = defaultdict(Metadata)
+        for td in self:
+            meta_group_by_namespace[td.namespace].append(td)
+        return meta_group_by_namespace
+
+    def group_by_fullname(self) -> Mapping[str, Metadata]:
+        meta_group_by_fullname: Mapping[str, Metadata] = defaultdict(Metadata)
+        for td in self:
+            meta_group_by_fullname[td.fullname].append(td)
+        return meta_group_by_fullname
+
+
 class Preprocessor:
-    def filter_public(self, typedefs: list[TypeDefinition]) -> list[TypeDefinition]:
-        return [td for td in typedefs if td.namespace != "" and "Public" in td.attributes]
+    def filter_public(self, meta: Metadata) -> Metadata:
+        return Metadata(td for td in meta if td.namespace != "" and "Public" in td.attributes)
 
-    def sort(self, typedefs: list[TypeDefinition]) -> list[TypeDefinition]:
-        return sorted(typedefs, key=lambda td: (td.namespace, td.name))
+    def sort(self, meta: Metadata) -> Metadata:
+        return Metadata(sorted(meta, key=lambda td: (td.namespace, td.name)))
 
-    def patch_link_typedef(self, typedefs: list[TypeDefinition]) -> None:
+    def patch_link_typedef(self, meta: Metadata) -> None:
         # FIXME: ns's key can be duplicated with arch variation.  Don't care for now.
-        ns = {td.fullname: td for td in typedefs}
-        for td in typedefs:
+        ns = {td.fullname: td for td in meta}
+        for td in meta:
             for ii in td.interface_implementations:
                 ii.interface.type_reference["_typedef"] = ns[ii.interface.type_reference.fullname]
             for t in td.enumerate_types():
@@ -796,17 +852,17 @@ class Preprocessor:
             self.patch_link_nestedtype(td)
 
     def patch_link_nestedtype(self, td: TypeDefinition) -> None:
-        ns = {nested_type.name: nested_type for nested_type in td.nested_types}
+        nested_type_by_name = {nested_type.name: nested_type for nested_type in td.nested_types}
         for fd in td.fields:
             t = fd.signature.get_element_type()
             if t.is_nested:
-                t["_typedef"] = ns[t.name]
+                t["_typedef"] = nested_type_by_name[t.name]
         for nested_type in td.nested_types:
             self.patch_link_nestedtype(nested_type)
 
     # FIXME: enum value name? (NAME or ENUM_NAME or ENUM.Name?)
-    def patch_enum(self, typedefs: list[TypeDefinition]) -> None:
-        for td in typedefs:
+    def patch_enum(self, meta: Metadata) -> None:
+        for td in meta:
             if td.kind == "enum" and self.enum_need_prefix(td):
                 for fd in td.fields:
                     fd["Name"] = f"{td['Name']}_{fd['Name']}"
@@ -818,8 +874,8 @@ class Preprocessor:
         return False
 
     # Add vtbl_index to COM methods.
-    def patch_com_vtbl_index(self, typedefs: list[TypeDefinition]) -> None:
-        for td in typedefs:
+    def patch_com_vtbl_index(self, meta: Metadata) -> None:
+        for td in meta:
             if td.kind == "com":
                 vtbl_index = self.count_interface_method(td.interface_implementations)
                 for md in td.method_definitions:
@@ -832,17 +888,17 @@ class Preprocessor:
         td = interfaces[0].interface.type_reference["_typedef"]
         return len(td.method_definitions) + self.count_interface_method(td.interface_implementations)
 
-    def patch_name_conflict(self, typedefs: list[TypeDefinition]) -> None:
-        ns = {td.fullname: td for td in typedefs}
-        for td in typedefs:
+    def patch_name_conflict(self, meta: Metadata) -> None:
+        meta_group_by_fullname = meta.group_by_fullname()
+        for td in meta:
             if td.name == "Apis":
                 for fd in td.fields:
-                    if f"{td.namespace}.{fd.name}" in ns:
+                    if f"{td.namespace}.{fd.name}" in meta_group_by_fullname:
                         sys.stderr.write(f"DEBUG: name conflict '{td.namespace}.{fd.name}'\n")
                         fd["Name"] = f"{fd['Name']}_CONSTANT"
 
-    def patch_keyword_name(self, typedefs: list[TypeDefinition]) -> None:
-        for td in typedefs:
+    def patch_keyword_name(self, meta: Metadata) -> None:
+        for td in meta:
             self.patch_keyword_name_td(td)
 
     def patch_keyword_name_td(self, td: TypeDefinition) -> None:
@@ -856,8 +912,8 @@ class Preprocessor:
         for nested_type in td.nested_types:
             self.patch_keyword_name_td(nested_type)
 
-    def patch_namespace_one(self, typedefs: list[TypeDefinition], namespace: str) -> None:
-        for td in typedefs:
+    def patch_namespace_one(self, meta: Metadata, namespace: str) -> None:
+        for td in meta:
             td["Namespace"] = namespace
             for ii in td.interface_implementations:
                 ii.interface.type_reference["Namespace"] = namespace
@@ -1123,33 +1179,29 @@ class Selector:
     def is_match(self, name) -> bool:
         return name in self.selectors
 
-    def select(self, typedefs: Iterable[TypeDefinition]) -> Iterable[TypeDefinition]:
-        ns: dict[str, list[TypeDefinition]] = {}
-        for td in typedefs:
-            if td.fullname not in ns:
-                ns[td.fullname] = []
-            ns[td.fullname].append(td)
+    def select(self, meta: Metadata) -> Iterable[TypeDefinition]:
+        meta_group_by_fullname = meta.group_by_fullname()
         selected = set()
-        for td in self.find_match(typedefs):
+        for td in self.find_match(meta):
             if id(td) in selected:
                 continue
             selected.add(id(td))
             yield td
-            yield from self.select_dependencies(td, ns, selected)
+            yield from self.select_dependencies(td, meta_group_by_fullname, selected)
 
-    def select_dependencies(self, td: TypeDefinition, ns: dict[str, list[TypeDefinition]], selected: set[int]) -> Iterable[TypeDefinition]:
-        for name in self.find_dependencies(td):
-            if name not in ns:
+    def select_dependencies(self, td: TypeDefinition, meta_group_by_fullname: Mapping[str, Metadata], selected: set[int]) -> Iterable[TypeDefinition]:
+        for fullname_depended in self.find_dependencies(td):
+            if fullname_depended not in meta_group_by_fullname:
                 continue
-            for td_depended in ns[name]:
+            for td_depended in meta_group_by_fullname[fullname_depended]:
                 if id(td_depended) in selected:
                     continue
                 selected.add(id(td_depended))
                 yield td_depended
-                yield from self.select_dependencies(td_depended, ns, selected)
+                yield from self.select_dependencies(td_depended, meta_group_by_fullname, selected)
 
-    def find_match(self, typedefs: Iterable[TypeDefinition]) -> Iterable[TypeDefinition]:
-        for td in typedefs:
+    def find_match(self, meta: Metadata) -> Iterable[TypeDefinition]:
+        for td in meta:
             if self.is_match(td.namespace):
                 yield td
             elif self.is_match(td.name):
@@ -1191,15 +1243,10 @@ class Selector:
                 yield t.fullname
 
 
-def generate(typedefs: list[TypeDefinition]) -> None:
-    ns_mod: dict[str, list[TypeDefinition]] = {}
-    for td in typedefs:
-        if td.namespace not in ns_mod:
-            ns_mod[td.namespace] = []
-        ns_mod[td.namespace].append(td)
+def generate(meta: Metadata) -> None:
     export_names_groupby_namespace = {}
     pg = PyGenerator()
-    for namespace in ns_mod.keys():
+    for namespace, meta_group_by_namespace in meta.group_by_namespace().items():
         p = Path(namespace.replace(".", "/"))
         p.mkdir(parents=True, exist_ok=True)
         for d in p.parents[:-1]:
@@ -1208,7 +1255,7 @@ def generate(typedefs: list[TypeDefinition]) -> None:
         import_namespaces: set[str] = {namespace}
         export_names: set[str] = set()
         export_names_arch = defaultdict(set)
-        for td in ns_mod[namespace]:
+        for td in meta_group_by_namespace:
             import_namespaces |= set(td.enumerate_importing_namespaces())
             export_names |= set(td.enumerate_exporting_names())
             for name, arch in td.enumerate_names_having_architecture_attribute():
@@ -1216,9 +1263,9 @@ def generate(typedefs: list[TypeDefinition]) -> None:
         export_names_optional = [name for name, archs in export_names_arch.items() if archs and archs != {"X86", "X64", "ARM64"}]
         with (p / "__init__.py").open("w") as writer:
             pg.write_header(writer, import_namespaces)
-            for td in ns_mod[namespace]:
+            for td in meta_group_by_namespace:
                 pg.emit(writer, td)
-            for td in ns_mod[namespace]:
+            for td in meta_group_by_namespace:
                 pg.write_make_head(writer, td)
             pg.write_footer(writer, export_names, export_names_optional)
         export_names_groupby_namespace[namespace] = export_names
@@ -1226,19 +1273,19 @@ def generate(typedefs: list[TypeDefinition]) -> None:
         pg.write_all(writer, export_names_groupby_namespace)
 
 
-def generate_one(typedefs: list[TypeDefinition], writer: TextIO) -> None:
+def generate_one(meta: Metadata, writer: TextIO) -> None:
     pg = PyGenerator()
     export_names: set[str] = set()
     export_names_arch = defaultdict(set)
-    for td in typedefs:
+    for td in meta:
         export_names |= set(td.enumerate_exporting_names())
         for name, arch in td.enumerate_names_having_architecture_attribute():
             export_names_arch[name].add(arch)
     export_names_optional = [name for name, archs in export_names_arch.items() if archs and archs != {"X86", "X64", "ARM64"}]
     pg.write_header_one(writer)
-    for td in typedefs:
+    for td in meta:
         pg.emit(writer, td)
-    for td in typedefs:
+    for td in meta:
         pg.write_make_head(writer, td)
     pg.write_footer(writer, export_names, export_names_optional)
 
@@ -1257,29 +1304,29 @@ def main() -> None:
     args = parser.parse_args()
 
     with xopen(args.metadata) as f:
-        typedefs = [TypeDefinition(typedef) for typedef in json.load(f)]
+        meta = Metadata(TypeDefinition(typedef) for typedef in json.load(f))
 
     pp = Preprocessor()
-    typedefs = pp.filter_public(typedefs)
-    typedefs = pp.sort(typedefs)
+    meta = pp.filter_public(meta)
+    meta = pp.sort(meta)
 
     if args.selector is not None:
         selector = Selector()
         selector.read_selector(Path(args.selector))
-        typedefs = list(selector.select(typedefs))
+        meta = Metadata(selector.select(meta))
 
-    pp.patch_link_typedef(typedefs)
-    pp.patch_enum(typedefs)
-    pp.patch_com_vtbl_index(typedefs)
-    pp.patch_name_conflict(typedefs)
-    pp.patch_keyword_name(typedefs)
+    pp.patch_link_typedef(meta)
+    pp.patch_enum(meta)
+    pp.patch_com_vtbl_index(meta)
+    pp.patch_name_conflict(meta)
+    pp.patch_keyword_name(meta)
 
     if args.one is not None:
-        pp.patch_namespace_one(typedefs, "_module")
+        pp.patch_namespace_one(meta, "_module")
         with open(args.one, "w") as writer:
-            generate_one(typedefs, writer)
+            generate_one(meta, writer)
     else:
-        generate(typedefs)
+        generate(meta)
 
 
 if __name__ == "__main__":
