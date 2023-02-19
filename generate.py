@@ -831,6 +831,26 @@ class Metadata(MutableSequence[TypeDefinition]):
             meta_group_by_fullname[td.fullname].append(td)
         return meta_group_by_fullname
 
+    def enumerate_importing_namespaces(self) -> Iterable[str]:
+        for td in self:
+            yield from td.enumerate_importing_namespaces()
+
+    def enumerate_exporting_names(self) -> Iterable[str]:
+        for td in self:
+            yield from td.enumerate_exporting_names()
+
+    def enumerate_names_having_architecture_attribute(self) -> Iterable[tuple[str, str]]:
+        for td in self:
+            yield from td.enumerate_names_having_architecture_attribute()
+
+    def enumerate_names_lacking_architecture(self) -> Iterable[str]:
+        arch_by_name = defaultdict(set)
+        for name, arch in self.enumerate_names_having_architecture_attribute():
+            arch_by_name[name].add(arch)
+        for name, archs in arch_by_name.items():
+            if archs and archs != {"X86", "X64", "ARM64"}:
+                yield name
+
 
 class Preprocessor:
     def filter_public(self, meta: Metadata) -> Metadata:
@@ -1143,7 +1163,7 @@ class PyGenerator:
             writer.write(f'    "{name}",\n')
         writer.write("]\n")
 
-    def write_all(self, writer: TextIO, export_names_groupby_namespace: dict[str, set[str]]) -> None:
+    def write_all(self, writer: TextIO, export_names_group_by_namespace: dict[str, set[str]]) -> None:
         writer.write("import importlib\n")
         writer.write("import sys\n")
         writer.write("_module = sys.modules[__name__]\n")
@@ -1159,8 +1179,8 @@ class PyGenerator:
         writer.write("nameindex = {\n")
         for name in BASE_EXPORTS:
             writer.write(f"'{name}': 'Windows.base',\n")
-        for namespace in sorted(export_names_groupby_namespace):
-            for name in sorted(export_names_groupby_namespace[namespace]):
+        for namespace in sorted(export_names_group_by_namespace):
+            for name in sorted(export_names_group_by_namespace[namespace]):
                 writer.write(f"'{name}': '{namespace}',\n")
         writer.write("}\n")
         writer.write("__all__ = sorted(nameindex)\n")
@@ -1243,45 +1263,38 @@ class Selector:
                 yield t.fullname
 
 
+def make_module_path_for_write(namespace) -> TextIO:
+    p = Path(namespace.replace(".", "/"))
+    p.mkdir(parents=True, exist_ok=True)
+    for d in p.parents[:-1]:
+        if not (d / "__init__.py").exists():
+            (d / "__init__.py").write_text("")
+    return (p / "__init__.py").open("w")
+
+
 def generate(meta: Metadata) -> None:
-    export_names_groupby_namespace = {}
     pg = PyGenerator()
+    export_names_group_by_namespace = {}
     for namespace, meta_group_by_namespace in meta.group_by_namespace().items():
-        p = Path(namespace.replace(".", "/"))
-        p.mkdir(parents=True, exist_ok=True)
-        for d in p.parents[:-1]:
-            if not (d / "__init__.py").exists():
-                (d / "__init__.py").write_text("")
-        import_namespaces: set[str] = {namespace}
-        export_names: set[str] = set()
-        export_names_arch = defaultdict(set)
-        for td in meta_group_by_namespace:
-            import_namespaces |= set(td.enumerate_importing_namespaces())
-            export_names |= set(td.enumerate_exporting_names())
-            for name, arch in td.enumerate_names_having_architecture_attribute():
-                export_names_arch[name].add(arch)
-        export_names_optional = [name for name, archs in export_names_arch.items() if archs and archs != {"X86", "X64", "ARM64"}]
-        with (p / "__init__.py").open("w") as writer:
+        import_namespaces = set(meta_group_by_namespace.enumerate_importing_namespaces()) | {namespace}
+        export_names = set(meta_group_by_namespace.enumerate_exporting_names())
+        export_names_optional = list(meta_group_by_namespace.enumerate_names_lacking_architecture())
+        with make_module_path_for_write(namespace) as writer:
             pg.write_header(writer, import_namespaces)
             for td in meta_group_by_namespace:
                 pg.emit(writer, td)
             for td in meta_group_by_namespace:
                 pg.write_make_head(writer, td)
             pg.write_footer(writer, export_names, export_names_optional)
-        export_names_groupby_namespace[namespace] = export_names
+        export_names_group_by_namespace[namespace] = export_names
     with open(f"Windows/all.py", "w") as writer:
-        pg.write_all(writer, export_names_groupby_namespace)
+        pg.write_all(writer, export_names_group_by_namespace)
 
 
 def generate_one(meta: Metadata, writer: TextIO) -> None:
     pg = PyGenerator()
-    export_names: set[str] = set()
-    export_names_arch = defaultdict(set)
-    for td in meta:
-        export_names |= set(td.enumerate_exporting_names())
-        for name, arch in td.enumerate_names_having_architecture_attribute():
-            export_names_arch[name].add(arch)
-    export_names_optional = [name for name, archs in export_names_arch.items() if archs and archs != {"X86", "X64", "ARM64"}]
+    export_names = set(meta.enumerate_exporting_names())
+    export_names_optional = list(meta.enumerate_names_lacking_architecture())
     pg.write_header_one(writer)
     for td in meta:
         pg.emit(writer, td)
