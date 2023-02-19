@@ -1199,6 +1199,22 @@ class Selector:
     def is_match(self, name) -> bool:
         return name in self.selectors
 
+    def is_match_any_fields(self, td: TypeDefinition) -> bool:
+        for fd in td.fields:
+            if self.is_match(fd.name):
+                return True
+            elif self.is_match(f"{td.namespace}.{fd.name}"):
+                return True
+        return False
+
+    def is_match_any_method_definitions(self, td: TypeDefinition) -> bool:
+        for md in td.method_definitions:
+            if self.is_match(md.name):
+                return True
+            elif self.is_match(f"{td.namespace}.{md.name}"):
+                return True
+        return False
+
     def select(self, meta: Metadata) -> Iterable[TypeDefinition]:
         meta_group_by_fullname = meta.group_by_fullname()
         selected = set()
@@ -1206,6 +1222,8 @@ class Selector:
             if id(td) in selected:
                 continue
             selected.add(id(td))
+            if td.kind == "object":
+                self.select_object_members_inplace(td)
             yield td
             yield from self.select_dependencies(td, meta_group_by_fullname, selected)
 
@@ -1220,6 +1238,22 @@ class Selector:
                 yield td_depended
                 yield from self.select_dependencies(td_depended, meta_group_by_fullname, selected)
 
+    def select_object_members_inplace(self, td: TypeDefinition) -> None:
+        fields = []
+        for fd in td["Fields"]:
+            if self.is_match(fd["Name"]):
+                fields.append(fd)
+            elif self.is_match(f"{td.namespace}.{fd['Name']}"):
+                fields.append(fd)
+        td["Fields"] = fields
+        method_definitions = []
+        for md in td["MethodDefinitions"]:
+            if self.is_match(md["Name"]):
+                method_definitions.append(md)
+            elif self.is_match(f"{td.namespace}.{md['Name']}"):
+                method_definitions.append(md)
+        td["MethodDefinitions"] = method_definitions
+
     def find_match(self, meta: Metadata) -> Iterable[TypeDefinition]:
         for td in meta:
             if self.is_match(td.namespace):
@@ -1229,30 +1263,13 @@ class Selector:
             elif self.is_match(td.fullname):
                 yield td
             elif td.kind == "object":  # Apis
-                fields = []
-                for fd in td.fields:  # constants
-                    if self.is_match(fd.name):
-                        fields.append(fd.js)
-                    elif self.is_match(f"{td.namespace}.{fd.name}"):
-                        fields.append(fd.js)
-                method_definitions = []
-                for md in td.method_definitions:  # functions
-                    if self.is_match(md.name):
-                        method_definitions.append(md.js)
-                    elif self.is_match(f"{td.namespace}.{md.name}"):
-                        method_definitions.append(md.js)
-                if fields or method_definitions:
-                    td["Fields"] = fields
-                    td["MethodDefinitions"] = method_definitions
+                if self.is_match_any_fields(td):  # constants
+                    yield td
+                elif self.is_match_any_method_definitions(td):  # functions
                     yield td
             elif td.kind == "enum":
-                for fd in td.fields:
-                    if self.is_match(fd.name):
-                        yield td
-                        break
-                    elif self.is_match(f"{td.namespace}.{fd.name}"):
-                        yield td
-                        break
+                if self.is_match_any_fields(td):
+                    yield td
 
     def find_dependencies(self, td: TypeDefinition) -> Iterable[str]:
         for ii in td.interface_implementations:
