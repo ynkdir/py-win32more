@@ -103,6 +103,8 @@ AUDIT_EVENT_TYPE_AuditEventObjectAccess: AUDIT_EVENT_TYPE = 0
 AUDIT_EVENT_TYPE_AuditEventDirectoryServiceAccess: AUDIT_EVENT_TYPE = 1
 SECURITY_DYNAMIC_TRACKING: Windows.Win32.Foundation.BOOLEAN = 1
 SECURITY_STATIC_TRACKING: Windows.Win32.Foundation.BOOLEAN = 0
+def SECURITY_NT_AUTHORITY():
+    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY(Value=(0, 0, 0, 0, 0, 5))
 SE_CREATE_TOKEN_NAME: String = 'SeCreateTokenPrivilege'
 SE_ASSIGNPRIMARYTOKEN_NAME: String = 'SeAssignPrimaryTokenPrivilege'
 SE_LOCK_MEMORY_NAME: String = 'SeLockMemoryPrivilege'
@@ -1056,6 +1058,7 @@ make_head(_module, 'ACE_HEADER')
 make_head(_module, 'ACL')
 make_head(_module, 'ACL_REVISION_INFORMATION')
 make_head(_module, 'ACL_SIZE_INFORMATION')
+make_head(_module, 'SECURITY_NT_AUTHORITY')
 make_head(_module, 'CLAIM_SECURITY_ATTRIBUTES_INFORMATION')
 make_head(_module, 'CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE')
 make_head(_module, 'CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE')
@@ -1363,6 +1366,7 @@ __all__ = [
     "SECURITY_IMPERSONATION_LEVEL_SecurityDelegation",
     "SECURITY_IMPERSONATION_LEVEL_SecurityIdentification",
     "SECURITY_IMPERSONATION_LEVEL_SecurityImpersonation",
+    "SECURITY_NT_AUTHORITY",
     "SECURITY_QUALITY_OF_SERVICE",
     "SECURITY_STATIC_TRACKING",
     "SEC_THREAD_START",

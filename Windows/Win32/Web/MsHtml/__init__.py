@@ -5,9 +5,13 @@ import Windows.Win32.Foundation
 import Windows.Win32.Graphics.DirectDraw
 import Windows.Win32.Graphics.Dxgi.Common
 import Windows.Win32.Graphics.Gdi
+import Windows.Win32.Security
+import Windows.Win32.Storage.FileSystem
 import Windows.Win32.System.Com
 import Windows.Win32.System.Diagnostics.Debug
 import Windows.Win32.System.Ole
+import Windows.Win32.System.Registry
+import Windows.Win32.System.Threading
 import Windows.Win32.System.WinRT
 import Windows.Win32.UI.Input.Ime
 import Windows.Win32.UI.WindowsAndMessaging
@@ -6786,6 +6790,60 @@ MAPMIME_DISABLE: UInt32 = 2
 MAPMIME_DEFAULT_ALWAYS: UInt32 = 3
 TIMERMODE_NORMAL: UInt32 = 0
 TIMERMODE_VISIBILITYAWARE: UInt32 = 1
+@winfunctype('Ieframe.dll')
+def IEAssociateThreadWithTab(dwTabThreadID: UInt32, dwAssociatedThreadID: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IEDisassociateThreadWithTab(dwTabThreadID: UInt32, dwAssociatedThreadID: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IEIsInPrivateBrowsing() -> Windows.Win32.Foundation.BOOL: ...
+@winfunctype('Ieframe.dll')
+def IEInPrivateFilteringEnabled() -> Windows.Win32.Foundation.BOOL: ...
+@winfunctype('Ieframe.dll')
+def IETrackingProtectionEnabled() -> Windows.Win32.Foundation.BOOL: ...
+@winfunctype('Ieframe.dll')
+def IESaveFile(hState: Windows.Win32.Foundation.HANDLE, lpwstrSourceFile: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IECancelSaveFile(hState: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IEShowSaveFileDialog(hwnd: Windows.Win32.Foundation.HWND, lpwstrInitialFileName: Windows.Win32.Foundation.PWSTR, lpwstrInitialDir: Windows.Win32.Foundation.PWSTR, lpwstrFilter: Windows.Win32.Foundation.PWSTR, lpwstrDefExt: Windows.Win32.Foundation.PWSTR, dwFilterIndex: UInt32, dwFlags: UInt32, lppwstrDestinationFilePath: POINTER(Windows.Win32.Foundation.PWSTR), phState: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IEShowOpenFileDialog(hwnd: Windows.Win32.Foundation.HWND, lpwstrFileName: Windows.Win32.Foundation.PWSTR, cchMaxFileName: UInt32, lpwstrInitialDir: Windows.Win32.Foundation.PWSTR, lpwstrFilter: Windows.Win32.Foundation.PWSTR, lpwstrDefExt: Windows.Win32.Foundation.PWSTR, dwFilterIndex: UInt32, dwFlags: UInt32, phFile: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IEGetWriteableLowHKCU(pHKey: POINTER(Windows.Win32.System.Registry.HKEY)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IEGetWriteableFolderPath(clsidFolderID: POINTER(Guid), lppwstrPath: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IEIsProtectedModeProcess(pbResult: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IEIsProtectedModeURL(lpwstrUrl: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IELaunchURL(lpwstrUrl: Windows.Win32.Foundation.PWSTR, lpProcInfo: POINTER(Windows.Win32.System.Threading.PROCESS_INFORMATION_head), lpInfo: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IERefreshElevationPolicy() -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IEGetProtectedModeCookie(lpszURL: Windows.Win32.Foundation.PWSTR, lpszCookieName: Windows.Win32.Foundation.PWSTR, lpszCookieData: Windows.Win32.Foundation.PWSTR, pcchCookieData: POINTER(UInt32), dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IESetProtectedModeCookie(lpszURL: Windows.Win32.Foundation.PWSTR, lpszCookieName: Windows.Win32.Foundation.PWSTR, lpszCookieData: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IERegisterWritableRegistryKey(guid: Guid, lpSubkey: Windows.Win32.Foundation.PWSTR, fSubkeyAllowed: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IERegisterWritableRegistryValue(guid: Guid, lpPath: Windows.Win32.Foundation.PWSTR, lpValueName: Windows.Win32.Foundation.PWSTR, dwType: UInt32, lpData: c_char_p_no, cbMaxData: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IEUnregisterWritableRegistry(guid: Guid) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IERegCreateKeyEx(lpSubKey: Windows.Win32.Foundation.PWSTR, Reserved: UInt32, lpClass: Windows.Win32.Foundation.PWSTR, dwOptions: UInt32, samDesired: UInt32, lpSecurityAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), phkResult: POINTER(Windows.Win32.System.Registry.HKEY), lpdwDisposition: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Ieframe.dll')
+def IEDeleteFile(lpFileName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.BOOL: ...
+@winfunctype('Ieframe.dll')
+def IERemoveDirectory(lpPathName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.BOOL: ...
+@winfunctype('Ieframe.dll')
+def IEMoveFileEx(lpExistingFileName: Windows.Win32.Foundation.PWSTR, lpNewFileName: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+@winfunctype('Ieframe.dll')
+def IECreateDirectory(lpPathName: Windows.Win32.Foundation.PWSTR, lpSecurityAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head)) -> Windows.Win32.Foundation.BOOL: ...
+@winfunctype('Ieframe.dll')
+def IEGetFileAttributesEx(lpFileName: Windows.Win32.Foundation.PWSTR, fInfoLevelId: Windows.Win32.Storage.FileSystem.GET_FILEEX_INFO_LEVELS, lpFileInformation: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+@winfunctype('Ieframe.dll')
+def IEFindFirstFile(lpFileName: Windows.Win32.Foundation.PWSTR, lpFindFileData: POINTER(Windows.Win32.Storage.FileSystem.WIN32_FIND_DATAA_head)) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('MSRATING.dll')
 def RatingEnable(hwndParent: Windows.Win32.Foundation.HWND, pszUsername: Windows.Win32.Foundation.PSTR, fEnable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('MSRATING.dll')
@@ -33400,6 +33458,7 @@ __all__ = [
     "IDocumentTraversal",
     "IDownloadBehavior",
     "IDownloadManager",
+    "IEAssociateThreadWithTab",
     "IECMDID_ARG_CLEAR_FORMS_ALL",
     "IECMDID_ARG_CLEAR_FORMS_ALL_BUT_PASSWORDS",
     "IECMDID_ARG_CLEAR_FORMS_PASSWORDS_ONLY",
@@ -33410,17 +33469,43 @@ __all__ = [
     "IECMDID_GET_INVOKE_DEFAULT_BROWSER_ON_NEW_WINDOW",
     "IECMDID_SETID_AUTOCOMPLETE_FOR_FORMS",
     "IECMDID_SET_INVOKE_DEFAULT_BROWSER_ON_NEW_WINDOW",
+    "IECancelSaveFile",
+    "IECreateDirectory",
+    "IEDeleteFile",
+    "IEDisassociateThreadWithTab",
+    "IEFindFirstFile",
+    "IEGetFileAttributesEx",
     "IEGetProcessModule_PROC_NAME",
+    "IEGetProtectedModeCookie",
     "IEGetTabWindowExports_PROC_NAME",
+    "IEGetWriteableFolderPath",
+    "IEGetWriteableLowHKCU",
     "IEISXMLNSREGISTEREDFN",
+    "IEInPrivateFilteringEnabled",
+    "IEIsInPrivateBrowsing",
+    "IEIsProtectedModeProcess",
+    "IEIsProtectedModeURL",
     "IELAUNCHOPTION_FLAGS",
     "IELAUNCHOPTION_FORCE_COMPAT",
     "IELAUNCHOPTION_FORCE_EDGE",
     "IELAUNCHOPTION_LOCK_ENGINE",
     "IELAUNCHOPTION_SCRIPTDEBUG",
     "IELAUNCHURLINFO",
+    "IELaunchURL",
+    "IEMoveFileEx",
     "IEPROCESS_MODULE_NAME",
     "IEREGISTERXMLNSFN",
+    "IERefreshElevationPolicy",
+    "IERegCreateKeyEx",
+    "IERegisterWritableRegistryKey",
+    "IERegisterWritableRegistryValue",
+    "IERemoveDirectory",
+    "IESaveFile",
+    "IESetProtectedModeCookie",
+    "IEShowOpenFileDialog",
+    "IEShowSaveFileDialog",
+    "IETrackingProtectionEnabled",
+    "IEUnregisterWritableRegistry",
     "IEWebDriverManager",
     "IE_USE_OE_MAIL_HKEY",
     "IE_USE_OE_MAIL_KEY",

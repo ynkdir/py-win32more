@@ -117,7 +117,7 @@ DEV_QUERY_FLAGS_DevQueryFlagLocalize: DEV_QUERY_FLAGS = 4
 DEV_QUERY_FLAGS_DevQueryFlagAsyncClose: DEV_QUERY_FLAGS = 8
 class DEV_QUERY_PARAMETER(Structure):
     Key: Windows.Win32.Devices.Properties.DEVPROPKEY
-    Type: UInt32
+    Type: Windows.Win32.Devices.Properties.DEVPROPTYPE
     BufferSize: UInt32
     Buffer: c_void_p
 DEV_QUERY_RESULT_ACTION = Int32

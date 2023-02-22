@@ -853,17 +853,17 @@ def NDRCContextMarshall(CContext: IntPtr, pBuff: c_void_p) -> Void: ...
 @winfunctype('RPCRT4.dll')
 def NDRCContextUnmarshall(pCContext: POINTER(IntPtr), hBinding: c_void_p, pBuff: c_void_p, DataRepresentation: UInt32) -> Void: ...
 @winfunctype('RPCRT4.dll')
-def NDRSContextMarshall(CContext: POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_1_head), pBuff: c_void_p, userRunDownIn: Windows.Win32.System.Rpc.NDR_RUNDOWN) -> Void: ...
+def NDRSContextMarshall(CContext: POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_head), pBuff: c_void_p, userRunDownIn: Windows.Win32.System.Rpc.NDR_RUNDOWN) -> Void: ...
 @winfunctype('RPCRT4.dll')
-def NDRSContextUnmarshall(pBuff: c_void_p, DataRepresentation: UInt32) -> POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_1_head): ...
+def NDRSContextUnmarshall(pBuff: c_void_p, DataRepresentation: UInt32) -> POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_head): ...
 @winfunctype('RPCRT4.dll')
-def NDRSContextMarshallEx(BindingHandle: c_void_p, CContext: POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_1_head), pBuff: c_void_p, userRunDownIn: Windows.Win32.System.Rpc.NDR_RUNDOWN) -> Void: ...
+def NDRSContextMarshallEx(BindingHandle: c_void_p, CContext: POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_head), pBuff: c_void_p, userRunDownIn: Windows.Win32.System.Rpc.NDR_RUNDOWN) -> Void: ...
 @winfunctype('RPCRT4.dll')
-def NDRSContextMarshall2(BindingHandle: c_void_p, CContext: POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_1_head), pBuff: c_void_p, userRunDownIn: Windows.Win32.System.Rpc.NDR_RUNDOWN, CtxGuard: c_void_p, Flags: UInt32) -> Void: ...
+def NDRSContextMarshall2(BindingHandle: c_void_p, CContext: POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_head), pBuff: c_void_p, userRunDownIn: Windows.Win32.System.Rpc.NDR_RUNDOWN, CtxGuard: c_void_p, Flags: UInt32) -> Void: ...
 @winfunctype('RPCRT4.dll')
-def NDRSContextUnmarshallEx(BindingHandle: c_void_p, pBuff: c_void_p, DataRepresentation: UInt32) -> POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_1_head): ...
+def NDRSContextUnmarshallEx(BindingHandle: c_void_p, pBuff: c_void_p, DataRepresentation: UInt32) -> POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_head): ...
 @winfunctype('RPCRT4.dll')
-def NDRSContextUnmarshall2(BindingHandle: c_void_p, pBuff: c_void_p, DataRepresentation: UInt32, CtxGuard: c_void_p, Flags: UInt32) -> POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_1_head): ...
+def NDRSContextUnmarshall2(BindingHandle: c_void_p, pBuff: c_void_p, DataRepresentation: UInt32, CtxGuard: c_void_p, Flags: UInt32) -> POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_head): ...
 @winfunctype('RPCRT4.dll')
 def RpcSsDestroyClientContext(ContextHandle: POINTER(c_void_p)) -> Void: ...
 @winfunctype('RPCRT4.dll')
@@ -907,9 +907,9 @@ def NdrInterfacePointerMarshall(pStubMsg: POINTER(Windows.Win32.System.Rpc.MIDL_
 @winfunctype('RPCRT4.dll')
 def NdrClientContextMarshall(pStubMsg: POINTER(Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE_head), ContextHandle: IntPtr, fCheck: Int32) -> Void: ...
 @winfunctype('RPCRT4.dll')
-def NdrServerContextMarshall(pStubMsg: POINTER(Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE_head), ContextHandle: POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_1_head), RundownRoutine: Windows.Win32.System.Rpc.NDR_RUNDOWN) -> Void: ...
+def NdrServerContextMarshall(pStubMsg: POINTER(Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE_head), ContextHandle: POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_head), RundownRoutine: Windows.Win32.System.Rpc.NDR_RUNDOWN) -> Void: ...
 @winfunctype('RPCRT4.dll')
-def NdrServerContextNewMarshall(pStubMsg: POINTER(Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE_head), ContextHandle: POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_1_head), RundownRoutine: Windows.Win32.System.Rpc.NDR_RUNDOWN, pFormat: c_char_p_no) -> Void: ...
+def NdrServerContextNewMarshall(pStubMsg: POINTER(Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE_head), ContextHandle: POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_head), RundownRoutine: Windows.Win32.System.Rpc.NDR_RUNDOWN, pFormat: c_char_p_no) -> Void: ...
 @winfunctype('RPCRT4.dll')
 def NdrSimpleTypeUnmarshall(pStubMsg: POINTER(Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE_head), pMemory: c_char_p_no, FormatChar: Byte) -> Void: ...
 @winfunctype('RPCRT4.dll')
@@ -959,11 +959,11 @@ def NdrInterfacePointerUnmarshall(pStubMsg: POINTER(Windows.Win32.System.Rpc.MID
 @winfunctype('RPCRT4.dll')
 def NdrClientContextUnmarshall(pStubMsg: POINTER(Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE_head), pContextHandle: POINTER(IntPtr), BindHandle: c_void_p) -> Void: ...
 @winfunctype('RPCRT4.dll')
-def NdrServerContextUnmarshall(pStubMsg: POINTER(Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE_head)) -> POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_1_head): ...
+def NdrServerContextUnmarshall(pStubMsg: POINTER(Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE_head)) -> POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_head): ...
 @winfunctype('RPCRT4.dll')
-def NdrContextHandleInitialize(pStubMsg: POINTER(Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE_head), pFormat: c_char_p_no) -> POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_1_head): ...
+def NdrContextHandleInitialize(pStubMsg: POINTER(Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE_head), pFormat: c_char_p_no) -> POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_head): ...
 @winfunctype('RPCRT4.dll')
-def NdrServerContextNewUnmarshall(pStubMsg: POINTER(Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE_head), pFormat: c_char_p_no) -> POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_1_head): ...
+def NdrServerContextNewUnmarshall(pStubMsg: POINTER(Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE_head), pFormat: c_char_p_no) -> POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_head): ...
 @winfunctype('RPCRT4.dll')
 def NdrPointerBufferSize(pStubMsg: POINTER(Windows.Win32.System.Rpc.MIDL_STUB_MESSAGE_head), pMemory: c_char_p_no, pFormat: c_char_p_no) -> Void: ...
 @winfunctype('RPCRT4.dll')
@@ -1477,7 +1477,7 @@ class MIDL_STUB_MESSAGE(Structure):
     _bitfield: Int32
     dwDestContext: UInt32
     pvDestContext: c_void_p
-    SavedContextHandles: POINTER(POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_1_head))
+    SavedContextHandles: POINTER(POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_head))
     ParamNumber: Int32
     pRpcChannelBuffer: Windows.Win32.System.Com.IRpcChannelBuffer_head
     pArrayInfo: POINTER(Windows.Win32.System.Rpc.ARRAY_INFO_head)
@@ -1862,7 +1862,7 @@ class NDR_POINTER_QUEUE_STATE(Structure):
     pass
 @winfunctype_pointer
 def NDR_RUNDOWN(context: c_void_p) -> Void: ...
-class NDR_SCONTEXT_1(Structure):
+class NDR_SCONTEXT(Structure):
     pad: c_void_p * 2
     userContext: c_void_p
 class NDR_USER_MARSHAL_INFO(Structure):
@@ -2584,7 +2584,7 @@ RpcPerfCounters_RpcFailedLbsMessages: RpcPerfCounters = 11
 RpcPerfCounters_RpcLastCounter: RpcPerfCounters = 12
 class SCONTEXT_QUEUE(Structure):
     NumberOfObjects: UInt32
-    ArrayOfObjects: POINTER(POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_1_head))
+    ArrayOfObjects: POINTER(POINTER(Windows.Win32.System.Rpc.NDR_SCONTEXT_head))
 SEC_WINNT_AUTH_IDENTITY = UInt32
 SEC_WINNT_AUTH_IDENTITY_ANSI: SEC_WINNT_AUTH_IDENTITY = 1
 SEC_WINNT_AUTH_IDENTITY_UNICODE: SEC_WINNT_AUTH_IDENTITY = 2
@@ -2658,9 +2658,6 @@ class _NDR_CORRELATION_INFO(Structure):
     pass
 class _NDR_PROC_CONTEXT(Structure):
     pass
-class _NDR_SCONTEXT(Structure):
-    pad: c_void_p * 2
-    userContext: c_void_p
 system_handle_t = Int32
 SYSTEM_HANDLE_FILE: system_handle_t = 0
 SYSTEM_HANDLE_SEMAPHORE: system_handle_t = 1
@@ -2790,7 +2787,7 @@ make_head(_module, 'NDR_NOTIFY2_ROUTINE')
 make_head(_module, 'NDR_NOTIFY_ROUTINE')
 make_head(_module, 'NDR_POINTER_QUEUE_STATE')
 make_head(_module, 'NDR_RUNDOWN')
-make_head(_module, 'NDR_SCONTEXT_1')
+make_head(_module, 'NDR_SCONTEXT')
 make_head(_module, 'NDR_USER_MARSHAL_INFO')
 make_head(_module, 'NDR_USER_MARSHAL_INFO_LEVEL1')
 make_head(_module, 'PFN_RPCNOTIFICATION_ROUTINE')
@@ -2884,7 +2881,6 @@ make_head(_module, 'XMIT_ROUTINE_QUINTUPLE')
 make_head(_module, '_NDR_ASYNC_MESSAGE')
 make_head(_module, '_NDR_CORRELATION_INFO')
 make_head(_module, '_NDR_PROC_CONTEXT')
-make_head(_module, '_NDR_SCONTEXT')
 __all__ = [
     "ARRAY_INFO",
     "BinaryParam",
@@ -3150,7 +3146,7 @@ __all__ = [
     "NDR_NOTIFY_ROUTINE",
     "NDR_POINTER_QUEUE_STATE",
     "NDR_RUNDOWN",
-    "NDR_SCONTEXT_1",
+    "NDR_SCONTEXT",
     "NDR_USER_MARSHAL_INFO",
     "NDR_USER_MARSHAL_INFO_LEVEL1",
     "NT351_INTERFACE_SIZE",
@@ -4081,7 +4077,6 @@ __all__ = [
     "_NDR_ASYNC_MESSAGE",
     "_NDR_CORRELATION_INFO",
     "_NDR_PROC_CONTEXT",
-    "_NDR_SCONTEXT",
     "__RPCPROXY_H_VERSION__",
     "cbNDRContext",
     "system_handle_t",

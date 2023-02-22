@@ -609,7 +609,7 @@ class CHARFORMATA(Structure):
     yHeight: Int32
     yOffset: Int32
     crTextColor: Windows.Win32.Foundation.COLORREF
-    bCharSet: Windows.Win32.Graphics.Gdi.EMBED_FONT_CHARSET
+    bCharSet: Windows.Win32.Graphics.Gdi.FONT_CHARSET
     bPitchAndFamily: Byte
     szFaceName: Windows.Win32.Foundation.CHAR * 32
 class CHARFORMATW(Structure):
@@ -619,7 +619,7 @@ class CHARFORMATW(Structure):
     yHeight: Int32
     yOffset: Int32
     crTextColor: Windows.Win32.Foundation.COLORREF
-    bCharSet: Windows.Win32.Graphics.Gdi.EMBED_FONT_CHARSET
+    bCharSet: Windows.Win32.Graphics.Gdi.FONT_CHARSET
     bPitchAndFamily: Byte
     szFaceName: Char * 32
 class CHARRANGE(Structure):
@@ -1246,7 +1246,7 @@ class ITextHost(c_void_p):
     @commethod(15)
     def TxKillTimer(idTimer: UInt32) -> Void: ...
     @commethod(16)
-    def TxScrollWindowEx(dx: Int32, dy: Int32, lprcScroll: POINTER(Windows.Win32.Foundation.RECT_head), lprcClip: POINTER(Windows.Win32.Foundation.RECT_head), hrgnUpdate: Windows.Win32.Graphics.Gdi.HRGN, lprcUpdate: POINTER(Windows.Win32.Foundation.RECT_head), fuScroll: Windows.Win32.UI.WindowsAndMessaging.SHOW_WINDOW_CMD) -> Void: ...
+    def TxScrollWindowEx(dx: Int32, dy: Int32, lprcScroll: POINTER(Windows.Win32.Foundation.RECT_head), lprcClip: POINTER(Windows.Win32.Foundation.RECT_head), hrgnUpdate: Windows.Win32.Graphics.Gdi.HRGN, lprcUpdate: POINTER(Windows.Win32.Foundation.RECT_head), fuScroll: Windows.Win32.UI.WindowsAndMessaging.SCROLL_WINDOW_FLAGS) -> Void: ...
     @commethod(17)
     def TxSetCapture(fCapture: Windows.Win32.Foundation.BOOL) -> Void: ...
     @commethod(18)
