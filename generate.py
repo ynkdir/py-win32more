@@ -446,14 +446,19 @@ class FieldDefinition:
             guid, rest = self.custom_attributes.get("Windows.Win32.Interop.GuidAttribute").guid_value()
             assert len(rest) == 0
             return f"Guid('{guid}')"
-        elif self.signature.kind == "Type" and self.signature.fullname == f"Windows.Win32.Devices.Properties.DEVPROPKEY":
+        elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.Devices.Properties.DEVPROPKEY":
             guid, rest = self.custom_attributes.get("Windows.Win32.Interop.PropertyKeyAttribute").guid_value()
             assert len(rest) == 1
             return f"{self.signature.fullname}(fmtid=Guid('{guid}'), pid={rest[0]})"
-        elif self.signature.kind == "Type" and self.signature.fullname == f"Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY":
+        elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY":
             guid, rest = self.custom_attributes.get("Windows.Win32.Interop.PropertyKeyAttribute").guid_value()
             assert len(rest) == 1
             return f"{self.signature.fullname}(fmtid=Guid('{guid}'), pid={rest[0]})"
+        elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY":
+            # value = "{0, 0, 0, 0, 0, 5}"
+            value = self.custom_attributes.get("Windows.Win32.Interop.ConstantAttribute").fixed_arguments[0].value
+            value_csv = value.strip("{}")
+            return f"{self.signature.fullname}(Value=({value_csv}))"
         else:
             # FIXME:
             raise NotImplementedError()
