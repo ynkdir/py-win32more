@@ -1051,10 +1051,6 @@ class PyGenerator:
             base = "Union"
         else:
             raise NotImplementedError()
-        if td.custom_attributes.has("Windows.Win32.Interop.GuidAttribute"):
-            guid, rest = td.custom_attributes.get("Windows.Win32.Interop.GuidAttribute").guid_value()
-        else:
-            guid = None
         fields = []
         static_fields = []
         for fd in td.fields:
