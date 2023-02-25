@@ -1057,35 +1057,50 @@ class PyGenerator:
             arch = ",".join(td.custom_attributes.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value).upper()
             writer.write(f"if ARCH in '{arch}':\n")
             indent = indent + "    "
-        if td.kind == "struct":
-            base = "Structure"
-        elif td.kind == "union":
-            base = "Union"
-        else:
-            raise NotImplementedError()
-        fields = []
-        static_fields = []
-        for fd in td.fields:
-            if {"Static", "HasDefault"} <= set(fd.attributes):
-                static_fields.append(fd)
-            else:
-                fields.append(fd)
+        base = self.struct_union_base_type(td)
         writer.write(f"{indent}class {td.name}({base}):\n")
+        if self.struct_union_is_empty(td):
+            writer.write(f"{indent}    pass\n")
+            return writer.getvalue()
         if td.custom_attributes.has("Windows.Win32.Interop.GuidAttribute"):
             guid, rest = td.custom_attributes.get("Windows.Win32.Interop.GuidAttribute").guid_value()
             writer.write(f"{indent}    Guid = Guid('{guid}')\n")
-        elif not td.fields:
-            writer.write(f"{indent}    pass\n")
-            return writer.getvalue()
-        for fd in static_fields:
+        for fd in self.struct_union_static_fields(td):
             writer.write(f"{indent}    {fd.name} = {fd.pyvalue}\n")
-        for fd in fields:
+        for fd in self.struct_union_fields(td):
             writer.write(f"{indent}    {fd.name}: {fd.signature.pytype}\n")
         if td.layout.packing_size != 0:
             writer.write(f"{indent}    _pack_ = {td.layout.packing_size}\n")
         for nested_type in td.nested_types:
             writer.write(self.emit_struct_union(nested_type, indent + "    "))
         return writer.getvalue()
+
+    def struct_union_base_type(self, td: TypeDefinition) -> str:
+        if td.kind == "struct":
+            return "Structure"
+        elif td.kind == "union":
+            return "Union"
+        else:
+            raise NotImplementedError()
+
+    def struct_union_static_fields(self, td: TypeDefinition) -> Iterable[FieldDefinition]:
+        for fd in td.fields:
+            if self.struct_union_field_is_static(fd):
+                yield fd
+
+    def struct_union_fields(self, td: TypeDefinition) -> Iterable[FieldDefinition]:
+        for fd in td.fields:
+            if not self.struct_union_field_is_static(fd):
+                yield fd
+
+    def struct_union_field_is_static(self, fd: FieldDefinition) -> bool:
+        return {"Static", "HasDefault"} <= set(fd.attributes)
+
+    def struct_union_is_empty(self, td: TypeDefinition) -> bool:
+        if td.fields:
+            return False
+        assert not td.custom_attributes.has("Windows.Win32.Interop.GuidAttribute")
+        return True
 
     def emit_com(self, td: TypeDefinition) -> str:
         writer = StringIO()
