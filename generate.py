@@ -7,6 +7,7 @@ import re
 import sys
 from collections import defaultdict
 from collections.abc import Collection, Iterable, Iterator, Mapping, MutableSequence
+from io import StringIO
 from pathlib import Path
 from typing import TypeAlias, Any, TextIO, Self, overload
 
@@ -949,34 +950,37 @@ class Preprocessor:
 
 
 class PyGenerator:
-    def emit(self, writer: TextIO, td: TypeDefinition) -> None:
+    def emit(self, td: TypeDefinition) -> str:
         match td.kind:
             case "object":  # CONSTANT, FUNCTION
-                self.emit_object(writer, td)
+                return self.emit_object(td)
             case "function_pointer":
-                self.emit_function_pointer(writer, td)
+                return self.emit_function_pointer(td)
             case "enum":
-                self.emit_enum(writer, td)
+                return self.emit_enum(td)
             case "native_typedef":
-                self.emit_native_typedef(writer, td)
+                return self.emit_native_typedef(td)
             case "clsid":
-                self.emit_clsid(writer, td)
+                return self.emit_clsid(td)
             case "union":
-                self.emit_struct_union(writer, td)
+                return self.emit_struct_union(td)
             case "struct":
-                self.emit_struct_union(writer, td)
+                return self.emit_struct_union(td)
             case "com":
-                self.emit_com(writer, td)
+                return self.emit_com(td)
             case _:
                 raise NotImplementedError()
 
-    def emit_object(self, writer: TextIO, td: TypeDefinition) -> None:
+    def emit_object(self, td: TypeDefinition) -> str:
+        writer = StringIO()
         for fd in td.fields:
-            self.emit_constant(writer, fd)
+            writer.write(self.emit_constant(fd))
         for md in td.method_definitions:
-            self.emit_function(writer, md)
+            writer.write(self.emit_function(md))
+        return writer.getvalue()
 
-    def emit_constant(self, writer: TextIO, fd: FieldDefinition) -> None:
+    def emit_constant(self, fd: FieldDefinition) -> str:
+        writer = StringIO()
         if "HasDefault" in fd.attributes:
             # primitive
             writer.write(f"{fd.name}: {fd.signature.pytype} = {fd.pyvalue}\n")
@@ -985,8 +989,10 @@ class PyGenerator:
         else:
             writer.write(f"def {fd.name}():\n")
             writer.write(f"    return {fd.pyvalue}\n")
+        return writer.getvalue()
 
-    def emit_function(self, writer: TextIO, md: MethodDefinition) -> None:
+    def emit_function(self, md: MethodDefinition) -> str:
+        writer = StringIO()
         if md.custom_attributes.has("Windows.Win32.Interop.SupportedArchitectureAttribute"):
             arch = ",".join(md.custom_attributes.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value).upper()
             writer.write(f"if ARCH in '{arch}':\n")
@@ -1004,8 +1010,10 @@ class PyGenerator:
         params_csv = ", ".join(f"{name}: {type_.pytype}" for name, type_ in md.get_parameter_names_with_type())
         writer.write(f"{indent}@{functype}('{library}')\n")
         writer.write(f"{indent}def {md.name}({params_csv}) -> {restype}: ...\n")
+        return writer.getvalue()
 
-    def emit_function_pointer(self, writer: TextIO, td: TypeDefinition) -> None:
+    def emit_function_pointer(self, td: TypeDefinition) -> str:
+        writer = StringIO()
         if td.custom_attributes.has("Windows.Win32.Interop.SupportedArchitectureAttribute"):
             arch = ",".join(td.custom_attributes.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value).upper()
             writer.write(f"if ARCH in '{arch}':\n")
@@ -1024,23 +1032,27 @@ class PyGenerator:
         params_csv = ", ".join(f"{name}: {type_.pytype}" for name, type_ in md.get_parameter_names_with_type())
         writer.write(f"{indent}@{functype}\n")
         writer.write(f"{indent}def {td.name}({params_csv}) -> {restype}: ...\n")
+        return writer.getvalue()
 
-    def emit_enum(self, writer: TextIO, td: TypeDefinition) -> None:
+    def emit_enum(self, td: TypeDefinition) -> str:
+        writer = StringIO()
         type_field, *value_fields = td.fields
         writer.write(f"{td.name} = {type_field.signature.pytype}\n")
         for fd in value_fields:
             writer.write(f"{fd.name}: {td.name} = {fd.default_value.value}\n")
+        return writer.getvalue()
 
-    def emit_native_typedef(self, writer: TextIO, td: TypeDefinition) -> None:
+    def emit_native_typedef(self, td: TypeDefinition) -> str:
         pytype = td.fields[0].signature.pytype
-        writer.write(f"{td.name} = {pytype}\n")
+        return f"{td.name} = {pytype}\n"
 
-    def emit_clsid(self, writer: TextIO, td: TypeDefinition) -> None:
+    def emit_clsid(self, td: TypeDefinition) -> str:
         guid, rest = td.custom_attributes.get("Windows.Win32.Interop.GuidAttribute").guid_value()
-        writer.write(f"{td.name} = Guid('{guid}')\n")
+        return f"{td.name} = Guid('{guid}')\n"
 
     # _fields_ and _anonymous_ is defined at runtime.
-    def emit_struct_union(self, writer: TextIO, td: TypeDefinition, indent="") -> None:
+    def emit_struct_union(self, td: TypeDefinition, indent="") -> str:
+        writer = StringIO()
         if td.custom_attributes.has("Windows.Win32.Interop.SupportedArchitectureAttribute"):
             arch = ",".join(td.custom_attributes.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value).upper()
             writer.write(f"if ARCH in '{arch}':\n")
@@ -1064,7 +1076,7 @@ class PyGenerator:
             writer.write(f"{indent}    Guid = Guid('{guid}')\n")
         elif not td.fields:
             writer.write(f"{indent}    pass\n")
-            return
+            return writer.getvalue()
         for fd in static_fields:
             writer.write(f"{indent}    {fd.name} = {fd.pyvalue}\n")
         for fd in fields:
@@ -1072,9 +1084,11 @@ class PyGenerator:
         if td.layout.packing_size != 0:
             writer.write(f"{indent}    _pack_ = {td.layout.packing_size}\n")
         for nested_type in td.nested_types:
-            self.emit_struct_union(writer, nested_type, indent + "    ")
+            writer.write(self.emit_struct_union(nested_type, indent + "    "))
+        return writer.getvalue()
 
-    def emit_com(self, writer: TextIO, td: TypeDefinition) -> None:
+    def emit_com(self, td: TypeDefinition) -> str:
+        writer = StringIO()
         assert len(td.interface_implementations) <= 1
         if td.interface_implementations == []:
             base = "None"
@@ -1091,39 +1105,47 @@ class PyGenerator:
             vtbl_index = md["_vtbl_index"]
             writer.write(f"    @commethod({vtbl_index})\n")
             writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
+        return writer.getvalue()
 
-    def write_header(self, writer: TextIO, import_namespaces: set[str]) -> None:
-        self.write_import_annotations(writer)
-        self.write_import_ctypes(writer)
-        self.write_import_base(writer)
-        self.write_import_namespaces(writer, import_namespaces)
-        self.write_getattr(writer)
-        self.write_dir(writer)
+    def emit_header(self, import_namespaces: set[str]) -> str:
+        writer = StringIO()
+        writer.write(self.emit_import_annotations())
+        writer.write(self.emit_import_ctypes())
+        writer.write(self.emit_import_base())
+        writer.write(self.emit_import_namespaces(import_namespaces))
+        writer.write(self.emit_getattr())
+        writer.write(self.emit_dir())
+        return writer.getvalue()
 
-    def write_header_one(self, writer: TextIO) -> None:
-        self.write_import_annotations(writer)
-        self.write_import_ctypes(writer)
-        self.write_include_base(writer)
-        self.write_getattr(writer)
-        self.write_dir(writer)
+    def emit_header_one(self) -> str:
+        writer = StringIO()
+        writer.write(self.emit_import_annotations())
+        writer.write(self.emit_import_ctypes())
+        writer.write(self.emit_include_base())
+        writer.write(self.emit_getattr())
+        writer.write(self.emit_dir())
+        return writer.getvalue()
 
-    def write_import_annotations(self, writer: TextIO) -> None:
-        writer.write("from __future__ import annotations\n")
+    def emit_import_annotations(self) -> str:
+        return "from __future__ import annotations\n"
 
-    def write_import_ctypes(self, writer: TextIO) -> None:
-        writer.write("from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n")
+    def emit_import_ctypes(self) -> str:
+        return "from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n"
 
-    def write_import_base(self, writer: TextIO) -> None:
-        writer.write(f"from Windows.base import {BASE_EXPORTS_CSV}\n")
+    def emit_import_base(self) -> str:
+        return f"from Windows.base import {BASE_EXPORTS_CSV}\n"
 
-    def write_include_base(self, writer: TextIO) -> None:
-        writer.write((Path(__file__).parent / "Windows\\base.py").read_text())
+    def emit_include_base(self) -> str:
+        return (Path(__file__).parent / "Windows\\base.py").read_text()
 
-    def write_import_namespaces(self, writer: TextIO, import_namespaces: set[str]) -> None:
+    def emit_import_namespaces(self, import_namespaces: set[str]) -> str:
+        writer = StringIO()
         for namespace in sorted(import_namespaces):
             writer.write(f"import {namespace}\n")
+        return writer.getvalue()
 
-    def write_getattr(self, writer: TextIO) -> None:
+    def emit_getattr(self) -> str:
+        writer = StringIO()
         writer.write("import sys\n")
         writer.write("_module = sys.modules[__name__]\n")
         writer.write("def __getattr__(name):\n")
@@ -1135,12 +1157,16 @@ class PyGenerator:
         writer.write("        raise AttributeError(f\"module '{__name__}' has no attribute '{name}'\") from None\n")
         writer.write("    setattr(_module, name, press(prototype))\n")
         writer.write("    return getattr(_module, name)\n")
+        return writer.getvalue()
 
-    def write_dir(self, writer: TextIO) -> None:
+    def emit_dir(self) -> str:
+        writer = StringIO()
         writer.write("def __dir__():\n")
         writer.write("    return __all__\n")
+        return writer.getvalue()
 
-    def write_make_head(self, writer: TextIO, td: TypeDefinition) -> None:
+    def emit_make_head(self, td: TypeDefinition) -> str:
+        writer = StringIO()
         match td.kind:
             case "object":  # CONSTANT, FUNCTION
                 for fd in td.fields:
@@ -1151,10 +1177,13 @@ class PyGenerator:
                     arch = ",".join(td.custom_attributes.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value).upper()
                     writer.write(f"if ARCH in '{arch}':\n")
                     writer.write(f"    make_head(_module, '{td.name}')\n")
+                    return writer.getvalue()
                 else:
                     writer.write(f"make_head(_module, '{td.name}')\n")
+        return writer.getvalue()
 
-    def write_footer(self, writer: TextIO, export_names: set[str], export_names_optional: list[str]) -> None:
+    def emit_footer(self, export_names: set[str], export_names_optional: list[str]) -> str:
+        writer = StringIO()
         writer.write("__all__ = [\n")
         for name in sorted(export_names):
             writer.write(f'    "{name}",\n')
@@ -1163,8 +1192,10 @@ class PyGenerator:
         for name in sorted(export_names_optional):
             writer.write(f'    "{name}",\n')
         writer.write("]\n")
+        return writer.getvalue()
 
-    def write_all(self, writer: TextIO, export_names_group_by_namespace: dict[str, set[str]]) -> None:
+    def emit_all(self, export_names_group_by_namespace: dict[str, set[str]]) -> str:
+        writer = StringIO()
         writer.write("import importlib\n")
         writer.write("import sys\n")
         writer.write("_module = sys.modules[__name__]\n")
@@ -1185,6 +1216,7 @@ class PyGenerator:
                 writer.write(f"'{name}': '{namespace}',\n")
         writer.write("}\n")
         writer.write("__all__ = sorted(nameindex)\n")
+        return writer.getvalue()
 
 
 class Selector:
@@ -1298,27 +1330,27 @@ def generate(meta: Metadata) -> None:
         export_names = set(meta_group_by_namespace.enumerate_exporting_names())
         export_names_optional = list(meta_group_by_namespace.enumerate_names_lacking_architecture())
         with make_module_path_for_write(namespace) as writer:
-            pg.write_header(writer, import_namespaces)
+            writer.write(pg.emit_header(import_namespaces))
             for td in meta_group_by_namespace:
-                pg.emit(writer, td)
+                writer.write(pg.emit(td))
             for td in meta_group_by_namespace:
-                pg.write_make_head(writer, td)
-            pg.write_footer(writer, export_names, export_names_optional)
+                writer.write(pg.emit_make_head(td))
+            writer.write(pg.emit_footer(export_names, export_names_optional))
         export_names_group_by_namespace[namespace] = export_names
     with open(f"Windows/all.py", "w") as writer:
-        pg.write_all(writer, export_names_group_by_namespace)
+        writer.write(pg.emit_all(export_names_group_by_namespace))
 
 
 def generate_one(meta: Metadata, writer: TextIO) -> None:
     pg = PyGenerator()
     export_names = set(meta.enumerate_exporting_names())
     export_names_optional = list(meta.enumerate_names_lacking_architecture())
-    pg.write_header_one(writer)
+    writer.write(pg.emit_header_one())
     for td in meta:
-        pg.emit(writer, td)
+        writer.write(pg.emit(td))
     for td in meta:
-        pg.write_make_head(writer, td)
-    pg.write_footer(writer, export_names, export_names_optional)
+        writer.write(pg.emit_make_head(td))
+    writer.write(pg.emit_footer(export_names, export_names_optional))
 
 
 def xopen(path: str) -> TextIO:
