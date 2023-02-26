@@ -387,6 +387,9 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
         value_csv = value.strip("{}")
         return value_csv
 
+    def get_unmanaged_function_pointer(self) -> str:
+        return self.get("System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute").fixed_arguments[0].value
+
 
 class CustomAttributeFixedArgument:
     def __init__(self, js: JsonType) -> None:
@@ -1046,7 +1049,7 @@ class PyGenerator:
             indent = "    "
         else:
             indent = ""
-        callconv = td.custom_attributes.get("System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute").fixed_arguments[0].value
+        callconv = td.custom_attributes.get_unmanaged_function_pointer()
         if callconv == "Winapi":
             functype = "winfunctype_pointer"
         elif callconv == "Cdecl":
