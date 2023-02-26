@@ -320,11 +320,6 @@ class CustomAttribute:
     def named_arguments(self) -> list[CustomAttributeNamedArgument]:
         return [CustomAttributeNamedArgument(na) for na in self["NamedArguments"]]
 
-    def guid_value(self) -> tuple[str, list[JsonType]]:
-        v = [fa.value for fa in self.fixed_arguments]
-        guid = f"{v[0]:08x}-{v[1]:04x}-{v[2]:04x}-{v[3]:02x}-{v[4]:02x}-{v[5]:02x}-{v[6]:02x}-{v[7]:02x}-{v[8]:02x}-{v[9]:02x}-{v[10]:02x}"
-        return guid, v[11:]
-
 
 class CustomAttributeCollection(Collection[CustomAttribute]):
     def __init__(self, js: JsonType) -> None:
