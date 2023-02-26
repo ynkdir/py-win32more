@@ -1221,7 +1221,6 @@ class PyGenerator:
                     arch = ",".join(td.custom_attributes.get_supported_architecture()).upper()
                     writer.write(f"if ARCH in '{arch}':\n")
                     writer.write(f"    make_head(_module, '{td.name}')\n")
-                    return writer.getvalue()
                 else:
                     writer.write(f"make_head(_module, '{td.name}')\n")
         return writer.getvalue()
