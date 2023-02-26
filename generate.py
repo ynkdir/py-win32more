@@ -242,10 +242,10 @@ class TypeDefinition:
             case "System.Enum":
                 return "enum"
             case "System.ValueType":
-                if self.custom_attributes.has("Windows.Win32.Interop.NativeTypedefAttribute"):
+                if self.custom_attributes.has_native_typedef():
                     return "native_typedef"
                 # FIXME: CLSID_ComClass is defined as attribute like [uuid(...)] struct ComClass {}.
-                elif self.custom_attributes.has("Windows.Win32.Interop.GuidAttribute") and not self.fields:
+                elif self.custom_attributes.has_guid() and not self.fields:
                     return "clsid"
                 elif "ExplicitLayout" in self.attributes:
                     return "union"
@@ -288,15 +288,13 @@ class TypeDefinition:
                 raise NotImplementedError()
 
     def enumerate_names_having_architecture_attribute(self) -> Iterable[tuple[str, str]]:
-        if self.custom_attributes.has("Windows.Win32.Interop.SupportedArchitectureAttribute"):
-            archs = self.custom_attributes.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value
-            for arch in archs:
+        if self.custom_attributes.has_supported_architecture():
+            for arch in self.custom_attributes.get_supported_architecture():
                 yield self.name, arch.upper()
         if self.kind == "object":
             for md in self.method_definitions:
-                if md.custom_attributes.has("Windows.Win32.Interop.SupportedArchitectureAttribute"):
-                    archs = md.custom_attributes.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value
-                    for arch in archs:
+                if md.custom_attributes.has_supported_architecture():
+                    for arch in md.custom_attributes.get_supported_architecture():
                         yield md.name, arch.upper()
 
 
@@ -355,6 +353,39 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
             if ca.type == type_:
                 return ca
         raise KeyError()
+
+    def has_native_typedef(self) -> bool:
+        return self.has("Windows.Win32.Interop.NativeTypedefAttribute")
+
+    def has_supported_architecture(self) -> bool:
+        return self.has("Windows.Win32.Interop.SupportedArchitectureAttribute")
+
+    def get_supported_architecture(self) -> list[str]:
+        return self.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value
+
+    def has_guid(self) -> bool:
+        return self.has("Windows.Win32.Interop.GuidAttribute")
+
+    def get_guid(self) -> str:
+        v = [fa.value for fa in self.get("Windows.Win32.Interop.GuidAttribute").fixed_arguments]
+        assert len(v) == 11
+        return self.format_guid(v)
+
+    def format_guid(self, v: list[int]) -> str:
+        return f"{v[0]:08x}-{v[1]:04x}-{v[2]:04x}-{v[3]:02x}-{v[4]:02x}-{v[5]:02x}-{v[6]:02x}-{v[7]:02x}-{v[8]:02x}-{v[9]:02x}-{v[10]:02x}"
+
+    def get_property_key(self) -> tuple[str, int]:
+        v = [fa.value for fa in self.get("Windows.Win32.Interop.PropertyKeyAttribute").fixed_arguments]
+        assert len(v) == 12
+        guid = self.format_guid(v[:11])
+        pid = v[11]
+        return guid, pid
+
+    def get_constant(self) -> str:
+        # value is like "{0, 0, 0, 0, 0, 5}"
+        value = self.get("Windows.Win32.Interop.ConstantAttribute").fixed_arguments[0].value
+        value_csv = value.strip("{}")
+        return value_csv
 
 
 class CustomAttributeFixedArgument:
@@ -444,22 +475,17 @@ class FieldDefinition:
         if "HasDefault" in self.attributes:
             return ascii(self.default_value.value)
         elif self.signature.kind == "Type" and self.signature.fullname == "System.Guid":
-            guid, rest = self.custom_attributes.get("Windows.Win32.Interop.GuidAttribute").guid_value()
-            assert len(rest) == 0
+            guid = self.custom_attributes.get_guid()
             return f"Guid('{guid}')"
         elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.Devices.Properties.DEVPROPKEY":
-            guid, rest = self.custom_attributes.get("Windows.Win32.Interop.PropertyKeyAttribute").guid_value()
-            assert len(rest) == 1
-            return f"{self.signature.fullname}(fmtid=Guid('{guid}'), pid={rest[0]})"
+            guid, pid = self.custom_attributes.get_property_key()
+            return f"{self.signature.fullname}(fmtid=Guid('{guid}'), pid={pid})"
         elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY":
-            guid, rest = self.custom_attributes.get("Windows.Win32.Interop.PropertyKeyAttribute").guid_value()
-            assert len(rest) == 1
-            return f"{self.signature.fullname}(fmtid=Guid('{guid}'), pid={rest[0]})"
+            guid, pid = self.custom_attributes.get_property_key()
+            return f"{self.signature.fullname}(fmtid=Guid('{guid}'), pid={pid})"
         elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY":
-            # value = "{0, 0, 0, 0, 0, 5}"
-            value = self.custom_attributes.get("Windows.Win32.Interop.ConstantAttribute").fixed_arguments[0].value
-            value_csv = value.strip("{}")
-            return f"{self.signature.fullname}(Value=({value_csv}))"
+            value = self.custom_attributes.get_constant()
+            return f"{self.signature.fullname}(Value=({value}))"
         else:
             # FIXME:
             raise NotImplementedError()
@@ -993,8 +1019,8 @@ class PyGenerator:
 
     def emit_function(self, md: MethodDefinition) -> str:
         writer = StringIO()
-        if md.custom_attributes.has("Windows.Win32.Interop.SupportedArchitectureAttribute"):
-            arch = ",".join(md.custom_attributes.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value).upper()
+        if md.custom_attributes.has_supported_architecture():
+            arch = ",".join(md.custom_attributes.get_supported_architecture()).upper()
             writer.write(f"if ARCH in '{arch}':\n")
             indent = "    "
         else:
@@ -1014,8 +1040,8 @@ class PyGenerator:
 
     def emit_function_pointer(self, td: TypeDefinition) -> str:
         writer = StringIO()
-        if td.custom_attributes.has("Windows.Win32.Interop.SupportedArchitectureAttribute"):
-            arch = ",".join(td.custom_attributes.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value).upper()
+        if td.custom_attributes.has_supported_architecture():
+            arch = ",".join(td.custom_attributes.get_supported_architecture()).upper()
             writer.write(f"if ARCH in '{arch}':\n")
             indent = "    "
         else:
@@ -1047,14 +1073,14 @@ class PyGenerator:
         return f"{td.name} = {pytype}\n"
 
     def emit_clsid(self, td: TypeDefinition) -> str:
-        guid, rest = td.custom_attributes.get("Windows.Win32.Interop.GuidAttribute").guid_value()
+        guid = td.custom_attributes.get_guid()
         return f"{td.name} = Guid('{guid}')\n"
 
     # _fields_ and _anonymous_ is defined at runtime.
     def emit_struct_union(self, td: TypeDefinition, indent="") -> str:
         writer = StringIO()
-        if td.custom_attributes.has("Windows.Win32.Interop.SupportedArchitectureAttribute"):
-            arch = ",".join(td.custom_attributes.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value).upper()
+        if td.custom_attributes.has_supported_architecture():
+            arch = ",".join(td.custom_attributes.get_supported_architecture()).upper()
             writer.write(f"if ARCH in '{arch}':\n")
             indent = indent + "    "
         base = self.struct_union_base_type(td)
@@ -1062,8 +1088,8 @@ class PyGenerator:
         if self.struct_union_is_empty(td):
             writer.write(f"{indent}    pass\n")
             return writer.getvalue()
-        if td.custom_attributes.has("Windows.Win32.Interop.GuidAttribute"):
-            guid, rest = td.custom_attributes.get("Windows.Win32.Interop.GuidAttribute").guid_value()
+        if td.custom_attributes.has_guid():
+            guid = td.custom_attributes.get_guid()
             writer.write(f"{indent}    Guid = Guid('{guid}')\n")
         for fd in self.struct_union_static_fields(td):
             writer.write(f"{indent}    {fd.name} = {fd.pyvalue}\n")
@@ -1099,7 +1125,7 @@ class PyGenerator:
     def struct_union_is_empty(self, td: TypeDefinition) -> bool:
         if td.fields:
             return False
-        assert not td.custom_attributes.has("Windows.Win32.Interop.GuidAttribute")
+        assert not td.custom_attributes.has_guid()
         return True
 
     def emit_com(self, td: TypeDefinition) -> str:
@@ -1111,8 +1137,8 @@ class PyGenerator:
             base = td.interface_implementations[0].interface.type_reference.fullname
         writer.write(f"class {td.name}(c_void_p):\n")
         writer.write(f"    extends: {base}\n")
-        if td.custom_attributes.has("Windows.Win32.Interop.GuidAttribute"):
-            guid, rest = td.custom_attributes.get("Windows.Win32.Interop.GuidAttribute").guid_value()
+        if td.custom_attributes.has_guid():
+            guid = td.custom_attributes.get_guid()
             writer.write(f"    Guid = Guid('{guid}')\n")
         for md in td.method_definitions:
             restype = md.signature.return_type.pytype
@@ -1188,8 +1214,8 @@ class PyGenerator:
                     if "HasDefault" not in fd.attributes and not fd.signature.is_guid:
                         writer.write(f"make_head(_module, '{fd.name}')\n")
             case "function_pointer" | "union" | "struct" | "com":
-                if td.custom_attributes.has("Windows.Win32.Interop.SupportedArchitectureAttribute"):
-                    arch = ",".join(td.custom_attributes.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value).upper()
+                if td.custom_attributes.has_supported_architecture():
+                    arch = ",".join(td.custom_attributes.get_supported_architecture()).upper()
                     writer.write(f"if ARCH in '{arch}':\n")
                     writer.write(f"    make_head(_module, '{td.name}')\n")
                     return writer.getvalue()
