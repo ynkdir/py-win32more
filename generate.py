@@ -659,6 +659,9 @@ class MethodDefinition:
     def parameters(self) -> list[Parameter]:
         return [Parameter(pa) for pa in self["Parameters"]]
 
+    def format_parameters(self) -> str:
+        return ", ".join(f"{name}: {type_.pytype}" for name, type_ in self.get_parameter_names_with_type())
+
     # SequenceNumber == 0 is return type and it can be missing.
     def get_parameter_names_with_type(self) -> list[tuple[str, TType]]:
         types = self.signature.parameter_types
@@ -1017,46 +1020,42 @@ class PyGenerator:
 
     def emit_function(self, md: MethodDefinition) -> str:
         writer = StringIO()
-        if md.custom_attributes.has_supported_architecture():
-            arch = ",".join(md.custom_attributes.get_supported_architecture()).upper()
-            writer.write(f"if ARCH in '{arch}':\n")
-            indent = "    "
-        else:
-            indent = ""
+        indent = self.write_architecture_specific_block_if_necessary(writer, md.custom_attributes)
         library = md.import_.module.name
-        if "CallingConventionWinApi" in md.import_.attributes:
-            functype = "winfunctype"
-        elif "CallingConventionCDecl" in md.import_.attributes:
-            functype = "cfunctype"
-        else:
-            raise NotImplementedError()
+        functype = self.function_functype(md)
         restype = md.signature.return_type.pytype
-        params_csv = ", ".join(f"{name}: {type_.pytype}" for name, type_ in md.get_parameter_names_with_type())
+        params_csv = md.format_parameters()
         writer.write(f"{indent}@{functype}('{library}')\n")
         writer.write(f"{indent}def {md.name}({params_csv}) -> {restype}: ...\n")
         return writer.getvalue()
 
-    def emit_function_pointer(self, td: TypeDefinition) -> str:
-        writer = StringIO()
-        if td.custom_attributes.has_supported_architecture():
-            arch = ",".join(td.custom_attributes.get_supported_architecture()).upper()
-            writer.write(f"if ARCH in '{arch}':\n")
-            indent = "    "
-        else:
-            indent = ""
-        callconv = td.custom_attributes.get_unmanaged_function_pointer()
-        if callconv == "Winapi":
-            functype = "winfunctype_pointer"
-        elif callconv == "Cdecl":
-            functype = "cfunctype_pointer"
+    def function_functype(self, md: MethodDefinition) -> str:
+        if "CallingConventionWinApi" in md.import_.attributes:
+            return "winfunctype"
+        elif "CallingConventionCDecl" in md.import_.attributes:
+            return "cfunctype"
         else:
             raise NotImplementedError()
+
+    def emit_function_pointer(self, td: TypeDefinition) -> str:
+        writer = StringIO()
+        indent = self.write_architecture_specific_block_if_necessary(writer, td.custom_attributes)
+        functype = self.function_pointer_functype(td)
         md = td.method_definitions[1]  # [0]=.ctor, [1]=Invoke
         restype = md.signature.return_type.pytype
-        params_csv = ", ".join(f"{name}: {type_.pytype}" for name, type_ in md.get_parameter_names_with_type())
+        params_csv = md.format_parameters()
         writer.write(f"{indent}@{functype}\n")
         writer.write(f"{indent}def {td.name}({params_csv}) -> {restype}: ...\n")
         return writer.getvalue()
+
+    def function_pointer_functype(self, td: TypeDefinition) -> str:
+        calling_convention = td.custom_attributes.get_unmanaged_function_pointer()
+        if calling_convention == "Winapi":
+            return "winfunctype_pointer"
+        elif calling_convention == "Cdecl":
+            return "cfunctype_pointer"
+        else:
+            raise NotImplementedError()
 
     def emit_enum(self, td: TypeDefinition) -> str:
         writer = StringIO()
@@ -1077,10 +1076,8 @@ class PyGenerator:
     # _fields_ and _anonymous_ is defined at runtime.
     def emit_struct_union(self, td: TypeDefinition, indent="") -> str:
         writer = StringIO()
-        if td.custom_attributes.has_supported_architecture():
-            arch = ",".join(td.custom_attributes.get_supported_architecture()).upper()
-            writer.write(f"if ARCH in '{arch}':\n")
-            indent = indent + "    "
+        if not td.is_nested:
+            indent = self.write_architecture_specific_block_if_necessary(writer, td.custom_attributes)
         base = self.struct_union_base_type(td)
         writer.write(f"{indent}class {td.name}({base}):\n")
         if self.struct_union_is_empty(td):
@@ -1127,12 +1124,9 @@ class PyGenerator:
         return True
 
     def emit_com(self, td: TypeDefinition) -> str:
-        writer = StringIO()
         assert len(td.interface_implementations) <= 1
-        if td.interface_implementations == []:
-            base = "None"
-        else:
-            base = td.interface_implementations[0].interface.type_reference.fullname
+        writer = StringIO()
+        base = self.com_base_type(td)
         writer.write(f"class {td.name}(c_void_p):\n")
         writer.write(f"    extends: {base}\n")
         if td.custom_attributes.has_guid():
@@ -1140,11 +1134,16 @@ class PyGenerator:
             writer.write(f"    Guid = Guid('{guid}')\n")
         for md in td.method_definitions:
             restype = md.signature.return_type.pytype
-            params_csv = ", ".join(f"{name}: {type_.pytype}" for name, type_ in md.get_parameter_names_with_type())
+            params_csv = md.format_parameters()
             vtbl_index = md["_vtbl_index"]
             writer.write(f"    @commethod({vtbl_index})\n")
             writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
         return writer.getvalue()
+
+    def com_base_type(self, td: TypeDefinition) -> str:
+        if not td.interface_implementations:
+            return "None"
+        return td.interface_implementations[0].interface.type_reference.fullname
 
     def emit_header(self, import_namespaces: set[str]) -> str:
         writer = StringIO()
@@ -1212,12 +1211,8 @@ class PyGenerator:
                     if "HasDefault" not in fd.attributes and not fd.signature.is_guid:
                         writer.write(f"make_head(_module, '{fd.name}')\n")
             case "function_pointer" | "union" | "struct" | "com":
-                if td.custom_attributes.has_supported_architecture():
-                    arch = ",".join(td.custom_attributes.get_supported_architecture()).upper()
-                    writer.write(f"if ARCH in '{arch}':\n")
-                    writer.write(f"    make_head(_module, '{td.name}')\n")
-                else:
-                    writer.write(f"make_head(_module, '{td.name}')\n")
+                indent = self.write_architecture_specific_block_if_necessary(writer, td.custom_attributes)
+                writer.write(f"{indent}make_head(_module, '{td.name}')\n")
         return writer.getvalue()
 
     def emit_footer(self, export_names: set[str], export_names_optional: list[str]) -> str:
@@ -1255,6 +1250,15 @@ class PyGenerator:
         writer.write("}\n")
         writer.write("__all__ = sorted(nameindex)\n")
         return writer.getvalue()
+
+    def write_architecture_specific_block_if_necessary(self, writer: TextIO, custom_attributes: CustomAttributeCollection) -> str:
+        if custom_attributes.has_supported_architecture():
+            arch = ",".join(custom_attributes.get_supported_architecture()).upper()
+            writer.write(f"if ARCH in '{arch}':\n")
+            indent = "    "
+        else:
+            indent = ""
+        return indent
 
 
 class Selector:
