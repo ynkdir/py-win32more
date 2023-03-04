@@ -877,11 +877,12 @@ class Metadata(MutableSequence[TypeDefinition]):
             yield from td.enumerate_names_having_architecture_attribute()
 
     def enumerate_names_lacking_architecture(self) -> Iterable[str]:
+        all_supported_architectures = {"X86", "X64", "ARM64"}
         arch_by_name = defaultdict(set)
         for name, arch in self.enumerate_names_having_architecture_attribute():
             arch_by_name[name].add(arch)
         for name, archs in arch_by_name.items():
-            if archs and archs != {"X86", "X64", "ARM64"}:
+            if archs != all_supported_architectures:
                 yield name
 
 
