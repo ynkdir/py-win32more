@@ -107,7 +107,6 @@ BCRYPT_SUPPORTED_PAD_PKCS1_ENC: UInt32 = 2
 BCRYPT_SUPPORTED_PAD_PKCS1_SIG: UInt32 = 4
 BCRYPT_SUPPORTED_PAD_OAEP: UInt32 = 8
 BCRYPT_SUPPORTED_PAD_PSS: UInt32 = 16
-BCRYPT_BLOCK_PADDING: UInt32 = 1
 BCRYPT_GENERATE_IV: UInt32 = 32
 BCRYPT_PAD_PKCS1_OPTIONAL_HASH_OID: UInt32 = 16
 BCRYPTBUFFER_VERSION: UInt32 = 0
@@ -404,6 +403,7 @@ szFORCE_KEY_PROTECTION: String = 'ForceKeyProtection'
 dwFORCE_KEY_PROTECTION_DISABLED: UInt32 = 0
 dwFORCE_KEY_PROTECTION_USER_SELECT: UInt32 = 1
 dwFORCE_KEY_PROTECTION_HIGH: UInt32 = 2
+CRYPTPROTECT_DEFAULT_PROVIDER: Guid = Guid('df9d8cd0-1501-11d1-8c-7a-00-c0-4f-c2-97-eb')
 CRYPTPROTECT_PROMPT_ON_UNPROTECT: UInt32 = 1
 CRYPTPROTECT_PROMPT_ON_PROTECT: UInt32 = 2
 CRYPTPROTECT_PROMPT_RESERVED: UInt32 = 4
@@ -2974,9 +2974,9 @@ def BCryptGenerateSymmetricKey(hAlgorithm: Windows.Win32.Security.Cryptography.B
 @winfunctype('bcrypt.dll')
 def BCryptGenerateKeyPair(hAlgorithm: Windows.Win32.Security.Cryptography.BCRYPT_ALG_HANDLE, phKey: POINTER(Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE), dwLength: UInt32, dwFlags: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptEncrypt(hKey: Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, pbInput: c_char_p_no, cbInput: UInt32, pPaddingInfo: c_void_p, pbIV: c_char_p_no, cbIV: UInt32, pbOutput: c_char_p_no, cbOutput: UInt32, pcbResult: POINTER(UInt32), dwFlags: Windows.Win32.Security.Cryptography.NCRYPT_FLAGS) -> Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptEncrypt(hKey: Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, pbInput: c_char_p_no, cbInput: UInt32, pPaddingInfo: c_void_p, pbIV: c_char_p_no, cbIV: UInt32, pbOutput: c_char_p_no, cbOutput: UInt32, pcbResult: POINTER(UInt32), dwFlags: Windows.Win32.Security.Cryptography.BCRYPT_FLAGS) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptDecrypt(hKey: Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, pbInput: c_char_p_no, cbInput: UInt32, pPaddingInfo: c_void_p, pbIV: c_char_p_no, cbIV: UInt32, pbOutput: c_char_p_no, cbOutput: UInt32, pcbResult: POINTER(UInt32), dwFlags: Windows.Win32.Security.Cryptography.NCRYPT_FLAGS) -> Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptDecrypt(hKey: Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, pbInput: c_char_p_no, cbInput: UInt32, pPaddingInfo: c_void_p, pbIV: c_char_p_no, cbIV: UInt32, pbOutput: c_char_p_no, cbOutput: UInt32, pcbResult: POINTER(UInt32), dwFlags: Windows.Win32.Security.Cryptography.BCRYPT_FLAGS) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
 def BCryptExportKey(hKey: Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, hExportKey: Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, pszBlobType: Windows.Win32.Foundation.PWSTR, pbOutput: c_char_p_no, cbOutput: UInt32, pcbResult: POINTER(UInt32), dwFlags: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
@@ -2992,9 +2992,9 @@ def BCryptDestroyKey(hKey: Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE
 @winfunctype('bcrypt.dll')
 def BCryptDestroySecret(hSecret: Windows.Win32.Security.Cryptography.BCRYPT_SECRET_HANDLE) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptSignHash(hKey: Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, pPaddingInfo: c_void_p, pbInput: c_char_p_no, cbInput: UInt32, pbOutput: c_char_p_no, cbOutput: UInt32, pcbResult: POINTER(UInt32), dwFlags: Windows.Win32.Security.Cryptography.NCRYPT_FLAGS) -> Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptSignHash(hKey: Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, pPaddingInfo: c_void_p, pbInput: c_char_p_no, cbInput: UInt32, pbOutput: c_char_p_no, cbOutput: UInt32, pcbResult: POINTER(UInt32), dwFlags: Windows.Win32.Security.Cryptography.BCRYPT_FLAGS) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
-def BCryptVerifySignature(hKey: Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, pPaddingInfo: c_void_p, pbHash: c_char_p_no, cbHash: UInt32, pbSignature: c_char_p_no, cbSignature: UInt32, dwFlags: Windows.Win32.Security.Cryptography.NCRYPT_FLAGS) -> Windows.Win32.Foundation.NTSTATUS: ...
+def BCryptVerifySignature(hKey: Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, pPaddingInfo: c_void_p, pbHash: c_char_p_no, cbHash: UInt32, pbSignature: c_char_p_no, cbSignature: UInt32, dwFlags: Windows.Win32.Security.Cryptography.BCRYPT_FLAGS) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
 def BCryptSecretAgreement(hPrivKey: Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, hPubKey: Windows.Win32.Security.Cryptography.BCRYPT_KEY_HANDLE, phAgreedSecret: POINTER(Windows.Win32.Security.Cryptography.BCRYPT_SECRET_HANDLE), dwFlags: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('bcrypt.dll')
@@ -3748,6 +3748,12 @@ class BCRYPT_ECCKEY_BLOB(Structure):
 class BCRYPT_ECC_CURVE_NAMES(Structure):
     dwEccCurveNames: UInt32
     pEccCurveNames: POINTER(Windows.Win32.Foundation.PWSTR)
+BCRYPT_FLAGS = UInt32
+BCRYPT_BLOCK_PADDING: BCRYPT_FLAGS = 1
+BCRYPT_PAD_NONE: BCRYPT_FLAGS = 1
+BCRYPT_PAD_OAEP: BCRYPT_FLAGS = 4
+BCRYPT_PAD_PKCS1: BCRYPT_FLAGS = 2
+BCRYPT_PAD_PSS: BCRYPT_FLAGS = 8
 BCRYPT_HANDLE = IntPtr
 BCRYPT_HASH_HANDLE = IntPtr
 BCRYPT_HASH_OPERATION_TYPE = Int32
@@ -6141,10 +6147,6 @@ class NCRYPT_EXPORTED_ISOLATED_KEY_HEADER(Structure):
     cbWrappingKey: UInt32
     cbIsolatedKey: UInt32
 NCRYPT_FLAGS = UInt32
-BCRYPT_PAD_NONE: NCRYPT_FLAGS = 1
-BCRYPT_PAD_OAEP: NCRYPT_FLAGS = 4
-BCRYPT_PAD_PKCS1: NCRYPT_FLAGS = 2
-BCRYPT_PAD_PSS: NCRYPT_FLAGS = 8
 NCRYPT_SILENT_FLAG: NCRYPT_FLAGS = 64
 NCRYPT_NO_PADDING_FLAG: NCRYPT_FLAGS = 1
 NCRYPT_PAD_OAEP_FLAG: NCRYPT_FLAGS = 4
@@ -7349,6 +7351,7 @@ __all__ = [
     "BCRYPT_EFFECTIVE_KEY_LENGTH",
     "BCRYPT_ENABLE_INCOMPATIBLE_FIPS_CHECKS",
     "BCRYPT_EXTENDED_KEYSIZE",
+    "BCRYPT_FLAGS",
     "BCRYPT_GENERATE_IV",
     "BCRYPT_GLOBAL_PARAMETERS",
     "BCRYPT_HANDLE",
@@ -8876,6 +8879,7 @@ __all__ = [
     "CRYPTPROTECT_AUDIT",
     "CRYPTPROTECT_CRED_REGENERATE",
     "CRYPTPROTECT_CRED_SYNC",
+    "CRYPTPROTECT_DEFAULT_PROVIDER",
     "CRYPTPROTECT_FIRST_RESERVED_FLAGVAL",
     "CRYPTPROTECT_LAST_RESERVED_FLAGVAL",
     "CRYPTPROTECT_LOCAL_MACHINE",

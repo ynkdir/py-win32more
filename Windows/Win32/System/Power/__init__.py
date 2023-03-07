@@ -38,6 +38,46 @@ class ADMINISTRATOR_POWER_POLICY(Structure):
     MaxVideoTimeout: UInt32
     MinSpindownTimeout: UInt32
     MaxSpindownTimeout: UInt32
+PPM_FIRMWARE_ACPI1C2: UInt32 = 1
+PPM_FIRMWARE_ACPI1C3: UInt32 = 2
+PPM_FIRMWARE_ACPI1TSTATES: UInt32 = 4
+PPM_FIRMWARE_CST: UInt32 = 8
+PPM_FIRMWARE_CSD: UInt32 = 16
+PPM_FIRMWARE_PCT: UInt32 = 32
+PPM_FIRMWARE_PSS: UInt32 = 64
+PPM_FIRMWARE_XPSS: UInt32 = 128
+PPM_FIRMWARE_PPC: UInt32 = 256
+PPM_FIRMWARE_PSD: UInt32 = 512
+PPM_FIRMWARE_PTC: UInt32 = 1024
+PPM_FIRMWARE_TSS: UInt32 = 2048
+PPM_FIRMWARE_TPC: UInt32 = 4096
+PPM_FIRMWARE_TSD: UInt32 = 8192
+PPM_FIRMWARE_PCCH: UInt32 = 16384
+PPM_FIRMWARE_PCCP: UInt32 = 32768
+PPM_FIRMWARE_OSC: UInt32 = 65536
+PPM_FIRMWARE_PDC: UInt32 = 131072
+PPM_FIRMWARE_CPC: UInt32 = 262144
+PPM_FIRMWARE_LPI: UInt32 = 524288
+PPM_PERFORMANCE_IMPLEMENTATION_NONE: UInt32 = 0
+PPM_PERFORMANCE_IMPLEMENTATION_PSTATES: UInt32 = 1
+PPM_PERFORMANCE_IMPLEMENTATION_PCCV1: UInt32 = 2
+PPM_PERFORMANCE_IMPLEMENTATION_CPPC: UInt32 = 3
+PPM_PERFORMANCE_IMPLEMENTATION_PEP: UInt32 = 4
+PPM_IDLE_IMPLEMENTATION_NONE: UInt32 = 0
+PPM_IDLE_IMPLEMENTATION_CSTATES: UInt32 = 1
+PPM_IDLE_IMPLEMENTATION_PEP: UInt32 = 2
+PPM_IDLE_IMPLEMENTATION_MICROPEP: UInt32 = 3
+PPM_IDLE_IMPLEMENTATION_LPISTATES: UInt32 = 4
+PPM_PERFSTATE_CHANGE_GUID: Guid = Guid('a5b32ddd-7f39-4abc-b8-92-90-0e-43-b5-9e-bb')
+PPM_PERFSTATE_DOMAIN_CHANGE_GUID: Guid = Guid('995e6b7f-d653-497a-b9-78-36-a3-0c-29-bf-01')
+PPM_IDLESTATE_CHANGE_GUID: Guid = Guid('4838fe4f-f71c-4e51-9e-cc-84-30-a7-ac-4c-6c')
+PPM_PERFSTATES_DATA_GUID: Guid = Guid('5708cc20-7d40-4bf4-b4-aa-2b-01-33-8d-01-26')
+PPM_IDLESTATES_DATA_GUID: Guid = Guid('ba138e10-e250-4ad7-86-16-cf-1a-7a-d4-10-e7')
+PPM_IDLE_ACCOUNTING_GUID: Guid = Guid('e2a26f78-ae07-4ee0-a3-0f-ce-54-f5-5a-94-cd')
+PPM_IDLE_ACCOUNTING_EX_GUID: Guid = Guid('d67abd39-81f8-4a5e-81-52-72-e3-1e-c9-12-ee')
+PPM_THERMALCONSTRAINT_GUID: Guid = Guid('a852c2c8-1a4c-423b-8c-2c-f3-0d-82-93-1a-88')
+PPM_PERFMON_PERFSTATE_GUID: Guid = Guid('7fd18652-0cfe-40d2-b0-a1-0b-06-6a-87-75-9e')
+PPM_THERMAL_POLICY_CHANGE_GUID: Guid = Guid('48f377b8-6880-4c7b-8b-dc-38-01-76-c6-65-4d')
 def PROCESSOR_NUMBER_PKEY():
     return Windows.Win32.Devices.Properties.DEVPROPKEY(fmtid=Guid('5724c81d-d5af-4c1f-a1-03-a0-6e-28-f2-04-c6'), pid=1)
 GUID_DEVICE_BATTERY: Guid = Guid('72631e54-78a4-11d0-bc-f7-00-aa-00-b7-b3-2a')
@@ -609,6 +649,9 @@ ACCESS_DC_POWER_SETTING_MIN: POWER_DATA_ACCESSOR = 24
 ACCESS_PROFILE: POWER_DATA_ACCESSOR = 25
 ACCESS_OVERLAY_SCHEME: POWER_DATA_ACCESSOR = 26
 ACCESS_ACTIVE_OVERLAY_SCHEME: POWER_DATA_ACCESSOR = 27
+class POWER_IDLE_RESILIENCY(Structure):
+    CoalescingTimeout: UInt32
+    IdleResiliencyPeriod: UInt32
 POWER_INFORMATION_LEVEL = Int32
 POWER_INFORMATION_LEVEL_SystemPowerPolicyAc: POWER_INFORMATION_LEVEL = 0
 POWER_INFORMATION_LEVEL_SystemPowerPolicyDc: POWER_INFORMATION_LEVEL = 1
@@ -708,6 +751,72 @@ POWER_INFORMATION_LEVEL_UpdateBlackBoxRecorder: POWER_INFORMATION_LEVEL = 94
 POWER_INFORMATION_LEVEL_SessionAllowExternalDmaDevices: POWER_INFORMATION_LEVEL = 95
 POWER_INFORMATION_LEVEL_SendSuspendResumeNotification: POWER_INFORMATION_LEVEL = 96
 POWER_INFORMATION_LEVEL_PowerInformationLevelMaximum: POWER_INFORMATION_LEVEL = 97
+class POWER_MONITOR_INVOCATION(Structure):
+    Console: Windows.Win32.Foundation.BOOLEAN
+    RequestReason: Windows.Win32.System.Power.POWER_MONITOR_REQUEST_REASON
+POWER_MONITOR_REQUEST_REASON = Int32
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUnknown: POWER_MONITOR_REQUEST_REASON = 0
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPowerButton: POWER_MONITOR_REQUEST_REASON = 1
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonRemoteConnection: POWER_MONITOR_REQUEST_REASON = 2
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonScMonitorpower: POWER_MONITOR_REQUEST_REASON = 3
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInput: POWER_MONITOR_REQUEST_REASON = 4
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonAcDcDisplayBurst: POWER_MONITOR_REQUEST_REASON = 5
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserDisplayBurst: POWER_MONITOR_REQUEST_REASON = 6
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPoSetSystemState: POWER_MONITOR_REQUEST_REASON = 7
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSetThreadExecutionState: POWER_MONITOR_REQUEST_REASON = 8
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonFullWake: POWER_MONITOR_REQUEST_REASON = 9
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSessionUnlock: POWER_MONITOR_REQUEST_REASON = 10
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonScreenOffRequest: POWER_MONITOR_REQUEST_REASON = 11
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonIdleTimeout: POWER_MONITOR_REQUEST_REASON = 12
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPolicyChange: POWER_MONITOR_REQUEST_REASON = 13
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSleepButton: POWER_MONITOR_REQUEST_REASON = 14
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonLid: POWER_MONITOR_REQUEST_REASON = 15
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonBatteryCountChange: POWER_MONITOR_REQUEST_REASON = 16
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonGracePeriod: POWER_MONITOR_REQUEST_REASON = 17
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPnP: POWER_MONITOR_REQUEST_REASON = 18
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonDP: POWER_MONITOR_REQUEST_REASON = 19
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSxTransition: POWER_MONITOR_REQUEST_REASON = 20
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSystemIdle: POWER_MONITOR_REQUEST_REASON = 21
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonNearProximity: POWER_MONITOR_REQUEST_REASON = 22
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonThermalStandby: POWER_MONITOR_REQUEST_REASON = 23
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonResumePdc: POWER_MONITOR_REQUEST_REASON = 24
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonResumeS4: POWER_MONITOR_REQUEST_REASON = 25
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonTerminal: POWER_MONITOR_REQUEST_REASON = 26
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignal: POWER_MONITOR_REQUEST_REASON = 27
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonAcDcDisplayBurstSuppressed: POWER_MONITOR_REQUEST_REASON = 28
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSystemStateEntered: POWER_MONITOR_REQUEST_REASON = 29
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonWinrt: POWER_MONITOR_REQUEST_REASON = 30
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputKeyboard: POWER_MONITOR_REQUEST_REASON = 31
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputMouse: POWER_MONITOR_REQUEST_REASON = 32
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputTouchpad: POWER_MONITOR_REQUEST_REASON = 33
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputPen: POWER_MONITOR_REQUEST_REASON = 34
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputAccelerometer: POWER_MONITOR_REQUEST_REASON = 35
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputHid: POWER_MONITOR_REQUEST_REASON = 36
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputPoUserPresent: POWER_MONITOR_REQUEST_REASON = 37
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputSessionSwitch: POWER_MONITOR_REQUEST_REASON = 38
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputInitialization: POWER_MONITOR_REQUEST_REASON = 39
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalWindowsMobilePwrNotif: POWER_MONITOR_REQUEST_REASON = 40
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalWindowsMobileShell: POWER_MONITOR_REQUEST_REASON = 41
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalHeyCortana: POWER_MONITOR_REQUEST_REASON = 42
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalHolographicShell: POWER_MONITOR_REQUEST_REASON = 43
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalFingerprint: POWER_MONITOR_REQUEST_REASON = 44
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonDirectedDrips: POWER_MONITOR_REQUEST_REASON = 45
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonDim: POWER_MONITOR_REQUEST_REASON = 46
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonBuiltinPanel: POWER_MONITOR_REQUEST_REASON = 47
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonDisplayRequiredUnDim: POWER_MONITOR_REQUEST_REASON = 48
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonBatteryCountChangeSuppressed: POWER_MONITOR_REQUEST_REASON = 49
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonResumeModernStandby: POWER_MONITOR_REQUEST_REASON = 50
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonTerminalInit: POWER_MONITOR_REQUEST_REASON = 51
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalSensorsHumanPresence: POWER_MONITOR_REQUEST_REASON = 52
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonBatteryPreCritical: POWER_MONITOR_REQUEST_REASON = 53
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputTouch: POWER_MONITOR_REQUEST_REASON = 54
+POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonMax: POWER_MONITOR_REQUEST_REASON = 55
+POWER_MONITOR_REQUEST_TYPE = Int32
+POWER_MONITOR_REQUEST_TYPE_MonitorRequestTypeOff: POWER_MONITOR_REQUEST_TYPE = 0
+POWER_MONITOR_REQUEST_TYPE_MonitorRequestTypeOnAndPresent: POWER_MONITOR_REQUEST_TYPE = 1
+POWER_MONITOR_REQUEST_TYPE_MonitorRequestTypeToggleOn: POWER_MONITOR_REQUEST_TYPE = 2
+class POWER_PLATFORM_INFORMATION(Structure):
+    AoAc: Windows.Win32.Foundation.BOOLEAN
 POWER_PLATFORM_ROLE = Int32
 POWER_PLATFORM_ROLE_PlatformRoleUnspecified: POWER_PLATFORM_ROLE = 0
 POWER_PLATFORM_ROLE_PlatformRoleDesktop: POWER_PLATFORM_ROLE = 1
@@ -730,10 +839,182 @@ POWER_REQUEST_TYPE_PowerRequestDisplayRequired: POWER_REQUEST_TYPE = 0
 POWER_REQUEST_TYPE_PowerRequestSystemRequired: POWER_REQUEST_TYPE = 1
 POWER_REQUEST_TYPE_PowerRequestAwayModeRequired: POWER_REQUEST_TYPE = 2
 POWER_REQUEST_TYPE_PowerRequestExecutionRequired: POWER_REQUEST_TYPE = 3
+class POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES(Structure):
+    IsAllowed: Windows.Win32.Foundation.BOOLEAN
+class POWER_SESSION_CONNECT(Structure):
+    Connected: Windows.Win32.Foundation.BOOLEAN
+    Console: Windows.Win32.Foundation.BOOLEAN
+class POWER_SESSION_RIT_STATE(Structure):
+    Active: Windows.Win32.Foundation.BOOLEAN
+    LastInputTime: UInt64
+class POWER_SESSION_TIMEOUTS(Structure):
+    InputTimeout: UInt32
+    DisplayTimeout: UInt32
+class POWER_SESSION_WINLOGON(Structure):
+    SessionId: UInt32
+    Console: Windows.Win32.Foundation.BOOLEAN
+    Locked: Windows.Win32.Foundation.BOOLEAN
+POWER_SETTING_ALTITUDE = Int32
+ALTITUDE_GROUP_POLICY: POWER_SETTING_ALTITUDE = 0
+ALTITUDE_USER: POWER_SETTING_ALTITUDE = 1
+ALTITUDE_RUNTIME_OVERRIDE: POWER_SETTING_ALTITUDE = 2
+ALTITUDE_PROVISIONING: POWER_SETTING_ALTITUDE = 3
+ALTITUDE_OEM_CUSTOMIZATION: POWER_SETTING_ALTITUDE = 4
+ALTITUDE_INTERNAL_OVERRIDE: POWER_SETTING_ALTITUDE = 5
+ALTITUDE_OS_DEFAULT: POWER_SETTING_ALTITUDE = 6
 POWER_SETTING_REGISTER_NOTIFICATION_FLAGS = UInt32
 DEVICE_NOTIFY_SERVICE_HANDLE: POWER_SETTING_REGISTER_NOTIFICATION_FLAGS = 1
 DEVICE_NOTIFY_CALLBACK: POWER_SETTING_REGISTER_NOTIFICATION_FLAGS = 2
 DEVICE_NOTIFY_WINDOW_HANDLE: POWER_SETTING_REGISTER_NOTIFICATION_FLAGS = 0
+class POWER_USER_PRESENCE(Structure):
+    UserPresence: Windows.Win32.System.Power.POWER_USER_PRESENCE_TYPE
+POWER_USER_PRESENCE_TYPE = Int32
+POWER_USER_PRESENCE_TYPE_UserNotPresent: POWER_USER_PRESENCE_TYPE = 0
+POWER_USER_PRESENCE_TYPE_UserPresent: POWER_USER_PRESENCE_TYPE = 1
+POWER_USER_PRESENCE_TYPE_UserUnknown: POWER_USER_PRESENCE_TYPE = 255
+class PPM_IDLESTATE_EVENT(Structure):
+    NewState: UInt32
+    OldState: UInt32
+    Processors: UInt64
+class PPM_IDLE_ACCOUNTING(Structure):
+    StateCount: UInt32
+    TotalTransitions: UInt32
+    ResetCount: UInt32
+    StartTime: UInt64
+    State: Windows.Win32.System.Power.PPM_IDLE_STATE_ACCOUNTING * 1
+class PPM_IDLE_ACCOUNTING_EX(Structure):
+    StateCount: UInt32
+    TotalTransitions: UInt32
+    ResetCount: UInt32
+    AbortCount: UInt32
+    StartTime: UInt64
+    State: Windows.Win32.System.Power.PPM_IDLE_STATE_ACCOUNTING_EX * 1
+class PPM_IDLE_STATE_ACCOUNTING(Structure):
+    IdleTransitions: UInt32
+    FailedTransitions: UInt32
+    InvalidBucketIndex: UInt32
+    TotalTime: UInt64
+    IdleTimeBuckets: UInt32 * 6
+class PPM_IDLE_STATE_ACCOUNTING_EX(Structure):
+    TotalTime: UInt64
+    IdleTransitions: UInt32
+    FailedTransitions: UInt32
+    InvalidBucketIndex: UInt32
+    MinTimeUs: UInt32
+    MaxTimeUs: UInt32
+    CancelledTransitions: UInt32
+    IdleTimeBuckets: Windows.Win32.System.Power.PPM_IDLE_STATE_BUCKET_EX * 16
+class PPM_IDLE_STATE_BUCKET_EX(Structure):
+    TotalTimeUs: UInt64
+    MinTimeUs: UInt32
+    MaxTimeUs: UInt32
+    Count: UInt32
+class PPM_PERFSTATE_DOMAIN_EVENT(Structure):
+    State: UInt32
+    Latency: UInt32
+    Speed: UInt32
+    Processors: UInt64
+class PPM_PERFSTATE_EVENT(Structure):
+    State: UInt32
+    Status: UInt32
+    Latency: UInt32
+    Speed: UInt32
+    Processor: UInt32
+class PPM_THERMALCHANGE_EVENT(Structure):
+    ThermalConstraint: UInt32
+    Processors: UInt64
+class PPM_THERMAL_POLICY_EVENT(Structure):
+    Mode: Byte
+    Processors: UInt64
+class PPM_WMI_IDLE_STATE(Structure):
+    Latency: UInt32
+    Power: UInt32
+    TimeCheck: UInt32
+    PromotePercent: Byte
+    DemotePercent: Byte
+    StateType: Byte
+    Reserved: Byte
+    StateFlags: UInt32
+    Context: UInt32
+    IdleHandler: UInt32
+    Reserved1: UInt32
+class PPM_WMI_IDLE_STATES(Structure):
+    Type: UInt32
+    Count: UInt32
+    TargetState: UInt32
+    OldState: UInt32
+    TargetProcessors: UInt64
+    State: Windows.Win32.System.Power.PPM_WMI_IDLE_STATE * 1
+class PPM_WMI_IDLE_STATES_EX(Structure):
+    Type: UInt32
+    Count: UInt32
+    TargetState: UInt32
+    OldState: UInt32
+    TargetProcessors: c_void_p
+    State: Windows.Win32.System.Power.PPM_WMI_IDLE_STATE * 1
+class PPM_WMI_LEGACY_PERFSTATE(Structure):
+    Frequency: UInt32
+    Flags: UInt32
+    PercentFrequency: UInt32
+class PPM_WMI_PERF_STATE(Structure):
+    Frequency: UInt32
+    Power: UInt32
+    PercentFrequency: Byte
+    IncreaseLevel: Byte
+    DecreaseLevel: Byte
+    Type: Byte
+    IncreaseTime: UInt32
+    DecreaseTime: UInt32
+    Control: UInt64
+    Status: UInt64
+    HitCount: UInt32
+    Reserved1: UInt32
+    Reserved2: UInt64
+    Reserved3: UInt64
+class PPM_WMI_PERF_STATES(Structure):
+    Count: UInt32
+    MaxFrequency: UInt32
+    CurrentState: UInt32
+    MaxPerfState: UInt32
+    MinPerfState: UInt32
+    LowestPerfState: UInt32
+    ThermalConstraint: UInt32
+    BusyAdjThreshold: Byte
+    PolicyType: Byte
+    Type: Byte
+    Reserved: Byte
+    TimerInterval: UInt32
+    TargetProcessors: UInt64
+    PStateHandler: UInt32
+    PStateContext: UInt32
+    TStateHandler: UInt32
+    TStateContext: UInt32
+    FeedbackHandler: UInt32
+    Reserved1: UInt32
+    Reserved2: UInt64
+    State: Windows.Win32.System.Power.PPM_WMI_PERF_STATE * 1
+class PPM_WMI_PERF_STATES_EX(Structure):
+    Count: UInt32
+    MaxFrequency: UInt32
+    CurrentState: UInt32
+    MaxPerfState: UInt32
+    MinPerfState: UInt32
+    LowestPerfState: UInt32
+    ThermalConstraint: UInt32
+    BusyAdjThreshold: Byte
+    PolicyType: Byte
+    Type: Byte
+    Reserved: Byte
+    TimerInterval: UInt32
+    TargetProcessors: c_void_p
+    PStateHandler: UInt32
+    PStateContext: UInt32
+    TStateHandler: UInt32
+    TStateContext: UInt32
+    FeedbackHandler: UInt32
+    Reserved1: UInt32
+    Reserved2: UInt64
+    State: Windows.Win32.System.Power.PPM_WMI_PERF_STATE * 1
 class PROCESSOR_OBJECT_INFO(Structure):
     PhysicalID: UInt32
     PBlkAddress: UInt32
@@ -769,6 +1050,10 @@ class PROCESSOR_POWER_POLICY_INFO(Structure):
 def PWRSCHEMESENUMPROC(Index: UInt32, NameSize: UInt32, Name: Windows.Win32.Foundation.PWSTR, DescriptionSize: UInt32, Description: Windows.Win32.Foundation.PWSTR, Policy: POINTER(Windows.Win32.System.Power.POWER_POLICY_head), Context: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype_pointer
 def PWRSCHEMESENUMPROC_V1(Index: UInt32, NameSize: UInt32, Name: POINTER(SByte), DescriptionSize: UInt32, Description: POINTER(SByte), Policy: POINTER(Windows.Win32.System.Power.POWER_POLICY_head), Context: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.BOOLEAN: ...
+class RESUME_PERFORMANCE(Structure):
+    PostTimeMs: UInt32
+    TotalResumeTimeMs: UInt64
+    ResumeCompleteTimestamp: UInt64
 class SET_POWER_SETTING_VALUE(Structure):
     Version: UInt32
     Guid: Guid
@@ -919,6 +1204,12 @@ USB_CHARGER_PORT = Int32
 UsbChargerPort_Legacy: USB_CHARGER_PORT = 0
 UsbChargerPort_TypeC: USB_CHARGER_PORT = 1
 UsbChargerPort_Max: USB_CHARGER_PORT = 2
+USER_ACTIVITY_PRESENCE = Int32
+USER_ACTIVITY_PRESENCE_PowerUserPresent: USER_ACTIVITY_PRESENCE = 0
+USER_ACTIVITY_PRESENCE_PowerUserNotPresent: USER_ACTIVITY_PRESENCE = 1
+USER_ACTIVITY_PRESENCE_PowerUserInactive: USER_ACTIVITY_PRESENCE = 2
+USER_ACTIVITY_PRESENCE_PowerUserMaximum: USER_ACTIVITY_PRESENCE = 3
+USER_ACTIVITY_PRESENCE_PowerUserInvalid: USER_ACTIVITY_PRESENCE = 3
 class USER_POWER_POLICY(Structure):
     Revision: UInt32
     IdleAc: Windows.Win32.System.Power.POWER_ACTION_POLICY
@@ -977,7 +1268,33 @@ make_head(_module, 'MACHINE_PROCESSOR_POWER_POLICY')
 make_head(_module, 'PDEVICE_NOTIFY_CALLBACK_ROUTINE')
 make_head(_module, 'POWERBROADCAST_SETTING')
 make_head(_module, 'POWER_ACTION_POLICY')
+make_head(_module, 'POWER_IDLE_RESILIENCY')
+make_head(_module, 'POWER_MONITOR_INVOCATION')
+make_head(_module, 'POWER_PLATFORM_INFORMATION')
 make_head(_module, 'POWER_POLICY')
+make_head(_module, 'POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES')
+make_head(_module, 'POWER_SESSION_CONNECT')
+make_head(_module, 'POWER_SESSION_RIT_STATE')
+make_head(_module, 'POWER_SESSION_TIMEOUTS')
+make_head(_module, 'POWER_SESSION_WINLOGON')
+make_head(_module, 'POWER_USER_PRESENCE')
+make_head(_module, 'PPM_IDLESTATE_EVENT')
+make_head(_module, 'PPM_IDLE_ACCOUNTING')
+make_head(_module, 'PPM_IDLE_ACCOUNTING_EX')
+make_head(_module, 'PPM_IDLE_STATE_ACCOUNTING')
+make_head(_module, 'PPM_IDLE_STATE_ACCOUNTING_EX')
+make_head(_module, 'PPM_IDLE_STATE_BUCKET_EX')
+make_head(_module, 'PPM_PERFSTATE_DOMAIN_EVENT')
+make_head(_module, 'PPM_PERFSTATE_EVENT')
+make_head(_module, 'PPM_THERMALCHANGE_EVENT')
+make_head(_module, 'PPM_THERMAL_POLICY_EVENT')
+make_head(_module, 'PPM_WMI_IDLE_STATE')
+make_head(_module, 'PPM_WMI_IDLE_STATES')
+make_head(_module, 'PPM_WMI_IDLE_STATES_EX')
+make_head(_module, 'PPM_WMI_LEGACY_PERFSTATE')
+make_head(_module, 'PPM_WMI_PERF_STATE')
+make_head(_module, 'PPM_WMI_PERF_STATES')
+make_head(_module, 'PPM_WMI_PERF_STATES_EX')
 make_head(_module, 'PROCESSOR_OBJECT_INFO')
 make_head(_module, 'PROCESSOR_OBJECT_INFO_EX')
 make_head(_module, 'PROCESSOR_POWER_INFORMATION')
@@ -985,6 +1302,7 @@ make_head(_module, 'PROCESSOR_POWER_POLICY')
 make_head(_module, 'PROCESSOR_POWER_POLICY_INFO')
 make_head(_module, 'PWRSCHEMESENUMPROC')
 make_head(_module, 'PWRSCHEMESENUMPROC_V1')
+make_head(_module, 'RESUME_PERFORMANCE')
 make_head(_module, 'SET_POWER_SETTING_VALUE')
 make_head(_module, 'SYSTEM_BATTERY_STATE')
 make_head(_module, 'SYSTEM_POWER_CAPABILITIES')
@@ -1033,6 +1351,13 @@ __all__ = [
     "ACPI_TIME_ZONE_UNKNOWN",
     "ACTIVE_COOLING",
     "ADMINISTRATOR_POWER_POLICY",
+    "ALTITUDE_GROUP_POLICY",
+    "ALTITUDE_INTERNAL_OVERRIDE",
+    "ALTITUDE_OEM_CUSTOMIZATION",
+    "ALTITUDE_OS_DEFAULT",
+    "ALTITUDE_PROVISIONING",
+    "ALTITUDE_RUNTIME_OVERRIDE",
+    "ALTITUDE_USER",
     "BATTERY_CAPACITY_RELATIVE",
     "BATTERY_CHARGER_STATUS",
     "BATTERY_CHARGING",
@@ -1256,6 +1581,7 @@ __all__ = [
     "POWER_COOLING_MODE",
     "POWER_DATA_ACCESSOR",
     "POWER_FORCE_TRIGGER_RESET",
+    "POWER_IDLE_RESILIENCY",
     "POWER_INFORMATION_LEVEL",
     "POWER_INFORMATION_LEVEL_AdministratorPowerPolicy",
     "POWER_INFORMATION_LEVEL_BatteryDeviceState",
@@ -1358,6 +1684,69 @@ __all__ = [
     "POWER_LEVEL_USER_NOTIFY_EXEC",
     "POWER_LEVEL_USER_NOTIFY_SOUND",
     "POWER_LEVEL_USER_NOTIFY_TEXT",
+    "POWER_MONITOR_INVOCATION",
+    "POWER_MONITOR_REQUEST_REASON",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonAcDcDisplayBurst",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonAcDcDisplayBurstSuppressed",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonBatteryCountChange",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonBatteryCountChangeSuppressed",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonBatteryPreCritical",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonBuiltinPanel",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonDP",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonDim",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonDirectedDrips",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonDisplayRequiredUnDim",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonFullWake",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonGracePeriod",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonIdleTimeout",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonLid",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonMax",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonNearProximity",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignal",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalFingerprint",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalHeyCortana",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalHolographicShell",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalSensorsHumanPresence",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalWindowsMobilePwrNotif",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPdcSignalWindowsMobileShell",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPnP",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPoSetSystemState",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPolicyChange",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonPowerButton",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonRemoteConnection",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonResumeModernStandby",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonResumePdc",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonResumeS4",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonScMonitorpower",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonScreenOffRequest",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSessionUnlock",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSetThreadExecutionState",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSleepButton",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSxTransition",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSystemIdle",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonSystemStateEntered",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonTerminal",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonTerminalInit",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonThermalStandby",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUnknown",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserDisplayBurst",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInput",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputAccelerometer",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputHid",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputInitialization",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputKeyboard",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputMouse",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputPen",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputPoUserPresent",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputSessionSwitch",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputTouch",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonUserInputTouchpad",
+    "POWER_MONITOR_REQUEST_REASON_MonitorRequestReasonWinrt",
+    "POWER_MONITOR_REQUEST_TYPE",
+    "POWER_MONITOR_REQUEST_TYPE_MonitorRequestTypeOff",
+    "POWER_MONITOR_REQUEST_TYPE_MonitorRequestTypeOnAndPresent",
+    "POWER_MONITOR_REQUEST_TYPE_MonitorRequestTypeToggleOn",
+    "POWER_PLATFORM_INFORMATION",
     "POWER_PLATFORM_ROLE",
     "POWER_PLATFORM_ROLE_PlatformRoleAppliancePC",
     "POWER_PLATFORM_ROLE_PlatformRoleDesktop",
@@ -1378,12 +1767,80 @@ __all__ = [
     "POWER_REQUEST_TYPE_PowerRequestDisplayRequired",
     "POWER_REQUEST_TYPE_PowerRequestExecutionRequired",
     "POWER_REQUEST_TYPE_PowerRequestSystemRequired",
+    "POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES",
+    "POWER_SESSION_CONNECT",
+    "POWER_SESSION_RIT_STATE",
+    "POWER_SESSION_TIMEOUTS",
+    "POWER_SESSION_WINLOGON",
+    "POWER_SETTING_ALTITUDE",
     "POWER_SETTING_REGISTER_NOTIFICATION_FLAGS",
     "POWER_USER_NOTIFY_BUTTON",
     "POWER_USER_NOTIFY_SHUTDOWN",
+    "POWER_USER_PRESENCE",
+    "POWER_USER_PRESENCE_TYPE",
+    "POWER_USER_PRESENCE_TYPE_UserNotPresent",
+    "POWER_USER_PRESENCE_TYPE_UserPresent",
+    "POWER_USER_PRESENCE_TYPE_UserUnknown",
     "PO_TZ_ACTIVE",
     "PO_TZ_INVALID_MODE",
     "PO_TZ_PASSIVE",
+    "PPM_FIRMWARE_ACPI1C2",
+    "PPM_FIRMWARE_ACPI1C3",
+    "PPM_FIRMWARE_ACPI1TSTATES",
+    "PPM_FIRMWARE_CPC",
+    "PPM_FIRMWARE_CSD",
+    "PPM_FIRMWARE_CST",
+    "PPM_FIRMWARE_LPI",
+    "PPM_FIRMWARE_OSC",
+    "PPM_FIRMWARE_PCCH",
+    "PPM_FIRMWARE_PCCP",
+    "PPM_FIRMWARE_PCT",
+    "PPM_FIRMWARE_PDC",
+    "PPM_FIRMWARE_PPC",
+    "PPM_FIRMWARE_PSD",
+    "PPM_FIRMWARE_PSS",
+    "PPM_FIRMWARE_PTC",
+    "PPM_FIRMWARE_TPC",
+    "PPM_FIRMWARE_TSD",
+    "PPM_FIRMWARE_TSS",
+    "PPM_FIRMWARE_XPSS",
+    "PPM_IDLESTATES_DATA_GUID",
+    "PPM_IDLESTATE_CHANGE_GUID",
+    "PPM_IDLESTATE_EVENT",
+    "PPM_IDLE_ACCOUNTING",
+    "PPM_IDLE_ACCOUNTING_EX",
+    "PPM_IDLE_ACCOUNTING_EX_GUID",
+    "PPM_IDLE_ACCOUNTING_GUID",
+    "PPM_IDLE_IMPLEMENTATION_CSTATES",
+    "PPM_IDLE_IMPLEMENTATION_LPISTATES",
+    "PPM_IDLE_IMPLEMENTATION_MICROPEP",
+    "PPM_IDLE_IMPLEMENTATION_NONE",
+    "PPM_IDLE_IMPLEMENTATION_PEP",
+    "PPM_IDLE_STATE_ACCOUNTING",
+    "PPM_IDLE_STATE_ACCOUNTING_EX",
+    "PPM_IDLE_STATE_BUCKET_EX",
+    "PPM_PERFMON_PERFSTATE_GUID",
+    "PPM_PERFORMANCE_IMPLEMENTATION_CPPC",
+    "PPM_PERFORMANCE_IMPLEMENTATION_NONE",
+    "PPM_PERFORMANCE_IMPLEMENTATION_PCCV1",
+    "PPM_PERFORMANCE_IMPLEMENTATION_PEP",
+    "PPM_PERFORMANCE_IMPLEMENTATION_PSTATES",
+    "PPM_PERFSTATES_DATA_GUID",
+    "PPM_PERFSTATE_CHANGE_GUID",
+    "PPM_PERFSTATE_DOMAIN_CHANGE_GUID",
+    "PPM_PERFSTATE_DOMAIN_EVENT",
+    "PPM_PERFSTATE_EVENT",
+    "PPM_THERMALCHANGE_EVENT",
+    "PPM_THERMALCONSTRAINT_GUID",
+    "PPM_THERMAL_POLICY_CHANGE_GUID",
+    "PPM_THERMAL_POLICY_EVENT",
+    "PPM_WMI_IDLE_STATE",
+    "PPM_WMI_IDLE_STATES",
+    "PPM_WMI_IDLE_STATES_EX",
+    "PPM_WMI_LEGACY_PERFSTATE",
+    "PPM_WMI_PERF_STATE",
+    "PPM_WMI_PERF_STATES",
+    "PPM_WMI_PERF_STATES_EX",
     "PROCESSOR_NUMBER_PKEY",
     "PROCESSOR_OBJECT_INFO",
     "PROCESSOR_OBJECT_INFO_EX",
@@ -1454,6 +1911,7 @@ __all__ = [
     "PowerWriteValueMax",
     "PowerWriteValueMin",
     "PowerWriteValueUnitsSpecifier",
+    "RESUME_PERFORMANCE",
     "ReadGlobalPwrPolicy",
     "ReadProcessorPwrScheme",
     "ReadPwrScheme",
@@ -1510,6 +1968,12 @@ __all__ = [
     "UNKNOWN_RATE",
     "UNKNOWN_VOLTAGE",
     "USB_CHARGER_PORT",
+    "USER_ACTIVITY_PRESENCE",
+    "USER_ACTIVITY_PRESENCE_PowerUserInactive",
+    "USER_ACTIVITY_PRESENCE_PowerUserInvalid",
+    "USER_ACTIVITY_PRESENCE_PowerUserMaximum",
+    "USER_ACTIVITY_PRESENCE_PowerUserNotPresent",
+    "USER_ACTIVITY_PRESENCE_PowerUserPresent",
     "USER_POWER_POLICY",
     "UnregisterPowerSettingNotification",
     "UnregisterSuspendResumeNotification",

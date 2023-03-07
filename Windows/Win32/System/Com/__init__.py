@@ -60,6 +60,8 @@ APTTYPEQUALIFIER_RESERVED_1: APTTYPEQUALIFIER = 7
 class AUTHENTICATEINFO(Structure):
     dwFlags: UInt32
     dwReserved: UInt32
+COLE_DEFAULT_PRINCIPAL: Windows.Win32.Foundation.PWSTR = -1
+COLE_DEFAULT_AUTHINFO: Int32 = -1
 MARSHALINTERFACE_MIN: UInt32 = 500
 ASYNC_MODE_COMPATIBILITY: Int32 = 1
 ASYNC_MODE_DEFAULT: Int32 = 0
@@ -2161,7 +2163,7 @@ class STGMEDIUM(Structure):
         hBitmap: Windows.Win32.Graphics.Gdi.HBITMAP
         hMetaFilePict: c_void_p
         hEnhMetaFile: Windows.Win32.Graphics.Gdi.HENHMETAFILE
-        hGlobal: IntPtr
+        hGlobal: Windows.Win32.Foundation.HGLOBAL
         lpszFileName: Windows.Win32.Foundation.PWSTR
         pstm: Windows.Win32.System.Com.IStream_head
         pstg: Windows.Win32.System.Com.StructuredStorage.IStorage_head
@@ -2783,6 +2785,8 @@ __all__ = [
     "COINIT_DISABLE_OLE1DDE",
     "COINIT_MULTITHREADED",
     "COINIT_SPEED_OVER_MEMORY",
+    "COLE_DEFAULT_AUTHINFO",
+    "COLE_DEFAULT_PRINCIPAL",
     "COMBND_RESERVED1",
     "COMBND_RESERVED2",
     "COMBND_RESERVED3",

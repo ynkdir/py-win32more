@@ -1819,7 +1819,7 @@ class VAL(Structure):
     dblVal: Double
     pGuid: POINTER(Guid)
     pScanInfo: POINTER(Windows.Win32.Devices.ImageAcquisition.SCANINFO_head)
-    handle: IntPtr
+    handle: Windows.Win32.Foundation.HGLOBAL
     ppButtonNames: POINTER(POINTER(UInt16))
     pHandle: POINTER(Windows.Win32.Foundation.HANDLE)
     lReserved: Int32

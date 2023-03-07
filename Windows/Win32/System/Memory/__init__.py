@@ -179,37 +179,37 @@ def RtlCrc64(Buffer: c_void_p, Size: UIntPtr, InitialCrc: UInt64) -> UInt64: ...
 @winfunctype('ntdll.dll')
 def RtlIsZeroMemory(Buffer: c_void_p, Length: UIntPtr) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('KERNEL32.dll')
-def GlobalAlloc(uFlags: Windows.Win32.System.Memory.GLOBAL_ALLOC_FLAGS, dwBytes: UIntPtr) -> IntPtr: ...
+def GlobalAlloc(uFlags: Windows.Win32.System.Memory.GLOBAL_ALLOC_FLAGS, dwBytes: UIntPtr) -> Windows.Win32.Foundation.HGLOBAL: ...
 @winfunctype('KERNEL32.dll')
-def GlobalReAlloc(hMem: IntPtr, dwBytes: UIntPtr, uFlags: UInt32) -> IntPtr: ...
+def GlobalReAlloc(hMem: Windows.Win32.Foundation.HGLOBAL, dwBytes: UIntPtr, uFlags: UInt32) -> Windows.Win32.Foundation.HGLOBAL: ...
 @winfunctype('KERNEL32.dll')
-def GlobalSize(hMem: IntPtr) -> UIntPtr: ...
+def GlobalSize(hMem: Windows.Win32.Foundation.HGLOBAL) -> UIntPtr: ...
 @winfunctype('KERNEL32.dll')
-def GlobalUnlock(hMem: IntPtr) -> Windows.Win32.Foundation.BOOL: ...
+def GlobalUnlock(hMem: Windows.Win32.Foundation.HGLOBAL) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def GlobalLock(hMem: IntPtr) -> c_void_p: ...
+def GlobalLock(hMem: Windows.Win32.Foundation.HGLOBAL) -> c_void_p: ...
 @winfunctype('KERNEL32.dll')
-def GlobalFlags(hMem: IntPtr) -> UInt32: ...
+def GlobalFlags(hMem: Windows.Win32.Foundation.HGLOBAL) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def GlobalHandle(pMem: c_void_p) -> IntPtr: ...
+def GlobalHandle(pMem: c_void_p) -> Windows.Win32.Foundation.HGLOBAL: ...
 @winfunctype('KERNEL32.dll')
-def GlobalFree(hMem: IntPtr) -> IntPtr: ...
+def GlobalFree(hMem: Windows.Win32.Foundation.HGLOBAL) -> Windows.Win32.Foundation.HGLOBAL: ...
 @winfunctype('KERNEL32.dll')
-def LocalAlloc(uFlags: Windows.Win32.System.Memory.LOCAL_ALLOC_FLAGS, uBytes: UIntPtr) -> IntPtr: ...
+def LocalAlloc(uFlags: Windows.Win32.System.Memory.LOCAL_ALLOC_FLAGS, uBytes: UIntPtr) -> Windows.Win32.Foundation.HLOCAL: ...
 @winfunctype('KERNEL32.dll')
-def LocalReAlloc(hMem: IntPtr, uBytes: UIntPtr, uFlags: UInt32) -> IntPtr: ...
+def LocalReAlloc(hMem: Windows.Win32.Foundation.HLOCAL, uBytes: UIntPtr, uFlags: UInt32) -> Windows.Win32.Foundation.HLOCAL: ...
 @winfunctype('KERNEL32.dll')
-def LocalLock(hMem: IntPtr) -> c_void_p: ...
+def LocalLock(hMem: Windows.Win32.Foundation.HLOCAL) -> c_void_p: ...
 @winfunctype('KERNEL32.dll')
-def LocalHandle(pMem: c_void_p) -> IntPtr: ...
+def LocalHandle(pMem: c_void_p) -> Windows.Win32.Foundation.HLOCAL: ...
 @winfunctype('KERNEL32.dll')
-def LocalUnlock(hMem: IntPtr) -> Windows.Win32.Foundation.BOOL: ...
+def LocalUnlock(hMem: Windows.Win32.Foundation.HLOCAL) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def LocalSize(hMem: IntPtr) -> UIntPtr: ...
+def LocalSize(hMem: Windows.Win32.Foundation.HLOCAL) -> UIntPtr: ...
 @winfunctype('KERNEL32.dll')
-def LocalFlags(hMem: IntPtr) -> UInt32: ...
+def LocalFlags(hMem: Windows.Win32.Foundation.HLOCAL) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def LocalFree(hMem: IntPtr) -> IntPtr: ...
+def LocalFree(hMem: Windows.Win32.Foundation.HLOCAL) -> Windows.Win32.Foundation.HLOCAL: ...
 @winfunctype('KERNEL32.dll')
 def CreateFileMappingA(hFile: Windows.Win32.Foundation.HANDLE, lpFileMappingAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), flProtect: Windows.Win32.System.Memory.PAGE_PROTECTION_FLAGS, dwMaximumSizeHigh: UInt32, dwMaximumSizeLow: UInt32, lpName: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
@@ -327,6 +327,18 @@ class MEMORY_BASIC_INFORMATION64(Structure):
     Protect: Windows.Win32.System.Memory.PAGE_PROTECTION_FLAGS
     Type: Windows.Win32.System.Memory.PAGE_TYPE
     __alignment2: UInt32
+class MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE(Structure):
+    Type: Windows.Win32.System.Memory.MEM_DEDICATED_ATTRIBUTE_TYPE
+    Reserved: UInt32
+    Value: UInt64
+class MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION(Structure):
+    NextEntryOffset: UInt32
+    SizeOfInformation: UInt32
+    Flags: UInt32
+    AttributesOffset: UInt32
+    AttributeCount: UInt32
+    Reserved: UInt32
+    TypeId: UInt64
 MEMORY_RESOURCE_NOTIFICATION_TYPE = Int32
 MEMORY_RESOURCE_NOTIFICATION_TYPE_LowMemoryResourceNotification: MEMORY_RESOURCE_NOTIFICATION_TYPE = 0
 MEMORY_RESOURCE_NOTIFICATION_TYPE_HighMemoryResourceNotification: MEMORY_RESOURCE_NOTIFICATION_TYPE = 1
@@ -334,6 +346,12 @@ class MEM_ADDRESS_REQUIREMENTS(Structure):
     LowestStartingAddress: c_void_p
     HighestEndingAddress: c_void_p
     Alignment: UIntPtr
+MEM_DEDICATED_ATTRIBUTE_TYPE = Int32
+MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeReadBandwidth: MEM_DEDICATED_ATTRIBUTE_TYPE = 0
+MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeReadLatency: MEM_DEDICATED_ATTRIBUTE_TYPE = 1
+MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeWriteBandwidth: MEM_DEDICATED_ATTRIBUTE_TYPE = 2
+MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeWriteLatency: MEM_DEDICATED_ATTRIBUTE_TYPE = 3
+MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeMax: MEM_DEDICATED_ATTRIBUTE_TYPE = 4
 class MEM_EXTENDED_PARAMETER(Structure):
     Anonymous1: _Anonymous1_e__Struct
     Anonymous2: _Anonymous2_e__Union
@@ -354,6 +372,12 @@ MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterUserPhysicalHandle: MEM_EXTENDED
 MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterAttributeFlags: MEM_EXTENDED_PARAMETER_TYPE = 5
 MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterImageMachine: MEM_EXTENDED_PARAMETER_TYPE = 6
 MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterMax: MEM_EXTENDED_PARAMETER_TYPE = 7
+MEM_SECTION_EXTENDED_PARAMETER_TYPE = Int32
+MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterInvalidType: MEM_SECTION_EXTENDED_PARAMETER_TYPE = 0
+MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterUserPhysicalFlags: MEM_SECTION_EXTENDED_PARAMETER_TYPE = 1
+MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterNumaNode: MEM_SECTION_EXTENDED_PARAMETER_TYPE = 2
+MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterSigningLevel: MEM_SECTION_EXTENDED_PARAMETER_TYPE = 3
+MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterMax: MEM_SECTION_EXTENDED_PARAMETER_TYPE = 4
 OFFER_PRIORITY = Int32
 OFFER_PRIORITY_VmOfferPriorityVeryLow: OFFER_PRIORITY = 1
 OFFER_PRIORITY_VmOfferPriorityLow: OFFER_PRIORITY = 2
@@ -425,6 +449,14 @@ class PROCESS_HEAP_ENTRY(Structure):
             lpLastBlock: c_void_p
 @winfunctype_pointer
 def PSECURE_MEMORY_CACHE_CALLBACK(Addr: c_void_p, Range: UIntPtr) -> Windows.Win32.Foundation.BOOLEAN: ...
+SECTION_FLAGS = UInt32
+SECTION_ALL_ACCESS: SECTION_FLAGS = 983071
+SECTION_QUERY: SECTION_FLAGS = 1
+SECTION_MAP_WRITE: SECTION_FLAGS = 2
+SECTION_MAP_READ: SECTION_FLAGS = 4
+SECTION_MAP_EXECUTE: SECTION_FLAGS = 8
+SECTION_EXTEND_SIZE: SECTION_FLAGS = 16
+SECTION_MAP_EXECUTE_EXPLICIT: SECTION_FLAGS = 32
 UNMAP_VIEW_OF_FILE_FLAGS = UInt32
 MEM_UNMAP_NONE: UNMAP_VIEW_OF_FILE_FLAGS = 0
 MEM_UNMAP_WITH_TRANSIENT_BOOST: UNMAP_VIEW_OF_FILE_FLAGS = 1
@@ -486,6 +518,8 @@ if ARCH in 'X86':
     make_head(_module, 'MEMORY_BASIC_INFORMATION')
 make_head(_module, 'MEMORY_BASIC_INFORMATION32')
 make_head(_module, 'MEMORY_BASIC_INFORMATION64')
+make_head(_module, 'MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE')
+make_head(_module, 'MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION')
 make_head(_module, 'MEM_ADDRESS_REQUIREMENTS')
 make_head(_module, 'MEM_EXTENDED_PARAMETER')
 make_head(_module, 'PBAD_MEMORY_CALLBACK_ROUTINE')
@@ -606,12 +640,20 @@ __all__ = [
     "MEMORY_BASIC_INFORMATION",
     "MEMORY_BASIC_INFORMATION32",
     "MEMORY_BASIC_INFORMATION64",
+    "MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE",
+    "MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION",
     "MEMORY_RESOURCE_NOTIFICATION_TYPE",
     "MEMORY_RESOURCE_NOTIFICATION_TYPE_HighMemoryResourceNotification",
     "MEMORY_RESOURCE_NOTIFICATION_TYPE_LowMemoryResourceNotification",
     "MEM_ADDRESS_REQUIREMENTS",
     "MEM_COMMIT",
     "MEM_DECOMMIT",
+    "MEM_DEDICATED_ATTRIBUTE_TYPE",
+    "MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeMax",
+    "MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeReadBandwidth",
+    "MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeReadLatency",
+    "MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeWriteBandwidth",
+    "MEM_DEDICATED_ATTRIBUTE_TYPE_MemDedicatedAttributeWriteLatency",
     "MEM_EXTENDED_PARAMETER",
     "MEM_EXTENDED_PARAMETER_TYPE",
     "MEM_EXTENDED_PARAMETER_TYPE_MemExtendedParameterAddressRequirements",
@@ -634,6 +676,12 @@ __all__ = [
     "MEM_RESERVE_PLACEHOLDER",
     "MEM_RESET",
     "MEM_RESET_UNDO",
+    "MEM_SECTION_EXTENDED_PARAMETER_TYPE",
+    "MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterInvalidType",
+    "MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterMax",
+    "MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterNumaNode",
+    "MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterSigningLevel",
+    "MEM_SECTION_EXTENDED_PARAMETER_TYPE_MemSectionExtendedParameterUserPhysicalFlags",
     "MEM_UNMAP_NONE",
     "MEM_UNMAP_WITH_TRANSIENT_BOOST",
     "MapUserPhysicalPages",
@@ -702,6 +750,14 @@ __all__ = [
     "RtlCrc32",
     "RtlCrc64",
     "RtlIsZeroMemory",
+    "SECTION_ALL_ACCESS",
+    "SECTION_EXTEND_SIZE",
+    "SECTION_FLAGS",
+    "SECTION_MAP_EXECUTE",
+    "SECTION_MAP_EXECUTE_EXPLICIT",
+    "SECTION_MAP_READ",
+    "SECTION_MAP_WRITE",
+    "SECTION_QUERY",
     "SEC_64K_PAGES",
     "SEC_COMMIT",
     "SEC_FILE",

@@ -1323,11 +1323,11 @@ def OleCreateEmbeddingHelper(clsid: POINTER(Guid), pUnkOuter: Windows.Win32.Syst
 @winfunctype('OLE32.dll')
 def IsAccelerator(hAccel: Windows.Win32.UI.WindowsAndMessaging.HACCEL, cAccelEntries: Int32, lpMsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head), lpwCmd: POINTER(UInt16)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ole32.dll')
-def OleGetIconOfFile(lpszPath: Windows.Win32.Foundation.PWSTR, fUseFileAsLabel: Windows.Win32.Foundation.BOOL) -> IntPtr: ...
+def OleGetIconOfFile(lpszPath: Windows.Win32.Foundation.PWSTR, fUseFileAsLabel: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HGLOBAL: ...
 @winfunctype('OLE32.dll')
-def OleGetIconOfClass(rclsid: POINTER(Guid), lpszLabel: Windows.Win32.Foundation.PWSTR, fUseTypeAsLabel: Windows.Win32.Foundation.BOOL) -> IntPtr: ...
+def OleGetIconOfClass(rclsid: POINTER(Guid), lpszLabel: Windows.Win32.Foundation.PWSTR, fUseTypeAsLabel: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HGLOBAL: ...
 @winfunctype('ole32.dll')
-def OleMetafilePictFromIconAndLabel(hIcon: Windows.Win32.UI.WindowsAndMessaging.HICON, lpszLabel: Windows.Win32.Foundation.PWSTR, lpszSourceFile: Windows.Win32.Foundation.PWSTR, iIconIndex: UInt32) -> IntPtr: ...
+def OleMetafilePictFromIconAndLabel(hIcon: Windows.Win32.UI.WindowsAndMessaging.HICON, lpszLabel: Windows.Win32.Foundation.PWSTR, lpszSourceFile: Windows.Win32.Foundation.PWSTR, iIconIndex: UInt32) -> Windows.Win32.Foundation.HGLOBAL: ...
 @winfunctype('OLE32.dll')
 def OleRegGetUserType(clsid: POINTER(Guid), dwFormOfType: Windows.Win32.System.Ole.USERCLASSTYPE, pszUserType: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLE32.dll')
@@ -2356,9 +2356,9 @@ class IOleUIObjInfoA(c_void_p):
     @commethod(5)
     def ConvertObject(dwObject: UInt32, clsidNew: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetViewInfo(dwObject: UInt32, phMetaPict: POINTER(IntPtr), pdvAspect: POINTER(UInt32), pnCurrentScale: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetViewInfo(dwObject: UInt32, phMetaPict: POINTER(Windows.Win32.Foundation.HGLOBAL), pdvAspect: POINTER(UInt32), pnCurrentScale: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def SetViewInfo(dwObject: UInt32, hMetaPict: IntPtr, dvAspect: UInt32, nCurrentScale: Int32, bRelativeToOrig: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetViewInfo(dwObject: UInt32, hMetaPict: Windows.Win32.Foundation.HGLOBAL, dvAspect: UInt32, nCurrentScale: Int32, bRelativeToOrig: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleUIObjInfoW(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     @commethod(3)
@@ -2368,9 +2368,9 @@ class IOleUIObjInfoW(c_void_p):
     @commethod(5)
     def ConvertObject(dwObject: UInt32, clsidNew: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetViewInfo(dwObject: UInt32, phMetaPict: POINTER(IntPtr), pdvAspect: POINTER(UInt32), pnCurrentScale: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetViewInfo(dwObject: UInt32, phMetaPict: POINTER(Windows.Win32.Foundation.HGLOBAL), pdvAspect: POINTER(UInt32), pnCurrentScale: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def SetViewInfo(dwObject: UInt32, hMetaPict: IntPtr, dvAspect: UInt32, nCurrentScale: Int32, bRelativeToOrig: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetViewInfo(dwObject: UInt32, hMetaPict: Windows.Win32.Foundation.HGLOBAL, dvAspect: UInt32, nCurrentScale: Int32, bRelativeToOrig: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IOleUndoManager(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d001f200-ef97-11ce-9b-c9-00-aa-00-60-8e-01')
@@ -3131,7 +3131,7 @@ class OLEUICHANGEICONA(Structure):
     hInstance: Windows.Win32.Foundation.HINSTANCE
     lpszTemplate: Windows.Win32.Foundation.PSTR
     hResource: Windows.Win32.Foundation.HRSRC
-    hMetaPict: IntPtr
+    hMetaPict: Windows.Win32.Foundation.HGLOBAL
     clsid: Guid
     szIconExe: Windows.Win32.Foundation.CHAR * 260
     cchIconExe: Int32
@@ -3145,7 +3145,7 @@ class OLEUICHANGEICONW(Structure):
     hInstance: Windows.Win32.Foundation.HINSTANCE
     lpszTemplate: Windows.Win32.Foundation.PWSTR
     hResource: Windows.Win32.Foundation.HRSRC
-    hMetaPict: IntPtr
+    hMetaPict: Windows.Win32.Foundation.HGLOBAL
     clsid: Guid
     szIconExe: Char * 260
     cchIconExe: Int32
@@ -3202,7 +3202,7 @@ class OLEUICONVERTA(Structure):
     dvAspect: UInt32
     wFormat: UInt16
     fIsLinkedObject: Windows.Win32.Foundation.BOOL
-    hMetaPict: IntPtr
+    hMetaPict: Windows.Win32.Foundation.HGLOBAL
     lpszUserType: Windows.Win32.Foundation.PSTR
     fObjectsIconChanged: Windows.Win32.Foundation.BOOL
     lpszDefLabel: Windows.Win32.Foundation.PSTR
@@ -3225,7 +3225,7 @@ class OLEUICONVERTW(Structure):
     dvAspect: UInt32
     wFormat: UInt16
     fIsLinkedObject: Windows.Win32.Foundation.BOOL
-    hMetaPict: IntPtr
+    hMetaPict: Windows.Win32.Foundation.HGLOBAL
     lpszUserType: Windows.Win32.Foundation.PWSTR
     fObjectsIconChanged: Windows.Win32.Foundation.BOOL
     lpszDefLabel: Windows.Win32.Foundation.PWSTR
@@ -3291,7 +3291,7 @@ class OLEUIINSERTOBJECTA(Structure):
     lpIStorage: Windows.Win32.System.Com.StructuredStorage.IStorage_head
     ppvObj: POINTER(c_void_p)
     sc: Int32
-    hMetaPict: IntPtr
+    hMetaPict: Windows.Win32.Foundation.HGLOBAL
 class OLEUIINSERTOBJECTW(Structure):
     cbStruct: UInt32
     dwFlags: Windows.Win32.System.Ole.INSERT_OBJECT_FLAGS
@@ -3314,7 +3314,7 @@ class OLEUIINSERTOBJECTW(Structure):
     lpIStorage: Windows.Win32.System.Com.StructuredStorage.IStorage_head
     ppvObj: POINTER(c_void_p)
     sc: Int32
-    hMetaPict: IntPtr
+    hMetaPict: Windows.Win32.Foundation.HGLOBAL
 class OLEUILINKPROPSA(Structure):
     cbStruct: UInt32
     dwFlags: UInt32
@@ -3397,7 +3397,7 @@ class OLEUIPASTESPECIALA(Structure):
     lpClsidExclude: POINTER(Guid)
     nSelectedIndex: Int32
     fLink: Windows.Win32.Foundation.BOOL
-    hMetaPict: IntPtr
+    hMetaPict: Windows.Win32.Foundation.HGLOBAL
     sizel: Windows.Win32.Foundation.SIZE
 class OLEUIPASTESPECIALW(Structure):
     cbStruct: UInt32
@@ -3418,7 +3418,7 @@ class OLEUIPASTESPECIALW(Structure):
     lpClsidExclude: POINTER(Guid)
     nSelectedIndex: Int32
     fLink: Windows.Win32.Foundation.BOOL
-    hMetaPict: IntPtr
+    hMetaPict: Windows.Win32.Foundation.HGLOBAL
     sizel: Windows.Win32.Foundation.SIZE
 class OLEUIVIEWPROPSA(Structure):
     cbStruct: UInt32

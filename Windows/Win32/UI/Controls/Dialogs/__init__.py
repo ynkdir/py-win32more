@@ -766,8 +766,8 @@ if ARCH in 'X64,ARM64':
     class PAGESETUPDLGA(Structure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hDevMode: IntPtr
-        hDevNames: IntPtr
+        hDevMode: Windows.Win32.Foundation.HGLOBAL
+        hDevNames: Windows.Win32.Foundation.HGLOBAL
         Flags: Windows.Win32.UI.Controls.Dialogs.PAGESETUPDLG_FLAGS
         ptPaperSize: Windows.Win32.Foundation.POINT
         rtMinMargin: Windows.Win32.Foundation.RECT
@@ -777,13 +777,13 @@ if ARCH in 'X64,ARM64':
         lpfnPageSetupHook: Windows.Win32.UI.Controls.Dialogs.LPPAGESETUPHOOK
         lpfnPagePaintHook: Windows.Win32.UI.Controls.Dialogs.LPPAGEPAINTHOOK
         lpPageSetupTemplateName: Windows.Win32.Foundation.PSTR
-        hPageSetupTemplate: IntPtr
+        hPageSetupTemplate: Windows.Win32.Foundation.HGLOBAL
 if ARCH in 'X86':
     class PAGESETUPDLGA(Structure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hDevMode: IntPtr
-        hDevNames: IntPtr
+        hDevMode: Windows.Win32.Foundation.HGLOBAL
+        hDevNames: Windows.Win32.Foundation.HGLOBAL
         Flags: Windows.Win32.UI.Controls.Dialogs.PAGESETUPDLG_FLAGS
         ptPaperSize: Windows.Win32.Foundation.POINT
         rtMinMargin: Windows.Win32.Foundation.RECT
@@ -793,14 +793,14 @@ if ARCH in 'X86':
         lpfnPageSetupHook: Windows.Win32.UI.Controls.Dialogs.LPPAGESETUPHOOK
         lpfnPagePaintHook: Windows.Win32.UI.Controls.Dialogs.LPPAGEPAINTHOOK
         lpPageSetupTemplateName: Windows.Win32.Foundation.PSTR
-        hPageSetupTemplate: IntPtr
+        hPageSetupTemplate: Windows.Win32.Foundation.HGLOBAL
         _pack_ = 1
 if ARCH in 'X64,ARM64':
     class PAGESETUPDLGW(Structure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hDevMode: IntPtr
-        hDevNames: IntPtr
+        hDevMode: Windows.Win32.Foundation.HGLOBAL
+        hDevNames: Windows.Win32.Foundation.HGLOBAL
         Flags: Windows.Win32.UI.Controls.Dialogs.PAGESETUPDLG_FLAGS
         ptPaperSize: Windows.Win32.Foundation.POINT
         rtMinMargin: Windows.Win32.Foundation.RECT
@@ -810,13 +810,13 @@ if ARCH in 'X64,ARM64':
         lpfnPageSetupHook: Windows.Win32.UI.Controls.Dialogs.LPPAGESETUPHOOK
         lpfnPagePaintHook: Windows.Win32.UI.Controls.Dialogs.LPPAGEPAINTHOOK
         lpPageSetupTemplateName: Windows.Win32.Foundation.PWSTR
-        hPageSetupTemplate: IntPtr
+        hPageSetupTemplate: Windows.Win32.Foundation.HGLOBAL
 if ARCH in 'X86':
     class PAGESETUPDLGW(Structure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hDevMode: IntPtr
-        hDevNames: IntPtr
+        hDevMode: Windows.Win32.Foundation.HGLOBAL
+        hDevNames: Windows.Win32.Foundation.HGLOBAL
         Flags: Windows.Win32.UI.Controls.Dialogs.PAGESETUPDLG_FLAGS
         ptPaperSize: Windows.Win32.Foundation.POINT
         rtMinMargin: Windows.Win32.Foundation.RECT
@@ -826,7 +826,7 @@ if ARCH in 'X86':
         lpfnPageSetupHook: Windows.Win32.UI.Controls.Dialogs.LPPAGESETUPHOOK
         lpfnPagePaintHook: Windows.Win32.UI.Controls.Dialogs.LPPAGEPAINTHOOK
         lpPageSetupTemplateName: Windows.Win32.Foundation.PWSTR
-        hPageSetupTemplate: IntPtr
+        hPageSetupTemplate: Windows.Win32.Foundation.HGLOBAL
         _pack_ = 1
 PAGESETUPDLG_FLAGS = UInt32
 PSD_DEFAULTMINMARGINS: PAGESETUPDLG_FLAGS = 0
@@ -852,8 +852,8 @@ if ARCH in 'X64,ARM64':
     class PRINTDLGA(Structure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hDevMode: IntPtr
-        hDevNames: IntPtr
+        hDevMode: Windows.Win32.Foundation.HGLOBAL
+        hDevNames: Windows.Win32.Foundation.HGLOBAL
         hDC: Windows.Win32.Graphics.Gdi.HDC
         Flags: Windows.Win32.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
         nFromPage: UInt16
@@ -867,14 +867,14 @@ if ARCH in 'X64,ARM64':
         lpfnSetupHook: Windows.Win32.UI.Controls.Dialogs.LPSETUPHOOKPROC
         lpPrintTemplateName: Windows.Win32.Foundation.PSTR
         lpSetupTemplateName: Windows.Win32.Foundation.PSTR
-        hPrintTemplate: IntPtr
-        hSetupTemplate: IntPtr
+        hPrintTemplate: Windows.Win32.Foundation.HGLOBAL
+        hSetupTemplate: Windows.Win32.Foundation.HGLOBAL
 if ARCH in 'X86':
     class PRINTDLGA(Structure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hDevMode: IntPtr
-        hDevNames: IntPtr
+        hDevMode: Windows.Win32.Foundation.HGLOBAL
+        hDevNames: Windows.Win32.Foundation.HGLOBAL
         hDC: Windows.Win32.Graphics.Gdi.HDC
         Flags: Windows.Win32.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
         nFromPage: UInt16
@@ -888,15 +888,15 @@ if ARCH in 'X86':
         lpfnSetupHook: Windows.Win32.UI.Controls.Dialogs.LPSETUPHOOKPROC
         lpPrintTemplateName: Windows.Win32.Foundation.PSTR
         lpSetupTemplateName: Windows.Win32.Foundation.PSTR
-        hPrintTemplate: IntPtr
-        hSetupTemplate: IntPtr
+        hPrintTemplate: Windows.Win32.Foundation.HGLOBAL
+        hSetupTemplate: Windows.Win32.Foundation.HGLOBAL
         _pack_ = 1
 if ARCH in 'X64,ARM64':
     class PRINTDLGEXA(Structure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hDevMode: IntPtr
-        hDevNames: IntPtr
+        hDevMode: Windows.Win32.Foundation.HGLOBAL
+        hDevNames: Windows.Win32.Foundation.HGLOBAL
         hDC: Windows.Win32.Graphics.Gdi.HDC
         Flags: Windows.Win32.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
         Flags2: UInt32
@@ -918,8 +918,8 @@ if ARCH in 'X86':
     class PRINTDLGEXA(Structure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hDevMode: IntPtr
-        hDevNames: IntPtr
+        hDevMode: Windows.Win32.Foundation.HGLOBAL
+        hDevNames: Windows.Win32.Foundation.HGLOBAL
         hDC: Windows.Win32.Graphics.Gdi.HDC
         Flags: Windows.Win32.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
         Flags2: UInt32
@@ -942,8 +942,8 @@ if ARCH in 'X64,ARM64':
     class PRINTDLGEXW(Structure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hDevMode: IntPtr
-        hDevNames: IntPtr
+        hDevMode: Windows.Win32.Foundation.HGLOBAL
+        hDevNames: Windows.Win32.Foundation.HGLOBAL
         hDC: Windows.Win32.Graphics.Gdi.HDC
         Flags: Windows.Win32.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
         Flags2: UInt32
@@ -965,8 +965,8 @@ if ARCH in 'X86':
     class PRINTDLGEXW(Structure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hDevMode: IntPtr
-        hDevNames: IntPtr
+        hDevMode: Windows.Win32.Foundation.HGLOBAL
+        hDevNames: Windows.Win32.Foundation.HGLOBAL
         hDC: Windows.Win32.Graphics.Gdi.HDC
         Flags: Windows.Win32.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
         Flags2: UInt32
@@ -1018,8 +1018,8 @@ if ARCH in 'X64,ARM64':
     class PRINTDLGW(Structure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hDevMode: IntPtr
-        hDevNames: IntPtr
+        hDevMode: Windows.Win32.Foundation.HGLOBAL
+        hDevNames: Windows.Win32.Foundation.HGLOBAL
         hDC: Windows.Win32.Graphics.Gdi.HDC
         Flags: Windows.Win32.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
         nFromPage: UInt16
@@ -1033,14 +1033,14 @@ if ARCH in 'X64,ARM64':
         lpfnSetupHook: Windows.Win32.UI.Controls.Dialogs.LPSETUPHOOKPROC
         lpPrintTemplateName: Windows.Win32.Foundation.PWSTR
         lpSetupTemplateName: Windows.Win32.Foundation.PWSTR
-        hPrintTemplate: IntPtr
-        hSetupTemplate: IntPtr
+        hPrintTemplate: Windows.Win32.Foundation.HGLOBAL
+        hSetupTemplate: Windows.Win32.Foundation.HGLOBAL
 if ARCH in 'X86':
     class PRINTDLGW(Structure):
         lStructSize: UInt32
         hwndOwner: Windows.Win32.Foundation.HWND
-        hDevMode: IntPtr
-        hDevNames: IntPtr
+        hDevMode: Windows.Win32.Foundation.HGLOBAL
+        hDevNames: Windows.Win32.Foundation.HGLOBAL
         hDC: Windows.Win32.Graphics.Gdi.HDC
         Flags: Windows.Win32.UI.Controls.Dialogs.PRINTDLGEX_FLAGS
         nFromPage: UInt16
@@ -1054,8 +1054,8 @@ if ARCH in 'X86':
         lpfnSetupHook: Windows.Win32.UI.Controls.Dialogs.LPSETUPHOOKPROC
         lpPrintTemplateName: Windows.Win32.Foundation.PWSTR
         lpSetupTemplateName: Windows.Win32.Foundation.PWSTR
-        hPrintTemplate: IntPtr
-        hSetupTemplate: IntPtr
+        hPrintTemplate: Windows.Win32.Foundation.HGLOBAL
+        hSetupTemplate: Windows.Win32.Foundation.HGLOBAL
         _pack_ = 1
 if ARCH in 'X64,ARM64':
     class PRINTPAGERANGE(Structure):

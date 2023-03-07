@@ -56,14 +56,117 @@ class AUDIODESCRIPTION(Structure):
     cbSize: UInt32
     Enabled: Windows.Win32.Foundation.BOOL
     Locale: UInt32
-WM_DEVICECHANGE: UInt32 = 537
-BSM_VXDS: UInt32 = 1
-BSM_NETDRIVER: UInt32 = 2
-BSM_INSTALLABLEDRIVERS: UInt32 = 4
 WM_CONTEXTMENU: UInt32 = 123
 WM_UNICHAR: UInt32 = 265
 WM_PRINTCLIENT: UInt32 = 792
 WM_NOTIFY: UInt32 = 78
+GUID_IO_VOLUME_CHANGE: Guid = Guid('7373654a-812a-11d0-be-c7-08-00-2b-e2-09-2f')
+GUID_IO_VOLUME_DISMOUNT: Guid = Guid('d16a55e8-1059-11d2-8f-fd-00-a0-c9-a0-6d-32')
+GUID_IO_VOLUME_DISMOUNT_FAILED: Guid = Guid('e3c5b178-105d-11d2-8f-fd-00-a0-c9-a0-6d-32')
+GUID_IO_VOLUME_MOUNT: Guid = Guid('b5804878-1a96-11d2-8f-fd-00-a0-c9-a0-6d-32')
+GUID_IO_VOLUME_LOCK: Guid = Guid('50708874-c9af-11d1-8f-ef-00-a0-c9-a0-6d-32')
+GUID_IO_VOLUME_LOCK_FAILED: Guid = Guid('ae2eed10-0ba8-11d2-8f-fb-00-a0-c9-a0-6d-32')
+GUID_IO_VOLUME_UNLOCK: Guid = Guid('9a8c3d68-d0cb-11d1-8f-ef-00-a0-c9-a0-6d-32')
+GUID_IO_VOLUME_NAME_CHANGE: Guid = Guid('2de97f83-4c06-11d2-a5-32-00-60-97-13-05-5a')
+GUID_IO_VOLUME_NEED_CHKDSK: Guid = Guid('799a0960-0a0b-4e03-ad-88-2f-a7-c6-ce-74-8a')
+GUID_IO_VOLUME_WORM_NEAR_FULL: Guid = Guid('f3bfff82-f3de-48d2-af-95-45-7f-80-b7-63-f2')
+GUID_IO_VOLUME_WEARING_OUT: Guid = Guid('873113ca-1486-4508-82-ac-c3-b2-e5-29-7a-aa')
+GUID_IO_VOLUME_FORCE_CLOSED: Guid = Guid('411ad84f-433e-4dc2-a5-ae-4a-2d-1a-2d-e6-54')
+GUID_IO_VOLUME_INFO_MAKE_COMPAT: Guid = Guid('3ab9a0d2-ef80-45cf-8c-dc-cb-e0-2a-21-29-06')
+GUID_IO_VOLUME_PREPARING_EJECT: Guid = Guid('c79eb16e-0dac-4e7a-a8-6c-b2-5c-ee-aa-88-f6')
+GUID_IO_VOLUME_BACKGROUND_FORMAT: Guid = Guid('a2e5fc86-d5cd-4038-b2-e3-44-45-06-5c-23-77')
+GUID_IO_VOLUME_PHYSICAL_CONFIGURATION_CHANGE: Guid = Guid('2de97f84-4c06-11d2-a5-32-00-60-97-13-05-5a')
+GUID_IO_VOLUME_UNIQUE_ID_CHANGE: Guid = Guid('af39da42-6622-41f5-97-0b-13-9d-09-2f-a3-d9')
+GUID_IO_VOLUME_FVE_STATUS_CHANGE: Guid = Guid('062998b2-ee1f-4b6a-b8-57-e7-6c-bb-e9-a6-da')
+GUID_IO_VOLUME_DEVICE_INTERFACE: Guid = Guid('53f5630d-b6bf-11d0-94-f2-00-a0-c9-1e-fb-8b')
+GUID_IO_VOLUME_CHANGE_SIZE: Guid = Guid('3a1625be-ad03-49f1-8e-f8-6b-ba-c1-82-d1-fd')
+GUID_IO_MEDIA_ARRIVAL: Guid = Guid('d07433c0-a98e-11d2-91-7a-00-a0-c9-06-8f-f3')
+GUID_IO_MEDIA_REMOVAL: Guid = Guid('d07433c1-a98e-11d2-91-7a-00-a0-c9-06-8f-f3')
+GUID_IO_CDROM_EXCLUSIVE_LOCK: Guid = Guid('bc56c139-7a10-47ee-a2-94-4c-6a-38-f0-14-9a')
+GUID_IO_CDROM_EXCLUSIVE_UNLOCK: Guid = Guid('a3b6d27d-5e35-4885-81-e5-ee-18-c0-0e-d7-79')
+GUID_IO_DEVICE_BECOMING_READY: Guid = Guid('d07433f0-a98e-11d2-91-7a-00-a0-c9-06-8f-f3')
+GUID_IO_DEVICE_EXTERNAL_REQUEST: Guid = Guid('d07433d0-a98e-11d2-91-7a-00-a0-c9-06-8f-f3')
+GUID_IO_MEDIA_EJECT_REQUEST: Guid = Guid('d07433d1-a98e-11d2-91-7a-00-a0-c9-06-8f-f3')
+GUID_IO_DRIVE_REQUIRES_CLEANING: Guid = Guid('7207877c-90ed-44e5-a0-00-81-42-8d-4c-79-bb')
+GUID_IO_TAPE_ERASE: Guid = Guid('852d11eb-4bb8-4507-9d-9b-41-7c-c2-b1-b4-38')
+GUID_DEVICE_EVENT_RBC: Guid = Guid('d0744792-a98e-11d2-91-7a-00-a0-c9-06-8f-f3')
+GUID_IO_DISK_CLONE_ARRIVAL: Guid = Guid('6a61885b-7c39-43dd-9b-56-b8-ac-22-a5-49-aa')
+GUID_IO_DISK_LAYOUT_CHANGE: Guid = Guid('11dff54c-8469-41f9-b3-de-ef-83-64-87-c5-4a')
+GUID_IO_DISK_HEALTH_NOTIFICATION: Guid = Guid('0f1bd644-3916-49c5-b0-63-99-19-40-11-8f-b2')
+STRSAFE_USE_SECURE_CRT: UInt32 = 0
+STRSAFE_MAX_CCH: UInt32 = 2147483647
+STRSAFE_IGNORE_NULLS: UInt32 = 256
+STRSAFE_FILL_BEHIND_NULL: UInt32 = 512
+STRSAFE_FILL_ON_FAILURE: UInt32 = 1024
+STRSAFE_NULL_ON_FAILURE: UInt32 = 2048
+STRSAFE_NO_TRUNCATION: UInt32 = 4096
+STRSAFE_E_INSUFFICIENT_BUFFER: Windows.Win32.Foundation.HRESULT = -2147024774
+STRSAFE_E_INVALID_PARAMETER: Windows.Win32.Foundation.HRESULT = -2147024809
+STRSAFE_E_END_OF_FILE: Windows.Win32.Foundation.HRESULT = -2147024858
+__WARNING_CYCLOMATIC_COMPLEXITY: UInt32 = 28734
+__WARNING_USING_UNINIT_VAR: UInt32 = 6001
+__WARNING_RETURN_UNINIT_VAR: UInt32 = 6101
+__WARNING_DEREF_NULL_PTR: UInt32 = 6011
+__WARNING_MISSING_ZERO_TERMINATION2: UInt32 = 6054
+__WARNING_INVALID_PARAM_VALUE_1: UInt32 = 6387
+__WARNING_INCORRECT_ANNOTATION: UInt32 = 26007
+__WARNING_POTENTIAL_BUFFER_OVERFLOW_HIGH_PRIORITY: UInt32 = 26015
+__WARNING_PRECONDITION_NULLTERMINATION_VIOLATION: UInt32 = 26035
+__WARNING_POSTCONDITION_NULLTERMINATION_VIOLATION: UInt32 = 26036
+__WARNING_HIGH_PRIORITY_OVERFLOW_POSTCONDITION: UInt32 = 26045
+__WARNING_RANGE_POSTCONDITION_VIOLATION: UInt32 = 26061
+__WARNING_POTENTIAL_RANGE_POSTCONDITION_VIOLATION: UInt32 = 26071
+__WARNING_INVALID_PARAM_VALUE_3: UInt32 = 28183
+__WARNING_RETURNING_BAD_RESULT: UInt32 = 28196
+__WARNING_BANNED_API_USAGE: UInt32 = 28719
+__WARNING_POST_EXPECTED: UInt32 = 28210
+WM_DEVICECHANGE: UInt32 = 537
+BSF_MSGSRV32ISOK: UInt32 = 2147483648
+BSF_MSGSRV32ISOK_BIT: UInt32 = 31
+BSM_VXDS: UInt32 = 1
+BSM_NETDRIVER: UInt32 = 2
+BSM_INSTALLABLEDRIVERS: UInt32 = 4
+DBT_APPYBEGIN: UInt32 = 0
+DBT_APPYEND: UInt32 = 1
+DBT_DEVNODES_CHANGED: UInt32 = 7
+DBT_QUERYCHANGECONFIG: UInt32 = 23
+DBT_CONFIGCHANGED: UInt32 = 24
+DBT_CONFIGCHANGECANCELED: UInt32 = 25
+DBT_MONITORCHANGE: UInt32 = 27
+DBT_SHELLLOGGEDON: UInt32 = 32
+DBT_CONFIGMGAPI32: UInt32 = 34
+DBT_VXDINITCOMPLETE: UInt32 = 35
+DBT_VOLLOCKQUERYLOCK: UInt32 = 32833
+DBT_VOLLOCKLOCKTAKEN: UInt32 = 32834
+DBT_VOLLOCKLOCKFAILED: UInt32 = 32835
+DBT_VOLLOCKQUERYUNLOCK: UInt32 = 32836
+DBT_VOLLOCKLOCKRELEASED: UInt32 = 32837
+DBT_VOLLOCKUNLOCKFAILED: UInt32 = 32838
+LOCKP_ALLOW_WRITES: UInt32 = 1
+LOCKP_FAIL_WRITES: UInt32 = 0
+LOCKP_FAIL_MEM_MAPPING: UInt32 = 2
+LOCKP_ALLOW_MEM_MAPPING: UInt32 = 0
+LOCKP_USER_MASK: UInt32 = 3
+LOCKP_LOCK_FOR_FORMAT: UInt32 = 4
+LOCKF_LOGICAL_LOCK: UInt32 = 0
+LOCKF_PHYSICAL_LOCK: UInt32 = 1
+DBT_NO_DISK_SPACE: UInt32 = 71
+DBT_LOW_DISK_SPACE: UInt32 = 72
+DBT_CONFIGMGPRIVATE: UInt32 = 32767
+DBT_DEVICEARRIVAL: UInt32 = 32768
+DBT_DEVICEQUERYREMOVE: UInt32 = 32769
+DBT_DEVICEQUERYREMOVEFAILED: UInt32 = 32770
+DBT_DEVICEREMOVEPENDING: UInt32 = 32771
+DBT_DEVICEREMOVECOMPLETE: UInt32 = 32772
+DBT_DEVICETYPESPECIFIC: UInt32 = 32773
+DBT_CUSTOMEVENT: UInt32 = 32774
+DBT_DEVTYP_DEVNODE: UInt32 = 1
+DBT_DEVTYP_NET: UInt32 = 4
+DBTF_RESOURCE: UInt32 = 1
+DBTF_XPORT: UInt32 = 2
+DBTF_SLOWNET: UInt32 = 4
+DBT_VPOWERDAPI: UInt32 = 33024
+DBT_USERDEFINED: UInt32 = 65535
 RT_CURSOR: Windows.Win32.Foundation.PWSTR = 1
 RT_BITMAP: Windows.Win32.Foundation.PWSTR = 2
 RT_ICON: Windows.Win32.Foundation.PWSTR = 3
@@ -1329,33 +1432,6 @@ NID_EXTERNAL_PEN: UInt32 = 8
 NID_MULTI_INPUT: UInt32 = 64
 NID_READY: UInt32 = 128
 MAX_STR_BLOCKREASON: UInt32 = 256
-STRSAFE_USE_SECURE_CRT: UInt32 = 0
-STRSAFE_MAX_CCH: UInt32 = 2147483647
-STRSAFE_IGNORE_NULLS: UInt32 = 256
-STRSAFE_FILL_BEHIND_NULL: UInt32 = 512
-STRSAFE_FILL_ON_FAILURE: UInt32 = 1024
-STRSAFE_NULL_ON_FAILURE: UInt32 = 2048
-STRSAFE_NO_TRUNCATION: UInt32 = 4096
-STRSAFE_E_INSUFFICIENT_BUFFER: Windows.Win32.Foundation.HRESULT = -2147024774
-STRSAFE_E_INVALID_PARAMETER: Windows.Win32.Foundation.HRESULT = -2147024809
-STRSAFE_E_END_OF_FILE: Windows.Win32.Foundation.HRESULT = -2147024858
-__WARNING_CYCLOMATIC_COMPLEXITY: UInt32 = 28734
-__WARNING_USING_UNINIT_VAR: UInt32 = 6001
-__WARNING_RETURN_UNINIT_VAR: UInt32 = 6101
-__WARNING_DEREF_NULL_PTR: UInt32 = 6011
-__WARNING_MISSING_ZERO_TERMINATION2: UInt32 = 6054
-__WARNING_INVALID_PARAM_VALUE_1: UInt32 = 6387
-__WARNING_INCORRECT_ANNOTATION: UInt32 = 26007
-__WARNING_POTENTIAL_BUFFER_OVERFLOW_HIGH_PRIORITY: UInt32 = 26015
-__WARNING_PRECONDITION_NULLTERMINATION_VIOLATION: UInt32 = 26035
-__WARNING_POSTCONDITION_NULLTERMINATION_VIOLATION: UInt32 = 26036
-__WARNING_HIGH_PRIORITY_OVERFLOW_POSTCONDITION: UInt32 = 26045
-__WARNING_RANGE_POSTCONDITION_VIOLATION: UInt32 = 26061
-__WARNING_POTENTIAL_RANGE_POSTCONDITION_VIOLATION: UInt32 = 26071
-__WARNING_INVALID_PARAM_VALUE_3: UInt32 = 28183
-__WARNING_RETURNING_BAD_RESULT: UInt32 = 28196
-__WARNING_BANNED_API_USAGE: UInt32 = 28719
-__WARNING_POST_EXPECTED: UInt32 = 28210
 HBMMENU_CALLBACK: Windows.Win32.Graphics.Gdi.HBITMAP = -1
 HBMMENU_SYSTEM: Windows.Win32.Graphics.Gdi.HBITMAP = 1
 HBMMENU_MBAR_RESTORE: Windows.Win32.Graphics.Gdi.HBITMAP = 2
@@ -1459,6 +1535,8 @@ def SendMessageCallbackW(hWnd: Windows.Win32.Foundation.HWND, Msg: UInt32, wPara
 def RegisterDeviceNotificationA(hRecipient: Windows.Win32.Foundation.HANDLE, NotificationFilter: c_void_p, Flags: Windows.Win32.System.Power.POWER_SETTING_REGISTER_NOTIFICATION_FLAGS) -> c_void_p: ...
 @winfunctype('USER32.dll')
 def RegisterDeviceNotificationW(hRecipient: Windows.Win32.Foundation.HANDLE, NotificationFilter: c_void_p, Flags: Windows.Win32.System.Power.POWER_SETTING_REGISTER_NOTIFICATION_FLAGS) -> c_void_p: ...
+@winfunctype('USER32.dll')
+def UnregisterDeviceNotification(Handle: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
 def PostMessageA(hWnd: Windows.Win32.Foundation.HWND, Msg: UInt32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
@@ -2286,6 +2364,117 @@ class DEBUGHOOKINFO(Structure):
     lParam: Windows.Win32.Foundation.LPARAM
     wParam: Windows.Win32.Foundation.WPARAM
     code: Int32
+class DEVICE_EVENT_BECOMING_READY(Structure):
+    Version: UInt32
+    Reason: UInt32
+    Estimated100msToReady: UInt32
+class DEVICE_EVENT_EXTERNAL_REQUEST(Structure):
+    Version: UInt32
+    DeviceClass: UInt32
+    ButtonStatus: UInt16
+    Request: UInt16
+    SystemTime: Windows.Win32.Foundation.LARGE_INTEGER
+class DEVICE_EVENT_GENERIC_DATA(Structure):
+    EventNumber: UInt32
+class DEVICE_EVENT_MOUNT(Structure):
+    Version: UInt32
+    Flags: UInt32
+    FileSystemNameLength: UInt32
+    FileSystemNameOffset: UInt32
+class DEVICE_EVENT_RBC_DATA(Structure):
+    EventNumber: UInt32
+    SenseQualifier: Byte
+    SenseCode: Byte
+    SenseKey: Byte
+    Reserved: Byte
+    Information: UInt32
+class DEV_BROADCAST_DEVICEINTERFACE_A(Structure):
+    dbcc_size: UInt32
+    dbcc_devicetype: UInt32
+    dbcc_reserved: UInt32
+    dbcc_classguid: Guid
+    dbcc_name: Windows.Win32.Foundation.CHAR * 1
+class DEV_BROADCAST_DEVICEINTERFACE_W(Structure):
+    dbcc_size: UInt32
+    dbcc_devicetype: UInt32
+    dbcc_reserved: UInt32
+    dbcc_classguid: Guid
+    dbcc_name: Char * 1
+class DEV_BROADCAST_DEVNODE(Structure):
+    dbcd_size: UInt32
+    dbcd_devicetype: UInt32
+    dbcd_reserved: UInt32
+    dbcd_devnode: UInt32
+class DEV_BROADCAST_HANDLE(Structure):
+    dbch_size: UInt32
+    dbch_devicetype: UInt32
+    dbch_reserved: UInt32
+    dbch_handle: Windows.Win32.Foundation.HANDLE
+    dbch_hdevnotify: c_void_p
+    dbch_eventguid: Guid
+    dbch_nameoffset: Int32
+    dbch_data: Byte * 1
+class DEV_BROADCAST_HANDLE32(Structure):
+    dbch_size: UInt32
+    dbch_devicetype: UInt32
+    dbch_reserved: UInt32
+    dbch_handle: UInt32
+    dbch_hdevnotify: UInt32
+    dbch_eventguid: Guid
+    dbch_nameoffset: Int32
+    dbch_data: Byte * 1
+class DEV_BROADCAST_HANDLE64(Structure):
+    dbch_size: UInt32
+    dbch_devicetype: UInt32
+    dbch_reserved: UInt32
+    dbch_handle: UInt64
+    dbch_hdevnotify: UInt64
+    dbch_eventguid: Guid
+    dbch_nameoffset: Int32
+    dbch_data: Byte * 1
+class DEV_BROADCAST_HDR(Structure):
+    dbch_size: UInt32
+    dbch_devicetype: Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR_DEVICE_TYPE
+    dbch_reserved: UInt32
+DEV_BROADCAST_HDR_DEVICE_TYPE = UInt32
+DBT_DEVTYP_DEVICEINTERFACE: DEV_BROADCAST_HDR_DEVICE_TYPE = 5
+DBT_DEVTYP_HANDLE: DEV_BROADCAST_HDR_DEVICE_TYPE = 6
+DBT_DEVTYP_OEM: DEV_BROADCAST_HDR_DEVICE_TYPE = 0
+DBT_DEVTYP_PORT: DEV_BROADCAST_HDR_DEVICE_TYPE = 3
+DBT_DEVTYP_VOLUME: DEV_BROADCAST_HDR_DEVICE_TYPE = 2
+class DEV_BROADCAST_NET(Structure):
+    dbcn_size: UInt32
+    dbcn_devicetype: UInt32
+    dbcn_reserved: UInt32
+    dbcn_resource: UInt32
+    dbcn_flags: UInt32
+class DEV_BROADCAST_OEM(Structure):
+    dbco_size: UInt32
+    dbco_devicetype: UInt32
+    dbco_reserved: UInt32
+    dbco_identifier: UInt32
+    dbco_suppfunc: UInt32
+class DEV_BROADCAST_PORT_A(Structure):
+    dbcp_size: UInt32
+    dbcp_devicetype: UInt32
+    dbcp_reserved: UInt32
+    dbcp_name: Windows.Win32.Foundation.CHAR * 1
+class DEV_BROADCAST_PORT_W(Structure):
+    dbcp_size: UInt32
+    dbcp_devicetype: UInt32
+    dbcp_reserved: UInt32
+    dbcp_name: Char * 1
+class DEV_BROADCAST_VOLUME(Structure):
+    dbcv_size: UInt32
+    dbcv_devicetype: UInt32
+    dbcv_reserved: UInt32
+    dbcv_unitmask: UInt32
+    dbcv_flags: Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_VOLUME_FLAGS
+DEV_BROADCAST_VOLUME_FLAGS = UInt16
+DBTF_MEDIA: DEV_BROADCAST_VOLUME_FLAGS = 1
+DBTF_NET: DEV_BROADCAST_VOLUME_FLAGS = 2
+class DISK_HEALTH_NOTIFICATION_DATA(Structure):
+    DeviceGuid: Guid
 DI_FLAGS = UInt32
 DI_MASK: DI_FLAGS = 1
 DI_IMAGE: DI_FLAGS = 2
@@ -2383,6 +2572,8 @@ GW_HWNDLAST: GET_WINDOW_CMD = 1
 GW_HWNDNEXT: GET_WINDOW_CMD = 2
 GW_HWNDPREV: GET_WINDOW_CMD = 3
 GW_OWNER: GET_WINDOW_CMD = 4
+class GUID_IO_DISK_CLONE_ARRIVAL_INFORMATION(Structure):
+    DiskNumber: UInt32
 class GUITHREADINFO(Structure):
     cbSize: UInt32
     flags: Windows.Win32.UI.WindowsAndMessaging.GUITHREADINFO_FLAGS
@@ -3413,6 +3604,13 @@ ULW_ALPHA: UPDATE_LAYERED_WINDOW_FLAGS = 2
 ULW_COLORKEY: UPDATE_LAYERED_WINDOW_FLAGS = 1
 ULW_OPAQUE: UPDATE_LAYERED_WINDOW_FLAGS = 4
 ULW_EX_NORESIZE: UPDATE_LAYERED_WINDOW_FLAGS = 8
+class VolLockBroadcast(Structure):
+    vlb_dbh: Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR
+    vlb_owner: UInt32
+    vlb_perms: Byte
+    vlb_lockType: Byte
+    vlb_drive: Byte
+    vlb_flags: Byte
 class WINDOWINFO(Structure):
     cbSize: UInt32
     rcWindow: Windows.Win32.Foundation.RECT
@@ -3603,6 +3801,13 @@ CS_DROPSHADOW: WNDCLASS_STYLES = 131072
 def WNDENUMPROC(param0: Windows.Win32.Foundation.HWND, param1: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def WNDPROC(param0: Windows.Win32.Foundation.HWND, param1: UInt32, param2: Windows.Win32.Foundation.WPARAM, param3: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.LRESULT: ...
+class _DEV_BROADCAST_HEADER(Structure):
+    dbcd_size: UInt32
+    dbcd_devicetype: UInt32
+    dbcd_reserved: UInt32
+class _DEV_BROADCAST_USERDEFINED(Structure):
+    dbud_dbh: Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_HDR
+    dbud_szName: Windows.Win32.Foundation.CHAR * 1
 make_head(_module, 'ACCEL')
 make_head(_module, 'ALTTABINFO')
 make_head(_module, 'ANIMATIONINFO')
@@ -3619,12 +3824,31 @@ make_head(_module, 'CURSORSHAPE')
 make_head(_module, 'CWPRETSTRUCT')
 make_head(_module, 'CWPSTRUCT')
 make_head(_module, 'DEBUGHOOKINFO')
+make_head(_module, 'DEVICE_EVENT_BECOMING_READY')
+make_head(_module, 'DEVICE_EVENT_EXTERNAL_REQUEST')
+make_head(_module, 'DEVICE_EVENT_GENERIC_DATA')
+make_head(_module, 'DEVICE_EVENT_MOUNT')
+make_head(_module, 'DEVICE_EVENT_RBC_DATA')
+make_head(_module, 'DEV_BROADCAST_DEVICEINTERFACE_A')
+make_head(_module, 'DEV_BROADCAST_DEVICEINTERFACE_W')
+make_head(_module, 'DEV_BROADCAST_DEVNODE')
+make_head(_module, 'DEV_BROADCAST_HANDLE')
+make_head(_module, 'DEV_BROADCAST_HANDLE32')
+make_head(_module, 'DEV_BROADCAST_HANDLE64')
+make_head(_module, 'DEV_BROADCAST_HDR')
+make_head(_module, 'DEV_BROADCAST_NET')
+make_head(_module, 'DEV_BROADCAST_OEM')
+make_head(_module, 'DEV_BROADCAST_PORT_A')
+make_head(_module, 'DEV_BROADCAST_PORT_W')
+make_head(_module, 'DEV_BROADCAST_VOLUME')
+make_head(_module, 'DISK_HEALTH_NOTIFICATION_DATA')
 make_head(_module, 'DLGITEMTEMPLATE')
 make_head(_module, 'DLGPROC')
 make_head(_module, 'DLGTEMPLATE')
 make_head(_module, 'DROPSTRUCT')
 make_head(_module, 'EVENTMSG')
 make_head(_module, 'FLASHWINFO')
+make_head(_module, 'GUID_IO_DISK_CLONE_ARRIVAL_INFORMATION')
 make_head(_module, 'GUITHREADINFO')
 make_head(_module, 'HARDWAREHOOKSTRUCT')
 make_head(_module, 'HOOKPROC')
@@ -3680,6 +3904,7 @@ make_head(_module, 'TITLEBARINFOEX')
 make_head(_module, 'TOUCHPREDICTIONPARAMETERS')
 make_head(_module, 'TPMPARAMS')
 make_head(_module, 'UPDATELAYEREDWINDOWINFO')
+make_head(_module, 'VolLockBroadcast')
 make_head(_module, 'WINDOWINFO')
 make_head(_module, 'WINDOWPLACEMENT')
 make_head(_module, 'WINDOWPOS')
@@ -3689,6 +3914,8 @@ make_head(_module, 'WNDCLASSEXW')
 make_head(_module, 'WNDCLASSW')
 make_head(_module, 'WNDENUMPROC')
 make_head(_module, 'WNDPROC')
+make_head(_module, '_DEV_BROADCAST_HEADER')
+make_head(_module, '_DEV_BROADCAST_USERDEFINED')
 __all__ = [
     "ACCEL",
     "ACCEL_VIRT_FLAGS",
@@ -3747,6 +3974,8 @@ __all__ = [
     "BN_UNHILITE",
     "BN_UNPUSHED",
     "BROADCAST_QUERY_DENY",
+    "BSF_MSGSRV32ISOK",
+    "BSF_MSGSRV32ISOK_BIT",
     "BSM_INSTALLABLEDRIVERS",
     "BSM_NETDRIVER",
     "BSM_VXDS",
@@ -3963,11 +4192,71 @@ __all__ = [
     "CreateResourceIndexer",
     "CreateWindowExA",
     "CreateWindowExW",
+    "DBTF_MEDIA",
+    "DBTF_NET",
+    "DBTF_RESOURCE",
+    "DBTF_SLOWNET",
+    "DBTF_XPORT",
+    "DBT_APPYBEGIN",
+    "DBT_APPYEND",
+    "DBT_CONFIGCHANGECANCELED",
+    "DBT_CONFIGCHANGED",
+    "DBT_CONFIGMGAPI32",
+    "DBT_CONFIGMGPRIVATE",
+    "DBT_CUSTOMEVENT",
+    "DBT_DEVICEARRIVAL",
+    "DBT_DEVICEQUERYREMOVE",
+    "DBT_DEVICEQUERYREMOVEFAILED",
+    "DBT_DEVICEREMOVECOMPLETE",
+    "DBT_DEVICEREMOVEPENDING",
+    "DBT_DEVICETYPESPECIFIC",
+    "DBT_DEVNODES_CHANGED",
+    "DBT_DEVTYP_DEVICEINTERFACE",
+    "DBT_DEVTYP_DEVNODE",
+    "DBT_DEVTYP_HANDLE",
+    "DBT_DEVTYP_NET",
+    "DBT_DEVTYP_OEM",
+    "DBT_DEVTYP_PORT",
+    "DBT_DEVTYP_VOLUME",
+    "DBT_LOW_DISK_SPACE",
+    "DBT_MONITORCHANGE",
+    "DBT_NO_DISK_SPACE",
+    "DBT_QUERYCHANGECONFIG",
+    "DBT_SHELLLOGGEDON",
+    "DBT_USERDEFINED",
+    "DBT_VOLLOCKLOCKFAILED",
+    "DBT_VOLLOCKLOCKRELEASED",
+    "DBT_VOLLOCKLOCKTAKEN",
+    "DBT_VOLLOCKQUERYLOCK",
+    "DBT_VOLLOCKQUERYUNLOCK",
+    "DBT_VOLLOCKUNLOCKFAILED",
+    "DBT_VPOWERDAPI",
+    "DBT_VXDINITCOMPLETE",
     "DCX_EXCLUDEUPDATE",
     "DC_HASDEFID",
     "DEBUGHOOKINFO",
+    "DEVICE_EVENT_BECOMING_READY",
+    "DEVICE_EVENT_EXTERNAL_REQUEST",
+    "DEVICE_EVENT_GENERIC_DATA",
+    "DEVICE_EVENT_MOUNT",
+    "DEVICE_EVENT_RBC_DATA",
     "DEVICE_NOTIFY_ALL_INTERFACE_CLASSES",
+    "DEV_BROADCAST_DEVICEINTERFACE_A",
+    "DEV_BROADCAST_DEVICEINTERFACE_W",
+    "DEV_BROADCAST_DEVNODE",
+    "DEV_BROADCAST_HANDLE",
+    "DEV_BROADCAST_HANDLE32",
+    "DEV_BROADCAST_HANDLE64",
+    "DEV_BROADCAST_HDR",
+    "DEV_BROADCAST_HDR_DEVICE_TYPE",
+    "DEV_BROADCAST_NET",
+    "DEV_BROADCAST_OEM",
+    "DEV_BROADCAST_PORT_A",
+    "DEV_BROADCAST_PORT_W",
+    "DEV_BROADCAST_VOLUME",
+    "DEV_BROADCAST_VOLUME_FLAGS",
     "DIFFERENCE",
+    "DISK_HEALTH_NOTIFICATION_DATA",
     "DI_COMPAT",
     "DI_DEFAULTSIZE",
     "DI_FLAGS",
@@ -4274,6 +4563,40 @@ __all__ = [
     "GIDC_REMOVAL",
     "GMDI_GOINTOPOPUPS",
     "GMDI_USEDISABLED",
+    "GUID_DEVICE_EVENT_RBC",
+    "GUID_IO_CDROM_EXCLUSIVE_LOCK",
+    "GUID_IO_CDROM_EXCLUSIVE_UNLOCK",
+    "GUID_IO_DEVICE_BECOMING_READY",
+    "GUID_IO_DEVICE_EXTERNAL_REQUEST",
+    "GUID_IO_DISK_CLONE_ARRIVAL",
+    "GUID_IO_DISK_CLONE_ARRIVAL_INFORMATION",
+    "GUID_IO_DISK_HEALTH_NOTIFICATION",
+    "GUID_IO_DISK_LAYOUT_CHANGE",
+    "GUID_IO_DRIVE_REQUIRES_CLEANING",
+    "GUID_IO_MEDIA_ARRIVAL",
+    "GUID_IO_MEDIA_EJECT_REQUEST",
+    "GUID_IO_MEDIA_REMOVAL",
+    "GUID_IO_TAPE_ERASE",
+    "GUID_IO_VOLUME_BACKGROUND_FORMAT",
+    "GUID_IO_VOLUME_CHANGE",
+    "GUID_IO_VOLUME_CHANGE_SIZE",
+    "GUID_IO_VOLUME_DEVICE_INTERFACE",
+    "GUID_IO_VOLUME_DISMOUNT",
+    "GUID_IO_VOLUME_DISMOUNT_FAILED",
+    "GUID_IO_VOLUME_FORCE_CLOSED",
+    "GUID_IO_VOLUME_FVE_STATUS_CHANGE",
+    "GUID_IO_VOLUME_INFO_MAKE_COMPAT",
+    "GUID_IO_VOLUME_LOCK",
+    "GUID_IO_VOLUME_LOCK_FAILED",
+    "GUID_IO_VOLUME_MOUNT",
+    "GUID_IO_VOLUME_NAME_CHANGE",
+    "GUID_IO_VOLUME_NEED_CHKDSK",
+    "GUID_IO_VOLUME_PHYSICAL_CONFIGURATION_CHANGE",
+    "GUID_IO_VOLUME_PREPARING_EJECT",
+    "GUID_IO_VOLUME_UNIQUE_ID_CHANGE",
+    "GUID_IO_VOLUME_UNLOCK",
+    "GUID_IO_VOLUME_WEARING_OUT",
+    "GUID_IO_VOLUME_WORM_NEAR_FULL",
     "GUITHREADINFO",
     "GUITHREADINFO_FLAGS",
     "GUI_16BITTASK",
@@ -4706,6 +5029,14 @@ __all__ = [
     "LLKHF_UP",
     "LLMHF_INJECTED",
     "LLMHF_LOWER_IL_INJECTED",
+    "LOCKF_LOGICAL_LOCK",
+    "LOCKF_PHYSICAL_LOCK",
+    "LOCKP_ALLOW_MEM_MAPPING",
+    "LOCKP_ALLOW_WRITES",
+    "LOCKP_FAIL_MEM_MAPPING",
+    "LOCKP_FAIL_WRITES",
+    "LOCKP_LOCK_FOR_FORMAT",
+    "LOCKP_USER_MASK",
     "LR_COLOR",
     "LR_COPYDELETEORG",
     "LR_COPYFROMRESOURCE",
@@ -5987,8 +6318,10 @@ __all__ = [
     "UnhookWindowsHookEx",
     "UnregisterClassA",
     "UnregisterClassW",
+    "UnregisterDeviceNotification",
     "UpdateLayeredWindow",
     "UpdateLayeredWindowIndirect",
+    "VolLockBroadcast",
     "WA_ACTIVE",
     "WA_CLICKACTIVE",
     "WA_INACTIVE",
@@ -6390,6 +6723,8 @@ __all__ = [
     "WindowFromPoint",
     "XBUTTON1",
     "XBUTTON2",
+    "_DEV_BROADCAST_HEADER",
+    "_DEV_BROADCAST_USERDEFINED",
     "__WARNING_BANNED_API_USAGE",
     "__WARNING_CYCLOMATIC_COMPLEXITY",
     "__WARNING_DEREF_NULL_PTR",

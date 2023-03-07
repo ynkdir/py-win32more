@@ -103,7 +103,7 @@ def RoUninitialize() -> Void: ...
 @winfunctype('api-ms-win-core-winrt-l1-1-0.dll')
 def RoActivateInstance(activatableClassId: Windows.Win32.System.WinRT.HSTRING, instance: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-winrt-l1-1-0.dll')
-def RoRegisterActivationFactories(activatableClassIds: POINTER(Windows.Win32.System.WinRT.HSTRING), activationFactoryCallbacks: POINTER(IntPtr), count: UInt32, cookie: POINTER(IntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
+def RoRegisterActivationFactories(activatableClassIds: POINTER(Windows.Win32.System.WinRT.HSTRING), activationFactoryCallbacks: POINTER(Windows.Win32.System.WinRT.PFNGETACTIVATIONFACTORY), count: UInt32, cookie: POINTER(IntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-winrt-l1-1-0.dll')
 def RoRevokeActivationFactories(cookie: IntPtr) -> Void: ...
 @winfunctype('api-ms-win-core-winrt-l1-1-0.dll')
@@ -488,6 +488,8 @@ class IWebAuthenticationCoreManagerInterop(c_void_p):
     @commethod(7)
     def RequestTokenWithWebAccountForWindowAsync(appWindow: Windows.Win32.Foundation.HWND, request: Windows.Win32.System.WinRT.IInspectable_head, webAccount: Windows.Win32.System.WinRT.IInspectable_head, riid: POINTER(Guid), asyncInfo: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
+def PFNGETACTIVATIONFACTORY(param0: Windows.Win32.System.WinRT.HSTRING, param1: POINTER(Windows.Win32.System.WinRT.IActivationFactory_head)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype_pointer
 def PINSPECT_HSTRING_CALLBACK(context: c_void_p, readAddress: UIntPtr, length: UInt32, buffer: c_char_p_no) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PINSPECT_HSTRING_CALLBACK2(context: c_void_p, readAddress: UInt64, length: UInt32, buffer: c_char_p_no) -> Windows.Win32.Foundation.HRESULT: ...
@@ -557,6 +559,7 @@ make_head(_module, 'IUserConsentVerifierInterop')
 make_head(_module, 'IWeakReference')
 make_head(_module, 'IWeakReferenceSource')
 make_head(_module, 'IWebAuthenticationCoreManagerInterop')
+make_head(_module, 'PFNGETACTIVATIONFACTORY')
 make_head(_module, 'PINSPECT_HSTRING_CALLBACK')
 make_head(_module, 'PINSPECT_HSTRING_CALLBACK2')
 make_head(_module, 'PINSPECT_MEMORY_CALLBACK')
@@ -666,6 +669,7 @@ __all__ = [
     "IsErrorPropagationEnabled",
     "MAX_ERROR_MESSAGE_CHARS",
     "MetaDataGetDispenser",
+    "PFNGETACTIVATIONFACTORY",
     "PINSPECT_HSTRING_CALLBACK",
     "PINSPECT_HSTRING_CALLBACK2",
     "PINSPECT_MEMORY_CALLBACK",
