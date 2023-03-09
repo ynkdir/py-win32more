@@ -1228,10 +1228,13 @@ class PyGenerator:
         writer.write("]\n")
         return writer.getvalue()
 
-    def emit_all(self, export_names_group_by_namespace: dict[str, set[str]]) -> str:
+    def emit_all(self) -> str:
         writer = StringIO()
         writer.write("import importlib\n")
         writer.write("import sys\n")
+        writer.write("import Windows.Win32\n")
+        writer.write("from importlib import import_module\n")
+        writer.write("from pkgutil import walk_packages, iter_modules\n")
         writer.write("_module = sys.modules[__name__]\n")
         writer.write("def __getattr__(name):\n")
         writer.write("    if name not in nameindex:\n")
@@ -1245,10 +1248,11 @@ class PyGenerator:
         writer.write("nameindex = {\n")
         for name in BASE_EXPORTS:
             writer.write(f"'{name}': 'Windows.base',\n")
-        for namespace in sorted(export_names_group_by_namespace):
-            for name in sorted(export_names_group_by_namespace[namespace]):
-                writer.write(f"'{name}': '{namespace}',\n")
         writer.write("}\n")
+        writer.write("for sub in walk_packages(Windows.Win32.__path__, 'Windows.Win32.'):\n")
+        writer.write("    mod = import_module(sub.name)\n")
+        writer.write("    if not list(iter_modules(mod.__path__)):\n")
+        writer.write("        for i in mod.__all__: nameindex[i] = sub.name\n")
         writer.write("__all__ = sorted(nameindex)\n")
         return writer.getvalue()
 
