@@ -1371,7 +1371,6 @@ def make_module_path_for_write(namespace) -> TextIO:
 
 def generate(meta: Metadata) -> None:
     pg = PyGenerator()
-    export_names_group_by_namespace = {}
     for namespace, meta_group_by_namespace in meta.group_by_namespace().items():
         import_namespaces = set(meta_group_by_namespace.enumerate_importing_namespaces()) | {namespace}
         export_names = set(meta_group_by_namespace.enumerate_exporting_names())
@@ -1383,9 +1382,8 @@ def generate(meta: Metadata) -> None:
             for td in meta_group_by_namespace:
                 writer.write(pg.emit_make_head(td))
             writer.write(pg.emit_footer(export_names, export_names_optional))
-        export_names_group_by_namespace[namespace] = export_names
     with open(f"Windows/all.py", "w") as writer:
-        writer.write(pg.emit_all(export_names_group_by_namespace))
+        writer.write(pg.emit_all())
 
 
 def generate_one(meta: Metadata, writer: TextIO) -> None:
