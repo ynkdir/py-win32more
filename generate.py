@@ -1234,7 +1234,7 @@ class PyGenerator:
         writer.write("import sys\n")
         writer.write("import Windows.Win32\n")
         writer.write("from importlib import import_module\n")
-        writer.write("from pkgutil import walk_packages, iter_modules\n")
+        writer.write("from pkgutil import walk_packages\n")
         writer.write("_module = sys.modules[__name__]\n")
         writer.write("def __getattr__(name):\n")
         writer.write("    if name not in nameindex:\n")
@@ -1251,8 +1251,7 @@ class PyGenerator:
         writer.write("}\n")
         writer.write("for sub in walk_packages(Windows.Win32.__path__, 'Windows.Win32.'):\n")
         writer.write("    mod = import_module(sub.name)\n")
-        writer.write("    if not list(iter_modules(mod.__path__)):\n")
-        writer.write("        for i in mod.__all__: nameindex[i] = sub.name\n")
+        writer.write("    for i in getattr(mod, '__all__', []): nameindex[i] = sub.name\n")
         writer.write("__all__ = sorted(nameindex)\n")
         return writer.getvalue()
 
