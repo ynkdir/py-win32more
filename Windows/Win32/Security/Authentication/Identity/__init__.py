@@ -26,15 +26,15 @@ def __getattr__(name):
 def __dir__():
     return __all__
 @winfunctype_pointer
-def ACCEPT_SECURITY_CONTEXT_FN(param0: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param1: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param2: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), param3: UInt32, param4: UInt32, param5: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param6: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), param7: POINTER(UInt32), param8: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def ACCEPT_SECURITY_CONTEXT_FN(param0: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param1: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param2: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), param3: UInt32, param4: UInt32, param5: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param6: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), param7: POINTER(UInt32), param8: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def ACQUIRE_CREDENTIALS_HANDLE_FN_A(param0: POINTER(SByte), param1: POINTER(SByte), param2: UInt32, param3: c_void_p, param4: c_void_p, param5: Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, param6: c_void_p, param7: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param8: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def ACQUIRE_CREDENTIALS_HANDLE_FN_A(param0: POINTER(SByte), param1: POINTER(SByte), param2: UInt32, param3: c_void_p, param4: c_void_p, param5: Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, param6: c_void_p, param7: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param8: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def ACQUIRE_CREDENTIALS_HANDLE_FN_W(param0: POINTER(UInt16), param1: POINTER(UInt16), param2: UInt32, param3: c_void_p, param4: c_void_p, param5: Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, param6: c_void_p, param7: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param8: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def ACQUIRE_CREDENTIALS_HANDLE_FN_W(param0: POINTER(UInt16), param1: POINTER(UInt16), param2: UInt32, param3: c_void_p, param4: c_void_p, param5: Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, param6: c_void_p, param7: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param8: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def ADD_CREDENTIALS_FN_A(param0: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param1: POINTER(SByte), param2: POINTER(SByte), param3: UInt32, param4: c_void_p, param5: Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, param6: c_void_p, param7: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def ADD_CREDENTIALS_FN_A(param0: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param1: POINTER(SByte), param2: POINTER(SByte), param3: UInt32, param4: c_void_p, param5: Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, param6: c_void_p, param7: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def ADD_CREDENTIALS_FN_W(param0: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param1: POINTER(UInt16), param2: POINTER(UInt16), param3: UInt32, param4: c_void_p, param5: Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, param6: c_void_p, param7: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def ADD_CREDENTIALS_FN_W(param0: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param1: POINTER(UInt16), param2: POINTER(UInt16), param3: UInt32, param4: c_void_p, param5: Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, param6: c_void_p, param7: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def APPLY_CONTROL_TOKEN_FN(param0: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param1: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head)) -> Windows.Win32.Foundation.HRESULT: ...
 ASC_REQ_FLAGS = UInt32
@@ -1595,25 +1595,25 @@ def AuditQueryGlobalSaclA(ObjectTypeName: Windows.Win32.Foundation.PSTR, Acl: PO
 @winfunctype('ADVAPI32.dll')
 def AuditFree(Buffer: c_void_p) -> Void: ...
 @winfunctype('SECUR32.dll')
-def AcquireCredentialsHandleW(pszPrincipal: Windows.Win32.Foundation.PWSTR, pszPackage: Windows.Win32.Foundation.PWSTR, fCredentialUse: Windows.Win32.Security.Authentication.Identity.SECPKG_CRED, pvLogonId: c_void_p, pAuthData: c_void_p, pGetKeyFn: Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, pvGetKeyArgument: c_void_p, phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), ptsExpiry: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def AcquireCredentialsHandleW(pszPrincipal: Windows.Win32.Foundation.PWSTR, pszPackage: Windows.Win32.Foundation.PWSTR, fCredentialUse: Windows.Win32.Security.Authentication.Identity.SECPKG_CRED, pvLogonId: c_void_p, pAuthData: c_void_p, pGetKeyFn: Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, pvGetKeyArgument: c_void_p, phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), ptsExpiry: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
-def AcquireCredentialsHandleA(pszPrincipal: Windows.Win32.Foundation.PSTR, pszPackage: Windows.Win32.Foundation.PSTR, fCredentialUse: Windows.Win32.Security.Authentication.Identity.SECPKG_CRED, pvLogonId: c_void_p, pAuthData: c_void_p, pGetKeyFn: Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, pvGetKeyArgument: c_void_p, phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), ptsExpiry: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def AcquireCredentialsHandleA(pszPrincipal: Windows.Win32.Foundation.PSTR, pszPackage: Windows.Win32.Foundation.PSTR, fCredentialUse: Windows.Win32.Security.Authentication.Identity.SECPKG_CRED, pvLogonId: c_void_p, pAuthData: c_void_p, pGetKeyFn: Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, pvGetKeyArgument: c_void_p, phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), ptsExpiry: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def FreeCredentialsHandle(phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
-def AddCredentialsW(hCredentials: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pszPrincipal: Windows.Win32.Foundation.PWSTR, pszPackage: Windows.Win32.Foundation.PWSTR, fCredentialUse: UInt32, pAuthData: c_void_p, pGetKeyFn: Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, pvGetKeyArgument: c_void_p, ptsExpiry: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def AddCredentialsW(hCredentials: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pszPrincipal: Windows.Win32.Foundation.PWSTR, pszPackage: Windows.Win32.Foundation.PWSTR, fCredentialUse: UInt32, pAuthData: c_void_p, pGetKeyFn: Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, pvGetKeyArgument: c_void_p, ptsExpiry: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
-def AddCredentialsA(hCredentials: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pszPrincipal: Windows.Win32.Foundation.PSTR, pszPackage: Windows.Win32.Foundation.PSTR, fCredentialUse: UInt32, pAuthData: c_void_p, pGetKeyFn: Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, pvGetKeyArgument: c_void_p, ptsExpiry: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def AddCredentialsA(hCredentials: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pszPrincipal: Windows.Win32.Foundation.PSTR, pszPackage: Windows.Win32.Foundation.PSTR, fCredentialUse: UInt32, pAuthData: c_void_p, pGetKeyFn: Windows.Win32.Security.Authentication.Identity.SEC_GET_KEY_FN, pvGetKeyArgument: c_void_p, ptsExpiry: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def ChangeAccountPasswordW(pszPackageName: POINTER(UInt16), pszDomainName: POINTER(UInt16), pszAccountName: POINTER(UInt16), pszOldPassword: POINTER(UInt16), pszNewPassword: POINTER(UInt16), bImpersonating: Windows.Win32.Foundation.BOOLEAN, dwReserved: UInt32, pOutput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def ChangeAccountPasswordA(pszPackageName: POINTER(SByte), pszDomainName: POINTER(SByte), pszAccountName: POINTER(SByte), pszOldPassword: POINTER(SByte), pszNewPassword: POINTER(SByte), bImpersonating: Windows.Win32.Foundation.BOOLEAN, dwReserved: UInt32, pOutput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
-def InitializeSecurityContextW(phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), phContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pszTargetName: POINTER(UInt16), fContextReq: Windows.Win32.Security.Authentication.Identity.ISC_REQ_FLAGS, Reserved1: UInt32, TargetDataRep: UInt32, pInput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), Reserved2: UInt32, phNewContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pOutput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), pfContextAttr: POINTER(UInt32), ptsExpiry: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def InitializeSecurityContextW(phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), phContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pszTargetName: POINTER(UInt16), fContextReq: Windows.Win32.Security.Authentication.Identity.ISC_REQ_FLAGS, Reserved1: UInt32, TargetDataRep: UInt32, pInput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), Reserved2: UInt32, phNewContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pOutput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), pfContextAttr: POINTER(UInt32), ptsExpiry: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
-def InitializeSecurityContextA(phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), phContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pszTargetName: POINTER(SByte), fContextReq: Windows.Win32.Security.Authentication.Identity.ISC_REQ_FLAGS, Reserved1: UInt32, TargetDataRep: UInt32, pInput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), Reserved2: UInt32, phNewContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pOutput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), pfContextAttr: POINTER(UInt32), ptsExpiry: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def InitializeSecurityContextA(phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), phContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pszTargetName: POINTER(SByte), fContextReq: Windows.Win32.Security.Authentication.Identity.ISC_REQ_FLAGS, Reserved1: UInt32, TargetDataRep: UInt32, pInput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), Reserved2: UInt32, phNewContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pOutput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), pfContextAttr: POINTER(UInt32), ptsExpiry: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
-def AcceptSecurityContext(phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), phContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pInput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), fContextReq: Windows.Win32.Security.Authentication.Identity.ASC_REQ_FLAGS, TargetDataRep: UInt32, phNewContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pOutput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), pfContextAttr: POINTER(UInt32), ptsExpiry: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def AcceptSecurityContext(phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), phContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pInput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), fContextReq: Windows.Win32.Security.Authentication.Identity.ASC_REQ_FLAGS, TargetDataRep: UInt32, phNewContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pOutput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), pfContextAttr: POINTER(UInt32), ptsExpiry: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def CompleteAuthToken(phContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pToken: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
@@ -1691,11 +1691,11 @@ def SaslIdentifyPackageA(pInput: POINTER(Windows.Win32.Security.Authentication.I
 @winfunctype('SECUR32.dll')
 def SaslIdentifyPackageW(pInput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), PackageInfo: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.SecPkgInfoW_head))) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
-def SaslInitializeSecurityContextW(phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), phContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pszTargetName: Windows.Win32.Foundation.PWSTR, fContextReq: Windows.Win32.Security.Authentication.Identity.ISC_REQ_FLAGS, Reserved1: UInt32, TargetDataRep: UInt32, pInput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), Reserved2: UInt32, phNewContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pOutput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), pfContextAttr: POINTER(UInt32), ptsExpiry: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def SaslInitializeSecurityContextW(phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), phContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pszTargetName: Windows.Win32.Foundation.PWSTR, fContextReq: Windows.Win32.Security.Authentication.Identity.ISC_REQ_FLAGS, Reserved1: UInt32, TargetDataRep: UInt32, pInput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), Reserved2: UInt32, phNewContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pOutput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), pfContextAttr: POINTER(UInt32), ptsExpiry: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
-def SaslInitializeSecurityContextA(phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), phContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pszTargetName: Windows.Win32.Foundation.PSTR, fContextReq: Windows.Win32.Security.Authentication.Identity.ISC_REQ_FLAGS, Reserved1: UInt32, TargetDataRep: UInt32, pInput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), Reserved2: UInt32, phNewContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pOutput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), pfContextAttr: POINTER(UInt32), ptsExpiry: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def SaslInitializeSecurityContextA(phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), phContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pszTargetName: Windows.Win32.Foundation.PSTR, fContextReq: Windows.Win32.Security.Authentication.Identity.ISC_REQ_FLAGS, Reserved1: UInt32, TargetDataRep: UInt32, pInput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), Reserved2: UInt32, phNewContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pOutput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), pfContextAttr: POINTER(UInt32), ptsExpiry: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
-def SaslAcceptSecurityContext(phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), phContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pInput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), fContextReq: Windows.Win32.Security.Authentication.Identity.ASC_REQ_FLAGS, TargetDataRep: UInt32, phNewContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pOutput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), pfContextAttr: POINTER(UInt32), ptsExpiry: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def SaslAcceptSecurityContext(phCredential: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), phContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pInput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), fContextReq: Windows.Win32.Security.Authentication.Identity.ASC_REQ_FLAGS, TargetDataRep: UInt32, phNewContext: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), pOutput: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), pfContextAttr: POINTER(UInt32), ptsExpiry: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
 def SaslSetContextOption(ContextHandle: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), Option: UInt32, Value: c_void_p, Size: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SECUR32.dll')
@@ -1931,8 +1931,8 @@ class DOMAIN_PASSWORD_INFORMATION(Structure):
     MinPasswordLength: UInt16
     PasswordHistoryLength: UInt16
     PasswordProperties: Windows.Win32.Security.Authentication.Identity.DOMAIN_PASSWORD_PROPERTIES
-    MaxPasswordAge: Windows.Win32.Foundation.LARGE_INTEGER
-    MinPasswordAge: Windows.Win32.Foundation.LARGE_INTEGER
+    MaxPasswordAge: Int64
+    MinPasswordAge: Int64
 DOMAIN_PASSWORD_PROPERTIES = UInt32
 DOMAIN_PASSWORD_COMPLEX: DOMAIN_PASSWORD_PROPERTIES = 1
 DOMAIN_PASSWORD_NO_ANON_CHANGE: DOMAIN_PASSWORD_PROPERTIES = 2
@@ -1984,9 +1984,9 @@ def IMPORT_SECURITY_CONTEXT_FN_A(param0: POINTER(SByte), param1: POINTER(Windows
 @winfunctype_pointer
 def IMPORT_SECURITY_CONTEXT_FN_W(param0: POINTER(UInt16), param1: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head), param2: c_void_p, param3: POINTER(Windows.Win32.Security.Credentials.SecHandle_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def INITIALIZE_SECURITY_CONTEXT_FN_A(param0: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param1: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param2: POINTER(SByte), param3: UInt32, param4: UInt32, param5: UInt32, param6: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), param7: UInt32, param8: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param9: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), param10: POINTER(UInt32), param11: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def INITIALIZE_SECURITY_CONTEXT_FN_A(param0: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param1: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param2: POINTER(SByte), param3: UInt32, param4: UInt32, param5: UInt32, param6: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), param7: UInt32, param8: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param9: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), param10: POINTER(UInt32), param11: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
-def INITIALIZE_SECURITY_CONTEXT_FN_W(param0: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param1: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param2: POINTER(UInt16), param3: UInt32, param4: UInt32, param5: UInt32, param6: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), param7: UInt32, param8: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param9: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), param10: POINTER(UInt32), param11: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def INITIALIZE_SECURITY_CONTEXT_FN_W(param0: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param1: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param2: POINTER(UInt16), param3: UInt32, param4: UInt32, param5: UInt32, param6: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), param7: UInt32, param8: POINTER(Windows.Win32.Security.Credentials.SecHandle_head), param9: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), param10: POINTER(UInt32), param11: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def INIT_SECURITY_INTERFACE_A() -> POINTER(Windows.Win32.Security.Authentication.Identity.SecurityFunctionTableA_head): ...
 @winfunctype_pointer
@@ -2158,11 +2158,11 @@ class KERB_EXTERNAL_TICKET(Structure):
     SessionKey: Windows.Win32.Security.Authentication.Identity.KERB_CRYPTO_KEY
     TicketFlags: Windows.Win32.Security.Authentication.Identity.KERB_TICKET_FLAGS
     Flags: UInt32
-    KeyExpirationTime: Windows.Win32.Foundation.LARGE_INTEGER
-    StartTime: Windows.Win32.Foundation.LARGE_INTEGER
-    EndTime: Windows.Win32.Foundation.LARGE_INTEGER
-    RenewUntil: Windows.Win32.Foundation.LARGE_INTEGER
-    TimeSkew: Windows.Win32.Foundation.LARGE_INTEGER
+    KeyExpirationTime: Int64
+    StartTime: Int64
+    EndTime: Int64
+    RenewUntil: Int64
+    TimeSkew: Int64
     EncodedTicketSize: UInt32
     EncodedTicket: c_char_p_no
 class KERB_INTERACTIVE_LOGON(Structure):
@@ -2174,12 +2174,12 @@ class KERB_INTERACTIVE_PROFILE(Structure):
     MessageType: Windows.Win32.Security.Authentication.Identity.KERB_PROFILE_BUFFER_TYPE
     LogonCount: UInt16
     BadPasswordCount: UInt16
-    LogonTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LogoffTime: Windows.Win32.Foundation.LARGE_INTEGER
-    KickOffTime: Windows.Win32.Foundation.LARGE_INTEGER
-    PasswordLastSet: Windows.Win32.Foundation.LARGE_INTEGER
-    PasswordCanChange: Windows.Win32.Foundation.LARGE_INTEGER
-    PasswordMustChange: Windows.Win32.Foundation.LARGE_INTEGER
+    LogonTime: Int64
+    LogoffTime: Int64
+    KickOffTime: Int64
+    PasswordLastSet: Int64
+    PasswordCanChange: Int64
+    PasswordMustChange: Int64
     LogonScript: Windows.Win32.Foundation.UNICODE_STRING
     HomeDirectory: Windows.Win32.Foundation.UNICODE_STRING
     FullName: Windows.Win32.Foundation.UNICODE_STRING
@@ -2361,13 +2361,13 @@ class KERB_S4U2PROXY_CACHE_ENTRY_INFO(Structure):
     ServerName: Windows.Win32.Foundation.UNICODE_STRING
     Flags: UInt32
     LastStatus: Windows.Win32.Foundation.NTSTATUS
-    Expiry: Windows.Win32.Foundation.LARGE_INTEGER
+    Expiry: Int64
 class KERB_S4U2PROXY_CRED(Structure):
     UserName: Windows.Win32.Foundation.UNICODE_STRING
     DomainName: Windows.Win32.Foundation.UNICODE_STRING
     Flags: UInt32
     LastStatus: Windows.Win32.Foundation.NTSTATUS
-    Expiry: Windows.Win32.Foundation.LARGE_INTEGER
+    Expiry: Int64
     CountOfEntries: UInt32
     Entries: POINTER(Windows.Win32.Security.Authentication.Identity.KERB_S4U2PROXY_CACHE_ENTRY_INFO_head)
 class KERB_S4U_LOGON(Structure):
@@ -2418,9 +2418,9 @@ class KERB_SUBMIT_TKT_REQUEST(Structure):
 class KERB_TICKET_CACHE_INFO(Structure):
     ServerName: Windows.Win32.Foundation.UNICODE_STRING
     RealmName: Windows.Win32.Foundation.UNICODE_STRING
-    StartTime: Windows.Win32.Foundation.LARGE_INTEGER
-    EndTime: Windows.Win32.Foundation.LARGE_INTEGER
-    RenewTime: Windows.Win32.Foundation.LARGE_INTEGER
+    StartTime: Int64
+    EndTime: Int64
+    RenewTime: Int64
     EncryptionType: Int32
     TicketFlags: Windows.Win32.Security.Authentication.Identity.KERB_TICKET_FLAGS
 class KERB_TICKET_CACHE_INFO_EX(Structure):
@@ -2428,9 +2428,9 @@ class KERB_TICKET_CACHE_INFO_EX(Structure):
     ClientRealm: Windows.Win32.Foundation.UNICODE_STRING
     ServerName: Windows.Win32.Foundation.UNICODE_STRING
     ServerRealm: Windows.Win32.Foundation.UNICODE_STRING
-    StartTime: Windows.Win32.Foundation.LARGE_INTEGER
-    EndTime: Windows.Win32.Foundation.LARGE_INTEGER
-    RenewTime: Windows.Win32.Foundation.LARGE_INTEGER
+    StartTime: Int64
+    EndTime: Int64
+    RenewTime: Int64
     EncryptionType: Int32
     TicketFlags: UInt32
 class KERB_TICKET_CACHE_INFO_EX2(Structure):
@@ -2438,9 +2438,9 @@ class KERB_TICKET_CACHE_INFO_EX2(Structure):
     ClientRealm: Windows.Win32.Foundation.UNICODE_STRING
     ServerName: Windows.Win32.Foundation.UNICODE_STRING
     ServerRealm: Windows.Win32.Foundation.UNICODE_STRING
-    StartTime: Windows.Win32.Foundation.LARGE_INTEGER
-    EndTime: Windows.Win32.Foundation.LARGE_INTEGER
-    RenewTime: Windows.Win32.Foundation.LARGE_INTEGER
+    StartTime: Int64
+    EndTime: Int64
+    RenewTime: Int64
     EncryptionType: Int32
     TicketFlags: UInt32
     SessionKeyType: UInt32
@@ -2450,9 +2450,9 @@ class KERB_TICKET_CACHE_INFO_EX3(Structure):
     ClientRealm: Windows.Win32.Foundation.UNICODE_STRING
     ServerName: Windows.Win32.Foundation.UNICODE_STRING
     ServerRealm: Windows.Win32.Foundation.UNICODE_STRING
-    StartTime: Windows.Win32.Foundation.LARGE_INTEGER
-    EndTime: Windows.Win32.Foundation.LARGE_INTEGER
-    RenewTime: Windows.Win32.Foundation.LARGE_INTEGER
+    StartTime: Int64
+    EndTime: Int64
+    RenewTime: Int64
     EncryptionType: Int32
     TicketFlags: UInt32
     SessionKeyType: UInt32
@@ -2533,7 +2533,7 @@ class LOGON_HOURS(Structure):
 @winfunctype_pointer
 def LSA_AP_POST_LOGON_USER(PostLogonUserInfo: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_POST_LOGON_USER_INFO_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 class LSA_AUTH_INFORMATION(Structure):
-    LastUpdateTime: Windows.Win32.Foundation.LARGE_INTEGER
+    LastUpdateTime: Int64
     AuthType: Windows.Win32.Security.Authentication.Identity.LSA_AUTH_INFORMATION_AUTH_TYPE
     AuthInfoLength: UInt32
     AuthInfo: c_char_p_no
@@ -2581,7 +2581,7 @@ class LSA_FOREST_TRUST_INFORMATION(Structure):
 class LSA_FOREST_TRUST_RECORD(Structure):
     Flags: UInt32
     ForestTrustType: Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_RECORD_TYPE
-    Time: Windows.Win32.Foundation.LARGE_INTEGER
+    Time: Int64
     ForestTrustData: _ForestTrustData_e__Union
     class _ForestTrustData_e__Union(Union):
         TopLevelName: Windows.Win32.Foundation.UNICODE_STRING
@@ -2594,8 +2594,8 @@ LSA_FOREST_TRUST_RECORD_TYPE_ForestTrustDomainInfo: LSA_FOREST_TRUST_RECORD_TYPE
 LSA_FOREST_TRUST_RECORD_TYPE_ForestTrustRecordTypeLast: LSA_FOREST_TRUST_RECORD_TYPE = 2
 LSA_HANDLE = IntPtr
 class LSA_LAST_INTER_LOGON_INFO(Structure):
-    LastSuccessfulLogon: Windows.Win32.Foundation.LARGE_INTEGER
-    LastFailedLogon: Windows.Win32.Foundation.LARGE_INTEGER
+    LastSuccessfulLogon: Int64
+    LastFailedLogon: Int64
     FailedAttemptCountSinceLastSuccessfulLogon: UInt32
 LSA_LOOKUP_DOMAIN_INFO_CLASS = Int32
 LSA_LOOKUP_DOMAIN_INFO_CLASS_AccountDomainInformation: LSA_LOOKUP_DOMAIN_INFO_CLASS = 5
@@ -2668,7 +2668,7 @@ class LSA_SECPKG_FUNCTION_TABLE(Structure):
     GetAppModeInfo: Windows.Win32.Security.Authentication.Identity.PLSA_GET_APP_MODE_INFO
     SetAppModeInfo: Windows.Win32.Security.Authentication.Identity.PLSA_SET_APP_MODE_INFO
 class LSA_TOKEN_INFORMATION_NULL(Structure):
-    ExpirationTime: Windows.Win32.Foundation.LARGE_INTEGER
+    ExpirationTime: Int64
     Groups: POINTER(Windows.Win32.Security.TOKEN_GROUPS_head)
 LSA_TOKEN_INFORMATION_TYPE = Int32
 LSA_TOKEN_INFORMATION_TYPE_LsaTokenInformationNull: LSA_TOKEN_INFORMATION_TYPE = 0
@@ -2676,7 +2676,7 @@ LSA_TOKEN_INFORMATION_TYPE_LsaTokenInformationV1: LSA_TOKEN_INFORMATION_TYPE = 1
 LSA_TOKEN_INFORMATION_TYPE_LsaTokenInformationV2: LSA_TOKEN_INFORMATION_TYPE = 2
 LSA_TOKEN_INFORMATION_TYPE_LsaTokenInformationV3: LSA_TOKEN_INFORMATION_TYPE = 3
 class LSA_TOKEN_INFORMATION_V1(Structure):
-    ExpirationTime: Windows.Win32.Foundation.LARGE_INTEGER
+    ExpirationTime: Int64
     User: Windows.Win32.Security.TOKEN_USER
     Groups: POINTER(Windows.Win32.Security.TOKEN_GROUPS_head)
     PrimaryGroup: Windows.Win32.Security.TOKEN_PRIMARY_GROUP
@@ -2684,7 +2684,7 @@ class LSA_TOKEN_INFORMATION_V1(Structure):
     Owner: Windows.Win32.Security.TOKEN_OWNER
     DefaultDacl: Windows.Win32.Security.TOKEN_DEFAULT_DACL
 class LSA_TOKEN_INFORMATION_V3(Structure):
-    ExpirationTime: Windows.Win32.Foundation.LARGE_INTEGER
+    ExpirationTime: Int64
     User: Windows.Win32.Security.TOKEN_USER
     Groups: POINTER(Windows.Win32.Security.TOKEN_GROUPS_head)
     PrimaryGroup: Windows.Win32.Security.TOKEN_PRIMARY_GROUP
@@ -2758,12 +2758,12 @@ class MSV1_0_INTERACTIVE_PROFILE(Structure):
     MessageType: Windows.Win32.Security.Authentication.Identity.MSV1_0_PROFILE_BUFFER_TYPE
     LogonCount: UInt16
     BadPasswordCount: UInt16
-    LogonTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LogoffTime: Windows.Win32.Foundation.LARGE_INTEGER
-    KickOffTime: Windows.Win32.Foundation.LARGE_INTEGER
-    PasswordLastSet: Windows.Win32.Foundation.LARGE_INTEGER
-    PasswordCanChange: Windows.Win32.Foundation.LARGE_INTEGER
-    PasswordMustChange: Windows.Win32.Foundation.LARGE_INTEGER
+    LogonTime: Int64
+    LogoffTime: Int64
+    KickOffTime: Int64
+    PasswordLastSet: Int64
+    PasswordCanChange: Int64
+    PasswordMustChange: Int64
     LogonScript: Windows.Win32.Foundation.UNICODE_STRING
     HomeDirectory: Windows.Win32.Foundation.UNICODE_STRING
     FullName: Windows.Win32.Foundation.UNICODE_STRING
@@ -2786,8 +2786,8 @@ class MSV1_0_LM20_LOGON(Structure):
     ParameterControl: UInt32
 class MSV1_0_LM20_LOGON_PROFILE(Structure):
     MessageType: Windows.Win32.Security.Authentication.Identity.MSV1_0_PROFILE_BUFFER_TYPE
-    KickOffTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LogoffTime: Windows.Win32.Foundation.LARGE_INTEGER
+    KickOffTime: Int64
+    LogoffTime: Int64
     UserFlags: Windows.Win32.Security.Authentication.Identity.MSV_SUB_AUTHENTICATION_FILTER
     UserSessionKey: Byte * 16
     LogonDomainName: Windows.Win32.Foundation.UNICODE_STRING
@@ -2906,8 +2906,8 @@ class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V3(Structure):
     CredentialKey: Windows.Win32.Security.Authentication.Identity.MSV1_0_CREDENTIAL_KEY
     ShaPassword: Byte * 20
 class MSV1_0_VALIDATION_INFO(Structure):
-    LogoffTime: Windows.Win32.Foundation.LARGE_INTEGER
-    KickoffTime: Windows.Win32.Foundation.LARGE_INTEGER
+    LogoffTime: Int64
+    KickoffTime: Int64
     LogonServer: Windows.Win32.Foundation.UNICODE_STRING
     LogonDomainName: Windows.Win32.Foundation.UNICODE_STRING
     SessionKey: Windows.Win32.Security.Authentication.Identity.USER_SESSION_KEY
@@ -2975,7 +2975,7 @@ class NETLOGON_INTERACTIVE_INFO(Structure):
 class NETLOGON_LOGON_IDENTITY_INFO(Structure):
     LogonDomainName: Windows.Win32.Foundation.UNICODE_STRING
     ParameterControl: UInt32
-    LogonId: Windows.Win32.Foundation.LARGE_INTEGER
+    LogonId: Int64
     UserName: Windows.Win32.Foundation.UNICODE_STRING
     Workstation: Windows.Win32.Foundation.UNICODE_STRING
 NETLOGON_LOGON_INFO_CLASS = Int32
@@ -3197,9 +3197,9 @@ class POLICY_AUDIT_FULL_SET_INFO(Structure):
 class POLICY_AUDIT_LOG_INFO(Structure):
     AuditLogPercentFull: UInt32
     MaximumLogSize: UInt32
-    AuditRetentionPeriod: Windows.Win32.Foundation.LARGE_INTEGER
+    AuditRetentionPeriod: Int64
     AuditLogFullShutdownInProgress: Windows.Win32.Foundation.BOOLEAN
-    TimeToShutdown: Windows.Win32.Foundation.LARGE_INTEGER
+    TimeToShutdown: Int64
     NextAuditRecordId: UInt32
 class POLICY_AUDIT_SID_ARRAY(Structure):
     UsersCount: UInt32
@@ -3223,11 +3223,11 @@ POLICY_DOMAIN_INFORMATION_CLASS_PolicyDomainEfsInformation: POLICY_DOMAIN_INFORM
 POLICY_DOMAIN_INFORMATION_CLASS_PolicyDomainKerberosTicketInformation: POLICY_DOMAIN_INFORMATION_CLASS = 3
 class POLICY_DOMAIN_KERBEROS_TICKET_INFO(Structure):
     AuthenticationOptions: UInt32
-    MaxServiceTicketAge: Windows.Win32.Foundation.LARGE_INTEGER
-    MaxTicketAge: Windows.Win32.Foundation.LARGE_INTEGER
-    MaxRenewAge: Windows.Win32.Foundation.LARGE_INTEGER
-    MaxClockSkew: Windows.Win32.Foundation.LARGE_INTEGER
-    Reserved: Windows.Win32.Foundation.LARGE_INTEGER
+    MaxServiceTicketAge: Int64
+    MaxTicketAge: Int64
+    MaxRenewAge: Int64
+    MaxClockSkew: Int64
+    Reserved: Int64
 POLICY_INFORMATION_CLASS = Int32
 POLICY_INFORMATION_CLASS_PolicyAuditLogInformation: POLICY_INFORMATION_CLASS = 1
 POLICY_INFORMATION_CLASS_PolicyAuditEventsInformation: POLICY_INFORMATION_CLASS = 2
@@ -3254,8 +3254,8 @@ class POLICY_MACHINE_ACCT_INFO(Structure):
     Rid: UInt32
     Sid: Windows.Win32.Foundation.PSID
 class POLICY_MODIFICATION_INFO(Structure):
-    ModifiedId: Windows.Win32.Foundation.LARGE_INTEGER
-    DatabaseCreationTime: Windows.Win32.Foundation.LARGE_INTEGER
+    ModifiedId: Int64
+    DatabaseCreationTime: Int64
 POLICY_NOTIFICATION_INFORMATION_CLASS = Int32
 POLICY_NOTIFICATION_INFORMATION_CLASS_PolicyNotifyAuditEventsInformation: POLICY_NOTIFICATION_INFORMATION_CLASS = 1
 POLICY_NOTIFICATION_INFORMATION_CLASS_PolicyNotifyAccountDomainInformation: POLICY_NOTIFICATION_INFORMATION_CLASS = 2
@@ -3773,7 +3773,7 @@ class SECURITY_LOGON_SESSION_DATA(Structure):
     LogonType: UInt32
     Session: UInt32
     Sid: Windows.Win32.Foundation.PSID
-    LogonTime: Windows.Win32.Foundation.LARGE_INTEGER
+    LogonTime: Int64
     LogonServer: Windows.Win32.Foundation.UNICODE_STRING
     DnsDomainName: Windows.Win32.Foundation.UNICODE_STRING
     Upn: Windows.Win32.Foundation.UNICODE_STRING
@@ -3783,11 +3783,11 @@ class SECURITY_LOGON_SESSION_DATA(Structure):
     ProfilePath: Windows.Win32.Foundation.UNICODE_STRING
     HomeDirectory: Windows.Win32.Foundation.UNICODE_STRING
     HomeDirectoryDrive: Windows.Win32.Foundation.UNICODE_STRING
-    LogoffTime: Windows.Win32.Foundation.LARGE_INTEGER
-    KickOffTime: Windows.Win32.Foundation.LARGE_INTEGER
-    PasswordLastSet: Windows.Win32.Foundation.LARGE_INTEGER
-    PasswordCanChange: Windows.Win32.Foundation.LARGE_INTEGER
-    PasswordMustChange: Windows.Win32.Foundation.LARGE_INTEGER
+    LogoffTime: Int64
+    KickOffTime: Int64
+    PasswordLastSet: Int64
+    PasswordCanChange: Int64
+    PasswordMustChange: Int64
 SECURITY_LOGON_TYPE = Int32
 SECURITY_LOGON_TYPE_UndefinedLogonType: SECURITY_LOGON_TYPE = 0
 SECURITY_LOGON_TYPE_Interactive: SECURITY_LOGON_TYPE = 2
@@ -4116,7 +4116,7 @@ class SUBSCRIBE_GENERIC_TLS_EXTENSION(Structure):
     Flags: UInt32
     SubscriptionsCount: UInt32
     Subscriptions: Windows.Win32.Security.Authentication.Identity.TLS_EXTENSION_SUBSCRIPTION * 1
-SchGetExtensionsOptions = UInt32
+SchGetExtensionsOptions = Int32
 SCH_EXTENSIONS_OPTIONS_NONE: SchGetExtensionsOptions = 0
 SCH_NO_RECORD_HEADER: SchGetExtensionsOptions = 1
 class SecBuffer(Structure):
@@ -4259,8 +4259,8 @@ class SecPkgContext_KeyingMaterial_Inproc(Structure):
 class SecPkgContext_LastClientTokenStatus(Structure):
     LastClientTokenStatus: Windows.Win32.Security.Authentication.Identity.SECPKG_ATTR_LCT_STATUS
 class SecPkgContext_Lifespan(Structure):
-    tsStart: Windows.Win32.Foundation.LARGE_INTEGER
-    tsExpiry: Windows.Win32.Foundation.LARGE_INTEGER
+    tsStart: Int64
+    tsExpiry: Int64
 class SecPkgContext_LocalCredentialInfo(Structure):
     cbCertificateChain: UInt32
     pbCertificateChain: c_char_p_no
@@ -4268,7 +4268,7 @@ class SecPkgContext_LocalCredentialInfo(Structure):
     fFlags: UInt32
     dwBits: UInt32
 class SecPkgContext_LogoffTime(Structure):
-    tsLogoffTime: Windows.Win32.Foundation.LARGE_INTEGER
+    tsLogoffTime: Int64
 class SecPkgContext_MappedCredAttr(Structure):
     dwAttribute: UInt32
     pvBuffer: c_void_p
@@ -4307,7 +4307,7 @@ class SecPkgContext_PackageInfoA(Structure):
 class SecPkgContext_PackageInfoW(Structure):
     PackageInfo: POINTER(Windows.Win32.Security.Authentication.Identity.SecPkgInfoW_head)
 class SecPkgContext_PasswordExpiry(Structure):
-    tsPasswordExpires: Windows.Win32.Foundation.LARGE_INTEGER
+    tsPasswordExpires: Int64
 class SecPkgContext_ProtoInfoA(Structure):
     sProtocolName: POINTER(SByte)
     majorVersion: UInt32
@@ -4501,11 +4501,11 @@ class SecurityFunctionTableW(Structure):
 @winfunctype_pointer
 def SpAcceptCredentialsFn(LogonType: Windows.Win32.Security.Authentication.Identity.SECURITY_LOGON_TYPE, AccountName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), PrimaryCredentials: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_PRIMARY_CRED_head), SupplementalCredentials: POINTER(Windows.Win32.Security.Authentication.Identity.SECPKG_SUPPLEMENTAL_CRED_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def SpAcceptLsaModeContextFn(CredentialHandle: UIntPtr, ContextHandle: UIntPtr, InputBuffer: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), ContextRequirements: UInt32, TargetDataRep: UInt32, NewContextHandle: POINTER(UIntPtr), OutputBuffer: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), ContextAttributes: POINTER(UInt32), ExpirationTime: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head), MappedContext: POINTER(Windows.Win32.Foundation.BOOLEAN), ContextData: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def SpAcceptLsaModeContextFn(CredentialHandle: UIntPtr, ContextHandle: UIntPtr, InputBuffer: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), ContextRequirements: UInt32, TargetDataRep: UInt32, NewContextHandle: POINTER(UIntPtr), OutputBuffer: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), ContextAttributes: POINTER(UInt32), ExpirationTime: POINTER(Int64), MappedContext: POINTER(Windows.Win32.Foundation.BOOLEAN), ContextData: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def SpAcquireCredentialsHandleFn(PrincipalName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), CredentialUseFlags: UInt32, LogonId: POINTER(Windows.Win32.Foundation.LUID_head), AuthorizationData: c_void_p, GetKeyFunciton: c_void_p, GetKeyArgument: c_void_p, CredentialHandle: POINTER(UIntPtr), ExpirationTime: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def SpAcquireCredentialsHandleFn(PrincipalName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), CredentialUseFlags: UInt32, LogonId: POINTER(Windows.Win32.Foundation.LUID_head), AuthorizationData: c_void_p, GetKeyFunciton: c_void_p, GetKeyArgument: c_void_p, CredentialHandle: POINTER(UIntPtr), ExpirationTime: POINTER(Int64)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def SpAddCredentialsFn(CredentialHandle: UIntPtr, PrincipalName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), Package: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), CredentialUseFlags: UInt32, AuthorizationData: c_void_p, GetKeyFunciton: c_void_p, GetKeyArgument: c_void_p, ExpirationTime: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def SpAddCredentialsFn(CredentialHandle: UIntPtr, PrincipalName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), Package: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), CredentialUseFlags: UInt32, AuthorizationData: c_void_p, GetKeyFunciton: c_void_p, GetKeyArgument: c_void_p, ExpirationTime: POINTER(Int64)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def SpApplyControlTokenFn(ContextHandle: UIntPtr, ControlToken: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -4545,7 +4545,7 @@ def SpGetUserInfoFn(LogonId: POINTER(Windows.Win32.Foundation.LUID_head), Flags:
 @winfunctype_pointer
 def SpImportSecurityContextFn(pPackedContext: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head), Token: Windows.Win32.Foundation.HANDLE, phContext: POINTER(UIntPtr)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
-def SpInitLsaModeContextFn(CredentialHandle: UIntPtr, ContextHandle: UIntPtr, TargetName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ContextRequirements: UInt32, TargetDataRep: UInt32, InputBuffers: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), NewContextHandle: POINTER(UIntPtr), OutputBuffers: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), ContextAttributes: POINTER(UInt32), ExpirationTime: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head), MappedContext: POINTER(Windows.Win32.Foundation.BOOLEAN), ContextData: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def SpInitLsaModeContextFn(CredentialHandle: UIntPtr, ContextHandle: UIntPtr, TargetName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), ContextRequirements: UInt32, TargetDataRep: UInt32, InputBuffers: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), NewContextHandle: POINTER(UIntPtr), OutputBuffers: POINTER(Windows.Win32.Security.Authentication.Identity.SecBufferDesc_head), ContextAttributes: POINTER(UInt32), ExpirationTime: POINTER(Int64), MappedContext: POINTER(Windows.Win32.Foundation.BOOLEAN), ContextData: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
 def SpInitUserModeContextFn(ContextHandle: UIntPtr, PackedContext: POINTER(Windows.Win32.Security.Authentication.Identity.SecBuffer_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype_pointer
@@ -4696,12 +4696,12 @@ class TRUSTED_PASSWORD_INFO(Structure):
 class TRUSTED_POSIX_OFFSET_INFO(Structure):
     Offset: UInt32
 class USER_ALL_INFORMATION(Structure):
-    LastLogon: Windows.Win32.Foundation.LARGE_INTEGER
-    LastLogoff: Windows.Win32.Foundation.LARGE_INTEGER
-    PasswordLastSet: Windows.Win32.Foundation.LARGE_INTEGER
-    AccountExpires: Windows.Win32.Foundation.LARGE_INTEGER
-    PasswordCanChange: Windows.Win32.Foundation.LARGE_INTEGER
-    PasswordMustChange: Windows.Win32.Foundation.LARGE_INTEGER
+    LastLogon: Int64
+    LastLogoff: Int64
+    PasswordLastSet: Int64
+    AccountExpires: Int64
+    PasswordCanChange: Int64
+    PasswordMustChange: Int64
     UserName: Windows.Win32.Foundation.UNICODE_STRING
     FullName: Windows.Win32.Foundation.UNICODE_STRING
     HomeDirectory: Windows.Win32.Foundation.UNICODE_STRING

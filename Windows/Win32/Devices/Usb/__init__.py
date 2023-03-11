@@ -604,9 +604,9 @@ def WinUsb_ParseConfigurationDescriptor(ConfigurationDescriptor: POINTER(Windows
 @winfunctype('WINUSB.dll')
 def WinUsb_ParseDescriptors(DescriptorBuffer: c_void_p, TotalLength: UInt32, StartPosition: c_void_p, DescriptorType: Int32) -> POINTER(Windows.Win32.Devices.Usb.USB_COMMON_DESCRIPTOR_head): ...
 @winfunctype('WINUSB.dll')
-def WinUsb_GetCurrentFrameNumber(InterfaceHandle: Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, CurrentFrameNumber: POINTER(UInt32), TimeStamp: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def WinUsb_GetCurrentFrameNumber(InterfaceHandle: Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, CurrentFrameNumber: POINTER(UInt32), TimeStamp: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
-def WinUsb_GetAdjustedFrameNumber(CurrentFrameNumber: POINTER(UInt32), TimeStamp: Windows.Win32.Foundation.LARGE_INTEGER) -> Windows.Win32.Foundation.BOOL: ...
+def WinUsb_GetAdjustedFrameNumber(CurrentFrameNumber: POINTER(UInt32), TimeStamp: Int64) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
 def WinUsb_RegisterIsochBuffer(InterfaceHandle: Windows.Win32.Devices.Usb.WINUSB_INTERFACE_HANDLE, PipeID: Byte, Buffer: c_char_p_no, BufferLength: UInt32, IsochBufferHandle: POINTER(c_void_p)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('WINUSB.dll')
@@ -737,12 +737,12 @@ class USBD_ENDPOINT_OFFLOAD_INFORMATION(Structure):
     Mode: Windows.Win32.Devices.Usb.USBD_ENDPOINT_OFFLOAD_MODE
     _bitfield1: UInt32
     _bitfield2: UInt32
-    TransferSegmentLA: Windows.Win32.Foundation.LARGE_INTEGER
+    TransferSegmentLA: Int64
     TransferSegmentVA: c_void_p
     TransferRingSize: UIntPtr
     TransferRingInitialCycleBit: UInt32
     MessageNumber: UInt32
-    EventRingSegmentLA: Windows.Win32.Foundation.LARGE_INTEGER
+    EventRingSegmentLA: Int64
     EventRingSegmentVA: c_void_p
     EventRingSize: UIntPtr
     EventRingInitialCycleBit: UInt32
@@ -1024,7 +1024,7 @@ class USB_BOS_DESCRIPTOR(Structure):
     _pack_ = 1
 class USB_BUS_STATISTICS_0(Structure):
     DeviceCount: UInt32
-    CurrentSystemTime: Windows.Win32.Foundation.LARGE_INTEGER
+    CurrentSystemTime: Int64
     CurrentUsbFrame: UInt32
     BulkBytes: UInt32
     IsoBytes: UInt32
@@ -1344,11 +1344,11 @@ class USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION(Structure):
     TimeTrackingHandle: Windows.Win32.Foundation.HANDLE
     InputFrameNumber: UInt32
     InputMicroFrameNumber: UInt32
-    QueryPerformanceCounterAtInputFrameOrMicroFrame: Windows.Win32.Foundation.LARGE_INTEGER
-    QueryPerformanceCounterFrequency: Windows.Win32.Foundation.LARGE_INTEGER
+    QueryPerformanceCounterAtInputFrameOrMicroFrame: Int64
+    QueryPerformanceCounterFrequency: Int64
     PredictedAccuracyInMicroSeconds: UInt32
     CurrentGenerationID: UInt32
-    CurrentQueryPerformanceCounter: Windows.Win32.Foundation.LARGE_INTEGER
+    CurrentQueryPerformanceCounter: Int64
     CurrentHardwareFrameNumber: UInt32
     CurrentHardwareMicroFrameNumber: UInt32
     CurrentUSBFrameNumber: UInt32

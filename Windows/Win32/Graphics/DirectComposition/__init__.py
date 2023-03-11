@@ -96,11 +96,11 @@ DCOMPOSITION_DEPTH_MODE_SPATIAL: DCOMPOSITION_DEPTH_MODE = 1
 DCOMPOSITION_DEPTH_MODE_SORTED: DCOMPOSITION_DEPTH_MODE = 3
 DCOMPOSITION_DEPTH_MODE_INHERIT: DCOMPOSITION_DEPTH_MODE = -1
 class DCOMPOSITION_FRAME_STATISTICS(Structure):
-    lastFrameTime: Windows.Win32.Foundation.LARGE_INTEGER
+    lastFrameTime: Int64
     currentCompositionRate: Windows.Win32.Graphics.Dxgi.Common.DXGI_RATIONAL
-    currentTime: Windows.Win32.Foundation.LARGE_INTEGER
-    timeFrequency: Windows.Win32.Foundation.LARGE_INTEGER
-    nextEstimatedFrameTime: Windows.Win32.Foundation.LARGE_INTEGER
+    currentTime: Int64
+    timeFrequency: Int64
+    nextEstimatedFrameTime: Int64
 DCOMPOSITION_OPACITY_MODE = Int32
 DCOMPOSITION_OPACITY_MODE_LAYER: DCOMPOSITION_OPACITY_MODE = 0
 DCOMPOSITION_OPACITY_MODE_MULTIPLY: DCOMPOSITION_OPACITY_MODE = 1
@@ -132,7 +132,7 @@ class IDCompositionAnimation(c_void_p):
     @commethod(3)
     def Reset() -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def SetAbsoluteBeginTime(beginTime: Windows.Win32.Foundation.LARGE_INTEGER) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetAbsoluteBeginTime(beginTime: Int64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def AddCubic(beginOffset: Double, constantCoefficient: Single, linearCoefficient: Single, quadraticCoefficient: Single, cubicCoefficient: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)

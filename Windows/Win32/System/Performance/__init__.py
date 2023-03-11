@@ -212,9 +212,9 @@ PLAL_ALERT_CMD_LINE_U_TEXT: UInt32 = 16384
 PLAL_ALERT_CMD_LINE_MASK: UInt32 = 32512
 S_PDH: Guid = Guid('04d66358-c4a1-419b-80-23-23-b7-39-02-de-2c')
 @winfunctype('KERNEL32.dll')
-def QueryPerformanceCounter(lpPerformanceCount: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def QueryPerformanceCounter(lpPerformanceCount: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def QueryPerformanceFrequency(lpFrequency: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def QueryPerformanceFrequency(lpFrequency: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('loadperf.dll')
 def InstallPerfDllW(szComputerName: Windows.Win32.Foundation.PWSTR, lpIniFile: Windows.Win32.Foundation.PWSTR, dwFlags: UIntPtr) -> UInt32: ...
 @winfunctype('loadperf.dll')
@@ -1887,9 +1887,9 @@ class PERF_DATA_BLOCK(Structure):
     NumObjectTypes: UInt32
     DefaultObject: Int32
     SystemTime: Windows.Win32.Foundation.SYSTEMTIME
-    PerfTime: Windows.Win32.Foundation.LARGE_INTEGER
-    PerfFreq: Windows.Win32.Foundation.LARGE_INTEGER
-    PerfTime100nSec: Windows.Win32.Foundation.LARGE_INTEGER
+    PerfTime: Int64
+    PerfFreq: Int64
+    PerfTime100nSec: Int64
     SystemNameLength: UInt32
     SystemNameOffset: UInt32
 class PERF_DATA_HEADER(Structure):
@@ -1938,8 +1938,8 @@ if ARCH in 'X64,ARM64':
         DefaultCounter: Int32
         NumInstances: Int32
         CodePage: UInt32
-        PerfTime: Windows.Win32.Foundation.LARGE_INTEGER
-        PerfFreq: Windows.Win32.Foundation.LARGE_INTEGER
+        PerfTime: Int64
+        PerfFreq: Int64
 if ARCH in 'X86':
     class PERF_OBJECT_TYPE(Structure):
         TotalByteLength: UInt32
@@ -1954,8 +1954,8 @@ if ARCH in 'X86':
         DefaultCounter: Int32
         NumInstances: Int32
         CodePage: UInt32
-        PerfTime: Windows.Win32.Foundation.LARGE_INTEGER
-        PerfFreq: Windows.Win32.Foundation.LARGE_INTEGER
+        PerfTime: Int64
+        PerfFreq: Int64
 class PERF_PROVIDER_CONTEXT(Structure):
     ContextSize: UInt32
     Reserved: UInt32

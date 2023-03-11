@@ -35,9 +35,9 @@ def CfConnectSyncRoot(SyncRootPath: Windows.Win32.Foundation.PWSTR, CallbackTabl
 @winfunctype('cldapi.dll')
 def CfDisconnectSyncRoot(ConnectionKey: Windows.Win32.Storage.CloudFilters.CF_CONNECTION_KEY) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
-def CfGetTransferKey(FileHandle: Windows.Win32.Foundation.HANDLE, TransferKey: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def CfGetTransferKey(FileHandle: Windows.Win32.Foundation.HANDLE, TransferKey: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
-def CfReleaseTransferKey(FileHandle: Windows.Win32.Foundation.HANDLE, TransferKey: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Void: ...
+def CfReleaseTransferKey(FileHandle: Windows.Win32.Foundation.HANDLE, TransferKey: POINTER(Int64)) -> Void: ...
 @winfunctype('cldapi.dll')
 def CfExecute(OpInfo: POINTER(Windows.Win32.Storage.CloudFilters.CF_OPERATION_INFO_head), OpParams: POINTER(Windows.Win32.Storage.CloudFilters.CF_OPERATION_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
@@ -65,9 +65,9 @@ def CfUpdatePlaceholder(FileHandle: Windows.Win32.Foundation.HANDLE, FsMetadata:
 @winfunctype('cldapi.dll')
 def CfRevertPlaceholder(FileHandle: Windows.Win32.Foundation.HANDLE, RevertFlags: Windows.Win32.Storage.CloudFilters.CF_REVERT_FLAGS, Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
-def CfHydratePlaceholder(FileHandle: Windows.Win32.Foundation.HANDLE, StartingOffset: Windows.Win32.Foundation.LARGE_INTEGER, Length: Windows.Win32.Foundation.LARGE_INTEGER, HydrateFlags: Windows.Win32.Storage.CloudFilters.CF_HYDRATE_FLAGS, Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def CfHydratePlaceholder(FileHandle: Windows.Win32.Foundation.HANDLE, StartingOffset: Int64, Length: Int64, HydrateFlags: Windows.Win32.Storage.CloudFilters.CF_HYDRATE_FLAGS, Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
-def CfDehydratePlaceholder(FileHandle: Windows.Win32.Foundation.HANDLE, StartingOffset: Windows.Win32.Foundation.LARGE_INTEGER, Length: Windows.Win32.Foundation.LARGE_INTEGER, DehydrateFlags: Windows.Win32.Storage.CloudFilters.CF_DEHYDRATE_FLAGS, Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def CfDehydratePlaceholder(FileHandle: Windows.Win32.Foundation.HANDLE, StartingOffset: Int64, Length: Int64, DehydrateFlags: Windows.Win32.Storage.CloudFilters.CF_DEHYDRATE_FLAGS, Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
 def CfSetPinState(FileHandle: Windows.Win32.Foundation.HANDLE, PinState: Windows.Win32.Storage.CloudFilters.CF_PIN_STATE, PinFlags: Windows.Win32.Storage.CloudFilters.CF_SET_PIN_FLAGS, Overlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
@@ -89,25 +89,25 @@ def CfGetSyncRootInfoByPath(FilePath: Windows.Win32.Foundation.PWSTR, InfoClass:
 @winfunctype('cldapi.dll')
 def CfGetSyncRootInfoByHandle(FileHandle: Windows.Win32.Foundation.HANDLE, InfoClass: Windows.Win32.Storage.CloudFilters.CF_SYNC_ROOT_INFO_CLASS, InfoBuffer: c_void_p, InfoBufferLength: UInt32, ReturnedLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
-def CfGetPlaceholderRangeInfo(FileHandle: Windows.Win32.Foundation.HANDLE, InfoClass: Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_RANGE_INFO_CLASS, StartingOffset: Windows.Win32.Foundation.LARGE_INTEGER, Length: Windows.Win32.Foundation.LARGE_INTEGER, InfoBuffer: c_void_p, InfoBufferLength: UInt32, ReturnedLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+def CfGetPlaceholderRangeInfo(FileHandle: Windows.Win32.Foundation.HANDLE, InfoClass: Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_RANGE_INFO_CLASS, StartingOffset: Int64, Length: Int64, InfoBuffer: c_void_p, InfoBufferLength: UInt32, ReturnedLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
-def CfReportProviderProgress(ConnectionKey: Windows.Win32.Storage.CloudFilters.CF_CONNECTION_KEY, TransferKey: Windows.Win32.Foundation.LARGE_INTEGER, ProviderProgressTotal: Windows.Win32.Foundation.LARGE_INTEGER, ProviderProgressCompleted: Windows.Win32.Foundation.LARGE_INTEGER) -> Windows.Win32.Foundation.HRESULT: ...
+def CfReportProviderProgress(ConnectionKey: Windows.Win32.Storage.CloudFilters.CF_CONNECTION_KEY, TransferKey: Int64, ProviderProgressTotal: Int64, ProviderProgressCompleted: Int64) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('cldapi.dll')
-def CfReportProviderProgress2(ConnectionKey: Windows.Win32.Storage.CloudFilters.CF_CONNECTION_KEY, TransferKey: Windows.Win32.Foundation.LARGE_INTEGER, RequestKey: Windows.Win32.Foundation.LARGE_INTEGER, ProviderProgressTotal: Windows.Win32.Foundation.LARGE_INTEGER, ProviderProgressCompleted: Windows.Win32.Foundation.LARGE_INTEGER, TargetSessionId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+def CfReportProviderProgress2(ConnectionKey: Windows.Win32.Storage.CloudFilters.CF_CONNECTION_KEY, TransferKey: Int64, RequestKey: Int64, ProviderProgressTotal: Int64, ProviderProgressCompleted: Int64, TargetSessionId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def CF_CALLBACK(CallbackInfo: POINTER(Windows.Win32.Storage.CloudFilters.CF_CALLBACK_INFO_head), CallbackParameters: POINTER(Windows.Win32.Storage.CloudFilters.CF_CALLBACK_PARAMETERS_head)) -> Void: ...
-CF_CALLBACK_CANCEL_FLAGS = UInt32
+CF_CALLBACK_CANCEL_FLAGS = Int32
 CF_CALLBACK_CANCEL_FLAG_NONE: CF_CALLBACK_CANCEL_FLAGS = 0
 CF_CALLBACK_CANCEL_FLAG_IO_TIMEOUT: CF_CALLBACK_CANCEL_FLAGS = 1
 CF_CALLBACK_CANCEL_FLAG_IO_ABORTED: CF_CALLBACK_CANCEL_FLAGS = 2
-CF_CALLBACK_CLOSE_COMPLETION_FLAGS = UInt32
+CF_CALLBACK_CLOSE_COMPLETION_FLAGS = Int32
 CF_CALLBACK_CLOSE_COMPLETION_FLAG_NONE: CF_CALLBACK_CLOSE_COMPLETION_FLAGS = 0
 CF_CALLBACK_CLOSE_COMPLETION_FLAG_DELETED: CF_CALLBACK_CLOSE_COMPLETION_FLAGS = 1
-CF_CALLBACK_DEHYDRATE_COMPLETION_FLAGS = UInt32
+CF_CALLBACK_DEHYDRATE_COMPLETION_FLAGS = Int32
 CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_NONE: CF_CALLBACK_DEHYDRATE_COMPLETION_FLAGS = 0
 CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_BACKGROUND: CF_CALLBACK_DEHYDRATE_COMPLETION_FLAGS = 1
 CF_CALLBACK_DEHYDRATE_COMPLETION_FLAG_DEHYDRATED: CF_CALLBACK_DEHYDRATE_COMPLETION_FLAGS = 2
-CF_CALLBACK_DEHYDRATE_FLAGS = UInt32
+CF_CALLBACK_DEHYDRATE_FLAGS = Int32
 CF_CALLBACK_DEHYDRATE_FLAG_NONE: CF_CALLBACK_DEHYDRATE_FLAGS = 0
 CF_CALLBACK_DEHYDRATE_FLAG_BACKGROUND: CF_CALLBACK_DEHYDRATE_FLAGS = 1
 CF_CALLBACK_DEHYDRATION_REASON = Int32
@@ -116,17 +116,17 @@ CF_CALLBACK_DEHYDRATION_REASON_USER_MANUAL: CF_CALLBACK_DEHYDRATION_REASON = 1
 CF_CALLBACK_DEHYDRATION_REASON_SYSTEM_LOW_SPACE: CF_CALLBACK_DEHYDRATION_REASON = 2
 CF_CALLBACK_DEHYDRATION_REASON_SYSTEM_INACTIVITY: CF_CALLBACK_DEHYDRATION_REASON = 3
 CF_CALLBACK_DEHYDRATION_REASON_SYSTEM_OS_UPGRADE: CF_CALLBACK_DEHYDRATION_REASON = 4
-CF_CALLBACK_DELETE_COMPLETION_FLAGS = UInt32
+CF_CALLBACK_DELETE_COMPLETION_FLAGS = Int32
 CF_CALLBACK_DELETE_COMPLETION_FLAG_NONE: CF_CALLBACK_DELETE_COMPLETION_FLAGS = 0
-CF_CALLBACK_DELETE_FLAGS = UInt32
+CF_CALLBACK_DELETE_FLAGS = Int32
 CF_CALLBACK_DELETE_FLAG_NONE: CF_CALLBACK_DELETE_FLAGS = 0
 CF_CALLBACK_DELETE_FLAG_IS_DIRECTORY: CF_CALLBACK_DELETE_FLAGS = 1
 CF_CALLBACK_DELETE_FLAG_IS_UNDELETE: CF_CALLBACK_DELETE_FLAGS = 2
-CF_CALLBACK_FETCH_DATA_FLAGS = UInt32
+CF_CALLBACK_FETCH_DATA_FLAGS = Int32
 CF_CALLBACK_FETCH_DATA_FLAG_NONE: CF_CALLBACK_FETCH_DATA_FLAGS = 0
 CF_CALLBACK_FETCH_DATA_FLAG_RECOVERY: CF_CALLBACK_FETCH_DATA_FLAGS = 1
 CF_CALLBACK_FETCH_DATA_FLAG_EXPLICIT_HYDRATION: CF_CALLBACK_FETCH_DATA_FLAGS = 2
-CF_CALLBACK_FETCH_PLACEHOLDERS_FLAGS = UInt32
+CF_CALLBACK_FETCH_PLACEHOLDERS_FLAGS = Int32
 CF_CALLBACK_FETCH_PLACEHOLDERS_FLAG_NONE: CF_CALLBACK_FETCH_PLACEHOLDERS_FLAGS = 0
 class CF_CALLBACK_INFO(Structure):
     StructSize: UInt32
@@ -135,20 +135,20 @@ class CF_CALLBACK_INFO(Structure):
     VolumeGuidName: Windows.Win32.Foundation.PWSTR
     VolumeDosName: Windows.Win32.Foundation.PWSTR
     VolumeSerialNumber: UInt32
-    SyncRootFileId: Windows.Win32.Foundation.LARGE_INTEGER
+    SyncRootFileId: Int64
     SyncRootIdentity: c_void_p
     SyncRootIdentityLength: UInt32
-    FileId: Windows.Win32.Foundation.LARGE_INTEGER
-    FileSize: Windows.Win32.Foundation.LARGE_INTEGER
+    FileId: Int64
+    FileSize: Int64
     FileIdentity: c_void_p
     FileIdentityLength: UInt32
     NormalizedPath: Windows.Win32.Foundation.PWSTR
-    TransferKey: Windows.Win32.Foundation.LARGE_INTEGER
+    TransferKey: Int64
     PriorityHint: Byte
     CorrelationVector: POINTER(Windows.Win32.System.CorrelationVector.CORRELATION_VECTOR_head)
     ProcessInfo: POINTER(Windows.Win32.Storage.CloudFilters.CF_PROCESS_INFO_head)
-    RequestKey: Windows.Win32.Foundation.LARGE_INTEGER
-CF_CALLBACK_OPEN_COMPLETION_FLAGS = UInt32
+    RequestKey: Int64
+CF_CALLBACK_OPEN_COMPLETION_FLAGS = Int32
 CF_CALLBACK_OPEN_COMPLETION_FLAG_NONE: CF_CALLBACK_OPEN_COMPLETION_FLAGS = 0
 CF_CALLBACK_OPEN_COMPLETION_FLAG_PLACEHOLDER_UNKNOWN: CF_CALLBACK_OPEN_COMPLETION_FLAGS = 1
 CF_CALLBACK_OPEN_COMPLETION_FLAG_PLACEHOLDER_UNSUPPORTED: CF_CALLBACK_OPEN_COMPLETION_FLAGS = 2
@@ -174,20 +174,20 @@ class CF_CALLBACK_PARAMETERS(Structure):
             class _Anonymous_e__Union(Union):
                 FetchData: _FetchData_e__Struct
                 class _FetchData_e__Struct(Structure):
-                    FileOffset: Windows.Win32.Foundation.LARGE_INTEGER
-                    Length: Windows.Win32.Foundation.LARGE_INTEGER
+                    FileOffset: Int64
+                    Length: Int64
         class _FetchData_e__Struct(Structure):
             Flags: Windows.Win32.Storage.CloudFilters.CF_CALLBACK_FETCH_DATA_FLAGS
-            RequiredFileOffset: Windows.Win32.Foundation.LARGE_INTEGER
-            RequiredLength: Windows.Win32.Foundation.LARGE_INTEGER
-            OptionalFileOffset: Windows.Win32.Foundation.LARGE_INTEGER
-            OptionalLength: Windows.Win32.Foundation.LARGE_INTEGER
-            LastDehydrationTime: Windows.Win32.Foundation.LARGE_INTEGER
+            RequiredFileOffset: Int64
+            RequiredLength: Int64
+            OptionalFileOffset: Int64
+            OptionalLength: Int64
+            LastDehydrationTime: Int64
             LastDehydrationReason: Windows.Win32.Storage.CloudFilters.CF_CALLBACK_DEHYDRATION_REASON
         class _ValidateData_e__Struct(Structure):
             Flags: Windows.Win32.Storage.CloudFilters.CF_CALLBACK_VALIDATE_DATA_FLAGS
-            RequiredFileOffset: Windows.Win32.Foundation.LARGE_INTEGER
-            RequiredLength: Windows.Win32.Foundation.LARGE_INTEGER
+            RequiredFileOffset: Int64
+            RequiredLength: Int64
         class _FetchPlaceholders_e__Struct(Structure):
             Flags: Windows.Win32.Storage.CloudFilters.CF_CALLBACK_FETCH_PLACEHOLDERS_FLAGS
             Pattern: Windows.Win32.Foundation.PWSTR
@@ -214,9 +214,9 @@ class CF_CALLBACK_PARAMETERS(Structure):
 class CF_CALLBACK_REGISTRATION(Structure):
     Type: Windows.Win32.Storage.CloudFilters.CF_CALLBACK_TYPE
     Callback: Windows.Win32.Storage.CloudFilters.CF_CALLBACK
-CF_CALLBACK_RENAME_COMPLETION_FLAGS = UInt32
+CF_CALLBACK_RENAME_COMPLETION_FLAGS = Int32
 CF_CALLBACK_RENAME_COMPLETION_FLAG_NONE: CF_CALLBACK_RENAME_COMPLETION_FLAGS = 0
-CF_CALLBACK_RENAME_FLAGS = UInt32
+CF_CALLBACK_RENAME_FLAGS = Int32
 CF_CALLBACK_RENAME_FLAG_NONE: CF_CALLBACK_RENAME_FLAGS = 0
 CF_CALLBACK_RENAME_FLAG_IS_DIRECTORY: CF_CALLBACK_RENAME_FLAGS = 1
 CF_CALLBACK_RENAME_FLAG_SOURCE_IN_SCOPE: CF_CALLBACK_RENAME_FLAGS = 2
@@ -236,38 +236,38 @@ CF_CALLBACK_TYPE_NOTIFY_DELETE_COMPLETION: CF_CALLBACK_TYPE = 10
 CF_CALLBACK_TYPE_NOTIFY_RENAME: CF_CALLBACK_TYPE = 11
 CF_CALLBACK_TYPE_NOTIFY_RENAME_COMPLETION: CF_CALLBACK_TYPE = 12
 CF_CALLBACK_TYPE_NONE: CF_CALLBACK_TYPE = -1
-CF_CALLBACK_VALIDATE_DATA_FLAGS = UInt32
+CF_CALLBACK_VALIDATE_DATA_FLAGS = Int32
 CF_CALLBACK_VALIDATE_DATA_FLAG_NONE: CF_CALLBACK_VALIDATE_DATA_FLAGS = 0
 CF_CALLBACK_VALIDATE_DATA_FLAG_EXPLICIT_HYDRATION: CF_CALLBACK_VALIDATE_DATA_FLAGS = 2
 CF_CONNECTION_KEY = Int64
-CF_CONNECT_FLAGS = UInt32
+CF_CONNECT_FLAGS = Int32
 CF_CONNECT_FLAG_NONE: CF_CONNECT_FLAGS = 0
 CF_CONNECT_FLAG_REQUIRE_PROCESS_INFO: CF_CONNECT_FLAGS = 2
 CF_CONNECT_FLAG_REQUIRE_FULL_FILE_PATH: CF_CONNECT_FLAGS = 4
 CF_CONNECT_FLAG_BLOCK_SELF_IMPLICIT_HYDRATION: CF_CONNECT_FLAGS = 8
-CF_CONVERT_FLAGS = UInt32
+CF_CONVERT_FLAGS = Int32
 CF_CONVERT_FLAG_NONE: CF_CONVERT_FLAGS = 0
 CF_CONVERT_FLAG_MARK_IN_SYNC: CF_CONVERT_FLAGS = 1
 CF_CONVERT_FLAG_DEHYDRATE: CF_CONVERT_FLAGS = 2
 CF_CONVERT_FLAG_ENABLE_ON_DEMAND_POPULATION: CF_CONVERT_FLAGS = 4
 CF_CONVERT_FLAG_ALWAYS_FULL: CF_CONVERT_FLAGS = 8
 CF_CONVERT_FLAG_FORCE_CONVERT_TO_CLOUD_FILE: CF_CONVERT_FLAGS = 16
-CF_CREATE_FLAGS = UInt32
+CF_CREATE_FLAGS = Int32
 CF_CREATE_FLAG_NONE: CF_CREATE_FLAGS = 0
 CF_CREATE_FLAG_STOP_ON_ERROR: CF_CREATE_FLAGS = 1
-CF_DEHYDRATE_FLAGS = UInt32
+CF_DEHYDRATE_FLAGS = Int32
 CF_DEHYDRATE_FLAG_NONE: CF_DEHYDRATE_FLAGS = 0
 CF_DEHYDRATE_FLAG_BACKGROUND: CF_DEHYDRATE_FLAGS = 1
 class CF_FILE_RANGE(Structure):
-    StartingOffset: Windows.Win32.Foundation.LARGE_INTEGER
-    Length: Windows.Win32.Foundation.LARGE_INTEGER
+    StartingOffset: Int64
+    Length: Int64
 class CF_FS_METADATA(Structure):
     BasicInfo: Windows.Win32.Storage.FileSystem.FILE_BASIC_INFO
-    FileSize: Windows.Win32.Foundation.LARGE_INTEGER
-CF_HARDLINK_POLICY = UInt32
+    FileSize: Int64
+CF_HARDLINK_POLICY = Int32
 CF_HARDLINK_POLICY_NONE: CF_HARDLINK_POLICY = 0
 CF_HARDLINK_POLICY_ALLOWED: CF_HARDLINK_POLICY = 1
-CF_HYDRATE_FLAGS = UInt32
+CF_HYDRATE_FLAGS = Int32
 CF_HYDRATE_FLAG_NONE: CF_HYDRATE_FLAGS = 0
 class CF_HYDRATION_POLICY(Structure):
     Primary: Windows.Win32.Storage.CloudFilters.CF_HYDRATION_POLICY_PRIMARY
@@ -302,28 +302,28 @@ CF_INSYNC_POLICY_PRESERVE_INSYNC_FOR_SYNC_ENGINE: CF_INSYNC_POLICY = 2147483648
 CF_IN_SYNC_STATE = Int32
 CF_IN_SYNC_STATE_NOT_IN_SYNC: CF_IN_SYNC_STATE = 0
 CF_IN_SYNC_STATE_IN_SYNC: CF_IN_SYNC_STATE = 1
-CF_OPEN_FILE_FLAGS = UInt32
+CF_OPEN_FILE_FLAGS = Int32
 CF_OPEN_FILE_FLAG_NONE: CF_OPEN_FILE_FLAGS = 0
 CF_OPEN_FILE_FLAG_EXCLUSIVE: CF_OPEN_FILE_FLAGS = 1
 CF_OPEN_FILE_FLAG_WRITE_ACCESS: CF_OPEN_FILE_FLAGS = 2
 CF_OPEN_FILE_FLAG_DELETE_ACCESS: CF_OPEN_FILE_FLAGS = 4
 CF_OPEN_FILE_FLAG_FOREGROUND: CF_OPEN_FILE_FLAGS = 8
-CF_OPERATION_ACK_DATA_FLAGS = UInt32
+CF_OPERATION_ACK_DATA_FLAGS = Int32
 CF_OPERATION_ACK_DATA_FLAG_NONE: CF_OPERATION_ACK_DATA_FLAGS = 0
-CF_OPERATION_ACK_DEHYDRATE_FLAGS = UInt32
+CF_OPERATION_ACK_DEHYDRATE_FLAGS = Int32
 CF_OPERATION_ACK_DEHYDRATE_FLAG_NONE: CF_OPERATION_ACK_DEHYDRATE_FLAGS = 0
-CF_OPERATION_ACK_DELETE_FLAGS = UInt32
+CF_OPERATION_ACK_DELETE_FLAGS = Int32
 CF_OPERATION_ACK_DELETE_FLAG_NONE: CF_OPERATION_ACK_DELETE_FLAGS = 0
-CF_OPERATION_ACK_RENAME_FLAGS = UInt32
+CF_OPERATION_ACK_RENAME_FLAGS = Int32
 CF_OPERATION_ACK_RENAME_FLAG_NONE: CF_OPERATION_ACK_RENAME_FLAGS = 0
 class CF_OPERATION_INFO(Structure):
     StructSize: UInt32
     Type: Windows.Win32.Storage.CloudFilters.CF_OPERATION_TYPE
     ConnectionKey: Windows.Win32.Storage.CloudFilters.CF_CONNECTION_KEY
-    TransferKey: Windows.Win32.Foundation.LARGE_INTEGER
+    TransferKey: Int64
     CorrelationVector: POINTER(Windows.Win32.System.CorrelationVector.CORRELATION_VECTOR_head)
     SyncStatus: POINTER(Windows.Win32.Storage.CloudFilters.CF_SYNC_STATUS_head)
-    RequestKey: Windows.Win32.Foundation.LARGE_INTEGER
+    RequestKey: Int64
 class CF_OPERATION_PARAMETERS(Structure):
     ParamSize: UInt32
     Anonymous: _Anonymous_e__Union
@@ -340,19 +340,19 @@ class CF_OPERATION_PARAMETERS(Structure):
             Flags: Windows.Win32.Storage.CloudFilters.CF_OPERATION_TRANSFER_DATA_FLAGS
             CompletionStatus: Windows.Win32.Foundation.NTSTATUS
             Buffer: c_void_p
-            Offset: Windows.Win32.Foundation.LARGE_INTEGER
-            Length: Windows.Win32.Foundation.LARGE_INTEGER
+            Offset: Int64
+            Length: Int64
         class _RetrieveData_e__Struct(Structure):
             Flags: Windows.Win32.Storage.CloudFilters.CF_OPERATION_RETRIEVE_DATA_FLAGS
             Buffer: c_void_p
-            Offset: Windows.Win32.Foundation.LARGE_INTEGER
-            Length: Windows.Win32.Foundation.LARGE_INTEGER
-            ReturnedLength: Windows.Win32.Foundation.LARGE_INTEGER
+            Offset: Int64
+            Length: Int64
+            ReturnedLength: Int64
         class _AckData_e__Struct(Structure):
             Flags: Windows.Win32.Storage.CloudFilters.CF_OPERATION_ACK_DATA_FLAGS
             CompletionStatus: Windows.Win32.Foundation.NTSTATUS
-            Offset: Windows.Win32.Foundation.LARGE_INTEGER
-            Length: Windows.Win32.Foundation.LARGE_INTEGER
+            Offset: Int64
+            Length: Int64
         class _RestartHydration_e__Struct(Structure):
             Flags: Windows.Win32.Storage.CloudFilters.CF_OPERATION_RESTART_HYDRATION_FLAGS
             FsMetadata: POINTER(Windows.Win32.Storage.CloudFilters.CF_FS_METADATA_head)
@@ -361,7 +361,7 @@ class CF_OPERATION_PARAMETERS(Structure):
         class _TransferPlaceholders_e__Struct(Structure):
             Flags: Windows.Win32.Storage.CloudFilters.CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS
             CompletionStatus: Windows.Win32.Foundation.NTSTATUS
-            PlaceholderTotalCount: Windows.Win32.Foundation.LARGE_INTEGER
+            PlaceholderTotalCount: Int64
             PlaceholderArray: POINTER(Windows.Win32.Storage.CloudFilters.CF_PLACEHOLDER_CREATE_INFO_head)
             PlaceholderCount: UInt32
             EntriesProcessed: UInt32
@@ -376,14 +376,14 @@ class CF_OPERATION_PARAMETERS(Structure):
         class _AckDelete_e__Struct(Structure):
             Flags: Windows.Win32.Storage.CloudFilters.CF_OPERATION_ACK_DELETE_FLAGS
             CompletionStatus: Windows.Win32.Foundation.NTSTATUS
-CF_OPERATION_RESTART_HYDRATION_FLAGS = UInt32
+CF_OPERATION_RESTART_HYDRATION_FLAGS = Int32
 CF_OPERATION_RESTART_HYDRATION_FLAG_NONE: CF_OPERATION_RESTART_HYDRATION_FLAGS = 0
 CF_OPERATION_RESTART_HYDRATION_FLAG_MARK_IN_SYNC: CF_OPERATION_RESTART_HYDRATION_FLAGS = 1
-CF_OPERATION_RETRIEVE_DATA_FLAGS = UInt32
+CF_OPERATION_RETRIEVE_DATA_FLAGS = Int32
 CF_OPERATION_RETRIEVE_DATA_FLAG_NONE: CF_OPERATION_RETRIEVE_DATA_FLAGS = 0
-CF_OPERATION_TRANSFER_DATA_FLAGS = UInt32
+CF_OPERATION_TRANSFER_DATA_FLAGS = Int32
 CF_OPERATION_TRANSFER_DATA_FLAG_NONE: CF_OPERATION_TRANSFER_DATA_FLAGS = 0
-CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS = UInt32
+CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS = Int32
 CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_NONE: CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS = 0
 CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_STOP_ON_ERROR: CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS = 1
 CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAG_DISABLE_ON_DEMAND_POPULATION: CF_OPERATION_TRANSFER_PLACEHOLDERS_FLAGS = 2
@@ -405,11 +405,11 @@ CF_PIN_STATE_INHERIT: CF_PIN_STATE = 4
 class CF_PLACEHOLDER_BASIC_INFO(Structure):
     PinState: Windows.Win32.Storage.CloudFilters.CF_PIN_STATE
     InSyncState: Windows.Win32.Storage.CloudFilters.CF_IN_SYNC_STATE
-    FileId: Windows.Win32.Foundation.LARGE_INTEGER
-    SyncRootFileId: Windows.Win32.Foundation.LARGE_INTEGER
+    FileId: Int64
+    SyncRootFileId: Int64
     FileIdentityLength: UInt32
     FileIdentity: Byte * 1
-CF_PLACEHOLDER_CREATE_FLAGS = UInt32
+CF_PLACEHOLDER_CREATE_FLAGS = Int32
 CF_PLACEHOLDER_CREATE_FLAG_NONE: CF_PLACEHOLDER_CREATE_FLAGS = 0
 CF_PLACEHOLDER_CREATE_FLAG_DISABLE_ON_DEMAND_POPULATION: CF_PLACEHOLDER_CREATE_FLAGS = 1
 CF_PLACEHOLDER_CREATE_FLAG_MARK_IN_SYNC: CF_PLACEHOLDER_CREATE_FLAGS = 2
@@ -436,14 +436,14 @@ CF_PLACEHOLDER_RANGE_INFO_ONDISK: CF_PLACEHOLDER_RANGE_INFO_CLASS = 1
 CF_PLACEHOLDER_RANGE_INFO_VALIDATED: CF_PLACEHOLDER_RANGE_INFO_CLASS = 2
 CF_PLACEHOLDER_RANGE_INFO_MODIFIED: CF_PLACEHOLDER_RANGE_INFO_CLASS = 3
 class CF_PLACEHOLDER_STANDARD_INFO(Structure):
-    OnDiskDataSize: Windows.Win32.Foundation.LARGE_INTEGER
-    ValidatedDataSize: Windows.Win32.Foundation.LARGE_INTEGER
-    ModifiedDataSize: Windows.Win32.Foundation.LARGE_INTEGER
-    PropertiesSize: Windows.Win32.Foundation.LARGE_INTEGER
+    OnDiskDataSize: Int64
+    ValidatedDataSize: Int64
+    ModifiedDataSize: Int64
+    PropertiesSize: Int64
     PinState: Windows.Win32.Storage.CloudFilters.CF_PIN_STATE
     InSyncState: Windows.Win32.Storage.CloudFilters.CF_IN_SYNC_STATE
-    FileId: Windows.Win32.Foundation.LARGE_INTEGER
-    SyncRootFileId: Windows.Win32.Foundation.LARGE_INTEGER
+    FileId: Int64
+    SyncRootFileId: Int64
     FileIdentityLength: UInt32
     FileIdentity: Byte * 1
 CF_PLACEHOLDER_STATE = UInt32
@@ -476,16 +476,16 @@ class CF_PROCESS_INFO(Structure):
     ApplicationId: Windows.Win32.Foundation.PWSTR
     CommandLine: Windows.Win32.Foundation.PWSTR
     SessionId: UInt32
-CF_REGISTER_FLAGS = UInt32
+CF_REGISTER_FLAGS = Int32
 CF_REGISTER_FLAG_NONE: CF_REGISTER_FLAGS = 0
 CF_REGISTER_FLAG_UPDATE: CF_REGISTER_FLAGS = 1
 CF_REGISTER_FLAG_DISABLE_ON_DEMAND_POPULATION_ON_ROOT: CF_REGISTER_FLAGS = 2
 CF_REGISTER_FLAG_MARK_IN_SYNC_ON_ROOT: CF_REGISTER_FLAGS = 4
-CF_REVERT_FLAGS = UInt32
+CF_REVERT_FLAGS = Int32
 CF_REVERT_FLAG_NONE: CF_REVERT_FLAGS = 0
-CF_SET_IN_SYNC_FLAGS = UInt32
+CF_SET_IN_SYNC_FLAGS = Int32
 CF_SET_IN_SYNC_FLAG_NONE: CF_SET_IN_SYNC_FLAGS = 0
-CF_SET_PIN_FLAGS = UInt32
+CF_SET_PIN_FLAGS = Int32
 CF_SET_PIN_FLAG_NONE: CF_SET_PIN_FLAGS = 0
 CF_SET_PIN_FLAG_RECURSE: CF_SET_PIN_FLAGS = 1
 CF_SET_PIN_FLAG_RECURSE_ONLY: CF_SET_PIN_FLAGS = 2
@@ -519,7 +519,7 @@ class CF_SYNC_REGISTRATION(Structure):
     FileIdentityLength: UInt32
     ProviderId: Guid
 class CF_SYNC_ROOT_BASIC_INFO(Structure):
-    SyncRootFileId: Windows.Win32.Foundation.LARGE_INTEGER
+    SyncRootFileId: Int64
 CF_SYNC_ROOT_INFO_CLASS = Int32
 CF_SYNC_ROOT_INFO_BASIC: CF_SYNC_ROOT_INFO_CLASS = 0
 CF_SYNC_ROOT_INFO_STANDARD: CF_SYNC_ROOT_INFO_CLASS = 1
@@ -529,7 +529,7 @@ class CF_SYNC_ROOT_PROVIDER_INFO(Structure):
     ProviderName: Char * 256
     ProviderVersion: Char * 256
 class CF_SYNC_ROOT_STANDARD_INFO(Structure):
-    SyncRootFileId: Windows.Win32.Foundation.LARGE_INTEGER
+    SyncRootFileId: Int64
     HydrationPolicy: Windows.Win32.Storage.CloudFilters.CF_HYDRATION_POLICY
     PopulationPolicy: Windows.Win32.Storage.CloudFilters.CF_POPULATION_POLICY
     InSyncPolicy: Windows.Win32.Storage.CloudFilters.CF_INSYNC_POLICY
@@ -546,7 +546,7 @@ class CF_SYNC_STATUS(Structure):
     DescriptionLength: UInt32
     DeviceIdOffset: UInt32
     DeviceIdLength: UInt32
-CF_UPDATE_FLAGS = UInt32
+CF_UPDATE_FLAGS = Int32
 CF_UPDATE_FLAG_NONE: CF_UPDATE_FLAGS = 0
 CF_UPDATE_FLAG_VERIFY_IN_SYNC: CF_UPDATE_FLAGS = 1
 CF_UPDATE_FLAG_MARK_IN_SYNC: CF_UPDATE_FLAGS = 2

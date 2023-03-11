@@ -747,11 +747,17 @@ class GROUPTYPINGCHANGE(Structure):
     nmhdr: Windows.Win32.UI.Controls.NMHDR
     fGroupTyping: Windows.Win32.Foundation.BOOL
     _pack_ = 4
-class HYPHENATEINFO(Structure):
-    cbSize: Int16
-    dxHyphenateZone: Int16
-    pfnHyphenate: IntPtr
-    _pack_ = 4
+if ARCH in 'X64,ARM64':
+    class HYPHENATEINFO(Structure):
+        cbSize: Int16
+        dxHyphenateZone: Int16
+        pfnHyphenate: IntPtr
+        _pack_ = 4
+if ARCH in 'X86':
+    class HYPHENATEINFO(Structure):
+        cbSize: Int16
+        dxHyphenateZone: Int16
+        pfnHyphenate: IntPtr
 class HYPHRESULT(Structure):
     khyph: Windows.Win32.UI.Controls.RichEdit.KHYPH
     ichHyph: Int32
@@ -2795,7 +2801,10 @@ make_head(_module, 'GETCONTEXTMENUEX')
 make_head(_module, 'GETTEXTEX')
 make_head(_module, 'GETTEXTLENGTHEX')
 make_head(_module, 'GROUPTYPINGCHANGE')
-make_head(_module, 'HYPHENATEINFO')
+if ARCH in 'X64,ARM64':
+    make_head(_module, 'HYPHENATEINFO')
+if ARCH in 'X86':
+    make_head(_module, 'HYPHENATEINFO')
 make_head(_module, 'HYPHRESULT')
 make_head(_module, 'IMECOMPTEXT')
 make_head(_module, 'IRichEditOle')

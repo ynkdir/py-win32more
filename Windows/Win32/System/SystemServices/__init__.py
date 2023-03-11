@@ -148,7 +148,7 @@ APPCOMMAND_MEDIA_CHANNEL_DOWN: APPCOMMAND_ID = 52
 APPCOMMAND_DELETE: APPCOMMAND_ID = 53
 APPCOMMAND_DWM_FLIP3D: APPCOMMAND_ID = 54
 class APPLICATIONLAUNCH_SETTING_VALUE(Structure):
-    ActivationTime: Windows.Win32.Foundation.LARGE_INTEGER
+    ActivationTime: Int64
     Flags: UInt32
     ButtonInstanceID: UInt32
 ARM64_FNPDATA_CR = Int32
@@ -3856,7 +3856,7 @@ class QUOTA_LIMITS_EX(Structure):
     MinimumWorkingSetSize: UIntPtr
     MaximumWorkingSetSize: UIntPtr
     PagefileLimit: UIntPtr
-    TimeLimit: Windows.Win32.Foundation.LARGE_INTEGER
+    TimeLimit: Int64
     WorkingSetLimit: UIntPtr
     Reserved2: UIntPtr
     Reserved3: UIntPtr
@@ -4238,8 +4238,8 @@ TAPE_DRIVE_WRITE_MARK_IMMED: TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH = 241591910
 TAPE_DRIVE_WRITE_SETMARKS: TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH = 2164260864
 TAPE_DRIVE_WRITE_SHORT_FMKS: TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH = 2214592512
 class TAPE_GET_MEDIA_PARAMETERS(Structure):
-    Capacity: Windows.Win32.Foundation.LARGE_INTEGER
-    Remaining: Windows.Win32.Foundation.LARGE_INTEGER
+    Capacity: Int64
+    Remaining: Int64
     BlockSize: UInt32
     PartitionCount: UInt32
     WriteProtected: Windows.Win32.Foundation.BOOLEAN
@@ -4268,7 +4268,7 @@ class TP_POOL(Structure):
     pass
 class TRANSACTIONMANAGER_BASIC_INFORMATION(Structure):
     TmIdentity: Guid
-    VirtualClock: Windows.Win32.Foundation.LARGE_INTEGER
+    VirtualClock: Int64
 TRANSACTIONMANAGER_INFORMATION_CLASS = Int32
 TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerBasicInformation: TRANSACTIONMANAGER_INFORMATION_CLASS = 0
 TRANSACTIONMANAGER_INFORMATION_CLASS_TransactionManagerLogInformation: TRANSACTIONMANAGER_INFORMATION_CLASS = 1
@@ -4312,7 +4312,7 @@ class TRANSACTION_LIST_INFORMATION(Structure):
 class TRANSACTION_PROPERTIES_INFORMATION(Structure):
     IsolationLevel: UInt32
     IsolationFlags: UInt32
-    Timeout: Windows.Win32.Foundation.LARGE_INTEGER
+    Timeout: Int64
     Outcome: UInt32
     DescriptionLength: UInt32
     Description: Char * 1

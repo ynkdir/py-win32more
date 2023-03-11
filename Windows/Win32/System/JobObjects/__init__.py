@@ -99,10 +99,10 @@ class JOBOBJECT_ASSOCIATE_COMPLETION_PORT(Structure):
     CompletionKey: c_void_p
     CompletionPort: Windows.Win32.Foundation.HANDLE
 class JOBOBJECT_BASIC_ACCOUNTING_INFORMATION(Structure):
-    TotalUserTime: Windows.Win32.Foundation.LARGE_INTEGER
-    TotalKernelTime: Windows.Win32.Foundation.LARGE_INTEGER
-    ThisPeriodTotalUserTime: Windows.Win32.Foundation.LARGE_INTEGER
-    ThisPeriodTotalKernelTime: Windows.Win32.Foundation.LARGE_INTEGER
+    TotalUserTime: Int64
+    TotalKernelTime: Int64
+    ThisPeriodTotalUserTime: Int64
+    ThisPeriodTotalKernelTime: Int64
     TotalPageFaultCount: UInt32
     TotalProcesses: UInt32
     ActiveProcesses: UInt32
@@ -111,8 +111,8 @@ class JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION(Structure):
     BasicInfo: Windows.Win32.System.JobObjects.JOBOBJECT_BASIC_ACCOUNTING_INFORMATION
     IoInfo: Windows.Win32.System.Threading.IO_COUNTERS
 class JOBOBJECT_BASIC_LIMIT_INFORMATION(Structure):
-    PerProcessUserTimeLimit: Windows.Win32.Foundation.LARGE_INTEGER
-    PerJobUserTimeLimit: Windows.Win32.Foundation.LARGE_INTEGER
+    PerProcessUserTimeLimit: Int64
+    PerJobUserTimeLimit: Int64
     LimitFlags: Windows.Win32.System.JobObjects.JOB_OBJECT_LIMIT
     MinimumWorkingSetSize: UIntPtr
     MaximumWorkingSetSize: UIntPtr
@@ -208,8 +208,8 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION(Structure):
     IoReadBytesLimit: UInt64
     IoWriteBytes: UInt64
     IoWriteBytesLimit: UInt64
-    PerJobUserTime: Windows.Win32.Foundation.LARGE_INTEGER
-    PerJobUserTimeLimit: Windows.Win32.Foundation.LARGE_INTEGER
+    PerJobUserTime: Int64
+    PerJobUserTimeLimit: Int64
     JobMemory: UInt64
     JobMemoryLimit: UInt64
     RateControlTolerance: Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
@@ -221,8 +221,8 @@ class JOBOBJECT_LIMIT_VIOLATION_INFORMATION_2(Structure):
     IoReadBytesLimit: UInt64
     IoWriteBytes: UInt64
     IoWriteBytesLimit: UInt64
-    PerJobUserTime: Windows.Win32.Foundation.LARGE_INTEGER
-    PerJobUserTimeLimit: Windows.Win32.Foundation.LARGE_INTEGER
+    PerJobUserTime: Int64
+    PerJobUserTimeLimit: Int64
     JobMemory: UInt64
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
@@ -248,7 +248,7 @@ class JOBOBJECT_NET_RATE_CONTROL_INFORMATION(Structure):
 class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION(Structure):
     IoReadBytesLimit: UInt64
     IoWriteBytesLimit: UInt64
-    PerJobUserTimeLimit: Windows.Win32.Foundation.LARGE_INTEGER
+    PerJobUserTimeLimit: Int64
     JobMemoryLimit: UInt64
     RateControlTolerance: Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE
     RateControlToleranceInterval: Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL
@@ -256,7 +256,7 @@ class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION(Structure):
 class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2(Structure):
     IoReadBytesLimit: UInt64
     IoWriteBytesLimit: UInt64
-    PerJobUserTimeLimit: Windows.Win32.Foundation.LARGE_INTEGER
+    PerJobUserTimeLimit: Int64
     Anonymous1: _Anonymous1_e__Union
     Anonymous2: _Anonymous2_e__Union
     Anonymous3: _Anonymous3_e__Union
@@ -330,7 +330,7 @@ JOB_OBJECT_LIMIT_VALID_FLAGS: JOB_OBJECT_LIMIT = 524287
 JOB_OBJECT_BASIC_LIMIT_VALID_FLAGS: JOB_OBJECT_LIMIT = 255
 JOB_OBJECT_EXTENDED_LIMIT_VALID_FLAGS: JOB_OBJECT_LIMIT = 32767
 JOB_OBJECT_NOTIFICATION_LIMIT_VALID_FLAGS: JOB_OBJECT_LIMIT = 2064900
-JOB_OBJECT_NET_RATE_CONTROL_FLAGS = UInt32
+JOB_OBJECT_NET_RATE_CONTROL_FLAGS = Int32
 JOB_OBJECT_NET_RATE_CONTROL_ENABLE: JOB_OBJECT_NET_RATE_CONTROL_FLAGS = 1
 JOB_OBJECT_NET_RATE_CONTROL_MAX_BANDWIDTH: JOB_OBJECT_NET_RATE_CONTROL_FLAGS = 2
 JOB_OBJECT_NET_RATE_CONTROL_DSCP_TAG: JOB_OBJECT_NET_RATE_CONTROL_FLAGS = 4

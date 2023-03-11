@@ -110,9 +110,9 @@ def CoRegisterMallocSpy(pMallocSpy: Windows.Win32.System.Com.IMallocSpy_head) ->
 @winfunctype('OLE32.dll')
 def CoRevokeMallocSpy() -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLE32.dll')
-def CoRegisterInitializeSpy(pSpy: Windows.Win32.System.Com.IInitializeSpy_head, puliCookie: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def CoRegisterInitializeSpy(pSpy: Windows.Win32.System.Com.IInitializeSpy_head, puliCookie: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLE32.dll')
-def CoRevokeInitializeSpy(uliCookie: Windows.Win32.Foundation.ULARGE_INTEGER) -> Windows.Win32.Foundation.HRESULT: ...
+def CoRevokeInitializeSpy(uliCookie: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLE32.dll')
 def CoGetSystemSecurityPermissions(comSDType: Windows.Win32.System.Com.COMSD, ppSD: POINTER(Windows.Win32.Security.PSECURITY_DESCRIPTOR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('OLE32.dll')
@@ -525,7 +525,7 @@ class COAUTHINFO(Structure):
     dwImpersonationLevel: UInt32
     pAuthIdentityData: POINTER(Windows.Win32.System.Com.COAUTHIDENTITY_head)
     dwCapabilities: UInt32
-COINIT = UInt32
+COINIT = Int32
 COINIT_APARTMENTTHREADED: COINIT = 2
 COINIT_MULTITHREADED: COINIT = 0
 COINIT_DISABLE_OLE1DDE: COINIT = 4
@@ -1415,7 +1415,7 @@ class IPersistStream(c_void_p):
     @commethod(6)
     def Save(pStm: Windows.Win32.System.Com.IStream_head, fClearDirty: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetSizeMax(pcbSize: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetSizeMax(pcbSize: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPersistStreamInit(c_void_p):
     extends: Windows.Win32.System.Com.IPersist
     Guid = Guid('7fd52380-4e07-101b-ae-2d-08-00-2b-2e-c7-13')
@@ -1426,7 +1426,7 @@ class IPersistStreamInit(c_void_p):
     @commethod(6)
     def Save(pStm: Windows.Win32.System.Com.IStream_head, fClearDirty: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetSizeMax(pCbSize: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetSizeMax(pCbSize: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def InitNew() -> Windows.Win32.Foundation.HRESULT: ...
 class IPipeByte(c_void_p):
@@ -1617,19 +1617,19 @@ class IStream(c_void_p):
     extends: Windows.Win32.System.Com.ISequentialStream
     Guid = Guid('0000000c-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(5)
-    def Seek(dlibMove: Windows.Win32.Foundation.LARGE_INTEGER, dwOrigin: Windows.Win32.System.Com.STREAM_SEEK, plibNewPosition: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def Seek(dlibMove: Int64, dwOrigin: Windows.Win32.System.Com.STREAM_SEEK, plibNewPosition: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def SetSize(libNewSize: Windows.Win32.Foundation.ULARGE_INTEGER) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetSize(libNewSize: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def CopyTo(pstm: Windows.Win32.System.Com.IStream_head, cb: Windows.Win32.Foundation.ULARGE_INTEGER, pcbRead: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head), pcbWritten: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def CopyTo(pstm: Windows.Win32.System.Com.IStream_head, cb: UInt64, pcbRead: POINTER(UInt64), pcbWritten: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Commit(grfCommitFlags: Windows.Win32.System.Com.STGC) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Revert() -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def LockRegion(libOffset: Windows.Win32.Foundation.ULARGE_INTEGER, cb: Windows.Win32.Foundation.ULARGE_INTEGER, dwLockType: Windows.Win32.System.Com.LOCKTYPE) -> Windows.Win32.Foundation.HRESULT: ...
+    def LockRegion(libOffset: UInt64, cb: UInt64, dwLockType: Windows.Win32.System.Com.LOCKTYPE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def UnlockRegion(libOffset: Windows.Win32.Foundation.ULARGE_INTEGER, cb: Windows.Win32.Foundation.ULARGE_INTEGER, dwLockType: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    def UnlockRegion(libOffset: UInt64, cb: UInt64, dwLockType: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Stat(pstatstg: POINTER(Windows.Win32.System.Com.STATSTG_head), grfStatFlag: Windows.Win32.System.Com.STATFLAG) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -2121,7 +2121,7 @@ STATFLAG_NOOPEN: STATFLAG = 2
 class STATSTG(Structure):
     pwcsName: Windows.Win32.Foundation.PWSTR
     type: UInt32
-    cbSize: Windows.Win32.Foundation.ULARGE_INTEGER
+    cbSize: UInt64
     mtime: Windows.Win32.Foundation.FILETIME
     ctime: Windows.Win32.Foundation.FILETIME
     atime: Windows.Win32.Foundation.FILETIME
@@ -2130,7 +2130,7 @@ class STATSTG(Structure):
     clsid: Guid
     grfStateBits: UInt32
     reserved: UInt32
-STGC = UInt32
+STGC = Int32
 STGC_DEFAULT: STGC = 0
 STGC_OVERWRITE: STGC = 1
 STGC_ONLYIFCURRENT: STGC = 2
@@ -2187,8 +2187,8 @@ ShutdownType_ForcedShutdown: ShutdownType = 1
 class StorageLayout(Structure):
     LayoutType: UInt32
     pwcsElementName: Windows.Win32.Foundation.PWSTR
-    cOffset: Windows.Win32.Foundation.LARGE_INTEGER
-    cBytes: Windows.Win32.Foundation.LARGE_INTEGER
+    cOffset: Int64
+    cBytes: Int64
 THDTYPE = Int32
 THDTYPE_BLOCKMESSAGES: THDTYPE = 0
 THDTYPE_PROCESSMESSAGES: THDTYPE = 1

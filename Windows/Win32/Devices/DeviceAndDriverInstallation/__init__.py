@@ -2878,7 +2878,7 @@ class CONNECTION_DES(Structure):
     COND_ClassType: Byte
     COND_Reserved1: Byte
     COND_Reserved2: Byte
-    COND_Id: Windows.Win32.Foundation.LARGE_INTEGER
+    COND_Id: Int64
     _pack_ = 1
 class CONNECTION_RESOURCE(Structure):
     Connection_Header: Windows.Win32.Devices.DeviceAndDriverInstallation.CONNECTION_DES

@@ -6778,16 +6778,6 @@ class HSTR__(Structure):
 class HUMPD__(Structure):
     unused: Int32
 HWND = IntPtr
-class LARGE_INTEGER(Union):
-    Anonymous: _Anonymous_e__Struct
-    u: _u_e__Struct
-    QuadPart: Int64
-    class _Anonymous_e__Struct(Structure):
-        LowPart: UInt32
-        HighPart: Int32
-    class _u_e__Struct(Structure):
-        LowPart: UInt32
-        HighPart: Int32
 LPARAM = IntPtr
 LRESULT = IntPtr
 class LUID(Structure):
@@ -6897,16 +6887,6 @@ class SYSTEMTIME(Structure):
     wMinute: UInt16
     wSecond: UInt16
     wMilliseconds: UInt16
-class ULARGE_INTEGER(Union):
-    Anonymous: _Anonymous_e__Struct
-    u: _u_e__Struct
-    QuadPart: UInt64
-    class _Anonymous_e__Struct(Structure):
-        LowPart: UInt32
-        HighPart: UInt32
-    class _u_e__Struct(Structure):
-        LowPart: UInt32
-        HighPart: UInt32
 class UNICODE_STRING(Structure):
     Length: UInt16
     MaximumLength: UInt16
@@ -10131,7 +10111,6 @@ make_head(_module, 'HLSURF__')
 make_head(_module, 'HSPRITE__')
 make_head(_module, 'HSTR__')
 make_head(_module, 'HUMPD__')
-make_head(_module, 'LARGE_INTEGER')
 make_head(_module, 'LUID')
 make_head(_module, 'NEARPROC')
 make_head(_module, 'PAPCFUNC')
@@ -10143,7 +10122,6 @@ make_head(_module, 'RECT')
 make_head(_module, 'RECTL')
 make_head(_module, 'SIZE')
 make_head(_module, 'SYSTEMTIME')
-make_head(_module, 'ULARGE_INTEGER')
 make_head(_module, 'UNICODE_STRING')
 __all__ = [
     "APPMODEL_ERROR_DYNAMIC_PROPERTY_INVALID",
@@ -15302,7 +15280,6 @@ __all__ = [
     "JSCRIPT_E_CANTEXECUTE",
     "LANGUAGE_E_DATABASE_NOT_FOUND",
     "LANGUAGE_S_LARGE_WORD",
-    "LARGE_INTEGER",
     "LPARAM",
     "LRESULT",
     "LUID",
@@ -19707,7 +19684,6 @@ __all__ = [
     "UI_E_VALUE_NOT_SET",
     "UI_E_WINDOW_CLOSED",
     "UI_E_WRONG_THREAD",
-    "ULARGE_INTEGER",
     "UNICODE_STRING",
     "UTC_E_ACTION_NOT_SUPPORTED_IN_DESTINATION",
     "UTC_E_AGENT_DIAGNOSTICS_TOO_LARGE",

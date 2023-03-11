@@ -69,10 +69,10 @@ class ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION(Structure):
     ulEncodedAssemblyIdentityLength: UInt32
     ulManifestPathType: UInt32
     ulManifestPathLength: UInt32
-    liManifestLastWriteTime: Windows.Win32.Foundation.LARGE_INTEGER
+    liManifestLastWriteTime: Int64
     ulPolicyPathType: UInt32
     ulPolicyPathLength: UInt32
-    liPolicyLastWriteTime: Windows.Win32.Foundation.LARGE_INTEGER
+    liPolicyLastWriteTime: Int64
     ulMetadataSatelliteRosterIndex: UInt32
     ulManifestVersionMajor: UInt32
     ulManifestVersionMinor: UInt32
@@ -110,7 +110,7 @@ class ACTIVATION_CONTEXT_RUN_LEVEL_INFORMATION(Structure):
 ADVERTISEFLAGS = Int32
 ADVERTISEFLAGS_MACHINEASSIGN: ADVERTISEFLAGS = 0
 ADVERTISEFLAGS_USERASSIGN: ADVERTISEFLAGS = 1
-ASM_BIND_FLAGS = UInt32
+ASM_BIND_FLAGS = Int32
 ASM_BINDF_FORCE_CACHE_INSTALL: ASM_BIND_FLAGS = 1
 ASM_BINDF_RFS_INTEGRITY_CHECK: ASM_BIND_FLAGS = 2
 ASM_BINDF_RFS_MODULE_CHECK: ASM_BIND_FLAGS = 4
@@ -167,7 +167,7 @@ class ASSEMBLY_FILE_DETAILED_INFORMATION(Structure):
 class ASSEMBLY_INFO(Structure):
     cbAssemblyInfo: UInt32
     dwAssemblyFlags: UInt32
-    uliAssemblySizeInKB: Windows.Win32.Foundation.ULARGE_INTEGER
+    uliAssemblySizeInKB: UInt64
     pszCurrentAssemblyPathBuf: Windows.Win32.Foundation.PWSTR
     cchBuf: UInt32
 UIALL: UInt32 = 32768
@@ -1483,7 +1483,7 @@ class IAssemblyCacheItem(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9e3aaeb4-d1cd-11d2-ba-b9-00-c0-4f-8e-ce-ae')
     @commethod(3)
-    def CreateStream(dwFlags: UInt32, pszStreamName: Windows.Win32.Foundation.PWSTR, dwFormat: UInt32, dwFormatFlags: UInt32, ppIStream: POINTER(Windows.Win32.System.Com.IStream_head), puliMaxSize: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def CreateStream(dwFlags: UInt32, pszStreamName: Windows.Win32.Foundation.PWSTR, dwFormat: UInt32, dwFormatFlags: UInt32, ppIStream: POINTER(Windows.Win32.System.Com.IStream_head), puliMaxSize: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Commit(dwFlags: UInt32, pulDisposition: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)

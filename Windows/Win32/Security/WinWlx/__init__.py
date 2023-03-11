@@ -154,18 +154,18 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0(Structure):
     Quotas: Windows.Win32.Security.QUOTA_LIMITS
     UserName: Windows.Win32.Foundation.PWSTR
     Domain: Windows.Win32.Foundation.PWSTR
-    LogonTime: Windows.Win32.Foundation.LARGE_INTEGER
+    LogonTime: Int64
     SmartCardLogon: Windows.Win32.Foundation.BOOL
     ProfileLength: UInt32
     MessageType: UInt32
     LogonCount: UInt16
     BadPasswordCount: UInt16
-    ProfileLogonTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LogoffTime: Windows.Win32.Foundation.LARGE_INTEGER
-    KickOffTime: Windows.Win32.Foundation.LARGE_INTEGER
-    PasswordLastSet: Windows.Win32.Foundation.LARGE_INTEGER
-    PasswordCanChange: Windows.Win32.Foundation.LARGE_INTEGER
-    PasswordMustChange: Windows.Win32.Foundation.LARGE_INTEGER
+    ProfileLogonTime: Int64
+    LogoffTime: Int64
+    KickOffTime: Int64
+    PasswordLastSet: Int64
+    PasswordCanChange: Int64
+    PasswordMustChange: Int64
     LogonScript: Windows.Win32.Foundation.PWSTR
     HomeDirectory: Windows.Win32.Foundation.PWSTR
     FullName: Windows.Win32.Foundation.PWSTR

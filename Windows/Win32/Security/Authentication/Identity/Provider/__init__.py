@@ -252,7 +252,7 @@ class IIdentityStoreEx(c_void_p):
     def CreateConnectedIdentity(LocalName: Windows.Win32.Foundation.PWSTR, ConnectedName: Windows.Win32.Foundation.PWSTR, ProviderGUID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def DeleteConnectedIdentity(ConnectedName: Windows.Win32.Foundation.PWSTR, ProviderGUID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-IdentityUpdateEvent = UInt32
+IdentityUpdateEvent = Int32
 IDENTITY_ASSOCIATED: IdentityUpdateEvent = 1
 IDENTITY_DISASSOCIATED: IdentityUpdateEvent = 2
 IDENTITY_CREATED: IdentityUpdateEvent = 4

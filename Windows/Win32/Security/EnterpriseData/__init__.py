@@ -45,7 +45,7 @@ def SrpHostingTerminate(Type: Windows.Win32.Security.EnterpriseData.SRPHOSTING_T
 def ProtectFileToEnterpriseIdentity(fileOrFolderPath: Windows.Win32.Foundation.PWSTR, identity: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('efswrt.dll')
 def UnprotectFile(fileOrFolderPath: Windows.Win32.Foundation.PWSTR, options: POINTER(Windows.Win32.Security.EnterpriseData.FILE_UNPROTECT_OPTIONS_head)) -> Windows.Win32.Foundation.HRESULT: ...
-ENTERPRISE_DATA_POLICIES = UInt32
+ENTERPRISE_DATA_POLICIES = Int32
 ENTERPRISE_POLICY_NONE: ENTERPRISE_DATA_POLICIES = 0
 ENTERPRISE_POLICY_ALLOWED: ENTERPRISE_DATA_POLICIES = 1
 ENTERPRISE_POLICY_ENLIGHTENED: ENTERPRISE_DATA_POLICIES = 2

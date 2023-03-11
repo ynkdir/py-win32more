@@ -432,7 +432,7 @@ class DUMP_POINTERS(Structure):
     MappedRegisterBase: c_void_p
     DumpData: c_void_p
     CommonBufferVa: c_void_p
-    CommonBufferPa: Windows.Win32.Foundation.LARGE_INTEGER
+    CommonBufferPa: Int64
     CommonBufferSize: UInt32
     AllocateCommonBuffers: Windows.Win32.Foundation.BOOLEAN
     UseDiskDump: Windows.Win32.Foundation.BOOLEAN

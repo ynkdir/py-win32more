@@ -1276,7 +1276,7 @@ class DOT11_ASSOCIATION_INFO_EX(Structure):
     usAssociationID: UInt16
     dot11AssociationState: Windows.Win32.NetworkManagement.WiFi.DOT11_ASSOCIATION_STATE
     dot11PowerMode: Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE
-    liAssociationUpTime: Windows.Win32.Foundation.LARGE_INTEGER
+    liAssociationUpTime: Int64
     ullNumOfTxPacketSuccesses: UInt64
     ullNumOfTxPacketFailures: UInt64
     ullNumOfRxPacketSuccesses: UInt64
@@ -1982,7 +1982,7 @@ class DOT11_PEER_INFO(Structure):
     usAssociationID: UInt16
     AssociationState: Windows.Win32.NetworkManagement.WiFi.DOT11_ASSOCIATION_STATE
     PowerMode: Windows.Win32.NetworkManagement.WiFi.DOT11_POWER_MODE
-    liAssociationUpTime: Windows.Win32.Foundation.LARGE_INTEGER
+    liAssociationUpTime: Int64
     Statistics: Windows.Win32.NetworkManagement.WiFi.DOT11_PEER_STATISTICS
 class DOT11_PEER_INFO_LIST(Structure):
     Header: Windows.Win32.NetworkManagement.Ndis.NDIS_OBJECT_HEADER

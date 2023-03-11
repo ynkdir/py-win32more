@@ -902,7 +902,7 @@ def NtSetInformationKey(KeyHandle: Windows.Win32.Foundation.HANDLE, KeySetInform
 @winfunctype('ntdll.dll')
 def NtDeviceIoControlFile(FileHandle: Windows.Win32.Foundation.HANDLE, Event: Windows.Win32.Foundation.HANDLE, ApcRoutine: Windows.Win32.System.WindowsProgramming.PIO_APC_ROUTINE, ApcContext: c_void_p, IoStatusBlock: POINTER(Windows.Win32.System.WindowsProgramming.IO_STATUS_BLOCK_head), IoControlCode: UInt32, InputBuffer: c_void_p, InputBufferLength: UInt32, OutputBuffer: c_void_p, OutputBufferLength: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ntdll.dll')
-def NtWaitForSingleObject(Handle: Windows.Win32.Foundation.HANDLE, Alertable: Windows.Win32.Foundation.BOOLEAN, Timeout: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def NtWaitForSingleObject(Handle: Windows.Win32.Foundation.HANDLE, Alertable: Windows.Win32.Foundation.BOOLEAN, Timeout: POINTER(Int64)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ntdll.dll')
 def RtlIsNameLegalDOS8Dot3(Name: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), OemName: POINTER(Windows.Win32.System.Kernel.STRING_head), NameContainsSpaces: POINTER(Windows.Win32.Foundation.BOOLEAN)) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('ntdll.dll')
@@ -910,13 +910,13 @@ def NtQueryObject(Handle: Windows.Win32.Foundation.HANDLE, ObjectInformationClas
 @winfunctype('ntdll.dll')
 def NtQuerySystemInformation(SystemInformationClass: Windows.Win32.System.WindowsProgramming.SYSTEM_INFORMATION_CLASS, SystemInformation: c_void_p, SystemInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ntdll.dll')
-def NtQuerySystemTime(SystemTime: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def NtQuerySystemTime(SystemTime: POINTER(Int64)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ntdll.dll')
 def NtQueryTimerResolution(MaximumTime: POINTER(UInt32), MinimumTime: POINTER(UInt32), CurrentTime: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ntdll.dll')
-def RtlLocalTimeToSystemTime(LocalTime: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head), SystemTime: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.NTSTATUS: ...
+def RtlLocalTimeToSystemTime(LocalTime: POINTER(Int64), SystemTime: POINTER(Int64)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ntdll.dll')
-def RtlTimeToSecondsSince1970(Time: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head), ElapsedSeconds: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOLEAN: ...
+def RtlTimeToSecondsSince1970(Time: POINTER(Int64), ElapsedSeconds: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('ntdll.dll')
 def RtlFreeAnsiString(AnsiString: POINTER(Windows.Win32.System.Kernel.STRING_head)) -> Void: ...
 @winfunctype('ntdll.dll')
@@ -1626,10 +1626,10 @@ class SYSTEM_POLICY_INFORMATION(Structure):
     Reserved1: c_void_p * 2
     Reserved2: UInt32 * 3
 class SYSTEM_PROCESSOR_PERFORMANCE_INFORMATION(Structure):
-    IdleTime: Windows.Win32.Foundation.LARGE_INTEGER
-    KernelTime: Windows.Win32.Foundation.LARGE_INTEGER
-    UserTime: Windows.Win32.Foundation.LARGE_INTEGER
-    Reserved1: Windows.Win32.Foundation.LARGE_INTEGER * 2
+    IdleTime: Int64
+    KernelTime: Int64
+    UserTime: Int64
+    Reserved1: Int64 * 2
     Reserved2: UInt32
 class SYSTEM_PROCESS_INFORMATION(Structure):
     NextEntryOffset: UInt32
@@ -1654,13 +1654,13 @@ class SYSTEM_PROCESS_INFORMATION(Structure):
     PagefileUsage: UIntPtr
     PeakPagefileUsage: UIntPtr
     PrivatePageCount: UIntPtr
-    Reserved7: Windows.Win32.Foundation.LARGE_INTEGER * 6
+    Reserved7: Int64 * 6
 class SYSTEM_REGISTRY_QUOTA_INFORMATION(Structure):
     RegistryQuotaAllowed: UInt32
     RegistryQuotaUsed: UInt32
     Reserved1: c_void_p
 class SYSTEM_THREAD_INFORMATION(Structure):
-    Reserved1: Windows.Win32.Foundation.LARGE_INTEGER * 3
+    Reserved1: Int64 * 3
     Reserved2: UInt32
     StartAddress: c_void_p
     ClientId: Windows.Win32.System.WindowsProgramming.CLIENT_ID

@@ -86,7 +86,7 @@ class ADSVALUE(Structure):
         Integer: UInt32
         OctetString: Windows.Win32.Networking.ActiveDirectory.ADS_OCTET_STRING
         UTCTime: Windows.Win32.Foundation.SYSTEMTIME
-        LargeInteger: Windows.Win32.Foundation.LARGE_INTEGER
+        LargeInteger: Int64
         ClassName: POINTER(UInt16)
         ProviderSpecific: Windows.Win32.Networking.ActiveDirectory.ADS_PROV_SPECIFIC
         pCaseIgnoreList: POINTER(Windows.Win32.Networking.ActiveDirectory.ADS_CASEIGNORE_LIST_head)

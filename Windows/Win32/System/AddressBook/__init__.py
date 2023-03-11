@@ -949,7 +949,7 @@ class SLPSTRArray(Structure):
     lppszA: POINTER(Windows.Win32.Foundation.PSTR)
 class SLargeIntegerArray(Structure):
     cValues: UInt32
-    lpli: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)
+    lpli: POINTER(Int64)
 class SLongArray(Structure):
     cValues: UInt32
     lpl: POINTER(Int32)
@@ -1073,7 +1073,7 @@ class __UPV(Union):
     bin: Windows.Win32.System.AddressBook.SBinary
     lpszW: Windows.Win32.Foundation.PWSTR
     lpguid: POINTER(Guid)
-    li: Windows.Win32.Foundation.LARGE_INTEGER
+    li: Int64
     MVi: Windows.Win32.System.AddressBook.SShortArray
     MVl: Windows.Win32.System.AddressBook.SLongArray
     MVflt: Windows.Win32.System.AddressBook.SRealArray

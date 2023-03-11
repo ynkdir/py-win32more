@@ -831,7 +831,7 @@ class EVENT_HEADER(Structure):
     EventProperty: UInt16
     ThreadId: UInt32
     ProcessId: UInt32
-    TimeStamp: Windows.Win32.Foundation.LARGE_INTEGER
+    TimeStamp: Int64
     ProviderId: Guid
     EventDescriptor: Windows.Win32.System.Diagnostics.Etw.EVENT_DESCRIPTOR
     Anonymous: _Anonymous_e__Union
@@ -862,7 +862,7 @@ class EVENT_INSTANCE_HEADER(Structure):
     Anonymous2: _Anonymous2_e__Union
     ThreadId: UInt32
     ProcessId: UInt32
-    TimeStamp: Windows.Win32.Foundation.LARGE_INTEGER
+    TimeStamp: Int64
     RegHandle: UInt64
     InstanceId: UInt32
     ParentInstanceId: UInt32
@@ -1001,7 +1001,7 @@ class EVENT_TRACE_HEADER(Structure):
     Anonymous2: _Anonymous2_e__Union
     ThreadId: UInt32
     ProcessId: UInt32
-    TimeStamp: Windows.Win32.Foundation.LARGE_INTEGER
+    TimeStamp: Int64
     Anonymous3: _Anonymous3_e__Union
     Anonymous4: _Anonymous4_e__Union
     class _Anonymous1_e__Union(Union):
@@ -1154,7 +1154,7 @@ class ITraceEvent(c_void_p):
     @commethod(12)
     def SetActivityId(ActivityId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
-    def SetTimeStamp(TimeStamp: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetTimeStamp(TimeStamp: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def SetProviderId(ProviderId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITraceEventCallback(c_void_p):
@@ -1354,7 +1354,7 @@ class TRACE_LOGFILE_HEADER(Structure):
     Anonymous1: _Anonymous1_e__Union
     ProviderVersion: UInt32
     NumberOfProcessors: UInt32
-    EndTime: Windows.Win32.Foundation.LARGE_INTEGER
+    EndTime: Int64
     TimerResolution: UInt32
     MaximumFileSize: UInt32
     LogFileMode: UInt32
@@ -1363,9 +1363,9 @@ class TRACE_LOGFILE_HEADER(Structure):
     LoggerName: Windows.Win32.Foundation.PWSTR
     LogFileName: Windows.Win32.Foundation.PWSTR
     TimeZone: Windows.Win32.System.Time.TIME_ZONE_INFORMATION
-    BootTime: Windows.Win32.Foundation.LARGE_INTEGER
-    PerfFreq: Windows.Win32.Foundation.LARGE_INTEGER
-    StartTime: Windows.Win32.Foundation.LARGE_INTEGER
+    BootTime: Int64
+    PerfFreq: Int64
+    StartTime: Int64
     ReservedFlags: UInt32
     BuffersLost: UInt32
     class _Anonymous1_e__Union(Union):
@@ -1389,7 +1389,7 @@ class TRACE_LOGFILE_HEADER32(Structure):
     Anonymous1: _Anonymous1_e__Union
     ProviderVersion: UInt32
     NumberOfProcessors: UInt32
-    EndTime: Windows.Win32.Foundation.LARGE_INTEGER
+    EndTime: Int64
     TimerResolution: UInt32
     MaximumFileSize: UInt32
     LogFileMode: UInt32
@@ -1398,9 +1398,9 @@ class TRACE_LOGFILE_HEADER32(Structure):
     LoggerName: UInt32
     LogFileName: UInt32
     TimeZone: Windows.Win32.System.Time.TIME_ZONE_INFORMATION
-    BootTime: Windows.Win32.Foundation.LARGE_INTEGER
-    PerfFreq: Windows.Win32.Foundation.LARGE_INTEGER
-    StartTime: Windows.Win32.Foundation.LARGE_INTEGER
+    BootTime: Int64
+    PerfFreq: Int64
+    StartTime: Int64
     ReservedFlags: UInt32
     BuffersLost: UInt32
     class _Anonymous1_e__Union(Union):
@@ -1424,7 +1424,7 @@ class TRACE_LOGFILE_HEADER64(Structure):
     Anonymous1: _Anonymous1_e__Union
     ProviderVersion: UInt32
     NumberOfProcessors: UInt32
-    EndTime: Windows.Win32.Foundation.LARGE_INTEGER
+    EndTime: Int64
     TimerResolution: UInt32
     MaximumFileSize: UInt32
     LogFileMode: UInt32
@@ -1433,9 +1433,9 @@ class TRACE_LOGFILE_HEADER64(Structure):
     LoggerName: UInt64
     LogFileName: UInt64
     TimeZone: Windows.Win32.System.Time.TIME_ZONE_INFORMATION
-    BootTime: Windows.Win32.Foundation.LARGE_INTEGER
-    PerfFreq: Windows.Win32.Foundation.LARGE_INTEGER
-    StartTime: Windows.Win32.Foundation.LARGE_INTEGER
+    BootTime: Int64
+    PerfFreq: Int64
+    StartTime: Int64
     ReservedFlags: UInt32
     BuffersLost: UInt32
     class _Anonymous1_e__Union(Union):
@@ -1579,7 +1579,7 @@ class WNODE_HEADER(Structure):
     class _Anonymous2_e__Union(Union):
         CountLost: UInt32
         KernelHandle: Windows.Win32.Foundation.HANDLE
-        TimeStamp: Windows.Win32.Foundation.LARGE_INTEGER
+        TimeStamp: Int64
 class WNODE_METHOD_ITEM(Structure):
     WnodeHeader: Windows.Win32.System.Diagnostics.Etw.WNODE_HEADER
     OffsetInstanceName: UInt32

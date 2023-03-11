@@ -86,7 +86,7 @@ class SAFER_CODE_PROPERTIES_V1(Structure):
     UrlZoneId: UInt32
     ImageHash: Byte * 64
     dwImageHashSize: UInt32
-    ImageSize: Windows.Win32.Foundation.LARGE_INTEGER
+    ImageSize: Int64
     HashAlgorithm: UInt32
     pByteBlock: c_char_p_no
     hWndParent: Windows.Win32.Foundation.HWND
@@ -99,7 +99,7 @@ class SAFER_CODE_PROPERTIES_V2(Structure):
     UrlZoneId: UInt32
     ImageHash: Byte * 64
     dwImageHashSize: UInt32
-    ImageSize: Windows.Win32.Foundation.LARGE_INTEGER
+    ImageSize: Int64
     HashAlgorithm: UInt32
     pByteBlock: c_char_p_no
     hWndParent: Windows.Win32.Foundation.HWND
@@ -121,7 +121,7 @@ class SAFER_HASH_IDENTIFICATION(Structure):
     HashSize: UInt32
     ImageHash: Byte * 64
     HashAlgorithm: UInt32
-    ImageSize: Windows.Win32.Foundation.LARGE_INTEGER
+    ImageSize: Int64
     dwSaferFlags: UInt32
 class SAFER_HASH_IDENTIFICATION2(Structure):
     hashIdentification: Windows.Win32.Security.AppLocker.SAFER_HASH_IDENTIFICATION

@@ -360,9 +360,9 @@ def GetDiskFreeSpaceA(lpRootPathName: Windows.Win32.Foundation.PSTR, lpSectorsPe
 @winfunctype('KERNEL32.dll')
 def GetDiskFreeSpaceW(lpRootPathName: Windows.Win32.Foundation.PWSTR, lpSectorsPerCluster: POINTER(UInt32), lpBytesPerSector: POINTER(UInt32), lpNumberOfFreeClusters: POINTER(UInt32), lpTotalNumberOfClusters: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def GetDiskFreeSpaceExA(lpDirectoryName: Windows.Win32.Foundation.PSTR, lpFreeBytesAvailableToCaller: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head), lpTotalNumberOfBytes: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head), lpTotalNumberOfFreeBytes: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def GetDiskFreeSpaceExA(lpDirectoryName: Windows.Win32.Foundation.PSTR, lpFreeBytesAvailableToCaller: POINTER(UInt64), lpTotalNumberOfBytes: POINTER(UInt64), lpTotalNumberOfFreeBytes: POINTER(UInt64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def GetDiskFreeSpaceExW(lpDirectoryName: Windows.Win32.Foundation.PWSTR, lpFreeBytesAvailableToCaller: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head), lpTotalNumberOfBytes: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head), lpTotalNumberOfFreeBytes: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def GetDiskFreeSpaceExW(lpDirectoryName: Windows.Win32.Foundation.PWSTR, lpFreeBytesAvailableToCaller: POINTER(UInt64), lpTotalNumberOfBytes: POINTER(UInt64), lpTotalNumberOfFreeBytes: POINTER(UInt64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetDiskSpaceInformationA(rootPath: Windows.Win32.Foundation.PSTR, diskSpaceInfo: POINTER(Windows.Win32.Storage.FileSystem.DISK_SPACE_INFORMATION_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('KERNEL32.dll')
@@ -384,7 +384,7 @@ def GetFileInformationByHandle(hFile: Windows.Win32.Foundation.HANDLE, lpFileInf
 @winfunctype('KERNEL32.dll')
 def GetFileSize(hFile: Windows.Win32.Foundation.HANDLE, lpFileSizeHigh: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def GetFileSizeEx(hFile: Windows.Win32.Foundation.HANDLE, lpFileSize: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def GetFileSizeEx(hFile: Windows.Win32.Foundation.HANDLE, lpFileSize: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def GetFileType(hFile: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Storage.FileSystem.FILE_TYPE: ...
 @winfunctype('KERNEL32.dll')
@@ -446,7 +446,7 @@ def SetFileInformationByHandle(hFile: Windows.Win32.Foundation.HANDLE, FileInfor
 @winfunctype('KERNEL32.dll')
 def SetFilePointer(hFile: Windows.Win32.Foundation.HANDLE, lDistanceToMove: Int32, lpDistanceToMoveHigh: POINTER(Int32), dwMoveMethod: Windows.Win32.Storage.FileSystem.SET_FILE_POINTER_MOVE_METHOD) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def SetFilePointerEx(hFile: Windows.Win32.Foundation.HANDLE, liDistanceToMove: Windows.Win32.Foundation.LARGE_INTEGER, lpNewFilePointer: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head), dwMoveMethod: Windows.Win32.Storage.FileSystem.SET_FILE_POINTER_MOVE_METHOD) -> Windows.Win32.Foundation.BOOL: ...
+def SetFilePointerEx(hFile: Windows.Win32.Foundation.HANDLE, liDistanceToMove: Int64, lpNewFilePointer: POINTER(Int64), dwMoveMethod: Windows.Win32.Storage.FileSystem.SET_FILE_POINTER_MOVE_METHOD) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def SetFileTime(hFile: Windows.Win32.Foundation.HANDLE, lpCreationTime: POINTER(Windows.Win32.Foundation.FILETIME_head), lpLastAccessTime: POINTER(Windows.Win32.Foundation.FILETIME_head), lpLastWriteTime: POINTER(Windows.Win32.Foundation.FILETIME_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -730,21 +730,21 @@ def WofIsExternalFile(FilePath: Windows.Win32.Foundation.PWSTR, IsExternalFile: 
 @winfunctype('WOFUTIL.dll')
 def WofEnumEntries(VolumeName: Windows.Win32.Foundation.PWSTR, Provider: UInt32, EnumProc: Windows.Win32.Storage.FileSystem.WofEnumEntryProc, UserData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WOFUTIL.dll')
-def WofWimAddEntry(VolumeName: Windows.Win32.Foundation.PWSTR, WimPath: Windows.Win32.Foundation.PWSTR, WimType: UInt32, WimIndex: UInt32, DataSourceId: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def WofWimAddEntry(VolumeName: Windows.Win32.Foundation.PWSTR, WimPath: Windows.Win32.Foundation.PWSTR, WimType: UInt32, WimIndex: UInt32, DataSourceId: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WOFUTIL.dll')
-def WofWimEnumFiles(VolumeName: Windows.Win32.Foundation.PWSTR, DataSourceId: Windows.Win32.Foundation.LARGE_INTEGER, EnumProc: Windows.Win32.Storage.FileSystem.WofEnumFilesProc, UserData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+def WofWimEnumFiles(VolumeName: Windows.Win32.Foundation.PWSTR, DataSourceId: Int64, EnumProc: Windows.Win32.Storage.FileSystem.WofEnumFilesProc, UserData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WOFUTIL.dll')
-def WofWimSuspendEntry(VolumeName: Windows.Win32.Foundation.PWSTR, DataSourceId: Windows.Win32.Foundation.LARGE_INTEGER) -> Windows.Win32.Foundation.HRESULT: ...
+def WofWimSuspendEntry(VolumeName: Windows.Win32.Foundation.PWSTR, DataSourceId: Int64) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WOFUTIL.dll')
-def WofWimRemoveEntry(VolumeName: Windows.Win32.Foundation.PWSTR, DataSourceId: Windows.Win32.Foundation.LARGE_INTEGER) -> Windows.Win32.Foundation.HRESULT: ...
+def WofWimRemoveEntry(VolumeName: Windows.Win32.Foundation.PWSTR, DataSourceId: Int64) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WOFUTIL.dll')
-def WofWimUpdateEntry(VolumeName: Windows.Win32.Foundation.PWSTR, DataSourceId: Windows.Win32.Foundation.LARGE_INTEGER, NewWimPath: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
+def WofWimUpdateEntry(VolumeName: Windows.Win32.Foundation.PWSTR, DataSourceId: Int64, NewWimPath: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WOFUTIL.dll')
 def WofFileEnumFiles(VolumeName: Windows.Win32.Foundation.PWSTR, Algorithm: UInt32, EnumProc: Windows.Win32.Storage.FileSystem.WofEnumFilesProc, UserData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('txfw32.dll')
 def TxfLogCreateFileReadContext(LogPath: Windows.Win32.Foundation.PWSTR, BeginningLsn: Windows.Win32.Storage.FileSystem.CLS_LSN, EndingLsn: Windows.Win32.Storage.FileSystem.CLS_LSN, TxfFileId: POINTER(Windows.Win32.Storage.FileSystem.TXF_ID_head), TxfLogContext: POINTER(c_void_p)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('txfw32.dll')
-def TxfLogCreateRangeReadContext(LogPath: Windows.Win32.Foundation.PWSTR, BeginningLsn: Windows.Win32.Storage.FileSystem.CLS_LSN, EndingLsn: Windows.Win32.Storage.FileSystem.CLS_LSN, BeginningVirtualClock: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head), EndingVirtualClock: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head), RecordTypeMask: UInt32, TxfLogContext: POINTER(c_void_p)) -> Windows.Win32.Foundation.BOOL: ...
+def TxfLogCreateRangeReadContext(LogPath: Windows.Win32.Foundation.PWSTR, BeginningLsn: Windows.Win32.Storage.FileSystem.CLS_LSN, EndingLsn: Windows.Win32.Storage.FileSystem.CLS_LSN, BeginningVirtualClock: POINTER(Int64), EndingVirtualClock: POINTER(Int64), RecordTypeMask: UInt32, TxfLogContext: POINTER(c_void_p)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('txfw32.dll')
 def TxfLogDestroyReadContext(TxfLogContext: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('txfw32.dll')
@@ -754,7 +754,7 @@ def TxfReadMetadataInfo(FileHandle: Windows.Win32.Foundation.HANDLE, TxfFileId: 
 @winfunctype('txfw32.dll')
 def TxfLogRecordGetFileName(RecordBuffer: c_void_p, RecordBufferLengthInBytes: UInt32, NameBuffer: Windows.Win32.Foundation.PWSTR, NameBufferLengthInBytes: POINTER(UInt32), TxfId: POINTER(Windows.Win32.Storage.FileSystem.TXF_ID_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('txfw32.dll')
-def TxfLogRecordGetGenericType(RecordBuffer: c_void_p, RecordBufferLengthInBytes: UInt32, GenericType: POINTER(UInt32), VirtualClock: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def TxfLogRecordGetGenericType(RecordBuffer: c_void_p, RecordBufferLengthInBytes: UInt32, GenericType: POINTER(UInt32), VirtualClock: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('txfw32.dll')
 def TxfSetThreadMiniVersionForCreate(MiniVersion: UInt16) -> Void: ...
 @winfunctype('txfw32.dll')
@@ -786,11 +786,11 @@ def OpenTransactionManagerById(TransactionManagerId: POINTER(Guid), DesiredAcces
 @winfunctype('ktmw32.dll')
 def RenameTransactionManager(LogFileName: Windows.Win32.Foundation.PWSTR, ExistingTransactionManagerGuid: POINTER(Guid)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ktmw32.dll')
-def RollforwardTransactionManager(TransactionManagerHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def RollforwardTransactionManager(TransactionManagerHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ktmw32.dll')
 def RecoverTransactionManager(TransactionManagerHandle: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ktmw32.dll')
-def GetCurrentClockTransactionManager(TransactionManagerHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def GetCurrentClockTransactionManager(TransactionManagerHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ktmw32.dll')
 def GetTransactionManagerId(TransactionManagerHandle: Windows.Win32.Foundation.HANDLE, TransactionManagerId: POINTER(Guid)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ktmw32.dll')
@@ -818,25 +818,25 @@ def GetEnlistmentId(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, Enlistmen
 @winfunctype('ktmw32.dll')
 def SetEnlistmentRecoveryInformation(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, BufferSize: UInt32, Buffer: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ktmw32.dll')
-def PrepareEnlistment(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def PrepareEnlistment(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ktmw32.dll')
-def PrePrepareEnlistment(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def PrePrepareEnlistment(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ktmw32.dll')
-def CommitEnlistment(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def CommitEnlistment(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ktmw32.dll')
-def RollbackEnlistment(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def RollbackEnlistment(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ktmw32.dll')
-def PrePrepareComplete(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def PrePrepareComplete(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ktmw32.dll')
-def PrepareComplete(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def PrepareComplete(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ktmw32.dll')
-def ReadOnlyEnlistment(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def ReadOnlyEnlistment(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ktmw32.dll')
-def CommitComplete(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def CommitComplete(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ktmw32.dll')
-def RollbackComplete(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def RollbackComplete(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ktmw32.dll')
-def SinglePhaseReject(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def SinglePhaseReject(EnlistmentHandle: Windows.Win32.Foundation.HANDLE, TmVirtualClock: POINTER(Int64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('NETAPI32.dll')
 def NetShareAdd(servername: Windows.Win32.Foundation.PWSTR, level: UInt32, buf: c_char_p_no, parm_err: POINTER(UInt32)) -> UInt32: ...
 @winfunctype('NETAPI32.dll')
@@ -1122,7 +1122,7 @@ def CreateSymbolicLinkTransactedA(lpSymlinkFileName: Windows.Win32.Foundation.PS
 @winfunctype('KERNEL32.dll')
 def CreateSymbolicLinkTransactedW(lpSymlinkFileName: Windows.Win32.Foundation.PWSTR, lpTargetFileName: Windows.Win32.Foundation.PWSTR, dwFlags: Windows.Win32.Storage.FileSystem.SYMBOLIC_LINK_FLAGS, hTransaction: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('ntdll.dll')
-def NtCreateFile(FileHandle: POINTER(Windows.Win32.Foundation.HANDLE), DesiredAccess: UInt32, ObjectAttributes: POINTER(Windows.Win32.System.WindowsProgramming.OBJECT_ATTRIBUTES_head), IoStatusBlock: POINTER(Windows.Win32.System.WindowsProgramming.IO_STATUS_BLOCK_head), AllocationSize: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head), FileAttributes: UInt32, ShareAccess: Windows.Win32.Storage.FileSystem.FILE_SHARE_MODE, CreateDisposition: Windows.Win32.Storage.FileSystem.NT_CREATE_FILE_DISPOSITION, CreateOptions: UInt32, EaBuffer: c_void_p, EaLength: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
+def NtCreateFile(FileHandle: POINTER(Windows.Win32.Foundation.HANDLE), DesiredAccess: UInt32, ObjectAttributes: POINTER(Windows.Win32.System.WindowsProgramming.OBJECT_ATTRIBUTES_head), IoStatusBlock: POINTER(Windows.Win32.System.WindowsProgramming.IO_STATUS_BLOCK_head), AllocationSize: POINTER(Int64), FileAttributes: UInt32, ShareAccess: Windows.Win32.Storage.FileSystem.FILE_SHARE_MODE, CreateDisposition: Windows.Win32.Storage.FileSystem.NT_CREATE_FILE_DISPOSITION, CreateOptions: UInt32, EaBuffer: c_void_p, EaLength: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
 class BY_HANDLE_FILE_INFORMATION(Structure):
     dwFileAttributes: UInt32
     ftCreationTime: Windows.Win32.Foundation.FILETIME
@@ -1374,37 +1374,37 @@ class COPYFILE2_MESSAGE(Structure):
             dwReserved: UInt32
             hSourceFile: Windows.Win32.Foundation.HANDLE
             hDestinationFile: Windows.Win32.Foundation.HANDLE
-            uliChunkNumber: Windows.Win32.Foundation.ULARGE_INTEGER
-            uliChunkSize: Windows.Win32.Foundation.ULARGE_INTEGER
-            uliStreamSize: Windows.Win32.Foundation.ULARGE_INTEGER
-            uliTotalFileSize: Windows.Win32.Foundation.ULARGE_INTEGER
+            uliChunkNumber: UInt64
+            uliChunkSize: UInt64
+            uliStreamSize: UInt64
+            uliTotalFileSize: UInt64
         class _ChunkFinished_e__Struct(Structure):
             dwStreamNumber: UInt32
             dwFlags: UInt32
             hSourceFile: Windows.Win32.Foundation.HANDLE
             hDestinationFile: Windows.Win32.Foundation.HANDLE
-            uliChunkNumber: Windows.Win32.Foundation.ULARGE_INTEGER
-            uliChunkSize: Windows.Win32.Foundation.ULARGE_INTEGER
-            uliStreamSize: Windows.Win32.Foundation.ULARGE_INTEGER
-            uliStreamBytesTransferred: Windows.Win32.Foundation.ULARGE_INTEGER
-            uliTotalFileSize: Windows.Win32.Foundation.ULARGE_INTEGER
-            uliTotalBytesTransferred: Windows.Win32.Foundation.ULARGE_INTEGER
+            uliChunkNumber: UInt64
+            uliChunkSize: UInt64
+            uliStreamSize: UInt64
+            uliStreamBytesTransferred: UInt64
+            uliTotalFileSize: UInt64
+            uliTotalBytesTransferred: UInt64
         class _StreamStarted_e__Struct(Structure):
             dwStreamNumber: UInt32
             dwReserved: UInt32
             hSourceFile: Windows.Win32.Foundation.HANDLE
             hDestinationFile: Windows.Win32.Foundation.HANDLE
-            uliStreamSize: Windows.Win32.Foundation.ULARGE_INTEGER
-            uliTotalFileSize: Windows.Win32.Foundation.ULARGE_INTEGER
+            uliStreamSize: UInt64
+            uliTotalFileSize: UInt64
         class _StreamFinished_e__Struct(Structure):
             dwStreamNumber: UInt32
             dwReserved: UInt32
             hSourceFile: Windows.Win32.Foundation.HANDLE
             hDestinationFile: Windows.Win32.Foundation.HANDLE
-            uliStreamSize: Windows.Win32.Foundation.ULARGE_INTEGER
-            uliStreamBytesTransferred: Windows.Win32.Foundation.ULARGE_INTEGER
-            uliTotalFileSize: Windows.Win32.Foundation.ULARGE_INTEGER
-            uliTotalBytesTransferred: Windows.Win32.Foundation.ULARGE_INTEGER
+            uliStreamSize: UInt64
+            uliStreamBytesTransferred: UInt64
+            uliTotalFileSize: UInt64
+            uliTotalBytesTransferred: UInt64
         class _PollContinue_e__Struct(Structure):
             dwReserved: UInt32
         class _Error_e__Struct(Structure):
@@ -1412,11 +1412,11 @@ class COPYFILE2_MESSAGE(Structure):
             dwStreamNumber: UInt32
             hrFailure: Windows.Win32.Foundation.HRESULT
             dwReserved: UInt32
-            uliChunkNumber: Windows.Win32.Foundation.ULARGE_INTEGER
-            uliStreamSize: Windows.Win32.Foundation.ULARGE_INTEGER
-            uliStreamBytesTransferred: Windows.Win32.Foundation.ULARGE_INTEGER
-            uliTotalFileSize: Windows.Win32.Foundation.ULARGE_INTEGER
-            uliTotalBytesTransferred: Windows.Win32.Foundation.ULARGE_INTEGER
+            uliChunkNumber: UInt64
+            uliStreamSize: UInt64
+            uliStreamBytesTransferred: UInt64
+            uliTotalFileSize: UInt64
+            uliTotalBytesTransferred: UInt64
 COPYFILE2_MESSAGE_ACTION = Int32
 COPYFILE2_PROGRESS_CONTINUE: COPYFILE2_MESSAGE_ACTION = 0
 COPYFILE2_PROGRESS_CANCEL: COPYFILE2_MESSAGE_ACTION = 1
@@ -1586,18 +1586,18 @@ FILE_ACTION_RENAMED_NEW_NAME: FILE_ACTION = 5
 class FILE_ALIGNMENT_INFO(Structure):
     AlignmentRequirement: UInt32
 class FILE_ALLOCATION_INFO(Structure):
-    AllocationSize: Windows.Win32.Foundation.LARGE_INTEGER
+    AllocationSize: Int64
 class FILE_ATTRIBUTE_TAG_INFO(Structure):
     FileAttributes: UInt32
     ReparseTag: UInt32
 class FILE_BASIC_INFO(Structure):
-    CreationTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LastAccessTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LastWriteTime: Windows.Win32.Foundation.LARGE_INTEGER
-    ChangeTime: Windows.Win32.Foundation.LARGE_INTEGER
+    CreationTime: Int64
+    LastAccessTime: Int64
+    LastWriteTime: Int64
+    ChangeTime: Int64
     FileAttributes: UInt32
 class FILE_COMPRESSION_INFO(Structure):
-    CompressedFileSize: Windows.Win32.Foundation.LARGE_INTEGER
+    CompressedFileSize: Int64
     CompressionFormat: Windows.Win32.Storage.FileSystem.COMPRESSION_FORMAT
     CompressionUnitShift: Byte
     ChunkShift: Byte
@@ -1617,7 +1617,7 @@ FILE_DEVICE_DVD: FILE_DEVICE_TYPE = 51
 class FILE_DISPOSITION_INFO(Structure):
     DeleteFile: Windows.Win32.Foundation.BOOLEAN
 class FILE_END_OF_FILE_INFO(Structure):
-    EndOfFile: Windows.Win32.Foundation.LARGE_INTEGER
+    EndOfFile: Int64
 class FILE_EXTENT(Structure):
     VolumeOffset: UInt64
     ExtentLength: UInt64
@@ -1670,12 +1670,12 @@ SECURITY_VALID_SQOS_FLAGS: FILE_FLAGS_AND_ATTRIBUTES = 2031616
 class FILE_FULL_DIR_INFO(Structure):
     NextEntryOffset: UInt32
     FileIndex: UInt32
-    CreationTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LastAccessTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LastWriteTime: Windows.Win32.Foundation.LARGE_INTEGER
-    ChangeTime: Windows.Win32.Foundation.LARGE_INTEGER
-    EndOfFile: Windows.Win32.Foundation.LARGE_INTEGER
-    AllocationSize: Windows.Win32.Foundation.LARGE_INTEGER
+    CreationTime: Int64
+    LastAccessTime: Int64
+    LastWriteTime: Int64
+    ChangeTime: Int64
+    EndOfFile: Int64
+    AllocationSize: Int64
     FileAttributes: UInt32
     FileNameLength: UInt32
     EaSize: UInt32
@@ -1685,36 +1685,36 @@ class FILE_ID_128(Structure):
 class FILE_ID_BOTH_DIR_INFO(Structure):
     NextEntryOffset: UInt32
     FileIndex: UInt32
-    CreationTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LastAccessTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LastWriteTime: Windows.Win32.Foundation.LARGE_INTEGER
-    ChangeTime: Windows.Win32.Foundation.LARGE_INTEGER
-    EndOfFile: Windows.Win32.Foundation.LARGE_INTEGER
-    AllocationSize: Windows.Win32.Foundation.LARGE_INTEGER
+    CreationTime: Int64
+    LastAccessTime: Int64
+    LastWriteTime: Int64
+    ChangeTime: Int64
+    EndOfFile: Int64
+    AllocationSize: Int64
     FileAttributes: UInt32
     FileNameLength: UInt32
     EaSize: UInt32
     ShortNameLength: SByte
     ShortName: Char * 12
-    FileId: Windows.Win32.Foundation.LARGE_INTEGER
+    FileId: Int64
     FileName: Char * 1
 class FILE_ID_DESCRIPTOR(Structure):
     dwSize: UInt32
     Type: Windows.Win32.Storage.FileSystem.FILE_ID_TYPE
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
-        FileId: Windows.Win32.Foundation.LARGE_INTEGER
+        FileId: Int64
         ObjectId: Guid
         ExtendedFileId: Windows.Win32.Storage.FileSystem.FILE_ID_128
 class FILE_ID_EXTD_DIR_INFO(Structure):
     NextEntryOffset: UInt32
     FileIndex: UInt32
-    CreationTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LastAccessTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LastWriteTime: Windows.Win32.Foundation.LARGE_INTEGER
-    ChangeTime: Windows.Win32.Foundation.LARGE_INTEGER
-    EndOfFile: Windows.Win32.Foundation.LARGE_INTEGER
-    AllocationSize: Windows.Win32.Foundation.LARGE_INTEGER
+    CreationTime: Int64
+    LastAccessTime: Int64
+    LastWriteTime: Int64
+    ChangeTime: Int64
+    EndOfFile: Int64
+    AllocationSize: Int64
     FileAttributes: UInt32
     FileNameLength: UInt32
     EaSize: UInt32
@@ -1788,16 +1788,16 @@ FILE_NOTIFY_CHANGE_SECURITY: FILE_NOTIFY_CHANGE = 256
 class FILE_NOTIFY_EXTENDED_INFORMATION(Structure):
     NextEntryOffset: UInt32
     Action: Windows.Win32.Storage.FileSystem.FILE_ACTION
-    CreationTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LastModificationTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LastChangeTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LastAccessTime: Windows.Win32.Foundation.LARGE_INTEGER
-    AllocatedLength: Windows.Win32.Foundation.LARGE_INTEGER
-    FileSize: Windows.Win32.Foundation.LARGE_INTEGER
+    CreationTime: Int64
+    LastModificationTime: Int64
+    LastChangeTime: Int64
+    LastAccessTime: Int64
+    AllocatedLength: Int64
+    FileSize: Int64
     FileAttributes: UInt32
     ReparsePointTag: UInt32
-    FileId: Windows.Win32.Foundation.LARGE_INTEGER
-    ParentFileId: Windows.Win32.Foundation.LARGE_INTEGER
+    FileId: Int64
+    ParentFileId: Int64
     FileNameLength: UInt32
     FileName: Char * 1
 class FILE_NOTIFY_INFORMATION(Structure):
@@ -1846,8 +1846,8 @@ FILE_SHARE_DELETE: FILE_SHARE_MODE = 4
 FILE_SHARE_READ: FILE_SHARE_MODE = 1
 FILE_SHARE_WRITE: FILE_SHARE_MODE = 2
 class FILE_STANDARD_INFO(Structure):
-    AllocationSize: Windows.Win32.Foundation.LARGE_INTEGER
-    EndOfFile: Windows.Win32.Foundation.LARGE_INTEGER
+    AllocationSize: Int64
+    EndOfFile: Int64
     NumberOfLinks: UInt32
     DeletePending: Windows.Win32.Foundation.BOOLEAN
     Directory: Windows.Win32.Foundation.BOOLEAN
@@ -1862,8 +1862,8 @@ class FILE_STORAGE_INFO(Structure):
 class FILE_STREAM_INFO(Structure):
     NextEntryOffset: UInt32
     StreamNameLength: UInt32
-    StreamSize: Windows.Win32.Foundation.LARGE_INTEGER
-    StreamAllocationSize: Windows.Win32.Foundation.LARGE_INTEGER
+    StreamSize: Int64
+    StreamAllocationSize: Int64
     StreamName: Char * 1
 FILE_TYPE = UInt32
 FILE_TYPE_UNKNOWN: FILE_TYPE = 0
@@ -2097,7 +2097,7 @@ class LOG_MANAGEMENT_CALLBACKS(Structure):
     LogFullHandlerCallback: Windows.Win32.Storage.FileSystem.PLOG_FULL_HANDLER_CALLBACK
     LogUnpinnedCallback: Windows.Win32.Storage.FileSystem.PLOG_UNPINNED_CALLBACK
 @winfunctype_pointer
-def LPPROGRESS_ROUTINE(TotalFileSize: Windows.Win32.Foundation.LARGE_INTEGER, TotalBytesTransferred: Windows.Win32.Foundation.LARGE_INTEGER, StreamSize: Windows.Win32.Foundation.LARGE_INTEGER, StreamBytesTransferred: Windows.Win32.Foundation.LARGE_INTEGER, dwStreamNumber: UInt32, dwCallbackReason: Windows.Win32.Storage.FileSystem.LPPROGRESS_ROUTINE_CALLBACK_REASON, hSourceFile: Windows.Win32.Foundation.HANDLE, hDestinationFile: Windows.Win32.Foundation.HANDLE, lpData: c_void_p) -> UInt32: ...
+def LPPROGRESS_ROUTINE(TotalFileSize: Int64, TotalBytesTransferred: Int64, StreamSize: Int64, StreamBytesTransferred: Int64, dwStreamNumber: UInt32, dwCallbackReason: Windows.Win32.Storage.FileSystem.LPPROGRESS_ROUTINE_CALLBACK_REASON, hSourceFile: Windows.Win32.Foundation.HANDLE, hDestinationFile: Windows.Win32.Foundation.HANDLE, lpData: c_void_p) -> UInt32: ...
 LPPROGRESS_ROUTINE_CALLBACK_REASON = UInt32
 CALLBACK_CHUNK_FINISHED: LPPROGRESS_ROUTINE_CALLBACK_REASON = 0
 CALLBACK_STREAM_SWITCH: LPPROGRESS_ROUTINE_CALLBACK_REASON = 1
@@ -2591,7 +2591,7 @@ class NTMS_PARTITIONINFORMATIONA(Structure):
     szOmidLabelInfo: Windows.Win32.Foundation.CHAR * 256
     dwMountCount: UInt32
     dwAllocateCount: UInt32
-    Capacity: Windows.Win32.Foundation.LARGE_INTEGER
+    Capacity: Int64
 class NTMS_PARTITIONINFORMATIONW(Structure):
     PhysicalMedia: Guid
     LogicalMedia: Guid
@@ -2603,7 +2603,7 @@ class NTMS_PARTITIONINFORMATIONW(Structure):
     szOmidLabelInfo: Char * 256
     dwMountCount: UInt32
     dwAllocateCount: UInt32
-    Capacity: Windows.Win32.Foundation.LARGE_INTEGER
+    Capacity: Int64
 class NTMS_PMIDINFORMATIONA(Structure):
     CurrentLibrary: Guid
     MediaPool: Guid
@@ -3089,19 +3089,19 @@ class STAT_SERVER_0(Structure):
     sts0_reqbufneed: UInt32
     sts0_bigbufneed: UInt32
 class STAT_WORKSTATION_0(Structure):
-    StatisticsStartTime: Windows.Win32.Foundation.LARGE_INTEGER
-    BytesReceived: Windows.Win32.Foundation.LARGE_INTEGER
-    SmbsReceived: Windows.Win32.Foundation.LARGE_INTEGER
-    PagingReadBytesRequested: Windows.Win32.Foundation.LARGE_INTEGER
-    NonPagingReadBytesRequested: Windows.Win32.Foundation.LARGE_INTEGER
-    CacheReadBytesRequested: Windows.Win32.Foundation.LARGE_INTEGER
-    NetworkReadBytesRequested: Windows.Win32.Foundation.LARGE_INTEGER
-    BytesTransmitted: Windows.Win32.Foundation.LARGE_INTEGER
-    SmbsTransmitted: Windows.Win32.Foundation.LARGE_INTEGER
-    PagingWriteBytesRequested: Windows.Win32.Foundation.LARGE_INTEGER
-    NonPagingWriteBytesRequested: Windows.Win32.Foundation.LARGE_INTEGER
-    CacheWriteBytesRequested: Windows.Win32.Foundation.LARGE_INTEGER
-    NetworkWriteBytesRequested: Windows.Win32.Foundation.LARGE_INTEGER
+    StatisticsStartTime: Int64
+    BytesReceived: Int64
+    SmbsReceived: Int64
+    PagingReadBytesRequested: Int64
+    NonPagingReadBytesRequested: Int64
+    CacheReadBytesRequested: Int64
+    NetworkReadBytesRequested: Int64
+    BytesTransmitted: Int64
+    SmbsTransmitted: Int64
+    PagingWriteBytesRequested: Int64
+    NonPagingWriteBytesRequested: Int64
+    CacheWriteBytesRequested: Int64
+    NetworkWriteBytesRequested: Int64
     InitiallyFailedOperations: UInt32
     FailedCompletionOperations: UInt32
     ReadOperations: UInt32
@@ -3169,7 +3169,7 @@ class TAPE_ERASE(Structure):
 class TAPE_GET_POSITION(Structure):
     Type: Windows.Win32.Storage.FileSystem.TAPE_POSITION_TYPE
     Partition: UInt32
-    Offset: Windows.Win32.Foundation.LARGE_INTEGER
+    Offset: Int64
 TAPE_INFORMATION_TYPE = UInt32
 SET_TAPE_DRIVE_INFORMATION: TAPE_INFORMATION_TYPE = 1
 SET_TAPE_MEDIA_INFORMATION: TAPE_INFORMATION_TYPE = 0
@@ -3192,7 +3192,7 @@ class TAPE_PREPARE(Structure):
 class TAPE_SET_POSITION(Structure):
     Method: Windows.Win32.Storage.FileSystem.TAPE_POSITION_METHOD
     Partition: UInt32
-    Offset: Windows.Win32.Foundation.LARGE_INTEGER
+    Offset: Int64
     Immediate: Windows.Win32.Foundation.BOOLEAN
 class TAPE_WRITE_MARKS(Structure):
     Type: Windows.Win32.Storage.FileSystem.TAPEMARK_TYPE
@@ -3201,7 +3201,7 @@ class TAPE_WRITE_MARKS(Structure):
 class TRANSACTION_NOTIFICATION(Structure):
     TransactionKey: c_void_p
     TransactionNotification: UInt32
-    TmVirtualClock: Windows.Win32.Foundation.LARGE_INTEGER
+    TmVirtualClock: Int64
     ArgumentLength: UInt32
 class TRANSACTION_NOTIFICATION_MARSHAL_ARGUMENT(Structure):
     MarshalCookie: UInt32
@@ -3360,7 +3360,7 @@ class VOLUME_PHYSICAL_OFFSETS(Structure):
     NumberOfPhysicalOffsets: UInt32
     PhysicalOffset: Windows.Win32.Storage.FileSystem.VOLUME_PHYSICAL_OFFSET * 1
 class VOLUME_READ_PLEX_INPUT(Structure):
-    ByteOffset: Windows.Win32.Foundation.LARGE_INTEGER
+    ByteOffset: Int64
     Length: UInt32
     PlexNumber: UInt32
 class VOLUME_SET_GPT_ATTRIBUTES_INFORMATION(Structure):
@@ -3437,13 +3437,13 @@ VFT_STATIC_LIB: VS_FIXEDFILEINFO_FILE_TYPE = 7
 class WIM_ENTRY_INFO(Structure):
     WimEntryInfoSize: UInt32
     WimType: UInt32
-    DataSourceId: Windows.Win32.Foundation.LARGE_INTEGER
+    DataSourceId: Int64
     WimGuid: Guid
     WimPath: Windows.Win32.Foundation.PWSTR
     WimIndex: UInt32
     Flags: UInt32
 class WIM_EXTERNAL_FILE_INFO(Structure):
-    DataSourceId: Windows.Win32.Foundation.LARGE_INTEGER
+    DataSourceId: Int64
     ResourceHash: Byte * 20
     Flags: UInt32
 class WIN32_FILE_ATTRIBUTE_DATA(Structure):
@@ -3476,12 +3476,12 @@ class WIN32_FIND_DATAW(Structure):
     cFileName: Char * 260
     cAlternateFileName: Char * 14
 class WIN32_FIND_STREAM_DATA(Structure):
-    StreamSize: Windows.Win32.Foundation.LARGE_INTEGER
+    StreamSize: Int64
     cStreamName: Char * 296
 class WIN32_STREAM_ID(Structure):
     dwStreamId: Windows.Win32.Storage.FileSystem.WIN_STREAM_ID
     dwStreamAttributes: UInt32
-    Size: Windows.Win32.Foundation.LARGE_INTEGER
+    Size: Int64
     dwStreamNameSize: UInt32
     cStreamName: Char * 1
 WIN_STREAM_ID = UInt32

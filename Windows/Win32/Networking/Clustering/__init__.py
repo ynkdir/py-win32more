@@ -2028,7 +2028,7 @@ CLUSPROP_IPADDR_ENABLENETBIOS_ENABLED: CLUSPROP_IPADDR_ENABLENETBIOS = 1
 CLUSPROP_IPADDR_ENABLENETBIOS_TRACK_NIC: CLUSPROP_IPADDR_ENABLENETBIOS = 2
 class CLUSPROP_LARGE_INTEGER(Structure):
     Base: Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
-    li: Windows.Win32.Foundation.LARGE_INTEGER
+    li: Int64
 class CLUSPROP_LIST(Structure):
     nPropertyCount: UInt32
     PropertyName: Windows.Win32.Networking.Clustering.CLUSPROP_SZ
@@ -2083,7 +2083,7 @@ class CLUSPROP_SZ(Structure):
     sz: Char * 1
 class CLUSPROP_ULARGE_INTEGER(Structure):
     Base: Windows.Win32.Networking.Clustering.CLUSPROP_VALUE
-    li: Windows.Win32.Foundation.ULARGE_INTEGER
+    li: UInt64
 class CLUSPROP_VALUE(Structure):
     Syntax: Windows.Win32.Networking.Clustering.CLUSPROP_SYNTAX
     cbLength: UInt32
@@ -2789,14 +2789,14 @@ class CLUS_CSV_MAINTENANCE_MODE_INFO(Structure):
     InMaintenance: Windows.Win32.Foundation.BOOL
     VolumeName: Char * 260
 class CLUS_CSV_VOLUME_INFO(Structure):
-    VolumeOffset: Windows.Win32.Foundation.ULARGE_INTEGER
+    VolumeOffset: UInt64
     PartitionNumber: UInt32
     FaultState: Windows.Win32.Networking.Clustering.CLUSTER_CSV_VOLUME_FAULT_STATE
     BackupState: Windows.Win32.Networking.Clustering.CLUSTER_SHARED_VOLUME_BACKUP_STATE
     szVolumeFriendlyName: Char * 260
     szVolumeName: Char * 50
 class CLUS_CSV_VOLUME_NAME(Structure):
-    VolumeOffset: Windows.Win32.Foundation.LARGE_INTEGER
+    VolumeOffset: Int64
     szVolumeName: Char * 260
     szRootPath: Char * 263
 class CLUS_DISK_NUMBER_INFO(Structure):
@@ -2867,8 +2867,8 @@ class CLUS_PARTITION_INFO_EX(Structure):
     rgdwMaximumComponentLength: UInt32
     dwFileSystemFlags: UInt32
     szFileSystem: Char * 32
-    TotalSizeInBytes: Windows.Win32.Foundation.ULARGE_INTEGER
-    FreeSizeInBytes: Windows.Win32.Foundation.ULARGE_INTEGER
+    TotalSizeInBytes: UInt64
+    FreeSizeInBytes: UInt64
     DeviceNumber: UInt32
     PartitionNumber: UInt32
     VolumeGuid: Guid
@@ -2884,7 +2884,7 @@ class CLUS_RESOURCE_CLASS_INFO(Structure):
     Anonymous: _Anonymous_e__Union
     class _Anonymous_e__Union(Union):
         Anonymous: _Anonymous_e__Struct
-        li: Windows.Win32.Foundation.ULARGE_INTEGER
+        li: UInt64
         class _Anonymous_e__Struct(Structure):
             Anonymous: _Anonymous_e__Union
             SubClass: UInt32
@@ -3874,7 +3874,7 @@ MAINTENANCE_MODE_TYPE_ENUM_MaintenanceModeTypeDisableIsAliveCheck: MAINTENANCE_M
 MAINTENANCE_MODE_TYPE_ENUM_MaintenanceModeTypeOfflineResource: MAINTENANCE_MODE_TYPE_ENUM = 2
 MAINTENANCE_MODE_TYPE_ENUM_MaintenanceModeTypeUnclusterResource: MAINTENANCE_MODE_TYPE_ENUM = 3
 class MONITOR_STATE(Structure):
-    LastUpdate: Windows.Win32.Foundation.LARGE_INTEGER
+    LastUpdate: Int64
     State: Windows.Win32.Networking.Clustering.RESOURCE_MONITOR_STATE
     ActiveResource: Windows.Win32.Foundation.HANDLE
     ResmonStop: Windows.Win32.Foundation.BOOL
@@ -4667,9 +4667,9 @@ class RESUTIL_FILETIME_DATA(Structure):
     Minimum: Windows.Win32.Foundation.FILETIME
     Maximum: Windows.Win32.Foundation.FILETIME
 class RESUTIL_LARGEINT_DATA(Structure):
-    Default: Windows.Win32.Foundation.LARGE_INTEGER
-    Minimum: Windows.Win32.Foundation.LARGE_INTEGER
-    Maximum: Windows.Win32.Foundation.LARGE_INTEGER
+    Default: Int64
+    Minimum: Int64
+    Maximum: Int64
 class RESUTIL_PROPERTY_ITEM(Structure):
     Name: Windows.Win32.Foundation.PWSTR
     KeyName: Windows.Win32.Foundation.PWSTR
@@ -4687,9 +4687,9 @@ class RESUTIL_PROPERTY_ITEM(Structure):
         ULargeIntData: POINTER(Windows.Win32.Networking.Clustering.RESUTIL_ULARGEINT_DATA_head)
         FileTimeData: POINTER(Windows.Win32.Networking.Clustering.RESUTIL_FILETIME_DATA_head)
 class RESUTIL_ULARGEINT_DATA(Structure):
-    Default: Windows.Win32.Foundation.ULARGE_INTEGER
-    Minimum: Windows.Win32.Foundation.ULARGE_INTEGER
-    Maximum: Windows.Win32.Foundation.ULARGE_INTEGER
+    Default: UInt64
+    Minimum: UInt64
+    Maximum: UInt64
 class ResourceUtilizationInfoElement(Structure):
     PhysicalNumaId: UInt64
     CurrentMemory: UInt64

@@ -103,8 +103,30 @@ AUDIT_EVENT_TYPE_AuditEventObjectAccess: AUDIT_EVENT_TYPE = 0
 AUDIT_EVENT_TYPE_AuditEventDirectoryServiceAccess: AUDIT_EVENT_TYPE = 1
 SECURITY_DYNAMIC_TRACKING: Windows.Win32.Foundation.BOOLEAN = 1
 SECURITY_STATIC_TRACKING: Windows.Win32.Foundation.BOOLEAN = 0
+def SECURITY_NULL_SID_AUTHORITY():
+    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 0))
+def SECURITY_WORLD_SID_AUTHORITY():
+    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 1))
+def SECURITY_LOCAL_SID_AUTHORITY():
+    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 2))
+def SECURITY_CREATOR_SID_AUTHORITY():
+    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 3))
+def SECURITY_NON_UNIQUE_AUTHORITY():
+    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 4))
 def SECURITY_NT_AUTHORITY():
-    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY(Value=(0, 0, 0, 0, 0, 5))
+    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 5))
+def SECURITY_RESOURCE_MANAGER_AUTHORITY():
+    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 9))
+def SECURITY_APP_PACKAGE_AUTHORITY():
+    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 15))
+def SECURITY_MANDATORY_LABEL_AUTHORITY():
+    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 16))
+def SECURITY_SCOPED_POLICY_ID_AUTHORITY():
+    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 17))
+def SECURITY_AUTHENTICATION_AUTHORITY():
+    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 18))
+def SECURITY_PROCESS_TRUST_AUTHORITY():
+    return Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY((0, 0, 0, 0, 0, 19))
 SE_CREATE_TOKEN_NAME: String = 'SeCreateTokenPrivilege'
 SE_ASSIGNPRIMARYTOKEN_NAME: String = 'SeAssignPrimaryTokenPrivilege'
 SE_LOCK_MEMORY_NAME: String = 'SeLockMemoryPrivilege'
@@ -572,7 +594,7 @@ class QUOTA_LIMITS(Structure):
     MinimumWorkingSetSize: UIntPtr
     MaximumWorkingSetSize: UIntPtr
     PagefileLimit: UIntPtr
-    TimeLimit: Windows.Win32.Foundation.LARGE_INTEGER
+    TimeLimit: Int64
 SAFER_LEVEL_HANDLE = IntPtr
 SC_HANDLE = IntPtr
 class SECURITY_ATTRIBUTES(Structure):
@@ -909,7 +931,7 @@ class TOKEN_SOURCE(Structure):
 class TOKEN_STATISTICS(Structure):
     TokenId: Windows.Win32.Foundation.LUID
     AuthenticationId: Windows.Win32.Foundation.LUID
-    ExpirationTime: Windows.Win32.Foundation.LARGE_INTEGER
+    ExpirationTime: Int64
     TokenType: Windows.Win32.Security.TOKEN_TYPE
     ImpersonationLevel: Windows.Win32.Security.SECURITY_IMPERSONATION_LEVEL
     DynamicCharged: UInt32
@@ -1058,7 +1080,18 @@ make_head(_module, 'ACE_HEADER')
 make_head(_module, 'ACL')
 make_head(_module, 'ACL_REVISION_INFORMATION')
 make_head(_module, 'ACL_SIZE_INFORMATION')
+make_head(_module, 'SECURITY_NULL_SID_AUTHORITY')
+make_head(_module, 'SECURITY_WORLD_SID_AUTHORITY')
+make_head(_module, 'SECURITY_LOCAL_SID_AUTHORITY')
+make_head(_module, 'SECURITY_CREATOR_SID_AUTHORITY')
+make_head(_module, 'SECURITY_NON_UNIQUE_AUTHORITY')
 make_head(_module, 'SECURITY_NT_AUTHORITY')
+make_head(_module, 'SECURITY_RESOURCE_MANAGER_AUTHORITY')
+make_head(_module, 'SECURITY_APP_PACKAGE_AUTHORITY')
+make_head(_module, 'SECURITY_MANDATORY_LABEL_AUTHORITY')
+make_head(_module, 'SECURITY_SCOPED_POLICY_ID_AUTHORITY')
+make_head(_module, 'SECURITY_AUTHENTICATION_AUTHORITY')
+make_head(_module, 'SECURITY_PROCESS_TRUST_AUTHORITY')
 make_head(_module, 'CLAIM_SECURITY_ATTRIBUTES_INFORMATION')
 make_head(_module, 'CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE')
 make_head(_module, 'CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE')
@@ -1354,9 +1387,12 @@ __all__ = [
     "SANDBOX_INERT",
     "SCOPE_SECURITY_INFORMATION",
     "SC_HANDLE",
+    "SECURITY_APP_PACKAGE_AUTHORITY",
     "SECURITY_ATTRIBUTES",
+    "SECURITY_AUTHENTICATION_AUTHORITY",
     "SECURITY_AUTO_INHERIT_FLAGS",
     "SECURITY_CAPABILITIES",
+    "SECURITY_CREATOR_SID_AUTHORITY",
     "SECURITY_DESCRIPTOR",
     "SECURITY_DESCRIPTOR_CONTROL",
     "SECURITY_DESCRIPTOR_RELATIVE",
@@ -1366,9 +1402,17 @@ __all__ = [
     "SECURITY_IMPERSONATION_LEVEL_SecurityDelegation",
     "SECURITY_IMPERSONATION_LEVEL_SecurityIdentification",
     "SECURITY_IMPERSONATION_LEVEL_SecurityImpersonation",
+    "SECURITY_LOCAL_SID_AUTHORITY",
+    "SECURITY_MANDATORY_LABEL_AUTHORITY",
+    "SECURITY_NON_UNIQUE_AUTHORITY",
     "SECURITY_NT_AUTHORITY",
+    "SECURITY_NULL_SID_AUTHORITY",
+    "SECURITY_PROCESS_TRUST_AUTHORITY",
     "SECURITY_QUALITY_OF_SERVICE",
+    "SECURITY_RESOURCE_MANAGER_AUTHORITY",
+    "SECURITY_SCOPED_POLICY_ID_AUTHORITY",
     "SECURITY_STATIC_TRACKING",
+    "SECURITY_WORLD_SID_AUTHORITY",
     "SEC_THREAD_START",
     "SEF_AVOID_OWNER_CHECK",
     "SEF_AVOID_OWNER_RESTRICTION",

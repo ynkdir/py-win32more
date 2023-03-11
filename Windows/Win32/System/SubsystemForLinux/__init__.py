@@ -30,7 +30,7 @@ def WslGetDistributionConfiguration(distributionName: Windows.Win32.Foundation.P
 def WslLaunchInteractive(distributionName: Windows.Win32.Foundation.PWSTR, command: Windows.Win32.Foundation.PWSTR, useCurrentWorkingDirectory: Windows.Win32.Foundation.BOOL, exitCode: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Api-ms-win-wsl-api-l1-1-0.dll')
 def WslLaunch(distributionName: Windows.Win32.Foundation.PWSTR, command: Windows.Win32.Foundation.PWSTR, useCurrentWorkingDirectory: Windows.Win32.Foundation.BOOL, stdIn: Windows.Win32.Foundation.HANDLE, stdOut: Windows.Win32.Foundation.HANDLE, stdErr: Windows.Win32.Foundation.HANDLE, process: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
-WSL_DISTRIBUTION_FLAGS = UInt32
+WSL_DISTRIBUTION_FLAGS = Int32
 WSL_DISTRIBUTION_FLAGS_NONE: WSL_DISTRIBUTION_FLAGS = 0
 WSL_DISTRIBUTION_FLAGS_ENABLE_INTEROP: WSL_DISTRIBUTION_FLAGS = 1
 WSL_DISTRIBUTION_FLAGS_APPEND_NT_PATH: WSL_DISTRIBUTION_FLAGS = 2

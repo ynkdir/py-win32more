@@ -283,7 +283,7 @@ class AsnAny(Structure):
     class _asnValue_e__Union(Union):
         number: Int32
         unsigned32: UInt32
-        counter64: Windows.Win32.Foundation.ULARGE_INTEGER
+        counter64: UInt64
         string: Windows.Win32.NetworkManagement.Snmp.AsnOctetString
         bits: Windows.Win32.NetworkManagement.Snmp.AsnOctetString
         object: Windows.Win32.NetworkManagement.Snmp.AsnObjectIdentifier

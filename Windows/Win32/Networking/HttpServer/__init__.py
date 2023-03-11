@@ -228,8 +228,8 @@ class HTTP_BINDING_INFO(Structure):
     Flags: Windows.Win32.Networking.HttpServer.HTTP_PROPERTY_FLAGS
     RequestQueueHandle: Windows.Win32.Foundation.HANDLE
 class HTTP_BYTE_RANGE(Structure):
-    StartingOffset: Windows.Win32.Foundation.ULARGE_INTEGER
-    Length: Windows.Win32.Foundation.ULARGE_INTEGER
+    StartingOffset: UInt64
+    Length: UInt64
 class HTTP_CACHE_POLICY(Structure):
     Policy: Windows.Win32.Networking.HttpServer.HTTP_CACHE_POLICY_TYPE
     SecondsToLive: UInt32

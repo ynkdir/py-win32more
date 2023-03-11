@@ -2962,7 +2962,7 @@ DBGKD_MAJOR_HYPERVISOR: DBGKD_MAJOR_TYPES = 8
 DBGKD_MAJOR_MIDORI: DBGKD_MAJOR_TYPES = 9
 DBGKD_MAJOR_CE: DBGKD_MAJOR_TYPES = 10
 DBGKD_MAJOR_COUNT: DBGKD_MAJOR_TYPES = 11
-DBGPROP_ATTRIB_FLAGS = UInt32
+DBGPROP_ATTRIB_FLAGS = Int32
 DBGPROP_ATTRIB_NO_ATTRIB: DBGPROP_ATTRIB_FLAGS = 0
 DBGPROP_ATTRIB_VALUE_IS_INVALID: DBGPROP_ATTRIB_FLAGS = 8
 DBGPROP_ATTRIB_VALUE_IS_EXPANDABLE: DBGPROP_ATTRIB_FLAGS = 16
@@ -2988,7 +2988,7 @@ DBGPROP_ATTRIB_FRAME_INCATCHBLOCK: DBGPROP_ATTRIB_FLAGS = 33554432
 DBGPROP_ATTRIB_FRAME_INFINALLYBLOCK: DBGPROP_ATTRIB_FLAGS = 67108864
 DBGPROP_ATTRIB_VALUE_IS_RETURN_VALUE: DBGPROP_ATTRIB_FLAGS = 134217728
 DBGPROP_ATTRIB_VALUE_PENDING_MUTATION: DBGPROP_ATTRIB_FLAGS = 268435456
-DBGPROP_INFO = UInt32
+DBGPROP_INFO = Int32
 DBGPROP_INFO_NAME: DBGPROP_INFO = 1
 DBGPROP_INFO_TYPE: DBGPROP_INFO = 2
 DBGPROP_INFO_VALUE: DBGPROP_INFO = 4
@@ -3367,10 +3367,10 @@ class DUMP_HEADER32(Structure):
     ProductType: UInt32
     SuiteMask: UInt32
     WriterStatus: UInt32
-    RequiredDumpSpace: Windows.Win32.Foundation.LARGE_INTEGER
+    RequiredDumpSpace: Int64
     _reserved2: Byte * 16
-    SystemUpTime: Windows.Win32.Foundation.LARGE_INTEGER
-    SystemTime: Windows.Win32.Foundation.LARGE_INTEGER
+    SystemUpTime: Int64
+    SystemTime: Int64
     _reserved3: Byte * 56
     class _Anonymous_e__Union(Union):
         PhysicalMemoryBlock: Windows.Win32.System.Diagnostics.Debug.PHYSICAL_MEMORY_DESCRIPTOR32
@@ -3397,10 +3397,10 @@ class DUMP_HEADER64(Structure):
     ContextRecord: Byte * 3000
     Exception: Windows.Win32.System.Diagnostics.Debug.EXCEPTION_RECORD64
     DumpType: UInt32
-    RequiredDumpSpace: Windows.Win32.Foundation.LARGE_INTEGER
-    SystemTime: Windows.Win32.Foundation.LARGE_INTEGER
+    RequiredDumpSpace: Int64
+    SystemTime: Int64
     Comment: Windows.Win32.Foundation.CHAR * 128
-    SystemUpTime: Windows.Win32.Foundation.LARGE_INTEGER
+    SystemUpTime: Int64
     MiniDumpFields: UInt32
     SecondaryDataState: UInt32
     ProductType: UInt32
@@ -13097,7 +13097,7 @@ class MINIDUMP_TOKEN_INFO_LIST(Structure):
     ListHeaderSize: UInt32
     ElementHeaderSize: UInt32
     _pack_ = 4
-MINIDUMP_TYPE = UInt32
+MINIDUMP_TYPE = Int32
 MINIDUMP_TYPE_MiniDumpNormal: MINIDUMP_TYPE = 0
 MINIDUMP_TYPE_MiniDumpWithDataSegs: MINIDUMP_TYPE = 1
 MINIDUMP_TYPE_MiniDumpWithFullMemory: MINIDUMP_TYPE = 2
@@ -13390,13 +13390,13 @@ class PROCESS_NAME_ENTRY(Structure):
     NameOffset: UInt32
     NameSize: UInt32
     NextEntry: UInt32
-PROFILER_EVENT_MASK = UInt32
+PROFILER_EVENT_MASK = Int32
 PROFILER_EVENT_MASK_TRACE_SCRIPT_FUNCTION_CALL: PROFILER_EVENT_MASK = 1
 PROFILER_EVENT_MASK_TRACE_NATIVE_FUNCTION_CALL: PROFILER_EVENT_MASK = 2
 PROFILER_EVENT_MASK_TRACE_DOM_FUNCTION_CALL: PROFILER_EVENT_MASK = 4
 PROFILER_EVENT_MASK_TRACE_ALL: PROFILER_EVENT_MASK = 3
 PROFILER_EVENT_MASK_TRACE_ALL_WITH_DOM: PROFILER_EVENT_MASK = 7
-PROFILER_HEAP_ENUM_FLAGS = UInt32
+PROFILER_HEAP_ENUM_FLAGS = Int32
 PROFILER_HEAP_ENUM_FLAGS_NONE: PROFILER_HEAP_ENUM_FLAGS = 0
 PROFILER_HEAP_ENUM_FLAGS_STORE_RELATIONSHIP_FLAGS: PROFILER_HEAP_ENUM_FLAGS = 1
 PROFILER_HEAP_ENUM_FLAGS_SUBSTRINGS: PROFILER_HEAP_ENUM_FLAGS = 2
@@ -13411,7 +13411,7 @@ class PROFILER_HEAP_OBJECT(Structure):
     class _Anonymous_e__Union(Union):
         objectId: UIntPtr
         externalObjectAddress: c_void_p
-PROFILER_HEAP_OBJECT_FLAGS = UInt32
+PROFILER_HEAP_OBJECT_FLAGS = Int32
 PROFILER_HEAP_OBJECT_FLAGS_NEW_OBJECT: PROFILER_HEAP_OBJECT_FLAGS = 1
 PROFILER_HEAP_OBJECT_FLAGS_IS_ROOT: PROFILER_HEAP_OBJECT_FLAGS = 2
 PROFILER_HEAP_OBJECT_FLAGS_SITE_CLOSED: PROFILER_HEAP_OBJECT_FLAGS = 4
@@ -13468,7 +13468,7 @@ class PROFILER_HEAP_OBJECT_RELATIONSHIP(Structure):
         objectId: UIntPtr
         externalObjectAddress: c_void_p
         subString: POINTER(Windows.Win32.System.Diagnostics.Debug.PROFILER_PROPERTY_TYPE_SUBSTRING_INFO_head)
-PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS = UInt32
+PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS = Int32
 PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_NONE: PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS = 0
 PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_IS_GET_ACCESSOR: PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS = 65536
 PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS_IS_SET_ACCESSOR: PROFILER_HEAP_OBJECT_RELATIONSHIP_FLAGS = 131072
@@ -14155,7 +14155,7 @@ class WAITCHAIN_NODE_INFO(Structure):
         ThreadObject: _ThreadObject_e__Struct
         class _LockObject_e__Struct(Structure):
             ObjectName: Char * 128
-            Timeout: Windows.Win32.Foundation.LARGE_INTEGER
+            Timeout: Int64
             Alertable: Windows.Win32.Foundation.BOOL
         class _ThreadObject_e__Struct(Structure):
             ProcessId: UInt32
@@ -14384,7 +14384,7 @@ class WHEA_GENERIC_ERROR_DESCRIPTOR(Structure):
     ErrStatusAddressBitWidth: Byte
     ErrStatusAddressBitOffset: Byte
     ErrStatusAddressAccessSize: Byte
-    ErrStatusAddress: Windows.Win32.Foundation.LARGE_INTEGER
+    ErrStatusAddress: Int64
     Notify: Windows.Win32.System.Diagnostics.Debug.WHEA_NOTIFICATION_DESCRIPTOR
     _pack_ = 1
 class WHEA_GENERIC_ERROR_DESCRIPTOR_V2(Structure):
@@ -14397,13 +14397,13 @@ class WHEA_GENERIC_ERROR_DESCRIPTOR_V2(Structure):
     ErrStatusAddressBitWidth: Byte
     ErrStatusAddressBitOffset: Byte
     ErrStatusAddressAccessSize: Byte
-    ErrStatusAddress: Windows.Win32.Foundation.LARGE_INTEGER
+    ErrStatusAddress: Int64
     Notify: Windows.Win32.System.Diagnostics.Debug.WHEA_NOTIFICATION_DESCRIPTOR
     ReadAckAddressSpaceID: Byte
     ReadAckAddressBitWidth: Byte
     ReadAckAddressBitOffset: Byte
     ReadAckAddressAccessSize: Byte
-    ReadAckAddress: Windows.Win32.Foundation.LARGE_INTEGER
+    ReadAckAddress: Int64
     ReadAckPreserveMask: UInt64
     ReadAckWriteMask: UInt64
     _pack_ = 1

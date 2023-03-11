@@ -511,8 +511,8 @@ class SERVICE_TABLE_ENTRYW(Structure):
     lpServiceName: Windows.Win32.Foundation.PWSTR
     lpServiceProc: Windows.Win32.System.Services.LPSERVICE_MAIN_FUNCTIONW
 class SERVICE_TIMECHANGE_INFO(Structure):
-    liNewTime: Windows.Win32.Foundation.LARGE_INTEGER
-    liOldTime: Windows.Win32.Foundation.LARGE_INTEGER
+    liNewTime: Int64
+    liOldTime: Int64
 class SERVICE_TRIGGER(Structure):
     dwTriggerType: Windows.Win32.System.Services.SERVICE_TRIGGER_TYPE
     dwAction: Windows.Win32.System.Services.SERVICE_TRIGGER_ACTION

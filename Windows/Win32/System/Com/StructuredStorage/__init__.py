@@ -212,7 +212,7 @@ class CAFLT(Structure):
     pElems: POINTER(Single)
 class CAH(Structure):
     cElems: UInt32
-    pElems: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)
+    pElems: POINTER(Int64)
 class CAI(Structure):
     cElems: UInt32
     pElems: POINTER(Int16)
@@ -236,7 +236,7 @@ class CAUB(Structure):
     pElems: c_char_p_no
 class CAUH(Structure):
     cElems: UInt32
-    pElems: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head)
+    pElems: POINTER(UInt64)
 class CAUI(Structure):
     cElems: UInt32
     pElems: POINTER(UInt16)
@@ -295,9 +295,9 @@ class IFillLockBytes(c_void_p):
     @commethod(3)
     def FillAppend(pv: c_void_p, cb: UInt32, pcbWritten: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def FillAt(ulOffset: Windows.Win32.Foundation.ULARGE_INTEGER, pv: c_void_p, cb: UInt32, pcbWritten: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def FillAt(ulOffset: UInt64, pv: c_void_p, cb: UInt32, pcbWritten: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def SetFillSize(ulSize: Windows.Win32.Foundation.ULARGE_INTEGER) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetFillSize(ulSize: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Terminate(bCanceled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class ILayoutStorage(c_void_p):
@@ -317,17 +317,17 @@ class ILockBytes(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0000000a-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
-    def ReadAt(ulOffset: Windows.Win32.Foundation.ULARGE_INTEGER, pv: c_void_p, cb: UInt32, pcbRead: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def ReadAt(ulOffset: UInt64, pv: c_void_p, cb: UInt32, pcbRead: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def WriteAt(ulOffset: Windows.Win32.Foundation.ULARGE_INTEGER, pv: c_void_p, cb: UInt32, pcbWritten: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def WriteAt(ulOffset: UInt64, pv: c_void_p, cb: UInt32, pcbWritten: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Flush() -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def SetSize(cb: Windows.Win32.Foundation.ULARGE_INTEGER) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetSize(cb: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def LockRegion(libOffset: Windows.Win32.Foundation.ULARGE_INTEGER, cb: Windows.Win32.Foundation.ULARGE_INTEGER, dwLockType: Windows.Win32.System.Com.LOCKTYPE) -> Windows.Win32.Foundation.HRESULT: ...
+    def LockRegion(libOffset: UInt64, cb: UInt64, dwLockType: Windows.Win32.System.Com.LOCKTYPE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def UnlockRegion(libOffset: Windows.Win32.Foundation.ULARGE_INTEGER, cb: Windows.Win32.Foundation.ULARGE_INTEGER, dwLockType: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    def UnlockRegion(libOffset: UInt64, cb: UInt64, dwLockType: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Stat(pstatstg: POINTER(Windows.Win32.System.Com.STATSTG_head), grfStatFlag: Windows.Win32.System.Com.STATFLAG) -> Windows.Win32.Foundation.HRESULT: ...
 class IPersistStorage(c_void_p):
@@ -495,8 +495,8 @@ class PROPVARIANT(Structure):
                 ulVal: UInt32
                 intVal: Int32
                 uintVal: UInt32
-                hVal: Windows.Win32.Foundation.LARGE_INTEGER
-                uhVal: Windows.Win32.Foundation.ULARGE_INTEGER
+                hVal: Int64
+                uhVal: UInt64
                 fltVal: Single
                 dblVal: Double
                 boolVal: Windows.Win32.Foundation.VARIANT_BOOL

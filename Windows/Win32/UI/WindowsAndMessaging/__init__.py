@@ -2130,9 +2130,9 @@ def CreateIconFromResource(presbits: c_char_p_no, dwResSize: UInt32, fIcon: Wind
 @winfunctype('USER32.dll')
 def CreateIconFromResourceEx(presbits: c_char_p_no, dwResSize: UInt32, fIcon: Windows.Win32.Foundation.BOOL, dwVer: UInt32, cxDesired: Int32, cyDesired: Int32, Flags: Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS) -> Windows.Win32.UI.WindowsAndMessaging.HICON: ...
 @winfunctype('USER32.dll')
-def LoadImageA(hInst: Windows.Win32.Foundation.HINSTANCE, name: Windows.Win32.Foundation.PSTR, type: Windows.Win32.UI.WindowsAndMessaging.GDI_IMAGE_TYPE, cx: Int32, cy: Int32, fuLoad: Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS) -> Windows.Win32.Foundation.HANDLE: ...
+def LoadImageA(hInst: Windows.Win32.Foundation.HINSTANCE, name: Windows.Win32.Foundation.PSTR, type: Windows.Win32.UI.WindowsAndMessaging.GDI_IMAGE_TYPE, cx: Int32, cy: Int32, fuLoad: Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS) -> Windows.Win32.UI.WindowsAndMessaging.LOADIMAGE_HANDLE: ...
 @winfunctype('USER32.dll')
-def LoadImageW(hInst: Windows.Win32.Foundation.HINSTANCE, name: Windows.Win32.Foundation.PWSTR, type: Windows.Win32.UI.WindowsAndMessaging.GDI_IMAGE_TYPE, cx: Int32, cy: Int32, fuLoad: Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS) -> Windows.Win32.Foundation.HANDLE: ...
+def LoadImageW(hInst: Windows.Win32.Foundation.HINSTANCE, name: Windows.Win32.Foundation.PWSTR, type: Windows.Win32.UI.WindowsAndMessaging.GDI_IMAGE_TYPE, cx: Int32, cy: Int32, fuLoad: Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS) -> Windows.Win32.UI.WindowsAndMessaging.LOADIMAGE_HANDLE: ...
 @winfunctype('USER32.dll')
 def CopyImage(h: Windows.Win32.Foundation.HANDLE, type: Windows.Win32.UI.WindowsAndMessaging.GDI_IMAGE_TYPE, cx: Int32, cy: Int32, flags: Windows.Win32.UI.WindowsAndMessaging.IMAGE_FLAGS) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('USER32.dll')
@@ -2373,7 +2373,7 @@ class DEVICE_EVENT_EXTERNAL_REQUEST(Structure):
     DeviceClass: UInt32
     ButtonStatus: UInt16
     Request: UInt16
-    SystemTime: Windows.Win32.Foundation.LARGE_INTEGER
+    SystemTime: Int64
 class DEVICE_EVENT_GENERIC_DATA(Structure):
     EventNumber: UInt32
 class DEVICE_EVENT_MOUNT(Structure):
@@ -2675,6 +2675,7 @@ LLKHF_LOWER_IL_INJECTED: KBDLLHOOKSTRUCT_FLAGS = 2
 LAYERED_WINDOW_ATTRIBUTES_FLAGS = UInt32
 LWA_ALPHA: LAYERED_WINDOW_ATTRIBUTES_FLAGS = 2
 LWA_COLORKEY: LAYERED_WINDOW_ATTRIBUTES_FLAGS = 1
+LOADIMAGE_HANDLE = IntPtr
 class MDICREATESTRUCTA(Structure):
     szClass: Windows.Win32.Foundation.PSTR
     szTitle: Windows.Win32.Foundation.PSTR
@@ -5029,6 +5030,7 @@ __all__ = [
     "LLKHF_UP",
     "LLMHF_INJECTED",
     "LLMHF_LOWER_IL_INJECTED",
+    "LOADIMAGE_HANDLE",
     "LOCKF_LOGICAL_LOCK",
     "LOCKF_PHYSICAL_LOCK",
     "LOCKP_ALLOW_MEM_MAPPING",

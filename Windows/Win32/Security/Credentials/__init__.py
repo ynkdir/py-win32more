@@ -608,7 +608,7 @@ CRED_TYPE_MAXIMUM: CRED_TYPE = 7
 CRED_TYPE_MAXIMUM_EX: CRED_TYPE = 1007
 class KeyCredentialManagerInfo(Structure):
     containerId: Guid
-KeyCredentialManagerOperationErrorStates = UInt32
+KeyCredentialManagerOperationErrorStates = Int32
 KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateNone: KeyCredentialManagerOperationErrorStates = 0
 KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateDeviceJoinFailure: KeyCredentialManagerOperationErrorStates = 1
 KeyCredentialManagerOperationErrorStates_KeyCredentialManagerOperationErrorStateTokenFailure: KeyCredentialManagerOperationErrorStates = 2

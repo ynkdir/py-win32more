@@ -2102,11 +2102,11 @@ class WTSINFOA(Structure):
     WinStationName: Windows.Win32.Foundation.CHAR * 32
     Domain: Windows.Win32.Foundation.CHAR * 17
     UserName: Windows.Win32.Foundation.CHAR * 21
-    ConnectTime: Windows.Win32.Foundation.LARGE_INTEGER
-    DisconnectTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LastInputTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LogonTime: Windows.Win32.Foundation.LARGE_INTEGER
-    CurrentTime: Windows.Win32.Foundation.LARGE_INTEGER
+    ConnectTime: Int64
+    DisconnectTime: Int64
+    LastInputTime: Int64
+    LogonTime: Int64
+    CurrentTime: Int64
 class WTSINFOEXA(Structure):
     Level: UInt32
     Data: Windows.Win32.System.RemoteDesktop.WTSINFOEX_LEVEL_A
@@ -2120,11 +2120,11 @@ class WTSINFOEX_LEVEL1_A(Structure):
     WinStationName: Windows.Win32.Foundation.CHAR * 33
     UserName: Windows.Win32.Foundation.CHAR * 21
     DomainName: Windows.Win32.Foundation.CHAR * 18
-    LogonTime: Windows.Win32.Foundation.LARGE_INTEGER
-    ConnectTime: Windows.Win32.Foundation.LARGE_INTEGER
-    DisconnectTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LastInputTime: Windows.Win32.Foundation.LARGE_INTEGER
-    CurrentTime: Windows.Win32.Foundation.LARGE_INTEGER
+    LogonTime: Int64
+    ConnectTime: Int64
+    DisconnectTime: Int64
+    LastInputTime: Int64
+    CurrentTime: Int64
     IncomingBytes: UInt32
     OutgoingBytes: UInt32
     IncomingFrames: UInt32
@@ -2138,11 +2138,11 @@ class WTSINFOEX_LEVEL1_W(Structure):
     WinStationName: Char * 33
     UserName: Char * 21
     DomainName: Char * 18
-    LogonTime: Windows.Win32.Foundation.LARGE_INTEGER
-    ConnectTime: Windows.Win32.Foundation.LARGE_INTEGER
-    DisconnectTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LastInputTime: Windows.Win32.Foundation.LARGE_INTEGER
-    CurrentTime: Windows.Win32.Foundation.LARGE_INTEGER
+    LogonTime: Int64
+    ConnectTime: Int64
+    DisconnectTime: Int64
+    LastInputTime: Int64
+    CurrentTime: Int64
     IncomingBytes: UInt32
     OutgoingBytes: UInt32
     IncomingFrames: UInt32
@@ -2165,11 +2165,11 @@ class WTSINFOW(Structure):
     WinStationName: Char * 32
     Domain: Char * 17
     UserName: Char * 21
-    ConnectTime: Windows.Win32.Foundation.LARGE_INTEGER
-    DisconnectTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LastInputTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LogonTime: Windows.Win32.Foundation.LARGE_INTEGER
-    CurrentTime: Windows.Win32.Foundation.LARGE_INTEGER
+    ConnectTime: Int64
+    DisconnectTime: Int64
+    LastInputTime: Int64
+    LogonTime: Int64
+    CurrentTime: Int64
 class WTSLISTENERCONFIGA(Structure):
     version: UInt32
     fEnableListener: UInt32
@@ -2518,8 +2518,8 @@ class WTS_PROCESS_INFO_EXA(Structure):
     PeakPagefileUsage: UInt32
     WorkingSetSize: UInt32
     PeakWorkingSetSize: UInt32
-    UserTime: Windows.Win32.Foundation.LARGE_INTEGER
-    KernelTime: Windows.Win32.Foundation.LARGE_INTEGER
+    UserTime: Int64
+    KernelTime: Int64
 class WTS_PROCESS_INFO_EXW(Structure):
     SessionId: UInt32
     ProcessId: UInt32
@@ -2531,8 +2531,8 @@ class WTS_PROCESS_INFO_EXW(Structure):
     PeakPagefileUsage: UInt32
     WorkingSetSize: UInt32
     PeakWorkingSetSize: UInt32
-    UserTime: Windows.Win32.Foundation.LARGE_INTEGER
-    KernelTime: Windows.Win32.Foundation.LARGE_INTEGER
+    UserTime: Int64
+    KernelTime: Int64
 class WTS_PROPERTY_VALUE(Structure):
     Type: UInt16
     u: _u_e__Union
@@ -2575,7 +2575,7 @@ class WTS_PROTOCOL_STATUS(Structure):
     Cache: Windows.Win32.System.RemoteDesktop.WTS_CACHE_STATS
     AsyncSignal: UInt32
     AsyncSignalMask: UInt32
-    Counters: Windows.Win32.Foundation.LARGE_INTEGER * 100
+    Counters: Int64 * 100
 WTS_RCM_DRAIN_STATE = Int32
 WTS_DRAIN_STATE_NONE: WTS_RCM_DRAIN_STATE = 0
 WTS_DRAIN_IN_DRAIN: WTS_RCM_DRAIN_STATE = 1

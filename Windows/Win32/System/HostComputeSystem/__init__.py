@@ -160,7 +160,7 @@ class HCS_EVENT(Structure):
     Operation: Windows.Win32.System.HostComputeSystem.HCS_OPERATION
 @winfunctype_pointer
 def HCS_EVENT_CALLBACK(event: POINTER(Windows.Win32.System.HostComputeSystem.HCS_EVENT_head), context: c_void_p) -> Void: ...
-HCS_EVENT_OPTIONS = UInt32
+HCS_EVENT_OPTIONS = Int32
 HCS_EVENT_OPTIONS_HcsEventOptionNone: HCS_EVENT_OPTIONS = 0
 HCS_EVENT_OPTIONS_HcsEventOptionEnableOperationCallbacks: HCS_EVENT_OPTIONS = 1
 HCS_EVENT_TYPE = Int32

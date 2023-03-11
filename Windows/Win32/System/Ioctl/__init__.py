@@ -1066,8 +1066,8 @@ class BIN_COUNT(Structure):
     BinRange: Windows.Win32.System.Ioctl.BIN_RANGE
     BinCount: UInt32
 class BIN_RANGE(Structure):
-    StartValue: Windows.Win32.Foundation.LARGE_INTEGER
-    Length: Windows.Win32.Foundation.LARGE_INTEGER
+    StartValue: Int64
+    Length: Int64
 class BIN_RESULTS(Structure):
     NumberOfBins: UInt32
     BinCounts: Windows.Win32.System.Ioctl.BIN_COUNT * 1
@@ -1078,7 +1078,7 @@ class BOOT_AREA_INFO(Structure):
     BootSectorCount: UInt32
     BootSectors: _Anonymous_e__Struct * 2
     class _Anonymous_e__Struct(Structure):
-        Offset: Windows.Win32.Foundation.LARGE_INTEGER
+        Offset: Int64
 class BULK_SECURITY_TEST_DATA(Structure):
     DesiredAccess: UInt32
     SecurityIds: UInt32 * 1
@@ -1210,8 +1210,8 @@ class CLASS_MEDIA_CHANGE_CONTEXT(Structure):
     MediaChangeCount: UInt32
     NewState: UInt32
 class CLUSTER_RANGE(Structure):
-    StartingCluster: Windows.Win32.Foundation.LARGE_INTEGER
-    ClusterCount: Windows.Win32.Foundation.LARGE_INTEGER
+    StartingCluster: Int64
+    ClusterCount: Int64
 class CONTAINER_ROOT_INFO_INPUT(Structure):
     Flags: UInt32
 class CONTAINER_ROOT_INFO_OUTPUT(Structure):
@@ -1267,7 +1267,7 @@ class CSV_MGMT_LOCK(Structure):
 class CSV_NAMESPACE_INFO(Structure):
     Version: UInt32
     DeviceNumber: UInt32
-    StartingOffset: Windows.Win32.Foundation.LARGE_INTEGER
+    StartingOffset: Int64
     SectorSize: UInt32
 class CSV_QUERY_FILE_REVISION(Structure):
     FileId: Int64
@@ -1604,7 +1604,7 @@ class DEVICE_MEDIA_INFO(Structure):
         RemovableDiskInfo: _RemovableDiskInfo_e__Struct
         TapeInfo: _TapeInfo_e__Struct
         class _DiskInfo_e__Struct(Structure):
-            Cylinders: Windows.Win32.Foundation.LARGE_INTEGER
+            Cylinders: Int64
             MediaType: Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE
             TracksPerCylinder: UInt32
             SectorsPerTrack: UInt32
@@ -1612,7 +1612,7 @@ class DEVICE_MEDIA_INFO(Structure):
             NumberMediaSides: UInt32
             MediaCharacteristics: UInt32
         class _RemovableDiskInfo_e__Struct(Structure):
-            Cylinders: Windows.Win32.Foundation.LARGE_INTEGER
+            Cylinders: Int64
             MediaType: Windows.Win32.System.Ioctl.STORAGE_MEDIA_TYPE
             TracksPerCylinder: UInt32
             SectorsPerTrack: UInt32
@@ -1702,8 +1702,8 @@ class DISK_DETECTION_INFO(Structure):
             ExInt13: Windows.Win32.System.Ioctl.DISK_EX_INT13_INFO
 class DISK_EXTENT(Structure):
     DiskNumber: UInt32
-    StartingOffset: Windows.Win32.Foundation.LARGE_INTEGER
-    ExtentLength: Windows.Win32.Foundation.LARGE_INTEGER
+    StartingOffset: Int64
+    ExtentLength: Int64
 class DISK_EX_INT13_INFO(Structure):
     ExBufferSize: UInt16
     ExFlags: UInt16
@@ -1714,25 +1714,25 @@ class DISK_EX_INT13_INFO(Structure):
     ExSectorSize: UInt16
     ExReserved: UInt16
 class DISK_GEOMETRY(Structure):
-    Cylinders: Windows.Win32.Foundation.LARGE_INTEGER
+    Cylinders: Int64
     MediaType: Windows.Win32.System.Ioctl.MEDIA_TYPE
     TracksPerCylinder: UInt32
     SectorsPerTrack: UInt32
     BytesPerSector: UInt32
 class DISK_GEOMETRY_EX(Structure):
     Geometry: Windows.Win32.System.Ioctl.DISK_GEOMETRY
-    DiskSize: Windows.Win32.Foundation.LARGE_INTEGER
+    DiskSize: Int64
     Data: Byte * 1
 class DISK_GROW_PARTITION(Structure):
     PartitionNumber: UInt32
-    BytesToGrow: Windows.Win32.Foundation.LARGE_INTEGER
+    BytesToGrow: Int64
 class DISK_HISTOGRAM(Structure):
-    DiskSize: Windows.Win32.Foundation.LARGE_INTEGER
-    Start: Windows.Win32.Foundation.LARGE_INTEGER
-    End: Windows.Win32.Foundation.LARGE_INTEGER
-    Average: Windows.Win32.Foundation.LARGE_INTEGER
-    AverageRead: Windows.Win32.Foundation.LARGE_INTEGER
-    AverageWrite: Windows.Win32.Foundation.LARGE_INTEGER
+    DiskSize: Int64
+    Start: Int64
+    End: Int64
+    Average: Int64
+    AverageRead: Int64
+    AverageWrite: Int64
     Granularity: UInt32
     Size: UInt32
     ReadCount: UInt32
@@ -1761,22 +1761,22 @@ class DISK_PARTITION_INFO(Structure):
         class _Gpt_e__Struct(Structure):
             DiskId: Guid
 class DISK_PERFORMANCE(Structure):
-    BytesRead: Windows.Win32.Foundation.LARGE_INTEGER
-    BytesWritten: Windows.Win32.Foundation.LARGE_INTEGER
-    ReadTime: Windows.Win32.Foundation.LARGE_INTEGER
-    WriteTime: Windows.Win32.Foundation.LARGE_INTEGER
-    IdleTime: Windows.Win32.Foundation.LARGE_INTEGER
+    BytesRead: Int64
+    BytesWritten: Int64
+    ReadTime: Int64
+    WriteTime: Int64
+    IdleTime: Int64
     ReadCount: UInt32
     WriteCount: UInt32
     QueueDepth: UInt32
     SplitCount: UInt32
-    QueryTime: Windows.Win32.Foundation.LARGE_INTEGER
+    QueryTime: Int64
     StorageDeviceNumber: UInt32
     StorageManagerName: Char * 8
 class DISK_RECORD(Structure):
-    ByteOffset: Windows.Win32.Foundation.LARGE_INTEGER
-    StartTime: Windows.Win32.Foundation.LARGE_INTEGER
-    EndTime: Windows.Win32.Foundation.LARGE_INTEGER
+    ByteOffset: Int64
+    StartTime: Int64
+    EndTime: Int64
     VirtualAddress: c_void_p
     NumberOfBytes: UInt32
     DeviceNumber: Byte
@@ -1801,37 +1801,37 @@ class DRIVE_LAYOUT_INFORMATION_EX(Structure):
         Gpt: Windows.Win32.System.Ioctl.DRIVE_LAYOUT_INFORMATION_GPT
 class DRIVE_LAYOUT_INFORMATION_GPT(Structure):
     DiskId: Guid
-    StartingUsableOffset: Windows.Win32.Foundation.LARGE_INTEGER
-    UsableLength: Windows.Win32.Foundation.LARGE_INTEGER
+    StartingUsableOffset: Int64
+    UsableLength: Int64
     MaxPartitionCount: UInt32
 class DRIVE_LAYOUT_INFORMATION_MBR(Structure):
     Signature: UInt32
     CheckSum: UInt32
 class DUPLICATE_EXTENTS_DATA(Structure):
     FileHandle: Windows.Win32.Foundation.HANDLE
-    SourceFileOffset: Windows.Win32.Foundation.LARGE_INTEGER
-    TargetFileOffset: Windows.Win32.Foundation.LARGE_INTEGER
-    ByteCount: Windows.Win32.Foundation.LARGE_INTEGER
+    SourceFileOffset: Int64
+    TargetFileOffset: Int64
+    ByteCount: Int64
 if ARCH in 'X64,ARM64':
     class DUPLICATE_EXTENTS_DATA32(Structure):
         FileHandle: UInt32
-        SourceFileOffset: Windows.Win32.Foundation.LARGE_INTEGER
-        TargetFileOffset: Windows.Win32.Foundation.LARGE_INTEGER
-        ByteCount: Windows.Win32.Foundation.LARGE_INTEGER
+        SourceFileOffset: Int64
+        TargetFileOffset: Int64
+        ByteCount: Int64
 class DUPLICATE_EXTENTS_DATA_EX(Structure):
     Size: UIntPtr
     FileHandle: Windows.Win32.Foundation.HANDLE
-    SourceFileOffset: Windows.Win32.Foundation.LARGE_INTEGER
-    TargetFileOffset: Windows.Win32.Foundation.LARGE_INTEGER
-    ByteCount: Windows.Win32.Foundation.LARGE_INTEGER
+    SourceFileOffset: Int64
+    TargetFileOffset: Int64
+    ByteCount: Int64
     Flags: UInt32
 if ARCH in 'X64,ARM64':
     class DUPLICATE_EXTENTS_DATA_EX32(Structure):
         Size: UInt32
         FileHandle: UInt32
-        SourceFileOffset: Windows.Win32.Foundation.LARGE_INTEGER
-        TargetFileOffset: Windows.Win32.Foundation.LARGE_INTEGER
-        ByteCount: Windows.Win32.Foundation.LARGE_INTEGER
+        SourceFileOffset: Int64
+        TargetFileOffset: Int64
+        ByteCount: Int64
         Flags: UInt32
 DUPLICATE_EXTENTS_STATE = Int32
 DUPLICATE_EXTENTS_STATE_FileSnapStateInactive: DUPLICATE_EXTENTS_STATE = 0
@@ -1931,8 +1931,8 @@ FILESYSTEM_STATISTICS_TYPE_EXFAT: FILESYSTEM_STATISTICS_TYPE = 3
 FILESYSTEM_STATISTICS_TYPE_FAT: FILESYSTEM_STATISTICS_TYPE = 2
 FILESYSTEM_STATISTICS_TYPE_NTFS: FILESYSTEM_STATISTICS_TYPE = 1
 class FILE_ALLOCATED_RANGE_BUFFER(Structure):
-    FileOffset: Windows.Win32.Foundation.LARGE_INTEGER
-    Length: Windows.Win32.Foundation.LARGE_INTEGER
+    FileOffset: Int64
+    Length: Int64
 class FILE_DESIRED_STORAGE_CLASS_INFORMATION(Structure):
     Class: Windows.Win32.System.Ioctl.FILE_STORAGE_TIER_CLASS
     Flags: UInt32
@@ -1963,10 +1963,10 @@ class FILE_LAYOUT_INFO_ENTRY(Structure):
     Usn: Int64
     StorageReserveId: Windows.Win32.System.Ioctl.STORAGE_RESERVE_ID
     class _BasicInformation_e__Struct(Structure):
-        CreationTime: Windows.Win32.Foundation.LARGE_INTEGER
-        LastAccessTime: Windows.Win32.Foundation.LARGE_INTEGER
-        LastWriteTime: Windows.Win32.Foundation.LARGE_INTEGER
-        ChangeTime: Windows.Win32.Foundation.LARGE_INTEGER
+        CreationTime: Int64
+        LastAccessTime: Int64
+        LastWriteTime: Int64
+        ChangeTime: Int64
         FileAttributes: UInt32
 class FILE_LAYOUT_NAME_ENTRY(Structure):
     NextNameOffset: UInt32
@@ -2013,13 +2013,13 @@ class FILE_PROVIDER_EXTERNAL_INFO_V1(Structure):
     Algorithm: UInt32
     Flags: UInt32
 class FILE_QUERY_ON_DISK_VOL_INFO_BUFFER(Structure):
-    DirectoryCount: Windows.Win32.Foundation.LARGE_INTEGER
-    FileCount: Windows.Win32.Foundation.LARGE_INTEGER
+    DirectoryCount: Int64
+    FileCount: Int64
     FsFormatMajVersion: UInt16
     FsFormatMinVersion: UInt16
     FsFormatName: Char * 12
-    FormatTime: Windows.Win32.Foundation.LARGE_INTEGER
-    LastUpdateTime: Windows.Win32.Foundation.LARGE_INTEGER
+    FormatTime: Int64
+    LastUpdateTime: Int64
     CopyrightInfo: Char * 34
     AbstractInfo: Char * 34
     FormattingImplementationInfo: Char * 34
@@ -2083,11 +2083,11 @@ class FILE_TYPE_NOTIFICATION_INPUT(Structure):
     NumFileTypeIDs: UInt32
     FileTypeID: Guid * 1
 class FILE_ZERO_DATA_INFORMATION(Structure):
-    FileOffset: Windows.Win32.Foundation.LARGE_INTEGER
-    BeyondFinalZero: Windows.Win32.Foundation.LARGE_INTEGER
+    FileOffset: Int64
+    BeyondFinalZero: Int64
 class FILE_ZERO_DATA_INFORMATION_EX(Structure):
-    FileOffset: Windows.Win32.Foundation.LARGE_INTEGER
-    BeyondFinalZero: Windows.Win32.Foundation.LARGE_INTEGER
+    FileOffset: Int64
+    BeyondFinalZero: Int64
     Flags: UInt32
 class FIND_BY_SID_DATA(Structure):
     Restart: UInt32
@@ -2287,7 +2287,7 @@ class GET_FILTER_FILE_IDENTIFIER_OUTPUT(Structure):
     FilterFileIdentifierLength: UInt16
     FilterFileIdentifier: Byte * 1
 class GET_LENGTH_INFORMATION(Structure):
-    Length: Windows.Win32.Foundation.LARGE_INTEGER
+    Length: Int64
 class GET_MEDIA_TYPES(Structure):
     DeviceType: UInt32
     MediaInfoCount: UInt32
@@ -2321,13 +2321,13 @@ class IO_IRP_EXT_TRACK_OFFSET_HEADER(Structure):
 class LOOKUP_STREAM_FROM_CLUSTER_ENTRY(Structure):
     OffsetToNext: UInt32
     Flags: UInt32
-    Reserved: Windows.Win32.Foundation.LARGE_INTEGER
-    Cluster: Windows.Win32.Foundation.LARGE_INTEGER
+    Reserved: Int64
+    Cluster: Int64
     FileName: Char * 1
 class LOOKUP_STREAM_FROM_CLUSTER_INPUT(Structure):
     Flags: UInt32
     NumberOfClusters: UInt32
-    Cluster: Windows.Win32.Foundation.LARGE_INTEGER * 1
+    Cluster: Int64 * 1
 class LOOKUP_STREAM_FROM_CLUSTER_OUTPUT(Structure):
     Offset: UInt32
     NumberOfMatches: UInt32
@@ -2386,19 +2386,19 @@ class MFT_ENUM_DATA_V1(Structure):
     MaxMajorVersion: UInt16
 class MOVE_FILE_DATA(Structure):
     FileHandle: Windows.Win32.Foundation.HANDLE
-    StartingVcn: Windows.Win32.Foundation.LARGE_INTEGER
-    StartingLcn: Windows.Win32.Foundation.LARGE_INTEGER
+    StartingVcn: Int64
+    StartingLcn: Int64
     ClusterCount: UInt32
 if ARCH in 'X64,ARM64':
     class MOVE_FILE_DATA32(Structure):
         FileHandle: UInt32
-        StartingVcn: Windows.Win32.Foundation.LARGE_INTEGER
-        StartingLcn: Windows.Win32.Foundation.LARGE_INTEGER
+        StartingVcn: Int64
+        StartingLcn: Int64
         ClusterCount: UInt32
 class MOVE_FILE_RECORD_DATA(Structure):
     FileHandle: Windows.Win32.Foundation.HANDLE
-    SourceFileRecord: Windows.Win32.Foundation.LARGE_INTEGER
-    TargetFileRecord: Windows.Win32.Foundation.LARGE_INTEGER
+    SourceFileRecord: Int64
+    TargetFileRecord: Int64
 class NTFS_EXTENDED_VOLUME_DATA(Structure):
     ByteCount: UInt32
     MajorVersion: UInt16
@@ -2411,9 +2411,9 @@ class NTFS_EXTENDED_VOLUME_DATA(Structure):
     MaxVolumeTrimExtentCount: UInt32
     MaxVolumeTrimByteCount: UInt32
 class NTFS_FILE_RECORD_INPUT_BUFFER(Structure):
-    FileReferenceNumber: Windows.Win32.Foundation.LARGE_INTEGER
+    FileReferenceNumber: Int64
 class NTFS_FILE_RECORD_OUTPUT_BUFFER(Structure):
-    FileReferenceNumber: Windows.Win32.Foundation.LARGE_INTEGER
+    FileReferenceNumber: Int64
     FileRecordLength: UInt32
     FileRecordBuffer: Byte * 1
 class NTFS_STATISTICS(Structure):
@@ -2583,23 +2583,23 @@ class NTFS_STATISTICS_EX(Structure):
         CacheClusters: UInt64
         CacheMissClusters: UInt64
 class NTFS_VOLUME_DATA_BUFFER(Structure):
-    VolumeSerialNumber: Windows.Win32.Foundation.LARGE_INTEGER
-    NumberSectors: Windows.Win32.Foundation.LARGE_INTEGER
-    TotalClusters: Windows.Win32.Foundation.LARGE_INTEGER
-    FreeClusters: Windows.Win32.Foundation.LARGE_INTEGER
-    TotalReserved: Windows.Win32.Foundation.LARGE_INTEGER
+    VolumeSerialNumber: Int64
+    NumberSectors: Int64
+    TotalClusters: Int64
+    FreeClusters: Int64
+    TotalReserved: Int64
     BytesPerSector: UInt32
     BytesPerCluster: UInt32
     BytesPerFileRecordSegment: UInt32
     ClustersPerFileRecordSegment: UInt32
-    MftValidDataLength: Windows.Win32.Foundation.LARGE_INTEGER
-    MftStartLcn: Windows.Win32.Foundation.LARGE_INTEGER
-    Mft2StartLcn: Windows.Win32.Foundation.LARGE_INTEGER
-    MftZoneStart: Windows.Win32.Foundation.LARGE_INTEGER
-    MftZoneEnd: Windows.Win32.Foundation.LARGE_INTEGER
+    MftValidDataLength: Int64
+    MftStartLcn: Int64
+    Mft2StartLcn: Int64
+    MftZoneStart: Int64
+    MftZoneEnd: Int64
 class PARTITION_INFORMATION(Structure):
-    StartingOffset: Windows.Win32.Foundation.LARGE_INTEGER
-    PartitionLength: Windows.Win32.Foundation.LARGE_INTEGER
+    StartingOffset: Int64
+    PartitionLength: Int64
     HiddenSectors: UInt32
     PartitionNumber: UInt32
     PartitionType: Byte
@@ -2608,8 +2608,8 @@ class PARTITION_INFORMATION(Structure):
     RewritePartition: Windows.Win32.Foundation.BOOLEAN
 class PARTITION_INFORMATION_EX(Structure):
     PartitionStyle: Windows.Win32.System.Ioctl.PARTITION_STYLE
-    StartingOffset: Windows.Win32.Foundation.LARGE_INTEGER
-    PartitionLength: Windows.Win32.Foundation.LARGE_INTEGER
+    StartingOffset: Int64
+    PartitionLength: Int64
     PartitionNumber: UInt32
     RewritePartition: Windows.Win32.Foundation.BOOLEAN
     IsServicePartition: Windows.Win32.Foundation.BOOLEAN
@@ -2680,7 +2680,7 @@ class PHYSICAL_ELEMENT_STATUS_REQUEST(Structure):
 @winfunctype_pointer
 def PIO_IRP_EXT_PROCESS_TRACKED_OFFSET_CALLBACK(SourceContext: POINTER(Windows.Win32.System.Ioctl.IO_IRP_EXT_TRACK_OFFSET_HEADER_head), TargetContext: POINTER(Windows.Win32.System.Ioctl.IO_IRP_EXT_TRACK_OFFSET_HEADER_head), RelativeOffset: Int64) -> Void: ...
 class PLEX_READ_DATA_REQUEST(Structure):
-    ByteOffset: Windows.Win32.Foundation.LARGE_INTEGER
+    ByteOffset: Int64
     ByteLength: UInt32
     PlexNumber: UInt32
 class PREVENT_MEDIA_REMOVAL(Structure):
@@ -2755,7 +2755,7 @@ class REASSIGN_BLOCKS(Structure):
 class REASSIGN_BLOCKS_EX(Structure):
     Reserved: UInt16
     Count: UInt16
-    BlockNumber: Windows.Win32.Foundation.LARGE_INTEGER * 1
+    BlockNumber: Int64 * 1
     _pack_ = 1
 REFS_SMR_VOLUME_GC_ACTION = Int32
 REFS_SMR_VOLUME_GC_ACTION_SmrGcActionStart: REFS_SMR_VOLUME_GC_ACTION = 1
@@ -2782,11 +2782,11 @@ REFS_SMR_VOLUME_GC_STATE_SmrGcStateActiveFullSpeed: REFS_SMR_VOLUME_GC_STATE = 3
 class REFS_SMR_VOLUME_INFO_OUTPUT(Structure):
     Version: UInt32
     Flags: UInt32
-    SizeOfRandomlyWritableTier: Windows.Win32.Foundation.LARGE_INTEGER
-    FreeSpaceInRandomlyWritableTier: Windows.Win32.Foundation.LARGE_INTEGER
-    SizeofSMRTier: Windows.Win32.Foundation.LARGE_INTEGER
-    FreeSpaceInSMRTier: Windows.Win32.Foundation.LARGE_INTEGER
-    UsableFreeSpaceInSMRTier: Windows.Win32.Foundation.LARGE_INTEGER
+    SizeOfRandomlyWritableTier: Int64
+    FreeSpaceInRandomlyWritableTier: Int64
+    SizeofSMRTier: Int64
+    FreeSpaceInSMRTier: Int64
+    UsableFreeSpaceInSMRTier: Int64
     VolumeGcState: Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_STATE
     VolumeGcLastStatus: UInt32
     CurrentGcBandFillPercentage: UInt32
@@ -2796,18 +2796,18 @@ class REFS_VOLUME_DATA_BUFFER(Structure):
     MajorVersion: UInt32
     MinorVersion: UInt32
     BytesPerPhysicalSector: UInt32
-    VolumeSerialNumber: Windows.Win32.Foundation.LARGE_INTEGER
-    NumberSectors: Windows.Win32.Foundation.LARGE_INTEGER
-    TotalClusters: Windows.Win32.Foundation.LARGE_INTEGER
-    FreeClusters: Windows.Win32.Foundation.LARGE_INTEGER
-    TotalReserved: Windows.Win32.Foundation.LARGE_INTEGER
+    VolumeSerialNumber: Int64
+    NumberSectors: Int64
+    TotalClusters: Int64
+    FreeClusters: Int64
+    TotalReserved: Int64
     BytesPerSector: UInt32
     BytesPerCluster: UInt32
-    MaximumSizeOfResidentFile: Windows.Win32.Foundation.LARGE_INTEGER
+    MaximumSizeOfResidentFile: Int64
     FastTierDataFillRatio: UInt16
     SlowTierDataFillRatio: UInt16
     DestagesFastTierToSlowTierRate: UInt32
-    Reserved: Windows.Win32.Foundation.LARGE_INTEGER * 9
+    Reserved: Int64 * 9
 class REMOVE_ELEMENT_AND_TRUNCATE_REQUEST(Structure):
     Version: UInt32
     Size: UInt32
@@ -2817,7 +2817,7 @@ class REMOVE_ELEMENT_AND_TRUNCATE_REQUEST(Structure):
 class REPAIR_COPIES_INPUT(Structure):
     Size: UInt32
     Flags: UInt32
-    FileOffset: Windows.Win32.Foundation.LARGE_INTEGER
+    FileOffset: Int64
     Length: UInt32
     SourceCopy: UInt32
     NumberOfRepairCopies: UInt32
@@ -2825,7 +2825,7 @@ class REPAIR_COPIES_INPUT(Structure):
 class REPAIR_COPIES_OUTPUT(Structure):
     Size: UInt32
     Status: UInt32
-    ResumeFileOffset: Windows.Win32.Foundation.LARGE_INTEGER
+    ResumeFileOffset: Int64
 class REQUEST_OPLOCK_INPUT_BUFFER(Structure):
     StructureVersion: UInt16
     StructureLength: UInt16
@@ -2844,21 +2844,21 @@ class REQUEST_RAW_ENCRYPTED_DATA(Structure):
     Length: UInt32
 class RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER(Structure):
     ExtentCount: UInt32
-    StartingVcn: Windows.Win32.Foundation.LARGE_INTEGER
+    StartingVcn: Int64
     Extents: _Anonymous_e__Struct * 1
     class _Anonymous_e__Struct(Structure):
-        NextVcn: Windows.Win32.Foundation.LARGE_INTEGER
-        Lcn: Windows.Win32.Foundation.LARGE_INTEGER
+        NextVcn: Int64
+        Lcn: Int64
         ReferenceCount: UInt32
 class RETRIEVAL_POINTERS_BUFFER(Structure):
     ExtentCount: UInt32
-    StartingVcn: Windows.Win32.Foundation.LARGE_INTEGER
+    StartingVcn: Int64
     Extents: _Anonymous_e__Struct * 1
     class _Anonymous_e__Struct(Structure):
-        NextVcn: Windows.Win32.Foundation.LARGE_INTEGER
-        Lcn: Windows.Win32.Foundation.LARGE_INTEGER
+        NextVcn: Int64
+        Lcn: Int64
 class RETRIEVAL_POINTER_BASE(Structure):
-    FileAreaOffset: Windows.Win32.Foundation.LARGE_INTEGER
+    FileAreaOffset: Int64
 class RETRIEVAL_POINTER_COUNT(Structure):
     ExtentCount: UInt32
 class SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO(Structure):
@@ -3286,12 +3286,12 @@ class SMB_SHARE_FLUSH_AND_PURGE_INPUT(Structure):
 class SMB_SHARE_FLUSH_AND_PURGE_OUTPUT(Structure):
     cEntriesPurged: UInt32
 class STARTING_LCN_INPUT_BUFFER(Structure):
-    StartingLcn: Windows.Win32.Foundation.LARGE_INTEGER
+    StartingLcn: Int64
 class STARTING_LCN_INPUT_BUFFER_EX(Structure):
-    StartingLcn: Windows.Win32.Foundation.LARGE_INTEGER
+    StartingLcn: Int64
     Flags: UInt32
 class STARTING_VCN_INPUT_BUFFER(Structure):
-    StartingVcn: Windows.Win32.Foundation.LARGE_INTEGER
+    StartingVcn: Int64
 class STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR(Structure):
     Version: UInt32
     Size: UInt32
@@ -4085,8 +4085,8 @@ class STORAGE_READ_CAPACITY(Structure):
     Version: UInt32
     Size: UInt32
     BlockLength: UInt32
-    NumberOfBlocks: Windows.Win32.Foundation.LARGE_INTEGER
-    DiskLength: Windows.Win32.Foundation.LARGE_INTEGER
+    NumberOfBlocks: Int64
+    DiskLength: Int64
 class STORAGE_REINITIALIZE_MEDIA(Structure):
     Version: UInt32
     Size: UInt32
@@ -4310,8 +4310,8 @@ class STREAM_LAYOUT_ENTRY(Structure):
     NextStreamOffset: UInt32
     Flags: UInt32
     ExtentInformationOffset: UInt32
-    AllocationSize: Windows.Win32.Foundation.LARGE_INTEGER
-    EndOfFile: Windows.Win32.Foundation.LARGE_INTEGER
+    AllocationSize: Int64
+    EndOfFile: Int64
     StreamInformationOffset: UInt32
     AttributeTypeCode: UInt32
     AttributeFlags: UInt32
@@ -4322,10 +4322,10 @@ class TAPE_GET_STATISTICS(Structure):
 class TAPE_STATISTICS(Structure):
     Version: UInt32
     Flags: UInt32
-    RecoveredWrites: Windows.Win32.Foundation.LARGE_INTEGER
-    UnrecoveredWrites: Windows.Win32.Foundation.LARGE_INTEGER
-    RecoveredReads: Windows.Win32.Foundation.LARGE_INTEGER
-    UnrecoveredReads: Windows.Win32.Foundation.LARGE_INTEGER
+    RecoveredWrites: Int64
+    UnrecoveredWrites: Int64
+    RecoveredReads: Int64
+    UnrecoveredReads: Int64
     CompressionRatioReads: Byte
     CompressionRatioWrites: Byte
 class TXFS_CREATE_MINIVERSION_INFO(Structure):
@@ -4384,7 +4384,7 @@ class TXFS_QUERY_RM_INFORMATION(Structure):
     CurrentLsn: UInt64
     ArchiveTailLsn: UInt64
     LogContainerSize: UInt64
-    HighestVirtualClock: Windows.Win32.Foundation.LARGE_INTEGER
+    HighestVirtualClock: Int64
     LogContainerCount: UInt32
     LogContainerCountMax: UInt32
     LogContainerCountMin: UInt32
@@ -4429,7 +4429,7 @@ TXFS_RM_FLAG_DO_NOT_RESET_RM_AT_NEXT_START: TXFS_RMF_LAGS = 32768
 TXFS_RM_FLAG_PREFER_CONSISTENCY: TXFS_RMF_LAGS = 65536
 TXFS_RM_FLAG_PREFER_AVAILABILITY: TXFS_RMF_LAGS = 131072
 class TXFS_ROLLFORWARD_REDO_INFORMATION(Structure):
-    LastVirtualClock: Windows.Win32.Foundation.LARGE_INTEGER
+    LastVirtualClock: Int64
     LastRedoLsn: UInt64
     HighestRecoveryLsn: UInt64
     Flags: UInt32
@@ -4509,7 +4509,7 @@ class USN_RECORD_V2(Structure):
     FileReferenceNumber: UInt64
     ParentFileReferenceNumber: UInt64
     Usn: Int64
-    TimeStamp: Windows.Win32.Foundation.LARGE_INTEGER
+    TimeStamp: Int64
     Reason: UInt32
     SourceInfo: UInt32
     SecurityId: UInt32
@@ -4524,7 +4524,7 @@ class USN_RECORD_V3(Structure):
     FileReferenceNumber: Windows.Win32.Storage.FileSystem.FILE_ID_128
     ParentFileReferenceNumber: Windows.Win32.Storage.FileSystem.FILE_ID_128
     Usn: Int64
-    TimeStamp: Windows.Win32.Foundation.LARGE_INTEGER
+    TimeStamp: Int64
     Reason: UInt32
     SourceInfo: UInt32
     SecurityId: UInt32
@@ -4554,7 +4554,7 @@ class USN_TRACK_MODIFIED_RANGES(Structure):
     ChunkSize: UInt64
     FileSizeThreshold: Int64
 class VERIFY_INFORMATION(Structure):
-    StartingOffset: Windows.Win32.Foundation.LARGE_INTEGER
+    StartingOffset: Int64
     Length: UInt32
 class VIRTUALIZATION_INSTANCE_INFO_INPUT(Structure):
     NumberOfWorkerThreads: UInt32
@@ -4577,8 +4577,8 @@ class VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT(Structure):
     Size: UInt32
     BehaviorCode: Windows.Win32.System.Ioctl.VIRTUAL_STORAGE_BEHAVIOR_CODE
 class VOLUME_BITMAP_BUFFER(Structure):
-    StartingLcn: Windows.Win32.Foundation.LARGE_INTEGER
-    BitmapSize: Windows.Win32.Foundation.LARGE_INTEGER
+    StartingLcn: Int64
+    BitmapSize: Int64
     Buffer: Byte * 1
 class VOLUME_DISK_EXTENTS(Structure):
     NumberOfDiskExtents: UInt32
@@ -4593,22 +4593,22 @@ class WIM_PROVIDER_ADD_OVERLAY_INPUT(Structure):
 class WIM_PROVIDER_EXTERNAL_INFO(Structure):
     Version: UInt32
     Flags: UInt32
-    DataSourceId: Windows.Win32.Foundation.LARGE_INTEGER
+    DataSourceId: Int64
     ResourceHash: Byte * 20
 class WIM_PROVIDER_OVERLAY_ENTRY(Structure):
     NextEntryOffset: UInt32
-    DataSourceId: Windows.Win32.Foundation.LARGE_INTEGER
+    DataSourceId: Int64
     WimGuid: Guid
     WimFileNameOffset: UInt32
     WimType: UInt32
     WimIndex: UInt32
     Flags: UInt32
 class WIM_PROVIDER_REMOVE_OVERLAY_INPUT(Structure):
-    DataSourceId: Windows.Win32.Foundation.LARGE_INTEGER
+    DataSourceId: Int64
 class WIM_PROVIDER_SUSPEND_OVERLAY_INPUT(Structure):
-    DataSourceId: Windows.Win32.Foundation.LARGE_INTEGER
+    DataSourceId: Int64
 class WIM_PROVIDER_UPDATE_OVERLAY_INPUT(Structure):
-    DataSourceId: Windows.Win32.Foundation.LARGE_INTEGER
+    DataSourceId: Int64
     WimFileNameOffset: UInt32
     WimFileNameLength: UInt32
 class WOF_EXTERNAL_FILE_ID(Structure):

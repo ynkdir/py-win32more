@@ -2425,9 +2425,9 @@ def SHGetFileInfoW(pszPath: Windows.Win32.Foundation.PWSTR, dwFileAttributes: Wi
 @winfunctype('SHELL32.dll')
 def SHGetStockIconInfo(siid: Windows.Win32.UI.Shell.SHSTOCKICONID, uFlags: Windows.Win32.UI.Shell.SHGSI_FLAGS, psii: POINTER(Windows.Win32.UI.Shell.SHSTOCKICONINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SHELL32.dll')
-def SHGetDiskFreeSpaceExA(pszDirectoryName: Windows.Win32.Foundation.PSTR, pulFreeBytesAvailableToCaller: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head), pulTotalNumberOfBytes: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head), pulTotalNumberOfFreeBytes: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def SHGetDiskFreeSpaceExA(pszDirectoryName: Windows.Win32.Foundation.PSTR, pulFreeBytesAvailableToCaller: POINTER(UInt64), pulTotalNumberOfBytes: POINTER(UInt64), pulTotalNumberOfFreeBytes: POINTER(UInt64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SHELL32.dll')
-def SHGetDiskFreeSpaceExW(pszDirectoryName: Windows.Win32.Foundation.PWSTR, pulFreeBytesAvailableToCaller: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head), pulTotalNumberOfBytes: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head), pulTotalNumberOfFreeBytes: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def SHGetDiskFreeSpaceExW(pszDirectoryName: Windows.Win32.Foundation.PWSTR, pulFreeBytesAvailableToCaller: POINTER(UInt64), pulTotalNumberOfBytes: POINTER(UInt64), pulTotalNumberOfFreeBytes: POINTER(UInt64)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SHELL32.dll')
 def SHGetNewLinkInfoA(pszLinkTo: Windows.Win32.Foundation.PSTR, pszDir: Windows.Win32.Foundation.PSTR, pszName: Windows.Win32.Foundation.PSTR, pfMustCopy: POINTER(Windows.Win32.Foundation.BOOL), uFlags: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SHELL32.dll')
@@ -3093,7 +3093,7 @@ def IStream_Write(pstm: Windows.Win32.System.Com.IStream_head, pv: c_void_p, cb:
 @winfunctype('SHLWAPI.dll')
 def IStream_Reset(pstm: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SHLWAPI.dll')
-def IStream_Size(pstm: Windows.Win32.System.Com.IStream_head, pui: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def IStream_Size(pstm: Windows.Win32.System.Com.IStream_head, pui: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SHLWAPI.dll')
 def ConnectToConnectionPoint(punk: Windows.Win32.System.Com.IUnknown_head, riidEvent: POINTER(Guid), fConnect: Windows.Win32.Foundation.BOOL, punkTarget: Windows.Win32.System.Com.IUnknown_head, pdwCookie: POINTER(UInt32), ppcpOut: POINTER(Windows.Win32.System.Com.IConnectionPoint_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SHLWAPI.dll')
@@ -4296,7 +4296,7 @@ class HELPWININFOW(Structure):
 HELP_INFO_TYPE = Int32
 HELPINFO_WINDOW: HELP_INFO_TYPE = 1
 HELPINFO_MENUITEM: HELP_INFO_TYPE = 2
-HLBWIF_FLAGS = UInt32
+HLBWIF_FLAGS = Int32
 HLBWIF_HASFRAMEWNDINFO: HLBWIF_FLAGS = 1
 HLBWIF_HASDOCWNDINFO: HLBWIF_FLAGS = 2
 HLBWIF_FRAMEWNDMAXIMIZED: HLBWIF_FLAGS = 4
@@ -4309,7 +4309,7 @@ class HLBWINFO(Structure):
     rcFramePos: Windows.Win32.Foundation.RECT
     rcDocPos: Windows.Win32.Foundation.RECT
     hltbinfo: Windows.Win32.UI.Shell.HLTBINFO
-HLFNAMEF = UInt32
+HLFNAMEF = Int32
 HLFNAMEF_DEFAULT: HLFNAMEF = 0
 HLFNAMEF_TRYCACHE: HLFNAMEF = 1
 HLFNAMEF_TRYPRETTYTARGET: HLFNAMEF = 2
@@ -6042,9 +6042,9 @@ class IFileSystemBindData2(c_void_p):
     extends: Windows.Win32.UI.Shell.IFileSystemBindData
     Guid = Guid('3acf075f-71db-4afa-81-f0-3f-c4-fd-f2-a5-b8')
     @commethod(5)
-    def SetFileID(liFileID: Windows.Win32.Foundation.LARGE_INTEGER) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetFileID(liFileID: Int64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetFileID(pliFileID: POINTER(Windows.Win32.Foundation.LARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetFileID(pliFileID: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetJunctionCLSID(clsid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9700,7 +9700,7 @@ class OPENASINFO(Structure):
     pcszFile: Windows.Win32.Foundation.PWSTR
     pcszClass: Windows.Win32.Foundation.PWSTR
     oaifInFlags: Windows.Win32.UI.Shell.OPEN_AS_INFO_FLAGS
-OPEN_AS_INFO_FLAGS = UInt32
+OPEN_AS_INFO_FLAGS = Int32
 OAIF_ALLOW_REGISTRATION: OPEN_AS_INFO_FLAGS = 1
 OAIF_REGISTER_EXT: OPEN_AS_INFO_FLAGS = 2
 OAIF_EXEC: OPEN_AS_INFO_FLAGS = 4
@@ -10132,7 +10132,7 @@ RefreshConstants = Int32
 REFRESH_NORMAL: RefreshConstants = 0
 REFRESH_IFEXPIRED: RefreshConstants = 1
 REFRESH_COMPLETELY: RefreshConstants = 3
-SCALE_CHANGE_FLAGS = UInt32
+SCALE_CHANGE_FLAGS = Int32
 SCF_VALUE_NONE: SCALE_CHANGE_FLAGS = 0
 SCF_SCALE: SCALE_CHANGE_FLAGS = 1
 SCF_PHYSICAL: SCALE_CHANGE_FLAGS = 2

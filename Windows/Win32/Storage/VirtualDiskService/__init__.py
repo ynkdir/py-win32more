@@ -2,6 +2,7 @@ from __future__ import annotations
 from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
 from Windows.base import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head
 import Windows.Win32.Foundation
+import Windows.Win32.Storage.Vhd
 import Windows.Win32.Storage.VirtualDiskService
 import Windows.Win32.System.Com
 import sys
@@ -478,6 +479,40 @@ VDS_E_DELETE_WITH_BOOTBACKING: Windows.Win32.Foundation.HRESULT = -2147210745
 VDS_E_FORMAT_WITH_BOOTBACKING: Windows.Win32.Foundation.HRESULT = -2147210744
 VDS_E_CLEAN_WITH_BOOTBACKING: Windows.Win32.Foundation.HRESULT = -2147210743
 VDS_E_SHRINK_EXTEND_UNALIGNED: Windows.Win32.Foundation.HRESULT = -2147210496
+class CHANGE_ATTRIBUTES_PARAMETERS(Structure):
+    style: Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        MbrPartInfo: _MbrPartInfo_e__Struct
+        GptPartInfo: _GptPartInfo_e__Struct
+        class _MbrPartInfo_e__Struct(Structure):
+            bootIndicator: Windows.Win32.Foundation.BOOLEAN
+        class _GptPartInfo_e__Struct(Structure):
+            attributes: UInt64
+class CHANGE_PARTITION_TYPE_PARAMETERS(Structure):
+    style: Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        MbrPartInfo: _MbrPartInfo_e__Struct
+        GptPartInfo: _GptPartInfo_e__Struct
+        class _MbrPartInfo_e__Struct(Structure):
+            partitionType: Byte
+        class _GptPartInfo_e__Struct(Structure):
+            partitionType: Guid
+class CREATE_PARTITION_PARAMETERS(Structure):
+    style: Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        MbrPartInfo: _MbrPartInfo_e__Struct
+        GptPartInfo: _GptPartInfo_e__Struct
+        class _MbrPartInfo_e__Struct(Structure):
+            partitionType: Byte
+            bootIndicator: Windows.Win32.Foundation.BOOLEAN
+        class _GptPartInfo_e__Struct(Structure):
+            partitionType: Guid
+            partitionId: Guid
+            attributes: UInt64
+            name: Char * 36
 class IEnumVdsObject(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('118610b7-8d94-4030-b5-b8-50-08-89-78-8e-4e')
@@ -496,6 +531,41 @@ class IVdsAdmin(c_void_p):
     def RegisterProvider(providerId: Guid, providerClsid: Guid, pwszName: Windows.Win32.Foundation.PWSTR, type: Windows.Win32.Storage.VirtualDiskService.VDS_PROVIDER_TYPE, pwszMachineName: Windows.Win32.Foundation.PWSTR, pwszVersion: Windows.Win32.Foundation.PWSTR, guidVersionId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UnregisterProvider(providerId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsAdvancedDisk(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('6e6f6b40-977c-4069-bd-dd-ac-71-00-59-f8-c0')
+    @commethod(3)
+    def GetPartitionProperties(ullOffset: UInt64, pPartitionProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def QueryPartitions(ppPartitionPropArray: POINTER(POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_PROP_head)), plNumberOfPartitions: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def CreatePartition(ullOffset: UInt64, ullSize: UInt64, para: POINTER(Windows.Win32.Storage.VirtualDiskService.CREATE_PARTITION_PARAMETERS_head), ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def DeletePartition(ullOffset: UInt64, bForce: Windows.Win32.Foundation.BOOL, bForceProtected: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def ChangeAttributes(ullOffset: UInt64, para: POINTER(Windows.Win32.Storage.VirtualDiskService.CHANGE_ATTRIBUTES_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(8)
+    def AssignDriveLetter(ullOffset: UInt64, wcLetter: Char) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(9)
+    def DeleteDriveLetter(ullOffset: UInt64, wcLetter: Char) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(10)
+    def GetDriveLetter(ullOffset: UInt64, pwcLetter: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(11)
+    def FormatPartition(ullOffset: UInt64, type: Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_TYPE, pwszLabel: Windows.Win32.Foundation.PWSTR, dwUnitAllocationSize: UInt32, bForce: Windows.Win32.Foundation.BOOL, bQuickFormat: Windows.Win32.Foundation.BOOL, bEnableCompression: Windows.Win32.Foundation.BOOL, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(12)
+    def Clean(bForce: Windows.Win32.Foundation.BOOL, bForceOEM: Windows.Win32.Foundation.BOOL, bFullClean: Windows.Win32.Foundation.BOOL, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsAdvancedDisk2(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('9723f420-9355-42de-ab-66-e3-1b-b1-5b-ee-ac')
+    @commethod(3)
+    def ChangePartitionType(ullOffset: UInt64, bForce: Windows.Win32.Foundation.BOOL, para: POINTER(Windows.Win32.Storage.VirtualDiskService.CHANGE_PARTITION_TYPE_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsAdvancedDisk3(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('3858c0d5-0f35-4bf5-97-14-69-87-49-63-bc-36')
+    @commethod(3)
+    def GetProperties(pAdvDiskProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ADVANCEDDISK_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetUniqueId(ppwszId: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsAdviseSink(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8326cd1d-cf59-4936-b7-86-5e-fc-08-79-8e-25')
@@ -547,6 +617,63 @@ class IVdsControllerPort(c_void_p):
     def Reset() -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetStatus(status: Windows.Win32.Storage.VirtualDiskService.VDS_PORT_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsCreatePartitionEx(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('9882f547-cfc3-420b-97-50-00-df-be-c5-06-62')
+    @commethod(3)
+    def CreatePartitionEx(ullOffset: UInt64, ullSize: UInt64, ulAlign: UInt32, para: POINTER(Windows.Win32.Storage.VirtualDiskService.CREATE_PARTITION_PARAMETERS_head), ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsDisk(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('07e5c822-f00c-47a1-8f-ce-b2-44-da-56-fd-06')
+    @commethod(3)
+    def GetProperties(pDiskProperties: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_DISK_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetPack(ppPack: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsPack_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetIdentificationData(pLunInfo: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_LUN_INFORMATION_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def QueryExtents(ppExtentArray: POINTER(POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_DISK_EXTENT_head)), plNumberOfExtents: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def ConvertStyle(NewStyle: Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetFlags(ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(9)
+    def ClearFlags(ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsDisk2(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('40f73c8b-687d-4a13-8d-96-3d-7f-2e-68-39-36')
+    @commethod(3)
+    def SetSANMode(bEnable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsDisk3(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('8f4b2f5d-ec15-4357-99-2f-47-3e-f1-09-75-b9')
+    @commethod(3)
+    def GetProperties2(pDiskProperties: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_DISK_PROP2_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def QueryFreeExtents(ulAlign: UInt32, ppFreeExtentArray: POINTER(POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_DISK_FREE_EXTENT_head)), plNumberOfFreeExtents: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsDiskOnline(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('90681b1d-6a7f-48e8-90-61-31-b7-aa-12-53-22')
+    @commethod(3)
+    def Online() -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def Offline() -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsDiskPartitionMF(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('538684e0-ba3d-4bc0-ac-a9-16-4a-ff-85-c2-a9')
+    @commethod(3)
+    def GetPartitionFileSystemProperties(ullOffset: UInt64, pFileSystemProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetPartitionFileSystemTypeName(ullOffset: UInt64, ppwszFileSystemTypeName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def QueryPartitionFileSystemFormatSupport(ullOffset: UInt64, ppFileSystemSupportProps: POINTER(POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP_head)), plNumberOfFileSystems: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def FormatPartitionEx(ullOffset: UInt64, pwszFileSystemTypeName: Windows.Win32.Foundation.PWSTR, usFileSystemRevision: UInt16, ulDesiredUnitAllocationSize: UInt32, pwszLabel: Windows.Win32.Foundation.PWSTR, bForce: Windows.Win32.Foundation.BOOL, bQuickFormat: Windows.Win32.Foundation.BOOL, bEnableCompression: Windows.Win32.Foundation.BOOL, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsDiskPartitionMF2(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('9cbe50ca-f2d2-4bf4-ac-e1-96-89-6b-72-96-25')
+    @commethod(3)
+    def FormatPartitionEx2(ullOffset: UInt64, pwszFileSystemTypeName: Windows.Win32.Foundation.PWSTR, usFileSystemRevision: UInt16, ulDesiredUnitAllocationSize: UInt32, pwszLabel: Windows.Win32.Foundation.PWSTR, Options: UInt32, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsDrive(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ff24efa4-aade-4b6b-89-8b-ea-a6-a2-08-87-c7')
@@ -567,6 +694,13 @@ class IVdsDrive2(c_void_p):
     Guid = Guid('60b5a730-addf-4436-8c-a7-57-69-e2-d1-ff-a4')
     @commethod(3)
     def GetProperties2(pDriveProp2: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_DRIVE_PROP2_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsHbaPort(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('2abd757f-2851-4997-9a-13-47-d2-a8-85-d6-ca')
+    @commethod(3)
+    def GetProperties(pHbaPortProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_HBAPORT_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetAllPathStatuses(status: Windows.Win32.Storage.VirtualDiskService.VDS_PATH_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsHwProvider(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d99bdaae-b13a-4178-9f-db-e2-7f-16-b4-60-3e')
@@ -605,6 +739,30 @@ class IVdsHwProviderType2(c_void_p):
     Guid = Guid('8190236f-c4d0-4e81-80-11-d6-95-12-fc-c9-84')
     @commethod(3)
     def GetProviderType2(pType: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_HWPROVIDER_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsIscsiInitiatorAdapter(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('b07fedd4-1682-4440-91-89-a3-9b-55-19-4d-c5')
+    @commethod(3)
+    def GetProperties(pInitiatorAdapterProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_INITIATOR_ADAPTER_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def QueryInitiatorPortals(ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def LoginToTarget(loginType: Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_LOGIN_TYPE, targetId: Guid, targetPortalId: Guid, initiatorPortalId: Guid, ulLoginFlags: UInt32, bHeaderDigest: Windows.Win32.Foundation.BOOL, bDataDigest: Windows.Win32.Foundation.BOOL, authType: Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_AUTH_TYPE, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def LogoutFromTarget(targetId: Guid, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsIscsiInitiatorPortal(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('38a0a9ab-7cc8-4693-ac-07-1f-28-bd-03-c3-da')
+    @commethod(3)
+    def GetProperties(pInitiatorPortalProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_INITIATOR_PORTAL_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetInitiatorAdapter(ppInitiatorAdapter: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsIscsiInitiatorAdapter_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetIpsecTunnelAddress(pTunnelAddress: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_IPADDRESS_head), pDestinationAddress: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_IPADDRESS_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetIpsecSecurity(targetPortalId: Guid, pullSecurityFlags: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetIpsecSecurity(targetPortalId: Guid, ullSecurityFlags: UInt64, pIpsecKey: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_KEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsIscsiPortal(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7fa1499d-ec85-4a8a-a4-7b-ff-69-20-1f-cd-34')
@@ -637,6 +795,11 @@ class IVdsIscsiPortalGroup(c_void_p):
     def RemovePortal(portalId: Guid, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Delete(ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsIscsiPortalLocal(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('ad837c28-52c1-421d-bf-04-fa-e7-da-66-53-96')
+    @commethod(3)
+    def SetIpsecSecurityLocal(ullSecurityFlags: UInt64, pIpsecKey: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_KEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsIscsiTarget(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('aa8f5055-83e5-4bcc-aa-73-19-85-1a-36-a8-49')
@@ -761,6 +924,49 @@ class IVdsMaintenance(c_void_p):
     def StopMaintenance(operation: Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def PulseMaintenance(operation: Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsOpenVDisk(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('75c8f324-f715-4fe3-a2-8e-f9-01-1b-61-a4-a1')
+    @commethod(3)
+    def Attach(pStringSecurityDescriptor: Windows.Win32.Foundation.PWSTR, Flags: Windows.Win32.Storage.Vhd.ATTACH_VIRTUAL_DISK_FLAG, ProviderSpecificFlags: UInt32, TimeoutInMs: UInt32, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def Detach(Flags: Windows.Win32.Storage.Vhd.DETACH_VIRTUAL_DISK_FLAG, ProviderSpecificFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def DetachAndDelete(Flags: Windows.Win32.Storage.Vhd.DETACH_VIRTUAL_DISK_FLAG, ProviderSpecificFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def Compact(Flags: Windows.Win32.Storage.Vhd.COMPACT_VIRTUAL_DISK_FLAG, Reserved: UInt32, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def Merge(Flags: Windows.Win32.Storage.Vhd.MERGE_VIRTUAL_DISK_FLAG, MergeDepth: UInt32, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(8)
+    def Expand(Flags: Windows.Win32.Storage.Vhd.EXPAND_VIRTUAL_DISK_FLAG, NewSize: UInt64, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsPack(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('3b69d7f5-9d94-4648-91-ca-79-93-9b-a2-63-bf')
+    @commethod(3)
+    def GetProperties(pPackProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_PACK_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetProvider(ppProvider: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def QueryVolumes(ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def QueryDisks(ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def CreateVolume(type: Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_TYPE, pInputDiskArray: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_INPUT_DISK_head), lNumberOfDisks: Int32, ulStripeSize: UInt32, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(8)
+    def AddDisk(DiskId: Guid, PartitionStyle: Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE, bAsHotSpare: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(9)
+    def MigrateDisks(pDiskArray: POINTER(Guid), lNumberOfDisks: Int32, TargetPack: Guid, bForce: Windows.Win32.Foundation.BOOL, bQueryOnly: Windows.Win32.Foundation.BOOL, pResults: POINTER(Windows.Win32.Foundation.HRESULT), pbRebootNeeded: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(10)
+    def ReplaceDisk(OldDiskId: Guid, NewDiskId: Guid, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(11)
+    def RemoveMissingDisk(DiskId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(12)
+    def Recover(ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsPack2(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('13b50bff-290a-47dd-85-58-b7-c5-8d-b1-a7-1a')
+    @commethod(3)
+    def CreateVolume2(type: Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_TYPE, pInputDiskArray: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_INPUT_DISK_head), lNumberOfDisks: Int32, ulStripeSize: UInt32, ulAlign: UInt32, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsProvider(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('10c5e575-7984-4e81-a5-6b-43-1f-5f-92-ae-42')
@@ -780,6 +986,101 @@ class IVdsProviderSupport(c_void_p):
     Guid = Guid('1732be13-e8f9-4a03-bf-bc-5f-61-6a-a6-6c-e1')
     @commethod(3)
     def GetVersionSupport(ulVersionSupport: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsRemovable(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('0316560b-5db4-4ed9-bb-b5-21-34-36-dd-c0-d9')
+    @commethod(3)
+    def QueryMedia() -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def Eject() -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsService(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('0818a8ef-9ba9-40d8-a6-f9-e2-28-33-cc-77-1e')
+    @commethod(3)
+    def IsServiceReady() -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def WaitForServiceReady() -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetProperties(pServiceProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_SERVICE_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def QueryProviders(masks: UInt32, ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def QueryMaskedDisks(ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(8)
+    def QueryUnallocatedDisks(ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(9)
+    def GetObject(ObjectId: Guid, type: Windows.Win32.Storage.VirtualDiskService.VDS_OBJECT_TYPE, ppObjectUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(10)
+    def QueryDriveLetters(wcFirstLetter: Char, count: UInt32, pDriveLetterPropArray: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_DRIVE_LETTER_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(11)
+    def QueryFileSystemTypes(ppFileSystemTypeProps: POINTER(POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_TYPE_PROP_head)), plNumberOfFileSystems: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(12)
+    def Reenumerate() -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(13)
+    def Refresh() -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(14)
+    def CleanupObsoleteMountPoints() -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(15)
+    def Advise(pSink: Windows.Win32.Storage.VirtualDiskService.IVdsAdviseSink_head, pdwCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(16)
+    def Unadvise(dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(17)
+    def Reboot() -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(18)
+    def SetFlags(ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(19)
+    def ClearFlags(ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsServiceHba(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('0ac13689-3134-47c6-a1-7c-46-69-21-68-01-be')
+    @commethod(3)
+    def QueryHbaPorts(ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsServiceInitialization(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('4afc3636-db01-4052-80-c3-03-bb-cb-8d-3c-69')
+    @commethod(3)
+    def Initialize(pwszMachineName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsServiceIscsi(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('14fbe036-3ed7-4e10-90-e9-a5-ff-99-1a-ff-01')
+    @commethod(3)
+    def GetInitiatorName(ppwszIscsiName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def QueryInitiatorAdapters(ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetIpsecGroupPresharedKey(pIpsecKey: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_KEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def SetAllIpsecTunnelAddresses(pTunnelAddress: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_IPADDRESS_head), pDestinationAddress: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_IPADDRESS_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def SetAllIpsecSecurity(targetPortalId: Guid, ullSecurityFlags: UInt64, pIpsecKey: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_KEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(8)
+    def SetInitiatorSharedSecret(pInitiatorSharedSecret: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_SHARED_SECRET_head), targetId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(9)
+    def RememberTargetSharedSecret(targetId: Guid, pTargetSharedSecret: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_SHARED_SECRET_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsServiceLoader(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('e0393303-90d4-4a97-ab-71-e9-b6-71-ee-27-29')
+    @commethod(3)
+    def LoadService(pwszMachineName: Windows.Win32.Foundation.PWSTR, ppService: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsService_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsServiceSAN(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('fc5d23e8-a88b-41a5-8d-e0-2d-2f-73-c5-a6-30')
+    @commethod(3)
+    def GetSANPolicy(pSanPolicy: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_SAN_POLICY)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetSANPolicy(SanPolicy: Windows.Win32.Storage.VirtualDiskService.VDS_SAN_POLICY) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsServiceSw(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('15fc031c-0652-4306-b2-c3-f5-58-b8-f8-37-e2')
+    @commethod(3)
+    def GetDiskObject(pwszDeviceID: Windows.Win32.Foundation.PWSTR, ppDiskUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsServiceUninstallDisk(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('b6b22da8-f903-4be7-b4-92-c0-9d-87-5a-c9-da')
+    @commethod(3)
+    def GetDiskIdFromLunInfo(pLunInfo: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_LUN_INFORMATION_head), pDiskId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def UninstallDisks(pDiskIdArray: POINTER(Guid), ulCount: UInt32, bForce: Windows.Win32.Foundation.BOOLEAN, pbReboot: c_char_p_no, pResults: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsStoragePool(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('932ca8cf-0eb3-4ba8-96-20-22-66-5d-7f-84-50')
@@ -833,6 +1134,13 @@ class IVdsSubSystem2(c_void_p):
     def CreateLun2(type: Windows.Win32.Storage.VirtualDiskService.VDS_LUN_TYPE, ullSizeInBytes: UInt64, pDriveIdArray: POINTER(Guid), lNumberOfDrives: Int32, pwszUnmaskingList: Windows.Win32.Foundation.PWSTR, pHints2: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_HINTS2_head), ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def QueryMaxLunCreateSize2(type: Windows.Win32.Storage.VirtualDiskService.VDS_LUN_TYPE, pDriveIdArray: POINTER(Guid), lNumberOfDrives: Int32, pHints2: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_HINTS2_head), pullMaxLunSize: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsSubSystemImportTarget(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('83bfb87f-43fb-4903-ba-a6-12-7f-01-02-9e-ec')
+    @commethod(3)
+    def GetImportTarget(ppwszIscsiName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def SetImportTarget(pwszIscsiName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsSubSystemInterconnect(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9e6fa560-c141-477b-83-ba-0b-6c-38-f7-fe-bf')
@@ -854,6 +1162,158 @@ class IVdsSubSystemNaming(c_void_p):
     Guid = Guid('0d70faa3-9cd4-4900-aa-20-69-81-b6-aa-fc-75')
     @commethod(3)
     def SetFriendlyName(pwszFriendlyName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsSwProvider(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('9aa58360-ce33-4f92-b6-58-ed-24-b1-44-25-b8')
+    @commethod(3)
+    def QueryPacks(ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def CreatePack(ppPack: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsPack_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsVDisk(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('1e062b84-e5e6-4b4b-8a-25-67-b8-1e-8f-13-e8')
+    @commethod(3)
+    def Open(AccessMask: Windows.Win32.Storage.Vhd.VIRTUAL_DISK_ACCESS_MASK, Flags: Windows.Win32.Storage.Vhd.OPEN_VIRTUAL_DISK_FLAG, ReadWriteDepth: UInt32, ppOpenVDisk: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsOpenVDisk_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetProperties(pDiskProperties: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_VDISK_PROPERTIES_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetHostVolume(ppVolume: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsVolume_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetDeviceName(ppDeviceName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsVdProvider(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('b481498c-8354-45f9-84-a0-0b-dd-28-32-a9-1f')
+    @commethod(3)
+    def QueryVDisks(ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def CreateVDisk(VirtualDeviceType: POINTER(Windows.Win32.Storage.Vhd.VIRTUAL_STORAGE_TYPE_head), pPath: Windows.Win32.Foundation.PWSTR, pStringSecurityDescriptor: Windows.Win32.Foundation.PWSTR, Flags: Windows.Win32.Storage.Vhd.CREATE_VIRTUAL_DISK_FLAG, ProviderSpecificFlags: UInt32, Reserved: UInt32, pCreateDiskParameters: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_CREATE_VDISK_PARAMETERS_head), ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def AddVDisk(VirtualDeviceType: POINTER(Windows.Win32.Storage.Vhd.VIRTUAL_STORAGE_TYPE_head), pPath: Windows.Win32.Foundation.PWSTR, ppVDisk: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsVDisk_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetDiskFromVDisk(pVDisk: Windows.Win32.Storage.VirtualDiskService.IVdsVDisk_head, ppDisk: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsDisk_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetVDiskFromDisk(pDisk: Windows.Win32.Storage.VirtualDiskService.IVdsDisk_head, ppVDisk: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsVDisk_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsVolume(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('88306bb2-e71f-478c-86-a2-79-da-20-0a-0f-11')
+    @commethod(3)
+    def GetProperties(pVolumeProperties: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetPack(ppPack: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsPack_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def QueryPlexes(ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def Extend(pInputDiskArray: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_INPUT_DISK_head), lNumberOfDisks: Int32, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def Shrink(ullNumberOfBytesToRemove: UInt64, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(8)
+    def AddPlex(VolumeId: Guid, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(9)
+    def BreakPlex(plexId: Guid, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(10)
+    def RemovePlex(plexId: Guid, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(11)
+    def Delete(bForce: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(12)
+    def SetFlags(ulFlags: UInt32, bRevertOnClose: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(13)
+    def ClearFlags(ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsVolume2(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('72ae6713-dcbb-4a03-b3-6b-37-1f-6a-c6-b5-3d')
+    @commethod(3)
+    def GetProperties2(pVolumeProperties: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_PROP2_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsVolumeMF(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('ee2d5ded-6236-4169-93-1d-b9-77-8c-e0-3d-c6')
+    @commethod(3)
+    def GetFileSystemProperties(pFileSystemProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def Format(type: Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_TYPE, pwszLabel: Windows.Win32.Foundation.PWSTR, dwUnitAllocationSize: UInt32, bForce: Windows.Win32.Foundation.BOOL, bQuickFormat: Windows.Win32.Foundation.BOOL, bEnableCompression: Windows.Win32.Foundation.BOOL, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def AddAccessPath(pwszPath: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def QueryAccessPaths(pwszPathArray: POINTER(POINTER(Windows.Win32.Foundation.PWSTR)), plNumberOfAccessPaths: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def QueryReparsePoints(ppReparsePointProps: POINTER(POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_REPARSE_POINT_PROP_head)), plNumberOfReparsePointProps: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(8)
+    def DeleteAccessPath(pwszPath: Windows.Win32.Foundation.PWSTR, bForce: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(9)
+    def Mount() -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(10)
+    def Dismount(bForce: Windows.Win32.Foundation.BOOL, bPermanent: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(11)
+    def SetFileSystemFlags(ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(12)
+    def ClearFileSystemFlags(ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsVolumeMF2(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('4dbcee9a-6343-4651-b8-5f-5e-75-d7-4d-98-3c')
+    @commethod(3)
+    def GetFileSystemTypeName(ppwszFileSystemTypeName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def QueryFileSystemFormatSupport(ppFileSystemSupportProps: POINTER(POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP_head)), plNumberOfFileSystems: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def FormatEx(pwszFileSystemTypeName: Windows.Win32.Foundation.PWSTR, usFileSystemRevision: UInt16, ulDesiredUnitAllocationSize: UInt32, pwszLabel: Windows.Win32.Foundation.PWSTR, bForce: Windows.Win32.Foundation.BOOL, bQuickFormat: Windows.Win32.Foundation.BOOL, bEnableCompression: Windows.Win32.Foundation.BOOL, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsVolumeMF3(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('6788faf9-214e-4b85-ba-59-26-69-53-61-6e-09')
+    @commethod(3)
+    def QueryVolumeGuidPathnames(pwszPathArray: POINTER(POINTER(Windows.Win32.Foundation.PWSTR)), pulNumberOfPaths: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def FormatEx2(pwszFileSystemTypeName: Windows.Win32.Foundation.PWSTR, usFileSystemRevision: UInt16, ulDesiredUnitAllocationSize: UInt32, pwszLabel: Windows.Win32.Foundation.PWSTR, Options: UInt32, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def OfflineVolume() -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsVolumeOnline(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('1be2275a-b315-4f70-9e-44-87-9b-3a-2a-53-f2')
+    @commethod(3)
+    def Online() -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsVolumePlex(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('4daa0135-e1d1-40f1-aa-a5-3c-c1-e5-32-21-c3')
+    @commethod(3)
+    def GetProperties(pPlexProperties: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_PLEX_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetVolume(ppVolume: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsVolume_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def QueryExtents(ppExtentArray: POINTER(POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_DISK_EXTENT_head)), plNumberOfExtents: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def Repair(pInputDiskArray: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_INPUT_DISK_head), lNumberOfDisks: Int32, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IVdsVolumeShrink(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('d68168c9-82a2-4f85-b6-e9-74-70-7c-49-a5-8f')
+    @commethod(3)
+    def QueryMaxReclaimableBytes(pullMaxNumberOfReclaimableBytes: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def Shrink(ullDesiredNumberOfReclaimableBytes: UInt64, ullMinNumberOfReclaimableBytes: UInt64, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class VDS_ADVANCEDDISK_PROP(Structure):
+    pwszId: Windows.Win32.Foundation.PWSTR
+    pwszPathname: Windows.Win32.Foundation.PWSTR
+    pwszLocation: Windows.Win32.Foundation.PWSTR
+    pwszFriendlyName: Windows.Win32.Foundation.PWSTR
+    pswzIdentifier: Windows.Win32.Foundation.PWSTR
+    usIdentifierFormat: UInt16
+    ulNumber: UInt32
+    pwszSerialNumber: Windows.Win32.Foundation.PWSTR
+    pwszFirmwareVersion: Windows.Win32.Foundation.PWSTR
+    pwszManufacturer: Windows.Win32.Foundation.PWSTR
+    pwszModel: Windows.Win32.Foundation.PWSTR
+    ullTotalSize: UInt64
+    ullAllocatedSize: UInt64
+    ulLogicalSectorSize: UInt32
+    ulPhysicalSectorSize: UInt32
+    ulPartitionCount: UInt32
+    status: Windows.Win32.Storage.VirtualDiskService.VDS_DISK_STATUS
+    health: Windows.Win32.Storage.VirtualDiskService.VDS_HEALTH
+    BusType: Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE
+    PartitionStyle: Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE
+    Anonymous: _Anonymous_e__Union
+    ulFlags: UInt32
+    dwDeviceType: UInt32
+    class _Anonymous_e__Union(Union):
+        dwSignature: UInt32
+        DiskGuid: Guid
 class VDS_ASYNC_OUTPUT(Structure):
     type: Windows.Win32.Storage.VirtualDiskService.VDS_ASYNC_OUTPUT_TYPE
     Anonymous: _Anonymous_e__Union
@@ -933,9 +1393,122 @@ VDS_CS_NOT_READY: VDS_CONTROLLER_STATUS = 2
 VDS_CS_OFFLINE: VDS_CONTROLLER_STATUS = 4
 VDS_CS_FAILED: VDS_CONTROLLER_STATUS = 5
 VDS_CS_REMOVED: VDS_CONTROLLER_STATUS = 8
+class VDS_CREATE_VDISK_PARAMETERS(Structure):
+    UniqueId: Guid
+    MaximumSize: UInt64
+    BlockSizeInBytes: UInt32
+    SectorSizeInBytes: UInt32
+    pParentPath: Windows.Win32.Foundation.PWSTR
+    pSourcePath: Windows.Win32.Foundation.PWSTR
+class VDS_DISK_EXTENT(Structure):
+    diskId: Guid
+    type: Windows.Win32.Storage.VirtualDiskService.VDS_DISK_EXTENT_TYPE
+    ullOffset: UInt64
+    ullSize: UInt64
+    volumeId: Guid
+    plexId: Guid
+    memberIdx: UInt32
+VDS_DISK_EXTENT_TYPE = Int32
+VDS_DET_UNKNOWN: VDS_DISK_EXTENT_TYPE = 0
+VDS_DET_FREE: VDS_DISK_EXTENT_TYPE = 1
+VDS_DET_DATA: VDS_DISK_EXTENT_TYPE = 2
+VDS_DET_OEM: VDS_DISK_EXTENT_TYPE = 3
+VDS_DET_ESP: VDS_DISK_EXTENT_TYPE = 4
+VDS_DET_MSR: VDS_DISK_EXTENT_TYPE = 5
+VDS_DET_LDM: VDS_DISK_EXTENT_TYPE = 6
+VDS_DET_CLUSTER: VDS_DISK_EXTENT_TYPE = 7
+VDS_DET_UNUSABLE: VDS_DISK_EXTENT_TYPE = 32767
+VDS_DISK_FLAG = Int32
+VDS_DF_AUDIO_CD: VDS_DISK_FLAG = 1
+VDS_DF_HOTSPARE: VDS_DISK_FLAG = 2
+VDS_DF_RESERVE_CAPABLE: VDS_DISK_FLAG = 4
+VDS_DF_MASKED: VDS_DISK_FLAG = 8
+VDS_DF_STYLE_CONVERTIBLE: VDS_DISK_FLAG = 16
+VDS_DF_CLUSTERED: VDS_DISK_FLAG = 32
+VDS_DF_READ_ONLY: VDS_DISK_FLAG = 64
+VDS_DF_SYSTEM_DISK: VDS_DISK_FLAG = 128
+VDS_DF_BOOT_DISK: VDS_DISK_FLAG = 256
+VDS_DF_PAGEFILE_DISK: VDS_DISK_FLAG = 512
+VDS_DF_HIBERNATIONFILE_DISK: VDS_DISK_FLAG = 1024
+VDS_DF_CRASHDUMP_DISK: VDS_DISK_FLAG = 2048
+VDS_DF_HAS_ARC_PATH: VDS_DISK_FLAG = 4096
+VDS_DF_DYNAMIC: VDS_DISK_FLAG = 8192
+VDS_DF_BOOT_FROM_DISK: VDS_DISK_FLAG = 16384
+VDS_DF_CURRENT_READ_ONLY: VDS_DISK_FLAG = 32768
+VDS_DF_REFS_NOT_SUPPORTED: VDS_DISK_FLAG = 65536
+class VDS_DISK_FREE_EXTENT(Structure):
+    diskId: Guid
+    ullOffset: UInt64
+    ullSize: UInt64
 class VDS_DISK_NOTIFICATION(Structure):
     ulEvent: Windows.Win32.Storage.VirtualDiskService.VDS_NF_DISK
     diskId: Guid
+VDS_DISK_OFFLINE_REASON = Int32
+VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonNone: VDS_DISK_OFFLINE_REASON = 0
+VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonPolicy: VDS_DISK_OFFLINE_REASON = 1
+VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonRedundantPath: VDS_DISK_OFFLINE_REASON = 2
+VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonSnapshot: VDS_DISK_OFFLINE_REASON = 3
+VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonCollision: VDS_DISK_OFFLINE_REASON = 4
+VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonResourceExhaustion: VDS_DISK_OFFLINE_REASON = 5
+VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonWriteFailure: VDS_DISK_OFFLINE_REASON = 6
+VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonDIScan: VDS_DISK_OFFLINE_REASON = 7
+VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonLostDataPersistence: VDS_DISK_OFFLINE_REASON = 8
+class VDS_DISK_PROP(Structure):
+    id: Guid
+    status: Windows.Win32.Storage.VirtualDiskService.VDS_DISK_STATUS
+    ReserveMode: Windows.Win32.Storage.VirtualDiskService.VDS_LUN_RESERVE_MODE
+    health: Windows.Win32.Storage.VirtualDiskService.VDS_HEALTH
+    dwDeviceType: UInt32
+    dwMediaType: UInt32
+    ullSize: UInt64
+    ulBytesPerSector: UInt32
+    ulSectorsPerTrack: UInt32
+    ulTracksPerCylinder: UInt32
+    ulFlags: UInt32
+    BusType: Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE
+    PartitionStyle: Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE
+    Anonymous: _Anonymous_e__Union
+    pwszDiskAddress: Windows.Win32.Foundation.PWSTR
+    pwszName: Windows.Win32.Foundation.PWSTR
+    pwszFriendlyName: Windows.Win32.Foundation.PWSTR
+    pwszAdaptorName: Windows.Win32.Foundation.PWSTR
+    pwszDevicePath: Windows.Win32.Foundation.PWSTR
+    class _Anonymous_e__Union(Union):
+        dwSignature: UInt32
+        DiskGuid: Guid
+class VDS_DISK_PROP2(Structure):
+    id: Guid
+    status: Windows.Win32.Storage.VirtualDiskService.VDS_DISK_STATUS
+    OfflineReason: Windows.Win32.Storage.VirtualDiskService.VDS_DISK_OFFLINE_REASON
+    ReserveMode: Windows.Win32.Storage.VirtualDiskService.VDS_LUN_RESERVE_MODE
+    health: Windows.Win32.Storage.VirtualDiskService.VDS_HEALTH
+    dwDeviceType: UInt32
+    dwMediaType: UInt32
+    ullSize: UInt64
+    ulBytesPerSector: UInt32
+    ulSectorsPerTrack: UInt32
+    ulTracksPerCylinder: UInt32
+    ulFlags: UInt32
+    BusType: Windows.Win32.Storage.VirtualDiskService.VDS_STORAGE_BUS_TYPE
+    PartitionStyle: Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE
+    Anonymous: _Anonymous_e__Union
+    pwszDiskAddress: Windows.Win32.Foundation.PWSTR
+    pwszName: Windows.Win32.Foundation.PWSTR
+    pwszFriendlyName: Windows.Win32.Foundation.PWSTR
+    pwszAdaptorName: Windows.Win32.Foundation.PWSTR
+    pwszDevicePath: Windows.Win32.Foundation.PWSTR
+    pwszLocationPath: Windows.Win32.Foundation.PWSTR
+    class _Anonymous_e__Union(Union):
+        dwSignature: UInt32
+        DiskGuid: Guid
+VDS_DISK_STATUS = Int32
+VDS_DS_UNKNOWN: VDS_DISK_STATUS = 0
+VDS_DS_ONLINE: VDS_DISK_STATUS = 1
+VDS_DS_NOT_READY: VDS_DISK_STATUS = 2
+VDS_DS_NO_MEDIA: VDS_DISK_STATUS = 3
+VDS_DS_FAILED: VDS_DISK_STATUS = 5
+VDS_DS_MISSING: VDS_DISK_STATUS = 6
+VDS_DS_OFFLINE: VDS_DISK_STATUS = 4
 class VDS_DRIVE_EXTENT(Structure):
     id: Guid
     LunId: Guid
@@ -947,10 +1520,17 @@ VDS_DRF_ASSIGNED: VDS_DRIVE_FLAG = 2
 VDS_DRF_UNASSIGNED: VDS_DRIVE_FLAG = 4
 VDS_DRF_HOTSPARE_IN_USE: VDS_DRIVE_FLAG = 8
 VDS_DRF_HOTSPARE_STANDBY: VDS_DRIVE_FLAG = 16
+VDS_DRIVE_LETTER_FLAG = Int32
+VDS_DLF_NON_PERSISTENT: VDS_DRIVE_LETTER_FLAG = 1
 class VDS_DRIVE_LETTER_NOTIFICATION(Structure):
     ulEvent: UInt32
     wcLetter: Char
     volumeId: Guid
+class VDS_DRIVE_LETTER_PROP(Structure):
+    wcLetter: Char
+    volumeId: Guid
+    ulFlags: UInt32
+    bUsed: Windows.Win32.Foundation.BOOL
 class VDS_DRIVE_NOTIFICATION(Structure):
     ulEvent: Windows.Win32.Storage.VirtualDiskService.VDS_NF_DRIVE
     driveId: Guid
@@ -984,10 +1564,48 @@ VDS_DRS_NOT_READY: VDS_DRIVE_STATUS = 2
 VDS_DRS_OFFLINE: VDS_DRIVE_STATUS = 4
 VDS_DRS_FAILED: VDS_DRIVE_STATUS = 5
 VDS_DRS_REMOVED: VDS_DRIVE_STATUS = 8
+VDS_FILE_SYSTEM_FLAG = Int32
+VDS_FSF_SUPPORT_FORMAT: VDS_FILE_SYSTEM_FLAG = 1
+VDS_FSF_SUPPORT_QUICK_FORMAT: VDS_FILE_SYSTEM_FLAG = 2
+VDS_FSF_SUPPORT_COMPRESS: VDS_FILE_SYSTEM_FLAG = 4
+VDS_FSF_SUPPORT_SPECIFY_LABEL: VDS_FILE_SYSTEM_FLAG = 8
+VDS_FSF_SUPPORT_MOUNT_POINT: VDS_FILE_SYSTEM_FLAG = 16
+VDS_FSF_SUPPORT_REMOVABLE_MEDIA: VDS_FILE_SYSTEM_FLAG = 32
+VDS_FSF_SUPPORT_EXTEND: VDS_FILE_SYSTEM_FLAG = 64
+VDS_FSF_ALLOCATION_UNIT_512: VDS_FILE_SYSTEM_FLAG = 65536
+VDS_FSF_ALLOCATION_UNIT_1K: VDS_FILE_SYSTEM_FLAG = 131072
+VDS_FSF_ALLOCATION_UNIT_2K: VDS_FILE_SYSTEM_FLAG = 262144
+VDS_FSF_ALLOCATION_UNIT_4K: VDS_FILE_SYSTEM_FLAG = 524288
+VDS_FSF_ALLOCATION_UNIT_8K: VDS_FILE_SYSTEM_FLAG = 1048576
+VDS_FSF_ALLOCATION_UNIT_16K: VDS_FILE_SYSTEM_FLAG = 2097152
+VDS_FSF_ALLOCATION_UNIT_32K: VDS_FILE_SYSTEM_FLAG = 4194304
+VDS_FSF_ALLOCATION_UNIT_64K: VDS_FILE_SYSTEM_FLAG = 8388608
+VDS_FSF_ALLOCATION_UNIT_128K: VDS_FILE_SYSTEM_FLAG = 16777216
+VDS_FSF_ALLOCATION_UNIT_256K: VDS_FILE_SYSTEM_FLAG = 33554432
+VDS_FILE_SYSTEM_FORMAT_SUPPORT_FLAG = Int32
+VDS_FSS_DEFAULT: VDS_FILE_SYSTEM_FORMAT_SUPPORT_FLAG = 1
+VDS_FSS_PREVIOUS_REVISION: VDS_FILE_SYSTEM_FORMAT_SUPPORT_FLAG = 2
+VDS_FSS_RECOMMENDED: VDS_FILE_SYSTEM_FORMAT_SUPPORT_FLAG = 4
+class VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP(Structure):
+    ulFlags: UInt32
+    usRevision: UInt16
+    ulDefaultUnitAllocationSize: UInt32
+    rgulAllowedUnitAllocationSizes: UInt32 * 32
+    wszName: Char * 32
 class VDS_FILE_SYSTEM_NOTIFICATION(Structure):
     ulEvent: Windows.Win32.Storage.VirtualDiskService.VDS_NF_FILE_SYSTEM
     volumeId: Guid
     dwPercentCompleted: UInt32
+class VDS_FILE_SYSTEM_PROP(Structure):
+    type: Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_TYPE
+    volumeId: Guid
+    ulFlags: UInt32
+    ullTotalAllocationUnits: UInt64
+    ullAvailableAllocationUnits: UInt64
+    ulAllocationUnitSize: UInt32
+    pwszLabel: Windows.Win32.Foundation.PWSTR
+VDS_FILE_SYSTEM_PROP_FLAG = Int32
+VDS_FPF_COMPRESSED: VDS_FILE_SYSTEM_PROP_FLAG = 1
 VDS_FILE_SYSTEM_TYPE = Int32
 VDS_FST_UNKNOWN: VDS_FILE_SYSTEM_TYPE = 0
 VDS_FST_RAW: VDS_FILE_SYSTEM_TYPE = 1
@@ -999,6 +1617,19 @@ VDS_FST_UDF: VDS_FILE_SYSTEM_TYPE = 6
 VDS_FST_EXFAT: VDS_FILE_SYSTEM_TYPE = 7
 VDS_FST_CSVFS: VDS_FILE_SYSTEM_TYPE = 8
 VDS_FST_REFS: VDS_FILE_SYSTEM_TYPE = 9
+class VDS_FILE_SYSTEM_TYPE_PROP(Structure):
+    type: Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_TYPE
+    wszName: Char * 8
+    ulFlags: UInt32
+    ulCompressionFlags: UInt32
+    ulMaxLableLength: UInt32
+    pwszIllegalLabelCharSet: Windows.Win32.Foundation.PWSTR
+VDS_FORMAT_OPTION_FLAGS = Int32
+VDS_FSOF_NONE: VDS_FORMAT_OPTION_FLAGS = 0
+VDS_FSOF_FORCE: VDS_FORMAT_OPTION_FLAGS = 1
+VDS_FSOF_QUICK: VDS_FORMAT_OPTION_FLAGS = 2
+VDS_FSOF_COMPRESSION: VDS_FORMAT_OPTION_FLAGS = 4
+VDS_FSOF_DUPLICATE_METADATA: VDS_FORMAT_OPTION_FLAGS = 8
 class VDS_HBAPORT_PROP(Structure):
     id: Guid
     wwnNode: Windows.Win32.Storage.VirtualDiskService.VDS_WWN
@@ -1106,6 +1737,11 @@ VDS_HWT_FIBRE_CHANNEL: VDS_HWPROVIDER_TYPE = 2
 VDS_HWT_ISCSI: VDS_HWPROVIDER_TYPE = 3
 VDS_HWT_SAS: VDS_HWPROVIDER_TYPE = 4
 VDS_HWT_HYBRID: VDS_HWPROVIDER_TYPE = 5
+class VDS_INPUT_DISK(Structure):
+    diskId: Guid
+    ullSize: UInt64
+    plexId: Guid
+    memberIdx: UInt32
 class VDS_INTERCONNECT(Structure):
     m_addressType: Windows.Win32.Storage.VirtualDiskService.VDS_INTERCONNECT_ADDRESS_TYPE
     m_cbPort: UInt32
@@ -1272,6 +1908,12 @@ class VDS_LUN_PROP(Structure):
     health: Windows.Win32.Storage.VirtualDiskService.VDS_HEALTH
     TransitionState: Windows.Win32.Storage.VirtualDiskService.VDS_TRANSITION_STATE
     sRebuildPriority: Int16
+VDS_LUN_RESERVE_MODE = Int32
+VDS_LRM_NONE: VDS_LUN_RESERVE_MODE = 0
+VDS_LRM_EXCLUSIVE_RW: VDS_LUN_RESERVE_MODE = 1
+VDS_LRM_EXCLUSIVE_RO: VDS_LUN_RESERVE_MODE = 2
+VDS_LRM_SHARED_RO: VDS_LUN_RESERVE_MODE = 3
+VDS_LRM_SHARED_RW: VDS_LUN_RESERVE_MODE = 4
 VDS_LUN_STATUS = Int32
 VDS_LS_UNKNOWN: VDS_LUN_STATUS = 0
 VDS_LS_ONLINE: VDS_LUN_STATUS = 1
@@ -1405,13 +2047,64 @@ VDS_OT_ASYNC: VDS_OBJECT_TYPE = 100
 VDS_OT_ENUM: VDS_OBJECT_TYPE = 101
 VDS_OT_VDISK: VDS_OBJECT_TYPE = 200
 VDS_OT_OPEN_VDISK: VDS_OBJECT_TYPE = 201
+VDS_PACK_FLAG = Int32
+VDS_PKF_FOREIGN: VDS_PACK_FLAG = 1
+VDS_PKF_NOQUORUM: VDS_PACK_FLAG = 2
+VDS_PKF_POLICY: VDS_PACK_FLAG = 4
+VDS_PKF_CORRUPTED: VDS_PACK_FLAG = 8
+VDS_PKF_ONLINE_ERROR: VDS_PACK_FLAG = 16
 class VDS_PACK_NOTIFICATION(Structure):
     ulEvent: Windows.Win32.Storage.VirtualDiskService.VDS_NF_PACK
     packId: Guid
+class VDS_PACK_PROP(Structure):
+    id: Guid
+    pwszName: Windows.Win32.Foundation.PWSTR
+    status: Windows.Win32.Storage.VirtualDiskService.VDS_PACK_STATUS
+    ulFlags: UInt32
+VDS_PACK_STATUS = Int32
+VDS_PS_UNKNOWN: VDS_PACK_STATUS = 0
+VDS_PS_ONLINE: VDS_PACK_STATUS = 1
+VDS_PS_OFFLINE: VDS_PACK_STATUS = 4
+VDS_PARTITION_FLAG = Int32
+VDS_PTF_SYSTEM: VDS_PARTITION_FLAG = 1
+class VDS_PARTITION_INFORMATION_EX(Structure):
+    dwPartitionStyle: Windows.Win32.Storage.VirtualDiskService.__VDS_PARTITION_STYLE
+    ullStartingOffset: UInt64
+    ullPartitionLength: UInt64
+    dwPartitionNumber: UInt32
+    bRewritePartition: Windows.Win32.Foundation.BOOLEAN
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        Mbr: Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_INFO_MBR
+        Gpt: Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_INFO_GPT
+class VDS_PARTITION_INFO_GPT(Structure):
+    partitionType: Guid
+    partitionId: Guid
+    attributes: UInt64
+    name: Char * 36
+class VDS_PARTITION_INFO_MBR(Structure):
+    partitionType: Byte
+    bootIndicator: Windows.Win32.Foundation.BOOLEAN
+    recognizedPartition: Windows.Win32.Foundation.BOOLEAN
+    hiddenSectors: UInt32
 class VDS_PARTITION_NOTIFICATION(Structure):
     ulEvent: UInt32
     diskId: Guid
     ullOffset: UInt64
+class VDS_PARTITION_PROP(Structure):
+    PartitionStyle: Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_STYLE
+    ulFlags: UInt32
+    ulPartitionNumber: UInt32
+    ullOffset: UInt64
+    ullSize: UInt64
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(Union):
+        Mbr: Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_INFO_MBR
+        Gpt: Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_INFO_GPT
+VDS_PARTITION_STYLE = Int32
+VDS_PST_UNKNOWN: VDS_PARTITION_STYLE = 0
+VDS_PST_MBR: VDS_PARTITION_STYLE = 1
+VDS_PST_GPT: VDS_PARTITION_STYLE = 2
 class VDS_PATH_ID(Structure):
     ullSourceId: UInt64
     ullPathId: UInt64
@@ -1537,6 +2230,10 @@ VDS_PT_SOFTWARE: VDS_PROVIDER_TYPE = 1
 VDS_PT_HARDWARE: VDS_PROVIDER_TYPE = 2
 VDS_PT_VIRTUALDISK: VDS_PROVIDER_TYPE = 3
 VDS_PT_MAX: VDS_PROVIDER_TYPE = 4
+VDS_QUERY_PROVIDER_FLAG = Int32
+VDS_QUERY_SOFTWARE_PROVIDERS: VDS_QUERY_PROVIDER_FLAG = 1
+VDS_QUERY_HARDWARE_PROVIDERS: VDS_QUERY_PROVIDER_FLAG = 2
+VDS_QUERY_VIRTUALDISK_PROVIDERS: VDS_QUERY_PROVIDER_FLAG = 4
 VDS_RAID_TYPE = Int32
 VDS_RT_UNKNOWN: VDS_RAID_TYPE = 0
 VDS_RT_RAID0: VDS_RAID_TYPE = 10
@@ -1561,9 +2258,34 @@ VDS_RECOVER_ACTION = Int32
 VDS_RA_UNKNOWN: VDS_RECOVER_ACTION = 0
 VDS_RA_REFRESH: VDS_RECOVER_ACTION = 1
 VDS_RA_RESTART: VDS_RECOVER_ACTION = 2
+class VDS_REPARSE_POINT_PROP(Structure):
+    SourceVolumeId: Guid
+    pwszPath: Windows.Win32.Foundation.PWSTR
+VDS_SAN_POLICY = Int32
+VDS_SP_UNKNOWN: VDS_SAN_POLICY = 0
+VDS_SP_ONLINE: VDS_SAN_POLICY = 1
+VDS_SP_OFFLINE_SHARED: VDS_SAN_POLICY = 2
+VDS_SP_OFFLINE: VDS_SAN_POLICY = 3
+VDS_SP_OFFLINE_INTERNAL: VDS_SAN_POLICY = 4
+VDS_SP_MAX: VDS_SAN_POLICY = 5
+VDS_SERVICE_FLAG = Int32
+VDS_SVF_SUPPORT_DYNAMIC: VDS_SERVICE_FLAG = 1
+VDS_SVF_SUPPORT_FAULT_TOLERANT: VDS_SERVICE_FLAG = 2
+VDS_SVF_SUPPORT_GPT: VDS_SERVICE_FLAG = 4
+VDS_SVF_SUPPORT_DYNAMIC_1394: VDS_SERVICE_FLAG = 8
+VDS_SVF_CLUSTER_SERVICE_CONFIGURED: VDS_SERVICE_FLAG = 16
+VDS_SVF_AUTO_MOUNT_OFF: VDS_SERVICE_FLAG = 32
+VDS_SVF_OS_UNINSTALL_VALID: VDS_SERVICE_FLAG = 64
+VDS_SVF_EFI: VDS_SERVICE_FLAG = 128
+VDS_SVF_SUPPORT_MIRROR: VDS_SERVICE_FLAG = 256
+VDS_SVF_SUPPORT_RAID5: VDS_SERVICE_FLAG = 512
+VDS_SVF_SUPPORT_REFS: VDS_SERVICE_FLAG = 1024
 class VDS_SERVICE_NOTIFICATION(Structure):
     ulEvent: UInt32
     action: Windows.Win32.Storage.VirtualDiskService.VDS_RECOVER_ACTION
+class VDS_SERVICE_PROP(Structure):
+    pwszVersion: Windows.Win32.Foundation.PWSTR
+    ulFlags: UInt32
 VDS_STORAGE_BUS_TYPE = Int32
 VDS_STORAGE_BUS_TYPE_VDSBusTypeUnknown: VDS_STORAGE_BUS_TYPE = 0
 VDS_STORAGE_BUS_TYPE_VDSBusTypeScsi: VDS_STORAGE_BUS_TYPE = 1
@@ -1722,36 +2444,163 @@ VDS_TS_EXTENDING: VDS_TRANSITION_STATE = 2
 VDS_TS_SHRINKING: VDS_TRANSITION_STATE = 3
 VDS_TS_RECONFIGING: VDS_TRANSITION_STATE = 4
 VDS_TS_RESTRIPING: VDS_TRANSITION_STATE = 5
+class VDS_VDISK_PROPERTIES(Structure):
+    Id: Guid
+    State: Windows.Win32.Storage.VirtualDiskService.VDS_VDISK_STATE
+    VirtualDeviceType: Windows.Win32.Storage.Vhd.VIRTUAL_STORAGE_TYPE
+    VirtualSize: UInt64
+    PhysicalSize: UInt64
+    pPath: Windows.Win32.Foundation.PWSTR
+    pDeviceName: Windows.Win32.Foundation.PWSTR
+    DiskFlag: Windows.Win32.Storage.Vhd.DEPENDENT_DISK_FLAG
+    bIsChild: Windows.Win32.Foundation.BOOL
+    pParentPath: Windows.Win32.Foundation.PWSTR
+VDS_VDISK_STATE = Int32
+VDS_VST_UNKNOWN: VDS_VDISK_STATE = 0
+VDS_VST_ADDED: VDS_VDISK_STATE = 1
+VDS_VST_OPEN: VDS_VDISK_STATE = 2
+VDS_VST_ATTACH_PENDING: VDS_VDISK_STATE = 3
+VDS_VST_ATTACHED_NOT_OPEN: VDS_VDISK_STATE = 4
+VDS_VST_ATTACHED: VDS_VDISK_STATE = 5
+VDS_VST_DETACH_PENDING: VDS_VDISK_STATE = 6
+VDS_VST_COMPACTING: VDS_VDISK_STATE = 7
+VDS_VST_MERGING: VDS_VDISK_STATE = 8
+VDS_VST_EXPANDING: VDS_VDISK_STATE = 9
+VDS_VST_DELETED: VDS_VDISK_STATE = 10
+VDS_VST_MAX: VDS_VDISK_STATE = 11
 VDS_VERSION_SUPPORT_FLAG = Int32
 VDS_VSF_1_0: VDS_VERSION_SUPPORT_FLAG = 1
 VDS_VSF_1_1: VDS_VERSION_SUPPORT_FLAG = 2
 VDS_VSF_2_0: VDS_VERSION_SUPPORT_FLAG = 4
 VDS_VSF_2_1: VDS_VERSION_SUPPORT_FLAG = 8
 VDS_VSF_3_0: VDS_VERSION_SUPPORT_FLAG = 16
+VDS_VOLUME_FLAG = Int32
+VDS_VF_SYSTEM_VOLUME: VDS_VOLUME_FLAG = 1
+VDS_VF_BOOT_VOLUME: VDS_VOLUME_FLAG = 2
+VDS_VF_ACTIVE: VDS_VOLUME_FLAG = 4
+VDS_VF_READONLY: VDS_VOLUME_FLAG = 8
+VDS_VF_HIDDEN: VDS_VOLUME_FLAG = 16
+VDS_VF_CAN_EXTEND: VDS_VOLUME_FLAG = 32
+VDS_VF_CAN_SHRINK: VDS_VOLUME_FLAG = 64
+VDS_VF_PAGEFILE: VDS_VOLUME_FLAG = 128
+VDS_VF_HIBERNATION: VDS_VOLUME_FLAG = 256
+VDS_VF_CRASHDUMP: VDS_VOLUME_FLAG = 512
+VDS_VF_INSTALLABLE: VDS_VOLUME_FLAG = 1024
+VDS_VF_LBN_REMAP_ENABLED: VDS_VOLUME_FLAG = 2048
+VDS_VF_FORMATTING: VDS_VOLUME_FLAG = 4096
+VDS_VF_NOT_FORMATTABLE: VDS_VOLUME_FLAG = 8192
+VDS_VF_NTFS_NOT_SUPPORTED: VDS_VOLUME_FLAG = 16384
+VDS_VF_FAT32_NOT_SUPPORTED: VDS_VOLUME_FLAG = 32768
+VDS_VF_FAT_NOT_SUPPORTED: VDS_VOLUME_FLAG = 65536
+VDS_VF_NO_DEFAULT_DRIVE_LETTER: VDS_VOLUME_FLAG = 131072
+VDS_VF_PERMANENTLY_DISMOUNTED: VDS_VOLUME_FLAG = 262144
+VDS_VF_PERMANENT_DISMOUNT_SUPPORTED: VDS_VOLUME_FLAG = 524288
+VDS_VF_SHADOW_COPY: VDS_VOLUME_FLAG = 1048576
+VDS_VF_FVE_ENABLED: VDS_VOLUME_FLAG = 2097152
+VDS_VF_DIRTY: VDS_VOLUME_FLAG = 4194304
+VDS_VF_REFS_NOT_SUPPORTED: VDS_VOLUME_FLAG = 8388608
+VDS_VF_BACKS_BOOT_VOLUME: VDS_VOLUME_FLAG = 16777216
+VDS_VF_BACKED_BY_WIM_IMAGE: VDS_VOLUME_FLAG = 33554432
 class VDS_VOLUME_NOTIFICATION(Structure):
     ulEvent: UInt32
     volumeId: Guid
     plexId: Guid
     ulPercentCompleted: UInt32
+class VDS_VOLUME_PLEX_PROP(Structure):
+    id: Guid
+    type: Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_PLEX_TYPE
+    status: Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_PLEX_STATUS
+    health: Windows.Win32.Storage.VirtualDiskService.VDS_HEALTH
+    TransitionState: Windows.Win32.Storage.VirtualDiskService.VDS_TRANSITION_STATE
+    ullSize: UInt64
+    ulStripeSize: UInt32
+    ulNumberOfMembers: UInt32
+VDS_VOLUME_PLEX_STATUS = Int32
+VDS_VPS_UNKNOWN: VDS_VOLUME_PLEX_STATUS = 0
+VDS_VPS_ONLINE: VDS_VOLUME_PLEX_STATUS = 1
+VDS_VPS_NO_MEDIA: VDS_VOLUME_PLEX_STATUS = 3
+VDS_VPS_FAILED: VDS_VOLUME_PLEX_STATUS = 5
+VDS_VOLUME_PLEX_TYPE = Int32
+VDS_VPT_UNKNOWN: VDS_VOLUME_PLEX_TYPE = 0
+VDS_VPT_SIMPLE: VDS_VOLUME_PLEX_TYPE = 10
+VDS_VPT_SPAN: VDS_VOLUME_PLEX_TYPE = 11
+VDS_VPT_STRIPE: VDS_VOLUME_PLEX_TYPE = 12
+VDS_VPT_PARITY: VDS_VOLUME_PLEX_TYPE = 14
+class VDS_VOLUME_PROP(Structure):
+    id: Guid
+    type: Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_TYPE
+    status: Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_STATUS
+    health: Windows.Win32.Storage.VirtualDiskService.VDS_HEALTH
+    TransitionState: Windows.Win32.Storage.VirtualDiskService.VDS_TRANSITION_STATE
+    ullSize: UInt64
+    ulFlags: UInt32
+    RecommendedFileSystemType: Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_TYPE
+    pwszName: Windows.Win32.Foundation.PWSTR
+class VDS_VOLUME_PROP2(Structure):
+    id: Guid
+    type: Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_TYPE
+    status: Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_STATUS
+    health: Windows.Win32.Storage.VirtualDiskService.VDS_HEALTH
+    TransitionState: Windows.Win32.Storage.VirtualDiskService.VDS_TRANSITION_STATE
+    ullSize: UInt64
+    ulFlags: UInt32
+    RecommendedFileSystemType: Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_TYPE
+    cbUniqueId: UInt32
+    pwszName: Windows.Win32.Foundation.PWSTR
+    pUniqueId: c_char_p_no
+VDS_VOLUME_STATUS = Int32
+VDS_VS_UNKNOWN: VDS_VOLUME_STATUS = 0
+VDS_VS_ONLINE: VDS_VOLUME_STATUS = 1
+VDS_VS_NO_MEDIA: VDS_VOLUME_STATUS = 3
+VDS_VS_FAILED: VDS_VOLUME_STATUS = 5
+VDS_VS_OFFLINE: VDS_VOLUME_STATUS = 4
+VDS_VOLUME_TYPE = Int32
+VDS_VT_UNKNOWN: VDS_VOLUME_TYPE = 0
+VDS_VT_SIMPLE: VDS_VOLUME_TYPE = 10
+VDS_VT_SPAN: VDS_VOLUME_TYPE = 11
+VDS_VT_STRIPE: VDS_VOLUME_TYPE = 12
+VDS_VT_MIRROR: VDS_VOLUME_TYPE = 13
+VDS_VT_PARITY: VDS_VOLUME_TYPE = 14
 class VDS_WWN(Structure):
     rguchWwn: Byte * 8
+__VDS_PARTITION_STYLE = Int32
+VDS_PARTITION_STYLE_MBR: __VDS_PARTITION_STYLE = 0
+VDS_PARTITION_STYLE_GPT: __VDS_PARTITION_STYLE = 1
+VDS_PARTITION_STYLE_RAW: __VDS_PARTITION_STYLE = 2
+make_head(_module, 'CHANGE_ATTRIBUTES_PARAMETERS')
+make_head(_module, 'CHANGE_PARTITION_TYPE_PARAMETERS')
+make_head(_module, 'CREATE_PARTITION_PARAMETERS')
 make_head(_module, 'IEnumVdsObject')
 make_head(_module, 'IVdsAdmin')
+make_head(_module, 'IVdsAdvancedDisk')
+make_head(_module, 'IVdsAdvancedDisk2')
+make_head(_module, 'IVdsAdvancedDisk3')
 make_head(_module, 'IVdsAdviseSink')
 make_head(_module, 'IVdsAsync')
 make_head(_module, 'IVdsController')
 make_head(_module, 'IVdsControllerControllerPort')
 make_head(_module, 'IVdsControllerPort')
+make_head(_module, 'IVdsCreatePartitionEx')
+make_head(_module, 'IVdsDisk')
+make_head(_module, 'IVdsDisk2')
+make_head(_module, 'IVdsDisk3')
+make_head(_module, 'IVdsDiskOnline')
+make_head(_module, 'IVdsDiskPartitionMF')
+make_head(_module, 'IVdsDiskPartitionMF2')
 make_head(_module, 'IVdsDrive')
 make_head(_module, 'IVdsDrive2')
+make_head(_module, 'IVdsHbaPort')
 make_head(_module, 'IVdsHwProvider')
 make_head(_module, 'IVdsHwProviderPrivate')
 make_head(_module, 'IVdsHwProviderPrivateMpio')
 make_head(_module, 'IVdsHwProviderStoragePools')
 make_head(_module, 'IVdsHwProviderType')
 make_head(_module, 'IVdsHwProviderType2')
+make_head(_module, 'IVdsIscsiInitiatorAdapter')
+make_head(_module, 'IVdsIscsiInitiatorPortal')
 make_head(_module, 'IVdsIscsiPortal')
 make_head(_module, 'IVdsIscsiPortalGroup')
+make_head(_module, 'IVdsIscsiPortalLocal')
 make_head(_module, 'IVdsIscsiTarget')
 make_head(_module, 'IVdsLun')
 make_head(_module, 'IVdsLun2')
@@ -1762,28 +2611,63 @@ make_head(_module, 'IVdsLunNaming')
 make_head(_module, 'IVdsLunNumber')
 make_head(_module, 'IVdsLunPlex')
 make_head(_module, 'IVdsMaintenance')
+make_head(_module, 'IVdsOpenVDisk')
+make_head(_module, 'IVdsPack')
+make_head(_module, 'IVdsPack2')
 make_head(_module, 'IVdsProvider')
 make_head(_module, 'IVdsProviderPrivate')
 make_head(_module, 'IVdsProviderSupport')
+make_head(_module, 'IVdsRemovable')
+make_head(_module, 'IVdsService')
+make_head(_module, 'IVdsServiceHba')
+make_head(_module, 'IVdsServiceInitialization')
+make_head(_module, 'IVdsServiceIscsi')
+make_head(_module, 'IVdsServiceLoader')
+make_head(_module, 'IVdsServiceSAN')
+make_head(_module, 'IVdsServiceSw')
+make_head(_module, 'IVdsServiceUninstallDisk')
 make_head(_module, 'IVdsStoragePool')
 make_head(_module, 'IVdsSubSystem')
 make_head(_module, 'IVdsSubSystem2')
+make_head(_module, 'IVdsSubSystemImportTarget')
 make_head(_module, 'IVdsSubSystemInterconnect')
 make_head(_module, 'IVdsSubSystemIscsi')
 make_head(_module, 'IVdsSubSystemNaming')
+make_head(_module, 'IVdsSwProvider')
+make_head(_module, 'IVdsVDisk')
+make_head(_module, 'IVdsVdProvider')
+make_head(_module, 'IVdsVolume')
+make_head(_module, 'IVdsVolume2')
+make_head(_module, 'IVdsVolumeMF')
+make_head(_module, 'IVdsVolumeMF2')
+make_head(_module, 'IVdsVolumeMF3')
+make_head(_module, 'IVdsVolumeOnline')
+make_head(_module, 'IVdsVolumePlex')
+make_head(_module, 'IVdsVolumeShrink')
+make_head(_module, 'VDS_ADVANCEDDISK_PROP')
 make_head(_module, 'VDS_ASYNC_OUTPUT')
 make_head(_module, 'VDS_CONTROLLER_NOTIFICATION')
 make_head(_module, 'VDS_CONTROLLER_PROP')
+make_head(_module, 'VDS_CREATE_VDISK_PARAMETERS')
+make_head(_module, 'VDS_DISK_EXTENT')
+make_head(_module, 'VDS_DISK_FREE_EXTENT')
 make_head(_module, 'VDS_DISK_NOTIFICATION')
+make_head(_module, 'VDS_DISK_PROP')
+make_head(_module, 'VDS_DISK_PROP2')
 make_head(_module, 'VDS_DRIVE_EXTENT')
 make_head(_module, 'VDS_DRIVE_LETTER_NOTIFICATION')
+make_head(_module, 'VDS_DRIVE_LETTER_PROP')
 make_head(_module, 'VDS_DRIVE_NOTIFICATION')
 make_head(_module, 'VDS_DRIVE_PROP')
 make_head(_module, 'VDS_DRIVE_PROP2')
+make_head(_module, 'VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP')
 make_head(_module, 'VDS_FILE_SYSTEM_NOTIFICATION')
+make_head(_module, 'VDS_FILE_SYSTEM_PROP')
+make_head(_module, 'VDS_FILE_SYSTEM_TYPE_PROP')
 make_head(_module, 'VDS_HBAPORT_PROP')
 make_head(_module, 'VDS_HINTS')
 make_head(_module, 'VDS_HINTS2')
+make_head(_module, 'VDS_INPUT_DISK')
 make_head(_module, 'VDS_INTERCONNECT')
 make_head(_module, 'VDS_IPADDRESS')
 make_head(_module, 'VDS_ISCSI_INITIATOR_ADAPTER_PROP')
@@ -1800,7 +2684,12 @@ make_head(_module, 'VDS_LUN_PROP')
 make_head(_module, 'VDS_MOUNT_POINT_NOTIFICATION')
 make_head(_module, 'VDS_NOTIFICATION')
 make_head(_module, 'VDS_PACK_NOTIFICATION')
+make_head(_module, 'VDS_PACK_PROP')
+make_head(_module, 'VDS_PARTITION_INFORMATION_EX')
+make_head(_module, 'VDS_PARTITION_INFO_GPT')
+make_head(_module, 'VDS_PARTITION_INFO_MBR')
 make_head(_module, 'VDS_PARTITION_NOTIFICATION')
+make_head(_module, 'VDS_PARTITION_PROP')
 make_head(_module, 'VDS_PATH_ID')
 make_head(_module, 'VDS_PATH_INFO')
 make_head(_module, 'VDS_PATH_POLICY')
@@ -1811,7 +2700,9 @@ make_head(_module, 'VDS_PORTAL_NOTIFICATION')
 make_head(_module, 'VDS_PORT_NOTIFICATION')
 make_head(_module, 'VDS_PORT_PROP')
 make_head(_module, 'VDS_PROVIDER_PROP')
+make_head(_module, 'VDS_REPARSE_POINT_PROP')
 make_head(_module, 'VDS_SERVICE_NOTIFICATION')
+make_head(_module, 'VDS_SERVICE_PROP')
 make_head(_module, 'VDS_STORAGE_DEVICE_ID_DESCRIPTOR')
 make_head(_module, 'VDS_STORAGE_IDENTIFIER')
 make_head(_module, 'VDS_STORAGE_POOL_DRIVE_EXTENT')
@@ -1820,29 +2711,50 @@ make_head(_module, 'VDS_SUB_SYSTEM_NOTIFICATION')
 make_head(_module, 'VDS_SUB_SYSTEM_PROP')
 make_head(_module, 'VDS_SUB_SYSTEM_PROP2')
 make_head(_module, 'VDS_TARGET_NOTIFICATION')
+make_head(_module, 'VDS_VDISK_PROPERTIES')
 make_head(_module, 'VDS_VOLUME_NOTIFICATION')
+make_head(_module, 'VDS_VOLUME_PLEX_PROP')
+make_head(_module, 'VDS_VOLUME_PROP')
+make_head(_module, 'VDS_VOLUME_PROP2')
 make_head(_module, 'VDS_WWN')
 __all__ = [
+    "CHANGE_ATTRIBUTES_PARAMETERS",
+    "CHANGE_PARTITION_TYPE_PARAMETERS",
     "CLSID_VdsLoader",
     "CLSID_VdsService",
+    "CREATE_PARTITION_PARAMETERS",
     "GPT_PARTITION_NAME_LENGTH",
     "IEnumVdsObject",
     "IVdsAdmin",
+    "IVdsAdvancedDisk",
+    "IVdsAdvancedDisk2",
+    "IVdsAdvancedDisk3",
     "IVdsAdviseSink",
     "IVdsAsync",
     "IVdsController",
     "IVdsControllerControllerPort",
     "IVdsControllerPort",
+    "IVdsCreatePartitionEx",
+    "IVdsDisk",
+    "IVdsDisk2",
+    "IVdsDisk3",
+    "IVdsDiskOnline",
+    "IVdsDiskPartitionMF",
+    "IVdsDiskPartitionMF2",
     "IVdsDrive",
     "IVdsDrive2",
+    "IVdsHbaPort",
     "IVdsHwProvider",
     "IVdsHwProviderPrivate",
     "IVdsHwProviderPrivateMpio",
     "IVdsHwProviderStoragePools",
     "IVdsHwProviderType",
     "IVdsHwProviderType2",
+    "IVdsIscsiInitiatorAdapter",
+    "IVdsIscsiInitiatorPortal",
     "IVdsIscsiPortal",
     "IVdsIscsiPortalGroup",
+    "IVdsIscsiPortalLocal",
     "IVdsIscsiTarget",
     "IVdsLun",
     "IVdsLun2",
@@ -1853,18 +2765,43 @@ __all__ = [
     "IVdsLunNumber",
     "IVdsLunPlex",
     "IVdsMaintenance",
+    "IVdsOpenVDisk",
+    "IVdsPack",
+    "IVdsPack2",
     "IVdsProvider",
     "IVdsProviderPrivate",
     "IVdsProviderSupport",
+    "IVdsRemovable",
+    "IVdsService",
+    "IVdsServiceHba",
+    "IVdsServiceInitialization",
+    "IVdsServiceIscsi",
+    "IVdsServiceLoader",
+    "IVdsServiceSAN",
+    "IVdsServiceSw",
+    "IVdsServiceUninstallDisk",
     "IVdsStoragePool",
     "IVdsSubSystem",
     "IVdsSubSystem2",
+    "IVdsSubSystemImportTarget",
     "IVdsSubSystemInterconnect",
     "IVdsSubSystemIscsi",
     "IVdsSubSystemNaming",
+    "IVdsSwProvider",
+    "IVdsVDisk",
+    "IVdsVdProvider",
+    "IVdsVolume",
+    "IVdsVolume2",
+    "IVdsVolumeMF",
+    "IVdsVolumeMF2",
+    "IVdsVolumeMF3",
+    "IVdsVolumeOnline",
+    "IVdsVolumePlex",
+    "IVdsVolumeShrink",
     "MAX_FS_ALLOWED_CLUSTER_SIZES_SIZE",
     "MAX_FS_FORMAT_SUPPORT_NAME_SIZE",
     "MAX_FS_NAME_SIZE",
+    "VDS_ADVANCEDDISK_PROP",
     "VDS_ASYNCOUT_ADDLUNPLEX",
     "VDS_ASYNCOUT_ADDPORTAL",
     "VDS_ASYNCOUT_ADDVOLUMEPLEX",
@@ -1903,13 +2840,58 @@ __all__ = [
     "VDS_CONTROLLER_NOTIFICATION",
     "VDS_CONTROLLER_PROP",
     "VDS_CONTROLLER_STATUS",
+    "VDS_CREATE_VDISK_PARAMETERS",
     "VDS_CS_FAILED",
     "VDS_CS_NOT_READY",
     "VDS_CS_OFFLINE",
     "VDS_CS_ONLINE",
     "VDS_CS_REMOVED",
     "VDS_CS_UNKNOWN",
+    "VDS_DET_CLUSTER",
+    "VDS_DET_DATA",
+    "VDS_DET_ESP",
+    "VDS_DET_FREE",
+    "VDS_DET_LDM",
+    "VDS_DET_MSR",
+    "VDS_DET_OEM",
+    "VDS_DET_UNKNOWN",
+    "VDS_DET_UNUSABLE",
+    "VDS_DF_AUDIO_CD",
+    "VDS_DF_BOOT_DISK",
+    "VDS_DF_BOOT_FROM_DISK",
+    "VDS_DF_CLUSTERED",
+    "VDS_DF_CRASHDUMP_DISK",
+    "VDS_DF_CURRENT_READ_ONLY",
+    "VDS_DF_DYNAMIC",
+    "VDS_DF_HAS_ARC_PATH",
+    "VDS_DF_HIBERNATIONFILE_DISK",
+    "VDS_DF_HOTSPARE",
+    "VDS_DF_MASKED",
+    "VDS_DF_PAGEFILE_DISK",
+    "VDS_DF_READ_ONLY",
+    "VDS_DF_REFS_NOT_SUPPORTED",
+    "VDS_DF_RESERVE_CAPABLE",
+    "VDS_DF_STYLE_CONVERTIBLE",
+    "VDS_DF_SYSTEM_DISK",
+    "VDS_DISK_EXTENT",
+    "VDS_DISK_EXTENT_TYPE",
+    "VDS_DISK_FLAG",
+    "VDS_DISK_FREE_EXTENT",
     "VDS_DISK_NOTIFICATION",
+    "VDS_DISK_OFFLINE_REASON",
+    "VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonCollision",
+    "VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonDIScan",
+    "VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonLostDataPersistence",
+    "VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonNone",
+    "VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonPolicy",
+    "VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonRedundantPath",
+    "VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonResourceExhaustion",
+    "VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonSnapshot",
+    "VDS_DISK_OFFLINE_REASON_VDSDiskOfflineReasonWriteFailure",
+    "VDS_DISK_PROP",
+    "VDS_DISK_PROP2",
+    "VDS_DISK_STATUS",
+    "VDS_DLF_NON_PERSISTENT",
     "VDS_DRF_ASSIGNED",
     "VDS_DRF_HOTSPARE",
     "VDS_DRF_HOTSPARE_IN_USE",
@@ -1917,7 +2899,9 @@ __all__ = [
     "VDS_DRF_UNASSIGNED",
     "VDS_DRIVE_EXTENT",
     "VDS_DRIVE_FLAG",
+    "VDS_DRIVE_LETTER_FLAG",
     "VDS_DRIVE_LETTER_NOTIFICATION",
+    "VDS_DRIVE_LETTER_PROP",
     "VDS_DRIVE_NOTIFICATION",
     "VDS_DRIVE_PROP",
     "VDS_DRIVE_PROP2",
@@ -1928,6 +2912,13 @@ __all__ = [
     "VDS_DRS_ONLINE",
     "VDS_DRS_REMOVED",
     "VDS_DRS_UNKNOWN",
+    "VDS_DS_FAILED",
+    "VDS_DS_MISSING",
+    "VDS_DS_NOT_READY",
+    "VDS_DS_NO_MEDIA",
+    "VDS_DS_OFFLINE",
+    "VDS_DS_ONLINE",
+    "VDS_DS_UNKNOWN",
     "VDS_E_ACCESS_DENIED",
     "VDS_E_ACTIVE_PARTITION",
     "VDS_E_ADDRESSES_INCOMPLETELY_SET",
@@ -2277,8 +3268,41 @@ __all__ = [
     "VDS_E_VOLUME_TEMPORARILY_DISMOUNTED",
     "VDS_E_VOLUME_TOO_BIG",
     "VDS_E_VOLUME_TOO_SMALL",
+    "VDS_FILE_SYSTEM_FLAG",
+    "VDS_FILE_SYSTEM_FORMAT_SUPPORT_FLAG",
+    "VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP",
     "VDS_FILE_SYSTEM_NOTIFICATION",
+    "VDS_FILE_SYSTEM_PROP",
+    "VDS_FILE_SYSTEM_PROP_FLAG",
     "VDS_FILE_SYSTEM_TYPE",
+    "VDS_FILE_SYSTEM_TYPE_PROP",
+    "VDS_FORMAT_OPTION_FLAGS",
+    "VDS_FPF_COMPRESSED",
+    "VDS_FSF_ALLOCATION_UNIT_128K",
+    "VDS_FSF_ALLOCATION_UNIT_16K",
+    "VDS_FSF_ALLOCATION_UNIT_1K",
+    "VDS_FSF_ALLOCATION_UNIT_256K",
+    "VDS_FSF_ALLOCATION_UNIT_2K",
+    "VDS_FSF_ALLOCATION_UNIT_32K",
+    "VDS_FSF_ALLOCATION_UNIT_4K",
+    "VDS_FSF_ALLOCATION_UNIT_512",
+    "VDS_FSF_ALLOCATION_UNIT_64K",
+    "VDS_FSF_ALLOCATION_UNIT_8K",
+    "VDS_FSF_SUPPORT_COMPRESS",
+    "VDS_FSF_SUPPORT_EXTEND",
+    "VDS_FSF_SUPPORT_FORMAT",
+    "VDS_FSF_SUPPORT_MOUNT_POINT",
+    "VDS_FSF_SUPPORT_QUICK_FORMAT",
+    "VDS_FSF_SUPPORT_REMOVABLE_MEDIA",
+    "VDS_FSF_SUPPORT_SPECIFY_LABEL",
+    "VDS_FSOF_COMPRESSION",
+    "VDS_FSOF_DUPLICATE_METADATA",
+    "VDS_FSOF_FORCE",
+    "VDS_FSOF_NONE",
+    "VDS_FSOF_QUICK",
+    "VDS_FSS_DEFAULT",
+    "VDS_FSS_PREVIOUS_REVISION",
+    "VDS_FSS_RECOMMENDED",
     "VDS_FST_CDFS",
     "VDS_FST_CSVFS",
     "VDS_FST_EXFAT",
@@ -2377,6 +3401,7 @@ __all__ = [
     "VDS_ILT_BOOT",
     "VDS_ILT_MANUAL",
     "VDS_ILT_PERSISTENT",
+    "VDS_INPUT_DISK",
     "VDS_INTERCONNECT",
     "VDS_INTERCONNECT_ADDRESS_TYPE",
     "VDS_INTERCONNECT_FLAG",
@@ -2456,6 +3481,11 @@ __all__ = [
     "VDS_LPT_SPAN",
     "VDS_LPT_STRIPE",
     "VDS_LPT_UNKNOWN",
+    "VDS_LRM_EXCLUSIVE_RO",
+    "VDS_LRM_EXCLUSIVE_RW",
+    "VDS_LRM_NONE",
+    "VDS_LRM_SHARED_RO",
+    "VDS_LRM_SHARED_RW",
     "VDS_LS_FAILED",
     "VDS_LS_NOT_READY",
     "VDS_LS_OFFLINE",
@@ -2494,6 +3524,7 @@ __all__ = [
     "VDS_LUN_PLEX_STATUS",
     "VDS_LUN_PLEX_TYPE",
     "VDS_LUN_PROP",
+    "VDS_LUN_RESERVE_MODE",
     "VDS_LUN_STATUS",
     "VDS_LUN_TYPE",
     "VDS_MAINTENANCE_OPERATION",
@@ -2604,8 +3635,20 @@ __all__ = [
     "VDS_OT_VDISK",
     "VDS_OT_VOLUME",
     "VDS_OT_VOLUME_PLEX",
+    "VDS_PACK_FLAG",
     "VDS_PACK_NOTIFICATION",
+    "VDS_PACK_PROP",
+    "VDS_PACK_STATUS",
+    "VDS_PARTITION_FLAG",
+    "VDS_PARTITION_INFORMATION_EX",
+    "VDS_PARTITION_INFO_GPT",
+    "VDS_PARTITION_INFO_MBR",
     "VDS_PARTITION_NOTIFICATION",
+    "VDS_PARTITION_PROP",
+    "VDS_PARTITION_STYLE",
+    "VDS_PARTITION_STYLE_GPT",
+    "VDS_PARTITION_STYLE_MBR",
+    "VDS_PARTITION_STYLE_RAW",
     "VDS_PATH_ID",
     "VDS_PATH_INFO",
     "VDS_PATH_POLICY",
@@ -2620,6 +3663,11 @@ __all__ = [
     "VDS_PF_SUPPORT_MIRROR",
     "VDS_PF_SUPPORT_RAID5",
     "VDS_PF_VOLUME_SPACE_MUST_BE_CONTIGUOUS",
+    "VDS_PKF_CORRUPTED",
+    "VDS_PKF_FOREIGN",
+    "VDS_PKF_NOQUORUM",
+    "VDS_PKF_ONLINE_ERROR",
+    "VDS_PKF_POLICY",
     "VDS_POOL_ATTRIBUTES",
     "VDS_POOL_ATTRIB_ACCS_BDW_WT_HINT",
     "VDS_POOL_ATTRIB_ACCS_DIR_HINT",
@@ -2665,11 +3713,22 @@ __all__ = [
     "VDS_PRS_ONLINE",
     "VDS_PRS_REMOVED",
     "VDS_PRS_UNKNOWN",
+    "VDS_PST_GPT",
+    "VDS_PST_MBR",
+    "VDS_PST_UNKNOWN",
+    "VDS_PS_OFFLINE",
+    "VDS_PS_ONLINE",
+    "VDS_PS_UNKNOWN",
+    "VDS_PTF_SYSTEM",
     "VDS_PT_HARDWARE",
     "VDS_PT_MAX",
     "VDS_PT_SOFTWARE",
     "VDS_PT_UNKNOWN",
     "VDS_PT_VIRTUALDISK",
+    "VDS_QUERY_HARDWARE_PROVIDERS",
+    "VDS_QUERY_PROVIDER_FLAG",
+    "VDS_QUERY_SOFTWARE_PROVIDERS",
+    "VDS_QUERY_VIRTUALDISK_PROVIDERS",
     "VDS_RAID_TYPE",
     "VDS_RA_REFRESH",
     "VDS_RA_RESTART",
@@ -2677,6 +3736,7 @@ __all__ = [
     "VDS_REBUILD_PRIORITY_MAX",
     "VDS_REBUILD_PRIORITY_MIN",
     "VDS_RECOVER_ACTION",
+    "VDS_REPARSE_POINT_PROP",
     "VDS_RT_RAID0",
     "VDS_RT_RAID01",
     "VDS_RT_RAID03",
@@ -2696,7 +3756,10 @@ __all__ = [
     "VDS_RT_RAID60",
     "VDS_RT_RAID61",
     "VDS_RT_UNKNOWN",
+    "VDS_SAN_POLICY",
+    "VDS_SERVICE_FLAG",
     "VDS_SERVICE_NOTIFICATION",
+    "VDS_SERVICE_PROP",
     "VDS_SF_CONSISTENCY_CHECK_CAPABLE",
     "VDS_SF_DRIVE_EXTENT_CAPABLE",
     "VDS_SF_HARDWARE_CHECKSUM_CAPABLE",
@@ -2744,6 +3807,12 @@ __all__ = [
     "VDS_SPT_CONCRETE",
     "VDS_SPT_PRIMORDIAL",
     "VDS_SPT_UNKNOWN",
+    "VDS_SP_MAX",
+    "VDS_SP_OFFLINE",
+    "VDS_SP_OFFLINE_INTERNAL",
+    "VDS_SP_OFFLINE_SHARED",
+    "VDS_SP_ONLINE",
+    "VDS_SP_UNKNOWN",
     "VDS_SSS_FAILED",
     "VDS_SSS_NOT_READY",
     "VDS_SSS_OFFLINE",
@@ -2800,6 +3869,17 @@ __all__ = [
     "VDS_SUB_SYSTEM_PROP2",
     "VDS_SUB_SYSTEM_STATUS",
     "VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG",
+    "VDS_SVF_AUTO_MOUNT_OFF",
+    "VDS_SVF_CLUSTER_SERVICE_CONFIGURED",
+    "VDS_SVF_EFI",
+    "VDS_SVF_OS_UNINSTALL_VALID",
+    "VDS_SVF_SUPPORT_DYNAMIC",
+    "VDS_SVF_SUPPORT_DYNAMIC_1394",
+    "VDS_SVF_SUPPORT_FAULT_TOLERANT",
+    "VDS_SVF_SUPPORT_GPT",
+    "VDS_SVF_SUPPORT_MIRROR",
+    "VDS_SVF_SUPPORT_RAID5",
+    "VDS_SVF_SUPPORT_REFS",
     "VDS_S_ACCESS_PATH_NOT_DELETED",
     "VDS_S_ALREADY_EXISTS",
     "VDS_S_BOOT_PARTITION_NUMBER_CHANGE",
@@ -2842,15 +3922,84 @@ __all__ = [
     "VDS_TS_SHRINKING",
     "VDS_TS_STABLE",
     "VDS_TS_UNKNOWN",
+    "VDS_VDISK_PROPERTIES",
+    "VDS_VDISK_STATE",
     "VDS_VERSION_SUPPORT_FLAG",
+    "VDS_VF_ACTIVE",
+    "VDS_VF_BACKED_BY_WIM_IMAGE",
+    "VDS_VF_BACKS_BOOT_VOLUME",
+    "VDS_VF_BOOT_VOLUME",
+    "VDS_VF_CAN_EXTEND",
+    "VDS_VF_CAN_SHRINK",
+    "VDS_VF_CRASHDUMP",
+    "VDS_VF_DIRTY",
+    "VDS_VF_FAT32_NOT_SUPPORTED",
+    "VDS_VF_FAT_NOT_SUPPORTED",
+    "VDS_VF_FORMATTING",
+    "VDS_VF_FVE_ENABLED",
+    "VDS_VF_HIBERNATION",
+    "VDS_VF_HIDDEN",
+    "VDS_VF_INSTALLABLE",
+    "VDS_VF_LBN_REMAP_ENABLED",
+    "VDS_VF_NOT_FORMATTABLE",
+    "VDS_VF_NO_DEFAULT_DRIVE_LETTER",
+    "VDS_VF_NTFS_NOT_SUPPORTED",
+    "VDS_VF_PAGEFILE",
+    "VDS_VF_PERMANENTLY_DISMOUNTED",
+    "VDS_VF_PERMANENT_DISMOUNT_SUPPORTED",
+    "VDS_VF_READONLY",
+    "VDS_VF_REFS_NOT_SUPPORTED",
+    "VDS_VF_SHADOW_COPY",
+    "VDS_VF_SYSTEM_VOLUME",
+    "VDS_VOLUME_FLAG",
     "VDS_VOLUME_NOTIFICATION",
+    "VDS_VOLUME_PLEX_PROP",
+    "VDS_VOLUME_PLEX_STATUS",
+    "VDS_VOLUME_PLEX_TYPE",
+    "VDS_VOLUME_PROP",
+    "VDS_VOLUME_PROP2",
+    "VDS_VOLUME_STATUS",
+    "VDS_VOLUME_TYPE",
+    "VDS_VPS_FAILED",
+    "VDS_VPS_NO_MEDIA",
+    "VDS_VPS_ONLINE",
+    "VDS_VPS_UNKNOWN",
+    "VDS_VPT_PARITY",
+    "VDS_VPT_SIMPLE",
+    "VDS_VPT_SPAN",
+    "VDS_VPT_STRIPE",
+    "VDS_VPT_UNKNOWN",
     "VDS_VSF_1_0",
     "VDS_VSF_1_1",
     "VDS_VSF_2_0",
     "VDS_VSF_2_1",
     "VDS_VSF_3_0",
+    "VDS_VST_ADDED",
+    "VDS_VST_ATTACHED",
+    "VDS_VST_ATTACHED_NOT_OPEN",
+    "VDS_VST_ATTACH_PENDING",
+    "VDS_VST_COMPACTING",
+    "VDS_VST_DELETED",
+    "VDS_VST_DETACH_PENDING",
+    "VDS_VST_EXPANDING",
+    "VDS_VST_MAX",
+    "VDS_VST_MERGING",
+    "VDS_VST_OPEN",
+    "VDS_VST_UNKNOWN",
+    "VDS_VS_FAILED",
+    "VDS_VS_NO_MEDIA",
+    "VDS_VS_OFFLINE",
+    "VDS_VS_ONLINE",
+    "VDS_VS_UNKNOWN",
+    "VDS_VT_MIRROR",
+    "VDS_VT_PARITY",
+    "VDS_VT_SIMPLE",
+    "VDS_VT_SPAN",
+    "VDS_VT_STRIPE",
+    "VDS_VT_UNKNOWN",
     "VDS_WWN",
     "VER_VDS_LUN_INFORMATION",
+    "__VDS_PARTITION_STYLE",
 ]
 _arch_optional = [
 ]

@@ -1836,7 +1836,7 @@ class MIB_TCP6ROW_OWNER_MODULE(Structure):
     dwRemotePort: UInt32
     dwState: UInt32
     dwOwningPid: UInt32
-    liCreateTimestamp: Windows.Win32.Foundation.LARGE_INTEGER
+    liCreateTimestamp: Int64
     OwningModuleInfo: UInt64 * 16
 class MIB_TCP6ROW_OWNER_PID(Structure):
     ucLocalAddr: Byte * 16
@@ -1883,7 +1883,7 @@ class MIB_TCPROW_OWNER_MODULE(Structure):
     dwRemoteAddr: UInt32
     dwRemotePort: UInt32
     dwOwningPid: UInt32
-    liCreateTimestamp: Windows.Win32.Foundation.LARGE_INTEGER
+    liCreateTimestamp: Int64
     OwningModuleInfo: UInt64 * 16
 class MIB_TCPROW_OWNER_PID(Structure):
     dwState: UInt32
@@ -1984,7 +1984,7 @@ class MIB_UDP6ROW2(Structure):
     dwLocalScopeId: UInt32
     dwLocalPort: UInt32
     dwOwningPid: UInt32
-    liCreateTimestamp: Windows.Win32.Foundation.LARGE_INTEGER
+    liCreateTimestamp: Int64
     Anonymous: _Anonymous_e__Union
     OwningModuleInfo: UInt64 * 16
     ucRemoteAddr: Byte * 16
@@ -2000,7 +2000,7 @@ class MIB_UDP6ROW_OWNER_MODULE(Structure):
     dwLocalScopeId: UInt32
     dwLocalPort: UInt32
     dwOwningPid: UInt32
-    liCreateTimestamp: Windows.Win32.Foundation.LARGE_INTEGER
+    liCreateTimestamp: Int64
     Anonymous: _Anonymous_e__Union
     OwningModuleInfo: UInt64 * 16
     class _Anonymous_e__Union(Union):
@@ -2032,7 +2032,7 @@ class MIB_UDPROW2(Structure):
     dwLocalAddr: UInt32
     dwLocalPort: UInt32
     dwOwningPid: UInt32
-    liCreateTimestamp: Windows.Win32.Foundation.LARGE_INTEGER
+    liCreateTimestamp: Int64
     Anonymous: _Anonymous_e__Union
     OwningModuleInfo: UInt64 * 16
     dwRemoteAddr: UInt32
@@ -2046,7 +2046,7 @@ class MIB_UDPROW_OWNER_MODULE(Structure):
     dwLocalAddr: UInt32
     dwLocalPort: UInt32
     dwOwningPid: UInt32
-    liCreateTimestamp: Windows.Win32.Foundation.LARGE_INTEGER
+    liCreateTimestamp: Int64
     Anonymous: _Anonymous_e__Union
     OwningModuleInfo: UInt64 * 16
     class _Anonymous_e__Union(Union):
@@ -2094,7 +2094,7 @@ class MIB_UNICASTIPADDRESS_ROW(Structure):
     SkipAsSource: Windows.Win32.Foundation.BOOLEAN
     DadState: Windows.Win32.Networking.WinSock.NL_DAD_STATE
     ScopeId: Windows.Win32.Networking.WinSock.SCOPE_ID
-    CreationTimeStamp: Windows.Win32.Foundation.LARGE_INTEGER
+    CreationTimeStamp: Int64
 class MIB_UNICASTIPADDRESS_TABLE(Structure):
     NumEntries: UInt32
     Table: Windows.Win32.NetworkManagement.IpHelper.MIB_UNICASTIPADDRESS_ROW * 1
@@ -2114,7 +2114,7 @@ PFFT_FILTER: PFFRAMETYPE = 1
 PFFT_FRAG: PFFRAMETYPE = 2
 PFFT_SPOOF: PFFRAMETYPE = 3
 class PFLOGFRAME(Structure):
-    Timestamp: Windows.Win32.Foundation.LARGE_INTEGER
+    Timestamp: Int64
     pfeTypeOfFrame: Windows.Win32.NetworkManagement.IpHelper.PFFRAMETYPE
     dwTotalSizeUsed: UInt32
     dwFilterRule: UInt32
@@ -2153,8 +2153,8 @@ class PF_INTERFACE_STATS(Structure):
     dwSpoof: UInt32
     dwReserved1: UInt32
     dwReserved2: UInt32
-    liSYN: Windows.Win32.Foundation.LARGE_INTEGER
-    liTotalLogged: Windows.Win32.Foundation.LARGE_INTEGER
+    liSYN: Int64
+    liTotalLogged: Int64
     dwLostLogEntries: UInt32
     FilterInfo: Windows.Win32.NetworkManagement.IpHelper.PF_FILTER_STATS * 1
 class PF_LATEBIND_INFO(Structure):

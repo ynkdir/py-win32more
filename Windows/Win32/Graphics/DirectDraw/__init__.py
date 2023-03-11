@@ -1384,7 +1384,7 @@ class DDCORECAPS(Structure):
 class DDDEVICEIDENTIFIER(Structure):
     szDriver: Windows.Win32.Foundation.CHAR * 512
     szDescription: Windows.Win32.Foundation.CHAR * 512
-    liDriverVersion: Windows.Win32.Foundation.LARGE_INTEGER
+    liDriverVersion: Int64
     dwVendorId: UInt32
     dwDeviceId: UInt32
     dwSubSysId: UInt32
@@ -1393,7 +1393,7 @@ class DDDEVICEIDENTIFIER(Structure):
 class DDDEVICEIDENTIFIER2(Structure):
     szDriver: Windows.Win32.Foundation.CHAR * 512
     szDescription: Windows.Win32.Foundation.CHAR * 512
-    liDriverVersion: Windows.Win32.Foundation.LARGE_INTEGER
+    liDriverVersion: Int64
     dwVendorId: UInt32
     dwDeviceId: UInt32
     dwSubSysId: UInt32
@@ -2746,7 +2746,7 @@ class DDVIDEOPORTINFO(Structure):
     dwReserved1: UIntPtr
     dwReserved2: UIntPtr
 class DDVIDEOPORTNOTIFY(Structure):
-    ApproximateTimeStamp: Windows.Win32.Foundation.LARGE_INTEGER
+    ApproximateTimeStamp: Int64
     lField: Int32
     dwSurfaceIndex: UInt32
     lDone: Int32
@@ -4599,7 +4599,7 @@ class VMEMHEAP(Structure):
     Alignment: Windows.Win32.Graphics.DirectDraw.HEAPALIGNMENT
     ddsCapsEx: Windows.Win32.Graphics.DirectDraw.DDSCAPSEX
     ddsCapsExAlt: Windows.Win32.Graphics.DirectDraw.DDSCAPSEX
-    liPhysAGPBase: Windows.Win32.Foundation.LARGE_INTEGER
+    liPhysAGPBase: Int64
     hdevAGP: Windows.Win32.Foundation.HANDLE
     pvPhysRsrv: c_void_p
     pAgpCommitMask: c_char_p_no

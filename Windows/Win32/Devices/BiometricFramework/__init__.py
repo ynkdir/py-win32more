@@ -660,13 +660,13 @@ class WINBIO_BIR_HEADER(Structure):
     Subtype: Byte
     Purpose: Byte
     DataQuality: SByte
-    CreationDate: Windows.Win32.Foundation.LARGE_INTEGER
+    CreationDate: Int64
     ValidityPeriod: _ValidityPeriod_e__Struct
     BiometricDataFormat: Windows.Win32.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT
     ProductId: Windows.Win32.Devices.BiometricFramework.WINBIO_REGISTERED_FORMAT
     class _ValidityPeriod_e__Struct(Structure):
-        BeginDate: Windows.Win32.Foundation.LARGE_INTEGER
-        EndDate: Windows.Win32.Foundation.LARGE_INTEGER
+        BeginDate: Int64
+        EndDate: Int64
 class WINBIO_BLANK_PAYLOAD(Structure):
     PayloadSize: UInt32
     WinBioHresult: Windows.Win32.Foundation.HRESULT

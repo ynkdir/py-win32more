@@ -340,7 +340,7 @@ def WICMatchMetadataContent(guidContainerFormat: POINTER(Guid), pguidVendor: POI
 @winfunctype('WindowsCodecs.dll')
 def WICSerializeMetadataContent(guidContainerFormat: POINTER(Guid), pIWriter: Windows.Win32.Graphics.Imaging.IWICMetadataWriter_head, dwPersistOptions: UInt32, pIStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WindowsCodecs.dll')
-def WICGetMetadataContentSize(guidContainerFormat: POINTER(Guid), pIWriter: Windows.Win32.Graphics.Imaging.IWICMetadataWriter_head, pcbSize: POINTER(Windows.Win32.Foundation.ULARGE_INTEGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def WICGetMetadataContentSize(guidContainerFormat: POINTER(Guid), pIWriter: Windows.Win32.Graphics.Imaging.IWICMetadataWriter_head, pcbSize: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWICBitmap(c_void_p):
     extends: Windows.Win32.Graphics.Imaging.IWICBitmapSource
     Guid = Guid('00000121-a8f2-4877-ba-0a-fd-2b-66-45-fb-94')
@@ -996,7 +996,7 @@ class IWICStream(c_void_p):
     @commethod(16)
     def InitializeFromMemory(pbBuffer: c_char_p_no, cbBufferSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
-    def InitializeFromIStreamRegion(pIStream: Windows.Win32.System.Com.IStream_head, ulOffset: Windows.Win32.Foundation.ULARGE_INTEGER, ulMaxSize: Windows.Win32.Foundation.ULARGE_INTEGER) -> Windows.Win32.Foundation.HRESULT: ...
+    def InitializeFromIStreamRegion(pIStream: Windows.Win32.System.Com.IStream_head, ulOffset: UInt64, ulMaxSize: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
 class IWICStreamProvider(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('449494bc-b468-4927-96-d7-ba-90-d3-1a-b5-05')
@@ -1089,7 +1089,7 @@ WICBitmapPaletteType_WICBitmapPaletteTypeFixedGray16: WICBitmapPaletteType = 11
 WICBitmapPaletteType_WICBitmapPaletteTypeFixedGray256: WICBitmapPaletteType = 12
 WICBitmapPaletteType_WICBITMAPPALETTETYPE_FORCE_DWORD: WICBitmapPaletteType = 2147483647
 class WICBitmapPattern(Structure):
-    Position: Windows.Win32.Foundation.ULARGE_INTEGER
+    Position: UInt64
     Length: UInt32
     Pattern: c_char_p_no
     Mask: c_char_p_no
@@ -1274,16 +1274,16 @@ WICMetadataCreationOptions_WICMetadataCreationAllowUnknown: WICMetadataCreationO
 WICMetadataCreationOptions_WICMetadataCreationFailUnknown: WICMetadataCreationOptions = 65536
 WICMetadataCreationOptions_WICMetadataCreationMask: WICMetadataCreationOptions = -65536
 class WICMetadataHeader(Structure):
-    Position: Windows.Win32.Foundation.ULARGE_INTEGER
+    Position: UInt64
     Length: UInt32
     Header: c_char_p_no
-    DataOffset: Windows.Win32.Foundation.ULARGE_INTEGER
+    DataOffset: UInt64
 class WICMetadataPattern(Structure):
-    Position: Windows.Win32.Foundation.ULARGE_INTEGER
+    Position: UInt64
     Length: UInt32
     Pattern: c_char_p_no
     Mask: c_char_p_no
-    DataOffset: Windows.Win32.Foundation.ULARGE_INTEGER
+    DataOffset: UInt64
 WICNamedWhitePoint = Int32
 WICNamedWhitePoint_WICWhitePointDefault: WICNamedWhitePoint = 1
 WICNamedWhitePoint_WICWhitePointDaylight: WICNamedWhitePoint = 2

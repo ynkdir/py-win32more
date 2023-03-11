@@ -359,7 +359,7 @@ if ARCH in 'X64,ARM64':
         Driver: Windows.Win32.Foundation.CHAR * 512
         Description: Windows.Win32.Foundation.CHAR * 512
         DeviceName: Windows.Win32.Foundation.CHAR * 32
-        DriverVersion: Windows.Win32.Foundation.LARGE_INTEGER
+        DriverVersion: Int64
         VendorId: UInt32
         DeviceId: UInt32
         SubSysId: UInt32
@@ -371,7 +371,7 @@ if ARCH in 'X86':
         Driver: Windows.Win32.Foundation.CHAR * 512
         Description: Windows.Win32.Foundation.CHAR * 512
         DeviceName: Windows.Win32.Foundation.CHAR * 32
-        DriverVersion: Windows.Win32.Foundation.LARGE_INTEGER
+        DriverVersion: Int64
         VendorId: UInt32
         DeviceId: UInt32
         SubSysId: UInt32
@@ -985,15 +985,15 @@ if ARCH in 'X64,ARM64':
         PresentCount: UInt32
         PresentRefreshCount: UInt32
         SyncRefreshCount: UInt32
-        SyncQPCTime: Windows.Win32.Foundation.LARGE_INTEGER
-        SyncGPUTime: Windows.Win32.Foundation.LARGE_INTEGER
+        SyncQPCTime: Int64
+        SyncGPUTime: Int64
 if ARCH in 'X86':
     class D3DPRESENTSTATS(Structure):
         PresentCount: UInt32
         PresentRefreshCount: UInt32
         SyncRefreshCount: UInt32
-        SyncQPCTime: Windows.Win32.Foundation.LARGE_INTEGER
-        SyncGPUTime: Windows.Win32.Foundation.LARGE_INTEGER
+        SyncQPCTime: Int64
+        SyncGPUTime: Int64
         _pack_ = 4
 class D3DPRESENT_PARAMETERS(Structure):
     BackBufferWidth: UInt32

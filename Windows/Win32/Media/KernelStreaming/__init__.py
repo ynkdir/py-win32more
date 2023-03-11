@@ -1122,10 +1122,10 @@ class KSAUDIO_POSITION(Structure):
     PlayOffset: UInt64
     WriteOffset: UInt64
 class KSAUDIO_POSITIONEX(Structure):
-    TimerFrequency: Windows.Win32.Foundation.LARGE_INTEGER
-    TimeStamp1: Windows.Win32.Foundation.LARGE_INTEGER
+    TimerFrequency: Int64
+    TimeStamp1: Int64
     Position: Windows.Win32.Media.KernelStreaming.KSAUDIO_POSITION
-    TimeStamp2: Windows.Win32.Foundation.LARGE_INTEGER
+    TimeStamp2: Int64
 class KSAUDIO_PRESENTATION_POSITION(Structure):
     u64PositionInBlocks: UInt64
     u64QPCPosition: UInt64
@@ -1261,7 +1261,7 @@ class KSCAMERA_EXTENDEDPROP_VALUE(Structure):
         dbl: Double
         ull: UInt64
         ul: UInt32
-        ratio: Windows.Win32.Foundation.ULARGE_INTEGER
+        ratio: UInt64
         l: Int32
         ll: Int64
 class KSCAMERA_EXTENDEDPROP_VIDEOPROCSETTING(Structure):

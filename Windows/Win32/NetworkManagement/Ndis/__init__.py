@@ -2030,30 +2030,30 @@ class NDIS_802_11_SSID(Structure):
     Ssid: Byte * 32
 class NDIS_802_11_STATISTICS(Structure):
     Length: UInt32
-    TransmittedFragmentCount: Windows.Win32.Foundation.LARGE_INTEGER
-    MulticastTransmittedFrameCount: Windows.Win32.Foundation.LARGE_INTEGER
-    FailedCount: Windows.Win32.Foundation.LARGE_INTEGER
-    RetryCount: Windows.Win32.Foundation.LARGE_INTEGER
-    MultipleRetryCount: Windows.Win32.Foundation.LARGE_INTEGER
-    RTSSuccessCount: Windows.Win32.Foundation.LARGE_INTEGER
-    RTSFailureCount: Windows.Win32.Foundation.LARGE_INTEGER
-    ACKFailureCount: Windows.Win32.Foundation.LARGE_INTEGER
-    FrameDuplicateCount: Windows.Win32.Foundation.LARGE_INTEGER
-    ReceivedFragmentCount: Windows.Win32.Foundation.LARGE_INTEGER
-    MulticastReceivedFrameCount: Windows.Win32.Foundation.LARGE_INTEGER
-    FCSErrorCount: Windows.Win32.Foundation.LARGE_INTEGER
-    TKIPLocalMICFailures: Windows.Win32.Foundation.LARGE_INTEGER
-    TKIPICVErrorCount: Windows.Win32.Foundation.LARGE_INTEGER
-    TKIPCounterMeasuresInvoked: Windows.Win32.Foundation.LARGE_INTEGER
-    TKIPReplays: Windows.Win32.Foundation.LARGE_INTEGER
-    CCMPFormatErrors: Windows.Win32.Foundation.LARGE_INTEGER
-    CCMPReplays: Windows.Win32.Foundation.LARGE_INTEGER
-    CCMPDecryptErrors: Windows.Win32.Foundation.LARGE_INTEGER
-    FourWayHandshakeFailures: Windows.Win32.Foundation.LARGE_INTEGER
-    WEPUndecryptableCount: Windows.Win32.Foundation.LARGE_INTEGER
-    WEPICVErrorCount: Windows.Win32.Foundation.LARGE_INTEGER
-    DecryptSuccessCount: Windows.Win32.Foundation.LARGE_INTEGER
-    DecryptFailureCount: Windows.Win32.Foundation.LARGE_INTEGER
+    TransmittedFragmentCount: Int64
+    MulticastTransmittedFrameCount: Int64
+    FailedCount: Int64
+    RetryCount: Int64
+    MultipleRetryCount: Int64
+    RTSSuccessCount: Int64
+    RTSFailureCount: Int64
+    ACKFailureCount: Int64
+    FrameDuplicateCount: Int64
+    ReceivedFragmentCount: Int64
+    MulticastReceivedFrameCount: Int64
+    FCSErrorCount: Int64
+    TKIPLocalMICFailures: Int64
+    TKIPICVErrorCount: Int64
+    TKIPCounterMeasuresInvoked: Int64
+    TKIPReplays: Int64
+    CCMPFormatErrors: Int64
+    CCMPReplays: Int64
+    CCMPDecryptErrors: Int64
+    FourWayHandshakeFailures: Int64
+    WEPUndecryptableCount: Int64
+    WEPICVErrorCount: Int64
+    DecryptSuccessCount: Int64
+    DecryptFailureCount: Int64
 class NDIS_802_11_STATUS_INDICATION(Structure):
     StatusType: Windows.Win32.NetworkManagement.Ndis.NDIS_802_11_STATUS_TYPE
 NDIS_802_11_STATUS_TYPE = Int32

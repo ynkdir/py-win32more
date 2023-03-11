@@ -2318,8 +2318,8 @@ class POINTFIX(Structure):
     x: Int32
     y: Int32
 class POINTQF(Structure):
-    x: Windows.Win32.Foundation.LARGE_INTEGER
-    y: Windows.Win32.Foundation.LARGE_INTEGER
+    x: Int64
+    y: Int64
 @winfunctype_pointer
 def PVIDEO_WIN32K_CALLOUT(Params: c_void_p) -> Void: ...
 QUERY_DISPLAY_CONFIG_FLAGS = UInt32
