@@ -370,7 +370,9 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
         return f"{v[0]:08x}-{v[1]:04x}-{v[2]:04x}-{v[3]:02x}-{v[4]:02x}-{v[5]:02x}-{v[6]:02x}-{v[7]:02x}-{v[8]:02x}-{v[9]:02x}-{v[10]:02x}"
 
     def get_property_key(self) -> tuple[str, int]:
-        v = [fa.value for fa in self.get("Windows.Win32.Interop.PropertyKeyAttribute").fixed_arguments]
+        value = self.get("Windows.Win32.Interop.ConstantAttribute").fixed_arguments[0].value
+        m = re.fullmatch(r"{(\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+)}, (\d+)", value)
+        v = [int(d) for d in m.groups()]
         assert len(v) == 12
         guid = self.format_guid(v[:11])
         pid = v[11]
@@ -379,7 +381,7 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
     def get_constant(self) -> str:
         # value is like "{0, 0, 0, 0, 0, 5}"
         value = self.get("Windows.Win32.Interop.ConstantAttribute").fixed_arguments[0].value
-        value_csv = value.strip("{}")
+        value_csv = value.translate({ord("{"): "(", ord("}"): ")"})
         return value_csv
 
     def get_unmanaged_function_pointer(self) -> str:
@@ -483,7 +485,7 @@ class FieldDefinition:
             return f"{self.signature.fullname}(fmtid=Guid('{guid}'), pid={pid})"
         elif self.signature.kind == "Type" and self.signature.fullname == "Windows.Win32.Security.SID_IDENTIFIER_AUTHORITY":
             value = self.custom_attributes.get_constant()
-            return f"{self.signature.fullname}(Value=({value}))"
+            return f"{self.signature.fullname}({value})"
         else:
             # FIXME:
             raise NotImplementedError()
