@@ -1172,10 +1172,10 @@ class PyGenerator:
         return "from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n"
 
     def emit_import_base(self) -> str:
-        return f"from Windows.base import {BASE_EXPORTS_CSV}\n"
+        return f"from Windows import {BASE_EXPORTS_CSV}\n"
 
     def emit_include_base(self) -> str:
-        return (Path(__file__).parent / "Windows\\base.py").read_text()
+        return (Path(__file__).parent / "Windows\\__init__.py").read_text()
 
     def emit_import_namespaces(self, import_namespaces: set[str]) -> str:
         writer = StringIO()
@@ -1226,32 +1226,6 @@ class PyGenerator:
         for name in sorted(export_names_optional):
             writer.write(f'    "{name}",\n')
         writer.write("]\n")
-        return writer.getvalue()
-
-    def emit_all(self) -> str:
-        writer = StringIO()
-        writer.write("import importlib\n")
-        writer.write("import sys\n")
-        writer.write("import pkgutil\n")
-        writer.write("import Windows.Win32\n")
-        writer.write("_module = sys.modules[__name__]\n")
-        writer.write("def __getattr__(name):\n")
-        writer.write("    if name not in nameindex:\n")
-        writer.write("        raise AttributeError(f\"module '{__name__}' has no attribute '{name}'\") from None\n")
-        writer.write("    module = importlib.import_module(nameindex[name])\n")
-        writer.write("    attr = getattr(module, name)\n")
-        writer.write("    setattr(_module, name, attr)\n")
-        writer.write("    return attr\n")
-        writer.write("def __dir__():\n")
-        writer.write("    return __all__\n")
-        writer.write("nameindex = {\n")
-        for name in BASE_EXPORTS:
-            writer.write(f"'{name}': 'Windows.base',\n")
-        writer.write("}\n")
-        writer.write("for sub in pkgutil.walk_packages(Windows.Win32.__path__, 'Windows.Win32.'):\n")
-        writer.write("    mod = importlib.import_module(sub.name)\n")
-        writer.write("    for i in getattr(mod, '__all__', []): nameindex[i] = sub.name\n")
-        writer.write("__all__ = sorted(nameindex)\n")
         return writer.getvalue()
 
     def write_architecture_specific_block_if_necessary(self, writer: TextIO, custom_attributes: CustomAttributeCollection) -> str:
@@ -1380,8 +1354,6 @@ def generate(meta: Metadata) -> None:
             for td in meta_group_by_namespace:
                 writer.write(pg.emit_make_head(td))
             writer.write(pg.emit_footer(export_names, export_names_optional))
-    with open(f"Windows/all.py", "w") as writer:
-        writer.write(pg.emit_all())
 
 
 def generate_one(meta: Metadata, writer: TextIO) -> None:
