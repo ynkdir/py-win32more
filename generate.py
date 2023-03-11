@@ -1382,18 +1382,21 @@ def main() -> None:
     parser.add_argument("-s", "--selector", help="selector.txt")
     parser.add_argument("metadata", help="metadata.json")
     args = parser.parse_args()
+    build(args.metadata, args.selector, args.one)
 
-    with xopen(args.metadata) as f:
+
+def build(metadata, selector=None, one=None) -> None:
+    with xopen(metadata) as f:
         meta = Metadata(TypeDefinition(typedef) for typedef in json.load(f))
 
     pp = Preprocessor()
     meta = pp.filter_public(meta)
     meta = pp.sort(meta)
 
-    if args.selector is not None:
-        selector = Selector()
-        selector.read_selector(Path(args.selector))
-        meta = Metadata(selector.select(meta))
+    if selector is not None:
+        s = Selector()
+        s.read_selector(Path(selector))
+        meta = Metadata(s.select(meta))
 
     pp.patch_link_typedef(meta)
     pp.patch_enum(meta)
@@ -1401,9 +1404,9 @@ def main() -> None:
     pp.patch_name_conflict(meta)
     pp.patch_keyword_name(meta)
 
-    if args.one is not None:
+    if one is not None:
         pp.patch_namespace_one(meta, "_module")
-        with open(args.one, "w") as writer:
+        with open(one, "w") as writer:
             generate_one(meta, writer)
     else:
         generate(meta)
