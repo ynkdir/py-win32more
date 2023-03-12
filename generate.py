@@ -1162,8 +1162,6 @@ class PyGenerator:
         writer.write("    try:\n")
         writer.write("        prototype = globals()[f'{name}_head']\n")
         writer.write("    except KeyError:\n")
-        writer.write("        if name in _arch_optional:\n")
-        writer.write("            return None\n")
         writer.write("        raise AttributeError(f\"module '{__name__}' has no attribute '{name}'\") from None\n")
         writer.write("    setattr(_module, name, press(prototype))\n")
         writer.write("    return getattr(_module, name)\n")
