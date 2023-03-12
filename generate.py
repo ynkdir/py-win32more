@@ -1174,10 +1174,10 @@ class PyGenerator:
         return "from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n"
 
     def emit_import_base(self) -> str:
-        return f"from Windows.base import {BASE_EXPORTS_CSV}\n"
+        return f"from Windows import {BASE_EXPORTS_CSV}\n"
 
     def emit_include_base(self) -> str:
-        return (Path(__file__).parent / "Windows\\base.py").read_text()
+        return (Path(__file__).parent / "Windows\\__init__.py").read_text()
 
     def emit_import_namespaces(self, import_namespaces: set[str]) -> str:
         writer = StringIO()
@@ -1228,30 +1228,6 @@ class PyGenerator:
         for name in sorted(export_names_optional):
             writer.write(f'    "{name}",\n')
         writer.write("]\n")
-        return writer.getvalue()
-
-    def emit_all(self, export_names_group_by_namespace: dict[str, set[str]]) -> str:
-        writer = StringIO()
-        writer.write("import importlib\n")
-        writer.write("import sys\n")
-        writer.write("_module = sys.modules[__name__]\n")
-        writer.write("def __getattr__(name):\n")
-        writer.write("    if name not in nameindex:\n")
-        writer.write("        raise AttributeError(f\"module '{__name__}' has no attribute '{name}'\") from None\n")
-        writer.write("    module = importlib.import_module(nameindex[name])\n")
-        writer.write("    attr = getattr(module, name)\n")
-        writer.write("    setattr(_module, name, attr)\n")
-        writer.write("    return attr\n")
-        writer.write("def __dir__():\n")
-        writer.write("    return __all__\n")
-        writer.write("nameindex = {\n")
-        for name in BASE_EXPORTS:
-            writer.write(f"'{name}': 'Windows.base',\n")
-        for namespace in sorted(export_names_group_by_namespace):
-            for name in sorted(export_names_group_by_namespace[namespace]):
-                writer.write(f"'{name}': '{namespace}',\n")
-        writer.write("}\n")
-        writer.write("__all__ = sorted(nameindex)\n")
         return writer.getvalue()
 
     def write_architecture_specific_block_if_necessary(self, writer: TextIO, custom_attributes: CustomAttributeCollection) -> str:
@@ -1369,7 +1345,6 @@ def make_module_path_for_write(namespace) -> TextIO:
 
 def generate(meta: Metadata) -> None:
     pg = PyGenerator()
-    export_names_group_by_namespace = {}
     for namespace, meta_group_by_namespace in meta.group_by_namespace().items():
         import_namespaces = set(meta_group_by_namespace.enumerate_importing_namespaces()) | {namespace}
         export_names = set(meta_group_by_namespace.enumerate_exporting_names())
@@ -1381,9 +1356,6 @@ def generate(meta: Metadata) -> None:
             for td in meta_group_by_namespace:
                 writer.write(pg.emit_make_head(td))
             writer.write(pg.emit_footer(export_names, export_names_optional))
-        export_names_group_by_namespace[namespace] = export_names
-    with open(f"Windows/all.py", "w") as writer:
-        writer.write(pg.emit_all(export_names_group_by_namespace))
 
 
 def generate_one(meta: Metadata, writer: TextIO) -> None:
@@ -1410,18 +1382,21 @@ def main() -> None:
     parser.add_argument("-s", "--selector", help="selector.txt")
     parser.add_argument("metadata", help="metadata.json")
     args = parser.parse_args()
+    build(args.metadata, args.selector, args.one)
 
-    with xopen(args.metadata) as f:
+
+def build(metadata, selector=None, one=None) -> None:
+    with xopen(metadata) as f:
         meta = Metadata(TypeDefinition(typedef) for typedef in json.load(f))
 
     pp = Preprocessor()
     meta = pp.filter_public(meta)
     meta = pp.sort(meta)
 
-    if args.selector is not None:
-        selector = Selector()
-        selector.read_selector(Path(args.selector))
-        meta = Metadata(selector.select(meta))
+    if selector is not None:
+        s = Selector()
+        s.read_selector(Path(selector))
+        meta = Metadata(s.select(meta))
 
     pp.patch_link_typedef(meta)
     pp.patch_enum(meta)
@@ -1429,9 +1404,9 @@ def main() -> None:
     pp.patch_name_conflict(meta)
     pp.patch_keyword_name(meta)
 
-    if args.one is not None:
+    if one is not None:
         pp.patch_namespace_one(meta, "_module")
-        with open(args.one, "w") as writer:
+        with open(one, "w") as writer:
             generate_one(meta, writer)
     else:
         generate(meta)
