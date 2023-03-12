@@ -6,10 +6,14 @@ import lzma
 import re
 import sys
 from collections import defaultdict
-from collections.abc import Collection, Iterable, Iterator, Mapping, MutableSequence
+from collections.abc import Iterable, Iterator, Mapping
 from io import StringIO
 from pathlib import Path
-from typing import TypeAlias, Any, TextIO, Self, overload
+from typing import Any, TextIO, overload, Collection, MutableSequence
+if sys.version_info < (3, 11):
+    from typing_extensions import TypeAlias, Self
+else:
+    from typing import TypeAlias, Self
 
 BASE_EXPORTS = [
     "ARCH",
@@ -104,47 +108,45 @@ class TType:
 
     @property
     def pytype(self) -> str:
-        match self.kind:
-            case "Primitive":
+        if self.kind == "Primitive":
+            return self.name
+        elif self.kind == "Pointer":
+            if self.type.kind == "Primitive" and self.type.name == "Void":
+                return "c_void_p"
+            elif self.type.kind == "Primitive" and self.type.name == "Byte":
+                return "c_char_p_no"  # safe?
+            elif self.type.kind == "Primitive" and self.type.name == "Char":
+                return "c_wchar_p_no"  # safe?
+            elif self.type.is_struct:
+                return f"POINTER({self.type.fullname}_head)"
+            else:
+                return f"POINTER({self.type.pytype})"
+        elif self.kind == "SZArray":
+            raise NotImplementedError()
+        elif self.kind == "Array":
+            return f"{self.type.pytype} * {self.size}"
+        elif self.kind == "Type":
+            if self.is_nested:
                 return self.name
-            case "Pointer":
-                if self.type.kind == "Primitive" and self.type.name == "Void":
-                    return "c_void_p"
-                elif self.type.kind == "Primitive" and self.type.name == "Byte":
-                    return "c_char_p_no"  # safe?
-                elif self.type.kind == "Primitive" and self.type.name == "Char":
-                    return "c_wchar_p_no"  # safe?
-                elif self.type.is_struct:
-                    return f"POINTER({self.type.fullname}_head)"
-                else:
-                    return f"POINTER({self.type.pytype})"
-            case "SZArray":
-                raise NotImplementedError()
-            case "Array":
-                return f"{self.type.pytype} * {self.size}"
-            case "Type":
-                if self.is_nested:
-                    return self.name
-                elif self.is_guid:
-                    return "Guid"
-                elif self.is_missing:
-                    sys.stderr.write(f"DEBUG: missing type '{self.fullname}'\n")
-                    return "MissingType"
-                elif self.is_com:
-                    return f"{self.fullname}_head"
-                else:
-                    return self.fullname
-            case _:
-                raise NotImplementedError()
+            elif self.is_guid:
+                return "Guid"
+            elif self.is_missing:
+                sys.stderr.write(f"DEBUG: missing type '{self.fullname}'\n")
+                return "MissingType"
+            elif self.is_com:
+                return f"{self.fullname}_head"
+            else:
+                return self.fullname
+        else:
+            raise NotImplementedError()
 
     def get_element_type(self) -> TType:
-        match self.kind:
-            case "Pointer" | "SZArray" | "Array":
-                return self.type.get_element_type()
-            case "Primitive" | "Type":
-                return self
-            case _:
-                raise NotImplementedError()
+        if self.kind in ["Pointer", "SZArray", "Array"]:
+            return self.type.get_element_type()
+        elif self.kind in ["Primitive", "Type"]:
+            return self
+        else:
+            raise NotImplementedError()
 
     @property
     def is_nested(self) -> bool:
@@ -232,27 +234,26 @@ class TypeDefinition:
 
     @property
     def kind(self) -> str:
-        match self.basetype:
-            case None:
-                return "com"
-            case "System.Object":
-                return "object"  # CONSTANT, FUNCTION
-            case "System.MulticastDelegate":
-                return "function_pointer"
-            case "System.Enum":
-                return "enum"
-            case "System.ValueType":
-                if self.custom_attributes.has_native_typedef():
-                    return "native_typedef"
-                # FIXME: CLSID_ComClass is defined as attribute like [uuid(...)] struct ComClass {}.
-                elif self.custom_attributes.has_guid() and not self.fields:
-                    return "clsid"
-                elif "ExplicitLayout" in self.attributes:
-                    return "union"
-                else:
-                    return "struct"
-            case _:
-                raise NotImplementedError()
+        if self.basetype is None:
+            return "com"
+        elif self.basetype == "System.Object":
+            return "object"  # CONSTANT, FUNCTION
+        elif self.basetype == "System.MulticastDelegate":
+            return "function_pointer"
+        elif self.basetype == "System.Enum":
+            return "enum"
+        elif self.basetype == "System.ValueType":
+            if self.custom_attributes.has_native_typedef():
+                return "native_typedef"
+            # FIXME: CLSID_ComClass is defined as attribute like [uuid(...)] struct ComClass {}.
+            elif self.custom_attributes.has_guid() and not self.fields:
+                return "clsid"
+            elif "ExplicitLayout" in self.attributes:
+                return "union"
+            else:
+                return "struct"
+        else:
+            raise NotImplementedError()
 
     def enumerate_types(self) -> Iterable[TType]:
         for fd in self.fields:
@@ -272,20 +273,19 @@ class TypeDefinition:
                 yield t.namespace
 
     def enumerate_exporting_names(self) -> Iterable[str]:
-        match self.kind:
-            case "object":
-                for fd in self.fields:
-                    yield fd.name
-                for md in self.method_definitions:
-                    yield md.name
-            case "enum":
-                yield self.name
-                for fd in self.fields[1:]:
-                    yield fd.name
-            case "function_pointer" | "native_typedef" | "clsid" | "union" | "struct" | "com":
-                yield self.name
-            case _:
-                raise NotImplementedError()
+        if self.kind == "object":
+            for fd in self.fields:
+                yield fd.name
+            for md in self.method_definitions:
+                yield md.name
+        elif self.kind == "enum":
+            yield self.name
+            for fd in self.fields[1:]:
+                yield fd.name
+        elif self.kind in ["function_pointer", "native_typedef", "clsid", "union", "struct", "com"]:
+            yield self.name
+        else:
+            raise NotImplementedError()
 
     def enumerate_names_having_architecture_attribute(self) -> Iterable[tuple[str, str]]:
         if self.custom_attributes.has_supported_architecture():
@@ -981,25 +981,24 @@ class Preprocessor:
 
 class PyGenerator:
     def emit(self, td: TypeDefinition) -> str:
-        match td.kind:
-            case "object":  # CONSTANT, FUNCTION
-                return self.emit_object(td)
-            case "function_pointer":
-                return self.emit_function_pointer(td)
-            case "enum":
-                return self.emit_enum(td)
-            case "native_typedef":
-                return self.emit_native_typedef(td)
-            case "clsid":
-                return self.emit_clsid(td)
-            case "union":
-                return self.emit_struct_union(td)
-            case "struct":
-                return self.emit_struct_union(td)
-            case "com":
-                return self.emit_com(td)
-            case _:
-                raise NotImplementedError()
+        if td.kind == "object":  # CONSTANT, FUNCTION
+            return self.emit_object(td)
+        elif td.kind == "function_pointer":
+            return self.emit_function_pointer(td)
+        elif td.kind == "enum":
+            return self.emit_enum(td)
+        elif td.kind == "native_typedef":
+            return self.emit_native_typedef(td)
+        elif td.kind == "clsid":
+            return self.emit_clsid(td)
+        elif td.kind == "union":
+            return self.emit_struct_union(td)
+        elif td.kind == "struct":
+            return self.emit_struct_union(td)
+        elif td.kind == "com":
+            return self.emit_com(td)
+        else:
+            raise NotImplementedError()
 
     def emit_object(self, td: TypeDefinition) -> str:
         writer = StringIO()
@@ -1208,14 +1207,13 @@ class PyGenerator:
 
     def emit_make_head(self, td: TypeDefinition) -> str:
         writer = StringIO()
-        match td.kind:
-            case "object":  # CONSTANT, FUNCTION
-                for fd in td.fields:
-                    if "HasDefault" not in fd.attributes and not fd.signature.is_guid:
-                        writer.write(f"make_head(_module, '{fd.name}')\n")
-            case "function_pointer" | "union" | "struct" | "com":
-                indent = self.write_architecture_specific_block_if_necessary(writer, td.custom_attributes)
-                writer.write(f"{indent}make_head(_module, '{td.name}')\n")
+        if td.kind == "object":  # CONSTANT, FUNCTION
+            for fd in td.fields:
+                if "HasDefault" not in fd.attributes and not fd.signature.is_guid:
+                    writer.write(f"make_head(_module, '{fd.name}')\n")
+        elif td.kind in ["function_pointer", "union", "struct", "com"]:
+            indent = self.write_architecture_specific_block_if_necessary(writer, td.custom_attributes)
+            writer.write(f"{indent}make_head(_module, '{td.name}')\n")
         return writer.getvalue()
 
     def emit_footer(self, export_names: set[str], export_names_optional: list[str]) -> str:
@@ -1337,7 +1335,8 @@ class Selector:
 def make_module_path_for_write(namespace) -> TextIO:
     p = Path(namespace.replace(".", "/"))
     p.mkdir(parents=True, exist_ok=True)
-    for d in p.parents[:-1]:
+    for d in range(len(p.parents) - 1):
+        d = p.parents[d]
         if not (d / "__init__.py").exists():
             (d / "__init__.py").write_text("")
     return (p / "__init__.py").open("w")
