@@ -1060,14 +1060,14 @@ class PyGenerator:
         if td.custom_attributes.has_guid():
             guid = td.custom_attributes.get_guid()
             writer.write(f"{indent}    Guid = Guid('{guid}')\n")
-        for nested_type in td.nested_types:
-            writer.write(self.emit_struct_union(nested_type, indent + "    "))
         for fd in self.struct_union_static_fields(td):
             writer.write(f"{indent}    {fd.name} = {fd.pyvalue}\n")
         for fd in self.struct_union_fields(td):
             writer.write(f"{indent}    {fd.name}: {fd.signature.pytype}\n")
         if td.layout.packing_size != 0:
             writer.write(f"{indent}    _pack_ = {td.layout.packing_size}\n")
+        for nested_type in td.nested_types:
+            writer.write(self.emit_struct_union(nested_type, indent + "    "))
         return writer.getvalue()
 
     def struct_union_base_type(self, td: TypeDefinition) -> str:

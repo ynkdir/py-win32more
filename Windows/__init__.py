@@ -78,7 +78,7 @@ def FAILED(hr):
     return hr < 0
 
 def get_type_hints(prototype):
-    hints = typing.get_type_hints(prototype)
+    hints = typing.get_type_hints(prototype, localns=getattr(prototype, '__dict__', None))
     for name, type_ in hints.items():
         if type_ is None.__class__:
             hints[name] = None
