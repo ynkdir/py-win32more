@@ -272,21 +272,6 @@ class TypeDefinition:
             if t.kind == "Type" and not t.is_nested and not t.is_guid and not t.is_missing:
                 yield t.namespace
 
-    def enumerate_exporting_names(self) -> Iterable[str]:
-        if self.kind == "object":
-            for fd in self.fields:
-                yield fd.name
-            for md in self.method_definitions:
-                yield md.name
-        elif self.kind == "enum":
-            yield self.name
-            for fd in self.fields[1:]:
-                yield fd.name
-        elif self.kind in ["function_pointer", "native_typedef", "clsid", "union", "struct", "com"]:
-            yield self.name
-        else:
-            raise NotImplementedError()
-
     def enumerate_names_having_architecture_attribute(self) -> Iterable[tuple[str, str]]:
         if self.custom_attributes.has_supported_architecture():
             for arch in self.custom_attributes.get_supported_architecture():
@@ -870,22 +855,9 @@ class Metadata(MutableSequence[TypeDefinition]):
         for td in self:
             yield from td.enumerate_importing_namespaces()
 
-    def enumerate_exporting_names(self) -> Iterable[str]:
-        for td in self:
-            yield from td.enumerate_exporting_names()
-
     def enumerate_names_having_architecture_attribute(self) -> Iterable[tuple[str, str]]:
         for td in self:
             yield from td.enumerate_names_having_architecture_attribute()
-
-    def enumerate_names_lacking_architecture(self) -> Iterable[str]:
-        all_supported_architectures = {"X86", "X64", "ARM64"}
-        arch_by_name = defaultdict(set)
-        for name, arch in self.enumerate_names_having_architecture_attribute():
-            arch_by_name[name].add(arch)
-        for name, archs in arch_by_name.items():
-            if archs != all_supported_architectures:
-                yield name
 
 
 class Preprocessor:
@@ -1154,7 +1126,6 @@ class PyGenerator:
         writer.write(self.emit_import_base())
         writer.write(self.emit_import_namespaces(import_namespaces))
         writer.write(self.emit_getattr())
-        writer.write(self.emit_dir())
         return writer.getvalue()
 
     def emit_header_one(self) -> str:
@@ -1163,7 +1134,6 @@ class PyGenerator:
         writer.write(self.emit_import_ctypes())
         writer.write(self.emit_include_base())
         writer.write(self.emit_getattr())
-        writer.write(self.emit_dir())
         return writer.getvalue()
 
     def emit_import_annotations(self) -> str:
@@ -1199,12 +1169,6 @@ class PyGenerator:
         writer.write("    return getattr(_module, name)\n")
         return writer.getvalue()
 
-    def emit_dir(self) -> str:
-        writer = StringIO()
-        writer.write("def __dir__():\n")
-        writer.write("    return __all__\n")
-        return writer.getvalue()
-
     def emit_make_head(self, td: TypeDefinition) -> str:
         writer = StringIO()
         if td.kind == "object":  # CONSTANT, FUNCTION
@@ -1214,18 +1178,6 @@ class PyGenerator:
         elif td.kind in ["function_pointer", "union", "struct", "com"]:
             indent = self.write_architecture_specific_block_if_necessary(writer, td.custom_attributes)
             writer.write(f"{indent}make_head(_module, '{td.name}')\n")
-        return writer.getvalue()
-
-    def emit_footer(self, export_names: set[str], export_names_optional: list[str]) -> str:
-        writer = StringIO()
-        writer.write("__all__ = [\n")
-        for name in sorted(export_names):
-            writer.write(f'    "{name}",\n')
-        writer.write("]\n")
-        writer.write("_arch_optional = [\n")
-        for name in sorted(export_names_optional):
-            writer.write(f'    "{name}",\n')
-        writer.write("]\n")
         return writer.getvalue()
 
     def write_architecture_specific_block_if_necessary(self, writer: TextIO, custom_attributes: CustomAttributeCollection) -> str:
@@ -1346,27 +1298,21 @@ def generate(meta: Metadata) -> None:
     pg = PyGenerator()
     for namespace, meta_group_by_namespace in meta.group_by_namespace().items():
         import_namespaces = set(meta_group_by_namespace.enumerate_importing_namespaces()) | {namespace}
-        export_names = set(meta_group_by_namespace.enumerate_exporting_names())
-        export_names_optional = list(meta_group_by_namespace.enumerate_names_lacking_architecture())
         with make_module_path_for_write(namespace) as writer:
             writer.write(pg.emit_header(import_namespaces))
             for td in meta_group_by_namespace:
                 writer.write(pg.emit(td))
             for td in meta_group_by_namespace:
                 writer.write(pg.emit_make_head(td))
-            writer.write(pg.emit_footer(export_names, export_names_optional))
 
 
 def generate_one(meta: Metadata, writer: TextIO) -> None:
     pg = PyGenerator()
-    export_names = set(meta.enumerate_exporting_names())
-    export_names_optional = list(meta.enumerate_names_lacking_architecture())
     writer.write(pg.emit_header_one())
     for td in meta:
         writer.write(pg.emit(td))
     for td in meta:
         writer.write(pg.emit_make_head(td))
-    writer.write(pg.emit_footer(export_names, export_names_optional))
 
 
 def xopen(path: str) -> TextIO:
