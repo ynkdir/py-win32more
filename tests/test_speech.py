@@ -1,9 +1,16 @@
 from contextlib import contextmanager
 from ctypes import WinError
-from Windows.all import (FAILED, PWSTR,
-    S_OK, CLSCTX_INPROC_SERVER, SPF_DEFAULT, SpVoice, SpObjectTokenCategory,
-    CoInitialize, CoUninitialize, CoCreateInstance, CoTaskMemFree,
-    ISpObjectToken, ISpObjectTokenCategory, IEnumSpObjectTokens, ISpVoice)
+
+from Windows import FAILED
+from Windows.Win32.Foundation import PWSTR, S_OK
+from Windows.Win32.Media.Speech import (SPF_DEFAULT, IEnumSpObjectTokens,
+                                        ISpObjectToken, ISpObjectTokenCategory,
+                                        ISpVoice, SpObjectTokenCategory,
+                                        SpVoice)
+from Windows.Win32.System.Com import (CLSCTX_INPROC_SERVER, CoCreateInstance,
+                                      CoInitialize, CoTaskMemFree,
+                                      CoUninitialize)
+
 
 @contextmanager
 def ComPtr(ptr):

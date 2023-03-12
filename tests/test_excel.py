@@ -1,8 +1,22 @@
 # https://docs.microsoft.com/en-us/previous-versions/office/troubleshoot/office-developer/automate-excel-from-c
 
 from contextlib import ExitStack
-from ctypes import pointer, byref, WinError
-from Windows.all import *
+from ctypes import WinError, byref, pointer
+
+from Windows import FAILED, Guid, Int32
+from Windows.Win32.Foundation import PWSTR, SysAllocString
+from Windows.Win32.Media.KernelStreaming import GUID_NULL
+from Windows.Win32.System.Com import (CLSCTX_LOCAL_SERVER, DISPATCH_METHOD,
+                                      DISPATCH_PROPERTYGET,
+                                      DISPATCH_PROPERTYPUT, DISPPARAMS,
+                                      SAFEARRAYBOUND, VARIANT, VT_ARRAY,
+                                      VT_BSTR, VT_DISPATCH, VT_EMPTY, VT_I4,
+                                      VT_INT, VT_NULL, VT_VARIANT,
+                                      CLSIDFromProgID, CoCreateInstance,
+                                      CoInitialize, CoUninitialize, IDispatch)
+from Windows.Win32.System.Ole import (DISPID_PROPERTYPUT, SafeArrayCreate,
+                                      SafeArrayPutElement, VariantClear)
+from Windows.Win32.UI.WindowsAndMessaging import MB_OK, MessageBoxW
 
 # missing constants in win32metadata
 LOCALE_SYSTEM_DEFAULT = 2048

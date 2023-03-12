@@ -1,32 +1,47 @@
 # https://learn.microsoft.com/en-us/windows/win32/learnwin32/your-first-windows-program
 
-import Windows.all as win32
+from Windows import UInt32
+from Windows.Win32.Foundation import HWND, LPARAM, WPARAM
+from Windows.Win32.Graphics.Gdi import (COLOR_WINDOW, HBRUSH, PAINTSTRUCT,
+                                        BeginPaint, EndPaint, FillRect)
+from Windows.Win32.System.LibraryLoader import GetModuleHandleW
+from Windows.Win32.UI.WindowsAndMessaging import (CW_USEDEFAULT, MSG,
+                                                  SW_SHOWNORMAL, WM_DESTROY,
+                                                  WM_PAINT, WNDCLASSW, WNDPROC,
+                                                  WS_OVERLAPPEDWINDOW,
+                                                  CreateWindowExW,
+                                                  DefWindowProcW,
+                                                  DispatchMessageW,
+                                                  GetMessageW, PostQuitMessage,
+                                                  RegisterClassW, ShowWindow,
+                                                  TranslateMessage)
+
 
 def WinMain():
-    hInstance = win32.GetModuleHandleW(None)
-    nCmdShow = win32.SW_SHOWNORMAL
+    hInstance = GetModuleHandleW(None)
+    nCmdShow = SW_SHOWNORMAL
 
     # Register the window class.
     CLASS_NAME  = "Sample Window Class"
 
-    wc = win32.WNDCLASSW()
+    wc = WNDCLASSW()
 
-    wc.lpfnWndProc   = win32.WNDPROC(WindowProc)
+    wc.lpfnWndProc   = WNDPROC(WindowProc)
     wc.nInstance     = hInstance
     wc.lpszClassName = CLASS_NAME
 
-    win32.RegisterClassW(wc);
+    RegisterClassW(wc);
 
     # Create the window.
 
-    hwnd = win32.CreateWindowExW(
+    hwnd = CreateWindowExW(
         0,                              # Optional window styles.
         CLASS_NAME,                     # Window class
         "Learn to Program Windows",     # Window text
-        win32.WS_OVERLAPPEDWINDOW,      # Window style
+        WS_OVERLAPPEDWINDOW,            # Window style
 
         # Size and position
-        win32.CW_USEDEFAULT, win32.CW_USEDEFAULT, win32.CW_USEDEFAULT, win32.CW_USEDEFAULT,
+        CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 
         0,          # Parent window
         0,          # Menu
@@ -37,34 +52,33 @@ def WinMain():
     if (hwnd == 0):
         return 0
 
-    win32.ShowWindow(hwnd, nCmdShow);
+    ShowWindow(hwnd, nCmdShow);
 
     # Run the message loop.
 
-    msg = win32.MSG()
-    while win32.GetMessageW(msg, 0, 0, 0) > 0:
-        win32.TranslateMessage(msg)
-        win32.DispatchMessageW(msg)
+    msg = MSG()
+    while GetMessageW(msg, 0, 0, 0) > 0:
+        TranslateMessage(msg)
+        DispatchMessageW(msg)
 
     return 0
 
-def WindowProc(hwnd: win32.HWND, uMsg: win32.UInt32, wParam: win32.WPARAM, lParam: win32.LPARAM):
-    match uMsg:
-        case win32.WM_DESTROY:
-            win32.PostQuitMessage(0);
-            return 0
-        case win32.WM_PAINT:
-            ps = win32.PAINTSTRUCT()
-            hdc = win32.BeginPaint(hwnd, ps)
+def WindowProc(hwnd: HWND, uMsg: UInt32, wParam: WPARAM, lParam: LPARAM):
+    if uMsg == WM_DESTROY:
+        PostQuitMessage(0);
+        return 0
+    elif uMsg == WM_PAINT:
+        ps = PAINTSTRUCT()
+        hdc = BeginPaint(hwnd, ps)
 
-            # All painting occurs here, between BeginPaint and EndPaint.
+        # All painting occurs here, between BeginPaint and EndPaint.
 
-            win32.FillRect(hdc, ps.rcPaint, win32.HBRUSH(win32.COLOR_WINDOW+1))
+        FillRect(hdc, ps.rcPaint, HBRUSH(COLOR_WINDOW+1))
 
-            win32.EndPaint(hwnd, ps)
+        EndPaint(hwnd, ps)
 
-            return 0
-    return win32.DefWindowProcW(hwnd, uMsg, wParam, lParam)
+        return 0
+    return DefWindowProcW(hwnd, uMsg, wParam, lParam)
 
 if __name__ == "__main__":
     WinMain()

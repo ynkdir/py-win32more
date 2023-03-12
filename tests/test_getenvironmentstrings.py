@@ -1,5 +1,9 @@
-from Windows.all import PWSTR, GetEnvironmentStringsW, FreeEnvironmentStringsW
-from ctypes import c_void_p, c_wchar, sizeof, cast, wstring_at
+from ctypes import c_void_p, c_wchar, cast, sizeof, wstring_at
+
+from Windows.Win32.Foundation import PWSTR
+from Windows.Win32.System.Environment import (FreeEnvironmentStringsW,
+                                              GetEnvironmentStringsW)
+
 
 # Unsafe case for c_wchar_p to python str auto-conversion.
 # GetEnvironmentStringsW() returns NUL terminated list of NUL terminated string.

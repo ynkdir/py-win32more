@@ -1,16 +1,20 @@
-import Windows.all as win32
-from ctypes import cast, byref, resize, POINTER
-from ctypes.wintypes import ULONG
 import socket
+from ctypes import POINTER, WinError, byref, cast, resize
+from ctypes.wintypes import ULONG
+
+from Windows.Win32.Foundation import ERROR_INSUFFICIENT_BUFFER, NO_ERROR
+from Windows.Win32.NetworkManagement.IpHelper import (MIB_IPADDRROW_XP,
+                                                      MIB_IPADDRTABLE,
+                                                      GetIpAddrTable)
 
 dwSize = ULONG(0)
-if (r := win32.GetIpAddrTable(None, dwSize, False)) != win32.ERROR_INSUFFICIENT_BUFFER:
-    raise win32.WinError(r)
+if (r := GetIpAddrTable(None, dwSize, False)) != ERROR_INSUFFICIENT_BUFFER:
+    raise WinError(r)
 
-IpAddrTable = win32.MIB_IPADDRTABLE()
+IpAddrTable = MIB_IPADDRTABLE()
 resize(IpAddrTable, dwSize.value)
-if (r := win32.GetIpAddrTable(IpAddrTable, dwSize, False)) != win32.NO_ERROR:
-    raise win32.WinError(r)
+if (r := GetIpAddrTable(IpAddrTable, dwSize, False)) != NO_ERROR:
+    raise WinError(r)
 
-for row in cast(byref(IpAddrTable.table), POINTER(win32.MIB_IPADDRROW_XP * IpAddrTable.dwNumEntries)).contents:
+for row in cast(byref(IpAddrTable.table), POINTER(MIB_IPADDRROW_XP * IpAddrTable.dwNumEntries)).contents:
     print(socket.inet_ntoa(row.dwAddr.to_bytes(4, "big")))
