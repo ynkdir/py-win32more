@@ -3,7 +3,8 @@ import typing
 import re
 import sys
 import uuid
-from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll, windll, CFUNCTYPE, WINFUNCTYPE, sizeof
+from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll, windll, CFUNCTYPE, WINFUNCTYPE, sizeof, POINTER, byref
+from ctypes import _Pointer  # WARNING: _Pointer is private.
 
 if "(arm64)" in sys.version.lower():
     ARCH = "ARM64"
@@ -77,6 +78,21 @@ def SUCCEEDED(hr):
 def FAILED(hr):
     return hr < 0
 
+class PointerHandler:
+    def __init__(self, pointer_type):
+        self.pointer_type = pointer_type
+
+    def from_param(self, obj):
+        if isinstance(obj, str):
+            if issubclass(self.pointer_type, (POINTER(Int16), POINTER(UInt16))):
+                return c_wchar_p(obj)
+        elif isinstance(obj, c_wchar_p):
+            if issubclass(self.pointer_type, (POINTER(Int16), POINTER(UInt16))):
+                return obj
+            elif issubclass(self.pointer_type, (POINTER(POINTER(Int16)), POINTER(POINTER(UInt16)))):
+                return byref(obj)
+        return self.pointer_type.from_param(obj)
+
 def get_type_hints(prototype):
     hints = typing.get_type_hints(prototype, localns=getattr(prototype, '__dict__', None))
     for name, type_ in hints.items():
@@ -94,7 +110,7 @@ def commonfunctype(factory):
                 names = list(hints.keys())
                 names = names[:-1]
                 types = list(hints.values())
-                types = types[-1:] + types[:-1]
+                types = types[-1:] + [PointerHandler(t) if issubclass(t, _Pointer) else t for t in types[:-1]]
                 delegate = factory(prototype.__name__, types, tuple((1, name) for name in names))
             return delegate(*args, **kwargs)
         return wrapper
