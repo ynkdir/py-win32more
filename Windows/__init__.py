@@ -85,7 +85,7 @@ class PointerHandler:
     def from_param(self, obj):
         if isinstance(obj, str):
             if issubclass(self.pointer_type, (POINTER(Int16), POINTER(UInt16))):
-                return c_wchar_p(obj)
+                return obj
         elif isinstance(obj, c_wchar_p):
             if issubclass(self.pointer_type, (POINTER(Int16), POINTER(UInt16))):
                 return obj
