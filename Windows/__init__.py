@@ -3,7 +3,11 @@ import typing
 import re
 import sys
 import uuid
-from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll, windll, CFUNCTYPE, WINFUNCTYPE, sizeof, POINTER, byref
+from ctypes import (
+    c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float,
+    c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll,
+    windll, CFUNCTYPE, WINFUNCTYPE, sizeof, POINTER, byref
+)
 
 if "(arm64)" in sys.version.lower():
     ARCH = "ARM64"
@@ -101,15 +105,14 @@ def commonfunctype(factory):
     return decorator
 
 def callfunc(caller, name, lib, types, params):
+    rtypes, ptypes = types[:1], types[1:]
     new_params = []
-    for i in enumerate(types[1:], 1):
-        ...
-        # here we should check `params[i]` is compatibale with `types[i]`
+    for i, ptype in enumerate(ptypes):
+        param = params[i]
+        # here we should check `param` is compatibale with `ptype`
         # if not compatible, we should try that can we make it to be?
-        new_params.append(params[i])
-    res = caller(*types)((name, lib), params)
-    # do some work with result
-    return res
+        new_params.append(p)
+    return caller(*types)((name, lib), new_params)
 
 def cfunctype(library):
     def factory(name, types, params):
