@@ -6,7 +6,7 @@ import uuid
 from ctypes import (
     c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float,
     c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll,
-    windll, CFUNCTYPE, WINFUNCTYPE, sizeof, POINTER, byref
+    windll, CFUNCTYPE, WINFUNCTYPE, sizeof, POINTER, byref, cast
 )
 
 if "(arm64)" in sys.version.lower():
@@ -105,13 +105,17 @@ def commonfunctype(factory):
     return decorator
 
 def callfunc(caller, name, lib, types, params):
+    PYTYPE_TO_CTYPE = {str: c_wchar_p}
     rtypes, ptypes = types[:1], types[1:]
     new_params = []
     for i, ptype in enumerate(ptypes):
         param = params[i]
         # here we should check `param` is compatibale with `ptype`
         # if not compatible, we should try that can we make it to be?
-        new_params.append(p)
+        if type(param) in PYTYPE_TO_CTYPE:
+            param = PYTYPE_TO_CTYPE[type(param)](param)
+        param = cast(param, POINTER(ptype))
+        new_params.append(param)
     return caller(*types)((name, lib), new_params)
 
 def cfunctype(library):
