@@ -86,6 +86,9 @@ class PointerHandler:
         if isinstance(obj, str):
             if issubclass(self.pointer_type, (POINTER(Int16), POINTER(UInt16))):
                 return obj
+        elif isinstance(obj, int):
+            if issubclass(self.pointer_type, (POINTER(Int32), POINTER(UInt32))):
+                return byref(self.pointer_type._type_(obj))
         elif isinstance(obj, c_wchar_p):
             if issubclass(self.pointer_type, (POINTER(Int16), POINTER(UInt16))):
                 return obj
