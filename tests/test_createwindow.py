@@ -27,7 +27,7 @@ def WinMain():
     wc = WNDCLASSW()
 
     wc.lpfnWndProc   = WNDPROC(WindowProc)
-    wc.nInstance     = hInstance
+    wc.hInstance     = hInstance
     wc.lpszClassName = CLASS_NAME
 
     RegisterClassW(wc);
