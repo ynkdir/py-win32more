@@ -46,6 +46,8 @@ BASE_EXPORTS = [
     "winfunctype_pointer",
     "press",
     "make_head",
+    "EasyCastStructure as Structure",
+    "EasyCastUnion as Union",
 ]
 BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
 
@@ -1140,7 +1142,7 @@ class PyGenerator:
         return "from __future__ import annotations\n"
 
     def emit_import_ctypes(self) -> str:
-        return "from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n"
+        return "from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n"
 
     def emit_import_base(self) -> str:
         return f"from Windows import {BASE_EXPORTS_CSV}\n"

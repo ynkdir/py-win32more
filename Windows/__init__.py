@@ -3,8 +3,7 @@ import typing
 import re
 import sys
 import uuid
-from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll, windll, CFUNCTYPE, WINFUNCTYPE, sizeof, POINTER, byref
-from ctypes import _Pointer  # WARNING: _Pointer is private.
+from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll, windll, CFUNCTYPE, WINFUNCTYPE, sizeof, POINTER, cast, pointer, Array
 
 if "(arm64)" in sys.version.lower():
     ARCH = "ARM64"
@@ -45,11 +44,46 @@ String = c_wchar_p_no
 Boolean = c_bool
 Void = None
 
-class Guid(Structure):
+class EasyCastStructure(Structure):
+    def __setattr__(self, name, obj):
+        obj = easycast(obj, self._hints_[name])
+        return super().__setattr__(name, obj)
+
+class EasyCastUnion(Union):
+    def __setattr__(self, name, obj):
+        obj = easycast(obj, self._hints_[name])
+        return super().__setattr__(name, obj)
+
+class EasyCastHandler:
+    def __init__(self, declared_type):
+        self.declared_type = declared_type
+
+    def from_param(self, obj):
+        obj = easycast(obj, self.declared_type)
+        return self.declared_type.from_param(obj)
+
+def easycast(obj, type_):
+    if isinstance(obj, str):
+        if issubclass(type_, (POINTER(Int16), POINTER(UInt16))):
+            return cast(c_wchar_p(obj), type_)
+    elif isinstance(obj, c_wchar_p):
+        if issubclass(type_, (POINTER(Int16), POINTER(UInt16))):
+            return cast(obj, type_)
+        elif issubclass(type_, (POINTER(POINTER(Int16)), POINTER(POINTER(UInt16)))):
+            return cast(pointer(obj), type_)
+    return obj
+
+class Guid(EasyCastStructure):
     _fields_ = [("Data1", UInt32),
                 ("Data2", UInt16),
                 ("Data3", UInt16),
                 ("Data4", Byte * 8)]
+    _hints_ = {
+        "Data1": UInt32,
+        "Data2": UInt16,
+        "Data3": UInt16,
+        "Data4": Byte * 8,
+    }
 
     def __init__(self, val=None):
         if val is None:
@@ -78,21 +112,6 @@ def SUCCEEDED(hr):
 def FAILED(hr):
     return hr < 0
 
-class PointerHandler:
-    def __init__(self, pointer_type):
-        self.pointer_type = pointer_type
-
-    def from_param(self, obj):
-        if isinstance(obj, str):
-            if issubclass(self.pointer_type, (POINTER(Int16), POINTER(UInt16))):
-                return obj
-        elif isinstance(obj, c_wchar_p):
-            if issubclass(self.pointer_type, (POINTER(Int16), POINTER(UInt16))):
-                return obj
-            elif issubclass(self.pointer_type, (POINTER(POINTER(Int16)), POINTER(POINTER(UInt16)))):
-                return byref(obj)
-        return self.pointer_type.from_param(obj)
-
 def get_type_hints(prototype):
     hints = typing.get_type_hints(prototype, localns=getattr(prototype, '__dict__', None))
     for name, type_ in hints.items():
@@ -110,7 +129,7 @@ def commonfunctype(factory):
                 names = list(hints.keys())
                 names = names[:-1]
                 types = list(hints.values())
-                types = types[-1:] + [PointerHandler(t) if issubclass(t, _Pointer) else t for t in types[:-1]]
+                types = types[-1:] + [EasyCastHandler(t) for t in types[:-1]]
                 delegate = factory(prototype.__name__, types, tuple((1, name) for name in names))
             return delegate(*args, **kwargs)
         return wrapper
@@ -169,6 +188,9 @@ def press_struct(prototype):
         if type_ is not prototype and issubclass(type_, (Structure, Union)):
             press_struct(type_)
     prototype._fields_ = list(hints.items())
+    for name in anonymous:
+        hints.update(hints[name]._hints_)
+    prototype._hints_ = hints
     return prototype
 
 def press_interface(prototype):
