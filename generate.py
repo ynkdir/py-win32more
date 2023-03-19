@@ -46,8 +46,8 @@ BASE_EXPORTS = [
     "winfunctype_pointer",
     "press",
     "make_head",
-    "EasyCastStructure as Structure",
-    "EasyCastUnion as Union",
+    "EasyCastStructure",
+    "EasyCastUnion",
 ]
 BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
 
@@ -1074,9 +1074,9 @@ class PyGenerator:
 
     def struct_union_base_type(self, td: TypeDefinition) -> str:
         if td.kind == "struct":
-            return "Structure"
+            return "EasyCastStructure"
         elif td.kind == "union":
-            return "Union"
+            return "EasyCastUnion"
         else:
             raise NotImplementedError()
 
