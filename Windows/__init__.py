@@ -67,7 +67,7 @@ EASY_TYPES = [ #obj_type, type_hint, c_func
     (str, (POINTER(Int16), POINTER(UInt16)), c_wchar_p),
     # ctypes objects:
     (c_wchar_p, (POINTER(Int16), POINTER(UInt16)), None),
-    (c_wchar_p, (POINTER(POINTER(Int16)), POINTER(POINTER(UInt16)))), [pointer]),
+    (c_wchar_p, (POINTER(POINTER(Int16)), POINTER(POINTER(UInt16)))), pointer),
 ]
 
 def easycast(obj, type_):
