@@ -365,6 +365,9 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
         pid = v[11]
         return guid, pid
 
+    def has_constant(self) -> bool:
+        return self.has("Windows.Win32.Interop.ConstantAttribute")
+
     def get_constant(self) -> str:
         # value is like "{0, 0, 0, 0, 0, 5}"
         value = self.get("Windows.Win32.Interop.ConstantAttribute").fixed_arguments[0].value
@@ -995,6 +998,22 @@ class PyGenerator:
         return writer.getvalue()
 
     def emit_function(self, md: MethodDefinition) -> str:
+        if md.custom_attributes.has_constant():
+            return self.emit_inline_function(md)
+        else:
+            return self.emit_external_function(md)
+
+    def emit_inline_function(self, md: MethodDefinition) -> str:
+        writer = StringIO()
+        indent = self.write_architecture_specific_block_if_necessary(writer, md.custom_attributes)
+        restype = md.signature.return_type.pytype
+        params_csv = md.format_parameters()
+        value = md.custom_attributes.get_constant()
+        writer.write(f"{indent}def {md.name}({params_csv}) -> {restype}:\n")
+        writer.write(f"{indent}    return {restype}({value})\n")
+        return writer.getvalue()
+
+    def emit_external_function(self, md: MethodDefinition) -> str:
         writer = StringIO()
         indent = self.write_architecture_specific_block_if_necessary(writer, md.custom_attributes)
         library = md.import_.module.name
