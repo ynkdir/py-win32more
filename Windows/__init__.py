@@ -62,15 +62,19 @@ class EasyCastHandler:
         obj = easycast(obj, self.declared_type)
         return self.declared_type.from_param(obj)
 
+EASY_TYPES = [ #obj_type, type_hint, c_func
+    # python objects:
+    (str, (POINTER(Int16), POINTER(UInt16)), c_wchar_p),
+    # ctypes objects:
+    (c_wchar_p, (POINTER(Int16), POINTER(UInt16)), None),
+    (c_wchar_p, (POINTER(POINTER(Int16)), POINTER(POINTER(UInt16)))), pointer),
+]
+
 def easycast(obj, type_):
-    if isinstance(obj, str):
-        if issubclass(type_, (POINTER(Int16), POINTER(UInt16))):
-            return cast(c_wchar_p(obj), type_)
-    elif isinstance(obj, c_wchar_p):
-        if issubclass(type_, (POINTER(Int16), POINTER(UInt16))):
+    for obj_type, type_hint, c_func in EASY_TYPES:
+        if isinstance(obj, obj_type) and issubclass(type_, type_hint):
+            if c_func is not None: obj = c_func(obj)
             return cast(obj, type_)
-        elif issubclass(type_, (POINTER(POINTER(Int16)), POINTER(POINTER(UInt16)))):
-            return cast(pointer(obj), type_)
     return obj
 
 class Guid(EasyCastStructure):
