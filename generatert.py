@@ -103,6 +103,18 @@ class TType:
         return [TType(ta) for ta in self["TypeArguments"]]
 
     @property
+    def modifier_type(self) -> TType:
+        if self["ModifierType"] is None:
+            raise KeyError()
+        return TType(self["ModifierType"])
+
+    @property
+    def unmodified_type(self) -> TType:
+        if self["UnmodifiedType"] is None:
+            raise KeyError()
+        return TType(self["UnmodifiedType"])
+
+    @property
     def is_required(self) -> bool:
         if self["IsRequired"] is None:
             raise KeyError()
@@ -111,8 +123,13 @@ class TType:
     @property
     def pytype(self) -> str:
         if self.kind == "Primitive":
-            return self.name
-        elif self.kind == "Pointer":
+            if self.name == "Object":
+                return "Windows.Win32.System.WinRT.IInspectable_head"
+            elif self.name == "String":
+                return "Windows.Win32.System.WinRT.HSTRING"
+            else:
+                return self.name
+        elif self.kind == "Pointer" or self.kind == "Reference" or self.kind == "SZArray":
             if self.type.kind == "Primitive" and self.type.name == "Void":
                 return "c_void_p"
             elif self.type.kind == "Primitive" and self.type.name == "Byte":
@@ -123,8 +140,6 @@ class TType:
                 return f"POINTER({self.type.fullname}_head)"
             else:
                 return f"POINTER({self.type.pytype})"
-        elif self.kind == "SZArray":
-            raise NotImplementedError()
         elif self.kind == "Array":
             return f"{self.type.pytype} * {self.size}"
         elif self.kind == "Type":
@@ -134,19 +149,39 @@ class TType:
                 return "Guid"
             elif self.is_missing:
                 sys.stderr.write(f"DEBUG: missing type '{self.fullname}'\n")
-                return "MissingType"
+                return self.fullname
             elif self.is_com:
                 return f"{self.fullname}_head"
             else:
                 return self.fullname
+        elif self.kind == "Generic":
+            return self.generic_fullname
+        elif self.kind == "GenericParameter":
+            return self.name
+        elif self.kind == "Modified" and self.modifier_type.fullname == "System.Runtime.CompilerServices.IsConst":
+            return self.unmodified_type.pytype
         else:
             raise NotImplementedError()
 
+    @property
+    def generic_fullname(self) -> str:
+        fullname = self.generic_strip_suffix(self.type.fullname)
+        parameters = self.format_generic_parameters()
+        return f"{fullname}[{parameters}]"
+
+    def format_generic_parameters(self) -> str:
+        return ", ".join(ta.pytype for ta in self.type_arguments)
+
+    def generic_strip_suffix(self, name) -> str:
+        return name.split("`")[0]
+
     def get_element_type(self) -> TType:
-        if self.kind in ["Pointer", "SZArray", "Array"]:
+        if self.kind in ["Pointer", "SZArray", "Array", "Reference"]:
             return self.type.get_element_type()
-        elif self.kind in ["Primitive", "Type"]:
+        elif self.kind in ["Primitive", "Type", "Generic", "GenericParameter"]:
             return self
+        elif self.kind == "Modified" and self.modifier_type.fullname == "System.Runtime.CompilerServices.IsConst":
+            return self.unmodified_type
         else:
             raise NotImplementedError()
 
@@ -174,6 +209,21 @@ class TType:
         if not self.is_nested and not self.is_guid and not self.is_missing:
             return self.kind == "Type" and self["_typedef"].kind == "com"
         return False
+
+    def enumerate_types(self) -> Iterable[TType]:
+        yield self
+        if self.kind == "Generic":
+            yield from self.type.enumerate_types()
+            for t in self.type_arguments:
+                yield from t.enumerate_types()
+        elif self.kind == "Pointer":
+            yield from self.type.enumerate_types()
+        elif self.kind == "SZArray":
+            yield from self.type.enumerate_types()
+        elif self.kind == "Reference":
+            yield from self.type.enumerate_types()
+        elif self.kind == "Modified":
+            yield from self.unmodified_type.enumerate_types()
 
 
 class TypeDefinition:
@@ -235,40 +285,53 @@ class TypeDefinition:
         return [TypeDefinition(td) for td in self["NestedTypes"]]
 
     @property
+    def generic_parameters(self) -> list[GenericParameter]:
+        return [GenericParameter(gp) for gp in self["GenericParameters"]]
+
+    @property
+    def is_generic(self) -> bool:
+        return "`" in self.name
+
+    def format_generic_parameters(self) -> str:
+        return ", ".join(gp.name for gp in self.generic_parameters)
+
+    def generic_strip_suffix(self, name) -> str:
+        return name.split("`")[0]
+
+    @property
+    def name_no_generic(self) -> str:
+        return self.name.split("`")[0]
+
+    @property
     def kind(self) -> str:
-        if self.basetype is None:
+        if self.basetype is None or self.basetype == "System.Object" or self.basetype.startswith("Windows."):
             return "com"
-        elif self.basetype == "System.Object":
-            return "object"  # CONSTANT, FUNCTION
         elif self.basetype == "System.MulticastDelegate":
             return "function_pointer"
         elif self.basetype == "System.Enum":
             return "enum"
         elif self.basetype == "System.ValueType":
-            if self.custom_attributes.has_native_typedef():
-                return "native_typedef"
-            # FIXME: CLSID_ComClass is defined as attribute like [uuid(...)] struct ComClass {}.
-            elif self.custom_attributes.has_guid() and not self.fields:
-                return "clsid"
-            elif "ExplicitLayout" in self.attributes:
-                return "union"
-            else:
+            if self.fields:
                 return "struct"
+            else:
+                assert self.custom_attributes.has("Windows.Foundation.Metadata.ContractVersionAttribute")
+                return "contract_version"
         else:
             raise NotImplementedError()
 
     def enumerate_types(self) -> Iterable[TType]:
         for fd in self.fields:
-            yield fd.signature
+            yield from fd.signature.enumerate_types()
         for md in self.method_definitions:
-            yield md.signature.return_type
-            yield from md.signature.parameter_types
+            yield from md.signature.return_type.enumerate_types()
+            for t in md.signature.parameter_types:
+                yield from t.enumerate_types()
         for nested_type in self.nested_types:
             yield from nested_type.enumerate_types()
 
     def enumerate_importing_namespaces(self) -> Iterable[str]:
         for ii in self.interface_implementations:
-            yield ii.interface.type_reference.namespace
+            yield ii.namespace
         for t in self.enumerate_types():
             t = t.get_element_type()
             if t.kind == "Type" and not t.is_nested and not t.is_guid and not t.is_missing:
@@ -283,6 +346,56 @@ class TypeDefinition:
                 if md.custom_attributes.has_supported_architecture():
                     for arch in md.custom_attributes.get_supported_architecture():
                         yield md.name, arch.upper()
+
+
+class GenericParameter:
+    def __init__(self, js: JsonType) -> None:
+        self.js = js
+
+    def __getitem__(self, key: str) -> JsonType:
+        return self.js[key]
+
+    def __setitem__(self, key: str, value: JsonType) -> None:
+        self.js[key] = value
+
+    @property
+    def attributes(self) -> list[str]:
+        return self["Attributes"]
+
+    @property
+    def index(self) -> int:
+        return self["Index"]
+
+    @property
+    def name(self) -> str:
+        return self["Name"]
+
+    @property
+    def constraints(self) -> list[GenericParameterConstraint]:
+        return [GenericParameterConstraint(gc) for gc in self["Constraints"]]
+
+    @property
+    def custom_attributes(self) -> CustomAttributeCollection:
+        return CustomAttributeCollection(self["CustomAttributes"])
+
+
+class GenericParameterConstraint:
+    def __init__(self, js: JsonType) -> None:
+        self.js = js
+
+    def __getitem__(self, key: str) -> JsonType:
+        return self.js[key]
+
+    def __setitem__(self, key: str, value: JsonType) -> None:
+        self.js[key] = value
+
+    @property
+    def type(self) -> EntiryHandle:
+        return EntityHandle(self["Type"])
+
+    @property
+    def custom_attributes(self) -> CustomAttributeCollection:
+        return CustomAttributeCollection(self["CustomAttributes"])
 
 
 class CustomAttribute:
@@ -346,10 +459,10 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
         return self.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value
 
     def has_guid(self) -> bool:
-        return self.has("Windows.Win32.Interop.GuidAttribute")
+        return self.has("Windows.Foundation.Metadata.GuidAttribute")
 
     def get_guid(self) -> str:
-        v = [fa.value for fa in self.get("Windows.Win32.Interop.GuidAttribute").fixed_arguments]
+        v = [fa.value for fa in self.get("Windows.Foundation.Metadata.GuidAttribute").fixed_arguments]
         assert len(v) == 11
         return self.format_guid(v)
 
@@ -377,6 +490,14 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
     def get_unmanaged_function_pointer(self) -> str:
         return self.get("System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute").fixed_arguments[0].value
 
+    def get_contract_version(self) -> CustomAttributeFixedArgument:
+        return self.get("Windows.Foundation.Metadata.ContractVersionAttribute").fixed_arguments[0]
+
+    def has_overload(self) -> bool:
+        return self.has("Windows.Foundation.Metadata.OverloadAttribute")
+
+    def get_overload(self) -> str:
+        return self.get("Windows.Foundation.Metadata.OverloadAttribute").fixed_arguments[0].value
 
 class CustomAttributeFixedArgument:
     def __init__(self, js: JsonType) -> None:
@@ -518,6 +639,48 @@ class InterfaceImplementation:
     def custom_attributes(self) -> CustomAttributeCollection:
         return CustomAttributeCollection(self["CustomAttributes"])
 
+    @property
+    def kind(self) -> str:
+        return self.interface.kind
+
+    @property
+    def namespace(self) -> str:
+        if self.kind == "TypeReference":
+            return self.interface.type_reference.namespace
+        elif self.kind == "TypeSpecification":
+            return self.interface.type_specification.signature.type.namespace
+        else:
+            raise NotImplementedError()
+
+    @property
+    def name(self) -> str:
+        if self.kind == "TypeReference":
+            return self.interface.type_reference.name
+        elif self.kind == "TypeSpecification":
+            return self.interfacde.type_specification.signature.type.name
+        else:
+            raise NotImplementedError()
+
+    @property
+    def fullname(self) -> str:
+        if self.kind == "TypeReference":
+            return self.interface.type_reference.fullname
+        elif self.kind == "TypeSpecification":
+            return self.interface.type_specification.signature.type.fullname
+        else:
+            raise NotImplementedError()
+
+    @property
+    def generic_fullname(self) -> str:
+        if self.kind == "TypeReference":
+            return self.interface.type_reference.fullname
+        elif self.kind == "TypeSpecification":
+            if self.interface.type_specification.signature.kind == "Generic":
+                return self.interface.type_specification.signature.generic_fullname
+            return self.interface.type_specification.signature.type.fullname
+        else:
+            raise NotImplementedError()
+
 
 class EntiryHandle:
     def __init__(self, js: JsonType) -> None:
@@ -652,7 +815,10 @@ class MethodDefinition:
         return [Parameter(pa) for pa in self["Parameters"]]
 
     def format_parameters(self) -> str:
-        return ", ".join(f"{name}: {type_.pytype}" for name, type_ in self.get_parameter_names_with_type())
+        return ", ".join(self.format_parameters_list())
+
+    def format_parameters_list(self) -> list[str]:
+        return [f"{name}: {type_.pytype}" for name, type_ in self.get_parameter_names_with_type()]
 
     # SequenceNumber == 0 is return type and it can be missing.
     def get_parameter_names_with_type(self) -> list[tuple[str, TType]]:
@@ -867,7 +1033,14 @@ class Metadata(MutableSequence[TypeDefinition]):
 
 class Preprocessor:
     def filter_public(self, meta: Metadata) -> Metadata:
-        return Metadata(td for td in meta if td.namespace != "" and "Public" in td.attributes)
+        return Metadata(td for td in meta if self.is_public(td))
+
+    def is_public(self, td: TypeDefinition) -> bool:
+        if td.namespace == "":
+            return False
+        elif td.basetype == "System.Attribute":
+            return False
+        return True
 
     def sort(self, meta: Metadata) -> Metadata:
         return Metadata(sorted(meta, key=lambda td: (td.namespace, td.name)))
@@ -876,8 +1049,14 @@ class Preprocessor:
         # FIXME: ns's key can be duplicated with arch variation.  Don't care for now.
         ns = {td.fullname: td for td in meta}
         for td in meta:
+            td["_basetype_typedef"] = ns.get(td.basetype)
             for ii in td.interface_implementations:
-                ii.interface.type_reference["_typedef"] = ns[ii.interface.type_reference.fullname]
+                ii["_typedef"] = ns[ii.fullname]
+                if ii.kind == "TypeSpecification":
+                    for t in ii.interface.type_specification.signature.enumerate_types():
+                        t = t.get_element_type()
+                        if t.kind == "Type":
+                            t["_typedef"] = ns.get(t.fullname)
             for t in td.enumerate_types():
                 t = t.get_element_type()
                 if t.kind == "Type":
@@ -910,16 +1089,18 @@ class Preprocessor:
     def patch_com_vtbl_index(self, meta: Metadata) -> None:
         for td in meta:
             if td.kind == "com":
-                vtbl_index = self.count_interface_method(td.interface_implementations)
+                vtbl_index = self.count_interface_method(td)
                 for md in td.method_definitions:
+                    if md.name == ".ctor":
+                        continue
                     md["_vtbl_index"] = vtbl_index
                     vtbl_index += 1
 
-    def count_interface_method(self, interfaces: list[InterfaceImplementation]) -> int:
-        if not interfaces:
-            return 0
-        td = interfaces[0].interface.type_reference["_typedef"]
-        return len(td.method_definitions) + self.count_interface_method(td.interface_implementations)
+    def count_interface_method(self, td: TypeDefinition) -> int:
+        if td.basetype is None or td.basetype == "System.Object":
+            return 6  # count of IInspectable
+        basetype = td["_basetype_typedef"]
+        return len(td.method_definitions) + self.count_interface_method(basetype)
 
     def patch_name_conflict(self, meta: Metadata) -> None:
         meta_group_by_fullname = meta.group_by_fullname()
@@ -949,7 +1130,12 @@ class Preprocessor:
         for td in meta:
             td["Namespace"] = namespace
             for ii in td.interface_implementations:
-                ii.interface.type_reference["Namespace"] = namespace
+                if ii.kind == "TypeReference":
+                    ii.interface.type_reference["Namespace"] = namespace
+                elif ii.kind == "TypeSpecification":
+                    ii.interface.type_specification.signature.type["Namespace"] = namespace
+                else:
+                    raise NotImplementedError()
             for t in td.enumerate_types():
                 t = t.get_element_type()
                 if t.kind == "Type" and t.namespace != "System" and t.namespace != "":
@@ -958,77 +1144,16 @@ class Preprocessor:
 
 class PyGenerator:
     def emit(self, td: TypeDefinition) -> str:
-        if td.kind == "object":  # CONSTANT, FUNCTION
-            return self.emit_object(td)
-        elif td.kind == "function_pointer":
+        if td.kind == "function_pointer":
             return self.emit_function_pointer(td)
         elif td.kind == "enum":
             return self.emit_enum(td)
-        elif td.kind == "native_typedef":
-            return self.emit_native_typedef(td)
-        elif td.kind == "clsid":
-            return self.emit_clsid(td)
-        elif td.kind == "union":
-            return self.emit_struct_union(td)
         elif td.kind == "struct":
             return self.emit_struct_union(td)
+        elif td.kind == "contract_version":
+            return self.emit_contract_version(td)
         elif td.kind == "com":
             return self.emit_com(td)
-        else:
-            raise NotImplementedError()
-
-    def emit_object(self, td: TypeDefinition) -> str:
-        writer = StringIO()
-        for fd in td.fields:
-            writer.write(self.emit_constant(fd))
-        for md in td.method_definitions:
-            writer.write(self.emit_function(md))
-        return writer.getvalue()
-
-    def emit_constant(self, fd: FieldDefinition) -> str:
-        writer = StringIO()
-        if "HasDefault" in fd.attributes:
-            # primitive
-            writer.write(f"{fd.name}: {fd.signature.pytype} = {fd.pyvalue}\n")
-        elif fd.signature.is_guid:
-            writer.write(f"{fd.name}: Guid = {fd.pyvalue}\n")
-        else:
-            writer.write(f"def {fd.name}():\n")
-            writer.write(f"    return {fd.pyvalue}\n")
-        return writer.getvalue()
-
-    def emit_function(self, md: MethodDefinition) -> str:
-        if md.custom_attributes.has_constant():
-            return self.emit_inline_function(md)
-        else:
-            return self.emit_external_function(md)
-
-    def emit_inline_function(self, md: MethodDefinition) -> str:
-        writer = StringIO()
-        indent = self.write_architecture_specific_block_if_necessary(writer, md.custom_attributes)
-        restype = md.signature.return_type.pytype
-        params_csv = md.format_parameters()
-        value = md.custom_attributes.get_constant()
-        writer.write(f"{indent}def {md.name}({params_csv}) -> {restype}:\n")
-        writer.write(f"{indent}    return {restype}({value})\n")
-        return writer.getvalue()
-
-    def emit_external_function(self, md: MethodDefinition) -> str:
-        writer = StringIO()
-        indent = self.write_architecture_specific_block_if_necessary(writer, md.custom_attributes)
-        library = md.import_.module.name
-        functype = self.function_functype(md)
-        restype = md.signature.return_type.pytype
-        params_csv = md.format_parameters()
-        writer.write(f"{indent}@{functype}('{library}')\n")
-        writer.write(f"{indent}def {md.name}({params_csv}) -> {restype}: ...\n")
-        return writer.getvalue()
-
-    def function_functype(self, md: MethodDefinition) -> str:
-        if "CallingConventionWinApi" in md.import_.attributes:
-            return "winfunctype"
-        elif "CallingConventionCDecl" in md.import_.attributes:
-            return "cfunctype"
         else:
             raise NotImplementedError()
 
@@ -1039,18 +1164,15 @@ class PyGenerator:
         md = td.method_definitions[1]  # [0]=.ctor, [1]=Invoke
         restype = md.signature.return_type.pytype
         params_csv = md.format_parameters()
+        name = td.generic_strip_suffix(td.name)
         writer.write(f"{indent}@{functype}\n")
-        writer.write(f"{indent}def {td.name}({params_csv}) -> {restype}: ...\n")
+        writer.write(f"{indent}def {name}({params_csv}) -> {restype}: ...\n")
         return writer.getvalue()
 
     def function_pointer_functype(self, td: TypeDefinition) -> str:
-        calling_convention = td.custom_attributes.get_unmanaged_function_pointer()
-        if calling_convention == "Winapi":
+        if "WindowsRuntime" in td.attributes:
             return "winfunctype_pointer"
-        elif calling_convention == "Cdecl":
-            return "cfunctype_pointer"
-        else:
-            raise NotImplementedError()
+        raise NotImplementedError()
 
     def emit_enum(self, td: TypeDefinition) -> str:
         writer = StringIO()
@@ -1059,14 +1181,6 @@ class PyGenerator:
         for fd in value_fields:
             writer.write(f"{fd.name}: {td.name} = {fd.default_value.value}\n")
         return writer.getvalue()
-
-    def emit_native_typedef(self, td: TypeDefinition) -> str:
-        pytype = td.fields[0].signature.pytype
-        return f"{td.name} = {pytype}\n"
-
-    def emit_clsid(self, td: TypeDefinition) -> str:
-        guid = td.custom_attributes.get_guid()
-        return f"{td.name} = Guid('{guid}')\n"
 
     # _fields_ and _anonymous_ is defined at runtime.
     def emit_struct_union(self, td: TypeDefinition, indent="") -> str:
@@ -1118,32 +1232,55 @@ class PyGenerator:
         assert not td.custom_attributes.has_guid()
         return True
 
+    def emit_contract_version(self, td: TypeDefinition) -> str:
+        contract_version = td.custom_attributes.get_contract_version()
+        return f"{td.name}: {contract_version.type.name} = {contract_version.value}\n"
+
     def emit_com(self, td: TypeDefinition) -> str:
-        assert len(td.interface_implementations) <= 1
         writer = StringIO()
-        base = self.com_base_type(td)
-        writer.write(f"class {td.name}(c_void_p):\n")
-        writer.write(f"    extends: {base}\n")
+        if td.is_generic:
+            generic_parameters = td.format_generic_parameters()
+            name = td.generic_strip_suffix(td.name)
+            base = f"Generic[{generic_parameters}], c_void_p"
+        else:
+            name = td.name
+            base = "c_void_p"
+        extends = self.com_base_type(td)
+        writer.write(f"class {name}({base}):\n")
+        writer.write(f"    extends: {extends}\n")
         if td.custom_attributes.has_guid():
             guid = td.custom_attributes.get_guid()
             writer.write(f"    Guid = Guid('{guid}')\n")
         for md in td.method_definitions:
+            if md.name == ".ctor":
+                continue
+            if md.custom_attributes.has_overload():
+                method_name = md.custom_attributes.get_overload()
+            else:
+                method_name = md.name
+            params = md.format_parameters_list()
             restype = md.signature.return_type.pytype
-            params_csv = md.format_parameters()
+            if restype != "Void":
+                params.append(f"_return: POINTER({restype})")
+            params_csv = ", ".join(params)
             vtbl_index = md["_vtbl_index"]
             writer.write(f"    @commethod({vtbl_index})\n")
-            writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
+            writer.write(f"    def {method_name}({params_csv}) -> Int32: ...\n")   # FIXME: Int32 -> HRESULT
         return writer.getvalue()
 
     def com_base_type(self, td: TypeDefinition) -> str:
-        if not td.interface_implementations:
-            return "None"
-        return td.interface_implementations[0].interface.type_reference.fullname
+        if td.basetype is None:
+            return "Windows.Win32.System.WinRT.IInspectable"
+        elif td.basetype == "System.Object":
+            return "Windows.Win32.System.WinRT.IInspectable"
+        else:
+            return td.basetype
 
     def emit_header(self, import_namespaces: set[str]) -> str:
         writer = StringIO()
         writer.write(self.emit_import_annotations())
         writer.write(self.emit_import_ctypes())
+        writer.write(self.emit_import_typing())
         writer.write(self.emit_import_base())
         writer.write(self.emit_import_namespaces(import_namespaces))
         writer.write(self.emit_getattr())
@@ -1153,6 +1290,7 @@ class PyGenerator:
         writer = StringIO()
         writer.write(self.emit_import_annotations())
         writer.write(self.emit_import_ctypes())
+        writer.write(self.emit_import_typing())
         writer.write(self.emit_include_base())
         writer.write(self.emit_getattr())
         return writer.getvalue()
@@ -1163,6 +1301,17 @@ class PyGenerator:
     def emit_import_ctypes(self) -> str:
         return "from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n"
 
+    # FIXME: WORKAROUND
+    def emit_import_typing(self) -> str:
+        return "".join([
+            "from typing import Generic, TypeVar\n",
+            "T = TypeVar('T')\n",
+            "K = TypeVar('T')\n",
+            "V = TypeVar('V')\n",
+            "TProgress = TypeVar('TProgress')\n",
+            "TResult = TypeVar('TResult')\n",
+            ])
+
     def emit_import_base(self) -> str:
         return f"from Windows import {BASE_EXPORTS_CSV}\n"
 
@@ -1171,6 +1320,7 @@ class PyGenerator:
 
     def emit_import_namespaces(self, import_namespaces: set[str]) -> str:
         writer = StringIO()
+        writer.write("import Windows.Win32.System.WinRT\n")
         for namespace in sorted(import_namespaces):
             writer.write(f"import {namespace}\n")
         return writer.getvalue()
@@ -1196,7 +1346,7 @@ class PyGenerator:
                     writer.write(f"make_head(_module, '{fd.name}')\n")
         elif td.kind in ["function_pointer", "union", "struct", "com"]:
             indent = self.write_architecture_specific_block_if_necessary(writer, td.custom_attributes)
-            writer.write(f"{indent}make_head(_module, '{td.name}')\n")
+            writer.write(f"{indent}make_head(_module, '{td.name_no_generic}')\n")
         return writer.getvalue()
 
     def write_architecture_specific_block_if_necessary(self, writer: TextIO, custom_attributes: CustomAttributeCollection) -> str:
@@ -1296,7 +1446,7 @@ class Selector:
 
     def find_dependencies(self, td: TypeDefinition) -> Iterable[str]:
         for ii in td.interface_implementations:
-            yield ii.interface.type_reference.fullname
+            yield ii.fullname
         for t in td.enumerate_types():
             t = t.get_element_type()
             if t.kind == "Type":
