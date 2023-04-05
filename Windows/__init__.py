@@ -3,7 +3,7 @@ import typing
 import re
 import sys
 import uuid
-from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll, windll, CFUNCTYPE, WINFUNCTYPE, sizeof, POINTER, cast, pointer, Array
+from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll, windll, CFUNCTYPE, WINFUNCTYPE, sizeof, POINTER, cast, pointer, Array, WinError
 
 if "(arm64)" in sys.version.lower():
     ARCH = "ARM64"
@@ -154,6 +154,21 @@ def commethod(vtbl_index):
         return WINFUNCTYPE(*types)(vtbl_index, name, params)
     return commonfunctype(factory)
 
+def runtime_class_method(prototype):
+    def wrapper(self, *args, **kwargs):
+        for interface_class in self.implements:
+            if hasattr(interface_class, prototype.__name__):
+                interface = interface_class()
+                hr = self.QueryInterface(interface_class.Guid, interface)
+                if FAILED(hr):
+                    raise WinError(hr)
+                try:
+                    return getattr(interface, prototype.__name__)(*args, **kwargs)
+                finally:
+                    interface.Release()
+        raise NotImplementedError()
+    return wrapper
+
 def commonfunctype_pointer(prototype, functype):
     def press_functype_pointer():
         hints = get_type_hints(prototype)
@@ -202,6 +217,7 @@ def press_interface(prototype):
     if hints["extends"] is None:
         return prototype
     prototype.__bases__ = (hints["extends"],)
+    prototype.implements = hints.get("implements", [])
     return prototype
 
 def make_head(module, name):

@@ -42,6 +42,7 @@ BASE_EXPORTS = [
     "cfunctype",
     "winfunctype",
     "commethod",
+    "runtime_class_method",
     "cfunctype_pointer",
     "winfunctype_pointer",
     "press",
@@ -1246,8 +1247,10 @@ class PyGenerator:
             name = td.name
             base = "c_void_p"
         extends = self.com_base_type(td)
+        implements = self.com_implement_types(td)
         writer.write(f"class {name}({base}):\n")
         writer.write(f"    extends: {extends}\n")
+        writer.write(f"    implements: [{implements}]\n")
         if td.custom_attributes.has_guid():
             guid = td.custom_attributes.get_guid()
             writer.write(f"    Guid = Guid('{guid}')\n")
@@ -1263,8 +1266,11 @@ class PyGenerator:
             if restype != "Void":
                 params.append(f"_return: POINTER({restype})")
             params_csv = ", ".join(params)
-            vtbl_index = md["_vtbl_index"]
-            writer.write(f"    @commethod({vtbl_index})\n")
+            if "Abstract" in td.attributes:
+                vtbl_index = md["_vtbl_index"]
+                writer.write(f"    @commethod({vtbl_index})\n")
+            else:
+                writer.write(f"    @runtime_class_method\n")
             writer.write(f"    def {method_name}({params_csv}) -> Int32: ...\n")   # FIXME: Int32 -> HRESULT
         return writer.getvalue()
 
@@ -1275,6 +1281,9 @@ class PyGenerator:
             return "Windows.Win32.System.WinRT.IInspectable"
         else:
             return td.basetype
+
+    def com_implement_types(self, td):
+        return ", ".join(ii.generic_fullname for ii in td.interface_implementations)
 
     def emit_header(self, import_namespaces: set[str]) -> str:
         writer = StringIO()

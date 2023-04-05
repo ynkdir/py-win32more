@@ -31,11 +31,11 @@ def create_string(s: str) -> HSTRING:
     return hs
 
 
-def activate_instance(classid: str) -> IInspectable:
+def activate_instance(classid: str, cls): # -> instance of cls
     with ExitStack() as defer:
         hs = create_string(classid)
         defer.callback(WindowsDeleteString, hs)
-        ii = IInspectable()
+        ii = cls()
         hr = RoActivateInstance(hs, ii)
         if FAILED(hr):
             raise WinError(hr)
@@ -57,18 +57,14 @@ def get_activation_factory(
 
 def create_xml_document(s: str) -> XmlDocument:
     with ExitStack() as defer:
-        xml = activate_instance("Windows.Data.Xml.Dom.XmlDocument")
-        defer.callback(xml.Release)
-        xmlio = IXmlDocumentIO()
-        hr = xml.QueryInterface(IXmlDocumentIO.Guid, xmlio)
-        if FAILED(hr):
-            raise WinError(hr)
+        xml = activate_instance("Windows.Data.Xml.Dom.XmlDocument", XmlDocument)
         src = create_string(s)
         defer.callback(WindowsDeleteString, src)
-        hr = xmlio.LoadXml(src)
+        hr = xml.LoadXml(src)
         if FAILED(hr):
+            xml.Release()
             raise WinError(hr)
-        return XmlDocument(xmlio.value)
+        return xml
 
 
 def main():
