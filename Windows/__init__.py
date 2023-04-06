@@ -4,6 +4,9 @@ import re
 import sys
 import uuid
 from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll, windll, CFUNCTYPE, WINFUNCTYPE, sizeof, POINTER, cast, pointer, Array, WinError
+from typing import TypeVar
+
+T = TypeVar("T")
 
 if "(arm64)" in sys.version.lower():
     ARCH = "ARM64"
@@ -156,7 +159,7 @@ def commethod(vtbl_index):
 
 def runtime_class_method(prototype):
     def wrapper(self, *args, **kwargs):
-        for interface_class in self.implements:
+        for interface_class in self.requires:
             if hasattr(interface_class, prototype.__name__):
                 interface = interface_class()
                 hr = self.QueryInterface(interface_class.Guid, interface)
@@ -166,6 +169,38 @@ def runtime_class_method(prototype):
                     return getattr(interface, prototype.__name__)(*args, **kwargs)
                 finally:
                     interface.Release()
+        raise NotImplementedError()
+    return wrapper
+
+def _winrt_create_string(s: str):
+    import Windows.Win32.System.WinRT as winrt
+    hs = winrt.HSTRING()
+    hr = winrt.WindowsCreateString(s, len(s), hs)
+    if FAILED(hr):
+        raise WinError(hr)
+    return hs
+
+def _winrt_get_activation_factory(classid: str, factory_class: type[T]) -> T:
+    import Windows.Win32.System.WinRT as winrt
+    hs = _winrt_create_string(classid)
+    factory = factory_class()
+    hr = winrt.RoGetActivationFactory(hs, factory_class.Guid, factory)
+    winrt.WindowsDeleteString(hs)
+    if FAILED(hr):
+        raise WinError(hr)
+    return factory
+
+def runtime_class_static_method(prototype):
+    @classmethod
+    def wrapper(cls, *args, **kwargs):
+        classid = f"{cls.__module__}.{cls.__name__}"
+        for factory_class in cls.statics:
+            if hasattr(factory_class, prototype.__name__):
+                factory = _winrt_get_activation_factory(classid, factory_class)
+                try:
+                    return getattr(factory, prototype.__name__)(*args, **kwargs)
+                finally:
+                    factory.Release
         raise NotImplementedError()
     return wrapper
 
@@ -217,7 +252,8 @@ def press_interface(prototype):
     if hints["extends"] is None:
         return prototype
     prototype.__bases__ = (hints["extends"],)
-    prototype.implements = hints.get("implements", [])
+    prototype.requires = hints.get("requires", [])
+    prototype.statics = hints.get("statics", [])
     return prototype
 
 def make_head(module, name):

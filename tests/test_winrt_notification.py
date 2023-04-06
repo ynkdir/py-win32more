@@ -1,11 +1,11 @@
 from contextlib import ExitStack
 from ctypes import WinError
+from typing import TypeVar
 
 from Windows import FAILED, Guid
 from Windows.Data.Xml.Dom import IXmlDocumentIO, XmlDocument
 from Windows.UI.Notifications import (
     IToastNotificationFactory,
-    IToastNotificationManagerStatics,
     ToastNotification,
     ToastNotificationManager,
     ToastNotifier,
@@ -22,6 +22,8 @@ from Windows.Win32.System.WinRT import (
     WindowsDeleteString,
 )
 
+T = TypeVar("T")
+
 
 def create_string(s: str) -> HSTRING:
     hs = HSTRING()
@@ -31,7 +33,7 @@ def create_string(s: str) -> HSTRING:
     return hs
 
 
-def activate_instance(classid: str, cls): # -> instance of cls
+def activate_instance(classid: str, cls: type[T]) -> T:
     with ExitStack() as defer:
         hs = create_string(classid)
         defer.callback(WindowsDeleteString, hs)
@@ -42,9 +44,7 @@ def activate_instance(classid: str, cls): # -> instance of cls
         return ii
 
 
-def get_activation_factory(
-    classid: str, factory_cls: type
-):  # -> instance of factory_cls
+def get_activation_factory(classid: str, factory_cls: type[T]) -> T:
     with ExitStack() as defer:
         hs = create_string(classid)
         defer.callback(WindowsDeleteString, hs)
@@ -67,7 +67,7 @@ def create_xml_document(s: str) -> XmlDocument:
         return xml
 
 
-def main():
+def main() -> None:
     with ExitStack() as defer:
         hr = RoInitialize(RO_INIT_SINGLETHREADED)
         if FAILED(hr):
@@ -88,19 +88,13 @@ def main():
         xml = create_xml_document(template)
         defer.callback(xml.Release)
 
-        toast_notification_manager = get_activation_factory(
-            "Windows.UI.Notifications.ToastNotificationManager",
-            IToastNotificationManagerStatics,
-        )
-        defer.callback(toast_notification_manager.Release)
-
         appid = create_string(
             r"{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\WindowsPowerShell\v1.0\powershell.exe"
         )
         defer.callback(WindowsDeleteString, appid)
 
         toast_notifier = ToastNotifier()
-        hr = toast_notification_manager.CreateToastNotifierWithId(appid, toast_notifier)
+        hr = ToastNotificationManager.CreateToastNotifierWithId(appid, toast_notifier)
         if FAILED(hr):
             raise WinError(hr)
         defer.callback(toast_notifier.Release)

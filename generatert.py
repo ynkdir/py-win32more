@@ -43,6 +43,7 @@ BASE_EXPORTS = [
     "winfunctype",
     "commethod",
     "runtime_class_method",
+    "runtime_class_static_method",
     "cfunctype_pointer",
     "winfunctype_pointer",
     "press",
@@ -450,6 +451,9 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
                 return ca
         raise KeyError()
 
+    def get_list(self, type_: str) -> list[CustomAttribute]:
+        return [ca for ca in self if ca.type == type_]
+
     def has_native_typedef(self) -> bool:
         return self.has("Windows.Win32.Interop.NativeTypedefAttribute")
 
@@ -499,6 +503,9 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
 
     def get_overload(self) -> str:
         return self.get("Windows.Foundation.Metadata.OverloadAttribute").fixed_arguments[0].value
+
+    def get_static(self) -> list[str]:
+        return [ca.fixed_arguments[0].value for ca in self.get_list("Windows.Foundation.Metadata.StaticAttribute")]
 
 class CustomAttributeFixedArgument:
     def __init__(self, js: JsonType) -> None:
@@ -1247,10 +1254,12 @@ class PyGenerator:
             name = td.name
             base = "c_void_p"
         extends = self.com_base_type(td)
-        implements = self.com_implement_types(td)
+        requires = self.com_implement_types(td)
+        statics = self.com_static_types(td)
         writer.write(f"class {name}({base}):\n")
         writer.write(f"    extends: {extends}\n")
-        writer.write(f"    implements: [{implements}]\n")
+        writer.write(f"    requires: [{requires}]\n")
+        writer.write(f"    statics: [{statics}]\n")
         if td.custom_attributes.has_guid():
             guid = td.custom_attributes.get_guid()
             writer.write(f"    Guid = Guid('{guid}')\n")
@@ -1266,11 +1275,13 @@ class PyGenerator:
             if restype != "Void":
                 params.append(f"_return: POINTER({restype})")
             params_csv = ", ".join(params)
-            if "Abstract" in td.attributes:
+            if "Static" in md.attributes:
+                writer.write(f"    @runtime_class_static_method\n")
+            elif "Sealed" in td.attributes:
+                writer.write(f"    @runtime_class_method\n")
+            else:
                 vtbl_index = md["_vtbl_index"]
                 writer.write(f"    @commethod({vtbl_index})\n")
-            else:
-                writer.write(f"    @runtime_class_method\n")
             writer.write(f"    def {method_name}({params_csv}) -> Int32: ...\n")   # FIXME: Int32 -> HRESULT
         return writer.getvalue()
 
@@ -1284,6 +1295,9 @@ class PyGenerator:
 
     def com_implement_types(self, td):
         return ", ".join(ii.generic_fullname for ii in td.interface_implementations)
+
+    def com_static_types(self, td):
+        return ", ".join(interface for interface  in td.custom_attributes.get_static())
 
     def emit_header(self, import_namespaces: set[str]) -> str:
         writer = StringIO()
