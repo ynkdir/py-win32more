@@ -652,7 +652,10 @@ class MethodDefinition:
         return [Parameter(pa) for pa in self["Parameters"]]
 
     def format_parameters(self) -> str:
-        return ", ".join(f"{name}: {type_.pytype}" for name, type_ in self.get_parameter_names_with_type())
+        return ", ".join(self.format_parameters_list())
+
+    def format_parameters_list(self) -> list[str]:
+        return [f"{name}: {type_.pytype}" for name, type_ in self.get_parameter_names_with_type()]
 
     # SequenceNumber == 0 is return type and it can be missing.
     def get_parameter_names_with_type(self) -> list[tuple[str, TType]]:
@@ -1129,7 +1132,9 @@ class PyGenerator:
             writer.write(f"    Guid = Guid('{guid}')\n")
         for md in td.method_definitions:
             restype = md.signature.return_type.pytype
-            params_csv = md.format_parameters()
+            params = ["self"]
+            params.extend(md.format_parameters_list())
+            params_csv = ", ".join(params)
             vtbl_index = md["_vtbl_index"]
             writer.write(f"    @commethod({vtbl_index})\n")
             writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
