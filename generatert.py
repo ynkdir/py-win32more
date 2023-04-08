@@ -44,7 +44,7 @@ BASE_EXPORTS = [
     "winfunctype",
     "commethod",
     "winrt_commethod",
-    "winrt_finalmethod",
+    "winrt_mixinmethod",
     "winrt_classmethod",
     "winrt_factorymethod",
     "winrt_activatemethod",
@@ -1351,7 +1351,7 @@ class PyGenerator:
             interface = self.com_get_static_for_method(td, method_name)
             params.insert(0, f"cls: {interface}")
         elif "Sealed" in td.attributes:
-            writer.write(f"    @winrt_finalmethod\n")
+            writer.write(f"    @winrt_mixinmethod\n")
             interface = self.com_get_interface_for_method(td, method_name)
             params.insert(0, f"self: {interface}")
         else:

@@ -223,7 +223,7 @@ def winrt_commethod(vtbl_index):
         return wrapper
     return decorator
 
-def winrt_finalmethod(prototype):
+def winrt_mixinmethod(prototype):
     interface_class = None
     def wrapper(self, *args, **kwargs):
         nonlocal interface_class
