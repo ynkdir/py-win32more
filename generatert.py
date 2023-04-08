@@ -1407,11 +1407,12 @@ class PyGenerator:
     def emit_import_typing(self) -> str:
         return "".join([
             "from typing import Generic, TypeVar\n",
-            "T = TypeVar('T')\n",
             "K = TypeVar('T')\n",
+            "T = TypeVar('T')\n",
             "V = TypeVar('V')\n",
             "TProgress = TypeVar('TProgress')\n",
             "TResult = TypeVar('TResult')\n",
+            "TSender = TypeVar('TSender')\n",
             ])
 
     def emit_import_base(self) -> str:
