@@ -36,14 +36,18 @@ BASE_EXPORTS = [
     "String",
     "Boolean",
     "Void",
+    "WinRT_String",
     "Guid",
     "SUCCEEDED",
     "FAILED",
     "cfunctype",
     "winfunctype",
     "commethod",
-    "runtime_class_method",
-    "runtime_class_static_method",
+    "winrt_commethod",
+    "winrt_finalmethod",
+    "winrt_classmethod",
+    "winrt_factorymethod",
+    "winrt_activatemethod",
     "cfunctype_pointer",
     "winfunctype_pointer",
     "press",
@@ -128,7 +132,7 @@ class TType:
             if self.name == "Object":
                 return "Windows.Win32.System.WinRT.IInspectable_head"
             elif self.name == "String":
-                return "Windows.Win32.System.WinRT.HSTRING"
+                return "WinRT_String"
             else:
                 return self.name
         elif self.kind == "Pointer" or self.kind == "Reference" or self.kind == "SZArray":
@@ -153,7 +157,7 @@ class TType:
                 sys.stderr.write(f"DEBUG: missing type '{self.fullname}'\n")
                 return self.fullname
             elif self.is_com:
-                return f"{self.fullname}_head"
+                return f"{self.fullname}"
             else:
                 return self.fullname
         elif self.kind == "Generic":
@@ -299,6 +303,12 @@ class TypeDefinition:
 
     def generic_strip_suffix(self, name) -> str:
         return name.split("`")[0]
+
+    @property
+    def generic_fullname(self) -> str:
+        fullname = self.generic_strip_suffix(self.fullname)
+        parameters = self.format_generic_parameters()
+        return f"{fullname}[{parameters}]"
 
     @property
     def name_no_generic(self) -> str:
@@ -504,8 +514,11 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
     def get_overload(self) -> str:
         return self.get("Windows.Foundation.Metadata.OverloadAttribute").fixed_arguments[0].value
 
-    def get_static(self) -> list[str]:
-        return [ca.fixed_arguments[0].value for ca in self.get_list("Windows.Foundation.Metadata.StaticAttribute")]
+    def get_static(self) -> list[CustomAttribute]:
+        return [ca for ca in self.get_list("Windows.Foundation.Metadata.StaticAttribute")]
+
+    def get_activatable(self) -> list[CustomAttribute]:
+        return [ca for ca in self.get_list("Windows.Foundation.Metadata.ActivatableAttribute")]
 
 class CustomAttributeFixedArgument:
     def __init__(self, js: JsonType) -> None:
@@ -1065,6 +1078,11 @@ class Preprocessor:
                         t = t.get_element_type()
                         if t.kind == "Type":
                             t["_typedef"] = ns.get(t.fullname)
+            for ca in td.custom_attributes.get_activatable():
+                if ca.fixed_arguments[0].type.kind == "Type":
+                    ca["_typedef"] = ns.get(ca.fixed_arguments[0].value)
+            for ca in td.custom_attributes.get_static():
+                ca["_typedef"] = ns.get(ca.fixed_arguments[0].value)
             for t in td.enumerate_types():
                 t = t.get_element_type()
                 if t.kind == "Type":
@@ -1254,35 +1272,25 @@ class PyGenerator:
             name = td.name
             base = "c_void_p"
         extends = self.com_base_type(td)
-        requires = self.com_implement_types(td)
-        statics = self.com_static_types(td)
         writer.write(f"class {name}({base}):\n")
         writer.write(f"    extends: {extends}\n")
-        writer.write(f"    requires: [{requires}]\n")
-        writer.write(f"    statics: [{statics}]\n")
         if td.custom_attributes.has_guid():
             guid = td.custom_attributes.get_guid()
             writer.write(f"    Guid = Guid('{guid}')\n")
+        if "Sealed" in td.attributes:
+            writer.write(f"    ClassId = '{td.namespace}.{name}'\n")
+        for ca in td.custom_attributes.get_activatable():
+            if ca.fixed_arguments[0].type.kind == "Type":
+                factory = ca["_typedef"]
+                for md in factory.method_definitions:
+                    assert md.signature.return_type.fullname == td.fullname
+                    writer.write(self.winrt_factorymethod(factory, md))
+            else:
+                writer.write(self.winrt_activatemethod(td))
         for md in td.method_definitions:
             if md.name == ".ctor":
                 continue
-            if md.custom_attributes.has_overload():
-                method_name = md.custom_attributes.get_overload()
-            else:
-                method_name = md.name
-            params = md.format_parameters_list()
-            restype = md.signature.return_type.pytype
-            if restype != "Void":
-                params.append(f"_return: POINTER({restype})")
-            params_csv = ", ".join(params)
-            if "Static" in md.attributes:
-                writer.write(f"    @runtime_class_static_method\n")
-            elif "Sealed" in td.attributes:
-                writer.write(f"    @runtime_class_method\n")
-            else:
-                vtbl_index = md["_vtbl_index"]
-                writer.write(f"    @commethod({vtbl_index})\n")
-            writer.write(f"    def {method_name}({params_csv}) -> Int32: ...\n")   # FIXME: Int32 -> HRESULT
+            writer.write(self.winrt_method(td, md))
         return writer.getvalue()
 
     def com_base_type(self, td: TypeDefinition) -> str:
@@ -1293,11 +1301,82 @@ class PyGenerator:
         else:
             return td.basetype
 
-    def com_implement_types(self, td):
+    def com_implement_types(self, td: TypeDefinition) -> str:
         return ", ".join(ii.generic_fullname for ii in td.interface_implementations)
 
-    def com_static_types(self, td):
-        return ", ".join(interface for interface  in td.custom_attributes.get_static())
+    def com_static_types(self, td: TypeDefinition) -> str:
+        return ", ".join(ca.fixed_arguments[0].value for ca in td.custom_attributes.get_static())
+
+    def com_get_interface_for_method(self, td: TypeDefinition, method_name: str) -> str:
+        for ii in td.interface_implementations:
+            td_interface = ii["_typedef"]
+            for md in td_interface.method_definitions:
+                if md.custom_attributes.has_overload():
+                    static_method_name = md.custom_attributes.get_overload()
+                else:
+                    static_method_name = md.name
+                if static_method_name == method_name:
+                    return ii.generic_fullname
+        raise KeyError()
+
+    def com_get_static_for_method(self, td: TypeDefinition, method_name: str) -> str:
+        for ca in td.custom_attributes.get_static():
+            for md in ca["_typedef"].method_definitions:
+                if md.custom_attributes.has_overload():
+                    static_method_name = md.custom_attributes.get_overload()
+                else:
+                    static_method_name = md.name
+                if static_method_name == method_name:
+                    return ca.fixed_arguments[0].value
+        raise KeyError()
+
+    def winrt_method(self, td: TypeDefinition, md: MethodDefinitions) -> str:
+        writer = StringIO()
+        if md.custom_attributes.has_overload():
+            method_name = md.custom_attributes.get_overload()
+        else:
+            method_name = md.name
+        params = md.format_parameters_list()
+        restype = md.signature.return_type.pytype
+        if "Static" in md.attributes:
+            writer.write(f"    @winrt_classmethod\n")
+            interface = self.com_get_static_for_method(td, method_name)
+            params.insert(0, f"cls: {interface}")
+        elif "Sealed" in td.attributes:
+            writer.write(f"    @winrt_finalmethod\n")
+            interface = self.com_get_interface_for_method(td, method_name)
+            params.insert(0, f"self: {interface}")
+        else:
+            vtbl_index = md["_vtbl_index"]
+            writer.write(f"    @winrt_commethod({vtbl_index})\n")
+            params.insert(0, "self")
+        params_csv = ", ".join(params)
+        writer.write(f"    def {method_name}({params_csv}) -> {restype}: ...\n")
+        return writer.getvalue()
+
+    def winrt_factorymethod(self, td: TypeDefinition, md: MethodDefinition) -> str:
+        writer = StringIO()
+        if td.is_generic:
+            name = td.generic_fullname
+        else:
+            name = td.fullname
+        params = [f"cls: {name}"]
+        params.extend(md.format_parameters_list())
+        params_csv = ", ".join(params)
+        restype = md.signature.return_type.pytype
+        writer.write(f"    @winrt_factorymethod\n")
+        writer.write(f"    def {md.name}({params_csv}) -> {restype}: ...\n")
+        return writer.getvalue()
+
+    def winrt_activatemethod(self, td: TypeDefinition) -> str:
+        writer = StringIO()
+        if td.is_generic:
+            name = td.generic_fullname
+        else:
+            name = td.fullname
+        writer.write(f"    @winrt_activatemethod\n")
+        writer.write(f"    def New(cls) -> {name}: ...\n")  # FIXME: proper name?
+        return writer.getvalue()
 
     def emit_header(self, import_namespaces: set[str]) -> str:
         writer = StringIO()

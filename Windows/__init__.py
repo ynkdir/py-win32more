@@ -47,6 +47,32 @@ String = c_wchar_p_no
 Boolean = c_bool
 Void = None
 
+class WinRT_String(IntPtr):  # HSTRING
+    def __del__(self):
+        import Windows.Win32.System.WinRT
+        if self:
+            hr = Windows.Win32.System.WinRT.WindowsDeleteString(self)
+            if FAILED(hr):
+                raise WinError(hr)
+
+    @classmethod
+    def from_param(cls, obj):
+        import Windows.Win32.System.WinRT
+        if isinstance(obj, str):
+            pass
+        elif isinstance(obj, String):
+            obj = obj.value
+        else:
+            raise TypeError()
+        value = cls()
+        hr = Windows.Win32.System.WinRT.WindowsCreateString(obj, len(obj), value)
+        if FAILED(hr):
+            raise WinError(hr)
+        return value
+
+    def from_return(self):
+        return c_wchar_p(self).value
+
 class EasyCastStructure(Structure):
     def __setattr__(self, name, obj):
         obj = easycast(obj, self._hints_[name])
@@ -157,19 +183,94 @@ def commethod(vtbl_index):
         return WINFUNCTYPE(*types)(vtbl_index, name, params)
     return commonfunctype(factory)
 
-def runtime_class_method(prototype):
+def winrt_commethod(vtbl_index):
+    def factory(name, types, params):
+        return WINFUNCTYPE(*types)(vtbl_index, name, params)
+    def errcheck_return(hr, func, args):
+        if FAILED(hr):
+            raise WinError(hr)
+        r = args[-1]
+        if hasattr(r, "from_return"):
+            return r.from_return()
+        else:
+            return r
+    def errcheck_void(hr, func, args):
+        if FAILED(hr):
+            raise WinError(hr)
+        return None
+    def decorator(prototype):
+        delegate = None
+        def wrapper(*args, **kwargs):
+            import Windows.Win32.Foundation
+            nonlocal delegate
+            if delegate is None:
+                hints = get_type_hints(prototype)
+                return_ = hints.pop("return")
+                params = [(1, name) for name in hints.keys()]
+                types = [Windows.Win32.Foundation.HRESULT] + [EasyCastHandler(t) for t in hints.values()]
+                if return_ is None:
+                    errcheck = errcheck_void
+                else:
+                    params.append((2, "return_"))
+                    types.append(POINTER(return_))
+                    errcheck = errcheck_return
+                delegate = factory(prototype.__name__, types, tuple(params))
+                delegate.errcheck = errcheck
+            return delegate(*args, **kwargs)
+        return wrapper
+    return decorator
+
+def winrt_finalmethod(prototype):
+    interface_class = None
     def wrapper(self, *args, **kwargs):
-        for interface_class in self.requires:
-            if hasattr(interface_class, prototype.__name__):
-                interface = interface_class()
-                hr = self.QueryInterface(interface_class.Guid, interface)
-                if FAILED(hr):
-                    raise WinError(hr)
-                try:
-                    return getattr(interface, prototype.__name__)(*args, **kwargs)
-                finally:
-                    interface.Release()
-        raise NotImplementedError()
+        nonlocal interface_class
+        if interface_class is None:
+            hints = get_type_hints(prototype)
+            interface_class = hints["self"]
+        interface = interface_class()
+        hr = self.QueryInterface(interface_class.Guid, interface)
+        if FAILED(hr):
+            raise WinError(hr)
+        try:
+            return getattr(interface, prototype.__name__)(*args, **kwargs)
+        finally:
+            interface.Release()
+    return wrapper
+
+def winrt_classmethod(prototype):
+    factory_class = None
+    @classmethod
+    def wrapper(cls, *args, **kwargs):
+        nonlocal factory_class
+        if factory_class is None:
+            hints = get_type_hints(prototype)
+            factory_class = hints["cls"]
+        factory = _winrt_get_activation_factory(cls.ClassId, factory_class)
+        try:
+            return getattr(factory, prototype.__name__)(*args, **kwargs)
+        finally:
+            factory.Release
+    return wrapper
+
+def winrt_factorymethod(prototype):
+    factory_class = None
+    @classmethod
+    def wrapper(cls, *args):
+        nonlocal factory_class
+        if factory_class is None:
+            hints = get_type_hints(prototype)
+            factory_class = hints["cls"]
+        factory = _winrt_get_activation_factory(cls.ClassId, factory_class)
+        try:
+            return getattr(factory, prototype.__name__)(*args)
+        finally:
+            factory.Release
+    return wrapper
+
+def winrt_activatemethod(prototype):
+    @classmethod
+    def wrapper(cls):
+        return _winrt_activate_instance(cls.ClassId, cls)
     return wrapper
 
 def _winrt_create_string(s: str):
@@ -190,19 +291,15 @@ def _winrt_get_activation_factory(classid: str, factory_class: type[T]) -> T:
         raise WinError(hr)
     return factory
 
-def runtime_class_static_method(prototype):
-    @classmethod
-    def wrapper(cls, *args, **kwargs):
-        classid = f"{cls.__module__}.{cls.__name__}"
-        for factory_class in cls.statics:
-            if hasattr(factory_class, prototype.__name__):
-                factory = _winrt_get_activation_factory(classid, factory_class)
-                try:
-                    return getattr(factory, prototype.__name__)(*args, **kwargs)
-                finally:
-                    factory.Release
-        raise NotImplementedError()
-    return wrapper
+def _winrt_activate_instance(classid: str, cls: type[T]) -> T:
+    import Windows.Win32.System.WinRT as winrt
+    hs = _winrt_create_string(classid)
+    instance = cls()
+    hr = winrt.RoActivateInstance(hs, instance)
+    winrt.WindowsDeleteString(hs)
+    if FAILED(hr):
+        raise WinError(hr)
+    return instance
 
 def commonfunctype_pointer(prototype, functype):
     def press_functype_pointer():
@@ -252,8 +349,6 @@ def press_interface(prototype):
     if hints["extends"] is None:
         return prototype
     prototype.__bases__ = (hints["extends"],)
-    prototype.requires = hints.get("requires", [])
-    prototype.statics = hints.get("statics", [])
     return prototype
 
 def make_head(module, name):
