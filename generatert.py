@@ -1287,10 +1287,18 @@ class PyGenerator:
                     writer.write(self.winrt_factorymethod(factory, md))
             else:
                 writer.write(self.winrt_activatemethod(td))
+        properties = defaultdict(lambda: {"get": None, "put": None})
         for md in td.method_definitions:
             if md.name == ".ctor":
                 continue
+            if "SpecialName" in md.attributes:
+                if md.name.startswith("get_"):
+                    properties[md.name.removeprefix("get_")]["get"] = md.name
+                elif md.name.startswith("put_"):
+                    properties[md.name.removeprefix("put_")]["put"] = md.name
             writer.write(self.winrt_method(td, md))
+        for name, funcs in properties.items():
+            writer.write(f"    {name} = property({funcs['get']}, {funcs['put']})\n")
         return writer.getvalue()
 
     def com_base_type(self, td: TypeDefinition) -> str:

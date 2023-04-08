@@ -3,7 +3,7 @@ import typing
 import re
 import sys
 import uuid
-from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll, windll, CFUNCTYPE, WINFUNCTYPE, sizeof, POINTER, cast, pointer, Array, WinError
+from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll, windll, CFUNCTYPE, WINFUNCTYPE, sizeof, POINTER, cast, pointer, Array, WinError, wstring_at
 from typing import TypeVar
 
 T = TypeVar("T")
@@ -71,7 +71,10 @@ class WinRT_String(IntPtr):  # HSTRING
         return value
 
     def from_return(self):
-        return c_wchar_p(self).value
+        import Windows.Win32.System.WinRT
+        length = UInt32()
+        pcwstr = Windows.Win32.System.WinRT.WindowsGetStringRawBuffer(self, length)
+        return wstring_at(cast(pcwstr, c_void_p).value, length.value)
 
 class EasyCastStructure(Structure):
     def __setattr__(self, name, obj):
