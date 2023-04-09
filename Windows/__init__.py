@@ -70,7 +70,7 @@ class WinRT_String(IntPtr):  # HSTRING
             raise WinError(hr)
         return value
 
-    def from_return(self):
+    def __ctypes_from_outparam__(self):
         import Windows.Win32.System.WinRT
         length = UInt32()
         pcwstr = Windows.Win32.System.WinRT.WindowsGetStringRawBuffer(self, length)
@@ -186,21 +186,19 @@ def commethod(vtbl_index):
         return WINFUNCTYPE(*types)(vtbl_index, name, params)
     return commonfunctype(factory)
 
+def errcheck_return(hr, func, args):
+    if FAILED(hr):
+        raise WinError(hr)
+    return args[-1]
+
+def errcheck_void(hr, func, args):
+    if FAILED(hr):
+        raise WinError(hr)
+    return None
+
 def winrt_commethod(vtbl_index):
     def factory(name, types, params):
         return WINFUNCTYPE(*types)(vtbl_index, name, params)
-    def errcheck_return(hr, func, args):
-        if FAILED(hr):
-            raise WinError(hr)
-        r = args[-1]
-        if hasattr(r, "from_return"):
-            return r.from_return()
-        else:
-            return r
-    def errcheck_void(hr, func, args):
-        if FAILED(hr):
-            raise WinError(hr)
-        return None
     def decorator(prototype):
         delegate = None
         def wrapper(*args, **kwargs):
@@ -214,7 +212,7 @@ def winrt_commethod(vtbl_index):
                 if return_ is None:
                     errcheck = errcheck_void
                 else:
-                    params.append((2, "return_"))
+                    params.append((2, "return"))
                     types.append(POINTER(return_))
                     errcheck = errcheck_return
                 delegate = factory(prototype.__name__, types, tuple(params))
