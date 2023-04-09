@@ -1,10 +1,12 @@
+from __future__ import annotations
 import types
 import typing
 import re
 import sys
 import uuid
 from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll, windll, CFUNCTYPE, WINFUNCTYPE, sizeof, POINTER, cast, pointer, Array, WinError, wstring_at
-from typing import TypeVar
+from importlib import import_module
+from typing import TypeVar, Generic, _GenericAlias
 
 T = TypeVar("T")
 
@@ -186,10 +188,11 @@ def commethod(vtbl_index):
         return WINFUNCTYPE(*types)(vtbl_index, name, params)
     return commonfunctype(factory)
 
+
 def errcheck_return(hr, func, args):
     if FAILED(hr):
         raise WinError(hr)
-    return args[-1]
+    return args
 
 def errcheck_void(hr, func, args):
     if FAILED(hr):
@@ -200,24 +203,40 @@ def winrt_commethod(vtbl_index):
     def factory(name, types, params):
         return WINFUNCTYPE(*types)(vtbl_index, name, params)
     def decorator(prototype):
-        delegate = None
-        def wrapper(*args, **kwargs):
+        delegate_generic = {}
+        def wrapper(self, *args, **kwargs):
             import Windows.Win32.Foundation
-            nonlocal delegate
-            if delegate is None:
+            nonlocal delegate_generic
+            if is_generic_instance(self):
+                targs = self.__orig_class__.__args__
+            else:
+                targs = None
+            if targs in delegate_generic:
+                delegate = delegate_generic[targs]
+            else:
                 hints = get_type_hints(prototype)
                 return_ = hints.pop("return")
                 params = [(1, name) for name in hints.keys()]
-                types = [Windows.Win32.Foundation.HRESULT] + [EasyCastHandler(t) for t in hints.values()]
+                type_hints = list(hints.values())
+                if is_generic_instance(self):
+                    tparams = self.__class__.__parameters__
+                    tmap = {tparams[i]: targs[i] for i in range(len(targs))}
+                    if isinstance(return_, TypeVar):
+                        return_ = tmap[return_]
+                    for i, t in enumerate(type_hints):
+                        if isinstance(t, TypeVar):
+                            type_hints[i] = tmap[t]
+                types = [Windows.Win32.Foundation.HRESULT] + [EasyCastHandler(t) for t in type_hints]
                 if return_ is None:
                     errcheck = errcheck_void
                 else:
                     params.append((2, "return"))
                     types.append(POINTER(return_))
                     errcheck = errcheck_return
-                delegate = factory(prototype.__name__, types, tuple(params))
-                delegate.errcheck = errcheck
-            return delegate(*args, **kwargs)
+                delegate_generic[targs] = factory(prototype.__name__, types, tuple(params))
+                delegate_generic[targs].errcheck = errcheck
+                delegate = delegate_generic[targs]
+            return delegate(self, *args, **kwargs)
         return wrapper
     return decorator
 
@@ -229,7 +248,11 @@ def winrt_mixinmethod(prototype):
             hints = get_type_hints(prototype)
             interface_class = hints["self"]
         interface = interface_class()
-        hr = self.QueryInterface(interface_class.Guid, interface)
+        if is_generic_class(interface_class):
+            guid = _winrt_get_parameterized_type_instance_iid(interface_class)
+        else:
+            guid = interface_class.Guid
+        hr = self.QueryInterface(guid, interface)
         if FAILED(hr):
             raise WinError(hr)
         try:
@@ -237,6 +260,14 @@ def winrt_mixinmethod(prototype):
         finally:
             interface.Release()
     return wrapper
+
+# Cls[T]?
+def is_generic_class(cls):
+    return isinstance(cls, _GenericAlias)
+
+# Cls[T]()?
+def is_generic_instance(obj):
+    return isinstance(obj, Generic)
 
 def winrt_classmethod(prototype):
     factory_class = None
@@ -301,6 +332,74 @@ def _winrt_activate_instance(classid: str, cls: type[T]) -> T:
     if FAILED(hr):
         raise WinError(hr)
     return instance
+
+def _winrt_get_parameterized_type_instance_iid(ga: _GenericAlias) -> Guid:
+    import Windows.Win32.System.WinRT.Metadata
+    fullname = f"{ga.__module__}.{ga.__name__}"
+    nparams = len(ga.__args__)
+    names = (c_wchar_p_no * (nparams + 1))()
+    names[0] = f"{fullname}`{nparams}"
+    for i in range(nparams):
+        names[i + 1] = _winrt_type_name(ga.__args__[i])
+    iid = Guid()
+    hr = Windows.Win32.System.WinRT.Metadata.RoGetParameterizedTypeInstanceIID(nparams + 1, names, RoMetaDataLocator.CreateInstance(), iid, None)
+    if FAILED(hr):
+        raise WinError(hr)
+    return iid
+
+def _winrt_type_name(cls: type) -> str:
+    if issubclass(cls, WinRT_String):
+        return "String"
+    elif issubclass(cls, Int16):
+        return "Int16"
+    elif issubclass(cls, Int32):
+        return "Int32"
+    elif issubclass(cls, Int64):
+        return "Int64"
+    elif issubclass(cls, Byte):
+        return "UInt8"
+    elif issubclass(cls, UInt16):
+        return "UInt16"
+    elif issubclass(cls, UInt32):
+        return "UInt32"
+    elif issubclass(cls, UInt64):
+        return "UInt64"
+    elif issubclass(cls, Single):
+        return "Single"
+    elif issubclass(cls, Double):
+        return "Double"
+    elif issubclass(cls, Boolean):
+        return "Boolean"
+    elif issubclass(cls, Guid):
+        return "Guid"
+    else:
+        raise NotImplementedError()
+
+class RoMetaDataLocator(Structure):
+    _fields_ = [("vtable", POINTER(c_void_p))]
+
+    def __init__(self):
+        self.vtable = (c_void_p * 1)()
+        self.vtable[0] = cast(self.Locate, c_void_p)
+
+    @classmethod
+    def CreateInstance(cls):
+        import Windows.Win32.System.WinRT.Metadata
+        return cast(pointer(RoMetaDataLocator()), Windows.Win32.System.WinRT.Metadata.IRoMetaDataLocator)
+
+    @WINFUNCTYPE(Int32, c_void_p, c_wchar_p_no, c_void_p)
+    def Locate(_self, nameElement: c_wchar_p_no, _metaDataDestination: IRoSimpleMetaDataBuilder) -> HRESULT:
+        import Windows.Win32.System.WinRT.Metadata
+        self = cast(_self, POINTER(RoMetaDataLocator)).contents
+        metaDataDestination = cast(_metaDataDestination, Windows.Win32.System.WinRT.Metadata.IRoSimpleMetaDataBuilder)
+        fullname_generic = nameElement.value
+        if fullname_generic.startswith("Windows.") and "`" in fullname_generic:
+            fullname, nparams = fullname_generic.split("`")
+            namespace, name = fullname.rsplit(".", 1)
+            module = import_module(namespace)
+            cls = getattr(module, name)
+            return metaDataDestination.SetParameterizedInterface(cls.Guid, int(nparams))
+        return E_FAIL
 
 def commonfunctype_pointer(prototype, functype):
     def press_functype_pointer():
