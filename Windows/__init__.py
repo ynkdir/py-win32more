@@ -231,7 +231,13 @@ def winrt_commethod(vtbl_index):
                     errcheck = errcheck_void
                 else:
                     params.append((2, "return"))
-                    types.append(POINTER(return_))
+                    if is_generic_class(return_):
+                        class GenericReturnHelper(c_void_p):
+                            def __ctypes_from_outparam__(self):
+                                return return_(self.value)
+                        types.append(POINTER(GenericReturnHelper))
+                    else:
+                        types.append(POINTER(return_))
                     errcheck = errcheck_return
                 delegate_generic[targs] = factory(prototype.__name__, types, tuple(params))
                 delegate_generic[targs].errcheck = errcheck
