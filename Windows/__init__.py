@@ -351,7 +351,7 @@ def press_interface(prototype):
     hints = get_type_hints(prototype)
     if hints["extends"] is None:
         return prototype
-    prototype.__bases__ = (hints["extends"],)
+    prototype.__bases__ = tuple(hints["extends"] if t is c_void_p else t for t in prototype.__bases__)
     return prototype
 
 def make_head(module, name):
