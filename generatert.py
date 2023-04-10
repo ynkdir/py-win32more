@@ -319,7 +319,7 @@ class TypeDefinition:
         if self.basetype is None or self.basetype == "System.Object" or self.basetype.startswith("Windows."):
             return "com"
         elif self.basetype == "System.MulticastDelegate":
-            return "function_pointer"
+            return "com"
         elif self.basetype == "System.Enum":
             return "enum"
         elif self.basetype == "System.ValueType":
@@ -1125,6 +1125,8 @@ class Preprocessor:
     def count_interface_method(self, td: TypeDefinition) -> int:
         if td.basetype is None or td.basetype == "System.Object":
             return 6  # count of IInspectable
+        elif td.basetype == "System.MulticastDelegate":
+            return 3  # count of IUnknown
         basetype = td["_basetype_typedef"]
         return len(td.method_definitions) + self.count_interface_method(basetype)
 
@@ -1306,6 +1308,8 @@ class PyGenerator:
             return "Windows.Win32.System.WinRT.IInspectable"
         elif td.basetype == "System.Object":
             return "Windows.Win32.System.WinRT.IInspectable"
+        elif td.basetype == "System.MulticastDelegate":
+            return "Windows.Win32.System.Com.IUnknown"
         else:
             return td.basetype
 
@@ -1346,7 +1350,11 @@ class PyGenerator:
             method_name = md.name
         params = md.format_parameters_list()
         restype = md.signature.return_type.pytype
-        if "Static" in md.attributes:
+        if td.basetype == "System.MulticastDelegate":
+            vtbl_index = md["_vtbl_index"]
+            writer.write(f"    @winrt_commethod({vtbl_index})\n")
+            params.insert(0, "self")
+        elif "Static" in md.attributes:
             writer.write(f"    @winrt_classmethod\n")
             interface = self.com_get_static_for_method(td, method_name)
             params.insert(0, f"cls: {interface}")

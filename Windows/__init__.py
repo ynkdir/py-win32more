@@ -131,6 +131,13 @@ class Guid(EasyCastStructure):
             self.Data2 = val.Data2
             self.Data3 = val.Data3
             self.Data4 = val.Data4
+        elif isinstance(val, uuid.UUID):
+            u = val
+            self.Data1 = u.time_low
+            self.Data2 = u.time_mid
+            self.Data3 = u.time_hi_version
+            for i in range(8):
+                self.Data4[i] = u.bytes[8 + i]
         elif isinstance(val, str):
             u = uuid.UUID(val)
             self.Data1 = u.time_low
@@ -142,7 +149,7 @@ class Guid(EasyCastStructure):
             raise ValueError()
 
     def __str__(self):
-        return f"{self.Data1:08x}-{self.Data2:04x}-{self.Data3:04x}-{self.Data4[0]:02x}{self.Data4[1]:02x}-{self.Data4[2]:02x}{self.Data4[3]:02x}{self.Data4[4]:02x}{self.Data4[5]:02x}{self.Data4[6]:02x}{self.Data4[7]:02x}"
+        return f"{{{self.Data1:08x}-{self.Data2:04x}-{self.Data3:04x}-{self.Data4[0]:02x}{self.Data4[1]:02x}-{self.Data4[2]:02x}{self.Data4[3]:02x}{self.Data4[4]:02x}{self.Data4[5]:02x}{self.Data4[6]:02x}{self.Data4[7]:02x}}}"
 
 def SUCCEEDED(hr):
     return hr >= 0
@@ -187,7 +194,6 @@ def commethod(vtbl_index):
     def factory(name, types, params):
         return WINFUNCTYPE(*types)(vtbl_index, name, params)
     return commonfunctype(factory)
-
 
 def errcheck_return(hr, func, args):
     if FAILED(hr):
@@ -255,7 +261,7 @@ def winrt_mixinmethod(prototype):
             interface_class = hints["self"]
         interface = interface_class()
         if is_generic_class(interface_class):
-            guid = _winrt_get_parameterized_type_instance_iid(interface_class)
+            guid = _ro_get_parameterized_type_instance_iid(interface_class)
         else:
             guid = interface_class.Guid
         hr = self.QueryInterface(guid, interface)
@@ -339,73 +345,68 @@ def _winrt_activate_instance(classid: str, cls: type[T]) -> T:
         raise WinError(hr)
     return instance
 
-def _winrt_get_parameterized_type_instance_iid(ga: _GenericAlias) -> Guid:
-    import Windows.Win32.System.WinRT.Metadata
-    fullname = f"{ga.__module__}.{ga.__name__}"
-    nparams = len(ga.__args__)
-    names = (c_wchar_p_no * (nparams + 1))()
-    names[0] = f"{fullname}`{nparams}"
-    for i in range(nparams):
-        names[i + 1] = _winrt_type_name(ga.__args__[i])
-    iid = Guid()
-    hr = Windows.Win32.System.WinRT.Metadata.RoGetParameterizedTypeInstanceIID(nparams + 1, names, RoMetaDataLocator.CreateInstance(), iid, None)
-    if FAILED(hr):
-        raise WinError(hr)
-    return iid
+# https://learn.microsoft.com/en-us/uwp/winrt-cref/winrt-type-system
+#
+# signature_octets => guid_to_octets(wrt_pinterface_namespace) string_to_utf8_octets(ptype_instance_signature)
+#         wrt_pinterface_namespace => "11f47ad5-7b73-42c0-abae-878b1e16adee"
+#         ptype_instance_signature => pinterface_instance_signature | pdelegate_instance_ signature
+#         pinterface_instance_signature => "pinterface(" piid_guid  ";" args ")"
+#         pdelegate_instance_signature => "pinterface(" piid_guid ";" args ")"
+#         piid_guid => guid
+#         args => arg | arg ";" args
+#         arg => type_signature
+#         type_signature => base_type_identifer | com_interface_signature | interface_signature | delegate_signature  | interface_group_signature | runtime_class_signature | struct_signature | enum_signature | pinterface_instance_signature | pdelegate_instance_signature
+#         com_interface_signature => "cinterface(IInspectable)"
+#         base_type_identifier is defined below
+#         interface_signature => guid
+#         interface_group_signature => "ig(" interface_group_name ";" default_interface ")"
+#         runtime_class_signature => "rc(" runtime_class_name ";" default_interface ")"
+#         default_interface => type_signature
+#         struct_signature => "struct(" struct_name ";" args ")"
+#         enum_signature => "enum(" enum_name ";" enum_underlying_type ")"
+#         enum_underlying_type => type_signature
+#         delegate_signature => "delegate(" guid ")"
+#         guid => "{" dashed_hex "}"
+#         dashed_hex is the format that uuidgen writes in when passed no arguments.
+#             dashed_hex => hex{8} "-" hex{4} "-" hex{4} "-" hex{4} "-" hex{12}
+#             hex => [0-9a-f]
+def _ro_get_parameterized_type_instance_iid(ga: _GenericAlias) -> Guid:
+    wrt_pinterface_namespace = uuid.UUID("{11f47ad5-7b73-42c0-abae-878b1e16adee}")
+    ptype_instance_signature = _get_type_signature(ga)
+    return Guid(uuid.uuid5(wrt_pinterface_namespace, ptype_instance_signature))
 
-def _winrt_type_name(cls: type) -> str:
-    if issubclass(cls, WinRT_String):
-        return "String"
-    elif issubclass(cls, Int16):
-        return "Int16"
+# FIXME: not completed
+def _get_type_signature(cls) -> str:
+    if isinstance(cls, _GenericAlias):
+        piid_guid = str(cls.Guid)
+        args = ";".join(_get_type_signature(arg) for arg in cls.__args__)
+        return f"pinterface({piid_guid};{args})"
+    elif issubclass(cls, c_void_p):
+        return str(cls.Guid)
+    elif issubclass(cls, WinRT_String):
+        return "string"
+    elif issubclass(cls, Char16):
+        return "c2"
     elif issubclass(cls, Int32):
-        return "Int32"
+        return "i4"
     elif issubclass(cls, Int64):
-        return "Int64"
+        return "i8"
     elif issubclass(cls, Byte):
-        return "UInt8"
-    elif issubclass(cls, UInt16):
-        return "UInt16"
+        return "u1"
     elif issubclass(cls, UInt32):
-        return "UInt32"
+        return "u4"
     elif issubclass(cls, UInt64):
-        return "UInt64"
+        return "u8"
     elif issubclass(cls, Single):
-        return "Single"
+        return "f4"
     elif issubclass(cls, Double):
-        return "Double"
+        return "f8"
     elif issubclass(cls, Boolean):
-        return "Boolean"
+        return "b1"
     elif issubclass(cls, Guid):
-        return "Guid"
+        return "g16"
     else:
         raise NotImplementedError()
-
-class RoMetaDataLocator(Structure):
-    _fields_ = [("vtable", POINTER(c_void_p))]
-
-    def __init__(self):
-        self.vtable = (c_void_p * 1)()
-        self.vtable[0] = cast(self.Locate, c_void_p)
-
-    @classmethod
-    def CreateInstance(cls):
-        import Windows.Win32.System.WinRT.Metadata
-        return cast(pointer(RoMetaDataLocator()), Windows.Win32.System.WinRT.Metadata.IRoMetaDataLocator)
-
-    @WINFUNCTYPE(Int32, c_void_p, c_wchar_p_no, c_void_p)
-    def Locate(_self, nameElement: c_wchar_p_no, _metaDataDestination: IRoSimpleMetaDataBuilder) -> HRESULT:
-        import Windows.Win32.System.WinRT.Metadata
-        self = cast(_self, POINTER(RoMetaDataLocator)).contents
-        metaDataDestination = cast(_metaDataDestination, Windows.Win32.System.WinRT.Metadata.IRoSimpleMetaDataBuilder)
-        fullname_generic = nameElement.value
-        if fullname_generic.startswith("Windows.") and "`" in fullname_generic:
-            fullname, nparams = fullname_generic.split("`")
-            namespace, name = fullname.rsplit(".", 1)
-            module = import_module(namespace)
-            cls = getattr(module, name)
-            return metaDataDestination.SetParameterizedInterface(cls.Guid, int(nparams))
-        return E_FAIL
 
 def commonfunctype_pointer(prototype, functype):
     def press_functype_pointer():
