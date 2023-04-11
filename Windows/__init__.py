@@ -106,6 +106,13 @@ class Guid(EasyCastStructure):
             self.Data3 = u.time_hi_version
             for i in range(8):
                 self.Data4[i] = u.bytes[8 + i]
+        elif isinstance(val, uuid.UUID):
+            u = val
+            self.Data1 = u.time_low
+            self.Data2 = u.time_mid
+            self.Data3 = u.time_hi_version
+            for i in range(8):
+                self.Data4[i] = u.bytes[8 + i]
         else:
             raise ValueError()
 
