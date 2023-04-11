@@ -46,12 +46,14 @@ Void = None
 
 class EasyCastStructure(Structure):
     def __setattr__(self, name, obj):
-        obj = easycast(obj, self._hints_[name])
+        if name in self._hints_:
+            obj = easycast(obj, self._hints_[name])
         return super().__setattr__(name, obj)
 
 class EasyCastUnion(Union):
     def __setattr__(self, name, obj):
-        obj = easycast(obj, self._hints_[name])
+        if name in self._hints_:
+            obj = easycast(obj, self._hints_[name])
         return super().__setattr__(name, obj)
 
 class EasyCastHandler:
