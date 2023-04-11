@@ -80,12 +80,14 @@ class WinRT_String(IntPtr):  # HSTRING
 
 class EasyCastStructure(Structure):
     def __setattr__(self, name, obj):
-        obj = easycast(obj, self._hints_[name])
+        if name in self._hints_:
+            obj = easycast(obj, self._hints_[name])
         return super().__setattr__(name, obj)
 
 class EasyCastUnion(Union):
     def __setattr__(self, name, obj):
-        obj = easycast(obj, self._hints_[name])
+        if name in self._hints_:
+            obj = easycast(obj, self._hints_[name])
         return super().__setattr__(name, obj)
 
 class EasyCastHandler:
@@ -140,6 +142,13 @@ class Guid(EasyCastStructure):
                 self.Data4[i] = u.bytes[8 + i]
         elif isinstance(val, str):
             u = uuid.UUID(val)
+            self.Data1 = u.time_low
+            self.Data2 = u.time_mid
+            self.Data3 = u.time_hi_version
+            for i in range(8):
+                self.Data4[i] = u.bytes[8 + i]
+        elif isinstance(val, uuid.UUID):
+            u = val
             self.Data1 = u.time_low
             self.Data2 = u.time_mid
             self.Data3 = u.time_hi_version
