@@ -1028,7 +1028,12 @@ class PyGenerator:
         restype = md.signature.return_type.pytype
         params_csv = md.format_parameters()
         if md.name != md.import_.name:
-            writer.write(f"{indent}@{functype}('{library}', entry_point='{md.import_.name}')\n")
+            if md.import_.name.startswith("#"):
+                # ordinal number  (e.g. #123)
+                entry_point = md.import_.name[1:]
+            else:
+                entry_point = f"'md.import_.name'"
+            writer.write(f"{indent}@{functype}('{library}', entry_point={entry_point})\n")
         else:
             writer.write(f"{indent}@{functype}('{library}')\n")
         writer.write(f"{indent}def {md.name}({params_csv}) -> {restype}: ...\n")
