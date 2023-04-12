@@ -1027,7 +1027,10 @@ class PyGenerator:
         functype = self.function_functype(md)
         restype = md.signature.return_type.pytype
         params_csv = md.format_parameters()
-        writer.write(f"{indent}@{functype}('{library}')\n")
+        if md.name != md.import_.name:
+            writer.write(f"{indent}@{functype}('{library}', entry_point='{md.import_.name}')\n")
+        else:
+            writer.write(f"{indent}@{functype}('{library}')\n")
         writer.write(f"{indent}def {md.name}({params_csv}) -> {restype}: ...\n")
         return writer.getvalue()
 

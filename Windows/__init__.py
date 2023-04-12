@@ -148,13 +148,17 @@ def commonfunctype(factory):
         return wrapper
     return decorator
 
-def cfunctype(library):
+def cfunctype(library, entry_point=None):
     def factory(name, types, params):
+        if entry_point is not None:
+            name = entry_point
         return CFUNCTYPE(*types)((name, cdll[library]), params)
     return commonfunctype(factory)
 
-def winfunctype(library):
+def winfunctype(library, entry_point=None):
     def factory(name, types, params):
+        if entry_point is not None:
+            name = entry_point
         return WINFUNCTYPE(*types)((name, windll[library]), params)
     return commonfunctype(factory)
 
