@@ -254,6 +254,8 @@ class TypeDefinition:
                 return "union"
             else:
                 return "struct"
+        elif self.basetype == "System.Attribute":
+            return "attribute"
         else:
             raise NotImplementedError()
 
@@ -337,19 +339,19 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
         raise KeyError()
 
     def has_native_typedef(self) -> bool:
-        return self.has("Windows.Win32.Interop.NativeTypedefAttribute")
+        return self.has("Windows.Win32.Foundation.Metadata.NativeTypedefAttribute")
 
     def has_supported_architecture(self) -> bool:
-        return self.has("Windows.Win32.Interop.SupportedArchitectureAttribute")
+        return self.has("Windows.Win32.Foundation.Metadata.SupportedArchitectureAttribute")
 
     def get_supported_architecture(self) -> list[str]:
-        return self.get("Windows.Win32.Interop.SupportedArchitectureAttribute").fixed_arguments[0].value
+        return self.get("Windows.Win32.Foundation.Metadata.SupportedArchitectureAttribute").fixed_arguments[0].value
 
     def has_guid(self) -> bool:
-        return self.has("Windows.Win32.Interop.GuidAttribute")
+        return self.has("Windows.Win32.Foundation.Metadata.GuidAttribute")
 
     def get_guid(self) -> str:
-        v = [fa.value for fa in self.get("Windows.Win32.Interop.GuidAttribute").fixed_arguments]
+        v = [fa.value for fa in self.get("Windows.Win32.Foundation.Metadata.GuidAttribute").fixed_arguments]
         assert len(v) == 11
         return self.format_guid(v)
 
@@ -357,7 +359,7 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
         return f"{v[0]:08x}-{v[1]:04x}-{v[2]:04x}-{v[3]:02x}-{v[4]:02x}-{v[5]:02x}-{v[6]:02x}-{v[7]:02x}-{v[8]:02x}-{v[9]:02x}-{v[10]:02x}"
 
     def get_property_key(self) -> tuple[str, int]:
-        value = self.get("Windows.Win32.Interop.ConstantAttribute").fixed_arguments[0].value
+        value = self.get("Windows.Win32.Foundation.Metadata.ConstantAttribute").fixed_arguments[0].value
         m = re.fullmatch(r"{(\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+)}, (\d+)", value)
         v = [int(d) for d in m.groups()]
         assert len(v) == 12
@@ -366,11 +368,11 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
         return guid, pid
 
     def has_constant(self) -> bool:
-        return self.has("Windows.Win32.Interop.ConstantAttribute")
+        return self.has("Windows.Win32.Foundation.Metadata.ConstantAttribute")
 
     def get_constant(self) -> str:
         # value is like "{0, 0, 0, 0, 0, 5}"
-        value = self.get("Windows.Win32.Interop.ConstantAttribute").fixed_arguments[0].value
+        value = self.get("Windows.Win32.Foundation.Metadata.ConstantAttribute").fixed_arguments[0].value
         value_csv = value.translate({ord("{"): "(", ord("}"): ")"})
         return value_csv
 
@@ -977,6 +979,8 @@ class PyGenerator:
             return self.emit_struct_union(td)
         elif td.kind == "com":
             return self.emit_com(td)
+        elif td.kind == "attribute":
+            return self.emit_attribute(td)
         else:
             raise NotImplementedError()
 
@@ -1023,7 +1027,15 @@ class PyGenerator:
         functype = self.function_functype(md)
         restype = md.signature.return_type.pytype
         params_csv = md.format_parameters()
-        writer.write(f"{indent}@{functype}('{library}')\n")
+        if md.name != md.import_.name:
+            if md.import_.name.startswith("#"):
+                # ordinal number  (e.g. #123)
+                entry_point = md.import_.name[1:]
+            else:
+                entry_point = f"'md.import_.name'"
+            writer.write(f"{indent}@{functype}('{library}', entry_point={entry_point})\n")
+        else:
+            writer.write(f"{indent}@{functype}('{library}')\n")
         writer.write(f"{indent}def {md.name}({params_csv}) -> {restype}: ...\n")
         return writer.getvalue()
 
@@ -1144,6 +1156,18 @@ class PyGenerator:
         if not td.interface_implementations:
             return "None"
         return td.interface_implementations[0].interface.type_reference.fullname
+
+    def emit_attribute(self, td: TypeDefinition) -> str:
+        writer = StringIO()
+        md = td.method_definitions[0]  # [0]=.ctor
+        params = md.format_parameters_list()
+        writer.write(f"class {td.name}(EasyCastStructure):\n")
+        if not params:
+            writer.write(f"    pass\n")
+        else:
+            for param in params:
+                writer.write(f"    {param}\n")
+        return writer.getvalue()
 
     def emit_header(self, import_namespaces: set[str]) -> str:
         writer = StringIO()
