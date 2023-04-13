@@ -1,3 +1,4 @@
+import asyncio
 from contextlib import ExitStack
 from ctypes import (
     POINTER,
@@ -9,7 +10,6 @@ from ctypes import (
     pointer,
     py_object,
 )
-from threading import Event, Thread
 from typing import Generic, TypeVar
 
 from Windows import FAILED, Guid, UInt32, _ro_get_parameterized_type_instance_iid
@@ -73,8 +73,6 @@ class AsyncOperationCompletedHandlerImpl(Generic[T], Structure):
         self.vtable[2] = cast(self._Release, c_void_p)
         self.vtable[3] = cast(self._Invoke, c_void_p)
         self.self = py_object(self)
-        # FIXME: cannot get __orig_class__ in __init__()
-        # self.guid_t = _ro_get_parameterized_type_instance_iid(self.__orig_class__)
         self.refcount = 0
         self.event = event
         self.AddRef()
@@ -82,25 +80,32 @@ class AsyncOperationCompletedHandlerImpl(Generic[T], Structure):
     def __del__(self):
         print("AsyncOperationCompletedHandler.__del__()", self)
 
+    def __setattr__(self, key, value):
+        # FIXME: Depends on implementation detail.
+        # _GenericAlias.__init__() sets __orig_class__ after instantiate self.
+        if key == "__orig_class__":
+            self.guid_t = _ro_get_parameterized_type_instance_iid(value)
+        return super().__setattr__(key, value)
+
     @WINFUNCTYPE(HRESULT, c_void_p, c_void_p, POINTER(c_void_p))
     def _QueryInterface(this, riid, ppvObject):
         print(this)
         self = cast(this, POINTER(AsyncOperationCompletedHandlerImpl)).contents.self
         riid = cast(riid, POINTER(Guid))  # for Guid name conflict
-        return self.QueryInterface(riid, ppvObject)
+        return self.QueryInterface(this, riid, ppvObject)
 
-    def QueryInterface(self, riid, ppvObject):
+    def QueryInterface(self, this, riid, ppvObject):
         print(
             "AsyncOperationCompletedHandlerImpl.QueryInterface()",
             riid.contents,
             ppvObject.contents,
         )
         if str(riid.contents) == str(self.guid_t):
-            ppvObject.contents.value = cast(pointer(self), c_void_p).value
+            ppvObject.contents.value = this
             self.AddRef()
             return S_OK
         elif str(riid.contents) == "{00000000-0000-0000-c000-000000000046}":  # IUnknown
-            ppvObject.contents.value = cast(pointer(self), c_void_p).value
+            ppvObject.contents.value = this
             self.AddRef()
             return S_OK
         return E_NOINTERFACE
@@ -141,33 +146,21 @@ class AsyncOperationCompletedHandlerImpl(Generic[T], Structure):
         return S_OK
 
 
-# FIXME: Keep reference.  handler.Release() will be called after winrt_dialog thread ends.
-handler = None
-
-
-def await_i_async_operation(iasync: IAsyncOperation[T]) -> T:
-    global handler
-    event = Event()
+async def await_i_async_operation(iasync: IAsyncOperation[T]) -> T:
+    event = asyncio.Event()
     handler = AsyncOperationCompletedHandlerImpl[iasync.__orig_class__.__args__[0]](
         event
     )
-    handler.guid_t = _ro_get_parameterized_type_instance_iid(handler.__orig_class__)
     iasync.Completed = cast(pointer(handler), AsyncOperationCompletedHandler)
-    while not event.wait(1):
-        pass
+    await event.wait()
     r = iasync.GetResults()
     iasync.Release()
     handler.Release()
     return r
 
 
-def winrt_dialog(hwnd):
+async def winrt_dialog(hwnd):
     with ExitStack() as defer:
-        hr = RoInitialize(RO_INIT_MULTITHREADED)
-        if FAILED(hr):
-            raise WinError(hr)
-        defer.callback(RoUninitialize)
-
         dialog = MessageDialog.CreateWithTitle(
             "This is WinRT MessageDialog", "WinRT MessageDialog"
         )
@@ -182,13 +175,13 @@ def winrt_dialog(hwnd):
 
         iasync = dialog.ShowAsync()
 
-        uicommand = await_i_async_operation(iasync)
+        uicommand = await await_i_async_operation(iasync)
         defer.callback(uicommand.Release)
 
         print(uicommand, uicommand.Label)
 
 
-def WinMain():
+async def WinMain():
     hInstance = GetModuleHandleW(None)
     nCmdShow = SW_SHOWNORMAL
 
@@ -232,6 +225,7 @@ def WinMain():
     while GetMessageW(msg, 0, 0, 0) > 0:
         TranslateMessage(msg)
         DispatchMessageW(msg)
+        await asyncio.sleep(0)
 
     return 0
 
@@ -253,20 +247,20 @@ def WindowProc(hwnd: HWND, uMsg: UInt32, wParam: WPARAM, lParam: LPARAM):
         return 0
     elif uMsg == WM_KEYDOWN:
         print("WM_KEYDOWN")
-        Thread(target=winrt_dialog, args=[hwnd]).start()
+        asyncio.create_task(winrt_dialog(hwnd))
         return 0
     return DefWindowProcW(hwnd, uMsg, wParam, lParam)
 
 
-def main() -> None:
+async def main() -> None:
     with ExitStack() as defer:
         hr = RoInitialize(RO_INIT_SINGLETHREADED)
         if FAILED(hr):
             raise WinError(hr)
         defer.callback(RoUninitialize)
 
-        WinMain()
+        await WinMain()
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
