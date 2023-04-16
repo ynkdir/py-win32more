@@ -160,12 +160,19 @@ def get_type_hints(prototype):
             hints[name] = None
     return hints
 
-class ErrCheck:
-    def __init__(self):
-        self._as_intptr = False
+class ForeignFunction:
+    def __init__(self, prototype, factory):
+        self.hints = get_type_hints(prototype)
+        self.restype = self.hints.pop("return")
+        self.argtypes = list(self.hints.values())
+        types = [self.restype] + [EasyCastHandler(t) for t in self.argtypes]
+        params = tuple((1, name) for name in self.hints.keys())
+        self.delegate = factory(prototype.__name__, types, params)
 
-    def __call__(self, result, func, args):
-        if self._as_intptr:
+    def __call__(self, *args, **kwargs):
+        _as_intptr = kwargs.pop("_as_intptr", False)
+        result = self.delegate(*args, **kwargs)
+        if _as_intptr:
             return cast(result, c_void_p).value
         elif type(result) is c_char_p_no or type(result) is c_wchar_p_no:
             return result.value
@@ -177,14 +184,7 @@ def commonfunctype(factory):
         def wrapper(*args, **kwargs):
             nonlocal delegate
             if delegate is None:
-                hints = get_type_hints(prototype)
-                names = list(hints.keys())
-                names = names[:-1]
-                types = list(hints.values())
-                types = types[-1:] + [EasyCastHandler(t) for t in types[:-1]]
-                delegate = factory(prototype.__name__, types, tuple((1, name) for name in names))
-                delegate.errcheck = ErrCheck()
-            delegate.errcheck._as_intptr = kwargs.pop("_as_intptr", False)
+                delegate = ForeignFunction(prototype, factory)
             return delegate(*args, **kwargs)
         return wrapper
     return decorator
