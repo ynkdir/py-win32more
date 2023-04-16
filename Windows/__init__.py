@@ -16,10 +16,18 @@ MissingType = c_void_p
 
 # to avoid auto conversion to str
 class c_char_p_no(c_char_p):
-    pass
+    @staticmethod
+    def from_param(obj):
+        if isinstance(obj, int):
+            return c_char_p(obj)
+        return c_char_p.from_param(obj)
 
 class c_wchar_p_no(c_wchar_p):
-    pass
+    @staticmethod
+    def from_param(obj):
+        if isinstance(obj, int):
+            return c_wchar_p(obj)
+        return c_wchar_p.from_param(obj)
 
 Byte = c_ubyte
 SByte = c_byte
@@ -50,11 +58,31 @@ class EasyCastStructure(Structure):
             obj = easycast(obj, self._hints_[name])
         return super().__setattr__(name, obj)
 
+    def __getattribute__(self, name):
+        if name.endswith("_as_intptr"):
+            rawname = name.removesuffix("_as_intptr")
+            obj = super().__getattribute__(rawname)
+            return cast(obj, c_void_p).value
+        obj = super().__getattribute__(name)
+        if type(obj) is c_char_p_no or type(obj) is c_wchar_p_no:
+            return obj.value
+        return obj
+
 class EasyCastUnion(Union):
     def __setattr__(self, name, obj):
         if name in self._hints_:
             obj = easycast(obj, self._hints_[name])
         return super().__setattr__(name, obj)
+
+    def __getattribute__(self, name):
+        if name.endswith("_as_intptr"):
+            rawname = name.removesuffix("_as_intptr")
+            obj = super().__getattribute__(rawname)
+            return cast(obj, c_void_p).value
+        obj = super().__getattribute__(name)
+        if type(obj) is c_char_p_no or type(obj) is c_wchar_p_no:
+            return obj.value
+        return obj
 
 class EasyCastHandler:
     def __init__(self, declared_type):
@@ -132,6 +160,17 @@ def get_type_hints(prototype):
             hints[name] = None
     return hints
 
+class ErrCheck:
+    def __init__(self):
+        self._as_intptr = False
+
+    def __call__(self, result, func, args):
+        if self._as_intptr:
+            return cast(result, c_void_p).value
+        elif type(result) is c_char_p_no or type(result) is c_wchar_p_no:
+            return result.value
+        return result
+
 def commonfunctype(factory):
     def decorator(prototype):
         delegate = None
@@ -144,6 +183,8 @@ def commonfunctype(factory):
                 types = list(hints.values())
                 types = types[-1:] + [EasyCastHandler(t) for t in types[:-1]]
                 delegate = factory(prototype.__name__, types, tuple((1, name) for name in names))
+                delegate.errcheck = ErrCheck()
+            delegate.errcheck._as_intptr = kwargs.pop("_as_intptr", False)
             return delegate(*args, **kwargs)
         return wrapper
     return decorator

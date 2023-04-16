@@ -111,7 +111,7 @@ def main():
         stack.callback(pXlSheet.Release)
 
         # Get Range object for the Range A1:O15
-        parm = VARIANT(vt=VT_BSTR, bstrVal=SysAllocString("A1:O15"))
+        parm = VARIANT(vt=VT_BSTR, bstrVal=SysAllocString("A1:O15", _as_intptr=True))
         stack.callback(VariantClear, parm)
         pXlRange = AutoWrap(DISPATCH_PROPERTYGET, pXlSheet, "Range", parm)
         stack.callback(pXlRange.Release)
