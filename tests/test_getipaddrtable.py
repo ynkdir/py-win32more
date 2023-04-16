@@ -17,4 +17,4 @@ if (r := GetIpAddrTable(IpAddrTable, dwSize, False)) != NO_ERROR:
     raise WinError(r)
 
 for row in cast(byref(IpAddrTable.table), POINTER(MIB_IPADDRROW_XP * IpAddrTable.dwNumEntries)).contents:
-    print(socket.inet_ntoa(row.dwAddr.to_bytes(4, "big")))
+    print(socket.inet_ntoa(row.dwAddr.to_bytes(4, "little")))
