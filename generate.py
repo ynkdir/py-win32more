@@ -115,10 +115,6 @@ class TType:
         elif self.kind == "Pointer":
             if self.type.kind == "Primitive" and self.type.name == "Void":
                 return "c_void_p"
-            elif self.type.kind == "Primitive" and self.type.name == "Byte":
-                return "c_char_p_no"  # safe?
-            elif self.type.kind == "Primitive" and self.type.name == "Char":
-                return "c_wchar_p_no"  # safe?
             elif self.type.is_struct:
                 return f"POINTER({self.type.fullname}_head)"
             else:
@@ -1077,6 +1073,10 @@ class PyGenerator:
 
     def emit_native_typedef(self, td: TypeDefinition) -> str:
         pytype = td.fields[0].signature.pytype
+        if pytype == "POINTER(Byte)":
+            pytype = "c_char_p_no"
+        elif pytype == "POINTER(Char)":
+            pytype = "c_wchar_p_no"
         return f"{td.name} = {pytype}\n"
 
     def emit_clsid(self, td: TypeDefinition) -> str:
