@@ -167,6 +167,10 @@ class ForeignFunction:
         self.argtypes = list(self.hints.values())
         types = [self.restype] + [EasyCastHandler(t) for t in self.argtypes]
         params = tuple((1, name) for name in self.hints.keys())
+        varnames = prototype.__code__.co_varnames
+        if varnames and varnames[-1] == "__arglist":
+            # Disable keyword argument for variable length arguments.
+            params = None
         self.delegate = factory(prototype.__name__, types, params)
 
     def __call__(self, *args, **kwargs):

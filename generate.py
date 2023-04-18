@@ -1022,16 +1022,17 @@ class PyGenerator:
         library = md.import_.module.name
         functype = self.function_functype(md)
         restype = md.signature.return_type.pytype
-        params_csv = md.format_parameters()
+        params = md.format_parameters_list()
+        attrs = [f"'{library}'"]
         if md.name != md.import_.name:
-            if md.import_.name.startswith("#"):
-                # ordinal number  (e.g. #123)
-                entry_point = md.import_.name[1:]
-            else:
-                entry_point = f"'md.import_.name'"
-            writer.write(f"{indent}@{functype}('{library}', entry_point={entry_point})\n")
-        else:
-            writer.write(f"{indent}@{functype}('{library}')\n")
+            entry_point = self.function_entry_point(md)
+            attrs.append(f"entry_point={entry_point}")
+        if md.signature.header.calling_convention == "VarArgs":
+            assert functype == "cfunctype"
+            params.append("*__arglist")
+        params_csv = ", ".join(params)
+        attrs_csv = ", ".join(attrs)
+        writer.write(f"{indent}@{functype}({attrs_csv})\n")
         writer.write(f"{indent}def {md.name}({params_csv}) -> {restype}: ...\n")
         return writer.getvalue()
 
@@ -1042,6 +1043,13 @@ class PyGenerator:
             return "cfunctype"
         else:
             raise NotImplementedError()
+
+    def function_entry_point(self, md: MethodDefinitions) -> str:
+        if md.import_.name.startswith("#"):
+            # ordinal number  (e.g. #123)
+            return md.import_.name[1:]
+        else:
+            return f"'md.import_.name'"
 
     def emit_function_pointer(self, td: TypeDefinition) -> str:
         writer = StringIO()
