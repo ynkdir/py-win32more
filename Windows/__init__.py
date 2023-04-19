@@ -65,6 +65,8 @@ class EasyCastStructure(Structure):
             return cast(obj, c_void_p).value
         obj = super().__getattribute__(name)
         if type(obj) is c_char_p_no or type(obj) is c_wchar_p_no:
+            if not obj:
+                return None
             return obj.value
         return obj
 
@@ -81,6 +83,8 @@ class EasyCastUnion(Union):
             return cast(obj, c_void_p).value
         obj = super().__getattribute__(name)
         if type(obj) is c_char_p_no or type(obj) is c_wchar_p_no:
+            if not obj:
+                return None
             return obj.value
         return obj
 
