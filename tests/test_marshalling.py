@@ -1,5 +1,6 @@
 import unittest
 
+from ctypes import wstring_at
 from Windows import (
     EasyCastStructure,
     EasyCastUnion,
@@ -8,6 +9,7 @@ from Windows import (
     c_wchar_p_no,
     press,
 )
+from Windows.Win32.System.Environment import GetCommandLineW
 
 
 class TestMarshalling(unittest.TestCase):
@@ -66,6 +68,13 @@ class TestMarshalling(unittest.TestCase):
         s.c_wchar_p = 1234
         self.assertIsInstance(s.c_wchar_p_as_intptr, int)
         self.assertEqual(s.c_wchar_p_as_intptr, 1234)
+
+    def test_function_as_intptr(self):
+        s = GetCommandLineW()
+        i = GetCommandLineW(_as_intptr=True)
+        self.assertIsInstance(s, str)
+        self.assertIsInstance(i, int)
+        self.assertEqual(s, wstring_at(i))
 
 
 if __name__ == "__main__":
