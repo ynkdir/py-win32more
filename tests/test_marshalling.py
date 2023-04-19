@@ -1,6 +1,6 @@
 import unittest
+from ctypes import cast
 
-from ctypes import wstring_at
 from Windows import (
     EasyCastStructure,
     EasyCastUnion,
@@ -9,7 +9,7 @@ from Windows import (
     c_wchar_p_no,
     press,
 )
-from Windows.Win32.System.Environment import GetCommandLineW
+from Windows.Win32.UI.Shell import StrChrA, StrChrW
 
 
 class TestMarshalling(unittest.TestCase):
@@ -69,12 +69,31 @@ class TestMarshalling(unittest.TestCase):
         self.assertIsInstance(s.c_wchar_p_as_intptr, int)
         self.assertEqual(s.c_wchar_p_as_intptr, 1234)
 
-    def test_function_as_intptr(self):
-        s = GetCommandLineW()
-        i = GetCommandLineW(_as_intptr=True)
-        self.assertIsInstance(s, str)
-        self.assertIsInstance(i, int)
-        self.assertEqual(s, wstring_at(i))
+    def test_function_return_char_p(self):
+        s = c_char_p_no(b"abcdefg")
+        i = cast(s, c_void_p).value
+
+        p = StrChrA(s, ord("x"))
+        self.assertIsNone(p)
+
+        p = StrChrA(s, ord("d"))
+        self.assertEquals(p, b"defg")
+
+        p = StrChrA(s, ord("d"), _as_intptr=True)
+        self.assertEquals(p, i + 3)
+
+    def test_function_return_wchar_p(self):
+        s = c_wchar_p_no("abcdefg")
+        i = cast(s, c_void_p).value
+
+        p = StrChrW(s, "x")
+        self.assertIsNone(p)
+
+        p = StrChrW(s, "d")
+        self.assertEquals(p, "defg")
+
+        p = StrChrW(s, "d", _as_intptr=True)
+        self.assertEquals(p, i + 6)
 
 
 if __name__ == "__main__":
