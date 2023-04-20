@@ -90,6 +90,10 @@ class TestMarshalling(unittest.TestCase):
         with self.assertRaises(TypeError):
             s.c_char_p = "abcdefg"
 
+        s.c_char_p = c_char_p(b"abcdefg")
+        self.assertIsInstance(s.c_char_p, bytes)
+        self.assertEqual(s.c_char_p, b"abcdefg")
+
     def test_c_wchar_p(self):
         @press
         class S(EasyCastStructure):
@@ -125,6 +129,10 @@ class TestMarshalling(unittest.TestCase):
             s.c_wchar_p = b"abcdefg"
 
         s.c_wchar_p = "abcdefg"
+        self.assertIsInstance(s.c_wchar_p, str)
+        self.assertEqual(s.c_wchar_p, "abcdefg")
+
+        s.c_wchar_p = c_wchar_p("abcdefg")
         self.assertIsInstance(s.c_wchar_p, str)
         self.assertEqual(s.c_wchar_p, "abcdefg")
 
@@ -424,6 +432,20 @@ class TestMarshalling(unittest.TestCase):
 
         p = StrChrW(s, "d", _as_intptr=True)
         self.assertEqual(p, i + 6)
+
+    def test_function_int_as_char_p(self):
+        s = c_char_p(b"abcdefg")
+        i = cast(s, c_void_p).value
+
+        p = StrChrA(i, ord("a"), _as_intptr=True)
+        self.assertEqual(p, i)
+
+    def test_function_int_as_wchar_p(self):
+        s = c_wchar_p("abcdefg")
+        i = cast(s, c_void_p).value
+
+        p = StrChrW(i, "a", _as_intptr=True)
+        self.assertEqual(p, i)
 
 
 if __name__ == "__main__":

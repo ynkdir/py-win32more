@@ -99,9 +99,12 @@ class EasyCastHandler:
 EASY_TYPES = [ #obj_type, type_hint, c_func
     # python objects:
     (str, (POINTER(Int16), POINTER(UInt16)), c_wchar_p),
+    (int, (c_char_p, c_wchar_p), c_void_p),  # for function for consistency with struct.member assignment
     # ctypes objects:
     (c_wchar_p, (POINTER(Int16), POINTER(UInt16)), None),
     (c_wchar_p, (POINTER(POINTER(Int16)), POINTER(POINTER(UInt16))), pointer),
+    (c_char_p, (c_char_p_no,), None),
+    (c_wchar_p, (c_wchar_p_no,), None),
 ]
 
 def easycast(obj, type_):
@@ -167,9 +170,9 @@ def get_type_hints(prototype):
 class ForeignFunction:
     def __init__(self, prototype, factory):
         self.hints = get_type_hints(prototype)
-        self.restype = self.hints.pop("return")
+        self.restype = _patch_char_p(self.hints.pop("return"))
         self.argtypes = list(self.hints.values())
-        types = [_patch_char_p(self.restype)] + [EasyCastHandler(t) for t in self.argtypes]
+        types = [self.restype] + [EasyCastHandler(t) for t in self.argtypes]
         params = tuple((1, name) for name in self.hints.keys())
         varnames = prototype.__code__.co_varnames
         if varnames and varnames[-1] == "__arglist":
@@ -246,14 +249,14 @@ def press_struct(prototype):
     #if hasattr(prototype, "_fields_"):
     if "_fields_" in dir(prototype):
         return prototype
-    hints = get_type_hints(prototype)
+    hints = {name: _patch_char_p(type_) for name, type_ in get_type_hints(prototype).items()}
     anonymous = [name  for name in hints.keys() if re.match(r"^Anonymous\d*$", name)]
     if anonymous:
         prototype._anonymous_ = anonymous
     for type_ in hints.values():
         if type_ is not prototype and issubclass(type_, (Structure, Union)):
             press_struct(type_)
-    prototype._fields_ = [(name, _patch_char_p(type_)) for name, type_ in hints.items()]
+    prototype._fields_ = list(hints.items())
     for name in anonymous:
         hints.update(hints[name]._hints_)
     prototype._hints_ = hints
