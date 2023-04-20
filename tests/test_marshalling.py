@@ -1,5 +1,5 @@
 import unittest
-from ctypes import Array, c_char_p, c_wchar_p, cast, sizeof
+from ctypes import POINTER, Array, c_char_p, c_void_p, c_wchar_p, cast
 
 from Windows import (
     Boolean,
@@ -10,9 +10,6 @@ from Windows import (
     Int32,
     UInt32,
     UIntPtr,
-    c_char_p_no,
-    c_void_p,
-    c_wchar_p_no,
     press,
 )
 from Windows.Win32.UI.Shell import StrChrA, StrChrW
@@ -58,7 +55,7 @@ class TestMarshalling(unittest.TestCase):
     def test_c_char_p(self):
         @press
         class S(EasyCastStructure):
-            c_char_p: c_char_p_no
+            c_char_p: c_char_p
 
         s = S()
 
@@ -96,7 +93,7 @@ class TestMarshalling(unittest.TestCase):
     def test_c_wchar_p(self):
         @press
         class S(EasyCastStructure):
-            c_wchar_p: c_wchar_p_no
+            c_wchar_p: c_wchar_p
 
         s = S()
 
@@ -376,6 +373,31 @@ class TestMarshalling(unittest.TestCase):
 
         with self.assertRaises(RuntimeError):
             s.c_void_p_array_3 = (3, 4, "5")
+
+    def test_c_wchar_p_array(self):
+        @press
+        class S(EasyCastStructure):
+            c_wchar_p_array_3: c_wchar_p * 3
+
+        s = S()
+
+        self.assertIsInstance(s.c_wchar_p_array_3, Array)
+        self.assertIsNone(s.c_wchar_p_array_3[0])
+        self.assertIsNone(s.c_wchar_p_array_3[1])
+        self.assertIsNone(s.c_wchar_p_array_3[2])
+        self.assertEqual(s.c_wchar_p_array_3[:], [None, None, None])
+
+        # Access to invalid address indirectly.
+        s.c_wchar_p_array_3 = (3, 4, 5)
+        self.assertEqual(cast(s.c_wchar_p_array_3, POINTER(c_void_p))[0], 3)
+        self.assertEqual(cast(s.c_wchar_p_array_3, POINTER(c_void_p))[1], 4)
+        self.assertEqual(cast(s.c_wchar_p_array_3, POINTER(c_void_p))[2], 5)
+
+        s.c_wchar_p_array_3 = ("3", "4", "5")
+        self.assertEqual(s.c_wchar_p_array_3[0], "3")
+        self.assertEqual(s.c_wchar_p_array_3[1], "4")
+        self.assertEqual(s.c_wchar_p_array_3[2], "5")
+        self.assertEqual(s.c_wchar_p_array_3[:], ["3", "4", "5"])
 
     def test_function_return_char_p(self):
         s = c_char_p(b"abcdefg")

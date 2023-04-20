@@ -14,21 +14,6 @@ else:
 
 MissingType = c_void_p
 
-# to avoid auto conversion to str
-class c_char_p_no(c_char_p):
-    @staticmethod
-    def from_param(obj):
-        if isinstance(obj, int):
-            return c_char_p(obj)
-        return c_char_p.from_param(obj)
-
-class c_wchar_p_no(c_wchar_p):
-    @staticmethod
-    def from_param(obj):
-        if isinstance(obj, int):
-            return c_wchar_p(obj)
-        return c_wchar_p.from_param(obj)
-
 Byte = c_ubyte
 SByte = c_byte
 Char = c_wchar
@@ -48,9 +33,24 @@ else:
     raise NotImplementedError()
 Single = c_float
 Double = c_double
-String = c_wchar_p_no
+String = c_wchar_p
 Boolean = c_bool
 Void = None
+
+# to avoid auto conversion to str when struct.member access and function() result.
+class c_char_p_no(c_char_p):
+    pass
+
+class c_wchar_p_no(c_wchar_p):
+    pass
+
+def _patch_char_p(type_):
+    if type_ is c_char_p:
+        return c_char_p_no
+    elif type_ is c_wchar_p:
+        return c_wchar_p_no
+    else:
+        return type_
 
 class EasyCastStructure(Structure):
     def __setattr__(self, name, obj):
@@ -169,7 +169,7 @@ class ForeignFunction:
         self.hints = get_type_hints(prototype)
         self.restype = self.hints.pop("return")
         self.argtypes = list(self.hints.values())
-        types = [self.restype] + [EasyCastHandler(t) for t in self.argtypes]
+        types = [_patch_char_p(self.restype)] + [EasyCastHandler(t) for t in self.argtypes]
         params = tuple((1, name) for name in self.hints.keys())
         varnames = prototype.__code__.co_varnames
         if varnames and varnames[-1] == "__arglist":
@@ -253,7 +253,7 @@ def press_struct(prototype):
     for type_ in hints.values():
         if type_ is not prototype and issubclass(type_, (Structure, Union)):
             press_struct(type_)
-    prototype._fields_ = list(hints.items())
+    prototype._fields_ = [(name, _patch_char_p(type_)) for name, type_ in hints.items()]
     for name in anonymous:
         hints.update(hints[name]._hints_)
     prototype._hints_ = hints

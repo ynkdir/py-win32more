@@ -18,8 +18,6 @@ else:
 BASE_EXPORTS = [
     "ARCH",
     "MissingType",
-    "c_char_p_no",
-    "c_wchar_p_no",
     "Byte",
     "SByte",
     "Char",
@@ -1082,9 +1080,9 @@ class PyGenerator:
     def emit_native_typedef(self, td: TypeDefinition) -> str:
         pytype = td.fields[0].signature.pytype
         if pytype == "POINTER(Byte)":
-            pytype = "c_char_p_no"
+            pytype = "c_char_p"
         elif pytype == "POINTER(Char)":
-            pytype = "c_wchar_p_no"
+            pytype = "c_wchar_p"
         return f"{td.name} = {pytype}\n"
 
     def emit_clsid(self, td: TypeDefinition) -> str:
@@ -1198,7 +1196,7 @@ class PyGenerator:
         return "from __future__ import annotations\n"
 
     def emit_import_ctypes(self) -> str:
-        return "from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n"
+        return "from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n"
 
     def emit_import_base(self) -> str:
         return f"from Windows import {BASE_EXPORTS_CSV}\n"
