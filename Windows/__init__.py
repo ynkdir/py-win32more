@@ -88,14 +88,6 @@ class EasyCastUnion(Union):
             return obj.value
         return obj
 
-class EasyCastHandler:
-    def __init__(self, declared_type):
-        self.declared_type = declared_type
-
-    def from_param(self, obj):
-        obj = easycast(obj, self.declared_type)
-        return self.declared_type.from_param(obj)
-
 EASY_TYPES = [ #obj_type, type_hint, c_func
     # python objects:
     (str, (POINTER(Int16), POINTER(UInt16)), c_wchar_p),
@@ -172,22 +164,44 @@ class ForeignFunction:
         self.hints = get_type_hints(prototype)
         self.restype = _patch_char_p(self.hints.pop("return"))
         self.argtypes = list(self.hints.values())
-        types = [self.restype] + [EasyCastHandler(t) for t in self.argtypes]
+        types = [self.restype] + self.argtypes
         params = tuple((1, name) for name in self.hints.keys())
         varnames = prototype.__code__.co_varnames
         if varnames and varnames[-1] == "__arglist":
             # Disable keyword argument for variable length arguments.
             params = None
+        self.is_com = (varnames and varnames[0] == "self" and "self" not in self.hints)
         self.delegate = factory(prototype.__name__, types, params)
 
     def __call__(self, *args, **kwargs):
         _as_intptr = kwargs.pop("_as_intptr", False)
-        result = self.delegate(*args, **kwargs)
+        if self.is_com:
+            cargs, ckwargs = self.make_args(args[1:], kwargs)
+            cargs.insert(0, args[0])
+        else:
+            cargs, ckwargs = self.make_args(args, kwargs)
+        cargs, ckwargs = self.make_args(args, kwargs)
+        result = self.delegate(*cargs, **ckwargs)
         if _as_intptr:
             return cast(result, c_void_p).value
         elif type(result) is c_char_p_no or type(result) is c_wchar_p_no:
             return result.value
         return result
+
+    def make_args(self, args, kwargs):
+        cargs = []
+        for i, v in enumerate(args):
+            if i < len(self.argtypes):
+                cargs.append(easycast(v, self.argtypes[i]))
+            else:
+                cargs.append(v)
+        ckwargs = {}
+        for k, v in kwargs.items():
+            if k in self.hints:
+                ckwargs[k] = easycast(v, self.hints[k])
+            else:
+                ckwargs[k] = v
+        return cargs, ckwargs
 
 def commonfunctype(factory):
     def decorator(prototype):

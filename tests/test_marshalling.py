@@ -1,5 +1,17 @@
 import unittest
-from ctypes import POINTER, Array, c_char_p, c_void_p, c_wchar_p, cast
+from ctypes import (
+    CFUNCTYPE,
+    POINTER,
+    WINFUNCTYPE,
+    Array,
+    Structure,
+    c_char_p,
+    c_void_p,
+    c_wchar_p,
+    cast,
+    pointer,
+    py_object,
+)
 
 from Windows import (
     Boolean,
@@ -7,12 +19,20 @@ from Windows import (
     Double,
     EasyCastStructure,
     EasyCastUnion,
+    ForeignFunction,
     Int32,
     UInt32,
     UIntPtr,
+    commethod,
     press,
 )
-from Windows.Win32.UI.Shell import StrChrA, StrChrW
+
+
+def testfunctype(prototype):
+    def factory(name, types, params):
+        return CFUNCTYPE(*types)(prototype)
+
+    return ForeignFunction(prototype, factory)
 
 
 class TestMarshalling(unittest.TestCase):
@@ -407,45 +427,157 @@ class TestMarshalling(unittest.TestCase):
         self.assertEqual(s.c_wchar_p_array_3[2], "5")
         self.assertEqual(s.c_wchar_p_array_3[:], ["3", "4", "5"])
 
-    def test_function_return_char_p(self):
+    def test_function_c_void_p(self):
+        @testfunctype
+        def f(x: c_void_p) -> py_object:
+            return x
+
+        x = f(0)
+        self.assertIsNone(x)
+
+        x = f(1)
+        self.assertIsInstance(x, int)
+        self.assertEqual(x, 1)
+
+        x = f("a")
+        self.assertIsInstance(x, int)
+        # x is meory address already freed.
+
+        @testfunctype
+        def g(x: UIntPtr) -> c_void_p:
+            return x
+
+        x = g(0)
+        self.assertIsNone(x)
+
+        x = g(1)
+        self.assertIsInstance(x, int)
+        self.assertEqual(x, 1)
+
+        # @testfunctype
+        # def h() -> c_void_p:
+        #     return c_void_p()
+        #
+        # with self.assertRaises(TypeError):
+        #     h()
+        # TypeError: cannot be converted to pointer
+
+    def test_function_c_char_p(self):
+        @testfunctype
+        def f(x: c_char_p) -> py_object:
+            return x
+
         s = c_char_p(b"abcdefg")
         i = cast(s, c_void_p).value
 
-        p = StrChrA(s, ord("x"))
-        self.assertIsNone(p)
+        x = f(0)
+        self.assertIsNone(x)
 
-        p = StrChrA(s, ord("d"))
-        self.assertEqual(p, b"defg")
+        x = f(s)
+        self.assertIsInstance(x, bytes)
+        self.assertEqual(x, s.value)
 
-        p = StrChrA(s, ord("d"), _as_intptr=True)
-        self.assertEqual(p, i + 3)
+        x = f(i)
+        self.assertIsInstance(x, bytes)
+        self.assertEqual(x, s.value)
 
-    def test_function_return_wchar_p(self):
+        x = f(b"abcdefg")
+        self.assertIsInstance(x, bytes)
+        self.assertEqual(x, b"abcdefg")
+
+        @testfunctype
+        def g(x: UIntPtr) -> c_char_p:
+            return x
+
+        x = g(0)
+        self.assertIsNone(x)
+
+        x = g(i)
+        self.assertIsInstance(x, bytes)
+        self.assertEqual(x, s.value)
+
+        x = g(i, _as_intptr=True)
+        self.assertIsInstance(x, int)
+        self.assertEqual(x, i)
+
+        # can not catch exception
+        # @testfunctype
+        # def h() -> c_char_p:
+        #     return c_char_p()
+        #
+        # with self.assertRaises(TypeError):
+        #     h()
+        # TypeError: bytes or integer address expected instead of c_char_p instance
+
+    def test_function_c_wchar_p(self):
+        @testfunctype
+        def f(x: c_wchar_p) -> py_object:
+            return x
+
         s = c_wchar_p("abcdefg")
         i = cast(s, c_void_p).value
 
-        p = StrChrW(s, "x")
-        self.assertIsNone(p)
+        x = f(0)
+        self.assertIsNone(x)
 
-        p = StrChrW(s, "d")
-        self.assertEqual(p, "defg")
+        x = f(s)
+        self.assertIsInstance(x, str)
+        self.assertEqual(x, s.value)
 
-        p = StrChrW(s, "d", _as_intptr=True)
-        self.assertEqual(p, i + 6)
+        x = f(i)
+        self.assertIsInstance(x, str)
+        self.assertEqual(x, s.value)
 
-    def test_function_int_as_char_p(self):
-        s = c_char_p(b"abcdefg")
-        i = cast(s, c_void_p).value
+        x = f("abcdefg")
+        self.assertIsInstance(x, str)
+        self.assertEqual(x, "abcdefg")
 
-        p = StrChrA(i, ord("a"), _as_intptr=True)
-        self.assertEqual(p, i)
+        @testfunctype
+        def g(x: UIntPtr) -> c_wchar_p:
+            return x
 
-    def test_function_int_as_wchar_p(self):
-        s = c_wchar_p("abcdefg")
-        i = cast(s, c_void_p).value
+        x = g(0)
+        self.assertIsNone(x)
 
-        p = StrChrW(i, "a", _as_intptr=True)
-        self.assertEqual(p, i)
+        x = g(i)
+        self.assertIsInstance(x, str)
+        self.assertEqual(x, s.value)
+
+        x = g(i, _as_intptr=True)
+        self.assertIsInstance(x, int)
+        self.assertEqual(x, i)
+
+        # can not catch exception
+        # @testfunctype
+        # def h() -> c_wchar_p:
+        #     return c_wchar_p()
+        #
+        # with self.assertRaises(TypeError):
+        #     h()
+        # TypeError: unicode string or integer address expected instead of c_wchar_p instance
+
+    def test_function_self_not_annotated(self):
+        class ComClassImpl(Structure):
+            _fields_ = [("vtable", POINTER(c_void_p))]
+
+            def __init__(self):
+                self.vtable = (c_void_p * 1)()
+                self.vtable[0] = cast(self.f, c_void_p)
+
+            @WINFUNCTYPE(UInt32, c_void_p, UInt32)
+            def f(this, x):
+                return x
+
+        class ComClassPtr(c_void_p):
+            @commethod(0)
+            def f(self, x: UInt32) -> UInt32:
+                ...
+
+        instance = cast(pointer(ComClassImpl()), ComClassPtr)
+
+        x = instance.f(42)
+        self.assertIsInstance(x, int)
+        self.assertEqual(x, 42)
 
 
 if __name__ == "__main__":
