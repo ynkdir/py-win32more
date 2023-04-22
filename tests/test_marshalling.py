@@ -579,6 +579,45 @@ class TestMarshalling(unittest.TestCase):
         self.assertIsInstance(x, int)
         self.assertEqual(x, 42)
 
+    def test_structure_tuple_unpack(self):
+        @press
+        class S(EasyCastStructure):
+            a: Int32
+            b: c_char_p
+            c: c_wchar_p
+            d: c_void_p
+
+        @press
+        class T(EasyCastStructure):
+            e: Int32
+            f: S
+            g: Int32
+            h: Int32 * 3
+
+        @press
+        class U(EasyCastStructure):
+            i: T
+
+        u = U()
+        u.i = (1, (2, 3, 4, 5), 6, (7, 8, 9))
+        self.assertEqual(u.i.e, 1)
+        self.assertEqual(u.i.f.a, 2)
+        self.assertEqual(u.i.f.b_as_intptr, 3)
+        self.assertEqual(u.i.f.c_as_intptr, 4)
+        self.assertEqual(u.i.f.d, 5)
+        self.assertEqual(u.i.g, 6)
+        self.assertEqual(u.i.h[0], 7)
+        self.assertEqual(u.i.h[1], 8)
+        self.assertEqual(u.i.h[2], 9)
+        self.assertEqual(u.i.h[:], [7, 8, 9])
+
+        # MEMO: not work
+        # @testfunctype
+        # def f(u: U) -> py_object:
+        #     return u
+        # u = f((1, (2, 3, 4, 5), 6, (7, 8, 9)))
+        # ctypes.ArgumentError: argument 1: TypeError: expected U instance instead of tuple
+
 
 if __name__ == "__main__":
     unittest.main()
