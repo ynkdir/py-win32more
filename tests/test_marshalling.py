@@ -28,7 +28,7 @@ from Windows import (
 )
 
 
-def testfunctype(prototype):
+def functype(prototype):
     def factory(name, types, params):
         return CFUNCTYPE(*types)(prototype)
 
@@ -428,7 +428,7 @@ class TestMarshalling(unittest.TestCase):
         self.assertEqual(s.c_wchar_p_array_3[:], ["3", "4", "5"])
 
     def test_function_c_void_p(self):
-        @testfunctype
+        @functype
         def f(x: c_void_p) -> py_object:
             return x
 
@@ -443,7 +443,7 @@ class TestMarshalling(unittest.TestCase):
         self.assertIsInstance(x, int)
         # x is meory address already freed.
 
-        @testfunctype
+        @functype
         def g(x: UIntPtr) -> c_void_p:
             return x
 
@@ -454,7 +454,7 @@ class TestMarshalling(unittest.TestCase):
         self.assertIsInstance(x, int)
         self.assertEqual(x, 1)
 
-        # @testfunctype
+        # @functype
         # def h() -> c_void_p:
         #     return c_void_p()
         #
@@ -463,7 +463,7 @@ class TestMarshalling(unittest.TestCase):
         # TypeError: cannot be converted to pointer
 
     def test_function_c_char_p(self):
-        @testfunctype
+        @functype
         def f(x: c_char_p) -> py_object:
             return x
 
@@ -485,7 +485,7 @@ class TestMarshalling(unittest.TestCase):
         self.assertIsInstance(x, bytes)
         self.assertEqual(x, b"abcdefg")
 
-        @testfunctype
+        @functype
         def g(x: UIntPtr) -> c_char_p:
             return x
 
@@ -501,7 +501,7 @@ class TestMarshalling(unittest.TestCase):
         self.assertEqual(x, i)
 
         # can not catch exception
-        # @testfunctype
+        # @functype
         # def h() -> c_char_p:
         #     return c_char_p()
         #
@@ -510,7 +510,7 @@ class TestMarshalling(unittest.TestCase):
         # TypeError: bytes or integer address expected instead of c_char_p instance
 
     def test_function_c_wchar_p(self):
-        @testfunctype
+        @functype
         def f(x: c_wchar_p) -> py_object:
             return x
 
@@ -532,7 +532,7 @@ class TestMarshalling(unittest.TestCase):
         self.assertIsInstance(x, str)
         self.assertEqual(x, "abcdefg")
 
-        @testfunctype
+        @functype
         def g(x: UIntPtr) -> c_wchar_p:
             return x
 
@@ -548,7 +548,7 @@ class TestMarshalling(unittest.TestCase):
         self.assertEqual(x, i)
 
         # can not catch exception
-        # @testfunctype
+        # @functype
         # def h() -> c_wchar_p:
         #     return c_wchar_p()
         #
@@ -612,7 +612,7 @@ class TestMarshalling(unittest.TestCase):
         self.assertEqual(u.i.h[:], [7, 8, 9])
 
         # MEMO: not work
-        # @testfunctype
+        # @functype
         # def f(u: U) -> py_object:
         #     return u
         # u = f((1, (2, 3, 4, 5), 6, (7, 8, 9)))
