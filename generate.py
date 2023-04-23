@@ -11,9 +11,9 @@ from io import StringIO
 from pathlib import Path
 from typing import Any, TextIO, overload, Collection, MutableSequence
 if sys.version_info < (3, 11):
-    from typing_extensions import TypeAlias, Self
+    from typing_extensions import TypeAlias
 else:
-    from typing import TypeAlias, Self
+    from typing import TypeAlias
 
 BASE_EXPORTS = [
     "ARCH",
@@ -95,7 +95,7 @@ class TType:
         return self["Size"]
 
     @property
-    def type_arguments(self) -> list[Self]:
+    def type_arguments(self) -> list[TType]:
         if self["TypeArguments"] is None:
             raise KeyError()
         return [TType(ta) for ta in self["TypeArguments"]]
@@ -355,6 +355,8 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
     def get_property_key(self) -> tuple[str, int]:
         value = self.get("Windows.Win32.Foundation.Metadata.ConstantAttribute").fixed_arguments[0].value
         m = re.fullmatch(r"{(\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+)}, (\d+)", value)
+        if not m:
+            raise RuntimeError()
         v = [int(d) for d in m.groups()]
         assert len(v) == 12
         guid = self.format_guid(v[:11])
@@ -1042,7 +1044,7 @@ class PyGenerator:
         else:
             raise NotImplementedError()
 
-    def function_entry_point(self, md: MethodDefinitions) -> str:
+    def function_entry_point(self, md: MethodDefinition) -> str:
         if md.import_.name.startswith("#"):
             # ordinal number  (e.g. #123)
             return md.import_.name[1:]
@@ -1341,8 +1343,8 @@ class Selector:
 def make_module_path_for_write(namespace) -> TextIO:
     p = Path(namespace.replace(".", "/"))
     p.mkdir(parents=True, exist_ok=True)
-    for d in range(len(p.parents) - 1):
-        d = p.parents[d]
+    for i in range(len(p.parents) - 1):
+        d = p.parents[i]
         if not (d / "__init__.py").exists():
             (d / "__init__.py").write_text("")
     return (p / "__init__.py").open("w")
@@ -1369,7 +1371,7 @@ def generate_one(meta: Metadata, writer: TextIO) -> None:
         writer.write(pg.emit_make_head(td))
 
 
-def xopen(path: str) -> TextIO:
+def xopen(path: str) -> TextIO | lzma.LZMAFile:
     if path.endswith(".xz"):
         return lzma.open(path)
     return open(path)
