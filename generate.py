@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import argparse
 import json
 import keyword
@@ -9,7 +10,8 @@ from collections import defaultdict
 from collections.abc import Iterable, Iterator, Mapping
 from io import StringIO
 from pathlib import Path
-from typing import Any, TextIO, overload, Collection, MutableSequence
+from typing import Any, Collection, MutableSequence, TextIO, overload
+
 if sys.version_info < (3, 11):
     from typing_extensions import TypeAlias
 else:
@@ -1049,7 +1051,7 @@ class PyGenerator:
             # ordinal number  (e.g. #123)
             return md.import_.name[1:]
         else:
-            return f"'md.import_.name'"
+            return "'md.import_.name'"
 
     def emit_function_pointer(self, td: TypeDefinition) -> str:
         writer = StringIO()
@@ -1171,7 +1173,7 @@ class PyGenerator:
         params = md.format_parameters_list()
         writer.write(f"class {td.name}(EasyCastStructure):\n")
         if not params:
-            writer.write(f"    pass\n")
+            writer.write("    pass\n")
         else:
             for param in params:
                 writer.write(f"    {param}\n")
