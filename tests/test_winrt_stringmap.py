@@ -1,3 +1,4 @@
+import unittest
 from contextlib import ExitStack
 from ctypes import WinError
 
@@ -10,20 +11,27 @@ from Windows.Win32.System.WinRT import (
 )
 
 
-def main() -> None:
-    with ExitStack() as defer:
+class TestWinrtStringMap(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
         hr = RoInitialize(RO_INIT_SINGLETHREADED)
         if FAILED(hr):
             raise WinError(hr)
-        defer.callback(RoUninitialize)
 
-        x = StringMap.New()
-        defer.callback(x.Release)
+    @classmethod
+    def tearDownClass(cls):
+        RoUninitialize()
 
-        x.Insert("key1", "value1")
-        x.Insert("key2", "value2")
-        print("key1 =", x.Lookup("key1"))
-        print("key2 =", x.Lookup("key2"))
+    def test_stringmap(self):
+        m = StringMap.New()
+
+        m.Insert("key1", "value1")
+        self.assertEqual(m.Lookup("key1"), "value1")
+
+        m.Insert("key2", "value2")
+        self.assertEqual(m.Lookup("key2"), "value2")
+
+        m.Release()
 
 
 if __name__ == "__main__":
