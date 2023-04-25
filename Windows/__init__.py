@@ -1,19 +1,18 @@
 from __future__ import annotations
+
 import re
 import sys
 import types
 import typing
 import uuid
-from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll, windll, CFUNCTYPE, WINFUNCTYPE, sizeof, POINTER, cast, pointer, Array, WinError, wstring_at
-from importlib import import_module
-from typing import TypeVar, Generic, _GenericAlias
-
 from ctypes import (
     CFUNCTYPE,
     POINTER,
     WINFUNCTYPE,
+    Array,
     Structure,
     Union,
+    WinError,
     c_bool,
     c_byte,
     c_char_p,
@@ -34,7 +33,10 @@ from ctypes import (
     pointer,
     sizeof,
     windll,
+    wstring_at,
 )
+from importlib import import_module
+from typing import Generic, TypeVar, _GenericAlias
 
 T = TypeVar("T")
 
@@ -70,6 +72,7 @@ String = c_wchar_p
 Boolean = c_bool
 Void = None
 
+
 # to avoid auto conversion to str when struct.member access and function() result.
 class c_char_p_no(c_char_p):
     pass
@@ -87,9 +90,11 @@ def _patch_char_p(type_):
     else:
         return type_
 
+
 class WinRT_String(IntPtr):  # HSTRING
     def __del__(self):
         import Windows.Win32.System.WinRT
+
         if self:
             hr = Windows.Win32.System.WinRT.WindowsDeleteString(self)
             if FAILED(hr):
@@ -98,6 +103,7 @@ class WinRT_String(IntPtr):  # HSTRING
     @classmethod
     def from_param(cls, obj):
         import Windows.Win32.System.WinRT
+
         if isinstance(obj, str):
             pass
         elif isinstance(obj, String):
@@ -112,9 +118,11 @@ class WinRT_String(IntPtr):  # HSTRING
 
     def __ctypes_from_outparam__(self):
         import Windows.Win32.System.WinRT
+
         length = UInt32()
         bufaddr = Windows.Win32.System.WinRT.WindowsGetStringRawBuffer(self, length, _as_intptr=True)
         return wstring_at(bufaddr, length.value)
+
 
 class EasyCastStructure(Structure):
     def __setattr__(self, name, obj):
@@ -319,23 +327,29 @@ def commethod(vtbl_index):
 
     return commonfunctype(factory)
 
+
 def errcheck_return(hr, func, args):
     if FAILED(hr):
         raise WinError(hr)
     return args
+
 
 def errcheck_void(hr, func, args):
     if FAILED(hr):
         raise WinError(hr)
     return None
 
+
 def winrt_commethod(vtbl_index):
     def factory(name, types, params):
         return WINFUNCTYPE(*types)(vtbl_index, name, params)
+
     def decorator(prototype):
         delegate_generic = {}
+
         def wrapper(self, *args, **kwargs):
             import Windows.Win32.Foundation
+
             nonlocal delegate_generic
             if is_generic_instance(self):
                 targs = self.__orig_class__.__args__
@@ -362,9 +376,11 @@ def winrt_commethod(vtbl_index):
                 else:
                     params.append((2, "return"))
                     if is_generic_class(return_):
+
                         class GenericReturnHelper(c_void_p):
                             def __ctypes_from_outparam__(self):
                                 return return_(self.value)
+
                         types.append(POINTER(GenericReturnHelper))
                     else:
                         types.append(POINTER(return_))
@@ -373,11 +389,15 @@ def winrt_commethod(vtbl_index):
                 delegate_generic[targs].errcheck = errcheck
                 delegate = delegate_generic[targs]
             return delegate(self, *args, **kwargs)
+
         return wrapper
+
     return decorator
+
 
 def winrt_mixinmethod(prototype):
     interface_class = None
+
     def wrapper(self, *args, **kwargs):
         nonlocal interface_class
         if interface_class is None:
@@ -395,18 +415,23 @@ def winrt_mixinmethod(prototype):
             return getattr(interface, prototype.__name__)(*args, **kwargs)
         finally:
             interface.Release()
+
     return wrapper
+
 
 # Cls[T]?
 def is_generic_class(cls):
     return isinstance(cls, _GenericAlias)
 
+
 # Cls[T]()?
 def is_generic_instance(obj):
     return isinstance(obj, Generic)
 
+
 def winrt_classmethod(prototype):
     factory_class = None
+
     @classmethod
     def wrapper(cls, *args, **kwargs):
         nonlocal factory_class
@@ -418,10 +443,13 @@ def winrt_classmethod(prototype):
             return getattr(factory, prototype.__name__)(*args, **kwargs)
         finally:
             factory.Release
+
     return wrapper
+
 
 def winrt_factorymethod(prototype):
     factory_class = None
+
     @classmethod
     def wrapper(cls, *args):
         nonlocal factory_class
@@ -433,24 +461,31 @@ def winrt_factorymethod(prototype):
             return getattr(factory, prototype.__name__)(*args)
         finally:
             factory.Release
+
     return wrapper
+
 
 def winrt_activatemethod(prototype):
     @classmethod
     def wrapper(cls):
         return _winrt_activate_instance(cls.ClassId, cls)
+
     return wrapper
+
 
 def _winrt_create_string(s: str):
     import Windows.Win32.System.WinRT as winrt
+
     hs = winrt.HSTRING()
     hr = winrt.WindowsCreateString(s, len(s), hs)
     if FAILED(hr):
         raise WinError(hr)
     return hs
 
+
 def _winrt_get_activation_factory(classid: str, factory_class: type[T]) -> T:
     import Windows.Win32.System.WinRT as winrt
+
     hs = _winrt_create_string(classid)
     factory = factory_class()
     hr = winrt.RoGetActivationFactory(hs, factory_class.Guid, factory)
@@ -459,8 +494,10 @@ def _winrt_get_activation_factory(classid: str, factory_class: type[T]) -> T:
         raise WinError(hr)
     return factory
 
+
 def _winrt_activate_instance(classid: str, cls: type[T]) -> T:
     import Windows.Win32.System.WinRT as winrt
+
     hs = _winrt_create_string(classid)
     instance = cls()
     hr = winrt.RoActivateInstance(hs, instance)
@@ -468,6 +505,7 @@ def _winrt_activate_instance(classid: str, cls: type[T]) -> T:
     if FAILED(hr):
         raise WinError(hr)
     return instance
+
 
 # https://learn.microsoft.com/en-us/uwp/winrt-cref/winrt-type-system
 #
@@ -498,6 +536,7 @@ def _ro_get_parameterized_type_instance_iid(ga: _GenericAlias) -> Guid:
     wrt_pinterface_namespace = uuid.UUID("{11f47ad5-7b73-42c0-abae-878b1e16adee}")
     ptype_instance_signature = _get_type_signature(ga)
     return Guid(uuid.uuid5(wrt_pinterface_namespace, ptype_instance_signature))
+
 
 # FIXME: not completed
 def _get_type_signature(cls) -> str:
@@ -531,6 +570,7 @@ def _get_type_signature(cls) -> str:
         return "g16"
     else:
         raise NotImplementedError()
+
 
 def commonfunctype_pointer(prototype, functype):
     def press_functype_pointer():
