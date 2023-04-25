@@ -1,0 +1,426 @@
+from __future__ import annotations
+from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
+from typing import Generic, TypeVar
+K = TypeVar('T')
+T = TypeVar('T')
+V = TypeVar('V')
+TProgress = TypeVar('TProgress')
+TResult = TypeVar('TResult')
+TSender = TypeVar('TSender')
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, WinRT_String, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+import Windows.Win32.System.WinRT
+import Windows.Foundation
+import Windows.Foundation.Collections
+import Windows.Security.Credentials
+import Windows.Security.Cryptography.Core
+import Windows.Storage.Streams
+import Windows.System
+import sys
+_module = sys.modules[__name__]
+def __getattr__(name):
+    try:
+        prototype = globals()[f'{name}_head']
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    setattr(_module, name, press(prototype))
+    return getattr(_module, name)
+class ICredentialFactory(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('54ef13a1-bf26-47b5-97-dd-de-77-9b-7c-ad-58')
+    @winrt_commethod(6)
+    def CreatePasswordCredential(self, resource: WinRT_String, userName: WinRT_String, password: WinRT_String) -> Windows.Security.Credentials.PasswordCredential: ...
+class IKeyCredential(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('9585ef8d-457b-4847-b1-1a-fa-96-0b-bd-b1-38')
+    @winrt_commethod(6)
+    def get_Name(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def RetrievePublicKeyWithDefaultBlobType(self) -> Windows.Storage.Streams.IBuffer: ...
+    @winrt_commethod(8)
+    def RetrievePublicKeyWithBlobType(self, blobType: Windows.Security.Cryptography.Core.CryptographicPublicKeyBlobType) -> Windows.Storage.Streams.IBuffer: ...
+    @winrt_commethod(9)
+    def RequestSignAsync(self, data: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.KeyCredentialOperationResult]: ...
+    @winrt_commethod(10)
+    def GetAttestationAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.KeyCredentialAttestationResult]: ...
+    Name = property(get_Name, None)
+class IKeyCredentialAttestationResult(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('78aab3a1-a3c1-4103-b6-cc-47-2c-44-17-1c-bb')
+    @winrt_commethod(6)
+    def get_CertificateChainBuffer(self) -> Windows.Storage.Streams.IBuffer: ...
+    @winrt_commethod(7)
+    def get_AttestationBuffer(self) -> Windows.Storage.Streams.IBuffer: ...
+    @winrt_commethod(8)
+    def get_Status(self) -> Windows.Security.Credentials.KeyCredentialAttestationStatus: ...
+    CertificateChainBuffer = property(get_CertificateChainBuffer, None)
+    AttestationBuffer = property(get_AttestationBuffer, None)
+    Status = property(get_Status, None)
+class IKeyCredentialManagerStatics(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('6aac468b-0ef1-4ce0-82-90-41-06-da-6a-63-b5')
+    @winrt_commethod(6)
+    def IsSupportedAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
+    @winrt_commethod(7)
+    def RenewAttestationAsync(self) -> Windows.Foundation.IAsyncAction: ...
+    @winrt_commethod(8)
+    def RequestCreateAsync(self, name: WinRT_String, option: Windows.Security.Credentials.KeyCredentialCreationOption) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.KeyCredentialRetrievalResult]: ...
+    @winrt_commethod(9)
+    def OpenAsync(self, name: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.KeyCredentialRetrievalResult]: ...
+    @winrt_commethod(10)
+    def DeleteAsync(self, name: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
+class IKeyCredentialOperationResult(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('f53786c1-5261-4cdd-97-6d-cc-90-9a-c7-16-20')
+    @winrt_commethod(6)
+    def get_Result(self) -> Windows.Storage.Streams.IBuffer: ...
+    @winrt_commethod(7)
+    def get_Status(self) -> Windows.Security.Credentials.KeyCredentialStatus: ...
+    Result = property(get_Result, None)
+    Status = property(get_Status, None)
+class IKeyCredentialRetrievalResult(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('58cd7703-8d87-4249-9b-58-f6-59-8c-c9-64-4e')
+    @winrt_commethod(6)
+    def get_Credential(self) -> Windows.Security.Credentials.KeyCredential: ...
+    @winrt_commethod(7)
+    def get_Status(self) -> Windows.Security.Credentials.KeyCredentialStatus: ...
+    Credential = property(get_Credential, None)
+    Status = property(get_Status, None)
+class IPasswordCredential(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('6ab18989-c720-41a7-a6-c1-fe-ad-b3-63-29-a0')
+    @winrt_commethod(6)
+    def get_Resource(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def put_Resource(self, resource: WinRT_String) -> Void: ...
+    @winrt_commethod(8)
+    def get_UserName(self) -> WinRT_String: ...
+    @winrt_commethod(9)
+    def put_UserName(self, userName: WinRT_String) -> Void: ...
+    @winrt_commethod(10)
+    def get_Password(self) -> WinRT_String: ...
+    @winrt_commethod(11)
+    def put_Password(self, password: WinRT_String) -> Void: ...
+    @winrt_commethod(12)
+    def RetrievePassword(self) -> Void: ...
+    @winrt_commethod(13)
+    def get_Properties(self) -> Windows.Foundation.Collections.IPropertySet: ...
+    Resource = property(get_Resource, put_Resource)
+    UserName = property(get_UserName, put_UserName)
+    Password = property(get_Password, put_Password)
+    Properties = property(get_Properties, None)
+class IPasswordVault(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('61fd2c0b-c8d4-48c1-a5-4f-bc-5a-64-20-5a-f2')
+    @winrt_commethod(6)
+    def Add(self, credential: Windows.Security.Credentials.PasswordCredential) -> Void: ...
+    @winrt_commethod(7)
+    def Remove(self, credential: Windows.Security.Credentials.PasswordCredential) -> Void: ...
+    @winrt_commethod(8)
+    def Retrieve(self, resource: WinRT_String, userName: WinRT_String) -> Windows.Security.Credentials.PasswordCredential: ...
+    @winrt_commethod(9)
+    def FindAllByResource(self, resource: WinRT_String) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Credentials.PasswordCredential]: ...
+    @winrt_commethod(10)
+    def FindAllByUserName(self, userName: WinRT_String) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Credentials.PasswordCredential]: ...
+    @winrt_commethod(11)
+    def RetrieveAll(self) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Credentials.PasswordCredential]: ...
+class IWebAccount(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('69473eb2-8031-49be-80-bb-96-cb-46-d9-9a-ba')
+    @winrt_commethod(6)
+    def get_WebAccountProvider(self) -> Windows.Security.Credentials.WebAccountProvider: ...
+    @winrt_commethod(7)
+    def get_UserName(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_State(self) -> Windows.Security.Credentials.WebAccountState: ...
+    WebAccountProvider = property(get_WebAccountProvider, None)
+    UserName = property(get_UserName, None)
+    State = property(get_State, None)
+class IWebAccount2(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('7b56d6f8-990b-4eb5-94-a7-56-21-f3-a8-b8-24')
+    @winrt_commethod(6)
+    def get_Id(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_Properties(self) -> Windows.Foundation.Collections.IMapView[WinRT_String, WinRT_String]: ...
+    @winrt_commethod(8)
+    def GetPictureAsync(self, desizedSize: Windows.Security.Credentials.WebAccountPictureSize) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IRandomAccessStream]: ...
+    @winrt_commethod(9)
+    def SignOutAsync(self) -> Windows.Foundation.IAsyncAction: ...
+    @winrt_commethod(10)
+    def SignOutWithClientIdAsync(self, clientId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
+    Id = property(get_Id, None)
+    Properties = property(get_Properties, None)
+class IWebAccountFactory(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('ac9afb39-1de9-4e92-b7-8f-05-81-a8-7f-6e-5c')
+    @winrt_commethod(6)
+    def CreateWebAccount(self, webAccountProvider: Windows.Security.Credentials.WebAccountProvider, userName: WinRT_String, state: Windows.Security.Credentials.WebAccountState) -> Windows.Security.Credentials.WebAccount: ...
+class IWebAccountProvider(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('29dcc8c3-7ab9-4a7c-a3-36-b9-42-f9-db-f7-c7')
+    @winrt_commethod(6)
+    def get_Id(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_DisplayName(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_IconUri(self) -> Windows.Foundation.Uri: ...
+    Id = property(get_Id, None)
+    DisplayName = property(get_DisplayName, None)
+    IconUri = property(get_IconUri, None)
+class IWebAccountProvider2(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('4a01eb05-4e42-41d4-b5-18-e0-08-a5-16-36-14')
+    @winrt_commethod(6)
+    def get_DisplayPurpose(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_Authority(self) -> WinRT_String: ...
+    DisplayPurpose = property(get_DisplayPurpose, None)
+    Authority = property(get_Authority, None)
+class IWebAccountProvider3(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('da1c518b-970d-4d49-82-5c-f2-70-6f-8c-a7-fe')
+    @winrt_commethod(6)
+    def get_User(self) -> Windows.System.User: ...
+    User = property(get_User, None)
+class IWebAccountProvider4(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('718fd8db-e796-4210-b7-4e-84-d2-98-94-b0-80')
+    @winrt_commethod(6)
+    def get_IsSystemProvider(self) -> Boolean: ...
+    IsSystemProvider = property(get_IsSystemProvider, None)
+class IWebAccountProviderFactory(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('1d767df1-e1e1-4b9a-a7-74-5c-7c-7e-3b-f3-71')
+    @winrt_commethod(6)
+    def CreateWebAccountProvider(self, id: WinRT_String, displayName: WinRT_String, iconUri: Windows.Foundation.Uri) -> Windows.Security.Credentials.WebAccountProvider: ...
+class KeyCredential(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Security.Credentials.KeyCredential'
+    @winrt_mixinmethod
+    def get_Name(self: Windows.Security.Credentials.IKeyCredential) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def RetrievePublicKeyWithDefaultBlobType(self: Windows.Security.Credentials.IKeyCredential) -> Windows.Storage.Streams.IBuffer: ...
+    @winrt_mixinmethod
+    def RetrievePublicKeyWithBlobType(self: Windows.Security.Credentials.IKeyCredential, blobType: Windows.Security.Cryptography.Core.CryptographicPublicKeyBlobType) -> Windows.Storage.Streams.IBuffer: ...
+    @winrt_mixinmethod
+    def RequestSignAsync(self: Windows.Security.Credentials.IKeyCredential, data: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.KeyCredentialOperationResult]: ...
+    @winrt_mixinmethod
+    def GetAttestationAsync(self: Windows.Security.Credentials.IKeyCredential) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.KeyCredentialAttestationResult]: ...
+    Name = property(get_Name, None)
+class KeyCredentialAttestationResult(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Security.Credentials.KeyCredentialAttestationResult'
+    @winrt_mixinmethod
+    def get_CertificateChainBuffer(self: Windows.Security.Credentials.IKeyCredentialAttestationResult) -> Windows.Storage.Streams.IBuffer: ...
+    @winrt_mixinmethod
+    def get_AttestationBuffer(self: Windows.Security.Credentials.IKeyCredentialAttestationResult) -> Windows.Storage.Streams.IBuffer: ...
+    @winrt_mixinmethod
+    def get_Status(self: Windows.Security.Credentials.IKeyCredentialAttestationResult) -> Windows.Security.Credentials.KeyCredentialAttestationStatus: ...
+    CertificateChainBuffer = property(get_CertificateChainBuffer, None)
+    AttestationBuffer = property(get_AttestationBuffer, None)
+    Status = property(get_Status, None)
+KeyCredentialAttestationStatus = Int32
+KeyCredentialAttestationStatus_Success: KeyCredentialAttestationStatus = 0
+KeyCredentialAttestationStatus_UnknownError: KeyCredentialAttestationStatus = 1
+KeyCredentialAttestationStatus_NotSupported: KeyCredentialAttestationStatus = 2
+KeyCredentialAttestationStatus_TemporaryFailure: KeyCredentialAttestationStatus = 3
+KeyCredentialCreationOption = Int32
+KeyCredentialCreationOption_ReplaceExisting: KeyCredentialCreationOption = 0
+KeyCredentialCreationOption_FailIfExists: KeyCredentialCreationOption = 1
+class KeyCredentialManager(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Security.Credentials.KeyCredentialManager'
+    @winrt_classmethod
+    def IsSupportedAsync(cls: Windows.Security.Credentials.IKeyCredentialManagerStatics) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
+    @winrt_classmethod
+    def RenewAttestationAsync(cls: Windows.Security.Credentials.IKeyCredentialManagerStatics) -> Windows.Foundation.IAsyncAction: ...
+    @winrt_classmethod
+    def RequestCreateAsync(cls: Windows.Security.Credentials.IKeyCredentialManagerStatics, name: WinRT_String, option: Windows.Security.Credentials.KeyCredentialCreationOption) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.KeyCredentialRetrievalResult]: ...
+    @winrt_classmethod
+    def OpenAsync(cls: Windows.Security.Credentials.IKeyCredentialManagerStatics, name: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.KeyCredentialRetrievalResult]: ...
+    @winrt_classmethod
+    def DeleteAsync(cls: Windows.Security.Credentials.IKeyCredentialManagerStatics, name: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
+class KeyCredentialOperationResult(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Security.Credentials.KeyCredentialOperationResult'
+    @winrt_mixinmethod
+    def get_Result(self: Windows.Security.Credentials.IKeyCredentialOperationResult) -> Windows.Storage.Streams.IBuffer: ...
+    @winrt_mixinmethod
+    def get_Status(self: Windows.Security.Credentials.IKeyCredentialOperationResult) -> Windows.Security.Credentials.KeyCredentialStatus: ...
+    Result = property(get_Result, None)
+    Status = property(get_Status, None)
+class KeyCredentialRetrievalResult(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Security.Credentials.KeyCredentialRetrievalResult'
+    @winrt_mixinmethod
+    def get_Credential(self: Windows.Security.Credentials.IKeyCredentialRetrievalResult) -> Windows.Security.Credentials.KeyCredential: ...
+    @winrt_mixinmethod
+    def get_Status(self: Windows.Security.Credentials.IKeyCredentialRetrievalResult) -> Windows.Security.Credentials.KeyCredentialStatus: ...
+    Credential = property(get_Credential, None)
+    Status = property(get_Status, None)
+KeyCredentialStatus = Int32
+KeyCredentialStatus_Success: KeyCredentialStatus = 0
+KeyCredentialStatus_UnknownError: KeyCredentialStatus = 1
+KeyCredentialStatus_NotFound: KeyCredentialStatus = 2
+KeyCredentialStatus_UserCanceled: KeyCredentialStatus = 3
+KeyCredentialStatus_UserPrefersPassword: KeyCredentialStatus = 4
+KeyCredentialStatus_CredentialAlreadyExists: KeyCredentialStatus = 5
+KeyCredentialStatus_SecurityDeviceLocked: KeyCredentialStatus = 6
+class PasswordCredential(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Security.Credentials.PasswordCredential'
+    @winrt_factorymethod
+    def CreatePasswordCredential(cls: Windows.Security.Credentials.ICredentialFactory, resource: WinRT_String, userName: WinRT_String, password: WinRT_String) -> Windows.Security.Credentials.PasswordCredential: ...
+    @winrt_activatemethod
+    def New(cls) -> Windows.Security.Credentials.PasswordCredential: ...
+    @winrt_mixinmethod
+    def get_Resource(self: Windows.Security.Credentials.IPasswordCredential) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_Resource(self: Windows.Security.Credentials.IPasswordCredential, resource: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_UserName(self: Windows.Security.Credentials.IPasswordCredential) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_UserName(self: Windows.Security.Credentials.IPasswordCredential, userName: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_Password(self: Windows.Security.Credentials.IPasswordCredential) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_Password(self: Windows.Security.Credentials.IPasswordCredential, password: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def RetrievePassword(self: Windows.Security.Credentials.IPasswordCredential) -> Void: ...
+    @winrt_mixinmethod
+    def get_Properties(self: Windows.Security.Credentials.IPasswordCredential) -> Windows.Foundation.Collections.IPropertySet: ...
+    Resource = property(get_Resource, put_Resource)
+    UserName = property(get_UserName, put_UserName)
+    Password = property(get_Password, put_Password)
+    Properties = property(get_Properties, None)
+class PasswordCredentialPropertyStore(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Security.Credentials.PasswordCredentialPropertyStore'
+    @winrt_activatemethod
+    def New(cls) -> Windows.Security.Credentials.PasswordCredentialPropertyStore: ...
+    @winrt_mixinmethod
+    def add_MapChanged(self: Windows.Foundation.Collections.IObservableMap[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head], vhnd: Windows.Foundation.Collections.MapChangedEventHandler[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_MapChanged(self: Windows.Foundation.Collections.IObservableMap[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head], token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def Lookup(self: Windows.Foundation.Collections.IMap[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> Windows.Win32.System.WinRT.IInspectable_head: ...
+    @winrt_mixinmethod
+    def get_Size(self: Windows.Foundation.Collections.IMap[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]) -> UInt32: ...
+    @winrt_mixinmethod
+    def HasKey(self: Windows.Foundation.Collections.IMap[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> Boolean: ...
+    @winrt_mixinmethod
+    def GetView(self: Windows.Foundation.Collections.IMap[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]: ...
+    @winrt_mixinmethod
+    def Insert(self: Windows.Foundation.Collections.IMap[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String, value: Windows.Win32.System.WinRT.IInspectable_head) -> Boolean: ...
+    @winrt_mixinmethod
+    def Remove(self: Windows.Foundation.Collections.IMap[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def Clear(self: Windows.Foundation.Collections.IMap[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
+    @winrt_mixinmethod
+    def First(self: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]]) -> Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]]: ...
+    Size = property(get_Size, None)
+class PasswordVault(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Security.Credentials.PasswordVault'
+    @winrt_activatemethod
+    def New(cls) -> Windows.Security.Credentials.PasswordVault: ...
+    @winrt_mixinmethod
+    def Add(self: Windows.Security.Credentials.IPasswordVault, credential: Windows.Security.Credentials.PasswordCredential) -> Void: ...
+    @winrt_mixinmethod
+    def Remove(self: Windows.Security.Credentials.IPasswordVault, credential: Windows.Security.Credentials.PasswordCredential) -> Void: ...
+    @winrt_mixinmethod
+    def Retrieve(self: Windows.Security.Credentials.IPasswordVault, resource: WinRT_String, userName: WinRT_String) -> Windows.Security.Credentials.PasswordCredential: ...
+    @winrt_mixinmethod
+    def FindAllByResource(self: Windows.Security.Credentials.IPasswordVault, resource: WinRT_String) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Credentials.PasswordCredential]: ...
+    @winrt_mixinmethod
+    def FindAllByUserName(self: Windows.Security.Credentials.IPasswordVault, userName: WinRT_String) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Credentials.PasswordCredential]: ...
+    @winrt_mixinmethod
+    def RetrieveAll(self: Windows.Security.Credentials.IPasswordVault) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Credentials.PasswordCredential]: ...
+class WebAccount(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Security.Credentials.WebAccount'
+    @winrt_factorymethod
+    def CreateWebAccount(cls: Windows.Security.Credentials.IWebAccountFactory, webAccountProvider: Windows.Security.Credentials.WebAccountProvider, userName: WinRT_String, state: Windows.Security.Credentials.WebAccountState) -> Windows.Security.Credentials.WebAccount: ...
+    @winrt_mixinmethod
+    def get_WebAccountProvider(self: Windows.Security.Credentials.IWebAccount) -> Windows.Security.Credentials.WebAccountProvider: ...
+    @winrt_mixinmethod
+    def get_UserName(self: Windows.Security.Credentials.IWebAccount) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_State(self: Windows.Security.Credentials.IWebAccount) -> Windows.Security.Credentials.WebAccountState: ...
+    @winrt_mixinmethod
+    def get_Id(self: Windows.Security.Credentials.IWebAccount2) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Properties(self: Windows.Security.Credentials.IWebAccount2) -> Windows.Foundation.Collections.IMapView[WinRT_String, WinRT_String]: ...
+    @winrt_mixinmethod
+    def GetPictureAsync(self: Windows.Security.Credentials.IWebAccount2, desizedSize: Windows.Security.Credentials.WebAccountPictureSize) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IRandomAccessStream]: ...
+    @winrt_mixinmethod
+    def SignOutAsync(self: Windows.Security.Credentials.IWebAccount2) -> Windows.Foundation.IAsyncAction: ...
+    @winrt_mixinmethod
+    def SignOutWithClientIdAsync(self: Windows.Security.Credentials.IWebAccount2, clientId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
+    WebAccountProvider = property(get_WebAccountProvider, None)
+    UserName = property(get_UserName, None)
+    State = property(get_State, None)
+    Id = property(get_Id, None)
+    Properties = property(get_Properties, None)
+WebAccountPictureSize = Int32
+WebAccountPictureSize_Size64x64: WebAccountPictureSize = 64
+WebAccountPictureSize_Size208x208: WebAccountPictureSize = 208
+WebAccountPictureSize_Size424x424: WebAccountPictureSize = 424
+WebAccountPictureSize_Size1080x1080: WebAccountPictureSize = 1080
+class WebAccountProvider(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Security.Credentials.WebAccountProvider'
+    @winrt_factorymethod
+    def CreateWebAccountProvider(cls: Windows.Security.Credentials.IWebAccountProviderFactory, id: WinRT_String, displayName: WinRT_String, iconUri: Windows.Foundation.Uri) -> Windows.Security.Credentials.WebAccountProvider: ...
+    @winrt_mixinmethod
+    def get_Id(self: Windows.Security.Credentials.IWebAccountProvider) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_DisplayName(self: Windows.Security.Credentials.IWebAccountProvider) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_IconUri(self: Windows.Security.Credentials.IWebAccountProvider) -> Windows.Foundation.Uri: ...
+    @winrt_mixinmethod
+    def get_DisplayPurpose(self: Windows.Security.Credentials.IWebAccountProvider2) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Authority(self: Windows.Security.Credentials.IWebAccountProvider2) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_User(self: Windows.Security.Credentials.IWebAccountProvider3) -> Windows.System.User: ...
+    @winrt_mixinmethod
+    def get_IsSystemProvider(self: Windows.Security.Credentials.IWebAccountProvider4) -> Boolean: ...
+    Id = property(get_Id, None)
+    DisplayName = property(get_DisplayName, None)
+    IconUri = property(get_IconUri, None)
+    DisplayPurpose = property(get_DisplayPurpose, None)
+    Authority = property(get_Authority, None)
+    User = property(get_User, None)
+    IsSystemProvider = property(get_IsSystemProvider, None)
+WebAccountState = Int32
+WebAccountState_None: WebAccountState = 0
+WebAccountState_Connected: WebAccountState = 1
+WebAccountState_Error: WebAccountState = 2
+make_head(_module, 'ICredentialFactory')
+make_head(_module, 'IKeyCredential')
+make_head(_module, 'IKeyCredentialAttestationResult')
+make_head(_module, 'IKeyCredentialManagerStatics')
+make_head(_module, 'IKeyCredentialOperationResult')
+make_head(_module, 'IKeyCredentialRetrievalResult')
+make_head(_module, 'IPasswordCredential')
+make_head(_module, 'IPasswordVault')
+make_head(_module, 'IWebAccount')
+make_head(_module, 'IWebAccount2')
+make_head(_module, 'IWebAccountFactory')
+make_head(_module, 'IWebAccountProvider')
+make_head(_module, 'IWebAccountProvider2')
+make_head(_module, 'IWebAccountProvider3')
+make_head(_module, 'IWebAccountProvider4')
+make_head(_module, 'IWebAccountProviderFactory')
+make_head(_module, 'KeyCredential')
+make_head(_module, 'KeyCredentialAttestationResult')
+make_head(_module, 'KeyCredentialManager')
+make_head(_module, 'KeyCredentialOperationResult')
+make_head(_module, 'KeyCredentialRetrievalResult')
+make_head(_module, 'PasswordCredential')
+make_head(_module, 'PasswordCredentialPropertyStore')
+make_head(_module, 'PasswordVault')
+make_head(_module, 'WebAccount')
+make_head(_module, 'WebAccountProvider')

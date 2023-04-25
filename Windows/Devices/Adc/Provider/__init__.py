@@ -1,0 +1,60 @@
+from __future__ import annotations
+from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
+from typing import Generic, TypeVar
+K = TypeVar('T')
+T = TypeVar('T')
+V = TypeVar('V')
+TProgress = TypeVar('TProgress')
+TResult = TypeVar('TResult')
+TSender = TypeVar('TSender')
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, WinRT_String, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+import Windows.Win32.System.WinRT
+import Windows.Devices.Adc.Provider
+import Windows.Foundation.Collections
+import sys
+_module = sys.modules[__name__]
+def __getattr__(name):
+    try:
+        prototype = globals()[f'{name}_head']
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    setattr(_module, name, press(prototype))
+    return getattr(_module, name)
+class IAdcControllerProvider(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('be545828-816d-4de5-a0-48-ab-a0-69-58-aa-a8')
+    @winrt_commethod(6)
+    def get_ChannelCount(self) -> Int32: ...
+    @winrt_commethod(7)
+    def get_ResolutionInBits(self) -> Int32: ...
+    @winrt_commethod(8)
+    def get_MinValue(self) -> Int32: ...
+    @winrt_commethod(9)
+    def get_MaxValue(self) -> Int32: ...
+    @winrt_commethod(10)
+    def get_ChannelMode(self) -> Windows.Devices.Adc.Provider.ProviderAdcChannelMode: ...
+    @winrt_commethod(11)
+    def put_ChannelMode(self, value: Windows.Devices.Adc.Provider.ProviderAdcChannelMode) -> Void: ...
+    @winrt_commethod(12)
+    def IsChannelModeSupported(self, channelMode: Windows.Devices.Adc.Provider.ProviderAdcChannelMode) -> Boolean: ...
+    @winrt_commethod(13)
+    def AcquireChannel(self, channel: Int32) -> Void: ...
+    @winrt_commethod(14)
+    def ReleaseChannel(self, channel: Int32) -> Void: ...
+    @winrt_commethod(15)
+    def ReadValue(self, channelNumber: Int32) -> Int32: ...
+    ChannelCount = property(get_ChannelCount, None)
+    ResolutionInBits = property(get_ResolutionInBits, None)
+    MinValue = property(get_MinValue, None)
+    MaxValue = property(get_MaxValue, None)
+    ChannelMode = property(get_ChannelMode, put_ChannelMode)
+class IAdcProvider(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('28953668-9359-4c57-bc-88-e2-75-e8-16-38-c9')
+    @winrt_commethod(6)
+    def GetControllers(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Adc.Provider.IAdcControllerProvider]: ...
+ProviderAdcChannelMode = Int32
+ProviderAdcChannelMode_SingleEnded: ProviderAdcChannelMode = 0
+ProviderAdcChannelMode_Differential: ProviderAdcChannelMode = 1
+make_head(_module, 'IAdcControllerProvider')
+make_head(_module, 'IAdcProvider')

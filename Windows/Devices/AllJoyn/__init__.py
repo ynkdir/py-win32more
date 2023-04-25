@@ -1,0 +1,1127 @@
+from __future__ import annotations
+from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
+from typing import Generic, TypeVar
+K = TypeVar('T')
+T = TypeVar('T')
+V = TypeVar('V')
+TProgress = TypeVar('TProgress')
+TResult = TypeVar('TResult')
+TSender = TypeVar('TSender')
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, WinRT_String, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+import Windows.Win32.System.WinRT
+import Windows.Devices.AllJoyn
+import Windows.Devices.Enumeration
+import Windows.Foundation
+import Windows.Foundation.Collections
+import Windows.Globalization
+import Windows.Networking.Sockets
+import Windows.Security.Credentials
+import Windows.Security.Cryptography.Certificates
+import sys
+_module = sys.modules[__name__]
+def __getattr__(name):
+    try:
+        prototype = globals()[f'{name}_head']
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    setattr(_module, name, press(prototype))
+    return getattr(_module, name)
+class AllJoynAboutData(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynAboutData'
+    @winrt_mixinmethod
+    def get_IsEnabled(self: Windows.Devices.AllJoyn.IAllJoynAboutData) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_IsEnabled(self: Windows.Devices.AllJoyn.IAllJoynAboutData, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_DefaultAppName(self: Windows.Devices.AllJoyn.IAllJoynAboutData) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_DefaultAppName(self: Windows.Devices.AllJoyn.IAllJoynAboutData, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_AppNames(self: Windows.Devices.AllJoyn.IAllJoynAboutData) -> Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
+    @winrt_mixinmethod
+    def get_DateOfManufacture(self: Windows.Devices.AllJoyn.IAllJoynAboutData) -> Windows.Foundation.IReference[Windows.Foundation.DateTime]: ...
+    @winrt_mixinmethod
+    def put_DateOfManufacture(self: Windows.Devices.AllJoyn.IAllJoynAboutData, value: Windows.Foundation.IReference[Windows.Foundation.DateTime]) -> Void: ...
+    @winrt_mixinmethod
+    def get_DefaultDescription(self: Windows.Devices.AllJoyn.IAllJoynAboutData) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_DefaultDescription(self: Windows.Devices.AllJoyn.IAllJoynAboutData, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_Descriptions(self: Windows.Devices.AllJoyn.IAllJoynAboutData) -> Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
+    @winrt_mixinmethod
+    def get_DefaultManufacturer(self: Windows.Devices.AllJoyn.IAllJoynAboutData) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_DefaultManufacturer(self: Windows.Devices.AllJoyn.IAllJoynAboutData, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_Manufacturers(self: Windows.Devices.AllJoyn.IAllJoynAboutData) -> Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
+    @winrt_mixinmethod
+    def get_ModelNumber(self: Windows.Devices.AllJoyn.IAllJoynAboutData) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_ModelNumber(self: Windows.Devices.AllJoyn.IAllJoynAboutData, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_SoftwareVersion(self: Windows.Devices.AllJoyn.IAllJoynAboutData) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_SoftwareVersion(self: Windows.Devices.AllJoyn.IAllJoynAboutData, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_SupportUrl(self: Windows.Devices.AllJoyn.IAllJoynAboutData) -> Windows.Foundation.Uri: ...
+    @winrt_mixinmethod
+    def put_SupportUrl(self: Windows.Devices.AllJoyn.IAllJoynAboutData, value: Windows.Foundation.Uri) -> Void: ...
+    @winrt_mixinmethod
+    def get_AppId(self: Windows.Devices.AllJoyn.IAllJoynAboutData) -> Guid: ...
+    @winrt_mixinmethod
+    def put_AppId(self: Windows.Devices.AllJoyn.IAllJoynAboutData, value: Guid) -> Void: ...
+    IsEnabled = property(get_IsEnabled, put_IsEnabled)
+    DefaultAppName = property(get_DefaultAppName, put_DefaultAppName)
+    AppNames = property(get_AppNames, None)
+    DateOfManufacture = property(get_DateOfManufacture, put_DateOfManufacture)
+    DefaultDescription = property(get_DefaultDescription, put_DefaultDescription)
+    Descriptions = property(get_Descriptions, None)
+    DefaultManufacturer = property(get_DefaultManufacturer, put_DefaultManufacturer)
+    Manufacturers = property(get_Manufacturers, None)
+    ModelNumber = property(get_ModelNumber, put_ModelNumber)
+    SoftwareVersion = property(get_SoftwareVersion, put_SoftwareVersion)
+    SupportUrl = property(get_SupportUrl, put_SupportUrl)
+    AppId = property(get_AppId, put_AppId)
+class AllJoynAboutDataView(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynAboutDataView'
+    @winrt_mixinmethod
+    def get_Status(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> Int32: ...
+    @winrt_mixinmethod
+    def get_Properties(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]: ...
+    @winrt_mixinmethod
+    def get_AJSoftwareVersion(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_AppId(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> Guid: ...
+    @winrt_mixinmethod
+    def get_DateOfManufacture(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> Windows.Foundation.IReference[Windows.Foundation.DateTime]: ...
+    @winrt_mixinmethod
+    def get_DefaultLanguage(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> Windows.Globalization.Language: ...
+    @winrt_mixinmethod
+    def get_DeviceId(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_HardwareVersion(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_ModelNumber(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_SoftwareVersion(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_SupportedLanguages(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> Windows.Foundation.Collections.IVectorView[Windows.Globalization.Language]: ...
+    @winrt_mixinmethod
+    def get_SupportUrl(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> Windows.Foundation.Uri: ...
+    @winrt_mixinmethod
+    def get_AppName(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Description(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_DeviceName(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Manufacturer(self: Windows.Devices.AllJoyn.IAllJoynAboutDataView) -> WinRT_String: ...
+    @winrt_classmethod
+    def GetDataBySessionPortAsync(cls: Windows.Devices.AllJoyn.IAllJoynAboutDataViewStatics, uniqueName: WinRT_String, busAttachment: Windows.Devices.AllJoyn.AllJoynBusAttachment, sessionPort: UInt16) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynAboutDataView]: ...
+    @winrt_classmethod
+    def GetDataBySessionPortWithLanguageAsync(cls: Windows.Devices.AllJoyn.IAllJoynAboutDataViewStatics, uniqueName: WinRT_String, busAttachment: Windows.Devices.AllJoyn.AllJoynBusAttachment, sessionPort: UInt16, language: Windows.Globalization.Language) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynAboutDataView]: ...
+    Status = property(get_Status, None)
+    Properties = property(get_Properties, None)
+    AJSoftwareVersion = property(get_AJSoftwareVersion, None)
+    AppId = property(get_AppId, None)
+    DateOfManufacture = property(get_DateOfManufacture, None)
+    DefaultLanguage = property(get_DefaultLanguage, None)
+    DeviceId = property(get_DeviceId, None)
+    HardwareVersion = property(get_HardwareVersion, None)
+    ModelNumber = property(get_ModelNumber, None)
+    SoftwareVersion = property(get_SoftwareVersion, None)
+    SupportedLanguages = property(get_SupportedLanguages, None)
+    SupportUrl = property(get_SupportUrl, None)
+    AppName = property(get_AppName, None)
+    Description = property(get_Description, None)
+    DeviceName = property(get_DeviceName, None)
+    Manufacturer = property(get_Manufacturer, None)
+class AllJoynAcceptSessionJoinerEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynAcceptSessionJoinerEventArgs'
+    @winrt_factorymethod
+    def Create(cls: Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgsFactory, uniqueName: WinRT_String, sessionPort: UInt16, trafficType: Windows.Devices.AllJoyn.AllJoynTrafficType, proximity: Byte, acceptSessionJoiner: Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoiner) -> Windows.Devices.AllJoyn.AllJoynAcceptSessionJoinerEventArgs: ...
+    @winrt_mixinmethod
+    def get_UniqueName(self: Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_SessionPort(self: Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgs) -> UInt16: ...
+    @winrt_mixinmethod
+    def get_TrafficType(self: Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgs) -> Windows.Devices.AllJoyn.AllJoynTrafficType: ...
+    @winrt_mixinmethod
+    def get_SamePhysicalNode(self: Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgs) -> Boolean: ...
+    @winrt_mixinmethod
+    def get_SameNetwork(self: Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgs) -> Boolean: ...
+    @winrt_mixinmethod
+    def Accept(self: Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoinerEventArgs) -> Void: ...
+    UniqueName = property(get_UniqueName, None)
+    SessionPort = property(get_SessionPort, None)
+    TrafficType = property(get_TrafficType, None)
+    SamePhysicalNode = property(get_SamePhysicalNode, None)
+    SameNetwork = property(get_SameNetwork, None)
+class AllJoynAuthenticationCompleteEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynAuthenticationCompleteEventArgs'
+    @winrt_mixinmethod
+    def get_AuthenticationMechanism(self: Windows.Devices.AllJoyn.IAllJoynAuthenticationCompleteEventArgs) -> Windows.Devices.AllJoyn.AllJoynAuthenticationMechanism: ...
+    @winrt_mixinmethod
+    def get_PeerUniqueName(self: Windows.Devices.AllJoyn.IAllJoynAuthenticationCompleteEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Succeeded(self: Windows.Devices.AllJoyn.IAllJoynAuthenticationCompleteEventArgs) -> Boolean: ...
+    AuthenticationMechanism = property(get_AuthenticationMechanism, None)
+    PeerUniqueName = property(get_PeerUniqueName, None)
+    Succeeded = property(get_Succeeded, None)
+AllJoynAuthenticationMechanism = Int32
+AllJoynAuthenticationMechanism_None: AllJoynAuthenticationMechanism = 0
+AllJoynAuthenticationMechanism_SrpAnonymous: AllJoynAuthenticationMechanism = 1
+AllJoynAuthenticationMechanism_SrpLogon: AllJoynAuthenticationMechanism = 2
+AllJoynAuthenticationMechanism_EcdheNull: AllJoynAuthenticationMechanism = 3
+AllJoynAuthenticationMechanism_EcdhePsk: AllJoynAuthenticationMechanism = 4
+AllJoynAuthenticationMechanism_EcdheEcdsa: AllJoynAuthenticationMechanism = 5
+AllJoynAuthenticationMechanism_EcdheSpeke: AllJoynAuthenticationMechanism = 6
+class AllJoynBusAttachment(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynBusAttachment'
+    @winrt_factorymethod
+    def Create(cls: Windows.Devices.AllJoyn.IAllJoynBusAttachmentFactory, connectionSpecification: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynBusAttachment: ...
+    @winrt_activatemethod
+    def New(cls) -> Windows.Devices.AllJoyn.AllJoynBusAttachment: ...
+    @winrt_mixinmethod
+    def get_AboutData(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment) -> Windows.Devices.AllJoyn.AllJoynAboutData: ...
+    @winrt_mixinmethod
+    def get_ConnectionSpecification(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_State(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment) -> Windows.Devices.AllJoyn.AllJoynBusAttachmentState: ...
+    @winrt_mixinmethod
+    def get_UniqueName(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def PingAsync(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment, uniqueName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Int32]: ...
+    @winrt_mixinmethod
+    def Connect(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment) -> Void: ...
+    @winrt_mixinmethod
+    def Disconnect(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment) -> Void: ...
+    @winrt_mixinmethod
+    def add_StateChanged(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynBusAttachment, Windows.Devices.AllJoyn.AllJoynBusAttachmentStateChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_StateChanged(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def get_AuthenticationMechanisms(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment) -> Windows.Foundation.Collections.IVector[Windows.Devices.AllJoyn.AllJoynAuthenticationMechanism]: ...
+    @winrt_mixinmethod
+    def add_CredentialsRequested(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynBusAttachment, Windows.Devices.AllJoyn.AllJoynCredentialsRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_CredentialsRequested(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_CredentialsVerificationRequested(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynBusAttachment, Windows.Devices.AllJoyn.AllJoynCredentialsVerificationRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_CredentialsVerificationRequested(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_AuthenticationComplete(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynBusAttachment, Windows.Devices.AllJoyn.AllJoynAuthenticationCompleteEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_AuthenticationComplete(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def GetAboutDataAsync(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment2, serviceInfo: Windows.Devices.AllJoyn.AllJoynServiceInfo) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynAboutDataView]: ...
+    @winrt_mixinmethod
+    def GetAboutDataWithLanguageAsync(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment2, serviceInfo: Windows.Devices.AllJoyn.AllJoynServiceInfo, language: Windows.Globalization.Language) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynAboutDataView]: ...
+    @winrt_mixinmethod
+    def add_AcceptSessionJoinerRequested(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment2, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynBusAttachment, Windows.Devices.AllJoyn.AllJoynAcceptSessionJoinerEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_AcceptSessionJoinerRequested(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment2, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_SessionJoined(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment2, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynBusAttachment, Windows.Devices.AllJoyn.AllJoynSessionJoinedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_SessionJoined(self: Windows.Devices.AllJoyn.IAllJoynBusAttachment2, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_classmethod
+    def GetDefault(cls: Windows.Devices.AllJoyn.IAllJoynBusAttachmentStatics) -> Windows.Devices.AllJoyn.AllJoynBusAttachment: ...
+    @winrt_classmethod
+    def GetWatcher(cls: Windows.Devices.AllJoyn.IAllJoynBusAttachmentStatics, requiredInterfaces: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Devices.Enumeration.DeviceWatcher: ...
+    AboutData = property(get_AboutData, None)
+    ConnectionSpecification = property(get_ConnectionSpecification, None)
+    State = property(get_State, None)
+    UniqueName = property(get_UniqueName, None)
+    AuthenticationMechanisms = property(get_AuthenticationMechanisms, None)
+AllJoynBusAttachmentState = Int32
+AllJoynBusAttachmentState_Disconnected: AllJoynBusAttachmentState = 0
+AllJoynBusAttachmentState_Connecting: AllJoynBusAttachmentState = 1
+AllJoynBusAttachmentState_Connected: AllJoynBusAttachmentState = 2
+AllJoynBusAttachmentState_Disconnecting: AllJoynBusAttachmentState = 3
+class AllJoynBusAttachmentStateChangedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynBusAttachmentStateChangedEventArgs'
+    @winrt_mixinmethod
+    def get_State(self: Windows.Devices.AllJoyn.IAllJoynBusAttachmentStateChangedEventArgs) -> Windows.Devices.AllJoyn.AllJoynBusAttachmentState: ...
+    @winrt_mixinmethod
+    def get_Status(self: Windows.Devices.AllJoyn.IAllJoynBusAttachmentStateChangedEventArgs) -> Int32: ...
+    State = property(get_State, None)
+    Status = property(get_Status, None)
+class AllJoynBusObject(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynBusObject'
+    @winrt_factorymethod
+    def Create(cls: Windows.Devices.AllJoyn.IAllJoynBusObjectFactory, objectPath: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynBusObject: ...
+    @winrt_factorymethod
+    def CreateWithBusAttachment(cls: Windows.Devices.AllJoyn.IAllJoynBusObjectFactory, objectPath: WinRT_String, busAttachment: Windows.Devices.AllJoyn.AllJoynBusAttachment) -> Windows.Devices.AllJoyn.AllJoynBusObject: ...
+    @winrt_activatemethod
+    def New(cls) -> Windows.Devices.AllJoyn.AllJoynBusObject: ...
+    @winrt_mixinmethod
+    def Start(self: Windows.Devices.AllJoyn.IAllJoynBusObject) -> Void: ...
+    @winrt_mixinmethod
+    def Stop(self: Windows.Devices.AllJoyn.IAllJoynBusObject) -> Void: ...
+    @winrt_mixinmethod
+    def AddProducer(self: Windows.Devices.AllJoyn.IAllJoynBusObject, producer: Windows.Devices.AllJoyn.IAllJoynProducer) -> Void: ...
+    @winrt_mixinmethod
+    def get_BusAttachment(self: Windows.Devices.AllJoyn.IAllJoynBusObject) -> Windows.Devices.AllJoyn.AllJoynBusAttachment: ...
+    @winrt_mixinmethod
+    def get_Session(self: Windows.Devices.AllJoyn.IAllJoynBusObject) -> Windows.Devices.AllJoyn.AllJoynSession: ...
+    @winrt_mixinmethod
+    def add_Stopped(self: Windows.Devices.AllJoyn.IAllJoynBusObject, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynBusObject, Windows.Devices.AllJoyn.AllJoynBusObjectStoppedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_Stopped(self: Windows.Devices.AllJoyn.IAllJoynBusObject, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    BusAttachment = property(get_BusAttachment, None)
+    Session = property(get_Session, None)
+class AllJoynBusObjectStoppedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynBusObjectStoppedEventArgs'
+    @winrt_factorymethod
+    def Create(cls: Windows.Devices.AllJoyn.IAllJoynBusObjectStoppedEventArgsFactory, status: Int32) -> Windows.Devices.AllJoyn.AllJoynBusObjectStoppedEventArgs: ...
+    @winrt_mixinmethod
+    def get_Status(self: Windows.Devices.AllJoyn.IAllJoynBusObjectStoppedEventArgs) -> Int32: ...
+    Status = property(get_Status, None)
+class AllJoynCredentials(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynCredentials'
+    @winrt_mixinmethod
+    def get_AuthenticationMechanism(self: Windows.Devices.AllJoyn.IAllJoynCredentials) -> Windows.Devices.AllJoyn.AllJoynAuthenticationMechanism: ...
+    @winrt_mixinmethod
+    def get_Certificate(self: Windows.Devices.AllJoyn.IAllJoynCredentials) -> Windows.Security.Cryptography.Certificates.Certificate: ...
+    @winrt_mixinmethod
+    def put_Certificate(self: Windows.Devices.AllJoyn.IAllJoynCredentials, value: Windows.Security.Cryptography.Certificates.Certificate) -> Void: ...
+    @winrt_mixinmethod
+    def get_PasswordCredential(self: Windows.Devices.AllJoyn.IAllJoynCredentials) -> Windows.Security.Credentials.PasswordCredential: ...
+    @winrt_mixinmethod
+    def put_PasswordCredential(self: Windows.Devices.AllJoyn.IAllJoynCredentials, value: Windows.Security.Credentials.PasswordCredential) -> Void: ...
+    @winrt_mixinmethod
+    def get_Timeout(self: Windows.Devices.AllJoyn.IAllJoynCredentials) -> Windows.Foundation.TimeSpan: ...
+    @winrt_mixinmethod
+    def put_Timeout(self: Windows.Devices.AllJoyn.IAllJoynCredentials, value: Windows.Foundation.TimeSpan) -> Void: ...
+    AuthenticationMechanism = property(get_AuthenticationMechanism, None)
+    Certificate = property(get_Certificate, put_Certificate)
+    PasswordCredential = property(get_PasswordCredential, put_PasswordCredential)
+    Timeout = property(get_Timeout, put_Timeout)
+class AllJoynCredentialsRequestedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynCredentialsRequestedEventArgs'
+    @winrt_mixinmethod
+    def get_AttemptCount(self: Windows.Devices.AllJoyn.IAllJoynCredentialsRequestedEventArgs) -> UInt16: ...
+    @winrt_mixinmethod
+    def get_Credentials(self: Windows.Devices.AllJoyn.IAllJoynCredentialsRequestedEventArgs) -> Windows.Devices.AllJoyn.AllJoynCredentials: ...
+    @winrt_mixinmethod
+    def get_PeerUniqueName(self: Windows.Devices.AllJoyn.IAllJoynCredentialsRequestedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_RequestedUserName(self: Windows.Devices.AllJoyn.IAllJoynCredentialsRequestedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def GetDeferral(self: Windows.Devices.AllJoyn.IAllJoynCredentialsRequestedEventArgs) -> Windows.Foundation.Deferral: ...
+    AttemptCount = property(get_AttemptCount, None)
+    Credentials = property(get_Credentials, None)
+    PeerUniqueName = property(get_PeerUniqueName, None)
+    RequestedUserName = property(get_RequestedUserName, None)
+class AllJoynCredentialsVerificationRequestedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynCredentialsVerificationRequestedEventArgs'
+    @winrt_mixinmethod
+    def get_AuthenticationMechanism(self: Windows.Devices.AllJoyn.IAllJoynCredentialsVerificationRequestedEventArgs) -> Windows.Devices.AllJoyn.AllJoynAuthenticationMechanism: ...
+    @winrt_mixinmethod
+    def get_PeerUniqueName(self: Windows.Devices.AllJoyn.IAllJoynCredentialsVerificationRequestedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_PeerCertificate(self: Windows.Devices.AllJoyn.IAllJoynCredentialsVerificationRequestedEventArgs) -> Windows.Security.Cryptography.Certificates.Certificate: ...
+    @winrt_mixinmethod
+    def get_PeerCertificateErrorSeverity(self: Windows.Devices.AllJoyn.IAllJoynCredentialsVerificationRequestedEventArgs) -> Windows.Networking.Sockets.SocketSslErrorSeverity: ...
+    @winrt_mixinmethod
+    def get_PeerCertificateErrors(self: Windows.Devices.AllJoyn.IAllJoynCredentialsVerificationRequestedEventArgs) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Cryptography.Certificates.ChainValidationResult]: ...
+    @winrt_mixinmethod
+    def get_PeerIntermediateCertificates(self: Windows.Devices.AllJoyn.IAllJoynCredentialsVerificationRequestedEventArgs) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Cryptography.Certificates.Certificate]: ...
+    @winrt_mixinmethod
+    def Accept(self: Windows.Devices.AllJoyn.IAllJoynCredentialsVerificationRequestedEventArgs) -> Void: ...
+    @winrt_mixinmethod
+    def GetDeferral(self: Windows.Devices.AllJoyn.IAllJoynCredentialsVerificationRequestedEventArgs) -> Windows.Foundation.Deferral: ...
+    AuthenticationMechanism = property(get_AuthenticationMechanism, None)
+    PeerUniqueName = property(get_PeerUniqueName, None)
+    PeerCertificate = property(get_PeerCertificate, None)
+    PeerCertificateErrorSeverity = property(get_PeerCertificateErrorSeverity, None)
+    PeerCertificateErrors = property(get_PeerCertificateErrors, None)
+    PeerIntermediateCertificates = property(get_PeerIntermediateCertificates, None)
+class AllJoynMessageInfo(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynMessageInfo'
+    @winrt_factorymethod
+    def Create(cls: Windows.Devices.AllJoyn.IAllJoynMessageInfoFactory, senderUniqueName: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynMessageInfo: ...
+    @winrt_mixinmethod
+    def get_SenderUniqueName(self: Windows.Devices.AllJoyn.IAllJoynMessageInfo) -> WinRT_String: ...
+    SenderUniqueName = property(get_SenderUniqueName, None)
+class AllJoynProducerStoppedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynProducerStoppedEventArgs'
+    @winrt_factorymethod
+    def Create(cls: Windows.Devices.AllJoyn.IAllJoynProducerStoppedEventArgsFactory, status: Int32) -> Windows.Devices.AllJoyn.AllJoynProducerStoppedEventArgs: ...
+    @winrt_mixinmethod
+    def get_Status(self: Windows.Devices.AllJoyn.IAllJoynProducerStoppedEventArgs) -> Int32: ...
+    Status = property(get_Status, None)
+class AllJoynServiceInfo(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynServiceInfo'
+    @winrt_factorymethod
+    def Create(cls: Windows.Devices.AllJoyn.IAllJoynServiceInfoFactory, uniqueName: WinRT_String, objectPath: WinRT_String, sessionPort: UInt16) -> Windows.Devices.AllJoyn.AllJoynServiceInfo: ...
+    @winrt_mixinmethod
+    def get_UniqueName(self: Windows.Devices.AllJoyn.IAllJoynServiceInfo) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_ObjectPath(self: Windows.Devices.AllJoyn.IAllJoynServiceInfo) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_SessionPort(self: Windows.Devices.AllJoyn.IAllJoynServiceInfo) -> UInt16: ...
+    @winrt_classmethod
+    def FromIdAsync(cls: Windows.Devices.AllJoyn.IAllJoynServiceInfoStatics, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynServiceInfo]: ...
+    UniqueName = property(get_UniqueName, None)
+    ObjectPath = property(get_ObjectPath, None)
+    SessionPort = property(get_SessionPort, None)
+class AllJoynServiceInfoRemovedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynServiceInfoRemovedEventArgs'
+    @winrt_factorymethod
+    def Create(cls: Windows.Devices.AllJoyn.IAllJoynServiceInfoRemovedEventArgsFactory, uniqueName: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynServiceInfoRemovedEventArgs: ...
+    @winrt_mixinmethod
+    def get_UniqueName(self: Windows.Devices.AllJoyn.IAllJoynServiceInfoRemovedEventArgs) -> WinRT_String: ...
+    UniqueName = property(get_UniqueName, None)
+class AllJoynSession(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynSession'
+    @winrt_mixinmethod
+    def get_Id(self: Windows.Devices.AllJoyn.IAllJoynSession) -> Int32: ...
+    @winrt_mixinmethod
+    def get_Status(self: Windows.Devices.AllJoyn.IAllJoynSession) -> Int32: ...
+    @winrt_mixinmethod
+    def RemoveMemberAsync(self: Windows.Devices.AllJoyn.IAllJoynSession, uniqueName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Int32]: ...
+    @winrt_mixinmethod
+    def add_MemberAdded(self: Windows.Devices.AllJoyn.IAllJoynSession, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynSession, Windows.Devices.AllJoyn.AllJoynSessionMemberAddedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_MemberAdded(self: Windows.Devices.AllJoyn.IAllJoynSession, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_MemberRemoved(self: Windows.Devices.AllJoyn.IAllJoynSession, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynSession, Windows.Devices.AllJoyn.AllJoynSessionMemberRemovedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_MemberRemoved(self: Windows.Devices.AllJoyn.IAllJoynSession, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_Lost(self: Windows.Devices.AllJoyn.IAllJoynSession, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynSession, Windows.Devices.AllJoyn.AllJoynSessionLostEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_Lost(self: Windows.Devices.AllJoyn.IAllJoynSession, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_classmethod
+    def GetFromServiceInfoAsync(cls: Windows.Devices.AllJoyn.IAllJoynSessionStatics, serviceInfo: Windows.Devices.AllJoyn.AllJoynServiceInfo) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynSession]: ...
+    @winrt_classmethod
+    def GetFromServiceInfoAndBusAttachmentAsync(cls: Windows.Devices.AllJoyn.IAllJoynSessionStatics, serviceInfo: Windows.Devices.AllJoyn.AllJoynServiceInfo, busAttachment: Windows.Devices.AllJoyn.AllJoynBusAttachment) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynSession]: ...
+    Id = property(get_Id, None)
+    Status = property(get_Status, None)
+class AllJoynSessionJoinedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynSessionJoinedEventArgs'
+    @winrt_factorymethod
+    def Create(cls: Windows.Devices.AllJoyn.IAllJoynSessionJoinedEventArgsFactory, session: Windows.Devices.AllJoyn.AllJoynSession) -> Windows.Devices.AllJoyn.AllJoynSessionJoinedEventArgs: ...
+    @winrt_mixinmethod
+    def get_Session(self: Windows.Devices.AllJoyn.IAllJoynSessionJoinedEventArgs) -> Windows.Devices.AllJoyn.AllJoynSession: ...
+    Session = property(get_Session, None)
+class AllJoynSessionLostEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynSessionLostEventArgs'
+    @winrt_factorymethod
+    def Create(cls: Windows.Devices.AllJoyn.IAllJoynSessionLostEventArgsFactory, reason: Windows.Devices.AllJoyn.AllJoynSessionLostReason) -> Windows.Devices.AllJoyn.AllJoynSessionLostEventArgs: ...
+    @winrt_mixinmethod
+    def get_Reason(self: Windows.Devices.AllJoyn.IAllJoynSessionLostEventArgs) -> Windows.Devices.AllJoyn.AllJoynSessionLostReason: ...
+    Reason = property(get_Reason, None)
+AllJoynSessionLostReason = Int32
+AllJoynSessionLostReason_None: AllJoynSessionLostReason = 0
+AllJoynSessionLostReason_ProducerLeftSession: AllJoynSessionLostReason = 1
+AllJoynSessionLostReason_ProducerClosedAbruptly: AllJoynSessionLostReason = 2
+AllJoynSessionLostReason_RemovedByProducer: AllJoynSessionLostReason = 3
+AllJoynSessionLostReason_LinkTimeout: AllJoynSessionLostReason = 4
+AllJoynSessionLostReason_Other: AllJoynSessionLostReason = 5
+class AllJoynSessionMemberAddedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynSessionMemberAddedEventArgs'
+    @winrt_factorymethod
+    def Create(cls: Windows.Devices.AllJoyn.IAllJoynSessionMemberAddedEventArgsFactory, uniqueName: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynSessionMemberAddedEventArgs: ...
+    @winrt_mixinmethod
+    def get_UniqueName(self: Windows.Devices.AllJoyn.IAllJoynSessionMemberAddedEventArgs) -> WinRT_String: ...
+    UniqueName = property(get_UniqueName, None)
+class AllJoynSessionMemberRemovedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynSessionMemberRemovedEventArgs'
+    @winrt_factorymethod
+    def Create(cls: Windows.Devices.AllJoyn.IAllJoynSessionMemberRemovedEventArgsFactory, uniqueName: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynSessionMemberRemovedEventArgs: ...
+    @winrt_mixinmethod
+    def get_UniqueName(self: Windows.Devices.AllJoyn.IAllJoynSessionMemberRemovedEventArgs) -> WinRT_String: ...
+    UniqueName = property(get_UniqueName, None)
+class AllJoynStatus(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynStatus'
+    @winrt_classmethod
+    def get_Ok(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_Fail(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_OperationTimedOut(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_OtherEndClosed(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_ConnectionRefused(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_AuthenticationFailed(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_AuthenticationRejectedByUser(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_SslConnectFailed(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_SslIdentityVerificationFailed(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_InsufficientSecurity(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_InvalidArgument1(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_InvalidArgument2(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_InvalidArgument3(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_InvalidArgument4(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_InvalidArgument5(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_InvalidArgument6(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_InvalidArgument7(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    @winrt_classmethod
+    def get_InvalidArgument8(cls: Windows.Devices.AllJoyn.IAllJoynStatusStatics) -> Int32: ...
+    Ok = property(get_Ok, None)
+    Fail = property(get_Fail, None)
+    OperationTimedOut = property(get_OperationTimedOut, None)
+    OtherEndClosed = property(get_OtherEndClosed, None)
+    ConnectionRefused = property(get_ConnectionRefused, None)
+    AuthenticationFailed = property(get_AuthenticationFailed, None)
+    AuthenticationRejectedByUser = property(get_AuthenticationRejectedByUser, None)
+    SslConnectFailed = property(get_SslConnectFailed, None)
+    SslIdentityVerificationFailed = property(get_SslIdentityVerificationFailed, None)
+    InsufficientSecurity = property(get_InsufficientSecurity, None)
+    InvalidArgument1 = property(get_InvalidArgument1, None)
+    InvalidArgument2 = property(get_InvalidArgument2, None)
+    InvalidArgument3 = property(get_InvalidArgument3, None)
+    InvalidArgument4 = property(get_InvalidArgument4, None)
+    InvalidArgument5 = property(get_InvalidArgument5, None)
+    InvalidArgument6 = property(get_InvalidArgument6, None)
+    InvalidArgument7 = property(get_InvalidArgument7, None)
+    InvalidArgument8 = property(get_InvalidArgument8, None)
+AllJoynTrafficType = Int32
+AllJoynTrafficType_Unknown: AllJoynTrafficType = 0
+AllJoynTrafficType_Messages: AllJoynTrafficType = 1
+AllJoynTrafficType_RawUnreliable: AllJoynTrafficType = 2
+AllJoynTrafficType_RawReliable: AllJoynTrafficType = 4
+class AllJoynWatcherStoppedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    ClassId = 'Windows.Devices.AllJoyn.AllJoynWatcherStoppedEventArgs'
+    @winrt_factorymethod
+    def Create(cls: Windows.Devices.AllJoyn.IAllJoynWatcherStoppedEventArgsFactory, status: Int32) -> Windows.Devices.AllJoyn.AllJoynWatcherStoppedEventArgs: ...
+    @winrt_mixinmethod
+    def get_Status(self: Windows.Devices.AllJoyn.IAllJoynWatcherStoppedEventArgs) -> Int32: ...
+    Status = property(get_Status, None)
+class IAllJoynAboutData(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('e5a9bf00-1fa2-4839-93-ef-f9-df-40-48-90-f7')
+    @winrt_commethod(6)
+    def get_IsEnabled(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_IsEnabled(self, value: Boolean) -> Void: ...
+    @winrt_commethod(8)
+    def get_DefaultAppName(self) -> WinRT_String: ...
+    @winrt_commethod(9)
+    def put_DefaultAppName(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(10)
+    def get_AppNames(self) -> Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
+    @winrt_commethod(11)
+    def get_DateOfManufacture(self) -> Windows.Foundation.IReference[Windows.Foundation.DateTime]: ...
+    @winrt_commethod(12)
+    def put_DateOfManufacture(self, value: Windows.Foundation.IReference[Windows.Foundation.DateTime]) -> Void: ...
+    @winrt_commethod(13)
+    def get_DefaultDescription(self) -> WinRT_String: ...
+    @winrt_commethod(14)
+    def put_DefaultDescription(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(15)
+    def get_Descriptions(self) -> Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
+    @winrt_commethod(16)
+    def get_DefaultManufacturer(self) -> WinRT_String: ...
+    @winrt_commethod(17)
+    def put_DefaultManufacturer(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(18)
+    def get_Manufacturers(self) -> Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
+    @winrt_commethod(19)
+    def get_ModelNumber(self) -> WinRT_String: ...
+    @winrt_commethod(20)
+    def put_ModelNumber(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(21)
+    def get_SoftwareVersion(self) -> WinRT_String: ...
+    @winrt_commethod(22)
+    def put_SoftwareVersion(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(23)
+    def get_SupportUrl(self) -> Windows.Foundation.Uri: ...
+    @winrt_commethod(24)
+    def put_SupportUrl(self, value: Windows.Foundation.Uri) -> Void: ...
+    @winrt_commethod(25)
+    def get_AppId(self) -> Guid: ...
+    @winrt_commethod(26)
+    def put_AppId(self, value: Guid) -> Void: ...
+    IsEnabled = property(get_IsEnabled, put_IsEnabled)
+    DefaultAppName = property(get_DefaultAppName, put_DefaultAppName)
+    AppNames = property(get_AppNames, None)
+    DateOfManufacture = property(get_DateOfManufacture, put_DateOfManufacture)
+    DefaultDescription = property(get_DefaultDescription, put_DefaultDescription)
+    Descriptions = property(get_Descriptions, None)
+    DefaultManufacturer = property(get_DefaultManufacturer, put_DefaultManufacturer)
+    Manufacturers = property(get_Manufacturers, None)
+    ModelNumber = property(get_ModelNumber, put_ModelNumber)
+    SoftwareVersion = property(get_SoftwareVersion, put_SoftwareVersion)
+    SupportUrl = property(get_SupportUrl, put_SupportUrl)
+    AppId = property(get_AppId, put_AppId)
+class IAllJoynAboutDataView(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('6823111f-6212-4934-9c-48-e1-9c-a4-98-42-88')
+    @winrt_commethod(6)
+    def get_Status(self) -> Int32: ...
+    @winrt_commethod(7)
+    def get_Properties(self) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]: ...
+    @winrt_commethod(8)
+    def get_AJSoftwareVersion(self) -> WinRT_String: ...
+    @winrt_commethod(9)
+    def get_AppId(self) -> Guid: ...
+    @winrt_commethod(10)
+    def get_DateOfManufacture(self) -> Windows.Foundation.IReference[Windows.Foundation.DateTime]: ...
+    @winrt_commethod(11)
+    def get_DefaultLanguage(self) -> Windows.Globalization.Language: ...
+    @winrt_commethod(12)
+    def get_DeviceId(self) -> WinRT_String: ...
+    @winrt_commethod(13)
+    def get_HardwareVersion(self) -> WinRT_String: ...
+    @winrt_commethod(14)
+    def get_ModelNumber(self) -> WinRT_String: ...
+    @winrt_commethod(15)
+    def get_SoftwareVersion(self) -> WinRT_String: ...
+    @winrt_commethod(16)
+    def get_SupportedLanguages(self) -> Windows.Foundation.Collections.IVectorView[Windows.Globalization.Language]: ...
+    @winrt_commethod(17)
+    def get_SupportUrl(self) -> Windows.Foundation.Uri: ...
+    @winrt_commethod(18)
+    def get_AppName(self) -> WinRT_String: ...
+    @winrt_commethod(19)
+    def get_Description(self) -> WinRT_String: ...
+    @winrt_commethod(20)
+    def get_DeviceName(self) -> WinRT_String: ...
+    @winrt_commethod(21)
+    def get_Manufacturer(self) -> WinRT_String: ...
+    Status = property(get_Status, None)
+    Properties = property(get_Properties, None)
+    AJSoftwareVersion = property(get_AJSoftwareVersion, None)
+    AppId = property(get_AppId, None)
+    DateOfManufacture = property(get_DateOfManufacture, None)
+    DefaultLanguage = property(get_DefaultLanguage, None)
+    DeviceId = property(get_DeviceId, None)
+    HardwareVersion = property(get_HardwareVersion, None)
+    ModelNumber = property(get_ModelNumber, None)
+    SoftwareVersion = property(get_SoftwareVersion, None)
+    SupportedLanguages = property(get_SupportedLanguages, None)
+    SupportUrl = property(get_SupportUrl, None)
+    AppName = property(get_AppName, None)
+    Description = property(get_Description, None)
+    DeviceName = property(get_DeviceName, None)
+    Manufacturer = property(get_Manufacturer, None)
+class IAllJoynAboutDataViewStatics(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('57edb688-0c5e-416e-88-b5-39-b3-2d-25-c4-7d')
+    @winrt_commethod(6)
+    def GetDataBySessionPortAsync(self, uniqueName: WinRT_String, busAttachment: Windows.Devices.AllJoyn.AllJoynBusAttachment, sessionPort: UInt16) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynAboutDataView]: ...
+    @winrt_commethod(7)
+    def GetDataBySessionPortWithLanguageAsync(self, uniqueName: WinRT_String, busAttachment: Windows.Devices.AllJoyn.AllJoynBusAttachment, sessionPort: UInt16, language: Windows.Globalization.Language) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynAboutDataView]: ...
+class IAllJoynAcceptSessionJoiner(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('4da817d2-cd1d-4023-a7-c4-16-de-f8-9c-28-df')
+    @winrt_commethod(6)
+    def Accept(self) -> Void: ...
+class IAllJoynAcceptSessionJoinerEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('4efb5365-3e8a-4257-8f-10-53-9c-e0-d5-6c-0f')
+    @winrt_commethod(6)
+    def get_UniqueName(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_SessionPort(self) -> UInt16: ...
+    @winrt_commethod(8)
+    def get_TrafficType(self) -> Windows.Devices.AllJoyn.AllJoynTrafficType: ...
+    @winrt_commethod(9)
+    def get_SamePhysicalNode(self) -> Boolean: ...
+    @winrt_commethod(10)
+    def get_SameNetwork(self) -> Boolean: ...
+    @winrt_commethod(11)
+    def Accept(self) -> Void: ...
+    UniqueName = property(get_UniqueName, None)
+    SessionPort = property(get_SessionPort, None)
+    TrafficType = property(get_TrafficType, None)
+    SamePhysicalNode = property(get_SamePhysicalNode, None)
+    SameNetwork = property(get_SameNetwork, None)
+class IAllJoynAcceptSessionJoinerEventArgsFactory(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('b4435bc0-6145-429e-84-db-d5-bf-e7-72-b1-4f')
+    @winrt_commethod(6)
+    def Create(self, uniqueName: WinRT_String, sessionPort: UInt16, trafficType: Windows.Devices.AllJoyn.AllJoynTrafficType, proximity: Byte, acceptSessionJoiner: Windows.Devices.AllJoyn.IAllJoynAcceptSessionJoiner) -> Windows.Devices.AllJoyn.AllJoynAcceptSessionJoinerEventArgs: ...
+class IAllJoynAuthenticationCompleteEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('97b4701c-15dc-4b53-b6-a4-7d-13-43-00-d7-bf')
+    @winrt_commethod(6)
+    def get_AuthenticationMechanism(self) -> Windows.Devices.AllJoyn.AllJoynAuthenticationMechanism: ...
+    @winrt_commethod(7)
+    def get_PeerUniqueName(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_Succeeded(self) -> Boolean: ...
+    AuthenticationMechanism = property(get_AuthenticationMechanism, None)
+    PeerUniqueName = property(get_PeerUniqueName, None)
+    Succeeded = property(get_Succeeded, None)
+class IAllJoynBusAttachment(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('f309f153-1eed-42c3-a2-0e-43-6d-41-fe-62-f6')
+    @winrt_commethod(6)
+    def get_AboutData(self) -> Windows.Devices.AllJoyn.AllJoynAboutData: ...
+    @winrt_commethod(7)
+    def get_ConnectionSpecification(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_State(self) -> Windows.Devices.AllJoyn.AllJoynBusAttachmentState: ...
+    @winrt_commethod(9)
+    def get_UniqueName(self) -> WinRT_String: ...
+    @winrt_commethod(10)
+    def PingAsync(self, uniqueName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Int32]: ...
+    @winrt_commethod(11)
+    def Connect(self) -> Void: ...
+    @winrt_commethod(12)
+    def Disconnect(self) -> Void: ...
+    @winrt_commethod(13)
+    def add_StateChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynBusAttachment, Windows.Devices.AllJoyn.AllJoynBusAttachmentStateChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(14)
+    def remove_StateChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(15)
+    def get_AuthenticationMechanisms(self) -> Windows.Foundation.Collections.IVector[Windows.Devices.AllJoyn.AllJoynAuthenticationMechanism]: ...
+    @winrt_commethod(16)
+    def add_CredentialsRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynBusAttachment, Windows.Devices.AllJoyn.AllJoynCredentialsRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(17)
+    def remove_CredentialsRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(18)
+    def add_CredentialsVerificationRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynBusAttachment, Windows.Devices.AllJoyn.AllJoynCredentialsVerificationRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(19)
+    def remove_CredentialsVerificationRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(20)
+    def add_AuthenticationComplete(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynBusAttachment, Windows.Devices.AllJoyn.AllJoynAuthenticationCompleteEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(21)
+    def remove_AuthenticationComplete(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    AboutData = property(get_AboutData, None)
+    ConnectionSpecification = property(get_ConnectionSpecification, None)
+    State = property(get_State, None)
+    UniqueName = property(get_UniqueName, None)
+    AuthenticationMechanisms = property(get_AuthenticationMechanisms, None)
+class IAllJoynBusAttachment2(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('3474cb1e-2368-43b2-b4-3e-6a-3a-c1-27-8d-98')
+    @winrt_commethod(6)
+    def GetAboutDataAsync(self, serviceInfo: Windows.Devices.AllJoyn.AllJoynServiceInfo) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynAboutDataView]: ...
+    @winrt_commethod(7)
+    def GetAboutDataWithLanguageAsync(self, serviceInfo: Windows.Devices.AllJoyn.AllJoynServiceInfo, language: Windows.Globalization.Language) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynAboutDataView]: ...
+    @winrt_commethod(8)
+    def add_AcceptSessionJoinerRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynBusAttachment, Windows.Devices.AllJoyn.AllJoynAcceptSessionJoinerEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(9)
+    def remove_AcceptSessionJoinerRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(10)
+    def add_SessionJoined(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynBusAttachment, Windows.Devices.AllJoyn.AllJoynSessionJoinedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(11)
+    def remove_SessionJoined(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+class IAllJoynBusAttachmentFactory(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('642ef1a4-ad85-4ddf-90-ae-60-44-52-b2-22-88')
+    @winrt_commethod(6)
+    def Create(self, connectionSpecification: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynBusAttachment: ...
+class IAllJoynBusAttachmentStateChangedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('d82e75f4-c02a-41ec-a8-d5-ea-b1-55-89-53-aa')
+    @winrt_commethod(6)
+    def get_State(self) -> Windows.Devices.AllJoyn.AllJoynBusAttachmentState: ...
+    @winrt_commethod(7)
+    def get_Status(self) -> Int32: ...
+    State = property(get_State, None)
+    Status = property(get_Status, None)
+class IAllJoynBusAttachmentStatics(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('839d4d3d-1051-40d7-87-2a-8d-01-41-11-5b-1f')
+    @winrt_commethod(6)
+    def GetDefault(self) -> Windows.Devices.AllJoyn.AllJoynBusAttachment: ...
+    @winrt_commethod(7)
+    def GetWatcher(self, requiredInterfaces: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Devices.Enumeration.DeviceWatcher: ...
+class IAllJoynBusObject(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('e8fd825e-f73a-490c-88-04-04-e0-26-64-30-47')
+    @winrt_commethod(6)
+    def Start(self) -> Void: ...
+    @winrt_commethod(7)
+    def Stop(self) -> Void: ...
+    @winrt_commethod(8)
+    def AddProducer(self, producer: Windows.Devices.AllJoyn.IAllJoynProducer) -> Void: ...
+    @winrt_commethod(9)
+    def get_BusAttachment(self) -> Windows.Devices.AllJoyn.AllJoynBusAttachment: ...
+    @winrt_commethod(10)
+    def get_Session(self) -> Windows.Devices.AllJoyn.AllJoynSession: ...
+    @winrt_commethod(11)
+    def add_Stopped(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynBusObject, Windows.Devices.AllJoyn.AllJoynBusObjectStoppedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(12)
+    def remove_Stopped(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    BusAttachment = property(get_BusAttachment, None)
+    Session = property(get_Session, None)
+class IAllJoynBusObjectFactory(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('2c2f9f0b-8e02-4f9c-ac-27-ea-6d-ad-5d-3b-50')
+    @winrt_commethod(6)
+    def Create(self, objectPath: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynBusObject: ...
+    @winrt_commethod(7)
+    def CreateWithBusAttachment(self, objectPath: WinRT_String, busAttachment: Windows.Devices.AllJoyn.AllJoynBusAttachment) -> Windows.Devices.AllJoyn.AllJoynBusObject: ...
+class IAllJoynBusObjectStoppedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('de102115-ef8e-4d42-b9-3b-a2-ae-74-51-97-66')
+    @winrt_commethod(6)
+    def get_Status(self) -> Int32: ...
+    Status = property(get_Status, None)
+class IAllJoynBusObjectStoppedEventArgsFactory(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('6b22fd48-d0a3-4255-95-3a-47-72-b4-02-80-73')
+    @winrt_commethod(6)
+    def Create(self, status: Int32) -> Windows.Devices.AllJoyn.AllJoynBusObjectStoppedEventArgs: ...
+class IAllJoynCredentials(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('824650f2-a190-40b1-ab-ab-34-9e-c2-44-df-aa')
+    @winrt_commethod(6)
+    def get_AuthenticationMechanism(self) -> Windows.Devices.AllJoyn.AllJoynAuthenticationMechanism: ...
+    @winrt_commethod(7)
+    def get_Certificate(self) -> Windows.Security.Cryptography.Certificates.Certificate: ...
+    @winrt_commethod(8)
+    def put_Certificate(self, value: Windows.Security.Cryptography.Certificates.Certificate) -> Void: ...
+    @winrt_commethod(9)
+    def get_PasswordCredential(self) -> Windows.Security.Credentials.PasswordCredential: ...
+    @winrt_commethod(10)
+    def put_PasswordCredential(self, value: Windows.Security.Credentials.PasswordCredential) -> Void: ...
+    @winrt_commethod(11)
+    def get_Timeout(self) -> Windows.Foundation.TimeSpan: ...
+    @winrt_commethod(12)
+    def put_Timeout(self, value: Windows.Foundation.TimeSpan) -> Void: ...
+    AuthenticationMechanism = property(get_AuthenticationMechanism, None)
+    Certificate = property(get_Certificate, put_Certificate)
+    PasswordCredential = property(get_PasswordCredential, put_PasswordCredential)
+    Timeout = property(get_Timeout, put_Timeout)
+class IAllJoynCredentialsRequestedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('6a87e34e-b069-4b80-9e-1a-41-bc-83-7c-65-d2')
+    @winrt_commethod(6)
+    def get_AttemptCount(self) -> UInt16: ...
+    @winrt_commethod(7)
+    def get_Credentials(self) -> Windows.Devices.AllJoyn.AllJoynCredentials: ...
+    @winrt_commethod(8)
+    def get_PeerUniqueName(self) -> WinRT_String: ...
+    @winrt_commethod(9)
+    def get_RequestedUserName(self) -> WinRT_String: ...
+    @winrt_commethod(10)
+    def GetDeferral(self) -> Windows.Foundation.Deferral: ...
+    AttemptCount = property(get_AttemptCount, None)
+    Credentials = property(get_Credentials, None)
+    PeerUniqueName = property(get_PeerUniqueName, None)
+    RequestedUserName = property(get_RequestedUserName, None)
+class IAllJoynCredentialsVerificationRequestedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('800a7612-b805-44af-a2-e1-79-2a-b6-55-a2-d0')
+    @winrt_commethod(6)
+    def get_AuthenticationMechanism(self) -> Windows.Devices.AllJoyn.AllJoynAuthenticationMechanism: ...
+    @winrt_commethod(7)
+    def get_PeerUniqueName(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_PeerCertificate(self) -> Windows.Security.Cryptography.Certificates.Certificate: ...
+    @winrt_commethod(9)
+    def get_PeerCertificateErrorSeverity(self) -> Windows.Networking.Sockets.SocketSslErrorSeverity: ...
+    @winrt_commethod(10)
+    def get_PeerCertificateErrors(self) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Cryptography.Certificates.ChainValidationResult]: ...
+    @winrt_commethod(11)
+    def get_PeerIntermediateCertificates(self) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Cryptography.Certificates.Certificate]: ...
+    @winrt_commethod(12)
+    def Accept(self) -> Void: ...
+    @winrt_commethod(13)
+    def GetDeferral(self) -> Windows.Foundation.Deferral: ...
+    AuthenticationMechanism = property(get_AuthenticationMechanism, None)
+    PeerUniqueName = property(get_PeerUniqueName, None)
+    PeerCertificate = property(get_PeerCertificate, None)
+    PeerCertificateErrorSeverity = property(get_PeerCertificateErrorSeverity, None)
+    PeerCertificateErrors = property(get_PeerCertificateErrors, None)
+    PeerIntermediateCertificates = property(get_PeerIntermediateCertificates, None)
+class IAllJoynMessageInfo(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('ff2b0127-2c12-4859-aa-3a-c7-44-61-ee-81-4c')
+    @winrt_commethod(6)
+    def get_SenderUniqueName(self) -> WinRT_String: ...
+    SenderUniqueName = property(get_SenderUniqueName, None)
+class IAllJoynMessageInfoFactory(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('34664c2a-8289-43d4-b4-a8-3f-4d-e3-59-f0-43')
+    @winrt_commethod(6)
+    def Create(self, senderUniqueName: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynMessageInfo: ...
+class IAllJoynProducer(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('9d084679-469b-495a-a7-10-ac-50-f1-23-06-9f')
+    @winrt_commethod(6)
+    def SetBusObject(self, busObject: Windows.Devices.AllJoyn.AllJoynBusObject) -> Void: ...
+class IAllJoynProducerStoppedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('51309770-4937-492d-80-80-23-64-39-98-7c-eb')
+    @winrt_commethod(6)
+    def get_Status(self) -> Int32: ...
+    Status = property(get_Status, None)
+class IAllJoynProducerStoppedEventArgsFactory(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('56529961-b219-4d6e-9f-78-fa-3f-99-fa-8f-e5')
+    @winrt_commethod(6)
+    def Create(self, status: Int32) -> Windows.Devices.AllJoyn.AllJoynProducerStoppedEventArgs: ...
+class IAllJoynServiceInfo(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('4cbe8209-b93e-4182-99-9b-dd-d0-00-f9-c5-75')
+    @winrt_commethod(6)
+    def get_UniqueName(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_ObjectPath(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_SessionPort(self) -> UInt16: ...
+    UniqueName = property(get_UniqueName, None)
+    ObjectPath = property(get_ObjectPath, None)
+    SessionPort = property(get_SessionPort, None)
+class IAllJoynServiceInfoFactory(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('7581dabd-fe03-4f4b-94-a4-f0-2f-dc-bd-11-b8')
+    @winrt_commethod(6)
+    def Create(self, uniqueName: WinRT_String, objectPath: WinRT_String, sessionPort: UInt16) -> Windows.Devices.AllJoyn.AllJoynServiceInfo: ...
+class IAllJoynServiceInfoRemovedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('3057a95f-1d3f-41f3-89-69-e3-27-92-62-73-96')
+    @winrt_commethod(6)
+    def get_UniqueName(self) -> WinRT_String: ...
+    UniqueName = property(get_UniqueName, None)
+class IAllJoynServiceInfoRemovedEventArgsFactory(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('0dbf8627-9aff-4955-92-27-69-53-ba-f4-15-69')
+    @winrt_commethod(6)
+    def Create(self, uniqueName: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynServiceInfoRemovedEventArgs: ...
+class IAllJoynServiceInfoStatics(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('5678570a-603a-49fc-b7-50-0e-f1-36-09-21-3c')
+    @winrt_commethod(6)
+    def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynServiceInfo]: ...
+class IAllJoynSession(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('e8d11b0c-c0d4-406c-88-a9-a9-3e-fa-85-d4-b1')
+    @winrt_commethod(6)
+    def get_Id(self) -> Int32: ...
+    @winrt_commethod(7)
+    def get_Status(self) -> Int32: ...
+    @winrt_commethod(8)
+    def RemoveMemberAsync(self, uniqueName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Int32]: ...
+    @winrt_commethod(9)
+    def add_MemberAdded(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynSession, Windows.Devices.AllJoyn.AllJoynSessionMemberAddedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(10)
+    def remove_MemberAdded(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(11)
+    def add_MemberRemoved(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynSession, Windows.Devices.AllJoyn.AllJoynSessionMemberRemovedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(12)
+    def remove_MemberRemoved(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(13)
+    def add_Lost(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.AllJoyn.AllJoynSession, Windows.Devices.AllJoyn.AllJoynSessionLostEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(14)
+    def remove_Lost(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    Id = property(get_Id, None)
+    Status = property(get_Status, None)
+class IAllJoynSessionJoinedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('9e9f5bd0-b5d7-47c5-8d-ab-b0-40-cc-19-28-71')
+    @winrt_commethod(6)
+    def get_Session(self) -> Windows.Devices.AllJoyn.AllJoynSession: ...
+    Session = property(get_Session, None)
+class IAllJoynSessionJoinedEventArgsFactory(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('6824d689-d6cb-4d9e-a0-9e-35-80-68-70-b1-7f')
+    @winrt_commethod(6)
+    def Create(self, session: Windows.Devices.AllJoyn.AllJoynSession) -> Windows.Devices.AllJoyn.AllJoynSessionJoinedEventArgs: ...
+class IAllJoynSessionLostEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('e766a48a-8bb8-4954-ae-67-d2-fa-43-d1-f9-6b')
+    @winrt_commethod(6)
+    def get_Reason(self) -> Windows.Devices.AllJoyn.AllJoynSessionLostReason: ...
+    Reason = property(get_Reason, None)
+class IAllJoynSessionLostEventArgsFactory(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('13bbfd32-d2f4-49c9-98-0e-28-05-e1-35-86-b1')
+    @winrt_commethod(6)
+    def Create(self, reason: Windows.Devices.AllJoyn.AllJoynSessionLostReason) -> Windows.Devices.AllJoyn.AllJoynSessionLostEventArgs: ...
+class IAllJoynSessionMemberAddedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('49a2798a-0dd1-46c1-9c-d6-27-19-0e-50-3a-5e')
+    @winrt_commethod(6)
+    def get_UniqueName(self) -> WinRT_String: ...
+    UniqueName = property(get_UniqueName, None)
+class IAllJoynSessionMemberAddedEventArgsFactory(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('341de352-1d33-40a1-a1-d3-e5-77-70-20-e1-f1')
+    @winrt_commethod(6)
+    def Create(self, uniqueName: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynSessionMemberAddedEventArgs: ...
+class IAllJoynSessionMemberRemovedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('409a219f-aa4a-4893-b4-30-ba-a1-b6-3c-62-19')
+    @winrt_commethod(6)
+    def get_UniqueName(self) -> WinRT_String: ...
+    UniqueName = property(get_UniqueName, None)
+class IAllJoynSessionMemberRemovedEventArgsFactory(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('c4d355e8-42b8-4b67-b7-57-d0-cf-ca-d5-92-80')
+    @winrt_commethod(6)
+    def Create(self, uniqueName: WinRT_String) -> Windows.Devices.AllJoyn.AllJoynSessionMemberRemovedEventArgs: ...
+class IAllJoynSessionStatics(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('9e05d604-a06c-46d4-b4-6c-0b-0b-54-10-5b-44')
+    @winrt_commethod(6)
+    def GetFromServiceInfoAsync(self, serviceInfo: Windows.Devices.AllJoyn.AllJoynServiceInfo) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynSession]: ...
+    @winrt_commethod(7)
+    def GetFromServiceInfoAndBusAttachmentAsync(self, serviceInfo: Windows.Devices.AllJoyn.AllJoynServiceInfo, busAttachment: Windows.Devices.AllJoyn.AllJoynBusAttachment) -> Windows.Foundation.IAsyncOperation[Windows.Devices.AllJoyn.AllJoynSession]: ...
+class IAllJoynStatusStatics(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('d0b7a17e-0d29-4da9-8a-c6-54-c5-54-be-db-c5')
+    @winrt_commethod(6)
+    def get_Ok(self) -> Int32: ...
+    @winrt_commethod(7)
+    def get_Fail(self) -> Int32: ...
+    @winrt_commethod(8)
+    def get_OperationTimedOut(self) -> Int32: ...
+    @winrt_commethod(9)
+    def get_OtherEndClosed(self) -> Int32: ...
+    @winrt_commethod(10)
+    def get_ConnectionRefused(self) -> Int32: ...
+    @winrt_commethod(11)
+    def get_AuthenticationFailed(self) -> Int32: ...
+    @winrt_commethod(12)
+    def get_AuthenticationRejectedByUser(self) -> Int32: ...
+    @winrt_commethod(13)
+    def get_SslConnectFailed(self) -> Int32: ...
+    @winrt_commethod(14)
+    def get_SslIdentityVerificationFailed(self) -> Int32: ...
+    @winrt_commethod(15)
+    def get_InsufficientSecurity(self) -> Int32: ...
+    @winrt_commethod(16)
+    def get_InvalidArgument1(self) -> Int32: ...
+    @winrt_commethod(17)
+    def get_InvalidArgument2(self) -> Int32: ...
+    @winrt_commethod(18)
+    def get_InvalidArgument3(self) -> Int32: ...
+    @winrt_commethod(19)
+    def get_InvalidArgument4(self) -> Int32: ...
+    @winrt_commethod(20)
+    def get_InvalidArgument5(self) -> Int32: ...
+    @winrt_commethod(21)
+    def get_InvalidArgument6(self) -> Int32: ...
+    @winrt_commethod(22)
+    def get_InvalidArgument7(self) -> Int32: ...
+    @winrt_commethod(23)
+    def get_InvalidArgument8(self) -> Int32: ...
+    Ok = property(get_Ok, None)
+    Fail = property(get_Fail, None)
+    OperationTimedOut = property(get_OperationTimedOut, None)
+    OtherEndClosed = property(get_OtherEndClosed, None)
+    ConnectionRefused = property(get_ConnectionRefused, None)
+    AuthenticationFailed = property(get_AuthenticationFailed, None)
+    AuthenticationRejectedByUser = property(get_AuthenticationRejectedByUser, None)
+    SslConnectFailed = property(get_SslConnectFailed, None)
+    SslIdentityVerificationFailed = property(get_SslIdentityVerificationFailed, None)
+    InsufficientSecurity = property(get_InsufficientSecurity, None)
+    InvalidArgument1 = property(get_InvalidArgument1, None)
+    InvalidArgument2 = property(get_InvalidArgument2, None)
+    InvalidArgument3 = property(get_InvalidArgument3, None)
+    InvalidArgument4 = property(get_InvalidArgument4, None)
+    InvalidArgument5 = property(get_InvalidArgument5, None)
+    InvalidArgument6 = property(get_InvalidArgument6, None)
+    InvalidArgument7 = property(get_InvalidArgument7, None)
+    InvalidArgument8 = property(get_InvalidArgument8, None)
+class IAllJoynWatcherStoppedEventArgs(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('c9fca03b-701d-4aa8-97-dd-a2-bb-0a-8f-5f-a3')
+    @winrt_commethod(6)
+    def get_Status(self) -> Int32: ...
+    Status = property(get_Status, None)
+class IAllJoynWatcherStoppedEventArgsFactory(c_void_p):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    Guid = Guid('878fa5a8-2d50-47e1-90-4a-20-bf-0d-48-c7-82')
+    @winrt_commethod(6)
+    def Create(self, status: Int32) -> Windows.Devices.AllJoyn.AllJoynWatcherStoppedEventArgs: ...
+make_head(_module, 'AllJoynAboutData')
+make_head(_module, 'AllJoynAboutDataView')
+make_head(_module, 'AllJoynAcceptSessionJoinerEventArgs')
+make_head(_module, 'AllJoynAuthenticationCompleteEventArgs')
+make_head(_module, 'AllJoynBusAttachment')
+make_head(_module, 'AllJoynBusAttachmentStateChangedEventArgs')
+make_head(_module, 'AllJoynBusObject')
+make_head(_module, 'AllJoynBusObjectStoppedEventArgs')
+make_head(_module, 'AllJoynCredentials')
+make_head(_module, 'AllJoynCredentialsRequestedEventArgs')
+make_head(_module, 'AllJoynCredentialsVerificationRequestedEventArgs')
+make_head(_module, 'AllJoynMessageInfo')
+make_head(_module, 'AllJoynProducerStoppedEventArgs')
+make_head(_module, 'AllJoynServiceInfo')
+make_head(_module, 'AllJoynServiceInfoRemovedEventArgs')
+make_head(_module, 'AllJoynSession')
+make_head(_module, 'AllJoynSessionJoinedEventArgs')
+make_head(_module, 'AllJoynSessionLostEventArgs')
+make_head(_module, 'AllJoynSessionMemberAddedEventArgs')
+make_head(_module, 'AllJoynSessionMemberRemovedEventArgs')
+make_head(_module, 'AllJoynStatus')
+make_head(_module, 'AllJoynWatcherStoppedEventArgs')
+make_head(_module, 'IAllJoynAboutData')
+make_head(_module, 'IAllJoynAboutDataView')
+make_head(_module, 'IAllJoynAboutDataViewStatics')
+make_head(_module, 'IAllJoynAcceptSessionJoiner')
+make_head(_module, 'IAllJoynAcceptSessionJoinerEventArgs')
+make_head(_module, 'IAllJoynAcceptSessionJoinerEventArgsFactory')
+make_head(_module, 'IAllJoynAuthenticationCompleteEventArgs')
+make_head(_module, 'IAllJoynBusAttachment')
+make_head(_module, 'IAllJoynBusAttachment2')
+make_head(_module, 'IAllJoynBusAttachmentFactory')
+make_head(_module, 'IAllJoynBusAttachmentStateChangedEventArgs')
+make_head(_module, 'IAllJoynBusAttachmentStatics')
+make_head(_module, 'IAllJoynBusObject')
+make_head(_module, 'IAllJoynBusObjectFactory')
+make_head(_module, 'IAllJoynBusObjectStoppedEventArgs')
+make_head(_module, 'IAllJoynBusObjectStoppedEventArgsFactory')
+make_head(_module, 'IAllJoynCredentials')
+make_head(_module, 'IAllJoynCredentialsRequestedEventArgs')
+make_head(_module, 'IAllJoynCredentialsVerificationRequestedEventArgs')
+make_head(_module, 'IAllJoynMessageInfo')
+make_head(_module, 'IAllJoynMessageInfoFactory')
+make_head(_module, 'IAllJoynProducer')
+make_head(_module, 'IAllJoynProducerStoppedEventArgs')
+make_head(_module, 'IAllJoynProducerStoppedEventArgsFactory')
+make_head(_module, 'IAllJoynServiceInfo')
+make_head(_module, 'IAllJoynServiceInfoFactory')
+make_head(_module, 'IAllJoynServiceInfoRemovedEventArgs')
+make_head(_module, 'IAllJoynServiceInfoRemovedEventArgsFactory')
+make_head(_module, 'IAllJoynServiceInfoStatics')
+make_head(_module, 'IAllJoynSession')
+make_head(_module, 'IAllJoynSessionJoinedEventArgs')
+make_head(_module, 'IAllJoynSessionJoinedEventArgsFactory')
+make_head(_module, 'IAllJoynSessionLostEventArgs')
+make_head(_module, 'IAllJoynSessionLostEventArgsFactory')
+make_head(_module, 'IAllJoynSessionMemberAddedEventArgs')
+make_head(_module, 'IAllJoynSessionMemberAddedEventArgsFactory')
+make_head(_module, 'IAllJoynSessionMemberRemovedEventArgs')
+make_head(_module, 'IAllJoynSessionMemberRemovedEventArgsFactory')
+make_head(_module, 'IAllJoynSessionStatics')
+make_head(_module, 'IAllJoynStatusStatics')
+make_head(_module, 'IAllJoynWatcherStoppedEventArgs')
+make_head(_module, 'IAllJoynWatcherStoppedEventArgsFactory')
