@@ -3,6 +3,7 @@ from ctypes import (
     CFUNCTYPE,
     POINTER,
     addressof,
+    c_char,
     c_void_p,
     c_wchar_p,
     cast,
@@ -10,7 +11,7 @@ from ctypes import (
     wstring_at,
 )
 
-from Windows import ForeignFunction, Int16, UInt16
+from Windows import EasyCastStructure, ForeignFunction, Int16, UInt16, press
 
 
 def functype(prototype):
@@ -82,6 +83,28 @@ class TestEasyCast(unittest.TestCase):
         p = f(s)
         self.assertIsInstance(p, POINTER(POINTER(UInt16)))
         self.assertEqual(to_intptr(p), addressof(s))
+
+    # default behavior of ctypes
+    def test_function_array_to_c_void_p(self):
+        @functype
+        def f(p: c_void_p) -> py_object:
+            return p
+
+        a = (c_char * 1)()
+        p = f(a)
+        self.assertIsInstance(p, int)
+        self.assertEqual(p, addressof(a))
+
+    def test_struct_array_to_c_void_p(self):
+        @press
+        class S(EasyCastStructure):
+            p: c_void_p
+
+        a = (c_char * 1)()
+        s = S()
+        s.p = a
+        self.assertIsInstance(s.p, int)
+        self.assertEqual(s.p, addressof(a))
 
 
 if __name__ == "__main__":

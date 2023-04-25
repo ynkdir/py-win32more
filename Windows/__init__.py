@@ -7,6 +7,7 @@ from ctypes import (
     CFUNCTYPE,
     POINTER,
     WINFUNCTYPE,
+    Array,
     Structure,
     Union,
     c_bool,
@@ -122,8 +123,10 @@ class EasyCastUnion(Union):
 EASY_TYPES = [  # obj_type, type_hint, c_func
     # python objects:
     (str, (POINTER(Int16), POINTER(UInt16)), c_wchar_p),
-    # for function for consistency with struct.member assignment
+    # for function call for consistency with struct.member assignment.
     (int, (c_char_p, c_wchar_p), c_void_p),
+    # for struct.member assignment for consistency with function call.
+    (Array, (c_void_p,), None),
     # ctypes objects:
     (c_wchar_p, (POINTER(Int16), POINTER(UInt16)), None),
     (c_wchar_p, (POINTER(POINTER(Int16)), POINTER(POINTER(UInt16))), pointer),
