@@ -1,5 +1,4 @@
 import unittest
-from contextlib import ExitStack
 from ctypes import WinError
 
 from Windows import FAILED
