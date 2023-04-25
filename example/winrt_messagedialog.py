@@ -12,13 +12,14 @@ from ctypes import (
 )
 from typing import Generic, TypeVar
 
-from Windows import FAILED, Guid, UInt32, _ro_get_parameterized_type_instance_iid
+from Windows import FAILED, Guid, UInt32
+from Windows._winrt import _ro_get_parameterized_type_instance_iid
 from Windows.Foundation import (
     AsyncOperationCompletedHandler,
     AsyncStatus,
     IAsyncOperation,
 )
-from Windows.UI.Popups import IUICommand, MessageDialog
+from Windows.UI.Popups import MessageDialog
 from Windows.Win32.Foundation import E_NOINTERFACE, HRESULT, HWND, LPARAM, S_OK, WPARAM
 from Windows.Win32.Graphics.Gdi import (
     COLOR_WINDOW,
@@ -28,10 +29,8 @@ from Windows.Win32.Graphics.Gdi import (
     EndPaint,
     FillRect,
 )
-from Windows.Win32.System.Com import IUnknown
 from Windows.Win32.System.LibraryLoader import GetModuleHandleW
 from Windows.Win32.System.WinRT import (
-    RO_INIT_MULTITHREADED,
     RO_INIT_SINGLETHREADED,
     RoInitialize,
     RoUninitialize,

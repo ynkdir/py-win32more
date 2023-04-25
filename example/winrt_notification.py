@@ -18,7 +18,7 @@ def main() -> None:
             raise WinError(hr)
         defer.callback(RoUninitialize)
 
-        template = f"""
+        template = """
         <toast>
             <visual>
                 <binding template='ToastGeneric'>
