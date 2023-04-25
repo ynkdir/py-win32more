@@ -1,12 +1,40 @@
 from __future__ import annotations
-import types
-import typing
 import re
 import sys
+import types
+import typing
 import uuid
 from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure, Union, cdll, windll, CFUNCTYPE, WINFUNCTYPE, sizeof, POINTER, cast, pointer, Array, WinError, wstring_at
 from importlib import import_module
 from typing import TypeVar, Generic, _GenericAlias
+
+from ctypes import (
+    CFUNCTYPE,
+    POINTER,
+    WINFUNCTYPE,
+    Structure,
+    Union,
+    c_bool,
+    c_byte,
+    c_char_p,
+    c_double,
+    c_float,
+    c_int,
+    c_longlong,
+    c_short,
+    c_ubyte,
+    c_uint,
+    c_ulonglong,
+    c_ushort,
+    c_void_p,
+    c_wchar,
+    c_wchar_p,
+    cast,
+    cdll,
+    pointer,
+    sizeof,
+    windll,
+)
 
 T = TypeVar("T")
 
@@ -18,13 +46,6 @@ else:
     ARCH = "X86"
 
 MissingType = c_void_p
-
-# to avoid auto conversion to str
-class c_char_p_no(c_char_p):
-    pass
-
-class c_wchar_p_no(c_wchar_p):
-    pass
 
 Byte = c_ubyte
 SByte = c_byte
@@ -45,9 +66,26 @@ else:
     raise NotImplementedError()
 Single = c_float
 Double = c_double
-String = c_wchar_p_no
+String = c_wchar_p
 Boolean = c_bool
 Void = None
+
+# to avoid auto conversion to str when struct.member access and function() result.
+class c_char_p_no(c_char_p):
+    pass
+
+
+class c_wchar_p_no(c_wchar_p):
+    pass
+
+
+def _patch_char_p(type_):
+    if type_ is c_char_p:
+        return c_char_p_no
+    elif type_ is c_wchar_p:
+        return c_wchar_p_no
+    else:
+        return type_
 
 class WinRT_String(IntPtr):  # HSTRING
     def __del__(self):
@@ -75,8 +113,8 @@ class WinRT_String(IntPtr):  # HSTRING
     def __ctypes_from_outparam__(self):
         import Windows.Win32.System.WinRT
         length = UInt32()
-        pcwstr = Windows.Win32.System.WinRT.WindowsGetStringRawBuffer(self, length)
-        return wstring_at(cast(pcwstr, c_void_p).value, length.value)
+        bufaddr = Windows.Win32.System.WinRT.WindowsGetStringRawBuffer(self, length, _as_intptr=True)
+        return wstring_at(bufaddr, length.value)
 
 class EasyCastStructure(Structure):
     def __setattr__(self, name, obj):
@@ -84,40 +122,67 @@ class EasyCastStructure(Structure):
             obj = easycast(obj, self._hints_[name])
         return super().__setattr__(name, obj)
 
+    def __getattribute__(self, name):
+        if name.endswith("_as_intptr"):
+            rawname = name.removesuffix("_as_intptr")
+            obj = super().__getattribute__(rawname)
+            return cast(obj, c_void_p).value
+        obj = super().__getattribute__(name)
+        if type(obj) is c_char_p_no or type(obj) is c_wchar_p_no:
+            if not obj:
+                return None
+            return obj.value
+        return obj
+
+
 class EasyCastUnion(Union):
     def __setattr__(self, name, obj):
         if name in self._hints_:
             obj = easycast(obj, self._hints_[name])
         return super().__setattr__(name, obj)
 
-class EasyCastHandler:
-    def __init__(self, declared_type):
-        self.declared_type = declared_type
+    def __getattribute__(self, name):
+        if name.endswith("_as_intptr"):
+            rawname = name.removesuffix("_as_intptr")
+            obj = super().__getattribute__(rawname)
+            return cast(obj, c_void_p).value
+        obj = super().__getattribute__(name)
+        if type(obj) is c_char_p_no or type(obj) is c_wchar_p_no:
+            if not obj:
+                return None
+            return obj.value
+        return obj
 
-    def from_param(self, obj):
-        obj = easycast(obj, self.declared_type)
-        return self.declared_type.from_param(obj)
 
-EASY_TYPES = [ #obj_type, type_hint, c_func
+EASY_TYPES = [  # obj_type, type_hint, c_func
     # python objects:
     (str, (POINTER(Int16), POINTER(UInt16)), c_wchar_p),
+    # for function for consistency with struct.member assignment
+    (int, (c_char_p, c_wchar_p), c_void_p),
     # ctypes objects:
     (c_wchar_p, (POINTER(Int16), POINTER(UInt16)), None),
     (c_wchar_p, (POINTER(POINTER(Int16)), POINTER(POINTER(UInt16))), pointer),
+    (c_char_p, (c_char_p_no,), None),
+    (c_wchar_p, (c_wchar_p_no,), None),
 ]
+
 
 def easycast(obj, type_):
     for obj_type, type_hint, c_func in EASY_TYPES:
         if isinstance(obj, obj_type) and issubclass(type_, type_hint):
-            if c_func is not None: obj = c_func(obj)
+            if c_func is not None:
+                obj = c_func(obj)
             return cast(obj, type_)
     return obj
 
+
 class Guid(EasyCastStructure):
-    _fields_ = [("Data1", UInt32),
-                ("Data2", UInt16),
-                ("Data3", UInt16),
-                ("Data4", Byte * 8)]
+    _fields_ = [
+        ("Data1", UInt32),
+        ("Data2", UInt16),
+        ("Data3", UInt16),
+        ("Data4", Byte * 8),
+    ]
     _hints_ = {
         "Data1": UInt32,
         "Data2": UInt16,
@@ -153,52 +218,105 @@ class Guid(EasyCastStructure):
     def __str__(self):
         return f"{{{self.Data1:08x}-{self.Data2:04x}-{self.Data3:04x}-{self.Data4[0]:02x}{self.Data4[1]:02x}-{self.Data4[2]:02x}{self.Data4[3]:02x}{self.Data4[4]:02x}{self.Data4[5]:02x}{self.Data4[6]:02x}{self.Data4[7]:02x}}}"
 
+
 def SUCCEEDED(hr):
     return hr >= 0
+
 
 def FAILED(hr):
     return hr < 0
 
+
 def get_type_hints(prototype):
-    hints = typing.get_type_hints(prototype, localns=getattr(prototype, '__dict__', None))
+    hints = typing.get_type_hints(prototype, localns=getattr(prototype, "__dict__", None))
     for name, type_ in hints.items():
         if type_ is None.__class__:
             hints[name] = None
     return hints
 
+
+class ForeignFunction:
+    def __init__(self, prototype, factory):
+        self.hints = get_type_hints(prototype)
+        self.restype = _patch_char_p(self.hints.pop("return"))
+        self.argtypes = list(self.hints.values())
+        types = [self.restype] + self.argtypes
+        params = tuple((1, name) for name in self.hints.keys())
+        varnames = prototype.__code__.co_varnames
+        if varnames and varnames[-1] == "__arglist":
+            # Disable keyword argument for variable length arguments.
+            params = None
+        self.is_com = varnames and varnames[0] == "self" and "self" not in self.hints
+        self.delegate = factory(prototype.__name__, types, params)
+
+    def __call__(self, *args, **kwargs):
+        _as_intptr = kwargs.pop("_as_intptr", False)
+        if self.is_com:
+            cargs, ckwargs = self.make_args(args[1:], kwargs)
+            cargs.insert(0, args[0])
+        else:
+            cargs, ckwargs = self.make_args(args, kwargs)
+        cargs, ckwargs = self.make_args(args, kwargs)
+        result = self.delegate(*cargs, **ckwargs)
+        if _as_intptr:
+            return cast(result, c_void_p).value
+        elif type(result) is c_char_p_no or type(result) is c_wchar_p_no:
+            return result.value
+        return result
+
+    def make_args(self, args, kwargs):
+        cargs = []
+        for i, v in enumerate(args):
+            if i < len(self.argtypes):
+                cargs.append(easycast(v, self.argtypes[i]))
+            else:
+                cargs.append(v)
+        ckwargs = {}
+        for k, v in kwargs.items():
+            if k in self.hints:
+                ckwargs[k] = easycast(v, self.hints[k])
+            else:
+                ckwargs[k] = v
+        return cargs, ckwargs
+
+
 def commonfunctype(factory):
     def decorator(prototype):
         delegate = None
+
         def wrapper(*args, **kwargs):
             nonlocal delegate
             if delegate is None:
-                hints = get_type_hints(prototype)
-                names = list(hints.keys())
-                names = names[:-1]
-                types = list(hints.values())
-                types = types[-1:] + [EasyCastHandler(t) for t in types[:-1]]
-                delegate = factory(prototype.__name__, types, tuple((1, name) for name in names))
+                delegate = ForeignFunction(prototype, factory)
             return delegate(*args, **kwargs)
+
         return wrapper
+
     return decorator
+
 
 def cfunctype(library, entry_point=None):
     def factory(name, types, params):
         if entry_point is not None:
             name = entry_point
         return CFUNCTYPE(*types)((name, cdll[library]), params)
+
     return commonfunctype(factory)
+
 
 def winfunctype(library, entry_point=None):
     def factory(name, types, params):
         if entry_point is not None:
             name = entry_point
         return WINFUNCTYPE(*types)((name, windll[library]), params)
+
     return commonfunctype(factory)
+
 
 def commethod(vtbl_index):
     def factory(name, types, params):
         return WINFUNCTYPE(*types)(vtbl_index, name, params)
+
     return commonfunctype(factory)
 
 def errcheck_return(hr, func, args):
@@ -238,7 +356,7 @@ def winrt_commethod(vtbl_index):
                     for i, t in enumerate(type_hints):
                         if isinstance(t, TypeVar):
                             type_hints[i] = tmap[t]
-                types = [Windows.Win32.Foundation.HRESULT] + [EasyCastHandler(t) for t in type_hints]
+                types = [Windows.Win32.Foundation.HRESULT] + type_hints
                 if return_ is None:
                     errcheck = errcheck_void
                 else:
@@ -420,13 +538,17 @@ def commonfunctype_pointer(prototype, functype):
         types = list(hints.values())
         types = types[-1:] + types[:-1]
         return functype(*types)
+
     return press_functype_pointer
+
 
 def cfunctype_pointer(prototype):
     return commonfunctype_pointer(prototype, CFUNCTYPE)
 
+
 def winfunctype_pointer(prototype):
     return commonfunctype_pointer(prototype, WINFUNCTYPE)
+
 
 def press(prototype):
     if isinstance(prototype, types.FunctionType):
@@ -439,13 +561,14 @@ def press(prototype):
     else:
         raise NotImplementedError()
 
+
 def press_struct(prototype):
     # FIXME: not work for Union.
-    #if hasattr(prototype, "_fields_"):
+    # if hasattr(prototype, "_fields_"):
     if "_fields_" in dir(prototype):
         return prototype
-    hints = get_type_hints(prototype)
-    anonymous = [name  for name in hints.keys() if re.match(r"^Anonymous\d*$", name)]
+    hints = {name: _patch_char_p(type_) for name, type_ in get_type_hints(prototype).items()}
+    anonymous = [name for name in hints.keys() if re.match(r"^Anonymous\d*$", name)]
     if anonymous:
         prototype._anonymous_ = anonymous
     for type_ in hints.values():
@@ -457,6 +580,7 @@ def press_struct(prototype):
     prototype._hints_ = hints
     return prototype
 
+
 def press_interface(prototype):
     hints = get_type_hints(prototype)
     if hints["extends"] is None:
@@ -464,7 +588,7 @@ def press_interface(prototype):
     prototype.__bases__ = tuple(hints["extends"] if t is c_void_p else t for t in prototype.__bases__)
     return prototype
 
+
 def make_head(module, name):
     setattr(module, f"{name}_head", getattr(module, name))
     delattr(module, name)
-

@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import argparse
 import json
 import keyword
@@ -9,17 +10,16 @@ from collections import defaultdict
 from collections.abc import Iterable, Iterator, Mapping
 from io import StringIO
 from pathlib import Path
-from typing import Any, TextIO, overload, Collection, MutableSequence
+from typing import Any, Collection, MutableSequence, TextIO, overload
+
 if sys.version_info < (3, 11):
-    from typing_extensions import TypeAlias, Self
+    from typing_extensions import TypeAlias
 else:
-    from typing import TypeAlias, Self
+    from typing import TypeAlias
 
 BASE_EXPORTS = [
     "ARCH",
     "MissingType",
-    "c_char_p_no",
-    "c_wchar_p_no",
     "Byte",
     "SByte",
     "Char",
@@ -97,7 +97,7 @@ class TType:
         return self["Size"]
 
     @property
-    def type_arguments(self) -> list[Self]:
+    def type_arguments(self) -> list[TType]:
         if self["TypeArguments"] is None:
             raise KeyError()
         return [TType(ta) for ta in self["TypeArguments"]]
@@ -115,10 +115,6 @@ class TType:
         elif self.kind == "Pointer":
             if self.type.kind == "Primitive" and self.type.name == "Void":
                 return "c_void_p"
-            elif self.type.kind == "Primitive" and self.type.name == "Byte":
-                return "c_char_p_no"  # safe?
-            elif self.type.kind == "Primitive" and self.type.name == "Char":
-                return "c_wchar_p_no"  # safe?
             elif self.type.is_struct:
                 return f"POINTER({self.type.fullname}_head)"
             else:
@@ -361,6 +357,8 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
     def get_property_key(self) -> tuple[str, int]:
         value = self.get("Windows.Win32.Foundation.Metadata.ConstantAttribute").fixed_arguments[0].value
         m = re.fullmatch(r"{(\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+)}, (\d+)", value)
+        if not m:
+            raise RuntimeError()
         v = [int(d) for d in m.groups()]
         assert len(v) == 12
         guid = self.format_guid(v[:11])
@@ -1026,16 +1024,17 @@ class PyGenerator:
         library = md.import_.module.name
         functype = self.function_functype(md)
         restype = md.signature.return_type.pytype
-        params_csv = md.format_parameters()
+        params = md.format_parameters_list()
+        attrs = [f"'{library}'"]
         if md.name != md.import_.name:
-            if md.import_.name.startswith("#"):
-                # ordinal number  (e.g. #123)
-                entry_point = md.import_.name[1:]
-            else:
-                entry_point = f"'md.import_.name'"
-            writer.write(f"{indent}@{functype}('{library}', entry_point={entry_point})\n")
-        else:
-            writer.write(f"{indent}@{functype}('{library}')\n")
+            entry_point = self.function_entry_point(md)
+            attrs.append(f"entry_point={entry_point}")
+        if md.signature.header.calling_convention == "VarArgs":
+            assert functype == "cfunctype"
+            params.append("*__arglist")
+        params_csv = ", ".join(params)
+        attrs_csv = ", ".join(attrs)
+        writer.write(f"{indent}@{functype}({attrs_csv})\n")
         writer.write(f"{indent}def {md.name}({params_csv}) -> {restype}: ...\n")
         return writer.getvalue()
 
@@ -1046,6 +1045,13 @@ class PyGenerator:
             return "cfunctype"
         else:
             raise NotImplementedError()
+
+    def function_entry_point(self, md: MethodDefinition) -> str:
+        if md.import_.name.startswith("#"):
+            # ordinal number  (e.g. #123)
+            return md.import_.name[1:]
+        else:
+            return "'md.import_.name'"
 
     def emit_function_pointer(self, td: TypeDefinition) -> str:
         writer = StringIO()
@@ -1077,6 +1083,10 @@ class PyGenerator:
 
     def emit_native_typedef(self, td: TypeDefinition) -> str:
         pytype = td.fields[0].signature.pytype
+        if pytype == "POINTER(Byte)":
+            pytype = "c_char_p"
+        elif pytype == "POINTER(Char)":
+            pytype = "c_wchar_p"
         return f"{td.name} = {pytype}\n"
 
     def emit_clsid(self, td: TypeDefinition) -> str:
@@ -1163,7 +1173,7 @@ class PyGenerator:
         params = md.format_parameters_list()
         writer.write(f"class {td.name}(EasyCastStructure):\n")
         if not params:
-            writer.write(f"    pass\n")
+            writer.write("    pass\n")
         else:
             for param in params:
                 writer.write(f"    {param}\n")
@@ -1190,7 +1200,7 @@ class PyGenerator:
         return "from __future__ import annotations\n"
 
     def emit_import_ctypes(self) -> str:
-        return "from ctypes import c_void_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n"
+        return "from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll\n"
 
     def emit_import_base(self) -> str:
         return f"from Windows import {BASE_EXPORTS_CSV}\n"
@@ -1335,8 +1345,8 @@ class Selector:
 def make_module_path_for_write(namespace) -> TextIO:
     p = Path(namespace.replace(".", "/"))
     p.mkdir(parents=True, exist_ok=True)
-    for d in range(len(p.parents) - 1):
-        d = p.parents[d]
+    for i in range(len(p.parents) - 1):
+        d = p.parents[i]
         if not (d / "__init__.py").exists():
             (d / "__init__.py").write_text("")
     return (p / "__init__.py").open("w")
@@ -1363,7 +1373,7 @@ def generate_one(meta: Metadata, writer: TextIO) -> None:
         writer.write(pg.emit_make_head(td))
 
 
-def xopen(path: str) -> TextIO:
+def xopen(path: str) -> TextIO | lzma.LZMAFile:
     if path.endswith(".xz"):
         return lzma.open(path)
     return open(path)
