@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import argparse
 import json
 import keyword
@@ -9,11 +10,12 @@ from collections import defaultdict
 from collections.abc import Iterable, Iterator, Mapping
 from io import StringIO
 from pathlib import Path
-from typing import Any, TextIO, overload, Collection, MutableSequence
+from typing import TYPE_CHECKING, Any, Collection, MutableSequence, TextIO, overload
+
 if sys.version_info < (3, 11):
-    from typing_extensions import TypeAlias, Self
+    from typing_extensions import Self, TypeAlias
 else:
-    from typing import TypeAlias, Self
+    from typing import Self, TypeAlias
 
 BASE_EXPORTS = [
     "ARCH",
@@ -36,18 +38,12 @@ BASE_EXPORTS = [
     "String",
     "Boolean",
     "Void",
-    "WinRT_String",
     "Guid",
     "SUCCEEDED",
     "FAILED",
     "cfunctype",
     "winfunctype",
     "commethod",
-    "winrt_commethod",
-    "winrt_mixinmethod",
-    "winrt_classmethod",
-    "winrt_factorymethod",
-    "winrt_activatemethod",
     "cfunctype_pointer",
     "winfunctype_pointer",
     "press",
@@ -56,6 +52,17 @@ BASE_EXPORTS = [
     "EasyCastUnion",
 ]
 BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
+
+WINRT_EXPORTS = [
+    "WinRT_String",
+    "winrt_commethod",
+    "winrt_mixinmethod",
+    "winrt_classmethod",
+    "winrt_factorymethod",
+    "winrt_activatemethod",
+]
+WINRT_EXPORTS_CSV = ", ".join(WINRT_EXPORTS)
+
 
 JsonType: TypeAlias = Any
 
@@ -103,7 +110,7 @@ class TType:
         return self["Size"]
 
     @property
-    def type_arguments(self) -> list[Self]:
+    def type_arguments(self) -> list[TType]:
         if self["TypeArguments"] is None:
             raise KeyError()
         return [TType(ta) for ta in self["TypeArguments"]]
@@ -402,7 +409,7 @@ class GenericParameterConstraint:
         self.js[key] = value
 
     @property
-    def type(self) -> EntiryHandle:
+    def type(self) -> EntityHandle:
         return EntityHandle(self["Type"])
 
     @property
@@ -487,6 +494,8 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
     def get_property_key(self) -> tuple[str, int]:
         value = self.get("Windows.Win32.Interop.ConstantAttribute").fixed_arguments[0].value
         m = re.fullmatch(r"{(\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+)}, (\d+)", value)
+        if not m:
+            raise RuntimeError()
         v = [int(d) for d in m.groups()]
         assert len(v) == 12
         guid = self.format_guid(v[:11])
@@ -519,6 +528,7 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
 
     def get_activatable(self) -> list[CustomAttribute]:
         return [ca for ca in self.get_list("Windows.Foundation.Metadata.ActivatableAttribute")]
+
 
 class CustomAttributeFixedArgument:
     def __init__(self, js: JsonType) -> None:
@@ -653,8 +663,8 @@ class InterfaceImplementation:
         self.js[key] = value
 
     @property
-    def interface(self) -> EntiryHandle:
-        return EntiryHandle(self["Interface"])
+    def interface(self) -> EntityHandle:
+        return EntityHandle(self["Interface"])
 
     @property
     def custom_attributes(self) -> CustomAttributeCollection:
@@ -678,7 +688,7 @@ class InterfaceImplementation:
         if self.kind == "TypeReference":
             return self.interface.type_reference.name
         elif self.kind == "TypeSpecification":
-            return self.interfacde.type_specification.signature.type.name
+            return self.interface.type_specification.signature.type.name
         else:
             raise NotImplementedError()
 
@@ -703,7 +713,7 @@ class InterfaceImplementation:
             raise NotImplementedError()
 
 
-class EntiryHandle:
+class EntityHandle:
     def __init__(self, js: JsonType) -> None:
         self.js = js
 
@@ -1070,6 +1080,8 @@ class Preprocessor:
         # FIXME: ns's key can be duplicated with arch variation.  Don't care for now.
         ns = {td.fullname: td for td in meta}
         for td in meta:
+            if TYPE_CHECKING:
+                assert td.basetype is not None
             td["_basetype_typedef"] = ns.get(td.basetype)
             for ii in td.interface_implementations:
                 ii["_typedef"] = ns[ii.fullname]
@@ -1289,7 +1301,7 @@ class PyGenerator:
                     writer.write(self.winrt_factorymethod(factory, md))
             else:
                 writer.write(self.winrt_activatemethod(td))
-        properties = defaultdict(lambda: {"get": None, "put": None})
+        properties: dict[str, dict[str, str | None]] = defaultdict(lambda: {"get": None, "put": None})
         for md in td.method_definitions:
             if md.name == ".ctor":
                 continue
@@ -1342,7 +1354,7 @@ class PyGenerator:
                     return ca.fixed_arguments[0].value
         raise KeyError()
 
-    def winrt_method(self, td: TypeDefinition, md: MethodDefinitions) -> str:
+    def winrt_method(self, td: TypeDefinition, md: MethodDefinition) -> str:
         writer = StringIO()
         if md.custom_attributes.has_overload():
             method_name = md.custom_attributes.get_overload()
@@ -1400,6 +1412,7 @@ class PyGenerator:
         writer.write(self.emit_import_ctypes())
         writer.write(self.emit_import_typing())
         writer.write(self.emit_import_base())
+        writer.write(self.emit_import_winrt())
         writer.write(self.emit_import_namespaces(import_namespaces))
         writer.write(self.emit_getattr())
         return writer.getvalue()
@@ -1421,18 +1434,23 @@ class PyGenerator:
 
     # FIXME: WORKAROUND
     def emit_import_typing(self) -> str:
-        return "".join([
-            "from typing import Generic, TypeVar\n",
-            "K = TypeVar('T')\n",
-            "T = TypeVar('T')\n",
-            "V = TypeVar('V')\n",
-            "TProgress = TypeVar('TProgress')\n",
-            "TResult = TypeVar('TResult')\n",
-            "TSender = TypeVar('TSender')\n",
-            ])
+        return "".join(
+            [
+                "from typing import Generic, TypeVar\n",
+                "K = TypeVar('T')\n",
+                "T = TypeVar('T')\n",
+                "V = TypeVar('V')\n",
+                "TProgress = TypeVar('TProgress')\n",
+                "TResult = TypeVar('TResult')\n",
+                "TSender = TypeVar('TSender')\n",
+            ]
+        )
 
     def emit_import_base(self) -> str:
         return f"from Windows import {BASE_EXPORTS_CSV}\n"
+
+    def emit_import_winrt(self) -> str:
+        return f"from Windows._winrt import {WINRT_EXPORTS_CSV}\n"
 
     def emit_include_base(self) -> str:
         return (Path(__file__).parent / "Windows\\__init__.py").read_text()
@@ -1575,8 +1593,8 @@ class Selector:
 def make_module_path_for_write(namespace) -> TextIO:
     p = Path(namespace.replace(".", "/"))
     p.mkdir(parents=True, exist_ok=True)
-    for d in range(len(p.parents) - 1):
-        d = p.parents[d]
+    for i in range(len(p.parents) - 1):
+        d = p.parents[i]
         if not (d / "__init__.py").exists():
             (d / "__init__.py").write_text("")
     return (p / "__init__.py").open("w")
@@ -1603,7 +1621,7 @@ def generate_one(meta: Metadata, writer: TextIO) -> None:
         writer.write(pg.emit_make_head(td))
 
 
-def xopen(path: str) -> TextIO:
+def xopen(path: str) -> TextIO | lzma.LZMAFile:
     if path.endswith(".xz"):
         return lzma.open(path)
     return open(path)
@@ -1611,6 +1629,7 @@ def xopen(path: str) -> TextIO:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Metadata to Python generator")
+    # FIXME: --one not work for now
     parser.add_argument("-o", "--one", help="out to one file")
     parser.add_argument("-s", "--selector", help="selector.txt")
     parser.add_argument("metadata", help="metadata.json")
