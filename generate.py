@@ -511,15 +511,15 @@ class InterfaceImplementation:
         self.js[key] = value
 
     @property
-    def interface(self) -> EntiryHandle:
-        return EntiryHandle(self["Interface"])
+    def interface(self) -> EntityHandle:
+        return EntityHandle(self["Interface"])
 
     @property
     def custom_attributes(self) -> CustomAttributeCollection:
         return CustomAttributeCollection(self["CustomAttributes"])
 
 
-class EntiryHandle:
+class EntityHandle:
     def __init__(self, js: JsonType) -> None:
         self.js = js
 
