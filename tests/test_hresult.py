@@ -24,6 +24,10 @@ class TestHresult(unittest.TestCase):
             f(Windows.Win32.Foundation.S_OK), Windows.Win32.Foundation.S_OK
         )
 
+        self.assertEqual(
+            f(Windows.Win32.Foundation.S_FALSE), Windows.Win32.Foundation.S_FALSE
+        )
+
         with self.assertRaises(OSError):
             f(Windows.Win32.Foundation.E_FAIL)
 
