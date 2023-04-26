@@ -159,14 +159,14 @@ def winrt_factorymethod(prototype):
     factory_class = None
 
     @classmethod
-    def wrapper(cls, *args):
+    def wrapper(cls, *args, **kwargs):
         nonlocal factory_class
         if factory_class is None:
             hints = get_type_hints(prototype)
             factory_class = hints["cls"]
         factory = _winrt_get_activation_factory(cls.ClassId, factory_class)
         try:
-            return getattr(factory, prototype.__name__)(*args)
+            return getattr(factory, prototype.__name__)(*args, **kwargs)
         finally:
             factory.Release
 
