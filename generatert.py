@@ -495,7 +495,7 @@ class CustomAttributeCollection(Collection[CustomAttribute]):
         value = self.get("Windows.Win32.Interop.ConstantAttribute").fixed_arguments[0].value
         m = re.fullmatch(r"{(\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+), (\d+)}, (\d+)", value)
         if not m:
-            raise RuntimeError()
+            raise ValueError()
         v = [int(d) for d in m.groups()]
         assert len(v) == 12
         guid = self.format_guid(v[:11])
