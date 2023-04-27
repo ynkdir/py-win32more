@@ -30,7 +30,6 @@ from ctypes import (
     pointer,
     sizeof,
     windll,
-    HRESULT,
 )
 
 if "(arm64)" in sys.version.lower():
@@ -209,8 +208,6 @@ class ForeignFunction:
     def __init__(self, prototype, factory):
         self.hints = get_type_hints(prototype)
         self.restype = _patch_char_p(self.hints.pop("return"))
-        if prototype.__annotations__["return"] == "Windows.Win32.Foundation.HRESULT":
-            self.restype = HRESULT
         self.argtypes = list(self.hints.values())
         types = [self.restype] + self.argtypes
         params = tuple((1, name) for name in self.hints.keys())
