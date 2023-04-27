@@ -15,6 +15,7 @@ from Windows import (
     Int64,
     IntPtr,
     Single,
+    String,
     UInt32,
     UInt64,
     get_type_hints,
@@ -30,6 +31,7 @@ from Windows.Win32.System.WinRT import (
 )
 
 T = TypeVar("T")
+
 
 class WinRT_String(IntPtr):  # HSTRING
     def __del__(self):
@@ -113,7 +115,9 @@ def winrt_commethod(vtbl_index):
                     else:
                         types.append(POINTER(return_))
                     errcheck = errcheck_return
-                delegate_generic[targs] = factory(prototype.__name__, types, tuple(params))
+                delegate_generic[targs] = factory(
+                    prototype.__name__, types, tuple(params)
+                )
                 delegate_generic[targs].errcheck = errcheck
                 delegate = delegate_generic[targs]
             return delegate(self, *args, **kwargs)
@@ -292,4 +296,3 @@ def _get_type_signature(cls) -> str:
         return "g16"
     else:
         raise NotImplementedError()
-
