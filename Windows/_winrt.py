@@ -190,20 +190,16 @@ def _winrt_create_string(s: str):
 def _winrt_get_activation_factory(classid: str, factory_class: type[T]) -> T:
     hs = _winrt_create_string(classid)
     factory = factory_class()
-    try:
-        RoGetActivationFactory(hs, factory_class.Guid, factory)
-    finally:
-        WindowsDeleteString(hs)
+    RoGetActivationFactory(hs, factory_class.Guid, factory)
+    WindowsDeleteString(hs)
     return factory
 
 
 def _winrt_activate_instance(classid: str, cls: type[T]) -> T:
     hs = _winrt_create_string(classid)
     instance = cls()
-    try:
-        RoActivateInstance(hs, instance)
-    finally:
-        WindowsDeleteString(hs)
+    RoActivateInstance(hs, instance)
+    WindowsDeleteString(hs)
     return instance
 
 
