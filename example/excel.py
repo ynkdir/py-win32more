@@ -1,9 +1,9 @@
 # https://docs.microsoft.com/en-us/previous-versions/office/troubleshoot/office-developer/automate-excel-from-c
 
 from contextlib import ExitStack
-from ctypes import byref, pointer
+from ctypes import WinError, byref, pointer
 
-from Windows import Guid, Int32
+from Windows import FAILED, Guid, Int32
 from Windows.Win32.Foundation import PWSTR, SysAllocString
 from Windows.Win32.Media.KernelStreaming import GUID_NULL
 from Windows.Win32.System.Com import (CLSCTX_LOCAL_SERVER, DISPATCH_METHOD,
@@ -21,6 +21,11 @@ from Windows.Win32.UI.WindowsAndMessaging import MB_OK, MessageBoxW
 # missing constants in win32metadata
 LOCALE_SYSTEM_DEFAULT = 2048
 LOCALE_USER_DEFAULT = 1024
+
+def HRCHECK(hr):
+    if FAILED(hr):
+        raise WinError(hr)
+    return hr
 
 def py_to_variant(v):
     if isinstance(v, VARIANT):
@@ -46,7 +51,7 @@ def variant_to_py(v):
 
 def AutoWrap(autotype, pdisp, name, *args):
     dispid = Int32()
-    pdisp.GetIDsOfNames(GUID_NULL, PWSTR(name), 1, LOCALE_USER_DEFAULT, dispid)
+    HRCHECK(pdisp.GetIDsOfNames(GUID_NULL, PWSTR(name), 1, LOCALE_USER_DEFAULT, dispid))
 
     dp = DISPPARAMS()
     pargs = (VARIANT * len(args))()
@@ -62,7 +67,7 @@ def AutoWrap(autotype, pdisp, name, *args):
 
     result = VARIANT()
 
-    pdisp.Invoke(dispid, GUID_NULL, LOCALE_SYSTEM_DEFAULT, autotype, dp, result, None, None)
+    HRCHECK(pdisp.Invoke(dispid, GUID_NULL, LOCALE_SYSTEM_DEFAULT, autotype, dp, result, None, None))
 
     return variant_to_py(result)
 
@@ -72,10 +77,10 @@ def main():
         stack.callback(CoUninitialize)
 
         clsid = Guid()
-        CLSIDFromProgID("Excel.Application", clsid)
+        HRCHECK(CLSIDFromProgID("Excel.Application", clsid))
 
         pXlApp = IDispatch()
-        CoCreateInstance(clsid, None, CLSCTX_LOCAL_SERVER, IDispatch.Guid, pXlApp)
+        HRCHECK(CoCreateInstance(clsid, None, CLSCTX_LOCAL_SERVER, IDispatch.Guid, pXlApp))
         stack.callback(pXlApp.Release)
 
         # Make it visible
