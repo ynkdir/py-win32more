@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 import uuid
-from ctypes import HRESULT, POINTER, WINFUNCTYPE, c_void_p, wstring_at
+from ctypes import POINTER, WINFUNCTYPE, WinError, c_void_p, wstring_at
 from typing import Generic, TypeVar, _GenericAlias
 
 from Windows import (
+    FAILED,
     Boolean,
     Byte,
     Char,
@@ -14,11 +15,11 @@ from Windows import (
     Int64,
     IntPtr,
     Single,
-    String,
     UInt32,
     UInt64,
     get_type_hints,
 )
+from Windows.Win32.Foundation import HRESULT
 from Windows.Win32.System.WinRT import (
     HSTRING,
     RoActivateInstance,
@@ -30,11 +31,12 @@ from Windows.Win32.System.WinRT import (
 
 T = TypeVar("T")
 
-
 class WinRT_String(IntPtr):  # HSTRING
     def __del__(self):
         if self:
-            WindowsDeleteString(self)
+            hr = WindowsDeleteString(self)
+            if FAILED(hr):
+                raise WinError(hr)
 
     @classmethod
     def from_param(cls, obj):
@@ -45,13 +47,27 @@ class WinRT_String(IntPtr):  # HSTRING
         else:
             raise TypeError()
         value = cls()
-        WindowsCreateString(obj, len(obj), value)
+        hr = WindowsCreateString(obj, len(obj), value)
+        if FAILED(hr):
+            raise WinError(hr)
         return value
 
     def __ctypes_from_outparam__(self):
         length = UInt32()
         bufaddr = WindowsGetStringRawBuffer(self, length, _as_intptr=True)
         return wstring_at(bufaddr, length.value)
+
+
+def errcheck_return(hr, func, args):
+    if FAILED(hr):
+        raise WinError(hr)
+    return args
+
+
+def errcheck_void(hr, func, args):
+    if FAILED(hr):
+        raise WinError(hr)
+    return None
 
 
 def winrt_commethod(vtbl_index):
@@ -83,7 +99,9 @@ def winrt_commethod(vtbl_index):
                         if isinstance(t, TypeVar):
                             type_hints[i] = tmap[t]
                 types = [HRESULT] + type_hints
-                if return_ is not None:
+                if return_ is None:
+                    errcheck = errcheck_void
+                else:
                     params.append((2, "return"))
                     if is_generic_class(return_):
 
@@ -94,9 +112,9 @@ def winrt_commethod(vtbl_index):
                         types.append(POINTER(GenericReturnHelper))
                     else:
                         types.append(POINTER(return_))
-                delegate_generic[targs] = factory(
-                    prototype.__name__, types, tuple(params)
-                )
+                    errcheck = errcheck_return
+                delegate_generic[targs] = factory(prototype.__name__, types, tuple(params))
+                delegate_generic[targs].errcheck = errcheck
                 delegate = delegate_generic[targs]
             return delegate(self, *args, **kwargs)
 
@@ -118,7 +136,9 @@ def winrt_mixinmethod(prototype):
             guid = _ro_get_parameterized_type_instance_iid(interface_class)
         else:
             guid = interface_class.Guid
-        self.QueryInterface(guid, interface)
+        hr = self.QueryInterface(guid, interface)
+        if FAILED(hr):
+            raise WinError(hr)
         try:
             return getattr(interface, prototype.__name__)(*args, **kwargs)
         finally:
@@ -183,23 +203,29 @@ def winrt_activatemethod(prototype):
 
 def _winrt_create_string(s: str):
     hs = HSTRING()
-    WindowsCreateString(s, len(s), hs)
+    hr = WindowsCreateString(s, len(s), hs)
+    if FAILED(hr):
+        raise WinError(hr)
     return hs
 
 
 def _winrt_get_activation_factory(classid: str, factory_class: type[T]) -> T:
     hs = _winrt_create_string(classid)
     factory = factory_class()
-    RoGetActivationFactory(hs, factory_class.Guid, factory)
+    hr = RoGetActivationFactory(hs, factory_class.Guid, factory)
     WindowsDeleteString(hs)
+    if FAILED(hr):
+        raise WinError(hr)
     return factory
 
 
 def _winrt_activate_instance(classid: str, cls: type[T]) -> T:
     hs = _winrt_create_string(classid)
     instance = cls()
-    RoActivateInstance(hs, instance)
+    hr = RoActivateInstance(hs, instance)
     WindowsDeleteString(hs)
+    if FAILED(hr):
+        raise WinError(hr)
     return instance
 
 
@@ -266,3 +292,4 @@ def _get_type_signature(cls) -> str:
         return "g16"
     else:
         raise NotImplementedError()
+
