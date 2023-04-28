@@ -231,18 +231,8 @@ class ForeignFunction:
         return self.make_result(result, _as_intptr)
 
     def make_args(self, args, kwargs):
-        cargs = []
-        for i, v in enumerate(args):
-            if i in self.hints:
-                cargs.append(easycast(v, self.hints[i]))
-            else:
-                cargs.append(v)
-        ckwargs = {}
-        for k, v in kwargs.items():
-            if k in self.hints:
-                ckwargs[k] = easycast(v, self.hints[k])
-            else:
-                ckwargs[k] = v
+        cargs = [easycast(v, self.hints[i]) if i in self.hints else v for i, v in enumerate(args)]
+        ckwargs = {k: easycast(v, self.hints[k]) if k in self.hints else v for k, v in kwargs.items()}
         return cargs, ckwargs
 
     def make_result(self, result, _as_intptr):
