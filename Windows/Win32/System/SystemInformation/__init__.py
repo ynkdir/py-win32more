@@ -191,9 +191,9 @@ def VerSetConditionMask(ConditionMask: UInt64, TypeMask: Windows.Win32.System.Sy
 @winfunctype('api-ms-win-core-sysinfo-l1-2-0.dll')
 def GetOsSafeBootMode(Flags: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def EnumSystemFirmwareTables(FirmwareTableProviderSignature: Windows.Win32.System.SystemInformation.FIRMWARE_TABLE_PROVIDER, pFirmwareTableEnumBuffer: POINTER(Windows.Win32.System.SystemInformation.FIRMWARE_TABLE_ID), BufferSize: UInt32) -> UInt32: ...
+def EnumSystemFirmwareTables(FirmwareTableProviderSignature: Windows.Win32.System.SystemInformation.FIRMWARE_TABLE_PROVIDER, pFirmwareTableEnumBuffer: POINTER(Byte), BufferSize: UInt32) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def GetSystemFirmwareTable(FirmwareTableProviderSignature: Windows.Win32.System.SystemInformation.FIRMWARE_TABLE_PROVIDER, FirmwareTableID: Windows.Win32.System.SystemInformation.FIRMWARE_TABLE_ID, pFirmwareTableBuffer: c_void_p, BufferSize: UInt32) -> UInt32: ...
+def GetSystemFirmwareTable(FirmwareTableProviderSignature: Windows.Win32.System.SystemInformation.FIRMWARE_TABLE_PROVIDER, FirmwareTableID: UInt32, pFirmwareTableBuffer: POINTER(Byte), BufferSize: UInt32) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
 def DnsHostnameToComputerNameExW(Hostname: Windows.Win32.Foundation.PWSTR, ComputerName: Windows.Win32.Foundation.PWSTR, nSize: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -354,7 +354,6 @@ DEVICEFAMILYINFOENUM_7067329: DEVICEFAMILYINFOENUM = 15
 DEVICEFAMILYINFOENUM_WINDOWS_CORE: DEVICEFAMILYINFOENUM = 16
 DEVICEFAMILYINFOENUM_WINDOWS_CORE_HEADLESS: DEVICEFAMILYINFOENUM = 17
 DEVICEFAMILYINFOENUM_MAX: DEVICEFAMILYINFOENUM = 17
-FIRMWARE_TABLE_ID = UInt32
 FIRMWARE_TABLE_PROVIDER = UInt32
 ACPI: FIRMWARE_TABLE_PROVIDER = 1094930505
 FIRM: FIRMWARE_TABLE_PROVIDER = 1179210317

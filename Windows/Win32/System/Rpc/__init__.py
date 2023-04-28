@@ -1452,8 +1452,8 @@ class MIDL_STUB_MESSAGE(EasyCastStructure):
     Pad: Byte
     uFlags2: UInt16
     ReuseBuffer: Int32
-    pAllocAllNodesContext: POINTER(Windows.Win32.System.Rpc.NDR_ALLOC_ALL_NODES_CONTEXT_head)
-    pPointerQueueState: POINTER(Windows.Win32.System.Rpc.NDR_POINTER_QUEUE_STATE_head)
+    pAllocAllNodesContext: POINTER(Windows.Win32.System.Rpc.NDR_ALLOC_ALL_NODES_CONTEXT)
+    pPointerQueueState: POINTER(Windows.Win32.System.Rpc.NDR_POINTER_QUEUE_STATE)
     IgnoreEmbeddedPointers: Int32
     PointerBufferMark: POINTER(Byte)
     CorrDespIncrement: Byte
@@ -1485,15 +1485,15 @@ class MIDL_STUB_MESSAGE(EasyCastStructure):
     pArgQueue: c_void_p
     dwStubPhase: UInt32
     LowStackMark: c_void_p
-    pAsyncMsg: POINTER(Windows.Win32.System.Rpc._NDR_ASYNC_MESSAGE_head)
-    pCorrInfo: POINTER(Windows.Win32.System.Rpc._NDR_CORRELATION_INFO_head)
+    pAsyncMsg: Windows.Win32.System.Rpc.PNDR_ASYNC_MESSAGE
+    pCorrInfo: Windows.Win32.System.Rpc.PNDR_CORRELATION_INFO
     pCorrMemory: POINTER(Byte)
     pMemoryList: c_void_p
     pCSInfo: IntPtr
     ConformanceMark: POINTER(Byte)
     VarianceMark: POINTER(Byte)
     Unused: IntPtr
-    pContext: POINTER(Windows.Win32.System.Rpc._NDR_PROC_CONTEXT_head)
+    pContext: POINTER(Windows.Win32.System.Rpc._NDR_PROC_CONTEXT)
     ContextHandleHash: c_void_p
     pUserMarshalList: c_void_p
     Reserved51_3: IntPtr
@@ -1839,8 +1839,7 @@ class NDR64_VAR_ARRAY_HEADER_FORMAT(EasyCastStructure):
     TotalSize: UInt32
     ElementSize: UInt32
     VarDescriptor: c_void_p
-class NDR_ALLOC_ALL_NODES_CONTEXT(EasyCastStructure):
-    pass
+NDR_ALLOC_ALL_NODES_CONTEXT = IntPtr
 class NDR_CS_ROUTINES(EasyCastStructure):
     pSizeConvertRoutines: POINTER(Windows.Win32.System.Rpc.NDR_CS_SIZE_CONVERT_ROUTINES_head)
     pTagGettingRoutines: POINTER(Windows.Win32.System.Rpc.CS_TAG_GETTING_ROUTINE)
@@ -1856,8 +1855,7 @@ class NDR_EXPR_DESC(EasyCastStructure):
 def NDR_NOTIFY2_ROUTINE(flag: Byte) -> Void: ...
 @winfunctype_pointer
 def NDR_NOTIFY_ROUTINE() -> Void: ...
-class NDR_POINTER_QUEUE_STATE(EasyCastStructure):
-    pass
+NDR_POINTER_QUEUE_STATE = IntPtr
 @winfunctype_pointer
 def NDR_RUNDOWN(context: c_void_p) -> Void: ...
 class NDR_SCONTEXT(EasyCastStructure):
@@ -1881,6 +1879,8 @@ def PFN_RPCNOTIFICATION_ROUTINE(pAsync: POINTER(Windows.Win32.System.Rpc.RPC_ASY
 def PFN_RPC_ALLOCATE(param0: UIntPtr) -> c_void_p: ...
 @winfunctype_pointer
 def PFN_RPC_FREE(param0: c_void_p) -> Void: ...
+PNDR_ASYNC_MESSAGE = IntPtr
+PNDR_CORRELATION_INFO = IntPtr
 PROXY_PHASE = Int32
 PROXY_CALCSIZE: PROXY_PHASE = 0
 PROXY_GETBUFFER: PROXY_PHASE = 1
@@ -2654,12 +2654,7 @@ class XMIT_ROUTINE_QUINTUPLE(EasyCastStructure):
     pfnTranslateFromXmit: Windows.Win32.System.Rpc.XMIT_HELPER_ROUTINE
     pfnFreeXmit: Windows.Win32.System.Rpc.XMIT_HELPER_ROUTINE
     pfnFreeInst: Windows.Win32.System.Rpc.XMIT_HELPER_ROUTINE
-class _NDR_ASYNC_MESSAGE(EasyCastStructure):
-    pass
-class _NDR_CORRELATION_INFO(EasyCastStructure):
-    pass
-class _NDR_PROC_CONTEXT(EasyCastStructure):
-    pass
+_NDR_PROC_CONTEXT = IntPtr
 system_handle_t = Int32
 SYSTEM_HANDLE_FILE: system_handle_t = 0
 SYSTEM_HANDLE_SEMAPHORE: system_handle_t = 1
@@ -2781,13 +2776,11 @@ make_head(_module, 'NDR64_UNION_ARM_SELECTOR')
 make_head(_module, 'NDR64_USER_MARSHAL_FLAGS')
 make_head(_module, 'NDR64_USER_MARSHAL_FORMAT')
 make_head(_module, 'NDR64_VAR_ARRAY_HEADER_FORMAT')
-make_head(_module, 'NDR_ALLOC_ALL_NODES_CONTEXT')
 make_head(_module, 'NDR_CS_ROUTINES')
 make_head(_module, 'NDR_CS_SIZE_CONVERT_ROUTINES')
 make_head(_module, 'NDR_EXPR_DESC')
 make_head(_module, 'NDR_NOTIFY2_ROUTINE')
 make_head(_module, 'NDR_NOTIFY_ROUTINE')
-make_head(_module, 'NDR_POINTER_QUEUE_STATE')
 make_head(_module, 'NDR_RUNDOWN')
 make_head(_module, 'NDR_SCONTEXT')
 make_head(_module, 'NDR_USER_MARSHAL_INFO')
@@ -2882,6 +2875,3 @@ make_head(_module, 'USER_MARSHAL_UNMARSHALLING_ROUTINE')
 make_head(_module, 'UUID_VECTOR')
 make_head(_module, 'XMIT_HELPER_ROUTINE')
 make_head(_module, 'XMIT_ROUTINE_QUINTUPLE')
-make_head(_module, '_NDR_ASYNC_MESSAGE')
-make_head(_module, '_NDR_CORRELATION_INFO')
-make_head(_module, '_NDR_PROC_CONTEXT')

@@ -8,6 +8,7 @@ import Windows.Win32.System.Com
 import Windows.Win32.System.Com.StructuredStorage
 import Windows.Win32.System.Ole
 import Windows.Win32.System.SystemServices
+import Windows.Win32.System.Variant
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
@@ -581,7 +582,7 @@ class CUSTDATA(EasyCastStructure):
     prgCustData: POINTER(Windows.Win32.System.Com.CUSTDATAITEM_head)
 class CUSTDATAITEM(EasyCastStructure):
     guid: Guid
-    varValue: Windows.Win32.System.Com.VARIANT
+    varValue: Windows.Win32.System.Variant.VARIANT
 CWMO_FLAGS = Int32
 CWMO_DEFAULT: CWMO_FLAGS = 0
 CWMO_DISPATCH_CALLS: CWMO_FLAGS = 1
@@ -596,6 +597,10 @@ class ComCallData(EasyCastStructure):
     dwDispid: UInt32
     dwReserved: UInt32
     pUserDefined: c_void_p
+class ContextProperty(EasyCastStructure):
+    policyId: Guid
+    flags: UInt32
+    pUnk: Windows.Win32.System.Com.IUnknown_head
 DATADIR = Int32
 DATADIR_GET: DATADIR = 1
 DATADIR_SET: DATADIR = 2
@@ -616,7 +621,7 @@ DISPATCH_PROPERTYGET: DISPATCH_FLAGS = 2
 DISPATCH_PROPERTYPUT: DISPATCH_FLAGS = 4
 DISPATCH_PROPERTYPUTREF: DISPATCH_FLAGS = 8
 class DISPPARAMS(EasyCastStructure):
-    rgvarg: POINTER(Windows.Win32.System.Com.VARIANT_head)
+    rgvarg: POINTER(Windows.Win32.System.Variant.VARIANT_head)
     rgdispidNamedArgs: POINTER(Int32)
     cArgs: UInt32
     cNamedArgs: UInt32
@@ -1026,8 +1031,17 @@ class IConnectionPointContainer(c_void_p):
     def EnumConnectionPoints(self, ppEnum: POINTER(Windows.Win32.System.Com.IEnumConnectionPoints_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def FindConnectionPoint(self, riid: POINTER(Guid), ppCP: POINTER(Windows.Win32.System.Com.IConnectionPoint_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IContext(EasyCastStructure):
-    pass
+class IContext(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('000001c0-0000-0000-c0-00-00-00-00-00-00-46')
+    @commethod(3)
+    def SetProperty(self, rpolicyId: POINTER(Guid), flags: UInt32, pUnk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def RemoveProperty(self, rPolicyId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def GetProperty(self, rGuid: POINTER(Guid), pFlags: POINTER(UInt32), ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def EnumContextProps(self, ppEnumContextProps: POINTER(Windows.Win32.System.Com.IEnumContextProps_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IContextCallback(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000001da-0000-0000-c0-00-00-00-00-00-00-46')
@@ -1084,7 +1098,7 @@ class IDispatch(c_void_p):
     @commethod(5)
     def GetIDsOfNames(self, riid: POINTER(Guid), rgszNames: POINTER(Windows.Win32.Foundation.PWSTR), cNames: UInt32, lcid: UInt32, rgDispId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def Invoke(self, dispIdMember: Int32, riid: POINTER(Guid), lcid: UInt32, wFlags: Windows.Win32.System.Com.DISPATCH_FLAGS, pDispParams: POINTER(Windows.Win32.System.Com.DISPPARAMS_head), pVarResult: POINTER(Windows.Win32.System.Com.VARIANT_head), pExcepInfo: POINTER(Windows.Win32.System.Com.EXCEPINFO_head), puArgErr: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def Invoke(self, dispIdMember: Int32, riid: POINTER(Guid), lcid: UInt32, wFlags: Windows.Win32.System.Com.DISPATCH_FLAGS, pDispParams: POINTER(Windows.Win32.System.Com.DISPPARAMS_head), pVarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head), pExcepInfo: POINTER(Windows.Win32.System.Com.EXCEPINFO_head), puArgErr: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumCATEGORYINFO(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0002e011-0000-0000-c0-00-00-00-00-00-00-46')
@@ -1118,8 +1132,19 @@ class IEnumConnections(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.Com.IEnumConnections_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumContextProps(EasyCastStructure):
-    pass
+class IEnumContextProps(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('000001c1-0000-0000-c0-00-00-00-00-00-00-46')
+    @commethod(3)
+    def Next(self, celt: UInt32, pContextProperties: POINTER(Windows.Win32.System.Com.ContextProperty_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def Clone(self, ppEnumContextProps: POINTER(Windows.Win32.System.Com.IEnumContextProps_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def Count(self, pcelt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumFORMATETC(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000103-0000-0000-c0-00-00-00-00-00-00-46')
@@ -1260,11 +1285,11 @@ class IMachineGlobalObjectTable(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('26d709ac-f70b-4421-a9-6f-d2-87-8f-af-b0-0d')
     @commethod(3)
-    def RegisterObject(self, clsid: POINTER(Guid), identifier: Windows.Win32.Foundation.PWSTR, object: Windows.Win32.System.Com.IUnknown_head, token: POINTER(POINTER(Windows.Win32.System.Com.MachineGlobalObjectTableRegistrationToken___head))) -> Windows.Win32.Foundation.HRESULT: ...
+    def RegisterObject(self, clsid: POINTER(Guid), identifier: Windows.Win32.Foundation.PWSTR, object: Windows.Win32.System.Com.IUnknown_head, token: POINTER(Windows.Win32.System.Com.MachineGlobalObjectTableRegistrationToken)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetObject(self, clsid: POINTER(Guid), identifier: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def RevokeObject(self, token: POINTER(Windows.Win32.System.Com.MachineGlobalObjectTableRegistrationToken___head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def RevokeObject(self, token: Windows.Win32.System.Com.MachineGlobalObjectTableRegistrationToken) -> Windows.Win32.Foundation.HRESULT: ...
 class IMalloc(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000002-0000-0000-c0-00-00-00-00-00-00-46')
@@ -1722,7 +1747,7 @@ class ITypeInfo(c_void_p):
     @commethod(10)
     def GetIDsOfNames(self, rgszNames: POINTER(Windows.Win32.Foundation.PWSTR), cNames: UInt32, pMemId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def Invoke(self, pvInstance: c_void_p, memid: Int32, wFlags: Windows.Win32.System.Com.DISPATCH_FLAGS, pDispParams: POINTER(Windows.Win32.System.Com.DISPPARAMS_head), pVarResult: POINTER(Windows.Win32.System.Com.VARIANT_head), pExcepInfo: POINTER(Windows.Win32.System.Com.EXCEPINFO_head), puArgErr: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def Invoke(self, pvInstance: c_void_p, memid: Int32, wFlags: Windows.Win32.System.Com.DISPATCH_FLAGS, pDispParams: POINTER(Windows.Win32.System.Com.DISPPARAMS_head), pVarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head), pExcepInfo: POINTER(Windows.Win32.System.Com.EXCEPINFO_head), puArgErr: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetDocumentation(self, memid: Int32, pBstrName: POINTER(Windows.Win32.Foundation.BSTR), pBstrDocString: POINTER(Windows.Win32.Foundation.BSTR), pdwHelpContext: POINTER(UInt32), pBstrHelpFile: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -1755,15 +1780,15 @@ class ITypeInfo2(c_void_p):
     @commethod(25)
     def GetVarIndexOfMemId(self, memid: Int32, pVarIndex: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
-    def GetCustData(self, guid: POINTER(Guid), pVarVal: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetCustData(self, guid: POINTER(Guid), pVarVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
-    def GetFuncCustData(self, index: UInt32, guid: POINTER(Guid), pVarVal: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetFuncCustData(self, index: UInt32, guid: POINTER(Guid), pVarVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
-    def GetParamCustData(self, indexFunc: UInt32, indexParam: UInt32, guid: POINTER(Guid), pVarVal: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetParamCustData(self, indexFunc: UInt32, indexParam: UInt32, guid: POINTER(Guid), pVarVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
-    def GetVarCustData(self, index: UInt32, guid: POINTER(Guid), pVarVal: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetVarCustData(self, index: UInt32, guid: POINTER(Guid), pVarVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
-    def GetImplTypeCustData(self, index: UInt32, guid: POINTER(Guid), pVarVal: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetImplTypeCustData(self, index: UInt32, guid: POINTER(Guid), pVarVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def GetDocumentation2(self, memid: Int32, lcid: UInt32, pbstrHelpString: POINTER(Windows.Win32.Foundation.BSTR), pdwHelpStringContext: POINTER(UInt32), pbstrHelpStringDll: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
@@ -1803,7 +1828,7 @@ class ITypeLib2(c_void_p):
     extends: Windows.Win32.System.Com.ITypeLib
     Guid = Guid('00020411-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(13)
-    def GetCustData(self, guid: POINTER(Guid), pVarVal: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetCustData(self, guid: POINTER(Guid), pVarVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetLibStatistics(self, pcUniqueNames: POINTER(UInt32), pcchUniqueNames: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -2009,8 +2034,7 @@ class MULTI_QI(EasyCastStructure):
     pIID: POINTER(Guid)
     pItf: Windows.Win32.System.Com.IUnknown_head
     hr: Windows.Win32.Foundation.HRESULT
-class MachineGlobalObjectTableRegistrationToken__(EasyCastStructure):
-    unused: Int32
+MachineGlobalObjectTableRegistrationToken = IntPtr
 PENDINGMSG = Int32
 PENDINGMSG_CANCELCALL: PENDINGMSG = 0
 PENDINGMSG_WAITNOPROCESS: PENDINGMSG = 1
@@ -2229,7 +2253,7 @@ class TYPEATTR(EasyCastStructure):
     idldescType: Windows.Win32.System.Com.IDLDESC
 class TYPEDESC(EasyCastStructure):
     Anonymous: _Anonymous_e__Union
-    vt: Windows.Win32.System.Com.VARENUM
+    vt: Windows.Win32.System.Variant.VARENUM
     class _Anonymous_e__Union(EasyCastUnion):
         lptdesc: POINTER(Windows.Win32.System.Com.TYPEDESC_head)
         lpadesc: POINTER(Windows.Win32.System.Ole.ARRAYDESC_head)
@@ -2304,60 +2328,7 @@ class VARDESC(EasyCastStructure):
     varkind: Windows.Win32.System.Com.VARKIND
     class _Anonymous_e__Union(EasyCastUnion):
         oInst: UInt32
-        lpvarValue: POINTER(Windows.Win32.System.Com.VARIANT_head)
-VARENUM = UInt16
-VT_EMPTY: VARENUM = 0
-VT_NULL: VARENUM = 1
-VT_I2: VARENUM = 2
-VT_I4: VARENUM = 3
-VT_R4: VARENUM = 4
-VT_R8: VARENUM = 5
-VT_CY: VARENUM = 6
-VT_DATE: VARENUM = 7
-VT_BSTR: VARENUM = 8
-VT_DISPATCH: VARENUM = 9
-VT_ERROR: VARENUM = 10
-VT_BOOL: VARENUM = 11
-VT_VARIANT: VARENUM = 12
-VT_UNKNOWN: VARENUM = 13
-VT_DECIMAL: VARENUM = 14
-VT_I1: VARENUM = 16
-VT_UI1: VARENUM = 17
-VT_UI2: VARENUM = 18
-VT_UI4: VARENUM = 19
-VT_I8: VARENUM = 20
-VT_UI8: VARENUM = 21
-VT_INT: VARENUM = 22
-VT_UINT: VARENUM = 23
-VT_VOID: VARENUM = 24
-VT_HRESULT: VARENUM = 25
-VT_PTR: VARENUM = 26
-VT_SAFEARRAY: VARENUM = 27
-VT_CARRAY: VARENUM = 28
-VT_USERDEFINED: VARENUM = 29
-VT_LPSTR: VARENUM = 30
-VT_LPWSTR: VARENUM = 31
-VT_RECORD: VARENUM = 36
-VT_INT_PTR: VARENUM = 37
-VT_UINT_PTR: VARENUM = 38
-VT_FILETIME: VARENUM = 64
-VT_BLOB: VARENUM = 65
-VT_STREAM: VARENUM = 66
-VT_STORAGE: VARENUM = 67
-VT_STREAMED_OBJECT: VARENUM = 68
-VT_STORED_OBJECT: VARENUM = 69
-VT_BLOB_OBJECT: VARENUM = 70
-VT_CF: VARENUM = 71
-VT_CLSID: VARENUM = 72
-VT_VERSIONED_STREAM: VARENUM = 73
-VT_BSTR_BLOB: VARENUM = 4095
-VT_VECTOR: VARENUM = 4096
-VT_ARRAY: VARENUM = 8192
-VT_BYREF: VARENUM = 16384
-VT_RESERVED: VARENUM = 32768
-VT_ILLEGAL: VARENUM = 65535
-VT_ILLEGALMASKED: VARENUM = 4095
-VT_TYPEMASK: VARENUM = 4095
+        lpvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)
 VARFLAGS = UInt16
 VARFLAG_FREADONLY: VARFLAGS = 1
 VARFLAG_FSOURCE: VARFLAGS = 2
@@ -2372,67 +2343,6 @@ VARFLAG_FUIDEFAULT: VARFLAGS = 512
 VARFLAG_FNONBROWSABLE: VARFLAGS = 1024
 VARFLAG_FREPLACEABLE: VARFLAGS = 2048
 VARFLAG_FIMMEDIATEBIND: VARFLAGS = 4096
-class VARIANT(EasyCastStructure):
-    Anonymous: _Anonymous_e__Union
-    class _Anonymous_e__Union(EasyCastUnion):
-        Anonymous: _Anonymous_e__Struct
-        decVal: Windows.Win32.Foundation.DECIMAL
-        class _Anonymous_e__Struct(EasyCastStructure):
-            vt: Windows.Win32.System.Com.VARENUM
-            wReserved1: UInt16
-            wReserved2: UInt16
-            wReserved3: UInt16
-            Anonymous: _Anonymous_e__Union
-            class _Anonymous_e__Union(EasyCastUnion):
-                llVal: Int64
-                lVal: Int32
-                bVal: Byte
-                iVal: Int16
-                fltVal: Single
-                dblVal: Double
-                boolVal: Windows.Win32.Foundation.VARIANT_BOOL
-                __OBSOLETE__VARIANT_BOOL: Windows.Win32.Foundation.VARIANT_BOOL
-                scode: Int32
-                cyVal: Windows.Win32.System.Com.CY
-                date: Double
-                bstrVal: Windows.Win32.Foundation.BSTR
-                punkVal: Windows.Win32.System.Com.IUnknown_head
-                pdispVal: Windows.Win32.System.Com.IDispatch_head
-                parray: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)
-                pbVal: POINTER(Byte)
-                piVal: POINTER(Int16)
-                plVal: POINTER(Int32)
-                pllVal: POINTER(Int64)
-                pfltVal: POINTER(Single)
-                pdblVal: POINTER(Double)
-                pboolVal: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)
-                __OBSOLETE__VARIANT_PBOOL: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)
-                pscode: POINTER(Int32)
-                pcyVal: POINTER(Windows.Win32.System.Com.CY_head)
-                pdate: POINTER(Double)
-                pbstrVal: POINTER(Windows.Win32.Foundation.BSTR)
-                ppunkVal: POINTER(Windows.Win32.System.Com.IUnknown_head)
-                ppdispVal: POINTER(Windows.Win32.System.Com.IDispatch_head)
-                pparray: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))
-                pvarVal: POINTER(Windows.Win32.System.Com.VARIANT_head)
-                byref: c_void_p
-                cVal: Windows.Win32.Foundation.CHAR
-                uiVal: UInt16
-                ulVal: UInt32
-                ullVal: UInt64
-                intVal: Int32
-                uintVal: UInt32
-                pdecVal: POINTER(Windows.Win32.Foundation.DECIMAL_head)
-                pcVal: Windows.Win32.Foundation.PSTR
-                puiVal: POINTER(UInt16)
-                pulVal: POINTER(UInt32)
-                pullVal: POINTER(UInt64)
-                pintVal: POINTER(Int32)
-                puintVal: POINTER(UInt32)
-                Anonymous: _Anonymous_e__Struct
-                class _Anonymous_e__Struct(EasyCastStructure):
-                    pvRecord: c_void_p
-                    pRecInfo: Windows.Win32.System.Ole.IRecordInfo_head
 VARKIND = Int32
 VAR_PERINSTANCE: VARKIND = 0
 VAR_STATIC: VARKIND = 1
@@ -2505,6 +2415,7 @@ make_head(_module, 'CUSTDATA')
 make_head(_module, 'CUSTDATAITEM')
 make_head(_module, 'CY')
 make_head(_module, 'ComCallData')
+make_head(_module, 'ContextProperty')
 make_head(_module, 'DISPPARAMS')
 make_head(_module, 'DVTARGETDEVICE')
 make_head(_module, 'DWORD_BLOB')
@@ -2633,7 +2544,6 @@ make_head(_module, 'LPEXCEPFINO_DEFERRED_FILLIN')
 make_head(_module, 'LPFNCANUNLOADNOW')
 make_head(_module, 'LPFNGETCLASSOBJECT')
 make_head(_module, 'MULTI_QI')
-make_head(_module, 'MachineGlobalObjectTableRegistrationToken__')
 make_head(_module, 'PFNCONTEXTCALL')
 make_head(_module, 'QUERYCONTEXT')
 make_head(_module, 'RPCOLEMESSAGE')
@@ -2652,7 +2562,6 @@ make_head(_module, 'TLIBATTR')
 make_head(_module, 'TYPEATTR')
 make_head(_module, 'TYPEDESC')
 make_head(_module, 'VARDESC')
-make_head(_module, 'VARIANT')
 make_head(_module, 'WORD_BLOB')
 make_head(_module, 'WORD_SIZEDARR')
 make_head(_module, 'uCLSSPEC')

@@ -4,6 +4,7 @@ from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, 
 import Windows.Win32.Foundation
 import Windows.Win32.Networking.BackgroundIntelligentTransferService
 import Windows.Win32.System.Com
+import Windows.Win32.System.Variant
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
@@ -487,9 +488,9 @@ class IBackgroundCopyGroup(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1ded80a7-53ea-424f-8a-04-17-fe-a9-ad-c4-f5')
     @commethod(3)
-    def GetProp(self, propID: Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP, pvarVal: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetProp(self, propID: Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP, pvarVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def SetProp(self, propID: Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP, pvarVal: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetProp(self, propID: Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP, pvarVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetProgress(self, dwFlags: UInt32, pdwProgress: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)

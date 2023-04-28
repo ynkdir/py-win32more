@@ -11,6 +11,7 @@ import Windows.Win32.System.Com
 import Windows.Win32.System.Ole
 import Windows.Win32.System.Registry
 import Windows.Win32.System.Threading
+import Windows.Win32.System.Variant
 import Windows.Win32.System.WinRT
 import Windows.Win32.UI.WindowsAndMessaging
 import Windows.Win32.Web.InternetExplorer
@@ -625,8 +626,6 @@ FRAMEOPTIONS_NORESIZE: FRAMEOPTIONS_FLAGS = 8
 FRAMEOPTIONS_NO3DBORDER: FRAMEOPTIONS_FLAGS = 16
 FRAMEOPTIONS_DESKTOP: FRAMEOPTIONS_FLAGS = 32
 FRAMEOPTIONS_BROWSERBAND: FRAMEOPTIONS_FLAGS = 64
-class HTMLPersistEvents(EasyCastStructure):
-    pass
 HomePage = Guid('766bf2ae-d650-11d1-98-11-00-c0-4f-c3-1d-2e')
 HomePageSetting = Guid('374cede0-873a-4c4f-bc-86-bc-c8-cf-51-16-a3')
 class IActiveXUIHandlerSite(c_void_p):
@@ -790,9 +789,9 @@ class IHTMLPersistDataOM(c_void_p):
     @commethod(7)
     def get_XMLDocument(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def getAttribute(self, name: Windows.Win32.Foundation.BSTR, pValue: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def getAttribute(self, name: Windows.Win32.Foundation.BSTR, pValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def setAttribute(self, name: Windows.Win32.Foundation.BSTR, value: Windows.Win32.System.Com.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
+    def setAttribute(self, name: Windows.Win32.Foundation.BSTR, value: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def removeAttribute(self, name: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLUserDataOM(c_void_p):
@@ -805,9 +804,9 @@ class IHTMLUserDataOM(c_void_p):
     @commethod(9)
     def load(self, strName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def getAttribute(self, name: Windows.Win32.Foundation.BSTR, pValue: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def getAttribute(self, name: Windows.Win32.Foundation.BSTR, pValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def setAttribute(self, name: Windows.Win32.Foundation.BSTR, value: Windows.Win32.System.Com.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
+    def setAttribute(self, name: Windows.Win32.Foundation.BSTR, value: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def removeAttribute(self, name: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -899,7 +898,7 @@ class IIEWebDriverSite(c_void_p):
     @commethod(8)
     def DetachWebdriver(self, pUnkWD: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def GetCapabilityValue(self, pUnkWD: Windows.Win32.System.Com.IUnknown_head, capName: Windows.Win32.Foundation.PWSTR, capValue: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetCapabilityValue(self, pUnkWD: Windows.Win32.System.Com.IUnknown_head, capName: Windows.Win32.Foundation.PWSTR, capValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IImageDecodeEventSink(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('baa342a0-2ded-11d0-86-f4-00-a0-c9-13-f7-50')
@@ -954,9 +953,9 @@ class ILayoutRect(c_void_p):
     @commethod(8)
     def get_nextRect(self, pbstrElementId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def put_contentSrc(self, varContentSrc: Windows.Win32.System.Com.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
+    def put_contentSrc(self, varContentSrc: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
-    def get_contentSrc(self, pvarContentSrc: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def get_contentSrc(self, pvarContentSrc: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def put_honorPageBreaks(self, v: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -1258,13 +1257,13 @@ class ITimer(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3050f360-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
-    def Advise(self, vtimeMin: Windows.Win32.System.Com.VARIANT, vtimeMax: Windows.Win32.System.Com.VARIANT, vtimeInterval: Windows.Win32.System.Com.VARIANT, dwFlags: UInt32, pTimerSink: Windows.Win32.Web.InternetExplorer.ITimerSink_head, pdwCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def Advise(self, vtimeMin: Windows.Win32.System.Variant.VARIANT, vtimeMax: Windows.Win32.System.Variant.VARIANT, vtimeInterval: Windows.Win32.System.Variant.VARIANT, dwFlags: UInt32, pTimerSink: Windows.Win32.Web.InternetExplorer.ITimerSink_head, pdwCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Unadvise(self, dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Freeze(self, fFreeze: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetTime(self, pvtime: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetTime(self, pvtime: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITimerEx(c_void_p):
     extends: Windows.Win32.Web.InternetExplorer.ITimer
     Guid = Guid('30510414-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
@@ -1283,7 +1282,7 @@ class ITimerSink(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3050f361-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
-    def OnTimer(self, vtimeAdvise: Windows.Win32.System.Com.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
+    def OnTimer(self, vtimeAdvise: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class ITridentTouchInput(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('30510850-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
@@ -1386,8 +1385,6 @@ class Iwfolders(c_void_p):
     def navigateFrame(self, bstrUrl: Windows.Win32.Foundation.BSTR, bstrTargetFrame: Windows.Win32.Foundation.BSTR, pbstrRetVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def navigateNoSite(self, bstrUrl: Windows.Win32.Foundation.BSTR, bstrTargetFrame: Windows.Win32.Foundation.BSTR, dwhwnd: UInt32, pwb: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class LayoutRectEvents(EasyCastStructure):
-    pass
 MEDIA_ACTIVITY_NOTIFY_TYPE = Int32
 MEDIA_ACTIVITY_NOTIFY_TYPE_MediaPlayback: MEDIA_ACTIVITY_NOTIFY_TYPE = 0
 MEDIA_ACTIVITY_NOTIFY_TYPE_MediaRecording: MEDIA_ACTIVITY_NOTIFY_TYPE = 1
@@ -1435,7 +1432,6 @@ class STATURL(EasyCastStructure):
     ftExpires: Windows.Win32.Foundation.FILETIME
     dwFlags: UInt32
 wfolders = Guid('bae31f9a-1b81-11d2-a9-7a-00-c0-4f-8e-cb-02')
-make_head(_module, 'HTMLPersistEvents')
 make_head(_module, 'IActiveXUIHandlerSite')
 make_head(_module, 'IActiveXUIHandlerSite2')
 make_head(_module, 'IActiveXUIHandlerSite3')
@@ -1512,6 +1508,5 @@ make_head(_module, 'IViewObjectPresentFlipSite2')
 make_head(_module, 'IWebBrowserEventsService')
 make_head(_module, 'IWebBrowserEventsUrlService')
 make_head(_module, 'Iwfolders')
-make_head(_module, 'LayoutRectEvents')
 make_head(_module, 'NAVIGATEDATA')
 make_head(_module, 'STATURL')

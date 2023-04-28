@@ -247,6 +247,10 @@ def ControlServiceExA(hService: Windows.Win32.Security.SC_HANDLE, dwControl: UIn
 def ControlServiceExW(hService: Windows.Win32.Security.SC_HANDLE, dwControl: UInt32, dwInfoLevel: UInt32, pControlParams: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('ADVAPI32.dll')
 def QueryServiceDynamicInformation(hServiceStatus: Windows.Win32.System.Services.SERVICE_STATUS_HANDLE, dwInfoLevel: UInt32, ppDynamicInfo: POINTER(c_void_p)) -> Windows.Win32.Foundation.BOOL: ...
+@winfunctype('SecHost.dll')
+def SubscribeServiceChangeNotifications(hService: Windows.Win32.Security.SC_HANDLE, eEventType: Windows.Win32.System.Services.SC_EVENT_TYPE, pCallback: Windows.Win32.System.Services.PSC_NOTIFICATION_CALLBACK, pCallbackContext: c_void_p, pSubscription: POINTER(Windows.Win32.System.Services.PSC_NOTIFICATION_REGISTRATION)) -> UInt32: ...
+@winfunctype('SecHost.dll')
+def UnsubscribeServiceChangeNotifications(pSubscription: Windows.Win32.System.Services.PSC_NOTIFICATION_REGISTRATION) -> Void: ...
 @winfunctype('ADVAPI32.dll')
 def WaitServiceState(hService: Windows.Win32.Security.SC_HANDLE, dwNotify: UInt32, dwTimeout: UInt32, hCancelEvent: Windows.Win32.Foundation.HANDLE) -> UInt32: ...
 @winfunctype('api-ms-win-service-core-l1-1-3.dll')
@@ -304,6 +308,7 @@ def LPSERVICE_MAIN_FUNCTIONW(dwNumServicesArgs: UInt32, lpServiceArgVectors: POI
 def PFN_SC_NOTIFY_CALLBACK(pParameter: c_void_p) -> Void: ...
 @winfunctype_pointer
 def PSC_NOTIFICATION_CALLBACK(dwNotify: UInt32, pCallbackContext: c_void_p) -> Void: ...
+PSC_NOTIFICATION_REGISTRATION = IntPtr
 class QUERY_SERVICE_CONFIGA(EasyCastStructure):
     dwServiceType: Windows.Win32.System.Services.ENUM_SERVICE_TYPE
     dwStartType: Windows.Win32.System.Services.SERVICE_START_TYPE
@@ -542,8 +547,6 @@ SERVICE_TRIGGER_TYPE_FIREWALL_PORT_EVENT: SERVICE_TRIGGER_TYPE = 4
 SERVICE_TRIGGER_TYPE_GROUP_POLICY: SERVICE_TRIGGER_TYPE = 5
 SERVICE_TRIGGER_TYPE_IP_ADDRESS_AVAILABILITY: SERVICE_TRIGGER_TYPE = 2
 SERVICE_TRIGGER_TYPE_NETWORK_ENDPOINT: SERVICE_TRIGGER_TYPE = 6
-class _SC_NOTIFICATION_REGISTRATION(EasyCastStructure):
-    pass
 make_head(_module, 'ENUM_SERVICE_STATUSA')
 make_head(_module, 'ENUM_SERVICE_STATUSW')
 make_head(_module, 'ENUM_SERVICE_STATUS_PROCESSA')
@@ -591,4 +594,3 @@ make_head(_module, 'SERVICE_TRIGGER')
 make_head(_module, 'SERVICE_TRIGGER_CUSTOM_STATE_ID')
 make_head(_module, 'SERVICE_TRIGGER_INFO')
 make_head(_module, 'SERVICE_TRIGGER_SPECIFIC_DATA_ITEM')
-make_head(_module, '_SC_NOTIFICATION_REGISTRATION')

@@ -545,8 +545,6 @@ def D3DX11CreateFFT2DComplex(pDeviceContext: Windows.Win32.Graphics.Direct3D11.I
 def D3DX11CreateFFT3DReal(pDeviceContext: Windows.Win32.Graphics.Direct3D11.ID3D11DeviceContext_head, X: UInt32, Y: UInt32, Z: UInt32, Flags: UInt32, pBufferInfo: POINTER(Windows.Win32.Graphics.Direct3D11.D3DX11_FFT_BUFFER_INFO_head), ppFFT: POINTER(Windows.Win32.Graphics.Direct3D11.ID3DX11FFT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('d3dcsx.dll')
 def D3DX11CreateFFT3DComplex(pDeviceContext: Windows.Win32.Graphics.Direct3D11.ID3D11DeviceContext_head, X: UInt32, Y: UInt32, Z: UInt32, Flags: UInt32, pBufferInfo: POINTER(Windows.Win32.Graphics.Direct3D11.D3DX11_FFT_BUFFER_INFO_head), ppFFT: POINTER(Windows.Win32.Graphics.Direct3D11.ID3DX11FFT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class CD3D11_VIDEO_DEFAULT(EasyCastStructure):
-    pass
 D3D11_1_CREATE_DEVICE_CONTEXT_STATE_FLAG = Int32
 D3D11_1_CREATE_DEVICE_CONTEXT_STATE_SINGLETHREADED: D3D11_1_CREATE_DEVICE_CONTEXT_STATE_FLAG = 1
 class D3D11_AES_CTR_IV(EasyCastStructure):
@@ -5069,7 +5067,6 @@ class ID3DX11SegmentedScan(c_void_p):
 def PFN_D3D11_CREATE_DEVICE(param0: Windows.Win32.Graphics.Dxgi.IDXGIAdapter_head, param1: Windows.Win32.Graphics.Direct3D.D3D_DRIVER_TYPE, param2: Windows.Win32.Foundation.HMODULE, param3: UInt32, param4: POINTER(Windows.Win32.Graphics.Direct3D.D3D_FEATURE_LEVEL), FeatureLevels: UInt32, param6: UInt32, param7: POINTER(Windows.Win32.Graphics.Direct3D11.ID3D11Device_head), param8: POINTER(Windows.Win32.Graphics.Direct3D.D3D_FEATURE_LEVEL), param9: POINTER(Windows.Win32.Graphics.Direct3D11.ID3D11DeviceContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def PFN_D3D11_CREATE_DEVICE_AND_SWAP_CHAIN(param0: Windows.Win32.Graphics.Dxgi.IDXGIAdapter_head, param1: Windows.Win32.Graphics.Direct3D.D3D_DRIVER_TYPE, param2: Windows.Win32.Foundation.HMODULE, param3: UInt32, param4: POINTER(Windows.Win32.Graphics.Direct3D.D3D_FEATURE_LEVEL), FeatureLevels: UInt32, param6: UInt32, param7: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC_head), param8: POINTER(Windows.Win32.Graphics.Dxgi.IDXGISwapChain_head), param9: POINTER(Windows.Win32.Graphics.Direct3D11.ID3D11Device_head), param10: POINTER(Windows.Win32.Graphics.Direct3D.D3D_FEATURE_LEVEL), param11: POINTER(Windows.Win32.Graphics.Direct3D11.ID3D11DeviceContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
-make_head(_module, 'CD3D11_VIDEO_DEFAULT')
 make_head(_module, 'D3D11_AES_CTR_IV')
 make_head(_module, 'D3D11_AUTHENTICATED_CONFIGURE_ACCESSIBLE_ENCRYPTION_INPUT')
 make_head(_module, 'D3D11_AUTHENTICATED_CONFIGURE_CRYPTO_SESSION_INPUT')

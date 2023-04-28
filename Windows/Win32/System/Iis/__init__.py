@@ -1531,8 +1531,6 @@ SF_STATUS_REQ_NEXT_NOTIFICATION: SF_STATUS_TYPE = 134217730
 SF_STATUS_REQ_HANDLED_NOTIFICATION: SF_STATUS_TYPE = 134217731
 SF_STATUS_REQ_ERROR: SF_STATUS_TYPE = 134217732
 SF_STATUS_REQ_READ_NEXT: SF_STATUS_TYPE = 134217733
-class _IIS_CRYPTO_BLOB(EasyCastStructure):
-    pass
 make_head(_module, 'AsyncIFtpAuthenticationProvider')
 make_head(_module, 'AsyncIFtpAuthorizationProvider')
 make_head(_module, 'AsyncIFtpHomeDirectoryProvider')
@@ -1607,4 +1605,3 @@ make_head(_module, 'PFN_WEB_CORE_SET_METADATA_DLL_ENTRY')
 make_head(_module, 'PFN_WEB_CORE_SHUTDOWN')
 make_head(_module, 'POST_PROCESS_PARAMETERS')
 make_head(_module, 'PRE_PROCESS_PARAMETERS')
-make_head(_module, '_IIS_CRYPTO_BLOB')

@@ -6,6 +6,7 @@ import Windows.Win32.Security
 import Windows.Win32.Storage.FileSystem
 import Windows.Win32.System.Com
 import Windows.Win32.System.IO
+import Windows.Win32.System.WindowsProgramming
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
@@ -427,9 +428,9 @@ def LockFileEx(hFile: Windows.Win32.Foundation.HANDLE, dwFlags: Windows.Win32.St
 @winfunctype('KERNEL32.dll')
 def QueryDosDeviceW(lpDeviceName: Windows.Win32.Foundation.PWSTR, lpTargetPath: Windows.Win32.Foundation.PWSTR, ucchMax: UInt32) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def ReadFile(hFile: Windows.Win32.Foundation.HANDLE, lpBuffer: c_void_p, nNumberOfBytesToRead: UInt32, lpNumberOfBytesRead: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.BOOL: ...
+def ReadFile(hFile: Windows.Win32.Foundation.HANDLE, lpBuffer: POINTER(Byte), nNumberOfBytesToRead: UInt32, lpNumberOfBytesRead: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def ReadFileEx(hFile: Windows.Win32.Foundation.HANDLE, lpBuffer: c_void_p, nNumberOfBytesToRead: UInt32, lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), lpCompletionRoutine: Windows.Win32.System.IO.LPOVERLAPPED_COMPLETION_ROUTINE) -> Windows.Win32.Foundation.BOOL: ...
+def ReadFileEx(hFile: Windows.Win32.Foundation.HANDLE, lpBuffer: POINTER(Byte), nNumberOfBytesToRead: UInt32, lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), lpCompletionRoutine: Windows.Win32.System.IO.LPOVERLAPPED_COMPLETION_ROUTINE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def ReadFileScatter(hFile: Windows.Win32.Foundation.HANDLE, aSegmentArray: POINTER(Windows.Win32.Storage.FileSystem.FILE_SEGMENT_ELEMENT_head), nNumberOfBytesToRead: UInt32, lpReserved: POINTER(UInt32), lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -881,27 +882,31 @@ def NetStatisticsGet(ServerName: POINTER(SByte), Service: POINTER(SByte), Level:
 @winfunctype('api-ms-win-core-ioring-l1-1-0.dll')
 def QueryIoRingCapabilities(capabilities: POINTER(Windows.Win32.Storage.FileSystem.IORING_CAPABILITIES_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-ioring-l1-1-0.dll')
-def IsIoRingOpSupported(ioRing: POINTER(Windows.Win32.Storage.FileSystem.HIORING___head), op: Windows.Win32.Storage.FileSystem.IORING_OP_CODE) -> Windows.Win32.Foundation.BOOL: ...
+def IsIoRingOpSupported(ioRing: Windows.Win32.Storage.FileSystem.HIORING, op: Windows.Win32.Storage.FileSystem.IORING_OP_CODE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('api-ms-win-core-ioring-l1-1-0.dll')
-def CreateIoRing(ioringVersion: Windows.Win32.Storage.FileSystem.IORING_VERSION, flags: Windows.Win32.Storage.FileSystem.IORING_CREATE_FLAGS, submissionQueueSize: UInt32, completionQueueSize: UInt32, h: POINTER(POINTER(Windows.Win32.Storage.FileSystem.HIORING___head))) -> Windows.Win32.Foundation.HRESULT: ...
+def CreateIoRing(ioringVersion: Windows.Win32.Storage.FileSystem.IORING_VERSION, flags: Windows.Win32.Storage.FileSystem.IORING_CREATE_FLAGS, submissionQueueSize: UInt32, completionQueueSize: UInt32, h: POINTER(Windows.Win32.Storage.FileSystem.HIORING)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-ioring-l1-1-0.dll')
-def GetIoRingInfo(ioRing: POINTER(Windows.Win32.Storage.FileSystem.HIORING___head), info: POINTER(Windows.Win32.Storage.FileSystem.IORING_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def GetIoRingInfo(ioRing: Windows.Win32.Storage.FileSystem.HIORING, info: POINTER(Windows.Win32.Storage.FileSystem.IORING_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-ioring-l1-1-0.dll')
-def SubmitIoRing(ioRing: POINTER(Windows.Win32.Storage.FileSystem.HIORING___head), waitOperations: UInt32, milliseconds: UInt32, submittedEntries: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+def SubmitIoRing(ioRing: Windows.Win32.Storage.FileSystem.HIORING, waitOperations: UInt32, milliseconds: UInt32, submittedEntries: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-ioring-l1-1-0.dll')
-def CloseIoRing(ioRing: POINTER(Windows.Win32.Storage.FileSystem.HIORING___head)) -> Windows.Win32.Foundation.HRESULT: ...
+def CloseIoRing(ioRing: Windows.Win32.Storage.FileSystem.HIORING) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-ioring-l1-1-0.dll')
-def PopIoRingCompletion(ioRing: POINTER(Windows.Win32.Storage.FileSystem.HIORING___head), cqe: POINTER(Windows.Win32.Storage.FileSystem.IORING_CQE_head)) -> Windows.Win32.Foundation.HRESULT: ...
+def PopIoRingCompletion(ioRing: Windows.Win32.Storage.FileSystem.HIORING, cqe: POINTER(Windows.Win32.Storage.FileSystem.IORING_CQE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-ioring-l1-1-0.dll')
-def SetIoRingCompletionEvent(ioRing: POINTER(Windows.Win32.Storage.FileSystem.HIORING___head), hEvent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
+def SetIoRingCompletionEvent(ioRing: Windows.Win32.Storage.FileSystem.HIORING, hEvent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-ioring-l1-1-0.dll')
-def BuildIoRingCancelRequest(ioRing: POINTER(Windows.Win32.Storage.FileSystem.HIORING___head), file: Windows.Win32.Storage.FileSystem.IORING_HANDLE_REF, opToCancel: UIntPtr, userData: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
+def BuildIoRingCancelRequest(ioRing: Windows.Win32.Storage.FileSystem.HIORING, file: Windows.Win32.Storage.FileSystem.IORING_HANDLE_REF, opToCancel: UIntPtr, userData: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-ioring-l1-1-0.dll')
-def BuildIoRingReadFile(ioRing: POINTER(Windows.Win32.Storage.FileSystem.HIORING___head), fileRef: Windows.Win32.Storage.FileSystem.IORING_HANDLE_REF, dataRef: Windows.Win32.Storage.FileSystem.IORING_BUFFER_REF, numberOfBytesToRead: UInt32, fileOffset: UInt64, userData: UIntPtr, sqeFlags: Windows.Win32.Storage.FileSystem.IORING_SQE_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
+def BuildIoRingReadFile(ioRing: Windows.Win32.Storage.FileSystem.HIORING, fileRef: Windows.Win32.Storage.FileSystem.IORING_HANDLE_REF, dataRef: Windows.Win32.Storage.FileSystem.IORING_BUFFER_REF, numberOfBytesToRead: UInt32, fileOffset: UInt64, userData: UIntPtr, sqeFlags: Windows.Win32.Storage.FileSystem.IORING_SQE_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-ioring-l1-1-0.dll')
-def BuildIoRingRegisterFileHandles(ioRing: POINTER(Windows.Win32.Storage.FileSystem.HIORING___head), count: UInt32, handles: POINTER(Windows.Win32.Foundation.HANDLE), userData: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
+def BuildIoRingRegisterFileHandles(ioRing: Windows.Win32.Storage.FileSystem.HIORING, count: UInt32, handles: POINTER(Windows.Win32.Foundation.HANDLE), userData: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-ioring-l1-1-0.dll')
-def BuildIoRingRegisterBuffers(ioRing: POINTER(Windows.Win32.Storage.FileSystem.HIORING___head), count: UInt32, buffers: POINTER(Windows.Win32.Storage.FileSystem.IORING_BUFFER_INFO_head), userData: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
+def BuildIoRingRegisterBuffers(ioRing: Windows.Win32.Storage.FileSystem.HIORING, count: UInt32, buffers: POINTER(Windows.Win32.Storage.FileSystem.IORING_BUFFER_INFO_head), userData: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('KERNEL32.dll')
+def BuildIoRingWriteFile(ioRing: Windows.Win32.Storage.FileSystem.HIORING, fileRef: Windows.Win32.Storage.FileSystem.IORING_HANDLE_REF, bufferRef: Windows.Win32.Storage.FileSystem.IORING_BUFFER_REF, numberOfBytesToWrite: UInt32, fileOffset: UInt64, writeFlags: Windows.Win32.System.WindowsProgramming.FILE_WRITE_FLAGS, userData: UIntPtr, sqeFlags: Windows.Win32.Storage.FileSystem.IORING_SQE_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('KERNEL32.dll')
+def BuildIoRingFlushFile(ioRing: Windows.Win32.Storage.FileSystem.HIORING, fileRef: Windows.Win32.Storage.FileSystem.IORING_HANDLE_REF, flushMode: Windows.Win32.System.WindowsProgramming.FILE_FLUSH_MODE, userData: UIntPtr, sqeFlags: Windows.Win32.Storage.FileSystem.IORING_SQE_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('KERNEL32.dll')
 def Wow64EnableWow64FsRedirection(Wow64FsEnableRedirection: Windows.Win32.Foundation.BOOLEAN) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('KERNEL32.dll')
@@ -1898,12 +1903,18 @@ class FIO_CONTEXT(EasyCastStructure):
     m_hFile: Windows.Win32.Foundation.HANDLE
     m_dwLinesOffset: UInt32
     m_dwHeaderLength: UInt32
-FindChangeNotificationHandle = IntPtr
-FindFileHandle = IntPtr
-FindFileNameHandle = IntPtr
-FindStreamHandle = IntPtr
-FindVolumeHandle = IntPtr
-FindVolumeMountPointHandle = IntPtr
+class FindChangeNotificationHandle(EasyCastStructure):
+    Value: IntPtr
+class FindFileHandle(EasyCastStructure):
+    Value: IntPtr
+class FindFileNameHandle(EasyCastStructure):
+    Value: IntPtr
+class FindStreamHandle(EasyCastStructure):
+    Value: IntPtr
+class FindVolumeHandle(EasyCastStructure):
+    Value: IntPtr
+class FindVolumeMountPointHandle(EasyCastStructure):
+    Value: IntPtr
 GETFINALPATHNAMEBYHANDLE_FLAGS = UInt32
 VOLUME_NAME_DOS: GETFINALPATHNAMEBYHANDLE_FLAGS = 0
 VOLUME_NAME_GUID: GETFINALPATHNAMEBYHANDLE_FLAGS = 1
@@ -1921,8 +1932,7 @@ FILE_VER_GET_PREFETCHED: GET_FILE_VERSION_INFO_FLAGS = 4
 GET_TAPE_DRIVE_PARAMETERS_OPERATION = UInt32
 GET_TAPE_DRIVE_INFORMATION: GET_TAPE_DRIVE_PARAMETERS_OPERATION = 1
 GET_TAPE_MEDIA_INFORMATION: GET_TAPE_DRIVE_PARAMETERS_OPERATION = 0
-class HIORING__(EasyCastStructure):
-    unused: Int32
+HIORING = IntPtr
 class IDiskQuotaControl(c_void_p):
     extends: Windows.Win32.System.Com.IConnectionPointContainer
     Guid = Guid('7988b572-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
@@ -3599,7 +3609,12 @@ make_head(_module, 'FILE_STANDARD_INFO')
 make_head(_module, 'FILE_STORAGE_INFO')
 make_head(_module, 'FILE_STREAM_INFO')
 make_head(_module, 'FIO_CONTEXT')
-make_head(_module, 'HIORING__')
+make_head(_module, 'FindChangeNotificationHandle')
+make_head(_module, 'FindFileHandle')
+make_head(_module, 'FindFileNameHandle')
+make_head(_module, 'FindStreamHandle')
+make_head(_module, 'FindVolumeHandle')
+make_head(_module, 'FindVolumeMountPointHandle')
 make_head(_module, 'IDiskQuotaControl')
 make_head(_module, 'IDiskQuotaEvents')
 make_head(_module, 'IDiskQuotaUser')

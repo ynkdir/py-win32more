@@ -13,9 +13,6 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-_IID_IXmlReader: Guid = Guid('7279fc81-709d-4095-b6-3d-69-fe-4b-0d-90-30')
-_IID_IXmlWriter: Guid = Guid('7279fc88-709d-4095-b6-3d-69-fe-4b-0d-90-30')
-_IID_IXmlResolver: Guid = Guid('7279fc82-709d-4095-b6-3d-69-fe-4b-0d-90-30')
 @winfunctype('XmlLite.dll')
 def CreateXmlReader(riid: POINTER(Guid), ppvObject: POINTER(c_void_p), pMalloc: Windows.Win32.System.Com.IMalloc_head) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('XmlLite.dll')

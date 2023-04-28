@@ -833,6 +833,7 @@ def LPFREEBUFFER(lpBuffer: c_void_p) -> UInt32: ...
 def LPNOTIFCALLBACK(lpvContext: c_void_p, cNotification: UInt32, lpNotifications: POINTER(Windows.Win32.System.AddressBook.NOTIFICATION_head)) -> Int32: ...
 @winfunctype_pointer
 def LPOPENSTREAMONFILE(lpAllocateBuffer: Windows.Win32.System.AddressBook.LPALLOCATEBUFFER, lpFreeBuffer: Windows.Win32.System.AddressBook.LPFREEBUFFER, ulFlags: UInt32, lpszFileName: POINTER(SByte), lpszPrefix: POINTER(SByte), lppStream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
+LPWABACTIONITEM = IntPtr
 @winfunctype_pointer
 def LPWABALLOCATEBUFFER(lpWABObject: Windows.Win32.System.AddressBook.IWABObject_head, cbSize: UInt32, lppBuffer: POINTER(c_void_p)) -> Int32: ...
 @winfunctype_pointer
@@ -1053,8 +1054,6 @@ class WAB_PARAM(EasyCastStructure):
     szFileName: Windows.Win32.Foundation.PSTR
     ulFlags: UInt32
     guidPSExt: Guid
-class _WABACTIONITEM(EasyCastStructure):
-    pass
 class __UPV(EasyCastUnion):
     i: Int16
     l: Int32
@@ -1192,5 +1191,4 @@ make_head(_module, 'TABLE_NOTIFICATION')
 make_head(_module, 'WABEXTDISPLAY')
 make_head(_module, 'WABIMPORTPARAM')
 make_head(_module, 'WAB_PARAM')
-make_head(_module, '_WABACTIONITEM')
 make_head(_module, '__UPV')

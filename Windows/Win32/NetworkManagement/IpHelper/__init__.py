@@ -629,6 +629,14 @@ def CaptureInterfaceHardwareCrossTimestamp(InterfaceLuid: POINTER(Windows.Win32.
 def RegisterInterfaceTimestampConfigChange(Callback: Windows.Win32.NetworkManagement.IpHelper.PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK, CallerContext: c_void_p, NotificationHandle: POINTER(Windows.Win32.NetworkManagement.IpHelper.HIFTIMESTAMPCHANGE)) -> UInt32: ...
 @winfunctype('IPHLPAPI.dll')
 def UnregisterInterfaceTimestampConfigChange(NotificationHandle: Windows.Win32.NetworkManagement.IpHelper.HIFTIMESTAMPCHANGE) -> Void: ...
+@winfunctype('IPHLPAPI.DLL')
+def GetInterfaceCurrentTimestampCapabilities(InterfaceLuid: POINTER(Windows.Win32.NetworkManagement.Ndis.NET_LUID_LH_head), TimestampCapabilites: POINTER(Windows.Win32.NetworkManagement.IpHelper.INTERFACE_TIMESTAMP_CAPABILITIES_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.DLL')
+def GetInterfaceHardwareTimestampCapabilities(InterfaceLuid: POINTER(Windows.Win32.NetworkManagement.Ndis.NET_LUID_LH_head), TimestampCapabilites: POINTER(Windows.Win32.NetworkManagement.IpHelper.INTERFACE_TIMESTAMP_CAPABILITIES_head)) -> UInt32: ...
+@winfunctype('IPHLPAPI.DLL')
+def NotifyIfTimestampConfigChange(CallerContext: c_void_p, Callback: Windows.Win32.NetworkManagement.IpHelper.PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK, NotificationHandle: POINTER(Windows.Win32.NetworkManagement.IpHelper.HIFTIMESTAMPCHANGE)) -> UInt32: ...
+@winfunctype('IPHLPAPI.DLL')
+def CancelIfTimestampConfigChange(NotificationHandle: Windows.Win32.NetworkManagement.IpHelper.HIFTIMESTAMPCHANGE) -> Void: ...
 @winfunctype('IPHLPAPI.dll')
 def IpReleaseAddress(AdapterInfo: POINTER(Windows.Win32.NetworkManagement.IpHelper.IP_ADAPTER_INDEX_MAP_head)) -> UInt32: ...
 @winfunctype('IPHLPAPI.dll')
@@ -663,6 +671,8 @@ def DeletePersistentUdpPortReservation(StartPort: UInt16, NumberOfPorts: UInt16)
 def LookupPersistentTcpPortReservation(StartPort: UInt16, NumberOfPorts: UInt16, Token: POINTER(UInt64)) -> UInt32: ...
 @winfunctype('IPHLPAPI.dll')
 def LookupPersistentUdpPortReservation(StartPort: UInt16, NumberOfPorts: UInt16, Token: POINTER(UInt64)) -> UInt32: ...
+@winfunctype('IPHLPAPI.dll')
+def ParseNetworkString(NetworkString: Windows.Win32.Foundation.PWSTR, Types: UInt32, AddressInfo: POINTER(Windows.Win32.NetworkManagement.IpHelper.NET_ADDRESS_INFO_head), PortNumber: POINTER(UInt16), PrefixLength: POINTER(Byte)) -> UInt32: ...
 @winfunctype('IPHLPAPI.dll')
 def GetIfEntry2(Row: POINTER(Windows.Win32.NetworkManagement.IpHelper.MIB_IF_ROW2_head)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('IPHLPAPI.dll')
@@ -1306,7 +1316,8 @@ class IP_PER_ADAPTER_INFO_W2KSP1(EasyCastStructure):
 class IP_UNIDIRECTIONAL_ADAPTER_ADDRESS(EasyCastStructure):
     NumAdapters: UInt32
     Address: UInt32 * 1
-IcmpHandle = IntPtr
+class IcmpHandle(EasyCastStructure):
+    Value: IntPtr
 class MIBICMPINFO(EasyCastStructure):
     icmpInStats: Windows.Win32.NetworkManagement.IpHelper.MIBICMPSTATS
     icmpOutStats: Windows.Win32.NetworkManagement.IpHelper.MIBICMPSTATS
@@ -2126,6 +2137,17 @@ NET_ADDRESS_FORMAT_UNSPECIFIED: NET_ADDRESS_FORMAT = 0
 NET_ADDRESS_DNS_NAME: NET_ADDRESS_FORMAT = 1
 NET_ADDRESS_IPV4: NET_ADDRESS_FORMAT = 2
 NET_ADDRESS_IPV6: NET_ADDRESS_FORMAT = 3
+class NET_ADDRESS_INFO(EasyCastStructure):
+    Format: Windows.Win32.NetworkManagement.IpHelper.NET_ADDRESS_FORMAT
+    Anonymous: _Anonymous_e__Union
+    class _Anonymous_e__Union(EasyCastUnion):
+        NamedAddress: _NamedAddress_e__Struct
+        Ipv4Address: Windows.Win32.Networking.WinSock.SOCKADDR_IN
+        Ipv6Address: Windows.Win32.Networking.WinSock.SOCKADDR_IN6
+        IpAddress: Windows.Win32.Networking.WinSock.SOCKADDR
+        class _NamedAddress_e__Struct(EasyCastStructure):
+            Address: Char * 256
+            Port: Char * 6
 PFADDRESSTYPE = Int32
 PF_IPV4: PFADDRESSTYPE = 0
 PF_IPV6: PFADDRESSTYPE = 1
@@ -2441,6 +2463,7 @@ if ARCH in 'X64,ARM64':
     make_head(_module, 'IP_OPTION_INFORMATION32')
 make_head(_module, 'IP_PER_ADAPTER_INFO_W2KSP1')
 make_head(_module, 'IP_UNIDIRECTIONAL_ADAPTER_ADDRESS')
+make_head(_module, 'IcmpHandle')
 make_head(_module, 'MIBICMPINFO')
 make_head(_module, 'MIBICMPSTATS')
 make_head(_module, 'MIBICMPSTATS_EX_XPSP1')
@@ -2545,6 +2568,7 @@ make_head(_module, 'MIB_UDPTABLE_OWNER_MODULE')
 make_head(_module, 'MIB_UDPTABLE_OWNER_PID')
 make_head(_module, 'MIB_UNICASTIPADDRESS_ROW')
 make_head(_module, 'MIB_UNICASTIPADDRESS_TABLE')
+make_head(_module, 'NET_ADDRESS_INFO')
 make_head(_module, 'PFLOGFRAME')
 make_head(_module, 'PF_FILTER_DESCRIPTOR')
 make_head(_module, 'PF_FILTER_STATS')

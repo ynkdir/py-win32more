@@ -35,6 +35,8 @@ class CppAttributeList(EasyCastStructure):
     AttributeList: String
 class DoNotReleaseAttribute(EasyCastStructure):
     pass
+class FlexibleArrayAttribute(EasyCastStructure):
+    pass
 class FreeWithAttribute(EasyCastStructure):
     Name: String
 class GuidAttribute(EasyCastStructure):
@@ -49,9 +51,13 @@ class GuidAttribute(EasyCastStructure):
     i: Byte
     j: Byte
     k: Byte
+class IgnoreIfReturnAttribute(EasyCastStructure):
+    Value: String
 class InvalidHandleValueAttribute(EasyCastStructure):
     Value: Int64
 class MemorySizeAttribute(EasyCastStructure):
+    pass
+class MetadataTypedefAttribute(EasyCastStructure):
     pass
 class NativeArrayInfoAttribute(EasyCastStructure):
     pass
@@ -67,19 +73,6 @@ class NotNullTerminatedAttribute(EasyCastStructure):
     pass
 class NullNullTerminatedAttribute(EasyCastStructure):
     pass
-class PropertyKeyAttribute(EasyCastStructure):
-    a: UInt32
-    b: UInt16
-    c: UInt16
-    d: Byte
-    e: Byte
-    f: Byte
-    g: Byte
-    h: Byte
-    i: Byte
-    j: Byte
-    k: Byte
-    pid: UInt32
 class RAIIFreeAttribute(EasyCastStructure):
     Name: String
 class ReservedAttribute(EasyCastStructure):

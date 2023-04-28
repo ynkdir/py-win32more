@@ -13,6 +13,7 @@ import Windows.Win32.System.Ole
 import Windows.Win32.System.SystemInformation
 import Windows.Win32.System.Threading
 import Windows.Win32.System.Time
+import Windows.Win32.System.Variant
 import Windows.Win32.UI.WindowsAndMessaging
 import sys
 _module = sys.modules[__name__]
@@ -126,12 +127,6 @@ class ARM64_NT_NEON128(EasyCastUnion):
     class _Anonymous_e__Struct(EasyCastStructure):
         Low: UInt64
         High: Int64
-WOW64_CONTEXT_i386: UInt32 = 65536
-WOW64_CONTEXT_i486: UInt32 = 65536
-WOW64_CONTEXT_EXCEPTION_ACTIVE: UInt32 = 134217728
-WOW64_CONTEXT_SERVICE_ACTIVE: UInt32 = 268435456
-WOW64_CONTEXT_EXCEPTION_REQUEST: UInt32 = 1073741824
-WOW64_CONTEXT_EXCEPTION_REPORTING: UInt32 = 2147483648
 WOW64_SIZE_OF_80387_REGISTERS: UInt32 = 80
 WOW64_MAXIMUM_SUPPORTED_EXTENSION: UInt32 = 512
 RESTORE_LAST_ERROR_NAME_A: String = 'RestoreLastError'
@@ -735,6 +730,8 @@ def UnDecorateSymbolNameW(name: Windows.Win32.Foundation.PWSTR, outputString: Wi
 def StackWalk64(MachineType: UInt32, hProcess: Windows.Win32.Foundation.HANDLE, hThread: Windows.Win32.Foundation.HANDLE, StackFrame: POINTER(Windows.Win32.System.Diagnostics.Debug.STACKFRAME64_head), ContextRecord: c_void_p, ReadMemoryRoutine: Windows.Win32.System.Diagnostics.Debug.PREAD_PROCESS_MEMORY_ROUTINE64, FunctionTableAccessRoutine: Windows.Win32.System.Diagnostics.Debug.PFUNCTION_TABLE_ACCESS_ROUTINE64, GetModuleBaseRoutine: Windows.Win32.System.Diagnostics.Debug.PGET_MODULE_BASE_ROUTINE64, TranslateAddress: Windows.Win32.System.Diagnostics.Debug.PTRANSLATE_ADDRESS_ROUTINE64) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('dbghelp.dll')
 def StackWalkEx(MachineType: UInt32, hProcess: Windows.Win32.Foundation.HANDLE, hThread: Windows.Win32.Foundation.HANDLE, StackFrame: POINTER(Windows.Win32.System.Diagnostics.Debug.STACKFRAME_EX_head), ContextRecord: c_void_p, ReadMemoryRoutine: Windows.Win32.System.Diagnostics.Debug.PREAD_PROCESS_MEMORY_ROUTINE64, FunctionTableAccessRoutine: Windows.Win32.System.Diagnostics.Debug.PFUNCTION_TABLE_ACCESS_ROUTINE64, GetModuleBaseRoutine: Windows.Win32.System.Diagnostics.Debug.PGET_MODULE_BASE_ROUTINE64, TranslateAddress: Windows.Win32.System.Diagnostics.Debug.PTRANSLATE_ADDRESS_ROUTINE64, Flags: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+@winfunctype('dbghelp.dll')
+def StackWalk2(MachineType: UInt32, hProcess: Windows.Win32.Foundation.HANDLE, hThread: Windows.Win32.Foundation.HANDLE, StackFrame: POINTER(Windows.Win32.System.Diagnostics.Debug.STACKFRAME_EX_head), ContextRecord: c_void_p, ReadMemoryRoutine: Windows.Win32.System.Diagnostics.Debug.PREAD_PROCESS_MEMORY_ROUTINE64, FunctionTableAccessRoutine: Windows.Win32.System.Diagnostics.Debug.PFUNCTION_TABLE_ACCESS_ROUTINE64, GetModuleBaseRoutine: Windows.Win32.System.Diagnostics.Debug.PGET_MODULE_BASE_ROUTINE64, TranslateAddress: Windows.Win32.System.Diagnostics.Debug.PTRANSLATE_ADDRESS_ROUTINE64, GetTargetAttributeValue: Windows.Win32.System.Diagnostics.Debug.PGET_TARGET_ATTRIBUTE_VALUE64, Flags: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86':
     @winfunctype('dbghelp.dll')
     def StackWalk(MachineType: UInt32, hProcess: Windows.Win32.Foundation.HANDLE, hThread: Windows.Win32.Foundation.HANDLE, StackFrame: POINTER(Windows.Win32.System.Diagnostics.Debug.STACKFRAME_head), ContextRecord: c_void_p, ReadMemoryRoutine: Windows.Win32.System.Diagnostics.Debug.PREAD_PROCESS_MEMORY_ROUTINE, FunctionTableAccessRoutine: Windows.Win32.System.Diagnostics.Debug.PFUNCTION_TABLE_ACCESS_ROUTINE, GetModuleBaseRoutine: Windows.Win32.System.Diagnostics.Debug.PGET_MODULE_BASE_ROUTINE, TranslateAddress: Windows.Win32.System.Diagnostics.Debug.PTRANSLATE_ADDRESS_ROUTINE) -> Windows.Win32.Foundation.BOOL: ...
@@ -1148,11 +1145,11 @@ def FormatMessageA(dwFlags: Windows.Win32.System.Diagnostics.Debug.FORMAT_MESSAG
 @winfunctype('KERNEL32.dll')
 def FormatMessageW(dwFlags: Windows.Win32.System.Diagnostics.Debug.FORMAT_MESSAGE_OPTIONS, lpSource: c_void_p, dwMessageId: UInt32, dwLanguageId: UInt32, lpBuffer: Windows.Win32.Foundation.PWSTR, nSize: UInt32, Arguments: POINTER(POINTER(SByte))) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def CopyContext(Destination: POINTER(Windows.Win32.System.Diagnostics.Debug.CONTEXT_head), ContextFlags: UInt32, Source: POINTER(Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)) -> Windows.Win32.Foundation.BOOL: ...
+def CopyContext(Destination: POINTER(Windows.Win32.System.Diagnostics.Debug.CONTEXT_head), ContextFlags: Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS, Source: POINTER(Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def InitializeContext(Buffer: c_void_p, ContextFlags: UInt32, Context: POINTER(POINTER(Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)), ContextLength: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
+def InitializeContext(Buffer: c_void_p, ContextFlags: Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS, Context: POINTER(POINTER(Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)), ContextLength: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def InitializeContext2(Buffer: c_void_p, ContextFlags: UInt32, Context: POINTER(POINTER(Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)), ContextLength: POINTER(UInt32), XStateCompactionMask: UInt64) -> Windows.Win32.Foundation.BOOL: ...
+def InitializeContext2(Buffer: c_void_p, ContextFlags: Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS, Context: POINTER(POINTER(Windows.Win32.System.Diagnostics.Debug.CONTEXT_head)), ContextLength: POINTER(UInt32), XStateCompactionMask: UInt64) -> Windows.Win32.Foundation.BOOL: ...
 if ARCH in 'X86,X64':
     @winfunctype('KERNEL32.dll')
     def GetEnabledXStateFeatures() -> UInt64: ...
@@ -1697,7 +1694,7 @@ MANUALLY_INITIATED_CRASH1: BUGCHECK_ERROR = 3735936685
 BUGCHECK_CONTEXT_MODIFIER: BUGCHECK_ERROR = 2147483648
 if ARCH in 'ARM64':
     class CONTEXT(EasyCastStructure):
-        ContextFlags: UInt32
+        ContextFlags: Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS
         Cpsr: UInt32
         Anonymous: _Anonymous_e__Union
         Sp: UInt64
@@ -1752,7 +1749,7 @@ if ARCH in 'X64':
         P4Home: UInt64
         P5Home: UInt64
         P6Home: UInt64
-        ContextFlags: UInt32
+        ContextFlags: Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS
         MxCsr: UInt32
         SegCs: UInt16
         SegDs: UInt16
@@ -1816,7 +1813,7 @@ if ARCH in 'X64':
                 Xmm15: Windows.Win32.System.Diagnostics.Debug.M128A
 if ARCH in 'X86':
     class CONTEXT(EasyCastStructure):
-        ContextFlags: UInt32
+        ContextFlags: Windows.Win32.System.Diagnostics.Debug.CONTEXT_FLAGS
         Dr0: UInt32
         Dr1: UInt32
         Dr2: UInt32
@@ -1841,6 +1838,63 @@ if ARCH in 'X86':
         Esp: UInt32
         SegSs: UInt32
         ExtendedRegisters: Byte * 512
+CONTEXT_FLAGS = UInt32
+CONTEXT_AMD64: CONTEXT_FLAGS = 1048576
+CONTEXT_CONTROL_AMD64: CONTEXT_FLAGS = 1048577
+CONTEXT_INTEGER_AMD64: CONTEXT_FLAGS = 1048578
+CONTEXT_SEGMENTS_AMD64: CONTEXT_FLAGS = 1048580
+CONTEXT_FLOATING_POINT_AMD64: CONTEXT_FLAGS = 1048584
+CONTEXT_DEBUG_REGISTERS_AMD64: CONTEXT_FLAGS = 1048592
+CONTEXT_FULL_AMD64: CONTEXT_FLAGS = 1048587
+CONTEXT_ALL_AMD64: CONTEXT_FLAGS = 1048607
+CONTEXT_XSTATE_AMD64: CONTEXT_FLAGS = 1048640
+CONTEXT_KERNEL_CET_AMD64: CONTEXT_FLAGS = 1048704
+CONTEXT_KERNEL_DEBUGGER_AMD64: CONTEXT_FLAGS = 67108864
+CONTEXT_EXCEPTION_ACTIVE_AMD64: CONTEXT_FLAGS = 134217728
+CONTEXT_SERVICE_ACTIVE_AMD64: CONTEXT_FLAGS = 268435456
+CONTEXT_EXCEPTION_REQUEST_AMD64: CONTEXT_FLAGS = 1073741824
+CONTEXT_EXCEPTION_REPORTING_AMD64: CONTEXT_FLAGS = 2147483648
+CONTEXT_UNWOUND_TO_CALL_AMD64: CONTEXT_FLAGS = 536870912
+CONTEXT_X86: CONTEXT_FLAGS = 65536
+CONTEXT_CONTROL_X86: CONTEXT_FLAGS = 65537
+CONTEXT_INTEGER_X86: CONTEXT_FLAGS = 65538
+CONTEXT_SEGMENTS_X86: CONTEXT_FLAGS = 65540
+CONTEXT_FLOATING_POINT_X86: CONTEXT_FLAGS = 65544
+CONTEXT_DEBUG_REGISTERS_X86: CONTEXT_FLAGS = 65552
+CONTEXT_EXTENDED_REGISTERS_X86: CONTEXT_FLAGS = 65568
+CONTEXT_FULL_X86: CONTEXT_FLAGS = 65543
+CONTEXT_ALL_X86: CONTEXT_FLAGS = 65599
+CONTEXT_XSTATE_X86: CONTEXT_FLAGS = 65600
+CONTEXT_EXCEPTION_ACTIVE_X86: CONTEXT_FLAGS = 134217728
+CONTEXT_SERVICE_ACTIVE_X86: CONTEXT_FLAGS = 268435456
+CONTEXT_EXCEPTION_REQUEST_X86: CONTEXT_FLAGS = 1073741824
+CONTEXT_EXCEPTION_REPORTING_X86: CONTEXT_FLAGS = 2147483648
+CONTEXT_ARM64: CONTEXT_FLAGS = 4194304
+CONTEXT_CONTROL_ARM64: CONTEXT_FLAGS = 4194305
+CONTEXT_INTEGER_ARM64: CONTEXT_FLAGS = 4194306
+CONTEXT_FLOATING_POINT_ARM64: CONTEXT_FLAGS = 4194308
+CONTEXT_DEBUG_REGISTERS_ARM64: CONTEXT_FLAGS = 4194312
+CONTEXT_X18_ARM64: CONTEXT_FLAGS = 4194320
+CONTEXT_FULL_ARM64: CONTEXT_FLAGS = 4194311
+CONTEXT_ALL_ARM64: CONTEXT_FLAGS = 4194335
+CONTEXT_EXCEPTION_ACTIVE_ARM64: CONTEXT_FLAGS = 134217728
+CONTEXT_SERVICE_ACTIVE_ARM64: CONTEXT_FLAGS = 268435456
+CONTEXT_EXCEPTION_REQUEST_ARM64: CONTEXT_FLAGS = 1073741824
+CONTEXT_EXCEPTION_REPORTING_ARM64: CONTEXT_FLAGS = 2147483648
+CONTEXT_UNWOUND_TO_CALL_ARM64: CONTEXT_FLAGS = 536870912
+CONTEXT_RET_TO_GUEST_ARM64: CONTEXT_FLAGS = 1073741824
+CONTEXT_ARM: CONTEXT_FLAGS = 2097152
+CONTEXT_CONTROL_ARM: CONTEXT_FLAGS = 2097153
+CONTEXT_INTEGER_ARM: CONTEXT_FLAGS = 2097154
+CONTEXT_FLOATING_POINT_ARM: CONTEXT_FLAGS = 2097156
+CONTEXT_DEBUG_REGISTERS_ARM: CONTEXT_FLAGS = 2097160
+CONTEXT_FULL_ARM: CONTEXT_FLAGS = 2097159
+CONTEXT_ALL_ARM: CONTEXT_FLAGS = 2097167
+CONTEXT_EXCEPTION_ACTIVE_ARM: CONTEXT_FLAGS = 134217728
+CONTEXT_SERVICE_ACTIVE_ARM: CONTEXT_FLAGS = 268435456
+CONTEXT_EXCEPTION_REQUEST_ARM: CONTEXT_FLAGS = 1073741824
+CONTEXT_EXCEPTION_REPORTING_ARM: CONTEXT_FLAGS = 2147483648
+CONTEXT_UNWOUND_TO_CALL_ARM: CONTEXT_FLAGS = 536870912
 class CPU_INFORMATION(EasyCastUnion):
     X86CpuInfo: _X86CpuInfo_e__Struct
     OtherCpuInfo: _OtherCpuInfo_e__Struct
@@ -2113,7 +2167,7 @@ class ExtendedDebugPropertyInfo(EasyCastStructure):
     pDebugProp: Windows.Win32.System.Diagnostics.Debug.IDebugProperty_head
     nDISPID: UInt32
     nType: UInt32
-    varValue: Windows.Win32.System.Com.VARIANT
+    varValue: Windows.Win32.System.Variant.VARIANT
     plbValue: Windows.Win32.System.Com.StructuredStorage.ILockBytes_head
     pDebugExtProp: Windows.Win32.System.Diagnostics.Debug.IDebugExtendedProperty_head
 FACILITY_CODE = UInt32
@@ -2296,7 +2350,7 @@ class IDebugProperty(c_void_p):
     @commethod(3)
     def GetPropertyInfo(self, dwFieldSpec: UInt32, nRadix: UInt32, pPropertyInfo: POINTER(Windows.Win32.System.Diagnostics.Debug.DebugPropertyInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetExtendedInfo(self, cInfos: UInt32, rgguidExtendedInfo: POINTER(Guid), rgvar: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetExtendedInfo(self, cInfos: UInt32, rgguidExtendedInfo: POINTER(Guid), rgvar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetValueAsString(self, pszValue: Windows.Win32.Foundation.PWSTR, nRadix: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -4949,7 +5003,7 @@ class WHEA_XPF_NMI_DESCRIPTOR(EasyCastStructure):
     Enabled: Windows.Win32.Foundation.BOOLEAN
     _pack_ = 1
 class WOW64_CONTEXT(EasyCastStructure):
-    ContextFlags: UInt32
+    ContextFlags: Windows.Win32.System.Diagnostics.Debug.WOW64_CONTEXT_FLAGS
     Dr0: UInt32
     Dr1: UInt32
     Dr2: UInt32
@@ -4974,6 +5028,21 @@ class WOW64_CONTEXT(EasyCastStructure):
     Esp: UInt32
     SegSs: UInt32
     ExtendedRegisters: Byte * 512
+WOW64_CONTEXT_FLAGS = UInt32
+WOW64_CONTEXT_X86: WOW64_CONTEXT_FLAGS = 65536
+WOW64_CONTEXT_CONTROL: WOW64_CONTEXT_FLAGS = 65537
+WOW64_CONTEXT_INTEGER: WOW64_CONTEXT_FLAGS = 65538
+WOW64_CONTEXT_SEGMENTS: WOW64_CONTEXT_FLAGS = 65540
+WOW64_CONTEXT_FLOATING_POINT: WOW64_CONTEXT_FLAGS = 65544
+WOW64_CONTEXT_DEBUG_REGISTERS: WOW64_CONTEXT_FLAGS = 65552
+WOW64_CONTEXT_EXTENDED_REGISTERS: WOW64_CONTEXT_FLAGS = 65568
+WOW64_CONTEXT_FULL: WOW64_CONTEXT_FLAGS = 65543
+WOW64_CONTEXT_ALL: WOW64_CONTEXT_FLAGS = 65599
+WOW64_CONTEXT_XSTATE: WOW64_CONTEXT_FLAGS = 65600
+WOW64_CONTEXT_EXCEPTION_ACTIVE: WOW64_CONTEXT_FLAGS = 134217728
+WOW64_CONTEXT_SERVICE_ACTIVE: WOW64_CONTEXT_FLAGS = 268435456
+WOW64_CONTEXT_EXCEPTION_REQUEST: WOW64_CONTEXT_FLAGS = 1073741824
+WOW64_CONTEXT_EXCEPTION_REPORTING: WOW64_CONTEXT_FLAGS = 2147483648
 class WOW64_DESCRIPTOR_TABLE_ENTRY(EasyCastStructure):
     Selector: UInt32
     Descriptor: Windows.Win32.System.Diagnostics.Debug.WOW64_LDT_ENTRY

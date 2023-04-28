@@ -3,6 +3,7 @@ from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYP
 from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
 import Windows.Win32.Foundation
 import Windows.Win32.Security
+import Windows.Win32.System.Com
 import Windows.Win32.System.Kernel
 import Windows.Win32.System.SystemInformation
 import Windows.Win32.System.SystemServices
@@ -96,53 +97,53 @@ def FlsFree(dwFlsIndex: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def IsThreadAFiber() -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def InitializeSRWLock(SRWLock: POINTER(Windows.Win32.System.Threading.RTL_SRWLOCK_head)) -> Void: ...
+def InitializeSRWLock(SRWLock: POINTER(Windows.Win32.System.Threading.SRWLOCK_head)) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def ReleaseSRWLockExclusive(SRWLock: POINTER(Windows.Win32.System.Threading.RTL_SRWLOCK_head)) -> Void: ...
+def ReleaseSRWLockExclusive(SRWLock: POINTER(Windows.Win32.System.Threading.SRWLOCK_head)) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def ReleaseSRWLockShared(SRWLock: POINTER(Windows.Win32.System.Threading.RTL_SRWLOCK_head)) -> Void: ...
+def ReleaseSRWLockShared(SRWLock: POINTER(Windows.Win32.System.Threading.SRWLOCK_head)) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def AcquireSRWLockExclusive(SRWLock: POINTER(Windows.Win32.System.Threading.RTL_SRWLOCK_head)) -> Void: ...
+def AcquireSRWLockExclusive(SRWLock: POINTER(Windows.Win32.System.Threading.SRWLOCK_head)) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def AcquireSRWLockShared(SRWLock: POINTER(Windows.Win32.System.Threading.RTL_SRWLOCK_head)) -> Void: ...
+def AcquireSRWLockShared(SRWLock: POINTER(Windows.Win32.System.Threading.SRWLOCK_head)) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def TryAcquireSRWLockExclusive(SRWLock: POINTER(Windows.Win32.System.Threading.RTL_SRWLOCK_head)) -> Windows.Win32.Foundation.BOOLEAN: ...
+def TryAcquireSRWLockExclusive(SRWLock: POINTER(Windows.Win32.System.Threading.SRWLOCK_head)) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('KERNEL32.dll')
-def TryAcquireSRWLockShared(SRWLock: POINTER(Windows.Win32.System.Threading.RTL_SRWLOCK_head)) -> Windows.Win32.Foundation.BOOLEAN: ...
+def TryAcquireSRWLockShared(SRWLock: POINTER(Windows.Win32.System.Threading.SRWLOCK_head)) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('KERNEL32.dll')
-def InitializeCriticalSection(lpCriticalSection: POINTER(Windows.Win32.System.Threading.RTL_CRITICAL_SECTION_head)) -> Void: ...
+def InitializeCriticalSection(lpCriticalSection: POINTER(Windows.Win32.System.Threading.CRITICAL_SECTION_head)) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def EnterCriticalSection(lpCriticalSection: POINTER(Windows.Win32.System.Threading.RTL_CRITICAL_SECTION_head)) -> Void: ...
+def EnterCriticalSection(lpCriticalSection: POINTER(Windows.Win32.System.Threading.CRITICAL_SECTION_head)) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def LeaveCriticalSection(lpCriticalSection: POINTER(Windows.Win32.System.Threading.RTL_CRITICAL_SECTION_head)) -> Void: ...
+def LeaveCriticalSection(lpCriticalSection: POINTER(Windows.Win32.System.Threading.CRITICAL_SECTION_head)) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def InitializeCriticalSectionAndSpinCount(lpCriticalSection: POINTER(Windows.Win32.System.Threading.RTL_CRITICAL_SECTION_head), dwSpinCount: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def InitializeCriticalSectionAndSpinCount(lpCriticalSection: POINTER(Windows.Win32.System.Threading.CRITICAL_SECTION_head), dwSpinCount: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def InitializeCriticalSectionEx(lpCriticalSection: POINTER(Windows.Win32.System.Threading.RTL_CRITICAL_SECTION_head), dwSpinCount: UInt32, Flags: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def InitializeCriticalSectionEx(lpCriticalSection: POINTER(Windows.Win32.System.Threading.CRITICAL_SECTION_head), dwSpinCount: UInt32, Flags: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def SetCriticalSectionSpinCount(lpCriticalSection: POINTER(Windows.Win32.System.Threading.RTL_CRITICAL_SECTION_head), dwSpinCount: UInt32) -> UInt32: ...
+def SetCriticalSectionSpinCount(lpCriticalSection: POINTER(Windows.Win32.System.Threading.CRITICAL_SECTION_head), dwSpinCount: UInt32) -> UInt32: ...
 @winfunctype('KERNEL32.dll')
-def TryEnterCriticalSection(lpCriticalSection: POINTER(Windows.Win32.System.Threading.RTL_CRITICAL_SECTION_head)) -> Windows.Win32.Foundation.BOOL: ...
+def TryEnterCriticalSection(lpCriticalSection: POINTER(Windows.Win32.System.Threading.CRITICAL_SECTION_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def DeleteCriticalSection(lpCriticalSection: POINTER(Windows.Win32.System.Threading.RTL_CRITICAL_SECTION_head)) -> Void: ...
+def DeleteCriticalSection(lpCriticalSection: POINTER(Windows.Win32.System.Threading.CRITICAL_SECTION_head)) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def InitOnceInitialize(InitOnce: POINTER(Windows.Win32.System.Threading.RTL_RUN_ONCE_head)) -> Void: ...
+def InitOnceInitialize(InitOnce: POINTER(Windows.Win32.System.Threading.INIT_ONCE_head)) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def InitOnceExecuteOnce(InitOnce: POINTER(Windows.Win32.System.Threading.RTL_RUN_ONCE_head), InitFn: Windows.Win32.System.Threading.PINIT_ONCE_FN, Parameter: c_void_p, Context: POINTER(c_void_p)) -> Windows.Win32.Foundation.BOOL: ...
+def InitOnceExecuteOnce(InitOnce: POINTER(Windows.Win32.System.Threading.INIT_ONCE_head), InitFn: Windows.Win32.System.Threading.PINIT_ONCE_FN, Parameter: c_void_p, Context: POINTER(c_void_p)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def InitOnceBeginInitialize(lpInitOnce: POINTER(Windows.Win32.System.Threading.RTL_RUN_ONCE_head), dwFlags: UInt32, fPending: POINTER(Windows.Win32.Foundation.BOOL), lpContext: POINTER(c_void_p)) -> Windows.Win32.Foundation.BOOL: ...
+def InitOnceBeginInitialize(lpInitOnce: POINTER(Windows.Win32.System.Threading.INIT_ONCE_head), dwFlags: UInt32, fPending: POINTER(Windows.Win32.Foundation.BOOL), lpContext: POINTER(c_void_p)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def InitOnceComplete(lpInitOnce: POINTER(Windows.Win32.System.Threading.RTL_RUN_ONCE_head), dwFlags: UInt32, lpContext: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def InitOnceComplete(lpInitOnce: POINTER(Windows.Win32.System.Threading.INIT_ONCE_head), dwFlags: UInt32, lpContext: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def InitializeConditionVariable(ConditionVariable: POINTER(Windows.Win32.System.Threading.RTL_CONDITION_VARIABLE_head)) -> Void: ...
+def InitializeConditionVariable(ConditionVariable: POINTER(Windows.Win32.System.Threading.CONDITION_VARIABLE_head)) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def WakeConditionVariable(ConditionVariable: POINTER(Windows.Win32.System.Threading.RTL_CONDITION_VARIABLE_head)) -> Void: ...
+def WakeConditionVariable(ConditionVariable: POINTER(Windows.Win32.System.Threading.CONDITION_VARIABLE_head)) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def WakeAllConditionVariable(ConditionVariable: POINTER(Windows.Win32.System.Threading.RTL_CONDITION_VARIABLE_head)) -> Void: ...
+def WakeAllConditionVariable(ConditionVariable: POINTER(Windows.Win32.System.Threading.CONDITION_VARIABLE_head)) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def SleepConditionVariableCS(ConditionVariable: POINTER(Windows.Win32.System.Threading.RTL_CONDITION_VARIABLE_head), CriticalSection: POINTER(Windows.Win32.System.Threading.RTL_CRITICAL_SECTION_head), dwMilliseconds: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def SleepConditionVariableCS(ConditionVariable: POINTER(Windows.Win32.System.Threading.CONDITION_VARIABLE_head), CriticalSection: POINTER(Windows.Win32.System.Threading.CRITICAL_SECTION_head), dwMilliseconds: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def SleepConditionVariableSRW(ConditionVariable: POINTER(Windows.Win32.System.Threading.RTL_CONDITION_VARIABLE_head), SRWLock: POINTER(Windows.Win32.System.Threading.RTL_SRWLOCK_head), dwMilliseconds: UInt32, Flags: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def SleepConditionVariableSRW(ConditionVariable: POINTER(Windows.Win32.System.Threading.CONDITION_VARIABLE_head), SRWLock: POINTER(Windows.Win32.System.Threading.SRWLOCK_head), dwMilliseconds: UInt32, Flags: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def SetEvent(hEvent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -196,11 +197,11 @@ def CreateSemaphoreExW(lpSemaphoreAttributes: POINTER(Windows.Win32.Security.SEC
 @winfunctype('KERNEL32.dll')
 def CreateWaitableTimerExW(lpTimerAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), lpTimerName: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, dwDesiredAccess: UInt32) -> Windows.Win32.Foundation.HANDLE: ...
 @winfunctype('KERNEL32.dll')
-def EnterSynchronizationBarrier(lpBarrier: POINTER(Windows.Win32.System.Threading.RTL_BARRIER_head), dwFlags: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def EnterSynchronizationBarrier(lpBarrier: POINTER(Windows.Win32.System.Threading.SYNCHRONIZATION_BARRIER_head), dwFlags: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def InitializeSynchronizationBarrier(lpBarrier: POINTER(Windows.Win32.System.Threading.RTL_BARRIER_head), lTotalThreads: Int32, lSpinCount: Int32) -> Windows.Win32.Foundation.BOOL: ...
+def InitializeSynchronizationBarrier(lpBarrier: POINTER(Windows.Win32.System.Threading.SYNCHRONIZATION_BARRIER_head), lTotalThreads: Int32, lSpinCount: Int32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def DeleteSynchronizationBarrier(lpBarrier: POINTER(Windows.Win32.System.Threading.RTL_BARRIER_head)) -> Windows.Win32.Foundation.BOOL: ...
+def DeleteSynchronizationBarrier(lpBarrier: POINTER(Windows.Win32.System.Threading.SYNCHRONIZATION_BARRIER_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def Sleep(dwMilliseconds: UInt32) -> Void: ...
 @winfunctype('api-ms-win-core-synch-l1-2-0.dll')
@@ -430,11 +431,11 @@ def QueryThreadpoolStackInformation(ptpp: Windows.Win32.System.Threading.PTP_POO
 @winfunctype('KERNEL32.dll')
 def CloseThreadpool(ptpp: Windows.Win32.System.Threading.PTP_POOL) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def CreateThreadpoolCleanupGroup() -> IntPtr: ...
+def CreateThreadpoolCleanupGroup() -> Windows.Win32.System.Threading.PTP_CLEANUP_GROUP: ...
 @winfunctype('KERNEL32.dll')
-def CloseThreadpoolCleanupGroupMembers(ptpcg: IntPtr, fCancelPendingCallbacks: Windows.Win32.Foundation.BOOL, pvCleanupContext: c_void_p) -> Void: ...
+def CloseThreadpoolCleanupGroupMembers(ptpcg: Windows.Win32.System.Threading.PTP_CLEANUP_GROUP, fCancelPendingCallbacks: Windows.Win32.Foundation.BOOL, pvCleanupContext: c_void_p) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def CloseThreadpoolCleanupGroup(ptpcg: IntPtr) -> Void: ...
+def CloseThreadpoolCleanupGroup(ptpcg: Windows.Win32.System.Threading.PTP_CLEANUP_GROUP) -> Void: ...
 @winfunctype('KERNEL32.dll')
 def SetEventWhenCallbackReturns(pci: Windows.Win32.System.Threading.PTP_CALLBACK_INSTANCE, evt: Windows.Win32.Foundation.HANDLE) -> Void: ...
 @winfunctype('KERNEL32.dll')
@@ -442,7 +443,7 @@ def ReleaseSemaphoreWhenCallbackReturns(pci: Windows.Win32.System.Threading.PTP_
 @winfunctype('KERNEL32.dll')
 def ReleaseMutexWhenCallbackReturns(pci: Windows.Win32.System.Threading.PTP_CALLBACK_INSTANCE, mut: Windows.Win32.Foundation.HANDLE) -> Void: ...
 @winfunctype('KERNEL32.dll')
-def LeaveCriticalSectionWhenCallbackReturns(pci: Windows.Win32.System.Threading.PTP_CALLBACK_INSTANCE, pcs: POINTER(Windows.Win32.System.Threading.RTL_CRITICAL_SECTION_head)) -> Void: ...
+def LeaveCriticalSectionWhenCallbackReturns(pci: Windows.Win32.System.Threading.PTP_CALLBACK_INSTANCE, pcs: POINTER(Windows.Win32.System.Threading.CRITICAL_SECTION_head)) -> Void: ...
 @winfunctype('KERNEL32.dll')
 def FreeLibraryWhenCallbackReturns(pci: Windows.Win32.System.Threading.PTP_CALLBACK_INSTANCE, mod: Windows.Win32.Foundation.HMODULE) -> Void: ...
 @winfunctype('KERNEL32.dll')
@@ -553,6 +554,72 @@ def AvRtLeaveThreadOrderingGroup(Context: Windows.Win32.Foundation.HANDLE) -> Wi
 def AvRtDeleteThreadOrderingGroup(Context: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('AVRT.dll')
 def AvQuerySystemResponsiveness(AvrtHandle: Windows.Win32.Foundation.HANDLE, SystemResponsivenessValue: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqStartup() -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqShutdown() -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqLockWorkQueue(workQueueId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqUnlockWorkQueue(workQueueId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqLockSharedWorkQueue(usageClass: Windows.Win32.Foundation.PWSTR, basePriority: Int32, taskId: POINTER(UInt32), id: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqJoinWorkQueue(workQueueId: UInt32, hFile: Windows.Win32.Foundation.HANDLE, out: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqUnjoinWorkQueue(workQueueId: UInt32, hFile: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqCreateAsyncResult(appObject: Windows.Win32.System.Com.IUnknown_head, callback: Windows.Win32.System.Threading.IRtwqAsyncCallback_head, appState: Windows.Win32.System.Com.IUnknown_head, asyncResult: POINTER(Windows.Win32.System.Threading.IRtwqAsyncResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqInvokeCallback(result: Windows.Win32.System.Threading.IRtwqAsyncResult_head) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqLockPlatform() -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqUnlockPlatform() -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqRegisterPlatformWithMMCSS(usageClass: Windows.Win32.Foundation.PWSTR, taskId: POINTER(UInt32), lPriority: Int32) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqUnregisterPlatformFromMMCSS() -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqPutWorkItem(dwQueue: UInt32, lPriority: Int32, result: Windows.Win32.System.Threading.IRtwqAsyncResult_head) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqPutWaitingWorkItem(hEvent: Windows.Win32.Foundation.HANDLE, lPriority: Int32, result: Windows.Win32.System.Threading.IRtwqAsyncResult_head, key: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqAllocateSerialWorkQueue(workQueueIdIn: UInt32, workQueueIdOut: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqScheduleWorkItem(result: Windows.Win32.System.Threading.IRtwqAsyncResult_head, Timeout: Int64, key: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqAddPeriodicCallback(Callback: Windows.Win32.System.Threading.RTWQPERIODICCALLBACK, context: Windows.Win32.System.Com.IUnknown_head, key: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqRemovePeriodicCallback(dwKey: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqCancelWorkItem(Key: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqAllocateWorkQueue(WorkQueueType: Windows.Win32.System.Threading.RTWQ_WORKQUEUE_TYPE, workQueueId: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqBeginRegisterWorkQueueWithMMCSS(workQueueId: UInt32, usageClass: Windows.Win32.Foundation.PWSTR, dwTaskId: UInt32, lPriority: Int32, doneCallback: Windows.Win32.System.Threading.IRtwqAsyncCallback_head, doneState: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqBeginUnregisterWorkQueueWithMMCSS(workQueueId: UInt32, doneCallback: Windows.Win32.System.Threading.IRtwqAsyncCallback_head, doneState: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqEndRegisterWorkQueueWithMMCSS(result: Windows.Win32.System.Threading.IRtwqAsyncResult_head, taskId: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqGetWorkQueueMMCSSClass(workQueueId: UInt32, usageClass: Windows.Win32.Foundation.PWSTR, usageClassLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqGetWorkQueueMMCSSTaskId(workQueueId: UInt32, taskId: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqGetWorkQueueMMCSSPriority(workQueueId: UInt32, priority: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqRegisterPlatformEvents(platformEvents: Windows.Win32.System.Threading.IRtwqPlatformEvents_head) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqUnregisterPlatformEvents(platformEvents: Windows.Win32.System.Threading.IRtwqPlatformEvents_head) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqSetLongRunning(workQueueId: UInt32, enable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqSetDeadline(workQueueId: UInt32, deadlineInHNS: Int64, pRequest: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqSetDeadline2(workQueueId: UInt32, deadlineInHNS: Int64, preDeadlineInHNS: Int64, pRequest: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('RTWorkQ.dll')
+def RtwqCancelDeadline(pRequest: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('USER32.dll')
 def AttachThreadInput(idAttach: UInt32, idAttachTo: UInt32, fAttach: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('USER32.dll')
@@ -600,9 +667,9 @@ def GetCurrentUmsThread() -> c_void_p: ...
 @winfunctype('KERNEL32.dll')
 def GetNextUmsListItem(UmsContext: c_void_p) -> c_void_p: ...
 @winfunctype('KERNEL32.dll')
-def QueryUmsThreadInformation(UmsThread: c_void_p, UmsThreadInfoClass: Windows.Win32.System.Threading.RTL_UMS_THREAD_INFO_CLASS, UmsThreadInformation: c_void_p, UmsThreadInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
+def QueryUmsThreadInformation(UmsThread: c_void_p, UmsThreadInfoClass: Windows.Win32.System.Threading.UMS_THREAD_INFO_CLASS, UmsThreadInformation: c_void_p, UmsThreadInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
-def SetUmsThreadInformation(UmsThread: c_void_p, UmsThreadInfoClass: Windows.Win32.System.Threading.RTL_UMS_THREAD_INFO_CLASS, UmsThreadInformation: c_void_p, UmsThreadInformationLength: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def SetUmsThreadInformation(UmsThread: c_void_p, UmsThreadInfoClass: Windows.Win32.System.Threading.UMS_THREAD_INFO_CLASS, UmsThreadInformation: c_void_p, UmsThreadInformationLength: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
 def DeleteUmsThreadContext(UmsThread: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('KERNEL32.dll')
@@ -677,18 +744,40 @@ def NtQueryInformationProcess(ProcessHandle: Windows.Win32.Foundation.HANDLE, Pr
 def NtQueryInformationThread(ThreadHandle: Windows.Win32.Foundation.HANDLE, ThreadInformationClass: Windows.Win32.System.Threading.THREADINFOCLASS, ThreadInformation: c_void_p, ThreadInformationLength: UInt32, ReturnLength: POINTER(UInt32)) -> Windows.Win32.Foundation.NTSTATUS: ...
 @winfunctype('ntdll.dll')
 def NtSetInformationThread(ThreadHandle: Windows.Win32.Foundation.HANDLE, ThreadInformationClass: Windows.Win32.System.Threading.THREADINFOCLASS, ThreadInformation: c_void_p, ThreadInformationLength: UInt32) -> Windows.Win32.Foundation.NTSTATUS: ...
-BoundaryDescriptorHandle = IntPtr
+class BoundaryDescriptorHandle(EasyCastStructure):
+    Value: IntPtr
+class CONDITION_VARIABLE(EasyCastStructure):
+    Ptr: c_void_p
 CREATE_EVENT = UInt32
 CREATE_EVENT_INITIAL_SET: CREATE_EVENT = 2
 CREATE_EVENT_MANUAL_RESET: CREATE_EVENT = 1
 CREATE_PROCESS_LOGON_FLAGS = UInt32
 LOGON_WITH_PROFILE: CREATE_PROCESS_LOGON_FLAGS = 1
 LOGON_NETCREDENTIALS_ONLY: CREATE_PROCESS_LOGON_FLAGS = 2
+class CRITICAL_SECTION(EasyCastStructure):
+    DebugInfo: POINTER(Windows.Win32.System.Threading.CRITICAL_SECTION_DEBUG_head)
+    LockCount: Int32
+    RecursionCount: Int32
+    OwningThread: Windows.Win32.Foundation.HANDLE
+    LockSemaphore: Windows.Win32.Foundation.HANDLE
+    SpinCount: UIntPtr
+class CRITICAL_SECTION_DEBUG(EasyCastStructure):
+    Type: UInt16
+    CreatorBackTraceIndex: UInt16
+    CriticalSection: POINTER(Windows.Win32.System.Threading.CRITICAL_SECTION_head)
+    ProcessLocksList: Windows.Win32.System.Kernel.LIST_ENTRY
+    EntryCount: UInt32
+    ContentionCount: UInt32
+    Flags: UInt32
+    CreatorBackTraceIndexHigh: UInt16
+    Identifier: UInt16
 GET_GUI_RESOURCES_FLAGS = UInt32
 GR_GDIOBJECTS: GET_GUI_RESOURCES_FLAGS = 0
 GR_GDIOBJECTS_PEAK: GET_GUI_RESOURCES_FLAGS = 2
 GR_USEROBJECTS: GET_GUI_RESOURCES_FLAGS = 1
 GR_USEROBJECTS_PEAK: GET_GUI_RESOURCES_FLAGS = 4
+class INIT_ONCE(EasyCastUnion):
+    Ptr: c_void_p
 class IO_COUNTERS(EasyCastStructure):
     ReadOperationCount: UInt64
     WriteOperationCount: UInt64
@@ -696,6 +785,35 @@ class IO_COUNTERS(EasyCastStructure):
     ReadTransferCount: UInt64
     WriteTransferCount: UInt64
     OtherTransferCount: UInt64
+class IRtwqAsyncCallback(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('a27003cf-2354-4f2a-8d-6a-ab-7c-ff-15-43-7e')
+    @commethod(3)
+    def GetParameters(self, pdwFlags: POINTER(UInt32), pdwQueue: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def Invoke(self, pAsyncResult: Windows.Win32.System.Threading.IRtwqAsyncResult_head) -> Windows.Win32.Foundation.HRESULT: ...
+class IRtwqAsyncResult(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('ac6b7889-0740-4d51-86-19-90-59-94-a5-5c-c6')
+    @commethod(3)
+    def GetState(self, ppunkState: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetStatus(self) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def SetStatus(self, hrStatus: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def GetObject(self, ppObject: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def GetStateNoAddRef(self) -> Windows.Win32.System.Com.IUnknown_head: ...
+class IRtwqPlatformEvents(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('63d9255a-7ff1-4b61-8f-af-ed-64-60-da-cf-2b')
+    @commethod(3)
+    def InitializationComplete(self) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def ShutdownStart(self) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def ShutdownComplete(self) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def LPFIBER_START_ROUTINE(lpFiberParameter: c_void_p) -> Void: ...
 LPPROC_THREAD_ATTRIBUTE_LIST = c_void_p
@@ -713,7 +831,8 @@ MEMORY_PRIORITY_BELOW_NORMAL: MEMORY_PRIORITY = 4
 MEMORY_PRIORITY_NORMAL: MEMORY_PRIORITY = 5
 class MEMORY_PRIORITY_INFORMATION(EasyCastStructure):
     MemoryPriority: Windows.Win32.System.Threading.MEMORY_PRIORITY
-NamespaceHandle = IntPtr
+class NamespaceHandle(EasyCastStructure):
+    Value: IntPtr
 class PEB(EasyCastStructure):
     Reserved1: Byte * 2
     BeingDebugged: Byte
@@ -741,7 +860,7 @@ class PEB_LDR_DATA(EasyCastStructure):
 @winfunctype_pointer
 def PFLS_CALLBACK_FUNCTION(lpFlsData: c_void_p) -> Void: ...
 @winfunctype_pointer
-def PINIT_ONCE_FN(InitOnce: POINTER(Windows.Win32.System.Threading.RTL_RUN_ONCE_head), Parameter: c_void_p, Context: POINTER(c_void_p)) -> Windows.Win32.Foundation.BOOL: ...
+def PINIT_ONCE_FN(InitOnce: POINTER(Windows.Win32.System.Threading.INIT_ONCE_head), Parameter: c_void_p, Context: POINTER(c_void_p)) -> Windows.Win32.Foundation.BOOL: ...
 POWER_REQUEST_CONTEXT_FLAGS = UInt32
 POWER_REQUEST_CONTEXT_DETAILED_STRING: POWER_REQUEST_CONTEXT_FLAGS = 2
 POWER_REQUEST_CONTEXT_SIMPLE_STRING: POWER_REQUEST_CONTEXT_FLAGS = 1
@@ -1037,6 +1156,7 @@ def PRTL_UMS_SCHEDULER_ENTRY_POINT(Reason: Windows.Win32.System.SystemServices.R
 @winfunctype_pointer
 def PTIMERAPCROUTINE(lpArgToCompletionRoutine: c_void_p, dwTimerLowValue: UInt32, dwTimerHighValue: UInt32) -> Void: ...
 PTP_CALLBACK_INSTANCE = IntPtr
+PTP_CLEANUP_GROUP = IntPtr
 @winfunctype_pointer
 def PTP_CLEANUP_GROUP_CANCEL_CALLBACK(ObjectContext: c_void_p, CleanupContext: c_void_p) -> Void: ...
 PTP_IO = IntPtr
@@ -1070,49 +1190,21 @@ class REASON_CONTEXT(EasyCastStructure):
             LocalizedReasonId: UInt32
             ReasonStringCount: UInt32
             ReasonStrings: POINTER(Windows.Win32.Foundation.PWSTR)
-class RTL_BARRIER(EasyCastStructure):
-    Reserved1: UInt32
-    Reserved2: UInt32
-    Reserved3: UIntPtr * 2
-    Reserved4: UInt32
-    Reserved5: UInt32
-class RTL_CONDITION_VARIABLE(EasyCastStructure):
-    Ptr: c_void_p
-class RTL_CRITICAL_SECTION(EasyCastStructure):
-    DebugInfo: POINTER(Windows.Win32.System.Threading.RTL_CRITICAL_SECTION_DEBUG_head)
-    LockCount: Int32
-    RecursionCount: Int32
-    OwningThread: Windows.Win32.Foundation.HANDLE
-    LockSemaphore: Windows.Win32.Foundation.HANDLE
-    SpinCount: UIntPtr
-class RTL_CRITICAL_SECTION_DEBUG(EasyCastStructure):
-    Type: UInt16
-    CreatorBackTraceIndex: UInt16
-    CriticalSection: POINTER(Windows.Win32.System.Threading.RTL_CRITICAL_SECTION_head)
-    ProcessLocksList: Windows.Win32.System.Kernel.LIST_ENTRY
-    EntryCount: UInt32
-    ContentionCount: UInt32
-    Flags: UInt32
-    CreatorBackTraceIndexHigh: UInt16
-    Identifier: UInt16
-class RTL_RUN_ONCE(EasyCastUnion):
-    Ptr: c_void_p
-class RTL_SRWLOCK(EasyCastStructure):
-    Ptr: c_void_p
-RTL_UMS_THREAD_INFO_CLASS = Int32
-RTL_UMS_THREAD_INFO_CLASS_UmsThreadInvalidInfoClass: RTL_UMS_THREAD_INFO_CLASS = 0
-RTL_UMS_THREAD_INFO_CLASS_UmsThreadUserContext: RTL_UMS_THREAD_INFO_CLASS = 1
-RTL_UMS_THREAD_INFO_CLASS_UmsThreadPriority: RTL_UMS_THREAD_INFO_CLASS = 2
-RTL_UMS_THREAD_INFO_CLASS_UmsThreadAffinity: RTL_UMS_THREAD_INFO_CLASS = 3
-RTL_UMS_THREAD_INFO_CLASS_UmsThreadTeb: RTL_UMS_THREAD_INFO_CLASS = 4
-RTL_UMS_THREAD_INFO_CLASS_UmsThreadIsSuspended: RTL_UMS_THREAD_INFO_CLASS = 5
-RTL_UMS_THREAD_INFO_CLASS_UmsThreadIsTerminated: RTL_UMS_THREAD_INFO_CLASS = 6
-RTL_UMS_THREAD_INFO_CLASS_UmsThreadMaxInfoClass: RTL_UMS_THREAD_INFO_CLASS = 7
 class RTL_USER_PROCESS_PARAMETERS(EasyCastStructure):
     Reserved1: Byte * 16
     Reserved2: c_void_p * 10
     ImagePathName: Windows.Win32.Foundation.UNICODE_STRING
     CommandLine: Windows.Win32.Foundation.UNICODE_STRING
+class RTWQASYNCRESULT(c_void_p):
+    extends: Windows.Win32.System.Threading.IRtwqAsyncResult
+@winfunctype_pointer
+def RTWQPERIODICCALLBACK(context: Windows.Win32.System.Com.IUnknown_head) -> Void: ...
+RTWQ_WORKQUEUE_TYPE = Int32
+RTWQ_STANDARD_WORKQUEUE: RTWQ_WORKQUEUE_TYPE = 0
+RTWQ_WINDOW_WORKQUEUE: RTWQ_WORKQUEUE_TYPE = 1
+RTWQ_MULTITHREADED_WORKQUEUE: RTWQ_WORKQUEUE_TYPE = 2
+class SRWLOCK(EasyCastStructure):
+    Ptr: c_void_p
 class STARTUPINFOA(EasyCastStructure):
     cb: UInt32
     lpReserved: Windows.Win32.Foundation.PSTR
@@ -1187,6 +1279,23 @@ SYNCHRONIZATION_READ_CONTROL: SYNCHRONIZATION_ACCESS_RIGHTS = 131072
 SYNCHRONIZATION_WRITE_DAC: SYNCHRONIZATION_ACCESS_RIGHTS = 262144
 SYNCHRONIZATION_WRITE_OWNER: SYNCHRONIZATION_ACCESS_RIGHTS = 524288
 SYNCHRONIZATION_SYNCHRONIZE: SYNCHRONIZATION_ACCESS_RIGHTS = 1048576
+class SYNCHRONIZATION_BARRIER(EasyCastStructure):
+    Reserved1: UInt32
+    Reserved2: UInt32
+    Reserved3: UIntPtr * 2
+    Reserved4: UInt32
+    Reserved5: UInt32
+class TEB(EasyCastStructure):
+    Reserved1: c_void_p * 12
+    ProcessEnvironmentBlock: POINTER(Windows.Win32.System.Threading.PEB_head)
+    Reserved2: c_void_p * 399
+    Reserved3: Byte * 1952
+    TlsSlots: c_void_p * 64
+    Reserved4: Byte * 8
+    Reserved5: c_void_p * 26
+    ReservedForOle: c_void_p
+    Reserved6: c_void_p * 4
+    TlsExpansionSlots: c_void_p
 THREADINFOCLASS = Int32
 THREADINFOCLASS_ThreadBasicInformation: THREADINFOCLASS = 0
 THREADINFOCLASS_ThreadTimes: THREADINFOCLASS = 1
@@ -1276,7 +1385,7 @@ THREAD_PRIORITY_TIME_CRITICAL: THREAD_PRIORITY = 15
 class TP_CALLBACK_ENVIRON_V3(EasyCastStructure):
     Version: UInt32
     Pool: Windows.Win32.System.Threading.PTP_POOL
-    CleanupGroup: IntPtr
+    CleanupGroup: Windows.Win32.System.Threading.PTP_CLEANUP_GROUP
     CleanupGroupCancelCallback: Windows.Win32.System.Threading.PTP_CLEANUP_GROUP_CANCEL_CALLBACK
     RaceDll: c_void_p
     ActivationContext: IntPtr
@@ -1284,8 +1393,6 @@ class TP_CALLBACK_ENVIRON_V3(EasyCastStructure):
     u: _u_e__Union
     CallbackPriority: Windows.Win32.System.Threading.TP_CALLBACK_PRIORITY
     Size: UInt32
-    class _ACTIVATION_CONTEXT(EasyCastStructure):
-        pass
     class _u_e__Union(EasyCastUnion):
         Flags: UInt32
         s: _s_e__Struct
@@ -1300,7 +1407,8 @@ TP_CALLBACK_PRIORITY_COUNT: TP_CALLBACK_PRIORITY = 3
 class TP_POOL_STACK_INFORMATION(EasyCastStructure):
     StackReserve: UIntPtr
     StackCommit: UIntPtr
-TimerQueueHandle = IntPtr
+class TimerQueueHandle(EasyCastStructure):
+    Value: IntPtr
 class UMS_SCHEDULER_STARTUP_INFO(EasyCastStructure):
     UmsVersion: UInt32
     CompletionList: c_void_p
@@ -1314,6 +1422,15 @@ class UMS_SYSTEM_THREAD_INFORMATION(EasyCastStructure):
         ThreadUmsFlags: UInt32
         class _Anonymous_e__Struct(EasyCastStructure):
             _bitfield: UInt32
+UMS_THREAD_INFO_CLASS = Int32
+UMS_THREAD_INFO_CLASS_UmsThreadInvalidInfoClass: UMS_THREAD_INFO_CLASS = 0
+UMS_THREAD_INFO_CLASS_UmsThreadUserContext: UMS_THREAD_INFO_CLASS = 1
+UMS_THREAD_INFO_CLASS_UmsThreadPriority: UMS_THREAD_INFO_CLASS = 2
+UMS_THREAD_INFO_CLASS_UmsThreadAffinity: UMS_THREAD_INFO_CLASS = 3
+UMS_THREAD_INFO_CLASS_UmsThreadTeb: UMS_THREAD_INFO_CLASS = 4
+UMS_THREAD_INFO_CLASS_UmsThreadIsSuspended: UMS_THREAD_INFO_CLASS = 5
+UMS_THREAD_INFO_CLASS_UmsThreadIsTerminated: UMS_THREAD_INFO_CLASS = 6
+UMS_THREAD_INFO_CLASS_UmsThreadMaxInfoClass: UMS_THREAD_INFO_CLASS = 7
 @winfunctype_pointer
 def WAITORTIMERCALLBACK(param0: c_void_p, param1: Windows.Win32.Foundation.BOOLEAN) -> Void: ...
 @winfunctype_pointer
@@ -1329,10 +1446,19 @@ WT_TRANSFER_IMPERSONATION: WORKER_THREAD_FLAGS = 256
 WT_EXECUTEINTIMERTHREAD: WORKER_THREAD_FLAGS = 32
 make_head(_module, 'APC_CALLBACK_FUNCTION')
 make_head(_module, 'APP_MEMORY_INFORMATION')
+make_head(_module, 'BoundaryDescriptorHandle')
+make_head(_module, 'CONDITION_VARIABLE')
+make_head(_module, 'CRITICAL_SECTION')
+make_head(_module, 'CRITICAL_SECTION_DEBUG')
+make_head(_module, 'INIT_ONCE')
 make_head(_module, 'IO_COUNTERS')
+make_head(_module, 'IRtwqAsyncCallback')
+make_head(_module, 'IRtwqAsyncResult')
+make_head(_module, 'IRtwqPlatformEvents')
 make_head(_module, 'LPFIBER_START_ROUTINE')
 make_head(_module, 'LPTHREAD_START_ROUTINE')
 make_head(_module, 'MEMORY_PRIORITY_INFORMATION')
+make_head(_module, 'NamespaceHandle')
 make_head(_module, 'PEB')
 make_head(_module, 'PEB_LDR_DATA')
 make_head(_module, 'PFLS_CALLBACK_FUNCTION')
@@ -1358,20 +1484,20 @@ make_head(_module, 'PTP_WAIT_CALLBACK')
 make_head(_module, 'PTP_WIN32_IO_CALLBACK')
 make_head(_module, 'PTP_WORK_CALLBACK')
 make_head(_module, 'REASON_CONTEXT')
-make_head(_module, 'RTL_BARRIER')
-make_head(_module, 'RTL_CONDITION_VARIABLE')
-make_head(_module, 'RTL_CRITICAL_SECTION')
-make_head(_module, 'RTL_CRITICAL_SECTION_DEBUG')
-make_head(_module, 'RTL_RUN_ONCE')
-make_head(_module, 'RTL_SRWLOCK')
 make_head(_module, 'RTL_USER_PROCESS_PARAMETERS')
+make_head(_module, 'RTWQASYNCRESULT')
+make_head(_module, 'RTWQPERIODICCALLBACK')
+make_head(_module, 'SRWLOCK')
 make_head(_module, 'STARTUPINFOA')
 make_head(_module, 'STARTUPINFOEXA')
 make_head(_module, 'STARTUPINFOEXW')
 make_head(_module, 'STARTUPINFOW')
+make_head(_module, 'SYNCHRONIZATION_BARRIER')
+make_head(_module, 'TEB')
 make_head(_module, 'THREAD_POWER_THROTTLING_STATE')
 make_head(_module, 'TP_CALLBACK_ENVIRON_V3')
 make_head(_module, 'TP_POOL_STACK_INFORMATION')
+make_head(_module, 'TimerQueueHandle')
 make_head(_module, 'UMS_SCHEDULER_STARTUP_INFO')
 make_head(_module, 'UMS_SYSTEM_THREAD_INFORMATION')
 make_head(_module, 'WAITORTIMERCALLBACK')

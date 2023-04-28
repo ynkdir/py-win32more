@@ -3,6 +3,7 @@ from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYP
 from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
+import Windows.Win32.System.Variant
 import Windows.Win32.System.WinRT
 import Windows.Win32.System.WinRT.Metadata
 import sys
@@ -1021,9 +1022,9 @@ class IMetaDataDispenserEx(c_void_p):
     extends: Windows.Win32.System.WinRT.Metadata.IMetaDataDispenser
     Guid = Guid('31bcfce2-dafb-11d2-9f-81-00-c0-4f-79-a0-a3')
     @commethod(6)
-    def SetOption(self, optionid: POINTER(Guid), value: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetOption(self, optionid: POINTER(Guid), value: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetOption(self, optionid: POINTER(Guid), pvalue: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetOption(self, optionid: POINTER(Guid), pvalue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def OpenScopeOnITypeInfo(self, pITI: Windows.Win32.System.Com.ITypeInfo_head, dwOpenFlags: UInt32, riid: POINTER(Guid), ppIUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)

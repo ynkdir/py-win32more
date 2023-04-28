@@ -4201,6 +4201,7 @@ def LPDDENUMSURFACESCALLBACK2(param0: Windows.Win32.Graphics.DirectDraw.IDirectD
 def LPDDENUMSURFACESCALLBACK7(param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface7_head, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC2_head), param2: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def LPDDENUMVIDEOCALLBACK(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTCAPS_head), param1: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+LPDDFXROP = IntPtr
 @winfunctype_pointer
 def LPDDGAMMACALIBRATORPROC(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDGAMMARAMP_head), param1: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
@@ -4349,13 +4350,11 @@ class MDL(EasyCastStructure):
     MdlNext: POINTER(Windows.Win32.Graphics.DirectDraw.MDL_head)
     MdlSize: Int16
     MdlFlags: Int16
-    Process: POINTER(_EPROCESS)
+    Process: IntPtr
     lpMappedSystemVa: POINTER(UInt32)
     lpStartVa: POINTER(UInt32)
     ByteCount: UInt32
     ByteOffset: UInt32
-    class _EPROCESS(EasyCastStructure):
-        pass
 @winfunctype_pointer
 def PDD_ALPHABLT(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD_BLTDATA_head)) -> UInt32: ...
 @winfunctype_pointer
@@ -4371,7 +4370,8 @@ def PDD_CREATESURFACEEX(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD_CRE
 @winfunctype_pointer
 def PDD_DESTROYDDLOCAL(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DESTROYDDLOCALDATA_head)) -> UInt32: ...
 @winfunctype_pointer
-def PDD_DESTROYDRIVER(param0: POINTER(Windows.Win32.Graphics.DirectDraw._DD_DESTROYDRIVERDATA_head)) -> UInt32: ...
+def PDD_DESTROYDRIVER(param0: Windows.Win32.Graphics.DirectDraw.PDD_DESTROYDRIVERDATA) -> UInt32: ...
+PDD_DESTROYDRIVERDATA = IntPtr
 @winfunctype_pointer
 def PDD_FLIPTOGDISURFACE(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD_FLIPTOGDISURFACEDATA_head)) -> UInt32: ...
 @winfunctype_pointer
@@ -4384,6 +4384,7 @@ def PDD_GETDRIVERINFO(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD_GETDR
 def PDD_GETDRIVERSTATE(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD_GETDRIVERSTATEDATA_head)) -> UInt32: ...
 @winfunctype_pointer
 def PDD_GETSCANLINE(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD_GETSCANLINEDATA_head)) -> UInt32: ...
+PDD_GETVPORTAUTOFLIPSURFACEDATA = IntPtr
 @winfunctype_pointer
 def PDD_KERNELCB_SYNCSURFACE(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SYNCSURFACEDATA_head)) -> UInt32: ...
 @winfunctype_pointer
@@ -4419,7 +4420,8 @@ def PDD_SETCOLORKEY(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD_DRVSETC
 @winfunctype_pointer
 def PDD_SETEXCLUSIVEMODE(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD_SETEXCLUSIVEMODEDATA_head)) -> UInt32: ...
 @winfunctype_pointer
-def PDD_SETMODE(param0: POINTER(Windows.Win32.Graphics.DirectDraw._DD_SETMODEDATA_head)) -> UInt32: ...
+def PDD_SETMODE(param0: Windows.Win32.Graphics.DirectDraw.PDD_SETMODEDATA) -> UInt32: ...
+PDD_SETMODEDATA = IntPtr
 @winfunctype_pointer
 def PDD_SURFCB_ADDATTACHEDSURFACE(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD_ADDATTACHEDSURFACEDATA_head)) -> UInt32: ...
 @winfunctype_pointer
@@ -4457,7 +4459,7 @@ def PDD_VPORTCB_DESTROYVPORT(param0: POINTER(Windows.Win32.Graphics.DirectDraw.D
 @winfunctype_pointer
 def PDD_VPORTCB_FLIP(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD_FLIPVPORTDATA_head)) -> UInt32: ...
 @winfunctype_pointer
-def PDD_VPORTCB_GETAUTOFLIPSURF(param0: POINTER(Windows.Win32.Graphics.DirectDraw._DD_GETVPORTAUTOFLIPSURFACEDATA_head)) -> UInt32: ...
+def PDD_VPORTCB_GETAUTOFLIPSURF(param0: Windows.Win32.Graphics.DirectDraw.PDD_GETVPORTAUTOFLIPSURFACEDATA) -> UInt32: ...
 @winfunctype_pointer
 def PDD_VPORTCB_GETBANDWIDTH(param0: POINTER(Windows.Win32.Graphics.DirectDraw.DD_GETVPORTBANDWIDTHDATA_head)) -> UInt32: ...
 @winfunctype_pointer
@@ -4621,14 +4623,6 @@ class VMEMR(EasyCastStructure):
     flags: UInt32
     pBits: UIntPtr
     bDiscardable: Windows.Win32.Foundation.BOOL
-class _DDFXROP(EasyCastStructure):
-    pass
-class _DD_DESTROYDRIVERDATA(EasyCastStructure):
-    pass
-class _DD_GETVPORTAUTOFLIPSURFACEDATA(EasyCastStructure):
-    pass
-class _DD_SETMODEDATA(EasyCastStructure):
-    pass
 make_head(_module, 'ACCESSRECTLIST')
 make_head(_module, 'ATTACHLIST')
 make_head(_module, 'DBLNODE')
@@ -5073,7 +5067,3 @@ make_head(_module, 'VIDMEMINFO')
 make_head(_module, 'VMEMHEAP')
 make_head(_module, 'VMEML')
 make_head(_module, 'VMEMR')
-make_head(_module, '_DDFXROP')
-make_head(_module, '_DD_DESTROYDRIVERDATA')
-make_head(_module, '_DD_GETVPORTAUTOFLIPSURFACEDATA')
-make_head(_module, '_DD_SETMODEDATA')

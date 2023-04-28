@@ -4,6 +4,7 @@ from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, 
 import Windows.Win32.Foundation
 import Windows.Win32.Storage.DataDeduplication
 import Windows.Win32.System.Com
+import Windows.Win32.System.Variant
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
@@ -97,7 +98,7 @@ class IDedupChunkLibrary(c_void_p):
     @commethod(4)
     def Uninitialize(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def SetParameter(self, dwParamType: UInt32, vParamValue: Windows.Win32.System.Com.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetParameter(self, dwParamType: UInt32, vParamValue: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def StartChunking(self, iidIteratorInterfaceID: Guid, ppChunksEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDedupDataPort(c_void_p):

@@ -499,9 +499,9 @@ PROCESS_TRACE_MODE_RAW_TIMESTAMP: UInt32 = 4096
 PROCESS_TRACE_MODE_EVENT_RECORD: UInt32 = 268435456
 CLSID_TraceRelogger: Guid = Guid('7b40792d-05ff-44c4-90-58-f4-40-c7-1f-17-d4')
 @winfunctype('ADVAPI32.dll')
-def StartTraceW(TraceHandle: POINTER(Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE), InstanceName: Windows.Win32.Foundation.PWSTR, Properties: POINTER(Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES_head)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def StartTraceW(TraceHandle: POINTER(Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE_head), InstanceName: Windows.Win32.Foundation.PWSTR, Properties: POINTER(Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES_head)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
-def StartTraceA(TraceHandle: POINTER(Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE), InstanceName: Windows.Win32.Foundation.PSTR, Properties: POINTER(Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES_head)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def StartTraceA(TraceHandle: POINTER(Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE_head), InstanceName: Windows.Win32.Foundation.PSTR, Properties: POINTER(Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES_head)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def StopTraceW(TraceHandle: Windows.Win32.System.Diagnostics.Etw.CONTROLTRACE_HANDLE, InstanceName: Windows.Win32.Foundation.PWSTR, Properties: POINTER(Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_PROPERTIES_head)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
@@ -561,9 +561,23 @@ def GetTraceEnableFlags(TraceHandle: UInt64) -> UInt32: ...
 @winfunctype('ADVAPI32.dll')
 def OpenTraceW(Logfile: POINTER(Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_LOGFILEW_head)) -> Windows.Win32.System.Diagnostics.Etw.PROCESSTRACE_HANDLE: ...
 @winfunctype('ADVAPI32.dll')
-def ProcessTrace(HandleArray: POINTER(Windows.Win32.System.Diagnostics.Etw.PROCESSTRACE_HANDLE), HandleCount: UInt32, StartTime: POINTER(Windows.Win32.Foundation.FILETIME_head), EndTime: POINTER(Windows.Win32.Foundation.FILETIME_head)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+def ProcessTrace(HandleArray: POINTER(Windows.Win32.System.Diagnostics.Etw.PROCESSTRACE_HANDLE_head), HandleCount: UInt32, StartTime: POINTER(Windows.Win32.Foundation.FILETIME_head), EndTime: POINTER(Windows.Win32.Foundation.FILETIME_head)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
 def CloseTrace(TraceHandle: Windows.Win32.System.Diagnostics.Etw.PROCESSTRACE_HANDLE) -> Windows.Win32.Foundation.WIN32_ERROR: ...
+@winfunctype('ADVAPI32.dll')
+def OpenTraceFromBufferStream(Options: POINTER(Windows.Win32.System.Diagnostics.Etw.ETW_OPEN_TRACE_OPTIONS_head), BufferCompletionCallback: Windows.Win32.System.Diagnostics.Etw.PETW_BUFFER_COMPLETION_CALLBACK, BufferCompletionContext: c_void_p) -> UInt64: ...
+@winfunctype('ADVAPI32.dll')
+def OpenTraceFromRealTimeLogger(LoggerName: Windows.Win32.Foundation.PWSTR, Options: POINTER(Windows.Win32.System.Diagnostics.Etw.ETW_OPEN_TRACE_OPTIONS_head), LogFileHeader: POINTER(Windows.Win32.System.Diagnostics.Etw.TRACE_LOGFILE_HEADER_head)) -> UInt64: ...
+@winfunctype('ADVAPI32.dll')
+def OpenTraceFromRealTimeLoggerWithAllocationOptions(LoggerName: Windows.Win32.Foundation.PWSTR, Options: POINTER(Windows.Win32.System.Diagnostics.Etw.ETW_OPEN_TRACE_OPTIONS_head), AllocationSize: UIntPtr, MemoryPartitionHandle: Windows.Win32.Foundation.HANDLE, LogFileHeader: POINTER(Windows.Win32.System.Diagnostics.Etw.TRACE_LOGFILE_HEADER_head)) -> UInt64: ...
+@winfunctype('ADVAPI32.dll')
+def OpenTraceFromFile(LogFileName: Windows.Win32.Foundation.PWSTR, Options: POINTER(Windows.Win32.System.Diagnostics.Etw.ETW_OPEN_TRACE_OPTIONS_head), LogFileHeader: POINTER(Windows.Win32.System.Diagnostics.Etw.TRACE_LOGFILE_HEADER_head)) -> UInt64: ...
+@winfunctype('ADVAPI32.dll')
+def ProcessTraceBufferIncrementReference(TraceHandle: UInt64, Buffer: POINTER(Windows.Win32.System.Diagnostics.Etw.ETW_BUFFER_HEADER_head)) -> UInt32: ...
+@winfunctype('ADVAPI32.dll')
+def ProcessTraceBufferDecrementReference(Buffer: POINTER(Windows.Win32.System.Diagnostics.Etw.ETW_BUFFER_HEADER_head)) -> UInt32: ...
+@winfunctype('ADVAPI32.dll')
+def ProcessTraceAddBufferToBufferStream(TraceHandle: UInt64, Buffer: POINTER(Windows.Win32.System.Diagnostics.Etw.ETW_BUFFER_HEADER_head), BufferSize: UInt32) -> UInt32: ...
 @winfunctype('ADVAPI32.dll')
 def QueryTraceProcessingHandle(ProcessingHandle: Windows.Win32.System.Diagnostics.Etw.PROCESSTRACE_HANDLE, InformationClass: Windows.Win32.System.Diagnostics.Etw.ETW_PROCESS_HANDLE_INFO_TYPE, InBuffer: c_void_p, InBufferSize: UInt32, OutBuffer: c_void_p, OutBufferSize: UInt32, ReturnLength: POINTER(UInt32)) -> Windows.Win32.Foundation.WIN32_ERROR: ...
 @winfunctype('ADVAPI32.dll')
@@ -662,7 +676,8 @@ class CLASSIC_EVENT_ID(EasyCastStructure):
     EventGuid: Guid
     Type: Byte
     Reserved: Byte * 7
-CONTROLTRACE_HANDLE = UInt64
+class CONTROLTRACE_HANDLE(EasyCastStructure):
+    Value: UInt64
 CTraceRelogger = Guid('7b40792d-05ff-44c4-90-58-f4-40-c7-1f-17-d4')
 DECODING_SOURCE = Int32
 DECODING_SOURCE_DecodingSourceXMLFile: DECODING_SOURCE = 0
@@ -1195,9 +1210,9 @@ class ITraceRelogger(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f754ad43-3bcc-4286-80-09-9c-5d-a2-14-e8-4e')
     @commethod(3)
-    def AddLogfileTraceStream(self, LogfileName: Windows.Win32.Foundation.BSTR, UserContext: c_void_p, TraceHandle: POINTER(Windows.Win32.System.Diagnostics.Etw.RELOGSTREAM_HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
+    def AddLogfileTraceStream(self, LogfileName: Windows.Win32.Foundation.BSTR, UserContext: c_void_p, TraceHandle: POINTER(Windows.Win32.System.Diagnostics.Etw.RELOGSTREAM_HANDLE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def AddRealtimeTraceStream(self, LoggerName: Windows.Win32.Foundation.BSTR, UserContext: c_void_p, TraceHandle: POINTER(Windows.Win32.System.Diagnostics.Etw.RELOGSTREAM_HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
+    def AddRealtimeTraceStream(self, LoggerName: Windows.Win32.Foundation.BSTR, UserContext: c_void_p, TraceHandle: POINTER(Windows.Win32.System.Diagnostics.Etw.RELOGSTREAM_HANDLE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def RegisterCallback(self, Callback: Windows.Win32.System.Diagnostics.Etw.ITraceEventCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -1263,7 +1278,8 @@ def PEVENT_RECORD_CALLBACK(EventRecord: POINTER(Windows.Win32.System.Diagnostics
 def PEVENT_TRACE_BUFFER_CALLBACKA(Logfile: POINTER(Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_LOGFILEA_head)) -> UInt32: ...
 @winfunctype_pointer
 def PEVENT_TRACE_BUFFER_CALLBACKW(Logfile: POINTER(Windows.Win32.System.Diagnostics.Etw.EVENT_TRACE_LOGFILEW_head)) -> UInt32: ...
-PROCESSTRACE_HANDLE = UInt64
+class PROCESSTRACE_HANDLE(EasyCastStructure):
+    Value: UInt64
 class PROFILE_SOURCE_INFO(EasyCastStructure):
     NextEntryOffset: UInt32
     Source: UInt32
@@ -1307,7 +1323,8 @@ class PROVIDER_FILTER_INFO(EasyCastStructure):
     Reserved: UInt32
     PropertyCount: UInt32
     EventPropertyInfoArray: Windows.Win32.System.Diagnostics.Etw.EVENT_PROPERTY_INFO * 1
-RELOGSTREAM_HANDLE = UInt64
+class RELOGSTREAM_HANDLE(EasyCastStructure):
+    Value: UInt64
 class TDH_CONTEXT(EasyCastStructure):
     ParameterValue: UInt64
     ParameterType: Windows.Win32.System.Diagnostics.Etw.TDH_CONTEXT_TYPE
@@ -1717,6 +1734,7 @@ TDH_OUTTYPE_DATETIME_UTC: _TDH_OUT_TYPE = 38
 TDH_OUTTYPE_REDUCEDSTRING: _TDH_OUT_TYPE = 300
 TDH_OUTTYPE_NOPRINT: _TDH_OUT_TYPE = 301
 make_head(_module, 'CLASSIC_EVENT_ID')
+make_head(_module, 'CONTROLTRACE_HANDLE')
 make_head(_module, 'ENABLE_TRACE_PARAMETERS')
 make_head(_module, 'ENABLE_TRACE_PARAMETERS_V1')
 make_head(_module, 'ETW_BUFFER_CALLBACK_INFORMATION')
@@ -1773,6 +1791,7 @@ make_head(_module, 'PEVENT_CALLBACK')
 make_head(_module, 'PEVENT_RECORD_CALLBACK')
 make_head(_module, 'PEVENT_TRACE_BUFFER_CALLBACKA')
 make_head(_module, 'PEVENT_TRACE_BUFFER_CALLBACKW')
+make_head(_module, 'PROCESSTRACE_HANDLE')
 make_head(_module, 'PROFILE_SOURCE_INFO')
 make_head(_module, 'PROPERTY_DATA_DESCRIPTOR')
 make_head(_module, 'PROVIDER_ENUMERATION_INFO')
@@ -1780,6 +1799,7 @@ make_head(_module, 'PROVIDER_EVENT_INFO')
 make_head(_module, 'PROVIDER_FIELD_INFO')
 make_head(_module, 'PROVIDER_FIELD_INFOARRAY')
 make_head(_module, 'PROVIDER_FILTER_INFO')
+make_head(_module, 'RELOGSTREAM_HANDLE')
 make_head(_module, 'TDH_CONTEXT')
 make_head(_module, 'TRACE_ENABLE_INFO')
 make_head(_module, 'TRACE_EVENT_INFO')

@@ -15,6 +15,7 @@ import Windows.Win32.System.Com
 import Windows.Win32.System.Ole
 import Windows.Win32.System.Power
 import Windows.Win32.System.Registry
+import Windows.Win32.System.Variant
 import Windows.Win32.UI.WindowsAndMessaging
 import sys
 _module = sys.modules[__name__]
@@ -2912,9 +2913,9 @@ class IPrintPipelinePropertyBag(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8b8c99dc-7892-4a95-8a-04-57-42-2e-9f-bb-47')
     @commethod(3)
-    def AddProperty(self, pszName: Windows.Win32.Foundation.PWSTR, pVar: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def AddProperty(self, pszName: Windows.Win32.Foundation.PWSTR, pVar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetProperty(self, pszName: Windows.Win32.Foundation.PWSTR, pVar: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetProperty(self, pszName: Windows.Win32.Foundation.PWSTR, pVar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def DeleteProperty(self, pszName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.BOOL: ...
 class IPrintPreviewDxgiPackageTarget(c_void_p):
@@ -3061,9 +3062,9 @@ class IPrintSchemaParameterInitializer(c_void_p):
     extends: Windows.Win32.Graphics.Printing.IPrintSchemaElement
     Guid = Guid('52027082-0b74-4648-95-64-82-8c-c6-cb-65-6c')
     @commethod(10)
-    def get_Value(self, pVar: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def get_Value(self, pVar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def put_Value(self, pVar: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def put_Value(self, pVar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintSchemaTicket(c_void_p):
     extends: Windows.Win32.Graphics.Printing.IPrintSchemaElement
     Guid = Guid('e480b861-4708-4e6d-a5-b4-a2-b4-ee-b9-ba-a4')

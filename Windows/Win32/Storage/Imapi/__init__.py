@@ -304,11 +304,11 @@ IMAPI_E_CANNOT_WRITE_TO_MEDIA: Windows.Win32.Foundation.HRESULT = -2147220948
 IMAPI_E_TRACK_NOT_BIG_ENOUGH: Windows.Win32.Foundation.HRESULT = -2147220947
 IMAPI_E_BOOTIMAGE_AND_NONBLANK_DISC: Windows.Win32.Foundation.HRESULT = -2147220946
 @winfunctype('MAPI32.dll')
-def OpenIMsgSession(lpMalloc: Windows.Win32.System.Com.IMalloc_head, ulFlags: UInt32, lppMsgSess: POINTER(POINTER(Windows.Win32.Storage.Imapi._MSGSESS_head))) -> Int32: ...
+def OpenIMsgSession(lpMalloc: Windows.Win32.System.Com.IMalloc_head, ulFlags: UInt32, lppMsgSess: POINTER(Windows.Win32.Storage.Imapi.LPMSGSESS)) -> Int32: ...
 @winfunctype('MAPI32.dll')
-def CloseIMsgSession(lpMsgSess: POINTER(Windows.Win32.Storage.Imapi._MSGSESS_head)) -> Void: ...
+def CloseIMsgSession(lpMsgSess: Windows.Win32.Storage.Imapi.LPMSGSESS) -> Void: ...
 @winfunctype('MAPI32.dll')
-def OpenIMsgOnIStg(lpMsgSess: POINTER(Windows.Win32.Storage.Imapi._MSGSESS_head), lpAllocateBuffer: Windows.Win32.System.AddressBook.LPALLOCATEBUFFER, lpAllocateMore: Windows.Win32.System.AddressBook.LPALLOCATEMORE, lpFreeBuffer: Windows.Win32.System.AddressBook.LPFREEBUFFER, lpMalloc: Windows.Win32.System.Com.IMalloc_head, lpMapiSup: c_void_p, lpStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, lpfMsgCallRelease: POINTER(Windows.Win32.Storage.Imapi.MSGCALLRELEASE), ulCallerData: UInt32, ulFlags: UInt32, lppMsg: POINTER(Windows.Win32.System.AddressBook.IMessage_head)) -> Int32: ...
+def OpenIMsgOnIStg(lpMsgSess: Windows.Win32.Storage.Imapi.LPMSGSESS, lpAllocateBuffer: Windows.Win32.System.AddressBook.LPALLOCATEBUFFER, lpAllocateMore: Windows.Win32.System.AddressBook.LPALLOCATEMORE, lpFreeBuffer: Windows.Win32.System.AddressBook.LPFREEBUFFER, lpMalloc: Windows.Win32.System.Com.IMalloc_head, lpMapiSup: c_void_p, lpStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, lpfMsgCallRelease: POINTER(Windows.Win32.Storage.Imapi.MSGCALLRELEASE), ulCallerData: UInt32, ulFlags: UInt32, lppMsg: POINTER(Windows.Win32.System.AddressBook.IMessage_head)) -> Int32: ...
 @winfunctype('MAPI32.dll')
 def GetAttribIMsgOnIStg(lpObject: c_void_p, lpPropTagArray: POINTER(Windows.Win32.System.AddressBook.SPropTagArray_head), lppPropAttrArray: POINTER(POINTER(Windows.Win32.Storage.Imapi.SPropAttrArray_head))) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('MAPI32.dll')
@@ -1680,6 +1680,7 @@ class IWriteSpeedDescriptor(c_void_p):
     def get_RotationTypeIsPureCAV(self, value: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_WriteSpeed(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
+LPMSGSESS = IntPtr
 MEDIA_FLAGS = Int32
 MEDIA_BLANK: MEDIA_FLAGS = 1
 MEDIA_RW: MEDIA_FLAGS = 2
@@ -1727,8 +1728,6 @@ RECORDER_CDRW: RECORDER_TYPES = 2
 class SPropAttrArray(EasyCastStructure):
     cValues: UInt32
     aPropAttr: UInt32 * 1
-class _MSGSESS(EasyCastStructure):
-    pass
 tagIMMPID_CPV_STRUCT = Guid('a2a76b2a-e52d-11d1-aa-64-00-c0-4f-a3-5b-82')
 class tagIMMPID_GUIDLIST_ITEM(EasyCastStructure):
     pguid: POINTER(Guid)
@@ -1800,5 +1799,4 @@ make_head(_module, 'IWriteEngine2EventArgs')
 make_head(_module, 'IWriteSpeedDescriptor')
 make_head(_module, 'MSGCALLRELEASE')
 make_head(_module, 'SPropAttrArray')
-make_head(_module, '_MSGSESS')
 make_head(_module, 'tagIMMPID_GUIDLIST_ITEM')

@@ -4,6 +4,7 @@ from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, 
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.System.Com
+import Windows.Win32.System.Variant
 import Windows.Win32.UI.TextServices
 import Windows.Win32.UI.WindowsAndMessaging
 import sys
@@ -497,7 +498,7 @@ class IAccDictionary(c_void_p):
     @commethod(6)
     def LookupMnemonicTerm(self, bstrMnemonic: Windows.Win32.Foundation.BSTR, pTerm: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def ConvertValueToString(self, Term: POINTER(Guid), lcid: UInt32, varValue: Windows.Win32.System.Com.VARIANT, pbstrResult: POINTER(Windows.Win32.Foundation.BSTR), plcid: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def ConvertValueToString(self, Term: POINTER(Guid), lcid: UInt32, varValue: Windows.Win32.System.Variant.VARIANT, pbstrResult: POINTER(Windows.Win32.Foundation.BSTR), plcid: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccServerDocMgr(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ad7c73cf-6dd5-4855-ab-c2-b0-4b-ad-5b-91-53')
@@ -558,12 +559,12 @@ class ICoCreateLocally(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('03de00aa-f272-41e3-99-cb-03-c5-e8-11-4e-a0')
     @commethod(3)
-    def CoCreateLocally(self, rclsid: POINTER(Guid), dwClsContext: UInt32, riid: POINTER(Guid), punk: POINTER(Windows.Win32.System.Com.IUnknown_head), riidParam: POINTER(Guid), punkParam: Windows.Win32.System.Com.IUnknown_head, varParam: Windows.Win32.System.Com.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
+    def CoCreateLocally(self, rclsid: POINTER(Guid), dwClsContext: UInt32, riid: POINTER(Guid), punk: POINTER(Windows.Win32.System.Com.IUnknown_head), riidParam: POINTER(Guid), punkParam: Windows.Win32.System.Com.IUnknown_head, varParam: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class ICoCreatedLocally(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0a53eb6c-1908-4742-8c-ff-2c-ee-2e-93-f9-4c')
     @commethod(3)
-    def LocalInit(self, punkLocalObject: Windows.Win32.System.Com.IUnknown_head, riidParam: POINTER(Guid), punkParam: Windows.Win32.System.Com.IUnknown_head, varParam: Windows.Win32.System.Com.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
+    def LocalInit(self, punkLocalObject: Windows.Win32.System.Com.IUnknown_head, riidParam: POINTER(Guid), punkParam: Windows.Win32.System.Com.IUnknown_head, varParam: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IDocWrap(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('dcd285fe-0be0-43bd-99-c9-aa-ae-c5-13-c5-55')
@@ -1100,9 +1101,9 @@ class ITfCompartment(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bb08f7a9-607a-4384-86-23-05-68-92-b6-43-71')
     @commethod(3)
-    def SetValue(self, tid: UInt32, pvarValue: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetValue(self, tid: UInt32, pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def GetValue(self, pvarValue: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetValue(self, pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfCompartmentEventSink(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('743abd5f-f26d-48df-8c-c5-23-84-92-41-9b-64')
@@ -1216,7 +1217,7 @@ class ITfContextOwner(c_void_p):
     @commethod(7)
     def GetWnd(self, phwnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def GetAttribute(self, rguidAttribute: POINTER(Guid), pvarValue: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetAttribute(self, rguidAttribute: POINTER(Guid), pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfContextOwnerCompositionServices(c_void_p):
     extends: Windows.Win32.UI.TextServices.ITfContextComposition
     Guid = Guid('86462810-593b-4916-97-64-19-c0-8e-9c-e1-10')
@@ -1822,7 +1823,7 @@ class ITfProperty(c_void_p):
     @commethod(8)
     def SetValueStore(self, ec: UInt32, pRange: Windows.Win32.UI.TextServices.ITfRange_head, pPropStore: Windows.Win32.UI.TextServices.ITfPropertyStore_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def SetValue(self, ec: UInt32, pRange: Windows.Win32.UI.TextServices.ITfRange_head, pvarValue: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetValue(self, ec: UInt32, pRange: Windows.Win32.UI.TextServices.ITfRange_head, pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Clear(self, ec: UInt32, pRange: Windows.Win32.UI.TextServices.ITfRange_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfPropertyStore(c_void_p):
@@ -1833,7 +1834,7 @@ class ITfPropertyStore(c_void_p):
     @commethod(4)
     def GetDataType(self, pdwReserved: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetData(self, pvarValue: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetData(self, pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def OnTextUpdated(self, dwFlags: UInt32, pRangeNew: Windows.Win32.UI.TextServices.ITfRange_head, pfAccept: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -1918,7 +1919,7 @@ class ITfReadOnlyProperty(c_void_p):
     @commethod(4)
     def EnumRanges(self, ec: UInt32, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfRanges_head), pTargetRange: Windows.Win32.UI.TextServices.ITfRange_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetValue(self, ec: UInt32, pRange: Windows.Win32.UI.TextServices.ITfRange_head, pvarValue: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetValue(self, ec: UInt32, pRange: Windows.Win32.UI.TextServices.ITfRange_head, pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetContext(self, ppContext: POINTER(Windows.Win32.UI.TextServices.ITfContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfReadingInformationUIElement(c_void_p):
@@ -2364,7 +2365,7 @@ class TF_PRESERVEDKEY(EasyCastStructure):
     uModifiers: UInt32
 class TF_PROPERTYVAL(EasyCastStructure):
     guidId: Guid
-    varValue: Windows.Win32.System.Com.VARIANT
+    varValue: Windows.Win32.System.Variant.VARIANT
 class TF_SELECTION(EasyCastStructure):
     range: Windows.Win32.UI.TextServices.ITfRange_head
     style: Windows.Win32.UI.TextServices.TF_SELECTIONSTYLE
@@ -2378,7 +2379,7 @@ TKBLT_OPTIMIZED: TKBLayoutType = 2
 class TS_ATTRVAL(EasyCastStructure):
     idAttr: Guid
     dwOverlapId: UInt32
-    varValue: Windows.Win32.System.Com.VARIANT
+    varValue: Windows.Win32.System.Variant.VARIANT
 class TS_RUNINFO(EasyCastStructure):
     uCount: UInt32
     type: Windows.Win32.UI.TextServices.TsRunType

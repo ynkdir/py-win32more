@@ -4,7 +4,9 @@ from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, 
 import Windows.Win32.Devices.Properties
 import Windows.Win32.Foundation
 import Windows.Win32.Media
+import Windows.Win32.Media.DirectShow
 import Windows.Win32.Media.KernelStreaming
+import Windows.Win32.Media.MediaFoundation
 import Windows.Win32.System.Com
 import sys
 _module = sys.modules[__name__]
@@ -32,9 +34,9 @@ class ALLOCATOR_PROPERTIES_EX(EasyCastStructure):
     AllocatorPlace: Windows.Win32.Media.KernelStreaming.PIPE_ALLOCATOR_PLACE
     Dimensions: Windows.Win32.Media.KernelStreaming.PIPE_DIMENSIONS
     PhysicalRange: Windows.Win32.Media.KernelStreaming.KS_FRAMING_RANGE
-    PrevSegment: POINTER(Windows.Win32.Media.KernelStreaming.IKsAllocatorEx_head)
+    PrevSegment: Windows.Win32.Media.KernelStreaming.IKsAllocatorEx_head
     CountNextSegments: UInt32
-    NextSegments: POINTER(POINTER(Windows.Win32.Media.KernelStreaming.IKsAllocatorEx_head))
+    NextSegments: POINTER(Windows.Win32.Media.KernelStreaming.IKsAllocatorEx_head)
     InsideFactors: UInt32
     NumberPins: UInt32
 APO_CLASS_UUID = Guid('5989fce8-9cd0-467d-8a-6a-54-19-e3-15-29-d4')
@@ -738,6 +740,18 @@ def KsCreateClock2(ConnectionHandle: Windows.Win32.Foundation.HANDLE, ClockCreat
 def KsCreatePin2(FilterHandle: Windows.Win32.Foundation.HANDLE, Connect: POINTER(Windows.Win32.Media.KernelStreaming.KSPIN_CONNECT_head), DesiredAccess: UInt32, ConnectionHandle: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('ksuser.dll')
 def KsCreateTopologyNode2(ParentHandle: Windows.Win32.Foundation.HANDLE, NodeCreate: POINTER(Windows.Win32.Media.KernelStreaming.KSNODE_CREATE_head), DesiredAccess: UInt32, NodeHandle: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('ksproxy.ax')
+def KsResolveRequiredAttributes(DataRange: POINTER(Windows.Win32.Media.KernelStreaming.KSDATAFORMAT_head), Attributes: POINTER(Windows.Win32.Media.KernelStreaming.KSMULTIPLE_ITEM_head)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('ksproxy.ax')
+def KsOpenDefaultDevice(Category: POINTER(Guid), Access: UInt32, DeviceHandle: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('ksproxy.ax')
+def KsSynchronousDeviceControl(Handle: Windows.Win32.Foundation.HANDLE, IoControl: UInt32, InBuffer: c_void_p, InLength: UInt32, OutBuffer: c_void_p, OutLength: UInt32, BytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('ksproxy.ax')
+def KsGetMultiplePinFactoryItems(FilterHandle: Windows.Win32.Foundation.HANDLE, PinFactoryId: UInt32, PropertyId: UInt32, Items: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('ksproxy.ax')
+def KsGetMediaTypeCount(FilterHandle: Windows.Win32.Foundation.HANDLE, PinFactoryId: UInt32, MediaTypeCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('ksproxy.ax')
+def KsGetMediaType(Position: Int32, AmMediaType: POINTER(Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE_head), FilterHandle: Windows.Win32.Foundation.HANDLE, PinFactoryId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 BLUETOOTHLE_MIDI_SERVICE_UUID = Guid('03b80e5a-ede8-4b33-a7-51-6c-e3-4e-c4-c7-00')
 BLUETOOTH_MIDI_DATAIO_CHARACTERISTIC = Guid('7772e5db-3868-4112-a1-a9-f2-66-9d-10-6b-f3')
 CAPTURE_MEMORY_ALLOCATION_FLAGS = Int32
@@ -864,10 +878,51 @@ class IKsAggregateControl(c_void_p):
     def KsAddAggregate(self, AggregateClass: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def KsRemoveAggregate(self, AggregateClass: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IKsAllocator(EasyCastStructure):
-    pass
-class IKsAllocatorEx(EasyCastStructure):
-    pass
+class IKsAllocator(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('8da64899-c0d9-11d0-84-13-00-00-f8-22-fe-8a')
+    @commethod(3)
+    def KsGetAllocatorHandle(self) -> Windows.Win32.Foundation.HANDLE: ...
+    @commethod(4)
+    def KsGetAllocatorMode(self) -> Windows.Win32.Media.KernelStreaming.KSALLOCATORMODE: ...
+    @commethod(5)
+    def KsGetAllocatorStatus(self, AllocatorStatus: POINTER(Windows.Win32.Media.KernelStreaming.KSSTREAMALLOCATOR_STATUS_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def KsSetAllocatorMode(self, Mode: Windows.Win32.Media.KernelStreaming.KSALLOCATORMODE) -> Void: ...
+class IKsAllocatorEx(c_void_p):
+    extends: Windows.Win32.Media.KernelStreaming.IKsAllocator
+    Guid = Guid('091bb63a-603f-11d1-b0-67-00-a0-c9-06-28-02')
+    @commethod(7)
+    def KsGetProperties(self) -> POINTER(Windows.Win32.Media.KernelStreaming.ALLOCATOR_PROPERTIES_EX_head): ...
+    @commethod(8)
+    def KsSetProperties(self, param0: POINTER(Windows.Win32.Media.KernelStreaming.ALLOCATOR_PROPERTIES_EX_head)) -> Void: ...
+    @commethod(9)
+    def KsSetAllocatorHandle(self, AllocatorHandle: Windows.Win32.Foundation.HANDLE) -> Void: ...
+    @commethod(10)
+    def KsCreateAllocatorAndGetHandle(self, KsPin: Windows.Win32.Media.KernelStreaming.IKsPin_head) -> Windows.Win32.Foundation.HANDLE: ...
+class IKsClockPropertySet(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('5c5cbd84-e755-11d0-ac-18-00-a0-c9-22-31-96')
+    @commethod(3)
+    def KsGetTime(self, Time: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def KsSetTime(self, Time: Int64) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def KsGetPhysicalTime(self, Time: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def KsSetPhysicalTime(self, Time: Int64) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def KsGetCorrelatedTime(self, CorrelatedTime: POINTER(Windows.Win32.Media.KernelStreaming.KSCORRELATED_TIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(8)
+    def KsSetCorrelatedTime(self, CorrelatedTime: POINTER(Windows.Win32.Media.KernelStreaming.KSCORRELATED_TIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(9)
+    def KsGetCorrelatedPhysicalTime(self, CorrelatedTime: POINTER(Windows.Win32.Media.KernelStreaming.KSCORRELATED_TIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(10)
+    def KsSetCorrelatedPhysicalTime(self, CorrelatedTime: POINTER(Windows.Win32.Media.KernelStreaming.KSCORRELATED_TIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(11)
+    def KsGetResolution(self, Resolution: POINTER(Windows.Win32.Media.KernelStreaming.KSRESOLUTION_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(12)
+    def KsGetState(self, State: POINTER(Windows.Win32.Media.KernelStreaming.KSSTATE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsControl(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('28f54685-06fd-11d2-b2-7a-00-a0-c9-22-31-96')
@@ -877,6 +932,24 @@ class IKsControl(c_void_p):
     def KsMethod(self, Method: POINTER(Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), MethodLength: UInt32, MethodData: c_void_p, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def KsEvent(self, Event: POINTER(Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), EventLength: UInt32, EventData: c_void_p, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+class IKsDataTypeCompletion(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('827d1a0e-0f73-11d2-b2-7a-00-a0-c9-22-31-96')
+    @commethod(3)
+    def KsCompleteMediaType(self, FilterHandle: Windows.Win32.Foundation.HANDLE, PinFactoryId: UInt32, AmMediaType: POINTER(Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IKsDataTypeHandler(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('5ffbaa02-49a3-11d0-9f-36-00-aa-00-a2-16-a1')
+    @commethod(3)
+    def KsCompleteIoOperation(self, Sample: Windows.Win32.Media.DirectShow.IMediaSample_head, StreamHeader: c_void_p, IoOperation: Windows.Win32.Media.KernelStreaming.KSIOOPERATION, Cancelled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def KsIsMediaTypeInRanges(self, DataRanges: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def KsPrepareIoOperation(self, Sample: Windows.Win32.Media.DirectShow.IMediaSample_head, StreamHeader: c_void_p, IoOperation: Windows.Win32.Media.KernelStreaming.KSIOOPERATION) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def KsQueryExtendedSize(self, ExtendedSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def KsSetMediaType(self, AmMediaType: POINTER(Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsFormatSupport(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3cb4a69d-bb6f-4d2b-95-b7-45-2d-2c-15-5d-b5')
@@ -884,6 +957,15 @@ class IKsFormatSupport(c_void_p):
     def IsFormatSupported(self, pKsFormat: POINTER(Windows.Win32.Media.KernelStreaming.KSDATAFORMAT_head), cbFormat: UInt32, pbSupported: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDevicePreferredFormat(self, ppKsFormat: POINTER(POINTER(Windows.Win32.Media.KernelStreaming.KSDATAFORMAT_head))) -> Windows.Win32.Foundation.HRESULT: ...
+class IKsInterfaceHandler(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('d3abc7e0-9a61-11d0-a4-0d-00-a0-c9-22-31-96')
+    @commethod(3)
+    def KsSetPin(self, KsPin: Windows.Win32.Media.KernelStreaming.IKsPin_head) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def KsProcessMediaSamples(self, KsDataTypeHandler: Windows.Win32.Media.KernelStreaming.IKsDataTypeHandler_head, SampleList: POINTER(Windows.Win32.Media.DirectShow.IMediaSample_head), SampleCount: POINTER(Int32), IoOperation: Windows.Win32.Media.KernelStreaming.KSIOOPERATION, StreamSegment: POINTER(POINTER(Windows.Win32.Media.KernelStreaming.KSSTREAM_SEGMENT_head))) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def KsCompleteIo(self, StreamSegment: POINTER(Windows.Win32.Media.KernelStreaming.KSSTREAM_SEGMENT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsJackContainerId(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c99af463-d629-4ec4-8c-00-e5-4d-68-15-42-48')
@@ -903,27 +985,121 @@ class IKsJackDescription2(c_void_p):
     def GetJackCount(self, pcJacks: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetJackDescription2(self, nJack: UInt32, pDescription2: POINTER(Windows.Win32.Media.KernelStreaming.KSJACK_DESCRIPTION2_head)) -> Windows.Win32.Foundation.HRESULT: ...
+class IKsJackDescription3(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('e3f6778b-6660-4cc8-a2-91-ec-c4-19-2d-99-67')
+    @commethod(3)
+    def GetJackCount(self, pcJacks: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def GetJackDescription3(self, nJack: UInt32, pDescription3: POINTER(Windows.Win32.Media.KernelStreaming.KSJACK_DESCRIPTION3_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsJackSinkInformation(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d9bd72ed-290f-4581-9f-f3-61-02-7a-8f-e5-32')
     @commethod(3)
     def GetJackSinkInformation(self, pJackSinkInformation: POINTER(Windows.Win32.Media.KernelStreaming.KSJACK_SINK_INFORMATION_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IKsPin(EasyCastStructure):
-    pass
-class IKsPropertySet(c_void_p):
+class IKsNotifyEvent(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('31efac30-515c-11d0-a9-aa-00-aa-00-61-be-93')
+    Guid = Guid('412bd695-f84b-46c1-ac-73-54-19-6d-bc-8f-a7')
     @commethod(3)
-    def Set(self, PropSet: POINTER(Guid), Id: UInt32, InstanceData: c_void_p, InstanceLength: UInt32, PropertyData: c_void_p, DataLength: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    def KsNotifyEvent(self, Event: UInt32, lParam1: UIntPtr, lParam2: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
+class IKsObject(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('423c13a2-2070-11d0-9e-f7-00-aa-00-a2-16-a1')
+    @commethod(3)
+    def KsGetObjectHandle(self) -> Windows.Win32.Foundation.HANDLE: ...
+class IKsPin(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('b61178d1-a2d9-11cf-9e-53-00-aa-00-a2-16-a1')
+    @commethod(3)
+    def KsQueryMediums(self, MediumList: POINTER(POINTER(Windows.Win32.Media.KernelStreaming.KSMULTIPLE_ITEM_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def Get(self, PropSet: POINTER(Guid), Id: UInt32, InstanceData: c_void_p, InstanceLength: UInt32, PropertyData: c_void_p, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def KsQueryInterfaces(self, InterfaceList: POINTER(POINTER(Windows.Win32.Media.KernelStreaming.KSMULTIPLE_ITEM_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def QuerySupported(self, PropSet: POINTER(Guid), Id: UInt32, TypeSupport: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def KsCreateSinkPinHandle(self, Interface: POINTER(Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), Medium: POINTER(Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def KsGetCurrentCommunication(self, Communication: POINTER(Windows.Win32.Media.KernelStreaming.KSPIN_COMMUNICATION), Interface: POINTER(Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), Medium: POINTER(Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def KsPropagateAcquire(self) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(8)
+    def KsDeliver(self, Sample: Windows.Win32.Media.DirectShow.IMediaSample_head, Flags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(9)
+    def KsMediaSamplesCompleted(self, StreamSegment: POINTER(Windows.Win32.Media.KernelStreaming.KSSTREAM_SEGMENT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(10)
+    def KsPeekAllocator(self, Operation: Windows.Win32.Media.KernelStreaming.KSPEEKOPERATION) -> Windows.Win32.Media.DirectShow.IMemAllocator_head: ...
+    @commethod(11)
+    def KsReceiveAllocator(self, MemAllocator: Windows.Win32.Media.DirectShow.IMemAllocator_head) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(12)
+    def KsRenegotiateAllocator(self) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(13)
+    def KsIncrementPendingIoCount(self) -> Int32: ...
+    @commethod(14)
+    def KsDecrementPendingIoCount(self) -> Int32: ...
+    @commethod(15)
+    def KsQualityNotify(self, Proportion: UInt32, TimeDelta: Int64) -> Windows.Win32.Foundation.HRESULT: ...
+class IKsPinEx(c_void_p):
+    extends: Windows.Win32.Media.KernelStreaming.IKsPin
+    Guid = Guid('7bb38260-d19c-11d2-b3-8a-00-a0-c9-5e-c2-2e')
+    @commethod(16)
+    def KsNotifyError(self, Sample: Windows.Win32.Media.DirectShow.IMediaSample_head, hr: Windows.Win32.Foundation.HRESULT) -> Void: ...
+class IKsPinFactory(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('cd5ebe6b-8b6e-11d1-8a-e0-00-a0-c9-22-31-96')
+    @commethod(3)
+    def KsPinFactory(self, PinFactory: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+class IKsPinPipe(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('e539cd90-a8b4-11d1-81-89-00-a0-c9-06-28-02')
+    @commethod(3)
+    def KsGetPinFramingCache(self, FramingEx: POINTER(POINTER(Windows.Win32.Media.KernelStreaming.KSALLOCATOR_FRAMING_EX_head)), FramingProp: POINTER(Windows.Win32.Media.KernelStreaming.FRAMING_PROP), Option: Windows.Win32.Media.KernelStreaming.FRAMING_CACHE_OPS) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def KsSetPinFramingCache(self, FramingEx: POINTER(Windows.Win32.Media.KernelStreaming.KSALLOCATOR_FRAMING_EX_head), FramingProp: POINTER(Windows.Win32.Media.KernelStreaming.FRAMING_PROP), Option: Windows.Win32.Media.KernelStreaming.FRAMING_CACHE_OPS) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def KsGetConnectedPin(self) -> Windows.Win32.Media.DirectShow.IPin_head: ...
+    @commethod(6)
+    def KsGetPipe(self, Operation: Windows.Win32.Media.KernelStreaming.KSPEEKOPERATION) -> Windows.Win32.Media.KernelStreaming.IKsAllocatorEx_head: ...
+    @commethod(7)
+    def KsSetPipe(self, KsAllocator: Windows.Win32.Media.KernelStreaming.IKsAllocatorEx_head) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(8)
+    def KsGetPipeAllocatorFlag(self) -> UInt32: ...
+    @commethod(9)
+    def KsSetPipeAllocatorFlag(self, Flag: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(10)
+    def KsGetPinBusCache(self) -> Guid: ...
+    @commethod(11)
+    def KsSetPinBusCache(self, Bus: Guid) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(12)
+    def KsGetPinName(self) -> Windows.Win32.Foundation.PWSTR: ...
+    @commethod(13)
+    def KsGetFilterName(self) -> Windows.Win32.Foundation.PWSTR: ...
+class IKsQualityForwarder(c_void_p):
+    extends: Windows.Win32.Media.KernelStreaming.IKsObject
+    Guid = Guid('97ebaacb-95bd-11d0-a3-ea-00-a0-c9-22-31-96')
+    @commethod(4)
+    def KsFlushClient(self, Pin: Windows.Win32.Media.KernelStreaming.IKsPin_head) -> Void: ...
 class IKsTopology(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('28f54683-06fd-11d2-b2-7a-00-a0-c9-22-31-96')
     @commethod(3)
     def CreateNodeInstance(self, NodeId: UInt32, Flags: UInt32, DesiredAccess: UInt32, UnkOuter: Windows.Win32.System.Com.IUnknown_head, InterfaceId: POINTER(Guid), Interface: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
+class IKsTopologyInfo(c_void_p):
+    extends: Windows.Win32.System.Com.IUnknown
+    Guid = Guid('720d4ac0-7533-11d0-a5-d6-28-db-04-c1-00-00')
+    @commethod(3)
+    def get_NumCategories(self, pdwNumCategories: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(4)
+    def get_Category(self, dwIndex: UInt32, pCategory: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(5)
+    def get_NumConnections(self, pdwNumConnections: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(6)
+    def get_ConnectionInfo(self, dwIndex: UInt32, pConnectionInfo: POINTER(Windows.Win32.Media.KernelStreaming.KSTOPOLOGY_CONNECTION_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(7)
+    def get_NodeName(self, dwNodeId: UInt32, pwchNodeName: Windows.Win32.Foundation.PWSTR, dwBufSize: UInt32, pdwNameLen: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(8)
+    def get_NumNodes(self, pdwNumNodes: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(9)
+    def get_NodeType(self, dwNodeId: UInt32, pNodeType: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
+    @commethod(10)
+    def CreateNodeInstance(self, dwNodeId: UInt32, iid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class INTERLEAVED_AUDIO_FORMAT_INFORMATION(EasyCastStructure):
     Size: UInt32
     PrimaryChannelCount: UInt32
@@ -1851,6 +2027,9 @@ KSINTERFACE_STANDARD_CONTROL: KSINTERFACE_STANDARD = 2
 class KSINTERVAL(EasyCastStructure):
     TimeBase: Int64
     Interval: Int64
+KSIOOPERATION = Int32
+KsIoOperation_Write: KSIOOPERATION = 0
+KsIoOperation_Read: KSIOOPERATION = 1
 class KSJACK_DESCRIPTION(EasyCastStructure):
     ChannelMapping: UInt32
     Color: UInt32
@@ -2086,6 +2265,9 @@ class KSNODE_CREATE(EasyCastStructure):
     Node: UInt32
 KSNOTIFICATIONID_AudioModule = Guid('9c2220f0-d9a6-4d5c-a0-36-57-38-57-fd-50-d2')
 KSNOTIFICATIONID_SoundDetector = Guid('6389d844-bb32-4c4c-a8-02-f4-b4-b7-7a-fe-ad')
+KSPEEKOPERATION = Int32
+KsPeekOperation_PeekOnly: KSPEEKOPERATION = 0
+KsPeekOperation_AddRef: KSPEEKOPERATION = 1
 class KSPIN_CINSTANCES(EasyCastStructure):
     PossibleCount: UInt32
     CurrentCount: UInt32
@@ -3302,6 +3484,11 @@ class KSSTREAM_METADATA_INFO(EasyCastStructure):
     SystemVa: c_void_p
     Flags: UInt32
     Reserved: UInt32
+class KSSTREAM_SEGMENT(EasyCastStructure):
+    KsInterfaceHandler: Windows.Win32.Media.KernelStreaming.IKsInterfaceHandler_head
+    KsDataTypeHandler: Windows.Win32.Media.KernelStreaming.IKsDataTypeHandler_head
+    IoOperation: Windows.Win32.Media.KernelStreaming.KSIOOPERATION
+    CompletionEvent: Windows.Win32.Foundation.HANDLE
 class KSSTREAM_UVC_METADATA(EasyCastStructure):
     StartOfFrameTimestamp: Windows.Win32.Media.KernelStreaming.KSSTREAM_UVC_METADATATYPE_TIMESTAMP
     EndOfFrameTimestamp: Windows.Win32.Media.KernelStreaming.KSSTREAM_UVC_METADATATYPE_TIMESTAMP
@@ -4196,15 +4383,26 @@ make_head(_module, 'DS3DVECTOR')
 make_head(_module, 'IKsAggregateControl')
 make_head(_module, 'IKsAllocator')
 make_head(_module, 'IKsAllocatorEx')
+make_head(_module, 'IKsClockPropertySet')
 make_head(_module, 'IKsControl')
+make_head(_module, 'IKsDataTypeCompletion')
+make_head(_module, 'IKsDataTypeHandler')
 make_head(_module, 'IKsFormatSupport')
+make_head(_module, 'IKsInterfaceHandler')
 make_head(_module, 'IKsJackContainerId')
 make_head(_module, 'IKsJackDescription')
 make_head(_module, 'IKsJackDescription2')
+make_head(_module, 'IKsJackDescription3')
 make_head(_module, 'IKsJackSinkInformation')
+make_head(_module, 'IKsNotifyEvent')
+make_head(_module, 'IKsObject')
 make_head(_module, 'IKsPin')
-make_head(_module, 'IKsPropertySet')
+make_head(_module, 'IKsPinEx')
+make_head(_module, 'IKsPinFactory')
+make_head(_module, 'IKsPinPipe')
+make_head(_module, 'IKsQualityForwarder')
 make_head(_module, 'IKsTopology')
+make_head(_module, 'IKsTopologyInfo')
 make_head(_module, 'INTERLEAVED_AUDIO_FORMAT_INFORMATION')
 make_head(_module, 'KSAC3_ALTERNATE_AUDIO')
 make_head(_module, 'KSAC3_BIT_STREAM_MODE')
@@ -4445,6 +4643,7 @@ if ARCH in 'X64,ARM64':
 if ARCH in 'X86':
     make_head(_module, 'KSSTREAM_HEADER')
 make_head(_module, 'KSSTREAM_METADATA_INFO')
+make_head(_module, 'KSSTREAM_SEGMENT')
 make_head(_module, 'KSSTREAM_UVC_METADATA')
 make_head(_module, 'KSSTREAM_UVC_METADATATYPE_TIMESTAMP')
 make_head(_module, 'KSTELEPHONY_CALLCONTROL')

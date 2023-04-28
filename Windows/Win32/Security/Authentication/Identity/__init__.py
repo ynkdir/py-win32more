@@ -1564,6 +1564,10 @@ def LsaRetrievePrivateData(PolicyHandle: Windows.Win32.Security.Authentication.I
 @winfunctype('ADVAPI32.dll')
 def LsaNtStatusToWinError(Status: Windows.Win32.Foundation.NTSTATUS) -> UInt32: ...
 @winfunctype('ADVAPI32.dll')
+def LsaQueryForestTrustInformation2(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), HighestRecordType: Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_RECORD_TYPE, ForestTrustInfo: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_INFORMATION2_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
+@winfunctype('ADVAPI32.dll')
+def LsaSetForestTrustInformation2(PolicyHandle: Windows.Win32.Security.Authentication.Identity.LSA_HANDLE, TrustedDomainName: POINTER(Windows.Win32.Foundation.UNICODE_STRING_head), HighestRecordType: Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_RECORD_TYPE, ForestTrustInfo: POINTER(Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_INFORMATION2_head), CheckOnly: Windows.Win32.Foundation.BOOLEAN, CollisionInfo: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.LSA_FOREST_TRUST_COLLISION_INFORMATION_head))) -> Windows.Win32.Foundation.NTSTATUS: ...
+@winfunctype('ADVAPI32.dll')
 def AuditSetSystemPolicy(pAuditPolicy: POINTER(Windows.Win32.Security.Authentication.Identity.AUDIT_POLICY_INFORMATION_head), dwPolicyCount: UInt32) -> Windows.Win32.Foundation.BOOLEAN: ...
 @winfunctype('ADVAPI32.dll')
 def AuditSetPerUserPolicy(pSid: Windows.Win32.Foundation.PSID, pAuditPolicy: POINTER(Windows.Win32.Security.Authentication.Identity.AUDIT_POLICY_INFORMATION_head), dwPolicyCount: UInt32) -> Windows.Win32.Foundation.BOOLEAN: ...
@@ -1785,6 +1789,8 @@ def SslGetMaximumKeySize(Reserved: UInt32) -> UInt32: ...
 def SslGetServerIdentity(ClientHello: POINTER(Byte), ClientHelloSize: UInt32, ServerIdentity: POINTER(POINTER(Byte)), ServerIdentitySize: POINTER(UInt32), Flags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('SCHANNEL.dll')
 def SslGetExtensions(clientHello: POINTER(Byte), clientHelloByteSize: UInt32, genericExtensions: POINTER(Windows.Win32.Security.Authentication.Identity.SCH_EXTENSION_DATA_head), genericExtensionsCount: Byte, bytesToRead: POINTER(UInt32), flags: Windows.Win32.Security.Authentication.Identity.SchGetExtensionsOptions) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('SCHANNEL.dll')
+def SslDeserializeCertificateStore(SerializedCertificateStore: Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB, ppCertContext: POINTER(POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('TOKENBINDING.dll')
 def TokenBindingGenerateBinding(keyType: Windows.Win32.Security.Authentication.Identity.TOKENBINDING_KEY_PARAMETERS_TYPE, targetURL: Windows.Win32.Foundation.PWSTR, bindingType: Windows.Win32.Security.Authentication.Identity.TOKENBINDING_TYPE, tlsEKM: c_void_p, tlsEKMSize: UInt32, extensionFormat: Windows.Win32.Security.Authentication.Identity.TOKENBINDING_EXTENSION_FORMAT, extensionData: c_void_p, tokenBinding: POINTER(c_void_p), tokenBindingSize: POINTER(UInt32), resultData: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity.TOKENBINDING_RESULT_DATA_head))) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('TOKENBINDING.dll')
@@ -3399,7 +3405,7 @@ class SCHANNEL_CRED(EasyCastStructure):
     paCred: POINTER(POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))
     hRootStore: Windows.Win32.Security.Cryptography.HCERTSTORE
     cMappers: UInt32
-    aphMappers: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity._HMAPPER_head))
+    aphMappers: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity._HMAPPER))
     cSupportedAlgs: UInt32
     palgSupportedAlgs: POINTER(UInt32)
     grbitEnabledProtocols: UInt32
@@ -3438,7 +3444,7 @@ class SCH_CRED(EasyCastStructure):
     paSecret: POINTER(c_void_p)
     paPublic: POINTER(c_void_p)
     cMappers: UInt32
-    aphMappers: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity._HMAPPER_head))
+    aphMappers: POINTER(POINTER(Windows.Win32.Security.Authentication.Identity._HMAPPER))
 class SCH_CRED_PUBLIC_CERTCHAIN(EasyCastStructure):
     dwType: UInt32
     cbCertChain: UInt32
@@ -4816,8 +4822,7 @@ class X509Certificate(EasyCastStructure):
     pszIssuer: Windows.Win32.Foundation.PSTR
     pszSubject: Windows.Win32.Foundation.PSTR
     pPublicKey: POINTER(Windows.Win32.Security.Authentication.Identity.PctPublicKey_head)
-class _HMAPPER(EasyCastStructure):
-    pass
+_HMAPPER = IntPtr
 eTlsHashAlgorithm = Int32
 TlsHashAlgorithm_None: eTlsHashAlgorithm = 0
 TlsHashAlgorithm_Md5: eTlsHashAlgorithm = 1
@@ -5375,4 +5380,3 @@ make_head(_module, 'USER_ALL_INFORMATION')
 make_head(_module, 'USER_SESSION_KEY')
 make_head(_module, 'VERIFY_SIGNATURE_FN')
 make_head(_module, 'X509Certificate')
-make_head(_module, '_HMAPPER')

@@ -1118,6 +1118,12 @@ def WldpIsDynamicCodePolicyEnabled(isEnabled: POINTER(Windows.Win32.Foundation.B
 def WldpQueryDynamicCodeTrust(fileHandle: Windows.Win32.Foundation.HANDLE, baseImage: c_void_p, imageSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('Wldp.dll')
 def WldpQueryDeviceSecurityInformation(information: POINTER(Windows.Win32.System.WindowsProgramming.WLDP_DEVICE_SECURITY_INFORMATION_head), informationLength: UInt32, returnLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Wldp.dll')
+def WldpCanExecuteFile(host: POINTER(Guid), options: Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_EVALUATION_OPTIONS, fileHandle: Windows.Win32.Foundation.HANDLE, auditInfo: Windows.Win32.Foundation.PWSTR, result: POINTER(Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_POLICY)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Wldp.dll')
+def WldpCanExecuteBuffer(host: POINTER(Guid), options: Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_EVALUATION_OPTIONS, buffer: POINTER(Byte), bufferSize: UInt32, auditInfo: Windows.Win32.Foundation.PWSTR, result: POINTER(Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_POLICY)) -> Windows.Win32.Foundation.HRESULT: ...
+@winfunctype('Wldp.dll')
+def WldpCanExecuteStream(host: POINTER(Guid), options: Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_EVALUATION_OPTIONS, stream: Windows.Win32.System.Com.IStream_head, auditInfo: Windows.Win32.Foundation.PWSTR, result: POINTER(Windows.Win32.System.WindowsProgramming.WLDP_EXECUTION_POLICY)) -> Windows.Win32.Foundation.HRESULT: ...
 class CABINFOA(EasyCastStructure):
     pszCab: Windows.Win32.Foundation.PSTR
     pszInf: Windows.Win32.Foundation.PSTR
@@ -1794,10 +1800,6 @@ WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NONE: WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 0
 WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NOUNLOCK: WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 1
 WLDP_WINDOWS_LOCKDOWN_RESTRICTION_NOUNLOCK_PERMANENT: WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 2
 WLDP_WINDOWS_LOCKDOWN_RESTRICTION_MAX: WLDP_WINDOWS_LOCKDOWN_RESTRICTION = 3
-class _D3DHAL_CALLBACKS(EasyCastStructure):
-    pass
-class _D3DHAL_GLOBALDRIVERDATA(EasyCastStructure):
-    pass
 make_head(_module, 'ACTCTX_SECTION_KEYED_DATA_2600')
 make_head(_module, 'ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA')
 make_head(_module, 'ACTIVATION_CONTEXT_BASIC_INFORMATION')
@@ -1904,5 +1906,3 @@ make_head(_module, 'WINSTATIONINFORMATIONW')
 make_head(_module, 'WINWATCHNOTIFYPROC')
 make_head(_module, 'WLDP_DEVICE_SECURITY_INFORMATION')
 make_head(_module, 'WLDP_HOST_INFORMATION')
-make_head(_module, '_D3DHAL_CALLBACKS')
-make_head(_module, '_D3DHAL_GLOBALDRIVERDATA')
