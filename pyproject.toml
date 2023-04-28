@@ -8,3 +8,27 @@ version = "0.4.0"
 
 [tool.hatch.build]
 only-include = ["Windows"]
+
+[tool.hatch.envs.default]
+dependencies = [
+    "pytest",
+    "black",
+    "ruff",
+    "mypy",
+]
+
+[tool.hatch.envs.default.scripts]
+test = "pytest {args:tests}"
+typing = "mypy {args}"
+fmt = [
+    "black {args}",
+    "ruff --fix {args}",
+]
+
+[tool.black]
+line-length = 120
+
+[tool.ruff]
+line-length = 120
+extend-select = ["I"]
+
