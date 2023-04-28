@@ -13,15 +13,6 @@ from Windows.Win32.System.Com import (
     DISPATCH_PROPERTYPUT,
     DISPPARAMS,
     SAFEARRAYBOUND,
-    VARIANT,
-    VT_ARRAY,
-    VT_BSTR,
-    VT_DISPATCH,
-    VT_EMPTY,
-    VT_I4,
-    VT_INT,
-    VT_NULL,
-    VT_VARIANT,
     CLSIDFromProgID,
     CoCreateInstance,
     CoInitialize,
@@ -32,6 +23,17 @@ from Windows.Win32.System.Ole import (
     DISPID_PROPERTYPUT,
     SafeArrayCreate,
     SafeArrayPutElement,
+)
+from Windows.Win32.System.Variant import (
+    VARIANT,
+    VT_ARRAY,
+    VT_BSTR,
+    VT_DISPATCH,
+    VT_EMPTY,
+    VT_I4,
+    VT_INT,
+    VT_NULL,
+    VT_VARIANT,
     VariantClear,
 )
 from Windows.Win32.UI.WindowsAndMessaging import MB_OK, MessageBoxW
@@ -85,9 +87,7 @@ def AutoWrap(autotype, pdisp, name, *args):
 
     result = VARIANT()
 
-    hr = pdisp.Invoke(
-        dispid, GUID_NULL, LOCALE_SYSTEM_DEFAULT, autotype, dp, result, None, None
-    )
+    hr = pdisp.Invoke(dispid, GUID_NULL, LOCALE_SYSTEM_DEFAULT, autotype, dp, result, None, None)
     if FAILED(hr):
         raise WinError(hr)
 
@@ -127,17 +127,13 @@ def main():
         sab = (SAFEARRAYBOUND * 2)()
         sab[0] = SAFEARRAYBOUND(lLbound=1, cElements=15)
         sab[1] = SAFEARRAYBOUND(lLbound=1, cElements=15)
-        arr = VARIANT(
-            vt=(VT_ARRAY | VT_VARIANT), parray=SafeArrayCreate(VT_VARIANT, 2, sab)
-        )
+        arr = VARIANT(vt=(VT_ARRAY | VT_VARIANT), parray=SafeArrayCreate(VT_VARIANT, 2, sab))
         stack.callback(VariantClear, arr)
 
         # Fill safearray with some values
         for i in range(1, 16):
             for j in range(1, 16):
-                SafeArrayPutElement(
-                    arr.parray, (Int32 * 2)(i, j), byref(VARIANT(vt=VT_I4, lVal=i * j))
-                )
+                SafeArrayPutElement(arr.parray, (Int32 * 2)(i, j), byref(VARIANT(vt=VT_I4, lVal=i * j)))
 
         # Get ActiveSheet object
         pXlSheet = AutoWrap(DISPATCH_PROPERTYGET, pXlApp, "ActiveSheet")

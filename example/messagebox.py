@@ -1,2 +1,3 @@
-from Windows.Win32.UI.WindowsAndMessaging import MessageBoxW, MB_OK
+from Windows.Win32.UI.WindowsAndMessaging import MB_OK, MessageBoxW
+
 MessageBoxW(0, "hello, win32 api", "win32more", MB_OK)
