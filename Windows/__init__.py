@@ -64,6 +64,7 @@ String = c_wchar_p
 Boolean = c_bool
 Void = None
 
+
 # to avoid auto conversion to str when struct.member access and function() result.
 class c_char_p_no(c_char_p):
     pass
@@ -211,9 +212,6 @@ class ForeignFunction:
         types = [self.restype] + self.argtypes
         params = tuple((1, name) for name in self.hints.keys())
         varnames = prototype.__code__.co_varnames
-        if varnames and varnames[-1] == "__arglist":
-            # Disable keyword argument for variable length arguments.
-            params = None
         self.is_com = varnames and varnames[0] == "self" and "self" not in self.hints
         self.delegate = factory(prototype.__name__, types, params)
 
@@ -263,10 +261,13 @@ def commonfunctype(factory):
     return decorator
 
 
-def cfunctype(library, entry_point=None):
+def cfunctype(library, entry_point=None, variadic=False):
     def factory(name, types, params):
         if entry_point is not None:
             name = entry_point
+        if variadic:
+            # Disable keyword argument for variadic function.
+            params = None
         return CFUNCTYPE(*types)((name, cdll[library]), params)
 
     return commonfunctype(factory)
