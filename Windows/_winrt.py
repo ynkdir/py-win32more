@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import uuid
-from ctypes import POINTER, WINFUNCTYPE, WinError, c_void_p, wstring_at
+from ctypes import POINTER, WINFUNCTYPE, WinError, c_void_p, cast, pointer, wstring_at
 from typing import Generic, TypeVar, _GenericAlias
 
 from Windows import (
@@ -13,11 +13,14 @@ from Windows import (
     Guid,
     Int32,
     Int64,
-    IntPtr,
     Single,
     String,
     UInt32,
     UInt64,
+    Void,
+    c_char_p_no,
+    c_wchar_p_no,
+    easycast,
     get_type_hints,
 )
 from Windows.Win32.Foundation import HRESULT
@@ -33,7 +36,7 @@ from Windows.Win32.System.WinRT import (
 T = TypeVar("T")
 
 
-class WinRT_String(IntPtr):  # HSTRING
+class WinRT_String(HSTRING):
     def __del__(self):
         if self:
             hr = WindowsDeleteString(self)
@@ -60,16 +63,59 @@ class WinRT_String(IntPtr):  # HSTRING
         return wstring_at(bufaddr, length.value)
 
 
-def errcheck_return(hr, func, args):
-    if FAILED(hr):
-        raise WinError(hr)
-    return args
+class WinrtMethod:
+    def __init__(self, this, prototype, factory):
+        hints = get_type_hints(prototype)
+        if is_generic_instance(this):
+            hints = self.map_generic_types(this, hints)
+        restype = hints.pop("return")
+        argtypes = list(hints.values())
+        types = [HRESULT] + argtypes
+        params = [(1, name) for name in hints.keys()]
+        if restype is not Void:
+            params.append((1, "return"))
+            if is_generic_class(restype):
+                return_type = POINTER(restype.__origin__)
+            else:
+                return_type = POINTER(restype)
+            types.append(return_type)
+        self.hints = hints
+        self.hints.update({i: v for i, v in enumerate(argtypes)})
+        self.delegate = factory(prototype.__name__, types, tuple(params))
+        self.restype = restype
 
+    def map_generic_types(self, this, hints):
+        generic_args = this.__orig_class__.__args__
+        generic_parameters = this.__class__.__parameters__
+        param_to_type = {generic_parameters[i]: t for i, t in enumerate(generic_args)}
+        return {k: param_to_type[t] if isinstance(t, TypeVar) else t for k, t in hints.items()}
 
-def errcheck_void(hr, func, args):
-    if FAILED(hr):
-        raise WinError(hr)
-    return None
+    def __call__(self, this, *args, **kwargs):
+        _as_intptr = kwargs.pop("_as_intptr", False)
+        cargs, ckwargs = self.make_args(args, kwargs)
+        if self.restype is Void:
+            result = None
+        else:
+            result = self.restype()
+            ckwargs["return"] = pointer(result)
+        hr = self.delegate(this, *cargs, **ckwargs)
+        if FAILED(hr):
+            raise WinError(hr)
+        return self.make_result(result, _as_intptr)
+
+    def make_args(self, args, kwargs):
+        cargs = [easycast(v, self.hints[i]) if i in self.hints else v for i, v in enumerate(args)]
+        ckwargs = {k: easycast(v, self.hints[k]) if k in self.hints else v for k, v in kwargs.items()}
+        return cargs, ckwargs
+
+    def make_result(self, result, _as_intptr):
+        if result is None:
+            return None
+        elif _as_intptr:
+            return cast(result, c_void_p).value
+        elif type(result) is c_char_p_no or type(result) is c_wchar_p_no:
+            return result.value
+        return result.__ctypes_from_outparam__()
 
 
 def winrt_commethod(vtbl_index):
@@ -82,45 +128,12 @@ def winrt_commethod(vtbl_index):
         def wrapper(self, *args, **kwargs):
             nonlocal delegate_generic
             if is_generic_instance(self):
-                targs = self.__orig_class__.__args__
+                generic_args = self.__orig_class__.__args__
             else:
-                targs = None
-            if targs in delegate_generic:
-                delegate = delegate_generic[targs]
-            else:
-                hints = get_type_hints(prototype)
-                return_ = hints.pop("return")
-                params = [(1, name) for name in hints.keys()]
-                type_hints = list(hints.values())
-                if is_generic_instance(self):
-                    tparams = self.__class__.__parameters__
-                    tmap = {tparams[i]: targs[i] for i in range(len(targs))}
-                    if isinstance(return_, TypeVar):
-                        return_ = tmap[return_]
-                    for i, t in enumerate(type_hints):
-                        if isinstance(t, TypeVar):
-                            type_hints[i] = tmap[t]
-                types = [HRESULT] + type_hints
-                if return_ is None:
-                    errcheck = errcheck_void
-                else:
-                    params.append((2, "return"))
-                    if is_generic_class(return_):
-
-                        class GenericReturnHelper(c_void_p):
-                            def __ctypes_from_outparam__(self):
-                                return return_(self.value)
-
-                        types.append(POINTER(GenericReturnHelper))
-                    else:
-                        types.append(POINTER(return_))
-                    errcheck = errcheck_return
-                delegate_generic[targs] = factory(
-                    prototype.__name__, types, tuple(params)
-                )
-                delegate_generic[targs].errcheck = errcheck
-                delegate = delegate_generic[targs]
-            return delegate(self, *args, **kwargs)
+                generic_args = None
+            if generic_args not in delegate_generic:
+                delegate_generic[generic_args] = WinrtMethod(self, prototype, factory)
+            return delegate_generic[generic_args](self, *args, **kwargs)
 
         return wrapper
 
