@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.System.Com
@@ -579,7 +579,7 @@ ICM_OFF: ICM_MODE = 1
 ICM_ON: ICM_MODE = 2
 ICM_QUERY: ICM_MODE = 3
 ICM_DONE_OUTSIDEDC: ICM_MODE = 4
-class IDeviceModelPlugIn(c_void_p):
+class IDeviceModelPlugIn(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1cd63475-07c4-46fe-a9-03-d6-55-31-6d-11-fd')
     @commethod(3)
@@ -604,7 +604,7 @@ class IDeviceModelPlugIn(c_void_p):
     def GetNeutralAxisSize(self, pcColors: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetNeutralAxis(self, cColors: UInt32, pXYZColors: POINTER(Windows.Win32.UI.ColorSystem.XYZColorF_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IGamutMapModelPlugIn(c_void_p):
+class IGamutMapModelPlugIn(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2dd80115-ad1e-41f6-a2-19-a4-f4-b5-83-d1-f9')
     @commethod(3)

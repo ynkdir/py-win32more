@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.Ole
@@ -510,19 +510,19 @@ CounterItem2 = Guid('43196c62-c31f-4ce3-a0-2e-79-ef-e0-f6-a5-25')
 def CounterPathCallBack(param0: UIntPtr) -> Int32: ...
 CounterPropPage = Guid('cf948561-ede8-11ce-94-1e-00-80-29-00-43-47')
 Counters = Guid('b2b066d2-2aac-11cf-94-2f-00-80-29-00-43-47')
-class DICounterItem(c_void_p):
+class DICounterItem(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c08c4ff2-0e2e-11cf-94-2c-00-80-29-00-43-47')
-class DILogFileItem(c_void_p):
+class DILogFileItem(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('8d093ffc-f777-4917-82-d1-83-3f-bc-54-c5-8f')
-class DISystemMonitor(c_void_p):
+class DISystemMonitor(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('13d73d81-c32e-11cf-93-98-00-aa-00-a3-dd-ea')
-class DISystemMonitorEvents(c_void_p):
+class DISystemMonitorEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('84979930-4ab3-11cf-94-3a-00-80-29-00-43-47')
-class DISystemMonitorInternal(c_void_p):
+class DISystemMonitorInternal(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('194eb242-c32c-11cf-93-98-00-aa-00-a3-dd-ea')
 DataCollectorSet = Guid('03837521-098b-11d8-94-14-50-50-54-50-30-30')
@@ -569,7 +569,7 @@ FolderActionSteps_plaDeleteCab: FolderActionSteps = 8
 FolderActionSteps_plaDeleteReport: FolderActionSteps = 16
 GeneralPropPage = Guid('c3e5d3d2-1a03-11cf-94-2d-00-80-29-00-43-47')
 GraphPropPage = Guid('c3e5d3d3-1a03-11cf-94-2d-00-80-29-00-43-47')
-class IAlertDataCollector(c_void_p):
+class IAlertDataCollector(ComPtr):
     extends: Windows.Win32.System.Performance.IDataCollector
     Guid = Guid('03837516-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(32)
@@ -604,7 +604,7 @@ class IAlertDataCollector(c_void_p):
     def get_TriggerDataCollectorSet(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(47)
     def put_TriggerDataCollectorSet(self, name: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IApiTracingDataCollector(c_void_p):
+class IApiTracingDataCollector(ComPtr):
     extends: Windows.Win32.System.Performance.IDataCollector
     Guid = Guid('0383751a-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(32)
@@ -635,7 +635,7 @@ class IApiTracingDataCollector(c_void_p):
     def get_ExcludeApis(self, excludeapis: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(45)
     def put_ExcludeApis(self, excludeapis: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IConfigurationDataCollector(c_void_p):
+class IConfigurationDataCollector(ComPtr):
     extends: Windows.Win32.System.Performance.IDataCollector
     Guid = Guid('03837514-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(32)
@@ -674,7 +674,7 @@ class IConfigurationDataCollector(c_void_p):
     def get_SystemStateFile(self, FileName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(49)
     def put_SystemStateFile(self, FileName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ICounterItem(c_void_p):
+class ICounterItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('771a9520-ee28-11ce-94-1e-00-80-29-00-43-47')
     @commethod(3)
@@ -701,7 +701,7 @@ class ICounterItem(c_void_p):
     def GetValue(self, Value: POINTER(Double), Status: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetStatistics(self, Max: POINTER(Double), Min: POINTER(Double), Avg: POINTER(Double), Status: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICounterItem2(c_void_p):
+class ICounterItem2(ComPtr):
     extends: Windows.Win32.System.Performance.ICounterItem
     Guid = Guid('eefcd4e1-ea1c-4435-b7-f4-e3-41-ba-03-b4-f9')
     @commethod(15)
@@ -714,7 +714,7 @@ class ICounterItem2(c_void_p):
     def get_Visible(self, pbState: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def GetDataAt(self, iIndex: Int32, iWhich: Windows.Win32.System.Performance.SysmonDataType, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICounters(c_void_p):
+class ICounters(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('79167962-28fc-11cf-94-2f-00-80-29-00-43-47')
     @commethod(7)
@@ -727,7 +727,7 @@ class ICounters(c_void_p):
     def Add(self, pathname: Windows.Win32.Foundation.BSTR, ppI: POINTER(Windows.Win32.System.Performance.DICounterItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Remove(self, index: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class IDataCollector(c_void_p):
+class IDataCollector(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('038374ff-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(7)
@@ -780,7 +780,7 @@ class IDataCollector(c_void_p):
     def SetXml(self, Xml: Windows.Win32.Foundation.BSTR, Validation: POINTER(Windows.Win32.System.Performance.IValueMap_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def CreateOutputLocation(self, Latest: Windows.Win32.Foundation.VARIANT_BOOL, Location: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDataCollectorCollection(c_void_p):
+class IDataCollectorCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('03837502-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(7)
@@ -801,7 +801,7 @@ class IDataCollectorCollection(c_void_p):
     def CreateDataCollectorFromXml(self, bstrXml: Windows.Win32.Foundation.BSTR, pValidation: POINTER(Windows.Win32.System.Performance.IValueMap_head), pCollector: POINTER(Windows.Win32.System.Performance.IDataCollector_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def CreateDataCollector(self, Type: Windows.Win32.System.Performance.DataCollectorType, Collector: POINTER(Windows.Win32.System.Performance.IDataCollector_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDataCollectorSet(c_void_p):
+class IDataCollectorSet(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('03837520-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(7)
@@ -924,7 +924,7 @@ class IDataCollectorSet(c_void_p):
     def SetValue(self, key: Windows.Win32.Foundation.BSTR, value: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(66)
     def GetValue(self, key: Windows.Win32.Foundation.BSTR, value: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDataCollectorSetCollection(c_void_p):
+class IDataCollectorSetCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('03837524-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(7)
@@ -943,7 +943,7 @@ class IDataCollectorSetCollection(c_void_p):
     def AddRange(self, sets: Windows.Win32.System.Performance.IDataCollectorSetCollection_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetDataCollectorSets(self, server: Windows.Win32.Foundation.BSTR, filter: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IDataManager(c_void_p):
+class IDataManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('03837541-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(7)
@@ -996,7 +996,7 @@ class IDataManager(c_void_p):
     def Run(self, Steps: Windows.Win32.System.Performance.DataManagerSteps, bstrFolder: Windows.Win32.Foundation.BSTR, Errors: POINTER(Windows.Win32.System.Performance.IValueMap_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def Extract(self, CabFilename: Windows.Win32.Foundation.BSTR, DestinationPath: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IFolderAction(c_void_p):
+class IFolderAction(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('03837543-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(7)
@@ -1015,7 +1015,7 @@ class IFolderAction(c_void_p):
     def get_SendCabTo(self, pbstrDestination: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def put_SendCabTo(self, bstrDestination: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IFolderActionCollection(c_void_p):
+class IFolderActionCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('03837544-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(7)
@@ -1034,12 +1034,12 @@ class IFolderActionCollection(c_void_p):
     def AddRange(self, Actions: Windows.Win32.System.Performance.IFolderActionCollection_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def CreateFolderAction(self, FolderAction: POINTER(Windows.Win32.System.Performance.IFolderAction_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ILogFileItem(c_void_p):
+class ILogFileItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d6b518dd-05c7-418a-89-e6-4f-9c-e8-c6-84-1e')
     @commethod(3)
     def get_Path(self, pstrValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ILogFiles(c_void_p):
+class ILogFiles(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('6a2a97e6-6851-41ea-87-ad-2a-82-25-33-58-65')
     @commethod(7)
@@ -1052,7 +1052,7 @@ class ILogFiles(c_void_p):
     def Add(self, pathname: Windows.Win32.Foundation.BSTR, ppI: POINTER(Windows.Win32.System.Performance.DILogFileItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Remove(self, index: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class IPerformanceCounterDataCollector(c_void_p):
+class IPerformanceCounterDataCollector(ComPtr):
     extends: Windows.Win32.System.Performance.IDataCollector
     Guid = Guid('03837506-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(32)
@@ -1075,7 +1075,7 @@ class IPerformanceCounterDataCollector(c_void_p):
     def get_SegmentMaxRecords(self, records: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(41)
     def put_SegmentMaxRecords(self, records: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchedule(c_void_p):
+class ISchedule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('0383753a-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(7)
@@ -1094,7 +1094,7 @@ class ISchedule(c_void_p):
     def get_Days(self, days: POINTER(Windows.Win32.System.Performance.WeekDays)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def put_Days(self, days: Windows.Win32.System.Performance.WeekDays) -> Windows.Win32.Foundation.HRESULT: ...
-class IScheduleCollection(c_void_p):
+class IScheduleCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('0383753d-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(7)
@@ -1113,7 +1113,7 @@ class IScheduleCollection(c_void_p):
     def AddRange(self, pSchedules: Windows.Win32.System.Performance.IScheduleCollection_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def CreateSchedule(self, Schedule: POINTER(Windows.Win32.System.Performance.ISchedule_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISystemMonitor(c_void_p):
+class ISystemMonitor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('194eb241-c32c-11cf-93-98-00-aa-00-a3-dd-ea')
     @commethod(3)
@@ -1268,7 +1268,7 @@ class ISystemMonitor(c_void_p):
     def put_SqlLogSetName(self, bsSqlLogSetName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(78)
     def get_SqlLogSetName(self, bsSqlLogSetName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISystemMonitor2(c_void_p):
+class ISystemMonitor2(ComPtr):
     extends: Windows.Win32.System.Performance.ISystemMonitor
     Guid = Guid('08e3206a-5fd2-4fde-a8-a5-8c-b3-b6-3d-26-77')
     @commethod(79)
@@ -1311,7 +1311,7 @@ class ISystemMonitor2(c_void_p):
     def BatchingLock(self, fLock: Windows.Win32.Foundation.VARIANT_BOOL, eBatchReason: Windows.Win32.System.Performance.SysmonBatchReason) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(98)
     def LoadSettings(self, bstrSettingFileName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ISystemMonitorEvents(c_void_p):
+class ISystemMonitorEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ee660ea0-4abd-11cf-94-3a-00-80-29-00-43-47')
     @commethod(3)
@@ -1324,7 +1324,7 @@ class ISystemMonitorEvents(c_void_p):
     def OnSampleCollected(self) -> Void: ...
     @commethod(7)
     def OnDblClick(self, Index: Int32) -> Void: ...
-class ITraceDataCollector(c_void_p):
+class ITraceDataCollector(ComPtr):
     extends: Windows.Win32.System.Performance.IDataCollector
     Guid = Guid('0383750b-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(32)
@@ -1407,7 +1407,7 @@ class ITraceDataCollector(c_void_p):
     def put_StreamMode(self, mode: Windows.Win32.System.Performance.StreamMode) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(71)
     def get_TraceDataProviders(self, providers: POINTER(Windows.Win32.System.Performance.ITraceDataProviderCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITraceDataProvider(c_void_p):
+class ITraceDataProvider(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('03837512-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(7)
@@ -1448,7 +1448,7 @@ class ITraceDataProvider(c_void_p):
     def GetSecurity(self, SecurityInfo: UInt32, Sddl: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def GetRegisteredProcesses(self, Processes: POINTER(Windows.Win32.System.Performance.IValueMap_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITraceDataProviderCollection(c_void_p):
+class ITraceDataProviderCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('03837510-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(7)
@@ -1471,7 +1471,7 @@ class ITraceDataProviderCollection(c_void_p):
     def GetTraceDataProviders(self, server: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def GetTraceDataProvidersByProcess(self, Server: Windows.Win32.Foundation.BSTR, Pid: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IValueMap(c_void_p):
+class IValueMap(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('03837534-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(7)
@@ -1502,7 +1502,7 @@ class IValueMap(c_void_p):
     def AddRange(self, map: Windows.Win32.System.Performance.IValueMap_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def CreateValueMapItem(self, Item: POINTER(Windows.Win32.System.Performance.IValueMapItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IValueMapItem(c_void_p):
+class IValueMapItem(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('03837533-098b-11d8-94-14-50-50-54-50-30-30')
     @commethod(7)
@@ -2057,7 +2057,7 @@ WeekDays_plaThursday: WeekDays = 16
 WeekDays_plaFriday: WeekDays = 32
 WeekDays_plaSaturday: WeekDays = 64
 WeekDays_plaEveryday: WeekDays = 127
-class _ICounterItemUnion(c_void_p):
+class _ICounterItemUnion(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('de1a6b74-9182-4c41-8e-2c-24-c2-cd-30-ee-83')
     @commethod(3)
@@ -2094,7 +2094,7 @@ class _ICounterItemUnion(c_void_p):
     def get_Visible(self, pbState: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def GetDataAt(self, iIndex: Int32, iWhich: Windows.Win32.System.Performance.SysmonDataType, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class _ISystemMonitorUnion(c_void_p):
+class _ISystemMonitorUnion(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c8a77338-265f-4de5-aa-25-c7-da-1c-e5-a8-f4')
     @commethod(3)

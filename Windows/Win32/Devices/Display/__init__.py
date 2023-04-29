@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Devices.Display
 import Windows.Win32.Devices.Properties
 import Windows.Win32.Foundation
@@ -1732,7 +1732,7 @@ HDRVOBJ = IntPtr
 HFASTMUTEX = IntPtr
 HSEMAPHORE = IntPtr
 HSURF = IntPtr
-class ICloneViewHelper(c_void_p):
+class ICloneViewHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f6a3d4c4-5632-4d83-b0-a1-fb-88-71-2b-1e-b7')
     @commethod(3)
@@ -1878,7 +1878,7 @@ class INDIRECT_DISPLAY_INFO(EasyCastStructure):
     Flags: UInt32
     NumMonitors: UInt32
     DisplayAdapterTargetBase: UInt32
-class IViewHelper(c_void_p):
+class IViewHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e85ccef5-aaaa-47f0-b5-e3-61-f7-ae-cd-c4-c1')
     @commethod(3)

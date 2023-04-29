@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.ParentalControls
@@ -116,12 +116,12 @@ MSG_Event_ComputerUsage: Int32 = -1342177259
 MSG_Event_ContentUsage: Int32 = -1342177258
 FACILITY_WPC: UInt32 = 2457
 WPCPROV: Guid = Guid('01090065-b467-4503-9b-28-53-37-66-76-10-87')
-class IWPCGamesSettings(c_void_p):
+class IWPCGamesSettings(ComPtr):
     extends: Windows.Win32.System.ParentalControls.IWPCSettings
     Guid = Guid('95e87780-e158-489e-b4-52-bb-b8-50-79-07-15')
     @commethod(6)
     def IsBlocked(self, guidAppID: Guid, pdwReasons: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWPCProviderConfig(c_void_p):
+class IWPCProviderConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bef54196-2d02-4a26-b6-e5-d6-5a-f2-95-d0-f1')
     @commethod(3)
@@ -130,19 +130,19 @@ class IWPCProviderConfig(c_void_p):
     def Configure(self, hWnd: Windows.Win32.Foundation.HWND, bstrSID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def RequestOverride(self, hWnd: Windows.Win32.Foundation.HWND, bstrPath: Windows.Win32.Foundation.BSTR, dwFlags: Windows.Win32.System.ParentalControls.WPCFLAG_RESTRICTION) -> Windows.Win32.Foundation.HRESULT: ...
-class IWPCProviderState(c_void_p):
+class IWPCProviderState(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('50b6a267-c4bd-450b-ad-b5-75-90-73-83-7c-9e')
     @commethod(3)
     def Enable(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Disable(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IWPCProviderSupport(c_void_p):
+class IWPCProviderSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('41eba572-23ed-4779-be-c1-8d-f9-62-06-c4-4c')
     @commethod(3)
     def GetCurrent(self, pguidProvider: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWPCSettings(c_void_p):
+class IWPCSettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8fdf6ca1-0189-47e4-b6-70-1a-8a-46-36-e3-40')
     @commethod(3)
@@ -151,19 +151,19 @@ class IWPCSettings(c_void_p):
     def GetLastSettingsChangeTime(self, pTime: POINTER(Windows.Win32.Foundation.SYSTEMTIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetRestrictions(self, pdwRestrictions: POINTER(Windows.Win32.System.ParentalControls.WPCFLAG_RESTRICTION)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWPCWebSettings(c_void_p):
+class IWPCWebSettings(ComPtr):
     extends: Windows.Win32.System.ParentalControls.IWPCSettings
     Guid = Guid('ffccbdb8-0992-4c30-b0-f1-1c-bb-09-c2-40-aa')
     @commethod(6)
     def GetSettings(self, pdwSettings: POINTER(Windows.Win32.System.ParentalControls.WPCFLAG_WEB_SETTING)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def RequestURLOverride(self, hWnd: Windows.Win32.Foundation.HWND, pcszURL: Windows.Win32.Foundation.PWSTR, cURLs: UInt32, ppcszSubURLs: POINTER(Windows.Win32.Foundation.PWSTR), pfChanged: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWindowsParentalControls(c_void_p):
+class IWindowsParentalControls(ComPtr):
     extends: Windows.Win32.System.ParentalControls.IWindowsParentalControlsCore
     Guid = Guid('28b4d88b-e072-49e6-80-4d-26-ed-be-21-a7-b9')
     @commethod(7)
     def GetGamesSettings(self, pcszSID: Windows.Win32.Foundation.PWSTR, ppSettings: POINTER(Windows.Win32.System.ParentalControls.IWPCGamesSettings_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWindowsParentalControlsCore(c_void_p):
+class IWindowsParentalControlsCore(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4ff40a0f-3f3b-4d7c-a4-1b-4f-39-d7-b4-4d-05')
     @commethod(3)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Dxgi
 import Windows.Win32.Graphics.Dxgi.Common
@@ -769,7 +769,7 @@ DXGI_USAGE_SHARED: DXGI_USAGE = 128
 DXGI_USAGE_READ_ONLY: DXGI_USAGE = 256
 DXGI_USAGE_DISCARD_ON_PRESENT: DXGI_USAGE = 512
 DXGI_USAGE_UNORDERED_ACCESS: DXGI_USAGE = 1024
-class IDXGIAdapter(c_void_p):
+class IDXGIAdapter(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIObject
     Guid = Guid('2411e7e1-12ac-4ccf-bd-14-97-98-e8-53-4d-c0')
     @commethod(7)
@@ -778,17 +778,17 @@ class IDXGIAdapter(c_void_p):
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_ADAPTER_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def CheckInterfaceSupport(self, InterfaceName: POINTER(Guid), pUMDVersion: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIAdapter1(c_void_p):
+class IDXGIAdapter1(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIAdapter
     Guid = Guid('29038f61-3839-4626-91-fd-08-68-79-01-1a-05')
     @commethod(10)
     def GetDesc1(self, pDesc: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_ADAPTER_DESC1_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIAdapter2(c_void_p):
+class IDXGIAdapter2(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIAdapter1
     Guid = Guid('0aa1ae0a-fa0e-4b84-86-44-e0-5f-f8-e5-ac-b5')
     @commethod(11)
     def GetDesc2(self, pDesc: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_ADAPTER_DESC2_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIAdapter3(c_void_p):
+class IDXGIAdapter3(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIAdapter2
     Guid = Guid('645967a4-1392-4310-a7-98-80-53-ce-3e-93-fd')
     @commethod(12)
@@ -803,17 +803,17 @@ class IDXGIAdapter3(c_void_p):
     def RegisterVideoMemoryBudgetChangeNotificationEvent(self, hEvent: Windows.Win32.Foundation.HANDLE, pdwCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def UnregisterVideoMemoryBudgetChangeNotification(self, dwCookie: UInt32) -> Void: ...
-class IDXGIAdapter4(c_void_p):
+class IDXGIAdapter4(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIAdapter3
     Guid = Guid('3c8d99d1-4fbf-4181-a8-2c-af-66-bf-7b-d2-4e')
     @commethod(18)
     def GetDesc3(self, pDesc: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_ADAPTER_DESC3_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIDebug(c_void_p):
+class IDXGIDebug(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('119e7452-de9e-40fe-88-06-88-f9-0c-12-b4-41')
     @commethod(3)
     def ReportLiveObjects(self, apiid: Guid, flags: Windows.Win32.Graphics.Dxgi.DXGI_DEBUG_RLO_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIDebug1(c_void_p):
+class IDXGIDebug1(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIDebug
     Guid = Guid('c5a05f0c-16f2-4adf-9f-4d-a8-c4-d5-8a-c5-50')
     @commethod(4)
@@ -822,7 +822,7 @@ class IDXGIDebug1(c_void_p):
     def DisableLeakTrackingForThread(self) -> Void: ...
     @commethod(6)
     def IsLeakTrackingEnabledForThread(self) -> Windows.Win32.Foundation.BOOL: ...
-class IDXGIDecodeSwapChain(c_void_p):
+class IDXGIDecodeSwapChain(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2633066b-4514-4c7a-8f-d8-12-ea-98-05-9d-18')
     @commethod(3)
@@ -843,7 +843,7 @@ class IDXGIDecodeSwapChain(c_void_p):
     def SetColorSpace(self, ColorSpace: Windows.Win32.Graphics.Dxgi.DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetColorSpace(self) -> Windows.Win32.Graphics.Dxgi.DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS: ...
-class IDXGIDevice(c_void_p):
+class IDXGIDevice(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIObject
     Guid = Guid('54ec77fa-1377-44e6-8c-32-88-fd-5f-44-c8-4c')
     @commethod(7)
@@ -856,14 +856,14 @@ class IDXGIDevice(c_void_p):
     def SetGPUThreadPriority(self, Priority: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetGPUThreadPriority(self, pPriority: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIDevice1(c_void_p):
+class IDXGIDevice1(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIDevice
     Guid = Guid('77db970f-6276-48ba-ba-28-07-01-43-b4-39-2c')
     @commethod(12)
     def SetMaximumFrameLatency(self, MaxLatency: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetMaximumFrameLatency(self, pMaxLatency: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIDevice2(c_void_p):
+class IDXGIDevice2(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIDevice1
     Guid = Guid('05008617-fbfd-4051-a7-90-14-48-84-b4-f6-a9')
     @commethod(14)
@@ -872,31 +872,31 @@ class IDXGIDevice2(c_void_p):
     def ReclaimResources(self, NumResources: UInt32, ppResources: POINTER(Windows.Win32.Graphics.Dxgi.IDXGIResource_head), pDiscarded: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def EnqueueSetEvent(self, hEvent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIDevice3(c_void_p):
+class IDXGIDevice3(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIDevice2
     Guid = Guid('6007896c-3244-4afd-bf-18-a6-d3-be-da-50-23')
     @commethod(17)
     def Trim(self) -> Void: ...
-class IDXGIDevice4(c_void_p):
+class IDXGIDevice4(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIDevice3
     Guid = Guid('95b4f95f-d8da-4ca4-9e-e6-3b-76-d5-96-8a-10')
     @commethod(18)
     def OfferResources1(self, NumResources: UInt32, ppResources: POINTER(Windows.Win32.Graphics.Dxgi.IDXGIResource_head), Priority: Windows.Win32.Graphics.Dxgi.DXGI_OFFER_RESOURCE_PRIORITY, Flags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def ReclaimResources1(self, NumResources: UInt32, ppResources: POINTER(Windows.Win32.Graphics.Dxgi.IDXGIResource_head), pResults: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_RECLAIM_RESOURCE_RESULTS)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIDeviceSubObject(c_void_p):
+class IDXGIDeviceSubObject(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIObject
     Guid = Guid('3d3e0379-f9de-4d58-bb-6c-18-d6-29-92-f1-a6')
     @commethod(7)
     def GetDevice(self, riid: POINTER(Guid), ppDevice: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIDisplayControl(c_void_p):
+class IDXGIDisplayControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ea9dbf1a-c88e-4486-85-4a-98-aa-01-38-f3-0c')
     @commethod(3)
     def IsStereoEnabled(self) -> Windows.Win32.Foundation.BOOL: ...
     @commethod(4)
     def SetStereoEnabled(self, enabled: Windows.Win32.Foundation.BOOL) -> Void: ...
-class IDXGIFactory(c_void_p):
+class IDXGIFactory(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIObject
     Guid = Guid('7b7166ec-21c7-44ae-b2-1a-c9-ae-32-1a-e3-69')
     @commethod(7)
@@ -909,14 +909,14 @@ class IDXGIFactory(c_void_p):
     def CreateSwapChain(self, pDevice: Windows.Win32.System.Com.IUnknown_head, pDesc: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC_head), ppSwapChain: POINTER(Windows.Win32.Graphics.Dxgi.IDXGISwapChain_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def CreateSoftwareAdapter(self, Module: Windows.Win32.Foundation.HMODULE, ppAdapter: POINTER(Windows.Win32.Graphics.Dxgi.IDXGIAdapter_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIFactory1(c_void_p):
+class IDXGIFactory1(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIFactory
     Guid = Guid('770aae78-f26f-4dba-a8-29-25-3c-83-d1-b3-87')
     @commethod(12)
     def EnumAdapters1(self, Adapter: UInt32, ppAdapter: POINTER(Windows.Win32.Graphics.Dxgi.IDXGIAdapter1_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def IsCurrent(self) -> Windows.Win32.Foundation.BOOL: ...
-class IDXGIFactory2(c_void_p):
+class IDXGIFactory2(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIFactory1
     Guid = Guid('50c83a1c-e072-4c48-87-b0-36-30-fa-36-a6-d0')
     @commethod(14)
@@ -941,43 +941,43 @@ class IDXGIFactory2(c_void_p):
     def UnregisterOcclusionStatus(self, dwCookie: UInt32) -> Void: ...
     @commethod(24)
     def CreateSwapChainForComposition(self, pDevice: Windows.Win32.System.Com.IUnknown_head, pDesc: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC1_head), pRestrictToOutput: Windows.Win32.Graphics.Dxgi.IDXGIOutput_head, ppSwapChain: POINTER(Windows.Win32.Graphics.Dxgi.IDXGISwapChain1_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIFactory3(c_void_p):
+class IDXGIFactory3(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIFactory2
     Guid = Guid('25483823-cd46-4c7d-86-ca-47-aa-95-b8-37-bd')
     @commethod(25)
     def GetCreationFlags(self) -> UInt32: ...
-class IDXGIFactory4(c_void_p):
+class IDXGIFactory4(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIFactory3
     Guid = Guid('1bc6ea02-ef36-464f-bf-0c-21-ca-39-e5-16-8a')
     @commethod(26)
     def EnumAdapterByLuid(self, AdapterLuid: Windows.Win32.Foundation.LUID, riid: POINTER(Guid), ppvAdapter: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def EnumWarpAdapter(self, riid: POINTER(Guid), ppvAdapter: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIFactory5(c_void_p):
+class IDXGIFactory5(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIFactory4
     Guid = Guid('7632e1f5-ee65-4dca-87-fd-84-cd-75-f8-83-8d')
     @commethod(28)
     def CheckFeatureSupport(self, Feature: Windows.Win32.Graphics.Dxgi.DXGI_FEATURE, pFeatureSupportData: c_void_p, FeatureSupportDataSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIFactory6(c_void_p):
+class IDXGIFactory6(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIFactory5
     Guid = Guid('c1b6694f-ff09-44a9-b0-3c-77-90-0a-0a-1d-17')
     @commethod(29)
     def EnumAdapterByGpuPreference(self, Adapter: UInt32, GpuPreference: Windows.Win32.Graphics.Dxgi.DXGI_GPU_PREFERENCE, riid: POINTER(Guid), ppvAdapter: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIFactory7(c_void_p):
+class IDXGIFactory7(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIFactory6
     Guid = Guid('a4966eed-76db-44da-84-c1-ee-9a-7a-fb-20-a8')
     @commethod(30)
     def RegisterAdaptersChangedEvent(self, hEvent: Windows.Win32.Foundation.HANDLE, pdwCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def UnregisterAdaptersChangedEvent(self, dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIFactoryMedia(c_void_p):
+class IDXGIFactoryMedia(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('41e7d1f2-a591-4f7b-a2-e5-fa-9c-84-3e-1c-12')
     @commethod(3)
     def CreateSwapChainForCompositionSurfaceHandle(self, pDevice: Windows.Win32.System.Com.IUnknown_head, hSurface: Windows.Win32.Foundation.HANDLE, pDesc: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC1_head), pRestrictToOutput: Windows.Win32.Graphics.Dxgi.IDXGIOutput_head, ppSwapChain: POINTER(Windows.Win32.Graphics.Dxgi.IDXGISwapChain1_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CreateDecodeSwapChainForCompositionSurfaceHandle(self, pDevice: Windows.Win32.System.Com.IUnknown_head, hSurface: Windows.Win32.Foundation.HANDLE, pDesc: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_DECODE_SWAP_CHAIN_DESC_head), pYuvDecodeBuffers: Windows.Win32.Graphics.Dxgi.IDXGIResource_head, pRestrictToOutput: Windows.Win32.Graphics.Dxgi.IDXGIOutput_head, ppSwapChain: POINTER(Windows.Win32.Graphics.Dxgi.IDXGIDecodeSwapChain_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIInfoQueue(c_void_p):
+class IDXGIInfoQueue(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d67441c7-672a-476f-9e-82-cd-55-b4-49-49-ce')
     @commethod(3)
@@ -1054,14 +1054,14 @@ class IDXGIInfoQueue(c_void_p):
     def SetMuteDebugOutput(self, Producer: Guid, bMute: Windows.Win32.Foundation.BOOL) -> Void: ...
     @commethod(39)
     def GetMuteDebugOutput(self, Producer: Guid) -> Windows.Win32.Foundation.BOOL: ...
-class IDXGIKeyedMutex(c_void_p):
+class IDXGIKeyedMutex(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIDeviceSubObject
     Guid = Guid('9d8e1289-d7b3-465f-81-26-25-0e-34-9a-f8-5d')
     @commethod(8)
     def AcquireSync(self, Key: UInt64, dwMilliseconds: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def ReleaseSync(self, Key: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIObject(c_void_p):
+class IDXGIObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('aec22fb8-76f3-4639-9b-e0-28-eb-43-a6-7a-2e')
     @commethod(3)
@@ -1072,7 +1072,7 @@ class IDXGIObject(c_void_p):
     def GetPrivateData(self, Name: POINTER(Guid), pDataSize: POINTER(UInt32), pData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetParent(self, riid: POINTER(Guid), ppParent: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIOutput(c_void_p):
+class IDXGIOutput(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIObject
     Guid = Guid('ae02eedb-c735-4690-8d-52-5a-8d-c2-02-13-aa')
     @commethod(7)
@@ -1099,7 +1099,7 @@ class IDXGIOutput(c_void_p):
     def GetDisplaySurfaceData(self, pDestination: Windows.Win32.Graphics.Dxgi.IDXGISurface_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def GetFrameStatistics(self, pStats: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_FRAME_STATISTICS_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIOutput1(c_void_p):
+class IDXGIOutput1(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIOutput
     Guid = Guid('00cddea8-939b-4b83-a3-40-a6-85-22-66-66-cc')
     @commethod(19)
@@ -1110,34 +1110,34 @@ class IDXGIOutput1(c_void_p):
     def GetDisplaySurfaceData1(self, pDestination: Windows.Win32.Graphics.Dxgi.IDXGIResource_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def DuplicateOutput(self, pDevice: Windows.Win32.System.Com.IUnknown_head, ppOutputDuplication: POINTER(Windows.Win32.Graphics.Dxgi.IDXGIOutputDuplication_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIOutput2(c_void_p):
+class IDXGIOutput2(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIOutput1
     Guid = Guid('595e39d1-2724-4663-99-b1-da-96-9d-e2-83-64')
     @commethod(23)
     def SupportsOverlays(self) -> Windows.Win32.Foundation.BOOL: ...
-class IDXGIOutput3(c_void_p):
+class IDXGIOutput3(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIOutput2
     Guid = Guid('8a6bb301-7e7e-41f4-a8-e0-5b-32-f7-f9-9b-18')
     @commethod(24)
     def CheckOverlaySupport(self, EnumFormat: Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT, pConcernedDevice: Windows.Win32.System.Com.IUnknown_head, pFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIOutput4(c_void_p):
+class IDXGIOutput4(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIOutput3
     Guid = Guid('dc7dca35-2196-414d-9f-53-61-78-84-03-2a-60')
     @commethod(25)
     def CheckOverlayColorSpaceSupport(self, Format: Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT, ColorSpace: Windows.Win32.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE, pConcernedDevice: Windows.Win32.System.Com.IUnknown_head, pFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIOutput5(c_void_p):
+class IDXGIOutput5(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIOutput4
     Guid = Guid('80a07424-ab52-42eb-83-3c-0c-42-fd-28-2d-98')
     @commethod(26)
     def DuplicateOutput1(self, pDevice: Windows.Win32.System.Com.IUnknown_head, Flags: UInt32, SupportedFormatsCount: UInt32, pSupportedFormats: POINTER(Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT), ppOutputDuplication: POINTER(Windows.Win32.Graphics.Dxgi.IDXGIOutputDuplication_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIOutput6(c_void_p):
+class IDXGIOutput6(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIOutput5
     Guid = Guid('068346e8-aaec-4b84-ad-d7-13-7f-51-3f-77-a1')
     @commethod(27)
     def GetDesc1(self, pDesc: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_OUTPUT_DESC1_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
     def CheckHardwareCompositionSupport(self, pFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIOutputDuplication(c_void_p):
+class IDXGIOutputDuplication(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIObject
     Guid = Guid('191cfac3-a341-470d-b2-6e-a8-64-f4-28-31-9c')
     @commethod(7)
@@ -1156,7 +1156,7 @@ class IDXGIOutputDuplication(c_void_p):
     def UnMapDesktopSurface(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def ReleaseFrame(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIResource(c_void_p):
+class IDXGIResource(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIDeviceSubObject
     Guid = Guid('035f3ab4-482e-4e50-b4-1f-8a-7f-8b-d8-96-0b')
     @commethod(8)
@@ -1167,14 +1167,14 @@ class IDXGIResource(c_void_p):
     def SetEvictionPriority(self, EvictionPriority: Windows.Win32.Graphics.Dxgi.DXGI_RESOURCE_PRIORITY) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetEvictionPriority(self, pEvictionPriority: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGIResource1(c_void_p):
+class IDXGIResource1(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIResource
     Guid = Guid('30961379-4609-4a41-99-8e-54-fe-56-7e-e0-c1')
     @commethod(12)
     def CreateSubresourceSurface(self, index: UInt32, ppSurface: POINTER(Windows.Win32.Graphics.Dxgi.IDXGISurface2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def CreateSharedHandle(self, pAttributes: POINTER(Windows.Win32.Security.SECURITY_ATTRIBUTES_head), dwAccess: UInt32, lpName: Windows.Win32.Foundation.PWSTR, pHandle: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGISurface(c_void_p):
+class IDXGISurface(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIDeviceSubObject
     Guid = Guid('cafcb56c-6ac3-4889-bf-47-9e-23-bb-d2-60-ec')
     @commethod(8)
@@ -1183,19 +1183,19 @@ class IDXGISurface(c_void_p):
     def Map(self, pLockedRect: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_MAPPED_RECT_head), MapFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Unmap(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGISurface1(c_void_p):
+class IDXGISurface1(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGISurface
     Guid = Guid('4ae63092-6327-4c1b-80-ae-bf-e1-2e-a3-2b-86')
     @commethod(11)
     def GetDC(self, Discard: Windows.Win32.Foundation.BOOL, phdc: POINTER(Windows.Win32.Graphics.Gdi.HDC)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def ReleaseDC(self, pDirtyRect: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGISurface2(c_void_p):
+class IDXGISurface2(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGISurface1
     Guid = Guid('aba496dd-b617-4cb8-a8-66-bc-44-d7-eb-1f-a2')
     @commethod(13)
     def GetResource(self, riid: POINTER(Guid), ppParentResource: POINTER(c_void_p), pSubresourceIndex: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGISwapChain(c_void_p):
+class IDXGISwapChain(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGIDeviceSubObject
     Guid = Guid('310d36a0-d2e7-4c0a-aa-04-6a-9d-23-b8-88-6a')
     @commethod(8)
@@ -1218,7 +1218,7 @@ class IDXGISwapChain(c_void_p):
     def GetFrameStatistics(self, pStats: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_FRAME_STATISTICS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def GetLastPresentCount(self, pLastPresentCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGISwapChain1(c_void_p):
+class IDXGISwapChain1(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGISwapChain
     Guid = Guid('790a45f7-0d42-4876-98-3a-0a-55-cf-e6-f4-aa')
     @commethod(18)
@@ -1243,7 +1243,7 @@ class IDXGISwapChain1(c_void_p):
     def SetRotation(self, Rotation: Windows.Win32.Graphics.Dxgi.Common.DXGI_MODE_ROTATION) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
     def GetRotation(self, pRotation: POINTER(Windows.Win32.Graphics.Dxgi.Common.DXGI_MODE_ROTATION)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGISwapChain2(c_void_p):
+class IDXGISwapChain2(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGISwapChain1
     Guid = Guid('a8be2ac4-199f-4946-b3-31-79-59-9f-b9-8d-e7')
     @commethod(29)
@@ -1260,7 +1260,7 @@ class IDXGISwapChain2(c_void_p):
     def SetMatrixTransform(self, pMatrix: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_MATRIX_3X2_F_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
     def GetMatrixTransform(self, pMatrix: POINTER(Windows.Win32.Graphics.Dxgi.DXGI_MATRIX_3X2_F_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGISwapChain3(c_void_p):
+class IDXGISwapChain3(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGISwapChain2
     Guid = Guid('94d99bdb-f1f8-4ab0-b2-36-7d-a0-17-0e-da-b1')
     @commethod(36)
@@ -1271,12 +1271,12 @@ class IDXGISwapChain3(c_void_p):
     def SetColorSpace1(self, ColorSpace: Windows.Win32.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(39)
     def ResizeBuffers1(self, BufferCount: UInt32, Width: UInt32, Height: UInt32, Format: Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT, SwapChainFlags: UInt32, pCreationNodeMask: POINTER(UInt32), ppPresentQueue: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGISwapChain4(c_void_p):
+class IDXGISwapChain4(ComPtr):
     extends: Windows.Win32.Graphics.Dxgi.IDXGISwapChain3
     Guid = Guid('3d585d5a-bd4a-489e-b1-f4-3d-bc-b6-45-2f-fb')
     @commethod(40)
     def SetHDRMetaData(self, Type: Windows.Win32.Graphics.Dxgi.DXGI_HDR_METADATA_TYPE, Size: UInt32, pMetaData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGISwapChainMedia(c_void_p):
+class IDXGISwapChainMedia(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('dd95b90b-f05f-4f6a-bd-65-25-bf-b2-64-bd-84')
     @commethod(3)
@@ -1285,7 +1285,7 @@ class IDXGISwapChainMedia(c_void_p):
     def SetPresentDuration(self, Duration: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CheckPresentDurationSupport(self, DesiredPresentDuration: UInt32, pClosestSmallerPresentDuration: POINTER(UInt32), pClosestLargerPresentDuration: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXGraphicsAnalysis(c_void_p):
+class IDXGraphicsAnalysis(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9f251514-9d4d-4902-9d-60-18-98-8a-b7-d4-b5')
     @commethod(3)

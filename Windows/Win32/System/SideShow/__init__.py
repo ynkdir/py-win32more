@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.Com.StructuredStorage
@@ -79,24 +79,24 @@ class EVENT_DATA_HEADER(EasyCastStructure):
     dwVersion: UInt32
     cbEventDataSid: UInt32
     _pack_ = 1
-class ISideShowBulkCapabilities(c_void_p):
+class ISideShowBulkCapabilities(ComPtr):
     extends: Windows.Win32.System.SideShow.ISideShowCapabilities
     Guid = Guid('3a2b7fbc-3ad5-48bd-bb-f1-0e-6c-fb-d1-08-07')
     @commethod(4)
     def GetCapabilities(self, in_keyCollection: Windows.Win32.System.SideShow.ISideShowKeyCollection_head, inout_pValues: POINTER(Windows.Win32.System.SideShow.ISideShowPropVariantCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISideShowCapabilities(c_void_p):
+class ISideShowCapabilities(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('535e1379-c09e-4a54-a5-11-59-7b-ab-3a-72-b8')
     @commethod(3)
     def GetCapability(self, in_keyCapability: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), inout_pValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISideShowCapabilitiesCollection(c_void_p):
+class ISideShowCapabilitiesCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('50305597-5e0d-4ff7-b3-af-33-d0-d9-bd-52-dd')
     @commethod(3)
     def GetCount(self, out_pdwCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAt(self, in_dwIndex: UInt32, out_ppCapabilities: POINTER(Windows.Win32.System.SideShow.ISideShowCapabilities_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISideShowContent(c_void_p):
+class ISideShowContent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c18552ed-74ff-4fec-be-07-4c-fe-d2-9d-48-87')
     @commethod(3)
@@ -105,7 +105,7 @@ class ISideShowContent(c_void_p):
     def get_ContentId(self, out_pcontentId: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def get_DifferentiateContent(self, out_pfDifferentiateContent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISideShowContentManager(c_void_p):
+class ISideShowContentManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a5d5b66b-eef9-41db-8d-7e-e1-7c-33-ab-10-b0')
     @commethod(3)
@@ -118,7 +118,7 @@ class ISideShowContentManager(c_void_p):
     def SetEventSink(self, in_pIEvents: Windows.Win32.System.SideShow.ISideShowEvents_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetDeviceCapabilities(self, out_ppCollection: POINTER(Windows.Win32.System.SideShow.ISideShowCapabilitiesCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISideShowEvents(c_void_p):
+class ISideShowEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('61feca4c-deb4-4a7e-8d-75-51-f1-13-2d-61-5b')
     @commethod(3)
@@ -129,7 +129,7 @@ class ISideShowEvents(c_void_p):
     def DeviceAdded(self, in_pIDevice: Windows.Win32.System.SideShow.ISideShowCapabilities_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def DeviceRemoved(self, in_pIDevice: Windows.Win32.System.SideShow.ISideShowCapabilities_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ISideShowKeyCollection(c_void_p):
+class ISideShowKeyCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('045473bc-a37b-4957-b1-44-68-10-54-11-ed-8e')
     @commethod(3)
@@ -142,7 +142,7 @@ class ISideShowKeyCollection(c_void_p):
     def GetCount(self, pcElems: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def RemoveAt(self, dwIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISideShowNotification(c_void_p):
+class ISideShowNotification(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('03c93300-8ab2-41c5-9b-79-46-12-7a-30-e1-48')
     @commethod(3)
@@ -165,7 +165,7 @@ class ISideShowNotification(c_void_p):
     def get_ExpirationTime(self, out_pTime: POINTER(Windows.Win32.Foundation.SYSTEMTIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def put_ExpirationTime(self, in_pTime: POINTER(Windows.Win32.Foundation.SYSTEMTIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISideShowNotificationManager(c_void_p):
+class ISideShowNotificationManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('63cea909-f2b9-4302-b5-e1-c6-8e-6d-9a-b8-33')
     @commethod(3)
@@ -174,7 +174,7 @@ class ISideShowNotificationManager(c_void_p):
     def Revoke(self, in_notificationId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def RevokeAll(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ISideShowPropVariantCollection(c_void_p):
+class ISideShowPropVariantCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2ea7a549-7bff-4aae-ba-b0-22-d4-31-11-de-49')
     @commethod(3)
@@ -187,7 +187,7 @@ class ISideShowPropVariantCollection(c_void_p):
     def GetCount(self, pcElems: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def RemoveAt(self, dwIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISideShowSession(c_void_p):
+class ISideShowSession(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e22331ee-9e7d-4922-9f-c2-ab-7a-a4-1c-e4-91')
     @commethod(3)

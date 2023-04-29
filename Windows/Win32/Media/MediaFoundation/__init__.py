@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Devices.Properties
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Direct3D12
@@ -5200,34 +5200,34 @@ OPENMODE_FAIL_IF_EXIST: FILE_OPENMODE = 1
 OPENMODE_RESET_IF_EXIST: FILE_OPENMODE = 2
 OPENMODE_APPEND_IF_EXIST: FILE_OPENMODE = 3
 OPENMODE_DELETE_IF_EXIST: FILE_OPENMODE = 4
-class IAdvancedMediaCapture(c_void_p):
+class IAdvancedMediaCapture(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d0751585-d216-4344-b5-bf-46-3b-68-f9-77-bb')
     @commethod(3)
     def GetAdvancedMediaCaptureSettings(self, value: POINTER(Windows.Win32.Media.MediaFoundation.IAdvancedMediaCaptureSettings_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAdvancedMediaCaptureInitializationSettings(c_void_p):
+class IAdvancedMediaCaptureInitializationSettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3de21209-8ba6-4f2a-a5-77-28-19-b5-6f-f1-4d')
     @commethod(3)
     def SetDirectxDeviceManager(self, value: Windows.Win32.Media.MediaFoundation.IMFDXGIDeviceManager_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IAdvancedMediaCaptureSettings(c_void_p):
+class IAdvancedMediaCaptureSettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('24e0485f-a33e-4aa1-b5-64-60-19-b1-d1-4f-65')
     @commethod(3)
     def GetDirectxDeviceManager(self, value: POINTER(Windows.Win32.Media.MediaFoundation.IMFDXGIDeviceManager_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAudioSourceProvider(c_void_p):
+class IAudioSourceProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ebbaf249-afc2-4582-91-c6-b6-0d-f2-e8-49-54')
     @commethod(3)
     def ProvideInput(self, dwSampleCount: UInt32, pdwChannelCount: POINTER(UInt32), pInterleavedAudioData: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
-class IClusterDetector(c_void_p):
+class IClusterDetector(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3f07f7b7-c680-41d9-94-23-91-51-07-ec-9f-f9')
     @commethod(3)
     def Initialize(self, wBaseEntryLevel: UInt16, wClusterEntryLevel: UInt16) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Detect(self, dwMaxNumClusters: UInt32, fMinClusterDuration: Single, fMaxClusterDuration: Single, pSrcToc: Windows.Win32.Media.MediaFoundation.IToc_head, ppDstToc: POINTER(Windows.Win32.Media.MediaFoundation.IToc_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICodecAPI(c_void_p):
+class ICodecAPI(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('901db4c7-31ce-41a2-85-dc-8f-a0-bf-41-b8-da')
     @commethod(3)
@@ -5260,7 +5260,7 @@ class ICodecAPI(c_void_p):
     def SetAllSettings(self, __MIDL__ICodecAPI0001: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def SetAllSettingsWithNotify(self, __MIDL__ICodecAPI0002: Windows.Win32.System.Com.IStream_head, ChangedParam: POINTER(POINTER(Guid)), ChangedParamCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12VideoDecodeCommandList(c_void_p):
+class ID3D12VideoDecodeCommandList(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12CommandList
     Guid = Guid('3b60536e-ad29-4e64-a2-69-f8-53-83-7e-5e-53')
     @commethod(9)
@@ -5291,12 +5291,12 @@ class ID3D12VideoDecodeCommandList(c_void_p):
     def DecodeFrame(self, pDecoder: Windows.Win32.Media.MediaFoundation.ID3D12VideoDecoder_head, pOutputArguments: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS_head), pInputArguments: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS_head)) -> Void: ...
     @commethod(22)
     def WriteBufferImmediate(self, Count: UInt32, pParams: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_PARAMETER_head), pModes: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_MODE)) -> Void: ...
-class ID3D12VideoDecodeCommandList1(c_void_p):
+class ID3D12VideoDecodeCommandList1(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.ID3D12VideoDecodeCommandList
     Guid = Guid('d52f011b-b56e-453c-a0-5a-a7-f3-11-c8-f4-72')
     @commethod(23)
     def DecodeFrame1(self, pDecoder: Windows.Win32.Media.MediaFoundation.ID3D12VideoDecoder_head, pOutputArguments: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS1_head), pInputArguments: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS_head)) -> Void: ...
-class ID3D12VideoDecodeCommandList2(c_void_p):
+class ID3D12VideoDecodeCommandList2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.ID3D12VideoDecodeCommandList1
     Guid = Guid('6e120880-c114-4153-80-36-d2-47-05-1e-17-29')
     @commethod(24)
@@ -5305,32 +5305,32 @@ class ID3D12VideoDecodeCommandList2(c_void_p):
     def InitializeExtensionCommand(self, pExtensionCommand: Windows.Win32.Media.MediaFoundation.ID3D12VideoExtensionCommand_head, pInitializationParameters: c_void_p, InitializationParametersSizeInBytes: UIntPtr) -> Void: ...
     @commethod(26)
     def ExecuteExtensionCommand(self, pExtensionCommand: Windows.Win32.Media.MediaFoundation.ID3D12VideoExtensionCommand_head, pExecutionParameters: c_void_p, ExecutionParametersSizeInBytes: UIntPtr) -> Void: ...
-class ID3D12VideoDecodeCommandList3(c_void_p):
+class ID3D12VideoDecodeCommandList3(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.ID3D12VideoDecodeCommandList2
     Guid = Guid('2aee8c37-9562-42da-8a-bf-61-ef-eb-2e-45-13')
     @commethod(27)
     def Barrier(self, NumBarrierGroups: UInt32, pBarrierGroups: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_GROUP_head)) -> Void: ...
-class ID3D12VideoDecoder(c_void_p):
+class ID3D12VideoDecoder(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('c59b6bdc-7720-4074-a1-36-17-a1-56-03-74-70')
     @commethod(8)
     def GetDesc(self) -> Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODER_DESC: ...
-class ID3D12VideoDecoder1(c_void_p):
+class ID3D12VideoDecoder1(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.ID3D12VideoDecoder
     Guid = Guid('79a2e5fb-ccd2-469a-9f-de-19-5d-10-95-1f-7e')
     @commethod(9)
     def GetProtectedResourceSession(self, riid: POINTER(Guid), ppProtectedSession: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12VideoDecoderHeap(c_void_p):
+class ID3D12VideoDecoderHeap(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('0946b7c9-ebf6-4047-bb-73-86-83-e2-7d-bb-1f')
     @commethod(8)
     def GetDesc(self) -> Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODER_HEAP_DESC: ...
-class ID3D12VideoDecoderHeap1(c_void_p):
+class ID3D12VideoDecoderHeap1(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.ID3D12VideoDecoderHeap
     Guid = Guid('da1d98c5-539f-41b2-bf-6b-11-98-a0-3b-6d-26')
     @commethod(9)
     def GetProtectedResourceSession(self, riid: POINTER(Guid), ppProtectedSession: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12VideoDevice(c_void_p):
+class ID3D12VideoDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1f052807-0b46-4acc-8a-89-36-4f-79-37-18-a4')
     @commethod(3)
@@ -5341,14 +5341,14 @@ class ID3D12VideoDevice(c_void_p):
     def CreateVideoDecoderHeap(self, pVideoDecoderHeapDesc: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_DECODER_HEAP_DESC_head), riid: POINTER(Guid), ppVideoDecoderHeap: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def CreateVideoProcessor(self, NodeMask: UInt32, pOutputStreamDesc: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC_head), NumInputStreamDescs: UInt32, pInputStreamDescs: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC_head), riid: POINTER(Guid), ppVideoProcessor: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12VideoDevice1(c_void_p):
+class ID3D12VideoDevice1(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.ID3D12VideoDevice
     Guid = Guid('981611ad-a144-4c83-98-90-f3-0e-26-d6-58-ab')
     @commethod(7)
     def CreateVideoMotionEstimator(self, pDesc: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_MOTION_ESTIMATOR_DESC_head), pProtectedResourceSession: Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head, riid: POINTER(Guid), ppVideoMotionEstimator: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def CreateVideoMotionVectorHeap(self, pDesc: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC_head), pProtectedResourceSession: Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head, riid: POINTER(Guid), ppVideoMotionVectorHeap: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12VideoDevice2(c_void_p):
+class ID3D12VideoDevice2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.ID3D12VideoDevice1
     Guid = Guid('f019ac49-f838-4a95-9b-17-57-94-37-c8-f5-13')
     @commethod(9)
@@ -5361,14 +5361,14 @@ class ID3D12VideoDevice2(c_void_p):
     def CreateVideoExtensionCommand(self, pDesc: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_EXTENSION_COMMAND_DESC_head), pCreationParameters: c_void_p, CreationParametersDataSizeInBytes: UIntPtr, pProtectedResourceSession: Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head, riid: POINTER(Guid), ppVideoExtensionCommand: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def ExecuteExtensionCommand(self, pExtensionCommand: Windows.Win32.Media.MediaFoundation.ID3D12VideoExtensionCommand_head, pExecutionParameters: c_void_p, ExecutionParametersSizeInBytes: UIntPtr, pOutputData: c_void_p, OutputDataSizeInBytes: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12VideoDevice3(c_void_p):
+class ID3D12VideoDevice3(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.ID3D12VideoDevice2
     Guid = Guid('4243adb4-3a32-4666-97-3c-0c-cc-56-25-dc-44')
     @commethod(14)
     def CreateVideoEncoder(self, pDesc: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_DESC_head), riid: POINTER(Guid), ppVideoEncoder: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def CreateVideoEncoderHeap(self, pDesc: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_HEAP_DESC_head), riid: POINTER(Guid), ppVideoEncoderHeap: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12VideoEncodeCommandList(c_void_p):
+class ID3D12VideoEncodeCommandList(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12CommandList
     Guid = Guid('8455293a-0cbd-4831-9b-39-fb-db-ab-72-47-23')
     @commethod(9)
@@ -5403,26 +5403,26 @@ class ID3D12VideoEncodeCommandList(c_void_p):
     def WriteBufferImmediate(self, Count: UInt32, pParams: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_PARAMETER_head), pModes: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_MODE)) -> Void: ...
     @commethod(24)
     def SetProtectedResourceSession(self, pProtectedResourceSession: Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head) -> Void: ...
-class ID3D12VideoEncodeCommandList1(c_void_p):
+class ID3D12VideoEncodeCommandList1(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.ID3D12VideoEncodeCommandList
     Guid = Guid('94971eca-2bdb-4769-88-cf-36-75-ea-75-7e-bc')
     @commethod(25)
     def InitializeExtensionCommand(self, pExtensionCommand: Windows.Win32.Media.MediaFoundation.ID3D12VideoExtensionCommand_head, pInitializationParameters: c_void_p, InitializationParametersSizeInBytes: UIntPtr) -> Void: ...
     @commethod(26)
     def ExecuteExtensionCommand(self, pExtensionCommand: Windows.Win32.Media.MediaFoundation.ID3D12VideoExtensionCommand_head, pExecutionParameters: c_void_p, ExecutionParametersSizeInBytes: UIntPtr) -> Void: ...
-class ID3D12VideoEncodeCommandList2(c_void_p):
+class ID3D12VideoEncodeCommandList2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.ID3D12VideoEncodeCommandList1
     Guid = Guid('895491e2-e701-46a9-9a-1f-8d-34-80-ed-86-7a')
     @commethod(27)
     def EncodeFrame(self, pEncoder: Windows.Win32.Media.MediaFoundation.ID3D12VideoEncoder_head, pHeap: Windows.Win32.Media.MediaFoundation.ID3D12VideoEncoderHeap_head, pInputArguments: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS_head), pOutputArguments: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS_head)) -> Void: ...
     @commethod(28)
     def ResolveEncoderOutputMetadata(self, pInputArguments: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS_head), pOutputArguments: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS_head)) -> Void: ...
-class ID3D12VideoEncodeCommandList3(c_void_p):
+class ID3D12VideoEncodeCommandList3(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.ID3D12VideoEncodeCommandList2
     Guid = Guid('7f027b22-1515-4e85-aa-0d-02-64-86-58-05-76')
     @commethod(29)
     def Barrier(self, NumBarrierGroups: UInt32, pBarrierGroups: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_GROUP_head)) -> Void: ...
-class ID3D12VideoEncoder(c_void_p):
+class ID3D12VideoEncoder(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('2e0d212d-8df9-44a6-a7-70-bb-28-9b-18-27-37')
     @commethod(8)
@@ -5439,7 +5439,7 @@ class ID3D12VideoEncoder(c_void_p):
     def GetInputFormat(self) -> Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT: ...
     @commethod(14)
     def GetMaxMotionEstimationPrecision(self) -> Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE: ...
-class ID3D12VideoEncoderHeap(c_void_p):
+class ID3D12VideoEncoderHeap(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('22b35d96-876a-44c0-b2-5e-fb-8c-9c-7f-1c-4a')
     @commethod(8)
@@ -5456,28 +5456,28 @@ class ID3D12VideoEncoderHeap(c_void_p):
     def GetResolutionListCount(self) -> UInt32: ...
     @commethod(14)
     def GetResolutionList(self, ResolutionsListCount: UInt32, pResolutionList: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12VideoExtensionCommand(c_void_p):
+class ID3D12VideoExtensionCommand(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('554e41e8-ae8e-4a8c-b7-d2-5b-4f-27-4a-30-e4')
     @commethod(8)
     def GetDesc(self) -> Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_EXTENSION_COMMAND_DESC: ...
     @commethod(9)
     def GetProtectedResourceSession(self, riid: POINTER(Guid), ppProtectedSession: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12VideoMotionEstimator(c_void_p):
+class ID3D12VideoMotionEstimator(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('33fdae0e-098b-428f-87-bb-34-b6-95-de-08-f8')
     @commethod(8)
     def GetDesc(self) -> Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_MOTION_ESTIMATOR_DESC: ...
     @commethod(9)
     def GetProtectedResourceSession(self, riid: POINTER(Guid), ppProtectedSession: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12VideoMotionVectorHeap(c_void_p):
+class ID3D12VideoMotionVectorHeap(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('5be17987-743a-4061-83-4b-23-d2-2d-ae-a5-05')
     @commethod(8)
     def GetDesc(self) -> Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC: ...
     @commethod(9)
     def GetProtectedResourceSession(self, riid: POINTER(Guid), ppProtectedSession: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12VideoProcessCommandList(c_void_p):
+class ID3D12VideoProcessCommandList(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12CommandList
     Guid = Guid('aeb2543a-167f-4682-ac-c8-d1-59-ed-4a-62-09')
     @commethod(9)
@@ -5508,12 +5508,12 @@ class ID3D12VideoProcessCommandList(c_void_p):
     def ProcessFrames(self, pVideoProcessor: Windows.Win32.Media.MediaFoundation.ID3D12VideoProcessor_head, pOutputArguments: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS_head), NumInputStreams: UInt32, pInputArguments: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS_head)) -> Void: ...
     @commethod(22)
     def WriteBufferImmediate(self, Count: UInt32, pParams: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_PARAMETER_head), pModes: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_MODE)) -> Void: ...
-class ID3D12VideoProcessCommandList1(c_void_p):
+class ID3D12VideoProcessCommandList1(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.ID3D12VideoProcessCommandList
     Guid = Guid('542c5c4d-7596-434f-8c-93-4e-fa-67-66-f2-67')
     @commethod(23)
     def ProcessFrames1(self, pVideoProcessor: Windows.Win32.Media.MediaFoundation.ID3D12VideoProcessor_head, pOutputArguments: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS_head), NumInputStreams: UInt32, pInputArguments: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1_head)) -> Void: ...
-class ID3D12VideoProcessCommandList2(c_void_p):
+class ID3D12VideoProcessCommandList2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.ID3D12VideoProcessCommandList1
     Guid = Guid('db525ae4-6ad6-473c-ba-a7-59-b2-e3-70-82-e4')
     @commethod(24)
@@ -5522,12 +5522,12 @@ class ID3D12VideoProcessCommandList2(c_void_p):
     def InitializeExtensionCommand(self, pExtensionCommand: Windows.Win32.Media.MediaFoundation.ID3D12VideoExtensionCommand_head, pInitializationParameters: c_void_p, InitializationParametersSizeInBytes: UIntPtr) -> Void: ...
     @commethod(26)
     def ExecuteExtensionCommand(self, pExtensionCommand: Windows.Win32.Media.MediaFoundation.ID3D12VideoExtensionCommand_head, pExecutionParameters: c_void_p, ExecutionParametersSizeInBytes: UIntPtr) -> Void: ...
-class ID3D12VideoProcessCommandList3(c_void_p):
+class ID3D12VideoProcessCommandList3(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.ID3D12VideoProcessCommandList2
     Guid = Guid('1a0a4ca4-9f08-40ce-95-58-b4-11-fd-26-66-ff')
     @commethod(27)
     def Barrier(self, NumBarrierGroups: UInt32, pBarrierGroups: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_GROUP_head)) -> Void: ...
-class ID3D12VideoProcessor(c_void_p):
+class ID3D12VideoProcessor(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('304fdb32-bede-410a-85-45-94-3a-c6-a4-61-38')
     @commethod(8)
@@ -5538,12 +5538,12 @@ class ID3D12VideoProcessor(c_void_p):
     def GetInputStreamDescs(self, NumInputStreamDescs: UInt32, pInputStreamDescs: POINTER(Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetOutputStreamDesc(self) -> Windows.Win32.Media.MediaFoundation.D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC: ...
-class ID3D12VideoProcessor1(c_void_p):
+class ID3D12VideoProcessor1(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.ID3D12VideoProcessor
     Guid = Guid('f3cfe615-553f-425c-86-d8-ee-8c-1b-1f-b0-1c')
     @commethod(12)
     def GetProtectedResourceSession(self, riid: POINTER(Guid), ppProtectedSession: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXVAHD_Device(c_void_p):
+class IDXVAHD_Device(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('95f12dfd-d77e-49be-81-5f-57-d5-79-63-4d-6d')
     @commethod(3)
@@ -5562,7 +5562,7 @@ class IDXVAHD_Device(c_void_p):
     def GetVideoProcessorFilterRange(self, Filter: Windows.Win32.Media.MediaFoundation.DXVAHD_FILTER, pRange: POINTER(Windows.Win32.Media.MediaFoundation.DXVAHD_FILTER_RANGE_DATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def CreateVideoProcessor(self, pVPGuid: POINTER(Guid), ppVideoProcessor: POINTER(Windows.Win32.Media.MediaFoundation.IDXVAHD_VideoProcessor_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXVAHD_VideoProcessor(c_void_p):
+class IDXVAHD_VideoProcessor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('95f4edf4-6e03-4cd7-be-1b-30-75-d6-65-aa-52')
     @commethod(3)
@@ -5575,12 +5575,12 @@ class IDXVAHD_VideoProcessor(c_void_p):
     def GetVideoProcessStreamState(self, StreamNumber: UInt32, State: Windows.Win32.Media.MediaFoundation.DXVAHD_STREAM_STATE, DataSize: UInt32, pData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def VideoProcessBltHD(self, pOutputSurface: Windows.Win32.Graphics.Direct3D9.IDirect3DSurface9_head, OutputFrame: UInt32, StreamCount: UInt32, pStreams: POINTER(Windows.Win32.Media.MediaFoundation.DXVAHD_STREAM_DATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirect3D9ExOverlayExtension(c_void_p):
+class IDirect3D9ExOverlayExtension(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('187aeb13-aaf5-4c59-87-6d-e0-59-08-8c-0d-f8')
     @commethod(3)
     def CheckDeviceOverlayType(self, Adapter: UInt32, DevType: Windows.Win32.Graphics.Direct3D9.D3DDEVTYPE, OverlayWidth: UInt32, OverlayHeight: UInt32, OverlayFormat: Windows.Win32.Graphics.Direct3D9.D3DFORMAT, pDisplayMode: POINTER(Windows.Win32.Graphics.Direct3D9.D3DDISPLAYMODEEX_head), DisplayRotation: Windows.Win32.Graphics.Direct3D9.D3DDISPLAYROTATION, pOverlayCaps: POINTER(Windows.Win32.Media.MediaFoundation.D3DOVERLAYCAPS_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirect3DAuthenticatedChannel9(c_void_p):
+class IDirect3DAuthenticatedChannel9(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ff24beee-da21-4beb-98-b5-d2-f8-99-f9-8a-f9')
     @commethod(3)
@@ -5593,7 +5593,7 @@ class IDirect3DAuthenticatedChannel9(c_void_p):
     def Query(self, InputSize: UInt32, pInput: c_void_p, OutputSize: UInt32, pOutput: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Configure(self, InputSize: UInt32, pInput: c_void_p, pOutput: POINTER(Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirect3DCryptoSession9(c_void_p):
+class IDirect3DCryptoSession9(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fa0ab799-7a9c-48ca-8c-5b-23-7e-71-a5-44-34')
     @commethod(3)
@@ -5614,7 +5614,7 @@ class IDirect3DCryptoSession9(c_void_p):
     def FinishSessionKeyRefresh(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetEncryptionBltKey(self, pReadbackKey: c_void_p, KeySize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirect3DDevice9Video(c_void_p):
+class IDirect3DDevice9Video(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('26dc4561-a1ee-4ae7-96-da-11-8a-36-c0-ec-95')
     @commethod(3)
@@ -5623,7 +5623,7 @@ class IDirect3DDevice9Video(c_void_p):
     def CreateAuthenticatedChannel(self, ChannelType: Windows.Win32.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNELTYPE, ppAuthenticatedChannel: POINTER(Windows.Win32.Media.MediaFoundation.IDirect3DAuthenticatedChannel9_head), pChannelHandle: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CreateCryptoSession(self, pCryptoType: POINTER(Guid), pDecodeProfile: POINTER(Guid), ppCryptoSession: POINTER(Windows.Win32.Media.MediaFoundation.IDirect3DCryptoSession9_head), pCryptoHandle: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirect3DDeviceManager9(c_void_p):
+class IDirect3DDeviceManager9(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a0cade0f-06d5-4cf4-a1-c7-f3-cd-d7-25-aa-75')
     @commethod(3)
@@ -5640,12 +5640,12 @@ class IDirect3DDeviceManager9(c_void_p):
     def UnlockDevice(self, hDevice: Windows.Win32.Foundation.HANDLE, fSaveState: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetVideoService(self, hDevice: Windows.Win32.Foundation.HANDLE, riid: POINTER(Guid), ppService: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectXVideoAccelerationService(c_void_p):
+class IDirectXVideoAccelerationService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fc51a550-d5e7-11d9-af-55-00-05-4e-43-ff-02')
     @commethod(3)
     def CreateSurface(self, Width: UInt32, Height: UInt32, BackBuffers: UInt32, Format: Windows.Win32.Graphics.Direct3D9.D3DFORMAT, Pool: Windows.Win32.Graphics.Direct3D9.D3DPOOL, Usage: UInt32, DxvaType: Windows.Win32.Media.MediaFoundation.DXVA2_VideoRenderTargetType, ppSurface: POINTER(Windows.Win32.Graphics.Direct3D9.IDirect3DSurface9_head), pSharedHandle: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectXVideoDecoder(c_void_p):
+class IDirectXVideoDecoder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f2b0810a-fd00-43c9-91-8c-df-94-e2-d8-ef-7d')
     @commethod(3)
@@ -5662,7 +5662,7 @@ class IDirectXVideoDecoder(c_void_p):
     def EndFrame(self, pHandleComplete: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Execute(self, pExecuteParams: POINTER(Windows.Win32.Media.MediaFoundation.DXVA2_DecodeExecuteParams_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectXVideoDecoderService(c_void_p):
+class IDirectXVideoDecoderService(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IDirectXVideoAccelerationService
     Guid = Guid('fc51a551-d5e7-11d9-af-55-00-05-4e-43-ff-02')
     @commethod(4)
@@ -5673,14 +5673,14 @@ class IDirectXVideoDecoderService(c_void_p):
     def GetDecoderConfigurations(self, Guid: POINTER(Guid), pVideoDesc: POINTER(Windows.Win32.Media.MediaFoundation.DXVA2_VideoDesc_head), pReserved: c_void_p, pCount: POINTER(UInt32), ppConfigs: POINTER(POINTER(Windows.Win32.Media.MediaFoundation.DXVA2_ConfigPictureDecode_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def CreateVideoDecoder(self, Guid: POINTER(Guid), pVideoDesc: POINTER(Windows.Win32.Media.MediaFoundation.DXVA2_VideoDesc_head), pConfig: POINTER(Windows.Win32.Media.MediaFoundation.DXVA2_ConfigPictureDecode_head), ppDecoderRenderTargets: POINTER(Windows.Win32.Graphics.Direct3D9.IDirect3DSurface9_head), NumRenderTargets: UInt32, ppDecode: POINTER(Windows.Win32.Media.MediaFoundation.IDirectXVideoDecoder_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectXVideoMemoryConfiguration(c_void_p):
+class IDirectXVideoMemoryConfiguration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b7f916dd-db3b-49c1-84-d7-e4-5e-f9-9e-c7-26')
     @commethod(3)
     def GetAvailableSurfaceTypeByIndex(self, dwTypeIndex: UInt32, pdwType: POINTER(Windows.Win32.Media.MediaFoundation.DXVA2_SurfaceType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetSurfaceType(self, dwType: Windows.Win32.Media.MediaFoundation.DXVA2_SurfaceType) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectXVideoProcessor(c_void_p):
+class IDirectXVideoProcessor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8c3a39f0-916e-4690-80-4f-4c-80-01-35-5d-25')
     @commethod(3)
@@ -5695,7 +5695,7 @@ class IDirectXVideoProcessor(c_void_p):
     def GetFilterPropertyRange(self, FilterSetting: UInt32, pRange: POINTER(Windows.Win32.Media.MediaFoundation.DXVA2_ValueRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def VideoProcessBlt(self, pRenderTarget: Windows.Win32.Graphics.Direct3D9.IDirect3DSurface9_head, pBltParams: POINTER(Windows.Win32.Media.MediaFoundation.DXVA2_VideoProcessBltParams_head), pSamples: POINTER(Windows.Win32.Media.MediaFoundation.DXVA2_VideoSample_head), NumSamples: UInt32, pHandleComplete: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectXVideoProcessorService(c_void_p):
+class IDirectXVideoProcessorService(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IDirectXVideoAccelerationService
     Guid = Guid('fc51a552-d5e7-11d9-af-55-00-05-4e-43-ff-02')
     @commethod(4)
@@ -5714,21 +5714,21 @@ class IDirectXVideoProcessorService(c_void_p):
     def GetFilterPropertyRange(self, VideoProcDeviceGuid: POINTER(Guid), pVideoDesc: POINTER(Windows.Win32.Media.MediaFoundation.DXVA2_VideoDesc_head), RenderTargetFormat: Windows.Win32.Graphics.Direct3D9.D3DFORMAT, FilterSetting: UInt32, pRange: POINTER(Windows.Win32.Media.MediaFoundation.DXVA2_ValueRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def CreateVideoProcessor(self, VideoProcDeviceGuid: POINTER(Guid), pVideoDesc: POINTER(Windows.Win32.Media.MediaFoundation.DXVA2_VideoDesc_head), RenderTargetFormat: Windows.Win32.Graphics.Direct3D9.D3DFORMAT, MaxNumSubStreams: UInt32, ppVidProcess: POINTER(Windows.Win32.Media.MediaFoundation.IDirectXVideoProcessor_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEVRFilterConfig(c_void_p):
+class IEVRFilterConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('83e91e85-82c1-4ea7-80-1d-85-dc-50-b7-50-86')
     @commethod(3)
     def SetNumberOfStreams(self, dwMaxStreams: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetNumberOfStreams(self, pdwMaxStreams: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEVRFilterConfigEx(c_void_p):
+class IEVRFilterConfigEx(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IEVRFilterConfig
     Guid = Guid('aea36028-796d-454f-be-ee-b4-80-71-e2-43-04')
     @commethod(5)
     def SetConfigPrefs(self, dwConfigFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetConfigPrefs(self, pdwConfigFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEVRTrustedVideoPlugin(c_void_p):
+class IEVRTrustedVideoPlugin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('83a4ce40-7710-494b-a8-93-a4-72-04-9a-f6-30')
     @commethod(3)
@@ -5739,14 +5739,14 @@ class IEVRTrustedVideoPlugin(c_void_p):
     def SetConstriction(self, dwKPix: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def DisableImageExport(self, bDisable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IEVRVideoStreamControl(c_void_p):
+class IEVRVideoStreamControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d0cfe38b-93e7-4772-89-57-04-00-c4-9a-44-85')
     @commethod(3)
     def SetStreamActiveState(self, fActive: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetStreamActiveState(self, lpfActive: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileClient(c_void_p):
+class IFileClient(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bfccd196-1244-4840-ab-44-48-09-75-c4-ff-e4')
     @commethod(3)
@@ -5755,7 +5755,7 @@ class IFileClient(c_void_p):
     def Write(self, pFio: Windows.Win32.Media.MediaFoundation.IFileIo_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Read(self, pFio: Windows.Win32.Media.MediaFoundation.IFileIo_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileIo(c_void_p):
+class IFileIo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('11993196-1244-4840-ab-44-48-09-75-c4-ff-e4')
     @commethod(3)
@@ -5778,7 +5778,7 @@ class IFileIo(c_void_p):
     def Seek(self, eSeekOrigin: Windows.Win32.Media.MediaFoundation.SEEK_ORIGIN, qwSeekOffset: UInt64, dwSeekFlags: UInt32, pqwCurrentPosition: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMF2DBuffer(c_void_p):
+class IMF2DBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7dc9d5f9-9ed9-44ec-9b-bf-06-00-bb-58-9f-bb')
     @commethod(3)
@@ -5795,14 +5795,14 @@ class IMF2DBuffer(c_void_p):
     def ContiguousCopyTo(self, pbDestBuffer: POINTER(Byte), cbDestBuffer: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def ContiguousCopyFrom(self, pbSrcBuffer: POINTER(Byte), cbSrcBuffer: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMF2DBuffer2(c_void_p):
+class IMF2DBuffer2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMF2DBuffer
     Guid = Guid('33ae5ea6-4316-436f-8d-dd-d7-3d-22-f8-29-ec')
     @commethod(10)
     def Lock2DSize(self, lockFlags: Windows.Win32.Media.MediaFoundation.MF2DBuffer_LockFlags, ppbScanline0: POINTER(POINTER(Byte)), plPitch: POINTER(Int32), ppbBufferStart: POINTER(POINTER(Byte)), pcbBufferLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Copy2DTo(self, pDestBuffer: Windows.Win32.Media.MediaFoundation.IMF2DBuffer2_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFASFContentInfo(c_void_p):
+class IMFASFContentInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b1dca5cd-d5da-4451-8e-9e-db-5c-59-91-4e-ad')
     @commethod(3)
@@ -5819,7 +5819,7 @@ class IMFASFContentInfo(c_void_p):
     def GeneratePresentationDescriptor(self, ppIPresentationDescriptor: POINTER(Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetEncodingConfigurationPropertyStore(self, wStreamNumber: UInt16, ppIStore: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFASFIndexer(c_void_p):
+class IMFASFIndexer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('53590f48-dc3b-4297-81-3f-78-77-61-ad-7b-3e')
     @commethod(3)
@@ -5848,7 +5848,7 @@ class IMFASFIndexer(c_void_p):
     def GetIndexWriteSpace(self, pcbIndexWriteSpace: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetCompletedIndex(self, pIIndexBuffer: Windows.Win32.Media.MediaFoundation.IMFMediaBuffer_head, cbOffsetWithinIndex: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFASFMultiplexer(c_void_p):
+class IMFASFMultiplexer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('57bdd80a-9b38-4838-b7-37-c5-8f-67-0d-7d-4f')
     @commethod(3)
@@ -5869,7 +5869,7 @@ class IMFASFMultiplexer(c_void_p):
     def GetStatistics(self, wStreamNumber: UInt16, pMuxStats: POINTER(Windows.Win32.Media.MediaFoundation.ASF_MUX_STATISTICS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def SetSyncTolerance(self, msSyncTolerance: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFASFMutualExclusion(c_void_p):
+class IMFASFMutualExclusion(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('12558291-e399-11d5-bc-2a-00-b0-d0-f3-f4-ab')
     @commethod(3)
@@ -5890,7 +5890,7 @@ class IMFASFMutualExclusion(c_void_p):
     def AddRecord(self, pdwRecordNumber: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Clone(self, ppIMutex: POINTER(Windows.Win32.Media.MediaFoundation.IMFASFMutualExclusion_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFASFProfile(c_void_p):
+class IMFASFProfile(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAttributes
     Guid = Guid('d267bf6a-028b-4e0d-90-3d-43-f0-ef-82-d0-d4')
     @commethod(33)
@@ -5925,7 +5925,7 @@ class IMFASFProfile(c_void_p):
     def CreateStreamPrioritization(self, ppIStreamPrioritization: POINTER(Windows.Win32.Media.MediaFoundation.IMFASFStreamPrioritization_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(48)
     def Clone(self, ppIProfile: POINTER(Windows.Win32.Media.MediaFoundation.IMFASFProfile_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFASFSplitter(c_void_p):
+class IMFASFSplitter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('12558295-e399-11d5-bc-2a-00-b0-d0-f3-f4-ab')
     @commethod(3)
@@ -5946,7 +5946,7 @@ class IMFASFSplitter(c_void_p):
     def Flush(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetLastSendTime(self, pdwLastSendTime: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFASFStreamConfig(c_void_p):
+class IMFASFStreamConfig(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAttributes
     Guid = Guid('9e8ae8d2-dbbd-4200-9a-ca-06-e6-df-48-49-13')
     @commethod(33)
@@ -5969,7 +5969,7 @@ class IMFASFStreamConfig(c_void_p):
     def RemoveAllPayloadExtensions(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(42)
     def Clone(self, ppIStreamConfig: POINTER(Windows.Win32.Media.MediaFoundation.IMFASFStreamConfig_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFASFStreamPrioritization(c_void_p):
+class IMFASFStreamPrioritization(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('699bdc27-bbaf-49ff-8e-38-9c-39-c9-b5-e0-88')
     @commethod(3)
@@ -5982,7 +5982,7 @@ class IMFASFStreamPrioritization(c_void_p):
     def RemoveStream(self, dwStreamIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Clone(self, ppIStreamPrioritization: POINTER(Windows.Win32.Media.MediaFoundation.IMFASFStreamPrioritization_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFASFStreamSelector(c_void_p):
+class IMFASFStreamSelector(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d01bad4a-4fa0-4a60-93-49-c2-7e-62-da-9d-41')
     @commethod(3)
@@ -6013,7 +6013,7 @@ class IMFASFStreamSelector(c_void_p):
     def BitrateToStepNumber(self, dwBitrate: UInt32, pdwStepNum: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def SetStreamSelectorFlags(self, dwStreamSelectorFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFActivate(c_void_p):
+class IMFActivate(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAttributes
     Guid = Guid('7fee9e9a-4a89-47a6-89-9c-b6-a5-3a-70-fb-67')
     @commethod(33)
@@ -6022,21 +6022,21 @@ class IMFActivate(c_void_p):
     def ShutdownObject(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
     def DetachObject(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFAsyncCallback(c_void_p):
+class IMFAsyncCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a27003cf-2354-4f2a-8d-6a-ab-7c-ff-15-43-7e')
     @commethod(3)
     def GetParameters(self, pdwFlags: POINTER(UInt32), pdwQueue: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Invoke(self, pAsyncResult: Windows.Win32.Media.MediaFoundation.IMFAsyncResult_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFAsyncCallbackLogging(c_void_p):
+class IMFAsyncCallbackLogging(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAsyncCallback
     Guid = Guid('c7a4dca1-f5f0-47b6-b9-2b-bf-01-06-d2-57-91')
     @commethod(5)
     def GetObjectPointer(self) -> c_void_p: ...
     @commethod(6)
     def GetObjectTag(self) -> UInt32: ...
-class IMFAsyncResult(c_void_p):
+class IMFAsyncResult(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ac6b7889-0740-4d51-86-19-90-59-94-a5-5c-c6')
     @commethod(3)
@@ -6049,7 +6049,7 @@ class IMFAsyncResult(c_void_p):
     def GetObject(self, ppObject: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetStateNoAddRef(self) -> Windows.Win32.System.Com.IUnknown_head: ...
-class IMFAttributes(c_void_p):
+class IMFAttributes(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2cd2d921-c447-44a7-a1-3c-4a-da-bf-c2-47-e3')
     @commethod(3)
@@ -6112,12 +6112,12 @@ class IMFAttributes(c_void_p):
     def GetItemByIndex(self, unIndex: UInt32, pguidKey: POINTER(Guid), pValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
     def CopyAllItems(self, pDest: Windows.Win32.Media.MediaFoundation.IMFAttributes_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFAudioMediaType(c_void_p):
+class IMFAudioMediaType(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaType
     Guid = Guid('26a0adc3-ce26-4672-93-04-69-55-2e-dd-3f-af')
     @commethod(38)
     def GetAudioFormat(self) -> POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head): ...
-class IMFAudioPolicy(c_void_p):
+class IMFAudioPolicy(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a0638c2b-6465-4395-9a-e7-a3-21-a9-fd-28-56')
     @commethod(3)
@@ -6132,7 +6132,7 @@ class IMFAudioPolicy(c_void_p):
     def SetIconPath(self, pszPath: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetIconPath(self, pszPath: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFAudioStreamVolume(c_void_p):
+class IMFAudioStreamVolume(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('76b1bbdb-4ec8-4f36-b1-06-70-a9-31-6d-f5-93')
     @commethod(3)
@@ -6145,14 +6145,14 @@ class IMFAudioStreamVolume(c_void_p):
     def SetAllVolumes(self, dwCount: UInt32, pfVolumes: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetAllVolumes(self, dwCount: UInt32, pfVolumes: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFBufferListNotify(c_void_p):
+class IMFBufferListNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('24cd47f7-81d8-4785-ad-b2-af-69-7a-96-3c-d2')
     @commethod(3)
     def OnAddSourceBuffer(self) -> Void: ...
     @commethod(4)
     def OnRemoveSourceBuffer(self) -> Void: ...
-class IMFByteStream(c_void_p):
+class IMFByteStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ad4c1b00-4bf7-422f-91-75-75-66-93-d9-13-0d')
     @commethod(3)
@@ -6185,7 +6185,7 @@ class IMFByteStream(c_void_p):
     def Flush(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFByteStreamBuffering(c_void_p):
+class IMFByteStreamBuffering(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6d66d782-1d4f-4db7-8c-63-cb-8c-77-f1-ef-5e')
     @commethod(3)
@@ -6194,12 +6194,12 @@ class IMFByteStreamBuffering(c_void_p):
     def EnableBuffering(self, fEnable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def StopBuffering(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFByteStreamCacheControl(c_void_p):
+class IMFByteStreamCacheControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f5042ea4-7a96-4a75-aa-7b-2b-e1-ef-7f-88-d5')
     @commethod(3)
     def StopBackgroundTransfer(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFByteStreamCacheControl2(c_void_p):
+class IMFByteStreamCacheControl2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFByteStreamCacheControl
     Guid = Guid('71ce469c-f34b-49ea-a5-6b-2d-2a-10-e5-11-49')
     @commethod(4)
@@ -6208,7 +6208,7 @@ class IMFByteStreamCacheControl2(c_void_p):
     def SetCacheLimit(self, qwBytes: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def IsBackgroundTransferActive(self, pfActive: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFByteStreamHandler(c_void_p):
+class IMFByteStreamHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bb420aa4-765b-4a1f-91-fe-d6-a8-a1-43-92-4c')
     @commethod(3)
@@ -6219,12 +6219,12 @@ class IMFByteStreamHandler(c_void_p):
     def CancelObjectCreation(self, pIUnknownCancelCookie: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetMaxNumberOfBytesRequiredForResolution(self, pqwBytes: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFByteStreamProxyClassFactory(c_void_p):
+class IMFByteStreamProxyClassFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a6b43f84-5c0a-42e8-a4-4d-b1-85-7a-76-99-2f')
     @commethod(3)
     def CreateByteStreamProxy(self, pByteStream: Windows.Win32.Media.MediaFoundation.IMFByteStream_head, pAttributes: Windows.Win32.Media.MediaFoundation.IMFAttributes_head, riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFByteStreamTimeSeek(c_void_p):
+class IMFByteStreamTimeSeek(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('64976bfa-fb61-4041-90-69-8c-9a-5f-65-9b-eb')
     @commethod(3)
@@ -6233,7 +6233,7 @@ class IMFByteStreamTimeSeek(c_void_p):
     def TimeSeek(self, qwTimePosition: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetTimeSeekResult(self, pqwStartTime: POINTER(UInt64), pqwStopTime: POINTER(UInt64), pqwDuration: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCameraConfigurationManager(c_void_p):
+class IMFCameraConfigurationManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a624f617-4704-4206-8a-6d-eb-da-4a-09-39-85')
     @commethod(3)
@@ -6242,7 +6242,7 @@ class IMFCameraConfigurationManager(c_void_p):
     def SaveDefaults(self, configurations: Windows.Win32.Media.MediaFoundation.IMFCameraControlDefaultsCollection_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Shutdown(self) -> Void: ...
-class IMFCameraControlDefaults(c_void_p):
+class IMFCameraControlDefaults(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('75510662-b034-48f4-88-a7-8d-e6-1d-aa-4a-f9')
     @commethod(3)
@@ -6253,7 +6253,7 @@ class IMFCameraControlDefaults(c_void_p):
     def LockControlData(self, control: POINTER(c_void_p), controlSize: POINTER(UInt32), data: POINTER(c_void_p), dataSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def UnlockControlData(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCameraControlDefaultsCollection(c_void_p):
+class IMFCameraControlDefaultsCollection(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAttributes
     Guid = Guid('92d43d0f-54a8-4bae-96-da-35-6d-25-9a-5c-26')
     @commethod(33)
@@ -6268,7 +6268,7 @@ class IMFCameraControlDefaultsCollection(c_void_p):
     def RemoveControl(self, controlSet: POINTER(Guid), constrolId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(38)
     def RemoveAllControls(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCameraControlMonitor(c_void_p):
+class IMFCameraControlMonitor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4d46f2c9-28ba-4970-8c-7b-1f-0c-9d-80-af-69')
     @commethod(3)
@@ -6281,14 +6281,14 @@ class IMFCameraControlMonitor(c_void_p):
     def RemoveControlSubscription(self, controlSet: Guid, id: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Shutdown(self) -> Void: ...
-class IMFCameraControlNotify(c_void_p):
+class IMFCameraControlNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e8f2540d-558a-4449-8b-64-48-63-46-7a-9f-e8')
     @commethod(3)
     def OnChange(self, controlSet: POINTER(Guid), id: UInt32) -> Void: ...
     @commethod(4)
     def OnError(self, hrStatus: Windows.Win32.Foundation.HRESULT) -> Void: ...
-class IMFCameraOcclusionStateMonitor(c_void_p):
+class IMFCameraOcclusionStateMonitor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cc692f46-c697-47e2-a7-2d-7b-06-46-17-74-9b')
     @commethod(3)
@@ -6297,24 +6297,24 @@ class IMFCameraOcclusionStateMonitor(c_void_p):
     def Stop(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetSupportedStates(self) -> UInt32: ...
-class IMFCameraOcclusionStateReport(c_void_p):
+class IMFCameraOcclusionStateReport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1640b2cf-74da-4462-a4-3b-b7-6d-3b-dc-14-34')
     @commethod(3)
     def GetOcclusionState(self, occlusionState: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCameraOcclusionStateReportCallback(c_void_p):
+class IMFCameraOcclusionStateReportCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6e5841c7-3889-4019-90-35-78-3f-b1-9b-59-48')
     @commethod(3)
     def OnOcclusionStateReport(self, occlusionStateReport: Windows.Win32.Media.MediaFoundation.IMFCameraOcclusionStateReport_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCameraSyncObject(c_void_p):
+class IMFCameraSyncObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6338b23a-3042-49d2-a3-ea-ec-0f-ed-81-54-07')
     @commethod(3)
     def WaitOnSignal(self, timeOutInMs: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Shutdown(self) -> Void: ...
-class IMFCaptureEngine(c_void_p):
+class IMFCaptureEngine(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a6bba433-176b-48b2-b3-75-53-aa-03-47-32-07')
     @commethod(3)
@@ -6333,27 +6333,27 @@ class IMFCaptureEngine(c_void_p):
     def GetSink(self, mfCaptureEngineSinkType: Windows.Win32.Media.MediaFoundation.MF_CAPTURE_ENGINE_SINK_TYPE, ppSink: POINTER(Windows.Win32.Media.MediaFoundation.IMFCaptureSink_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetSource(self, ppSource: POINTER(Windows.Win32.Media.MediaFoundation.IMFCaptureSource_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCaptureEngineClassFactory(c_void_p):
+class IMFCaptureEngineClassFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8f02d140-56fc-4302-a7-05-3a-97-c7-8b-e7-79')
     @commethod(3)
     def CreateInstance(self, clsid: POINTER(Guid), riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCaptureEngineOnEventCallback(c_void_p):
+class IMFCaptureEngineOnEventCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('aeda51c0-9025-4983-90-12-de-59-7b-88-b0-89')
     @commethod(3)
     def OnEvent(self, pEvent: Windows.Win32.Media.MediaFoundation.IMFMediaEvent_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCaptureEngineOnSampleCallback(c_void_p):
+class IMFCaptureEngineOnSampleCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('52150b82-ab39-4467-98-0f-e4-8b-f0-82-2e-cd')
     @commethod(3)
     def OnSample(self, pSample: Windows.Win32.Media.MediaFoundation.IMFSample_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCaptureEngineOnSampleCallback2(c_void_p):
+class IMFCaptureEngineOnSampleCallback2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFCaptureEngineOnSampleCallback
     Guid = Guid('e37ceed7-340f-4514-9f-4d-9c-2a-e0-26-10-0b')
     @commethod(4)
     def OnSynchronizedEvent(self, pEvent: Windows.Win32.Media.MediaFoundation.IMFMediaEvent_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCapturePhotoConfirmation(c_void_p):
+class IMFCapturePhotoConfirmation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('19f68549-ca8a-4706-a4-ef-48-1d-bc-95-e1-2c')
     @commethod(3)
@@ -6362,7 +6362,7 @@ class IMFCapturePhotoConfirmation(c_void_p):
     def SetPixelFormat(self, subtype: Guid) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetPixelFormat(self, subtype: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCapturePhotoSink(c_void_p):
+class IMFCapturePhotoSink(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFCaptureSink
     Guid = Guid('d2d43cc8-48bb-4aa7-95-db-10-c0-69-77-e7-77')
     @commethod(8)
@@ -6371,7 +6371,7 @@ class IMFCapturePhotoSink(c_void_p):
     def SetSampleCallback(self, pCallback: Windows.Win32.Media.MediaFoundation.IMFCaptureEngineOnSampleCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def SetOutputByteStream(self, pByteStream: Windows.Win32.Media.MediaFoundation.IMFByteStream_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCapturePreviewSink(c_void_p):
+class IMFCapturePreviewSink(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFCaptureSink
     Guid = Guid('77346cfd-5b49-4d73-ac-e0-5b-52-a8-59-f2-e0')
     @commethod(8)
@@ -6392,7 +6392,7 @@ class IMFCapturePreviewSink(c_void_p):
     def SetRotation(self, dwStreamIndex: UInt32, dwRotationValue: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def SetCustomSink(self, pMediaSink: Windows.Win32.Media.MediaFoundation.IMFMediaSink_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCaptureRecordSink(c_void_p):
+class IMFCaptureRecordSink(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFCaptureSink
     Guid = Guid('3323b55a-f92a-4fe2-8e-dc-e9-bf-c0-63-4d-77')
     @commethod(8)
@@ -6407,7 +6407,7 @@ class IMFCaptureRecordSink(c_void_p):
     def GetRotation(self, dwStreamIndex: UInt32, pdwRotationValue: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def SetRotation(self, dwStreamIndex: UInt32, dwRotationValue: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCaptureSink(c_void_p):
+class IMFCaptureSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('72d6135b-35e9-412c-b9-26-fd-52-65-f2-a8-85')
     @commethod(3)
@@ -6420,12 +6420,12 @@ class IMFCaptureSink(c_void_p):
     def Prepare(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def RemoveAllStreams(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCaptureSink2(c_void_p):
+class IMFCaptureSink2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFCaptureSink
     Guid = Guid('f9e4219e-6197-4b5e-b8-88-be-e3-10-ab-2c-59')
     @commethod(8)
     def SetOutputMediaType(self, dwStreamIndex: UInt32, pMediaType: Windows.Win32.Media.MediaFoundation.IMFMediaType_head, pEncodingAttributes: Windows.Win32.Media.MediaFoundation.IMFAttributes_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCaptureSource(c_void_p):
+class IMFCaptureSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('439a42a8-0d2c-4505-be-83-f7-9b-2a-05-d5-c4')
     @commethod(3)
@@ -6456,14 +6456,14 @@ class IMFCaptureSource(c_void_p):
     def SetMirrorState(self, dwStreamIndex: UInt32, fMirrorState: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def GetStreamIndexFromFriendlyName(self, uifriendlyName: UInt32, pdwActualStreamIndex: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCdmSuspendNotify(c_void_p):
+class IMFCdmSuspendNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7a5645d2-43bd-47fd-87-b7-dc-d2-4c-c7-d6-92')
     @commethod(3)
     def Begin(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def End(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFClock(c_void_p):
+class IMFClock(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2eb1e945-18b8-4139-9b-1a-d5-d5-84-81-85-30')
     @commethod(3)
@@ -6476,14 +6476,14 @@ class IMFClock(c_void_p):
     def GetState(self, dwReserved: UInt32, peClockState: POINTER(Windows.Win32.Media.MediaFoundation.MFCLOCK_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetProperties(self, pClockProperties: POINTER(Windows.Win32.Media.MediaFoundation.MFCLOCK_PROPERTIES_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFClockConsumer(c_void_p):
+class IMFClockConsumer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6ef2a662-47c0-4666-b1-3d-cb-b7-17-f2-fa-2c')
     @commethod(3)
     def SetPresentationClock(self, pPresentationClock: Windows.Win32.Media.MediaFoundation.IMFPresentationClock_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetPresentationClock(self, ppPresentationClock: POINTER(Windows.Win32.Media.MediaFoundation.IMFPresentationClock_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFClockStateSink(c_void_p):
+class IMFClockStateSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f6696e82-74f7-4f3d-a1-78-8a-5e-09-c3-65-9f')
     @commethod(3)
@@ -6496,7 +6496,7 @@ class IMFClockStateSink(c_void_p):
     def OnClockRestart(self, hnsSystemTime: Int64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def OnClockSetRate(self, hnsSystemTime: Int64, flRate: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFCollection(c_void_p):
+class IMFCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5bc8a76b-869a-46a3-9b-03-fa-21-8a-66-ae-be')
     @commethod(3)
@@ -6511,7 +6511,7 @@ class IMFCollection(c_void_p):
     def InsertElementAt(self, dwIndex: UInt32, pUnknown: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def RemoveAllElements(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFContentDecryptionModule(c_void_p):
+class IMFContentDecryptionModule(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('87be986c-10be-4943-bf-48-4b-54-ce-19-83-a2')
     @commethod(3)
@@ -6528,7 +6528,7 @@ class IMFContentDecryptionModule(c_void_p):
     def CreateTrustedInput(self, contentInitData: POINTER(Byte), contentInitDataSize: UInt32, trustedInput: POINTER(Windows.Win32.Media.MediaFoundation.IMFTrustedInput_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetProtectionSystemIds(self, systemIds: POINTER(POINTER(Guid)), count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFContentDecryptionModuleAccess(c_void_p):
+class IMFContentDecryptionModuleAccess(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a853d1f4-e2a0-4303-9e-dc-f1-a6-8e-e4-31-36')
     @commethod(3)
@@ -6537,14 +6537,14 @@ class IMFContentDecryptionModuleAccess(c_void_p):
     def GetConfiguration(self, configuration: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetKeySystem(self, keySystem: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFContentDecryptionModuleFactory(c_void_p):
+class IMFContentDecryptionModuleFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7d5abf16-4cbb-4e08-b9-77-9b-a5-90-49-94-3e')
     @commethod(3)
     def IsTypeSupported(self, keySystem: Windows.Win32.Foundation.PWSTR, contentType: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.BOOL: ...
     @commethod(4)
     def CreateContentDecryptionModuleAccess(self, keySystem: Windows.Win32.Foundation.PWSTR, configurations: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head), numConfigurations: UInt32, contentDecryptionModuleAccess: POINTER(Windows.Win32.Media.MediaFoundation.IMFContentDecryptionModuleAccess_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFContentDecryptionModuleSession(c_void_p):
+class IMFContentDecryptionModuleSession(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4e233efd-1dd2-49e8-b5-77-d6-3e-ee-4c-0d-33')
     @commethod(3)
@@ -6563,19 +6563,19 @@ class IMFContentDecryptionModuleSession(c_void_p):
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Remove(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFContentDecryptionModuleSessionCallbacks(c_void_p):
+class IMFContentDecryptionModuleSessionCallbacks(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3f96ee40-ad81-4096-84-70-59-a4-b7-70-f8-9a')
     @commethod(3)
     def KeyMessage(self, messageType: Windows.Win32.Media.MediaFoundation.MF_MEDIAKEYSESSION_MESSAGETYPE, message: POINTER(Byte), messageSize: UInt32, destinationURL: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def KeyStatusChanged(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFContentDecryptorContext(c_void_p):
+class IMFContentDecryptorContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7ec4b1bd-43fb-4763-85-d2-64-fc-b5-c5-f4-cb')
     @commethod(3)
     def InitializeHardwareKey(self, InputPrivateDataByteCount: UInt32, InputPrivateData: c_void_p, OutputPrivateData: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFContentEnabler(c_void_p):
+class IMFContentEnabler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d3c4ef59-49ce-4381-90-71-d5-bc-d0-44-c7-70')
     @commethod(3)
@@ -6592,28 +6592,28 @@ class IMFContentEnabler(c_void_p):
     def MonitorEnable(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFContentProtectionDevice(c_void_p):
+class IMFContentProtectionDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e6257174-a060-4c9a-a0-88-3b-1b-47-1c-ad-28')
     @commethod(3)
     def InvokeFunction(self, FunctionId: UInt32, InputBufferByteCount: UInt32, InputBuffer: POINTER(Byte), OutputBufferByteCount: POINTER(UInt32), OutputBuffer: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetPrivateDataByteCount(self, PrivateInputByteCount: POINTER(UInt32), PrivateOutputByteCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFContentProtectionManager(c_void_p):
+class IMFContentProtectionManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('acf92459-6a61-42bd-b5-7c-b4-3e-51-20-3c-b0')
     @commethod(3)
     def BeginEnableContent(self, pEnablerActivate: Windows.Win32.Media.MediaFoundation.IMFActivate_head, pTopo: Windows.Win32.Media.MediaFoundation.IMFTopology_head, pCallback: Windows.Win32.Media.MediaFoundation.IMFAsyncCallback_head, punkState: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EndEnableContent(self, pResult: Windows.Win32.Media.MediaFoundation.IMFAsyncResult_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFD3D12SynchronizationObject(c_void_p):
+class IMFD3D12SynchronizationObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('802302b0-82de-45e1-b4-21-f1-9e-e5-bd-af-23')
     @commethod(3)
     def SignalEventOnFinalResourceRelease(self, hEvent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFD3D12SynchronizationObjectCommands(c_void_p):
+class IMFD3D12SynchronizationObjectCommands(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('09d0f835-92ff-4e53-8e-fa-40-fa-a5-51-f2-33')
     @commethod(3)
@@ -6624,19 +6624,19 @@ class IMFD3D12SynchronizationObjectCommands(c_void_p):
     def SignalEventOnResourceReady(self, hEvent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def EnqueueResourceRelease(self, pConsumerCommandQueue: Windows.Win32.Graphics.Direct3D12.ID3D12CommandQueue_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFDLNASinkInit(c_void_p):
+class IMFDLNASinkInit(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c012799-1b61-4c10-bd-a9-04-44-5b-e5-f5-61')
     @commethod(3)
     def Initialize(self, pByteStream: Windows.Win32.Media.MediaFoundation.IMFByteStream_head, fPal: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFDRMNetHelper(c_void_p):
+class IMFDRMNetHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3d1ff0ea-679a-4190-8d-46-7f-a6-9e-8c-7e-15')
     @commethod(3)
     def ProcessLicenseRequest(self, pLicenseRequest: POINTER(Byte), cbLicenseRequest: UInt32, ppLicenseResponse: POINTER(POINTER(Byte)), pcbLicenseResponse: POINTER(UInt32), pbstrKID: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetChainedLicenseResponse(self, ppLicenseResponse: POINTER(POINTER(Byte)), pcbLicenseResponse: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFDXGIBuffer(c_void_p):
+class IMFDXGIBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e7174cfa-1c9e-48b1-88-66-62-62-26-bf-c2-58')
     @commethod(3)
@@ -6647,7 +6647,7 @@ class IMFDXGIBuffer(c_void_p):
     def GetUnknown(self, guid: POINTER(Guid), riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetUnknown(self, guid: POINTER(Guid), pUnkData: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFDXGIDeviceManager(c_void_p):
+class IMFDXGIDeviceManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('eb533d5d-2db6-40f8-97-a9-49-46-92-01-4f-07')
     @commethod(3)
@@ -6664,12 +6664,12 @@ class IMFDXGIDeviceManager(c_void_p):
     def TestDevice(self, hDevice: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def UnlockDevice(self, hDevice: Windows.Win32.Foundation.HANDLE, fSaveState: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFDXGIDeviceManagerSource(c_void_p):
+class IMFDXGIDeviceManagerSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('20bc074b-7a8d-4609-8c-3b-64-a0-a3-b5-d7-ce')
     @commethod(3)
     def GetManager(self, ppManager: POINTER(Windows.Win32.Media.MediaFoundation.IMFDXGIDeviceManager_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFDesiredSample(c_void_p):
+class IMFDesiredSample(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('56c294d0-753e-4260-8d-61-a3-d8-82-0b-1d-54')
     @commethod(3)
@@ -6678,7 +6678,7 @@ class IMFDesiredSample(c_void_p):
     def SetDesiredSampleTimeAndDuration(self, hnsSampleTime: Int64, hnsSampleDuration: Int64) -> Void: ...
     @commethod(5)
     def Clear(self) -> Void: ...
-class IMFDeviceTransform(c_void_p):
+class IMFDeviceTransform(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d818fbd8-fc46-42f2-87-ac-1e-a2-d1-f9-bf-32')
     @commethod(3)
@@ -6721,12 +6721,12 @@ class IMFDeviceTransform(c_void_p):
     def FlushInputStream(self, dwStreamIndex: UInt32, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def FlushOutputStream(self, dwStreamIndex: UInt32, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFDeviceTransformCallback(c_void_p):
+class IMFDeviceTransformCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6d5cb646-29ec-41fb-81-79-8c-4c-6d-75-08-11')
     @commethod(3)
     def OnBufferSent(self, pCallbackAttributes: Windows.Win32.Media.MediaFoundation.IMFAttributes_head, pinId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFExtendedCameraControl(c_void_p):
+class IMFExtendedCameraControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('38e33520-fca1-4845-a2-7a-68-b7-c6-ab-37-89')
     @commethod(3)
@@ -6741,12 +6741,12 @@ class IMFExtendedCameraControl(c_void_p):
     def UnlockPayload(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def CommitSettings(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFExtendedCameraController(c_void_p):
+class IMFExtendedCameraController(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b91ebfee-ca03-4af4-8a-82-a3-17-52-f4-a0-fc')
     @commethod(3)
     def GetExtendedCameraControl(self, dwStreamIndex: UInt32, ulPropertyId: UInt32, ppControl: POINTER(Windows.Win32.Media.MediaFoundation.IMFExtendedCameraControl_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFExtendedCameraIntrinsicModel(c_void_p):
+class IMFExtendedCameraIntrinsicModel(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5c595e64-4630-4231-85-5a-12-84-2f-73-32-45')
     @commethod(3)
@@ -6755,7 +6755,7 @@ class IMFExtendedCameraIntrinsicModel(c_void_p):
     def SetModel(self, pIntrinsicModel: POINTER(Windows.Win32.Media.MediaFoundation.MFExtendedCameraIntrinsic_IntrinsicModel_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetDistortionModelType(self, pDistortionModelType: POINTER(Windows.Win32.Media.MediaFoundation.MFCameraIntrinsic_DistortionModelType)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFExtendedCameraIntrinsics(c_void_p):
+class IMFExtendedCameraIntrinsics(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('687f6dac-6987-4750-a1-6a-73-4d-1e-7a-10-fe')
     @commethod(3)
@@ -6770,50 +6770,50 @@ class IMFExtendedCameraIntrinsics(c_void_p):
     def GetIntrinsicModelByIndex(self, dwIndex: UInt32, ppIntrinsicModel: POINTER(Windows.Win32.Media.MediaFoundation.IMFExtendedCameraIntrinsicModel_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def AddIntrinsicModel(self, pIntrinsicModel: Windows.Win32.Media.MediaFoundation.IMFExtendedCameraIntrinsicModel_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFExtendedCameraIntrinsicsDistortionModel6KT(c_void_p):
+class IMFExtendedCameraIntrinsicsDistortionModel6KT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('74c2653b-5f55-4eb1-9f-0f-18-b8-f6-8b-7d-3d')
     @commethod(3)
     def GetDistortionModel(self, pDistortionModel: POINTER(Windows.Win32.Media.MediaFoundation.MFCameraIntrinsic_DistortionModel6KT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetDistortionModel(self, pDistortionModel: POINTER(Windows.Win32.Media.MediaFoundation.MFCameraIntrinsic_DistortionModel6KT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFExtendedCameraIntrinsicsDistortionModelArcTan(c_void_p):
+class IMFExtendedCameraIntrinsicsDistortionModelArcTan(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('812d5f95-b572-45dc-ba-fc-ae-24-19-9d-dd-a8')
     @commethod(3)
     def GetDistortionModel(self, pDistortionModel: POINTER(Windows.Win32.Media.MediaFoundation.MFCameraIntrinsic_DistortionModelArcTan_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetDistortionModel(self, pDistortionModel: POINTER(Windows.Win32.Media.MediaFoundation.MFCameraIntrinsic_DistortionModelArcTan_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFExtendedDRMTypeSupport(c_void_p):
+class IMFExtendedDRMTypeSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('332ec562-3758-468d-a7-84-e3-8f-23-55-21-28')
     @commethod(3)
     def IsTypeSupportedEx(self, type: Windows.Win32.Foundation.BSTR, keySystem: Windows.Win32.Foundation.BSTR, pAnswer: POINTER(Windows.Win32.Media.MediaFoundation.MF_MEDIA_ENGINE_CANPLAY)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFFieldOfUseMFTUnlock(c_void_p):
+class IMFFieldOfUseMFTUnlock(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('508e71d3-ec66-4fc3-87-75-b4-b9-ed-6b-a8-47')
     @commethod(3)
     def Unlock(self, pUnkMFT: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFFinalizableMediaSink(c_void_p):
+class IMFFinalizableMediaSink(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaSink
     Guid = Guid('eaecb74a-9a50-42ce-95-41-6a-7f-57-aa-4a-d7')
     @commethod(12)
     def BeginFinalize(self, pCallback: Windows.Win32.Media.MediaFoundation.IMFAsyncCallback_head, punkState: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def EndFinalize(self, pResult: Windows.Win32.Media.MediaFoundation.IMFAsyncResult_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFGetService(c_void_p):
+class IMFGetService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fa993888-4383-415a-a9-30-dd-47-2a-8c-f6-f7')
     @commethod(3)
     def GetService(self, guidService: POINTER(Guid), riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFHDCPStatus(c_void_p):
+class IMFHDCPStatus(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('de400f54-5bf1-40cf-89-64-0b-ea-13-6b-1e-3d')
     @commethod(3)
     def Query(self, pStatus: POINTER(Windows.Win32.Media.MediaFoundation.MF_HDCP_STATUS), pfStatus: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Set(self, status: Windows.Win32.Media.MediaFoundation.MF_HDCP_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFHttpDownloadRequest(c_void_p):
+class IMFHttpDownloadRequest(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f779fddf-26e7-4270-8a-8b-b9-83-d1-85-9d-e0')
     @commethod(3)
@@ -6848,7 +6848,7 @@ class IMFHttpDownloadRequest(c_void_p):
     def GetRangeEndOffset(self, pqwRangeEnd: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFHttpDownloadSession(c_void_p):
+class IMFHttpDownloadSession(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('71fa9a2c-53ce-4662-a1-32-1a-7e-8c-bf-62-db')
     @commethod(3)
@@ -6857,12 +6857,12 @@ class IMFHttpDownloadSession(c_void_p):
     def CreateRequest(self, szObjectName: Windows.Win32.Foundation.PWSTR, fBypassProxyCache: Windows.Win32.Foundation.BOOL, fSecure: Windows.Win32.Foundation.BOOL, szVerb: Windows.Win32.Foundation.PWSTR, szReferrer: Windows.Win32.Foundation.PWSTR, ppRequest: POINTER(Windows.Win32.Media.MediaFoundation.IMFHttpDownloadRequest_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFHttpDownloadSessionProvider(c_void_p):
+class IMFHttpDownloadSessionProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1b4cf4b9-3a16-4115-83-9d-03-cc-5c-99-df-01')
     @commethod(3)
     def CreateHttpDownloadSession(self, wszScheme: Windows.Win32.Foundation.PWSTR, ppDownloadSession: POINTER(Windows.Win32.Media.MediaFoundation.IMFHttpDownloadSession_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFImageSharingEngine(c_void_p):
+class IMFImageSharingEngine(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cfa0ae8e-7e1c-44d2-ae-68-fc-4c-14-8a-63-54')
     @commethod(3)
@@ -6871,12 +6871,12 @@ class IMFImageSharingEngine(c_void_p):
     def GetDevice(self, pDevice: POINTER(Windows.Win32.Media.MediaFoundation.DEVICE_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Shutdown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFImageSharingEngineClassFactory(c_void_p):
+class IMFImageSharingEngineClassFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1fc55727-a7fb-4fc8-83-ae-8a-f0-24-99-0a-f1')
     @commethod(3)
     def CreateInstanceFromUDN(self, pUniqueDeviceName: Windows.Win32.Foundation.BSTR, ppEngine: POINTER(Windows.Win32.Media.MediaFoundation.IMFImageSharingEngine_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFInputTrustAuthority(c_void_p):
+class IMFInputTrustAuthority(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d19f8e98-b126-4446-89-0c-5d-cb-7a-d7-14-53')
     @commethod(3)
@@ -6891,12 +6891,12 @@ class IMFInputTrustAuthority(c_void_p):
     def UpdateAccess(self, pParam: POINTER(Windows.Win32.Media.MediaFoundation.MFINPUTTRUSTAUTHORITY_ACCESS_PARAMS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFLocalMFTRegistration(c_void_p):
+class IMFLocalMFTRegistration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('149c4d73-b4be-4f8d-8b-87-07-9e-92-6b-6a-dd')
     @commethod(3)
     def RegisterMFTs(self, pMFTs: POINTER(Windows.Win32.Media.MediaFoundation.MFT_REGISTRATION_INFO_head), cMFTs: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaBuffer(c_void_p):
+class IMFMediaBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('045fa593-8799-42b8-bc-8d-89-68-c6-45-35-07')
     @commethod(3)
@@ -6909,7 +6909,7 @@ class IMFMediaBuffer(c_void_p):
     def SetCurrentLength(self, cbCurrentLength: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetMaxLength(self, pcbMaxLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngine(c_void_p):
+class IMFMediaEngine(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('98a1b0bb-03eb-4935-ae-7c-93-c1-fa-0e-1c-93')
     @commethod(3)
@@ -6996,14 +6996,14 @@ class IMFMediaEngine(c_void_p):
     def TransferVideoFrame(self, pDstSurf: Windows.Win32.System.Com.IUnknown_head, pSrc: POINTER(Windows.Win32.Media.MediaFoundation.MFVideoNormalizedRect_head), pDst: POINTER(Windows.Win32.Foundation.RECT_head), pBorderClr: POINTER(Windows.Win32.Media.MediaFoundation.MFARGB_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(44)
     def OnVideoStreamTick(self, pPts: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineAudioEndpointId(c_void_p):
+class IMFMediaEngineAudioEndpointId(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7a3bac98-0e76-49fb-8c-20-8a-86-fd-98-ea-f2')
     @commethod(3)
     def SetAudioEndpointId(self, pszEndpointId: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAudioEndpointId(self, ppszEndpointId: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineClassFactory(c_void_p):
+class IMFMediaEngineClassFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4d645ace-26aa-4688-9b-e1-df-35-16-99-0b-93')
     @commethod(3)
@@ -7012,22 +7012,22 @@ class IMFMediaEngineClassFactory(c_void_p):
     def CreateTimeRange(self, ppTimeRange: POINTER(Windows.Win32.Media.MediaFoundation.IMFMediaTimeRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CreateError(self, ppError: POINTER(Windows.Win32.Media.MediaFoundation.IMFMediaError_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineClassFactory2(c_void_p):
+class IMFMediaEngineClassFactory2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('09083cef-867f-4bf6-87-76-de-e3-a7-b4-2f-ca')
     @commethod(3)
     def CreateMediaKeys2(self, keySystem: Windows.Win32.Foundation.BSTR, defaultCdmStorePath: Windows.Win32.Foundation.BSTR, inprivateCdmStorePath: Windows.Win32.Foundation.BSTR, ppKeys: POINTER(Windows.Win32.Media.MediaFoundation.IMFMediaKeys_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineClassFactory3(c_void_p):
+class IMFMediaEngineClassFactory3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3787614f-65f7-4003-b6-73-ea-d8-29-3a-0e-60')
     @commethod(3)
     def CreateMediaKeySystemAccess(self, keySystem: Windows.Win32.Foundation.BSTR, ppSupportedConfigurationsArray: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head), uSize: UInt32, ppKeyAccess: POINTER(Windows.Win32.Media.MediaFoundation.IMFMediaKeySystemAccess_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineClassFactory4(c_void_p):
+class IMFMediaEngineClassFactory4(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fbe256c1-43cf-4a9b-8c-b8-ce-86-32-a3-41-86')
     @commethod(3)
     def CreateContentDecryptionModuleFactory(self, keySystem: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineClassFactoryEx(c_void_p):
+class IMFMediaEngineClassFactoryEx(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaEngineClassFactory
     Guid = Guid('c56156c6-ea5b-48a5-9d-f8-fb-e0-35-d0-92-9e')
     @commethod(6)
@@ -7036,21 +7036,21 @@ class IMFMediaEngineClassFactoryEx(c_void_p):
     def CreateMediaKeys(self, keySystem: Windows.Win32.Foundation.BSTR, cdmStorePath: Windows.Win32.Foundation.BSTR, ppKeys: POINTER(Windows.Win32.Media.MediaFoundation.IMFMediaKeys_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def IsTypeSupported(self, type: Windows.Win32.Foundation.BSTR, keySystem: Windows.Win32.Foundation.BSTR, isSupported: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineEME(c_void_p):
+class IMFMediaEngineEME(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('50dc93e4-ba4f-4275-ae-66-83-e8-36-e5-74-69')
     @commethod(3)
     def get_Keys(self, keys: POINTER(Windows.Win32.Media.MediaFoundation.IMFMediaKeys_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetMediaKeys(self, keys: Windows.Win32.Media.MediaFoundation.IMFMediaKeys_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineEMENotify(c_void_p):
+class IMFMediaEngineEMENotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9e184d15-cdb7-4f86-b4-9e-56-66-89-f4-a6-01')
     @commethod(3)
     def Encrypted(self, pbInitData: POINTER(Byte), cb: UInt32, bstrInitDataType: Windows.Win32.Foundation.BSTR) -> Void: ...
     @commethod(4)
     def WaitingForKey(self) -> Void: ...
-class IMFMediaEngineEx(c_void_p):
+class IMFMediaEngineEx(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaEngine
     Guid = Guid('83015ead-b1e6-40d0-a9-8a-37-14-5f-fe-1a-d1')
     @commethod(45)
@@ -7127,7 +7127,7 @@ class IMFMediaEngineEx(c_void_p):
     def SetCurrentTimeEx(self, seekTime: Double, seekMode: Windows.Win32.Media.MediaFoundation.MF_MEDIA_ENGINE_SEEK_MODE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(81)
     def EnableTimeUpdateTimer(self, fEnableTimer: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineExtension(c_void_p):
+class IMFMediaEngineExtension(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2f69d622-20b5-41e9-af-df-89-ce-d1-dd-a0-4e')
     @commethod(3)
@@ -7138,22 +7138,22 @@ class IMFMediaEngineExtension(c_void_p):
     def CancelObjectCreation(self, pIUnknownCancelCookie: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def EndCreateObject(self, pResult: Windows.Win32.Media.MediaFoundation.IMFAsyncResult_head, ppObject: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineNeedKeyNotify(c_void_p):
+class IMFMediaEngineNeedKeyNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('46a30204-a696-4b18-88-04-24-6b-8f-03-1b-b1')
     @commethod(3)
     def NeedKey(self, initData: POINTER(Byte), cb: UInt32) -> Void: ...
-class IMFMediaEngineNotify(c_void_p):
+class IMFMediaEngineNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fee7c112-e776-42b5-9b-bf-00-48-52-4e-2b-d5')
     @commethod(3)
     def EventNotify(self, event: UInt32, param1: UIntPtr, param2: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineOPMInfo(c_void_p):
+class IMFMediaEngineOPMInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('765763e6-6c01-4b01-bb-0f-b8-29-f6-0e-d2-8c')
     @commethod(3)
     def GetOPMInfo(self, pStatus: POINTER(Windows.Win32.Media.MediaFoundation.MF_MEDIA_ENGINE_OPM_STATUS), pConstricted: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineProtectedContent(c_void_p):
+class IMFMediaEngineProtectedContent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9f8021e8-9c8c-487e-bb-5c-79-aa-47-79-93-8c')
     @commethod(3)
@@ -7168,7 +7168,7 @@ class IMFMediaEngineProtectedContent(c_void_p):
     def SetContentProtectionManager(self, pCPM: Windows.Win32.Media.MediaFoundation.IMFContentProtectionManager_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def SetApplicationCertificate(self, pbBlob: POINTER(Byte), cbBlob: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineSrcElements(c_void_p):
+class IMFMediaEngineSrcElements(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7a5e5354-b114-4c72-b9-91-31-31-d7-50-32-ea')
     @commethod(3)
@@ -7183,14 +7183,14 @@ class IMFMediaEngineSrcElements(c_void_p):
     def AddElement(self, pURL: Windows.Win32.Foundation.BSTR, pType: Windows.Win32.Foundation.BSTR, pMedia: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def RemoveAllElements(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineSrcElementsEx(c_void_p):
+class IMFMediaEngineSrcElementsEx(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaEngineSrcElements
     Guid = Guid('654a6bb3-e1a3-424a-99-08-53-a4-3a-0d-fd-a0')
     @commethod(9)
     def AddElementEx(self, pURL: Windows.Win32.Foundation.BSTR, pType: Windows.Win32.Foundation.BSTR, pMedia: Windows.Win32.Foundation.BSTR, keySystem: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetKeySystem(self, index: UInt32, pType: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineSupportsSourceTransfer(c_void_p):
+class IMFMediaEngineSupportsSourceTransfer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a724b056-1b2e-4642-a6-f3-db-94-20-c5-29-08')
     @commethod(3)
@@ -7199,12 +7199,12 @@ class IMFMediaEngineSupportsSourceTransfer(c_void_p):
     def DetachMediaSource(self, ppByteStream: POINTER(Windows.Win32.Media.MediaFoundation.IMFByteStream_head), ppMediaSource: POINTER(Windows.Win32.Media.MediaFoundation.IMFMediaSource_head), ppMSE: POINTER(Windows.Win32.Media.MediaFoundation.IMFMediaSourceExtension_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def AttachMediaSource(self, pByteStream: Windows.Win32.Media.MediaFoundation.IMFByteStream_head, pMediaSource: Windows.Win32.Media.MediaFoundation.IMFMediaSource_head, pMSE: Windows.Win32.Media.MediaFoundation.IMFMediaSourceExtension_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineTransferSource(c_void_p):
+class IMFMediaEngineTransferSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('24230452-fe54-40cc-94-f3-fc-c3-94-c3-40-d6')
     @commethod(3)
     def TransferSourceToMediaEngine(self, destination: Windows.Win32.Media.MediaFoundation.IMFMediaEngine_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEngineWebSupport(c_void_p):
+class IMFMediaEngineWebSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ba2743a1-07e0-48ef-84-b6-9a-2e-d0-23-ca-6c')
     @commethod(3)
@@ -7213,7 +7213,7 @@ class IMFMediaEngineWebSupport(c_void_p):
     def ConnectWebAudio(self, dwSampleRate: UInt32, ppSourceProvider: POINTER(Windows.Win32.Media.MediaFoundation.IAudioSourceProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def DisconnectWebAudio(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaError(c_void_p):
+class IMFMediaError(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fc0e10d2-ab2a-4501-a9-51-06-bb-10-75-18-4c')
     @commethod(3)
@@ -7224,7 +7224,7 @@ class IMFMediaError(c_void_p):
     def SetErrorCode(self, error: Windows.Win32.Media.MediaFoundation.MF_MEDIA_ENGINE_ERR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetExtendedErrorCode(self, error: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEvent(c_void_p):
+class IMFMediaEvent(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAttributes
     Guid = Guid('df598932-f10c-4e39-bb-a2-c3-08-f1-01-da-a3')
     @commethod(33)
@@ -7235,7 +7235,7 @@ class IMFMediaEvent(c_void_p):
     def GetStatus(self, phrStatus: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(36)
     def GetValue(self, pvValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEventGenerator(c_void_p):
+class IMFMediaEventGenerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2cd0bd52-bcd5-4b89-b6-2c-ea-dc-0c-03-1e-7d')
     @commethod(3)
@@ -7246,7 +7246,7 @@ class IMFMediaEventGenerator(c_void_p):
     def EndGetEvent(self, pResult: Windows.Win32.Media.MediaFoundation.IMFAsyncResult_head, ppEvent: POINTER(Windows.Win32.Media.MediaFoundation.IMFMediaEvent_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def QueueEvent(self, met: UInt32, guidExtendedType: POINTER(Guid), hrStatus: Windows.Win32.Foundation.HRESULT, pvValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaEventQueue(c_void_p):
+class IMFMediaEventQueue(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('36f846fc-2256-48b6-b5-8e-e2-b6-38-31-65-81')
     @commethod(3)
@@ -7263,7 +7263,7 @@ class IMFMediaEventQueue(c_void_p):
     def QueueEventParamUnk(self, met: UInt32, guidExtendedType: POINTER(Guid), hrStatus: Windows.Win32.Foundation.HRESULT, pUnk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Shutdown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaKeySession(c_void_p):
+class IMFMediaKeySession(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('24fa67d5-d1d0-4dc5-99-5c-c0-ef-dc-19-1f-b5')
     @commethod(3)
@@ -7276,7 +7276,7 @@ class IMFMediaKeySession(c_void_p):
     def Update(self, key: POINTER(Byte), cb: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaKeySession2(c_void_p):
+class IMFMediaKeySession2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaKeySession
     Guid = Guid('e9707e05-6d55-4636-b1-85-3d-e2-12-10-bd-75')
     @commethod(8)
@@ -7291,7 +7291,7 @@ class IMFMediaKeySession2(c_void_p):
     def Remove(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def Shutdown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaKeySessionNotify(c_void_p):
+class IMFMediaKeySessionNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6a0083f9-8947-4c1d-9c-e0-cd-ee-22-b2-31-35')
     @commethod(3)
@@ -7300,14 +7300,14 @@ class IMFMediaKeySessionNotify(c_void_p):
     def KeyAdded(self) -> Void: ...
     @commethod(5)
     def KeyError(self, code: UInt16, systemCode: UInt32) -> Void: ...
-class IMFMediaKeySessionNotify2(c_void_p):
+class IMFMediaKeySessionNotify2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaKeySessionNotify
     Guid = Guid('c3a9e92a-da88-46b0-a1-10-6c-f9-53-02-6c-b9')
     @commethod(6)
     def KeyMessage2(self, eMessageType: Windows.Win32.Media.MediaFoundation.MF_MEDIAKEYSESSION_MESSAGETYPE, destinationURL: Windows.Win32.Foundation.BSTR, pbMessage: POINTER(Byte), cbMessage: UInt32) -> Void: ...
     @commethod(7)
     def KeyStatusChange(self) -> Void: ...
-class IMFMediaKeySystemAccess(c_void_p):
+class IMFMediaKeySystemAccess(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('aec63fda-7a97-4944-b3-5c-6c-6d-f8-08-5c-c3')
     @commethod(3)
@@ -7316,7 +7316,7 @@ class IMFMediaKeySystemAccess(c_void_p):
     def get_SupportedConfiguration(self, ppSupportedConfiguration: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def get_KeySystem(self, pKeySystem: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaKeys(c_void_p):
+class IMFMediaKeys(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5cb31c05-61ff-418f-af-da-ca-af-41-42-1a-38')
     @commethod(3)
@@ -7327,7 +7327,7 @@ class IMFMediaKeys(c_void_p):
     def Shutdown(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetSuspendNotify(self, notify: POINTER(Windows.Win32.Media.MediaFoundation.IMFCdmSuspendNotify_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaKeys2(c_void_p):
+class IMFMediaKeys2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaKeys
     Guid = Guid('45892507-ad66-4de2-83-a2-ac-bb-13-cd-8d-43')
     @commethod(7)
@@ -7336,7 +7336,7 @@ class IMFMediaKeys2(c_void_p):
     def SetServerCertificate(self, pbServerCertificate: POINTER(Byte), cb: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetDOMException(self, systemCode: Windows.Win32.Foundation.HRESULT, code: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaSession(c_void_p):
+class IMFMediaSession(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaEventGenerator
     Guid = Guid('90377834-21d0-4dee-82-14-ba-2e-3e-6c-11-27')
     @commethod(7)
@@ -7359,17 +7359,17 @@ class IMFMediaSession(c_void_p):
     def GetSessionCapabilities(self, pdwCaps: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def GetFullTopology(self, dwGetFullTopologyFlags: UInt32, TopoId: UInt64, ppFullTopology: POINTER(Windows.Win32.Media.MediaFoundation.IMFTopology_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaSharingEngine(c_void_p):
+class IMFMediaSharingEngine(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaEngine
     Guid = Guid('8d3ce1bf-2367-40e0-9e-ee-40-d3-77-cc-1b-46')
     @commethod(45)
     def GetDevice(self, pDevice: POINTER(Windows.Win32.Media.MediaFoundation.DEVICE_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaSharingEngineClassFactory(c_void_p):
+class IMFMediaSharingEngineClassFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('524d2bc4-b2b1-4fe5-8f-ac-fa-4e-45-12-b4-e0')
     @commethod(3)
     def CreateInstance(self, dwFlags: UInt32, pAttr: Windows.Win32.Media.MediaFoundation.IMFAttributes_head, ppEngine: POINTER(Windows.Win32.Media.MediaFoundation.IMFMediaSharingEngine_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaSink(c_void_p):
+class IMFMediaSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6ef2a660-47c0-4666-b1-3d-cb-b7-17-f2-fa-2c')
     @commethod(3)
@@ -7390,12 +7390,12 @@ class IMFMediaSink(c_void_p):
     def GetPresentationClock(self, ppPresentationClock: POINTER(Windows.Win32.Media.MediaFoundation.IMFPresentationClock_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Shutdown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaSinkPreroll(c_void_p):
+class IMFMediaSinkPreroll(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5dfd4b2a-7674-4110-a4-e6-8a-68-fd-5f-36-88')
     @commethod(3)
     def NotifyPreroll(self, hnsUpcomingStartTime: Int64) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaSource(c_void_p):
+class IMFMediaSource(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaEventGenerator
     Guid = Guid('279a808d-aec7-40c8-9c-6b-a6-b4-92-c7-8a-66')
     @commethod(7)
@@ -7410,12 +7410,12 @@ class IMFMediaSource(c_void_p):
     def Pause(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Shutdown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaSource2(c_void_p):
+class IMFMediaSource2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaSourceEx
     Guid = Guid('fbb03414-d13b-4786-83-19-5a-c5-1f-c0-a1-36')
     @commethod(16)
     def SetMediaType(self, dwStreamID: UInt32, pMediaType: Windows.Win32.Media.MediaFoundation.IMFMediaType_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaSourceEx(c_void_p):
+class IMFMediaSourceEx(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaSource
     Guid = Guid('3c9b2eb9-86d5-4514-a3-94-f5-66-64-f9-f0-d8')
     @commethod(13)
@@ -7424,7 +7424,7 @@ class IMFMediaSourceEx(c_void_p):
     def GetStreamAttributes(self, dwStreamIdentifier: UInt32, ppAttributes: POINTER(Windows.Win32.Media.MediaFoundation.IMFAttributes_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def SetD3DManager(self, pManager: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaSourceExtension(c_void_p):
+class IMFMediaSourceExtension(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e467b94e-a713-4562-a8-02-81-6a-42-e9-00-8a')
     @commethod(3)
@@ -7447,14 +7447,14 @@ class IMFMediaSourceExtension(c_void_p):
     def IsTypeSupported(self, type: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.BOOL: ...
     @commethod(12)
     def GetSourceBuffer(self, dwStreamIndex: UInt32) -> Windows.Win32.Media.MediaFoundation.IMFSourceBuffer_head: ...
-class IMFMediaSourceExtensionLiveSeekableRange(c_void_p):
+class IMFMediaSourceExtensionLiveSeekableRange(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5d1abfd6-450a-4d92-9e-fc-d6-b6-cb-c1-f4-da')
     @commethod(3)
     def SetLiveSeekableRange(self, start: Double, end: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ClearLiveSeekableRange(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaSourceExtensionNotify(c_void_p):
+class IMFMediaSourceExtensionNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a7901327-05dd-4469-a7-b7-0e-01-97-9e-36-1d')
     @commethod(3)
@@ -7463,17 +7463,17 @@ class IMFMediaSourceExtensionNotify(c_void_p):
     def OnSourceEnded(self) -> Void: ...
     @commethod(5)
     def OnSourceClose(self) -> Void: ...
-class IMFMediaSourcePresentationProvider(c_void_p):
+class IMFMediaSourcePresentationProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0e1d600a-c9f3-442d-8c-51-a4-2d-2d-49-45-2f')
     @commethod(3)
     def ForceEndOfPresentation(self, pPresentationDescriptor: Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaSourceTopologyProvider(c_void_p):
+class IMFMediaSourceTopologyProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0e1d6009-c9f3-442d-8c-51-a4-2d-2d-49-45-2f')
     @commethod(3)
     def GetMediaSourceTopology(self, pPresentationDescriptor: Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor_head, ppTopology: POINTER(Windows.Win32.Media.MediaFoundation.IMFTopology_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaStream(c_void_p):
+class IMFMediaStream(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaEventGenerator
     Guid = Guid('d182108f-4ec6-443f-aa-42-a7-11-06-ec-82-5f')
     @commethod(7)
@@ -7482,19 +7482,19 @@ class IMFMediaStream(c_void_p):
     def GetStreamDescriptor(self, ppStreamDescriptor: POINTER(Windows.Win32.Media.MediaFoundation.IMFStreamDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def RequestSample(self, pToken: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaStream2(c_void_p):
+class IMFMediaStream2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaStream
     Guid = Guid('c5bc37d6-75c7-46a1-a1-32-81-b5-f7-23-c2-0f')
     @commethod(10)
     def SetStreamState(self, value: Windows.Win32.Media.MediaFoundation.MF_STREAM_STATE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetStreamState(self, value: POINTER(Windows.Win32.Media.MediaFoundation.MF_STREAM_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaStreamSourceSampleRequest(c_void_p):
+class IMFMediaStreamSourceSampleRequest(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('380b9af9-a85b-4e78-a2-af-ea-5c-e6-45-c6-b4')
     @commethod(3)
     def SetSample(self, value: Windows.Win32.Media.MediaFoundation.IMFSample_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaTimeRange(c_void_p):
+class IMFMediaTimeRange(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('db71a2fc-078a-414e-9d-f9-8c-25-31-b0-aa-6c')
     @commethod(3)
@@ -7509,7 +7509,7 @@ class IMFMediaTimeRange(c_void_p):
     def AddRange(self, startTime: Double, endTime: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaType(c_void_p):
+class IMFMediaType(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAttributes
     Guid = Guid('44ae0fa8-ea31-4109-8d-2e-4c-ae-49-97-c5-55')
     @commethod(33)
@@ -7522,7 +7522,7 @@ class IMFMediaType(c_void_p):
     def GetRepresentation(self, guidRepresentation: Guid, ppvRepresentation: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(37)
     def FreeRepresentation(self, guidRepresentation: Guid, pvRepresentation: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMediaTypeHandler(c_void_p):
+class IMFMediaTypeHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e93dcf6c-4b07-4e1e-81-23-aa-16-ed-6e-ad-f5')
     @commethod(3)
@@ -7537,7 +7537,7 @@ class IMFMediaTypeHandler(c_void_p):
     def GetCurrentMediaType(self, ppMediaType: POINTER(Windows.Win32.Media.MediaFoundation.IMFMediaType_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetMajorType(self, pguidMajorType: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMetadata(c_void_p):
+class IMFMetadata(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f88cfb8c-ef16-4991-b4-50-cb-8c-69-e5-17-04')
     @commethod(3)
@@ -7554,19 +7554,19 @@ class IMFMetadata(c_void_p):
     def DeleteProperty(self, pwszName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetAllPropertyNames(self, ppvNames: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMetadataProvider(c_void_p):
+class IMFMetadataProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('56181d2d-e221-4adb-b1-c8-3c-ee-6a-53-f7-6f')
     @commethod(3)
     def GetMFMetadata(self, pPresentationDescriptor: Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor_head, dwStreamIdentifier: UInt32, dwFlags: UInt32, ppMFMetadata: POINTER(Windows.Win32.Media.MediaFoundation.IMFMetadata_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMuxStreamAttributesManager(c_void_p):
+class IMFMuxStreamAttributesManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ce8bd576-e440-43b3-be-34-1e-53-f5-65-f7-e8')
     @commethod(3)
     def GetStreamCount(self, pdwMuxStreamCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAttributes(self, dwMuxStreamIndex: UInt32, ppStreamAttributes: POINTER(Windows.Win32.Media.MediaFoundation.IMFAttributes_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMuxStreamMediaTypeManager(c_void_p):
+class IMFMuxStreamMediaTypeManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('505a2c72-42f7-4690-ae-ab-8f-51-3d-0f-fd-b8')
     @commethod(3)
@@ -7581,7 +7581,7 @@ class IMFMuxStreamMediaTypeManager(c_void_p):
     def RemoveStreamConfiguration(self, ullStreamMask: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetStreamConfiguration(self, ulIndex: UInt32, pullStreamMask: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFMuxStreamSampleManager(c_void_p):
+class IMFMuxStreamSampleManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('74abbc19-b1cc-4e41-bb-8b-9d-9b-86-a8-f6-ca')
     @commethod(3)
@@ -7590,7 +7590,7 @@ class IMFMuxStreamSampleManager(c_void_p):
     def GetSample(self, dwMuxStreamIndex: UInt32, ppSample: POINTER(Windows.Win32.Media.MediaFoundation.IMFSample_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetStreamConfiguration(self) -> UInt64: ...
-class IMFNetCredential(c_void_p):
+class IMFNetCredential(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5b87ef6a-7ed8-434f-ba-0e-18-4f-ac-16-28-d1')
     @commethod(3)
@@ -7603,7 +7603,7 @@ class IMFNetCredential(c_void_p):
     def GetPassword(self, pbData: POINTER(Byte), pcbData: POINTER(UInt32), fEncryptData: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def LoggedOnUser(self, pfLoggedOnUser: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFNetCredentialCache(c_void_p):
+class IMFNetCredentialCache(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5b87ef6c-7ed8-434f-ba-0e-18-4f-ac-16-28-d1')
     @commethod(3)
@@ -7612,7 +7612,7 @@ class IMFNetCredentialCache(c_void_p):
     def SetGood(self, pCred: Windows.Win32.Media.MediaFoundation.IMFNetCredential_head, fGood: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetUserOptions(self, pCred: Windows.Win32.Media.MediaFoundation.IMFNetCredential_head, dwOptionsFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFNetCredentialManager(c_void_p):
+class IMFNetCredentialManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5b87ef6b-7ed8-434f-ba-0e-18-4f-ac-16-28-d1')
     @commethod(3)
@@ -7621,7 +7621,7 @@ class IMFNetCredentialManager(c_void_p):
     def EndGetCredentials(self, pResult: Windows.Win32.Media.MediaFoundation.IMFAsyncResult_head, ppCred: POINTER(Windows.Win32.Media.MediaFoundation.IMFNetCredential_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetGood(self, pCred: Windows.Win32.Media.MediaFoundation.IMFNetCredential_head, fGood: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFNetCrossOriginSupport(c_void_p):
+class IMFNetCrossOriginSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bc2b7d44-a72d-49d5-83-76-14-80-de-e5-8b-22')
     @commethod(3)
@@ -7630,7 +7630,7 @@ class IMFNetCrossOriginSupport(c_void_p):
     def GetSourceOrigin(self, wszSourceOrigin: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def IsSameOrigin(self, wszURL: Windows.Win32.Foundation.PWSTR, pfIsSameOrigin: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFNetProxyLocator(c_void_p):
+class IMFNetProxyLocator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e9cd0383-a268-4bb4-82-de-65-8d-53-57-4d-41')
     @commethod(3)
@@ -7643,19 +7643,19 @@ class IMFNetProxyLocator(c_void_p):
     def GetCurrentProxy(self, pszStr: Windows.Win32.Foundation.PWSTR, pcchStr: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Clone(self, ppProxyLocator: POINTER(Windows.Win32.Media.MediaFoundation.IMFNetProxyLocator_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFNetProxyLocatorFactory(c_void_p):
+class IMFNetProxyLocatorFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e9cd0384-a268-4bb4-82-de-65-8d-53-57-4d-41')
     @commethod(3)
     def CreateProxyLocator(self, pszProtocol: Windows.Win32.Foundation.PWSTR, ppProxyLocator: POINTER(Windows.Win32.Media.MediaFoundation.IMFNetProxyLocator_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFNetResourceFilter(c_void_p):
+class IMFNetResourceFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('091878a3-bf11-4a5c-bc-9f-33-99-5b-06-ef-2d')
     @commethod(3)
     def OnRedirect(self, pszUrl: Windows.Win32.Foundation.PWSTR, pvbCancel: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnSendingRequest(self, pszUrl: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFNetSchemeHandlerConfig(c_void_p):
+class IMFNetSchemeHandlerConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7be19e73-c9bf-468a-ac-5a-a5-e8-65-3b-ec-87')
     @commethod(3)
@@ -7664,14 +7664,14 @@ class IMFNetSchemeHandlerConfig(c_void_p):
     def GetSupportedProtocolType(self, nProtocolIndex: UInt32, pnProtocolType: POINTER(Windows.Win32.Media.MediaFoundation.MFNETSOURCE_PROTOCOL_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def ResetProtocolRolloverSettings(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFObjectReferenceStream(c_void_p):
+class IMFObjectReferenceStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('09ef5be3-c8a7-469e-8b-70-73-bf-25-bb-19-3f')
     @commethod(3)
     def SaveReference(self, riid: POINTER(Guid), pUnk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def LoadReference(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFOutputPolicy(c_void_p):
+class IMFOutputPolicy(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAttributes
     Guid = Guid('7f00f10a-daed-41af-ab-26-5f-df-a4-df-ba-3c')
     @commethod(33)
@@ -7680,7 +7680,7 @@ class IMFOutputPolicy(c_void_p):
     def GetOriginatorID(self, pguidOriginatorID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
     def GetMinimumGRLVersion(self, pdwMinimumGRLVersion: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFOutputSchema(c_void_p):
+class IMFOutputSchema(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAttributes
     Guid = Guid('7be0fc5b-abd9-44fb-a5-c8-f5-01-36-e7-15-99')
     @commethod(33)
@@ -7689,24 +7689,24 @@ class IMFOutputSchema(c_void_p):
     def GetConfigurationData(self, pdwVal: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
     def GetOriginatorID(self, pguidOriginatorID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFOutputTrustAuthority(c_void_p):
+class IMFOutputTrustAuthority(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d19f8e94-b126-4446-89-0c-5d-cb-7a-d7-14-53')
     @commethod(3)
     def GetAction(self, pAction: POINTER(Windows.Win32.Media.MediaFoundation.MFPOLICYMANAGER_ACTION)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetPolicy(self, ppPolicy: POINTER(Windows.Win32.Media.MediaFoundation.IMFOutputPolicy_head), nPolicy: UInt32, ppbTicket: POINTER(POINTER(Byte)), pcbTicket: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFPMPClient(c_void_p):
+class IMFPMPClient(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6c4e655d-ead8-4421-b6-b9-54-dc-db-bd-f8-20')
     @commethod(3)
     def SetPMPHost(self, pPMPHost: Windows.Win32.Media.MediaFoundation.IMFPMPHost_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFPMPClientApp(c_void_p):
+class IMFPMPClientApp(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c004f646-be2c-48f3-93-a2-a0-98-3e-ba-11-08')
     @commethod(3)
     def SetPMPHost(self, pPMPHost: Windows.Win32.Media.MediaFoundation.IMFPMPHostApp_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFPMPHost(c_void_p):
+class IMFPMPHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f70ca1a9-fdc7-4782-b9-94-ad-ff-b1-c9-86-06')
     @commethod(3)
@@ -7715,7 +7715,7 @@ class IMFPMPHost(c_void_p):
     def UnlockProcess(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CreateObjectByCLSID(self, clsid: POINTER(Guid), pStream: Windows.Win32.System.Com.IStream_head, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFPMPHostApp(c_void_p):
+class IMFPMPHostApp(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('84d2054a-3aa1-4728-a3-b0-44-0a-41-8c-f4-9c')
     @commethod(3)
@@ -7724,7 +7724,7 @@ class IMFPMPHostApp(c_void_p):
     def UnlockProcess(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def ActivateClassById(self, id: Windows.Win32.Foundation.PWSTR, pStream: Windows.Win32.System.Com.IStream_head, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFPMPServer(c_void_p):
+class IMFPMPServer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('994e23af-1cc2-493c-b9-fa-46-f1-cb-04-0f-a4')
     @commethod(3)
@@ -7733,7 +7733,7 @@ class IMFPMPServer(c_void_p):
     def UnlockProcess(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CreateObjectByCLSID(self, clsid: POINTER(Guid), riid: POINTER(Guid), ppObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFPMediaItem(c_void_p):
+class IMFPMediaItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('90eb3e6b-ecbf-45cc-b1-da-c6-fe-3e-a7-0d-57')
     @commethod(3)
@@ -7774,7 +7774,7 @@ class IMFPMediaItem(c_void_p):
     def SetStreamSink(self, dwStreamIndex: UInt32, pMediaSink: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def GetMetadata(self, ppMetadataStore: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFPMediaPlayer(c_void_p):
+class IMFPMediaPlayer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a714590a-58af-430a-85-bf-44-f5-ec-83-8d-85')
     @commethod(3)
@@ -7849,12 +7849,12 @@ class IMFPMediaPlayer(c_void_p):
     def RemoveAllEffects(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(38)
     def Shutdown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFPMediaPlayerCallback(c_void_p):
+class IMFPMediaPlayerCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('766c8ffb-5fdb-4fea-a2-8d-b9-12-99-6f-51-bd')
     @commethod(3)
     def OnMediaPlayerEvent(self, pEventHeader: POINTER(Windows.Win32.Media.MediaFoundation.MFP_EVENT_HEADER_head)) -> Void: ...
-class IMFPluginControl(c_void_p):
+class IMFPluginControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5c6c44bf-1db6-435b-92-49-e8-cd-10-fd-ec-96')
     @commethod(3)
@@ -7869,12 +7869,12 @@ class IMFPluginControl(c_void_p):
     def GetDisabledByIndex(self, pluginType: UInt32, index: UInt32, clsid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def SetDisabled(self, pluginType: UInt32, clsid: POINTER(Guid), disabled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFPluginControl2(c_void_p):
+class IMFPluginControl2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFPluginControl
     Guid = Guid('c6982083-3ddc-45cb-af-5e-0f-7a-8c-e4-de-77')
     @commethod(9)
     def SetPolicy(self, policy: Windows.Win32.Media.MediaFoundation.MF_PLUGIN_CONTROL_POLICY) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFPresentationClock(c_void_p):
+class IMFPresentationClock(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFClock
     Guid = Guid('868ce85c-8ea9-4f55-ab-82-b0-09-a9-10-a8-05')
     @commethod(8)
@@ -7893,7 +7893,7 @@ class IMFPresentationClock(c_void_p):
     def Stop(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def Pause(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFPresentationDescriptor(c_void_p):
+class IMFPresentationDescriptor(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAttributes
     Guid = Guid('03cb2711-24d7-4db6-a1-7f-f3-a7-a4-79-a5-36')
     @commethod(33)
@@ -7906,19 +7906,19 @@ class IMFPresentationDescriptor(c_void_p):
     def DeselectStream(self, dwDescriptorIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(37)
     def Clone(self, ppPresentationDescriptor: POINTER(Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFPresentationTimeSource(c_void_p):
+class IMFPresentationTimeSource(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFClock
     Guid = Guid('7ff12cce-f76f-41c2-86-3b-16-66-c8-e5-e1-39')
     @commethod(8)
     def GetUnderlyingClock(self, ppClock: POINTER(Windows.Win32.Media.MediaFoundation.IMFClock_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFProtectedEnvironmentAccess(c_void_p):
+class IMFProtectedEnvironmentAccess(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ef5dc845-f0d9-4ec9-b0-0c-cb-51-83-d3-84-34')
     @commethod(3)
     def Call(self, inputLength: UInt32, input: POINTER(Byte), outputLength: UInt32, output: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReadGRL(self, outputLength: POINTER(UInt32), output: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFQualityAdvise(c_void_p):
+class IMFQualityAdvise(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ec15e2e9-e36b-4f7c-87-58-77-d4-52-ef-4c-e7')
     @commethod(3)
@@ -7931,19 +7931,19 @@ class IMFQualityAdvise(c_void_p):
     def GetQualityLevel(self, peQualityLevel: POINTER(Windows.Win32.Media.MediaFoundation.MF_QUALITY_LEVEL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def DropTime(self, hnsAmountToDrop: Int64) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFQualityAdvise2(c_void_p):
+class IMFQualityAdvise2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFQualityAdvise
     Guid = Guid('f3706f0d-8ea2-4886-80-00-71-55-e9-ec-2e-ae')
     @commethod(8)
     def NotifyQualityEvent(self, pEvent: Windows.Win32.Media.MediaFoundation.IMFMediaEvent_head, pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFQualityAdviseLimits(c_void_p):
+class IMFQualityAdviseLimits(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('dfcd8e4d-30b5-4567-ac-aa-8e-b5-b7-85-3d-c9')
     @commethod(3)
     def GetMaximumDropMode(self, peDropMode: POINTER(Windows.Win32.Media.MediaFoundation.MF_QUALITY_DROP_MODE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetMinimumQualityLevel(self, peQualityLevel: POINTER(Windows.Win32.Media.MediaFoundation.MF_QUALITY_LEVEL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFQualityManager(c_void_p):
+class IMFQualityManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8d009d86-5b9f-4115-b1-fc-9f-80-d5-2a-b8-ab')
     @commethod(3)
@@ -7958,14 +7958,14 @@ class IMFQualityManager(c_void_p):
     def NotifyQualityEvent(self, pObject: Windows.Win32.System.Com.IUnknown_head, pEvent: Windows.Win32.Media.MediaFoundation.IMFMediaEvent_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Shutdown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFRateControl(c_void_p):
+class IMFRateControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('88ddcd21-03c3-4275-91-ed-55-ee-39-29-32-8f')
     @commethod(3)
     def SetRate(self, fThin: Windows.Win32.Foundation.BOOL, flRate: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetRate(self, pfThin: POINTER(Windows.Win32.Foundation.BOOL), pflRate: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFRateSupport(c_void_p):
+class IMFRateSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0a9ccdbc-d797-4563-96-67-94-ec-5d-79-29-2d')
     @commethod(3)
@@ -7974,14 +7974,14 @@ class IMFRateSupport(c_void_p):
     def GetFastestRate(self, eDirection: Windows.Win32.Media.MediaFoundation.MFRATE_DIRECTION, fThin: Windows.Win32.Foundation.BOOL, pflRate: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def IsRateSupported(self, fThin: Windows.Win32.Foundation.BOOL, flRate: Single, pflNearestSupportedRate: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFReadWriteClassFactory(c_void_p):
+class IMFReadWriteClassFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e7fe2e12-661c-40da-92-f9-4f-00-2a-b6-76-27')
     @commethod(3)
     def CreateInstanceFromURL(self, clsid: POINTER(Guid), pwszURL: Windows.Win32.Foundation.PWSTR, pAttributes: Windows.Win32.Media.MediaFoundation.IMFAttributes_head, riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CreateInstanceFromObject(self, clsid: POINTER(Guid), punkObject: Windows.Win32.System.Com.IUnknown_head, pAttributes: Windows.Win32.Media.MediaFoundation.IMFAttributes_head, riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFRealTimeClient(c_void_p):
+class IMFRealTimeClient(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2347d60b-3fb5-480c-88-03-8d-f3-ad-cd-3e-f0')
     @commethod(3)
@@ -7990,7 +7990,7 @@ class IMFRealTimeClient(c_void_p):
     def UnregisterThreads(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetWorkQueue(self, dwWorkQueueId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFRealTimeClientEx(c_void_p):
+class IMFRealTimeClientEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('03910848-ab16-4611-b1-00-17-b8-8a-e2-f2-48')
     @commethod(3)
@@ -7999,12 +7999,12 @@ class IMFRealTimeClientEx(c_void_p):
     def UnregisterThreads(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetWorkQueueEx(self, dwMultithreadedWorkQueueId: UInt32, lWorkItemBasePriority: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFRelativePanelReport(c_void_p):
+class IMFRelativePanelReport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f25362ea-2c0e-447f-81-e2-75-59-14-cd-c0-c3')
     @commethod(3)
     def GetRelativePanel(self, panel: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFRelativePanelWatcher(c_void_p):
+class IMFRelativePanelWatcher(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFShutdown
     Guid = Guid('421af7f6-573e-4ad0-8f-da-2e-57-ce-db-18-c6')
     @commethod(5)
@@ -8013,24 +8013,24 @@ class IMFRelativePanelWatcher(c_void_p):
     def EndGetReport(self, pResult: Windows.Win32.Media.MediaFoundation.IMFAsyncResult_head, ppRelativePanelReport: POINTER(Windows.Win32.Media.MediaFoundation.IMFRelativePanelReport_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetReport(self, ppRelativePanelReport: POINTER(Windows.Win32.Media.MediaFoundation.IMFRelativePanelReport_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFRemoteAsyncCallback(c_void_p):
+class IMFRemoteAsyncCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a27003d0-2354-4f2a-8d-6a-ab-7c-ff-15-43-7e')
     @commethod(3)
     def Invoke(self, hr: Windows.Win32.Foundation.HRESULT, pRemoteResult: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFRemoteDesktopPlugin(c_void_p):
+class IMFRemoteDesktopPlugin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1cde6309-cae0-4940-90-7e-c1-ec-9c-3d-1d-4a')
     @commethod(3)
     def UpdateTopology(self, pTopology: Windows.Win32.Media.MediaFoundation.IMFTopology_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFRemoteProxy(c_void_p):
+class IMFRemoteProxy(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('994e23ad-1cc2-493c-b9-fa-46-f1-cb-04-0f-a4')
     @commethod(3)
     def GetRemoteObject(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetRemoteHost(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSAMIStyle(c_void_p):
+class IMFSAMIStyle(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a7e025dd-5303-4a62-89-d6-e7-47-e1-ef-ac-73')
     @commethod(3)
@@ -8041,7 +8041,7 @@ class IMFSAMIStyle(c_void_p):
     def SetSelectedStyle(self, pwszStyle: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetSelectedStyle(self, ppwszStyle: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSSLCertificateManager(c_void_p):
+class IMFSSLCertificateManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('61f7d887-1230-4a8b-ae-ba-8a-d4-34-d1-a6-4d')
     @commethod(3)
@@ -8054,7 +8054,7 @@ class IMFSSLCertificateManager(c_void_p):
     def GetCertificatePolicy(self, pszURL: Windows.Win32.Foundation.PWSTR, pfOverrideAutomaticCheck: POINTER(Windows.Win32.Foundation.BOOL), pfClientCertificateAvailable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def OnServerCertificate(self, pszURL: Windows.Win32.Foundation.PWSTR, pbData: POINTER(Byte), cbData: UInt32, pfIsGood: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSample(c_void_p):
+class IMFSample(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAttributes
     Guid = Guid('c40a00f2-b93a-4d80-ae-8c-5a-1c-63-4f-58-e4')
     @commethod(33)
@@ -8085,14 +8085,14 @@ class IMFSample(c_void_p):
     def GetTotalLength(self, pcbTotalLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(46)
     def CopyToBuffer(self, pBuffer: Windows.Win32.Media.MediaFoundation.IMFMediaBuffer_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSampleAllocatorControl(c_void_p):
+class IMFSampleAllocatorControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('da62b958-3a38-4a97-bd-27-14-9c-64-0c-07-71')
     @commethod(3)
     def SetDefaultAllocator(self, dwOutputStreamID: UInt32, pAllocator: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAllocatorUsage(self, dwOutputStreamID: UInt32, pdwInputStreamID: POINTER(UInt32), peUsage: POINTER(Windows.Win32.Media.MediaFoundation.MFSampleAllocatorUsage)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSampleGrabberSinkCallback(c_void_p):
+class IMFSampleGrabberSinkCallback(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFClockStateSink
     Guid = Guid('8c7b80bf-ee42-4b59-b1-df-55-66-8e-1b-dc-a8')
     @commethod(8)
@@ -8101,12 +8101,12 @@ class IMFSampleGrabberSinkCallback(c_void_p):
     def OnProcessSample(self, guidMajorMediaType: POINTER(Guid), dwSampleFlags: UInt32, llSampleTime: Int64, llSampleDuration: Int64, pSampleBuffer: POINTER(Byte), dwSampleSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def OnShutdown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSampleGrabberSinkCallback2(c_void_p):
+class IMFSampleGrabberSinkCallback2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFSampleGrabberSinkCallback
     Guid = Guid('ca86aa50-c46e-429e-ab-27-16-d6-ac-68-44-cb')
     @commethod(11)
     def OnProcessSampleEx(self, guidMajorMediaType: POINTER(Guid), dwSampleFlags: UInt32, llSampleTime: Int64, llSampleDuration: Int64, pSampleBuffer: POINTER(Byte), dwSampleSize: UInt32, pAttributes: Windows.Win32.Media.MediaFoundation.IMFAttributes_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSampleOutputStream(c_void_p):
+class IMFSampleOutputStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8feed468-6f7e-440d-86-9a-49-bd-d2-83-ad-0d')
     @commethod(3)
@@ -8115,7 +8115,7 @@ class IMFSampleOutputStream(c_void_p):
     def EndWriteSample(self, pResult: Windows.Win32.Media.MediaFoundation.IMFAsyncResult_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSampleProtection(c_void_p):
+class IMFSampleProtection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8e36395f-c7b9-43c4-a5-4d-51-2b-4a-f6-3c-95')
     @commethod(3)
@@ -8128,7 +8128,7 @@ class IMFSampleProtection(c_void_p):
     def InitOutputProtection(self, dwVersion: UInt32, dwOutputId: UInt32, pbCert: POINTER(Byte), cbCert: UInt32, ppbSeed: POINTER(POINTER(Byte)), pcbSeed: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def InitInputProtection(self, dwVersion: UInt32, dwInputId: UInt32, pbSeed: POINTER(Byte), cbSeed: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSaveJob(c_void_p):
+class IMFSaveJob(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e9931663-80bf-4c6e-98-af-5d-cf-58-74-7d-1f')
     @commethod(3)
@@ -8139,7 +8139,7 @@ class IMFSaveJob(c_void_p):
     def CancelSave(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetProgress(self, pdwPercentComplete: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSchemeHandler(c_void_p):
+class IMFSchemeHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6d4c7b74-52a0-4bb7-b0-db-55-f2-9f-47-a6-68')
     @commethod(3)
@@ -8148,24 +8148,24 @@ class IMFSchemeHandler(c_void_p):
     def EndCreateObject(self, pResult: Windows.Win32.Media.MediaFoundation.IMFAsyncResult_head, pObjectType: POINTER(Windows.Win32.Media.MediaFoundation.MF_OBJECT_TYPE), ppObject: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CancelObjectCreation(self, pIUnknownCancelCookie: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSecureBuffer(c_void_p):
+class IMFSecureBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c1209904-e584-4752-a2-d6-7f-21-69-3f-8b-21')
     @commethod(3)
     def GetIdentifier(self, pGuidIdentifier: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSecureChannel(c_void_p):
+class IMFSecureChannel(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d0ae555d-3b12-4d97-b0-60-09-90-bc-5a-eb-67')
     @commethod(3)
     def GetCertificate(self, ppCert: POINTER(POINTER(Byte)), pcbCert: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetupSession(self, pbEncryptedSessionKey: POINTER(Byte), cbSessionKey: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSeekInfo(c_void_p):
+class IMFSeekInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('26afea53-d9ed-42b5-ab-80-e6-4f-9e-e3-47-79')
     @commethod(3)
     def GetNearestKeyFrames(self, pguidTimeFormat: POINTER(Guid), pvarStartPosition: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), pvarPreviousKeyFrame: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), pvarNextKeyFrame: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSensorActivitiesReport(c_void_p):
+class IMFSensorActivitiesReport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683f7a5e-4a19-43cd-b1-a9-db-f4-ab-3f-77-77')
     @commethod(3)
@@ -8174,19 +8174,19 @@ class IMFSensorActivitiesReport(c_void_p):
     def GetActivityReport(self, Index: UInt32, sensorActivityReport: POINTER(Windows.Win32.Media.MediaFoundation.IMFSensorActivityReport_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetActivityReportByDeviceName(self, SymbolicName: Windows.Win32.Foundation.PWSTR, sensorActivityReport: POINTER(Windows.Win32.Media.MediaFoundation.IMFSensorActivityReport_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSensorActivitiesReportCallback(c_void_p):
+class IMFSensorActivitiesReportCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('de5072ee-dbe3-46dc-8a-87-b6-f6-31-19-47-51')
     @commethod(3)
     def OnActivitiesReport(self, sensorActivitiesReport: Windows.Win32.Media.MediaFoundation.IMFSensorActivitiesReport_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSensorActivityMonitor(c_void_p):
+class IMFSensorActivityMonitor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d0cef145-b3f4-4340-a2-e5-7a-50-80-ca-05-cb')
     @commethod(3)
     def Start(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Stop(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSensorActivityReport(c_void_p):
+class IMFSensorActivityReport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3e8c4be1-a8c2-4528-90-de-28-51-bd-e5-fe-ad')
     @commethod(3)
@@ -8197,7 +8197,7 @@ class IMFSensorActivityReport(c_void_p):
     def GetProcessCount(self, pcCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetProcessActivity(self, Index: UInt32, ppProcessActivity: POINTER(Windows.Win32.Media.MediaFoundation.IMFSensorProcessActivity_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSensorDevice(c_void_p):
+class IMFSensorDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fb9f48f2-2a18-4e28-97-30-78-6f-30-f0-4d-c4')
     @commethod(3)
@@ -8218,7 +8218,7 @@ class IMFSensorDevice(c_void_p):
     def SetSensorDeviceMode(self, eMode: Windows.Win32.Media.MediaFoundation.MFSensorDeviceMode) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetSensorDeviceMode(self, peMode: POINTER(Windows.Win32.Media.MediaFoundation.MFSensorDeviceMode)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSensorGroup(c_void_p):
+class IMFSensorGroup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4110243a-9757-461f-89-f1-f2-23-45-bc-ab-4e')
     @commethod(3)
@@ -8237,7 +8237,7 @@ class IMFSensorGroup(c_void_p):
     def GetDefaultSensorDeviceIndex(self, pdwIndex: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def CreateMediaSource(self, ppSource: POINTER(Windows.Win32.Media.MediaFoundation.IMFMediaSource_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSensorProcessActivity(c_void_p):
+class IMFSensorProcessActivity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('39dc7f4a-b141-4719-81-3c-a7-f4-61-62-a2-b8')
     @commethod(3)
@@ -8248,7 +8248,7 @@ class IMFSensorProcessActivity(c_void_p):
     def GetStreamingMode(self, pMode: POINTER(Windows.Win32.Media.MediaFoundation.MFSensorDeviceMode)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetReportTime(self, pft: POINTER(Windows.Win32.Foundation.FILETIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSensorProfile(c_void_p):
+class IMFSensorProfile(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('22f765d1-8dab-4107-84-6d-56-ba-f7-22-15-e7')
     @commethod(3)
@@ -8259,7 +8259,7 @@ class IMFSensorProfile(c_void_p):
     def IsMediaTypeSupported(self, StreamId: UInt32, pMediaType: Windows.Win32.Media.MediaFoundation.IMFMediaType_head, pfSupported: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def AddBlockedControl(self, wzBlockedControl: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSensorProfileCollection(c_void_p):
+class IMFSensorProfileCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c95ea55b-0187-48be-93-53-8d-25-07-66-23-51')
     @commethod(3)
@@ -8274,7 +8274,7 @@ class IMFSensorProfileCollection(c_void_p):
     def RemoveProfileByIndex(self, Index: UInt32) -> Void: ...
     @commethod(8)
     def RemoveProfile(self, ProfileId: POINTER(Windows.Win32.Media.MediaFoundation.SENSORPROFILEID_head)) -> Void: ...
-class IMFSensorStream(c_void_p):
+class IMFSensorStream(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAttributes
     Guid = Guid('e9a42171-c56e-498a-8b-39-ed-a5-a0-70-b7-fc')
     @commethod(33)
@@ -8283,7 +8283,7 @@ class IMFSensorStream(c_void_p):
     def GetMediaType(self, dwIndex: UInt32, ppMediaType: POINTER(Windows.Win32.Media.MediaFoundation.IMFMediaType_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
     def CloneSensorStream(self, ppStream: POINTER(Windows.Win32.Media.MediaFoundation.IMFSensorStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSensorTransformFactory(c_void_p):
+class IMFSensorTransformFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('eed9c2ee-66b4-4f18-a6-97-ac-7d-39-60-21-5c')
     @commethod(3)
@@ -8296,7 +8296,7 @@ class IMFSensorTransformFactory(c_void_p):
     def GetTransformInformation(self, TransformIndex: UInt32, pguidTransformId: POINTER(Guid), ppAttributes: POINTER(Windows.Win32.Media.MediaFoundation.IMFAttributes_head), ppStreamInformation: POINTER(Windows.Win32.Media.MediaFoundation.IMFCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def CreateTransform(self, guidSensorTransformID: POINTER(Guid), pAttributes: Windows.Win32.Media.MediaFoundation.IMFAttributes_head, ppDeviceMFT: POINTER(Windows.Win32.Media.MediaFoundation.IMFDeviceTransform_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSequencerSource(c_void_p):
+class IMFSequencerSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('197cd219-19cb-4de1-a6-4c-ac-f2-ed-cb-e5-9e')
     @commethod(3)
@@ -8309,24 +8309,24 @@ class IMFSequencerSource(c_void_p):
     def UpdateTopology(self, dwId: UInt32, pTopology: Windows.Win32.Media.MediaFoundation.IMFTopology_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def UpdateTopologyFlags(self, dwId: UInt32, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSharingEngineClassFactory(c_void_p):
+class IMFSharingEngineClassFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2ba61f92-8305-413b-97-33-fa-f1-5f-25-93-84')
     @commethod(3)
     def CreateInstance(self, dwFlags: UInt32, pAttr: Windows.Win32.Media.MediaFoundation.IMFAttributes_head, ppEngine: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFShutdown(c_void_p):
+class IMFShutdown(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97ec2ea4-0e42-4937-97-ac-9d-6d-32-88-24-e1')
     @commethod(3)
     def Shutdown(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetShutdownStatus(self, pStatus: POINTER(Windows.Win32.Media.MediaFoundation.MFSHUTDOWN_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSignedLibrary(c_void_p):
+class IMFSignedLibrary(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4a724bca-ff6a-4c07-8e-0d-7a-35-84-21-cf-06')
     @commethod(3)
     def GetProcedureAddress(self, name: Windows.Win32.Foundation.PSTR, address: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSimpleAudioVolume(c_void_p):
+class IMFSimpleAudioVolume(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('089edf13-cf71-4338-8d-13-9e-56-9d-bd-c3-19')
     @commethod(3)
@@ -8337,7 +8337,7 @@ class IMFSimpleAudioVolume(c_void_p):
     def SetMute(self, bMute: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetMute(self, pbMute: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSinkWriter(c_void_p):
+class IMFSinkWriter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3137f1cd-fe5e-4805-a5-d8-fb-47-74-48-cb-3d')
     @commethod(3)
@@ -8362,33 +8362,33 @@ class IMFSinkWriter(c_void_p):
     def GetServiceForStream(self, dwStreamIndex: UInt32, guidService: POINTER(Guid), riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetStatistics(self, dwStreamIndex: UInt32, pStats: POINTER(Windows.Win32.Media.MediaFoundation.MF_SINK_WRITER_STATISTICS_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSinkWriterCallback(c_void_p):
+class IMFSinkWriterCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('666f76de-33d2-41b9-a4-58-29-ed-0a-97-2c-58')
     @commethod(3)
     def OnFinalize(self, hrStatus: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnMarker(self, dwStreamIndex: UInt32, pvContext: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSinkWriterCallback2(c_void_p):
+class IMFSinkWriterCallback2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFSinkWriterCallback
     Guid = Guid('2456bd58-c067-4513-84-fe-8d-0c-88-ff-dc-61')
     @commethod(5)
     def OnTransformChange(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def OnStreamError(self, dwStreamIndex: UInt32, hrStatus: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSinkWriterEncoderConfig(c_void_p):
+class IMFSinkWriterEncoderConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('17c3779e-3cde-4ede-8c-60-38-99-f5-f5-3a-d6')
     @commethod(3)
     def SetTargetMediaType(self, dwStreamIndex: UInt32, pTargetMediaType: Windows.Win32.Media.MediaFoundation.IMFMediaType_head, pEncodingParameters: Windows.Win32.Media.MediaFoundation.IMFAttributes_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def PlaceEncodingParameters(self, dwStreamIndex: UInt32, pEncodingParameters: Windows.Win32.Media.MediaFoundation.IMFAttributes_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSinkWriterEx(c_void_p):
+class IMFSinkWriterEx(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFSinkWriter
     Guid = Guid('588d72ab-5bc1-496a-87-14-b7-06-17-14-1b-25')
     @commethod(14)
     def GetTransformForStream(self, dwStreamIndex: UInt32, dwTransformIndex: UInt32, pGuidCategory: POINTER(Guid), ppTransform: POINTER(Windows.Win32.Media.MediaFoundation.IMFTransform_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSourceBuffer(c_void_p):
+class IMFSourceBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e2cd3a4b-af25-4d3d-91-10-da-0e-6f-8e-e8-77')
     @commethod(3)
@@ -8415,21 +8415,21 @@ class IMFSourceBuffer(c_void_p):
     def Abort(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def Remove(self, start: Double, end: Double) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSourceBufferAppendMode(c_void_p):
+class IMFSourceBufferAppendMode(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('19666fb4-babe-4c55-bc-03-0a-07-4d-a3-7e-2a')
     @commethod(3)
     def GetAppendMode(self) -> Windows.Win32.Media.MediaFoundation.MF_MSE_APPEND_MODE: ...
     @commethod(4)
     def SetAppendMode(self, mode: Windows.Win32.Media.MediaFoundation.MF_MSE_APPEND_MODE) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSourceBufferList(c_void_p):
+class IMFSourceBufferList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('249981f8-8325-41f3-b8-0c-3b-9e-3a-ad-0c-be')
     @commethod(3)
     def GetLength(self) -> UInt32: ...
     @commethod(4)
     def GetSourceBuffer(self, index: UInt32) -> Windows.Win32.Media.MediaFoundation.IMFSourceBuffer_head: ...
-class IMFSourceBufferNotify(c_void_p):
+class IMFSourceBufferNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('87e47623-2ceb-45d6-9b-88-d8-52-0c-4d-cb-bc')
     @commethod(3)
@@ -8442,12 +8442,12 @@ class IMFSourceBufferNotify(c_void_p):
     def OnUpdate(self) -> Void: ...
     @commethod(7)
     def OnUpdateEnd(self) -> Void: ...
-class IMFSourceOpenMonitor(c_void_p):
+class IMFSourceOpenMonitor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('059054b3-027c-494c-a2-7d-91-13-29-1c-f8-7f')
     @commethod(3)
     def OnSourceEvent(self, pEvent: Windows.Win32.Media.MediaFoundation.IMFMediaEvent_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSourceReader(c_void_p):
+class IMFSourceReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('70ae66f2-c809-4e4f-89-15-bd-cb-40-6b-79-93')
     @commethod(3)
@@ -8470,7 +8470,7 @@ class IMFSourceReader(c_void_p):
     def GetServiceForStream(self, dwStreamIndex: UInt32, guidService: POINTER(Guid), riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetPresentationAttribute(self, dwStreamIndex: UInt32, guidAttribute: POINTER(Guid), pvarAttribute: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSourceReaderCallback(c_void_p):
+class IMFSourceReaderCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('deec8d99-fa1d-4d82-84-c2-2c-89-69-94-48-67')
     @commethod(3)
@@ -8479,14 +8479,14 @@ class IMFSourceReaderCallback(c_void_p):
     def OnFlush(self, dwStreamIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnEvent(self, dwStreamIndex: UInt32, pEvent: Windows.Win32.Media.MediaFoundation.IMFMediaEvent_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSourceReaderCallback2(c_void_p):
+class IMFSourceReaderCallback2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFSourceReaderCallback
     Guid = Guid('cf839fe6-8c2a-4dd2-b6-ea-c2-2d-69-61-af-05')
     @commethod(6)
     def OnTransformChange(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def OnStreamError(self, dwStreamIndex: UInt32, hrStatus: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSourceReaderEx(c_void_p):
+class IMFSourceReaderEx(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFSourceReader
     Guid = Guid('7b981cf0-560e-4116-98-75-b0-99-89-5f-23-d7')
     @commethod(13)
@@ -8497,7 +8497,7 @@ class IMFSourceReaderEx(c_void_p):
     def RemoveAllTransformsForStream(self, dwStreamIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def GetTransformForStream(self, dwStreamIndex: UInt32, dwTransformIndex: UInt32, pGuidCategory: POINTER(Guid), ppTransform: POINTER(Windows.Win32.Media.MediaFoundation.IMFTransform_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSourceResolver(c_void_p):
+class IMFSourceResolver(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fbe5a32d-a497-4b61-bb-85-97-b1-a8-48-a6-e3')
     @commethod(3)
@@ -8514,7 +8514,7 @@ class IMFSourceResolver(c_void_p):
     def EndCreateObjectFromByteStream(self, pResult: Windows.Win32.Media.MediaFoundation.IMFAsyncResult_head, pObjectType: POINTER(Windows.Win32.Media.MediaFoundation.MF_OBJECT_TYPE), ppObject: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def CancelObjectCreation(self, pIUnknownCancelCookie: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSpatialAudioObjectBuffer(c_void_p):
+class IMFSpatialAudioObjectBuffer(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaBuffer
     Guid = Guid('d396ec8c-605e-4249-97-8d-72-ad-1c-31-28-72')
     @commethod(8)
@@ -8527,7 +8527,7 @@ class IMFSpatialAudioObjectBuffer(c_void_p):
     def GetType(self, pType: POINTER(Windows.Win32.Media.Audio.AudioObjectType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetMetadataItems(self, ppMetadataItems: POINTER(Windows.Win32.Media.Audio.ISpatialAudioMetadataItems_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSpatialAudioSample(c_void_p):
+class IMFSpatialAudioSample(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFSample
     Guid = Guid('abf28a9b-3393-4290-ba-79-5f-fc-46-d9-86-b2')
     @commethod(47)
@@ -8536,14 +8536,14 @@ class IMFSpatialAudioSample(c_void_p):
     def AddSpatialAudioObject(self, pAudioObjBuffer: Windows.Win32.Media.MediaFoundation.IMFSpatialAudioObjectBuffer_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(49)
     def GetSpatialAudioObjectByIndex(self, dwIndex: UInt32, ppAudioObjBuffer: POINTER(Windows.Win32.Media.MediaFoundation.IMFSpatialAudioObjectBuffer_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFStreamDescriptor(c_void_p):
+class IMFStreamDescriptor(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAttributes
     Guid = Guid('56c03d9c-9dbb-45f5-ab-4b-d8-0f-47-c0-59-38')
     @commethod(33)
     def GetStreamIdentifier(self, pdwStreamIdentifier: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(34)
     def GetMediaTypeHandler(self, ppMediaTypeHandler: POINTER(Windows.Win32.Media.MediaFoundation.IMFMediaTypeHandler_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFStreamSink(c_void_p):
+class IMFStreamSink(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaEventGenerator
     Guid = Guid('0a97b3cf-8e7c-4a3d-8f-8c-0c-84-3d-c2-47-fb')
     @commethod(7)
@@ -8558,19 +8558,19 @@ class IMFStreamSink(c_void_p):
     def PlaceMarker(self, eMarkerType: Windows.Win32.Media.MediaFoundation.MFSTREAMSINK_MARKER_TYPE, pvarMarkerValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), pvarContextValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Flush(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFStreamingSinkConfig(c_void_p):
+class IMFStreamingSinkConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9db7aa41-3cc5-40d4-85-09-55-58-04-ad-34-cc')
     @commethod(3)
     def StartStreaming(self, fSeekOffsetIsByteOffset: Windows.Win32.Foundation.BOOL, qwSeekOffset: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFSystemId(c_void_p):
+class IMFSystemId(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fff4af3a-1fc1-4ef9-a2-9b-d2-6c-49-e2-f3-1a')
     @commethod(3)
     def GetData(self, size: POINTER(UInt32), data: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Setup(self, stage: UInt32, cbIn: UInt32, pbIn: POINTER(Byte), pcbOut: POINTER(UInt32), ppbOut: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTimecodeTranslate(c_void_p):
+class IMFTimecodeTranslate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ab9d8661-f7e8-4ef4-98-61-89-f3-34-f9-4e-74')
     @commethod(3)
@@ -8581,7 +8581,7 @@ class IMFTimecodeTranslate(c_void_p):
     def BeginConvertHNSToTimecode(self, hnsTime: Int64, pCallback: Windows.Win32.Media.MediaFoundation.IMFAsyncCallback_head, punkState: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def EndConvertHNSToTimecode(self, pResult: Windows.Win32.Media.MediaFoundation.IMFAsyncResult_head, pPropVarTimecode: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTimedText(c_void_p):
+class IMFTimedText(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1f2a94c9-a3df-430d-9d-0f-ac-d8-5d-dc-29-af')
     @commethod(3)
@@ -8612,12 +8612,12 @@ class IMFTimedText(c_void_p):
     def SetInBandEnabled(self, enabled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def IsInBandEnabled(self) -> Windows.Win32.Foundation.BOOL: ...
-class IMFTimedTextBinary(c_void_p):
+class IMFTimedTextBinary(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4ae3a412-0545-43c4-bf-6f-6b-97-a5-c6-c4-32')
     @commethod(3)
     def GetData(self, data: POINTER(POINTER(Byte)), length: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTimedTextBouten(c_void_p):
+class IMFTimedTextBouten(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3c5f3e8a-90c0-464e-81-36-89-8d-29-75-f8-47')
     @commethod(3)
@@ -8626,7 +8626,7 @@ class IMFTimedTextBouten(c_void_p):
     def GetBoutenColor(self, value: POINTER(Windows.Win32.Media.MediaFoundation.MFARGB_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetBoutenPosition(self, value: POINTER(Windows.Win32.Media.MediaFoundation.MF_TIMED_TEXT_BOUTEN_POSITION)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTimedTextCue(c_void_p):
+class IMFTimedTextCue(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1e560447-9a2b-43e1-a9-4c-b0-aa-ab-fb-fb-c9')
     @commethod(3)
@@ -8651,7 +8651,7 @@ class IMFTimedTextCue(c_void_p):
     def GetLineCount(self) -> UInt32: ...
     @commethod(13)
     def GetLine(self, index: UInt32, line: POINTER(Windows.Win32.Media.MediaFoundation.IMFTimedTextFormattedText_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTimedTextCueList(c_void_p):
+class IMFTimedTextCueList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ad128745-211b-40a0-99-81-fe-65-f1-66-d0-fd')
     @commethod(3)
@@ -8668,7 +8668,7 @@ class IMFTimedTextCueList(c_void_p):
     def AddDataCue(self, start: Double, duration: Double, data: POINTER(Byte), dataSize: UInt32, cue: POINTER(Windows.Win32.Media.MediaFoundation.IMFTimedTextCue_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def RemoveCue(self, cue: Windows.Win32.Media.MediaFoundation.IMFTimedTextCue_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTimedTextFormattedText(c_void_p):
+class IMFTimedTextFormattedText(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e13af3c1-4d47-4354-b1-f5-e8-3a-e0-ec-ae-60')
     @commethod(3)
@@ -8677,7 +8677,7 @@ class IMFTimedTextFormattedText(c_void_p):
     def GetSubformattingCount(self) -> UInt32: ...
     @commethod(5)
     def GetSubformatting(self, index: UInt32, firstChar: POINTER(UInt32), charLength: POINTER(UInt32), style: POINTER(Windows.Win32.Media.MediaFoundation.IMFTimedTextStyle_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTimedTextNotify(c_void_p):
+class IMFTimedTextNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('df6b87b6-ce12-45db-ab-a7-43-2f-e0-54-e5-7d')
     @commethod(3)
@@ -8694,7 +8694,7 @@ class IMFTimedTextNotify(c_void_p):
     def Cue(self, cueEvent: Windows.Win32.Media.MediaFoundation.MF_TIMED_TEXT_CUE_EVENT, currentTime: Double, cue: Windows.Win32.Media.MediaFoundation.IMFTimedTextCue_head) -> Void: ...
     @commethod(9)
     def Reset(self) -> Void: ...
-class IMFTimedTextRegion(c_void_p):
+class IMFTimedTextRegion(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c8d22afc-bc47-4bdf-9b-04-78-7e-49-ce-3f-58')
     @commethod(3)
@@ -8721,7 +8721,7 @@ class IMFTimedTextRegion(c_void_p):
     def GetZIndex(self, zIndex: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetScrollMode(self, scrollMode: POINTER(Windows.Win32.Media.MediaFoundation.MF_TIMED_TEXT_SCROLL_MODE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTimedTextRuby(c_void_p):
+class IMFTimedTextRuby(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('76c6a6f5-4955-4de5-b2-7b-14-b7-34-cc-14-b4')
     @commethod(3)
@@ -8732,7 +8732,7 @@ class IMFTimedTextRuby(c_void_p):
     def GetRubyAlign(self, value: POINTER(Windows.Win32.Media.MediaFoundation.MF_TIMED_TEXT_RUBY_ALIGN)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetRubyReserve(self, value: POINTER(Windows.Win32.Media.MediaFoundation.MF_TIMED_TEXT_RUBY_RESERVE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTimedTextStyle(c_void_p):
+class IMFTimedTextStyle(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('09b2455d-b834-4f01-a3-47-90-52-e2-1c-45-0e')
     @commethod(3)
@@ -8761,7 +8761,7 @@ class IMFTimedTextStyle(c_void_p):
     def GetTextDecoration(self, textDecoration: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetTextOutline(self, color: POINTER(Windows.Win32.Media.MediaFoundation.MFARGB_head), thickness: POINTER(Double), blurRadius: POINTER(Double), unitType: POINTER(Windows.Win32.Media.MediaFoundation.MF_TIMED_TEXT_UNIT_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTimedTextStyle2(c_void_p):
+class IMFTimedTextStyle2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('db639199-c809-4c89-bf-ca-d0-bb-b9-72-9d-6e')
     @commethod(3)
@@ -8772,7 +8772,7 @@ class IMFTimedTextStyle2(c_void_p):
     def IsTextCombined(self, value: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetFontAngleInDegrees(self, value: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTimedTextTrack(c_void_p):
+class IMFTimedTextTrack(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8822c32d-654e-4233-bf-21-d7-f2-e6-7d-30-d4')
     @commethod(3)
@@ -8801,7 +8801,7 @@ class IMFTimedTextTrack(c_void_p):
     def GetReadyState(self) -> Windows.Win32.Media.MediaFoundation.MF_TIMED_TEXT_TRACK_READY_STATE: ...
     @commethod(15)
     def GetCueList(self, cues: POINTER(Windows.Win32.Media.MediaFoundation.IMFTimedTextCueList_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTimedTextTrackList(c_void_p):
+class IMFTimedTextTrackList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('23ff334c-442c-445f-bc-cc-ed-c4-38-aa-11-e2')
     @commethod(3)
@@ -8810,19 +8810,19 @@ class IMFTimedTextTrackList(c_void_p):
     def GetTrack(self, index: UInt32, track: POINTER(Windows.Win32.Media.MediaFoundation.IMFTimedTextTrack_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetTrackById(self, trackId: UInt32, track: POINTER(Windows.Win32.Media.MediaFoundation.IMFTimedTextTrack_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTimer(c_void_p):
+class IMFTimer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e56e4cbd-8f70-49d8-a0-f8-ed-b3-d6-ab-9b-f2')
     @commethod(3)
     def SetTimer(self, dwFlags: UInt32, llClockTime: Int64, pCallback: Windows.Win32.Media.MediaFoundation.IMFAsyncCallback_head, punkState: Windows.Win32.System.Com.IUnknown_head, ppunkKey: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CancelTimer(self, punkKey: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTopoLoader(c_void_p):
+class IMFTopoLoader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('de9a6157-f660-4643-b5-6a-df-9f-79-98-c7-cd')
     @commethod(3)
     def Load(self, pInputTopo: Windows.Win32.Media.MediaFoundation.IMFTopology_head, ppOutputTopo: POINTER(Windows.Win32.Media.MediaFoundation.IMFTopology_head), pCurrentTopo: Windows.Win32.Media.MediaFoundation.IMFTopology_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTopology(c_void_p):
+class IMFTopology(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAttributes
     Guid = Guid('83cf873a-f6da-4bc8-82-3f-ba-cf-d5-5d-c4-33')
     @commethod(33)
@@ -8845,7 +8845,7 @@ class IMFTopology(c_void_p):
     def GetSourceNodeCollection(self, ppCollection: POINTER(Windows.Win32.Media.MediaFoundation.IMFCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(42)
     def GetOutputNodeCollection(self, ppCollection: POINTER(Windows.Win32.Media.MediaFoundation.IMFCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTopologyNode(c_void_p):
+class IMFTopologyNode(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAttributes
     Guid = Guid('83cf873a-f6da-4bc8-82-3f-ba-cf-d5-5d-c4-30')
     @commethod(33)
@@ -8880,29 +8880,29 @@ class IMFTopologyNode(c_void_p):
     def GetInputPrefType(self, dwInputIndex: UInt32, ppType: POINTER(Windows.Win32.Media.MediaFoundation.IMFMediaType_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(48)
     def CloneFrom(self, pNode: Windows.Win32.Media.MediaFoundation.IMFTopologyNode_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTopologyNodeAttributeEditor(c_void_p):
+class IMFTopologyNodeAttributeEditor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('676aa6dd-238a-410d-bb-99-65-66-8d-01-60-5a')
     @commethod(3)
     def UpdateNodeAttributes(self, TopoId: UInt64, cUpdates: UInt32, pUpdates: POINTER(Windows.Win32.Media.MediaFoundation.MFTOPONODE_ATTRIBUTE_UPDATE_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTopologyServiceLookup(c_void_p):
+class IMFTopologyServiceLookup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fa993889-4383-415a-a9-30-dd-47-2a-8c-f6-f7')
     @commethod(3)
     def LookupService(self, Type: Windows.Win32.Media.MediaFoundation.MF_SERVICE_LOOKUP_TYPE, dwIndex: UInt32, guidService: POINTER(Guid), riid: POINTER(Guid), ppvObjects: POINTER(c_void_p), pnObjects: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTopologyServiceLookupClient(c_void_p):
+class IMFTopologyServiceLookupClient(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fa99388a-4383-415a-a9-30-dd-47-2a-8c-f6-f7')
     @commethod(3)
     def InitServicePointers(self, pLookup: Windows.Win32.Media.MediaFoundation.IMFTopologyServiceLookup_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReleaseServicePointers(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTrackedSample(c_void_p):
+class IMFTrackedSample(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('245bf8e9-0755-40f7-88-a5-ae-0f-18-d5-5e-17')
     @commethod(3)
     def SetAllocator(self, pSampleAllocator: Windows.Win32.Media.MediaFoundation.IMFAsyncCallback_head, pUnkState: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTranscodeProfile(c_void_p):
+class IMFTranscodeProfile(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4adfdba3-7ab0-4953-a6-2b-46-1e-7f-f3-da-1e')
     @commethod(3)
@@ -8917,7 +8917,7 @@ class IMFTranscodeProfile(c_void_p):
     def SetContainerAttributes(self, pAttrs: Windows.Win32.Media.MediaFoundation.IMFAttributes_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetContainerAttributes(self, ppAttrs: POINTER(Windows.Win32.Media.MediaFoundation.IMFAttributes_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTranscodeSinkInfoProvider(c_void_p):
+class IMFTranscodeSinkInfoProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8cffcd2e-5a03-4a3a-af-f7-ed-cd-10-7c-62-0e')
     @commethod(3)
@@ -8928,7 +8928,7 @@ class IMFTranscodeSinkInfoProvider(c_void_p):
     def SetProfile(self, pProfile: Windows.Win32.Media.MediaFoundation.IMFTranscodeProfile_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetSinkInfo(self, pSinkInfo: POINTER(Windows.Win32.Media.MediaFoundation.MF_TRANSCODE_SINK_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTransform(c_void_p):
+class IMFTransform(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bf94c121-5b05-4e6f-80-00-ba-59-89-61-41-4d')
     @commethod(3)
@@ -8977,12 +8977,12 @@ class IMFTransform(c_void_p):
     def ProcessInput(self, dwInputStreamID: UInt32, pSample: Windows.Win32.Media.MediaFoundation.IMFSample_head, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def ProcessOutput(self, dwFlags: UInt32, cOutputBufferCount: UInt32, pOutputSamples: POINTER(Windows.Win32.Media.MediaFoundation.MFT_OUTPUT_DATA_BUFFER_head), pdwStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTrustedInput(c_void_p):
+class IMFTrustedInput(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('542612c4-a1b8-4632-b5-21-de-11-ea-64-a0-b0')
     @commethod(3)
     def GetInputTrustAuthority(self, dwStreamID: UInt32, riid: POINTER(Guid), ppunkObject: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFTrustedOutput(c_void_p):
+class IMFTrustedOutput(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d19f8e95-b126-4446-89-0c-5d-cb-7a-d7-14-53')
     @commethod(3)
@@ -8991,17 +8991,17 @@ class IMFTrustedOutput(c_void_p):
     def GetOutputTrustAuthorityByIndex(self, dwIndex: UInt32, ppauthority: POINTER(Windows.Win32.Media.MediaFoundation.IMFOutputTrustAuthority_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def IsFinal(self, pfIsFinal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoCaptureSampleAllocator(c_void_p):
+class IMFVideoCaptureSampleAllocator(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFVideoSampleAllocator
     Guid = Guid('725b77c7-ca9f-4fe5-9d-72-99-46-bf-9b-3c-70')
     @commethod(7)
     def InitializeCaptureSampleAllocator(self, cbSampleSize: UInt32, cbCaptureMetadataSize: UInt32, cbAlignment: UInt32, cMinimumSamples: UInt32, pAttributes: Windows.Win32.Media.MediaFoundation.IMFAttributes_head, pMediaType: Windows.Win32.Media.MediaFoundation.IMFMediaType_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoDeviceID(c_void_p):
+class IMFVideoDeviceID(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a38d9567-5a9c-4f3c-b2-93-8e-b4-15-b2-79-ba')
     @commethod(3)
     def GetDeviceID(self, pDeviceID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoDisplayControl(c_void_p):
+class IMFVideoDisplayControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a490b1e4-ab84-4d31-a1-b2-18-1e-03-b1-07-7a')
     @commethod(3)
@@ -9036,14 +9036,14 @@ class IMFVideoDisplayControl(c_void_p):
     def SetFullscreen(self, fFullscreen: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def GetFullscreen(self, pfFullscreen: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoMediaType(c_void_p):
+class IMFVideoMediaType(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFMediaType
     Guid = Guid('b99f381f-a8f9-47a2-a5-af-ca-3a-22-5a-38-90')
     @commethod(38)
     def GetVideoFormat(self) -> POINTER(Windows.Win32.Media.MediaFoundation.MFVIDEOFORMAT_head): ...
     @commethod(39)
     def GetVideoRepresentation(self, guidRepresentation: Guid, ppvRepresentation: POINTER(c_void_p), lStride: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoMixerBitmap(c_void_p):
+class IMFVideoMixerBitmap(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('814c7b20-0fdb-4eec-af-8f-f9-57-c8-f6-9e-dc')
     @commethod(3)
@@ -9054,7 +9054,7 @@ class IMFVideoMixerBitmap(c_void_p):
     def UpdateAlphaBitmapParameters(self, pBmpParms: POINTER(Windows.Win32.Media.MediaFoundation.MFVideoAlphaBitmapParams_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetAlphaBitmapParameters(self, pBmpParms: POINTER(Windows.Win32.Media.MediaFoundation.MFVideoAlphaBitmapParams_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoMixerControl(c_void_p):
+class IMFVideoMixerControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a5c6c53f-c202-4aa5-96-95-17-5b-a8-c5-08-a5')
     @commethod(3)
@@ -9065,26 +9065,26 @@ class IMFVideoMixerControl(c_void_p):
     def SetStreamOutputRect(self, dwStreamID: UInt32, pnrcOutput: POINTER(Windows.Win32.Media.MediaFoundation.MFVideoNormalizedRect_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetStreamOutputRect(self, dwStreamID: UInt32, pnrcOutput: POINTER(Windows.Win32.Media.MediaFoundation.MFVideoNormalizedRect_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoMixerControl2(c_void_p):
+class IMFVideoMixerControl2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFVideoMixerControl
     Guid = Guid('8459616d-966e-4930-b6-58-54-fa-7e-5a-16-d3')
     @commethod(7)
     def SetMixingPrefs(self, dwMixFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetMixingPrefs(self, pdwMixFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoPositionMapper(c_void_p):
+class IMFVideoPositionMapper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1f6a9f17-e70b-4e24-8a-e4-0b-2c-3b-a7-a4-ae')
     @commethod(3)
     def MapOutputCoordinateToInputStream(self, xOut: Single, yOut: Single, dwOutputStreamIndex: UInt32, dwInputStreamIndex: UInt32, pxIn: POINTER(Single), pyIn: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoPresenter(c_void_p):
+class IMFVideoPresenter(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFClockStateSink
     Guid = Guid('29aff080-182a-4a5d-af-3b-44-8f-3a-63-46-cb')
     @commethod(8)
     def ProcessMessage(self, eMessage: Windows.Win32.Media.MediaFoundation.MFVP_MESSAGE_TYPE, ulParam: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetCurrentMediaType(self, ppMediaType: POINTER(Windows.Win32.Media.MediaFoundation.IMFVideoMediaType_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoProcessor(c_void_p):
+class IMFVideoProcessor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6ab0000c-fece-4d1f-a2-ac-a9-57-35-30-65-6e')
     @commethod(3)
@@ -9111,7 +9111,7 @@ class IMFVideoProcessor(c_void_p):
     def GetBackgroundColor(self, lpClrBkg: POINTER(Windows.Win32.Foundation.COLORREF)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def SetBackgroundColor(self, ClrBkg: Windows.Win32.Foundation.COLORREF) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoProcessorControl(c_void_p):
+class IMFVideoProcessorControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a3f675d5-6119-4f7f-a1-00-1d-8b-28-0f-0e-fb')
     @commethod(3)
@@ -9126,7 +9126,7 @@ class IMFVideoProcessorControl(c_void_p):
     def SetRotation(self, eRotation: Windows.Win32.Media.MediaFoundation.MF_VIDEO_PROCESSOR_ROTATION) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def SetConstrictionSize(self, pConstrictionSize: POINTER(Windows.Win32.Foundation.SIZE_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoProcessorControl2(c_void_p):
+class IMFVideoProcessorControl2(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFVideoProcessorControl
     Guid = Guid('bde633d3-e1dc-4a7f-a6-93-bb-ae-39-9c-4a-20')
     @commethod(9)
@@ -9135,7 +9135,7 @@ class IMFVideoProcessorControl2(c_void_p):
     def EnableHardwareEffects(self, fEnabled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetSupportedHardwareEffects(self, puiSupport: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoProcessorControl3(c_void_p):
+class IMFVideoProcessorControl3(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFVideoProcessorControl2
     Guid = Guid('2424b3f2-eb23-40f1-91-aa-74-bd-de-ea-08-83')
     @commethod(12)
@@ -9146,17 +9146,17 @@ class IMFVideoProcessorControl3(c_void_p):
     def SetSphericalVideoProperties(self, X: Single, Y: Single, Z: Single, W: Single, fieldOfView: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def SetOutputDevice(self, pOutputDevice: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoRenderer(c_void_p):
+class IMFVideoRenderer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('dfdfd197-a9ca-43d8-b3-41-6a-f3-50-37-92-cd')
     @commethod(3)
     def InitializeRenderer(self, pVideoMixer: Windows.Win32.Media.MediaFoundation.IMFTransform_head, pVideoPresenter: Windows.Win32.Media.MediaFoundation.IMFVideoPresenter_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoRendererEffectControl(c_void_p):
+class IMFVideoRendererEffectControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('604d33d7-cf23-41d5-82-24-5b-bb-b1-a8-74-75')
     @commethod(3)
     def OnAppServiceConnectionEstablished(self, pAppServiceConnection: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoSampleAllocator(c_void_p):
+class IMFVideoSampleAllocator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('86cbc910-e533-4751-8e-3b-f1-9b-5b-80-6a-03')
     @commethod(3)
@@ -9167,29 +9167,29 @@ class IMFVideoSampleAllocator(c_void_p):
     def InitializeSampleAllocator(self, cRequestedFrames: UInt32, pMediaType: Windows.Win32.Media.MediaFoundation.IMFMediaType_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def AllocateSample(self, ppSample: POINTER(Windows.Win32.Media.MediaFoundation.IMFSample_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoSampleAllocatorCallback(c_void_p):
+class IMFVideoSampleAllocatorCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('992388b4-3372-4f67-8b-6f-c8-4c-07-1f-47-51')
     @commethod(3)
     def SetCallback(self, pNotify: Windows.Win32.Media.MediaFoundation.IMFVideoSampleAllocatorNotify_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetFreeSampleCount(self, plSamples: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoSampleAllocatorEx(c_void_p):
+class IMFVideoSampleAllocatorEx(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFVideoSampleAllocator
     Guid = Guid('545b3a48-3283-4f62-86-6f-a6-2d-8f-59-8f-9f')
     @commethod(7)
     def InitializeSampleAllocatorEx(self, cInitialSamples: UInt32, cMaximumSamples: UInt32, pAttributes: Windows.Win32.Media.MediaFoundation.IMFAttributes_head, pMediaType: Windows.Win32.Media.MediaFoundation.IMFMediaType_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoSampleAllocatorNotify(c_void_p):
+class IMFVideoSampleAllocatorNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a792cdbe-c374-4e89-83-35-27-8e-7b-99-56-a4')
     @commethod(3)
     def NotifyRelease(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVideoSampleAllocatorNotifyEx(c_void_p):
+class IMFVideoSampleAllocatorNotifyEx(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFVideoSampleAllocatorNotify
     Guid = Guid('3978aa1a-6d5b-4b7f-a3-40-90-89-91-89-ae-34')
     @commethod(4)
     def NotifyPrune(self, __MIDL__IMFVideoSampleAllocatorNotifyEx0000: Windows.Win32.Media.MediaFoundation.IMFSample_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFVirtualCamera(c_void_p):
+class IMFVirtualCamera(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAttributes
     Guid = Guid('1c08a864-ef6c-4c75-af-59-5f-2d-68-da-95-63')
     @commethod(33)
@@ -9214,7 +9214,7 @@ class IMFVirtualCamera(c_void_p):
     def CreateSyncSemaphore(self, kseventSet: POINTER(Guid), kseventId: UInt32, kseventFlags: UInt32, semaphoreHandle: Windows.Win32.Foundation.HANDLE, semaphoreAdjustment: Int32, cameraSyncObject: POINTER(Windows.Win32.Media.MediaFoundation.IMFCameraSyncObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(43)
     def Shutdown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFWorkQueueServices(c_void_p):
+class IMFWorkQueueServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('35fe1bb8-a3a9-40fe-bb-ec-eb-56-9c-9c-cc-a3')
     @commethod(3)
@@ -9241,7 +9241,7 @@ class IMFWorkQueueServices(c_void_p):
     def GetPlaftormWorkQueueMMCSSClass(self, dwPlatformWorkQueueId: UInt32, pwszClass: Windows.Win32.Foundation.PWSTR, pcchClass: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetPlatformWorkQueueMMCSSTaskId(self, dwPlatformWorkQueueId: UInt32, pdwTaskId: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMFWorkQueueServicesEx(c_void_p):
+class IMFWorkQueueServicesEx(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFWorkQueueServices
     Guid = Guid('96bf961b-40fe-42f1-ba-9d-32-02-38-b4-97-00')
     @commethod(15)
@@ -9250,7 +9250,7 @@ class IMFWorkQueueServicesEx(c_void_p):
     def BeginRegisterPlatformWorkQueueWithMMCSSEx(self, dwPlatformWorkQueue: UInt32, wszClass: Windows.Win32.Foundation.PWSTR, dwTaskId: UInt32, lPriority: Int32, pCallback: Windows.Win32.Media.MediaFoundation.IMFAsyncCallback_head, pState: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def GetPlatformWorkQueueMMCSSPriority(self, dwPlatformWorkQueueId: UInt32, plPriority: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IOPMVideoOutput(c_void_p):
+class IOPMVideoOutput(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0a15159d-41c7-4456-93-e1-28-4c-d6-1d-4e-8d')
     @commethod(3)
@@ -9263,24 +9263,24 @@ class IOPMVideoOutput(c_void_p):
     def COPPCompatibleGetInformation(self, pParameters: POINTER(Windows.Win32.Media.MediaFoundation.OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS_head), pRequestedInformation: POINTER(Windows.Win32.Media.MediaFoundation.OPM_REQUESTED_INFORMATION_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Configure(self, pParameters: POINTER(Windows.Win32.Media.MediaFoundation.OPM_CONFIGURE_PARAMETERS_head), ulAdditionalParametersSize: UInt32, pbAdditionalParameters: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPlayToControl(c_void_p):
+class IPlayToControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('607574eb-f4b6-45c1-b0-8c-cb-71-51-22-90-1d')
     @commethod(3)
     def Connect(self, pFactory: Windows.Win32.Media.MediaFoundation.IMFSharingEngineClassFactory_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Disconnect(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IPlayToControlWithCapabilities(c_void_p):
+class IPlayToControlWithCapabilities(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IPlayToControl
     Guid = Guid('aa9dd80f-c50a-4220-91-c1-33-22-87-f8-2a-34')
     @commethod(5)
     def GetCapabilities(self, pCapabilities: POINTER(Windows.Win32.Media.MediaFoundation.PLAYTO_SOURCE_CREATEFLAGS)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPlayToSourceClassFactory(c_void_p):
+class IPlayToSourceClassFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('842b32a3-9b9b-4d1c-b3-f3-49-19-32-48-a5-54')
     @commethod(3)
     def CreateInstance(self, dwFlags: UInt32, pControl: Windows.Win32.Media.MediaFoundation.IPlayToControl_head, ppSource: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IToc(c_void_p):
+class IToc(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d6f05441-a919-423b-91-a0-89-d5-b4-a8-ab-77')
     @commethod(3)
@@ -9305,7 +9305,7 @@ class IToc(c_void_p):
     def AddEntryListByIndex(self, wEntryListIndex: UInt16, pEntryList: Windows.Win32.Media.MediaFoundation.ITocEntryList_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def RemoveEntryListByIndex(self, wEntryListIndex: UInt16) -> Windows.Win32.Foundation.HRESULT: ...
-class ITocCollection(c_void_p):
+class ITocCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('23fee831-ae96-42df-b1-70-25-a0-48-47-a3-ca')
     @commethod(3)
@@ -9318,7 +9318,7 @@ class ITocCollection(c_void_p):
     def AddEntryByIndex(self, dwEntryIndex: UInt32, pToc: Windows.Win32.Media.MediaFoundation.IToc_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def RemoveEntryByIndex(self, dwEntryIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITocEntry(c_void_p):
+class ITocEntry(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f22f5e06-585c-4def-85-23-65-55-cf-bc-0c-b3')
     @commethod(3)
@@ -9337,7 +9337,7 @@ class ITocEntry(c_void_p):
     def SetDescriptionData(self, dwDescriptionDataSize: UInt32, pbtDescriptionData: POINTER(Byte), pguidType: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetDescriptionData(self, pdwDescriptionDataSize: POINTER(UInt32), pbtDescriptionData: POINTER(Byte), pGuidType: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITocEntryList(c_void_p):
+class ITocEntryList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3a8cccbd-0efd-43a3-b8-38-f3-8a-55-2b-a2-37')
     @commethod(3)
@@ -9350,7 +9350,7 @@ class ITocEntryList(c_void_p):
     def AddEntryByIndex(self, dwEntryIndex: UInt32, pEntry: Windows.Win32.Media.MediaFoundation.ITocEntry_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def RemoveEntryByIndex(self, dwEntryIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITocParser(c_void_p):
+class ITocParser(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ecfb9a55-9298-4f49-88-7f-0b-36-20-65-99-d2')
     @commethod(3)
@@ -9369,12 +9369,12 @@ class ITocParser(c_void_p):
     def RemoveTocByType(self, enumTocPosType: Windows.Win32.Media.MediaFoundation.TOC_POS_TYPE, guidTocType: Guid) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Commit(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IValidateBinding(c_void_p):
+class IValidateBinding(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('04a578b2-e778-422a-a8-05-b3-ee-54-d9-0b-d9')
     @commethod(3)
     def GetIdentifier(self, guidLicensorID: Guid, pbEphemeron: POINTER(Byte), cbEphemeron: UInt32, ppbBlobValidationID: POINTER(POINTER(Byte)), pcbBlobSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWMCodecLeakyBucket(c_void_p):
+class IWMCodecLeakyBucket(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a81ba647-6227-43b7-b2-31-c7-b1-51-35-dd-7d')
     @commethod(3)
@@ -9385,45 +9385,45 @@ class IWMCodecLeakyBucket(c_void_p):
     def SetBufferFullnessBits(self, ulBufferFullness: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetBufferFullnessBits(self, pulBufferFullness: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWMCodecOutputTimestamp(c_void_p):
+class IWMCodecOutputTimestamp(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b72adf95-7adc-4a72-bc-05-57-7d-8e-a6-bf-68')
     @commethod(3)
     def GetNextOutputTime(self, prtTime: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWMCodecPrivateData(c_void_p):
+class IWMCodecPrivateData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('73f0be8e-57f7-4f01-aa-66-9f-57-34-0c-fe-0e')
     @commethod(3)
     def SetPartialOutputType(self, pmt: POINTER(Windows.Win32.Media.DxMediaObjects.DMO_MEDIA_TYPE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetPrivateData(self, pbData: POINTER(Byte), pcbData: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWMCodecProps(c_void_p):
+class IWMCodecProps(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2573e11a-f01a-4fdd-a9-8d-63-b8-e0-ba-95-89')
     @commethod(3)
     def GetFormatProp(self, pmt: POINTER(Windows.Win32.Media.DxMediaObjects.DMO_MEDIA_TYPE_head), pszName: Windows.Win32.Foundation.PWSTR, pType: POINTER(Windows.Win32.Media.MediaFoundation.WMT_PROP_DATATYPE), pValue: POINTER(Byte), pdwSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetCodecProp(self, dwFormat: UInt32, pszName: Windows.Win32.Foundation.PWSTR, pType: POINTER(Windows.Win32.Media.MediaFoundation.WMT_PROP_DATATYPE), pValue: POINTER(Byte), pdwSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWMCodecStrings(c_void_p):
+class IWMCodecStrings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a7b2504b-e58a-47fb-95-8b-ca-c7-16-5a-05-7d')
     @commethod(3)
     def GetName(self, pmt: POINTER(Windows.Win32.Media.DxMediaObjects.DMO_MEDIA_TYPE_head), cchLength: UInt32, szName: Windows.Win32.Foundation.PWSTR, pcchLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDescription(self, pmt: POINTER(Windows.Win32.Media.DxMediaObjects.DMO_MEDIA_TYPE_head), cchLength: UInt32, szDescription: Windows.Win32.Foundation.PWSTR, pcchLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWMColorConvProps(c_void_p):
+class IWMColorConvProps(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e6a49e22-c099-421d-aa-d3-c0-61-fb-4a-e8-5b')
     @commethod(3)
     def SetMode(self, lMode: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetFullCroppingParam(self, lSrcCropLeft: Int32, lSrcCropTop: Int32, lDstCropLeft: Int32, lDstCropTop: Int32, lCropWidth: Int32, lCropHeight: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IWMColorLegalizerProps(c_void_p):
+class IWMColorLegalizerProps(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('776c93b3-b72d-4508-b6-d0-20-87-85-f5-53-e7')
     @commethod(3)
     def SetColorLegalizerQuality(self, lquality: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IWMFrameInterpProps(c_void_p):
+class IWMFrameInterpProps(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4c06bb9b-626c-4614-83-29-cc-6a-21-b9-3f-a0')
     @commethod(3)
@@ -9434,7 +9434,7 @@ class IWMFrameInterpProps(c_void_p):
     def SetFrameInterpEnabled(self, bFIEnabled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetComplexityLevel(self, iComplexity: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IWMInterlaceProps(c_void_p):
+class IWMInterlaceProps(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7b12e5d1-bd22-48ea-bc-06-98-e8-93-22-1c-89')
     @commethod(3)
@@ -9443,14 +9443,14 @@ class IWMInterlaceProps(c_void_p):
     def SetInitInverseTeleCinePattern(self, iInitPattern: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetLastFrame(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IWMResamplerProps(c_void_p):
+class IWMResamplerProps(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e7e9984f-f09f-4da4-90-3f-6e-2e-0e-fe-56-b5')
     @commethod(3)
     def SetHalfFilterLength(self, lhalfFilterLen: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetUserChannelMtx(self, userChannelMtx: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWMResizerProps(c_void_p):
+class IWMResizerProps(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('57665d4c-0414-4faa-90-5b-10-e5-46-f8-1c-33')
     @commethod(3)
@@ -9463,24 +9463,24 @@ class IWMResizerProps(c_void_p):
     def SetFullCropRegion(self, lClipOriXSrc: Int32, lClipOriYSrc: Int32, lClipWidthSrc: Int32, lClipHeightSrc: Int32, lClipOriXDst: Int32, lClipOriYDst: Int32, lClipWidthDst: Int32, lClipHeightDst: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetFullCropRegion(self, lClipOriXSrc: POINTER(Int32), lClipOriYSrc: POINTER(Int32), lClipWidthSrc: POINTER(Int32), lClipHeightSrc: POINTER(Int32), lClipOriXDst: POINTER(Int32), lClipOriYDst: POINTER(Int32), lClipWidthDst: POINTER(Int32), lClipHeightDst: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWMSampleExtensionSupport(c_void_p):
+class IWMSampleExtensionSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9bca9884-0604-4c2a-87-da-79-3f-f4-d5-86-c3')
     @commethod(3)
     def SetUseSampleExtensions(self, fUseExtensions: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IWMValidate(c_void_p):
+class IWMValidate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cee3def2-3808-414d-be-66-fa-fd-47-22-10-bc')
     @commethod(3)
     def SetIdentifier(self, guidValidationID: Guid) -> Windows.Win32.Foundation.HRESULT: ...
-class IWMVideoDecoderHurryup(c_void_p):
+class IWMVideoDecoderHurryup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('352bb3bd-2d4d-4323-9e-71-dc-dc-fb-d5-3c-a6')
     @commethod(3)
     def SetHurryup(self, lHurryup: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetHurryup(self, plHurryup: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWMVideoDecoderReconBuffer(c_void_p):
+class IWMVideoDecoderReconBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('45bda2ac-88e2-4923-98-ba-39-49-08-07-11-a3')
     @commethod(3)
@@ -9489,7 +9489,7 @@ class IWMVideoDecoderReconBuffer(c_void_p):
     def GetReconstructedVideoFrame(self, pBuf: Windows.Win32.Media.DxMediaObjects.IMediaBuffer_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetReconstructedVideoFrame(self, pBuf: Windows.Win32.Media.DxMediaObjects.IMediaBuffer_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IWMVideoForceKeyFrame(c_void_p):
+class IWMVideoForceKeyFrame(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9f8496be-5b9a-41b9-a9-e8-f2-1c-d8-05-96-c2')
     @commethod(3)
@@ -9535,7 +9535,7 @@ MFASF_SPLITTER_WMDRM: MFASF_SPLITTERFLAGS = 2
 MFASF_STREAMSELECTOR_FLAGS = Int32
 MFASF_STREAMSELECTOR_DISABLE_THINNING: MFASF_STREAMSELECTOR_FLAGS = 1
 MFASF_STREAMSELECTOR_USE_AVERAGE_BITRATE: MFASF_STREAMSELECTOR_FLAGS = 2
-class MFASYNCRESULT(c_void_p):
+class MFASYNCRESULT(ComPtr):
     extends: Windows.Win32.Media.MediaFoundation.IMFAsyncResult
 MFASYNC_WORKQUEUE_TYPE = Int32
 MF_STANDARD_WORKQUEUE: MFASYNC_WORKQUEUE_TYPE = 0

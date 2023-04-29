@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Security.Authentication.Identity
 import Windows.Win32.Security.Cryptography
@@ -2012,7 +2012,7 @@ FR_PROP_CAEXCHANGECERTIFICATECHAIN: FULL_RESPONSE_PROPERTY_ID = 18
 FR_PROP_CAEXCHANGECERTIFICATECRLCHAIN: FULL_RESPONSE_PROPERTY_ID = 19
 FR_PROP_ATTESTATIONCHALLENGE: FULL_RESPONSE_PROPERTY_ID = 20
 FR_PROP_ATTESTATIONPROVIDERNAME: FULL_RESPONSE_PROPERTY_ID = 21
-class IAlternativeName(c_void_p):
+class IAlternativeName(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab313-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -2029,7 +2029,7 @@ class IAlternativeName(c_void_p):
     def get_ObjectId(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IObjectId_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def get_RawData(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAlternativeNames(c_void_p):
+class IAlternativeNames(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab314-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -2044,7 +2044,7 @@ class IAlternativeNames(c_void_p):
     def Remove(self, Index: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IBinaryConverter(c_void_p):
+class IBinaryConverter(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab302-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -2053,14 +2053,14 @@ class IBinaryConverter(c_void_p):
     def VariantByteArrayToString(self, pvarByteArray: POINTER(Windows.Win32.System.Variant.VARIANT_head), Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pstrEncoded: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def StringToVariantByteArray(self, strEncoded: Windows.Win32.Foundation.BSTR, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pvarByteArray: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IBinaryConverter2(c_void_p):
+class IBinaryConverter2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IBinaryConverter
     Guid = Guid('8d7928b4-4e17-428d-9a-17-72-8d-f0-0d-1b-2b')
     @commethod(10)
     def StringArrayToVariantArray(self, pvarStringArray: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarVariantArray: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def VariantArrayToStringArray(self, pvarVariantArray: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarStringArray: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICEnroll(c_void_p):
+class ICEnroll(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('43f8f288-7a20-11d0-8f-06-00-c0-4f-c2-95-e1')
     @commethod(7)
@@ -2175,7 +2175,7 @@ class ICEnroll(c_void_p):
     def get_HashAlgorithm(self, pbstr: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(62)
     def put_HashAlgorithm(self, bstr: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ICEnroll2(c_void_p):
+class ICEnroll2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICEnroll
     Guid = Guid('704ca730-c90b-11d1-9b-ec-00-c0-4f-c2-95-e1')
     @commethod(63)
@@ -2190,7 +2190,7 @@ class ICEnroll2(c_void_p):
     def get_EnableT61DNEncoding(self, fBool: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(68)
     def put_EnableT61DNEncoding(self, fBool: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class ICEnroll3(c_void_p):
+class ICEnroll3(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICEnroll2
     Guid = Guid('c28c2d95-b7de-11d2-a4-21-00-c0-4f-79-fe-8e')
     @commethod(69)
@@ -2221,7 +2221,7 @@ class ICEnroll3(c_void_p):
     def put_EnableSMIMECapabilities(self, fEnableSMIMECapabilities: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(82)
     def get_EnableSMIMECapabilities(self, fEnableSMIMECapabilities: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICEnroll4(c_void_p):
+class ICEnroll4(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICEnroll3
     Guid = Guid('c1f1188a-2eb5-4a80-84-1b-7e-72-9a-35-6d-90')
     @commethod(83)
@@ -2290,7 +2290,7 @@ class ICEnroll4(c_void_p):
     def put_IncludeSubjectKeyID(self, fInclude: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(115)
     def get_IncludeSubjectKeyID(self, pfInclude: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertAdmin(c_void_p):
+class ICertAdmin(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('34df6950-7fb6-11d0-88-17-00-a0-c9-03-b8-3c')
     @commethod(7)
@@ -2313,7 +2313,7 @@ class ICertAdmin(c_void_p):
     def GetCRL(self, strConfig: Windows.Win32.Foundation.BSTR, Flags: Int32, pstrCRL: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def ImportCertificate(self, strConfig: Windows.Win32.Foundation.BSTR, strCertificate: Windows.Win32.Foundation.BSTR, Flags: Windows.Win32.Security.Cryptography.Certificates.CERT_IMPORT_FLAGS, pRequestId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertAdmin2(c_void_p):
+class ICertAdmin2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertAdmin
     Guid = Guid('f7c3ac41-b8ce-4fb4-aa-58-3d-1d-c0-e3-6b-39')
     @commethod(17)
@@ -2338,7 +2338,7 @@ class ICertAdmin2(c_void_p):
     def GetMyRoles(self, strConfig: Windows.Win32.Foundation.BSTR, pRoles: POINTER(Windows.Win32.Security.Cryptography.Certificates.CERTADMIN_GET_ROLES_FLAGS)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def DeleteRow(self, strConfig: Windows.Win32.Foundation.BSTR, Flags: Windows.Win32.Security.Cryptography.Certificates.CERT_DELETE_ROW_FLAGS, Date: Double, Table: Windows.Win32.Security.Cryptography.Certificates.CVRC_TABLE, RowId: Int32, pcDeleted: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertConfig(c_void_p):
+class ICertConfig(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('372fce34-4324-11d0-88-10-00-a0-c9-03-b8-3c')
     @commethod(7)
@@ -2349,12 +2349,12 @@ class ICertConfig(c_void_p):
     def GetField(self, strFieldName: Windows.Win32.Foundation.BSTR, pstrOut: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetConfig(self, Flags: Int32, pstrOut: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertConfig2(c_void_p):
+class ICertConfig2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertConfig
     Guid = Guid('7a18edde-7e78-4163-8d-ed-78-e2-c9-ce-e9-24')
     @commethod(11)
     def SetSharedFolder(self, strSharedFolder: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertEncodeAltName(c_void_p):
+class ICertEncodeAltName(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('1c9a8c70-1271-11d1-9b-d4-00-c0-4f-b6-83-fa')
     @commethod(7)
@@ -2371,7 +2371,7 @@ class ICertEncodeAltName(c_void_p):
     def SetNameEntry(self, NameIndex: Int32, NameChoice: Windows.Win32.Security.Cryptography.Certificates.CERT_ALT_NAME, strName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def Encode(self, pstrBinary: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertEncodeAltName2(c_void_p):
+class ICertEncodeAltName2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertEncodeAltName
     Guid = Guid('f67fe177-5ef1-4535-b4-ce-29-df-15-e2-e0-c3')
     @commethod(14)
@@ -2382,7 +2382,7 @@ class ICertEncodeAltName2(c_void_p):
     def GetNameBlob(self, NameIndex: Int32, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def SetNameEntryBlob(self, NameIndex: Int32, NameChoice: Int32, strName: Windows.Win32.Foundation.BSTR, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertEncodeBitString(c_void_p):
+class ICertEncodeBitString(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('6db525be-1278-11d1-9b-d4-00-c0-4f-b6-83-fa')
     @commethod(7)
@@ -2393,7 +2393,7 @@ class ICertEncodeBitString(c_void_p):
     def GetBitString(self, pstrBitString: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Encode(self, BitCount: Int32, strBitString: Windows.Win32.Foundation.BSTR, pstrBinary: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertEncodeBitString2(c_void_p):
+class ICertEncodeBitString2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertEncodeBitString
     Guid = Guid('e070d6e7-23ef-4dd2-82-42-eb-d9-c9-28-cb-30')
     @commethod(11)
@@ -2402,7 +2402,7 @@ class ICertEncodeBitString2(c_void_p):
     def EncodeBlob(self, BitCount: Int32, strBitString: Windows.Win32.Foundation.BSTR, EncodingIn: Windows.Win32.Security.Cryptography.Certificates.EncodingType, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pstrEncodedData: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetBitStringBlob(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pstrBitString: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertEncodeCRLDistInfo(c_void_p):
+class ICertEncodeCRLDistInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('01958640-bbff-11d0-88-25-00-a0-c9-03-b8-3c')
     @commethod(7)
@@ -2423,14 +2423,14 @@ class ICertEncodeCRLDistInfo(c_void_p):
     def SetNameEntry(self, DistPointIndex: Int32, NameIndex: Int32, NameChoice: Windows.Win32.Security.Cryptography.Certificates.CERT_ALT_NAME, strName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def Encode(self, pstrBinary: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertEncodeCRLDistInfo2(c_void_p):
+class ICertEncodeCRLDistInfo2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertEncodeCRLDistInfo
     Guid = Guid('b4275d4b-3e30-446f-ad-36-09-d0-31-20-b0-78')
     @commethod(16)
     def DecodeBlob(self, strEncodedData: Windows.Win32.Foundation.BSTR, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def EncodeBlob(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pstrEncodedData: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertEncodeDateArray(c_void_p):
+class ICertEncodeDateArray(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2f9469a0-a470-11d0-88-21-00-a0-c9-03-b8-3c')
     @commethod(7)
@@ -2445,14 +2445,14 @@ class ICertEncodeDateArray(c_void_p):
     def SetValue(self, Index: Int32, Value: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Encode(self, pstrBinary: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertEncodeDateArray2(c_void_p):
+class ICertEncodeDateArray2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertEncodeDateArray
     Guid = Guid('99a4edb5-2b8e-448d-bf-95-bb-a8-d7-78-9d-c8')
     @commethod(13)
     def DecodeBlob(self, strEncodedData: Windows.Win32.Foundation.BSTR, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def EncodeBlob(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pstrEncodedData: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertEncodeLongArray(c_void_p):
+class ICertEncodeLongArray(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('15e2f230-a0a2-11d0-88-21-00-a0-c9-03-b8-3c')
     @commethod(7)
@@ -2467,14 +2467,14 @@ class ICertEncodeLongArray(c_void_p):
     def SetValue(self, Index: Int32, Value: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Encode(self, pstrBinary: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertEncodeLongArray2(c_void_p):
+class ICertEncodeLongArray2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertEncodeLongArray
     Guid = Guid('4efde84a-bd9b-4fc2-a1-08-c3-47-d4-78-84-0f')
     @commethod(13)
     def DecodeBlob(self, strEncodedData: Windows.Win32.Foundation.BSTR, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def EncodeBlob(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pstrEncodedData: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertEncodeStringArray(c_void_p):
+class ICertEncodeStringArray(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('12a88820-7494-11d0-88-16-00-a0-c9-03-b8-3c')
     @commethod(7)
@@ -2491,14 +2491,14 @@ class ICertEncodeStringArray(c_void_p):
     def SetValue(self, Index: Int32, str: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def Encode(self, pstrBinary: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertEncodeStringArray2(c_void_p):
+class ICertEncodeStringArray2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertEncodeStringArray
     Guid = Guid('9c680d93-9b7d-4e95-90-18-4f-fe-10-ba-5a-da')
     @commethod(14)
     def DecodeBlob(self, strEncodedData: Windows.Win32.Foundation.BSTR, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def EncodeBlob(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pstrEncodedData: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertExit(c_void_p):
+class ICertExit(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('e19ae1a0-7364-11d0-88-16-00-a0-c9-03-b8-3c')
     @commethod(7)
@@ -2507,17 +2507,17 @@ class ICertExit(c_void_p):
     def Notify(self, ExitEvent: Int32, Context: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetDescription(self, pstrDescription: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertExit2(c_void_p):
+class ICertExit2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertExit
     Guid = Guid('0abf484b-d049-464d-a7-ed-55-2e-75-29-b0-ff')
     @commethod(10)
     def GetManageModule(self, ppManageModule: POINTER(Windows.Win32.Security.Cryptography.Certificates.ICertManageModule_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertGetConfig(c_void_p):
+class ICertGetConfig(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c7ea09c0-ce17-11d0-88-33-00-a0-c9-03-b8-3c')
     @commethod(7)
     def GetConfig(self, Flags: Windows.Win32.Security.Cryptography.Certificates.CERT_GET_CONFIG_FLAGS, pstrOut: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertManageModule(c_void_p):
+class ICertManageModule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('e7d7ad42-bd3d-11d1-9a-4d-00-c0-4f-c2-97-eb')
     @commethod(7)
@@ -2526,7 +2526,7 @@ class ICertManageModule(c_void_p):
     def SetProperty(self, strConfig: Windows.Win32.Foundation.BSTR, strStorageLocation: Windows.Win32.Foundation.BSTR, strPropertyName: Windows.Win32.Foundation.BSTR, Flags: Int32, pvarProperty: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Configure(self, strConfig: Windows.Win32.Foundation.BSTR, strStorageLocation: Windows.Win32.Foundation.BSTR, Flags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertPolicy(c_void_p):
+class ICertPolicy(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('38bb5a00-7636-11d0-b4-13-00-a0-c9-1b-bf-8c')
     @commethod(7)
@@ -2537,12 +2537,12 @@ class ICertPolicy(c_void_p):
     def GetDescription(self, pstrDescription: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def ShutDown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertPolicy2(c_void_p):
+class ICertPolicy2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertPolicy
     Guid = Guid('3db4910e-8001-4bf1-aa-1b-f4-3a-80-83-17-a0')
     @commethod(11)
     def GetManageModule(self, ppManageModule: POINTER(Windows.Win32.Security.Cryptography.Certificates.ICertManageModule_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertProperties(c_void_p):
+class ICertProperties(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab32f-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -2559,7 +2559,7 @@ class ICertProperties(c_void_p):
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def InitializeFromCertificate(self, MachineContext: Windows.Win32.Foundation.VARIANT_BOOL, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strCertificate: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertProperty(c_void_p):
+class ICertProperty(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab32e-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -2576,28 +2576,28 @@ class ICertProperty(c_void_p):
     def RemoveFromCertificate(self, MachineContext: Windows.Win32.Foundation.VARIANT_BOOL, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strCertificate: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def SetValueOnCertificate(self, MachineContext: Windows.Win32.Foundation.VARIANT_BOOL, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strCertificate: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertPropertyArchived(c_void_p):
+class ICertPropertyArchived(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertProperty
     Guid = Guid('728ab337-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(14)
     def Initialize(self, ArchivedValue: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_Archived(self, pValue: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertPropertyArchivedKeyHash(c_void_p):
+class ICertPropertyArchivedKeyHash(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertProperty
     Guid = Guid('728ab33b-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(14)
     def Initialize(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strArchivedKeyHashValue: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_ArchivedKeyHash(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertPropertyAutoEnroll(c_void_p):
+class ICertPropertyAutoEnroll(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertProperty
     Guid = Guid('728ab332-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(14)
     def Initialize(self, strTemplateName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_TemplateName(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertPropertyBackedUp(c_void_p):
+class ICertPropertyBackedUp(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertProperty
     Guid = Guid('728ab338-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(14)
@@ -2608,14 +2608,14 @@ class ICertPropertyBackedUp(c_void_p):
     def get_BackedUpValue(self, pValue: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def get_BackedUpTime(self, pDate: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertPropertyDescription(c_void_p):
+class ICertPropertyDescription(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertProperty
     Guid = Guid('728ab331-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(14)
     def Initialize(self, strDescription: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_Description(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertPropertyEnrollment(c_void_p):
+class ICertPropertyEnrollment(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertProperty
     Guid = Guid('728ab339-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(14)
@@ -2628,7 +2628,7 @@ class ICertPropertyEnrollment(c_void_p):
     def get_CAName(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def get_FriendlyName(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertPropertyEnrollmentPolicyServer(c_void_p):
+class ICertPropertyEnrollmentPolicyServer(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertProperty
     Guid = Guid('728ab34a-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(14)
@@ -2649,21 +2649,21 @@ class ICertPropertyEnrollmentPolicyServer(c_void_p):
     def GetAuthentication(self, pValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.X509EnrollmentAuthFlags)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def GetEnrollmentServerAuthentication(self, pValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.X509EnrollmentAuthFlags)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertPropertyFriendlyName(c_void_p):
+class ICertPropertyFriendlyName(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertProperty
     Guid = Guid('728ab330-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(14)
     def Initialize(self, strFriendlyName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_FriendlyName(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertPropertyKeyProvInfo(c_void_p):
+class ICertPropertyKeyProvInfo(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertProperty
     Guid = Guid('728ab336-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(14)
     def Initialize(self, pValue: Windows.Win32.Security.Cryptography.Certificates.IX509PrivateKey_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_PrivateKey(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509PrivateKey_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertPropertyRenewal(c_void_p):
+class ICertPropertyRenewal(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertProperty
     Guid = Guid('728ab33a-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(14)
@@ -2672,7 +2672,7 @@ class ICertPropertyRenewal(c_void_p):
     def InitializeFromCertificateHash(self, MachineContext: Windows.Win32.Foundation.VARIANT_BOOL, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strCertificate: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def get_Renewal(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertPropertyRequestOriginator(c_void_p):
+class ICertPropertyRequestOriginator(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertProperty
     Guid = Guid('728ab333-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(14)
@@ -2681,14 +2681,14 @@ class ICertPropertyRequestOriginator(c_void_p):
     def InitializeFromLocalRequestOriginator(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def get_RequestOriginator(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertPropertySHA1Hash(c_void_p):
+class ICertPropertySHA1Hash(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertProperty
     Guid = Guid('728ab334-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(14)
     def Initialize(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strRenewalValue: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_SHA1Hash(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertRequest(c_void_p):
+class ICertRequest(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('014e4840-5523-11d0-88-12-00-a0-c9-03-b8-3c')
     @commethod(7)
@@ -2705,7 +2705,7 @@ class ICertRequest(c_void_p):
     def GetCACertificate(self, fExchangeCertificate: Int32, strConfig: Windows.Win32.Foundation.BSTR, Flags: Int32, pstrCertificate: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetCertificate(self, Flags: Int32, pstrCertificate: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertRequest2(c_void_p):
+class ICertRequest2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertRequest
     Guid = Guid('a4772988-4a85-4fa9-82-4e-b5-cf-5c-16-40-5a')
     @commethod(14)
@@ -2720,7 +2720,7 @@ class ICertRequest2(c_void_p):
     def GetCAPropertyDisplayName(self, strConfig: Windows.Win32.Foundation.BSTR, PropId: Int32, pstrDisplayName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def GetFullResponseProperty(self, PropId: Windows.Win32.Security.Cryptography.Certificates.FULL_RESPONSE_PROPERTY_ID, PropIndex: Int32, PropType: Windows.Win32.Security.Cryptography.Certificates.CERT_PROPERTY_TYPE, Flags: Windows.Win32.Security.Cryptography.Certificates.CERT_REQUEST_OUT_TYPE, pvarPropertyValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertRequest3(c_void_p):
+class ICertRequest3(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertRequest2
     Guid = Guid('afc8f92b-33a2-4861-bf-36-29-33-b7-cd-67-b3')
     @commethod(20)
@@ -2731,7 +2731,7 @@ class ICertRequest3(c_void_p):
     def GetIssuedCertificate2(self, strConfig: Windows.Win32.Foundation.BSTR, strRequestId: Windows.Win32.Foundation.BSTR, strSerialNumber: Windows.Win32.Foundation.BSTR, pDisposition: POINTER(Windows.Win32.Security.Cryptography.Certificates.CR_DISP)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def GetRefreshPolicy(self, pValue: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertRequestD(c_void_p):
+class ICertRequestD(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d99e6e70-fc88-11d0-b4-98-00-a0-c9-03-12-f3')
     @commethod(3)
@@ -2740,7 +2740,7 @@ class ICertRequestD(c_void_p):
     def GetCACert(self, fchain: UInt32, pwszAuthority: Windows.Win32.Foundation.PWSTR, pctbOut: POINTER(Windows.Win32.Security.Cryptography.Certificates.CERTTRANSBLOB_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Ping(self, pwszAuthority: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertRequestD2(c_void_p):
+class ICertRequestD2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertRequestD
     Guid = Guid('5422fd3a-d4b8-4cef-a1-2e-e8-7d-4c-a2-2e-90')
     @commethod(6)
@@ -2751,7 +2751,7 @@ class ICertRequestD2(c_void_p):
     def GetCAPropertyInfo(self, pwszAuthority: Windows.Win32.Foundation.PWSTR, pcProperty: POINTER(Int32), pctbPropInfo: POINTER(Windows.Win32.Security.Cryptography.Certificates.CERTTRANSBLOB_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Ping2(self, pwszAuthority: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertServerExit(c_void_p):
+class ICertServerExit(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('4ba9eb90-732c-11d0-88-16-00-a0-c9-03-b8-3c')
     @commethod(7)
@@ -2778,7 +2778,7 @@ class ICertServerExit(c_void_p):
     def EnumerateAttributes(self, pstrAttributeName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def EnumerateAttributesClose(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertServerPolicy(c_void_p):
+class ICertServerPolicy(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('aa000922-ffbe-11cf-88-00-00-a0-c9-03-b8-3c')
     @commethod(7)
@@ -2809,7 +2809,7 @@ class ICertServerPolicy(c_void_p):
     def EnumerateAttributes(self, pstrAttributeName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def EnumerateAttributesClose(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertView(c_void_p):
+class ICertView(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c3fac344-1e84-11d1-9b-d6-00-c0-4f-b6-83-fa')
     @commethod(7)
@@ -2828,12 +2828,12 @@ class ICertView(c_void_p):
     def SetRestriction(self, ColumnIndex: Windows.Win32.Security.Cryptography.Certificates.CERT_VIEW_COLUMN_INDEX, SeekOperator: Windows.Win32.Security.Cryptography.Certificates.CERT_VIEW_SEEK_OPERATOR_FLAGS, SortOrder: Int32, pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def OpenView(self, ppenum: POINTER(Windows.Win32.Security.Cryptography.Certificates.IEnumCERTVIEWROW_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertView2(c_void_p):
+class ICertView2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertView
     Guid = Guid('d594b282-8851-4b61-9c-66-3e-da-df-84-88-63')
     @commethod(15)
     def SetTable(self, Table: Windows.Win32.Security.Cryptography.Certificates.CVRC_TABLE) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertificateAttestationChallenge(c_void_p):
+class ICertificateAttestationChallenge(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('6f175a7c-4a3a-40ae-9d-ba-59-2f-d6-bb-f9-b8')
     @commethod(7)
@@ -2842,14 +2842,14 @@ class ICertificateAttestationChallenge(c_void_p):
     def DecryptChallenge(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pstrEnvelopedPkcs7ReencryptedToCA: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_RequestID(self, pstrRequestID: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertificateAttestationChallenge2(c_void_p):
+class ICertificateAttestationChallenge2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.ICertificateAttestationChallenge
     Guid = Guid('4631334d-e266-47d6-bd-79-be-53-cb-2e-27-53')
     @commethod(10)
     def put_KeyContainerName(self, Value: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def put_KeyBlob(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, Value: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertificatePolicies(c_void_p):
+class ICertificatePolicies(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab31f-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -2864,7 +2864,7 @@ class ICertificatePolicies(c_void_p):
     def Remove(self, Index: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertificatePolicy(c_void_p):
+class ICertificatePolicy(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab31e-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -2873,7 +2873,7 @@ class ICertificatePolicy(c_void_p):
     def get_ObjectId(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IObjectId_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_PolicyQualifiers(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IPolicyQualifiers_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertificationAuthorities(c_void_p):
+class ICertificationAuthorities(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('13b79005-2181-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -2892,12 +2892,12 @@ class ICertificationAuthorities(c_void_p):
     def ComputeSiteCosts(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_ItemByName(self, strName: Windows.Win32.Foundation.BSTR, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.ICertificationAuthority_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertificationAuthority(c_void_p):
+class ICertificationAuthority(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('835d1f61-1e95-4bc8-b4-d3-97-6c-42-b9-68-f7')
     @commethod(7)
     def get_Property(self, property: Windows.Win32.Security.Cryptography.Certificates.EnrollmentCAProperty, pValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICryptAttribute(c_void_p):
+class ICryptAttribute(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab32c-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -2908,7 +2908,7 @@ class ICryptAttribute(c_void_p):
     def get_ObjectId(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IObjectId_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_Values(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509Attributes_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICryptAttributes(c_void_p):
+class ICryptAttributes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab32d-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -2927,7 +2927,7 @@ class ICryptAttributes(c_void_p):
     def get_IndexByObjectId(self, pObjectId: Windows.Win32.Security.Cryptography.Certificates.IObjectId_head, pIndex: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def AddRange(self, pValue: Windows.Win32.Security.Cryptography.Certificates.ICryptAttributes_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ICspAlgorithm(c_void_p):
+class ICspAlgorithm(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab305-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -2950,7 +2950,7 @@ class ICspAlgorithm(c_void_p):
     def get_Type(self, pValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.AlgorithmType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def get_Operations(self, pValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.AlgorithmOperationFlags)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICspAlgorithms(c_void_p):
+class ICspAlgorithms(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab306-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -2969,7 +2969,7 @@ class ICspAlgorithms(c_void_p):
     def get_ItemByName(self, strName: Windows.Win32.Foundation.BSTR, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.ICspAlgorithm_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_IndexByObjectId(self, pObjectId: Windows.Win32.Security.Cryptography.Certificates.IObjectId_head, pIndex: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICspInformation(c_void_p):
+class ICspInformation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab307-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -3006,7 +3006,7 @@ class ICspInformation(c_void_p):
     def get_LegacyCsp(self, pValue: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def GetCspStatusFromOperations(self, pAlgorithm: Windows.Win32.Security.Cryptography.Certificates.IObjectId_head, Operations: Windows.Win32.Security.Cryptography.Certificates.AlgorithmOperationFlags, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.ICspStatus_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICspInformations(c_void_p):
+class ICspInformations(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab308-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -3033,7 +3033,7 @@ class ICspInformations(c_void_p):
     def GetEncryptionCspAlgorithms(self, pCspInformation: Windows.Win32.Security.Cryptography.Certificates.ICspInformation_head, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.ICspAlgorithms_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def GetHashAlgorithms(self, pCspInformation: Windows.Win32.Security.Cryptography.Certificates.ICspInformation_head, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IObjectIds_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICspStatus(c_void_p):
+class ICspStatus(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab309-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -3050,7 +3050,7 @@ class ICspStatus(c_void_p):
     def get_EnrollmentStatus(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509EnrollmentStatus_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def get_DisplayName(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICspStatuses(c_void_p):
+class ICspStatuses(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab30a-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -3073,7 +3073,7 @@ class ICspStatuses(c_void_p):
     def get_ItemByOperations(self, strCspName: Windows.Win32.Foundation.BSTR, strAlgorithmName: Windows.Win32.Foundation.BSTR, Operations: Windows.Win32.Security.Cryptography.Certificates.AlgorithmOperationFlags, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.ICspStatus_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def get_ItemByProvider(self, pCspStatus: Windows.Win32.Security.Cryptography.Certificates.ICspStatus_head, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.ICspStatus_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnroll(c_void_p):
+class IEnroll(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('acaa7838-4585-11d1-ab-57-00-c0-4f-c2-95-e1')
     @commethod(3)
@@ -3216,7 +3216,7 @@ class IEnroll(c_void_p):
     def AddAuthenticatedAttributesToPKCS7Request(self, pAttributes: POINTER(Windows.Win32.Security.Cryptography.CRYPT_ATTRIBUTES_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(72)
     def CreatePKCS7RequestFromRequest(self, pRequest: POINTER(Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head), pSigningCertContext: POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head), pPkcs7Blob: POINTER(Windows.Win32.Security.Cryptography.CRYPT_INTEGER_BLOB_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnroll2(c_void_p):
+class IEnroll2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IEnroll
     Guid = Guid('c080e199-b7df-11d2-a4-21-00-c0-4f-79-fe-8e')
     @commethod(73)
@@ -3255,7 +3255,7 @@ class IEnroll2(c_void_p):
     def put_EnableSMIMECapabilities(self, fEnableSMIMECapabilities: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(90)
     def get_EnableSMIMECapabilities(self, fEnableSMIMECapabilities: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnroll4(c_void_p):
+class IEnroll4(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IEnroll2
     Guid = Guid('f8053fe5-78f4-448f-a0-db-41-d6-1b-73-44-6b')
     @commethod(91)
@@ -3322,7 +3322,7 @@ class IEnroll4(c_void_p):
     def put_IncludeSubjectKeyID(self, fInclude: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(122)
     def get_IncludeSubjectKeyID(self, pfInclude: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumCERTVIEWATTRIBUTE(c_void_p):
+class IEnumCERTVIEWATTRIBUTE(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('e77db656-7653-11d1-9b-de-00-c0-4f-b6-83-fa')
     @commethod(7)
@@ -3337,7 +3337,7 @@ class IEnumCERTVIEWATTRIBUTE(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Clone(self, ppenum: POINTER(Windows.Win32.Security.Cryptography.Certificates.IEnumCERTVIEWATTRIBUTE_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumCERTVIEWCOLUMN(c_void_p):
+class IEnumCERTVIEWCOLUMN(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('9c735be2-57a5-11d1-9b-db-00-c0-4f-b6-83-fa')
     @commethod(7)
@@ -3360,7 +3360,7 @@ class IEnumCERTVIEWCOLUMN(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def Clone(self, ppenum: POINTER(Windows.Win32.Security.Cryptography.Certificates.IEnumCERTVIEWCOLUMN_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumCERTVIEWEXTENSION(c_void_p):
+class IEnumCERTVIEWEXTENSION(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('e7dd1466-7653-11d1-9b-de-00-c0-4f-b6-83-fa')
     @commethod(7)
@@ -3377,7 +3377,7 @@ class IEnumCERTVIEWEXTENSION(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def Clone(self, ppenum: POINTER(Windows.Win32.Security.Cryptography.Certificates.IEnumCERTVIEWEXTENSION_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumCERTVIEWROW(c_void_p):
+class IEnumCERTVIEWROW(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d1157f4c-5af2-11d1-9b-dc-00-c0-4f-b6-83-fa')
     @commethod(7)
@@ -3396,7 +3396,7 @@ class IEnumCERTVIEWROW(c_void_p):
     def Clone(self, ppenum: POINTER(Windows.Win32.Security.Cryptography.Certificates.IEnumCERTVIEWROW_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetMaxIndex(self, pIndex: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class INDESPolicy(c_void_p):
+class INDESPolicy(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('13ca515d-431d-46cc-8c-2e-1d-a2-69-bb-d6-25')
     @commethod(3)
@@ -3409,7 +3409,7 @@ class INDESPolicy(c_void_p):
     def VerifyRequest(self, pctbRequest: POINTER(Windows.Win32.Security.Cryptography.Certificates.CERTTRANSBLOB_head), pctbSigningCertEncoded: POINTER(Windows.Win32.Security.Cryptography.Certificates.CERTTRANSBLOB_head), pwszTemplate: Windows.Win32.Foundation.PWSTR, pwszTransactionId: Windows.Win32.Foundation.PWSTR, pfVerified: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Notify(self, pwszChallenge: Windows.Win32.Foundation.PWSTR, pwszTransactionId: Windows.Win32.Foundation.PWSTR, disposition: Windows.Win32.Security.Cryptography.Certificates.X509SCEPDisposition, lastHResult: Int32, pctbIssuedCertEncoded: POINTER(Windows.Win32.Security.Cryptography.Certificates.CERTTRANSBLOB_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IOCSPAdmin(c_void_p):
+class IOCSPAdmin(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('322e830d-67db-4fe9-95-77-45-96-d9-f0-92-94')
     @commethod(7)
@@ -3432,7 +3432,7 @@ class IOCSPAdmin(c_void_p):
     def GetSigningCertificates(self, bstrServerName: Windows.Win32.Foundation.BSTR, pCACertVar: POINTER(Windows.Win32.System.Variant.VARIANT_head), pVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def GetHashAlgorithms(self, bstrServerName: Windows.Win32.Foundation.BSTR, bstrCAId: Windows.Win32.Foundation.BSTR, pVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IOCSPCAConfiguration(c_void_p):
+class IOCSPCAConfiguration(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('aec92b40-3d46-433f-87-d1-b8-4d-5c-1e-79-0d')
     @commethod(7)
@@ -3483,7 +3483,7 @@ class IOCSPCAConfiguration(c_void_p):
     def get_CAConfig(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
     def put_CAConfig(self, newVal: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IOCSPCAConfigurationCollection(c_void_p):
+class IOCSPCAConfigurationCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2bebea0b-5ece-4f28-a9-1c-86-b4-bb-20-f0-d3')
     @commethod(7)
@@ -3498,7 +3498,7 @@ class IOCSPCAConfigurationCollection(c_void_p):
     def CreateCAConfiguration(self, bstrIdentifier: Windows.Win32.Foundation.BSTR, varCACert: Windows.Win32.System.Variant.VARIANT, ppVal: POINTER(Windows.Win32.Security.Cryptography.Certificates.IOCSPCAConfiguration_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def DeleteCAConfiguration(self, bstrIdentifier: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IOCSPProperty(c_void_p):
+class IOCSPProperty(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('66fb7839-5f04-4c25-ad-18-9f-f1-a8-37-6e-e0')
     @commethod(7)
@@ -3509,7 +3509,7 @@ class IOCSPProperty(c_void_p):
     def put_Value(self, newVal: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_Modified(self, pVal: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IOCSPPropertyCollection(c_void_p):
+class IOCSPPropertyCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2597c18d-54e6-4b74-9f-a9-a6-bf-da-99-cb-be')
     @commethod(7)
@@ -3528,7 +3528,7 @@ class IOCSPPropertyCollection(c_void_p):
     def InitializeFromProperties(self, pVarProperties: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetAllProperties(self, pVarProperties: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectId(c_void_p):
+class IObjectId(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab300-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -3547,7 +3547,7 @@ class IObjectId(c_void_p):
     def get_Value(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetAlgorithmName(self, GroupId: Windows.Win32.Security.Cryptography.Certificates.ObjectIdGroupId, KeyFlags: Windows.Win32.Security.Cryptography.Certificates.ObjectIdPublicKeyFlags, pstrAlgorithmName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectIds(c_void_p):
+class IObjectIds(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab301-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -3564,7 +3564,7 @@ class IObjectIds(c_void_p):
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def AddRange(self, pValue: Windows.Win32.Security.Cryptography.Certificates.IObjectIds_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IPolicyQualifier(c_void_p):
+class IPolicyQualifier(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab31c-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -3577,7 +3577,7 @@ class IPolicyQualifier(c_void_p):
     def get_Type(self, pValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.PolicyQualifierType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get_RawData(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPolicyQualifiers(c_void_p):
+class IPolicyQualifiers(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab31d-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -3592,7 +3592,7 @@ class IPolicyQualifiers(c_void_p):
     def Remove(self, Index: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ISignerCertificate(c_void_p):
+class ISignerCertificate(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab33d-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -3617,7 +3617,7 @@ class ISignerCertificate(c_void_p):
     def put_Pin(self, Value: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def get_SignatureInformation(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509SignatureInformation_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISignerCertificates(c_void_p):
+class ISignerCertificates(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab33e-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -3634,7 +3634,7 @@ class ISignerCertificates(c_void_p):
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def Find(self, pSignerCert: Windows.Win32.Security.Cryptography.Certificates.ISignerCertificate_head, piSignerCert: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISmimeCapabilities(c_void_p):
+class ISmimeCapabilities(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab31a-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -3653,7 +3653,7 @@ class ISmimeCapabilities(c_void_p):
     def AddFromCsp(self, pValue: Windows.Win32.Security.Cryptography.Certificates.ICspInformation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def AddAvailableSmimeCapabilities(self, MachineContext: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class ISmimeCapability(c_void_p):
+class ISmimeCapability(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab319-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -3662,7 +3662,7 @@ class ISmimeCapability(c_void_p):
     def get_ObjectId(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IObjectId_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_BitCount(self, pValue: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX500DistinguishedName(c_void_p):
+class IX500DistinguishedName(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab303-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -3673,7 +3673,7 @@ class IX500DistinguishedName(c_void_p):
     def get_Name(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_EncodedName(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509Attribute(c_void_p):
+class IX509Attribute(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab322-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -3682,7 +3682,7 @@ class IX509Attribute(c_void_p):
     def get_ObjectId(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IObjectId_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_RawData(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509AttributeArchiveKey(c_void_p):
+class IX509AttributeArchiveKey(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Attribute
     Guid = Guid('728ab327-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(10)
@@ -3695,7 +3695,7 @@ class IX509AttributeArchiveKey(c_void_p):
     def get_EncryptionAlgorithm(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IObjectId_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_EncryptionStrength(self, pValue: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509AttributeArchiveKeyHash(c_void_p):
+class IX509AttributeArchiveKeyHash(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Attribute
     Guid = Guid('728ab328-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(10)
@@ -3704,7 +3704,7 @@ class IX509AttributeArchiveKeyHash(c_void_p):
     def InitializeDecode(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strEncodedData: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def get_EncryptedKeyHashBlob(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509AttributeClientId(c_void_p):
+class IX509AttributeClientId(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Attribute
     Guid = Guid('728ab325-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(10)
@@ -3719,7 +3719,7 @@ class IX509AttributeClientId(c_void_p):
     def get_UserSamName(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_ProcessName(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509AttributeCspProvider(c_void_p):
+class IX509AttributeCspProvider(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Attribute
     Guid = Guid('728ab32b-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(10)
@@ -3732,7 +3732,7 @@ class IX509AttributeCspProvider(c_void_p):
     def get_ProviderName(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_Signature(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509AttributeExtensions(c_void_p):
+class IX509AttributeExtensions(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Attribute
     Guid = Guid('728ab324-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(10)
@@ -3741,7 +3741,7 @@ class IX509AttributeExtensions(c_void_p):
     def InitializeDecode(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strEncodedData: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def get_X509Extensions(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509Extensions_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509AttributeOSVersion(c_void_p):
+class IX509AttributeOSVersion(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Attribute
     Guid = Guid('728ab32a-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(10)
@@ -3750,7 +3750,7 @@ class IX509AttributeOSVersion(c_void_p):
     def InitializeDecode(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strEncodedData: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def get_OSVersion(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509AttributeRenewalCertificate(c_void_p):
+class IX509AttributeRenewalCertificate(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Attribute
     Guid = Guid('728ab326-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(10)
@@ -3759,7 +3759,7 @@ class IX509AttributeRenewalCertificate(c_void_p):
     def InitializeDecode(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strEncodedData: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def get_RenewalCertificate(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509Attributes(c_void_p):
+class IX509Attributes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab323-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -3774,7 +3774,7 @@ class IX509Attributes(c_void_p):
     def Remove(self, Index: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateRequest(c_void_p):
+class IX509CertificateRequest(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab341-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -3827,7 +3827,7 @@ class IX509CertificateRequest(c_void_p):
     def put_AlternateSignatureAlgorithm(self, Value: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def get_RawData(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateRequestCertificate(c_void_p):
+class IX509CertificateRequestCertificate(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509CertificateRequestPkcs10
     Guid = Guid('728ab343-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(60)
@@ -3852,7 +3852,7 @@ class IX509CertificateRequestCertificate(c_void_p):
     def get_SignerCertificate(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.ISignerCertificate_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(70)
     def put_SignerCertificate(self, pValue: Windows.Win32.Security.Cryptography.Certificates.ISignerCertificate_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateRequestCertificate2(c_void_p):
+class IX509CertificateRequestCertificate2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509CertificateRequestCertificate
     Guid = Guid('728ab35a-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(71)
@@ -3863,7 +3863,7 @@ class IX509CertificateRequestCertificate2(c_void_p):
     def get_PolicyServer(self, ppPolicyServer: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509EnrollmentPolicyServer_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(74)
     def get_Template(self, ppTemplate: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509CertificateTemplate_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateRequestCmc(c_void_p):
+class IX509CertificateRequestCmc(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509CertificateRequestPkcs7
     Guid = Guid('728ab345-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(40)
@@ -3912,7 +3912,7 @@ class IX509CertificateRequestCmc(c_void_p):
     def get_EncryptedKeyHash(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(62)
     def get_SignerCertificates(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.ISignerCertificates_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateRequestCmc2(c_void_p):
+class IX509CertificateRequestCmc2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509CertificateRequestCmc
     Guid = Guid('728ab35d-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(63)
@@ -3927,7 +3927,7 @@ class IX509CertificateRequestCmc2(c_void_p):
     def CheckSignature(self, AllowedSignatureTypes: Windows.Win32.Security.Cryptography.Certificates.Pkcs10AllowedSignatureTypes) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(68)
     def CheckCertificateSignature(self, pSignerCertificate: Windows.Win32.Security.Cryptography.Certificates.ISignerCertificate_head, ValidateCertificateChain: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateRequestPkcs10(c_void_p):
+class IX509CertificateRequestPkcs10(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509CertificateRequest
     Guid = Guid('728ab342-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(32)
@@ -3986,7 +3986,7 @@ class IX509CertificateRequestPkcs10(c_void_p):
     def get_Signature(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(59)
     def GetCspStatuses(self, KeySpec: Windows.Win32.Security.Cryptography.Certificates.X509KeySpec, ppCspStatuses: POINTER(Windows.Win32.Security.Cryptography.Certificates.ICspStatuses_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateRequestPkcs10V2(c_void_p):
+class IX509CertificateRequestPkcs10V2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509CertificateRequestPkcs10
     Guid = Guid('728ab35b-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(60)
@@ -3999,7 +3999,7 @@ class IX509CertificateRequestPkcs10V2(c_void_p):
     def get_PolicyServer(self, ppPolicyServer: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509EnrollmentPolicyServer_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(64)
     def get_Template(self, ppTemplate: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509CertificateTemplate_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateRequestPkcs10V3(c_void_p):
+class IX509CertificateRequestPkcs10V3(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509CertificateRequestPkcs10V2
     Guid = Guid('54ea9942-3d66-4530-b7-6e-7c-91-70-d3-ec-52')
     @commethod(65)
@@ -4024,7 +4024,7 @@ class IX509CertificateRequestPkcs10V3(c_void_p):
     def put_ChallengePassword(self, Value: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(75)
     def get_NameValuePairs(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509NameValuePairs_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateRequestPkcs10V4(c_void_p):
+class IX509CertificateRequestPkcs10V4(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509CertificateRequestPkcs10V3
     Guid = Guid('728ab363-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(76)
@@ -4035,7 +4035,7 @@ class IX509CertificateRequestPkcs10V4(c_void_p):
     def get_AttestPrivateKeyPreferred(self, pValue: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(79)
     def put_AttestPrivateKeyPreferred(self, Value: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateRequestPkcs7(c_void_p):
+class IX509CertificateRequestPkcs7(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509CertificateRequest
     Guid = Guid('728ab344-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(32)
@@ -4054,7 +4054,7 @@ class IX509CertificateRequestPkcs7(c_void_p):
     def get_SignerCertificate(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.ISignerCertificate_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(39)
     def put_SignerCertificate(self, pValue: Windows.Win32.Security.Cryptography.Certificates.ISignerCertificate_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateRequestPkcs7V2(c_void_p):
+class IX509CertificateRequestPkcs7V2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509CertificateRequestPkcs7
     Guid = Guid('728ab35c-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(40)
@@ -4065,7 +4065,7 @@ class IX509CertificateRequestPkcs7V2(c_void_p):
     def get_Template(self, ppTemplate: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509CertificateTemplate_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(43)
     def CheckCertificateSignature(self, ValidateCertificateChain: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateRevocationList(c_void_p):
+class IX509CertificateRevocationList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab360-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4130,7 +4130,7 @@ class IX509CertificateRevocationList(c_void_p):
     def get_RawDataToBeSigned(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(37)
     def get_Signature(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateRevocationListEntries(c_void_p):
+class IX509CertificateRevocationListEntries(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab35f-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4149,7 +4149,7 @@ class IX509CertificateRevocationListEntries(c_void_p):
     def get_IndexBySerialNumber(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, SerialNumber: Windows.Win32.Foundation.BSTR, pIndex: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def AddRange(self, pValue: Windows.Win32.Security.Cryptography.Certificates.IX509CertificateRevocationListEntries_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateRevocationListEntry(c_void_p):
+class IX509CertificateRevocationListEntry(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab35e-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4166,12 +4166,12 @@ class IX509CertificateRevocationListEntry(c_void_p):
     def get_X509Extensions(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509Extensions_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def get_CriticalExtensions(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IObjectIds_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateTemplate(c_void_p):
+class IX509CertificateTemplate(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('54244a13-555a-4e22-89-6d-1b-0e-52-f7-64-06')
     @commethod(7)
     def get_Property(self, property: Windows.Win32.Security.Cryptography.Certificates.EnrollmentTemplateProperty, pValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateTemplateWritable(c_void_p):
+class IX509CertificateTemplateWritable(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f49466a7-395a-4e9e-b6-e7-32-b3-31-60-0d-c0')
     @commethod(7)
@@ -4184,7 +4184,7 @@ class IX509CertificateTemplateWritable(c_void_p):
     def put_Property(self, property: Windows.Win32.Security.Cryptography.Certificates.EnrollmentTemplateProperty, value: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get_Template(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509CertificateTemplate_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509CertificateTemplates(c_void_p):
+class IX509CertificateTemplates(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('13b79003-2181-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4203,7 +4203,7 @@ class IX509CertificateTemplates(c_void_p):
     def get_ItemByName(self, bstrName: Windows.Win32.Foundation.BSTR, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509CertificateTemplate_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_ItemByOid(self, pOid: Windows.Win32.Security.Cryptography.Certificates.IObjectId_head, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509CertificateTemplate_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509EndorsementKey(c_void_p):
+class IX509EndorsementKey(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('b11cd855-f4c4-4fc6-b7-10-44-22-23-7f-09-e9')
     @commethod(7)
@@ -4228,7 +4228,7 @@ class IX509EndorsementKey(c_void_p):
     def Open(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509Enrollment(c_void_p):
+class IX509Enrollment(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab346-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4277,7 +4277,7 @@ class IX509Enrollment(c_void_p):
     def get_RequestId(self, pValue: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
     def get_CAConfigString(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509Enrollment2(c_void_p):
+class IX509Enrollment2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Enrollment
     Guid = Guid('728ab350-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(30)
@@ -4290,7 +4290,7 @@ class IX509Enrollment2(c_void_p):
     def get_Template(self, ppTemplate: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509CertificateTemplate_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(34)
     def get_RequestIdString(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509EnrollmentHelper(c_void_p):
+class IX509EnrollmentHelper(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab351-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4301,7 +4301,7 @@ class IX509EnrollmentHelper(c_void_p):
     def Enroll(self, strEnrollmentPolicyServerURI: Windows.Win32.Foundation.BSTR, strTemplateName: Windows.Win32.Foundation.BSTR, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, enrollFlags: Windows.Win32.Security.Cryptography.Certificates.WebEnrollmentFlags, pstrCertificate: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Initialize(self, Context: Windows.Win32.Security.Cryptography.Certificates.X509CertificateEnrollmentContext) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509EnrollmentPolicyServer(c_void_p):
+class IX509EnrollmentPolicyServer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('13b79026-2181-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4352,7 +4352,7 @@ class IX509EnrollmentPolicyServer(c_void_p):
     def get_Cost(self, pValue: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
     def put_Cost(self, value: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509EnrollmentStatus(c_void_p):
+class IX509EnrollmentStatus(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab304-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4379,12 +4379,12 @@ class IX509EnrollmentStatus(c_void_p):
     def put_Error(self, Value: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def get_ErrorText(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509EnrollmentWebClassFactory(c_void_p):
+class IX509EnrollmentWebClassFactory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab349-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
     def CreateObject(self, strProgID: Windows.Win32.Foundation.BSTR, ppIUnknown: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509Extension(c_void_p):
+class IX509Extension(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab30d-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4397,7 +4397,7 @@ class IX509Extension(c_void_p):
     def get_Critical(self, pValue: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def put_Critical(self, Value: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509ExtensionAlternativeNames(c_void_p):
+class IX509ExtensionAlternativeNames(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Extension
     Guid = Guid('728ab315-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(12)
@@ -4406,7 +4406,7 @@ class IX509ExtensionAlternativeNames(c_void_p):
     def InitializeDecode(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strEncodedData: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_AlternativeNames(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IAlternativeNames_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509ExtensionAuthorityKeyIdentifier(c_void_p):
+class IX509ExtensionAuthorityKeyIdentifier(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Extension
     Guid = Guid('728ab318-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(12)
@@ -4415,7 +4415,7 @@ class IX509ExtensionAuthorityKeyIdentifier(c_void_p):
     def InitializeDecode(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strEncodedData: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_AuthorityKeyIdentifier(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509ExtensionBasicConstraints(c_void_p):
+class IX509ExtensionBasicConstraints(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Extension
     Guid = Guid('728ab316-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(12)
@@ -4426,7 +4426,7 @@ class IX509ExtensionBasicConstraints(c_void_p):
     def get_IsCA(self, pValue: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_PathLenConstraint(self, pValue: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509ExtensionCertificatePolicies(c_void_p):
+class IX509ExtensionCertificatePolicies(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Extension
     Guid = Guid('728ab320-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(12)
@@ -4435,7 +4435,7 @@ class IX509ExtensionCertificatePolicies(c_void_p):
     def InitializeDecode(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strEncodedData: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_Policies(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.ICertificatePolicies_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509ExtensionEnhancedKeyUsage(c_void_p):
+class IX509ExtensionEnhancedKeyUsage(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Extension
     Guid = Guid('728ab310-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(12)
@@ -4444,7 +4444,7 @@ class IX509ExtensionEnhancedKeyUsage(c_void_p):
     def InitializeDecode(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strEncodedData: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_EnhancedKeyUsage(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IObjectIds_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509ExtensionKeyUsage(c_void_p):
+class IX509ExtensionKeyUsage(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Extension
     Guid = Guid('728ab30f-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(12)
@@ -4453,7 +4453,7 @@ class IX509ExtensionKeyUsage(c_void_p):
     def InitializeDecode(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strEncodedData: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_KeyUsage(self, pValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.X509KeyUsageFlags)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509ExtensionMSApplicationPolicies(c_void_p):
+class IX509ExtensionMSApplicationPolicies(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Extension
     Guid = Guid('728ab321-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(12)
@@ -4462,7 +4462,7 @@ class IX509ExtensionMSApplicationPolicies(c_void_p):
     def InitializeDecode(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strEncodedData: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_Policies(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.ICertificatePolicies_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509ExtensionSmimeCapabilities(c_void_p):
+class IX509ExtensionSmimeCapabilities(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Extension
     Guid = Guid('728ab31b-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(12)
@@ -4471,7 +4471,7 @@ class IX509ExtensionSmimeCapabilities(c_void_p):
     def InitializeDecode(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strEncodedData: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_SmimeCapabilities(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.ISmimeCapabilities_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509ExtensionSubjectKeyIdentifier(c_void_p):
+class IX509ExtensionSubjectKeyIdentifier(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Extension
     Guid = Guid('728ab317-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(12)
@@ -4480,7 +4480,7 @@ class IX509ExtensionSubjectKeyIdentifier(c_void_p):
     def InitializeDecode(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strEncodedData: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_SubjectKeyIdentifier(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509ExtensionTemplate(c_void_p):
+class IX509ExtensionTemplate(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Extension
     Guid = Guid('728ab312-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(12)
@@ -4493,7 +4493,7 @@ class IX509ExtensionTemplate(c_void_p):
     def get_MajorVersion(self, pValue: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def get_MinorVersion(self, pValue: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509ExtensionTemplateName(c_void_p):
+class IX509ExtensionTemplateName(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509Extension
     Guid = Guid('728ab311-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(12)
@@ -4502,7 +4502,7 @@ class IX509ExtensionTemplateName(c_void_p):
     def InitializeDecode(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, strEncodedData: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_TemplateName(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509Extensions(c_void_p):
+class IX509Extensions(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab30e-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4521,12 +4521,12 @@ class IX509Extensions(c_void_p):
     def get_IndexByObjectId(self, pObjectId: Windows.Win32.Security.Cryptography.Certificates.IObjectId_head, pIndex: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def AddRange(self, pValue: Windows.Win32.Security.Cryptography.Certificates.IX509Extensions_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509MachineEnrollmentFactory(c_void_p):
+class IX509MachineEnrollmentFactory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab352-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
     def CreateObject(self, strProgID: Windows.Win32.Foundation.BSTR, ppIHelper: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509EnrollmentHelper_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509NameValuePair(c_void_p):
+class IX509NameValuePair(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab33f-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4535,7 +4535,7 @@ class IX509NameValuePair(c_void_p):
     def get_Value(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Name(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509NameValuePairs(c_void_p):
+class IX509NameValuePairs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab340-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4550,7 +4550,7 @@ class IX509NameValuePairs(c_void_p):
     def Remove(self, Index: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509PolicyServerListManager(c_void_p):
+class IX509PolicyServerListManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('884e204b-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4567,7 +4567,7 @@ class IX509PolicyServerListManager(c_void_p):
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def Initialize(self, context: Windows.Win32.Security.Cryptography.Certificates.X509CertificateEnrollmentContext, Flags: Windows.Win32.Security.Cryptography.Certificates.PolicyServerUrlFlags) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509PolicyServerUrl(c_void_p):
+class IX509PolicyServerUrl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('884e204a-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4600,7 +4600,7 @@ class IX509PolicyServerUrl(c_void_p):
     def UpdateRegistry(self, context: Windows.Win32.Security.Cryptography.Certificates.X509CertificateEnrollmentContext) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def RemoveFromRegistry(self, context: Windows.Win32.Security.Cryptography.Certificates.X509CertificateEnrollmentContext) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509PrivateKey(c_void_p):
+class IX509PrivateKey(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab30c-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4719,7 +4719,7 @@ class IX509PrivateKey(c_void_p):
     def get_Description(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(64)
     def put_Description(self, Value: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509PrivateKey2(c_void_p):
+class IX509PrivateKey2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509PrivateKey
     Guid = Guid('728ab362-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(65)
@@ -4742,7 +4742,7 @@ class IX509PrivateKey2(c_void_p):
     def get_ParametersExportType(self, pValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.X509KeyParametersExportType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(74)
     def put_ParametersExportType(self, Value: Windows.Win32.Security.Cryptography.Certificates.X509KeyParametersExportType) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509PublicKey(c_void_p):
+class IX509PublicKey(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab30b-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4759,7 +4759,7 @@ class IX509PublicKey(c_void_p):
     def get_EncodedParameters(self, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def ComputeKeyIdentifier(self, Algorithm: Windows.Win32.Security.Cryptography.Certificates.KeyIdentifierHashAlgorithm, Encoding: Windows.Win32.Security.Cryptography.Certificates.EncodingType, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509SCEPEnrollment(c_void_p):
+class IX509SCEPEnrollment(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab361-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4806,7 +4806,7 @@ class IX509SCEPEnrollment(c_void_p):
     def put_Silent(self, Value: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
     def DeleteRequest(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509SCEPEnrollment2(c_void_p):
+class IX509SCEPEnrollment2(ComPtr):
     extends: Windows.Win32.Security.Cryptography.Certificates.IX509SCEPEnrollment
     Guid = Guid('728ab364-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(29)
@@ -4821,7 +4821,7 @@ class IX509SCEPEnrollment2(c_void_p):
     def get_ActivityId(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(34)
     def put_ActivityId(self, Value: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509SCEPEnrollmentHelper(c_void_p):
+class IX509SCEPEnrollmentHelper(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab365-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)
@@ -4836,7 +4836,7 @@ class IX509SCEPEnrollmentHelper(c_void_p):
     def get_X509SCEPEnrollment(self, ppValue: POINTER(Windows.Win32.Security.Cryptography.Certificates.IX509SCEPEnrollment_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def get_ResultMessageText(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IX509SignatureInformation(c_void_p):
+class IX509SignatureInformation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('728ab33c-217d-11da-b2-a4-00-0e-7b-bb-2b-09')
     @commethod(7)

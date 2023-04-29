@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.Media
@@ -5320,7 +5320,7 @@ HDRVR = IntPtr
 HIC = IntPtr
 HMMIO = IntPtr
 HVIDEO = IntPtr
-class IAVIEditStream(c_void_p):
+class IAVIEditStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00020024-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -5333,7 +5333,7 @@ class IAVIEditStream(c_void_p):
     def Clone(self, ppResult: POINTER(Windows.Win32.Media.Multimedia.IAVIStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetInfo(self, lpInfo: POINTER(Windows.Win32.Media.Multimedia.AVISTREAMINFOW_head), cbInfo: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IAVIFile(c_void_p):
+class IAVIFile(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00020020-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -5350,12 +5350,12 @@ class IAVIFile(c_void_p):
     def EndRecord(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def DeleteStream(self, fccType: UInt32, lParam: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IAVIPersistFile(c_void_p):
+class IAVIPersistFile(ComPtr):
     extends: Windows.Win32.System.Com.IPersistFile
     Guid = Guid('00020025-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(9)
     def Reserved1(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IAVIStream(c_void_p):
+class IAVIStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00020021-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -5380,7 +5380,7 @@ class IAVIStream(c_void_p):
     def WriteData(self, fcc: UInt32, lp: c_void_p, cb: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def SetInfo(self, lpInfo: POINTER(Windows.Win32.Media.Multimedia.AVISTREAMINFOW_head), cbInfo: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IAVIStreaming(c_void_p):
+class IAVIStreaming(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00020022-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -5497,7 +5497,7 @@ class ICSETSTATUSPROC(EasyCastStructure):
     dwFlags: UInt32
     lParam: Windows.Win32.Foundation.LPARAM
     Status: IntPtr
-class IGetFrame(c_void_p):
+class IGetFrame(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00020023-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)

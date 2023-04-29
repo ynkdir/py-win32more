@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
 import Windows.Win32.Networking.WinSock
@@ -136,12 +136,12 @@ class HelperAttributeInfo(EasyCastStructure):
 class HypothesisResult(EasyCastStructure):
     hypothesis: Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.HYPOTHESIS
     pathStatus: Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS
-class INetDiagExtensibleHelper(c_void_p):
+class INetDiagExtensibleHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0b35748-ebf5-11d8-bb-e9-50-50-54-50-30-30')
     @commethod(3)
     def ResolveAttributes(self, celt: UInt32, rgKeyAttributes: POINTER(Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head), pcelt: POINTER(UInt32), prgMatchValues: POINTER(POINTER(Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class INetDiagHelper(c_void_p):
+class INetDiagHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0b35746-ebf5-11d8-bb-e9-50-50-54-50-30-30')
     @commethod(3)
@@ -180,7 +180,7 @@ class INetDiagHelper(c_void_p):
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def Cleanup(self) -> Windows.Win32.Foundation.HRESULT: ...
-class INetDiagHelperEx(c_void_p):
+class INetDiagHelperEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('972dab4d-e4e3-4fc6-ae-54-5f-65-cc-de-4a-15')
     @commethod(3)
@@ -189,12 +189,12 @@ class INetDiagHelperEx(c_void_p):
     def SetUtilities(self, pUtilities: Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.INetDiagHelperUtilFactory_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def ReproduceFailure(self) -> Windows.Win32.Foundation.HRESULT: ...
-class INetDiagHelperInfo(c_void_p):
+class INetDiagHelperInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0b35747-ebf5-11d8-bb-e9-50-50-54-50-30-30')
     @commethod(3)
     def GetAttributeInfo(self, pcelt: POINTER(UInt32), pprgAttributeInfos: POINTER(POINTER(Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework.HelperAttributeInfo_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class INetDiagHelperUtilFactory(c_void_p):
+class INetDiagHelperUtilFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('104613fb-bc57-4178-95-ba-88-80-96-98-35-4a')
     @commethod(3)

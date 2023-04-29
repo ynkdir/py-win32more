@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.TaskScheduler
@@ -60,7 +60,7 @@ CLSID_CTask: Guid = Guid('148bd520-a2ab-11ce-b1-1f-00-aa-00-53-05-03')
 CLSID_CTaskScheduler: Guid = Guid('148bd52a-a2ab-11ce-b1-1f-00-aa-00-53-05-03')
 class DAILY(EasyCastStructure):
     DaysInterval: UInt16
-class IAction(c_void_p):
+class IAction(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('bae54997-48b1-4cbe-99-65-d6-be-26-3e-be-a4')
     @commethod(7)
@@ -69,7 +69,7 @@ class IAction(c_void_p):
     def put_Id(self, Id: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Type(self, pType: POINTER(Windows.Win32.System.TaskScheduler.TASK_ACTION_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IActionCollection(c_void_p):
+class IActionCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('02820e19-7b98-4ed2-b2-e8-fd-cc-ce-ff-61-9b')
     @commethod(7)
@@ -92,14 +92,14 @@ class IActionCollection(c_void_p):
     def get_Context(self, pContext: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def put_Context(self, context: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IBootTrigger(c_void_p):
+class IBootTrigger(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.ITrigger
     Guid = Guid('2a9c35da-d357-41f4-bb-c1-20-7a-c1-b1-f3-cb')
     @commethod(20)
     def get_Delay(self, pDelay: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def put_Delay(self, delay: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IComHandlerAction(c_void_p):
+class IComHandlerAction(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.IAction
     Guid = Guid('6d2fd252-75c5-4f66-90-ba-2a-7d-8c-c3-03-9f')
     @commethod(10)
@@ -110,7 +110,7 @@ class IComHandlerAction(c_void_p):
     def get_Data(self, pData: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def put_Data(self, data: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IDailyTrigger(c_void_p):
+class IDailyTrigger(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.ITrigger
     Guid = Guid('126c5cd8-b288-41d5-8d-bf-e4-91-44-6a-dc-5c')
     @commethod(20)
@@ -121,7 +121,7 @@ class IDailyTrigger(c_void_p):
     def get_RandomDelay(self, pRandomDelay: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def put_RandomDelay(self, randomDelay: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IEmailAction(c_void_p):
+class IEmailAction(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.IAction
     Guid = Guid('10f62c64-7e16-4314-a0-c2-0c-36-83-f9-9d-40')
     @commethod(10)
@@ -164,7 +164,7 @@ class IEmailAction(c_void_p):
     def get_Attachments(self, pAttachements: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
     def put_Attachments(self, pAttachements: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumWorkItems(c_void_p):
+class IEnumWorkItems(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('148bd528-a2ab-11ce-b1-1f-00-aa-00-53-05-03')
     @commethod(3)
@@ -175,7 +175,7 @@ class IEnumWorkItems(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnumWorkItems: POINTER(Windows.Win32.System.TaskScheduler.IEnumWorkItems_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEventTrigger(c_void_p):
+class IEventTrigger(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.ITrigger
     Guid = Guid('d45b0167-9653-4eef-b9-4f-07-32-ca-7a-f2-51')
     @commethod(20)
@@ -190,7 +190,7 @@ class IEventTrigger(c_void_p):
     def get_ValueQueries(self, ppNamedXPaths: POINTER(Windows.Win32.System.TaskScheduler.ITaskNamedValueCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def put_ValueQueries(self, pNamedXPaths: Windows.Win32.System.TaskScheduler.ITaskNamedValueCollection_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IExecAction(c_void_p):
+class IExecAction(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.IAction
     Guid = Guid('4c3d624d-fd6b-49a3-b9-b7-09-cb-3c-d3-f0-47')
     @commethod(10)
@@ -205,14 +205,14 @@ class IExecAction(c_void_p):
     def get_WorkingDirectory(self, pWorkingDirectory: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def put_WorkingDirectory(self, workingDirectory: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IExecAction2(c_void_p):
+class IExecAction2(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.IExecAction
     Guid = Guid('f2a82542-bda5-4e6b-91-43-e2-bf-4f-89-87-b6')
     @commethod(16)
     def get_HideAppWindow(self, pHideAppWindow: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def put_HideAppWindow(self, hideAppWindow: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IIdleSettings(c_void_p):
+class IIdleSettings(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('84594461-0053-4342-a8-fd-08-8f-ab-f1-1f-32')
     @commethod(7)
@@ -231,10 +231,10 @@ class IIdleSettings(c_void_p):
     def get_RestartOnIdle(self, pRestart: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def put_RestartOnIdle(self, restart: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IIdleTrigger(c_void_p):
+class IIdleTrigger(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.ITrigger
     Guid = Guid('d537d2b0-9fb3-4d34-97-39-1f-f5-ce-7b-1e-f3')
-class ILogonTrigger(c_void_p):
+class ILogonTrigger(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.ITrigger
     Guid = Guid('72dade38-fae4-4b3e-ba-f4-5d-00-9a-f0-2b-1c')
     @commethod(20)
@@ -245,7 +245,7 @@ class ILogonTrigger(c_void_p):
     def get_UserId(self, pUser: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def put_UserId(self, user: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IMaintenanceSettings(c_void_p):
+class IMaintenanceSettings(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('a6024fa8-9652-4adb-a6-bf-5c-fc-d8-77-a7-ba')
     @commethod(7)
@@ -260,7 +260,7 @@ class IMaintenanceSettings(c_void_p):
     def put_Exclusive(self, value: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def get_Exclusive(self, target: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMonthlyDOWTrigger(c_void_p):
+class IMonthlyDOWTrigger(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.ITrigger
     Guid = Guid('77d025a3-90fa-43aa-b5-2e-cd-a5-49-9b-94-6a')
     @commethod(20)
@@ -283,7 +283,7 @@ class IMonthlyDOWTrigger(c_void_p):
     def get_RandomDelay(self, pRandomDelay: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
     def put_RandomDelay(self, randomDelay: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IMonthlyTrigger(c_void_p):
+class IMonthlyTrigger(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.ITrigger
     Guid = Guid('97c45ef1-6b02-4a1a-9c-0e-1e-bf-ba-15-00-ac')
     @commethod(20)
@@ -302,7 +302,7 @@ class IMonthlyTrigger(c_void_p):
     def get_RandomDelay(self, pRandomDelay: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def put_RandomDelay(self, randomDelay: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class INetworkSettings(c_void_p):
+class INetworkSettings(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('9f7dea84-c30b-4245-80-b6-00-e9-f6-46-f1-b4')
     @commethod(7)
@@ -313,7 +313,7 @@ class INetworkSettings(c_void_p):
     def get_Id(self, pId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def put_Id(self, id: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IPrincipal(c_void_p):
+class IPrincipal(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d98d51e5-c9b4-496a-a9-c1-18-98-02-61-cf-0f')
     @commethod(7)
@@ -340,7 +340,7 @@ class IPrincipal(c_void_p):
     def get_RunLevel(self, pRunLevel: POINTER(Windows.Win32.System.TaskScheduler.TASK_RUNLEVEL_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def put_RunLevel(self, runLevel: Windows.Win32.System.TaskScheduler.TASK_RUNLEVEL_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
-class IPrincipal2(c_void_p):
+class IPrincipal2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('248919ae-e345-4a6d-8a-eb-e0-d3-16-5c-90-4e')
     @commethod(7)
@@ -353,12 +353,12 @@ class IPrincipal2(c_void_p):
     def get_RequiredPrivilege(self, index: Int32, pPrivilege: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def AddRequiredPrivilege(self, privilege: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IProvideTaskPage(c_void_p):
+class IProvideTaskPage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4086658a-cbbb-11cf-b6-04-00-c0-4f-d8-d5-65')
     @commethod(3)
     def GetPage(self, tpType: Windows.Win32.System.TaskScheduler.TASKPAGE, fPersistChanges: Windows.Win32.Foundation.BOOL, phPage: POINTER(Windows.Win32.UI.Controls.HPROPSHEETPAGE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRegisteredTask(c_void_p):
+class IRegisteredTask(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('9c86f320-dee3-4dd1-b9-72-a3-03-f2-6b-06-1e')
     @commethod(7)
@@ -397,7 +397,7 @@ class IRegisteredTask(c_void_p):
     def Stop(self, flags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
     def GetRunTimes(self, pstStart: POINTER(Windows.Win32.Foundation.SYSTEMTIME_head), pstEnd: POINTER(Windows.Win32.Foundation.SYSTEMTIME_head), pCount: POINTER(UInt32), pRunTimes: POINTER(POINTER(Windows.Win32.Foundation.SYSTEMTIME_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IRegisteredTaskCollection(c_void_p):
+class IRegisteredTaskCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('86627eb4-42a7-41e4-a4-d9-ac-33-a7-2f-2d-52')
     @commethod(7)
@@ -406,7 +406,7 @@ class IRegisteredTaskCollection(c_void_p):
     def get_Item(self, index: Windows.Win32.System.Variant.VARIANT, ppRegisteredTask: POINTER(Windows.Win32.System.TaskScheduler.IRegisteredTask_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get__NewEnum(self, ppEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRegistrationInfo(c_void_p):
+class IRegistrationInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('416d8b73-cb41-4ea1-80-5c-9b-e9-a5-ac-4a-74')
     @commethod(7)
@@ -445,14 +445,14 @@ class IRegistrationInfo(c_void_p):
     def get_Source(self, pSource: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
     def put_Source(self, source: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IRegistrationTrigger(c_void_p):
+class IRegistrationTrigger(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.ITrigger
     Guid = Guid('4c8fec3a-c218-4e0c-b2-3d-62-90-24-db-91-a2')
     @commethod(20)
     def get_Delay(self, pDelay: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def put_Delay(self, delay: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IRepetitionPattern(c_void_p):
+class IRepetitionPattern(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('7fb9acf1-26be-400e-85-b5-29-4b-9c-75-df-d6')
     @commethod(7)
@@ -467,7 +467,7 @@ class IRepetitionPattern(c_void_p):
     def get_StopAtDurationEnd(self, pStop: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def put_StopAtDurationEnd(self, stop: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IRunningTask(c_void_p):
+class IRunningTask(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('653758fb-7b9a-4f1e-a4-71-be-eb-8e-9b-83-4e')
     @commethod(7)
@@ -486,7 +486,7 @@ class IRunningTask(c_void_p):
     def Refresh(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_EnginePID(self, pPID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRunningTaskCollection(c_void_p):
+class IRunningTaskCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('6a67614b-6828-4fec-aa-54-6d-52-e8-f1-f2-db')
     @commethod(7)
@@ -495,7 +495,7 @@ class IRunningTaskCollection(c_void_p):
     def get_Item(self, index: Windows.Win32.System.Variant.VARIANT, ppRunningTask: POINTER(Windows.Win32.System.TaskScheduler.IRunningTask_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get__NewEnum(self, ppEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IScheduledWorkItem(c_void_p):
+class IScheduledWorkItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a6b952f0-a4b1-11d0-99-7d-00-aa-00-68-87-ec')
     @commethod(3)
@@ -556,7 +556,7 @@ class IScheduledWorkItem(c_void_p):
     def SetAccountInformation(self, pwszAccountName: Windows.Win32.Foundation.PWSTR, pwszPassword: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def GetAccountInformation(self, ppwszAccountName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISessionStateChangeTrigger(c_void_p):
+class ISessionStateChangeTrigger(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.ITrigger
     Guid = Guid('754da71b-4385-4475-9d-d9-59-82-94-fa-36-41')
     @commethod(20)
@@ -571,7 +571,7 @@ class ISessionStateChangeTrigger(c_void_p):
     def get_StateChange(self, pType: POINTER(Windows.Win32.System.TaskScheduler.TASK_SESSION_STATE_CHANGE_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def put_StateChange(self, type: Windows.Win32.System.TaskScheduler.TASK_SESSION_STATE_CHANGE_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
-class IShowMessageAction(c_void_p):
+class IShowMessageAction(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.IAction
     Guid = Guid('505e9e68-af89-46b8-a3-0f-56-16-2a-83-d5-37')
     @commethod(10)
@@ -582,7 +582,7 @@ class IShowMessageAction(c_void_p):
     def get_MessageBody(self, pMessageBody: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def put_MessageBody(self, messageBody: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ITask(c_void_p):
+class ITask(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.IScheduledWorkItem
     Guid = Guid('148bd524-a2ab-11ce-b1-1f-00-aa-00-53-05-03')
     @commethod(32)
@@ -609,7 +609,7 @@ class ITask(c_void_p):
     def SetMaxRunTime(self, dwMaxRunTimeMS: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(43)
     def GetMaxRunTime(self, pdwMaxRunTimeMS: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskDefinition(c_void_p):
+class ITaskDefinition(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f5bc8fc5-536d-4f77-b8-52-fb-c1-35-6f-de-b6')
     @commethod(7)
@@ -640,7 +640,7 @@ class ITaskDefinition(c_void_p):
     def get_XmlText(self, pXml: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def put_XmlText(self, xml: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskFolder(c_void_p):
+class ITaskFolder(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('8cfac062-a080-4c15-9a-88-aa-7c-2a-f8-0d-fc')
     @commethod(7)
@@ -669,7 +669,7 @@ class ITaskFolder(c_void_p):
     def GetSecurityDescriptor(self, securityInformation: Int32, pSddl: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def SetSecurityDescriptor(self, sddl: Windows.Win32.Foundation.BSTR, flags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskFolderCollection(c_void_p):
+class ITaskFolderCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('79184a66-8664-423f-97-f1-63-73-56-a5-d8-12')
     @commethod(7)
@@ -678,7 +678,7 @@ class ITaskFolderCollection(c_void_p):
     def get_Item(self, index: Windows.Win32.System.Variant.VARIANT, ppFolder: POINTER(Windows.Win32.System.TaskScheduler.ITaskFolder_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get__NewEnum(self, ppEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskHandler(c_void_p):
+class ITaskHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('839d7762-5121-4009-92-34-4f-0d-19-39-4f-04')
     @commethod(3)
@@ -689,14 +689,14 @@ class ITaskHandler(c_void_p):
     def Pause(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Resume(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskHandlerStatus(c_void_p):
+class ITaskHandlerStatus(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('eaec7a8f-27a0-4ddc-86-75-14-72-6a-01-a3-8a')
     @commethod(3)
     def UpdateStatus(self, percentComplete: Int16, statusMessage: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def TaskCompleted(self, taskErrCode: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskNamedValueCollection(c_void_p):
+class ITaskNamedValueCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('b4ef826b-63c3-46e4-a5-04-ef-69-e4-f7-ea-4d')
     @commethod(7)
@@ -711,7 +711,7 @@ class ITaskNamedValueCollection(c_void_p):
     def Remove(self, index: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskNamedValuePair(c_void_p):
+class ITaskNamedValuePair(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('39038068-2b46-4afd-86-62-7b-b6-f8-68-d2-21')
     @commethod(7)
@@ -722,7 +722,7 @@ class ITaskNamedValuePair(c_void_p):
     def get_Value(self, pValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def put_Value(self, value: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskScheduler(c_void_p):
+class ITaskScheduler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('148bd527-a2ab-11ce-b1-1f-00-aa-00-53-05-03')
     @commethod(3)
@@ -741,7 +741,7 @@ class ITaskScheduler(c_void_p):
     def AddWorkItem(self, pwszTaskName: Windows.Win32.Foundation.PWSTR, pWorkItem: Windows.Win32.System.TaskScheduler.IScheduledWorkItem_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def IsOfType(self, pwszName: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskService(c_void_p):
+class ITaskService(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2faba4c7-4da9-4013-96-97-20-cc-3f-d4-0f-85')
     @commethod(7)
@@ -762,7 +762,7 @@ class ITaskService(c_void_p):
     def get_ConnectedDomain(self, pDomain: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_HighestVersion(self, pVersion: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskSettings(c_void_p):
+class ITaskSettings(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('8fd4711d-2d02-4c8c-87-e3-ef-f6-99-de-12-7e')
     @commethod(7)
@@ -845,7 +845,7 @@ class ITaskSettings(c_void_p):
     def get_NetworkSettings(self, ppNetworkSettings: POINTER(Windows.Win32.System.TaskScheduler.INetworkSettings_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(46)
     def put_NetworkSettings(self, pNetworkSettings: Windows.Win32.System.TaskScheduler.INetworkSettings_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskSettings2(c_void_p):
+class ITaskSettings2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2c05c3f0-6eed-4c05-a1-5f-ed-7d-7a-98-a3-69')
     @commethod(7)
@@ -856,7 +856,7 @@ class ITaskSettings2(c_void_p):
     def get_UseUnifiedSchedulingEngine(self, pUseUnifiedEngine: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def put_UseUnifiedSchedulingEngine(self, useUnifiedEngine: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskSettings3(c_void_p):
+class ITaskSettings3(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.ITaskSettings
     Guid = Guid('0ad9d0d7-0c7f-4ebb-9a-5f-d1-c6-48-dc-a5-28')
     @commethod(47)
@@ -877,7 +877,7 @@ class ITaskSettings3(c_void_p):
     def get_Volatile(self, pVolatile: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(55)
     def put_Volatile(self, Volatile: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskTrigger(c_void_p):
+class ITaskTrigger(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('148bd52b-a2ab-11ce-b1-1f-00-aa-00-53-05-03')
     @commethod(3)
@@ -886,7 +886,7 @@ class ITaskTrigger(c_void_p):
     def GetTrigger(self, pTrigger: POINTER(Windows.Win32.System.TaskScheduler.TASK_TRIGGER_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetTriggerString(self, ppwszTrigger: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskVariables(c_void_p):
+class ITaskVariables(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3e4c9351-d966-4b8b-bb-87-ce-ba-68-bb-01-07')
     @commethod(3)
@@ -895,14 +895,14 @@ class ITaskVariables(c_void_p):
     def SetOutput(self, input: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetContext(self, pContext: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITimeTrigger(c_void_p):
+class ITimeTrigger(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.ITrigger
     Guid = Guid('b45747e0-eba7-4276-9f-29-85-c5-bb-30-00-06')
     @commethod(20)
     def get_RandomDelay(self, pRandomDelay: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def put_RandomDelay(self, randomDelay: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ITrigger(c_void_p):
+class ITrigger(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('09941815-ea89-4b5b-89-e0-2a-77-38-01-fa-c3')
     @commethod(7)
@@ -931,7 +931,7 @@ class ITrigger(c_void_p):
     def get_Enabled(self, pEnabled: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def put_Enabled(self, enabled: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class ITriggerCollection(c_void_p):
+class ITriggerCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('85df5081-1b24-4f32-87-8a-d9-d1-4d-f4-cb-77')
     @commethod(7)
@@ -946,7 +946,7 @@ class ITriggerCollection(c_void_p):
     def Remove(self, index: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IWeeklyTrigger(c_void_p):
+class IWeeklyTrigger(ComPtr):
     extends: Windows.Win32.System.TaskScheduler.ITrigger
     Guid = Guid('5038fc98-82ff-436d-87-28-a5-12-a5-7c-9d-c1')
     @commethod(20)

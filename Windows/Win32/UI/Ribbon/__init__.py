@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.System.Com
@@ -19,7 +19,7 @@ def __getattr__(name):
 UI_ALL_COMMANDS: UInt32 = 0
 UI_COLLECTION_INVALIDINDEX: UInt32 = 4294967295
 LIBID_UIRibbon: Guid = Guid('942f35c2-e83b-45ef-b0-85-ac-29-5d-d6-3d-5b')
-class IUIApplication(c_void_p):
+class IUIApplication(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d428903c-729a-491d-91-0d-68-2a-08-ff-25-22')
     @commethod(3)
@@ -28,7 +28,7 @@ class IUIApplication(c_void_p):
     def OnCreateUICommand(self, commandId: UInt32, typeID: Windows.Win32.UI.Ribbon.UI_COMMANDTYPE, commandHandler: POINTER(Windows.Win32.UI.Ribbon.IUICommandHandler_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnDestroyUICommand(self, commandId: UInt32, typeID: Windows.Win32.UI.Ribbon.UI_COMMANDTYPE, commandHandler: Windows.Win32.UI.Ribbon.IUICommandHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IUICollection(c_void_p):
+class IUICollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('df4f45bf-6f9d-4dd7-9d-68-d8-f9-cd-18-c4-db')
     @commethod(3)
@@ -45,34 +45,34 @@ class IUICollection(c_void_p):
     def Replace(self, indexReplaced: UInt32, itemReplaceWith: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IUICollectionChangedEvent(c_void_p):
+class IUICollectionChangedEvent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6502ae91-a14d-44b5-bb-d0-62-aa-cc-58-1d-52')
     @commethod(3)
     def OnChanged(self, action: Windows.Win32.UI.Ribbon.UI_COLLECTIONCHANGE, oldIndex: UInt32, oldItem: Windows.Win32.System.Com.IUnknown_head, newIndex: UInt32, newItem: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IUICommandHandler(c_void_p):
+class IUICommandHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('75ae0a2d-dc03-4c9f-88-83-06-96-60-d0-be-b6')
     @commethod(3)
     def Execute(self, commandId: UInt32, verb: Windows.Win32.UI.Ribbon.UI_EXECUTIONVERB, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), currentValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), commandExecutionProperties: Windows.Win32.UI.Ribbon.IUISimplePropertySet_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UpdateProperty(self, commandId: UInt32, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), currentValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), newValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIContextualUI(c_void_p):
+class IUIContextualUI(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('eea11f37-7c46-437c-8e-55-b5-21-22-b2-92-93')
     @commethod(3)
     def ShowAtLocation(self, x: Int32, y: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIEventLogger(c_void_p):
+class IUIEventLogger(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ec3e1034-dbf4-41a1-95-d5-03-e0-f1-02-6e-05')
     @commethod(3)
     def OnUIEvent(self, pEventParams: POINTER(Windows.Win32.UI.Ribbon.UI_EVENTPARAMS_head)) -> Void: ...
-class IUIEventingManager(c_void_p):
+class IUIEventingManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3be6ea7f-9a9b-4198-93-68-9b-0f-92-3b-d5-34')
     @commethod(3)
     def SetEventLogger(self, eventLogger: Windows.Win32.UI.Ribbon.IUIEventLogger_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIFramework(c_void_p):
+class IUIFramework(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f4f0385d-6872-43a8-ad-09-4c-33-9c-b3-f5-c5')
     @commethod(3)
@@ -93,17 +93,17 @@ class IUIFramework(c_void_p):
     def FlushPendingInvalidations(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def SetModes(self, iModes: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIImage(c_void_p):
+class IUIImage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('23c8c838-4de6-436b-ab-01-55-54-bb-7c-30-dd')
     @commethod(3)
     def GetBitmap(self, bitmap: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIImageFromBitmap(c_void_p):
+class IUIImageFromBitmap(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('18aba7f3-4c1c-4ba2-bf-6c-f5-c3-32-6f-a8-16')
     @commethod(3)
     def CreateImage(self, bitmap: Windows.Win32.Graphics.Gdi.HBITMAP, options: Windows.Win32.UI.Ribbon.UI_OWNERSHIP, image: POINTER(Windows.Win32.UI.Ribbon.IUIImage_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIRibbon(c_void_p):
+class IUIRibbon(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('803982ab-370a-4f7e-a9-e7-87-84-03-6a-6e-26')
     @commethod(3)
@@ -112,7 +112,7 @@ class IUIRibbon(c_void_p):
     def LoadSettingsFromStream(self, pStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SaveSettingsToStream(self, pStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IUISimplePropertySet(c_void_p):
+class IUISimplePropertySet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c205bb48-5b1c-4219-a1-06-15-bd-0a-5f-24-e2')
     @commethod(3)

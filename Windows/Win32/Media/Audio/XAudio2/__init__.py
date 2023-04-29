@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Media.Audio
 import Windows.Win32.Media.Audio.XAudio2
@@ -321,7 +321,7 @@ class HrtfPosition(EasyCastStructure):
     x: Single
     y: Single
     z: Single
-class IXAPO(c_void_p):
+class IXAPO(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a410b984-9839-4819-a0-be-28-56-ae-6b-3a-db')
     @commethod(3)
@@ -344,7 +344,7 @@ class IXAPO(c_void_p):
     def CalcInputFrames(self, OutputFrameCount: UInt32) -> UInt32: ...
     @commethod(12)
     def CalcOutputFrames(self, InputFrameCount: UInt32) -> UInt32: ...
-class IXAPOHrtfParameters(c_void_p):
+class IXAPOHrtfParameters(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('15b3cd66-e9de-4464-b6-e6-2b-c3-cf-63-d4-55')
     @commethod(3)
@@ -355,14 +355,14 @@ class IXAPOHrtfParameters(c_void_p):
     def SetSourceGain(self, gain: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetEnvironment(self, environment: Windows.Win32.Media.Audio.XAudio2.HrtfEnvironment) -> Windows.Win32.Foundation.HRESULT: ...
-class IXAPOParameters(c_void_p):
+class IXAPOParameters(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('26d95c66-80f2-499a-ad-54-5a-e7-f0-1c-6d-98')
     @commethod(3)
     def SetParameters(self, pParameters: c_void_p, ParameterByteSize: UInt32) -> Void: ...
     @commethod(4)
     def GetParameters(self, pParameters: c_void_p, ParameterByteSize: UInt32) -> Void: ...
-class IXAudio2(c_void_p):
+class IXAudio2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2b02e3cf-2e0b-4ec3-be-45-1b-2a-3f-e7-21-0d')
     @commethod(3)
@@ -385,7 +385,7 @@ class IXAudio2(c_void_p):
     def GetPerformanceData(self, pPerfData: POINTER(Windows.Win32.Media.Audio.XAudio2.XAUDIO2_PERFORMANCE_DATA_head)) -> Void: ...
     @commethod(12)
     def SetDebugConfiguration(self, pDebugConfiguration: POINTER(Windows.Win32.Media.Audio.XAudio2.XAUDIO2_DEBUG_CONFIGURATION_head), pReserved: c_void_p) -> Void: ...
-class IXAudio2EngineCallback(c_void_p):
+class IXAudio2EngineCallback(ComPtr):
     extends: None
     @commethod(0)
     def OnProcessingPassStart(self) -> Void: ...
@@ -393,18 +393,18 @@ class IXAudio2EngineCallback(c_void_p):
     def OnProcessingPassEnd(self) -> Void: ...
     @commethod(2)
     def OnCriticalError(self, Error: Windows.Win32.Foundation.HRESULT) -> Void: ...
-class IXAudio2Extension(c_void_p):
+class IXAudio2Extension(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('84ac29bb-d619-44d2-b1-97-e4-ac-f7-df-3e-d6')
     @commethod(3)
     def GetProcessingQuantum(self, quantumNumerator: POINTER(UInt32), quantumDenominator: POINTER(UInt32)) -> Void: ...
     @commethod(4)
     def GetProcessor(self, processor: POINTER(UInt32)) -> Void: ...
-class IXAudio2MasteringVoice(c_void_p):
+class IXAudio2MasteringVoice(ComPtr):
     extends: Windows.Win32.Media.Audio.XAudio2.IXAudio2Voice
     @commethod(19)
     def GetChannelMask(self, pChannelmask: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXAudio2SourceVoice(c_void_p):
+class IXAudio2SourceVoice(ComPtr):
     extends: Windows.Win32.Media.Audio.XAudio2.IXAudio2Voice
     @commethod(19)
     def Start(self, Flags: UInt32, OperationSet: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
@@ -426,9 +426,9 @@ class IXAudio2SourceVoice(c_void_p):
     def GetFrequencyRatio(self, pRatio: POINTER(Single)) -> Void: ...
     @commethod(28)
     def SetSourceSampleRate(self, NewSourceSampleRate: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IXAudio2SubmixVoice(c_void_p):
+class IXAudio2SubmixVoice(ComPtr):
     extends: Windows.Win32.Media.Audio.XAudio2.IXAudio2Voice
-class IXAudio2Voice(c_void_p):
+class IXAudio2Voice(ComPtr):
     extends: None
     @commethod(0)
     def GetVoiceDetails(self, pVoiceDetails: POINTER(Windows.Win32.Media.Audio.XAudio2.XAUDIO2_VOICE_DETAILS_head)) -> Void: ...
@@ -468,7 +468,7 @@ class IXAudio2Voice(c_void_p):
     def GetOutputMatrix(self, pDestinationVoice: Windows.Win32.Media.Audio.XAudio2.IXAudio2Voice_head, SourceChannels: UInt32, DestinationChannels: UInt32, pLevelMatrix: POINTER(Single)) -> Void: ...
     @commethod(18)
     def DestroyVoice(self) -> Void: ...
-class IXAudio2VoiceCallback(c_void_p):
+class IXAudio2VoiceCallback(ComPtr):
     extends: None
     @commethod(0)
     def OnVoiceProcessingPassStart(self, BytesRequired: UInt32) -> Void: ...

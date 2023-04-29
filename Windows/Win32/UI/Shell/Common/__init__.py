@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.UI.Shell.Common
@@ -41,14 +41,14 @@ SCALE_350_PERCENT: DEVICE_SCALE_FACTOR = 350
 SCALE_400_PERCENT: DEVICE_SCALE_FACTOR = 400
 SCALE_450_PERCENT: DEVICE_SCALE_FACTOR = 450
 SCALE_500_PERCENT: DEVICE_SCALE_FACTOR = 500
-class IObjectArray(c_void_p):
+class IObjectArray(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('92ca9dcd-5622-4bba-a8-05-5e-9f-54-1b-d8-c9')
     @commethod(3)
     def GetCount(self, pcObjects: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAt(self, uiIndex: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectCollection(c_void_p):
+class IObjectCollection(ComPtr):
     extends: Windows.Win32.UI.Shell.Common.IObjectArray
     Guid = Guid('5632b1a4-e38a-400a-92-8a-d4-cd-63-23-02-95')
     @commethod(5)

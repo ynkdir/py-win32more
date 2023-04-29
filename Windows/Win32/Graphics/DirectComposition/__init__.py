@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Direct2D.Common
 import Windows.Win32.Graphics.Direct3D
@@ -105,7 +105,7 @@ class DCompositionInkTrailPoint(EasyCastStructure):
     x: Single
     y: Single
     radius: Single
-class IDCompositionAffineTransform2DEffect(c_void_p):
+class IDCompositionAffineTransform2DEffect(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionFilterEffect
     Guid = Guid('0b74b9e8-cdd6-492f-bb-bc-5e-d3-21-57-02-6d')
     @commethod(4)
@@ -122,7 +122,7 @@ class IDCompositionAffineTransform2DEffect(c_void_p):
     def SetSharpness(self, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def SetSharpness(self, sharpness: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionAnimation(c_void_p):
+class IDCompositionAnimation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cbfd91d9-51b2-45e4-b3-de-d1-9c-cf-b8-63-c5')
     @commethod(3)
@@ -137,7 +137,7 @@ class IDCompositionAnimation(c_void_p):
     def AddRepeat(self, beginOffset: Double, durationToRepeat: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def End(self, endOffset: Double, endValue: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionArithmeticCompositeEffect(c_void_p):
+class IDCompositionArithmeticCompositeEffect(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionFilterEffect
     Guid = Guid('3b67dfa8-e3dd-4e61-b6-40-46-c2-f3-d7-39-dc')
     @commethod(4)
@@ -160,12 +160,12 @@ class IDCompositionArithmeticCompositeEffect(c_void_p):
     def SetCoefficient4(self, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def SetCoefficient4(self, Coefficient4: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionBlendEffect(c_void_p):
+class IDCompositionBlendEffect(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionFilterEffect
     Guid = Guid('33ecdc0a-578a-4a11-9c-14-0c-b9-05-17-f9-c5')
     @commethod(4)
     def SetMode(self, mode: Windows.Win32.Graphics.Direct2D.Common.D2D1_BLEND_MODE) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionBrightnessEffect(c_void_p):
+class IDCompositionBrightnessEffect(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionFilterEffect
     Guid = Guid('6027496e-cb3a-49ab-93-4f-d7-98-da-4f-7d-a6')
     @commethod(4)
@@ -188,10 +188,10 @@ class IDCompositionBrightnessEffect(c_void_p):
     def SetBlackPointY(self, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def SetBlackPointY(self, blackPointY: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionClip(c_void_p):
+class IDCompositionClip(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('64ac3703-9d3f-45ec-a1-09-7c-ac-0e-7a-13-a7')
-class IDCompositionColorMatrixEffect(c_void_p):
+class IDCompositionColorMatrixEffect(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionFilterEffect
     Guid = Guid('c1170a22-3ce2-4966-90-d4-55-40-8b-fc-84-c4')
     @commethod(4)
@@ -204,12 +204,12 @@ class IDCompositionColorMatrixEffect(c_void_p):
     def SetAlphaMode(self, mode: Windows.Win32.Graphics.Direct2D.Common.D2D1_COLORMATRIX_ALPHA_MODE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def SetClampOutput(self, clamp: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionCompositeEffect(c_void_p):
+class IDCompositionCompositeEffect(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionFilterEffect
     Guid = Guid('576616c0-a231-494d-a3-8d-00-fd-5e-c4-db-46')
     @commethod(4)
     def SetMode(self, mode: Windows.Win32.Graphics.Direct2D.Common.D2D1_COMPOSITE_MODE) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionDelegatedInkTrail(c_void_p):
+class IDCompositionDelegatedInkTrail(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c2448e9b-547d-4057-8c-f5-81-44-ed-e1-c2-da')
     @commethod(3)
@@ -220,7 +220,7 @@ class IDCompositionDelegatedInkTrail(c_void_p):
     def RemoveTrailPoints(self, generationId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def StartNewTrail(self, color: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D1_COLOR_F_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionDesktopDevice(c_void_p):
+class IDCompositionDesktopDevice(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionDevice2
     Guid = Guid('5f4633fe-1e08-4cb8-8c-75-ce-24-33-3f-56-02')
     @commethod(24)
@@ -229,7 +229,7 @@ class IDCompositionDesktopDevice(c_void_p):
     def CreateSurfaceFromHandle(self, handle: Windows.Win32.Foundation.HANDLE, surface: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def CreateSurfaceFromHwnd(self, hwnd: Windows.Win32.Foundation.HWND, surface: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionDevice(c_void_p):
+class IDCompositionDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c37ea93a-e7aa-450d-b1-6f-97-46-cb-04-07-f3')
     @commethod(3)
@@ -280,7 +280,7 @@ class IDCompositionDevice(c_void_p):
     def CreateAnimation(self, animation: POINTER(Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def CheckDeviceState(self, pfValid: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionDevice2(c_void_p):
+class IDCompositionDevice2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('75f6468d-1b8e-447c-9b-c6-75-fe-a8-0b-5b-25')
     @commethod(3)
@@ -325,7 +325,7 @@ class IDCompositionDevice2(c_void_p):
     def CreateRectangleClip(self, clip: POINTER(Windows.Win32.Graphics.DirectComposition.IDCompositionRectangleClip_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def CreateAnimation(self, animation: POINTER(Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionDevice3(c_void_p):
+class IDCompositionDevice3(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionDevice2
     Guid = Guid('0987cb06-f916-48bf-8d-35-ce-76-41-78-1b-d9')
     @commethod(24)
@@ -354,17 +354,17 @@ class IDCompositionDevice3(c_void_p):
     def CreateArithmeticCompositeEffect(self, arithmeticCompositeEffect: POINTER(Windows.Win32.Graphics.DirectComposition.IDCompositionArithmeticCompositeEffect_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(36)
     def CreateAffineTransform2DEffect(self, affineTransform2dEffect: POINTER(Windows.Win32.Graphics.DirectComposition.IDCompositionAffineTransform2DEffect_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionDeviceDebug(c_void_p):
+class IDCompositionDeviceDebug(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a1a3c64a-224f-4a81-97-73-4f-03-a8-9d-3c-6c')
     @commethod(3)
     def EnableDebugCounters(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def DisableDebugCounters(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionEffect(c_void_p):
+class IDCompositionEffect(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ec81b08f-bfcb-4e8d-b1-93-a9-15-58-79-99-e8')
-class IDCompositionEffectGroup(c_void_p):
+class IDCompositionEffectGroup(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionEffect
     Guid = Guid('a7929a74-e6b2-4bd6-8b-95-40-40-11-9c-a3-4d')
     @commethod(3)
@@ -373,12 +373,12 @@ class IDCompositionEffectGroup(c_void_p):
     def SetOpacity(self, opacity: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetTransform3D(self, transform3D: Windows.Win32.Graphics.DirectComposition.IDCompositionTransform3D_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionFilterEffect(c_void_p):
+class IDCompositionFilterEffect(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionEffect
     Guid = Guid('30c421d5-8cb2-4e9f-b1-33-37-be-27-0d-4a-c2')
     @commethod(3)
     def SetInput(self, index: UInt32, input: Windows.Win32.System.Com.IUnknown_head, flags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionGaussianBlurEffect(c_void_p):
+class IDCompositionGaussianBlurEffect(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionFilterEffect
     Guid = Guid('45d4d0b7-1bd4-454e-88-94-2b-fa-68-44-30-33')
     @commethod(4)
@@ -387,21 +387,21 @@ class IDCompositionGaussianBlurEffect(c_void_p):
     def SetStandardDeviation(self, amount: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetBorderMode(self, mode: Windows.Win32.Graphics.Direct2D.Common.D2D1_BORDER_MODE) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionHueRotationEffect(c_void_p):
+class IDCompositionHueRotationEffect(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionFilterEffect
     Guid = Guid('6db9f920-0770-4781-b0-c6-38-19-12-f9-d1-67')
     @commethod(4)
     def SetAngle(self, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetAngle(self, amountDegrees: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionInkTrailDevice(c_void_p):
+class IDCompositionInkTrailDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('df0c7cec-cdeb-4d4a-b9-1c-72-1b-f2-2f-4e-6c')
     @commethod(3)
     def CreateDelegatedInkTrail(self, inkTrail: POINTER(Windows.Win32.Graphics.DirectComposition.IDCompositionDelegatedInkTrail_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CreateDelegatedInkTrailForSwapChain(self, swapChain: Windows.Win32.System.Com.IUnknown_head, inkTrail: POINTER(Windows.Win32.Graphics.DirectComposition.IDCompositionDelegatedInkTrail_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionLinearTransferEffect(c_void_p):
+class IDCompositionLinearTransferEffect(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionFilterEffect
     Guid = Guid('4305ee5b-c4a0-4c88-93-85-67-12-4e-01-76-83')
     @commethod(4)
@@ -446,7 +446,7 @@ class IDCompositionLinearTransferEffect(c_void_p):
     def SetAlphaDisable(self, alphaDisable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
     def SetClampOutput(self, clampOutput: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionMatrixTransform(c_void_p):
+class IDCompositionMatrixTransform(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionTransform
     Guid = Guid('16cdff07-c503-419c-83-f2-09-65-c7-af-1f-a6')
     @commethod(3)
@@ -455,7 +455,7 @@ class IDCompositionMatrixTransform(c_void_p):
     def SetMatrixElement(self, row: Int32, column: Int32, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetMatrixElement(self, row: Int32, column: Int32, value: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionMatrixTransform3D(c_void_p):
+class IDCompositionMatrixTransform3D(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionTransform3D
     Guid = Guid('4b3363f0-643b-41b7-b6-e0-cc-f2-2d-34-46-7c')
     @commethod(3)
@@ -464,7 +464,7 @@ class IDCompositionMatrixTransform3D(c_void_p):
     def SetMatrixElement(self, row: Int32, column: Int32, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetMatrixElement(self, row: Int32, column: Int32, value: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionRectangleClip(c_void_p):
+class IDCompositionRectangleClip(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionClip
     Guid = Guid('9842ad7d-d9cf-4908-ae-d7-48-b5-1d-a5-e7-c2')
     @commethod(3)
@@ -515,7 +515,7 @@ class IDCompositionRectangleClip(c_void_p):
     def SetBottomRightRadiusY(self, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def SetBottomRightRadiusY(self, radius: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionRotateTransform(c_void_p):
+class IDCompositionRotateTransform(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionTransform
     Guid = Guid('641ed83c-ae96-46c5-90-dc-32-77-4c-c5-c6-d5')
     @commethod(3)
@@ -530,7 +530,7 @@ class IDCompositionRotateTransform(c_void_p):
     def SetCenterY(self, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def SetCenterY(self, centerY: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionRotateTransform3D(c_void_p):
+class IDCompositionRotateTransform3D(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionTransform3D
     Guid = Guid('d8f5b23f-d429-4a91-b5-5a-d2-f4-5f-d7-5b-18')
     @commethod(3)
@@ -561,14 +561,14 @@ class IDCompositionRotateTransform3D(c_void_p):
     def SetCenterZ(self, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def SetCenterZ(self, centerZ: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionSaturationEffect(c_void_p):
+class IDCompositionSaturationEffect(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionFilterEffect
     Guid = Guid('a08debda-3258-4fa4-9f-16-91-74-d3-fe-93-b1')
     @commethod(4)
     def SetSaturation(self, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetSaturation(self, ratio: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionScaleTransform(c_void_p):
+class IDCompositionScaleTransform(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionTransform
     Guid = Guid('71fde914-40ef-45ef-bd-51-68-b0-37-c3-39-f9')
     @commethod(3)
@@ -587,7 +587,7 @@ class IDCompositionScaleTransform(c_void_p):
     def SetCenterY(self, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def SetCenterY(self, centerY: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionScaleTransform3D(c_void_p):
+class IDCompositionScaleTransform3D(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionTransform3D
     Guid = Guid('2a9e9ead-364b-4b15-a7-c4-a1-99-7f-78-b3-89')
     @commethod(3)
@@ -614,7 +614,7 @@ class IDCompositionScaleTransform3D(c_void_p):
     def SetCenterZ(self, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def SetCenterZ(self, centerZ: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionShadowEffect(c_void_p):
+class IDCompositionShadowEffect(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionFilterEffect
     Guid = Guid('4ad18ac0-cfd2-4c2f-bb-62-96-e5-4f-db-68-79')
     @commethod(4)
@@ -639,7 +639,7 @@ class IDCompositionShadowEffect(c_void_p):
     def SetAlpha(self, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def SetAlpha(self, amount: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionSkewTransform(c_void_p):
+class IDCompositionSkewTransform(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionTransform
     Guid = Guid('e57aa735-dcdb-4c72-9c-61-05-91-f5-88-89-ee')
     @commethod(3)
@@ -658,7 +658,7 @@ class IDCompositionSkewTransform(c_void_p):
     def SetCenterY(self, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def SetCenterY(self, centerY: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionSurface(c_void_p):
+class IDCompositionSurface(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bb8a4953-2c99-4f5a-96-f5-48-19-02-7f-a3-ac')
     @commethod(3)
@@ -671,14 +671,14 @@ class IDCompositionSurface(c_void_p):
     def ResumeDraw(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Scroll(self, scrollRect: POINTER(Windows.Win32.Foundation.RECT_head), clipRect: POINTER(Windows.Win32.Foundation.RECT_head), offsetX: Int32, offsetY: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionSurfaceFactory(c_void_p):
+class IDCompositionSurfaceFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e334bc12-3937-4e02-85-eb-fc-f4-eb-30-d2-c8')
     @commethod(3)
     def CreateSurface(self, width: UInt32, height: UInt32, pixelFormat: Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT, alphaMode: Windows.Win32.Graphics.Dxgi.Common.DXGI_ALPHA_MODE, surface: POINTER(Windows.Win32.Graphics.DirectComposition.IDCompositionSurface_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CreateVirtualSurface(self, initialWidth: UInt32, initialHeight: UInt32, pixelFormat: Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT, alphaMode: Windows.Win32.Graphics.Dxgi.Common.DXGI_ALPHA_MODE, virtualSurface: POINTER(Windows.Win32.Graphics.DirectComposition.IDCompositionVirtualSurface_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionTableTransferEffect(c_void_p):
+class IDCompositionTableTransferEffect(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionFilterEffect
     Guid = Guid('9b7e82e2-69c5-4eb4-a5-f5-a7-03-3f-51-32-cd')
     @commethod(4)
@@ -715,18 +715,18 @@ class IDCompositionTableTransferEffect(c_void_p):
     def SetAlphaTableValue(self, index: UInt32, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def SetAlphaTableValue(self, index: UInt32, value: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionTarget(c_void_p):
+class IDCompositionTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('eacdd04c-117e-4e17-88-f4-d1-b1-2b-0e-3d-89')
     @commethod(3)
     def SetRoot(self, visual: Windows.Win32.Graphics.DirectComposition.IDCompositionVisual_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionTransform(c_void_p):
+class IDCompositionTransform(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionTransform3D
     Guid = Guid('fd55faa7-37e0-4c20-95-d2-9b-e4-5b-c3-3f-55')
-class IDCompositionTransform3D(c_void_p):
+class IDCompositionTransform3D(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionEffect
     Guid = Guid('71185722-246b-41f2-aa-d1-04-43-f7-f4-bf-c2')
-class IDCompositionTranslateTransform(c_void_p):
+class IDCompositionTranslateTransform(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionTransform
     Guid = Guid('06791122-c6f0-417d-83-23-26-9e-98-7f-59-54')
     @commethod(3)
@@ -737,7 +737,7 @@ class IDCompositionTranslateTransform(c_void_p):
     def SetOffsetY(self, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetOffsetY(self, offsetY: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionTranslateTransform3D(c_void_p):
+class IDCompositionTranslateTransform3D(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionTransform3D
     Guid = Guid('91636d4b-9ba1-4532-aa-f7-e3-34-49-94-d7-88')
     @commethod(3)
@@ -752,7 +752,7 @@ class IDCompositionTranslateTransform3D(c_void_p):
     def SetOffsetZ(self, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def SetOffsetZ(self, offsetZ: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionTurbulenceEffect(c_void_p):
+class IDCompositionTurbulenceEffect(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionFilterEffect
     Guid = Guid('a6a55bda-c09c-49f3-91-93-a4-19-22-c8-97-15')
     @commethod(4)
@@ -769,14 +769,14 @@ class IDCompositionTurbulenceEffect(c_void_p):
     def SetNoise(self, noise: Windows.Win32.Graphics.Direct2D.Common.D2D1_TURBULENCE_NOISE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def SetStitchable(self, stitchable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionVirtualSurface(c_void_p):
+class IDCompositionVirtualSurface(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionSurface
     Guid = Guid('ae471c51-5f53-4a24-8d-3e-d0-c3-9c-30-b3-f0')
     @commethod(8)
     def Resize(self, width: UInt32, height: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Trim(self, rectangles: POINTER(Windows.Win32.Foundation.RECT_head), count: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionVisual(c_void_p):
+class IDCompositionVisual(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4d93059d-097b-4651-9a-60-f0-f2-51-16-e2-f3')
     @commethod(3)
@@ -813,14 +813,14 @@ class IDCompositionVisual(c_void_p):
     def RemoveAllVisuals(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def SetCompositeMode(self, compositeMode: Windows.Win32.Graphics.DirectComposition.DCOMPOSITION_COMPOSITE_MODE) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionVisual2(c_void_p):
+class IDCompositionVisual2(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionVisual
     Guid = Guid('e8de1639-4331-4b26-bc-5f-6a-32-1d-34-7a-85')
     @commethod(20)
     def SetOpacityMode(self, mode: Windows.Win32.Graphics.DirectComposition.DCOMPOSITION_OPACITY_MODE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def SetBackFaceVisibility(self, visibility: Windows.Win32.Graphics.DirectComposition.DCOMPOSITION_BACKFACE_VISIBILITY) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionVisual3(c_void_p):
+class IDCompositionVisual3(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionVisualDebug
     Guid = Guid('2775f462-b6c1-4015-b0-be-b3-e7-d6-a4-97-6d')
     @commethod(26)
@@ -839,7 +839,7 @@ class IDCompositionVisual3(c_void_p):
     def SetTransform(self, matrix: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_MATRIX_4X4_F_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(33)
     def SetVisible(self, visible: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCompositionVisualDebug(c_void_p):
+class IDCompositionVisualDebug(ComPtr):
     extends: Windows.Win32.Graphics.DirectComposition.IDCompositionVisual2
     Guid = Guid('fed2b808-5eb4-43a0-ae-a3-35-f6-52-80-f9-1b')
     @commethod(22)

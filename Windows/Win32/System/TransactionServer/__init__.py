@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.TransactionServer
@@ -17,7 +17,7 @@ Catalog = Guid('6eb22881-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
 CatalogCollection = Guid('6eb22883-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
 CatalogObject = Guid('6eb22882-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
 ComponentUtil = Guid('6eb22884-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
-class ICatalog(c_void_p):
+class ICatalog(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('6eb22870-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
     @commethod(7)
@@ -28,7 +28,7 @@ class ICatalog(c_void_p):
     def get_MajorVersion(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_MinorVersion(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IComponentUtil(c_void_p):
+class IComponentUtil(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('6eb22873-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
     @commethod(7)
@@ -39,7 +39,7 @@ class IComponentUtil(c_void_p):
     def ImportComponentByName(self, bstrProgID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetCLSIDs(self, bstrDLLFile: Windows.Win32.Foundation.BSTR, bstrTypelibFile: Windows.Win32.Foundation.BSTR, aCLSIDs: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IPackageUtil(c_void_p):
+class IPackageUtil(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('6eb22874-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
     @commethod(7)
@@ -48,14 +48,14 @@ class IPackageUtil(c_void_p):
     def ExportPackage(self, bstrPackageID: Windows.Win32.Foundation.BSTR, bstrPackageFile: Windows.Win32.Foundation.BSTR, lOptions: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def ShutdownPackage(self, bstrPackageID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IRemoteComponentUtil(c_void_p):
+class IRemoteComponentUtil(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('6eb22875-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
     @commethod(7)
     def InstallRemoteComponent(self, bstrServer: Windows.Win32.Foundation.BSTR, bstrPackageID: Windows.Win32.Foundation.BSTR, bstrCLSID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def InstallRemoteComponentByName(self, bstrServer: Windows.Win32.Foundation.BSTR, bstrPackageName: Windows.Win32.Foundation.BSTR, bstrProgID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IRoleAssociationUtil(c_void_p):
+class IRoleAssociationUtil(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('6eb22876-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
     @commethod(7)

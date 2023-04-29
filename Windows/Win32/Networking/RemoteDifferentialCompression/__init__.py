@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Networking.RemoteDifferentialCompression
 import Windows.Win32.System.Com
@@ -44,19 +44,19 @@ FindSimilarResults = Guid('96236a93-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
 GeneratorParametersType = Int32
 RDCGENTYPE_Unused: GeneratorParametersType = 0
 RDCGENTYPE_FilterMax: GeneratorParametersType = 1
-class IFindSimilarResults(c_void_p):
+class IFindSimilarResults(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96236a81-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(3)
     def GetSize(self, size: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetNextFileId(self, numTraitsMatched: POINTER(UInt32), similarityFileId: POINTER(Windows.Win32.Networking.RemoteDifferentialCompression.SimilarityFileId_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRdcComparator(c_void_p):
+class IRdcComparator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96236a77-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(3)
     def Process(self, endOfInput: Windows.Win32.Foundation.BOOL, endOfOutput: POINTER(Windows.Win32.Foundation.BOOL), inputBuffer: POINTER(Windows.Win32.Networking.RemoteDifferentialCompression.RdcBufferPointer_head), outputBuffer: POINTER(Windows.Win32.Networking.RemoteDifferentialCompression.RdcNeedPointer_head), rdc_ErrorCode: POINTER(Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRdcFileReader(c_void_p):
+class IRdcFileReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96236a74-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(3)
@@ -65,7 +65,7 @@ class IRdcFileReader(c_void_p):
     def Read(self, offsetFileStart: UInt64, bytesToRead: UInt32, bytesActuallyRead: POINTER(UInt32), buffer: POINTER(Byte), eof: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetFilePosition(self, offsetFromStart: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRdcFileWriter(c_void_p):
+class IRdcFileWriter(ComPtr):
     extends: Windows.Win32.Networking.RemoteDifferentialCompression.IRdcFileReader
     Guid = Guid('96236a75-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(6)
@@ -74,14 +74,14 @@ class IRdcFileWriter(c_void_p):
     def Truncate(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def DeleteOnClose(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IRdcGenerator(c_void_p):
+class IRdcGenerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96236a73-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(3)
     def GetGeneratorParameters(self, level: UInt32, iGeneratorParameters: POINTER(Windows.Win32.Networking.RemoteDifferentialCompression.IRdcGeneratorParameters_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Process(self, endOfInput: Windows.Win32.Foundation.BOOL, endOfOutput: POINTER(Windows.Win32.Foundation.BOOL), inputBuffer: POINTER(Windows.Win32.Networking.RemoteDifferentialCompression.RdcBufferPointer_head), depth: UInt32, outputBuffers: POINTER(POINTER(Windows.Win32.Networking.RemoteDifferentialCompression.RdcBufferPointer_head)), rdc_ErrorCode: POINTER(Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRdcGeneratorFilterMaxParameters(c_void_p):
+class IRdcGeneratorFilterMaxParameters(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96236a72-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(3)
@@ -92,7 +92,7 @@ class IRdcGeneratorFilterMaxParameters(c_void_p):
     def GetHashWindowSize(self, hashWindowSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetHashWindowSize(self, hashWindowSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IRdcGeneratorParameters(c_void_p):
+class IRdcGeneratorParameters(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96236a71-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(3)
@@ -103,7 +103,7 @@ class IRdcGeneratorParameters(c_void_p):
     def GetSerializeSize(self, size: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Serialize(self, size: UInt32, parametersBlob: POINTER(Byte), bytesWritten: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRdcLibrary(c_void_p):
+class IRdcLibrary(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96236a78-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(3)
@@ -120,21 +120,21 @@ class IRdcLibrary(c_void_p):
     def CreateSignatureReader(self, iFileReader: Windows.Win32.Networking.RemoteDifferentialCompression.IRdcFileReader_head, iSignatureReader: POINTER(Windows.Win32.Networking.RemoteDifferentialCompression.IRdcSignatureReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetRDCVersion(self, currentVersion: POINTER(UInt32), minimumCompatibleAppVersion: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRdcSignatureReader(c_void_p):
+class IRdcSignatureReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96236a76-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(3)
     def ReadHeader(self, rdc_ErrorCode: POINTER(Windows.Win32.Networking.RemoteDifferentialCompression.RDC_ErrorCode)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReadSignatures(self, rdcSignaturePointer: POINTER(Windows.Win32.Networking.RemoteDifferentialCompression.RdcSignaturePointer_head), endOfOutput: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRdcSimilarityGenerator(c_void_p):
+class IRdcSimilarityGenerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96236a80-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(3)
     def EnableSimilarity(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Results(self, similarityData: POINTER(Windows.Win32.Networking.RemoteDifferentialCompression.SimilarityData_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISimilarity(c_void_p):
+class ISimilarity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96236a83-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(3)
@@ -151,7 +151,7 @@ class ISimilarity(c_void_p):
     def CopyAndSwap(self, newSimilarityTables: Windows.Win32.Networking.RemoteDifferentialCompression.ISimilarity_head, reportProgress: Windows.Win32.Networking.RemoteDifferentialCompression.ISimilarityReportProgress_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetRecordCount(self, recordCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISimilarityFileIdTable(c_void_p):
+class ISimilarityFileIdTable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96236a7f-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(3)
@@ -168,17 +168,17 @@ class ISimilarityFileIdTable(c_void_p):
     def Invalidate(self, similarityFileIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetRecordCount(self, recordCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISimilarityReportProgress(c_void_p):
+class ISimilarityReportProgress(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96236a7a-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(3)
     def ReportProgress(self, percentCompleted: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISimilarityTableDumpState(c_void_p):
+class ISimilarityTableDumpState(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96236a7b-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(3)
     def GetNextData(self, resultsSize: UInt32, resultsUsed: POINTER(UInt32), eof: POINTER(Windows.Win32.Foundation.BOOL), results: POINTER(Windows.Win32.Networking.RemoteDifferentialCompression.SimilarityDumpData_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISimilarityTraitsMappedView(c_void_p):
+class ISimilarityTraitsMappedView(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96236a7c-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(3)
@@ -189,7 +189,7 @@ class ISimilarityTraitsMappedView(c_void_p):
     def Get(self, index: UInt64, dirty: Windows.Win32.Foundation.BOOL, numElements: UInt32, viewInfo: POINTER(Windows.Win32.Networking.RemoteDifferentialCompression.SimilarityMappedViewInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetView(self, mappedPageBegin: POINTER(POINTER(Byte)), mappedPageEnd: POINTER(POINTER(Byte))) -> Void: ...
-class ISimilarityTraitsMapping(c_void_p):
+class ISimilarityTraitsMapping(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96236a7d-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(3)
@@ -206,7 +206,7 @@ class ISimilarityTraitsMapping(c_void_p):
     def GetPageSize(self, pageSize: POINTER(UInt32)) -> Void: ...
     @commethod(9)
     def CreateView(self, minimumMappedPages: UInt32, accessMode: Windows.Win32.Networking.RemoteDifferentialCompression.RdcMappingAccessMode, mappedView: POINTER(Windows.Win32.Networking.RemoteDifferentialCompression.ISimilarityTraitsMappedView_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISimilarityTraitsTable(c_void_p):
+class ISimilarityTraitsTable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96236a7e-9dbc-11da-9e-3f-00-11-11-4a-e3-11')
     @commethod(3)

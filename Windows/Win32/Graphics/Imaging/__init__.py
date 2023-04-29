@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Direct2D.Common
 import Windows.Win32.Graphics.Dxgi.Common
@@ -337,7 +337,7 @@ def WICMatchMetadataContent(guidContainerFormat: POINTER(Guid), pguidVendor: POI
 def WICSerializeMetadataContent(guidContainerFormat: POINTER(Guid), pIWriter: Windows.Win32.Graphics.Imaging.IWICMetadataWriter_head, dwPersistOptions: UInt32, pIStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WindowsCodecs.dll')
 def WICGetMetadataContentSize(guidContainerFormat: POINTER(Guid), pIWriter: Windows.Win32.Graphics.Imaging.IWICMetadataWriter_head, pcbSize: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICBitmap(c_void_p):
+class IWICBitmap(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICBitmapSource
     Guid = Guid('00000121-a8f2-4877-ba-0a-fd-2b-66-45-fb-94')
     @commethod(8)
@@ -346,12 +346,12 @@ class IWICBitmap(c_void_p):
     def SetPalette(self, pIPalette: Windows.Win32.Graphics.Imaging.IWICPalette_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def SetResolution(self, dpiX: Double, dpiY: Double) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICBitmapClipper(c_void_p):
+class IWICBitmapClipper(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICBitmapSource
     Guid = Guid('e4fbcf03-223d-4e81-93-33-d6-35-55-6d-d1-b5')
     @commethod(8)
     def Initialize(self, pISource: Windows.Win32.Graphics.Imaging.IWICBitmapSource_head, prc: POINTER(Windows.Win32.Graphics.Imaging.WICRect_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICBitmapCodecInfo(c_void_p):
+class IWICBitmapCodecInfo(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICComponentInfo
     Guid = Guid('e87a44c4-b76e-4c47-8b-09-29-8e-b1-2a-27-14')
     @commethod(11)
@@ -378,12 +378,12 @@ class IWICBitmapCodecInfo(c_void_p):
     def DoesSupportMultiframe(self, pfSupportMultiframe: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def MatchesMimeType(self, wzMimeType: Windows.Win32.Foundation.PWSTR, pfMatches: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICBitmapCodecProgressNotification(c_void_p):
+class IWICBitmapCodecProgressNotification(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('64c1024e-c3cf-4462-80-78-88-c2-b1-1c-46-d9')
     @commethod(3)
     def RegisterProgressNotification(self, pfnProgressNotification: Windows.Win32.Graphics.Imaging.PFNProgressNotification, pvData: c_void_p, dwProgressFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICBitmapDecoder(c_void_p):
+class IWICBitmapDecoder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9edde9e7-8dee-47ea-99-df-e6-fa-f2-ed-44-bf')
     @commethod(3)
@@ -408,7 +408,7 @@ class IWICBitmapDecoder(c_void_p):
     def GetFrameCount(self, pCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetFrame(self, index: UInt32, ppIBitmapFrame: POINTER(Windows.Win32.Graphics.Imaging.IWICBitmapFrameDecode_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICBitmapDecoderInfo(c_void_p):
+class IWICBitmapDecoderInfo(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICBitmapCodecInfo
     Guid = Guid('d8cd007f-d08f-4191-9b-fc-23-6e-a7-f0-e4-b5')
     @commethod(23)
@@ -417,7 +417,7 @@ class IWICBitmapDecoderInfo(c_void_p):
     def MatchesPattern(self, pIStream: Windows.Win32.System.Com.IStream_head, pfMatches: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def CreateInstance(self, ppIBitmapDecoder: POINTER(Windows.Win32.Graphics.Imaging.IWICBitmapDecoder_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICBitmapEncoder(c_void_p):
+class IWICBitmapEncoder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000103-a8f2-4877-ba-0a-fd-2b-66-45-fb-94')
     @commethod(3)
@@ -440,17 +440,17 @@ class IWICBitmapEncoder(c_void_p):
     def Commit(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetMetadataQueryWriter(self, ppIMetadataQueryWriter: POINTER(Windows.Win32.Graphics.Imaging.IWICMetadataQueryWriter_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICBitmapEncoderInfo(c_void_p):
+class IWICBitmapEncoderInfo(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICBitmapCodecInfo
     Guid = Guid('94c9b4ee-a09f-4f92-8a-1e-4a-9b-ce-7e-76-fb')
     @commethod(23)
     def CreateInstance(self, ppIBitmapEncoder: POINTER(Windows.Win32.Graphics.Imaging.IWICBitmapEncoder_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICBitmapFlipRotator(c_void_p):
+class IWICBitmapFlipRotator(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICBitmapSource
     Guid = Guid('5009834f-2d6a-41ce-9e-1b-17-c5-af-f7-a7-82')
     @commethod(8)
     def Initialize(self, pISource: Windows.Win32.Graphics.Imaging.IWICBitmapSource_head, options: Windows.Win32.Graphics.Imaging.WICBitmapTransformOptions) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICBitmapFrameDecode(c_void_p):
+class IWICBitmapFrameDecode(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICBitmapSource
     Guid = Guid('3b16811b-6a43-4ec9-a8-13-3d-93-0c-13-b9-40')
     @commethod(8)
@@ -459,7 +459,7 @@ class IWICBitmapFrameDecode(c_void_p):
     def GetColorContexts(self, cCount: UInt32, ppIColorContexts: POINTER(Windows.Win32.Graphics.Imaging.IWICColorContext_head), pcActualCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetThumbnail(self, ppIThumbnail: POINTER(Windows.Win32.Graphics.Imaging.IWICBitmapSource_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICBitmapFrameEncode(c_void_p):
+class IWICBitmapFrameEncode(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000105-a8f2-4877-ba-0a-fd-2b-66-45-fb-94')
     @commethod(3)
@@ -484,7 +484,7 @@ class IWICBitmapFrameEncode(c_void_p):
     def Commit(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetMetadataQueryWriter(self, ppIMetadataQueryWriter: POINTER(Windows.Win32.Graphics.Imaging.IWICMetadataQueryWriter_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICBitmapLock(c_void_p):
+class IWICBitmapLock(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000123-a8f2-4877-ba-0a-fd-2b-66-45-fb-94')
     @commethod(3)
@@ -495,12 +495,12 @@ class IWICBitmapLock(c_void_p):
     def GetDataPointer(self, pcbBufferSize: POINTER(UInt32), ppbData: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetPixelFormat(self, pPixelFormat: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICBitmapScaler(c_void_p):
+class IWICBitmapScaler(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICBitmapSource
     Guid = Guid('00000302-a8f2-4877-ba-0a-fd-2b-66-45-fb-94')
     @commethod(8)
     def Initialize(self, pISource: Windows.Win32.Graphics.Imaging.IWICBitmapSource_head, uiWidth: UInt32, uiHeight: UInt32, mode: Windows.Win32.Graphics.Imaging.WICBitmapInterpolationMode) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICBitmapSource(c_void_p):
+class IWICBitmapSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000120-a8f2-4877-ba-0a-fd-2b-66-45-fb-94')
     @commethod(3)
@@ -513,7 +513,7 @@ class IWICBitmapSource(c_void_p):
     def CopyPalette(self, pIPalette: Windows.Win32.Graphics.Imaging.IWICPalette_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def CopyPixels(self, prc: POINTER(Windows.Win32.Graphics.Imaging.WICRect_head), cbStride: UInt32, cbBufferSize: UInt32, pbBuffer: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICBitmapSourceTransform(c_void_p):
+class IWICBitmapSourceTransform(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3b16811b-6a43-4ec9-b7-13-3d-5a-0c-13-b9-40')
     @commethod(3)
@@ -524,7 +524,7 @@ class IWICBitmapSourceTransform(c_void_p):
     def GetClosestPixelFormat(self, pguidDstFormat: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def DoesSupportTransform(self, dstTransform: Windows.Win32.Graphics.Imaging.WICBitmapTransformOptions, pfIsSupported: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICColorContext(c_void_p):
+class IWICColorContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3c613a02-34b2-44ea-9a-7c-45-ae-a9-c6-fd-6d')
     @commethod(3)
@@ -539,12 +539,12 @@ class IWICColorContext(c_void_p):
     def GetProfileBytes(self, cbBuffer: UInt32, pbBuffer: POINTER(Byte), pcbActual: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetExifColorSpace(self, pValue: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICColorTransform(c_void_p):
+class IWICColorTransform(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICBitmapSource
     Guid = Guid('b66f034f-d0e2-40ab-b4-36-6d-e3-9e-32-1a-94')
     @commethod(8)
     def Initialize(self, pIBitmapSource: Windows.Win32.Graphics.Imaging.IWICBitmapSource_head, pIContextSource: Windows.Win32.Graphics.Imaging.IWICColorContext_head, pIContextDest: Windows.Win32.Graphics.Imaging.IWICColorContext_head, pixelFmtDest: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICComponentFactory(c_void_p):
+class IWICComponentFactory(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICImagingFactory
     Guid = Guid('412d0c3a-9650-44fa-af-5b-dd-2a-06-c8-e8-fb')
     @commethod(28)
@@ -561,7 +561,7 @@ class IWICComponentFactory(c_void_p):
     def CreateQueryWriterFromBlockWriter(self, pIBlockWriter: Windows.Win32.Graphics.Imaging.IWICMetadataBlockWriter_head, ppIQueryWriter: POINTER(Windows.Win32.Graphics.Imaging.IWICMetadataQueryWriter_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(34)
     def CreateEncoderPropertyBag(self, ppropOptions: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPBAG2_head), cCount: UInt32, ppIPropertyBag: POINTER(Windows.Win32.System.Com.StructuredStorage.IPropertyBag2_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICComponentInfo(c_void_p):
+class IWICComponentInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('23bc3f0a-698b-4357-88-6b-f2-4d-50-67-13-34')
     @commethod(3)
@@ -580,14 +580,14 @@ class IWICComponentInfo(c_void_p):
     def GetSpecVersion(self, cchSpecVersion: UInt32, wzSpecVersion: Windows.Win32.Foundation.PWSTR, pcchActual: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetFriendlyName(self, cchFriendlyName: UInt32, wzFriendlyName: Windows.Win32.Foundation.PWSTR, pcchActual: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICDdsDecoder(c_void_p):
+class IWICDdsDecoder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('409cd537-8532-40cb-97-74-e2-fe-b2-df-4e-9c')
     @commethod(3)
     def GetParameters(self, pParameters: POINTER(Windows.Win32.Graphics.Imaging.WICDdsParameters_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetFrame(self, arrayIndex: UInt32, mipLevel: UInt32, sliceIndex: UInt32, ppIBitmapFrame: POINTER(Windows.Win32.Graphics.Imaging.IWICBitmapFrameDecode_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICDdsEncoder(c_void_p):
+class IWICDdsEncoder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5cacdb4c-407e-41b3-b9-36-d0-f0-10-cd-67-32')
     @commethod(3)
@@ -596,7 +596,7 @@ class IWICDdsEncoder(c_void_p):
     def GetParameters(self, pParameters: POINTER(Windows.Win32.Graphics.Imaging.WICDdsParameters_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CreateNewFrame(self, ppIFrameEncode: POINTER(Windows.Win32.Graphics.Imaging.IWICBitmapFrameEncode_head), pArrayIndex: POINTER(UInt32), pMipLevel: POINTER(UInt32), pSliceIndex: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICDdsFrameDecode(c_void_p):
+class IWICDdsFrameDecode(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3d4c0c61-18a4-41e4-bd-80-48-1a-4f-c9-f4-64')
     @commethod(3)
@@ -605,7 +605,7 @@ class IWICDdsFrameDecode(c_void_p):
     def GetFormatInfo(self, pFormatInfo: POINTER(Windows.Win32.Graphics.Imaging.WICDdsFormatInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CopyBlocks(self, prcBoundsInBlocks: POINTER(Windows.Win32.Graphics.Imaging.WICRect_head), cbStride: UInt32, cbBufferSize: UInt32, pbBuffer: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICDevelopRaw(c_void_p):
+class IWICDevelopRaw(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICBitmapFrameDecode
     Guid = Guid('fbec5e44-f7be-4b65-b7-f8-c0-c8-1f-ef-02-6d')
     @commethod(11)
@@ -672,12 +672,12 @@ class IWICDevelopRaw(c_void_p):
     def GetRenderMode(self, pRenderMode: POINTER(Windows.Win32.Graphics.Imaging.WICRawRenderMode)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(42)
     def SetNotificationCallback(self, pCallback: Windows.Win32.Graphics.Imaging.IWICDevelopRawNotificationCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICDevelopRawNotificationCallback(c_void_p):
+class IWICDevelopRawNotificationCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('95c75a6e-3e8c-4ec2-85-a8-ae-bc-c5-51-e5-9b')
     @commethod(3)
     def Notify(self, NotificationMask: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICEnumMetadataItem(c_void_p):
+class IWICEnumMetadataItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('dc2bb46d-3f07-481e-86-25-22-0c-4a-ed-bb-33')
     @commethod(3)
@@ -688,28 +688,28 @@ class IWICEnumMetadataItem(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppIEnumMetadataItem: POINTER(Windows.Win32.Graphics.Imaging.IWICEnumMetadataItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICFastMetadataEncoder(c_void_p):
+class IWICFastMetadataEncoder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b84e2c09-78c9-4ac4-8b-d3-52-4a-e1-66-3a-2f')
     @commethod(3)
     def Commit(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetMetadataQueryWriter(self, ppIMetadataQueryWriter: POINTER(Windows.Win32.Graphics.Imaging.IWICMetadataQueryWriter_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICFormatConverter(c_void_p):
+class IWICFormatConverter(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICBitmapSource
     Guid = Guid('00000301-a8f2-4877-ba-0a-fd-2b-66-45-fb-94')
     @commethod(8)
     def Initialize(self, pISource: Windows.Win32.Graphics.Imaging.IWICBitmapSource_head, dstFormat: POINTER(Guid), dither: Windows.Win32.Graphics.Imaging.WICBitmapDitherType, pIPalette: Windows.Win32.Graphics.Imaging.IWICPalette_head, alphaThresholdPercent: Double, paletteTranslate: Windows.Win32.Graphics.Imaging.WICBitmapPaletteType) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def CanConvert(self, srcPixelFormat: POINTER(Guid), dstPixelFormat: POINTER(Guid), pfCanConvert: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICFormatConverterInfo(c_void_p):
+class IWICFormatConverterInfo(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICComponentInfo
     Guid = Guid('9f34fb65-13f4-4f15-bc-57-37-26-b5-e5-3d-9f')
     @commethod(11)
     def GetPixelFormats(self, cFormats: UInt32, pPixelFormatGUIDs: POINTER(Guid), pcActual: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def CreateInstance(self, ppIConverter: POINTER(Windows.Win32.Graphics.Imaging.IWICFormatConverter_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICImagingFactory(c_void_p):
+class IWICImagingFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ec5ec8a9-c395-4314-9c-77-54-d7-a9-35-ff-70')
     @commethod(3)
@@ -762,7 +762,7 @@ class IWICImagingFactory(c_void_p):
     def CreateQueryWriter(self, guidMetadataFormat: POINTER(Guid), pguidVendor: POINTER(Guid), ppIQueryWriter: POINTER(Windows.Win32.Graphics.Imaging.IWICMetadataQueryWriter_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def CreateQueryWriterFromReader(self, pIQueryReader: Windows.Win32.Graphics.Imaging.IWICMetadataQueryReader_head, pguidVendor: POINTER(Guid), ppIQueryWriter: POINTER(Windows.Win32.Graphics.Imaging.IWICMetadataQueryWriter_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICJpegFrameDecode(c_void_p):
+class IWICJpegFrameDecode(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8939f66e-c46a-4c21-a9-d1-98-b3-27-ce-16-79')
     @commethod(3)
@@ -785,7 +785,7 @@ class IWICJpegFrameDecode(c_void_p):
     def CopyScan(self, scanIndex: UInt32, scanOffset: UInt32, cbScanData: UInt32, pbScanData: POINTER(Byte), pcbScanDataActual: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def CopyMinimalStream(self, streamOffset: UInt32, cbStreamData: UInt32, pbStreamData: POINTER(Byte), pcbStreamDataActual: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICJpegFrameEncode(c_void_p):
+class IWICJpegFrameEncode(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2f0c601f-d2c6-468c-ab-fa-49-49-5d-98-3e-d1')
     @commethod(3)
@@ -796,7 +796,7 @@ class IWICJpegFrameEncode(c_void_p):
     def GetQuantizationTable(self, scanIndex: UInt32, tableIndex: UInt32, pQuantizationTable: POINTER(Windows.Win32.Graphics.Dxgi.Common.DXGI_JPEG_QUANTIZATION_TABLE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def WriteScan(self, cbScanData: UInt32, pbScanData: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICMetadataBlockReader(c_void_p):
+class IWICMetadataBlockReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('feaa2a8d-b3f3-43e4-b2-5c-d1-de-99-0a-1a-e1')
     @commethod(3)
@@ -807,7 +807,7 @@ class IWICMetadataBlockReader(c_void_p):
     def GetReaderByIndex(self, nIndex: UInt32, ppIMetadataReader: POINTER(Windows.Win32.Graphics.Imaging.IWICMetadataReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetEnumerator(self, ppIEnumMetadata: POINTER(Windows.Win32.System.Com.IEnumUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICMetadataBlockWriter(c_void_p):
+class IWICMetadataBlockWriter(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICMetadataBlockReader
     Guid = Guid('08fb9676-b444-41e8-8d-be-6a-53-a5-42-bf-f1')
     @commethod(7)
@@ -820,7 +820,7 @@ class IWICMetadataBlockWriter(c_void_p):
     def SetWriterByIndex(self, nIndex: UInt32, pIMetadataWriter: Windows.Win32.Graphics.Imaging.IWICMetadataWriter_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def RemoveWriterByIndex(self, nIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICMetadataHandlerInfo(c_void_p):
+class IWICMetadataHandlerInfo(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICComponentInfo
     Guid = Guid('aba958bf-c672-44d1-8d-61-ce-6d-f2-e6-82-c2')
     @commethod(11)
@@ -837,7 +837,7 @@ class IWICMetadataHandlerInfo(c_void_p):
     def DoesSupportPadding(self, pfSupportsPadding: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def DoesRequireFixedSize(self, pfFixedSize: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICMetadataQueryReader(c_void_p):
+class IWICMetadataQueryReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('30989668-e1c9-4597-b3-95-45-8e-ed-b8-08-df')
     @commethod(3)
@@ -848,14 +848,14 @@ class IWICMetadataQueryReader(c_void_p):
     def GetMetadataByName(self, wzName: Windows.Win32.Foundation.PWSTR, pvarValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetEnumerator(self, ppIEnumString: POINTER(Windows.Win32.System.Com.IEnumString_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICMetadataQueryWriter(c_void_p):
+class IWICMetadataQueryWriter(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICMetadataQueryReader
     Guid = Guid('a721791a-0def-4d06-bd-91-21-18-bf-1d-b1-0b')
     @commethod(7)
     def SetMetadataByName(self, wzName: Windows.Win32.Foundation.PWSTR, pvarValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def RemoveMetadataByName(self, wzName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICMetadataReader(c_void_p):
+class IWICMetadataReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9204fe99-d8fc-4fd5-a0-01-95-36-b0-67-a8-99')
     @commethod(3)
@@ -870,7 +870,7 @@ class IWICMetadataReader(c_void_p):
     def GetValue(self, pvarSchema: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), pvarId: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), pvarValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetEnumerator(self, ppIEnumMetadata: POINTER(Windows.Win32.Graphics.Imaging.IWICEnumMetadataItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICMetadataReaderInfo(c_void_p):
+class IWICMetadataReaderInfo(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICMetadataHandlerInfo
     Guid = Guid('eebf1f5b-07c1-4447-a3-ab-22-ac-af-78-a8-04')
     @commethod(18)
@@ -879,7 +879,7 @@ class IWICMetadataReaderInfo(c_void_p):
     def MatchesPattern(self, guidContainerFormat: POINTER(Guid), pIStream: Windows.Win32.System.Com.IStream_head, pfMatches: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def CreateInstance(self, ppIReader: POINTER(Windows.Win32.Graphics.Imaging.IWICMetadataReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICMetadataWriter(c_void_p):
+class IWICMetadataWriter(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICMetadataReader
     Guid = Guid('f7836e16-3be0-470b-86-bb-16-0d-0a-ec-d7-de')
     @commethod(9)
@@ -890,14 +890,14 @@ class IWICMetadataWriter(c_void_p):
     def RemoveValue(self, pvarSchema: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), pvarId: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def RemoveValueByIndex(self, nIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICMetadataWriterInfo(c_void_p):
+class IWICMetadataWriterInfo(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICMetadataHandlerInfo
     Guid = Guid('b22e3fba-3925-4323-b5-c1-9e-bf-c4-30-f2-36')
     @commethod(18)
     def GetHeader(self, guidContainerFormat: POINTER(Guid), cbSize: UInt32, pHeader: POINTER(Windows.Win32.Graphics.Imaging.WICMetadataHeader_head), pcbActual: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def CreateInstance(self, ppIWriter: POINTER(Windows.Win32.Graphics.Imaging.IWICMetadataWriter_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICPalette(c_void_p):
+class IWICPalette(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000040-a8f2-4877-ba-0a-fd-2b-66-45-fb-94')
     @commethod(3)
@@ -920,14 +920,14 @@ class IWICPalette(c_void_p):
     def IsGrayscale(self, pfIsGrayscale: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def HasAlpha(self, pfHasAlpha: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICPersistStream(c_void_p):
+class IWICPersistStream(ComPtr):
     extends: Windows.Win32.System.Com.IPersistStream
     Guid = Guid('00675040-6908-45f8-86-a3-49-c7-df-d6-d9-ad')
     @commethod(8)
     def LoadEx(self, pIStream: Windows.Win32.System.Com.IStream_head, pguidPreferredVendor: POINTER(Guid), dwPersistOptions: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def SaveEx(self, pIStream: Windows.Win32.System.Com.IStream_head, dwPersistOptions: UInt32, fClearDirty: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICPixelFormatInfo(c_void_p):
+class IWICPixelFormatInfo(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICComponentInfo
     Guid = Guid('e8eda601-3d48-431a-ab-44-69-05-9b-e8-8b-be')
     @commethod(11)
@@ -940,40 +940,40 @@ class IWICPixelFormatInfo(c_void_p):
     def GetChannelCount(self, puiChannelCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetChannelMask(self, uiChannelIndex: UInt32, cbMaskBuffer: UInt32, pbMaskBuffer: POINTER(Byte), pcbActual: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICPixelFormatInfo2(c_void_p):
+class IWICPixelFormatInfo2(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICPixelFormatInfo
     Guid = Guid('a9db33a2-af5f-43c7-b6-79-74-f5-98-4b-5a-a4')
     @commethod(16)
     def SupportsTransparency(self, pfSupportsTransparency: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def GetNumericRepresentation(self, pNumericRepresentation: POINTER(Windows.Win32.Graphics.Imaging.WICPixelFormatNumericRepresentation)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICPlanarBitmapFrameEncode(c_void_p):
+class IWICPlanarBitmapFrameEncode(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f928b7b8-2221-40c1-b7-2e-7e-82-f1-97-4d-1a')
     @commethod(3)
     def WritePixels(self, lineCount: UInt32, pPlanes: POINTER(Windows.Win32.Graphics.Imaging.WICBitmapPlane_head), cPlanes: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def WriteSource(self, ppPlanes: POINTER(Windows.Win32.Graphics.Imaging.IWICBitmapSource_head), cPlanes: UInt32, prcSource: POINTER(Windows.Win32.Graphics.Imaging.WICRect_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICPlanarBitmapSourceTransform(c_void_p):
+class IWICPlanarBitmapSourceTransform(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3aff9cce-be95-4303-b9-27-e7-d1-6f-f4-a6-13')
     @commethod(3)
     def DoesSupportTransform(self, puiWidth: POINTER(UInt32), puiHeight: POINTER(UInt32), dstTransform: Windows.Win32.Graphics.Imaging.WICBitmapTransformOptions, dstPlanarOptions: Windows.Win32.Graphics.Imaging.WICPlanarOptions, pguidDstFormats: POINTER(Guid), pPlaneDescriptions: POINTER(Windows.Win32.Graphics.Imaging.WICBitmapPlaneDescription_head), cPlanes: UInt32, pfIsSupported: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CopyPixels(self, prcSource: POINTER(Windows.Win32.Graphics.Imaging.WICRect_head), uiWidth: UInt32, uiHeight: UInt32, dstTransform: Windows.Win32.Graphics.Imaging.WICBitmapTransformOptions, dstPlanarOptions: Windows.Win32.Graphics.Imaging.WICPlanarOptions, pDstPlanes: POINTER(Windows.Win32.Graphics.Imaging.WICBitmapPlane_head), cPlanes: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICPlanarFormatConverter(c_void_p):
+class IWICPlanarFormatConverter(ComPtr):
     extends: Windows.Win32.Graphics.Imaging.IWICBitmapSource
     Guid = Guid('bebee9cb-83b0-4dcc-81-32-b0-aa-a5-5e-ac-96')
     @commethod(8)
     def Initialize(self, ppPlanes: POINTER(Windows.Win32.Graphics.Imaging.IWICBitmapSource_head), cPlanes: UInt32, dstFormat: POINTER(Guid), dither: Windows.Win32.Graphics.Imaging.WICBitmapDitherType, pIPalette: Windows.Win32.Graphics.Imaging.IWICPalette_head, alphaThresholdPercent: Double, paletteTranslate: Windows.Win32.Graphics.Imaging.WICBitmapPaletteType) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def CanConvert(self, pSrcPixelFormats: POINTER(Guid), cSrcPlanes: UInt32, dstPixelFormat: POINTER(Guid), pfCanConvert: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICProgressCallback(c_void_p):
+class IWICProgressCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4776f9cd-9517-45fa-bf-24-e8-9c-5e-c5-c6-0c')
     @commethod(3)
     def Notify(self, uFrameNum: UInt32, operation: Windows.Win32.Graphics.Imaging.WICProgressOperation, dblProgress: Double) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICProgressiveLevelControl(c_void_p):
+class IWICProgressiveLevelControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('daac296f-7aa5-4dbf-8d-15-22-5c-59-76-f8-91')
     @commethod(3)
@@ -982,7 +982,7 @@ class IWICProgressiveLevelControl(c_void_p):
     def GetCurrentLevel(self, pnLevel: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetCurrentLevel(self, nLevel: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICStream(c_void_p):
+class IWICStream(ComPtr):
     extends: Windows.Win32.System.Com.IStream
     Guid = Guid('135ff860-22b7-4ddf-b0-f6-21-8f-4f-29-9a-43')
     @commethod(14)
@@ -993,7 +993,7 @@ class IWICStream(c_void_p):
     def InitializeFromMemory(self, pbBuffer: POINTER(Byte), cbBufferSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def InitializeFromIStreamRegion(self, pIStream: Windows.Win32.System.Com.IStream_head, ulOffset: UInt64, ulMaxSize: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IWICStreamProvider(c_void_p):
+class IWICStreamProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('449494bc-b468-4927-96-d7-ba-90-d3-1a-b5-05')
     @commethod(3)

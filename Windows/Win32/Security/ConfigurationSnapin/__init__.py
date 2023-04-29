@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Security.ConfigurationSnapin
 import Windows.Win32.System.Com
@@ -46,7 +46,7 @@ struuidNodetypeSceEventLog: String = '{2ce06698-4bf3-11d1-8c30-00c04fb984f9}'
 lstruuidNodetypeSceEventLog: String = '{2ce06698-4bf3-11d1-8c30-00c04fb984f9}'
 CCF_SCESVC_ATTACHMENT: String = 'CCF_SCESVC_ATTACHMENT'
 CCF_SCESVC_ATTACHMENT_DATA: String = 'CCF_SCESVC_ATTACHMENT_DATA'
-class ISceSvcAttachmentData(c_void_p):
+class ISceSvcAttachmentData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('17c35fde-200d-11d1-af-fb-00-c0-4f-b9-84-f9')
     @commethod(3)
@@ -57,7 +57,7 @@ class ISceSvcAttachmentData(c_void_p):
     def FreeBuffer(self, pvData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def CloseHandle(self, scesvcHandle: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
-class ISceSvcAttachmentPersistInfo(c_void_p):
+class ISceSvcAttachmentPersistInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6d90e0d0-200d-11d1-af-fb-00-c0-4f-b9-84-f9')
     @commethod(3)

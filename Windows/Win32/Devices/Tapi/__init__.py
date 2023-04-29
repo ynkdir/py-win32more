@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Devices.Tapi
 import Windows.Win32.Foundation
 import Windows.Win32.Media.DirectShow
@@ -1934,7 +1934,7 @@ HPROVIDER = IntPtr
 HTAPICALL = IntPtr
 HTAPILINE = IntPtr
 HTAPIPHONE = IntPtr
-class IEnumACDGroup(c_void_p):
+class IEnumACDGroup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5afc3157-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
     @commethod(3)
@@ -1945,7 +1945,7 @@ class IEnumACDGroup(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumACDGroup_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumAddress(c_void_p):
+class IEnumAddress(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1666fca1-9363-11d0-83-5c-00-aa-00-3c-ca-bd')
     @commethod(3)
@@ -1956,7 +1956,7 @@ class IEnumAddress(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumAddress_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumAgent(c_void_p):
+class IEnumAgent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5afc314d-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
     @commethod(3)
@@ -1967,7 +1967,7 @@ class IEnumAgent(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumAgent_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumAgentHandler(c_void_p):
+class IEnumAgentHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('587e8c28-9802-11d1-a0-a4-00-80-5f-c1-47-d3')
     @commethod(3)
@@ -1978,7 +1978,7 @@ class IEnumAgentHandler(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumAgentHandler_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumAgentSession(c_void_p):
+class IEnumAgentSession(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5afc314e-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
     @commethod(3)
@@ -1989,7 +1989,7 @@ class IEnumAgentSession(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumAgentSession_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumBstr(c_void_p):
+class IEnumBstr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('35372049-0bc6-11d2-a0-33-00-c0-4f-b6-80-9f')
     @commethod(3)
@@ -2000,7 +2000,7 @@ class IEnumBstr(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumBstr_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumCall(c_void_p):
+class IEnumCall(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ae269cf6-935e-11d0-83-5c-00-aa-00-3c-ca-bd')
     @commethod(3)
@@ -2011,7 +2011,7 @@ class IEnumCall(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumCall_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumCallHub(c_void_p):
+class IEnumCallHub(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a3c15450-5b92-11d1-8f-4e-00-c0-4f-b6-80-9f')
     @commethod(3)
@@ -2022,7 +2022,7 @@ class IEnumCallHub(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumCallHub_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumCallingCard(c_void_p):
+class IEnumCallingCard(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c4d8f02-8ddb-11d1-a0-9e-00-80-5f-c1-47-d3')
     @commethod(3)
@@ -2033,7 +2033,7 @@ class IEnumCallingCard(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumCallingCard_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumDialableAddrs(c_void_p):
+class IEnumDialableAddrs(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('34621d70-6cff-11d1-af-f7-00-c0-4f-c3-1f-ee')
     @commethod(3)
@@ -2044,7 +2044,7 @@ class IEnumDialableAddrs(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumDialableAddrs_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumDirectory(c_void_p):
+class IEnumDirectory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('34621d6d-6cff-11d1-af-f7-00-c0-4f-c3-1f-ee')
     @commethod(3)
@@ -2055,7 +2055,7 @@ class IEnumDirectory(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumDirectory_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumDirectoryObject(c_void_p):
+class IEnumDirectoryObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('06c9b64a-306d-11d1-97-74-00-c0-4f-d9-1a-c0')
     @commethod(3)
@@ -2066,7 +2066,7 @@ class IEnumDirectoryObject(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumDirectoryObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumLocation(c_void_p):
+class IEnumLocation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c4d8f01-8ddb-11d1-a0-9e-00-80-5f-c1-47-d3')
     @commethod(3)
@@ -2077,7 +2077,7 @@ class IEnumLocation(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumLocation_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumMcastScope(c_void_p):
+class IEnumMcastScope(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('df0daf09-a289-11d1-86-97-00-60-08-b0-e5-d2')
     @commethod(3)
@@ -2088,7 +2088,7 @@ class IEnumMcastScope(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumMcastScope_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumPhone(c_void_p):
+class IEnumPhone(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f15b7669-4780-4595-8c-89-fb-36-9c-8c-f7-aa')
     @commethod(3)
@@ -2099,7 +2099,7 @@ class IEnumPhone(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumPhone_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumPluggableSuperclassInfo(c_void_p):
+class IEnumPluggableSuperclassInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e9586a80-89e6-4cff-93-1d-47-8d-57-51-f4-c0')
     @commethod(3)
@@ -2110,7 +2110,7 @@ class IEnumPluggableSuperclassInfo(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumPluggableSuperclassInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumPluggableTerminalClassInfo(c_void_p):
+class IEnumPluggableTerminalClassInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4567450c-dbee-4e3f-aa-f5-37-bf-9e-bf-5e-29')
     @commethod(3)
@@ -2121,7 +2121,7 @@ class IEnumPluggableTerminalClassInfo(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumPluggableTerminalClassInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumQueue(c_void_p):
+class IEnumQueue(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5afc3158-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
     @commethod(3)
@@ -2132,7 +2132,7 @@ class IEnumQueue(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumQueue_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumStream(c_void_p):
+class IEnumStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ee3bd606-3868-11d2-a0-45-00-c0-4f-b6-80-9f')
     @commethod(3)
@@ -2143,7 +2143,7 @@ class IEnumStream(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumSubStream(c_void_p):
+class IEnumSubStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ee3bd609-3868-11d2-a0-45-00-c0-4f-b6-80-9f')
     @commethod(3)
@@ -2154,7 +2154,7 @@ class IEnumSubStream(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumSubStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumTerminal(c_void_p):
+class IEnumTerminal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ae269cf4-935e-11d0-83-5c-00-aa-00-3c-ca-bd')
     @commethod(3)
@@ -2165,7 +2165,7 @@ class IEnumTerminal(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumTerminal_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumTerminalClass(c_void_p):
+class IEnumTerminalClass(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ae269cf5-935e-11d0-83-5c-00-aa-00-3c-ca-bd')
     @commethod(3)
@@ -2176,7 +2176,7 @@ class IEnumTerminalClass(c_void_p):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumTerminalClass_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMcastAddressAllocation(c_void_p):
+class IMcastAddressAllocation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('df0daef1-a289-11d1-86-97-00-60-08-b0-e5-d2')
     @commethod(7)
@@ -2193,7 +2193,7 @@ class IMcastAddressAllocation(c_void_p):
     def CreateLeaseInfo(self, LeaseStartTime: Double, LeaseStopTime: Double, dwNumAddresses: UInt32, ppAddresses: POINTER(Windows.Win32.Foundation.PWSTR), pRequestID: Windows.Win32.Foundation.PWSTR, pServerAddress: Windows.Win32.Foundation.PWSTR, ppReleaseRequest: POINTER(Windows.Win32.Devices.Tapi.IMcastLeaseInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def CreateLeaseInfoFromVariant(self, LeaseStartTime: Double, LeaseStopTime: Double, vAddresses: Windows.Win32.System.Variant.VARIANT, pRequestID: Windows.Win32.Foundation.BSTR, pServerAddress: Windows.Win32.Foundation.BSTR, ppReleaseRequest: POINTER(Windows.Win32.Devices.Tapi.IMcastLeaseInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMcastLeaseInfo(c_void_p):
+class IMcastLeaseInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('df0daefd-a289-11d1-86-97-00-60-08-b0-e5-d2')
     @commethod(7)
@@ -2216,7 +2216,7 @@ class IMcastLeaseInfo(c_void_p):
     def get_Addresses(self, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def EnumerateAddresses(self, ppEnumAddresses: POINTER(Windows.Win32.Devices.Tapi.IEnumBstr_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMcastScope(c_void_p):
+class IMcastScope(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('df0daef4-a289-11d1-86-97-00-60-08-b0-e5-d2')
     @commethod(7)
@@ -2229,7 +2229,7 @@ class IMcastScope(c_void_p):
     def get_ScopeDescription(self, ppDescription: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get_TTL(self, pTTL: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITACDGroup(c_void_p):
+class ITACDGroup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('5afc3148-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
     @commethod(7)
@@ -2238,21 +2238,21 @@ class ITACDGroup(c_void_p):
     def EnumerateQueues(self, ppEnumQueue: POINTER(Windows.Win32.Devices.Tapi.IEnumQueue_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Queues(self, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITACDGroupEvent(c_void_p):
+class ITACDGroupEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('297f3032-bd11-11d1-a0-a7-00-80-5f-c1-47-d3')
     @commethod(7)
     def get_Group(self, ppGroup: POINTER(Windows.Win32.Devices.Tapi.ITACDGroup_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Event(self, pEvent: POINTER(Windows.Win32.Devices.Tapi.ACDGROUP_EVENT)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITAMMediaFormat(c_void_p):
+class ITAMMediaFormat(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0364eb00-4a77-11d1-a6-71-00-60-97-c9-a2-e8')
     @commethod(3)
     def get_MediaFormat(self, ppmt: POINTER(POINTER(Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def put_MediaFormat(self, pmt: POINTER(Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITASRTerminalEvent(c_void_p):
+class ITASRTerminalEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('ee016a02-4fa9-467c-93-3f-5a-15-b1-23-77-d7')
     @commethod(7)
@@ -2261,7 +2261,7 @@ class ITASRTerminalEvent(c_void_p):
     def get_Call(self, ppCall: POINTER(Windows.Win32.Devices.Tapi.ITCallInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Error(self, phrErrorCode: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITAddress(c_void_p):
+class ITAddress(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('b1efc386-9355-11d0-83-5c-00-aa-00-3c-ca-bd')
     @commethod(7)
@@ -2294,7 +2294,7 @@ class ITAddress(c_void_p):
     def put_DoNotDisturb(self, fDoNotDisturb: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def get_DoNotDisturb(self, pfDoNotDisturb: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITAddress2(c_void_p):
+class ITAddress2(ComPtr):
     extends: Windows.Win32.Devices.Tapi.ITAddress
     Guid = Guid('b0ae5d9b-be51-46c9-b0-f7-df-a8-a2-2a-8b-c4')
     @commethod(22)
@@ -2317,7 +2317,7 @@ class ITAddress2(c_void_p):
     def DeviceSpecificVariant(self, pCall: Windows.Win32.Devices.Tapi.ITCallInfo_head, varDevSpecificByteArray: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def NegotiateExtVersion(self, lLowVersion: Int32, lHighVersion: Int32, plExtVersion: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITAddressCapabilities(c_void_p):
+class ITAddressCapabilities(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('8df232f5-821b-11d1-bb-5c-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -2336,7 +2336,7 @@ class ITAddressCapabilities(c_void_p):
     def get_DeviceClasses(self, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def EnumerateDeviceClasses(self, ppEnumDeviceClass: POINTER(Windows.Win32.Devices.Tapi.IEnumBstr_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITAddressDeviceSpecificEvent(c_void_p):
+class ITAddressDeviceSpecificEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('3acb216b-40bd-487a-86-72-5c-e7-7b-d7-e3-a3')
     @commethod(7)
@@ -2349,7 +2349,7 @@ class ITAddressDeviceSpecificEvent(c_void_p):
     def get_lParam2(self, pParam2: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get_lParam3(self, pParam3: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITAddressEvent(c_void_p):
+class ITAddressEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('831ce2d1-83b5-11d1-bb-5c-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -2358,7 +2358,7 @@ class ITAddressEvent(c_void_p):
     def get_Event(self, pEvent: POINTER(Windows.Win32.Devices.Tapi.ADDRESS_EVENT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Terminal(self, ppTerminal: POINTER(Windows.Win32.Devices.Tapi.ITTerminal_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITAddressTranslation(c_void_p):
+class ITAddressTranslation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('0c4d8f03-8ddb-11d1-a0-9e-00-80-5f-c1-47-d3')
     @commethod(7)
@@ -2373,7 +2373,7 @@ class ITAddressTranslation(c_void_p):
     def EnumerateCallingCards(self, ppEnumCallingCard: POINTER(Windows.Win32.Devices.Tapi.IEnumCallingCard_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def get_CallingCards(self, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITAddressTranslationInfo(c_void_p):
+class ITAddressTranslationInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('afc15945-8d40-11d1-a0-9e-00-80-5f-c1-47-d3')
     @commethod(7)
@@ -2386,7 +2386,7 @@ class ITAddressTranslationInfo(c_void_p):
     def get_DestinationCountryCode(self, CountryCode: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get_TranslationResults(self, plResults: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITAgent(c_void_p):
+class ITAgent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('5770ece5-4b27-11d1-bf-80-00-80-5f-c1-47-d3')
     @commethod(7)
@@ -2423,14 +2423,14 @@ class ITAgent(c_void_p):
     def get_TotalWrapUpTime(self, plWrapUpTime: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def get_AgentSessions(self, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITAgentEvent(c_void_p):
+class ITAgentEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('5afc314a-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
     @commethod(7)
     def get_Agent(self, ppAgent: POINTER(Windows.Win32.Devices.Tapi.ITAgent_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Event(self, pEvent: POINTER(Windows.Win32.Devices.Tapi.AGENT_EVENT)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITAgentHandler(c_void_p):
+class ITAgentHandler(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('587e8c22-9802-11d1-a0-a4-00-80-5f-c1-47-d3')
     @commethod(7)
@@ -2447,14 +2447,14 @@ class ITAgentHandler(c_void_p):
     def get_ACDGroups(self, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def get_UsableAddresses(self, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITAgentHandlerEvent(c_void_p):
+class ITAgentHandlerEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('297f3034-bd11-11d1-a0-a7-00-80-5f-c1-47-d3')
     @commethod(7)
     def get_AgentHandler(self, ppAgentHandler: POINTER(Windows.Win32.Devices.Tapi.ITAgentHandler_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Event(self, pEvent: POINTER(Windows.Win32.Devices.Tapi.AGENTHANDLER_EVENT)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITAgentSession(c_void_p):
+class ITAgentSession(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('5afc3147-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
     @commethod(7)
@@ -2491,14 +2491,14 @@ class ITAgentSession(c_void_p):
     def get_LongestTimeToAnswer(self, plAnswerTime: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def get_AverageTimeToAnswer(self, plAnswerTime: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITAgentSessionEvent(c_void_p):
+class ITAgentSessionEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('5afc314b-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
     @commethod(7)
     def get_Session(self, ppSession: POINTER(Windows.Win32.Devices.Tapi.ITAgentSession_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Event(self, pEvent: POINTER(Windows.Win32.Devices.Tapi.AGENT_SESSION_EVENT)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITAllocatorProperties(c_void_p):
+class ITAllocatorProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c1bc3c90-bcfe-11d1-97-45-00-c0-4f-d9-1a-c0')
     @commethod(3)
@@ -2513,7 +2513,7 @@ class ITAllocatorProperties(c_void_p):
     def SetBufferSize(self, BufferSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetBufferSize(self, pBufferSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITAutomatedPhoneControl(c_void_p):
+class ITAutomatedPhoneControl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('1ee1af0e-6159-4a61-b7-9b-6a-4b-a3-fc-9d-fc')
     @commethod(7)
@@ -2580,7 +2580,7 @@ class ITAutomatedPhoneControl(c_void_p):
     def EnumerateSelectedCalls(self, ppCallEnum: POINTER(Windows.Win32.Devices.Tapi.IEnumCall_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(38)
     def get_SelectedCalls(self, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITBasicAudioTerminal(c_void_p):
+class ITBasicAudioTerminal(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('b1efc38d-9355-11d0-83-5c-00-aa-00-3c-ca-bd')
     @commethod(7)
@@ -2591,7 +2591,7 @@ class ITBasicAudioTerminal(c_void_p):
     def put_Balance(self, lBalance: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_Balance(self, plBalance: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITBasicCallControl(c_void_p):
+class ITBasicCallControl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('b1efc389-9355-11d0-83-5c-00-aa-00-3c-ca-bd')
     @commethod(7)
@@ -2630,7 +2630,7 @@ class ITBasicCallControl(c_void_p):
     def Finish(self, finishMode: Windows.Win32.Devices.Tapi.FINISH_MODE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
     def RemoveFromConference(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITBasicCallControl2(c_void_p):
+class ITBasicCallControl2(ComPtr):
     extends: Windows.Win32.Devices.Tapi.ITBasicCallControl
     Guid = Guid('161a4a56-1e99-4b3f-a4-6a-16-8f-38-a5-ee-4c')
     @commethod(25)
@@ -2639,7 +2639,7 @@ class ITBasicCallControl2(c_void_p):
     def SelectTerminalOnCall(self, pTerminal: Windows.Win32.Devices.Tapi.ITTerminal_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def UnselectTerminalOnCall(self, pTerminal: Windows.Win32.Devices.Tapi.ITTerminal_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ITCallHub(c_void_p):
+class ITCallHub(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('a3c1544e-5b92-11d1-8f-4e-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -2652,7 +2652,7 @@ class ITCallHub(c_void_p):
     def get_NumCalls(self, plCalls: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get_State(self, pState: POINTER(Windows.Win32.Devices.Tapi.CALLHUB_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITCallHubEvent(c_void_p):
+class ITCallHubEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('a3c15451-5b92-11d1-8f-4e-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -2661,7 +2661,7 @@ class ITCallHubEvent(c_void_p):
     def get_CallHub(self, ppCallHub: POINTER(Windows.Win32.Devices.Tapi.ITCallHub_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Call(self, ppCall: POINTER(Windows.Win32.Devices.Tapi.ITCallInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITCallInfo(c_void_p):
+class ITCallInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('350f85d1-1227-11d3-83-d4-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -2690,14 +2690,14 @@ class ITCallInfo(c_void_p):
     def SetCallInfoBuffer(self, CallInfoBuffer: Windows.Win32.Devices.Tapi.CALLINFO_BUFFER, dwSize: UInt32, pCallInfoBuffer: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def ReleaseUserUserInfo(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITCallInfo2(c_void_p):
+class ITCallInfo2(ComPtr):
     extends: Windows.Win32.Devices.Tapi.ITCallInfo
     Guid = Guid('94d70ca6-7ab0-4daa-81-ca-b8-f8-64-3f-ae-c1')
     @commethod(20)
     def get_EventFilter(self, TapiEvent: Windows.Win32.Devices.Tapi.TAPI_EVENT, lSubEvent: Int32, pEnable: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def put_EventFilter(self, TapiEvent: Windows.Win32.Devices.Tapi.TAPI_EVENT, lSubEvent: Int32, bEnable: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class ITCallInfoChangeEvent(c_void_p):
+class ITCallInfoChangeEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('5d4b65f9-e51c-11d1-a0-2f-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -2706,7 +2706,7 @@ class ITCallInfoChangeEvent(c_void_p):
     def get_Cause(self, pCIC: POINTER(Windows.Win32.Devices.Tapi.CALLINFOCHANGE_CAUSE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_CallbackInstance(self, plCallbackInstance: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITCallMediaEvent(c_void_p):
+class ITCallMediaEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('ff36b87f-ec3a-11d0-8e-e4-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -2721,7 +2721,7 @@ class ITCallMediaEvent(c_void_p):
     def get_Stream(self, ppStream: POINTER(Windows.Win32.Devices.Tapi.ITStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def get_Cause(self, pCause: POINTER(Windows.Win32.Devices.Tapi.CALL_MEDIA_EVENT_CAUSE)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITCallNotificationEvent(c_void_p):
+class ITCallNotificationEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('895801df-3dd6-11d1-8f-30-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -2730,7 +2730,7 @@ class ITCallNotificationEvent(c_void_p):
     def get_Event(self, pCallNotificationEvent: POINTER(Windows.Win32.Devices.Tapi.CALL_NOTIFICATION_EVENT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_CallbackInstance(self, plCallbackInstance: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITCallStateEvent(c_void_p):
+class ITCallStateEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('62f47097-95c9-11d0-83-5d-00-aa-00-3c-ca-bd')
     @commethod(7)
@@ -2741,7 +2741,7 @@ class ITCallStateEvent(c_void_p):
     def get_Cause(self, pCEC: POINTER(Windows.Win32.Devices.Tapi.CALL_STATE_EVENT_CAUSE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_CallbackInstance(self, plCallbackInstance: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITCallingCard(c_void_p):
+class ITCallingCard(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('0c4d8f00-8ddb-11d1-a0-9e-00-80-5f-c1-47-d3')
     @commethod(7)
@@ -2758,7 +2758,7 @@ class ITCallingCard(c_void_p):
     def get_LongDistanceDialingRule(self, ppRule: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def get_InternationalDialingRule(self, ppRule: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITCollection(c_void_p):
+class ITCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('5ec5acf2-9c02-11d0-83-62-00-aa-00-3c-ca-bd')
     @commethod(7)
@@ -2767,14 +2767,14 @@ class ITCollection(c_void_p):
     def get_Item(self, Index: Int32, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get__NewEnum(self, ppNewEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITCollection2(c_void_p):
+class ITCollection2(ComPtr):
     extends: Windows.Win32.Devices.Tapi.ITCollection
     Guid = Guid('e6dddda5-a6d3-48ff-87-37-d3-2f-c4-d9-54-77')
     @commethod(10)
     def Add(self, Index: Int32, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Remove(self, Index: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITCustomTone(c_void_p):
+class ITCustomTone(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('357ad764-b3c6-4b2a-8f-a5-07-22-82-7a-92-54')
     @commethod(7)
@@ -2793,7 +2793,7 @@ class ITCustomTone(c_void_p):
     def get_Volume(self, plVolume: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def put_Volume(self, lVolume: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITDetectTone(c_void_p):
+class ITDetectTone(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('961f79bd-3097-49df-a1-d6-90-9b-77-e8-9c-a0')
     @commethod(7)
@@ -2808,7 +2808,7 @@ class ITDetectTone(c_void_p):
     def get_Frequency(self, Index: Int32, plFrequency: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def put_Frequency(self, Index: Int32, lFrequency: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITDigitDetectionEvent(c_void_p):
+class ITDigitDetectionEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('80d3bfac-57d9-11d2-a0-4a-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -2821,7 +2821,7 @@ class ITDigitDetectionEvent(c_void_p):
     def get_TickCount(self, plTickCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get_CallbackInstance(self, plCallbackInstance: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITDigitGenerationEvent(c_void_p):
+class ITDigitGenerationEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('80d3bfad-57d9-11d2-a0-4a-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -2832,7 +2832,7 @@ class ITDigitGenerationEvent(c_void_p):
     def get_TickCount(self, plTickCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_CallbackInstance(self, plCallbackInstance: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITDigitsGatheredEvent(c_void_p):
+class ITDigitsGatheredEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('e52ec4c1-cba3-441a-9e-6a-93-cb-90-9e-97-24')
     @commethod(7)
@@ -2845,7 +2845,7 @@ class ITDigitsGatheredEvent(c_void_p):
     def get_TickCount(self, plTickCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get_CallbackInstance(self, plCallbackInstance: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITDirectory(c_void_p):
+class ITDirectory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('34621d6c-6cff-11d1-af-f7-00-c0-4f-c3-1f-ee')
     @commethod(7)
@@ -2876,7 +2876,7 @@ class ITDirectory(c_void_p):
     def get_DirectoryObjects(self, DirectoryObjectType: Windows.Win32.Devices.Tapi.DIRECTORY_OBJECT_TYPE, pName: Windows.Win32.Foundation.BSTR, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def EnumerateDirectoryObjects(self, DirectoryObjectType: Windows.Win32.Devices.Tapi.DIRECTORY_OBJECT_TYPE, pName: Windows.Win32.Foundation.BSTR, ppEnumObject: POINTER(Windows.Win32.Devices.Tapi.IEnumDirectoryObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITDirectoryObject(c_void_p):
+class ITDirectoryObject(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('34621d6e-6cff-11d1-af-f7-00-c0-4f-c3-1f-ee')
     @commethod(7)
@@ -2893,7 +2893,7 @@ class ITDirectoryObject(c_void_p):
     def get_SecurityDescriptor(self, ppSecDes: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def put_SecurityDescriptor(self, pSecDes: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ITDirectoryObjectConference(c_void_p):
+class ITDirectoryObjectConference(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f1029e5d-cb5b-11d0-8d-59-00-c0-4f-d9-1a-c0')
     @commethod(7)
@@ -2926,19 +2926,19 @@ class ITDirectoryObjectConference(c_void_p):
     def get_StopTime(self, pDate: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def put_StopTime(self, Date: Double) -> Windows.Win32.Foundation.HRESULT: ...
-class ITDirectoryObjectUser(c_void_p):
+class ITDirectoryObjectUser(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('34621d6f-6cff-11d1-af-f7-00-c0-4f-c3-1f-ee')
     @commethod(7)
     def get_IPPhonePrimary(self, ppName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def put_IPPhonePrimary(self, pName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ITDispatchMapper(c_void_p):
+class ITDispatchMapper(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('e9225295-c759-11d1-a0-2b-00-c0-4f-b6-80-9f')
     @commethod(7)
     def QueryDispatchInterface(self, pIID: Windows.Win32.Foundation.BSTR, pInterfaceToMap: Windows.Win32.System.Com.IDispatch_head, ppReturnedInterface: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITFileTerminalEvent(c_void_p):
+class ITFileTerminalEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('e4a7fbac-8c17-4427-9f-55-9f-58-9a-c8-af-00')
     @commethod(7)
@@ -2953,7 +2953,7 @@ class ITFileTerminalEvent(c_void_p):
     def get_Cause(self, pCause: POINTER(Windows.Win32.Devices.Tapi.FT_STATE_EVENT_CAUSE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def get_Error(self, phrErrorCode: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITFileTrack(c_void_p):
+class ITFileTrack(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('31ca6ea9-c08a-4bea-88-11-8e-9c-1b-a3-ea-3a')
     @commethod(7)
@@ -2968,7 +2968,7 @@ class ITFileTrack(c_void_p):
     def put_AudioFormatForScripting(self, pAudioFormat: Windows.Win32.Devices.Tapi.ITScriptableAudioFormat_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def get_EmptyAudioFormatForScripting(self, ppAudioFormat: POINTER(Windows.Win32.Devices.Tapi.ITScriptableAudioFormat_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITForwardInformation(c_void_p):
+class ITForwardInformation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('449f659e-88a3-11d1-bb-5d-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -2985,7 +2985,7 @@ class ITForwardInformation(c_void_p):
     def GetForwardType(self, ForwardType: Int32, ppDestinationAddress: POINTER(Windows.Win32.Foundation.BSTR), ppCallerAddress: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITForwardInformation2(c_void_p):
+class ITForwardInformation2(ComPtr):
     extends: Windows.Win32.Devices.Tapi.ITForwardInformation
     Guid = Guid('5229b4ed-b260-4382-8e-1a-5d-f3-a8-a4-cc-c0')
     @commethod(14)
@@ -2996,14 +2996,14 @@ class ITForwardInformation2(c_void_p):
     def get_ForwardTypeDestinationAddressType(self, ForwardType: Int32, pDestAddressType: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def get_ForwardTypeCallerAddressType(self, Forwardtype: Int32, pCallerAddressType: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITILSConfig(c_void_p):
+class ITILSConfig(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('34621d72-6cff-11d1-af-f7-00-c0-4f-c3-1f-ee')
     @commethod(7)
     def get_Port(self, pPort: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def put_Port(self, Port: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITLegacyAddressMediaControl(c_void_p):
+class ITLegacyAddressMediaControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ab493640-4c0b-11d2-a0-46-00-c0-4f-b6-80-9f')
     @commethod(3)
@@ -3012,14 +3012,14 @@ class ITLegacyAddressMediaControl(c_void_p):
     def GetDevConfig(self, pDeviceClass: Windows.Win32.Foundation.BSTR, pdwSize: POINTER(UInt32), ppDeviceConfig: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetDevConfig(self, pDeviceClass: Windows.Win32.Foundation.BSTR, dwSize: UInt32, pDeviceConfig: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITLegacyAddressMediaControl2(c_void_p):
+class ITLegacyAddressMediaControl2(ComPtr):
     extends: Windows.Win32.Devices.Tapi.ITLegacyAddressMediaControl
     Guid = Guid('b0ee512b-a531-409e-9d-d9-40-99-fe-86-c7-38')
     @commethod(6)
     def ConfigDialog(self, hwndOwner: Windows.Win32.Foundation.HWND, pDeviceClass: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def ConfigDialogEdit(self, hwndOwner: Windows.Win32.Foundation.HWND, pDeviceClass: Windows.Win32.Foundation.BSTR, dwSizeIn: UInt32, pDeviceConfigIn: POINTER(Byte), pdwSizeOut: POINTER(UInt32), ppDeviceConfigOut: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
-class ITLegacyCallMediaControl(c_void_p):
+class ITLegacyCallMediaControl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d624582f-cc23-4436-b8-a5-47-c6-25-c8-04-5d')
     @commethod(7)
@@ -3032,7 +3032,7 @@ class ITLegacyCallMediaControl(c_void_p):
     def SetMediaType(self, lMediaType: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def MonitorMedia(self, lMediaType: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITLegacyCallMediaControl2(c_void_p):
+class ITLegacyCallMediaControl2(ComPtr):
     extends: Windows.Win32.Devices.Tapi.ITLegacyCallMediaControl
     Guid = Guid('57ca332d-7bc2-44f1-a6-0c-93-6f-e8-d7-ce-73')
     @commethod(12)
@@ -3055,12 +3055,12 @@ class ITLegacyCallMediaControl2(c_void_p):
     def CreateCustomToneObject(self, ppCustomTone: POINTER(Windows.Win32.Devices.Tapi.ITCustomTone_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def GetIDAsVariant(self, bstrDeviceClass: Windows.Win32.Foundation.BSTR, pVarDeviceID: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITLegacyWaveSupport(c_void_p):
+class ITLegacyWaveSupport(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('207823ea-e252-11d2-b7-7e-00-80-c7-13-53-81')
     @commethod(7)
     def IsFullDuplex(self, pSupport: POINTER(Windows.Win32.Devices.Tapi.FULLDUPLEX_SUPPORT)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITLocationInfo(c_void_p):
+class ITLocationInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('0c4d8eff-8ddb-11d1-a0-9e-00-80-5f-c1-47-d3')
     @commethod(7)
@@ -3085,7 +3085,7 @@ class ITLocationInfo(c_void_p):
     def get_TollPrefixList(self, ppTollList: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def get_CancelCallWaitingCode(self, ppCode: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITMSPAddress(c_void_p):
+class ITMSPAddress(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ee3bd600-3868-11d2-a0-45-00-c0-4f-b6-80-9f')
     @commethod(3)
@@ -3100,7 +3100,7 @@ class ITMSPAddress(c_void_p):
     def ReceiveTSPData(self, pMSPCall: Windows.Win32.System.Com.IUnknown_head, pBuffer: POINTER(Byte), dwSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetEvent(self, pdwSize: POINTER(UInt32), pEventBuffer: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITMediaControl(c_void_p):
+class ITMediaControl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c445dde8-5199-4bc7-98-07-5f-fb-92-e4-2e-09')
     @commethod(7)
@@ -3111,28 +3111,28 @@ class ITMediaControl(c_void_p):
     def Pause(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_MediaState(self, pTerminalMediaState: POINTER(Windows.Win32.Devices.Tapi.TERMINAL_MEDIA_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITMediaPlayback(c_void_p):
+class ITMediaPlayback(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('627e8ae6-ae4c-4a69-bb-63-2a-d6-25-40-4b-77')
     @commethod(7)
     def put_PlayList(self, PlayListVariant: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_PlayList(self, pPlayListVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITMediaRecord(c_void_p):
+class ITMediaRecord(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f5dd4592-5476-4cc1-9d-4d-fa-d3-ee-fe-7d-b2')
     @commethod(7)
     def put_FileName(self, bstrFileName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_FileName(self, pbstrFileName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITMediaSupport(c_void_p):
+class ITMediaSupport(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('b1efc384-9355-11d0-83-5c-00-aa-00-3c-ca-bd')
     @commethod(7)
     def get_MediaTypes(self, plMediaTypes: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def QueryMediaType(self, lMediaType: Int32, pfSupport: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITMultiTrackTerminal(c_void_p):
+class ITMultiTrackTerminal(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('fe040091-ade8-4072-95-c9-bf-7d-e8-c5-4b-44')
     @commethod(7)
@@ -3147,7 +3147,7 @@ class ITMultiTrackTerminal(c_void_p):
     def get_DirectionsInUse(self, plDirectionsInUsed: POINTER(Windows.Win32.Devices.Tapi.TERMINAL_DIRECTION)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def RemoveTrackTerminal(self, pTrackTerminalToRemove: Windows.Win32.Devices.Tapi.ITTerminal_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ITPhone(c_void_p):
+class ITPhone(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('09d48db4-10cc-4388-9d-e7-a8-46-56-18-97-5a')
     @commethod(7)
@@ -3216,7 +3216,7 @@ class ITPhone(c_void_p):
     def DeviceSpecificVariant(self, varDevSpecificByteArray: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(39)
     def NegotiateExtVersion(self, lLowVersion: Int32, lHighVersion: Int32, plExtVersion: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITPhoneDeviceSpecificEvent(c_void_p):
+class ITPhoneDeviceSpecificEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('63ffb2a6-872b-4cd3-a5-01-32-6e-8f-b4-0a-f7')
     @commethod(7)
@@ -3227,7 +3227,7 @@ class ITPhoneDeviceSpecificEvent(c_void_p):
     def get_lParam2(self, pParam2: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_lParam3(self, pParam3: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITPhoneEvent(c_void_p):
+class ITPhoneEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('8f942dd8-64ed-4aaf-a7-7d-b2-3d-b0-83-7e-ad')
     @commethod(7)
@@ -3248,7 +3248,7 @@ class ITPhoneEvent(c_void_p):
     def get_NumberGathered(self, ppNumber: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_Call(self, ppCallInfo: POINTER(Windows.Win32.Devices.Tapi.ITCallInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITPluggableTerminalClassInfo(c_void_p):
+class ITPluggableTerminalClassInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('41757f4a-cf09-4b34-bc-96-0a-79-d2-39-00-76')
     @commethod(7)
@@ -3265,26 +3265,26 @@ class ITPluggableTerminalClassInfo(c_void_p):
     def get_Direction(self, pDirection: POINTER(Windows.Win32.Devices.Tapi.TERMINAL_DIRECTION)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def get_MediaTypes(self, pMediaTypes: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITPluggableTerminalEventSink(c_void_p):
+class ITPluggableTerminalEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6e0887be-ba1a-492e-bd-10-40-20-ec-5e-33-e0')
     @commethod(3)
     def FireEvent(self, pMspEventInfo: POINTER(Windows.Win32.Devices.Tapi.MSP_EVENT_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITPluggableTerminalEventSinkRegistration(c_void_p):
+class ITPluggableTerminalEventSinkRegistration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f7115709-a216-4957-a7-59-06-0a-b3-2a-90-d1')
     @commethod(3)
     def RegisterSink(self, pEventSink: Windows.Win32.Devices.Tapi.ITPluggableTerminalEventSink_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UnregisterSink(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITPluggableTerminalSuperclassInfo(c_void_p):
+class ITPluggableTerminalSuperclassInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('6d54e42c-4625-4359-a6-f7-63-19-99-10-7e-05')
     @commethod(7)
     def get_Name(self, pName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_CLSID(self, pCLSID: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITPrivateEvent(c_void_p):
+class ITPrivateEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('0e269cd0-10d4-4121-9c-22-9c-85-d6-25-65-0d')
     @commethod(7)
@@ -3297,7 +3297,7 @@ class ITPrivateEvent(c_void_p):
     def get_EventCode(self, plEventCode: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get_EventInterface(self, pEventInterface: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITQOSEvent(c_void_p):
+class ITQOSEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('cfa3357c-ad77-11d1-bb-68-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -3306,7 +3306,7 @@ class ITQOSEvent(c_void_p):
     def get_Event(self, pQosEvent: POINTER(Windows.Win32.Devices.Tapi.QOS_EVENT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_MediaType(self, plMediaType: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITQueue(c_void_p):
+class ITQueue(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('5afc3149-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
     @commethod(7)
@@ -3333,14 +3333,14 @@ class ITQueue(c_void_p):
     def get_FinalDisposition(self, plCalls: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def get_Name(self, ppName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITQueueEvent(c_void_p):
+class ITQueueEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('297f3033-bd11-11d1-a0-a7-00-80-5f-c1-47-d3')
     @commethod(7)
     def get_Queue(self, ppQueue: POINTER(Windows.Win32.Devices.Tapi.ITQueue_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Event(self, pEvent: POINTER(Windows.Win32.Devices.Tapi.ACDQUEUE_EVENT)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITRendezvous(c_void_p):
+class ITRendezvous(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('34621d6b-6cff-11d1-af-f7-00-c0-4f-c3-1f-ee')
     @commethod(7)
@@ -3351,12 +3351,12 @@ class ITRendezvous(c_void_p):
     def CreateDirectory(self, DirectoryType: Windows.Win32.Devices.Tapi.DIRECTORY_TYPE, pName: Windows.Win32.Foundation.BSTR, ppDir: POINTER(Windows.Win32.Devices.Tapi.ITDirectory_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def CreateDirectoryObject(self, DirectoryObjectType: Windows.Win32.Devices.Tapi.DIRECTORY_OBJECT_TYPE, pName: Windows.Win32.Foundation.BSTR, ppDirectoryObject: POINTER(Windows.Win32.Devices.Tapi.ITDirectoryObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITRequest(c_void_p):
+class ITRequest(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('ac48ffdf-f8c4-11d1-a0-30-00-c0-4f-b6-80-9f')
     @commethod(7)
     def MakeCall(self, pDestAddress: Windows.Win32.Foundation.BSTR, pAppName: Windows.Win32.Foundation.BSTR, pCalledParty: Windows.Win32.Foundation.BSTR, pComment: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ITRequestEvent(c_void_p):
+class ITRequestEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('ac48ffde-f8c4-11d1-a0-30-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -3371,7 +3371,7 @@ class ITRequestEvent(c_void_p):
     def get_CalledParty(self, ppCalledParty: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def get_Comment(self, ppComment: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITScriptableAudioFormat(c_void_p):
+class ITScriptableAudioFormat(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('b87658bd-3c59-4f64-be-74-ae-de-3e-86-a8-1e')
     @commethod(7)
@@ -3398,12 +3398,12 @@ class ITScriptableAudioFormat(c_void_p):
     def get_FormatTag(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def put_FormatTag(self, nNewVal: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITStaticAudioTerminal(c_void_p):
+class ITStaticAudioTerminal(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('a86b7871-d14c-48e6-92-2e-a8-d1-5f-98-48-00')
     @commethod(7)
     def get_WaveId(self, plWaveId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITStream(c_void_p):
+class ITStream(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('ee3bd605-3868-11d2-a0-45-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -3426,7 +3426,7 @@ class ITStream(c_void_p):
     def EnumerateTerminals(self, ppEnumTerminal: POINTER(Windows.Win32.Devices.Tapi.IEnumTerminal_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def get_Terminals(self, pTerminals: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITStreamControl(c_void_p):
+class ITStreamControl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('ee3bd604-3868-11d2-a0-45-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -3437,7 +3437,7 @@ class ITStreamControl(c_void_p):
     def EnumerateStreams(self, ppEnumStream: POINTER(Windows.Win32.Devices.Tapi.IEnumStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_Streams(self, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITSubStream(c_void_p):
+class ITSubStream(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('ee3bd608-3868-11d2-a0-45-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -3456,7 +3456,7 @@ class ITSubStream(c_void_p):
     def get_Terminals(self, pTerminals: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_Stream(self, ppITStream: POINTER(Windows.Win32.Devices.Tapi.ITStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITSubStreamControl(c_void_p):
+class ITSubStreamControl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('ee3bd607-3868-11d2-a0-45-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -3467,7 +3467,7 @@ class ITSubStreamControl(c_void_p):
     def EnumerateSubStreams(self, ppEnumSubStream: POINTER(Windows.Win32.Devices.Tapi.IEnumSubStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_SubStreams(self, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITTAPI(c_void_p):
+class ITTAPI(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('b1efc382-9355-11d0-83-5c-00-aa-00-3c-ca-bd')
     @commethod(7)
@@ -3502,7 +3502,7 @@ class ITTAPI(c_void_p):
     def put_EventFilter(self, lFilterMask: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def get_EventFilter(self, plFilterMask: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITTAPI2(c_void_p):
+class ITTAPI2(ComPtr):
     extends: Windows.Win32.Devices.Tapi.ITTAPI
     Guid = Guid('54fbdc8c-d90f-4dad-96-95-b3-73-09-7f-09-4b')
     @commethod(23)
@@ -3511,22 +3511,22 @@ class ITTAPI2(c_void_p):
     def EnumeratePhones(self, ppEnumPhone: POINTER(Windows.Win32.Devices.Tapi.IEnumPhone_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def CreateEmptyCollectionObject(self, ppCollection: POINTER(Windows.Win32.Devices.Tapi.ITCollection2_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITTAPICallCenter(c_void_p):
+class ITTAPICallCenter(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('5afc3154-4bcc-11d1-bf-80-00-80-5f-c1-47-d3')
     @commethod(7)
     def EnumerateAgentHandlers(self, ppEnumHandler: POINTER(Windows.Win32.Devices.Tapi.IEnumAgentHandler_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_AgentHandlers(self, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITTAPIDispatchEventNotification(c_void_p):
+class ITTAPIDispatchEventNotification(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('9f34325b-7e62-11d2-94-57-00-c0-4f-8e-c8-88')
-class ITTAPIEventNotification(c_void_p):
+class ITTAPIEventNotification(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('eddb9426-3b91-11d1-8f-30-00-c0-4f-b6-80-9f')
     @commethod(3)
     def Event(self, TapiEvent: Windows.Win32.Devices.Tapi.TAPI_EVENT, pEvent: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ITTAPIObjectEvent(c_void_p):
+class ITTAPIObjectEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f4854d48-937a-11d1-bb-58-00-c0-4f-b6-80-9f')
     @commethod(7)
@@ -3537,12 +3537,12 @@ class ITTAPIObjectEvent(c_void_p):
     def get_Address(self, ppAddress: POINTER(Windows.Win32.Devices.Tapi.ITAddress_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_CallbackInstance(self, plCallbackInstance: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITTAPIObjectEvent2(c_void_p):
+class ITTAPIObjectEvent2(ComPtr):
     extends: Windows.Win32.Devices.Tapi.ITTAPIObjectEvent
     Guid = Guid('359dda6e-68ce-4383-bf-0b-16-91-33-c4-1b-46')
     @commethod(11)
     def get_Phone(self, ppPhone: POINTER(Windows.Win32.Devices.Tapi.ITPhone_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITTTSTerminalEvent(c_void_p):
+class ITTTSTerminalEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d964788f-95a5-461d-ab-0c-b9-90-0a-6c-27-13')
     @commethod(7)
@@ -3551,7 +3551,7 @@ class ITTTSTerminalEvent(c_void_p):
     def get_Call(self, ppCall: POINTER(Windows.Win32.Devices.Tapi.ITCallInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Error(self, phrErrorCode: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITTerminal(c_void_p):
+class ITTerminal(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('b1efc38a-9355-11d0-83-5c-00-aa-00-3c-ca-bd')
     @commethod(7)
@@ -3566,7 +3566,7 @@ class ITTerminal(c_void_p):
     def get_MediaType(self, plMediaType: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def get_Direction(self, pDirection: POINTER(Windows.Win32.Devices.Tapi.TERMINAL_DIRECTION)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITTerminalSupport(c_void_p):
+class ITTerminalSupport(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('b1efc385-9355-11d0-83-5c-00-aa-00-3c-ca-bd')
     @commethod(7)
@@ -3581,7 +3581,7 @@ class ITTerminalSupport(c_void_p):
     def CreateTerminal(self, pTerminalClass: Windows.Win32.Foundation.BSTR, lMediaType: Int32, Direction: Windows.Win32.Devices.Tapi.TERMINAL_DIRECTION, ppTerminal: POINTER(Windows.Win32.Devices.Tapi.ITTerminal_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetDefaultStaticTerminal(self, lMediaType: Int32, Direction: Windows.Win32.Devices.Tapi.TERMINAL_DIRECTION, ppTerminal: POINTER(Windows.Win32.Devices.Tapi.ITTerminal_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITTerminalSupport2(c_void_p):
+class ITTerminalSupport2(ComPtr):
     extends: Windows.Win32.Devices.Tapi.ITTerminalSupport
     Guid = Guid('f3eb39bc-1b1f-4e99-a0-c0-56-30-5c-4d-d5-91')
     @commethod(13)
@@ -3592,7 +3592,7 @@ class ITTerminalSupport2(c_void_p):
     def get_PluggableTerminalClasses(self, bstrTerminalSuperclass: Windows.Win32.Foundation.BSTR, lMediaType: Int32, pVariant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def EnumeratePluggableTerminalClasses(self, iidTerminalSuperclass: Guid, lMediaType: Int32, ppClassEnumerator: POINTER(Windows.Win32.Devices.Tapi.IEnumPluggableTerminalClassInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITToneDetectionEvent(c_void_p):
+class ITToneDetectionEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('407e0faf-d047-4753-b0-c6-8e-06-03-73-fe-cd')
     @commethod(7)
@@ -3603,7 +3603,7 @@ class ITToneDetectionEvent(c_void_p):
     def get_TickCount(self, plTickCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_CallbackInstance(self, plCallbackInstance: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITToneTerminalEvent(c_void_p):
+class ITToneTerminalEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('e6f56009-611f-4945-bb-d2-2d-0c-e5-61-20-56')
     @commethod(7)
@@ -3612,7 +3612,7 @@ class ITToneTerminalEvent(c_void_p):
     def get_Call(self, ppCall: POINTER(Windows.Win32.Devices.Tapi.ITCallInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Error(self, phrErrorCode: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITnef(c_void_p):
+class ITnef(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     @commethod(3)
     def AddProps(self, ulFlags: UInt32, ulElemID: UInt32, lpvData: c_void_p, lpPropList: POINTER(Windows.Win32.System.AddressBook.SPropTagArray_head)) -> Windows.Win32.Foundation.HRESULT: ...

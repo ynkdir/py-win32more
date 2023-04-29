@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Storage.DataDeduplication
 import Windows.Win32.System.Com
@@ -85,12 +85,12 @@ class DedupStreamEntry(EasyCastStructure):
     Hash: Windows.Win32.Storage.DataDeduplication.DedupHash
     LogicalSize: UInt32
     Offset: UInt64
-class IDedupBackupSupport(c_void_p):
+class IDedupBackupSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c719d963-2b2d-415e-ac-f7-7e-b7-ca-59-6f-f4')
     @commethod(3)
     def RestoreFiles(self, NumberOfFiles: UInt32, FileFullPaths: POINTER(Windows.Win32.Foundation.BSTR), Store: Windows.Win32.Storage.DataDeduplication.IDedupReadFileCallback_head, Flags: UInt32, FileResults: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDedupChunkLibrary(c_void_p):
+class IDedupChunkLibrary(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bb5144d7-2720-4dcc-87-77-78-59-74-16-ec-23')
     @commethod(3)
@@ -101,7 +101,7 @@ class IDedupChunkLibrary(c_void_p):
     def SetParameter(self, dwParamType: UInt32, vParamValue: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def StartChunking(self, iidIteratorInterfaceID: Guid, ppChunksEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDedupDataPort(c_void_p):
+class IDedupDataPort(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7963d734-40a9-4ea3-bb-f6-5a-89-d2-6f-7a-e8')
     @commethod(3)
@@ -128,7 +128,7 @@ class IDedupDataPort(c_void_p):
     def GetRequestStatus(self, RequestId: Guid, pStatus: POINTER(Windows.Win32.Storage.DataDeduplication.DedupDataPortRequestStatus)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetRequestResults(self, RequestId: Guid, MaxWaitMs: UInt32, pBatchResult: POINTER(Windows.Win32.Foundation.HRESULT), pBatchCount: POINTER(UInt32), pStatus: POINTER(Windows.Win32.Storage.DataDeduplication.DedupDataPortRequestStatus), ppItemResults: POINTER(POINTER(Windows.Win32.Foundation.HRESULT))) -> Windows.Win32.Foundation.HRESULT: ...
-class IDedupDataPortManager(c_void_p):
+class IDedupDataPortManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('44677452-b90a-445e-81-92-cd-cf-e8-15-11-fb')
     @commethod(3)
@@ -137,7 +137,7 @@ class IDedupDataPortManager(c_void_p):
     def GetVolumeStatus(self, Options: UInt32, Path: Windows.Win32.Foundation.BSTR, pStatus: POINTER(Windows.Win32.Storage.DataDeduplication.DedupDataPortVolumeStatus)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetVolumeDataPort(self, Options: UInt32, Path: Windows.Win32.Foundation.BSTR, ppDataPort: POINTER(Windows.Win32.Storage.DataDeduplication.IDedupDataPort_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDedupIterateChunksHash32(c_void_p):
+class IDedupIterateChunksHash32(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('90b584d3-72aa-400f-97-67-ca-d8-66-a5-a2-d8')
     @commethod(3)
@@ -148,7 +148,7 @@ class IDedupIterateChunksHash32(c_void_p):
     def Drain(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDedupReadFileCallback(c_void_p):
+class IDedupReadFileCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7bacc67a-2f1d-42d0-89-7e-6f-f6-2d-d5-33-bb')
     @commethod(3)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Data.Xml.MsXml
 import Windows.Win32.Foundation
 import Windows.Win32.NetworkManagement.NetManagement
@@ -2698,7 +2698,7 @@ class HLOG(EasyCastStructure):
     last_flags: UInt32
     offset: UInt32
     rec_offset: UInt32
-class IEnumNetCfgBindingInterface(c_void_p):
+class IEnumNetCfgBindingInterface(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0e8ae90-306e-11d1-aa-cf-00-80-5f-c1-27-0e')
     @commethod(3)
@@ -2709,7 +2709,7 @@ class IEnumNetCfgBindingInterface(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgBindingInterface_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumNetCfgBindingPath(c_void_p):
+class IEnumNetCfgBindingPath(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0e8ae91-306e-11d1-aa-cf-00-80-5f-c1-27-0e')
     @commethod(3)
@@ -2720,7 +2720,7 @@ class IEnumNetCfgBindingPath(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgBindingPath_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumNetCfgComponent(c_void_p):
+class IEnumNetCfgComponent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0e8ae92-306e-11d1-aa-cf-00-80-5f-c1-27-0e')
     @commethod(3)
@@ -2731,7 +2731,7 @@ class IEnumNetCfgComponent(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgComponent_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfg(c_void_p):
+class INetCfg(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0e8ae93-306e-11d1-aa-cf-00-80-5f-c1-27-0e')
     @commethod(3)
@@ -2748,7 +2748,7 @@ class INetCfg(c_void_p):
     def FindComponent(self, pszwInfId: Windows.Win32.Foundation.PWSTR, pComponent: POINTER(Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def QueryNetCfgClass(self, pguidClass: POINTER(Guid), riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgBindingInterface(c_void_p):
+class INetCfgBindingInterface(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0e8ae94-306e-11d1-aa-cf-00-80-5f-c1-27-0e')
     @commethod(3)
@@ -2757,7 +2757,7 @@ class INetCfgBindingInterface(c_void_p):
     def GetUpperComponent(self, ppnccItem: POINTER(Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetLowerComponent(self, ppnccItem: POINTER(Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgBindingPath(c_void_p):
+class INetCfgBindingPath(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0e8ae96-306e-11d1-aa-cf-00-80-5f-c1-27-0e')
     @commethod(3)
@@ -2776,14 +2776,14 @@ class INetCfgBindingPath(c_void_p):
     def GetDepth(self, pcInterfaces: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def EnumBindingInterfaces(self, ppenumInterface: POINTER(Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgBindingInterface_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgClass(c_void_p):
+class INetCfgClass(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0e8ae97-306e-11d1-aa-cf-00-80-5f-c1-27-0e')
     @commethod(3)
     def FindComponent(self, pszwInfId: Windows.Win32.Foundation.PWSTR, ppnccItem: POINTER(Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EnumComponents(self, ppenumComponent: POINTER(Windows.Win32.NetworkManagement.NetManagement.IEnumNetCfgComponent_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgClassSetup(c_void_p):
+class INetCfgClassSetup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0e8ae9d-306e-11d1-aa-cf-00-80-5f-c1-27-0e')
     @commethod(3)
@@ -2792,12 +2792,12 @@ class INetCfgClassSetup(c_void_p):
     def Install(self, pszwInfId: Windows.Win32.Foundation.PWSTR, pOboToken: POINTER(Windows.Win32.NetworkManagement.NetManagement.OBO_TOKEN_head), dwSetupFlags: UInt32, dwUpgradeFromBuildNo: UInt32, pszwAnswerFile: Windows.Win32.Foundation.PWSTR, pszwAnswerSections: Windows.Win32.Foundation.PWSTR, ppnccItem: POINTER(Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def DeInstall(self, pComponent: Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head, pOboToken: POINTER(Windows.Win32.NetworkManagement.NetManagement.OBO_TOKEN_head), pmszwRefs: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgClassSetup2(c_void_p):
+class INetCfgClassSetup2(ComPtr):
     extends: Windows.Win32.NetworkManagement.NetManagement.INetCfgClassSetup
     Guid = Guid('c0e8aea0-306e-11d1-aa-cf-00-80-5f-c1-27-0e')
     @commethod(6)
     def UpdateNonEnumeratedComponent(self, pIComp: Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head, dwSetupFlags: UInt32, dwUpgradeFromBuildNo: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgComponent(c_void_p):
+class INetCfgComponent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0e8ae99-306e-11d1-aa-cf-00-80-5f-c1-27-0e')
     @commethod(3)
@@ -2824,7 +2824,7 @@ class INetCfgComponent(c_void_p):
     def OpenParamKey(self, phkey: POINTER(Windows.Win32.System.Registry.HKEY)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def RaisePropertyUi(self, hwndParent: Windows.Win32.Foundation.HWND, dwFlags: UInt32, punkContext: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgComponentBindings(c_void_p):
+class INetCfgComponentBindings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0e8ae9e-306e-11d1-aa-cf-00-80-5f-c1-27-0e')
     @commethod(3)
@@ -2843,7 +2843,7 @@ class INetCfgComponentBindings(c_void_p):
     def MoveBefore(self, pncbItemSrc: Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head, pncbItemDest: Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def MoveAfter(self, pncbItemSrc: Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head, pncbItemDest: Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgComponentControl(c_void_p):
+class INetCfgComponentControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('932238df-bea1-11d0-92-98-00-c0-4f-c9-9d-cf')
     @commethod(3)
@@ -2854,14 +2854,14 @@ class INetCfgComponentControl(c_void_p):
     def ApplyPnpChanges(self, pICallback: Windows.Win32.NetworkManagement.NetManagement.INetCfgPnpReconfigCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def CancelChanges(self) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgComponentNotifyBinding(c_void_p):
+class INetCfgComponentNotifyBinding(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('932238e1-bea1-11d0-92-98-00-c0-4f-c9-9d-cf')
     @commethod(3)
     def QueryBindingPath(self, dwChangeFlag: UInt32, pIPath: Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def NotifyBindingPath(self, dwChangeFlag: UInt32, pIPath: Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgComponentNotifyGlobal(c_void_p):
+class INetCfgComponentNotifyGlobal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('932238e2-bea1-11d0-92-98-00-c0-4f-c9-9d-cf')
     @commethod(3)
@@ -2872,7 +2872,7 @@ class INetCfgComponentNotifyGlobal(c_void_p):
     def SysNotifyBindingPath(self, dwChangeFlag: UInt32, pIPath: Windows.Win32.NetworkManagement.NetManagement.INetCfgBindingPath_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SysNotifyComponent(self, dwChangeFlag: UInt32, pIComp: Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgComponentPropertyUi(c_void_p):
+class INetCfgComponentPropertyUi(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('932238e0-bea1-11d0-92-98-00-c0-4f-c9-9d-cf')
     @commethod(3)
@@ -2887,7 +2887,7 @@ class INetCfgComponentPropertyUi(c_void_p):
     def ApplyProperties(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def CancelProperties(self) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgComponentSetup(c_void_p):
+class INetCfgComponentSetup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('932238e3-bea1-11d0-92-98-00-c0-4f-c9-9d-cf')
     @commethod(3)
@@ -2898,14 +2898,14 @@ class INetCfgComponentSetup(c_void_p):
     def ReadAnswerFile(self, pszwAnswerFile: Windows.Win32.Foundation.PWSTR, pszwAnswerSections: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Removing(self) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgComponentSysPrep(c_void_p):
+class INetCfgComponentSysPrep(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0e8ae9a-306e-11d1-aa-cf-00-80-5f-c1-27-0e')
     @commethod(3)
     def SaveAdapterParameters(self, pncsp: Windows.Win32.NetworkManagement.NetManagement.INetCfgSysPrep_head, pszwAnswerSections: Windows.Win32.Foundation.PWSTR, pAdapterInstanceGuid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RestoreAdapterParameters(self, pszwAnswerFile: Windows.Win32.Foundation.PWSTR, pszwAnswerSection: Windows.Win32.Foundation.PWSTR, pAdapterInstanceGuid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgComponentUpperEdge(c_void_p):
+class INetCfgComponentUpperEdge(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('932238e4-bea1-11d0-92-98-00-c0-4f-c9-9d-cf')
     @commethod(3)
@@ -2914,7 +2914,7 @@ class INetCfgComponentUpperEdge(c_void_p):
     def AddInterfacesToAdapter(self, pAdapter: Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head, dwNumInterfaces: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def RemoveInterfacesFromAdapter(self, pAdapter: Windows.Win32.NetworkManagement.NetManagement.INetCfgComponent_head, dwNumInterfaces: UInt32, pguidInterfaceIds: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgLock(c_void_p):
+class INetCfgLock(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0e8ae9f-306e-11d1-aa-cf-00-80-5f-c1-27-0e')
     @commethod(3)
@@ -2923,12 +2923,12 @@ class INetCfgLock(c_void_p):
     def ReleaseWriteLock(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def IsWriteLocked(self, ppszwClientDescription: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgPnpReconfigCallback(c_void_p):
+class INetCfgPnpReconfigCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8d84bd35-e227-11d2-b7-00-00-a0-c9-8a-6a-85')
     @commethod(3)
     def SendPnpReconfig(self, Layer: Windows.Win32.NetworkManagement.NetManagement.NCPNP_RECONFIG_LAYER, pszwUpper: Windows.Win32.Foundation.PWSTR, pszwLower: Windows.Win32.Foundation.PWSTR, pvData: c_void_p, dwSizeOfData: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class INetCfgSysPrep(c_void_p):
+class INetCfgSysPrep(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0e8ae98-306e-11d1-aa-cf-00-80-5f-c1-27-0e')
     @commethod(3)
@@ -2939,24 +2939,24 @@ class INetCfgSysPrep(c_void_p):
     def HrSetupSetFirstStringAsBool(self, pwszSection: Windows.Win32.Foundation.PWSTR, pwszKey: Windows.Win32.Foundation.PWSTR, fValue: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def HrSetupSetFirstMultiSzField(self, pwszSection: Windows.Win32.Foundation.PWSTR, pwszKey: Windows.Win32.Foundation.PWSTR, pmszValue: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class INetLanConnectionUiInfo(c_void_p):
+class INetLanConnectionUiInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c08956a6-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
     @commethod(3)
     def GetDeviceGuid(self, pguid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class INetRasConnectionIpUiInfo(c_void_p):
+class INetRasConnectionIpUiInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('faedcf58-31fe-11d1-aa-d2-00-80-5f-c1-27-0e')
     @commethod(3)
     def GetUiInfo(self, pInfo: POINTER(Windows.Win32.NetworkManagement.NetManagement.RASCON_IPUI_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IProvisioningDomain(c_void_p):
+class IProvisioningDomain(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c96fbd50-24dd-11d8-89-fb-00-90-4b-2e-a9-c6')
     @commethod(3)
     def Add(self, pszwPathToFolder: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Query(self, pszwDomain: Windows.Win32.Foundation.PWSTR, pszwLanguage: Windows.Win32.Foundation.PWSTR, pszwXPathQuery: Windows.Win32.Foundation.PWSTR, Nodes: POINTER(Windows.Win32.Data.Xml.MsXml.IXMLDOMNodeList_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IProvisioningProfileWireless(c_void_p):
+class IProvisioningProfileWireless(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c96fbd51-24dd-11d8-89-fb-00-90-4b-2e-a9-c6')
     @commethod(3)

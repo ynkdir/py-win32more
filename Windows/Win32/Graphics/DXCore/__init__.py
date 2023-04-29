@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.DXCore
 import Windows.Win32.System.Com
@@ -69,7 +69,7 @@ DXCoreNotificationType_AdapterHardwareContentProtectionTeardown: DXCoreNotificat
 DXCoreSegmentGroup = UInt32
 DXCoreSegmentGroup_Local: DXCoreSegmentGroup = 0
 DXCoreSegmentGroup_NonLocal: DXCoreSegmentGroup = 1
-class IDXCoreAdapter(c_void_p):
+class IDXCoreAdapter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f0db4c7f-fe5a-42a2-bd-62-f2-a6-cf-6f-c8-3e')
     @commethod(3)
@@ -92,7 +92,7 @@ class IDXCoreAdapter(c_void_p):
     def SetState(self, state: Windows.Win32.Graphics.DXCore.DXCoreAdapterState, inputStateDetailsSize: UIntPtr, inputStateDetails: c_void_p, inputDataSize: UIntPtr, inputData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetFactory(self, riid: POINTER(Guid), ppvFactory: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXCoreAdapterFactory(c_void_p):
+class IDXCoreAdapterFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('78ee5945-c36e-4b13-a6-69-00-5d-d1-1c-0f-06')
     @commethod(3)
@@ -105,7 +105,7 @@ class IDXCoreAdapterFactory(c_void_p):
     def RegisterEventNotification(self, dxCoreObject: Windows.Win32.System.Com.IUnknown_head, notificationType: Windows.Win32.Graphics.DXCore.DXCoreNotificationType, callbackFunction: Windows.Win32.Graphics.DXCore.PFN_DXCORE_NOTIFICATION_CALLBACK, callbackContext: c_void_p, eventCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def UnregisterEventNotification(self, eventCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDXCoreAdapterList(c_void_p):
+class IDXCoreAdapterList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('526c7776-40e9-459b-b7-11-f3-2a-d7-6d-fc-28')
     @commethod(3)

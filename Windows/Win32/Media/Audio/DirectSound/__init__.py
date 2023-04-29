@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Direct3D
 import Windows.Win32.Media.Audio
@@ -530,7 +530,7 @@ class DSFXWavesReverb(EasyCastStructure):
     fReverbMix: Single
     fReverbTime: Single
     fHighFreqRTRatio: Single
-class IDirectSound(c_void_p):
+class IDirectSound(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('279afa83-4981-11ce-a5-21-00-20-af-0b-e5-60')
     @commethod(3)
@@ -549,7 +549,7 @@ class IDirectSound(c_void_p):
     def SetSpeakerConfig(self, dwSpeakerConfig: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Initialize(self, pcGuidDevice: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSound3DBuffer(c_void_p):
+class IDirectSound3DBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('279afa86-4981-11ce-a5-21-00-20-af-0b-e5-60')
     @commethod(3)
@@ -588,7 +588,7 @@ class IDirectSound3DBuffer(c_void_p):
     def SetPosition(self, x: Single, y: Single, z: Single, dwApply: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def SetVelocity(self, x: Single, y: Single, z: Single, dwApply: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSound3DListener(c_void_p):
+class IDirectSound3DListener(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('279afa84-4981-11ce-a5-21-00-20-af-0b-e5-60')
     @commethod(3)
@@ -621,12 +621,12 @@ class IDirectSound3DListener(c_void_p):
     def SetVelocity(self, x: Single, y: Single, z: Single, dwApply: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def CommitDeferredSettings(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSound8(c_void_p):
+class IDirectSound8(ComPtr):
     extends: Windows.Win32.Media.Audio.DirectSound.IDirectSound
     Guid = Guid('c50a7e93-f395-4834-9e-f6-7f-a9-9d-e5-09-66')
     @commethod(11)
     def VerifyCertification(self, pdwCertified: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundBuffer(c_void_p):
+class IDirectSoundBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('279afa85-4981-11ce-a5-21-00-20-af-0b-e5-60')
     @commethod(3)
@@ -665,7 +665,7 @@ class IDirectSoundBuffer(c_void_p):
     def Unlock(self, pvAudioPtr1: c_void_p, dwAudioBytes1: UInt32, pvAudioPtr2: c_void_p, dwAudioBytes2: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def Restore(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundBuffer8(c_void_p):
+class IDirectSoundBuffer8(ComPtr):
     extends: Windows.Win32.Media.Audio.DirectSound.IDirectSoundBuffer
     Guid = Guid('6825a449-7524-4d82-92-0f-50-e3-6a-b3-ab-1e')
     @commethod(21)
@@ -674,7 +674,7 @@ class IDirectSoundBuffer8(c_void_p):
     def AcquireResources(self, dwFlags: UInt32, dwEffectsCount: UInt32, pdwResultCodes: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def GetObjectInPath(self, rguidObject: POINTER(Guid), dwIndex: UInt32, rguidInterface: POINTER(Guid), ppObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundCapture(c_void_p):
+class IDirectSoundCapture(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b0210781-89cd-11d0-af-08-00-a0-c9-25-cd-16')
     @commethod(3)
@@ -683,7 +683,7 @@ class IDirectSoundCapture(c_void_p):
     def GetCaps(self, pDSCCaps: POINTER(Windows.Win32.Media.Audio.DirectSound.DSCCAPS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Initialize(self, pcGuidDevice: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundCaptureBuffer(c_void_p):
+class IDirectSoundCaptureBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b0210782-89cd-11d0-af-08-00-a0-c9-25-cd-16')
     @commethod(3)
@@ -704,14 +704,14 @@ class IDirectSoundCaptureBuffer(c_void_p):
     def Stop(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Unlock(self, pvAudioPtr1: c_void_p, dwAudioBytes1: UInt32, pvAudioPtr2: c_void_p, dwAudioBytes2: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundCaptureBuffer8(c_void_p):
+class IDirectSoundCaptureBuffer8(ComPtr):
     extends: Windows.Win32.Media.Audio.DirectSound.IDirectSoundCaptureBuffer
     Guid = Guid('00990df4-0dbb-4872-83-3e-6d-30-3e-80-ae-b6')
     @commethod(12)
     def GetObjectInPath(self, rguidObject: POINTER(Guid), dwIndex: UInt32, rguidInterface: POINTER(Guid), ppObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetFXStatus(self, dwEffectsCount: UInt32, pdwFXStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundCaptureFXAec(c_void_p):
+class IDirectSoundCaptureFXAec(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ad74143d-903d-4ab7-80-66-28-d3-63-03-6d-65')
     @commethod(3)
@@ -722,7 +722,7 @@ class IDirectSoundCaptureFXAec(c_void_p):
     def GetStatus(self, pdwStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundCaptureFXNoiseSuppress(c_void_p):
+class IDirectSoundCaptureFXNoiseSuppress(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ed311e41-fbae-4175-96-25-cd-08-54-f6-93-ca')
     @commethod(3)
@@ -731,49 +731,49 @@ class IDirectSoundCaptureFXNoiseSuppress(c_void_p):
     def GetAllParameters(self, pDscFxNoiseSuppress: POINTER(Windows.Win32.Media.Audio.DirectSound.DSCFXNoiseSuppress_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundFXChorus(c_void_p):
+class IDirectSoundFXChorus(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('880842e3-145f-43e6-a9-34-a7-18-06-e5-05-47')
     @commethod(3)
     def SetAllParameters(self, pcDsFxChorus: POINTER(Windows.Win32.Media.Audio.DirectSound.DSFXChorus_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAllParameters(self, pDsFxChorus: POINTER(Windows.Win32.Media.Audio.DirectSound.DSFXChorus_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundFXCompressor(c_void_p):
+class IDirectSoundFXCompressor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4bbd1154-62f6-4e2c-a1-5c-d3-b6-c4-17-f7-a0')
     @commethod(3)
     def SetAllParameters(self, pcDsFxCompressor: POINTER(Windows.Win32.Media.Audio.DirectSound.DSFXCompressor_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAllParameters(self, pDsFxCompressor: POINTER(Windows.Win32.Media.Audio.DirectSound.DSFXCompressor_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundFXDistortion(c_void_p):
+class IDirectSoundFXDistortion(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8ecf4326-455f-4d8b-bd-a9-8d-5d-3e-9e-3e-0b')
     @commethod(3)
     def SetAllParameters(self, pcDsFxDistortion: POINTER(Windows.Win32.Media.Audio.DirectSound.DSFXDistortion_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAllParameters(self, pDsFxDistortion: POINTER(Windows.Win32.Media.Audio.DirectSound.DSFXDistortion_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundFXEcho(c_void_p):
+class IDirectSoundFXEcho(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8bd28edf-50db-4e92-a2-bd-44-54-88-d1-ed-42')
     @commethod(3)
     def SetAllParameters(self, pcDsFxEcho: POINTER(Windows.Win32.Media.Audio.DirectSound.DSFXEcho_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAllParameters(self, pDsFxEcho: POINTER(Windows.Win32.Media.Audio.DirectSound.DSFXEcho_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundFXFlanger(c_void_p):
+class IDirectSoundFXFlanger(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('903e9878-2c92-4072-9b-2c-ea-68-f5-39-67-83')
     @commethod(3)
     def SetAllParameters(self, pcDsFxFlanger: POINTER(Windows.Win32.Media.Audio.DirectSound.DSFXFlanger_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAllParameters(self, pDsFxFlanger: POINTER(Windows.Win32.Media.Audio.DirectSound.DSFXFlanger_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundFXGargle(c_void_p):
+class IDirectSoundFXGargle(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d616f352-d622-11ce-aa-c5-00-20-af-0b-99-a3')
     @commethod(3)
     def SetAllParameters(self, pcDsFxGargle: POINTER(Windows.Win32.Media.Audio.DirectSound.DSFXGargle_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAllParameters(self, pDsFxGargle: POINTER(Windows.Win32.Media.Audio.DirectSound.DSFXGargle_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundFXI3DL2Reverb(c_void_p):
+class IDirectSoundFXI3DL2Reverb(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4b166a6a-0d66-43f3-80-e3-ee-62-80-de-e1-a4')
     @commethod(3)
@@ -788,26 +788,26 @@ class IDirectSoundFXI3DL2Reverb(c_void_p):
     def SetQuality(self, lQuality: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetQuality(self, plQuality: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundFXParamEq(c_void_p):
+class IDirectSoundFXParamEq(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c03ca9fe-fe90-4204-80-78-82-33-4c-d1-77-da')
     @commethod(3)
     def SetAllParameters(self, pcDsFxParamEq: POINTER(Windows.Win32.Media.Audio.DirectSound.DSFXParamEq_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAllParameters(self, pDsFxParamEq: POINTER(Windows.Win32.Media.Audio.DirectSound.DSFXParamEq_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundFXWavesReverb(c_void_p):
+class IDirectSoundFXWavesReverb(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('46858c3a-0dc6-45e3-b7-60-d4-ee-f1-6c-b3-25')
     @commethod(3)
     def SetAllParameters(self, pcDsFxWavesReverb: POINTER(Windows.Win32.Media.Audio.DirectSound.DSFXWavesReverb_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAllParameters(self, pDsFxWavesReverb: POINTER(Windows.Win32.Media.Audio.DirectSound.DSFXWavesReverb_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundFullDuplex(c_void_p):
+class IDirectSoundFullDuplex(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('edcb4c7a-daab-4216-a4-2e-6c-50-59-6d-dc-1d')
     @commethod(3)
     def Initialize(self, pCaptureGuid: POINTER(Guid), pRenderGuid: POINTER(Guid), lpDscBufferDesc: POINTER(Windows.Win32.Media.Audio.DirectSound.DSCBUFFERDESC_head), lpDsBufferDesc: POINTER(Windows.Win32.Media.Audio.DirectSound.DSBUFFERDESC_head), hWnd: Windows.Win32.Foundation.HWND, dwLevel: UInt32, lplpDirectSoundCaptureBuffer8: POINTER(Windows.Win32.Media.Audio.DirectSound.IDirectSoundCaptureBuffer8_head), lplpDirectSoundBuffer8: POINTER(Windows.Win32.Media.Audio.DirectSound.IDirectSoundBuffer8_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDirectSoundNotify(c_void_p):
+class IDirectSoundNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b0210783-89cd-11d0-af-08-00-a0-c9-25-cd-16')
     @commethod(3)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Security
 import Windows.Win32.Security.Isolation
@@ -38,7 +38,7 @@ def GetAppContainerFolderPath(pszAppContainerSid: Windows.Win32.Foundation.PWSTR
 def DeriveRestrictedAppContainerSidFromAppContainerSidAndRestrictedName(psidAppContainerSid: Windows.Win32.Foundation.PSID, pszRestrictedAppContainerName: Windows.Win32.Foundation.PWSTR, ppsidRestrictedAppContainerSid: POINTER(Windows.Win32.Foundation.PSID)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('USERENV.dll')
 def DeriveAppContainerSidFromAppContainerName(pszAppContainerName: Windows.Win32.Foundation.PWSTR, ppsidAppContainerSid: POINTER(Windows.Win32.Foundation.PSID)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsolatedAppLauncher(c_void_p):
+class IIsolatedAppLauncher(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f686878f-7b42-4cc4-96-fb-f4-f3-b6-e3-d2-4d')
     @commethod(3)

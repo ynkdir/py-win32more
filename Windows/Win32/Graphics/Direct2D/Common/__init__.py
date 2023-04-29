@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Direct2D.Common
 import Windows.Win32.Graphics.Dxgi.Common
@@ -237,7 +237,7 @@ class D2D_VECTOR_4F(EasyCastStructure):
     y: Single
     z: Single
     w: Single
-class ID2D1SimplifiedGeometrySink(c_void_p):
+class ID2D1SimplifiedGeometrySink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2cd9069e-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
     @commethod(3)

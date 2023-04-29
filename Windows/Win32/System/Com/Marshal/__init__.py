@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.System.Com
@@ -241,7 +241,7 @@ def HPALETTE_UserMarshal64(param0: POINTER(UInt32), param1: POINTER(Byte), param
 def HPALETTE_UserUnmarshal64(param0: POINTER(UInt32), param1: POINTER(Byte), param2: POINTER(Windows.Win32.Graphics.Gdi.HPALETTE)) -> POINTER(Byte): ...
 @winfunctype('OLE32.dll')
 def HPALETTE_UserFree64(param0: POINTER(UInt32), param1: POINTER(Windows.Win32.Graphics.Gdi.HPALETTE)) -> Void: ...
-class IMarshal(c_void_p):
+class IMarshal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000003-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -256,10 +256,10 @@ class IMarshal(c_void_p):
     def ReleaseMarshalData(self, pStm: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def DisconnectObject(self, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMarshal2(c_void_p):
+class IMarshal2(ComPtr):
     extends: Windows.Win32.System.Com.Marshal.IMarshal
     Guid = Guid('000001cf-0000-0000-c0-00-00-00-00-00-00-46')
-class IMarshalingStream(c_void_p):
+class IMarshalingStream(ComPtr):
     extends: Windows.Win32.System.Com.IStream
     Guid = Guid('d8f2f5e6-6102-4863-9f-26-38-9a-46-76-ef-de')
     @commethod(14)

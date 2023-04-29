@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Data.Xml.MsXml
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.DirectComposition
@@ -3489,7 +3489,7 @@ class CIDA(EasyCastStructure):
     cidl: UInt32
     aoffset: UInt32 * 1
     _pack_ = 1
-class CIE4ConnectionPoint(c_void_p):
+class CIE4ConnectionPoint(ComPtr):
     extends: Windows.Win32.System.Com.IConnectionPoint
     @commethod(8)
     def DoInvokeIE4(self, pf: POINTER(Windows.Win32.Foundation.BOOL), ppv: POINTER(c_void_p), dispid: Int32, pdispparams: POINTER(Windows.Win32.System.Com.DISPPARAMS_head)) -> Windows.Win32.Foundation.HRESULT: ...
@@ -3743,7 +3743,7 @@ class DETAILSINFO(EasyCastStructure):
     cxChar: Int32
     str: Windows.Win32.UI.Shell.Common.STRRET
     iImage: Int32
-class DFConstraint(c_void_p):
+class DFConstraint(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('4a3df050-23bd-11d2-93-9f-00-a0-c9-1e-ed-ba')
     @commethod(7)
@@ -3856,19 +3856,19 @@ DROPIMAGE_WARNING: DROPIMAGETYPE = 7
 DROPIMAGE_NOIMAGE: DROPIMAGETYPE = 8
 DSH_FLAGS = Int32
 DSH_ALLOWDROPDESCRIPTIONTEXT: DSH_FLAGS = 1
-class DShellFolderViewEvents(c_void_p):
+class DShellFolderViewEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('62112aa2-ebe4-11cf-a5-fb-00-20-af-e7-29-2d')
-class DShellNameSpaceEvents(c_void_p):
+class DShellNameSpaceEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('55136806-b2de-11d1-b9-f2-00-a0-c9-8b-c5-47')
-class DShellWindowsEvents(c_void_p):
+class DShellWindowsEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('fe4106e0-399a-11d0-a4-8c-00-a0-c9-0a-8f-39')
-class DWebBrowserEvents(c_void_p):
+class DWebBrowserEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eab22ac2-30c1-11cf-a7-eb-00-00-c0-5b-ae-0b')
-class DWebBrowserEvents2(c_void_p):
+class DWebBrowserEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('34a715a0-6587-11d0-92-4a-00-20-af-c7-ac-4d')
 DefFolderMenu = Guid('c63382be-7933-48d0-9a-c8-85-fb-46-be-2f-dd')
@@ -4134,7 +4134,7 @@ FileOpenDialog = Guid('dc1c5a9c-e88a-4dde-a5-a1-60-f8-2a-20-ae-f7')
 FileOperation = Guid('3ad05575-8857-4850-92-77-11-b8-5b-db-8e-09')
 FileSaveDialog = Guid('c0b4e2f3-ba21-4773-8d-ba-33-5e-c9-46-eb-8b')
 FileSearchBand = Guid('c4ee31f3-4768-11d2-be-5c-00-a0-c9-a8-3d-a1')
-class Folder(c_void_p):
+class Folder(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('bbcbde60-c3ff-11ce-83-50-44-45-53-54-00-00')
     @commethod(7)
@@ -4157,7 +4157,7 @@ class Folder(c_void_p):
     def CopyHere(self, vItem: Windows.Win32.System.Variant.VARIANT, vOptions: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def GetDetailsOf(self, vItem: Windows.Win32.System.Variant.VARIANT, iColumn: Int32, pbs: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class Folder2(c_void_p):
+class Folder2(ComPtr):
     extends: Windows.Win32.UI.Shell.Folder
     Guid = Guid('f0d2d8ef-3890-11d2-bf-8b-00-c0-4f-b9-36-61')
     @commethod(17)
@@ -4170,14 +4170,14 @@ class Folder2(c_void_p):
     def get_HaveToShowWebViewBarricade(self, pbHaveToShowWebViewBarricade: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def DismissedWebViewBarricade(self) -> Windows.Win32.Foundation.HRESULT: ...
-class Folder3(c_void_p):
+class Folder3(ComPtr):
     extends: Windows.Win32.UI.Shell.Folder2
     Guid = Guid('a7ae5f64-c4d7-4d7f-93-07-4d-24-ee-54-b8-41')
     @commethod(22)
     def get_ShowWebViewBarricade(self, pbShowWebViewBarricade: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def put_ShowWebViewBarricade(self, bShowWebViewBarricade: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class FolderItem(c_void_p):
+class FolderItem(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('fac32c80-cbe4-11ce-83-50-44-45-53-54-00-00')
     @commethod(7)
@@ -4214,14 +4214,14 @@ class FolderItem(c_void_p):
     def Verbs(self, ppfic: POINTER(Windows.Win32.UI.Shell.FolderItemVerbs_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def InvokeVerb(self, vVerb: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class FolderItem2(c_void_p):
+class FolderItem2(ComPtr):
     extends: Windows.Win32.UI.Shell.FolderItem
     Guid = Guid('edc817aa-92b8-11d1-b0-75-00-c0-4f-c3-3a-a5')
     @commethod(24)
     def InvokeVerbEx(self, vVerb: Windows.Win32.System.Variant.VARIANT, vArgs: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def ExtendedProperty(self, bstrPropName: Windows.Win32.Foundation.BSTR, pvRet: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class FolderItemVerb(c_void_p):
+class FolderItemVerb(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('08ec3e00-50b0-11cf-96-0c-00-80-c7-f4-ee-85')
     @commethod(7)
@@ -4232,7 +4232,7 @@ class FolderItemVerb(c_void_p):
     def get_Name(self, pbs: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def DoIt(self) -> Windows.Win32.Foundation.HRESULT: ...
-class FolderItemVerbs(c_void_p):
+class FolderItemVerbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('1f8352c0-50b0-11cf-96-0c-00-80-c7-f4-ee-85')
     @commethod(7)
@@ -4245,7 +4245,7 @@ class FolderItemVerbs(c_void_p):
     def Item(self, index: Windows.Win32.System.Variant.VARIANT, ppid: POINTER(Windows.Win32.UI.Shell.FolderItemVerb_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def _NewEnum(self, ppunk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class FolderItems(c_void_p):
+class FolderItems(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('744129e0-cbe5-11ce-83-50-44-45-53-54-00-00')
     @commethod(7)
@@ -4258,12 +4258,12 @@ class FolderItems(c_void_p):
     def Item(self, index: Windows.Win32.System.Variant.VARIANT, ppid: POINTER(Windows.Win32.UI.Shell.FolderItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def _NewEnum(self, ppunk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class FolderItems2(c_void_p):
+class FolderItems2(ComPtr):
     extends: Windows.Win32.UI.Shell.FolderItems
     Guid = Guid('c94f0ad0-f363-11d2-a3-27-00-c0-4f-8e-ec-7f')
     @commethod(12)
     def InvokeVerbEx(self, vVerb: Windows.Win32.System.Variant.VARIANT, vArgs: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class FolderItems3(c_void_p):
+class FolderItems3(ComPtr):
     extends: Windows.Win32.UI.Shell.FolderItems2
     Guid = Guid('eaa7c309-bbec-49d5-82-1d-64-d9-66-cb-66-7f')
     @commethod(13)
@@ -4388,19 +4388,19 @@ HGSC_PRINTERS: HOMEGROUPSHARINGCHOICES = 16
 HPSXA = IntPtr
 HideInputPaneAnimationCoordinator = Guid('384742b1-2a77-4cb3-8c-f8-11-36-f5-e1-7e-59')
 HomeGroup = Guid('de77ba04-3c92-4d11-a1-a5-42-35-2a-53-e0-e3')
-class IACList(c_void_p):
+class IACList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('77a130b0-94fd-11d0-a5-44-00-c0-4f-d7-d0-62')
     @commethod(3)
     def Expand(self, pszExpand: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IACList2(c_void_p):
+class IACList2(ComPtr):
     extends: Windows.Win32.UI.Shell.IACList
     Guid = Guid('470141a0-5186-11d2-bb-b6-00-60-97-7b-46-4c')
     @commethod(4)
     def SetOptions(self, dwFlag: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetOptions(self, pdwFlag: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAccessibilityDockingService(c_void_p):
+class IAccessibilityDockingService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8849dc22-cedf-4c95-99-8d-05-14-19-dd-3f-76')
     @commethod(3)
@@ -4409,17 +4409,17 @@ class IAccessibilityDockingService(c_void_p):
     def DockWindow(self, hwnd: Windows.Win32.Foundation.HWND, hMonitor: Windows.Win32.Graphics.Gdi.HMONITOR, cyRequested: UInt32, pCallback: Windows.Win32.UI.Shell.IAccessibilityDockingServiceCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def UndockWindow(self, hwnd: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
-class IAccessibilityDockingServiceCallback(c_void_p):
+class IAccessibilityDockingServiceCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('157733fd-a592-42e5-b5-94-24-84-68-c5-a8-1b')
     @commethod(3)
     def Undocked(self, undockReason: Windows.Win32.UI.Shell.UNDOCK_REASON) -> Windows.Win32.Foundation.HRESULT: ...
-class IAccessibleObject(c_void_p):
+class IAccessibleObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('95a391c5-9ed4-4c28-84-01-ab-9e-06-71-9e-11')
     @commethod(3)
     def SetAccessibleName(self, pszName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IActionProgress(c_void_p):
+class IActionProgress(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('49ff1173-eadc-446d-92-85-15-64-53-a6-43-1c')
     @commethod(3)
@@ -4434,14 +4434,14 @@ class IActionProgress(c_void_p):
     def ResetCancel(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def End(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IActionProgressDialog(c_void_p):
+class IActionProgressDialog(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('49ff1172-eadc-446d-92-85-15-64-53-a6-43-1c')
     @commethod(3)
     def Initialize(self, flags: UInt32, pszTitle: Windows.Win32.Foundation.PWSTR, pszCancel: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Stop(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppActivationUIInfo(c_void_p):
+class IAppActivationUIInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('abad189d-9fa3-4278-b3-ca-8c-a4-48-a8-8d-cb')
     @commethod(3)
@@ -4454,7 +4454,7 @@ class IAppActivationUIInfo(c_void_p):
     def GetShowUI(self, value: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetKeyState(self, value: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppPublisher(c_void_p):
+class IAppPublisher(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('07250a10-9cf9-11d1-90-76-00-60-08-05-93-82')
     @commethod(3)
@@ -4465,7 +4465,7 @@ class IAppPublisher(c_void_p):
     def GetNumberOfApps(self, pdwApps: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def EnumApps(self, pAppCategoryId: POINTER(Guid), ppepa: POINTER(Windows.Win32.UI.Shell.IEnumPublishedApps_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppVisibility(c_void_p):
+class IAppVisibility(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2246ea2d-caea-4444-a3-c4-6d-e8-27-e4-43-13')
     @commethod(3)
@@ -4476,14 +4476,14 @@ class IAppVisibility(c_void_p):
     def Advise(self, pCallback: Windows.Win32.UI.Shell.IAppVisibilityEvents_head, pdwCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Unadvise(self, dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppVisibilityEvents(c_void_p):
+class IAppVisibilityEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6584ce6b-7d82-49c2-89-c9-c6-bc-02-ba-8c-38')
     @commethod(3)
     def AppVisibilityOnMonitorChanged(self, hMonitor: Windows.Win32.Graphics.Gdi.HMONITOR, previousMode: Windows.Win32.UI.Shell.MONITOR_APP_VISIBILITY, currentMode: Windows.Win32.UI.Shell.MONITOR_APP_VISIBILITY) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def LauncherVisibilityChange(self, currentVisibleState: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IApplicationActivationManager(c_void_p):
+class IApplicationActivationManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2e941141-7f97-4756-ba-1d-9d-ec-de-89-4a-3d')
     @commethod(3)
@@ -4492,7 +4492,7 @@ class IApplicationActivationManager(c_void_p):
     def ActivateForFile(self, appUserModelId: Windows.Win32.Foundation.PWSTR, itemArray: Windows.Win32.UI.Shell.IShellItemArray_head, verb: Windows.Win32.Foundation.PWSTR, processId: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def ActivateForProtocol(self, appUserModelId: Windows.Win32.Foundation.PWSTR, itemArray: Windows.Win32.UI.Shell.IShellItemArray_head, processId: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IApplicationAssociationRegistration(c_void_p):
+class IApplicationAssociationRegistration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4e530b0a-e611-4c77-a3-ac-90-31-d0-22-28-1b')
     @commethod(3)
@@ -4507,12 +4507,12 @@ class IApplicationAssociationRegistration(c_void_p):
     def SetAppAsDefaultAll(self, pszAppRegistryName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def ClearUserAssociations(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IApplicationAssociationRegistrationUI(c_void_p):
+class IApplicationAssociationRegistrationUI(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1f76a169-f994-40ac-8f-c8-09-59-e8-87-47-10')
     @commethod(3)
     def LaunchAdvancedAssociationUI(self, pszAppRegistryName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IApplicationDesignModeSettings(c_void_p):
+class IApplicationDesignModeSettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2a3dee9a-e31d-46d6-85-08-bc-c5-97-db-35-57')
     @commethod(3)
@@ -4527,7 +4527,7 @@ class IApplicationDesignModeSettings(c_void_p):
     def IsApplicationViewStateSupported(self, viewState: Windows.Win32.UI.Shell.APPLICATION_VIEW_STATE, nativeDisplaySizePixels: Windows.Win32.Foundation.SIZE, scaleFactor: Windows.Win32.UI.Shell.Common.DEVICE_SCALE_FACTOR, supported: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def TriggerEdgeGesture(self, edgeGestureKind: Windows.Win32.UI.Shell.EDGE_GESTURE_KIND) -> Windows.Win32.Foundation.HRESULT: ...
-class IApplicationDesignModeSettings2(c_void_p):
+class IApplicationDesignModeSettings2(ComPtr):
     extends: Windows.Win32.UI.Shell.IApplicationDesignModeSettings
     Guid = Guid('490514e1-675a-4d6e-a5-8d-e5-49-01-b4-ca-2f')
     @commethod(9)
@@ -4544,7 +4544,7 @@ class IApplicationDesignModeSettings2(c_void_p):
     def GetApplicationSizeBounds(self, minApplicationSizePixels: POINTER(Windows.Win32.Foundation.SIZE_head), maxApplicationSizePixels: POINTER(Windows.Win32.Foundation.SIZE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetApplicationViewOrientation(self, applicationSizePixels: Windows.Win32.Foundation.SIZE, viewOrientation: POINTER(Windows.Win32.UI.Shell.APPLICATION_VIEW_ORIENTATION)) -> Windows.Win32.Foundation.HRESULT: ...
-class IApplicationDestinations(c_void_p):
+class IApplicationDestinations(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('12337d35-94c6-48a0-bc-e7-6a-9c-69-d4-d6-00')
     @commethod(3)
@@ -4553,14 +4553,14 @@ class IApplicationDestinations(c_void_p):
     def RemoveDestination(self, punk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def RemoveAllDestinations(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IApplicationDocumentLists(c_void_p):
+class IApplicationDocumentLists(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3c594f9f-9f30-47a1-97-9a-c9-e8-3d-3d-0a-06')
     @commethod(3)
     def SetAppID(self, pszAppID: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetList(self, listtype: Windows.Win32.UI.Shell.APPDOCLISTTYPE, cItemsDesired: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAssocHandler(c_void_p):
+class IAssocHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f04061ac-1659-4a3f-a9-54-77-5a-a5-7f-c0-83')
     @commethod(3)
@@ -4577,14 +4577,14 @@ class IAssocHandler(c_void_p):
     def Invoke(self, pdo: Windows.Win32.System.Com.IDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def CreateInvoker(self, pdo: Windows.Win32.System.Com.IDataObject_head, ppInvoker: POINTER(Windows.Win32.UI.Shell.IAssocHandlerInvoker_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAssocHandlerInvoker(c_void_p):
+class IAssocHandlerInvoker(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('92218cab-ecaa-4335-81-33-80-7f-d2-34-c2-ee')
     @commethod(3)
     def SupportsSelection(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Invoke(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IAttachmentExecute(c_void_p):
+class IAttachmentExecute(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('73db1241-1e85-4581-8e-4f-a8-1e-1d-0f-8c-57')
     @commethod(3)
@@ -4611,28 +4611,28 @@ class IAttachmentExecute(c_void_p):
     def SaveWithUI(self, hwnd: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def ClearClientState(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IAutoComplete(c_void_p):
+class IAutoComplete(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00bb2762-6a77-11d0-a5-35-00-c0-4f-d7-d0-62')
     @commethod(3)
     def Init(self, hwndEdit: Windows.Win32.Foundation.HWND, punkACL: Windows.Win32.System.Com.IUnknown_head, pwszRegKeyPath: Windows.Win32.Foundation.PWSTR, pwszQuickComplete: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Enable(self, fEnable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IAutoComplete2(c_void_p):
+class IAutoComplete2(ComPtr):
     extends: Windows.Win32.UI.Shell.IAutoComplete
     Guid = Guid('eac04bc0-3791-11d2-bb-95-00-60-97-7b-46-4c')
     @commethod(5)
     def SetOptions(self, dwFlag: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetOptions(self, pdwFlag: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAutoCompleteDropDown(c_void_p):
+class IAutoCompleteDropDown(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3cd141f4-3c6a-11d2-bc-aa-00-c0-4f-d9-29-db')
     @commethod(3)
     def GetDropDownStatus(self, pdwFlags: POINTER(UInt32), ppwszString: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ResetEnumerator(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IBandHost(c_void_p):
+class IBandHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b9075c7c-d48e-403f-ab-99-d6-c7-7a-10-84-ac')
     @commethod(3)
@@ -4641,7 +4641,7 @@ class IBandHost(c_void_p):
     def SetBandAvailability(self, rclsidBand: POINTER(Guid), fAvailable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def DestroyBand(self, rclsidBand: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IBandSite(c_void_p):
+class IBandSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4cf504b0-de96-11d0-8b-3f-00-a0-c9-11-e8-e5')
     @commethod(3)
@@ -4660,12 +4660,12 @@ class IBandSite(c_void_p):
     def SetBandSiteInfo(self, pbsinfo: POINTER(Windows.Win32.UI.Shell.BANDSITEINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetBandSiteInfo(self, pbsinfo: POINTER(Windows.Win32.UI.Shell.BANDSITEINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IBannerNotificationHandler(c_void_p):
+class IBannerNotificationHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8d7b2ba7-db05-46a8-82-3c-d2-b6-de-08-ee-91')
     @commethod(3)
     def OnBannerEvent(self, notification: POINTER(Windows.Win32.UI.Shell.BANNER_NOTIFICATION_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IBanneredBar(c_void_p):
+class IBanneredBar(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('596a9a94-013e-11d1-8d-34-00-a0-c9-0f-27-19')
     @commethod(3)
@@ -4676,12 +4676,12 @@ class IBanneredBar(c_void_p):
     def SetBitmap(self, hBitmap: Windows.Win32.Graphics.Gdi.HBITMAP) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetBitmap(self, phBitmap: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP)) -> Windows.Win32.Foundation.HRESULT: ...
-class IBrowserFrameOptions(c_void_p):
+class IBrowserFrameOptions(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('10df43c8-1dbe-11d3-8b-34-00-60-97-df-5b-d4')
     @commethod(3)
     def GetFrameOptions(self, dwMask: UInt32, pdwOptions: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IBrowserService(c_void_p):
+class IBrowserService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('02ba3b52-0547-11d1-b8-33-00-c0-4f-c9-b3-1f')
     @commethod(3)
@@ -4744,7 +4744,7 @@ class IBrowserService(c_void_p):
     def GetPalette(self, hpal: POINTER(Windows.Win32.Graphics.Gdi.HPALETTE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
     def RegisterWindow(self, fForceRegister: Windows.Win32.Foundation.BOOL, swc: Windows.Win32.UI.Shell.ShellWindowTypeConstants) -> Windows.Win32.Foundation.HRESULT: ...
-class IBrowserService2(c_void_p):
+class IBrowserService2(ComPtr):
     extends: Windows.Win32.UI.Shell.IBrowserService
     Guid = Guid('68bd21cc-438b-11d2-a5-60-00-a0-c9-2d-bf-e8')
     @commethod(33)
@@ -4871,14 +4871,14 @@ class IBrowserService2(c_void_p):
     def _GetBorderDWHelper(self, punkSrc: Windows.Win32.System.Com.IUnknown_head, lprectBorder: POINTER(Windows.Win32.Foundation.RECT_head), bUseHmonitor: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(94)
     def v_CheckZoneCrossing(self, pidl: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IBrowserService3(c_void_p):
+class IBrowserService3(ComPtr):
     extends: Windows.Win32.UI.Shell.IBrowserService2
     Guid = Guid('27d7ce21-762d-48f3-86-f3-40-e2-fd-37-49-c4')
     @commethod(95)
     def _PositionViewWindow(self, hwnd: Windows.Win32.Foundation.HWND, prc: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(96)
     def IEParseDisplayNameEx(self, uiCP: UInt32, pwszPath: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, ppidlOut: POINTER(POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IBrowserService4(c_void_p):
+class IBrowserService4(ComPtr):
     extends: Windows.Win32.UI.Shell.IBrowserService3
     Guid = Guid('639f1bff-e135-4096-ab-d8-e0-f5-04-d6-49-a4')
     @commethod(97)
@@ -4887,7 +4887,7 @@ class IBrowserService4(c_void_p):
     def SaveViewState(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(99)
     def _ResizeAllBorders(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ICDBurn(c_void_p):
+class ICDBurn(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3d73a659-e5d0-4d42-af-c0-51-21-ba-42-5c-8d')
     @commethod(3)
@@ -4896,12 +4896,12 @@ class ICDBurn(c_void_p):
     def Burn(self, hwnd: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def HasRecordableDrive(self, pfHasRecorder: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICDBurnExt(c_void_p):
+class ICDBurnExt(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2271dcca-74fc-4414-8f-b7-c5-6b-05-ac-e2-d7')
     @commethod(3)
     def GetSupportedActionTypes(self, pdwActions: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICategorizer(c_void_p):
+class ICategorizer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a3b14589-9174-49a8-89-a3-06-a1-ae-2b-9b-a7')
     @commethod(3)
@@ -4912,7 +4912,7 @@ class ICategorizer(c_void_p):
     def GetCategoryInfo(self, dwCategoryId: UInt32, pci: POINTER(Windows.Win32.UI.Shell.CATEGORY_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def CompareCategory(self, csfFlags: Windows.Win32.UI.Shell.CATSORT_FLAGS, dwCategoryId1: UInt32, dwCategoryId2: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ICategoryProvider(c_void_p):
+class ICategoryProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9af64809-5864-4c26-a7-20-c1-f7-8c-08-6e-e3')
     @commethod(3)
@@ -4927,7 +4927,7 @@ class ICategoryProvider(c_void_p):
     def GetCategoryName(self, pguid: POINTER(Guid), pszName: Windows.Win32.Foundation.PWSTR, cch: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def CreateCategory(self, pguid: POINTER(Guid), riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IColumnManager(c_void_p):
+class IColumnManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d8ec27bb-3f3b-4042-b1-0a-4a-cf-d9-24-d4-53')
     @commethod(3)
@@ -4940,7 +4940,7 @@ class IColumnManager(c_void_p):
     def GetColumns(self, dwFlags: Windows.Win32.UI.Shell.CM_ENUM_FLAGS, rgkeyOrder: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), cColumns: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetColumns(self, rgkeyOrder: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), cVisible: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IColumnProvider(c_void_p):
+class IColumnProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e8025004-1c42-11d2-be-2c-00-a0-c9-a8-3d-a1')
     @commethod(3)
@@ -4949,7 +4949,7 @@ class IColumnProvider(c_void_p):
     def GetColumnInfo(self, dwIndex: UInt32, psci: POINTER(Windows.Win32.UI.Shell.SHCOLUMNINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetItemData(self, pscid: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pscd: POINTER(Windows.Win32.UI.Shell.SHCOLUMNDATA_head), pvarData: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICommDlgBrowser(c_void_p):
+class ICommDlgBrowser(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214f1-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -4958,7 +4958,7 @@ class ICommDlgBrowser(c_void_p):
     def OnStateChange(self, ppshv: Windows.Win32.UI.Shell.IShellView_head, uChange: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def IncludeObject(self, ppshv: Windows.Win32.UI.Shell.IShellView_head, pidl: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICommDlgBrowser2(c_void_p):
+class ICommDlgBrowser2(ComPtr):
     extends: Windows.Win32.UI.Shell.ICommDlgBrowser
     Guid = Guid('10339516-2894-11d2-90-39-00-c0-4f-8e-eb-3e')
     @commethod(6)
@@ -4967,7 +4967,7 @@ class ICommDlgBrowser2(c_void_p):
     def GetDefaultMenuText(self, ppshv: Windows.Win32.UI.Shell.IShellView_head, pszText: Windows.Win32.Foundation.PWSTR, cchMax: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetViewFlags(self, pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICommDlgBrowser3(c_void_p):
+class ICommDlgBrowser3(ComPtr):
     extends: Windows.Win32.UI.Shell.ICommDlgBrowser2
     Guid = Guid('c8ad25a1-3294-41ee-81-65-71-17-4b-d0-1c-57')
     @commethod(9)
@@ -4976,24 +4976,24 @@ class ICommDlgBrowser3(c_void_p):
     def GetCurrentFilter(self, pszFileSpec: Windows.Win32.Foundation.PWSTR, cchFileSpec: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def OnPreViewCreated(self, ppshv: Windows.Win32.UI.Shell.IShellView_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IComputerInfoChangeNotify(c_void_p):
+class IComputerInfoChangeNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0df60d92-6818-46d6-b3-58-d6-61-70-dd-e4-66')
     @commethod(3)
     def ComputerInfoChanged(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IConnectableCredentialProviderCredential(c_void_p):
+class IConnectableCredentialProviderCredential(ComPtr):
     extends: Windows.Win32.UI.Shell.ICredentialProviderCredential
     Guid = Guid('9387928b-ac75-4bf9-8a-b2-2b-93-c4-a5-52-90')
     @commethod(20)
     def Connect(self, pqcws: Windows.Win32.UI.Shell.IQueryContinueWithStatus_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def Disconnect(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IContactManagerInterop(c_void_p):
+class IContactManagerInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('99eacba7-e073-43b6-a8-96-55-af-e4-8a-08-33')
     @commethod(3)
     def ShowContactCardForWindow(self, appWindow: Windows.Win32.Foundation.HWND, contact: Windows.Win32.System.Com.IUnknown_head, selection: POINTER(Windows.Win32.Foundation.RECT_head), preferredPlacement: Windows.Win32.UI.Shell.FLYOUT_PLACEMENT) -> Windows.Win32.Foundation.HRESULT: ...
-class IContextMenu(c_void_p):
+class IContextMenu(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214e4-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -5002,37 +5002,37 @@ class IContextMenu(c_void_p):
     def InvokeCommand(self, pici: POINTER(Windows.Win32.UI.Shell.CMINVOKECOMMANDINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetCommandString(self, idCmd: UIntPtr, uType: UInt32, pReserved: POINTER(UInt32), pszName: Windows.Win32.Foundation.PSTR, cchMax: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IContextMenu2(c_void_p):
+class IContextMenu2(ComPtr):
     extends: Windows.Win32.UI.Shell.IContextMenu
     Guid = Guid('000214f4-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(6)
     def HandleMenuMsg(self, uMsg: UInt32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
-class IContextMenu3(c_void_p):
+class IContextMenu3(ComPtr):
     extends: Windows.Win32.UI.Shell.IContextMenu2
     Guid = Guid('bcfce0a0-ec17-11d0-8d-10-00-a0-c9-0f-27-19')
     @commethod(7)
     def HandleMenuMsg2(self, uMsg: UInt32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM, plResult: POINTER(Windows.Win32.Foundation.LRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
-class IContextMenuCB(c_void_p):
+class IContextMenuCB(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3409e930-5a39-11d1-83-fa-00-a0-c9-0d-c8-49')
     @commethod(3)
     def CallBack(self, psf: Windows.Win32.UI.Shell.IShellFolder_head, hwndOwner: Windows.Win32.Foundation.HWND, pdtobj: Windows.Win32.System.Com.IDataObject_head, uMsg: UInt32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
-class IContextMenuSite(c_void_p):
+class IContextMenuSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0811aebe-0b87-4c54-9e-72-54-8c-f6-49-01-6b')
     @commethod(3)
     def DoContextMenuPopup(self, punkContextMenu: Windows.Win32.System.Com.IUnknown_head, fFlags: UInt32, pt: Windows.Win32.Foundation.POINT) -> Windows.Win32.Foundation.HRESULT: ...
-class ICopyHookA(c_void_p):
+class ICopyHookA(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214ef-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def CopyCallback(self, hwnd: Windows.Win32.Foundation.HWND, wFunc: UInt32, wFlags: UInt32, pszSrcFile: Windows.Win32.Foundation.PSTR, dwSrcAttribs: UInt32, pszDestFile: Windows.Win32.Foundation.PSTR, dwDestAttribs: UInt32) -> UInt32: ...
-class ICopyHookW(c_void_p):
+class ICopyHookW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214fc-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def CopyCallback(self, hwnd: Windows.Win32.Foundation.HWND, wFunc: UInt32, wFlags: UInt32, pszSrcFile: Windows.Win32.Foundation.PWSTR, dwSrcAttribs: UInt32, pszDestFile: Windows.Win32.Foundation.PWSTR, dwDestAttribs: UInt32) -> UInt32: ...
-class ICreateProcessInputs(c_void_p):
+class ICreateProcessInputs(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f6ef6140-e26f-4d82-ba-c4-e9-ba-5f-d2-39-a8')
     @commethod(3)
@@ -5049,12 +5049,12 @@ class ICreateProcessInputs(c_void_p):
     def SetTitle(self, pszTitle: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def SetEnvironmentVariable(self, pszName: Windows.Win32.Foundation.PWSTR, pszValue: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ICreatingProcess(c_void_p):
+class ICreatingProcess(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c2b937a9-3110-4398-8a-56-f3-4c-63-42-d2-44')
     @commethod(3)
     def OnCreating(self, pcpi: Windows.Win32.UI.Shell.ICreateProcessInputs_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ICredentialProvider(c_void_p):
+class ICredentialProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d27c3481-5a1c-45b2-8a-aa-c2-0e-bb-e8-22-9e')
     @commethod(3)
@@ -5073,7 +5073,7 @@ class ICredentialProvider(c_void_p):
     def GetCredentialCount(self, pdwCount: POINTER(UInt32), pdwDefault: POINTER(UInt32), pbAutoLogonWithDefault: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetCredentialAt(self, dwIndex: UInt32, ppcpc: POINTER(Windows.Win32.UI.Shell.ICredentialProviderCredential_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICredentialProviderCredential(c_void_p):
+class ICredentialProviderCredential(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('63913a93-40c1-481a-81-8d-40-72-ff-8c-70-cc')
     @commethod(3)
@@ -5110,12 +5110,12 @@ class ICredentialProviderCredential(c_void_p):
     def GetSerialization(self, pcpgsr: POINTER(Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE), pcpcs: POINTER(Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION_head), ppszOptionalStatusText: POINTER(Windows.Win32.Foundation.PWSTR), pcpsiOptionalStatusIcon: POINTER(Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_STATUS_ICON)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def ReportResult(self, ntsStatus: Windows.Win32.Foundation.NTSTATUS, ntsSubstatus: Windows.Win32.Foundation.NTSTATUS, ppszOptionalStatusText: POINTER(Windows.Win32.Foundation.PWSTR), pcpsiOptionalStatusIcon: POINTER(Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_STATUS_ICON)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICredentialProviderCredential2(c_void_p):
+class ICredentialProviderCredential2(ComPtr):
     extends: Windows.Win32.UI.Shell.ICredentialProviderCredential
     Guid = Guid('fd672c54-40ea-4d6e-9b-49-cf-b1-a7-50-7b-d7')
     @commethod(20)
     def GetUserSid(self, sid: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICredentialProviderCredentialEvents(c_void_p):
+class ICredentialProviderCredentialEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fa6fa76b-66b7-4b11-95-f1-86-17-11-18-e8-16')
     @commethod(3)
@@ -5138,7 +5138,7 @@ class ICredentialProviderCredentialEvents(c_void_p):
     def SetFieldSubmitButton(self, pcpc: Windows.Win32.UI.Shell.ICredentialProviderCredential_head, dwFieldID: UInt32, dwAdjacentTo: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def OnCreatingWindow(self, phwndOwner: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICredentialProviderCredentialEvents2(c_void_p):
+class ICredentialProviderCredentialEvents2(ComPtr):
     extends: Windows.Win32.UI.Shell.ICredentialProviderCredentialEvents
     Guid = Guid('b53c00b6-9922-4b78-b1-f4-dd-fe-77-4d-c3-9b')
     @commethod(13)
@@ -5147,29 +5147,29 @@ class ICredentialProviderCredentialEvents2(c_void_p):
     def EndFieldUpdates(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def SetFieldOptions(self, credential: Windows.Win32.UI.Shell.ICredentialProviderCredential_head, fieldID: UInt32, options: Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS) -> Windows.Win32.Foundation.HRESULT: ...
-class ICredentialProviderCredentialWithFieldOptions(c_void_p):
+class ICredentialProviderCredentialWithFieldOptions(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('dbc6fb30-c843-49e3-a6-45-57-3e-6f-39-44-6a')
     @commethod(3)
     def GetFieldOptions(self, fieldID: UInt32, options: POINTER(Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICredentialProviderEvents(c_void_p):
+class ICredentialProviderEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('34201e5a-a787-41a3-a5-a4-bd-6d-cf-2a-85-4e')
     @commethod(3)
     def CredentialsChanged(self, upAdviseContext: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class ICredentialProviderFilter(c_void_p):
+class ICredentialProviderFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a5da53f9-d475-4080-a1-20-91-0c-4a-73-98-80')
     @commethod(3)
     def Filter(self, cpus: Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_USAGE_SCENARIO, dwFlags: UInt32, rgclsidProviders: POINTER(Guid), rgbAllow: POINTER(Windows.Win32.Foundation.BOOL), cProviders: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UpdateRemoteCredential(self, pcpcsIn: POINTER(Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION_head), pcpcsOut: POINTER(Windows.Win32.UI.Shell.CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICredentialProviderSetUserArray(c_void_p):
+class ICredentialProviderSetUserArray(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('095c1484-1c0c-4388-9c-6d-50-0e-61-bf-84-bd')
     @commethod(3)
     def SetUserArray(self, users: Windows.Win32.UI.Shell.ICredentialProviderUserArray_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ICredentialProviderUser(c_void_p):
+class ICredentialProviderUser(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('13793285-3ea6-40fd-b4-20-15-f4-7d-a4-1f-bb')
     @commethod(3)
@@ -5180,7 +5180,7 @@ class ICredentialProviderUser(c_void_p):
     def GetStringValue(self, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), stringValue: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetValue(self, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), value: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICredentialProviderUserArray(c_void_p):
+class ICredentialProviderUserArray(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('90c119ae-0f18-4520-a1-f1-11-43-66-a4-0f-e8')
     @commethod(3)
@@ -5191,17 +5191,17 @@ class ICredentialProviderUserArray(c_void_p):
     def GetCount(self, userCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetAt(self, userIndex: UInt32, user: POINTER(Windows.Win32.UI.Shell.ICredentialProviderUser_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICurrentItem(c_void_p):
+class ICurrentItem(ComPtr):
     extends: Windows.Win32.UI.Shell.IRelatedItem
     Guid = Guid('240a7174-d653-4a1d-a6-d3-d4-94-3c-fb-fe-3d')
-class ICurrentWorkingDirectory(c_void_p):
+class ICurrentWorkingDirectory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('91956d21-9276-11d1-92-1a-00-60-97-df-5b-d4')
     @commethod(3)
     def GetDirectory(self, pwzPath: Windows.Win32.Foundation.PWSTR, cchSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetDirectory(self, pwzPath: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ICustomDestinationList(c_void_p):
+class ICustomDestinationList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6332debf-87b5-4670-90-c0-5e-57-b4-08-a4-9e')
     @commethod(3)
@@ -5222,7 +5222,7 @@ class ICustomDestinationList(c_void_p):
     def DeleteList(self, pszAppID: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def AbortList(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDataObjectAsyncCapability(c_void_p):
+class IDataObjectAsyncCapability(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3d8b0590-f691-11d2-8e-a9-00-60-97-df-5b-d4')
     @commethod(3)
@@ -5235,21 +5235,21 @@ class IDataObjectAsyncCapability(c_void_p):
     def InOperation(self, pfInAsyncOp: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def EndOperation(self, hResult: Windows.Win32.Foundation.HRESULT, pbcReserved: Windows.Win32.System.Com.IBindCtx_head, dwEffects: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDataObjectProvider(c_void_p):
+class IDataObjectProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3d25f6d6-4b2a-433c-91-84-7c-33-ad-35-d0-01')
     @commethod(3)
     def GetDataObject(self, dataObject: POINTER(Windows.Win32.System.Com.IDataObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetDataObject(self, dataObject: Windows.Win32.System.Com.IDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IDataTransferManagerInterop(c_void_p):
+class IDataTransferManagerInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3a3dcd6c-3eab-43dc-bc-de-45-67-1c-e8-00-c8')
     @commethod(3)
     def GetForWindow(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), dataTransferManager: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ShowShareUIForWindow(self, appWindow: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
-class IDefaultExtractIconInit(c_void_p):
+class IDefaultExtractIconInit(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('41ded17d-d6b3-4261-99-7d-88-c6-0e-4b-1d-58')
     @commethod(3)
@@ -5264,7 +5264,7 @@ class IDefaultExtractIconInit(c_void_p):
     def SetShortcutIcon(self, pszFile: Windows.Win32.Foundation.PWSTR, iIcon: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def SetDefaultIcon(self, pszFile: Windows.Win32.Foundation.PWSTR, iIcon: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDefaultFolderMenuInitialize(c_void_p):
+class IDefaultFolderMenuInitialize(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7690aa79-f8fc-4615-a3-27-36-f7-d1-8f-5d-91')
     @commethod(3)
@@ -5275,20 +5275,20 @@ class IDefaultFolderMenuInitialize(c_void_p):
     def GetMenuRestrictions(self, dfmrMask: Windows.Win32.UI.Shell.DEFAULT_FOLDER_MENU_RESTRICTIONS, pdfmrValues: POINTER(Windows.Win32.UI.Shell.DEFAULT_FOLDER_MENU_RESTRICTIONS)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetHandlerClsid(self, rclsid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDelegateFolder(c_void_p):
+class IDelegateFolder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('add8ba80-002b-11d0-8f-0f-00-c0-4f-d7-d0-62')
     @commethod(3)
     def SetItemAlloc(self, pmalloc: Windows.Win32.System.Com.IMalloc_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IDelegateItem(c_void_p):
+class IDelegateItem(ComPtr):
     extends: Windows.Win32.UI.Shell.IRelatedItem
     Guid = Guid('3c5a1c94-c951-4cb7-bb-6d-3b-93-f3-0c-ce-93')
-class IDeskBand(c_void_p):
+class IDeskBand(ComPtr):
     extends: Windows.Win32.UI.Shell.IDockingWindow
     Guid = Guid('eb0fe172-1a3a-11d0-89-b3-00-a0-c9-0a-90-ac')
     @commethod(8)
     def GetBandInfo(self, dwBandID: UInt32, dwViewMode: UInt32, pdbi: POINTER(Windows.Win32.UI.Shell.DESKBANDINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDeskBand2(c_void_p):
+class IDeskBand2(ComPtr):
     extends: Windows.Win32.UI.Shell.IDeskBand
     Guid = Guid('79d16de4-abee-4021-8d-9d-91-69-b2-61-d6-57')
     @commethod(9)
@@ -5297,12 +5297,12 @@ class IDeskBand2(c_void_p):
     def SetCompositionState(self, fCompositionEnabled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetCompositionState(self, pfCompositionEnabled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDeskBandInfo(c_void_p):
+class IDeskBandInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('77e425fc-cbf9-4307-ba-6a-bb-57-27-74-56-61')
     @commethod(3)
     def GetDefaultBandWidth(self, dwBandID: UInt32, dwViewMode: UInt32, pnWidth: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDeskBar(c_void_p):
+class IDeskBar(ComPtr):
     extends: Windows.Win32.System.Ole.IOleWindow
     Guid = Guid('eb0fe173-1a3a-11d0-89-b3-00-a0-c9-0a-90-ac')
     @commethod(5)
@@ -5311,7 +5311,7 @@ class IDeskBar(c_void_p):
     def GetClient(self, ppunkClient: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def OnPosRectChangeDB(self, prc: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDeskBarClient(c_void_p):
+class IDeskBarClient(ComPtr):
     extends: Windows.Win32.System.Ole.IOleWindow
     Guid = Guid('eb0fe175-1a3a-11d0-89-b3-00-a0-c9-0a-90-ac')
     @commethod(5)
@@ -5322,12 +5322,12 @@ class IDeskBarClient(c_void_p):
     def UIActivateDBC(self, dwState: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetSize(self, dwWhich: UInt32, prc: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDesktopGadget(c_void_p):
+class IDesktopGadget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c1646bc4-f298-4f91-a2-04-eb-2d-d1-70-9d-1a')
     @commethod(3)
     def RunGadget(self, gadgetPath: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IDesktopWallpaper(c_void_p):
+class IDesktopWallpaper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b92b56a9-8b55-4e14-9a-89-01-99-bb-b6-f9-3b')
     @commethod(3)
@@ -5362,20 +5362,20 @@ class IDesktopWallpaper(c_void_p):
     def GetStatus(self, state: POINTER(Windows.Win32.UI.Shell.DESKTOP_SLIDESHOW_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def Enable(self, enable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IDestinationStreamFactory(c_void_p):
+class IDestinationStreamFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8a87781b-39a7-4a1f-aa-b3-a3-9b-9c-34-a7-d9')
     @commethod(3)
     def GetDestinationStream(self, ppstm: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDisplayItem(c_void_p):
+class IDisplayItem(ComPtr):
     extends: Windows.Win32.UI.Shell.IRelatedItem
     Guid = Guid('c6fd5997-9f6b-4888-87-03-94-e8-0e-8c-de-3f')
-class IDocViewSite(c_void_p):
+class IDocViewSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('87d605e0-c511-11cf-89-a9-00-a0-c9-05-41-29')
     @commethod(3)
     def OnSetTitle(self, pvTitle: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDockingWindow(c_void_p):
+class IDockingWindow(ComPtr):
     extends: Windows.Win32.System.Ole.IOleWindow
     Guid = Guid('012dd920-7b26-11d0-8c-a9-00-a0-c9-2d-bf-e8')
     @commethod(5)
@@ -5384,7 +5384,7 @@ class IDockingWindow(c_void_p):
     def CloseDW(self, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def ResizeBorderDW(self, prcBorder: POINTER(Windows.Win32.Foundation.RECT_head), punkToolbarSite: Windows.Win32.System.Com.IUnknown_head, fReserved: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IDockingWindowFrame(c_void_p):
+class IDockingWindowFrame(ComPtr):
     extends: Windows.Win32.System.Ole.IOleWindow
     Guid = Guid('47d2657a-7b27-11d0-8c-a9-00-a0-c9-2d-bf-e8')
     @commethod(5)
@@ -5393,7 +5393,7 @@ class IDockingWindowFrame(c_void_p):
     def RemoveToolbar(self, punkSrc: Windows.Win32.System.Com.IUnknown_head, dwRemoveFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def FindToolbar(self, pwszItem: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDockingWindowSite(c_void_p):
+class IDockingWindowSite(ComPtr):
     extends: Windows.Win32.System.Ole.IOleWindow
     Guid = Guid('2a342fc2-7b26-11d0-8c-a9-00-a0-c9-2d-bf-e8')
     @commethod(5)
@@ -5402,19 +5402,19 @@ class IDockingWindowSite(c_void_p):
     def RequestBorderSpaceDW(self, punkObj: Windows.Win32.System.Com.IUnknown_head, pbw: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetBorderSpaceDW(self, punkObj: Windows.Win32.System.Com.IUnknown_head, pbw: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDragSourceHelper(c_void_p):
+class IDragSourceHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('de5bf786-477a-11d2-83-9d-00-c0-4f-d9-18-d0')
     @commethod(3)
     def InitializeFromBitmap(self, pshdi: POINTER(Windows.Win32.UI.Shell.SHDRAGIMAGE_head), pDataObject: Windows.Win32.System.Com.IDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def InitializeFromWindow(self, hwnd: Windows.Win32.Foundation.HWND, ppt: POINTER(Windows.Win32.Foundation.POINT_head), pDataObject: Windows.Win32.System.Com.IDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IDragSourceHelper2(c_void_p):
+class IDragSourceHelper2(ComPtr):
     extends: Windows.Win32.UI.Shell.IDragSourceHelper
     Guid = Guid('83e07d0d-0c5f-4163-bf-1a-60-b2-74-05-1e-40')
     @commethod(5)
     def SetFlags(self, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDropTargetHelper(c_void_p):
+class IDropTargetHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4657278b-411b-11d2-83-9a-00-c0-4f-d9-18-d0')
     @commethod(3)
@@ -5427,7 +5427,7 @@ class IDropTargetHelper(c_void_p):
     def Drop(self, pDataObject: Windows.Win32.System.Com.IDataObject_head, ppt: POINTER(Windows.Win32.Foundation.POINT_head), dwEffect: Windows.Win32.System.Ole.DROPEFFECT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Show(self, fShow: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IDynamicHWHandler(c_void_p):
+class IDynamicHWHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('dc2601d7-059e-42fc-a0-9d-2a-fd-21-b6-d5-f7')
     @commethod(3)
@@ -5440,7 +5440,7 @@ IESHORTCUT_NEWBROWSER: IESHORTCUTFLAGS = 1
 IESHORTCUT_OPENNEWTAB: IESHORTCUTFLAGS = 2
 IESHORTCUT_FORCENAVIGATE: IESHORTCUTFLAGS = 4
 IESHORTCUT_BACKGROUNDTAB: IESHORTCUTFLAGS = 8
-class IEnumACString(c_void_p):
+class IEnumACString(ComPtr):
     extends: Windows.Win32.System.Com.IEnumString
     Guid = Guid('8e74c210-cf9d-4eaf-a4-03-73-56-42-8f-0a-5a')
     @commethod(7)
@@ -5449,12 +5449,12 @@ class IEnumACString(c_void_p):
     def SetEnumOptions(self, dwOptions: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetEnumOptions(self, pdwOptions: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumAssocHandlers(c_void_p):
+class IEnumAssocHandlers(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('973810ae-9599-4b88-9e-4d-6e-e9-8c-95-52-da')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.UI.Shell.IAssocHandler_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumExplorerCommand(c_void_p):
+class IEnumExplorerCommand(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a88826f8-186f-4987-aa-de-ea-0c-ef-8f-bf-e8')
     @commethod(3)
@@ -5465,7 +5465,7 @@ class IEnumExplorerCommand(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.UI.Shell.IEnumExplorerCommand_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumExtraSearch(c_void_p):
+class IEnumExtraSearch(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0e700be1-9db6-11d1-a1-ce-00-c0-4f-d7-5d-13')
     @commethod(3)
@@ -5476,7 +5476,7 @@ class IEnumExtraSearch(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.UI.Shell.IEnumExtraSearch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumFullIDList(c_void_p):
+class IEnumFullIDList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d0191542-7954-4908-bc-06-b2-36-0b-be-45-ba')
     @commethod(3)
@@ -5487,7 +5487,7 @@ class IEnumFullIDList(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.UI.Shell.IEnumFullIDList_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumHLITEM(c_void_p):
+class IEnumHLITEM(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('79eac9c6-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
     @commethod(3)
@@ -5498,7 +5498,7 @@ class IEnumHLITEM(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppienumhlitem: POINTER(Windows.Win32.UI.Shell.IEnumHLITEM_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumIDList(c_void_p):
+class IEnumIDList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214f2-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -5509,7 +5509,7 @@ class IEnumIDList(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.UI.Shell.IEnumIDList_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumObjects(c_void_p):
+class IEnumObjects(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2c1c7e2e-2d0e-4059-83-1e-1e-6f-82-33-5c-2e')
     @commethod(3)
@@ -5520,19 +5520,19 @@ class IEnumObjects(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.UI.Shell.IEnumObjects_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumPublishedApps(c_void_p):
+class IEnumPublishedApps(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0b124f8c-91f0-11d1-b8-b5-00-60-08-05-93-82')
     @commethod(3)
     def Next(self, pia: POINTER(Windows.Win32.UI.Shell.IPublishedApp_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumReadyCallback(c_void_p):
+class IEnumReadyCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('61e00d45-8fff-4e60-92-4e-65-37-b6-16-12-dd')
     @commethod(3)
     def EnumReady(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumResources(c_void_p):
+class IEnumResources(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2dd81fe3-a83c-4da9-a3-30-47-24-9d-34-5b-a1')
     @commethod(3)
@@ -5543,7 +5543,7 @@ class IEnumResources(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenumr: POINTER(Windows.Win32.UI.Shell.IEnumResources_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumShellItems(c_void_p):
+class IEnumShellItems(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('70629033-e363-4a28-a5-67-0d-b7-80-06-e6-d7')
     @commethod(3)
@@ -5554,7 +5554,7 @@ class IEnumShellItems(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.UI.Shell.IEnumShellItems_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumSyncMgrConflict(c_void_p):
+class IEnumSyncMgrConflict(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('82705914-dda3-4893-ba-99-49-de-6c-8c-80-36')
     @commethod(3)
@@ -5565,7 +5565,7 @@ class IEnumSyncMgrConflict(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.UI.Shell.IEnumSyncMgrConflict_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumSyncMgrEvents(c_void_p):
+class IEnumSyncMgrEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c81a1d4e-8cf7-4683-80-e0-bc-ae-88-d6-77-b6')
     @commethod(3)
@@ -5576,7 +5576,7 @@ class IEnumSyncMgrEvents(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.UI.Shell.IEnumSyncMgrEvents_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumSyncMgrSyncItems(c_void_p):
+class IEnumSyncMgrSyncItems(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('54b3abf3-f085-4181-b5-46-e2-9c-40-3c-72-6b')
     @commethod(3)
@@ -5587,7 +5587,7 @@ class IEnumSyncMgrSyncItems(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.UI.Shell.IEnumSyncMgrSyncItems_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumTravelLogEntry(c_void_p):
+class IEnumTravelLogEntry(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7ebfdd85-ad18-11d3-a4-c5-00-c0-4f-72-d6-b8')
     @commethod(3)
@@ -5598,14 +5598,14 @@ class IEnumTravelLogEntry(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.Shell.IEnumTravelLogEntry_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumerableView(c_void_p):
+class IEnumerableView(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8c8bf236-1aec-495f-98-94-91-d5-7c-3c-68-6f')
     @commethod(3)
     def SetEnumReadyCallback(self, percb: Windows.Win32.UI.Shell.IEnumReadyCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CreateEnumIDListFromContents(self, pidlFolder: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), dwEnumFlags: UInt32, ppEnumIDList: POINTER(Windows.Win32.UI.Shell.IEnumIDList_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IExecuteCommand(c_void_p):
+class IExecuteCommand(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7f9185b0-cb92-43c5-80-a9-92-27-7a-4f-7b-54')
     @commethod(3)
@@ -5622,17 +5622,17 @@ class IExecuteCommand(c_void_p):
     def SetDirectory(self, pszDirectory: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Execute(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IExecuteCommandApplicationHostEnvironment(c_void_p):
+class IExecuteCommandApplicationHostEnvironment(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('18b21aa9-e184-4ff0-9f-5e-f8-82-d0-37-71-b3')
     @commethod(3)
     def GetValue(self, pahe: POINTER(Windows.Win32.UI.Shell.AHE_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IExecuteCommandHost(c_void_p):
+class IExecuteCommandHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4b6832a2-5f04-4c9d-b8-9d-72-7a-15-d1-03-e7')
     @commethod(3)
     def GetUIMode(self, pUIMode: POINTER(Windows.Win32.UI.Shell.EC_HOST_UI_MODE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IExpDispSupport(c_void_p):
+class IExpDispSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0d7d1d00-6fc0-11d0-a9-74-00-c0-4f-d7-05-a2')
     @commethod(3)
@@ -5641,7 +5641,7 @@ class IExpDispSupport(c_void_p):
     def OnTranslateAccelerator(self, pMsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head), grfModifiers: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnInvoke(self, dispidMember: Int32, iid: POINTER(Guid), lcid: UInt32, wFlags: UInt16, pdispparams: POINTER(Windows.Win32.System.Com.DISPPARAMS_head), pVarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head), pexcepinfo: POINTER(Windows.Win32.System.Com.EXCEPINFO_head), puArgErr: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IExpDispSupportXP(c_void_p):
+class IExpDispSupportXP(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2f0dd58c-f789-4f14-99-fb-92-93-b3-c9-c2-12')
     @commethod(3)
@@ -5650,7 +5650,7 @@ class IExpDispSupportXP(c_void_p):
     def OnTranslateAccelerator(self, pMsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head), grfModifiers: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnInvoke(self, dispidMember: Int32, iid: POINTER(Guid), lcid: UInt32, wFlags: UInt16, pdispparams: POINTER(Windows.Win32.System.Com.DISPPARAMS_head), pVarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head), pexcepinfo: POINTER(Windows.Win32.System.Com.EXCEPINFO_head), puArgErr: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IExplorerBrowser(c_void_p):
+class IExplorerBrowser(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('dfd3b6b5-c10c-4be9-85-f6-a6-69-69-f4-02-f6')
     @commethod(3)
@@ -5683,7 +5683,7 @@ class IExplorerBrowser(c_void_p):
     def RemoveAll(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def GetCurrentView(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IExplorerBrowserEvents(c_void_p):
+class IExplorerBrowserEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('361bbdc7-e6ee-4e13-be-58-58-e2-24-0c-81-0f')
     @commethod(3)
@@ -5694,7 +5694,7 @@ class IExplorerBrowserEvents(c_void_p):
     def OnNavigationComplete(self, pidlFolder: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def OnNavigationFailed(self, pidlFolder: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IExplorerCommand(c_void_p):
+class IExplorerCommand(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a08ce4d0-fa25-44ab-b5-7c-c7-b1-c3-23-e0-b9')
     @commethod(3)
@@ -5713,57 +5713,57 @@ class IExplorerCommand(c_void_p):
     def GetFlags(self, pFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def EnumSubCommands(self, ppEnum: POINTER(Windows.Win32.UI.Shell.IEnumExplorerCommand_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IExplorerCommandProvider(c_void_p):
+class IExplorerCommandProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('64961751-0835-43c0-8f-fe-d5-76-86-53-0e-64')
     @commethod(3)
     def GetCommands(self, punkSite: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetCommand(self, rguidCommandId: POINTER(Guid), riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IExplorerCommandState(c_void_p):
+class IExplorerCommandState(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bddacb60-7657-47ae-84-45-d2-3e-1a-cf-82-ae')
     @commethod(3)
     def GetState(self, psiItemArray: Windows.Win32.UI.Shell.IShellItemArray_head, fOkToBeSlow: Windows.Win32.Foundation.BOOL, pCmdState: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IExplorerPaneVisibility(c_void_p):
+class IExplorerPaneVisibility(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e07010ec-bc17-44c0-97-b0-46-c7-c9-5b-9e-dc')
     @commethod(3)
     def GetPaneState(self, ep: POINTER(Guid), peps: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IExtensionServices(c_void_p):
+class IExtensionServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('79eac9cb-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
     @commethod(3)
     def SetAdditionalHeaders(self, pwzAdditionalHeaders: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetAuthenticateData(self, phwnd: Windows.Win32.Foundation.HWND, pwzUsername: Windows.Win32.Foundation.PWSTR, pwzPassword: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IExtractIconA(c_void_p):
+class IExtractIconA(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214eb-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def GetIconLocation(self, uFlags: UInt32, pszIconFile: Windows.Win32.Foundation.PSTR, cchMax: UInt32, piIndex: POINTER(Int32), pwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Extract(self, pszFile: Windows.Win32.Foundation.PSTR, nIconIndex: UInt32, phiconLarge: POINTER(Windows.Win32.UI.WindowsAndMessaging.HICON), phiconSmall: POINTER(Windows.Win32.UI.WindowsAndMessaging.HICON), nIconSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IExtractIconW(c_void_p):
+class IExtractIconW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214fa-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def GetIconLocation(self, uFlags: UInt32, pszIconFile: Windows.Win32.Foundation.PWSTR, cchMax: UInt32, piIndex: POINTER(Int32), pwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Extract(self, pszFile: Windows.Win32.Foundation.PWSTR, nIconIndex: UInt32, phiconLarge: POINTER(Windows.Win32.UI.WindowsAndMessaging.HICON), phiconSmall: POINTER(Windows.Win32.UI.WindowsAndMessaging.HICON), nIconSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IExtractImage(c_void_p):
+class IExtractImage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bb2e617c-0920-11d1-9a-0b-00-c0-4f-c2-d6-c1')
     @commethod(3)
     def GetLocation(self, pszPathBuffer: Windows.Win32.Foundation.PWSTR, cch: UInt32, pdwPriority: POINTER(UInt32), prgSize: POINTER(Windows.Win32.Foundation.SIZE_head), dwRecClrDepth: UInt32, pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Extract(self, phBmpThumbnail: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP)) -> Windows.Win32.Foundation.HRESULT: ...
-class IExtractImage2(c_void_p):
+class IExtractImage2(ComPtr):
     extends: Windows.Win32.UI.Shell.IExtractImage
     Guid = Guid('953bb1ee-93b4-11d1-98-a3-00-c0-4f-b6-87-da')
     @commethod(5)
     def GetDateStamp(self, pDateStamp: POINTER(Windows.Win32.Foundation.FILETIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileDialog(c_void_p):
+class IFileDialog(ComPtr):
     extends: Windows.Win32.UI.Shell.IModalWindow
     Guid = Guid('42f85136-db7e-439c-85-f1-e4-07-5d-13-5f-c8')
     @commethod(4)
@@ -5812,14 +5812,14 @@ class IFileDialog(c_void_p):
     def ClearClientData(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def SetFilter(self, pFilter: Windows.Win32.UI.Shell.IShellItemFilter_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileDialog2(c_void_p):
+class IFileDialog2(ComPtr):
     extends: Windows.Win32.UI.Shell.IFileDialog
     Guid = Guid('61744fc7-85b5-4791-a9-b0-27-22-76-30-9b-13')
     @commethod(27)
     def SetCancelButtonLabel(self, pszLabel: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
     def SetNavigationRoot(self, psi: Windows.Win32.UI.Shell.IShellItem_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileDialogControlEvents(c_void_p):
+class IFileDialogControlEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('36116642-d713-4b97-9b-83-74-84-a9-d0-04-33')
     @commethod(3)
@@ -5830,7 +5830,7 @@ class IFileDialogControlEvents(c_void_p):
     def OnCheckButtonToggled(self, pfdc: Windows.Win32.UI.Shell.IFileDialogCustomize_head, dwIDCtl: UInt32, bChecked: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def OnControlActivating(self, pfdc: Windows.Win32.UI.Shell.IFileDialogCustomize_head, dwIDCtl: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileDialogCustomize(c_void_p):
+class IFileDialogCustomize(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e6fdd21a-163f-4975-9c-8c-a6-9f-1b-a3-70-34')
     @commethod(3)
@@ -5887,7 +5887,7 @@ class IFileDialogCustomize(c_void_p):
     def MakeProminent(self, dwIDCtl: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
     def SetControlItemText(self, dwIDCtl: UInt32, dwIDItem: UInt32, pszLabel: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileDialogEvents(c_void_p):
+class IFileDialogEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('973510db-7d7f-452b-89-75-74-a8-58-28-d3-54')
     @commethod(3)
@@ -5904,7 +5904,7 @@ class IFileDialogEvents(c_void_p):
     def OnTypeChange(self, pfd: Windows.Win32.UI.Shell.IFileDialog_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def OnOverwrite(self, pfd: Windows.Win32.UI.Shell.IFileDialog_head, psi: Windows.Win32.UI.Shell.IShellItem_head, pResponse: POINTER(Windows.Win32.UI.Shell.FDE_OVERWRITE_RESPONSE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileIsInUse(c_void_p):
+class IFileIsInUse(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('64a1cbf0-3a1a-4461-91-58-37-69-69-69-39-50')
     @commethod(3)
@@ -5917,14 +5917,14 @@ class IFileIsInUse(c_void_p):
     def GetSwitchToHWND(self, phwnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def CloseFile(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileOpenDialog(c_void_p):
+class IFileOpenDialog(ComPtr):
     extends: Windows.Win32.UI.Shell.IFileDialog
     Guid = Guid('d57c7288-d4ad-4768-be-02-9d-96-95-32-d9-60')
     @commethod(27)
     def GetResults(self, ppenum: POINTER(Windows.Win32.UI.Shell.IShellItemArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
     def GetSelectedItems(self, ppsai: POINTER(Windows.Win32.UI.Shell.IShellItemArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileOperation(c_void_p):
+class IFileOperation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('947aab5f-0a5c-4c13-b4-d6-4b-f7-83-6f-c9-f8')
     @commethod(3)
@@ -5967,12 +5967,12 @@ class IFileOperation(c_void_p):
     def PerformOperations(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def GetAnyOperationsAborted(self, pfAnyOperationsAborted: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileOperation2(c_void_p):
+class IFileOperation2(ComPtr):
     extends: Windows.Win32.UI.Shell.IFileOperation
     Guid = Guid('cd8f23c1-8f61-4916-90-9d-55-bd-d0-91-87-53')
     @commethod(23)
     def SetOperationFlags2(self, operationFlags2: Windows.Win32.UI.Shell.FILE_OPERATION_FLAGS2) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileOperationProgressSink(c_void_p):
+class IFileOperationProgressSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('04b0f1a7-9490-44bc-96-e1-42-96-a3-12-52-e2')
     @commethod(3)
@@ -6007,7 +6007,7 @@ class IFileOperationProgressSink(c_void_p):
     def PauseTimer(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def ResumeTimer(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileSaveDialog(c_void_p):
+class IFileSaveDialog(ComPtr):
     extends: Windows.Win32.UI.Shell.IFileDialog
     Guid = Guid('84bccd23-5fde-4cdb-ae-a4-af-64-b8-3d-78-ab')
     @commethod(27)
@@ -6020,7 +6020,7 @@ class IFileSaveDialog(c_void_p):
     def GetProperties(self, ppStore: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def ApplyProperties(self, psi: Windows.Win32.UI.Shell.IShellItem_head, pStore: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head, hwnd: Windows.Win32.Foundation.HWND, pSink: Windows.Win32.UI.Shell.IFileOperationProgressSink_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileSearchBand(c_void_p):
+class IFileSearchBand(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2d91eea1-9932-11d2-be-86-00-a0-c9-a8-3d-a1')
     @commethod(7)
@@ -6033,21 +6033,21 @@ class IFileSearchBand(c_void_p):
     def get_Scope(self, pvarScope: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get_QueryFile(self, pvarFile: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileSyncMergeHandler(c_void_p):
+class IFileSyncMergeHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d97b5aac-c792-433c-97-5d-35-c4-ea-dc-7a-9d')
     @commethod(3)
     def Merge(self, localFilePath: Windows.Win32.Foundation.PWSTR, serverFilePath: Windows.Win32.Foundation.PWSTR, updateStatus: POINTER(Windows.Win32.UI.Shell.MERGE_UPDATE_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ShowResolveConflictUIAsync(self, localFilePath: Windows.Win32.Foundation.PWSTR, monitorToDisplayOn: Windows.Win32.Graphics.Gdi.HMONITOR) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileSystemBindData(c_void_p):
+class IFileSystemBindData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('01e18d10-4d8b-11d2-85-5d-00-60-08-05-93-67')
     @commethod(3)
     def SetFindData(self, pfd: POINTER(Windows.Win32.Storage.FileSystem.WIN32_FIND_DATAW_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetFindData(self, pfd: POINTER(Windows.Win32.Storage.FileSystem.WIN32_FIND_DATAW_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFileSystemBindData2(c_void_p):
+class IFileSystemBindData2(ComPtr):
     extends: Windows.Win32.UI.Shell.IFileSystemBindData
     Guid = Guid('3acf075f-71db-4afa-81-f0-3f-c4-fd-f2-a5-b8')
     @commethod(5)
@@ -6058,7 +6058,7 @@ class IFileSystemBindData2(c_void_p):
     def SetJunctionCLSID(self, clsid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetJunctionCLSID(self, pclsid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFolderBandPriv(c_void_p):
+class IFolderBandPriv(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('47c01f95-e185-412c-b5-c5-4f-27-df-96-5a-ea')
     @commethod(3)
@@ -6069,19 +6069,19 @@ class IFolderBandPriv(c_void_p):
     def SetNoIcons(self, fNoIcons: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetNoText(self, fNoText: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IFolderFilter(c_void_p):
+class IFolderFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9cc22886-dc8e-11d2-b1-d0-00-c0-4f-8e-eb-3e')
     @commethod(3)
     def ShouldShow(self, psf: Windows.Win32.UI.Shell.IShellFolder_head, pidlFolder: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), pidlItem: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetEnumFlags(self, psf: Windows.Win32.UI.Shell.IShellFolder_head, pidlFolder: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), phwnd: POINTER(Windows.Win32.Foundation.HWND), pgrfFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFolderFilterSite(c_void_p):
+class IFolderFilterSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0a651f5-b48b-11d2-b5-ed-00-60-97-c6-86-f6')
     @commethod(3)
     def SetFilter(self, punk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IFolderView(c_void_p):
+class IFolderView(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cde725b0-ccc9-4519-91-7e-32-5d-72-fa-b4-ce')
     @commethod(3)
@@ -6112,7 +6112,7 @@ class IFolderView(c_void_p):
     def SelectItem(self, iItem: Int32, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def SelectAndPositionItems(self, cidl: UInt32, apidl: POINTER(POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)), apt: POINTER(Windows.Win32.Foundation.POINT_head), dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IFolderView2(c_void_p):
+class IFolderView2(ComPtr):
     extends: Windows.Win32.UI.Shell.IFolderView
     Guid = Guid('1af3a467-214f-4298-90-8e-06-b0-3e-0b-39-f9')
     @commethod(17)
@@ -6165,24 +6165,24 @@ class IFolderView2(c_void_p):
     def IsMoveInSameFolder(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(41)
     def DoRename(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IFolderViewHost(c_void_p):
+class IFolderViewHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1ea58f02-d55a-411d-b0-9e-9e-65-ac-21-60-5b')
     @commethod(3)
     def Initialize(self, hwndParent: Windows.Win32.Foundation.HWND, pdo: Windows.Win32.System.Com.IDataObject_head, prc: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFolderViewOC(c_void_p):
+class IFolderViewOC(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('9ba05970-f6a8-11cf-a4-42-00-a0-c9-0a-8f-39')
     @commethod(7)
     def SetFolderView(self, pdisp: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IFolderViewOptions(c_void_p):
+class IFolderViewOptions(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3cc974d2-b302-4d36-ad-3e-06-d9-3f-69-5d-3f')
     @commethod(3)
     def SetFolderViewOptions(self, fvoMask: Windows.Win32.UI.Shell.FOLDERVIEWOPTIONS, fvoFlags: Windows.Win32.UI.Shell.FOLDERVIEWOPTIONS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetFolderViewOptions(self, pfvoFlags: POINTER(Windows.Win32.UI.Shell.FOLDERVIEWOPTIONS)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFolderViewSettings(c_void_p):
+class IFolderViewSettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ae8c987d-8797-4ed3-be-72-2a-47-dd-93-8d-b0')
     @commethod(3)
@@ -6199,7 +6199,7 @@ class IFolderViewSettings(c_void_p):
     def GetSortColumns(self, rgSortColumns: POINTER(Windows.Win32.UI.Shell.SORTCOLUMN_head), cColumnsIn: UInt32, pcColumnsOut: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetGroupSubsetCount(self, pcVisibleRows: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFrameworkInputPane(c_void_p):
+class IFrameworkInputPane(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5752238b-24f0-495a-82-f1-2f-d5-93-05-67-96')
     @commethod(3)
@@ -6210,19 +6210,19 @@ class IFrameworkInputPane(c_void_p):
     def Unadvise(self, dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Location(self, prcInputPaneScreenLocation: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFrameworkInputPaneHandler(c_void_p):
+class IFrameworkInputPaneHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('226c537b-1e76-4d9e-a7-60-33-db-29-92-2f-18')
     @commethod(3)
     def Showing(self, prcInputPaneScreenLocation: POINTER(Windows.Win32.Foundation.RECT_head), fEnsureFocusedElementInView: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Hiding(self, fEnsureFocusedElementInView: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IGetServiceIds(c_void_p):
+class IGetServiceIds(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4a073526-6103-4e21-b7-bc-f5-19-d1-52-4e-5d')
     @commethod(3)
     def GetServiceIds(self, serviceIdCount: POINTER(UInt32), serviceIds: POINTER(POINTER(Guid))) -> Windows.Win32.Foundation.HRESULT: ...
-class IHWEventHandler(c_void_p):
+class IHWEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c1fb73d0-ec3a-4ba2-b5-12-8c-db-91-87-b6-d1')
     @commethod(3)
@@ -6231,19 +6231,19 @@ class IHWEventHandler(c_void_p):
     def HandleEvent(self, pszDeviceID: Windows.Win32.Foundation.PWSTR, pszAltDeviceID: Windows.Win32.Foundation.PWSTR, pszEventType: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def HandleEventWithContent(self, pszDeviceID: Windows.Win32.Foundation.PWSTR, pszAltDeviceID: Windows.Win32.Foundation.PWSTR, pszEventType: Windows.Win32.Foundation.PWSTR, pszContentTypeHandler: Windows.Win32.Foundation.PWSTR, pdataobject: Windows.Win32.System.Com.IDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IHWEventHandler2(c_void_p):
+class IHWEventHandler2(ComPtr):
     extends: Windows.Win32.UI.Shell.IHWEventHandler
     Guid = Guid('cfcc809f-295d-42e8-9f-fc-42-4b-33-c4-87-e6')
     @commethod(6)
     def HandleEventWithHWND(self, pszDeviceID: Windows.Win32.Foundation.PWSTR, pszAltDeviceID: Windows.Win32.Foundation.PWSTR, pszEventType: Windows.Win32.Foundation.PWSTR, hwndOwner: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
-class IHandlerActivationHost(c_void_p):
+class IHandlerActivationHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('35094a87-8bb1-4237-96-c6-c4-17-ee-bd-b0-78')
     @commethod(3)
     def BeforeCoCreateInstance(self, clsidHandler: POINTER(Guid), itemsBeingActivated: Windows.Win32.UI.Shell.IShellItemArray_head, handlerInfo: Windows.Win32.UI.Shell.IHandlerInfo_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def BeforeCreateProcess(self, applicationPath: Windows.Win32.Foundation.PWSTR, commandLine: Windows.Win32.Foundation.PWSTR, handlerInfo: Windows.Win32.UI.Shell.IHandlerInfo_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IHandlerInfo(c_void_p):
+class IHandlerInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('997706ef-f880-453b-81-18-39-e1-a2-d2-65-5a')
     @commethod(3)
@@ -6252,12 +6252,12 @@ class IHandlerInfo(c_void_p):
     def GetApplicationPublisher(self, value: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetApplicationIconReference(self, value: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IHandlerInfo2(c_void_p):
+class IHandlerInfo2(ComPtr):
     extends: Windows.Win32.UI.Shell.IHandlerInfo
     Guid = Guid('31cca04c-04d3-4ea9-90-de-97-b1-5e-87-a5-32')
     @commethod(6)
     def GetApplicationId(self, value: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IHlink(c_void_p):
+class IHlink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('79eac9c3-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
     @commethod(3)
@@ -6288,7 +6288,7 @@ class IHlink(c_void_p):
     def SetAdditionalParams(self, pwzAdditionalParams: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def GetAdditionalParams(self, ppwzAdditionalParams: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IHlinkBrowseContext(c_void_p):
+class IHlinkBrowseContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('79eac9c7-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
     @commethod(3)
@@ -6319,7 +6319,7 @@ class IHlinkBrowseContext(c_void_p):
     def Clone(self, piunkOuter: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), ppiunkObj: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def Close(self, reserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IHlinkFrame(c_void_p):
+class IHlinkFrame(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('79eac9c5-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
     @commethod(3)
@@ -6332,7 +6332,7 @@ class IHlinkFrame(c_void_p):
     def OnNavigate(self, grfHLNF: UInt32, pimkTarget: Windows.Win32.System.Com.IMoniker_head, pwzLocation: Windows.Win32.Foundation.PWSTR, pwzFriendlyName: Windows.Win32.Foundation.PWSTR, dwreserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def UpdateHlink(self, uHLID: UInt32, pimkTarget: Windows.Win32.System.Com.IMoniker_head, pwzLocation: Windows.Win32.Foundation.PWSTR, pwzFriendlyName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IHlinkSite(c_void_p):
+class IHlinkSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('79eac9c2-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
     @commethod(3)
@@ -6343,7 +6343,7 @@ class IHlinkSite(c_void_p):
     def ReadyToNavigate(self, dwSiteData: UInt32, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def OnNavigationComplete(self, dwSiteData: UInt32, dwreserved: UInt32, hrError: Windows.Win32.Foundation.HRESULT, pwzError: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IHlinkTarget(c_void_p):
+class IHlinkTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('79eac9c4-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
     @commethod(3)
@@ -6356,64 +6356,64 @@ class IHlinkTarget(c_void_p):
     def GetMoniker(self, pwzLocation: Windows.Win32.Foundation.PWSTR, dwAssign: UInt32, ppimkLocation: POINTER(Windows.Win32.System.Com.IMoniker_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetFriendlyName(self, pwzLocation: Windows.Win32.Foundation.PWSTR, ppwzFriendlyName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IHomeGroup(c_void_p):
+class IHomeGroup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7a3bd1d9-35a9-4fb3-a4-67-f4-8c-ac-35-e2-d0')
     @commethod(3)
     def IsMember(self, member: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ShowSharingWizard(self, owner: Windows.Win32.Foundation.HWND, sharingchoices: POINTER(Windows.Win32.UI.Shell.HOMEGROUPSHARINGCHOICES)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIOCancelInformation(c_void_p):
+class IIOCancelInformation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f5b0bf81-8cb5-4b1b-94-49-1a-15-9e-0c-73-3c')
     @commethod(3)
     def SetCancelInformation(self, dwThreadID: UInt32, uMsgCancel: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetCancelInformation(self, pdwThreadID: POINTER(UInt32), puMsgCancel: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIdentityName(c_void_p):
+class IIdentityName(ComPtr):
     extends: Windows.Win32.UI.Shell.IRelatedItem
     Guid = Guid('7d903fca-d6f9-4810-83-32-94-6c-01-77-e2-47')
-class IImageRecompress(c_void_p):
+class IImageRecompress(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('505f1513-6b3e-4892-a2-72-59-f8-88-9a-4d-3e')
     @commethod(3)
     def RecompressImage(self, psi: Windows.Win32.UI.Shell.IShellItem_head, cx: Int32, cy: Int32, iQuality: Int32, pstg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ppstrmOut: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IInitializeCommand(c_void_p):
+class IInitializeCommand(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('85075acf-231f-40ea-96-10-d2-6b-7b-58-f6-38')
     @commethod(3)
     def Initialize(self, pszCommandName: Windows.Win32.Foundation.PWSTR, ppb: Windows.Win32.System.Com.StructuredStorage.IPropertyBag_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IInitializeNetworkFolder(c_void_p):
+class IInitializeNetworkFolder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6e0f9881-42a8-4f2a-97-f8-8a-f4-e0-26-d9-2d')
     @commethod(3)
     def Initialize(self, pidl: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), pidlTarget: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), uDisplayType: UInt32, pszResName: Windows.Win32.Foundation.PWSTR, pszProvider: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IInitializeObject(c_void_p):
+class IInitializeObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4622ad16-ff23-11d0-8d-34-00-a0-c9-0f-27-19')
     @commethod(3)
     def Initialize(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IInitializeWithBindCtx(c_void_p):
+class IInitializeWithBindCtx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('71c0d2bc-726d-45cc-a6-c0-2e-31-c1-db-21-59')
     @commethod(3)
     def Initialize(self, pbc: Windows.Win32.System.Com.IBindCtx_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IInitializeWithItem(c_void_p):
+class IInitializeWithItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7f73be3f-fb79-493c-a6-c7-7e-e1-4e-24-58-41')
     @commethod(3)
     def Initialize(self, psi: Windows.Win32.UI.Shell.IShellItem_head, grfMode: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IInitializeWithPropertyStore(c_void_p):
+class IInitializeWithPropertyStore(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c3e12eb5-7d8d-44f8-b6-dd-0e-77-b3-4d-6d-e4')
     @commethod(3)
     def Initialize(self, pps: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IInitializeWithWindow(c_void_p):
+class IInitializeWithWindow(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3e68d4bd-7135-4d10-80-18-9f-b6-d9-f3-3f-a1')
     @commethod(3)
     def Initialize(self, hwnd: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
-class IInputObject(c_void_p):
+class IInputObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('68284faa-6a48-11d0-8c-78-00-c0-4f-d9-18-b4')
     @commethod(3)
@@ -6422,44 +6422,44 @@ class IInputObject(c_void_p):
     def HasFocusIO(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def TranslateAcceleratorIO(self, pMsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IInputObject2(c_void_p):
+class IInputObject2(ComPtr):
     extends: Windows.Win32.UI.Shell.IInputObject
     Guid = Guid('6915c085-510b-44cd-94-af-28-df-a5-6c-f9-2b')
     @commethod(6)
     def TranslateAcceleratorGlobal(self, pMsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IInputObjectSite(c_void_p):
+class IInputObjectSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f1db8392-7331-11d0-8c-99-00-a0-c9-2d-bf-e8')
     @commethod(3)
     def OnFocusChangeIS(self, punkObj: Windows.Win32.System.Com.IUnknown_head, fSetFocus: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IInputPaneAnimationCoordinator(c_void_p):
+class IInputPaneAnimationCoordinator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2af16ba9-2de5-4b75-82-d9-01-37-2a-fb-ff-b4')
     @commethod(3)
     def AddAnimation(self, device: Windows.Win32.System.Com.IUnknown_head, animation: Windows.Win32.Graphics.DirectComposition.IDCompositionAnimation_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IInputPanelConfiguration(c_void_p):
+class IInputPanelConfiguration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('41c81592-514c-48bd-a2-2e-e6-af-63-85-21-a6')
     @commethod(3)
     def EnableFocusTracking(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IInputPanelInvocationConfiguration(c_void_p):
+class IInputPanelInvocationConfiguration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a213f136-3b45-4362-a3-32-ef-b6-54-7c-d4-32')
     @commethod(3)
     def RequireTouchInEditControl(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IInsertItem(c_void_p):
+class IInsertItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d2b57227-3d23-4b95-93-c0-49-2b-d4-54-c3-56')
     @commethod(3)
     def InsertItem(self, pidl: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IItemNameLimits(c_void_p):
+class IItemNameLimits(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1df0d7f1-b267-4d28-8b-10-12-e2-32-02-a5-c4')
     @commethod(3)
     def GetValidCharacters(self, ppwszValidChars: POINTER(Windows.Win32.Foundation.PWSTR), ppwszInvalidChars: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetMaxLength(self, pszName: Windows.Win32.Foundation.PWSTR, piMaxNameLen: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IKnownFolder(c_void_p):
+class IKnownFolder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3aa7af7e-9b36-420c-a8-e3-f7-7d-46-74-a4-88')
     @commethod(3)
@@ -6480,7 +6480,7 @@ class IKnownFolder(c_void_p):
     def GetRedirectionCapabilities(self, pCapabilities: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetFolderDefinition(self, pKFD: POINTER(Windows.Win32.UI.Shell.KNOWNFOLDER_DEFINITION_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IKnownFolderManager(c_void_p):
+class IKnownFolderManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8be2d872-86aa-4d47-b7-76-32-cc-a4-0c-70-18')
     @commethod(3)
@@ -6503,48 +6503,48 @@ class IKnownFolderManager(c_void_p):
     def FindFolderFromIDList(self, pidl: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), ppkf: POINTER(Windows.Win32.UI.Shell.IKnownFolder_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Redirect(self, rfid: POINTER(Guid), hwnd: Windows.Win32.Foundation.HWND, flags: UInt32, pszTargetPath: Windows.Win32.Foundation.PWSTR, cFolders: UInt32, pExclusion: POINTER(Guid), ppszError: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ILaunchSourceAppUserModelId(c_void_p):
+class ILaunchSourceAppUserModelId(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('989191ac-28ff-4cf0-95-84-e0-d0-78-bc-23-96')
     @commethod(3)
     def GetAppUserModelId(self, launchingApp: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ILaunchSourceViewSizePreference(c_void_p):
+class ILaunchSourceViewSizePreference(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e5aa01f7-1fb8-4830-87-20-4e-67-34-cb-d5-f3')
     @commethod(3)
     def GetSourceViewToPosition(self, hwnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetSourceViewSizePreference(self, sourceSizeAfterLaunch: POINTER(Windows.Win32.UI.Shell.APPLICATION_VIEW_SIZE_PREFERENCE)) -> Windows.Win32.Foundation.HRESULT: ...
-class ILaunchTargetMonitor(c_void_p):
+class ILaunchTargetMonitor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('266fbc7e-490d-46ed-a9-6b-22-74-db-25-20-03')
     @commethod(3)
     def GetMonitor(self, monitor: POINTER(Windows.Win32.Graphics.Gdi.HMONITOR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ILaunchTargetViewSizePreference(c_void_p):
+class ILaunchTargetViewSizePreference(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2f0666c6-12f7-4360-b5-11-a3-94-a0-55-37-25')
     @commethod(3)
     def GetTargetViewSizePreference(self, targetSizeOnLaunch: POINTER(Windows.Win32.UI.Shell.APPLICATION_VIEW_SIZE_PREFERENCE)) -> Windows.Win32.Foundation.HRESULT: ...
-class ILaunchUIContext(c_void_p):
+class ILaunchUIContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1791e8f6-21c7-4340-88-2a-a6-a9-3e-3f-d7-3b')
     @commethod(3)
     def SetAssociatedWindow(self, value: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetTabGroupingPreference(self, value: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ILaunchUIContextProvider(c_void_p):
+class ILaunchUIContextProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0d12c4c8-a3d9-4e24-94-c1-0e-20-c5-a9-56-c4')
     @commethod(3)
     def UpdateContext(self, context: Windows.Win32.UI.Shell.ILaunchUIContext_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMenuBand(c_void_p):
+class IMenuBand(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('568804cd-cbd7-11d0-98-16-00-c0-4f-d9-19-72')
     @commethod(3)
     def IsMenuMessage(self, pmsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def TranslateMenuMessage(self, pmsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head), plRet: POINTER(Windows.Win32.Foundation.LRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMenuPopup(c_void_p):
+class IMenuPopup(ComPtr):
     extends: Windows.Win32.UI.Shell.IDeskBar
     Guid = Guid('d1e7afeb-6a2e-11d0-8c-78-00-c0-4f-d9-18-b4')
     @commethod(8)
@@ -6553,12 +6553,12 @@ class IMenuPopup(c_void_p):
     def OnSelect(self, dwSelectType: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def SetSubMenu(self, pmp: Windows.Win32.UI.Shell.IMenuPopup_head, fSet: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IModalWindow(c_void_p):
+class IModalWindow(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b4db1657-70d7-485e-8e-3e-6f-cb-5a-5c-18-02')
     @commethod(3)
     def Show(self, hwndOwner: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
-class INameSpaceTreeAccessible(c_void_p):
+class INameSpaceTreeAccessible(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('71f312de-43ed-4190-84-77-e9-53-6b-82-35-0b')
     @commethod(3)
@@ -6567,7 +6567,7 @@ class INameSpaceTreeAccessible(c_void_p):
     def OnDoDefaultAccessibilityAction(self, psi: Windows.Win32.UI.Shell.IShellItem_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnGetAccessibilityRole(self, psi: Windows.Win32.UI.Shell.IShellItem_head, pvarRole: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class INameSpaceTreeControl(c_void_p):
+class INameSpaceTreeControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('028212a3-b627-47e9-88-56-c1-42-65-55-4e-4f')
     @commethod(3)
@@ -6608,7 +6608,7 @@ class INameSpaceTreeControl(c_void_p):
     def GetItemRect(self, psi: Windows.Win32.UI.Shell.IShellItem_head, prect: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def CollapseAll(self) -> Windows.Win32.Foundation.HRESULT: ...
-class INameSpaceTreeControl2(c_void_p):
+class INameSpaceTreeControl2(ComPtr):
     extends: Windows.Win32.UI.Shell.INameSpaceTreeControl
     Guid = Guid('7cc7aed8-290e-49bc-89-45-c1-40-1c-c9-30-6c')
     @commethod(22)
@@ -6619,7 +6619,7 @@ class INameSpaceTreeControl2(c_void_p):
     def SetControlStyle2(self, nstcsMask: Windows.Win32.UI.Shell.NSTCSTYLE2, nstcsStyle: Windows.Win32.UI.Shell.NSTCSTYLE2) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def GetControlStyle2(self, nstcsMask: Windows.Win32.UI.Shell.NSTCSTYLE2, pnstcsStyle: POINTER(Windows.Win32.UI.Shell.NSTCSTYLE2)) -> Windows.Win32.Foundation.HRESULT: ...
-class INameSpaceTreeControlCustomDraw(c_void_p):
+class INameSpaceTreeControlCustomDraw(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2d3ba758-33ee-42d5-bb-7b-5f-34-31-d8-6c-78')
     @commethod(3)
@@ -6630,7 +6630,7 @@ class INameSpaceTreeControlCustomDraw(c_void_p):
     def ItemPrePaint(self, hdc: Windows.Win32.Graphics.Gdi.HDC, prc: POINTER(Windows.Win32.Foundation.RECT_head), pnstccdItem: POINTER(Windows.Win32.UI.Shell.NSTCCUSTOMDRAW_head), pclrText: POINTER(Windows.Win32.Foundation.COLORREF), pclrTextBk: POINTER(Windows.Win32.Foundation.COLORREF), plres: POINTER(Windows.Win32.Foundation.LRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def ItemPostPaint(self, hdc: Windows.Win32.Graphics.Gdi.HDC, prc: POINTER(Windows.Win32.Foundation.RECT_head), pnstccdItem: POINTER(Windows.Win32.UI.Shell.NSTCCUSTOMDRAW_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class INameSpaceTreeControlDropHandler(c_void_p):
+class INameSpaceTreeControlDropHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f9c665d6-c2f2-4c19-bf-33-83-22-d7-35-2f-51')
     @commethod(3)
@@ -6645,7 +6645,7 @@ class INameSpaceTreeControlDropHandler(c_void_p):
     def OnDropPosition(self, psiOver: Windows.Win32.UI.Shell.IShellItem_head, psiaData: Windows.Win32.UI.Shell.IShellItemArray_head, iNewPosition: Int32, iOldPosition: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def OnDragLeave(self, psiOver: Windows.Win32.UI.Shell.IShellItem_head) -> Windows.Win32.Foundation.HRESULT: ...
-class INameSpaceTreeControlEvents(c_void_p):
+class INameSpaceTreeControlEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('93d77985-b3d8-4484-83-18-67-2c-dd-a0-02-ce')
     @commethod(3)
@@ -6684,12 +6684,12 @@ class INameSpaceTreeControlEvents(c_void_p):
     def OnBeforeStateImageChange(self, psi: Windows.Win32.UI.Shell.IShellItem_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def OnGetDefaultIconIndex(self, psi: Windows.Win32.UI.Shell.IShellItem_head, piDefaultIcon: POINTER(Int32), piOpenIcon: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class INameSpaceTreeControlFolderCapabilities(c_void_p):
+class INameSpaceTreeControlFolderCapabilities(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e9701183-e6b3-4ff2-85-68-81-36-15-fe-c7-be')
     @commethod(3)
     def GetFolderCapabilities(self, nfcMask: Windows.Win32.UI.Shell.NSTCFOLDERCAPABILITIES, pnfcValue: POINTER(Windows.Win32.UI.Shell.NSTCFOLDERCAPABILITIES)) -> Windows.Win32.Foundation.HRESULT: ...
-class INamedPropertyBag(c_void_p):
+class INamedPropertyBag(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fb700430-952c-11d1-94-6f-00-00-00-00-00-00')
     @commethod(3)
@@ -6698,14 +6698,14 @@ class INamedPropertyBag(c_void_p):
     def WritePropertyNPB(self, pszBagname: Windows.Win32.Foundation.PWSTR, pszPropName: Windows.Win32.Foundation.PWSTR, pVar: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def RemovePropertyNPB(self, pszBagname: Windows.Win32.Foundation.PWSTR, pszPropName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class INamespaceWalk(c_void_p):
+class INamespaceWalk(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('57ced8a7-3f4a-432c-93-50-30-f2-44-83-f7-4f')
     @commethod(3)
     def Walk(self, punkToWalk: Windows.Win32.System.Com.IUnknown_head, dwFlags: UInt32, cDepth: Int32, pnswcb: Windows.Win32.UI.Shell.INamespaceWalkCB_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetIDArrayResult(self, pcItems: POINTER(UInt32), prgpidl: POINTER(POINTER(POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)))) -> Windows.Win32.Foundation.HRESULT: ...
-class INamespaceWalkCB(c_void_p):
+class INamespaceWalkCB(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d92995f8-cf5e-4a76-bf-59-ea-d3-9e-a2-b9-7e')
     @commethod(3)
@@ -6716,12 +6716,12 @@ class INamespaceWalkCB(c_void_p):
     def LeaveFolder(self, psf: Windows.Win32.UI.Shell.IShellFolder_head, pidl: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def InitializeProgressDialog(self, ppszTitle: POINTER(Windows.Win32.Foundation.PWSTR), ppszCancel: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class INamespaceWalkCB2(c_void_p):
+class INamespaceWalkCB2(ComPtr):
     extends: Windows.Win32.UI.Shell.INamespaceWalkCB
     Guid = Guid('7ac7492b-c38e-438a-87-db-68-73-78-44-ff-70')
     @commethod(7)
     def WalkComplete(self, hr: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
-class INetworkFolderInternal(c_void_p):
+class INetworkFolderInternal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ceb38218-c971-47bb-a7-03-f0-bc-99-cc-db-81')
     @commethod(3)
@@ -6730,14 +6730,14 @@ class INetworkFolderInternal(c_void_p):
     def GetIDList(self, idList: POINTER(POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetProvider(self, itemIdCount: UInt32, itemIds: POINTER(POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)), providerMaxLength: UInt32, provider: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class INewMenuClient(c_void_p):
+class INewMenuClient(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('dcb07fdc-3bb5-451c-90-be-96-66-44-fe-d7-b0')
     @commethod(3)
     def IncludeItems(self, pflags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SelectAndEditItem(self, pidlItem: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), flags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class INewShortcutHookA(c_void_p):
+class INewShortcutHookA(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214e1-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -6752,7 +6752,7 @@ class INewShortcutHookA(c_void_p):
     def GetName(self, pszName: Windows.Win32.Foundation.PSTR, cchName: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetExtension(self, pszExtension: Windows.Win32.Foundation.PSTR, cchExtension: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class INewShortcutHookW(c_void_p):
+class INewShortcutHookW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214f7-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -6767,72 +6767,72 @@ class INewShortcutHookW(c_void_p):
     def GetName(self, pszName: Windows.Win32.Foundation.PWSTR, cchName: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetExtension(self, pszExtension: Windows.Win32.Foundation.PWSTR, cchExtension: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class INewWDEvents(c_void_p):
+class INewWDEvents(ComPtr):
     extends: Windows.Win32.UI.Shell.IWebWizardHost
     Guid = Guid('0751c551-7568-41c9-8e-5b-e2-2e-38-91-92-36')
     @commethod(16)
     def PassportAuthenticate(self, bstrSignInUrl: Windows.Win32.Foundation.BSTR, pvfAuthenitcated: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class INewWindowManager(c_void_p):
+class INewWindowManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d2bc4c84-3f72-4a52-a6-04-7b-cb-f3-98-2c-bb')
     @commethod(3)
     def EvaluateNewWindow(self, pszUrl: Windows.Win32.Foundation.PWSTR, pszName: Windows.Win32.Foundation.PWSTR, pszUrlContext: Windows.Win32.Foundation.PWSTR, pszFeatures: Windows.Win32.Foundation.PWSTR, fReplace: Windows.Win32.Foundation.BOOL, dwFlags: UInt32, dwUserActionTime: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class INotifyReplica(c_void_p):
+class INotifyReplica(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('99180163-da16-101a-93-5c-44-45-53-54-00-00')
     @commethod(3)
     def YouAreAReplica(self, ulcOtherReplicas: UInt32, rgpmkOtherReplicas: POINTER(Windows.Win32.System.Com.IMoniker_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjMgr(c_void_p):
+class IObjMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00bb2761-6a77-11d0-a5-35-00-c0-4f-d7-d0-62')
     @commethod(3)
     def Append(self, punk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Remove(self, punk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectProvider(c_void_p):
+class IObjectProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a6087428-3be3-4d73-b3-08-7c-04-a5-40-bf-1a')
     @commethod(3)
     def QueryObject(self, guidObject: POINTER(Guid), riid: POINTER(Guid), ppvOut: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectWithAppUserModelID(c_void_p):
+class IObjectWithAppUserModelID(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('36db0196-9665-46d1-9b-a7-d3-70-9e-ec-f9-ed')
     @commethod(3)
     def SetAppID(self, pszAppID: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAppID(self, ppszAppID: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectWithBackReferences(c_void_p):
+class IObjectWithBackReferences(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('321a6a6a-d61f-4bf3-97-ae-14-be-29-86-bb-36')
     @commethod(3)
     def RemoveBackReferences(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectWithCancelEvent(c_void_p):
+class IObjectWithCancelEvent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f279b885-0ae9-4b85-ac-06-dd-ec-f9-40-89-41')
     @commethod(3)
     def GetCancelEvent(self, phEvent: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectWithFolderEnumMode(c_void_p):
+class IObjectWithFolderEnumMode(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6a9d9026-0e6e-464c-b0-00-42-ec-c0-7d-e6-73')
     @commethod(3)
     def SetMode(self, feMode: Windows.Win32.UI.Shell.FOLDER_ENUM_MODE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetMode(self, pfeMode: POINTER(Windows.Win32.UI.Shell.FOLDER_ENUM_MODE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectWithProgID(c_void_p):
+class IObjectWithProgID(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('71e806fb-8dee-46fc-bf-8c-77-48-a8-a1-ae-13')
     @commethod(3)
     def SetProgID(self, pszProgID: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetProgID(self, ppszProgID: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectWithSelection(c_void_p):
+class IObjectWithSelection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1c9cd5bb-98e9-4491-a6-0f-31-aa-cc-72-b8-3c')
     @commethod(3)
     def SetSelection(self, psia: Windows.Win32.UI.Shell.IShellItemArray_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetSelection(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IOpenControlPanel(c_void_p):
+class IOpenControlPanel(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d11ad862-66de-4df4-bf-6c-1f-56-21-99-6a-f1')
     @commethod(3)
@@ -6841,12 +6841,12 @@ class IOpenControlPanel(c_void_p):
     def GetPath(self, pszName: Windows.Win32.Foundation.PWSTR, pszPath: Windows.Win32.Foundation.PWSTR, cchPath: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetCurrentView(self, pView: POINTER(Windows.Win32.UI.Shell.CPVIEW)) -> Windows.Win32.Foundation.HRESULT: ...
-class IOpenSearchSource(c_void_p):
+class IOpenSearchSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f0ee7333-e6fc-479b-9f-25-a8-60-c2-34-a3-8e')
     @commethod(3)
     def GetResults(self, hwnd: Windows.Win32.Foundation.HWND, pszQuery: Windows.Win32.Foundation.PWSTR, dwStartIndex: UInt32, dwCount: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IOperationsProgressDialog(c_void_p):
+class IOperationsProgressDialog(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c9fb851-e5c9-43eb-a3-70-f0-67-7b-13-87-4c')
     @commethod(3)
@@ -6871,7 +6871,7 @@ class IOperationsProgressDialog(c_void_p):
     def GetMilliseconds(self, pullElapsed: POINTER(UInt64), pullRemaining: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetOperationStatus(self, popstatus: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PDOPSTATUS)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPackageDebugSettings(c_void_p):
+class IPackageDebugSettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f27c3930-8029-4ad1-94-e3-3d-ba-41-78-10-c1')
     @commethod(3)
@@ -6904,55 +6904,55 @@ class IPackageDebugSettings(c_void_p):
     def RegisterForPackageStateChanges(self, packageFullName: Windows.Win32.Foundation.PWSTR, pPackageExecutionStateChangeNotification: Windows.Win32.UI.Shell.IPackageExecutionStateChangeNotification_head, pdwCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def UnregisterForPackageStateChanges(self, dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IPackageDebugSettings2(c_void_p):
+class IPackageDebugSettings2(ComPtr):
     extends: Windows.Win32.UI.Shell.IPackageDebugSettings
     Guid = Guid('6e3194bb-ab82-4d22-93-f5-fa-bd-a4-0e-7b-16')
     @commethod(18)
     def EnumerateApps(self, packageFullName: Windows.Win32.Foundation.PWSTR, appCount: POINTER(UInt32), appUserModelIds: POINTER(POINTER(Windows.Win32.Foundation.PWSTR)), appDisplayNames: POINTER(POINTER(Windows.Win32.Foundation.PWSTR))) -> Windows.Win32.Foundation.HRESULT: ...
-class IPackageExecutionStateChangeNotification(c_void_p):
+class IPackageExecutionStateChangeNotification(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1bb12a62-2ad8-432b-8c-cf-0c-2c-52-af-cd-5b')
     @commethod(3)
     def OnStateChanged(self, pszPackageFullName: Windows.Win32.Foundation.PWSTR, pesNewState: Windows.Win32.UI.Shell.PACKAGE_EXECUTION_STATE) -> Windows.Win32.Foundation.HRESULT: ...
-class IParentAndItem(c_void_p):
+class IParentAndItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b3a4b685-b685-4805-99-d9-5d-ea-d2-87-32-36')
     @commethod(3)
     def SetParentAndItem(self, pidlParent: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), psf: Windows.Win32.UI.Shell.IShellFolder_head, pidlChild: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetParentAndItem(self, ppidlParent: POINTER(POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)), ppsf: POINTER(Windows.Win32.UI.Shell.IShellFolder_head), ppidlChild: POINTER(POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IParseAndCreateItem(c_void_p):
+class IParseAndCreateItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('67efed0e-e827-4408-b4-93-78-f3-98-2b-68-5c')
     @commethod(3)
     def SetItem(self, psi: Windows.Win32.UI.Shell.IShellItem_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetItem(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPersistFolder(c_void_p):
+class IPersistFolder(ComPtr):
     extends: Windows.Win32.System.Com.IPersist
     Guid = Guid('000214ea-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(4)
     def Initialize(self, pidl: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPersistFolder2(c_void_p):
+class IPersistFolder2(ComPtr):
     extends: Windows.Win32.UI.Shell.IPersistFolder
     Guid = Guid('1ac3d9f0-175c-11d1-95-be-00-60-97-97-ea-4f')
     @commethod(5)
     def GetCurFolder(self, ppidl: POINTER(POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IPersistFolder3(c_void_p):
+class IPersistFolder3(ComPtr):
     extends: Windows.Win32.UI.Shell.IPersistFolder2
     Guid = Guid('cef04fdf-fe72-11d2-87-a5-00-c0-4f-68-37-cf')
     @commethod(6)
     def InitializeEx(self, pbc: Windows.Win32.System.Com.IBindCtx_head, pidlRoot: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), ppfti: POINTER(Windows.Win32.UI.Shell.PERSIST_FOLDER_TARGET_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetFolderTargetInfo(self, ppfti: POINTER(Windows.Win32.UI.Shell.PERSIST_FOLDER_TARGET_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPersistIDList(c_void_p):
+class IPersistIDList(ComPtr):
     extends: Windows.Win32.System.Com.IPersist
     Guid = Guid('1079acfc-29bd-11d3-8e-0d-00-c0-4f-68-37-d5')
     @commethod(4)
     def SetIDList(self, pidl: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetIDList(self, ppidl: POINTER(POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IPreviewHandler(c_void_p):
+class IPreviewHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8895b1c6-b41f-4c1c-a5-62-0d-56-42-50-83-6f')
     @commethod(3)
@@ -6969,14 +6969,14 @@ class IPreviewHandler(c_void_p):
     def QueryFocus(self, phwnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def TranslateAccelerator(self, pmsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPreviewHandlerFrame(c_void_p):
+class IPreviewHandlerFrame(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fec87aaf-35f9-447a-ad-b7-20-23-44-91-40-1a')
     @commethod(3)
     def GetWindowContext(self, pinfo: POINTER(Windows.Win32.UI.Shell.PREVIEWHANDLERFRAMEINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def TranslateAccelerator(self, pmsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPreviewHandlerVisuals(c_void_p):
+class IPreviewHandlerVisuals(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('196bf9a5-b346-4ef0-aa-1e-5d-cd-b7-67-68-b1')
     @commethod(3)
@@ -6985,22 +6985,22 @@ class IPreviewHandlerVisuals(c_void_p):
     def SetFont(self, plf: POINTER(Windows.Win32.Graphics.Gdi.LOGFONTW_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetTextColor(self, color: Windows.Win32.Foundation.COLORREF) -> Windows.Win32.Foundation.HRESULT: ...
-class IPreviewItem(c_void_p):
+class IPreviewItem(ComPtr):
     extends: Windows.Win32.UI.Shell.IRelatedItem
     Guid = Guid('36149969-0a8f-49c8-8b-00-4a-ec-b2-02-22-fb')
-class IPreviousVersionsInfo(c_void_p):
+class IPreviousVersionsInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('76e54780-ad74-48e3-a6-95-3b-a9-a0-af-f1-0d')
     @commethod(3)
     def AreSnapshotsAvailable(self, pszPath: Windows.Win32.Foundation.PWSTR, fOkToBeSlow: Windows.Win32.Foundation.BOOL, pfAvailable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IProfferService(c_void_p):
+class IProfferService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cb728b20-f786-11ce-92-ad-00-aa-00-a7-4c-d0')
     @commethod(3)
     def ProfferService(self, serviceId: POINTER(Guid), serviceProvider: Windows.Win32.System.Com.IServiceProvider_head, cookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RevokeService(self, cookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IProgressDialog(c_void_p):
+class IProgressDialog(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ebbc7c04-315e-11d2-b6-2f-00-60-97-df-5b-d4')
     @commethod(3)
@@ -7023,7 +7023,7 @@ class IProgressDialog(c_void_p):
     def SetCancelMsg(self, pwzCancelMsg: Windows.Win32.Foundation.PWSTR, pvResevered: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def Timer(self, dwTimerAction: UInt32, pvResevered: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
-class IPropertyKeyStore(c_void_p):
+class IPropertyKeyStore(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('75bd59aa-f23b-4963-ab-a4-0b-35-57-52-a9-1b')
     @commethod(3)
@@ -7038,7 +7038,7 @@ class IPropertyKeyStore(c_void_p):
     def IsKeyInStore(self, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def RemoveKey(self, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPublishedApp(c_void_p):
+class IPublishedApp(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellApp
     Guid = Guid('1bc752e0-9046-11d1-b8-b3-00-60-08-05-93-82')
     @commethod(8)
@@ -7047,19 +7047,19 @@ class IPublishedApp(c_void_p):
     def GetPublishedAppInfo(self, ppai: POINTER(Windows.Win32.UI.Shell.PUBAPPINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Unschedule(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IPublishedApp2(c_void_p):
+class IPublishedApp2(ComPtr):
     extends: Windows.Win32.UI.Shell.IPublishedApp
     Guid = Guid('12b81347-1b3a-4a04-aa-61-3f-76-8b-67-fd-7e')
     @commethod(11)
     def Install2(self, pstInstall: POINTER(Windows.Win32.Foundation.SYSTEMTIME_head), hwndParent: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
-class IPublishingWizard(c_void_p):
+class IPublishingWizard(ComPtr):
     extends: Windows.Win32.UI.Shell.IWizardExtension
     Guid = Guid('aa9198bb-ccec-472d-be-ed-19-a4-f6-73-3f-7a')
     @commethod(6)
     def Initialize(self, pdo: Windows.Win32.System.Com.IDataObject_head, dwOptions: UInt32, pszServiceScope: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetTransferManifest(self, phrFromTransfer: POINTER(Windows.Win32.Foundation.HRESULT), pdocManifest: POINTER(Windows.Win32.Data.Xml.MsXml.IXMLDOMDocument_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IQueryAssociations(c_void_p):
+class IQueryAssociations(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c46ca590-3c3f-11d2-be-e6-00-00-f8-05-ca-57')
     @commethod(3)
@@ -7072,60 +7072,60 @@ class IQueryAssociations(c_void_p):
     def GetData(self, flags: Windows.Win32.UI.Shell.ASSOCF, data: Windows.Win32.UI.Shell.ASSOCDATA, pszExtra: Windows.Win32.Foundation.PWSTR, pvOut: c_void_p, pcbOut: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetEnum(self, flags: Windows.Win32.UI.Shell.ASSOCF, assocenum: Windows.Win32.UI.Shell.ASSOCENUM, pszExtra: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), ppvOut: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IQueryCancelAutoPlay(c_void_p):
+class IQueryCancelAutoPlay(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ddefe873-6997-4e68-be-26-39-b6-33-ad-be-12')
     @commethod(3)
     def AllowAutoPlay(self, pszPath: Windows.Win32.Foundation.PWSTR, dwContentType: UInt32, pszLabel: Windows.Win32.Foundation.PWSTR, dwSerialNumber: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IQueryCodePage(c_void_p):
+class IQueryCodePage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c7b236ce-ee80-11d0-98-5f-00-60-08-05-93-82')
     @commethod(3)
     def GetCodePage(self, puiCodePage: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetCodePage(self, uiCodePage: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IQueryContinue(c_void_p):
+class IQueryContinue(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7307055c-b24a-486b-9f-25-16-3e-59-7a-28-a9')
     @commethod(3)
     def QueryContinue(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IQueryContinueWithStatus(c_void_p):
+class IQueryContinueWithStatus(ComPtr):
     extends: Windows.Win32.UI.Shell.IQueryContinue
     Guid = Guid('9090be5b-502b-41fb-bc-cc-00-49-a6-c7-25-4b')
     @commethod(4)
     def SetStatusMessage(self, psz: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IQueryInfo(c_void_p):
+class IQueryInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00021500-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def GetInfoTip(self, dwFlags: Windows.Win32.UI.Shell.QITIPF_FLAGS, ppwszTip: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetInfoFlags(self, pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRegTreeItem(c_void_p):
+class IRegTreeItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a9521922-0812-4d44-9e-c3-7f-d3-8c-72-6f-3d')
     @commethod(3)
     def GetCheckState(self, pbCheck: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetCheckState(self, bCheck: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IRelatedItem(c_void_p):
+class IRelatedItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a73ce67a-8ab1-44f1-8d-43-d2-fc-bf-6b-1c-d0')
     @commethod(3)
     def GetItemIDList(self, ppidl: POINTER(POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetItem(self, ppsi: POINTER(Windows.Win32.UI.Shell.IShellItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRemoteComputer(c_void_p):
+class IRemoteComputer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214fe-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def Initialize(self, pszMachine: Windows.Win32.Foundation.PWSTR, bEnumerating: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IResolveShellLink(c_void_p):
+class IResolveShellLink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5cd52983-9449-11d2-96-3a-00-c0-4f-79-ad-f0')
     @commethod(3)
     def ResolveShellLink(self, punkLink: Windows.Win32.System.Com.IUnknown_head, hwnd: Windows.Win32.Foundation.HWND, fFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IResultsFolder(c_void_p):
+class IResultsFolder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96e5ae6d-6ae1-4b1c-90-0c-c6-48-0e-aa-88-28')
     @commethod(3)
@@ -7138,7 +7138,7 @@ class IResultsFolder(c_void_p):
     def RemoveIDList(self, pidl: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def RemoveAll(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IRunnableTask(c_void_p):
+class IRunnableTask(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('85788d00-6807-11d0-b8-10-00-c0-4f-d7-06-ec')
     @commethod(3)
@@ -7151,7 +7151,7 @@ class IRunnableTask(c_void_p):
     def Resume(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def IsRunning(self) -> UInt32: ...
-class IScriptErrorList(c_void_p):
+class IScriptErrorList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f3470f24-15fd-11d2-bb-2e-00-80-5f-f7-ef-ca')
     @commethod(7)
@@ -7182,14 +7182,14 @@ class IScriptErrorList(c_void_p):
     def getPerErrorDisplay(self, pfPerErrorDisplay: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def setPerErrorDisplay(self, fPerErrorDisplay: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchBoxInfo(c_void_p):
+class ISearchBoxInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6af6e03f-d664-4ef4-96-26-f7-e0-ed-36-75-5e')
     @commethod(3)
     def GetCondition(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetText(self, ppsz: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchContext(c_void_p):
+class ISearchContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('09f656a2-41af-480c-88-f7-16-cc-0d-16-46-15')
     @commethod(3)
@@ -7198,7 +7198,7 @@ class ISearchContext(c_void_p):
     def GetSearchText(self, pbstrSearchText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetSearchStyle(self, pdwSearchStyle: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchFolderItemFactory(c_void_p):
+class ISearchFolderItemFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a0ffbc28-5482-4366-be-27-3e-81-e7-8e-06-c2')
     @commethod(3)
@@ -7225,7 +7225,7 @@ class ISearchFolderItemFactory(c_void_p):
     def GetShellItem(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetIDList(self, ppidl: POINTER(POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class ISharedBitmap(c_void_p):
+class ISharedBitmap(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('091162a4-bc96-411f-aa-e8-c5-12-2c-d0-33-63')
     @commethod(3)
@@ -7238,7 +7238,7 @@ class ISharedBitmap(c_void_p):
     def InitializeBitmap(self, hbm: Windows.Win32.Graphics.Gdi.HBITMAP, wtsAT: Windows.Win32.UI.Shell.WTS_ALPHATYPE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Detach(self, phbm: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISharingConfigurationManager(c_void_p):
+class ISharingConfigurationManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b4cd448a-9c86-4466-92-01-2e-62-10-5b-87-ae')
     @commethod(3)
@@ -7255,7 +7255,7 @@ class ISharingConfigurationManager(c_void_p):
     def StopSharingPrinters(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def ArePrintersShared(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellApp(c_void_p):
+class IShellApp(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a3e14960-935f-11d1-b8-b8-00-60-08-05-93-82')
     @commethod(3)
@@ -7268,7 +7268,7 @@ class IShellApp(c_void_p):
     def GetCachedSlowAppInfo(self, psaid: POINTER(Windows.Win32.UI.Shell.SLOWAPPINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def IsInstalled(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellBrowser(c_void_p):
+class IShellBrowser(ComPtr):
     extends: Windows.Win32.System.Ole.IOleWindow
     Guid = Guid('000214e2-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(5)
@@ -7297,19 +7297,19 @@ class IShellBrowser(c_void_p):
     def OnViewWindowActive(self, pshv: Windows.Win32.UI.Shell.IShellView_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def SetToolbarItems(self, lpButtons: POINTER(Windows.Win32.UI.Controls.TBBUTTON_head), nButtons: UInt32, uFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellChangeNotify(c_void_p):
+class IShellChangeNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d82be2b1-5764-11d0-a9-6e-00-c0-4f-d7-05-a2')
     @commethod(3)
     def OnChange(self, lEvent: Int32, pidl1: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), pidl2: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellDetails(c_void_p):
+class IShellDetails(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214ec-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def GetDetailsOf(self, pidl: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), iColumn: UInt32, pDetails: POINTER(Windows.Win32.UI.Shell.Common.SHELLDETAILS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ColumnClick(self, iColumn: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellDispatch(c_void_p):
+class IShellDispatch(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d8f015c0-c278-11ce-a4-9e-44-45-53-54-00-00')
     @commethod(7)
@@ -7358,7 +7358,7 @@ class IShellDispatch(c_void_p):
     def RefreshMenu(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
     def ControlPanelItem(self, bstrDir: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellDispatch2(c_void_p):
+class IShellDispatch2(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellDispatch
     Guid = Guid('a4c6892c-3ba9-11d2-9d-ea-00-c0-4f-b1-61-62')
     @commethod(30)
@@ -7379,12 +7379,12 @@ class IShellDispatch2(c_void_p):
     def CanStartStopService(self, ServiceName: Windows.Win32.Foundation.BSTR, pCanStartStop: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(38)
     def ShowBrowserBar(self, bstrClsid: Windows.Win32.Foundation.BSTR, bShow: Windows.Win32.System.Variant.VARIANT, pSuccess: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellDispatch3(c_void_p):
+class IShellDispatch3(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellDispatch2
     Guid = Guid('177160ca-bb5a-411c-84-1d-bd-38-fa-cd-ea-a0')
     @commethod(39)
     def AddToRecent(self, varFile: Windows.Win32.System.Variant.VARIANT, bstrCategory: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellDispatch4(c_void_p):
+class IShellDispatch4(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellDispatch3
     Guid = Guid('efd84b2d-4bcf-4298-be-25-eb-54-2a-59-fb-da')
     @commethod(40)
@@ -7395,22 +7395,22 @@ class IShellDispatch4(c_void_p):
     def ExplorerPolicy(self, bstrPolicyName: Windows.Win32.Foundation.BSTR, pValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(43)
     def GetSetting(self, lSetting: Int32, pResult: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellDispatch5(c_void_p):
+class IShellDispatch5(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellDispatch4
     Guid = Guid('866738b9-6cf2-4de8-87-67-f7-94-eb-e7-4f-4e')
     @commethod(44)
     def WindowSwitcher(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellDispatch6(c_void_p):
+class IShellDispatch6(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellDispatch5
     Guid = Guid('286e6f1b-7113-4355-95-62-96-b7-e9-d6-4c-54')
     @commethod(45)
     def SearchCommand(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellExtInit(c_void_p):
+class IShellExtInit(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214e8-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def Initialize(self, pidlFolder: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), pdtobj: Windows.Win32.System.Com.IDataObject_head, hkeyProgID: Windows.Win32.System.Registry.HKEY) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellFavoritesNameSpace(c_void_p):
+class IShellFavoritesNameSpace(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('55136804-b2de-11d1-b9-f2-00-a0-c9-8b-c5-47')
     @commethod(7)
@@ -7439,7 +7439,7 @@ class IShellFavoritesNameSpace(c_void_p):
     def DeleteSubscriptionForSelection(self, pBool: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def SetRoot(self, bstrFullPath: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellFolder(c_void_p):
+class IShellFolder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214e6-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -7462,7 +7462,7 @@ class IShellFolder(c_void_p):
     def GetDisplayNameOf(self, pidl: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), uFlags: Windows.Win32.UI.Shell.SHGDNF, pName: POINTER(Windows.Win32.UI.Shell.Common.STRRET_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def SetNameOf(self, hwnd: Windows.Win32.Foundation.HWND, pidl: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), pszName: Windows.Win32.Foundation.PWSTR, uFlags: Windows.Win32.UI.Shell.SHGDNF, ppidlOut: POINTER(POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellFolder2(c_void_p):
+class IShellFolder2(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellFolder
     Guid = Guid('93f2f68c-1d1b-11d3-a3-0e-00-c0-4f-79-ab-d1')
     @commethod(13)
@@ -7479,7 +7479,7 @@ class IShellFolder2(c_void_p):
     def GetDetailsOf(self, pidl: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), iColumn: UInt32, psd: POINTER(Windows.Win32.UI.Shell.Common.SHELLDETAILS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def MapColumnToSCID(self, iColumn: UInt32, pscid: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellFolderBand(c_void_p):
+class IShellFolderBand(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7fe80cc8-c247-11d0-b9-3a-00-a0-c9-03-12-e1')
     @commethod(3)
@@ -7488,7 +7488,7 @@ class IShellFolderBand(c_void_p):
     def SetBandInfoSFB(self, pbi: POINTER(Windows.Win32.UI.Shell.BANDINFOSFB_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetBandInfoSFB(self, pbi: POINTER(Windows.Win32.UI.Shell.BANDINFOSFB_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellFolderView(c_void_p):
+class IShellFolderView(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('37a378c0-f82d-11ce-ae-65-08-00-2b-2e-12-62')
     @commethod(3)
@@ -7547,12 +7547,12 @@ class IShellFolderView(c_void_p):
     def QuerySupport(self, pdwSupport: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
     def SetAutomationObject(self, pdisp: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellFolderViewCB(c_void_p):
+class IShellFolderViewCB(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2047e320-f2a9-11ce-ae-65-08-00-2b-2e-12-62')
     @commethod(3)
     def MessageSFVCB(self, uMsg: Windows.Win32.UI.Shell.SFVM_MESSAGE_ID, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellFolderViewDual(c_void_p):
+class IShellFolderViewDual(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('e7a1af80-4d96-11cf-96-0c-00-80-c7-f4-ee-85')
     @commethod(7)
@@ -7573,7 +7573,7 @@ class IShellFolderViewDual(c_void_p):
     def get_Script(self, ppDisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_ViewOptions(self, plViewOptions: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellFolderViewDual2(c_void_p):
+class IShellFolderViewDual2(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellFolderViewDual
     Guid = Guid('31c147b6-0ade-4a3c-b5-14-dd-f9-32-ef-6d-17')
     @commethod(16)
@@ -7582,7 +7582,7 @@ class IShellFolderViewDual2(c_void_p):
     def put_CurrentViewMode(self, ViewMode: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def SelectItemRelative(self, iRelative: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellFolderViewDual3(c_void_p):
+class IShellFolderViewDual3(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellFolderViewDual2
     Guid = Guid('29ec8e6c-46d3-411f-ba-aa-61-1a-6c-9c-ac-66')
     @commethod(19)
@@ -7603,19 +7603,19 @@ class IShellFolderViewDual3(c_void_p):
     def get_IconSize(self, piIconSize: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def FilterView(self, bstrFilterText: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellIcon(c_void_p):
+class IShellIcon(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214e5-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def GetIconOf(self, pidl: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), flags: UInt32, pIconIndex: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellIconOverlay(c_void_p):
+class IShellIconOverlay(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7d688a70-c613-11d0-99-9b-00-c0-4f-d6-55-e1')
     @commethod(3)
     def GetOverlayIndex(self, pidl: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), pIndex: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetOverlayIconIndex(self, pidl: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), pIconIndex: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellIconOverlayIdentifier(c_void_p):
+class IShellIconOverlayIdentifier(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c6c4200-c589-11d0-99-9a-00-c0-4f-d6-55-e1')
     @commethod(3)
@@ -7624,7 +7624,7 @@ class IShellIconOverlayIdentifier(c_void_p):
     def GetOverlayInfo(self, pwszIconFile: Windows.Win32.Foundation.PWSTR, cchMax: Int32, pIndex: POINTER(Int32), pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetPriority(self, pPriority: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellIconOverlayManager(c_void_p):
+class IShellIconOverlayManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f10b5e34-dd3b-42a7-aa-7d-2f-4e-c5-4b-b0-9b')
     @commethod(3)
@@ -7637,7 +7637,7 @@ class IShellIconOverlayManager(c_void_p):
     def LoadNonloadedOverlayIdentifiers(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def OverlayIndexFromImageIndex(self, iImage: Int32, piIndex: POINTER(Int32), fAdd: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellImageData(c_void_p):
+class IShellImageData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bfdeec12-8040-4403-a5-ea-9e-07-da-fc-f5-30')
     @commethod(3)
@@ -7700,12 +7700,12 @@ class IShellImageData(c_void_p):
     def CloneFrame(self, ppImg: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
     def ReplaceFrame(self, pImg: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellImageDataAbort(c_void_p):
+class IShellImageDataAbort(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('53fb8e58-50c0-4003-b4-aa-0c-8d-f2-8e-7f-3a')
     @commethod(3)
     def QueryAbort(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellImageDataFactory(c_void_p):
+class IShellImageDataFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9be8ed5c-edab-4d75-90-f3-bd-5b-db-b2-1c-82')
     @commethod(3)
@@ -7716,7 +7716,7 @@ class IShellImageDataFactory(c_void_p):
     def CreateImageFromStream(self, pStream: Windows.Win32.System.Com.IStream_head, ppshimg: POINTER(Windows.Win32.UI.Shell.IShellImageData_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetDataFormatFromPath(self, pszPath: Windows.Win32.Foundation.PWSTR, pDataFormat: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellItem(c_void_p):
+class IShellItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('43826d1e-e718-42ee-bc-55-a1-e2-61-c3-7b-fe')
     @commethod(3)
@@ -7729,7 +7729,7 @@ class IShellItem(c_void_p):
     def GetAttributes(self, sfgaoMask: Windows.Win32.System.SystemServices.SFGAO_FLAGS, psfgaoAttribs: POINTER(Windows.Win32.System.SystemServices.SFGAO_FLAGS)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Compare(self, psi: Windows.Win32.UI.Shell.IShellItem_head, hint: UInt32, piOrder: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellItem2(c_void_p):
+class IShellItem2(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellItem
     Guid = Guid('7e9fb0d3-919f-4307-ab-2e-9b-18-60-31-0c-93')
     @commethod(8)
@@ -7758,7 +7758,7 @@ class IShellItem2(c_void_p):
     def GetUInt64(self, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pull: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def GetBool(self, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pf: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellItemArray(c_void_p):
+class IShellItemArray(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b63ea76d-1f85-456f-a1-9c-48-15-9e-fa-85-8b')
     @commethod(3)
@@ -7775,19 +7775,19 @@ class IShellItemArray(c_void_p):
     def GetItemAt(self, dwIndex: UInt32, ppsi: POINTER(Windows.Win32.UI.Shell.IShellItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def EnumItems(self, ppenumShellItems: POINTER(Windows.Win32.UI.Shell.IEnumShellItems_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellItemFilter(c_void_p):
+class IShellItemFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2659b475-eeb8-48b7-8f-07-b3-78-81-0f-48-cf')
     @commethod(3)
     def IncludeItem(self, psi: Windows.Win32.UI.Shell.IShellItem_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetEnumFlagsForItem(self, psi: Windows.Win32.UI.Shell.IShellItem_head, pgrfFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellItemImageFactory(c_void_p):
+class IShellItemImageFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bcc18b79-ba16-442f-80-c4-8a-59-c3-0c-46-3b')
     @commethod(3)
     def GetImage(self, size: Windows.Win32.Foundation.SIZE, flags: Windows.Win32.UI.Shell.SIIGBF, phbm: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellItemResources(c_void_p):
+class IShellItemResources(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ff5693be-2ce0-4d48-b5-c5-40-81-7d-1a-cd-b9')
     @commethod(3)
@@ -7810,7 +7810,7 @@ class IShellItemResources(c_void_p):
     def CreateResource(self, pcsir: POINTER(Windows.Win32.UI.Shell.SHELL_ITEM_RESOURCE_head), riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def MarkForDelete(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellLibrary(c_void_p):
+class IShellLibrary(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('11a66efa-382e-451a-92-34-1e-0e-12-ef-30-85')
     @commethod(3)
@@ -7847,7 +7847,7 @@ class IShellLibrary(c_void_p):
     def Save(self, psiFolderToSaveIn: Windows.Win32.UI.Shell.IShellItem_head, pszLibraryName: Windows.Win32.Foundation.PWSTR, lsf: Windows.Win32.UI.Shell.LIBRARYSAVEFLAGS, ppsiSavedTo: POINTER(Windows.Win32.UI.Shell.IShellItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def SaveInKnownFolder(self, kfidToSaveIn: POINTER(Guid), pszLibraryName: Windows.Win32.Foundation.PWSTR, lsf: Windows.Win32.UI.Shell.LIBRARYSAVEFLAGS, ppsiSavedTo: POINTER(Windows.Win32.UI.Shell.IShellItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellLinkA(c_void_p):
+class IShellLinkA(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214ee-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -7886,7 +7886,7 @@ class IShellLinkA(c_void_p):
     def Resolve(self, hwnd: Windows.Win32.Foundation.HWND, fFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def SetPath(self, pszFile: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellLinkDataList(c_void_p):
+class IShellLinkDataList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('45e2b4ae-b1c3-11d0-b9-2f-00-a0-c9-03-12-e1')
     @commethod(3)
@@ -7899,7 +7899,7 @@ class IShellLinkDataList(c_void_p):
     def GetFlags(self, pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetFlags(self, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellLinkDual(c_void_p):
+class IShellLinkDual(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('88a05c00-f000-11ce-83-50-44-45-53-54-00-00')
     @commethod(7)
@@ -7934,12 +7934,12 @@ class IShellLinkDual(c_void_p):
     def SetIconLocation(self, bs: Windows.Win32.Foundation.BSTR, iIcon: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def Save(self, vWhere: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellLinkDual2(c_void_p):
+class IShellLinkDual2(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellLinkDual
     Guid = Guid('317ee249-f12e-11d2-b1-e4-00-c0-4f-8e-eb-3e')
     @commethod(23)
     def get_Target(self, ppfi: POINTER(Windows.Win32.UI.Shell.FolderItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellLinkW(c_void_p):
+class IShellLinkW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214f9-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -7978,7 +7978,7 @@ class IShellLinkW(c_void_p):
     def Resolve(self, hwnd: Windows.Win32.Foundation.HWND, fFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def SetPath(self, pszFile: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellMenu(c_void_p):
+class IShellMenu(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ee1f7637-e138-11d1-83-79-00-c0-4f-d9-18-d0')
     @commethod(3)
@@ -7999,12 +7999,12 @@ class IShellMenu(c_void_p):
     def GetState(self, psmd: POINTER(Windows.Win32.UI.Shell.SMDATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def SetMenuToolbar(self, punk: Windows.Win32.System.Com.IUnknown_head, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellMenuCallback(c_void_p):
+class IShellMenuCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4ca300a1-9b8d-11d1-8b-22-00-c0-4f-d9-18-d0')
     @commethod(3)
     def CallbackSM(self, psmd: POINTER(Windows.Win32.UI.Shell.SMDATA_head), uMsg: UInt32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellNameSpace(c_void_p):
+class IShellNameSpace(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellFavoritesNameSpace
     Guid = Guid('e572d3c9-37be-4ae2-82-5d-d5-21-76-3e-31-08')
     @commethod(20)
@@ -8049,24 +8049,24 @@ class IShellNameSpace(c_void_p):
     def Expand(self, var: Windows.Win32.System.Variant.VARIANT, iDepth: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(40)
     def UnselectAll(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellPropSheetExt(c_void_p):
+class IShellPropSheetExt(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000214e9-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def AddPages(self, pfnAddPage: Windows.Win32.UI.Controls.LPFNSVADDPROPSHEETPAGE, lParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReplacePage(self, uPageID: UInt32, pfnReplaceWith: Windows.Win32.UI.Controls.LPFNSVADDPROPSHEETPAGE, lParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellRunDll(c_void_p):
+class IShellRunDll(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fce4bde0-4b68-4b80-8e-9c-74-26-31-5a-73-88')
     @commethod(3)
     def Run(self, pszArgs: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellService(c_void_p):
+class IShellService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5836fb00-8187-11cf-a1-2b-00-aa-00-4a-e8-37')
     @commethod(3)
     def SetOwner(self, punkOwner: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellTaskScheduler(c_void_p):
+class IShellTaskScheduler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6ccb7be0-6807-11d0-b8-10-00-c0-4f-d7-06-ec')
     @commethod(3)
@@ -8077,7 +8077,7 @@ class IShellTaskScheduler(c_void_p):
     def CountTasks(self, rtoid: POINTER(Guid)) -> UInt32: ...
     @commethod(6)
     def Status(self, dwReleaseStatus: UInt32, dwThreadTimeout: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellUIHelper(c_void_p):
+class IShellUIHelper(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('729fe2f8-1ea8-11d1-8f-85-00-c0-4f-c2-fb-e1')
     @commethod(7)
@@ -8106,7 +8106,7 @@ class IShellUIHelper(c_void_p):
     def AutoCompleteAttach(self, Reserved: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def ShowBrowserUI(self, bstrName: Windows.Win32.Foundation.BSTR, pvarIn: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarOut: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellUIHelper2(c_void_p):
+class IShellUIHelper2(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellUIHelper
     Guid = Guid('a7fe6eda-1932-4281-b8-81-87-b3-1b-8b-c5-2c')
     @commethod(20)
@@ -8141,7 +8141,7 @@ class IShellUIHelper2(c_void_p):
     def RunOnceHasShown(self, pfShown: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
     def SearchGuideUrl(self, pbstrUrl: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellUIHelper3(c_void_p):
+class IShellUIHelper3(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellUIHelper2
     Guid = Guid('528df2ec-d419-40bc-9b-6d-dc-db-f9-c1-b2-5d')
     @commethod(36)
@@ -8170,7 +8170,7 @@ class IShellUIHelper3(c_void_p):
     def ShowTabsHelp(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(48)
     def ShowInPrivateHelp(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellUIHelper4(c_void_p):
+class IShellUIHelper4(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellUIHelper3
     Guid = Guid('b36e6a53-8073-499e-82-4c-d7-76-33-0a-33-3e')
     @commethod(49)
@@ -8209,7 +8209,7 @@ class IShellUIHelper4(c_void_p):
     def msTrackingProtectionEnabled(self, pfEnabled: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(66)
     def msActiveXFilteringEnabled(self, pfEnabled: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellUIHelper5(c_void_p):
+class IShellUIHelper5(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellUIHelper4
     Guid = Guid('a2a08b09-103d-4d3f-b9-1c-ea-45-5c-a8-2e-fa')
     @commethod(67)
@@ -8226,7 +8226,7 @@ class IShellUIHelper5(c_void_p):
     def msLaunchNetworkClientHelp(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(73)
     def msChangeDefaultBrowser(self, fChange: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellUIHelper6(c_void_p):
+class IShellUIHelper6(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellUIHelper5
     Guid = Guid('987a573e-46ee-4e89-96-ab-dd-f7-f8-fd-c9-8c')
     @commethod(74)
@@ -8257,7 +8257,7 @@ class IShellUIHelper6(c_void_p):
     def msStopPeriodicBadgeUpdate(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(87)
     def msLaunchInternetOptions(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellUIHelper7(c_void_p):
+class IShellUIHelper7(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellUIHelper6
     Guid = Guid('60e567c8-9573-4ab2-a2-64-63-7c-6c-16-1c-b1')
     @commethod(88)
@@ -8278,7 +8278,7 @@ class IShellUIHelper7(c_void_p):
     def HasNeedIEAutoLaunchFlag(self, bstrUrl: Windows.Win32.Foundation.BSTR, exists: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(96)
     def LaunchIE(self, bstrUrl: Windows.Win32.Foundation.BSTR, automated: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellUIHelper8(c_void_p):
+class IShellUIHelper8(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellUIHelper7
     Guid = Guid('66debcf2-05b0-4f07-b4-9b-b9-62-41-a6-5d-b2')
     @commethod(97)
@@ -8295,12 +8295,12 @@ class IShellUIHelper8(c_void_p):
     def OpenFavoritesSettings(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(103)
     def LaunchInHVSI(self, bstrUrl: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellUIHelper9(c_void_p):
+class IShellUIHelper9(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellUIHelper8
     Guid = Guid('6cdf73b0-7f2f-451f-bc-0f-63-e0-f3-28-4e-54')
     @commethod(104)
     def GetOSSku(self, pdwResult: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellView(c_void_p):
+class IShellView(ComPtr):
     extends: Windows.Win32.System.Ole.IOleWindow
     Guid = Guid('000214e3-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(5)
@@ -8325,7 +8325,7 @@ class IShellView(c_void_p):
     def SelectItem(self, pidlItem: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), uFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetItemObject(self, uItem: Windows.Win32.UI.Shell._SVGIO, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellView2(c_void_p):
+class IShellView2(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellView
     Guid = Guid('88e39e80-3578-11cf-ae-69-08-00-2b-2e-12-62')
     @commethod(16)
@@ -8336,12 +8336,12 @@ class IShellView2(c_void_p):
     def HandleRename(self, pidlNew: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def SelectAndPositionItem(self, pidlItem: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), uFlags: UInt32, ppt: POINTER(Windows.Win32.Foundation.POINT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellView3(c_void_p):
+class IShellView3(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellView2
     Guid = Guid('ec39fa88-f8af-41c5-84-21-38-be-d2-8f-46-73')
     @commethod(20)
     def CreateViewWindow3(self, psbOwner: Windows.Win32.UI.Shell.IShellBrowser_head, psvPrev: Windows.Win32.UI.Shell.IShellView_head, dwViewFlags: UInt32, dwMask: Windows.Win32.UI.Shell.FOLDERFLAGS, dwFlags: Windows.Win32.UI.Shell.FOLDERFLAGS, fvMode: Windows.Win32.UI.Shell.FOLDERVIEWMODE, pvid: POINTER(Guid), prcView: POINTER(Windows.Win32.Foundation.RECT_head), phwndView: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
-class IShellWindows(c_void_p):
+class IShellWindows(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('85cb6900-4d95-11cf-96-0c-00-80-c7-f4-ee-85')
     @commethod(7)
@@ -8366,7 +8366,7 @@ class IShellWindows(c_void_p):
     def OnCreated(self, lCookie: Int32, punk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def ProcessAttachDetach(self, fAttach: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class ISortColumnArray(c_void_p):
+class ISortColumnArray(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6dfc60fb-f2e9-459b-be-b5-28-8f-1a-7c-7d-54')
     @commethod(3)
@@ -8375,12 +8375,12 @@ class ISortColumnArray(c_void_p):
     def GetAt(self, index: UInt32, sortcolumn: POINTER(Windows.Win32.UI.Shell.SORTCOLUMN_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetSortType(self, type: POINTER(Windows.Win32.UI.Shell.SORT_ORDER_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IStartMenuPinnedList(c_void_p):
+class IStartMenuPinnedList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4cd19ada-25a5-4a32-b3-b7-34-7b-ee-5b-e3-6b')
     @commethod(3)
     def RemoveFromList(self, pitem: Windows.Win32.UI.Shell.IShellItem_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IStorageProviderBanners(c_void_p):
+class IStorageProviderBanners(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5efb46d7-47c0-4b68-ac-da-de-d4-7c-90-ec-91')
     @commethod(3)
@@ -8391,12 +8391,12 @@ class IStorageProviderBanners(c_void_p):
     def ClearAllBanners(self, providerIdentity: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetBanner(self, providerIdentity: Windows.Win32.Foundation.PWSTR, subscriptionId: Windows.Win32.Foundation.PWSTR, contentId: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IStorageProviderCopyHook(c_void_p):
+class IStorageProviderCopyHook(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7bf992a9-af7a-4dba-b2-e5-4d-08-0b-1e-cb-c6')
     @commethod(3)
     def CopyCallback(self, hwnd: Windows.Win32.Foundation.HWND, operation: UInt32, flags: UInt32, srcFile: Windows.Win32.Foundation.PWSTR, srcAttribs: UInt32, destFile: Windows.Win32.Foundation.PWSTR, destAttribs: UInt32, result: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IStorageProviderHandler(c_void_p):
+class IStorageProviderHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('162c6fb5-44d3-435b-90-3d-e6-13-fa-09-3f-b5')
     @commethod(3)
@@ -8405,14 +8405,14 @@ class IStorageProviderHandler(c_void_p):
     def GetPropertyHandlerFromUri(self, uri: Windows.Win32.Foundation.PWSTR, propertyHandler: POINTER(Windows.Win32.UI.Shell.IStorageProviderPropertyHandler_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetPropertyHandlerFromFileId(self, fileId: Windows.Win32.Foundation.PWSTR, propertyHandler: POINTER(Windows.Win32.UI.Shell.IStorageProviderPropertyHandler_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IStorageProviderPropertyHandler(c_void_p):
+class IStorageProviderPropertyHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('301dfbe5-524c-4b0f-8b-2d-21-c4-0b-3a-29-88')
     @commethod(3)
     def RetrieveProperties(self, propertiesToRetrieve: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), propertiesToRetrieveCount: UInt32, retrievedProperties: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SaveProperties(self, propertiesToSave: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IStreamAsync(c_void_p):
+class IStreamAsync(ComPtr):
     extends: Windows.Win32.System.Com.IStream
     Guid = Guid('fe0b6665-e0ca-49b9-a1-78-2b-5c-b4-8d-92-a5')
     @commethod(14)
@@ -8423,12 +8423,12 @@ class IStreamAsync(c_void_p):
     def OverlappedResult(self, lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), lpNumberOfBytesTransferred: POINTER(UInt32), bWait: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def CancelIo(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IStreamUnbufferedInfo(c_void_p):
+class IStreamUnbufferedInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8a68fdda-1fdc-4c20-8c-eb-41-66-43-b5-a6-25')
     @commethod(3)
     def GetSectorSize(self, pcbSectorSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISuspensionDependencyManager(c_void_p):
+class ISuspensionDependencyManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('52b83a42-2543-416a-81-d9-c0-de-79-69-c8-b3')
     @commethod(3)
@@ -8437,7 +8437,7 @@ class ISuspensionDependencyManager(c_void_p):
     def GroupChildWithParent(self, childProcessHandle: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def UngroupChildFromParent(self, childProcessHandle: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrConflict(c_void_p):
+class ISyncMgrConflict(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9c204249-c443-4ba4-85-ed-c9-72-68-1d-b1-37')
     @commethod(3)
@@ -8450,31 +8450,31 @@ class ISyncMgrConflict(c_void_p):
     def Resolve(self, pResolveInfo: Windows.Win32.UI.Shell.ISyncMgrConflictResolveInfo_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetResolutionHandler(self, riid: POINTER(Guid), ppvResolutionHandler: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrConflictFolder(c_void_p):
+class ISyncMgrConflictFolder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('59287f5e-bc81-4fca-a7-f1-e5-a8-ec-db-1d-69')
     @commethod(3)
     def GetConflictIDList(self, pConflict: Windows.Win32.UI.Shell.ISyncMgrConflict_head, ppidlConflict: POINTER(POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrConflictItems(c_void_p):
+class ISyncMgrConflictItems(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9c7ead52-8023-4936-a4-db-d2-a9-a9-9e-43-6a')
     @commethod(3)
     def GetCount(self, pCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetItem(self, iIndex: UInt32, pItemInfo: POINTER(Windows.Win32.UI.Shell.CONFIRM_CONFLICT_ITEM_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrConflictPresenter(c_void_p):
+class ISyncMgrConflictPresenter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0b4f5353-fd2b-42cd-87-63-47-79-f2-d5-08-a3')
     @commethod(3)
     def PresentConflict(self, pConflict: Windows.Win32.UI.Shell.ISyncMgrConflict_head, pResolveInfo: Windows.Win32.UI.Shell.ISyncMgrConflictResolveInfo_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrConflictResolutionItems(c_void_p):
+class ISyncMgrConflictResolutionItems(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('458725b9-129d-4135-a9-98-9c-ea-fe-c2-70-07')
     @commethod(3)
     def GetCount(self, pCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetItem(self, iIndex: UInt32, pItemInfo: POINTER(Windows.Win32.UI.Shell.CONFIRM_CONFLICT_RESULT_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrConflictResolveInfo(c_void_p):
+class ISyncMgrConflictResolveInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c405a219-25a2-442e-87-43-b8-45-a2-ce-e9-3f')
     @commethod(3)
@@ -8493,7 +8493,7 @@ class ISyncMgrConflictResolveInfo(c_void_p):
     def SetPresenterChoice(self, nPresenterChoice: Windows.Win32.UI.Shell.SYNCMGR_PRESENTER_CHOICE, fApplyToAll: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def SetItemChoices(self, prgiConflictItemIndexes: POINTER(UInt32), cChoices: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrConflictStore(c_void_p):
+class ISyncMgrConflictStore(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cf8fc579-c396-4774-85-f1-d9-08-a8-31-15-6e')
     @commethod(3)
@@ -8504,7 +8504,7 @@ class ISyncMgrConflictStore(c_void_p):
     def RemoveConflicts(self, rgConflictIdInfo: POINTER(Windows.Win32.UI.Shell.SYNCMGR_CONFLICT_ID_INFO_head), cConflicts: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetCount(self, pszHandlerID: Windows.Win32.Foundation.PWSTR, pszItemID: Windows.Win32.Foundation.PWSTR, pnConflicts: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrControl(c_void_p):
+class ISyncMgrControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9b63616c-36b2-46bc-95-9f-c1-59-39-52-d1-9b')
     @commethod(3)
@@ -8537,7 +8537,7 @@ class ISyncMgrControl(c_void_p):
     def EnableHandler(self, fEnable: Windows.Win32.Foundation.BOOL, pszHandlerID: Windows.Win32.Foundation.PWSTR, hwndOwner: Windows.Win32.Foundation.HWND, nControlFlags: Windows.Win32.UI.Shell.SYNCMGR_CONTROL_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def EnableItem(self, fEnable: Windows.Win32.Foundation.BOOL, pszHandlerID: Windows.Win32.Foundation.PWSTR, pszItemID: Windows.Win32.Foundation.PWSTR, hwndOwner: Windows.Win32.Foundation.HWND, nControlFlags: Windows.Win32.UI.Shell.SYNCMGR_CONTROL_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrEnumItems(c_void_p):
+class ISyncMgrEnumItems(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6295df2a-35ee-11d1-87-07-00-c0-4f-d9-33-27')
     @commethod(3)
@@ -8548,7 +8548,7 @@ class ISyncMgrEnumItems(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.UI.Shell.ISyncMgrEnumItems_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrEvent(c_void_p):
+class ISyncMgrEvent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fee0ef8b-46bd-4db4-b7-e6-ff-2c-68-73-13-bc')
     @commethod(3)
@@ -8573,12 +8573,12 @@ class ISyncMgrEvent(c_void_p):
     def GetLinkReference(self, ppszLinkReference: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetContext(self, ppszContext: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrEventLinkUIOperation(c_void_p):
+class ISyncMgrEventLinkUIOperation(ComPtr):
     extends: Windows.Win32.UI.Shell.ISyncMgrUIOperation
     Guid = Guid('64522e52-848b-4015-89-ce-5a-36-f0-0b-94-ff')
     @commethod(4)
     def Init(self, rguidEventID: POINTER(Guid), pEvent: Windows.Win32.UI.Shell.ISyncMgrEvent_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrEventStore(c_void_p):
+class ISyncMgrEventStore(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('37e412f9-016e-44c2-81-ff-db-3a-dd-77-42-66')
     @commethod(3)
@@ -8589,7 +8589,7 @@ class ISyncMgrEventStore(c_void_p):
     def GetEvent(self, rguidEventID: POINTER(Guid), ppEvent: POINTER(Windows.Win32.UI.Shell.ISyncMgrEvent_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def RemoveEvent(self, pguidEventIDs: POINTER(Guid), cEvents: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrHandler(c_void_p):
+class ISyncMgrHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('04ec2e43-ac77-49f9-9b-98-03-07-ef-7a-72-a2')
     @commethod(3)
@@ -8608,14 +8608,14 @@ class ISyncMgrHandler(c_void_p):
     def Enable(self, fEnable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Synchronize(self, ppszItemIDs: POINTER(Windows.Win32.Foundation.PWSTR), cItems: UInt32, hwndOwner: Windows.Win32.Foundation.HWND, pSessionCreator: Windows.Win32.UI.Shell.ISyncMgrSessionCreator_head, punk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrHandlerCollection(c_void_p):
+class ISyncMgrHandlerCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a7f337a3-d20b-45cb-9e-d7-87-d0-94-ca-50-45')
     @commethod(3)
     def GetHandlerEnumerator(self, ppenum: POINTER(Windows.Win32.System.Com.IEnumString_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def BindToHandler(self, pszHandlerID: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrHandlerInfo(c_void_p):
+class ISyncMgrHandlerInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4ff1d798-ecf7-4524-aa-81-1e-36-2a-0a-ef-3a')
     @commethod(3)
@@ -8632,7 +8632,7 @@ class ISyncMgrHandlerInfo(c_void_p):
     def IsEnabled(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def IsConnected(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrRegister(c_void_p):
+class ISyncMgrRegister(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6295df42-35ee-11d1-87-07-00-c0-4f-d9-33-27')
     @commethod(3)
@@ -8641,7 +8641,7 @@ class ISyncMgrRegister(c_void_p):
     def UnregisterSyncMgrHandler(self, clsidHandler: POINTER(Guid), dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetHandlerRegistrationInfo(self, clsidHandler: POINTER(Guid), pdwSyncMgrRegisterFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrResolutionHandler(c_void_p):
+class ISyncMgrResolutionHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('40a3d052-8bff-4c4b-a3-38-d4-a3-95-70-0d-e9')
     @commethod(3)
@@ -8654,17 +8654,17 @@ class ISyncMgrResolutionHandler(c_void_p):
     def RemoveFromSyncSet(self, pFeedback: POINTER(Windows.Win32.UI.Shell.SYNCMGR_RESOLUTION_FEEDBACK)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def KeepItems(self, pArray: Windows.Win32.UI.Shell.ISyncMgrConflictResolutionItems_head, pFeedback: POINTER(Windows.Win32.UI.Shell.SYNCMGR_RESOLUTION_FEEDBACK)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrScheduleWizardUIOperation(c_void_p):
+class ISyncMgrScheduleWizardUIOperation(ComPtr):
     extends: Windows.Win32.UI.Shell.ISyncMgrUIOperation
     Guid = Guid('459a6c84-21d2-4ddc-8a-53-f0-23-a4-60-66-f2')
     @commethod(4)
     def InitWizard(self, pszHandlerID: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrSessionCreator(c_void_p):
+class ISyncMgrSessionCreator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('17f48517-f305-4321-a0-8d-b2-5a-83-49-18-fd')
     @commethod(3)
     def CreateSession(self, pszHandlerID: Windows.Win32.Foundation.PWSTR, ppszItemIDs: POINTER(Windows.Win32.Foundation.PWSTR), cItems: UInt32, ppCallback: POINTER(Windows.Win32.UI.Shell.ISyncMgrSyncCallback_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrSyncCallback(c_void_p):
+class ISyncMgrSyncCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('884ccd87-b139-4937-a4-ba-4f-8e-19-51-3f-be')
     @commethod(3)
@@ -8687,7 +8687,7 @@ class ISyncMgrSyncCallback(c_void_p):
     def CommitItem(self, pszItemID: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def ReportManualSync(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrSyncItem(c_void_p):
+class ISyncMgrSyncItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b20b24ce-2593-4f04-bd-8b-7a-d6-c4-50-51-cd')
     @commethod(3)
@@ -8706,7 +8706,7 @@ class ISyncMgrSyncItem(c_void_p):
     def Enable(self, fEnable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Delete(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrSyncItemContainer(c_void_p):
+class ISyncMgrSyncItemContainer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('90701133-be32-4129-a6-5c-99-e6-16-ca-ff-f4')
     @commethod(3)
@@ -8715,7 +8715,7 @@ class ISyncMgrSyncItemContainer(c_void_p):
     def GetSyncItemEnumerator(self, ppenum: POINTER(Windows.Win32.UI.Shell.IEnumSyncMgrSyncItems_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetSyncItemCount(self, pcItems: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrSyncItemInfo(c_void_p):
+class ISyncMgrSyncItemInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e7fd9502-be0c-4464-90-a1-2b-52-77-03-12-32')
     @commethod(3)
@@ -8728,12 +8728,12 @@ class ISyncMgrSyncItemInfo(c_void_p):
     def IsEnabled(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def IsConnected(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrSyncResult(c_void_p):
+class ISyncMgrSyncResult(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2b90f17e-5a3e-4b33-bb-7f-1b-c4-80-56-b9-4d')
     @commethod(3)
     def Result(self, nStatus: Windows.Win32.UI.Shell.SYNCMGR_PROGRESS_STATUS, cError: UInt32, cConflicts: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrSynchronize(c_void_p):
+class ISyncMgrSynchronize(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6295df40-35ee-11d1-87-07-00-c0-4f-d9-33-27')
     @commethod(3)
@@ -8756,7 +8756,7 @@ class ISyncMgrSynchronize(c_void_p):
     def SetItemStatus(self, pItemID: POINTER(Guid), dwSyncMgrStatus: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def ShowError(self, hWndParent: Windows.Win32.Foundation.HWND, ErrorID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrSynchronizeCallback(c_void_p):
+class ISyncMgrSynchronizeCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6295df41-35ee-11d1-87-07-00-c0-4f-d9-33-27')
     @commethod(3)
@@ -8777,14 +8777,14 @@ class ISyncMgrSynchronizeCallback(c_void_p):
     def DeleteLogError(self, ErrorID: POINTER(Guid), dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def EstablishConnection(self, pwszConnection: Windows.Win32.Foundation.PWSTR, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrSynchronizeInvoke(c_void_p):
+class ISyncMgrSynchronizeInvoke(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6295df2c-35ee-11d1-87-07-00-c0-4f-d9-33-27')
     @commethod(3)
     def UpdateItems(self, dwInvokeFlags: UInt32, clsid: POINTER(Guid), cbCookie: UInt32, pCookie: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UpdateAll(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ISyncMgrUIOperation(c_void_p):
+class ISyncMgrUIOperation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fc7cfa47-dfe1-45b5-a0-49-8c-fd-82-be-c2-71')
     @commethod(3)
@@ -8794,7 +8794,7 @@ class ITEMSPACING(EasyCastStructure):
     cySmall: Int32
     cxLarge: Int32
     cyLarge: Int32
-class ITaskbarList(c_void_p):
+class ITaskbarList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('56fdf342-fd6d-11d0-95-8a-00-60-97-c9-a0-90')
     @commethod(3)
@@ -8807,12 +8807,12 @@ class ITaskbarList(c_void_p):
     def ActivateTab(self, hwnd: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetActiveAlt(self, hwnd: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskbarList2(c_void_p):
+class ITaskbarList2(ComPtr):
     extends: Windows.Win32.UI.Shell.ITaskbarList
     Guid = Guid('602d4995-b13a-429b-a6-6e-19-35-e4-4f-43-17')
     @commethod(8)
     def MarkFullscreenWindow(self, hwnd: Windows.Win32.Foundation.HWND, fFullscreen: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskbarList3(c_void_p):
+class ITaskbarList3(ComPtr):
     extends: Windows.Win32.UI.Shell.ITaskbarList2
     Guid = Guid('ea1afb91-9e28-4b86-90-e9-9e-9f-8a-5e-ef-af')
     @commethod(9)
@@ -8839,63 +8839,63 @@ class ITaskbarList3(c_void_p):
     def SetThumbnailTooltip(self, hwnd: Windows.Win32.Foundation.HWND, pszTip: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def SetThumbnailClip(self, hwnd: Windows.Win32.Foundation.HWND, prcClip: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITaskbarList4(c_void_p):
+class ITaskbarList4(ComPtr):
     extends: Windows.Win32.UI.Shell.ITaskbarList3
     Guid = Guid('c43dc798-95d1-4bea-90-30-bb-99-e2-98-3a-1a')
     @commethod(21)
     def SetTabProperties(self, hwndTab: Windows.Win32.Foundation.HWND, stpFlags: Windows.Win32.UI.Shell.STPFLAG) -> Windows.Win32.Foundation.HRESULT: ...
-class IThumbnailCache(c_void_p):
+class IThumbnailCache(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f676c15d-596a-4ce2-82-34-33-99-6f-44-5d-b1')
     @commethod(3)
     def GetThumbnail(self, pShellItem: Windows.Win32.UI.Shell.IShellItem_head, cxyRequestedThumbSize: UInt32, flags: Windows.Win32.UI.Shell.WTS_FLAGS, ppvThumb: POINTER(Windows.Win32.UI.Shell.ISharedBitmap_head), pOutFlags: POINTER(Windows.Win32.UI.Shell.WTS_CACHEFLAGS), pThumbnailID: POINTER(Windows.Win32.UI.Shell.WTS_THUMBNAILID_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetThumbnailByID(self, thumbnailID: Windows.Win32.UI.Shell.WTS_THUMBNAILID, cxyRequestedThumbSize: UInt32, ppvThumb: POINTER(Windows.Win32.UI.Shell.ISharedBitmap_head), pOutFlags: POINTER(Windows.Win32.UI.Shell.WTS_CACHEFLAGS)) -> Windows.Win32.Foundation.HRESULT: ...
-class IThumbnailCachePrimer(c_void_p):
+class IThumbnailCachePrimer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0f03f8fe-2b26-46f0-96-5a-21-2a-a8-d6-6b-76')
     @commethod(3)
     def PageInThumbnail(self, psi: Windows.Win32.UI.Shell.IShellItem_head, wtsFlags: Windows.Win32.UI.Shell.WTS_FLAGS, cxyRequestedThumbSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IThumbnailCapture(c_void_p):
+class IThumbnailCapture(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4ea39266-7211-409f-b6-22-f6-3d-bd-16-c5-33')
     @commethod(3)
     def CaptureThumbnail(self, pMaxSize: POINTER(Windows.Win32.Foundation.SIZE_head), pHTMLDoc2: Windows.Win32.System.Com.IUnknown_head, phbmThumbnail: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP)) -> Windows.Win32.Foundation.HRESULT: ...
-class IThumbnailHandlerFactory(c_void_p):
+class IThumbnailHandlerFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e35b4b2e-00da-4bc1-9f-13-38-bc-11-f5-d4-17')
     @commethod(3)
     def GetThumbnailHandler(self, pidlChild: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), pbc: Windows.Win32.System.Com.IBindCtx_head, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IThumbnailProvider(c_void_p):
+class IThumbnailProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e357fccd-a995-4576-b0-1f-23-46-30-15-4e-96')
     @commethod(3)
     def GetThumbnail(self, cx: UInt32, phbmp: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP), pdwAlpha: POINTER(Windows.Win32.UI.Shell.WTS_ALPHATYPE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IThumbnailSettings(c_void_p):
+class IThumbnailSettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f4376f00-bef5-4d45-80-f3-1e-02-3b-bf-12-09')
     @commethod(3)
     def SetContext(self, dwContext: Windows.Win32.UI.Shell.WTS_CONTEXTFLAGS) -> Windows.Win32.Foundation.HRESULT: ...
-class IThumbnailStreamCache(c_void_p):
+class IThumbnailStreamCache(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('90e11430-9569-41d8-ae-75-6d-4d-2a-e7-cc-a0')
     @commethod(3)
     def GetThumbnailStream(self, path: Windows.Win32.Foundation.PWSTR, cacheId: UInt64, options: Windows.Win32.UI.Shell.ThumbnailStreamCacheOptions, requestedThumbnailSize: UInt32, thumbnailSize: POINTER(Windows.Win32.Foundation.SIZE_head), thumbnailStream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetThumbnailStream(self, path: Windows.Win32.Foundation.PWSTR, cacheId: UInt64, thumbnailSize: Windows.Win32.Foundation.SIZE, thumbnailStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ITrackShellMenu(c_void_p):
+class ITrackShellMenu(ComPtr):
     extends: Windows.Win32.UI.Shell.IShellMenu
     Guid = Guid('8278f932-2a3e-11d2-83-8f-00-c0-4f-d9-18-d0')
     @commethod(12)
     def SetObscured(self, hwndTB: Windows.Win32.Foundation.HWND, punkBand: Windows.Win32.System.Com.IUnknown_head, dwSMSetFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def Popup(self, hwnd: Windows.Win32.Foundation.HWND, ppt: POINTER(Windows.Win32.Foundation.POINTL_head), prcExclude: POINTER(Windows.Win32.Foundation.RECTL_head), dwFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITranscodeImage(c_void_p):
+class ITranscodeImage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bae86ddd-dc11-421c-b7-ab-cc-55-d1-d6-5c-44')
     @commethod(3)
     def TranscodeImage(self, pShellItem: Windows.Win32.UI.Shell.IShellItem_head, uiMaxWidth: UInt32, uiMaxHeight: UInt32, flags: UInt32, pvImage: Windows.Win32.System.Com.IStream_head, puiWidth: POINTER(UInt32), puiHeight: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransferAdviseSink(c_void_p):
+class ITransferAdviseSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d594d0d8-8da7-457b-b3-b4-ce-5d-ba-ac-0b-88')
     @commethod(3)
@@ -8912,7 +8912,7 @@ class ITransferAdviseSink(c_void_p):
     def SubStreamFailure(self, psi: Windows.Win32.UI.Shell.IShellItem_head, pszStreamName: Windows.Win32.Foundation.PWSTR, hrError: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def PropertyFailure(self, psi: Windows.Win32.UI.Shell.IShellItem_head, pkey: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), hrError: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransferDestination(c_void_p):
+class ITransferDestination(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('48addd32-3ca5-4124-ab-e3-b5-a7-25-31-b2-07')
     @commethod(3)
@@ -8921,10 +8921,10 @@ class ITransferDestination(c_void_p):
     def Unadvise(self, dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CreateItem(self, pszName: Windows.Win32.Foundation.PWSTR, dwAttributes: UInt32, ullSize: UInt64, flags: UInt32, riidItem: POINTER(Guid), ppvItem: POINTER(c_void_p), riidResources: POINTER(Guid), ppvResources: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransferMediumItem(c_void_p):
+class ITransferMediumItem(ComPtr):
     extends: Windows.Win32.UI.Shell.IRelatedItem
     Guid = Guid('77f295d5-2d6f-4e19-b8-ae-32-2f-3e-72-1a-b5')
-class ITransferSource(c_void_p):
+class ITransferSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00adb003-bde9-45c6-8e-29-d0-9f-93-53-e1-08')
     @commethod(3)
@@ -8953,7 +8953,7 @@ class ITransferSource(c_void_p):
     def EnterFolder(self, psiChildFolderDest: Windows.Win32.UI.Shell.IShellItem_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def LeaveFolder(self, psiChildFolderDest: Windows.Win32.UI.Shell.IShellItem_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ITravelEntry(c_void_p):
+class ITravelEntry(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f46edb3b-bc2f-11d0-94-12-00-aa-00-a3-eb-d3')
     @commethod(3)
@@ -8962,7 +8962,7 @@ class ITravelEntry(c_void_p):
     def Update(self, punk: Windows.Win32.System.Com.IUnknown_head, fIsLocalAnchor: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetPidl(self, ppidl: POINTER(POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class ITravelLog(c_void_p):
+class ITravelLog(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('66a9cb08-4802-11d2-a5-61-00-a0-c9-2d-bf-e8')
     @commethod(3)
@@ -8987,7 +8987,7 @@ class ITravelLog(c_void_p):
     def CountEntries(self, punk: Windows.Win32.System.Com.IUnknown_head) -> UInt32: ...
     @commethod(13)
     def Revert(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITravelLogClient(c_void_p):
+class ITravelLogClient(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('241c033e-e659-43da-aa-4d-40-86-db-c4-75-8d')
     @commethod(3)
@@ -8996,14 +8996,14 @@ class ITravelLogClient(c_void_p):
     def GetWindowData(self, pStream: Windows.Win32.System.Com.IStream_head, pWinData: POINTER(Windows.Win32.UI.Shell.WINDOWDATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def LoadHistoryPosition(self, pszUrlLocation: Windows.Win32.Foundation.PWSTR, dwPosition: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITravelLogEntry(c_void_p):
+class ITravelLogEntry(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7ebfdd87-ad18-11d3-a4-c5-00-c0-4f-72-d6-b8')
     @commethod(3)
     def GetTitle(self, ppszTitle: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetURL(self, ppszURL: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITravelLogStg(c_void_p):
+class ITravelLogStg(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7ebfdd80-ad18-11d3-a4-c5-00-c0-4f-72-d6-b8')
     @commethod(3)
@@ -9020,7 +9020,7 @@ class ITravelLogStg(c_void_p):
     def RemoveEntry(self, ptle: Windows.Win32.UI.Shell.ITravelLogEntry_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetRelativeEntry(self, iOffset: Int32, ptle: POINTER(Windows.Win32.UI.Shell.ITravelLogEntry_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITrayDeskBand(c_void_p):
+class ITrayDeskBand(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6d67e846-5b9c-4db8-9c-bc-dd-e1-2f-42-54-f1')
     @commethod(3)
@@ -9031,12 +9031,12 @@ class ITrayDeskBand(c_void_p):
     def IsDeskBandShown(self, clsid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def DeskBandRegistrationChanged(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IURLSearchHook(c_void_p):
+class IURLSearchHook(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ac60f6a0-0fd9-11d0-99-cb-00-c0-4f-d6-44-97')
     @commethod(3)
     def Translate(self, pwszSearchURL: Windows.Win32.Foundation.PWSTR, cchBufferSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IURLSearchHook2(c_void_p):
+class IURLSearchHook2(ComPtr):
     extends: Windows.Win32.UI.Shell.IURLSearchHook
     Guid = Guid('5ee44da4-6d32-46e3-86-bc-07-54-0d-ed-d0-e0')
     @commethod(4)
@@ -9050,7 +9050,7 @@ IURL_INVOKECOMMAND_FL_LOG_USAGE: IURL_INVOKECOMMAND_FLAGS = 16
 IURL_SETURL_FLAGS = Int32
 IURL_SETURL_FL_GUESS_PROTOCOL: IURL_SETURL_FLAGS = 1
 IURL_SETURL_FL_USE_DEFAULT_PROTOCOL: IURL_SETURL_FLAGS = 2
-class IUniformResourceLocatorA(c_void_p):
+class IUniformResourceLocatorA(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fbf23b80-e3f0-101b-84-88-00-aa-00-3e-56-f8')
     @commethod(3)
@@ -9059,7 +9059,7 @@ class IUniformResourceLocatorA(c_void_p):
     def GetURL(self, ppszURL: POINTER(Windows.Win32.Foundation.PSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def InvokeCommand(self, purlici: POINTER(Windows.Win32.UI.Shell.URLINVOKECOMMANDINFOA_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUniformResourceLocatorW(c_void_p):
+class IUniformResourceLocatorW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cabb0da0-da57-11cf-99-74-00-20-af-d7-97-62')
     @commethod(3)
@@ -9068,20 +9068,20 @@ class IUniformResourceLocatorW(c_void_p):
     def GetURL(self, ppszURL: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def InvokeCommand(self, purlici: POINTER(Windows.Win32.UI.Shell.URLINVOKECOMMANDINFOW_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUpdateIDList(c_void_p):
+class IUpdateIDList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6589b6d2-5f8d-4b9e-b7-e0-23-cd-d9-71-7d-8c')
     @commethod(3)
     def Update(self, pbc: Windows.Win32.System.Com.IBindCtx_head, pidlIn: POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head), ppidlOut: POINTER(POINTER(Windows.Win32.UI.Shell.Common.ITEMIDLIST_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IUseToBrowseItem(c_void_p):
+class IUseToBrowseItem(ComPtr):
     extends: Windows.Win32.UI.Shell.IRelatedItem
     Guid = Guid('05edda5c-98a3-4717-8a-db-c5-e7-da-99-1e-b1')
-class IUserAccountChangeCallback(c_void_p):
+class IUserAccountChangeCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a561e69a-b4b8-4113-91-a5-64-c6-bc-ca-34-30')
     @commethod(3)
     def OnPictureChange(self, pszUserName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IUserNotification(c_void_p):
+class IUserNotification(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ba9711ba-5893-4787-a7-e1-41-27-71-51-55-0b')
     @commethod(3)
@@ -9094,7 +9094,7 @@ class IUserNotification(c_void_p):
     def Show(self, pqc: Windows.Win32.UI.Shell.IQueryContinue_head, dwContinuePollInterval: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def PlaySound(self, pszSoundName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IUserNotification2(c_void_p):
+class IUserNotification2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('215913cc-57eb-4fab-ab-5a-e5-fa-7b-ea-2a-6c')
     @commethod(3)
@@ -9107,7 +9107,7 @@ class IUserNotification2(c_void_p):
     def Show(self, pqc: Windows.Win32.UI.Shell.IQueryContinue_head, dwContinuePollInterval: UInt32, pSink: Windows.Win32.UI.Shell.IUserNotificationCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def PlaySound(self, pszSoundName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IUserNotificationCallback(c_void_p):
+class IUserNotificationCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('19108294-0441-4aff-80-13-fa-0a-73-0b-0b-ea')
     @commethod(3)
@@ -9116,10 +9116,10 @@ class IUserNotificationCallback(c_void_p):
     def OnLeftClick(self, pt: POINTER(Windows.Win32.Foundation.POINT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnContextMenu(self, pt: POINTER(Windows.Win32.Foundation.POINT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IViewStateIdentityItem(c_void_p):
+class IViewStateIdentityItem(ComPtr):
     extends: Windows.Win32.UI.Shell.IRelatedItem
     Guid = Guid('9d264146-a94f-4195-9f-9f-3b-b1-2c-e0-c9-55')
-class IVirtualDesktopManager(c_void_p):
+class IVirtualDesktopManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a5cd92ff-29be-454c-8d-04-d8-28-79-fb-3f-1b')
     @commethod(3)
@@ -9128,7 +9128,7 @@ class IVirtualDesktopManager(c_void_p):
     def GetWindowDesktopId(self, topLevelWindow: Windows.Win32.Foundation.HWND, desktopId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveWindowToDesktop(self, topLevelWindow: Windows.Win32.Foundation.HWND, desktopId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IVisualProperties(c_void_p):
+class IVisualProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e693cf68-d967-4112-87-63-99-17-2a-ee-5e-5a')
     @commethod(3)
@@ -9147,7 +9147,7 @@ class IVisualProperties(c_void_p):
     def GetFont(self, plf: POINTER(Windows.Win32.Graphics.Gdi.LOGFONTW_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def SetTheme(self, pszSubAppName: Windows.Win32.Foundation.PWSTR, pszSubIdList: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IWebBrowser(c_void_p):
+class IWebBrowser(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eab22ac1-30c1-11cf-a7-eb-00-00-c0-5b-ae-0b')
     @commethod(7)
@@ -9200,7 +9200,7 @@ class IWebBrowser(c_void_p):
     def get_LocationURL(self, LocationURL: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def get_Busy(self, pBool: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWebBrowser2(c_void_p):
+class IWebBrowser2(ComPtr):
     extends: Windows.Win32.UI.Shell.IWebBrowserApp
     Guid = Guid('d30c1661-cdaf-11d0-8a-3e-00-c0-4f-c9-e2-6e')
     @commethod(52)
@@ -9241,7 +9241,7 @@ class IWebBrowser2(c_void_p):
     def get_Resizable(self, Value: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(70)
     def put_Resizable(self, Value: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IWebBrowserApp(c_void_p):
+class IWebBrowserApp(ComPtr):
     extends: Windows.Win32.UI.Shell.IWebBrowser
     Guid = Guid('0002df05-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(32)
@@ -9284,14 +9284,14 @@ class IWebBrowserApp(c_void_p):
     def get_FullScreen(self, pbFullScreen: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(51)
     def put_FullScreen(self, bFullScreen: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IWebWizardExtension(c_void_p):
+class IWebWizardExtension(ComPtr):
     extends: Windows.Win32.UI.Shell.IWizardExtension
     Guid = Guid('0e6b3f66-98d1-48c0-a2-22-fb-de-74-e2-fb-c5')
     @commethod(6)
     def SetInitialURL(self, pszURL: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetErrorURL(self, pszErrorURL: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IWebWizardHost(c_void_p):
+class IWebWizardHost(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('18bcc359-4990-4bfb-b9-51-3c-83-70-2b-e5-f9')
     @commethod(7)
@@ -9312,12 +9312,12 @@ class IWebWizardHost(c_void_p):
     def SetWizardButtons(self, vfEnableBack: Windows.Win32.Foundation.VARIANT_BOOL, vfEnableNext: Windows.Win32.Foundation.VARIANT_BOOL, vfLastPage: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def SetHeaderText(self, bstrHeaderTitle: Windows.Win32.Foundation.BSTR, bstrHeaderSubtitle: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IWebWizardHost2(c_void_p):
+class IWebWizardHost2(ComPtr):
     extends: Windows.Win32.UI.Shell.IWebWizardHost
     Guid = Guid('f9c013dc-3c23-4041-8e-39-cf-b4-02-f7-ea-59')
     @commethod(16)
     def SignString(self, value: Windows.Win32.Foundation.BSTR, signedValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWizardExtension(c_void_p):
+class IWizardExtension(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c02ea696-86cc-491e-9b-23-74-39-4a-04-44-a8')
     @commethod(3)
@@ -9326,7 +9326,7 @@ class IWizardExtension(c_void_p):
     def GetFirstPage(self, phpage: POINTER(Windows.Win32.UI.Controls.HPROPSHEETPAGE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetLastPage(self, phpage: POINTER(Windows.Win32.UI.Controls.HPROPSHEETPAGE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWizardSite(c_void_p):
+class IWizardSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('88960f5b-422f-4e7b-80-13-73-41-53-81-c3-c3')
     @commethod(3)

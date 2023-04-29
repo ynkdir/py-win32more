@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.Diagnostics.ClrProfiling
@@ -208,12 +208,12 @@ def FunctionTailcall2(funcId: UIntPtr, clientData: UIntPtr, func: UIntPtr) -> Vo
 def FunctionTailcall3(functionIDOrClientID: Windows.Win32.System.Diagnostics.ClrProfiling.FunctionIDOrClientID) -> Void: ...
 @winfunctype_pointer
 def FunctionTailcall3WithInfo(functionIDOrClientID: Windows.Win32.System.Diagnostics.ClrProfiling.FunctionIDOrClientID, eltInfo: UIntPtr) -> Void: ...
-class ICorProfilerAssemblyReferenceProvider(c_void_p):
+class ICorProfilerAssemblyReferenceProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('66a78c24-2eef-4f65-b4-5f-dd-1d-80-38-bf-3c')
     @commethod(3)
     def AddAssemblyReference(self, pAssemblyRefInfo: POINTER(Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_ASSEMBLY_REFERENCE_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerCallback(c_void_p):
+class ICorProfilerCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('176fbed1-a55c-4796-98-ca-a9-da-0e-f8-83-e7')
     @commethod(3)
@@ -354,7 +354,7 @@ class ICorProfilerCallback(c_void_p):
     def ExceptionCLRCatcherFound(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(71)
     def ExceptionCLRCatcherExecute(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerCallback2(c_void_p):
+class ICorProfilerCallback2(ComPtr):
     extends: Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerCallback
     Guid = Guid('8a8cc829-ccf2-49fe-bb-ae-0f-02-22-28-07-1a')
     @commethod(72)
@@ -373,7 +373,7 @@ class ICorProfilerCallback2(c_void_p):
     def HandleCreated(self, handleId: UIntPtr, initialObjectId: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(79)
     def HandleDestroyed(self, handleId: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerCallback3(c_void_p):
+class ICorProfilerCallback3(ComPtr):
     extends: Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerCallback2
     Guid = Guid('4fd2ed52-7731-4b8d-94-69-03-d2-cc-30-86-c5')
     @commethod(80)
@@ -382,7 +382,7 @@ class ICorProfilerCallback3(c_void_p):
     def ProfilerAttachComplete(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(82)
     def ProfilerDetachSucceeded(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerCallback4(c_void_p):
+class ICorProfilerCallback4(ComPtr):
     extends: Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerCallback3
     Guid = Guid('7b63b2e3-107d-4d48-b2-f6-f6-1e-22-94-70-d2')
     @commethod(83)
@@ -397,34 +397,34 @@ class ICorProfilerCallback4(c_void_p):
     def MovedReferences2(self, cMovedObjectIDRanges: UInt32, oldObjectIDRangeStart: POINTER(UIntPtr), newObjectIDRangeStart: POINTER(UIntPtr), cObjectIDRangeLength: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(88)
     def SurvivingReferences2(self, cSurvivingObjectIDRanges: UInt32, objectIDRangeStart: POINTER(UIntPtr), cObjectIDRangeLength: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerCallback5(c_void_p):
+class ICorProfilerCallback5(ComPtr):
     extends: Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerCallback4
     Guid = Guid('8dfba405-8c9f-45f8-bf-fa-83-b1-4c-ef-78-b5')
     @commethod(89)
     def ConditionalWeakTableElementReferences(self, cRootRefs: UInt32, keyRefIds: POINTER(UIntPtr), valueRefIds: POINTER(UIntPtr), rootIds: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerCallback6(c_void_p):
+class ICorProfilerCallback6(ComPtr):
     extends: Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerCallback5
     Guid = Guid('fc13df4b-4448-4f4f-95-0c-ba-8d-19-d0-0c-36')
     @commethod(90)
     def GetAssemblyReferences(self, wszAssemblyPath: Windows.Win32.Foundation.PWSTR, pAsmRefProvider: Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerAssemblyReferenceProvider_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerCallback7(c_void_p):
+class ICorProfilerCallback7(ComPtr):
     extends: Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerCallback6
     Guid = Guid('f76a2dba-1d52-4539-86-6c-2a-a5-18-f9-ef-c3')
     @commethod(91)
     def ModuleInMemorySymbolsUpdated(self, moduleId: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerCallback8(c_void_p):
+class ICorProfilerCallback8(ComPtr):
     extends: Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerCallback7
     Guid = Guid('5bed9b15-c079-4d47-bf-e2-21-5a-14-0c-07-e0')
     @commethod(92)
     def DynamicMethodJITCompilationStarted(self, functionId: UIntPtr, fIsSafeToBlock: Windows.Win32.Foundation.BOOL, pILHeader: POINTER(Byte), cbILHeader: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(93)
     def DynamicMethodJITCompilationFinished(self, functionId: UIntPtr, hrStatus: Windows.Win32.Foundation.HRESULT, fIsSafeToBlock: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerCallback9(c_void_p):
+class ICorProfilerCallback9(ComPtr):
     extends: Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerCallback8
     Guid = Guid('27583ec3-c8f5-482f-80-52-19-4b-8c-e4-70-5a')
     @commethod(94)
     def DynamicMethodUnloaded(self, functionId: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerFunctionControl(c_void_p):
+class ICorProfilerFunctionControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f0963021-e1ea-4732-85-81-e0-1b-0b-d3-c0-c6')
     @commethod(3)
@@ -433,7 +433,7 @@ class ICorProfilerFunctionControl(c_void_p):
     def SetILFunctionBody(self, cbNewILMethodHeader: UInt32, pbNewILMethodHeader: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetILInstrumentedCodeMap(self, cILMapEntries: UInt32, rgILMapEntries: POINTER(Windows.Win32.System.Diagnostics.ClrProfiling.COR_IL_MAP_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerFunctionEnum(c_void_p):
+class ICorProfilerFunctionEnum(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ff71301a-b994-429d-a1-0b-b3-45-a6-52-80-ef')
     @commethod(3)
@@ -446,7 +446,7 @@ class ICorProfilerFunctionEnum(c_void_p):
     def GetCount(self, pcelt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Next(self, celt: UInt32, ids: POINTER(Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_FUNCTION_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerInfo(c_void_p):
+class ICorProfilerInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('28b5557d-3f3f-48b4-90-b2-5f-9e-ea-2f-6c-48')
     @commethod(3)
@@ -515,7 +515,7 @@ class ICorProfilerInfo(c_void_p):
     def EndInprocDebugging(self, dwProfilerContext: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
     def GetILToNativeMapping(self, functionId: UIntPtr, cMap: UInt32, pcMap: POINTER(UInt32), map: POINTER(Windows.Win32.System.Diagnostics.ClrProfiling.COR_DEBUG_IL_TO_NATIVE_MAP_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerInfo2(c_void_p):
+class ICorProfilerInfo2(ComPtr):
     extends: Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerInfo
     Guid = Guid('cc0935cd-a518-487d-b0-bb-a9-32-14-e6-54-78')
     @commethod(36)
@@ -560,7 +560,7 @@ class ICorProfilerInfo2(c_void_p):
     def GetObjectGeneration(self, objectId: UIntPtr, range: POINTER(Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_GC_GENERATION_RANGE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(56)
     def GetNotifiedExceptionClauseInfo(self, pinfo: POINTER(Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_EX_CLAUSE_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerInfo3(c_void_p):
+class ICorProfilerInfo3(ComPtr):
     extends: Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerInfo2
     Guid = Guid('b555ed4f-452a-4e54-8b-39-b5-36-0b-ad-32-a0')
     @commethod(57)
@@ -591,7 +591,7 @@ class ICorProfilerInfo3(c_void_p):
     def GetAppDomainsContainingModule(self, moduleId: UIntPtr, cAppDomainIds: UInt32, pcAppDomainIds: POINTER(UInt32), appDomainIds: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(70)
     def GetModuleInfo2(self, moduleId: UIntPtr, ppBaseLoadAddress: POINTER(POINTER(Byte)), cchName: UInt32, pcchName: POINTER(UInt32), szName: Windows.Win32.Foundation.PWSTR, pAssemblyId: POINTER(UIntPtr), pdwModuleFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerInfo4(c_void_p):
+class ICorProfilerInfo4(ComPtr):
     extends: Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerInfo3
     Guid = Guid('0d8fdcaa-6257-47bf-b1-bf-94-da-c8-84-66-ee')
     @commethod(71)
@@ -614,19 +614,19 @@ class ICorProfilerInfo4(c_void_p):
     def EnumJITedFunctions2(self, ppEnum: POINTER(Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerFunctionEnum_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(80)
     def GetObjectSize2(self, objectId: UIntPtr, pcSize: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerInfo5(c_void_p):
+class ICorProfilerInfo5(ComPtr):
     extends: Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerInfo4
     Guid = Guid('07602928-ce38-4b83-81-e7-74-ad-af-78-12-14')
     @commethod(81)
     def GetEventMask2(self, pdwEventsLow: POINTER(UInt32), pdwEventsHigh: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(82)
     def SetEventMask2(self, dwEventsLow: UInt32, dwEventsHigh: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerInfo6(c_void_p):
+class ICorProfilerInfo6(ComPtr):
     extends: Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerInfo5
     Guid = Guid('f30a070d-bffb-46a7-b1-d8-87-81-ef-7b-69-8a')
     @commethod(83)
     def EnumNgenModuleMethodsInliningThisMethod(self, inlinersModuleId: UIntPtr, inlineeModuleId: UIntPtr, inlineeMethodId: UInt32, incompleteData: POINTER(Windows.Win32.Foundation.BOOL), ppEnum: POINTER(Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerMethodEnum_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerInfo7(c_void_p):
+class ICorProfilerInfo7(ComPtr):
     extends: Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerInfo6
     Guid = Guid('9aeecc0d-63e0-4187-8c-00-e3-12-f5-03-f6-63')
     @commethod(84)
@@ -635,7 +635,7 @@ class ICorProfilerInfo7(c_void_p):
     def GetInMemorySymbolsLength(self, moduleId: UIntPtr, pCountSymbolBytes: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(86)
     def ReadInMemorySymbols(self, moduleId: UIntPtr, symbolsReadOffset: UInt32, pSymbolBytes: POINTER(Byte), countSymbolBytes: UInt32, pCountSymbolBytesRead: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerInfo8(c_void_p):
+class ICorProfilerInfo8(ComPtr):
     extends: Windows.Win32.System.Diagnostics.ClrProfiling.ICorProfilerInfo7
     Guid = Guid('c5ac80a6-782e-4716-80-44-39-59-8c-60-cf-bf')
     @commethod(87)
@@ -644,7 +644,7 @@ class ICorProfilerInfo8(c_void_p):
     def GetFunctionFromIP3(self, ip: POINTER(Byte), functionId: POINTER(UIntPtr), pReJitId: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(89)
     def GetDynamicFunctionInfo(self, functionId: UIntPtr, moduleId: POINTER(UIntPtr), ppvSig: POINTER(POINTER(Byte)), pbSig: POINTER(UInt32), cchName: UInt32, pcchName: POINTER(UInt32), wszName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerMethodEnum(c_void_p):
+class ICorProfilerMethodEnum(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fccee788-0088-454b-a8-11-c9-9f-29-8d-19-42')
     @commethod(3)
@@ -657,7 +657,7 @@ class ICorProfilerMethodEnum(c_void_p):
     def GetCount(self, pcelt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Next(self, celt: UInt32, elements: POINTER(Windows.Win32.System.Diagnostics.ClrProfiling.COR_PRF_METHOD_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerModuleEnum(c_void_p):
+class ICorProfilerModuleEnum(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b0266d75-2081-4493-af-7f-02-8b-a3-4d-b8-91')
     @commethod(3)
@@ -670,7 +670,7 @@ class ICorProfilerModuleEnum(c_void_p):
     def GetCount(self, pcelt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Next(self, celt: UInt32, ids: POINTER(UIntPtr), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerObjectEnum(c_void_p):
+class ICorProfilerObjectEnum(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2c6269bd-2d13-4321-ae-12-66-86-36-5f-d6-af')
     @commethod(3)
@@ -683,7 +683,7 @@ class ICorProfilerObjectEnum(c_void_p):
     def GetCount(self, pcelt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Next(self, celt: UInt32, objects: POINTER(UIntPtr), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICorProfilerThreadEnum(c_void_p):
+class ICorProfilerThreadEnum(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('571194f7-25ed-419f-aa-8b-70-16-b3-15-97-01')
     @commethod(3)
@@ -696,7 +696,7 @@ class ICorProfilerThreadEnum(c_void_p):
     def GetCount(self, pcelt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Next(self, celt: UInt32, ids: POINTER(UIntPtr), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMethodMalloc(c_void_p):
+class IMethodMalloc(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a0efb28b-6ee2-4d7b-b9-83-a7-5e-f7-be-ed-b8')
     @commethod(3)

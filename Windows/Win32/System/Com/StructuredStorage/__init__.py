@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Security
 import Windows.Win32.System.Com
@@ -400,7 +400,7 @@ class CLIPDATA(EasyCastStructure):
     cbSize: UInt32
     ulClipFmt: Int32
     pClipData: POINTER(Byte)
-class IDirectWriterLock(c_void_p):
+class IDirectWriterLock(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0e6d4d92-6738-11cf-96-08-00-aa-00-68-0d-b4')
     @commethod(3)
@@ -409,7 +409,7 @@ class IDirectWriterLock(c_void_p):
     def ReleaseWriteAccess(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def HaveWriteAccess(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumSTATPROPSETSTG(c_void_p):
+class IEnumSTATPROPSETSTG(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0000013b-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -420,7 +420,7 @@ class IEnumSTATPROPSETSTG(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Com.StructuredStorage.IEnumSTATPROPSETSTG_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumSTATPROPSTG(c_void_p):
+class IEnumSTATPROPSTG(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000139-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -431,7 +431,7 @@ class IEnumSTATPROPSTG(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Com.StructuredStorage.IEnumSTATPROPSTG_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumSTATSTG(c_void_p):
+class IEnumSTATSTG(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0000000d-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -442,7 +442,7 @@ class IEnumSTATSTG(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Com.StructuredStorage.IEnumSTATSTG_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFillLockBytes(c_void_p):
+class IFillLockBytes(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('99caf010-415e-11cf-88-14-00-aa-00-b5-69-f5')
     @commethod(3)
@@ -453,7 +453,7 @@ class IFillLockBytes(c_void_p):
     def SetFillSize(self, ulSize: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Terminate(self, bCanceled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class ILayoutStorage(c_void_p):
+class ILayoutStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0e6d4d90-6738-11cf-96-08-00-aa-00-68-0d-b4')
     @commethod(3)
@@ -466,7 +466,7 @@ class ILayoutStorage(c_void_p):
     def ReLayoutDocfile(self, pwcsNewDfName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def ReLayoutDocfileOnILockBytes(self, pILockBytes: Windows.Win32.System.Com.StructuredStorage.ILockBytes_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ILockBytes(c_void_p):
+class ILockBytes(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0000000a-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -483,7 +483,7 @@ class ILockBytes(c_void_p):
     def UnlockRegion(self, libOffset: UInt64, cb: UInt64, dwLockType: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Stat(self, pstatstg: POINTER(Windows.Win32.System.Com.STATSTG_head), grfStatFlag: Windows.Win32.System.Com.STATFLAG) -> Windows.Win32.Foundation.HRESULT: ...
-class IPersistStorage(c_void_p):
+class IPersistStorage(ComPtr):
     extends: Windows.Win32.System.Com.IPersist
     Guid = Guid('0000010a-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(4)
@@ -498,14 +498,14 @@ class IPersistStorage(c_void_p):
     def SaveCompleted(self, pStgNew: Windows.Win32.System.Com.StructuredStorage.IStorage_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def HandsOffStorage(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IPropertyBag(c_void_p):
+class IPropertyBag(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('55272a00-42cb-11ce-81-35-00-aa-00-4b-b8-51')
     @commethod(3)
     def Read(self, pszPropName: Windows.Win32.Foundation.PWSTR, pVar: POINTER(Windows.Win32.System.Variant.VARIANT_head), pErrorLog: Windows.Win32.System.Com.IErrorLog_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Write(self, pszPropName: Windows.Win32.Foundation.PWSTR, pVar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPropertyBag2(c_void_p):
+class IPropertyBag2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('22f55882-280b-11d0-a8-a9-00-a0-c9-0c-20-04')
     @commethod(3)
@@ -518,7 +518,7 @@ class IPropertyBag2(c_void_p):
     def GetPropertyInfo(self, iProperty: UInt32, cProperties: UInt32, pPropBag: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPBAG2_head), pcProperties: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def LoadObject(self, pstrName: Windows.Win32.Foundation.PWSTR, dwHint: UInt32, pUnkObject: Windows.Win32.System.Com.IUnknown_head, pErrLog: Windows.Win32.System.Com.IErrorLog_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IPropertySetStorage(c_void_p):
+class IPropertySetStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0000013a-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -529,7 +529,7 @@ class IPropertySetStorage(c_void_p):
     def Delete(self, rfmtid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Enum(self, ppenum: POINTER(Windows.Win32.System.Com.StructuredStorage.IEnumSTATPROPSETSTG_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPropertyStorage(c_void_p):
+class IPropertyStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000138-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -556,12 +556,12 @@ class IPropertyStorage(c_void_p):
     def SetClass(self, clsid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def Stat(self, pstatpsstg: POINTER(Windows.Win32.System.Com.StructuredStorage.STATPROPSETSTG_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRootStorage(c_void_p):
+class IRootStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000012-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def SwitchToFile(self, pszFile: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IStorage(c_void_p):
+class IStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0000000b-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)

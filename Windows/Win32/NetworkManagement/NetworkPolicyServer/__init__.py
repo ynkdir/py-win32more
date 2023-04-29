@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.NetworkManagement.NetworkPolicyServer
 import Windows.Win32.System.Com
@@ -413,7 +413,7 @@ IDENTITY_TYPE = Int32
 IAS_IDENTITY_NO_DEFAULT: IDENTITY_TYPE = 1
 IPFILTERPROPERTIES = Int32
 PROPERTY_IPFILTER_ATTRIBUTES_COLLECTION: IPFILTERPROPERTIES = 1024
-class ISdo(c_void_p):
+class ISdo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('56bc53de-96db-11d1-bf-3f-00-00-00-00-00-00')
     @commethod(7)
@@ -430,7 +430,7 @@ class ISdo(c_void_p):
     def Restore(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def get__NewEnum(self, ppEnumVARIANT: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISdoCollection(c_void_p):
+class ISdoCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('56bc53e2-96db-11d1-bf-3f-00-00-00-00-00-00')
     @commethod(7)
@@ -449,7 +449,7 @@ class ISdoCollection(c_void_p):
     def Item(self, Name: POINTER(Windows.Win32.System.Variant.VARIANT_head), pItem: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get__NewEnum(self, ppEnumVARIANT: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISdoDictionaryOld(c_void_p):
+class ISdoDictionaryOld(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d432e5f4-53d8-11d2-9a-3a-00-c0-4f-b9-98-ac')
     @commethod(7)
@@ -462,7 +462,7 @@ class ISdoDictionaryOld(c_void_p):
     def CreateAttribute(self, Id: Windows.Win32.NetworkManagement.NetworkPolicyServer.ATTRIBUTEID, ppAttributeObject: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetAttributeID(self, bstrAttributeName: Windows.Win32.Foundation.BSTR, pId: POINTER(Windows.Win32.NetworkManagement.NetworkPolicyServer.ATTRIBUTEID)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISdoMachine(c_void_p):
+class ISdoMachine(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('479f6e75-49a2-11d2-8e-ca-00-c0-4f-c2-f5-19')
     @commethod(7)
@@ -483,7 +483,7 @@ class ISdoMachine(c_void_p):
     def GetAttachedComputer(self, bstrComputerName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetSDOSchema(self, ppSDOSchema: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISdoMachine2(c_void_p):
+class ISdoMachine2(ComPtr):
     extends: Windows.Win32.NetworkManagement.NetworkPolicyServer.ISdoMachine
     Guid = Guid('518e5ffe-d8ce-4f7e-a5-db-b4-0a-35-41-9d-3b')
     @commethod(16)
@@ -496,7 +496,7 @@ class ISdoMachine2(c_void_p):
     def ImportRemoteTemplates(self, pLocalTemplatesRoot: Windows.Win32.System.Com.IUnknown_head, bstrRemoteMachineName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def Reload(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ISdoServiceControl(c_void_p):
+class ISdoServiceControl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('479f6e74-49a2-11d2-8e-ca-00-c0-4f-c2-f5-19')
     @commethod(7)
@@ -507,7 +507,7 @@ class ISdoServiceControl(c_void_p):
     def GetServiceStatus(self, status: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def ResetService(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITemplateSdo(c_void_p):
+class ITemplateSdo(ComPtr):
     extends: Windows.Win32.NetworkManagement.NetworkPolicyServer.ISdo
     Guid = Guid('8aa85302-d2e2-4e20-8b-1f-a5-71-e4-37-d6-c9')
     @commethod(14)

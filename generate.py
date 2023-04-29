@@ -48,6 +48,7 @@ BASE_EXPORTS = [
     "make_head",
     "EasyCastStructure",
     "EasyCastUnion",
+    "ComPtr",
 ]
 BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
 
@@ -1148,7 +1149,7 @@ class PyGenerator:
         assert len(td.interface_implementations) <= 1
         writer = StringIO()
         base = self.com_base_type(td)
-        writer.write(f"class {td.name}(c_void_p):\n")
+        writer.write(f"class {td.name}(ComPtr):\n")
         writer.write(f"    extends: {base}\n")
         if td.custom_attributes.has_guid():
             guid = td.custom_attributes.get_guid()

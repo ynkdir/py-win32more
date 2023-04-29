@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.SettingsManagementInfrastructure
@@ -76,7 +76,7 @@ WCM_S_INVALIDATTRIBUTECOMBINATION: Windows.Win32.Foundation.HRESULT = 2232324
 WCM_S_ATTRIBUTENOTALLOWED: Windows.Win32.Foundation.HRESULT = 2232325
 WCM_S_NAMESPACENOTFOUND: Windows.Win32.Foundation.HRESULT = 2232326
 WCM_E_UNKNOWNRESULT: Windows.Win32.Foundation.HRESULT = -2145251325
-class IItemEnumerator(c_void_p):
+class IItemEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9f7d7bb7-20b3-11da-81-a5-00-30-f1-64-2e-3c')
     @commethod(3)
@@ -85,7 +85,7 @@ class IItemEnumerator(c_void_p):
     def MoveNext(self, ItemValid: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ISettingsContext(c_void_p):
+class ISettingsContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9f7d7bbd-20b3-11da-81-a5-00-30-f1-64-2e-3c')
     @commethod(3)
@@ -102,7 +102,7 @@ class ISettingsContext(c_void_p):
     def GetStoredSettings(self, pIdentity: Windows.Win32.System.SettingsManagementInfrastructure.ISettingsIdentity_head, ppAddedSettings: POINTER(Windows.Win32.System.SettingsManagementInfrastructure.IItemEnumerator_head), ppModifiedSettings: POINTER(Windows.Win32.System.SettingsManagementInfrastructure.IItemEnumerator_head), ppDeletedSettings: POINTER(Windows.Win32.System.SettingsManagementInfrastructure.IItemEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def RevertSetting(self, pIdentity: Windows.Win32.System.SettingsManagementInfrastructure.ISettingsIdentity_head, pwzSetting: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ISettingsEngine(c_void_p):
+class ISettingsEngine(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9f7d7bb9-20b3-11da-81-a5-00-30-f1-64-2e-3c')
     @commethod(3)
@@ -137,7 +137,7 @@ class ISettingsEngine(c_void_p):
     def ApplySettingsContext(self, SettingsContext: Windows.Win32.System.SettingsManagementInfrastructure.ISettingsContext_head, pppwzIdentities: POINTER(POINTER(Windows.Win32.Foundation.PWSTR)), pcIdentities: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def GetSettingsContext(self, SettingsContext: POINTER(Windows.Win32.System.SettingsManagementInfrastructure.ISettingsContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISettingsIdentity(c_void_p):
+class ISettingsIdentity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9f7d7bb6-20b3-11da-81-a5-00-30-f1-64-2e-3c')
     @commethod(3)
@@ -148,7 +148,7 @@ class ISettingsIdentity(c_void_p):
     def GetFlags(self, Flags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetFlags(self, Flags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISettingsItem(c_void_p):
+class ISettingsItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9f7d7bbb-20b3-11da-81-a5-00-30-f1-64-2e-3c')
     @commethod(3)
@@ -195,7 +195,7 @@ class ISettingsItem(c_void_p):
     def GetRestriction(self, RestrictionFacet: Windows.Win32.System.SettingsManagementInfrastructure.WcmRestrictionFacets, FacetData: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
     def GetKeyValue(self, Value: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISettingsNamespace(c_void_p):
+class ISettingsNamespace(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9f7d7bba-20b3-11da-81-a5-00-30-f1-64-2e-3c')
     @commethod(3)
@@ -212,7 +212,7 @@ class ISettingsNamespace(c_void_p):
     def RemoveSettingByPath(self, Path: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetAttribute(self, Name: Windows.Win32.Foundation.PWSTR, Value: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISettingsResult(c_void_p):
+class ISettingsResult(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9f7d7bbc-20b3-11da-81-a5-00-30-f1-64-2e-3c')
     @commethod(3)
@@ -227,7 +227,7 @@ class ISettingsResult(c_void_p):
     def GetColumn(self, dwColumn: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetSource(self, file: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITargetInfo(c_void_p):
+class ITargetInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9f7d7bb8-20b3-11da-81-a5-00-30-f1-64-2e-3c')
     @commethod(3)

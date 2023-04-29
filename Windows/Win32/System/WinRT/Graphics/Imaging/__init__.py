@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Imaging
 import Windows.Win32.Media.MediaFoundation
@@ -16,12 +16,12 @@ def __getattr__(name):
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
 CLSID_SoftwareBitmapNativeFactory: Guid = Guid('84e65691-8602-4a84-be-46-70-8b-e9-cd-4b-74')
-class ISoftwareBitmapNative(c_void_p):
+class ISoftwareBitmapNative(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('94bc8415-04ea-4b2e-af-13-4d-e9-5a-a8-98-eb')
     @commethod(6)
     def GetData(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISoftwareBitmapNativeFactory(c_void_p):
+class ISoftwareBitmapNativeFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c3c181ec-2914-4791-af-02-02-d2-24-a1-0b-43')
     @commethod(6)

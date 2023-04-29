@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Security
 import Windows.Win32.System.Com
@@ -300,12 +300,12 @@ FOREIGN_STATUS = Int32
 MQ_STATUS_FOREIGN: FOREIGN_STATUS = 0
 MQ_STATUS_NOT_FOREIGN: FOREIGN_STATUS = 1
 MQ_STATUS_UNKNOWN: FOREIGN_STATUS = 2
-class IMSMQApplication(c_void_p):
+class IMSMQApplication(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d7d6e085-dccd-11d0-aa-4b-00-60-97-0d-eb-ae')
     @commethod(7)
     def MachineIdOfMachineName(self, MachineName: Windows.Win32.Foundation.BSTR, pbstrGuid: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQApplication2(c_void_p):
+class IMSMQApplication2(ComPtr):
     extends: Windows.Win32.System.MessageQueuing.IMSMQApplication
     Guid = Guid('12a30900-7300-11d2-b0-e6-00-e0-2c-07-4f-6b')
     @commethod(8)
@@ -322,7 +322,7 @@ class IMSMQApplication2(c_void_p):
     def get_IsDsEnabled(self, pfIsDsEnabled: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_Properties(self, ppcolProperties: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQApplication3(c_void_p):
+class IMSMQApplication3(ComPtr):
     extends: Windows.Win32.System.MessageQueuing.IMSMQApplication2
     Guid = Guid('eba96b1f-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(15)
@@ -345,7 +345,7 @@ class IMSMQApplication3(c_void_p):
     def Disconnect(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
     def Tidy(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQCollection(c_void_p):
+class IMSMQCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('0188ac2f-ecb3-4173-97-79-63-5c-a2-03-9c-72')
     @commethod(7)
@@ -354,26 +354,26 @@ class IMSMQCollection(c_void_p):
     def get_Count(self, pCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def _NewEnum(self, ppunk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQCoordinatedTransactionDispenser(c_void_p):
+class IMSMQCoordinatedTransactionDispenser(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d7d6e081-dccd-11d0-aa-4b-00-60-97-0d-eb-ae')
     @commethod(7)
     def BeginTransaction(self, ptransaction: POINTER(Windows.Win32.System.MessageQueuing.IMSMQTransaction_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQCoordinatedTransactionDispenser2(c_void_p):
+class IMSMQCoordinatedTransactionDispenser2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b10-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
     def BeginTransaction(self, ptransaction: POINTER(Windows.Win32.System.MessageQueuing.IMSMQTransaction2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Properties(self, ppcolProperties: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQCoordinatedTransactionDispenser3(c_void_p):
+class IMSMQCoordinatedTransactionDispenser3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b14-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
     def BeginTransaction(self, ptransaction: POINTER(Windows.Win32.System.MessageQueuing.IMSMQTransaction3_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Properties(self, ppcolProperties: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQDestination(c_void_p):
+class IMSMQDestination(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b16-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
@@ -404,18 +404,18 @@ class IMSMQDestination(c_void_p):
     def putref_Destinations(self, pDestinations: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def get_Properties(self, ppcolProperties: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQEvent(c_void_p):
+class IMSMQEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d7d6e077-dccd-11d0-aa-4b-00-60-97-0d-eb-ae')
-class IMSMQEvent2(c_void_p):
+class IMSMQEvent2(ComPtr):
     extends: Windows.Win32.System.MessageQueuing.IMSMQEvent
     Guid = Guid('eba96b12-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
     def get_Properties(self, ppcolProperties: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQEvent3(c_void_p):
+class IMSMQEvent3(ComPtr):
     extends: Windows.Win32.System.MessageQueuing.IMSMQEvent2
     Guid = Guid('eba96b1c-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
-class IMSMQManagement(c_void_p):
+class IMSMQManagement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('be5f0241-e489-4957-8c-c4-a4-52-fc-f3-e2-3e')
     @commethod(7)
@@ -436,7 +436,7 @@ class IMSMQManagement(c_void_p):
     def get_TransactionalStatus(self, plTransactionalStatus: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_BytesInQueue(self, pvBytesInQueue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQMessage(c_void_p):
+class IMSMQMessage(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d7d6e074-dccd-11d0-aa-4b-00-60-97-0d-eb-ae')
     @commethod(7)
@@ -537,7 +537,7 @@ class IMSMQMessage(c_void_p):
     def Send(self, DestinationQueue: Windows.Win32.System.MessageQueuing.IMSMQQueue_head, Transaction: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(55)
     def AttachCurrentSecurityContext(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQMessage2(c_void_p):
+class IMSMQMessage2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d9933be0-a567-11d2-b0-f3-00-e0-2c-07-4f-6b')
     @commethod(7)
@@ -690,7 +690,7 @@ class IMSMQMessage2(c_void_p):
     def putref_AdminQueueInfo(self, pqinfoAdmin: Windows.Win32.System.MessageQueuing.IMSMQQueueInfo2_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(81)
     def get_ReceivedAuthenticationLevel(self, psReceivedAuthenticationLevel: POINTER(Int16)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQMessage3(c_void_p):
+class IMSMQMessage3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b1a-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
@@ -875,7 +875,7 @@ class IMSMQMessage3(c_void_p):
     def put_SoapHeader(self, bstrSoapHeader: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(97)
     def put_SoapBody(self, bstrSoapBody: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQMessage4(c_void_p):
+class IMSMQMessage4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b23-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
@@ -1060,7 +1060,7 @@ class IMSMQMessage4(c_void_p):
     def put_SoapHeader(self, bstrSoapHeader: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(97)
     def put_SoapBody(self, bstrSoapBody: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQOutgoingQueueManagement(c_void_p):
+class IMSMQOutgoingQueueManagement(ComPtr):
     extends: Windows.Win32.System.MessageQueuing.IMSMQManagement
     Guid = Guid('64c478fb-f9b0-4695-8a-7f-43-9a-c9-43-26-d3')
     @commethod(16)
@@ -1075,14 +1075,14 @@ class IMSMQOutgoingQueueManagement(c_void_p):
     def Pause(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def EodResend(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQPrivateDestination(c_void_p):
+class IMSMQPrivateDestination(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b17-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
     def get_Handle(self, pvarHandle: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def put_Handle(self, varHandle: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQPrivateEvent(c_void_p):
+class IMSMQPrivateEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d7ab3341-c9d3-11d1-bb-47-00-80-c7-c5-a2-c0')
     @commethod(7)
@@ -1091,19 +1091,19 @@ class IMSMQPrivateEvent(c_void_p):
     def FireArrivedEvent(self, pq: Windows.Win32.System.MessageQueuing.IMSMQQueue_head, msgcursor: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def FireArrivedErrorEvent(self, pq: Windows.Win32.System.MessageQueuing.IMSMQQueue_head, hrStatus: Windows.Win32.Foundation.HRESULT, msgcursor: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQuery(c_void_p):
+class IMSMQQuery(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d7d6e072-dccd-11d0-aa-4b-00-60-97-0d-eb-ae')
     @commethod(7)
     def LookupQueue(self, QueueGuid: POINTER(Windows.Win32.System.Variant.VARIANT_head), ServiceTypeGuid: POINTER(Windows.Win32.System.Variant.VARIANT_head), Label: POINTER(Windows.Win32.System.Variant.VARIANT_head), CreateTime: POINTER(Windows.Win32.System.Variant.VARIANT_head), ModifyTime: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelServiceType: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelLabel: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelCreateTime: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelModifyTime: POINTER(Windows.Win32.System.Variant.VARIANT_head), ppqinfos: POINTER(Windows.Win32.System.MessageQueuing.IMSMQQueueInfos_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQuery2(c_void_p):
+class IMSMQQuery2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b0e-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
     def LookupQueue(self, QueueGuid: POINTER(Windows.Win32.System.Variant.VARIANT_head), ServiceTypeGuid: POINTER(Windows.Win32.System.Variant.VARIANT_head), Label: POINTER(Windows.Win32.System.Variant.VARIANT_head), CreateTime: POINTER(Windows.Win32.System.Variant.VARIANT_head), ModifyTime: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelServiceType: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelLabel: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelCreateTime: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelModifyTime: POINTER(Windows.Win32.System.Variant.VARIANT_head), ppqinfos: POINTER(Windows.Win32.System.MessageQueuing.IMSMQQueueInfos2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Properties(self, ppcolProperties: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQuery3(c_void_p):
+class IMSMQQuery3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b19-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
@@ -1112,7 +1112,7 @@ class IMSMQQuery3(c_void_p):
     def get_Properties(self, ppcolProperties: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def LookupQueue(self, QueueGuid: POINTER(Windows.Win32.System.Variant.VARIANT_head), ServiceTypeGuid: POINTER(Windows.Win32.System.Variant.VARIANT_head), Label: POINTER(Windows.Win32.System.Variant.VARIANT_head), CreateTime: POINTER(Windows.Win32.System.Variant.VARIANT_head), ModifyTime: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelServiceType: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelLabel: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelCreateTime: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelModifyTime: POINTER(Windows.Win32.System.Variant.VARIANT_head), MulticastAddress: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelMulticastAddress: POINTER(Windows.Win32.System.Variant.VARIANT_head), ppqinfos: POINTER(Windows.Win32.System.MessageQueuing.IMSMQQueueInfos3_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQuery4(c_void_p):
+class IMSMQQuery4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b24-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
@@ -1121,7 +1121,7 @@ class IMSMQQuery4(c_void_p):
     def get_Properties(self, ppcolProperties: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def LookupQueue(self, QueueGuid: POINTER(Windows.Win32.System.Variant.VARIANT_head), ServiceTypeGuid: POINTER(Windows.Win32.System.Variant.VARIANT_head), Label: POINTER(Windows.Win32.System.Variant.VARIANT_head), CreateTime: POINTER(Windows.Win32.System.Variant.VARIANT_head), ModifyTime: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelServiceType: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelLabel: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelCreateTime: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelModifyTime: POINTER(Windows.Win32.System.Variant.VARIANT_head), MulticastAddress: POINTER(Windows.Win32.System.Variant.VARIANT_head), RelMulticastAddress: POINTER(Windows.Win32.System.Variant.VARIANT_head), ppqinfos: POINTER(Windows.Win32.System.MessageQueuing.IMSMQQueueInfos4_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQueue(c_void_p):
+class IMSMQQueue(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d7d6e076-dccd-11d0-aa-4b-00-60-97-0d-eb-ae')
     @commethod(7)
@@ -1150,7 +1150,7 @@ class IMSMQQueue(c_void_p):
     def PeekNext(self, WantDestinationQueue: POINTER(Windows.Win32.System.Variant.VARIANT_head), WantBody: POINTER(Windows.Win32.System.Variant.VARIANT_head), ReceiveTimeout: POINTER(Windows.Win32.System.Variant.VARIANT_head), ppmsg: POINTER(Windows.Win32.System.MessageQueuing.IMSMQMessage_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def PeekCurrent(self, WantDestinationQueue: POINTER(Windows.Win32.System.Variant.VARIANT_head), WantBody: POINTER(Windows.Win32.System.Variant.VARIANT_head), ReceiveTimeout: POINTER(Windows.Win32.System.Variant.VARIANT_head), ppmsg: POINTER(Windows.Win32.System.MessageQueuing.IMSMQMessage_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQueue2(c_void_p):
+class IMSMQQueue2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('ef0574e0-06d8-11d3-b1-00-00-e0-2c-07-4f-6b')
     @commethod(7)
@@ -1191,7 +1191,7 @@ class IMSMQQueue2(c_void_p):
     def PeekCurrent(self, WantDestinationQueue: POINTER(Windows.Win32.System.Variant.VARIANT_head), WantBody: POINTER(Windows.Win32.System.Variant.VARIANT_head), ReceiveTimeout: POINTER(Windows.Win32.System.Variant.VARIANT_head), WantConnectorType: POINTER(Windows.Win32.System.Variant.VARIANT_head), ppmsg: POINTER(Windows.Win32.System.MessageQueuing.IMSMQMessage2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def get_Properties(self, ppcolProperties: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQueue3(c_void_p):
+class IMSMQQueue3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b1b-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
@@ -1258,7 +1258,7 @@ class IMSMQQueue3(c_void_p):
     def Purge(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(38)
     def get_IsOpen2(self, pisOpen: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQueue4(c_void_p):
+class IMSMQQueue4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b20-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
@@ -1327,7 +1327,7 @@ class IMSMQQueue4(c_void_p):
     def get_IsOpen2(self, pisOpen: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(39)
     def ReceiveByLookupIdAllowPeek(self, LookupId: Windows.Win32.System.Variant.VARIANT, Transaction: POINTER(Windows.Win32.System.Variant.VARIANT_head), WantDestinationQueue: POINTER(Windows.Win32.System.Variant.VARIANT_head), WantBody: POINTER(Windows.Win32.System.Variant.VARIANT_head), WantConnectorType: POINTER(Windows.Win32.System.Variant.VARIANT_head), ppmsg: POINTER(Windows.Win32.System.MessageQueuing.IMSMQMessage4_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQueueInfo(c_void_p):
+class IMSMQQueueInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d7d6e07b-dccd-11d0-aa-4b-00-60-97-0d-eb-ae')
     @commethod(7)
@@ -1390,7 +1390,7 @@ class IMSMQQueueInfo(c_void_p):
     def Refresh(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(36)
     def Update(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQueueInfo2(c_void_p):
+class IMSMQQueueInfo2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('fd174a80-89cf-11d2-b0-f2-00-e0-2c-07-4f-6b')
     @commethod(7)
@@ -1461,7 +1461,7 @@ class IMSMQQueueInfo2(c_void_p):
     def get_Security(self, pvarSecurity: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(40)
     def put_Security(self, varSecurity: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQueueInfo3(c_void_p):
+class IMSMQQueueInfo3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b1d-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
@@ -1542,7 +1542,7 @@ class IMSMQQueueInfo3(c_void_p):
     def put_MulticastAddress(self, bstrMulticastAddress: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(45)
     def get_ADsPath(self, pbstrADsPath: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQueueInfo4(c_void_p):
+class IMSMQQueueInfo4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b21-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
@@ -1623,14 +1623,14 @@ class IMSMQQueueInfo4(c_void_p):
     def put_MulticastAddress(self, bstrMulticastAddress: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(45)
     def get_ADsPath(self, pbstrADsPath: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQueueInfos(c_void_p):
+class IMSMQQueueInfos(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d7d6e07d-dccd-11d0-aa-4b-00-60-97-0d-eb-ae')
     @commethod(7)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Next(self, ppqinfoNext: POINTER(Windows.Win32.System.MessageQueuing.IMSMQQueueInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQueueInfos2(c_void_p):
+class IMSMQQueueInfos2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b0f-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
@@ -1639,7 +1639,7 @@ class IMSMQQueueInfos2(c_void_p):
     def Next(self, ppqinfoNext: POINTER(Windows.Win32.System.MessageQueuing.IMSMQQueueInfo2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Properties(self, ppcolProperties: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQueueInfos3(c_void_p):
+class IMSMQQueueInfos3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b1e-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
@@ -1648,7 +1648,7 @@ class IMSMQQueueInfos3(c_void_p):
     def Next(self, ppqinfoNext: POINTER(Windows.Win32.System.MessageQueuing.IMSMQQueueInfo3_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Properties(self, ppcolProperties: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQueueInfos4(c_void_p):
+class IMSMQQueueInfos4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b22-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
@@ -1657,7 +1657,7 @@ class IMSMQQueueInfos4(c_void_p):
     def Next(self, ppqinfoNext: POINTER(Windows.Win32.System.MessageQueuing.IMSMQQueueInfo4_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Properties(self, ppcolProperties: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQQueueManagement(c_void_p):
+class IMSMQQueueManagement(ComPtr):
     extends: Windows.Win32.System.MessageQueuing.IMSMQManagement
     Guid = Guid('7fbe7759-5760-444d-b8-a5-5e-7a-b9-a8-4c-ce')
     @commethod(16)
@@ -1666,7 +1666,7 @@ class IMSMQQueueManagement(c_void_p):
     def get_BytesInJournal(self, pvBytesInJournal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def EodGetReceiveInfo(self, pvCollection: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQTransaction(c_void_p):
+class IMSMQTransaction(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d7d6e07f-dccd-11d0-aa-4b-00-60-97-0d-eb-ae')
     @commethod(7)
@@ -1675,31 +1675,31 @@ class IMSMQTransaction(c_void_p):
     def Commit(self, fRetaining: POINTER(Windows.Win32.System.Variant.VARIANT_head), grfTC: POINTER(Windows.Win32.System.Variant.VARIANT_head), grfRM: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Abort(self, fRetaining: POINTER(Windows.Win32.System.Variant.VARIANT_head), fAsync: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQTransaction2(c_void_p):
+class IMSMQTransaction2(ComPtr):
     extends: Windows.Win32.System.MessageQueuing.IMSMQTransaction
     Guid = Guid('2ce0c5b0-6e67-11d2-b0-e6-00-e0-2c-07-4f-6b')
     @commethod(10)
     def InitNew(self, varTransaction: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get_Properties(self, ppcolProperties: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQTransaction3(c_void_p):
+class IMSMQTransaction3(ComPtr):
     extends: Windows.Win32.System.MessageQueuing.IMSMQTransaction2
     Guid = Guid('eba96b13-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(12)
     def get_ITransaction(self, pvarITransaction: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQTransactionDispenser(c_void_p):
+class IMSMQTransactionDispenser(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d7d6e083-dccd-11d0-aa-4b-00-60-97-0d-eb-ae')
     @commethod(7)
     def BeginTransaction(self, ptransaction: POINTER(Windows.Win32.System.MessageQueuing.IMSMQTransaction_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQTransactionDispenser2(c_void_p):
+class IMSMQTransactionDispenser2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b11-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
     def BeginTransaction(self, ptransaction: POINTER(Windows.Win32.System.MessageQueuing.IMSMQTransaction2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Properties(self, ppcolProperties: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSMQTransactionDispenser3(c_void_p):
+class IMSMQTransactionDispenser3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('eba96b15-2168-11d3-89-8c-00-e0-2c-07-4f-6b')
     @commethod(7)
@@ -2116,7 +2116,7 @@ XACT_STATUS = Int32
 MQ_XACT_STATUS_XACT: XACT_STATUS = 0
 MQ_XACT_STATUS_NOT_XACT: XACT_STATUS = 1
 MQ_XACT_STATUS_UNKNOWN: XACT_STATUS = 2
-class _DMSMQEventEvents(c_void_p):
+class _DMSMQEventEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d7d6e078-dccd-11d0-aa-4b-00-60-97-0d-eb-ae')
 make_head(_module, 'IMSMQApplication')

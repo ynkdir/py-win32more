@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.SecurityCenter
@@ -26,12 +26,12 @@ def WscGetSecurityProviderHealth(Providers: UInt32, pHealth: POINTER(Windows.Win
 def WscQueryAntiMalwareUri() -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('WSCAPI.dll')
 def WscGetAntiMalwareUri(ppszUri: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSCDefaultProduct(c_void_p):
+class IWSCDefaultProduct(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('0476d69c-f21a-11e5-9c-e9-5e-55-17-50-7c-66')
     @commethod(7)
     def SetDefaultProduct(self, eType: Windows.Win32.System.SecurityCenter.SECURITY_PRODUCT_TYPE, pGuid: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSCProductList(c_void_p):
+class IWSCProductList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('722a338c-6e8e-4e72-ac-27-14-17-fb-0c-81-c2')
     @commethod(7)
@@ -40,7 +40,7 @@ class IWSCProductList(c_void_p):
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Item(self, index: UInt32, pVal: POINTER(Windows.Win32.System.SecurityCenter.IWscProduct_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWscProduct(c_void_p):
+class IWscProduct(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('8c38232e-3a45-4a27-92-b0-1a-16-a9-75-f6-69')
     @commethod(7)
@@ -57,7 +57,7 @@ class IWscProduct(c_void_p):
     def get_ProductGuid(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def get_ProductIsDefault(self, pVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWscProduct2(c_void_p):
+class IWscProduct2(ComPtr):
     extends: Windows.Win32.System.SecurityCenter.IWscProduct
     Guid = Guid('f896ca54-fe09-4403-86-d4-23-cb-48-8d-81-d8')
     @commethod(14)
@@ -72,7 +72,7 @@ class IWscProduct2(c_void_p):
     def get_FirewallPrivateProfileSubstatus(self, peStatus: POINTER(Windows.Win32.System.SecurityCenter.WSC_SECURITY_PRODUCT_SUBSTATUS)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def get_FirewallPublicProfileSubstatus(self, peStatus: POINTER(Windows.Win32.System.SecurityCenter.WSC_SECURITY_PRODUCT_SUBSTATUS)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWscProduct3(c_void_p):
+class IWscProduct3(ComPtr):
     extends: Windows.Win32.System.SecurityCenter.IWscProduct2
     Guid = Guid('55536524-d1d1-4726-8c-7c-04-99-6a-19-04-e7')
     @commethod(20)

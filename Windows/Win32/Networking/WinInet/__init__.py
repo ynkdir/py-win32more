@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.Networking.WinHttp
@@ -1778,14 +1778,14 @@ HTTP_WEB_SOCKET_SEND_OPERATION: HTTP_WEB_SOCKET_OPERATION = 0
 HTTP_WEB_SOCKET_RECEIVE_OPERATION: HTTP_WEB_SOCKET_OPERATION = 1
 HTTP_WEB_SOCKET_CLOSE_OPERATION: HTTP_WEB_SOCKET_OPERATION = 2
 HTTP_WEB_SOCKET_SHUTDOWN_OPERATION: HTTP_WEB_SOCKET_OPERATION = 3
-class IDialBranding(c_void_p):
+class IDialBranding(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8aecafa9-4306-43cc-8c-5a-76-5f-29-79-cc-16')
     @commethod(3)
     def Initialize(self, pwzConnectoid: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetBitmap(self, dwIndex: UInt32, phBitmap: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDialEngine(c_void_p):
+class IDialEngine(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('39fd782b-7905-40d5-91-48-3c-9b-19-04-23-d5')
     @commethod(3)
@@ -1802,7 +1802,7 @@ class IDialEngine(c_void_p):
     def GetConnectedState(self, pdwState: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetConnectHandle(self, pdwHandle: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDialEventSink(c_void_p):
+class IDialEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2d86f4ff-6e2d-4488-b2-e9-69-34-af-d4-1b-ea')
     @commethod(3)
@@ -2122,12 +2122,12 @@ INTERNET_STATE_BUSY: INTERNET_STATE = 512
 class INTERNET_VERSION_INFO(EasyCastStructure):
     dwMajorVersion: UInt32
     dwMinorVersion: UInt32
-class IProofOfPossessionCookieInfoManager(c_void_p):
+class IProofOfPossessionCookieInfoManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cdaece56-4edf-43df-b1-13-88-e4-55-6f-a1-bb')
     @commethod(3)
     def GetCookieInfoForUri(self, uri: Windows.Win32.Foundation.PWSTR, cookieInfoCount: POINTER(UInt32), cookieInfo: POINTER(POINTER(Windows.Win32.Networking.WinInet.ProofOfPossessionCookieInfo_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IProofOfPossessionCookieInfoManager2(c_void_p):
+class IProofOfPossessionCookieInfoManager2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('15e41407-b42f-4ae7-99-66-34-a0-87-b2-d7-13')
     @commethod(3)

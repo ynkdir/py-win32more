@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Storage.IndexServer
 import Windows.Win32.System.Com
@@ -250,7 +250,7 @@ IFILTER_INIT_FILTER_OWNED_VALUE_OK: IFILTER_INIT = 512
 IFILTER_INIT_FILTER_AGGRESSIVE_BREAK: IFILTER_INIT = 1024
 IFILTER_INIT_DISABLE_EMBEDDED: IFILTER_INIT = 2048
 IFILTER_INIT_EMIT_FORMATTING: IFILTER_INIT = 4096
-class IFilter(c_void_p):
+class IFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('89bcb740-6119-101a-bc-b7-00-dd-01-06-55-af')
     @commethod(3)
@@ -263,7 +263,7 @@ class IFilter(c_void_p):
     def GetValue(self, ppPropValue: POINTER(POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head))) -> Int32: ...
     @commethod(7)
     def BindRegion(self, origPos: Windows.Win32.Storage.IndexServer.FILTERREGION, riid: POINTER(Guid), ppunk: POINTER(c_void_p)) -> Int32: ...
-class IPhraseSink(c_void_p):
+class IPhraseSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cc906ff0-c058-101a-b5-54-08-00-2b-33-b0-e6')
     @commethod(3)

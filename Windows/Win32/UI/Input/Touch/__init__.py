@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.UI.Input.Touch
@@ -64,7 +64,7 @@ class GESTURENOTIFYSTRUCT(EasyCastStructure):
     dwInstanceID: UInt32
 HGESTUREINFO = IntPtr
 HTOUCHINPUT = IntPtr
-class IInertiaProcessor(c_void_p):
+class IInertiaProcessor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('18b00c6d-c5ee-41b1-90-a9-9d-4a-92-90-95-ad')
     @commethod(3)
@@ -165,7 +165,7 @@ class IInertiaProcessor(c_void_p):
     def Complete(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(51)
     def CompleteTime(self, timestamp: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IManipulationProcessor(c_void_p):
+class IManipulationProcessor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a22ac519-8300-48a0-be-f4-f1-be-87-37-db-a4')
     @commethod(3)
@@ -246,7 +246,7 @@ TOUCHINPUTMASKF_MASK = UInt32
 TOUCHINPUTMASKF_TIMEFROMSYSTEM: TOUCHINPUTMASKF_MASK = 1
 TOUCHINPUTMASKF_EXTRAINFO: TOUCHINPUTMASKF_MASK = 2
 TOUCHINPUTMASKF_CONTACTAREA: TOUCHINPUTMASKF_MASK = 4
-class _IManipulationEvents(c_void_p):
+class _IManipulationEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4f62c8da-9c53-4b22-93-df-92-7a-86-2b-bb-03')
     @commethod(3)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.RemoteAssistance
@@ -17,15 +17,15 @@ DISPID_EVENT_ON_STATE_CHANGED: UInt32 = 5
 DISPID_EVENT_ON_TERMINATION: UInt32 = 6
 DISPID_EVENT_ON_CONTEXT_DATA: UInt32 = 7
 DISPID_EVENT_ON_SEND_ERROR: UInt32 = 8
-class DRendezvousSessionEvents(c_void_p):
+class DRendezvousSessionEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('3fa19cf8-64c4-4f53-ae-60-63-5b-38-06-ec-a6')
-class IRendezvousApplication(c_void_p):
+class IRendezvousApplication(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4f4d070b-a275-49fb-b1-0d-8e-c2-63-87-b5-0d')
     @commethod(3)
     def SetRendezvousSession(self, pRendezvousSession: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IRendezvousSession(c_void_p):
+class IRendezvousSession(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9ba4b1dd-8b0c-48b7-9e-7c-2f-25-85-7c-8d-f5')
     @commethod(3)
