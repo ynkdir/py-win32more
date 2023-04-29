@@ -31,7 +31,7 @@ CompositionFrameInstanceKind_ScanoutOnScreen: CompositionFrameInstanceKind = 1
 CompositionFrameInstanceKind_ComposedToIntermediate: CompositionFrameInstanceKind = 2
 class ICompositionFramePresentStatistics(ComPtr):
     extends: Windows.Win32.Graphics.CompositionSwapchain.IPresentStatistics
-    Guid = Guid('ab41d127-c101-4c0a-91-1d-f9-f2-e9-d0-8e-64')
+    _iid_ = Guid('ab41d127-c101-4c0a-91-1d-f9-f2-e9-d0-8e-64')
     @commethod(5)
     def GetContentTag(self) -> UIntPtr: ...
     @commethod(6)
@@ -40,7 +40,7 @@ class ICompositionFramePresentStatistics(ComPtr):
     def GetDisplayInstanceArray(self, displayInstanceArrayCount: POINTER(UInt32), displayInstanceArray: POINTER(POINTER(Windows.Win32.Graphics.CompositionSwapchain.CompositionFrameDisplayInstance_head))) -> Void: ...
 class IIndependentFlipFramePresentStatistics(ComPtr):
     extends: Windows.Win32.Graphics.CompositionSwapchain.IPresentStatistics
-    Guid = Guid('8c93be27-ad94-4da0-8f-d4-24-13-13-2d-12-4e')
+    _iid_ = Guid('8c93be27-ad94-4da0-8f-d4-24-13-13-2d-12-4e')
     @commethod(5)
     def GetOutputAdapterLUID(self) -> Windows.Win32.Foundation.LUID: ...
     @commethod(6)
@@ -53,33 +53,33 @@ class IIndependentFlipFramePresentStatistics(ComPtr):
     def GetPresentDuration(self) -> Windows.Win32.Graphics.CompositionSwapchain.SystemInterruptTime: ...
 class IPresentStatistics(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b44b8bda-7282-495d-9d-d7-ce-ad-d8-b4-bb-86')
+    _iid_ = Guid('b44b8bda-7282-495d-9d-d7-ce-ad-d8-b4-bb-86')
     @commethod(3)
     def GetPresentId(self) -> UInt64: ...
     @commethod(4)
     def GetKind(self) -> Windows.Win32.Graphics.CompositionSwapchain.PresentStatisticsKind: ...
 class IPresentStatusPresentStatistics(ComPtr):
     extends: Windows.Win32.Graphics.CompositionSwapchain.IPresentStatistics
-    Guid = Guid('c9ed2a41-79cb-435e-96-4e-c8-55-30-55-42-0c')
+    _iid_ = Guid('c9ed2a41-79cb-435e-96-4e-c8-55-30-55-42-0c')
     @commethod(5)
     def GetCompositionFrameId(self) -> UInt64: ...
     @commethod(6)
     def GetPresentStatus(self) -> Windows.Win32.Graphics.CompositionSwapchain.PresentStatus: ...
 class IPresentationBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2e217d3a-5abb-4138-9a-13-a7-75-59-3c-89-ca')
+    _iid_ = Guid('2e217d3a-5abb-4138-9a-13-a7-75-59-3c-89-ca')
     @commethod(3)
     def GetAvailableEvent(self, availableEventHandle: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def IsAvailable(self, isAvailable: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPresentationContent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5668bb79-3d8e-415c-b2-15-f3-80-20-f2-d2-52')
+    _iid_ = Guid('5668bb79-3d8e-415c-b2-15-f3-80-20-f2-d2-52')
     @commethod(3)
     def SetTag(self, tag: UIntPtr) -> Void: ...
 class IPresentationFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8fb37b58-1d74-4f64-a4-9c-1f-97-a8-0a-2e-c0')
+    _iid_ = Guid('8fb37b58-1d74-4f64-a4-9c-1f-97-a8-0a-2e-c0')
     @commethod(3)
     def IsPresentationSupported(self) -> Byte: ...
     @commethod(4)
@@ -88,7 +88,7 @@ class IPresentationFactory(ComPtr):
     def CreatePresentationManager(self, ppPresentationManager: POINTER(Windows.Win32.Graphics.CompositionSwapchain.IPresentationManager_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPresentationManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fb562f82-6292-470a-88-b1-84-36-61-e7-f2-0c')
+    _iid_ = Guid('fb562f82-6292-470a-88-b1-84-36-61-e7-f2-0c')
     @commethod(3)
     def AddBufferFromResource(self, resource: Windows.Win32.System.Com.IUnknown_head, presentationBuffer: POINTER(Windows.Win32.Graphics.CompositionSwapchain.IPresentationBuffer_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -117,7 +117,7 @@ class IPresentationManager(ComPtr):
     def GetNextPresentStatistics(self, nextPresentStatistics: POINTER(Windows.Win32.Graphics.CompositionSwapchain.IPresentStatistics_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPresentationSurface(ComPtr):
     extends: Windows.Win32.Graphics.CompositionSwapchain.IPresentationContent
-    Guid = Guid('956710fb-ea40-4eba-a3-eb-43-75-a0-eb-4e-dc')
+    _iid_ = Guid('956710fb-ea40-4eba-a3-eb-43-75-a0-eb-4e-dc')
     @commethod(4)
     def SetBuffer(self, presentationBuffer: Windows.Win32.Graphics.CompositionSwapchain.IPresentationBuffer_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)

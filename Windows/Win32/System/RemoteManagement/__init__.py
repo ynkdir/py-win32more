@@ -629,7 +629,7 @@ def WSManPluginAuthzOperationComplete(senderDetails: POINTER(Windows.Win32.Syste
 def WSManPluginAuthzQueryQuotaComplete(senderDetails: POINTER(Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS_head), flags: UInt32, quota: POINTER(Windows.Win32.System.RemoteManagement.WSMAN_AUTHZ_QUOTA_head), errorCode: UInt32, extendedErrorInformation: Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 class IWSMan(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('190d8637-5cd3-496d-ad-24-69-63-6b-b5-a3-b5')
+    _iid_ = Guid('190d8637-5cd3-496d-ad-24-69-63-6b-b5-a3-b5')
     @commethod(7)
     def CreateSession(self, connection: Windows.Win32.Foundation.BSTR, flags: Int32, connectionOptions: Windows.Win32.System.Com.IDispatch_head, session: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -640,7 +640,7 @@ class IWSMan(ComPtr):
     def get_Error(self, value: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWSManConnectionOptions(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('f704e861-9e52-464f-b7-86-da-5e-b2-32-0f-dd')
+    _iid_ = Guid('f704e861-9e52-464f-b7-86-da-5e-b2-32-0f-dd')
     @commethod(7)
     def get_UserName(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -649,14 +649,14 @@ class IWSManConnectionOptions(ComPtr):
     def put_Password(self, password: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWSManConnectionOptionsEx(ComPtr):
     extends: Windows.Win32.System.RemoteManagement.IWSManConnectionOptions
-    Guid = Guid('ef43edf7-2a48-4d93-95-26-8b-d6-ab-6d-4a-6b')
+    _iid_ = Guid('ef43edf7-2a48-4d93-95-26-8b-d6-ab-6d-4a-6b')
     @commethod(10)
     def get_CertificateThumbprint(self, thumbprint: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def put_CertificateThumbprint(self, thumbprint: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWSManConnectionOptionsEx2(ComPtr):
     extends: Windows.Win32.System.RemoteManagement.IWSManConnectionOptionsEx
-    Guid = Guid('f500c9ec-24ee-48ab-b3-8d-fc-9a-16-4c-65-8e')
+    _iid_ = Guid('f500c9ec-24ee-48ab-b3-8d-fc-9a-16-4c-65-8e')
     @commethod(12)
     def SetProxy(self, accessType: Int32, authenticationMechanism: Int32, userName: Windows.Win32.Foundation.BSTR, password: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -675,7 +675,7 @@ class IWSManConnectionOptionsEx2(ComPtr):
     def ProxyAuthenticationUseDigest(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWSManEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('f3457ca9-abb9-4fa5-b8-50-90-e8-ca-30-0e-7f')
+    _iid_ = Guid('f3457ca9-abb9-4fa5-b8-50-90-e8-ca-30-0e-7f')
     @commethod(7)
     def ReadItem(self, resource: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -684,7 +684,7 @@ class IWSManEnumerator(ComPtr):
     def get_Error(self, value: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWSManEx(ComPtr):
     extends: Windows.Win32.System.RemoteManagement.IWSMan
-    Guid = Guid('2d53bdaa-798e-49e6-a1-aa-74-d0-12-56-f4-11')
+    _iid_ = Guid('2d53bdaa-798e-49e6-a1-aa-74-d0-12-56-f4-11')
     @commethod(11)
     def CreateResourceLocator(self, strResourceLocator: Windows.Win32.Foundation.BSTR, newResourceLocator: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -727,12 +727,12 @@ class IWSManEx(ComPtr):
     def EnumerationFlagReturnObject(self, flags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWSManEx2(ComPtr):
     extends: Windows.Win32.System.RemoteManagement.IWSManEx
-    Guid = Guid('1d1b5ae0-42d9-4021-82-61-39-87-61-95-12-e9')
+    _iid_ = Guid('1d1b5ae0-42d9-4021-82-61-39-87-61-95-12-e9')
     @commethod(31)
     def SessionFlagUseClientCertificate(self, flags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWSManEx3(ComPtr):
     extends: Windows.Win32.System.RemoteManagement.IWSManEx2
-    Guid = Guid('6400e966-011d-4eac-84-74-04-9e-08-48-af-ad')
+    _iid_ = Guid('6400e966-011d-4eac-84-74-04-9e-08-48-af-ad')
     @commethod(32)
     def SessionFlagUTF16(self, flags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(33)
@@ -749,12 +749,12 @@ class IWSManEx3(ComPtr):
     def SessionFlagUseSsl(self, flags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWSManInternal(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('04ae2b1d-9954-4d99-94-a9-a9-61-e7-2c-3a-13')
+    _iid_ = Guid('04ae2b1d-9954-4d99-94-a9-a9-61-e7-2c-3a-13')
     @commethod(7)
     def ConfigSDDL(self, session: Windows.Win32.System.Com.IDispatch_head, resourceUri: Windows.Win32.System.Variant.VARIANT, flags: Int32, resource: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWSManResourceLocator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('a7a1ba28-de41-466a-ad-0a-c4-05-9e-ad-74-28')
+    _iid_ = Guid('a7a1ba28-de41-466a-ad-0a-c4-05-9e-ad-74-28')
     @commethod(7)
     def put_ResourceURI(self, uri: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -783,10 +783,10 @@ class IWSManResourceLocator(ComPtr):
     def get_Error(self, value: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWSManResourceLocatorInternal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('effaead7-7ec8-4716-b9-be-f2-e7-e9-fb-4a-db')
+    _iid_ = Guid('effaead7-7ec8-4716-b9-be-f2-e7-e9-fb-4a-db')
 class IWSManSession(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('fc84fc58-1286-40c4-9d-a0-c8-ef-6e-c2-41-e0')
+    _iid_ = Guid('fc84fc58-1286-40c4-9d-a0-c8-ef-6e-c2-41-e0')
     @commethod(7)
     def Get(self, resourceUri: Windows.Win32.System.Variant.VARIANT, flags: Int32, resource: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)

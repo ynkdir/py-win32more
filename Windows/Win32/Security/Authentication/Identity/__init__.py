@@ -1993,7 +1993,7 @@ def FREE_CONTEXT_BUFFER_FN(param0: c_void_p) -> Windows.Win32.Foundation.HRESULT
 def FREE_CREDENTIALS_HANDLE_FN(param0: POINTER(Windows.Win32.Security.Credentials.SecHandle_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICcgDomainAuthCredentials(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6ecda518-2010-4437-8b-c3-46-e7-52-b7-b1-72')
+    _iid_ = Guid('6ecda518-2010-4437-8b-c3-46-e7-52-b7-b1-72')
     @commethod(3)
     def GetPasswordCredentials(self, pluginInput: Windows.Win32.Foundation.PWSTR, domainName: POINTER(Windows.Win32.Foundation.PWSTR), username: POINTER(Windows.Win32.Foundation.PWSTR), password: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer

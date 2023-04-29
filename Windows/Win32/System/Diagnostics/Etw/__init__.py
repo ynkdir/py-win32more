@@ -1172,7 +1172,7 @@ class EVENT_TRACE_PROPERTIES_V2(EasyCastStructure):
             _bitfield: UInt32
 class ITraceEvent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8cc97f40-9028-4ff3-9b-62-7d-1f-79-ca-7b-cb')
+    _iid_ = Guid('8cc97f40-9028-4ff3-9b-62-7d-1f-79-ca-7b-cb')
     @commethod(3)
     def Clone(self, NewEvent: POINTER(Windows.Win32.System.Diagnostics.Etw.ITraceEvent_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1199,7 +1199,7 @@ class ITraceEvent(ComPtr):
     def SetProviderId(self, ProviderId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITraceEventCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3ed25501-593f-43e9-8f-38-3a-b4-6f-5a-4a-52')
+    _iid_ = Guid('3ed25501-593f-43e9-8f-38-3a-b4-6f-5a-4a-52')
     @commethod(3)
     def OnBeginProcessTrace(self, HeaderEvent: Windows.Win32.System.Diagnostics.Etw.ITraceEvent_head, Relogger: Windows.Win32.System.Diagnostics.Etw.ITraceRelogger_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1208,7 +1208,7 @@ class ITraceEventCallback(ComPtr):
     def OnEvent(self, Event: Windows.Win32.System.Diagnostics.Etw.ITraceEvent_head, Relogger: Windows.Win32.System.Diagnostics.Etw.ITraceRelogger_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITraceRelogger(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f754ad43-3bcc-4286-80-09-9c-5d-a2-14-e8-4e')
+    _iid_ = Guid('f754ad43-3bcc-4286-80-09-9c-5d-a2-14-e8-4e')
     @commethod(3)
     def AddLogfileTraceStream(self, LogfileName: Windows.Win32.Foundation.BSTR, UserContext: c_void_p, TraceHandle: POINTER(Windows.Win32.System.Diagnostics.Etw.RELOGSTREAM_HANDLE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

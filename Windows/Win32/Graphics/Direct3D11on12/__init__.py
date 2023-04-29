@@ -25,7 +25,7 @@ class D3D11_RESOURCE_FLAGS(EasyCastStructure):
     StructureByteStride: UInt32
 class ID3D11On12Device(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('85611e73-70a9-490e-96-14-a9-e3-02-77-79-04')
+    _iid_ = Guid('85611e73-70a9-490e-96-14-a9-e3-02-77-79-04')
     @commethod(3)
     def CreateWrappedResource(self, pResource12: Windows.Win32.System.Com.IUnknown_head, pFlags11: POINTER(Windows.Win32.Graphics.Direct3D11on12.D3D11_RESOURCE_FLAGS_head), InState: Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, OutState: Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, riid: POINTER(Guid), ppResource11: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -34,12 +34,12 @@ class ID3D11On12Device(ComPtr):
     def AcquireWrappedResources(self, ppResources: POINTER(Windows.Win32.Graphics.Direct3D11.ID3D11Resource_head), NumResources: UInt32) -> Void: ...
 class ID3D11On12Device1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D11on12.ID3D11On12Device
-    Guid = Guid('bdb64df4-ea2f-4c70-b8-61-aa-ab-12-58-bb-5d')
+    _iid_ = Guid('bdb64df4-ea2f-4c70-b8-61-aa-ab-12-58-bb-5d')
     @commethod(6)
     def GetD3D12Device(self, riid: POINTER(Guid), ppvDevice: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D11On12Device2(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D11on12.ID3D11On12Device1
-    Guid = Guid('dc90f331-4740-43fa-86-6e-67-f1-2c-b5-82-23')
+    _iid_ = Guid('dc90f331-4740-43fa-86-6e-67-f1-2c-b5-82-23')
     @commethod(7)
     def UnwrapUnderlyingResource(self, pResource11: Windows.Win32.Graphics.Direct3D11.ID3D11Resource_head, pCommandQueue: Windows.Win32.Graphics.Direct3D12.ID3D12CommandQueue_head, riid: POINTER(Guid), ppvResource12: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)

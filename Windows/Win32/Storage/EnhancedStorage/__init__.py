@@ -2539,7 +2539,7 @@ EnhancedStorageSiloAction = Guid('886d29dd-b506-466b-9f-bf-b4-4f-f3-83-fb-3f')
 EnumEnhancedStorageACT = Guid('fe841493-835c-4fa3-b6-cc-b4-b2-d4-71-98-48')
 class IEnhancedStorageACT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6e7781f4-e0f2-4239-b9-76-a0-1a-ba-b5-29-30')
+    _iid_ = Guid('6e7781f4-e0f2-4239-b9-76-a0-1a-ba-b5-29-30')
     @commethod(3)
     def Authorize(self, hwndParent: UInt32, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2554,14 +2554,14 @@ class IEnhancedStorageACT(ComPtr):
     def GetSilos(self, pppIEnhancedStorageSilos: POINTER(POINTER(Windows.Win32.Storage.EnhancedStorage.IEnhancedStorageSilo_head)), pcEnhancedStorageSilos: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnhancedStorageACT2(ComPtr):
     extends: Windows.Win32.Storage.EnhancedStorage.IEnhancedStorageACT
-    Guid = Guid('4da57d2e-8eb3-41f6-a0-7e-98-b5-2b-88-24-2b')
+    _iid_ = Guid('4da57d2e-8eb3-41f6-a0-7e-98-b5-2b-88-24-2b')
     @commethod(9)
     def GetDeviceName(self, ppwszDeviceName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def IsDeviceRemovable(self, pIsDeviceRemovable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnhancedStorageACT3(ComPtr):
     extends: Windows.Win32.Storage.EnhancedStorage.IEnhancedStorageACT2
-    Guid = Guid('022150a1-113d-11df-bb-61-00-1a-a0-1b-bc-58')
+    _iid_ = Guid('022150a1-113d-11df-bb-61-00-1a-a0-1b-bc-58')
     @commethod(11)
     def UnauthorizeEx(self, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -2570,7 +2570,7 @@ class IEnhancedStorageACT3(ComPtr):
     def GetShellExtSupport(self, pShellExtSupport: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnhancedStorageSilo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5aef78c6-2242-4703-bf-49-44-b2-93-57-a3-59')
+    _iid_ = Guid('5aef78c6-2242-4703-bf-49-44-b2-93-57-a3-59')
     @commethod(3)
     def GetInfo(self, pSiloInfo: POINTER(Windows.Win32.Storage.EnhancedStorage.SILO_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2583,7 +2583,7 @@ class IEnhancedStorageSilo(ComPtr):
     def GetDevicePath(self, ppwszSiloDevicePath: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnhancedStorageSiloAction(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b6f7f311-206f-4ff8-9c-4b-27-ef-ee-77-a8-6f')
+    _iid_ = Guid('b6f7f311-206f-4ff8-9c-4b-27-ef-ee-77-a8-6f')
     @commethod(3)
     def GetName(self, ppwszActionName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2592,7 +2592,7 @@ class IEnhancedStorageSiloAction(ComPtr):
     def Invoke(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumEnhancedStorageACT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('09b224bd-1335-4631-a7-ff-cf-d3-a9-26-46-d7')
+    _iid_ = Guid('09b224bd-1335-4631-a7-ff-cf-d3-a9-26-46-d7')
     @commethod(3)
     def GetACTs(self, pppIEnhancedStorageACTs: POINTER(POINTER(Windows.Win32.Storage.EnhancedStorage.IEnhancedStorageACT_head)), pcEnhancedStorageACTs: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

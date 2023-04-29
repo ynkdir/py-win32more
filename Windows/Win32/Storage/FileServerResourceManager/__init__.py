@@ -186,7 +186,7 @@ FSRM_E_FILE_MANAGEMENT_JOB_DEPRECATED: Windows.Win32.Foundation.HRESULT = -21472
 FSRM_E_MODULE_TIMEOUT: Windows.Win32.Foundation.HRESULT = -2147200101
 class DIFsrmClassificationEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('26942db0-dabf-41d8-bb-dd-b1-29-a9-f7-04-24')
+    _iid_ = Guid('26942db0-dabf-41d8-bb-dd-b1-29-a9-f7-04-24')
 FsrmAccessDeniedRemediationClient = Guid('100b4fc8-74c1-470f-b1-b7-dd-7b-6b-ae-79-bd')
 FsrmAccountType = Int32
 FsrmAccountType_Unknown: FsrmAccountType = 0
@@ -435,12 +435,12 @@ FsrmTemplateApplyOptions_ApplyToDerivedMatching: FsrmTemplateApplyOptions = 1
 FsrmTemplateApplyOptions_ApplyToDerivedAll: FsrmTemplateApplyOptions = 2
 class IFsrmAccessDeniedRemediationClient(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('40002314-590b-45a5-8e-1b-8c-05-da-52-7e-52')
+    _iid_ = Guid('40002314-590b-45a5-8e-1b-8c-05-da-52-7e-52')
     @commethod(7)
     def Show(self, parentWnd: UIntPtr, accessPath: Windows.Win32.Foundation.BSTR, errorType: Windows.Win32.Storage.FileServerResourceManager.AdrClientErrorType, flags: Int32, windowTitle: Windows.Win32.Foundation.BSTR, windowMessage: Windows.Win32.Foundation.BSTR, result: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmAction(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6cd6408a-ae60-463b-9e-f1-e1-17-53-4d-69-dc')
+    _iid_ = Guid('6cd6408a-ae60-463b-9e-f1-e1-17-53-4d-69-dc')
     @commethod(7)
     def get_Id(self, id: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -453,7 +453,7 @@ class IFsrmAction(ComPtr):
     def Delete(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmActionCommand(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmAction
-    Guid = Guid('12937789-e247-4917-9c-20-f3-ee-9c-7e-e7-83')
+    _iid_ = Guid('12937789-e247-4917-9c-20-f3-ee-9c-7e-e7-83')
     @commethod(12)
     def get_ExecutablePath(self, executablePath: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -484,7 +484,7 @@ class IFsrmActionCommand(ComPtr):
     def put_LogResult(self, logResults: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmActionEmail(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmAction
-    Guid = Guid('d646567d-26ae-4caa-9f-84-4e-0a-ad-20-7f-ca')
+    _iid_ = Guid('d646567d-26ae-4caa-9f-84-4e-0a-ad-20-7f-ca')
     @commethod(12)
     def get_MailFrom(self, mailFrom: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -515,14 +515,14 @@ class IFsrmActionEmail(ComPtr):
     def put_MessageText(self, messageText: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmActionEmail2(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmActionEmail
-    Guid = Guid('8276702f-2532-4839-89-bf-48-72-60-9a-2e-a4')
+    _iid_ = Guid('8276702f-2532-4839-89-bf-48-72-60-9a-2e-a4')
     @commethod(26)
     def get_AttachmentFileListSize(self, attachmentFileListSize: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def put_AttachmentFileListSize(self, attachmentFileListSize: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmActionEventLog(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmAction
-    Guid = Guid('4c8f96c3-5d94-4f37-a4-f4-f5-6a-b4-63-54-6f')
+    _iid_ = Guid('4c8f96c3-5d94-4f37-a4-f4-f5-6a-b4-63-54-6f')
     @commethod(12)
     def get_EventType(self, eventType: POINTER(Windows.Win32.Storage.FileServerResourceManager.FsrmEventType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -533,7 +533,7 @@ class IFsrmActionEventLog(ComPtr):
     def put_MessageText(self, messageText: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmActionReport(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmAction
-    Guid = Guid('2dbe63c4-b340-48a0-a5-b0-15-8e-07-fc-56-7e')
+    _iid_ = Guid('2dbe63c4-b340-48a0-a5-b0-15-8e-07-fc-56-7e')
     @commethod(12)
     def get_ReportTypes(self, reportTypes: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -544,7 +544,7 @@ class IFsrmActionReport(ComPtr):
     def put_MailTo(self, mailTo: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmAutoApplyQuota(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmQuotaObject
-    Guid = Guid('f82e5729-6aba-4740-bf-c7-c7-f5-8f-75-fb-7b')
+    _iid_ = Guid('f82e5729-6aba-4740-bf-c7-c7-f5-8f-75-fb-7b')
     @commethod(28)
     def get_ExcludeFolders(self, folders: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
@@ -553,7 +553,7 @@ class IFsrmAutoApplyQuota(ComPtr):
     def CommitAndUpdateDerived(self, commitOptions: Windows.Win32.Storage.FileServerResourceManager.FsrmCommitOptions, applyOptions: Windows.Win32.Storage.FileServerResourceManager.FsrmTemplateApplyOptions, derivedObjectsResult: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmDerivedObjectsResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmClassificationManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d2dc89da-ee91-48a0-85-d8-cc-72-a5-6f-7d-04')
+    _iid_ = Guid('d2dc89da-ee91-48a0-85-d8-cc-72-a5-6f-7d-04')
     @commethod(7)
     def get_ClassificationReportFormats(self, formats: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -610,12 +610,12 @@ class IFsrmClassificationManager(ComPtr):
     def ClearFileProperty(self, filePath: Windows.Win32.Foundation.BSTR, property: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmClassificationManager2(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmClassificationManager
-    Guid = Guid('0004c1c9-127e-4765-ba-07-6a-31-47-bc-a1-12')
+    _iid_ = Guid('0004c1c9-127e-4765-ba-07-6a-31-47-bc-a1-12')
     @commethod(34)
     def ClassifyFiles(self, filePaths: POINTER(Windows.Win32.System.Com.SAFEARRAY_head), propertyNames: POINTER(Windows.Win32.System.Com.SAFEARRAY_head), propertyValues: POINTER(Windows.Win32.System.Com.SAFEARRAY_head), options: Windows.Win32.Storage.FileServerResourceManager.FsrmGetFilePropertyOptions) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmClassificationRule(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmRule
-    Guid = Guid('afc052c2-5315-45ab-84-1b-c6-db-0e-12-01-48')
+    _iid_ = Guid('afc052c2-5315-45ab-84-1b-c6-db-0e-12-01-48')
     @commethod(24)
     def get_ExecutionOption(self, executionOption: POINTER(Windows.Win32.Storage.FileServerResourceManager.FsrmExecutionOption)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
@@ -630,7 +630,7 @@ class IFsrmClassificationRule(ComPtr):
     def put_Value(self, value: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmClassifierModuleDefinition(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition
-    Guid = Guid('bb36ea26-6318-4b8c-85-92-f7-2d-d6-02-e7-a5')
+    _iid_ = Guid('bb36ea26-6318-4b8c-85-92-f7-2d-d6-02-e7-a5')
     @commethod(31)
     def get_PropertiesAffected(self, propertiesAffected: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
@@ -645,7 +645,7 @@ class IFsrmClassifierModuleDefinition(ComPtr):
     def put_NeedsExplicitValue(self, needsExplicitValue: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmClassifierModuleImplementation(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmPipelineModuleImplementation
-    Guid = Guid('4c968fc6-6edb-4051-9c-18-73-b7-29-1a-e1-06')
+    _iid_ = Guid('4c968fc6-6edb-4051-9c-18-73-b7-29-1a-e1-06')
     @commethod(9)
     def get_LastModified(self, lastModified: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -660,7 +660,7 @@ class IFsrmClassifierModuleImplementation(ComPtr):
     def OnEndFile(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('f76fbf3b-8ddd-4b42-b0-5a-cb-1c-3f-f1-fe-e8')
+    _iid_ = Guid('f76fbf3b-8ddd-4b42-b0-5a-cb-1c-3f-f1-fe-e8')
     @commethod(7)
     def get__NewEnum(self, unknown: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -677,19 +677,19 @@ class IFsrmCollection(ComPtr):
     def GetById(self, id: Guid, entry: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmCommittableCollection(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmMutableCollection
-    Guid = Guid('96deb3b5-8b91-4a2a-9d-93-80-a3-5d-8a-a8-47')
+    _iid_ = Guid('96deb3b5-8b91-4a2a-9d-93-80-a3-5d-8a-a8-47')
     @commethod(18)
     def Commit(self, options: Windows.Win32.Storage.FileServerResourceManager.FsrmCommitOptions, results: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmDerivedObjectsResult(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('39322a2d-38ee-4d0d-80-95-42-1a-80-84-9a-82')
+    _iid_ = Guid('39322a2d-38ee-4d0d-80-95-42-1a-80-84-9a-82')
     @commethod(7)
     def get_DerivedObjects(self, derivedObjects: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Results(self, results: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmExportImport(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('efcb0ab1-16c4-4a79-81-2c-72-56-14-c3-30-6b')
+    _iid_ = Guid('efcb0ab1-16c4-4a79-81-2c-72-56-14-c3-30-6b')
     @commethod(7)
     def ExportFileGroups(self, filePath: Windows.Win32.Foundation.BSTR, fileGroupNamesSafeArray: POINTER(Windows.Win32.System.Variant.VARIANT_head), remoteHost: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -704,14 +704,14 @@ class IFsrmExportImport(ComPtr):
     def ImportQuotaTemplates(self, filePath: Windows.Win32.Foundation.BSTR, templateNamesSafeArray: POINTER(Windows.Win32.System.Variant.VARIANT_head), remoteHost: Windows.Win32.Foundation.BSTR, templates: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmFileCondition(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('70684ffc-691a-4a1a-b9-22-97-75-2e-13-8c-c1')
+    _iid_ = Guid('70684ffc-691a-4a1a-b9-22-97-75-2e-13-8c-c1')
     @commethod(7)
     def get_Type(self, pVal: POINTER(Windows.Win32.Storage.FileServerResourceManager.FsrmFileConditionType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Delete(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmFileConditionProperty(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmFileCondition
-    Guid = Guid('81926775-b981-4479-98-8f-da-17-1d-62-73-60')
+    _iid_ = Guid('81926775-b981-4479-98-8f-da-17-1d-62-73-60')
     @commethod(9)
     def get_PropertyName(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -734,7 +734,7 @@ class IFsrmFileConditionProperty(ComPtr):
     def put_Value(self, newVal: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmFileGroup(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmObject
-    Guid = Guid('8dd04909-0e34-4d55-af-aa-89-e1-f1-a1-bb-b9')
+    _iid_ = Guid('8dd04909-0e34-4d55-af-aa-89-e1-f1-a1-bb-b9')
     @commethod(12)
     def get_Name(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -749,14 +749,14 @@ class IFsrmFileGroup(ComPtr):
     def put_NonMembers(self, nonMembers: Windows.Win32.Storage.FileServerResourceManager.IFsrmMutableCollection_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmFileGroupImported(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmFileGroup
-    Guid = Guid('ad55f10b-5f11-4be7-94-ef-d9-ee-2e-47-0d-ed')
+    _iid_ = Guid('ad55f10b-5f11-4be7-94-ef-d9-ee-2e-47-0d-ed')
     @commethod(18)
     def get_OverwriteOnCommit(self, overwrite: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def put_OverwriteOnCommit(self, overwrite: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmFileGroupManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('426677d5-018c-485c-8a-51-20-b8-6d-00-bd-c4')
+    _iid_ = Guid('426677d5-018c-485c-8a-51-20-b8-6d-00-bd-c4')
     @commethod(7)
     def CreateFileGroup(self, fileGroup: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmFileGroup_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -769,7 +769,7 @@ class IFsrmFileGroupManager(ComPtr):
     def ImportFileGroups(self, serializedFileGroups: Windows.Win32.Foundation.BSTR, fileGroupNamesArray: POINTER(Windows.Win32.System.Variant.VARIANT_head), fileGroups: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmFileManagementJob(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmObject
-    Guid = Guid('0770687e-9f36-4d6f-87-78-59-9d-18-84-61-c9')
+    _iid_ = Guid('0770687e-9f36-4d6f-87-78-59-9d-18-84-61-c9')
     @commethod(12)
     def get_Name(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -870,7 +870,7 @@ class IFsrmFileManagementJob(ComPtr):
     def CreateCustomAction(self, customAction: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmActionCommand_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmFileManagementJobManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ee321ecb-d95e-48e9-90-7c-c7-68-5a-01-32-35')
+    _iid_ = Guid('ee321ecb-d95e-48e9-90-7c-c7-68-5a-01-32-35')
     @commethod(7)
     def get_ActionVariables(self, variables: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -883,7 +883,7 @@ class IFsrmFileManagementJobManager(ComPtr):
     def GetFileManagementJob(self, name: Windows.Win32.Foundation.BSTR, fileManagementJob: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmFileManagementJob_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmFileScreen(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmFileScreenBase
-    Guid = Guid('5f6325d3-ce88-4733-84-c1-2d-6a-ef-c5-ea-07')
+    _iid_ = Guid('5f6325d3-ce88-4733-84-c1-2d-6a-ef-c5-ea-07')
     @commethod(18)
     def get_Path(self, path: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
@@ -898,7 +898,7 @@ class IFsrmFileScreen(ComPtr):
     def ApplyTemplate(self, fileScreenTemplateName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmFileScreenBase(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmObject
-    Guid = Guid('f3637e80-5b22-4a2b-a6-37-bb-b6-42-b4-1c-fc')
+    _iid_ = Guid('f3637e80-5b22-4a2b-a6-37-bb-b6-42-b4-1c-fc')
     @commethod(12)
     def get_BlockedFileGroups(self, blockList: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmMutableCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -913,7 +913,7 @@ class IFsrmFileScreenBase(ComPtr):
     def EnumActions(self, actions: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmFileScreenException(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmObject
-    Guid = Guid('bee7ce02-df77-4515-93-89-78-f0-1c-5a-fc-1a')
+    _iid_ = Guid('bee7ce02-df77-4515-93-89-78-f0-1c-5a-fc-1a')
     @commethod(12)
     def get_Path(self, path: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -922,7 +922,7 @@ class IFsrmFileScreenException(ComPtr):
     def put_AllowedFileGroups(self, allowList: Windows.Win32.Storage.FileServerResourceManager.IFsrmMutableCollection_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmFileScreenManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ff4fa04e-5a94-4bda-a3-a0-d5-b4-d3-c5-2e-ba')
+    _iid_ = Guid('ff4fa04e-5a94-4bda-a3-a0-d5-b4-d3-c5-2e-ba')
     @commethod(7)
     def get_ActionVariables(self, variables: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -943,7 +943,7 @@ class IFsrmFileScreenManager(ComPtr):
     def CreateFileScreenCollection(self, collection: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmFileScreenTemplate(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmFileScreenBase
-    Guid = Guid('205bebf8-dd93-452a-95-a6-32-b5-66-b3-58-28')
+    _iid_ = Guid('205bebf8-dd93-452a-95-a6-32-b5-66-b3-58-28')
     @commethod(18)
     def get_Name(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
@@ -954,14 +954,14 @@ class IFsrmFileScreenTemplate(ComPtr):
     def CommitAndUpdateDerived(self, commitOptions: Windows.Win32.Storage.FileServerResourceManager.FsrmCommitOptions, applyOptions: Windows.Win32.Storage.FileServerResourceManager.FsrmTemplateApplyOptions, derivedObjectsResult: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmDerivedObjectsResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmFileScreenTemplateImported(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmFileScreenTemplate
-    Guid = Guid('e1010359-3e5d-4ecd-9f-e4-ef-48-62-2f-df-30')
+    _iid_ = Guid('e1010359-3e5d-4ecd-9f-e4-ef-48-62-2f-df-30')
     @commethod(22)
     def get_OverwriteOnCommit(self, overwrite: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def put_OverwriteOnCommit(self, overwrite: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmFileScreenTemplateManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('cfe36cba-1949-4e74-a1-4f-f1-d5-80-ce-af-13')
+    _iid_ = Guid('cfe36cba-1949-4e74-a1-4f-f1-d5-80-ce-af-13')
     @commethod(7)
     def CreateTemplate(self, fileScreenTemplate: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmFileScreenTemplate_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -974,7 +974,7 @@ class IFsrmFileScreenTemplateManager(ComPtr):
     def ImportTemplates(self, serializedFileScreenTemplates: Windows.Win32.Foundation.BSTR, fileScreenTemplateNamesArray: POINTER(Windows.Win32.System.Variant.VARIANT_head), fileScreenTemplates: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmMutableCollection(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmCollection
-    Guid = Guid('1bb617b8-3886-49dc-af-82-a6-c9-0f-a3-5d-da')
+    _iid_ = Guid('1bb617b8-3886-49dc-af-82-a6-c9-0f-a3-5d-da')
     @commethod(14)
     def Add(self, item: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -985,7 +985,7 @@ class IFsrmMutableCollection(ComPtr):
     def Clone(self, collection: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmMutableCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmObject(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('22bcef93-4a3f-4183-89-f9-2f-8b-8a-62-8a-ee')
+    _iid_ = Guid('22bcef93-4a3f-4183-89-f9-2f-8b-8a-62-8a-ee')
     @commethod(7)
     def get_Id(self, id: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -998,12 +998,12 @@ class IFsrmObject(ComPtr):
     def Commit(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmPathMapper(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6f4dbfff-6920-4821-a6-c3-b7-e9-4c-1f-d6-0c')
+    _iid_ = Guid('6f4dbfff-6920-4821-a6-c3-b7-e9-4c-1f-d6-0c')
     @commethod(7)
     def GetSharePathsForLocalPath(self, localPath: Windows.Win32.Foundation.BSTR, sharePaths: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmPipelineModuleConnector(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c16014f3-9aa1-46b3-b0-a7-ab-14-6e-b2-05-f2')
+    _iid_ = Guid('c16014f3-9aa1-46b3-b0-a7-ab-14-6e-b2-05-f2')
     @commethod(7)
     def get_ModuleImplementation(self, pipelineModuleImplementation: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmPipelineModuleImplementation_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1016,7 +1016,7 @@ class IFsrmPipelineModuleConnector(ComPtr):
     def Bind(self, moduleDefinition: Windows.Win32.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition_head, moduleImplementation: Windows.Win32.Storage.FileServerResourceManager.IFsrmPipelineModuleImplementation_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmPipelineModuleDefinition(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmObject
-    Guid = Guid('515c1277-2c81-440e-8f-cf-36-79-21-ed-4f-59')
+    _iid_ = Guid('515c1277-2c81-440e-8f-cf-36-79-21-ed-4f-59')
     @commethod(12)
     def get_ModuleClsid(self, moduleClsid: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -1057,14 +1057,14 @@ class IFsrmPipelineModuleDefinition(ComPtr):
     def put_Parameters(self, parameters: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmPipelineModuleImplementation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('b7907906-2b02-4cb5-84-a9-fd-f5-46-13-d6-cd')
+    _iid_ = Guid('b7907906-2b02-4cb5-84-a9-fd-f5-46-13-d6-cd')
     @commethod(7)
     def OnLoad(self, moduleDefinition: Windows.Win32.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition_head, moduleConnector: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmPipelineModuleConnector_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def OnUnload(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmProperty(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('4a73fee4-4102-4fcc-9f-fb-38-61-4f-9e-e7-68')
+    _iid_ = Guid('4a73fee4-4102-4fcc-9f-fb-38-61-4f-9e-e7-68')
     @commethod(7)
     def get_Name(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1075,7 +1075,7 @@ class IFsrmProperty(ComPtr):
     def get_PropertyFlags(self, flags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmPropertyBag(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('774589d1-d300-4f7a-9a-24-f7-b7-66-80-02-50')
+    _iid_ = Guid('774589d1-d300-4f7a-9a-24-f7-b7-66-80-02-50')
     @commethod(7)
     def get_Name(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1120,14 +1120,14 @@ class IFsrmPropertyBag(ComPtr):
     def GetFileStreamInterface(self, accessMode: Windows.Win32.Storage.FileServerResourceManager.FsrmFileStreamingMode, interfaceType: Windows.Win32.Storage.FileServerResourceManager.FsrmFileStreamingInterfaceType, pStreamInterface: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmPropertyBag2(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmPropertyBag
-    Guid = Guid('0e46bdbd-2402-4fed-9c-30-92-66-e6-eb-2c-c9')
+    _iid_ = Guid('0e46bdbd-2402-4fed-9c-30-92-66-e6-eb-2c-c9')
     @commethod(28)
     def GetFieldValue(self, field: Windows.Win32.Storage.FileServerResourceManager.FsrmPropertyBagField, value: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
     def GetUntrustedInFileProperties(self, props: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmPropertyCondition(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('326af66f-2ac0-4f68-bf-8c-47-59-f0-54-fa-29')
+    _iid_ = Guid('326af66f-2ac0-4f68-bf-8c-47-59-f0-54-fa-29')
     @commethod(7)
     def get_Name(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1144,7 +1144,7 @@ class IFsrmPropertyCondition(ComPtr):
     def Delete(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmPropertyDefinition(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmObject
-    Guid = Guid('ede0150f-e9a3-419c-87-7c-01-fe-5d-24-c5-d3')
+    _iid_ = Guid('ede0150f-e9a3-419c-87-7c-01-fe-5d-24-c5-d3')
     @commethod(12)
     def get_Name(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -1167,7 +1167,7 @@ class IFsrmPropertyDefinition(ComPtr):
     def put_Parameters(self, parameters: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmPropertyDefinition2(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmPropertyDefinition
-    Guid = Guid('47782152-d16c-4229-b4-e1-0d-df-e3-08-b9-f6')
+    _iid_ = Guid('47782152-d16c-4229-b4-e1-0d-df-e3-08-b9-f6')
     @commethod(22)
     def get_PropertyDefinitionFlags(self, propertyDefinitionFlags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
@@ -1180,7 +1180,7 @@ class IFsrmPropertyDefinition2(ComPtr):
     def get_ValueDefinitions(self, valueDefinitions: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmPropertyDefinitionValue(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('e946d148-bd67-4178-8e-22-1c-44-92-5e-d7-10')
+    _iid_ = Guid('e946d148-bd67-4178-8e-22-1c-44-92-5e-d7-10')
     @commethod(7)
     def get_Name(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1191,7 +1191,7 @@ class IFsrmPropertyDefinitionValue(ComPtr):
     def get_UniqueID(self, uniqueID: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmQuota(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmQuotaObject
-    Guid = Guid('377f739d-9647-4b8e-97-d2-5f-fc-e6-d7-59-cd')
+    _iid_ = Guid('377f739d-9647-4b8e-97-d2-5f-fc-e6-d7-59-cd')
     @commethod(28)
     def get_QuotaUsed(self, used: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
@@ -1204,7 +1204,7 @@ class IFsrmQuota(ComPtr):
     def RefreshUsageProperties(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmQuotaBase(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmObject
-    Guid = Guid('1568a795-3924-4118-b7-4b-68-d8-f0-fa-5d-af')
+    _iid_ = Guid('1568a795-3924-4118-b7-4b-68-d8-f0-fa-5d-af')
     @commethod(12)
     def get_QuotaLimit(self, quotaLimit: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -1227,7 +1227,7 @@ class IFsrmQuotaBase(ComPtr):
     def EnumThresholdActions(self, threshold: Int32, actions: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmQuotaManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('8bb68c7d-19d8-4ffb-80-9e-be-4f-c1-73-40-14')
+    _iid_ = Guid('8bb68c7d-19d8-4ffb-80-9e-be-4f-c1-73-40-14')
     @commethod(7)
     def get_ActionVariables(self, variables: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1254,12 +1254,12 @@ class IFsrmQuotaManager(ComPtr):
     def CreateQuotaCollection(self, collection: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmQuotaManagerEx(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmQuotaManager
-    Guid = Guid('4846cb01-d430-494f-ab-b4-b1-05-49-99-fb-09')
+    _iid_ = Guid('4846cb01-d430-494f-ab-b4-b1-05-49-99-fb-09')
     @commethod(19)
     def IsAffectedByQuota(self, path: Windows.Win32.Foundation.BSTR, options: Windows.Win32.Storage.FileServerResourceManager.FsrmEnumOptions, affected: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmQuotaObject(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmQuotaBase
-    Guid = Guid('42dc3511-61d5-48ae-b6-dc-59-fc-00-c0-a8-d6')
+    _iid_ = Guid('42dc3511-61d5-48ae-b6-dc-59-fc-00-c0-a8-d6')
     @commethod(22)
     def get_Path(self, path: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
@@ -1274,7 +1274,7 @@ class IFsrmQuotaObject(ComPtr):
     def ApplyTemplate(self, quotaTemplateName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmQuotaTemplate(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmQuotaBase
-    Guid = Guid('a2efab31-295e-46bb-b9-76-e8-6d-58-b5-2e-8b')
+    _iid_ = Guid('a2efab31-295e-46bb-b9-76-e8-6d-58-b5-2e-8b')
     @commethod(22)
     def get_Name(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
@@ -1285,14 +1285,14 @@ class IFsrmQuotaTemplate(ComPtr):
     def CommitAndUpdateDerived(self, commitOptions: Windows.Win32.Storage.FileServerResourceManager.FsrmCommitOptions, applyOptions: Windows.Win32.Storage.FileServerResourceManager.FsrmTemplateApplyOptions, derivedObjectsResult: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmDerivedObjectsResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmQuotaTemplateImported(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmQuotaTemplate
-    Guid = Guid('9a2bf113-a329-44cc-80-9a-5c-00-fc-e8-da-40')
+    _iid_ = Guid('9a2bf113-a329-44cc-80-9a-5c-00-fc-e8-da-40')
     @commethod(26)
     def get_OverwriteOnCommit(self, overwrite: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def put_OverwriteOnCommit(self, overwrite: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmQuotaTemplateManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('4173ac41-172d-4d52-96-3c-fd-c7-e4-15-f7-17')
+    _iid_ = Guid('4173ac41-172d-4d52-96-3c-fd-c7-e4-15-f7-17')
     @commethod(7)
     def CreateTemplate(self, quotaTemplate: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmQuotaTemplate_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1305,7 +1305,7 @@ class IFsrmQuotaTemplateManager(ComPtr):
     def ImportTemplates(self, serializedQuotaTemplates: Windows.Win32.Foundation.BSTR, quotaTemplateNamesArray: POINTER(Windows.Win32.System.Variant.VARIANT_head), quotaTemplates: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmCommittableCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmReport(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d8cc81d9-46b8-4fa4-bf-a5-4a-a9-de-c9-b6-38')
+    _iid_ = Guid('d8cc81d9-46b8-4fa4-bf-a5-4a-a9-de-c9-b6-38')
     @commethod(7)
     def get_Type(self, reportType: POINTER(Windows.Win32.Storage.FileServerResourceManager.FsrmReportType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1326,7 +1326,7 @@ class IFsrmReport(ComPtr):
     def Delete(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmReportJob(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmObject
-    Guid = Guid('38e87280-715c-4c7d-a2-80-ea-16-51-a1-9f-ef')
+    _iid_ = Guid('38e87280-715c-4c7d-a2-80-ea-16-51-a1-9f-ef')
     @commethod(12)
     def get_Task(self, taskName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -1363,7 +1363,7 @@ class IFsrmReportJob(ComPtr):
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmReportManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('27b899fe-6ffa-4481-a1-84-d3-da-ad-e8-a0-2b')
+    _iid_ = Guid('27b899fe-6ffa-4481-a1-84-d3-da-ad-e8-a0-2b')
     @commethod(7)
     def EnumReportJobs(self, options: Windows.Win32.Storage.FileServerResourceManager.FsrmEnumOptions, reportJobs: POINTER(Windows.Win32.Storage.FileServerResourceManager.IFsrmCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1386,7 +1386,7 @@ class IFsrmReportManager(ComPtr):
     def SetReportSizeLimit(self, limit: Windows.Win32.Storage.FileServerResourceManager.FsrmReportLimit, limitValue: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmReportScheduler(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6879caf9-6617-4484-87-19-71-c3-d8-64-5f-94')
+    _iid_ = Guid('6879caf9-6617-4484-87-19-71-c3-d8-64-5f-94')
     @commethod(7)
     def VerifyNamespaces(self, namespacesSafeArray: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1397,7 +1397,7 @@ class IFsrmReportScheduler(ComPtr):
     def DeleteScheduleTask(self, taskName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmRule(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmObject
-    Guid = Guid('cb0df960-16f5-4495-90-79-3f-93-60-d8-31-df')
+    _iid_ = Guid('cb0df960-16f5-4495-90-79-3f-93-60-d8-31-df')
     @commethod(12)
     def get_Name(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -1424,7 +1424,7 @@ class IFsrmRule(ComPtr):
     def get_LastModified(self, lastModified: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmSetting(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('f411d4fd-14be-4260-8c-40-03-b7-c9-5e-60-8a')
+    _iid_ = Guid('f411d4fd-14be-4260-8c-40-03-b7-c9-5e-60-8a')
     @commethod(7)
     def get_SmtpServer(self, smtpServer: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1453,7 +1453,7 @@ class IFsrmSetting(ComPtr):
     def GetActionRunLimitInterval(self, actionType: Windows.Win32.Storage.FileServerResourceManager.FsrmActionType, delayTimeMinutes: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmStorageModuleDefinition(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmPipelineModuleDefinition
-    Guid = Guid('15a81350-497d-4aba-80-e9-d4-db-cc-55-21-fe')
+    _iid_ = Guid('15a81350-497d-4aba-80-e9-d4-db-cc-55-21-fe')
     @commethod(31)
     def get_Capabilities(self, capabilities: POINTER(Windows.Win32.Storage.FileServerResourceManager.FsrmStorageModuleCaps)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
@@ -1468,7 +1468,7 @@ class IFsrmStorageModuleDefinition(ComPtr):
     def put_UpdatesFileContent(self, updatesFileContent: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsrmStorageModuleImplementation(ComPtr):
     extends: Windows.Win32.Storage.FileServerResourceManager.IFsrmPipelineModuleImplementation
-    Guid = Guid('0af4a0da-895a-4e50-87-12-a9-67-24-bc-ec-64')
+    _iid_ = Guid('0af4a0da-895a-4e50-87-12-a9-67-24-bc-ec-64')
     @commethod(9)
     def UseDefinitions(self, propertyDefinitions: Windows.Win32.Storage.FileServerResourceManager.IFsrmCollection_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)

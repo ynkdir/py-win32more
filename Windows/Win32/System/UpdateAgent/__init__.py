@@ -536,7 +536,7 @@ DownloadPriority_dpHigh: DownloadPriority = 3
 DownloadPriority_dpExtraHigh: DownloadPriority = 4
 class IAutomaticUpdates(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('673425bf-c082-4c7c-bd-fd-56-94-64-b8-e0-ce')
+    _iid_ = Guid('673425bf-c082-4c7c-bd-fd-56-94-64-b8-e0-ce')
     @commethod(7)
     def DetectNow(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -553,19 +553,19 @@ class IAutomaticUpdates(ComPtr):
     def EnableService(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IAutomaticUpdates2(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IAutomaticUpdates
-    Guid = Guid('4a2f5c31-cfd9-410e-b7-fb-29-a6-53-97-3a-0f')
+    _iid_ = Guid('4a2f5c31-cfd9-410e-b7-fb-29-a6-53-97-3a-0f')
     @commethod(14)
     def get_Results(self, retval: POINTER(Windows.Win32.System.UpdateAgent.IAutomaticUpdatesResults_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAutomaticUpdatesResults(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('e7a4d634-7942-4dd9-a1-11-82-22-8b-a3-39-01')
+    _iid_ = Guid('e7a4d634-7942-4dd9-a1-11-82-22-8b-a3-39-01')
     @commethod(7)
     def get_LastSearchSuccessDate(self, retval: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_LastInstallationSuccessDate(self, retval: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAutomaticUpdatesSettings(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2ee48f22-af3c-405f-89-70-f7-1b-e1-2e-e9-a2')
+    _iid_ = Guid('2ee48f22-af3c-405f-89-70-f7-1b-e1-2e-e9-a2')
     @commethod(7)
     def get_NotificationLevel(self, retval: POINTER(Windows.Win32.System.UpdateAgent.AutomaticUpdatesNotificationLevel)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -588,7 +588,7 @@ class IAutomaticUpdatesSettings(ComPtr):
     def Save(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IAutomaticUpdatesSettings2(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IAutomaticUpdatesSettings
-    Guid = Guid('6abc136a-c3ca-4384-81-71-cb-2b-1e-59-b8-dc')
+    _iid_ = Guid('6abc136a-c3ca-4384-81-71-cb-2b-1e-59-b8-dc')
     @commethod(17)
     def get_IncludeRecommendedUpdates(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
@@ -597,7 +597,7 @@ class IAutomaticUpdatesSettings2(ComPtr):
     def CheckPermission(self, userType: Windows.Win32.System.UpdateAgent.AutomaticUpdatesUserType, permissionType: Windows.Win32.System.UpdateAgent.AutomaticUpdatesPermissionType, userHasPermission: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAutomaticUpdatesSettings3(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IAutomaticUpdatesSettings2
-    Guid = Guid('b587f5c3-f57e-485f-bb-f5-0d-18-1c-5c-d0-dc')
+    _iid_ = Guid('b587f5c3-f57e-485f-bb-f5-0d-18-1c-5c-d0-dc')
     @commethod(20)
     def get_NonAdministratorsElevated(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -608,7 +608,7 @@ class IAutomaticUpdatesSettings3(ComPtr):
     def put_FeaturedUpdatesEnabled(self, value: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class ICategory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('81ddc1b8-9d35-47a6-b4-71-5b-80-f5-19-22-3b')
+    _iid_ = Guid('81ddc1b8-9d35-47a6-b4-71-5b-80-f5-19-22-3b')
     @commethod(7)
     def get_Name(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -629,7 +629,7 @@ class ICategory(ComPtr):
     def get_Updates(self, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdateCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICategoryCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3a56bfb8-576c-43f7-93-35-fe-48-38-fd-7e-37')
+    _iid_ = Guid('3a56bfb8-576c-43f7-93-35-fe-48-38-fd-7e-37')
     @commethod(7)
     def get_Item(self, index: Int32, retval: POINTER(Windows.Win32.System.UpdateAgent.ICategory_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -638,15 +638,15 @@ class ICategoryCollection(ComPtr):
     def get_Count(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDownloadCompletedCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('77254866-9f5b-4c8e-b9-e2-c7-7a-85-30-d6-4b')
+    _iid_ = Guid('77254866-9f5b-4c8e-b9-e2-c7-7a-85-30-d6-4b')
     @commethod(3)
     def Invoke(self, downloadJob: Windows.Win32.System.UpdateAgent.IDownloadJob_head, callbackArgs: Windows.Win32.System.UpdateAgent.IDownloadCompletedCallbackArgs_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDownloadCompletedCallbackArgs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('fa565b23-498c-47a0-97-9d-e7-d5-b1-81-33-60')
+    _iid_ = Guid('fa565b23-498c-47a0-97-9d-e7-d5-b1-81-33-60')
 class IDownloadJob(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c574de85-7358-43f6-aa-e8-86-97-e6-2d-8b-a7')
+    _iid_ = Guid('c574de85-7358-43f6-aa-e8-86-97-e6-2d-8b-a7')
     @commethod(7)
     def get_AsyncState(self, retval: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -661,7 +661,7 @@ class IDownloadJob(ComPtr):
     def RequestAbort(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDownloadProgress(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d31a5bac-f719-4178-9d-bb-5e-2c-b4-7f-d1-8a')
+    _iid_ = Guid('d31a5bac-f719-4178-9d-bb-5e-2c-b4-7f-d1-8a')
     @commethod(7)
     def get_CurrentUpdateBytesDownloaded(self, retval: POINTER(Windows.Win32.Foundation.DECIMAL_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -682,17 +682,17 @@ class IDownloadProgress(ComPtr):
     def get_CurrentUpdatePercentComplete(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDownloadProgressChangedCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8c3f1cdd-6173-4591-ae-bd-a5-6a-53-ca-77-c1')
+    _iid_ = Guid('8c3f1cdd-6173-4591-ae-bd-a5-6a-53-ca-77-c1')
     @commethod(3)
     def Invoke(self, downloadJob: Windows.Win32.System.UpdateAgent.IDownloadJob_head, callbackArgs: Windows.Win32.System.UpdateAgent.IDownloadProgressChangedCallbackArgs_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDownloadProgressChangedCallbackArgs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('324ff2c6-4981-4b04-94-12-57-48-17-45-ab-24')
+    _iid_ = Guid('324ff2c6-4981-4b04-94-12-57-48-17-45-ab-24')
     @commethod(7)
     def get_Progress(self, retval: POINTER(Windows.Win32.System.UpdateAgent.IDownloadProgress_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDownloadResult(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('daa4fdd0-4727-4dbe-a1-e7-74-5d-ca-31-71-44')
+    _iid_ = Guid('daa4fdd0-4727-4dbe-a1-e7-74-5d-ca-31-71-44')
     @commethod(7)
     def get_HResult(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -701,7 +701,7 @@ class IDownloadResult(ComPtr):
     def GetUpdateResult(self, updateIndex: Int32, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdateDownloadResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IImageInformation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('7c907864-346c-4aeb-8f-3f-57-da-28-9f-96-9f')
+    _iid_ = Guid('7c907864-346c-4aeb-8f-3f-57-da-28-9f-96-9f')
     @commethod(7)
     def get_AltText(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -712,12 +712,12 @@ class IImageInformation(ComPtr):
     def get_Width(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInstallationAgent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('925cbc18-a2ea-4648-bf-1c-ec-8b-ad-cf-e2-0a')
+    _iid_ = Guid('925cbc18-a2ea-4648-bf-1c-ec-8b-ad-cf-e2-0a')
     @commethod(7)
     def RecordInstallationResult(self, installationResultCookie: Windows.Win32.Foundation.BSTR, hresult: Int32, extendedReportingData: Windows.Win32.System.UpdateAgent.IStringCollection_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IInstallationBehavior(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d9a59339-e245-4dbd-96-86-4d-57-63-e3-96-24')
+    _iid_ = Guid('d9a59339-e245-4dbd-96-86-4d-57-63-e3-96-24')
     @commethod(7)
     def get_CanRequestUserInput(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -728,15 +728,15 @@ class IInstallationBehavior(ComPtr):
     def get_RequiresNetworkConnectivity(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInstallationCompletedCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('45f4f6f3-d602-4f98-9a-8a-3e-fa-15-2a-d2-d3')
+    _iid_ = Guid('45f4f6f3-d602-4f98-9a-8a-3e-fa-15-2a-d2-d3')
     @commethod(3)
     def Invoke(self, installationJob: Windows.Win32.System.UpdateAgent.IInstallationJob_head, callbackArgs: Windows.Win32.System.UpdateAgent.IInstallationCompletedCallbackArgs_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IInstallationCompletedCallbackArgs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('250e2106-8efb-4705-96-53-ef-13-c5-81-b6-a1')
+    _iid_ = Guid('250e2106-8efb-4705-96-53-ef-13-c5-81-b6-a1')
 class IInstallationJob(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('5c209f0b-bad5-432a-95-56-46-99-be-d2-63-8a')
+    _iid_ = Guid('5c209f0b-bad5-432a-95-56-46-99-be-d2-63-8a')
     @commethod(7)
     def get_AsyncState(self, retval: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -751,7 +751,7 @@ class IInstallationJob(ComPtr):
     def RequestAbort(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IInstallationProgress(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('345c8244-43a3-4e32-a3-68-65-f0-73-b7-6f-36')
+    _iid_ = Guid('345c8244-43a3-4e32-a3-68-65-f0-73-b7-6f-36')
     @commethod(7)
     def get_CurrentUpdateIndex(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -762,17 +762,17 @@ class IInstallationProgress(ComPtr):
     def GetUpdateResult(self, updateIndex: Int32, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdateInstallationResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInstallationProgressChangedCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e01402d5-f8da-43ba-a0-12-38-89-4b-d0-48-f1')
+    _iid_ = Guid('e01402d5-f8da-43ba-a0-12-38-89-4b-d0-48-f1')
     @commethod(3)
     def Invoke(self, installationJob: Windows.Win32.System.UpdateAgent.IInstallationJob_head, callbackArgs: Windows.Win32.System.UpdateAgent.IInstallationProgressChangedCallbackArgs_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IInstallationProgressChangedCallbackArgs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('e4f14e1e-689d-4218-a0-b9-bc-18-9c-48-4a-01')
+    _iid_ = Guid('e4f14e1e-689d-4218-a0-b9-bc-18-9c-48-4a-01')
     @commethod(7)
     def get_Progress(self, retval: POINTER(Windows.Win32.System.UpdateAgent.IInstallationProgress_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInstallationResult(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('a43c56d6-7451-48d4-af-96-b6-cd-2d-0d-9b-7a')
+    _iid_ = Guid('a43c56d6-7451-48d4-af-96-b6-cd-2d-0d-9b-7a')
     @commethod(7)
     def get_HResult(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -783,20 +783,20 @@ class IInstallationResult(ComPtr):
     def GetUpdateResult(self, updateIndex: Int32, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdateInstallationResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInvalidProductLicenseException(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdateException
-    Guid = Guid('a37d00f5-7bb0-4953-b4-14-f9-e9-83-26-f2-e8')
+    _iid_ = Guid('a37d00f5-7bb0-4953-b4-14-f9-e9-83-26-f2-e8')
     @commethod(10)
     def get_Product(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISearchCompletedCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('88aee058-d4b0-4725-a2-f1-81-4a-67-ae-96-4c')
+    _iid_ = Guid('88aee058-d4b0-4725-a2-f1-81-4a-67-ae-96-4c')
     @commethod(3)
     def Invoke(self, searchJob: Windows.Win32.System.UpdateAgent.ISearchJob_head, callbackArgs: Windows.Win32.System.UpdateAgent.ISearchCompletedCallbackArgs_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISearchCompletedCallbackArgs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('a700a634-2850-4c47-93-8a-9e-4b-6e-5a-f9-a6')
+    _iid_ = Guid('a700a634-2850-4c47-93-8a-9e-4b-6e-5a-f9-a6')
 class ISearchJob(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('7366ea16-7a1a-4ea2-b0-42-97-3d-3e-9c-d9-9b')
+    _iid_ = Guid('7366ea16-7a1a-4ea2-b0-42-97-3d-3e-9c-d9-9b')
     @commethod(7)
     def get_AsyncState(self, retval: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -807,7 +807,7 @@ class ISearchJob(ComPtr):
     def RequestAbort(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISearchResult(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d40cff62-e08c-4498-94-1a-01-e2-5f-0f-d3-3c')
+    _iid_ = Guid('d40cff62-e08c-4498-94-1a-01-e2-5f-0f-d3-3c')
     @commethod(7)
     def get_ResultCode(self, retval: POINTER(Windows.Win32.System.UpdateAgent.OperationResultCode)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -818,7 +818,7 @@ class ISearchResult(ComPtr):
     def get_Warnings(self, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdateExceptionCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IStringCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('eff90582-2ddc-480f-a0-6d-60-f3-fb-c3-62-c3')
+    _iid_ = Guid('eff90582-2ddc-480f-a0-6d-60-f3-fb-c3-62-c3')
     @commethod(7)
     def get_Item(self, index: Int32, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -841,14 +841,14 @@ class IStringCollection(ComPtr):
     def RemoveAt(self, index: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISystemInformation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ade87bf7-7b56-4275-8f-ab-b9-b0-e5-91-84-4b')
+    _iid_ = Guid('ade87bf7-7b56-4275-8f-ab-b9-b0-e5-91-84-4b')
     @commethod(7)
     def get_OemHardwareSupportLink(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_RebootRequired(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdate(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6a92b07a-d821-4682-b4-23-5c-80-50-22-cc-4d')
+    _iid_ = Guid('6a92b07a-d821-4682-b4-23-5c-80-50-22-cc-4d')
     @commethod(7)
     def get_Title(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -941,7 +941,7 @@ class IUpdate(ComPtr):
     def get_DownloadContents(self, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdateDownloadContentCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdate2(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdate
-    Guid = Guid('144fe9b0-d23d-4a8b-86-34-fb-44-57-53-3b-7a')
+    _iid_ = Guid('144fe9b0-d23d-4a8b-86-34-fb-44-57-53-3b-7a')
     @commethod(52)
     def get_RebootRequired(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(53)
@@ -952,24 +952,24 @@ class IUpdate2(ComPtr):
     def CopyToCache(self, pFiles: Windows.Win32.System.UpdateAgent.IStringCollection_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdate3(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdate2
-    Guid = Guid('112eda6b-95b3-476f-9d-90-ae-e8-2c-6b-81-81')
+    _iid_ = Guid('112eda6b-95b3-476f-9d-90-ae-e8-2c-6b-81-81')
     @commethod(56)
     def get_BrowseOnly(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdate4(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdate3
-    Guid = Guid('27e94b0d-5139-49a2-9a-61-93-52-2d-c5-46-52')
+    _iid_ = Guid('27e94b0d-5139-49a2-9a-61-93-52-2d-c5-46-52')
     @commethod(57)
     def get_PerUser(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdate5(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdate4
-    Guid = Guid('c1c2f21a-d2f4-4902-b5-c6-8a-08-1c-19-a8-90')
+    _iid_ = Guid('c1c2f21a-d2f4-4902-b5-c6-8a-08-1c-19-a8-90')
     @commethod(58)
     def get_AutoSelection(self, retval: POINTER(Windows.Win32.System.UpdateAgent.AutoSelectionMode)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(59)
     def get_AutoDownload(self, retval: POINTER(Windows.Win32.System.UpdateAgent.AutoDownloadMode)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('07f7438c-7709-4ca5-b5-18-91-27-92-88-13-4e')
+    _iid_ = Guid('07f7438c-7709-4ca5-b5-18-91-27-92-88-13-4e')
     @commethod(7)
     def get_Item(self, index: Int32, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdate_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -992,17 +992,17 @@ class IUpdateCollection(ComPtr):
     def RemoveAt(self, index: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateDownloadContent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('54a2cb2d-9a0c-48b6-8a-50-9a-bb-69-ee-2d-02')
+    _iid_ = Guid('54a2cb2d-9a0c-48b6-8a-50-9a-bb-69-ee-2d-02')
     @commethod(7)
     def get_DownloadUrl(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateDownloadContent2(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdateDownloadContent
-    Guid = Guid('c97ad11b-f257-420b-9d-9f-37-7f-73-3f-6f-68')
+    _iid_ = Guid('c97ad11b-f257-420b-9d-9f-37-7f-73-3f-6f-68')
     @commethod(8)
     def get_IsDeltaCompressedContent(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateDownloadContentCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('bc5513c8-b3b8-4bf7-a4-d4-36-1c-0d-8c-88-ba')
+    _iid_ = Guid('bc5513c8-b3b8-4bf7-a4-d4-36-1c-0d-8c-88-ba')
     @commethod(7)
     def get_Item(self, index: Int32, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdateDownloadContent_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1011,14 +1011,14 @@ class IUpdateDownloadContentCollection(ComPtr):
     def get_Count(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateDownloadResult(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('bf99af76-b575-42ad-8a-a4-33-cb-b5-47-7a-f1')
+    _iid_ = Guid('bf99af76-b575-42ad-8a-a4-33-cb-b5-47-7a-f1')
     @commethod(7)
     def get_HResult(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_ResultCode(self, retval: POINTER(Windows.Win32.System.UpdateAgent.OperationResultCode)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateDownloader(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('68f1c6f9-7ecc-4666-a4-64-24-7f-e1-24-96-c3')
+    _iid_ = Guid('68f1c6f9-7ecc-4666-a4-64-24-7f-e1-24-96-c3')
     @commethod(7)
     def get_ClientApplicationID(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1043,7 +1043,7 @@ class IUpdateDownloader(ComPtr):
     def EndDownload(self, value: Windows.Win32.System.UpdateAgent.IDownloadJob_head, retval: POINTER(Windows.Win32.System.UpdateAgent.IDownloadResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateException(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('a376dd5e-09d4-427f-af-7c-fe-d5-b6-e1-c1-d6')
+    _iid_ = Guid('a376dd5e-09d4-427f-af-7c-fe-d5-b6-e1-c1-d6')
     @commethod(7)
     def get_Message(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1052,7 +1052,7 @@ class IUpdateException(ComPtr):
     def get_Context(self, retval: POINTER(Windows.Win32.System.UpdateAgent.UpdateExceptionContext)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateExceptionCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('503626a3-8e14-4729-93-55-0f-e6-64-bd-23-21')
+    _iid_ = Guid('503626a3-8e14-4729-93-55-0f-e6-64-bd-23-21')
     @commethod(7)
     def get_Item(self, index: Int32, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdateException_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1061,7 +1061,7 @@ class IUpdateExceptionCollection(ComPtr):
     def get_Count(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateHistoryEntry(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('be56a644-af0e-4e0e-a3-11-c1-d8-e6-95-cb-ff')
+    _iid_ = Guid('be56a644-af0e-4e0e-a3-11-c1-d8-e6-95-cb-ff')
     @commethod(7)
     def get_Operation(self, retval: POINTER(Windows.Win32.System.UpdateAgent.UpdateOperation)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1092,12 +1092,12 @@ class IUpdateHistoryEntry(ComPtr):
     def get_SupportUrl(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateHistoryEntry2(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdateHistoryEntry
-    Guid = Guid('c2bfb780-4539-4132-ab-8c-0a-87-72-01-3a-b6')
+    _iid_ = Guid('c2bfb780-4539-4132-ab-8c-0a-87-72-01-3a-b6')
     @commethod(21)
     def get_Categories(self, retval: POINTER(Windows.Win32.System.UpdateAgent.ICategoryCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateHistoryEntryCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('a7f04f3c-a290-435b-aa-df-a1-16-c3-35-7a-5c')
+    _iid_ = Guid('a7f04f3c-a290-435b-aa-df-a1-16-c3-35-7a-5c')
     @commethod(7)
     def get_Item(self, index: Int32, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdateHistoryEntry_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1106,14 +1106,14 @@ class IUpdateHistoryEntryCollection(ComPtr):
     def get_Count(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateIdentity(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('46297823-9940-4c09-ae-d9-cd-3e-a6-d0-59-68')
+    _iid_ = Guid('46297823-9940-4c09-ae-d9-cd-3e-a6-d0-59-68')
     @commethod(7)
     def get_RevisionNumber(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_UpdateID(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateInstallationResult(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d940f0f8-3cbb-4fd0-99-3f-47-1e-7f-23-28-ad')
+    _iid_ = Guid('d940f0f8-3cbb-4fd0-99-3f-47-1e-7f-23-28-ad')
     @commethod(7)
     def get_HResult(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1122,7 +1122,7 @@ class IUpdateInstallationResult(ComPtr):
     def get_ResultCode(self, retval: POINTER(Windows.Win32.System.UpdateAgent.OperationResultCode)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateInstaller(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('7b929c68-ccdc-4226-96-b1-87-24-60-0b-54-c2')
+    _iid_ = Guid('7b929c68-ccdc-4226-96-b1-87-24-60-0b-54-c2')
     @commethod(7)
     def get_ClientApplicationID(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1167,31 +1167,31 @@ class IUpdateInstaller(ComPtr):
     def get_RebootRequiredBeforeInstallation(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateInstaller2(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdateInstaller
-    Guid = Guid('3442d4fe-224d-4cee-98-cf-30-e0-c4-d2-29-e6')
+    _iid_ = Guid('3442d4fe-224d-4cee-98-cf-30-e0-c4-d2-29-e6')
     @commethod(28)
     def get_ForceQuiet(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
     def put_ForceQuiet(self, value: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateInstaller3(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdateInstaller2
-    Guid = Guid('16d11c35-099a-48d0-83-38-5f-ae-64-04-7f-8e')
+    _iid_ = Guid('16d11c35-099a-48d0-83-38-5f-ae-64-04-7f-8e')
     @commethod(30)
     def get_AttemptCloseAppsIfNecessary(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def put_AttemptCloseAppsIfNecessary(self, value: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateInstaller4(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdateInstaller3
-    Guid = Guid('ef8208ea-2304-492d-91-09-23-81-3b-09-58-e1')
+    _iid_ = Guid('ef8208ea-2304-492d-91-09-23-81-3b-09-58-e1')
     @commethod(32)
     def Commit(self, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateLockdown(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a976c28d-75a1-42aa-94-ae-8a-f8-b8-72-08-9a')
+    _iid_ = Guid('a976c28d-75a1-42aa-94-ae-8a-f8-b8-72-08-9a')
     @commethod(3)
     def LockDown(self, flags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateSearcher(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('8f45abf1-f9ae-4b95-a9-33-f0-f6-6e-50-56-ea')
+    _iid_ = Guid('8f45abf1-f9ae-4b95-a9-33-f0-f6-6e-50-56-ea')
     @commethod(7)
     def get_CanAutomaticallyUpgradeService(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1230,21 +1230,21 @@ class IUpdateSearcher(ComPtr):
     def put_ServiceID(self, value: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateSearcher2(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdateSearcher
-    Guid = Guid('4cbdcb2d-1589-4beb-bd-1c-3e-58-2f-f0-ad-d0')
+    _iid_ = Guid('4cbdcb2d-1589-4beb-bd-1c-3e-58-2f-f0-ad-d0')
     @commethod(25)
     def get_IgnoreDownloadPriority(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def put_IgnoreDownloadPriority(self, value: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateSearcher3(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdateSearcher2
-    Guid = Guid('04c6895d-eaf2-4034-97-f3-31-1d-e9-be-41-3a')
+    _iid_ = Guid('04c6895d-eaf2-4034-97-f3-31-1d-e9-be-41-3a')
     @commethod(27)
     def get_SearchScope(self, retval: POINTER(Windows.Win32.System.UpdateAgent.SearchScope)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
     def put_SearchScope(self, value: Windows.Win32.System.UpdateAgent.SearchScope) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateService(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('76b3b17e-aed6-4da5-85-f0-83-58-7f-81-ab-e3')
+    _iid_ = Guid('76b3b17e-aed6-4da5-85-f0-83-58-7f-81-ab-e3')
     @commethod(7)
     def get_Name(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1273,12 +1273,12 @@ class IUpdateService(ComPtr):
     def get_SetupPrefix(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateService2(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdateService
-    Guid = Guid('1518b460-6518-4172-94-0f-c7-58-83-b2-4c-eb')
+    _iid_ = Guid('1518b460-6518-4172-94-0f-c7-58-83-b2-4c-eb')
     @commethod(20)
     def get_IsDefaultAUService(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateServiceCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('9b0353aa-0e52-44ff-b8-b0-1f-7f-a0-43-7f-88')
+    _iid_ = Guid('9b0353aa-0e52-44ff-b8-b0-1f-7f-a0-43-7f-88')
     @commethod(7)
     def get_Item(self, index: Int32, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdateService_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1287,7 +1287,7 @@ class IUpdateServiceCollection(ComPtr):
     def get_Count(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateServiceManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('23857e3c-02ba-44a3-94-23-b1-c9-00-80-5f-37')
+    _iid_ = Guid('23857e3c-02ba-44a3-94-23-b1-c9-00-80-5f-37')
     @commethod(7)
     def get_Services(self, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdateServiceCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1304,7 +1304,7 @@ class IUpdateServiceManager(ComPtr):
     def SetOption(self, optionName: Windows.Win32.Foundation.BSTR, optionValue: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateServiceManager2(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdateServiceManager
-    Guid = Guid('0bb8531d-7e8d-424f-98-6c-a0-b8-f6-0a-3e-7b')
+    _iid_ = Guid('0bb8531d-7e8d-424f-98-6c-a0-b8-f6-0a-3e-7b')
     @commethod(14)
     def get_ClientApplicationID(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -1315,7 +1315,7 @@ class IUpdateServiceManager2(ComPtr):
     def AddService2(self, serviceID: Windows.Win32.Foundation.BSTR, flags: Int32, authorizationCabPath: Windows.Win32.Foundation.BSTR, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdateServiceRegistration_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateServiceRegistration(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('dde02280-12b3-4e0b-93-7b-67-47-f6-ac-b2-86')
+    _iid_ = Guid('dde02280-12b3-4e0b-93-7b-67-47-f6-ac-b2-86')
     @commethod(7)
     def get_RegistrationState(self, retval: POINTER(Windows.Win32.System.UpdateAgent.UpdateServiceRegistrationState)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1326,7 +1326,7 @@ class IUpdateServiceRegistration(ComPtr):
     def get_Service(self, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdateService2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateSession(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('816858a4-260d-4260-93-3a-25-85-f1-ab-c7-6b')
+    _iid_ = Guid('816858a4-260d-4260-93-3a-25-85-f1-ab-c7-6b')
     @commethod(7)
     def get_ClientApplicationID(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1345,21 +1345,21 @@ class IUpdateSession(ComPtr):
     def CreateUpdateInstaller(self, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdateInstaller_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateSession2(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdateSession
-    Guid = Guid('91caf7b0-eb23-49ed-99-37-c5-2d-81-7f-46-f7')
+    _iid_ = Guid('91caf7b0-eb23-49ed-99-37-c5-2d-81-7f-46-f7')
     @commethod(15)
     def get_UserLocale(self, retval: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def put_UserLocale(self, lcid: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUpdateSession3(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdateSession2
-    Guid = Guid('918efd1e-b5d8-4c90-85-40-ae-b9-bd-c5-6f-9d')
+    _iid_ = Guid('918efd1e-b5d8-4c90-85-40-ae-b9-bd-c5-6f-9d')
     @commethod(17)
     def CreateUpdateServiceManager(self, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdateServiceManager2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def QueryHistory(self, criteria: Windows.Win32.Foundation.BSTR, startIndex: Int32, count: Int32, retval: POINTER(Windows.Win32.System.UpdateAgent.IUpdateHistoryEntryCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWebProxy(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('174c81fe-aecd-4dae-b8-a0-2c-63-18-dd-86-a8')
+    _iid_ = Guid('174c81fe-aecd-4dae-b8-a0-2c-63-18-dd-86-a8')
     @commethod(7)
     def get_Address(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1390,7 +1390,7 @@ class IWebProxy(ComPtr):
     def put_AutoDetect(self, value: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IWindowsDriverUpdate(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IUpdate
-    Guid = Guid('b383cd1a-5ce9-4504-9f-63-76-4b-12-36-f1-91')
+    _iid_ = Guid('b383cd1a-5ce9-4504-9f-63-76-4b-12-36-f1-91')
     @commethod(52)
     def get_DriverClass(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(53)
@@ -1409,7 +1409,7 @@ class IWindowsDriverUpdate(ComPtr):
     def get_DeviceStatus(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWindowsDriverUpdate2(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IWindowsDriverUpdate
-    Guid = Guid('615c4269-7a48-43bd-96-b7-bf-6c-a2-7d-6c-3e')
+    _iid_ = Guid('615c4269-7a48-43bd-96-b7-bf-6c-a2-7d-6c-3e')
     @commethod(60)
     def get_RebootRequired(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(61)
@@ -1420,26 +1420,26 @@ class IWindowsDriverUpdate2(ComPtr):
     def CopyToCache(self, pFiles: Windows.Win32.System.UpdateAgent.IStringCollection_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWindowsDriverUpdate3(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IWindowsDriverUpdate2
-    Guid = Guid('49ebd502-4a96-41bd-9e-3e-4c-50-57-f4-25-0c')
+    _iid_ = Guid('49ebd502-4a96-41bd-9e-3e-4c-50-57-f4-25-0c')
     @commethod(64)
     def get_BrowseOnly(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWindowsDriverUpdate4(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IWindowsDriverUpdate3
-    Guid = Guid('004c6a2b-0c19-4c69-9f-5c-a2-69-b2-56-0d-b9')
+    _iid_ = Guid('004c6a2b-0c19-4c69-9f-5c-a2-69-b2-56-0d-b9')
     @commethod(65)
     def get_WindowsDriverUpdateEntries(self, retval: POINTER(Windows.Win32.System.UpdateAgent.IWindowsDriverUpdateEntryCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(66)
     def get_PerUser(self, retval: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWindowsDriverUpdate5(ComPtr):
     extends: Windows.Win32.System.UpdateAgent.IWindowsDriverUpdate4
-    Guid = Guid('70cf5c82-8642-42bb-9d-bc-0c-fd-26-3c-6c-4f')
+    _iid_ = Guid('70cf5c82-8642-42bb-9d-bc-0c-fd-26-3c-6c-4f')
     @commethod(67)
     def get_AutoSelection(self, retval: POINTER(Windows.Win32.System.UpdateAgent.AutoSelectionMode)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(68)
     def get_AutoDownload(self, retval: POINTER(Windows.Win32.System.UpdateAgent.AutoDownloadMode)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWindowsDriverUpdateEntry(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ed8bfe40-a60b-42ea-96-52-81-7d-fc-fa-23-ec')
+    _iid_ = Guid('ed8bfe40-a60b-42ea-96-52-81-7d-fc-fa-23-ec')
     @commethod(7)
     def get_DriverClass(self, retval: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1458,7 +1458,7 @@ class IWindowsDriverUpdateEntry(ComPtr):
     def get_DeviceStatus(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWindowsDriverUpdateEntryCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('0d521700-a372-4bef-82-8b-3d-00-c1-0a-de-bd')
+    _iid_ = Guid('0d521700-a372-4bef-82-8b-3d-00-c1-0a-de-bd')
     @commethod(7)
     def get_Item(self, index: Int32, retval: POINTER(Windows.Win32.System.UpdateAgent.IWindowsDriverUpdateEntry_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1467,7 +1467,7 @@ class IWindowsDriverUpdateEntryCollection(ComPtr):
     def get_Count(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWindowsUpdateAgentInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('85713fa1-7796-4fa2-be-3b-e2-d6-12-4d-d3-73')
+    _iid_ = Guid('85713fa1-7796-4fa2-be-3b-e2-d6-12-4d-d3-73')
     @commethod(7)
     def GetInfo(self, varInfoIdentifier: Windows.Win32.System.Variant.VARIANT, retval: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 InstallationAgent = Guid('317e92fc-1679-46fd-a0-b5-f0-89-14-dd-86-23')

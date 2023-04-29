@@ -320,39 +320,39 @@ BlockRangeList = Guid('b507ca28-2204-11dd-96-6a-00-1a-a0-1b-bc-58')
 BootOptions = Guid('2c941fce-975b-59be-a9-60-9a-2a-26-28-53-a5')
 class DDiscFormat2DataEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2735413c-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('2735413c-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(7)
     def Update(self, object: Windows.Win32.System.Com.IDispatch_head, progress: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
 class DDiscFormat2EraseEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2735413a-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('2735413a-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(7)
     def Update(self, object: Windows.Win32.System.Com.IDispatch_head, elapsedSeconds: Int32, estimatedTotalSeconds: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class DDiscFormat2RawCDEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('27354142-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354142-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(7)
     def Update(self, object: Windows.Win32.System.Com.IDispatch_head, progress: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
 class DDiscFormat2TrackAtOnceEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2735413f-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('2735413f-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(7)
     def Update(self, object: Windows.Win32.System.Com.IDispatch_head, progress: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
 class DDiscMaster2Events(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('27354131-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354131-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(7)
     def NotifyDeviceAdded(self, object: Windows.Win32.System.Com.IDispatch_head, uniqueId: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def NotifyDeviceRemoved(self, object: Windows.Win32.System.Com.IDispatch_head, uniqueId: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class DFileSystemImageEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2c941fdf-975b-59be-a9-60-9a-2a-26-28-53-a5')
+    _iid_ = Guid('2c941fdf-975b-59be-a9-60-9a-2a-26-28-53-a5')
     @commethod(7)
     def Update(self, object: Windows.Win32.System.Com.IDispatch_head, currentFile: Windows.Win32.Foundation.BSTR, copiedSectors: Int32, totalSectors: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class DFileSystemImageImportEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d25c30f9-4087-4366-9e-24-e5-5b-e2-86-42-4b')
+    _iid_ = Guid('d25c30f9-4087-4366-9e-24-e5-5b-e2-86-42-4b')
     @commethod(7)
     def UpdateImport(self, object: Windows.Win32.System.Com.IDispatch_head, fileSystem: Windows.Win32.Storage.Imapi.FsiFileSystems, currentItem: Windows.Win32.Foundation.BSTR, importedDirectoryItems: Int32, totalDirectoryItems: Int32, importedFileItems: Int32, totalFileItems: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 DISC_RECORDER_STATE_FLAGS = UInt32
@@ -361,7 +361,7 @@ RECORDER_DOING_NOTHING: DISC_RECORDER_STATE_FLAGS = 0
 RECORDER_OPENED: DISC_RECORDER_STATE_FLAGS = 1
 class DWriteEngine2Events(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('27354137-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354137-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(7)
     def Update(self, object: Windows.Win32.System.Com.IDispatch_head, progress: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
 EmulationType = Int32
@@ -389,19 +389,19 @@ FsiNamedStreams = Guid('c6b6f8ed-6d19-44b4-b5-39-b1-59-b7-93-a3-2d')
 FsiStream = Guid('2c941fcd-975b-59be-a9-60-9a-2a-26-28-53-a5')
 class IBlockRange(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('b507ca25-2204-11dd-96-6a-00-1a-a0-1b-bc-58')
+    _iid_ = Guid('b507ca25-2204-11dd-96-6a-00-1a-a0-1b-bc-58')
     @commethod(7)
     def get_StartLba(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_EndLba(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBlockRangeList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('b507ca26-2204-11dd-96-6a-00-1a-a0-1b-bc-58')
+    _iid_ = Guid('b507ca26-2204-11dd-96-6a-00-1a-a0-1b-bc-58')
     @commethod(7)
     def get_BlockRanges(self, value: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IBootOptions(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2c941fd4-975b-59be-a9-60-9a-2a-26-28-53-a5')
+    _iid_ = Guid('2c941fd4-975b-59be-a9-60-9a-2a-26-28-53-a5')
     @commethod(7)
     def get_BootImage(self, pVal: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -422,14 +422,14 @@ class IBootOptions(ComPtr):
     def AssignBootImage(self, newVal: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IBurnVerification(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d2ffd834-958b-426d-84-70-2a-13-87-9c-6a-91')
+    _iid_ = Guid('d2ffd834-958b-426d-84-70-2a-13-87-9c-6a-91')
     @commethod(3)
     def put_BurnVerificationLevel(self, value: Windows.Win32.Storage.Imapi.IMAPI_BURN_VERIFICATION_LEVEL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_BurnVerificationLevel(self, value: POINTER(Windows.Win32.Storage.Imapi.IMAPI_BURN_VERIFICATION_LEVEL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiscFormat2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('27354152-8f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354152-8f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(7)
     def IsRecorderSupported(self, recorder: Windows.Win32.Storage.Imapi.IDiscRecorder2_head, value: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -442,7 +442,7 @@ class IDiscFormat2(ComPtr):
     def get_SupportedMediaTypes(self, value: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiscFormat2Data(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IDiscFormat2
-    Guid = Guid('27354153-9f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354153-9f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(12)
     def put_Recorder(self, value: Windows.Win32.Storage.Imapi.IDiscRecorder2_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -509,7 +509,7 @@ class IDiscFormat2Data(ComPtr):
     def SetWriteSpeed(self, RequestedSectorsPerSecond: Int32, RotationTypeIsPureCAV: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiscFormat2DataEventArgs(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IWriteEngine2EventArgs
-    Guid = Guid('2735413d-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('2735413d-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(14)
     def get_ElapsedTime(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -520,7 +520,7 @@ class IDiscFormat2DataEventArgs(ComPtr):
     def get_CurrentAction(self, value: POINTER(Windows.Win32.Storage.Imapi.IMAPI_FORMAT2_DATA_WRITE_ACTION)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiscFormat2Erase(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IDiscFormat2
-    Guid = Guid('27354156-8f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354156-8f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(12)
     def put_Recorder(self, value: Windows.Win32.Storage.Imapi.IDiscRecorder2_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -539,7 +539,7 @@ class IDiscFormat2Erase(ComPtr):
     def EraseMedia(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiscFormat2RawCD(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IDiscFormat2
-    Guid = Guid('27354155-8f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354155-8f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(12)
     def PrepareMedia(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -590,7 +590,7 @@ class IDiscFormat2RawCD(ComPtr):
     def get_SupportedWriteSpeedDescriptors(self, supportedSpeedDescriptors: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiscFormat2RawCDEventArgs(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IWriteEngine2EventArgs
-    Guid = Guid('27354143-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354143-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(14)
     def get_CurrentAction(self, value: POINTER(Windows.Win32.Storage.Imapi.IMAPI_FORMAT2_RAW_CD_WRITE_ACTION)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -599,7 +599,7 @@ class IDiscFormat2RawCDEventArgs(ComPtr):
     def get_RemainingTime(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiscFormat2TrackAtOnce(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IDiscFormat2
-    Guid = Guid('27354154-8f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354154-8f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(12)
     def PrepareMedia(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -652,7 +652,7 @@ class IDiscFormat2TrackAtOnce(ComPtr):
     def get_SupportedWriteSpeedDescriptors(self, supportedSpeedDescriptors: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiscFormat2TrackAtOnceEventArgs(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IWriteEngine2EventArgs
-    Guid = Guid('27354140-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354140-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(14)
     def get_CurrentTrackNumber(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -663,7 +663,7 @@ class IDiscFormat2TrackAtOnceEventArgs(ComPtr):
     def get_RemainingTime(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiscMaster(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('520cca62-51a5-11d3-91-44-00-10-4b-a1-1c-5e')
+    _iid_ = Guid('520cca62-51a5-11d3-91-44-00-10-4b-a1-1c-5e')
     @commethod(3)
     def Open(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -690,7 +690,7 @@ class IDiscMaster(ComPtr):
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiscMaster2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('27354130-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354130-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(7)
     def get__NewEnum(self, ppunk: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -701,7 +701,7 @@ class IDiscMaster2(ComPtr):
     def get_IsSupportedEnvironment(self, value: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiscMasterProgressEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ec9e51c1-4e5d-11d3-91-44-00-10-4b-a1-1c-5e')
+    _iid_ = Guid('ec9e51c1-4e5d-11d3-91-44-00-10-4b-a1-1c-5e')
     @commethod(3)
     def QueryCancel(self, pbCancel: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -722,7 +722,7 @@ class IDiscMasterProgressEvents(ComPtr):
     def NotifyEraseComplete(self, status: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiscRecorder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('85ac9776-ca88-4cf2-89-4e-09-59-8c-07-8a-41')
+    _iid_ = Guid('85ac9776-ca88-4cf2-89-4e-09-59-8c-07-8a-41')
     @commethod(3)
     def Init(self, pbyUniqueID: POINTER(Byte), nulIDSize: UInt32, nulDriveNumber: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -755,7 +755,7 @@ class IDiscRecorder(ComPtr):
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiscRecorder2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('27354133-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354133-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(7)
     def EjectMedia(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -800,7 +800,7 @@ class IDiscRecorder2(ComPtr):
     def get_ExclusiveAccessOwner(self, value: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiscRecorder2Ex(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('27354132-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354132-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(3)
     def SendCommandNoData(self, Cdb: POINTER(Byte), CdbSize: UInt32, SenseBuffer: POINTER(Byte), Timeout: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -839,7 +839,7 @@ class IDiscRecorder2Ex(ComPtr):
     def GetMaximumPageAlignedTransferSize(self, value: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumDiscMasterFormats(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ddf445e1-54ba-11d3-91-44-00-10-4b-a1-1c-5e')
+    _iid_ = Guid('ddf445e1-54ba-11d3-91-44-00-10-4b-a1-1c-5e')
     @commethod(3)
     def Next(self, cFormats: UInt32, lpiidFormatID: POINTER(Guid), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -850,7 +850,7 @@ class IEnumDiscMasterFormats(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.Storage.Imapi.IEnumDiscMasterFormats_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumDiscRecorders(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9b1921e1-54ac-11d3-91-44-00-10-4b-a1-1c-5e')
+    _iid_ = Guid('9b1921e1-54ac-11d3-91-44-00-10-4b-a1-1c-5e')
     @commethod(3)
     def Next(self, cRecorders: UInt32, ppRecorder: POINTER(Windows.Win32.Storage.Imapi.IDiscRecorder_head), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -861,7 +861,7 @@ class IEnumDiscRecorders(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.Storage.Imapi.IEnumDiscRecorders_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumFsiItems(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2c941fda-975b-59be-a9-60-9a-2a-26-28-53-a5')
+    _iid_ = Guid('2c941fda-975b-59be-a9-60-9a-2a-26-28-53-a5')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.Storage.Imapi.IFsiItem_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -872,7 +872,7 @@ class IEnumFsiItems(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.Storage.Imapi.IEnumFsiItems_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumProgressItems(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2c941fd6-975b-59be-a9-60-9a-2a-26-28-53-a5')
+    _iid_ = Guid('2c941fd6-975b-59be-a9-60-9a-2a-26-28-53-a5')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.Storage.Imapi.IProgressItem_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -883,7 +883,7 @@ class IEnumProgressItems(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.Storage.Imapi.IEnumProgressItems_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFileSystemImage(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2c941fe1-975b-59be-a9-60-9a-2a-26-28-53-a5')
+    _iid_ = Guid('2c941fe1-975b-59be-a9-60-9a-2a-26-28-53-a5')
     @commethod(7)
     def get_Root(self, pVal: POINTER(Windows.Win32.Storage.Imapi.IFsiDirectoryItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -986,14 +986,14 @@ class IFileSystemImage(ComPtr):
     def put_MultisessionInterfaces(self, newVal: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFileSystemImage2(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IFileSystemImage
-    Guid = Guid('d7644b2c-1537-4767-b6-2f-f1-38-7b-02-dd-fd')
+    _iid_ = Guid('d7644b2c-1537-4767-b6-2f-f1-38-7b-02-dd-fd')
     @commethod(57)
     def get_BootImageOptionsArray(self, pVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(58)
     def put_BootImageOptionsArray(self, newVal: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFileSystemImage3(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IFileSystemImage2
-    Guid = Guid('7cff842c-7e97-4807-83-04-91-0d-d8-f7-c0-51')
+    _iid_ = Guid('7cff842c-7e97-4807-83-04-91-0d-d8-f7-c0-51')
     @commethod(59)
     def get_CreateRedundantUdfMetadataFiles(self, pVal: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(60)
@@ -1002,7 +1002,7 @@ class IFileSystemImage3(ComPtr):
     def ProbeSpecificFileSystem(self, fileSystemToProbe: Windows.Win32.Storage.Imapi.FsiFileSystems, isAppendable: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFileSystemImageResult(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2c941fd8-975b-59be-a9-60-9a-2a-26-28-53-a5')
+    _iid_ = Guid('2c941fd8-975b-59be-a9-60-9a-2a-26-28-53-a5')
     @commethod(7)
     def get_ImageStream(self, pVal: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1015,12 +1015,12 @@ class IFileSystemImageResult(ComPtr):
     def get_DiscId(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFileSystemImageResult2(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IFileSystemImageResult
-    Guid = Guid('b507ca29-2204-11dd-96-6a-00-1a-a0-1b-bc-58')
+    _iid_ = Guid('b507ca29-2204-11dd-96-6a-00-1a-a0-1b-bc-58')
     @commethod(12)
     def get_ModifiedBlocks(self, pVal: POINTER(Windows.Win32.Storage.Imapi.IBlockRangeList_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsiDirectoryItem(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IFsiItem
-    Guid = Guid('2c941fdc-975b-59be-a9-60-9a-2a-26-28-53-a5')
+    _iid_ = Guid('2c941fdc-975b-59be-a9-60-9a-2a-26-28-53-a5')
     @commethod(19)
     def get__NewEnum(self, NewEnum: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
@@ -1043,12 +1043,12 @@ class IFsiDirectoryItem(ComPtr):
     def RemoveTree(self, path: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsiDirectoryItem2(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IFsiDirectoryItem
-    Guid = Guid('f7fb4b9b-6d96-4d7b-91-15-20-1b-14-48-11-ef')
+    _iid_ = Guid('f7fb4b9b-6d96-4d7b-91-15-20-1b-14-48-11-ef')
     @commethod(29)
     def AddTreeWithNamedStreams(self, sourceDirectory: Windows.Win32.Foundation.BSTR, includeBaseDirectory: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsiFileItem(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IFsiItem
-    Guid = Guid('2c941fdb-975b-59be-a9-60-9a-2a-26-28-53-a5')
+    _iid_ = Guid('2c941fdb-975b-59be-a9-60-9a-2a-26-28-53-a5')
     @commethod(19)
     def get_DataSize(self, pVal: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
@@ -1061,7 +1061,7 @@ class IFsiFileItem(ComPtr):
     def put_Data(self, newVal: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsiFileItem2(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IFsiFileItem
-    Guid = Guid('199d0c19-11e1-40eb-8e-c2-c8-c8-22-a0-77-92')
+    _iid_ = Guid('199d0c19-11e1-40eb-8e-c2-c8-c8-22-a0-77-92')
     @commethod(24)
     def get_FsiNamedStreams(self, streams: POINTER(Windows.Win32.Storage.Imapi.IFsiNamedStreams_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
@@ -1076,7 +1076,7 @@ class IFsiFileItem2(ComPtr):
     def put_IsRealTime(self, newVal: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsiItem(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2c941fd9-975b-59be-a9-60-9a-2a-26-28-53-a5')
+    _iid_ = Guid('2c941fd9-975b-59be-a9-60-9a-2a-26-28-53-a5')
     @commethod(7)
     def get_Name(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1103,7 +1103,7 @@ class IFsiItem(ComPtr):
     def FileSystemPath(self, fileSystem: Windows.Win32.Storage.Imapi.FsiFileSystems, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFsiNamedStreams(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ed79ba56-5294-4250-8d-46-f9-ae-ce-e2-34-59')
+    _iid_ = Guid('ed79ba56-5294-4250-8d-46-f9-ae-ce-e2-34-59')
     @commethod(7)
     def get__NewEnum(self, NewEnum: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1114,7 +1114,7 @@ class IFsiNamedStreams(ComPtr):
     def get_EnumNamedStreams(self, NewEnum: POINTER(Windows.Win32.Storage.Imapi.IEnumFsiItems_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IIsoImageManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6ca38be5-fbbb-4800-95-a1-a4-38-86-5e-b0-d4')
+    _iid_ = Guid('6ca38be5-fbbb-4800-95-a1-a4-38-86-5e-b0-d4')
     @commethod(7)
     def get_Path(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1127,7 +1127,7 @@ class IIsoImageManager(ComPtr):
     def Validate(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IJolietDiscMaster(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e3bc42ce-4e5c-11d3-91-44-00-10-4b-a1-1c-5e')
+    _iid_ = Guid('e3bc42ce-4e5c-11d3-91-44-00-10-4b-a1-1c-5e')
     @commethod(3)
     def GetTotalDataBlocks(self, pnBlocks: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1447,7 +1447,7 @@ class IMMP_MPV_STORE_DRIVER_HANDLE(EasyCastStructure):
     guidSignature: Guid
 class IMultisession(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('27354150-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354150-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(7)
     def get_IsSupportedOnCurrentMediaState(self, value: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1458,7 +1458,7 @@ class IMultisession(ComPtr):
     def get_ImportRecorder(self, value: POINTER(Windows.Win32.Storage.Imapi.IDiscRecorder2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMultisessionRandomWrite(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IMultisession
-    Guid = Guid('b507ca23-2204-11dd-96-6a-00-1a-a0-1b-bc-58')
+    _iid_ = Guid('b507ca23-2204-11dd-96-6a-00-1a-a0-1b-bc-58')
     @commethod(11)
     def get_WriteUnitSize(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -1467,7 +1467,7 @@ class IMultisessionRandomWrite(ComPtr):
     def get_TotalSectorsOnMedia(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMultisessionSequential(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IMultisession
-    Guid = Guid('27354151-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354151-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(11)
     def get_IsFirstDataSession(self, value: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -1480,12 +1480,12 @@ class IMultisessionSequential(ComPtr):
     def get_FreeSectorsOnMedia(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMultisessionSequential2(ComPtr):
     extends: Windows.Win32.Storage.Imapi.IMultisessionSequential
-    Guid = Guid('b507ca22-2204-11dd-96-6a-00-1a-a0-1b-bc-58')
+    _iid_ = Guid('b507ca22-2204-11dd-96-6a-00-1a-a0-1b-bc-58')
     @commethod(16)
     def get_WriteUnitSize(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IProgressItem(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2c941fd5-975b-59be-a9-60-9a-2a-26-28-53-a5')
+    _iid_ = Guid('2c941fd5-975b-59be-a9-60-9a-2a-26-28-53-a5')
     @commethod(7)
     def get_Description(self, desc: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1496,7 +1496,7 @@ class IProgressItem(ComPtr):
     def get_BlockCount(self, blocks: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IProgressItems(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2c941fd7-975b-59be-a9-60-9a-2a-26-28-53-a5')
+    _iid_ = Guid('2c941fd7-975b-59be-a9-60-9a-2a-26-28-53-a5')
     @commethod(7)
     def get__NewEnum(self, NewEnum: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1511,7 +1511,7 @@ class IProgressItems(ComPtr):
     def get_EnumProgressItems(self, NewEnum: POINTER(Windows.Win32.Storage.Imapi.IEnumProgressItems_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawCDImageCreator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('25983550-9d65-49ce-b3-35-40-63-0d-90-12-27')
+    _iid_ = Guid('25983550-9d65-49ce-b3-35-40-63-0d-90-12-27')
     @commethod(7)
     def CreateResultImage(self, resultStream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1552,7 +1552,7 @@ class IRawCDImageCreator(ComPtr):
     def get_ExpectedTableOfContents(self, value: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawCDImageTrackInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('25983551-9d65-49ce-b3-35-40-63-0d-90-12-27')
+    _iid_ = Guid('25983551-9d65-49ce-b3-35-40-63-0d-90-12-27')
     @commethod(7)
     def get_StartingLba(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1581,7 +1581,7 @@ class IRawCDImageTrackInfo(ComPtr):
     def ClearTrackIndex(self, lbaOffset: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IRedbookDiscMaster(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e3bc42cd-4e5c-11d3-91-44-00-10-4b-a1-1c-5e')
+    _iid_ = Guid('e3bc42cd-4e5c-11d3-91-44-00-10-4b-a1-1c-5e')
     @commethod(3)
     def GetTotalAudioTracks(self, pnTracks: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1600,7 +1600,7 @@ class IRedbookDiscMaster(ComPtr):
     def CloseAudioTrack(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IStreamConcatenate(ComPtr):
     extends: Windows.Win32.System.Com.IStream
-    Guid = Guid('27354146-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354146-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(14)
     def Initialize(self, stream1: Windows.Win32.System.Com.IStream_head, stream2: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -1611,12 +1611,12 @@ class IStreamConcatenate(ComPtr):
     def Append2(self, streams: POINTER(Windows.Win32.System.Com.IStream_head), streamCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IStreamInterleave(ComPtr):
     extends: Windows.Win32.System.Com.IStream
-    Guid = Guid('27354147-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354147-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(14)
     def Initialize(self, streams: POINTER(Windows.Win32.System.Com.IStream_head), interleaveSizes: POINTER(UInt32), streamCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IStreamPseudoRandomBased(ComPtr):
     extends: Windows.Win32.System.Com.IStream
-    Guid = Guid('27354145-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354145-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(14)
     def put_Seed(self, value: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -1627,7 +1627,7 @@ class IStreamPseudoRandomBased(ComPtr):
     def get_ExtendedSeed(self, values: POINTER(POINTER(UInt32)), eCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWriteEngine2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('27354135-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354135-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(7)
     def WriteSection(self, data: Windows.Win32.System.Com.IStream_head, startingBlockAddress: Int32, numberOfBlocks: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1656,7 +1656,7 @@ class IWriteEngine2(ComPtr):
     def get_WriteInProgress(self, value: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWriteEngine2EventArgs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('27354136-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354136-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(7)
     def get_StartLba(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1673,7 +1673,7 @@ class IWriteEngine2EventArgs(ComPtr):
     def get_FreeSystemBuffer(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWriteSpeedDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('27354144-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
+    _iid_ = Guid('27354144-7f64-5b0f-8f-00-5d-77-af-be-26-1e')
     @commethod(7)
     def get_MediaType(self, value: POINTER(Windows.Win32.Storage.Imapi.IMAPI_MEDIA_PHYSICAL_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)

@@ -48,7 +48,7 @@ CCF_SCESVC_ATTACHMENT: String = 'CCF_SCESVC_ATTACHMENT'
 CCF_SCESVC_ATTACHMENT_DATA: String = 'CCF_SCESVC_ATTACHMENT_DATA'
 class ISceSvcAttachmentData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('17c35fde-200d-11d1-af-fb-00-c0-4f-b9-84-f9')
+    _iid_ = Guid('17c35fde-200d-11d1-af-fb-00-c0-4f-b9-84-f9')
     @commethod(3)
     def GetData(self, scesvcHandle: c_void_p, sceType: Windows.Win32.Security.ConfigurationSnapin.SCESVC_INFO_TYPE, ppvData: POINTER(c_void_p), psceEnumHandle: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -59,7 +59,7 @@ class ISceSvcAttachmentData(ComPtr):
     def CloseHandle(self, scesvcHandle: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 class ISceSvcAttachmentPersistInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6d90e0d0-200d-11d1-af-fb-00-c0-4f-b9-84-f9')
+    _iid_ = Guid('6d90e0d0-200d-11d1-af-fb-00-c0-4f-b9-84-f9')
     @commethod(3)
     def Save(self, lpTemplateName: POINTER(SByte), scesvcHandle: POINTER(c_void_p), ppvData: POINTER(c_void_p), pbOverwriteAll: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

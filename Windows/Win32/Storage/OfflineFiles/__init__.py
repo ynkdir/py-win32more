@@ -122,7 +122,7 @@ def OfflineFilesQueryStatus(pbActive: POINTER(Windows.Win32.Foundation.BOOL), pb
 def OfflineFilesQueryStatusEx(pbActive: POINTER(Windows.Win32.Foundation.BOOL), pbEnabled: POINTER(Windows.Win32.Foundation.BOOL), pbAvailable: POINTER(Windows.Win32.Foundation.BOOL)) -> UInt32: ...
 class IEnumOfflineFilesItems(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('da70e815-c361-4407-bc-0b-0d-70-46-e5-f2-cd')
+    _iid_ = Guid('da70e815-c361-4407-bc-0b-0d-70-46-e5-f2-cd')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.Storage.OfflineFiles.IOfflineFilesItem_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -133,7 +133,7 @@ class IEnumOfflineFilesItems(ComPtr):
     def Clone(self, ppenum: POINTER(Windows.Win32.Storage.OfflineFiles.IEnumOfflineFilesItems_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumOfflineFilesSettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('729680c4-1a38-47bc-9e-5c-02-c5-15-62-ac-30')
+    _iid_ = Guid('729680c4-1a38-47bc-9e-5c-02-c5-15-62-ac-30')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.Storage.OfflineFiles.IOfflineFilesSetting_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -144,7 +144,7 @@ class IEnumOfflineFilesSettings(ComPtr):
     def Clone(self, ppenum: POINTER(Windows.Win32.Storage.OfflineFiles.IEnumOfflineFilesSettings_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesCache(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('855d6203-7914-48b9-8d-40-4c-56-f5-ac-ff-c5')
+    _iid_ = Guid('855d6203-7914-48b9-8d-40-4c-56-f5-ac-ff-c5')
     @commethod(3)
     def Synchronize(self, hwndParent: Windows.Win32.Foundation.HWND, rgpszPaths: POINTER(Windows.Win32.Foundation.PWSTR), cPaths: UInt32, bAsync: Windows.Win32.Foundation.BOOL, dwSyncControl: UInt32, pISyncConflictHandler: Windows.Win32.Storage.OfflineFiles.IOfflineFilesSyncConflictHandler_head, pIProgress: Windows.Win32.Storage.OfflineFiles.IOfflineFilesSyncProgress_head, pSyncId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -181,12 +181,12 @@ class IOfflineFilesCache(ComPtr):
     def IsPathCacheable(self, pszPath: Windows.Win32.Foundation.PWSTR, pbCacheable: POINTER(Windows.Win32.Foundation.BOOL), pShareCachingMode: POINTER(Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_CACHING_MODE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesCache2(ComPtr):
     extends: Windows.Win32.Storage.OfflineFiles.IOfflineFilesCache
-    Guid = Guid('8c075039-1551-4ed9-87-81-56-70-5c-04-d3-c0')
+    _iid_ = Guid('8c075039-1551-4ed9-87-81-56-70-5c-04-d3-c0')
     @commethod(20)
     def RenameItemEx(self, pszPathOriginal: Windows.Win32.Foundation.PWSTR, pszPathNew: Windows.Win32.Foundation.PWSTR, bReplaceIfExists: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesChangeInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a96e6fa4-e0d1-4c29-96-0b-ee-50-8f-e6-8c-72')
+    _iid_ = Guid('a96e6fa4-e0d1-4c29-96-0b-ee-50-8f-e6-8c-72')
     @commethod(3)
     def IsDirty(self, pbDirty: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -201,7 +201,7 @@ class IOfflineFilesChangeInfo(ComPtr):
     def IsLocallyModifiedTime(self, pbLocallyModifiedTime: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesConnectionInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('efb23a09-a867-4be8-83-a6-86-96-9a-7d-08-56')
+    _iid_ = Guid('efb23a09-a867-4be8-83-a6-86-96-9a-7d-08-56')
     @commethod(3)
     def GetConnectState(self, pConnectState: POINTER(Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_CONNECT_STATE), pOfflineReason: POINTER(Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_OFFLINE_REASON)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -212,24 +212,24 @@ class IOfflineFilesConnectionInfo(ComPtr):
     def TransitionOffline(self, hwndParent: Windows.Win32.Foundation.HWND, dwFlags: UInt32, bForceOpenFilesClosed: Windows.Win32.Foundation.BOOL, pbOpenFilesPreventedTransition: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesDirectoryItem(ComPtr):
     extends: Windows.Win32.Storage.OfflineFiles.IOfflineFilesItem
-    Guid = Guid('2273597a-a08c-4a00-a3-7a-c1-ae-4e-9a-1c-fd')
+    _iid_ = Guid('2273597a-a08c-4a00-a3-7a-c1-ae-4e-9a-1c-fd')
 class IOfflineFilesDirtyInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0f50ce33-bac9-4eaa-a1-1d-da-0e-52-7d-04-7d')
+    _iid_ = Guid('0f50ce33-bac9-4eaa-a1-1d-da-0e-52-7d-04-7d')
     @commethod(3)
     def LocalDirtyByteCount(self, pDirtyByteCount: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RemoteDirtyByteCount(self, pDirtyByteCount: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesErrorInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7112fa5f-7571-435a-8e-b7-19-5c-7c-14-29-bc')
+    _iid_ = Guid('7112fa5f-7571-435a-8e-b7-19-5c-7c-14-29-bc')
     @commethod(3)
     def GetRawData(self, ppBlob: POINTER(POINTER(Windows.Win32.System.Com.BYTE_BLOB_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDescription(self, ppszDescription: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e25585c1-0caa-4eb1-87-3b-1c-ae-5b-77-c3-14')
+    _iid_ = Guid('e25585c1-0caa-4eb1-87-3b-1c-ae-5b-77-c3-14')
     @commethod(3)
     def CacheMoved(self, pszOldPath: Windows.Win32.Foundation.PWSTR, pszNewPath: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -282,7 +282,7 @@ class IOfflineFilesEvents(ComPtr):
     def Ping(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesEvents2(ComPtr):
     extends: Windows.Win32.Storage.OfflineFiles.IOfflineFilesEvents
-    Guid = Guid('1ead8f56-ff76-4faa-a7-95-6f-6e-f7-92-49-8b')
+    _iid_ = Guid('1ead8f56-ff76-4faa-a7-95-6f-6e-f7-92-49-8b')
     @commethod(28)
     def ItemReconnectBegin(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
@@ -303,7 +303,7 @@ class IOfflineFilesEvents2(ComPtr):
     def SettingsChangesApplied(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesEvents3(ComPtr):
     extends: Windows.Win32.Storage.OfflineFiles.IOfflineFilesEvents2
-    Guid = Guid('9ba04a45-ee69-42f0-9a-b1-7d-b5-c8-80-58-08')
+    _iid_ = Guid('9ba04a45-ee69-42f0-9a-b1-7d-b5-c8-80-58-08')
     @commethod(37)
     def TransparentCacheItemNotify(self, pszPath: Windows.Win32.Foundation.PWSTR, EventType: Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_EVENTS, ItemType: Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_ITEM_TYPE, bModifiedData: Windows.Win32.Foundation.BOOL, bModifiedAttributes: Windows.Win32.Foundation.BOOL, pzsOldPath: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(38)
@@ -312,14 +312,14 @@ class IOfflineFilesEvents3(ComPtr):
     def PrefetchFileEnd(self, pszPath: Windows.Win32.Foundation.PWSTR, hrResult: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesEvents4(ComPtr):
     extends: Windows.Win32.Storage.OfflineFiles.IOfflineFilesEvents3
-    Guid = Guid('dbd69b1e-c7d2-473e-b3-5f-9d-8c-24-c0-c4-84')
+    _iid_ = Guid('dbd69b1e-c7d2-473e-b3-5f-9d-8c-24-c0-c4-84')
     @commethod(40)
     def PrefetchCloseHandleBegin(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(41)
     def PrefetchCloseHandleEnd(self, dwClosedHandleCount: UInt32, dwOpenHandleCount: UInt32, hrResult: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesEventsFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('33fc4e1b-0716-40fa-ba-65-6e-62-a8-4a-84-6f')
+    _iid_ = Guid('33fc4e1b-0716-40fa-ba-65-6e-62-a8-4a-84-6f')
     @commethod(3)
     def GetPathFilter(self, ppszFilter: POINTER(Windows.Win32.Foundation.PWSTR), pMatch: POINTER(Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_PATHFILTER_MATCH)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -328,14 +328,14 @@ class IOfflineFilesEventsFilter(ComPtr):
     def GetExcludedEvents(self, cElements: UInt32, prgEvents: POINTER(Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_EVENTS), pcEvents: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesFileItem(ComPtr):
     extends: Windows.Win32.Storage.OfflineFiles.IOfflineFilesItem
-    Guid = Guid('8dfadead-26c2-4eff-8a-72-6b-50-72-3d-9a-00')
+    _iid_ = Guid('8dfadead-26c2-4eff-8a-72-6b-50-72-3d-9a-00')
     @commethod(8)
     def IsSparse(self, pbIsSparse: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def IsEncrypted(self, pbIsEncrypted: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesFileSysInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bc1a163f-7bfd-4d88-9c-66-96-ea-9a-6a-3d-6b')
+    _iid_ = Guid('bc1a163f-7bfd-4d88-9c-66-96-ea-9a-6a-3d-6b')
     @commethod(3)
     def GetAttributes(self, copy: Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_ITEM_COPY, pdwAttributes: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -344,12 +344,12 @@ class IOfflineFilesFileSysInfo(ComPtr):
     def GetFileSize(self, copy: Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_ITEM_COPY, pSize: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesGhostInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2b09d48c-8ab5-464f-a7-55-a5-9d-92-f9-94-29')
+    _iid_ = Guid('2b09d48c-8ab5-464f-a7-55-a5-9d-92-f9-94-29')
     @commethod(3)
     def IsGhosted(self, pbGhosted: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4a753da6-e044-4f12-a7-18-5d-14-d0-79-a9-06')
+    _iid_ = Guid('4a753da6-e044-4f12-a7-18-5d-14-d0-79-a9-06')
     @commethod(3)
     def GetItemType(self, pItemType: POINTER(Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_ITEM_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -362,14 +362,14 @@ class IOfflineFilesItem(ComPtr):
     def IsMarkedForDeletion(self, pbMarkedForDeletion: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesItemContainer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3836f049-9413-45dd-bf-46-b5-aa-a8-2d-c3-10')
+    _iid_ = Guid('3836f049-9413-45dd-bf-46-b5-aa-a8-2d-c3-10')
     @commethod(3)
     def EnumItems(self, dwQueryFlags: UInt32, ppenum: POINTER(Windows.Win32.Storage.OfflineFiles.IEnumOfflineFilesItems_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EnumItemsEx(self, pIncludeFileFilter: Windows.Win32.Storage.OfflineFiles.IOfflineFilesItemFilter_head, pIncludeDirFilter: Windows.Win32.Storage.OfflineFiles.IOfflineFilesItemFilter_head, pExcludeFileFilter: Windows.Win32.Storage.OfflineFiles.IOfflineFilesItemFilter_head, pExcludeDirFilter: Windows.Win32.Storage.OfflineFiles.IOfflineFilesItemFilter_head, dwEnumFlags: UInt32, dwQueryFlags: UInt32, ppenum: POINTER(Windows.Win32.Storage.OfflineFiles.IEnumOfflineFilesItems_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesItemFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f4b5a26c-dc05-4f20-ad-a4-55-1f-10-77-be-5c')
+    _iid_ = Guid('f4b5a26c-dc05-4f20-ad-a4-55-1f-10-77-be-5c')
     @commethod(3)
     def GetFilterFlags(self, pullFlags: POINTER(UInt64), pullMask: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -378,7 +378,7 @@ class IOfflineFilesItemFilter(ComPtr):
     def GetPatternFilter(self, pszPattern: Windows.Win32.Foundation.PWSTR, cchPattern: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesPinInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5b2b0655-b3fd-497d-ad-eb-bd-15-6b-c8-35-5b')
+    _iid_ = Guid('5b2b0655-b3fd-497d-ad-eb-bd-15-6b-c8-35-5b')
     @commethod(3)
     def IsPinned(self, pbPinned: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -391,12 +391,12 @@ class IOfflineFilesPinInfo(ComPtr):
     def IsPinnedForFolderRedirection(self, pbPinnedForFolderRedirection: POINTER(Windows.Win32.Foundation.BOOL), pbInherit: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesPinInfo2(ComPtr):
     extends: Windows.Win32.Storage.OfflineFiles.IOfflineFilesPinInfo
-    Guid = Guid('623c58a2-42ed-4ad7-b6-9a-0f-1b-30-a7-2d-0d')
+    _iid_ = Guid('623c58a2-42ed-4ad7-b6-9a-0f-1b-30-a7-2d-0d')
     @commethod(8)
     def IsPartlyPinned(self, pbPartlyPinned: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesProgress(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fad63237-c55b-4911-98-50-bc-f9-6d-4c-97-9e')
+    _iid_ = Guid('fad63237-c55b-4911-98-50-bc-f9-6d-4c-97-9e')
     @commethod(3)
     def Begin(self, pbAbort: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -405,10 +405,10 @@ class IOfflineFilesProgress(ComPtr):
     def End(self, hrResult: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesServerItem(ComPtr):
     extends: Windows.Win32.Storage.OfflineFiles.IOfflineFilesItem
-    Guid = Guid('9b1c9576-a92b-4151-8e-9e-7c-7b-3e-c2-e0-16')
+    _iid_ = Guid('9b1c9576-a92b-4151-8e-9e-7c-7b-3e-c2-e0-16')
 class IOfflineFilesSetting(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d871d3f7-f613-48a1-82-7e-7a-34-e5-60-ff-f6')
+    _iid_ = Guid('d871d3f7-f613-48a1-82-7e-7a-34-e5-60-ff-f6')
     @commethod(3)
     def GetName(self, ppszName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -429,7 +429,7 @@ class IOfflineFilesSetting(ComPtr):
     def GetValue(self, pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head), pbSetByPolicy: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesShareInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7bcc43e7-31ce-4ca4-8c-cd-1c-ff-2d-c4-94-da')
+    _iid_ = Guid('7bcc43e7-31ce-4ca4-8c-cd-1c-ff-2d-c4-94-da')
     @commethod(3)
     def GetShareItem(self, ppShareItem: POINTER(Windows.Win32.Storage.OfflineFiles.IOfflineFilesShareItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -438,32 +438,32 @@ class IOfflineFilesShareInfo(ComPtr):
     def IsShareDfsJunction(self, pbIsDfsJunction: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesShareItem(ComPtr):
     extends: Windows.Win32.Storage.OfflineFiles.IOfflineFilesItem
-    Guid = Guid('bab7e48d-4804-41b5-a4-4d-0f-19-9b-06-b1-45')
+    _iid_ = Guid('bab7e48d-4804-41b5-a4-4d-0f-19-9b-06-b1-45')
 class IOfflineFilesSimpleProgress(ComPtr):
     extends: Windows.Win32.Storage.OfflineFiles.IOfflineFilesProgress
-    Guid = Guid('c34f7f9b-c43d-4f9d-a7-76-c0-eb-6d-e5-d4-01')
+    _iid_ = Guid('c34f7f9b-c43d-4f9d-a7-76-c0-eb-6d-e5-d4-01')
     @commethod(6)
     def ItemBegin(self, pszFile: Windows.Win32.Foundation.PWSTR, pResponse: POINTER(Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_OP_RESPONSE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def ItemResult(self, pszFile: Windows.Win32.Foundation.PWSTR, hrResult: Windows.Win32.Foundation.HRESULT, pResponse: POINTER(Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_OP_RESPONSE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesSuspend(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('62c4560f-bc0b-48ca-ad-9d-34-cb-52-8d-99-a9')
+    _iid_ = Guid('62c4560f-bc0b-48ca-ad-9d-34-cb-52-8d-99-a9')
     @commethod(3)
     def SuspendRoot(self, bSuspend: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesSuspendInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a457c25b-4e9c-4b04-85-af-89-32-cc-d9-78-89')
+    _iid_ = Guid('a457c25b-4e9c-4b04-85-af-89-32-cc-d9-78-89')
     @commethod(3)
     def IsSuspended(self, pbSuspended: POINTER(Windows.Win32.Foundation.BOOL), pbSuspendedRoot: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesSyncConflictHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b6dd5092-c65c-46b6-97-b8-fa-dd-08-e7-e1-be')
+    _iid_ = Guid('b6dd5092-c65c-46b6-97-b8-fa-dd-08-e7-e1-be')
     @commethod(3)
     def ResolveConflict(self, pszPath: Windows.Win32.Foundation.PWSTR, fStateKnown: UInt32, state: Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_SYNC_STATE, fChangeDetails: UInt32, pConflictResolution: POINTER(Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_SYNC_CONFLICT_RESOLVE), ppszNewName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesSyncErrorInfo(ComPtr):
     extends: Windows.Win32.Storage.OfflineFiles.IOfflineFilesErrorInfo
-    Guid = Guid('59f95e46-eb54-49d1-be-76-de-95-45-8d-01-b0')
+    _iid_ = Guid('59f95e46-eb54-49d1-be-76-de-95-45-8d-01-b0')
     @commethod(5)
     def GetSyncOperation(self, pSyncOp: POINTER(Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_SYNC_OPERATION)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -480,7 +480,7 @@ class IOfflineFilesSyncErrorInfo(ComPtr):
     def GetOriginalInfo(self, ppInfo: POINTER(Windows.Win32.Storage.OfflineFiles.IOfflineFilesSyncErrorItemInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesSyncErrorItemInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ecdbaf0d-6a18-4d55-80-17-10-8f-76-60-ba-44')
+    _iid_ = Guid('ecdbaf0d-6a18-4d55-80-17-10-8f-76-60-ba-44')
     @commethod(3)
     def GetFileAttributes(self, pdwAttributes: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -489,14 +489,14 @@ class IOfflineFilesSyncErrorItemInfo(ComPtr):
     def GetFileSize(self, pSize: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesSyncProgress(ComPtr):
     extends: Windows.Win32.Storage.OfflineFiles.IOfflineFilesProgress
-    Guid = Guid('6931f49a-6fc7-4c1b-b2-65-56-79-3f-c4-51-b7')
+    _iid_ = Guid('6931f49a-6fc7-4c1b-b2-65-56-79-3f-c4-51-b7')
     @commethod(6)
     def SyncItemBegin(self, pszFile: Windows.Win32.Foundation.PWSTR, pResponse: POINTER(Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_OP_RESPONSE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SyncItemResult(self, pszFile: Windows.Win32.Foundation.PWSTR, hrResult: Windows.Win32.Foundation.HRESULT, pErrorInfo: Windows.Win32.Storage.OfflineFiles.IOfflineFilesSyncErrorInfo_head, pResponse: POINTER(Windows.Win32.Storage.OfflineFiles.OFFLINEFILES_OP_RESPONSE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOfflineFilesTransparentCacheInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bcaf4a01-5b68-4b56-a6-a1-8d-27-86-ed-e8-e3')
+    _iid_ = Guid('bcaf4a01-5b68-4b56-a6-a1-8d-27-86-ed-e8-e3')
     @commethod(3)
     def IsTransparentlyCached(self, pbTransparentlyCached: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 OFFLINEFILES_CACHING_MODE = Int32

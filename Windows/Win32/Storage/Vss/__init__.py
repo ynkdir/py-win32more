@@ -103,7 +103,7 @@ VSS_E_FSS_TIMEOUT: Windows.Win32.Foundation.HRESULT = -2147212265
 def CreateVssExpressWriterInternal(ppWriter: POINTER(Windows.Win32.Storage.Vss.IVssExpressWriter_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssAdmin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('77ed5996-2f63-11d3-8a-39-00-c0-4f-72-d8-e3')
+    _iid_ = Guid('77ed5996-2f63-11d3-8a-39-00-c0-4f-72-d8-e3')
     @commethod(3)
     def RegisterProvider(self, pProviderId: Guid, ClassId: Guid, pwszProviderName: POINTER(UInt16), eProviderType: Windows.Win32.Storage.Vss.VSS_PROVIDER_TYPE, pwszProviderVersion: POINTER(UInt16), ProviderVersionId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -114,7 +114,7 @@ class IVssAdmin(ComPtr):
     def AbortAllSnapshotsInProgress(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssAdminEx(ComPtr):
     extends: Windows.Win32.Storage.Vss.IVssAdmin
-    Guid = Guid('7858a9f8-b1fa-41a6-96-4f-b9-b3-6b-8c-d8-d8')
+    _iid_ = Guid('7858a9f8-b1fa-41a6-96-4f-b9-b3-6b-8c-d8-d8')
     @commethod(7)
     def GetProviderCapability(self, pProviderId: Guid, pllOriginalCapabilityMask: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -123,7 +123,7 @@ class IVssAdminEx(ComPtr):
     def SetProviderContext(self, ProviderId: Guid, lContext: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssAsync(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('507c37b4-cf5b-4e95-b0-af-14-eb-97-67-46-7e')
+    _iid_ = Guid('507c37b4-cf5b-4e95-b0-af-14-eb-97-67-46-7e')
     @commethod(3)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -132,7 +132,7 @@ class IVssAsync(ComPtr):
     def QueryStatus(self, pHrResult: POINTER(Windows.Win32.Foundation.HRESULT), pReserved: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssComponent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d2c72c96-c121-4518-b6-27-e5-a9-3d-01-0e-ad')
+    _iid_ = Guid('d2c72c96-c121-4518-b6-27-e5-a9-3d-01-0e-ad')
     @commethod(3)
     def GetLogicalPath(self, pbstrPath: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -211,7 +211,7 @@ class IVssComponent(ComPtr):
     def GetDifferencedFile(self, iDifferencedFile: UInt32, pbstrPath: POINTER(Windows.Win32.Foundation.BSTR), pbstrFilespec: POINTER(Windows.Win32.Foundation.BSTR), pbRecursive: POINTER(Windows.Win32.Foundation.BOOL), pbstrLsnString: POINTER(Windows.Win32.Foundation.BSTR), pftLastModifyTime: POINTER(Windows.Win32.Foundation.FILETIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssComponentEx(ComPtr):
     extends: Windows.Win32.Storage.Vss.IVssComponent
-    Guid = Guid('156c8b5e-f131-4bd7-9c-97-d1-92-3b-e7-e1-fa')
+    _iid_ = Guid('156c8b5e-f131-4bd7-9c-97-d1-92-3b-e7-e1-fa')
     @commethod(41)
     def SetPrepareForBackupFailureMsg(self, wszFailureMsg: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(42)
@@ -228,14 +228,14 @@ class IVssComponentEx(ComPtr):
     def GetRestoreName(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssComponentEx2(ComPtr):
     extends: Windows.Win32.Storage.Vss.IVssComponentEx
-    Guid = Guid('3b5be0f2-07a9-4e4b-bd-d3-cf-dc-8e-2c-0d-2d')
+    _iid_ = Guid('3b5be0f2-07a9-4e4b-bd-d3-cf-dc-8e-2c-0d-2d')
     @commethod(48)
     def SetFailure(self, hr: Windows.Win32.Foundation.HRESULT, hrApplication: Windows.Win32.Foundation.HRESULT, wszApplicationMessage: Windows.Win32.Foundation.PWSTR, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(49)
     def GetFailure(self, phr: POINTER(Windows.Win32.Foundation.HRESULT), phrApplication: POINTER(Windows.Win32.Foundation.HRESULT), pbstrApplicationMessage: POINTER(Windows.Win32.Foundation.BSTR), pdwReserved: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssCreateExpressWriterMetadata(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9c772e77-b26e-427f-92-dd-c9-96-f4-1e-a5-e3')
+    _iid_ = Guid('9c772e77-b26e-427f-92-dd-c9-96-f4-1e-a5-e3')
     @commethod(3)
     def AddExcludeFiles(self, wszPath: Windows.Win32.Foundation.PWSTR, wszFilespec: Windows.Win32.Foundation.PWSTR, bRecursive: Byte) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -278,7 +278,7 @@ class IVssCreateWriterMetadata(ComPtr):
     def SaveAsXML(self, pbstrXML: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssDifferentialSoftwareSnapshotMgmt(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('214a0f28-b737-4026-b8-47-4f-9e-37-d7-95-29')
+    _iid_ = Guid('214a0f28-b737-4026-b8-47-4f-9e-37-d7-95-29')
     @commethod(3)
     def AddDiffArea(self, pwszVolumeName: POINTER(UInt16), pwszDiffAreaVolumeName: POINTER(UInt16), llMaximumDiffSpace: Int64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -293,7 +293,7 @@ class IVssDifferentialSoftwareSnapshotMgmt(ComPtr):
     def QueryDiffAreasForSnapshot(self, SnapshotId: Guid, ppEnum: POINTER(Windows.Win32.Storage.Vss.IVssEnumMgmtObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssDifferentialSoftwareSnapshotMgmt2(ComPtr):
     extends: Windows.Win32.Storage.Vss.IVssDifferentialSoftwareSnapshotMgmt
-    Guid = Guid('949d7353-675f-4275-89-69-f0-44-c6-27-78-15')
+    _iid_ = Guid('949d7353-675f-4275-89-69-f0-44-c6-27-78-15')
     @commethod(9)
     def ChangeDiffAreaMaximumSizeEx(self, pwszVolumeName: POINTER(UInt16), pwszDiffAreaVolumeName: POINTER(UInt16), llMaximumDiffSpace: Int64, bVolatile: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -304,7 +304,7 @@ class IVssDifferentialSoftwareSnapshotMgmt2(ComPtr):
     def SetSnapshotPriority(self, idSnapshot: Guid, priority: Byte) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssDifferentialSoftwareSnapshotMgmt3(ComPtr):
     extends: Windows.Win32.Storage.Vss.IVssDifferentialSoftwareSnapshotMgmt2
-    Guid = Guid('383f7e71-a4c5-401f-b2-7f-f8-26-28-9f-84-58')
+    _iid_ = Guid('383f7e71-a4c5-401f-b2-7f-f8-26-28-9f-84-58')
     @commethod(13)
     def SetVolumeProtectLevel(self, pwszVolumeName: POINTER(UInt16), protectionLevel: Windows.Win32.Storage.Vss.VSS_PROTECTION_LEVEL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
@@ -317,7 +317,7 @@ class IVssDifferentialSoftwareSnapshotMgmt3(ComPtr):
     def QuerySnapshotDeltaBitmap(self, idSnapshotOlder: Guid, idSnapshotYounger: Guid, pcBlockSizePerBit: POINTER(UInt32), pcBitmapLength: POINTER(UInt32), ppbBitmap: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssEnumMgmtObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('01954e6b-9254-4e6e-80-8c-c9-e0-5d-00-76-96')
+    _iid_ = Guid('01954e6b-9254-4e6e-80-8c-c9-e0-5d-00-76-96')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.Storage.Vss.VSS_MGMT_OBJECT_PROP_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -328,7 +328,7 @@ class IVssEnumMgmtObject(ComPtr):
     def Clone(self, ppenum: POINTER(Windows.Win32.Storage.Vss.IVssEnumMgmtObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssEnumObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ae1c7110-2f60-11d3-8a-39-00-c0-4f-72-d8-e3')
+    _iid_ = Guid('ae1c7110-2f60-11d3-8a-39-00-c0-4f-72-d8-e3')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.Storage.Vss.VSS_OBJECT_PROP_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -339,7 +339,7 @@ class IVssEnumObject(ComPtr):
     def Clone(self, ppenum: POINTER(Windows.Win32.Storage.Vss.IVssEnumObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssExpressWriter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e33affdc-59c7-47b1-97-d5-42-66-59-8f-62-35')
+    _iid_ = Guid('e33affdc-59c7-47b1-97-d5-42-66-59-8f-62-35')
     @commethod(3)
     def CreateMetadata(self, writerId: Guid, writerName: Windows.Win32.Foundation.PWSTR, usageType: Windows.Win32.Storage.Vss.VSS_USAGE_TYPE, versionMajor: UInt32, versionMinor: UInt32, reserved: UInt32, ppMetadata: POINTER(Windows.Win32.Storage.Vss.IVssCreateExpressWriterMetadata_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -350,7 +350,7 @@ class IVssExpressWriter(ComPtr):
     def Unregister(self, writerId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssFileShareSnapshotProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c8636060-7c2e-11df-8c-4a-08-00-20-0c-9a-66')
+    _iid_ = Guid('c8636060-7c2e-11df-8c-4a-08-00-20-0c-9a-66')
     @commethod(3)
     def SetContext(self, lContext: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -369,7 +369,7 @@ class IVssFileShareSnapshotProvider(ComPtr):
     def SetSnapshotProperty(self, SnapshotId: Guid, eSnapshotPropertyId: Windows.Win32.Storage.Vss.VSS_SNAPSHOT_PROPERTY_ID, vProperty: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssHardwareSnapshotProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9593a157-44e9-4344-bb-eb-44-fb-f9-b0-6b-10')
+    _iid_ = Guid('9593a157-44e9-4344-bb-eb-44-fb-f9-b0-6b-10')
     @commethod(3)
     def AreLunsSupported(self, lLunCount: Int32, lContext: Int32, rgwszDevices: POINTER(POINTER(UInt16)), pLunInformation: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_LUN_INFORMATION_head), pbIsSupported: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -384,7 +384,7 @@ class IVssHardwareSnapshotProvider(ComPtr):
     def OnLunEmpty(self, wszDeviceName: POINTER(UInt16), pInformation: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_LUN_INFORMATION_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssHardwareSnapshotProviderEx(ComPtr):
     extends: Windows.Win32.Storage.Vss.IVssHardwareSnapshotProvider
-    Guid = Guid('7f5ba925-cdb1-4d11-a7-1f-33-9e-b7-e7-09-fd')
+    _iid_ = Guid('7f5ba925-cdb1-4d11-a7-1f-33-9e-b7-e7-09-fd')
     @commethod(9)
     def GetProviderCapabilities(self, pllOriginalCapabilityMask: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -395,7 +395,7 @@ class IVssHardwareSnapshotProviderEx(ComPtr):
     def OnReuseLuns(self, pSnapshotLuns: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_LUN_INFORMATION_head), pOriginalLuns: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_LUN_INFORMATION_head), dwCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssProviderCreateSnapshotSet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5f894e5b-1e39-4778-8e-23-9a-ba-d9-f0-e0-8c')
+    _iid_ = Guid('5f894e5b-1e39-4778-8e-23-9a-ba-d9-f0-e0-8c')
     @commethod(3)
     def EndPrepareSnapshots(self, SnapshotSetId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -412,14 +412,14 @@ class IVssProviderCreateSnapshotSet(ComPtr):
     def AbortSnapshots(self, SnapshotSetId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssProviderNotifications(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e561901f-03a5-4afe-86-d0-72-ba-ee-ce-70-04')
+    _iid_ = Guid('e561901f-03a5-4afe-86-d0-72-ba-ee-ce-70-04')
     @commethod(3)
     def OnLoad(self, pCallback: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnUnload(self, bForceUnload: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssSnapshotMgmt(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fa7df749-66e7-4986-a2-7f-e2-f0-4a-e5-37-72')
+    _iid_ = Guid('fa7df749-66e7-4986-a2-7f-e2-f0-4a-e5-37-72')
     @commethod(3)
     def GetProviderMgmtInterface(self, ProviderId: Guid, InterfaceId: POINTER(Guid), ppItf: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -428,12 +428,12 @@ class IVssSnapshotMgmt(ComPtr):
     def QuerySnapshotsByVolume(self, pwszVolumeName: POINTER(UInt16), ProviderId: Guid, ppEnum: POINTER(Windows.Win32.Storage.Vss.IVssEnumObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssSnapshotMgmt2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0f61ec39-fe82-45f2-a3-f0-76-8b-5d-42-71-02')
+    _iid_ = Guid('0f61ec39-fe82-45f2-a3-f0-76-8b-5d-42-71-02')
     @commethod(3)
     def GetMinDiffAreaSize(self, pllMinDiffAreaSize: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVssSoftwareSnapshotProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('609e123e-2c5a-44d3-8f-01-0b-1d-9a-47-d1-ff')
+    _iid_ = Guid('609e123e-2c5a-44d3-8f-01-0b-1d-9a-47-d1-ff')
     @commethod(3)
     def SetContext(self, lContext: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

@@ -365,7 +365,7 @@ GROUP_POLICY_OBJECT_TYPE_GPOTypeLocalUser: GROUP_POLICY_OBJECT_TYPE = 3
 GROUP_POLICY_OBJECT_TYPE_GPOTypeLocalGroup: GROUP_POLICY_OBJECT_TYPE = 4
 class IGPEInformation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8fc0b735-a0e1-11d1-a7-d3-00-00-f8-75-71-e3')
+    _iid_ = Guid('8fc0b735-a0e1-11d1-a7-d3-00-00-f8-75-71-e3')
     @commethod(3)
     def GetName(self, pszName: Windows.Win32.Foundation.PWSTR, cchMaxLength: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -386,7 +386,7 @@ class IGPEInformation(ComPtr):
     def PolicyChanged(self, bMachine: Windows.Win32.Foundation.BOOL, bAdd: Windows.Win32.Foundation.BOOL, pGuidExtension: POINTER(Guid), pGuidSnapin: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPM(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('f5fae809-3bd6-4da9-a6-5e-17-66-5b-41-d7-63')
+    _iid_ = Guid('f5fae809-3bd6-4da9-a6-5e-17-66-5b-41-d7-63')
     @commethod(7)
     def GetDomain(self, bstrDomain: Windows.Win32.Foundation.BSTR, bstrDomainController: Windows.Win32.Foundation.BSTR, lDCFlags: Int32, pIGPMDomain: POINTER(Windows.Win32.System.GroupPolicy.IGPMDomain_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -413,24 +413,24 @@ class IGPM(ComPtr):
     def InitializeReporting(self, bstrAdmPath: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPM2(ComPtr):
     extends: Windows.Win32.System.GroupPolicy.IGPM
-    Guid = Guid('00238f8a-3d86-41ac-8f-5e-06-a6-63-8a-63-4a')
+    _iid_ = Guid('00238f8a-3d86-41ac-8f-5e-06-a6-63-8a-63-4a')
     @commethod(19)
     def GetBackupDirEx(self, bstrBackupDir: Windows.Win32.Foundation.BSTR, backupDirType: Windows.Win32.System.GroupPolicy.GPMBackupType, ppIGPMBackupDirEx: POINTER(Windows.Win32.System.GroupPolicy.IGPMBackupDirEx_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def InitializeReportingEx(self, bstrAdmPath: Windows.Win32.Foundation.BSTR, reportingOptions: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMAsyncCancel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ddc67754-be67-4541-81-66-f4-81-66-86-8c-9c')
+    _iid_ = Guid('ddc67754-be67-4541-81-66-f4-81-66-86-8c-9c')
     @commethod(7)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMAsyncProgress(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6aac29f8-5948-4324-bf-70-42-38-18-94-2d-bc')
+    _iid_ = Guid('6aac29f8-5948-4324-bf-70-42-38-18-94-2d-bc')
     @commethod(7)
     def Status(self, lProgressNumerator: Int32, lProgressDenominator: Int32, hrStatus: Windows.Win32.Foundation.HRESULT, pResult: POINTER(Windows.Win32.System.Variant.VARIANT_head), ppIGPMStatusMsgCollection: Windows.Win32.System.GroupPolicy.IGPMStatusMsgCollection_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMBackup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d8a16a35-3b0d-416b-8d-02-4d-f6-f9-5a-71-19')
+    _iid_ = Guid('d8a16a35-3b0d-416b-8d-02-4d-f6-f9-5a-71-19')
     @commethod(7)
     def get_ID(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -453,7 +453,7 @@ class IGPMBackup(ComPtr):
     def GenerateReportToFile(self, gpmReportType: Windows.Win32.System.GroupPolicy.GPMReportType, bstrTargetFilePath: Windows.Win32.Foundation.BSTR, ppIGPMResult: POINTER(Windows.Win32.System.GroupPolicy.IGPMResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMBackupCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c786fc0f-26d8-4bab-a7-45-39-ca-7e-80-0c-ac')
+    _iid_ = Guid('c786fc0f-26d8-4bab-a7-45-39-ca-7e-80-0c-ac')
     @commethod(7)
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -462,7 +462,7 @@ class IGPMBackupCollection(ComPtr):
     def get__NewEnum(self, ppIGPMBackup: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMBackupDir(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('b1568bed-0a93-4acc-81-0f-af-e7-08-10-19-b9')
+    _iid_ = Guid('b1568bed-0a93-4acc-81-0f-af-e7-08-10-19-b9')
     @commethod(7)
     def get_BackupDirectory(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -471,7 +471,7 @@ class IGPMBackupDir(ComPtr):
     def SearchBackups(self, pIGPMSearchCriteria: Windows.Win32.System.GroupPolicy.IGPMSearchCriteria_head, ppIGPMBackupCollection: POINTER(Windows.Win32.System.GroupPolicy.IGPMBackupCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMBackupDirEx(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('f8dc55ed-3ba0-4864-aa-d4-d3-65-18-9e-e1-d5')
+    _iid_ = Guid('f8dc55ed-3ba0-4864-aa-d4-d3-65-18-9e-e1-d5')
     @commethod(7)
     def get_BackupDir(self, pbstrBackupDir: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -482,7 +482,7 @@ class IGPMBackupDirEx(ComPtr):
     def SearchBackups(self, pIGPMSearchCriteria: Windows.Win32.System.GroupPolicy.IGPMSearchCriteria_head, pvarBackupCollection: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMCSECollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2e52a97d-0a4a-4a6f-85-db-20-16-22-45-5d-a0')
+    _iid_ = Guid('2e52a97d-0a4a-4a6f-85-db-20-16-22-45-5d-a0')
     @commethod(7)
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -491,7 +491,7 @@ class IGPMCSECollection(ComPtr):
     def get__NewEnum(self, ppIGPMCSEs: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMClientSideExtension(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('69da7488-b8db-415e-92-66-90-1b-e4-d4-99-28')
+    _iid_ = Guid('69da7488-b8db-415e-92-66-90-1b-e4-d4-99-28')
     @commethod(7)
     def get_ID(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -502,7 +502,7 @@ class IGPMClientSideExtension(ComPtr):
     def IsComputerEnabled(self, pvbEnabled: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMConstants(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('50ef73e6-d35c-4c8d-be-63-7e-a5-d2-aa-c5-c4')
+    _iid_ = Guid('50ef73e6-d35c-4c8d-be-63-7e-a5-d2-aa-c5-c4')
     @commethod(7)
     def get_PermGPOApply(self, pVal: POINTER(Windows.Win32.System.GroupPolicy.GPMPermissionType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -625,7 +625,7 @@ class IGPMConstants(ComPtr):
     def get_RsopPlanningAssumeCompWQLFilterTrue(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMConstants2(ComPtr):
     extends: Windows.Win32.System.GroupPolicy.IGPMConstants
-    Guid = Guid('05ae21b0-ac09-4032-a2-6f-9e-7d-a7-86-dc-19')
+    _iid_ = Guid('05ae21b0-ac09-4032-a2-6f-9e-7d-a7-86-dc-19')
     @commethod(67)
     def get_BackupTypeGPO(self, pVal: POINTER(Windows.Win32.System.GroupPolicy.GPMBackupType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(68)
@@ -658,7 +658,7 @@ class IGPMConstants2(ComPtr):
     def get_ReportComments(self, pVal: POINTER(Windows.Win32.System.GroupPolicy.GPMReportingOptions)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMDomain(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6b21cc14-5a00-4f44-a7-38-fe-ec-8a-94-c7-e3')
+    _iid_ = Guid('6b21cc14-5a00-4f44-a7-38-fe-ec-8a-94-c7-e3')
     @commethod(7)
     def get_DomainController(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -681,7 +681,7 @@ class IGPMDomain(ComPtr):
     def SearchWMIFilters(self, pIGPMSearchCriteria: Windows.Win32.System.GroupPolicy.IGPMSearchCriteria_head, ppIGPMWMIFilterCollection: POINTER(Windows.Win32.System.GroupPolicy.IGPMWMIFilterCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMDomain2(ComPtr):
     extends: Windows.Win32.System.GroupPolicy.IGPMDomain
-    Guid = Guid('7ca6bb8b-f1eb-490a-93-8d-3c-4e-51-c7-68-e6')
+    _iid_ = Guid('7ca6bb8b-f1eb-490a-93-8d-3c-4e-51-c7-68-e6')
     @commethod(17)
     def CreateStarterGPO(self, ppnewTemplate: POINTER(Windows.Win32.System.GroupPolicy.IGPMStarterGPO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
@@ -696,7 +696,7 @@ class IGPMDomain2(ComPtr):
     def RestoreStarterGPO(self, pIGPMTmplBackup: Windows.Win32.System.GroupPolicy.IGPMStarterGPOBackup_head, pvarGPMProgress: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarGPMCancel: POINTER(Windows.Win32.System.Variant.VARIANT_head), ppIGPMResult: POINTER(Windows.Win32.System.GroupPolicy.IGPMResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMDomain3(ComPtr):
     extends: Windows.Win32.System.GroupPolicy.IGPMDomain2
-    Guid = Guid('0077fdfe-88c7-4acf-a1-1d-d1-0a-7c-31-0a-03')
+    _iid_ = Guid('0077fdfe-88c7-4acf-a1-1d-d1-0a-7c-31-0a-03')
     @commethod(23)
     def GenerateReport(self, gpmReportType: Windows.Win32.System.GroupPolicy.GPMReportType, pvarGPMProgress: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarGPMCancel: POINTER(Windows.Win32.System.Variant.VARIANT_head), ppIGPMResult: POINTER(Windows.Win32.System.GroupPolicy.IGPMResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
@@ -707,7 +707,7 @@ class IGPMDomain3(ComPtr):
     def put_InfrastructureFlags(self, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMGPO(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('58cc4352-1ca3-48e5-98-64-1d-a4-d6-e0-d6-0f')
+    _iid_ = Guid('58cc4352-1ca3-48e5-98-64-1d-a4-d6-e0-d6-0f')
     @commethod(7)
     def get_DisplayName(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -768,14 +768,14 @@ class IGPMGPO(ComPtr):
     def MakeACLConsistent(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMGPO2(ComPtr):
     extends: Windows.Win32.System.GroupPolicy.IGPMGPO
-    Guid = Guid('8a66a210-b78b-4d99-88-e2-c3-06-a8-17-c9-25')
+    _iid_ = Guid('8a66a210-b78b-4d99-88-e2-c3-06-a8-17-c9-25')
     @commethod(36)
     def get_Description(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(37)
     def put_Description(self, newVal: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMGPO3(ComPtr):
     extends: Windows.Win32.System.GroupPolicy.IGPMGPO2
-    Guid = Guid('7cf123a1-f94a-4112-bf-ae-6a-a1-db-9c-b2-48')
+    _iid_ = Guid('7cf123a1-f94a-4112-bf-ae-6a-a1-db-9c-b2-48')
     @commethod(38)
     def get_InfrastructureDC(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(39)
@@ -784,7 +784,7 @@ class IGPMGPO3(ComPtr):
     def put_InfrastructureFlags(self, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMGPOCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('f0f0d5cf-70ca-4c39-9e-29-b6-42-f8-72-6c-01')
+    _iid_ = Guid('f0f0d5cf-70ca-4c39-9e-29-b6-42-f8-72-6c-01')
     @commethod(7)
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -793,7 +793,7 @@ class IGPMGPOCollection(ComPtr):
     def get__NewEnum(self, ppIGPMGPOs: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMGPOLink(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('434b99bd-5de7-478a-80-9c-c2-51-72-1d-f7-0c')
+    _iid_ = Guid('434b99bd-5de7-478a-80-9c-c2-51-72-1d-f7-0c')
     @commethod(7)
     def get_GPOID(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -814,7 +814,7 @@ class IGPMGPOLink(ComPtr):
     def Delete(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMGPOLinksCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('189d7b68-16bd-4d0d-a2-ec-2e-6a-a2-28-8c-7f')
+    _iid_ = Guid('189d7b68-16bd-4d0d-a2-ec-2e-6a-a2-28-8c-7f')
     @commethod(7)
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -823,7 +823,7 @@ class IGPMGPOLinksCollection(ComPtr):
     def get__NewEnum(self, ppIGPMLinks: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMMapEntry(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('8e79ad06-2381-4444-be-4c-ff-69-3e-6e-6f-2b')
+    _iid_ = Guid('8e79ad06-2381-4444-be-4c-ff-69-3e-6e-6f-2b')
     @commethod(7)
     def get_Source(self, pbstrSource: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -834,7 +834,7 @@ class IGPMMapEntry(ComPtr):
     def get_EntryType(self, pgpmEntryType: POINTER(Windows.Win32.System.GroupPolicy.GPMEntryType)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMMapEntryCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('bb0bf49b-e53f-443f-b8-07-8b-e2-2b-fb-6d-42')
+    _iid_ = Guid('bb0bf49b-e53f-443f-b8-07-8b-e2-2b-fb-6d-42')
     @commethod(7)
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -843,7 +843,7 @@ class IGPMMapEntryCollection(ComPtr):
     def get__NewEnum(self, pVal: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMMigrationTable(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('48f823b1-efaf-470b-b6-ed-40-d1-4e-e1-a4-ec')
+    _iid_ = Guid('48f823b1-efaf-470b-b6-ed-40-d1-4e-e1-a4-ec')
     @commethod(7)
     def Save(self, bstrMigrationTablePath: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -862,7 +862,7 @@ class IGPMMigrationTable(ComPtr):
     def GetEntries(self, ppEntries: POINTER(Windows.Win32.System.GroupPolicy.IGPMMapEntryCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMPermission(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('35ebca40-e1a1-4a02-89-05-d7-94-16-fb-46-4a')
+    _iid_ = Guid('35ebca40-e1a1-4a02-89-05-d7-94-16-fb-46-4a')
     @commethod(7)
     def get_Inherited(self, pVal: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -875,7 +875,7 @@ class IGPMPermission(ComPtr):
     def get_Trustee(self, ppIGPMTrustee: POINTER(Windows.Win32.System.GroupPolicy.IGPMTrustee_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMRSOP(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('49ed785a-3237-4ff2-b1-f0-fd-f5-a8-d5-a1-ee')
+    _iid_ = Guid('49ed785a-3237-4ff2-b1-f0-fd-f5-a8-d5-a1-ee')
     @commethod(7)
     def get_Mode(self, pVal: POINTER(Windows.Win32.System.GroupPolicy.GPMRSOPMode)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -948,7 +948,7 @@ class IGPMRSOP(ComPtr):
     def GenerateReportToFile(self, gpmReportType: Windows.Win32.System.GroupPolicy.GPMReportType, bstrTargetFilePath: Windows.Win32.Foundation.BSTR, ppIGPMResult: POINTER(Windows.Win32.System.GroupPolicy.IGPMResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMResult(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('86dff7e9-f76f-42ab-95-70-ce-bc-6b-e8-a5-2d')
+    _iid_ = Guid('86dff7e9-f76f-42ab-95-70-ce-bc-6b-e8-a5-2d')
     @commethod(7)
     def get_Status(self, ppIGPMStatusMsgCollection: POINTER(Windows.Win32.System.GroupPolicy.IGPMStatusMsgCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -957,7 +957,7 @@ class IGPMResult(ComPtr):
     def OverallStatus(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMSOM(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c0a7f09e-05a1-4f0c-81-58-9e-5c-33-68-4f-6b')
+    _iid_ = Guid('c0a7f09e-05a1-4f0c-81-58-9e-5c-33-68-4f-6b')
     @commethod(7)
     def get_GPOInheritanceBlocked(self, pVal: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -980,7 +980,7 @@ class IGPMSOM(ComPtr):
     def SetSecurityInfo(self, pSecurityInfo: Windows.Win32.System.GroupPolicy.IGPMSecurityInfo_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMSOMCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('adc1688e-00e4-4495-ab-ba-be-d2-00-df-0c-ab')
+    _iid_ = Guid('adc1688e-00e4-4495-ab-ba-be-d2-00-df-0c-ab')
     @commethod(7)
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -989,12 +989,12 @@ class IGPMSOMCollection(ComPtr):
     def get__NewEnum(self, ppIGPMSOM: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMSearchCriteria(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d6f11c42-829b-48d4-83-f5-36-15-b6-7d-fc-22')
+    _iid_ = Guid('d6f11c42-829b-48d4-83-f5-36-15-b6-7d-fc-22')
     @commethod(7)
     def Add(self, searchProperty: Windows.Win32.System.GroupPolicy.GPMSearchProperty, searchOperation: Windows.Win32.System.GroupPolicy.GPMSearchOperation, varValue: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMSecurityInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('b6c31ed4-1c93-4d3e-ae-84-eb-6d-61-16-1b-60')
+    _iid_ = Guid('b6c31ed4-1c93-4d3e-ae-84-eb-6d-61-16-1b-60')
     @commethod(7)
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1009,7 +1009,7 @@ class IGPMSecurityInfo(ComPtr):
     def RemoveTrustee(self, bstrTrustee: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMSitesContainer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('4725a899-2782-4d27-a6-bb-d4-99-24-6f-fd-72')
+    _iid_ = Guid('4725a899-2782-4d27-a6-bb-d4-99-24-6f-fd-72')
     @commethod(7)
     def get_DomainController(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1022,7 +1022,7 @@ class IGPMSitesContainer(ComPtr):
     def SearchSites(self, pIGPMSearchCriteria: Windows.Win32.System.GroupPolicy.IGPMSearchCriteria_head, ppIGPMSOMCollection: POINTER(Windows.Win32.System.GroupPolicy.IGPMSOMCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMStarterGPO(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('dfc3f61b-8880-4490-93-37-d2-9c-7b-a8-c2-f0')
+    _iid_ = Guid('dfc3f61b-8880-4490-93-37-d2-9c-7b-a8-c2-f0')
     @commethod(7)
     def get_DisplayName(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1067,7 +1067,7 @@ class IGPMStarterGPO(ComPtr):
     def SetSecurityInfo(self, pSecurityInfo: Windows.Win32.System.GroupPolicy.IGPMSecurityInfo_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMStarterGPOBackup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('51d98eda-a87e-43dd-b8-0a-0b-66-ef-19-38-d6')
+    _iid_ = Guid('51d98eda-a87e-43dd-b8-0a-0b-66-ef-19-38-d6')
     @commethod(7)
     def get_BackupDir(self, pbstrBackupDir: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1092,7 +1092,7 @@ class IGPMStarterGPOBackup(ComPtr):
     def GenerateReportToFile(self, gpmReportType: Windows.Win32.System.GroupPolicy.GPMReportType, bstrTargetFilePath: Windows.Win32.Foundation.BSTR, ppIGPMResult: POINTER(Windows.Win32.System.GroupPolicy.IGPMResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMStarterGPOBackupCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c998031d-add0-4bb5-8d-ea-29-85-05-d8-42-3b')
+    _iid_ = Guid('c998031d-add0-4bb5-8d-ea-29-85-05-d8-42-3b')
     @commethod(7)
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1101,7 +1101,7 @@ class IGPMStarterGPOBackupCollection(ComPtr):
     def get__NewEnum(self, ppIGPMTmplBackup: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMStarterGPOCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2e522729-2219-44ad-93-3a-64-df-d6-50-c4-23')
+    _iid_ = Guid('2e522729-2219-44ad-93-3a-64-df-d6-50-c4-23')
     @commethod(7)
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1110,7 +1110,7 @@ class IGPMStarterGPOCollection(ComPtr):
     def get__NewEnum(self, ppIGPMTemplates: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMStatusMessage(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('8496c22f-f3de-4a1f-8f-58-60-3c-aa-a9-3d-7b')
+    _iid_ = Guid('8496c22f-f3de-4a1f-8f-58-60-3c-aa-a9-3d-7b')
     @commethod(7)
     def get_ObjectPath(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1125,7 +1125,7 @@ class IGPMStatusMessage(ComPtr):
     def get_Message(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMStatusMsgCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('9b6e1af0-1a92-40f3-a5-9d-f3-6a-c1-f7-28-b7')
+    _iid_ = Guid('9b6e1af0-1a92-40f3-a5-9d-f3-6a-c1-f7-28-b7')
     @commethod(7)
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1134,7 +1134,7 @@ class IGPMStatusMsgCollection(ComPtr):
     def get__NewEnum(self, pVal: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMTrustee(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3b466da8-c1a4-4b2a-99-9a-be-fc-dd-56-ce-fb')
+    _iid_ = Guid('3b466da8-c1a4-4b2a-99-9a-be-fc-dd-56-ce-fb')
     @commethod(7)
     def get_TrusteeSid(self, bstrVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1147,7 +1147,7 @@ class IGPMTrustee(ComPtr):
     def get_TrusteeType(self, lVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMWMIFilter(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ef2ff9b4-3c27-459a-b9-79-03-83-05-ce-c7-5d')
+    _iid_ = Guid('ef2ff9b4-3c27-459a-b9-79-03-83-05-ce-c7-5d')
     @commethod(7)
     def get_Path(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1166,7 +1166,7 @@ class IGPMWMIFilter(ComPtr):
     def SetSecurityInfo(self, pSecurityInfo: Windows.Win32.System.GroupPolicy.IGPMSecurityInfo_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IGPMWMIFilterCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('5782d582-1a36-4661-8a-94-c3-c3-25-51-94-5b')
+    _iid_ = Guid('5782d582-1a36-4661-8a-94-c3-c3-25-51-94-5b')
     @commethod(7)
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1175,7 +1175,7 @@ class IGPMWMIFilterCollection(ComPtr):
     def get__NewEnum(self, pVal: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGroupPolicyObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ea502723-a23d-11d1-a7-d3-00-00-f8-75-71-e3')
+    _iid_ = Guid('ea502723-a23d-11d1-a7-d3-00-00-f8-75-71-e3')
     @commethod(3)
     def New(self, pszDomainName: Windows.Win32.Foundation.PWSTR, pszDisplayName: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1233,7 +1233,7 @@ PROGID: INSTALLSPECTYPE = 3
 COMCLASS: INSTALLSPECTYPE = 4
 class IRSOPInformation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9a5a81b5-d9c7-49ef-9d-11-dd-f5-09-68-c4-8d')
+    _iid_ = Guid('9a5a81b5-d9c7-49ef-9d-11-dd-f5-09-68-c4-8d')
     @commethod(3)
     def GetNamespace(self, dwSection: UInt32, pszName: Windows.Win32.Foundation.PWSTR, cchMaxLength: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

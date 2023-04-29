@@ -999,7 +999,7 @@ FaxSender = Guid('265d84d0-1850-4360-b7-c8-75-8b-bb-5f-0b-96')
 FaxServer = Guid('cda8acb0-8cf5-4f6c-9b-a2-59-31-d4-0c-8c-ae')
 class IFaxAccount(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('68535b33-5dc4-4086-be-26-b7-6f-9b-71-10-06')
+    _iid_ = Guid('68535b33-5dc4-4086-be-26-b7-6f-9b-71-10-06')
     @commethod(7)
     def get_AccountName(self, pbstrAccountName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1010,7 +1010,7 @@ class IFaxAccount(ComPtr):
     def get_RegisteredEvents(self, pRegisteredEvents: POINTER(Windows.Win32.Devices.Fax.FAX_ACCOUNT_EVENTS_TYPE_ENUM)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxAccountFolders(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6463f89d-23d8-46a9-8f-86-c4-7b-77-ca-79-26')
+    _iid_ = Guid('6463f89d-23d8-46a9-8f-86-c4-7b-77-ca-79-26')
     @commethod(7)
     def get_OutgoingQueue(self, pFaxOutgoingQueue: POINTER(Windows.Win32.Devices.Fax.IFaxAccountOutgoingQueue_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1021,7 +1021,7 @@ class IFaxAccountFolders(ComPtr):
     def get_OutgoingArchive(self, pFaxOutgoingArchive: POINTER(Windows.Win32.Devices.Fax.IFaxAccountOutgoingArchive_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxAccountIncomingArchive(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('a8a5b6ef-e0d6-4aee-95-5c-91-62-5b-ec-9d-b4')
+    _iid_ = Guid('a8a5b6ef-e0d6-4aee-95-5c-91-62-5b-ec-9d-b4')
     @commethod(7)
     def get_SizeLow(self, plSizeLow: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1034,14 +1034,14 @@ class IFaxAccountIncomingArchive(ComPtr):
     def GetMessage(self, bstrMessageId: Windows.Win32.Foundation.BSTR, pFaxIncomingMessage: POINTER(Windows.Win32.Devices.Fax.IFaxIncomingMessage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxAccountIncomingQueue(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('dd142d92-0186-4a95-a0-90-cb-c3-ea-db-a6-b4')
+    _iid_ = Guid('dd142d92-0186-4a95-a0-90-cb-c3-ea-db-a6-b4')
     @commethod(7)
     def GetJobs(self, pFaxIncomingJobs: POINTER(Windows.Win32.Devices.Fax.IFaxIncomingJobs_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetJob(self, bstrJobId: Windows.Win32.Foundation.BSTR, pFaxIncomingJob: POINTER(Windows.Win32.Devices.Fax.IFaxIncomingJob_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxAccountNotify(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('b9b3bc81-ac1b-46f3-b3-9d-0a-dc-30-e1-b7-88')
+    _iid_ = Guid('b9b3bc81-ac1b-46f3-b3-9d-0a-dc-30-e1-b7-88')
     @commethod(7)
     def OnIncomingJobAdded(self, pFaxAccount: Windows.Win32.Devices.Fax.IFaxAccount_head, bstrJobId: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1066,7 +1066,7 @@ class IFaxAccountNotify(ComPtr):
     def OnServerShutDown(self, pFaxServer: Windows.Win32.Devices.Fax.IFaxServer2_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxAccountOutgoingArchive(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('5463076d-ec14-491f-92-6e-b3-ce-da-5e-56-62')
+    _iid_ = Guid('5463076d-ec14-491f-92-6e-b3-ce-da-5e-56-62')
     @commethod(7)
     def get_SizeLow(self, plSizeLow: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1079,14 +1079,14 @@ class IFaxAccountOutgoingArchive(ComPtr):
     def GetMessage(self, bstrMessageId: Windows.Win32.Foundation.BSTR, pFaxOutgoingMessage: POINTER(Windows.Win32.Devices.Fax.IFaxOutgoingMessage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxAccountOutgoingQueue(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('0f1424e9-f22d-4553-b7-a5-0d-24-bd-0d-7e-46')
+    _iid_ = Guid('0f1424e9-f22d-4553-b7-a5-0d-24-bd-0d-7e-46')
     @commethod(7)
     def GetJobs(self, pFaxOutgoingJobs: POINTER(Windows.Win32.Devices.Fax.IFaxOutgoingJobs_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetJob(self, bstrJobId: Windows.Win32.Foundation.BSTR, pFaxOutgoingJob: POINTER(Windows.Win32.Devices.Fax.IFaxOutgoingJob_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxAccountSet(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('7428fbae-841e-47b8-86-f4-22-88-94-6d-ca-1b')
+    _iid_ = Guid('7428fbae-841e-47b8-86-f4-22-88-94-6d-ca-1b')
     @commethod(7)
     def GetAccounts(self, ppFaxAccounts: POINTER(Windows.Win32.Devices.Fax.IFaxAccounts_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1097,7 +1097,7 @@ class IFaxAccountSet(ComPtr):
     def RemoveAccount(self, bstrAccountName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxAccounts(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('93ea8162-8be7-42d1-ae-7b-ec-74-e2-d9-89-da')
+    _iid_ = Guid('93ea8162-8be7-42d1-ae-7b-ec-74-e2-d9-89-da')
     @commethod(7)
     def get__NewEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1106,7 +1106,7 @@ class IFaxAccounts(ComPtr):
     def get_Count(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxActivity(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('4b106f97-3df5-40f2-bc-3c-44-cb-81-15-eb-df')
+    _iid_ = Guid('4b106f97-3df5-40f2-bc-3c-44-cb-81-15-eb-df')
     @commethod(7)
     def get_IncomingMessages(self, plIncomingMessages: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1119,7 +1119,7 @@ class IFaxActivity(ComPtr):
     def Refresh(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxActivityLogging(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('1e29078b-5a69-497b-95-92-49-b7-e7-fa-dd-b5')
+    _iid_ = Guid('1e29078b-5a69-497b-95-92-49-b7-e7-fa-dd-b5')
     @commethod(7)
     def get_LogIncoming(self, pbLogIncoming: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1138,7 +1138,7 @@ class IFaxActivityLogging(ComPtr):
     def Save(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxConfiguration(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('10f4d0f7-0994-4543-ab-6e-50-69-49-12-8c-40')
+    _iid_ = Guid('10f4d0f7-0994-4543-ab-6e-50-69-49-12-8c-40')
     @commethod(7)
     def get_UseArchive(self, pbUseArchive: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1225,7 +1225,7 @@ class IFaxConfiguration(ComPtr):
     def Save(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxDevice(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('49306c59-b52e-4867-9d-f4-ca-58-41-c9-56-d0')
+    _iid_ = Guid('49306c59-b52e-4867-9d-f4-ca-58-41-c9-56-d0')
     @commethod(7)
     def get_Id(self, plId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1280,7 +1280,7 @@ class IFaxDevice(ComPtr):
     def AnswerCall(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxDeviceIds(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2f0f813f-4ce9-443e-8c-a1-73-8c-fa-ee-e1-49')
+    _iid_ = Guid('2f0f813f-4ce9-443e-8c-a1-73-8c-fa-ee-e1-49')
     @commethod(7)
     def get__NewEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1295,7 +1295,7 @@ class IFaxDeviceIds(ComPtr):
     def SetOrder(self, lDeviceId: Int32, lNewOrder: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxDeviceProvider(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('290eac63-83ec-449c-84-17-f1-48-df-8c-68-2a')
+    _iid_ = Guid('290eac63-83ec-449c-84-17-f1-48-df-8c-68-2a')
     @commethod(7)
     def get_FriendlyName(self, pbstrFriendlyName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1322,7 +1322,7 @@ class IFaxDeviceProvider(ComPtr):
     def get_DeviceIds(self, pvDeviceIds: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxDeviceProviders(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('9fb76f62-4c7e-43a5-b6-fd-50-28-93-f7-e1-3e')
+    _iid_ = Guid('9fb76f62-4c7e-43a5-b6-fd-50-28-93-f7-e1-3e')
     @commethod(7)
     def get__NewEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1331,7 +1331,7 @@ class IFaxDeviceProviders(ComPtr):
     def get_Count(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxDevices(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('9e46783e-f34f-482e-a3-60-04-16-be-cb-bd-96')
+    _iid_ = Guid('9e46783e-f34f-482e-a3-60-04-16-be-cb-bd-96')
     @commethod(7)
     def get__NewEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1342,7 +1342,7 @@ class IFaxDevices(ComPtr):
     def get_ItemById(self, lId: Int32, ppFaxDevice: POINTER(Windows.Win32.Devices.Fax.IFaxDevice_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxDocument(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('b207a246-09e3-4a4e-a7-dc-fe-a3-1d-29-45-8f')
+    _iid_ = Guid('b207a246-09e3-4a4e-a7-dc-fe-a3-1d-29-45-8f')
     @commethod(7)
     def get_Body(self, pbstrBody: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1413,7 +1413,7 @@ class IFaxDocument(ComPtr):
     def put_AttachFaxToReceipt(self, bAttachFax: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxDocument2(ComPtr):
     extends: Windows.Win32.Devices.Fax.IFaxDocument
-    Guid = Guid('e1347661-f9ef-4d6d-b4-a5-c0-a0-68-b6-5c-ff')
+    _iid_ = Guid('e1347661-f9ef-4d6d-b4-a5-c0-a0-68-b6-5c-ff')
     @commethod(41)
     def get_SubmissionId(self, pbstrSubmissionId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(42)
@@ -1426,7 +1426,7 @@ class IFaxDocument2(ComPtr):
     def ConnectedSubmit2(self, pFaxServer: Windows.Win32.Devices.Fax.IFaxServer_head, pvFaxOutgoingJobIDs: POINTER(Windows.Win32.System.Variant.VARIANT_head), plErrorBodyFile: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxEventLogging(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('0880d965-20e8-42e4-8e-17-94-4f-19-2c-aa-d4')
+    _iid_ = Guid('0880d965-20e8-42e4-8e-17-94-4f-19-2c-aa-d4')
     @commethod(7)
     def get_InitEventsLevel(self, pInitEventLevel: POINTER(Windows.Win32.Devices.Fax.FAX_LOG_LEVEL_ENUM)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1449,7 +1449,7 @@ class IFaxEventLogging(ComPtr):
     def Save(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxFolders(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('dce3b2a8-a7ab-42bc-9d-0a-31-49-45-72-61-a0')
+    _iid_ = Guid('dce3b2a8-a7ab-42bc-9d-0a-31-49-45-72-61-a0')
     @commethod(7)
     def get_OutgoingQueue(self, pFaxOutgoingQueue: POINTER(Windows.Win32.Devices.Fax.IFaxOutgoingQueue_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1460,14 +1460,14 @@ class IFaxFolders(ComPtr):
     def get_OutgoingArchive(self, pFaxOutgoingArchive: POINTER(Windows.Win32.Devices.Fax.IFaxOutgoingArchive_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxInboundRouting(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('8148c20f-9d52-45b1-bf-96-38-fc-12-71-35-27')
+    _iid_ = Guid('8148c20f-9d52-45b1-bf-96-38-fc-12-71-35-27')
     @commethod(7)
     def GetExtensions(self, pFaxInboundRoutingExtensions: POINTER(Windows.Win32.Devices.Fax.IFaxInboundRoutingExtensions_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetMethods(self, pFaxInboundRoutingMethods: POINTER(Windows.Win32.Devices.Fax.IFaxInboundRoutingMethods_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxInboundRoutingExtension(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('885b5e08-c26c-4ef9-af-83-51-58-0a-75-0b-e1')
+    _iid_ = Guid('885b5e08-c26c-4ef9-af-83-51-58-0a-75-0b-e1')
     @commethod(7)
     def get_FriendlyName(self, pbstrFriendlyName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1492,7 +1492,7 @@ class IFaxInboundRoutingExtension(ComPtr):
     def get_Methods(self, pvMethods: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxInboundRoutingExtensions(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2f6c9673-7b26-42de-8e-b0-91-5d-cd-2a-4f-4c')
+    _iid_ = Guid('2f6c9673-7b26-42de-8e-b0-91-5d-cd-2a-4f-4c')
     @commethod(7)
     def get__NewEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1501,7 +1501,7 @@ class IFaxInboundRoutingExtensions(ComPtr):
     def get_Count(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxInboundRoutingMethod(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('45700061-ad9d-4776-a8-c4-64-06-54-92-cf-4b')
+    _iid_ = Guid('45700061-ad9d-4776-a8-c4-64-06-54-92-cf-4b')
     @commethod(7)
     def get_Name(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1522,7 +1522,7 @@ class IFaxInboundRoutingMethod(ComPtr):
     def Save(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxInboundRoutingMethods(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('783fca10-8908-4473-9d-69-f6-7f-be-a0-c6-b9')
+    _iid_ = Guid('783fca10-8908-4473-9d-69-f6-7f-be-a0-c6-b9')
     @commethod(7)
     def get__NewEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1531,7 +1531,7 @@ class IFaxInboundRoutingMethods(ComPtr):
     def get_Count(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxIncomingArchive(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('76062cc7-f714-4fbd-aa-06-ed-6e-4a-4b-70-f3')
+    _iid_ = Guid('76062cc7-f714-4fbd-aa-06-ed-6e-4a-4b-70-f3')
     @commethod(7)
     def get_UseArchive(self, pbUseArchive: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1570,7 +1570,7 @@ class IFaxIncomingArchive(ComPtr):
     def GetMessage(self, bstrMessageId: Windows.Win32.Foundation.BSTR, pFaxIncomingMessage: POINTER(Windows.Win32.Devices.Fax.IFaxIncomingMessage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxIncomingJob(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('207529e6-654a-4916-9f-88-4d-23-2e-e8-a1-07')
+    _iid_ = Guid('207529e6-654a-4916-9f-88-4d-23-2e-e8-a1-07')
     @commethod(7)
     def get_Size(self, plSize: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1611,7 +1611,7 @@ class IFaxIncomingJob(ComPtr):
     def CopyTiff(self, bstrTiffPath: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxIncomingJobs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('011f04e9-4fd6-4c23-95-13-b6-b6-6b-b2-6b-e9')
+    _iid_ = Guid('011f04e9-4fd6-4c23-95-13-b6-b6-6b-b2-6b-e9')
     @commethod(7)
     def get__NewEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1620,7 +1620,7 @@ class IFaxIncomingJobs(ComPtr):
     def get_Count(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxIncomingMessage(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('7cab88fa-2ef9-4851-b2-f3-1d-14-8f-ed-84-47')
+    _iid_ = Guid('7cab88fa-2ef9-4851-b2-f3-1d-14-8f-ed-84-47')
     @commethod(7)
     def get_Id(self, pbstrId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1649,7 +1649,7 @@ class IFaxIncomingMessage(ComPtr):
     def Delete(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxIncomingMessage2(ComPtr):
     extends: Windows.Win32.Devices.Fax.IFaxIncomingMessage
-    Guid = Guid('f9208503-e2bc-48f3-9e-c0-e6-23-6f-9b-50-9a')
+    _iid_ = Guid('f9208503-e2bc-48f3-9e-c0-e6-23-6f-9b-50-9a')
     @commethod(20)
     def get_Subject(self, pbstrSubject: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -1684,7 +1684,7 @@ class IFaxIncomingMessage2(ComPtr):
     def Refresh(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxIncomingMessageIterator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('fd73ecc4-6f06-4f52-82-a8-f7-ba-06-ae-31-08')
+    _iid_ = Guid('fd73ecc4-6f06-4f52-82-a8-f7-ba-06-ae-31-08')
     @commethod(7)
     def get_Message(self, pFaxIncomingMessage: POINTER(Windows.Win32.Devices.Fax.IFaxIncomingMessage_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1699,7 +1699,7 @@ class IFaxIncomingMessageIterator(ComPtr):
     def MoveNext(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxIncomingQueue(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('902e64ef-8fd8-4b75-97-25-60-14-df-16-15-45')
+    _iid_ = Guid('902e64ef-8fd8-4b75-97-25-60-14-df-16-15-45')
     @commethod(7)
     def get_Blocked(self, pbBlocked: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1714,7 +1714,7 @@ class IFaxIncomingQueue(ComPtr):
     def GetJob(self, bstrJobId: Windows.Win32.Foundation.BSTR, pFaxIncomingJob: POINTER(Windows.Win32.Devices.Fax.IFaxIncomingJob_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxJobStatus(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('8b86f485-fd7f-4824-88-6b-40-c5-ca-a6-17-cc')
+    _iid_ = Guid('8b86f485-fd7f-4824-88-6b-40-c5-ca-a6-17-cc')
     @commethod(7)
     def get_Status(self, pStatus: POINTER(Windows.Win32.Devices.Fax.FAX_JOB_STATUS_ENUM)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1751,21 +1751,21 @@ class IFaxJobStatus(ComPtr):
     def get_RoutingInformation(self, pbstrRoutingInformation: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxLoggingOptions(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('34e64fb9-6b31-4d32-8b-27-d2-86-c0-c3-36-06')
+    _iid_ = Guid('34e64fb9-6b31-4d32-8b-27-d2-86-c0-c3-36-06')
     @commethod(7)
     def get_EventLogging(self, pFaxEventLogging: POINTER(Windows.Win32.Devices.Fax.IFaxEventLogging_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_ActivityLogging(self, pFaxActivityLogging: POINTER(Windows.Win32.Devices.Fax.IFaxActivityLogging_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxOutboundRouting(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('25dc05a4-9909-41bd-a9-5b-7e-5d-1d-ec-1d-43')
+    _iid_ = Guid('25dc05a4-9909-41bd-a9-5b-7e-5d-1d-ec-1d-43')
     @commethod(7)
     def GetGroups(self, pFaxOutboundRoutingGroups: POINTER(Windows.Win32.Devices.Fax.IFaxOutboundRoutingGroups_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetRules(self, pFaxOutboundRoutingRules: POINTER(Windows.Win32.Devices.Fax.IFaxOutboundRoutingRules_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxOutboundRoutingGroup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ca6289a1-7e25-4f87-9a-0b-93-36-57-34-96-2c')
+    _iid_ = Guid('ca6289a1-7e25-4f87-9a-0b-93-36-57-34-96-2c')
     @commethod(7)
     def get_Name(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1774,7 +1774,7 @@ class IFaxOutboundRoutingGroup(ComPtr):
     def get_DeviceIds(self, pFaxDeviceIds: POINTER(Windows.Win32.Devices.Fax.IFaxDeviceIds_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxOutboundRoutingGroups(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('235cbef7-c2de-4bfd-b8-da-75-09-7c-82-c8-7f')
+    _iid_ = Guid('235cbef7-c2de-4bfd-b8-da-75-09-7c-82-c8-7f')
     @commethod(7)
     def get__NewEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1787,7 +1787,7 @@ class IFaxOutboundRoutingGroups(ComPtr):
     def Remove(self, vIndex: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxOutboundRoutingRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('e1f795d5-07c2-469f-b0-27-ac-ac-c2-32-19-da')
+    _iid_ = Guid('e1f795d5-07c2-469f-b0-27-ac-ac-c2-32-19-da')
     @commethod(7)
     def get_CountryCode(self, plCountryCode: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1812,7 +1812,7 @@ class IFaxOutboundRoutingRule(ComPtr):
     def Save(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxOutboundRoutingRules(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('dcefa1e7-ae7d-4ed6-85-21-36-9e-dc-ca-51-20')
+    _iid_ = Guid('dcefa1e7-ae7d-4ed6-85-21-36-9e-dc-ca-51-20')
     @commethod(7)
     def get__NewEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1829,7 +1829,7 @@ class IFaxOutboundRoutingRules(ComPtr):
     def Add(self, lCountryCode: Int32, lAreaCode: Int32, bUseDevice: Windows.Win32.Foundation.VARIANT_BOOL, bstrGroupName: Windows.Win32.Foundation.BSTR, lDeviceId: Int32, pFaxOutboundRoutingRule: POINTER(Windows.Win32.Devices.Fax.IFaxOutboundRoutingRule_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxOutgoingArchive(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c9c28f40-8d80-4e53-81-0f-9a-79-91-9b-49-fd')
+    _iid_ = Guid('c9c28f40-8d80-4e53-81-0f-9a-79-91-9b-49-fd')
     @commethod(7)
     def get_UseArchive(self, pbUseArchive: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1868,7 +1868,7 @@ class IFaxOutgoingArchive(ComPtr):
     def GetMessage(self, bstrMessageId: Windows.Win32.Foundation.BSTR, pFaxOutgoingMessage: POINTER(Windows.Win32.Devices.Fax.IFaxOutgoingMessage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxOutgoingJob(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6356daad-6614-4583-bf-7a-3a-d6-7b-bf-c7-1c')
+    _iid_ = Guid('6356daad-6614-4583-bf-7a-3a-d6-7b-bf-c7-1c')
     @commethod(7)
     def get_Subject(self, pbstrSubject: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1933,7 +1933,7 @@ class IFaxOutgoingJob(ComPtr):
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxOutgoingJob2(ComPtr):
     extends: Windows.Win32.Devices.Fax.IFaxOutgoingJob
-    Guid = Guid('418a8d96-59a0-4789-b1-76-ed-f3-dc-8f-a8-f7')
+    _iid_ = Guid('418a8d96-59a0-4789-b1-76-ed-f3-dc-8f-a8-f7')
     @commethod(38)
     def get_HasCoverPage(self, pbHasCoverPage: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(39)
@@ -1942,7 +1942,7 @@ class IFaxOutgoingJob2(ComPtr):
     def get_ScheduleType(self, pScheduleType: POINTER(Windows.Win32.Devices.Fax.FAX_SCHEDULE_TYPE_ENUM)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxOutgoingJobs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2c56d8e6-8c2f-4573-94-4c-e5-05-f8-f5-ae-ed')
+    _iid_ = Guid('2c56d8e6-8c2f-4573-94-4c-e5-05-f8-f5-ae-ed')
     @commethod(7)
     def get__NewEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1951,7 +1951,7 @@ class IFaxOutgoingJobs(ComPtr):
     def get_Count(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxOutgoingMessage(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('f0ea35de-caa5-4a7c-82-c7-2b-60-ba-5f-2b-e2')
+    _iid_ = Guid('f0ea35de-caa5-4a7c-82-c7-2b-60-ba-5f-2b-e2')
     @commethod(7)
     def get_SubmissionId(self, pbstrSubmissionId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1992,7 +1992,7 @@ class IFaxOutgoingMessage(ComPtr):
     def Delete(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxOutgoingMessage2(ComPtr):
     extends: Windows.Win32.Devices.Fax.IFaxOutgoingMessage
-    Guid = Guid('b37df687-bc88-4b46-b3-be-b4-58-b3-ea-9e-7f')
+    _iid_ = Guid('b37df687-bc88-4b46-b3-be-b4-58-b3-ea-9e-7f')
     @commethod(26)
     def get_HasCoverPage(self, pbHasCoverPage: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
@@ -2009,7 +2009,7 @@ class IFaxOutgoingMessage2(ComPtr):
     def Refresh(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxOutgoingMessageIterator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('f5ec5d4f-b840-432f-99-80-11-2f-e4-2a-9b-7a')
+    _iid_ = Guid('f5ec5d4f-b840-432f-99-80-11-2f-e4-2a-9b-7a')
     @commethod(7)
     def get_Message(self, pFaxOutgoingMessage: POINTER(Windows.Win32.Devices.Fax.IFaxOutgoingMessage_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2024,7 +2024,7 @@ class IFaxOutgoingMessageIterator(ComPtr):
     def MoveNext(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxOutgoingQueue(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('80b1df24-d9ac-4333-b3-73-48-7c-ed-c8-0c-e5')
+    _iid_ = Guid('80b1df24-d9ac-4333-b3-73-48-7c-ed-c8-0c-e5')
     @commethod(7)
     def get_Blocked(self, pbBlocked: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2075,7 +2075,7 @@ class IFaxOutgoingQueue(ComPtr):
     def GetJob(self, bstrJobId: Windows.Win32.Foundation.BSTR, pFaxOutgoingJob: POINTER(Windows.Win32.Devices.Fax.IFaxOutgoingJob_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxReceiptOptions(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('378efaeb-5fcb-4afb-b2-ee-e1-6e-80-61-44-87')
+    _iid_ = Guid('378efaeb-5fcb-4afb-b2-ee-e1-6e-80-61-44-87')
     @commethod(7)
     def get_AuthenticationType(self, pType: POINTER(Windows.Win32.Devices.Fax.FAX_SMTP_AUTHENTICATION_TYPE_ENUM)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2114,7 +2114,7 @@ class IFaxReceiptOptions(ComPtr):
     def put_UseForInboundRouting(self, bUseForInboundRouting: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxRecipient(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('9a3da3a0-538d-42b6-94-44-aa-a5-7d-0c-e2-bc')
+    _iid_ = Guid('9a3da3a0-538d-42b6-94-44-aa-a5-7d-0c-e2-bc')
     @commethod(7)
     def get_FaxNumber(self, pbstrFaxNumber: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2125,7 +2125,7 @@ class IFaxRecipient(ComPtr):
     def put_Name(self, bstrName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxRecipients(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('b9c9de5a-894e-4492-9f-a3-08-c6-27-c1-1d-5d')
+    _iid_ = Guid('b9c9de5a-894e-4492-9f-a3-08-c6-27-c1-1d-5d')
     @commethod(7)
     def get__NewEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2138,7 +2138,7 @@ class IFaxRecipients(ComPtr):
     def Remove(self, lIndex: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxSecurity(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('77b508c1-09c0-47a2-91-eb-fc-e7-fd-f2-69-0e')
+    _iid_ = Guid('77b508c1-09c0-47a2-91-eb-fc-e7-fd-f2-69-0e')
     @commethod(7)
     def get_Descriptor(self, pvDescriptor: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2155,7 +2155,7 @@ class IFaxSecurity(ComPtr):
     def put_InformationType(self, lInformationType: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxSecurity2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('17d851f4-d09b-48fc-99-c9-8f-24-c4-db-9a-b1')
+    _iid_ = Guid('17d851f4-d09b-48fc-99-c9-8f-24-c4-db-9a-b1')
     @commethod(7)
     def get_Descriptor(self, pvDescriptor: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2172,7 +2172,7 @@ class IFaxSecurity2(ComPtr):
     def put_InformationType(self, lInformationType: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxSender(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('0d879d7d-f57a-4cc6-a6-f9-3e-e5-d5-27-b4-6a')
+    _iid_ = Guid('0d879d7d-f57a-4cc6-a6-f9-3e-e5-d5-27-b4-6a')
     @commethod(7)
     def get_BillingCode(self, pbstrBillingCode: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2243,7 +2243,7 @@ class IFaxSender(ComPtr):
     def SaveDefaultSender(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxServer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('475b6469-90a5-4878-a5-77-17-a8-6e-8e-34-62')
+    _iid_ = Guid('475b6469-90a5-4878-a5-77-17-a8-6e-8e-34-62')
     @commethod(7)
     def Connect(self, bstrServerName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2298,7 +2298,7 @@ class IFaxServer(ComPtr):
     def get_APIVersion(self, pAPIVersion: POINTER(Windows.Win32.Devices.Fax.FAX_SERVER_APIVERSION_ENUM)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxServer2(ComPtr):
     extends: Windows.Win32.Devices.Fax.IFaxServer
-    Guid = Guid('571ced0f-5609-4f40-91-76-54-7e-3a-72-ca-7c')
+    _iid_ = Guid('571ced0f-5609-4f40-91-76-54-7e-3a-72-ca-7c')
     @commethod(33)
     def get_Configuration(self, ppFaxConfiguration: POINTER(Windows.Win32.Devices.Fax.IFaxConfiguration_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(34)
@@ -2309,10 +2309,10 @@ class IFaxServer2(ComPtr):
     def get_Security2(self, ppFaxSecurity2: POINTER(Windows.Win32.Devices.Fax.IFaxSecurity2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFaxServerNotify(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2e037b27-cf8a-4abd-b1-e0-57-04-94-3b-ea-6f')
+    _iid_ = Guid('2e037b27-cf8a-4abd-b1-e0-57-04-94-3b-ea-6f')
 class IFaxServerNotify2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ec9c69b9-5fe7-4805-94-67-82-fc-d9-6a-f9-03')
+    _iid_ = Guid('ec9c69b9-5fe7-4805-94-67-82-fc-d9-6a-f9-03')
     @commethod(7)
     def OnIncomingJobAdded(self, pFaxServer: Windows.Win32.Devices.Fax.IFaxServer2_head, bstrJobId: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2367,7 +2367,7 @@ class IFaxServerNotify2(ComPtr):
     def OnGeneralServerConfigChanged(self, pFaxServer: Windows.Win32.Devices.Fax.IFaxServer2_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IStiDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6cfa5a80-2dc8-11d0-90-ea-00-aa-00-60-f8-6c')
+    _iid_ = Guid('6cfa5a80-2dc8-11d0-90-ea-00-aa-00-60-f8-6c')
     @commethod(3)
     def Initialize(self, hinst: Windows.Win32.Foundation.HMODULE, pwszDeviceName: Windows.Win32.Foundation.PWSTR, dwVersion: UInt32, dwMode: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2404,7 +2404,7 @@ class IStiDevice(ComPtr):
     def GetLastErrorInfo(self, pLastErrorInfo: POINTER(Windows.Win32.Devices.Fax._ERROR_INFOW_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IStiDeviceControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('128a9860-52dc-11d0-9e-df-44-45-53-54-00-00')
+    _iid_ = Guid('128a9860-52dc-11d0-9e-df-44-45-53-54-00-00')
     @commethod(3)
     def Initialize(self, dwDeviceType: UInt32, dwMode: UInt32, pwszPortName: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2429,7 +2429,7 @@ class IStiDeviceControl(ComPtr):
     def WriteToErrorLog(self, dwMessageType: UInt32, pszMessage: Windows.Win32.Foundation.PWSTR, dwErrorCode: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IStiUSD(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0c9bb460-51ac-11d0-90-ea-00-aa-00-60-f8-6c')
+    _iid_ = Guid('0c9bb460-51ac-11d0-90-ea-00-aa-00-60-f8-6c')
     @commethod(3)
     def Initialize(self, pHelDcb: Windows.Win32.Devices.Fax.IStiDeviceControl_head, dwStiVersion: UInt32, hParametersKey: Windows.Win32.System.Registry.HKEY) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2464,7 +2464,7 @@ class IStiUSD(ComPtr):
     def GetLastErrorInfo(self, pLastErrorInfo: POINTER(Windows.Win32.Devices.Fax._ERROR_INFOW_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IStillImageW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('641bd880-2dc8-11d0-90-ea-00-aa-00-60-f8-6c')
+    _iid_ = Guid('641bd880-2dc8-11d0-90-ea-00-aa-00-60-f8-6c')
     @commethod(3)
     def Initialize(self, hinst: Windows.Win32.Foundation.HMODULE, dwVersion: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

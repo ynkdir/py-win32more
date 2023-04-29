@@ -166,7 +166,7 @@ CTRL_LEVEL_REQCTRL_INTERACTIVE: CTRL_LEVEL = 5
 CTRL_LEVEL_MAX: CTRL_LEVEL = 5
 class IRDPSRAPIApplication(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('41e7a09d-eb7a-436e-93-5d-78-0c-a2-62-83-24')
+    _iid_ = Guid('41e7a09d-eb7a-436e-93-5d-78-0c-a2-62-83-24')
     @commethod(7)
     def get_Windows(self, pWindowList: POINTER(Windows.Win32.System.DesktopSharing.IRDPSRAPIWindowList_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -181,7 +181,7 @@ class IRDPSRAPIApplication(ComPtr):
     def get_Flags(self, pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIApplicationFilter(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d20f10ca-6637-4f06-b1-d5-27-7e-a7-e5-16-0d')
+    _iid_ = Guid('d20f10ca-6637-4f06-b1-d5-27-7e-a7-e5-16-0d')
     @commethod(7)
     def get_Applications(self, pApplications: POINTER(Windows.Win32.System.DesktopSharing.IRDPSRAPIApplicationList_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -192,14 +192,14 @@ class IRDPSRAPIApplicationFilter(ComPtr):
     def put_Enabled(self, NewVal: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIApplicationList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d4b4aeb3-22dc-4837-b3-b6-42-ea-25-17-84-9a')
+    _iid_ = Guid('d4b4aeb3-22dc-4837-b3-b6-42-ea-25-17-84-9a')
     @commethod(7)
     def get__NewEnum(self, retval: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Item(self, item: Int32, pApplication: POINTER(Windows.Win32.System.DesktopSharing.IRDPSRAPIApplication_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIAttendee(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ec0671b3-1b78-4b80-a4-64-91-32-24-75-43-e3')
+    _iid_ = Guid('ec0671b3-1b78-4b80-a4-64-91-32-24-75-43-e3')
     @commethod(7)
     def get_Id(self, pId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -218,7 +218,7 @@ class IRDPSRAPIAttendee(ComPtr):
     def get_ConnectivityInfo(self, ppVal: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIAttendeeDisconnectInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c187689f-447c-44a1-9c-14-ff-fb-b3-b7-ec-17')
+    _iid_ = Guid('c187689f-447c-44a1-9c-14-ff-fb-b3-b7-ec-17')
     @commethod(7)
     def get_Attendee(self, retval: POINTER(Windows.Win32.System.DesktopSharing.IRDPSRAPIAttendee_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -227,14 +227,14 @@ class IRDPSRAPIAttendeeDisconnectInfo(ComPtr):
     def get_Code(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIAttendeeManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ba3a37e8-33da-4749-8d-a0-07-fa-34-da-79-44')
+    _iid_ = Guid('ba3a37e8-33da-4749-8d-a0-07-fa-34-da-79-44')
     @commethod(7)
     def get__NewEnum(self, retval: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Item(self, id: Int32, ppItem: POINTER(Windows.Win32.System.DesktopSharing.IRDPSRAPIAttendee_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIAudioStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e3e30ef9-89c6-4541-ba-3b-19-33-6a-c6-d3-1c')
+    _iid_ = Guid('e3e30ef9-89c6-4541-ba-3b-19-33-6a-c6-d3-1c')
     @commethod(3)
     def Initialize(self, pnPeriodInHundredNsIntervals: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -247,19 +247,19 @@ class IRDPSRAPIAudioStream(ComPtr):
     def FreeBuffer(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIClipboardUseEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d559f59a-7a27-4138-87-63-24-7c-e5-f6-59-a8')
+    _iid_ = Guid('d559f59a-7a27-4138-87-63-24-7c-e5-f6-59-a8')
     @commethod(3)
     def OnPasteFromClipboard(self, clipboardFormat: UInt32, pAttendee: Windows.Win32.System.Com.IDispatch_head, pRetVal: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIDebug(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa1e42b5-496d-4ca4-a6-90-34-8d-cb-2e-c4-ad')
+    _iid_ = Guid('aa1e42b5-496d-4ca4-a6-90-34-8d-cb-2e-c4-ad')
     @commethod(3)
     def put_CLXCmdLine(self, CLXCmdLine: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_CLXCmdLine(self, pCLXCmdLine: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIFrameBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3d67e7d2-b27b-448e-81-b3-c6-11-0e-d8-b4-be')
+    _iid_ = Guid('3d67e7d2-b27b-448e-81-b3-c6-11-0e-d8-b4-be')
     @commethod(7)
     def get_Width(self, plWidth: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -270,7 +270,7 @@ class IRDPSRAPIFrameBuffer(ComPtr):
     def GetFrameBufferBits(self, x: Int32, y: Int32, Width: Int32, Heigth: Int32, ppBits: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIInvitation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('4fac1d43-fc51-45bb-b1-b4-2b-53-aa-56-2f-a3')
+    _iid_ = Guid('4fac1d43-fc51-45bb-b1-b4-2b-53-aa-56-2f-a3')
     @commethod(7)
     def get_ConnectionString(self, pbstrVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -287,7 +287,7 @@ class IRDPSRAPIInvitation(ComPtr):
     def put_Revoked(self, NewVal: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIInvitationManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('4722b049-92c3-4c2d-8a-65-f7-34-8f-64-4d-cf')
+    _iid_ = Guid('4722b049-92c3-4c2d-8a-65-f7-34-8f-64-4d-cf')
     @commethod(7)
     def get__NewEnum(self, retval: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -298,24 +298,24 @@ class IRDPSRAPIInvitationManager(ComPtr):
     def CreateInvitation(self, bstrAuthString: Windows.Win32.Foundation.BSTR, bstrGroupName: Windows.Win32.Foundation.BSTR, bstrPassword: Windows.Win32.Foundation.BSTR, AttendeeLimit: Int32, ppInvitation: POINTER(Windows.Win32.System.DesktopSharing.IRDPSRAPIInvitation_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIPerfCounterLogger(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('071c2533-0fa4-4e8f-ae-83-9c-10-b4-30-5a-b5')
+    _iid_ = Guid('071c2533-0fa4-4e8f-ae-83-9c-10-b4-30-5a-b5')
     @commethod(3)
     def LogValue(self, lValue: Int64) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIPerfCounterLoggingManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9a512c86-ac6e-4a8e-b1-a4-fc-ef-36-3f-6e-64')
+    _iid_ = Guid('9a512c86-ac6e-4a8e-b1-a4-fc-ef-36-3f-6e-64')
     @commethod(3)
     def CreateLogger(self, bstrCounterName: Windows.Win32.Foundation.BSTR, ppLogger: POINTER(Windows.Win32.System.DesktopSharing.IRDPSRAPIPerfCounterLogger_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPISessionProperties(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('339b24f2-9bc0-4f16-9a-ac-f1-65-43-3d-13-d4')
+    _iid_ = Guid('339b24f2-9bc0-4f16-9a-ac-f1-65-43-3d-13-d4')
     @commethod(7)
     def get_Property(self, PropertyName: Windows.Win32.Foundation.BSTR, pVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def put_Property(self, PropertyName: Windows.Win32.Foundation.BSTR, newVal: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPISharingSession(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('eeb20886-e470-4cf6-84-2b-27-39-c0-ec-5c-fb')
+    _iid_ = Guid('eeb20886-e470-4cf6-84-2b-27-39-c0-ec-5c-fb')
     @commethod(7)
     def Open(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -346,7 +346,7 @@ class IRDPSRAPISharingSession(ComPtr):
     def GetDesktopSharedRect(self, pleft: POINTER(Int32), ptop: POINTER(Int32), pright: POINTER(Int32), pbottom: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPISharingSession2(ComPtr):
     extends: Windows.Win32.System.DesktopSharing.IRDPSRAPISharingSession
-    Guid = Guid('fee4ee57-e3e8-4205-8f-b0-8f-d1-d0-67-5c-21')
+    _iid_ = Guid('fee4ee57-e3e8-4205-8f-b0-8f-d1-d0-67-5c-21')
     @commethod(21)
     def ConnectUsingTransportStream(self, pStream: Windows.Win32.System.DesktopSharing.IRDPSRAPITransportStream_head, bstrGroup: Windows.Win32.Foundation.BSTR, bstrAuthenticatedAttendeeName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
@@ -355,7 +355,7 @@ class IRDPSRAPISharingSession2(ComPtr):
     def SendControlLevelChangeResponse(self, pAttendee: Windows.Win32.System.DesktopSharing.IRDPSRAPIAttendee_head, RequestedLevel: Windows.Win32.System.DesktopSharing.CTRL_LEVEL, ReasonCode: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPITcpConnectionInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('f74049a4-3d06-4028-81-93-0a-8c-29-bc-24-52')
+    _iid_ = Guid('f74049a4-3d06-4028-81-93-0a-8c-29-bc-24-52')
     @commethod(7)
     def get_Protocol(self, plProtocol: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -368,7 +368,7 @@ class IRDPSRAPITcpConnectionInfo(ComPtr):
     def get_PeerIP(self, pbstrIP: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPITransportStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('36cfa065-43bb-4ef7-ae-d7-9b-88-a5-05-30-36')
+    _iid_ = Guid('36cfa065-43bb-4ef7-ae-d7-9b-88-a5-05-30-36')
     @commethod(3)
     def AllocBuffer(self, maxPayload: Int32, ppBuffer: POINTER(Windows.Win32.System.DesktopSharing.IRDPSRAPITransportStreamBuffer_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -383,7 +383,7 @@ class IRDPSRAPITransportStream(ComPtr):
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPITransportStreamBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('81c80290-5085-44b0-b4-60-f8-65-c3-9c-b4-a9')
+    _iid_ = Guid('81c80290-5085-44b0-b4-60-f8-65-c3-9c-b4-a9')
     @commethod(3)
     def get_Storage(self, ppbStorage: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -406,7 +406,7 @@ class IRDPSRAPITransportStreamBuffer(ComPtr):
     def put_Context(self, pContext: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPITransportStreamEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ea81c254-f5af-4e40-98-2e-3e-63-bb-59-52-76')
+    _iid_ = Guid('ea81c254-f5af-4e40-98-2e-3e-63-bb-59-52-76')
     @commethod(3)
     def OnWriteCompleted(self, pBuffer: Windows.Win32.System.DesktopSharing.IRDPSRAPITransportStreamBuffer_head) -> Void: ...
     @commethod(4)
@@ -415,7 +415,7 @@ class IRDPSRAPITransportStreamEvents(ComPtr):
     def OnStreamClosed(self, hrReason: Windows.Win32.Foundation.HRESULT) -> Void: ...
 class IRDPSRAPIViewer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c6bfcd38-8ce9-404d-8a-e8-f3-1d-00-c6-5c-b5')
+    _iid_ = Guid('c6bfcd38-8ce9-404d-8a-e8-f3-1d-00-c6-5c-b5')
     @commethod(7)
     def Connect(self, bstrConnectionString: Windows.Win32.Foundation.BSTR, bstrName: Windows.Win32.Foundation.BSTR, bstrPassword: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -446,7 +446,7 @@ class IRDPSRAPIViewer(ComPtr):
     def StartReverseConnectListener(self, bstrConnectionString: Windows.Win32.Foundation.BSTR, bstrUserName: Windows.Win32.Foundation.BSTR, bstrPassword: Windows.Win32.Foundation.BSTR, pbstrReverseConnectString: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIVirtualChannel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('05e12f95-28b3-4c9a-87-80-d0-24-85-74-a1-e0')
+    _iid_ = Guid('05e12f95-28b3-4c9a-87-80-d0-24-85-74-a1-e0')
     @commethod(7)
     def SendData(self, bstrData: Windows.Win32.Foundation.BSTR, lAttendeeId: Int32, ChannelSendFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -459,7 +459,7 @@ class IRDPSRAPIVirtualChannel(ComPtr):
     def get_Priority(self, pPriority: POINTER(Windows.Win32.System.DesktopSharing.CHANNEL_PRIORITY)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIVirtualChannelManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('0d11c661-5d0d-4ee4-89-df-21-66-ae-1f-df-ed')
+    _iid_ = Guid('0d11c661-5d0d-4ee4-89-df-21-66-ae-1f-df-ed')
     @commethod(7)
     def get__NewEnum(self, retval: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -468,7 +468,7 @@ class IRDPSRAPIVirtualChannelManager(ComPtr):
     def CreateVirtualChannel(self, bstrChannelName: Windows.Win32.Foundation.BSTR, Priority: Windows.Win32.System.DesktopSharing.CHANNEL_PRIORITY, ChannelFlags: UInt32, ppChannel: POINTER(Windows.Win32.System.DesktopSharing.IRDPSRAPIVirtualChannel_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIWindow(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('beafe0f9-c77b-4933-ba-9f-a2-4c-dd-cc-27-cf')
+    _iid_ = Guid('beafe0f9-c77b-4933-ba-9f-a2-4c-dd-cc-27-cf')
     @commethod(7)
     def get_Id(self, pRetVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -485,14 +485,14 @@ class IRDPSRAPIWindow(ComPtr):
     def get_Flags(self, pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPSRAPIWindowList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('8a05ce44-715a-4116-a1-89-a1-18-f3-0a-07-bd')
+    _iid_ = Guid('8a05ce44-715a-4116-a1-89-a1-18-f3-0a-07-bd')
     @commethod(7)
     def get__NewEnum(self, retval: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Item(self, item: Int32, pWindow: POINTER(Windows.Win32.System.DesktopSharing.IRDPSRAPIWindow_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRDPViewerInputSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bb590853-a6c5-4a7b-8d-d4-76-b6-9e-ea-12-d5')
+    _iid_ = Guid('bb590853-a6c5-4a7b-8d-d4-76-b6-9e-ea-12-d5')
     @commethod(3)
     def SendMouseButtonEvent(self, buttonType: Windows.Win32.System.DesktopSharing.RDPSRAPI_MOUSE_BUTTON_TYPE, vbButtonDown: Windows.Win32.Foundation.VARIANT_BOOL, xPos: UInt32, yPos: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -557,7 +557,7 @@ RDPTransportStreamEvents = Guid('31e3ab20-5350-483f-9d-c6-67-48-66-5e-fd-eb')
 RDPViewer = Guid('32be5ed2-5c86-480f-a9-14-0f-f8-88-5a-1b-3f')
 class _IRDPSessionEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('98a97042-6698-40e9-8e-fd-b3-20-09-90-00-4b')
+    _iid_ = Guid('98a97042-6698-40e9-8e-fd-b3-20-09-90-00-4b')
 class __ReferenceRemainingTypes__(EasyCastStructure):
     __ctrlLevel__: Windows.Win32.System.DesktopSharing.CTRL_LEVEL
     __attendeeDisconnectReason__: Windows.Win32.System.DesktopSharing.ATTENDEE_DISCONNECT_REASON

@@ -2760,7 +2760,7 @@ DOT11_WPS_PASSWORD_ID_OOB_RANGE_MAX: DOT11_WPS_DEVICE_PASSWORD_ID = 65535
 Dot11AdHocManager = Guid('dd06a84f-83bd-4d01-8a-b9-23-89-fe-a0-86-9e')
 class IDot11AdHocInterface(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8f10cc2b-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('8f10cc2b-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
     def GetDeviceSignature(self, pSignature: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2781,12 +2781,12 @@ class IDot11AdHocInterface(ComPtr):
     def GetStatus(self, pState: POINTER(Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDot11AdHocInterfaceNotificationSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8f10cc2f-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('8f10cc2f-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
     def OnConnectionStatusChange(self, eStatus: Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
 class IDot11AdHocManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8f10cc26-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('8f10cc26-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
     def CreateNetwork(self, Name: Windows.Win32.Foundation.PWSTR, Password: Windows.Win32.Foundation.PWSTR, GeographicalId: Int32, pInterface: Windows.Win32.NetworkManagement.WiFi.IDot11AdHocInterface_head, pSecurity: Windows.Win32.NetworkManagement.WiFi.IDot11AdHocSecuritySettings_head, pContextGuid: POINTER(Guid), pIAdHoc: POINTER(Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2799,7 +2799,7 @@ class IDot11AdHocManager(ComPtr):
     def GetNetwork(self, NetworkSignature: POINTER(Guid), pNetwork: POINTER(Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDot11AdHocManagerNotificationSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8f10cc27-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('8f10cc27-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
     def OnNetworkAdd(self, pIAdHocNetwork: Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2810,7 +2810,7 @@ class IDot11AdHocManagerNotificationSink(ComPtr):
     def OnInterfaceRemove(self, Signature: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDot11AdHocNetwork(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8f10cc29-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('8f10cc29-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
     def GetStatus(self, eStatus: POINTER(Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2837,21 +2837,21 @@ class IDot11AdHocNetwork(ComPtr):
     def Disconnect(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDot11AdHocNetworkNotificationSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8f10cc2a-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('8f10cc2a-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
     def OnStatusChange(self, eStatus: Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnConnectFail(self, eFailReason: Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_CONNECT_FAIL_REASON) -> Windows.Win32.Foundation.HRESULT: ...
 class IDot11AdHocSecuritySettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8f10cc2e-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('8f10cc2e-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
     def GetDot11AuthAlgorithm(self, pAuth: POINTER(Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_AUTH_ALGORITHM)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDot11CipherAlgorithm(self, pCipher: POINTER(Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_CIPHER_ALGORITHM)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumDot11AdHocInterfaces(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8f10cc2c-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('8f10cc2c-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
     def Next(self, cElt: UInt32, rgElt: POINTER(Windows.Win32.NetworkManagement.WiFi.IDot11AdHocInterface_head), pcEltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2862,7 +2862,7 @@ class IEnumDot11AdHocInterfaces(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocInterfaces_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumDot11AdHocNetworks(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8f10cc28-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('8f10cc28-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
     def Next(self, cElt: UInt32, rgElt: POINTER(Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork_head), pcEltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2873,7 +2873,7 @@ class IEnumDot11AdHocNetworks(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumDot11AdHocSecuritySettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8f10cc2d-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
+    _iid_ = Guid('8f10cc2d-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
     def Next(self, cElt: UInt32, rgElt: POINTER(Windows.Win32.NetworkManagement.WiFi.IDot11AdHocSecuritySettings_head), pcEltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

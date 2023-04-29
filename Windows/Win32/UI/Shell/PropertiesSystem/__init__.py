@@ -188,27 +188,27 @@ GPS_VOLATILEPROPERTIESONLY: GETPROPERTYSTOREFLAGS = 4096
 GPS_MASK_VALID: GETPROPERTYSTOREFLAGS = 8191
 class ICreateObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('75121952-e0d0-43e5-93-80-1d-80-48-3a-cf-72')
+    _iid_ = Guid('75121952-e0d0-43e5-93-80-1d-80-48-3a-cf-72')
     @commethod(3)
     def CreateObject(self, clsid: POINTER(Guid), pUnkOuter: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDelayedPropertyStoreFactory(ComPtr):
     extends: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStoreFactory
-    Guid = Guid('40d4577f-e237-4bdb-bd-69-58-f0-89-43-1b-6a')
+    _iid_ = Guid('40d4577f-e237-4bdb-bd-69-58-f0-89-43-1b-6a')
     @commethod(5)
     def GetDelayedPropertyStore(self, flags: Windows.Win32.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS, dwStoreId: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInitializeWithFile(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b7d14566-0509-4cce-a7-1f-0a-55-42-33-bd-9b')
+    _iid_ = Guid('b7d14566-0509-4cce-a7-1f-0a-55-42-33-bd-9b')
     @commethod(3)
     def Initialize(self, pszFilePath: Windows.Win32.Foundation.PWSTR, grfMode: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IInitializeWithStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b824b49d-22ac-4161-ac-8a-99-16-e8-fa-3f-7f')
+    _iid_ = Guid('b824b49d-22ac-4161-ac-8a-99-16-e8-fa-3f-7f')
     @commethod(3)
     def Initialize(self, pstream: Windows.Win32.System.Com.IStream_head, grfMode: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class INamedPropertyStore(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('71604b0f-97b0-4764-85-77-2f-13-e9-8a-14-22')
+    _iid_ = Guid('71604b0f-97b0-4764-85-77-2f-13-e9-8a-14-22')
     @commethod(3)
     def GetNamedValue(self, pszName: Windows.Win32.Foundation.PWSTR, ppropvar: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -219,14 +219,14 @@ class INamedPropertyStore(ComPtr):
     def GetNameAt(self, iProp: UInt32, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IObjectWithPropertyKey(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fc0ca0a7-c316-4fd2-90-31-3e-62-8e-6d-4f-23')
+    _iid_ = Guid('fc0ca0a7-c316-4fd2-90-31-3e-62-8e-6d-4f-23')
     @commethod(3)
     def SetPropertyKey(self, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetPropertyKey(self, pkey: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPersistSerializedPropStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e318ad57-0aa0-450f-ac-a5-6f-ab-71-03-d9-17')
+    _iid_ = Guid('e318ad57-0aa0-450f-ac-a5-6f-ab-71-03-d9-17')
     @commethod(3)
     def SetFlags(self, flags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -235,19 +235,19 @@ class IPersistSerializedPropStorage(ComPtr):
     def GetPropertyStorage(self, ppsps: POINTER(POINTER(Windows.Win32.UI.Shell.PropertiesSystem.SERIALIZEDPROPSTORAGE)), pcb: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPersistSerializedPropStorage2(ComPtr):
     extends: Windows.Win32.UI.Shell.PropertiesSystem.IPersistSerializedPropStorage
-    Guid = Guid('77effa68-4f98-4366-ba-72-57-3b-3d-88-05-71')
+    _iid_ = Guid('77effa68-4f98-4366-ba-72-57-3b-3d-88-05-71')
     @commethod(6)
     def GetPropertyStorageSize(self, pcb: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetPropertyStorageBuffer(self, psps: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.SERIALIZEDPROPSTORAGE), cb: UInt32, pcbWritten: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyChange(ComPtr):
     extends: Windows.Win32.UI.Shell.PropertiesSystem.IObjectWithPropertyKey
-    Guid = Guid('f917bc8a-1bba-4478-a2-45-1b-de-03-eb-94-31')
+    _iid_ = Guid('f917bc8a-1bba-4478-a2-45-1b-de-03-eb-94-31')
     @commethod(5)
     def ApplyToPropVariant(self, propvarIn: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), ppropvarOut: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyChangeArray(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('380f5cad-1b5e-42f2-80-5d-63-7f-d3-92-d3-1e')
+    _iid_ = Guid('380f5cad-1b5e-42f2-80-5d-63-7f-d3-92-d3-1e')
     @commethod(3)
     def GetCount(self, pcOperations: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -264,7 +264,7 @@ class IPropertyChangeArray(ComPtr):
     def IsKeyInArray(self, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyDescription(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6f79d558-3e96-4549-a1-d1-7d-75-d2-28-88-14')
+    _iid_ = Guid('6f79d558-3e96-4549-a1-d1-7d-75-d2-28-88-14')
     @commethod(3)
     def GetPropertyKey(self, pkey: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -309,31 +309,31 @@ class IPropertyDescription(ComPtr):
     def IsValueCanonical(self, propvar: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyDescription2(ComPtr):
     extends: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyDescription
-    Guid = Guid('57d2eded-5062-400e-b1-07-5d-ae-79-fe-57-a6')
+    _iid_ = Guid('57d2eded-5062-400e-b1-07-5d-ae-79-fe-57-a6')
     @commethod(24)
     def GetImageReferenceForValue(self, propvar: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), ppszImageRes: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyDescriptionAliasInfo(ComPtr):
     extends: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyDescription
-    Guid = Guid('f67104fc-2af9-46fd-b3-2d-24-3c-14-04-f3-d1')
+    _iid_ = Guid('f67104fc-2af9-46fd-b3-2d-24-3c-14-04-f3-d1')
     @commethod(24)
     def GetSortByAlias(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def GetAdditionalSortByAliases(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyDescriptionList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1f9fc1d0-c39b-4b26-81-7f-01-19-67-d3-44-0e')
+    _iid_ = Guid('1f9fc1d0-c39b-4b26-81-7f-01-19-67-d3-44-0e')
     @commethod(3)
     def GetCount(self, pcElem: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAt(self, iElem: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyDescriptionRelatedPropertyInfo(ComPtr):
     extends: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyDescription
-    Guid = Guid('507393f4-2a3d-4a60-b5-9e-d9-c7-57-16-c2-dd')
+    _iid_ = Guid('507393f4-2a3d-4a60-b5-9e-d9-c7-57-16-c2-dd')
     @commethod(24)
     def GetRelatedProperty(self, pszRelationshipName: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyDescriptionSearchInfo(ComPtr):
     extends: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyDescription
-    Guid = Guid('078f91bd-29a2-440f-92-4e-46-a2-91-52-45-20')
+    _iid_ = Guid('078f91bd-29a2-440f-92-4e-46-a2-91-52-45-20')
     @commethod(24)
     def GetSearchInfoFlags(self, ppdsiFlags: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPDESC_SEARCHINFO_FLAGS)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
@@ -344,7 +344,7 @@ class IPropertyDescriptionSearchInfo(ComPtr):
     def GetMaxSize(self, pcbMaxSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyEnumType(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('11e1fbf9-2d56-4a6b-8d-b3-7c-d1-93-a4-71-f2')
+    _iid_ = Guid('11e1fbf9-2d56-4a6b-8d-b3-7c-d1-93-a4-71-f2')
     @commethod(3)
     def GetEnumType(self, penumtype: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPENUMTYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -357,12 +357,12 @@ class IPropertyEnumType(ComPtr):
     def GetDisplayText(self, ppszDisplay: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyEnumType2(ComPtr):
     extends: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyEnumType
-    Guid = Guid('9b6e051c-5ddd-4321-90-70-fe-2a-cb-55-e7-94')
+    _iid_ = Guid('9b6e051c-5ddd-4321-90-70-fe-2a-cb-55-e7-94')
     @commethod(8)
     def GetImageReference(self, ppszImageRes: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyEnumTypeList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a99400f4-3d84-4557-94-ba-12-42-fb-2c-c9-a6')
+    _iid_ = Guid('a99400f4-3d84-4557-94-ba-12-42-fb-2c-c9-a6')
     @commethod(3)
     def GetCount(self, pctypes: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -373,7 +373,7 @@ class IPropertyEnumTypeList(ComPtr):
     def FindMatchingIndex(self, propvarCmp: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), pnIndex: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyStore(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('886d8eeb-8cf2-4446-8d-02-cd-ba-1d-bd-cf-99')
+    _iid_ = Guid('886d8eeb-8cf2-4446-8d-02-cd-ba-1d-bd-cf-99')
     @commethod(3)
     def GetCount(self, cProps: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -386,7 +386,7 @@ class IPropertyStore(ComPtr):
     def Commit(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyStoreCache(ComPtr):
     extends: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore
-    Guid = Guid('3017056d-9a91-4e90-93-7d-74-6c-72-ab-bf-4f')
+    _iid_ = Guid('3017056d-9a91-4e90-93-7d-74-6c-72-ab-bf-4f')
     @commethod(8)
     def GetState(self, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pstate: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PSC_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
@@ -397,19 +397,19 @@ class IPropertyStoreCache(ComPtr):
     def SetValueAndState(self, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppropvar: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), state: Windows.Win32.UI.Shell.PropertiesSystem.PSC_STATE) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyStoreCapabilities(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c8e2d566-186e-4d49-bf-41-69-09-ea-d5-6a-cc')
+    _iid_ = Guid('c8e2d566-186e-4d49-bf-41-69-09-ea-d5-6a-cc')
     @commethod(3)
     def IsPropertyWritable(self, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyStoreFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bc110b6d-57e8-4148-a9-c6-91-01-5a-b2-f3-a5')
+    _iid_ = Guid('bc110b6d-57e8-4148-a9-c6-91-01-5a-b2-f3-a5')
     @commethod(3)
     def GetPropertyStore(self, flags: Windows.Win32.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS, pUnkFactory: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetPropertyStoreForKeys(self, rgKeys: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), cKeys: UInt32, flags: Windows.Win32.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertySystem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ca724e8a-c3e6-442b-88-a4-6f-b0-db-80-35-a3')
+    _iid_ = Guid('ca724e8a-c3e6-442b-88-a4-6f-b0-db-80-35-a3')
     @commethod(3)
     def GetPropertyDescription(self, propkey: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -430,12 +430,12 @@ class IPropertySystem(ComPtr):
     def RefreshPropertySchema(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertySystemChangeNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fa955fd9-38be-4879-a6-ce-82-4c-f5-2d-60-9f')
+    _iid_ = Guid('fa955fd9-38be-4879-a6-ce-82-4c-f5-2d-60-9f')
     @commethod(3)
     def SchemaRefreshed(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyUI(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('757a7d9f-919a-4118-99-d7-db-b2-08-c8-cc-66')
+    _iid_ = Guid('757a7d9f-919a-4118-99-d7-db-b2-08-c8-cc-66')
     @commethod(3)
     def ParsePropertyName(self, pszName: Windows.Win32.Foundation.PWSTR, pfmtid: POINTER(Guid), ppid: POINTER(UInt32), pchEaten: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

@@ -23,12 +23,12 @@ def StartXpsPrintJob(printerName: Windows.Win32.Foundation.PWSTR, jobName: Windo
 def StartXpsPrintJob1(printerName: Windows.Win32.Foundation.PWSTR, jobName: Windows.Win32.Foundation.PWSTR, outputFileName: Windows.Win32.Foundation.PWSTR, progressEvent: Windows.Win32.Foundation.HANDLE, completionEvent: Windows.Win32.Foundation.HANDLE, xpsPrintJob: POINTER(Windows.Win32.Storage.Xps.Printing.IXpsPrintJob_head), printContentReceiver: POINTER(Windows.Win32.Storage.Xps.IXpsOMPackageTarget_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintDocumentPackageStatusEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ed90c8ad-5c34-4d05-a1-ec-0e-8a-9b-3a-d7-af')
+    _iid_ = Guid('ed90c8ad-5c34-4d05-a1-ec-0e-8a-9b-3a-d7-af')
     @commethod(7)
     def PackageStatusUpdated(self, packageStatus: POINTER(Windows.Win32.Storage.Xps.Printing.PrintDocumentPackageStatus_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintDocumentPackageTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1b8efec4-3019-4c27-96-4e-36-72-02-15-69-06')
+    _iid_ = Guid('1b8efec4-3019-4c27-96-4e-36-72-02-15-69-06')
     @commethod(3)
     def GetPackageTargetTypes(self, targetCount: POINTER(UInt32), targetTypes: POINTER(POINTER(Guid))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -37,26 +37,26 @@ class IPrintDocumentPackageTarget(ComPtr):
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintDocumentPackageTarget2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c560298a-535c-48f9-86-6a-63-25-40-66-0c-b4')
+    _iid_ = Guid('c560298a-535c-48f9-86-6a-63-25-40-66-0c-b4')
     @commethod(3)
     def GetIsTargetIppPrinter(self, isIppPrinter: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetTargetIppPrintDevice(self, riid: POINTER(Guid), ppvTarget: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintDocumentPackageTargetFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d2959bf7-b31b-4a3d-96-00-71-2e-b1-33-5b-a4')
+    _iid_ = Guid('d2959bf7-b31b-4a3d-96-00-71-2e-b1-33-5b-a4')
     @commethod(3)
     def CreateDocumentPackageTargetForPrintJob(self, printerName: Windows.Win32.Foundation.PWSTR, jobName: Windows.Win32.Foundation.PWSTR, jobOutputStream: Windows.Win32.System.Com.IStream_head, jobPrintTicketStream: Windows.Win32.System.Com.IStream_head, docPackageTarget: POINTER(Windows.Win32.Storage.Xps.Printing.IPrintDocumentPackageTarget_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsPrintJob(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5ab89b06-8194-425f-ab-3b-d7-a9-6e-35-01-61')
+    _iid_ = Guid('5ab89b06-8194-425f-ab-3b-d7-a9-6e-35-01-61')
     @commethod(3)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetJobStatus(self, jobStatus: POINTER(Windows.Win32.Storage.Xps.Printing.XPS_JOB_STATUS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsPrintJobStream(ComPtr):
     extends: Windows.Win32.System.Com.ISequentialStream
-    Guid = Guid('7a77dc5f-45d6-4dff-93-07-d8-cb-84-63-47-ca')
+    _iid_ = Guid('7a77dc5f-45d6-4dff-93-07-d8-cb-84-63-47-ca')
     @commethod(5)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
 PrintDocumentPackageCompletion = Int32

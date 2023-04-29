@@ -948,17 +948,17 @@ HorizontalTextAlignment_Right: HorizontalTextAlignment = 2
 HorizontalTextAlignment_Justified: HorizontalTextAlignment = 3
 class IAccIdentity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7852b78d-1cfd-41c1-a6-15-9c-0c-85-96-0b-5f')
+    _iid_ = Guid('7852b78d-1cfd-41c1-a6-15-9c-0c-85-96-0b-5f')
     @commethod(3)
     def GetIdentityString(self, dwIDChild: UInt32, ppIDString: POINTER(POINTER(Byte)), pdwIDStringLen: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccPropServer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('76c0dbbb-15e0-4e7b-b6-1b-20-ee-ea-20-01-e0')
+    _iid_ = Guid('76c0dbbb-15e0-4e7b-b6-1b-20-ee-ea-20-01-e0')
     @commethod(3)
     def GetPropValue(self, pIDString: POINTER(Byte), dwIDStringLen: UInt32, idProp: Guid, pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head), pfHasProp: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccPropServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6e26e776-04f0-495d-80-e4-33-30-35-2e-31-69')
+    _iid_ = Guid('6e26e776-04f0-495d-80-e4-33-30-35-2e-31-69')
     @commethod(3)
     def SetPropValue(self, pIDString: POINTER(Byte), dwIDStringLen: UInt32, idProp: Guid, var: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -991,7 +991,7 @@ class IAccPropServices(ComPtr):
     def DecomposeHmenuIdentityString(self, pIDString: POINTER(Byte), dwIDStringLen: UInt32, phmenu: POINTER(Windows.Win32.UI.WindowsAndMessaging.HMENU), pidChild: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccessible(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('618736e0-3c3d-11cf-81-0c-00-aa-00-38-9b-71')
+    _iid_ = Guid('618736e0-3c3d-11cf-81-0c-00-aa-00-38-9b-71')
     @commethod(7)
     def get_accParent(self, ppdispParent: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1036,7 +1036,7 @@ class IAccessible(ComPtr):
     def put_accValue(self, varChild: Windows.Win32.System.Variant.VARIANT, szValue: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccessibleEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f8b80ada-2c44-48d0-89-be-5f-f2-3c-9c-d8-75')
+    _iid_ = Guid('f8b80ada-2c44-48d0-89-be-5f-f2-3c-9c-d8-75')
     @commethod(3)
     def GetObjectForChild(self, idChild: Int32, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IAccessibleEx_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1047,19 +1047,19 @@ class IAccessibleEx(ComPtr):
     def ConvertReturnedElement(self, pIn: Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head, ppRetValOut: POINTER(Windows.Win32.UI.Accessibility.IAccessibleEx_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccessibleHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('03022430-abc4-11d0-bd-e2-00-aa-00-1a-19-53')
+    _iid_ = Guid('03022430-abc4-11d0-bd-e2-00-aa-00-1a-19-53')
     @commethod(3)
     def AccessibleObjectFromID(self, hwnd: Int32, lObjectID: Int32, pIAccessible: POINTER(Windows.Win32.UI.Accessibility.IAccessible_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccessibleHostingElementProviders(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('33ac331b-943e-4020-b2-95-db-37-78-49-74-a3')
+    _iid_ = Guid('33ac331b-943e-4020-b2-95-db-37-78-49-74-a3')
     @commethod(3)
     def GetEmbeddedFragmentRoots(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetObjectIdForProvider(self, pProvider: Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head, pidObject: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccessibleWindowlessSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bf3abd9c-76da-4389-9e-b6-14-27-d2-5a-ba-b7')
+    _iid_ = Guid('bf3abd9c-76da-4389-9e-b6-14-27-d2-5a-ba-b7')
     @commethod(3)
     def AcquireObjectIdRange(self, rangeSize: Int32, pRangeOwner: Windows.Win32.UI.Accessibility.IAccessibleHandler_head, pRangeBase: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1070,7 +1070,7 @@ class IAccessibleWindowlessSite(ComPtr):
     def GetParentAccessible(self, ppParent: POINTER(Windows.Win32.UI.Accessibility.IAccessible_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAnnotationProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f95c7e80-bd63-4601-97-82-44-5e-bf-f0-11-fc')
+    _iid_ = Guid('f95c7e80-bd63-4601-97-82-44-5e-bf-f0-11-fc')
     @commethod(3)
     def get_AnnotationTypeId(self, retVal: POINTER(Windows.Win32.UI.Accessibility.UIA_ANNOTATIONTYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1083,19 +1083,19 @@ class IAnnotationProvider(ComPtr):
     def get_Target(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICustomNavigationProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2062a28a-8c07-4b94-8e-12-70-37-c6-22-ae-b8')
+    _iid_ = Guid('2062a28a-8c07-4b94-8e-12-70-37-c6-22-ae-b8')
     @commethod(3)
     def Navigate(self, direction: Windows.Win32.UI.Accessibility.NavigateDirection, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDockProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('159bc72c-4ad3-485e-96-37-d7-05-2e-df-01-46')
+    _iid_ = Guid('159bc72c-4ad3-485e-96-37-d7-05-2e-df-01-46')
     @commethod(3)
     def SetDockPosition(self, dockPosition: Windows.Win32.UI.Accessibility.DockPosition) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_DockPosition(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.DockPosition)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDragProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6aa7bbbb-7ff9-497d-90-4f-d2-0b-89-79-29-d8')
+    _iid_ = Guid('6aa7bbbb-7ff9-497d-90-4f-d2-0b-89-79-29-d8')
     @commethod(3)
     def get_IsGrabbed(self, pRetVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1106,14 +1106,14 @@ class IDragProvider(ComPtr):
     def GetGrabbedItems(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IDropTargetProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bae82bfd-358a-481c-85-a0-d8-b4-d9-0a-5d-61')
+    _iid_ = Guid('bae82bfd-358a-481c-85-a0-d8-b4-d9-0a-5d-61')
     @commethod(3)
     def get_DropTargetEffect(self, pRetVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_DropTargetEffects(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IExpandCollapseProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d847d3a5-cab0-4a98-8c-32-ec-b4-5c-59-ad-24')
+    _iid_ = Guid('d847d3a5-cab0-4a98-8c-32-ec-b4-5c-59-ad-24')
     @commethod(3)
     def Expand(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1122,7 +1122,7 @@ class IExpandCollapseProvider(ComPtr):
     def get_ExpandCollapseState(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.ExpandCollapseState)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGridItemProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d02541f1-fb81-4d64-ae-32-f5-20-f8-a6-db-d1')
+    _iid_ = Guid('d02541f1-fb81-4d64-ae-32-f5-20-f8-a6-db-d1')
     @commethod(3)
     def get_Row(self, pRetVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1135,7 +1135,7 @@ class IGridItemProvider(ComPtr):
     def get_ContainingGrid(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGridProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b17d6187-0907-464b-a1-68-0e-f1-7a-15-72-b1')
+    _iid_ = Guid('b17d6187-0907-464b-a1-68-0e-f1-7a-15-72-b1')
     @commethod(3)
     def GetItem(self, row: Int32, column: Int32, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1144,17 +1144,17 @@ class IGridProvider(ComPtr):
     def get_ColumnCount(self, pRetVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInvokeProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('54fcb24b-e18e-47a2-b4-d3-ec-cb-e7-75-99-a2')
+    _iid_ = Guid('54fcb24b-e18e-47a2-b4-d3-ec-cb-e7-75-99-a2')
     @commethod(3)
     def Invoke(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IItemContainerProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e747770b-39ce-4382-ab-30-d8-fb-3f-33-6f-24')
+    _iid_ = Guid('e747770b-39ce-4382-ab-30-d8-fb-3f-33-6f-24')
     @commethod(3)
     def FindItemByProperty(self, pStartAfter: Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head, propertyId: Windows.Win32.UI.Accessibility.UIA_PROPERTY_ID, value: Windows.Win32.System.Variant.VARIANT, pFound: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ILegacyIAccessibleProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e44c3566-915d-4070-99-c6-04-7b-ff-5a-08-f5')
+    _iid_ = Guid('e44c3566-915d-4070-99-c6-04-7b-ff-5a-08-f5')
     @commethod(3)
     def Select(self, flagsSelect: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1185,7 +1185,7 @@ class ILegacyIAccessibleProvider(ComPtr):
     def get_DefaultAction(self, pszDefaultAction: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMultipleViewProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6278cab1-b556-4a1a-b4-e0-41-8a-cc-52-32-01')
+    _iid_ = Guid('6278cab1-b556-4a1a-b4-e0-41-8a-cc-52-32-01')
     @commethod(3)
     def GetViewName(self, viewId: Int32, pRetVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1196,17 +1196,17 @@ class IMultipleViewProvider(ComPtr):
     def GetSupportedViews(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IObjectModelProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3ad86ebd-f5ef-483d-bb-18-b1-04-2a-47-5d-64')
+    _iid_ = Guid('3ad86ebd-f5ef-483d-bb-18-b1-04-2a-47-5d-64')
     @commethod(3)
     def GetUnderlyingObjectModel(self, ppUnknown: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IProxyProviderWinEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('89592ad4-f4e0-43d5-a3-b6-ba-d7-e1-11-b4-35')
+    _iid_ = Guid('89592ad4-f4e0-43d5-a3-b6-ba-d7-e1-11-b4-35')
     @commethod(3)
     def RespondToWinEvent(self, idWinEvent: UInt32, hwnd: Windows.Win32.Foundation.HWND, idObject: Int32, idChild: Int32, pSink: Windows.Win32.UI.Accessibility.IProxyProviderWinEventSink_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IProxyProviderWinEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4fd82b78-a43e-46ac-98-03-0a-69-69-c7-c1-83')
+    _iid_ = Guid('4fd82b78-a43e-46ac-98-03-0a-69-69-c7-c1-83')
     @commethod(3)
     def AddAutomationPropertyChangedEvent(self, pProvider: Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head, id: Windows.Win32.UI.Accessibility.UIA_PROPERTY_ID, newValue: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1215,7 +1215,7 @@ class IProxyProviderWinEventSink(ComPtr):
     def AddStructureChangedEvent(self, pProvider: Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head, structureChangeType: Windows.Win32.UI.Accessibility.StructureChangeType, runtimeId: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRangeValueProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('36dc7aef-33e6-4691-af-e1-2b-e7-27-4b-3d-33')
+    _iid_ = Guid('36dc7aef-33e6-4691-af-e1-2b-e7-27-4b-3d-33')
     @commethod(3)
     def SetValue(self, val: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1232,14 +1232,14 @@ class IRangeValueProvider(ComPtr):
     def get_SmallChange(self, pRetVal: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderAdviseEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a407b27b-0f6d-4427-92-92-47-3c-7b-f9-32-58')
+    _iid_ = Guid('a407b27b-0f6d-4427-92-92-47-3c-7b-f9-32-58')
     @commethod(3)
     def AdviseEventAdded(self, eventId: Windows.Win32.UI.Accessibility.UIA_EVENT_ID, propertyIDs: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def AdviseEventRemoved(self, eventId: Windows.Win32.UI.Accessibility.UIA_EVENT_ID, propertyIDs: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderFragment(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f7063da8-8359-439c-92-97-bb-c5-29-9a-7d-87')
+    _iid_ = Guid('f7063da8-8359-439c-92-97-bb-c5-29-9a-7d-87')
     @commethod(3)
     def Navigate(self, direction: Windows.Win32.UI.Accessibility.NavigateDirection, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderFragment_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1254,24 +1254,24 @@ class IRawElementProviderFragment(ComPtr):
     def get_FragmentRoot(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderFragmentRoot_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderFragmentRoot(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('620ce2a5-ab8f-40a9-86-cb-de-3c-75-59-9b-58')
+    _iid_ = Guid('620ce2a5-ab8f-40a9-86-cb-de-3c-75-59-9b-58')
     @commethod(3)
     def ElementProviderFromPoint(self, x: Double, y: Double, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderFragment_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetFocus(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderFragment_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderHostingAccessibles(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('24be0b07-d37d-487a-98-cf-a1-3e-d4-65-e9-b3')
+    _iid_ = Guid('24be0b07-d37d-487a-98-cf-a1-3e-d4-65-e9-b3')
     @commethod(3)
     def GetEmbeddedAccessibles(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderHwndOverride(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1d5df27c-8947-4425-b8-d9-79-78-7b-b4-60-b8')
+    _iid_ = Guid('1d5df27c-8947-4425-b8-d9-79-78-7b-b4-60-b8')
     @commethod(3)
     def GetOverrideProviderForHwnd(self, hwnd: Windows.Win32.Foundation.HWND, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderSimple(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d6dd68d1-86fd-4332-86-66-9a-be-de-a2-d2-4c')
+    _iid_ = Guid('d6dd68d1-86fd-4332-86-66-9a-be-de-a2-d2-4c')
     @commethod(3)
     def get_ProviderOptions(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.ProviderOptions)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1282,17 +1282,17 @@ class IRawElementProviderSimple(ComPtr):
     def get_HostRawElementProvider(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderSimple2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IRawElementProviderSimple
-    Guid = Guid('a0a839a9-8da1-4a82-80-6a-8e-0d-44-e7-9f-56')
+    _iid_ = Guid('a0a839a9-8da1-4a82-80-6a-8e-0d-44-e7-9f-56')
     @commethod(7)
     def ShowContextMenu(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderSimple3(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IRawElementProviderSimple2
-    Guid = Guid('fcf5d820-d7ec-4613-bd-f6-42-a8-4c-e7-da-af')
+    _iid_ = Guid('fcf5d820-d7ec-4613-bd-f6-42-a8-4c-e7-da-af')
     @commethod(8)
     def GetMetadataValue(self, targetId: Int32, metadataId: Windows.Win32.UI.Accessibility.UIA_METADATA_ID, returnVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRawElementProviderWindowlessSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0a2a93cc-bfad-42ac-9b-2e-09-91-fb-0d-3e-a0')
+    _iid_ = Guid('0a2a93cc-bfad-42ac-9b-2e-09-91-fb-0d-3e-a0')
     @commethod(3)
     def GetAdjacentFragment(self, direction: Windows.Win32.UI.Accessibility.NavigateDirection, ppParent: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderFragment_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1309,12 +1309,12 @@ class IRicheditWindowlessAccessibility(ComPtr):
     def CreateProvider(self, pSite: Windows.Win32.UI.Accessibility.IRawElementProviderWindowlessSite_head, ppProvider: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IScrollItemProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2360c714-4bf1-4b26-ba-65-9b-21-31-61-27-eb')
+    _iid_ = Guid('2360c714-4bf1-4b26-ba-65-9b-21-31-61-27-eb')
     @commethod(3)
     def ScrollIntoView(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IScrollProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b38b8077-1fc3-42a5-8c-ae-d4-0c-22-15-05-5a')
+    _iid_ = Guid('b38b8077-1fc3-42a5-8c-ae-d4-0c-22-15-05-5a')
     @commethod(3)
     def Scroll(self, horizontalAmount: Windows.Win32.UI.Accessibility.ScrollAmount, verticalAmount: Windows.Win32.UI.Accessibility.ScrollAmount) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1333,7 +1333,7 @@ class IScrollProvider(ComPtr):
     def get_VerticallyScrollable(self, pRetVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISelectionItemProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2acad808-b2d4-452d-a4-07-91-ff-1a-d1-67-b2')
+    _iid_ = Guid('2acad808-b2d4-452d-a4-07-91-ff-1a-d1-67-b2')
     @commethod(3)
     def Select(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1346,7 +1346,7 @@ class ISelectionItemProvider(ComPtr):
     def get_SelectionContainer(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISelectionProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fb8b03af-3bdf-48d4-bd-36-1a-65-79-3b-e1-68')
+    _iid_ = Guid('fb8b03af-3bdf-48d4-bd-36-1a-65-79-3b-e1-68')
     @commethod(3)
     def GetSelection(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1355,7 +1355,7 @@ class ISelectionProvider(ComPtr):
     def get_IsSelectionRequired(self, pRetVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISelectionProvider2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.ISelectionProvider
-    Guid = Guid('14f68475-ee1c-44f6-a8-69-d2-39-38-1f-0f-e7')
+    _iid_ = Guid('14f68475-ee1c-44f6-a8-69-d2-39-38-1f-0f-e7')
     @commethod(6)
     def get_FirstSelectedItem(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -1366,7 +1366,7 @@ class ISelectionProvider2(ComPtr):
     def get_ItemCount(self, retVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpreadsheetItemProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('eaed4660-7b3d-4879-a2-e6-36-5c-e6-03-f3-d0')
+    _iid_ = Guid('eaed4660-7b3d-4879-a2-e6-36-5c-e6-03-f3-d0')
     @commethod(3)
     def get_Formula(self, pRetVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1375,12 +1375,12 @@ class ISpreadsheetItemProvider(ComPtr):
     def GetAnnotationTypes(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpreadsheetProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6f6b5d35-5525-4f80-b7-58-85-47-38-32-ff-c7')
+    _iid_ = Guid('6f6b5d35-5525-4f80-b7-58-85-47-38-32-ff-c7')
     @commethod(3)
     def GetItemByName(self, name: Windows.Win32.Foundation.PWSTR, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IStylesProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('19b6b649-f5d7-4a6d-bd-cb-12-92-52-be-58-8a')
+    _iid_ = Guid('19b6b649-f5d7-4a6d-bd-cb-12-92-52-be-58-8a')
     @commethod(3)
     def get_StyleId(self, retVal: POINTER(Windows.Win32.UI.Accessibility.UIA_STYLE_ID)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1397,21 +1397,21 @@ class IStylesProvider(ComPtr):
     def get_ExtendedProperties(self, retVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISynchronizedInputProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('29db1a06-02ce-4cf7-9b-42-56-5d-4f-ab-20-ee')
+    _iid_ = Guid('29db1a06-02ce-4cf7-9b-42-56-5d-4f-ab-20-ee')
     @commethod(3)
     def StartListening(self, inputType: Windows.Win32.UI.Accessibility.SynchronizedInputType) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITableItemProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b9734fa6-771f-4d78-9c-90-25-17-99-93-49-cd')
+    _iid_ = Guid('b9734fa6-771f-4d78-9c-90-25-17-99-93-49-cd')
     @commethod(3)
     def GetRowHeaderItems(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetColumnHeaderItems(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class ITableProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9c860395-97b3-490a-b5-2a-85-8c-c2-2a-f1-66')
+    _iid_ = Guid('9c860395-97b3-490a-b5-2a-85-8c-c2-2a-f1-66')
     @commethod(3)
     def GetRowHeaders(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1420,21 +1420,21 @@ class ITableProvider(ComPtr):
     def get_RowOrColumnMajor(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.RowOrColumnMajor)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextChildProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4c2de2b9-c88f-4f88-a1-11-f1-d3-36-b7-d1-a9')
+    _iid_ = Guid('4c2de2b9-c88f-4f88-a1-11-f1-d3-36-b7-d1-a9')
     @commethod(3)
     def get_TextContainer(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_TextRange(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.ITextRangeProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextEditProvider(ComPtr):
     extends: Windows.Win32.UI.Accessibility.ITextProvider
-    Guid = Guid('ea3605b4-3a05-400e-b5-f9-4e-91-b4-0f-61-76')
+    _iid_ = Guid('ea3605b4-3a05-400e-b5-f9-4e-91-b4-0f-61-76')
     @commethod(9)
     def GetActiveComposition(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.ITextRangeProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetConversionTarget(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.ITextRangeProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3589c92c-63f3-4367-99-bb-ad-a6-53-b7-7c-f2')
+    _iid_ = Guid('3589c92c-63f3-4367-99-bb-ad-a6-53-b7-7c-f2')
     @commethod(3)
     def GetSelection(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1449,14 +1449,14 @@ class ITextProvider(ComPtr):
     def get_SupportedTextSelection(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.SupportedTextSelection)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextProvider2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.ITextProvider
-    Guid = Guid('0dc5e6ed-3e16-4bf1-8f-9a-a9-79-87-8b-c1-95')
+    _iid_ = Guid('0dc5e6ed-3e16-4bf1-8f-9a-a9-79-87-8b-c1-95')
     @commethod(9)
     def RangeFromAnnotation(self, annotationElement: Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head, pRetVal: POINTER(Windows.Win32.UI.Accessibility.ITextRangeProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetCaretRange(self, isActive: POINTER(Windows.Win32.Foundation.BOOL), pRetVal: POINTER(Windows.Win32.UI.Accessibility.ITextRangeProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextRangeProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5347ad7b-c355-46f8-af-f5-90-90-33-58-2f-63')
+    _iid_ = Guid('5347ad7b-c355-46f8-af-f5-90-90-33-58-2f-63')
     @commethod(3)
     def Clone(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.ITextRangeProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1495,19 +1495,19 @@ class ITextRangeProvider(ComPtr):
     def GetChildren(self, pRetVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextRangeProvider2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.ITextRangeProvider
-    Guid = Guid('9bbce42c-1921-4f18-89-ca-db-a1-91-0a-03-86')
+    _iid_ = Guid('9bbce42c-1921-4f18-89-ca-db-a1-91-0a-03-86')
     @commethod(21)
     def ShowContextMenu(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IToggleProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('56d00bd0-c4f4-433c-a8-36-1a-52-a5-7e-08-92')
+    _iid_ = Guid('56d00bd0-c4f4-433c-a8-36-1a-52-a5-7e-08-92')
     @commethod(3)
     def Toggle(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_ToggleState(self, pRetVal: POINTER(Windows.Win32.UI.Accessibility.ToggleState)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITransformProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6829ddc4-4f91-4ffa-b8-6f-bd-3e-29-87-cb-4c')
+    _iid_ = Guid('6829ddc4-4f91-4ffa-b8-6f-bd-3e-29-87-cb-4c')
     @commethod(3)
     def Move(self, x: Double, y: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1522,7 +1522,7 @@ class ITransformProvider(ComPtr):
     def get_CanRotate(self, pRetVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITransformProvider2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.ITransformProvider
-    Guid = Guid('4758742f-7ac2-460c-bc-48-09-fc-09-30-8a-93')
+    _iid_ = Guid('4758742f-7ac2-460c-bc-48-09-fc-09-30-8a-93')
     @commethod(9)
     def Zoom(self, zoom: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -1537,7 +1537,7 @@ class ITransformProvider2(ComPtr):
     def ZoomByUnit(self, zoomUnit: Windows.Win32.UI.Accessibility.ZoomUnit) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('30cbe57d-d9d0-452a-ab-13-7a-c5-ac-48-25-ee')
+    _iid_ = Guid('30cbe57d-d9d0-452a-ab-13-7a-c5-ac-48-25-ee')
     @commethod(3)
     def CompareElements(self, el1: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, el2: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, areSame: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1650,7 +1650,7 @@ class IUIAutomation(ComPtr):
     def ElementFromIAccessibleBuildCache(self, accessible: Windows.Win32.UI.Accessibility.IAccessible_head, childId: Int32, cacheRequest: Windows.Win32.UI.Accessibility.IUIAutomationCacheRequest_head, element: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomation2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomation
-    Guid = Guid('34723aff-0c9d-49d0-98-96-7a-b5-2d-f8-cd-8a')
+    _iid_ = Guid('34723aff-0c9d-49d0-98-96-7a-b5-2d-f8-cd-8a')
     @commethod(58)
     def get_AutoSetFocus(self, autoSetFocus: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(59)
@@ -1665,28 +1665,28 @@ class IUIAutomation2(ComPtr):
     def put_TransactionTimeout(self, timeout: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomation3(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomation2
-    Guid = Guid('73d768da-9b51-4b89-93-6e-c2-09-29-09-73-e7')
+    _iid_ = Guid('73d768da-9b51-4b89-93-6e-c2-09-29-09-73-e7')
     @commethod(64)
     def AddTextEditTextChangedEventHandler(self, element: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, scope: Windows.Win32.UI.Accessibility.TreeScope, textEditChangeType: Windows.Win32.UI.Accessibility.TextEditChangeType, cacheRequest: Windows.Win32.UI.Accessibility.IUIAutomationCacheRequest_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(65)
     def RemoveTextEditTextChangedEventHandler(self, element: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomation4(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomation3
-    Guid = Guid('1189c02a-05f8-4319-8e-21-e8-17-e3-db-28-60')
+    _iid_ = Guid('1189c02a-05f8-4319-8e-21-e8-17-e3-db-28-60')
     @commethod(66)
     def AddChangesEventHandler(self, element: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, scope: Windows.Win32.UI.Accessibility.TreeScope, changeTypes: POINTER(Int32), changesCount: Int32, pCacheRequest: Windows.Win32.UI.Accessibility.IUIAutomationCacheRequest_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationChangesEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(67)
     def RemoveChangesEventHandler(self, element: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationChangesEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomation5(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomation4
-    Guid = Guid('25f700c8-d816-4057-a9-dc-3c-bd-ee-77-e2-56')
+    _iid_ = Guid('25f700c8-d816-4057-a9-dc-3c-bd-ee-77-e2-56')
     @commethod(68)
     def AddNotificationEventHandler(self, element: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, scope: Windows.Win32.UI.Accessibility.TreeScope, cacheRequest: Windows.Win32.UI.Accessibility.IUIAutomationCacheRequest_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationNotificationEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(69)
     def RemoveNotificationEventHandler(self, element: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationNotificationEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomation6(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomation5
-    Guid = Guid('aae072da-29e3-413d-87-a7-19-2d-bf-81-ed-10')
+    _iid_ = Guid('aae072da-29e3-413d-87-a7-19-2d-bf-81-ed-10')
     @commethod(70)
     def CreateEventHandlerGroup(self, handlerGroup: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationEventHandlerGroup_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(71)
@@ -1707,12 +1707,12 @@ class IUIAutomation6(ComPtr):
     def RemoveActiveTextPositionChangedEventHandler(self, element: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationActiveTextPositionChangedEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationActiveTextPositionChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f97933b0-8dae-4496-89-97-5b-a0-15-fe-0d-82')
+    _iid_ = Guid('f97933b0-8dae-4496-89-97-5b-a0-15-fe-0d-82')
     @commethod(3)
     def HandleActiveTextPositionChangedEvent(self, sender: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, range: Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationAndCondition(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationCondition
-    Guid = Guid('a7d0af36-b912-45fe-98-55-09-1d-dc-17-4a-ec')
+    _iid_ = Guid('a7d0af36-b912-45fe-98-55-09-1d-dc-17-4a-ec')
     @commethod(3)
     def get_ChildCount(self, childCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1721,7 +1721,7 @@ class IUIAutomationAndCondition(ComPtr):
     def GetChildren(self, childArray: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationAnnotationPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9a175b21-339e-41b1-8e-8b-62-3f-6b-68-10-98')
+    _iid_ = Guid('9a175b21-339e-41b1-8e-8b-62-3f-6b-68-10-98')
     @commethod(3)
     def get_CurrentAnnotationTypeId(self, retVal: POINTER(Windows.Win32.UI.Accessibility.UIA_ANNOTATIONTYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1744,12 +1744,12 @@ class IUIAutomationAnnotationPattern(ComPtr):
     def get_CachedTarget(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationBoolCondition(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationCondition
-    Guid = Guid('1b4e1f2e-75eb-4d0b-89-52-5a-69-98-8e-23-07')
+    _iid_ = Guid('1b4e1f2e-75eb-4d0b-89-52-5a-69-98-8e-23-07')
     @commethod(3)
     def get_BooleanValue(self, boolVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationCacheRequest(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b32a92b5-bc25-4078-9c-08-d7-ee-95-c4-8e-03')
+    _iid_ = Guid('b32a92b5-bc25-4078-9c-08-d7-ee-95-c4-8e-03')
     @commethod(3)
     def AddProperty(self, propertyId: Windows.Win32.UI.Accessibility.UIA_PROPERTY_ID) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1770,20 +1770,20 @@ class IUIAutomationCacheRequest(ComPtr):
     def put_AutomationElementMode(self, mode: Windows.Win32.UI.Accessibility.AutomationElementMode) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationChangesEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('58edca55-2c3e-4980-b1-b9-56-c1-7f-27-a2-a0')
+    _iid_ = Guid('58edca55-2c3e-4980-b1-b9-56-c1-7f-27-a2-a0')
     @commethod(3)
     def HandleChangesEvent(self, sender: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, uiaChanges: POINTER(Windows.Win32.UI.Accessibility.UiaChangeInfo_head), changesCount: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationCondition(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('352ffba8-0973-437c-a6-1f-f6-4c-af-d8-1d-f9')
+    _iid_ = Guid('352ffba8-0973-437c-a6-1f-f6-4c-af-d8-1d-f9')
 class IUIAutomationCustomNavigationPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('01ea217a-1766-47ed-a6-cc-ac-f4-92-85-4b-1f')
+    _iid_ = Guid('01ea217a-1766-47ed-a6-cc-ac-f4-92-85-4b-1f')
     @commethod(3)
     def Navigate(self, direction: Windows.Win32.UI.Accessibility.NavigateDirection, pRetVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationDockPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fde5ef97-1464-48f6-90-bf-43-d0-94-8e-86-ec')
+    _iid_ = Guid('fde5ef97-1464-48f6-90-bf-43-d0-94-8e-86-ec')
     @commethod(3)
     def SetDockPosition(self, dockPos: Windows.Win32.UI.Accessibility.DockPosition) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1792,7 +1792,7 @@ class IUIAutomationDockPattern(ComPtr):
     def get_CachedDockPosition(self, retVal: POINTER(Windows.Win32.UI.Accessibility.DockPosition)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationDragPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dc7b570-1f54-4bad-bc-da-d3-6a-72-2f-b7-bd')
+    _iid_ = Guid('1dc7b570-1f54-4bad-bc-da-d3-6a-72-2f-b7-bd')
     @commethod(3)
     def get_CurrentIsGrabbed(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1811,7 +1811,7 @@ class IUIAutomationDragPattern(ComPtr):
     def GetCachedGrabbedItems(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElementArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationDropTargetPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('69a095f7-eee4-430e-a4-6b-fb-73-b1-ae-39-a5')
+    _iid_ = Guid('69a095f7-eee4-430e-a4-6b-fb-73-b1-ae-39-a5')
     @commethod(3)
     def get_CurrentDropTargetEffect(self, retVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1822,7 +1822,7 @@ class IUIAutomationDropTargetPattern(ComPtr):
     def get_CachedDropTargetEffects(self, retVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d22108aa-8ac5-49a5-83-7b-37-bb-b3-d7-59-1e')
+    _iid_ = Guid('d22108aa-8ac5-49a5-83-7b-37-bb-b3-d7-59-1e')
     @commethod(3)
     def SetFocus(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1989,7 +1989,7 @@ class IUIAutomationElement(ComPtr):
     def GetClickablePoint(self, clickable: POINTER(Windows.Win32.Foundation.POINT_head), gotClickable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationElement
-    Guid = Guid('6749c683-f70d-4487-a6-98-5f-79-d5-52-90-d6')
+    _iid_ = Guid('6749c683-f70d-4487-a6-98-5f-79-d5-52-90-d6')
     @commethod(85)
     def get_CurrentOptimizeForVisualContent(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(86)
@@ -2004,7 +2004,7 @@ class IUIAutomationElement2(ComPtr):
     def get_CachedFlowsFrom(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElementArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement3(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationElement2
-    Guid = Guid('8471df34-aee0-4a01-a7-de-7d-b9-af-12-c2-96')
+    _iid_ = Guid('8471df34-aee0-4a01-a7-de-7d-b9-af-12-c2-96')
     @commethod(91)
     def ShowContextMenu(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(92)
@@ -2013,7 +2013,7 @@ class IUIAutomationElement3(ComPtr):
     def get_CachedIsPeripheral(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement4(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationElement3
-    Guid = Guid('3b6e233c-52fb-4063-a4-c9-77-c0-75-c2-a0-6b')
+    _iid_ = Guid('3b6e233c-52fb-4063-a4-c9-77-c0-75-c2-a0-6b')
     @commethod(94)
     def get_CurrentPositionInSet(self, retVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(95)
@@ -2036,7 +2036,7 @@ class IUIAutomationElement4(ComPtr):
     def get_CachedAnnotationObjects(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElementArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement5(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationElement4
-    Guid = Guid('98141c1d-0d0e-4175-bb-e2-6b-ff-45-58-42-a7')
+    _iid_ = Guid('98141c1d-0d0e-4175-bb-e2-6b-ff-45-58-42-a7')
     @commethod(104)
     def get_CurrentLandmarkType(self, retVal: POINTER(Windows.Win32.UI.Accessibility.UIA_LANDMARKTYPE_ID)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(105)
@@ -2047,14 +2047,14 @@ class IUIAutomationElement5(ComPtr):
     def get_CachedLocalizedLandmarkType(self, retVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement6(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationElement5
-    Guid = Guid('4780d450-8bca-4977-af-a5-a4-a5-17-f5-55-e3')
+    _iid_ = Guid('4780d450-8bca-4977-af-a5-a4-a5-17-f5-55-e3')
     @commethod(108)
     def get_CurrentFullDescription(self, retVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(109)
     def get_CachedFullDescription(self, retVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement7(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationElement6
-    Guid = Guid('204e8572-cfc3-4c11-b0-c8-7d-a7-42-07-50-b7')
+    _iid_ = Guid('204e8572-cfc3-4c11-b0-c8-7d-a7-42-07-50-b7')
     @commethod(110)
     def FindFirstWithOptions(self, scope: Windows.Win32.UI.Accessibility.TreeScope, condition: Windows.Win32.UI.Accessibility.IUIAutomationCondition_head, traversalOptions: Windows.Win32.UI.Accessibility.TreeTraversalOptions, root: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, found: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(111)
@@ -2067,33 +2067,33 @@ class IUIAutomationElement7(ComPtr):
     def GetCurrentMetadataValue(self, targetId: Int32, metadataId: Windows.Win32.UI.Accessibility.UIA_METADATA_ID, returnVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement8(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationElement7
-    Guid = Guid('8c60217d-5411-4cde-bc-c0-1c-ed-a2-23-83-0c')
+    _iid_ = Guid('8c60217d-5411-4cde-bc-c0-1c-ed-a2-23-83-0c')
     @commethod(115)
     def get_CurrentHeadingLevel(self, retVal: POINTER(Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(116)
     def get_CachedHeadingLevel(self, retVal: POINTER(Windows.Win32.UI.Accessibility.UIA_HEADINGLEVEL_ID)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElement9(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationElement8
-    Guid = Guid('39325fac-039d-440e-a3-a3-5e-b8-1a-5c-ec-c3')
+    _iid_ = Guid('39325fac-039d-440e-a3-a3-5e-b8-1a-5c-ec-c3')
     @commethod(117)
     def get_CurrentIsDialog(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(118)
     def get_CachedIsDialog(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationElementArray(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('14314595-b4bc-4055-95-f2-58-f2-e4-2c-98-55')
+    _iid_ = Guid('14314595-b4bc-4055-95-f2-58-f2-e4-2c-98-55')
     @commethod(3)
     def get_Length(self, length: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetElement(self, index: Int32, element: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('146c3c17-f12e-4e22-8c-27-f8-94-b9-b7-9c-69')
+    _iid_ = Guid('146c3c17-f12e-4e22-8c-27-f8-94-b9-b7-9c-69')
     @commethod(3)
     def HandleAutomationEvent(self, sender: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, eventId: Windows.Win32.UI.Accessibility.UIA_EVENT_ID) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationEventHandlerGroup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c9ee12f2-c13b-4408-99-7c-63-99-14-37-7f-4e')
+    _iid_ = Guid('c9ee12f2-c13b-4408-99-7c-63-99-14-37-7f-4e')
     @commethod(3)
     def AddActiveTextPositionChangedEventHandler(self, scope: Windows.Win32.UI.Accessibility.TreeScope, cacheRequest: Windows.Win32.UI.Accessibility.IUIAutomationCacheRequest_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationActiveTextPositionChangedEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2110,7 +2110,7 @@ class IUIAutomationEventHandlerGroup(ComPtr):
     def AddTextEditTextChangedEventHandler(self, scope: Windows.Win32.UI.Accessibility.TreeScope, textEditChangeType: Windows.Win32.UI.Accessibility.TextEditChangeType, cacheRequest: Windows.Win32.UI.Accessibility.IUIAutomationCacheRequest_head, handler: Windows.Win32.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationExpandCollapsePattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('619be086-1f4e-4ee4-ba-fa-21-01-28-73-87-30')
+    _iid_ = Guid('619be086-1f4e-4ee4-ba-fa-21-01-28-73-87-30')
     @commethod(3)
     def Expand(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2121,12 +2121,12 @@ class IUIAutomationExpandCollapsePattern(ComPtr):
     def get_CachedExpandCollapseState(self, retVal: POINTER(Windows.Win32.UI.Accessibility.ExpandCollapseState)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationFocusChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c270f6b5-5c69-4290-97-45-7a-7f-97-16-94-68')
+    _iid_ = Guid('c270f6b5-5c69-4290-97-45-7a-7f-97-16-94-68')
     @commethod(3)
     def HandleFocusChangedEvent(self, sender: Windows.Win32.UI.Accessibility.IUIAutomationElement_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationGridItemPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('78f8ef57-66c3-4e09-bd-7c-e7-9b-20-04-89-4d')
+    _iid_ = Guid('78f8ef57-66c3-4e09-bd-7c-e7-9b-20-04-89-4d')
     @commethod(3)
     def get_CurrentContainingGrid(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2149,7 +2149,7 @@ class IUIAutomationGridItemPattern(ComPtr):
     def get_CachedColumnSpan(self, retVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationGridPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('414c3cdc-856b-4f5b-85-38-31-31-c6-30-25-50')
+    _iid_ = Guid('414c3cdc-856b-4f5b-85-38-31-31-c6-30-25-50')
     @commethod(3)
     def GetItem(self, row: Int32, column: Int32, element: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2162,17 +2162,17 @@ class IUIAutomationGridPattern(ComPtr):
     def get_CachedColumnCount(self, retVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationInvokePattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fb377fbe-8ea6-46d5-9c-73-64-99-64-2d-30-59')
+    _iid_ = Guid('fb377fbe-8ea6-46d5-9c-73-64-99-64-2d-30-59')
     @commethod(3)
     def Invoke(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationItemContainerPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c690fdb2-27a8-423c-81-2d-42-97-73-c9-08-4e')
+    _iid_ = Guid('c690fdb2-27a8-423c-81-2d-42-97-73-c9-08-4e')
     @commethod(3)
     def FindItemByProperty(self, pStartAfter: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, propertyId: Windows.Win32.UI.Accessibility.UIA_PROPERTY_ID, value: Windows.Win32.System.Variant.VARIANT, pFound: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationLegacyIAccessiblePattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('828055ad-355b-4435-86-d5-3b-51-c1-4a-9b-1b')
+    _iid_ = Guid('828055ad-355b-4435-86-d5-3b-51-c1-4a-9b-1b')
     @commethod(3)
     def Select(self, flagsSelect: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2223,7 +2223,7 @@ class IUIAutomationLegacyIAccessiblePattern(ComPtr):
     def GetIAccessible(self, ppAccessible: POINTER(Windows.Win32.UI.Accessibility.IAccessible_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationMultipleViewPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8d253c91-1dc5-4bb5-b1-8f-ad-e1-6f-a4-95-e8')
+    _iid_ = Guid('8d253c91-1dc5-4bb5-b1-8f-ad-e1-6f-a4-95-e8')
     @commethod(3)
     def GetViewName(self, view: Int32, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2238,22 +2238,22 @@ class IUIAutomationMultipleViewPattern(ComPtr):
     def GetCachedSupportedViews(self, retVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationNotCondition(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationCondition
-    Guid = Guid('f528b657-847b-498c-88-96-d5-2b-56-54-07-a1')
+    _iid_ = Guid('f528b657-847b-498c-88-96-d5-2b-56-54-07-a1')
     @commethod(3)
     def GetChild(self, condition: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationCondition_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationNotificationEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c7cb2637-e6c2-4d0c-85-de-49-48-c0-21-75-c7')
+    _iid_ = Guid('c7cb2637-e6c2-4d0c-85-de-49-48-c0-21-75-c7')
     @commethod(3)
     def HandleNotificationEvent(self, sender: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, notificationKind: Windows.Win32.UI.Accessibility.NotificationKind, notificationProcessing: Windows.Win32.UI.Accessibility.NotificationProcessing, displayString: Windows.Win32.Foundation.BSTR, activityId: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationObjectModelPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('71c284b3-c14d-4d14-98-1e-19-75-1b-0d-75-6d')
+    _iid_ = Guid('71c284b3-c14d-4d14-98-1e-19-75-1b-0d-75-6d')
     @commethod(3)
     def GetUnderlyingObjectModel(self, retVal: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationOrCondition(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationCondition
-    Guid = Guid('8753f032-3db1-47b5-a1-fc-6e-34-a2-66-c7-12')
+    _iid_ = Guid('8753f032-3db1-47b5-a1-fc-6e-34-a2-66-c7-12')
     @commethod(3)
     def get_ChildCount(self, childCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2262,26 +2262,26 @@ class IUIAutomationOrCondition(ComPtr):
     def GetChildren(self, childArray: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationPatternHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d97022f3-a947-465e-8b-2a-ac-43-15-fa-54-e8')
+    _iid_ = Guid('d97022f3-a947-465e-8b-2a-ac-43-15-fa-54-e8')
     @commethod(3)
     def CreateClientWrapper(self, pPatternInstance: Windows.Win32.UI.Accessibility.IUIAutomationPatternInstance_head, pClientWrapper: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Dispatch(self, pTarget: Windows.Win32.System.Com.IUnknown_head, index: UInt32, pParams: POINTER(Windows.Win32.UI.Accessibility.UIAutomationParameter_head), cParams: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationPatternInstance(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c03a7fe4-9431-409f-be-d8-ae-7c-22-99-bc-8d')
+    _iid_ = Guid('c03a7fe4-9431-409f-be-d8-ae-7c-22-99-bc-8d')
     @commethod(3)
     def GetProperty(self, index: UInt32, cached: Windows.Win32.Foundation.BOOL, type: Windows.Win32.UI.Accessibility.UIAutomationType, pPtr: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CallMethod(self, index: UInt32, pParams: POINTER(Windows.Win32.UI.Accessibility.UIAutomationParameter_head), cParams: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationPropertyChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('40cd37d4-c756-4b0c-8c-6f-bd-df-ee-b1-3b-50')
+    _iid_ = Guid('40cd37d4-c756-4b0c-8c-6f-bd-df-ee-b1-3b-50')
     @commethod(3)
     def HandlePropertyChangedEvent(self, sender: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, propertyId: Windows.Win32.UI.Accessibility.UIA_PROPERTY_ID, newValue: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationPropertyCondition(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationCondition
-    Guid = Guid('99ebf2cb-5578-4267-9a-d4-af-d6-ea-77-e9-4b')
+    _iid_ = Guid('99ebf2cb-5578-4267-9a-d4-af-d6-ea-77-e9-4b')
     @commethod(3)
     def get_PropertyId(self, propertyId: POINTER(Windows.Win32.UI.Accessibility.UIA_PROPERTY_ID)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2290,14 +2290,14 @@ class IUIAutomationPropertyCondition(ComPtr):
     def get_PropertyConditionFlags(self, flags: POINTER(Windows.Win32.UI.Accessibility.PropertyConditionFlags)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationProxyFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('85b94ecd-849d-42b6-b9-4d-d6-db-23-fd-f5-a4')
+    _iid_ = Guid('85b94ecd-849d-42b6-b9-4d-d6-db-23-fd-f5-a4')
     @commethod(3)
     def CreateProvider(self, hwnd: Windows.Win32.Foundation.HWND, idObject: Int32, idChild: Int32, provider: POINTER(Windows.Win32.UI.Accessibility.IRawElementProviderSimple_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_ProxyFactoryId(self, factoryId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationProxyFactoryEntry(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d50e472e-b64b-490c-bc-a1-d3-06-96-f9-f2-89')
+    _iid_ = Guid('d50e472e-b64b-490c-bc-a1-d3-06-96-f9-f2-89')
     @commethod(3)
     def get_ProxyFactory(self, factory: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationProxyFactory_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2326,7 +2326,7 @@ class IUIAutomationProxyFactoryEntry(ComPtr):
     def GetWinEventsForAutomationEvent(self, eventId: Windows.Win32.UI.Accessibility.UIA_EVENT_ID, propertyId: Windows.Win32.UI.Accessibility.UIA_PROPERTY_ID, winEvents: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationProxyFactoryMapping(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('09e31e18-872d-4873-93-d1-1e-54-1e-c1-33-fd')
+    _iid_ = Guid('09e31e18-872d-4873-93-d1-1e-54-1e-c1-33-fd')
     @commethod(3)
     def get_Count(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2347,7 +2347,7 @@ class IUIAutomationProxyFactoryMapping(ComPtr):
     def RestoreDefaultTable(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationRangeValuePattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('59213f4f-7346-49e5-b1-20-80-55-59-87-a1-48')
+    _iid_ = Guid('59213f4f-7346-49e5-b1-20-80-55-59-87-a1-48')
     @commethod(3)
     def SetValue(self, val: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2376,7 +2376,7 @@ class IUIAutomationRangeValuePattern(ComPtr):
     def get_CachedSmallChange(self, retVal: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationRegistrar(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8609c4ec-4a1a-4d88-a3-57-5a-66-e0-60-e1-cf')
+    _iid_ = Guid('8609c4ec-4a1a-4d88-a3-57-5a-66-e0-60-e1-cf')
     @commethod(3)
     def RegisterProperty(self, property: POINTER(Windows.Win32.UI.Accessibility.UIAutomationPropertyInfo_head), propertyId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2385,12 +2385,12 @@ class IUIAutomationRegistrar(ComPtr):
     def RegisterPattern(self, pattern: POINTER(Windows.Win32.UI.Accessibility.UIAutomationPatternInfo_head), pPatternId: POINTER(Int32), pPatternAvailablePropertyId: POINTER(Int32), propertyIdCount: UInt32, pPropertyIds: POINTER(Int32), eventIdCount: UInt32, pEventIds: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationScrollItemPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b488300f-d015-4f19-9c-29-bb-59-5e-36-45-ef')
+    _iid_ = Guid('b488300f-d015-4f19-9c-29-bb-59-5e-36-45-ef')
     @commethod(3)
     def ScrollIntoView(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationScrollPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('88f4d42a-e881-459d-a7-7c-73-bb-bb-7e-02-dc')
+    _iid_ = Guid('88f4d42a-e881-459d-a7-7c-73-bb-bb-7e-02-dc')
     @commethod(3)
     def Scroll(self, horizontalAmount: Windows.Win32.UI.Accessibility.ScrollAmount, verticalAmount: Windows.Win32.UI.Accessibility.ScrollAmount) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2421,7 +2421,7 @@ class IUIAutomationScrollPattern(ComPtr):
     def get_CachedVerticallyScrollable(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationSelectionItemPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a8efa66a-0fda-421a-91-94-38-02-1f-35-78-ea')
+    _iid_ = Guid('a8efa66a-0fda-421a-91-94-38-02-1f-35-78-ea')
     @commethod(3)
     def Select(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2438,7 +2438,7 @@ class IUIAutomationSelectionItemPattern(ComPtr):
     def get_CachedSelectionContainer(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationSelectionPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5ed5202e-b2ac-47a6-b6-38-4b-0b-f1-40-d7-8e')
+    _iid_ = Guid('5ed5202e-b2ac-47a6-b6-38-4b-0b-f1-40-d7-8e')
     @commethod(3)
     def GetCurrentSelection(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElementArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2453,7 +2453,7 @@ class IUIAutomationSelectionPattern(ComPtr):
     def get_CachedIsSelectionRequired(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationSelectionPattern2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationSelectionPattern
-    Guid = Guid('0532bfae-c011-4e32-a3-43-6d-64-2d-79-85-55')
+    _iid_ = Guid('0532bfae-c011-4e32-a3-43-6d-64-2d-79-85-55')
     @commethod(9)
     def get_CurrentFirstSelectedItem(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -2472,7 +2472,7 @@ class IUIAutomationSelectionPattern2(ComPtr):
     def get_CachedItemCount(self, retVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationSpreadsheetItemPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7d4fb86c-8d34-40e1-8e-83-62-c1-52-04-e3-35')
+    _iid_ = Guid('7d4fb86c-8d34-40e1-8e-83-62-c1-52-04-e3-35')
     @commethod(3)
     def get_CurrentFormula(self, retVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2487,17 +2487,17 @@ class IUIAutomationSpreadsheetItemPattern(ComPtr):
     def GetCachedAnnotationTypes(self, retVal: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationSpreadsheetPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7517a7c8-faae-4de9-9f-08-29-b9-1e-85-95-c1')
+    _iid_ = Guid('7517a7c8-faae-4de9-9f-08-29-b9-1e-85-95-c1')
     @commethod(3)
     def GetItemByName(self, name: Windows.Win32.Foundation.BSTR, element: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationStructureChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e81d1b4e-11c5-42f8-97-54-e7-03-6c-79-f0-54')
+    _iid_ = Guid('e81d1b4e-11c5-42f8-97-54-e7-03-6c-79-f0-54')
     @commethod(3)
     def HandleStructureChangedEvent(self, sender: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, changeType: Windows.Win32.UI.Accessibility.StructureChangeType, runtimeId: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationStylesPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('85b5f0a2-bd79-484a-ad-2b-38-8c-98-38-d5-fb')
+    _iid_ = Guid('85b5f0a2-bd79-484a-ad-2b-38-8c-98-38-d5-fb')
     @commethod(3)
     def get_CurrentStyleId(self, retVal: POINTER(Windows.Win32.UI.Accessibility.UIA_STYLE_ID)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2532,14 +2532,14 @@ class IUIAutomationStylesPattern(ComPtr):
     def GetCachedExtendedPropertiesAsArray(self, propertyArray: POINTER(POINTER(Windows.Win32.UI.Accessibility.ExtendedProperty_head)), propertyCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationSynchronizedInputPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2233be0b-afb7-448b-9f-da-3b-37-8a-a5-ea-e1')
+    _iid_ = Guid('2233be0b-afb7-448b-9f-da-3b-37-8a-a5-ea-e1')
     @commethod(3)
     def StartListening(self, inputType: Windows.Win32.UI.Accessibility.SynchronizedInputType) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTableItemPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0b964eb3-ef2e-4464-9c-79-61-d6-17-37-a2-7e')
+    _iid_ = Guid('0b964eb3-ef2e-4464-9c-79-61-d6-17-37-a2-7e')
     @commethod(3)
     def GetCurrentRowHeaderItems(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElementArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2550,7 +2550,7 @@ class IUIAutomationTableItemPattern(ComPtr):
     def GetCachedColumnHeaderItems(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElementArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTablePattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('620e691c-ea96-4710-a8-50-75-4b-24-ce-24-17')
+    _iid_ = Guid('620e691c-ea96-4710-a8-50-75-4b-24-ce-24-17')
     @commethod(3)
     def GetCurrentRowHeaders(self, retVal: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElementArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2565,26 +2565,26 @@ class IUIAutomationTablePattern(ComPtr):
     def get_CachedRowOrColumnMajor(self, retVal: POINTER(Windows.Win32.UI.Accessibility.RowOrColumnMajor)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextChildPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6552b038-ae05-40c8-ab-fd-aa-08-35-2a-ab-86')
+    _iid_ = Guid('6552b038-ae05-40c8-ab-fd-aa-08-35-2a-ab-86')
     @commethod(3)
     def get_TextContainer(self, container: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_TextRange(self, range: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextEditPattern(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationTextPattern
-    Guid = Guid('17e21576-996c-4870-99-d9-bf-f3-23-38-0c-06')
+    _iid_ = Guid('17e21576-996c-4870-99-d9-bf-f3-23-38-0c-06')
     @commethod(9)
     def GetActiveComposition(self, range: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetConversionTarget(self, range: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextEditTextChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('92faa680-e704-4156-93-1a-e3-2d-5b-b3-8f-3f')
+    _iid_ = Guid('92faa680-e704-4156-93-1a-e3-2d-5b-b3-8f-3f')
     @commethod(3)
     def HandleTextEditTextChangedEvent(self, sender: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, textEditChangeType: Windows.Win32.UI.Accessibility.TextEditChangeType, eventStrings: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('32eba289-3583-42c9-9c-59-3b-6d-9a-1e-9b-6a')
+    _iid_ = Guid('32eba289-3583-42c9-9c-59-3b-6d-9a-1e-9b-6a')
     @commethod(3)
     def RangeFromPoint(self, pt: Windows.Win32.Foundation.POINT, range: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2599,14 +2599,14 @@ class IUIAutomationTextPattern(ComPtr):
     def get_SupportedTextSelection(self, supportedTextSelection: POINTER(Windows.Win32.UI.Accessibility.SupportedTextSelection)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextPattern2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationTextPattern
-    Guid = Guid('506a921a-fcc9-409f-b2-3b-37-eb-74-10-68-72')
+    _iid_ = Guid('506a921a-fcc9-409f-b2-3b-37-eb-74-10-68-72')
     @commethod(9)
     def RangeFromAnnotation(self, annotation: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, range: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetCaretRange(self, isActive: POINTER(Windows.Win32.Foundation.BOOL), range: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextRange(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a543cc6a-f4ae-494b-82-39-c8-14-48-11-87-a8')
+    _iid_ = Guid('a543cc6a-f4ae-494b-82-39-c8-14-48-11-87-a8')
     @commethod(3)
     def Clone(self, clonedRange: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2645,12 +2645,12 @@ class IUIAutomationTextRange(ComPtr):
     def GetChildren(self, children: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElementArray_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextRange2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationTextRange
-    Guid = Guid('bb9b40e0-5e04-46bd-9b-e0-4b-60-1b-9a-fa-d4')
+    _iid_ = Guid('bb9b40e0-5e04-46bd-9b-e0-4b-60-1b-9a-fa-d4')
     @commethod(21)
     def ShowContextMenu(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextRange3(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationTextRange2
-    Guid = Guid('6a315d69-5512-4c2e-85-f0-53-fc-e6-dd-4b-c2')
+    _iid_ = Guid('6a315d69-5512-4c2e-85-f0-53-fc-e6-dd-4b-c2')
     @commethod(22)
     def GetEnclosingElementBuildCache(self, cacheRequest: Windows.Win32.UI.Accessibility.IUIAutomationCacheRequest_head, enclosingElement: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
@@ -2659,14 +2659,14 @@ class IUIAutomationTextRange3(ComPtr):
     def GetAttributeValues(self, attributeIds: POINTER(Windows.Win32.UI.Accessibility.UIA_TEXTATTRIBUTE_ID), attributeIdCount: Int32, attributeValues: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTextRangeArray(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ce4ae76a-e717-4c98-81-ea-47-37-1d-02-8e-b6')
+    _iid_ = Guid('ce4ae76a-e717-4c98-81-ea-47-37-1d-02-8e-b6')
     @commethod(3)
     def get_Length(self, length: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetElement(self, index: Int32, element: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationTextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTogglePattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('94cf8058-9b8d-4ab9-8b-fd-4c-d0-a3-3c-8c-70')
+    _iid_ = Guid('94cf8058-9b8d-4ab9-8b-fd-4c-d0-a3-3c-8c-70')
     @commethod(3)
     def Toggle(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2675,7 +2675,7 @@ class IUIAutomationTogglePattern(ComPtr):
     def get_CachedToggleState(self, retVal: POINTER(Windows.Win32.UI.Accessibility.ToggleState)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTransformPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a9b55844-a55d-4ef0-92-6d-56-9c-16-ff-89-bb')
+    _iid_ = Guid('a9b55844-a55d-4ef0-92-6d-56-9c-16-ff-89-bb')
     @commethod(3)
     def Move(self, x: Double, y: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2696,7 +2696,7 @@ class IUIAutomationTransformPattern(ComPtr):
     def get_CachedCanRotate(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTransformPattern2(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IUIAutomationTransformPattern
-    Guid = Guid('6d74d017-6ecb-4381-b3-8b-3c-17-a4-8f-f1-c2')
+    _iid_ = Guid('6d74d017-6ecb-4381-b3-8b-3c-17-a4-8f-f1-c2')
     @commethod(12)
     def Zoom(self, zoomValue: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -2719,7 +2719,7 @@ class IUIAutomationTransformPattern2(ComPtr):
     def get_CachedZoomMaximum(self, retVal: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationTreeWalker(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4042c624-389c-4afc-a6-30-9d-f8-54-a5-41-fc')
+    _iid_ = Guid('4042c624-389c-4afc-a6-30-9d-f8-54-a5-41-fc')
     @commethod(3)
     def GetParentElement(self, element: Windows.Win32.UI.Accessibility.IUIAutomationElement_head, parent: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2748,7 +2748,7 @@ class IUIAutomationTreeWalker(ComPtr):
     def get_Condition(self, condition: POINTER(Windows.Win32.UI.Accessibility.IUIAutomationCondition_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationValuePattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a94cd8b1-0844-4cd6-9d-2d-64-05-37-ab-39-e9')
+    _iid_ = Guid('a94cd8b1-0844-4cd6-9d-2d-64-05-37-ab-39-e9')
     @commethod(3)
     def SetValue(self, val: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2761,12 +2761,12 @@ class IUIAutomationValuePattern(ComPtr):
     def get_CachedIsReadOnly(self, retVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationVirtualizedItemPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6ba3d7a6-04cf-4f11-87-93-a8-d1-cd-e9-96-9f')
+    _iid_ = Guid('6ba3d7a6-04cf-4f11-87-93-a8-d1-cd-e9-96-9f')
     @commethod(3)
     def Realize(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIAutomationWindowPattern(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0faef453-9208-43ef-bb-b2-3b-48-51-77-86-4f')
+    _iid_ = Guid('0faef453-9208-43ef-bb-b2-3b-48-51-77-86-4f')
     @commethod(3)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2799,7 +2799,7 @@ class IUIAutomationWindowPattern(ComPtr):
     def get_CachedWindowInteractionState(self, retVal: POINTER(Windows.Win32.UI.Accessibility.WindowInteractionState)) -> Windows.Win32.Foundation.HRESULT: ...
 class IValueProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c7935180-6fb3-4201-b1-74-7d-f7-3a-db-f6-4a')
+    _iid_ = Guid('c7935180-6fb3-4201-b1-74-7d-f7-3a-db-f6-4a')
     @commethod(3)
     def SetValue(self, val: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2808,12 +2808,12 @@ class IValueProvider(ComPtr):
     def get_IsReadOnly(self, pRetVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVirtualizedItemProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('cb98b665-2d35-4fac-ad-35-f3-c6-0d-0c-0b-8b')
+    _iid_ = Guid('cb98b665-2d35-4fac-ad-35-f3-c6-0d-0c-0b-8b')
     @commethod(3)
     def Realize(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWindowProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('987df77b-db06-4d77-8f-8a-86-a9-c3-bb-90-b9')
+    _iid_ = Guid('987df77b-db06-4d77-8f-8a-86-a9-c3-bb-90-b9')
     @commethod(3)
     def SetVisualState(self, state: Windows.Win32.UI.Accessibility.WindowVisualState) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

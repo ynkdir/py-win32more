@@ -873,14 +873,14 @@ FramingProp_Ex: FRAMING_PROP = 3
 GUID_NULL = Guid('00000000-0000-0000-00-00-00-00-00-00-00-00')
 class IKsAggregateControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7f40eac0-3947-11d2-87-4e-00-a0-c9-22-31-96')
+    _iid_ = Guid('7f40eac0-3947-11d2-87-4e-00-a0-c9-22-31-96')
     @commethod(3)
     def KsAddAggregate(self, AggregateClass: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def KsRemoveAggregate(self, AggregateClass: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsAllocator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8da64899-c0d9-11d0-84-13-00-00-f8-22-fe-8a')
+    _iid_ = Guid('8da64899-c0d9-11d0-84-13-00-00-f8-22-fe-8a')
     @commethod(3)
     def KsGetAllocatorHandle(self) -> Windows.Win32.Foundation.HANDLE: ...
     @commethod(4)
@@ -891,7 +891,7 @@ class IKsAllocator(ComPtr):
     def KsSetAllocatorMode(self, Mode: Windows.Win32.Media.KernelStreaming.KSALLOCATORMODE) -> Void: ...
 class IKsAllocatorEx(ComPtr):
     extends: Windows.Win32.Media.KernelStreaming.IKsAllocator
-    Guid = Guid('091bb63a-603f-11d1-b0-67-00-a0-c9-06-28-02')
+    _iid_ = Guid('091bb63a-603f-11d1-b0-67-00-a0-c9-06-28-02')
     @commethod(7)
     def KsGetProperties(self) -> POINTER(Windows.Win32.Media.KernelStreaming.ALLOCATOR_PROPERTIES_EX_head): ...
     @commethod(8)
@@ -902,7 +902,7 @@ class IKsAllocatorEx(ComPtr):
     def KsCreateAllocatorAndGetHandle(self, KsPin: Windows.Win32.Media.KernelStreaming.IKsPin_head) -> Windows.Win32.Foundation.HANDLE: ...
 class IKsClockPropertySet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5c5cbd84-e755-11d0-ac-18-00-a0-c9-22-31-96')
+    _iid_ = Guid('5c5cbd84-e755-11d0-ac-18-00-a0-c9-22-31-96')
     @commethod(3)
     def KsGetTime(self, Time: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -925,7 +925,7 @@ class IKsClockPropertySet(ComPtr):
     def KsGetState(self, State: POINTER(Windows.Win32.Media.KernelStreaming.KSSTATE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('28f54685-06fd-11d2-b2-7a-00-a0-c9-22-31-96')
+    _iid_ = Guid('28f54685-06fd-11d2-b2-7a-00-a0-c9-22-31-96')
     @commethod(3)
     def KsProperty(self, Property: POINTER(Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), PropertyLength: UInt32, PropertyData: c_void_p, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -934,12 +934,12 @@ class IKsControl(ComPtr):
     def KsEvent(self, Event: POINTER(Windows.Win32.Media.KernelStreaming.KSIDENTIFIER_head), EventLength: UInt32, EventData: c_void_p, DataLength: UInt32, BytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsDataTypeCompletion(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('827d1a0e-0f73-11d2-b2-7a-00-a0-c9-22-31-96')
+    _iid_ = Guid('827d1a0e-0f73-11d2-b2-7a-00-a0-c9-22-31-96')
     @commethod(3)
     def KsCompleteMediaType(self, FilterHandle: Windows.Win32.Foundation.HANDLE, PinFactoryId: UInt32, AmMediaType: POINTER(Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsDataTypeHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5ffbaa02-49a3-11d0-9f-36-00-aa-00-a2-16-a1')
+    _iid_ = Guid('5ffbaa02-49a3-11d0-9f-36-00-aa-00-a2-16-a1')
     @commethod(3)
     def KsCompleteIoOperation(self, Sample: Windows.Win32.Media.DirectShow.IMediaSample_head, StreamHeader: c_void_p, IoOperation: Windows.Win32.Media.KernelStreaming.KSIOOPERATION, Cancelled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -952,14 +952,14 @@ class IKsDataTypeHandler(ComPtr):
     def KsSetMediaType(self, AmMediaType: POINTER(Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsFormatSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3cb4a69d-bb6f-4d2b-95-b7-45-2d-2c-15-5d-b5')
+    _iid_ = Guid('3cb4a69d-bb6f-4d2b-95-b7-45-2d-2c-15-5d-b5')
     @commethod(3)
     def IsFormatSupported(self, pKsFormat: POINTER(Windows.Win32.Media.KernelStreaming.KSDATAFORMAT_head), cbFormat: UInt32, pbSupported: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDevicePreferredFormat(self, ppKsFormat: POINTER(POINTER(Windows.Win32.Media.KernelStreaming.KSDATAFORMAT_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsInterfaceHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d3abc7e0-9a61-11d0-a4-0d-00-a0-c9-22-31-96')
+    _iid_ = Guid('d3abc7e0-9a61-11d0-a4-0d-00-a0-c9-22-31-96')
     @commethod(3)
     def KsSetPin(self, KsPin: Windows.Win32.Media.KernelStreaming.IKsPin_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -968,48 +968,48 @@ class IKsInterfaceHandler(ComPtr):
     def KsCompleteIo(self, StreamSegment: POINTER(Windows.Win32.Media.KernelStreaming.KSSTREAM_SEGMENT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsJackContainerId(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c99af463-d629-4ec4-8c-00-e5-4d-68-15-42-48')
+    _iid_ = Guid('c99af463-d629-4ec4-8c-00-e5-4d-68-15-42-48')
     @commethod(3)
     def GetJackContainerId(self, pJackContainerId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsJackDescription(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4509f757-2d46-4637-8e-62-ce-7d-b9-44-f5-7b')
+    _iid_ = Guid('4509f757-2d46-4637-8e-62-ce-7d-b9-44-f5-7b')
     @commethod(3)
     def GetJackCount(self, pcJacks: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetJackDescription(self, nJack: UInt32, pDescription: POINTER(Windows.Win32.Media.KernelStreaming.KSJACK_DESCRIPTION_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsJackDescription2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('478f3a9b-e0c9-4827-92-28-6f-55-05-ff-e7-6a')
+    _iid_ = Guid('478f3a9b-e0c9-4827-92-28-6f-55-05-ff-e7-6a')
     @commethod(3)
     def GetJackCount(self, pcJacks: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetJackDescription2(self, nJack: UInt32, pDescription2: POINTER(Windows.Win32.Media.KernelStreaming.KSJACK_DESCRIPTION2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsJackDescription3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e3f6778b-6660-4cc8-a2-91-ec-c4-19-2d-99-67')
+    _iid_ = Guid('e3f6778b-6660-4cc8-a2-91-ec-c4-19-2d-99-67')
     @commethod(3)
     def GetJackCount(self, pcJacks: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetJackDescription3(self, nJack: UInt32, pDescription3: POINTER(Windows.Win32.Media.KernelStreaming.KSJACK_DESCRIPTION3_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsJackSinkInformation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d9bd72ed-290f-4581-9f-f3-61-02-7a-8f-e5-32')
+    _iid_ = Guid('d9bd72ed-290f-4581-9f-f3-61-02-7a-8f-e5-32')
     @commethod(3)
     def GetJackSinkInformation(self, pJackSinkInformation: POINTER(Windows.Win32.Media.KernelStreaming.KSJACK_SINK_INFORMATION_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsNotifyEvent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('412bd695-f84b-46c1-ac-73-54-19-6d-bc-8f-a7')
+    _iid_ = Guid('412bd695-f84b-46c1-ac-73-54-19-6d-bc-8f-a7')
     @commethod(3)
     def KsNotifyEvent(self, Event: UInt32, lParam1: UIntPtr, lParam2: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('423c13a2-2070-11d0-9e-f7-00-aa-00-a2-16-a1')
+    _iid_ = Guid('423c13a2-2070-11d0-9e-f7-00-aa-00-a2-16-a1')
     @commethod(3)
     def KsGetObjectHandle(self) -> Windows.Win32.Foundation.HANDLE: ...
 class IKsPin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b61178d1-a2d9-11cf-9e-53-00-aa-00-a2-16-a1')
+    _iid_ = Guid('b61178d1-a2d9-11cf-9e-53-00-aa-00-a2-16-a1')
     @commethod(3)
     def KsQueryMediums(self, MediumList: POINTER(POINTER(Windows.Win32.Media.KernelStreaming.KSMULTIPLE_ITEM_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1038,17 +1038,17 @@ class IKsPin(ComPtr):
     def KsQualityNotify(self, Proportion: UInt32, TimeDelta: Int64) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsPinEx(ComPtr):
     extends: Windows.Win32.Media.KernelStreaming.IKsPin
-    Guid = Guid('7bb38260-d19c-11d2-b3-8a-00-a0-c9-5e-c2-2e')
+    _iid_ = Guid('7bb38260-d19c-11d2-b3-8a-00-a0-c9-5e-c2-2e')
     @commethod(16)
     def KsNotifyError(self, Sample: Windows.Win32.Media.DirectShow.IMediaSample_head, hr: Windows.Win32.Foundation.HRESULT) -> Void: ...
 class IKsPinFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('cd5ebe6b-8b6e-11d1-8a-e0-00-a0-c9-22-31-96')
+    _iid_ = Guid('cd5ebe6b-8b6e-11d1-8a-e0-00-a0-c9-22-31-96')
     @commethod(3)
     def KsPinFactory(self, PinFactory: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsPinPipe(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e539cd90-a8b4-11d1-81-89-00-a0-c9-06-28-02')
+    _iid_ = Guid('e539cd90-a8b4-11d1-81-89-00-a0-c9-06-28-02')
     @commethod(3)
     def KsGetPinFramingCache(self, FramingEx: POINTER(POINTER(Windows.Win32.Media.KernelStreaming.KSALLOCATOR_FRAMING_EX_head)), FramingProp: POINTER(Windows.Win32.Media.KernelStreaming.FRAMING_PROP), Option: Windows.Win32.Media.KernelStreaming.FRAMING_CACHE_OPS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1073,17 +1073,17 @@ class IKsPinPipe(ComPtr):
     def KsGetFilterName(self) -> Windows.Win32.Foundation.PWSTR: ...
 class IKsQualityForwarder(ComPtr):
     extends: Windows.Win32.Media.KernelStreaming.IKsObject
-    Guid = Guid('97ebaacb-95bd-11d0-a3-ea-00-a0-c9-22-31-96')
+    _iid_ = Guid('97ebaacb-95bd-11d0-a3-ea-00-a0-c9-22-31-96')
     @commethod(4)
     def KsFlushClient(self, Pin: Windows.Win32.Media.KernelStreaming.IKsPin_head) -> Void: ...
 class IKsTopology(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('28f54683-06fd-11d2-b2-7a-00-a0-c9-22-31-96')
+    _iid_ = Guid('28f54683-06fd-11d2-b2-7a-00-a0-c9-22-31-96')
     @commethod(3)
     def CreateNodeInstance(self, NodeId: UInt32, Flags: UInt32, DesiredAccess: UInt32, UnkOuter: Windows.Win32.System.Com.IUnknown_head, InterfaceId: POINTER(Guid), Interface: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKsTopologyInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('720d4ac0-7533-11d0-a5-d6-28-db-04-c1-00-00')
+    _iid_ = Guid('720d4ac0-7533-11d0-a5-d6-28-db-04-c1-00-00')
     @commethod(3)
     def get_NumCategories(self, pdwNumCategories: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

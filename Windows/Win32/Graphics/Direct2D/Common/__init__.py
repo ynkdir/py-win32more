@@ -239,7 +239,7 @@ class D2D_VECTOR_4F(EasyCastStructure):
     w: Single
 class ID2D1SimplifiedGeometrySink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2cd9069e-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
+    _iid_ = Guid('2cd9069e-12e2-11dc-9f-ed-00-11-43-a0-55-f9')
     @commethod(3)
     def SetFillMode(self, fillMode: Windows.Win32.Graphics.Direct2D.Common.D2D1_FILL_MODE) -> Void: ...
     @commethod(4)

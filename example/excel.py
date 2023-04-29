@@ -107,7 +107,7 @@ def main():
             raise WinError(hr)
 
         pXlApp = IDispatch()
-        hr = CoCreateInstance(clsid, None, CLSCTX_LOCAL_SERVER, IDispatch.Guid, pXlApp)
+        hr = CoCreateInstance(clsid, None, CLSCTX_LOCAL_SERVER, IDispatch._iid_, pXlApp)
         if FAILED(hr):
             raise WinError(hr)
         stack.callback(pXlApp.Release)

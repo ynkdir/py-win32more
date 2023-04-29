@@ -28,7 +28,7 @@ def enum_tokens():
             SpObjectTokenCategory,
             None,
             CLSCTX_INPROC_SERVER,
-            ISpObjectTokenCategory.Guid,
+            ISpObjectTokenCategory._iid_,
             cat,
         )
         if FAILED(hr):
@@ -67,7 +67,7 @@ def enum_tokens():
 def speak(msg):
     with ExitStack() as defer:
         sapi = ISpVoice()
-        hr = CoCreateInstance(SpVoice, None, CLSCTX_INPROC_SERVER, ISpVoice.Guid, sapi)
+        hr = CoCreateInstance(SpVoice, None, CLSCTX_INPROC_SERVER, ISpVoice._iid_, sapi)
         if FAILED(hr):
             raise WinError(hr)
         defer.callback(sapi.Release)

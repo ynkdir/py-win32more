@@ -25,12 +25,12 @@ CQueryOEMWinSATCustomization = Guid('c47a41b7-b729-424f-9a-f9-5c-b3-93-4f-2d-fa'
 CQueryWinSAT = Guid('f3bdfad3-f276-49e9-9b-17-c4-74-f4-8f-07-64')
 class IAccessibleWinSAT(ComPtr):
     extends: Windows.Win32.UI.Accessibility.IAccessible
-    Guid = Guid('30e6018a-94a8-4ff8-a6-9a-71-b6-74-13-f0-7b')
+    _iid_ = Guid('30e6018a-94a8-4ff8-a6-9a-71-b6-74-13-f0-7b')
     @commethod(28)
     def SetAccessiblityData(self, wsName: Windows.Win32.Foundation.PWSTR, wsValue: Windows.Win32.Foundation.PWSTR, wsDesc: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IInitiateWinSATAssessment(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d983fc50-f5bf-49d5-b5-ed-cc-cb-18-aa-7f-c1')
+    _iid_ = Guid('d983fc50-f5bf-49d5-b5-ed-cc-cb-18-aa-7f-c1')
     @commethod(3)
     def InitiateAssessment(self, cmdLine: Windows.Win32.Foundation.PWSTR, pCallbacks: Windows.Win32.System.AssessmentTool.IWinSATInitiateEvents_head, callerHwnd: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -39,7 +39,7 @@ class IInitiateWinSATAssessment(ComPtr):
     def CancelAssessment(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IProvideWinSATAssessmentInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('0cd1c380-52d3-4678-ac-6f-e9-29-e4-80-be-9e')
+    _iid_ = Guid('0cd1c380-52d3-4678-ac-6f-e9-29-e4-80-be-9e')
     @commethod(7)
     def get_Score(self, score: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -48,7 +48,7 @@ class IProvideWinSATAssessmentInfo(ComPtr):
     def get_Description(self, description: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IProvideWinSATResultsInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('f8334d5d-568e-4075-87-5f-9d-f3-41-50-66-40')
+    _iid_ = Guid('f8334d5d-568e-4075-87-5f-9d-f3-41-50-66-40')
     @commethod(7)
     def GetAssessmentInfo(self, assessment: Windows.Win32.System.AssessmentTool.WINSAT_ASSESSMENT_TYPE, ppinfo: POINTER(Windows.Win32.System.AssessmentTool.IProvideWinSATAssessmentInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -61,29 +61,29 @@ class IProvideWinSATResultsInfo(ComPtr):
     def get_RatingStateDesc(self, description: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IProvideWinSATVisuals(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a9f4ade0-871a-42a3-b8-13-30-78-d2-51-62-c9')
+    _iid_ = Guid('a9f4ade0-871a-42a3-b8-13-30-78-d2-51-62-c9')
     @commethod(3)
     def get_Bitmap(self, bitmapSize: Windows.Win32.System.AssessmentTool.WINSAT_BITMAP_SIZE, state: Windows.Win32.System.AssessmentTool.WINSAT_ASSESSMENT_STATE, rating: Single, pBitmap: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP)) -> Windows.Win32.Foundation.HRESULT: ...
 class IQueryAllWinSATAssessments(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('0b89ed1d-6398-4fea-87-fc-56-7d-8d-19-17-6f')
+    _iid_ = Guid('0b89ed1d-6398-4fea-87-fc-56-7d-8d-19-17-6f')
     @commethod(7)
     def get_AllXML(self, xPath: Windows.Win32.Foundation.BSTR, namespaces: Windows.Win32.Foundation.BSTR, ppDomNodeList: POINTER(Windows.Win32.Data.Xml.MsXml.IXMLDOMNodeList_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IQueryOEMWinSATCustomization(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bc9a6a9f-ad4e-420e-99-53-b3-46-71-e9-df-22')
+    _iid_ = Guid('bc9a6a9f-ad4e-420e-99-53-b3-46-71-e9-df-22')
     @commethod(3)
     def GetOEMPrePopulationInfo(self, state: POINTER(Windows.Win32.System.AssessmentTool.WINSAT_OEM_CUSTOMIZATION_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IQueryRecentWinSATAssessment(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('f8ad5d1f-3b47-4bdc-93-75-7c-6b-1d-a4-ec-a7')
+    _iid_ = Guid('f8ad5d1f-3b47-4bdc-93-75-7c-6b-1d-a4-ec-a7')
     @commethod(7)
     def get_XML(self, xPath: Windows.Win32.Foundation.BSTR, namespaces: Windows.Win32.Foundation.BSTR, ppDomNodeList: POINTER(Windows.Win32.Data.Xml.MsXml.IXMLDOMNodeList_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Info(self, ppWinSATAssessmentInfo: POINTER(Windows.Win32.System.AssessmentTool.IProvideWinSATResultsInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWinSATInitiateEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('262a1918-ba0d-41d5-92-c2-fa-b4-63-3e-e7-4f')
+    _iid_ = Guid('262a1918-ba0d-41d5-92-c2-fa-b4-63-3e-e7-4f')
     @commethod(3)
     def WinSATComplete(self, hresult: Windows.Win32.Foundation.HRESULT, strDescription: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

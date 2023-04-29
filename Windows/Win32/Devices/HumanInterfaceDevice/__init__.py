@@ -3286,27 +3286,27 @@ class HID_XFER_PACKET(EasyCastStructure):
     reportId: Byte
 class IDirectInput2A(ComPtr):
     extends: Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputA
-    Guid = Guid('5944e662-aa8a-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('5944e662-aa8a-11cf-bf-c7-44-45-53-54-00-00')
     @commethod(8)
     def FindDevice(self, param0: POINTER(Guid), param1: Windows.Win32.Foundation.PSTR, param2: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInput2W(ComPtr):
     extends: Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputW
-    Guid = Guid('5944e663-aa8a-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('5944e663-aa8a-11cf-bf-c7-44-45-53-54-00-00')
     @commethod(8)
     def FindDevice(self, param0: POINTER(Guid), param1: Windows.Win32.Foundation.PWSTR, param2: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInput7A(ComPtr):
     extends: Windows.Win32.Devices.HumanInterfaceDevice.IDirectInput2A
-    Guid = Guid('9a4cb684-236d-11d3-8e-9d-00-c0-4f-68-44-ae')
+    _iid_ = Guid('9a4cb684-236d-11d3-8e-9d-00-c0-4f-68-44-ae')
     @commethod(9)
     def CreateDeviceEx(self, param0: POINTER(Guid), param1: POINTER(Guid), param2: POINTER(c_void_p), param3: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInput7W(ComPtr):
     extends: Windows.Win32.Devices.HumanInterfaceDevice.IDirectInput2W
-    Guid = Guid('9a4cb685-236d-11d3-8e-9d-00-c0-4f-68-44-ae')
+    _iid_ = Guid('9a4cb685-236d-11d3-8e-9d-00-c0-4f-68-44-ae')
     @commethod(9)
     def CreateDeviceEx(self, param0: POINTER(Guid), param1: POINTER(Guid), param2: POINTER(c_void_p), param3: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInput8A(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bf798030-483a-4da2-aa-99-5d-64-ed-36-97-00')
+    _iid_ = Guid('bf798030-483a-4da2-aa-99-5d-64-ed-36-97-00')
     @commethod(3)
     def CreateDevice(self, param0: POINTER(Guid), param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDevice8A_head), param2: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3325,7 +3325,7 @@ class IDirectInput8A(ComPtr):
     def ConfigureDevices(self, param0: Windows.Win32.Devices.HumanInterfaceDevice.LPDICONFIGUREDEVICESCALLBACK, param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DICONFIGUREDEVICESPARAMSA_head), param2: UInt32, param3: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInput8W(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bf798031-483a-4da2-aa-99-5d-64-ed-36-97-00')
+    _iid_ = Guid('bf798031-483a-4da2-aa-99-5d-64-ed-36-97-00')
     @commethod(3)
     def CreateDevice(self, param0: POINTER(Guid), param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDevice8W_head), param2: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3344,7 +3344,7 @@ class IDirectInput8W(ComPtr):
     def ConfigureDevices(self, param0: Windows.Win32.Devices.HumanInterfaceDevice.LPDICONFIGUREDEVICESCALLBACK, param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DICONFIGUREDEVICESPARAMSW_head), param2: UInt32, param3: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputA(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('89521360-aa8a-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('89521360-aa8a-11cf-bf-c7-44-45-53-54-00-00')
     @commethod(3)
     def CreateDevice(self, param0: POINTER(Guid), param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDeviceA_head), param2: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3357,7 +3357,7 @@ class IDirectInputA(ComPtr):
     def Initialize(self, param0: Windows.Win32.Foundation.HMODULE, param1: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputDevice2A(ComPtr):
     extends: Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDeviceA
-    Guid = Guid('5944e682-c92e-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('5944e682-c92e-11cf-bf-c7-44-45-53-54-00-00')
     @commethod(18)
     def CreateEffect(self, param0: POINTER(Guid), param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIEFFECT_head), param2: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputEffect_head), param3: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
@@ -3378,7 +3378,7 @@ class IDirectInputDevice2A(ComPtr):
     def SendDeviceData(self, param0: UInt32, param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head), param2: POINTER(UInt32), param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputDevice2W(ComPtr):
     extends: Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDeviceW
-    Guid = Guid('5944e683-c92e-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('5944e683-c92e-11cf-bf-c7-44-45-53-54-00-00')
     @commethod(18)
     def CreateEffect(self, param0: POINTER(Guid), param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIEFFECT_head), param2: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputEffect_head), param3: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
@@ -3399,21 +3399,21 @@ class IDirectInputDevice2W(ComPtr):
     def SendDeviceData(self, param0: UInt32, param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head), param2: POINTER(UInt32), param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputDevice7A(ComPtr):
     extends: Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDevice2A
-    Guid = Guid('57d7c6bc-2356-11d3-8e-9d-00-c0-4f-68-44-ae')
+    _iid_ = Guid('57d7c6bc-2356-11d3-8e-9d-00-c0-4f-68-44-ae')
     @commethod(27)
     def EnumEffectsInFile(self, param0: Windows.Win32.Foundation.PSTR, param1: Windows.Win32.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSINFILECALLBACK, param2: c_void_p, param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
     def WriteEffectToFile(self, param0: Windows.Win32.Foundation.PSTR, param1: UInt32, param2: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIFILEEFFECT_head), param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputDevice7W(ComPtr):
     extends: Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDevice2W
-    Guid = Guid('57d7c6bd-2356-11d3-8e-9d-00-c0-4f-68-44-ae')
+    _iid_ = Guid('57d7c6bd-2356-11d3-8e-9d-00-c0-4f-68-44-ae')
     @commethod(27)
     def EnumEffectsInFile(self, param0: Windows.Win32.Foundation.PWSTR, param1: Windows.Win32.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSINFILECALLBACK, param2: c_void_p, param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
     def WriteEffectToFile(self, param0: Windows.Win32.Foundation.PWSTR, param1: UInt32, param2: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIFILEEFFECT_head), param3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputDevice8A(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('54d41080-dc15-4833-a4-1b-74-8f-73-a3-81-79')
+    _iid_ = Guid('54d41080-dc15-4833-a4-1b-74-8f-73-a3-81-79')
     @commethod(3)
     def GetCapabilities(self, param0: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIDEVCAPS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3474,7 +3474,7 @@ class IDirectInputDevice8A(ComPtr):
     def GetImageInfo(self, param0: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOHEADERA_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputDevice8W(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('54d41081-dc15-4833-a4-1b-74-8f-73-a3-81-79')
+    _iid_ = Guid('54d41081-dc15-4833-a4-1b-74-8f-73-a3-81-79')
     @commethod(3)
     def GetCapabilities(self, param0: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIDEVCAPS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3535,7 +3535,7 @@ class IDirectInputDevice8W(ComPtr):
     def GetImageInfo(self, param0: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOHEADERW_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputDeviceA(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5944e680-c92e-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('5944e680-c92e-11cf-bf-c7-44-45-53-54-00-00')
     @commethod(3)
     def GetCapabilities(self, param0: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIDEVCAPS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3568,7 +3568,7 @@ class IDirectInputDeviceA(ComPtr):
     def Initialize(self, param0: Windows.Win32.Foundation.HMODULE, param1: UInt32, param2: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputDeviceW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5944e681-c92e-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('5944e681-c92e-11cf-bf-c7-44-45-53-54-00-00')
     @commethod(3)
     def GetCapabilities(self, param0: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIDEVCAPS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3601,7 +3601,7 @@ class IDirectInputDeviceW(ComPtr):
     def Initialize(self, param0: Windows.Win32.Foundation.HMODULE, param1: UInt32, param2: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputEffect(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e7e1f7c0-88d2-11d0-9a-d0-00-a0-c9-a0-6e-35')
+    _iid_ = Guid('e7e1f7c0-88d2-11d0-9a-d0-00-a0-c9-a0-6e-35')
     @commethod(3)
     def Initialize(self, param0: Windows.Win32.Foundation.HMODULE, param1: UInt32, param2: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3624,7 +3624,7 @@ class IDirectInputEffect(ComPtr):
     def Escape(self, param0: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.DIEFFESCAPE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputEffectDriver(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('02538130-898f-11d0-9a-d0-00-a0-c9-a0-6e-35')
+    _iid_ = Guid('02538130-898f-11d0-9a-d0-00-a0-c9-a0-6e-35')
     @commethod(3)
     def DeviceID(self, param0: UInt32, param1: UInt32, param2: UInt32, param3: UInt32, param4: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3649,7 +3649,7 @@ class IDirectInputEffectDriver(ComPtr):
     def GetEffectStatus(self, param0: UInt32, param1: UInt32, param2: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputJoyConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1de12ab1-c9f5-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('1de12ab1-c9f5-11cf-bf-c7-44-45-53-54-00-00')
     @commethod(3)
     def Acquire(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3684,7 +3684,7 @@ class IDirectInputJoyConfig(ComPtr):
     def OpenConfigKey(self, param0: UInt32, param1: UInt32, param2: POINTER(Windows.Win32.System.Registry.HKEY)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputJoyConfig8(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('eb0d7dfa-1990-4f27-b4-d6-ed-f2-ee-c4-a4-4c')
+    _iid_ = Guid('eb0d7dfa-1990-4f27-b4-d6-ed-f2-ee-c4-a4-4c')
     @commethod(3)
     def Acquire(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3719,7 +3719,7 @@ class IDirectInputJoyConfig8(ComPtr):
     def OpenAppStatusKey(self, param0: POINTER(Windows.Win32.System.Registry.HKEY)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectInputW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('89521361-aa8a-11cf-bf-c7-44-45-53-54-00-00')
+    _iid_ = Guid('89521361-aa8a-11cf-bf-c7-44-45-53-54-00-00')
     @commethod(3)
     def CreateDevice(self, param0: POINTER(Guid), param1: POINTER(Windows.Win32.Devices.HumanInterfaceDevice.IDirectInputDeviceW_head), param2: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

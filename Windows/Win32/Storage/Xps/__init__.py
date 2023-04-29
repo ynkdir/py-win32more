@@ -148,7 +148,7 @@ class DRAWPATRECT(EasyCastStructure):
 HPTPROVIDER = IntPtr
 class IXpsDocumentPackageTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3b0b6d38-53ad-41da-b2-12-d3-76-37-a6-71-4e')
+    _iid_ = Guid('3b0b6d38-53ad-41da-b2-12-d3-76-37-a6-71-4e')
     @commethod(3)
     def GetXpsOMPackageWriter(self, documentSequencePartName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, discardControlPartName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, packageWriter: POINTER(Windows.Win32.Storage.Xps.IXpsOMPackageWriter_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -157,21 +157,21 @@ class IXpsDocumentPackageTarget(ComPtr):
     def GetXpsType(self, documentType: POINTER(Windows.Win32.Storage.Xps.XPS_DOCUMENT_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsDocumentPackageTarget3D(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('60ba71b8-3101-4984-91-99-f4-ea-77-5f-f0-1d')
+    _iid_ = Guid('60ba71b8-3101-4984-91-99-f4-ea-77-5f-f0-1d')
     @commethod(3)
     def GetXpsOMPackageWriter3D(self, documentSequencePartName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, discardControlPartName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, modelPartName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, modelData: Windows.Win32.System.Com.IStream_head, packageWriter: POINTER(Windows.Win32.Storage.Xps.IXpsOMPackageWriter3D_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetXpsOMFactory(self, xpsFactory: POINTER(Windows.Win32.Storage.Xps.IXpsOMObjectFactory_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMBrush(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMShareable
-    Guid = Guid('56a3f80c-ea4c-4187-a5-7b-a2-a4-73-b2-b4-2b')
+    _iid_ = Guid('56a3f80c-ea4c-4187-a5-7b-a2-a4-73-b2-b4-2b')
     @commethod(5)
     def GetOpacity(self, opacity: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetOpacity(self, opacity: Single) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMCanvas(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMVisual
-    Guid = Guid('221d1452-331e-47c6-87-e9-6c-ce-fb-9b-5b-a3')
+    _iid_ = Guid('221d1452-331e-47c6-87-e9-6c-ce-fb-9b-5b-a3')
     @commethod(30)
     def GetVisuals(self, visuals: POINTER(Windows.Win32.Storage.Xps.IXpsOMVisualCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
@@ -200,14 +200,14 @@ class IXpsOMCanvas(ComPtr):
     def Clone(self, canvas: POINTER(Windows.Win32.Storage.Xps.IXpsOMCanvas_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMColorProfileResource(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMResource
-    Guid = Guid('67bd7d69-1eef-4bb1-b5-e7-6f-4f-87-be-8a-be')
+    _iid_ = Guid('67bd7d69-1eef-4bb1-b5-e7-6f-4f-87-be-8a-be')
     @commethod(5)
     def GetStream(self, stream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetContent(self, sourceStream: Windows.Win32.System.Com.IStream_head, partName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMColorProfileResourceCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('12759630-5fba-4283-8f-7d-cc-a8-49-80-9e-db')
+    _iid_ = Guid('12759630-5fba-4283-8f-7d-cc-a8-49-80-9e-db')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -224,7 +224,7 @@ class IXpsOMColorProfileResourceCollection(ComPtr):
     def GetByPartName(self, partName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, part: POINTER(Windows.Win32.Storage.Xps.IXpsOMColorProfileResource_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMCoreProperties(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMPart
-    Guid = Guid('3340fe8f-4027-4aa1-8f-5f-d3-5a-e4-5f-e5-97')
+    _iid_ = Guid('3340fe8f-4027-4aa1-8f-5f-d3-5a-e4-5f-e5-97')
     @commethod(5)
     def GetOwner(self, package: POINTER(Windows.Win32.Storage.Xps.IXpsOMPackage_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -295,7 +295,7 @@ class IXpsOMCoreProperties(ComPtr):
     def Clone(self, coreProperties: POINTER(Windows.Win32.Storage.Xps.IXpsOMCoreProperties_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMDashCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('081613f4-74eb-48f2-83-b3-37-a9-ce-2d-7d-c6')
+    _iid_ = Guid('081613f4-74eb-48f2-83-b3-37-a9-ce-2d-7d-c6')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -310,7 +310,7 @@ class IXpsOMDashCollection(ComPtr):
     def Append(self, dash: POINTER(Windows.Win32.Storage.Xps.XPS_DASH_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMDictionary(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('897c86b8-8eaf-4ae3-bd-de-56-41-9f-cf-42-36')
+    _iid_ = Guid('897c86b8-8eaf-4ae3-bd-de-56-41-9f-cf-42-36')
     @commethod(3)
     def GetOwner(self, owner: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -333,7 +333,7 @@ class IXpsOMDictionary(ComPtr):
     def Clone(self, dictionary: POINTER(Windows.Win32.Storage.Xps.IXpsOMDictionary_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMDocument(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMPart
-    Guid = Guid('2c2c94cb-ac5f-4254-8e-e9-23-94-83-09-d9-f0')
+    _iid_ = Guid('2c2c94cb-ac5f-4254-8e-e9-23-94-83-09-d9-f0')
     @commethod(5)
     def GetOwner(self, documentSequence: POINTER(Windows.Win32.Storage.Xps.IXpsOMDocumentSequence_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -352,7 +352,7 @@ class IXpsOMDocument(ComPtr):
     def Clone(self, document: POINTER(Windows.Win32.Storage.Xps.IXpsOMDocument_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMDocumentCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d1c87f0d-e947-4754-8a-25-97-14-78-f7-e8-3e')
+    _iid_ = Guid('d1c87f0d-e947-4754-8a-25-97-14-78-f7-e8-3e')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -367,7 +367,7 @@ class IXpsOMDocumentCollection(ComPtr):
     def Append(self, document: Windows.Win32.Storage.Xps.IXpsOMDocument_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMDocumentSequence(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMPart
-    Guid = Guid('56492eb4-d8d5-425e-82-56-4c-2b-64-ad-02-64')
+    _iid_ = Guid('56492eb4-d8d5-425e-82-56-4c-2b-64-ad-02-64')
     @commethod(5)
     def GetOwner(self, package: POINTER(Windows.Win32.Storage.Xps.IXpsOMPackage_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -378,7 +378,7 @@ class IXpsOMDocumentSequence(ComPtr):
     def SetPrintTicketResource(self, printTicketResource: Windows.Win32.Storage.Xps.IXpsOMPrintTicketResource_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMDocumentStructureResource(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMResource
-    Guid = Guid('85febc8a-6b63-48a9-af-07-70-64-e4-ec-ff-30')
+    _iid_ = Guid('85febc8a-6b63-48a9-af-07-70-64-e4-ec-ff-30')
     @commethod(5)
     def GetOwner(self, owner: POINTER(Windows.Win32.Storage.Xps.IXpsOMDocument_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -387,7 +387,7 @@ class IXpsOMDocumentStructureResource(ComPtr):
     def SetContent(self, sourceStream: Windows.Win32.System.Com.IStream_head, partName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMFontResource(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMResource
-    Guid = Guid('a8c45708-47d9-4af4-8d-20-33-b4-8c-9b-84-85')
+    _iid_ = Guid('a8c45708-47d9-4af4-8d-20-33-b4-8c-9b-84-85')
     @commethod(5)
     def GetStream(self, readerStream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -396,7 +396,7 @@ class IXpsOMFontResource(ComPtr):
     def GetEmbeddingOption(self, embeddingOption: POINTER(Windows.Win32.Storage.Xps.XPS_FONT_EMBEDDING)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMFontResourceCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('70b4a6bb-88d4-4fa8-aa-f9-6d-9c-59-6f-db-ad')
+    _iid_ = Guid('70b4a6bb-88d4-4fa8-aa-f9-6d-9c-59-6f-db-ad')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -413,7 +413,7 @@ class IXpsOMFontResourceCollection(ComPtr):
     def GetByPartName(self, partName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, part: POINTER(Windows.Win32.Storage.Xps.IXpsOMFontResource_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMGeometry(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMShareable
-    Guid = Guid('64fcf3d7-4d58-44ba-ad-73-a1-3a-f6-49-20-72')
+    _iid_ = Guid('64fcf3d7-4d58-44ba-ad-73-a1-3a-f6-49-20-72')
     @commethod(5)
     def GetFigures(self, figures: POINTER(Windows.Win32.Storage.Xps.IXpsOMGeometryFigureCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -434,7 +434,7 @@ class IXpsOMGeometry(ComPtr):
     def Clone(self, geometry: POINTER(Windows.Win32.Storage.Xps.IXpsOMGeometry_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMGeometryFigure(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d410dc83-908c-443e-89-47-b1-79-5d-3c-16-5a')
+    _iid_ = Guid('d410dc83-908c-443e-89-47-b1-79-5d-3c-16-5a')
     @commethod(3)
     def GetOwner(self, owner: POINTER(Windows.Win32.Storage.Xps.IXpsOMGeometry_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -467,7 +467,7 @@ class IXpsOMGeometryFigure(ComPtr):
     def Clone(self, geometryFigure: POINTER(Windows.Win32.Storage.Xps.IXpsOMGeometryFigure_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMGeometryFigureCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fd48c3f3-a58e-4b5a-88-26-1d-e5-4a-be-72-b2')
+    _iid_ = Guid('fd48c3f3-a58e-4b5a-88-26-1d-e5-4a-be-72-b2')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -482,7 +482,7 @@ class IXpsOMGeometryFigureCollection(ComPtr):
     def Append(self, geometryFigure: Windows.Win32.Storage.Xps.IXpsOMGeometryFigure_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMGlyphs(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMVisual
-    Guid = Guid('819b3199-0a5a-4b64-be-c7-a9-e1-7e-78-0d-e2')
+    _iid_ = Guid('819b3199-0a5a-4b64-be-c7-a9-e1-7e-78-0d-e2')
     @commethod(30)
     def GetUnicodeString(self, unicodeString: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
@@ -539,7 +539,7 @@ class IXpsOMGlyphs(ComPtr):
     def Clone(self, glyphs: POINTER(Windows.Win32.Storage.Xps.IXpsOMGlyphs_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMGlyphsEditor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a5ab8616-5b16-4b9f-96-29-89-b3-23-ed-79-09')
+    _iid_ = Guid('a5ab8616-5b16-4b9f-96-29-89-b3-23-ed-79-09')
     @commethod(3)
     def ApplyEdits(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -578,7 +578,7 @@ class IXpsOMGlyphsEditor(ComPtr):
     def SetDeviceFontName(self, deviceFontName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMGradientBrush(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMBrush
-    Guid = Guid('edb59622-61a2-42c3-ba-ce-ac-f2-28-6c-06-bf')
+    _iid_ = Guid('edb59622-61a2-42c3-ba-ce-ac-f2-28-6c-06-bf')
     @commethod(7)
     def GetGradientStops(self, gradientStops: POINTER(Windows.Win32.Storage.Xps.IXpsOMGradientStopCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -601,7 +601,7 @@ class IXpsOMGradientBrush(ComPtr):
     def SetColorInterpolationMode(self, colorInterpolationMode: Windows.Win32.Storage.Xps.XPS_COLOR_INTERPOLATION) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMGradientStop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5cf4f5cc-3969-49b5-a7-0a-55-50-b6-18-fe-49')
+    _iid_ = Guid('5cf4f5cc-3969-49b5-a7-0a-55-50-b6-18-fe-49')
     @commethod(3)
     def GetOwner(self, owner: POINTER(Windows.Win32.Storage.Xps.IXpsOMGradientBrush_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -616,7 +616,7 @@ class IXpsOMGradientStop(ComPtr):
     def Clone(self, gradientStop: POINTER(Windows.Win32.Storage.Xps.IXpsOMGradientStop_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMGradientStopCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c9174c3a-3cd3-4319-bd-a4-11-a3-93-92-ce-ef')
+    _iid_ = Guid('c9174c3a-3cd3-4319-bd-a4-11-a3-93-92-ce-ef')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -631,7 +631,7 @@ class IXpsOMGradientStopCollection(ComPtr):
     def Append(self, stop: Windows.Win32.Storage.Xps.IXpsOMGradientStop_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMImageBrush(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMTileBrush
-    Guid = Guid('3df0b466-d382-49ef-85-50-dd-94-c8-02-42-e4')
+    _iid_ = Guid('3df0b466-d382-49ef-85-50-dd-94-c8-02-42-e4')
     @commethod(18)
     def GetImageResource(self, imageResource: POINTER(Windows.Win32.Storage.Xps.IXpsOMImageResource_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
@@ -644,7 +644,7 @@ class IXpsOMImageBrush(ComPtr):
     def Clone(self, imageBrush: POINTER(Windows.Win32.Storage.Xps.IXpsOMImageBrush_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMImageResource(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMResource
-    Guid = Guid('3db8417d-ae50-485e-9a-44-d7-75-8f-78-a2-3f')
+    _iid_ = Guid('3db8417d-ae50-485e-9a-44-d7-75-8f-78-a2-3f')
     @commethod(5)
     def GetStream(self, readerStream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -653,7 +653,7 @@ class IXpsOMImageResource(ComPtr):
     def GetImageType(self, imageType: POINTER(Windows.Win32.Storage.Xps.XPS_IMAGE_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMImageResourceCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7a4a1a71-9cde-4b71-b3-3f-62-de-84-3e-ab-fe')
+    _iid_ = Guid('7a4a1a71-9cde-4b71-b3-3f-62-de-84-3e-ab-fe')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -670,7 +670,7 @@ class IXpsOMImageResourceCollection(ComPtr):
     def GetByPartName(self, partName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, part: POINTER(Windows.Win32.Storage.Xps.IXpsOMImageResource_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMLinearGradientBrush(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMGradientBrush
-    Guid = Guid('005e279f-c30d-40ff-93-ec-19-50-d3-c5-28-db')
+    _iid_ = Guid('005e279f-c30d-40ff-93-ec-19-50-d3-c5-28-db')
     @commethod(17)
     def GetStartPoint(self, startPoint: POINTER(Windows.Win32.Storage.Xps.XPS_POINT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
@@ -683,7 +683,7 @@ class IXpsOMLinearGradientBrush(ComPtr):
     def Clone(self, linearGradientBrush: POINTER(Windows.Win32.Storage.Xps.IXpsOMLinearGradientBrush_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMMatrixTransform(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMShareable
-    Guid = Guid('b77330ff-bb37-4501-a9-3e-f1-b1-e5-0b-fc-46')
+    _iid_ = Guid('b77330ff-bb37-4501-a9-3e-f1-b1-e5-0b-fc-46')
     @commethod(5)
     def GetMatrix(self, matrix: POINTER(Windows.Win32.Storage.Xps.XPS_MATRIX_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -692,14 +692,14 @@ class IXpsOMMatrixTransform(ComPtr):
     def Clone(self, matrixTransform: POINTER(Windows.Win32.Storage.Xps.IXpsOMMatrixTransform_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMNameCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4bddf8ec-c915-421b-a1-66-d1-73-d2-56-53-d2')
+    _iid_ = Guid('4bddf8ec-c915-421b-a1-66-d1-73-d2-56-53-d2')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAt(self, index: UInt32, name: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMObjectFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f9b2a685-a50d-4fc2-b7-64-b5-6e-09-3e-a0-ca')
+    _iid_ = Guid('f9b2a685-a50d-4fc2-b7-64-b5-6e-09-3e-a0-ca')
     @commethod(3)
     def CreatePackage(self, package: POINTER(Windows.Win32.Storage.Xps.IXpsOMPackage_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -776,7 +776,7 @@ class IXpsOMObjectFactory(ComPtr):
     def CreateReadOnlyStreamOnFile(self, filename: Windows.Win32.Foundation.PWSTR, stream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMObjectFactory1(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMObjectFactory
-    Guid = Guid('0a91b617-d612-4181-bf-7c-be-58-24-e9-cc-8f')
+    _iid_ = Guid('0a91b617-d612-4181-bf-7c-be-58-24-e9-cc-8f')
     @commethod(40)
     def GetDocumentTypeFromFile(self, filename: Windows.Win32.Foundation.PWSTR, documentType: POINTER(Windows.Win32.Storage.Xps.XPS_DOCUMENT_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(41)
@@ -803,7 +803,7 @@ class IXpsOMObjectFactory1(ComPtr):
     def CreateRemoteDictionaryResourceFromStream1(self, dictionaryMarkupStream: Windows.Win32.System.Com.IStream_head, partUri: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, resources: Windows.Win32.Storage.Xps.IXpsOMPartResources_head, dictionaryResource: POINTER(Windows.Win32.Storage.Xps.IXpsOMRemoteDictionaryResource_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMPackage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('18c3df65-81e1-4674-91-dc-fc-45-2f-5a-41-6f')
+    _iid_ = Guid('18c3df65-81e1-4674-91-dc-fc-45-2f-5a-41-6f')
     @commethod(3)
     def GetDocumentSequence(self, documentSequence: POINTER(Windows.Win32.Storage.Xps.IXpsOMDocumentSequence_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -826,7 +826,7 @@ class IXpsOMPackage(ComPtr):
     def WriteToStream(self, stream: Windows.Win32.System.Com.ISequentialStream_head, optimizeMarkupSize: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMPackage1(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMPackage
-    Guid = Guid('95a9435e-12bb-461b-8e-7f-c6-ad-b0-4c-d9-6a')
+    _iid_ = Guid('95a9435e-12bb-461b-8e-7f-c6-ad-b0-4c-d9-6a')
     @commethod(13)
     def GetDocumentType(self, documentType: POINTER(Windows.Win32.Storage.Xps.XPS_DOCUMENT_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
@@ -835,12 +835,12 @@ class IXpsOMPackage1(ComPtr):
     def WriteToStream1(self, outputStream: Windows.Win32.System.Com.ISequentialStream_head, optimizeMarkupSize: Windows.Win32.Foundation.BOOL, documentType: Windows.Win32.Storage.Xps.XPS_DOCUMENT_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMPackageTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('219a9db0-4959-47d0-80-34-b1-ce-84-f4-1a-4d')
+    _iid_ = Guid('219a9db0-4959-47d0-80-34-b1-ce-84-f4-1a-4d')
     @commethod(3)
     def CreateXpsOMPackageWriter(self, documentSequencePartName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, documentSequencePrintTicket: Windows.Win32.Storage.Xps.IXpsOMPrintTicketResource_head, discardControlPartName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, packageWriter: POINTER(Windows.Win32.Storage.Xps.IXpsOMPackageWriter_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMPackageWriter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4e2aa182-a443-42c6-b4-1b-4f-8e-9d-e7-3f-f9')
+    _iid_ = Guid('4e2aa182-a443-42c6-b4-1b-4f-8e-9d-e7-3f-f9')
     @commethod(3)
     def StartNewDocument(self, documentPartName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, documentPrintTicket: Windows.Win32.Storage.Xps.IXpsOMPrintTicketResource_head, documentStructure: Windows.Win32.Storage.Xps.IXpsOMDocumentStructureResource_head, signatureBlockResources: Windows.Win32.Storage.Xps.IXpsOMSignatureBlockResourceCollection_head, restrictedFonts: Windows.Win32.Storage.Xps.IXpsOMPartUriCollection_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -853,14 +853,14 @@ class IXpsOMPackageWriter(ComPtr):
     def IsClosed(self, isClosed: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMPackageWriter3D(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMPackageWriter
-    Guid = Guid('e8a45033-640e-43fa-9b-df-fd-de-aa-31-c6-a0')
+    _iid_ = Guid('e8a45033-640e-43fa-9b-df-fd-de-aa-31-c6-a0')
     @commethod(8)
     def AddModelTexture(self, texturePartName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, textureData: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def SetModelPrintTicket(self, printTicketPartName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, printTicketData: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMPage(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMPart
-    Guid = Guid('d3e18888-f120-4fee-8c-68-35-29-6e-ae-91-d4')
+    _iid_ = Guid('d3e18888-f120-4fee-8c-68-35-29-6e-ae-91-d4')
     @commethod(5)
     def GetOwner(self, pageReference: POINTER(Windows.Win32.Storage.Xps.IXpsOMPageReference_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -907,14 +907,14 @@ class IXpsOMPage(ComPtr):
     def Clone(self, page: POINTER(Windows.Win32.Storage.Xps.IXpsOMPage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMPage1(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMPage
-    Guid = Guid('305b60ef-6892-4dda-9c-bb-3a-a6-59-74-50-8a')
+    _iid_ = Guid('305b60ef-6892-4dda-9c-bb-3a-a6-59-74-50-8a')
     @commethod(27)
     def GetDocumentType(self, documentType: POINTER(Windows.Win32.Storage.Xps.XPS_DOCUMENT_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
     def Write1(self, stream: Windows.Win32.System.Com.ISequentialStream_head, optimizeMarkupSize: Windows.Win32.Foundation.BOOL, documentType: Windows.Win32.Storage.Xps.XPS_DOCUMENT_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMPageReference(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ed360180-6f92-4998-89-0d-2f-20-85-31-a0-a0')
+    _iid_ = Guid('ed360180-6f92-4998-89-0d-2f-20-85-31-a0-a0')
     @commethod(3)
     def GetOwner(self, document: POINTER(Windows.Win32.Storage.Xps.IXpsOMDocument_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -951,7 +951,7 @@ class IXpsOMPageReference(ComPtr):
     def Clone(self, pageReference: POINTER(Windows.Win32.Storage.Xps.IXpsOMPageReference_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMPageReferenceCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ca16ba4d-e7b9-45c5-95-8b-f9-80-22-47-37-45')
+    _iid_ = Guid('ca16ba4d-e7b9-45c5-95-8b-f9-80-22-47-37-45')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -966,14 +966,14 @@ class IXpsOMPageReferenceCollection(ComPtr):
     def Append(self, pageReference: Windows.Win32.Storage.Xps.IXpsOMPageReference_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMPart(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('74eb2f0b-a91e-4486-af-ac-0f-ab-ec-a3-df-c6')
+    _iid_ = Guid('74eb2f0b-a91e-4486-af-ac-0f-ab-ec-a3-df-c6')
     @commethod(3)
     def GetPartName(self, partUri: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetPartName(self, partUri: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMPartResources(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f4cf7729-4864-4275-99-b3-a8-71-71-63-ec-af')
+    _iid_ = Guid('f4cf7729-4864-4275-99-b3-a8-71-71-63-ec-af')
     @commethod(3)
     def GetFontResources(self, fontResources: POINTER(Windows.Win32.Storage.Xps.IXpsOMFontResourceCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -984,7 +984,7 @@ class IXpsOMPartResources(ComPtr):
     def GetRemoteDictionaryResources(self, dictionaryResources: POINTER(Windows.Win32.Storage.Xps.IXpsOMRemoteDictionaryResourceCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMPartUriCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('57c650d4-067c-4893-8c-33-f6-2a-06-33-73-0f')
+    _iid_ = Guid('57c650d4-067c-4893-8c-33-f6-2a-06-33-73-0f')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -999,7 +999,7 @@ class IXpsOMPartUriCollection(ComPtr):
     def Append(self, partUri: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMPath(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMVisual
-    Guid = Guid('37d38bb6-3ee9-4110-93-12-14-b1-94-16-33-37')
+    _iid_ = Guid('37d38bb6-3ee9-4110-93-12-14-b1-94-16-33-37')
     @commethod(30)
     def GetGeometry(self, geometry: POINTER(Windows.Win32.Storage.Xps.IXpsOMGeometry_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
@@ -1076,14 +1076,14 @@ class IXpsOMPath(ComPtr):
     def Clone(self, path: POINTER(Windows.Win32.Storage.Xps.IXpsOMPath_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMPrintTicketResource(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMResource
-    Guid = Guid('e7ff32d2-34aa-499b-bb-e9-9c-d4-ee-6c-59-f7')
+    _iid_ = Guid('e7ff32d2-34aa-499b-bb-e9-9c-d4-ee-6c-59-f7')
     @commethod(5)
     def GetStream(self, stream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetContent(self, sourceStream: Windows.Win32.System.Com.IStream_head, partName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMRadialGradientBrush(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMGradientBrush
-    Guid = Guid('75f207e5-08bf-413c-96-b1-b8-2b-40-64-17-6b')
+    _iid_ = Guid('75f207e5-08bf-413c-96-b1-b8-2b-40-64-17-6b')
     @commethod(17)
     def GetCenter(self, center: POINTER(Windows.Win32.Storage.Xps.XPS_POINT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
@@ -1100,21 +1100,21 @@ class IXpsOMRadialGradientBrush(ComPtr):
     def Clone(self, radialGradientBrush: POINTER(Windows.Win32.Storage.Xps.IXpsOMRadialGradientBrush_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMRemoteDictionaryResource(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMResource
-    Guid = Guid('c9bd7cd4-e16a-4bf8-8c-84-c9-50-af-7a-30-61')
+    _iid_ = Guid('c9bd7cd4-e16a-4bf8-8c-84-c9-50-af-7a-30-61')
     @commethod(5)
     def GetDictionary(self, dictionary: POINTER(Windows.Win32.Storage.Xps.IXpsOMDictionary_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetDictionary(self, dictionary: Windows.Win32.Storage.Xps.IXpsOMDictionary_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMRemoteDictionaryResource1(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMRemoteDictionaryResource
-    Guid = Guid('bf8fc1d4-9d46-4141-ba-5f-94-bb-92-50-d0-41')
+    _iid_ = Guid('bf8fc1d4-9d46-4141-ba-5f-94-bb-92-50-d0-41')
     @commethod(7)
     def GetDocumentType(self, documentType: POINTER(Windows.Win32.Storage.Xps.XPS_DOCUMENT_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Write1(self, stream: Windows.Win32.System.Com.ISequentialStream_head, documentType: Windows.Win32.Storage.Xps.XPS_DOCUMENT_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMRemoteDictionaryResourceCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5c38db61-7fec-464a-87-bd-41-e3-be-f0-18-be')
+    _iid_ = Guid('5c38db61-7fec-464a-87-bd-41-e3-be-f0-18-be')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1131,17 +1131,17 @@ class IXpsOMRemoteDictionaryResourceCollection(ComPtr):
     def GetByPartName(self, partName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, remoteDictionaryResource: POINTER(Windows.Win32.Storage.Xps.IXpsOMRemoteDictionaryResource_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMResource(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMPart
-    Guid = Guid('da2ac0a2-73a2-4975-ad-14-74-09-7c-3f-f3-a5')
+    _iid_ = Guid('da2ac0a2-73a2-4975-ad-14-74-09-7c-3f-f3-a5')
 class IXpsOMShareable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7137398f-2fc1-454d-8c-6a-2c-31-15-a1-6e-ce')
+    _iid_ = Guid('7137398f-2fc1-454d-8c-6a-2c-31-15-a1-6e-ce')
     @commethod(3)
     def GetOwner(self, owner: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetType(self, type: POINTER(Windows.Win32.Storage.Xps.XPS_OBJECT_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMSignatureBlockResource(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMResource
-    Guid = Guid('4776ad35-2e04-4357-87-43-eb-f6-c1-71-a9-05')
+    _iid_ = Guid('4776ad35-2e04-4357-87-43-eb-f6-c1-71-a9-05')
     @commethod(5)
     def GetOwner(self, owner: POINTER(Windows.Win32.Storage.Xps.IXpsOMDocument_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -1150,7 +1150,7 @@ class IXpsOMSignatureBlockResource(ComPtr):
     def SetContent(self, sourceStream: Windows.Win32.System.Com.IStream_head, partName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMSignatureBlockResourceCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ab8f5d8e-351b-4d33-aa-ed-fa-56-f0-02-29-31')
+    _iid_ = Guid('ab8f5d8e-351b-4d33-aa-ed-fa-56-f0-02-29-31')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1167,7 +1167,7 @@ class IXpsOMSignatureBlockResourceCollection(ComPtr):
     def GetByPartName(self, partName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, signatureBlockResource: POINTER(Windows.Win32.Storage.Xps.IXpsOMSignatureBlockResource_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMSolidColorBrush(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMBrush
-    Guid = Guid('a06f9f05-3be9-4763-98-a8-09-4f-c6-72-e4-88')
+    _iid_ = Guid('a06f9f05-3be9-4763-98-a8-09-4f-c6-72-e4-88')
     @commethod(7)
     def GetColor(self, color: POINTER(Windows.Win32.Storage.Xps.XPS_COLOR_head), colorProfile: POINTER(Windows.Win32.Storage.Xps.IXpsOMColorProfileResource_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1176,7 +1176,7 @@ class IXpsOMSolidColorBrush(ComPtr):
     def Clone(self, solidColorBrush: POINTER(Windows.Win32.Storage.Xps.IXpsOMSolidColorBrush_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMStoryFragmentsResource(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMResource
-    Guid = Guid('c2b3ca09-0473-4282-87-ae-17-80-86-32-23-f0')
+    _iid_ = Guid('c2b3ca09-0473-4282-87-ae-17-80-86-32-23-f0')
     @commethod(5)
     def GetOwner(self, owner: POINTER(Windows.Win32.Storage.Xps.IXpsOMPageReference_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -1185,12 +1185,12 @@ class IXpsOMStoryFragmentsResource(ComPtr):
     def SetContent(self, sourceStream: Windows.Win32.System.Com.IStream_head, partName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMThumbnailGenerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('15b873d5-1971-41e8-83-a3-65-78-40-30-64-c7')
+    _iid_ = Guid('15b873d5-1971-41e8-83-a3-65-78-40-30-64-c7')
     @commethod(3)
     def GenerateThumbnail(self, page: Windows.Win32.Storage.Xps.IXpsOMPage_head, thumbnailType: Windows.Win32.Storage.Xps.XPS_IMAGE_TYPE, thumbnailSize: Windows.Win32.Storage.Xps.XPS_THUMBNAIL_SIZE, imageResourcePartName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, imageResource: POINTER(Windows.Win32.Storage.Xps.IXpsOMImageResource_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMTileBrush(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMBrush
-    Guid = Guid('0fc2328d-d722-4a54-b2-ec-be-90-21-8a-78-9e')
+    _iid_ = Guid('0fc2328d-d722-4a54-b2-ec-be-90-21-8a-78-9e')
     @commethod(7)
     def GetTransform(self, transform: POINTER(Windows.Win32.Storage.Xps.IXpsOMMatrixTransform_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1215,7 +1215,7 @@ class IXpsOMTileBrush(ComPtr):
     def SetTileMode(self, tileMode: Windows.Win32.Storage.Xps.XPS_TILE_MODE) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMVisual(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMShareable
-    Guid = Guid('bc3e7333-fb0b-4af3-a8-19-0b-4e-aa-d0-d2-fd')
+    _iid_ = Guid('bc3e7333-fb0b-4af3-a8-19-0b-4e-aa-d0-d2-fd')
     @commethod(5)
     def GetTransform(self, matrixTransform: POINTER(Windows.Win32.Storage.Xps.IXpsOMMatrixTransform_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -1268,7 +1268,7 @@ class IXpsOMVisual(ComPtr):
     def SetLanguage(self, language: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMVisualBrush(ComPtr):
     extends: Windows.Win32.Storage.Xps.IXpsOMTileBrush
-    Guid = Guid('97e294af-5b37-46b4-80-57-87-4d-2f-64-11-9b')
+    _iid_ = Guid('97e294af-5b37-46b4-80-57-87-4d-2f-64-11-9b')
     @commethod(18)
     def GetVisual(self, visual: POINTER(Windows.Win32.Storage.Xps.IXpsOMVisual_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
@@ -1283,7 +1283,7 @@ class IXpsOMVisualBrush(ComPtr):
     def Clone(self, visualBrush: POINTER(Windows.Win32.Storage.Xps.IXpsOMVisualBrush_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsOMVisualCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('94d8abde-ab91-46a8-82-b7-f5-b0-5e-f0-1a-96')
+    _iid_ = Guid('94d8abde-ab91-46a8-82-b7-f5-b0-5e-f0-1a-96')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1298,7 +1298,7 @@ class IXpsOMVisualCollection(ComPtr):
     def Append(self, object: Windows.Win32.Storage.Xps.IXpsOMVisual_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsSignature(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6ae4c93e-1ade-42fb-89-8b-3a-56-58-28-48-57')
+    _iid_ = Guid('6ae4c93e-1ade-42fb-89-8b-3a-56-58-28-48-57')
     @commethod(3)
     def GetSignatureId(self, sigId: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1325,7 +1325,7 @@ class IXpsSignature(ComPtr):
     def SetSignatureXml(self, signatureXml: POINTER(Byte), count: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsSignatureBlock(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('151fac09-0b97-4ac6-a3-23-5e-42-97-d4-32-2b')
+    _iid_ = Guid('151fac09-0b97-4ac6-a3-23-5e-42-97-d4-32-2b')
     @commethod(3)
     def GetRequests(self, requests: POINTER(Windows.Win32.Storage.Xps.IXpsSignatureRequestCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1338,7 +1338,7 @@ class IXpsSignatureBlock(ComPtr):
     def CreateRequest(self, requestId: Windows.Win32.Foundation.PWSTR, signatureRequest: POINTER(Windows.Win32.Storage.Xps.IXpsSignatureRequest_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsSignatureBlockCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('23397050-fe99-467a-8d-ce-92-37-f0-74-ff-e4')
+    _iid_ = Guid('23397050-fe99-467a-8d-ce-92-37-f0-74-ff-e4')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1347,7 +1347,7 @@ class IXpsSignatureBlockCollection(ComPtr):
     def RemoveAt(self, index: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsSignatureCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a2d1d95d-add2-4dff-ab-27-6b-9c-64-5f-f3-22')
+    _iid_ = Guid('a2d1d95d-add2-4dff-ab-27-6b-9c-64-5f-f3-22')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1356,7 +1356,7 @@ class IXpsSignatureCollection(ComPtr):
     def RemoveAt(self, index: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsSignatureManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d3e8d338-fdc4-4afc-80-b5-d5-32-a1-78-2e-e1')
+    _iid_ = Guid('d3e8d338-fdc4-4afc-80-b5-d5-32-a1-78-2e-e1')
     @commethod(3)
     def LoadPackageFile(self, fileName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1381,7 +1381,7 @@ class IXpsSignatureManager(ComPtr):
     def SavePackageToStream(self, stream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsSignatureRequest(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ac58950b-7208-4b2d-b2-c4-95-10-83-d3-b8-eb')
+    _iid_ = Guid('ac58950b-7208-4b2d-b2-c4-95-10-83-d3-b8-eb')
     @commethod(3)
     def GetIntent(self, intent: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1408,7 +1408,7 @@ class IXpsSignatureRequest(ComPtr):
     def GetSignature(self, signature: POINTER(Windows.Win32.Storage.Xps.IXpsSignature_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsSignatureRequestCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f0253e68-9f19-412e-9b-4f-54-d3-b0-ac-6c-d9')
+    _iid_ = Guid('f0253e68-9f19-412e-9b-4f-54-d3-b0-ac-6c-d9')
     @commethod(3)
     def GetCount(self, count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1417,7 +1417,7 @@ class IXpsSignatureRequestCollection(ComPtr):
     def RemoveAt(self, index: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IXpsSigningOptions(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7718eae4-3215-49be-af-5b-59-4f-ef-7f-cf-a6')
+    _iid_ = Guid('7718eae4-3215-49be-af-5b-59-4f-ef-7f-cf-a6')
     @commethod(3)
     def GetSignatureId(self, signatureId: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

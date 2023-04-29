@@ -1470,7 +1470,7 @@ IASSEMBLYCACHE_UNINSTALL_DISPOSITION_ALREADY_UNINSTALLED: IASSEMBLYCACHE_UNINSTA
 IASSEMBLYCACHE_UNINSTALL_DISPOSITION_DELETE_PENDING: IASSEMBLYCACHE_UNINSTALL_DISPOSITION = 4
 class IAssemblyCache(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e707dcde-d1cd-11d2-ba-b9-00-c0-4f-8e-ce-ae')
+    _iid_ = Guid('e707dcde-d1cd-11d2-ba-b9-00-c0-4f-8e-ce-ae')
     @commethod(3)
     def UninstallAssembly(self, dwFlags: UInt32, pszAssemblyName: Windows.Win32.Foundation.PWSTR, pRefData: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.FUSION_INSTALL_REFERENCE_head), pulDisposition: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IASSEMBLYCACHE_UNINSTALL_DISPOSITION)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1483,7 +1483,7 @@ class IAssemblyCache(ComPtr):
     def InstallAssembly(self, dwFlags: UInt32, pszManifestFilePath: Windows.Win32.Foundation.PWSTR, pRefData: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.FUSION_INSTALL_REFERENCE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAssemblyCacheItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9e3aaeb4-d1cd-11d2-ba-b9-00-c0-4f-8e-ce-ae')
+    _iid_ = Guid('9e3aaeb4-d1cd-11d2-ba-b9-00-c0-4f-8e-ce-ae')
     @commethod(3)
     def CreateStream(self, dwFlags: UInt32, pszStreamName: Windows.Win32.Foundation.PWSTR, dwFormat: UInt32, dwFormatFlags: UInt32, ppIStream: POINTER(Windows.Win32.System.Com.IStream_head), puliMaxSize: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1492,7 +1492,7 @@ class IAssemblyCacheItem(ComPtr):
     def AbortItem(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IAssemblyName(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('cd193bc0-b4bc-11d2-98-33-00-c0-4f-c3-1d-2e')
+    _iid_ = Guid('cd193bc0-b4bc-11d2-98-33-00-c0-4f-c3-1d-2e')
     @commethod(3)
     def SetProperty(self, PropertyId: UInt32, pvProperty: c_void_p, cbProperty: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1513,7 +1513,7 @@ class IAssemblyName(ComPtr):
     def Clone(self, pName: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IAssemblyName_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumMsmDependency(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0adda82c-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+    _iid_ = Guid('0adda82c-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
     @commethod(3)
     def Next(self, cFetch: UInt32, rgmsmDependencies: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IMsmDependency_head), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1524,7 +1524,7 @@ class IEnumMsmDependency(ComPtr):
     def Clone(self, pemsmDependencies: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IEnumMsmDependency_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumMsmError(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0adda829-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+    _iid_ = Guid('0adda829-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
     @commethod(3)
     def Next(self, cFetch: UInt32, rgmsmErrors: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IMsmError_head), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1535,7 +1535,7 @@ class IEnumMsmError(ComPtr):
     def Clone(self, pemsmErrors: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IEnumMsmError_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumMsmString(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0adda826-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+    _iid_ = Guid('0adda826-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
     @commethod(3)
     def Next(self, cFetch: UInt32, rgbstrStrings: POINTER(Windows.Win32.Foundation.BSTR), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1546,7 +1546,7 @@ class IEnumMsmString(ComPtr):
     def Clone(self, pemsmStrings: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IEnumMsmString_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMsmDependencies(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('0adda82d-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+    _iid_ = Guid('0adda82d-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
     @commethod(7)
     def get_Item(self, Item: Int32, Return: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IMsmDependency_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1555,7 +1555,7 @@ class IMsmDependencies(ComPtr):
     def get__NewEnum(self, NewEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMsmDependency(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('0adda82b-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+    _iid_ = Guid('0adda82b-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
     @commethod(7)
     def get_Module(self, Module: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1564,7 +1564,7 @@ class IMsmDependency(ComPtr):
     def get_Version(self, Version: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMsmError(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('0adda828-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+    _iid_ = Guid('0adda828-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
     @commethod(7)
     def get_Type(self, ErrorType: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.msmErrorType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1581,7 +1581,7 @@ class IMsmError(ComPtr):
     def get_ModuleKeys(self, ErrorKeys: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IMsmStrings_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMsmErrors(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('0adda82a-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+    _iid_ = Guid('0adda82a-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
     @commethod(7)
     def get_Item(self, Item: Int32, Return: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IMsmError_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1590,12 +1590,12 @@ class IMsmErrors(ComPtr):
     def get__NewEnum(self, NewEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMsmGetFiles(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('7041ae26-2d78-11d2-88-8a-00-a0-c9-81-b0-15')
+    _iid_ = Guid('7041ae26-2d78-11d2-88-8a-00-a0-c9-81-b0-15')
     @commethod(7)
     def get_ModuleFiles(self, Files: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IMsmStrings_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMsmMerge(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('0adda82e-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+    _iid_ = Guid('0adda82e-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
     @commethod(7)
     def OpenDatabase(self, Path: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1624,7 +1624,7 @@ class IMsmMerge(ComPtr):
     def ExtractFiles(self, Path: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IMsmStrings(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('0adda827-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
+    _iid_ = Guid('0adda827-2c26-11d2-ad-65-00-a0-c9-af-11-a6')
     @commethod(7)
     def get_Item(self, Item: Int32, Return: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1732,7 +1732,7 @@ def INSTALLUI_HANDLERA(pvContext: c_void_p, iMessageType: UInt32, szMessage: Win
 def INSTALLUI_HANDLERW(pvContext: c_void_p, iMessageType: UInt32, szMessage: Windows.Win32.Foundation.PWSTR) -> Int32: ...
 class IPMApplicationInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('50afb58a-438c-4088-97-89-f8-c4-89-98-29-c7')
+    _iid_ = Guid('50afb58a-438c-4088-97-89-f8-c4-89-98-29-c7')
     @commethod(3)
     def get_ProductID(self, pProductID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1845,12 +1845,12 @@ class IPMApplicationInfo(ComPtr):
     def set_Title(self, AppTitle: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMApplicationInfoEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0ec42a96-4d46-4dc6-a3-d9-a7-ac-aa-c0-f5-fa')
+    _iid_ = Guid('0ec42a96-4d46-4dc6-a3-d9-a7-ac-aa-c0-f5-fa')
     @commethod(3)
     def get_Next(self, ppAppInfo: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IPMApplicationInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMBackgroundServiceAgentInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3a8b46da-928c-4879-99-8c-09-dc-96-f3-d4-90')
+    _iid_ = Guid('3a8b46da-928c-4879-99-8c-09-dc-96-f3-d4-90')
     @commethod(3)
     def get_ProductID(self, pProductID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1881,12 +1881,12 @@ class IPMBackgroundServiceAgentInfo(ComPtr):
     def set_IsScheduleAllowed(self, IsScheduleAllowed: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMBackgroundServiceAgentInfoEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('18eb2072-ab56-43b3-87-2c-be-af-b7-a6-b3-91')
+    _iid_ = Guid('18eb2072-ab56-43b3-87-2c-be-af-b7-a6-b3-91')
     @commethod(3)
     def get_Next(self, ppBSAInfo: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IPMBackgroundServiceAgentInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMBackgroundWorkerInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7dd4531b-d3bf-4b6b-94-f3-69-c0-98-b1-49-7d')
+    _iid_ = Guid('7dd4531b-d3bf-4b6b-94-f3-69-c0-98-b1-49-7d')
     @commethod(3)
     def get_ProductID(self, pProductID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1901,12 +1901,12 @@ class IPMBackgroundWorkerInfo(ComPtr):
     def get_IsBootWorker(self, pIsBootWorker: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMBackgroundWorkerInfoEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('87f479f8-90d8-4ec7-92-b9-72-78-7e-2f-63-6b')
+    _iid_ = Guid('87f479f8-90d8-4ec7-92-b9-72-78-7e-2f-63-6b')
     @commethod(3)
     def get_Next(self, ppBWInfo: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IPMBackgroundWorkerInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMDeploymentManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('35f785fa-1979-4a8b-bc-8f-fd-70-eb-0d-15-44')
+    _iid_ = Guid('35f785fa-1979-4a8b-bc-8f-fd-70-eb-0d-15-44')
     @commethod(3)
     def ReportDownloadBegin(self, productID: Guid) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1979,7 +1979,7 @@ class IPMDeploymentManager(ComPtr):
     def FixJunctionsForAppsOnSDCard(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMEnumerationManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('698d57c2-292d-4cf3-b7-3c-d9-5a-69-22-ed-9a')
+    _iid_ = Guid('698d57c2-292d-4cf3-b7-3c-d9-5a-69-22-ed-9a')
     @commethod(3)
     def get_AllApplications(self, ppAppEnum: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IPMApplicationInfoEnumerator_head), Filter: Windows.Win32.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2018,17 +2018,17 @@ class IPMEnumerationManager(ComPtr):
     def get_StartAppEnumeratorBlob(self, Filter: Windows.Win32.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER, pcApps: POINTER(UInt32), ppAppBlobs: POINTER(POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.PM_STARTAPPBLOB_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMExtensionCachedFileUpdaterInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e2d77509-4e58-4ba9-af-7e-b6-42-e3-70-e1-b0')
+    _iid_ = Guid('e2d77509-4e58-4ba9-af-7e-b6-42-e3-70-e1-b0')
     @commethod(3)
     def get_SupportsUpdates(self, pSupportsUpdates: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMExtensionContractInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e5666373-7ba1-467c-b8-19-b1-75-db-1c-29-5b')
+    _iid_ = Guid('e5666373-7ba1-467c-b8-19-b1-75-db-1c-29-5b')
     @commethod(3)
     def get_InvocationInfo(self, pAUMID: POINTER(Windows.Win32.Foundation.BSTR), pArgs: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMExtensionFileExtensionInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6b87cb6c-0b88-4989-a4-ec-03-37-14-f7-10-d4')
+    _iid_ = Guid('6b87cb6c-0b88-4989-a4-ec-03-37-14-f7-10-d4')
     @commethod(3)
     def get_Name(self, pName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2045,21 +2045,21 @@ class IPMExtensionFileExtensionInfo(ComPtr):
     def get_AllFileTypes(self, pcbTypes: POINTER(UInt32), ppTypes: POINTER(POINTER(Windows.Win32.Foundation.BSTR))) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMExtensionFileOpenPickerInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6dc91d25-9606-420c-9a-78-e0-34-a3-41-83-45')
+    _iid_ = Guid('6dc91d25-9606-420c-9a-78-e0-34-a3-41-83-45')
     @commethod(3)
     def get_AllFileTypes(self, pcTypes: POINTER(UInt32), ppTypes: POINTER(POINTER(Windows.Win32.Foundation.BSTR))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_SupportsAllFileTypes(self, pSupportsAllTypes: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMExtensionFileSavePickerInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('38005cba-f81a-493e-a0-f8-92-2c-86-80-da-43')
+    _iid_ = Guid('38005cba-f81a-493e-a0-f8-92-2c-86-80-da-43')
     @commethod(3)
     def get_AllFileTypes(self, pcTypes: POINTER(UInt32), ppTypes: POINTER(POINTER(Windows.Win32.Foundation.BSTR))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_SupportsAllFileTypes(self, pSupportsAllTypes: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMExtensionInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('49acde79-9788-4d0a-8a-a0-17-46-af-db-9e-9d')
+    _iid_ = Guid('49acde79-9788-4d0a-8a-a0-17-46-af-db-9e-9d')
     @commethod(3)
     def get_SupplierPID(self, pSupplierPID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2074,19 +2074,19 @@ class IPMExtensionInfo(ComPtr):
     def get_InvocationInfo(self, pImageUrn: POINTER(Windows.Win32.Foundation.BSTR), pParameters: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMExtensionInfoEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('403b9e82-1171-4573-8e-6f-6f-33-f3-9b-83-dd')
+    _iid_ = Guid('403b9e82-1171-4573-8e-6f-6f-33-f3-9b-83-dd')
     @commethod(3)
     def get_Next(self, ppExtensionInfo: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IPMExtensionInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMExtensionProtocolInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1e3fa036-51eb-4453-ba-ff-b8-d8-e4-b4-6c-8e')
+    _iid_ = Guid('1e3fa036-51eb-4453-ba-ff-b8-d8-e4-b4-6c-8e')
     @commethod(3)
     def get_Protocol(self, pProtocol: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def get_InvocationInfo(self, pImageUrn: POINTER(Windows.Win32.Foundation.BSTR), pParameters: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMExtensionShareTargetInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5471f48b-c65c-4656-8c-70-24-2e-31-19-5f-ea')
+    _iid_ = Guid('5471f48b-c65c-4656-8c-70-24-2e-31-19-5f-ea')
     @commethod(3)
     def get_AllFileTypes(self, pcTypes: POINTER(UInt32), ppTypes: POINTER(POINTER(Windows.Win32.Foundation.BSTR))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2095,7 +2095,7 @@ class IPMExtensionShareTargetInfo(ComPtr):
     def get_SupportsAllFileTypes(self, pSupportsAllTypes: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMLiveTileJobInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6009a81f-4710-4697-b5-f6-22-08-f6-05-7b-8e')
+    _iid_ = Guid('6009a81f-4710-4697-b5-f6-22-08-f6-05-7b-8e')
     @commethod(3)
     def get_ProductID(self, pProductID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2146,12 +2146,12 @@ class IPMLiveTileJobInfo(ComPtr):
     def set_DownloadState(self, ulDownloadState: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMLiveTileJobInfoEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bc042582-9415-4f36-9f-99-06-f1-04-c0-7c-03')
+    _iid_ = Guid('bc042582-9415-4f36-9f-99-06-f1-04-c0-7c-03')
     @commethod(3)
     def get_Next(self, ppLiveTileJobInfo: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IPMLiveTileJobInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMTaskInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bf1d8c33-1bf5-4ee0-b5-49-6b-9d-d3-83-49-42')
+    _iid_ = Guid('bf1d8c33-1bf5-4ee0-b5-49-6b-9d-d3-83-49-42')
     @commethod(3)
     def get_ProductID(self, pProductID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2196,12 +2196,12 @@ class IPMTaskInfo(ComPtr):
     def get_IsOptedForExtendedMem(self, pIsOptedIn: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMTaskInfoEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0630b0f8-0bbc-4821-be-74-c7-99-51-66-ed-2a')
+    _iid_ = Guid('0630b0f8-0bbc-4821-be-74-c7-99-51-66-ed-2a')
     @commethod(3)
     def get_Next(self, ppTaskInfo: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IPMTaskInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMTileInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d1604833-2b08-4001-82-cd-18-3a-d7-34-f7-52')
+    _iid_ = Guid('d1604833-2b08-4001-82-cd-18-3a-d7-34-f7-52')
     @commethod(3)
     def get_ProductID(self, pProductID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2252,17 +2252,17 @@ class IPMTileInfo(ComPtr):
     def set_IsAutoRestoreDisabled(self, AutoRestoreDisabled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMTileInfoEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ded83065-e462-4b2c-ac-b5-e3-9c-ea-61-c8-74')
+    _iid_ = Guid('ded83065-e462-4b2c-ac-b5-e3-9c-ea-61-c8-74')
     @commethod(3)
     def get_Next(self, ppTileInfo: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IPMTileInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMTilePropertyEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('cc4cd629-9047-4250-aa-c8-93-0e-47-81-24-21')
+    _iid_ = Guid('cc4cd629-9047-4250-aa-c8-93-0e-47-81-24-21')
     @commethod(3)
     def get_Next(self, ppPropInfo: POINTER(Windows.Win32.System.ApplicationInstallationAndServicing.IPMTilePropertyInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPMTilePropertyInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6c2b8017-1efa-42a7-86-c0-6d-4b-64-0b-f5-28')
+    _iid_ = Guid('6c2b8017-1efa-42a7-86-c0-6d-4b-64-0b-f5-28')
     @commethod(3)
     def get_PropertyID(self, pPropID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2271,7 +2271,7 @@ class IPMTilePropertyInfo(ComPtr):
     def set_Property(self, PropValue: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IValidate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e482e5c6-e31e-4143-a2-e6-db-c3-d8-e4-b8-d3')
+    _iid_ = Guid('e482e5c6-e31e-4143-a2-e6-db-c3-d8-e4-b8-d3')
     @commethod(3)
     def OpenDatabase(self, szDatabase: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

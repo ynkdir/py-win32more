@@ -109,14 +109,14 @@ def PKEY_WCN_SSID():
     return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b8b-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=32)
 class IWCNConnectNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c100be9f-d33a-4a4b-bf-23-bb-ef-46-63-d0-17')
+    _iid_ = Guid('c100be9f-d33a-4a4b-bf-23-bb-ef-46-63-d0-17')
     @commethod(3)
     def ConnectSucceeded(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ConnectFailed(self, hrFailure: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IWCNDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c100be9c-d33a-4a4b-bf-23-bb-ef-46-63-d0-17')
+    _iid_ = Guid('c100be9c-d33a-4a4b-bf-23-bb-ef-46-63-d0-17')
     @commethod(3)
     def SetPassword(self, Type: Windows.Win32.NetworkManagement.WindowsConnectNow.WCN_PASSWORD_TYPE, dwPasswordLength: UInt32, pbPassword: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

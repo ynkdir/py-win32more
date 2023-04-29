@@ -480,7 +480,7 @@ DISPID_SRRGetXMLResult: DISPID_SpeechXMLRecoResult = 10
 DISPID_SRRGetXMLErrorInfo: DISPID_SpeechXMLRecoResult = 11
 class IEnumSpObjectTokens(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('06b64f9e-7fda-11d2-b4-f2-00-c0-4f-79-73-96')
+    _iid_ = Guid('06b64f9e-7fda-11d2-b4-f2-00-c0-4f-79-73-96')
     @commethod(3)
     def Next(self, celt: UInt32, pelt: POINTER(Windows.Win32.Media.Speech.ISpObjectToken_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -495,7 +495,7 @@ class IEnumSpObjectTokens(ComPtr):
     def GetCount(self, pCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpAudio(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpStreamFormat
-    Guid = Guid('c05c768f-fae8-4ec2-8e-07-33-83-21-c1-24-52')
+    _iid_ = Guid('c05c768f-fae8-4ec2-8e-07-33-83-21-c1-24-52')
     @commethod(15)
     def SetState(self, NewState: Windows.Win32.Media.Speech.SPAUDIOSTATE, ullReserved: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
@@ -520,12 +520,12 @@ class ISpAudio(ComPtr):
     def SetBufferNotifySize(self, cbSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpContainerLexicon(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpLexicon
-    Guid = Guid('8565572f-c094-41cc-b5-6e-10-bd-9c-3f-f0-44')
+    _iid_ = Guid('8565572f-c094-41cc-b5-6e-10-bd-9c-3f-f0-44')
     @commethod(9)
     def AddLexicon(self, pAddLexicon: Windows.Win32.Media.Speech.ISpLexicon_head, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpDataKey(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('14056581-e16c-11d2-bb-90-00-c0-4f-8e-e6-c0')
+    _iid_ = Guid('14056581-e16c-11d2-bb-90-00-c0-4f-8e-e6-c0')
     @commethod(3)
     def SetData(self, pszValueName: Windows.Win32.Foundation.PWSTR, cbData: UInt32, pData: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -552,28 +552,28 @@ class ISpDataKey(ComPtr):
     def EnumValues(self, Index: UInt32, ppszValueName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpDisplayAlternates(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c8d7c7e2-0dde-44b7-af-e3-b0-c9-91-fb-eb-5e')
+    _iid_ = Guid('c8d7c7e2-0dde-44b7-af-e3-b0-c9-91-fb-eb-5e')
     @commethod(3)
     def GetDisplayAlternates(self, pPhrase: POINTER(Windows.Win32.Media.Speech.SPDISPLAYPHRASE_head), cRequestCount: UInt32, ppCoMemPhrases: POINTER(POINTER(Windows.Win32.Media.Speech.SPDISPLAYPHRASE_head)), pcPhrasesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetFullStopTrailSpace(self, ulTrailSpace: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpEnginePronunciation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c360ce4b-76d1-4214-ad-68-52-65-7d-50-83-da')
+    _iid_ = Guid('c360ce4b-76d1-4214-ad-68-52-65-7d-50-83-da')
     @commethod(3)
     def Normalize(self, pszWord: Windows.Win32.Foundation.PWSTR, pszLeftContext: Windows.Win32.Foundation.PWSTR, pszRightContext: Windows.Win32.Foundation.PWSTR, LangID: UInt16, pNormalizationList: POINTER(Windows.Win32.Media.Speech.SPNORMALIZATIONLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetPronunciations(self, pszWord: Windows.Win32.Foundation.PWSTR, pszLeftContext: Windows.Win32.Foundation.PWSTR, pszRightContext: Windows.Win32.Foundation.PWSTR, LangID: UInt16, pEnginePronunciationList: POINTER(Windows.Win32.Media.Speech.SPWORDPRONUNCIATIONLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('be7a9cc9-5f9e-11d2-96-0f-00-c0-4f-8e-e6-28')
+    _iid_ = Guid('be7a9cc9-5f9e-11d2-96-0f-00-c0-4f-8e-e6-28')
     @commethod(3)
     def AddEvents(self, pEventArray: POINTER(Windows.Win32.Media.Speech.SPEVENT_head), ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetEventInterest(self, pullEventInterest: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpEventSource(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpNotifySource
-    Guid = Guid('be7a9cce-5f9e-11d2-96-0f-00-c0-4f-8e-e6-28')
+    _iid_ = Guid('be7a9cce-5f9e-11d2-96-0f-00-c0-4f-8e-e6-28')
     @commethod(10)
     def SetInterest(self, ullEventInterest: UInt64, ullQueuedInterest: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -582,12 +582,12 @@ class ISpEventSource(ComPtr):
     def GetInfo(self, pInfo: POINTER(Windows.Win32.Media.Speech.SPEVENTSOURCEINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpEventSource2(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpEventSource
-    Guid = Guid('2373a435-6a4b-429e-a6-ac-d4-23-1a-61-97-5b')
+    _iid_ = Guid('2373a435-6a4b-429e-a6-ac-d4-23-1a-61-97-5b')
     @commethod(13)
     def GetEventsEx(self, ulCount: UInt32, pEventArray: POINTER(Windows.Win32.Media.Speech.SPEVENTEX_head), pulFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpGrammarBuilder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8137828f-591a-4a42-be-58-49-ea-7e-ba-ac-68')
+    _iid_ = Guid('8137828f-591a-4a42-be-58-49-ea-7e-ba-ac-68')
     @commethod(3)
     def ResetGrammar(self, NewLanguage: UInt16) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -606,14 +606,14 @@ class ISpGrammarBuilder(ComPtr):
     def Commit(self, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpGrammarBuilder2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8ab10026-20cc-4b20-8c-22-a4-9c-9b-a7-8f-60')
+    _iid_ = Guid('8ab10026-20cc-4b20-8c-22-a4-9c-9b-a7-8f-60')
     @commethod(3)
     def AddTextSubset(self, hFromState: Windows.Win32.Media.Speech.SPSTATEHANDLE, hToState: Windows.Win32.Media.Speech.SPSTATEHANDLE, psz: Windows.Win32.Foundation.PWSTR, eMatchMode: Windows.Win32.Media.Speech.SPMATCHINGMODE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetPhoneticAlphabet(self, phoneticALphabet: Windows.Win32.Media.Speech.PHONETICALPHABET) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpLexicon(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('da41a7c2-5383-4db2-91-6b-6c-17-19-e3-db-58')
+    _iid_ = Guid('da41a7c2-5383-4db2-91-6b-6c-17-19-e3-db-58')
     @commethod(3)
     def GetPronunciations(self, pszWord: Windows.Win32.Foundation.PWSTR, LangID: UInt16, dwFlags: UInt32, pWordPronunciationList: POINTER(Windows.Win32.Media.Speech.SPWORDPRONUNCIATIONLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -628,7 +628,7 @@ class ISpLexicon(ComPtr):
     def GetWords(self, dwFlags: UInt32, pdwGeneration: POINTER(UInt32), pdwCookie: POINTER(UInt32), pWordList: POINTER(Windows.Win32.Media.Speech.SPWORDLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpMMSysAudio(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpAudio
-    Guid = Guid('15806f6e-1d70-4b48-98-e6-3b-1a-00-75-09-ab')
+    _iid_ = Guid('15806f6e-1d70-4b48-98-e6-3b-1a-00-75-09-ab')
     @commethod(26)
     def GetDeviceId(self, puDeviceId: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
@@ -645,12 +645,12 @@ class ISpNotifyCallback(ComPtr):
     def NotifyCallback(self, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpNotifySink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('259684dc-37c3-11d2-96-03-00-c0-4f-8e-e6-28')
+    _iid_ = Guid('259684dc-37c3-11d2-96-03-00-c0-4f-8e-e6-28')
     @commethod(3)
     def Notify(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpNotifySource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5eff4aef-8487-11d2-96-1c-00-c0-4f-8e-e6-28')
+    _iid_ = Guid('5eff4aef-8487-11d2-96-1c-00-c0-4f-8e-e6-28')
     @commethod(3)
     def SetNotifySink(self, pNotifySink: Windows.Win32.Media.Speech.ISpNotifySink_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -667,7 +667,7 @@ class ISpNotifySource(ComPtr):
     def GetNotifyEventHandle(self) -> Windows.Win32.Foundation.HANDLE: ...
 class ISpNotifyTranslator(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpNotifySink
-    Guid = Guid('aca16614-5d3d-11d2-96-0e-00-c0-4f-8e-e6-28')
+    _iid_ = Guid('aca16614-5d3d-11d2-96-0e-00-c0-4f-8e-e6-28')
     @commethod(4)
     def InitWindowMessage(self, hWnd: Windows.Win32.Foundation.HWND, Msg: UInt32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -682,7 +682,7 @@ class ISpNotifyTranslator(ComPtr):
     def GetEventHandle(self) -> Windows.Win32.Foundation.HANDLE: ...
 class ISpObjectToken(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpDataKey
-    Guid = Guid('14056589-e16c-11d2-bb-90-00-c0-4f-8e-e6-c0')
+    _iid_ = Guid('14056589-e16c-11d2-bb-90-00-c0-4f-8e-e6-c0')
     @commethod(15)
     def SetId(self, pszCategoryId: Windows.Win32.Foundation.PWSTR, pszTokenId: Windows.Win32.Foundation.PWSTR, fCreateIfNotExist: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
@@ -705,7 +705,7 @@ class ISpObjectToken(ComPtr):
     def MatchesAttributes(self, pszAttributes: Windows.Win32.Foundation.PWSTR, pfMatches: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpObjectTokenCategory(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpDataKey
-    Guid = Guid('2d3d3845-39af-4850-bb-f9-40-b4-97-80-01-1d')
+    _iid_ = Guid('2d3d3845-39af-4850-bb-f9-40-b4-97-80-01-1d')
     @commethod(15)
     def SetId(self, pszCategoryId: Windows.Win32.Foundation.PWSTR, fCreateIfNotExist: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
@@ -720,26 +720,26 @@ class ISpObjectTokenCategory(ComPtr):
     def GetDefaultTokenId(self, ppszCoMemTokenId: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpObjectTokenInit(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpObjectToken
-    Guid = Guid('b8aab0cf-346f-49d8-94-99-c8-b0-3f-16-1d-51')
+    _iid_ = Guid('b8aab0cf-346f-49d8-94-99-c8-b0-3f-16-1d-51')
     @commethod(25)
     def InitFromDataKey(self, pszCategoryId: Windows.Win32.Foundation.PWSTR, pszTokenId: Windows.Win32.Foundation.PWSTR, pDataKey: Windows.Win32.Media.Speech.ISpDataKey_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpObjectWithToken(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5b559f40-e952-11d2-bb-91-00-c0-4f-8e-e6-c0')
+    _iid_ = Guid('5b559f40-e952-11d2-bb-91-00-c0-4f-8e-e6-c0')
     @commethod(3)
     def SetObjectToken(self, pToken: Windows.Win32.Media.Speech.ISpObjectToken_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetObjectToken(self, ppToken: POINTER(Windows.Win32.Media.Speech.ISpObjectToken_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpPhoneConverter(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpObjectWithToken
-    Guid = Guid('8445c581-0cac-4a38-ab-fe-9b-2c-e2-82-64-55')
+    _iid_ = Guid('8445c581-0cac-4a38-ab-fe-9b-2c-e2-82-64-55')
     @commethod(5)
     def PhoneToId(self, pszPhone: Windows.Win32.Foundation.PWSTR, pId: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def IdToPhone(self, pId: POINTER(UInt16), pszPhone: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpPhoneticAlphabetConverter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('133adcd4-19b4-4020-9f-dc-84-2e-78-25-3b-17')
+    _iid_ = Guid('133adcd4-19b4-4020-9f-dc-84-2e-78-25-3b-17')
     @commethod(3)
     def GetLangId(self, pLangID: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -752,14 +752,14 @@ class ISpPhoneticAlphabetConverter(ComPtr):
     def GetMaxConvertLength(self, cSrcLength: UInt32, bSAPI2UPS: Windows.Win32.Foundation.BOOL, pcMaxDestLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpPhoneticAlphabetSelection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b2745efd-42ce-48ca-81-f1-a9-6e-02-53-8a-90')
+    _iid_ = Guid('b2745efd-42ce-48ca-81-f1-a9-6e-02-53-8a-90')
     @commethod(3)
     def IsAlphabetUPS(self, pfIsUPS: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetAlphabetToUPS(self, fForceUPS: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpPhrase(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1a5c0354-b621-4b5a-87-91-d3-06-ed-37-9e-53')
+    _iid_ = Guid('1a5c0354-b621-4b5a-87-91-d3-06-ed-37-9e-53')
     @commethod(3)
     def GetPhrase(self, ppCoMemPhrase: POINTER(POINTER(Windows.Win32.Media.Speech.SPPHRASE_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -770,7 +770,7 @@ class ISpPhrase(ComPtr):
     def Discard(self, dwValueTypes: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpPhrase2(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpPhrase
-    Guid = Guid('f264da52-e457-4696-b8-56-a7-37-b7-17-af-79')
+    _iid_ = Guid('f264da52-e457-4696-b8-56-a7-37-b7-17-af-79')
     @commethod(7)
     def GetXMLResult(self, ppszCoMemXMLResult: POINTER(Windows.Win32.Foundation.PWSTR), Options: Windows.Win32.Media.Speech.SPXMLRESULTOPTIONS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -779,14 +779,14 @@ class ISpPhrase2(ComPtr):
     def GetAudio(self, ulStartElement: UInt32, cElements: UInt32, ppStream: POINTER(Windows.Win32.Media.Speech.ISpStreamFormat_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpPhraseAlt(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpPhrase
-    Guid = Guid('8fcebc98-4e49-4067-9c-6c-d8-6a-0e-09-2e-3d')
+    _iid_ = Guid('8fcebc98-4e49-4067-9c-6c-d8-6a-0e-09-2e-3d')
     @commethod(7)
     def GetAltInfo(self, ppParent: POINTER(Windows.Win32.Media.Speech.ISpPhrase_head), pulStartElementInParent: POINTER(UInt32), pcElementsInParent: POINTER(UInt32), pcElementsInAlt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Commit(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5b4fb971-b115-4de1-ad-97-e4-82-e3-bf-6e-e4')
+    _iid_ = Guid('5b4fb971-b115-4de1-ad-97-e4-82-e3-bf-6e-e4')
     @commethod(3)
     def SetPropertyNum(self, pName: Windows.Win32.Foundation.PWSTR, lValue: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -797,7 +797,7 @@ class ISpProperties(ComPtr):
     def GetPropertyString(self, pName: Windows.Win32.Foundation.PWSTR, ppCoMemValue: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpRecoContext(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpEventSource
-    Guid = Guid('f740a62f-7c15-489e-82-34-94-0a-33-d9-27-2d')
+    _iid_ = Guid('f740a62f-7c15-489e-82-34-94-0a-33-d9-27-2d')
     @commethod(13)
     def GetRecognizer(self, ppRecognizer: POINTER(Windows.Win32.Media.Speech.ISpRecognizer_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
@@ -836,7 +836,7 @@ class ISpRecoContext(ComPtr):
     def GetContextState(self, peContextState: POINTER(Windows.Win32.Media.Speech.SPCONTEXTSTATE)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpRecoContext2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bead311c-52ff-437f-94-64-6b-21-05-4c-a7-3d')
+    _iid_ = Guid('bead311c-52ff-437f-94-64-6b-21-05-4c-a7-3d')
     @commethod(3)
     def SetGrammarOptions(self, eGrammarOptions: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -845,7 +845,7 @@ class ISpRecoContext2(ComPtr):
     def SetAdaptationData2(self, pAdaptationData: Windows.Win32.Foundation.PWSTR, cch: UInt32, pTopicName: Windows.Win32.Foundation.PWSTR, eAdaptationSettings: UInt32, eRelevance: Windows.Win32.Media.Speech.SPADAPTATIONRELEVANCE) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpRecoGrammar(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpGrammarBuilder
-    Guid = Guid('2177db29-7f45-47d0-85-54-06-7e-91-c8-05-02')
+    _iid_ = Guid('2177db29-7f45-47d0-85-54-06-7e-91-c8-05-02')
     @commethod(11)
     def GetGrammarId(self, pullGrammarId: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -884,7 +884,7 @@ class ISpRecoGrammar(ComPtr):
     def GetGrammarState(self, peGrammarState: POINTER(Windows.Win32.Media.Speech.SPGRAMMARSTATE)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpRecoGrammar2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4b37bc9e-9ed6-44a3-93-d3-18-f0-22-b7-9e-c3')
+    _iid_ = Guid('4b37bc9e-9ed6-44a3-93-d3-18-f0-22-b7-9e-c3')
     @commethod(3)
     def GetRules(self, ppCoMemRules: POINTER(POINTER(Windows.Win32.Media.Speech.SPRULE_head)), puNumRules: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -903,7 +903,7 @@ class ISpRecoGrammar2(ComPtr):
     def SetSMLSecurityManager(self, pSMLSecurityManager: Windows.Win32.System.Com.Urlmon.IInternetSecurityManager_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpRecoResult(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpPhrase
-    Guid = Guid('20b053be-e235-43cd-9a-2a-8d-17-a4-8b-78-42')
+    _iid_ = Guid('20b053be-e235-43cd-9a-2a-8d-17-a4-8b-78-42')
     @commethod(7)
     def GetResultTimes(self, pTimes: POINTER(Windows.Win32.Media.Speech.SPRECORESULTTIMES_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -920,7 +920,7 @@ class ISpRecoResult(ComPtr):
     def GetRecoContext(self, ppRecoContext: POINTER(Windows.Win32.Media.Speech.ISpRecoContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpRecoResult2(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpRecoResult
-    Guid = Guid('27cac6c4-88f2-41f2-88-17-0c-95-e5-9f-1e-6e')
+    _iid_ = Guid('27cac6c4-88f2-41f2-88-17-0c-95-e5-9f-1e-6e')
     @commethod(14)
     def CommitAlternate(self, pPhraseAlt: Windows.Win32.Media.Speech.ISpPhraseAlt_head, ppNewResult: POINTER(Windows.Win32.Media.Speech.ISpRecoResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -929,7 +929,7 @@ class ISpRecoResult2(ComPtr):
     def SetTextFeedback(self, pszFeedback: Windows.Win32.Foundation.PWSTR, fSuccessful: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpRecognizer(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpProperties
-    Guid = Guid('c2b5f241-daa0-4507-9e-16-5a-1e-aa-2b-7a-5c')
+    _iid_ = Guid('c2b5f241-daa0-4507-9e-16-5a-1e-aa-2b-7a-5c')
     @commethod(7)
     def SetRecognizer(self, pRecognizer: Windows.Win32.Media.Speech.ISpObjectToken_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -964,7 +964,7 @@ class ISpRecognizer(ComPtr):
     def EmulateRecognition(self, pPhrase: Windows.Win32.Media.Speech.ISpPhrase_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpRecognizer2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8fc6d974-c81e-4098-93-c5-01-47-f6-1e-d4-d3')
+    _iid_ = Guid('8fc6d974-c81e-4098-93-c5-01-47-f6-1e-d4-d3')
     @commethod(3)
     def EmulateRecognitionEx(self, pPhrase: Windows.Win32.Media.Speech.ISpPhrase_head, dwCompareFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -973,26 +973,26 @@ class ISpRecognizer2(ComPtr):
     def ResetAcousticModelAdaptation(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpRegDataKey(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpDataKey
-    Guid = Guid('92a66e2b-c830-4149-83-df-6f-c2-ba-1e-7a-5b')
+    _iid_ = Guid('92a66e2b-c830-4149-83-df-6f-c2-ba-1e-7a-5b')
     @commethod(15)
     def SetKey(self, hkey: Windows.Win32.System.Registry.HKEY, fReadOnly: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpResourceManager(ComPtr):
     extends: Windows.Win32.System.Com.IServiceProvider
-    Guid = Guid('93384e18-5014-43d5-ad-bb-a7-8e-05-59-26-bd')
+    _iid_ = Guid('93384e18-5014-43d5-ad-bb-a7-8e-05-59-26-bd')
     @commethod(4)
     def SetObject(self, guidServiceId: POINTER(Guid), pUnkObject: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetObject(self, guidServiceId: POINTER(Guid), ObjectCLSID: POINTER(Guid), ObjectIID: POINTER(Guid), fReleaseWhenLastExternalRefReleased: Windows.Win32.Foundation.BOOL, ppObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpSerializeState(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('21b501a0-0ec7-46c9-92-c3-a2-bc-78-4c-54-b9')
+    _iid_ = Guid('21b501a0-0ec7-46c9-92-c3-a2-bc-78-4c-54-b9')
     @commethod(3)
     def GetSerializedState(self, ppbData: POINTER(POINTER(Byte)), pulSize: POINTER(UInt32), dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetSerializedState(self, pbData: POINTER(Byte), ulSize: UInt32, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpShortcut(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3df681e2-ea56-11d9-8b-de-f6-6b-ad-1e-3f-3a')
+    _iid_ = Guid('3df681e2-ea56-11d9-8b-de-f6-6b-ad-1e-3f-3a')
     @commethod(3)
     def AddShortcut(self, pszDisplay: Windows.Win32.Foundation.PWSTR, LangID: UInt16, pszSpoken: Windows.Win32.Foundation.PWSTR, shType: Windows.Win32.Media.Speech.SPSHORTCUTTYPE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1011,7 +1011,7 @@ class ISpShortcut(ComPtr):
     def GetGenerationChange(self, pdwGeneration: POINTER(UInt32), pShortcutpairList: POINTER(Windows.Win32.Media.Speech.SPSHORTCUTPAIRLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpStream(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpStreamFormat
-    Guid = Guid('12e3cca9-7518-44c5-a5-e7-ba-5a-79-cb-92-9e')
+    _iid_ = Guid('12e3cca9-7518-44c5-a5-e7-ba-5a-79-cb-92-9e')
     @commethod(15)
     def SetBaseStream(self, pStream: Windows.Win32.System.Com.IStream_head, rguidFormat: POINTER(Guid), pWaveFormatEx: POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
@@ -1022,12 +1022,12 @@ class ISpStream(ComPtr):
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpStreamFormat(ComPtr):
     extends: Windows.Win32.System.Com.IStream
-    Guid = Guid('bed530be-2606-4f4d-a1-c0-54-c5-cd-a5-56-6f')
+    _iid_ = Guid('bed530be-2606-4f4d-a1-c0-54-c5-cd-a5-56-6f')
     @commethod(14)
     def GetFormat(self, pguidFormatId: POINTER(Guid), ppCoMemWaveFormatEx: POINTER(POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpStreamFormatConverter(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpStreamFormat
-    Guid = Guid('678a932c-ea71-4446-9b-41-78-fd-a6-28-0a-29')
+    _iid_ = Guid('678a932c-ea71-4446-9b-41-78-fd-a6-28-0a-29')
     @commethod(15)
     def SetBaseStream(self, pStream: Windows.Win32.Media.Speech.ISpStreamFormat_head, fSetFormatToBaseStreamFormat: Windows.Win32.Foundation.BOOL, fWriteToBaseStream: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
@@ -1042,14 +1042,14 @@ class ISpStreamFormatConverter(ComPtr):
     def ScaleBaseToConvertedOffset(self, ullOffsetBaseStream: UInt64, pullOffsetConvertedStream: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpTranscript(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('10f63bce-201a-11d3-ac-70-00-c0-4f-8e-e6-c0')
+    _iid_ = Guid('10f63bce-201a-11d3-ac-70-00-c0-4f-8e-e6-c0')
     @commethod(3)
     def GetTranscript(self, ppszTranscript: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def AppendTranscript(self, pszTranscript: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpVoice(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpEventSource
-    Guid = Guid('6c44df74-72b9-4992-a1-ec-ef-99-6e-04-22-d4')
+    _iid_ = Guid('6c44df74-72b9-4992-a1-ec-ef-99-6e-04-22-d4')
     @commethod(13)
     def SetOutput(self, pUnkOutput: Windows.Win32.System.Com.IUnknown_head, fAllowFormatChanges: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
@@ -1102,14 +1102,14 @@ class ISpVoice(ComPtr):
     def DisplayUI(self, hwndParent: Windows.Win32.Foundation.HWND, pszTitle: Windows.Win32.Foundation.PWSTR, pszTypeOfUI: Windows.Win32.Foundation.PWSTR, pvExtraData: c_void_p, cbExtraData: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpXMLRecoResult(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpRecoResult
-    Guid = Guid('ae39362b-45a8-4074-9b-9e-cc-f4-9a-a2-d0-b6')
+    _iid_ = Guid('ae39362b-45a8-4074-9b-9e-cc-f4-9a-a2-d0-b6')
     @commethod(14)
     def GetXMLResult(self, ppszCoMemXMLResult: POINTER(Windows.Win32.Foundation.PWSTR), Options: Windows.Win32.Media.Speech.SPXMLRESULTOPTIONS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetXMLErrorInfo(self, pSemanticErrorInfo: POINTER(Windows.Win32.Media.Speech.SPSEMANTICERRORINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechAudio(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpeechBaseStream
-    Guid = Guid('cff8e175-019e-11d3-a0-8e-00-c0-4f-8e-f9-b5')
+    _iid_ = Guid('cff8e175-019e-11d3-a0-8e-00-c0-4f-8e-f9-b5')
     @commethod(12)
     def get_Status(self, Status: POINTER(Windows.Win32.Media.Speech.ISpeechAudioStatus_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -1130,7 +1130,7 @@ class ISpeechAudio(ComPtr):
     def SetState(self, State: Windows.Win32.Media.Speech.SpeechAudioState) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechAudioBufferInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('11b103d8-1142-4edf-a0-93-82-fb-39-15-f8-cc')
+    _iid_ = Guid('11b103d8-1142-4edf-a0-93-82-fb-39-15-f8-cc')
     @commethod(7)
     def get_MinNotification(self, MinNotification: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1145,7 +1145,7 @@ class ISpeechAudioBufferInfo(ComPtr):
     def put_EventBias(self, EventBias: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechAudioFormat(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('e6e9c590-3e18-40e3-82-99-06-1f-98-bd-e7-c7')
+    _iid_ = Guid('e6e9c590-3e18-40e3-82-99-06-1f-98-bd-e7-c7')
     @commethod(7)
     def get_Type(self, AudioFormat: POINTER(Windows.Win32.Media.Speech.SpeechAudioFormatType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1160,7 +1160,7 @@ class ISpeechAudioFormat(ComPtr):
     def SetWaveFormatEx(self, SpeechWaveFormatEx: Windows.Win32.Media.Speech.ISpeechWaveFormatEx_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechAudioStatus(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c62d9c91-7458-47f6-86-2d-1e-f8-6f-b0-b2-78')
+    _iid_ = Guid('c62d9c91-7458-47f6-86-2d-1e-f8-6f-b0-b2-78')
     @commethod(7)
     def get_FreeBufferSpace(self, FreeBufferSpace: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1173,7 +1173,7 @@ class ISpeechAudioStatus(ComPtr):
     def get_CurrentDevicePosition(self, CurrentDevicePosition: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechBaseStream(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6450336f-7d49-4ced-80-97-49-d6-de-e3-72-94')
+    _iid_ = Guid('6450336f-7d49-4ced-80-97-49-d6-de-e3-72-94')
     @commethod(7)
     def get_Format(self, AudioFormat: POINTER(Windows.Win32.Media.Speech.ISpeechAudioFormat_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1186,14 +1186,14 @@ class ISpeechBaseStream(ComPtr):
     def Seek(self, Position: Windows.Win32.System.Variant.VARIANT, Origin: Windows.Win32.Media.Speech.SpeechStreamSeekPositionType, NewPosition: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechCustomStream(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpeechBaseStream
-    Guid = Guid('1a9e9f4f-104f-4db8-a1-15-ef-d7-fd-0c-97-ae')
+    _iid_ = Guid('1a9e9f4f-104f-4db8-a1-15-ef-d7-fd-0c-97-ae')
     @commethod(12)
     def get_BaseStream(self, ppUnkStream: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def putref_BaseStream(self, pUnkStream: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechDataKey(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ce17c09b-4efa-44d5-a4-c9-59-d9-58-5a-b0-cd')
+    _iid_ = Guid('ce17c09b-4efa-44d5-a4-c9-59-d9-58-5a-b0-cd')
     @commethod(7)
     def SetBinaryValue(self, ValueName: Windows.Win32.Foundation.BSTR, Value: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1220,14 +1220,14 @@ class ISpeechDataKey(ComPtr):
     def EnumValues(self, Index: Int32, ValueName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechFileStream(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpeechBaseStream
-    Guid = Guid('af67f125-ab39-4e93-b4-a2-cc-2e-66-e1-82-a7')
+    _iid_ = Guid('af67f125-ab39-4e93-b4-a2-cc-2e-66-e1-82-a7')
     @commethod(12)
     def Open(self, FileName: Windows.Win32.Foundation.BSTR, FileMode: Windows.Win32.Media.Speech.SpeechStreamFileMode, DoEvents: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechGrammarRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('afe719cf-5dd1-44f2-99-9c-7a-39-9f-1c-fc-cc')
+    _iid_ = Guid('afe719cf-5dd1-44f2-99-9c-7a-39-9f-1c-fc-cc')
     @commethod(7)
     def get_Attributes(self, Attributes: POINTER(Windows.Win32.Media.Speech.SpeechRuleAttributes)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1244,7 +1244,7 @@ class ISpeechGrammarRule(ComPtr):
     def AddState(self, State: POINTER(Windows.Win32.Media.Speech.ISpeechGrammarRuleState_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechGrammarRuleState(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d4286f2c-ee67-45ae-b9-28-28-d6-95-36-2e-da')
+    _iid_ = Guid('d4286f2c-ee67-45ae-b9-28-28-d6-95-36-2e-da')
     @commethod(7)
     def get_Rule(self, Rule: POINTER(Windows.Win32.Media.Speech.ISpeechGrammarRule_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1257,7 +1257,7 @@ class ISpeechGrammarRuleState(ComPtr):
     def AddSpecialTransition(self, DestinationState: Windows.Win32.Media.Speech.ISpeechGrammarRuleState_head, Type: Windows.Win32.Media.Speech.SpeechSpecialTransitionType, PropertyName: Windows.Win32.Foundation.BSTR, PropertyId: Int32, PropertyValue: POINTER(Windows.Win32.System.Variant.VARIANT_head), Weight: Single) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechGrammarRuleStateTransition(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('cafd1db1-41d1-4a06-98-63-e2-e8-1d-a1-7a-9a')
+    _iid_ = Guid('cafd1db1-41d1-4a06-98-63-e2-e8-1d-a1-7a-9a')
     @commethod(7)
     def get_Type(self, Type: POINTER(Windows.Win32.Media.Speech.SpeechGrammarRuleStateTransitionType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1276,7 +1276,7 @@ class ISpeechGrammarRuleStateTransition(ComPtr):
     def get_NextState(self, NextState: POINTER(Windows.Win32.Media.Speech.ISpeechGrammarRuleState_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechGrammarRuleStateTransitions(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('eabce657-75bc-44a2-aa-7f-c5-64-76-74-29-63')
+    _iid_ = Guid('eabce657-75bc-44a2-aa-7f-c5-64-76-74-29-63')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1285,7 +1285,7 @@ class ISpeechGrammarRuleStateTransitions(ComPtr):
     def get__NewEnum(self, EnumVARIANT: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechGrammarRules(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6ffa3b44-fc2d-40d1-8a-fc-32-91-1c-7f-1a-d1')
+    _iid_ = Guid('6ffa3b44-fc2d-40d1-8a-fc-32-91-1c-7f-1a-d1')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1304,7 +1304,7 @@ class ISpeechGrammarRules(ComPtr):
     def CommitAndSave(self, ErrorText: POINTER(Windows.Win32.Foundation.BSTR), SaveStream: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechLexicon(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3da7627a-c7ae-4b23-87-08-63-8c-50-36-2c-25')
+    _iid_ = Guid('3da7627a-c7ae-4b23-87-08-63-8c-50-36-2c-25')
     @commethod(7)
     def get_GenerationId(self, GenerationId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1323,7 +1323,7 @@ class ISpeechLexicon(ComPtr):
     def GetGenerationChange(self, GenerationID: POINTER(Int32), ppWords: POINTER(Windows.Win32.Media.Speech.ISpeechLexiconWords_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechLexiconPronunciation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('95252c5d-9e43-4f4a-98-99-48-ee-73-35-2f-9f')
+    _iid_ = Guid('95252c5d-9e43-4f4a-98-99-48-ee-73-35-2f-9f')
     @commethod(7)
     def get_Type(self, LexiconType: POINTER(Windows.Win32.Media.Speech.SpeechLexiconType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1336,7 +1336,7 @@ class ISpeechLexiconPronunciation(ComPtr):
     def get_Symbolic(self, Symbolic: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechLexiconPronunciations(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('72829128-5682-4704-a0-d4-3e-2b-b6-f2-ea-d3')
+    _iid_ = Guid('72829128-5682-4704-a0-d4-3e-2b-b6-f2-ea-d3')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1345,7 +1345,7 @@ class ISpeechLexiconPronunciations(ComPtr):
     def get__NewEnum(self, EnumVARIANT: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechLexiconWord(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('4e5b933c-c9be-48ed-88-42-1e-e5-1b-b1-d4-ff')
+    _iid_ = Guid('4e5b933c-c9be-48ed-88-42-1e-e5-1b-b1-d4-ff')
     @commethod(7)
     def get_LangId(self, LangId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1356,7 +1356,7 @@ class ISpeechLexiconWord(ComPtr):
     def get_Pronunciations(self, Pronunciations: POINTER(Windows.Win32.Media.Speech.ISpeechLexiconPronunciations_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechLexiconWords(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('8d199862-415e-47d5-ac-4f-fa-a6-08-b4-24-e6')
+    _iid_ = Guid('8d199862-415e-47d5-ac-4f-fa-a6-08-b4-24-e6')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1365,7 +1365,7 @@ class ISpeechLexiconWords(ComPtr):
     def get__NewEnum(self, EnumVARIANT: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechMMSysAudio(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpeechAudio
-    Guid = Guid('3c76af6d-1fd7-4831-81-d1-3b-71-d5-a1-3c-44')
+    _iid_ = Guid('3c76af6d-1fd7-4831-81-d1-3b-71-d5-a1-3c-44')
     @commethod(21)
     def get_DeviceId(self, DeviceId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
@@ -1378,14 +1378,14 @@ class ISpeechMMSysAudio(ComPtr):
     def get_MMHandle(self, Handle: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechMemoryStream(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpeechBaseStream
-    Guid = Guid('eeb14b68-808b-4abe-a5-ea-b5-1d-a7-58-80-08')
+    _iid_ = Guid('eeb14b68-808b-4abe-a5-ea-b5-1d-a7-58-80-08')
     @commethod(12)
     def SetData(self, Data: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetData(self, pData: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechObjectToken(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c74a3adc-b727-4500-a8-4a-b5-26-72-1c-8b-8c')
+    _iid_ = Guid('c74a3adc-b727-4500-a8-4a-b5-26-72-1c-8b-8c')
     @commethod(7)
     def get_Id(self, ObjectId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1414,7 +1414,7 @@ class ISpeechObjectToken(ComPtr):
     def MatchesAttributes(self, Attributes: Windows.Win32.Foundation.BSTR, Matches: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechObjectTokenCategory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ca7eac50-2d01-4145-86-d4-5a-e7-d7-0f-44-69')
+    _iid_ = Guid('ca7eac50-2d01-4145-86-d4-5a-e7-d7-0f-44-69')
     @commethod(7)
     def get_Id(self, Id: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1429,7 +1429,7 @@ class ISpeechObjectTokenCategory(ComPtr):
     def EnumerateTokens(self, RequiredAttributes: Windows.Win32.Foundation.BSTR, OptionalAttributes: Windows.Win32.Foundation.BSTR, Tokens: POINTER(Windows.Win32.Media.Speech.ISpeechObjectTokens_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechObjectTokens(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('9285b776-2e7b-4bc0-b5-3e-58-0e-b6-fa-96-7f')
+    _iid_ = Guid('9285b776-2e7b-4bc0-b5-3e-58-0e-b6-fa-96-7f')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1438,7 +1438,7 @@ class ISpeechObjectTokens(ComPtr):
     def get__NewEnum(self, ppEnumVARIANT: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechPhoneConverter(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c3e4f353-433f-43d6-89-a1-6a-62-a7-05-4c-3d')
+    _iid_ = Guid('c3e4f353-433f-43d6-89-a1-6a-62-a7-05-4c-3d')
     @commethod(7)
     def get_LanguageId(self, LanguageId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1449,7 +1449,7 @@ class ISpeechPhoneConverter(ComPtr):
     def IdToPhone(self, IdArray: Windows.Win32.System.Variant.VARIANT, Phonemes: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechPhraseAlternate(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('27864a2a-2b9f-4cb8-92-d3-0d-27-22-fd-1e-73')
+    _iid_ = Guid('27864a2a-2b9f-4cb8-92-d3-0d-27-22-fd-1e-73')
     @commethod(7)
     def get_RecoResult(self, RecoResult: POINTER(Windows.Win32.Media.Speech.ISpeechRecoResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1462,7 +1462,7 @@ class ISpeechPhraseAlternate(ComPtr):
     def Commit(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechPhraseAlternates(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('b238b6d5-f276-4c3d-a6-c1-29-74-80-1c-3c-c2')
+    _iid_ = Guid('b238b6d5-f276-4c3d-a6-c1-29-74-80-1c-3c-c2')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1471,7 +1471,7 @@ class ISpeechPhraseAlternates(ComPtr):
     def get__NewEnum(self, EnumVARIANT: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechPhraseElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('e6176f96-e373-4801-b2-23-3b-62-c0-68-c0-b4')
+    _iid_ = Guid('e6176f96-e373-4801-b2-23-3b-62-c0-68-c0-b4')
     @commethod(7)
     def get_AudioTimeOffset(self, AudioTimeOffset: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1500,7 +1500,7 @@ class ISpeechPhraseElement(ComPtr):
     def get_EngineConfidence(self, EngineConfidence: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechPhraseElements(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('0626b328-3478-467d-a0-b3-d0-85-3b-93-dd-a3')
+    _iid_ = Guid('0626b328-3478-467d-a0-b3-d0-85-3b-93-dd-a3')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1509,7 +1509,7 @@ class ISpeechPhraseElements(ComPtr):
     def get__NewEnum(self, EnumVARIANT: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechPhraseInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('961559cf-4e67-4662-8b-f0-d9-3f-1f-cd-61-b3')
+    _iid_ = Guid('961559cf-4e67-4662-8b-f0-d9-3f-1f-cd-61-b3')
     @commethod(7)
     def get_LanguageId(self, LanguageId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1544,12 +1544,12 @@ class ISpeechPhraseInfo(ComPtr):
     def GetDisplayAttributes(self, StartElement: Int32, Elements: Int32, UseReplacements: Windows.Win32.Foundation.VARIANT_BOOL, DisplayAttributes: POINTER(Windows.Win32.Media.Speech.SpeechDisplayAttributes)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechPhraseInfoBuilder(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3b151836-df3a-4e0a-84-6c-d2-ad-c9-33-43-33')
+    _iid_ = Guid('3b151836-df3a-4e0a-84-6c-d2-ad-c9-33-43-33')
     @commethod(7)
     def RestorePhraseFromMemory(self, PhraseInMemory: POINTER(Windows.Win32.System.Variant.VARIANT_head), PhraseInfo: POINTER(Windows.Win32.Media.Speech.ISpeechPhraseInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechPhraseProperties(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('08166b47-102e-4b23-a5-99-bd-b9-8d-bf-d1-f4')
+    _iid_ = Guid('08166b47-102e-4b23-a5-99-bd-b9-8d-bf-d1-f4')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1558,7 +1558,7 @@ class ISpeechPhraseProperties(ComPtr):
     def get__NewEnum(self, EnumVARIANT: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechPhraseProperty(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ce563d48-961e-4732-a2-e1-37-8a-42-b4-30-be')
+    _iid_ = Guid('ce563d48-961e-4732-a2-e1-37-8a-42-b4-30-be')
     @commethod(7)
     def get_Name(self, Name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1579,7 +1579,7 @@ class ISpeechPhraseProperty(ComPtr):
     def get_Children(self, Children: POINTER(Windows.Win32.Media.Speech.ISpeechPhraseProperties_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechPhraseReplacement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2890a410-53a7-4fb5-94-ec-06-d4-99-8e-3d-02')
+    _iid_ = Guid('2890a410-53a7-4fb5-94-ec-06-d4-99-8e-3d-02')
     @commethod(7)
     def get_DisplayAttributes(self, DisplayAttributes: POINTER(Windows.Win32.Media.Speech.SpeechDisplayAttributes)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1590,7 +1590,7 @@ class ISpeechPhraseReplacement(ComPtr):
     def get_NumberOfElements(self, NumberOfElements: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechPhraseReplacements(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('38bc662f-2257-4525-95-9e-20-69-d2-59-6c-05')
+    _iid_ = Guid('38bc662f-2257-4525-95-9e-20-69-d2-59-6c-05')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1599,7 +1599,7 @@ class ISpeechPhraseReplacements(ComPtr):
     def get__NewEnum(self, EnumVARIANT: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechPhraseRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('a7bfe112-a4a0-48d9-b6-02-c3-13-84-3f-69-64')
+    _iid_ = Guid('a7bfe112-a4a0-48d9-b6-02-c3-13-84-3f-69-64')
     @commethod(7)
     def get_Name(self, Name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1618,7 +1618,7 @@ class ISpeechPhraseRule(ComPtr):
     def get_EngineConfidence(self, EngineConfidence: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechPhraseRules(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('9047d593-01dd-4b72-81-a3-e4-a0-ca-69-f4-07')
+    _iid_ = Guid('9047d593-01dd-4b72-81-a3-e4-a0-ca-69-f4-07')
     @commethod(7)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1627,7 +1627,7 @@ class ISpeechPhraseRules(ComPtr):
     def get__NewEnum(self, EnumVARIANT: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechRecoContext(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('580aa49d-7e1e-4809-b8-e2-57-da-80-61-04-b8')
+    _iid_ = Guid('580aa49d-7e1e-4809-b8-e2-57-da-80-61-04-b8')
     @commethod(7)
     def get_Recognizer(self, Recognizer: POINTER(Windows.Win32.Media.Speech.ISpeechRecognizer_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1680,7 +1680,7 @@ class ISpeechRecoContext(ComPtr):
     def SetAdaptationData(self, AdaptationString: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechRecoGrammar(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('b6d6f79f-2158-4e50-b5-bc-9a-9c-cd-85-2a-09')
+    _iid_ = Guid('b6d6f79f-2158-4e50-b5-bc-9a-9c-cd-85-2a-09')
     @commethod(7)
     def get_Id(self, Id: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1721,7 +1721,7 @@ class ISpeechRecoGrammar(ComPtr):
     def IsPronounceable(self, Word: Windows.Win32.Foundation.BSTR, WordPronounceable: POINTER(Windows.Win32.Media.Speech.SpeechWordPronounceable)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechRecoResult(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ed2879cf-ced9-4ee6-a5-34-de-01-91-d5-46-8d')
+    _iid_ = Guid('ed2879cf-ced9-4ee6-a5-34-de-01-91-d5-46-8d')
     @commethod(7)
     def get_RecoContext(self, RecoContext: POINTER(Windows.Win32.Media.Speech.ISpeechRecoContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1744,12 +1744,12 @@ class ISpeechRecoResult(ComPtr):
     def DiscardResultInfo(self, ValueTypes: Windows.Win32.Media.Speech.SpeechDiscardType) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechRecoResult2(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpeechRecoResult
-    Guid = Guid('8e0a246d-d3c8-45de-86-57-04-29-0c-45-8c-3c')
+    _iid_ = Guid('8e0a246d-d3c8-45de-86-57-04-29-0c-45-8c-3c')
     @commethod(17)
     def SetTextFeedback(self, Feedback: Windows.Win32.Foundation.BSTR, WasSuccessful: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechRecoResultDispatch(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6d60eb64-aced-40a6-bb-f3-4e-55-7f-71-de-e2')
+    _iid_ = Guid('6d60eb64-aced-40a6-bb-f3-4e-55-7f-71-de-e2')
     @commethod(7)
     def get_RecoContext(self, RecoContext: POINTER(Windows.Win32.Media.Speech.ISpeechRecoContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1778,7 +1778,7 @@ class ISpeechRecoResultDispatch(ComPtr):
     def SetTextFeedback(self, Feedback: Windows.Win32.Foundation.BSTR, WasSuccessful: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechRecoResultTimes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('62b3b8fb-f6e7-41be-bd-cb-05-6b-1c-29-ef-c0')
+    _iid_ = Guid('62b3b8fb-f6e7-41be-bd-cb-05-6b-1c-29-ef-c0')
     @commethod(7)
     def get_StreamTime(self, Time: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1789,7 +1789,7 @@ class ISpeechRecoResultTimes(ComPtr):
     def get_OffsetFromStart(self, OffsetFromStart: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechRecognizer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2d5f1c0c-bd75-4b08-94-78-3b-11-fe-a2-58-6c')
+    _iid_ = Guid('2d5f1c0c-bd75-4b08-94-78-3b-11-fe-a2-58-6c')
     @commethod(7)
     def putref_Recognizer(self, Recognizer: Windows.Win32.Media.Speech.ISpeechObjectToken_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1844,7 +1844,7 @@ class ISpeechRecognizer(ComPtr):
     def GetProfiles(self, RequiredAttributes: Windows.Win32.Foundation.BSTR, OptionalAttributes: Windows.Win32.Foundation.BSTR, ObjectTokens: POINTER(Windows.Win32.Media.Speech.ISpeechObjectTokens_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechRecognizerStatus(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('bff9e781-53ec-484e-bb-8a-0e-1b-55-51-e3-5c')
+    _iid_ = Guid('bff9e781-53ec-484e-bb-8a-0e-1b-55-51-e3-5c')
     @commethod(7)
     def get_AudioStatus(self, AudioStatus: POINTER(Windows.Win32.Media.Speech.ISpeechAudioStatus_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1859,7 +1859,7 @@ class ISpeechRecognizerStatus(ComPtr):
     def get_SupportedLanguages(self, SupportedLanguages: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechResourceLoader(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('b9ac5783-fcd0-4b21-b1-19-b4-f8-da-8f-d2-c3')
+    _iid_ = Guid('b9ac5783-fcd0-4b21-b1-19-b4-f8-da-8f-d2-c3')
     @commethod(7)
     def LoadResource(self, bstrResourceUri: Windows.Win32.Foundation.BSTR, fAlwaysReload: Windows.Win32.Foundation.VARIANT_BOOL, pStream: POINTER(Windows.Win32.System.Com.IUnknown_head), pbstrMIMEType: POINTER(Windows.Win32.Foundation.BSTR), pfModified: POINTER(Windows.Win32.Foundation.VARIANT_BOOL), pbstrRedirectUrl: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1868,7 +1868,7 @@ class ISpeechResourceLoader(ComPtr):
     def ReleaseLocalCopy(self, pbstrLocalPath: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechTextSelectionInformation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3b9c7e7a-6eee-4ded-90-92-11-65-72-79-ad-be')
+    _iid_ = Guid('3b9c7e7a-6eee-4ded-90-92-11-65-72-79-ad-be')
     @commethod(7)
     def put_ActiveOffset(self, ActiveOffset: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1887,7 +1887,7 @@ class ISpeechTextSelectionInformation(ComPtr):
     def get_SelectionLength(self, SelectionLength: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechVoice(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('269316d8-57bd-11d2-9e-ee-00-c0-4f-79-73-96')
+    _iid_ = Guid('269316d8-57bd-11d2-9e-ee-00-c0-4f-79-73-96')
     @commethod(7)
     def get_Status(self, Status: POINTER(Windows.Win32.Media.Speech.ISpeechVoiceStatus_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1954,7 +1954,7 @@ class ISpeechVoice(ComPtr):
     def DisplayUI(self, hWndParent: Int32, Title: Windows.Win32.Foundation.BSTR, TypeOfUI: Windows.Win32.Foundation.BSTR, ExtraData: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechVoiceStatus(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('8be47b07-57f6-11d2-9e-ee-00-c0-4f-79-73-96')
+    _iid_ = Guid('8be47b07-57f6-11d2-9e-ee-00-c0-4f-79-73-96')
     @commethod(7)
     def get_CurrentStreamNumber(self, StreamNumber: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1981,7 +1981,7 @@ class ISpeechVoiceStatus(ComPtr):
     def get_VisemeId(self, VisemeId: POINTER(Int16)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechWaveFormatEx(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('7a1ef0d5-1581-4741-88-e4-20-9a-49-f1-1a-10')
+    _iid_ = Guid('7a1ef0d5-1581-4741-88-e4-20-9a-49-f1-1a-10')
     @commethod(7)
     def get_FormatTag(self, FormatTag: POINTER(Int16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -2012,7 +2012,7 @@ class ISpeechWaveFormatEx(ComPtr):
     def put_ExtraData(self, ExtraData: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpeechXMLRecoResult(ComPtr):
     extends: Windows.Win32.Media.Speech.ISpeechRecoResult
-    Guid = Guid('aaec54af-8f85-4924-94-4d-b7-9d-39-d7-2e-19')
+    _iid_ = Guid('aaec54af-8f85-4924-94-4d-b7-9d-39-d7-2e-19')
     @commethod(17)
     def GetXMLResult(self, Options: Windows.Win32.Media.Speech.SPXMLRESULTOPTIONS, pResult: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
@@ -2984,10 +2984,10 @@ SpeechWordType_SWTAdded: SpeechWordType = 1
 SpeechWordType_SWTDeleted: SpeechWordType = 2
 class _ISpeechRecoContextEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('7b8fcb42-0e9d-4f00-a0-48-7b-04-d6-17-9d-3d')
+    _iid_ = Guid('7b8fcb42-0e9d-4f00-a0-48-7b-04-d6-17-9d-3d')
 class _ISpeechVoiceEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('a372acd1-3bef-4bbd-8f-fb-cb-3e-2b-41-6a-f8')
+    _iid_ = Guid('a372acd1-3bef-4bbd-8f-fb-cb-3e-2b-41-6a-f8')
 make_head(_module, 'IEnumSpObjectTokens')
 make_head(_module, 'ISpAudio')
 make_head(_module, 'ISpContainerLexicon')

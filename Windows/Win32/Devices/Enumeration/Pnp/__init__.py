@@ -84,19 +84,19 @@ def SwDeviceInterfacePropertySet(hSwDevice: Windows.Win32.Devices.Enumeration.Pn
 HSWDEVICE = IntPtr
 class IUPnPAddressFamilyControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e3bf6178-694e-459f-a5-a6-19-1e-a0-ff-a1-c7')
+    _iid_ = Guid('e3bf6178-694e-459f-a5-a6-19-1e-a0-ff-a1-c7')
     @commethod(3)
     def SetAddressFamily(self, dwFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAddressFamily(self, pdwFlags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPAsyncResult(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4d65fd08-d13e-4274-9c-8b-dd-8d-02-8c-86-44')
+    _iid_ = Guid('4d65fd08-d13e-4274-9c-8b-dd-8d-02-8c-86-44')
     @commethod(3)
     def AsyncOperationComplete(self, ullRequestID: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPDescriptionDocument(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('11d1c1b2-7daa-4c9e-95-95-7f-82-ed-20-6d-1e')
+    _iid_ = Guid('11d1c1b2-7daa-4c9e-95-95-7f-82-ed-20-6d-1e')
     @commethod(7)
     def get_ReadyState(self, plReadyState: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -113,12 +113,12 @@ class IUPnPDescriptionDocument(ComPtr):
     def DeviceByUDN(self, bstrUDN: Windows.Win32.Foundation.BSTR, ppudDevice: POINTER(Windows.Win32.Devices.Enumeration.Pnp.IUPnPDevice_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPDescriptionDocumentCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('77394c69-5486-40d6-9b-c3-49-91-98-3e-02-da')
+    _iid_ = Guid('77394c69-5486-40d6-9b-c3-49-91-98-3e-02-da')
     @commethod(3)
     def LoadComplete(self, hrLoadResult: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPDevice(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3d44d0d1-98c9-4889-ac-d1-f9-d6-74-bf-22-21')
+    _iid_ = Guid('3d44d0d1-98c9-4889-ac-d1-f9-d6-74-bf-22-21')
     @commethod(7)
     def get_IsRootDevice(self, pvarb: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -159,29 +159,29 @@ class IUPnPDevice(ComPtr):
     def get_Services(self, ppusServices: POINTER(Windows.Win32.Devices.Enumeration.Pnp.IUPnPServices_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPDeviceControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('204810ba-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
+    _iid_ = Guid('204810ba-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
     @commethod(3)
     def Initialize(self, bstrXMLDesc: Windows.Win32.Foundation.BSTR, bstrDeviceIdentifier: Windows.Win32.Foundation.BSTR, bstrInitString: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetServiceObject(self, bstrUDN: Windows.Win32.Foundation.BSTR, bstrServiceId: Windows.Win32.Foundation.BSTR, ppdispService: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPDeviceControlHttpHeaders(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('204810bb-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
+    _iid_ = Guid('204810bb-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
     @commethod(3)
     def GetAdditionalResponseHeaders(self, bstrHttpResponseHeaders: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPDeviceDocumentAccess(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e7772804-3287-418e-90-72-cf-2b-47-23-89-81')
+    _iid_ = Guid('e7772804-3287-418e-90-72-cf-2b-47-23-89-81')
     @commethod(3)
     def GetDocumentURL(self, pbstrDocument: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPDeviceDocumentAccessEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c4bc4050-6178-4bd1-a4-b8-63-98-32-1f-32-47')
+    _iid_ = Guid('c4bc4050-6178-4bd1-a4-b8-63-98-32-1f-32-47')
     @commethod(3)
     def GetDocument(self, pbstrDocument: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPDeviceFinder(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('adda3d55-6f72-4319-bf-f9-18-60-0a-53-9b-10')
+    _iid_ = Guid('adda3d55-6f72-4319-bf-f9-18-60-0a-53-9b-10')
     @commethod(7)
     def FindByType(self, bstrTypeURI: Windows.Win32.Foundation.BSTR, dwFlags: UInt32, pDevices: POINTER(Windows.Win32.Devices.Enumeration.Pnp.IUPnPDevices_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -194,12 +194,12 @@ class IUPnPDeviceFinder(ComPtr):
     def FindByUDN(self, bstrUDN: Windows.Win32.Foundation.BSTR, pDevice: POINTER(Windows.Win32.Devices.Enumeration.Pnp.IUPnPDevice_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPDeviceFinderAddCallbackWithInterface(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('983dfc0b-1796-44df-89-75-ca-54-5b-62-0e-e5')
+    _iid_ = Guid('983dfc0b-1796-44df-89-75-ca-54-5b-62-0e-e5')
     @commethod(3)
     def DeviceAddedWithInterface(self, lFindData: Int32, pDevice: Windows.Win32.Devices.Enumeration.Pnp.IUPnPDevice_head, pguidInterface: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPDeviceFinderCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('415a984a-88b3-49f3-92-af-05-08-be-df-0d-6c')
+    _iid_ = Guid('415a984a-88b3-49f3-92-af-05-08-be-df-0d-6c')
     @commethod(3)
     def DeviceAdded(self, lFindData: Int32, pDevice: Windows.Win32.Devices.Enumeration.Pnp.IUPnPDevice_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -208,14 +208,14 @@ class IUPnPDeviceFinderCallback(ComPtr):
     def SearchComplete(self, lFindData: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPDeviceProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('204810b8-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
+    _iid_ = Guid('204810b8-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
     @commethod(3)
     def Start(self, bstrInitString: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Stop(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPDevices(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('fdbc0c73-bda3-4c66-ac-4f-f2-d9-6f-da-d6-8c')
+    _iid_ = Guid('fdbc0c73-bda3-4c66-ac-4f-f2-d9-6f-da-d6-8c')
     @commethod(7)
     def get_Count(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -224,26 +224,26 @@ class IUPnPDevices(ComPtr):
     def get_Item(self, bstrUDN: Windows.Win32.Foundation.BSTR, ppDevice: POINTER(Windows.Win32.Devices.Enumeration.Pnp.IUPnPDevice_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('204810b4-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
+    _iid_ = Guid('204810b4-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
     @commethod(3)
     def OnStateChanged(self, cChanges: UInt32, rgdispidChanges: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnStateChangedSafe(self, varsadispidChanges: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPEventSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('204810b5-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
+    _iid_ = Guid('204810b5-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
     @commethod(3)
     def Advise(self, pesSubscriber: Windows.Win32.Devices.Enumeration.Pnp.IUPnPEventSink_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Unadvise(self, pesSubscriber: Windows.Win32.Devices.Enumeration.Pnp.IUPnPEventSink_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPHttpHeaderControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0405af4f-8b5c-447c-80-f2-b7-59-84-a3-1f-3c')
+    _iid_ = Guid('0405af4f-8b5c-447c-80-f2-b7-59-84-a3-1f-3c')
     @commethod(3)
     def AddRequestHeaders(self, bstrHttpHeaders: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPRegistrar(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('204810b6-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
+    _iid_ = Guid('204810b6-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
     @commethod(3)
     def RegisterDevice(self, bstrXMLDesc: Windows.Win32.Foundation.BSTR, bstrProgIDDeviceControlClass: Windows.Win32.Foundation.BSTR, bstrInitString: Windows.Win32.Foundation.BSTR, bstrContainerId: Windows.Win32.Foundation.BSTR, bstrResourcePath: Windows.Win32.Foundation.BSTR, nLifeTime: Int32, pbstrDeviceIdentifier: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -258,7 +258,7 @@ class IUPnPRegistrar(ComPtr):
     def UnregisterDeviceProvider(self, bstrProviderName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPRemoteEndpointInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c92eb863-0269-4aff-9c-72-75-32-1b-ba-29-52')
+    _iid_ = Guid('c92eb863-0269-4aff-9c-72-75-32-1b-ba-29-52')
     @commethod(3)
     def GetDwordValue(self, bstrValueName: Windows.Win32.Foundation.BSTR, pdwValue: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -267,14 +267,14 @@ class IUPnPRemoteEndpointInfo(ComPtr):
     def GetGuidValue(self, bstrValueName: Windows.Win32.Foundation.BSTR, pguidValue: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPReregistrar(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('204810b7-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
+    _iid_ = Guid('204810b7-73b2-11d4-bf-42-00-b0-d0-11-8b-56')
     @commethod(3)
     def ReregisterDevice(self, bstrDeviceIdentifier: Windows.Win32.Foundation.BSTR, bstrXMLDesc: Windows.Win32.Foundation.BSTR, bstrProgIDDeviceControlClass: Windows.Win32.Foundation.BSTR, bstrInitString: Windows.Win32.Foundation.BSTR, bstrContainerId: Windows.Win32.Foundation.BSTR, bstrResourcePath: Windows.Win32.Foundation.BSTR, nLifeTime: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReregisterRunningDevice(self, bstrDeviceIdentifier: Windows.Win32.Foundation.BSTR, bstrXMLDesc: Windows.Win32.Foundation.BSTR, punkDeviceControl: Windows.Win32.System.Com.IUnknown_head, bstrInitString: Windows.Win32.Foundation.BSTR, bstrResourcePath: Windows.Win32.Foundation.BSTR, nLifeTime: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPService(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('a295019c-dc65-47dd-90-dc-7f-e9-18-a1-ab-44')
+    _iid_ = Guid('a295019c-dc65-47dd-90-dc-7f-e9-18-a1-ab-44')
     @commethod(7)
     def QueryStateVariable(self, bstrVariableName: Windows.Win32.Foundation.BSTR, pValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -289,7 +289,7 @@ class IUPnPService(ComPtr):
     def get_LastTransportStatus(self, plValue: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPServiceAsync(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('098bdaf5-5ec1-49e7-a2-60-b3-a1-1d-d8-68-0c')
+    _iid_ = Guid('098bdaf5-5ec1-49e7-a2-60-b3-a1-1d-d8-68-0c')
     @commethod(3)
     def BeginInvokeAction(self, bstrActionName: Windows.Win32.Foundation.BSTR, vInActionArgs: Windows.Win32.System.Variant.VARIANT, pAsyncResult: Windows.Win32.Devices.Enumeration.Pnp.IUPnPAsyncResult_head, pullRequestID: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -310,26 +310,26 @@ class IUPnPServiceAsync(ComPtr):
     def CancelAsyncOperation(self, ullRequestID: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPServiceCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('31fadca9-ab73-464b-b6-7d-5c-1d-0f-83-c8-b8')
+    _iid_ = Guid('31fadca9-ab73-464b-b6-7d-5c-1d-0f-83-c8-b8')
     @commethod(3)
     def StateVariableChanged(self, pus: Windows.Win32.Devices.Enumeration.Pnp.IUPnPService_head, pcwszStateVarName: Windows.Win32.Foundation.PWSTR, vaValue: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ServiceInstanceDied(self, pus: Windows.Win32.Devices.Enumeration.Pnp.IUPnPService_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPServiceDocumentAccess(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('21905529-0a5e-4589-82-5d-7e-6d-87-ea-69-98')
+    _iid_ = Guid('21905529-0a5e-4589-82-5d-7e-6d-87-ea-69-98')
     @commethod(3)
     def GetDocumentURL(self, pbstrDocUrl: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDocument(self, pbstrDoc: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPServiceEnumProperty(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('38873b37-91bb-49f4-b2-49-2e-8e-fb-b8-a8-16')
+    _iid_ = Guid('38873b37-91bb-49f4-b2-49-2e-8e-fb-b8-a8-16')
     @commethod(3)
     def SetServiceEnumProperty(self, dwMask: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPServices(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3f8c8e9e-9a7a-4dc8-bc-41-ff-31-fa-37-49-56')
+    _iid_ = Guid('3f8c8e9e-9a7a-4dc8-bc-41-ff-31-fa-37-49-56')
     @commethod(7)
     def get_Count(self, plCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)

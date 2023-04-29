@@ -576,7 +576,7 @@ class GNSS_V2UPL_NI_INFO(EasyCastStructure):
     RequestorId: Char * 260
 class ICivicAddressReport(ComPtr):
     extends: Windows.Win32.Devices.Geolocation.ILocationReport
-    Guid = Guid('c0b19f70-4adf-445d-87-f2-ca-d8-fd-71-17-92')
+    _iid_ = Guid('c0b19f70-4adf-445d-87-f2-ca-d8-fd-71-17-92')
     @commethod(6)
     def GetAddressLine1(self, pbstrAddress1: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -593,19 +593,19 @@ class ICivicAddressReport(ComPtr):
     def GetDetailLevel(self, pDetailLevel: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICivicAddressReportFactory(ComPtr):
     extends: Windows.Win32.Devices.Geolocation.ILocationReportFactory
-    Guid = Guid('bf773b93-c64f-4bee-be-b2-67-c0-b8-df-66-e0')
+    _iid_ = Guid('bf773b93-c64f-4bee-be-b2-67-c0-b8-df-66-e0')
     @commethod(15)
     def get_CivicAddressReport(self, pVal: POINTER(Windows.Win32.Devices.Geolocation.IDispCivicAddressReport_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDefaultLocation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a65af77e-969a-4a2e-8a-ca-33-bb-7c-bb-12-35')
+    _iid_ = Guid('a65af77e-969a-4a2e-8a-ca-33-bb-7c-bb-12-35')
     @commethod(3)
     def SetReport(self, reportType: POINTER(Guid), pLocationReport: Windows.Win32.Devices.Geolocation.ILocationReport_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetReport(self, reportType: POINTER(Guid), ppLocationReport: POINTER(Windows.Win32.Devices.Geolocation.ILocationReport_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDispCivicAddressReport(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('16ff1a34-9e30-42c3-b4-4d-e2-25-13-b5-76-7a')
+    _iid_ = Guid('16ff1a34-9e30-42c3-b4-4d-e2-25-13-b5-76-7a')
     @commethod(7)
     def get_AddressLine1(self, pAddress1: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -624,7 +624,7 @@ class IDispCivicAddressReport(ComPtr):
     def get_Timestamp(self, pVal: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDispLatLongReport(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('8ae32723-389b-4a11-99-57-5b-dd-48-fc-96-17')
+    _iid_ = Guid('8ae32723-389b-4a11-99-57-5b-dd-48-fc-96-17')
     @commethod(7)
     def get_Latitude(self, pVal: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -639,7 +639,7 @@ class IDispLatLongReport(ComPtr):
     def get_Timestamp(self, pVal: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
 class ILatLongReport(ComPtr):
     extends: Windows.Win32.Devices.Geolocation.ILocationReport
-    Guid = Guid('7fed806d-0ef8-4f07-80-ac-36-a0-be-ae-31-34')
+    _iid_ = Guid('7fed806d-0ef8-4f07-80-ac-36-a0-be-ae-31-34')
     @commethod(6)
     def GetLatitude(self, pLatitude: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -652,12 +652,12 @@ class ILatLongReport(ComPtr):
     def GetAltitudeError(self, pAltitudeError: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
 class ILatLongReportFactory(ComPtr):
     extends: Windows.Win32.Devices.Geolocation.ILocationReportFactory
-    Guid = Guid('3f0804cb-b114-447d-83-dd-39-01-74-eb-b0-82')
+    _iid_ = Guid('3f0804cb-b114-447d-83-dd-39-01-74-eb-b0-82')
     @commethod(15)
     def get_LatLongReport(self, pVal: POINTER(Windows.Win32.Devices.Geolocation.IDispLatLongReport_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ILocation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ab2ece69-56d9-4f28-b5-25-de-1b-0e-e4-42-37')
+    _iid_ = Guid('ab2ece69-56d9-4f28-b5-25-de-1b-0e-e4-42-37')
     @commethod(3)
     def RegisterForReport(self, pEvents: Windows.Win32.Devices.Geolocation.ILocationEvents_head, reportType: POINTER(Guid), dwRequestedReportInterval: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -678,21 +678,21 @@ class ILocation(ComPtr):
     def RequestPermissions(self, hParent: Windows.Win32.Foundation.HWND, pReportTypes: POINTER(Guid), count: UInt32, fModal: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class ILocationEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('cae02bbf-798b-4508-a2-07-35-a7-90-6d-c7-3d')
+    _iid_ = Guid('cae02bbf-798b-4508-a2-07-35-a7-90-6d-c7-3d')
     @commethod(3)
     def OnLocationChanged(self, reportType: POINTER(Guid), pLocationReport: Windows.Win32.Devices.Geolocation.ILocationReport_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnStatusChanged(self, reportType: POINTER(Guid), newStatus: Windows.Win32.Devices.Geolocation.LOCATION_REPORT_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
 class ILocationPower(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('193e7729-ab6b-4b12-86-17-75-96-e1-bb-19-1c')
+    _iid_ = Guid('193e7729-ab6b-4b12-86-17-75-96-e1-bb-19-1c')
     @commethod(3)
     def Connect(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Disconnect(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ILocationReport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c8b7f7ee-75d0-4db9-b6-2d-7a-0f-36-9c-a4-56')
+    _iid_ = Guid('c8b7f7ee-75d0-4db9-b6-2d-7a-0f-36-9c-a4-56')
     @commethod(3)
     def GetSensorID(self, pSensorID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -701,7 +701,7 @@ class ILocationReport(ComPtr):
     def GetValue(self, pKey: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ILocationReportFactory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('2daec322-90b2-47e4-bb-08-0d-a8-41-93-5a-6b')
+    _iid_ = Guid('2daec322-90b2-47e4-bb-08-0d-a8-41-93-5a-6b')
     @commethod(7)
     def ListenForReports(self, requestedReportInterval: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -729,10 +729,10 @@ LatLongReportFactory = Guid('9dcc3cc8-8609-4863-ba-d4-03-60-1f-4c-65-e8')
 Location = Guid('e5b8e079-ee6d-4e33-a4-38-c8-7f-2e-95-92-54')
 class _ICivicAddressReportFactoryEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c96039ff-72ec-4617-89-bd-84-d8-8b-ed-c7-22')
+    _iid_ = Guid('c96039ff-72ec-4617-89-bd-84-d8-8b-ed-c7-22')
 class _ILatLongReportFactoryEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('16ee6cb7-ab3c-424b-84-9f-26-9b-e5-51-fc-bc')
+    _iid_ = Guid('16ee6cb7-ab3c-424b-84-9f-26-9b-e5-51-fc-bc')
 make_head(_module, 'GNSS_AGNSS_INJECT')
 make_head(_module, 'GNSS_AGNSS_INJECTBLOB')
 make_head(_module, 'GNSS_AGNSS_INJECTPOSITION')

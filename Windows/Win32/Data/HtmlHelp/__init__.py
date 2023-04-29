@@ -412,7 +412,7 @@ HH_MAX_TABS_CUSTOM: HTML_HELP_COMMAND = 9
 HH_FTS_DEFAULT_PROXIMITY: HTML_HELP_COMMAND = -1
 class IITDatabase(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8fa0d5a2-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
+    _iid_ = Guid('8fa0d5a2-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
     @commethod(3)
     def Open(self, lpszHost: Windows.Win32.Foundation.PWSTR, lpszMoniker: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -425,7 +425,7 @@ class IITDatabase(ComPtr):
     def GetObjectPersistence(self, lpwszObject: Windows.Win32.Foundation.PWSTR, dwObjInstance: UInt32, ppvPersistence: POINTER(c_void_p), fStream: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IITPropList(ComPtr):
     extends: Windows.Win32.System.Com.IPersistStreamInit
-    Guid = Guid('1f403bb1-9997-11d0-a8-50-00-aa-00-6c-7d-01')
+    _iid_ = Guid('1f403bb1-9997-11d0-a8-50-00-aa-00-6c-7d-01')
     @commethod(9)
     def Set(self, PropID: UInt32, lpszwString: Windows.Win32.Foundation.PWSTR, dwOperation: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -464,7 +464,7 @@ class IITPropList(ComPtr):
     def SaveToMem(self, lpvData: c_void_p, dwBufSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IITResultSet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3bb91d41-998b-11d0-a8-50-00-aa-00-6c-7d-01')
+    _iid_ = Guid('3bb91d41-998b-11d0-a8-50-00-aa-00-6c-7d-01')
     @commethod(3)
     def SetColumnPriority(self, lColumnIndex: Int32, ColumnPriority: Windows.Win32.Data.HtmlHelp.PRIORITY) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -527,14 +527,14 @@ class IITResultSet(ComPtr):
     def GetColumnStatus(self, lpColStatus: POINTER(Windows.Win32.Data.HtmlHelp.COLUMNSTATUS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IStemSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fe77c330-7f42-11ce-be-57-00-aa-00-51-fe-20')
+    _iid_ = Guid('fe77c330-7f42-11ce-be-57-00-aa-00-51-fe-20')
     @commethod(3)
     def PutAltWord(self, pwcInBuf: Windows.Win32.Foundation.PWSTR, cwc: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def PutWord(self, pwcInBuf: Windows.Win32.Foundation.PWSTR, cwc: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IStemmerConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8fa0d5a7-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
+    _iid_ = Guid('8fa0d5a7-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
     @commethod(3)
     def SetLocaleInfo(self, dwCodePageID: UInt32, lcid: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -547,7 +547,7 @@ class IStemmerConfig(ComPtr):
     def LoadExternalStemmerData(self, pStream: Windows.Win32.System.Com.IStream_head, dwExtDataType: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWordBreakerConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8fa0d5a6-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
+    _iid_ = Guid('8fa0d5a6-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
     @commethod(3)
     def SetLocaleInfo(self, dwCodePageID: UInt32, lcid: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

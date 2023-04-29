@@ -1281,7 +1281,7 @@ class DEVICEDIALOGDATA2(EasyCastStructure):
 def DeviceDialogFunction(param0: POINTER(Windows.Win32.Devices.ImageAcquisition.DEVICEDIALOGDATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumWIA_DEV_CAPS(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1fcc4287-aca6-11d2-a0-93-00-c0-4f-72-dc-3c')
+    _iid_ = Guid('1fcc4287-aca6-11d2-a0-93-00-c0-4f-72-dc-3c')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.Devices.ImageAcquisition.WIA_DEV_CAP_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1294,7 +1294,7 @@ class IEnumWIA_DEV_CAPS(ComPtr):
     def GetCount(self, pcelt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumWIA_DEV_INFO(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5e38b83c-8cf1-11d1-bf-92-00-60-08-1e-d8-11')
+    _iid_ = Guid('5e38b83c-8cf1-11d1-bf-92-00-60-08-1e-d8-11')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.Devices.ImageAcquisition.IWiaPropertyStorage_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1307,7 +1307,7 @@ class IEnumWIA_DEV_INFO(ComPtr):
     def GetCount(self, celt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumWIA_FORMAT_INFO(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('81befc5b-656d-44f1-b2-4c-d4-1d-51-b4-dc-81')
+    _iid_ = Guid('81befc5b-656d-44f1-b2-4c-d4-1d-51-b4-dc-81')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.Devices.ImageAcquisition.WIA_FORMAT_INFO_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1320,7 +1320,7 @@ class IEnumWIA_FORMAT_INFO(ComPtr):
     def GetCount(self, pcelt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumWiaItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5e8383fc-3391-11d2-9a-33-00-c0-4f-a3-61-45')
+    _iid_ = Guid('5e8383fc-3391-11d2-9a-33-00-c0-4f-a3-61-45')
     @commethod(3)
     def Next(self, celt: UInt32, ppIWiaItem: POINTER(Windows.Win32.Devices.ImageAcquisition.IWiaItem_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1333,7 +1333,7 @@ class IEnumWiaItem(ComPtr):
     def GetCount(self, celt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumWiaItem2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('59970af4-cd0d-44d9-ab-24-52-29-56-30-e5-82')
+    _iid_ = Guid('59970af4-cd0d-44d9-ab-24-52-29-56-30-e5-82')
     @commethod(3)
     def Next(self, cElt: UInt32, ppIWiaItem2: POINTER(Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head), pcEltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1346,19 +1346,19 @@ class IEnumWiaItem2(ComPtr):
     def GetCount(self, cElt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaAppErrorHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6c16186c-d0a6-400c-80-f4-d2-69-86-a0-e7-34')
+    _iid_ = Guid('6c16186c-d0a6-400c-80-f4-d2-69-86-a0-e7-34')
     @commethod(3)
     def GetWindow(self, phwnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReportStatus(self, lFlags: Int32, pWiaItem2: Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head, hrStatus: Windows.Win32.Foundation.HRESULT, lPercentComplete: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaDataCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a558a866-a5b0-11d2-a0-8f-00-c0-4f-72-dc-3c')
+    _iid_ = Guid('a558a866-a5b0-11d2-a0-8f-00-c0-4f-72-dc-3c')
     @commethod(3)
     def BandedDataCallback(self, lMessage: Int32, lStatus: Int32, lPercentComplete: Int32, lOffset: Int32, lLength: Int32, lReserved: Int32, lResLength: Int32, pbBuffer: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaDataTransfer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a6cef998-a5b0-11d2-a0-8f-00-c0-4f-72-dc-3c')
+    _iid_ = Guid('a6cef998-a5b0-11d2-a0-8f-00-c0-4f-72-dc-3c')
     @commethod(3)
     def idtGetData(self, pMedium: POINTER(Windows.Win32.System.Com.STGMEDIUM_head), pIWiaDataCallback: Windows.Win32.Devices.ImageAcquisition.IWiaDataCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1371,7 +1371,7 @@ class IWiaDataTransfer(ComPtr):
     def idtGetExtendedTransferInfo(self, pExtendedTransferInfo: POINTER(Windows.Win32.Devices.ImageAcquisition.WIA_EXTENDED_TRANSFER_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaDevMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5eb2502a-8cf1-11d1-bf-92-00-60-08-1e-d8-11')
+    _iid_ = Guid('5eb2502a-8cf1-11d1-bf-92-00-60-08-1e-d8-11')
     @commethod(3)
     def EnumDeviceInfo(self, lFlag: Int32, ppIEnum: POINTER(Windows.Win32.Devices.ImageAcquisition.IEnumWIA_DEV_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1392,7 +1392,7 @@ class IWiaDevMgr(ComPtr):
     def AddDeviceDlg(self, hwndParent: Windows.Win32.Foundation.HWND, lFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaDevMgr2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('79c07cf1-cbdd-41ee-8e-c3-f0-00-80-ca-da-7a')
+    _iid_ = Guid('79c07cf1-cbdd-41ee-8e-c3-f0-00-80-ca-da-7a')
     @commethod(3)
     def EnumDeviceInfo(self, lFlags: Int32, ppIEnum: POINTER(Windows.Win32.Devices.ImageAcquisition.IEnumWIA_DEV_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1411,7 +1411,7 @@ class IWiaDevMgr2(ComPtr):
     def GetImageDlg(self, lFlags: Int32, bstrDeviceID: Windows.Win32.Foundation.BSTR, hwndParent: Windows.Win32.Foundation.HWND, bstrFolderName: Windows.Win32.Foundation.BSTR, bstrFilename: Windows.Win32.Foundation.BSTR, plNumFiles: POINTER(Int32), ppbstrFilePaths: POINTER(POINTER(Windows.Win32.Foundation.BSTR)), ppItem: POINTER(Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaDrvItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1f02b5c5-b00c-11d2-a0-94-00-c0-4f-72-dc-3c')
+    _iid_ = Guid('1f02b5c5-b00c-11d2-a0-94-00-c0-4f-72-dc-3c')
     @commethod(3)
     def GetItemFlags(self, __MIDL__IWiaDrvItem0000: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1440,19 +1440,19 @@ class IWiaDrvItem(ComPtr):
     def DumpItemData(self, __MIDL__IWiaDrvItem0015: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaErrorHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0e4a51b1-bc1f-443d-a8-35-72-e8-90-75-9e-f3')
+    _iid_ = Guid('0e4a51b1-bc1f-443d-a8-35-72-e8-90-75-9e-f3')
     @commethod(3)
     def ReportStatus(self, lFlags: Int32, hwndParent: Windows.Win32.Foundation.HWND, pWiaItem2: Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head, hrStatus: Windows.Win32.Foundation.HRESULT, lPercentComplete: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetStatusDescription(self, lFlags: Int32, pWiaItem2: Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head, hrStatus: Windows.Win32.Foundation.HRESULT, pbstrDescription: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaEventCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ae6287b0-0084-11d2-97-3b-00-a0-c9-06-8f-2e')
+    _iid_ = Guid('ae6287b0-0084-11d2-97-3b-00-a0-c9-06-8f-2e')
     @commethod(3)
     def ImageEventCallback(self, pEventGUID: POINTER(Guid), bstrEventDescription: Windows.Win32.Foundation.BSTR, bstrDeviceID: Windows.Win32.Foundation.BSTR, bstrDeviceDescription: Windows.Win32.Foundation.BSTR, dwDeviceType: UInt32, bstrFullItemName: Windows.Win32.Foundation.BSTR, pulEventType: POINTER(UInt32), ulReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaImageFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a8a79ffa-450b-41f1-8f-87-84-9c-cd-94-eb-f6')
+    _iid_ = Guid('a8a79ffa-450b-41f1-8f-87-84-9c-cd-94-eb-f6')
     @commethod(3)
     def InitializeFilter(self, pWiaItem2: Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head, pWiaTransferCallback: Windows.Win32.Devices.ImageAcquisition.IWiaTransferCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1463,7 +1463,7 @@ class IWiaImageFilter(ComPtr):
     def ApplyProperties(self, pWiaPropertyStorage: Windows.Win32.Devices.ImageAcquisition.IWiaPropertyStorage_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4db1ad10-3391-11d2-9a-33-00-c0-4f-a3-61-45')
+    _iid_ = Guid('4db1ad10-3391-11d2-9a-33-00-c0-4f-a3-61-45')
     @commethod(3)
     def GetItemType(self, pItemType: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1496,7 +1496,7 @@ class IWiaItem(ComPtr):
     def Diagnostic(self, ulSize: UInt32, pBuffer: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaItem2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6cba0075-1287-407d-9b-77-cf-0e-03-04-35-cc')
+    _iid_ = Guid('6cba0075-1287-407d-9b-77-cf-0e-03-04-35-cc')
     @commethod(3)
     def CreateChildItem(self, lItemFlags: Int32, lCreationFlags: Int32, bstrItemName: Windows.Win32.Foundation.BSTR, ppIWiaItem2: POINTER(Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1531,7 +1531,7 @@ class IWiaItem2(ComPtr):
     def Diagnostic(self, ulSize: UInt32, pBuffer: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaItemExtras(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6291ef2c-36ef-4532-87-6a-8e-13-25-93-77-8d')
+    _iid_ = Guid('6291ef2c-36ef-4532-87-6a-8e-13-25-93-77-8d')
     @commethod(3)
     def GetExtendedErrorInfo(self, bstrErrorText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1540,7 +1540,7 @@ class IWiaItemExtras(ComPtr):
     def CancelPendingIO(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaLog(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a00c10b6-82a1-452f-8b-6c-86-06-2a-ad-68-90')
+    _iid_ = Guid('a00c10b6-82a1-452f-8b-6c-86-06-2a-ad-68-90')
     @commethod(3)
     def InitializeLog(self, hInstance: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1549,7 +1549,7 @@ class IWiaLog(ComPtr):
     def Log(self, lFlags: Int32, lResID: Int32, lDetail: Int32, bstrText: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaLogEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('af1f22ac-7a40-4787-b4-21-ae-b4-7a-1f-bd-0b')
+    _iid_ = Guid('af1f22ac-7a40-4787-b4-21-ae-b4-7a-1f-bd-0b')
     @commethod(3)
     def InitializeLogEx(self, hInstance: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1562,7 +1562,7 @@ class IWiaLogEx(ComPtr):
     def LogEx(self, lMethodId: Int32, lFlags: Int32, lResID: Int32, lDetail: Int32, bstrText: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaMiniDrv(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d8cdee14-3c6c-11d2-9a-35-00-c0-4f-a3-61-45')
+    _iid_ = Guid('d8cdee14-3c6c-11d2-9a-35-00-c0-4f-a3-61-45')
     @commethod(3)
     def drvInitializeWia(self, __MIDL__IWiaMiniDrv0000: POINTER(Byte), __MIDL__IWiaMiniDrv0001: Int32, __MIDL__IWiaMiniDrv0002: Windows.Win32.Foundation.BSTR, __MIDL__IWiaMiniDrv0003: Windows.Win32.Foundation.BSTR, __MIDL__IWiaMiniDrv0004: Windows.Win32.System.Com.IUnknown_head, __MIDL__IWiaMiniDrv0005: Windows.Win32.System.Com.IUnknown_head, __MIDL__IWiaMiniDrv0006: POINTER(Windows.Win32.Devices.ImageAcquisition.IWiaDrvItem_head), __MIDL__IWiaMiniDrv0007: POINTER(Windows.Win32.System.Com.IUnknown_head), __MIDL__IWiaMiniDrv0008: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1599,24 +1599,24 @@ class IWiaMiniDrv(ComPtr):
     def drvUnInitializeWia(self, __MIDL__IWiaMiniDrv0064: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaMiniDrvCallBack(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('33a57d5a-3de8-11d2-9a-36-00-c0-4f-a3-61-45')
+    _iid_ = Guid('33a57d5a-3de8-11d2-9a-36-00-c0-4f-a3-61-45')
     @commethod(3)
     def MiniDrvCallback(self, lReason: Int32, lStatus: Int32, lPercentComplete: Int32, lOffset: Int32, lLength: Int32, pTranCtx: POINTER(Windows.Win32.Devices.ImageAcquisition.MINIDRV_TRANSFER_CONTEXT_head), lReserved: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaMiniDrvTransferCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a9d2ee89-2ce5-4ff0-8a-db-c9-61-d1-d7-74-ca')
+    _iid_ = Guid('a9d2ee89-2ce5-4ff0-8a-db-c9-61-d1-d7-74-ca')
     @commethod(3)
     def GetNextStream(self, lFlags: Int32, bstrItemName: Windows.Win32.Foundation.BSTR, bstrFullItemName: Windows.Win32.Foundation.BSTR, ppIStream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SendMessage(self, lFlags: Int32, pWiaTransferParams: POINTER(Windows.Win32.Devices.ImageAcquisition.WiaTransferParams_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaNotifyDevMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('70681ea0-e7bf-4291-9f-b1-4e-88-13-a3-f7-8e')
+    _iid_ = Guid('70681ea0-e7bf-4291-9f-b1-4e-88-13-a3-f7-8e')
     @commethod(3)
     def NewDeviceArrival(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaPreview(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('95c2b4fd-33f2-4d86-ad-40-94-31-f0-df-08-f7')
+    _iid_ = Guid('95c2b4fd-33f2-4d86-ad-40-94-31-f0-df-08-f7')
     @commethod(3)
     def GetNewPreview(self, lFlags: Int32, pWiaItem2: Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head, pWiaTransferCallback: Windows.Win32.Devices.ImageAcquisition.IWiaTransferCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1627,7 +1627,7 @@ class IWiaPreview(ComPtr):
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaPropertyStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('98b5e8a0-29cc-491a-aa-c0-e6-db-4f-dc-ce-b6')
+    _iid_ = Guid('98b5e8a0-29cc-491a-aa-c0-e6-db-4f-dc-ce-b6')
     @commethod(3)
     def ReadMultiple(self, cpspec: UInt32, rgpspec: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPSPEC_head), rgpropvar: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1662,12 +1662,12 @@ class IWiaPropertyStorage(ComPtr):
     def SetPropertyStream(self, pCompatibilityId: POINTER(Guid), pIStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaSegmentationFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ec46a697-ac04-4447-8f-65-ff-63-d5-15-4b-21')
+    _iid_ = Guid('ec46a697-ac04-4447-8f-65-ff-63-d5-15-4b-21')
     @commethod(3)
     def DetectRegions(self, lFlags: Int32, pInputStream: Windows.Win32.System.Com.IStream_head, pWiaItem2: Windows.Win32.Devices.ImageAcquisition.IWiaItem2_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaTransfer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c39d6942-2f4e-4d04-92-fe-4e-f4-d3-a1-de-5a')
+    _iid_ = Guid('c39d6942-2f4e-4d04-92-fe-4e-f4-d3-a1-de-5a')
     @commethod(3)
     def Download(self, lFlags: Int32, pIWiaTransferCallback: Windows.Win32.Devices.ImageAcquisition.IWiaTransferCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1678,14 +1678,14 @@ class IWiaTransfer(ComPtr):
     def EnumWIA_FORMAT_INFO(self, ppEnum: POINTER(Windows.Win32.Devices.ImageAcquisition.IEnumWIA_FORMAT_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaTransferCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('27d4eaaf-28a6-4ca5-9a-ab-e6-78-16-8b-95-27')
+    _iid_ = Guid('27d4eaaf-28a6-4ca5-9a-ab-e6-78-16-8b-95-27')
     @commethod(3)
     def TransferCallback(self, lFlags: Int32, pWiaTransferParams: POINTER(Windows.Win32.Devices.ImageAcquisition.WiaTransferParams_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetNextStream(self, lFlags: Int32, bstrItemName: Windows.Win32.Foundation.BSTR, bstrFullItemName: Windows.Win32.Foundation.BSTR, ppDestination: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaUIExtension(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('da319113-50ee-4c80-b4-60-57-d0-05-d4-4a-2c')
+    _iid_ = Guid('da319113-50ee-4c80-b4-60-57-d0-05-d4-4a-2c')
     @commethod(3)
     def DeviceDialog(self, pDeviceDialogData: POINTER(Windows.Win32.Devices.ImageAcquisition.DEVICEDIALOGDATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1694,14 +1694,14 @@ class IWiaUIExtension(ComPtr):
     def GetDeviceBitmapLogo(self, bstrDeviceId: Windows.Win32.Foundation.BSTR, phBitmap: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP), nMaxWidth: UInt32, nMaxHeight: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaUIExtension2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('305600d7-5088-46d7-9a-15-b7-7b-09-cd-ba-7a')
+    _iid_ = Guid('305600d7-5088-46d7-9a-15-b7-7b-09-cd-ba-7a')
     @commethod(3)
     def DeviceDialog(self, pDeviceDialogData: POINTER(Windows.Win32.Devices.ImageAcquisition.DEVICEDIALOGDATA2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDeviceIcon(self, bstrDeviceId: Windows.Win32.Foundation.BSTR, phIcon: POINTER(Windows.Win32.UI.WindowsAndMessaging.HICON), nSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWiaVideo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d52920aa-db88-41f0-94-6c-e0-0d-c0-a1-9c-fa')
+    _iid_ = Guid('d52920aa-db88-41f0-94-6c-e0-0d-c0-a1-9c-fa')
     @commethod(3)
     def get_PreviewVisible(self, pbPreviewVisible: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

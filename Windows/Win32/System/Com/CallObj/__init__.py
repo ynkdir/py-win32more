@@ -64,7 +64,7 @@ CALLFRAME_WALK_INOUT: CALLFRAME_WALK = 2
 CALLFRAME_WALK_OUT: CALLFRAME_WALK = 4
 class ICallFrame(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d573b4b0-894e-11d2-b8-b6-00-c0-4f-b9-61-8a')
+    _iid_ = Guid('d573b4b0-894e-11d2-b8-b6-00-c0-4f-b9-61-8a')
     @commethod(3)
     def GetInfo(self, pInfo: POINTER(Windows.Win32.System.Com.CallObj.CALLFRAMEINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -105,17 +105,17 @@ class ICallFrame(ComPtr):
     def Invoke(self, pvReceiver: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 class ICallFrameEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fd5e0843-fc91-11d0-97-d7-00-c0-4f-b9-61-8a')
+    _iid_ = Guid('fd5e0843-fc91-11d0-97-d7-00-c0-4f-b9-61-8a')
     @commethod(3)
     def OnCall(self, pFrame: Windows.Win32.System.Com.CallObj.ICallFrame_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ICallFrameWalker(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('08b23919-392d-11d2-b8-a4-00-c0-4f-b9-61-8a')
+    _iid_ = Guid('08b23919-392d-11d2-b8-a4-00-c0-4f-b9-61-8a')
     @commethod(3)
     def OnWalkInterface(self, iid: POINTER(Guid), ppvInterface: POINTER(c_void_p), fIn: Windows.Win32.Foundation.BOOL, fOut: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class ICallIndirect(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d573b4b1-894e-11d2-b8-b6-00-c0-4f-b9-61-8a')
+    _iid_ = Guid('d573b4b1-894e-11d2-b8-b6-00-c0-4f-b9-61-8a')
     @commethod(3)
     def CallIndirect(self, phrReturn: POINTER(Windows.Win32.Foundation.HRESULT), iMethod: UInt32, pvArgs: c_void_p, cbArgs: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -126,21 +126,21 @@ class ICallIndirect(ComPtr):
     def GetIID(self, piid: POINTER(Guid), pfDerivesFromIDispatch: POINTER(Windows.Win32.Foundation.BOOL), pcMethod: POINTER(UInt32), pwszInterface: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICallInterceptor(ComPtr):
     extends: Windows.Win32.System.Com.CallObj.ICallIndirect
-    Guid = Guid('60c7ca75-896d-11d2-b8-b6-00-c0-4f-b9-61-8a')
+    _iid_ = Guid('60c7ca75-896d-11d2-b8-b6-00-c0-4f-b9-61-8a')
     @commethod(7)
     def RegisterSink(self, psink: Windows.Win32.System.Com.CallObj.ICallFrameEvents_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetRegisteredSink(self, ppsink: POINTER(Windows.Win32.System.Com.CallObj.ICallFrameEvents_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICallUnmarshal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5333b003-2e42-11d2-b8-9d-00-c0-4f-b9-61-8a')
+    _iid_ = Guid('5333b003-2e42-11d2-b8-9d-00-c0-4f-b9-61-8a')
     @commethod(3)
     def Unmarshal(self, iMethod: UInt32, pBuffer: c_void_p, cbBuffer: UInt32, fForceBufferCopy: Windows.Win32.Foundation.BOOL, dataRep: UInt32, pcontext: POINTER(Windows.Win32.System.Com.CallObj.CALLFRAME_MARSHALCONTEXT_head), pcbUnmarshalled: POINTER(UInt32), ppFrame: POINTER(Windows.Win32.System.Com.CallObj.ICallFrame_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReleaseMarshalData(self, iMethod: UInt32, pBuffer: c_void_p, cbBuffer: UInt32, ibFirstRelease: UInt32, dataRep: UInt32, pcontext: POINTER(Windows.Win32.System.Com.CallObj.CALLFRAME_MARSHALCONTEXT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IInterfaceRelated(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d1fb5a79-7706-11d1-ad-ba-00-c0-4f-c2-ad-c0')
+    _iid_ = Guid('d1fb5a79-7706-11d1-ad-ba-00-c0-4f-c2-ad-c0')
     @commethod(3)
     def SetIID(self, iid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

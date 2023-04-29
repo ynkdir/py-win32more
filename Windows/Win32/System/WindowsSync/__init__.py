@@ -97,7 +97,7 @@ FILTER_COMBINATION_TYPE = Int32
 FCT_INTERSECTION: FILTER_COMBINATION_TYPE = 0
 class IAsynchronousDataRetriever(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9fc7e470-61ea-4a88-9b-e4-df-56-a2-7c-fe-f2')
+    _iid_ = Guid('9fc7e470-61ea-4a88-9b-e4-df-56-a2-7c-fe-f2')
     @commethod(3)
     def GetIdParameters(self, pIdParameters: POINTER(Windows.Win32.System.WindowsSync.ID_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -108,7 +108,7 @@ class IAsynchronousDataRetriever(ComPtr):
     def LoadChangeData(self, pLoadChangeContext: Windows.Win32.System.WindowsSync.ILoadChangeContext_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IChangeConflict(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('014ebf97-9f20-4f7a-bd-d4-25-97-9c-77-c0-02')
+    _iid_ = Guid('014ebf97-9f20-4f7a-bd-d4-25-97-9c-77-c0-02')
     @commethod(3)
     def GetDestinationProviderConflictingChange(self, ppConflictingChange: POINTER(Windows.Win32.System.WindowsSync.ISyncChange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -127,7 +127,7 @@ class IChangeConflict(ComPtr):
     def SetResolveActionForChangeUnit(self, pChangeUnit: Windows.Win32.System.WindowsSync.ISyncChangeUnit_head, resolveAction: Windows.Win32.System.WindowsSync.SYNC_RESOLVE_ACTION) -> Windows.Win32.Foundation.HRESULT: ...
 class IChangeUnitException(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0cd7ee7c-fec0-4021-99-ee-f0-e5-34-8f-2a-5f')
+    _iid_ = Guid('0cd7ee7c-fec0-4021-99-ee-f0-e5-34-8f-2a-5f')
     @commethod(3)
     def GetItemId(self, pbItemId: POINTER(Byte), pcbIdSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -136,7 +136,7 @@ class IChangeUnitException(ComPtr):
     def GetClockVector(self, riid: POINTER(Guid), ppUnk: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IChangeUnitListFilterInfo(ComPtr):
     extends: Windows.Win32.System.WindowsSync.ISyncFilterInfo
-    Guid = Guid('f2837671-0bdf-43fa-b5-02-23-23-75-fb-50-c2')
+    _iid_ = Guid('f2837671-0bdf-43fa-b5-02-23-23-75-fb-50-c2')
     @commethod(4)
     def Initialize(self, ppbChangeUnitIds: POINTER(POINTER(Byte)), dwChangeUnitCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -145,21 +145,21 @@ class IChangeUnitListFilterInfo(ComPtr):
     def GetChangeUnitId(self, dwChangeUnitIdIndex: UInt32, pbChangeUnitId: POINTER(Byte), pcbIdSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IClockVector(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('14b2274a-8698-4cc6-93-33-f8-9b-d1-d4-7b-c4')
+    _iid_ = Guid('14b2274a-8698-4cc6-93-33-f8-9b-d1-d4-7b-c4')
     @commethod(3)
     def GetClockVectorElements(self, riid: POINTER(Guid), ppiEnumClockVector: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetClockVectorElementCount(self, pdwCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IClockVectorElement(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e71c4250-adf8-4a07-8f-ae-56-69-59-69-09-c1')
+    _iid_ = Guid('e71c4250-adf8-4a07-8f-ae-56-69-59-69-09-c1')
     @commethod(3)
     def GetReplicaKey(self, pdwReplicaKey: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetTickCount(self, pullTickCount: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICombinedFilterInfo(ComPtr):
     extends: Windows.Win32.System.WindowsSync.ISyncFilterInfo
-    Guid = Guid('11f9de71-2818-4779-b2-ac-42-d4-50-56-5f-45')
+    _iid_ = Guid('11f9de71-2818-4779-b2-ac-42-d4-50-56-5f-45')
     @commethod(4)
     def GetFilterCount(self, pdwFilterCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -168,7 +168,7 @@ class ICombinedFilterInfo(ComPtr):
     def GetFilterCombinationType(self, pFilterCombinationType: POINTER(Windows.Win32.System.WindowsSync.FILTER_COMBINATION_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IConstraintConflict(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('00d2302e-1cf8-4835-b8-5f-b7-ca-4f-79-9e-0a')
+    _iid_ = Guid('00d2302e-1cf8-4835-b8-5f-b7-ca-4f-79-9e-0a')
     @commethod(3)
     def GetDestinationProviderConflictingChange(self, ppConflictingChange: POINTER(Windows.Win32.System.WindowsSync.ISyncChange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -195,12 +195,12 @@ class IConstraintConflict(ComPtr):
     def IsTemporary(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IConstructReplicaKeyMap(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ded10970-ec85-4115-b5-2c-44-05-84-56-42-a5')
+    _iid_ = Guid('ded10970-ec85-4115-b5-2c-44-05-84-56-42-a5')
     @commethod(3)
     def FindOrAddReplica(self, pbReplicaId: POINTER(Byte), pdwReplicaKey: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICoreFragment(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('613b2ab5-b304-47d9-9c-31-ce-6c-54-40-1a-15')
+    _iid_ = Guid('613b2ab5-b304-47d9-9c-31-ce-6c-54-40-1a-15')
     @commethod(3)
     def NextColumn(self, pChangeUnitId: POINTER(Byte), pChangeUnitIdSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -213,14 +213,14 @@ class ICoreFragment(ComPtr):
     def GetRangeCount(self, pRangeCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICoreFragmentInspector(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f7fcc5fd-ae26-4679-ba-16-96-aa-c5-83-c1-34')
+    _iid_ = Guid('f7fcc5fd-ae26-4679-ba-16-96-aa-c5-83-c1-34')
     @commethod(3)
     def NextCoreFragments(self, requestedCount: UInt32, ppiCoreFragments: POINTER(Windows.Win32.System.WindowsSync.ICoreFragment_head), pFetchedCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ICustomFilterInfo(ComPtr):
     extends: Windows.Win32.System.WindowsSync.ISyncFilterInfo
-    Guid = Guid('1d335dff-6f88-4e4d-91-a8-a3-f3-51-cf-d4-73')
+    _iid_ = Guid('1d335dff-6f88-4e4d-91-a8-a3-f3-51-cf-d4-73')
     @commethod(4)
     def GetSyncFilter(self, pISyncFilter: POINTER(Windows.Win32.System.WindowsSync.ISyncFilter_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID_PARAMETERS(EasyCastStructure):
@@ -233,14 +233,14 @@ class ID_PARAMETER_PAIR(EasyCastStructure):
     cbIdSize: UInt16
 class IDataRetrieverCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('71b4863b-f969-4676-bb-c3-3d-9f-dc-3f-b2-c7')
+    _iid_ = Guid('71b4863b-f969-4676-bb-c3-3d-9f-dc-3f-b2-c7')
     @commethod(3)
     def LoadChangeDataComplete(self, pUnkData: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def LoadChangeDataError(self, hrError: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumChangeUnitExceptions(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3074e802-9319-4420-be-21-10-22-e2-e2-1d-a8')
+    _iid_ = Guid('3074e802-9319-4420-be-21-10-22-e2-e2-1d-a8')
     @commethod(3)
     def Next(self, cExceptions: UInt32, ppChangeUnitException: POINTER(Windows.Win32.System.WindowsSync.IChangeUnitException_head), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -251,7 +251,7 @@ class IEnumChangeUnitExceptions(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.WindowsSync.IEnumChangeUnitExceptions_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumClockVector(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('525844db-2837-4799-9e-80-81-a6-6e-02-22-0c')
+    _iid_ = Guid('525844db-2837-4799-9e-80-81-a6-6e-02-22-0c')
     @commethod(3)
     def Next(self, cClockVectorElements: UInt32, ppiClockVectorElements: POINTER(Windows.Win32.System.WindowsSync.IClockVectorElement_head), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -262,7 +262,7 @@ class IEnumClockVector(ComPtr):
     def Clone(self, ppiEnum: POINTER(Windows.Win32.System.WindowsSync.IEnumClockVector_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumFeedClockVector(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('550f763d-146a-48f6-ab-eb-6c-88-c7-f7-05-14')
+    _iid_ = Guid('550f763d-146a-48f6-ab-eb-6c-88-c7-f7-05-14')
     @commethod(3)
     def Next(self, cClockVectorElements: UInt32, ppiClockVectorElements: POINTER(Windows.Win32.System.WindowsSync.IFeedClockVectorElement_head), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -273,12 +273,12 @@ class IEnumFeedClockVector(ComPtr):
     def Clone(self, ppiEnum: POINTER(Windows.Win32.System.WindowsSync.IEnumFeedClockVector_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumItemIds(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('43aa3f61-4b2e-4b60-83-df-b1-10-d3-e1-48-f1')
+    _iid_ = Guid('43aa3f61-4b2e-4b60-83-df-b1-10-d3-e1-48-f1')
     @commethod(3)
     def Next(self, pbItemId: POINTER(Byte), pcbItemIdSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumRangeExceptions(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0944439f-ddb1-4176-b7-03-04-6f-f2-2a-23-86')
+    _iid_ = Guid('0944439f-ddb1-4176-b7-03-04-6f-f2-2a-23-86')
     @commethod(3)
     def Next(self, cExceptions: UInt32, ppRangeException: POINTER(Windows.Win32.System.WindowsSync.IRangeException_head), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -289,7 +289,7 @@ class IEnumRangeExceptions(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.WindowsSync.IEnumRangeExceptions_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumSingleItemExceptions(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e563381c-1b4d-4c66-97-96-c8-6f-ac-cd-cd-40')
+    _iid_ = Guid('e563381c-1b4d-4c66-97-96-c8-6f-ac-cd-cd-40')
     @commethod(3)
     def Next(self, cExceptions: UInt32, ppSingleItemException: POINTER(Windows.Win32.System.WindowsSync.ISingleItemException_head), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -300,7 +300,7 @@ class IEnumSingleItemExceptions(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.WindowsSync.IEnumSingleItemExceptions_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumSyncChangeUnits(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('346b35f1-8703-4c6d-ab-1a-4d-bc-a2-cf-f9-7f')
+    _iid_ = Guid('346b35f1-8703-4c6d-ab-1a-4d-bc-a2-cf-f9-7f')
     @commethod(3)
     def Next(self, cChanges: UInt32, ppChangeUnit: POINTER(Windows.Win32.System.WindowsSync.ISyncChangeUnit_head), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -311,7 +311,7 @@ class IEnumSyncChangeUnits(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.WindowsSync.IEnumSyncChangeUnits_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumSyncChanges(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5f86be4a-5e78-4e32-ac-1c-c2-4f-d2-23-ef-85')
+    _iid_ = Guid('5f86be4a-5e78-4e32-ac-1c-c2-4f-d2-23-ef-85')
     @commethod(3)
     def Next(self, cChanges: UInt32, ppChange: POINTER(Windows.Win32.System.WindowsSync.ISyncChange_head), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -322,7 +322,7 @@ class IEnumSyncChanges(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.WindowsSync.IEnumSyncChanges_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumSyncProviderConfigUIInfos(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f6be2602-17c6-4658-a2-d7-68-ed-33-30-f6-41')
+    _iid_ = Guid('f6be2602-17c6-4658-a2-d7-68-ed-33-30-f6-41')
     @commethod(3)
     def Next(self, cFactories: UInt32, ppSyncProviderConfigUIInfo: POINTER(Windows.Win32.System.WindowsSync.ISyncProviderConfigUIInfo_head), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -333,7 +333,7 @@ class IEnumSyncProviderConfigUIInfos(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.WindowsSync.IEnumSyncProviderConfigUIInfos_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumSyncProviderInfos(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a04ba850-5eb1-460d-a9-73-39-3f-cb-60-8a-11')
+    _iid_ = Guid('a04ba850-5eb1-460d-a9-73-39-3f-cb-60-8a-11')
     @commethod(3)
     def Next(self, cInstances: UInt32, ppSyncProviderInfo: POINTER(Windows.Win32.System.WindowsSync.ISyncProviderInfo_head), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -344,21 +344,21 @@ class IEnumSyncProviderInfos(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.WindowsSync.IEnumSyncProviderInfos_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFeedClockVector(ComPtr):
     extends: Windows.Win32.System.WindowsSync.IClockVector
-    Guid = Guid('8d1d98d1-9fb8-4ec9-a5-53-54-dd-92-4e-0f-67')
+    _iid_ = Guid('8d1d98d1-9fb8-4ec9-a5-53-54-dd-92-4e-0f-67')
     @commethod(5)
     def GetUpdateCount(self, pdwUpdateCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def IsNoConflictsSpecified(self, pfIsNoConflictsSpecified: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFeedClockVectorElement(ComPtr):
     extends: Windows.Win32.System.WindowsSync.IClockVectorElement
-    Guid = Guid('a40b46d2-e97b-4156-b6-da-99-1f-50-1b-0f-05')
+    _iid_ = Guid('a40b46d2-e97b-4156-b6-da-99-1f-50-1b-0f-05')
     @commethod(5)
     def GetSyncTime(self, pSyncTime: POINTER(Windows.Win32.System.WindowsSync.SYNC_TIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetFlags(self, pbFlags: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFilterKeyMap(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ca169652-07c6-4708-a3-da-6e-4e-ba-8d-22-97')
+    _iid_ = Guid('ca169652-07c6-4708-a3-da-6e-4e-ba-8d-22-97')
     @commethod(3)
     def GetCount(self, pdwCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -369,36 +369,36 @@ class IFilterKeyMap(ComPtr):
     def Serialize(self, pbFilterKeyMap: POINTER(Byte), pcbFilterKeyMap: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFilterRequestCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('82df8873-6360-463a-a8-a1-ed-e5-e1-a1-59-4d')
+    _iid_ = Guid('82df8873-6360-463a-a8-a1-ed-e5-e1-a1-59-4d')
     @commethod(3)
     def RequestFilter(self, pFilter: Windows.Win32.System.Com.IUnknown_head, filteringType: Windows.Win32.System.WindowsSync.FILTERING_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
 class IFilterTrackingProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('743383c0-fc4e-45ba-ad-81-d9-d8-4c-7a-24-f8')
+    _iid_ = Guid('743383c0-fc4e-45ba-ad-81-d9-d8-4c-7a-24-f8')
     @commethod(3)
     def SpecifyTrackedFilters(self, pCallback: Windows.Win32.System.WindowsSync.IFilterTrackingRequestCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def AddTrackedFilter(self, pFilter: Windows.Win32.System.WindowsSync.ISyncFilter_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IFilterTrackingRequestCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('713ca7bb-c858-4674-b4-b6-11-22-43-65-87-a9')
+    _iid_ = Guid('713ca7bb-c858-4674-b4-b6-11-22-43-65-87-a9')
     @commethod(3)
     def RequestTrackedFilter(self, pFilter: Windows.Win32.System.WindowsSync.ISyncFilter_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IFilterTrackingSyncChangeBuilder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('295024a0-70da-4c58-88-3c-ce-2a-fb-30-8d-0b')
+    _iid_ = Guid('295024a0-70da-4c58-88-3c-ce-2a-fb-30-8d-0b')
     @commethod(3)
     def AddFilterChange(self, dwFilterKey: UInt32, pFilterChange: POINTER(Windows.Win32.System.WindowsSync.SYNC_FILTER_CHANGE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetAllChangeUnitsPresentFlag(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IForgottenKnowledge(ComPtr):
     extends: Windows.Win32.System.WindowsSync.ISyncKnowledge
-    Guid = Guid('456e0f96-6036-452b-9f-9d-bc-c4-b4-a8-5d-b2')
+    _iid_ = Guid('456e0f96-6036-452b-9f-9d-bc-c4-b4-a8-5d-b2')
     @commethod(27)
     def ForgetToVersion(self, pKnowledge: Windows.Win32.System.WindowsSync.ISyncKnowledge_head, pVersion: POINTER(Windows.Win32.System.WindowsSync.SYNC_VERSION_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IKnowledgeSyncProvider(ComPtr):
     extends: Windows.Win32.System.WindowsSync.ISyncProvider
-    Guid = Guid('43434a49-8da4-47f2-81-72-ad-7b-8b-02-49-78')
+    _iid_ = Guid('43434a49-8da4-47f2-81-72-ad-7b-8b-02-49-78')
     @commethod(4)
     def BeginSession(self, role: Windows.Win32.System.WindowsSync.SYNC_PROVIDER_ROLE, pSessionState: Windows.Win32.System.WindowsSync.ISyncSessionState_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -415,7 +415,7 @@ class IKnowledgeSyncProvider(ComPtr):
     def EndSession(self, pSessionState: Windows.Win32.System.WindowsSync.ISyncSessionState_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ILoadChangeContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('44a4aaca-ec39-46d5-b5-c9-d6-33-c0-ee-67-e2')
+    _iid_ = Guid('44a4aaca-ec39-46d5-b5-c9-d6-33-c0-ee-67-e2')
     @commethod(3)
     def GetSyncChange(self, ppSyncChange: POINTER(Windows.Win32.System.WindowsSync.ISyncChange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -424,12 +424,12 @@ class ILoadChangeContext(ComPtr):
     def SetRecoverableErrorOnChangeUnit(self, hrError: Windows.Win32.Foundation.HRESULT, pChangeUnit: Windows.Win32.System.WindowsSync.ISyncChangeUnit_head, pErrorData: Windows.Win32.System.WindowsSync.IRecoverableErrorData_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IProviderConverter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('809b7276-98cf-4957-93-a5-0e-bd-d3-dd-df-fd')
+    _iid_ = Guid('809b7276-98cf-4957-93-a5-0e-bd-d3-dd-df-fd')
     @commethod(3)
     def Initialize(self, pISyncProvider: Windows.Win32.System.WindowsSync.ISyncProvider_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IRangeException(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('75ae8777-6848-49f7-95-6c-a3-a9-2f-50-96-e8')
+    _iid_ = Guid('75ae8777-6848-49f7-95-6c-a3-a9-2f-50-96-e8')
     @commethod(3)
     def GetClosedRangeStart(self, pbClosedRangeStart: POINTER(Byte), pcbIdSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -438,7 +438,7 @@ class IRangeException(ComPtr):
     def GetClockVector(self, riid: POINTER(Guid), ppUnk: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRecoverableError(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0f5625e8-0a7b-45ee-96-37-1c-e1-36-45-90-9e')
+    _iid_ = Guid('0f5625e8-0a7b-45ee-96-37-1c-e1-36-45-90-9e')
     @commethod(3)
     def GetStage(self, pStage: POINTER(Windows.Win32.System.WindowsSync.SYNC_PROGRESS_STAGE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -451,7 +451,7 @@ class IRecoverableError(ComPtr):
     def GetRecoverableErrorDataForChangeUnit(self, pChangeUnit: Windows.Win32.System.WindowsSync.ISyncChangeUnit_head, phrError: POINTER(Windows.Win32.Foundation.HRESULT), ppErrorData: POINTER(Windows.Win32.System.WindowsSync.IRecoverableErrorData_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRecoverableErrorData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b37c4a0a-4b7d-4c2d-97-11-3b-00-d1-19-b1-c8')
+    _iid_ = Guid('b37c4a0a-4b7d-4c2d-97-11-3b-00-d1-19-b1-c8')
     @commethod(3)
     def Initialize(self, pcszItemDisplayName: Windows.Win32.Foundation.PWSTR, pcszErrorDescription: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -460,7 +460,7 @@ class IRecoverableErrorData(ComPtr):
     def GetErrorDescription(self, pszErrorDescription: Windows.Win32.Foundation.PWSTR, pcchErrorDescription: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRegisteredSyncProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('913bcf76-47c1-40b5-a8-96-5e-8a-9c-41-4c-14')
+    _iid_ = Guid('913bcf76-47c1-40b5-a8-96-5e-8a-9c-41-4c-14')
     @commethod(3)
     def Init(self, pguidInstanceId: POINTER(Guid), pguidContentType: POINTER(Guid), pContextPropertyStore: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -469,7 +469,7 @@ class IRegisteredSyncProvider(ComPtr):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IReplicaKeyMap(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2209f4fc-fd10-4ff0-84-a8-f0-a1-98-2e-44-0e')
+    _iid_ = Guid('2209f4fc-fd10-4ff0-84-a8-f0-a1-98-2e-44-0e')
     @commethod(3)
     def LookupReplicaKey(self, pbReplicaId: POINTER(Byte), pdwReplicaKey: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -478,31 +478,31 @@ class IReplicaKeyMap(ComPtr):
     def Serialize(self, pbReplicaKeyMap: POINTER(Byte), pcbReplicaKeyMap: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRequestFilteredSync(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2e020184-6d18-46a7-a3-2a-da-4a-eb-06-69-6c')
+    _iid_ = Guid('2e020184-6d18-46a7-a3-2a-da-4a-eb-06-69-6c')
     @commethod(3)
     def SpecifyFilter(self, pCallback: Windows.Win32.System.WindowsSync.IFilterRequestCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISingleItemException(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('892fb9b0-7c55-4a18-93-16-fd-f4-49-56-9b-64')
+    _iid_ = Guid('892fb9b0-7c55-4a18-93-16-fd-f4-49-56-9b-64')
     @commethod(3)
     def GetItemId(self, pbItemId: POINTER(Byte), pcbIdSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetClockVector(self, riid: POINTER(Guid), ppUnk: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISupportFilteredSync(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3d128ded-d555-4e0d-bf-4b-fb-21-3a-8a-93-02')
+    _iid_ = Guid('3d128ded-d555-4e0d-bf-4b-fb-21-3a-8a-93-02')
     @commethod(3)
     def AddFilter(self, pFilter: Windows.Win32.System.Com.IUnknown_head, filteringType: Windows.Win32.System.WindowsSync.FILTERING_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
 class ISupportLastWriteTime(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('eadf816f-d0bd-43ca-8f-40-5a-cd-c6-c0-6f-7a')
+    _iid_ = Guid('eadf816f-d0bd-43ca-8f-40-5a-cd-c6-c0-6f-7a')
     @commethod(3)
     def GetItemChangeTime(self, pbItemId: POINTER(Byte), pullTimestamp: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetChangeUnitChangeTime(self, pbItemId: POINTER(Byte), pbChangeUnitId: POINTER(Byte), pullTimestamp: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0599797f-5ed9-485c-ae-36-0c-5d-1b-f2-e7-a5')
+    _iid_ = Guid('0599797f-5ed9-485c-ae-36-0c-5d-1b-f2-e7-a5')
     @commethod(3)
     def OnProgress(self, provider: Windows.Win32.System.WindowsSync.SYNC_PROVIDER_ROLE, syncStage: Windows.Win32.System.WindowsSync.SYNC_PROGRESS_STAGE, dwCompletedWork: UInt32, dwTotalWork: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -515,14 +515,14 @@ class ISyncCallback(ComPtr):
     def OnRecoverableError(self, pRecoverableError: Windows.Win32.System.WindowsSync.IRecoverableError_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncCallback2(ComPtr):
     extends: Windows.Win32.System.WindowsSync.ISyncCallback
-    Guid = Guid('47ce84af-7442-4ead-86-30-12-01-5e-03-0a-d7')
+    _iid_ = Guid('47ce84af-7442-4ead-86-30-12-01-5e-03-0a-d7')
     @commethod(8)
     def OnChangeApplied(self, dwChangesApplied: UInt32, dwChangesFailed: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def OnChangeFailed(self, dwChangesApplied: UInt32, dwChangesFailed: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncChange(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a1952beb-0f6b-4711-b1-36-01-da-85-b9-68-a6')
+    _iid_ = Guid('a1952beb-0f6b-4711-b1-36-01-da-85-b9-68-a6')
     @commethod(3)
     def GetOwnerReplicaId(self, pbReplicaId: POINTER(Byte), pcbIdSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -545,7 +545,7 @@ class ISyncChange(ComPtr):
     def SetWorkEstimate(self, dwWork: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncChangeBatch(ComPtr):
     extends: Windows.Win32.System.WindowsSync.ISyncChangeBatchBase
-    Guid = Guid('70c64dee-380f-4c2e-8f-70-31-c5-5b-d5-f9-b3')
+    _iid_ = Guid('70c64dee-380f-4c2e-8f-70-31-c5-5b-d5-f9-b3')
     @commethod(17)
     def BeginUnorderedGroup(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
@@ -554,14 +554,14 @@ class ISyncChangeBatch(ComPtr):
     def AddLoggedConflict(self, pbOwnerReplicaId: POINTER(Byte), pbItemId: POINTER(Byte), pChangeVersion: POINTER(Windows.Win32.System.WindowsSync.SYNC_VERSION_head), pCreationVersion: POINTER(Windows.Win32.System.WindowsSync.SYNC_VERSION_head), dwFlags: UInt32, dwWorkForChange: UInt32, pConflictKnowledge: Windows.Win32.System.WindowsSync.ISyncKnowledge_head, ppChangeBuilder: POINTER(Windows.Win32.System.WindowsSync.ISyncChangeBuilder_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncChangeBatch2(ComPtr):
     extends: Windows.Win32.System.WindowsSync.ISyncChangeBatch
-    Guid = Guid('225f4a33-f5ee-4cc7-b0-39-67-a2-62-b4-b2-ac')
+    _iid_ = Guid('225f4a33-f5ee-4cc7-b0-39-67-a2-62-b4-b2-ac')
     @commethod(20)
     def AddMergeTombstoneMetadataToGroup(self, pbOwnerReplicaId: POINTER(Byte), pbWinnerItemId: POINTER(Byte), pbItemId: POINTER(Byte), pChangeVersion: POINTER(Windows.Win32.System.WindowsSync.SYNC_VERSION_head), pCreationVersion: POINTER(Windows.Win32.System.WindowsSync.SYNC_VERSION_head), dwWorkForChange: UInt32, ppChangeBuilder: POINTER(Windows.Win32.System.WindowsSync.ISyncChangeBuilder_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def AddMergeTombstoneLoggedConflict(self, pbOwnerReplicaId: POINTER(Byte), pbWinnerItemId: POINTER(Byte), pbItemId: POINTER(Byte), pChangeVersion: POINTER(Windows.Win32.System.WindowsSync.SYNC_VERSION_head), pCreationVersion: POINTER(Windows.Win32.System.WindowsSync.SYNC_VERSION_head), dwWorkForChange: UInt32, pConflictKnowledge: Windows.Win32.System.WindowsSync.ISyncKnowledge_head, ppChangeBuilder: POINTER(Windows.Win32.System.WindowsSync.ISyncChangeBuilder_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncChangeBatchAdvanced(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0f1a4995-cbc8-421d-b5-50-5d-0b-eb-f3-e9-a5')
+    _iid_ = Guid('0f1a4995-cbc8-421d-b5-50-5d-0b-eb-f3-e9-a5')
     @commethod(3)
     def GetFilterInfo(self, ppFilterInfo: POINTER(Windows.Win32.System.WindowsSync.ISyncFilterInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -572,7 +572,7 @@ class ISyncChangeBatchAdvanced(ComPtr):
     def GetBatchLevelKnowledgeShouldBeApplied(self, pfBatchKnowledgeShouldBeApplied: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncChangeBatchBase(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('52f6e694-6a71-4494-a1-84-a8-31-1b-f5-d2-27')
+    _iid_ = Guid('52f6e694-6a71-4494-a1-84-a8-31-1b-f5-d2-27')
     @commethod(3)
     def GetChangeEnumerator(self, ppEnum: POINTER(Windows.Win32.System.WindowsSync.IEnumSyncChanges_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -603,12 +603,12 @@ class ISyncChangeBatchBase(ComPtr):
     def Serialize(self, pbChangeBatch: POINTER(Byte), pcbChangeBatch: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncChangeBatchBase2(ComPtr):
     extends: Windows.Win32.System.WindowsSync.ISyncChangeBatchBase
-    Guid = Guid('6fdb596a-d755-4584-bd-0c-c0-c2-3a-54-8f-bf')
+    _iid_ = Guid('6fdb596a-d755-4584-bd-0c-c0-c2-3a-54-8f-bf')
     @commethod(17)
     def SerializeWithOptions(self, targetFormatVersion: Windows.Win32.System.WindowsSync.SYNC_SERIALIZATION_VERSION, dwFlags: UInt32, pbBuffer: POINTER(Byte), pdwSerializedSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncChangeBatchWithFilterKeyMap(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('de247002-566d-459a-a6-ed-a5-aa-b3-45-9f-b7')
+    _iid_ = Guid('de247002-566d-459a-a6-ed-a5-aa-b3-45-9f-b7')
     @commethod(3)
     def GetFilterKeyMap(self, ppIFilterKeyMap: POINTER(Windows.Win32.System.WindowsSync.IFilterKeyMap_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -627,7 +627,7 @@ class ISyncChangeBatchWithFilterKeyMap(ComPtr):
     def GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete(self, pDestinationKnowledge: Windows.Win32.System.WindowsSync.ISyncKnowledge_head, pNewMoveins: Windows.Win32.System.WindowsSync.IEnumItemIds_head, dwFilterKey: UInt32, ppLearnedFilterForgottenKnowledge: POINTER(Windows.Win32.System.WindowsSync.ISyncKnowledge_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncChangeBatchWithPrerequisite(ComPtr):
     extends: Windows.Win32.System.WindowsSync.ISyncChangeBatchBase
-    Guid = Guid('097f13be-5b92-4048-b3-f2-7b-42-a2-51-5e-07')
+    _iid_ = Guid('097f13be-5b92-4048-b3-f2-7b-42-a2-51-5e-07')
     @commethod(17)
     def SetPrerequisiteKnowledge(self, pPrerequisiteKnowledge: Windows.Win32.System.WindowsSync.ISyncKnowledge_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
@@ -636,12 +636,12 @@ class ISyncChangeBatchWithPrerequisite(ComPtr):
     def GetLearnedForgottenKnowledge(self, ppLearnedForgottenKnowledge: POINTER(Windows.Win32.System.WindowsSync.IForgottenKnowledge_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncChangeBuilder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('56f14771-8677-484f-a1-70-e3-86-e4-18-a6-76')
+    _iid_ = Guid('56f14771-8677-484f-a1-70-e3-86-e4-18-a6-76')
     @commethod(3)
     def AddChangeUnitMetadata(self, pbChangeUnitId: POINTER(Byte), pChangeUnitVersion: POINTER(Windows.Win32.System.WindowsSync.SYNC_VERSION_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncChangeUnit(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('60edd8ca-7341-4bb7-95-ce-fa-b6-39-4b-51-cb')
+    _iid_ = Guid('60edd8ca-7341-4bb7-95-ce-fa-b6-39-4b-51-cb')
     @commethod(3)
     def GetItemChange(self, ppSyncChange: POINTER(Windows.Win32.System.WindowsSync.ISyncChange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -650,7 +650,7 @@ class ISyncChangeUnit(ComPtr):
     def GetChangeUnitVersion(self, pbCurrentReplicaId: POINTER(Byte), pVersion: POINTER(Windows.Win32.System.WindowsSync.SYNC_VERSION_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncChangeWithFilterKeyMap(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bfe1ef00-e87d-42fd-a4-e9-24-2d-70-41-4a-ef')
+    _iid_ = Guid('bfe1ef00-e87d-42fd-a4-e9-24-2d-70-41-4a-ef')
     @commethod(3)
     def GetFilterCount(self, pdwFilterCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -671,19 +671,19 @@ class ISyncChangeWithFilterKeyMap(ComPtr):
     def GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete(self, pDestinationKnowledge: Windows.Win32.System.WindowsSync.ISyncKnowledge_head, pNewMoveins: Windows.Win32.System.WindowsSync.IEnumItemIds_head, dwFilterKey: UInt32, ppLearnedFilterForgottenKnowledge: POINTER(Windows.Win32.System.WindowsSync.ISyncKnowledge_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncChangeWithPrerequisite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9e38382f-1589-48c3-92-e4-05-ec-dc-b4-f3-f7')
+    _iid_ = Guid('9e38382f-1589-48c3-92-e4-05-ec-dc-b4-f3-f7')
     @commethod(3)
     def GetPrerequisiteKnowledge(self, ppPrerequisiteKnowledge: POINTER(Windows.Win32.System.WindowsSync.ISyncKnowledge_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetLearnedKnowledgeWithPrerequisite(self, pDestinationKnowledge: Windows.Win32.System.WindowsSync.ISyncKnowledge_head, ppLearnedKnowledgeWithPrerequisite: POINTER(Windows.Win32.System.WindowsSync.ISyncKnowledge_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncConstraintCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8af3843e-75b3-438c-bb-51-6f-02-0d-70-d3-cb')
+    _iid_ = Guid('8af3843e-75b3-438c-bb-51-6f-02-0d-70-d3-cb')
     @commethod(3)
     def OnConstraintConflict(self, pConflict: Windows.Win32.System.WindowsSync.IConstraintConflict_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncDataConverter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('435d4861-68d5-44aa-a0-f9-72-a0-b0-0e-f9-cf')
+    _iid_ = Guid('435d4861-68d5-44aa-a0-f9-72-a0-b0-0e-f9-cf')
     @commethod(3)
     def ConvertDataRetrieverFromProviderFormat(self, pUnkDataRetrieverIn: Windows.Win32.System.Com.IUnknown_head, pEnumSyncChanges: Windows.Win32.System.WindowsSync.IEnumSyncChanges_head, ppUnkDataOut: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -694,36 +694,36 @@ class ISyncDataConverter(ComPtr):
     def ConvertDataToProviderFormat(self, pDataContext: Windows.Win32.System.WindowsSync.ILoadChangeContext_head, pUnkDataOut: Windows.Win32.System.Com.IUnknown_head, ppUnkDataout: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('087a3f15-0fcb-44c1-96-39-53-c1-4e-2b-55-06')
+    _iid_ = Guid('087a3f15-0fcb-44c1-96-39-53-c1-4e-2b-55-06')
     @commethod(3)
     def IsIdentical(self, pSyncFilter: Windows.Win32.System.WindowsSync.ISyncFilter_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Serialize(self, pbSyncFilter: POINTER(Byte), pcbSyncFilter: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncFilterDeserializer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b45b7a72-e5c7-46be-9c-82-77-b8-b1-5d-ab-8a')
+    _iid_ = Guid('b45b7a72-e5c7-46be-9c-82-77-b8-b1-5d-ab-8a')
     @commethod(3)
     def DeserializeSyncFilter(self, pbSyncFilter: POINTER(Byte), dwCbSyncFilter: UInt32, ppISyncFilter: POINTER(Windows.Win32.System.WindowsSync.ISyncFilter_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncFilterInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('794eaaf8-3f2e-47e6-97-28-17-e6-fc-f9-4c-b7')
+    _iid_ = Guid('794eaaf8-3f2e-47e6-97-28-17-e6-fc-f9-4c-b7')
     @commethod(3)
     def Serialize(self, pbBuffer: POINTER(Byte), pcbBuffer: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncFilterInfo2(ComPtr):
     extends: Windows.Win32.System.WindowsSync.ISyncFilterInfo
-    Guid = Guid('19b394ba-e3d0-468c-93-4d-32-19-68-b2-ab-34')
+    _iid_ = Guid('19b394ba-e3d0-468c-93-4d-32-19-68-b2-ab-34')
     @commethod(4)
     def GetFlags(self, pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncFullEnumerationChange(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9785e0bd-bdff-40c4-98-c5-b3-4b-2f-19-91-b3')
+    _iid_ = Guid('9785e0bd-bdff-40c4-98-c5-b3-4b-2f-19-91-b3')
     @commethod(3)
     def GetLearnedKnowledgeAfterRecoveryComplete(self, ppLearnedKnowledge: POINTER(Windows.Win32.System.WindowsSync.ISyncKnowledge_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetLearnedForgottenKnowledge(self, ppLearnedForgottenKnowledge: POINTER(Windows.Win32.System.WindowsSync.IForgottenKnowledge_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncFullEnumerationChangeBatch(ComPtr):
     extends: Windows.Win32.System.WindowsSync.ISyncChangeBatchBase
-    Guid = Guid('ef64197d-4f44-4ea2-b3-55-45-24-71-3e-3b-ed')
+    _iid_ = Guid('ef64197d-4f44-4ea2-b3-55-45-24-71-3e-3b-ed')
     @commethod(17)
     def GetLearnedKnowledgeAfterRecoveryComplete(self, ppLearnedKnowledgeAfterRecoveryComplete: POINTER(Windows.Win32.System.WindowsSync.ISyncKnowledge_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
@@ -732,12 +732,12 @@ class ISyncFullEnumerationChangeBatch(ComPtr):
     def GetClosedUpperBoundItemId(self, pbClosedUpperBoundItemId: POINTER(Byte), pcbIdSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncFullEnumerationChangeBatch2(ComPtr):
     extends: Windows.Win32.System.WindowsSync.ISyncFullEnumerationChangeBatch
-    Guid = Guid('e06449f4-a205-4b65-97-24-01-b2-21-01-ee-c1')
+    _iid_ = Guid('e06449f4-a205-4b65-97-24-01-b2-21-01-ee-c1')
     @commethod(20)
     def AddMergeTombstoneMetadataToGroup(self, pbOwnerReplicaId: POINTER(Byte), pbWinnerItemId: POINTER(Byte), pbItemId: POINTER(Byte), pChangeVersion: POINTER(Windows.Win32.System.WindowsSync.SYNC_VERSION_head), pCreationVersion: POINTER(Windows.Win32.System.WindowsSync.SYNC_VERSION_head), dwWorkForChange: UInt32, ppChangeBuilder: POINTER(Windows.Win32.System.WindowsSync.ISyncChangeBuilder_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncKnowledge(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('615bbb53-c945-4203-bf-4b-2c-b6-59-19-a0-aa')
+    _iid_ = Guid('615bbb53-c945-4203-bf-4b-2c-b6-59-19-a0-aa')
     @commethod(3)
     def GetOwnerReplicaId(self, pbReplicaId: POINTER(Byte), pcbIdSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -788,7 +788,7 @@ class ISyncKnowledge(ComPtr):
     def GetVersion(self, pdwVersion: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncKnowledge2(ComPtr):
     extends: Windows.Win32.System.WindowsSync.ISyncKnowledge
-    Guid = Guid('ed0addc0-3b4b-46a1-9a-45-45-66-1d-21-14-c8')
+    _iid_ = Guid('ed0addc0-3b4b-46a1-9a-45-45-66-1d-21-14-c8')
     @commethod(27)
     def GetIdParameters(self, pIdParameters: POINTER(Windows.Win32.System.WindowsSync.ID_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
@@ -819,17 +819,17 @@ class ISyncKnowledge2(ComPtr):
     def CompareToKnowledgeCookie(self, pKnowledgeCookie: Windows.Win32.System.Com.IUnknown_head, pResult: POINTER(Windows.Win32.System.WindowsSync.KNOWLEDGE_COOKIE_COMPARISON_RESULT)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncMergeTombstoneChange(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6ec62597-0903-484c-ad-61-36-d6-e9-38-f4-7b')
+    _iid_ = Guid('6ec62597-0903-484c-ad-61-36-d6-e9-38-f4-7b')
     @commethod(3)
     def GetWinnerItemId(self, pbWinnerItemId: POINTER(Byte), pcbIdSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8f657056-2bce-4a17-8c-68-c7-bb-78-98-b5-6f')
+    _iid_ = Guid('8f657056-2bce-4a17-8c-68-c7-bb-78-98-b5-6f')
     @commethod(3)
     def GetIdParameters(self, pIdParameters: POINTER(Windows.Win32.System.WindowsSync.ID_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncProviderConfigUI(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7b0705f6-cbcd-4071-ab-05-3b-dc-36-4d-4a-0c')
+    _iid_ = Guid('7b0705f6-cbcd-4071-ab-05-3b-dc-36-4d-4a-0c')
     @commethod(3)
     def Init(self, pguidInstanceId: POINTER(Guid), pguidContentType: POINTER(Guid), pConfigurationProperties: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -840,17 +840,17 @@ class ISyncProviderConfigUI(ComPtr):
     def ModifySyncProvider(self, hwndParent: Windows.Win32.Foundation.HWND, pUnkContext: Windows.Win32.System.Com.IUnknown_head, pProviderInfo: Windows.Win32.System.WindowsSync.ISyncProviderInfo_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncProviderConfigUIInfo(ComPtr):
     extends: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore
-    Guid = Guid('214141ae-33d7-4d8d-8e-37-f2-27-e8-80-ce-50')
+    _iid_ = Guid('214141ae-33d7-4d8d-8e-37-f2-27-e8-80-ce-50')
     @commethod(8)
     def GetSyncProviderConfigUI(self, dwClsContext: UInt32, ppSyncProviderConfigUI: POINTER(Windows.Win32.System.WindowsSync.ISyncProviderConfigUI_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncProviderInfo(ComPtr):
     extends: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore
-    Guid = Guid('1ee135de-88a4-4504-b0-d0-f7-92-0d-7e-5b-a6')
+    _iid_ = Guid('1ee135de-88a4-4504-b0-d0-f7-92-0d-7e-5b-a6')
     @commethod(8)
     def GetSyncProvider(self, dwClsContext: UInt32, ppSyncProvider: POINTER(Windows.Win32.System.WindowsSync.IRegisteredSyncProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncProviderRegistration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('cb45953b-7624-47bc-a4-72-eb-8c-ac-6b-22-2e')
+    _iid_ = Guid('cb45953b-7624-47bc-a4-72-eb-8c-ac-6b-22-2e')
     @commethod(3)
     def CreateSyncProviderConfigUIRegistrationInstance(self, pConfigUIConfig: POINTER(Windows.Win32.System.WindowsSync.SyncProviderConfigUIConfiguration_head), ppConfigUIInfo: POINTER(Windows.Win32.System.WindowsSync.ISyncProviderConfigUIInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -885,19 +885,19 @@ class ISyncProviderRegistration(ComPtr):
     def GetChange(self, hEvent: Windows.Win32.Foundation.HANDLE, ppChange: POINTER(Windows.Win32.System.WindowsSync.ISyncRegistrationChange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncRegistrationChange(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('eea0d9ae-6b29-43b4-9e-70-e3-ae-33-bb-2c-3b')
+    _iid_ = Guid('eea0d9ae-6b29-43b4-9e-70-e3-ae-33-bb-2c-3b')
     @commethod(3)
     def GetEvent(self, psreEvent: POINTER(Windows.Win32.System.WindowsSync.SYNC_REGISTRATION_EVENT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetInstanceId(self, pguidInstanceId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncSessionExtendedErrorInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('326c6810-790a-409b-b7-41-69-99-38-87-61-eb')
+    _iid_ = Guid('326c6810-790a-409b-b7-41-69-99-38-87-61-eb')
     @commethod(3)
     def GetSyncProviderWithError(self, ppProviderWithError: POINTER(Windows.Win32.System.WindowsSync.ISyncProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncSessionState(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b8a940fe-9f01-483b-94-34-c3-7d-36-12-25-d9')
+    _iid_ = Guid('b8a940fe-9f01-483b-94-34-c3-7d-36-12-25-d9')
     @commethod(3)
     def IsCanceled(self, pfIsCanceled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -914,14 +914,14 @@ class ISyncSessionState(ComPtr):
     def OnProgress(self, provider: Windows.Win32.System.WindowsSync.SYNC_PROVIDER_ROLE, syncStage: Windows.Win32.System.WindowsSync.SYNC_PROGRESS_STAGE, dwCompletedWork: UInt32, dwTotalWork: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISyncSessionState2(ComPtr):
     extends: Windows.Win32.System.WindowsSync.ISyncSessionState
-    Guid = Guid('9e37cfa3-9e38-4c61-9c-a3-ff-e8-10-b4-5c-a2')
+    _iid_ = Guid('9e37cfa3-9e38-4c61-9c-a3-ff-e8-10-b4-5c-a2')
     @commethod(10)
     def SetProviderWithError(self, fSelf: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetSessionErrorStatus(self, phrSessionError: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISynchronousDataRetriever(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9b22f2a9-a4cd-4648-9d-8e-3a-51-0d-4d-a0-4b')
+    _iid_ = Guid('9b22f2a9-a4cd-4648-9d-8e-3a-51-0d-4d-a0-4b')
     @commethod(3)
     def GetIdParameters(self, pIdParameters: POINTER(Windows.Win32.System.WindowsSync.ID_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

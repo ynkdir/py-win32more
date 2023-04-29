@@ -1751,7 +1751,7 @@ class D3D10_VIEWPORT(EasyCastStructure):
     MaxDepth: Single
 class ID3D10Asynchronous(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10DeviceChild
-    Guid = Guid('9b7e4c0d-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c0d-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(7)
     def Begin(self) -> Void: ...
     @commethod(8)
@@ -1762,17 +1762,17 @@ class ID3D10Asynchronous(ComPtr):
     def GetDataSize(self) -> UInt32: ...
 class ID3D10BlendState(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10DeviceChild
-    Guid = Guid('edad8d19-8a35-4d6d-85-66-2e-a2-76-cd-e1-61')
+    _iid_ = Guid('edad8d19-8a35-4d6d-85-66-2e-a2-76-cd-e1-61')
     @commethod(7)
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_BLEND_DESC_head)) -> Void: ...
 class ID3D10BlendState1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10BlendState
-    Guid = Guid('edad8d99-8a35-4d6d-85-66-2e-a2-76-cd-e1-61')
+    _iid_ = Guid('edad8d99-8a35-4d6d-85-66-2e-a2-76-cd-e1-61')
     @commethod(8)
     def GetDesc1(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_BLEND_DESC1_head)) -> Void: ...
 class ID3D10Buffer(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10Resource
-    Guid = Guid('9b7e4c02-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c02-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(10)
     def Map(self, MapType: Windows.Win32.Graphics.Direct3D10.D3D10_MAP, MapFlags: UInt32, ppData: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -1781,12 +1781,12 @@ class ID3D10Buffer(ComPtr):
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_BUFFER_DESC_head)) -> Void: ...
 class ID3D10Counter(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10Asynchronous
-    Guid = Guid('9b7e4c11-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c11-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(11)
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_COUNTER_DESC_head)) -> Void: ...
 class ID3D10Debug(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9b7e4e01-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4e01-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(3)
     def SetFeatureMask(self, Mask: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1803,17 +1803,17 @@ class ID3D10Debug(ComPtr):
     def Validate(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10DepthStencilState(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10DeviceChild
-    Guid = Guid('2b4b1cc8-a4ad-41f8-83-22-ca-86-fc-3e-c6-75')
+    _iid_ = Guid('2b4b1cc8-a4ad-41f8-83-22-ca-86-fc-3e-c6-75')
     @commethod(7)
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_DEPTH_STENCIL_DESC_head)) -> Void: ...
 class ID3D10DepthStencilView(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10View
-    Guid = Guid('9b7e4c09-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c09-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(8)
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_DEPTH_STENCIL_VIEW_DESC_head)) -> Void: ...
 class ID3D10Device(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9b7e4c0f-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c0f-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(3)
     def VSSetConstantBuffers(self, StartSlot: UInt32, NumBuffers: UInt32, ppConstantBuffers: POINTER(Windows.Win32.Graphics.Direct3D10.ID3D10Buffer_head)) -> Void: ...
     @commethod(4)
@@ -2006,7 +2006,7 @@ class ID3D10Device(ComPtr):
     def GetTextFilterSize(self, pWidth: POINTER(UInt32), pHeight: POINTER(UInt32)) -> Void: ...
 class ID3D10Device1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10Device
-    Guid = Guid('9b7e4c8f-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c8f-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(98)
     def CreateShaderResourceView1(self, pResource: Windows.Win32.Graphics.Direct3D10.ID3D10Resource_head, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_RESOURCE_VIEW_DESC1_head), ppSRView: POINTER(Windows.Win32.Graphics.Direct3D10.ID3D10ShaderResourceView1_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(99)
@@ -2015,7 +2015,7 @@ class ID3D10Device1(ComPtr):
     def GetFeatureLevel(self) -> Windows.Win32.Graphics.Direct3D10.D3D10_FEATURE_LEVEL1: ...
 class ID3D10DeviceChild(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9b7e4c00-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c00-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(3)
     def GetDevice(self, ppDevice: POINTER(Windows.Win32.Graphics.Direct3D10.ID3D10Device_head)) -> Void: ...
     @commethod(4)
@@ -2026,7 +2026,7 @@ class ID3D10DeviceChild(ComPtr):
     def SetPrivateDataInterface(self, guid: POINTER(Guid), pData: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10Effect(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51b0ca8b-ec0b-4519-87-0d-8e-e1-cb-50-17-c7')
+    _iid_ = Guid('51b0ca8b-ec0b-4519-87-0d-8e-e1-cb-50-17-c7')
     @commethod(3)
     def IsValid(self) -> Windows.Win32.Foundation.BOOL: ...
     @commethod(4)
@@ -2055,14 +2055,14 @@ class ID3D10Effect(ComPtr):
     def IsOptimized(self) -> Windows.Win32.Foundation.BOOL: ...
 class ID3D10EffectBlendVariable(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10EffectVariable
-    Guid = Guid('1fcd2294-df6d-4eae-86-b3-0e-91-60-cf-b0-7b')
+    _iid_ = Guid('1fcd2294-df6d-4eae-86-b3-0e-91-60-cf-b0-7b')
     @commethod(25)
     def GetBlendState(self, Index: UInt32, ppBlendState: POINTER(Windows.Win32.Graphics.Direct3D10.ID3D10BlendState_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def GetBackingStore(self, Index: UInt32, pBlendDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_BLEND_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10EffectConstantBuffer(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10EffectVariable
-    Guid = Guid('56648f4d-cc8b-4444-a5-ad-b5-a3-d7-6e-91-b3')
+    _iid_ = Guid('56648f4d-cc8b-4444-a5-ad-b5-a3-d7-6e-91-b3')
     @commethod(25)
     def SetConstantBuffer(self, pConstantBuffer: Windows.Win32.Graphics.Direct3D10.ID3D10Buffer_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
@@ -2073,14 +2073,14 @@ class ID3D10EffectConstantBuffer(ComPtr):
     def GetTextureBuffer(self, ppTextureBuffer: POINTER(Windows.Win32.Graphics.Direct3D10.ID3D10ShaderResourceView_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10EffectDepthStencilVariable(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10EffectVariable
-    Guid = Guid('af482368-330a-46a5-9a-5c-01-c7-1a-f2-4c-8d')
+    _iid_ = Guid('af482368-330a-46a5-9a-5c-01-c7-1a-f2-4c-8d')
     @commethod(25)
     def GetDepthStencilState(self, Index: UInt32, ppDepthStencilState: POINTER(Windows.Win32.Graphics.Direct3D10.ID3D10DepthStencilState_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def GetBackingStore(self, Index: UInt32, pDepthStencilDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_DEPTH_STENCIL_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10EffectDepthStencilViewVariable(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10EffectVariable
-    Guid = Guid('3e02c918-cc79-4985-b6-22-2d-92-ad-70-16-23')
+    _iid_ = Guid('3e02c918-cc79-4985-b6-22-2d-92-ad-70-16-23')
     @commethod(25)
     def SetDepthStencil(self, pResource: Windows.Win32.Graphics.Direct3D10.ID3D10DepthStencilView_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
@@ -2091,7 +2091,7 @@ class ID3D10EffectDepthStencilViewVariable(ComPtr):
     def GetDepthStencilArray(self, ppResources: POINTER(Windows.Win32.Graphics.Direct3D10.ID3D10DepthStencilView_head), Offset: UInt32, Count: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10EffectMatrixVariable(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10EffectVariable
-    Guid = Guid('50666c24-b82f-4eed-a1-72-5b-6e-7e-85-22-e0')
+    _iid_ = Guid('50666c24-b82f-4eed-a1-72-5b-6e-7e-85-22-e0')
     @commethod(25)
     def SetMatrix(self, pData: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
@@ -2110,7 +2110,7 @@ class ID3D10EffectMatrixVariable(ComPtr):
     def GetMatrixTransposeArray(self, pData: POINTER(Single), Offset: UInt32, Count: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10EffectPass(ComPtr):
     extends: None
-    Guid = Guid('5cfbeb89-1a06-46e0-b2-82-e3-f9-bf-a3-6a-54')
+    _iid_ = Guid('5cfbeb89-1a06-46e0-b2-82-e3-f9-bf-a3-6a-54')
     @commethod(0)
     def IsValid(self) -> Windows.Win32.Foundation.BOOL: ...
     @commethod(1)
@@ -2131,19 +2131,19 @@ class ID3D10EffectPass(ComPtr):
     def ComputeStateBlockMask(self, pStateBlockMask: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_STATE_BLOCK_MASK_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10EffectPool(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9537ab04-3250-412e-82-13-fc-d2-f8-67-79-33')
+    _iid_ = Guid('9537ab04-3250-412e-82-13-fc-d2-f8-67-79-33')
     @commethod(3)
     def AsEffect(self) -> Windows.Win32.Graphics.Direct3D10.ID3D10Effect_head: ...
 class ID3D10EffectRasterizerVariable(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10EffectVariable
-    Guid = Guid('21af9f0e-4d94-4ea9-97-85-2c-b7-6b-8c-0b-34')
+    _iid_ = Guid('21af9f0e-4d94-4ea9-97-85-2c-b7-6b-8c-0b-34')
     @commethod(25)
     def GetRasterizerState(self, Index: UInt32, ppRasterizerState: POINTER(Windows.Win32.Graphics.Direct3D10.ID3D10RasterizerState_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def GetBackingStore(self, Index: UInt32, pRasterizerDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_RASTERIZER_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10EffectRenderTargetViewVariable(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10EffectVariable
-    Guid = Guid('28ca0cc3-c2c9-40bb-b5-7f-67-b7-37-12-2b-17')
+    _iid_ = Guid('28ca0cc3-c2c9-40bb-b5-7f-67-b7-37-12-2b-17')
     @commethod(25)
     def SetRenderTarget(self, pResource: Windows.Win32.Graphics.Direct3D10.ID3D10RenderTargetView_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
@@ -2154,14 +2154,14 @@ class ID3D10EffectRenderTargetViewVariable(ComPtr):
     def GetRenderTargetArray(self, ppResources: POINTER(Windows.Win32.Graphics.Direct3D10.ID3D10RenderTargetView_head), Offset: UInt32, Count: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10EffectSamplerVariable(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10EffectVariable
-    Guid = Guid('6530d5c7-07e9-4271-a4-18-e7-ce-4b-d1-e4-80')
+    _iid_ = Guid('6530d5c7-07e9-4271-a4-18-e7-ce-4b-d1-e4-80')
     @commethod(25)
     def GetSampler(self, Index: UInt32, ppSampler: POINTER(Windows.Win32.Graphics.Direct3D10.ID3D10SamplerState_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def GetBackingStore(self, Index: UInt32, pSamplerDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_SAMPLER_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10EffectScalarVariable(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10EffectVariable
-    Guid = Guid('00e48f7b-d2c8-49e8-a8-6c-02-2d-ee-53-43-1f')
+    _iid_ = Guid('00e48f7b-d2c8-49e8-a8-6c-02-2d-ee-53-43-1f')
     @commethod(25)
     def SetFloat(self, Value: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
@@ -2188,7 +2188,7 @@ class ID3D10EffectScalarVariable(ComPtr):
     def GetBoolArray(self, pData: POINTER(Windows.Win32.Foundation.BOOL), Offset: UInt32, Count: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10EffectShaderResourceVariable(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10EffectVariable
-    Guid = Guid('c0a7157b-d872-4b1d-80-73-ef-c2-ac-d4-b1-fc')
+    _iid_ = Guid('c0a7157b-d872-4b1d-80-73-ef-c2-ac-d4-b1-fc')
     @commethod(25)
     def SetResource(self, pResource: Windows.Win32.Graphics.Direct3D10.ID3D10ShaderResourceView_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
@@ -2199,7 +2199,7 @@ class ID3D10EffectShaderResourceVariable(ComPtr):
     def GetResourceArray(self, ppResources: POINTER(Windows.Win32.Graphics.Direct3D10.ID3D10ShaderResourceView_head), Offset: UInt32, Count: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10EffectShaderVariable(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10EffectVariable
-    Guid = Guid('80849279-c799-4797-8c-33-04-07-a0-7d-9e-06')
+    _iid_ = Guid('80849279-c799-4797-8c-33-04-07-a0-7d-9e-06')
     @commethod(25)
     def GetShaderDesc(self, ShaderIndex: UInt32, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_EFFECT_SHADER_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
@@ -2214,14 +2214,14 @@ class ID3D10EffectShaderVariable(ComPtr):
     def GetOutputSignatureElementDesc(self, ShaderIndex: UInt32, Element: UInt32, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_SIGNATURE_PARAMETER_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10EffectStringVariable(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10EffectVariable
-    Guid = Guid('71417501-8df9-4e0a-a7-8a-25-5f-97-56-ba-ff')
+    _iid_ = Guid('71417501-8df9-4e0a-a7-8a-25-5f-97-56-ba-ff')
     @commethod(25)
     def GetString(self, ppString: POINTER(Windows.Win32.Foundation.PSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def GetStringArray(self, ppStrings: POINTER(Windows.Win32.Foundation.PSTR), Offset: UInt32, Count: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10EffectTechnique(ComPtr):
     extends: None
-    Guid = Guid('db122ce8-d1c9-4292-b2-37-24-ed-3d-e8-b1-75')
+    _iid_ = Guid('db122ce8-d1c9-4292-b2-37-24-ed-3d-e8-b1-75')
     @commethod(0)
     def IsValid(self) -> Windows.Win32.Foundation.BOOL: ...
     @commethod(1)
@@ -2238,7 +2238,7 @@ class ID3D10EffectTechnique(ComPtr):
     def ComputeStateBlockMask(self, pStateBlockMask: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_STATE_BLOCK_MASK_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10EffectType(ComPtr):
     extends: None
-    Guid = Guid('4e9e1ddc-cd9d-4772-a8-37-00-18-0b-9b-88-fd')
+    _iid_ = Guid('4e9e1ddc-cd9d-4772-a8-37-00-18-0b-9b-88-fd')
     @commethod(0)
     def IsValid(self) -> Windows.Win32.Foundation.BOOL: ...
     @commethod(1)
@@ -2255,7 +2255,7 @@ class ID3D10EffectType(ComPtr):
     def GetMemberSemantic(self, Index: UInt32) -> Windows.Win32.Foundation.PSTR: ...
 class ID3D10EffectVariable(ComPtr):
     extends: None
-    Guid = Guid('ae897105-00e6-45bf-bb-8e-28-1d-d6-db-8e-1b')
+    _iid_ = Guid('ae897105-00e6-45bf-bb-8e-28-1d-d6-db-8e-1b')
     @commethod(0)
     def IsValid(self) -> Windows.Win32.Foundation.BOOL: ...
     @commethod(1)
@@ -2308,7 +2308,7 @@ class ID3D10EffectVariable(ComPtr):
     def GetRawValue(self, pData: c_void_p, Offset: UInt32, ByteCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10EffectVectorVariable(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10EffectVariable
-    Guid = Guid('62b98c44-1f82-4c67-bc-d0-72-cf-8f-21-7e-81')
+    _iid_ = Guid('62b98c44-1f82-4c67-bc-d0-72-cf-8f-21-7e-81')
     @commethod(25)
     def SetBoolVector(self, pData: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
@@ -2335,10 +2335,10 @@ class ID3D10EffectVectorVariable(ComPtr):
     def GetFloatVectorArray(self, pData: POINTER(Single), Offset: UInt32, Count: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10GeometryShader(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10DeviceChild
-    Guid = Guid('6316be88-54cd-4040-ab-44-20-46-1b-c8-1f-68')
+    _iid_ = Guid('6316be88-54cd-4040-ab-44-20-46-1b-c8-1f-68')
 class ID3D10InfoQueue(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1b940b17-2642-4d1f-ab-1f-b9-9b-ad-0c-39-5f')
+    _iid_ = Guid('1b940b17-2642-4d1f-ab-1f-b9-9b-ad-0c-39-5f')
     @commethod(3)
     def SetMessageCountLimit(self, MessageCountLimit: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2411,10 +2411,10 @@ class ID3D10InfoQueue(ComPtr):
     def GetMuteDebugOutput(self) -> Windows.Win32.Foundation.BOOL: ...
 class ID3D10InputLayout(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10DeviceChild
-    Guid = Guid('9b7e4c0b-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c0b-342c-4106-a1-9f-4f-27-04-f6-89-f0')
 class ID3D10Multithread(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9b7e4e00-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4e00-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(3)
     def Enter(self) -> Void: ...
     @commethod(4)
@@ -2425,28 +2425,28 @@ class ID3D10Multithread(ComPtr):
     def GetMultithreadProtected(self) -> Windows.Win32.Foundation.BOOL: ...
 class ID3D10PixelShader(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10DeviceChild
-    Guid = Guid('4968b601-9d00-4cde-83-46-8e-7f-67-58-19-b6')
+    _iid_ = Guid('4968b601-9d00-4cde-83-46-8e-7f-67-58-19-b6')
 class ID3D10Predicate(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10Query
-    Guid = Guid('9b7e4c10-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c10-342c-4106-a1-9f-4f-27-04-f6-89-f0')
 class ID3D10Query(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10Asynchronous
-    Guid = Guid('9b7e4c0e-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c0e-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(11)
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_QUERY_DESC_head)) -> Void: ...
 class ID3D10RasterizerState(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10DeviceChild
-    Guid = Guid('a2a07292-89af-4345-be-2e-c5-3d-9f-bb-6e-9f')
+    _iid_ = Guid('a2a07292-89af-4345-be-2e-c5-3d-9f-bb-6e-9f')
     @commethod(7)
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_RASTERIZER_DESC_head)) -> Void: ...
 class ID3D10RenderTargetView(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10View
-    Guid = Guid('9b7e4c08-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c08-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(8)
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_RENDER_TARGET_VIEW_DESC_head)) -> Void: ...
 class ID3D10Resource(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10DeviceChild
-    Guid = Guid('9b7e4c01-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c01-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(7)
     def GetType(self, rType: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_RESOURCE_DIMENSION)) -> Void: ...
     @commethod(8)
@@ -2455,12 +2455,12 @@ class ID3D10Resource(ComPtr):
     def GetEvictionPriority(self) -> UInt32: ...
 class ID3D10SamplerState(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10DeviceChild
-    Guid = Guid('9b7e4c0c-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c0c-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(7)
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_SAMPLER_DESC_head)) -> Void: ...
 class ID3D10ShaderReflection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d40e20b6-f8f7-42ad-ab-20-4b-af-8f-15-df-aa')
+    _iid_ = Guid('d40e20b6-f8f7-42ad-ab-20-4b-af-8f-15-df-aa')
     @commethod(3)
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2475,7 +2475,7 @@ class ID3D10ShaderReflection(ComPtr):
     def GetOutputParameterDesc(self, ParameterIndex: UInt32, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_SIGNATURE_PARAMETER_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10ShaderReflection1(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c3457783-a846-47ce-95-20-ce-a6-f6-6e-74-47')
+    _iid_ = Guid('c3457783-a846-47ce-95-20-ce-a6-f6-6e-74-47')
     @commethod(3)
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2508,7 +2508,7 @@ class ID3D10ShaderReflection1(ComPtr):
     def IsSampleFrequencyShader(self, pbSampleFrequency: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10ShaderReflectionConstantBuffer(ComPtr):
     extends: None
-    Guid = Guid('66c66a94-dddd-4b62-a6-6a-f0-da-33-c2-b4-d0')
+    _iid_ = Guid('66c66a94-dddd-4b62-a6-6a-f0-da-33-c2-b4-d0')
     @commethod(0)
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_BUFFER_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(1)
@@ -2517,7 +2517,7 @@ class ID3D10ShaderReflectionConstantBuffer(ComPtr):
     def GetVariableByName(self, Name: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Graphics.Direct3D10.ID3D10ShaderReflectionVariable_head: ...
 class ID3D10ShaderReflectionType(ComPtr):
     extends: None
-    Guid = Guid('c530ad7d-9b16-4395-a9-79-ba-2e-cf-f8-3a-dd')
+    _iid_ = Guid('c530ad7d-9b16-4395-a9-79-ba-2e-cf-f8-3a-dd')
     @commethod(0)
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_TYPE_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(1)
@@ -2528,24 +2528,24 @@ class ID3D10ShaderReflectionType(ComPtr):
     def GetMemberTypeName(self, Index: UInt32) -> Windows.Win32.Foundation.PSTR: ...
 class ID3D10ShaderReflectionVariable(ComPtr):
     extends: None
-    Guid = Guid('1bf63c95-2650-405d-99-c1-36-36-bd-1d-a0-a1')
+    _iid_ = Guid('1bf63c95-2650-405d-99-c1-36-36-bd-1d-a0-a1')
     @commethod(0)
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_VARIABLE_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(1)
     def GetType(self) -> Windows.Win32.Graphics.Direct3D10.ID3D10ShaderReflectionType_head: ...
 class ID3D10ShaderResourceView(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10View
-    Guid = Guid('9b7e4c07-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c07-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(8)
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_RESOURCE_VIEW_DESC_head)) -> Void: ...
 class ID3D10ShaderResourceView1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10ShaderResourceView
-    Guid = Guid('9b7e4c87-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c87-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(9)
     def GetDesc1(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_SHADER_RESOURCE_VIEW_DESC1_head)) -> Void: ...
 class ID3D10StateBlock(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0803425a-57f5-4dd6-94-65-a8-75-70-83-4a-08')
+    _iid_ = Guid('0803425a-57f5-4dd6-94-65-a8-75-70-83-4a-08')
     @commethod(3)
     def Capture(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2556,14 +2556,14 @@ class ID3D10StateBlock(ComPtr):
     def GetDevice(self, ppDevice: POINTER(Windows.Win32.Graphics.Direct3D10.ID3D10Device_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ID3D10SwitchToRef(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9b7e4e02-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4e02-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(3)
     def SetUseRef(self, UseRef: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.BOOL: ...
     @commethod(4)
     def GetUseRef(self) -> Windows.Win32.Foundation.BOOL: ...
 class ID3D10Texture1D(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10Resource
-    Guid = Guid('9b7e4c03-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c03-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(10)
     def Map(self, Subresource: UInt32, MapType: Windows.Win32.Graphics.Direct3D10.D3D10_MAP, MapFlags: UInt32, ppData: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -2572,7 +2572,7 @@ class ID3D10Texture1D(ComPtr):
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_TEXTURE1D_DESC_head)) -> Void: ...
 class ID3D10Texture2D(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10Resource
-    Guid = Guid('9b7e4c04-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c04-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(10)
     def Map(self, Subresource: UInt32, MapType: Windows.Win32.Graphics.Direct3D10.D3D10_MAP, MapFlags: UInt32, pMappedTex2D: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_MAPPED_TEXTURE2D_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -2581,7 +2581,7 @@ class ID3D10Texture2D(ComPtr):
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_TEXTURE2D_DESC_head)) -> Void: ...
 class ID3D10Texture3D(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10Resource
-    Guid = Guid('9b7e4c05-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c05-342c-4106-a1-9f-4f-27-04-f6-89-f0')
     @commethod(10)
     def Map(self, Subresource: UInt32, MapType: Windows.Win32.Graphics.Direct3D10.D3D10_MAP, MapFlags: UInt32, pMappedTex3D: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_MAPPED_TEXTURE3D_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -2590,10 +2590,10 @@ class ID3D10Texture3D(ComPtr):
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D10.D3D10_TEXTURE3D_DESC_head)) -> Void: ...
 class ID3D10VertexShader(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10DeviceChild
-    Guid = Guid('9b7e4c0a-342c-4106-a1-9f-4f-27-04-f6-89-f0')
+    _iid_ = Guid('9b7e4c0a-342c-4106-a1-9f-4f-27-04-f6-89-f0')
 class ID3D10View(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D10.ID3D10DeviceChild
-    Guid = Guid('c902b03f-60a7-49ba-99-36-2a-3a-b3-7a-7e-33')
+    _iid_ = Guid('c902b03f-60a7-49ba-99-36-2a-3a-b3-7a-7e-33')
     @commethod(7)
     def GetResource(self, ppResource: POINTER(Windows.Win32.Graphics.Direct3D10.ID3D10Resource_head)) -> Void: ...
 @winfunctype_pointer

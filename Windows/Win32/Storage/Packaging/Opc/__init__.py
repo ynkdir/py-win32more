@@ -119,7 +119,7 @@ OPC_E_ZIP_MISSING_END_OF_CENTRAL_DIRECTORY: Windows.Win32.Foundation.HRESULT = -
 OPC_E_ZIP_REQUIRES_64_BIT: Windows.Win32.Foundation.HRESULT = -2142171120
 class IOpcCertificateEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('85131937-8f24-421f-b4-39-59-ab-24-d1-40-b8')
+    _iid_ = Guid('85131937-8f24-421f-b4-39-59-ab-24-d1-40-b8')
     @commethod(3)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -130,7 +130,7 @@ class IOpcCertificateEnumerator(ComPtr):
     def Clone(self, copy: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcCertificateEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcCertificateSet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('56ea4325-8e2d-4167-b1-a4-e4-86-d2-4c-8f-a7')
+    _iid_ = Guid('56ea4325-8e2d-4167-b1-a4-e4-86-d2-4c-8f-a7')
     @commethod(3)
     def Add(self, certificate: POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -139,7 +139,7 @@ class IOpcCertificateSet(ComPtr):
     def GetEnumerator(self, certificateEnumerator: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcCertificateEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcDigitalSignature(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('52ab21dd-1cd0-4949-bc-80-0c-12-32-d0-0c-b4')
+    _iid_ = Guid('52ab21dd-1cd0-4949-bc-80-0c-12-32-d0-0c-b4')
     @commethod(3)
     def GetNamespaces(self, prefixes: POINTER(POINTER(Windows.Win32.Foundation.PWSTR)), namespaces: POINTER(POINTER(Windows.Win32.Foundation.PWSTR)), count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -172,7 +172,7 @@ class IOpcDigitalSignature(ComPtr):
     def GetSignatureXml(self, signatureXml: POINTER(POINTER(Byte)), count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcDigitalSignatureEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('967b6882-0ba3-4358-b9-e7-b6-4c-75-06-3c-5e')
+    _iid_ = Guid('967b6882-0ba3-4358-b9-e7-b6-4c-75-06-3c-5e')
     @commethod(3)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -183,7 +183,7 @@ class IOpcDigitalSignatureEnumerator(ComPtr):
     def Clone(self, copy: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcDigitalSignatureEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcDigitalSignatureManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d5e62a0b-696d-462f-94-df-72-e3-3c-ef-26-59')
+    _iid_ = Guid('d5e62a0b-696d-462f-94-df-72-e3-3c-ef-26-59')
     @commethod(3)
     def GetSignatureOriginPartName(self, signatureOriginPartName: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -202,7 +202,7 @@ class IOpcDigitalSignatureManager(ComPtr):
     def ReplaceSignatureXml(self, signaturePartName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, newSignatureXml: POINTER(Byte), count: UInt32, digitalSignature: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcDigitalSignature_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6d0b4446-cd73-4ab3-94-f4-8c-cd-f6-11-61-54')
+    _iid_ = Guid('6d0b4446-cd73-4ab3-94-f4-8c-cd-f6-11-61-54')
     @commethod(3)
     def CreatePackageRootUri(self, rootUri: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcUri_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -219,14 +219,14 @@ class IOpcFactory(ComPtr):
     def CreateDigitalSignatureManager(self, package: Windows.Win32.Storage.Packaging.Opc.IOpcPackage_head, signatureManager: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcDigitalSignatureManager_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcPackage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('42195949-3b79-4fc8-89-c6-fc-7f-b9-79-ee-70')
+    _iid_ = Guid('42195949-3b79-4fc8-89-c6-fc-7f-b9-79-ee-70')
     @commethod(3)
     def GetPartSet(self, partSet: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcPartSet_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetRelationshipSet(self, relationshipSet: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcRelationshipSet_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcPart(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('42195949-3b79-4fc8-89-c6-fc-7f-b9-79-ee-71')
+    _iid_ = Guid('42195949-3b79-4fc8-89-c6-fc-7f-b9-79-ee-71')
     @commethod(3)
     def GetRelationshipSet(self, relationshipSet: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcRelationshipSet_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -239,7 +239,7 @@ class IOpcPart(ComPtr):
     def GetCompressionOptions(self, compressionOptions: POINTER(Windows.Win32.Storage.Packaging.Opc.OPC_COMPRESSION_OPTIONS)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcPartEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('42195949-3b79-4fc8-89-c6-fc-7f-b9-79-ee-75')
+    _iid_ = Guid('42195949-3b79-4fc8-89-c6-fc-7f-b9-79-ee-75')
     @commethod(3)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -250,7 +250,7 @@ class IOpcPartEnumerator(ComPtr):
     def Clone(self, copy: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcPartEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcPartSet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('42195949-3b79-4fc8-89-c6-fc-7f-b9-79-ee-73')
+    _iid_ = Guid('42195949-3b79-4fc8-89-c6-fc-7f-b9-79-ee-73')
     @commethod(3)
     def GetPart(self, name: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, part: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcPart_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -263,7 +263,7 @@ class IOpcPartSet(ComPtr):
     def GetEnumerator(self, partEnumerator: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcPartEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcPartUri(ComPtr):
     extends: Windows.Win32.Storage.Packaging.Opc.IOpcUri
-    Guid = Guid('7d3babe7-88b2-46ba-85-cb-42-03-cb-01-6c-87')
+    _iid_ = Guid('7d3babe7-88b2-46ba-85-cb-42-03-cb-01-6c-87')
     @commethod(31)
     def ComparePartUri(self, partUri: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, comparisonResult: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
@@ -272,7 +272,7 @@ class IOpcPartUri(ComPtr):
     def IsRelationshipsPartUri(self, isRelationshipUri: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcRelationship(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('42195949-3b79-4fc8-89-c6-fc-7f-b9-79-ee-72')
+    _iid_ = Guid('42195949-3b79-4fc8-89-c6-fc-7f-b9-79-ee-72')
     @commethod(3)
     def GetId(self, relationshipIdentifier: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -285,7 +285,7 @@ class IOpcRelationship(ComPtr):
     def GetTargetMode(self, targetMode: POINTER(Windows.Win32.Storage.Packaging.Opc.OPC_URI_TARGET_MODE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcRelationshipEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('42195949-3b79-4fc8-89-c6-fc-7f-b9-79-ee-76')
+    _iid_ = Guid('42195949-3b79-4fc8-89-c6-fc-7f-b9-79-ee-76')
     @commethod(3)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -296,14 +296,14 @@ class IOpcRelationshipEnumerator(ComPtr):
     def Clone(self, copy: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcRelationshipEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcRelationshipSelector(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f8f26c7f-b28f-4899-84-c8-5d-56-39-ed-e7-5f')
+    _iid_ = Guid('f8f26c7f-b28f-4899-84-c8-5d-56-39-ed-e7-5f')
     @commethod(3)
     def GetSelectorType(self, selector: POINTER(Windows.Win32.Storage.Packaging.Opc.OPC_RELATIONSHIP_SELECTOR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetSelectionCriterion(self, selectionCriterion: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcRelationshipSelectorEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5e50a181-a91b-48ac-88-d2-bc-a3-d8-f8-c0-b1')
+    _iid_ = Guid('5e50a181-a91b-48ac-88-d2-bc-a3-d8-f8-c0-b1')
     @commethod(3)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -314,7 +314,7 @@ class IOpcRelationshipSelectorEnumerator(ComPtr):
     def Clone(self, copy: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcRelationshipSelectorEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcRelationshipSelectorSet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6e34c269-a4d3-47c0-b5-c4-87-ff-2b-3b-61-36')
+    _iid_ = Guid('6e34c269-a4d3-47c0-b5-c4-87-ff-2b-3b-61-36')
     @commethod(3)
     def Create(self, selector: Windows.Win32.Storage.Packaging.Opc.OPC_RELATIONSHIP_SELECTOR, selectionCriterion: Windows.Win32.Foundation.PWSTR, relationshipSelector: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcRelationshipSelector_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -323,7 +323,7 @@ class IOpcRelationshipSelectorSet(ComPtr):
     def GetEnumerator(self, relationshipSelectorEnumerator: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcRelationshipSelectorEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcRelationshipSet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('42195949-3b79-4fc8-89-c6-fc-7f-b9-79-ee-74')
+    _iid_ = Guid('42195949-3b79-4fc8-89-c6-fc-7f-b9-79-ee-74')
     @commethod(3)
     def GetRelationship(self, relationshipIdentifier: Windows.Win32.Foundation.PWSTR, relationship: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcRelationship_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -340,12 +340,12 @@ class IOpcRelationshipSet(ComPtr):
     def GetRelationshipsContentStream(self, contents: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcSignatureCustomObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5d77a19e-62c1-44e7-be-cd-45-da-5a-e5-1a-56')
+    _iid_ = Guid('5d77a19e-62c1-44e7-be-cd-45-da-5a-e5-1a-56')
     @commethod(3)
     def GetXml(self, xmlMarkup: POINTER(POINTER(Byte)), count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcSignatureCustomObjectEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5ee4fe1d-e1b0-4683-80-79-7e-a0-fc-f8-0b-4c')
+    _iid_ = Guid('5ee4fe1d-e1b0-4683-80-79-7e-a0-fc-f8-0b-4c')
     @commethod(3)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -356,7 +356,7 @@ class IOpcSignatureCustomObjectEnumerator(ComPtr):
     def Clone(self, copy: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcSignatureCustomObjectEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcSignatureCustomObjectSet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8f792ac5-7947-4e11-bc-3d-26-59-ff-04-6a-e1')
+    _iid_ = Guid('8f792ac5-7947-4e11-bc-3d-26-59-ff-04-6a-e1')
     @commethod(3)
     def Create(self, xmlMarkup: POINTER(Byte), count: UInt32, customObject: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcSignatureCustomObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -365,7 +365,7 @@ class IOpcSignatureCustomObjectSet(ComPtr):
     def GetEnumerator(self, customObjectEnumerator: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcSignatureCustomObjectEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcSignaturePartReference(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e24231ca-59f4-484e-b6-4b-36-ee-da-36-07-2c')
+    _iid_ = Guid('e24231ca-59f4-484e-b6-4b-36-ee-da-36-07-2c')
     @commethod(3)
     def GetPartName(self, partName: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -378,7 +378,7 @@ class IOpcSignaturePartReference(ComPtr):
     def GetTransformMethod(self, transformMethod: POINTER(Windows.Win32.Storage.Packaging.Opc.OPC_CANONICALIZATION_METHOD)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcSignaturePartReferenceEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('80eb1561-8c77-49cf-82-66-45-9b-35-6e-e9-9a')
+    _iid_ = Guid('80eb1561-8c77-49cf-82-66-45-9b-35-6e-e9-9a')
     @commethod(3)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -389,7 +389,7 @@ class IOpcSignaturePartReferenceEnumerator(ComPtr):
     def Clone(self, copy: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcSignaturePartReferenceEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcSignaturePartReferenceSet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6c9fe28c-ecd9-4b22-9d-36-7f-dd-e6-70-fe-c0')
+    _iid_ = Guid('6c9fe28c-ecd9-4b22-9d-36-7f-dd-e6-70-fe-c0')
     @commethod(3)
     def Create(self, partUri: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head, digestMethod: Windows.Win32.Foundation.PWSTR, transformMethod: Windows.Win32.Storage.Packaging.Opc.OPC_CANONICALIZATION_METHOD, partReference: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcSignaturePartReference_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -398,7 +398,7 @@ class IOpcSignaturePartReferenceSet(ComPtr):
     def GetEnumerator(self, partReferenceEnumerator: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcSignaturePartReferenceEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcSignatureReference(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1b47005e-3011-4edc-be-6f-0f-65-e5-ab-03-42')
+    _iid_ = Guid('1b47005e-3011-4edc-be-6f-0f-65-e5-ab-03-42')
     @commethod(3)
     def GetId(self, referenceId: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -413,7 +413,7 @@ class IOpcSignatureReference(ComPtr):
     def GetDigestValue(self, digestValue: POINTER(POINTER(Byte)), count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcSignatureReferenceEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('cfa59a45-28b1-4868-96-9e-fa-80-97-fd-c1-2a')
+    _iid_ = Guid('cfa59a45-28b1-4868-96-9e-fa-80-97-fd-c1-2a')
     @commethod(3)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -424,7 +424,7 @@ class IOpcSignatureReferenceEnumerator(ComPtr):
     def Clone(self, copy: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcSignatureReferenceEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcSignatureReferenceSet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f3b02d31-ab12-42dd-9e-2f-2b-16-76-1c-3c-1e')
+    _iid_ = Guid('f3b02d31-ab12-42dd-9e-2f-2b-16-76-1c-3c-1e')
     @commethod(3)
     def Create(self, referenceUri: Windows.Win32.System.Com.IUri_head, referenceId: Windows.Win32.Foundation.PWSTR, type: Windows.Win32.Foundation.PWSTR, digestMethod: Windows.Win32.Foundation.PWSTR, transformMethod: Windows.Win32.Storage.Packaging.Opc.OPC_CANONICALIZATION_METHOD, reference: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcSignatureReference_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -433,7 +433,7 @@ class IOpcSignatureReferenceSet(ComPtr):
     def GetEnumerator(self, referenceEnumerator: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcSignatureReferenceEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcSignatureRelationshipReference(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('57babac6-9d4a-4e50-8b-86-e5-d4-05-1e-ae-7c')
+    _iid_ = Guid('57babac6-9d4a-4e50-8b-86-e5-d4-05-1e-ae-7c')
     @commethod(3)
     def GetSourceUri(self, sourceUri: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcUri_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -448,7 +448,7 @@ class IOpcSignatureRelationshipReference(ComPtr):
     def GetRelationshipSelectorEnumerator(self, selectorEnumerator: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcRelationshipSelectorEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcSignatureRelationshipReferenceEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('773ba3e4-f021-48e4-aa-04-98-16-db-5d-34-95')
+    _iid_ = Guid('773ba3e4-f021-48e4-aa-04-98-16-db-5d-34-95')
     @commethod(3)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -459,7 +459,7 @@ class IOpcSignatureRelationshipReferenceEnumerator(ComPtr):
     def Clone(self, copy: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcSignatureRelationshipReferenceEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcSignatureRelationshipReferenceSet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9f863ca5-3631-404c-82-8d-80-7e-07-15-06-9b')
+    _iid_ = Guid('9f863ca5-3631-404c-82-8d-80-7e-07-15-06-9b')
     @commethod(3)
     def Create(self, sourceUri: Windows.Win32.Storage.Packaging.Opc.IOpcUri_head, digestMethod: Windows.Win32.Foundation.PWSTR, relationshipSigningOption: Windows.Win32.Storage.Packaging.Opc.OPC_RELATIONSHIPS_SIGNING_OPTION, selectorSet: Windows.Win32.Storage.Packaging.Opc.IOpcRelationshipSelectorSet_head, transformMethod: Windows.Win32.Storage.Packaging.Opc.OPC_CANONICALIZATION_METHOD, relationshipReference: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcSignatureRelationshipReference_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -470,7 +470,7 @@ class IOpcSignatureRelationshipReferenceSet(ComPtr):
     def GetEnumerator(self, relationshipReferenceEnumerator: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcSignatureRelationshipReferenceEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcSigningOptions(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('50d2d6a5-7aeb-46c0-b2-41-43-ab-0e-9b-40-7e')
+    _iid_ = Guid('50d2d6a5-7aeb-46c0-b2-41-43-ab-0e-9b-40-7e')
     @commethod(3)
     def GetSignatureId(self, signatureId: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -507,7 +507,7 @@ class IOpcSigningOptions(ComPtr):
     def SetSignaturePartName(self, signaturePartName: Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IOpcUri(ComPtr):
     extends: Windows.Win32.System.Com.IUri
-    Guid = Guid('bc9c1b9b-d62c-49eb-ae-f0-3b-4e-0b-28-eb-ed')
+    _iid_ = Guid('bc9c1b9b-d62c-49eb-ae-f0-3b-4e-0b-28-eb-ed')
     @commethod(28)
     def GetRelationshipsPartUri(self, relationshipPartUri: POINTER(Windows.Win32.Storage.Packaging.Opc.IOpcPartUri_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)

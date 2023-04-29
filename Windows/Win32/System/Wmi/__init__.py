@@ -104,7 +104,7 @@ CIM_OBJECT: CIMTYPE_ENUMERATION = 13
 CIM_FLAG_ARRAY: CIMTYPE_ENUMERATION = 8192
 class IEnumWbemClassObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('027947e1-d731-11ce-a3-57-00-00-00-00-00-01')
+    _iid_ = Guid('027947e1-d731-11ce-a3-57-00-00-00-00-00-01')
     @commethod(3)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -117,7 +117,7 @@ class IEnumWbemClassObject(ComPtr):
     def Skip(self, lTimeout: Int32, nCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMofCompiler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6daf974e-2e37-11d2-ae-c9-00-c0-4f-b6-88-20')
+    _iid_ = Guid('6daf974e-2e37-11d2-ae-c9-00-c0-4f-b6-88-20')
     @commethod(3)
     def CompileFile(self, FileName: Windows.Win32.Foundation.PWSTR, ServerAndNamespace: Windows.Win32.Foundation.PWSTR, User: Windows.Win32.Foundation.PWSTR, Authority: Windows.Win32.Foundation.PWSTR, Password: Windows.Win32.Foundation.PWSTR, lOptionFlags: Int32, lClassFlags: Int32, lInstanceFlags: Int32, pInfo: POINTER(Windows.Win32.System.Wmi.WBEM_COMPILE_STATUS_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -126,7 +126,7 @@ class IMofCompiler(ComPtr):
     def CreateBMOF(self, TextFileName: Windows.Win32.Foundation.PWSTR, BMOFFileName: Windows.Win32.Foundation.PWSTR, ServerAndNamespace: Windows.Win32.Foundation.PWSTR, lOptionFlags: Int32, lClassFlags: Int32, lInstanceFlags: Int32, pInfo: POINTER(Windows.Win32.System.Wmi.WBEM_COMPILE_STATUS_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemDateTime(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('5e97458a-cf77-11d3-b3-8f-00-10-5a-1f-47-3a')
+    _iid_ = Guid('5e97458a-cf77-11d3-b3-8f-00-10-5a-1f-47-3a')
     @commethod(7)
     def get_Value(self, strValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -209,24 +209,24 @@ class ISWbemDateTime(ComPtr):
     def SetFileTime(self, strFileTime: Windows.Win32.Foundation.BSTR, bIsLocal: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemEventSource(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('27d54d92-0ebe-11d2-8b-22-00-60-08-06-d9-b6')
+    _iid_ = Guid('27d54d92-0ebe-11d2-8b-22-00-60-08-06-d9-b6')
     @commethod(7)
     def NextEvent(self, iTimeoutMs: Int32, objWbemObject: POINTER(Windows.Win32.System.Wmi.ISWbemObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Security_(self, objWbemSecurity: POINTER(Windows.Win32.System.Wmi.ISWbemSecurity_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemLastError(ComPtr):
     extends: Windows.Win32.System.Wmi.ISWbemObject
-    Guid = Guid('d962db84-d4bb-11d1-8b-09-00-60-08-06-d9-b6')
+    _iid_ = Guid('d962db84-d4bb-11d1-8b-09-00-60-08-06-d9-b6')
 class ISWbemLocator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('76a6415b-cb41-11d1-8b-02-00-60-08-06-d9-b6')
+    _iid_ = Guid('76a6415b-cb41-11d1-8b-02-00-60-08-06-d9-b6')
     @commethod(7)
     def ConnectServer(self, strServer: Windows.Win32.Foundation.BSTR, strNamespace: Windows.Win32.Foundation.BSTR, strUser: Windows.Win32.Foundation.BSTR, strPassword: Windows.Win32.Foundation.BSTR, strLocale: Windows.Win32.Foundation.BSTR, strAuthority: Windows.Win32.Foundation.BSTR, iSecurityFlags: Int32, objWbemNamedValueSet: Windows.Win32.System.Com.IDispatch_head, objWbemServices: POINTER(Windows.Win32.System.Wmi.ISWbemServices_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Security_(self, objWbemSecurity: POINTER(Windows.Win32.System.Wmi.ISWbemSecurity_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemMethod(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('422e8e90-d955-11d1-8b-09-00-60-08-06-d9-b6')
+    _iid_ = Guid('422e8e90-d955-11d1-8b-09-00-60-08-06-d9-b6')
     @commethod(7)
     def get_Name(self, strName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -239,7 +239,7 @@ class ISWbemMethod(ComPtr):
     def get_Qualifiers_(self, objWbemQualifierSet: POINTER(Windows.Win32.System.Wmi.ISWbemQualifierSet_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemMethodSet(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c93ba292-d955-11d1-8b-09-00-60-08-06-d9-b6')
+    _iid_ = Guid('c93ba292-d955-11d1-8b-09-00-60-08-06-d9-b6')
     @commethod(7)
     def get__NewEnum(self, pUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -248,7 +248,7 @@ class ISWbemMethodSet(ComPtr):
     def get_Count(self, iCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemNamedValue(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('76a64164-cb41-11d1-8b-02-00-60-08-06-d9-b6')
+    _iid_ = Guid('76a64164-cb41-11d1-8b-02-00-60-08-06-d9-b6')
     @commethod(7)
     def get_Value(self, varValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -257,7 +257,7 @@ class ISWbemNamedValue(ComPtr):
     def get_Name(self, strName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemNamedValueSet(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('cf2376ea-ce8c-11d1-8b-05-00-60-08-06-d9-b6')
+    _iid_ = Guid('cf2376ea-ce8c-11d1-8b-05-00-60-08-06-d9-b6')
     @commethod(7)
     def get__NewEnum(self, pUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -274,7 +274,7 @@ class ISWbemNamedValueSet(ComPtr):
     def DeleteAll(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemObject(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('76a6415a-cb41-11d1-8b-02-00-60-08-06-d9-b6')
+    _iid_ = Guid('76a6415a-cb41-11d1-8b-02-00-60-08-06-d9-b6')
     @commethod(7)
     def Put_(self, iFlags: Int32, objWbemNamedValueSet: Windows.Win32.System.Com.IDispatch_head, objWbemObjectPath: POINTER(Windows.Win32.System.Wmi.ISWbemObjectPath_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -327,7 +327,7 @@ class ISWbemObject(ComPtr):
     def get_Security_(self, objWbemSecurity: POINTER(Windows.Win32.System.Wmi.ISWbemSecurity_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemObjectEx(ComPtr):
     extends: Windows.Win32.System.Wmi.ISWbemObject
-    Guid = Guid('269ad56a-8a67-4129-bc-8c-05-06-dc-fe-98-80')
+    _iid_ = Guid('269ad56a-8a67-4129-bc-8c-05-06-dc-fe-98-80')
     @commethod(32)
     def Refresh_(self, iFlags: Int32, objWbemNamedValueSet: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(33)
@@ -338,7 +338,7 @@ class ISWbemObjectEx(ComPtr):
     def SetFromText_(self, bsText: Windows.Win32.Foundation.BSTR, iObjectTextFormat: Windows.Win32.System.Wmi.WbemObjectTextFormatEnum, iFlags: Int32, objWbemNamedValueSet: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemObjectPath(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('5791bc27-ce9c-11d1-97-bf-00-00-f8-1e-84-9c')
+    _iid_ = Guid('5791bc27-ce9c-11d1-97-bf-00-00-f8-1e-84-9c')
     @commethod(7)
     def get_Path(self, strPath: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -387,7 +387,7 @@ class ISWbemObjectPath(ComPtr):
     def put_Authority(self, strAuthority: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemObjectSet(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('76a6415f-cb41-11d1-8b-02-00-60-08-06-d9-b6')
+    _iid_ = Guid('76a6415f-cb41-11d1-8b-02-00-60-08-06-d9-b6')
     @commethod(7)
     def get__NewEnum(self, pUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -400,7 +400,7 @@ class ISWbemObjectSet(ComPtr):
     def ItemIndex(self, lIndex: Int32, objWbemObject: POINTER(Windows.Win32.System.Wmi.ISWbemObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemPrivilege(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('26ee67bd-5804-11d2-8b-4a-00-60-08-06-d9-b6')
+    _iid_ = Guid('26ee67bd-5804-11d2-8b-4a-00-60-08-06-d9-b6')
     @commethod(7)
     def get_IsEnabled(self, bIsEnabled: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -413,7 +413,7 @@ class ISWbemPrivilege(ComPtr):
     def get_Identifier(self, iPrivilege: POINTER(Windows.Win32.System.Wmi.WbemPrivilegeEnum)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemPrivilegeSet(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('26ee67bf-5804-11d2-8b-4a-00-60-08-06-d9-b6')
+    _iid_ = Guid('26ee67bf-5804-11d2-8b-4a-00-60-08-06-d9-b6')
     @commethod(7)
     def get__NewEnum(self, pUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -430,7 +430,7 @@ class ISWbemPrivilegeSet(ComPtr):
     def AddAsString(self, strPrivilege: Windows.Win32.Foundation.BSTR, bIsEnabled: Windows.Win32.Foundation.VARIANT_BOOL, objWbemPrivilege: POINTER(Windows.Win32.System.Wmi.ISWbemPrivilege_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemProperty(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('1a388f98-d4ba-11d1-8b-09-00-60-08-06-d9-b6')
+    _iid_ = Guid('1a388f98-d4ba-11d1-8b-09-00-60-08-06-d9-b6')
     @commethod(7)
     def get_Value(self, varValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -449,7 +449,7 @@ class ISWbemProperty(ComPtr):
     def get_IsArray(self, bIsArray: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemPropertySet(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('dea0a7b2-d4ba-11d1-8b-09-00-60-08-06-d9-b6')
+    _iid_ = Guid('dea0a7b2-d4ba-11d1-8b-09-00-60-08-06-d9-b6')
     @commethod(7)
     def get__NewEnum(self, pUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -462,7 +462,7 @@ class ISWbemPropertySet(ComPtr):
     def Remove(self, strName: Windows.Win32.Foundation.BSTR, iFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemQualifier(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('79b05932-d3b7-11d1-8b-06-00-60-08-06-d9-b6')
+    _iid_ = Guid('79b05932-d3b7-11d1-8b-06-00-60-08-06-d9-b6')
     @commethod(7)
     def get_Value(self, varValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -487,7 +487,7 @@ class ISWbemQualifier(ComPtr):
     def get_IsAmended(self, bIsAmended: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemQualifierSet(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('9b16ed16-d3df-11d1-8b-08-00-60-08-06-d9-b6')
+    _iid_ = Guid('9b16ed16-d3df-11d1-8b-08-00-60-08-06-d9-b6')
     @commethod(7)
     def get__NewEnum(self, pUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -500,7 +500,7 @@ class ISWbemQualifierSet(ComPtr):
     def Remove(self, strName: Windows.Win32.Foundation.BSTR, iFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemRefreshableItem(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('5ad4bf92-daab-11d3-b3-8f-00-10-5a-1f-47-3a')
+    _iid_ = Guid('5ad4bf92-daab-11d3-b3-8f-00-10-5a-1f-47-3a')
     @commethod(7)
     def get_Index(self, iIndex: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -515,7 +515,7 @@ class ISWbemRefreshableItem(ComPtr):
     def Remove(self, iFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemRefresher(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('14d8250e-d9c2-11d3-b3-8f-00-10-5a-1f-47-3a')
+    _iid_ = Guid('14d8250e-d9c2-11d3-b3-8f-00-10-5a-1f-47-3a')
     @commethod(7)
     def get__NewEnum(self, pUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -538,7 +538,7 @@ class ISWbemRefresher(ComPtr):
     def DeleteAll(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemSecurity(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('b54d66e6-2287-11d2-8b-33-00-60-08-06-d9-b6')
+    _iid_ = Guid('b54d66e6-2287-11d2-8b-33-00-60-08-06-d9-b6')
     @commethod(7)
     def get_ImpersonationLevel(self, iImpersonationLevel: POINTER(Windows.Win32.System.Wmi.WbemImpersonationLevelEnum)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -551,7 +551,7 @@ class ISWbemSecurity(ComPtr):
     def get_Privileges(self, objWbemPrivilegeSet: POINTER(Windows.Win32.System.Wmi.ISWbemPrivilegeSet_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemServices(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('76a6415c-cb41-11d1-8b-02-00-60-08-06-d9-b6')
+    _iid_ = Guid('76a6415c-cb41-11d1-8b-02-00-60-08-06-d9-b6')
     @commethod(7)
     def Get(self, strObjectPath: Windows.Win32.Foundation.BSTR, iFlags: Int32, objWbemNamedValueSet: Windows.Win32.System.Com.IDispatch_head, objWbemObject: POINTER(Windows.Win32.System.Wmi.ISWbemObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -592,27 +592,27 @@ class ISWbemServices(ComPtr):
     def get_Security_(self, objWbemSecurity: POINTER(Windows.Win32.System.Wmi.ISWbemSecurity_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemServicesEx(ComPtr):
     extends: Windows.Win32.System.Wmi.ISWbemServices
-    Guid = Guid('d2f68443-85dc-427e-91-d8-36-65-54-cc-75-4c')
+    _iid_ = Guid('d2f68443-85dc-427e-91-d8-36-65-54-cc-75-4c')
     @commethod(26)
     def Put(self, objWbemObject: Windows.Win32.System.Wmi.ISWbemObjectEx_head, iFlags: Int32, objWbemNamedValueSet: Windows.Win32.System.Com.IDispatch_head, objWbemObjectPath: POINTER(Windows.Win32.System.Wmi.ISWbemObjectPath_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def PutAsync(self, objWbemSink: Windows.Win32.System.Wmi.ISWbemSink_head, objWbemObject: Windows.Win32.System.Wmi.ISWbemObjectEx_head, iFlags: Int32, objWbemNamedValueSet: Windows.Win32.System.Com.IDispatch_head, objWbemAsyncContext: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemSink(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('75718c9f-f029-11d1-a1-ac-00-c0-4f-b6-c2-23')
+    _iid_ = Guid('75718c9f-f029-11d1-a1-ac-00-c0-4f-b6-c2-23')
     @commethod(7)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISWbemSinkEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('75718ca0-f029-11d1-a1-ac-00-c0-4f-b6-c2-23')
+    _iid_ = Guid('75718ca0-f029-11d1-a1-ac-00-c0-4f-b6-c2-23')
 class IUnsecuredApartment(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1cfaba8c-1523-11d1-ad-79-00-c0-4f-d8-fd-ff')
+    _iid_ = Guid('1cfaba8c-1523-11d1-ad-79-00-c0-4f-d8-fd-ff')
     @commethod(3)
     def CreateObjectStub(self, pObject: Windows.Win32.System.Com.IUnknown_head, ppStub: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMIExtension(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('adc1f06e-5c7e-11d2-8b-74-00-10-4b-2a-fb-41')
+    _iid_ = Guid('adc1f06e-5c7e-11d2-8b-74-00-10-4b-2a-fb-41')
     @commethod(7)
     def get_WMIObjectPath(self, strWMIObjectPath: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -621,26 +621,26 @@ class IWMIExtension(ComPtr):
     def GetWMIServices(self, objWMIServices: POINTER(Windows.Win32.System.Wmi.ISWbemServices_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemAddressResolution(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f7ce2e12-8c90-11d1-9e-7b-00-c0-4f-c3-24-a8')
+    _iid_ = Guid('f7ce2e12-8c90-11d1-9e-7b-00-c0-4f-c3-24-a8')
     @commethod(3)
     def Resolve(self, wszNamespacePath: Windows.Win32.Foundation.PWSTR, wszAddressType: Windows.Win32.Foundation.PWSTR, pdwAddressLength: POINTER(UInt32), pabBinaryAddress: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemBackupRestore(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c49e32c7-bc8b-11d2-85-d4-00-10-5a-1f-83-04')
+    _iid_ = Guid('c49e32c7-bc8b-11d2-85-d4-00-10-5a-1f-83-04')
     @commethod(3)
     def Backup(self, strBackupToFile: Windows.Win32.Foundation.PWSTR, lFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Restore(self, strRestoreFromFile: Windows.Win32.Foundation.PWSTR, lFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemBackupRestoreEx(ComPtr):
     extends: Windows.Win32.System.Wmi.IWbemBackupRestore
-    Guid = Guid('a359dec5-e813-4834-8a-2a-ba-7f-1d-77-7d-76')
+    _iid_ = Guid('a359dec5-e813-4834-8a-2a-ba-7f-1d-77-7d-76')
     @commethod(5)
     def Pause(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Resume(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemCallResult(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('44aca675-e8fc-11d0-a0-7c-00-c0-4f-b6-88-20')
+    _iid_ = Guid('44aca675-e8fc-11d0-a0-7c-00-c0-4f-b6-88-20')
     @commethod(3)
     def GetResultObject(self, lTimeout: Int32, ppResultObject: POINTER(Windows.Win32.System.Wmi.IWbemClassObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -651,7 +651,7 @@ class IWbemCallResult(ComPtr):
     def GetCallStatus(self, lTimeout: Int32, plStatus: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemClassObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('dc12a681-737f-11cf-88-4d-00-aa-00-4b-2e-24')
+    _iid_ = Guid('dc12a681-737f-11cf-88-4d-00-aa-00-4b-2e-24')
     @commethod(3)
     def GetQualifierSet(self, ppQualSet: POINTER(Windows.Win32.System.Wmi.IWbemQualifierSet_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -702,7 +702,7 @@ class IWbemClassObject(ComPtr):
     def GetMethodOrigin(self, wszMethodName: Windows.Win32.Foundation.PWSTR, pstrClassName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemClientConnectionTransport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a889c72a-fcc1-4a9e-af-61-ed-07-13-33-fb-5b')
+    _iid_ = Guid('a889c72a-fcc1-4a9e-af-61-ed-07-13-33-fb-5b')
     @commethod(3)
     def Open(self, strAddressType: Windows.Win32.Foundation.BSTR, dwBinaryAddressLength: UInt32, abBinaryAddress: POINTER(Byte), strObject: Windows.Win32.Foundation.BSTR, strUser: Windows.Win32.Foundation.BSTR, strPassword: Windows.Win32.Foundation.BSTR, strLocale: Windows.Win32.Foundation.BSTR, lFlags: Int32, pCtx: Windows.Win32.System.Wmi.IWbemContext_head, riid: POINTER(Guid), pInterface: POINTER(c_void_p), pCallRes: POINTER(Windows.Win32.System.Wmi.IWbemCallResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -711,12 +711,12 @@ class IWbemClientConnectionTransport(ComPtr):
     def Cancel(self, lFlags: Int32, pHandler: Windows.Win32.System.Wmi.IWbemObjectSink_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemClientTransport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f7ce2e11-8c90-11d1-9e-7b-00-c0-4f-c3-24-a8')
+    _iid_ = Guid('f7ce2e11-8c90-11d1-9e-7b-00-c0-4f-c3-24-a8')
     @commethod(3)
     def ConnectServer(self, strAddressType: Windows.Win32.Foundation.BSTR, dwBinaryAddressLength: UInt32, abBinaryAddress: POINTER(Byte), strNetworkResource: Windows.Win32.Foundation.BSTR, strUser: Windows.Win32.Foundation.BSTR, strPassword: Windows.Win32.Foundation.BSTR, strLocale: Windows.Win32.Foundation.BSTR, lSecurityFlags: Int32, strAuthority: Windows.Win32.Foundation.BSTR, pCtx: Windows.Win32.System.Wmi.IWbemContext_head, ppNamespace: POINTER(Windows.Win32.System.Wmi.IWbemServices_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemConfigureRefresher(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('49353c92-516b-11d1-ae-a6-00-c0-4f-b6-88-20')
+    _iid_ = Guid('49353c92-516b-11d1-ae-a6-00-c0-4f-b6-88-20')
     @commethod(3)
     def AddObjectByPath(self, pNamespace: Windows.Win32.System.Wmi.IWbemServices_head, wszPath: Windows.Win32.Foundation.PWSTR, lFlags: Int32, pContext: Windows.Win32.System.Wmi.IWbemContext_head, ppRefreshable: POINTER(Windows.Win32.System.Wmi.IWbemClassObject_head), plId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -729,12 +729,12 @@ class IWbemConfigureRefresher(ComPtr):
     def AddEnum(self, pNamespace: Windows.Win32.System.Wmi.IWbemServices_head, wszClassName: Windows.Win32.Foundation.PWSTR, lFlags: Int32, pContext: Windows.Win32.System.Wmi.IWbemContext_head, ppEnum: POINTER(Windows.Win32.System.Wmi.IWbemHiPerfEnum_head), plId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemConnectorLogin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d8ec9cb1-b135-4f10-8b-1b-c7-18-8b-b0-d1-86')
+    _iid_ = Guid('d8ec9cb1-b135-4f10-8b-1b-c7-18-8b-b0-d1-86')
     @commethod(3)
     def ConnectorLogin(self, wszNetworkResource: Windows.Win32.Foundation.PWSTR, wszPreferredLocale: Windows.Win32.Foundation.PWSTR, lFlags: Int32, pCtx: Windows.Win32.System.Wmi.IWbemContext_head, riid: POINTER(Guid), pInterface: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemConstructClassObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9ef76194-70d5-11d1-ad-90-00-c0-4f-d8-fd-ff')
+    _iid_ = Guid('9ef76194-70d5-11d1-ad-90-00-c0-4f-d8-fd-ff')
     @commethod(3)
     def SetInheritanceChain(self, lNumAntecedents: Int32, awszAntecedents: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -745,7 +745,7 @@ class IWbemConstructClassObject(ComPtr):
     def SetServerNamespace(self, wszServer: Windows.Win32.Foundation.PWSTR, wszNamespace: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('44aca674-e8fc-11d0-a0-7c-00-c0-4f-b6-88-20')
+    _iid_ = Guid('44aca674-e8fc-11d0-a0-7c-00-c0-4f-b6-88-20')
     @commethod(3)
     def Clone(self, ppNewCopy: POINTER(Windows.Win32.System.Wmi.IWbemContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -766,43 +766,43 @@ class IWbemContext(ComPtr):
     def DeleteAll(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemDecoupledBasicEventProvider(ComPtr):
     extends: Windows.Win32.System.Wmi.IWbemDecoupledRegistrar
-    Guid = Guid('86336d20-ca11-4786-9e-f1-bc-8a-94-6b-42-fc')
+    _iid_ = Guid('86336d20-ca11-4786-9e-f1-bc-8a-94-6b-42-fc')
     @commethod(5)
     def GetSink(self, a_Flags: Int32, a_Context: Windows.Win32.System.Wmi.IWbemContext_head, a_Sink: POINTER(Windows.Win32.System.Wmi.IWbemObjectSink_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetService(self, a_Flags: Int32, a_Context: Windows.Win32.System.Wmi.IWbemContext_head, a_Service: POINTER(Windows.Win32.System.Wmi.IWbemServices_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemDecoupledRegistrar(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1005cbcf-e64f-4646-bc-d3-3a-08-9d-8a-84-b4')
+    _iid_ = Guid('1005cbcf-e64f-4646-bc-d3-3a-08-9d-8a-84-b4')
     @commethod(3)
     def Register(self, a_Flags: Int32, a_Context: Windows.Win32.System.Wmi.IWbemContext_head, a_User: Windows.Win32.Foundation.PWSTR, a_Locale: Windows.Win32.Foundation.PWSTR, a_Scope: Windows.Win32.Foundation.PWSTR, a_Registration: Windows.Win32.Foundation.PWSTR, pIUnknown: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UnRegister(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemEventConsumerProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e246107a-b06e-11d0-ad-61-00-c0-4f-d8-fd-ff')
+    _iid_ = Guid('e246107a-b06e-11d0-ad-61-00-c0-4f-d8-fd-ff')
     @commethod(3)
     def FindConsumer(self, pLogicalConsumer: Windows.Win32.System.Wmi.IWbemClassObject_head, ppConsumer: POINTER(Windows.Win32.System.Wmi.IWbemUnboundObjectSink_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemEventProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e245105b-b06e-11d0-ad-61-00-c0-4f-d8-fd-ff')
+    _iid_ = Guid('e245105b-b06e-11d0-ad-61-00-c0-4f-d8-fd-ff')
     @commethod(3)
     def ProvideEvents(self, pSink: Windows.Win32.System.Wmi.IWbemObjectSink_head, lFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemEventProviderQuerySink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('580acaf8-fa1c-11d0-ad-72-00-c0-4f-d8-fd-ff')
+    _iid_ = Guid('580acaf8-fa1c-11d0-ad-72-00-c0-4f-d8-fd-ff')
     @commethod(3)
     def NewQuery(self, dwId: UInt32, wszQueryLanguage: POINTER(UInt16), wszQuery: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CancelQuery(self, dwId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemEventProviderSecurity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('631f7d96-d993-11d2-b3-39-00-10-5a-1f-4a-af')
+    _iid_ = Guid('631f7d96-d993-11d2-b3-39-00-10-5a-1f-4a-af')
     @commethod(3)
     def AccessCheck(self, wszQueryLanguage: POINTER(UInt16), wszQuery: POINTER(UInt16), lSidLength: Int32, pSid: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemEventSink(ComPtr):
     extends: Windows.Win32.System.Wmi.IWbemObjectSink
-    Guid = Guid('3ae0080a-7e3a-4366-bf-89-0f-ee-dc-93-16-59')
+    _iid_ = Guid('3ae0080a-7e3a-4366-bf-89-0f-ee-dc-93-16-59')
     @commethod(5)
     def SetSinkSecurity(self, lSDLength: Int32, pSD: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -813,7 +813,7 @@ class IWbemEventSink(ComPtr):
     def SetBatchingParameters(self, lFlags: Int32, dwMaxBufferSize: UInt32, dwMaxSendLatency: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemHiPerfEnum(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2705c288-79ae-11d2-b3-48-00-10-5a-1f-81-77')
+    _iid_ = Guid('2705c288-79ae-11d2-b3-48-00-10-5a-1f-81-77')
     @commethod(3)
     def AddObjects(self, lFlags: Int32, uNumObjects: UInt32, apIds: POINTER(Int32), apObj: POINTER(Windows.Win32.System.Wmi.IWbemObjectAccess_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -824,7 +824,7 @@ class IWbemHiPerfEnum(ComPtr):
     def RemoveAll(self, lFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemHiPerfProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('49353c93-516b-11d1-ae-a6-00-c0-4f-b6-88-20')
+    _iid_ = Guid('49353c93-516b-11d1-ae-a6-00-c0-4f-b6-88-20')
     @commethod(3)
     def QueryInstances(self, pNamespace: Windows.Win32.System.Wmi.IWbemServices_head, wszClass: Windows.Win32.Foundation.PWSTR, lFlags: Int32, pCtx: Windows.Win32.System.Wmi.IWbemContext_head, pSink: Windows.Win32.System.Wmi.IWbemObjectSink_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -839,7 +839,7 @@ class IWbemHiPerfProvider(ComPtr):
     def GetObjects(self, pNamespace: Windows.Win32.System.Wmi.IWbemServices_head, lNumObjects: Int32, apObj: POINTER(Windows.Win32.System.Wmi.IWbemObjectAccess_head), lFlags: Int32, pContext: Windows.Win32.System.Wmi.IWbemContext_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemLevel1Login(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f309ad18-d86a-11d0-a0-75-00-c0-4f-b6-88-20')
+    _iid_ = Guid('f309ad18-d86a-11d0-a0-75-00-c0-4f-b6-88-20')
     @commethod(3)
     def EstablishPosition(self, wszLocaleList: Windows.Win32.Foundation.PWSTR, dwNumLocales: UInt32, reserved: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -850,12 +850,12 @@ class IWbemLevel1Login(ComPtr):
     def NTLMLogin(self, wszNetworkResource: Windows.Win32.Foundation.PWSTR, wszPreferredLocale: Windows.Win32.Foundation.PWSTR, lFlags: Int32, pCtx: Windows.Win32.System.Wmi.IWbemContext_head, ppNamespace: POINTER(Windows.Win32.System.Wmi.IWbemServices_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemLocator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('dc12a687-737f-11cf-88-4d-00-aa-00-4b-2e-24')
+    _iid_ = Guid('dc12a687-737f-11cf-88-4d-00-aa-00-4b-2e-24')
     @commethod(3)
     def ConnectServer(self, strNetworkResource: Windows.Win32.Foundation.BSTR, strUser: Windows.Win32.Foundation.BSTR, strPassword: Windows.Win32.Foundation.BSTR, strLocale: Windows.Win32.Foundation.BSTR, lSecurityFlags: Int32, strAuthority: Windows.Win32.Foundation.BSTR, pCtx: Windows.Win32.System.Wmi.IWbemContext_head, ppNamespace: POINTER(Windows.Win32.System.Wmi.IWbemServices_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemObjectAccess(ComPtr):
     extends: Windows.Win32.System.Wmi.IWbemClassObject
-    Guid = Guid('49353c9a-516b-11d1-ae-a6-00-c0-4f-b6-88-20')
+    _iid_ = Guid('49353c9a-516b-11d1-ae-a6-00-c0-4f-b6-88-20')
     @commethod(27)
     def GetPropertyHandle(self, wszPropertyName: Windows.Win32.Foundation.PWSTR, pType: POINTER(Int32), plHandle: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
@@ -878,14 +878,14 @@ class IWbemObjectAccess(ComPtr):
     def Unlock(self, lFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemObjectSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7c857801-7381-11cf-88-4d-00-aa-00-4b-2e-24')
+    _iid_ = Guid('7c857801-7381-11cf-88-4d-00-aa-00-4b-2e-24')
     @commethod(3)
     def Indicate(self, lObjectCount: Int32, apObjArray: POINTER(Windows.Win32.System.Wmi.IWbemClassObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetStatus(self, lFlags: Int32, hResult: Windows.Win32.Foundation.HRESULT, strParam: Windows.Win32.Foundation.BSTR, pObjParam: Windows.Win32.System.Wmi.IWbemClassObject_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemObjectSinkEx(ComPtr):
     extends: Windows.Win32.System.Wmi.IWbemObjectSink
-    Guid = Guid('e7d35cfa-348b-485e-b5-24-25-27-25-d6-97-ca')
+    _iid_ = Guid('e7d35cfa-348b-485e-b5-24-25-27-25-d6-97-ca')
     @commethod(5)
     def WriteMessage(self, uChannel: UInt32, strMessage: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -898,14 +898,14 @@ class IWbemObjectSinkEx(ComPtr):
     def WriteStreamParameter(self, strName: Windows.Win32.Foundation.BSTR, vtValue: POINTER(Windows.Win32.System.Variant.VARIANT_head), ulType: UInt32, ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemObjectTextSrc(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bfbf883a-cad7-11d3-a1-1b-00-10-5a-1f-51-5a')
+    _iid_ = Guid('bfbf883a-cad7-11d3-a1-1b-00-10-5a-1f-51-5a')
     @commethod(3)
     def GetText(self, lFlags: Int32, pObj: Windows.Win32.System.Wmi.IWbemClassObject_head, uObjTextFormat: UInt32, pCtx: Windows.Win32.System.Wmi.IWbemContext_head, strText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CreateFromText(self, lFlags: Int32, strText: Windows.Win32.Foundation.BSTR, uObjTextFormat: UInt32, pCtx: Windows.Win32.System.Wmi.IWbemContext_head, pNewObj: POINTER(Windows.Win32.System.Wmi.IWbemClassObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemPath(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3bc15af2-736c-477e-9e-51-23-8a-f8-66-7d-cc')
+    _iid_ = Guid('3bc15af2-736c-477e-9e-51-23-8a-f8-66-7d-cc')
     @commethod(3)
     def SetText(self, uMode: UInt32, pszPath: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -960,7 +960,7 @@ class IWbemPath(ComPtr):
     def IsSameClassName(self, wszClass: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.BOOL: ...
 class IWbemPathKeyList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9ae62877-7544-4bb0-aa-26-a1-38-24-65-9e-d6')
+    _iid_ = Guid('9ae62877-7544-4bb0-aa-26-a1-38-24-65-9e-d6')
     @commethod(3)
     def GetCount(self, puKeyCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -983,29 +983,29 @@ class IWbemPathKeyList(ComPtr):
     def GetText(self, lFlags: Int32, puBuffLength: POINTER(UInt32), pszText: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemPropertyProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ce61e841-65bc-11d0-b6-bd-00-aa-00-32-40-c7')
+    _iid_ = Guid('ce61e841-65bc-11d0-b6-bd-00-aa-00-32-40-c7')
     @commethod(3)
     def GetProperty(self, lFlags: Int32, strLocale: Windows.Win32.Foundation.BSTR, strClassMapping: Windows.Win32.Foundation.BSTR, strInstMapping: Windows.Win32.Foundation.BSTR, strPropMapping: Windows.Win32.Foundation.BSTR, pvValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def PutProperty(self, lFlags: Int32, strLocale: Windows.Win32.Foundation.BSTR, strClassMapping: Windows.Win32.Foundation.BSTR, strInstMapping: Windows.Win32.Foundation.BSTR, strPropMapping: Windows.Win32.Foundation.BSTR, pvValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemProviderIdentity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('631f7d97-d993-11d2-b3-39-00-10-5a-1f-4a-af')
+    _iid_ = Guid('631f7d97-d993-11d2-b3-39-00-10-5a-1f-4a-af')
     @commethod(3)
     def SetRegistrationObject(self, lFlags: Int32, pProvReg: Windows.Win32.System.Wmi.IWbemClassObject_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemProviderInit(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1be41572-91dd-11d1-ae-b2-00-c0-4f-b6-88-20')
+    _iid_ = Guid('1be41572-91dd-11d1-ae-b2-00-c0-4f-b6-88-20')
     @commethod(3)
     def Initialize(self, wszUser: Windows.Win32.Foundation.PWSTR, lFlags: Int32, wszNamespace: Windows.Win32.Foundation.PWSTR, wszLocale: Windows.Win32.Foundation.PWSTR, pNamespace: Windows.Win32.System.Wmi.IWbemServices_head, pCtx: Windows.Win32.System.Wmi.IWbemContext_head, pInitSink: Windows.Win32.System.Wmi.IWbemProviderInitSink_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemProviderInitSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1be41571-91dd-11d1-ae-b2-00-c0-4f-b6-88-20')
+    _iid_ = Guid('1be41571-91dd-11d1-ae-b2-00-c0-4f-b6-88-20')
     @commethod(3)
     def SetStatus(self, lStatus: Int32, lFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemQualifierSet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('dc12a680-737f-11cf-88-4d-00-aa-00-4b-2e-24')
+    _iid_ = Guid('dc12a680-737f-11cf-88-4d-00-aa-00-4b-2e-24')
     @commethod(3)
     def Get(self, wszName: Windows.Win32.Foundation.PWSTR, lFlags: Int32, pVal: POINTER(Windows.Win32.System.Variant.VARIANT_head), plFlavor: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1022,7 +1022,7 @@ class IWbemQualifierSet(ComPtr):
     def EndEnumeration(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemQuery(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('81166f58-dd98-11d3-a1-20-00-10-5a-1f-51-5a')
+    _iid_ = Guid('81166f58-dd98-11d3-a1-20-00-10-5a-1f-51-5a')
     @commethod(3)
     def Empty(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1039,12 +1039,12 @@ class IWbemQuery(ComPtr):
     def GetQueryInfo(self, uAnalysisType: UInt32, uInfoId: UInt32, uBufSize: UInt32, pDestBuf: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemRefresher(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('49353c99-516b-11d1-ae-a6-00-c0-4f-b6-88-20')
+    _iid_ = Guid('49353c99-516b-11d1-ae-a6-00-c0-4f-b6-88-20')
     @commethod(3)
     def Refresh(self, lFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9556dc99-828c-11cf-a3-7e-00-aa-00-32-40-c7')
+    _iid_ = Guid('9556dc99-828c-11cf-a3-7e-00-aa-00-32-40-c7')
     @commethod(3)
     def OpenNamespace(self, strNamespace: Windows.Win32.Foundation.BSTR, lFlags: Int32, pCtx: Windows.Win32.System.Wmi.IWbemContext_head, ppWorkingNamespace: POINTER(Windows.Win32.System.Wmi.IWbemServices_head), ppResult: POINTER(Windows.Win32.System.Wmi.IWbemCallResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1093,29 +1093,29 @@ class IWbemServices(ComPtr):
     def ExecMethodAsync(self, strObjectPath: Windows.Win32.Foundation.BSTR, strMethodName: Windows.Win32.Foundation.BSTR, lFlags: Int32, pCtx: Windows.Win32.System.Wmi.IWbemContext_head, pInParams: Windows.Win32.System.Wmi.IWbemClassObject_head, pResponseHandler: Windows.Win32.System.Wmi.IWbemObjectSink_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemShutdown(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b7b31df9-d515-11d3-a1-1c-00-10-5a-1f-51-5a')
+    _iid_ = Guid('b7b31df9-d515-11d3-a1-1c-00-10-5a-1f-51-5a')
     @commethod(3)
     def Shutdown(self, uReason: Int32, uMaxMilliseconds: UInt32, pCtx: Windows.Win32.System.Wmi.IWbemContext_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemStatusCodeText(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('eb87e1bc-3233-11d2-ae-c9-00-c0-4f-b6-88-20')
+    _iid_ = Guid('eb87e1bc-3233-11d2-ae-c9-00-c0-4f-b6-88-20')
     @commethod(3)
     def GetErrorCodeText(self, hRes: Windows.Win32.Foundation.HRESULT, LocaleId: UInt32, lFlags: Int32, MessageText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetFacilityCodeText(self, hRes: Windows.Win32.Foundation.HRESULT, LocaleId: UInt32, lFlags: Int32, MessageText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemTransport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('553fe584-2156-11d0-b6-ae-00-aa-00-32-40-c7')
+    _iid_ = Guid('553fe584-2156-11d0-b6-ae-00-aa-00-32-40-c7')
     @commethod(3)
     def Initialize(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemUnboundObjectSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e246107b-b06e-11d0-ad-61-00-c0-4f-d8-fd-ff')
+    _iid_ = Guid('e246107b-b06e-11d0-ad-61-00-c0-4f-d8-fd-ff')
     @commethod(3)
     def IndicateToConsumer(self, pLogicalConsumer: Windows.Win32.System.Wmi.IWbemClassObject_head, lNumObjects: Int32, apObjects: POINTER(Windows.Win32.System.Wmi.IWbemClassObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWbemUnsecuredApartment(ComPtr):
     extends: Windows.Win32.System.Wmi.IUnsecuredApartment
-    Guid = Guid('31739d04-3471-4cf4-9a-7c-57-a4-4a-e7-19-56')
+    _iid_ = Guid('31739d04-3471-4cf4-9a-7c-57-a4-4a-e7-19-56')
     @commethod(4)
     def CreateSinkStub(self, pSink: Windows.Win32.System.Wmi.IWbemObjectSink_head, dwFlags: UInt32, wszReserved: Windows.Win32.Foundation.PWSTR, ppStub: POINTER(Windows.Win32.System.Wmi.IWbemObjectSink_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class MI_Application(EasyCastStructure):

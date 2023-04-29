@@ -16,12 +16,12 @@ if FAILED(hr):
     raise WinError(hr)
 
 shell_link = IShellLinkW()
-hr = CoCreateInstance(ShellLink, None, CLSCTX_INPROC_SERVER, IShellLinkW.Guid, shell_link)
+hr = CoCreateInstance(ShellLink, None, CLSCTX_INPROC_SERVER, IShellLinkW._iid_, shell_link)
 if FAILED(hr):
     raise WinError(hr)
 
 persist_file = IPersistFile()
-hr = shell_link.QueryInterface(IPersistFile.Guid, persist_file)
+hr = shell_link.QueryInterface(IPersistFile._iid_, persist_file)
 if FAILED(hr):
     raise WinError(hr)
 

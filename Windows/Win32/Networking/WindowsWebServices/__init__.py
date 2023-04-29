@@ -577,7 +577,7 @@ def WebAuthNGetErrorName(hr: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.
 def WebAuthNGetW3CExceptionDOMError(hr: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IContentPrefetcherTaskTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1b35a14a-6094-4799-a6-0e-e4-74-e1-5d-4d-c9')
+    _iid_ = Guid('1b35a14a-6094-4799-a6-0e-e4-74-e1-5d-4d-c9')
     @commethod(6)
     def TriggerContentPrefetcherTask(self, packageFullName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
