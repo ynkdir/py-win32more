@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Security
 import Windows.Win32.Security.Authorization
@@ -55,17 +55,17 @@ class EFFPERM_RESULT_LIST(EasyCastStructure):
     cObjectTypeListLength: UInt32
     pObjectTypeList: POINTER(Windows.Win32.Security.OBJECT_TYPE_LIST_head)
     pGrantedAccessList: POINTER(UInt32)
-class IEffectivePermission(c_void_p):
+class IEffectivePermission(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3853dc76-9f35-407c-88-a1-d1-93-44-36-5f-bc')
     @commethod(3)
     def GetEffectivePermission(self, pguidObjectType: POINTER(Guid), pUserSid: Windows.Win32.Foundation.PSID, pszServerName: Windows.Win32.Foundation.PWSTR, pSD: Windows.Win32.Security.PSECURITY_DESCRIPTOR, ppObjectTypeList: POINTER(POINTER(Windows.Win32.Security.OBJECT_TYPE_LIST_head)), pcObjectTypeListLength: POINTER(UInt32), ppGrantedAccessList: POINTER(POINTER(UInt32)), pcGrantedAccessListLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEffectivePermission2(c_void_p):
+class IEffectivePermission2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('941fabca-dd47-4fca-90-bb-b0-e1-02-55-f2-0d')
     @commethod(3)
     def ComputeEffectivePermissionWithSecondarySecurity(self, pSid: Windows.Win32.Foundation.PSID, pDeviceSid: Windows.Win32.Foundation.PSID, pszServerName: Windows.Win32.Foundation.PWSTR, pSecurityObjects: POINTER(Windows.Win32.Security.Authorization.UI.SECURITY_OBJECT_head), dwSecurityObjectCount: UInt32, pUserGroups: POINTER(Windows.Win32.Security.TOKEN_GROUPS_head), pAuthzUserGroupsOperations: POINTER(Windows.Win32.Security.Authorization.AUTHZ_SID_OPERATION), pDeviceGroups: POINTER(Windows.Win32.Security.TOKEN_GROUPS_head), pAuthzDeviceGroupsOperations: POINTER(Windows.Win32.Security.Authorization.AUTHZ_SID_OPERATION), pAuthzUserClaims: POINTER(Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTES_INFORMATION_head), pAuthzUserClaimsOperations: POINTER(Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_OPERATION), pAuthzDeviceClaims: POINTER(Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTES_INFORMATION_head), pAuthzDeviceClaimsOperations: POINTER(Windows.Win32.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_OPERATION), pEffpermResultLists: POINTER(Windows.Win32.Security.Authorization.UI.EFFPERM_RESULT_LIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISecurityInformation(c_void_p):
+class ISecurityInformation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('965fc360-16ff-11d0-91-cb-00-aa-00-bb-b7-23')
     @commethod(3)
@@ -82,26 +82,26 @@ class ISecurityInformation(c_void_p):
     def GetInheritTypes(self, ppInheritTypes: POINTER(POINTER(Windows.Win32.Security.Authorization.UI.SI_INHERIT_TYPE_head)), pcInheritTypes: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def PropertySheetPageCallback(self, hwnd: Windows.Win32.Foundation.HWND, uMsg: Windows.Win32.UI.Controls.PSPCB_MESSAGE, uPage: Windows.Win32.Security.Authorization.UI.SI_PAGE_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
-class ISecurityInformation2(c_void_p):
+class ISecurityInformation2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c3ccfdb4-6f88-11d2-a3-ce-00-c0-4f-b1-78-2a')
     @commethod(3)
     def IsDaclCanonical(self, pDacl: POINTER(Windows.Win32.Security.ACL_head)) -> Windows.Win32.Foundation.BOOL: ...
     @commethod(4)
     def LookupSids(self, cSids: UInt32, rgpSids: POINTER(Windows.Win32.Foundation.PSID), ppdo: POINTER(Windows.Win32.System.Com.IDataObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISecurityInformation3(c_void_p):
+class ISecurityInformation3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e2cdc9cc-31bd-4f8f-8c-8b-b6-41-af-51-6a-1a')
     @commethod(3)
     def GetFullResourceName(self, ppszResourceName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OpenElevatedEditor(self, hWnd: Windows.Win32.Foundation.HWND, uPage: Windows.Win32.Security.Authorization.UI.SI_PAGE_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
-class ISecurityInformation4(c_void_p):
+class ISecurityInformation4(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ea961070-cd14-4621-ac-e4-f6-3c-03-e5-83-e4')
     @commethod(3)
     def GetSecondarySecurity(self, pSecurityObjects: POINTER(POINTER(Windows.Win32.Security.Authorization.UI.SECURITY_OBJECT_head)), pSecurityObjectCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISecurityObjectTypeInfo(c_void_p):
+class ISecurityObjectTypeInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fc3066eb-79ef-444b-91-11-d1-8a-75-eb-f2-fa')
     @commethod(3)

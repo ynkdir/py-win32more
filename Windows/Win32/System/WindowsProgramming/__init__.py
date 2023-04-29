@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.Security
@@ -1307,7 +1307,7 @@ class HW_PROFILE_INFOW(EasyCastStructure):
     dwDockInfo: UInt32
     szHwProfileGuid: Char * 39
     szHwProfileName: Char * 80
-class ICameraUIControl(c_void_p):
+class ICameraUIControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b8733adf-3d68-4b8f-bb-08-e2-8a-0b-ed-03-76')
     @commethod(3)
@@ -1326,7 +1326,7 @@ class ICameraUIControl(c_void_p):
     def GetSelectedItems(self, ppSelectedItemPaths: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def RemoveCapturedItem(self, pszPath: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ICameraUIControlEventCallback(c_void_p):
+class ICameraUIControlEventCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1bfa0c2c-fbcd-4776-bd-a4-88-bf-97-4e-74-f4')
     @commethod(3)
@@ -1339,27 +1339,27 @@ class ICameraUIControlEventCallback(c_void_p):
     def OnItemDeleted(self, pszPath: Windows.Win32.Foundation.PWSTR) -> Void: ...
     @commethod(7)
     def OnClosed(self) -> Void: ...
-class IClipServiceNotificationHelper(c_void_p):
+class IClipServiceNotificationHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c39948f0-6142-44fd-98-ca-e1-68-1a-8d-68-b5')
     @commethod(3)
     def ShowToast(self, titleText: Windows.Win32.Foundation.BSTR, bodyText: Windows.Win32.Foundation.BSTR, packageName: Windows.Win32.Foundation.BSTR, appId: Windows.Win32.Foundation.BSTR, launchCommand: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IContainerActivationHelper(c_void_p):
+class IContainerActivationHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b524f93f-80d5-4ec7-ae-9e-d6-6e-93-ad-e1-fa')
     @commethod(3)
     def CanActivateClientVM(self, isAllowed: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDefaultBrowserSyncSettings(c_void_p):
+class IDefaultBrowserSyncSettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7a27faad-5ae6-4255-90-30-c5-30-93-62-92-e3')
     @commethod(3)
     def IsEnabled(self) -> Windows.Win32.Foundation.BOOL: ...
-class IDeleteBrowsingHistory(c_void_p):
+class IDeleteBrowsingHistory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cf38ed4b-2be7-4461-8b-5e-9a-46-6d-c8-2a-e3')
     @commethod(3)
     def DeleteBrowsingHistory(self, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IEditionUpgradeBroker(c_void_p):
+class IEditionUpgradeBroker(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ff19cbcf-9455-4937-b8-72-6b-79-29-a4-60-af')
     @commethod(3)
@@ -1370,7 +1370,7 @@ class IEditionUpgradeBroker(c_void_p):
     def ShowProductKeyUI(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def CanUpgrade(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IEditionUpgradeHelper(c_void_p):
+class IEditionUpgradeHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d3e9e342-5deb-43b6-84-9e-69-13-b8-5d-50-3a')
     @commethod(3)
@@ -1383,7 +1383,7 @@ class IEditionUpgradeHelper(c_void_p):
     def GetOsProductContentId(self, contentId: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetGenuineLocalStatus(self, isGenuine: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFClipNotificationHelper(c_void_p):
+class IFClipNotificationHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3d5e3d21-bd41-4c2a-a6-69-b1-7c-e8-7f-b5-0b')
     @commethod(3)
@@ -1445,7 +1445,7 @@ class IO_STATUS_BLOCK(EasyCastStructure):
     class _Anonymous_e__Union(EasyCastUnion):
         Status: Windows.Win32.Foundation.NTSTATUS
         Pointer: c_void_p
-class IWindowsLockModeHelper(c_void_p):
+class IWindowsLockModeHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f342d19e-cc22-4648-bb-5d-03-cc-f7-5b-47-c5')
     @commethod(3)

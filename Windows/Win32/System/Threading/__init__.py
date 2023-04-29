@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Security
 import Windows.Win32.System.Com
@@ -785,14 +785,14 @@ class IO_COUNTERS(EasyCastStructure):
     ReadTransferCount: UInt64
     WriteTransferCount: UInt64
     OtherTransferCount: UInt64
-class IRtwqAsyncCallback(c_void_p):
+class IRtwqAsyncCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a27003cf-2354-4f2a-8d-6a-ab-7c-ff-15-43-7e')
     @commethod(3)
     def GetParameters(self, pdwFlags: POINTER(UInt32), pdwQueue: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Invoke(self, pAsyncResult: Windows.Win32.System.Threading.IRtwqAsyncResult_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IRtwqAsyncResult(c_void_p):
+class IRtwqAsyncResult(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ac6b7889-0740-4d51-86-19-90-59-94-a5-5c-c6')
     @commethod(3)
@@ -805,7 +805,7 @@ class IRtwqAsyncResult(c_void_p):
     def GetObject(self, ppObject: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetStateNoAddRef(self) -> Windows.Win32.System.Com.IUnknown_head: ...
-class IRtwqPlatformEvents(c_void_p):
+class IRtwqPlatformEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('63d9255a-7ff1-4b61-8f-af-ed-64-60-da-cf-2b')
     @commethod(3)
@@ -1195,7 +1195,7 @@ class RTL_USER_PROCESS_PARAMETERS(EasyCastStructure):
     Reserved2: c_void_p * 10
     ImagePathName: Windows.Win32.Foundation.UNICODE_STRING
     CommandLine: Windows.Win32.Foundation.UNICODE_STRING
-class RTWQASYNCRESULT(c_void_p):
+class RTWQASYNCRESULT(ComPtr):
     extends: Windows.Win32.System.Threading.IRtwqAsyncResult
 @winfunctype_pointer
 def RTWQPERIODICCALLBACK(context: Windows.Win32.System.Com.IUnknown_head) -> Void: ...

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Globalization
 import Windows.Win32.Graphics.Direct2D.Common
@@ -940,14 +940,14 @@ DWRITE_WORD_WRAPPING_NO_WRAP: DWRITE_WORD_WRAPPING = 1
 DWRITE_WORD_WRAPPING_EMERGENCY_BREAK: DWRITE_WORD_WRAPPING = 2
 DWRITE_WORD_WRAPPING_WHOLE_WORD: DWRITE_WORD_WRAPPING = 3
 DWRITE_WORD_WRAPPING_CHARACTER: DWRITE_WORD_WRAPPING = 4
-class IDWriteAsyncResult(c_void_p):
+class IDWriteAsyncResult(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ce25f8fd-863b-4d13-96-51-c1-f8-8d-c7-3f-e2')
     @commethod(3)
     def GetWaitHandle(self) -> Windows.Win32.Foundation.HANDLE: ...
     @commethod(4)
     def GetResult(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteBitmapRenderTarget(c_void_p):
+class IDWriteBitmapRenderTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5e5a32a3-8dff-4773-9f-f6-06-96-ea-b7-72-67')
     @commethod(3)
@@ -966,26 +966,26 @@ class IDWriteBitmapRenderTarget(c_void_p):
     def GetSize(self, size: POINTER(Windows.Win32.Foundation.SIZE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Resize(self, width: UInt32, height: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteBitmapRenderTarget1(c_void_p):
+class IDWriteBitmapRenderTarget1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteBitmapRenderTarget
     Guid = Guid('791e8298-3ef3-4230-98-80-c9-bd-ec-c4-20-64')
     @commethod(11)
     def GetTextAntialiasMode(self) -> Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_ANTIALIAS_MODE: ...
     @commethod(12)
     def SetTextAntialiasMode(self, antialiasMode: Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_ANTIALIAS_MODE) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteColorGlyphRunEnumerator(c_void_p):
+class IDWriteColorGlyphRunEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d31fbe17-f157-41a2-8d-24-cb-77-9e-05-60-e8')
     @commethod(3)
     def MoveNext(self, hasRun: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetCurrentRun(self, colorGlyphRun: POINTER(POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_GLYPH_RUN_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteColorGlyphRunEnumerator1(c_void_p):
+class IDWriteColorGlyphRunEnumerator1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteColorGlyphRunEnumerator
     Guid = Guid('7c5f86da-c7a1-4f05-b8-e1-55-a1-79-fe-5a-35')
     @commethod(5)
     def GetCurrentRun(self, colorGlyphRun: POINTER(POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_GLYPH_RUN1_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFactory(c_void_p):
+class IDWriteFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b859ee5a-d838-4b5b-a2-e8-1a-dc-7d-93-db-48')
     @commethod(3)
@@ -1030,14 +1030,14 @@ class IDWriteFactory(c_void_p):
     def CreateNumberSubstitution(self, substitutionMethod: Windows.Win32.Graphics.DirectWrite.DWRITE_NUMBER_SUBSTITUTION_METHOD, localeName: Windows.Win32.Foundation.PWSTR, ignoreUserOverride: Windows.Win32.Foundation.BOOL, numberSubstitution: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteNumberSubstitution_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def CreateGlyphRunAnalysis(self, glyphRun: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head), pixelsPerDip: Single, transform: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_MATRIX_head), renderingMode: Windows.Win32.Graphics.DirectWrite.DWRITE_RENDERING_MODE, measuringMode: Windows.Win32.Graphics.DirectWrite.DWRITE_MEASURING_MODE, baselineOriginX: Single, baselineOriginY: Single, glyphRunAnalysis: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteGlyphRunAnalysis_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFactory1(c_void_p):
+class IDWriteFactory1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFactory
     Guid = Guid('30572f99-dac6-41db-a1-6e-04-86-30-7e-60-6a')
     @commethod(24)
     def GetEudcFontCollection(self, fontCollection: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontCollection_head), checkForUpdates: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def CreateCustomRenderingParams(self, gamma: Single, enhancedContrast: Single, enhancedContrastGrayscale: Single, clearTypeLevel: Single, pixelGeometry: Windows.Win32.Graphics.DirectWrite.DWRITE_PIXEL_GEOMETRY, renderingMode: Windows.Win32.Graphics.DirectWrite.DWRITE_RENDERING_MODE, renderingParams: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteRenderingParams1_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFactory2(c_void_p):
+class IDWriteFactory2(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFactory1
     Guid = Guid('0439fc60-ca44-4994-8d-ee-3a-9a-f7-b7-32-ec')
     @commethod(26)
@@ -1050,7 +1050,7 @@ class IDWriteFactory2(c_void_p):
     def CreateCustomRenderingParams(self, gamma: Single, enhancedContrast: Single, grayscaleEnhancedContrast: Single, clearTypeLevel: Single, pixelGeometry: Windows.Win32.Graphics.DirectWrite.DWRITE_PIXEL_GEOMETRY, renderingMode: Windows.Win32.Graphics.DirectWrite.DWRITE_RENDERING_MODE, gridFitMode: Windows.Win32.Graphics.DirectWrite.DWRITE_GRID_FIT_MODE, renderingParams: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteRenderingParams2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
     def CreateGlyphRunAnalysis(self, glyphRun: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head), transform: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_MATRIX_head), renderingMode: Windows.Win32.Graphics.DirectWrite.DWRITE_RENDERING_MODE, measuringMode: Windows.Win32.Graphics.DirectWrite.DWRITE_MEASURING_MODE, gridFitMode: Windows.Win32.Graphics.DirectWrite.DWRITE_GRID_FIT_MODE, antialiasMode: Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_ANTIALIAS_MODE, baselineOriginX: Single, baselineOriginY: Single, glyphRunAnalysis: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteGlyphRunAnalysis_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFactory3(c_void_p):
+class IDWriteFactory3(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFactory2
     Guid = Guid('9a1b41c3-d3bb-466a-87-fc-fe-67-55-6a-3b-65')
     @commethod(31)
@@ -1071,7 +1071,7 @@ class IDWriteFactory3(c_void_p):
     def GetSystemFontCollection(self, includeDownloadableFonts: Windows.Win32.Foundation.BOOL, fontCollection: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontCollection1_head), checkForUpdates: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(39)
     def GetFontDownloadQueue(self, fontDownloadQueue: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontDownloadQueue_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFactory4(c_void_p):
+class IDWriteFactory4(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFactory3
     Guid = Guid('4b0b5bd3-0797-4549-8a-c5-fe-91-5c-c5-38-56')
     @commethod(40)
@@ -1080,7 +1080,7 @@ class IDWriteFactory4(c_void_p):
     def ComputeGlyphOrigins(self, glyphRun: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head), baselineOrigin: Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F, glyphOrigins: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(42)
     def ComputeGlyphOrigins(self, glyphRun: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head), measuringMode: Windows.Win32.Graphics.DirectWrite.DWRITE_MEASURING_MODE, baselineOrigin: Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F, worldAndDpiTransform: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_MATRIX_head), glyphOrigins: POINTER(Windows.Win32.Graphics.Direct2D.Common.D2D_POINT_2F_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFactory5(c_void_p):
+class IDWriteFactory5(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFactory4
     Guid = Guid('958db99a-be2a-4f09-af-7d-65-18-98-03-d1-d3')
     @commethod(43)
@@ -1093,7 +1093,7 @@ class IDWriteFactory5(c_void_p):
     def AnalyzeContainerType(self, fileData: c_void_p, fileDataSize: UInt32) -> Windows.Win32.Graphics.DirectWrite.DWRITE_CONTAINER_TYPE: ...
     @commethod(47)
     def UnpackFontFile(self, containerType: Windows.Win32.Graphics.DirectWrite.DWRITE_CONTAINER_TYPE, fileData: c_void_p, fileDataSize: UInt32, unpackedFontStream: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFileStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFactory6(c_void_p):
+class IDWriteFactory6(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFactory5
     Guid = Guid('f3744d80-21f7-42eb-b3-5d-99-5b-c7-2f-c2-23')
     @commethod(48)
@@ -1110,14 +1110,14 @@ class IDWriteFactory6(c_void_p):
     def CreateFontSetBuilder(self, fontSetBuilder: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontSetBuilder2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(54)
     def CreateTextFormat(self, fontFamilyName: Windows.Win32.Foundation.PWSTR, fontCollection: Windows.Win32.Graphics.DirectWrite.IDWriteFontCollection_head, fontAxisValues: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE_head), fontAxisValueCount: UInt32, fontSize: Single, localeName: Windows.Win32.Foundation.PWSTR, textFormat: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteTextFormat3_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFactory7(c_void_p):
+class IDWriteFactory7(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFactory6
     Guid = Guid('35d0e0b3-9076-4d2e-a0-16-a9-1b-56-8a-06-b4')
     @commethod(55)
     def GetSystemFontSet(self, includeDownloadableFonts: Windows.Win32.Foundation.BOOL, fontSet: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontSet2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(56)
     def GetSystemFontCollection(self, includeDownloadableFonts: Windows.Win32.Foundation.BOOL, fontFamilyModel: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_FAMILY_MODEL, fontCollection: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontCollection3_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFont(c_void_p):
+class IDWriteFont(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('acd16696-8c14-4f5d-87-7e-fe-3f-c1-d3-27-37')
     @commethod(3)
@@ -1142,7 +1142,7 @@ class IDWriteFont(c_void_p):
     def HasCharacter(self, unicodeValue: UInt32, exists: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def CreateFontFace(self, fontFace: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFace_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFont1(c_void_p):
+class IDWriteFont1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFont
     Guid = Guid('acd16696-8c14-4f5d-87-7e-fe-3f-c1-d3-27-38')
     @commethod(14)
@@ -1153,12 +1153,12 @@ class IDWriteFont1(c_void_p):
     def GetUnicodeRanges(self, maxRangeCount: UInt32, unicodeRanges: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_UNICODE_RANGE_head), actualRangeCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def IsMonospacedFont(self) -> Windows.Win32.Foundation.BOOL: ...
-class IDWriteFont2(c_void_p):
+class IDWriteFont2(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFont1
     Guid = Guid('29748ed6-8c9c-4a6a-be-0b-d9-12-e8-53-89-44')
     @commethod(18)
     def IsColorFont(self) -> Windows.Win32.Foundation.BOOL: ...
-class IDWriteFont3(c_void_p):
+class IDWriteFont3(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFont2
     Guid = Guid('29748ed6-8c9c-4a6a-be-0b-d9-12-e8-53-89-44')
     @commethod(19)
@@ -1171,7 +1171,7 @@ class IDWriteFont3(c_void_p):
     def HasCharacter(self, unicodeValue: UInt32) -> Windows.Win32.Foundation.BOOL: ...
     @commethod(23)
     def GetLocality(self) -> Windows.Win32.Graphics.DirectWrite.DWRITE_LOCALITY: ...
-class IDWriteFontCollection(c_void_p):
+class IDWriteFontCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a84cee02-3eea-4eee-a8-27-87-c1-a0-2a-0f-cc')
     @commethod(3)
@@ -1182,14 +1182,14 @@ class IDWriteFontCollection(c_void_p):
     def FindFamilyName(self, familyName: Windows.Win32.Foundation.PWSTR, index: POINTER(UInt32), exists: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetFontFromFontFace(self, fontFace: Windows.Win32.Graphics.DirectWrite.IDWriteFontFace_head, font: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFont_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontCollection1(c_void_p):
+class IDWriteFontCollection1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontCollection
     Guid = Guid('53585141-d9f8-4095-83-21-d7-3c-f6-bd-11-6c')
     @commethod(7)
     def GetFontSet(self, fontSet: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontSet_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetFontFamily(self, index: UInt32, fontFamily: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFamily1_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontCollection2(c_void_p):
+class IDWriteFontCollection2(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontCollection1
     Guid = Guid('514039c6-4617-4064-bf-8b-92-ea-83-e5-06-e0')
     @commethod(9)
@@ -1200,22 +1200,22 @@ class IDWriteFontCollection2(c_void_p):
     def GetFontFamilyModel(self) -> Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_FAMILY_MODEL: ...
     @commethod(12)
     def GetFontSet(self, fontSet: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontSet1_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontCollection3(c_void_p):
+class IDWriteFontCollection3(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontCollection2
     Guid = Guid('a4d055a6-f9e3-4e25-93-b7-9e-30-9f-3a-f8-e9')
     @commethod(13)
     def GetExpirationEvent(self) -> Windows.Win32.Foundation.HANDLE: ...
-class IDWriteFontCollectionLoader(c_void_p):
+class IDWriteFontCollectionLoader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cca920e4-52f0-492b-bf-a8-29-c7-2e-e0-a4-68')
     @commethod(3)
     def CreateEnumeratorFromKey(self, factory: Windows.Win32.Graphics.DirectWrite.IDWriteFactory_head, collectionKey: c_void_p, collectionKeySize: UInt32, fontFileEnumerator: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFileEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontDownloadListener(c_void_p):
+class IDWriteFontDownloadListener(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b06fe5b9-43ec-4393-88-1b-db-e4-dc-72-fd-a7')
     @commethod(3)
     def DownloadCompleted(self, downloadQueue: Windows.Win32.Graphics.DirectWrite.IDWriteFontDownloadQueue_head, context: Windows.Win32.System.Com.IUnknown_head, downloadResult: Windows.Win32.Foundation.HRESULT) -> Void: ...
-class IDWriteFontDownloadQueue(c_void_p):
+class IDWriteFontDownloadQueue(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b71e6052-5aea-4fa3-83-2e-f6-0d-43-1f-7e-91')
     @commethod(3)
@@ -1230,7 +1230,7 @@ class IDWriteFontDownloadQueue(c_void_p):
     def CancelDownload(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetGenerationCount(self) -> UInt64: ...
-class IDWriteFontFace(c_void_p):
+class IDWriteFontFace(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5f49804d-7024-4d43-bf-a9-d2-59-84-f5-38-49')
     @commethod(3)
@@ -1263,7 +1263,7 @@ class IDWriteFontFace(c_void_p):
     def GetGdiCompatibleMetrics(self, emSize: Single, pixelsPerDip: Single, transform: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_MATRIX_head), fontFaceMetrics: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_METRICS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def GetGdiCompatibleGlyphMetrics(self, emSize: Single, pixelsPerDip: Single, transform: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_MATRIX_head), useGdiNatural: Windows.Win32.Foundation.BOOL, glyphIndices: POINTER(UInt16), glyphCount: UInt32, glyphMetrics: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_METRICS_head), isSideways: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontFace1(c_void_p):
+class IDWriteFontFace1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontFace
     Guid = Guid('a71efdb4-9fdb-4838-ad-90-cf-c3-be-8c-3d-af')
     @commethod(18)
@@ -1290,7 +1290,7 @@ class IDWriteFontFace1(c_void_p):
     def GetVerticalGlyphVariants(self, glyphCount: UInt32, nominalGlyphIndices: POINTER(UInt16), verticalGlyphIndices: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
     def HasVerticalGlyphVariants(self) -> Windows.Win32.Foundation.BOOL: ...
-class IDWriteFontFace2(c_void_p):
+class IDWriteFontFace2(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontFace1
     Guid = Guid('d8b768ff-64bc-4e66-98-2b-ec-8e-87-f6-93-f7')
     @commethod(30)
@@ -1303,7 +1303,7 @@ class IDWriteFontFace2(c_void_p):
     def GetPaletteEntries(self, colorPaletteIndex: UInt32, firstEntryIndex: UInt32, entryCount: UInt32, paletteEntries: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_COLOR_F_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(34)
     def GetRecommendedRenderingMode(self, fontEmSize: Single, dpiX: Single, dpiY: Single, transform: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_MATRIX_head), isSideways: Windows.Win32.Foundation.BOOL, outlineThreshold: Windows.Win32.Graphics.DirectWrite.DWRITE_OUTLINE_THRESHOLD, measuringMode: Windows.Win32.Graphics.DirectWrite.DWRITE_MEASURING_MODE, renderingParams: Windows.Win32.Graphics.DirectWrite.IDWriteRenderingParams_head, renderingMode: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_RENDERING_MODE), gridFitMode: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_GRID_FIT_MODE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontFace3(c_void_p):
+class IDWriteFontFace3(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontFace2
     Guid = Guid('d37d7598-09be-4222-a2-36-20-81-34-1c-c1-f2')
     @commethod(35)
@@ -1334,7 +1334,7 @@ class IDWriteFontFace3(c_void_p):
     def AreCharactersLocal(self, characters: Windows.Win32.Foundation.PWSTR, characterCount: UInt32, enqueueIfNotLocal: Windows.Win32.Foundation.BOOL, isLocal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(48)
     def AreGlyphsLocal(self, glyphIndices: POINTER(UInt16), glyphCount: UInt32, enqueueIfNotLocal: Windows.Win32.Foundation.BOOL, isLocal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontFace4(c_void_p):
+class IDWriteFontFace4(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontFace3
     Guid = Guid('27f2a904-4eb8-441d-96-78-05-63-f5-3e-3e-2f')
     @commethod(49)
@@ -1345,7 +1345,7 @@ class IDWriteFontFace4(c_void_p):
     def GetGlyphImageData(self, glyphId: UInt16, pixelsPerEm: UInt32, glyphImageFormat: Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS, glyphData: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_DATA_head), glyphDataContext: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(52)
     def ReleaseGlyphImageData(self, glyphDataContext: c_void_p) -> Void: ...
-class IDWriteFontFace5(c_void_p):
+class IDWriteFontFace5(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontFace4
     Guid = Guid('98eff3a5-b667-479a-b1-45-e2-fa-5b-9f-dc-29')
     @commethod(53)
@@ -1358,14 +1358,14 @@ class IDWriteFontFace5(c_void_p):
     def GetFontResource(self, fontResource: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontResource_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(57)
     def Equals(self, fontFace: Windows.Win32.Graphics.DirectWrite.IDWriteFontFace_head) -> Windows.Win32.Foundation.BOOL: ...
-class IDWriteFontFace6(c_void_p):
+class IDWriteFontFace6(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontFace5
     Guid = Guid('c4b1fe1b-6e84-47d5-b5-4c-a5-97-98-1b-06-ad')
     @commethod(58)
     def GetFamilyNames(self, fontFamilyModel: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_FAMILY_MODEL, names: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteLocalizedStrings_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(59)
     def GetFaceNames(self, fontFamilyModel: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_FAMILY_MODEL, names: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteLocalizedStrings_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontFaceReference(c_void_p):
+class IDWriteFontFaceReference(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5e7fa7ca-dde3-424c-89-f0-9f-cd-6f-ed-58-cd')
     @commethod(3)
@@ -1396,7 +1396,7 @@ class IDWriteFontFaceReference(c_void_p):
     def EnqueueGlyphDownloadRequest(self, glyphIndices: POINTER(UInt16), glyphCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def EnqueueFileFragmentDownloadRequest(self, fileOffset: UInt64, fragmentSize: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontFaceReference1(c_void_p):
+class IDWriteFontFaceReference1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontFaceReference
     Guid = Guid('c081fe77-2fd1-41ac-a5-a3-34-98-3c-4b-a6-1a')
     @commethod(17)
@@ -1405,17 +1405,17 @@ class IDWriteFontFaceReference1(c_void_p):
     def GetFontAxisValueCount(self) -> UInt32: ...
     @commethod(19)
     def GetFontAxisValues(self, fontAxisValues: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE_head), fontAxisValueCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontFallback(c_void_p):
+class IDWriteFontFallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('efa008f9-f7a1-48bf-b0-5c-f2-24-71-3c-c0-ff')
     @commethod(3)
     def MapCharacters(self, analysisSource: Windows.Win32.Graphics.DirectWrite.IDWriteTextAnalysisSource_head, textPosition: UInt32, textLength: UInt32, baseFontCollection: Windows.Win32.Graphics.DirectWrite.IDWriteFontCollection_head, baseFamilyName: Windows.Win32.Foundation.PWSTR, baseWeight: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_WEIGHT, baseStyle: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_STYLE, baseStretch: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_STRETCH, mappedLength: POINTER(UInt32), mappedFont: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFont_head), scale: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontFallback1(c_void_p):
+class IDWriteFontFallback1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontFallback
     Guid = Guid('2397599d-dd0d-4681-bd-6a-f4-f3-1e-aa-de-77')
     @commethod(4)
     def MapCharacters(self, analysisSource: Windows.Win32.Graphics.DirectWrite.IDWriteTextAnalysisSource_head, textPosition: UInt32, textLength: UInt32, baseFontCollection: Windows.Win32.Graphics.DirectWrite.IDWriteFontCollection_head, baseFamilyName: Windows.Win32.Foundation.PWSTR, fontAxisValues: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE_head), fontAxisValueCount: UInt32, mappedLength: POINTER(UInt32), scale: POINTER(Single), mappedFontFace: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFace5_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontFallbackBuilder(c_void_p):
+class IDWriteFontFallbackBuilder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fd882d06-8aba-4fb8-b8-49-8b-e8-b7-3e-14-de')
     @commethod(3)
@@ -1424,7 +1424,7 @@ class IDWriteFontFallbackBuilder(c_void_p):
     def AddMappings(self, fontFallback: Windows.Win32.Graphics.DirectWrite.IDWriteFontFallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CreateFontFallback(self, fontFallback: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFallback_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontFamily(c_void_p):
+class IDWriteFontFamily(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontList
     Guid = Guid('da20d8ef-812a-4c43-98-02-62-ec-4a-bd-7a-dd')
     @commethod(6)
@@ -1433,7 +1433,7 @@ class IDWriteFontFamily(c_void_p):
     def GetFirstMatchingFont(self, weight: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_WEIGHT, stretch: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_STRETCH, style: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_STYLE, matchingFont: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFont_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetMatchingFonts(self, weight: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_WEIGHT, stretch: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_STRETCH, style: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_STYLE, matchingFonts: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontList_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontFamily1(c_void_p):
+class IDWriteFontFamily1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontFamily
     Guid = Guid('da20d8ef-812a-4c43-98-02-62-ec-4a-bd-7a-df')
     @commethod(9)
@@ -1442,14 +1442,14 @@ class IDWriteFontFamily1(c_void_p):
     def GetFont(self, listIndex: UInt32, font: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFont3_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetFontFaceReference(self, listIndex: UInt32, fontFaceReference: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFaceReference_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontFamily2(c_void_p):
+class IDWriteFontFamily2(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontFamily1
     Guid = Guid('3ed49e77-a398-4261-b9-cf-c1-26-c2-13-1e-f3')
     @commethod(12)
     def GetMatchingFonts(self, fontAxisValues: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE_head), fontAxisValueCount: UInt32, matchingFonts: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontList2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetFontSet(self, fontSet: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontSet1_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontFile(c_void_p):
+class IDWriteFontFile(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('739d886a-cef5-47dc-87-69-1a-8b-41-be-bb-b0')
     @commethod(3)
@@ -1458,19 +1458,19 @@ class IDWriteFontFile(c_void_p):
     def GetLoader(self, fontFileLoader: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFileLoader_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Analyze(self, isSupportedFontType: POINTER(Windows.Win32.Foundation.BOOL), fontFileType: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_FILE_TYPE), fontFaceType: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_FACE_TYPE), numberOfFaces: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontFileEnumerator(c_void_p):
+class IDWriteFontFileEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('72755049-5ff7-435d-83-48-4b-e9-7c-fa-6c-7c')
     @commethod(3)
     def MoveNext(self, hasCurrentFile: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetCurrentFontFile(self, fontFile: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFile_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontFileLoader(c_void_p):
+class IDWriteFontFileLoader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('727cad4e-d6af-4c9e-8a-08-d6-95-b1-1c-aa-49')
     @commethod(3)
     def CreateStreamFromKey(self, fontFileReferenceKey: c_void_p, fontFileReferenceKeySize: UInt32, fontFileStream: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFileStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontFileStream(c_void_p):
+class IDWriteFontFileStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6d4865fe-0ab8-4d91-8f-62-5d-d6-be-34-a3-e0')
     @commethod(3)
@@ -1481,7 +1481,7 @@ class IDWriteFontFileStream(c_void_p):
     def GetFileSize(self, fileSize: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetLastWriteTime(self, lastWriteTime: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontList(c_void_p):
+class IDWriteFontList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1a0d8438-1d97-4ec1-ae-f9-a2-fb-86-ed-6a-cb')
     @commethod(3)
@@ -1490,7 +1490,7 @@ class IDWriteFontList(c_void_p):
     def GetFontCount(self) -> UInt32: ...
     @commethod(5)
     def GetFont(self, index: UInt32, font: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFont_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontList1(c_void_p):
+class IDWriteFontList1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontList
     Guid = Guid('da20d8ef-812a-4c43-98-02-62-ec-4a-bd-7a-de')
     @commethod(6)
@@ -1499,12 +1499,12 @@ class IDWriteFontList1(c_void_p):
     def GetFont(self, listIndex: UInt32, font: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFont3_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetFontFaceReference(self, listIndex: UInt32, fontFaceReference: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFaceReference_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontList2(c_void_p):
+class IDWriteFontList2(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontList1
     Guid = Guid('c0763a34-77af-445a-b7-35-08-c3-7b-0a-5b-f5')
     @commethod(9)
     def GetFontSet(self, fontSet: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontSet1_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontResource(c_void_p):
+class IDWriteFontResource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1f803a76-6871-48e8-98-7f-b9-75-55-1c-50-f2')
     @commethod(3)
@@ -1531,7 +1531,7 @@ class IDWriteFontResource(c_void_p):
     def CreateFontFace(self, fontSimulations: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_SIMULATIONS, fontAxisValues: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE_head), fontAxisValueCount: UInt32, fontFace: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFace5_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def CreateFontFaceReference(self, fontSimulations: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_SIMULATIONS, fontAxisValues: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE_head), fontAxisValueCount: UInt32, fontFaceReference: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFaceReference1_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontSet(c_void_p):
+class IDWriteFontSet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('53585141-d9f8-4095-83-21-d7-3c-f6-bd-11-6b')
     @commethod(3)
@@ -1554,7 +1554,7 @@ class IDWriteFontSet(c_void_p):
     def GetMatchingFonts(self, familyName: Windows.Win32.Foundation.PWSTR, fontWeight: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_WEIGHT, fontStretch: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_STRETCH, fontStyle: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_STYLE, filteredSet: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontSet_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetMatchingFonts(self, properties: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_PROPERTY_head), propertyCount: UInt32, filteredSet: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontSet_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontSet1(c_void_p):
+class IDWriteFontSet1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontSet
     Guid = Guid('7e9fda85-6c92-4053-bc-47-7a-e3-53-0d-b4-d3')
     @commethod(13)
@@ -1583,12 +1583,12 @@ class IDWriteFontSet1(c_void_p):
     def CreateFontFace(self, listIndex: UInt32, fontFace: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFace5_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def GetFontLocality(self, listIndex: UInt32) -> Windows.Win32.Graphics.DirectWrite.DWRITE_LOCALITY: ...
-class IDWriteFontSet2(c_void_p):
+class IDWriteFontSet2(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontSet1
     Guid = Guid('dc7ead19-e54c-43af-b2-da-4e-2b-79-ba-3f-7f')
     @commethod(26)
     def GetExpirationEvent(self) -> Windows.Win32.Foundation.HANDLE: ...
-class IDWriteFontSet3(c_void_p):
+class IDWriteFontSet3(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontSet2
     Guid = Guid('7c073ef2-a7f4-4045-8c-32-8a-b8-ae-64-0f-90')
     @commethod(27)
@@ -1597,14 +1597,14 @@ class IDWriteFontSet3(c_void_p):
     def GetFontSourceNameLength(self, listIndex: UInt32) -> UInt32: ...
     @commethod(29)
     def GetFontSourceName(self, listIndex: UInt32, stringBuffer: Windows.Win32.Foundation.PWSTR, stringBufferSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontSet4(c_void_p):
+class IDWriteFontSet4(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontSet3
     Guid = Guid('eec175fc-bea9-4c86-8b-53-cc-bd-d7-df-0c-82')
     @commethod(30)
     def ConvertWeightStretchStyleToFontAxisValues(self, inputAxisValues: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE_head), inputAxisCount: UInt32, fontWeight: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_WEIGHT, fontStretch: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_STRETCH, fontStyle: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_STYLE, fontSize: Single, outputAxisValues: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE_head)) -> UInt32: ...
     @commethod(31)
     def GetMatchingFonts(self, familyName: Windows.Win32.Foundation.PWSTR, fontAxisValues: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE_head), fontAxisValueCount: UInt32, allowedSimulations: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_SIMULATIONS, matchingFonts: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontSet4_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontSetBuilder(c_void_p):
+class IDWriteFontSetBuilder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2f642afe-9c68-4f40-b8-be-45-74-01-af-cb-3d')
     @commethod(3)
@@ -1615,19 +1615,19 @@ class IDWriteFontSetBuilder(c_void_p):
     def AddFontSet(self, fontSet: Windows.Win32.Graphics.DirectWrite.IDWriteFontSet_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def CreateFontSet(self, fontSet: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontSet_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontSetBuilder1(c_void_p):
+class IDWriteFontSetBuilder1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontSetBuilder
     Guid = Guid('3ff7715f-3cdc-4dc6-9b-72-ec-56-21-dc-ca-fd')
     @commethod(7)
     def AddFontFile(self, fontFile: Windows.Win32.Graphics.DirectWrite.IDWriteFontFile_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteFontSetBuilder2(c_void_p):
+class IDWriteFontSetBuilder2(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontSetBuilder1
     Guid = Guid('ee5ba612-b131-463c-8f-4f-31-89-b9-40-1e-45')
     @commethod(8)
     def AddFont(self, fontFile: Windows.Win32.Graphics.DirectWrite.IDWriteFontFile_head, fontFaceIndex: UInt32, fontSimulations: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_SIMULATIONS, fontAxisValues: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE_head), fontAxisValueCount: UInt32, fontAxisRanges: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_AXIS_RANGE_head), fontAxisRangeCount: UInt32, properties: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_PROPERTY_head), propertyCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def AddFontFile(self, filePath: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteGdiInterop(c_void_p):
+class IDWriteGdiInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1edd9491-9853-4299-89-8f-64-32-98-3b-6f-3a')
     @commethod(3)
@@ -1640,7 +1640,7 @@ class IDWriteGdiInterop(c_void_p):
     def CreateFontFaceFromHdc(self, hdc: Windows.Win32.Graphics.Gdi.HDC, fontFace: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFace_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def CreateBitmapRenderTarget(self, hdc: Windows.Win32.Graphics.Gdi.HDC, width: UInt32, height: UInt32, renderTarget: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteBitmapRenderTarget_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteGdiInterop1(c_void_p):
+class IDWriteGdiInterop1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteGdiInterop
     Guid = Guid('4556be70-3abd-4f70-90-be-42-17-80-a6-f5-15')
     @commethod(8)
@@ -1651,7 +1651,7 @@ class IDWriteGdiInterop1(c_void_p):
     def GetFontSignature(self, font: Windows.Win32.Graphics.DirectWrite.IDWriteFont_head, fontSignature: POINTER(Windows.Win32.Globalization.FONTSIGNATURE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetMatchingFontsByLOGFONT(self, logFont: POINTER(Windows.Win32.Graphics.Gdi.LOGFONTA_head), fontSet: Windows.Win32.Graphics.DirectWrite.IDWriteFontSet_head, filteredSet: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontSet_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteGlyphRunAnalysis(c_void_p):
+class IDWriteGlyphRunAnalysis(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7d97dbf7-e085-42d4-81-e3-6a-88-3b-de-d1-18')
     @commethod(3)
@@ -1660,14 +1660,14 @@ class IDWriteGlyphRunAnalysis(c_void_p):
     def CreateAlphaTexture(self, textureType: Windows.Win32.Graphics.DirectWrite.DWRITE_TEXTURE_TYPE, textureBounds: POINTER(Windows.Win32.Foundation.RECT_head), alphaValues: POINTER(Byte), bufferSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetAlphaBlendParams(self, renderingParams: Windows.Win32.Graphics.DirectWrite.IDWriteRenderingParams_head, blendGamma: POINTER(Single), blendEnhancedContrast: POINTER(Single), blendClearTypeLevel: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteInMemoryFontFileLoader(c_void_p):
+class IDWriteInMemoryFontFileLoader(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontFileLoader
     Guid = Guid('dc102f47-a12d-4b1c-82-2d-9e-11-7e-33-04-3f')
     @commethod(4)
     def CreateInMemoryFontFileReference(self, factory: Windows.Win32.Graphics.DirectWrite.IDWriteFactory_head, fontData: c_void_p, fontDataSize: UInt32, ownerObject: Windows.Win32.System.Com.IUnknown_head, fontFile: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFile_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetFileCount(self) -> UInt32: ...
-class IDWriteInlineObject(c_void_p):
+class IDWriteInlineObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8339fde3-106f-47ab-83-73-1c-62-95-eb-10-b3')
     @commethod(3)
@@ -1678,7 +1678,7 @@ class IDWriteInlineObject(c_void_p):
     def GetOverhangMetrics(self, overhangs: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_OVERHANG_METRICS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetBreakConditions(self, breakConditionBefore: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_BREAK_CONDITION), breakConditionAfter: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_BREAK_CONDITION)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteLocalFontFileLoader(c_void_p):
+class IDWriteLocalFontFileLoader(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontFileLoader
     Guid = Guid('b2d9f3ec-c9fe-4a11-a2-ec-d8-62-08-f7-c0-a2')
     @commethod(4)
@@ -1687,7 +1687,7 @@ class IDWriteLocalFontFileLoader(c_void_p):
     def GetFilePathFromKey(self, fontFileReferenceKey: c_void_p, fontFileReferenceKeySize: UInt32, filePath: Windows.Win32.Foundation.PWSTR, filePathSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetLastWriteTimeFromKey(self, fontFileReferenceKey: c_void_p, fontFileReferenceKeySize: UInt32, lastWriteTime: POINTER(Windows.Win32.Foundation.FILETIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteLocalizedStrings(c_void_p):
+class IDWriteLocalizedStrings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('08256209-099a-4b34-b8-6d-c2-2b-11-0e-77-71')
     @commethod(3)
@@ -1702,10 +1702,10 @@ class IDWriteLocalizedStrings(c_void_p):
     def GetStringLength(self, index: UInt32, length: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetString(self, index: UInt32, stringBuffer: Windows.Win32.Foundation.PWSTR, size: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteNumberSubstitution(c_void_p):
+class IDWriteNumberSubstitution(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('14885cc9-bab0-4f90-b6-ed-5c-36-6a-2c-d0-3d')
-class IDWritePixelSnapping(c_void_p):
+class IDWritePixelSnapping(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('eaf3a2da-ecf4-4d24-b6-44-b3-4f-68-42-02-4b')
     @commethod(3)
@@ -1714,7 +1714,7 @@ class IDWritePixelSnapping(c_void_p):
     def GetCurrentTransform(self, clientDrawingContext: c_void_p, transform: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_MATRIX_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetPixelsPerDip(self, clientDrawingContext: c_void_p, pixelsPerDip: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteRemoteFontFileLoader(c_void_p):
+class IDWriteRemoteFontFileLoader(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontFileLoader
     Guid = Guid('68648c83-6ede-46c0-ab-46-20-08-3a-88-7f-de')
     @commethod(4)
@@ -1723,7 +1723,7 @@ class IDWriteRemoteFontFileLoader(c_void_p):
     def GetLocalityFromKey(self, fontFileReferenceKey: c_void_p, fontFileReferenceKeySize: UInt32, locality: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_LOCALITY)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def CreateFontFileReferenceFromUrl(self, factory: Windows.Win32.Graphics.DirectWrite.IDWriteFactory_head, baseUrl: Windows.Win32.Foundation.PWSTR, fontFileUrl: Windows.Win32.Foundation.PWSTR, fontFile: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFile_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteRemoteFontFileStream(c_void_p):
+class IDWriteRemoteFontFileStream(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteFontFileStream
     Guid = Guid('4db3757a-2c72-4ed9-b2-b6-1a-ba-be-1a-ff-9c')
     @commethod(7)
@@ -1734,7 +1734,7 @@ class IDWriteRemoteFontFileStream(c_void_p):
     def GetLocality(self) -> Windows.Win32.Graphics.DirectWrite.DWRITE_LOCALITY: ...
     @commethod(10)
     def BeginDownload(self, downloadOperationID: POINTER(Guid), fileFragments: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FILE_FRAGMENT_head), fragmentCount: UInt32, asyncResult: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteAsyncResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteRenderingParams(c_void_p):
+class IDWriteRenderingParams(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2f0da53a-2add-47cd-82-ee-d9-ec-34-68-8e-75')
     @commethod(3)
@@ -1747,22 +1747,22 @@ class IDWriteRenderingParams(c_void_p):
     def GetPixelGeometry(self) -> Windows.Win32.Graphics.DirectWrite.DWRITE_PIXEL_GEOMETRY: ...
     @commethod(7)
     def GetRenderingMode(self) -> Windows.Win32.Graphics.DirectWrite.DWRITE_RENDERING_MODE: ...
-class IDWriteRenderingParams1(c_void_p):
+class IDWriteRenderingParams1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteRenderingParams
     Guid = Guid('94413cf4-a6fc-4248-8b-50-66-74-34-8f-ca-d3')
     @commethod(8)
     def GetGrayscaleEnhancedContrast(self) -> Single: ...
-class IDWriteRenderingParams2(c_void_p):
+class IDWriteRenderingParams2(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteRenderingParams1
     Guid = Guid('f9d711c3-9777-40ae-87-e8-3e-5a-f9-bf-09-48')
     @commethod(9)
     def GetGridFitMode(self) -> Windows.Win32.Graphics.DirectWrite.DWRITE_GRID_FIT_MODE: ...
-class IDWriteRenderingParams3(c_void_p):
+class IDWriteRenderingParams3(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteRenderingParams2
     Guid = Guid('b7924baa-391b-412a-8c-5c-e4-4c-c2-d8-67-dc')
     @commethod(10)
     def GetRenderingMode1(self) -> Windows.Win32.Graphics.DirectWrite.DWRITE_RENDERING_MODE1: ...
-class IDWriteStringList(c_void_p):
+class IDWriteStringList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cfee3140-1157-47ca-8b-85-31-bf-cf-3f-2d-0e')
     @commethod(3)
@@ -1775,7 +1775,7 @@ class IDWriteStringList(c_void_p):
     def GetStringLength(self, listIndex: UInt32, length: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetString(self, listIndex: UInt32, stringBuffer: Windows.Win32.Foundation.PWSTR, stringBufferSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextAnalysisSink(c_void_p):
+class IDWriteTextAnalysisSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5810cd44-0ca0-4701-b3-fa-be-c5-18-2a-e4-f6')
     @commethod(3)
@@ -1786,12 +1786,12 @@ class IDWriteTextAnalysisSink(c_void_p):
     def SetBidiLevel(self, textPosition: UInt32, textLength: UInt32, explicitLevel: Byte, resolvedLevel: Byte) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetNumberSubstitution(self, textPosition: UInt32, textLength: UInt32, numberSubstitution: Windows.Win32.Graphics.DirectWrite.IDWriteNumberSubstitution_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextAnalysisSink1(c_void_p):
+class IDWriteTextAnalysisSink1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteTextAnalysisSink
     Guid = Guid('b0d941a0-85e7-4d8b-9f-d3-5c-ed-99-34-48-2a')
     @commethod(7)
     def SetGlyphOrientation(self, textPosition: UInt32, textLength: UInt32, glyphOrientationAngle: Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_ORIENTATION_ANGLE, adjustedBidiLevel: Byte, isSideways: Windows.Win32.Foundation.BOOL, isRightToLeft: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextAnalysisSource(c_void_p):
+class IDWriteTextAnalysisSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('688e1a58-5094-47c8-ad-c8-fb-ce-a6-0a-e9-2b')
     @commethod(3)
@@ -1804,12 +1804,12 @@ class IDWriteTextAnalysisSource(c_void_p):
     def GetLocaleName(self, textPosition: UInt32, textLength: POINTER(UInt32), localeName: POINTER(POINTER(UInt16))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetNumberSubstitution(self, textPosition: UInt32, textLength: POINTER(UInt32), numberSubstitution: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteNumberSubstitution_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextAnalysisSource1(c_void_p):
+class IDWriteTextAnalysisSource1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteTextAnalysisSource
     Guid = Guid('639cfad8-0fb4-4b21-a5-8a-06-79-20-12-00-09')
     @commethod(8)
     def GetVerticalGlyphOrientation(self, textPosition: UInt32, textLength: POINTER(UInt32), glyphOrientation: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_VERTICAL_GLYPH_ORIENTATION), bidiLevel: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextAnalyzer(c_void_p):
+class IDWriteTextAnalyzer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b7e6163e-7f46-43b4-84-b3-e4-e6-24-9c-36-5d')
     @commethod(3)
@@ -1826,7 +1826,7 @@ class IDWriteTextAnalyzer(c_void_p):
     def GetGlyphPlacements(self, textString: Windows.Win32.Foundation.PWSTR, clusterMap: POINTER(UInt16), textProps: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES_head), textLength: UInt32, glyphIndices: POINTER(UInt16), glyphProps: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES_head), glyphCount: UInt32, fontFace: Windows.Win32.Graphics.DirectWrite.IDWriteFontFace_head, fontEmSize: Single, isSideways: Windows.Win32.Foundation.BOOL, isRightToLeft: Windows.Win32.Foundation.BOOL, scriptAnalysis: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS_head), localeName: Windows.Win32.Foundation.PWSTR, features: POINTER(POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_TYPOGRAPHIC_FEATURES_head)), featureRangeLengths: POINTER(UInt32), featureRanges: UInt32, glyphAdvances: POINTER(Single), glyphOffsets: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetGdiCompatibleGlyphPlacements(self, textString: Windows.Win32.Foundation.PWSTR, clusterMap: POINTER(UInt16), textProps: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES_head), textLength: UInt32, glyphIndices: POINTER(UInt16), glyphProps: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES_head), glyphCount: UInt32, fontFace: Windows.Win32.Graphics.DirectWrite.IDWriteFontFace_head, fontEmSize: Single, pixelsPerDip: Single, transform: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_MATRIX_head), useGdiNatural: Windows.Win32.Foundation.BOOL, isSideways: Windows.Win32.Foundation.BOOL, isRightToLeft: Windows.Win32.Foundation.BOOL, scriptAnalysis: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS_head), localeName: Windows.Win32.Foundation.PWSTR, features: POINTER(POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_TYPOGRAPHIC_FEATURES_head)), featureRangeLengths: POINTER(UInt32), featureRanges: UInt32, glyphAdvances: POINTER(Single), glyphOffsets: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextAnalyzer1(c_void_p):
+class IDWriteTextAnalyzer1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteTextAnalyzer
     Guid = Guid('80dad800-e21f-4e83-96-ce-bf-cc-e5-00-db-7c')
     @commethod(10)
@@ -1847,7 +1847,7 @@ class IDWriteTextAnalyzer1(c_void_p):
     def JustifyGlyphAdvances(self, lineWidth: Single, glyphCount: UInt32, justificationOpportunities: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_JUSTIFICATION_OPPORTUNITY_head), glyphAdvances: POINTER(Single), glyphOffsets: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET_head), justifiedGlyphAdvances: POINTER(Single), justifiedGlyphOffsets: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def GetJustifiedGlyphs(self, fontFace: Windows.Win32.Graphics.DirectWrite.IDWriteFontFace_head, fontEmSize: Single, scriptAnalysis: Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS, textLength: UInt32, glyphCount: UInt32, maxGlyphCount: UInt32, clusterMap: POINTER(UInt16), glyphIndices: POINTER(UInt16), glyphAdvances: POINTER(Single), justifiedGlyphAdvances: POINTER(Single), justifiedGlyphOffsets: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET_head), glyphProperties: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES_head), actualGlyphCount: POINTER(UInt32), modifiedClusterMap: POINTER(UInt16), modifiedGlyphIndices: POINTER(UInt16), modifiedGlyphAdvances: POINTER(Single), modifiedGlyphOffsets: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextAnalyzer2(c_void_p):
+class IDWriteTextAnalyzer2(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteTextAnalyzer1
     Guid = Guid('553a9ff3-5693-4df7-b5-2b-74-80-6f-7f-2e-b9')
     @commethod(19)
@@ -1856,7 +1856,7 @@ class IDWriteTextAnalyzer2(c_void_p):
     def GetTypographicFeatures(self, fontFace: Windows.Win32.Graphics.DirectWrite.IDWriteFontFace_head, scriptAnalysis: Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS, localeName: Windows.Win32.Foundation.PWSTR, maxTagCount: UInt32, actualTagCount: POINTER(UInt32), tags: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_FEATURE_TAG)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def CheckTypographicFeature(self, fontFace: Windows.Win32.Graphics.DirectWrite.IDWriteFontFace_head, scriptAnalysis: Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS, localeName: Windows.Win32.Foundation.PWSTR, featureTag: Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_FEATURE_TAG, glyphCount: UInt32, glyphIndices: POINTER(UInt16), featureApplies: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextFormat(c_void_p):
+class IDWriteTextFormat(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9c906818-31d7-4fd3-a1-51-7c-5e-22-5d-b5-5a')
     @commethod(3)
@@ -1909,7 +1909,7 @@ class IDWriteTextFormat(c_void_p):
     def GetLocaleNameLength(self) -> UInt32: ...
     @commethod(27)
     def GetLocaleName(self, localeName: Windows.Win32.Foundation.PWSTR, nameSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextFormat1(c_void_p):
+class IDWriteTextFormat1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteTextFormat
     Guid = Guid('5f174b49-0d8b-4cfb-8b-ca-f1-cc-e9-d0-6c-67')
     @commethod(28)
@@ -1928,14 +1928,14 @@ class IDWriteTextFormat1(c_void_p):
     def SetFontFallback(self, fontFallback: Windows.Win32.Graphics.DirectWrite.IDWriteFontFallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
     def GetFontFallback(self, fontFallback: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFallback_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextFormat2(c_void_p):
+class IDWriteTextFormat2(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteTextFormat1
     Guid = Guid('f67e0edd-9e3d-4ecc-8c-32-41-83-25-3d-fe-70')
     @commethod(36)
     def SetLineSpacing(self, lineSpacingOptions: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_SPACING_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(37)
     def GetLineSpacing(self, lineSpacingOptions: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_SPACING_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextFormat3(c_void_p):
+class IDWriteTextFormat3(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteTextFormat2
     Guid = Guid('6d3b5641-e550-430d-a8-5b-b7-bf-48-a9-34-27')
     @commethod(38)
@@ -1948,7 +1948,7 @@ class IDWriteTextFormat3(c_void_p):
     def GetAutomaticFontAxes(self) -> Windows.Win32.Graphics.DirectWrite.DWRITE_AUTOMATIC_FONT_AXES: ...
     @commethod(42)
     def SetAutomaticFontAxes(self, automaticFontAxes: Windows.Win32.Graphics.DirectWrite.DWRITE_AUTOMATIC_FONT_AXES) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextLayout(c_void_p):
+class IDWriteTextLayout(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteTextFormat
     Guid = Guid('53737037-6d14-410b-9b-fe-0b-18-2b-b7-09-61')
     @commethod(28)
@@ -2029,7 +2029,7 @@ class IDWriteTextLayout(c_void_p):
     def HitTestTextPosition(self, textPosition: UInt32, isTrailingHit: Windows.Win32.Foundation.BOOL, pointX: POINTER(Single), pointY: POINTER(Single), hitTestMetrics: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_HIT_TEST_METRICS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(66)
     def HitTestTextRange(self, textPosition: UInt32, textLength: UInt32, originX: Single, originY: Single, hitTestMetrics: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_HIT_TEST_METRICS_head), maxHitTestMetricsCount: UInt32, actualHitTestMetricsCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextLayout1(c_void_p):
+class IDWriteTextLayout1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout
     Guid = Guid('9064d822-80a7-465c-a9-86-df-65-f7-8b-8f-eb')
     @commethod(67)
@@ -2040,7 +2040,7 @@ class IDWriteTextLayout1(c_void_p):
     def SetCharacterSpacing(self, leadingSpacing: Single, trailingSpacing: Single, minimumAdvanceWidth: Single, textRange: Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_RANGE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(70)
     def GetCharacterSpacing(self, currentPosition: UInt32, leadingSpacing: POINTER(Single), trailingSpacing: POINTER(Single), minimumAdvanceWidth: POINTER(Single), textRange: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_RANGE_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextLayout2(c_void_p):
+class IDWriteTextLayout2(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout1
     Guid = Guid('1093c18f-8d5e-43f0-b0-64-09-17-31-1b-52-5e')
     @commethod(71)
@@ -2061,7 +2061,7 @@ class IDWriteTextLayout2(c_void_p):
     def SetFontFallback(self, fontFallback: Windows.Win32.Graphics.DirectWrite.IDWriteFontFallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(79)
     def GetFontFallback(self, fontFallback: POINTER(Windows.Win32.Graphics.DirectWrite.IDWriteFontFallback_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextLayout3(c_void_p):
+class IDWriteTextLayout3(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout2
     Guid = Guid('07ddcd52-020e-4de8-ac-33-6c-95-3d-83-f9-2d')
     @commethod(80)
@@ -2072,7 +2072,7 @@ class IDWriteTextLayout3(c_void_p):
     def GetLineSpacing(self, lineSpacingOptions: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_SPACING_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(83)
     def GetLineMetrics(self, lineMetrics: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_METRICS1_head), maxLineCount: UInt32, actualLineCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextLayout4(c_void_p):
+class IDWriteTextLayout4(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout3
     Guid = Guid('05a9bf42-223f-4441-b5-fb-82-63-68-5f-55-e9')
     @commethod(84)
@@ -2085,7 +2085,7 @@ class IDWriteTextLayout4(c_void_p):
     def GetAutomaticFontAxes(self) -> Windows.Win32.Graphics.DirectWrite.DWRITE_AUTOMATIC_FONT_AXES: ...
     @commethod(88)
     def SetAutomaticFontAxes(self, automaticFontAxes: Windows.Win32.Graphics.DirectWrite.DWRITE_AUTOMATIC_FONT_AXES) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextRenderer(c_void_p):
+class IDWriteTextRenderer(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWritePixelSnapping
     Guid = Guid('ef8a8135-5cc6-45fe-88-25-c5-a0-72-4e-b8-19')
     @commethod(6)
@@ -2096,7 +2096,7 @@ class IDWriteTextRenderer(c_void_p):
     def DrawStrikethrough(self, clientDrawingContext: c_void_p, baselineOriginX: Single, baselineOriginY: Single, strikethrough: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_STRIKETHROUGH_head), clientDrawingEffect: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def DrawInlineObject(self, clientDrawingContext: c_void_p, originX: Single, originY: Single, inlineObject: Windows.Win32.Graphics.DirectWrite.IDWriteInlineObject_head, isSideways: Windows.Win32.Foundation.BOOL, isRightToLeft: Windows.Win32.Foundation.BOOL, clientDrawingEffect: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTextRenderer1(c_void_p):
+class IDWriteTextRenderer1(ComPtr):
     extends: Windows.Win32.Graphics.DirectWrite.IDWriteTextRenderer
     Guid = Guid('d3e0e934-22a0-427e-aa-e4-7d-95-74-b5-9d-b1')
     @commethod(10)
@@ -2107,7 +2107,7 @@ class IDWriteTextRenderer1(c_void_p):
     def DrawStrikethrough(self, clientDrawingContext: c_void_p, baselineOriginX: Single, baselineOriginY: Single, orientationAngle: Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_ORIENTATION_ANGLE, strikethrough: POINTER(Windows.Win32.Graphics.DirectWrite.DWRITE_STRIKETHROUGH_head), clientDrawingEffect: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def DrawInlineObject(self, clientDrawingContext: c_void_p, originX: Single, originY: Single, orientationAngle: Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_ORIENTATION_ANGLE, inlineObject: Windows.Win32.Graphics.DirectWrite.IDWriteInlineObject_head, isSideways: Windows.Win32.Foundation.BOOL, isRightToLeft: Windows.Win32.Foundation.BOOL, clientDrawingEffect: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IDWriteTypography(c_void_p):
+class IDWriteTypography(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('55f1112b-1dc2-4b3c-95-41-f4-68-94-ed-85-b6')
     @commethod(3)

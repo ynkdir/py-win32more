@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Data.Xml.MsXml
 import Windows.Win32.Foundation
 import Windows.Win32.Security.Cryptography
@@ -724,7 +724,7 @@ class EapSimCredential(EasyCastStructure):
 class EapUsernamePasswordCredential(EasyCastStructure):
     username: Windows.Win32.Foundation.PWSTR
     password: Windows.Win32.Foundation.PWSTR
-class IAccountingProviderConfig(c_void_p):
+class IAccountingProviderConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('66a2db18-d706-11d0-a3-7b-00-c0-4f-c9-da-04')
     @commethod(3)
@@ -737,7 +737,7 @@ class IAccountingProviderConfig(c_void_p):
     def Activate(self, uConnectionParam: UIntPtr, uReserved1: UIntPtr, uReserved2: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Deactivate(self, uConnectionParam: UIntPtr, uReserved1: UIntPtr, uReserved2: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class IAuthenticationProviderConfig(c_void_p):
+class IAuthenticationProviderConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('66a2db17-d706-11d0-a3-7b-00-c0-4f-c9-da-04')
     @commethod(3)
@@ -750,7 +750,7 @@ class IAuthenticationProviderConfig(c_void_p):
     def Activate(self, uConnectionParam: UIntPtr, uReserved1: UIntPtr, uReserved2: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Deactivate(self, uConnectionParam: UIntPtr, uReserved1: UIntPtr, uReserved2: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class IEAPProviderConfig(c_void_p):
+class IEAPProviderConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('66a2db19-d706-11d0-a3-7b-00-c0-4f-c9-da-04')
     @commethod(3)
@@ -763,19 +763,19 @@ class IEAPProviderConfig(c_void_p):
     def RouterInvokeConfigUI(self, dwEapTypeId: UInt32, uConnectionParam: UIntPtr, hwndParent: Windows.Win32.Foundation.HWND, dwFlags: UInt32, pConnectionDataIn: POINTER(Byte), dwSizeOfConnectionDataIn: UInt32, ppConnectionDataOut: POINTER(POINTER(Byte)), pdwSizeOfConnectionDataOut: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def RouterInvokeCredentialsUI(self, dwEapTypeId: UInt32, uConnectionParam: UIntPtr, hwndParent: Windows.Win32.Foundation.HWND, dwFlags: UInt32, pConnectionDataIn: POINTER(Byte), dwSizeOfConnectionDataIn: UInt32, pUserDataIn: POINTER(Byte), dwSizeOfUserDataIn: UInt32, ppUserDataOut: POINTER(POINTER(Byte)), pdwSizeOfUserDataOut: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEAPProviderConfig2(c_void_p):
+class IEAPProviderConfig2(ComPtr):
     extends: Windows.Win32.Security.ExtensibleAuthenticationProtocol.IEAPProviderConfig
     Guid = Guid('d565917a-85c4-4466-85-6e-67-1c-37-42-ea-9a')
     @commethod(8)
     def ServerInvokeConfigUI2(self, dwEapTypeId: UInt32, uConnectionParam: UIntPtr, hWnd: Windows.Win32.Foundation.HWND, pConfigDataIn: POINTER(Byte), dwSizeOfConfigDataIn: UInt32, ppConfigDataOut: POINTER(POINTER(Byte)), pdwSizeOfConfigDataOut: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetGlobalConfig(self, dwEapTypeId: UInt32, ppConfigDataOut: POINTER(POINTER(Byte)), pdwSizeOfConfigDataOut: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEAPProviderConfig3(c_void_p):
+class IEAPProviderConfig3(ComPtr):
     extends: Windows.Win32.Security.ExtensibleAuthenticationProtocol.IEAPProviderConfig2
     Guid = Guid('b78ecd12-68bb-4f86-9b-f0-84-38-dd-3b-e9-82')
     @commethod(10)
     def ServerInvokeCertificateConfigUI(self, dwEapTypeId: UInt32, uConnectionParam: UIntPtr, hWnd: Windows.Win32.Foundation.HWND, pConfigDataIn: POINTER(Byte), dwSizeOfConfigDataIn: UInt32, ppConfigDataOut: POINTER(POINTER(Byte)), pdwSizeOfConfigDataOut: POINTER(UInt32), uReserved: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class IRouterProtocolConfig(c_void_p):
+class IRouterProtocolConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('66a2db16-d706-11d0-a3-7b-00-c0-4f-c9-da-04')
     @commethod(3)

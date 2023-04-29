@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.RemoteManagement
@@ -627,7 +627,7 @@ def WSManPluginAuthzUserComplete(senderDetails: POINTER(Windows.Win32.System.Rem
 def WSManPluginAuthzOperationComplete(senderDetails: POINTER(Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS_head), flags: UInt32, userAuthorizationContext: c_void_p, errorCode: UInt32, extendedErrorInformation: Windows.Win32.Foundation.PWSTR) -> UInt32: ...
 @winfunctype('WsmSvc.dll')
 def WSManPluginAuthzQueryQuotaComplete(senderDetails: POINTER(Windows.Win32.System.RemoteManagement.WSMAN_SENDER_DETAILS_head), flags: UInt32, quota: POINTER(Windows.Win32.System.RemoteManagement.WSMAN_AUTHZ_QUOTA_head), errorCode: UInt32, extendedErrorInformation: Windows.Win32.Foundation.PWSTR) -> UInt32: ...
-class IWSMan(c_void_p):
+class IWSMan(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('190d8637-5cd3-496d-ad-24-69-63-6b-b5-a3-b5')
     @commethod(7)
@@ -638,7 +638,7 @@ class IWSMan(c_void_p):
     def get_CommandLine(self, value: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_Error(self, value: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSManConnectionOptions(c_void_p):
+class IWSManConnectionOptions(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f704e861-9e52-464f-b7-86-da-5e-b2-32-0f-dd')
     @commethod(7)
@@ -647,14 +647,14 @@ class IWSManConnectionOptions(c_void_p):
     def put_UserName(self, name: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def put_Password(self, password: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSManConnectionOptionsEx(c_void_p):
+class IWSManConnectionOptionsEx(ComPtr):
     extends: Windows.Win32.System.RemoteManagement.IWSManConnectionOptions
     Guid = Guid('ef43edf7-2a48-4d93-95-26-8b-d6-ab-6d-4a-6b')
     @commethod(10)
     def get_CertificateThumbprint(self, thumbprint: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def put_CertificateThumbprint(self, thumbprint: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSManConnectionOptionsEx2(c_void_p):
+class IWSManConnectionOptionsEx2(ComPtr):
     extends: Windows.Win32.System.RemoteManagement.IWSManConnectionOptionsEx
     Guid = Guid('f500c9ec-24ee-48ab-b3-8d-fc-9a-16-4c-65-8e')
     @commethod(12)
@@ -673,7 +673,7 @@ class IWSManConnectionOptionsEx2(c_void_p):
     def ProxyAuthenticationUseBasic(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def ProxyAuthenticationUseDigest(self, value: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSManEnumerator(c_void_p):
+class IWSManEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f3457ca9-abb9-4fa5-b8-50-90-e8-ca-30-0e-7f')
     @commethod(7)
@@ -682,7 +682,7 @@ class IWSManEnumerator(c_void_p):
     def get_AtEndOfStream(self, eos: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Error(self, value: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSManEx(c_void_p):
+class IWSManEx(ComPtr):
     extends: Windows.Win32.System.RemoteManagement.IWSMan
     Guid = Guid('2d53bdaa-798e-49e6-a1-aa-74-d0-12-56-f4-11')
     @commethod(11)
@@ -725,12 +725,12 @@ class IWSManEx(c_void_p):
     def EnumerationFlagHierarchyDeepBasePropsOnly(self, flags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
     def EnumerationFlagReturnObject(self, flags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSManEx2(c_void_p):
+class IWSManEx2(ComPtr):
     extends: Windows.Win32.System.RemoteManagement.IWSManEx
     Guid = Guid('1d1b5ae0-42d9-4021-82-61-39-87-61-95-12-e9')
     @commethod(31)
     def SessionFlagUseClientCertificate(self, flags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSManEx3(c_void_p):
+class IWSManEx3(ComPtr):
     extends: Windows.Win32.System.RemoteManagement.IWSManEx2
     Guid = Guid('6400e966-011d-4eac-84-74-04-9e-08-48-af-ad')
     @commethod(32)
@@ -747,12 +747,12 @@ class IWSManEx3(c_void_p):
     def SessionFlagAllowNegotiateImplicitCredentials(self, flags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(38)
     def SessionFlagUseSsl(self, flags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSManInternal(c_void_p):
+class IWSManInternal(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('04ae2b1d-9954-4d99-94-a9-a9-61-e7-2c-3a-13')
     @commethod(7)
     def ConfigSDDL(self, session: Windows.Win32.System.Com.IDispatch_head, resourceUri: Windows.Win32.System.Variant.VARIANT, flags: Int32, resource: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSManResourceLocator(c_void_p):
+class IWSManResourceLocator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('a7a1ba28-de41-466a-ad-0a-c4-05-9e-ad-74-28')
     @commethod(7)
@@ -781,10 +781,10 @@ class IWSManResourceLocator(c_void_p):
     def ClearOptions(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def get_Error(self, value: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSManResourceLocatorInternal(c_void_p):
+class IWSManResourceLocatorInternal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('effaead7-7ec8-4716-b9-be-f2-e7-e9-fb-4a-db')
-class IWSManSession(c_void_p):
+class IWSManSession(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('fc84fc58-1286-40c4-9d-a0-c8-ef-6e-c2-41-e0')
     @commethod(7)

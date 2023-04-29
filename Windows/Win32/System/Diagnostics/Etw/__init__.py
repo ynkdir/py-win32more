@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Security
 import Windows.Win32.System.Com
@@ -1170,7 +1170,7 @@ class EVENT_TRACE_PROPERTIES_V2(EasyCastStructure):
         V2Options: UInt64
         class _Anonymous_e__Struct(EasyCastStructure):
             _bitfield: UInt32
-class ITraceEvent(c_void_p):
+class ITraceEvent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8cc97f40-9028-4ff3-9b-62-7d-1f-79-ca-7b-cb')
     @commethod(3)
@@ -1197,7 +1197,7 @@ class ITraceEvent(c_void_p):
     def SetTimeStamp(self, TimeStamp: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def SetProviderId(self, ProviderId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITraceEventCallback(c_void_p):
+class ITraceEventCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3ed25501-593f-43e9-8f-38-3a-b4-6f-5a-4a-52')
     @commethod(3)
@@ -1206,7 +1206,7 @@ class ITraceEventCallback(c_void_p):
     def OnFinalizeProcessTrace(self, Relogger: Windows.Win32.System.Diagnostics.Etw.ITraceRelogger_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnEvent(self, Event: Windows.Win32.System.Diagnostics.Etw.ITraceEvent_head, Relogger: Windows.Win32.System.Diagnostics.Etw.ITraceRelogger_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ITraceRelogger(c_void_p):
+class ITraceRelogger(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f754ad43-3bcc-4286-80-09-9c-5d-a2-14-e8-4e')
     @commethod(3)

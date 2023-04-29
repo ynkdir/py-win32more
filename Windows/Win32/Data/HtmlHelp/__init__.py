@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Data.HtmlHelp
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
@@ -410,7 +410,7 @@ HH_SAFE_DISPLAY_TOPIC: HTML_HELP_COMMAND = 32
 HH_MAX_TABS: HTML_HELP_COMMAND = 19
 HH_MAX_TABS_CUSTOM: HTML_HELP_COMMAND = 9
 HH_FTS_DEFAULT_PROXIMITY: HTML_HELP_COMMAND = -1
-class IITDatabase(c_void_p):
+class IITDatabase(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8fa0d5a2-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
     @commethod(3)
@@ -423,7 +423,7 @@ class IITDatabase(c_void_p):
     def GetObject(self, dwObjInstance: UInt32, riid: POINTER(Guid), ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetObjectPersistence(self, lpwszObject: Windows.Win32.Foundation.PWSTR, dwObjInstance: UInt32, ppvPersistence: POINTER(c_void_p), fStream: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IITPropList(c_void_p):
+class IITPropList(ComPtr):
     extends: Windows.Win32.System.Com.IPersistStreamInit
     Guid = Guid('1f403bb1-9997-11d0-a8-50-00-aa-00-6c-7d-01')
     @commethod(9)
@@ -462,7 +462,7 @@ class IITPropList(c_void_p):
     def LoadFromMem(self, lpvData: c_void_p, dwBufSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def SaveToMem(self, lpvData: c_void_p, dwBufSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IITResultSet(c_void_p):
+class IITResultSet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3bb91d41-998b-11d0-a8-50-00-aa-00-6c-7d-01')
     @commethod(3)
@@ -525,14 +525,14 @@ class IITResultSet(c_void_p):
     def GetRowStatus(self, lRowFirst: Int32, cRows: Int32, lpRowStatus: POINTER(Windows.Win32.Data.HtmlHelp.ROWSTATUS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
     def GetColumnStatus(self, lpColStatus: POINTER(Windows.Win32.Data.HtmlHelp.COLUMNSTATUS_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IStemSink(c_void_p):
+class IStemSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fe77c330-7f42-11ce-be-57-00-aa-00-51-fe-20')
     @commethod(3)
     def PutAltWord(self, pwcInBuf: Windows.Win32.Foundation.PWSTR, cwc: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def PutWord(self, pwcInBuf: Windows.Win32.Foundation.PWSTR, cwc: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IStemmerConfig(c_void_p):
+class IStemmerConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8fa0d5a7-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
     @commethod(3)
@@ -545,7 +545,7 @@ class IStemmerConfig(c_void_p):
     def GetControlInfo(self, pgrfStemFlags: POINTER(UInt32), pdwReserved: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def LoadExternalStemmerData(self, pStream: Windows.Win32.System.Com.IStream_head, dwExtDataType: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IWordBreakerConfig(c_void_p):
+class IWordBreakerConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8fa0d5a6-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
     @commethod(3)

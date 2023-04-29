@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.Networking.Clustering
@@ -3174,7 +3174,7 @@ HRESENUM = IntPtr
 HRESENUMEX = IntPtr
 HRESOURCE = IntPtr
 HRESTYPEENUM = IntPtr
-class IGetClusterDataInfo(c_void_p):
+class IGetClusterDataInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede51-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)
@@ -3183,34 +3183,34 @@ class IGetClusterDataInfo(c_void_p):
     def GetClusterHandle(self) -> Windows.Win32.Networking.Clustering.HCLUSTER: ...
     @commethod(5)
     def GetObjectCount(self) -> Int32: ...
-class IGetClusterGroupInfo(c_void_p):
+class IGetClusterGroupInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede54-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)
     def GetGroupHandle(self, lObjIndex: Int32) -> Windows.Win32.Networking.Clustering.HGROUP: ...
-class IGetClusterNetInterfaceInfo(c_void_p):
+class IGetClusterNetInterfaceInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede57-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)
     def GetNetInterfaceHandle(self, lObjIndex: Int32) -> Windows.Win32.Networking.Clustering.HNETINTERFACE: ...
-class IGetClusterNetworkInfo(c_void_p):
+class IGetClusterNetworkInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede56-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)
     def GetNetworkHandle(self, lObjIndex: Int32) -> Windows.Win32.Networking.Clustering.HNETWORK: ...
-class IGetClusterNodeInfo(c_void_p):
+class IGetClusterNodeInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede53-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)
     def GetNodeHandle(self, lObjIndex: Int32) -> Windows.Win32.Networking.Clustering.HNODE: ...
-class IGetClusterObjectInfo(c_void_p):
+class IGetClusterObjectInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede52-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)
     def GetObjectName(self, lObjIndex: Int32, lpszName: Windows.Win32.Foundation.BSTR, pcchName: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetObjectType(self, lObjIndex: Int32) -> Windows.Win32.Networking.Clustering.CLUADMEX_OBJECT_TYPE: ...
-class IGetClusterResourceInfo(c_void_p):
+class IGetClusterResourceInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede55-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)
@@ -3219,7 +3219,7 @@ class IGetClusterResourceInfo(c_void_p):
     def GetResourceTypeName(self, lObjIndex: Int32, lpszResTypeName: Windows.Win32.Foundation.BSTR, pcchResTypeName: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetResourceNetworkName(self, lObjIndex: Int32, lpszNetName: Windows.Win32.Foundation.BSTR, pcchNetName: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
-class IGetClusterUIInfo(c_void_p):
+class IGetClusterUIInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede50-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)
@@ -3230,7 +3230,7 @@ class IGetClusterUIInfo(c_void_p):
     def GetFont(self) -> Windows.Win32.Graphics.Gdi.HFONT: ...
     @commethod(6)
     def GetIcon(self) -> Windows.Win32.UI.WindowsAndMessaging.HICON: ...
-class ISClusApplication(c_void_p):
+class ISClusApplication(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e606e6-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3239,7 +3239,7 @@ class ISClusApplication(c_void_p):
     def get_ClusterNames(self, bstrDomainName: Windows.Win32.Foundation.BSTR, ppClusters: POINTER(Windows.Win32.Networking.Clustering.ISClusterNames_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def OpenCluster(self, bstrClusterName: Windows.Win32.Foundation.BSTR, pCluster: POINTER(Windows.Win32.Networking.Clustering.ISCluster_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusCryptoKeys(c_void_p):
+class ISClusCryptoKeys(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e6072c-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3254,7 +3254,7 @@ class ISClusCryptoKeys(c_void_p):
     def AddItem(self, bstrCryptoKey: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def RemoveItem(self, varIndex: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusDisk(c_void_p):
+class ISClusDisk(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e60724-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3265,7 +3265,7 @@ class ISClusDisk(c_void_p):
     def get_DiskNumber(self, plDiskNumber: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_Partitions(self, ppPartitions: POINTER(Windows.Win32.Networking.Clustering.ISClusPartitions_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusDisks(c_void_p):
+class ISClusDisks(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e60726-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3274,7 +3274,7 @@ class ISClusDisks(c_void_p):
     def get__NewEnum(self, retval: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Item(self, varIndex: Windows.Win32.System.Variant.VARIANT, ppDisk: POINTER(Windows.Win32.Networking.Clustering.ISClusDisk_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusNetInterface(c_void_p):
+class ISClusNetInterface(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e606ee-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3293,7 +3293,7 @@ class ISClusNetInterface(c_void_p):
     def get_State(self, dwState: POINTER(Windows.Win32.Networking.Clustering.CLUSTER_NETINTERFACE_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_Cluster(self, ppCluster: POINTER(Windows.Win32.Networking.Clustering.ISCluster_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusNetInterfaces(c_void_p):
+class ISClusNetInterfaces(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e606f0-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3304,7 +3304,7 @@ class ISClusNetInterfaces(c_void_p):
     def Refresh(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_Item(self, varIndex: Windows.Win32.System.Variant.VARIANT, ppClusNetInterface: POINTER(Windows.Win32.Networking.Clustering.ISClusNetInterface_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusNetwork(c_void_p):
+class ISClusNetwork(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e606f2-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3329,7 +3329,7 @@ class ISClusNetwork(c_void_p):
     def get_NetInterfaces(self, ppClusNetInterfaces: POINTER(Windows.Win32.Networking.Clustering.ISClusNetworkNetInterfaces_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def get_Cluster(self, ppCluster: POINTER(Windows.Win32.Networking.Clustering.ISCluster_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusNetworkNetInterfaces(c_void_p):
+class ISClusNetworkNetInterfaces(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e606f6-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3340,7 +3340,7 @@ class ISClusNetworkNetInterfaces(c_void_p):
     def Refresh(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_Item(self, varIndex: Windows.Win32.System.Variant.VARIANT, ppClusNetInterface: POINTER(Windows.Win32.Networking.Clustering.ISClusNetInterface_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusNetworks(c_void_p):
+class ISClusNetworks(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e606f4-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3351,7 +3351,7 @@ class ISClusNetworks(c_void_p):
     def Refresh(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_Item(self, varIndex: Windows.Win32.System.Variant.VARIANT, ppClusNetwork: POINTER(Windows.Win32.Networking.Clustering.ISClusNetwork_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusNode(c_void_p):
+class ISClusNode(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e606f8-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3382,7 +3382,7 @@ class ISClusNode(c_void_p):
     def get_Cluster(self, ppCluster: POINTER(Windows.Win32.Networking.Clustering.ISCluster_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def get_NetInterfaces(self, ppClusNetInterfaces: POINTER(Windows.Win32.Networking.Clustering.ISClusNodeNetInterfaces_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusNodeNetInterfaces(c_void_p):
+class ISClusNodeNetInterfaces(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e606fc-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3393,7 +3393,7 @@ class ISClusNodeNetInterfaces(c_void_p):
     def Refresh(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_Item(self, varIndex: Windows.Win32.System.Variant.VARIANT, ppClusNetInterface: POINTER(Windows.Win32.Networking.Clustering.ISClusNetInterface_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusNodes(c_void_p):
+class ISClusNodes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e606fa-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3404,7 +3404,7 @@ class ISClusNodes(c_void_p):
     def Refresh(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_Item(self, varIndex: Windows.Win32.System.Variant.VARIANT, ppNode: POINTER(Windows.Win32.Networking.Clustering.ISClusNode_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusPartition(c_void_p):
+class ISClusPartition(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e60720-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3421,7 +3421,7 @@ class ISClusPartition(c_void_p):
     def get_FileSystemFlags(self, plFileSystemFlags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def get_FileSystem(self, pbstrFileSystem: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusPartitionEx(c_void_p):
+class ISClusPartitionEx(ComPtr):
     extends: Windows.Win32.Networking.Clustering.ISClusPartition
     Guid = Guid('8802d4fe-b32e-4ad1-9d-bd-64-f1-8e-11-66-ce')
     @commethod(14)
@@ -3434,7 +3434,7 @@ class ISClusPartitionEx(c_void_p):
     def get_PartitionNumber(self, plPartitionNumber: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def get_VolumeGuid(self, pbstrVolumeGuid: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusPartitions(c_void_p):
+class ISClusPartitions(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e60722-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3443,7 +3443,7 @@ class ISClusPartitions(c_void_p):
     def get__NewEnum(self, retval: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Item(self, varIndex: Windows.Win32.System.Variant.VARIANT, ppPartition: POINTER(Windows.Win32.Networking.Clustering.ISClusPartition_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusProperties(c_void_p):
+class ISClusProperties(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e60700-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3468,7 +3468,7 @@ class ISClusProperties(c_void_p):
     def get_Common(self, pvarCommon: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def get_Modified(self, pvarModified: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusProperty(c_void_p):
+class ISClusProperty(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e606fe-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3501,7 +3501,7 @@ class ISClusProperty(c_void_p):
     def get_Modified(self, pvarModified: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def UseDefaultValue(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusPropertyValue(c_void_p):
+class ISClusPropertyValue(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e6071a-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3522,7 +3522,7 @@ class ISClusPropertyValue(c_void_p):
     def get_DataCount(self, pCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_Data(self, ppClusterPropertyValueData: POINTER(Windows.Win32.Networking.Clustering.ISClusPropertyValueData_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusPropertyValueData(c_void_p):
+class ISClusPropertyValueData(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e6071e-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3535,7 +3535,7 @@ class ISClusPropertyValueData(c_void_p):
     def CreateItem(self, varValue: Windows.Win32.System.Variant.VARIANT, pvarData: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def RemoveItem(self, varIndex: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusPropertyValues(c_void_p):
+class ISClusPropertyValues(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e6071c-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3548,12 +3548,12 @@ class ISClusPropertyValues(c_void_p):
     def CreateItem(self, bstrName: Windows.Win32.Foundation.BSTR, varValue: Windows.Win32.System.Variant.VARIANT, ppPropertyValue: POINTER(Windows.Win32.Networking.Clustering.ISClusPropertyValue_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def RemoveItem(self, varIndex: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusRefObject(c_void_p):
+class ISClusRefObject(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e60702-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
     def get_Handle(self, phandle: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusRegistryKeys(c_void_p):
+class ISClusRegistryKeys(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e6072a-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3568,7 +3568,7 @@ class ISClusRegistryKeys(c_void_p):
     def AddItem(self, bstrRegistryKey: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def RemoveItem(self, varIndex: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusResDependencies(c_void_p):
+class ISClusResDependencies(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e60704-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3587,7 +3587,7 @@ class ISClusResDependencies(c_void_p):
     def AddItem(self, pResource: Windows.Win32.Networking.Clustering.ISClusResource_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def RemoveItem(self, varIndex: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusResDependents(c_void_p):
+class ISClusResDependents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e6072e-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3606,7 +3606,7 @@ class ISClusResDependents(c_void_p):
     def AddItem(self, pResource: Windows.Win32.Networking.Clustering.ISClusResource_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def RemoveItem(self, varIndex: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusResGroup(c_void_p):
+class ISClusResGroup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e60706-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3641,7 +3641,7 @@ class ISClusResGroup(c_void_p):
     def Offline(self, varTimeout: Windows.Win32.System.Variant.VARIANT, pvarPending: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def get_Cluster(self, ppCluster: POINTER(Windows.Win32.Networking.Clustering.ISCluster_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusResGroupPreferredOwnerNodes(c_void_p):
+class ISClusResGroupPreferredOwnerNodes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e606e8-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3662,7 +3662,7 @@ class ISClusResGroupPreferredOwnerNodes(c_void_p):
     def SaveChanges(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def AddItem(self, pNode: Windows.Win32.Networking.Clustering.ISClusNode_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusResGroupResources(c_void_p):
+class ISClusResGroupResources(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e606ea-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3677,7 +3677,7 @@ class ISClusResGroupResources(c_void_p):
     def CreateItem(self, bstrResourceName: Windows.Win32.Foundation.BSTR, bstrResourceType: Windows.Win32.Foundation.BSTR, dwFlags: Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_CREATE_FLAGS, ppClusterResource: POINTER(Windows.Win32.Networking.Clustering.ISClusResource_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def DeleteItem(self, varIndex: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusResGroups(c_void_p):
+class ISClusResGroups(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e60708-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3692,7 +3692,7 @@ class ISClusResGroups(c_void_p):
     def CreateItem(self, bstrResourceGroupName: Windows.Win32.Foundation.BSTR, ppResourceGroup: POINTER(Windows.Win32.Networking.Clustering.ISClusResGroup_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def DeleteItem(self, varIndex: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusResPossibleOwnerNodes(c_void_p):
+class ISClusResPossibleOwnerNodes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e6070e-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3709,7 +3709,7 @@ class ISClusResPossibleOwnerNodes(c_void_p):
     def RemoveItem(self, varIndex: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def get_Modified(self, pvarModified: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusResType(c_void_p):
+class ISClusResType(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e60710-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3732,7 +3732,7 @@ class ISClusResType(c_void_p):
     def get_PossibleOwnerNodes(self, ppOwnerNodes: POINTER(Windows.Win32.Networking.Clustering.ISClusResTypePossibleOwnerNodes_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def get_AvailableDisks(self, ppAvailableDisks: POINTER(Windows.Win32.Networking.Clustering.ISClusDisks_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusResTypePossibleOwnerNodes(c_void_p):
+class ISClusResTypePossibleOwnerNodes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e60718-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3743,7 +3743,7 @@ class ISClusResTypePossibleOwnerNodes(c_void_p):
     def Refresh(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_Item(self, varIndex: Windows.Win32.System.Variant.VARIANT, ppNode: POINTER(Windows.Win32.Networking.Clustering.ISClusNode_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusResTypeResources(c_void_p):
+class ISClusResTypeResources(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e60714-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3758,7 +3758,7 @@ class ISClusResTypeResources(c_void_p):
     def CreateItem(self, bstrResourceName: Windows.Win32.Foundation.BSTR, bstrGroupName: Windows.Win32.Foundation.BSTR, dwFlags: Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_CREATE_FLAGS, ppClusterResource: POINTER(Windows.Win32.Networking.Clustering.ISClusResource_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def DeleteItem(self, varIndex: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusResTypes(c_void_p):
+class ISClusResTypes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e60712-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3773,7 +3773,7 @@ class ISClusResTypes(c_void_p):
     def CreateItem(self, bstrResourceTypeName: Windows.Win32.Foundation.BSTR, bstrDisplayName: Windows.Win32.Foundation.BSTR, bstrResourceTypeDll: Windows.Win32.Foundation.BSTR, dwLooksAlivePollInterval: Int32, dwIsAlivePollInterval: Int32, ppResourceType: POINTER(Windows.Win32.Networking.Clustering.ISClusResType_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def DeleteItem(self, varIndex: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusResource(c_void_p):
+class ISClusResource(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e6070a-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3840,7 +3840,7 @@ class ISClusResource(c_void_p):
     def get_MaintenanceMode(self, pbMaintenanceMode: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(38)
     def put_MaintenanceMode(self, bMaintenanceMode: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusResources(c_void_p):
+class ISClusResources(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e6070c-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3855,7 +3855,7 @@ class ISClusResources(c_void_p):
     def CreateItem(self, bstrResourceName: Windows.Win32.Foundation.BSTR, bstrResourceType: Windows.Win32.Foundation.BSTR, bstrGroupName: Windows.Win32.Foundation.BSTR, dwFlags: Windows.Win32.Networking.Clustering.CLUSTER_RESOURCE_CREATE_FLAGS, ppClusterResource: POINTER(Windows.Win32.Networking.Clustering.ISClusResource_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def DeleteItem(self, varIndex: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusScsiAddress(c_void_p):
+class ISClusScsiAddress(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e60728-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3866,7 +3866,7 @@ class ISClusScsiAddress(c_void_p):
     def get_TargetId(self, pvarTargetId: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_Lun(self, pvarLun: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusVersion(c_void_p):
+class ISClusVersion(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e60716-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3889,7 +3889,7 @@ class ISClusVersion(c_void_p):
     def get_Flags(self, pnFlags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def get_MixedVersion(self, pvarMixedVersion: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISCluster(c_void_p):
+class ISCluster(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e606e4-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3934,7 +3934,7 @@ class ISCluster(c_void_p):
     def get_Networks(self, ppNetworks: POINTER(Windows.Win32.Networking.Clustering.ISClusNetworks_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def get_NetInterfaces(self, ppNetInterfaces: POINTER(Windows.Win32.Networking.Clustering.ISClusNetInterfaces_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISClusterNames(c_void_p):
+class ISClusterNames(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e606ec-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3947,7 +3947,7 @@ class ISClusterNames(c_void_p):
     def get_Item(self, varIndex: Windows.Win32.System.Variant.VARIANT, pbstrClusterName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get_DomainName(self, pbstrDomainName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISDomainNames(c_void_p):
+class ISDomainNames(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f2e606e2-2631-11d1-89-f1-00-a0-c9-0d-06-1e')
     @commethod(7)
@@ -3958,51 +3958,51 @@ class ISDomainNames(c_void_p):
     def Refresh(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_Item(self, varIndex: Windows.Win32.System.Variant.VARIANT, pbstrDomainName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWCContextMenuCallback(c_void_p):
+class IWCContextMenuCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede64-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)
     def AddExtensionMenuItem(self, lpszName: Windows.Win32.Foundation.BSTR, lpszStatusBarText: Windows.Win32.Foundation.BSTR, nCommandID: UInt32, nSubmenuCommandID: UInt32, uFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IWCPropertySheetCallback(c_void_p):
+class IWCPropertySheetCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede60-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)
     def AddPropertySheetPage(self, hpage: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWCWizard97Callback(c_void_p):
+class IWCWizard97Callback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede67-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)
     def AddWizard97Page(self, hpage: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EnableNext(self, hpage: POINTER(Int32), bEnable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IWCWizardCallback(c_void_p):
+class IWCWizardCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede62-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)
     def AddWizardPage(self, hpage: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EnableNext(self, hpage: POINTER(Int32), bEnable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IWEExtendContextMenu(c_void_p):
+class IWEExtendContextMenu(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede65-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)
     def AddContextMenuItems(self, piData: Windows.Win32.System.Com.IUnknown_head, piCallback: Windows.Win32.Networking.Clustering.IWCContextMenuCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IWEExtendPropertySheet(c_void_p):
+class IWEExtendPropertySheet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede61-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)
     def CreatePropertySheetPages(self, piData: Windows.Win32.System.Com.IUnknown_head, piCallback: Windows.Win32.Networking.Clustering.IWCPropertySheetCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IWEExtendWizard(c_void_p):
+class IWEExtendWizard(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede63-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)
     def CreateWizardPages(self, piData: Windows.Win32.System.Com.IUnknown_head, piCallback: Windows.Win32.Networking.Clustering.IWCWizardCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IWEExtendWizard97(c_void_p):
+class IWEExtendWizard97(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede68-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)
     def CreateWizard97Pages(self, piData: Windows.Win32.System.Com.IUnknown_head, piCallback: Windows.Win32.Networking.Clustering.IWCWizard97Callback_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IWEInvokeCommand(c_void_p):
+class IWEInvokeCommand(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('97dede66-fc6b-11cf-b5-f5-00-a0-c9-0a-b5-05')
     @commethod(3)

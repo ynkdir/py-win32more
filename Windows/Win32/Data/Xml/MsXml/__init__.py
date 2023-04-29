@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Data.Xml.MsXml
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
@@ -585,7 +585,7 @@ NODE_DOCUMENT_FRAGMENT: DOMNodeType = 11
 NODE_NOTATION: DOMNodeType = 12
 FreeThreadedDOMDocument60 = Guid('88d96a06-f192-11d4-a6-5f-00-40-96-32-51-e5')
 FreeThreadedXMLHTTP60 = Guid('88d96a09-f192-11d4-a6-5f-00-40-96-32-51-e5')
-class IMXAttributes(c_void_p):
+class IMXAttributes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f10d27cc-3ec0-415c-8e-d8-77-ab-1c-5e-72-62')
     @commethod(7)
@@ -610,7 +610,7 @@ class IMXAttributes(c_void_p):
     def setURI(self, nIndex: Int32, strURI: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def setValue(self, nIndex: Int32, strValue: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IMXNamespaceManager(c_void_p):
+class IMXNamespaceManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c90352f6-643c-4fbc-bb-23-e9-96-eb-2d-51-fd')
     @commethod(3)
@@ -633,7 +633,7 @@ class IMXNamespaceManager(c_void_p):
     def getPrefix(self, pwszNamespaceURI: Windows.Win32.Foundation.PWSTR, nIndex: Int32, pwchPrefix: Windows.Win32.Foundation.PWSTR, pcchPrefix: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def getURI(self, pwchPrefix: Windows.Win32.Foundation.PWSTR, pContextNode: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode_head, pwchUri: Windows.Win32.Foundation.PWSTR, pcchUri: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMXNamespacePrefixes(c_void_p):
+class IMXNamespacePrefixes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c90352f4-643c-4fbc-bb-23-e9-96-eb-2d-51-fd')
     @commethod(7)
@@ -642,7 +642,7 @@ class IMXNamespacePrefixes(c_void_p):
     def get_length(self, length: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get__newEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMXReaderControl(c_void_p):
+class IMXReaderControl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('808f4e35-8d5a-4fbe-84-66-33-a4-12-79-ed-30')
     @commethod(7)
@@ -651,12 +651,12 @@ class IMXReaderControl(c_void_p):
     def resume(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def suspend(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMXSchemaDeclHandler(c_void_p):
+class IMXSchemaDeclHandler(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('fa4bb38c-faf9-4cca-93-02-d1-dd-0f-e5-20-db')
     @commethod(7)
     def schemaElementDecl(self, oSchemaElement: Windows.Win32.Data.Xml.MsXml.ISchemaElement_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMXWriter(c_void_p):
+class IMXWriter(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('4d7ff4ba-1565-4ea8-94-e1-6e-72-4a-46-f9-8d')
     @commethod(7)
@@ -693,7 +693,7 @@ class IMXWriter(c_void_p):
     def get_disableOutputEscaping(self, fValue: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def flush(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMXXMLFilter(c_void_p):
+class IMXXMLFilter(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c90352f7-643c-4fbc-bb-23-e9-96-eb-2d-51-fd')
     @commethod(7)
@@ -720,7 +720,7 @@ class IMXXMLFilter(c_void_p):
     def get_errorHandler(self, oHandler: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def putref_errorHandler(self, oHandler: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ISAXAttributes(c_void_p):
+class ISAXAttributes(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f078abe1-45d2-4832-91-ea-44-66-ce-2f-25-c9')
     @commethod(3)
@@ -749,7 +749,7 @@ class ISAXAttributes(c_void_p):
     def getValueFromName(self, pwchUri: Windows.Win32.Foundation.PWSTR, cchUri: Int32, pwchLocalName: Windows.Win32.Foundation.PWSTR, cchLocalName: Int32, ppwchValue: POINTER(POINTER(UInt16)), pcchValue: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def getValueFromQName(self, pwchQName: Windows.Win32.Foundation.PWSTR, cchQName: Int32, ppwchValue: POINTER(POINTER(UInt16)), pcchValue: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISAXContentHandler(c_void_p):
+class ISAXContentHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1545cdfa-9e4e-4497-a8-a4-2b-f7-d0-11-2c-44')
     @commethod(3)
@@ -774,14 +774,14 @@ class ISAXContentHandler(c_void_p):
     def processingInstruction(self, pwchTarget: Windows.Win32.Foundation.PWSTR, cchTarget: Int32, pwchData: Windows.Win32.Foundation.PWSTR, cchData: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def skippedEntity(self, pwchName: Windows.Win32.Foundation.PWSTR, cchName: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISAXDTDHandler(c_void_p):
+class ISAXDTDHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e15c1baf-afb3-4d60-8c-36-19-a8-c4-5d-ef-ed')
     @commethod(3)
     def notationDecl(self, pwchName: Windows.Win32.Foundation.PWSTR, cchName: Int32, pwchPublicId: Windows.Win32.Foundation.PWSTR, cchPublicId: Int32, pwchSystemId: Windows.Win32.Foundation.PWSTR, cchSystemId: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def unparsedEntityDecl(self, pwchName: Windows.Win32.Foundation.PWSTR, cchName: Int32, pwchPublicId: Windows.Win32.Foundation.PWSTR, cchPublicId: Int32, pwchSystemId: Windows.Win32.Foundation.PWSTR, cchSystemId: Int32, pwchNotationName: Windows.Win32.Foundation.PWSTR, cchNotationName: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISAXDeclHandler(c_void_p):
+class ISAXDeclHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('862629ac-771a-47b2-83-37-4e-68-43-c1-be-90')
     @commethod(3)
@@ -792,12 +792,12 @@ class ISAXDeclHandler(c_void_p):
     def internalEntityDecl(self, pwchName: Windows.Win32.Foundation.PWSTR, cchName: Int32, pwchValue: Windows.Win32.Foundation.PWSTR, cchValue: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def externalEntityDecl(self, pwchName: Windows.Win32.Foundation.PWSTR, cchName: Int32, pwchPublicId: Windows.Win32.Foundation.PWSTR, cchPublicId: Int32, pwchSystemId: Windows.Win32.Foundation.PWSTR, cchSystemId: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISAXEntityResolver(c_void_p):
+class ISAXEntityResolver(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('99bca7bd-e8c4-4d5f-a0-cf-6d-90-79-01-ff-07')
     @commethod(3)
     def resolveEntity(self, pwchPublicId: Windows.Win32.Foundation.PWSTR, pwchSystemId: Windows.Win32.Foundation.PWSTR, pvarInput: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISAXErrorHandler(c_void_p):
+class ISAXErrorHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a60511c4-ccf5-479e-98-a3-dc-8d-c5-45-b7-d0')
     @commethod(3)
@@ -806,7 +806,7 @@ class ISAXErrorHandler(c_void_p):
     def fatalError(self, pLocator: Windows.Win32.Data.Xml.MsXml.ISAXLocator_head, pwchErrorMessage: Windows.Win32.Foundation.PWSTR, hrErrorCode: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def ignorableWarning(self, pLocator: Windows.Win32.Data.Xml.MsXml.ISAXLocator_head, pwchErrorMessage: Windows.Win32.Foundation.PWSTR, hrErrorCode: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
-class ISAXLexicalHandler(c_void_p):
+class ISAXLexicalHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7f85d5f5-47a8-4497-bd-a5-84-ba-04-81-9e-a6')
     @commethod(3)
@@ -823,7 +823,7 @@ class ISAXLexicalHandler(c_void_p):
     def endCDATA(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def comment(self, pwchChars: Windows.Win32.Foundation.PWSTR, cchChars: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISAXLocator(c_void_p):
+class ISAXLocator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9b7e472a-0de4-4640-bf-f3-84-d3-8a-05-1c-31')
     @commethod(3)
@@ -834,14 +834,14 @@ class ISAXLocator(c_void_p):
     def getPublicId(self, ppwchPublicId: POINTER(POINTER(UInt16))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def getSystemId(self, ppwchSystemId: POINTER(POINTER(UInt16))) -> Windows.Win32.Foundation.HRESULT: ...
-class ISAXXMLFilter(c_void_p):
+class ISAXXMLFilter(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.ISAXXMLReader
     Guid = Guid('70409222-ca09-4475-ac-b8-40-31-2f-e8-d1-45')
     @commethod(21)
     def getParent(self, ppReader: POINTER(Windows.Win32.Data.Xml.MsXml.ISAXXMLReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def putParent(self, pReader: Windows.Win32.Data.Xml.MsXml.ISAXXMLReader_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ISAXXMLReader(c_void_p):
+class ISAXXMLReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a4f96ed0-f829-476e-81-c0-cd-c7-bd-2a-08-02')
     @commethod(3)
@@ -880,7 +880,7 @@ class ISAXXMLReader(c_void_p):
     def parse(self, varInput: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def parseURL(self, pwchUrl: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchema(c_void_p):
+class ISchema(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.ISchemaItem
     Guid = Guid('50ea08b4-dd1b-4664-9a-50-c2-f4-0f-4b-d7-9a')
     @commethod(14)
@@ -901,14 +901,14 @@ class ISchema(c_void_p):
     def get_notations(self, notations: POINTER(Windows.Win32.Data.Xml.MsXml.ISchemaItemCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def get_schemaLocations(self, schemaLocations: POINTER(Windows.Win32.Data.Xml.MsXml.ISchemaStringCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchemaAny(c_void_p):
+class ISchemaAny(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.ISchemaParticle
     Guid = Guid('50ea08bc-dd1b-4664-9a-50-c2-f4-0f-4b-d7-9a')
     @commethod(16)
     def get_namespaces(self, namespaces: POINTER(Windows.Win32.Data.Xml.MsXml.ISchemaStringCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def get_processContents(self, processContents: POINTER(Windows.Win32.Data.Xml.MsXml.SCHEMAPROCESSCONTENTS)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchemaAttribute(c_void_p):
+class ISchemaAttribute(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.ISchemaItem
     Guid = Guid('50ea08b6-dd1b-4664-9a-50-c2-f4-0f-4b-d7-9a')
     @commethod(14)
@@ -923,14 +923,14 @@ class ISchemaAttribute(c_void_p):
     def get_use(self, use: POINTER(Windows.Win32.Data.Xml.MsXml.SCHEMAUSE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def get_isReference(self, reference: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchemaAttributeGroup(c_void_p):
+class ISchemaAttributeGroup(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.ISchemaItem
     Guid = Guid('50ea08ba-dd1b-4664-9a-50-c2-f4-0f-4b-d7-9a')
     @commethod(14)
     def get_anyAttribute(self, anyAttribute: POINTER(Windows.Win32.Data.Xml.MsXml.ISchemaAny_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_attributes(self, attributes: POINTER(Windows.Win32.Data.Xml.MsXml.ISchemaItemCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchemaComplexType(c_void_p):
+class ISchemaComplexType(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.ISchemaType
     Guid = Guid('50ea08b9-dd1b-4664-9a-50-c2-f4-0f-4b-d7-9a')
     @commethod(31)
@@ -945,7 +945,7 @@ class ISchemaComplexType(c_void_p):
     def get_contentModel(self, contentModel: POINTER(Windows.Win32.Data.Xml.MsXml.ISchemaModelGroup_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(36)
     def get_prohibitedSubstitutions(self, prohibited: POINTER(Windows.Win32.Data.Xml.MsXml.SCHEMADERIVATIONMETHOD)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchemaElement(c_void_p):
+class ISchemaElement(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.ISchemaParticle
     Guid = Guid('50ea08b7-dd1b-4664-9a-50-c2-f4-0f-4b-d7-9a')
     @commethod(16)
@@ -970,7 +970,7 @@ class ISchemaElement(c_void_p):
     def get_isAbstract(self, abstract: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def get_isReference(self, reference: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchemaIdentityConstraint(c_void_p):
+class ISchemaIdentityConstraint(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.ISchemaItem
     Guid = Guid('50ea08bd-dd1b-4664-9a-50-c2-f4-0f-4b-d7-9a')
     @commethod(14)
@@ -979,7 +979,7 @@ class ISchemaIdentityConstraint(c_void_p):
     def get_fields(self, fields: POINTER(Windows.Win32.Data.Xml.MsXml.ISchemaStringCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def get_referencedKey(self, key: POINTER(Windows.Win32.Data.Xml.MsXml.ISchemaIdentityConstraint_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchemaItem(c_void_p):
+class ISchemaItem(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('50ea08b3-dd1b-4664-9a-50-c2-f4-0f-4b-d7-9a')
     @commethod(7)
@@ -996,7 +996,7 @@ class ISchemaItem(c_void_p):
     def get_unhandledAttributes(self, attributes: POINTER(Windows.Win32.Data.Xml.MsXml.IVBSAXAttributes_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def writeAnnotation(self, annotationSink: Windows.Win32.System.Com.IUnknown_head, isWritten: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchemaItemCollection(c_void_p):
+class ISchemaItemCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('50ea08b2-dd1b-4664-9a-50-c2-f4-0f-4b-d7-9a')
     @commethod(7)
@@ -1009,26 +1009,26 @@ class ISchemaItemCollection(c_void_p):
     def get_length(self, length: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get__newEnum(self, ppunk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchemaModelGroup(c_void_p):
+class ISchemaModelGroup(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.ISchemaParticle
     Guid = Guid('50ea08bb-dd1b-4664-9a-50-c2-f4-0f-4b-d7-9a')
     @commethod(16)
     def get_particles(self, particles: POINTER(Windows.Win32.Data.Xml.MsXml.ISchemaItemCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchemaNotation(c_void_p):
+class ISchemaNotation(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.ISchemaItem
     Guid = Guid('50ea08be-dd1b-4664-9a-50-c2-f4-0f-4b-d7-9a')
     @commethod(14)
     def get_systemIdentifier(self, uri: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_publicIdentifier(self, uri: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchemaParticle(c_void_p):
+class ISchemaParticle(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.ISchemaItem
     Guid = Guid('50ea08b5-dd1b-4664-9a-50-c2-f4-0f-4b-d7-9a')
     @commethod(14)
     def get_minOccurs(self, minOccurs: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_maxOccurs(self, maxOccurs: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchemaStringCollection(c_void_p):
+class ISchemaStringCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('50ea08b1-dd1b-4664-9a-50-c2-f4-0f-4b-d7-9a')
     @commethod(7)
@@ -1037,7 +1037,7 @@ class ISchemaStringCollection(c_void_p):
     def get_length(self, length: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get__newEnum(self, ppunk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchemaType(c_void_p):
+class ISchemaType(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.ISchemaItem
     Guid = Guid('50ea08b8-dd1b-4664-9a-50-c2-f4-0f-4b-d7-9a')
     @commethod(14)
@@ -1074,7 +1074,7 @@ class ISchemaType(c_void_p):
     def get_whitespace(self, whitespace: POINTER(Windows.Win32.Data.Xml.MsXml.SCHEMAWHITESPACE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
     def get_patterns(self, patterns: POINTER(Windows.Win32.Data.Xml.MsXml.ISchemaStringCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IServerXMLHTTPRequest(c_void_p):
+class IServerXMLHTTPRequest(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLHTTPRequest
     Guid = Guid('2e9196bf-13ba-4dd4-91-ca-6c-57-1f-28-14-95')
     @commethod(21)
@@ -1085,14 +1085,14 @@ class IServerXMLHTTPRequest(c_void_p):
     def getOption(self, option: Windows.Win32.Data.Xml.MsXml.SERVERXMLHTTP_OPTION, value: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
     def setOption(self, option: Windows.Win32.Data.Xml.MsXml.SERVERXMLHTTP_OPTION, value: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class IServerXMLHTTPRequest2(c_void_p):
+class IServerXMLHTTPRequest2(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IServerXMLHTTPRequest
     Guid = Guid('2e01311b-c322-4b0a-bd-77-b9-0c-fd-c8-dc-e7')
     @commethod(25)
     def setProxy(self, proxySetting: Windows.Win32.Data.Xml.MsXml.SXH_PROXY_SETTING, varProxyServer: Windows.Win32.System.Variant.VARIANT, varBypassList: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def setProxyCredentials(self, bstrUserName: Windows.Win32.Foundation.BSTR, bstrPassword: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IVBMXNamespaceManager(c_void_p):
+class IVBMXNamespaceManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c90352f5-643c-4fbc-bb-23-e9-96-eb-2d-51-fd')
     @commethod(7)
@@ -1117,7 +1117,7 @@ class IVBMXNamespaceManager(c_void_p):
     def getURI(self, prefix: Windows.Win32.Foundation.BSTR, uri: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def getURIFromNode(self, strPrefix: Windows.Win32.Foundation.BSTR, contextNode: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode_head, uri: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IVBSAXAttributes(c_void_p):
+class IVBSAXAttributes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('10dc0586-132b-4cac-8b-b3-db-00-ac-8b-7e-e0')
     @commethod(7)
@@ -1144,7 +1144,7 @@ class IVBSAXAttributes(c_void_p):
     def getValueFromName(self, strURI: Windows.Win32.Foundation.BSTR, strLocalName: Windows.Win32.Foundation.BSTR, strValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def getValueFromQName(self, strQName: Windows.Win32.Foundation.BSTR, strValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IVBSAXContentHandler(c_void_p):
+class IVBSAXContentHandler(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2ed7290a-4dd5-4b46-bb-26-4e-41-55-e7-7f-aa')
     @commethod(7)
@@ -1169,14 +1169,14 @@ class IVBSAXContentHandler(c_void_p):
     def processingInstruction(self, strTarget: POINTER(Windows.Win32.Foundation.BSTR), strData: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def skippedEntity(self, strName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IVBSAXDTDHandler(c_void_p):
+class IVBSAXDTDHandler(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('24fb3297-302d-4620-ba-39-3a-73-2d-85-05-58')
     @commethod(7)
     def notationDecl(self, strName: POINTER(Windows.Win32.Foundation.BSTR), strPublicId: POINTER(Windows.Win32.Foundation.BSTR), strSystemId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def unparsedEntityDecl(self, strName: POINTER(Windows.Win32.Foundation.BSTR), strPublicId: POINTER(Windows.Win32.Foundation.BSTR), strSystemId: POINTER(Windows.Win32.Foundation.BSTR), strNotationName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IVBSAXDeclHandler(c_void_p):
+class IVBSAXDeclHandler(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('e8917260-7579-4be1-b5-dd-7a-fb-fa-6f-07-7b')
     @commethod(7)
@@ -1187,12 +1187,12 @@ class IVBSAXDeclHandler(c_void_p):
     def internalEntityDecl(self, strName: POINTER(Windows.Win32.Foundation.BSTR), strValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def externalEntityDecl(self, strName: POINTER(Windows.Win32.Foundation.BSTR), strPublicId: POINTER(Windows.Win32.Foundation.BSTR), strSystemId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IVBSAXEntityResolver(c_void_p):
+class IVBSAXEntityResolver(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('0c05d096-f45b-4aca-ad-1a-aa-0b-c2-55-18-dc')
     @commethod(7)
     def resolveEntity(self, strPublicId: POINTER(Windows.Win32.Foundation.BSTR), strSystemId: POINTER(Windows.Win32.Foundation.BSTR), varInput: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IVBSAXErrorHandler(c_void_p):
+class IVBSAXErrorHandler(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d963d3fe-173c-4862-90-95-b9-2f-66-99-5f-52')
     @commethod(7)
@@ -1201,7 +1201,7 @@ class IVBSAXErrorHandler(c_void_p):
     def fatalError(self, oLocator: Windows.Win32.Data.Xml.MsXml.IVBSAXLocator_head, strErrorMessage: POINTER(Windows.Win32.Foundation.BSTR), nErrorCode: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def ignorableWarning(self, oLocator: Windows.Win32.Data.Xml.MsXml.IVBSAXLocator_head, strErrorMessage: POINTER(Windows.Win32.Foundation.BSTR), nErrorCode: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IVBSAXLexicalHandler(c_void_p):
+class IVBSAXLexicalHandler(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('032aac35-8c0e-4d9d-97-9f-e3-b7-02-93-55-76')
     @commethod(7)
@@ -1218,7 +1218,7 @@ class IVBSAXLexicalHandler(c_void_p):
     def endCDATA(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def comment(self, strChars: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IVBSAXLocator(c_void_p):
+class IVBSAXLocator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('796e7ac5-5aa2-4eff-ac-ad-3f-aa-f0-1a-32-88')
     @commethod(7)
@@ -1229,14 +1229,14 @@ class IVBSAXLocator(c_void_p):
     def get_publicId(self, strPublicId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_systemId(self, strSystemId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IVBSAXXMLFilter(c_void_p):
+class IVBSAXXMLFilter(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('1299eb1b-5b88-433e-82-de-82-ca-75-ad-4e-04')
     @commethod(7)
     def get_parent(self, oReader: POINTER(Windows.Win32.Data.Xml.MsXml.IVBSAXXMLReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def putref_parent(self, oReader: Windows.Win32.Data.Xml.MsXml.IVBSAXXMLReader_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IVBSAXXMLReader(c_void_p):
+class IVBSAXXMLReader(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('8c033caa-6cd6-4f73-b7-28-45-31-af-74-94-5f')
     @commethod(7)
@@ -1275,14 +1275,14 @@ class IVBSAXXMLReader(c_void_p):
     def parse(self, varInput: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
     def parseURL(self, strURL: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLAttribute(c_void_p):
+class IXMLAttribute(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d4d4a0fc-3b73-11d1-b2-b4-00-c0-4f-b9-25-96')
     @commethod(7)
     def get_name(self, n: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_value(self, v: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMAttribute(c_void_p):
+class IXMLDOMAttribute(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode
     Guid = Guid('2933bf85-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(43)
@@ -1291,10 +1291,10 @@ class IXMLDOMAttribute(c_void_p):
     def get_value(self, attributeValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(45)
     def put_value(self, attributeValue: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMCDATASection(c_void_p):
+class IXMLDOMCDATASection(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMText
     Guid = Guid('2933bf8a-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
-class IXMLDOMCharacterData(c_void_p):
+class IXMLDOMCharacterData(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode
     Guid = Guid('2933bf84-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(43)
@@ -1313,10 +1313,10 @@ class IXMLDOMCharacterData(c_void_p):
     def deleteData(self, offset: Int32, count: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(50)
     def replaceData(self, offset: Int32, count: Int32, data: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMComment(c_void_p):
+class IXMLDOMComment(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMCharacterData
     Guid = Guid('2933bf88-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
-class IXMLDOMDocument(c_void_p):
+class IXMLDOMDocument(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode
     Guid = Guid('2933bf81-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(43)
@@ -1385,7 +1385,7 @@ class IXMLDOMDocument(c_void_p):
     def put_ondataavailable(self, ondataavailableSink: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(75)
     def put_ontransformnode(self, ontransformnodeSink: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMDocument2(c_void_p):
+class IXMLDOMDocument2(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMDocument
     Guid = Guid('2933bf95-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(76)
@@ -1400,17 +1400,17 @@ class IXMLDOMDocument2(c_void_p):
     def setProperty(self, name: Windows.Win32.Foundation.BSTR, value: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(81)
     def getProperty(self, name: Windows.Win32.Foundation.BSTR, value: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMDocument3(c_void_p):
+class IXMLDOMDocument3(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMDocument2
     Guid = Guid('2933bf96-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(82)
     def validateNode(self, node: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode_head, errorObj: POINTER(Windows.Win32.Data.Xml.MsXml.IXMLDOMParseError_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(83)
     def importNode(self, node: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode_head, deep: Windows.Win32.Foundation.VARIANT_BOOL, clone: POINTER(Windows.Win32.Data.Xml.MsXml.IXMLDOMNode_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMDocumentFragment(c_void_p):
+class IXMLDOMDocumentFragment(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode
     Guid = Guid('3efaa413-272f-11d2-83-6f-00-00-f8-7a-77-82')
-class IXMLDOMDocumentType(c_void_p):
+class IXMLDOMDocumentType(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode
     Guid = Guid('2933bf8b-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(43)
@@ -1419,7 +1419,7 @@ class IXMLDOMDocumentType(c_void_p):
     def get_entities(self, entityMap: POINTER(Windows.Win32.Data.Xml.MsXml.IXMLDOMNamedNodeMap_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(45)
     def get_notations(self, notationMap: POINTER(Windows.Win32.Data.Xml.MsXml.IXMLDOMNamedNodeMap_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMElement(c_void_p):
+class IXMLDOMElement(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode
     Guid = Guid('2933bf86-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(43)
@@ -1440,7 +1440,7 @@ class IXMLDOMElement(c_void_p):
     def getElementsByTagName(self, tagName: Windows.Win32.Foundation.BSTR, resultList: POINTER(Windows.Win32.Data.Xml.MsXml.IXMLDOMNodeList_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(51)
     def normalize(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMEntity(c_void_p):
+class IXMLDOMEntity(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode
     Guid = Guid('2933bf8d-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(43)
@@ -1449,15 +1449,15 @@ class IXMLDOMEntity(c_void_p):
     def get_systemId(self, systemID: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(45)
     def get_notationName(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMEntityReference(c_void_p):
+class IXMLDOMEntityReference(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode
     Guid = Guid('2933bf8e-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
-class IXMLDOMImplementation(c_void_p):
+class IXMLDOMImplementation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2933bf8f-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(7)
     def hasFeature(self, feature: Windows.Win32.Foundation.BSTR, version: Windows.Win32.Foundation.BSTR, hasFeature: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMNamedNodeMap(c_void_p):
+class IXMLDOMNamedNodeMap(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2933bf83-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(7)
@@ -1480,7 +1480,7 @@ class IXMLDOMNamedNodeMap(c_void_p):
     def reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def get__newEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMNode(c_void_p):
+class IXMLDOMNode(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2933bf80-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(7)
@@ -1555,7 +1555,7 @@ class IXMLDOMNode(c_void_p):
     def get_baseName(self, nameString: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(42)
     def transformNodeToObject(self, stylesheet: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode_head, outputObject: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMNodeList(c_void_p):
+class IXMLDOMNodeList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2933bf82-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(7)
@@ -1568,14 +1568,14 @@ class IXMLDOMNodeList(c_void_p):
     def reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get__newEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMNotation(c_void_p):
+class IXMLDOMNotation(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode
     Guid = Guid('2933bf8c-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(43)
     def get_publicId(self, publicID: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(44)
     def get_systemId(self, systemID: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMParseError(c_void_p):
+class IXMLDOMParseError(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('3efaa426-272f-11d2-83-6f-00-00-f8-7a-77-82')
     @commethod(7)
@@ -1592,7 +1592,7 @@ class IXMLDOMParseError(c_void_p):
     def get_linepos(self, linePosition: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def get_filepos(self, filePosition: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMParseError2(c_void_p):
+class IXMLDOMParseError2(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMParseError
     Guid = Guid('3efaa428-272f-11d2-83-6f-00-00-f8-7a-77-82')
     @commethod(14)
@@ -1603,7 +1603,7 @@ class IXMLDOMParseError2(c_void_p):
     def errorParameters(self, index: Int32, param1: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def get_errorParametersCount(self, count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMParseErrorCollection(c_void_p):
+class IXMLDOMParseErrorCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('3efaa429-272f-11d2-83-6f-00-00-f8-7a-77-82')
     @commethod(7)
@@ -1616,7 +1616,7 @@ class IXMLDOMParseErrorCollection(c_void_p):
     def reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get__newEnum(self, ppunk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMProcessingInstruction(c_void_p):
+class IXMLDOMProcessingInstruction(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode
     Guid = Guid('2933bf89-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(43)
@@ -1625,7 +1625,7 @@ class IXMLDOMProcessingInstruction(c_void_p):
     def get_data(self, value: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(45)
     def put_data(self, value: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMSchemaCollection(c_void_p):
+class IXMLDOMSchemaCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('373984c8-b845-449b-91-e7-45-ac-83-03-6a-de')
     @commethod(7)
@@ -1642,7 +1642,7 @@ class IXMLDOMSchemaCollection(c_void_p):
     def addCollection(self, otherCollection: Windows.Win32.Data.Xml.MsXml.IXMLDOMSchemaCollection_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def get__newEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMSchemaCollection2(c_void_p):
+class IXMLDOMSchemaCollection2(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMSchemaCollection
     Guid = Guid('50ea08b0-dd1b-4664-9a-50-c2-f4-0f-4b-d7-9a')
     @commethod(14)
@@ -1655,7 +1655,7 @@ class IXMLDOMSchemaCollection2(c_void_p):
     def getSchema(self, namespaceURI: Windows.Win32.Foundation.BSTR, schema: POINTER(Windows.Win32.Data.Xml.MsXml.ISchema_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def getDeclaration(self, node: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode_head, item: POINTER(Windows.Win32.Data.Xml.MsXml.ISchemaItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMSelection(c_void_p):
+class IXMLDOMSelection(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMNodeList
     Guid = Guid('aa634fc7-5888-44a7-a2-57-3a-47-15-0d-3a-0e')
     @commethod(12)
@@ -1680,12 +1680,12 @@ class IXMLDOMSelection(c_void_p):
     def getProperty(self, name: Windows.Win32.Foundation.BSTR, value: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def setProperty(self, name: Windows.Win32.Foundation.BSTR, value: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDOMText(c_void_p):
+class IXMLDOMText(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMCharacterData
     Guid = Guid('2933bf87-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(51)
     def splitText(self, offset: Int32, rightHandTextNode: POINTER(Windows.Win32.Data.Xml.MsXml.IXMLDOMText_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDSOControl(c_void_p):
+class IXMLDSOControl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('310afa62-0575-11d2-9c-a9-00-60-b0-ec-3d-39')
     @commethod(7)
@@ -1698,7 +1698,7 @@ class IXMLDSOControl(c_void_p):
     def put_JavaDSOCompatible(self, fJavaDSOCompatible: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get_readyState(self, state: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDocument(c_void_p):
+class IXMLDocument(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f52e2b61-18a1-11d1-b1-05-00-80-5f-49-91-6b')
     @commethod(7)
@@ -1729,7 +1729,7 @@ class IXMLDocument(c_void_p):
     def get_dtdURL(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def createElement(self, vType: Windows.Win32.System.Variant.VARIANT, var1: Windows.Win32.System.Variant.VARIANT, ppElem: POINTER(Windows.Win32.Data.Xml.MsXml.IXMLElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLDocument2(c_void_p):
+class IXMLDocument2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2b8de2fe-8d2d-11d1-b2-fc-00-c0-4f-d9-15-a9')
     @commethod(7)
@@ -1764,7 +1764,7 @@ class IXMLDocument2(c_void_p):
     def get_async(self, pf: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def put_async(self, f: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLElement(c_void_p):
+class IXMLElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('3f7f31ac-e15f-11d0-9c-25-00-c0-4f-c9-9c-8e')
     @commethod(7)
@@ -1791,7 +1791,7 @@ class IXMLElement(c_void_p):
     def addChild(self, pChildElem: Windows.Win32.Data.Xml.MsXml.IXMLElement_head, lIndex: Int32, lReserved: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def removeChild(self, pChildElem: Windows.Win32.Data.Xml.MsXml.IXMLElement_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLElement2(c_void_p):
+class IXMLElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2b8de2ff-8d2d-11d1-b2-fc-00-c0-4f-d9-15-a9')
     @commethod(7)
@@ -1820,7 +1820,7 @@ class IXMLElement2(c_void_p):
     def removeChild(self, pChildElem: Windows.Win32.Data.Xml.MsXml.IXMLElement2_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def get_attributes(self, pp: POINTER(Windows.Win32.Data.Xml.MsXml.IXMLElementCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLElementCollection(c_void_p):
+class IXMLElementCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('65725580-9b5d-11d0-9b-fe-00-c0-4f-c9-9c-8e')
     @commethod(7)
@@ -1831,12 +1831,12 @@ class IXMLElementCollection(c_void_p):
     def get__newEnum(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def item(self, var1: Windows.Win32.System.Variant.VARIANT, var2: Windows.Win32.System.Variant.VARIANT, ppDisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLError(c_void_p):
+class IXMLError(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('948c5ad3-c58d-11d0-9c-0b-00-c0-4f-c9-9c-8e')
     @commethod(3)
     def GetErrorInfo(self, pErrorReturn: POINTER(Windows.Win32.Data.Xml.MsXml.XML_ERROR_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLHTTPRequest(c_void_p):
+class IXMLHTTPRequest(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('ed8c108d-4349-11d2-91-a4-00-c0-4f-79-69-e8')
     @commethod(7)
@@ -1867,7 +1867,7 @@ class IXMLHTTPRequest(c_void_p):
     def get_readyState(self, plState: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def put_onreadystatechange(self, pReadyStateSink: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLHTTPRequest2(c_void_p):
+class IXMLHTTPRequest2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e5d37dc0-552a-4d52-9c-c0-a1-4d-54-6f-bd-04')
     @commethod(3)
@@ -1890,7 +1890,7 @@ class IXMLHTTPRequest2(c_void_p):
     def GetCookie(self, pwszUrl: Windows.Win32.Foundation.PWSTR, pwszName: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pcCookies: POINTER(UInt32), ppCookies: POINTER(POINTER(Windows.Win32.Data.Xml.MsXml.XHR_COOKIE_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetResponseHeader(self, pwszHeader: Windows.Win32.Foundation.PWSTR, ppwszValue: POINTER(POINTER(UInt16))) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLHTTPRequest2Callback(c_void_p):
+class IXMLHTTPRequest2Callback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a44a9299-e321-40de-88-66-34-1b-41-66-91-62')
     @commethod(3)
@@ -1903,19 +1903,19 @@ class IXMLHTTPRequest2Callback(c_void_p):
     def OnResponseReceived(self, pXHR: Windows.Win32.Data.Xml.MsXml.IXMLHTTPRequest2_head, pResponseStream: Windows.Win32.System.Com.ISequentialStream_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def OnError(self, pXHR: Windows.Win32.Data.Xml.MsXml.IXMLHTTPRequest2_head, hrError: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLHTTPRequest3(c_void_p):
+class IXMLHTTPRequest3(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLHTTPRequest2
     Guid = Guid('a1c9feee-0617-4f23-9d-58-89-61-ea-43-56-7c')
     @commethod(13)
     def SetClientCertificate(self, cbClientCertificateHash: UInt32, pbClientCertificateHash: POINTER(Byte), pwszPin: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IXMLHTTPRequest3Callback(c_void_p):
+class IXMLHTTPRequest3Callback(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLHTTPRequest2Callback
     Guid = Guid('b9e57830-8c6c-4a6f-9c-13-47-77-2b-b0-47-bb')
     @commethod(8)
     def OnServerCertificateReceived(self, pXHR: Windows.Win32.Data.Xml.MsXml.IXMLHTTPRequest3_head, dwCertificateErrors: UInt32, cServerCertificateChain: UInt32, rgServerCertificateChain: POINTER(Windows.Win32.Data.Xml.MsXml.XHR_CERT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def OnClientCertificateRequested(self, pXHR: Windows.Win32.Data.Xml.MsXml.IXMLHTTPRequest3_head, cIssuerList: UInt32, rgpwszIssuerList: POINTER(POINTER(UInt16))) -> Windows.Win32.Foundation.HRESULT: ...
-class IXSLProcessor(c_void_p):
+class IXSLProcessor(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2933bf92-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(7)
@@ -1946,7 +1946,7 @@ class IXSLProcessor(c_void_p):
     def addObject(self, obj: Windows.Win32.System.Com.IDispatch_head, namespaceURI: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def get_stylesheet(self, stylesheet: POINTER(Windows.Win32.Data.Xml.MsXml.IXMLDOMNode_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXSLTemplate(c_void_p):
+class IXSLTemplate(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2933bf93-7b36-11d2-b2-0e-00-c0-4f-98-3e-60')
     @commethod(7)
@@ -1955,7 +1955,7 @@ class IXSLTemplate(c_void_p):
     def get_stylesheet(self, stylesheet: POINTER(Windows.Win32.Data.Xml.MsXml.IXMLDOMNode_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def createProcessor(self, ppProcessor: POINTER(Windows.Win32.Data.Xml.MsXml.IXSLProcessor_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXTLRuntime(c_void_p):
+class IXTLRuntime(ComPtr):
     extends: Windows.Win32.Data.Xml.MsXml.IXMLDOMNode
     Guid = Guid('3efaa425-272f-11d2-83-6f-00-00-f8-7a-77-82')
     @commethod(43)
@@ -2169,7 +2169,7 @@ XHR_PROP_IGNORE_CERT_ERRORS: XHR_PROPERTY = 8
 XHR_PROP_ONDATA_THRESHOLD: XHR_PROPERTY = 9
 XHR_PROP_SET_ENTERPRISEID: XHR_PROPERTY = 10
 XHR_PROP_MAX_CONNECTIONS: XHR_PROPERTY = 11
-class XMLDOMDocumentEvents(c_void_p):
+class XMLDOMDocumentEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('3efaa427-272f-11d2-83-6f-00-00-f8-7a-77-82')
 XMLDSOControl = Guid('550dda30-0541-11d2-9c-a9-00-60-b0-ec-3d-39')

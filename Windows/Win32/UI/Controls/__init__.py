@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.System.Com
@@ -3593,7 +3593,7 @@ IEBARMENUSTATES = Int32
 EBM_NORMAL: IEBARMENUSTATES = 1
 EBM_HOT: IEBARMENUSTATES = 2
 EBM_PRESSED: IEBARMENUSTATES = 3
-class IImageList(c_void_p):
+class IImageList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('46eb5926-582e-4017-9f-df-e8-99-8d-aa-09-50')
     @commethod(3)
@@ -3654,7 +3654,7 @@ class IImageList(c_void_p):
     def GetItemFlags(self, i: Int32, dwFlags: POINTER(Windows.Win32.UI.Controls.IMAGE_LIST_ITEM_FLAGS)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def GetOverlayImage(self, iOverlay: Int32, piIndex: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IImageList2(c_void_p):
+class IImageList2(ComPtr):
     extends: Windows.Win32.UI.Controls.IImageList
     Guid = Guid('192b9d83-50fc-457b-90-a0-2b-82-a8-b5-da-e1')
     @commethod(32)

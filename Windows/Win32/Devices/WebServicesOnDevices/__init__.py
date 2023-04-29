@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Devices.WebServicesOnDevices
 import Windows.Win32.Foundation
 import Windows.Win32.Networking.WinSock
@@ -100,19 +100,19 @@ DeviceDiscoveryMechanism = Int32
 DeviceDiscoveryMechanism_MulticastDiscovery: DeviceDiscoveryMechanism = 0
 DeviceDiscoveryMechanism_DirectedDiscovery: DeviceDiscoveryMechanism = 1
 DeviceDiscoveryMechanism_SecureDirectedDiscovery: DeviceDiscoveryMechanism = 2
-class IWSDAddress(c_void_p):
+class IWSDAddress(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b9574c6c-12a6-4f74-93-a1-33-18-ff-60-57-59')
     @commethod(3)
     def Serialize(self, pszBuffer: Windows.Win32.Foundation.PWSTR, cchLength: UInt32, fSafe: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Deserialize(self, pszBuffer: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDAsyncCallback(c_void_p):
+class IWSDAsyncCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a63e109d-ce72-49e2-ba-98-e8-45-f5-ee-16-66')
     @commethod(3)
     def AsyncOperationComplete(self, pAsyncResult: Windows.Win32.Devices.WebServicesOnDevices.IWSDAsyncResult_head, pAsyncState: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDAsyncResult(c_void_p):
+class IWSDAsyncResult(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('11a9852a-8dd8-423e-b5-37-93-56-db-4f-bf-b8')
     @commethod(3)
@@ -129,10 +129,10 @@ class IWSDAsyncResult(c_void_p):
     def GetEvent(self, pEvent: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_EVENT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetEndpointProxy(self, ppEndpoint: POINTER(Windows.Win32.Devices.WebServicesOnDevices.IWSDEndpointProxy_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDAttachment(c_void_p):
+class IWSDAttachment(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5d55a616-9df8-4b09-b1-56-9b-a3-51-a4-8b-76')
-class IWSDDeviceHost(c_void_p):
+class IWSDDeviceHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('917fe891-3d13-4138-98-09-93-4c-8a-be-b1-2c')
     @commethod(3)
@@ -159,12 +159,12 @@ class IWSDDeviceHost(c_void_p):
     def SetServiceDiscoverable(self, pszServiceId: Windows.Win32.Foundation.PWSTR, fDiscoverable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def SignalEvent(self, pszServiceId: Windows.Win32.Foundation.PWSTR, pBody: c_void_p, pOperation: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_OPERATION_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDDeviceHostNotify(c_void_p):
+class IWSDDeviceHostNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b5bee9f9-eeda-41fe-96-f7-f4-5e-14-99-0f-b0')
     @commethod(3)
     def GetService(self, pszServiceId: Windows.Win32.Foundation.PWSTR, ppService: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDDeviceProxy(c_void_p):
+class IWSDDeviceProxy(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('eee0c031-c578-4c0e-9a-3b-97-3c-35-f4-09-db')
     @commethod(3)
@@ -187,7 +187,7 @@ class IWSDDeviceProxy(c_void_p):
     def GetServiceProxyByType(self, pType: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSDXML_NAME_head), ppServiceProxy: POINTER(Windows.Win32.Devices.WebServicesOnDevices.IWSDServiceProxy_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetEndpointProxy(self, ppProxy: POINTER(Windows.Win32.Devices.WebServicesOnDevices.IWSDEndpointProxy_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDEndpointProxy(c_void_p):
+class IWSDEndpointProxy(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1860d430-b24c-4975-9f-90-db-b3-9b-aa-24-ec')
     @commethod(3)
@@ -204,7 +204,7 @@ class IWSDEndpointProxy(c_void_p):
     def GetErrorInfo(self, ppszErrorInfo: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetFaultInfo(self, ppFault: POINTER(POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_SOAP_FAULT_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDEventingStatus(c_void_p):
+class IWSDEventingStatus(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('49b17f52-637a-407a-ae-99-fb-e8-2a-4d-38-c0')
     @commethod(3)
@@ -213,7 +213,7 @@ class IWSDEventingStatus(c_void_p):
     def SubscriptionRenewalFailed(self, pszSubscriptionAction: Windows.Win32.Foundation.PWSTR, hr: Windows.Win32.Foundation.HRESULT) -> Void: ...
     @commethod(5)
     def SubscriptionEnded(self, pszSubscriptionAction: Windows.Win32.Foundation.PWSTR) -> Void: ...
-class IWSDHttpAddress(c_void_p):
+class IWSDHttpAddress(ComPtr):
     extends: Windows.Win32.Devices.WebServicesOnDevices.IWSDTransportAddress
     Guid = Guid('d09ac7bd-2a3e-4b85-86-05-27-37-ff-3e-4e-a0')
     @commethod(10)
@@ -224,14 +224,14 @@ class IWSDHttpAddress(c_void_p):
     def GetPath(self, ppszPath: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def SetPath(self, pszPath: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDHttpAuthParameters(c_void_p):
+class IWSDHttpAuthParameters(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0b476df0-8dac-480d-b0-5c-99-78-1a-58-84-aa')
     @commethod(3)
     def GetClientAccessToken(self, phToken: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAuthType(self, pAuthType: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDHttpMessageParameters(c_void_p):
+class IWSDHttpMessageParameters(ComPtr):
     extends: Windows.Win32.Devices.WebServicesOnDevices.IWSDMessageParameters
     Guid = Guid('540bd122-5c83-4dec-b3-96-ea-62-a2-69-7f-df')
     @commethod(8)
@@ -252,14 +252,14 @@ class IWSDHttpMessageParameters(c_void_p):
     def GetContext(self, ppContext: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDInboundAttachment(c_void_p):
+class IWSDInboundAttachment(ComPtr):
     extends: Windows.Win32.Devices.WebServicesOnDevices.IWSDAttachment
     Guid = Guid('5bd6ca65-233c-4fb8-9f-7a-26-41-61-96-55-c9')
     @commethod(3)
     def Read(self, pBuffer: POINTER(Byte), dwBytesToRead: UInt32, pdwNumberOfBytesRead: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDMessageParameters(c_void_p):
+class IWSDMessageParameters(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1fafe8a2-e6fc-4b80-b6-cf-b7-d4-5c-41-6d-7c')
     @commethod(3)
@@ -272,12 +272,12 @@ class IWSDMessageParameters(c_void_p):
     def SetRemoteAddress(self, pAddress: Windows.Win32.Devices.WebServicesOnDevices.IWSDAddress_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetLowerParameters(self, ppTxParams: POINTER(Windows.Win32.Devices.WebServicesOnDevices.IWSDMessageParameters_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDMetadataExchange(c_void_p):
+class IWSDMetadataExchange(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('06996d57-1d67-4928-93-07-3d-78-33-fd-b8-46')
     @commethod(3)
     def GetMetadata(self, MetadataOut: POINTER(POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_METADATA_SECTION_LIST_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDOutboundAttachment(c_void_p):
+class IWSDOutboundAttachment(ComPtr):
     extends: Windows.Win32.Devices.WebServicesOnDevices.IWSDAttachment
     Guid = Guid('aa302f8d-5a22-4ba5-b3-92-aa-84-86-f4-c1-5d')
     @commethod(3)
@@ -286,28 +286,28 @@ class IWSDOutboundAttachment(c_void_p):
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Abort(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDSSLClientCertificate(c_void_p):
+class IWSDSSLClientCertificate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('de105e87-a0da-418e-98-ad-27-b9-ee-d8-7b-dc')
     @commethod(3)
     def GetClientCertificate(self, ppCertContext: POINTER(POINTER(Windows.Win32.Security.Cryptography.CERT_CONTEXT_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetMappedAccessToken(self, phToken: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDScopeMatchingRule(c_void_p):
+class IWSDScopeMatchingRule(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fcafe424-fef5-481a-bd-9f-33-ce-05-74-25-6f')
     @commethod(3)
     def GetScopeRule(self, ppszScopeMatchingRule: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def MatchScopes(self, pszScope1: Windows.Win32.Foundation.PWSTR, pszScope2: Windows.Win32.Foundation.PWSTR, pfMatch: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDServiceMessaging(c_void_p):
+class IWSDServiceMessaging(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('94974cf4-0cab-460d-a3-f6-7a-0a-d6-23-c0-e6')
     @commethod(3)
     def SendResponse(self, pBody: c_void_p, pOperation: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_OPERATION_head), pMessageParameters: Windows.Win32.Devices.WebServicesOnDevices.IWSDMessageParameters_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def FaultRequest(self, pRequestHeader: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_SOAP_HEADER_head), pMessageParameters: Windows.Win32.Devices.WebServicesOnDevices.IWSDMessageParameters_head, pFault: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_SOAP_FAULT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDServiceProxy(c_void_p):
+class IWSDServiceProxy(ComPtr):
     extends: Windows.Win32.Devices.WebServicesOnDevices.IWSDMetadataExchange
     Guid = Guid('d4c7fb9c-03ab-4175-9d-67-09-4f-af-eb-f4-87')
     @commethod(4)
@@ -324,7 +324,7 @@ class IWSDServiceProxy(c_void_p):
     def SetEventingStatusCallback(self, pStatus: Windows.Win32.Devices.WebServicesOnDevices.IWSDEventingStatus_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetEndpointProxy(self, ppProxy: POINTER(Windows.Win32.Devices.WebServicesOnDevices.IWSDEndpointProxy_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDServiceProxyEventing(c_void_p):
+class IWSDServiceProxyEventing(ComPtr):
     extends: Windows.Win32.Devices.WebServicesOnDevices.IWSDServiceProxy
     Guid = Guid('f9279d6d-1012-4a94-b8-cc-fd-35-d2-20-2b-fe')
     @commethod(11)
@@ -351,7 +351,7 @@ class IWSDServiceProxyEventing(c_void_p):
     def BeginGetStatusForMultipleOperations(self, pOperations: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pAny: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head), pAsyncState: Windows.Win32.System.Com.IUnknown_head, pAsyncCallback: Windows.Win32.Devices.WebServicesOnDevices.IWSDAsyncCallback_head, ppResult: POINTER(Windows.Win32.Devices.WebServicesOnDevices.IWSDAsyncResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def EndGetStatusForMultipleOperations(self, pOperations: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_OPERATION_head), dwOperationCount: UInt32, pResult: Windows.Win32.Devices.WebServicesOnDevices.IWSDAsyncResult_head, ppExpires: POINTER(POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head)), ppAny: POINTER(POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDSignatureProperty(c_void_p):
+class IWSDSignatureProperty(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('03ce20aa-71c4-45e2-b3-2e-37-66-c6-1c-79-0f')
     @commethod(3)
@@ -364,7 +364,7 @@ class IWSDSignatureProperty(c_void_p):
     def GetSignature(self, pbSignature: POINTER(Byte), pdwSignatureSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetSignedInfoHash(self, pbSignedInfoHash: POINTER(Byte), pdwHashSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDTransportAddress(c_void_p):
+class IWSDTransportAddress(ComPtr):
     extends: Windows.Win32.Devices.WebServicesOnDevices.IWSDAddress
     Guid = Guid('70d23498-4ee6-4340-a3-df-d8-45-d2-23-54-67')
     @commethod(5)
@@ -377,7 +377,7 @@ class IWSDTransportAddress(c_void_p):
     def GetTransportAddressEx(self, fSafe: Windows.Win32.Foundation.BOOL, ppszAddress: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def SetTransportAddress(self, pszAddress: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDUdpAddress(c_void_p):
+class IWSDUdpAddress(ComPtr):
     extends: Windows.Win32.Devices.WebServicesOnDevices.IWSDTransportAddress
     Guid = Guid('74d6124a-a441-4f78-a1-eb-97-a8-d1-99-68-93')
     @commethod(10)
@@ -400,14 +400,14 @@ class IWSDUdpAddress(c_void_p):
     def SetAlias(self, pAlias: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def GetAlias(self, pAlias: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDUdpMessageParameters(c_void_p):
+class IWSDUdpMessageParameters(ComPtr):
     extends: Windows.Win32.Devices.WebServicesOnDevices.IWSDMessageParameters
     Guid = Guid('9934149f-8f0c-447b-aa-0b-73-12-4b-0c-a7-f0')
     @commethod(8)
     def SetRetransmitParams(self, pParams: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSDUdpRetransmitParams_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetRetransmitParams(self, pParams: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSDUdpRetransmitParams_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDXMLContext(c_void_p):
+class IWSDXMLContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('75d8f3ee-3e5a-43b4-a1-5a-bc-f6-88-74-60-c0')
     @commethod(3)
@@ -418,7 +418,7 @@ class IWSDXMLContext(c_void_p):
     def SetNamespaces(self, pNamespaces: POINTER(POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSDXML_NAMESPACE_head)), wNamespacesCount: UInt16, bLayerNumber: Byte) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetTypes(self, pTypes: POINTER(POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSDXML_TYPE_head)), dwTypesCount: UInt32, bLayerNumber: Byte) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDiscoveredService(c_void_p):
+class IWSDiscoveredService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4bad8a3b-b374-4420-96-32-aa-c9-45-b3-74-aa')
     @commethod(3)
@@ -443,7 +443,7 @@ class IWSDiscoveredService(c_void_p):
     def GetLocalInterfaceGUID(self, pGuid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetInstanceId(self, pullInstanceId: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDiscoveryProvider(c_void_p):
+class IWSDiscoveryProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8ffc8e55-f0eb-480f-88-b7-b4-35-dd-28-1d-45')
     @commethod(3)
@@ -460,7 +460,7 @@ class IWSDiscoveryProvider(c_void_p):
     def SearchByType(self, pTypesList: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_NAME_LIST_head), pScopesList: POINTER(Windows.Win32.Devices.WebServicesOnDevices.WSD_URI_LIST_head), pszMatchBy: Windows.Win32.Foundation.PWSTR, pszTag: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetXMLContext(self, ppContext: POINTER(Windows.Win32.Devices.WebServicesOnDevices.IWSDXMLContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDiscoveryProviderNotify(c_void_p):
+class IWSDiscoveryProviderNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('73ee3ced-b6e6-4329-a5-46-3e-8a-d4-65-63-d2')
     @commethod(3)
@@ -471,7 +471,7 @@ class IWSDiscoveryProviderNotify(c_void_p):
     def SearchFailed(self, hr: Windows.Win32.Foundation.HRESULT, pszTag: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SearchComplete(self, pszTag: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDiscoveryPublisher(c_void_p):
+class IWSDiscoveryPublisher(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ae01e1a8-3ff9-4148-81-16-05-7c-c6-16-fe-13')
     @commethod(3)
@@ -500,7 +500,7 @@ class IWSDiscoveryPublisher(c_void_p):
     def UnRegisterScopeMatchingRule(self, pScopeMatchingRule: Windows.Win32.Devices.WebServicesOnDevices.IWSDScopeMatchingRule_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetXMLContext(self, ppContext: POINTER(Windows.Win32.Devices.WebServicesOnDevices.IWSDXMLContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWSDiscoveryPublisherNotify(c_void_p):
+class IWSDiscoveryPublisherNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e67651b0-337a-4b3c-97-58-73-33-88-56-82-51')
     @commethod(3)

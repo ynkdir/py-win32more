@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Globalization
 import Windows.Win32.Graphics.Gdi
@@ -855,7 +855,7 @@ class GUIDELINE(EasyCastStructure):
     dwStrOffset: UInt32
     dwPrivateSize: UInt32
     dwPrivateOffset: UInt32
-class IActiveIME(c_void_p):
+class IActiveIME(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6fe20962-d077-11d0-8f-e7-00-aa-00-6b-cc-59')
     @commethod(3)
@@ -892,14 +892,14 @@ class IActiveIME(c_void_p):
     def GetCodePageA(self, uCodePage: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def GetLangId(self, plid: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
-class IActiveIME2(c_void_p):
+class IActiveIME2(ComPtr):
     extends: Windows.Win32.UI.Input.Ime.IActiveIME
     Guid = Guid('e1c4bf0e-2d53-11d2-93-e1-00-60-b0-67-b8-6e')
     @commethod(20)
     def Sleep(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def Unsleep(self, fDead: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IActiveIMMApp(c_void_p):
+class IActiveIMMApp(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('08c0e040-62d1-11d1-93-26-00-60-b0-67-b8-6e')
     @commethod(3)
@@ -1038,7 +1038,7 @@ class IActiveIMMApp(c_void_p):
     def GetImeMenuItemsW(self, hIMC: Windows.Win32.Globalization.HIMC, dwFlags: UInt32, dwType: UInt32, pImeParentMenu: POINTER(Windows.Win32.UI.Input.Ime.IMEMENUITEMINFOW_head), pImeMenu: POINTER(Windows.Win32.UI.Input.Ime.IMEMENUITEMINFOW_head), dwSize: UInt32, pdwResult: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(70)
     def EnumInputContext(self, idThread: UInt32, ppEnum: POINTER(Windows.Win32.UI.Input.Ime.IEnumInputContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IActiveIMMIME(c_void_p):
+class IActiveIMMIME(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('08c03411-f96b-11d0-a4-75-00-aa-00-6b-cc-59')
     @commethod(3)
@@ -1217,7 +1217,7 @@ class IActiveIMMIME(c_void_p):
     def SendIMCW(self, hWnd: Windows.Win32.Foundation.HWND, uMsg: UInt32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM, plResult: POINTER(Windows.Win32.Foundation.LRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(90)
     def IsSleeping(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IActiveIMMMessagePumpOwner(c_void_p):
+class IActiveIMMMessagePumpOwner(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b5cf2cfa-8aeb-11d1-93-64-00-60-b0-67-b8-6e')
     @commethod(3)
@@ -1230,14 +1230,14 @@ class IActiveIMMMessagePumpOwner(c_void_p):
     def Pause(self, pdwCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Resume(self, dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IActiveIMMRegistrar(c_void_p):
+class IActiveIMMRegistrar(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b3458082-bd00-11d1-93-9b-00-60-b0-67-b8-6e')
     @commethod(3)
     def RegisterIME(self, rclsid: POINTER(Guid), lgid: UInt16, pszIconFile: Windows.Win32.Foundation.PWSTR, pszDesc: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UnregisterIME(self, rclsid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumInputContext(c_void_p):
+class IEnumInputContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('09b5eab0-f997-11d1-93-d4-00-60-b0-67-b8-6e')
     @commethod(3)
@@ -1248,7 +1248,7 @@ class IEnumInputContext(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumRegisterWordA(c_void_p):
+class IEnumRegisterWordA(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('08c03412-f96b-11d0-a4-75-00-aa-00-6b-cc-59')
     @commethod(3)
@@ -1259,7 +1259,7 @@ class IEnumRegisterWordA(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumRegisterWordW(c_void_p):
+class IEnumRegisterWordW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4955dd31-b159-11d0-8f-cf-00-aa-00-6b-cc-59')
     @commethod(3)
@@ -1270,9 +1270,9 @@ class IEnumRegisterWordW(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IFEClassFactory(c_void_p):
+class IFEClassFactory(ComPtr):
     extends: Windows.Win32.System.Com.IClassFactory
-class IFECommon(c_void_p):
+class IFECommon(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('019f7151-e6db-11d0-83-c3-00-c0-4f-dd-b8-2e')
     @commethod(3)
@@ -1283,7 +1283,7 @@ class IFECommon(c_void_p):
     def InvokeWordRegDialog(self, pimedlg: POINTER(Windows.Win32.UI.Input.Ime.IMEDLG_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def InvokeDictToolDialog(self, pimedlg: POINTER(Windows.Win32.UI.Input.Ime.IMEDLG_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFEDictionary(c_void_p):
+class IFEDictionary(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('019f7153-e6db-11d0-83-c3-00-c0-4f-dd-b8-2e')
     @commethod(3)
@@ -1320,7 +1320,7 @@ class IFEDictionary(c_void_p):
     def ConvertFromOldMSIME(self, pchDic: Windows.Win32.Foundation.PSTR, pfnLog: Windows.Win32.UI.Input.Ime.PFNLOG, reg: Windows.Win32.UI.Input.Ime.IMEREG) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def ConvertFromUserToSys(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IFELanguage(c_void_p):
+class IFELanguage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('019f7152-e6db-11d0-83-c3-00-c0-4f-dd-b8-2e')
     @commethod(3)
@@ -1335,12 +1335,12 @@ class IFELanguage(c_void_p):
     def GetPhonetic(self, string: Windows.Win32.Foundation.BSTR, start: Int32, length: Int32, phonetic: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetConversion(self, string: Windows.Win32.Foundation.BSTR, start: Int32, length: Int32, result: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IImePad(c_void_p):
+class IImePad(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5d8e643a-c3a9-11d1-af-ef-00-80-5f-0c-8b-6d')
     @commethod(3)
     def Request(self, pIImePadApplet: Windows.Win32.UI.Input.Ime.IImePadApplet_head, reqId: Windows.Win32.UI.Input.Ime.IME_PAD_REQUEST_FLAGS, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
-class IImePadApplet(c_void_p):
+class IImePadApplet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5d8e643b-c3a9-11d1-af-ef-00-80-5f-0c-8b-6d')
     @commethod(3)
@@ -1353,14 +1353,14 @@ class IImePadApplet(c_void_p):
     def CreateUI(self, hwndParent: Windows.Win32.Foundation.HWND, lpImeAppletUI: POINTER(Windows.Win32.UI.Input.Ime.IMEAPPLETUI_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Notify(self, lpImePad: Windows.Win32.System.Com.IUnknown_head, notify: Int32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
-class IImePlugInDictDictionaryList(c_void_p):
+class IImePlugInDictDictionaryList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('98752974-b0a6-489b-8f-6f-bf-f3-76-9c-8e-eb')
     @commethod(3)
     def GetDictionariesInUse(self, prgDictionaryGUID: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head)), prgDateCreated: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head)), prgfEncrypted: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def DeleteDictionary(self, bstrDictionaryGUID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IImeSpecifyApplets(c_void_p):
+class IImeSpecifyApplets(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5d8e643c-c3a9-11d1-af-ef-00-80-5f-0c-8b-6d')
     @commethod(3)

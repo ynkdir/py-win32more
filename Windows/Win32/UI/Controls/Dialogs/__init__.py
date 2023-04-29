@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.System.Com
@@ -451,7 +451,7 @@ FR_REPLACE: FINDREPLACE_FLAGS = 16
 FR_REPLACEALL: FINDREPLACE_FLAGS = 32
 FR_SHOWHELP: FINDREPLACE_FLAGS = 128
 FR_WHOLEWORD: FINDREPLACE_FLAGS = 2
-class IPrintDialogCallback(c_void_p):
+class IPrintDialogCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5852a2c3-6530-11d1-b6-a3-00-00-f8-75-7b-f9')
     @commethod(3)
@@ -460,7 +460,7 @@ class IPrintDialogCallback(c_void_p):
     def SelectionChange(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def HandleMessage(self, hDlg: Windows.Win32.Foundation.HWND, uMsg: UInt32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM, pResult: POINTER(Windows.Win32.Foundation.LRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPrintDialogServices(c_void_p):
+class IPrintDialogServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('509aaeda-5639-11d1-b6-a1-00-00-f8-75-7b-f9')
     @commethod(3)

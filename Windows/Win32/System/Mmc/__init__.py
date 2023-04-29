@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.System.Com
@@ -105,7 +105,7 @@ MMC_DEFAULT_OPERATION_COPY: UInt32 = 1
 MMC_ITEM_OVERLAY_STATE_MASK: UInt32 = 3840
 MMC_ITEM_OVERLAY_STATE_SHIFT: UInt32 = 8
 MMC_ITEM_STATE_MASK: UInt32 = 255
-class AppEvents(c_void_p):
+class AppEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('fc7a4252-78ac-4532-8c-5a-56-3c-fe-13-88-63')
 AppEventsDHTMLConnector = Guid('ade6444b-c91f-4e37-92-a4-5b-b4-30-a3-33-40')
@@ -154,7 +154,7 @@ class CONTEXTMENUITEM2(EasyCastStructure):
     fFlags: Int32
     fSpecialFlags: Int32
     strLanguageIndependentName: Windows.Win32.Foundation.PWSTR
-class Column(c_void_p):
+class Column(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('fd1c5f63-2b16-4d06-9a-b3-f4-53-50-b9-40-ab')
     @commethod(7)
@@ -175,7 +175,7 @@ class Column(c_void_p):
     def SetAsSortColumn(self, SortOrder: Windows.Win32.System.Mmc._ColumnSortOrder) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def IsSortColumn(self, IsSortColumn: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class Columns(c_void_p):
+class Columns(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('383d4d97-fc44-478b-b1-39-63-23-dc-48-61-1c')
     @commethod(7)
@@ -185,7 +185,7 @@ class Columns(c_void_p):
     @commethod(9)
     def get__NewEnum(self, retval: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 ConsolePower = Guid('f0285374-dff1-11d3-b4-33-00-c0-4f-8e-cd-78')
-class ContextMenu(c_void_p):
+class ContextMenu(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('dab39ce0-25e6-4e07-83-62-ba-9c-95-70-65-45')
     @commethod(7)
@@ -199,7 +199,7 @@ CCT_SCOPE: DATA_OBJECT_TYPES = 32768
 CCT_RESULT: DATA_OBJECT_TYPES = 32769
 CCT_SNAPIN_MANAGER: DATA_OBJECT_TYPES = 32770
 CCT_UNINITIALIZED: DATA_OBJECT_TYPES = 65535
-class Document(c_void_p):
+class Document(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('225120d6-1e0f-40a3-93-fe-10-79-e6-a8-01-7b')
     @commethod(7)
@@ -234,7 +234,7 @@ class Document(c_void_p):
     def CreateProperties(self, Properties: POINTER(Windows.Win32.System.Mmc.Properties_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def get_Application(self, Application: POINTER(Windows.Win32.System.Mmc._Application_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class Extension(c_void_p):
+class Extension(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('ad4d6ca6-912f-409b-a2-6e-7f-d2-34-ae-f5-42')
     @commethod(7)
@@ -251,7 +251,7 @@ class Extension(c_void_p):
     def EnableAllExtensions(self, Enable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def Enable(self, Enable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class Extensions(c_void_p):
+class Extensions(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('82dbea43-8ca4-44bc-a2-ca-d1-87-41-05-9e-c8')
     @commethod(7)
@@ -260,7 +260,7 @@ class Extensions(c_void_p):
     def Item(self, Index: Int32, Extension: POINTER(Windows.Win32.System.Mmc.Extension_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class Frame(c_void_p):
+class Frame(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('e5e2d970-5bb3-4306-88-04-b0-96-8a-31-c8-e6')
     @commethod(7)
@@ -285,7 +285,7 @@ class Frame(c_void_p):
     def get_Right(self, Right: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def put_Right(self, right: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IColumnData(c_void_p):
+class IColumnData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('547c1354-024d-11d3-a7-07-00-c0-4f-8e-f4-cb')
     @commethod(3)
@@ -296,7 +296,7 @@ class IColumnData(c_void_p):
     def SetColumnSortData(self, pColID: POINTER(Windows.Win32.System.Mmc.SColumnSetID_head), pColSortData: POINTER(Windows.Win32.System.Mmc.MMC_SORT_SET_DATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetColumnSortData(self, pColID: POINTER(Windows.Win32.System.Mmc.SColumnSetID_head), ppColSortData: POINTER(POINTER(Windows.Win32.System.Mmc.MMC_SORT_SET_DATA_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IComponent(c_void_p):
+class IComponent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('43136eb2-d36c-11cf-ad-bc-00-aa-00-a8-00-33')
     @commethod(3)
@@ -313,7 +313,7 @@ class IComponent(c_void_p):
     def GetDisplayInfo(self, pResultDataItem: POINTER(Windows.Win32.System.Mmc.RESULTDATAITEM_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def CompareObjects(self, lpDataObjectA: Windows.Win32.System.Com.IDataObject_head, lpDataObjectB: Windows.Win32.System.Com.IDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IComponent2(c_void_p):
+class IComponent2(ComPtr):
     extends: Windows.Win32.System.Mmc.IComponent
     Guid = Guid('79a2d615-4a10-4ed4-8c-65-86-33-f9-33-50-95')
     @commethod(10)
@@ -322,7 +322,7 @@ class IComponent2(c_void_p):
     def GetResultViewType2(self, cookie: IntPtr, pResultViewType: POINTER(Windows.Win32.System.Mmc.RESULT_VIEW_TYPE_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def RestoreResultView(self, cookie: IntPtr, pResultViewType: POINTER(Windows.Win32.System.Mmc.RESULT_VIEW_TYPE_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IComponentData(c_void_p):
+class IComponentData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('955ab28a-5218-11d0-a9-85-00-c0-4f-d8-d5-65')
     @commethod(3)
@@ -339,12 +339,12 @@ class IComponentData(c_void_p):
     def GetDisplayInfo(self, pScopeDataItem: POINTER(Windows.Win32.System.Mmc.SCOPEDATAITEM_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def CompareObjects(self, lpDataObjectA: Windows.Win32.System.Com.IDataObject_head, lpDataObjectB: Windows.Win32.System.Com.IDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IComponentData2(c_void_p):
+class IComponentData2(ComPtr):
     extends: Windows.Win32.System.Mmc.IComponentData
     Guid = Guid('cca0f2d2-82de-41b5-bf-47-3b-20-76-27-3d-5c')
     @commethod(10)
     def QueryDispatch(self, cookie: IntPtr, type: Windows.Win32.System.Mmc.DATA_OBJECT_TYPES, ppDispatch: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IConsole(c_void_p):
+class IConsole(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('43136eb1-d36c-11cf-ad-bc-00-aa-00-a8-00-33')
     @commethod(3)
@@ -369,7 +369,7 @@ class IConsole(c_void_p):
     def GetMainWindow(self, phwnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def NewWindow(self, hScopeItem: IntPtr, lOptions: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IConsole2(c_void_p):
+class IConsole2(ComPtr):
     extends: Windows.Win32.System.Mmc.IConsole
     Guid = Guid('103d842a-aa63-11d1-a7-e1-00-c0-4f-d8-d5-65')
     @commethod(14)
@@ -378,12 +378,12 @@ class IConsole2(c_void_p):
     def IsTaskpadViewPreferred(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def SetStatusText(self, pszStatusText: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IConsole3(c_void_p):
+class IConsole3(ComPtr):
     extends: Windows.Win32.System.Mmc.IConsole2
     Guid = Guid('4f85efdb-d0e1-498c-8d-4a-d0-10-df-dd-40-4f')
     @commethod(17)
     def RenameScopeItem(self, hScopeItem: IntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class IConsoleNameSpace(c_void_p):
+class IConsoleNameSpace(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bedeb620-f24d-11cf-8a-fc-00-aa-00-3c-a9-f6')
     @commethod(3)
@@ -400,26 +400,26 @@ class IConsoleNameSpace(c_void_p):
     def GetNextItem(self, item: IntPtr, pItemNext: POINTER(IntPtr), pCookie: POINTER(IntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetParentItem(self, item: IntPtr, pItemParent: POINTER(IntPtr), pCookie: POINTER(IntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
-class IConsoleNameSpace2(c_void_p):
+class IConsoleNameSpace2(ComPtr):
     extends: Windows.Win32.System.Mmc.IConsoleNameSpace
     Guid = Guid('255f18cc-65db-11d1-a7-dc-00-c0-4f-d8-d5-65')
     @commethod(10)
     def Expand(self, hItem: IntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def AddExtension(self, hItem: IntPtr, lpClsid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IConsolePower(c_void_p):
+class IConsolePower(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1cfbdd0e-62ca-49ce-a3-af-db-b2-de-61-b0-68')
     @commethod(3)
     def SetExecutionState(self, dwAdd: UInt32, dwRemove: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ResetIdleTimer(self, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IConsolePowerSink(c_void_p):
+class IConsolePowerSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3333759f-fe4f-4975-b1-43-fe-c0-a5-dd-6d-65')
     @commethod(3)
     def OnPowerBroadcast(self, nEvent: UInt32, lParam: Windows.Win32.Foundation.LPARAM, plReturn: POINTER(Windows.Win32.Foundation.LRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
-class IConsoleVerb(c_void_p):
+class IConsoleVerb(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e49f7a60-74af-11d0-a2-86-00-c0-4f-d8-fe-93')
     @commethod(3)
@@ -430,17 +430,17 @@ class IConsoleVerb(c_void_p):
     def SetDefaultVerb(self, eCmdID: Windows.Win32.System.Mmc.MMC_CONSOLE_VERB) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetDefaultVerb(self, peCmdID: POINTER(Windows.Win32.System.Mmc.MMC_CONSOLE_VERB)) -> Windows.Win32.Foundation.HRESULT: ...
-class IContextMenuCallback(c_void_p):
+class IContextMenuCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('43136eb7-d36c-11cf-ad-bc-00-aa-00-a8-00-33')
     @commethod(3)
     def AddItem(self, pItem: POINTER(Windows.Win32.System.Mmc.CONTEXTMENUITEM_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IContextMenuCallback2(c_void_p):
+class IContextMenuCallback2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e178bc0e-2ed0-4b5e-80-97-42-c9-08-7e-8b-33')
     @commethod(3)
     def AddItem(self, pItem: POINTER(Windows.Win32.System.Mmc.CONTEXTMENUITEM2_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IContextMenuProvider(c_void_p):
+class IContextMenuProvider(ComPtr):
     extends: Windows.Win32.System.Mmc.IContextMenuCallback
     Guid = Guid('43136eb6-d36c-11cf-ad-bc-00-aa-00-a8-00-33')
     @commethod(4)
@@ -451,7 +451,7 @@ class IContextMenuProvider(c_void_p):
     def AddThirdPartyExtensionItems(self, piDataObject: Windows.Win32.System.Com.IDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def ShowContextMenu(self, hwndParent: Windows.Win32.Foundation.HWND, xPos: Int32, yPos: Int32, plSelected: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IControlbar(c_void_p):
+class IControlbar(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('69fb811e-6c1c-11d0-a2-cb-00-c0-4f-d9-09-dd')
     @commethod(3)
@@ -460,12 +460,12 @@ class IControlbar(c_void_p):
     def Attach(self, nType: Windows.Win32.System.Mmc.MMC_CONTROL_TYPE, lpUnknown: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Detach(self, lpUnknown: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IDisplayHelp(c_void_p):
+class IDisplayHelp(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cc593830-b926-11d1-80-63-00-00-f8-75-a9-ce')
     @commethod(3)
     def ShowTopic(self, pszHelpTopic: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumTASK(c_void_p):
+class IEnumTASK(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('338698b1-5a02-11d1-9f-ec-00-60-08-32-db-4a')
     @commethod(3)
@@ -476,33 +476,33 @@ class IEnumTASK(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Mmc.IEnumTASK_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IExtendContextMenu(c_void_p):
+class IExtendContextMenu(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4f3b7a4f-cfac-11cf-b8-e3-00-c0-4f-d8-d5-b0')
     @commethod(3)
     def AddMenuItems(self, piDataObject: Windows.Win32.System.Com.IDataObject_head, piCallback: Windows.Win32.System.Mmc.IContextMenuCallback_head, pInsertionAllowed: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Command(self, lCommandID: Int32, piDataObject: Windows.Win32.System.Com.IDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IExtendControlbar(c_void_p):
+class IExtendControlbar(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('49506520-6f40-11d0-a9-8b-00-c0-4f-d8-d5-65')
     @commethod(3)
     def SetControlbar(self, pControlbar: Windows.Win32.System.Mmc.IControlbar_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ControlbarNotify(self, event: Windows.Win32.System.Mmc.MMC_NOTIFY_TYPE, arg: Windows.Win32.Foundation.LPARAM, param2: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
-class IExtendPropertySheet(c_void_p):
+class IExtendPropertySheet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('85de64dc-ef21-11cf-a2-85-00-c0-4f-d8-db-e6')
     @commethod(3)
     def CreatePropertyPages(self, lpProvider: Windows.Win32.System.Mmc.IPropertySheetCallback_head, handle: IntPtr, lpIDataObject: Windows.Win32.System.Com.IDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def QueryPagesFor(self, lpDataObject: Windows.Win32.System.Com.IDataObject_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IExtendPropertySheet2(c_void_p):
+class IExtendPropertySheet2(ComPtr):
     extends: Windows.Win32.System.Mmc.IExtendPropertySheet
     Guid = Guid('b7a87232-4a51-11d1-a7-ea-00-c0-4f-d9-09-dd')
     @commethod(5)
     def GetWatermarks(self, lpIDataObject: Windows.Win32.System.Com.IDataObject_head, lphWatermark: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP), lphHeader: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP), lphPalette: POINTER(Windows.Win32.Graphics.Gdi.HPALETTE), bStretch: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IExtendTaskPad(c_void_p):
+class IExtendTaskPad(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8dee6511-554d-11d1-9f-ea-00-60-08-32-db-4a')
     @commethod(3)
@@ -517,12 +517,12 @@ class IExtendTaskPad(c_void_p):
     def GetBackground(self, pszGroup: Windows.Win32.Foundation.PWSTR, pTDO: POINTER(Windows.Win32.System.Mmc.MMC_TASK_DISPLAY_OBJECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetListPadInfo(self, pszGroup: Windows.Win32.Foundation.PWSTR, lpListPadInfo: POINTER(Windows.Win32.System.Mmc.MMC_LISTPAD_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IExtendView(c_void_p):
+class IExtendView(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('89995cee-d2ed-4c0e-ae-5e-df-7e-76-f3-fa-53')
     @commethod(3)
     def GetViews(self, pDataObject: Windows.Win32.System.Com.IDataObject_head, pViewExtensionCallback: Windows.Win32.System.Mmc.IViewExtensionCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IHeaderCtrl(c_void_p):
+class IHeaderCtrl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('43136eb3-d36c-11cf-ad-bc-00-aa-00-a8-00-33')
     @commethod(3)
@@ -537,7 +537,7 @@ class IHeaderCtrl(c_void_p):
     def SetColumnWidth(self, nCol: Int32, nWidth: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetColumnWidth(self, nCol: Int32, pWidth: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IHeaderCtrl2(c_void_p):
+class IHeaderCtrl2(ComPtr):
     extends: Windows.Win32.System.Mmc.IHeaderCtrl
     Guid = Guid('9757abb8-1b32-11d1-a7-ce-00-c0-4f-d8-d5-65')
     @commethod(9)
@@ -546,19 +546,19 @@ class IHeaderCtrl2(c_void_p):
     def SetColumnFilter(self, nColumn: UInt32, dwType: UInt32, pFilterData: POINTER(Windows.Win32.System.Mmc.MMC_FILTERDATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetColumnFilter(self, nColumn: UInt32, pdwType: POINTER(UInt32), pFilterData: POINTER(Windows.Win32.System.Mmc.MMC_FILTERDATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IImageList(c_void_p):
+class IImageList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('43136eb8-d36c-11cf-ad-bc-00-aa-00-a8-00-33')
     @commethod(3)
     def ImageListSetIcon(self, pIcon: POINTER(IntPtr), nLoc: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ImageListSetStrip(self, pBMapSm: POINTER(IntPtr), pBMapLg: POINTER(IntPtr), nStartLoc: Int32, cMask: Windows.Win32.Foundation.COLORREF) -> Windows.Win32.Foundation.HRESULT: ...
-class IMMCVersionInfo(c_void_p):
+class IMMCVersionInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a8d2c5fe-cdcb-4b9d-bd-e5-a2-73-43-ff-54-bc')
     @commethod(3)
     def GetMMCVersion(self, pVersionMajor: POINTER(Int32), pVersionMinor: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMenuButton(c_void_p):
+class IMenuButton(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('951ed750-d080-11d0-b1-97-00-00-00-00-00-00')
     @commethod(3)
@@ -567,7 +567,7 @@ class IMenuButton(c_void_p):
     def SetButton(self, idCommand: Int32, lpButtonText: Windows.Win32.Foundation.PWSTR, lpTooltipText: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetButtonState(self, idCommand: Int32, nState: Windows.Win32.System.Mmc.MMC_BUTTON_STATE, bState: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IMessageView(c_void_p):
+class IMessageView(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('80f94174-fccc-11d2-b9-91-00-c0-4f-8e-cd-78')
     @commethod(3)
@@ -578,19 +578,19 @@ class IMessageView(c_void_p):
     def SetIcon(self, id: Windows.Win32.System.Mmc.IconIdentifier) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
-class INodeProperties(c_void_p):
+class INodeProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('15bc4d24-a522-4406-aa-55-07-49-53-7a-68-65')
     @commethod(3)
     def GetProperty(self, pDataObject: Windows.Win32.System.Com.IDataObject_head, szPropertyName: Windows.Win32.Foundation.BSTR, pbstrProperty: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPropertySheetCallback(c_void_p):
+class IPropertySheetCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('85de64dd-ef21-11cf-a2-85-00-c0-4f-d8-db-e6')
     @commethod(3)
     def AddPage(self, hPage: Windows.Win32.UI.Controls.HPROPSHEETPAGE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RemovePage(self, hPage: Windows.Win32.UI.Controls.HPROPSHEETPAGE) -> Windows.Win32.Foundation.HRESULT: ...
-class IPropertySheetProvider(c_void_p):
+class IPropertySheetProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('85de64de-ef21-11cf-a2-85-00-c0-4f-d8-db-e6')
     @commethod(3)
@@ -603,7 +603,7 @@ class IPropertySheetProvider(c_void_p):
     def AddExtensionPages(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Show(self, window: IntPtr, page: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IRequiredExtensions(c_void_p):
+class IRequiredExtensions(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('72782d7a-a4a0-11d1-af-0f-00-c0-4f-b6-dd-2c')
     @commethod(3)
@@ -612,7 +612,7 @@ class IRequiredExtensions(c_void_p):
     def GetFirstExtension(self, pExtCLSID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetNextExtension(self, pExtCLSID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IResultData(c_void_p):
+class IResultData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('31da5fa0-e0eb-11cf-9f-21-00-aa-00-3c-a9-f6')
     @commethod(3)
@@ -645,22 +645,22 @@ class IResultData(c_void_p):
     def SetDescBarText(self, DescText: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def SetItemCount(self, nItemCount: Int32, dwOptions: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IResultData2(c_void_p):
+class IResultData2(ComPtr):
     extends: Windows.Win32.System.Mmc.IResultData
     Guid = Guid('0f36e0eb-a7f1-4a81-be-5a-92-47-f7-de-4b-1b')
     @commethod(18)
     def RenameResultItem(self, itemID: IntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class IResultDataCompare(c_void_p):
+class IResultDataCompare(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e8315a52-7a1a-11d0-a2-d2-00-c0-4f-d9-09-dd')
     @commethod(3)
     def Compare(self, lUserParam: Windows.Win32.Foundation.LPARAM, cookieA: IntPtr, cookieB: IntPtr, pnResult: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IResultDataCompareEx(c_void_p):
+class IResultDataCompareEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('96933476-0251-11d3-ae-b0-00-c0-4f-8e-cd-78')
     @commethod(3)
     def Compare(self, prdc: POINTER(Windows.Win32.System.Mmc.RDCOMPARE_head), pnResult: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IResultOwnerData(c_void_p):
+class IResultOwnerData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9cb396d8-ea83-11d0-ae-f1-00-c0-4f-b6-dd-2c')
     @commethod(3)
@@ -669,7 +669,7 @@ class IResultOwnerData(c_void_p):
     def CacheHint(self, nStartIndex: Int32, nEndIndex: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SortItems(self, nColumn: Int32, dwSortOptions: UInt32, lUserParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
-class ISnapinAbout(c_void_p):
+class ISnapinAbout(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1245208c-a151-11d0-a7-d7-00-c0-4f-d9-09-dd')
     @commethod(3)
@@ -682,17 +682,17 @@ class ISnapinAbout(c_void_p):
     def GetSnapinImage(self, hAppIcon: POINTER(Windows.Win32.UI.WindowsAndMessaging.HICON)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetStaticFolderImage(self, hSmallImage: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP), hSmallImageOpen: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP), hLargeImage: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP), cMask: POINTER(Windows.Win32.Foundation.COLORREF)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISnapinHelp(c_void_p):
+class ISnapinHelp(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a6b15ace-df59-11d0-a7-dd-00-c0-4f-d9-09-dd')
     @commethod(3)
     def GetHelpTopic(self, lpCompiledHelpFile: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISnapinHelp2(c_void_p):
+class ISnapinHelp2(ComPtr):
     extends: Windows.Win32.System.Mmc.ISnapinHelp
     Guid = Guid('4861a010-20f9-11d2-a5-10-00-c0-4f-b6-dd-2c')
     @commethod(4)
     def GetLinkedTopics(self, lpCompiledHelpFiles: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISnapinProperties(c_void_p):
+class ISnapinProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f7889da9-4a02-4837-bf-89-1a-6f-2a-02-10-10')
     @commethod(3)
@@ -701,12 +701,12 @@ class ISnapinProperties(c_void_p):
     def QueryPropertyNames(self, pCallback: Windows.Win32.System.Mmc.ISnapinPropertiesCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def PropertiesChanged(self, cProperties: Int32, pProperties: POINTER(Windows.Win32.System.Mmc.MMC_SNAPIN_PROPERTY_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISnapinPropertiesCallback(c_void_p):
+class ISnapinPropertiesCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a50fa2e5-7e61-45eb-a8-d4-9a-07-b3-e8-51-a8')
     @commethod(3)
     def AddPropertyName(self, pszPropName: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IStringTable(c_void_p):
+class IStringTable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('de40b7a4-0f65-11d2-8e-25-00-c0-4f-8e-cd-78')
     @commethod(3)
@@ -723,7 +723,7 @@ class IStringTable(c_void_p):
     def FindString(self, pszFind: Windows.Win32.Foundation.PWSTR, pStringID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Enumerate(self, ppEnum: POINTER(Windows.Win32.System.Com.IEnumString_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IToolbar(c_void_p):
+class IToolbar(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('43136eb9-d36c-11cf-ad-bc-00-aa-00-a8-00-33')
     @commethod(3)
@@ -738,7 +738,7 @@ class IToolbar(c_void_p):
     def GetButtonState(self, idCommand: Int32, nState: Windows.Win32.System.Mmc.MMC_BUTTON_STATE, pState: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def SetButtonState(self, idCommand: Int32, nState: Windows.Win32.System.Mmc.MMC_BUTTON_STATE, bState: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IViewExtensionCallback(c_void_p):
+class IViewExtensionCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('34dd928a-7599-41e5-9f-5e-d6-bc-30-62-c2-da')
     @commethod(3)
@@ -931,7 +931,7 @@ MMC_VIEW_TYPE_OCX: MMC_VIEW_TYPE = 2
 class MMC_VISIBLE_COLUMNS(EasyCastStructure):
     nVisibleColumns: Int32
     rgVisibleCols: Int32 * 1
-class MenuItem(c_void_p):
+class MenuItem(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('0178fad1-b361-4b27-96-ad-67-c5-7e-bf-2e-1d')
     @commethod(7)
@@ -946,7 +946,7 @@ class MenuItem(c_void_p):
     def Execute(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def get_Enabled(self, Enabled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class Node(c_void_p):
+class Node(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('f81ed800-7839-4447-94-5d-8e-15-da-59-ca-55')
     @commethod(7)
@@ -959,7 +959,7 @@ class Node(c_void_p):
     def IsScopeNode(self, IsScopeNode: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get_Nodetype(self, Nodetype: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class Nodes(c_void_p):
+class Nodes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('313b01df-b22f-4d42-b1-b8-48-3c-dc-f5-1d-35')
     @commethod(7)
@@ -968,7 +968,7 @@ class Nodes(c_void_p):
     def Item(self, Index: Int32, Node: POINTER(Windows.Win32.System.Mmc.Node_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class Properties(c_void_p):
+class Properties(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2886abc2-a425-42b2-91-c6-e2-5c-0e-04-58-1c')
     @commethod(7)
@@ -979,7 +979,7 @@ class Properties(c_void_p):
     def get_Count(self, Count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Remove(self, Name: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class Property(c_void_p):
+class Property(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('4600c3a5-e301-41d8-b6-d0-ef-2e-42-12-e0-ca')
     @commethod(7)
@@ -1056,7 +1056,7 @@ class SNodeID2(EasyCastStructure):
     dwFlags: UInt32
     cBytes: UInt32
     id: Byte * 1
-class ScopeNamespace(c_void_p):
+class ScopeNamespace(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('ebbb48dc-1a3b-4d86-b7-86-c2-1b-28-38-90-12')
     @commethod(7)
@@ -1069,7 +1069,7 @@ class ScopeNamespace(c_void_p):
     def GetRoot(self, Root: POINTER(Windows.Win32.System.Mmc.Node_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Expand(self, Node: Windows.Win32.System.Mmc.Node_head) -> Windows.Win32.Foundation.HRESULT: ...
-class SnapIn(c_void_p):
+class SnapIn(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('3be910f6-3459-49c6-a1-bb-41-e6-be-9d-f3-ea')
     @commethod(7)
@@ -1086,7 +1086,7 @@ class SnapIn(c_void_p):
     def get_Properties(self, Properties: POINTER(Windows.Win32.System.Mmc.Properties_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def EnableAllExtensions(self, Enable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class SnapIns(c_void_p):
+class SnapIns(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2ef3de1d-b12a-49d1-92-c5-0b-00-79-87-68-f1')
     @commethod(7)
@@ -1099,7 +1099,7 @@ class SnapIns(c_void_p):
     def Add(self, SnapinNameOrCLSID: Windows.Win32.Foundation.BSTR, ParentSnapin: Windows.Win32.System.Variant.VARIANT, Properties: Windows.Win32.System.Variant.VARIANT, SnapIn: POINTER(Windows.Win32.System.Mmc.SnapIn_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Remove(self, SnapIn: Windows.Win32.System.Mmc.SnapIn_head) -> Windows.Win32.Foundation.HRESULT: ...
-class View(c_void_p):
+class View(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('6efc2da2-b38c-457e-9a-bb-ed-2d-18-9b-8c-38')
     @commethod(7)
@@ -1186,7 +1186,7 @@ class View(c_void_p):
     def put_ListViewMode(self, mode: Windows.Win32.System.Mmc._ListViewMode) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(48)
     def get_ControlObject(self, Control: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class Views(c_void_p):
+class Views(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d6b8c29d-a1ff-4d72-aa-b0-e3-81-e9-b9-33-8d')
     @commethod(7)
@@ -1197,7 +1197,7 @@ class Views(c_void_p):
     def Add(self, Node: Windows.Win32.System.Mmc.Node_head, viewOptions: Windows.Win32.System.Mmc._ViewOptions) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get__NewEnum(self, retval: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class _AppEvents(c_void_p):
+class _AppEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('de46cbdd-53f5-4635-af-54-4f-e7-1e-92-3d-3f')
     @commethod(7)
@@ -1224,7 +1224,7 @@ class _AppEvents(c_void_p):
     def OnToolbarButtonClicked(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def OnListUpdated(self, View: Windows.Win32.System.Mmc.View_head) -> Windows.Win32.Foundation.HRESULT: ...
-class _Application(c_void_p):
+class _Application(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('a3afb9cc-b653-4741-86-ab-f0-47-0e-c1-38-4c')
     @commethod(7)
@@ -1259,7 +1259,7 @@ DocumentMode_Author: _DocumentMode = 0
 DocumentMode_User: _DocumentMode = 1
 DocumentMode_User_MDI: _DocumentMode = 2
 DocumentMode_User_SDI: _DocumentMode = 3
-class _EventConnector(c_void_p):
+class _EventConnector(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c0bccd30-de44-4528-84-03-a0-5a-6a-1c-c8-ea')
     @commethod(7)

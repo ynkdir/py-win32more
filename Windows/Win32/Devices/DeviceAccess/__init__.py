@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Devices.DeviceAccess
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
@@ -60,7 +60,7 @@ ED_VIDEO: Int32 = 33554432
 CLSID_DeviceIoControl: Guid = Guid('12d3e372-874b-457d-9f-df-73-97-77-78-68-6c')
 @winfunctype('deviceaccess.dll')
 def CreateDeviceAccessInstance(deviceInterfacePath: Windows.Win32.Foundation.PWSTR, desiredAccess: UInt32, createAsync: POINTER(Windows.Win32.Devices.DeviceAccess.ICreateDeviceAccessAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICreateDeviceAccessAsync(c_void_p):
+class ICreateDeviceAccessAsync(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3474628f-683d-42d2-ab-cb-db-01-8c-65-03-bc')
     @commethod(3)
@@ -71,7 +71,7 @@ class ICreateDeviceAccessAsync(c_void_p):
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetResult(self, riid: POINTER(Guid), deviceAccess: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDeviceIoControl(c_void_p):
+class IDeviceIoControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9eefe161-23ab-4f18-9b-49-99-1b-58-6a-e9-70')
     @commethod(3)
@@ -80,7 +80,7 @@ class IDeviceIoControl(c_void_p):
     def DeviceIoControlAsync(self, ioControlCode: UInt32, inputBuffer: POINTER(Byte), inputBufferSize: UInt32, outputBuffer: POINTER(Byte), outputBufferSize: UInt32, requestCompletionCallback: Windows.Win32.Devices.DeviceAccess.IDeviceRequestCompletionCallback_head, cancelContext: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CancelOperation(self, cancelContext: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class IDeviceRequestCompletionCallback(c_void_p):
+class IDeviceRequestCompletionCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('999bad24-9acd-45bb-86-69-2a-2f-c0-28-8b-04')
     @commethod(3)

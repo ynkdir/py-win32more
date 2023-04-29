@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Data.Xml.XmlLite
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
@@ -29,7 +29,7 @@ DtdProcessing = Int32
 DtdProcessing_Prohibit: DtdProcessing = 0
 DtdProcessing_Parse: DtdProcessing = 1
 _DtdProcessing_Last: DtdProcessing = 1
-class IXmlReader(c_void_p):
+class IXmlReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7279fc81-709d-4095-b6-3d-69-fe-4b-0d-90-30')
     @commethod(3)
@@ -78,12 +78,12 @@ class IXmlReader(c_void_p):
     def GetDepth(self, pnDepth: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def IsEOF(self) -> Windows.Win32.Foundation.BOOL: ...
-class IXmlResolver(c_void_p):
+class IXmlResolver(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7279fc82-709d-4095-b6-3d-69-fe-4b-0d-90-30')
     @commethod(3)
     def ResolveUri(self, pwszBaseUri: Windows.Win32.Foundation.PWSTR, pwszPublicIdentifier: Windows.Win32.Foundation.PWSTR, pwszSystemIdentifier: Windows.Win32.Foundation.PWSTR, ppResolvedInput: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXmlWriter(c_void_p):
+class IXmlWriter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7279fc88-709d-4095-b6-3d-69-fe-4b-0d-90-30')
     @commethod(3)
@@ -144,7 +144,7 @@ class IXmlWriter(c_void_p):
     def WriteWhitespace(self, pwszWhitespace: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def Flush(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IXmlWriterLite(c_void_p):
+class IXmlWriterLite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('862494c6-1310-4aad-b3-cd-2d-be-eb-f6-70-d3')
     @commethod(3)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Security.EnterpriseData
 import Windows.Win32.Storage.Packaging.Appx
@@ -51,14 +51,14 @@ class FILE_UNPROTECT_OPTIONS(EasyCastStructure):
 class HTHREAD_NETWORK_CONTEXT(EasyCastStructure):
     ThreadId: UInt32
     ThreadContext: Windows.Win32.Foundation.HANDLE
-class IProtectionPolicyManagerInterop(c_void_p):
+class IProtectionPolicyManagerInterop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4652651d-c1fe-4ba1-9f-0a-c0-f5-65-96-f7-21')
     @commethod(6)
     def RequestAccessForWindowAsync(self, appWindow: Windows.Win32.Foundation.HWND, sourceIdentity: Windows.Win32.System.WinRT.HSTRING, targetIdentity: Windows.Win32.System.WinRT.HSTRING, riid: POINTER(Guid), asyncOperation: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetForWindow(self, appWindow: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), result: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IProtectionPolicyManagerInterop2(c_void_p):
+class IProtectionPolicyManagerInterop2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('157cfbe4-a78d-4156-b3-84-61-fd-ac-41-e6-86')
     @commethod(6)
@@ -71,7 +71,7 @@ class IProtectionPolicyManagerInterop2(c_void_p):
     def RequestAccessForAppWithAuditingInfoForWindowAsync(self, appWindow: Windows.Win32.Foundation.HWND, sourceIdentity: Windows.Win32.System.WinRT.HSTRING, appPackageFamilyName: Windows.Win32.System.WinRT.HSTRING, auditInfoUnk: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), asyncOperation: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def RequestAccessForAppWithMessageForWindowAsync(self, appWindow: Windows.Win32.Foundation.HWND, sourceIdentity: Windows.Win32.System.WinRT.HSTRING, appPackageFamilyName: Windows.Win32.System.WinRT.HSTRING, auditInfoUnk: Windows.Win32.System.Com.IUnknown_head, messageFromApp: Windows.Win32.System.WinRT.HSTRING, riid: POINTER(Guid), asyncOperation: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IProtectionPolicyManagerInterop3(c_void_p):
+class IProtectionPolicyManagerInterop3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c1c03933-b398-4d93-b0-fd-29-72-ad-f8-02-c2')
     @commethod(6)

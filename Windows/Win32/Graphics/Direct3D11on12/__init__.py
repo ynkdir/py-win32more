@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Direct3D
 import Windows.Win32.Graphics.Direct3D11
@@ -23,7 +23,7 @@ class D3D11_RESOURCE_FLAGS(EasyCastStructure):
     MiscFlags: UInt32
     CPUAccessFlags: UInt32
     StructureByteStride: UInt32
-class ID3D11On12Device(c_void_p):
+class ID3D11On12Device(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('85611e73-70a9-490e-96-14-a9-e3-02-77-79-04')
     @commethod(3)
@@ -32,12 +32,12 @@ class ID3D11On12Device(c_void_p):
     def ReleaseWrappedResources(self, ppResources: POINTER(Windows.Win32.Graphics.Direct3D11.ID3D11Resource_head), NumResources: UInt32) -> Void: ...
     @commethod(5)
     def AcquireWrappedResources(self, ppResources: POINTER(Windows.Win32.Graphics.Direct3D11.ID3D11Resource_head), NumResources: UInt32) -> Void: ...
-class ID3D11On12Device1(c_void_p):
+class ID3D11On12Device1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D11on12.ID3D11On12Device
     Guid = Guid('bdb64df4-ea2f-4c70-b8-61-aa-ab-12-58-bb-5d')
     @commethod(6)
     def GetD3D12Device(self, riid: POINTER(Guid), ppvDevice: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D11On12Device2(c_void_p):
+class ID3D11On12Device2(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D11on12.ID3D11On12Device1
     Guid = Guid('dc90f331-4740-43fa-86-6e-67-f1-2c-b5-82-23')
     @commethod(7)

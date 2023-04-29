@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Globalization
 import Windows.Win32.Graphics.Direct2D
@@ -764,7 +764,7 @@ class IMECOMPTEXT(EasyCastStructure):
     flags: Windows.Win32.UI.Controls.RichEdit.IMECOMPTEXT_FLAGS
 IMECOMPTEXT_FLAGS = UInt32
 ICT_RESULTREADSTR: IMECOMPTEXT_FLAGS = 1
-class IRichEditOle(c_void_p):
+class IRichEditOle(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00020d00-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -799,7 +799,7 @@ class IRichEditOle(c_void_p):
     def GetClipboardData(self, lpchrg: POINTER(Windows.Win32.UI.Controls.RichEdit.CHARRANGE_head), reco: UInt32, lplpdataobj: POINTER(Windows.Win32.System.Com.IDataObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def ImportDataObject(self, lpdataobj: Windows.Win32.System.Com.IDataObject_head, cf: UInt16, hMetaPict: Windows.Win32.Foundation.HGLOBAL) -> Windows.Win32.Foundation.HRESULT: ...
-class IRichEditOleCallback(c_void_p):
+class IRichEditOleCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00020d03-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -822,14 +822,14 @@ class IRichEditOleCallback(c_void_p):
     def GetDragDropEffect(self, fDrag: Windows.Win32.Foundation.BOOL, grfKeyState: Windows.Win32.System.SystemServices.MODIFIERKEYS_FLAGS, pdwEffect: POINTER(Windows.Win32.System.Ole.DROPEFFECT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetContextMenu(self, seltype: Windows.Win32.UI.Controls.RichEdit.RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE, lpoleobj: Windows.Win32.System.Ole.IOleObject_head, lpchrg: POINTER(Windows.Win32.UI.Controls.RichEdit.CHARRANGE_head), lphmenu: POINTER(Windows.Win32.UI.WindowsAndMessaging.HMENU)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRicheditUiaOverrides(c_void_p):
+class IRicheditUiaOverrides(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     @commethod(3)
     def GetPropertyOverrideValue(self, propertyId: Int32, pRetValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextDisplays(c_void_p):
+class ITextDisplays(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c241f5f2-7206-11d8-a2-c7-00-a0-d1-d6-c6-b3')
-class ITextDocument(c_void_p):
+class ITextDocument(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('8cc497c0-a1df-11ce-80-98-00-aa-00-47-be-5d')
     @commethod(7)
@@ -870,7 +870,7 @@ class ITextDocument(c_void_p):
     def Range(self, cpActive: Int32, cpAnchor: Int32, ppRange: POINTER(Windows.Win32.UI.Controls.RichEdit.ITextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def RangeFromPoint(self, x: Int32, y: Int32, ppRange: POINTER(Windows.Win32.UI.Controls.RichEdit.ITextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextDocument2(c_void_p):
+class ITextDocument2(ComPtr):
     extends: Windows.Win32.UI.Controls.RichEdit.ITextDocument
     Guid = Guid('c241f5e0-7206-11d8-a2-c7-00-a0-d1-d6-c6-b3')
     @commethod(26)
@@ -961,7 +961,7 @@ class ITextDocument2(c_void_p):
     def GetNewStory(self, ppStory: POINTER(Windows.Win32.UI.Controls.RichEdit.ITextStory_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(69)
     def GetStory(self, Index: Int32, ppStory: POINTER(Windows.Win32.UI.Controls.RichEdit.ITextStory_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextDocument2Old(c_void_p):
+class ITextDocument2Old(ComPtr):
     extends: Windows.Win32.UI.Controls.RichEdit.ITextDocument
     Guid = Guid('01c25500-4268-11d1-88-3a-3c-8b-00-c1-00-00')
     @commethod(26)
@@ -1012,7 +1012,7 @@ class ITextDocument2Old(c_void_p):
     def GetCallManager(self, ppVoid: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(49)
     def ReleaseCallManager(self, pVoid: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextFont(c_void_p):
+class ITextFont(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('8cc497c3-a1df-11ce-80-98-00-aa-00-47-be-5d')
     @commethod(7)
@@ -1125,7 +1125,7 @@ class ITextFont(c_void_p):
     def GetWeight(self, pValue: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(61)
     def SetWeight(self, Value: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextFont2(c_void_p):
+class ITextFont2(ComPtr):
     extends: Windows.Win32.UI.Controls.RichEdit.ITextFont
     Guid = Guid('c241f5e3-7206-11d8-a2-c7-00-a0-d1-d6-c6-b3')
     @commethod(62)
@@ -1220,7 +1220,7 @@ class ITextFont2(c_void_p):
     def SetEffects2(self, Value: Int32, Mask: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(107)
     def SetProperty(self, Type: Int32, Value: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextHost(c_void_p):
+class ITextHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     @commethod(3)
     def TxGetDC(self) -> Windows.Win32.Graphics.Gdi.HDC: ...
@@ -1300,7 +1300,7 @@ class ITextHost(c_void_p):
     def TxImmReleaseContext(self, himc: Windows.Win32.Globalization.HIMC) -> Void: ...
     @commethod(41)
     def TxGetSelectionBarWidth(self, lSelBarWidth: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextHost2(c_void_p):
+class ITextHost2(ComPtr):
     extends: Windows.Win32.UI.Controls.RichEdit.ITextHost
     @commethod(42)
     def TxIsDoubleClickPending(self) -> Windows.Win32.Foundation.BOOL: ...
@@ -1326,7 +1326,7 @@ class ITextHost2(c_void_p):
     def TxDestroyCaret(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(53)
     def TxGetHorzExtent(self, plHorzExtent: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextPara(c_void_p):
+class ITextPara(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('8cc497c4-a1df-11ce-80-98-00-aa-00-47-be-5d')
     @commethod(7)
@@ -1425,7 +1425,7 @@ class ITextPara(c_void_p):
     def DeleteTab(self, tbPos: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(54)
     def GetTab(self, iTab: Int32, ptbPos: POINTER(Single), ptbAlign: POINTER(Int32), ptbLeader: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextPara2(c_void_p):
+class ITextPara2(ComPtr):
     extends: Windows.Win32.UI.Controls.RichEdit.ITextPara
     Guid = Guid('c241f5e4-7206-11d8-a2-c7-00-a0-d1-d6-c6-b3')
     @commethod(55)
@@ -1460,7 +1460,7 @@ class ITextPara2(c_void_p):
     def SetEffects(self, Value: Int32, Mask: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(70)
     def SetProperty(self, Type: Int32, Value: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextRange(c_void_p):
+class ITextRange(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('8cc497c2-a1df-11ce-80-98-00-aa-00-47-be-5d')
     @commethod(7)
@@ -1565,7 +1565,7 @@ class ITextRange(c_void_p):
     def ScrollIntoView(self, Value: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(57)
     def GetEmbeddedObject(self, ppObject: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextRange2(c_void_p):
+class ITextRange2(ComPtr):
     extends: Windows.Win32.UI.Controls.RichEdit.ITextSelection
     Guid = Guid('c241f5e2-7206-11d8-a2-c7-00-a0-d1-d6-c6-b3')
     @commethod(68)
@@ -1648,7 +1648,7 @@ class ITextRange2(c_void_p):
     def GetMathFunctionType(self, bstr: Windows.Win32.Foundation.BSTR, pValue: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(107)
     def InsertImage(self, width: Int32, height: Int32, ascent: Int32, Type: Windows.Win32.Graphics.Gdi.TEXT_ALIGN_OPTIONS, bstrAltText: Windows.Win32.Foundation.BSTR, pStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextRow(c_void_p):
+class ITextRow(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c241f5ef-7206-11d8-a2-c7-00-a0-d1-d6-c6-b3')
     @commethod(7)
@@ -1743,7 +1743,7 @@ class ITextRow(c_void_p):
     def Reset(self, Value: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(52)
     def SetProperty(self, Type: Int32, Value: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextSelection(c_void_p):
+class ITextSelection(ComPtr):
     extends: Windows.Win32.UI.Controls.RichEdit.ITextRange
     Guid = Guid('8cc497c1-a1df-11ce-80-98-00-aa-00-47-be-5d')
     @commethod(58)
@@ -1766,10 +1766,10 @@ class ITextSelection(c_void_p):
     def EndKey(self, Unit: Int32, Extend: Int32, pDelta: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(67)
     def TypeText(self, bstr: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextSelection2(c_void_p):
+class ITextSelection2(ComPtr):
     extends: Windows.Win32.UI.Controls.RichEdit.ITextRange2
     Guid = Guid('c241f5e1-7206-11d8-a2-c7-00-a0-d1-d6-c6-b3')
-class ITextServices(c_void_p):
+class ITextServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     @commethod(3)
     def TxSendMessage(self, msg: UInt32, wparam: Windows.Win32.Foundation.WPARAM, lparam: Windows.Win32.Foundation.LPARAM, plresult: POINTER(Windows.Win32.Foundation.LRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
@@ -1807,13 +1807,13 @@ class ITextServices(c_void_p):
     def OnTxPropertyBitsChange(self, dwMask: UInt32, dwBits: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def TxGetCachedSize(self, pdwWidth: POINTER(UInt32), pdwHeight: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextServices2(c_void_p):
+class ITextServices2(ComPtr):
     extends: Windows.Win32.UI.Controls.RichEdit.ITextServices
     @commethod(21)
     def TxGetNaturalSize2(self, dwAspect: UInt32, hdcDraw: Windows.Win32.Graphics.Gdi.HDC, hicTargetDev: Windows.Win32.Graphics.Gdi.HDC, ptd: POINTER(Windows.Win32.System.Com.DVTARGETDEVICE_head), dwMode: UInt32, psizelExtent: POINTER(Windows.Win32.Foundation.SIZE_head), pwidth: POINTER(Int32), pheight: POINTER(Int32), pascent: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def TxDrawD2D(self, pRenderTarget: Windows.Win32.Graphics.Direct2D.ID2D1RenderTarget_head, lprcBounds: POINTER(Windows.Win32.Foundation.RECTL_head), lprcUpdate: POINTER(Windows.Win32.Foundation.RECT_head), lViewId: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextStory(c_void_p):
+class ITextStory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c241f5f3-7206-11d8-a2-c7-00-a0-d1-d6-c6-b3')
     @commethod(3)
@@ -1840,7 +1840,7 @@ class ITextStory(c_void_p):
     def SetProperty(self, Type: Int32, Value: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def SetText(self, Flags: Int32, bstr: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextStoryRanges(c_void_p):
+class ITextStoryRanges(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('8cc497c5-a1df-11ce-80-98-00-aa-00-47-be-5d')
     @commethod(7)
@@ -1849,12 +1849,12 @@ class ITextStoryRanges(c_void_p):
     def Item(self, Index: Int32, ppRange: POINTER(Windows.Win32.UI.Controls.RichEdit.ITextRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetCount(self, pCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextStoryRanges2(c_void_p):
+class ITextStoryRanges2(ComPtr):
     extends: Windows.Win32.UI.Controls.RichEdit.ITextStoryRanges
     Guid = Guid('c241f5e5-7206-11d8-a2-c7-00-a0-d1-d6-c6-b3')
     @commethod(10)
     def Item2(self, Index: Int32, ppRange: POINTER(Windows.Win32.UI.Controls.RichEdit.ITextRange2_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITextStrings(c_void_p):
+class ITextStrings(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c241f5e7-7206-11d8-a2-c7-00-a0-d1-d6-c6-b3')
     @commethod(7)

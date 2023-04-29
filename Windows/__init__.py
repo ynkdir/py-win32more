@@ -65,6 +65,10 @@ Boolean = c_bool
 Void = None
 
 
+class ComPtr(c_void_p):
+    pass
+
+
 # to avoid auto conversion to str when struct.member access and function() result.
 class c_char_p_no(c_char_p):
     pass
@@ -328,7 +332,7 @@ def press(prototype):
         return prototype()
     elif issubclass(prototype, (Structure, Union)):
         return press_struct(prototype)
-    elif issubclass(prototype, c_void_p):
+    elif issubclass(prototype, ComPtr):
         return press_interface(prototype)
     else:
         raise NotImplementedError()

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.Com.CallObj
@@ -62,7 +62,7 @@ CALLFRAME_WALK = Int32
 CALLFRAME_WALK_IN: CALLFRAME_WALK = 1
 CALLFRAME_WALK_INOUT: CALLFRAME_WALK = 2
 CALLFRAME_WALK_OUT: CALLFRAME_WALK = 4
-class ICallFrame(c_void_p):
+class ICallFrame(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d573b4b0-894e-11d2-b8-b6-00-c0-4f-b9-61-8a')
     @commethod(3)
@@ -103,17 +103,17 @@ class ICallFrame(c_void_p):
     def ReleaseMarshalData(self, pBuffer: c_void_p, cbBuffer: UInt32, ibFirstRelease: UInt32, dataRep: UInt32, pcontext: POINTER(Windows.Win32.System.Com.CallObj.CALLFRAME_MARSHALCONTEXT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def Invoke(self, pvReceiver: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
-class ICallFrameEvents(c_void_p):
+class ICallFrameEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fd5e0843-fc91-11d0-97-d7-00-c0-4f-b9-61-8a')
     @commethod(3)
     def OnCall(self, pFrame: Windows.Win32.System.Com.CallObj.ICallFrame_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ICallFrameWalker(c_void_p):
+class ICallFrameWalker(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('08b23919-392d-11d2-b8-a4-00-c0-4f-b9-61-8a')
     @commethod(3)
     def OnWalkInterface(self, iid: POINTER(Guid), ppvInterface: POINTER(c_void_p), fIn: Windows.Win32.Foundation.BOOL, fOut: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class ICallIndirect(c_void_p):
+class ICallIndirect(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d573b4b1-894e-11d2-b8-b6-00-c0-4f-b9-61-8a')
     @commethod(3)
@@ -124,21 +124,21 @@ class ICallIndirect(c_void_p):
     def GetStackSize(self, iMethod: UInt32, cbArgs: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetIID(self, piid: POINTER(Guid), pfDerivesFromIDispatch: POINTER(Windows.Win32.Foundation.BOOL), pcMethod: POINTER(UInt32), pwszInterface: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICallInterceptor(c_void_p):
+class ICallInterceptor(ComPtr):
     extends: Windows.Win32.System.Com.CallObj.ICallIndirect
     Guid = Guid('60c7ca75-896d-11d2-b8-b6-00-c0-4f-b9-61-8a')
     @commethod(7)
     def RegisterSink(self, psink: Windows.Win32.System.Com.CallObj.ICallFrameEvents_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetRegisteredSink(self, ppsink: POINTER(Windows.Win32.System.Com.CallObj.ICallFrameEvents_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICallUnmarshal(c_void_p):
+class ICallUnmarshal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5333b003-2e42-11d2-b8-9d-00-c0-4f-b9-61-8a')
     @commethod(3)
     def Unmarshal(self, iMethod: UInt32, pBuffer: c_void_p, cbBuffer: UInt32, fForceBufferCopy: Windows.Win32.Foundation.BOOL, dataRep: UInt32, pcontext: POINTER(Windows.Win32.System.Com.CallObj.CALLFRAME_MARSHALCONTEXT_head), pcbUnmarshalled: POINTER(UInt32), ppFrame: POINTER(Windows.Win32.System.Com.CallObj.ICallFrame_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReleaseMarshalData(self, iMethod: UInt32, pBuffer: c_void_p, cbBuffer: UInt32, ibFirstRelease: UInt32, dataRep: UInt32, pcontext: POINTER(Windows.Win32.System.Com.CallObj.CALLFRAME_MARSHALCONTEXT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IInterfaceRelated(c_void_p):
+class IInterfaceRelated(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d1fb5a79-7706-11d1-ad-ba-00-c0-4f-c2-ad-c0')
     @commethod(3)

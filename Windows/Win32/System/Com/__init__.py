@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.Security
@@ -321,7 +321,7 @@ def GetErrorInfo(dwReserved: UInt32, pperrinfo: POINTER(Windows.Win32.System.Com
 ApplicationType = Int32
 ApplicationType_ServerApplication: ApplicationType = 0
 ApplicationType_LibraryApplication: ApplicationType = 1
-class AsyncIAdviseSink(c_void_p):
+class AsyncIAdviseSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000150-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -344,21 +344,21 @@ class AsyncIAdviseSink(c_void_p):
     def Begin_OnClose(self) -> Void: ...
     @commethod(12)
     def Finish_OnClose(self) -> Void: ...
-class AsyncIAdviseSink2(c_void_p):
+class AsyncIAdviseSink2(ComPtr):
     extends: Windows.Win32.System.Com.AsyncIAdviseSink
     Guid = Guid('00000151-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(13)
     def Begin_OnLinkSrcChange(self, pmk: Windows.Win32.System.Com.IMoniker_head) -> Void: ...
     @commethod(14)
     def Finish_OnLinkSrcChange(self) -> Void: ...
-class AsyncIMultiQI(c_void_p):
+class AsyncIMultiQI(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000e0020-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def Begin_QueryMultipleInterfaces(self, cMQIs: UInt32, pMQIs: POINTER(Windows.Win32.System.Com.MULTI_QI_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_QueryMultipleInterfaces(self, pMQIs: POINTER(Windows.Win32.System.Com.MULTI_QI_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class AsyncIPipeByte(c_void_p):
+class AsyncIPipeByte(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('db2f3acb-2f86-11d1-8e-04-00-c0-4f-b9-98-9a')
     @commethod(3)
@@ -369,7 +369,7 @@ class AsyncIPipeByte(c_void_p):
     def Begin_Push(self, buf: POINTER(Byte), cSent: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Finish_Push(self) -> Windows.Win32.Foundation.HRESULT: ...
-class AsyncIPipeDouble(c_void_p):
+class AsyncIPipeDouble(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('db2f3acf-2f86-11d1-8e-04-00-c0-4f-b9-98-9a')
     @commethod(3)
@@ -380,7 +380,7 @@ class AsyncIPipeDouble(c_void_p):
     def Begin_Push(self, buf: POINTER(Double), cSent: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Finish_Push(self) -> Windows.Win32.Foundation.HRESULT: ...
-class AsyncIPipeLong(c_void_p):
+class AsyncIPipeLong(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('db2f3acd-2f86-11d1-8e-04-00-c0-4f-b9-98-9a')
     @commethod(3)
@@ -391,7 +391,7 @@ class AsyncIPipeLong(c_void_p):
     def Begin_Push(self, buf: POINTER(Int32), cSent: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Finish_Push(self) -> Windows.Win32.Foundation.HRESULT: ...
-class AsyncIUnknown(c_void_p):
+class AsyncIUnknown(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000e0000-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -776,26 +776,26 @@ COMGLB_UNMARSHALING_POLICY_HYBRID: GLOBALOPT_UNMARSHALING_POLICY_VALUES = 2
 class HYPER_SIZEDARR(EasyCastStructure):
     clSize: UInt32
     pData: POINTER(Int64)
-class IActivationFilter(c_void_p):
+class IActivationFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000017-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def HandleActivation(self, dwActivationType: UInt32, rclsid: POINTER(Guid), pReplacementClsId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAddrExclusionControl(c_void_p):
+class IAddrExclusionControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000148-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def GetCurrentAddrExclusionList(self, riid: POINTER(Guid), ppEnumerator: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UpdateAddrExclusionList(self, pEnumerator: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IAddrTrackingControl(c_void_p):
+class IAddrTrackingControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000147-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def EnableCOMDynamicAddrTracking(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def DisableCOMDynamicAddrTracking(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IAdviseSink(c_void_p):
+class IAdviseSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0000010f-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -808,15 +808,15 @@ class IAdviseSink(c_void_p):
     def OnSave(self) -> Void: ...
     @commethod(7)
     def OnClose(self) -> Void: ...
-class IAdviseSink2(c_void_p):
+class IAdviseSink2(ComPtr):
     extends: Windows.Win32.System.Com.IAdviseSink
     Guid = Guid('00000125-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(8)
     def OnLinkSrcChange(self, pmk: Windows.Win32.System.Com.IMoniker_head) -> Void: ...
-class IAgileObject(c_void_p):
+class IAgileObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('94ea2b94-e9cc-49e0-c0-ff-ee-64-ca-8f-5b-90')
-class IAsyncManager(c_void_p):
+class IAsyncManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0000002a-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -825,7 +825,7 @@ class IAsyncManager(c_void_p):
     def GetCallContext(self, riid: POINTER(Guid), pInterface: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetState(self, pulStateFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAsyncRpcChannelBuffer(c_void_p):
+class IAsyncRpcChannelBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IRpcChannelBuffer2
     Guid = Guid('a5029fb6-3c34-11d1-9c-99-00-c0-4f-b9-98-aa')
     @commethod(9)
@@ -834,17 +834,17 @@ class IAsyncRpcChannelBuffer(c_void_p):
     def Receive(self, pMsg: POINTER(Windows.Win32.System.Com.RPCOLEMESSAGE_head), pulStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetDestCtxEx(self, pMsg: POINTER(Windows.Win32.System.Com.RPCOLEMESSAGE_head), pdwDestContext: POINTER(UInt32), ppvDestContext: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAuthenticate(c_void_p):
+class IAuthenticate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('79eac9d0-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
     @commethod(3)
     def Authenticate(self, phwnd: POINTER(Windows.Win32.Foundation.HWND), pszUsername: POINTER(Windows.Win32.Foundation.PWSTR), pszPassword: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAuthenticateEx(c_void_p):
+class IAuthenticateEx(ComPtr):
     extends: Windows.Win32.System.Com.IAuthenticate
     Guid = Guid('2ad1edaf-d83d-48b5-9a-df-03-db-e1-9f-53-bd')
     @commethod(4)
     def AuthenticateEx(self, phwnd: POINTER(Windows.Win32.Foundation.HWND), pszUsername: POINTER(Windows.Win32.Foundation.PWSTR), pszPassword: POINTER(Windows.Win32.Foundation.PWSTR), pauthinfo: POINTER(Windows.Win32.System.Com.AUTHENTICATEINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IBindCtx(c_void_p):
+class IBindCtx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0000000e-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -867,7 +867,7 @@ class IBindCtx(c_void_p):
     def EnumObjectParam(self, ppenum: POINTER(Windows.Win32.System.Com.IEnumString_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def RevokeObjectParam(self, pszKey: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IBindHost(c_void_p):
+class IBindHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fc4801a1-2ba9-11cf-a2-29-00-aa-00-3d-73-52')
     @commethod(3)
@@ -876,7 +876,7 @@ class IBindHost(c_void_p):
     def MonikerBindToStorage(self, pMk: Windows.Win32.System.Com.IMoniker_head, pBC: Windows.Win32.System.Com.IBindCtx_head, pBSC: Windows.Win32.System.Com.IBindStatusCallback_head, riid: POINTER(Guid), ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MonikerBindToObject(self, pMk: Windows.Win32.System.Com.IMoniker_head, pBC: Windows.Win32.System.Com.IBindCtx_head, pBSC: Windows.Win32.System.Com.IBindStatusCallback_head, riid: POINTER(Guid), ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IBindStatusCallback(c_void_p):
+class IBindStatusCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('79eac9c1-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
     @commethod(3)
@@ -895,12 +895,12 @@ class IBindStatusCallback(c_void_p):
     def OnDataAvailable(self, grfBSCF: UInt32, dwSize: UInt32, pformatetc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pstgmed: POINTER(Windows.Win32.System.Com.STGMEDIUM_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def OnObjectAvailable(self, riid: POINTER(Guid), punk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IBindStatusCallbackEx(c_void_p):
+class IBindStatusCallbackEx(ComPtr):
     extends: Windows.Win32.System.Com.IBindStatusCallback
     Guid = Guid('aaa74ef9-8ee7-4659-88-d9-f8-c5-04-da-73-cc')
     @commethod(11)
     def GetBindInfoEx(self, grfBINDF: POINTER(UInt32), pbindinfo: POINTER(Windows.Win32.System.Com.BINDINFO_head), grfBINDF2: POINTER(UInt32), pdwReserved: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IBinding(c_void_p):
+class IBinding(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('79eac9c0-baf9-11ce-8c-82-00-aa-00-4b-a9-0b')
     @commethod(3)
@@ -915,26 +915,26 @@ class IBinding(c_void_p):
     def GetPriority(self, pnPriority: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetBindResult(self, pclsidProtocol: POINTER(Guid), pdwResult: POINTER(UInt32), pszResult: POINTER(Windows.Win32.Foundation.PWSTR), pdwReserved: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IBlockingLock(c_void_p):
+class IBlockingLock(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('30f3d47a-6447-11d1-8e-3c-00-c0-4f-b9-38-6d')
     @commethod(3)
     def Lock(self, dwTimeout: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Unlock(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ICallFactory(c_void_p):
+class ICallFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1c733a30-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def CreateCall(self, riid: POINTER(Guid), pCtrlUnk: Windows.Win32.System.Com.IUnknown_head, riid2: POINTER(Guid), ppv: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICancelMethodCalls(c_void_p):
+class ICancelMethodCalls(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000029-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def Cancel(self, ulSeconds: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def TestCancel(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ICatInformation(c_void_p):
+class ICatInformation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0002e013-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -949,7 +949,7 @@ class ICatInformation(c_void_p):
     def EnumImplCategoriesOfClass(self, rclsid: POINTER(Guid), ppenumCatid: POINTER(Windows.Win32.System.Com.IEnumGUID_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def EnumReqCategoriesOfClass(self, rclsid: POINTER(Guid), ppenumCatid: POINTER(Windows.Win32.System.Com.IEnumGUID_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICatRegister(c_void_p):
+class ICatRegister(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0002e012-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -964,7 +964,7 @@ class ICatRegister(c_void_p):
     def RegisterClassReqCategories(self, rclsid: POINTER(Guid), cCategories: UInt32, rgcatid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def UnRegisterClassReqCategories(self, rclsid: POINTER(Guid), cCategories: UInt32, rgcatid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IChannelHook(c_void_p):
+class IChannelHook(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1008c4a0-7613-11cf-9a-f1-00-20-af-6e-72-f4')
     @commethod(3)
@@ -979,19 +979,19 @@ class IChannelHook(c_void_p):
     def ServerGetSize(self, uExtent: POINTER(Guid), riid: POINTER(Guid), hrFault: Windows.Win32.Foundation.HRESULT, pDataSize: POINTER(UInt32)) -> Void: ...
     @commethod(8)
     def ServerFillBuffer(self, uExtent: POINTER(Guid), riid: POINTER(Guid), pDataSize: POINTER(UInt32), pDataBuffer: c_void_p, hrFault: Windows.Win32.Foundation.HRESULT) -> Void: ...
-class IClassActivator(c_void_p):
+class IClassActivator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000140-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def GetClassObject(self, rclsid: POINTER(Guid), dwClassContext: UInt32, locale: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IClassFactory(c_void_p):
+class IClassFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000001-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def CreateInstance(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def LockServer(self, fLock: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IClientSecurity(c_void_p):
+class IClientSecurity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0000013d-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1000,7 +1000,7 @@ class IClientSecurity(c_void_p):
     def SetBlanket(self, pProxy: Windows.Win32.System.Com.IUnknown_head, dwAuthnSvc: UInt32, dwAuthzSvc: UInt32, pServerPrincName: Windows.Win32.Foundation.PWSTR, dwAuthnLevel: Windows.Win32.System.Com.RPC_C_AUTHN_LEVEL, dwImpLevel: Windows.Win32.System.Com.RPC_C_IMP_LEVEL, pAuthInfo: c_void_p, dwCapabilities: Windows.Win32.System.Com.EOLE_AUTHENTICATION_CAPABILITIES) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CopyProxy(self, pProxy: Windows.Win32.System.Com.IUnknown_head, ppCopy: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IComThreadingInfo(c_void_p):
+class IComThreadingInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000001ce-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1011,7 +1011,7 @@ class IComThreadingInfo(c_void_p):
     def GetCurrentLogicalThreadId(self, pguidLogicalThreadId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetCurrentLogicalThreadId(self, rguid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IConnectionPoint(c_void_p):
+class IConnectionPoint(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b196b286-bab4-101a-b6-9c-00-aa-00-34-1d-07')
     @commethod(3)
@@ -1024,14 +1024,14 @@ class IConnectionPoint(c_void_p):
     def Unadvise(self, dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def EnumConnections(self, ppEnum: POINTER(Windows.Win32.System.Com.IEnumConnections_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IConnectionPointContainer(c_void_p):
+class IConnectionPointContainer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b196b284-bab4-101a-b6-9c-00-aa-00-34-1d-07')
     @commethod(3)
     def EnumConnectionPoints(self, ppEnum: POINTER(Windows.Win32.System.Com.IEnumConnectionPoints_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def FindConnectionPoint(self, riid: POINTER(Guid), ppCP: POINTER(Windows.Win32.System.Com.IConnectionPoint_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IContext(c_void_p):
+class IContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000001c0-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1042,7 +1042,7 @@ class IContext(c_void_p):
     def GetProperty(self, rGuid: POINTER(Guid), pFlags: POINTER(UInt32), ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def EnumContextProps(self, ppEnumContextProps: POINTER(Windows.Win32.System.Com.IEnumContextProps_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IContextCallback(c_void_p):
+class IContextCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000001da-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1056,7 +1056,7 @@ IDLFLAG_FIN: IDLFLAGS = 1
 IDLFLAG_FOUT: IDLFLAGS = 2
 IDLFLAG_FLCID: IDLFLAGS = 4
 IDLFLAG_FRETVAL: IDLFLAGS = 8
-class IDataAdviseHolder(c_void_p):
+class IDataAdviseHolder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000110-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1067,7 +1067,7 @@ class IDataAdviseHolder(c_void_p):
     def EnumAdvise(self, ppenumAdvise: POINTER(Windows.Win32.System.Com.IEnumSTATDATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SendOnDataChange(self, pDataObject: Windows.Win32.System.Com.IDataObject_head, dwReserved: UInt32, advf: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDataObject(c_void_p):
+class IDataObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0000010e-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1088,7 +1088,7 @@ class IDataObject(c_void_p):
     def DUnadvise(self, dwConnection: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def EnumDAdvise(self, ppenumAdvise: POINTER(Windows.Win32.System.Com.IEnumSTATDATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDispatch(c_void_p):
+class IDispatch(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00020400-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1099,7 +1099,7 @@ class IDispatch(c_void_p):
     def GetIDsOfNames(self, riid: POINTER(Guid), rgszNames: POINTER(Windows.Win32.Foundation.PWSTR), cNames: UInt32, lcid: UInt32, rgDispId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Invoke(self, dispIdMember: Int32, riid: POINTER(Guid), lcid: UInt32, wFlags: Windows.Win32.System.Com.DISPATCH_FLAGS, pDispParams: POINTER(Windows.Win32.System.Com.DISPPARAMS_head), pVarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head), pExcepInfo: POINTER(Windows.Win32.System.Com.EXCEPINFO_head), puArgErr: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumCATEGORYINFO(c_void_p):
+class IEnumCATEGORYINFO(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0002e011-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1110,7 +1110,7 @@ class IEnumCATEGORYINFO(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Com.IEnumCATEGORYINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumConnectionPoints(c_void_p):
+class IEnumConnectionPoints(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b196b285-bab4-101a-b6-9c-00-aa-00-34-1d-07')
     @commethod(3)
@@ -1121,7 +1121,7 @@ class IEnumConnectionPoints(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.Com.IEnumConnectionPoints_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumConnections(c_void_p):
+class IEnumConnections(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b196b287-bab4-101a-b6-9c-00-aa-00-34-1d-07')
     @commethod(3)
@@ -1132,7 +1132,7 @@ class IEnumConnections(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.System.Com.IEnumConnections_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumContextProps(c_void_p):
+class IEnumContextProps(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000001c1-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1145,7 +1145,7 @@ class IEnumContextProps(c_void_p):
     def Clone(self, ppEnumContextProps: POINTER(Windows.Win32.System.Com.IEnumContextProps_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Count(self, pcelt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumFORMATETC(c_void_p):
+class IEnumFORMATETC(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000103-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1156,7 +1156,7 @@ class IEnumFORMATETC(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Com.IEnumFORMATETC_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumGUID(c_void_p):
+class IEnumGUID(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0002e000-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1167,7 +1167,7 @@ class IEnumGUID(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Com.IEnumGUID_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumMoniker(c_void_p):
+class IEnumMoniker(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000102-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1178,7 +1178,7 @@ class IEnumMoniker(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Com.IEnumMoniker_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumSTATDATA(c_void_p):
+class IEnumSTATDATA(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000105-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1189,7 +1189,7 @@ class IEnumSTATDATA(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Com.IEnumSTATDATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumString(c_void_p):
+class IEnumString(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000101-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1200,7 +1200,7 @@ class IEnumString(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Com.IEnumString_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumUnknown(c_void_p):
+class IEnumUnknown(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000100-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1211,7 +1211,7 @@ class IEnumUnknown(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Com.IEnumUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IErrorInfo(c_void_p):
+class IErrorInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1cf2b120-547d-101b-8e-65-08-00-2b-2b-d1-19')
     @commethod(3)
@@ -1224,27 +1224,27 @@ class IErrorInfo(c_void_p):
     def GetHelpFile(self, pBstrHelpFile: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetHelpContext(self, pdwHelpContext: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IErrorLog(c_void_p):
+class IErrorLog(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3127ca40-446e-11ce-81-35-00-aa-00-4b-b8-51')
     @commethod(3)
     def AddError(self, pszPropName: Windows.Win32.Foundation.PWSTR, pExcepInfo: POINTER(Windows.Win32.System.Com.EXCEPINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IExternalConnection(c_void_p):
+class IExternalConnection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000019-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def AddConnection(self, extconn: UInt32, reserved: UInt32) -> UInt32: ...
     @commethod(4)
     def ReleaseConnection(self, extconn: UInt32, reserved: UInt32, fLastReleaseCloses: Windows.Win32.Foundation.BOOL) -> UInt32: ...
-class IFastRundown(c_void_p):
+class IFastRundown(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000040-0000-0000-c0-00-00-00-00-00-00-46')
-class IForegroundTransfer(c_void_p):
+class IForegroundTransfer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000145-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def AllowForegroundTransfer(self, lpvReserved: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
-class IGlobalInterfaceTable(c_void_p):
+class IGlobalInterfaceTable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000146-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1253,14 +1253,14 @@ class IGlobalInterfaceTable(c_void_p):
     def RevokeInterfaceFromGlobal(self, dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetInterfaceFromGlobal(self, dwCookie: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IGlobalOptions(c_void_p):
+class IGlobalOptions(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0000015b-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def Set(self, dwProperty: Windows.Win32.System.Com.GLOBALOPT_PROPERTIES, dwValue: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Query(self, dwProperty: Windows.Win32.System.Com.GLOBALOPT_PROPERTIES, pdwValue: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
-class IInitializeSpy(c_void_p):
+class IInitializeSpy(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000034-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1271,7 +1271,7 @@ class IInitializeSpy(c_void_p):
     def PreUninitialize(self, dwCurThreadAptRefs: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def PostUninitialize(self, dwNewThreadAptRefs: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IInternalUnknown(c_void_p):
+class IInternalUnknown(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000021-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1281,7 +1281,7 @@ IMPLTYPEFLAG_FDEFAULT: IMPLTYPEFLAGS = 1
 IMPLTYPEFLAG_FSOURCE: IMPLTYPEFLAGS = 2
 IMPLTYPEFLAG_FRESTRICTED: IMPLTYPEFLAGS = 4
 IMPLTYPEFLAG_FDEFAULTVTABLE: IMPLTYPEFLAGS = 8
-class IMachineGlobalObjectTable(c_void_p):
+class IMachineGlobalObjectTable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('26d709ac-f70b-4421-a9-6f-d2-87-8f-af-b0-0d')
     @commethod(3)
@@ -1290,7 +1290,7 @@ class IMachineGlobalObjectTable(c_void_p):
     def GetObject(self, clsid: POINTER(Guid), identifier: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def RevokeObject(self, token: Windows.Win32.System.Com.MachineGlobalObjectTableRegistrationToken) -> Windows.Win32.Foundation.HRESULT: ...
-class IMalloc(c_void_p):
+class IMalloc(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000002-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1305,7 +1305,7 @@ class IMalloc(c_void_p):
     def DidAlloc(self, pv: c_void_p) -> Int32: ...
     @commethod(8)
     def HeapMinimize(self) -> Void: ...
-class IMallocSpy(c_void_p):
+class IMallocSpy(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0000001d-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1332,7 +1332,7 @@ class IMallocSpy(c_void_p):
     def PreHeapMinimize(self) -> Void: ...
     @commethod(14)
     def PostHeapMinimize(self) -> Void: ...
-class IMoniker(c_void_p):
+class IMoniker(ComPtr):
     extends: Windows.Win32.System.Com.IPersistStream
     Guid = Guid('0000000f-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(8)
@@ -1365,7 +1365,7 @@ class IMoniker(c_void_p):
     def ParseDisplayName(self, pbc: Windows.Win32.System.Com.IBindCtx_head, pmkToLeft: Windows.Win32.System.Com.IMoniker_head, pszDisplayName: Windows.Win32.Foundation.PWSTR, pchEaten: POINTER(UInt32), ppmkOut: POINTER(Windows.Win32.System.Com.IMoniker_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def IsSystemMoniker(self, pdwMksys: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMultiQI(c_void_p):
+class IMultiQI(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000020-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1379,29 +1379,29 @@ INVOKE_FUNC: INVOKEKIND = 1
 INVOKE_PROPERTYGET: INVOKEKIND = 2
 INVOKE_PROPERTYPUT: INVOKEKIND = 4
 INVOKE_PROPERTYPUTREF: INVOKEKIND = 8
-class INoMarshal(c_void_p):
+class INoMarshal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ecc8691b-c1db-4dc0-85-5e-65-f6-c5-51-af-49')
-class IOplockStorage(c_void_p):
+class IOplockStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8d19c834-8879-11d1-83-e9-00-c0-4f-c2-c6-d4')
     @commethod(3)
     def CreateStorageEx(self, pwcsName: Windows.Win32.Foundation.PWSTR, grfMode: UInt32, stgfmt: UInt32, grfAttrs: UInt32, riid: POINTER(Guid), ppstgOpen: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OpenStorageEx(self, pwcsName: Windows.Win32.Foundation.PWSTR, grfMode: UInt32, stgfmt: UInt32, grfAttrs: UInt32, riid: POINTER(Guid), ppstgOpen: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPSFactoryBuffer(c_void_p):
+class IPSFactoryBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d5f569d0-593b-101a-b5-69-08-00-2b-2d-bf-7a')
     @commethod(3)
     def CreateProxy(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), ppProxy: POINTER(Windows.Win32.System.Com.IRpcProxyBuffer_head), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CreateStub(self, riid: POINTER(Guid), pUnkServer: Windows.Win32.System.Com.IUnknown_head, ppStub: POINTER(Windows.Win32.System.Com.IRpcStubBuffer_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPersist(c_void_p):
+class IPersist(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0000010c-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def GetClassID(self, pClassID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPersistFile(c_void_p):
+class IPersistFile(ComPtr):
     extends: Windows.Win32.System.Com.IPersist
     Guid = Guid('0000010b-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(4)
@@ -1414,7 +1414,7 @@ class IPersistFile(c_void_p):
     def SaveCompleted(self, pszFileName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetCurFile(self, ppszFileName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPersistMemory(c_void_p):
+class IPersistMemory(ComPtr):
     extends: Windows.Win32.System.Com.IPersist
     Guid = Guid('bd1ae5e0-a6ae-11ce-bd-37-50-42-00-c1-00-00')
     @commethod(4)
@@ -1427,7 +1427,7 @@ class IPersistMemory(c_void_p):
     def GetSizeMax(self, pCbSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def InitNew(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IPersistStream(c_void_p):
+class IPersistStream(ComPtr):
     extends: Windows.Win32.System.Com.IPersist
     Guid = Guid('00000109-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(4)
@@ -1438,7 +1438,7 @@ class IPersistStream(c_void_p):
     def Save(self, pStm: Windows.Win32.System.Com.IStream_head, fClearDirty: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetSizeMax(self, pcbSize: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPersistStreamInit(c_void_p):
+class IPersistStreamInit(ComPtr):
     extends: Windows.Win32.System.Com.IPersist
     Guid = Guid('7fd52380-4e07-101b-ae-2d-08-00-2b-2e-c7-13')
     @commethod(4)
@@ -1451,55 +1451,55 @@ class IPersistStreamInit(c_void_p):
     def GetSizeMax(self, pCbSize: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def InitNew(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IPipeByte(c_void_p):
+class IPipeByte(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('db2f3aca-2f86-11d1-8e-04-00-c0-4f-b9-98-9a')
     @commethod(3)
     def Pull(self, buf: POINTER(Byte), cRequest: UInt32, pcReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Push(self, buf: POINTER(Byte), cSent: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IPipeDouble(c_void_p):
+class IPipeDouble(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('db2f3ace-2f86-11d1-8e-04-00-c0-4f-b9-98-9a')
     @commethod(3)
     def Pull(self, buf: POINTER(Double), cRequest: UInt32, pcReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Push(self, buf: POINTER(Double), cSent: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IPipeLong(c_void_p):
+class IPipeLong(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('db2f3acc-2f86-11d1-8e-04-00-c0-4f-b9-98-9a')
     @commethod(3)
     def Pull(self, buf: POINTER(Int32), cRequest: UInt32, pcReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Push(self, buf: POINTER(Int32), cSent: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IProcessInitControl(c_void_p):
+class IProcessInitControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('72380d55-8d2b-43a3-85-13-2b-6e-f3-14-34-e9')
     @commethod(3)
     def ResetInitializerTimeout(self, dwSecondsRemaining: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IProcessLock(c_void_p):
+class IProcessLock(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000001d5-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def AddRefOnProcess(self) -> UInt32: ...
     @commethod(4)
     def ReleaseRefOnProcess(self) -> UInt32: ...
-class IProgressNotify(c_void_p):
+class IProgressNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a9d758a0-4617-11cf-95-fc-00-aa-00-68-0d-b4')
     @commethod(3)
     def OnProgress(self, dwProgressCurrent: UInt32, dwProgressMaximum: UInt32, fAccurate: Windows.Win32.Foundation.BOOL, fOwner: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IROTData(c_void_p):
+class IROTData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f29f6bc0-5021-11ce-aa-15-00-00-69-01-29-3f')
     @commethod(3)
     def GetComparisonData(self, pbData: POINTER(Byte), cbMax: UInt32, pcbData: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IReleaseMarshalBuffers(c_void_p):
+class IReleaseMarshalBuffers(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('eb0cb9e8-7996-11d2-87-2e-00-00-f8-08-08-59')
     @commethod(3)
     def ReleaseMarshalBuffer(self, pMsg: POINTER(Windows.Win32.System.Com.RPCOLEMESSAGE_head), dwFlags: UInt32, pChnl: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IRpcChannelBuffer(c_void_p):
+class IRpcChannelBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d5f56b60-593b-101a-b5-69-08-00-2b-2d-bf-7a')
     @commethod(3)
@@ -1512,12 +1512,12 @@ class IRpcChannelBuffer(c_void_p):
     def GetDestCtx(self, pdwDestContext: POINTER(UInt32), ppvDestContext: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def IsConnected(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IRpcChannelBuffer2(c_void_p):
+class IRpcChannelBuffer2(ComPtr):
     extends: Windows.Win32.System.Com.IRpcChannelBuffer
     Guid = Guid('594f31d0-7f19-11d0-b1-94-00-a0-c9-0d-c8-bf')
     @commethod(8)
     def GetProtocolVersion(self, pdwVersion: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRpcChannelBuffer3(c_void_p):
+class IRpcChannelBuffer3(ComPtr):
     extends: Windows.Win32.System.Com.IRpcChannelBuffer2
     Guid = Guid('25b15600-0115-11d0-bf-0d-00-aa-00-b8-df-d2')
     @commethod(9)
@@ -1534,28 +1534,28 @@ class IRpcChannelBuffer3(c_void_p):
     def GetState(self, pMsg: POINTER(Windows.Win32.System.Com.RPCOLEMESSAGE_head), pState: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def RegisterAsync(self, pMsg: POINTER(Windows.Win32.System.Com.RPCOLEMESSAGE_head), pAsyncMgr: Windows.Win32.System.Com.IAsyncManager_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IRpcHelper(c_void_p):
+class IRpcHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000149-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def GetDCOMProtocolVersion(self, pComVersion: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetIIDFromOBJREF(self, pObjRef: c_void_p, piid: POINTER(POINTER(Guid))) -> Windows.Win32.Foundation.HRESULT: ...
-class IRpcOptions(c_void_p):
+class IRpcOptions(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000144-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def Set(self, pPrx: Windows.Win32.System.Com.IUnknown_head, dwProperty: Windows.Win32.System.Com.RPCOPT_PROPERTIES, dwValue: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Query(self, pPrx: Windows.Win32.System.Com.IUnknown_head, dwProperty: Windows.Win32.System.Com.RPCOPT_PROPERTIES, pdwValue: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRpcProxyBuffer(c_void_p):
+class IRpcProxyBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d5f56a34-593b-101a-b5-69-08-00-2b-2d-bf-7a')
     @commethod(3)
     def Connect(self, pRpcChannelBuffer: Windows.Win32.System.Com.IRpcChannelBuffer_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Disconnect(self) -> Void: ...
-class IRpcStubBuffer(c_void_p):
+class IRpcStubBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d5f56afc-593b-101a-b5-69-08-00-2b-2d-bf-7a')
     @commethod(3)
@@ -1572,12 +1572,12 @@ class IRpcStubBuffer(c_void_p):
     def DebugServerQueryInterface(self, ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def DebugServerRelease(self, pv: c_void_p) -> Void: ...
-class IRpcSyntaxNegotiate(c_void_p):
+class IRpcSyntaxNegotiate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('58a08519-24c8-4935-b4-82-3f-d8-23-33-3a-4f')
     @commethod(3)
     def NegotiateSyntax(self, pMsg: POINTER(Windows.Win32.System.Com.RPCOLEMESSAGE_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRunnableObject(c_void_p):
+class IRunnableObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000126-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1590,7 +1590,7 @@ class IRunnableObject(c_void_p):
     def LockRunning(self, fLock: Windows.Win32.Foundation.BOOL, fLastUnlockCloses: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetContainedObject(self, fContained: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IRunningObjectTable(c_void_p):
+class IRunningObjectTable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000010-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1607,14 +1607,14 @@ class IRunningObjectTable(c_void_p):
     def GetTimeOfLastChange(self, pmkObjectName: Windows.Win32.System.Com.IMoniker_head, pfiletime: POINTER(Windows.Win32.Foundation.FILETIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def EnumRunning(self, ppenumMoniker: POINTER(Windows.Win32.System.Com.IEnumMoniker_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISequentialStream(c_void_p):
+class ISequentialStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a30-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def Read(self, pv: c_void_p, cb: UInt32, pcbRead: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Write(self, pv: c_void_p, cb: UInt32, pcbWritten: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IServerSecurity(c_void_p):
+class IServerSecurity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0000013e-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1625,17 +1625,17 @@ class IServerSecurity(c_void_p):
     def RevertToSelf(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def IsImpersonating(self) -> Windows.Win32.Foundation.BOOL: ...
-class IServiceProvider(c_void_p):
+class IServiceProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6d5140c1-7436-11ce-80-34-00-aa-00-60-09-fa')
     @commethod(3)
     def QueryService(self, guidService: POINTER(Guid), riid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IStdMarshalInfo(c_void_p):
+class IStdMarshalInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000018-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def GetClassForHandler(self, dwDestContext: UInt32, pvDestContext: c_void_p, pClsid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IStream(c_void_p):
+class IStream(ComPtr):
     extends: Windows.Win32.System.Com.ISequentialStream
     Guid = Guid('0000000c-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(5)
@@ -1656,22 +1656,22 @@ class IStream(c_void_p):
     def Stat(self, pstatstg: POINTER(Windows.Win32.System.Com.STATSTG_head), grfStatFlag: Windows.Win32.System.Com.STATFLAG) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def Clone(self, ppstm: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISupportAllowLowerTrustActivation(c_void_p):
+class ISupportAllowLowerTrustActivation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e9956ef2-3828-4b4b-8f-a9-7d-b6-1d-ee-49-54')
-class ISupportErrorInfo(c_void_p):
+class ISupportErrorInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('df0b3d60-548f-101b-8e-65-08-00-2b-2b-d1-19')
     @commethod(3)
     def InterfaceSupportsErrorInfo(self, riid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISurrogate(c_void_p):
+class ISurrogate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000022-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def LoadDllServer(self, Clsid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def FreeSurrogate(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ISurrogateService(c_void_p):
+class ISurrogateService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('000001d4-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1684,7 +1684,7 @@ class ISurrogateService(c_void_p):
     def CatalogRefresh(self, ulReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def ProcessShutdown(self, shutdownType: Windows.Win32.System.Com.ShutdownType) -> Windows.Win32.Foundation.HRESULT: ...
-class ISynchronize(c_void_p):
+class ISynchronize(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000030-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1693,41 +1693,41 @@ class ISynchronize(c_void_p):
     def Signal(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ISynchronizeContainer(c_void_p):
+class ISynchronizeContainer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000033-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def AddSynchronize(self, pSync: Windows.Win32.System.Com.ISynchronize_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def WaitMultiple(self, dwFlags: UInt32, dwTimeOut: UInt32, ppSync: POINTER(Windows.Win32.System.Com.ISynchronize_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISynchronizeEvent(c_void_p):
+class ISynchronizeEvent(ComPtr):
     extends: Windows.Win32.System.Com.ISynchronizeHandle
     Guid = Guid('00000032-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(4)
     def SetEventHandle(self, ph: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISynchronizeHandle(c_void_p):
+class ISynchronizeHandle(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000031-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def GetHandle(self, ph: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISynchronizeMutex(c_void_p):
+class ISynchronizeMutex(ComPtr):
     extends: Windows.Win32.System.Com.ISynchronize
     Guid = Guid('00000025-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(6)
     def ReleaseMutex(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITimeAndNoticeControl(c_void_p):
+class ITimeAndNoticeControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bc0bf6ae-8878-11d1-83-e9-00-c0-4f-c2-c6-d4')
     @commethod(3)
     def SuppressChanges(self, res1: UInt32, res2: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITypeComp(c_void_p):
+class ITypeComp(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00020403-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def Bind(self, szName: Windows.Win32.Foundation.PWSTR, lHashVal: UInt32, wFlags: UInt16, ppTInfo: POINTER(Windows.Win32.System.Com.ITypeInfo_head), pDescKind: POINTER(Windows.Win32.System.Com.DESCKIND), pBindPtr: POINTER(Windows.Win32.System.Com.BINDPTR_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def BindType(self, szName: Windows.Win32.Foundation.PWSTR, lHashVal: UInt32, ppTInfo: POINTER(Windows.Win32.System.Com.ITypeInfo_head), ppTComp: POINTER(Windows.Win32.System.Com.ITypeComp_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITypeInfo(c_void_p):
+class ITypeInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00020401-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1768,7 +1768,7 @@ class ITypeInfo(c_void_p):
     def ReleaseFuncDesc(self, pFuncDesc: POINTER(Windows.Win32.System.Com.FUNCDESC_head)) -> Void: ...
     @commethod(21)
     def ReleaseVarDesc(self, pVarDesc: POINTER(Windows.Win32.System.Com.VARDESC_head)) -> Void: ...
-class ITypeInfo2(c_void_p):
+class ITypeInfo2(ComPtr):
     extends: Windows.Win32.System.Com.ITypeInfo
     Guid = Guid('00020412-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(22)
@@ -1801,7 +1801,7 @@ class ITypeInfo2(c_void_p):
     def GetAllVarCustData(self, index: UInt32, pCustData: POINTER(Windows.Win32.System.Com.CUSTDATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(36)
     def GetAllImplTypeCustData(self, index: UInt32, pCustData: POINTER(Windows.Win32.System.Com.CUSTDATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITypeLib(c_void_p):
+class ITypeLib(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00020402-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
@@ -1824,7 +1824,7 @@ class ITypeLib(c_void_p):
     def FindName(self, szNameBuf: Windows.Win32.Foundation.PWSTR, lHashVal: UInt32, ppTInfo: POINTER(Windows.Win32.System.Com.ITypeInfo_head), rgMemId: POINTER(Int32), pcFound: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def ReleaseTLibAttr(self, pTLibAttr: POINTER(Windows.Win32.System.Com.TLIBATTR_head)) -> Void: ...
-class ITypeLib2(c_void_p):
+class ITypeLib2(ComPtr):
     extends: Windows.Win32.System.Com.ITypeLib
     Guid = Guid('00020411-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(13)
@@ -1835,7 +1835,7 @@ class ITypeLib2(c_void_p):
     def GetDocumentation2(self, index: Int32, lcid: UInt32, pbstrHelpString: POINTER(Windows.Win32.Foundation.BSTR), pdwHelpStringContext: POINTER(UInt32), pbstrHelpStringDll: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def GetAllCustData(self, pCustData: POINTER(Windows.Win32.System.Com.CUSTDATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITypeLibRegistration(c_void_p):
+class ITypeLibRegistration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('76a3e735-02df-4a12-98-eb-04-3a-d3-60-0a-f3')
     @commethod(3)
@@ -1854,12 +1854,12 @@ class ITypeLibRegistration(c_void_p):
     def GetFlags(self, pFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetHelpDir(self, pHelpDir: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITypeLibRegistrationReader(c_void_p):
+class ITypeLibRegistrationReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ed6a8a2a-b160-4e77-8f-73-aa-74-35-cd-5c-27')
     @commethod(3)
     def EnumTypeLibRegistrations(self, ppEnumUnknown: POINTER(Windows.Win32.System.Com.IEnumUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUnknown(c_void_p):
+class IUnknown(ComPtr):
     extends: None
     Guid = Guid('00000000-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(0)
@@ -1868,7 +1868,7 @@ class IUnknown(c_void_p):
     def AddRef(self) -> UInt32: ...
     @commethod(2)
     def Release(self) -> UInt32: ...
-class IUri(c_void_p):
+class IUri(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a39ee748-6a27-4817-a6-f2-13-91-4b-ef-58-90')
     @commethod(3)
@@ -1921,7 +1921,7 @@ class IUri(c_void_p):
     def GetProperties(self, pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def IsEqual(self, pUri: Windows.Win32.System.Com.IUri_head, pfEqual: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUriBuilder(c_void_p):
+class IUriBuilder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4221b2e1-8955-46c0-bd-5b-de-98-97-56-5d-e7')
     @commethod(3)
@@ -1970,12 +1970,12 @@ class IUriBuilder(c_void_p):
     def RemoveProperties(self, dwPropertyMask: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def HasBeenModified(self, pfModified: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUrlMon(c_void_p):
+class IUrlMon(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00000026-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def AsyncGetClassBits(self, rclsid: POINTER(Guid), pszTYPE: Windows.Win32.Foundation.PWSTR, pszExt: Windows.Win32.Foundation.PWSTR, dwFileVersionMS: UInt32, dwFileVersionLS: UInt32, pszCodeBase: Windows.Win32.Foundation.PWSTR, pbc: Windows.Win32.System.Com.IBindCtx_head, dwClassContext: UInt32, riid: POINTER(Guid), flags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IWaitMultiple(c_void_p):
+class IWaitMultiple(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0000002b-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)

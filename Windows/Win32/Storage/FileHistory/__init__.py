@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Storage.FileHistory
 import Windows.Win32.System.Com
@@ -117,7 +117,7 @@ FhBackupStopReason_BackupLimitUserBusyMachineOnDC: FhBackupStopReason = 3
 FhBackupStopReason_BackupCancelled: FhBackupStopReason = 4
 FhConfigMgr = Guid('ed43bb3c-09e9-498a-9d-f6-21-77-24-4c-6d-b4')
 FhReassociation = Guid('4d728e35-16fa-4320-9e-8b-bf-d7-10-0a-88-46')
-class IFhConfigMgr(c_void_p):
+class IFhConfigMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6a5fea5b-bf8f-4ee5-b8-c3-44-d8-a0-d7-33-1c')
     @commethod(3)
@@ -148,7 +148,7 @@ class IFhConfigMgr(c_void_p):
     def ChangeDefaultTargetRecommendation(self, Recommend: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def QueryProtectionStatus(self, ProtectionState: POINTER(UInt32), ProtectedUntilTime: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFhReassociation(c_void_p):
+class IFhReassociation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6544a28a-f68d-47ac-91-ef-16-b2-b3-6a-a3-ee')
     @commethod(3)
@@ -161,14 +161,14 @@ class IFhReassociation(c_void_p):
     def SelectConfiguration(self, Index: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def PerformReassociation(self, OverwriteIfExists: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IFhScopeIterator(c_void_p):
+class IFhScopeIterator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3197abce-532a-44c6-86-15-f3-66-65-66-a7-20')
     @commethod(3)
     def MoveToNextItem(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetItem(self, Item: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFhTarget(c_void_p):
+class IFhTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d87965fd-2bad-4657-bd-3b-95-67-eb-30-0c-ed')
     @commethod(3)

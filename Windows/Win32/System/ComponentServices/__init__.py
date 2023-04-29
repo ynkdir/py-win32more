@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.ComponentServices
@@ -487,7 +487,7 @@ class ComponentSummary(EasyCastStructure):
     Clsid: Guid
     ClassName: Windows.Win32.Foundation.PWSTR
     ApplicationName: Windows.Win32.Foundation.PWSTR
-class ContextInfo(c_void_p):
+class ContextInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('19a5a02c-0ac8-11d2-b2-86-00-c0-4f-8e-f9-34')
     @commethod(7)
@@ -500,7 +500,7 @@ class ContextInfo(c_void_p):
     def GetActivityId(self, pbstrActivityId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetContextId(self, pbstrCtxId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ContextInfo2(c_void_p):
+class ContextInfo2(ComPtr):
     extends: Windows.Win32.System.ComponentServices.ContextInfo
     Guid = Guid('c99d6e75-2375-11d4-83-31-00-c0-4f-60-55-88')
     @commethod(12)
@@ -539,24 +539,24 @@ class HANG_INFO(EasyCastStructure):
     dwHangTimeout: UInt32
     dwDumpCount: UInt32
     dwInfoMsgCount: UInt32
-class IAppDomainHelper(c_void_p):
+class IAppDomainHelper(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c7b67079-8255-42c6-9e-c0-69-94-a3-54-87-80')
     @commethod(7)
     def Initialize(self, pUnkAD: Windows.Win32.System.Com.IUnknown_head, __MIDL__IAppDomainHelper0000: IntPtr, pPool: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def DoCallback(self, pUnkAD: Windows.Win32.System.Com.IUnknown_head, __MIDL__IAppDomainHelper0001: IntPtr, pPool: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
-class IAssemblyLocator(c_void_p):
+class IAssemblyLocator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('391ffbb9-a8ee-432a-ab-c8-ba-a2-38-da-b9-0f')
     @commethod(7)
     def GetModules(self, applicationDir: Windows.Win32.Foundation.BSTR, applicationName: Windows.Win32.Foundation.BSTR, assemblyName: Windows.Win32.Foundation.BSTR, pModules: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IAsyncErrorNotify(c_void_p):
+class IAsyncErrorNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fe6777fb-a674-4177-8f-32-6d-70-7e-11-34-84')
     @commethod(3)
     def OnError(self, hr: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
-class ICOMAdminCatalog(c_void_p):
+class ICOMAdminCatalog(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('dd662187-dfc2-11d1-a2-cf-00-80-5f-c7-92-35')
     @commethod(7)
@@ -611,7 +611,7 @@ class ICOMAdminCatalog(c_void_p):
     def InstallEventClass(self, bstrApplIdOrName: Windows.Win32.Foundation.BSTR, bstrDLL: Windows.Win32.Foundation.BSTR, bstrTLB: Windows.Win32.Foundation.BSTR, bstrPSDLL: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
     def GetEventClassesForIID(self, bstrIID: Windows.Win32.Foundation.BSTR, ppsaVarCLSIDs: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head)), ppsaVarProgIDs: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head)), ppsaVarDescriptions: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class ICOMAdminCatalog2(c_void_p):
+class ICOMAdminCatalog2(ComPtr):
     extends: Windows.Win32.System.ComponentServices.ICOMAdminCatalog
     Guid = Guid('790c6e0b-9194-4cc9-94-26-a4-8a-63-18-56-96')
     @commethod(33)
@@ -676,7 +676,7 @@ class ICOMAdminCatalog2(c_void_p):
     def QueryApplicationFile2(self, bstrApplicationFile: Windows.Win32.Foundation.BSTR, ppFilesForImport: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(63)
     def GetComponentVersionCount(self, bstrCLSIDOrProgID: Windows.Win32.Foundation.BSTR, plVersionCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICOMLBArguments(c_void_p):
+class ICOMLBArguments(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3a0f150f-8ee5-4b94-b4-0e-ae-f2-f9-e4-2e-d2')
     @commethod(3)
@@ -687,7 +687,7 @@ class ICOMLBArguments(c_void_p):
     def GetMachineName(self, cchSvr: UInt32, szServerName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetMachineName(self, cchSvr: UInt32, szServerName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ICatalogCollection(c_void_p):
+class ICatalogCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('6eb22872-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
     @commethod(7)
@@ -722,7 +722,7 @@ class ICatalogCollection(c_void_p):
     def PopulateByKey(self, psaKeys: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def PopulateByQuery(self, bstrQueryString: Windows.Win32.Foundation.BSTR, lQueryType: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ICatalogObject(c_void_p):
+class ICatalogObject(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('6eb22871-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
     @commethod(7)
@@ -739,12 +739,12 @@ class ICatalogObject(c_void_p):
     def get_Valid(self, pbRetVal: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def IsPropertyWriteOnly(self, bstrPropName: Windows.Win32.Foundation.BSTR, pbRetVal: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICheckSxsConfig(c_void_p):
+class ICheckSxsConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0ff5a96f-11fc-47d1-ba-a6-25-dd-34-7e-72-42')
     @commethod(3)
     def IsSameSxsConfig(self, wszSxsName: Windows.Win32.Foundation.PWSTR, wszSxsDirectory: Windows.Win32.Foundation.PWSTR, wszSxsAppName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IComActivityEvents(c_void_p):
+class IComActivityEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130b0-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
@@ -761,7 +761,7 @@ class IComActivityEvents(c_void_p):
     def OnActivityLeave(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidCurrent: POINTER(Guid), guidLeft: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def OnActivityLeaveSame(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidCurrent: POINTER(Guid), dwCallDepth: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IComApp2Events(c_void_p):
+class IComApp2Events(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1290bc1a-b219-418d-b0-78-59-34-de-d0-82-42')
     @commethod(3)
@@ -774,7 +774,7 @@ class IComApp2Events(c_void_p):
     def OnAppPaused2(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidApp: Guid, bPaused: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def OnAppRecycle2(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidApp: Guid, guidProcess: Guid, lReason: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IComAppEvents(c_void_p):
+class IComAppEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130a6-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
@@ -783,7 +783,7 @@ class IComAppEvents(c_void_p):
     def OnAppShutdown(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidApp: Guid) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnAppForceShutdown(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidApp: Guid) -> Windows.Win32.Foundation.HRESULT: ...
-class IComCRMEvents(c_void_p):
+class IComCRMEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130b5-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
@@ -816,31 +816,31 @@ class IComCRMEvents(c_void_p):
     def OnCRMForce(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidClerkCLSID: Guid) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def OnCRMDeliver(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidClerkCLSID: Guid, fVariants: Windows.Win32.Foundation.BOOL, dwRecordSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IComExceptionEvents(c_void_p):
+class IComExceptionEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130b3-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
     def OnExceptionUser(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), code: UInt32, address: UInt64, pszStackTrace: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IComIdentityEvents(c_void_p):
+class IComIdentityEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130b1-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
     def OnIISRequestInfo(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), ObjId: UInt64, pszClientIP: Windows.Win32.Foundation.PWSTR, pszServerIP: Windows.Win32.Foundation.PWSTR, pszURL: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IComInstance2Events(c_void_p):
+class IComInstance2Events(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('20e3bf07-b506-4ad5-a5-0c-d2-ca-5b-9c-15-8e')
     @commethod(3)
     def OnObjectCreate2(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidActivity: POINTER(Guid), clsid: POINTER(Guid), tsid: POINTER(Guid), CtxtID: UInt64, ObjectID: UInt64, guidPartition: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnObjectDestroy2(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), CtxtID: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IComInstanceEvents(c_void_p):
+class IComInstanceEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130a7-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
     def OnObjectCreate(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidActivity: POINTER(Guid), clsid: POINTER(Guid), tsid: POINTER(Guid), CtxtID: UInt64, ObjectID: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnObjectDestroy(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), CtxtID: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IComLTxEvents(c_void_p):
+class IComLTxEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('605cf82c-578e-4298-97-5d-82-ba-bc-d9-e0-53')
     @commethod(3)
@@ -853,7 +853,7 @@ class IComLTxEvents(c_void_p):
     def OnLtxTransactionCommit(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidLtx: Guid) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def OnLtxTransactionPromote(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidLtx: Guid, txnId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
-class IComMethod2Events(c_void_p):
+class IComMethod2Events(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fb388aaa-567d-4024-af-8e-6e-93-ee-74-85-73')
     @commethod(3)
@@ -862,7 +862,7 @@ class IComMethod2Events(c_void_p):
     def OnMethodReturn2(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), oid: UInt64, guidCid: POINTER(Guid), guidRid: POINTER(Guid), dwThread: UInt32, iMeth: UInt32, hresult: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnMethodException2(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), oid: UInt64, guidCid: POINTER(Guid), guidRid: POINTER(Guid), dwThread: UInt32, iMeth: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IComMethodEvents(c_void_p):
+class IComMethodEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130a9-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
@@ -871,7 +871,7 @@ class IComMethodEvents(c_void_p):
     def OnMethodReturn(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), oid: UInt64, guidCid: POINTER(Guid), guidRid: POINTER(Guid), iMeth: UInt32, hresult: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnMethodException(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), oid: UInt64, guidCid: POINTER(Guid), guidRid: POINTER(Guid), iMeth: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IComMtaThreadPoolKnobs(c_void_p):
+class IComMtaThreadPoolKnobs(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f9a76d2e-76a5-43eb-a0-c4-49-be-c8-e4-84-80')
     @commethod(3)
@@ -882,17 +882,17 @@ class IComMtaThreadPoolKnobs(c_void_p):
     def MTASetThrottleValue(self, dwThrottle: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def MTAGetThrottleValue(self, pdwThrottle: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IComObjectConstruction2Events(c_void_p):
+class IComObjectConstruction2Events(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4b5a7827-8df2-45c0-8f-6f-57-ea-1f-85-6a-9f')
     @commethod(3)
     def OnObjectConstruct2(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidObject: POINTER(Guid), sConstructString: Windows.Win32.Foundation.PWSTR, oid: UInt64, guidPartition: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IComObjectConstructionEvents(c_void_p):
+class IComObjectConstructionEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130af-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
     def OnObjectConstruct(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidObject: POINTER(Guid), sConstructString: Windows.Win32.Foundation.PWSTR, oid: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IComObjectEvents(c_void_p):
+class IComObjectEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130aa-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
@@ -907,7 +907,7 @@ class IComObjectEvents(c_void_p):
     def OnSetComplete(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), CtxtID: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def OnSetAbort(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), CtxtID: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IComObjectPool2Events(c_void_p):
+class IComObjectPool2Events(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('65bf6534-85ea-4f64-8c-f4-3d-97-4b-2a-b1-cf')
     @commethod(3)
@@ -918,7 +918,7 @@ class IComObjectPool2Events(c_void_p):
     def OnObjPoolRecycleToTx2(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidActivity: POINTER(Guid), guidObject: POINTER(Guid), guidTx: POINTER(Guid), objid: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def OnObjPoolGetFromTx2(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidActivity: POINTER(Guid), guidObject: POINTER(Guid), guidTx: POINTER(Guid), objid: UInt64, guidPartition: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IComObjectPoolEvents(c_void_p):
+class IComObjectPoolEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130ad-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
@@ -929,7 +929,7 @@ class IComObjectPoolEvents(c_void_p):
     def OnObjPoolRecycleToTx(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidActivity: POINTER(Guid), guidObject: POINTER(Guid), guidTx: POINTER(Guid), objid: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def OnObjPoolGetFromTx(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidActivity: POINTER(Guid), guidObject: POINTER(Guid), guidTx: POINTER(Guid), objid: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IComObjectPoolEvents2(c_void_p):
+class IComObjectPoolEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130ae-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
@@ -942,7 +942,7 @@ class IComObjectPoolEvents2(c_void_p):
     def OnObjPoolTimeout(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidObject: POINTER(Guid), guidActivity: POINTER(Guid), dwTimeout: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def OnObjPoolCreatePool(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidObject: POINTER(Guid), dwMin: UInt32, dwMax: UInt32, dwTimeout: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IComQCEvents(c_void_p):
+class IComQCEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130b2-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
@@ -959,7 +959,7 @@ class IComQCEvents(c_void_p):
     def OnQCMoveToDeadQueue(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidMsgId: POINTER(Guid), guidWorkFlowId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def OnQCPlayback(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), objid: UInt64, guidMsgId: POINTER(Guid), guidWorkFlowId: POINTER(Guid), hr: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
-class IComResourceEvents(c_void_p):
+class IComResourceEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130ab-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
@@ -972,14 +972,14 @@ class IComResourceEvents(c_void_p):
     def OnResourceDestroy(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), ObjectID: UInt64, hr: Windows.Win32.Foundation.HRESULT, pszType: Windows.Win32.Foundation.PWSTR, resId: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def OnResourceTrack(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), ObjectID: UInt64, pszType: Windows.Win32.Foundation.PWSTR, resId: UInt64, enlisted: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IComSecurityEvents(c_void_p):
+class IComSecurityEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130ac-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
     def OnAuthenticate(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidActivity: POINTER(Guid), ObjectID: UInt64, guidIID: POINTER(Guid), iMeth: UInt32, cbByteOrig: UInt32, pSidOriginalUser: POINTER(Byte), cbByteCur: UInt32, pSidCurrentUser: POINTER(Byte), bCurrentUserInpersonatingInProc: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnAuthenticateFail(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidActivity: POINTER(Guid), ObjectID: UInt64, guidIID: POINTER(Guid), iMeth: UInt32, cbByteOrig: UInt32, pSidOriginalUser: POINTER(Byte), cbByteCur: UInt32, pSidCurrentUser: POINTER(Byte), bCurrentUserInpersonatingInProc: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IComStaThreadPoolKnobs(c_void_p):
+class IComStaThreadPoolKnobs(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('324b64fa-33b6-11d2-98-b7-00-c0-4f-8e-e1-c4')
     @commethod(3)
@@ -1004,7 +1004,7 @@ class IComStaThreadPoolKnobs(c_void_p):
     def GetQueueDepth(self, pdwQDepth: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def SetQueueDepth(self, dwQDepth: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IComStaThreadPoolKnobs2(c_void_p):
+class IComStaThreadPoolKnobs2(ComPtr):
     extends: Windows.Win32.System.ComponentServices.IComStaThreadPoolKnobs
     Guid = Guid('73707523-ff9a-4974-bf-84-21-08-dc-21-37-40')
     @commethod(14)
@@ -1027,7 +1027,7 @@ class IComStaThreadPoolKnobs2(c_void_p):
     def GetWaitTimeForThreadCleanup(self, pdwThreadCleanupWaitTime: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def SetWaitTimeForThreadCleanup(self, dwThreadCleanupWaitTime: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IComThreadEvents(c_void_p):
+class IComThreadEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130a5-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
@@ -1052,7 +1052,7 @@ class IComThreadEvents(c_void_p):
     def OnThreadAssignApartment(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidActivity: POINTER(Guid), AptID: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def OnThreadUnassignApartment(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), AptID: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IComTrackingInfoCollection(c_void_p):
+class IComTrackingInfoCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c266c677-c9ad-49ab-9f-d9-d9-66-10-78-58-8a')
     @commethod(3)
@@ -1061,24 +1061,24 @@ class IComTrackingInfoCollection(c_void_p):
     def Count(self, pCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Item(self, ulIndex: UInt32, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IComTrackingInfoEvents(c_void_p):
+class IComTrackingInfoEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4e6cdcc9-fb25-4fd5-9c-c5-c9-f4-b6-55-9c-ec')
     @commethod(3)
     def OnNewTrackingInfo(self, pToplevelCollection: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IComTrackingInfoObject(c_void_p):
+class IComTrackingInfoObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('116e42c5-d8b1-47bf-ab-1e-c8-95-ed-3e-23-72')
     @commethod(3)
     def GetValue(self, szPropertyName: Windows.Win32.Foundation.PWSTR, pvarOut: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IComTrackingInfoProperties(c_void_p):
+class IComTrackingInfoProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('789b42be-6f6b-443a-89-8e-67-ab-f3-90-aa-14')
     @commethod(3)
     def PropCount(self, pCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetPropName(self, ulIndex: UInt32, ppszPropName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IComTransaction2Events(c_void_p):
+class IComTransaction2Events(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a136f62a-2f94-4288-86-e0-d8-a1-fa-4c-02-99')
     @commethod(3)
@@ -1089,7 +1089,7 @@ class IComTransaction2Events(c_void_p):
     def OnTransactionAbort2(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidTx: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def OnTransactionCommit2(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidTx: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IComTransactionEvents(c_void_p):
+class IComTransactionEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130a8-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
@@ -1100,12 +1100,12 @@ class IComTransactionEvents(c_void_p):
     def OnTransactionAbort(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidTx: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def OnTransactionCommit(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), guidTx: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IComUserEvent(c_void_p):
+class IComUserEvent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130a4-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
     def OnUserEvent(self, pInfo: POINTER(Windows.Win32.System.ComponentServices.COMSVCSEVENTINFO_head), pvarEvent: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IContextProperties(c_void_p):
+class IContextProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d396da85-bf8f-11d1-bb-ae-00-c0-4f-c2-fa-5f')
     @commethod(3)
@@ -1118,14 +1118,14 @@ class IContextProperties(c_void_p):
     def SetProperty(self, name: Windows.Win32.Foundation.BSTR, property: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def RemoveProperty(self, name: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IContextSecurityPerimeter(c_void_p):
+class IContextSecurityPerimeter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a7549a29-a7c4-42e1-8d-c1-7e-3d-74-8d-c2-4a')
     @commethod(3)
     def GetPerimeterFlag(self, pFlag: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetPerimeterFlag(self, fFlag: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IContextState(c_void_p):
+class IContextState(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3c05e54b-a42a-11d2-af-c4-00-c0-4f-8e-e1-c4')
     @commethod(3)
@@ -1136,22 +1136,22 @@ class IContextState(c_void_p):
     def SetMyTransactionVote(self, txVote: Windows.Win32.System.ComponentServices.TransactionVote) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetMyTransactionVote(self, ptxVote: POINTER(Windows.Win32.System.ComponentServices.TransactionVote)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICreateWithLocalTransaction(c_void_p):
+class ICreateWithLocalTransaction(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('227ac7a8-8423-42ce-b7-cf-03-06-1e-c9-aa-a3')
     @commethod(3)
     def CreateInstanceWithSysTx(self, pTransaction: Windows.Win32.System.Com.IUnknown_head, rclsid: POINTER(Guid), riid: POINTER(Guid), pObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICreateWithTipTransactionEx(c_void_p):
+class ICreateWithTipTransactionEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('455acf59-5345-11d2-99-cf-00-c0-4f-79-7b-c9')
     @commethod(3)
     def CreateInstance(self, bstrTipUrl: Windows.Win32.Foundation.BSTR, rclsid: POINTER(Guid), riid: POINTER(Guid), pObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICreateWithTransactionEx(c_void_p):
+class ICreateWithTransactionEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('455acf57-5345-11d2-99-cf-00-c0-4f-79-7b-c9')
     @commethod(3)
     def CreateInstance(self, pTransaction: Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head, rclsid: POINTER(Guid), riid: POINTER(Guid), pObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICrmCompensator(c_void_p):
+class ICrmCompensator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bbc01830-8d3b-11d1-82-ec-00-a0-c9-1e-ed-e9')
     @commethod(3)
@@ -1174,7 +1174,7 @@ class ICrmCompensator(c_void_p):
     def AbortRecord(self, crmLogRec: Windows.Win32.System.ComponentServices.CrmLogRecordRead, pfForget: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def EndAbort(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ICrmCompensatorVariants(c_void_p):
+class ICrmCompensatorVariants(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f0baf8e4-7804-11d1-82-e9-00-a0-c9-1e-ed-e9')
     @commethod(3)
@@ -1197,7 +1197,7 @@ class ICrmCompensatorVariants(c_void_p):
     def AbortRecordVariants(self, pLogRecord: POINTER(Windows.Win32.System.Variant.VARIANT_head), pbForget: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def EndAbortVariants(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ICrmFormatLogRecords(c_void_p):
+class ICrmFormatLogRecords(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9c51d821-c98b-11d1-82-fb-00-a0-c9-1e-ed-e9')
     @commethod(3)
@@ -1208,7 +1208,7 @@ class ICrmFormatLogRecords(c_void_p):
     def GetColumn(self, CrmLogRec: Windows.Win32.System.ComponentServices.CrmLogRecordRead, pFormattedLogRecord: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetColumnVariants(self, LogRecord: Windows.Win32.System.Variant.VARIANT, pFormattedLogRecord: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICrmLogControl(c_void_p):
+class ICrmLogControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a0e174b3-d26e-11d2-8f-84-00-80-5f-c7-bc-d9')
     @commethod(3)
@@ -1225,14 +1225,14 @@ class ICrmLogControl(c_void_p):
     def ForceTransactionToAbort(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def WriteLogRecord(self, rgBlob: POINTER(Windows.Win32.System.Com.BLOB_head), cBlob: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ICrmMonitor(c_void_p):
+class ICrmMonitor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('70c8e443-c7ed-11d1-82-fb-00-a0-c9-1e-ed-e9')
     @commethod(3)
     def GetClerks(self, pClerks: POINTER(Windows.Win32.System.ComponentServices.ICrmMonitorClerks_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def HoldClerk(self, Index: Windows.Win32.System.Variant.VARIANT, pItem: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICrmMonitorClerks(c_void_p):
+class ICrmMonitorClerks(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('70c8e442-c7ed-11d1-82-fb-00-a0-c9-1e-ed-e9')
     @commethod(7)
@@ -1249,7 +1249,7 @@ class ICrmMonitorClerks(c_void_p):
     def TransactionUOW(self, Index: Windows.Win32.System.Variant.VARIANT, pItem: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def ActivityId(self, Index: Windows.Win32.System.Variant.VARIANT, pItem: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICrmMonitorLogRecords(c_void_p):
+class ICrmMonitorLogRecords(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('70c8e441-c7ed-11d1-82-fb-00-a0-c9-1e-ed-e9')
     @commethod(3)
@@ -1262,7 +1262,7 @@ class ICrmMonitorLogRecords(c_void_p):
     def GetLogRecord(self, dwIndex: UInt32, pCrmLogRec: POINTER(Windows.Win32.System.ComponentServices.CrmLogRecordRead_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetLogRecordVariants(self, IndexNumber: Windows.Win32.System.Variant.VARIANT, pLogRecord: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDispenserDriver(c_void_p):
+class IDispenserDriver(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('208b3651-2b48-11cf-be-10-00-aa-00-a2-fa-25')
     @commethod(3)
@@ -1277,14 +1277,14 @@ class IDispenserDriver(c_void_p):
     def DestroyResource(self, ResId: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def DestroyResourceS(self, ResId: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDispenserManager(c_void_p):
+class IDispenserManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5cb31e10-2b5f-11cf-be-10-00-aa-00-a2-fa-25')
     @commethod(3)
     def RegisterDispenser(self, __MIDL__IDispenserManager0000: Windows.Win32.System.ComponentServices.IDispenserDriver_head, szDispenserName: Windows.Win32.Foundation.PWSTR, __MIDL__IDispenserManager0001: POINTER(Windows.Win32.System.ComponentServices.IHolder_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetContext(self, __MIDL__IDispenserManager0002: POINTER(UIntPtr), __MIDL__IDispenserManager0003: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumNames(c_void_p):
+class IEnumNames(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51372af2-cae7-11cf-be-81-00-aa-00-a2-fa-25')
     @commethod(3)
@@ -1295,7 +1295,7 @@ class IEnumNames(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.System.ComponentServices.IEnumNames_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEventServerTrace(c_void_p):
+class IEventServerTrace(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('9a9f12b8-80af-47ab-a5-79-35-ea-57-72-53-70')
     @commethod(7)
@@ -1304,7 +1304,7 @@ class IEventServerTrace(c_void_p):
     def StopTraceGuid(self, bstrguidEvent: Windows.Win32.Foundation.BSTR, bstrguidFilter: Windows.Win32.Foundation.BSTR, lPidFilter: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def EnumTraceGuid(self, plCntGuids: POINTER(Int32), pbstrGuidList: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IGetAppTrackerData(c_void_p):
+class IGetAppTrackerData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('507c3ac8-3e12-4cb0-93-66-65-3d-3e-05-06-38')
     @commethod(3)
@@ -1321,7 +1321,7 @@ class IGetAppTrackerData(c_void_p):
     def GetTrackerDataAsCollectionObject(self, TopLevelCollection: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetSuggestedPollingInterval(self, PollingIntervalInSeconds: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IGetContextProperties(c_void_p):
+class IGetContextProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51372af4-cae7-11cf-be-81-00-aa-00-a2-fa-25')
     @commethod(3)
@@ -1330,12 +1330,12 @@ class IGetContextProperties(c_void_p):
     def GetProperty(self, name: Windows.Win32.Foundation.BSTR, pProperty: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def EnumNames(self, ppenum: POINTER(Windows.Win32.System.ComponentServices.IEnumNames_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IGetSecurityCallContext(c_void_p):
+class IGetSecurityCallContext(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('cafc823f-b441-11d1-b8-2b-00-00-f8-75-7e-2a')
     @commethod(7)
     def GetSecurityCallContext(self, ppObject: POINTER(Windows.Win32.System.ComponentServices.ISecurityCallContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IHolder(c_void_p):
+class IHolder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bf6a1850-2b45-11cf-be-10-00-aa-00-a2-fa-25')
     @commethod(3)
@@ -1354,7 +1354,7 @@ class IHolder(c_void_p):
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def RequestDestroyResource(self, __MIDL__IHolder0009: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class ILBEvents(c_void_p):
+class ILBEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('683130b4-2e50-11d2-98-a5-00-c0-4f-8e-e1-c4')
     @commethod(3)
@@ -1363,7 +1363,7 @@ class ILBEvents(c_void_p):
     def TargetDown(self, bstrServerName: Windows.Win32.Foundation.BSTR, bstrClsidEng: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def EngineDefined(self, bstrPropName: Windows.Win32.Foundation.BSTR, varPropValue: POINTER(Windows.Win32.System.Variant.VARIANT_head), bstrClsidEng: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IMTSActivity(c_void_p):
+class IMTSActivity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51372af0-cae7-11cf-be-81-00-aa-00-a2-fa-25')
     @commethod(3)
@@ -1376,24 +1376,24 @@ class IMTSActivity(c_void_p):
     def BindToCurrentThread(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def UnbindFromThread(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMTSCall(c_void_p):
+class IMTSCall(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51372aef-cae7-11cf-be-81-00-aa-00-a2-fa-25')
     @commethod(3)
     def OnCall(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMTSLocator(c_void_p):
+class IMTSLocator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d19b8bfd-7f88-11d0-b1-6e-00-aa-00-ba-32-58')
     @commethod(7)
     def GetEventDispatcher(self, pUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IManagedActivationEvents(c_void_p):
+class IManagedActivationEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a5f325af-572f-46da-b8-ab-82-7c-3d-95-d9-9e')
     @commethod(3)
     def CreateManagedStub(self, pInfo: Windows.Win32.System.ComponentServices.IManagedObjectInfo_head, fDist: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def DestroyManagedStub(self, pInfo: Windows.Win32.System.ComponentServices.IManagedObjectInfo_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IManagedObjectInfo(c_void_p):
+class IManagedObjectInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1427c51a-4584-49d8-90-a0-c5-0d-80-86-cb-e9')
     @commethod(3)
@@ -1404,17 +1404,17 @@ class IManagedObjectInfo(c_void_p):
     def SetInPool(self, bInPool: Windows.Win32.Foundation.BOOL, pPooledObj: Windows.Win32.System.ComponentServices.IManagedPooledObj_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetWrapperStrength(self, bStrong: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IManagedPoolAction(c_void_p):
+class IManagedPoolAction(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('da91b74e-5388-4783-94-9d-c1-cd-5f-b0-05-06')
     @commethod(3)
     def LastRelease(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IManagedPooledObj(c_void_p):
+class IManagedPooledObj(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c5da4bea-1b42-4437-89-26-b6-a3-88-60-a7-70')
     @commethod(3)
     def SetHeld(self, m_bHeld: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IMessageMover(c_void_p):
+class IMessageMover(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('588a085a-b795-11d1-80-54-00-c0-4f-c3-40-ee')
     @commethod(7)
@@ -1431,7 +1431,7 @@ class IMessageMover(c_void_p):
     def put_CommitBatchSize(self, newVal: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def MoveMessages(self, plMessagesMoved: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMtsEventInfo(c_void_p):
+class IMtsEventInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d56c3dc1-8482-11d0-b1-70-00-aa-00-ba-32-58')
     @commethod(7)
@@ -1444,7 +1444,7 @@ class IMtsEventInfo(c_void_p):
     def get_Count(self, lCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def get_Value(self, sKey: Windows.Win32.Foundation.BSTR, pVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMtsEvents(c_void_p):
+class IMtsEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('bacedf4d-74ab-11d0-b1-62-00-aa-00-ba-32-58')
     @commethod(7)
@@ -1457,7 +1457,7 @@ class IMtsEvents(c_void_p):
     def get_FireEvents(self, pVal: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetProcessID(self, id: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMtsGrp(c_void_p):
+class IMtsGrp(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('4b2e958c-0393-11d1-b1-ab-00-aa-00-ba-32-58')
     @commethod(7)
@@ -1466,7 +1466,7 @@ class IMtsGrp(c_void_p):
     def Item(self, lIndex: Int32, ppUnkDispatcher: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Refresh(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjPool(c_void_p):
+class IObjPool(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7d8805a0-2ea7-11d1-b1-cc-00-aa-00-ba-32-58')
     @commethod(3)
@@ -1483,17 +1483,17 @@ class IObjPool(c_void_p):
     def Reserved5(self) -> Void: ...
     @commethod(9)
     def Reserved6(self) -> Void: ...
-class IObjectConstruct(c_void_p):
+class IObjectConstruct(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('41c4f8b3-7439-11d2-98-cb-00-c0-4f-8e-e1-c4')
     @commethod(3)
     def Construct(self, pCtorObj: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectConstructString(c_void_p):
+class IObjectConstructString(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('41c4f8b2-7439-11d2-98-cb-00-c0-4f-8e-e1-c4')
     @commethod(7)
     def get_ConstructString(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectContext(c_void_p):
+class IObjectContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51372ae0-cae7-11cf-be-81-00-aa-00-a2-fa-25')
     @commethod(3)
@@ -1512,12 +1512,12 @@ class IObjectContext(c_void_p):
     def IsSecurityEnabled(self) -> Windows.Win32.Foundation.BOOL: ...
     @commethod(10)
     def IsCallerInRole(self, bstrRole: Windows.Win32.Foundation.BSTR, pfIsInRole: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectContextActivity(c_void_p):
+class IObjectContextActivity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51372afc-cae7-11cf-be-81-00-aa-00-a2-fa-25')
     @commethod(3)
     def GetActivityId(self, pGUID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectContextInfo(c_void_p):
+class IObjectContextInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('75b52ddb-e8ed-11d1-93-ad-00-aa-00-ba-32-58')
     @commethod(3)
@@ -1530,7 +1530,7 @@ class IObjectContextInfo(c_void_p):
     def GetActivityId(self, pGUID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetContextId(self, pGuid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectContextInfo2(c_void_p):
+class IObjectContextInfo2(ComPtr):
     extends: Windows.Win32.System.ComponentServices.IObjectContextInfo
     Guid = Guid('594be71a-4bc4-438b-91-97-cf-d1-76-24-8b-09')
     @commethod(8)
@@ -1539,12 +1539,12 @@ class IObjectContextInfo2(c_void_p):
     def GetApplicationId(self, pGuid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetApplicationInstanceId(self, pGuid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectContextTip(c_void_p):
+class IObjectContextTip(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('92fd41ca-bad9-11d2-9a-2d-00-c0-4f-79-7b-c9')
     @commethod(3)
     def GetTipUrl(self, pTipUrl: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectControl(c_void_p):
+class IObjectControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51372aec-cae7-11cf-be-81-00-aa-00-a2-fa-25')
     @commethod(3)
@@ -1553,26 +1553,26 @@ class IObjectControl(c_void_p):
     def Deactivate(self) -> Void: ...
     @commethod(5)
     def CanBePooled(self) -> Windows.Win32.Foundation.BOOL: ...
-class IPlaybackControl(c_void_p):
+class IPlaybackControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51372afd-cae7-11cf-be-81-00-aa-00-a2-fa-25')
     @commethod(3)
     def FinalClientRetry(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def FinalServerRetry(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IPoolManager(c_void_p):
+class IPoolManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('0a469861-5a91-43a0-99-b6-d5-e1-79-bb-06-31')
     @commethod(7)
     def ShutdownPool(self, CLSIDOrProgID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IProcessInitializer(c_void_p):
+class IProcessInitializer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1113f52d-dc7f-4943-ae-d6-88-d0-40-27-e3-2a')
     @commethod(3)
     def Startup(self, punkProcessControl: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Shutdown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ISecurityCallContext(c_void_p):
+class ISecurityCallContext(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('cafc823e-b441-11d1-b8-2b-00-00-f8-75-7e-2a')
     @commethod(7)
@@ -1587,7 +1587,7 @@ class ISecurityCallContext(c_void_p):
     def IsSecurityEnabled(self, pfIsEnabled: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def IsUserInRole(self, pUser: POINTER(Windows.Win32.System.Variant.VARIANT_head), bstrRole: Windows.Win32.Foundation.BSTR, pfInRole: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISecurityCallersColl(c_void_p):
+class ISecurityCallersColl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('cafc823d-b441-11d1-b8-2b-00-00-f8-75-7e-2a')
     @commethod(7)
@@ -1596,7 +1596,7 @@ class ISecurityCallersColl(c_void_p):
     def get_Item(self, lIndex: Int32, pObj: POINTER(Windows.Win32.System.ComponentServices.ISecurityIdentityColl_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get__NewEnum(self, ppEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISecurityIdentityColl(c_void_p):
+class ISecurityIdentityColl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('cafc823c-b441-11d1-b8-2b-00-00-f8-75-7e-2a')
     @commethod(7)
@@ -1605,7 +1605,7 @@ class ISecurityIdentityColl(c_void_p):
     def get_Item(self, name: Windows.Win32.Foundation.BSTR, pItem: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get__NewEnum(self, ppEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISecurityProperty(c_void_p):
+class ISecurityProperty(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51372aea-cae7-11cf-be-81-00-aa-00-a2-fa-25')
     @commethod(3)
@@ -1618,21 +1618,21 @@ class ISecurityProperty(c_void_p):
     def GetOriginalCallerSID(self, pSID: POINTER(Windows.Win32.Foundation.PSID)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def ReleaseSID(self, pSID: Windows.Win32.Foundation.PSID) -> Windows.Win32.Foundation.HRESULT: ...
-class ISelectCOMLBServer(c_void_p):
+class ISelectCOMLBServer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('dcf443f4-3f8a-4872-b9-f0-36-9a-79-6d-12-d6')
     @commethod(3)
     def Init(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetLBServer(self, pUnk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ISendMethodEvents(c_void_p):
+class ISendMethodEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2732fd59-b2b4-4d44-87-8c-8b-8f-09-62-60-08')
     @commethod(3)
     def SendMethodCall(self, pIdentity: c_void_p, riid: POINTER(Guid), dwMeth: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SendMethodReturn(self, pIdentity: c_void_p, riid: POINTER(Guid), dwMeth: UInt32, hrCall: Windows.Win32.Foundation.HRESULT, hrServer: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
-class IServiceActivity(c_void_p):
+class IServiceActivity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('67532e0c-9e2f-4450-a3-54-03-56-33-94-4e-17')
     @commethod(3)
@@ -1643,34 +1643,34 @@ class IServiceActivity(c_void_p):
     def BindToCurrentThread(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def UnbindFromThread(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IServiceCall(c_void_p):
+class IServiceCall(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bd3e2e12-42dd-40f4-a0-9a-95-a5-0c-58-30-4b')
     @commethod(3)
     def OnCall(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IServiceComTIIntrinsicsConfig(c_void_p):
+class IServiceComTIIntrinsicsConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('09e6831e-04e1-4ed4-9d-0f-e8-b1-68-ba-fe-af')
     @commethod(3)
     def ComTIIntrinsicsConfig(self, comtiIntrinsicsConfig: Windows.Win32.System.ComponentServices.CSC_COMTIIntrinsicsConfig) -> Windows.Win32.Foundation.HRESULT: ...
-class IServiceIISIntrinsicsConfig(c_void_p):
+class IServiceIISIntrinsicsConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1a0cf920-d452-46f4-bc-36-48-11-8d-54-ea-52')
     @commethod(3)
     def IISIntrinsicsConfig(self, iisIntrinsicsConfig: Windows.Win32.System.ComponentServices.CSC_IISIntrinsicsConfig) -> Windows.Win32.Foundation.HRESULT: ...
-class IServiceInheritanceConfig(c_void_p):
+class IServiceInheritanceConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('92186771-d3b4-4d77-a8-ea-ee-84-2d-58-6f-35')
     @commethod(3)
     def ContainingContextTreatment(self, inheritanceConfig: Windows.Win32.System.ComponentServices.CSC_InheritanceConfig) -> Windows.Win32.Foundation.HRESULT: ...
-class IServicePartitionConfig(c_void_p):
+class IServicePartitionConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('80182d03-5ea4-4831-ae-97-55-be-ff-c2-e5-90')
     @commethod(3)
     def PartitionConfig(self, partitionConfig: Windows.Win32.System.ComponentServices.CSC_PartitionConfig) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def PartitionID(self, guidPartitionID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IServicePool(c_void_p):
+class IServicePool(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b302df81-ea45-451e-99-a2-09-f9-fd-1b-1e-13')
     @commethod(3)
@@ -1679,7 +1679,7 @@ class IServicePool(c_void_p):
     def GetObject(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Shutdown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IServicePoolConfig(c_void_p):
+class IServicePoolConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a9690656-5bca-470c-84-51-25-0c-1f-43-a3-3e')
     @commethod(3)
@@ -1702,7 +1702,7 @@ class IServicePoolConfig(c_void_p):
     def put_ClassFactory(self, pFactory: Windows.Win32.System.Com.IClassFactory_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def get_ClassFactory(self, pFactory: POINTER(Windows.Win32.System.Com.IClassFactory_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IServiceSxsConfig(c_void_p):
+class IServiceSxsConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c7cd7379-f3f2-4634-81-1b-70-32-81-d7-3e-08')
     @commethod(3)
@@ -1711,34 +1711,34 @@ class IServiceSxsConfig(c_void_p):
     def SxsName(self, szSxsName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SxsDirectory(self, szSxsDirectory: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IServiceSynchronizationConfig(c_void_p):
+class IServiceSynchronizationConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fd880e81-6dce-4c58-af-83-a2-08-84-6c-00-30')
     @commethod(3)
     def ConfigureSynchronization(self, synchConfig: Windows.Win32.System.ComponentServices.CSC_SynchronizationConfig) -> Windows.Win32.Foundation.HRESULT: ...
-class IServiceSysTxnConfig(c_void_p):
+class IServiceSysTxnConfig(ComPtr):
     extends: Windows.Win32.System.ComponentServices.IServiceTransactionConfig
     Guid = Guid('33caf1a1-fcb8-472b-b4-5e-96-74-48-de-d6-d8')
     @commethod(9)
     def ConfigureBYOTSysTxn(self, pTxProxy: Windows.Win32.System.ComponentServices.ITransactionProxy_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IServiceThreadPoolConfig(c_void_p):
+class IServiceThreadPoolConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('186d89bc-f277-4bcc-80-d5-4d-f7-b8-36-ef-4a')
     @commethod(3)
     def SelectThreadPool(self, threadPool: Windows.Win32.System.ComponentServices.CSC_ThreadPool) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetBindingInfo(self, binding: Windows.Win32.System.ComponentServices.CSC_Binding) -> Windows.Win32.Foundation.HRESULT: ...
-class IServiceTrackerConfig(c_void_p):
+class IServiceTrackerConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6c3a3e1d-0ba6-4036-b7-6f-d0-40-4d-b8-16-c9')
     @commethod(3)
     def TrackerConfig(self, trackerConfig: Windows.Win32.System.ComponentServices.CSC_TrackerConfig, szTrackerAppName: Windows.Win32.Foundation.PWSTR, szTrackerCtxName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IServiceTransactionConfig(c_void_p):
+class IServiceTransactionConfig(ComPtr):
     extends: Windows.Win32.System.ComponentServices.IServiceTransactionConfigBase
     Guid = Guid('59f4c2a3-d3d7-4a31-b6-e4-6a-b3-17-7c-50-b9')
     @commethod(8)
     def ConfigureBYOT(self, pITxByot: Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IServiceTransactionConfigBase(c_void_p):
+class IServiceTransactionConfigBase(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('772b3fbe-6ffd-42fb-b5-f8-8f-9b-26-0f-38-10')
     @commethod(3)
@@ -1751,14 +1751,14 @@ class IServiceTransactionConfigBase(c_void_p):
     def BringYourOwnTransaction(self, szTipURL: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def NewTransactionDescription(self, szTxDesc: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ISharedProperty(c_void_p):
+class ISharedProperty(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2a005c01-a5de-11cf-9e-66-00-aa-00-a3-f4-64')
     @commethod(7)
     def get_Value(self, pVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def put_Value(self, val: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class ISharedPropertyGroup(c_void_p):
+class ISharedPropertyGroup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2a005c07-a5de-11cf-9e-66-00-aa-00-a3-f4-64')
     @commethod(7)
@@ -1769,7 +1769,7 @@ class ISharedPropertyGroup(c_void_p):
     def CreateProperty(self, Name: Windows.Win32.Foundation.BSTR, fExists: POINTER(Windows.Win32.Foundation.VARIANT_BOOL), ppProp: POINTER(Windows.Win32.System.ComponentServices.ISharedProperty_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_Property(self, Name: Windows.Win32.Foundation.BSTR, ppProperty: POINTER(Windows.Win32.System.ComponentServices.ISharedProperty_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISharedPropertyGroupManager(c_void_p):
+class ISharedPropertyGroupManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2a005c0d-a5de-11cf-9e-66-00-aa-00-a3-f4-64')
     @commethod(7)
@@ -1778,14 +1778,14 @@ class ISharedPropertyGroupManager(c_void_p):
     def get_Group(self, Name: Windows.Win32.Foundation.BSTR, ppGroup: POINTER(Windows.Win32.System.ComponentServices.ISharedPropertyGroup_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def get__NewEnum(self, retval: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISystemAppEventData(c_void_p):
+class ISystemAppEventData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d6d48a3c-d5c5-49e7-8c-74-99-e4-88-9e-d5-2f')
     @commethod(3)
     def Startup(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnDataChanged(self, dwPID: UInt32, dwMask: UInt32, dwNumberSinks: UInt32, bstrDwMethodMask: Windows.Win32.Foundation.BSTR, dwReason: UInt32, u64TraceHandle: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IThreadPoolKnobs(c_void_p):
+class IThreadPoolKnobs(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51372af7-cae7-11cf-be-81-00-aa-00-a2-fa-25')
     @commethod(3)
@@ -1808,7 +1808,7 @@ class IThreadPoolKnobs(c_void_p):
     def SetMinThreads(self, lcMinThreads: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def SetQueueDepth(self, lcQueueDepth: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionContext(c_void_p):
+class ITransactionContext(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('7999fc21-d3c6-11cf-ac-ab-00-a0-24-a5-5a-ef')
     @commethod(7)
@@ -1817,7 +1817,7 @@ class ITransactionContext(c_void_p):
     def Commit(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def Abort(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionContextEx(c_void_p):
+class ITransactionContextEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7999fc22-d3c6-11cf-ac-ab-00-a0-24-a5-5a-ef')
     @commethod(3)
@@ -1826,7 +1826,7 @@ class ITransactionContextEx(c_void_p):
     def Commit(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Abort(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionProperty(c_void_p):
+class ITransactionProperty(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('788ea814-87b1-11d1-bb-a6-00-c0-4f-c2-fa-5f')
     @commethod(3)
@@ -1865,7 +1865,7 @@ class ITransactionProperty(c_void_p):
     def Reserved16(self) -> Void: ...
     @commethod(20)
     def Reserved17(self) -> Void: ...
-class ITransactionProxy(c_void_p):
+class ITransactionProxy(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('02558374-df2e-4dae-bd-6b-1d-5c-99-4f-9b-dc')
     @commethod(3)
@@ -1882,21 +1882,21 @@ class ITransactionProxy(c_void_p):
     def GetIdentifier(self, pbstrIdentifier: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def IsReusable(self, pfIsReusable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionResourcePool(c_void_p):
+class ITransactionResourcePool(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c5feb7c1-346a-11d1-b1-cc-00-aa-00-ba-32-58')
     @commethod(3)
     def PutResource(self, pPool: Windows.Win32.System.ComponentServices.IObjPool_head, pUnk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetResource(self, pPool: Windows.Win32.System.ComponentServices.IObjPool_head, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionStatus(c_void_p):
+class ITransactionStatus(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('61f589e8-3724-4898-a0-a4-66-4a-e9-e1-d1-b4')
     @commethod(3)
     def SetTransactionStatus(self, hrStatus: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetTransactionStatus(self, pHrStatus: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITxProxyHolder(c_void_p):
+class ITxProxyHolder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('13d86f31-0139-41af-bc-ad-c7-d5-04-35-fe-9f')
     @commethod(3)
@@ -1907,7 +1907,7 @@ LockModes_LockSetGet: LockModes = 0
 LockModes_LockMethod: LockModes = 1
 MessageMover = Guid('ecabb0bf-7f19-11d2-97-8e-00-00-f8-75-7e-2a')
 MtsGrp = Guid('4b2e958d-0393-11d1-b1-ab-00-aa-00-ba-32-58')
-class ObjectContext(c_void_p):
+class ObjectContext(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('74c08646-cedb-11cf-8b-49-00-aa-00-b8-a7-90')
     @commethod(7)
@@ -1936,7 +1936,7 @@ class ObjectContext(c_void_p):
     def get_Security(self, ppSecurityProperty: POINTER(Windows.Win32.System.ComponentServices.SecurityProperty_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def get_ContextInfo(self, ppContextInfo: POINTER(Windows.Win32.System.ComponentServices.ContextInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ObjectControl(c_void_p):
+class ObjectControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7dc41850-0c31-11d0-8b-79-00-aa-00-b8-a7-90')
     @commethod(3)
@@ -1958,7 +1958,7 @@ ReleaseModes_Process: ReleaseModes = 1
 SecurityCallContext = Guid('ecabb0a7-7f19-11d2-97-8e-00-00-f8-75-7e-2a')
 SecurityCallers = Guid('ecabb0a6-7f19-11d2-97-8e-00-00-f8-75-7e-2a')
 SecurityIdentity = Guid('ecabb0a5-7f19-11d2-97-8e-00-00-f8-75-7e-2a')
-class SecurityProperty(c_void_p):
+class SecurityProperty(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('e74a7215-014d-11d1-a6-3c-00-a0-c9-11-b4-e0')
     @commethod(7)

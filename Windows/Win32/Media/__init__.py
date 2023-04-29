@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Media
 import Windows.Win32.Media.Multimedia
@@ -130,7 +130,7 @@ def timeSetEvent(uDelay: UInt32, uResolution: UInt32, fptc: Windows.Win32.Media.
 @winfunctype('WINMM.dll')
 def timeKillEvent(uTimerID: UInt32) -> UInt32: ...
 HTASK = IntPtr
-class IReferenceClock(c_void_p):
+class IReferenceClock(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('56a86897-0ad4-11ce-b0-3a-00-20-af-0b-a7-70')
     @commethod(3)
@@ -141,10 +141,10 @@ class IReferenceClock(c_void_p):
     def AdvisePeriodic(self, startTime: Int64, periodTime: Int64, hSemaphore: Windows.Win32.Foundation.HANDLE, pdwAdviseCookie: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Unadvise(self, dwAdviseCookie: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class IReferenceClock2(c_void_p):
+class IReferenceClock2(ComPtr):
     extends: Windows.Win32.Media.IReferenceClock
     Guid = Guid('36b73885-c2c8-11cf-8b-46-00-80-5f-6c-ef-60')
-class IReferenceClockTimerControl(c_void_p):
+class IReferenceClockTimerControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ebec459c-2eca-4d42-a8-af-30-df-55-76-14-b8')
     @commethod(3)

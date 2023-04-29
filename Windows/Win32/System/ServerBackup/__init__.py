@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.ServerBackup
@@ -16,19 +16,19 @@ def __getattr__(name):
 WSB_MAX_OB_STATUS_VALUE_TYPE_PAIR: UInt32 = 5
 WSB_MAX_OB_STATUS_ENTRY: UInt32 = 5
 WSBAPP_ASYNC_IN_PROGRESS: Windows.Win32.Foundation.HRESULT = 7995396
-class IWsbApplicationAsync(c_void_p):
+class IWsbApplicationAsync(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0843f6f7-895c-44a6-b0-c2-05-a5-02-2a-a3-a1')
     @commethod(3)
     def QueryStatus(self, phrResult: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Abort(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IWsbApplicationBackupSupport(c_void_p):
+class IWsbApplicationBackupSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1eff3510-4a27-46ad-b9-e0-08-33-2f-0f-4f-6d')
     @commethod(3)
     def CheckConsistency(self, wszWriterMetadata: Windows.Win32.Foundation.PWSTR, wszComponentName: Windows.Win32.Foundation.PWSTR, wszComponentLogicalPath: Windows.Win32.Foundation.PWSTR, cVolumes: UInt32, rgwszSourceVolumePath: POINTER(Windows.Win32.Foundation.PWSTR), rgwszSnapshotVolumePath: POINTER(Windows.Win32.Foundation.PWSTR), ppAsync: POINTER(Windows.Win32.System.ServerBackup.IWsbApplicationAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWsbApplicationRestoreSupport(c_void_p):
+class IWsbApplicationRestoreSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8d3bdb38-4ee8-4718-85-f9-c7-db-c4-ab-77-aa')
     @commethod(3)

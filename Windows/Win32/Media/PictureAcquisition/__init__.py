@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.Media.PictureAcquisition
@@ -85,7 +85,7 @@ PHOTOACQUIRE_RESULT_SKIP: ERROR_ADVISE_RESULT = 3
 PHOTOACQUIRE_RESULT_SKIP_ALL: ERROR_ADVISE_RESULT = 4
 PHOTOACQUIRE_RESULT_RETRY: ERROR_ADVISE_RESULT = 5
 PHOTOACQUIRE_RESULT_ABORT: ERROR_ADVISE_RESULT = 6
-class IPhotoAcquire(c_void_p):
+class IPhotoAcquire(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00f23353-e31b-4955-a8-ad-ca-5e-bf-31-e2-ce')
     @commethod(3)
@@ -94,7 +94,7 @@ class IPhotoAcquire(c_void_p):
     def Acquire(self, pPhotoAcquireSource: Windows.Win32.Media.PictureAcquisition.IPhotoAcquireSource_head, fShowProgress: Windows.Win32.Foundation.BOOL, hWndParent: Windows.Win32.Foundation.HWND, pszApplicationName: Windows.Win32.Foundation.PWSTR, pPhotoAcquireProgressCB: Windows.Win32.Media.PictureAcquisition.IPhotoAcquireProgressCB_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def EnumResults(self, ppEnumFilePaths: POINTER(Windows.Win32.System.Com.IEnumString_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPhotoAcquireDeviceSelectionDialog(c_void_p):
+class IPhotoAcquireDeviceSelectionDialog(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00f28837-55dd-4f37-aa-f5-68-55-a9-64-04-67')
     @commethod(3)
@@ -103,7 +103,7 @@ class IPhotoAcquireDeviceSelectionDialog(c_void_p):
     def SetSubmitButtonText(self, pszSubmitButtonText: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def DoModal(self, hWndParent: Windows.Win32.Foundation.HWND, dwDeviceFlags: UInt32, pbstrDeviceId: POINTER(Windows.Win32.Foundation.BSTR), pnDeviceType: POINTER(Windows.Win32.Media.PictureAcquisition.DEVICE_SELECTION_DEVICE_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPhotoAcquireItem(c_void_p):
+class IPhotoAcquireItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00f21c97-28bf-4c02-b8-42-5e-4e-90-13-9a-30')
     @commethod(3)
@@ -124,7 +124,7 @@ class IPhotoAcquireItem(c_void_p):
     def GetSubItemCount(self, pnCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetSubItemAt(self, nItemIndex: UInt32, ppPhotoAcquireItem: POINTER(Windows.Win32.Media.PictureAcquisition.IPhotoAcquireItem_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPhotoAcquireOptionsDialog(c_void_p):
+class IPhotoAcquireOptionsDialog(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00f2b3ee-bf64-47ee-89-f4-4d-ed-d7-96-43-f2')
     @commethod(3)
@@ -137,7 +137,7 @@ class IPhotoAcquireOptionsDialog(c_void_p):
     def DoModal(self, hWndParent: Windows.Win32.Foundation.HWND, ppnReturnCode: POINTER(IntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SaveData(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IPhotoAcquirePlugin(c_void_p):
+class IPhotoAcquirePlugin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00f2dceb-ecb8-4f77-8e-47-e7-a9-87-c8-3d-d0')
     @commethod(3)
@@ -148,7 +148,7 @@ class IPhotoAcquirePlugin(c_void_p):
     def TransferComplete(self, hr: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def DisplayConfigureDialog(self, hWndParent: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
-class IPhotoAcquireProgressCB(c_void_p):
+class IPhotoAcquireProgressCB(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00f2ce1e-935e-4248-89-2c-13-0f-32-c4-5c-b4')
     @commethod(3)
@@ -189,7 +189,7 @@ class IPhotoAcquireProgressCB(c_void_p):
     def ErrorAdvise(self, hr: Windows.Win32.Foundation.HRESULT, pszErrorMessage: Windows.Win32.Foundation.PWSTR, nMessageType: Windows.Win32.Media.PictureAcquisition.ERROR_ADVISE_MESSAGE_TYPE, pnErrorAdviseResult: POINTER(Windows.Win32.Media.PictureAcquisition.ERROR_ADVISE_RESULT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def GetUserInput(self, riidType: POINTER(Guid), pUnknown: Windows.Win32.System.Com.IUnknown_head, pPropVarResult: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), pPropVarDefault: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPhotoAcquireSettings(c_void_p):
+class IPhotoAcquireSettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00f2b868-dd67-487c-95-53-04-92-40-76-7e-91')
     @commethod(3)
@@ -218,7 +218,7 @@ class IPhotoAcquireSettings(c_void_p):
     def GetGroupTag(self, pbstrGroupTag: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetAcquisitionTime(self, pftAcquisitionTime: POINTER(Windows.Win32.Foundation.FILETIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPhotoAcquireSource(c_void_p):
+class IPhotoAcquireSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00f2c703-8613-4282-a5-3b-6e-c5-9c-58-83-ac')
     @commethod(3)
@@ -237,12 +237,12 @@ class IPhotoAcquireSource(c_void_p):
     def GetDeviceId(self, pbstrDeviceId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def BindToObject(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPhotoProgressActionCB(c_void_p):
+class IPhotoProgressActionCB(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00f242d0-b206-4e7d-b4-c1-47-55-bc-bb-9c-9f')
     @commethod(3)
     def DoAction(self, hWndParent: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
-class IPhotoProgressDialog(c_void_p):
+class IPhotoProgressDialog(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00f246f9-0750-4f08-93-81-2c-d8-e9-06-a4-ae')
     @commethod(3)
@@ -281,7 +281,7 @@ class IPhotoProgressDialog(c_void_p):
     def IsCancelled(self, pfCancelled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def GetUserInput(self, riidType: POINTER(Guid), pUnknown: Windows.Win32.System.Com.IUnknown_head, pPropVarResult: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), pPropVarDefault: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUserInputString(c_void_p):
+class IUserInputString(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00f243a1-205b-45ba-ae-26-ab-bc-53-aa-7a-6f')
     @commethod(3)

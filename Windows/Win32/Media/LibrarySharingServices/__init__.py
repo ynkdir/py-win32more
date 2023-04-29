@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Media.LibrarySharingServices
 import Windows.Win32.System.Com
@@ -14,7 +14,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IWindowsMediaLibrarySharingDevice(c_void_p):
+class IWindowsMediaLibrarySharingDevice(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('3dccc293-4fd9-4191-a2-5b-8e-57-c5-d2-7b-d4')
     @commethod(7)
@@ -25,7 +25,7 @@ class IWindowsMediaLibrarySharingDevice(c_void_p):
     def put_Authorization(self, authorization: Windows.Win32.Media.LibrarySharingServices.WindowsMediaLibrarySharingDeviceAuthorizationStatus) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_Properties(self, deviceProperties: POINTER(Windows.Win32.Media.LibrarySharingServices.IWindowsMediaLibrarySharingDeviceProperties_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWindowsMediaLibrarySharingDeviceProperties(c_void_p):
+class IWindowsMediaLibrarySharingDeviceProperties(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c4623214-6b06-40c5-a6-23-b2-ff-4c-07-6b-fd')
     @commethod(7)
@@ -34,14 +34,14 @@ class IWindowsMediaLibrarySharingDeviceProperties(c_void_p):
     def get_Count(self, count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetProperty(self, name: Windows.Win32.Foundation.BSTR, property: POINTER(Windows.Win32.Media.LibrarySharingServices.IWindowsMediaLibrarySharingDeviceProperty_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWindowsMediaLibrarySharingDeviceProperty(c_void_p):
+class IWindowsMediaLibrarySharingDeviceProperty(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('81e26927-7a7d-40a7-81-d4-bd-dc-02-96-0e-3e')
     @commethod(7)
     def get_Name(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Value(self, value: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWindowsMediaLibrarySharingDevices(c_void_p):
+class IWindowsMediaLibrarySharingDevices(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('1803f9d6-fe6d-4546-bf-5b-99-2f-e8-ec-12-d1')
     @commethod(7)
@@ -50,7 +50,7 @@ class IWindowsMediaLibrarySharingDevices(c_void_p):
     def get_Count(self, count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetDevice(self, deviceID: Windows.Win32.Foundation.BSTR, device: POINTER(Windows.Win32.Media.LibrarySharingServices.IWindowsMediaLibrarySharingDevice_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWindowsMediaLibrarySharingServices(c_void_p):
+class IWindowsMediaLibrarySharingServices(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('01f5f85e-0a81-40da-a7-c8-21-ef-3a-f8-44-0c')
     @commethod(7)

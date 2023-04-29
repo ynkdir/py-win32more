@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.DistributedTransactionCoordinator
@@ -154,32 +154,32 @@ DTC_STATUS_STOPPING: DTC_STATUS_ = 6
 DTC_STATUS_STOPPED: DTC_STATUS_ = 7
 DTC_STATUS_E_CANTCONTROL: DTC_STATUS_ = 8
 DTC_STATUS_FAILED: DTC_STATUS_ = 9
-class IDtcLuConfigure(c_void_p):
+class IDtcLuConfigure(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4131e760-1aea-11d0-94-4b-00-a0-c9-05-41-6e')
     @commethod(3)
     def Add(self, pucLuPair: POINTER(Byte), cbLuPair: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Delete(self, pucLuPair: POINTER(Byte), cbLuPair: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcLuRecovery(c_void_p):
+class IDtcLuRecovery(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ac2b8ad2-d6f0-11d0-b3-86-00-a0-c9-08-33-65')
-class IDtcLuRecoveryFactory(c_void_p):
+class IDtcLuRecoveryFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4131e762-1aea-11d0-94-4b-00-a0-c9-05-41-6e')
     @commethod(3)
     def Create(self, pucLuPair: POINTER(Byte), cbLuPair: UInt32, ppRecovery: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuRecovery_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcLuRecoveryInitiatedByDtc(c_void_p):
+class IDtcLuRecoveryInitiatedByDtc(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4131e764-1aea-11d0-94-4b-00-a0-c9-05-41-6e')
     @commethod(3)
     def GetWork(self, pWork: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.DTCINITIATEDRECOVERYWORK), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcLuRecoveryInitiatedByDtcStatusWork(c_void_p):
+class IDtcLuRecoveryInitiatedByDtcStatusWork(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4131e766-1aea-11d0-94-4b-00-a0-c9-05-41-6e')
     @commethod(3)
     def HandleCheckLuStatus(self, lRecoverySeqNum: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcLuRecoveryInitiatedByDtcTransWork(c_void_p):
+class IDtcLuRecoveryInitiatedByDtcTransWork(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4131e765-1aea-11d0-94-4b-00-a0-c9-05-41-6e')
     @commethod(3)
@@ -208,12 +208,12 @@ class IDtcLuRecoveryInitiatedByDtcTransWork(c_void_p):
     def GetRecoverySeqNum(self, plRecoverySeqNum: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def ObsoleteRecoverySeqNum(self, lNewRecoverySeqNum: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcLuRecoveryInitiatedByLu(c_void_p):
+class IDtcLuRecoveryInitiatedByLu(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4131e768-1aea-11d0-94-4b-00-a0-c9-05-41-6e')
     @commethod(3)
     def GetObjectToHandleWorkFromLu(self, ppWork: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuRecoveryInitiatedByLuWork_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcLuRecoveryInitiatedByLuWork(c_void_p):
+class IDtcLuRecoveryInitiatedByLuWork(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ac2b8ad1-d6f0-11d0-b3-86-00-a0-c9-08-33-65')
     @commethod(3)
@@ -232,7 +232,7 @@ class IDtcLuRecoveryInitiatedByLuWork(c_void_p):
     def HandleErrorFromOurCompareStates(self, Error: Windows.Win32.System.DistributedTransactionCoordinator.DTCLUCOMPARESTATESERROR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def ConversationLost(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcLuRmEnlistment(c_void_p):
+class IDtcLuRmEnlistment(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4131e769-1aea-11d0-94-4b-00-a0-c9-05-41-6e')
     @commethod(3)
@@ -247,12 +247,12 @@ class IDtcLuRmEnlistment(c_void_p):
     def Forget(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def RequestCommit(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcLuRmEnlistmentFactory(c_void_p):
+class IDtcLuRmEnlistmentFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4131e771-1aea-11d0-94-4b-00-a0-c9-05-41-6e')
     @commethod(3)
     def Create(self, pucLuPair: POINTER(Byte), cbLuPair: UInt32, pITransaction: Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head, pTransId: POINTER(Byte), cbTransId: UInt32, pRmEnlistmentSink: Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuRmEnlistmentSink_head, ppRmEnlistment: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuRmEnlistment_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcLuRmEnlistmentSink(c_void_p):
+class IDtcLuRmEnlistmentSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4131e770-1aea-11d0-94-4b-00-a0-c9-05-41-6e')
     @commethod(3)
@@ -273,7 +273,7 @@ class IDtcLuRmEnlistmentSink(c_void_p):
     def Prepare(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def RequestCommit(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcLuSubordinateDtc(c_void_p):
+class IDtcLuSubordinateDtc(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4131e773-1aea-11d0-94-4b-00-a0-c9-05-41-6e')
     @commethod(3)
@@ -290,12 +290,12 @@ class IDtcLuSubordinateDtc(c_void_p):
     def Prepare(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def RequestCommit(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcLuSubordinateDtcFactory(c_void_p):
+class IDtcLuSubordinateDtcFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4131e775-1aea-11d0-94-4b-00-a0-c9-05-41-6e')
     @commethod(3)
     def Create(self, pucLuPair: POINTER(Byte), cbLuPair: UInt32, punkTransactionOuter: Windows.Win32.System.Com.IUnknown_head, isoLevel: Int32, isoFlags: UInt32, pOptions: Windows.Win32.System.DistributedTransactionCoordinator.ITransactionOptions_head, ppTransaction: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head), pTransId: POINTER(Byte), cbTransId: UInt32, pSubordinateDtcSink: Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuSubordinateDtcSink_head, ppSubordinateDtc: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.IDtcLuSubordinateDtc_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcLuSubordinateDtcSink(c_void_p):
+class IDtcLuSubordinateDtcSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4131e774-1aea-11d0-94-4b-00-a0-c9-05-41-6e')
     @commethod(3)
@@ -314,7 +314,7 @@ class IDtcLuSubordinateDtcSink(c_void_p):
     def Forget(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def RequestCommit(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcNetworkAccessConfig(c_void_p):
+class IDtcNetworkAccessConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9797c15d-a428-4291-87-b6-09-95-03-1a-67-8d')
     @commethod(3)
@@ -343,7 +343,7 @@ class IDtcNetworkAccessConfig(c_void_p):
     def SetXAAccess(self, bXAAccess: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def RestartDtcService(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcNetworkAccessConfig2(c_void_p):
+class IDtcNetworkAccessConfig2(ComPtr):
     extends: Windows.Win32.System.DistributedTransactionCoordinator.IDtcNetworkAccessConfig
     Guid = Guid('a7aa013b-eb7d-4f42-b4-1c-b2-de-c0-9a-e0-34')
     @commethod(16)
@@ -358,26 +358,26 @@ class IDtcNetworkAccessConfig2(c_void_p):
     def GetAuthenticationLevel(self, pAuthLevel: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.AUTHENTICATION_LEVEL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def SetAuthenticationLevel(self, AuthLevel: Windows.Win32.System.DistributedTransactionCoordinator.AUTHENTICATION_LEVEL) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcNetworkAccessConfig3(c_void_p):
+class IDtcNetworkAccessConfig3(ComPtr):
     extends: Windows.Win32.System.DistributedTransactionCoordinator.IDtcNetworkAccessConfig2
     Guid = Guid('76e4b4f3-2ca5-466b-89-d5-fd-21-8e-e7-5b-49')
     @commethod(22)
     def GetLUAccess(self, pbLUAccess: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def SetLUAccess(self, bLUAccess: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcToXaHelper(c_void_p):
+class IDtcToXaHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a9861611-304a-11d1-98-13-00-a0-c9-05-41-6e')
     @commethod(3)
     def Close(self, i_fDoRecovery: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def TranslateTridToXid(self, pITransaction: Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head, pguidBqual: POINTER(Guid), pXid: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.XID_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcToXaHelperFactory(c_void_p):
+class IDtcToXaHelperFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a9861610-304a-11d1-98-13-00-a0-c9-05-41-6e')
     @commethod(3)
     def Create(self, pszDSN: Windows.Win32.Foundation.PSTR, pszClientDllName: Windows.Win32.Foundation.PSTR, pguidRm: POINTER(Guid), ppXaHelper: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.IDtcToXaHelper_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDtcToXaHelperSinglePipe(c_void_p):
+class IDtcToXaHelperSinglePipe(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('47ed4971-53b3-11d1-bb-b9-00-c0-4f-d6-58-f6')
     @commethod(3)
@@ -388,7 +388,7 @@ class IDtcToXaHelperSinglePipe(c_void_p):
     def EnlistWithRM(self, dwRMCookie: UInt32, i_pITransaction: Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head, i_pITransRes: Windows.Win32.System.DistributedTransactionCoordinator.ITransactionResourceAsync_head, o_ppITransEnslitment: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransactionEnlistmentAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def ReleaseRMCookie(self, i_dwRMCookie: UInt32, i_fNormal: Windows.Win32.Foundation.BOOL) -> Void: ...
-class IDtcToXaMapper(c_void_p):
+class IDtcToXaMapper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('64ffabe0-7ce9-11d0-8c-e6-00-c0-4f-dc-87-7e')
     @commethod(3)
@@ -399,45 +399,45 @@ class IDtcToXaMapper(c_void_p):
     def EnlistResourceManager(self, dwRMCookie: UInt32, pdwITransaction: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def ReleaseResourceManager(self, dwRMCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IGetDispenser(c_void_p):
+class IGetDispenser(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c23cc370-87ef-11ce-80-81-00-80-c7-58-52-7e')
     @commethod(3)
     def GetDispenser(self, iid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IKernelTransaction(c_void_p):
+class IKernelTransaction(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('79427a2b-f895-40e0-be-79-b5-7d-c8-2e-d2-31')
     @commethod(3)
     def GetHandle(self, pHandle: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
-class ILastResourceManager(c_void_p):
+class ILastResourceManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4d964ad4-5b33-11d3-8a-91-00-c0-4f-79-eb-6d')
     @commethod(3)
     def TransactionCommitted(self, pPrepInfo: POINTER(Byte), cbPrepInfo: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RecoveryDone(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IPrepareInfo(c_void_p):
+class IPrepareInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('80c7bfd0-87ee-11ce-80-81-00-80-c7-58-52-7e')
     @commethod(3)
     def GetPrepareInfoSize(self, pcbPrepInfo: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetPrepareInfo(self, pPrepInfo: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPrepareInfo2(c_void_p):
+class IPrepareInfo2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5fab2547-9779-11d1-b8-86-00-c0-4f-b9-61-8a')
     @commethod(3)
     def GetPrepareInfoSize(self, pcbPrepInfo: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetPrepareInfo(self, cbPrepareInfo: UInt32, pPrepInfo: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRMHelper(c_void_p):
+class IRMHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e793f6d1-f53d-11cf-a6-0d-00-a0-c9-05-41-6e')
     @commethod(3)
     def RMCount(self, dwcTotalNumberOfRMs: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RMInfo(self, pXa_Switch: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.xa_switch_t_head), fCDeclCallingConv: Windows.Win32.Foundation.BOOL, pszOpenString: Windows.Win32.Foundation.PSTR, pszCloseString: Windows.Win32.Foundation.PSTR, guidRMRecovery: Guid) -> Windows.Win32.Foundation.HRESULT: ...
-class IResourceManager(c_void_p):
+class IResourceManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('13741d21-87eb-11ce-80-81-00-80-c7-58-52-7e')
     @commethod(3)
@@ -448,29 +448,29 @@ class IResourceManager(c_void_p):
     def ReenlistmentComplete(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetDistributedTransactionManager(self, iid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IResourceManager2(c_void_p):
+class IResourceManager2(ComPtr):
     extends: Windows.Win32.System.DistributedTransactionCoordinator.IResourceManager
     Guid = Guid('d136c69a-f749-11d1-8f-47-00-c0-4f-8e-e5-7d')
     @commethod(7)
     def Enlist2(self, pTransaction: Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head, pResAsync: Windows.Win32.System.DistributedTransactionCoordinator.ITransactionResourceAsync_head, pUOW: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.BOID_head), pisoLevel: POINTER(Int32), pXid: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.XID_head), ppEnlist: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransactionEnlistmentAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Reenlist2(self, pXid: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.XID_head), dwTimeout: UInt32, pXactStat: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.XACTSTAT)) -> Windows.Win32.Foundation.HRESULT: ...
-class IResourceManagerFactory(c_void_p):
+class IResourceManagerFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('13741d20-87eb-11ce-80-81-00-80-c7-58-52-7e')
     @commethod(3)
     def Create(self, pguidRM: POINTER(Guid), pszRMName: Windows.Win32.Foundation.PSTR, pIResMgrSink: Windows.Win32.System.DistributedTransactionCoordinator.IResourceManagerSink_head, ppResMgr: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.IResourceManager_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IResourceManagerFactory2(c_void_p):
+class IResourceManagerFactory2(ComPtr):
     extends: Windows.Win32.System.DistributedTransactionCoordinator.IResourceManagerFactory
     Guid = Guid('6b369c21-fbd2-11d1-8f-47-00-c0-4f-8e-e5-7d')
     @commethod(4)
     def CreateEx(self, pguidRM: POINTER(Guid), pszRMName: Windows.Win32.Foundation.PSTR, pIResMgrSink: Windows.Win32.System.DistributedTransactionCoordinator.IResourceManagerSink_head, riidRequested: POINTER(Guid), ppvResMgr: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IResourceManagerRejoinable(c_void_p):
+class IResourceManagerRejoinable(ComPtr):
     extends: Windows.Win32.System.DistributedTransactionCoordinator.IResourceManager2
     Guid = Guid('6f6de620-b5df-4f3e-9c-fa-c8-ae-bd-05-17-2b')
     @commethod(9)
     def Rejoin(self, pPrepInfo: POINTER(Byte), cbPrepInfo: UInt32, lTimeout: UInt32, pXactStat: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.XACTSTAT)) -> Windows.Win32.Foundation.HRESULT: ...
-class IResourceManagerSink(c_void_p):
+class IResourceManagerSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0d563181-defb-11ce-ae-d1-00-aa-00-51-e2-c4')
     @commethod(3)
@@ -497,7 +497,7 @@ ISOLATIONLEVEL_READCOMMITTED: ISOLATIONLEVEL = 4096
 ISOLATIONLEVEL_REPEATABLEREAD: ISOLATIONLEVEL = 65536
 ISOLATIONLEVEL_SERIALIZABLE: ISOLATIONLEVEL = 1048576
 ISOLATIONLEVEL_ISOLATED: ISOLATIONLEVEL = 1048576
-class ITipHelper(c_void_p):
+class ITipHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('17cf72d1-bac5-11d1-b1-bf-00-c0-4f-c2-f3-ef')
     @commethod(3)
@@ -506,26 +506,26 @@ class ITipHelper(c_void_p):
     def PullAsync(self, i_pszTxUrl: POINTER(Byte), i_pTipPullSink: Windows.Win32.System.DistributedTransactionCoordinator.ITipPullSink_head, o_ppITransaction: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetLocalTmUrl(self, o_ppszLocalTmUrl: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
-class ITipPullSink(c_void_p):
+class ITipPullSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('17cf72d2-bac5-11d1-b1-bf-00-c0-4f-c2-f3-ef')
     @commethod(3)
     def PullComplete(self, i_hrPull: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
-class ITipTransaction(c_void_p):
+class ITipTransaction(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('17cf72d0-bac5-11d1-b1-bf-00-c0-4f-c2-f3-ef')
     @commethod(3)
     def Push(self, i_pszRemoteTmUrl: POINTER(Byte), o_ppszRemoteTxUrl: POINTER(Windows.Win32.Foundation.PSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetTransactionUrl(self, o_ppszLocalTxUrl: POINTER(Windows.Win32.Foundation.PSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITmNodeName(c_void_p):
+class ITmNodeName(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('30274f88-6ee4-474e-9b-95-78-07-bc-9e-f8-cf')
     @commethod(3)
     def GetNodeNameSize(self, pcbNodeNameSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetNodeName(self, cbNodeNameBufferSize: UInt32, pNodeNameBuffer: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransaction(c_void_p):
+class ITransaction(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0fb15084-af41-11ce-bd-2b-20-4c-4f-4f-50-20')
     @commethod(3)
@@ -534,24 +534,24 @@ class ITransaction(c_void_p):
     def Abort(self, pboidReason: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.BOID_head), fRetaining: Windows.Win32.Foundation.BOOL, fAsync: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetTransactionInfo(self, pinfo: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.XACTTRANSINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransaction2(c_void_p):
+class ITransaction2(ComPtr):
     extends: Windows.Win32.System.DistributedTransactionCoordinator.ITransactionCloner
     Guid = Guid('34021548-0065-11d3-ba-c1-00-c0-4f-79-7b-e2')
     @commethod(7)
     def GetTransactionInfo2(self, pinfo: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.XACTTRANSINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionCloner(c_void_p):
+class ITransactionCloner(ComPtr):
     extends: Windows.Win32.System.DistributedTransactionCoordinator.ITransaction
     Guid = Guid('02656950-2152-11d0-94-4c-00-a0-c9-05-41-6e')
     @commethod(6)
     def CloneWithCommitDisabled(self, ppITransaction: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionDispenser(c_void_p):
+class ITransactionDispenser(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3a6ad9e1-23b9-11cf-ad-60-00-aa-00-a7-4c-cd')
     @commethod(3)
     def GetOptionsObject(self, ppOptions: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransactionOptions_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def BeginTransaction(self, punkOuter: Windows.Win32.System.Com.IUnknown_head, isoLevel: Int32, isoFlags: UInt32, pOptions: Windows.Win32.System.DistributedTransactionCoordinator.ITransactionOptions_head, ppTransaction: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionEnlistmentAsync(c_void_p):
+class ITransactionEnlistmentAsync(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0fb15081-af41-11ce-bd-2b-20-4c-4f-4f-50-20')
     @commethod(3)
@@ -560,52 +560,52 @@ class ITransactionEnlistmentAsync(c_void_p):
     def CommitRequestDone(self, hr: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def AbortRequestDone(self, hr: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionExport(c_void_p):
+class ITransactionExport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0141fda5-8fc0-11ce-bd-18-20-4c-4f-4f-50-20')
     @commethod(3)
     def Export(self, punkTransaction: Windows.Win32.System.Com.IUnknown_head, pcbTransactionCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetTransactionCookie(self, punkTransaction: Windows.Win32.System.Com.IUnknown_head, cbTransactionCookie: UInt32, rgbTransactionCookie: POINTER(Byte), pcbUsed: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionExportFactory(c_void_p):
+class ITransactionExportFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e1cf9b53-8745-11ce-a9-ba-00-aa-00-6c-37-06')
     @commethod(3)
     def GetRemoteClassId(self, pclsid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Create(self, cbWhereabouts: UInt32, rgbWhereabouts: POINTER(Byte), ppExport: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransactionExport_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionImport(c_void_p):
+class ITransactionImport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e1cf9b5a-8745-11ce-a9-ba-00-aa-00-6c-37-06')
     @commethod(3)
     def Import(self, cbTransactionCookie: UInt32, rgbTransactionCookie: POINTER(Byte), piid: POINTER(Guid), ppvTransaction: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionImportWhereabouts(c_void_p):
+class ITransactionImportWhereabouts(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0141fda4-8fc0-11ce-bd-18-20-4c-4f-4f-50-20')
     @commethod(3)
     def GetWhereaboutsSize(self, pcbWhereabouts: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetWhereabouts(self, cbWhereabouts: UInt32, rgbWhereabouts: POINTER(Byte), pcbUsed: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionLastEnlistmentAsync(c_void_p):
+class ITransactionLastEnlistmentAsync(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c82bd533-5b30-11d3-8a-91-00-c0-4f-79-eb-6d')
     @commethod(3)
     def TransactionOutcome(self, XactStat: Windows.Win32.System.DistributedTransactionCoordinator.XACTSTAT, pboidReason: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.BOID_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionLastResourceAsync(c_void_p):
+class ITransactionLastResourceAsync(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c82bd532-5b30-11d3-8a-91-00-c0-4f-79-eb-6d')
     @commethod(3)
     def DelegateCommit(self, grfRM: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ForgetRequest(self, pNewUOW: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.BOID_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionOptions(c_void_p):
+class ITransactionOptions(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3a6ad9e0-23b9-11cf-ad-60-00-aa-00-a7-4c-cd')
     @commethod(3)
     def SetOptions(self, pOptions: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.XACTOPT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetOptions(self, pOptions: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.XACTOPT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionOutcomeEvents(c_void_p):
+class ITransactionOutcomeEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3a6ad9e2-23b9-11cf-ad-60-00-aa-00-a7-4c-cd')
     @commethod(3)
@@ -616,7 +616,7 @@ class ITransactionOutcomeEvents(c_void_p):
     def HeuristicDecision(self, dwDecision: UInt32, pboidReason: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.BOID_head), hr: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Indoubt(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionPhase0EnlistmentAsync(c_void_p):
+class ITransactionPhase0EnlistmentAsync(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('82dc88e1-a954-11d1-8f-88-00-60-08-95-e7-d5')
     @commethod(3)
@@ -629,19 +629,19 @@ class ITransactionPhase0EnlistmentAsync(c_void_p):
     def Unenlist(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetTransaction(self, ppITransaction: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionPhase0Factory(c_void_p):
+class ITransactionPhase0Factory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('82dc88e0-a954-11d1-8f-88-00-60-08-95-e7-d5')
     @commethod(3)
     def Create(self, pPhase0Notify: Windows.Win32.System.DistributedTransactionCoordinator.ITransactionPhase0NotifyAsync_head, ppPhase0Enlistment: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransactionPhase0EnlistmentAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionPhase0NotifyAsync(c_void_p):
+class ITransactionPhase0NotifyAsync(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ef081809-0c76-11d2-87-a6-00-c0-4f-99-0f-34')
     @commethod(3)
     def Phase0Request(self, fAbortingHint: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EnlistCompleted(self, status: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionReceiver(c_void_p):
+class ITransactionReceiver(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('59313e03-b36c-11cf-a5-39-00-aa-00-68-87-c3')
     @commethod(3)
@@ -652,12 +652,12 @@ class ITransactionReceiver(c_void_p):
     def MarshalReturnToken(self, cbReturnToken: UInt32, rgbReturnToken: POINTER(Byte), pcbUsed: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionReceiverFactory(c_void_p):
+class ITransactionReceiverFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('59313e02-b36c-11cf-a5-39-00-aa-00-68-87-c3')
     @commethod(3)
     def Create(self, ppReceiver: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransactionReceiver_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionResource(c_void_p):
+class ITransactionResource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ee5ff7b3-4572-11d0-94-52-00-a0-c9-05-41-6e')
     @commethod(3)
@@ -668,7 +668,7 @@ class ITransactionResource(c_void_p):
     def AbortRequest(self, pboidReason: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.BOID_head), fRetaining: Windows.Win32.Foundation.BOOL, pNewUOW: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.BOID_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def TMDown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionResourceAsync(c_void_p):
+class ITransactionResourceAsync(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('69e971f0-23ce-11cf-ad-60-00-aa-00-a7-4c-cd')
     @commethod(3)
@@ -679,7 +679,7 @@ class ITransactionResourceAsync(c_void_p):
     def AbortRequest(self, pboidReason: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.BOID_head), fRetaining: Windows.Win32.Foundation.BOOL, pNewUOW: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.BOID_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def TMDown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionTransmitter(c_void_p):
+class ITransactionTransmitter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('59313e01-b36c-11cf-a5-39-00-aa-00-68-87-c3')
     @commethod(3)
@@ -692,44 +692,44 @@ class ITransactionTransmitter(c_void_p):
     def UnmarshalReturnToken(self, cbReturnToken: UInt32, rgbReturnToken: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionTransmitterFactory(c_void_p):
+class ITransactionTransmitterFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('59313e00-b36c-11cf-a5-39-00-aa-00-68-87-c3')
     @commethod(3)
     def Create(self, ppTransmitter: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransactionTransmitter_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionVoterBallotAsync2(c_void_p):
+class ITransactionVoterBallotAsync2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5433376c-414d-11d3-b2-06-00-c0-4f-c2-f3-ef')
     @commethod(3)
     def VoteRequestDone(self, hr: Windows.Win32.Foundation.HRESULT, pboidReason: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.BOID_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionVoterFactory2(c_void_p):
+class ITransactionVoterFactory2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5433376a-414d-11d3-b2-06-00-c0-4f-c2-f3-ef')
     @commethod(3)
     def Create(self, pTransaction: Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head, pVoterNotify: Windows.Win32.System.DistributedTransactionCoordinator.ITransactionVoterNotifyAsync2_head, ppVoterBallot: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransactionVoterBallotAsync2_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionVoterNotifyAsync2(c_void_p):
+class ITransactionVoterNotifyAsync2(ComPtr):
     extends: Windows.Win32.System.DistributedTransactionCoordinator.ITransactionOutcomeEvents
     Guid = Guid('5433376b-414d-11d3-b2-06-00-c0-4f-c2-f3-ef')
     @commethod(7)
     def VoteRequest(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IXAConfig(c_void_p):
+class IXAConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c8a6e3a1-9a8c-11cf-a3-08-00-a0-c9-05-41-6e')
     @commethod(3)
     def Initialize(self, clsidHelperDll: Guid) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Terminate(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IXAObtainRMInfo(c_void_p):
+class IXAObtainRMInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e793f6d2-f53d-11cf-a6-0d-00-a0-c9-05-41-6e')
     @commethod(3)
     def ObtainRMInfo(self, pIRMHelper: Windows.Win32.System.DistributedTransactionCoordinator.IRMHelper_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IXATransLookup(c_void_p):
+class IXATransLookup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f3b1f131-eeda-11ce-ae-d4-00-aa-00-51-e2-c4')
     @commethod(3)
     def Lookup(self, ppTransaction: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXATransLookup2(c_void_p):
+class IXATransLookup2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bf193c85-0d1a-4290-b8-8f-d2-cb-88-73-d1-e7')
     @commethod(3)

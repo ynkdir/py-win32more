@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Direct3D
 import Windows.Win32.Graphics.Direct3D12
@@ -4017,17 +4017,17 @@ D3D_SHADER_MODEL_6_6: D3D_SHADER_MODEL = 102
 D3D_SHADER_MODEL_6_7: D3D_SHADER_MODEL = 103
 D3D_SHADER_MODEL_6_8: D3D_SHADER_MODEL = 104
 D3D_HIGHEST_SHADER_MODEL: D3D_SHADER_MODEL = 104
-class ID3D12CommandAllocator(c_void_p):
+class ID3D12CommandAllocator(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('6102dee4-af59-4b09-b9-99-b4-4d-73-f0-9b-24')
     @commethod(8)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12CommandList(c_void_p):
+class ID3D12CommandList(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12DeviceChild
     Guid = Guid('7116d91c-e7e4-47ce-b8-c6-ec-81-68-f4-37-e5')
     @commethod(8)
     def GetType(self) -> Windows.Win32.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE: ...
-class ID3D12CommandQueue(c_void_p):
+class ID3D12CommandQueue(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('0ec870a6-5d7e-4c22-8c-fc-5b-aa-e0-76-16-ed')
     @commethod(8)
@@ -4052,20 +4052,20 @@ class ID3D12CommandQueue(c_void_p):
     def GetClockCalibration(self, pGpuTimestamp: POINTER(UInt64), pCpuTimestamp: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def GetDesc(self) -> Windows.Win32.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_DESC: ...
-class ID3D12CommandSignature(c_void_p):
+class ID3D12CommandSignature(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('c36a797c-ec80-4f0a-89-85-a7-b2-47-50-82-d1')
-class ID3D12DSRDeviceFactory(c_void_p):
+class ID3D12DSRDeviceFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51ee7783-6426-4428-b1-82-42-f3-54-1f-ca-71')
     @commethod(3)
     def CreateDSRDevice(self, pD3D12Device: Windows.Win32.Graphics.Direct3D12.ID3D12Device_head, NodeMask: UInt32, riid: POINTER(Guid), ppvDSRDevice: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12Debug(c_void_p):
+class ID3D12Debug(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('344488b7-6846-474b-b9-89-f0-27-44-82-45-e0')
     @commethod(3)
     def EnableDebugLayer(self) -> Void: ...
-class ID3D12Debug1(c_void_p):
+class ID3D12Debug1(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('affaa4ca-63fe-4d8e-b8-ad-15-90-00-af-43-04')
     @commethod(3)
@@ -4074,12 +4074,12 @@ class ID3D12Debug1(c_void_p):
     def SetEnableGPUBasedValidation(self, Enable: Windows.Win32.Foundation.BOOL) -> Void: ...
     @commethod(5)
     def SetEnableSynchronizedCommandQueueValidation(self, Enable: Windows.Win32.Foundation.BOOL) -> Void: ...
-class ID3D12Debug2(c_void_p):
+class ID3D12Debug2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('93a665c4-a3b2-4e5d-b6-92-a2-6a-e1-4e-33-74')
     @commethod(3)
     def SetGPUBasedValidationFlags(self, Flags: Windows.Win32.Graphics.Direct3D12.D3D12_GPU_BASED_VALIDATION_FLAGS) -> Void: ...
-class ID3D12Debug3(c_void_p):
+class ID3D12Debug3(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Debug
     Guid = Guid('5cf4e58f-f671-4ff1-a5-42-36-86-e3-d1-53-d1')
     @commethod(4)
@@ -4088,22 +4088,22 @@ class ID3D12Debug3(c_void_p):
     def SetEnableSynchronizedCommandQueueValidation(self, Enable: Windows.Win32.Foundation.BOOL) -> Void: ...
     @commethod(6)
     def SetGPUBasedValidationFlags(self, Flags: Windows.Win32.Graphics.Direct3D12.D3D12_GPU_BASED_VALIDATION_FLAGS) -> Void: ...
-class ID3D12Debug4(c_void_p):
+class ID3D12Debug4(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Debug3
     Guid = Guid('014b816e-9ec5-4a2f-a8-45-ff-be-44-1c-e1-3a')
     @commethod(7)
     def DisableDebugLayer(self) -> Void: ...
-class ID3D12Debug5(c_void_p):
+class ID3D12Debug5(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Debug4
     Guid = Guid('548d6b12-09fa-40e0-90-69-5d-cd-58-9a-52-c9')
     @commethod(8)
     def SetEnableAutoName(self, Enable: Windows.Win32.Foundation.BOOL) -> Void: ...
-class ID3D12Debug6(c_void_p):
+class ID3D12Debug6(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Debug5
     Guid = Guid('82a816d6-5d01-4157-97-d0-49-75-46-3f-d1-ed')
     @commethod(9)
     def SetForceLegacyBarrierValidation(self, Enable: Windows.Win32.Foundation.BOOL) -> Void: ...
-class ID3D12DebugCommandList(c_void_p):
+class ID3D12DebugCommandList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('09e0bf36-54ac-484f-88-47-4b-ae-ea-b6-05-3f')
     @commethod(3)
@@ -4112,7 +4112,7 @@ class ID3D12DebugCommandList(c_void_p):
     def SetFeatureMask(self, Mask: Windows.Win32.Graphics.Direct3D12.D3D12_DEBUG_FEATURE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetFeatureMask(self) -> Windows.Win32.Graphics.Direct3D12.D3D12_DEBUG_FEATURE: ...
-class ID3D12DebugCommandList1(c_void_p):
+class ID3D12DebugCommandList1(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('102ca951-311b-4b01-b1-1f-ec-b8-3e-06-1b-37')
     @commethod(3)
@@ -4121,33 +4121,33 @@ class ID3D12DebugCommandList1(c_void_p):
     def SetDebugParameter(self, Type: Windows.Win32.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE, pData: c_void_p, DataSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetDebugParameter(self, Type: Windows.Win32.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE, pData: c_void_p, DataSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12DebugCommandList2(c_void_p):
+class ID3D12DebugCommandList2(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12DebugCommandList
     Guid = Guid('aeb575cf-4e06-48be-ba-3b-c4-50-fc-96-65-2e')
     @commethod(6)
     def SetDebugParameter(self, Type: Windows.Win32.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE, pData: c_void_p, DataSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetDebugParameter(self, Type: Windows.Win32.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE, pData: c_void_p, DataSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12DebugCommandList3(c_void_p):
+class ID3D12DebugCommandList3(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12DebugCommandList2
     Guid = Guid('197d5e15-4d37-4d34-af-78-72-4c-d7-0f-db-1f')
     @commethod(8)
     def AssertResourceAccess(self, pResource: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, Subresource: UInt32, Access: Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_ACCESS) -> Void: ...
     @commethod(9)
     def AssertTextureLayout(self, pResource: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, Subresource: UInt32, Layout: Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_LAYOUT) -> Void: ...
-class ID3D12DebugCommandQueue(c_void_p):
+class ID3D12DebugCommandQueue(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('09e0bf36-54ac-484f-88-47-4b-ae-ea-b6-05-3a')
     @commethod(3)
     def AssertResourceState(self, pResource: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, Subresource: UInt32, State: UInt32) -> Windows.Win32.Foundation.BOOL: ...
-class ID3D12DebugCommandQueue1(c_void_p):
+class ID3D12DebugCommandQueue1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12DebugCommandQueue
     Guid = Guid('16be35a2-bfd6-49f2-bc-ae-ea-ae-4a-ff-86-2d')
     @commethod(4)
     def AssertResourceAccess(self, pResource: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, Subresource: UInt32, Access: Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_ACCESS) -> Void: ...
     @commethod(5)
     def AssertTextureLayout(self, pResource: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, Subresource: UInt32, Layout: Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_LAYOUT) -> Void: ...
-class ID3D12DebugDevice(c_void_p):
+class ID3D12DebugDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3febd6dd-4973-4787-81-94-e4-5f-9e-28-92-3e')
     @commethod(3)
@@ -4156,7 +4156,7 @@ class ID3D12DebugDevice(c_void_p):
     def GetFeatureMask(self) -> Windows.Win32.Graphics.Direct3D12.D3D12_DEBUG_FEATURE: ...
     @commethod(5)
     def ReportLiveDeviceObjects(self, Flags: Windows.Win32.Graphics.Direct3D12.D3D12_RLDO_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12DebugDevice1(c_void_p):
+class ID3D12DebugDevice1(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a9b71770-d099-4a65-a6-98-3d-ee-10-02-0f-88')
     @commethod(3)
@@ -4165,14 +4165,14 @@ class ID3D12DebugDevice1(c_void_p):
     def GetDebugParameter(self, Type: Windows.Win32.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_PARAMETER_TYPE, pData: c_void_p, DataSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def ReportLiveDeviceObjects(self, Flags: Windows.Win32.Graphics.Direct3D12.D3D12_RLDO_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12DebugDevice2(c_void_p):
+class ID3D12DebugDevice2(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12DebugDevice
     Guid = Guid('60eccbc1-378d-4df1-89-4c-f8-ac-5c-e4-d7-dd')
     @commethod(6)
     def SetDebugParameter(self, Type: Windows.Win32.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_PARAMETER_TYPE, pData: c_void_p, DataSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetDebugParameter(self, Type: Windows.Win32.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_PARAMETER_TYPE, pData: c_void_p, DataSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12DescriptorHeap(c_void_p):
+class ID3D12DescriptorHeap(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('8efb471d-616c-4f49-90-f7-12-7b-b7-63-fa-51')
     @commethod(8)
@@ -4181,7 +4181,7 @@ class ID3D12DescriptorHeap(c_void_p):
     def GetCPUDescriptorHandleForHeapStart(self) -> Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE: ...
     @commethod(10)
     def GetGPUDescriptorHandleForHeapStart(self) -> Windows.Win32.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE: ...
-class ID3D12Device(c_void_p):
+class ID3D12Device(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Object
     Guid = Guid('189819f1-1db6-4b57-be-54-18-21-33-9b-85-f7')
     @commethod(7)
@@ -4258,7 +4258,7 @@ class ID3D12Device(c_void_p):
     def GetResourceTiling(self, pTiledResource: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pNumTilesForEntireResource: POINTER(UInt32), pPackedMipDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_PACKED_MIP_INFO_head), pStandardTileShapeForNonPackedMips: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_TILE_SHAPE_head), pNumSubresourceTilings: POINTER(UInt32), FirstSubresourceTilingToGet: UInt32, pSubresourceTilingsForNonPackedMips: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_SUBRESOURCE_TILING_head)) -> Void: ...
     @commethod(43)
     def GetAdapterLuid(self) -> Windows.Win32.Foundation.LUID: ...
-class ID3D12Device1(c_void_p):
+class ID3D12Device1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Device
     Guid = Guid('77acce80-638e-4e65-88-95-c1-f2-33-86-86-3e')
     @commethod(44)
@@ -4267,7 +4267,7 @@ class ID3D12Device1(c_void_p):
     def SetEventOnMultipleFenceCompletion(self, ppFences: POINTER(Windows.Win32.Graphics.Direct3D12.ID3D12Fence_head), pFenceValues: POINTER(UInt64), NumFences: UInt32, Flags: Windows.Win32.Graphics.Direct3D12.D3D12_MULTIPLE_FENCE_WAIT_FLAGS, hEvent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(46)
     def SetResidencyPriority(self, NumObjects: UInt32, ppObjects: POINTER(Windows.Win32.Graphics.Direct3D12.ID3D12Pageable_head), pPriorities: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_RESIDENCY_PRIORITY)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12Device10(c_void_p):
+class ID3D12Device10(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Device9
     Guid = Guid('517f8718-aa66-49f9-b0-2b-a7-ab-89-c0-60-31')
     @commethod(76)
@@ -4276,22 +4276,22 @@ class ID3D12Device10(c_void_p):
     def CreatePlacedResource2(self, pHeap: Windows.Win32.Graphics.Direct3D12.ID3D12Heap_head, HeapOffset: UInt64, pDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head), InitialLayout: Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_LAYOUT, pOptimizedClearValue: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head), NumCastableFormats: UInt32, pCastableFormats: POINTER(Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT), riid: POINTER(Guid), ppvResource: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(78)
     def CreateReservedResource2(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head), InitialLayout: Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_LAYOUT, pOptimizedClearValue: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head), pProtectedSession: Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head, NumCastableFormats: UInt32, pCastableFormats: POINTER(Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT), riid: POINTER(Guid), ppvResource: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12Device11(c_void_p):
+class ID3D12Device11(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Device10
     Guid = Guid('5405c344-d457-444e-b4-dd-23-66-e4-5a-ee-39')
     @commethod(79)
     def CreateSampler2(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_SAMPLER_DESC2_head), DestDescriptor: Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
-class ID3D12Device12(c_void_p):
+class ID3D12Device12(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Device11
     Guid = Guid('5af5c532-4c91-4cd0-b5-41-15-a4-05-39-5f-c5')
     @commethod(80)
     def GetResourceAllocationInfo3(self, visibleMask: UInt32, numResourceDescs: UInt32, pResourceDescs: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head), pNumCastableFormats: POINTER(UInt32), ppCastableFormats: POINTER(POINTER(Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT)), pResourceAllocationInfo1: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO1_head)) -> Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO: ...
-class ID3D12Device2(c_void_p):
+class ID3D12Device2(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Device1
     Guid = Guid('30baa41e-b15b-475c-a0-bb-1a-f5-c5-b6-43-28')
     @commethod(47)
     def CreatePipelineState(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_PIPELINE_STATE_STREAM_DESC_head), riid: POINTER(Guid), ppPipelineState: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12Device3(c_void_p):
+class ID3D12Device3(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Device2
     Guid = Guid('81dadc15-2bad-4392-93-c5-10-13-45-c4-aa-98')
     @commethod(48)
@@ -4300,7 +4300,7 @@ class ID3D12Device3(c_void_p):
     def OpenExistingHeapFromFileMapping(self, hFileMapping: Windows.Win32.Foundation.HANDLE, riid: POINTER(Guid), ppvHeap: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(50)
     def EnqueueMakeResident(self, Flags: Windows.Win32.Graphics.Direct3D12.D3D12_RESIDENCY_FLAGS, NumObjects: UInt32, ppObjects: POINTER(Windows.Win32.Graphics.Direct3D12.ID3D12Pageable_head), pFenceToSignal: Windows.Win32.Graphics.Direct3D12.ID3D12Fence_head, FenceValueToSignal: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12Device4(c_void_p):
+class ID3D12Device4(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Device3
     Guid = Guid('e865df17-a9ee-46f9-a4-63-30-98-31-5a-a2-e5')
     @commethod(51)
@@ -4315,7 +4315,7 @@ class ID3D12Device4(c_void_p):
     def CreateReservedResource1(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head), InitialState: Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_STATES, pOptimizedClearValue: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head), pProtectedSession: Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head, riid: POINTER(Guid), ppvResource: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(56)
     def GetResourceAllocationInfo1(self, visibleMask: UInt32, numResourceDescs: UInt32, pResourceDescs: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head), pResourceAllocationInfo1: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO1_head)) -> Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO: ...
-class ID3D12Device5(c_void_p):
+class ID3D12Device5(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Device4
     Guid = Guid('8b4f173b-2fea-4b80-8f-58-43-07-19-1a-b9-5d')
     @commethod(57)
@@ -4334,19 +4334,19 @@ class ID3D12Device5(c_void_p):
     def GetRaytracingAccelerationStructurePrebuildInfo(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS_head), pInfo: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO_head)) -> Void: ...
     @commethod(64)
     def CheckDriverMatchingIdentifier(self, SerializedDataType: Windows.Win32.Graphics.Direct3D12.D3D12_SERIALIZED_DATA_TYPE, pIdentifierToCheck: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER_head)) -> Windows.Win32.Graphics.Direct3D12.D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS: ...
-class ID3D12Device6(c_void_p):
+class ID3D12Device6(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Device5
     Guid = Guid('c70b221b-40e4-4a17-89-af-02-5a-07-27-a6-dc')
     @commethod(65)
     def SetBackgroundProcessingMode(self, Mode: Windows.Win32.Graphics.Direct3D12.D3D12_BACKGROUND_PROCESSING_MODE, MeasurementsAction: Windows.Win32.Graphics.Direct3D12.D3D12_MEASUREMENTS_ACTION, hEventToSignalUponCompletion: Windows.Win32.Foundation.HANDLE, pbFurtherMeasurementsDesired: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12Device7(c_void_p):
+class ID3D12Device7(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Device6
     Guid = Guid('5c014b53-68a1-4b9b-8b-d1-dd-60-46-b9-35-8b')
     @commethod(66)
     def AddToStateObject(self, pAddition: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_STATE_OBJECT_DESC_head), pStateObjectToGrowFrom: Windows.Win32.Graphics.Direct3D12.ID3D12StateObject_head, riid: POINTER(Guid), ppNewStateObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(67)
     def CreateProtectedResourceSession1(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC1_head), riid: POINTER(Guid), ppSession: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12Device8(c_void_p):
+class ID3D12Device8(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Device7
     Guid = Guid('9218e6bb-f944-4f7e-a7-5c-b1-b2-c7-b7-01-f3')
     @commethod(68)
@@ -4359,7 +4359,7 @@ class ID3D12Device8(c_void_p):
     def CreateSamplerFeedbackUnorderedAccessView(self, pTargetedResource: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, pFeedbackResource: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, DestDescriptor: Windows.Win32.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE) -> Void: ...
     @commethod(72)
     def GetCopyableFootprints1(self, pResourceDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head), FirstSubresource: UInt32, NumSubresources: UInt32, BaseOffset: UInt64, pLayouts: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_PLACED_SUBRESOURCE_FOOTPRINT_head), pNumRows: POINTER(UInt32), pRowSizeInBytes: POINTER(UInt64), pTotalBytes: POINTER(UInt64)) -> Void: ...
-class ID3D12Device9(c_void_p):
+class ID3D12Device9(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Device8
     Guid = Guid('4c80e962-f032-4f60-bc-9e-eb-c2-cf-a1-d8-3c')
     @commethod(73)
@@ -4368,12 +4368,12 @@ class ID3D12Device9(c_void_p):
     def ShaderCacheControl(self, Kinds: Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_CACHE_KIND_FLAGS, Control: Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_CACHE_CONTROL_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(75)
     def CreateCommandQueue1(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_DESC_head), CreatorID: POINTER(Guid), riid: POINTER(Guid), ppCommandQueue: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12DeviceChild(c_void_p):
+class ID3D12DeviceChild(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Object
     Guid = Guid('905db94b-a00c-4140-9d-f5-2b-64-ca-9e-a3-57')
     @commethod(7)
     def GetDevice(self, riid: POINTER(Guid), ppvDevice: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12DeviceConfiguration(c_void_p):
+class ID3D12DeviceConfiguration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('78dbf87b-f766-422b-a6-1c-c8-c4-46-bd-b9-ad')
     @commethod(3)
@@ -4384,7 +4384,7 @@ class ID3D12DeviceConfiguration(c_void_p):
     def SerializeVersionedRootSignature(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head), ppResult: POINTER(Windows.Win32.Graphics.Direct3D.ID3DBlob_head), ppError: POINTER(Windows.Win32.Graphics.Direct3D.ID3DBlob_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def CreateVersionedRootSignatureDeserializer(self, pBlob: c_void_p, Size: UIntPtr, riid: POINTER(Guid), ppvDeserializer: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12DeviceFactory(c_void_p):
+class ID3D12DeviceFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('61f307d3-d34e-4e7c-83-74-3b-a4-de-23-cc-cb')
     @commethod(3)
@@ -4401,28 +4401,28 @@ class ID3D12DeviceFactory(c_void_p):
     def EnableExperimentalFeatures(self, NumFeatures: UInt32, pIIDs: POINTER(Guid), pConfigurationStructs: c_void_p, pConfigurationStructSizes: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def CreateDevice(self, adapter: Windows.Win32.System.Com.IUnknown_head, FeatureLevel: Windows.Win32.Graphics.Direct3D.D3D_FEATURE_LEVEL, riid: POINTER(Guid), ppvDevice: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12DeviceRemovedExtendedData(c_void_p):
+class ID3D12DeviceRemovedExtendedData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('98931d33-5ae8-4791-aa-3c-1a-73-a2-93-4e-71')
     @commethod(3)
     def GetAutoBreadcrumbsOutput(self, pOutput: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetPageFaultAllocationOutput(self, pOutput: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12DeviceRemovedExtendedData1(c_void_p):
+class ID3D12DeviceRemovedExtendedData1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData
     Guid = Guid('9727a022-cf1d-4dda-9e-ba-ef-fa-65-3f-c5-06')
     @commethod(5)
     def GetAutoBreadcrumbsOutput1(self, pOutput: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetPageFaultAllocationOutput1(self, pOutput: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT1_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12DeviceRemovedExtendedData2(c_void_p):
+class ID3D12DeviceRemovedExtendedData2(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData1
     Guid = Guid('67fc5816-e4ca-4915-bf-18-42-54-12-72-da-54')
     @commethod(7)
     def GetPageFaultAllocationOutput2(self, pOutput: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetDeviceState(self) -> Windows.Win32.Graphics.Direct3D12.D3D12_DRED_DEVICE_STATE: ...
-class ID3D12DeviceRemovedExtendedDataSettings(c_void_p):
+class ID3D12DeviceRemovedExtendedDataSettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('82bc481c-6b9b-4030-ae-db-7e-e3-d1-df-1e-63')
     @commethod(3)
@@ -4431,17 +4431,17 @@ class ID3D12DeviceRemovedExtendedDataSettings(c_void_p):
     def SetPageFaultEnablement(self, Enablement: Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ENABLEMENT) -> Void: ...
     @commethod(5)
     def SetWatsonDumpEnablement(self, Enablement: Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ENABLEMENT) -> Void: ...
-class ID3D12DeviceRemovedExtendedDataSettings1(c_void_p):
+class ID3D12DeviceRemovedExtendedDataSettings1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedDataSettings
     Guid = Guid('dbd5ae51-3317-4f0a-ad-f9-1d-7c-ed-ca-ae-0b')
     @commethod(6)
     def SetBreadcrumbContextEnablement(self, Enablement: Windows.Win32.Graphics.Direct3D12.D3D12_DRED_ENABLEMENT) -> Void: ...
-class ID3D12DeviceRemovedExtendedDataSettings2(c_void_p):
+class ID3D12DeviceRemovedExtendedDataSettings2(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedDataSettings1
     Guid = Guid('61552388-01ab-4008-a4-36-83-db-18-95-66-ea')
     @commethod(7)
     def UseMarkersOnlyAutoBreadcrumbs(self, MarkersOnly: Windows.Win32.Foundation.BOOL) -> Void: ...
-class ID3D12Fence(c_void_p):
+class ID3D12Fence(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('0a753dcf-c4d8-4b91-ad-f6-be-5a-60-d9-5a-76')
     @commethod(8)
@@ -4450,17 +4450,17 @@ class ID3D12Fence(c_void_p):
     def SetEventOnCompletion(self, Value: UInt64, hEvent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Signal(self, Value: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12Fence1(c_void_p):
+class ID3D12Fence1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Fence
     Guid = Guid('433685fe-e22b-4ca0-a8-db-b5-b4-f4-dd-0e-4a')
     @commethod(11)
     def GetCreationFlags(self) -> Windows.Win32.Graphics.Direct3D12.D3D12_FENCE_FLAGS: ...
-class ID3D12FunctionParameterReflection(c_void_p):
+class ID3D12FunctionParameterReflection(ComPtr):
     extends: None
     Guid = Guid('ec25f42d-7006-4f2b-b3-3e-02-cc-33-75-73-3f')
     @commethod(0)
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_PARAMETER_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12FunctionReflection(c_void_p):
+class ID3D12FunctionReflection(ComPtr):
     extends: None
     Guid = Guid('1108795c-2772-4ba9-b2-a8-d4-64-dc-7e-27-99')
     @commethod(0)
@@ -4477,7 +4477,7 @@ class ID3D12FunctionReflection(c_void_p):
     def GetResourceBindingDescByName(self, Name: Windows.Win32.Foundation.PSTR, pDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_INPUT_BIND_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetFunctionParameter(self, ParameterIndex: Int32) -> Windows.Win32.Graphics.Direct3D12.ID3D12FunctionParameterReflection_head: ...
-class ID3D12GraphicsCommandList(c_void_p):
+class ID3D12GraphicsCommandList(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12CommandList
     Guid = Guid('5b160d0f-ac1b-4185-8b-a8-b3-ae-42-a5-a4-55')
     @commethod(9)
@@ -4582,7 +4582,7 @@ class ID3D12GraphicsCommandList(c_void_p):
     def EndEvent(self) -> Void: ...
     @commethod(59)
     def ExecuteIndirect(self, pCommandSignature: Windows.Win32.Graphics.Direct3D12.ID3D12CommandSignature_head, MaxCommandCount: UInt32, pArgumentBuffer: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, ArgumentBufferOffset: UInt64, pCountBuffer: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, CountBufferOffset: UInt64) -> Void: ...
-class ID3D12GraphicsCommandList1(c_void_p):
+class ID3D12GraphicsCommandList1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList
     Guid = Guid('553103fb-1fe7-4557-bb-38-94-6d-7d-0e-7c-a7')
     @commethod(60)
@@ -4597,17 +4597,17 @@ class ID3D12GraphicsCommandList1(c_void_p):
     def ResolveSubresourceRegion(self, pDstResource: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, DstSubresource: UInt32, DstX: UInt32, DstY: UInt32, pSrcResource: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head, SrcSubresource: UInt32, pSrcRect: POINTER(Windows.Win32.Foundation.RECT_head), Format: Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT, ResolveMode: Windows.Win32.Graphics.Direct3D12.D3D12_RESOLVE_MODE) -> Void: ...
     @commethod(65)
     def SetViewInstanceMask(self, Mask: UInt32) -> Void: ...
-class ID3D12GraphicsCommandList2(c_void_p):
+class ID3D12GraphicsCommandList2(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList1
     Guid = Guid('38c3e585-ff17-412c-91-50-4f-c6-f9-d7-2a-28')
     @commethod(66)
     def WriteBufferImmediate(self, Count: UInt32, pParams: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_PARAMETER_head), pModes: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_MODE)) -> Void: ...
-class ID3D12GraphicsCommandList3(c_void_p):
+class ID3D12GraphicsCommandList3(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList2
     Guid = Guid('6fda83a7-b84c-4e38-9a-c8-c7-bd-22-01-6b-3d')
     @commethod(67)
     def SetProtectedResourceSession(self, pProtectedResourceSession: Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head) -> Void: ...
-class ID3D12GraphicsCommandList4(c_void_p):
+class ID3D12GraphicsCommandList4(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList3
     Guid = Guid('8754318e-d3a9-4541-98-cf-64-5b-50-dc-48-74')
     @commethod(68)
@@ -4628,46 +4628,46 @@ class ID3D12GraphicsCommandList4(c_void_p):
     def SetPipelineState1(self, pStateObject: Windows.Win32.Graphics.Direct3D12.ID3D12StateObject_head) -> Void: ...
     @commethod(76)
     def DispatchRays(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_DISPATCH_RAYS_DESC_head)) -> Void: ...
-class ID3D12GraphicsCommandList5(c_void_p):
+class ID3D12GraphicsCommandList5(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList4
     Guid = Guid('55050859-4024-474c-87-f5-64-72-ea-ee-44-ea')
     @commethod(77)
     def RSSetShadingRate(self, baseShadingRate: Windows.Win32.Graphics.Direct3D12.D3D12_SHADING_RATE, combiners: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_SHADING_RATE_COMBINER)) -> Void: ...
     @commethod(78)
     def RSSetShadingRateImage(self, shadingRateImage: Windows.Win32.Graphics.Direct3D12.ID3D12Resource_head) -> Void: ...
-class ID3D12GraphicsCommandList6(c_void_p):
+class ID3D12GraphicsCommandList6(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList5
     Guid = Guid('c3827890-e548-4cfa-96-cf-56-89-a9-37-0f-80')
     @commethod(79)
     def DispatchMesh(self, ThreadGroupCountX: UInt32, ThreadGroupCountY: UInt32, ThreadGroupCountZ: UInt32) -> Void: ...
-class ID3D12GraphicsCommandList7(c_void_p):
+class ID3D12GraphicsCommandList7(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList6
     Guid = Guid('dd171223-8b61-4769-90-e3-16-0c-cd-e4-e2-c1')
     @commethod(80)
     def Barrier(self, NumBarrierGroups: UInt32, pBarrierGroups: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_BARRIER_GROUP_head)) -> Void: ...
-class ID3D12GraphicsCommandList8(c_void_p):
+class ID3D12GraphicsCommandList8(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList7
     Guid = Guid('ee936ef9-599d-4d28-93-8e-23-c4-ad-05-ce-51')
     @commethod(81)
     def OMSetFrontAndBackStencilRef(self, FrontStencilRef: UInt32, BackStencilRef: UInt32) -> Void: ...
-class ID3D12GraphicsCommandList9(c_void_p):
+class ID3D12GraphicsCommandList9(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12GraphicsCommandList8
     Guid = Guid('34ed2808-ffe6-4c2b-b1-1a-ca-bd-2b-0c-59-e1')
     @commethod(82)
     def RSSetDepthBias(self, DepthBias: Single, DepthBiasClamp: Single, SlopeScaledDepthBias: Single) -> Void: ...
     @commethod(83)
     def IASetIndexBufferStripCutValue(self, IBStripCutValue: Windows.Win32.Graphics.Direct3D12.D3D12_INDEX_BUFFER_STRIP_CUT_VALUE) -> Void: ...
-class ID3D12Heap(c_void_p):
+class ID3D12Heap(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('6b3b2502-6e51-45b3-90-ee-98-84-26-5e-8d-f3')
     @commethod(8)
     def GetDesc(self) -> Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_DESC: ...
-class ID3D12Heap1(c_void_p):
+class ID3D12Heap1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Heap
     Guid = Guid('572f7389-2168-49e3-96-93-d6-df-58-71-bf-6d')
     @commethod(9)
     def GetProtectedResourceSession(self, riid: POINTER(Guid), ppProtectedSession: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12InfoQueue(c_void_p):
+class ID3D12InfoQueue(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0742a90b-c387-483f-b9-46-30-a7-e4-e6-14-58')
     @commethod(3)
@@ -4740,41 +4740,41 @@ class ID3D12InfoQueue(c_void_p):
     def SetMuteDebugOutput(self, bMute: Windows.Win32.Foundation.BOOL) -> Void: ...
     @commethod(37)
     def GetMuteDebugOutput(self) -> Windows.Win32.Foundation.BOOL: ...
-class ID3D12InfoQueue1(c_void_p):
+class ID3D12InfoQueue1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12InfoQueue
     Guid = Guid('2852dd88-b484-4c0c-b6-b1-67-16-85-00-e6-00')
     @commethod(38)
     def RegisterMessageCallback(self, CallbackFunc: Windows.Win32.Graphics.Direct3D12.D3D12MessageFunc, CallbackFilterFlags: Windows.Win32.Graphics.Direct3D12.D3D12_MESSAGE_CALLBACK_FLAGS, pContext: c_void_p, pCallbackCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(39)
     def UnregisterMessageCallback(self, CallbackCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12LibraryReflection(c_void_p):
+class ID3D12LibraryReflection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8e349d19-54db-4a56-9d-c9-11-9d-87-bd-b8-04')
     @commethod(3)
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_LIBRARY_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetFunctionByIndex(self, FunctionIndex: Int32) -> Windows.Win32.Graphics.Direct3D12.ID3D12FunctionReflection_head: ...
-class ID3D12LifetimeOwner(c_void_p):
+class ID3D12LifetimeOwner(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e667af9f-cd56-4f46-83-ce-03-2e-59-5d-70-a8')
     @commethod(3)
     def LifetimeStateUpdated(self, NewState: Windows.Win32.Graphics.Direct3D12.D3D12_LIFETIME_STATE) -> Void: ...
-class ID3D12LifetimeTracker(c_void_p):
+class ID3D12LifetimeTracker(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12DeviceChild
     Guid = Guid('3fd03d36-4eb1-424a-a5-82-49-4e-cb-8b-a8-13')
     @commethod(8)
     def DestroyOwnedObject(self, pObject: Windows.Win32.Graphics.Direct3D12.ID3D12DeviceChild_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12ManualWriteTrackingResource(c_void_p):
+class ID3D12ManualWriteTrackingResource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('86ca3b85-49ad-4b6e-ae-d5-ed-db-18-54-0f-41')
     @commethod(3)
     def TrackWrite(self, Subresource: UInt32, pWrittenRange: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_RANGE_head)) -> Void: ...
-class ID3D12MetaCommand(c_void_p):
+class ID3D12MetaCommand(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('dbb84c27-36ce-4fc9-b8-01-f0-48-c4-6a-c5-70')
     @commethod(8)
     def GetRequiredParameterResourceSize(self, Stage: Windows.Win32.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_STAGE, ParameterIndex: UInt32) -> UInt64: ...
-class ID3D12Object(c_void_p):
+class ID3D12Object(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c4fec28f-7966-4e95-9f-94-f4-31-cb-56-c3-b8')
     @commethod(3)
@@ -4785,10 +4785,10 @@ class ID3D12Object(c_void_p):
     def SetPrivateDataInterface(self, guid: POINTER(Guid), pData: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetName(self, Name: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12Pageable(c_void_p):
+class ID3D12Pageable(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12DeviceChild
     Guid = Guid('63ee58fb-1268-4835-86-da-f0-08-ce-62-f0-d6')
-class ID3D12PipelineLibrary(c_void_p):
+class ID3D12PipelineLibrary(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12DeviceChild
     Guid = Guid('c64226a8-9201-46af-b4-cc-53-fb-9f-f7-41-4f')
     @commethod(8)
@@ -4801,37 +4801,37 @@ class ID3D12PipelineLibrary(c_void_p):
     def GetSerializedSize(self) -> UIntPtr: ...
     @commethod(12)
     def Serialize(self, pData: c_void_p, DataSizeInBytes: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12PipelineLibrary1(c_void_p):
+class ID3D12PipelineLibrary1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12PipelineLibrary
     Guid = Guid('80eabf42-2568-4e5e-bd-82-c3-7f-86-96-1d-c3')
     @commethod(13)
     def LoadPipeline(self, pName: Windows.Win32.Foundation.PWSTR, pDesc: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_PIPELINE_STATE_STREAM_DESC_head), riid: POINTER(Guid), ppPipelineState: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12PipelineState(c_void_p):
+class ID3D12PipelineState(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('765a30f3-f624-4c6f-a8-28-ac-e9-48-62-24-45')
     @commethod(8)
     def GetCachedBlob(self, ppBlob: POINTER(Windows.Win32.Graphics.Direct3D.ID3DBlob_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12ProtectedResourceSession(c_void_p):
+class ID3D12ProtectedResourceSession(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedSession
     Guid = Guid('6cd696f4-f289-40cc-80-91-5a-6c-0a-09-9c-3d')
     @commethod(10)
     def GetDesc(self) -> Windows.Win32.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC: ...
-class ID3D12ProtectedResourceSession1(c_void_p):
+class ID3D12ProtectedResourceSession1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12ProtectedResourceSession
     Guid = Guid('d6f12dd6-76fb-406e-89-61-42-96-ee-fc-04-09')
     @commethod(11)
     def GetDesc1(self) -> Windows.Win32.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC1: ...
-class ID3D12ProtectedSession(c_void_p):
+class ID3D12ProtectedSession(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12DeviceChild
     Guid = Guid('a1533d18-0ac1-4084-85-b9-89-a9-61-16-80-6b')
     @commethod(8)
     def GetStatusFence(self, riid: POINTER(Guid), ppFence: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetSessionStatus(self) -> Windows.Win32.Graphics.Direct3D12.D3D12_PROTECTED_SESSION_STATUS: ...
-class ID3D12QueryHeap(c_void_p):
+class ID3D12QueryHeap(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('0d9658ae-ed45-469e-a6-1d-97-0e-c5-83-ca-b4')
-class ID3D12Resource(c_void_p):
+class ID3D12Resource(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('696442be-a72e-4059-bc-79-5b-5c-98-04-0f-ad')
     @commethod(8)
@@ -4848,37 +4848,37 @@ class ID3D12Resource(c_void_p):
     def ReadFromSubresource(self, pDstData: c_void_p, DstRowPitch: UInt32, DstDepthPitch: UInt32, SrcSubresource: UInt32, pSrcBox: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_BOX_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetHeapProperties(self, pHeapProperties: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head), pHeapFlags: POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_HEAP_FLAGS)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12Resource1(c_void_p):
+class ID3D12Resource1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Resource
     Guid = Guid('9d5e227a-4430-4161-88-b3-3e-ca-6b-b1-6e-19')
     @commethod(15)
     def GetProtectedResourceSession(self, riid: POINTER(Guid), ppProtectedSession: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12Resource2(c_void_p):
+class ID3D12Resource2(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Resource1
     Guid = Guid('be36ec3b-ea85-4aeb-a4-5a-e9-d7-64-04-a4-95')
     @commethod(16)
     def GetDesc1(self) -> Windows.Win32.Graphics.Direct3D12.D3D12_RESOURCE_DESC1: ...
-class ID3D12RootSignature(c_void_p):
+class ID3D12RootSignature(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12DeviceChild
     Guid = Guid('c54a6b66-72df-4ee8-8b-e5-a9-46-a1-42-92-14')
-class ID3D12RootSignatureDeserializer(c_void_p):
+class ID3D12RootSignatureDeserializer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('34ab647b-3cc8-46ac-84-1b-c0-96-56-45-c0-46')
     @commethod(3)
     def GetRootSignatureDesc(self) -> POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC_head): ...
-class ID3D12SDKConfiguration(c_void_p):
+class ID3D12SDKConfiguration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e9eb5314-33aa-42b2-a7-18-d7-7f-58-b1-f1-c7')
     @commethod(3)
     def SetSDKVersion(self, SDKVersion: UInt32, SDKPath: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12SDKConfiguration1(c_void_p):
+class ID3D12SDKConfiguration1(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12SDKConfiguration
     Guid = Guid('8aaf9303-ad25-48b9-9a-57-d9-c3-7e-00-9d-9f')
     @commethod(4)
     def CreateDeviceFactory(self, SDKVersion: UInt32, SDKPath: Windows.Win32.Foundation.PSTR, riid: POINTER(Guid), ppvFactory: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def FreeUnusedSDKs(self) -> Void: ...
-class ID3D12ShaderCacheSession(c_void_p):
+class ID3D12ShaderCacheSession(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12DeviceChild
     Guid = Guid('28e2495d-0f64-4ae4-a6-ec-12-92-55-dc-49-a8')
     @commethod(8)
@@ -4889,7 +4889,7 @@ class ID3D12ShaderCacheSession(c_void_p):
     def SetDeleteOnDestroy(self) -> Void: ...
     @commethod(11)
     def GetDesc(self) -> Windows.Win32.Graphics.Direct3D12.D3D12_SHADER_CACHE_SESSION_DESC: ...
-class ID3D12ShaderReflection(c_void_p):
+class ID3D12ShaderReflection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5a58797d-a72c-478d-8b-a2-ef-c6-b0-ef-e8-8e')
     @commethod(3)
@@ -4930,7 +4930,7 @@ class ID3D12ShaderReflection(c_void_p):
     def GetThreadGroupSize(self, pSizeX: POINTER(UInt32), pSizeY: POINTER(UInt32), pSizeZ: POINTER(UInt32)) -> UInt32: ...
     @commethod(21)
     def GetRequiresFlags(self) -> UInt64: ...
-class ID3D12ShaderReflectionConstantBuffer(c_void_p):
+class ID3D12ShaderReflectionConstantBuffer(ComPtr):
     extends: None
     Guid = Guid('c59598b4-48b3-4869-b9-b1-b1-61-8b-14-a8-b7')
     @commethod(0)
@@ -4939,7 +4939,7 @@ class ID3D12ShaderReflectionConstantBuffer(c_void_p):
     def GetVariableByIndex(self, Index: UInt32) -> Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionVariable_head: ...
     @commethod(2)
     def GetVariableByName(self, Name: Windows.Win32.Foundation.PSTR) -> Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionVariable_head: ...
-class ID3D12ShaderReflectionType(c_void_p):
+class ID3D12ShaderReflectionType(ComPtr):
     extends: None
     Guid = Guid('e913c351-783d-48ca-a1-d1-4f-30-62-84-ad-56')
     @commethod(0)
@@ -4964,7 +4964,7 @@ class ID3D12ShaderReflectionType(c_void_p):
     def IsOfType(self, pType: Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def ImplementsInterface(self, pBase: Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionType_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12ShaderReflectionVariable(c_void_p):
+class ID3D12ShaderReflectionVariable(ComPtr):
     extends: None
     Guid = Guid('8337a8a6-a216-444a-b2-f4-31-47-33-a7-3a-ea')
     @commethod(0)
@@ -4975,7 +4975,7 @@ class ID3D12ShaderReflectionVariable(c_void_p):
     def GetBuffer(self) -> Windows.Win32.Graphics.Direct3D12.ID3D12ShaderReflectionConstantBuffer_head: ...
     @commethod(3)
     def GetInterfaceSlot(self, uArrayIndex: UInt32) -> UInt32: ...
-class ID3D12SharingContract(c_void_p):
+class ID3D12SharingContract(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0adf7d52-929c-4e61-ad-db-ff-ed-30-de-66-ef')
     @commethod(3)
@@ -4986,10 +4986,10 @@ class ID3D12SharingContract(c_void_p):
     def BeginCapturableWork(self, guid: POINTER(Guid)) -> Void: ...
     @commethod(6)
     def EndCapturableWork(self, guid: POINTER(Guid)) -> Void: ...
-class ID3D12StateObject(c_void_p):
+class ID3D12StateObject(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D12.ID3D12Pageable
     Guid = Guid('47016943-fca8-4594-93-ea-af-25-8b-55-34-6d')
-class ID3D12StateObjectProperties(c_void_p):
+class ID3D12StateObjectProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('de5fa827-9bf9-4f26-89-ff-d7-f5-6f-de-38-60')
     @commethod(3)
@@ -5000,7 +5000,7 @@ class ID3D12StateObjectProperties(c_void_p):
     def GetPipelineStackSize(self) -> UInt64: ...
     @commethod(6)
     def SetPipelineStackSize(self, PipelineStackSizeInBytes: UInt64) -> Void: ...
-class ID3D12SwapChainAssistant(c_void_p):
+class ID3D12SwapChainAssistant(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f1df64b6-57fd-49cd-88-07-c0-eb-88-b4-5c-8f')
     @commethod(3)
@@ -5011,21 +5011,21 @@ class ID3D12SwapChainAssistant(c_void_p):
     def GetCurrentResourceAndCommandQueue(self, riidResource: POINTER(Guid), ppvResource: POINTER(c_void_p), riidQueue: POINTER(Guid), ppvQueue: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def InsertImplicitSync(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3D12Tools(c_void_p):
+class ID3D12Tools(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7071e1f0-e84b-4b33-97-4f-12-fa-49-de-65-c5')
     @commethod(3)
     def EnableShaderInstrumentation(self, bEnable: Windows.Win32.Foundation.BOOL) -> Void: ...
     @commethod(4)
     def ShaderInstrumentationEnabled(self) -> Windows.Win32.Foundation.BOOL: ...
-class ID3D12VersionedRootSignatureDeserializer(c_void_p):
+class ID3D12VersionedRootSignatureDeserializer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7f91ce67-090c-4bb7-b7-8e-ed-8f-f2-e3-1d-a0')
     @commethod(3)
     def GetRootSignatureDescAtVersion(self, convertToVersion: Windows.Win32.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION, ppDesc: POINTER(POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetUnconvertedRootSignatureDesc(self) -> POINTER(Windows.Win32.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head): ...
-class ID3D12VirtualizationGuestDevice(c_void_p):
+class ID3D12VirtualizationGuestDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bc66d368-7373-4943-87-57-fc-87-dc-79-e4-76')
     @commethod(3)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Security.Authorization
 import Windows.Win32.Storage.IndexServer
@@ -5258,7 +5258,7 @@ DELIVERY_AGENT_FLAG_NO_BROADCAST: DELIVERY_AGENT_FLAGS = 4
 DELIVERY_AGENT_FLAG_NO_RESTRICTIONS: DELIVERY_AGENT_FLAGS = 8
 DELIVERY_AGENT_FLAG_SILENT_DIAL: DELIVERY_AGENT_FLAGS = 16
 DataLinks = Guid('2206cdb2-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
-class DataSource(c_void_p):
+class DataSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7c0ffab3-cd84-11d0-94-9a-00-a0-c9-11-10-ed')
     @commethod(3)
@@ -5271,7 +5271,7 @@ class DataSource(c_void_p):
     def addDataSourceListener(self, pDSL: Windows.Win32.System.Search.DataSourceListener_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def removeDataSourceListener(self, pDSL: Windows.Win32.System.Search.DataSourceListener_head) -> Windows.Win32.Foundation.HRESULT: ...
-class DataSourceListener(c_void_p):
+class DataSourceListener(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7c0ffab2-cd84-11d0-94-9a-00-a0-c9-11-10-ed')
     @commethod(3)
@@ -5280,7 +5280,7 @@ class DataSourceListener(c_void_p):
     def dataMemberAdded(self, bstrDM: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def dataMemberRemoved(self, bstrDM: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
-class DataSourceObject(c_void_p):
+class DataSourceObject(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('0ae9a4e4-18d4-11d1-b3-b3-00-aa-00-c1-a9-24')
 EBindInfoOptions = Int32
@@ -5313,7 +5313,7 @@ HACCESSOR = UIntPtr
 class HITRANGE(EasyCastStructure):
     iPosition: UInt32
     cLength: UInt32
-class IAccessor(c_void_p):
+class IAccessor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a8c-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -5324,31 +5324,31 @@ class IAccessor(c_void_p):
     def GetBindings(self, hAccessor: Windows.Win32.System.Search.HACCESSOR, pdwAccessorFlags: POINTER(UInt32), pcBindings: POINTER(UIntPtr), prgBindings: POINTER(POINTER(Windows.Win32.System.Search.DBBINDING_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def ReleaseAccessor(self, hAccessor: Windows.Win32.System.Search.HACCESSOR, pcRefCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAlterIndex(c_void_p):
+class IAlterIndex(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733aa6-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def AlterIndex(self, pTableId: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pIndexId: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pNewIndexId: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), cPropertySets: UInt32, rgPropertySets: POINTER(Windows.Win32.System.Search.DBPROPSET_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAlterTable(c_void_p):
+class IAlterTable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733aa5-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def AlterColumn(self, pTableId: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pColumnId: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), dwColumnDescFlags: UInt32, pColumnDesc: POINTER(Windows.Win32.System.Search.DBCOLUMNDESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def AlterTable(self, pTableId: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pNewTableId: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), cPropertySets: UInt32, rgPropertySets: POINTER(Windows.Win32.System.Search.DBPROPSET_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IBindResource(c_void_p):
+class IBindResource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733ab1-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def Bind(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, pwszURL: Windows.Win32.Foundation.PWSTR, dwBindURLFlags: UInt32, rguid: POINTER(Guid), riid: POINTER(Guid), pAuthenticate: Windows.Win32.System.Com.IAuthenticate_head, pImplSession: POINTER(Windows.Win32.System.Search.DBIMPLICITSESSION_head), pdwBindStatus: POINTER(UInt32), ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IChapteredRowset(c_void_p):
+class IChapteredRowset(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a93-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def AddRefChapter(self, hChapter: UIntPtr, pcRefCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReleaseChapter(self, hChapter: UIntPtr, pcRefCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IColumnMapper(c_void_p):
+class IColumnMapper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0b63e37a-9ccc-11d0-bc-db-00-80-5f-cc-ce-04')
     @commethod(3)
@@ -5359,31 +5359,31 @@ class IColumnMapper(c_void_p):
     def EnumPropInfo(self, iEntry: UInt32, pwcsName: POINTER(POINTER(UInt16)), ppPropId: POINTER(POINTER(Windows.Win32.Storage.IndexServer.DBID_head)), pPropType: POINTER(UInt16), puiWidth: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def IsMapUpToDate(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IColumnMapperCreator(c_void_p):
+class IColumnMapperCreator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0b63e37b-9ccc-11d0-bc-db-00-80-5f-cc-ce-04')
     @commethod(3)
     def GetColumnMapper(self, wcsMachineName: Windows.Win32.Foundation.PWSTR, wcsCatalogName: Windows.Win32.Foundation.PWSTR, ppColumnMapper: POINTER(Windows.Win32.System.Search.IColumnMapper_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IColumnsInfo(c_void_p):
+class IColumnsInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a11-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetColumnInfo(self, pcColumns: POINTER(UIntPtr), prgInfo: POINTER(POINTER(Windows.Win32.System.Search.DBCOLUMNINFO_head)), ppStringsBuffer: POINTER(POINTER(UInt16))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def MapColumnIDs(self, cColumnIDs: UIntPtr, rgColumnIDs: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), rgColumns: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
-class IColumnsInfo2(c_void_p):
+class IColumnsInfo2(ComPtr):
     extends: Windows.Win32.System.Search.IColumnsInfo
     Guid = Guid('0c733ab8-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(5)
     def GetRestrictedColumnInfo(self, cColumnIDMasks: UIntPtr, rgColumnIDMasks: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), dwFlags: UInt32, pcColumns: POINTER(UIntPtr), prgColumnIDs: POINTER(POINTER(Windows.Win32.Storage.IndexServer.DBID_head)), prgColumnInfo: POINTER(POINTER(Windows.Win32.System.Search.DBCOLUMNINFO_head)), ppStringsBuffer: POINTER(POINTER(UInt16))) -> Windows.Win32.Foundation.HRESULT: ...
-class IColumnsRowset(c_void_p):
+class IColumnsRowset(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a10-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetAvailableColumns(self, pcOptColumns: POINTER(UIntPtr), prgOptColumns: POINTER(POINTER(Windows.Win32.Storage.IndexServer.DBID_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetColumnsRowset(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, cOptColumns: UIntPtr, rgOptColumns: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), riid: POINTER(Guid), cPropertySets: UInt32, rgPropertySets: POINTER(Windows.Win32.System.Search.DBPROPSET_head), ppColRowset: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICommand(c_void_p):
+class ICommand(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a63-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -5392,7 +5392,7 @@ class ICommand(c_void_p):
     def Execute(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), pParams: POINTER(Windows.Win32.System.Search.DBPARAMS_head), pcRowsAffected: POINTER(IntPtr), ppRowset: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetDBSession(self, riid: POINTER(Guid), ppSession: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICommandCost(c_void_p):
+class ICommandCost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a4e-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -5407,7 +5407,7 @@ class ICommandCost(c_void_p):
     def SetCostGoals(self, pwszRowsetName: Windows.Win32.Foundation.PWSTR, cCostGoals: UInt32, rgCostGoals: POINTER(Windows.Win32.System.Search.DBCOST_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def SetCostLimits(self, pwszRowsetName: Windows.Win32.Foundation.PWSTR, cCostLimits: UInt32, prgCostLimits: POINTER(Windows.Win32.System.Search.DBCOST_head), dwExecutionFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ICommandPersist(c_void_p):
+class ICommandPersist(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733aa7-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -5418,42 +5418,42 @@ class ICommandPersist(c_void_p):
     def LoadCommand(self, pCommandID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SaveCommand(self, pCommandID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ICommandPrepare(c_void_p):
+class ICommandPrepare(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a26-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def Prepare(self, cExpectedRuns: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Unprepare(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ICommandProperties(c_void_p):
+class ICommandProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a79-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetProperties(self, cPropertyIDSets: UInt32, rgPropertyIDSets: POINTER(Windows.Win32.System.Search.DBPROPIDSET_head), pcPropertySets: POINTER(UInt32), prgPropertySets: POINTER(POINTER(Windows.Win32.System.Search.DBPROPSET_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetProperties(self, cPropertySets: UInt32, rgPropertySets: POINTER(Windows.Win32.System.Search.DBPROPSET_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICommandStream(c_void_p):
+class ICommandStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733abf-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetCommandStream(self, piid: POINTER(Guid), pguidDialect: POINTER(Guid), ppCommandStream: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetCommandStream(self, riid: POINTER(Guid), rguidDialect: POINTER(Guid), pCommandStream: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ICommandText(c_void_p):
+class ICommandText(ComPtr):
     extends: Windows.Win32.System.Search.ICommand
     Guid = Guid('0c733a27-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(6)
     def GetCommandText(self, pguidDialect: POINTER(Guid), ppwszCommand: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetCommandText(self, rguidDialect: POINTER(Guid), pwszCommand: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ICommandValidate(c_void_p):
+class ICommandValidate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a18-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def ValidateCompletely(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ValidateSyntax(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ICommandWithParameters(c_void_p):
+class ICommandWithParameters(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a64-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -5462,7 +5462,7 @@ class ICommandWithParameters(c_void_p):
     def MapParameterNames(self, cParamNames: UIntPtr, rgParamNames: POINTER(Windows.Win32.Foundation.PWSTR), rgParamOrdinals: POINTER(IntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetParameterInfo(self, cParams: UIntPtr, rgParamOrdinals: POINTER(UIntPtr), rgParamBindInfo: POINTER(Windows.Win32.System.Search.DBPARAMBINDINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICondition(c_void_p):
+class ICondition(ComPtr):
     extends: Windows.Win32.System.Com.IPersistStream
     Guid = Guid('0fc988d4-c935-4b97-a9-73-46-28-2e-a1-75-c8')
     @commethod(8)
@@ -5479,14 +5479,14 @@ class ICondition(c_void_p):
     def GetInputTerms(self, ppPropertyTerm: POINTER(Windows.Win32.System.Search.IRichChunk_head), ppOperationTerm: POINTER(Windows.Win32.System.Search.IRichChunk_head), ppValueTerm: POINTER(Windows.Win32.System.Search.IRichChunk_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def Clone(self, ppc: POINTER(Windows.Win32.System.Search.ICondition_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICondition2(c_void_p):
+class ICondition2(ComPtr):
     extends: Windows.Win32.System.Search.ICondition
     Guid = Guid('0db8851d-2e5b-47eb-92-08-d2-8c-32-5a-01-d7')
     @commethod(15)
     def GetLocale(self, ppszLocaleName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def GetLeafConditionInfo(self, ppropkey: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pcop: POINTER(Windows.Win32.System.Search.Common.CONDITION_OPERATION), ppropvar: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IConditionFactory(c_void_p):
+class IConditionFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a5efe073-b16f-474f-9f-3e-9f-8b-49-7a-3e-08')
     @commethod(3)
@@ -5497,7 +5497,7 @@ class IConditionFactory(c_void_p):
     def MakeLeaf(self, pszPropertyName: Windows.Win32.Foundation.PWSTR, cop: Windows.Win32.System.Search.Common.CONDITION_OPERATION, pszValueType: Windows.Win32.Foundation.PWSTR, ppropvar: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), pPropertyNameTerm: Windows.Win32.System.Search.IRichChunk_head, pOperationTerm: Windows.Win32.System.Search.IRichChunk_head, pValueTerm: Windows.Win32.System.Search.IRichChunk_head, fExpand: Windows.Win32.Foundation.BOOL, ppcResult: POINTER(Windows.Win32.System.Search.ICondition_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Resolve(self, pc: Windows.Win32.System.Search.ICondition_head, sqro: Windows.Win32.System.Search.STRUCTURED_QUERY_RESOLVE_OPTION, pstReferenceTime: POINTER(Windows.Win32.Foundation.SYSTEMTIME_head), ppcResolved: POINTER(Windows.Win32.System.Search.ICondition_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IConditionFactory2(c_void_p):
+class IConditionFactory2(ComPtr):
     extends: Windows.Win32.System.Search.IConditionFactory
     Guid = Guid('71d222e1-432f-429e-8c-13-b6-da-fd-e5-07-7a')
     @commethod(7)
@@ -5518,7 +5518,7 @@ class IConditionFactory2(c_void_p):
     def CreateLeaf(self, propkey: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), cop: Windows.Win32.System.Search.Common.CONDITION_OPERATION, propvar: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), pszSemanticType: Windows.Win32.Foundation.PWSTR, pszLocaleName: Windows.Win32.Foundation.PWSTR, pPropertyNameTerm: Windows.Win32.System.Search.IRichChunk_head, pOperationTerm: Windows.Win32.System.Search.IRichChunk_head, pValueTerm: Windows.Win32.System.Search.IRichChunk_head, cco: Windows.Win32.System.Search.CONDITION_CREATION_OPTIONS, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def ResolveCondition(self, pc: Windows.Win32.System.Search.ICondition_head, sqro: Windows.Win32.System.Search.STRUCTURED_QUERY_RESOLVE_OPTION, pstReferenceTime: POINTER(Windows.Win32.Foundation.SYSTEMTIME_head), riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IConditionGenerator(c_void_p):
+class IConditionGenerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('92d2cc58-4386-45a3-b9-8c-7e-0c-e6-4a-41-17')
     @commethod(3)
@@ -5529,17 +5529,17 @@ class IConditionGenerator(c_void_p):
     def GenerateForLeaf(self, pConditionFactory: Windows.Win32.System.Search.IConditionFactory_head, pszPropertyName: Windows.Win32.Foundation.PWSTR, cop: Windows.Win32.System.Search.Common.CONDITION_OPERATION, pszValueType: Windows.Win32.Foundation.PWSTR, pszValue: Windows.Win32.Foundation.PWSTR, pszValue2: Windows.Win32.Foundation.PWSTR, pPropertyNameTerm: Windows.Win32.System.Search.IRichChunk_head, pOperationTerm: Windows.Win32.System.Search.IRichChunk_head, pValueTerm: Windows.Win32.System.Search.IRichChunk_head, automaticWildcard: Windows.Win32.Foundation.BOOL, pNoStringQuery: POINTER(Windows.Win32.Foundation.BOOL), ppQueryExpression: POINTER(Windows.Win32.System.Search.ICondition_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def DefaultPhrase(self, pszValueType: Windows.Win32.Foundation.PWSTR, ppropvar: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), fUseEnglish: Windows.Win32.Foundation.BOOL, ppszPhrase: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IConvertType(c_void_p):
+class IConvertType(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a88-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def CanConvert(self, wFromType: UInt16, wToType: UInt16, dwConvertFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ICreateRow(c_void_p):
+class ICreateRow(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733ab2-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def CreateRow(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, pwszURL: Windows.Win32.Foundation.PWSTR, dwBindURLFlags: UInt32, rguid: POINTER(Guid), riid: POINTER(Guid), pAuthenticate: Windows.Win32.System.Com.IAuthenticate_head, pImplSession: POINTER(Windows.Win32.System.Search.DBIMPLICITSESSION_head), pdwBindStatus: POINTER(UInt32), ppwszNewURL: POINTER(Windows.Win32.Foundation.PWSTR), ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDBAsynchNotify(c_void_p):
+class IDBAsynchNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a96-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -5548,29 +5548,29 @@ class IDBAsynchNotify(c_void_p):
     def OnProgress(self, hChapter: UIntPtr, eOperation: UInt32, ulProgress: UIntPtr, ulProgressMax: UIntPtr, eAsynchPhase: UInt32, pwszStatusText: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnStop(self, hChapter: UIntPtr, eOperation: UInt32, hrStatus: Windows.Win32.Foundation.HRESULT, pwszStatusText: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IDBAsynchStatus(c_void_p):
+class IDBAsynchStatus(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a95-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def Abort(self, hChapter: UIntPtr, eOperation: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetStatus(self, hChapter: UIntPtr, eOperation: UInt32, pulProgress: POINTER(UIntPtr), pulProgressMax: POINTER(UIntPtr), peAsynchPhase: POINTER(UInt32), ppwszStatusText: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDBBinderProperties(c_void_p):
+class IDBBinderProperties(ComPtr):
     extends: Windows.Win32.System.Search.IDBProperties
     Guid = Guid('0c733ab3-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(6)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDBCreateCommand(c_void_p):
+class IDBCreateCommand(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a1d-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def CreateCommand(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), ppCommand: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDBCreateSession(c_void_p):
+class IDBCreateSession(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a5d-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def CreateSession(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), ppDBSession: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDBDataSourceAdmin(c_void_p):
+class IDBDataSourceAdmin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a7a-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -5581,28 +5581,28 @@ class IDBDataSourceAdmin(c_void_p):
     def GetCreationProperties(self, cPropertyIDSets: UInt32, rgPropertyIDSets: POINTER(Windows.Win32.System.Search.DBPROPIDSET_head), pcPropertyInfoSets: POINTER(UInt32), prgPropertyInfoSets: POINTER(POINTER(Windows.Win32.System.Search.DBPROPINFOSET_head)), ppDescBuffer: POINTER(POINTER(UInt16))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def ModifyDataSource(self, cPropertySets: UInt32, rgPropertySets: POINTER(Windows.Win32.System.Search.DBPROPSET_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDBInfo(c_void_p):
+class IDBInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a89-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetKeywords(self, ppwszKeywords: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetLiteralInfo(self, cLiterals: UInt32, rgLiterals: POINTER(UInt32), pcLiteralInfo: POINTER(UInt32), prgLiteralInfo: POINTER(POINTER(Windows.Win32.System.Search.DBLITERALINFO_head)), ppCharBuffer: POINTER(POINTER(UInt16))) -> Windows.Win32.Foundation.HRESULT: ...
-class IDBInitialize(c_void_p):
+class IDBInitialize(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a8b-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def Initialize(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Uninitialize(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDBPromptInitialize(c_void_p):
+class IDBPromptInitialize(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2206ccb0-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
     @commethod(3)
     def PromptDataSource(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, hWndParent: Windows.Win32.Foundation.HWND, dwPromptOptions: UInt32, cSourceTypeFilter: UInt32, rgSourceTypeFilter: POINTER(UInt32), pwszszzProviderFilter: Windows.Win32.Foundation.PWSTR, riid: POINTER(Guid), ppDataSource: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def PromptFileName(self, hWndParent: Windows.Win32.Foundation.HWND, dwPromptOptions: UInt32, pwszInitialDirectory: Windows.Win32.Foundation.PWSTR, pwszInitialFile: Windows.Win32.Foundation.PWSTR, ppwszSelectedFile: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDBProperties(c_void_p):
+class IDBProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a8a-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -5611,28 +5611,28 @@ class IDBProperties(c_void_p):
     def GetPropertyInfo(self, cPropertyIDSets: UInt32, rgPropertyIDSets: POINTER(Windows.Win32.System.Search.DBPROPIDSET_head), pcPropertyInfoSets: POINTER(UInt32), prgPropertyInfoSets: POINTER(POINTER(Windows.Win32.System.Search.DBPROPINFOSET_head)), ppDescBuffer: POINTER(POINTER(UInt16))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetProperties(self, cPropertySets: UInt32, rgPropertySets: POINTER(Windows.Win32.System.Search.DBPROPSET_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDBSchemaCommand(c_void_p):
+class IDBSchemaCommand(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a50-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetCommand(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, rguidSchema: POINTER(Guid), ppCommand: POINTER(Windows.Win32.System.Search.ICommand_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetSchemas(self, pcSchemas: POINTER(UInt32), prgSchemas: POINTER(POINTER(Guid))) -> Windows.Win32.Foundation.HRESULT: ...
-class IDBSchemaRowset(c_void_p):
+class IDBSchemaRowset(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a7b-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetRowset(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, rguidSchema: POINTER(Guid), cRestrictions: UInt32, rgRestrictions: POINTER(Windows.Win32.System.Variant.VARIANT_head), riid: POINTER(Guid), cPropertySets: UInt32, rgPropertySets: POINTER(Windows.Win32.System.Search.DBPROPSET_head), ppRowset: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetSchemas(self, pcSchemas: POINTER(UInt32), prgSchemas: POINTER(POINTER(Guid)), prgRestrictionSupport: POINTER(POINTER(UInt32))) -> Windows.Win32.Foundation.HRESULT: ...
-class IDCInfo(c_void_p):
+class IDCInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a9c-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetInfo(self, cInfo: UInt32, rgeInfoType: POINTER(UInt32), prgInfo: POINTER(POINTER(Windows.Win32.System.Search.DCINFO_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetInfo(self, cInfo: UInt32, rgInfo: POINTER(Windows.Win32.System.Search.DCINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDataConvert(c_void_p):
+class IDataConvert(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a8d-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -5641,7 +5641,7 @@ class IDataConvert(c_void_p):
     def CanConvert(self, wSrcType: UInt16, wDstType: UInt16) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetConversionSize(self, wSrcType: UInt16, wDstType: UInt16, pcbSrcLength: POINTER(UIntPtr), pcbDstLength: POINTER(UIntPtr), pSrc: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
-class IDataInitialize(c_void_p):
+class IDataInitialize(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2206ccb1-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
     @commethod(3)
@@ -5656,7 +5656,7 @@ class IDataInitialize(c_void_p):
     def LoadStringFromStorage(self, pwszFileName: Windows.Win32.Foundation.PWSTR, ppwszInitializationString: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def WriteStringToStorage(self, pwszFileName: Windows.Win32.Foundation.PWSTR, pwszInitializationString: Windows.Win32.Foundation.PWSTR, dwCreationDisposition: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDataSourceLocator(c_void_p):
+class IDataSourceLocator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('2206ccb2-19c1-11d1-89-e0-00-c0-4f-d7-a8-29')
     @commethod(7)
@@ -5667,7 +5667,7 @@ class IDataSourceLocator(c_void_p):
     def PromptNew(self, ppADOConnection: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def PromptEdit(self, ppADOConnection: POINTER(Windows.Win32.System.Com.IDispatch_head), pbSuccess: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEntity(c_void_p):
+class IEntity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('24264891-e80b-4fd3-b7-ce-4f-f2-fa-e8-93-1f')
     @commethod(3)
@@ -5686,7 +5686,7 @@ class IEntity(c_void_p):
     def GetNamedEntity(self, pszValue: Windows.Win32.Foundation.PWSTR, ppNamedEntity: POINTER(Windows.Win32.System.Search.INamedEntity_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def DefaultPhrase(self, ppszPhrase: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumItemProperties(c_void_p):
+class IEnumItemProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f72c8d96-6dbd-11d1-a1-e8-00-c0-4f-c2-fb-e1')
     @commethod(3)
@@ -5699,7 +5699,7 @@ class IEnumItemProperties(c_void_p):
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Search.IEnumItemProperties_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetCount(self, pnCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumSearchRoots(c_void_p):
+class IEnumSearchRoots(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-52')
     @commethod(3)
@@ -5710,7 +5710,7 @@ class IEnumSearchRoots(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Search.IEnumSearchRoots_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumSearchScopeRules(c_void_p):
+class IEnumSearchScopeRules(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-54')
     @commethod(3)
@@ -5721,7 +5721,7 @@ class IEnumSearchScopeRules(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Search.IEnumSearchScopeRules_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumSubscription(c_void_p):
+class IEnumSubscription(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f72c8d97-6dbd-11d1-a1-e8-00-c0-4f-c2-fb-e1')
     @commethod(3)
@@ -5734,7 +5734,7 @@ class IEnumSubscription(c_void_p):
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Search.IEnumSubscription_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetCount(self, pnCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IErrorLookup(c_void_p):
+class IErrorLookup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a66-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -5743,7 +5743,7 @@ class IErrorLookup(c_void_p):
     def GetHelpInfo(self, hrError: Windows.Win32.Foundation.HRESULT, dwLookupID: UInt32, lcid: UInt32, pbstrHelpFile: POINTER(Windows.Win32.Foundation.BSTR), pdwHelpContext: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def ReleaseErrors(self, dwDynamicErrorID: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IErrorRecords(c_void_p):
+class IErrorRecords(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a67-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -5758,41 +5758,41 @@ class IErrorRecords(c_void_p):
     def GetErrorParameters(self, ulRecordNum: UInt32, pdispparams: POINTER(Windows.Win32.System.Com.DISPPARAMS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetRecordCount(self, pcRecords: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IGetDataSource(c_void_p):
+class IGetDataSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a75-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetDataSource(self, riid: POINTER(Guid), ppDataSource: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IGetRow(c_void_p):
+class IGetRow(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733aaf-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetRowFromHROW(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, hRow: UIntPtr, riid: POINTER(Guid), ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetURLFromHROW(self, hRow: UIntPtr, ppwszURL: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IGetSession(c_void_p):
+class IGetSession(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733aba-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetSession(self, riid: POINTER(Guid), ppSession: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IGetSourceRow(c_void_p):
+class IGetSourceRow(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733abb-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetSourceRow(self, riid: POINTER(Guid), ppRow: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIndexDefinition(c_void_p):
+class IIndexDefinition(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a68-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def CreateIndex(self, pTableID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pIndexID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), cIndexColumnDescs: UIntPtr, rgIndexColumnDescs: POINTER(Windows.Win32.System.Search.DBINDEXCOLUMNDESC_head), cPropertySets: UInt32, rgPropertySets: POINTER(Windows.Win32.System.Search.DBPROPSET_head), ppIndexID: POINTER(POINTER(Windows.Win32.Storage.IndexServer.DBID_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def DropIndex(self, pTableID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pIndexID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IInterval(c_void_p):
+class IInterval(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6bf0a714-3c18-430b-8b-5d-83-b1-c2-34-d3-db')
     @commethod(3)
     def GetLimits(self, pilkLower: POINTER(Windows.Win32.System.Search.INTERVAL_LIMIT_KIND), ppropvarLower: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), pilkUpper: POINTER(Windows.Win32.System.Search.INTERVAL_LIMIT_KIND), ppropvarUpper: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ILoadFilter(c_void_p):
+class ILoadFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c7310722-ac80-11d1-8d-f3-00-c0-4f-b6-ef-4f')
     @commethod(3)
@@ -5801,12 +5801,12 @@ class ILoadFilter(c_void_p):
     def LoadIFilterFromStorage(self, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, pwcsOverride: Windows.Win32.Foundation.PWSTR, fUseDefault: Windows.Win32.Foundation.BOOL, pFilterClsid: POINTER(Guid), SearchDecSize: POINTER(Int32), pwcsSearchDesc: POINTER(POINTER(UInt16)), ppIFilt: POINTER(Windows.Win32.Storage.IndexServer.IFilter_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def LoadIFilterFromStream(self, pStm: Windows.Win32.System.Com.IStream_head, pFilteredSources: POINTER(Windows.Win32.System.Search.FILTERED_DATA_SOURCES_head), pUnkOuter: Windows.Win32.System.Com.IUnknown_head, fUseDefault: Windows.Win32.Foundation.BOOL, pFilterClsid: POINTER(Guid), SearchDecSize: POINTER(Int32), pwcsSearchDesc: POINTER(POINTER(UInt16)), ppIFilt: POINTER(Windows.Win32.Storage.IndexServer.IFilter_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ILoadFilterWithPrivateComActivation(c_void_p):
+class ILoadFilterWithPrivateComActivation(ComPtr):
     extends: Windows.Win32.System.Search.ILoadFilter
     Guid = Guid('40bdbd34-780b-48d3-9b-b6-12-eb-d4-ad-2e-75')
     @commethod(6)
     def LoadIFilterWithPrivateComActivation(self, filteredSources: POINTER(Windows.Win32.System.Search.FILTERED_DATA_SOURCES_head), useDefault: Windows.Win32.Foundation.BOOL, filterClsid: POINTER(Guid), isFilterPrivateComActivated: POINTER(Windows.Win32.Foundation.BOOL), filterObj: POINTER(Windows.Win32.Storage.IndexServer.IFilter_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMDDataset(c_void_p):
+class IMDDataset(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a07cccd1-8148-11d0-87-bb-00-c0-4f-c3-39-42')
     @commethod(3)
@@ -5819,24 +5819,24 @@ class IMDDataset(c_void_p):
     def GetCellData(self, hAccessor: Windows.Win32.System.Search.HACCESSOR, ulStartCell: UIntPtr, ulEndCell: UIntPtr, pData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetSpecification(self, riid: POINTER(Guid), ppSpecification: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMDFind(c_void_p):
+class IMDFind(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a07cccd2-8148-11d0-87-bb-00-c0-4f-c3-39-42')
     @commethod(3)
     def FindCell(self, ulStartingOrdinal: UIntPtr, cMembers: UIntPtr, rgpwszMember: POINTER(Windows.Win32.Foundation.PWSTR), pulCellOrdinal: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def FindTuple(self, ulAxisIdentifier: UInt32, ulStartingOrdinal: UIntPtr, cMembers: UIntPtr, rgpwszMember: POINTER(Windows.Win32.Foundation.PWSTR), pulTupleOrdinal: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMDRangeRowset(c_void_p):
+class IMDRangeRowset(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733aa0-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetRangeRowset(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, ulStartCell: UIntPtr, ulEndCell: UIntPtr, riid: POINTER(Guid), cPropertySets: UInt32, rgPropertySets: POINTER(Windows.Win32.System.Search.DBPROPSET_head), ppRowset: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMetaData(c_void_p):
+class IMetaData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('780102b0-c43b-4876-bc-7b-5e-9b-a5-c8-87-94')
     @commethod(3)
     def GetData(self, ppszKey: POINTER(Windows.Win32.Foundation.PWSTR), ppszValue: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMultipleResults(c_void_p):
+class IMultipleResults(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a90-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -5849,19 +5849,19 @@ ILK_EXPLICIT_INCLUDED: INTERVAL_LIMIT_KIND = 0
 ILK_EXPLICIT_EXCLUDED: INTERVAL_LIMIT_KIND = 1
 ILK_NEGATIVE_INFINITY: INTERVAL_LIMIT_KIND = 2
 ILK_POSITIVE_INFINITY: INTERVAL_LIMIT_KIND = 3
-class INamedEntity(c_void_p):
+class INamedEntity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('abdbd0b1-7d54-49fb-ab-5c-bf-f4-13-00-04-cd')
     @commethod(3)
     def GetValue(self, ppszValue: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def DefaultPhrase(self, ppszPhrase: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class INamedEntityCollector(c_void_p):
+class INamedEntityCollector(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('af2440f6-8afc-47d0-9a-7f-39-6a-0a-cf-b4-3d')
     @commethod(3)
     def Add(self, beginSpan: UInt32, endSpan: UInt32, beginActual: UInt32, endActual: UInt32, pType: Windows.Win32.System.Search.IEntity_head, pszValue: Windows.Win32.Foundation.PWSTR, certainty: Windows.Win32.System.Search.NAMED_ENTITY_CERTAINTY) -> Windows.Win32.Foundation.HRESULT: ...
-class IObjectAccessControl(c_void_p):
+class IObjectAccessControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733aa3-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -5874,7 +5874,7 @@ class IObjectAccessControl(c_void_p):
     def SetObjectAccessRights(self, pObject: POINTER(Windows.Win32.System.Search.SEC_OBJECT_head), cAccessEntries: UInt32, prgAccessEntries: POINTER(Windows.Win32.Security.Authorization.EXPLICIT_ACCESS_W_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetObjectOwner(self, pObject: POINTER(Windows.Win32.System.Search.SEC_OBJECT_head), pOwner: POINTER(Windows.Win32.Security.Authorization.TRUSTEE_W_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IOpLockStatus(c_void_p):
+class IOpLockStatus(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c731065d-ac80-11d1-8d-f3-00-c0-4f-b6-ef-4f')
     @commethod(3)
@@ -5883,27 +5883,27 @@ class IOpLockStatus(c_void_p):
     def IsOplockBroken(self, pfIsOplockBroken: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetOplockEventHandle(self, phOplockEv: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
-class IOpenRowset(c_void_p):
+class IOpenRowset(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a69-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def OpenRowset(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, pTableID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pIndexID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), riid: POINTER(Guid), cPropertySets: UInt32, rgPropertySets: POINTER(Windows.Win32.System.Search.DBPROPSET_head), ppRowset: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IParentRowset(c_void_p):
+class IParentRowset(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733aaa-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetChildRowset(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, iOrdinal: UIntPtr, riid: POINTER(Guid), ppRowset: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IProtocolHandlerSite(c_void_p):
+class IProtocolHandlerSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0b63e385-9ccc-11d0-bc-db-00-80-5f-cc-ce-04')
     @commethod(3)
     def GetFilter(self, pclsidObj: POINTER(Guid), pcwszContentType: Windows.Win32.Foundation.PWSTR, pcwszExtension: Windows.Win32.Foundation.PWSTR, ppFilter: POINTER(Windows.Win32.Storage.IndexServer.IFilter_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IProvideMoniker(c_void_p):
+class IProvideMoniker(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a4d-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetMoniker(self, ppIMoniker: POINTER(Windows.Win32.System.Com.IMoniker_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IQueryParser(c_void_p):
+class IQueryParser(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2ebdee67-3505-43f8-99-46-ea-44-ab-c8-e5-b0')
     @commethod(3)
@@ -5922,7 +5922,7 @@ class IQueryParser(c_void_p):
     def ParsePropertyValue(self, pszPropertyName: Windows.Win32.Foundation.PWSTR, pszInputString: Windows.Win32.Foundation.PWSTR, ppSolution: POINTER(Windows.Win32.System.Search.IQuerySolution_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def RestatePropertyValueToString(self, pCondition: Windows.Win32.System.Search.ICondition_head, fUseEnglish: Windows.Win32.Foundation.BOOL, ppszPropertyName: POINTER(Windows.Win32.Foundation.PWSTR), ppszQueryString: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IQueryParserManager(c_void_p):
+class IQueryParserManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a879e3c4-af77-44fb-8f-37-eb-d1-48-7c-f9-20')
     @commethod(3)
@@ -5931,7 +5931,7 @@ class IQueryParserManager(c_void_p):
     def InitializeOptions(self, fUnderstandNQS: Windows.Win32.Foundation.BOOL, fAutoWildCard: Windows.Win32.Foundation.BOOL, pQueryParser: Windows.Win32.System.Search.IQueryParser_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetOption(self, option: Windows.Win32.System.Search.QUERY_PARSER_MANAGER_OPTION, pOptionValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IQuerySolution(c_void_p):
+class IQuerySolution(ComPtr):
     extends: Windows.Win32.System.Search.IConditionFactory
     Guid = Guid('d6ebc66b-8921-4193-af-dd-a1-78-9f-b7-ff-57')
     @commethod(7)
@@ -5940,14 +5940,14 @@ class IQuerySolution(c_void_p):
     def GetErrors(self, riid: POINTER(Guid), ppParseErrors: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetLexicalData(self, ppszInputString: POINTER(Windows.Win32.Foundation.PWSTR), ppTokens: POINTER(Windows.Win32.System.Search.ITokenCollection_head), plcid: POINTER(UInt32), ppWordBreaker: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IReadData(c_void_p):
+class IReadData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a6a-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def ReadData(self, hChapter: UIntPtr, cbBookmark: UIntPtr, pBookmark: POINTER(Byte), lRowsOffset: IntPtr, hAccessor: Windows.Win32.System.Search.HACCESSOR, cRows: IntPtr, pcRowsObtained: POINTER(UIntPtr), ppFixedData: POINTER(POINTER(Byte)), pcbVariableTotal: POINTER(UIntPtr), ppVariableData: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReleaseChapter(self, hChapter: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class IRegisterProvider(c_void_p):
+class IRegisterProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733ab9-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -5956,7 +5956,7 @@ class IRegisterProvider(c_void_p):
     def SetURLMapping(self, pwszURL: Windows.Win32.Foundation.PWSTR, dwReserved: UIntPtr, rclsidProvider: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def UnregisterProvider(self, pwszURL: Windows.Win32.Foundation.PWSTR, dwReserved: UIntPtr, rclsidProvider: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRelationship(c_void_p):
+class IRelationship(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2769280b-5108-498c-9c-7f-a5-12-39-b6-31-47')
     @commethod(3)
@@ -5969,12 +5969,12 @@ class IRelationship(c_void_p):
     def MetaData(self, riid: POINTER(Guid), pMetaData: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def DefaultPhrase(self, ppszPhrase: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRichChunk(c_void_p):
+class IRichChunk(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4fdef69c-dbc9-454e-99-10-b3-4f-3c-64-b5-10')
     @commethod(3)
     def GetData(self, pFirstPos: POINTER(UInt32), pLength: POINTER(UInt32), ppsz: POINTER(Windows.Win32.Foundation.PWSTR), pValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRow(c_void_p):
+class IRow(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733ab4-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -5983,12 +5983,12 @@ class IRow(c_void_p):
     def GetSourceRowset(self, riid: POINTER(Guid), ppRowset: POINTER(Windows.Win32.System.Com.IUnknown_head), phRow: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Open(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, pColumnID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), rguidColumnType: POINTER(Guid), dwBindFlags: UInt32, riid: POINTER(Guid), ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowChange(c_void_p):
+class IRowChange(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733ab5-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def SetColumns(self, cColumns: UIntPtr, rgColumns: POINTER(Windows.Win32.System.Search.DBCOLUMNACCESS_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowPosition(c_void_p):
+class IRowPosition(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a94-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -6001,19 +6001,19 @@ class IRowPosition(c_void_p):
     def Initialize(self, pRowset: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetRowPosition(self, hChapter: UIntPtr, hRow: UIntPtr, dwPositionFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowPositionChange(c_void_p):
+class IRowPositionChange(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0997a571-126e-11d0-9f-8a-00-a0-c9-a0-63-1e')
     @commethod(3)
     def OnRowPositionChange(self, eReason: UInt32, ePhase: UInt32, fCantDeny: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowSchemaChange(c_void_p):
+class IRowSchemaChange(ComPtr):
     extends: Windows.Win32.System.Search.IRowChange
     Guid = Guid('0c733aae-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(4)
     def DeleteColumns(self, cColumns: UIntPtr, rgColumnIDs: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), rgdwStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def AddColumns(self, cColumns: UIntPtr, rgNewColumnInfo: POINTER(Windows.Win32.System.Search.DBCOLUMNINFO_head), rgColumns: POINTER(Windows.Win32.System.Search.DBCOLUMNACCESS_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowset(c_void_p):
+class IRowset(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a7c-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -6026,19 +6026,19 @@ class IRowset(c_void_p):
     def ReleaseRows(self, cRows: UIntPtr, rghRows: POINTER(UIntPtr), rgRowOptions: POINTER(UInt32), rgRefCounts: POINTER(UInt32), rgRowStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def RestartPosition(self, hReserved: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetAsynch(c_void_p):
+class IRowsetAsynch(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a0f-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def RatioFinished(self, pulDenominator: POINTER(UIntPtr), pulNumerator: POINTER(UIntPtr), pcRows: POINTER(UIntPtr), pfNewRows: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Stop(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetBookmark(c_void_p):
+class IRowsetBookmark(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733ac2-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def PositionOnBookmark(self, hChapter: UIntPtr, cbBookmark: UIntPtr, pBookmark: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetChange(c_void_p):
+class IRowsetChange(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a05-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -6047,19 +6047,19 @@ class IRowsetChange(c_void_p):
     def SetData(self, hRow: UIntPtr, hAccessor: Windows.Win32.System.Search.HACCESSOR, pData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def InsertRow(self, hReserved: UIntPtr, hAccessor: Windows.Win32.System.Search.HACCESSOR, pData: c_void_p, phRow: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetChangeExtInfo(c_void_p):
+class IRowsetChangeExtInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a8f-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetOriginalRow(self, hReserved: UIntPtr, hRow: UIntPtr, phRowOriginal: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetPendingColumns(self, hReserved: UIntPtr, hRow: UIntPtr, cColumnOrdinals: UInt32, rgiOrdinals: POINTER(UInt32), rgColumnStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetChapterMember(c_void_p):
+class IRowsetChapterMember(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733aa8-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def IsRowInChapter(self, hChapter: UIntPtr, hRow: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetCopyRows(c_void_p):
+class IRowsetCopyRows(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a6b-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -6070,14 +6070,14 @@ class IRowsetCopyRows(c_void_p):
     def CopyRows(self, hSourceID: UInt16, hReserved: UIntPtr, cRows: IntPtr, bFlags: UInt32, pcRowsCopied: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def DefineSource(self, pRowsetSource: Windows.Win32.System.Search.IRowset_head, cColIds: UIntPtr, rgSourceColumns: POINTER(IntPtr), rgTargetColumns: POINTER(IntPtr), phSourceID: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetCurrentIndex(c_void_p):
+class IRowsetCurrentIndex(ComPtr):
     extends: Windows.Win32.System.Search.IRowsetIndex
     Guid = Guid('0c733abd-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(6)
     def GetIndex(self, ppIndexID: POINTER(POINTER(Windows.Win32.Storage.IndexServer.DBID_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetIndex(self, pIndexID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetEvents(c_void_p):
+class IRowsetEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1551aea5-5d66-4b11-86-f5-d5-63-4c-b2-11-b9')
     @commethod(3)
@@ -6088,29 +6088,29 @@ class IRowsetEvents(c_void_p):
     def OnDeletedItem(self, itemID: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), deletedItemState: Windows.Win32.System.Search.ROWSETEVENT_ITEMSTATE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def OnRowsetEvent(self, eventType: Windows.Win32.System.Search.ROWSETEVENT_TYPE, eventData: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetExactScroll(c_void_p):
+class IRowsetExactScroll(ComPtr):
     extends: Windows.Win32.System.Search.IRowsetScroll
     Guid = Guid('0c733a7f-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(14)
     def GetExactPosition(self, hChapter: UIntPtr, cbBookmark: UIntPtr, pBookmark: POINTER(Byte), pulPosition: POINTER(UIntPtr), pcRows: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetFastLoad(c_void_p):
+class IRowsetFastLoad(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5cf4ca13-ef21-11d0-97-e7-00-c0-4f-c2-ad-98')
     @commethod(3)
     def InsertRow(self, hAccessor: Windows.Win32.System.Search.HACCESSOR, pData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Commit(self, fDone: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetFind(c_void_p):
+class IRowsetFind(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a9d-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def FindNextRow(self, hChapter: UIntPtr, hAccessor: Windows.Win32.System.Search.HACCESSOR, pFindValue: c_void_p, CompareOp: UInt32, cbBookmark: UIntPtr, pBookmark: POINTER(Byte), lRowsOffset: IntPtr, cRows: IntPtr, pcRowsObtained: POINTER(UIntPtr), prghRows: POINTER(POINTER(UIntPtr))) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetIdentity(c_void_p):
+class IRowsetIdentity(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a09-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def IsSameRow(self, hThisRow: UIntPtr, hThatRow: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetIndex(c_void_p):
+class IRowsetIndex(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a82-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -6119,7 +6119,7 @@ class IRowsetIndex(c_void_p):
     def Seek(self, hAccessor: Windows.Win32.System.Search.HACCESSOR, cKeyValues: UIntPtr, pData: c_void_p, dwSeekOptions: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetRange(self, hAccessor: Windows.Win32.System.Search.HACCESSOR, cStartKeyColumns: UIntPtr, pStartData: c_void_p, cEndKeyColumns: UIntPtr, pEndData: c_void_p, dwRangeOptions: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetInfo(c_void_p):
+class IRowsetInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a55-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -6128,12 +6128,12 @@ class IRowsetInfo(c_void_p):
     def GetReferencedRowset(self, iOrdinal: UIntPtr, riid: POINTER(Guid), ppReferencedRowset: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetSpecification(self, riid: POINTER(Guid), ppSpecification: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetKeys(c_void_p):
+class IRowsetKeys(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a12-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def ListKeys(self, pcColumns: POINTER(UIntPtr), prgColumns: POINTER(POINTER(UIntPtr))) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetLocate(c_void_p):
+class IRowsetLocate(ComPtr):
     extends: Windows.Win32.System.Search.IRowset
     Guid = Guid('0c733a7d-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(8)
@@ -6144,17 +6144,17 @@ class IRowsetLocate(c_void_p):
     def GetRowsByBookmark(self, hReserved: UIntPtr, cRows: UIntPtr, rgcbBookmarks: POINTER(UIntPtr), rgpBookmarks: POINTER(POINTER(Byte)), rghRows: POINTER(UIntPtr), rgRowStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Hash(self, hReserved: UIntPtr, cBookmarks: UIntPtr, rgcbBookmarks: POINTER(UIntPtr), rgpBookmarks: POINTER(POINTER(Byte)), rgHashedValues: POINTER(UIntPtr), rgBookmarkStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetNewRowAfter(c_void_p):
+class IRowsetNewRowAfter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a71-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def SetNewDataAfter(self, hChapter: UIntPtr, cbbmPrevious: UInt32, pbmPrevious: POINTER(Byte), hAccessor: Windows.Win32.System.Search.HACCESSOR, pData: POINTER(Byte), phRow: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetNextRowset(c_void_p):
+class IRowsetNextRowset(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a72-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetNextRowset(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), ppNextRowset: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetNotify(c_void_p):
+class IRowsetNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a83-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -6163,7 +6163,7 @@ class IRowsetNotify(c_void_p):
     def OnRowChange(self, pRowset: Windows.Win32.System.Search.IRowset_head, cRows: UIntPtr, rghRows: POINTER(UIntPtr), eReason: UInt32, ePhase: UInt32, fCantDeny: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnRowsetChange(self, pRowset: Windows.Win32.System.Search.IRowset_head, eReason: UInt32, ePhase: UInt32, fCantDeny: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetPrioritization(c_void_p):
+class IRowsetPrioritization(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('42811652-079d-481b-87-a2-09-a6-9e-cc-5f-44')
     @commethod(3)
@@ -6172,35 +6172,35 @@ class IRowsetPrioritization(c_void_p):
     def GetScopePriority(self, priority: POINTER(Windows.Win32.System.Search.PRIORITY_LEVEL), scopeStatisticsEventFrequency: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetScopeStatistics(self, indexedDocumentCount: POINTER(UInt32), oustandingAddCount: POINTER(UInt32), oustandingModifyCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetQueryStatus(c_void_p):
+class IRowsetQueryStatus(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a7ac77ed-f8d7-11ce-a7-98-00-20-f8-00-80-24')
     @commethod(3)
     def GetStatus(self, pdwStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetStatusEx(self, pdwStatus: POINTER(UInt32), pcFilteredDocuments: POINTER(UInt32), pcDocumentsToFilter: POINTER(UInt32), pdwRatioFinishedDenominator: POINTER(UIntPtr), pdwRatioFinishedNumerator: POINTER(UIntPtr), cbBmk: UIntPtr, pBmk: POINTER(Byte), piRowBmk: POINTER(UIntPtr), pcRowsTotal: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetRefresh(c_void_p):
+class IRowsetRefresh(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733aa9-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def RefreshVisibleData(self, hChapter: UIntPtr, cRows: UIntPtr, rghRows: POINTER(UIntPtr), fOverWrite: Windows.Win32.Foundation.BOOL, pcRowsRefreshed: POINTER(UIntPtr), prghRowsRefreshed: POINTER(POINTER(UIntPtr)), prgRowStatus: POINTER(POINTER(UInt32))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetLastVisibleData(self, hRow: UIntPtr, hAccessor: Windows.Win32.System.Search.HACCESSOR, pData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetResynch(c_void_p):
+class IRowsetResynch(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a84-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetVisibleData(self, hRow: UIntPtr, hAccessor: Windows.Win32.System.Search.HACCESSOR, pData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ResynchRows(self, cRows: UIntPtr, rghRows: POINTER(UIntPtr), pcRowsResynched: POINTER(UIntPtr), prghRowsResynched: POINTER(POINTER(UIntPtr)), prgRowStatus: POINTER(POINTER(UInt32))) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetScroll(c_void_p):
+class IRowsetScroll(ComPtr):
     extends: Windows.Win32.System.Search.IRowsetLocate
     Guid = Guid('0c733a7e-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(12)
     def GetApproximatePosition(self, hReserved: UIntPtr, cbBookmark: UIntPtr, pBookmark: POINTER(Byte), pulPosition: POINTER(UIntPtr), pcRows: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetRowsAtRatio(self, hReserved1: UIntPtr, hReserved2: UIntPtr, ulNumerator: UIntPtr, ulDenominator: UIntPtr, cRows: IntPtr, pcRowsObtained: POINTER(UIntPtr), prghRows: POINTER(POINTER(UIntPtr))) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetUpdate(c_void_p):
+class IRowsetUpdate(ComPtr):
     extends: Windows.Win32.System.Search.IRowsetChange
     Guid = Guid('0c733a6d-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(6)
@@ -6213,14 +6213,14 @@ class IRowsetUpdate(c_void_p):
     def Undo(self, hReserved: UIntPtr, cRows: UIntPtr, rghRows: POINTER(UIntPtr), pcRowsUndone: POINTER(UIntPtr), prgRowsUndone: POINTER(POINTER(UIntPtr)), prgRowStatus: POINTER(POINTER(UInt32))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Update(self, hReserved: UIntPtr, cRows: UIntPtr, rghRows: POINTER(UIntPtr), pcRows: POINTER(UIntPtr), prgRows: POINTER(POINTER(UIntPtr)), prgRowStatus: POINTER(POINTER(UInt32))) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetView(c_void_p):
+class IRowsetView(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a99-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def CreateView(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), ppView: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetView(self, hChapter: UIntPtr, riid: POINTER(Guid), phChapterSource: POINTER(UIntPtr), ppView: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetWatchAll(c_void_p):
+class IRowsetWatchAll(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a73-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -6229,12 +6229,12 @@ class IRowsetWatchAll(c_void_p):
     def Start(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def StopWatching(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetWatchNotify(c_void_p):
+class IRowsetWatchNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a44-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def OnChange(self, pRowset: Windows.Win32.System.Search.IRowset_head, eChangeReason: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetWatchRegion(c_void_p):
+class IRowsetWatchRegion(ComPtr):
     extends: Windows.Win32.System.Search.IRowsetWatchAll
     Guid = Guid('0c733a45-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(6)
@@ -6249,46 +6249,46 @@ class IRowsetWatchRegion(c_void_p):
     def Refresh(self, pcChangesObtained: POINTER(UIntPtr), prgChanges: POINTER(POINTER(Windows.Win32.System.Search.DBROWWATCHCHANGE_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def ShrinkWatchRegion(self, hRegion: UIntPtr, hChapter: UIntPtr, cbBookmark: UIntPtr, pBookmark: POINTER(Byte), cRows: IntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetWithParameters(c_void_p):
+class IRowsetWithParameters(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a6e-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetParameterInfo(self, pcParams: POINTER(UIntPtr), prgParamInfo: POINTER(POINTER(Windows.Win32.System.Search.DBPARAMINFO_head)), ppNamesBuffer: POINTER(POINTER(UInt16))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Requery(self, pParams: POINTER(Windows.Win32.System.Search.DBPARAMS_head), pulErrorParam: POINTER(UInt32), phReserved: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISQLErrorInfo(c_void_p):
+class ISQLErrorInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a74-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetSQLInfo(self, pbstrSQLState: POINTER(Windows.Win32.Foundation.BSTR), plNativeError: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISQLGetDiagField(c_void_p):
+class ISQLGetDiagField(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('228972f1-b5ff-11d0-8a-80-00-c0-4f-d6-11-cd')
     @commethod(3)
     def GetDiagField(self, pDiagInfo: POINTER(Windows.Win32.System.Search.KAGGETDIAG_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISQLRequestDiagFields(c_void_p):
+class ISQLRequestDiagFields(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('228972f0-b5ff-11d0-8a-80-00-c0-4f-d6-11-cd')
     @commethod(3)
     def RequestDiagFields(self, cDiagFields: UInt32, rgDiagFields: POINTER(Windows.Win32.System.Search.KAGREQDIAG_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISQLServerErrorInfo(c_void_p):
+class ISQLServerErrorInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5cf4ca12-ef21-11d0-97-e7-00-c0-4f-c2-ad-98')
     @commethod(3)
     def GetErrorInfo(self, ppErrorInfo: POINTER(POINTER(Windows.Win32.System.Search.SSERRORINFO_head)), ppStringsBuffer: POINTER(POINTER(UInt16))) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchemaLocalizerSupport(c_void_p):
+class ISchemaLocalizerSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ca3fdca2-bfbe-4eed-90-d7-0c-ae-f0-a1-bd-a1')
     @commethod(3)
     def Localize(self, pszGlobalString: Windows.Win32.Foundation.PWSTR, ppszLocalString: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchemaLock(c_void_p):
+class ISchemaLock(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4c2389fb-2511-11d4-b2-58-00-c0-4f-79-71-ce')
     @commethod(3)
     def GetSchemaLock(self, pTableID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), lmMode: UInt32, phLockHandle: POINTER(Windows.Win32.Foundation.HANDLE), pTableVersion: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReleaseSchemaLock(self, hLockHandle: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
-class ISchemaProvider(c_void_p):
+class ISchemaProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8cf89bcb-394c-49b2-ae-28-a5-9d-d4-ed-7f-68')
     @commethod(3)
@@ -6305,7 +6305,7 @@ class ISchemaProvider(c_void_p):
     def SaveBinary(self, pszSchemaBinaryPath: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def LookupAuthoredNamedEntity(self, pEntity: Windows.Win32.System.Search.IEntity_head, pszInputString: Windows.Win32.Foundation.PWSTR, pTokenCollection: Windows.Win32.System.Search.ITokenCollection_head, cTokensBegin: UInt32, pcTokensLength: POINTER(UInt32), ppszValue: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IScopedOperations(c_void_p):
+class IScopedOperations(ComPtr):
     extends: Windows.Win32.System.Search.IBindResource
     Guid = Guid('0c733ab0-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(4)
@@ -6316,7 +6316,7 @@ class IScopedOperations(c_void_p):
     def Delete(self, cRows: UIntPtr, rgpwszURLs: POINTER(Windows.Win32.Foundation.PWSTR), dwDeleteFlags: UInt32, rgdwStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def OpenRowset(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, pTableID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pIndexID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), riid: POINTER(Guid), cPropertySets: UInt32, rgPropertySets: POINTER(Windows.Win32.System.Search.DBPROPSET_head), ppRowset: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchCatalogManager(c_void_p):
+class ISearchCatalogManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-50')
     @commethod(3)
@@ -6371,12 +6371,12 @@ class ISearchCatalogManager(c_void_p):
     def get_DiacriticSensitivity(self, pfDiacriticSensitive: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
     def GetCrawlScopeManager(self, ppCrawlScopeManager: POINTER(Windows.Win32.System.Search.ISearchCrawlScopeManager_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchCatalogManager2(c_void_p):
+class ISearchCatalogManager2(ComPtr):
     extends: Windows.Win32.System.Search.ISearchCatalogManager
     Guid = Guid('7ac3286d-4d1d-4817-84-fc-c1-c8-5e-3a-f0-d9')
     @commethod(29)
     def PrioritizeMatchingURLs(self, pszPattern: Windows.Win32.Foundation.PWSTR, dwPrioritizeFlags: Windows.Win32.System.Search.PRIORITIZE_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchCrawlScopeManager(c_void_p):
+class ISearchCrawlScopeManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-55')
     @commethod(3)
@@ -6411,12 +6411,12 @@ class ISearchCrawlScopeManager(c_void_p):
     def GetParentScopeVersionId(self, pszURL: Windows.Win32.Foundation.PWSTR, plScopeId: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def RemoveDefaultScopeRule(self, pszURL: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchCrawlScopeManager2(c_void_p):
+class ISearchCrawlScopeManager2(ComPtr):
     extends: Windows.Win32.System.Search.ISearchCrawlScopeManager
     Guid = Guid('6292f7ad-4e19-4717-a5-34-8f-c2-2b-cd-5c-cd')
     @commethod(19)
     def GetVersion(self, plVersion: POINTER(POINTER(Int32)), phFileMapping: POINTER(Windows.Win32.Foundation.HANDLE)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchItemsChangedSink(c_void_p):
+class ISearchItemsChangedSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-58')
     @commethod(3)
@@ -6425,7 +6425,7 @@ class ISearchItemsChangedSink(c_void_p):
     def StoppedMonitoringScope(self, pszURL: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnItemsChanged(self, dwNumberOfChanges: UInt32, rgDataChangeEntries: POINTER(Windows.Win32.System.Search.SEARCH_ITEM_CHANGE_head), rgdwDocIds: POINTER(UInt32), rghrCompletionCodes: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchLanguageSupport(c_void_p):
+class ISearchLanguageSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('24c3cbaa-ebc1-491a-9e-f1-9f-6d-8d-eb-1b-8f')
     @commethod(3)
@@ -6438,7 +6438,7 @@ class ISearchLanguageSupport(c_void_p):
     def LoadStemmer(self, lcid: UInt32, riid: POINTER(Guid), ppStemmer: POINTER(c_void_p), pLcidUsed: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def IsPrefixNormalized(self, pwcsQueryToken: Windows.Win32.Foundation.PWSTR, cwcQueryToken: UInt32, pwcsDocumentToken: Windows.Win32.Foundation.PWSTR, cwcDocumentToken: UInt32, pulPrefixLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchManager(c_void_p):
+class ISearchManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-69')
     @commethod(3)
@@ -6467,21 +6467,21 @@ class ISearchManager(c_void_p):
     def get_LocalBypass(self, pfLocalBypass: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def get_PortNumber(self, pdwPortNumber: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchManager2(c_void_p):
+class ISearchManager2(ComPtr):
     extends: Windows.Win32.System.Search.ISearchManager
     Guid = Guid('dbab3f73-db19-4a79-bf-c0-a6-1a-93-88-6d-df')
     @commethod(16)
     def CreateCatalog(self, pszCatalog: Windows.Win32.Foundation.PWSTR, ppCatalogManager: POINTER(Windows.Win32.System.Search.ISearchCatalogManager_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def DeleteCatalog(self, pszCatalog: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchNotifyInlineSite(c_void_p):
+class ISearchNotifyInlineSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b5702e61-e75c-4b64-82-a1-6c-b4-f8-32-fc-cf')
     @commethod(3)
     def OnItemIndexedStatusChange(self, sipStatus: Windows.Win32.System.Search.SEARCH_INDEXING_PHASE, dwNumEntries: UInt32, rgItemStatusEntries: POINTER(Windows.Win32.System.Search.SEARCH_ITEM_INDEXING_STATUS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnCatalogStatusChange(self, guidCatalogResetSignature: POINTER(Guid), guidCheckPointSignature: POINTER(Guid), dwLastCheckPointNumber: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchPersistentItemsChangedSink(c_void_p):
+class ISearchPersistentItemsChangedSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a2ffdf9b-4758-4f84-b7-29-df-81-a1-a0-61-2f')
     @commethod(3)
@@ -6490,7 +6490,7 @@ class ISearchPersistentItemsChangedSink(c_void_p):
     def StoppedMonitoringScope(self, pszURL: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnItemsChanged(self, dwNumberOfChanges: UInt32, DataChangeEntries: POINTER(Windows.Win32.System.Search.SEARCH_ITEM_PERSISTENT_CHANGE_head), hrCompletionCodes: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchProtocol(c_void_p):
+class ISearchProtocol(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c73106ba-ac80-11d1-8d-f3-00-c0-4f-b6-ef-4f')
     @commethod(3)
@@ -6501,12 +6501,12 @@ class ISearchProtocol(c_void_p):
     def CloseAccessor(self, pAccessor: Windows.Win32.System.Search.IUrlAccessor_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def ShutDown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchProtocol2(c_void_p):
+class ISearchProtocol2(ComPtr):
     extends: Windows.Win32.System.Search.ISearchProtocol
     Guid = Guid('7789f0b2-b5b2-4722-8b-65-5d-bd-15-06-97-a9')
     @commethod(7)
     def CreateAccessorEx(self, pcwszURL: Windows.Win32.Foundation.PWSTR, pAuthenticationInfo: POINTER(Windows.Win32.System.Search.AUTHENTICATION_INFO_head), pIncrementalAccessInfo: POINTER(Windows.Win32.System.Search.INCREMENTAL_ACCESS_INFO_head), pItemInfo: POINTER(Windows.Win32.System.Search.ITEM_INFO_head), pUserData: POINTER(Windows.Win32.System.Com.BLOB_head), ppAccessor: POINTER(Windows.Win32.System.Search.IUrlAccessor_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchProtocolThreadContext(c_void_p):
+class ISearchProtocolThreadContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c73106e1-ac80-11d1-8d-f3-00-c0-4f-b6-ef-4f')
     @commethod(3)
@@ -6515,7 +6515,7 @@ class ISearchProtocolThreadContext(c_void_p):
     def ThreadShutdown(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def ThreadIdle(self, dwTimeElaspedSinceLastCallInMS: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchQueryHelper(c_void_p):
+class ISearchQueryHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-63')
     @commethod(3)
@@ -6560,7 +6560,7 @@ class ISearchQueryHelper(c_void_p):
     def put_QueryMaxResults(self, cMaxResults: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def get_QueryMaxResults(self, pcMaxResults: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchQueryHits(c_void_p):
+class ISearchQueryHits(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ed8ce7e0-106c-11ce-84-e2-00-aa-00-4b-99-86')
     @commethod(3)
@@ -6569,7 +6569,7 @@ class ISearchQueryHits(c_void_p):
     def NextHitMoniker(self, pcMnk: POINTER(UInt32), papMnk: POINTER(POINTER(Windows.Win32.System.Com.IMoniker_head))) -> Int32: ...
     @commethod(5)
     def NextHitOffset(self, pcRegion: POINTER(UInt32), paRegion: POINTER(POINTER(Windows.Win32.Storage.IndexServer.FILTERREGION_head))) -> Int32: ...
-class ISearchRoot(c_void_p):
+class ISearchRoot(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('04c18ccf-1f57-4cbd-88-cc-39-00-f5-19-5c-e3')
     @commethod(3)
@@ -6616,7 +6616,7 @@ class ISearchRoot(c_void_p):
     def put_Password(self, pszPassword: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
     def get_Password(self, ppszPassword: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchScopeRule(c_void_p):
+class ISearchScopeRule(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-53')
     @commethod(3)
@@ -6627,12 +6627,12 @@ class ISearchScopeRule(c_void_p):
     def get_IsDefault(self, pfIsDefault: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def get_FollowFlags(self, pFollowFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISearchViewChangedSink(c_void_p):
+class ISearchViewChangedSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ab310581-ac80-11d1-8d-f3-00-c0-4f-b6-ef-65')
     @commethod(3)
     def OnChange(self, pdwDocID: POINTER(Int32), pChange: POINTER(Windows.Win32.System.Search.SEARCH_ITEM_CHANGE_head), pfInView: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISecurityInfo(c_void_p):
+class ISecurityInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733aa4-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -6641,19 +6641,19 @@ class ISecurityInfo(c_void_p):
     def GetObjectTypes(self, cObjectTypes: POINTER(UInt32), rgObjectTypes: POINTER(POINTER(Guid))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetPermissions(self, ObjectType: Guid, pPermissions: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IService(c_void_p):
+class IService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('06210e88-01f5-11d1-b5-12-00-80-c7-81-c3-84')
     @commethod(3)
     def InvokeService(self, pUnkInner: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ISessionProperties(c_void_p):
+class ISessionProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a85-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetProperties(self, cPropertyIDSets: UInt32, rgPropertyIDSets: POINTER(Windows.Win32.System.Search.DBPROPIDSET_head), pcPropertySets: POINTER(UInt32), prgPropertySets: POINTER(POINTER(Windows.Win32.System.Search.DBPROPSET_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetProperties(self, cPropertySets: UInt32, rgPropertySets: POINTER(Windows.Win32.System.Search.DBPROPSET_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISimpleCommandCreator(c_void_p):
+class ISimpleCommandCreator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5e341ab7-02d0-11d1-90-0c-00-a0-c9-06-37-96')
     @commethod(3)
@@ -6662,12 +6662,12 @@ class ISimpleCommandCreator(c_void_p):
     def VerifyCatalog(self, pwszMachine: Windows.Win32.Foundation.PWSTR, pwszCatalogName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetDefaultCatalog(self, pwszCatalogName: Windows.Win32.Foundation.PWSTR, cwcIn: UInt32, pcwcOut: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISourcesRowset(c_void_p):
+class ISourcesRowset(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a1e-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetSourcesRowset(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), cPropertySets: UInt32, rgProperties: POINTER(Windows.Win32.System.Search.DBPROPSET_head), ppSourcesRowset: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IStemmer(c_void_p):
+class IStemmer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('efbaf140-7f42-11ce-be-57-00-aa-00-51-fe-20')
     @commethod(3)
@@ -6676,7 +6676,7 @@ class IStemmer(c_void_p):
     def GenerateWordForms(self, pwcInBuf: Windows.Win32.Foundation.PWSTR, cwc: UInt32, pStemSink: Windows.Win32.System.Search.IWordFormSink_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetLicenseToUse(self, ppwcsLicense: POINTER(POINTER(UInt16))) -> Windows.Win32.Foundation.HRESULT: ...
-class ISubscriptionItem(c_void_p):
+class ISubscriptionItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a97559f8-6c4a-11d1-a1-e8-00-c0-4f-c2-fb-e1')
     @commethod(3)
@@ -6693,7 +6693,7 @@ class ISubscriptionItem(c_void_p):
     def EnumProperties(self, ppEnumItemProperties: POINTER(Windows.Win32.System.Search.IEnumItemProperties_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def NotifyChanged(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ISubscriptionMgr(c_void_p):
+class ISubscriptionMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('085fb2c0-0df8-11d1-8f-4b-00-a0-c9-05-41-3f')
     @commethod(3)
@@ -6712,7 +6712,7 @@ class ISubscriptionMgr(c_void_p):
     def ShowSubscriptionProperties(self, pwszURL: Windows.Win32.Foundation.PWSTR, hwnd: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def CreateSubscription(self, hwnd: Windows.Win32.Foundation.HWND, pwszURL: Windows.Win32.Foundation.PWSTR, pwszFriendlyName: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, subsType: Windows.Win32.System.Search.SUBSCRIPTIONTYPE, pInfo: POINTER(Windows.Win32.System.Search.SUBSCRIPTIONINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISubscriptionMgr2(c_void_p):
+class ISubscriptionMgr2(ComPtr):
     extends: Windows.Win32.System.Search.ISubscriptionMgr
     Guid = Guid('614bc270-aedf-11d1-a1-f9-00-c0-4f-c2-fb-e1')
     @commethod(11)
@@ -6738,12 +6738,12 @@ class ITEM_INFO(EasyCastStructure):
     pcwszApplicationName: Windows.Win32.Foundation.PWSTR
     pcwszCatalogName: Windows.Win32.Foundation.PWSTR
     pcwszContentClass: Windows.Win32.Foundation.PWSTR
-class ITableCreation(c_void_p):
+class ITableCreation(ComPtr):
     extends: Windows.Win32.System.Search.ITableDefinition
     Guid = Guid('0c733abc-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(7)
     def GetTableDefinition(self, pTableID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pcColumnDescs: POINTER(UIntPtr), prgColumnDescs: POINTER(POINTER(Windows.Win32.System.Search.DBCOLUMNDESC_head)), pcPropertySets: POINTER(UInt32), prgPropertySets: POINTER(POINTER(Windows.Win32.System.Search.DBPROPSET_head)), pcConstraintDescs: POINTER(UInt32), prgConstraintDescs: POINTER(POINTER(Windows.Win32.System.Search.DBCONSTRAINTDESC_head)), ppwszStringBuffer: POINTER(POINTER(UInt16))) -> Windows.Win32.Foundation.HRESULT: ...
-class ITableDefinition(c_void_p):
+class ITableDefinition(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a86-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -6754,7 +6754,7 @@ class ITableDefinition(c_void_p):
     def AddColumn(self, pTableID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pColumnDesc: POINTER(Windows.Win32.System.Search.DBCOLUMNDESC_head), ppColumnID: POINTER(POINTER(Windows.Win32.Storage.IndexServer.DBID_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def DropColumn(self, pTableID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pColumnID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITableDefinitionWithConstraints(c_void_p):
+class ITableDefinitionWithConstraints(ComPtr):
     extends: Windows.Win32.System.Search.ITableCreation
     Guid = Guid('0c733aab-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(8)
@@ -6763,40 +6763,40 @@ class ITableDefinitionWithConstraints(c_void_p):
     def CreateTableWithConstraints(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, pTableID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), cColumnDescs: UIntPtr, rgColumnDescs: POINTER(Windows.Win32.System.Search.DBCOLUMNDESC_head), cConstraintDescs: UInt32, rgConstraintDescs: POINTER(Windows.Win32.System.Search.DBCONSTRAINTDESC_head), riid: POINTER(Guid), cPropertySets: UInt32, rgPropertySets: POINTER(Windows.Win32.System.Search.DBPROPSET_head), ppTableID: POINTER(POINTER(Windows.Win32.Storage.IndexServer.DBID_head)), ppRowset: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def DropConstraint(self, pTableID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pConstraintID: POINTER(Windows.Win32.Storage.IndexServer.DBID_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITableRename(c_void_p):
+class ITableRename(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a77-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def RenameColumn(self, pTableId: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pOldColumnId: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pNewColumnId: POINTER(Windows.Win32.Storage.IndexServer.DBID_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RenameTable(self, pOldTableId: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pOldIndexId: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pNewTableId: POINTER(Windows.Win32.Storage.IndexServer.DBID_head), pNewIndexId: POINTER(Windows.Win32.Storage.IndexServer.DBID_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITokenCollection(c_void_p):
+class ITokenCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('22d8b4f2-f577-4adb-a3-35-c2-ae-88-41-6f-ab')
     @commethod(3)
     def NumberOfTokens(self, pCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetToken(self, i: UInt32, pBegin: POINTER(UInt32), pLength: POINTER(UInt32), ppsz: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionJoin(c_void_p):
+class ITransactionJoin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a5e-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetOptionsObject(self, ppOptions: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransactionOptions_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def JoinTransaction(self, punkTransactionCoord: Windows.Win32.System.Com.IUnknown_head, isoLevel: Int32, isoFlags: UInt32, pOtherOptions: Windows.Win32.System.DistributedTransactionCoordinator.ITransactionOptions_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionLocal(c_void_p):
+class ITransactionLocal(ComPtr):
     extends: Windows.Win32.System.DistributedTransactionCoordinator.ITransaction
     Guid = Guid('0c733a5f-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(6)
     def GetOptionsObject(self, ppOptions: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransactionOptions_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def StartTransaction(self, isoLevel: Int32, isoFlags: UInt32, pOtherOptions: Windows.Win32.System.DistributedTransactionCoordinator.ITransactionOptions_head, pulTransactionLevel: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITransactionObject(c_void_p):
+class ITransactionObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a60-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetTransactionObject(self, ulTransactionLevel: UInt32, ppTransactionObject: POINTER(Windows.Win32.System.DistributedTransactionCoordinator.ITransaction_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITrusteeAdmin(c_void_p):
+class ITrusteeAdmin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733aa1-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -6809,7 +6809,7 @@ class ITrusteeAdmin(c_void_p):
     def SetTrusteeProperties(self, pTrustee: POINTER(Windows.Win32.Security.Authorization.TRUSTEE_W_head), cPropertySets: UInt32, rgPropertySets: POINTER(Windows.Win32.System.Search.DBPROPSET_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetTrusteeProperties(self, pTrustee: POINTER(Windows.Win32.Security.Authorization.TRUSTEE_W_head), cPropertyIDSets: UInt32, rgPropertyIDSets: POINTER(Windows.Win32.System.Search.DBPROPIDSET_head), pcPropertySets: POINTER(UInt32), prgPropertySets: POINTER(POINTER(Windows.Win32.System.Search.DBPROPSET_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class ITrusteeGroupAdmin(c_void_p):
+class ITrusteeGroupAdmin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733aa2-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -6822,7 +6822,7 @@ class ITrusteeGroupAdmin(c_void_p):
     def GetMembers(self, pMembershipTrustee: POINTER(Windows.Win32.Security.Authorization.TRUSTEE_W_head), pcMembers: POINTER(UInt32), prgMembers: POINTER(POINTER(Windows.Win32.Security.Authorization.TRUSTEE_W_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetMemberships(self, pTrustee: POINTER(Windows.Win32.Security.Authorization.TRUSTEE_W_head), pcMemberships: POINTER(UInt32), prgMemberships: POINTER(POINTER(Windows.Win32.Security.Authorization.TRUSTEE_W_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IUMS(c_void_p):
+class IUMS(ComPtr):
     extends: None
     @commethod(0)
     def SqlUmsSuspend(self, ticks: UInt32) -> Void: ...
@@ -6834,12 +6834,12 @@ class IUMS(c_void_p):
     def SqlUmsSwitchNonPremptive(self) -> Void: ...
     @commethod(4)
     def SqlUmsFIsPremptive(self) -> Windows.Win32.Foundation.BOOL: ...
-class IUMSInitialize(c_void_p):
+class IUMSInitialize(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5cf4ca14-ef21-11d0-97-e7-00-c0-4f-c2-ad-98')
     @commethod(3)
     def Initialize(self, pUMS: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
-class IUrlAccessor(c_void_p):
+class IUrlAccessor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0b63e318-9ccc-11d0-bc-db-00-80-5f-cc-ce-04')
     @commethod(3)
@@ -6868,7 +6868,7 @@ class IUrlAccessor(c_void_p):
     def BindToStream(self, ppStream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def BindToFilter(self, ppFilter: POINTER(Windows.Win32.Storage.IndexServer.IFilter_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUrlAccessor2(c_void_p):
+class IUrlAccessor2(ComPtr):
     extends: Windows.Win32.System.Search.IUrlAccessor
     Guid = Guid('c7310734-ac80-11d1-8d-f3-00-c0-4f-b6-ef-4f')
     @commethod(16)
@@ -6877,26 +6877,26 @@ class IUrlAccessor2(c_void_p):
     def IsDocument(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def GetCodePage(self, wszCodePage: Windows.Win32.Foundation.PWSTR, dwSize: UInt32, pdwLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUrlAccessor3(c_void_p):
+class IUrlAccessor3(ComPtr):
     extends: Windows.Win32.System.Search.IUrlAccessor2
     Guid = Guid('6fbc7005-0455-4874-b8-ff-74-39-45-02-41-a3')
     @commethod(19)
     def GetImpersonationSidBlobs(self, pcwszURL: Windows.Win32.Foundation.PWSTR, pcSidCount: POINTER(UInt32), ppSidBlobs: POINTER(POINTER(Windows.Win32.System.Com.BLOB_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IUrlAccessor4(c_void_p):
+class IUrlAccessor4(ComPtr):
     extends: Windows.Win32.System.Search.IUrlAccessor3
     Guid = Guid('5cc51041-c8d2-41d7-bc-a3-9e-9e-28-62-97-dc')
     @commethod(20)
     def ShouldIndexItemContent(self, pfIndexContent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def ShouldIndexProperty(self, key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pfIndexProperty: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IViewChapter(c_void_p):
+class IViewChapter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a98-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetSpecification(self, riid: POINTER(Guid), ppRowset: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OpenViewChapter(self, hSource: UIntPtr, phViewChapter: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
-class IViewFilter(c_void_p):
+class IViewFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a9b-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
@@ -6905,21 +6905,21 @@ class IViewFilter(c_void_p):
     def GetFilterBindings(self, pcBindings: POINTER(UIntPtr), prgBindings: POINTER(POINTER(Windows.Win32.System.Search.DBBINDING_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetFilter(self, hAccessor: Windows.Win32.System.Search.HACCESSOR, cRows: UIntPtr, CompareOps: POINTER(UInt32), pCriteriaData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
-class IViewRowset(c_void_p):
+class IViewRowset(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a97-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetSpecification(self, riid: POINTER(Guid), ppObject: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OpenViewRowset(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), ppRowset: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IViewSort(c_void_p):
+class IViewSort(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a9a-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
     def GetSortOrder(self, pcValues: POINTER(UIntPtr), prgColumns: POINTER(POINTER(UIntPtr)), prgOrders: POINTER(POINTER(UInt32))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetSortOrder(self, cValues: UIntPtr, rgColumns: POINTER(UIntPtr), rgOrders: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWordBreaker(c_void_p):
+class IWordBreaker(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d53552c8-77e3-101a-b5-52-08-00-2b-33-b0-e6')
     @commethod(3)
@@ -6930,14 +6930,14 @@ class IWordBreaker(c_void_p):
     def ComposePhrase(self, pwcNoun: Windows.Win32.Foundation.PWSTR, cwcNoun: UInt32, pwcModifier: Windows.Win32.Foundation.PWSTR, cwcModifier: UInt32, ulAttachmentType: UInt32, pwcPhrase: Windows.Win32.Foundation.PWSTR, pcwcPhrase: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetLicenseToUse(self, ppwcsLicense: POINTER(POINTER(UInt16))) -> Windows.Win32.Foundation.HRESULT: ...
-class IWordFormSink(c_void_p):
+class IWordFormSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fe77c330-7f42-11ce-be-57-00-aa-00-51-fe-20')
     @commethod(3)
     def PutAltWord(self, pwcInBuf: Windows.Win32.Foundation.PWSTR, cwc: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def PutWord(self, pwcInBuf: Windows.Win32.Foundation.PWSTR, cwc: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IWordSink(c_void_p):
+class IWordSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cc907054-c058-101a-b5-54-08-00-2b-33-b0-e6')
     @commethod(3)
@@ -7020,7 +7020,7 @@ class ODBC_VS_ARGS(EasyCastStructure):
     class _Anonymous2_e__Union(EasyCastUnion):
         wszCorrelation: Windows.Win32.Foundation.PWSTR
         szCorrelation: Windows.Win32.Foundation.PSTR
-class OLEDBSimpleProvider(c_void_p):
+class OLEDBSimpleProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e0e270c0-c0be-11d0-8f-e4-00-a0-c9-0a-63-41')
     @commethod(3)
@@ -7051,7 +7051,7 @@ class OLEDBSimpleProvider(c_void_p):
     def getEstimatedRows(self, piRows: POINTER(IntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def stopTransfer(self) -> Windows.Win32.Foundation.HRESULT: ...
-class OLEDBSimpleProviderListener(c_void_p):
+class OLEDBSimpleProviderListener(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e0e270c1-c0be-11d0-8f-e4-00-a0-c9-0a-63-41')
     @commethod(3)

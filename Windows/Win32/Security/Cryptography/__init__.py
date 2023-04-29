@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Security
 import Windows.Win32.Security.Cryptography
@@ -5949,7 +5949,7 @@ HandleType_Asymmetric: HandleType = 1
 HandleType_Symmetric: HandleType = 2
 HandleType_Transform: HandleType = 3
 HandleType_Hash: HandleType = 4
-class ICertSrvSetup(c_void_p):
+class ICertSrvSetup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('b760a1bb-4784-44c0-8f-12-55-5f-07-80-ff-25')
     @commethod(7)
@@ -5992,7 +5992,7 @@ class ICertSrvSetup(c_void_p):
     def PreUnInstall(self, bClientOnly: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def PostUnInstall(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertSrvSetupKeyInformation(c_void_p):
+class ICertSrvSetupKeyInformation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('6ba73778-36da-4c39-8a-85-bc-fa-7d-00-07-93')
     @commethod(7)
@@ -6019,7 +6019,7 @@ class ICertSrvSetupKeyInformation(c_void_p):
     def get_ExistingCACertificate(self, pVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def put_ExistingCACertificate(self, varVal: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertSrvSetupKeyInformationCollection(c_void_p):
+class ICertSrvSetupKeyInformationCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('e65c8b00-e58f-41f9-a9-ec-a2-8d-74-27-c8-44')
     @commethod(7)
@@ -6030,7 +6030,7 @@ class ICertSrvSetupKeyInformationCollection(c_void_p):
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def Add(self, pIKeyInformation: Windows.Win32.Security.Cryptography.ICertSrvSetupKeyInformation_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertificateEnrollmentPolicyServerSetup(c_void_p):
+class ICertificateEnrollmentPolicyServerSetup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('859252cc-238c-4a88-b8-fd-a3-7e-7d-04-e6-8b')
     @commethod(7)
@@ -6045,7 +6045,7 @@ class ICertificateEnrollmentPolicyServerSetup(c_void_p):
     def Install(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def UnInstall(self, pAuthKeyBasedRenewal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICertificateEnrollmentServerSetup(c_void_p):
+class ICertificateEnrollmentServerSetup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('70027fdb-9dd9-4921-89-44-b3-5c-b3-1b-d2-ec')
     @commethod(7)
@@ -6062,7 +6062,7 @@ class ICertificateEnrollmentServerSetup(c_void_p):
     def Install(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def UnInstall(self, pCAConfig: POINTER(Windows.Win32.System.Variant.VARIANT_head), pAuthentication: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSCEPSetup(c_void_p):
+class IMSCEPSetup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('4f7761bb-9f3b-4592-9e-e0-9a-73-25-9c-31-3e')
     @commethod(7)

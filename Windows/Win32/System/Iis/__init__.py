@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Security.Cryptography
 import Windows.Win32.System.Com
@@ -952,56 +952,56 @@ def HttpExtensionProc(pECB: POINTER(Windows.Win32.System.Iis.EXTENSION_CONTROL_B
 def HttpFilterProc(pfc: POINTER(Windows.Win32.System.Iis.HTTP_FILTER_CONTEXT_head), NotificationType: UInt32, pvNotification: c_void_p) -> UInt32: ...
 @winfunctype('RpcProxy.dll')
 def GetFilterVersion(pVer: POINTER(Windows.Win32.System.Iis.HTTP_FILTER_VERSION_head)) -> Windows.Win32.Foundation.BOOL: ...
-class AsyncIFtpAuthenticationProvider(c_void_p):
+class AsyncIFtpAuthenticationProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c24efb65-9f3e-4996-8f-b1-ce-16-69-16-ba-b5')
     @commethod(3)
     def Begin_AuthenticateUser(self, pszSessionId: Windows.Win32.Foundation.PWSTR, pszSiteName: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR, pszPassword: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_AuthenticateUser(self, ppszCanonicalUserName: POINTER(Windows.Win32.Foundation.PWSTR), pfAuthenticated: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class AsyncIFtpAuthorizationProvider(c_void_p):
+class AsyncIFtpAuthorizationProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('860dc339-07e5-4a5c-9c-61-88-20-ce-a0-12-bc')
     @commethod(3)
     def Begin_GetUserAccessPermission(self, pszSessionId: Windows.Win32.Foundation.PWSTR, pszSiteName: Windows.Win32.Foundation.PWSTR, pszVirtualPath: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_GetUserAccessPermission(self, pFtpAccess: POINTER(Windows.Win32.System.Iis.FTP_ACCESS)) -> Windows.Win32.Foundation.HRESULT: ...
-class AsyncIFtpHomeDirectoryProvider(c_void_p):
+class AsyncIFtpHomeDirectoryProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('73f81638-6295-42bd-a2-be-4a-65-7f-7c-47-9c')
     @commethod(3)
     def Begin_GetUserHomeDirectoryData(self, pszSessionId: Windows.Win32.Foundation.PWSTR, pszSiteName: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_GetUserHomeDirectoryData(self, ppszHomeDirectoryData: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class AsyncIFtpLogProvider(c_void_p):
+class AsyncIFtpLogProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('00a0ae46-2498-48b2-95-e6-df-67-8e-d7-d4-9f')
     @commethod(3)
     def Begin_Log(self, pLoggingParameters: POINTER(Windows.Win32.System.Iis.LOGGING_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_Log(self) -> Windows.Win32.Foundation.HRESULT: ...
-class AsyncIFtpPostprocessProvider(c_void_p):
+class AsyncIFtpPostprocessProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a16b2542-9694-4eb1-a5-64-6c-2e-91-fd-c1-33')
     @commethod(3)
     def Begin_HandlePostprocess(self, pPostProcessParameters: POINTER(Windows.Win32.System.Iis.POST_PROCESS_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_HandlePostprocess(self, pFtpProcessStatus: POINTER(Windows.Win32.System.Iis.FTP_PROCESS_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
-class AsyncIFtpPreprocessProvider(c_void_p):
+class AsyncIFtpPreprocessProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6ff5fd8f-fd8e-48b1-a3-e0-bf-70-73-db-4d-b5')
     @commethod(3)
     def Begin_HandlePreprocess(self, pPreProcessParameters: POINTER(Windows.Win32.System.Iis.PRE_PROCESS_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_HandlePreprocess(self, pFtpProcessStatus: POINTER(Windows.Win32.System.Iis.FTP_PROCESS_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
-class AsyncIFtpRoleProvider(c_void_p):
+class AsyncIFtpRoleProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3e83bf99-70ec-41ca-84-b6-ac-a7-c7-a6-2c-af')
     @commethod(3)
     def Begin_IsUserInRole(self, pszSessionId: Windows.Win32.Foundation.PWSTR, pszSiteName: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR, pszRole: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Finish_IsUserInRole(self, pfIsInRole: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class AsyncIMSAdminBaseSinkW(c_void_p):
+class AsyncIMSAdminBaseSinkW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a9e69613-b80d-11d0-b9-b9-00-a0-c9-22-e7-50')
     @commethod(3)
@@ -1239,7 +1239,7 @@ HTTP_TRACE_TYPE_LPCWSTR: HTTP_TRACE_TYPE = 31
 HTTP_TRACE_TYPE_LPCSTR: HTTP_TRACE_TYPE = 30
 HTTP_TRACE_TYPE_LPCGUID: HTTP_TRACE_TYPE = 72
 HTTP_TRACE_TYPE_BOOL: HTTP_TRACE_TYPE = 11
-class IADMEXT(c_void_p):
+class IADMEXT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51dfe970-f6f2-11d0-b9-bd-00-a0-c9-22-e7-50')
     @commethod(3)
@@ -1248,47 +1248,47 @@ class IADMEXT(c_void_p):
     def EnumDcomCLSIDs(self, pclsidDcom: POINTER(Guid), dwEnumIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Terminate(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IFtpAuthenticationProvider(c_void_p):
+class IFtpAuthenticationProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4659f95c-d5a8-4707-b2-fc-6f-d5-79-42-46-cf')
     @commethod(3)
     def AuthenticateUser(self, pszSessionId: Windows.Win32.Foundation.PWSTR, pszSiteName: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR, pszPassword: Windows.Win32.Foundation.PWSTR, ppszCanonicalUserName: POINTER(Windows.Win32.Foundation.PWSTR), pfAuthenticated: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFtpAuthorizationProvider(c_void_p):
+class IFtpAuthorizationProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a50ae7a1-a35a-42b4-a4-f3-f4-f7-05-7a-05-d1')
     @commethod(3)
     def GetUserAccessPermission(self, pszSessionId: Windows.Win32.Foundation.PWSTR, pszSiteName: Windows.Win32.Foundation.PWSTR, pszVirtualPath: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR, pFtpAccess: POINTER(Windows.Win32.System.Iis.FTP_ACCESS)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFtpHomeDirectoryProvider(c_void_p):
+class IFtpHomeDirectoryProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0933b392-18dd-4097-8b-9c-83-32-5c-35-d9-a6')
     @commethod(3)
     def GetUserHomeDirectoryData(self, pszSessionId: Windows.Win32.Foundation.PWSTR, pszSiteName: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR, ppszHomeDirectoryData: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFtpLogProvider(c_void_p):
+class IFtpLogProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a18a94cc-8299-4408-81-6c-7c-3b-ac-a1-a4-0e')
     @commethod(3)
     def Log(self, pLoggingParameters: POINTER(Windows.Win32.System.Iis.LOGGING_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFtpPostprocessProvider(c_void_p):
+class IFtpPostprocessProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4522cbc6-16cd-49ad-86-53-9a-2c-57-9e-42-80')
     @commethod(3)
     def HandlePostprocess(self, pPostProcessParameters: POINTER(Windows.Win32.System.Iis.POST_PROCESS_PARAMETERS_head), pFtpProcessStatus: POINTER(Windows.Win32.System.Iis.FTP_PROCESS_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFtpPreprocessProvider(c_void_p):
+class IFtpPreprocessProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a3c19b60-5a28-471a-8f-93-ab-30-41-1c-ee-82')
     @commethod(3)
     def HandlePreprocess(self, pPreProcessParameters: POINTER(Windows.Win32.System.Iis.PRE_PROCESS_PARAMETERS_head), pFtpProcessStatus: POINTER(Windows.Win32.System.Iis.FTP_PROCESS_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFtpProviderConstruct(c_void_p):
+class IFtpProviderConstruct(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4d1a3f7b-412d-447c-b1-99-64-f9-67-e9-a2-da')
     @commethod(3)
     def Construct(self, configurationEntries: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFtpRoleProvider(c_void_p):
+class IFtpRoleProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('909c850d-8ca0-4674-96-b8-cc-29-41-53-57-25')
     @commethod(3)
     def IsUserInRole(self, pszSessionId: Windows.Win32.Foundation.PWSTR, pszSiteName: Windows.Win32.Foundation.PWSTR, pszUserName: Windows.Win32.Foundation.PWSTR, pszRole: Windows.Win32.Foundation.PWSTR, pfIsInRole: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSAdminBase2W(c_void_p):
+class IMSAdminBase2W(ComPtr):
     extends: Windows.Win32.System.Iis.IMSAdminBaseW
     Guid = Guid('8298d101-f992-43b7-8e-ca-50-52-d8-85-b9-95')
     @commethod(34)
@@ -1303,19 +1303,19 @@ class IMSAdminBase2W(c_void_p):
     def RestoreHistory(self, pszMDHistoryLocation: Windows.Win32.Foundation.PWSTR, dwMDMajorVersion: UInt32, dwMDMinorVersion: UInt32, dwMDFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(39)
     def EnumHistory(self, pszMDHistoryLocation: Windows.Win32.Foundation.PWSTR, pdwMDMajorVersion: POINTER(UInt32), pdwMDMinorVersion: POINTER(UInt32), pftMDHistoryTime: POINTER(Windows.Win32.Foundation.FILETIME_head), dwMDEnumIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSAdminBase3W(c_void_p):
+class IMSAdminBase3W(ComPtr):
     extends: Windows.Win32.System.Iis.IMSAdminBase2W
     Guid = Guid('f612954d-3b0b-4c56-95-63-22-7b-7b-e6-24-b4')
     @commethod(40)
     def GetChildPaths(self, hMDHandle: UInt32, pszMDPath: Windows.Win32.Foundation.PWSTR, cchMDBufferSize: UInt32, pszBuffer: Windows.Win32.Foundation.PWSTR, pcchMDRequiredBufferSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSAdminBaseSinkW(c_void_p):
+class IMSAdminBaseSinkW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a9e69612-b80d-11d0-b9-b9-00-a0-c9-22-e7-50')
     @commethod(3)
     def SinkNotify(self, dwMDNumElements: UInt32, pcoChangeList: POINTER(Windows.Win32.System.Iis.MD_CHANGE_OBJECT_W_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ShutdownNotify(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSAdminBaseW(c_void_p):
+class IMSAdminBaseW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('70b51430-b6ca-11d0-b9-b9-00-a0-c9-22-e7-50')
     @commethod(3)
@@ -1380,7 +1380,7 @@ class IMSAdminBaseW(c_void_p):
     def UnmarshalInterface(self, piadmbwInterface: POINTER(Windows.Win32.System.Iis.IMSAdminBaseW_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(33)
     def GetServerGuid(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSImpExpHelpW(c_void_p):
+class IMSImpExpHelpW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('29ff67ff-8050-480f-9f-30-cc-41-63-5f-2f-9d')
     @commethod(3)

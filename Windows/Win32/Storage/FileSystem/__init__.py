@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Security
 import Windows.Win32.Storage.FileSystem
@@ -1933,7 +1933,7 @@ GET_TAPE_DRIVE_PARAMETERS_OPERATION = UInt32
 GET_TAPE_DRIVE_INFORMATION: GET_TAPE_DRIVE_PARAMETERS_OPERATION = 1
 GET_TAPE_MEDIA_INFORMATION: GET_TAPE_DRIVE_PARAMETERS_OPERATION = 0
 HIORING = IntPtr
-class IDiskQuotaControl(c_void_p):
+class IDiskQuotaControl(ComPtr):
     extends: Windows.Win32.System.Com.IConnectionPointContainer
     Guid = Guid('7988b572-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
     @commethod(5)
@@ -1978,12 +1978,12 @@ class IDiskQuotaControl(c_void_p):
     def GiveUserNameResolutionPriority(self, pUser: Windows.Win32.Storage.FileSystem.IDiskQuotaUser_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def ShutdownNameResolution(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDiskQuotaEvents(c_void_p):
+class IDiskQuotaEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7988b579-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
     @commethod(3)
     def OnUserNameChanged(self, pUser: Windows.Win32.Storage.FileSystem.IDiskQuotaUser_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IDiskQuotaUser(c_void_p):
+class IDiskQuotaUser(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7988b574-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
     @commethod(3)
@@ -2016,7 +2016,7 @@ class IDiskQuotaUser(c_void_p):
     def Invalidate(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def GetAccountStatus(self, pdwStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDiskQuotaUserBatch(c_void_p):
+class IDiskQuotaUserBatch(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7988b576-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
     @commethod(3)
@@ -2027,7 +2027,7 @@ class IDiskQuotaUserBatch(c_void_p):
     def RemoveAll(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def FlushToDisk(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumDiskQuotaUsers(c_void_p):
+class IEnumDiskQuotaUsers(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7988b577-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
     @commethod(3)

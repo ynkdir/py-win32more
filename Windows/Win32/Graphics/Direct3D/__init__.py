@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Direct3D
 import Windows.Win32.System.Com
@@ -711,21 +711,21 @@ D3D11_TESSELLATOR_PARTITIONING_INTEGER: D3D_TESSELLATOR_PARTITIONING = 1
 D3D11_TESSELLATOR_PARTITIONING_POW2: D3D_TESSELLATOR_PARTITIONING = 2
 D3D11_TESSELLATOR_PARTITIONING_FRACTIONAL_ODD: D3D_TESSELLATOR_PARTITIONING = 3
 D3D11_TESSELLATOR_PARTITIONING_FRACTIONAL_EVEN: D3D_TESSELLATOR_PARTITIONING = 4
-class ID3DBlob(c_void_p):
+class ID3DBlob(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8ba5fb08-5195-40e2-ac-58-0d-98-9c-3a-01-02')
     @commethod(3)
     def GetBufferPointer(self) -> c_void_p: ...
     @commethod(4)
     def GetBufferSize(self) -> UIntPtr: ...
-class ID3DDestructionNotifier(c_void_p):
+class ID3DDestructionNotifier(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a06eb39a-50da-425b-8c-31-4e-ec-d6-c2-70-f3')
     @commethod(3)
     def RegisterDestructionCallback(self, callbackFn: Windows.Win32.Graphics.Direct3D.PFN_DESTRUCTION_CALLBACK, pData: c_void_p, pCallbackID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UnregisterDestructionCallback(self, callbackID: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ID3DInclude(c_void_p):
+class ID3DInclude(ComPtr):
     extends: None
     @commethod(0)
     def Open(self, IncludeType: Windows.Win32.Graphics.Direct3D.D3D_INCLUDE_TYPE, pFileName: Windows.Win32.Foundation.PSTR, pParentData: c_void_p, ppData: POINTER(c_void_p), pBytes: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Devices.FunctionDiscovery
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
@@ -639,7 +639,7 @@ E_FDPAIRING_IPBUSDISABLED: Windows.Win32.Foundation.HRESULT = -1882193913
 E_FDPAIRING_NOPROFILES: Windows.Win32.Foundation.HRESULT = -1882193912
 FunctionDiscovery = Guid('c72be2ec-8e90-452c-b2-9a-ab-8f-f1-c0-71-fc')
 FunctionInstanceCollection = Guid('ba818ce5-b55f-443f-ad-39-2f-e8-9b-e6-19-1f')
-class IFunctionDiscovery(c_void_p):
+class IFunctionDiscovery(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4df99b70-e148-4432-b0-04-4c-9e-eb-53-5a-5e')
     @commethod(3)
@@ -654,7 +654,7 @@ class IFunctionDiscovery(c_void_p):
     def AddInstance(self, enumSystemVisibility: Windows.Win32.Devices.FunctionDiscovery.SystemVisibilityFlags, pszCategory: Windows.Win32.Foundation.PWSTR, pszSubCategory: Windows.Win32.Foundation.PWSTR, pszCategoryIdentity: Windows.Win32.Foundation.PWSTR, ppIFunctionInstance: POINTER(Windows.Win32.Devices.FunctionDiscovery.IFunctionInstance_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def RemoveInstance(self, enumSystemVisibility: Windows.Win32.Devices.FunctionDiscovery.SystemVisibilityFlags, pszCategory: Windows.Win32.Foundation.PWSTR, pszSubCategory: Windows.Win32.Foundation.PWSTR, pszCategoryIdentity: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IFunctionDiscoveryNotification(c_void_p):
+class IFunctionDiscoveryNotification(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5f6c1ba8-5330-422e-a3-68-57-2b-24-4d-3f-87')
     @commethod(3)
@@ -663,7 +663,7 @@ class IFunctionDiscoveryNotification(c_void_p):
     def OnError(self, hr: Windows.Win32.Foundation.HRESULT, fdqcQueryContext: UInt64, pszProvider: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnEvent(self, dwEventID: UInt32, fdqcQueryContext: UInt64, pszProvider: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IFunctionDiscoveryProvider(c_void_p):
+class IFunctionDiscoveryProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('dcde394f-1478-4813-a4-02-f6-fb-10-65-72-22')
     @commethod(3)
@@ -682,7 +682,7 @@ class IFunctionDiscoveryProvider(c_void_p):
     def InstanceQueryService(self, pIFunctionInstance: Windows.Win32.Devices.FunctionDiscovery.IFunctionInstance_head, iProviderInstanceContext: IntPtr, guidService: POINTER(Guid), riid: POINTER(Guid), ppIUnknown: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def InstanceReleased(self, pIFunctionInstance: Windows.Win32.Devices.FunctionDiscovery.IFunctionInstance_head, iProviderInstanceContext: IntPtr) -> Windows.Win32.Foundation.HRESULT: ...
-class IFunctionDiscoveryProviderFactory(c_void_p):
+class IFunctionDiscoveryProviderFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('86443ff0-1ad5-4e68-a4-5a-40-c2-c3-29-de-3b')
     @commethod(3)
@@ -691,7 +691,7 @@ class IFunctionDiscoveryProviderFactory(c_void_p):
     def CreateInstance(self, pszSubCategory: Windows.Win32.Foundation.PWSTR, pszProviderInstanceIdentity: Windows.Win32.Foundation.PWSTR, iProviderInstanceContext: IntPtr, pIPropertyStore: Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head, pIFunctionDiscoveryProvider: Windows.Win32.Devices.FunctionDiscovery.IFunctionDiscoveryProvider_head, ppIFunctionInstance: POINTER(Windows.Win32.Devices.FunctionDiscovery.IFunctionInstance_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CreateFunctionInstanceCollection(self, ppIFunctionInstanceCollection: POINTER(Windows.Win32.Devices.FunctionDiscovery.IFunctionInstanceCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFunctionDiscoveryProviderQuery(c_void_p):
+class IFunctionDiscoveryProviderQuery(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6876ea98-baec-46db-bc-20-75-a7-6e-26-7a-3a')
     @commethod(3)
@@ -702,12 +702,12 @@ class IFunctionDiscoveryProviderQuery(c_void_p):
     def GetQueryConstraints(self, ppIProviderQueryConstraints: POINTER(Windows.Win32.Devices.FunctionDiscovery.IProviderQueryConstraintCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetPropertyConstraints(self, ppIProviderPropertyConstraints: POINTER(Windows.Win32.Devices.FunctionDiscovery.IProviderPropertyConstraintCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFunctionDiscoveryServiceProvider(c_void_p):
+class IFunctionDiscoveryServiceProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4c81ed02-1b04-43f2-a4-51-69-96-6c-bc-d1-c2')
     @commethod(3)
     def Initialize(self, pIFunctionInstance: Windows.Win32.Devices.FunctionDiscovery.IFunctionInstance_head, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFunctionInstance(c_void_p):
+class IFunctionInstance(ComPtr):
     extends: Windows.Win32.System.Com.IServiceProvider
     Guid = Guid('33591c10-0bed-4f02-b0-ab-15-30-d5-53-3e-e9')
     @commethod(4)
@@ -718,7 +718,7 @@ class IFunctionInstance(c_void_p):
     def OpenPropertyStore(self, dwStgAccess: Windows.Win32.System.Com.STGM, ppIPropertyStore: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.IPropertyStore_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetCategory(self, ppszCoMemCategory: POINTER(POINTER(UInt16)), ppszCoMemSubCategory: POINTER(POINTER(UInt16))) -> Windows.Win32.Foundation.HRESULT: ...
-class IFunctionInstanceCollection(c_void_p):
+class IFunctionInstanceCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f0a3d895-855c-42a2-94-8d-2f-97-d4-50-ec-b1')
     @commethod(3)
@@ -735,7 +735,7 @@ class IFunctionInstanceCollection(c_void_p):
     def Delete(self, dwIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def DeleteAll(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IFunctionInstanceCollectionQuery(c_void_p):
+class IFunctionInstanceCollectionQuery(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('57cc6fd2-c09a-4289-bb-72-25-f0-41-42-05-8e')
     @commethod(3)
@@ -744,12 +744,12 @@ class IFunctionInstanceCollectionQuery(c_void_p):
     def AddPropertyConstraint(self, Key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), pv: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), enumPropertyConstraint: Windows.Win32.Devices.FunctionDiscovery.PropertyConstraint) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Execute(self, ppIFunctionInstanceCollection: POINTER(Windows.Win32.Devices.FunctionDiscovery.IFunctionInstanceCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IFunctionInstanceQuery(c_void_p):
+class IFunctionInstanceQuery(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6242bc6b-90ec-4b37-bb-46-e2-29-fd-84-ed-95')
     @commethod(3)
     def Execute(self, ppIFunctionInstance: POINTER(Windows.Win32.Devices.FunctionDiscovery.IFunctionInstance_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPNPXAssociation(c_void_p):
+class IPNPXAssociation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0bd7e521-4da6-42d5-81-ba-19-81-b6-b9-40-75')
     @commethod(3)
@@ -758,7 +758,7 @@ class IPNPXAssociation(c_void_p):
     def Unassociate(self, pszSubcategory: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Delete(self, pszSubcategory: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IPNPXDeviceAssociation(c_void_p):
+class IPNPXDeviceAssociation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('eed366d0-35b8-4fc5-8d-20-7e-5b-d3-1f-6d-ed')
     @commethod(3)
@@ -767,7 +767,7 @@ class IPNPXDeviceAssociation(c_void_p):
     def Unassociate(self, pszSubCategory: Windows.Win32.Foundation.PWSTR, pIFunctionDiscoveryNotification: Windows.Win32.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Delete(self, pszSubcategory: Windows.Win32.Foundation.PWSTR, pIFunctionDiscoveryNotification: Windows.Win32.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IPropertyStoreCollection(c_void_p):
+class IPropertyStoreCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d14d9c30-12d2-42d8-bc-e4-c6-0c-2b-b2-26-fa')
     @commethod(3)
@@ -784,7 +784,7 @@ class IPropertyStoreCollection(c_void_p):
     def Delete(self, dwIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def DeleteAll(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IProviderProperties(c_void_p):
+class IProviderProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cf986ea6-3b5f-4c5f-b8-8a-2f-8b-20-ce-ef-17')
     @commethod(3)
@@ -795,7 +795,7 @@ class IProviderProperties(c_void_p):
     def GetValue(self, pIFunctionInstance: Windows.Win32.Devices.FunctionDiscovery.IFunctionInstance_head, iProviderInstanceContext: IntPtr, Key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppropVar: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def SetValue(self, pIFunctionInstance: Windows.Win32.Devices.FunctionDiscovery.IFunctionInstance_head, iProviderInstanceContext: IntPtr, Key: POINTER(Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY_head), ppropVar: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IProviderPropertyConstraintCollection(c_void_p):
+class IProviderPropertyConstraintCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f4fae42f-5778-4a13-85-40-b5-fd-8c-13-98-dd')
     @commethod(3)
@@ -810,14 +810,14 @@ class IProviderPropertyConstraintCollection(c_void_p):
     def Skip(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IProviderPublishing(c_void_p):
+class IProviderPublishing(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cd1b9a04-206c-4a05-a0-c8-16-35-a2-1a-2b-7c')
     @commethod(3)
     def CreateInstance(self, enumVisibilityFlags: Windows.Win32.Devices.FunctionDiscovery.SystemVisibilityFlags, pszSubCategory: Windows.Win32.Foundation.PWSTR, pszProviderInstanceIdentity: Windows.Win32.Foundation.PWSTR, ppIFunctionInstance: POINTER(Windows.Win32.Devices.FunctionDiscovery.IFunctionInstance_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RemoveInstance(self, enumVisibilityFlags: Windows.Win32.Devices.FunctionDiscovery.SystemVisibilityFlags, pszSubCategory: Windows.Win32.Foundation.PWSTR, pszProviderInstanceIdentity: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IProviderQueryConstraintCollection(c_void_p):
+class IProviderQueryConstraintCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9c243e11-3261-4bcd-b9-22-84-a8-73-d4-60-ae')
     @commethod(3)

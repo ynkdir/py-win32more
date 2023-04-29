@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.EventNotificationService
@@ -31,7 +31,7 @@ def IsDestinationReachableA(lpszDestination: Windows.Win32.Foundation.PSTR, lpQO
 def IsDestinationReachableW(lpszDestination: Windows.Win32.Foundation.PWSTR, lpQOCInfo: POINTER(Windows.Win32.System.EventNotificationService.QOCINFO_head)) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype('SensApi.dll')
 def IsNetworkAlive(lpdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
-class ISensLogon(c_void_p):
+class ISensLogon(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d597bab3-5b9f-11d1-8d-d2-00-aa-00-4a-bd-5e')
     @commethod(7)
@@ -48,7 +48,7 @@ class ISensLogon(c_void_p):
     def StartScreenSaver(self, bstrUserName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def StopScreenSaver(self, bstrUserName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ISensLogon2(c_void_p):
+class ISensLogon2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d597bab4-5b9f-11d1-8d-d2-00-aa-00-4a-bd-5e')
     @commethod(7)
@@ -61,7 +61,7 @@ class ISensLogon2(c_void_p):
     def SessionReconnect(self, bstrUserName: Windows.Win32.Foundation.BSTR, dwSessionId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def PostShell(self, bstrUserName: Windows.Win32.Foundation.BSTR, dwSessionId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISensNetwork(c_void_p):
+class ISensNetwork(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d597bab1-5b9f-11d1-8d-d2-00-aa-00-4a-bd-5e')
     @commethod(7)
@@ -74,7 +74,7 @@ class ISensNetwork(c_void_p):
     def DestinationReachable(self, bstrDestination: Windows.Win32.Foundation.BSTR, bstrConnection: Windows.Win32.Foundation.BSTR, ulType: UInt32, lpQOCInfo: POINTER(Windows.Win32.System.EventNotificationService.SENS_QOCINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def DestinationReachableNoQOCInfo(self, bstrDestination: Windows.Win32.Foundation.BSTR, bstrConnection: Windows.Win32.Foundation.BSTR, ulType: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISensOnNow(c_void_p):
+class ISensOnNow(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('d597bab2-5b9f-11d1-8d-d2-00-aa-00-4a-bd-5e')
     @commethod(7)

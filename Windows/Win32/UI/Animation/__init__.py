@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.DirectComposition
 import Windows.Win32.System.Com
@@ -19,7 +19,7 @@ UI_ANIMATION_REPEAT_INDEFINITELY: Int32 = -1
 UI_ANIMATION_REPEAT_INDEFINITELY_CONCLUDE_AT_END: Int32 = -1
 UI_ANIMATION_REPEAT_INDEFINITELY_CONCLUDE_AT_START: Int32 = -2
 UI_ANIMATION_SECONDS_INFINITE: Int32 = -1
-class IUIAnimationInterpolator(c_void_p):
+class IUIAnimationInterpolator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7815cbba-ddf7-478c-a4-6c-7b-6c-73-8b-79-78')
     @commethod(3)
@@ -36,7 +36,7 @@ class IUIAnimationInterpolator(c_void_p):
     def InterpolateVelocity(self, offset: Double, velocity: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetDependencies(self, initialValueDependencies: POINTER(Windows.Win32.UI.Animation.UI_ANIMATION_DEPENDENCIES), initialVelocityDependencies: POINTER(Windows.Win32.UI.Animation.UI_ANIMATION_DEPENDENCIES), durationDependencies: POINTER(Windows.Win32.UI.Animation.UI_ANIMATION_DEPENDENCIES)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationInterpolator2(c_void_p):
+class IUIAnimationInterpolator2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ea76aff8-ea22-4a23-a0-ef-a6-a9-66-70-35-18')
     @commethod(3)
@@ -57,12 +57,12 @@ class IUIAnimationInterpolator2(c_void_p):
     def GetPrimitiveInterpolation(self, interpolation: Windows.Win32.UI.Animation.IUIAnimationPrimitiveInterpolation_head, cDimension: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetDependencies(self, initialValueDependencies: POINTER(Windows.Win32.UI.Animation.UI_ANIMATION_DEPENDENCIES), initialVelocityDependencies: POINTER(Windows.Win32.UI.Animation.UI_ANIMATION_DEPENDENCIES), durationDependencies: POINTER(Windows.Win32.UI.Animation.UI_ANIMATION_DEPENDENCIES)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationLoopIterationChangeHandler2(c_void_p):
+class IUIAnimationLoopIterationChangeHandler2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2d3b15a4-4762-47ab-a0-30-b2-32-21-df-3a-e0')
     @commethod(3)
     def OnLoopIterationChanged(self, storyboard: Windows.Win32.UI.Animation.IUIAnimationStoryboard2_head, id: UIntPtr, newIterationCount: UInt32, oldIterationCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationManager(c_void_p):
+class IUIAnimationManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9169896c-ac8d-4e7d-94-e5-67-fa-4d-c2-f2-e8')
     @commethod(3)
@@ -103,7 +103,7 @@ class IUIAnimationManager(c_void_p):
     def SetDefaultLongestAcceptableDelay(self, delay: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def Shutdown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationManager2(c_void_p):
+class IUIAnimationManager2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d8b6f7d4-4109-4d3f-ac-ee-87-99-26-96-8c-b1')
     @commethod(3)
@@ -148,34 +148,34 @@ class IUIAnimationManager2(c_void_p):
     def SetDefaultLongestAcceptableDelay(self, delay: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def Shutdown(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationManagerEventHandler(c_void_p):
+class IUIAnimationManagerEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('783321ed-78a3-4366-b5-74-6a-f6-07-a6-47-88')
     @commethod(3)
     def OnManagerStatusChanged(self, newStatus: Windows.Win32.UI.Animation.UI_ANIMATION_MANAGER_STATUS, previousStatus: Windows.Win32.UI.Animation.UI_ANIMATION_MANAGER_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationManagerEventHandler2(c_void_p):
+class IUIAnimationManagerEventHandler2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f6e022ba-bff3-42ec-90-33-e0-73-f3-3e-83-c3')
     @commethod(3)
     def OnManagerStatusChanged(self, newStatus: Windows.Win32.UI.Animation.UI_ANIMATION_MANAGER_STATUS, previousStatus: Windows.Win32.UI.Animation.UI_ANIMATION_MANAGER_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationPrimitiveInterpolation(c_void_p):
+class IUIAnimationPrimitiveInterpolation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bab20d63-4361-45da-a2-4f-ab-85-08-84-6b-5b')
     @commethod(3)
     def AddCubic(self, dimension: UInt32, beginOffset: Double, constantCoefficient: Single, linearCoefficient: Single, quadraticCoefficient: Single, cubicCoefficient: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def AddSinusoidal(self, dimension: UInt32, beginOffset: Double, bias: Single, amplitude: Single, frequency: Single, phase: Single) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationPriorityComparison(c_void_p):
+class IUIAnimationPriorityComparison(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('83fa9b74-5f86-4618-bc-6a-a2-fa-c1-9b-3f-44')
     @commethod(3)
     def HasPriority(self, scheduledStoryboard: Windows.Win32.UI.Animation.IUIAnimationStoryboard_head, newStoryboard: Windows.Win32.UI.Animation.IUIAnimationStoryboard_head, priorityEffect: Windows.Win32.UI.Animation.UI_ANIMATION_PRIORITY_EFFECT) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationPriorityComparison2(c_void_p):
+class IUIAnimationPriorityComparison2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5b6d7a37-4621-467c-8b-05-70-13-1d-e6-2d-db')
     @commethod(3)
     def HasPriority(self, scheduledStoryboard: Windows.Win32.UI.Animation.IUIAnimationStoryboard2_head, newStoryboard: Windows.Win32.UI.Animation.IUIAnimationStoryboard2_head, priorityEffect: Windows.Win32.UI.Animation.UI_ANIMATION_PRIORITY_EFFECT) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationStoryboard(c_void_p):
+class IUIAnimationStoryboard(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a8ff128f-9bf9-4af1-9e-67-e5-e4-10-de-fb-84')
     @commethod(3)
@@ -212,7 +212,7 @@ class IUIAnimationStoryboard(c_void_p):
     def GetElapsedTime(self, elapsedTime: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def SetStoryboardEventHandler(self, handler: Windows.Win32.UI.Animation.IUIAnimationStoryboardEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationStoryboard2(c_void_p):
+class IUIAnimationStoryboard2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ae289cd2-12d4-4945-94-19-9e-41-be-03-4d-f2')
     @commethod(3)
@@ -251,21 +251,21 @@ class IUIAnimationStoryboard2(c_void_p):
     def GetElapsedTime(self, elapsedTime: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def SetStoryboardEventHandler(self, handler: Windows.Win32.UI.Animation.IUIAnimationStoryboardEventHandler2_head, fRegisterStatusChangeForNextAnimationEvent: Windows.Win32.Foundation.BOOL, fRegisterUpdateForNextAnimationEvent: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationStoryboardEventHandler(c_void_p):
+class IUIAnimationStoryboardEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3d5c9008-ec7c-4364-9f-8a-9a-f3-c5-8c-ba-e6')
     @commethod(3)
     def OnStoryboardStatusChanged(self, storyboard: Windows.Win32.UI.Animation.IUIAnimationStoryboard_head, newStatus: Windows.Win32.UI.Animation.UI_ANIMATION_STORYBOARD_STATUS, previousStatus: Windows.Win32.UI.Animation.UI_ANIMATION_STORYBOARD_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnStoryboardUpdated(self, storyboard: Windows.Win32.UI.Animation.IUIAnimationStoryboard_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationStoryboardEventHandler2(c_void_p):
+class IUIAnimationStoryboardEventHandler2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bac5f55a-ba7c-414c-b5-99-fb-f8-50-f5-53-c6')
     @commethod(3)
     def OnStoryboardStatusChanged(self, storyboard: Windows.Win32.UI.Animation.IUIAnimationStoryboard2_head, newStatus: Windows.Win32.UI.Animation.UI_ANIMATION_STORYBOARD_STATUS, previousStatus: Windows.Win32.UI.Animation.UI_ANIMATION_STORYBOARD_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnStoryboardUpdated(self, storyboard: Windows.Win32.UI.Animation.IUIAnimationStoryboard2_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationTimer(c_void_p):
+class IUIAnimationTimer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6b0efad1-a053-41d6-90-85-33-a6-89-14-46-65')
     @commethod(3)
@@ -282,12 +282,12 @@ class IUIAnimationTimer(c_void_p):
     def GetTime(self, seconds: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def SetFrameRateThreshold(self, framesPerSecond: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationTimerClientEventHandler(c_void_p):
+class IUIAnimationTimerClientEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bedb4db6-94fa-4bfb-a4-7f-ef-2d-9e-40-8c-25')
     @commethod(3)
     def OnTimerClientStatusChanged(self, newStatus: Windows.Win32.UI.Animation.UI_ANIMATION_TIMER_CLIENT_STATUS, previousStatus: Windows.Win32.UI.Animation.UI_ANIMATION_TIMER_CLIENT_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationTimerEventHandler(c_void_p):
+class IUIAnimationTimerEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('274a7dea-d771-4095-ab-bd-8d-f7-ab-d2-3c-e3')
     @commethod(3)
@@ -296,7 +296,7 @@ class IUIAnimationTimerEventHandler(c_void_p):
     def OnPostUpdate(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnRenderingTooSlow(self, framesPerSecond: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationTimerUpdateHandler(c_void_p):
+class IUIAnimationTimerUpdateHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('195509b7-5d5e-4e3e-b2-78-ee-37-59-b3-67-ad')
     @commethod(3)
@@ -305,7 +305,7 @@ class IUIAnimationTimerUpdateHandler(c_void_p):
     def SetTimerClientEventHandler(self, handler: Windows.Win32.UI.Animation.IUIAnimationTimerClientEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def ClearTimerClientEventHandler(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationTransition(c_void_p):
+class IUIAnimationTransition(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('dc6ce252-f731-41cf-b6-10-61-4b-6c-a0-49-ad')
     @commethod(3)
@@ -316,7 +316,7 @@ class IUIAnimationTransition(c_void_p):
     def IsDurationKnown(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetDuration(self, duration: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationTransition2(c_void_p):
+class IUIAnimationTransition2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('62ff9123-a85a-4e9b-a2-18-43-5a-93-e2-68-fd')
     @commethod(3)
@@ -333,17 +333,17 @@ class IUIAnimationTransition2(c_void_p):
     def IsDurationKnown(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetDuration(self, duration: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationTransitionFactory(c_void_p):
+class IUIAnimationTransitionFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fcd91e03-3e3b-45ad-bb-b1-6d-fc-81-53-74-3d')
     @commethod(3)
     def CreateTransition(self, interpolator: Windows.Win32.UI.Animation.IUIAnimationInterpolator_head, transition: POINTER(Windows.Win32.UI.Animation.IUIAnimationTransition_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationTransitionFactory2(c_void_p):
+class IUIAnimationTransitionFactory2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('937d4916-c1a6-42d5-88-d8-30-34-4d-6e-fe-31')
     @commethod(3)
     def CreateTransition(self, interpolator: Windows.Win32.UI.Animation.IUIAnimationInterpolator2_head, transition: POINTER(Windows.Win32.UI.Animation.IUIAnimationTransition2_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationTransitionLibrary(c_void_p):
+class IUIAnimationTransitionLibrary(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ca5a14b1-d24f-48b8-8f-e4-c7-81-69-ba-95-4e')
     @commethod(3)
@@ -370,7 +370,7 @@ class IUIAnimationTransitionLibrary(c_void_p):
     def CreateSmoothStopTransition(self, maximumDuration: Double, finalValue: Double, transition: POINTER(Windows.Win32.UI.Animation.IUIAnimationTransition_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def CreateParabolicTransitionFromAcceleration(self, finalValue: Double, finalVelocity: Double, acceleration: Double, transition: POINTER(Windows.Win32.UI.Animation.IUIAnimationTransition_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationTransitionLibrary2(c_void_p):
+class IUIAnimationTransitionLibrary2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('03cfae53-9580-4ee3-b3-63-2e-ce-51-b4-af-6a')
     @commethod(3)
@@ -411,7 +411,7 @@ class IUIAnimationTransitionLibrary2(c_void_p):
     def CreateCubicBezierLinearTransition(self, duration: Double, finalValue: Double, x1: Double, y1: Double, x2: Double, y2: Double, ppTransition: POINTER(Windows.Win32.UI.Animation.IUIAnimationTransition2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def CreateCubicBezierLinearVectorTransition(self, duration: Double, finalValue: POINTER(Double), cDimension: UInt32, x1: Double, y1: Double, x2: Double, y2: Double, ppTransition: POINTER(Windows.Win32.UI.Animation.IUIAnimationTransition2_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationVariable(c_void_p):
+class IUIAnimationVariable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8ceeb155-2849-4ce5-94-48-91-ff-70-e1-e4-d9')
     @commethod(3)
@@ -442,7 +442,7 @@ class IUIAnimationVariable(c_void_p):
     def SetVariableChangeHandler(self, handler: Windows.Win32.UI.Animation.IUIAnimationVariableChangeHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def SetVariableIntegerChangeHandler(self, handler: Windows.Win32.UI.Animation.IUIAnimationVariableIntegerChangeHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationVariable2(c_void_p):
+class IUIAnimationVariable2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4914b304-96ab-44d9-9e-77-d5-10-9b-7e-74-66')
     @commethod(3)
@@ -497,27 +497,27 @@ class IUIAnimationVariable2(c_void_p):
     def SetVariableIntegerChangeHandler(self, handler: Windows.Win32.UI.Animation.IUIAnimationVariableIntegerChangeHandler2_head, fRegisterForNextAnimationEvent: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
     def SetVariableCurveChangeHandler(self, handler: Windows.Win32.UI.Animation.IUIAnimationVariableCurveChangeHandler2_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationVariableChangeHandler(c_void_p):
+class IUIAnimationVariableChangeHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6358b7ba-87d2-42d5-bf-71-82-e9-19-dd-58-62')
     @commethod(3)
     def OnValueChanged(self, storyboard: Windows.Win32.UI.Animation.IUIAnimationStoryboard_head, variable: Windows.Win32.UI.Animation.IUIAnimationVariable_head, newValue: Double, previousValue: Double) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationVariableChangeHandler2(c_void_p):
+class IUIAnimationVariableChangeHandler2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('63acc8d2-6eae-4bb0-b8-79-58-6d-d8-cf-be-42')
     @commethod(3)
     def OnValueChanged(self, storyboard: Windows.Win32.UI.Animation.IUIAnimationStoryboard2_head, variable: Windows.Win32.UI.Animation.IUIAnimationVariable2_head, newValue: POINTER(Double), previousValue: POINTER(Double), cDimension: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationVariableCurveChangeHandler2(c_void_p):
+class IUIAnimationVariableCurveChangeHandler2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('72895e91-0145-4c21-91-92-5a-ab-40-ed-df-80')
     @commethod(3)
     def OnCurveChanged(self, variable: Windows.Win32.UI.Animation.IUIAnimationVariable2_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationVariableIntegerChangeHandler(c_void_p):
+class IUIAnimationVariableIntegerChangeHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bb3e1550-356e-44b0-99-da-85-ac-60-17-86-5e')
     @commethod(3)
     def OnIntegerValueChanged(self, storyboard: Windows.Win32.UI.Animation.IUIAnimationStoryboard_head, variable: Windows.Win32.UI.Animation.IUIAnimationVariable_head, newValue: Int32, previousValue: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IUIAnimationVariableIntegerChangeHandler2(c_void_p):
+class IUIAnimationVariableIntegerChangeHandler2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('829b6cf1-4f3a-4412-ae-09-b2-43-eb-4c-6b-58')
     @commethod(3)

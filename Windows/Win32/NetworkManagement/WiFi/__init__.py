@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Devices.Properties
 import Windows.Win32.Foundation
 import Windows.Win32.NetworkManagement.Ndis
@@ -2758,7 +2758,7 @@ DOT11_WPS_PASSWORD_ID_WFD_SERVICES: DOT11_WPS_DEVICE_PASSWORD_ID = 8
 DOT11_WPS_PASSWORD_ID_OOB_RANGE_MIN: DOT11_WPS_DEVICE_PASSWORD_ID = 16
 DOT11_WPS_PASSWORD_ID_OOB_RANGE_MAX: DOT11_WPS_DEVICE_PASSWORD_ID = 65535
 Dot11AdHocManager = Guid('dd06a84f-83bd-4d01-8a-b9-23-89-fe-a0-86-9e')
-class IDot11AdHocInterface(c_void_p):
+class IDot11AdHocInterface(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8f10cc2b-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
@@ -2779,12 +2779,12 @@ class IDot11AdHocInterface(c_void_p):
     def GetIEnumDot11AdHocNetworks(self, pFilterGuid: POINTER(Guid), ppEnum: POINTER(Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetStatus(self, pState: POINTER(Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDot11AdHocInterfaceNotificationSink(c_void_p):
+class IDot11AdHocInterfaceNotificationSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8f10cc2f-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
     def OnConnectionStatusChange(self, eStatus: Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
-class IDot11AdHocManager(c_void_p):
+class IDot11AdHocManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8f10cc26-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
@@ -2797,7 +2797,7 @@ class IDot11AdHocManager(c_void_p):
     def GetIEnumDot11AdHocInterfaces(self, ppEnum: POINTER(Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocInterfaces_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetNetwork(self, NetworkSignature: POINTER(Guid), pNetwork: POINTER(Windows.Win32.NetworkManagement.WiFi.IDot11AdHocNetwork_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDot11AdHocManagerNotificationSink(c_void_p):
+class IDot11AdHocManagerNotificationSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8f10cc27-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
@@ -2808,7 +2808,7 @@ class IDot11AdHocManagerNotificationSink(c_void_p):
     def OnInterfaceAdd(self, pIAdHocInterface: Windows.Win32.NetworkManagement.WiFi.IDot11AdHocInterface_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def OnInterfaceRemove(self, Signature: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDot11AdHocNetwork(c_void_p):
+class IDot11AdHocNetwork(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8f10cc29-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
@@ -2835,21 +2835,21 @@ class IDot11AdHocNetwork(c_void_p):
     def Connect(self, Passphrase: Windows.Win32.Foundation.PWSTR, GeographicalId: Int32, fSaveProfile: Windows.Win32.Foundation.BOOLEAN, fMakeSavedProfileUserSpecific: Windows.Win32.Foundation.BOOLEAN) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def Disconnect(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDot11AdHocNetworkNotificationSink(c_void_p):
+class IDot11AdHocNetworkNotificationSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8f10cc2a-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
     def OnStatusChange(self, eStatus: Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnConnectFail(self, eFailReason: Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_CONNECT_FAIL_REASON) -> Windows.Win32.Foundation.HRESULT: ...
-class IDot11AdHocSecuritySettings(c_void_p):
+class IDot11AdHocSecuritySettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8f10cc2e-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
     def GetDot11AuthAlgorithm(self, pAuth: POINTER(Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_AUTH_ALGORITHM)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDot11CipherAlgorithm(self, pCipher: POINTER(Windows.Win32.NetworkManagement.WiFi.DOT11_ADHOC_CIPHER_ALGORITHM)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumDot11AdHocInterfaces(c_void_p):
+class IEnumDot11AdHocInterfaces(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8f10cc2c-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
@@ -2860,7 +2860,7 @@ class IEnumDot11AdHocInterfaces(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocInterfaces_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumDot11AdHocNetworks(c_void_p):
+class IEnumDot11AdHocNetworks(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8f10cc28-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)
@@ -2871,7 +2871,7 @@ class IEnumDot11AdHocNetworks(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumDot11AdHocSecuritySettings(c_void_p):
+class IEnumDot11AdHocSecuritySettings(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8f10cc2d-cf0d-42a0-ac-be-e2-de-70-07-38-4d')
     @commethod(3)

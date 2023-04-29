@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.Media.DirectShow
@@ -877,21 +877,21 @@ EvalRat = Guid('c5c5c5f1-3abc-11d6-b2-5b-00-c0-4f-a0-c0-26')
 FormatNotSupportedEvents = Int32
 FORMATNOTSUPPORTED_CLEAR: FormatNotSupportedEvents = 0
 FORMATNOTSUPPORTED_NOTSUPPORTED: FormatNotSupportedEvents = 1
-class IATSCChannelTuneRequest(c_void_p):
+class IATSCChannelTuneRequest(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IChannelTuneRequest
     Guid = Guid('0369b4e1-45b6-11d3-b6-50-00-c0-4f-79-49-8e')
     @commethod(14)
     def get_MinorChannel(self, MinorChannel: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def put_MinorChannel(self, MinorChannel: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IATSCComponentType(c_void_p):
+class IATSCComponentType(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMPEG2ComponentType
     Guid = Guid('fc189e4d-7bd4-4125-b3-b3-3a-76-a3-32-cc-96')
     @commethod(28)
     def get_Flags(self, Flags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
     def put_Flags(self, flags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IATSCLocator(c_void_p):
+class IATSCLocator(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDigitalLocator
     Guid = Guid('bf8d986f-8c2b-4131-94-d7-4d-3d-9f-cc-21-ef')
     @commethod(22)
@@ -902,14 +902,14 @@ class IATSCLocator(c_void_p):
     def get_TSID(self, TSID: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def put_TSID(self, TSID: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IATSCLocator2(c_void_p):
+class IATSCLocator2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IATSCLocator
     Guid = Guid('612aa885-66cf-4090-ba-0a-56-6f-53-12-e4-ca')
     @commethod(26)
     def get_ProgramNumber(self, ProgramNumber: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def put_ProgramNumber(self, ProgramNumber: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IATSCTuningSpace(c_void_p):
+class IATSCTuningSpace(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IAnalogTVTuningSpace
     Guid = Guid('0369b4e2-45b6-11d3-b6-50-00-c0-4f-79-49-8e')
     @commethod(34)
@@ -928,7 +928,7 @@ class IATSCTuningSpace(c_void_p):
     def get_MaxPhysicalChannel(self, MaxPhysicalChannelVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(41)
     def put_MaxPhysicalChannel(self, NewMaxPhysicalChannelVal: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IATSC_EIT(c_void_p):
+class IATSC_EIT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d7c212d7-76a2-4b4b-aa-56-84-68-79-a8-00-96')
     @commethod(3)
@@ -957,7 +957,7 @@ class IATSC_EIT(c_void_p):
     def GetRecordDescriptorByIndex(self, dwRecordIndex: UInt32, dwIndex: UInt32, ppDescriptor: POINTER(Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetRecordDescriptorByTag(self, dwRecordIndex: UInt32, bTag: Byte, pdwCookie: POINTER(UInt32), ppDescriptor: POINTER(Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IATSC_ETT(c_void_p):
+class IATSC_ETT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5a142cc9-b8cf-4a86-a0-40-e9-ca-df-3e-f3-e7')
     @commethod(3)
@@ -970,7 +970,7 @@ class IATSC_ETT(c_void_p):
     def GetEtmId(self, pdwVal: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetExtendedMessageText(self, pdwLength: POINTER(UInt32), ppText: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
-class IATSC_MGT(c_void_p):
+class IATSC_MGT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8877dabd-c137-4073-97-e3-77-94-07-a5-d8-7a')
     @commethod(3)
@@ -999,7 +999,7 @@ class IATSC_MGT(c_void_p):
     def GetTableDescriptorByIndex(self, dwIndex: UInt32, ppDescriptor: POINTER(Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetTableDescriptorByTag(self, bTag: Byte, pdwCookie: POINTER(UInt32), ppDescriptor: POINTER(Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IATSC_STT(c_void_p):
+class IATSC_STT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6bf42423-217d-4d6f-81-e1-3a-7b-36-0e-c8-96')
     @commethod(3)
@@ -1018,7 +1018,7 @@ class IATSC_STT(c_void_p):
     def GetTableDescriptorByIndex(self, dwIndex: UInt32, ppDescriptor: POINTER(Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetTableDescriptorByTag(self, bTag: Byte, pdwCookie: POINTER(UInt32), ppDescriptor: POINTER(Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IATSC_VCT(c_void_p):
+class IATSC_VCT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('26879a18-32f9-46c6-91-f0-fb-64-79-27-0e-8c')
     @commethod(3)
@@ -1073,21 +1073,21 @@ class IATSC_VCT(c_void_p):
     def GetTableDescriptorByIndex(self, dwIndex: UInt32, ppDescriptor: POINTER(Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(28)
     def GetTableDescriptorByTag(self, bTag: Byte, pdwCookie: POINTER(UInt32), ppDescriptor: POINTER(Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAnalogAudioComponentType(c_void_p):
+class IAnalogAudioComponentType(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IComponentType
     Guid = Guid('2cfeb2a8-1787-4a24-a9-41-c6-ea-ec-39-c8-42')
     @commethod(24)
     def get_AnalogAudioMode(self, Mode: POINTER(Windows.Win32.Media.DirectShow.TVAudioMode)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def put_AnalogAudioMode(self, Mode: Windows.Win32.Media.DirectShow.TVAudioMode) -> Windows.Win32.Foundation.HRESULT: ...
-class IAnalogLocator(c_void_p):
+class IAnalogLocator(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.ILocator
     Guid = Guid('34d1f26b-e339-430d-ab-ce-73-8c-b4-89-84-dc')
     @commethod(22)
     def get_VideoStandard(self, AVS: POINTER(Windows.Win32.Media.DirectShow.AnalogVideoStandard)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def put_VideoStandard(self, AVS: Windows.Win32.Media.DirectShow.AnalogVideoStandard) -> Windows.Win32.Foundation.HRESULT: ...
-class IAnalogRadioTuningSpace(c_void_p):
+class IAnalogRadioTuningSpace(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.ITuningSpace
     Guid = Guid('2a6e293b-2595-11d3-b6-4c-00-c0-4f-79-49-8e')
     @commethod(26)
@@ -1102,14 +1102,14 @@ class IAnalogRadioTuningSpace(c_void_p):
     def get_Step(self, StepVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def put_Step(self, NewStepVal: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IAnalogRadioTuningSpace2(c_void_p):
+class IAnalogRadioTuningSpace2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IAnalogRadioTuningSpace
     Guid = Guid('39dd45da-2da8-46ba-8a-8a-87-e2-b7-3d-98-3a')
     @commethod(32)
     def get_CountryCode(self, CountryCodeVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(33)
     def put_CountryCode(self, NewCountryCodeVal: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IAnalogTVTuningSpace(c_void_p):
+class IAnalogTVTuningSpace(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.ITuningSpace
     Guid = Guid('2a6e293c-2595-11d3-b6-4c-00-c0-4f-79-49-8e')
     @commethod(26)
@@ -1128,7 +1128,7 @@ class IAnalogTVTuningSpace(c_void_p):
     def get_CountryCode(self, CountryCodeVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(33)
     def put_CountryCode(self, NewCountryCodeVal: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IAtscContentAdvisoryDescriptor(c_void_p):
+class IAtscContentAdvisoryDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ff76e60c-0283-43ea-ba-32-b4-22-23-85-47-ee')
     @commethod(3)
@@ -1147,7 +1147,7 @@ class IAtscContentAdvisoryDescriptor(c_void_p):
     def GetRecordRatingValue(self, bIndexOuter: Byte, bIndexInner: Byte, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetRecordRatingDescriptionText(self, bIndex: Byte, pbLength: POINTER(Byte), ppText: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
-class IAtscPsipParser(c_void_p):
+class IAtscPsipParser(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b2c98995-5eb2-4fb1-b4-06-f3-e8-e2-02-6a-9a')
     @commethod(3)
@@ -1172,7 +1172,7 @@ class IAtscPsipParser(c_void_p):
     def GetSTT(self, ppSTT: POINTER(Windows.Win32.Media.DirectShow.Tv.IATSC_STT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetEAS(self, pid: UInt16, ppEAS: POINTER(Windows.Win32.Media.DirectShow.Tv.ISCTE_EAS_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAttributeGet(c_void_p):
+class IAttributeGet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('52dbd1ec-e48f-4528-92-32-f4-42-a6-8f-0a-e1')
     @commethod(3)
@@ -1181,22 +1181,22 @@ class IAttributeGet(c_void_p):
     def GetAttribIndexed(self, lIndex: Int32, pguidAttribute: POINTER(Guid), pbAttribute: POINTER(Byte), pdwAttributeLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetAttrib(self, guidAttribute: Guid, pbAttribute: POINTER(Byte), pdwAttributeLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAttributeSet(c_void_p):
+class IAttributeSet(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('583ec3cc-4960-4857-98-2b-41-a3-3e-a0-a0-06')
     @commethod(3)
     def SetAttrib(self, guidAttribute: Guid, pbAttribute: POINTER(Byte), dwAttributeLength: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IAuxInTuningSpace(c_void_p):
+class IAuxInTuningSpace(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.ITuningSpace
     Guid = Guid('e48244b8-7e17-4f76-a7-63-50-90-ff-1e-2f-30')
-class IAuxInTuningSpace2(c_void_p):
+class IAuxInTuningSpace2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IAuxInTuningSpace
     Guid = Guid('b10931ed-8bfe-4ab0-9d-ce-e4-69-c2-9a-97-29')
     @commethod(26)
     def get_CountryCode(self, CountryCodeVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def put_CountryCode(self, NewCountryCodeVal: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IBDAComparable(c_void_p):
+class IBDAComparable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b34505e0-2f0e-497b-80-bc-d4-3f-3b-24-ed-7f')
     @commethod(3)
@@ -1211,19 +1211,19 @@ class IBDAComparable(c_void_p):
     def HashEquivalent(self, dwFlags: UInt32, Result: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def HashEquivalentIncremental(self, PartialResult: Int64, dwFlags: UInt32, Result: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IBDACreateTuneRequestEx(c_void_p):
+class IBDACreateTuneRequestEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c0a4a1d4-2b3c-491a-ba-22-49-9f-ba-dd-4d-12')
     @commethod(3)
     def CreateTuneRequestEx(self, TuneRequestIID: POINTER(Guid), TuneRequest: POINTER(Windows.Win32.Media.DirectShow.Tv.ITuneRequest_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IBDA_TIF_REGISTRATION(c_void_p):
+class IBDA_TIF_REGISTRATION(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('dfef4a68-ee61-415f-9c-cb-cd-95-f2-f9-8a-3a')
     @commethod(3)
     def RegisterTIFEx(self, pTIFInputPin: Windows.Win32.Media.DirectShow.IPin_head, ppvRegistrationContext: POINTER(UInt32), ppMpeg2DataControl: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UnregisterTIF(self, pvRegistrationContext: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ICAT(c_void_p):
+class ICAT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7c6995fb-2a31-4bd7-95-3e-b1-ad-7f-b7-d3-1c')
     @commethod(3)
@@ -1244,7 +1244,7 @@ class ICAT(c_void_p):
     def RegisterForWhenCurrent(self, hNextTableIsCurrent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def ConvertNextToCurrent(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ICaptionServiceDescriptor(c_void_p):
+class ICaptionServiceDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('40834007-6834-46f0-bd-45-d5-f6-a6-be-25-8c')
     @commethod(3)
@@ -1259,21 +1259,21 @@ class ICaptionServiceDescriptor(c_void_p):
     def GetEasyReader(self, bIndex: Byte, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetWideAspectRatio(self, bIndex: Byte, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IChannelIDTuneRequest(c_void_p):
+class IChannelIDTuneRequest(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.ITuneRequest
     Guid = Guid('156eff60-86f4-4e28-89-fc-10-97-99-fd-57-ee')
     @commethod(12)
     def get_ChannelID(self, ChannelID: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def put_ChannelID(self, ChannelID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IChannelTuneRequest(c_void_p):
+class IChannelTuneRequest(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.ITuneRequest
     Guid = Guid('0369b4e0-45b6-11d3-b6-50-00-c0-4f-79-49-8e')
     @commethod(12)
     def get_Channel(self, Channel: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def put_Channel(self, Channel: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IComponent(c_void_p):
+class IComponent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('1a5576fc-0e19-11d3-9d-8e-00-c0-4f-72-d9-80')
     @commethod(7)
@@ -1294,7 +1294,7 @@ class IComponent(c_void_p):
     def put_Description(self, Description: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def Clone(self, NewComponent: POINTER(Windows.Win32.Media.DirectShow.Tv.IComponent_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IComponentType(c_void_p):
+class IComponentType(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('6a340dc0-0311-11d3-9d-8e-00-c0-4f-72-d9-80')
     @commethod(7)
@@ -1331,7 +1331,7 @@ class IComponentType(c_void_p):
     def put_MediaType(self, MediaType: POINTER(Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def Clone(self, NewCT: POINTER(Windows.Win32.Media.DirectShow.Tv.IComponentType_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IComponentTypes(c_void_p):
+class IComponentTypes(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('0dc13d4a-0313-11d3-9d-8e-00-c0-4f-72-d9-80')
     @commethod(7)
@@ -1350,7 +1350,7 @@ class IComponentTypes(c_void_p):
     def Remove(self, Index: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def Clone(self, NewList: POINTER(Windows.Win32.Media.DirectShow.Tv.IComponentTypes_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IComponents(c_void_p):
+class IComponents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('39a48091-fffe-4182-a1-61-3f-f8-02-64-0e-26')
     @commethod(7)
@@ -1369,7 +1369,7 @@ class IComponents(c_void_p):
     def Clone(self, NewList: POINTER(Windows.Win32.Media.DirectShow.Tv.IComponents_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def put_Item(self, Index: Windows.Win32.System.Variant.VARIANT, ppComponent: Windows.Win32.Media.DirectShow.Tv.IComponent_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IComponentsOld(c_void_p):
+class IComponentsOld(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('fcd01846-0e19-11d3-9d-8e-00-c0-4f-72-d9-80')
     @commethod(7)
@@ -1386,12 +1386,12 @@ class IComponentsOld(c_void_p):
     def Remove(self, Index: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def Clone(self, NewList: POINTER(Windows.Win32.Media.DirectShow.Tv.IComponents_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICreatePropBagOnRegKey(c_void_p):
+class ICreatePropBagOnRegKey(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8a674b48-1f63-11d3-b6-4c-00-c0-4f-79-49-8e')
     @commethod(3)
     def Create(self, hkey: Windows.Win32.System.Registry.HKEY, subkey: Windows.Win32.Foundation.PWSTR, ulOptions: UInt32, samDesired: UInt32, iid: POINTER(Guid), ppBag: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDTFilter(c_void_p):
+class IDTFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c4c4c4b2-0049-4e2b-98-fb-95-37-f6-ce-51-6d')
     @commethod(3)
@@ -1410,7 +1410,7 @@ class IDTFilter(c_void_p):
     def get_BlockUnRatedDelay(self, pmsecsDelayBeforeBlock: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def put_BlockUnRatedDelay(self, msecsDelayBeforeBlock: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDTFilter2(c_void_p):
+class IDTFilter2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDTFilter
     Guid = Guid('c4c4c4b4-0049-4e2b-98-fb-95-37-f6-ce-51-6d')
     @commethod(11)
@@ -1419,7 +1419,7 @@ class IDTFilter2(c_void_p):
     def GetCurrLicenseExpDate(self, protType: POINTER(Windows.Win32.Media.DirectShow.Tv.ProtType), lpDateTime: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetLastErrorCode(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDTFilter3(c_void_p):
+class IDTFilter3(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDTFilter2
     Guid = Guid('513998cc-e929-4cdf-9f-bd-ba-d1-e0-31-48-66')
     @commethod(14)
@@ -1428,23 +1428,23 @@ class IDTFilter3(c_void_p):
     def LicenseHasExpirationDate(self, pfLicenseHasExpirationDate: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def SetRights(self, bstrRights: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IDTFilterConfig(c_void_p):
+class IDTFilterConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c4c4c4d2-0049-4e2b-98-fb-95-37-f6-ce-51-6d')
     @commethod(3)
     def GetSecureChannelObject(self, ppUnkDRMSecureChannel: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDTFilterEvents(c_void_p):
+class IDTFilterEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c4c4c4c2-0049-4e2b-98-fb-95-37-f6-ce-51-6d')
-class IDTFilterLicenseRenewal(c_void_p):
+class IDTFilterLicenseRenewal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8a78b317-e405-4a43-99-4a-62-0d-8f-5c-e2-5e')
     @commethod(3)
     def GetLicenseRenewalData(self, ppwszFileName: POINTER(Windows.Win32.Foundation.PWSTR), ppwszExpiredKid: POINTER(Windows.Win32.Foundation.PWSTR), ppwszTunerId: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVBCLocator(c_void_p):
+class IDVBCLocator(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDigitalLocator
     Guid = Guid('6e42f36e-1dd2-43c4-9f-78-69-d2-5a-e3-90-34')
-class IDVBSLocator(c_void_p):
+class IDVBSLocator(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDigitalLocator
     Guid = Guid('3d7c353c-0d04-45f1-a7-42-f9-7c-c1-18-8d-c8')
     @commethod(22)
@@ -1467,7 +1467,7 @@ class IDVBSLocator(c_void_p):
     def get_Elevation(self, Elevation: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def put_Elevation(self, Elevation: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVBSLocator2(c_void_p):
+class IDVBSLocator2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDVBSLocator
     Guid = Guid('6044634a-1733-4f99-b9-82-5f-b1-2a-fc-e4-f0')
     @commethod(32)
@@ -1498,7 +1498,7 @@ class IDVBSLocator2(c_void_p):
     def get_SignalPilot(self, PilotVal: POINTER(Windows.Win32.Media.DirectShow.Pilot)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(45)
     def put_SignalPilot(self, PilotVal: Windows.Win32.Media.DirectShow.Pilot) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVBSTuningSpace(c_void_p):
+class IDVBSTuningSpace(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDVBTuningSpace2
     Guid = Guid('cdf7be60-d954-42fd-a9-72-78-97-19-58-e4-70')
     @commethod(30)
@@ -1521,7 +1521,7 @@ class IDVBSTuningSpace(c_void_p):
     def get_SpectralInversion(self, SpectralInversionVal: POINTER(Windows.Win32.Media.DirectShow.SpectralInversion)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(39)
     def put_SpectralInversion(self, SpectralInversionVal: Windows.Win32.Media.DirectShow.SpectralInversion) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVBTLocator(c_void_p):
+class IDVBTLocator(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDigitalLocator
     Guid = Guid('8664da16-dda2-42ac-92-6a-c1-8f-91-27-c3-02')
     @commethod(22)
@@ -1552,14 +1552,14 @@ class IDVBTLocator(c_void_p):
     def get_OtherFrequencyInUse(self, OtherFrequencyInUseVal: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
     def put_OtherFrequencyInUse(self, OtherFrequencyInUseVal: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVBTLocator2(c_void_p):
+class IDVBTLocator2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDVBTLocator
     Guid = Guid('448a2edf-ae95-4b43-a3-cc-74-78-43-c4-53-d4')
     @commethod(36)
     def get_PhysicalLayerPipeId(self, PhysicalLayerPipeIdVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(37)
     def put_PhysicalLayerPipeId(self, PhysicalLayerPipeIdVal: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVBTuneRequest(c_void_p):
+class IDVBTuneRequest(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.ITuneRequest
     Guid = Guid('0d6f567e-a636-42bb-83-ba-ce-4c-17-04-af-a2')
     @commethod(12)
@@ -1574,21 +1574,21 @@ class IDVBTuneRequest(c_void_p):
     def get_SID(self, SID: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def put_SID(self, SID: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVBTuningSpace(c_void_p):
+class IDVBTuningSpace(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.ITuningSpace
     Guid = Guid('ada0b268-3b19-4e5b-ac-c4-49-f8-52-be-13-ba')
     @commethod(26)
     def get_SystemType(self, SysType: POINTER(Windows.Win32.Media.DirectShow.DVBSystemType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def put_SystemType(self, SysType: Windows.Win32.Media.DirectShow.DVBSystemType) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVBTuningSpace2(c_void_p):
+class IDVBTuningSpace2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDVBTuningSpace
     Guid = Guid('843188b4-ce62-43db-96-6b-81-45-a0-94-e0-40')
     @commethod(28)
     def get_NetworkID(self, NetworkID: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
     def put_NetworkID(self, NetworkID: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVB_BAT(c_void_p):
+class IDVB_BAT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ece9bb0c-43b6-4558-a0-ec-18-12-c3-4c-d6-ca')
     @commethod(3)
@@ -1623,14 +1623,14 @@ class IDVB_BAT(c_void_p):
     def RegisterForWhenCurrent(self, hNextTableIsCurrent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def ConvertNextToCurrent(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVB_DIT(c_void_p):
+class IDVB_DIT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('91bffdf9-9432-410f-86-ef-1c-22-8e-d0-ad-70')
     @commethod(3)
     def Initialize(self, pSectionList: Windows.Win32.Media.DirectShow.Tv.ISectionList_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetTransitionFlag(self, pfVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVB_EIT(c_void_p):
+class IDVB_EIT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('442db029-02cb-4495-8b-92-1c-13-37-5b-ce-99')
     @commethod(3)
@@ -1675,14 +1675,14 @@ class IDVB_EIT(c_void_p):
     def ConvertNextToCurrent(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def GetVersionHash(self, pdwVersionHash: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVB_EIT2(c_void_p):
+class IDVB_EIT2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDVB_EIT
     Guid = Guid('61a389e0-9b9e-4ba0-ae-ea-5d-dd-15-98-20-ea')
     @commethod(24)
     def GetSegmentInfo(self, pbTid: POINTER(Byte), pbSegment: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def GetRecordSection(self, dwRecordIndex: UInt32, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVB_NIT(c_void_p):
+class IDVB_NIT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c64935f4-29e4-4e22-91-1a-63-f7-f5-5c-b0-97')
     @commethod(3)
@@ -1719,7 +1719,7 @@ class IDVB_NIT(c_void_p):
     def ConvertNextToCurrent(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def GetVersionHash(self, pdwVersionHash: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVB_RST(c_void_p):
+class IDVB_RST(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f47dcd04-1e23-4fb7-9f-96-b4-0e-ea-d1-0b-2b')
     @commethod(3)
@@ -1736,7 +1736,7 @@ class IDVB_RST(c_void_p):
     def GetRecordEventId(self, dwRecordIndex: UInt32, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetRecordRunningStatus(self, dwRecordIndex: UInt32, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVB_SDT(c_void_p):
+class IDVB_SDT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('02cad8d3-fe43-48e2-90-bd-45-0e-d9-a8-a5-fd')
     @commethod(3)
@@ -1775,7 +1775,7 @@ class IDVB_SDT(c_void_p):
     def ConvertNextToCurrent(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def GetVersionHash(self, pdwVersionHash: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVB_SIT(c_void_p):
+class IDVB_SIT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('68cdce53-8bea-45c2-9d-9d-ac-f5-75-a0-89-b5')
     @commethod(3)
@@ -1808,7 +1808,7 @@ class IDVB_SIT(c_void_p):
     def RegisterForWhenCurrent(self, hNextTableIsCurrent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def ConvertNextToCurrent(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVB_ST(c_void_p):
+class IDVB_ST(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4d5b9f23-2a02-45de-bc-da-5d-5d-bf-bf-be-62')
     @commethod(3)
@@ -1817,14 +1817,14 @@ class IDVB_ST(c_void_p):
     def GetDataLength(self, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetData(self, ppData: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVB_TDT(c_void_p):
+class IDVB_TDT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0780dc7d-d55c-4aef-97-e6-6b-75-90-6e-27-96')
     @commethod(3)
     def Initialize(self, pSectionList: Windows.Win32.Media.DirectShow.Tv.ISectionList_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetUTCTime(self, pmdtVal: POINTER(Windows.Win32.Media.DirectShow.Tv.MPEG_DATE_AND_TIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDVB_TOT(c_void_p):
+class IDVB_TOT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('83295d6a-faba-4ee1-9b-15-80-67-69-69-10-ae')
     @commethod(3)
@@ -1837,10 +1837,10 @@ class IDVB_TOT(c_void_p):
     def GetTableDescriptorByIndex(self, dwIndex: UInt32, ppDescriptor: POINTER(Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetTableDescriptorByTag(self, bTag: Byte, pdwCookie: POINTER(UInt32), ppDescriptor: POINTER(Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDigitalCableLocator(c_void_p):
+class IDigitalCableLocator(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IATSCLocator2
     Guid = Guid('48f66a11-171a-419a-95-25-be-ee-cd-51-58-4c')
-class IDigitalCableTuneRequest(c_void_p):
+class IDigitalCableTuneRequest(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IATSCChannelTuneRequest
     Guid = Guid('bad7753b-6b37-4810-ae-57-3c-e0-c4-a9-e6-cb')
     @commethod(16)
@@ -1851,7 +1851,7 @@ class IDigitalCableTuneRequest(c_void_p):
     def get_SourceID(self, pSourceID: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def put_SourceID(self, SourceID: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDigitalCableTuningSpace(c_void_p):
+class IDigitalCableTuningSpace(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IATSCTuningSpace
     Guid = Guid('013f9f9c-b449-4ec7-a6-d2-9d-4f-2f-c7-0a-e5')
     @commethod(42)
@@ -1870,10 +1870,10 @@ class IDigitalCableTuningSpace(c_void_p):
     def get_MaxSourceID(self, MaxSourceIDVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(49)
     def put_MaxSourceID(self, NewMaxSourceIDVal: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IDigitalLocator(c_void_p):
+class IDigitalLocator(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.ILocator
     Guid = Guid('19b595d8-839a-47f0-96-df-4f-19-4f-3c-76-8c')
-class IDvbCableDeliverySystemDescriptor(c_void_p):
+class IDvbCableDeliverySystemDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('dfb98e36-9e1a-4862-99-46-99-3a-4e-59-01-7b')
     @commethod(3)
@@ -1890,7 +1890,7 @@ class IDvbCableDeliverySystemDescriptor(c_void_p):
     def GetSymbolRate(self, pdwVal: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetFECInner(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbComponentDescriptor(c_void_p):
+class IDvbComponentDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('91e405cf-80e7-457f-90-96-1b-9d-1c-e3-21-41')
     @commethod(3)
@@ -1907,7 +1907,7 @@ class IDvbComponentDescriptor(c_void_p):
     def GetLanguageCode(self, pszCode: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetTextW(self, convMode: Windows.Win32.Media.DirectShow.Tv.DVB_STRCONV_MODE, pbstrText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbContentDescriptor(c_void_p):
+class IDvbContentDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2e883881-a467-412a-9d-63-6f-2b-6d-a0-5b-f0')
     @commethod(3)
@@ -1920,7 +1920,7 @@ class IDvbContentDescriptor(c_void_p):
     def GetRecordContentNibbles(self, bRecordIndex: Byte, pbValLevel1: POINTER(Byte), pbValLevel2: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetRecordUserNibbles(self, bRecordIndex: Byte, pbVal1: POINTER(Byte), pbVal2: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbContentIdentifierDescriptor(c_void_p):
+class IDvbContentIdentifierDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('05e0c1ea-f661-4053-9f-bf-d9-3b-28-35-98-38')
     @commethod(3)
@@ -1931,7 +1931,7 @@ class IDvbContentIdentifierDescriptor(c_void_p):
     def GetCountOfRecords(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetRecordCrid(self, bRecordIndex: Byte, pbType: POINTER(Byte), pbLocation: POINTER(Byte), pbLength: POINTER(Byte), ppbBytes: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbDataBroadcastDescriptor(c_void_p):
+class IDvbDataBroadcastDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d1ebc1d6-8b60-4c20-9c-af-e5-93-82-e7-c4-00')
     @commethod(3)
@@ -1952,7 +1952,7 @@ class IDvbDataBroadcastDescriptor(c_void_p):
     def GetTextLength(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetText(self, pbLen: POINTER(Byte), pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbDataBroadcastIDDescriptor(c_void_p):
+class IDvbDataBroadcastIDDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5f26f518-65c8-4048-91-f2-92-90-f5-9f-7b-90')
     @commethod(3)
@@ -1963,7 +1963,7 @@ class IDvbDataBroadcastIDDescriptor(c_void_p):
     def GetDataBroadcastID(self, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetIDSelectorBytes(self, pbLen: POINTER(Byte), pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbDefaultAuthorityDescriptor(c_void_p):
+class IDvbDefaultAuthorityDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('05ec24d1-3a31-44e7-b4-08-67-c6-0a-35-22-76')
     @commethod(3)
@@ -1972,7 +1972,7 @@ class IDvbDefaultAuthorityDescriptor(c_void_p):
     def GetLength(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetDefaultAuthority(self, pbLength: POINTER(Byte), ppbBytes: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbExtendedEventDescriptor(c_void_p):
+class IDvbExtendedEventDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c9b22eca-85f4-499f-b1-db-ef-a9-3a-91-ee-57')
     @commethod(3)
@@ -1997,7 +1997,7 @@ class IDvbExtendedEventDescriptor(c_void_p):
     def GetConcatenatedTextW(self, FollowingDescriptor: Windows.Win32.Media.DirectShow.Tv.IDvbExtendedEventDescriptor_head, convMode: Windows.Win32.Media.DirectShow.Tv.DVB_STRCONV_MODE, pbstrText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetRecordItemRawBytes(self, bRecordIndex: Byte, ppbRawItem: POINTER(POINTER(Byte)), pbItemLength: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbFrequencyListDescriptor(c_void_p):
+class IDvbFrequencyListDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1cadb613-e1dd-4512-af-a8-bb-7a-00-7e-f8-b1')
     @commethod(3)
@@ -2010,10 +2010,10 @@ class IDvbFrequencyListDescriptor(c_void_p):
     def GetCountOfRecords(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetRecordCentreFrequency(self, bRecordIndex: Byte, pdwVal: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbHDSimulcastLogicalChannelDescriptor(c_void_p):
+class IDvbHDSimulcastLogicalChannelDescriptor(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDvbLogicalChannelDescriptor2
     Guid = Guid('1ea8b738-a307-4680-9e-26-d0-a9-08-c8-24-f4')
-class IDvbLinkageDescriptor(c_void_p):
+class IDvbLinkageDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1cdf8b31-994a-46fc-ac-fd-6a-6b-e8-93-4d-d5')
     @commethod(3)
@@ -2032,7 +2032,7 @@ class IDvbLinkageDescriptor(c_void_p):
     def GetPrivateDataLength(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetPrivateData(self, pbLen: POINTER(Byte), pbData: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbLogicalChannel2Descriptor(c_void_p):
+class IDvbLogicalChannel2Descriptor(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDvbLogicalChannelDescriptor2
     Guid = Guid('f69c3747-8a30-4980-99-8c-01-fe-7f-0b-a3-5a')
     @commethod(9)
@@ -2051,7 +2051,7 @@ class IDvbLogicalChannel2Descriptor(c_void_p):
     def GetListRecordLogicalChannelNumber(self, bListIndex: Byte, bRecordIndex: Byte, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def GetListRecordLogicalChannelAndVisibility(self, bListIndex: Byte, bRecordIndex: Byte, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbLogicalChannelDescriptor(c_void_p):
+class IDvbLogicalChannelDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cf1edaff-3ffd-4cf7-82-01-35-75-6a-cb-f8-5f')
     @commethod(3)
@@ -2064,12 +2064,12 @@ class IDvbLogicalChannelDescriptor(c_void_p):
     def GetRecordServiceId(self, bRecordIndex: Byte, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetRecordLogicalChannelNumber(self, bRecordIndex: Byte, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbLogicalChannelDescriptor2(c_void_p):
+class IDvbLogicalChannelDescriptor2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDvbLogicalChannelDescriptor
     Guid = Guid('43aca974-4be8-4b98-bc-17-9e-af-d7-88-b1-d7')
     @commethod(8)
     def GetRecordLogicalChannelAndVisibility(self, bRecordIndex: Byte, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbMultilingualServiceNameDescriptor(c_void_p):
+class IDvbMultilingualServiceNameDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2d80433b-b32c-47ef-98-7f-e7-8e-bb-77-3e-34')
     @commethod(3)
@@ -2084,7 +2084,7 @@ class IDvbMultilingualServiceNameDescriptor(c_void_p):
     def GetRecordServiceProviderNameW(self, bRecordIndex: Byte, convMode: Windows.Win32.Media.DirectShow.Tv.DVB_STRCONV_MODE, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetRecordServiceNameW(self, bRecordIndex: Byte, convMode: Windows.Win32.Media.DirectShow.Tv.DVB_STRCONV_MODE, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbNetworkNameDescriptor(c_void_p):
+class IDvbNetworkNameDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5b2a80cf-35b9-446c-b3-e4-04-8b-76-1d-bc-51')
     @commethod(3)
@@ -2095,7 +2095,7 @@ class IDvbNetworkNameDescriptor(c_void_p):
     def GetNetworkName(self, pszName: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetNetworkNameW(self, convMode: Windows.Win32.Media.DirectShow.Tv.DVB_STRCONV_MODE, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbParentalRatingDescriptor(c_void_p):
+class IDvbParentalRatingDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3ad9dde1-fb1b-4186-93-7f-22-e6-b5-a7-2a-10')
     @commethod(3)
@@ -2106,7 +2106,7 @@ class IDvbParentalRatingDescriptor(c_void_p):
     def GetCountOfRecords(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetRecordRating(self, bRecordIndex: Byte, pszCountryCode: POINTER(Byte), pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbPrivateDataSpecifierDescriptor(c_void_p):
+class IDvbPrivateDataSpecifierDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5660a019-e75a-4b82-9b-4c-ed-22-56-d1-65-a2')
     @commethod(3)
@@ -2115,7 +2115,7 @@ class IDvbPrivateDataSpecifierDescriptor(c_void_p):
     def GetLength(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetPrivateDataSpecifier(self, pdwVal: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbSatelliteDeliverySystemDescriptor(c_void_p):
+class IDvbSatelliteDeliverySystemDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('02f2225a-805b-4ec5-a9-a6-f9-b5-91-3c-d4-70')
     @commethod(3)
@@ -2136,7 +2136,7 @@ class IDvbSatelliteDeliverySystemDescriptor(c_void_p):
     def GetSymbolRate(self, pdwVal: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetFECInner(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbServiceAttributeDescriptor(c_void_p):
+class IDvbServiceAttributeDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0f37bd92-d6a1-4854-b9-50-3a-96-9d-27-f3-0e')
     @commethod(3)
@@ -2151,7 +2151,7 @@ class IDvbServiceAttributeDescriptor(c_void_p):
     def GetRecordNumericSelectionFlag(self, bRecordIndex: Byte, pfVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetRecordVisibleServiceFlag(self, bRecordIndex: Byte, pfVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbServiceDescriptor(c_void_p):
+class IDvbServiceDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f9c7fbcf-e2d6-464d-b3-2d-2e-f5-26-e4-92-90')
     @commethod(3)
@@ -2170,14 +2170,14 @@ class IDvbServiceDescriptor(c_void_p):
     def GetProcessedServiceName(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetServiceNameEmphasized(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbServiceDescriptor2(c_void_p):
+class IDvbServiceDescriptor2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDvbServiceDescriptor
     Guid = Guid('d6c76506-85ab-487c-9b-2b-36-41-65-11-e4-a2')
     @commethod(11)
     def GetServiceProviderNameW(self, convMode: Windows.Win32.Media.DirectShow.Tv.DVB_STRCONV_MODE, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetServiceNameW(self, convMode: Windows.Win32.Media.DirectShow.Tv.DVB_STRCONV_MODE, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbServiceListDescriptor(c_void_p):
+class IDvbServiceListDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('05db0d8f-6008-491a-ac-d3-70-90-95-27-07-d0')
     @commethod(3)
@@ -2190,7 +2190,7 @@ class IDvbServiceListDescriptor(c_void_p):
     def GetRecordServiceId(self, bRecordIndex: Byte, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetRecordServiceType(self, bRecordIndex: Byte, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbShortEventDescriptor(c_void_p):
+class IDvbShortEventDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b170be92-5b75-458e-9c-6e-b0-00-82-31-49-1a')
     @commethod(3)
@@ -2203,7 +2203,7 @@ class IDvbShortEventDescriptor(c_void_p):
     def GetEventNameW(self, convMode: Windows.Win32.Media.DirectShow.Tv.DVB_STRCONV_MODE, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetTextW(self, convMode: Windows.Win32.Media.DirectShow.Tv.DVB_STRCONV_MODE, pbstrText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbSiParser(c_void_p):
+class IDvbSiParser(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b758a7bd-14dc-449d-b8-28-35-90-9a-cb-3b-1e')
     @commethod(3)
@@ -2236,12 +2236,12 @@ class IDvbSiParser(c_void_p):
     def GetDIT(self, dwTimeout: UInt32, ppDIT: POINTER(Windows.Win32.Media.DirectShow.Tv.IDVB_DIT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def GetSIT(self, dwTimeout: UInt32, ppSIT: POINTER(Windows.Win32.Media.DirectShow.Tv.IDVB_SIT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbSiParser2(c_void_p):
+class IDvbSiParser2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDvbSiParser
     Guid = Guid('0ac5525f-f816-42f4-93-ba-4c-0f-32-f4-6e-54')
     @commethod(18)
     def GetEIT2(self, tableId: Byte, pwServiceId: POINTER(UInt16), pbSegment: POINTER(Byte), ppEIT: POINTER(Windows.Win32.Media.DirectShow.Tv.IDVB_EIT2_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbSubtitlingDescriptor(c_void_p):
+class IDvbSubtitlingDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9b25fe1d-fa23-4e50-97-84-6d-f8-b2-6f-8a-49')
     @commethod(3)
@@ -2258,7 +2258,7 @@ class IDvbSubtitlingDescriptor(c_void_p):
     def GetRecordCompositionPageID(self, bRecordIndex: Byte, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetRecordAncillaryPageID(self, bRecordIndex: Byte, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbTeletextDescriptor(c_void_p):
+class IDvbTeletextDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9cd29d47-69c6-4f92-98-a9-21-0a-f1-b7-30-3a')
     @commethod(3)
@@ -2275,7 +2275,7 @@ class IDvbTeletextDescriptor(c_void_p):
     def GetRecordMagazineNumber(self, bRecordIndex: Byte, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetRecordPageNumber(self, bRecordIndex: Byte, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbTerrestrial2DeliverySystemDescriptor(c_void_p):
+class IDvbTerrestrial2DeliverySystemDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('20ee9be9-cd57-49ab-8f-6e-1d-07-ae-b8-e4-82')
     @commethod(3)
@@ -2304,7 +2304,7 @@ class IDvbTerrestrial2DeliverySystemDescriptor(c_void_p):
     def GetOtherFrequencyFlag(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetTFSFlag(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDvbTerrestrialDeliverySystemDescriptor(c_void_p):
+class IDvbTerrestrialDeliverySystemDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ed7e1b91-d12e-420c-b4-1d-a4-9d-84-fe-18-23')
     @commethod(3)
@@ -2329,22 +2329,22 @@ class IDvbTerrestrialDeliverySystemDescriptor(c_void_p):
     def GetTransmissionMode(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetOtherFrequencyFlag(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IESCloseMmiEvent(c_void_p):
+class IESCloseMmiEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.IESEvent
     Guid = Guid('6b80e96f-55e2-45aa-b7-54-0c-23-c8-e7-d5-c1')
     @commethod(8)
     def GetDialogNumber(self, pDialogNumber: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IESEventFactory(c_void_p):
+class IESEventFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('506a09b8-7f86-4e04-ac-05-33-03-bf-e8-fc-49')
     @commethod(3)
     def CreateESEvent(self, pServiceProvider: Windows.Win32.System.Com.IUnknown_head, dwEventId: UInt32, guidEventType: Guid, dwEventDataLength: UInt32, pEventData: POINTER(Byte), bstrBaseUrl: Windows.Win32.Foundation.BSTR, pInitContext: Windows.Win32.System.Com.IUnknown_head, ppESEvent: POINTER(Windows.Win32.Media.DirectShow.IESEvent_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IESEventService(c_void_p):
+class IESEventService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ed89a619-4c06-4b2f-99-eb-c7-66-9b-13-04-7c')
     @commethod(3)
     def FireESEvent(self, pESEvent: Windows.Win32.Media.DirectShow.IESEvent_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IESEventServiceConfiguration(c_void_p):
+class IESEventServiceConfiguration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('33b9daae-9309-491d-a0-51-bc-ad-2a-70-cd-66')
     @commethod(3)
@@ -2359,7 +2359,7 @@ class IESEventServiceConfiguration(c_void_p):
     def SetGraph(self, pGraph: Windows.Win32.Media.DirectShow.IFilterGraph_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def RemoveGraph(self, pGraph: Windows.Win32.Media.DirectShow.IFilterGraph_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IESFileExpiryDateEvent(c_void_p):
+class IESFileExpiryDateEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.IESEvent
     Guid = Guid('ba9edcb6-4d36-4cfe-8c-56-87-a6-b0-ca-48-e1')
     @commethod(8)
@@ -2374,7 +2374,7 @@ class IESFileExpiryDateEvent(c_void_p):
     def IsEntitlementTokenPresent(self, pfEntTokenPresent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def DoesExpireAfterFirstUse(self, pfExpireAfterFirstUse: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IESIsdbCasResponseEvent(c_void_p):
+class IESIsdbCasResponseEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.IESEvent
     Guid = Guid('2017cb03-dc0f-4c24-83-ca-36-30-7b-2c-d1-9f')
     @commethod(8)
@@ -2385,7 +2385,7 @@ class IESIsdbCasResponseEvent(c_void_p):
     def GetDataLength(self, pRequestLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetResponseData(self, pbData: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IESLicenseRenewalResultEvent(c_void_p):
+class IESLicenseRenewalResultEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.IESEvent
     Guid = Guid('d5a48ef5-a81b-4df0-ac-aa-5e-35-e7-ea-45-d4')
     @commethod(8)
@@ -2410,7 +2410,7 @@ class IESLicenseRenewalResultEvent(c_void_p):
     def GetEntitlementToken(self, pbData: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def GetExpiryDate(self, pqwExpiryDate: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IESOpenMmiEvent(c_void_p):
+class IESOpenMmiEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.IESEvent
     Guid = Guid('ba4b6526-1a35-4635-8b-56-3e-c6-12-74-6a-8c')
     @commethod(8)
@@ -2421,7 +2421,7 @@ class IESOpenMmiEvent(c_void_p):
     def GetDialogData(self, pbData: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetDialogStringData(self, pbstrBaseUrl: POINTER(Windows.Win32.Foundation.BSTR), pbstrData: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IESRequestTunerEvent(c_void_p):
+class IESRequestTunerEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.IESEvent
     Guid = Guid('54c7a5e8-c3bb-4f51-af-14-e0-e2-c0-e3-4c-6d')
     @commethod(8)
@@ -2432,12 +2432,12 @@ class IESRequestTunerEvent(c_void_p):
     def GetConsequences(self, pbyConsequences: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetEstimatedTime(self, pdwEstimatedTime: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IESValueUpdatedEvent(c_void_p):
+class IESValueUpdatedEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.IESEvent
     Guid = Guid('8a24c46e-bb63-4664-86-02-5d-9c-71-8c-14-6d')
     @commethod(8)
     def GetValueNames(self, pbstrNames: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IETFilter(c_void_p):
+class IETFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c4c4c4b1-0049-4e2b-98-fb-95-37-f6-ce-51-6d')
     @commethod(3)
@@ -2450,17 +2450,17 @@ class IETFilter(c_void_p):
     def GetLastErrorCode(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetRecordingOn(self, fRecState: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IETFilterConfig(c_void_p):
+class IETFilterConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c4c4c4d1-0049-4e2b-98-fb-95-37-f6-ce-51-6d')
     @commethod(3)
     def InitLicense(self, LicenseId: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetSecureChannelObject(self, ppUnkDRMSecureChannel: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IETFilterEvents(c_void_p):
+class IETFilterEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c4c4c4c1-0049-4e2b-98-fb-95-37-f6-ce-51-6d')
-class IEnumComponentTypes(c_void_p):
+class IEnumComponentTypes(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8a674b4a-1f63-11d3-b6-4c-00-c0-4f-79-49-8e')
     @commethod(3)
@@ -2471,7 +2471,7 @@ class IEnumComponentTypes(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Media.DirectShow.Tv.IEnumComponentTypes_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumComponents(c_void_p):
+class IEnumComponents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2a6e2939-2595-11d3-b6-4c-00-c0-4f-79-49-8e')
     @commethod(3)
@@ -2482,7 +2482,7 @@ class IEnumComponents(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Media.DirectShow.Tv.IEnumComponents_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumGuideDataProperties(c_void_p):
+class IEnumGuideDataProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ae44423b-4571-475c-ad-2c-f4-0a-77-1d-80-ef')
     @commethod(3)
@@ -2493,7 +2493,7 @@ class IEnumGuideDataProperties(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.Media.DirectShow.Tv.IEnumGuideDataProperties_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumMSVidGraphSegment(c_void_p):
+class IEnumMSVidGraphSegment(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3dd2903e-e0aa-11d2-b6-3a-00-c0-4f-79-49-8e')
     @commethod(3)
@@ -2504,7 +2504,7 @@ class IEnumMSVidGraphSegment(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.Media.DirectShow.Tv.IEnumMSVidGraphSegment_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumStreamBufferRecordingAttrib(c_void_p):
+class IEnumStreamBufferRecordingAttrib(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c18a9162-1e82-4142-8c-73-56-90-fa-62-fe-33')
     @commethod(3)
@@ -2515,7 +2515,7 @@ class IEnumStreamBufferRecordingAttrib(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppIEnumStreamBufferAttrib: POINTER(Windows.Win32.Media.DirectShow.Tv.IEnumStreamBufferRecordingAttrib_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumTuneRequests(c_void_p):
+class IEnumTuneRequests(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1993299c-ced6-4788-87-a3-42-00-67-dc-e0-c7')
     @commethod(3)
@@ -2526,7 +2526,7 @@ class IEnumTuneRequests(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppenum: POINTER(Windows.Win32.Media.DirectShow.Tv.IEnumTuneRequests_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumTuningSpaces(c_void_p):
+class IEnumTuningSpaces(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8b8eb248-fc2b-11d2-9d-8c-00-c0-4f-72-d9-80')
     @commethod(3)
@@ -2537,7 +2537,7 @@ class IEnumTuningSpaces(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Media.DirectShow.Tv.IEnumTuningSpaces_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEvalRat(c_void_p):
+class IEvalRat(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c5c5c5b1-3abc-11d6-b2-5b-00-c0-4f-a0-c0-26')
     @commethod(7)
@@ -2552,7 +2552,7 @@ class IEvalRat(c_void_p):
     def MostRestrictiveRating(self, enSystem1: Windows.Win32.Media.DirectShow.Tv.EnTvRat_System, enEnLevel1: Windows.Win32.Media.DirectShow.Tv.EnTvRat_GenericLevel, lbfEnAttr1: Int32, enSystem2: Windows.Win32.Media.DirectShow.Tv.EnTvRat_System, enEnLevel2: Windows.Win32.Media.DirectShow.Tv.EnTvRat_GenericLevel, lbfEnAttr2: Int32, penSystem: POINTER(Windows.Win32.Media.DirectShow.Tv.EnTvRat_System), penEnLevel: POINTER(Windows.Win32.Media.DirectShow.Tv.EnTvRat_GenericLevel), plbfEnAttr: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def TestRating(self, enShowSystem: Windows.Win32.Media.DirectShow.Tv.EnTvRat_System, enShowLevel: Windows.Win32.Media.DirectShow.Tv.EnTvRat_GenericLevel, lbfEnShowAttributes: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IGenericDescriptor(c_void_p):
+class IGenericDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6a5918f8-a77a-4f61-ae-d0-57-02-bd-cd-a3-e6')
     @commethod(3)
@@ -2563,19 +2563,19 @@ class IGenericDescriptor(c_void_p):
     def GetLength(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetBody(self, ppbVal: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
-class IGenericDescriptor2(c_void_p):
+class IGenericDescriptor2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor
     Guid = Guid('bf02fb7e-9792-4e10-a6-8d-03-3a-2c-c2-46-a5')
     @commethod(7)
     def Initialize(self, pbDesc: POINTER(Byte), wCount: UInt16) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetLength(self, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
-class IGpnvsCommonBase(c_void_p):
+class IGpnvsCommonBase(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('907e0b5c-e42d-4f04-91-f0-26-f4-01-f3-69-07')
     @commethod(3)
     def GetValueUpdateName(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IGuideData(c_void_p):
+class IGuideData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('61571138-5b01-43cd-ae-af-60-b7-84-a0-bf-93')
     @commethod(3)
@@ -2590,7 +2590,7 @@ class IGuideData(c_void_p):
     def GetScheduleEntryIDs(self, pEnumScheduleEntries: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetScheduleEntryProperties(self, varScheduleEntryDescriptionID: Windows.Win32.System.Variant.VARIANT, ppEnumProperties: POINTER(Windows.Win32.Media.DirectShow.Tv.IEnumGuideDataProperties_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IGuideDataEvent(c_void_p):
+class IGuideDataEvent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('efda0c80-f395-42c3-9b-3c-56-b3-7d-ec-7b-b7')
     @commethod(3)
@@ -2607,14 +2607,14 @@ class IGuideDataEvent(c_void_p):
     def ServiceDeleted(self, varServiceDescriptionID: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def ScheduleDeleted(self, varScheduleEntryDescriptionID: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class IGuideDataLoader(c_void_p):
+class IGuideDataLoader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4764ff7c-fa95-4525-af-4d-d3-22-36-db-9e-38')
     @commethod(3)
     def Init(self, pGuideStore: Windows.Win32.Media.DirectShow.Tv.IGuideData_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Terminate(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IGuideDataProperty(c_void_p):
+class IGuideDataProperty(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('88ec5e58-bb73-41d6-99-ce-66-c5-24-b8-b5-91')
     @commethod(3)
@@ -2623,10 +2623,10 @@ class IGuideDataProperty(c_void_p):
     def get_Language(self, idLang: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def get_Value(self, pvar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IISDBSLocator(c_void_p):
+class IISDBSLocator(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDVBSLocator
     Guid = Guid('c9897087-e29c-473f-9e-4b-70-72-12-3d-ea-14')
-class IISDB_BIT(c_void_p):
+class IISDB_BIT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('537cd71e-0e46-4173-90-01-ba-04-3f-3e-49-e2')
     @commethod(3)
@@ -2655,7 +2655,7 @@ class IISDB_BIT(c_void_p):
     def GetRecordDescriptorByTag(self, dwRecordIndex: UInt32, bTag: Byte, pdwCookie: POINTER(UInt32), ppDescriptor: POINTER(Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetVersionHash(self, pdwVersionHash: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IISDB_CDT(c_void_p):
+class IISDB_CDT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('25fa92c2-8b80-4787-a8-41-3a-0e-8f-17-98-4b')
     @commethod(3)
@@ -2682,7 +2682,7 @@ class IISDB_CDT(c_void_p):
     def GetDataModule(self, pbData: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetVersionHash(self, pdwVersionHash: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IISDB_EMM(c_void_p):
+class IISDB_EMM(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0edb556d-43ad-4938-96-68-32-1b-2f-fe-cf-d3')
     @commethod(3)
@@ -2699,7 +2699,7 @@ class IISDB_EMM(c_void_p):
     def GetIndividualEmmMessage(self, pUnknown: Windows.Win32.System.Com.IUnknown_head, pwLength: POINTER(UInt16), ppbMessage: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetVersionHash(self, pdwVersionHash: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IISDB_LDT(c_void_p):
+class IISDB_LDT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('141a546b-02ff-4fb9-a3-a3-2f-07-4b-74-a9-a9')
     @commethod(3)
@@ -2724,7 +2724,7 @@ class IISDB_LDT(c_void_p):
     def GetRecordDescriptorByTag(self, dwRecordIndex: UInt32, bTag: Byte, pdwCookie: POINTER(UInt32), ppDescriptor: POINTER(Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetVersionHash(self, pdwVersionHash: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IISDB_NBIT(c_void_p):
+class IISDB_NBIT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1b1863ef-08f1-40b7-a5-59-3b-1e-ff-8c-af-a6')
     @commethod(3)
@@ -2757,12 +2757,12 @@ class IISDB_NBIT(c_void_p):
     def GetRecordDescriptorByTag(self, dwRecordIndex: UInt32, bTag: Byte, pdwCookie: POINTER(UInt32), ppDescriptor: POINTER(Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def GetVersionHash(self, pdwVersionHash: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IISDB_SDT(c_void_p):
+class IISDB_SDT(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDVB_SDT
     Guid = Guid('3f3dc9a2-bb32-4fb9-ae-9e-d8-56-84-89-27-a3')
     @commethod(21)
     def GetRecordEITUserDefinedFlags(self, dwRecordIndex: UInt32, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IISDB_SDTT(c_void_p):
+class IISDB_SDTT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ee60ef2d-813a-4dc7-bf-92-ea-13-da-c8-53-13')
     @commethod(3)
@@ -2805,7 +2805,7 @@ class IISDB_SDTT(c_void_p):
     def GetRecordDescriptorByTag(self, dwRecordIndex: UInt32, bTag: Byte, pdwCookie: POINTER(UInt32), ppDescriptor: POINTER(Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def GetVersionHash(self, pdwVersionHash: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbAudioComponentDescriptor(c_void_p):
+class IIsdbAudioComponentDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('679d2002-2425-4be4-a4-c7-d6-63-2a-57-4f-4d')
     @commethod(3)
@@ -2836,7 +2836,7 @@ class IIsdbAudioComponentDescriptor(c_void_p):
     def GetLanguageCode2(self, pszCode: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def GetTextW(self, convMode: Windows.Win32.Media.DirectShow.Tv.DVB_STRCONV_MODE, pbstrText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbCAContractInformationDescriptor(c_void_p):
+class IIsdbCAContractInformationDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('08e18b25-a28f-4e92-82-1e-4f-ce-d5-cc-22-91')
     @commethod(3)
@@ -2857,7 +2857,7 @@ class IIsdbCAContractInformationDescriptor(c_void_p):
     def GetContractVerificationInfo(self, bBufLength: Byte, pbBuf: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetFeeNameW(self, convMode: Windows.Win32.Media.DirectShow.Tv.DVB_STRCONV_MODE, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbCADescriptor(c_void_p):
+class IIsdbCADescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0570aa47-52bc-42ae-8c-a5-96-9f-41-e8-1a-ea')
     @commethod(3)
@@ -2872,7 +2872,7 @@ class IIsdbCADescriptor(c_void_p):
     def GetCAPID(self, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetPrivateDataBytes(self, pbBufferLength: POINTER(Byte), pbBuffer: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbCAServiceDescriptor(c_void_p):
+class IIsdbCAServiceDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('39cbeb97-ff0b-42a7-9a-b9-7b-9c-fe-70-a7-7a')
     @commethod(3)
@@ -2887,7 +2887,7 @@ class IIsdbCAServiceDescriptor(c_void_p):
     def GetMessageControl(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetServiceIds(self, pbNumServiceIds: POINTER(Byte), pwServiceIds: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbComponentGroupDescriptor(c_void_p):
+class IIsdbComponentGroupDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a494f17f-c592-47d8-89-43-64-c9-a3-4b-e7-b9')
     @commethod(3)
@@ -2912,7 +2912,7 @@ class IIsdbComponentGroupDescriptor(c_void_p):
     def GetRecordTotalBitRate(self, bRecordIndex: Byte, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetRecordTextW(self, bRecordIndex: Byte, convMode: Windows.Win32.Media.DirectShow.Tv.DVB_STRCONV_MODE, pbstrText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbDataContentDescriptor(c_void_p):
+class IIsdbDataContentDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a428100a-e646-4bd6-aa-14-60-87-bd-c0-8c-d5')
     @commethod(3)
@@ -2935,7 +2935,7 @@ class IIsdbDataContentDescriptor(c_void_p):
     def GetLanguageCode(self, pszCode: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetTextW(self, convMode: Windows.Win32.Media.DirectShow.Tv.DVB_STRCONV_MODE, pbstrText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbDigitalCopyControlDescriptor(c_void_p):
+class IIsdbDigitalCopyControlDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1a28417e-266a-4bb8-a4-bd-d7-82-bc-fb-81-61')
     @commethod(3)
@@ -2948,7 +2948,7 @@ class IIsdbDigitalCopyControlDescriptor(c_void_p):
     def GetCountOfRecords(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetRecordCopyControl(self, bRecordIndex: Byte, pbComponentTag: POINTER(Byte), pbDigitalRecordingControlData: POINTER(Byte), pbCopyControlType: POINTER(Byte), pbAPSControlData: POINTER(Byte), pbMaximumBitrate: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbDownloadContentDescriptor(c_void_p):
+class IIsdbDownloadContentDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5298661e-cb88-4f5f-a1-de-5f-44-0c-18-5b-92')
     @commethod(3)
@@ -2985,7 +2985,7 @@ class IIsdbDownloadContentDescriptor(c_void_p):
     def GetTextLanguageCode(self, szCode: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def GetTextW(self, convMode: Windows.Win32.Media.DirectShow.Tv.DVB_STRCONV_MODE, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbEmergencyInformationDescriptor(c_void_p):
+class IIsdbEmergencyInformationDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ba6fa681-b973-4da1-92-07-ac-3e-7f-03-41-eb')
     @commethod(3)
@@ -3002,7 +3002,7 @@ class IIsdbEmergencyInformationDescriptor(c_void_p):
     def GetSignalLevel(self, bRecordIndex: Byte, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetAreaCode(self, bRecordIndex: Byte, ppwVal: POINTER(POINTER(UInt16)), pbNumAreaCodes: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbEventGroupDescriptor(c_void_p):
+class IIsdbEventGroupDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('94b06780-2e2a-44dc-a9-66-cc-56-fd-ab-c6-c2')
     @commethod(3)
@@ -3019,7 +3019,7 @@ class IIsdbEventGroupDescriptor(c_void_p):
     def GetCountOfRefRecords(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetRefRecordEvent(self, bRecordIndex: Byte, pwOriginalNetworkId: POINTER(UInt16), pwTransportStreamId: POINTER(UInt16), pwServiceId: POINTER(UInt16), pwEventId: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbHierarchicalTransmissionDescriptor(c_void_p):
+class IIsdbHierarchicalTransmissionDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b7b3ae90-ee0b-446d-87-69-f7-e2-aa-26-6a-a6')
     @commethod(3)
@@ -3034,7 +3034,7 @@ class IIsdbHierarchicalTransmissionDescriptor(c_void_p):
     def GetFutureUse2(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetReferencePid(self, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbLogoTransmissionDescriptor(c_void_p):
+class IIsdbLogoTransmissionDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e0103f49-4ae1-4f07-90-98-75-6d-b1-fa-88-cd')
     @commethod(3)
@@ -3051,7 +3051,7 @@ class IIsdbLogoTransmissionDescriptor(c_void_p):
     def GetDownloadDataId(self, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetLogoCharW(self, convMode: Windows.Win32.Media.DirectShow.Tv.DVB_STRCONV_MODE, pbstrChar: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbSIParameterDescriptor(c_void_p):
+class IIsdbSIParameterDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f837dc36-867c-426a-91-11-f6-20-93-95-1a-45')
     @commethod(3)
@@ -3070,7 +3070,7 @@ class IIsdbSIParameterDescriptor(c_void_p):
     def GetTableDescriptionLength(self, bRecordIndex: Byte, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetTableDescriptionBytes(self, bRecordIndex: Byte, pbBufferLength: POINTER(Byte), pbBuffer: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbSeriesDescriptor(c_void_p):
+class IIsdbSeriesDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('07ef6370-1660-4f26-87-fc-61-4a-da-b2-4b-11')
     @commethod(3)
@@ -3091,7 +3091,7 @@ class IIsdbSeriesDescriptor(c_void_p):
     def GetLastEpisodeNumber(self, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetSeriesNameW(self, convMode: Windows.Win32.Media.DirectShow.Tv.DVB_STRCONV_MODE, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbSiParser2(c_void_p):
+class IIsdbSiParser2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IDvbSiParser2
     Guid = Guid('900e4bb7-18cd-453f-98-be-3b-e6-aa-21-17-72')
     @commethod(19)
@@ -3108,7 +3108,7 @@ class IIsdbSiParser2(c_void_p):
     def GetCDT(self, tableId: Byte, bSectionNumber: Byte, pwDownloadDataId: POINTER(UInt16), ppCDT: POINTER(Windows.Win32.Media.DirectShow.Tv.IISDB_CDT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def GetEMM(self, pid: UInt16, wTableIdExt: UInt16, ppEMM: POINTER(Windows.Win32.Media.DirectShow.Tv.IISDB_EMM_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbTSInformationDescriptor(c_void_p):
+class IIsdbTSInformationDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d7ad183e-38f5-4210-b5-5f-ec-8d-60-1b-bd-47')
     @commethod(3)
@@ -3127,7 +3127,7 @@ class IIsdbTSInformationDescriptor(c_void_p):
     def GetRecordNumberOfServices(self, bRecordIndex: Byte, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetRecordServiceIdByIndex(self, bRecordIndex: Byte, bServiceIndex: Byte, pdwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
-class IIsdbTerrestrialDeliverySystemDescriptor(c_void_p):
+class IIsdbTerrestrialDeliverySystemDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('39fae0a6-d151-44dd-a2-8a-76-5d-e5-99-16-70')
     @commethod(3)
@@ -3144,14 +3144,14 @@ class IIsdbTerrestrialDeliverySystemDescriptor(c_void_p):
     def GetCountOfRecords(self, pbVal: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetRecordFrequency(self, bRecordIndex: Byte, pdwVal: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ILanguageComponentType(c_void_p):
+class ILanguageComponentType(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IComponentType
     Guid = Guid('b874c8ba-0fa2-11d3-9d-8e-00-c0-4f-72-d9-80')
     @commethod(24)
     def get_LangID(self, LangID: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def put_LangID(self, LangID: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ILocator(c_void_p):
+class ILocator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('286d7f89-760c-4f89-80-c4-66-84-1d-25-07-aa')
     @commethod(7)
@@ -3184,7 +3184,7 @@ class ILocator(c_void_p):
     def put_SymbolRate(self, Rate: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def Clone(self, NewLocator: POINTER(Windows.Win32.Media.DirectShow.Tv.ILocator_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMPEG2Component(c_void_p):
+class IMPEG2Component(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IComponent
     Guid = Guid('1493e353-1eb6-473c-80-2d-8e-6b-8e-c9-d2-a9')
     @commethod(16)
@@ -3199,14 +3199,14 @@ class IMPEG2Component(c_void_p):
     def get_ProgramNumber(self, ProgramNumber: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def put_ProgramNumber(self, ProgramNumber: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMPEG2ComponentType(c_void_p):
+class IMPEG2ComponentType(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.ILanguageComponentType
     Guid = Guid('2c073d84-b51c-48c9-aa-9f-68-97-1e-1f-6e-38')
     @commethod(26)
     def get_StreamType(self, MP2StreamType: POINTER(Windows.Win32.Media.DirectShow.MPEG2StreamType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(27)
     def put_StreamType(self, MP2StreamType: Windows.Win32.Media.DirectShow.MPEG2StreamType) -> Windows.Win32.Foundation.HRESULT: ...
-class IMPEG2TuneRequest(c_void_p):
+class IMPEG2TuneRequest(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.ITuneRequest
     Guid = Guid('eb7d987f-8a01-42ad-b8-ae-57-4d-ee-e4-4d-1a')
     @commethod(12)
@@ -3217,15 +3217,15 @@ class IMPEG2TuneRequest(c_void_p):
     def get_ProgNo(self, ProgNo: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def put_ProgNo(self, ProgNo: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMPEG2TuneRequestFactory(c_void_p):
+class IMPEG2TuneRequestFactory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('14e11abd-ee37-4893-9e-a1-69-64-de-93-3e-39')
     @commethod(7)
     def CreateTuneRequest(self, TuningSpace: Windows.Win32.Media.DirectShow.Tv.ITuningSpace_head, TuneRequest: POINTER(Windows.Win32.Media.DirectShow.Tv.IMPEG2TuneRequest_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMPEG2TuneRequestSupport(c_void_p):
+class IMPEG2TuneRequestSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1b9d5fc3-5bbc-4b6c-bb-18-b9-d1-0e-3e-ee-bf')
-class IMPEG2_TIF_CONTROL(c_void_p):
+class IMPEG2_TIF_CONTROL(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f9bac2f9-4149-4916-b2-ef-fa-a2-02-32-68-62')
     @commethod(3)
@@ -3240,14 +3240,14 @@ class IMPEG2_TIF_CONTROL(c_void_p):
     def GetPIDCount(self, pulcPIDs: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetPIDs(self, pulcPIDs: POINTER(UInt32), pulPIDs: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSEventBinder(c_void_p):
+class IMSEventBinder(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c3a9f406-2222-436d-86-d5-ba-32-29-27-9e-fb')
     @commethod(7)
     def Bind(self, pEventObject: Windows.Win32.System.Com.IDispatch_head, EventName: Windows.Win32.Foundation.BSTR, EventHandler: Windows.Win32.Foundation.BSTR, CancelID: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Unbind(self, CancelCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidAnalogTuner(c_void_p):
+class IMSVidAnalogTuner(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidTuner
     Guid = Guid('1c15d47e-911d-11d2-b6-32-00-c0-4f-79-49-8e')
     @commethod(22)
@@ -3268,7 +3268,7 @@ class IMSVidAnalogTuner(c_void_p):
     def put_SAP(self, fSapOn: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
     def ChannelAvailable(self, nChannel: Int32, SignalStrength: POINTER(Int32), fSignalPresent: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidAnalogTuner2(c_void_p):
+class IMSVidAnalogTuner2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidAnalogTuner
     Guid = Guid('37647bf7-3dde-4cc8-a4-dc-0d-53-4d-3d-00-37')
     @commethod(31)
@@ -3277,10 +3277,10 @@ class IMSVidAnalogTuner2(c_void_p):
     def get_TunerModes(self, Modes: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(33)
     def get_NumAuxInputs(self, Inputs: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidAnalogTunerEvent(c_void_p):
+class IMSVidAnalogTunerEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidTunerEvent
     Guid = Guid('1c15d486-911d-11d2-b6-32-00-c0-4f-79-49-8e')
-class IMSVidAudioRenderer(c_void_p):
+class IMSVidAudioRenderer(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidOutputDevice
     Guid = Guid('37b0353f-a4c8-11d2-b6-34-00-c0-4f-79-49-8e')
     @commethod(16)
@@ -3291,7 +3291,7 @@ class IMSVidAudioRenderer(c_void_p):
     def put_Balance(self, lBal: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def get_Balance(self, lBal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidAudioRendererDevices(c_void_p):
+class IMSVidAudioRendererDevices(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c5702cd4-9b79-11d3-b6-54-00-c0-4f-79-49-8e')
     @commethod(7)
@@ -3304,10 +3304,10 @@ class IMSVidAudioRendererDevices(c_void_p):
     def Add(self, pDB: Windows.Win32.Media.DirectShow.Tv.IMSVidAudioRenderer_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Remove(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidAudioRendererEvent(c_void_p):
+class IMSVidAudioRendererEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidOutputDeviceEvent
     Guid = Guid('37b03541-a4c8-11d2-b6-34-00-c0-4f-79-49-8e')
-class IMSVidAudioRendererEvent2(c_void_p):
+class IMSVidAudioRendererEvent2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidAudioRendererEvent
     Guid = Guid('e3f55729-353b-4c43-a0-28-50-f7-9a-a9-a9-07')
     @commethod(8)
@@ -3326,26 +3326,26 @@ class IMSVidAudioRendererEvent2(c_void_p):
     def AVDecCommonInputFormat(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def AVDecCommonOutputFormat(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidClosedCaptioning(c_void_p):
+class IMSVidClosedCaptioning(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidFeature
     Guid = Guid('99652ea1-c1f7-414f-bb-7b-1c-96-7d-e7-59-83')
     @commethod(16)
     def get_Enable(self, On: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def put_Enable(self, On: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidClosedCaptioning2(c_void_p):
+class IMSVidClosedCaptioning2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidClosedCaptioning
     Guid = Guid('e00cb864-a029-4310-99-87-a8-73-f5-88-7d-97')
     @commethod(18)
     def get_Service(self, On: POINTER(Windows.Win32.Media.DirectShow.Tv.MSVidCCService)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def put_Service(self, On: Windows.Win32.Media.DirectShow.Tv.MSVidCCService) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidClosedCaptioning3(c_void_p):
+class IMSVidClosedCaptioning3(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidClosedCaptioning2
     Guid = Guid('c8638e8a-7625-4c51-93-66-2f-40-a9-83-1f-c0')
     @commethod(20)
     def get_TeleTextFilter(self, punkTTFilter: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidCompositionSegment(c_void_p):
+class IMSVidCompositionSegment(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidGraphSegment
     Guid = Guid('1c15d483-911d-11d2-b6-32-00-c0-4f-79-49-8e')
     @commethod(19)
@@ -3354,7 +3354,7 @@ class IMSVidCompositionSegment(c_void_p):
     def get_Up(self, upstream: POINTER(Windows.Win32.Media.DirectShow.Tv.IMSVidGraphSegment_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def get_Down(self, downstream: POINTER(Windows.Win32.Media.DirectShow.Tv.IMSVidGraphSegment_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidCtl(c_void_p):
+class IMSVidCtl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('b0edf162-910a-11d2-b6-32-00-c0-4f-79-49-8e')
     @commethod(7)
@@ -3443,13 +3443,13 @@ class IMSVidCtl(c_void_p):
     def DisableAudio(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(49)
     def ViewNext(self, v: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidDataServices(c_void_p):
+class IMSVidDataServices(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidFeature
     Guid = Guid('334125c1-77e5-11d3-b6-53-00-c0-4f-79-49-8e')
-class IMSVidDataServicesEvent(c_void_p):
+class IMSVidDataServicesEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidDeviceEvent
     Guid = Guid('334125c2-77e5-11d3-b6-53-00-c0-4f-79-49-8e')
-class IMSVidDevice(c_void_p):
+class IMSVidDevice(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('1c15d47c-911d-11d2-b6-32-00-c0-4f-79-49-8e')
     @commethod(7)
@@ -3470,17 +3470,17 @@ class IMSVidDevice(c_void_p):
     def get__ClassID(self, Clsid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def IsEqualDevice(self, Device: Windows.Win32.Media.DirectShow.Tv.IMSVidDevice_head, IsEqual: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidDevice2(c_void_p):
+class IMSVidDevice2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('87bd2783-ebc0-478c-b4-a0-e8-e7-f4-3a-b7-8e')
     @commethod(3)
     def get_DevicePath(self, DevPath: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidDeviceEvent(c_void_p):
+class IMSVidDeviceEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('1c15d480-911d-11d2-b6-32-00-c0-4f-79-49-8e')
     @commethod(7)
     def StateChange(self, lpd: Windows.Win32.Media.DirectShow.Tv.IMSVidDevice_head, oldState: Int32, newState: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidEVR(c_void_p):
+class IMSVidEVR(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidVideoRenderer
     Guid = Guid('15e496ae-82a8-4cf9-a6-b6-c5-61-dc-60-39-8f')
     @commethod(46)
@@ -3491,25 +3491,25 @@ class IMSVidEVR(c_void_p):
     def put_SuppressEffects(self, bSuppress: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(49)
     def get_SuppressEffects(self, bSuppress: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidEVREvent(c_void_p):
+class IMSVidEVREvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidOutputDeviceEvent
     Guid = Guid('349abb10-883c-4f22-87-14-ce-ca-ee-e4-5d-62')
     @commethod(8)
     def OnUserEvent(self, lEventCode: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidEncoder(c_void_p):
+class IMSVidEncoder(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidFeature
     Guid = Guid('c0020fd4-bee7-43d9-a4-95-9f-21-31-17-10-3d')
     @commethod(16)
     def get_VideoEncoderInterface(self, ppEncInt: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def get_AudioEncoderInterface(self, ppEncInt: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidFeature(c_void_p):
+class IMSVidFeature(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidDevice
     Guid = Guid('37b03547-a4c8-11d2-b6-34-00-c0-4f-79-49-8e')
-class IMSVidFeatureEvent(c_void_p):
+class IMSVidFeatureEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidDeviceEvent
     Guid = Guid('3dd2903c-e0aa-11d2-b6-3a-00-c0-4f-79-49-8e')
-class IMSVidFeatures(c_void_p):
+class IMSVidFeatures(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c5702cd5-9b79-11d3-b6-54-00-c0-4f-79-49-8e')
     @commethod(7)
@@ -3522,24 +3522,24 @@ class IMSVidFeatures(c_void_p):
     def Add(self, pDB: Windows.Win32.Media.DirectShow.Tv.IMSVidFeature_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Remove(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidFilePlayback(c_void_p):
+class IMSVidFilePlayback(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidPlayback
     Guid = Guid('37b03539-a4c8-11d2-b6-34-00-c0-4f-79-49-8e')
     @commethod(32)
     def get_FileName(self, FileName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(33)
     def put_FileName(self, FileName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidFilePlayback2(c_void_p):
+class IMSVidFilePlayback2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidFilePlayback
     Guid = Guid('2f7e44af-6e52-4660-bc-08-d8-d5-42-58-7d-72')
     @commethod(34)
     def put__SourceFilter(self, FileName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(35)
     def put___SourceFilter(self, FileName: Guid) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidFilePlaybackEvent(c_void_p):
+class IMSVidFilePlaybackEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidPlaybackEvent
     Guid = Guid('37b0353a-a4c8-11d2-b6-34-00-c0-4f-79-49-8e')
-class IMSVidGenericSink(c_void_p):
+class IMSVidGenericSink(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidOutputDevice
     Guid = Guid('6c29b41d-455b-4c33-96-3a-0d-28-e5-e5-55-ea')
     @commethod(16)
@@ -3548,14 +3548,14 @@ class IMSVidGenericSink(c_void_p):
     def get_SinkStreams(self, pStreams: POINTER(Windows.Win32.Media.DirectShow.Tv.MSVidSinkStreams)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def put_SinkStreams(self, Streams: Windows.Win32.Media.DirectShow.Tv.MSVidSinkStreams) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidGenericSink2(c_void_p):
+class IMSVidGenericSink2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidGenericSink
     Guid = Guid('6b5a28f3-47f1-4092-b1-68-60-ca-be-c0-8f-1c')
     @commethod(19)
     def AddFilter(self, bstrName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def ResetFilterList(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidGraphSegment(c_void_p):
+class IMSVidGraphSegment(ComPtr):
     extends: Windows.Win32.System.Com.IPersist
     Guid = Guid('238dec54-adeb-4005-a3-49-f7-72-b9-af-eb-c4')
     @commethod(4)
@@ -3588,7 +3588,7 @@ class IMSVidGraphSegment(c_void_p):
     def OnEventNotify(self, lEventCode: Int32, lEventParm1: IntPtr, lEventParm2: IntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def Decompose(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidGraphSegmentContainer(c_void_p):
+class IMSVidGraphSegmentContainer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3dd2903d-e0aa-11d2-b6-3a-00-c0-4f-79-49-8e')
     @commethod(3)
@@ -3613,7 +3613,7 @@ class IMSVidGraphSegmentContainer(c_void_p):
     def IsWindowless(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetFocus(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidGraphSegmentUserInput(c_void_p):
+class IMSVidGraphSegmentUserInput(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('301c060e-20d9-4587-9b-03-f8-2e-d9-a9-94-3c')
     @commethod(3)
@@ -3632,17 +3632,17 @@ class IMSVidGraphSegmentUserInput(c_void_p):
     def MouseMove(self, ButtonState: Int16, ShiftState: Int16, x: Int32, y: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def MouseUp(self, ButtonState: Int16, ShiftState: Int16, x: Int32, y: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidInputDevice(c_void_p):
+class IMSVidInputDevice(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidDevice
     Guid = Guid('37b0353d-a4c8-11d2-b6-34-00-c0-4f-79-49-8e')
     @commethod(16)
     def IsViewable(self, v: POINTER(Windows.Win32.System.Variant.VARIANT_head), pfViewable: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def View(self, v: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidInputDeviceEvent(c_void_p):
+class IMSVidInputDeviceEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('37b0353e-a4c8-11d2-b6-34-00-c0-4f-79-49-8e')
-class IMSVidInputDevices(c_void_p):
+class IMSVidInputDevices(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c5702cd1-9b79-11d3-b6-54-00-c0-4f-79-49-8e')
     @commethod(7)
@@ -3655,13 +3655,13 @@ class IMSVidInputDevices(c_void_p):
     def Add(self, pDB: Windows.Win32.Media.DirectShow.Tv.IMSVidInputDevice_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Remove(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidOutputDevice(c_void_p):
+class IMSVidOutputDevice(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidDevice
     Guid = Guid('37b03546-a4c8-11d2-b6-34-00-c0-4f-79-49-8e')
-class IMSVidOutputDeviceEvent(c_void_p):
+class IMSVidOutputDeviceEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidDeviceEvent
     Guid = Guid('2e6a14e2-571c-11d3-b6-52-00-c0-4f-79-49-8e')
-class IMSVidOutputDevices(c_void_p):
+class IMSVidOutputDevices(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c5702cd2-9b79-11d3-b6-54-00-c0-4f-79-49-8e')
     @commethod(7)
@@ -3674,7 +3674,7 @@ class IMSVidOutputDevices(c_void_p):
     def Add(self, pDB: Windows.Win32.Media.DirectShow.Tv.IMSVidOutputDevice_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Remove(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidPlayback(c_void_p):
+class IMSVidPlayback(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidInputDevice
     Guid = Guid('37b03538-a4c8-11d2-b6-34-00-c0-4f-79-49-8e')
     @commethod(18)
@@ -3705,12 +3705,12 @@ class IMSVidPlayback(c_void_p):
     def get_PositionMode(self, lPositionMode: POINTER(Windows.Win32.Media.DirectShow.Tv.PositionModeList)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def get_Length(self, lLength: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidPlaybackEvent(c_void_p):
+class IMSVidPlaybackEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidInputDeviceEvent
     Guid = Guid('37b0353b-a4c8-11d2-b6-34-00-c0-4f-79-49-8e')
     @commethod(7)
     def EndOfMedia(self, lpd: Windows.Win32.Media.DirectShow.Tv.IMSVidPlayback_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidRect(c_void_p):
+class IMSVidRect(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('7f5000a6-a440-47ca-8a-cc-c0-e7-55-31-a2-c2')
     @commethod(7)
@@ -3735,7 +3735,7 @@ class IMSVidRect(c_void_p):
     def put_HWnd(self, HWndVal: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def put_Rect(self, RectVal: Windows.Win32.Media.DirectShow.Tv.IMSVidRect_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidStreamBufferRecordingControl(c_void_p):
+class IMSVidStreamBufferRecordingControl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('160621aa-bbbc-4326-a8-24-c3-95-ae-bc-6e-74')
     @commethod(7)
@@ -3754,7 +3754,7 @@ class IMSVidStreamBufferRecordingControl(c_void_p):
     def get_RecordingType(self, dwType: POINTER(Windows.Win32.Media.DirectShow.Tv.RecordingType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def get_RecordingAttribute(self, pRecordingAttribute: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidStreamBufferSink(c_void_p):
+class IMSVidStreamBufferSink(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidOutputDevice
     Guid = Guid('159dbb45-cd1b-4dab-83-ea-5c-b1-f4-f2-1d-07')
     @commethod(16)
@@ -3769,12 +3769,12 @@ class IMSVidStreamBufferSink(c_void_p):
     def NameSetLock(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def get_SBESink(self, sbeConfig: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidStreamBufferSink2(c_void_p):
+class IMSVidStreamBufferSink2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidStreamBufferSink
     Guid = Guid('2ca9fc63-c131-4e5a-95-5a-54-4a-47-c6-71-46')
     @commethod(22)
     def UnlockProfile(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidStreamBufferSink3(c_void_p):
+class IMSVidStreamBufferSink3(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidStreamBufferSink2
     Guid = Guid('4f8721d7-7d59-4d8b-99-f5-a7-77-75-58-6b-d5')
     @commethod(23)
@@ -3813,7 +3813,7 @@ class IMSVidStreamBufferSink3(c_void_p):
     def get__DataAnalysisFilter(self, pGuid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(40)
     def get_LicenseErrorCode(self, hres: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidStreamBufferSinkEvent(c_void_p):
+class IMSVidStreamBufferSinkEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidOutputDeviceEvent
     Guid = Guid('f798a36b-b05b-4bbe-97-03-ea-ea-7d-61-cd-51')
     @commethod(8)
@@ -3822,24 +3822,24 @@ class IMSVidStreamBufferSinkEvent(c_void_p):
     def CertificateSuccess(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def WriteFailure(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidStreamBufferSinkEvent2(c_void_p):
+class IMSVidStreamBufferSinkEvent2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidStreamBufferSinkEvent
     Guid = Guid('3d7a5166-72d7-484b-a0-6f-28-61-87-b8-0c-a1')
     @commethod(11)
     def EncryptionOn(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def EncryptionOff(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidStreamBufferSinkEvent3(c_void_p):
+class IMSVidStreamBufferSinkEvent3(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidStreamBufferSinkEvent2
     Guid = Guid('735ad8d5-c259-48e9-81-e7-d2-79-53-66-5b-23')
     @commethod(13)
     def LicenseChange(self, dwProt: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidStreamBufferSinkEvent4(c_void_p):
+class IMSVidStreamBufferSinkEvent4(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidStreamBufferSinkEvent3
     Guid = Guid('1b01dcb0-daf0-412c-a5-d1-59-0c-7f-62-e2-b8')
     @commethod(14)
     def WriteFailureClear(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidStreamBufferSource(c_void_p):
+class IMSVidStreamBufferSource(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidFilePlayback
     Guid = Guid('eb0c8cf9-6950-4772-87-b1-47-d1-1c-f3-a0-2f')
     @commethod(34)
@@ -3856,7 +3856,7 @@ class IMSVidStreamBufferSource(c_void_p):
     def put_UnratedDelay(self, dwDelay: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(40)
     def get_SBESource(self, sbeFilter: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidStreamBufferSource2(c_void_p):
+class IMSVidStreamBufferSource2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidStreamBufferSource
     Guid = Guid('e4ba9059-b1ce-40d8-b9-a0-d4-ea-4a-99-89-d3')
     @commethod(41)
@@ -3869,7 +3869,7 @@ class IMSVidStreamBufferSource2(c_void_p):
     def get_CCCounter(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(45)
     def get_WSTCounter(self, ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidStreamBufferSourceEvent(c_void_p):
+class IMSVidStreamBufferSourceEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidFilePlaybackEvent
     Guid = Guid('50ce8a7d-9c28-4da8-90-42-cd-fa-71-16-f9-79')
     @commethod(8)
@@ -3890,12 +3890,12 @@ class IMSVidStreamBufferSourceEvent(c_void_p):
     def ContentBecomingStale(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def StaleFileDeleted(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidStreamBufferSourceEvent2(c_void_p):
+class IMSVidStreamBufferSourceEvent2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidStreamBufferSourceEvent
     Guid = Guid('7aef50ce-8e22-4ba8-bc-06-a9-2a-45-8b-4e-f2')
     @commethod(17)
     def RateChange(self, qwNewRate: Double, qwOldRate: Double) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidStreamBufferSourceEvent3(c_void_p):
+class IMSVidStreamBufferSourceEvent3(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidStreamBufferSourceEvent2
     Guid = Guid('ceabd6ab-9b90-4570-ad-f1-3c-e7-6e-00-a7-63')
     @commethod(18)
@@ -3908,7 +3908,7 @@ class IMSVidStreamBufferSourceEvent3(c_void_p):
     def COPPUnblocked(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def ContentPrimarilyAudio(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidStreamBufferV2SourceEvent(c_void_p):
+class IMSVidStreamBufferV2SourceEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidFilePlaybackEvent
     Guid = Guid('49c771f9-41b2-4cf7-9f-9a-a3-13-a8-f6-02-7e')
     @commethod(8)
@@ -3929,7 +3929,7 @@ class IMSVidStreamBufferV2SourceEvent(c_void_p):
     def BroadcastEventEx(self, Guid: Windows.Win32.Foundation.BSTR, Param1: UInt32, Param2: UInt32, Param3: UInt32, Param4: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def ContentPrimarilyAudio(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidTuner(c_void_p):
+class IMSVidTuner(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidVideoInputDevice
     Guid = Guid('1c15d47d-911d-11d2-b6-32-00-c0-4f-79-49-8e')
     @commethod(18)
@@ -3940,12 +3940,12 @@ class IMSVidTuner(c_void_p):
     def get_TuningSpace(self, plTS: POINTER(Windows.Win32.Media.DirectShow.Tv.ITuningSpace_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def put_TuningSpace(self, plTS: Windows.Win32.Media.DirectShow.Tv.ITuningSpace_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidTunerEvent(c_void_p):
+class IMSVidTunerEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidInputDeviceEvent
     Guid = Guid('1c15d485-911d-11d2-b6-32-00-c0-4f-79-49-8e')
     @commethod(7)
     def TuneChanged(self, lpd: Windows.Win32.Media.DirectShow.Tv.IMSVidTuner_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidVMR9(c_void_p):
+class IMSVidVMR9(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidVideoRenderer
     Guid = Guid('d58b0015-ebef-44bb-bb-dd-3f-36-99-d7-6e-a1')
     @commethod(46)
@@ -3958,7 +3958,7 @@ class IMSVidVMR9(c_void_p):
     def get_SuppressEffects(self, bSuppress: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(50)
     def get_Allocator(self, AllocPresent: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidVRGraphSegment(c_void_p):
+class IMSVidVRGraphSegment(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidGraphSegment
     Guid = Guid('dd47de3f-9874-4f7b-8b-22-7c-b2-68-84-61-e7')
     @commethod(19)
@@ -4003,10 +4003,10 @@ class IMSVidVRGraphSegment(c_void_p):
     def DisplayChange(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(39)
     def RePaint(self, hdc: Windows.Win32.Graphics.Gdi.HDC) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidVideoInputDevice(c_void_p):
+class IMSVidVideoInputDevice(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidInputDevice
     Guid = Guid('1c15d47f-911d-11d2-b6-32-00-c0-4f-79-49-8e')
-class IMSVidVideoRenderer(c_void_p):
+class IMSVidVideoRenderer(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidOutputDevice
     Guid = Guid('37b03540-a4c8-11d2-b6-34-00-c0-4f-79-49-8e')
     @commethod(16)
@@ -4069,7 +4069,7 @@ class IMSVidVideoRenderer(c_void_p):
     def get_DecimateInput(self, pDeci: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(45)
     def put_DecimateInput(self, pDeci: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidVideoRenderer2(c_void_p):
+class IMSVidVideoRenderer2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidVideoRenderer
     Guid = Guid('6bdd5c1e-2810-4159-94-bc-05-51-1a-e8-54-9b')
     @commethod(46)
@@ -4086,7 +4086,7 @@ class IMSVidVideoRenderer2(c_void_p):
     def put_SuppressEffects(self, bSuppress: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(52)
     def get_SuppressEffects(self, bSuppress: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidVideoRendererDevices(c_void_p):
+class IMSVidVideoRendererDevices(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c5702cd3-9b79-11d3-b6-54-00-c0-4f-79-49-8e')
     @commethod(7)
@@ -4099,17 +4099,17 @@ class IMSVidVideoRendererDevices(c_void_p):
     def Add(self, pDB: Windows.Win32.Media.DirectShow.Tv.IMSVidVideoRenderer_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def Remove(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidVideoRendererEvent(c_void_p):
+class IMSVidVideoRendererEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidOutputDeviceEvent
     Guid = Guid('37b03545-a4c8-11d2-b6-34-00-c0-4f-79-49-8e')
     @commethod(8)
     def OverlayUnavailable(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidVideoRendererEvent2(c_void_p):
+class IMSVidVideoRendererEvent2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidOutputDeviceEvent
     Guid = Guid('7145ed66-4730-4fdb-8a-53-fd-e7-50-8d-3e-5e')
     @commethod(8)
     def OverlayUnavailable(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidWebDVD(c_void_p):
+class IMSVidWebDVD(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidPlayback
     Guid = Guid('cf45f88b-ac56-4ee2-a7-3a-ed-04-e2-88-5d-3c')
     @commethod(32)
@@ -4302,14 +4302,14 @@ class IMSVidWebDVD(c_void_p):
     def get_DVDScreenInMouseCoordinates(self, ppRect: POINTER(Windows.Win32.Media.DirectShow.Tv.IMSVidRect_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(126)
     def put_DVDScreenInMouseCoordinates(self, pRect: Windows.Win32.Media.DirectShow.Tv.IMSVidRect_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidWebDVD2(c_void_p):
+class IMSVidWebDVD2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidWebDVD
     Guid = Guid('7027212f-ee9a-4a7c-8b-67-f0-23-71-4c-da-ff')
     @commethod(127)
     def get_Bookmark(self, ppData: POINTER(POINTER(Byte)), pDataLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(128)
     def put_Bookmark(self, pData: POINTER(Byte), dwDataLength: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidWebDVDAdm(c_void_p):
+class IMSVidWebDVDAdm(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('b8be681a-eb2c-47f0-b4-15-94-d5-45-2f-0e-05')
     @commethod(7)
@@ -4340,7 +4340,7 @@ class IMSVidWebDVDAdm(c_void_p):
     def get_BookmarkOnStop(self, pVal: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
     def put_BookmarkOnStop(self, newVal: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidWebDVDEvent(c_void_p):
+class IMSVidWebDVDEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidPlaybackEvent
     Guid = Guid('b4f7a674-9b83-49cb-a3-57-c6-3b-87-1b-e9-58')
     @commethod(8)
@@ -4389,22 +4389,22 @@ class IMSVidWebDVDEvent(c_void_p):
     def ChangeKaraokePresMode(self, bEnabled: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(30)
     def ChangeVideoPresMode(self, bEnabled: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidXDS(c_void_p):
+class IMSVidXDS(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidFeature
     Guid = Guid('11ebc158-e712-4d1f-8b-b3-01-ed-52-74-c4-ce')
     @commethod(16)
     def get_ChannelChangeInterface(self, punkCC: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMSVidXDSEvent(c_void_p):
+class IMSVidXDSEvent(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IMSVidFeatureEvent
     Guid = Guid('6db2317d-3b23-41ec-ba-4b-70-1f-40-7e-af-3a')
     @commethod(8)
     def RatingChange(self, PrevRatingSystem: Windows.Win32.Media.DirectShow.Tv.EnTvRat_System, PrevLevel: Windows.Win32.Media.DirectShow.Tv.EnTvRat_GenericLevel, PrevAttributes: Windows.Win32.Media.DirectShow.Tv.BfEnTvRat_GenericAttributes, NewRatingSystem: Windows.Win32.Media.DirectShow.Tv.EnTvRat_System, NewLevel: Windows.Win32.Media.DirectShow.Tv.EnTvRat_GenericLevel, NewAttributes: Windows.Win32.Media.DirectShow.Tv.BfEnTvRat_GenericAttributes) -> Windows.Win32.Foundation.HRESULT: ...
-class IMceBurnerControl(c_void_p):
+class IMceBurnerControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5a86b91a-e71e-46c1-88-a9-9b-b3-38-71-05-52')
     @commethod(3)
     def GetBurnerNoDecryption(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IMpeg2Data(c_void_p):
+class IMpeg2Data(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9b396d40-f380-4e3c-a5-14-1a-82-bf-6e-bf-e6')
     @commethod(3)
@@ -4413,14 +4413,14 @@ class IMpeg2Data(c_void_p):
     def GetTable(self, pid: UInt16, tid: Byte, pFilter: POINTER(Windows.Win32.Media.DirectShow.Tv.MPEG2_FILTER_head), dwTimeout: UInt32, ppSectionList: POINTER(Windows.Win32.Media.DirectShow.Tv.ISectionList_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetStreamOfSections(self, pid: UInt16, tid: Byte, pFilter: POINTER(Windows.Win32.Media.DirectShow.Tv.MPEG2_FILTER_head), hDataReadyEvent: Windows.Win32.Foundation.HANDLE, ppMpegStream: POINTER(Windows.Win32.Media.DirectShow.Tv.IMpeg2Stream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMpeg2Stream(c_void_p):
+class IMpeg2Stream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('400cc286-32a0-4ce4-90-41-39-57-11-25-a6-35')
     @commethod(3)
     def Initialize(self, requestType: Windows.Win32.Media.DirectShow.Tv.MPEG_REQUEST_TYPE, pMpeg2Data: Windows.Win32.Media.DirectShow.Tv.IMpeg2Data_head, pContext: POINTER(Windows.Win32.Media.DirectShow.Tv.MPEG_CONTEXT_head), pid: UInt16, tid: Byte, pFilter: POINTER(Windows.Win32.Media.DirectShow.Tv.MPEG2_FILTER_head), hDataReadyEvent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SupplyDataBuffer(self, pStreamBuffer: POINTER(Windows.Win32.Media.DirectShow.Tv.MPEG_STREAM_BUFFER_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMpeg2TableFilter(c_void_p):
+class IMpeg2TableFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bdcdd913-9ecd-4fb2-81-ae-ad-f7-47-ea-75-a5')
     @commethod(3)
@@ -4435,7 +4435,7 @@ class IMpeg2TableFilter(c_void_p):
     def RemoveTable(self, p: UInt16, t: Byte) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def RemoveExtension(self, p: UInt16, t: Byte, e: UInt16) -> Windows.Win32.Foundation.HRESULT: ...
-class IPAT(c_void_p):
+class IPAT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6623b511-4b5f-43c3-9a-01-e8-ff-84-18-80-60')
     @commethod(3)
@@ -4460,7 +4460,7 @@ class IPAT(c_void_p):
     def RegisterForWhenCurrent(self, hNextTableIsCurrent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def ConvertNextToCurrent(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IPBDAAttributesDescriptor(c_void_p):
+class IPBDAAttributesDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('313b3620-3263-45a6-95-33-96-8b-ef-be-ac-03')
     @commethod(3)
@@ -4469,7 +4469,7 @@ class IPBDAAttributesDescriptor(c_void_p):
     def GetLength(self, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetAttributePayload(self, ppbAttributeBuffer: POINTER(POINTER(Byte)), pdwAttributeLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPBDAEntitlementDescriptor(c_void_p):
+class IPBDAEntitlementDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('22632497-0de3-4587-aa-dc-d8-d9-90-17-e7-60')
     @commethod(3)
@@ -4478,7 +4478,7 @@ class IPBDAEntitlementDescriptor(c_void_p):
     def GetLength(self, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetToken(self, ppbTokenBuffer: POINTER(POINTER(Byte)), pdwTokenLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPBDASiParser(c_void_p):
+class IPBDASiParser(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9de49a74-aba2-4a18-93-e1-21-f1-7f-95-c3-c3')
     @commethod(3)
@@ -4487,7 +4487,7 @@ class IPBDASiParser(c_void_p):
     def GetEIT(self, dwSize: UInt32, pBuffer: POINTER(Byte), ppEIT: POINTER(Windows.Win32.Media.DirectShow.Tv.IPBDA_EIT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetServices(self, dwSize: UInt32, pBuffer: POINTER(Byte), ppServices: POINTER(Windows.Win32.Media.DirectShow.Tv.IPBDA_Services_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPBDA_EIT(c_void_p):
+class IPBDA_EIT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a35f2dea-098f-4ebd-98-4c-2b-d4-c3-c8-ce-0a')
     @commethod(3)
@@ -4512,7 +4512,7 @@ class IPBDA_EIT(c_void_p):
     def GetRecordDescriptorByIndex(self, dwRecordIndex: UInt32, dwIndex: UInt32, ppDescriptor: POINTER(Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetRecordDescriptorByTag(self, dwRecordIndex: UInt32, bTag: Byte, pdwCookie: POINTER(UInt32), ppDescriptor: POINTER(Windows.Win32.Media.DirectShow.Tv.IGenericDescriptor_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPBDA_Services(c_void_p):
+class IPBDA_Services(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('944eab37-eed4-4850-af-d2-77-e7-ef-eb-44-27')
     @commethod(3)
@@ -4521,7 +4521,7 @@ class IPBDA_Services(c_void_p):
     def GetCountOfRecords(self, pdwVal: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetRecordByIndex(self, dwRecordIndex: UInt32, pul64ServiceIdx: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPMT(c_void_p):
+class IPMT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('01f3b398-9527-4736-94-db-51-95-87-8e-97-a8')
     @commethod(3)
@@ -4562,19 +4562,19 @@ class IPMT(c_void_p):
     def RegisterForWhenCurrent(self, hNextTableIsCurrent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def ConvertNextToCurrent(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IPSITables(c_void_p):
+class IPSITables(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('919f24c5-7b14-42ac-a4-b0-2a-e0-8d-af-00-ac')
     @commethod(3)
     def GetTable(self, dwTSID: UInt32, dwTID_PID: UInt32, dwHashedVer: UInt32, dwPara4: UInt32, ppIUnknown: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPTFilterLicenseRenewal(c_void_p):
+class IPTFilterLicenseRenewal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('26d836a5-0c15-44c7-ac-59-b0-da-87-28-f2-40')
     @commethod(3)
     def RenewLicenses(self, wszFileName: Windows.Win32.Foundation.PWSTR, wszExpiredKid: Windows.Win32.Foundation.PWSTR, dwCallersId: UInt32, bHighPriority: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CancelLicenseRenewal(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IPersistTuneXml(c_void_p):
+class IPersistTuneXml(ComPtr):
     extends: Windows.Win32.System.Com.IPersist
     Guid = Guid('0754cd31-8d15-47a9-82-15-d2-00-64-15-72-44')
     @commethod(4)
@@ -4583,24 +4583,24 @@ class IPersistTuneXml(c_void_p):
     def Load(self, varValue: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Save(self, pvarFragment: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPersistTuneXmlUtility(c_void_p):
+class IPersistTuneXmlUtility(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('990237ae-ac11-4614-be-8f-dd-21-7a-4c-b4-cb')
     @commethod(3)
     def Deserialize(self, varValue: Windows.Win32.System.Variant.VARIANT, ppObject: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPersistTuneXmlUtility2(c_void_p):
+class IPersistTuneXmlUtility2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IPersistTuneXmlUtility
     Guid = Guid('992e165f-ea24-4b2f-9a-1d-00-9d-92-12-04-51')
     @commethod(4)
     def Serialize(self, piTuneRequest: Windows.Win32.Media.DirectShow.Tv.ITuneRequest_head, pString: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRegisterTuner(c_void_p):
+class IRegisterTuner(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('359b3901-572c-4854-bb-49-cd-ef-66-60-6a-25')
     @commethod(3)
     def Register(self, pTuner: Windows.Win32.Media.DirectShow.Tv.ITuner_head, pGraph: Windows.Win32.Media.DirectShow.IGraphBuilder_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Unregister(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ISBE2Crossbar(c_void_p):
+class ISBE2Crossbar(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('547b6d26-3226-487e-82-53-8a-a1-68-74-94-34')
     @commethod(3)
@@ -4611,7 +4611,7 @@ class ISBE2Crossbar(c_void_p):
     def SetOutputProfile(self, pProfile: Windows.Win32.Media.DirectShow.Tv.ISBE2MediaTypeProfile_head, pcOutputPins: POINTER(UInt32), ppOutputPins: POINTER(Windows.Win32.Media.DirectShow.IPin_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def EnumStreams(self, ppStreams: POINTER(Windows.Win32.Media.DirectShow.Tv.ISBE2EnumStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISBE2EnumStream(c_void_p):
+class ISBE2EnumStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f7611092-9fbc-46ec-a7-c7-54-8e-a7-8b-71-a4')
     @commethod(3)
@@ -4622,22 +4622,22 @@ class ISBE2EnumStream(c_void_p):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def Clone(self, ppIEnumStream: POINTER(Windows.Win32.Media.DirectShow.Tv.ISBE2EnumStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISBE2FileScan(c_void_p):
+class ISBE2FileScan(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3e2bf5a5-4f96-4899-a1-a3-75-e8-be-9a-5a-c0')
     @commethod(3)
     def RepairFile(self, filename: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class ISBE2GlobalEvent(c_void_p):
+class ISBE2GlobalEvent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('caede759-b6b1-11db-a5-78-00-18-f3-fa-24-c6')
     @commethod(3)
     def GetEvent(self, idEvt: POINTER(Guid), param1: UInt32, param2: UInt32, param3: UInt32, param4: UInt32, pSpanning: POINTER(Windows.Win32.Foundation.BOOL), pcb: POINTER(UInt32), pb: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISBE2GlobalEvent2(c_void_p):
+class ISBE2GlobalEvent2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.ISBE2GlobalEvent
     Guid = Guid('6d8309bf-00fe-4506-8b-03-f8-c6-5b-5c-9b-39')
     @commethod(4)
     def GetEventEx(self, idEvt: POINTER(Guid), param1: UInt32, param2: UInt32, param3: UInt32, param4: UInt32, pSpanning: POINTER(Windows.Win32.Foundation.BOOL), pcb: POINTER(UInt32), pb: POINTER(Byte), pStreamTime: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISBE2MediaTypeProfile(c_void_p):
+class ISBE2MediaTypeProfile(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f238267d-4671-40d7-99-7e-25-dc-32-cf-ed-2a')
     @commethod(3)
@@ -4648,12 +4648,12 @@ class ISBE2MediaTypeProfile(c_void_p):
     def AddStream(self, pMediaType: POINTER(Windows.Win32.Media.MediaFoundation.AM_MEDIA_TYPE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def DeleteStream(self, Index: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISBE2SpanningEvent(c_void_p):
+class ISBE2SpanningEvent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('caede760-b6b1-11db-a5-78-00-18-f3-fa-24-c6')
     @commethod(3)
     def GetEvent(self, idEvt: POINTER(Guid), streamId: UInt32, pcb: POINTER(UInt32), pb: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISBE2StreamMap(c_void_p):
+class ISBE2StreamMap(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('667c7745-85b1-4c55-ae-55-4e-25-05-61-59-fc')
     @commethod(3)
@@ -4662,7 +4662,7 @@ class ISBE2StreamMap(c_void_p):
     def UnmapStream(self, Stream: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def EnumMappedStreams(self, ppStreams: POINTER(Windows.Win32.Media.DirectShow.Tv.ISBE2EnumStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISCTE_EAS(c_void_p):
+class ISCTE_EAS(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1ff544d6-161d-4fae-9f-aa-4f-9f-49-2a-e9-99')
     @commethod(3)
@@ -4729,7 +4729,7 @@ ISDB_SATELLITE_TV_NETWORK_TYPE = Guid('b0a4e6a0-6a1a-4b83-bb-5b-90-3e-1d-90-e6-b
 ISDB_S_NETWORK_TYPE = Guid('a1e78202-1459-41b1-9c-a9-2a-92-58-7a-42-cc')
 ISDB_TERRESTRIAL_TV_NETWORK_TYPE = Guid('95037f6f-3ac7-4452-b6-c4-45-a9-ce-92-92-a2')
 ISDB_T_NETWORK_TYPE = Guid('fc3855a6-c901-4f2e-ab-a8-90-81-5a-fc-6c-83')
-class ISIInbandEPG(c_void_p):
+class ISIInbandEPG(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f90ad9d0-b854-4b68-9c-c1-b2-cc-96-11-9d-85')
     @commethod(3)
@@ -4738,12 +4738,12 @@ class ISIInbandEPG(c_void_p):
     def StopSIEPGScan(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def IsSIEPGScanRunning(self, bRunning: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ISIInbandEPGEvent(c_void_p):
+class ISIInbandEPGEvent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7e47913a-5a89-423d-9a-2b-e1-51-68-85-89-34')
     @commethod(3)
     def SIObjectEvent(self, pIDVB_EIT: Windows.Win32.Media.DirectShow.Tv.IDVB_EIT2_head, dwTable_ID: UInt32, dwService_ID: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IScanningTuner(c_void_p):
+class IScanningTuner(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.ITuner
     Guid = Guid('1dfd0a5c-0284-11d3-9d-8e-00-c0-4f-72-d9-80')
     @commethod(13)
@@ -4756,7 +4756,7 @@ class IScanningTuner(c_void_p):
     def ScanDown(self, MillisecondsPause: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def AutoProgram(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IScanningTunerEx(c_void_p):
+class IScanningTunerEx(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IScanningTuner
     Guid = Guid('04bbd195-0e2d-4593-9b-d5-4f-90-8b-c3-3c-f5')
     @commethod(18)
@@ -4775,7 +4775,7 @@ class IScanningTunerEx(c_void_p):
     def GetCurrentTunerStandardCapability(self, CurrentBroadcastStandard: Guid, SettlingTime: POINTER(Int32), TvStandardsSupported: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def SetScanSignalTypeFilter(self, ScanModulationTypes: Int32, AnalogVideoStandard: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ISectionList(c_void_p):
+class ISectionList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('afec1eb5-2a64-46c6-bf-4b-ae-3c-cb-6a-fd-b0')
     @commethod(3)
@@ -4792,7 +4792,7 @@ class ISectionList(c_void_p):
     def GetProgramIdentifier(self, pPid: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetTableIdentifier(self, pTableId: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IServiceLocationDescriptor(c_void_p):
+class IServiceLocationDescriptor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('58c3c827-9d91-4215-bf-f3-82-0a-49-f0-90-4c')
     @commethod(3)
@@ -4805,7 +4805,7 @@ class IServiceLocationDescriptor(c_void_p):
     def GetElementPID(self, bIndex: Byte, pwVal: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetElementLanguageCode(self, bIndex: Byte, LangCode: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
-class IStreamBufferConfigure(c_void_p):
+class IStreamBufferConfigure(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ce14dfae-4098-4af7-bb-f7-d6-51-1f-83-54-14')
     @commethod(3)
@@ -4820,7 +4820,7 @@ class IStreamBufferConfigure(c_void_p):
     def SetBackingFileDuration(self, dwSeconds: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetBackingFileDuration(self, pdwSeconds: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IStreamBufferConfigure2(c_void_p):
+class IStreamBufferConfigure2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IStreamBufferConfigure
     Guid = Guid('53e037bf-3992-4282-ae-34-24-87-b4-da-e0-6b')
     @commethod(9)
@@ -4831,7 +4831,7 @@ class IStreamBufferConfigure2(c_void_p):
     def SetFFTransitionRates(self, dwMaxFullFrameRate: UInt32, dwMaxNonSkippingRate: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetFFTransitionRates(self, pdwMaxFullFrameRate: POINTER(UInt32), pdwMaxNonSkippingRate: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IStreamBufferConfigure3(c_void_p):
+class IStreamBufferConfigure3(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IStreamBufferConfigure2
     Guid = Guid('7e2d2a1e-7192-4bd7-80-c1-06-1f-d1-d1-04-02')
     @commethod(13)
@@ -4842,29 +4842,29 @@ class IStreamBufferConfigure3(c_void_p):
     def SetNamespace(self, pszNamespace: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
     def GetNamespace(self, ppszNamespace: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IStreamBufferDataCounters(c_void_p):
+class IStreamBufferDataCounters(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9d2a2563-31ab-402e-9a-6b-ad-b9-03-48-94-40')
     @commethod(3)
     def GetData(self, pPinData: POINTER(Windows.Win32.Media.DirectShow.Tv.SBE_PIN_DATA_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ResetData(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IStreamBufferInitialize(c_void_p):
+class IStreamBufferInitialize(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9ce50f2d-6ba7-40fb-a0-34-50-b1-a6-74-ec-78')
     @commethod(3)
     def SetHKEY(self, hkeyRoot: Windows.Win32.System.Registry.HKEY) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetSIDs(self, cSIDs: UInt32, ppSID: POINTER(Windows.Win32.Foundation.PSID)) -> Windows.Win32.Foundation.HRESULT: ...
-class IStreamBufferMediaSeeking(c_void_p):
+class IStreamBufferMediaSeeking(ComPtr):
     extends: Windows.Win32.Media.DirectShow.IMediaSeeking
     Guid = Guid('f61f5c26-863d-4afa-b0-ba-2f-81-dc-97-85-96')
-class IStreamBufferMediaSeeking2(c_void_p):
+class IStreamBufferMediaSeeking2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IStreamBufferMediaSeeking
     Guid = Guid('3a439ab0-155f-470a-86-a6-9e-a5-4a-fd-6e-af')
     @commethod(20)
     def SetRateEx(self, dRate: Double, dwFramesPerSec: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IStreamBufferRecComp(c_void_p):
+class IStreamBufferRecComp(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9e259a9b-8815-42ae-b0-9f-22-19-70-b1-54-fd')
     @commethod(3)
@@ -4879,7 +4879,7 @@ class IStreamBufferRecComp(c_void_p):
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IStreamBufferRecordControl(c_void_p):
+class IStreamBufferRecordControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ba9b6c99-f3c7-4ff2-92-db-cf-dd-48-51-bf-31')
     @commethod(3)
@@ -4888,7 +4888,7 @@ class IStreamBufferRecordControl(c_void_p):
     def Stop(self, rtStop: Int64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetRecordingStatus(self, phResult: POINTER(Windows.Win32.Foundation.HRESULT), pbStarted: POINTER(Windows.Win32.Foundation.BOOL), pbStopped: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IStreamBufferRecordingAttribute(c_void_p):
+class IStreamBufferRecordingAttribute(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('16ca4e03-fe69-4705-bd-41-5b-7d-fc-0c-95-f3')
     @commethod(3)
@@ -4901,7 +4901,7 @@ class IStreamBufferRecordingAttribute(c_void_p):
     def GetAttributeByIndex(self, wIndex: UInt16, pulReserved: POINTER(UInt32), pszAttributeName: Windows.Win32.Foundation.PWSTR, pcchNameLength: POINTER(UInt16), pStreamBufferAttributeType: POINTER(Windows.Win32.Media.DirectShow.Tv.STREAMBUFFER_ATTR_DATATYPE), pbAttribute: POINTER(Byte), pcbLength: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def EnumAttributes(self, ppIEnumStreamBufferAttrib: POINTER(Windows.Win32.Media.DirectShow.Tv.IEnumStreamBufferRecordingAttrib_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IStreamBufferSink(c_void_p):
+class IStreamBufferSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('afd1f242-7efd-45ee-ba-4e-40-7a-25-c9-a7-7a')
     @commethod(3)
@@ -4910,22 +4910,22 @@ class IStreamBufferSink(c_void_p):
     def CreateRecorder(self, pszFilename: Windows.Win32.Foundation.PWSTR, dwRecordType: UInt32, pRecordingIUnknown: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def IsProfileLocked(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IStreamBufferSink2(c_void_p):
+class IStreamBufferSink2(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IStreamBufferSink
     Guid = Guid('db94a660-f4fb-4bfa-bc-c6-fe-15-9a-4e-ea-93')
     @commethod(6)
     def UnlockProfile(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IStreamBufferSink3(c_void_p):
+class IStreamBufferSink3(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.IStreamBufferSink2
     Guid = Guid('974723f2-887a-4452-93-66-2c-ff-30-57-bc-8f')
     @commethod(7)
     def SetAvailableFilter(self, prtMin: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IStreamBufferSource(c_void_p):
+class IStreamBufferSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1c5bd776-6ced-4f44-81-64-5e-ab-0e-98-db-12')
     @commethod(3)
     def SetStreamSink(self, pIStreamBufferSink: Windows.Win32.Media.DirectShow.Tv.IStreamBufferSink_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ITSDT(c_void_p):
+class ITSDT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d19bdb43-405b-4a7c-a7-91-c8-91-10-c3-31-65')
     @commethod(3)
@@ -4946,7 +4946,7 @@ class ITSDT(c_void_p):
     def RegisterForWhenCurrent(self, hNextTableIsCurrent: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def ConvertNextToCurrent(self) -> Windows.Win32.Foundation.HRESULT: ...
-class ITuneRequest(c_void_p):
+class ITuneRequest(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('07ddc146-fc3d-11d2-9d-8c-00-c0-4f-72-d9-80')
     @commethod(7)
@@ -4959,7 +4959,7 @@ class ITuneRequest(c_void_p):
     def get_Locator(self, Locator: POINTER(Windows.Win32.Media.DirectShow.Tv.ILocator_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def put_Locator(self, Locator: Windows.Win32.Media.DirectShow.Tv.ILocator_head) -> Windows.Win32.Foundation.HRESULT: ...
-class ITuneRequestInfo(c_void_p):
+class ITuneRequestInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a3b152df-7a90-4218-ac-54-98-30-be-e8-c0-b6')
     @commethod(3)
@@ -4976,12 +4976,12 @@ class ITuneRequestInfo(c_void_p):
     def GetNextLocator(self, CurrentRequest: Windows.Win32.Media.DirectShow.Tv.ITuneRequest_head, TuneRequest: POINTER(Windows.Win32.Media.DirectShow.Tv.ITuneRequest_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetPreviousLocator(self, CurrentRequest: Windows.Win32.Media.DirectShow.Tv.ITuneRequest_head, TuneRequest: POINTER(Windows.Win32.Media.DirectShow.Tv.ITuneRequest_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITuneRequestInfoEx(c_void_p):
+class ITuneRequestInfoEx(ComPtr):
     extends: Windows.Win32.Media.DirectShow.Tv.ITuneRequestInfo
     Guid = Guid('ee957c52-b0d0-4e78-8d-d1-b8-7a-08-bf-d8-93')
     @commethod(10)
     def CreateComponentListEx(self, CurrentRequest: Windows.Win32.Media.DirectShow.Tv.ITuneRequest_head, ppCurPMT: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITuner(c_void_p):
+class ITuner(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('28c52640-018a-11d3-9d-8e-00-c0-4f-72-d9-80')
     @commethod(3)
@@ -5004,7 +5004,7 @@ class ITuner(c_void_p):
     def get_SignalStrength(self, Strength: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def TriggerSignalEvents(self, Interval: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITunerCap(c_void_p):
+class ITunerCap(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e60dfa45-8d56-4e65-a8-ab-d6-be-94-12-c2-49')
     @commethod(3)
@@ -5013,12 +5013,12 @@ class ITunerCap(c_void_p):
     def get_SupportedVideoFormats(self, pulAMTunerModeType: POINTER(UInt32), pulAnalogVideoStandard: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def get_AuxInputCount(self, pulCompositeCount: POINTER(UInt32), pulSvideoCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITunerCapEx(c_void_p):
+class ITunerCapEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ed3e0c66-18c8-4ea6-93-00-f6-84-1f-dd-35-dc')
     @commethod(3)
     def get_Has608_708Caption(self, pbHasCaption: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITuningSpace(c_void_p):
+class ITuningSpace(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('061c6e30-e622-11d2-94-93-00-c0-4f-72-d9-80')
     @commethod(7)
@@ -5059,7 +5059,7 @@ class ITuningSpace(c_void_p):
     def put_DefaultLocator(self, LocatorVal: Windows.Win32.Media.DirectShow.Tv.ILocator_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def Clone(self, NewTS: POINTER(Windows.Win32.Media.DirectShow.Tv.ITuningSpace_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITuningSpaceContainer(c_void_p):
+class ITuningSpaceContainer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('5b692e84-e2f1-11d2-94-93-00-c0-4f-72-d9-80')
     @commethod(7)
@@ -5088,7 +5088,7 @@ class ITuningSpaceContainer(c_void_p):
     def get_MaxCount(self, MaxCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
     def put_MaxCount(self, MaxCount: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-class ITuningSpaces(c_void_p):
+class ITuningSpaces(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('901284e4-33fe-4b69-8d-63-63-4a-59-6f-37-56')
     @commethod(7)
@@ -5099,7 +5099,7 @@ class ITuningSpaces(c_void_p):
     def get_Item(self, varIndex: Windows.Win32.System.Variant.VARIANT, TuningSpace: POINTER(Windows.Win32.Media.DirectShow.Tv.ITuningSpace_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_EnumTuningSpaces(self, NewEnum: POINTER(Windows.Win32.Media.DirectShow.Tv.IEnumTuningSpaces_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IXDSCodec(c_void_p):
+class IXDSCodec(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c4c4c4b3-0049-4e2b-98-fb-95-37-f6-ce-51-6d')
     @commethod(3)
@@ -5116,17 +5116,17 @@ class IXDSCodec(c_void_p):
     def GetCurrLicenseExpDate(self, protType: POINTER(Windows.Win32.Media.DirectShow.Tv.ProtType), lpDateTime: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetLastErrorCode(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IXDSCodecConfig(c_void_p):
+class IXDSCodecConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c4c4c4d3-0049-4e2b-98-fb-95-37-f6-ce-51-6d')
     @commethod(3)
     def GetSecureChannelObject(self, ppUnkDRMSecureChannel: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetPauseBufferTime(self, dwPauseBufferTime: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IXDSCodecEvents(c_void_p):
+class IXDSCodecEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c4c4c4c3-0049-4e2b-98-fb-95-37-f6-ce-51-6d')
-class IXDSToRat(c_void_p):
+class IXDSToRat(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('c5c5c5b0-3abc-11d6-b2-5b-00-c0-4f-a0-c0-26')
     @commethod(7)
@@ -6369,7 +6369,7 @@ class WMDRMProtectionInfo(EasyCastStructure):
     _pack_ = 1
 XDSCodec = Guid('c4c4c4f3-0049-4e2b-98-fb-95-37-f6-ce-51-6d')
 XDSToRat = Guid('c5c5c5f0-3abc-11d6-b2-5b-00-c0-4f-a0-c0-26')
-class _IMSVidCtlEvents(c_void_p):
+class _IMSVidCtlEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('b0edf164-910a-11d2-b6-32-00-c0-4f-79-49-8e')
 make_head(_module, 'ATSC_FILTER_OPTIONS')

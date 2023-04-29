@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Security.WinTrust
 import Windows.Win32.Storage.FileSystem
@@ -2337,14 +2337,14 @@ class FPO_DATA(EasyCastStructure):
     cdwLocals: UInt32
     cdwParams: UInt16
     _bitfield: UInt16
-class IDebugExtendedProperty(c_void_p):
+class IDebugExtendedProperty(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.IDebugProperty
     Guid = Guid('51973c52-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(8)
     def GetExtendedPropertyInfo(self, dwFieldSpec: UInt32, nRadix: UInt32, pExtendedPropertyInfo: POINTER(Windows.Win32.System.Diagnostics.Debug.ExtendedDebugPropertyInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def EnumExtendedMembers(self, dwFieldSpec: UInt32, nRadix: UInt32, ppeepi: POINTER(Windows.Win32.System.Diagnostics.Debug.IEnumDebugExtendedPropertyInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDebugProperty(c_void_p):
+class IDebugProperty(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51973c50-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
@@ -2357,24 +2357,24 @@ class IDebugProperty(c_void_p):
     def EnumMembers(self, dwFieldSpec: UInt32, nRadix: UInt32, refiid: POINTER(Guid), ppepi: POINTER(Windows.Win32.System.Diagnostics.Debug.IEnumDebugPropertyInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetParent(self, ppDebugProp: POINTER(Windows.Win32.System.Diagnostics.Debug.IDebugProperty_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDebugPropertyEnumType_All(c_void_p):
+class IDebugPropertyEnumType_All(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51973c55-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def GetName(self, __MIDL__IDebugPropertyEnumType_All0000: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IDebugPropertyEnumType_Arguments(c_void_p):
+class IDebugPropertyEnumType_Arguments(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.IDebugPropertyEnumType_All
     Guid = Guid('51973c57-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
-class IDebugPropertyEnumType_Locals(c_void_p):
+class IDebugPropertyEnumType_Locals(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.IDebugPropertyEnumType_All
     Guid = Guid('51973c56-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
-class IDebugPropertyEnumType_LocalsPlusArgs(c_void_p):
+class IDebugPropertyEnumType_LocalsPlusArgs(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.IDebugPropertyEnumType_All
     Guid = Guid('51973c58-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
-class IDebugPropertyEnumType_Registers(c_void_p):
+class IDebugPropertyEnumType_Registers(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.IDebugPropertyEnumType_All
     Guid = Guid('51973c59-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
-class IEnumDebugExtendedPropertyInfo(c_void_p):
+class IEnumDebugExtendedPropertyInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51973c53-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
@@ -2387,7 +2387,7 @@ class IEnumDebugExtendedPropertyInfo(c_void_p):
     def Clone(self, pedpe: POINTER(Windows.Win32.System.Diagnostics.Debug.IEnumDebugExtendedPropertyInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetCount(self, pcelt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumDebugPropertyInfo(c_void_p):
+class IEnumDebugPropertyInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51973c51-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
@@ -3177,7 +3177,7 @@ IMAGE_SUBSYSTEM_EFI_ROM: IMAGE_SUBSYSTEM = 13
 IMAGE_SUBSYSTEM_XBOX: IMAGE_SUBSYSTEM = 14
 IMAGE_SUBSYSTEM_WINDOWS_BOOT_APPLICATION: IMAGE_SUBSYSTEM = 16
 IMAGE_SUBSYSTEM_XBOX_CODE_CATALOG: IMAGE_SUBSYSTEM = 17
-class IObjectSafety(c_void_p):
+class IObjectSafety(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cb5bdc81-93c1-11cf-8f-20-00-80-5f-2c-d0-64')
     @commethod(3)
@@ -3204,7 +3204,7 @@ IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeDriver: IPMI_OS_SEL_RECORD_TYPE = 7
 IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeBugcheckRecovery: IPMI_OS_SEL_RECORD_TYPE = 8
 IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeBugcheckData: IPMI_OS_SEL_RECORD_TYPE = 9
 IPMI_OS_SEL_RECORD_TYPE_IpmiOsSelRecordTypeMax: IPMI_OS_SEL_RECORD_TYPE = 10
-class IPerPropertyBrowsing2(c_void_p):
+class IPerPropertyBrowsing2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('51973c54-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)

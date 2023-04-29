@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.NetworkManagement.WindowsConnectNow
 import Windows.Win32.System.Com
@@ -107,14 +107,14 @@ def PKEY_WCN_DeviceType_SubCategory():
     return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b8b-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=18)
 def PKEY_WCN_SSID():
     return Windows.Win32.UI.Shell.PropertiesSystem.PROPERTYKEY(fmtid=Guid('88190b8b-4684-11da-a2-6a-00-02-b3-98-8e-81'), pid=32)
-class IWCNConnectNotify(c_void_p):
+class IWCNConnectNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c100be9f-d33a-4a4b-bf-23-bb-ef-46-63-d0-17')
     @commethod(3)
     def ConnectSucceeded(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ConnectFailed(self, hrFailure: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
-class IWCNDevice(c_void_p):
+class IWCNDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c100be9c-d33a-4a4b-bf-23-bb-ef-46-63-d0-17')
     @commethod(3)

@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Media.Audio
 import Windows.Win32.Media.Audio.Apo
@@ -301,10 +301,10 @@ EAudioConstriction_eAudioConstriction14_14: EAudioConstriction = 3
 EAudioConstriction_eAudioConstrictionMute: EAudioConstriction = 4
 @winfunctype_pointer
 def FNAPONOTIFICATIONCALLBACK(pProperties: POINTER(Windows.Win32.Media.Audio.Apo.APO_REG_PROPERTIES_head), pvRefData: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
-class IApoAcousticEchoCancellation(c_void_p):
+class IApoAcousticEchoCancellation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('25385759-3236-4101-a9-43-25-69-3d-fb-5d-2d')
-class IApoAuxiliaryInputConfiguration(c_void_p):
+class IApoAuxiliaryInputConfiguration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4ceb0aab-fa19-48ed-a8-57-87-77-1a-e1-b7-68')
     @commethod(3)
@@ -313,17 +313,17 @@ class IApoAuxiliaryInputConfiguration(c_void_p):
     def RemoveAuxiliaryInput(self, dwInputId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def IsInputFormatSupported(self, pRequestedInputFormat: Windows.Win32.Media.Audio.Apo.IAudioMediaType_head, ppSupportedInputFormat: POINTER(Windows.Win32.Media.Audio.Apo.IAudioMediaType_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IApoAuxiliaryInputRT(c_void_p):
+class IApoAuxiliaryInputRT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f851809c-c177-49a0-b1-b2-b6-6f-01-79-43-ab')
     @commethod(3)
     def AcceptInput(self, dwInputId: UInt32, pInputConnection: POINTER(Windows.Win32.Media.Audio.Apo.APO_CONNECTION_PROPERTY_head)) -> Void: ...
-class IAudioDeviceModulesClient(c_void_p):
+class IAudioDeviceModulesClient(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('98f37dac-d0b6-49f5-89-6a-aa-4d-16-9a-4c-48')
     @commethod(3)
     def SetAudioDeviceModulesManager(self, pAudioDeviceModulesManager: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IAudioMediaType(c_void_p):
+class IAudioMediaType(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4e997f73-b71f-4798-87-3b-ed-7d-fc-f1-5b-4d')
     @commethod(3)
@@ -334,7 +334,7 @@ class IAudioMediaType(c_void_p):
     def GetAudioFormat(self) -> POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head): ...
     @commethod(6)
     def GetUncompressedAudioFormat(self, pUncompressedAudioFormat: POINTER(Windows.Win32.Media.Audio.Apo.UNCOMPRESSEDAUDIOFORMAT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAudioProcessingObject(c_void_p):
+class IAudioProcessingObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fd7f2b29-24d0-4b5c-b1-77-59-2c-39-f9-ca-10')
     @commethod(3)
@@ -351,31 +351,31 @@ class IAudioProcessingObject(c_void_p):
     def IsOutputFormatSupported(self, pOppositeFormat: Windows.Win32.Media.Audio.Apo.IAudioMediaType_head, pRequestedOutputFormat: Windows.Win32.Media.Audio.Apo.IAudioMediaType_head, ppSupportedOutputFormat: POINTER(Windows.Win32.Media.Audio.Apo.IAudioMediaType_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetInputChannelCount(self, pu32ChannelCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAudioProcessingObjectConfiguration(c_void_p):
+class IAudioProcessingObjectConfiguration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0e5ed805-aba6-49c3-8f-9a-2b-8c-88-9c-4f-a8')
     @commethod(3)
     def LockForProcess(self, u32NumInputConnections: UInt32, ppInputConnections: POINTER(POINTER(Windows.Win32.Media.Audio.Apo.APO_CONNECTION_DESCRIPTOR_head)), u32NumOutputConnections: UInt32, ppOutputConnections: POINTER(POINTER(Windows.Win32.Media.Audio.Apo.APO_CONNECTION_DESCRIPTOR_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UnlockForProcess(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IAudioProcessingObjectLoggingService(c_void_p):
+class IAudioProcessingObjectLoggingService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('698f0107-1745-4708-95-a5-d8-44-78-a6-2a-65')
     @commethod(3)
     def ApoLog(self, level: Windows.Win32.Media.Audio.Apo.APO_LOG_LEVEL, format: Windows.Win32.Foundation.PWSTR) -> Void: ...
-class IAudioProcessingObjectNotifications(c_void_p):
+class IAudioProcessingObjectNotifications(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('56b0c76f-02fd-4b21-a5-2e-9f-82-19-fc-86-e4')
     @commethod(3)
     def GetApoNotificationRegistrationInfo(self, apoNotifications: POINTER(POINTER(Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_DESCRIPTOR_head)), count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def HandleNotification(self, apoNotification: POINTER(Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_head)) -> Void: ...
-class IAudioProcessingObjectNotifications2(c_void_p):
+class IAudioProcessingObjectNotifications2(ComPtr):
     extends: Windows.Win32.Media.Audio.Apo.IAudioProcessingObjectNotifications
     Guid = Guid('ca2cfbde-a9d6-4eb0-bc-95-c4-d0-26-b3-80-f0')
     @commethod(5)
     def GetApoNotificationRegistrationInfo2(self, maxApoNotificationTypeSupported: Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_TYPE, apoNotifications: POINTER(POINTER(Windows.Win32.Media.Audio.Apo.APO_NOTIFICATION_DESCRIPTOR_head)), count: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAudioProcessingObjectRT(c_void_p):
+class IAudioProcessingObjectRT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9e1d6a6d-ddbc-4e95-a4-c7-ad-64-ba-37-84-6c')
     @commethod(3)
@@ -384,34 +384,34 @@ class IAudioProcessingObjectRT(c_void_p):
     def CalcInputFrames(self, u32OutputFrameCount: UInt32) -> UInt32: ...
     @commethod(5)
     def CalcOutputFrames(self, u32InputFrameCount: UInt32) -> UInt32: ...
-class IAudioProcessingObjectRTQueueService(c_void_p):
+class IAudioProcessingObjectRTQueueService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('acd65e2f-955b-4b57-b9-bf-ac-29-7b-b7-52-c9')
     @commethod(3)
     def GetRealTimeWorkQueue(self, workQueueId: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAudioProcessingObjectVBR(c_void_p):
+class IAudioProcessingObjectVBR(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7ba1db8f-78ad-49cd-95-91-f7-9d-80-a1-7c-81')
     @commethod(3)
     def CalcMaxInputFrames(self, u32MaxOutputFrameCount: UInt32, pu32InputFrameCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CalcMaxOutputFrames(self, u32MaxInputFrameCount: UInt32, pu32OutputFrameCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAudioSystemEffects(c_void_p):
+class IAudioSystemEffects(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5fa00f27-add6-499a-8a-9d-6b-98-52-1f-a7-5b')
-class IAudioSystemEffects2(c_void_p):
+class IAudioSystemEffects2(ComPtr):
     extends: Windows.Win32.Media.Audio.Apo.IAudioSystemEffects
     Guid = Guid('bafe99d2-7436-44ce-9e-0e-4d-89-af-bf-ff-56')
     @commethod(3)
     def GetEffectsList(self, ppEffectsIds: POINTER(POINTER(Guid)), pcEffects: POINTER(UInt32), Event: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
-class IAudioSystemEffects3(c_void_p):
+class IAudioSystemEffects3(ComPtr):
     extends: Windows.Win32.Media.Audio.Apo.IAudioSystemEffects2
     Guid = Guid('c58b31cd-fc6a-4255-bc-1f-ad-29-bb-0a-4a-17')
     @commethod(4)
     def GetControllableSystemEffectsList(self, effects: POINTER(POINTER(Windows.Win32.Media.Audio.Apo.AUDIO_SYSTEMEFFECT_head)), numEffects: POINTER(UInt32), event: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetAudioSystemEffectState(self, effectId: Guid, state: Windows.Win32.Media.Audio.Apo.AUDIO_SYSTEMEFFECT_STATE) -> Windows.Win32.Foundation.HRESULT: ...
-class IAudioSystemEffectsCustomFormats(c_void_p):
+class IAudioSystemEffectsCustomFormats(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b1176e34-bb7f-4f05-be-bd-1b-18-a5-34-e0-97')
     @commethod(3)

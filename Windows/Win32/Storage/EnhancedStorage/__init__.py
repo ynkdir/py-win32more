@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Devices.PortableDevices
 import Windows.Win32.Foundation
 import Windows.Win32.Storage.EnhancedStorage
@@ -2537,7 +2537,7 @@ EnhancedStorageACT = Guid('af076a15-2ece-4ad4-bb-21-29-f0-40-e1-76-d8')
 EnhancedStorageSilo = Guid('cb25220c-76c7-4fee-84-2b-f3-38-3c-d0-22-bc')
 EnhancedStorageSiloAction = Guid('886d29dd-b506-466b-9f-bf-b4-4f-f3-83-fb-3f')
 EnumEnhancedStorageACT = Guid('fe841493-835c-4fa3-b6-cc-b4-b2-d4-71-98-48')
-class IEnhancedStorageACT(c_void_p):
+class IEnhancedStorageACT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6e7781f4-e0f2-4239-b9-76-a0-1a-ba-b5-29-30')
     @commethod(3)
@@ -2552,14 +2552,14 @@ class IEnhancedStorageACT(c_void_p):
     def GetUniqueIdentity(self, ppwszIdentity: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetSilos(self, pppIEnhancedStorageSilos: POINTER(POINTER(Windows.Win32.Storage.EnhancedStorage.IEnhancedStorageSilo_head)), pcEnhancedStorageSilos: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnhancedStorageACT2(c_void_p):
+class IEnhancedStorageACT2(ComPtr):
     extends: Windows.Win32.Storage.EnhancedStorage.IEnhancedStorageACT
     Guid = Guid('4da57d2e-8eb3-41f6-a0-7e-98-b5-2b-88-24-2b')
     @commethod(9)
     def GetDeviceName(self, ppwszDeviceName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def IsDeviceRemovable(self, pIsDeviceRemovable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnhancedStorageACT3(c_void_p):
+class IEnhancedStorageACT3(ComPtr):
     extends: Windows.Win32.Storage.EnhancedStorage.IEnhancedStorageACT2
     Guid = Guid('022150a1-113d-11df-bb-61-00-1a-a0-1b-bc-58')
     @commethod(11)
@@ -2568,7 +2568,7 @@ class IEnhancedStorageACT3(c_void_p):
     def IsQueueFrozen(self, pIsQueueFrozen: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetShellExtSupport(self, pShellExtSupport: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnhancedStorageSilo(c_void_p):
+class IEnhancedStorageSilo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5aef78c6-2242-4703-bf-49-44-b2-93-57-a3-59')
     @commethod(3)
@@ -2581,7 +2581,7 @@ class IEnhancedStorageSilo(c_void_p):
     def GetPortableDevice(self, ppIPortableDevice: POINTER(Windows.Win32.Devices.PortableDevices.IPortableDevice_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetDevicePath(self, ppwszSiloDevicePath: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnhancedStorageSiloAction(c_void_p):
+class IEnhancedStorageSiloAction(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b6f7f311-206f-4ff8-9c-4b-27-ef-ee-77-a8-6f')
     @commethod(3)
@@ -2590,7 +2590,7 @@ class IEnhancedStorageSiloAction(c_void_p):
     def GetDescription(self, ppwszActionDescription: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Invoke(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IEnumEnhancedStorageACT(c_void_p):
+class IEnumEnhancedStorageACT(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('09b224bd-1335-4631-a7-ff-cf-d3-a9-26-46-d7')
     @commethod(3)

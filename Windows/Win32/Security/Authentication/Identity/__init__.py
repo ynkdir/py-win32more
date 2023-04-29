@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Security
 import Windows.Win32.Security.Authentication.Identity
@@ -1991,7 +1991,7 @@ EXTENDED_NAME_FORMAT_NameSurname: EXTENDED_NAME_FORMAT = 14
 def FREE_CONTEXT_BUFFER_FN(param0: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype_pointer
 def FREE_CREDENTIALS_HANDLE_FN(param0: POINTER(Windows.Win32.Security.Credentials.SecHandle_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ICcgDomainAuthCredentials(c_void_p):
+class ICcgDomainAuthCredentials(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6ecda518-2010-4437-8b-c3-46-e7-52-b7-b1-72')
     @commethod(3)

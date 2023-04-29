@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Dxgi.Common
 import Windows.Win32.System.Com
@@ -50,7 +50,7 @@ class EnumType(EasyCastStructure):
     Name: Windows.Win32.Foundation.BSTR
     ValueInts: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)
     ValueStrings: POINTER(Windows.Win32.System.Com.SAFEARRAY_head)
-class IBitmapData(c_void_p):
+class IBitmapData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d1a34ef2-cad8-4635-a3-d2-fc-da-8d-3f-3c-af')
     @commethod(3)
@@ -61,7 +61,7 @@ class IBitmapData(c_void_p):
     def GetBitmapDescription(self, pBitmapDescription: POINTER(Windows.Win32.UI.Xaml.Diagnostics.BitmapDescription_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetSourceBitmapDescription(self, pBitmapDescription: POINTER(Windows.Win32.UI.Xaml.Diagnostics.BitmapDescription_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IVisualTreeService(c_void_p):
+class IVisualTreeService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a593b11a-d17f-48bb-8f-66-83-91-07-31-c8-a5')
     @commethod(3)
@@ -88,7 +88,7 @@ class IVisualTreeService(c_void_p):
     def RemoveChild(self, parent: UInt64, index: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def ClearChildren(self, parent: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IVisualTreeService2(c_void_p):
+class IVisualTreeService2(ComPtr):
     extends: Windows.Win32.UI.Xaml.Diagnostics.IVisualTreeService
     Guid = Guid('130f5136-ec43-4f61-89-c7-98-01-a3-6d-2e-95')
     @commethod(15)
@@ -99,7 +99,7 @@ class IVisualTreeService2(c_void_p):
     def ReplaceResource(self, resourceDictionary: UInt64, key: UInt64, newValue: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def RenderTargetBitmap(self, handle: UInt64, options: Windows.Win32.UI.Xaml.Diagnostics.RenderTargetBitmapOptions, maxPixelWidth: UInt32, maxPixelHeight: UInt32, ppBitmapData: POINTER(Windows.Win32.UI.Xaml.Diagnostics.IBitmapData_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IVisualTreeService3(c_void_p):
+class IVisualTreeService3(ComPtr):
     extends: Windows.Win32.UI.Xaml.Diagnostics.IVisualTreeService2
     Guid = Guid('0e79c6e0-85a0-4be8-b4-1a-65-5c-f1-fd-19-bd')
     @commethod(19)
@@ -110,17 +110,17 @@ class IVisualTreeService3(c_void_p):
     def AddDictionaryItem(self, dictionaryHandle: UInt64, resourceKey: UInt64, resourceHandle: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def RemoveDictionaryItem(self, dictionaryHandle: UInt64, resourceKey: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IVisualTreeServiceCallback(c_void_p):
+class IVisualTreeServiceCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('aa7a8931-80e4-4fec-8f-3b-55-3f-87-b4-96-6e')
     @commethod(3)
     def OnVisualTreeChange(self, relation: Windows.Win32.UI.Xaml.Diagnostics.ParentChildRelation, element: Windows.Win32.UI.Xaml.Diagnostics.VisualElement, mutationType: Windows.Win32.UI.Xaml.Diagnostics.VisualMutationType) -> Windows.Win32.Foundation.HRESULT: ...
-class IVisualTreeServiceCallback2(c_void_p):
+class IVisualTreeServiceCallback2(ComPtr):
     extends: Windows.Win32.UI.Xaml.Diagnostics.IVisualTreeServiceCallback
     Guid = Guid('bad9eb88-ae77-4397-b9-48-5f-a2-db-0a-19-ea')
     @commethod(4)
     def OnElementStateChanged(self, element: UInt64, elementState: Windows.Win32.UI.Xaml.Diagnostics.VisualElementState, context: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IXamlDiagnostics(c_void_p):
+class IXamlDiagnostics(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('18c9e2b6-3f43-4116-9f-2b-ff-93-5d-77-70-d2')
     @commethod(3)

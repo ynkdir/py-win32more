@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Data.Xml.MsXml
 import Windows.Win32.Foundation
 import Windows.Win32.Storage.Packaging.Appx
@@ -305,19 +305,19 @@ DX_FEATURE_LEVEL_UNSPECIFIED: DX_FEATURE_LEVEL = 0
 DX_FEATURE_LEVEL_9: DX_FEATURE_LEVEL = 1
 DX_FEATURE_LEVEL_10: DX_FEATURE_LEVEL = 2
 DX_FEATURE_LEVEL_11: DX_FEATURE_LEVEL = 3
-class IAppxAppInstallerReader(c_void_p):
+class IAppxAppInstallerReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f35bc38c-1d2f-43db-a1-f4-58-64-30-d1-fe-d2')
     @commethod(3)
     def GetXmlDom(self, dom: POINTER(Windows.Win32.Data.Xml.MsXml.IXMLDOMDocument_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBlockMapBlock(c_void_p):
+class IAppxBlockMapBlock(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('75cf3930-3244-4fe0-a8-c8-e0-bc-b2-70-b8-89')
     @commethod(3)
     def GetHash(self, bufferSize: POINTER(UInt32), buffer: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetCompressedSize(self, size: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBlockMapBlocksEnumerator(c_void_p):
+class IAppxBlockMapBlocksEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6b429b5b-36ef-479e-b9-eb-0c-14-82-b4-9e-16')
     @commethod(3)
@@ -326,7 +326,7 @@ class IAppxBlockMapBlocksEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBlockMapFile(c_void_p):
+class IAppxBlockMapFile(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('277672ac-4f63-42c1-8a-bc-be-ae-36-00-eb-59')
     @commethod(3)
@@ -339,7 +339,7 @@ class IAppxBlockMapFile(c_void_p):
     def GetUncompressedSize(self, size: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def ValidateFileHash(self, fileStream: Windows.Win32.System.Com.IStream_head, isValid: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBlockMapFilesEnumerator(c_void_p):
+class IAppxBlockMapFilesEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('02b856a2-4262-4070-ba-cb-1a-8c-bb-c4-23-05')
     @commethod(3)
@@ -348,7 +348,7 @@ class IAppxBlockMapFilesEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBlockMapReader(c_void_p):
+class IAppxBlockMapReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5efec991-bca3-42d1-9e-c2-e9-2d-60-9e-c2-2a')
     @commethod(3)
@@ -359,7 +359,7 @@ class IAppxBlockMapReader(c_void_p):
     def GetHashMethod(self, hashMethod: POINTER(Windows.Win32.System.Com.IUri_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def GetStream(self, blockMapStream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBundleFactory(c_void_p):
+class IAppxBundleFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('bba65864-965f-4a5f-85-5f-f0-74-bd-bf-3a-7b')
     @commethod(3)
@@ -368,12 +368,12 @@ class IAppxBundleFactory(c_void_p):
     def CreateBundleReader(self, inputStream: Windows.Win32.System.Com.IStream_head, bundleReader: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxBundleReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CreateBundleManifestReader(self, inputStream: Windows.Win32.System.Com.IStream_head, manifestReader: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxBundleManifestReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBundleFactory2(c_void_p):
+class IAppxBundleFactory2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7325b83d-0185-42c4-82-ac-be-34-ab-1a-2a-8a')
     @commethod(3)
     def CreateBundleReader2(self, inputStream: Windows.Win32.System.Com.IStream_head, expectedDigest: Windows.Win32.Foundation.PWSTR, bundleReader: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxBundleReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBundleManifestOptionalBundleInfo(c_void_p):
+class IAppxBundleManifestOptionalBundleInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('515bf2e8-bcb0-4d69-8c-48-e3-83-14-7b-6e-12')
     @commethod(3)
@@ -382,7 +382,7 @@ class IAppxBundleManifestOptionalBundleInfo(c_void_p):
     def GetFileName(self, fileName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetPackageInfoItems(self, packageInfoItems: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxBundleManifestPackageInfoEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBundleManifestOptionalBundleInfoEnumerator(c_void_p):
+class IAppxBundleManifestOptionalBundleInfoEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9a178793-f97e-46ac-aa-ca-dd-5b-a4-c1-77-c8')
     @commethod(3)
@@ -391,7 +391,7 @@ class IAppxBundleManifestOptionalBundleInfoEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBundleManifestPackageInfo(c_void_p):
+class IAppxBundleManifestPackageInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('54cd06c1-268f-40bb-8e-d2-75-7a-9e-ba-ec-8d')
     @commethod(3)
@@ -406,7 +406,7 @@ class IAppxBundleManifestPackageInfo(c_void_p):
     def GetSize(self, size: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetResources(self, resources: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxManifestQualifiedResourcesEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBundleManifestPackageInfo2(c_void_p):
+class IAppxBundleManifestPackageInfo2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('44c2acbc-b2cf-4ccb-bb-db-9c-6d-a8-c3-bc-9e')
     @commethod(3)
@@ -415,17 +415,17 @@ class IAppxBundleManifestPackageInfo2(c_void_p):
     def GetIsNonQualifiedResourcePackage(self, isNonQualifiedResourcePackage: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetIsDefaultApplicablePackage(self, isDefaultApplicablePackage: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBundleManifestPackageInfo3(c_void_p):
+class IAppxBundleManifestPackageInfo3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6ba74b98-bb74-4296-80-d0-5f-42-56-a9-96-75')
     @commethod(3)
     def GetTargetDeviceFamilies(self, targetDeviceFamilies: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxManifestTargetDeviceFamiliesEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBundleManifestPackageInfo4(c_void_p):
+class IAppxBundleManifestPackageInfo4(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5da6f13d-a8a7-4532-85-7c-13-93-d6-59-37-1d')
     @commethod(3)
     def GetIsStub(self, isStub: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBundleManifestPackageInfoEnumerator(c_void_p):
+class IAppxBundleManifestPackageInfoEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f9b856ee-49a6-4e19-b2-b0-6a-24-06-d6-3a-32')
     @commethod(3)
@@ -434,7 +434,7 @@ class IAppxBundleManifestPackageInfoEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBundleManifestReader(c_void_p):
+class IAppxBundleManifestReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('cf0ebbc1-cc99-4106-91-eb-e6-74-62-e0-4f-b0')
     @commethod(3)
@@ -443,12 +443,12 @@ class IAppxBundleManifestReader(c_void_p):
     def GetPackageInfoItems(self, packageInfoItems: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxBundleManifestPackageInfoEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetStream(self, manifestStream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBundleManifestReader2(c_void_p):
+class IAppxBundleManifestReader2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5517df70-033f-4af2-82-13-87-d7-66-80-5c-02')
     @commethod(3)
     def GetOptionalBundles(self, optionalBundles: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxBundleManifestOptionalBundleInfoEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBundleReader(c_void_p):
+class IAppxBundleReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('dd75b8c0-ba76-43b0-ae-0f-68-65-6a-1d-c5-c8')
     @commethod(3)
@@ -461,26 +461,26 @@ class IAppxBundleReader(c_void_p):
     def GetPayloadPackages(self, payloadPackages: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxFilesEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetPayloadPackage(self, fileName: Windows.Win32.Foundation.PWSTR, payloadPackage: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxFile_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBundleWriter(c_void_p):
+class IAppxBundleWriter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ec446fe8-bfec-4c64-ab-4f-49-f0-38-f0-c6-d2')
     @commethod(3)
     def AddPayloadPackage(self, fileName: Windows.Win32.Foundation.PWSTR, packageStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBundleWriter2(c_void_p):
+class IAppxBundleWriter2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6d8fe971-01cc-49a0-b6-85-23-38-51-27-99-62')
     @commethod(3)
     def AddExternalPackageReference(self, fileName: Windows.Win32.Foundation.PWSTR, inputStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBundleWriter3(c_void_p):
+class IAppxBundleWriter3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ad711152-f969-4193-82-d5-9d-df-27-86-d2-1a')
     @commethod(3)
     def AddPackageReference(self, fileName: Windows.Win32.Foundation.PWSTR, inputStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Close(self, hashMethodString: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxBundleWriter4(c_void_p):
+class IAppxBundleWriter4(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9cd9d523-5009-4c01-98-82-dc-02-9f-bd-47-a3')
     @commethod(3)
@@ -489,14 +489,14 @@ class IAppxBundleWriter4(c_void_p):
     def AddPackageReference(self, fileName: Windows.Win32.Foundation.PWSTR, inputStream: Windows.Win32.System.Com.IStream_head, isDefaultApplicablePackage: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def AddExternalPackageReference(self, fileName: Windows.Win32.Foundation.PWSTR, inputStream: Windows.Win32.System.Com.IStream_head, isDefaultApplicablePackage: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxContentGroup(c_void_p):
+class IAppxContentGroup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('328f6468-c04f-4e3c-b6-fa-6b-8d-27-f3-00-3a')
     @commethod(3)
     def GetName(self, groupName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetFiles(self, enumerator: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxContentGroupFilesEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxContentGroupFilesEnumerator(c_void_p):
+class IAppxContentGroupFilesEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1a09a2fd-7440-44eb-8c-84-84-82-05-a6-a1-cc')
     @commethod(3)
@@ -505,14 +505,14 @@ class IAppxContentGroupFilesEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxContentGroupMapReader(c_void_p):
+class IAppxContentGroupMapReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('418726d8-dd99-4f5d-98-86-15-7a-dd-20-de-01')
     @commethod(3)
     def GetRequiredGroup(self, requiredGroup: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxContentGroup_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAutomaticGroups(self, automaticGroupsEnumerator: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxContentGroupsEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxContentGroupMapWriter(c_void_p):
+class IAppxContentGroupMapWriter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d07ab776-a9de-4798-8c-14-3d-b3-1e-68-7c-78')
     @commethod(3)
@@ -521,7 +521,7 @@ class IAppxContentGroupMapWriter(c_void_p):
     def AddAutomaticFile(self, fileName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxContentGroupsEnumerator(c_void_p):
+class IAppxContentGroupsEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3264e477-16d1-4d63-82-3e-7d-29-84-69-66-34')
     @commethod(3)
@@ -530,43 +530,43 @@ class IAppxContentGroupsEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxDigestProvider(c_void_p):
+class IAppxDigestProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9fe2702b-7640-4659-8e-6c-34-9e-43-c4-cd-bd')
     @commethod(3)
     def GetDigest(self, digest: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxEncryptedBundleWriter(c_void_p):
+class IAppxEncryptedBundleWriter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('80b0902f-7bf0-4117-b8-c6-42-79-ef-81-ee-77')
     @commethod(3)
     def AddPayloadPackageEncrypted(self, fileName: Windows.Win32.Foundation.PWSTR, packageStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxEncryptedBundleWriter2(c_void_p):
+class IAppxEncryptedBundleWriter2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e644be82-f0fa-42b8-a9-56-8d-1c-b4-8e-e3-79')
     @commethod(3)
     def AddExternalPackageReference(self, fileName: Windows.Win32.Foundation.PWSTR, inputStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxEncryptedBundleWriter3(c_void_p):
+class IAppxEncryptedBundleWriter3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0d34deb3-5cae-4dd3-97-7c-50-49-32-a5-1d-31')
     @commethod(3)
     def AddPayloadPackageEncrypted(self, fileName: Windows.Win32.Foundation.PWSTR, packageStream: Windows.Win32.System.Com.IStream_head, isDefaultApplicablePackage: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def AddExternalPackageReference(self, fileName: Windows.Win32.Foundation.PWSTR, inputStream: Windows.Win32.System.Com.IStream_head, isDefaultApplicablePackage: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxEncryptedPackageWriter(c_void_p):
+class IAppxEncryptedPackageWriter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f43d0b0b-1379-40e2-9b-29-68-2e-a2-bf-42-af')
     @commethod(3)
     def AddPayloadFileEncrypted(self, fileName: Windows.Win32.Foundation.PWSTR, compressionOption: Windows.Win32.Storage.Packaging.Appx.APPX_COMPRESSION_OPTION, inputStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxEncryptedPackageWriter2(c_void_p):
+class IAppxEncryptedPackageWriter2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3e475447-3a25-40b5-8a-d2-f9-53-ae-50-c9-2d')
     @commethod(3)
     def AddPayloadFilesEncrypted(self, fileCount: UInt32, payloadFiles: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_WRITER_PAYLOAD_STREAM_head), memoryLimit: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxEncryptionFactory(c_void_p):
+class IAppxEncryptionFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('80e8e04d-8c88-44ae-a0-11-7c-ad-f6-fb-2e-72')
     @commethod(3)
@@ -585,12 +585,12 @@ class IAppxEncryptionFactory(c_void_p):
     def CreateEncryptedBundleWriter(self, outputStream: Windows.Win32.System.Com.IStream_head, bundleVersion: UInt64, settings: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_SETTINGS_head), keyInfo: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_KEY_INFO_head), exemptedFiles: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_EXEMPTIONS_head), bundleWriter: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxEncryptedBundleWriter_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def CreateEncryptedBundleReader(self, inputStream: Windows.Win32.System.Com.IStream_head, keyInfo: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_KEY_INFO_head), bundleReader: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxBundleReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxEncryptionFactory2(c_void_p):
+class IAppxEncryptionFactory2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c1b11eee-c4ba-4ab2-a5-5d-d0-15-fe-8f-f6-4f')
     @commethod(3)
     def CreateEncryptedPackageWriter(self, outputStream: Windows.Win32.System.Com.IStream_head, manifestStream: Windows.Win32.System.Com.IStream_head, contentGroupMapStream: Windows.Win32.System.Com.IStream_head, settings: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_SETTINGS_head), keyInfo: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_KEY_INFO_head), exemptedFiles: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_EXEMPTIONS_head), packageWriter: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxEncryptedPackageWriter_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxEncryptionFactory3(c_void_p):
+class IAppxEncryptionFactory3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('09edca37-cd64-47d6-b7-e8-1c-b1-1d-4f-7e-05')
     @commethod(3)
@@ -601,19 +601,19 @@ class IAppxEncryptionFactory3(c_void_p):
     def EncryptBundle(self, inputStream: Windows.Win32.System.Com.IStream_head, outputStream: Windows.Win32.System.Com.IStream_head, settings: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_SETTINGS2_head), keyInfo: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_KEY_INFO_head), exemptedFiles: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_EXEMPTIONS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def CreateEncryptedBundleWriter(self, outputStream: Windows.Win32.System.Com.IStream_head, bundleVersion: UInt64, settings: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_SETTINGS2_head), keyInfo: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_KEY_INFO_head), exemptedFiles: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_EXEMPTIONS_head), bundleWriter: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxEncryptedBundleWriter_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxEncryptionFactory4(c_void_p):
+class IAppxEncryptionFactory4(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a879611f-12fd-41fe-85-d5-06-ae-77-9b-ba-f5')
     @commethod(3)
     def EncryptPackage(self, inputStream: Windows.Win32.System.Com.IStream_head, outputStream: Windows.Win32.System.Com.IStream_head, settings: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_SETTINGS2_head), keyInfo: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_KEY_INFO_head), exemptedFiles: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_EXEMPTIONS_head), memoryLimit: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxEncryptionFactory5(c_void_p):
+class IAppxEncryptionFactory5(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('68d6e77a-f446-480f-b0-f0-d9-1a-24-c6-07-46')
     @commethod(3)
     def CreateEncryptedPackageReader2(self, inputStream: Windows.Win32.System.Com.IStream_head, keyInfo: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_KEY_INFO_head), expectedDigest: Windows.Win32.Foundation.PWSTR, packageReader: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxPackageReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CreateEncryptedBundleReader2(self, inputStream: Windows.Win32.System.Com.IStream_head, keyInfo: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_KEY_INFO_head), expectedDigest: Windows.Win32.Foundation.PWSTR, bundleReader: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxBundleReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxFactory(c_void_p):
+class IAppxFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('beb94909-e451-438b-b5-a7-d7-9e-76-7b-75-d8')
     @commethod(3)
@@ -626,7 +626,7 @@ class IAppxFactory(c_void_p):
     def CreateBlockMapReader(self, inputStream: Windows.Win32.System.Com.IStream_head, blockMapReader: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxBlockMapReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def CreateValidatedBlockMapReader(self, blockMapStream: Windows.Win32.System.Com.IStream_head, signatureFileName: Windows.Win32.Foundation.PWSTR, blockMapReader: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxBlockMapReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxFactory2(c_void_p):
+class IAppxFactory2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f1346df2-c282-4e22-b9-18-74-3a-92-9a-8d-55')
     @commethod(3)
@@ -635,7 +635,7 @@ class IAppxFactory2(c_void_p):
     def CreateSourceContentGroupMapReader(self, inputStream: Windows.Win32.System.Com.IStream_head, reader: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxSourceContentGroupMapReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CreateContentGroupMapWriter(self, stream: Windows.Win32.System.Com.IStream_head, contentGroupMapWriter: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxContentGroupMapWriter_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxFactory3(c_void_p):
+class IAppxFactory3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('776b2c05-e21d-4e24-ba-1a-cd-52-9a-8b-fd-bb')
     @commethod(3)
@@ -644,7 +644,7 @@ class IAppxFactory3(c_void_p):
     def CreateManifestReader2(self, inputStream: Windows.Win32.System.Com.IStream_head, expectedDigest: Windows.Win32.Foundation.PWSTR, manifestReader: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxManifestReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def CreateAppInstallerReader(self, inputStream: Windows.Win32.System.Com.IStream_head, expectedDigest: Windows.Win32.Foundation.PWSTR, appInstallerReader: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxAppInstallerReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxFile(c_void_p):
+class IAppxFile(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('91df827b-94fd-468f-82-7b-57-f4-1b-2f-6f-2e')
     @commethod(3)
@@ -657,7 +657,7 @@ class IAppxFile(c_void_p):
     def GetSize(self, size: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetStream(self, stream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxFilesEnumerator(c_void_p):
+class IAppxFilesEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f007eeaf-9831-411c-98-47-91-7c-dc-62-d1-fe')
     @commethod(3)
@@ -666,14 +666,14 @@ class IAppxFilesEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestApplication(c_void_p):
+class IAppxManifestApplication(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5da89bf4-3773-46be-b6-50-7e-74-48-63-b7-e8')
     @commethod(3)
     def GetStringValue(self, name: Windows.Win32.Foundation.PWSTR, value: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAppUserModelId(self, appUserModelId: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestApplicationsEnumerator(c_void_p):
+class IAppxManifestApplicationsEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9eb8a55a-f04b-4d0d-80-8d-68-61-85-d4-84-7a')
     @commethod(3)
@@ -682,7 +682,7 @@ class IAppxManifestApplicationsEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestCapabilitiesEnumerator(c_void_p):
+class IAppxManifestCapabilitiesEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('11d22258-f470-42c1-b2-91-83-61-c5-43-7e-41')
     @commethod(3)
@@ -691,7 +691,7 @@ class IAppxManifestCapabilitiesEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestDeviceCapabilitiesEnumerator(c_void_p):
+class IAppxManifestDeviceCapabilitiesEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('30204541-427b-4a1c-ba-cf-65-5b-f4-63-a5-40')
     @commethod(3)
@@ -700,7 +700,7 @@ class IAppxManifestDeviceCapabilitiesEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestDriverConstraint(c_void_p):
+class IAppxManifestDriverConstraint(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c031bee4-bbcc-48ea-a2-37-c3-40-45-c8-0a-07')
     @commethod(3)
@@ -709,7 +709,7 @@ class IAppxManifestDriverConstraint(c_void_p):
     def GetMinVersion(self, minVersion: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetMinDate(self, minDate: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestDriverConstraintsEnumerator(c_void_p):
+class IAppxManifestDriverConstraintsEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d402b2d1-f600-49e0-95-e6-97-5d-8d-a1-3d-89')
     @commethod(3)
@@ -718,7 +718,7 @@ class IAppxManifestDriverConstraintsEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestDriverDependenciesEnumerator(c_void_p):
+class IAppxManifestDriverDependenciesEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fe039db2-467f-4755-84-04-8f-5e-b6-86-5b-33')
     @commethod(3)
@@ -727,12 +727,12 @@ class IAppxManifestDriverDependenciesEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestDriverDependency(c_void_p):
+class IAppxManifestDriverDependency(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1210cb94-5a92-4602-be-24-79-f3-18-af-4a-f9')
     @commethod(3)
     def GetDriverConstraints(self, driverConstraints: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxManifestDriverConstraintsEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestHostRuntimeDependenciesEnumerator(c_void_p):
+class IAppxManifestHostRuntimeDependenciesEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('6427a646-7f49-433e-b1-a6-0d-a3-09-f6-88-5a')
     @commethod(3)
@@ -741,7 +741,7 @@ class IAppxManifestHostRuntimeDependenciesEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestHostRuntimeDependency(c_void_p):
+class IAppxManifestHostRuntimeDependency(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3455d234-8414-410d-95-c7-7b-35-25-5b-83-91')
     @commethod(3)
@@ -750,12 +750,12 @@ class IAppxManifestHostRuntimeDependency(c_void_p):
     def GetPublisher(self, publisher: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetMinVersion(self, minVersion: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestHostRuntimeDependency2(c_void_p):
+class IAppxManifestHostRuntimeDependency2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c26f23a8-ee10-4ad6-b8-98-2b-4d-7a-eb-fe-6a')
     @commethod(3)
     def GetPackageFamilyName(self, packageFamilyName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestMainPackageDependenciesEnumerator(c_void_p):
+class IAppxManifestMainPackageDependenciesEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a99c4f00-51d2-4f0f-ba-46-7e-d5-25-5e-bd-ff')
     @commethod(3)
@@ -764,7 +764,7 @@ class IAppxManifestMainPackageDependenciesEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestMainPackageDependency(c_void_p):
+class IAppxManifestMainPackageDependency(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('05d0611c-bc29-46d5-97-e2-84-b9-c7-9b-d8-ae')
     @commethod(3)
@@ -773,7 +773,7 @@ class IAppxManifestMainPackageDependency(c_void_p):
     def GetPublisher(self, publisher: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetPackageFamilyName(self, packageFamilyName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestOSPackageDependenciesEnumerator(c_void_p):
+class IAppxManifestOSPackageDependenciesEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b84e2fc3-f8ec-4bc1-8a-e2-15-63-46-f5-ff-ea')
     @commethod(3)
@@ -782,21 +782,21 @@ class IAppxManifestOSPackageDependenciesEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestOSPackageDependency(c_void_p):
+class IAppxManifestOSPackageDependency(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('154995ee-54a6-4f14-ac-97-d8-cf-05-19-64-4b')
     @commethod(3)
     def GetName(self, name: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetVersion(self, version: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestOptionalPackageInfo(c_void_p):
+class IAppxManifestOptionalPackageInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2634847d-5b5d-4fe5-a2-43-00-2f-f9-5e-dc-7e')
     @commethod(3)
     def GetIsOptionalPackage(self, isOptionalPackage: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetMainPackageName(self, mainPackageName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestPackageDependenciesEnumerator(c_void_p):
+class IAppxManifestPackageDependenciesEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b43bbcf9-65a6-42dd-ba-c0-8c-67-41-e7-f5-a4')
     @commethod(3)
@@ -805,7 +805,7 @@ class IAppxManifestPackageDependenciesEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestPackageDependency(c_void_p):
+class IAppxManifestPackageDependency(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e4946b59-733e-43f0-a7-24-3b-de-4c-12-85-a0')
     @commethod(3)
@@ -814,17 +814,17 @@ class IAppxManifestPackageDependency(c_void_p):
     def GetPublisher(self, publisher: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetMinVersion(self, minVersion: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestPackageDependency2(c_void_p):
+class IAppxManifestPackageDependency2(ComPtr):
     extends: Windows.Win32.Storage.Packaging.Appx.IAppxManifestPackageDependency
     Guid = Guid('dda0b713-f3ff-49d3-89-8a-27-86-78-0c-5d-98')
     @commethod(6)
     def GetMaxMajorVersionTested(self, maxMajorVersionTested: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestPackageDependency3(c_void_p):
+class IAppxManifestPackageDependency3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('1ac56374-6198-4d6b-92-e4-74-9d-5a-b8-a8-95')
     @commethod(3)
     def GetIsOptional(self, isOptional: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestPackageId(c_void_p):
+class IAppxManifestPackageId(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('283ce2d7-7153-4a91-96-49-7a-0f-72-40-94-5f')
     @commethod(3)
@@ -843,19 +843,19 @@ class IAppxManifestPackageId(c_void_p):
     def GetPackageFullName(self, packageFullName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def GetPackageFamilyName(self, packageFamilyName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestPackageId2(c_void_p):
+class IAppxManifestPackageId2(ComPtr):
     extends: Windows.Win32.Storage.Packaging.Appx.IAppxManifestPackageId
     Guid = Guid('2256999d-d617-42f1-88-0e-0b-a4-54-23-19-d5')
     @commethod(11)
     def GetArchitecture2(self, architecture: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_ARCHITECTURE2)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestProperties(c_void_p):
+class IAppxManifestProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('03faf64d-f26f-4b2c-aa-f7-8f-e7-78-9b-8b-ca')
     @commethod(3)
     def GetBoolValue(self, name: Windows.Win32.Foundation.PWSTR, value: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetStringValue(self, name: Windows.Win32.Foundation.PWSTR, value: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestQualifiedResource(c_void_p):
+class IAppxManifestQualifiedResource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3b53a497-3c5c-48d1-9e-a3-bb-7e-ac-8c-d7-d4')
     @commethod(3)
@@ -864,7 +864,7 @@ class IAppxManifestQualifiedResource(c_void_p):
     def GetScale(self, scale: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetDXFeatureLevel(self, dxFeatureLevel: POINTER(Windows.Win32.Storage.Packaging.Appx.DX_FEATURE_LEVEL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestQualifiedResourcesEnumerator(c_void_p):
+class IAppxManifestQualifiedResourcesEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8ef6adfe-3762-4a8f-93-73-2f-c5-d4-44-c8-d2')
     @commethod(3)
@@ -873,7 +873,7 @@ class IAppxManifestQualifiedResourcesEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestReader(c_void_p):
+class IAppxManifestReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('4e1bd148-55a0-4480-a3-d1-15-54-47-10-63-7c')
     @commethod(3)
@@ -894,34 +894,34 @@ class IAppxManifestReader(c_void_p):
     def GetApplications(self, applications: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxManifestApplicationsEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def GetStream(self, manifestStream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestReader2(c_void_p):
+class IAppxManifestReader2(ComPtr):
     extends: Windows.Win32.Storage.Packaging.Appx.IAppxManifestReader
     Guid = Guid('d06f67bc-b31d-4eba-a8-af-63-8e-73-e7-7b-4d')
     @commethod(12)
     def GetQualifiedResources(self, resources: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxManifestQualifiedResourcesEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestReader3(c_void_p):
+class IAppxManifestReader3(ComPtr):
     extends: Windows.Win32.Storage.Packaging.Appx.IAppxManifestReader2
     Guid = Guid('c43825ab-69b7-400a-97-09-cc-37-f5-a7-2d-24')
     @commethod(13)
     def GetCapabilitiesByCapabilityClass(self, capabilityClass: Windows.Win32.Storage.Packaging.Appx.APPX_CAPABILITY_CLASS_TYPE, capabilities: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxManifestCapabilitiesEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetTargetDeviceFamilies(self, targetDeviceFamilies: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxManifestTargetDeviceFamiliesEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestReader4(c_void_p):
+class IAppxManifestReader4(ComPtr):
     extends: Windows.Win32.Storage.Packaging.Appx.IAppxManifestReader3
     Guid = Guid('4579bb7c-741d-4161-b5-a1-47-bd-3b-78-ad-9b')
     @commethod(15)
     def GetOptionalPackageInfo(self, optionalPackageInfo: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxManifestOptionalPackageInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestReader5(c_void_p):
+class IAppxManifestReader5(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8d7ae132-a690-4c00-b7-5a-6a-ae-1f-ea-ac-80')
     @commethod(3)
     def GetMainPackageDependencies(self, mainPackageDependencies: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxManifestMainPackageDependenciesEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestReader6(c_void_p):
+class IAppxManifestReader6(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('34deaca4-d3c0-4e3e-b3-12-e4-26-25-e3-80-7e')
     @commethod(3)
     def GetIsNonQualifiedResourcePackage(self, isNonQualifiedResourcePackage: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestReader7(c_void_p):
+class IAppxManifestReader7(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('8efe6f27-0ce0-4988-b3-2d-73-8e-b6-3d-b3-b7')
     @commethod(3)
@@ -930,7 +930,7 @@ class IAppxManifestReader7(c_void_p):
     def GetOSPackageDependencies(self, osPackageDependencies: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxManifestOSPackageDependenciesEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetHostRuntimeDependencies(self, hostRuntimeDependencies: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxManifestHostRuntimeDependenciesEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestResourcesEnumerator(c_void_p):
+class IAppxManifestResourcesEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('de4dfbbd-881a-48bb-85-8c-d6-f2-ba-ea-e6-ed')
     @commethod(3)
@@ -939,7 +939,7 @@ class IAppxManifestResourcesEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestTargetDeviceFamiliesEnumerator(c_void_p):
+class IAppxManifestTargetDeviceFamiliesEnumerator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('36537f36-27a4-4788-88-c0-73-38-19-57-50-17')
     @commethod(3)
@@ -948,7 +948,7 @@ class IAppxManifestTargetDeviceFamiliesEnumerator(c_void_p):
     def GetHasCurrent(self, hasCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def MoveNext(self, hasNext: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxManifestTargetDeviceFamily(c_void_p):
+class IAppxManifestTargetDeviceFamily(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9091b09b-c8d5-4f31-86-87-a3-38-25-9f-ae-fb')
     @commethod(3)
@@ -957,7 +957,7 @@ class IAppxManifestTargetDeviceFamily(c_void_p):
     def GetMinVersion(self, minVersion: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetMaxVersionTested(self, maxVersionTested: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxPackageEditor(c_void_p):
+class IAppxPackageEditor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e2adb6dc-5e71-4416-86-b6-86-e5-f5-29-1a-6b')
     @commethod(3)
@@ -972,7 +972,7 @@ class IAppxPackageEditor(c_void_p):
     def UpdateEncryptedPackage(self, baselineEncryptedPackageStream: Windows.Win32.System.Com.IStream_head, deltaPackageStream: Windows.Win32.System.Com.IStream_head, updateOption: Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION, settings: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_SETTINGS2_head), keyInfo: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_KEY_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def UpdatePackageManifest(self, packageStream: Windows.Win32.System.Com.IStream_head, updatedManifestStream: Windows.Win32.System.Com.IStream_head, isPackageEncrypted: Windows.Win32.Foundation.BOOL, options: Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxPackageReader(c_void_p):
+class IAppxPackageReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b5c49650-99bc-481c-9a-34-3d-53-a4-10-67-08')
     @commethod(3)
@@ -985,36 +985,36 @@ class IAppxPackageReader(c_void_p):
     def GetPayloadFiles(self, filesEnumerator: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxFilesEnumerator_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetManifest(self, manifestReader: POINTER(Windows.Win32.Storage.Packaging.Appx.IAppxManifestReader_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxPackageWriter(c_void_p):
+class IAppxPackageWriter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('9099e33b-246f-41e4-88-1a-00-8e-b6-13-f8-58')
     @commethod(3)
     def AddPayloadFile(self, fileName: Windows.Win32.Foundation.PWSTR, contentType: Windows.Win32.Foundation.PWSTR, compressionOption: Windows.Win32.Storage.Packaging.Appx.APPX_COMPRESSION_OPTION, inputStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Close(self, manifest: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxPackageWriter2(c_void_p):
+class IAppxPackageWriter2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('2cf5c4fd-e54c-4ea5-ba-4e-f8-c4-b1-05-a8-c8')
     @commethod(3)
     def Close(self, manifest: Windows.Win32.System.Com.IStream_head, contentGroupMap: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxPackageWriter3(c_void_p):
+class IAppxPackageWriter3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a83aacd3-41c0-4501-b8-a3-74-16-4f-50-b2-fd')
     @commethod(3)
     def AddPayloadFiles(self, fileCount: UInt32, payloadFiles: POINTER(Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGE_WRITER_PAYLOAD_STREAM_head), memoryLimit: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxPackagingDiagnosticEventSink(c_void_p):
+class IAppxPackagingDiagnosticEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('17239d47-6adb-45d2-80-f6-f9-cb-c3-bf-05-9d')
     @commethod(3)
     def ReportContextChange(self, changeType: Windows.Win32.Storage.Packaging.Appx.APPX_PACKAGING_CONTEXT_CHANGE_TYPE, contextId: Int32, contextName: Windows.Win32.Foundation.PSTR, contextMessage: Windows.Win32.Foundation.PWSTR, detailsMessage: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReportError(self, errorMessage: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxPackagingDiagnosticEventSinkManager(c_void_p):
+class IAppxPackagingDiagnosticEventSinkManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('369648fa-a7eb-4909-a1-5d-69-54-a0-78-f1-8a')
     @commethod(3)
     def SetSinkForProcess(self, sink: Windows.Win32.Storage.Packaging.Appx.IAppxPackagingDiagnosticEventSink_head) -> Windows.Win32.Foundation.HRESULT: ...
-class IAppxSourceContentGroupMapReader(c_void_p):
+class IAppxSourceContentGroupMapReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('f329791d-540b-4a9f-bc-75-32-82-b7-d7-31-93')
     @commethod(3)

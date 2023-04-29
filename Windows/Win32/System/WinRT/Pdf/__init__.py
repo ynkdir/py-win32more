@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Direct2D
 import Windows.Win32.Graphics.Direct2D.Common
@@ -18,7 +18,7 @@ def __getattr__(name):
     return getattr(_module, name)
 @winfunctype('Windows.Data.Pdf.dll')
 def PdfCreateRenderer(pDevice: Windows.Win32.Graphics.Dxgi.IDXGIDevice_head, ppRenderer: POINTER(Windows.Win32.System.WinRT.Pdf.IPdfRendererNative_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IPdfRendererNative(c_void_p):
+class IPdfRendererNative(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('7d9dcd91-d277-4947-85-27-07-a0-da-ed-a9-4a')
     @commethod(3)

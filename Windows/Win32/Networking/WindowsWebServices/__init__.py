@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Networking.WindowsWebServices
 import Windows.Win32.Security.Authentication.Identity
@@ -575,7 +575,7 @@ def WebAuthNDeletePlatformCredential(cbCredentialId: UInt32, pbCredentialId: POI
 def WebAuthNGetErrorName(hr: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.PWSTR: ...
 @winfunctype('webauthn.dll')
 def WebAuthNGetW3CExceptionDOMError(hr: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
-class IContentPrefetcherTaskTrigger(c_void_p):
+class IContentPrefetcherTaskTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1b35a14a-6094-4799-a6-0e-e4-74-e1-5d-4d-c9')
     @commethod(6)

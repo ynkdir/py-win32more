@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.System.AddressBook
 import Windows.Win32.System.Com
@@ -486,7 +486,7 @@ Gender = Int32
 Gender_genderUnspecified: Gender = 0
 Gender_genderFemale: Gender = 1
 Gender_genderMale: Gender = 2
-class IABContainer(c_void_p):
+class IABContainer(ComPtr):
     extends: Windows.Win32.System.AddressBook.IMAPIContainer
     @commethod(19)
     def CreateEntry(self, cbEntryID: UInt32, lpEntryID: POINTER(Windows.Win32.System.AddressBook.ENTRYID_head), ulCreateFlags: UInt32, lppMAPIPropEntry: POINTER(Windows.Win32.System.AddressBook.IMAPIProp_head)) -> Windows.Win32.Foundation.HRESULT: ...
@@ -496,7 +496,7 @@ class IABContainer(c_void_p):
     def DeleteEntries(self, lpEntries: POINTER(Windows.Win32.System.AddressBook.SBinaryArray_head), ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def ResolveNames(self, lpPropTagArray: POINTER(Windows.Win32.System.AddressBook.SPropTagArray_head), ulFlags: UInt32, lpAdrList: POINTER(Windows.Win32.System.AddressBook.ADRLIST_head), lpFlagList: POINTER(Windows.Win32.System.AddressBook.FlagList_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAddrBook(c_void_p):
+class IAddrBook(ComPtr):
     extends: Windows.Win32.System.AddressBook.IMAPIProp
     @commethod(14)
     def OpenEntry(self, cbEntryID: UInt32, lpEntryID: POINTER(Windows.Win32.System.AddressBook.ENTRYID_head), lpInterface: POINTER(Guid), ulFlags: UInt32, lpulObjType: POINTER(UInt32), lppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
@@ -534,9 +534,9 @@ class IAddrBook(c_void_p):
     def SetSearchPath(self, ulFlags: UInt32, lpSearchPath: POINTER(Windows.Win32.System.AddressBook.SRowSet_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def PrepareRecips(self, ulFlags: UInt32, lpPropTagArray: POINTER(Windows.Win32.System.AddressBook.SPropTagArray_head), lpRecipList: POINTER(Windows.Win32.System.AddressBook.ADRLIST_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IAttach(c_void_p):
+class IAttach(ComPtr):
     extends: Windows.Win32.System.AddressBook.IMAPIProp
-class IDistList(c_void_p):
+class IDistList(ComPtr):
     extends: Windows.Win32.System.AddressBook.IMAPIContainer
     @commethod(19)
     def CreateEntry(self, cbEntryID: UInt32, lpEntryID: POINTER(Windows.Win32.System.AddressBook.ENTRYID_head), ulCreateFlags: UInt32, lppMAPIPropEntry: POINTER(Windows.Win32.System.AddressBook.IMAPIProp_head)) -> Windows.Win32.Foundation.HRESULT: ...
@@ -546,11 +546,11 @@ class IDistList(c_void_p):
     def DeleteEntries(self, lpEntries: POINTER(Windows.Win32.System.AddressBook.SBinaryArray_head), ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
     def ResolveNames(self, lpPropTagArray: POINTER(Windows.Win32.System.AddressBook.SPropTagArray_head), ulFlags: UInt32, lpAdrList: POINTER(Windows.Win32.System.AddressBook.ADRLIST_head), lpFlagList: POINTER(Windows.Win32.System.AddressBook.FlagList_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMAPIAdviseSink(c_void_p):
+class IMAPIAdviseSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     @commethod(3)
     def OnNotify(self, cNotif: UInt32, lpNotifications: POINTER(Windows.Win32.System.AddressBook.NOTIFICATION_head)) -> UInt32: ...
-class IMAPIContainer(c_void_p):
+class IMAPIContainer(ComPtr):
     extends: Windows.Win32.System.AddressBook.IMAPIProp
     @commethod(14)
     def GetContentsTable(self, ulFlags: UInt32, lppTable: POINTER(Windows.Win32.System.AddressBook.IMAPITable_head)) -> Windows.Win32.Foundation.HRESULT: ...
@@ -562,7 +562,7 @@ class IMAPIContainer(c_void_p):
     def SetSearchCriteria(self, lpRestriction: POINTER(Windows.Win32.System.AddressBook.SRestriction_head), lpContainerList: POINTER(Windows.Win32.System.AddressBook.SBinaryArray_head), ulSearchFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def GetSearchCriteria(self, ulFlags: UInt32, lppRestriction: POINTER(POINTER(Windows.Win32.System.AddressBook.SRestriction_head)), lppContainerList: POINTER(POINTER(Windows.Win32.System.AddressBook.SBinaryArray_head)), lpulSearchState: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMAPIControl(c_void_p):
+class IMAPIControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     @commethod(3)
     def GetLastError(self, hResult: Windows.Win32.Foundation.HRESULT, ulFlags: UInt32, lppMAPIError: POINTER(POINTER(Windows.Win32.System.AddressBook.MAPIERROR_head))) -> Windows.Win32.Foundation.HRESULT: ...
@@ -570,7 +570,7 @@ class IMAPIControl(c_void_p):
     def Activate(self, ulFlags: UInt32, ulUIParam: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def GetState(self, ulFlags: UInt32, lpulState: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMAPIFolder(c_void_p):
+class IMAPIFolder(ComPtr):
     extends: Windows.Win32.System.AddressBook.IMAPIContainer
     @commethod(19)
     def CreateMessage(self, lpInterface: POINTER(Guid), ulFlags: UInt32, lppMessage: POINTER(Windows.Win32.System.AddressBook.IMessage_head)) -> Windows.Win32.Foundation.HRESULT: ...
@@ -594,7 +594,7 @@ class IMAPIFolder(c_void_p):
     def SaveContentsSort(self, lpSortCriteria: POINTER(Windows.Win32.System.AddressBook.SSortOrderSet_head), ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(29)
     def EmptyFolder(self, ulUIParam: UIntPtr, lpProgress: Windows.Win32.System.AddressBook.IMAPIProgress_head, ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMAPIProgress(c_void_p):
+class IMAPIProgress(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     @commethod(3)
     def Progress(self, ulValue: UInt32, ulCount: UInt32, ulTotal: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
@@ -606,7 +606,7 @@ class IMAPIProgress(c_void_p):
     def GetMin(self, lpulMin: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetLimits(self, lpulMin: POINTER(UInt32), lpulMax: POINTER(UInt32), lpulFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMAPIProp(c_void_p):
+class IMAPIProp(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     @commethod(3)
     def GetLastError(self, hResult: Windows.Win32.Foundation.HRESULT, ulFlags: UInt32, lppMAPIError: POINTER(POINTER(Windows.Win32.System.AddressBook.MAPIERROR_head))) -> Windows.Win32.Foundation.HRESULT: ...
@@ -630,7 +630,7 @@ class IMAPIProp(c_void_p):
     def GetNamesFromIDs(self, lppPropTags: POINTER(POINTER(Windows.Win32.System.AddressBook.SPropTagArray_head)), lpPropSetGuid: POINTER(Guid), ulFlags: UInt32, lpcPropNames: POINTER(UInt32), lpppPropNames: POINTER(POINTER(POINTER(Windows.Win32.System.AddressBook.MAPINAMEID_head)))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def GetIDsFromNames(self, cPropNames: UInt32, lppPropNames: POINTER(POINTER(Windows.Win32.System.AddressBook.MAPINAMEID_head)), ulFlags: UInt32, lppPropTags: POINTER(POINTER(Windows.Win32.System.AddressBook.SPropTagArray_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IMAPIStatus(c_void_p):
+class IMAPIStatus(ComPtr):
     extends: Windows.Win32.System.AddressBook.IMAPIProp
     @commethod(14)
     def ValidateState(self, ulUIParam: UIntPtr, ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
@@ -640,7 +640,7 @@ class IMAPIStatus(c_void_p):
     def ChangePassword(self, lpOldPass: POINTER(SByte), lpNewPass: POINTER(SByte), ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def FlushQueues(self, ulUIParam: UIntPtr, cbTargetTransport: UInt32, lpTargetTransport: POINTER(Windows.Win32.System.AddressBook.ENTRYID_head), ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMAPITable(c_void_p):
+class IMAPITable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     @commethod(3)
     def GetLastError(self, hResult: Windows.Win32.Foundation.HRESULT, ulFlags: UInt32, lppMAPIError: POINTER(POINTER(Windows.Win32.System.AddressBook.MAPIERROR_head))) -> Windows.Win32.Foundation.HRESULT: ...
@@ -688,9 +688,9 @@ class IMAPITable(c_void_p):
     def GetCollapseState(self, ulFlags: UInt32, cbInstanceKey: UInt32, lpbInstanceKey: POINTER(Byte), lpcbCollapseState: POINTER(UInt32), lppbCollapseState: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
     def SetCollapseState(self, ulFlags: UInt32, cbCollapseState: UInt32, pbCollapseState: POINTER(Byte), lpbkLocation: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IMailUser(c_void_p):
+class IMailUser(ComPtr):
     extends: Windows.Win32.System.AddressBook.IMAPIProp
-class IMessage(c_void_p):
+class IMessage(ComPtr):
     extends: Windows.Win32.System.AddressBook.IMAPIProp
     @commethod(14)
     def GetAttachmentTable(self, ulFlags: UInt32, lppTable: POINTER(Windows.Win32.System.AddressBook.IMAPITable_head)) -> Windows.Win32.Foundation.HRESULT: ...
@@ -708,7 +708,7 @@ class IMessage(c_void_p):
     def SubmitMessage(self, ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
     def SetReadFlag(self, ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IMsgStore(c_void_p):
+class IMsgStore(ComPtr):
     extends: Windows.Win32.System.AddressBook.IMAPIProp
     @commethod(14)
     def Advise(self, cbEntryID: UInt32, lpEntryID: POINTER(Windows.Win32.System.AddressBook.ENTRYID_head), ulEventMask: UInt32, lpAdviseSink: Windows.Win32.System.AddressBook.IMAPIAdviseSink_head, lpulConnection: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
@@ -736,9 +736,9 @@ class IMsgStore(c_void_p):
     def FinishedMsg(self, ulFlags: UInt32, cbEntryID: UInt32, lpEntryID: POINTER(Windows.Win32.System.AddressBook.ENTRYID_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def NotifyNewMail(self, lpNotification: POINTER(Windows.Win32.System.AddressBook.NOTIFICATION_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IProfSect(c_void_p):
+class IProfSect(ComPtr):
     extends: Windows.Win32.System.AddressBook.IMAPIProp
-class IPropData(c_void_p):
+class IPropData(ComPtr):
     extends: Windows.Win32.System.AddressBook.IMAPIProp
     @commethod(14)
     def HrSetObjAccess(self, ulAccess: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
@@ -748,7 +748,7 @@ class IPropData(c_void_p):
     def HrGetPropAccess(self, lppPropTagArray: POINTER(POINTER(Windows.Win32.System.AddressBook.SPropTagArray_head)), lprgulAccess: POINTER(POINTER(UInt32))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
     def HrAddObjProps(self, lppPropTagArray: POINTER(Windows.Win32.System.AddressBook.SPropTagArray_head), lprgulAccess: POINTER(POINTER(Windows.Win32.System.AddressBook.SPropProblemArray_head))) -> Windows.Win32.Foundation.HRESULT: ...
-class IProviderAdmin(c_void_p):
+class IProviderAdmin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     @commethod(3)
     def GetLastError(self, hResult: Windows.Win32.Foundation.HRESULT, ulFlags: UInt32, lppMAPIError: POINTER(POINTER(Windows.Win32.System.AddressBook.MAPIERROR_head))) -> Windows.Win32.Foundation.HRESULT: ...
@@ -760,7 +760,7 @@ class IProviderAdmin(c_void_p):
     def DeleteProvider(self, lpUID: POINTER(Windows.Win32.System.AddressBook.MAPIUID_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def OpenProfileSection(self, lpUID: POINTER(Windows.Win32.System.AddressBook.MAPIUID_head), lpInterface: POINTER(Guid), ulFlags: UInt32, lppProfSect: POINTER(Windows.Win32.System.AddressBook.IProfSect_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class ITableData(c_void_p):
+class ITableData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     @commethod(3)
     def HrGetView(self, lpSSortOrderSet: POINTER(Windows.Win32.System.AddressBook.SSortOrderSet_head), lpfCallerRelease: POINTER(Windows.Win32.System.AddressBook.CALLERRELEASE), ulCallerData: UInt32, lppMAPITable: POINTER(Windows.Win32.System.AddressBook.IMAPITable_head)) -> Windows.Win32.Foundation.HRESULT: ...
@@ -780,12 +780,12 @@ class ITableData(c_void_p):
     def HrModifyRows(self, ulFlags: UInt32, lpSRowSet: POINTER(Windows.Win32.System.AddressBook.SRowSet_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
     def HrDeleteRows(self, ulFlags: UInt32, lprowsetToDelete: POINTER(Windows.Win32.System.AddressBook.SRowSet_head), cRowsDeleted: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWABExtInit(c_void_p):
+class IWABExtInit(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('ea22ebf0-87a4-11d1-9a-cf-00-a0-c9-1f-9c-8b')
     @commethod(3)
     def Initialize(self, lpWABExtDisplay: POINTER(Windows.Win32.System.AddressBook.WABEXTDISPLAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IWABObject(c_void_p):
+class IWABObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     @commethod(3)
     def GetLastError(self, hResult: Windows.Win32.Foundation.HRESULT, ulFlags: UInt32, lppMAPIError: POINTER(POINTER(Windows.Win32.System.AddressBook.MAPIERROR_head))) -> Windows.Win32.Foundation.HRESULT: ...

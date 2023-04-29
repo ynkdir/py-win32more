@@ -1,6 +1,6 @@
 from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
-from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Direct3D12
 import Windows.Win32.Graphics.Direct3D9
@@ -26,7 +26,7 @@ class D3D9ON12_ARGS(EasyCastStructure):
     ppD3D12Queues: Windows.Win32.System.Com.IUnknown_head * 2
     NumQueues: UInt32
     NodeMask: UInt32
-class IDirect3DDevice9On12(c_void_p):
+class IDirect3DDevice9On12(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e7fda234-b589-4049-94-0d-88-78-97-75-31-c8')
     @commethod(3)
