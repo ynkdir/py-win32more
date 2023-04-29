@@ -220,15 +220,36 @@ class ForeignFunction:
         self.delegate = factory(prototype.__name__, types, params)
 
     def __call__(self, *args, **kwargs):
-        return self.invoke(*args, **kwargs)
-
-    def invoke(self, *args, **kwargs):
         _as_intptr = kwargs.pop("_as_intptr", False)
         cargs, ckwargs = self.make_args(args, kwargs)
         result = self.delegate(*cargs, **ckwargs)
         return self.make_result(result, _as_intptr)
 
-    def invoke_com(self, this, *args, **kwargs):
+    def make_args(self, args, kwargs):
+        cargs = [easycast(v, self.hints[i]) if i in self.hints else v for i, v in enumerate(args)]
+        ckwargs = {k: easycast(v, self.hints[k]) if k in self.hints else v for k, v in kwargs.items()}
+        return cargs, ckwargs
+
+    def make_result(self, result, _as_intptr):
+        if _as_intptr:
+            return cast(result, c_void_p).value
+        elif type(result) is c_char_p_no or type(result) is c_wchar_p_no:
+            return result.value
+        return result
+
+
+class ComMethod:
+    def __init__(self, prototype, factory):
+        hints = get_type_hints(prototype)
+        restype = _patch_char_p(hints.pop("return"))
+        argtypes = list(hints.values())
+        types = [restype] + argtypes
+        params = tuple((1, name) for name in hints.keys())
+        self.hints = hints
+        self.hints.update({i: v for i, v in enumerate(argtypes)})
+        self.delegate = factory(prototype.__name__, types, params)
+
+    def __call__(self, this, *args, **kwargs):
         _as_intptr = kwargs.pop("_as_intptr", False)
         cargs, ckwargs = self.make_args(args, kwargs)
         result = self.delegate(this, *cargs, **ckwargs)
@@ -263,7 +284,7 @@ def cfunctype(library, entry_point=None, variadic=False):
             nonlocal delegate
             if delegate is None:
                 delegate = ForeignFunction(prototype, factory)
-            return delegate.invoke(*args, **kwargs)
+            return delegate(*args, **kwargs)
 
         return wrapper
 
@@ -283,7 +304,7 @@ def winfunctype(library, entry_point=None):
             nonlocal delegate
             if delegate is None:
                 delegate = ForeignFunction(prototype, factory)
-            return delegate.invoke(*args, **kwargs)
+            return delegate(*args, **kwargs)
 
         return wrapper
 
@@ -300,8 +321,8 @@ def commethod(vtbl_index):
         def wrapper(*args, **kwargs):
             nonlocal delegate
             if delegate is None:
-                delegate = ForeignFunction(prototype, factory)
-            return delegate.invoke_com(*args, **kwargs)
+                delegate = ComMethod(prototype, factory)
+            return delegate(*args, **kwargs)
 
         return wrapper
 
