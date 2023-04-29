@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Globalization.Fonts
@@ -21,7 +21,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ILanguageFont(c_void_p):
+class ILanguageFont(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b12e5c3a-b76d-459b-be-eb-90-11-51-cd-77-d1')
     @winrt_commethod(6)
@@ -39,7 +39,7 @@ class ILanguageFont(c_void_p):
     FontStretch = property(get_FontStretch, None)
     FontStyle = property(get_FontStyle, None)
     ScaleFactor = property(get_ScaleFactor, None)
-class ILanguageFontGroup(c_void_p):
+class ILanguageFontGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f33a7fc3-3a5c-4aea-b9-ff-b3-9f-b2-42-f7-f6')
     @winrt_commethod(6)
@@ -75,12 +75,12 @@ class ILanguageFontGroup(c_void_p):
     FixedWidthTextFont = property(get_FixedWidthTextFont, None)
     DocumentAlternate1Font = property(get_DocumentAlternate1Font, None)
     DocumentAlternate2Font = property(get_DocumentAlternate2Font, None)
-class ILanguageFontGroupFactory(c_void_p):
+class ILanguageFontGroupFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fcaeac67-4e77-49c7-b8-56-dd-e9-34-fc-73-5b')
     @winrt_commethod(6)
     def CreateLanguageFontGroup(self, languageTag: WinRT_String) -> Windows.Globalization.Fonts.LanguageFontGroup: ...
-class LanguageFont(c_void_p):
+class LanguageFont(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Globalization.Fonts.LanguageFont'
     @winrt_mixinmethod
@@ -98,7 +98,7 @@ class LanguageFont(c_void_p):
     FontStretch = property(get_FontStretch, None)
     FontStyle = property(get_FontStyle, None)
     ScaleFactor = property(get_ScaleFactor, None)
-class LanguageFontGroup(c_void_p):
+class LanguageFontGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Globalization.Fonts.LanguageFontGroup'
     @winrt_factorymethod

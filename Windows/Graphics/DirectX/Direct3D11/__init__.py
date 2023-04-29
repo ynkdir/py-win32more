@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -46,12 +46,12 @@ Direct3DUsage_Default: Direct3DUsage = 0
 Direct3DUsage_Immutable: Direct3DUsage = 1
 Direct3DUsage_Dynamic: Direct3DUsage = 2
 Direct3DUsage_Staging: Direct3DUsage = 3
-class IDirect3DDevice(c_void_p):
+class IDirect3DDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a37624ab-8d5f-4650-9d-3e-9e-ae-3d-9b-c6-70')
     @winrt_commethod(6)
     def Trim(self) -> Void: ...
-class IDirect3DSurface(c_void_p):
+class IDirect3DSurface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0bf4a146-13c1-4694-be-e3-7a-bf-15-ea-f5-86')
     @winrt_commethod(6)

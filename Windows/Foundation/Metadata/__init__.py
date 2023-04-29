@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation.Metadata
@@ -20,7 +20,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ApiInformation(c_void_p):
+class ApiInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Foundation.Metadata.ApiInformation'
     @winrt_classmethod
@@ -72,7 +72,7 @@ GCPressureAmount = Int32
 GCPressureAmount_Low: GCPressureAmount = 0
 GCPressureAmount_Medium: GCPressureAmount = 1
 GCPressureAmount_High: GCPressureAmount = 2
-class IApiInformationStatics(c_void_p):
+class IApiInformationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('997439fe-f681-4a11-b4-16-c1-3a-47-e8-ba-36')
     @winrt_commethod(6)

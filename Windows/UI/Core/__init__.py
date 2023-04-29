@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -26,7 +26,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AcceleratorKeyEventArgs(c_void_p):
+class AcceleratorKeyEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.AcceleratorKeyEventArgs'
     @winrt_mixinmethod
@@ -50,7 +50,7 @@ AppViewBackButtonVisibility = Int32
 AppViewBackButtonVisibility_Visible: AppViewBackButtonVisibility = 0
 AppViewBackButtonVisibility_Collapsed: AppViewBackButtonVisibility = 1
 AppViewBackButtonVisibility_Disabled: AppViewBackButtonVisibility = 2
-class AutomationProviderRequestedEventArgs(c_void_p):
+class AutomationProviderRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.AutomationProviderRequestedEventArgs'
     @winrt_mixinmethod
@@ -63,7 +63,7 @@ class AutomationProviderRequestedEventArgs(c_void_p):
     def put_Handled(self: Windows.UI.Core.ICoreWindowEventArgs, value: Boolean) -> Void: ...
     AutomationProvider = property(get_AutomationProvider, put_AutomationProvider)
     Handled = property(get_Handled, put_Handled)
-class BackRequestedEventArgs(c_void_p):
+class BackRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.BackRequestedEventArgs'
     @winrt_mixinmethod
@@ -71,7 +71,7 @@ class BackRequestedEventArgs(c_void_p):
     @winrt_mixinmethod
     def put_Handled(self: Windows.UI.Core.IBackRequestedEventArgs, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
-class CharacterReceivedEventArgs(c_void_p):
+class CharacterReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.CharacterReceivedEventArgs'
     @winrt_mixinmethod
@@ -85,7 +85,7 @@ class CharacterReceivedEventArgs(c_void_p):
     KeyCode = property(get_KeyCode, None)
     KeyStatus = property(get_KeyStatus, None)
     Handled = property(get_Handled, put_Handled)
-class ClosestInteractiveBoundsRequestedEventArgs(c_void_p):
+class ClosestInteractiveBoundsRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.ClosestInteractiveBoundsRequestedEventArgs'
     @winrt_mixinmethod
@@ -109,14 +109,14 @@ CoreAcceleratorKeyEventType_SystemDeadCharacter: CoreAcceleratorKeyEventType = 7
 CoreAcceleratorKeyEventType_SystemKeyDown: CoreAcceleratorKeyEventType = 4
 CoreAcceleratorKeyEventType_SystemKeyUp: CoreAcceleratorKeyEventType = 5
 CoreAcceleratorKeyEventType_UnicodeCharacter: CoreAcceleratorKeyEventType = 8
-class CoreAcceleratorKeys(c_void_p):
+class CoreAcceleratorKeys(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.CoreAcceleratorKeys'
     @winrt_mixinmethod
     def add_AcceleratorKeyActivated(self: Windows.UI.Core.ICoreAcceleratorKeys, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Core.CoreDispatcher, Windows.UI.Core.AcceleratorKeyEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_AcceleratorKeyActivated(self: Windows.UI.Core.ICoreAcceleratorKeys, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class CoreComponentInputSource(c_void_p):
+class CoreComponentInputSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.CoreComponentInputSource'
     @winrt_mixinmethod
@@ -212,7 +212,7 @@ class CoreComponentInputSource(c_void_p):
     PointerCursor = property(get_PointerCursor, put_PointerCursor)
     HasFocus = property(get_HasFocus, None)
     DispatcherQueue = property(get_DispatcherQueue, None)
-class CoreCursor(c_void_p):
+class CoreCursor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.CoreCursor'
     @winrt_factorymethod
@@ -240,7 +240,7 @@ CoreCursorType_UpArrow: CoreCursorType = 12
 CoreCursorType_Wait: CoreCursorType = 13
 CoreCursorType_Pin: CoreCursorType = 14
 CoreCursorType_Person: CoreCursorType = 15
-class CoreDispatcher(c_void_p):
+class CoreDispatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.CoreDispatcher'
     @winrt_mixinmethod
@@ -283,7 +283,7 @@ CoreIndependentInputFilters_MouseWheel: CoreIndependentInputFilters = 2
 CoreIndependentInputFilters_MouseHover: CoreIndependentInputFilters = 4
 CoreIndependentInputFilters_PenWithBarrel: CoreIndependentInputFilters = 8
 CoreIndependentInputFilters_PenInverted: CoreIndependentInputFilters = 16
-class CoreIndependentInputSource(c_void_p):
+class CoreIndependentInputSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.CoreIndependentInputSource'
     @winrt_mixinmethod
@@ -356,7 +356,7 @@ class CoreIndependentInputSource(c_void_p):
     PointerPosition = property(get_PointerPosition, None)
     PointerCursor = property(get_PointerCursor, put_PointerCursor)
     DispatcherQueue = property(get_DispatcherQueue, None)
-class CoreIndependentInputSourceController(c_void_p):
+class CoreIndependentInputSourceController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.CoreIndependentInputSourceController'
     @winrt_mixinmethod
@@ -409,7 +409,7 @@ CoreVirtualKeyStates = UInt32
 CoreVirtualKeyStates_None: CoreVirtualKeyStates = 0
 CoreVirtualKeyStates_Down: CoreVirtualKeyStates = 1
 CoreVirtualKeyStates_Locked: CoreVirtualKeyStates = 2
-class CoreWindow(c_void_p):
+class CoreWindow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.CoreWindow'
     @winrt_mixinmethod
@@ -573,7 +573,7 @@ CoreWindowActivationState = Int32
 CoreWindowActivationState_CodeActivated: CoreWindowActivationState = 0
 CoreWindowActivationState_Deactivated: CoreWindowActivationState = 1
 CoreWindowActivationState_PointerActivated: CoreWindowActivationState = 2
-class CoreWindowEventArgs(c_void_p):
+class CoreWindowEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.CoreWindowEventArgs'
     @winrt_mixinmethod
@@ -584,7 +584,7 @@ class CoreWindowEventArgs(c_void_p):
 CoreWindowFlowDirection = Int32
 CoreWindowFlowDirection_LeftToRight: CoreWindowFlowDirection = 0
 CoreWindowFlowDirection_RightToLeft: CoreWindowFlowDirection = 1
-class CoreWindowResizeManager(c_void_p):
+class CoreWindowResizeManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.CoreWindowResizeManager'
     @winrt_mixinmethod
@@ -596,13 +596,13 @@ class CoreWindowResizeManager(c_void_p):
     @winrt_classmethod
     def GetForCurrentView(cls: Windows.UI.Core.ICoreWindowResizeManagerStatics) -> Windows.UI.Core.CoreWindowResizeManager: ...
     ShouldWaitForLayoutCompletion = property(get_ShouldWaitForLayoutCompletion, put_ShouldWaitForLayoutCompletion)
-class DispatchedHandler(c_void_p):
+class DispatchedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d1f276c4-98d8-4636-bf-49-eb-79-50-75-48-e9')
     ClassId = 'Windows.UI.Core.DispatchedHandler'
     @winrt_commethod(3)
     def Invoke(self) -> Void: ...
-class IAcceleratorKeyEventArgs(c_void_p):
+class IAcceleratorKeyEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ff1c4c4a-9287-470b-83-6e-90-86-e3-12-6a-de')
     @winrt_commethod(6)
@@ -614,13 +614,13 @@ class IAcceleratorKeyEventArgs(c_void_p):
     EventType = property(get_EventType, None)
     VirtualKey = property(get_VirtualKey, None)
     KeyStatus = property(get_KeyStatus, None)
-class IAcceleratorKeyEventArgs2(c_void_p):
+class IAcceleratorKeyEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d300a9f6-2f7e-4873-a5-55-16-6e-59-6e-e1-c5')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
-class IAutomationProviderRequestedEventArgs(c_void_p):
+class IAutomationProviderRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('961ff258-21bf-4b42-a2-98-fa-47-9d-4c-52-e2')
     @winrt_commethod(6)
@@ -628,7 +628,7 @@ class IAutomationProviderRequestedEventArgs(c_void_p):
     @winrt_commethod(7)
     def put_AutomationProvider(self, value: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
     AutomationProvider = property(get_AutomationProvider, put_AutomationProvider)
-class IBackRequestedEventArgs(c_void_p):
+class IBackRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d603d28a-e411-4a4e-ba-41-6a-32-7a-86-75-bc')
     @winrt_commethod(6)
@@ -636,7 +636,7 @@ class IBackRequestedEventArgs(c_void_p):
     @winrt_commethod(7)
     def put_Handled(self, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
-class ICharacterReceivedEventArgs(c_void_p):
+class ICharacterReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c584659f-99b2-4bcc-bd-33-04-e6-3f-42-90-2e')
     @winrt_commethod(6)
@@ -645,7 +645,7 @@ class ICharacterReceivedEventArgs(c_void_p):
     def get_KeyStatus(self) -> Windows.UI.Core.CorePhysicalKeyStatus: ...
     KeyCode = property(get_KeyCode, None)
     KeyStatus = property(get_KeyStatus, None)
-class IClosestInteractiveBoundsRequestedEventArgs(c_void_p):
+class IClosestInteractiveBoundsRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('347c11d7-f6f8-40e3-b2-9f-ae-50-d3-e8-64-86')
     @winrt_commethod(6)
@@ -659,21 +659,21 @@ class IClosestInteractiveBoundsRequestedEventArgs(c_void_p):
     PointerPosition = property(get_PointerPosition, None)
     SearchBounds = property(get_SearchBounds, None)
     ClosestInteractiveBounds = property(get_ClosestInteractiveBounds, put_ClosestInteractiveBounds)
-class ICoreAcceleratorKeys(c_void_p):
+class ICoreAcceleratorKeys(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9ffdf7f5-b8c9-4ef0-b7-d2-1d-e6-26-56-1f-c8')
     @winrt_commethod(6)
     def add_AcceleratorKeyActivated(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Core.CoreDispatcher, Windows.UI.Core.AcceleratorKeyEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_AcceleratorKeyActivated(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class ICoreClosestInteractiveBoundsRequested(c_void_p):
+class ICoreClosestInteractiveBoundsRequested(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f303043a-e8bf-4e8e-ae-69-c9-da-dd-57-a1-14')
     @winrt_commethod(6)
     def add_ClosestInteractiveBoundsRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Core.CoreComponentInputSource, Windows.UI.Core.ClosestInteractiveBoundsRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ClosestInteractiveBoundsRequested(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class ICoreComponentFocusable(c_void_p):
+class ICoreComponentFocusable(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('52f96fa3-8742-4411-ae-69-79-a8-5f-29-ac-8b')
     @winrt_commethod(6)
@@ -687,7 +687,7 @@ class ICoreComponentFocusable(c_void_p):
     @winrt_commethod(10)
     def remove_LostFocus(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
     HasFocus = property(get_HasFocus, None)
-class ICoreCursor(c_void_p):
+class ICoreCursor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('96893acf-111d-442c-8a-77-b8-79-92-f8-e2-d6')
     @winrt_commethod(6)
@@ -696,12 +696,12 @@ class ICoreCursor(c_void_p):
     def get_Type(self) -> Windows.UI.Core.CoreCursorType: ...
     Id = property(get_Id, None)
     Type = property(get_Type, None)
-class ICoreCursorFactory(c_void_p):
+class ICoreCursorFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f6359621-a79d-4ed3-8c-32-a9-ef-9d-6b-76-a4')
     @winrt_commethod(6)
     def CreateCursor(self, type: Windows.UI.Core.CoreCursorType, id: UInt32) -> Windows.UI.Core.CoreCursor: ...
-class ICoreDispatcher(c_void_p):
+class ICoreDispatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('60db2fa8-b705-4fde-a7-d6-eb-bb-18-91-d3-9e')
     @winrt_commethod(6)
@@ -713,14 +713,14 @@ class ICoreDispatcher(c_void_p):
     @winrt_commethod(9)
     def RunIdleAsync(self, agileCallback: Windows.UI.Core.IdleDispatchedHandler) -> Windows.Foundation.IAsyncAction: ...
     HasThreadAccess = property(get_HasThreadAccess, None)
-class ICoreDispatcher2(c_void_p):
+class ICoreDispatcher2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6f5e63c7-e3aa-4eae-b0-e0-dc-f3-21-ca-4b-2f')
     @winrt_commethod(6)
     def TryRunAsync(self, priority: Windows.UI.Core.CoreDispatcherPriority, agileCallback: Windows.UI.Core.DispatchedHandler) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(7)
     def TryRunIdleAsync(self, agileCallback: Windows.UI.Core.IdleDispatchedHandler) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
-class ICoreDispatcherWithTaskPriority(c_void_p):
+class ICoreDispatcherWithTaskPriority(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bafaecad-484d-41be-ba-80-1d-58-c6-52-63-ea')
     @winrt_commethod(6)
@@ -734,7 +734,7 @@ class ICoreDispatcherWithTaskPriority(c_void_p):
     @winrt_commethod(10)
     def StopProcessEvents(self) -> Void: ...
     CurrentPriority = property(get_CurrentPriority, put_CurrentPriority)
-class ICoreIndependentInputSourceController(c_void_p):
+class ICoreIndependentInputSourceController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0963261c-84fe-578a-83-ca-64-25-30-9c-cd-e4')
     @winrt_commethod(6)
@@ -754,14 +754,14 @@ class ICoreIndependentInputSourceController(c_void_p):
     IsTransparentForUncontrolledInput = property(get_IsTransparentForUncontrolledInput, put_IsTransparentForUncontrolledInput)
     IsPalmRejectionEnabled = property(get_IsPalmRejectionEnabled, put_IsPalmRejectionEnabled)
     Source = property(get_Source, None)
-class ICoreIndependentInputSourceControllerStatics(c_void_p):
+class ICoreIndependentInputSourceControllerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3edc4e20-9a8a-5691-85-86-fc-a4-cb-57-52-6d')
     @winrt_commethod(6)
     def CreateForVisual(self, visual: Windows.UI.Composition.Visual) -> Windows.UI.Core.CoreIndependentInputSourceController: ...
     @winrt_commethod(7)
     def CreateForIVisualElement(self, visualElement: Windows.UI.Composition.IVisualElement) -> Windows.UI.Core.CoreIndependentInputSourceController: ...
-class ICoreInputSourceBase(c_void_p):
+class ICoreInputSourceBase(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9f488807-4580-4be8-be-68-92-a9-31-17-13-bb')
     @winrt_commethod(6)
@@ -776,7 +776,7 @@ class ICoreInputSourceBase(c_void_p):
     def remove_InputEnabled(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
     Dispatcher = property(get_Dispatcher, None)
     IsInputEnabled = property(get_IsInputEnabled, put_IsInputEnabled)
-class ICoreKeyboardInputSource(c_void_p):
+class ICoreKeyboardInputSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('231c9088-e469-4df1-b2-08-6e-49-0d-71-cb-90')
     @winrt_commethod(6)
@@ -793,12 +793,12 @@ class ICoreKeyboardInputSource(c_void_p):
     def add_KeyUp(self, handler: Windows.Foundation.TypedEventHandler[Windows.Win32.System.WinRT.IInspectable_head, Windows.UI.Core.KeyEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_KeyUp(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class ICoreKeyboardInputSource2(c_void_p):
+class ICoreKeyboardInputSource2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fa24cb94-f963-47a5-87-78-20-7c-48-2b-0a-fd')
     @winrt_commethod(6)
     def GetCurrentKeyEventDeviceId(self) -> WinRT_String: ...
-class ICorePointerInputSource(c_void_p):
+class ICorePointerInputSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bbf1bb18-e47a-48eb-88-07-f8-f8-d3-ea-45-51')
     @winrt_commethod(6)
@@ -844,13 +844,13 @@ class ICorePointerInputSource(c_void_p):
     HasCapture = property(get_HasCapture, None)
     PointerPosition = property(get_PointerPosition, None)
     PointerCursor = property(get_PointerCursor, put_PointerCursor)
-class ICorePointerInputSource2(c_void_p):
+class ICorePointerInputSource2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d703708a-4516-4786-b1-e5-27-51-d5-63-f9-97')
     @winrt_commethod(6)
     def get_DispatcherQueue(self) -> Windows.System.DispatcherQueue: ...
     DispatcherQueue = property(get_DispatcherQueue, None)
-class ICorePointerRedirector(c_void_p):
+class ICorePointerRedirector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8f9d0c94-5688-4b0c-a9-f1-f9-31-f7-fa-3d-c3')
     @winrt_commethod(6)
@@ -865,14 +865,14 @@ class ICorePointerRedirector(c_void_p):
     def add_PointerRoutedReleased(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Core.ICorePointerRedirector, Windows.UI.Core.PointerEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_PointerRoutedReleased(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class ICoreTouchHitTesting(c_void_p):
+class ICoreTouchHitTesting(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b1d8a289-3acf-4124-9f-a3-ea-8a-ba-35-3c-21')
     @winrt_commethod(6)
     def add_TouchHitTesting(self, handler: Windows.Foundation.TypedEventHandler[Windows.Win32.System.WinRT.IInspectable_head, Windows.UI.Core.TouchHitTestingEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_TouchHitTesting(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class ICoreWindow(c_void_p):
+class ICoreWindow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('79b9d5f2-879e-4b89-b7-98-79-e4-75-98-03-0c')
     @winrt_commethod(6)
@@ -988,13 +988,13 @@ class ICoreWindow(c_void_p):
     PointerCursor = property(get_PointerCursor, put_PointerCursor)
     PointerPosition = property(get_PointerPosition, None)
     Visible = property(get_Visible, None)
-class ICoreWindow2(c_void_p):
+class ICoreWindow2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7c2b1b85-6917-4361-9c-02-0d-9e-3a-42-0b-95')
     @winrt_commethod(6)
     def put_PointerPosition(self, value: Windows.Foundation.Point) -> Void: ...
     PointerPosition = property(None, put_PointerPosition)
-class ICoreWindow3(c_void_p):
+class ICoreWindow3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('32c20dd8-faef-4375-a2-ab-32-64-0e-48-15-c7')
     @winrt_commethod(6)
@@ -1003,7 +1003,7 @@ class ICoreWindow3(c_void_p):
     def remove_ClosestInteractiveBoundsRequested(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def GetCurrentKeyEventDeviceId(self) -> WinRT_String: ...
-class ICoreWindow4(c_void_p):
+class ICoreWindow4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('35caf0d0-47f0-436c-af-97-0d-d8-8f-6f-5f-02')
     @winrt_commethod(6)
@@ -1014,7 +1014,7 @@ class ICoreWindow4(c_void_p):
     def add_ResizeCompleted(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Core.CoreWindow, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_ResizeCompleted(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class ICoreWindow5(c_void_p):
+class ICoreWindow5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4b4ae1e1-2e6d-4eaa-bd-a1-1c-5c-c1-be-e1-41')
     @winrt_commethod(6)
@@ -1023,7 +1023,7 @@ class ICoreWindow5(c_void_p):
     def get_ActivationMode(self) -> Windows.UI.Core.CoreWindowActivationMode: ...
     DispatcherQueue = property(get_DispatcherQueue, None)
     ActivationMode = property(get_ActivationMode, None)
-class ICoreWindowEventArgs(c_void_p):
+class ICoreWindowEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('272b1ef3-c633-4da5-a2-6c-c6-d0-f5-6b-29-da')
     @winrt_commethod(6)
@@ -1031,12 +1031,12 @@ class ICoreWindowEventArgs(c_void_p):
     @winrt_commethod(7)
     def put_Handled(self, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
-class ICoreWindowResizeManager(c_void_p):
+class ICoreWindowResizeManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b8f0b925-b350-48b3-a1-98-5c-1a-84-70-02-43')
     @winrt_commethod(6)
     def NotifyLayoutCompleted(self) -> Void: ...
-class ICoreWindowResizeManagerLayoutCapability(c_void_p):
+class ICoreWindowResizeManagerLayoutCapability(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bb74f27b-a544-4301-80-e6-0a-e0-33-ef-45-36')
     @winrt_commethod(6)
@@ -1044,40 +1044,40 @@ class ICoreWindowResizeManagerLayoutCapability(c_void_p):
     @winrt_commethod(7)
     def get_ShouldWaitForLayoutCompletion(self) -> Boolean: ...
     ShouldWaitForLayoutCompletion = property(get_ShouldWaitForLayoutCompletion, put_ShouldWaitForLayoutCompletion)
-class ICoreWindowResizeManagerStatics(c_void_p):
+class ICoreWindowResizeManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ae4a9045-6d70-49db-8e-68-46-ff-bd-17-d3-8d')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.Core.CoreWindowResizeManager: ...
-class ICoreWindowStatic(c_void_p):
+class ICoreWindowStatic(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4d239005-3c2a-41b1-90-22-53-6b-b9-cf-93-b1')
     @winrt_commethod(6)
     def GetForCurrentThread(self) -> Windows.UI.Core.CoreWindow: ...
-class ICoreWindowWithContext(c_void_p):
+class ICoreWindowWithContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9ac40241-3575-4c3b-af-66-e8-c5-29-d4-d0-6c')
     @winrt_commethod(6)
     def get_UIContext(self) -> Windows.UI.UIContext: ...
     UIContext = property(get_UIContext, None)
-class IIdleDispatchedHandlerArgs(c_void_p):
+class IIdleDispatchedHandlerArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('98bb6a24-dc1c-43cb-b4-ed-d1-c0-eb-23-91-f3')
     @winrt_commethod(6)
     def get_IsDispatcherIdle(self) -> Boolean: ...
     IsDispatcherIdle = property(get_IsDispatcherIdle, None)
-class IInitializeWithCoreWindow(c_void_p):
+class IInitializeWithCoreWindow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('188f20d6-9873-464a-ac-e5-57-e0-10-f4-65-e6')
     @winrt_commethod(6)
     def Initialize(self, window: Windows.UI.Core.CoreWindow) -> Void: ...
-class IInputEnabledEventArgs(c_void_p):
+class IInputEnabledEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('80371d4f-2fd8-4c24-aa-86-31-63-a8-7b-4e-5a')
     @winrt_commethod(6)
     def get_InputEnabled(self) -> Boolean: ...
     InputEnabled = property(get_InputEnabled, None)
-class IKeyEventArgs(c_void_p):
+class IKeyEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5ff5e930-2544-4a17-bd-78-1f-2f-de-bb-10-6b')
     @winrt_commethod(6)
@@ -1086,13 +1086,13 @@ class IKeyEventArgs(c_void_p):
     def get_KeyStatus(self) -> Windows.UI.Core.CorePhysicalKeyStatus: ...
     VirtualKey = property(get_VirtualKey, None)
     KeyStatus = property(get_KeyStatus, None)
-class IKeyEventArgs2(c_void_p):
+class IKeyEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('583add98-0790-4571-9b-12-64-5e-f9-d7-9e-42')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
-class IPointerEventArgs(c_void_p):
+class IPointerEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('920d9cb1-a5fc-4a21-8c-09-49-df-e6-ff-e2-5f')
     @winrt_commethod(6)
@@ -1103,14 +1103,14 @@ class IPointerEventArgs(c_void_p):
     def GetIntermediatePoints(self) -> Windows.Foundation.Collections.IVector[Windows.UI.Input.PointerPoint]: ...
     CurrentPoint = property(get_CurrentPoint, None)
     KeyModifiers = property(get_KeyModifiers, None)
-class ISystemNavigationManager(c_void_p):
+class ISystemNavigationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('93023118-cf50-42a6-97-06-69-10-7f-a1-22-e1')
     @winrt_commethod(6)
     def add_BackRequested(self, handler: Windows.Foundation.EventHandler[Windows.UI.Core.BackRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_BackRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class ISystemNavigationManager2(c_void_p):
+class ISystemNavigationManager2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8c510401-67be-49ae-95-09-67-1c-1e-54-a3-89')
     @winrt_commethod(6)
@@ -1118,12 +1118,12 @@ class ISystemNavigationManager2(c_void_p):
     @winrt_commethod(7)
     def put_AppViewBackButtonVisibility(self, value: Windows.UI.Core.AppViewBackButtonVisibility) -> Void: ...
     AppViewBackButtonVisibility = property(get_AppViewBackButtonVisibility, put_AppViewBackButtonVisibility)
-class ISystemNavigationManagerStatics(c_void_p):
+class ISystemNavigationManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dc52b5ce-bee0-4305-8c-54-68-22-8e-d6-83-b5')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.Core.SystemNavigationManager: ...
-class ITouchHitTestingEventArgs(c_void_p):
+class ITouchHitTestingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('22f3b823-0b7c-424e-9d-f7-33-d4-f9-62-93-1b')
     @winrt_commethod(6)
@@ -1141,37 +1141,37 @@ class ITouchHitTestingEventArgs(c_void_p):
     ProximityEvaluation = property(get_ProximityEvaluation, put_ProximityEvaluation)
     Point = property(get_Point, None)
     BoundingBox = property(get_BoundingBox, None)
-class IVisibilityChangedEventArgs(c_void_p):
+class IVisibilityChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bf9918ea-d801-4564-a4-95-b1-e8-4f-8a-d0-85')
     @winrt_commethod(6)
     def get_Visible(self) -> Boolean: ...
     Visible = property(get_Visible, None)
-class IWindowActivatedEventArgs(c_void_p):
+class IWindowActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('179d65e7-4658-4cb6-aa-13-41-d0-94-ea-25-5e')
     @winrt_commethod(6)
     def get_WindowActivationState(self) -> Windows.UI.Core.CoreWindowActivationState: ...
     WindowActivationState = property(get_WindowActivationState, None)
-class IWindowSizeChangedEventArgs(c_void_p):
+class IWindowSizeChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5a200ec7-0426-47dc-b8-6c-6f-47-59-15-e4-51')
     @winrt_commethod(6)
     def get_Size(self) -> Windows.Foundation.Size: ...
     Size = property(get_Size, None)
-class IdleDispatchedHandler(c_void_p):
+class IdleDispatchedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a42b0c24-7f21-4abc-99-c1-8f-01-00-7f-08-80')
     ClassId = 'Windows.UI.Core.IdleDispatchedHandler'
     @winrt_commethod(3)
     def Invoke(self, e: Windows.UI.Core.IdleDispatchedHandlerArgs) -> Void: ...
-class IdleDispatchedHandlerArgs(c_void_p):
+class IdleDispatchedHandlerArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.IdleDispatchedHandlerArgs'
     @winrt_mixinmethod
     def get_IsDispatcherIdle(self: Windows.UI.Core.IIdleDispatchedHandlerArgs) -> Boolean: ...
     IsDispatcherIdle = property(get_IsDispatcherIdle, None)
-class InputEnabledEventArgs(c_void_p):
+class InputEnabledEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.InputEnabledEventArgs'
     @winrt_mixinmethod
@@ -1182,7 +1182,7 @@ class InputEnabledEventArgs(c_void_p):
     def put_Handled(self: Windows.UI.Core.ICoreWindowEventArgs, value: Boolean) -> Void: ...
     InputEnabled = property(get_InputEnabled, None)
     Handled = property(get_Handled, put_Handled)
-class KeyEventArgs(c_void_p):
+class KeyEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.KeyEventArgs'
     @winrt_mixinmethod
@@ -1199,7 +1199,7 @@ class KeyEventArgs(c_void_p):
     KeyStatus = property(get_KeyStatus, None)
     Handled = property(get_Handled, put_Handled)
     DeviceId = property(get_DeviceId, None)
-class PointerEventArgs(c_void_p):
+class PointerEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.PointerEventArgs'
     @winrt_mixinmethod
@@ -1215,7 +1215,7 @@ class PointerEventArgs(c_void_p):
     CurrentPoint = property(get_CurrentPoint, None)
     KeyModifiers = property(get_KeyModifiers, None)
     Handled = property(get_Handled, put_Handled)
-class SystemNavigationManager(c_void_p):
+class SystemNavigationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.SystemNavigationManager'
     @winrt_mixinmethod
@@ -1229,7 +1229,7 @@ class SystemNavigationManager(c_void_p):
     @winrt_classmethod
     def GetForCurrentView(cls: Windows.UI.Core.ISystemNavigationManagerStatics) -> Windows.UI.Core.SystemNavigationManager: ...
     AppViewBackButtonVisibility = property(get_AppViewBackButtonVisibility, put_AppViewBackButtonVisibility)
-class TouchHitTestingEventArgs(c_void_p):
+class TouchHitTestingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.TouchHitTestingEventArgs'
     @winrt_mixinmethod
@@ -1252,7 +1252,7 @@ class TouchHitTestingEventArgs(c_void_p):
     Point = property(get_Point, None)
     BoundingBox = property(get_BoundingBox, None)
     Handled = property(get_Handled, put_Handled)
-class VisibilityChangedEventArgs(c_void_p):
+class VisibilityChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.VisibilityChangedEventArgs'
     @winrt_mixinmethod
@@ -1263,7 +1263,7 @@ class VisibilityChangedEventArgs(c_void_p):
     def put_Handled(self: Windows.UI.Core.ICoreWindowEventArgs, value: Boolean) -> Void: ...
     Visible = property(get_Visible, None)
     Handled = property(get_Handled, put_Handled)
-class WindowActivatedEventArgs(c_void_p):
+class WindowActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.WindowActivatedEventArgs'
     @winrt_mixinmethod
@@ -1274,7 +1274,7 @@ class WindowActivatedEventArgs(c_void_p):
     def put_Handled(self: Windows.UI.Core.ICoreWindowEventArgs, value: Boolean) -> Void: ...
     WindowActivationState = property(get_WindowActivationState, None)
     Handled = property(get_Handled, put_Handled)
-class WindowSizeChangedEventArgs(c_void_p):
+class WindowSizeChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.WindowSizeChangedEventArgs'
     @winrt_mixinmethod

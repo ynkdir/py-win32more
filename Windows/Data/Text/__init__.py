@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Data.Text
@@ -29,7 +29,7 @@ AlternateNormalizationFormat_Number: AlternateNormalizationFormat = 1
 AlternateNormalizationFormat_Currency: AlternateNormalizationFormat = 3
 AlternateNormalizationFormat_Date: AlternateNormalizationFormat = 4
 AlternateNormalizationFormat_Time: AlternateNormalizationFormat = 5
-class AlternateWordForm(c_void_p):
+class AlternateWordForm(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Text.AlternateWordForm'
     @winrt_mixinmethod
@@ -41,7 +41,7 @@ class AlternateWordForm(c_void_p):
     SourceTextSegment = property(get_SourceTextSegment, None)
     AlternateText = property(get_AlternateText, None)
     NormalizationFormat = property(get_NormalizationFormat, None)
-class IAlternateWordForm(c_void_p):
+class IAlternateWordForm(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('47396c1e-51b9-4207-91-46-24-8e-63-6a-1d-1d')
     @winrt_commethod(6)
@@ -53,7 +53,7 @@ class IAlternateWordForm(c_void_p):
     SourceTextSegment = property(get_SourceTextSegment, None)
     AlternateText = property(get_AlternateText, None)
     NormalizationFormat = property(get_NormalizationFormat, None)
-class ISelectableWordSegment(c_void_p):
+class ISelectableWordSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('916a4cb7-8aa7-4c78-b3-74-5d-ed-b7-52-e6-0b')
     @winrt_commethod(6)
@@ -62,7 +62,7 @@ class ISelectableWordSegment(c_void_p):
     def get_SourceTextSegment(self) -> Windows.Data.Text.TextSegment: ...
     Text = property(get_Text, None)
     SourceTextSegment = property(get_SourceTextSegment, None)
-class ISelectableWordsSegmenter(c_void_p):
+class ISelectableWordsSegmenter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f6dc31e7-4b13-45c5-88-97-7d-71-26-9e-08-5d')
     @winrt_commethod(6)
@@ -74,26 +74,26 @@ class ISelectableWordsSegmenter(c_void_p):
     @winrt_commethod(9)
     def Tokenize(self, text: WinRT_String, startIndex: UInt32, handler: Windows.Data.Text.SelectableWordSegmentsTokenizingHandler) -> Void: ...
     ResolvedLanguage = property(get_ResolvedLanguage, None)
-class ISelectableWordsSegmenterFactory(c_void_p):
+class ISelectableWordsSegmenterFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8c7a7648-6057-4339-bc-70-f2-10-01-0a-41-50')
     @winrt_commethod(6)
     def CreateWithLanguage(self, language: WinRT_String) -> Windows.Data.Text.SelectableWordsSegmenter: ...
-class ISemanticTextQuery(c_void_p):
+class ISemanticTextQuery(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6a1cab51-1fb2-4909-80-b8-35-73-1a-2b-3e-7f')
     @winrt_commethod(6)
     def Find(self, content: WinRT_String) -> Windows.Foundation.Collections.IVectorView[Windows.Data.Text.TextSegment]: ...
     @winrt_commethod(7)
     def FindInProperty(self, propertyContent: WinRT_String, propertyName: WinRT_String) -> Windows.Foundation.Collections.IVectorView[Windows.Data.Text.TextSegment]: ...
-class ISemanticTextQueryFactory(c_void_p):
+class ISemanticTextQueryFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('238c0503-f995-4587-87-77-a2-b7-d8-0a-cf-ef')
     @winrt_commethod(6)
     def Create(self, aqsFilter: WinRT_String) -> Windows.Data.Text.SemanticTextQuery: ...
     @winrt_commethod(7)
     def CreateWithLanguage(self, aqsFilter: WinRT_String, filterLanguage: WinRT_String) -> Windows.Data.Text.SemanticTextQuery: ...
-class ITextConversionGenerator(c_void_p):
+class ITextConversionGenerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('03606a5e-2aa9-4ab6-af-8b-a5-62-b6-3a-89-92')
     @winrt_commethod(6)
@@ -106,12 +106,12 @@ class ITextConversionGenerator(c_void_p):
     def GetCandidatesWithMaxCountAsync(self, input: WinRT_String, maxCandidates: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[WinRT_String]]: ...
     ResolvedLanguage = property(get_ResolvedLanguage, None)
     LanguageAvailableButNotInstalled = property(get_LanguageAvailableButNotInstalled, None)
-class ITextConversionGeneratorFactory(c_void_p):
+class ITextConversionGeneratorFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fcaa3781-3083-49ab-be-15-56-df-bb-b7-4d-6f')
     @winrt_commethod(6)
     def Create(self, languageTag: WinRT_String) -> Windows.Data.Text.TextConversionGenerator: ...
-class ITextPhoneme(c_void_p):
+class ITextPhoneme(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9362a40a-9b7a-4569-94-cf-d8-4f-2f-38-cf-9b')
     @winrt_commethod(6)
@@ -120,7 +120,7 @@ class ITextPhoneme(c_void_p):
     def get_ReadingText(self) -> WinRT_String: ...
     DisplayText = property(get_DisplayText, None)
     ReadingText = property(get_ReadingText, None)
-class ITextPredictionGenerator(c_void_p):
+class ITextPredictionGenerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5eacab07-abf1-4cb6-9d-9e-32-6f-2b-46-87-56')
     @winrt_commethod(6)
@@ -133,7 +133,7 @@ class ITextPredictionGenerator(c_void_p):
     def GetCandidatesWithMaxCountAsync(self, input: WinRT_String, maxCandidates: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[WinRT_String]]: ...
     ResolvedLanguage = property(get_ResolvedLanguage, None)
     LanguageAvailableButNotInstalled = property(get_LanguageAvailableButNotInstalled, None)
-class ITextPredictionGenerator2(c_void_p):
+class ITextPredictionGenerator2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b84723b8-2c77-486a-90-0a-a3-45-3e-ed-c1-5d')
     @winrt_commethod(6)
@@ -145,12 +145,12 @@ class ITextPredictionGenerator2(c_void_p):
     @winrt_commethod(9)
     def put_InputScope(self, value: Windows.UI.Text.Core.CoreTextInputScope) -> Void: ...
     InputScope = property(get_InputScope, put_InputScope)
-class ITextPredictionGeneratorFactory(c_void_p):
+class ITextPredictionGeneratorFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7257b416-8ba2-4751-9d-30-9d-85-43-56-53-a2')
     @winrt_commethod(6)
     def Create(self, languageTag: WinRT_String) -> Windows.Data.Text.TextPredictionGenerator: ...
-class ITextReverseConversionGenerator(c_void_p):
+class ITextReverseConversionGenerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('51e7f514-9c51-4d86-ae-1b-b4-98-fb-ad-83-13')
     @winrt_commethod(6)
@@ -161,17 +161,17 @@ class ITextReverseConversionGenerator(c_void_p):
     def ConvertBackAsync(self, input: WinRT_String) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     ResolvedLanguage = property(get_ResolvedLanguage, None)
     LanguageAvailableButNotInstalled = property(get_LanguageAvailableButNotInstalled, None)
-class ITextReverseConversionGenerator2(c_void_p):
+class ITextReverseConversionGenerator2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1aafd2ec-85d6-46fd-82-8a-3a-48-30-fa-6e-18')
     @winrt_commethod(6)
     def GetPhonemesAsync(self, input: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Data.Text.TextPhoneme]]: ...
-class ITextReverseConversionGeneratorFactory(c_void_p):
+class ITextReverseConversionGeneratorFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('63bed326-1fda-41f6-89-d5-23-dd-ea-3c-72-9a')
     @winrt_commethod(6)
     def Create(self, languageTag: WinRT_String) -> Windows.Data.Text.TextReverseConversionGenerator: ...
-class IUnicodeCharactersStatics(c_void_p):
+class IUnicodeCharactersStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('97909e87-9291-4f91-b6-c8-b6-e3-59-d7-a7-fb')
     @winrt_commethod(6)
@@ -208,7 +208,7 @@ class IUnicodeCharactersStatics(c_void_p):
     def GetNumericType(self, codepoint: UInt32) -> Windows.Data.Text.UnicodeNumericType: ...
     @winrt_commethod(22)
     def GetGeneralCategory(self, codepoint: UInt32) -> Windows.Data.Text.UnicodeGeneralCategory: ...
-class IWordSegment(c_void_p):
+class IWordSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d2d4ba6d-987c-4cc0-b6-bd-d4-9a-11-b3-8f-9a')
     @winrt_commethod(6)
@@ -220,7 +220,7 @@ class IWordSegment(c_void_p):
     Text = property(get_Text, None)
     SourceTextSegment = property(get_SourceTextSegment, None)
     AlternateForms = property(get_AlternateForms, None)
-class IWordsSegmenter(c_void_p):
+class IWordsSegmenter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('86b4d4d1-b2fe-4e34-a8-1d-66-64-03-00-45-4f')
     @winrt_commethod(6)
@@ -232,12 +232,12 @@ class IWordsSegmenter(c_void_p):
     @winrt_commethod(9)
     def Tokenize(self, text: WinRT_String, startIndex: UInt32, handler: Windows.Data.Text.WordSegmentsTokenizingHandler) -> Void: ...
     ResolvedLanguage = property(get_ResolvedLanguage, None)
-class IWordsSegmenterFactory(c_void_p):
+class IWordsSegmenterFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e6977274-fc35-455c-8b-fb-6d-7f-46-53-ca-97')
     @winrt_commethod(6)
     def CreateWithLanguage(self, language: WinRT_String) -> Windows.Data.Text.WordsSegmenter: ...
-class SelectableWordSegment(c_void_p):
+class SelectableWordSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Text.SelectableWordSegment'
     @winrt_mixinmethod
@@ -246,13 +246,13 @@ class SelectableWordSegment(c_void_p):
     def get_SourceTextSegment(self: Windows.Data.Text.ISelectableWordSegment) -> Windows.Data.Text.TextSegment: ...
     Text = property(get_Text, None)
     SourceTextSegment = property(get_SourceTextSegment, None)
-class SelectableWordSegmentsTokenizingHandler(c_void_p):
+class SelectableWordSegmentsTokenizingHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3a3dfc9c-aede-4dc7-9e-6c-41-c0-44-bd-35-92')
     ClassId = 'Windows.Data.Text.SelectableWordSegmentsTokenizingHandler'
     @winrt_commethod(3)
     def Invoke(self, precedingWords: Windows.Foundation.Collections.IIterable[Windows.Data.Text.SelectableWordSegment], words: Windows.Foundation.Collections.IIterable[Windows.Data.Text.SelectableWordSegment]) -> Void: ...
-class SelectableWordsSegmenter(c_void_p):
+class SelectableWordsSegmenter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Text.SelectableWordsSegmenter'
     @winrt_factorymethod
@@ -266,7 +266,7 @@ class SelectableWordsSegmenter(c_void_p):
     @winrt_mixinmethod
     def Tokenize(self: Windows.Data.Text.ISelectableWordsSegmenter, text: WinRT_String, startIndex: UInt32, handler: Windows.Data.Text.SelectableWordSegmentsTokenizingHandler) -> Void: ...
     ResolvedLanguage = property(get_ResolvedLanguage, None)
-class SemanticTextQuery(c_void_p):
+class SemanticTextQuery(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Text.SemanticTextQuery'
     @winrt_factorymethod
@@ -277,7 +277,7 @@ class SemanticTextQuery(c_void_p):
     def Find(self: Windows.Data.Text.ISemanticTextQuery, content: WinRT_String) -> Windows.Foundation.Collections.IVectorView[Windows.Data.Text.TextSegment]: ...
     @winrt_mixinmethod
     def FindInProperty(self: Windows.Data.Text.ISemanticTextQuery, propertyContent: WinRT_String, propertyName: WinRT_String) -> Windows.Foundation.Collections.IVectorView[Windows.Data.Text.TextSegment]: ...
-class TextConversionGenerator(c_void_p):
+class TextConversionGenerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Text.TextConversionGenerator'
     @winrt_factorymethod
@@ -292,7 +292,7 @@ class TextConversionGenerator(c_void_p):
     def GetCandidatesWithMaxCountAsync(self: Windows.Data.Text.ITextConversionGenerator, input: WinRT_String, maxCandidates: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[WinRT_String]]: ...
     ResolvedLanguage = property(get_ResolvedLanguage, None)
     LanguageAvailableButNotInstalled = property(get_LanguageAvailableButNotInstalled, None)
-class TextPhoneme(c_void_p):
+class TextPhoneme(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Text.TextPhoneme'
     @winrt_mixinmethod
@@ -301,7 +301,7 @@ class TextPhoneme(c_void_p):
     def get_ReadingText(self: Windows.Data.Text.ITextPhoneme) -> WinRT_String: ...
     DisplayText = property(get_DisplayText, None)
     ReadingText = property(get_ReadingText, None)
-class TextPredictionGenerator(c_void_p):
+class TextPredictionGenerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Text.TextPredictionGenerator'
     @winrt_factorymethod
@@ -329,7 +329,7 @@ TextPredictionOptions = UInt32
 TextPredictionOptions_None: TextPredictionOptions = 0
 TextPredictionOptions_Predictions: TextPredictionOptions = 1
 TextPredictionOptions_Corrections: TextPredictionOptions = 2
-class TextReverseConversionGenerator(c_void_p):
+class TextReverseConversionGenerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Text.TextReverseConversionGenerator'
     @winrt_factorymethod
@@ -347,7 +347,7 @@ class TextReverseConversionGenerator(c_void_p):
 class TextSegment(EasyCastStructure):
     StartPosition: UInt32
     Length: UInt32
-class UnicodeCharacters(c_void_p):
+class UnicodeCharacters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Text.UnicodeCharacters'
     @winrt_classmethod
@@ -420,7 +420,7 @@ UnicodeNumericType_None: UnicodeNumericType = 0
 UnicodeNumericType_Decimal: UnicodeNumericType = 1
 UnicodeNumericType_Digit: UnicodeNumericType = 2
 UnicodeNumericType_Numeric: UnicodeNumericType = 3
-class WordSegment(c_void_p):
+class WordSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Text.WordSegment'
     @winrt_mixinmethod
@@ -432,13 +432,13 @@ class WordSegment(c_void_p):
     Text = property(get_Text, None)
     SourceTextSegment = property(get_SourceTextSegment, None)
     AlternateForms = property(get_AlternateForms, None)
-class WordSegmentsTokenizingHandler(c_void_p):
+class WordSegmentsTokenizingHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a5dd6357-bf2a-4c4f-a3-1f-29-e7-1c-6f-8b-35')
     ClassId = 'Windows.Data.Text.WordSegmentsTokenizingHandler'
     @winrt_commethod(3)
     def Invoke(self, precedingWords: Windows.Foundation.Collections.IIterable[Windows.Data.Text.WordSegment], words: Windows.Foundation.Collections.IIterable[Windows.Data.Text.WordSegment]) -> Void: ...
-class WordsSegmenter(c_void_p):
+class WordsSegmenter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Text.WordsSegmenter'
     @winrt_factorymethod

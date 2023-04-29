@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation.Collections
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IInjectedInputGamepadInfo(c_void_p):
+class IInjectedInputGamepadInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('20ae9a3f-df11-4572-a9-ab-d7-5b-8a-5e-48-ad')
     @winrt_commethod(6)
@@ -60,12 +60,12 @@ class IInjectedInputGamepadInfo(c_void_p):
     RightThumbstickX = property(get_RightThumbstickX, put_RightThumbstickX)
     RightThumbstickY = property(get_RightThumbstickY, put_RightThumbstickY)
     RightTrigger = property(get_RightTrigger, put_RightTrigger)
-class IInjectedInputGamepadInfoFactory(c_void_p):
+class IInjectedInputGamepadInfoFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('59596876-6c39-4ec4-8b-2a-29-ef-7d-e1-8a-ca')
     @winrt_commethod(6)
     def CreateInstanceFromGamepadReading(self, reading: Windows.Gaming.Input.GamepadReading) -> Windows.UI.Input.Preview.Injection.InjectedInputGamepadInfo: ...
-class IInjectedInputKeyboardInfo(c_void_p):
+class IInjectedInputKeyboardInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4b46d140-2b6a-5ffa-7e-ae-bd-07-7b-05-2a-cd')
     @winrt_commethod(6)
@@ -83,7 +83,7 @@ class IInjectedInputKeyboardInfo(c_void_p):
     KeyOptions = property(get_KeyOptions, put_KeyOptions)
     ScanCode = property(get_ScanCode, put_ScanCode)
     VirtualKey = property(get_VirtualKey, put_VirtualKey)
-class IInjectedInputMouseInfo(c_void_p):
+class IInjectedInputMouseInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('96f56e6b-e47a-5cf4-41-8d-8a-5f-b9-67-0c-7d')
     @winrt_commethod(6)
@@ -111,7 +111,7 @@ class IInjectedInputMouseInfo(c_void_p):
     DeltaY = property(get_DeltaY, put_DeltaY)
     DeltaX = property(get_DeltaX, put_DeltaX)
     TimeOffsetInMilliseconds = property(get_TimeOffsetInMilliseconds, put_TimeOffsetInMilliseconds)
-class IInjectedInputPenInfo(c_void_p):
+class IInjectedInputPenInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6b40ad03-ca1e-5527-7e-02-28-28-54-0b-b1-d4')
     @winrt_commethod(6)
@@ -149,7 +149,7 @@ class IInjectedInputPenInfo(c_void_p):
     Rotation = property(get_Rotation, put_Rotation)
     TiltX = property(get_TiltX, put_TiltX)
     TiltY = property(get_TiltY, put_TiltY)
-class IInjectedInputTouchInfo(c_void_p):
+class IInjectedInputTouchInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('224fd1df-43e8-5ef5-51-0a-69-ca-8c-9b-4c-28')
     @winrt_commethod(6)
@@ -177,7 +177,7 @@ class IInjectedInputTouchInfo(c_void_p):
     PointerInfo = property(get_PointerInfo, put_PointerInfo)
     Pressure = property(get_Pressure, put_Pressure)
     TouchParameters = property(get_TouchParameters, put_TouchParameters)
-class IInputInjector(c_void_p):
+class IInputInjector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8ec26f84-0b02-4bd2-ad-7a-3d-46-58-be-3e-18')
     @winrt_commethod(6)
@@ -198,7 +198,7 @@ class IInputInjector(c_void_p):
     def UninitializePenInjection(self) -> Void: ...
     @winrt_commethod(14)
     def InjectShortcut(self, shortcut: Windows.UI.Input.Preview.Injection.InjectedInputShortcut) -> Void: ...
-class IInputInjector2(c_void_p):
+class IInputInjector2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8e7a905d-1453-43a7-9b-cb-06-d6-d7-b3-05-f7')
     @winrt_commethod(6)
@@ -207,12 +207,12 @@ class IInputInjector2(c_void_p):
     def InjectGamepadInput(self, input: Windows.UI.Input.Preview.Injection.InjectedInputGamepadInfo) -> Void: ...
     @winrt_commethod(8)
     def UninitializeGamepadInjection(self) -> Void: ...
-class IInputInjectorStatics(c_void_p):
+class IInputInjectorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('deae6943-7402-4141-a5-c6-0c-01-aa-57-b1-6a')
     @winrt_commethod(6)
     def TryCreate(self) -> Windows.UI.Input.Preview.Injection.InputInjector: ...
-class IInputInjectorStatics2(c_void_p):
+class IInputInjectorStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a4db38fb-dd8c-414f-95-ea-f8-7e-f4-c0-ae-6c')
     @winrt_commethod(6)
@@ -229,7 +229,7 @@ InjectedInputButtonChangeKind_FourthButtonDown: InjectedInputButtonChangeKind = 
 InjectedInputButtonChangeKind_FourthButtonUp: InjectedInputButtonChangeKind = 8
 InjectedInputButtonChangeKind_FifthButtonDown: InjectedInputButtonChangeKind = 9
 InjectedInputButtonChangeKind_FifthButtonUp: InjectedInputButtonChangeKind = 10
-class InjectedInputGamepadInfo(c_void_p):
+class InjectedInputGamepadInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Input.Preview.Injection.InjectedInputGamepadInfo'
     @winrt_activatemethod
@@ -277,7 +277,7 @@ InjectedInputKeyOptions_ExtendedKey: InjectedInputKeyOptions = 1
 InjectedInputKeyOptions_KeyUp: InjectedInputKeyOptions = 2
 InjectedInputKeyOptions_ScanCode: InjectedInputKeyOptions = 8
 InjectedInputKeyOptions_Unicode: InjectedInputKeyOptions = 4
-class InjectedInputKeyboardInfo(c_void_p):
+class InjectedInputKeyboardInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Input.Preview.Injection.InjectedInputKeyboardInfo'
     @winrt_activatemethod
@@ -297,7 +297,7 @@ class InjectedInputKeyboardInfo(c_void_p):
     KeyOptions = property(get_KeyOptions, put_KeyOptions)
     ScanCode = property(get_ScanCode, put_ScanCode)
     VirtualKey = property(get_VirtualKey, put_VirtualKey)
-class InjectedInputMouseInfo(c_void_p):
+class InjectedInputMouseInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Input.Preview.Injection.InjectedInputMouseInfo'
     @winrt_activatemethod
@@ -348,7 +348,7 @@ InjectedInputPenButtons_None: InjectedInputPenButtons = 0
 InjectedInputPenButtons_Barrel: InjectedInputPenButtons = 1
 InjectedInputPenButtons_Inverted: InjectedInputPenButtons = 2
 InjectedInputPenButtons_Eraser: InjectedInputPenButtons = 4
-class InjectedInputPenInfo(c_void_p):
+class InjectedInputPenInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Input.Preview.Injection.InjectedInputPenInfo'
     @winrt_activatemethod
@@ -426,7 +426,7 @@ InjectedInputShortcut = Int32
 InjectedInputShortcut_Back: InjectedInputShortcut = 0
 InjectedInputShortcut_Start: InjectedInputShortcut = 1
 InjectedInputShortcut_Search: InjectedInputShortcut = 2
-class InjectedInputTouchInfo(c_void_p):
+class InjectedInputTouchInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Input.Preview.Injection.InjectedInputTouchInfo'
     @winrt_activatemethod
@@ -465,7 +465,7 @@ InjectedInputVisualizationMode = Int32
 InjectedInputVisualizationMode_None: InjectedInputVisualizationMode = 0
 InjectedInputVisualizationMode_Default: InjectedInputVisualizationMode = 1
 InjectedInputVisualizationMode_Indirect: InjectedInputVisualizationMode = 2
-class InputInjector(c_void_p):
+class InputInjector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Input.Preview.Injection.InputInjector'
     @winrt_mixinmethod

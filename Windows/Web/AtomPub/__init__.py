@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Data.Xml.Dom
@@ -26,7 +26,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AtomPubClient(c_void_p):
+class AtomPubClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.AtomPub.AtomPubClient'
     @winrt_factorymethod
@@ -84,7 +84,7 @@ class AtomPubClient(c_void_p):
     MaxResponseBufferSize = property(get_MaxResponseBufferSize, put_MaxResponseBufferSize)
     Timeout = property(get_Timeout, put_Timeout)
     BypassCacheOnRetrieve = property(get_BypassCacheOnRetrieve, put_BypassCacheOnRetrieve)
-class IAtomPubClient(c_void_p):
+class IAtomPubClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('35392c38-cded-4d4c-96-37-05-f1-5c-1c-94-06')
     @winrt_commethod(6)
@@ -109,12 +109,12 @@ class IAtomPubClient(c_void_p):
     def DeleteResourceItemAsync(self, item: Windows.Web.Syndication.SyndicationItem) -> Windows.Foundation.IAsyncActionWithProgress[Windows.Web.Syndication.TransferProgress]: ...
     @winrt_commethod(16)
     def CancelAsyncOperations(self) -> Void: ...
-class IAtomPubClientFactory(c_void_p):
+class IAtomPubClientFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('49d55012-57cb-4bde-ab-9f-26-10-b1-72-77-7b')
     @winrt_commethod(6)
     def CreateAtomPubClientWithCredentials(self, serverCredential: Windows.Security.Credentials.PasswordCredential) -> Windows.Web.AtomPub.AtomPubClient: ...
-class IResourceCollection(c_void_p):
+class IResourceCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7f5fd609-bc88-41d4-88-fa-3d-e6-70-4d-42-8e')
     @winrt_commethod(6)
@@ -129,13 +129,13 @@ class IResourceCollection(c_void_p):
     Uri = property(get_Uri, None)
     Categories = property(get_Categories, None)
     Accepts = property(get_Accepts, None)
-class IServiceDocument(c_void_p):
+class IServiceDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8b7ec771-2ab3-4dbe-8b-cc-77-8f-92-b7-5e-51')
     @winrt_commethod(6)
     def get_Workspaces(self) -> Windows.Foundation.Collections.IVectorView[Windows.Web.AtomPub.Workspace]: ...
     Workspaces = property(get_Workspaces, None)
-class IWorkspace(c_void_p):
+class IWorkspace(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b41da63b-a4b8-4036-89-c5-83-c3-12-66-ba-49')
     @winrt_commethod(6)
@@ -144,7 +144,7 @@ class IWorkspace(c_void_p):
     def get_Collections(self) -> Windows.Foundation.Collections.IVectorView[Windows.Web.AtomPub.ResourceCollection]: ...
     Title = property(get_Title, None)
     Collections = property(get_Collections, None)
-class ResourceCollection(c_void_p):
+class ResourceCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.AtomPub.ResourceCollection'
     @winrt_mixinmethod
@@ -192,7 +192,7 @@ class ResourceCollection(c_void_p):
     BaseUri = property(get_BaseUri, put_BaseUri)
     AttributeExtensions = property(get_AttributeExtensions, None)
     ElementExtensions = property(get_ElementExtensions, None)
-class ServiceDocument(c_void_p):
+class ServiceDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.AtomPub.ServiceDocument'
     @winrt_mixinmethod
@@ -231,7 +231,7 @@ class ServiceDocument(c_void_p):
     BaseUri = property(get_BaseUri, put_BaseUri)
     AttributeExtensions = property(get_AttributeExtensions, None)
     ElementExtensions = property(get_ElementExtensions, None)
-class Workspace(c_void_p):
+class Workspace(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.AtomPub.Workspace'
     @winrt_mixinmethod

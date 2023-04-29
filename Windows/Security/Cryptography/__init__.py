@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Security.Cryptography
@@ -25,7 +25,7 @@ BinaryStringEncoding = Int32
 BinaryStringEncoding_Utf8: BinaryStringEncoding = 0
 BinaryStringEncoding_Utf16LE: BinaryStringEncoding = 1
 BinaryStringEncoding_Utf16BE: BinaryStringEncoding = 2
-class CryptographicBuffer(c_void_p):
+class CryptographicBuffer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.CryptographicBuffer'
     @winrt_classmethod
@@ -50,7 +50,7 @@ class CryptographicBuffer(c_void_p):
     def ConvertStringToBinary(cls: Windows.Security.Cryptography.ICryptographicBufferStatics, value: WinRT_String, encoding: Windows.Security.Cryptography.BinaryStringEncoding) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_classmethod
     def ConvertBinaryToString(cls: Windows.Security.Cryptography.ICryptographicBufferStatics, encoding: Windows.Security.Cryptography.BinaryStringEncoding, buffer: Windows.Storage.Streams.IBuffer) -> WinRT_String: ...
-class ICryptographicBufferStatics(c_void_p):
+class ICryptographicBufferStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('320b7e22-3cb0-4cdf-86-63-1d-28-91-00-65-eb')
     @winrt_commethod(6)

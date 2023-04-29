@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel
@@ -31,7 +31,7 @@ AddResourcePackageOptions = UInt32
 AddResourcePackageOptions_None: AddResourcePackageOptions = 0
 AddResourcePackageOptions_ForceTargetAppShutdown: AddResourcePackageOptions = 1
 AddResourcePackageOptions_ApplyUpdateIfAvailable: AddResourcePackageOptions = 2
-class AppDisplayInfo(c_void_p):
+class AppDisplayInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.AppDisplayInfo'
     @winrt_mixinmethod
@@ -46,7 +46,7 @@ AppExecutionContext = Int32
 AppExecutionContext_Unknown: AppExecutionContext = 0
 AppExecutionContext_Host: AppExecutionContext = 1
 AppExecutionContext_Guest: AppExecutionContext = 2
-class AppInfo(c_void_p):
+class AppInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.AppInfo'
     @winrt_mixinmethod
@@ -77,7 +77,7 @@ class AppInfo(c_void_p):
     ExecutionContext = property(get_ExecutionContext, None)
     SupportedFileExtensions = property(get_SupportedFileExtensions, None)
     Current = property(get_Current, None)
-class AppInstallerInfo(c_void_p):
+class AppInstallerInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.AppInstallerInfo'
     @winrt_mixinmethod
@@ -131,7 +131,7 @@ class AppInstallerInfo(c_void_p):
 AppInstallerPolicySource = Int32
 AppInstallerPolicySource_Default: AppInstallerPolicySource = 0
 AppInstallerPolicySource_System: AppInstallerPolicySource = 1
-class AppInstance(c_void_p):
+class AppInstance(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.AppInstance'
     @winrt_mixinmethod
@@ -153,7 +153,7 @@ class AppInstance(c_void_p):
     Key = property(get_Key, None)
     IsCurrentInstance = property(get_IsCurrentInstance, None)
     RecommendedInstance = property(get_RecommendedInstance, None)
-class DesignMode(c_void_p):
+class DesignMode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DesignMode'
     @winrt_classmethod
@@ -162,12 +162,12 @@ class DesignMode(c_void_p):
     def get_DesignModeEnabled(cls: Windows.ApplicationModel.IDesignModeStatics) -> Boolean: ...
     DesignMode2Enabled = property(get_DesignMode2Enabled, None)
     DesignModeEnabled = property(get_DesignModeEnabled, None)
-class EnteredBackgroundEventArgs(c_void_p):
+class EnteredBackgroundEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.EnteredBackgroundEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.IEnteredBackgroundEventArgs) -> Windows.Foundation.Deferral: ...
-class FindRelatedPackagesOptions(c_void_p):
+class FindRelatedPackagesOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.FindRelatedPackagesOptions'
     @winrt_factorymethod
@@ -197,7 +197,7 @@ class FindRelatedPackagesOptions(c_void_p):
     IncludeHostRuntimes = property(get_IncludeHostRuntimes, put_IncludeHostRuntimes)
     IncludeOptionals = property(get_IncludeOptionals, put_IncludeOptionals)
     IncludeResources = property(get_IncludeResources, put_IncludeResources)
-class IAppDisplayInfo(c_void_p):
+class IAppDisplayInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1aeb1103-e4d4-41aa-a4-f6-c4-a2-76-e7-9e-ac')
     @winrt_commethod(6)
@@ -208,7 +208,7 @@ class IAppDisplayInfo(c_void_p):
     def GetLogo(self, size: Windows.Foundation.Size) -> Windows.Storage.Streams.RandomAccessStreamReference: ...
     DisplayName = property(get_DisplayName, None)
     Description = property(get_Description, None)
-class IAppInfo(c_void_p):
+class IAppInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cf7f59b3-6a09-4de8-a6-c0-57-92-d5-68-80-d1')
     @winrt_commethod(6)
@@ -223,25 +223,25 @@ class IAppInfo(c_void_p):
     AppUserModelId = property(get_AppUserModelId, None)
     DisplayInfo = property(get_DisplayInfo, None)
     PackageFamilyName = property(get_PackageFamilyName, None)
-class IAppInfo2(c_void_p):
+class IAppInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('be4b1f5a-2098-431b-bd-25-b3-08-78-74-8d-47')
     @winrt_commethod(6)
     def get_Package(self) -> Windows.ApplicationModel.Package: ...
     Package = property(get_Package, None)
-class IAppInfo3(c_void_p):
+class IAppInfo3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('09a78e46-93a4-46de-93-97-08-43-b5-71-15-ea')
     @winrt_commethod(6)
     def get_ExecutionContext(self) -> Windows.ApplicationModel.AppExecutionContext: ...
     ExecutionContext = property(get_ExecutionContext, None)
-class IAppInfo4(c_void_p):
+class IAppInfo4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2f34bdeb-1609-4554-9f-33-12-e1-e8-03-e0-d4')
     @winrt_commethod(6)
     def get_SupportedFileExtensions(self) -> POINTER(WinRT_String): ...
     SupportedFileExtensions = property(get_SupportedFileExtensions, None)
-class IAppInfoStatics(c_void_p):
+class IAppInfoStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cf1f782a-e48b-4f0c-9b-0b-79-c3-f8-95-7d-d7')
     @winrt_commethod(6)
@@ -251,13 +251,13 @@ class IAppInfoStatics(c_void_p):
     @winrt_commethod(8)
     def GetFromAppUserModelIdForUser(self, user: Windows.System.User, appUserModelId: WinRT_String) -> Windows.ApplicationModel.AppInfo: ...
     Current = property(get_Current, None)
-class IAppInstallerInfo(c_void_p):
+class IAppInstallerInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('29ab2ac0-d4f6-42a3-ad-cd-d6-58-3c-65-95-08')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
     Uri = property(get_Uri, None)
-class IAppInstallerInfo2(c_void_p):
+class IAppInstallerInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d20f1388-8256-597c-85-11-c8-4e-c5-0d-5e-2b')
     @winrt_commethod(6)
@@ -305,7 +305,7 @@ class IAppInstallerInfo2(c_void_p):
     DependencyPackageUris = property(get_DependencyPackageUris, None)
     OptionalPackageUris = property(get_OptionalPackageUris, None)
     PolicySource = property(get_PolicySource, None)
-class IAppInstance(c_void_p):
+class IAppInstance(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('675f2b47-f25f-4532-9f-d6-36-33-e0-63-4d-01')
     @winrt_commethod(6)
@@ -316,7 +316,7 @@ class IAppInstance(c_void_p):
     def RedirectActivationTo(self) -> Void: ...
     Key = property(get_Key, None)
     IsCurrentInstance = property(get_IsCurrentInstance, None)
-class IAppInstanceStatics(c_void_p):
+class IAppInstanceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9d11e77f-9ea6-47af-a6-ec-46-78-4c-5b-a2-54')
     @winrt_commethod(6)
@@ -330,24 +330,24 @@ class IAppInstanceStatics(c_void_p):
     @winrt_commethod(10)
     def GetInstances(self) -> Windows.Foundation.Collections.IVector[Windows.ApplicationModel.AppInstance]: ...
     RecommendedInstance = property(get_RecommendedInstance, None)
-class IDesignModeStatics(c_void_p):
+class IDesignModeStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2c3893cc-f81a-4e7a-b8-57-76-a8-08-87-e1-85')
     @winrt_commethod(6)
     def get_DesignModeEnabled(self) -> Boolean: ...
     DesignModeEnabled = property(get_DesignModeEnabled, None)
-class IDesignModeStatics2(c_void_p):
+class IDesignModeStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('80cf8137-b064-4858-be-c8-3e-ba-22-35-75-35')
     @winrt_commethod(6)
     def get_DesignMode2Enabled(self) -> Boolean: ...
     DesignMode2Enabled = property(get_DesignMode2Enabled, None)
-class IEnteredBackgroundEventArgs(c_void_p):
+class IEnteredBackgroundEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f722dcc2-9827-403d-aa-ed-ec-ca-9a-c1-73-98')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
-class IFindRelatedPackagesOptions(c_void_p):
+class IFindRelatedPackagesOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('41dd7eea-b335-521f-b9-6c-5e-a0-7f-5b-73-29')
     @winrt_commethod(6)
@@ -375,17 +375,17 @@ class IFindRelatedPackagesOptions(c_void_p):
     IncludeHostRuntimes = property(get_IncludeHostRuntimes, put_IncludeHostRuntimes)
     IncludeOptionals = property(get_IncludeOptionals, put_IncludeOptionals)
     IncludeResources = property(get_IncludeResources, put_IncludeResources)
-class IFindRelatedPackagesOptionsFactory(c_void_p):
+class IFindRelatedPackagesOptionsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d7d17254-a4fd-55c4-98-cf-f2-71-0b-7d-8b-e2')
     @winrt_commethod(6)
     def CreateInstance(self, Relationship: Windows.ApplicationModel.PackageRelationship) -> Windows.ApplicationModel.FindRelatedPackagesOptions: ...
-class ILeavingBackgroundEventArgs(c_void_p):
+class ILeavingBackgroundEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('39c6ec9a-ae6e-46f9-a0-7a-cf-c2-3f-88-73-3e')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
-class ILimitedAccessFeatureRequestResult(c_void_p):
+class ILimitedAccessFeatureRequestResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d45156a6-1e24-5ddd-ab-b4-61-88-ab-a4-d5-bf')
     @winrt_commethod(6)
@@ -397,12 +397,12 @@ class ILimitedAccessFeatureRequestResult(c_void_p):
     FeatureId = property(get_FeatureId, None)
     Status = property(get_Status, None)
     EstimatedRemovalDate = property(get_EstimatedRemovalDate, None)
-class ILimitedAccessFeaturesStatics(c_void_p):
+class ILimitedAccessFeaturesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8be612d4-302b-5fbf-a6-32-1a-99-e4-3e-89-25')
     @winrt_commethod(6)
     def TryUnlockFeature(self, featureId: WinRT_String, token: WinRT_String, attestation: WinRT_String) -> Windows.ApplicationModel.LimitedAccessFeatureRequestResult: ...
-class IPackage(c_void_p):
+class IPackage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('163c792f-bd75-413c-bf-23-b1-fe-7b-95-d8-25')
     @winrt_commethod(6)
@@ -417,7 +417,7 @@ class IPackage(c_void_p):
     InstalledLocation = property(get_InstalledLocation, None)
     IsFramework = property(get_IsFramework, None)
     Dependencies = property(get_Dependencies, None)
-class IPackage2(c_void_p):
+class IPackage2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a6612fb6-7688-4ace-95-fb-35-95-38-e7-aa-01')
     @winrt_commethod(6)
@@ -441,7 +441,7 @@ class IPackage2(c_void_p):
     IsResourcePackage = property(get_IsResourcePackage, None)
     IsBundle = property(get_IsBundle, None)
     IsDevelopmentMode = property(get_IsDevelopmentMode, None)
-class IPackage3(c_void_p):
+class IPackage3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5f738b61-f86a-4917-93-d1-f1-ee-9d-3b-35-d9')
     @winrt_commethod(6)
@@ -452,7 +452,7 @@ class IPackage3(c_void_p):
     def GetAppListEntriesAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Core.AppListEntry]]: ...
     Status = property(get_Status, None)
     InstalledDate = property(get_InstalledDate, None)
-class IPackage4(c_void_p):
+class IPackage4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('65aed1ae-b95b-450c-88-2b-62-55-18-7f-39-7e')
     @winrt_commethod(6)
@@ -463,7 +463,7 @@ class IPackage4(c_void_p):
     def VerifyContentIntegrityAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     SignatureKind = property(get_SignatureKind, None)
     IsOptional = property(get_IsOptional, None)
-class IPackage5(c_void_p):
+class IPackage5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0e842dd4-d9ac-45ed-9a-1e-74-ce-05-6b-26-35')
     @winrt_commethod(6)
@@ -476,14 +476,14 @@ class IPackage5(c_void_p):
     def StageContentGroupsWithPriorityAsync(self, names: Windows.Foundation.Collections.IIterable[WinRT_String], moveToHeadOfQueue: Boolean) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVector[Windows.ApplicationModel.PackageContentGroup]]: ...
     @winrt_commethod(10)
     def SetInUseAsync(self, inUse: Boolean) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
-class IPackage6(c_void_p):
+class IPackage6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8b1ad942-12d7-4754-ae-4e-63-8c-bc-0e-3a-2e')
     @winrt_commethod(6)
     def GetAppInstallerInfo(self) -> Windows.ApplicationModel.AppInstallerInfo: ...
     @winrt_commethod(7)
     def CheckUpdateAvailabilityAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.PackageUpdateAvailabilityResult]: ...
-class IPackage7(c_void_p):
+class IPackage7(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('86ff8d31-a2e4-45e0-97-32-28-3a-6d-88-fd-e1')
     @winrt_commethod(6)
@@ -492,7 +492,7 @@ class IPackage7(c_void_p):
     def get_EffectiveLocation(self) -> Windows.Storage.StorageFolder: ...
     MutableLocation = property(get_MutableLocation, None)
     EffectiveLocation = property(get_EffectiveLocation, None)
-class IPackage8(c_void_p):
+class IPackage8(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2c584f7b-ce2a-4be6-a0-93-77-cf-bb-2a-7e-a1')
     @winrt_commethod(6)
@@ -529,7 +529,7 @@ class IPackage8(c_void_p):
     MachineExternalPath = property(get_MachineExternalPath, None)
     UserExternalPath = property(get_UserExternalPath, None)
     IsStub = property(get_IsStub, None)
-class IPackage9(c_void_p):
+class IPackage9(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d5ab224f-d7e1-49ec-90-ce-72-0c-db-d0-2e-9c')
     @winrt_commethod(6)
@@ -537,7 +537,7 @@ class IPackage9(c_void_p):
     @winrt_commethod(7)
     def get_SourceUriSchemeName(self) -> WinRT_String: ...
     SourceUriSchemeName = property(get_SourceUriSchemeName, None)
-class IPackageCatalog(c_void_p):
+class IPackageCatalog(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('230a3751-9de3-4445-be-74-91-fb-32-5a-be-fe')
     @winrt_commethod(6)
@@ -560,7 +560,7 @@ class IPackageCatalog(c_void_p):
     def add_PackageStatusChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.PackageCatalog, Windows.ApplicationModel.PackageStatusChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(15)
     def remove_PackageStatusChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IPackageCatalog2(c_void_p):
+class IPackageCatalog2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('96a60c36-8ff7-4344-b6-bf-ee-64-c2-20-7e-d2')
     @winrt_commethod(6)
@@ -569,19 +569,19 @@ class IPackageCatalog2(c_void_p):
     def remove_PackageContentGroupStaging(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def AddOptionalPackageAsync(self, optionalPackageFamilyName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.PackageCatalogAddOptionalPackageResult]: ...
-class IPackageCatalog3(c_void_p):
+class IPackageCatalog3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('96dd5c88-8837-43f9-90-15-03-34-34-ba-14-f3')
     @winrt_commethod(6)
     def RemoveOptionalPackagesAsync(self, optionalPackageFamilyNames: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.PackageCatalogRemoveOptionalPackagesResult]: ...
-class IPackageCatalog4(c_void_p):
+class IPackageCatalog4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c37c399b-44cc-4b7b-8b-af-79-6c-04-ea-d3-b9')
     @winrt_commethod(6)
     def AddResourcePackageAsync(self, resourcePackageFamilyName: WinRT_String, resourceID: WinRT_String, options: Windows.ApplicationModel.AddResourcePackageOptions) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.ApplicationModel.PackageCatalogAddResourcePackageResult, Windows.ApplicationModel.PackageInstallProgress]: ...
     @winrt_commethod(7)
     def RemoveResourcePackagesAsync(self, resourcePackages: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Package]) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.PackageCatalogRemoveResourcePackagesResult]: ...
-class IPackageCatalogAddOptionalPackageResult(c_void_p):
+class IPackageCatalogAddOptionalPackageResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3bf10cd4-b4df-47b3-a9-63-e2-fa-83-2f-7d-d3')
     @winrt_commethod(6)
@@ -590,7 +590,7 @@ class IPackageCatalogAddOptionalPackageResult(c_void_p):
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     Package = property(get_Package, None)
     ExtendedError = property(get_ExtendedError, None)
-class IPackageCatalogAddResourcePackageResult(c_void_p):
+class IPackageCatalogAddResourcePackageResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9636ce0d-3e17-493f-aa-08-cc-ec-6f-de-f6-99')
     @winrt_commethod(6)
@@ -602,7 +602,7 @@ class IPackageCatalogAddResourcePackageResult(c_void_p):
     Package = property(get_Package, None)
     IsComplete = property(get_IsComplete, None)
     ExtendedError = property(get_ExtendedError, None)
-class IPackageCatalogRemoveOptionalPackagesResult(c_void_p):
+class IPackageCatalogRemoveOptionalPackagesResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('29d2f97b-d974-4e64-93-59-22-ca-df-d7-98-28')
     @winrt_commethod(6)
@@ -611,7 +611,7 @@ class IPackageCatalogRemoveOptionalPackagesResult(c_void_p):
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     PackagesRemoved = property(get_PackagesRemoved, None)
     ExtendedError = property(get_ExtendedError, None)
-class IPackageCatalogRemoveResourcePackagesResult(c_void_p):
+class IPackageCatalogRemoveResourcePackagesResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ae719709-1a52-4321-87-b3-e5-a1-a1-79-81-a7')
     @winrt_commethod(6)
@@ -620,19 +620,19 @@ class IPackageCatalogRemoveResourcePackagesResult(c_void_p):
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     PackagesRemoved = property(get_PackagesRemoved, None)
     ExtendedError = property(get_ExtendedError, None)
-class IPackageCatalogStatics(c_void_p):
+class IPackageCatalogStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a18c9696-e65b-4634-ba-21-5e-63-eb-72-44-a7')
     @winrt_commethod(6)
     def OpenForCurrentPackage(self) -> Windows.ApplicationModel.PackageCatalog: ...
     @winrt_commethod(7)
     def OpenForCurrentUser(self) -> Windows.ApplicationModel.PackageCatalog: ...
-class IPackageCatalogStatics2(c_void_p):
+class IPackageCatalogStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4c11c159-9a28-598c-b1-85-55-e1-89-9b-2b-e4')
     @winrt_commethod(6)
     def OpenForPackage(self, package: Windows.ApplicationModel.Package) -> Windows.ApplicationModel.PackageCatalog: ...
-class IPackageContentGroup(c_void_p):
+class IPackageContentGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8f62695d-120a-4798-b5-e1-58-00-dd-a8-f2-e1')
     @winrt_commethod(6)
@@ -647,7 +647,7 @@ class IPackageContentGroup(c_void_p):
     Name = property(get_Name, None)
     State = property(get_State, None)
     IsRequired = property(get_IsRequired, None)
-class IPackageContentGroupStagingEventArgs(c_void_p):
+class IPackageContentGroupStagingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3d7bc27e-6f27-446c-98-6e-d4-73-3d-4d-91-13')
     @winrt_commethod(6)
@@ -671,13 +671,13 @@ class IPackageContentGroupStagingEventArgs(c_void_p):
     ErrorCode = property(get_ErrorCode, None)
     ContentGroupName = property(get_ContentGroupName, None)
     IsContentGroupRequired = property(get_IsContentGroupRequired, None)
-class IPackageContentGroupStatics(c_void_p):
+class IPackageContentGroupStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('70ee7619-5f12-4b92-b9-ea-6c-ca-da-13-bc-75')
     @winrt_commethod(6)
     def get_RequiredGroupName(self) -> WinRT_String: ...
     RequiredGroupName = property(get_RequiredGroupName, None)
-class IPackageId(c_void_p):
+class IPackageId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1adb665e-37c7-4790-99-80-dd-7a-e7-4e-8b-b2')
     @winrt_commethod(6)
@@ -704,7 +704,7 @@ class IPackageId(c_void_p):
     PublisherId = property(get_PublisherId, None)
     FullName = property(get_FullName, None)
     FamilyName = property(get_FamilyName, None)
-class IPackageIdWithMetadata(c_void_p):
+class IPackageIdWithMetadata(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('40577a7c-0c9e-443d-90-74-85-5f-5c-e0-a0-8d')
     @winrt_commethod(6)
@@ -713,7 +713,7 @@ class IPackageIdWithMetadata(c_void_p):
     def get_Author(self) -> WinRT_String: ...
     ProductId = property(get_ProductId, None)
     Author = property(get_Author, None)
-class IPackageInstallingEventArgs(c_void_p):
+class IPackageInstallingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('97741eb7-ab7a-401a-8b-61-eb-0e-7f-af-f2-37')
     @winrt_commethod(6)
@@ -731,7 +731,7 @@ class IPackageInstallingEventArgs(c_void_p):
     Progress = property(get_Progress, None)
     IsComplete = property(get_IsComplete, None)
     ErrorCode = property(get_ErrorCode, None)
-class IPackageStagingEventArgs(c_void_p):
+class IPackageStagingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1041682d-54e2-4f51-b8-28-9e-f7-04-6c-21-0f')
     @winrt_commethod(6)
@@ -749,13 +749,13 @@ class IPackageStagingEventArgs(c_void_p):
     Progress = property(get_Progress, None)
     IsComplete = property(get_IsComplete, None)
     ErrorCode = property(get_ErrorCode, None)
-class IPackageStatics(c_void_p):
+class IPackageStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4e534bdf-2960-4878-97-a4-96-24-de-b7-2f-2d')
     @winrt_commethod(6)
     def get_Current(self) -> Windows.ApplicationModel.Package: ...
     Current = property(get_Current, None)
-class IPackageStatus(c_void_p):
+class IPackageStatus(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5fe74f71-a365-4c09-a0-2d-04-6d-52-5e-a1-da')
     @winrt_commethod(6)
@@ -793,19 +793,19 @@ class IPackageStatus(c_void_p):
     DependencyIssue = property(get_DependencyIssue, None)
     Servicing = property(get_Servicing, None)
     DeploymentInProgress = property(get_DeploymentInProgress, None)
-class IPackageStatus2(c_void_p):
+class IPackageStatus2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f428fa93-7c56-4862-ac-fa-ab-ae-dc-c0-69-4d')
     @winrt_commethod(6)
     def get_IsPartiallyStaged(self) -> Boolean: ...
     IsPartiallyStaged = property(get_IsPartiallyStaged, None)
-class IPackageStatusChangedEventArgs(c_void_p):
+class IPackageStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('437d714d-bd80-4a70-bc-50-f6-e7-96-50-95-75')
     @winrt_commethod(6)
     def get_Package(self) -> Windows.ApplicationModel.Package: ...
     Package = property(get_Package, None)
-class IPackageUninstallingEventArgs(c_void_p):
+class IPackageUninstallingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4443aa52-ab22-44cd-82-bb-4e-c9-b8-27-36-7a')
     @winrt_commethod(6)
@@ -823,7 +823,7 @@ class IPackageUninstallingEventArgs(c_void_p):
     Progress = property(get_Progress, None)
     IsComplete = property(get_IsComplete, None)
     ErrorCode = property(get_ErrorCode, None)
-class IPackageUpdateAvailabilityResult(c_void_p):
+class IPackageUpdateAvailabilityResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('114e5009-199a-48a1-a0-79-31-3c-45-63-4a-71')
     @winrt_commethod(6)
@@ -832,7 +832,7 @@ class IPackageUpdateAvailabilityResult(c_void_p):
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     Availability = property(get_Availability, None)
     ExtendedError = property(get_ExtendedError, None)
-class IPackageUpdatingEventArgs(c_void_p):
+class IPackageUpdatingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cd7b4228-fd74-443e-b1-14-23-e6-77-b0-e8-6f')
     @winrt_commethod(6)
@@ -853,7 +853,7 @@ class IPackageUpdatingEventArgs(c_void_p):
     Progress = property(get_Progress, None)
     IsComplete = property(get_IsComplete, None)
     ErrorCode = property(get_ErrorCode, None)
-class IPackageWithMetadata(c_void_p):
+class IPackageWithMetadata(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('95949780-1de9-40f2-b4-52-0d-e9-f1-91-00-12')
     @winrt_commethod(6)
@@ -863,7 +863,7 @@ class IPackageWithMetadata(c_void_p):
     @winrt_commethod(8)
     def Launch(self, parameters: WinRT_String) -> Void: ...
     InstallDate = property(get_InstallDate, None)
-class IStartupTask(c_void_p):
+class IStartupTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f75c23c8-b5f2-4f6c-88-dd-36-cb-1d-59-9d-17')
     @winrt_commethod(6)
@@ -876,25 +876,25 @@ class IStartupTask(c_void_p):
     def get_TaskId(self) -> WinRT_String: ...
     State = property(get_State, None)
     TaskId = property(get_TaskId, None)
-class IStartupTaskStatics(c_void_p):
+class IStartupTaskStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ee5b60bd-a148-41a7-b2-6e-e8-b8-8a-1e-62-f8')
     @winrt_commethod(6)
     def GetForCurrentPackageAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.StartupTask]]: ...
     @winrt_commethod(7)
     def GetAsync(self, taskId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.StartupTask]: ...
-class ISuspendingDeferral(c_void_p):
+class ISuspendingDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('59140509-8bc9-4eb4-b6-36-da-bd-c4-f4-6f-66')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
-class ISuspendingEventArgs(c_void_p):
+class ISuspendingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('96061c05-2dba-4d08-b0-bd-2b-30-a1-31-c6-aa')
     @winrt_commethod(6)
     def get_SuspendingOperation(self) -> Windows.ApplicationModel.SuspendingOperation: ...
     SuspendingOperation = property(get_SuspendingOperation, None)
-class ISuspendingOperation(c_void_p):
+class ISuspendingOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9da4ca41-20e1-4e9b-9f-65-a9-f4-35-34-0c-3a')
     @winrt_commethod(6)
@@ -902,12 +902,12 @@ class ISuspendingOperation(c_void_p):
     @winrt_commethod(7)
     def get_Deadline(self) -> Windows.Foundation.DateTime: ...
     Deadline = property(get_Deadline, None)
-class LeavingBackgroundEventArgs(c_void_p):
+class LeavingBackgroundEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.LeavingBackgroundEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.ILeavingBackgroundEventArgs) -> Windows.Foundation.Deferral: ...
-class LimitedAccessFeatureRequestResult(c_void_p):
+class LimitedAccessFeatureRequestResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.LimitedAccessFeatureRequestResult'
     @winrt_mixinmethod
@@ -924,12 +924,12 @@ LimitedAccessFeatureStatus_Unavailable: LimitedAccessFeatureStatus = 0
 LimitedAccessFeatureStatus_Available: LimitedAccessFeatureStatus = 1
 LimitedAccessFeatureStatus_AvailableWithoutToken: LimitedAccessFeatureStatus = 2
 LimitedAccessFeatureStatus_Unknown: LimitedAccessFeatureStatus = 3
-class LimitedAccessFeatures(c_void_p):
+class LimitedAccessFeatures(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.LimitedAccessFeatures'
     @winrt_classmethod
     def TryUnlockFeature(cls: Windows.ApplicationModel.ILimitedAccessFeaturesStatics, featureId: WinRT_String, token: WinRT_String, attestation: WinRT_String) -> Windows.ApplicationModel.LimitedAccessFeatureRequestResult: ...
-class Package(c_void_p):
+class Package(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Package'
     @winrt_mixinmethod
@@ -1050,7 +1050,7 @@ class Package(c_void_p):
     IsStub = property(get_IsStub, None)
     SourceUriSchemeName = property(get_SourceUriSchemeName, None)
     Current = property(get_Current, None)
-class PackageCatalog(c_void_p):
+class PackageCatalog(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.PackageCatalog'
     @winrt_mixinmethod
@@ -1091,7 +1091,7 @@ class PackageCatalog(c_void_p):
     def OpenForCurrentPackage(cls: Windows.ApplicationModel.IPackageCatalogStatics) -> Windows.ApplicationModel.PackageCatalog: ...
     @winrt_classmethod
     def OpenForCurrentUser(cls: Windows.ApplicationModel.IPackageCatalogStatics) -> Windows.ApplicationModel.PackageCatalog: ...
-class PackageCatalogAddOptionalPackageResult(c_void_p):
+class PackageCatalogAddOptionalPackageResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.PackageCatalogAddOptionalPackageResult'
     @winrt_mixinmethod
@@ -1100,7 +1100,7 @@ class PackageCatalogAddOptionalPackageResult(c_void_p):
     def get_ExtendedError(self: Windows.ApplicationModel.IPackageCatalogAddOptionalPackageResult) -> Windows.Foundation.HResult: ...
     Package = property(get_Package, None)
     ExtendedError = property(get_ExtendedError, None)
-class PackageCatalogAddResourcePackageResult(c_void_p):
+class PackageCatalogAddResourcePackageResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.PackageCatalogAddResourcePackageResult'
     @winrt_mixinmethod
@@ -1112,7 +1112,7 @@ class PackageCatalogAddResourcePackageResult(c_void_p):
     Package = property(get_Package, None)
     IsComplete = property(get_IsComplete, None)
     ExtendedError = property(get_ExtendedError, None)
-class PackageCatalogRemoveOptionalPackagesResult(c_void_p):
+class PackageCatalogRemoveOptionalPackagesResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.PackageCatalogRemoveOptionalPackagesResult'
     @winrt_mixinmethod
@@ -1121,7 +1121,7 @@ class PackageCatalogRemoveOptionalPackagesResult(c_void_p):
     def get_ExtendedError(self: Windows.ApplicationModel.IPackageCatalogRemoveOptionalPackagesResult) -> Windows.Foundation.HResult: ...
     PackagesRemoved = property(get_PackagesRemoved, None)
     ExtendedError = property(get_ExtendedError, None)
-class PackageCatalogRemoveResourcePackagesResult(c_void_p):
+class PackageCatalogRemoveResourcePackagesResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.PackageCatalogRemoveResourcePackagesResult'
     @winrt_mixinmethod
@@ -1130,7 +1130,7 @@ class PackageCatalogRemoveResourcePackagesResult(c_void_p):
     def get_ExtendedError(self: Windows.ApplicationModel.IPackageCatalogRemoveResourcePackagesResult) -> Windows.Foundation.HResult: ...
     PackagesRemoved = property(get_PackagesRemoved, None)
     ExtendedError = property(get_ExtendedError, None)
-class PackageContentGroup(c_void_p):
+class PackageContentGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.PackageContentGroup'
     @winrt_mixinmethod
@@ -1148,7 +1148,7 @@ class PackageContentGroup(c_void_p):
     State = property(get_State, None)
     IsRequired = property(get_IsRequired, None)
     RequiredGroupName = property(get_RequiredGroupName, None)
-class PackageContentGroupStagingEventArgs(c_void_p):
+class PackageContentGroupStagingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.PackageContentGroupStagingEventArgs'
     @winrt_mixinmethod
@@ -1177,7 +1177,7 @@ PackageContentGroupState_NotStaged: PackageContentGroupState = 0
 PackageContentGroupState_Queued: PackageContentGroupState = 1
 PackageContentGroupState_Staging: PackageContentGroupState = 2
 PackageContentGroupState_Staged: PackageContentGroupState = 3
-class PackageId(c_void_p):
+class PackageId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.PackageId'
     @winrt_mixinmethod
@@ -1212,7 +1212,7 @@ class PackageId(c_void_p):
     Author = property(get_Author, None)
 class PackageInstallProgress(EasyCastStructure):
     PercentComplete: UInt32
-class PackageInstallingEventArgs(c_void_p):
+class PackageInstallingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.PackageInstallingEventArgs'
     @winrt_mixinmethod
@@ -1240,7 +1240,7 @@ PackageSignatureKind_Developer: PackageSignatureKind = 1
 PackageSignatureKind_Enterprise: PackageSignatureKind = 2
 PackageSignatureKind_Store: PackageSignatureKind = 3
 PackageSignatureKind_System: PackageSignatureKind = 4
-class PackageStagingEventArgs(c_void_p):
+class PackageStagingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.PackageStagingEventArgs'
     @winrt_mixinmethod
@@ -1258,7 +1258,7 @@ class PackageStagingEventArgs(c_void_p):
     Progress = property(get_Progress, None)
     IsComplete = property(get_IsComplete, None)
     ErrorCode = property(get_ErrorCode, None)
-class PackageStatus(c_void_p):
+class PackageStatus(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.PackageStatus'
     @winrt_mixinmethod
@@ -1299,13 +1299,13 @@ class PackageStatus(c_void_p):
     Servicing = property(get_Servicing, None)
     DeploymentInProgress = property(get_DeploymentInProgress, None)
     IsPartiallyStaged = property(get_IsPartiallyStaged, None)
-class PackageStatusChangedEventArgs(c_void_p):
+class PackageStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.PackageStatusChangedEventArgs'
     @winrt_mixinmethod
     def get_Package(self: Windows.ApplicationModel.IPackageStatusChangedEventArgs) -> Windows.ApplicationModel.Package: ...
     Package = property(get_Package, None)
-class PackageUninstallingEventArgs(c_void_p):
+class PackageUninstallingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.PackageUninstallingEventArgs'
     @winrt_mixinmethod
@@ -1329,7 +1329,7 @@ PackageUpdateAvailability_NoUpdates: PackageUpdateAvailability = 1
 PackageUpdateAvailability_Available: PackageUpdateAvailability = 2
 PackageUpdateAvailability_Required: PackageUpdateAvailability = 3
 PackageUpdateAvailability_Error: PackageUpdateAvailability = 4
-class PackageUpdateAvailabilityResult(c_void_p):
+class PackageUpdateAvailabilityResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.PackageUpdateAvailabilityResult'
     @winrt_mixinmethod
@@ -1338,7 +1338,7 @@ class PackageUpdateAvailabilityResult(c_void_p):
     def get_ExtendedError(self: Windows.ApplicationModel.IPackageUpdateAvailabilityResult) -> Windows.Foundation.HResult: ...
     Availability = property(get_Availability, None)
     ExtendedError = property(get_ExtendedError, None)
-class PackageUpdatingEventArgs(c_void_p):
+class PackageUpdatingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.PackageUpdatingEventArgs'
     @winrt_mixinmethod
@@ -1364,7 +1364,7 @@ class PackageVersion(EasyCastStructure):
     Minor: UInt16
     Build: UInt16
     Revision: UInt16
-class StartupTask(c_void_p):
+class StartupTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.StartupTask'
     @winrt_mixinmethod
@@ -1388,18 +1388,18 @@ StartupTaskState_DisabledByUser: StartupTaskState = 1
 StartupTaskState_Enabled: StartupTaskState = 2
 StartupTaskState_DisabledByPolicy: StartupTaskState = 3
 StartupTaskState_EnabledByPolicy: StartupTaskState = 4
-class SuspendingDeferral(c_void_p):
+class SuspendingDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.SuspendingDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.ApplicationModel.ISuspendingDeferral) -> Void: ...
-class SuspendingEventArgs(c_void_p):
+class SuspendingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.SuspendingEventArgs'
     @winrt_mixinmethod
     def get_SuspendingOperation(self: Windows.ApplicationModel.ISuspendingEventArgs) -> Windows.ApplicationModel.SuspendingOperation: ...
     SuspendingOperation = property(get_SuspendingOperation, None)
-class SuspendingOperation(c_void_p):
+class SuspendingOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.SuspendingOperation'
     @winrt_mixinmethod

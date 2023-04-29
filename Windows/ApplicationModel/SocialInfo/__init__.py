@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.SocialInfo
@@ -24,7 +24,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ISocialFeedChildItem(c_void_p):
+class ISocialFeedChildItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0b6a985a-d59d-40be-98-0c-48-8a-2a-b3-0a-83')
     @winrt_commethod(6)
@@ -54,7 +54,7 @@ class ISocialFeedChildItem(c_void_p):
     TargetUri = property(get_TargetUri, put_TargetUri)
     Thumbnails = property(get_Thumbnails, None)
     SharedItem = property(get_SharedItem, put_SharedItem)
-class ISocialFeedContent(c_void_p):
+class ISocialFeedContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a234e429-3e39-494d-a3-7c-f4-62-a2-49-45-14')
     @winrt_commethod(6)
@@ -72,7 +72,7 @@ class ISocialFeedContent(c_void_p):
     Title = property(get_Title, put_Title)
     Message = property(get_Message, put_Message)
     TargetUri = property(get_TargetUri, put_TargetUri)
-class ISocialFeedItem(c_void_p):
+class ISocialFeedItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4f1392ab-1f72-4d33-b6-95-de-3e-1d-b6-03-17')
     @winrt_commethod(6)
@@ -127,7 +127,7 @@ class ISocialFeedItem(c_void_p):
     RemoteId = property(get_RemoteId, put_RemoteId)
     ChildItem = property(get_ChildItem, put_ChildItem)
     Style = property(get_Style, put_Style)
-class ISocialFeedSharedItem(c_void_p):
+class ISocialFeedSharedItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7bfb9e40-a6aa-45a7-9f-f6-54-c4-21-05-dd-1f')
     @winrt_commethod(6)
@@ -153,7 +153,7 @@ class ISocialFeedSharedItem(c_void_p):
     Timestamp = property(get_Timestamp, put_Timestamp)
     TargetUri = property(get_TargetUri, put_TargetUri)
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
-class ISocialItemThumbnail(c_void_p):
+class ISocialItemThumbnail(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5cbf831a-3f08-497f-91-7f-57-e0-9d-84-b1-41')
     @winrt_commethod(6)
@@ -173,7 +173,7 @@ class ISocialItemThumbnail(c_void_p):
     TargetUri = property(get_TargetUri, put_TargetUri)
     ImageUri = property(get_ImageUri, put_ImageUri)
     BitmapSize = property(get_BitmapSize, put_BitmapSize)
-class ISocialUserInfo(c_void_p):
+class ISocialUserInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9e5e1bd1-90d0-4e1d-95-54-84-4d-46-60-7f-61')
     @winrt_commethod(6)
@@ -196,7 +196,7 @@ class ISocialUserInfo(c_void_p):
     UserName = property(get_UserName, put_UserName)
     RemoteId = property(get_RemoteId, put_RemoteId)
     TargetUri = property(get_TargetUri, put_TargetUri)
-class SocialFeedChildItem(c_void_p):
+class SocialFeedChildItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.SocialInfo.SocialFeedChildItem'
     @winrt_activatemethod
@@ -228,7 +228,7 @@ class SocialFeedChildItem(c_void_p):
     TargetUri = property(get_TargetUri, put_TargetUri)
     Thumbnails = property(get_Thumbnails, None)
     SharedItem = property(get_SharedItem, put_SharedItem)
-class SocialFeedContent(c_void_p):
+class SocialFeedContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.SocialInfo.SocialFeedContent'
     @winrt_mixinmethod
@@ -246,7 +246,7 @@ class SocialFeedContent(c_void_p):
     Title = property(get_Title, put_Title)
     Message = property(get_Message, put_Message)
     TargetUri = property(get_TargetUri, put_TargetUri)
-class SocialFeedItem(c_void_p):
+class SocialFeedItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.SocialInfo.SocialFeedItem'
     @winrt_activatemethod
@@ -310,7 +310,7 @@ SocialFeedKind = Int32
 SocialFeedKind_HomeFeed: SocialFeedKind = 0
 SocialFeedKind_ContactFeed: SocialFeedKind = 1
 SocialFeedKind_Dashboard: SocialFeedKind = 2
-class SocialFeedSharedItem(c_void_p):
+class SocialFeedSharedItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.SocialInfo.SocialFeedSharedItem'
     @winrt_activatemethod
@@ -346,7 +346,7 @@ SocialItemBadgeStyle = Int32
 SocialItemBadgeStyle_Hidden: SocialItemBadgeStyle = 0
 SocialItemBadgeStyle_Visible: SocialItemBadgeStyle = 1
 SocialItemBadgeStyle_VisibleWithCount: SocialItemBadgeStyle = 2
-class SocialItemThumbnail(c_void_p):
+class SocialItemThumbnail(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.SocialInfo.SocialItemThumbnail'
     @winrt_activatemethod
@@ -368,7 +368,7 @@ class SocialItemThumbnail(c_void_p):
     TargetUri = property(get_TargetUri, put_TargetUri)
     ImageUri = property(get_ImageUri, put_ImageUri)
     BitmapSize = property(get_BitmapSize, put_BitmapSize)
-class SocialUserInfo(c_void_p):
+class SocialUserInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.SocialInfo.SocialUserInfo'
     @winrt_mixinmethod

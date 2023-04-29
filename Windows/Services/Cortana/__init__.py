@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.DataTransfer
@@ -25,7 +25,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class CortanaActionableInsights(c_void_p):
+class CortanaActionableInsights(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Cortana.CortanaActionableInsights'
     @winrt_mixinmethod
@@ -49,7 +49,7 @@ class CortanaActionableInsights(c_void_p):
     @winrt_classmethod
     def GetForUser(cls: Windows.Services.Cortana.ICortanaActionableInsightsStatics, user: Windows.System.User) -> Windows.Services.Cortana.CortanaActionableInsights: ...
     User = property(get_User, None)
-class CortanaActionableInsightsOptions(c_void_p):
+class CortanaActionableInsightsOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Cortana.CortanaActionableInsightsOptions'
     @winrt_activatemethod
@@ -80,7 +80,7 @@ CortanaPermissionsChangeResult = Int32
 CortanaPermissionsChangeResult_Success: CortanaPermissionsChangeResult = 0
 CortanaPermissionsChangeResult_Unavailable: CortanaPermissionsChangeResult = 1
 CortanaPermissionsChangeResult_DisabledByPolicy: CortanaPermissionsChangeResult = 2
-class CortanaPermissionsManager(c_void_p):
+class CortanaPermissionsManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Cortana.CortanaPermissionsManager'
     @winrt_mixinmethod
@@ -93,7 +93,7 @@ class CortanaPermissionsManager(c_void_p):
     def RevokePermissionsAsync(self: Windows.Services.Cortana.ICortanaPermissionsManager, permissions: Windows.Foundation.Collections.IIterable[Windows.Services.Cortana.CortanaPermission]) -> Windows.Foundation.IAsyncOperation[Windows.Services.Cortana.CortanaPermissionsChangeResult]: ...
     @winrt_classmethod
     def GetDefault(cls: Windows.Services.Cortana.ICortanaPermissionsManagerStatics) -> Windows.Services.Cortana.CortanaPermissionsManager: ...
-class CortanaSettings(c_void_p):
+class CortanaSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Cortana.CortanaSettings'
     @winrt_mixinmethod
@@ -108,7 +108,7 @@ class CortanaSettings(c_void_p):
     def GetDefault(cls: Windows.Services.Cortana.ICortanaSettingsStatics) -> Windows.Services.Cortana.CortanaSettings: ...
     HasUserConsentToVoiceActivation = property(get_HasUserConsentToVoiceActivation, None)
     IsVoiceActivationEnabled = property(get_IsVoiceActivationEnabled, put_IsVoiceActivationEnabled)
-class ICortanaActionableInsights(c_void_p):
+class ICortanaActionableInsights(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('951ec6b1-fc83-586d-8b-84-24-52-c8-98-16-25')
     @winrt_commethod(6)
@@ -128,7 +128,7 @@ class ICortanaActionableInsights(c_void_p):
     @winrt_commethod(13)
     def ShowInsightsWithOptionsAsync(self, datapackage: Windows.ApplicationModel.DataTransfer.DataPackage, options: Windows.Services.Cortana.CortanaActionableInsightsOptions) -> Windows.Foundation.IAsyncAction: ...
     User = property(get_User, None)
-class ICortanaActionableInsightsOptions(c_void_p):
+class ICortanaActionableInsightsOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('aac2bbcf-9782-5420-b8-1e-7a-e5-6a-f3-18-15')
     @winrt_commethod(6)
@@ -141,14 +141,14 @@ class ICortanaActionableInsightsOptions(c_void_p):
     def put_SurroundingText(self, value: WinRT_String) -> Void: ...
     ContentSourceWebLink = property(get_ContentSourceWebLink, put_ContentSourceWebLink)
     SurroundingText = property(get_SurroundingText, put_SurroundingText)
-class ICortanaActionableInsightsStatics(c_void_p):
+class ICortanaActionableInsightsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b5ded412-9d2f-5cb5-9b-05-35-6a-0b-83-6c-10')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Services.Cortana.CortanaActionableInsights: ...
     @winrt_commethod(7)
     def GetForUser(self, user: Windows.System.User) -> Windows.Services.Cortana.CortanaActionableInsights: ...
-class ICortanaPermissionsManager(c_void_p):
+class ICortanaPermissionsManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('191330e0-8695-438a-95-45-3d-a4-e8-22-dd-b4')
     @winrt_commethod(6)
@@ -159,12 +159,12 @@ class ICortanaPermissionsManager(c_void_p):
     def GrantPermissionsAsync(self, permissions: Windows.Foundation.Collections.IIterable[Windows.Services.Cortana.CortanaPermission]) -> Windows.Foundation.IAsyncOperation[Windows.Services.Cortana.CortanaPermissionsChangeResult]: ...
     @winrt_commethod(9)
     def RevokePermissionsAsync(self, permissions: Windows.Foundation.Collections.IIterable[Windows.Services.Cortana.CortanaPermission]) -> Windows.Foundation.IAsyncOperation[Windows.Services.Cortana.CortanaPermissionsChangeResult]: ...
-class ICortanaPermissionsManagerStatics(c_void_p):
+class ICortanaPermissionsManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('76b1e67a-b045-4414-9d-6d-2a-d3-a5-fe-3a-7e')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Services.Cortana.CortanaPermissionsManager: ...
-class ICortanaSettings(c_void_p):
+class ICortanaSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('54d571a7-8062-40f4-ab-e7-de-df-d6-97-b0-19')
     @winrt_commethod(6)
@@ -175,7 +175,7 @@ class ICortanaSettings(c_void_p):
     def put_IsVoiceActivationEnabled(self, value: Boolean) -> Void: ...
     HasUserConsentToVoiceActivation = property(get_HasUserConsentToVoiceActivation, None)
     IsVoiceActivationEnabled = property(get_IsVoiceActivationEnabled, put_IsVoiceActivationEnabled)
-class ICortanaSettingsStatics(c_void_p):
+class ICortanaSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8b2ccd7e-2ec0-446d-92-85-33-f0-7c-e8-ac-04')
     @winrt_commethod(6)

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -24,7 +24,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AdvancedColorInfo(c_void_p):
+class AdvancedColorInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Display.AdvancedColorInfo'
     @winrt_mixinmethod
@@ -62,7 +62,7 @@ AdvancedColorKind = Int32
 AdvancedColorKind_StandardDynamicRange: AdvancedColorKind = 0
 AdvancedColorKind_WideColorGamut: AdvancedColorKind = 1
 AdvancedColorKind_HighDynamicRange: AdvancedColorKind = 2
-class BrightnessOverride(c_void_p):
+class BrightnessOverride(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Display.BrightnessOverride'
     @winrt_mixinmethod
@@ -102,7 +102,7 @@ class BrightnessOverride(c_void_p):
     IsSupported = property(get_IsSupported, None)
     IsOverrideActive = property(get_IsOverrideActive, None)
     BrightnessLevel = property(get_BrightnessLevel, None)
-class BrightnessOverrideSettings(c_void_p):
+class BrightnessOverrideSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Display.BrightnessOverrideSettings'
     @winrt_mixinmethod
@@ -117,7 +117,7 @@ class BrightnessOverrideSettings(c_void_p):
     def CreateFromDisplayBrightnessOverrideScenario(cls: Windows.Graphics.Display.IBrightnessOverrideSettingsStatics, overrideScenario: Windows.Graphics.Display.DisplayBrightnessOverrideScenario) -> Windows.Graphics.Display.BrightnessOverrideSettings: ...
     DesiredLevel = property(get_DesiredLevel, None)
     DesiredNits = property(get_DesiredNits, None)
-class ColorOverrideSettings(c_void_p):
+class ColorOverrideSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Display.ColorOverrideSettings'
     @winrt_mixinmethod
@@ -139,7 +139,7 @@ DisplayBrightnessScenario_BarcodeReadingBrightness: DisplayBrightnessScenario = 
 DisplayBrightnessScenario_FullBrightness: DisplayBrightnessScenario = 3
 DisplayColorOverrideScenario = Int32
 DisplayColorOverrideScenario_Accurate: DisplayColorOverrideScenario = 0
-class DisplayEnhancementOverride(c_void_p):
+class DisplayEnhancementOverride(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Display.DisplayEnhancementOverride'
     @winrt_mixinmethod
@@ -178,7 +178,7 @@ class DisplayEnhancementOverride(c_void_p):
     BrightnessOverrideSettings = property(get_BrightnessOverrideSettings, put_BrightnessOverrideSettings)
     CanOverride = property(get_CanOverride, None)
     IsOverrideActive = property(get_IsOverrideActive, None)
-class DisplayEnhancementOverrideCapabilities(c_void_p):
+class DisplayEnhancementOverrideCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Display.DisplayEnhancementOverrideCapabilities'
     @winrt_mixinmethod
@@ -189,13 +189,13 @@ class DisplayEnhancementOverrideCapabilities(c_void_p):
     def GetSupportedNitRanges(self: Windows.Graphics.Display.IDisplayEnhancementOverrideCapabilities) -> Windows.Foundation.Collections.IVectorView[Windows.Graphics.Display.NitRange]: ...
     IsBrightnessControlSupported = property(get_IsBrightnessControlSupported, None)
     IsBrightnessNitsControlSupported = property(get_IsBrightnessNitsControlSupported, None)
-class DisplayEnhancementOverrideCapabilitiesChangedEventArgs(c_void_p):
+class DisplayEnhancementOverrideCapabilitiesChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Display.DisplayEnhancementOverrideCapabilitiesChangedEventArgs'
     @winrt_mixinmethod
     def get_Capabilities(self: Windows.Graphics.Display.IDisplayEnhancementOverrideCapabilitiesChangedEventArgs) -> Windows.Graphics.Display.DisplayEnhancementOverrideCapabilities: ...
     Capabilities = property(get_Capabilities, None)
-class DisplayInformation(c_void_p):
+class DisplayInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Display.DisplayInformation'
     @winrt_mixinmethod
@@ -272,7 +272,7 @@ DisplayOrientations_Landscape: DisplayOrientations = 1
 DisplayOrientations_Portrait: DisplayOrientations = 2
 DisplayOrientations_LandscapeFlipped: DisplayOrientations = 4
 DisplayOrientations_PortraitFlipped: DisplayOrientations = 8
-class DisplayProperties(c_void_p):
+class DisplayProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Display.DisplayProperties'
     @winrt_classmethod
@@ -317,13 +317,13 @@ class DisplayProperties(c_void_p):
     ResolutionScale = property(get_ResolutionScale, None)
     LogicalDpi = property(get_LogicalDpi, None)
     StereoEnabled = property(get_StereoEnabled, None)
-class DisplayPropertiesEventHandler(c_void_p):
+class DisplayPropertiesEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('dbdd8b01-f1a1-46d1-9e-e3-54-3b-cc-99-59-80')
     ClassId = 'Windows.Graphics.Display.DisplayPropertiesEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
-class DisplayServices(c_void_p):
+class DisplayServices(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Display.DisplayServices'
     @winrt_classmethod
@@ -331,7 +331,7 @@ class DisplayServices(c_void_p):
 HdrMetadataFormat = Int32
 HdrMetadataFormat_Hdr10: HdrMetadataFormat = 0
 HdrMetadataFormat_Hdr10Plus: HdrMetadataFormat = 1
-class IAdvancedColorInfo(c_void_p):
+class IAdvancedColorInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8797dcfb-b229-4081-ae-9a-2c-c8-5e-34-ad-6a')
     @winrt_commethod(6)
@@ -365,7 +365,7 @@ class IAdvancedColorInfo(c_void_p):
     MinLuminanceInNits = property(get_MinLuminanceInNits, None)
     MaxAverageFullFrameLuminanceInNits = property(get_MaxAverageFullFrameLuminanceInNits, None)
     SdrWhiteLevelInNits = property(get_SdrWhiteLevelInNits, None)
-class IBrightnessOverride(c_void_p):
+class IBrightnessOverride(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('96c9621a-c143-4392-be-dd-4a-7e-95-74-c8-fd')
     @winrt_commethod(6)
@@ -399,7 +399,7 @@ class IBrightnessOverride(c_void_p):
     IsSupported = property(get_IsSupported, None)
     IsOverrideActive = property(get_IsOverrideActive, None)
     BrightnessLevel = property(get_BrightnessLevel, None)
-class IBrightnessOverrideSettings(c_void_p):
+class IBrightnessOverrideSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d112ab2a-7604-4dba-bc-f8-4b-6f-49-50-2c-b0')
     @winrt_commethod(6)
@@ -408,7 +408,7 @@ class IBrightnessOverrideSettings(c_void_p):
     def get_DesiredNits(self) -> Single: ...
     DesiredLevel = property(get_DesiredLevel, None)
     DesiredNits = property(get_DesiredNits, None)
-class IBrightnessOverrideSettingsStatics(c_void_p):
+class IBrightnessOverrideSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d487dc90-6f74-440b-b3-83-5f-e9-6c-f0-0b-0f')
     @winrt_commethod(6)
@@ -417,7 +417,7 @@ class IBrightnessOverrideSettingsStatics(c_void_p):
     def CreateFromNits(self, nits: Single) -> Windows.Graphics.Display.BrightnessOverrideSettings: ...
     @winrt_commethod(8)
     def CreateFromDisplayBrightnessOverrideScenario(self, overrideScenario: Windows.Graphics.Display.DisplayBrightnessOverrideScenario) -> Windows.Graphics.Display.BrightnessOverrideSettings: ...
-class IBrightnessOverrideStatics(c_void_p):
+class IBrightnessOverrideStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('03a7b9ed-e1f1-4a68-a1-1f-94-6a-d8-ce-53-93')
     @winrt_commethod(6)
@@ -426,18 +426,18 @@ class IBrightnessOverrideStatics(c_void_p):
     def GetForCurrentView(self) -> Windows.Graphics.Display.BrightnessOverride: ...
     @winrt_commethod(8)
     def SaveForSystemAsync(self, value: Windows.Graphics.Display.BrightnessOverride) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
-class IColorOverrideSettings(c_void_p):
+class IColorOverrideSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fbefa134-4a81-4c4d-a5-b6-7d-1b-5c-4b-d0-0b')
     @winrt_commethod(6)
     def get_DesiredDisplayColorOverrideScenario(self) -> Windows.Graphics.Display.DisplayColorOverrideScenario: ...
     DesiredDisplayColorOverrideScenario = property(get_DesiredDisplayColorOverrideScenario, None)
-class IColorOverrideSettingsStatics(c_void_p):
+class IColorOverrideSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b068e05f-c41f-4ac9-af-ab-82-7a-b6-24-8f-9a')
     @winrt_commethod(6)
     def CreateFromDisplayColorOverrideScenario(self, overrideScenario: Windows.Graphics.Display.DisplayColorOverrideScenario) -> Windows.Graphics.Display.ColorOverrideSettings: ...
-class IDisplayEnhancementOverride(c_void_p):
+class IDisplayEnhancementOverride(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('429594cf-d97a-4b02-a4-28-5c-42-92-f7-f5-22')
     @winrt_commethod(6)
@@ -474,7 +474,7 @@ class IDisplayEnhancementOverride(c_void_p):
     BrightnessOverrideSettings = property(get_BrightnessOverrideSettings, put_BrightnessOverrideSettings)
     CanOverride = property(get_CanOverride, None)
     IsOverrideActive = property(get_IsOverrideActive, None)
-class IDisplayEnhancementOverrideCapabilities(c_void_p):
+class IDisplayEnhancementOverrideCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('457060de-ee5a-47b7-99-18-1e-51-e8-12-cc-c8')
     @winrt_commethod(6)
@@ -485,18 +485,18 @@ class IDisplayEnhancementOverrideCapabilities(c_void_p):
     def GetSupportedNitRanges(self) -> Windows.Foundation.Collections.IVectorView[Windows.Graphics.Display.NitRange]: ...
     IsBrightnessControlSupported = property(get_IsBrightnessControlSupported, None)
     IsBrightnessNitsControlSupported = property(get_IsBrightnessNitsControlSupported, None)
-class IDisplayEnhancementOverrideCapabilitiesChangedEventArgs(c_void_p):
+class IDisplayEnhancementOverrideCapabilitiesChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('db61e664-15fa-49da-8b-77-07-db-d2-af-58-5d')
     @winrt_commethod(6)
     def get_Capabilities(self) -> Windows.Graphics.Display.DisplayEnhancementOverrideCapabilities: ...
     Capabilities = property(get_Capabilities, None)
-class IDisplayEnhancementOverrideStatics(c_void_p):
+class IDisplayEnhancementOverrideStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cf5b7ec1-9791-4453-b0-13-29-b6-f7-78-e5-19')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.Graphics.Display.DisplayEnhancementOverride: ...
-class IDisplayInformation(c_void_p):
+class IDisplayInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bed112ae-adc3-4dc9-ae-65-85-1f-4d-7d-47-99')
     @winrt_commethod(6)
@@ -538,19 +538,19 @@ class IDisplayInformation(c_void_p):
     RawDpiX = property(get_RawDpiX, None)
     RawDpiY = property(get_RawDpiY, None)
     StereoEnabled = property(get_StereoEnabled, None)
-class IDisplayInformation2(c_void_p):
+class IDisplayInformation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4dcd0021-fad1-4b8e-8e-df-77-58-87-b8-bf-19')
     @winrt_commethod(6)
     def get_RawPixelsPerViewPixel(self) -> Double: ...
     RawPixelsPerViewPixel = property(get_RawPixelsPerViewPixel, None)
-class IDisplayInformation3(c_void_p):
+class IDisplayInformation3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('db15011d-0f09-4466-8f-f3-11-de-9a-3c-92-9a')
     @winrt_commethod(6)
     def get_DiagonalSizeInInches(self) -> Windows.Foundation.IReference[Double]: ...
     DiagonalSizeInInches = property(get_DiagonalSizeInInches, None)
-class IDisplayInformation4(c_void_p):
+class IDisplayInformation4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c972ce2f-1242-46be-b5-36-e1-aa-fe-9e-7a-cf')
     @winrt_commethod(6)
@@ -559,7 +559,7 @@ class IDisplayInformation4(c_void_p):
     def get_ScreenHeightInRawPixels(self) -> UInt32: ...
     ScreenWidthInRawPixels = property(get_ScreenWidthInRawPixels, None)
     ScreenHeightInRawPixels = property(get_ScreenHeightInRawPixels, None)
-class IDisplayInformation5(c_void_p):
+class IDisplayInformation5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3a5442dc-2cde-4a8d-80-d1-21-dc-5a-dc-c1-aa')
     @winrt_commethod(6)
@@ -568,7 +568,7 @@ class IDisplayInformation5(c_void_p):
     def add_AdvancedColorInfoChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Graphics.Display.DisplayInformation, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_AdvancedColorInfoChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IDisplayInformationStatics(c_void_p):
+class IDisplayInformationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c6a02a6c-d452-44dc-ba-07-96-f3-c6-ad-f9-d1')
     @winrt_commethod(6)
@@ -582,7 +582,7 @@ class IDisplayInformationStatics(c_void_p):
     @winrt_commethod(10)
     def remove_DisplayContentsInvalidated(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     AutoRotationPreferences = property(get_AutoRotationPreferences, put_AutoRotationPreferences)
-class IDisplayPropertiesStatics(c_void_p):
+class IDisplayPropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6937ed8d-30ea-4ded-82-71-45-53-ff-02-f6-8a')
     @winrt_commethod(6)
@@ -627,10 +627,10 @@ class IDisplayPropertiesStatics(c_void_p):
     ResolutionScale = property(get_ResolutionScale, None)
     LogicalDpi = property(get_LogicalDpi, None)
     StereoEnabled = property(get_StereoEnabled, None)
-class IDisplayServices(c_void_p):
+class IDisplayServices(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1b54f32b-890d-5747-bd-26-fd-bd-eb-0c-8a-71')
-class IDisplayServicesStatics(c_void_p):
+class IDisplayServicesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dc2096bf-730a-5560-b4-61-91-c1-3d-69-2e-0c')
     @winrt_commethod(6)

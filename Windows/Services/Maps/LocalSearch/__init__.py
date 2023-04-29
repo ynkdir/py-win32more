@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Geolocation
@@ -25,7 +25,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ILocalCategoriesStatics(c_void_p):
+class ILocalCategoriesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f49399f5-8261-4321-99-74-ef-92-d4-9a-8d-ca')
     @winrt_commethod(6)
@@ -52,7 +52,7 @@ class ILocalCategoriesStatics(c_void_p):
     Parking = property(get_Parking, None)
     SeeDo = property(get_SeeDo, None)
     Shop = property(get_Shop, None)
-class ILocalLocation(c_void_p):
+class ILocalLocation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bb0fe9ab-4502-4f2c-94-a9-0d-60-de-0e-21-63')
     @winrt_commethod(6)
@@ -76,7 +76,7 @@ class ILocalLocation(c_void_p):
     Point = property(get_Point, None)
     PhoneNumber = property(get_PhoneNumber, None)
     DataAttribution = property(get_DataAttribution, None)
-class ILocalLocation2(c_void_p):
+class ILocalLocation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6e9e307c-ecb5-4ffc-bb-8c-ba-50-ba-8c-2d-c6')
     @winrt_commethod(6)
@@ -88,7 +88,7 @@ class ILocalLocation2(c_void_p):
     Category = property(get_Category, None)
     RatingInfo = property(get_RatingInfo, None)
     HoursOfOperation = property(get_HoursOfOperation, None)
-class ILocalLocationFinderResult(c_void_p):
+class ILocalLocationFinderResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d09b6cc6-f338-4191-9f-d8-54-40-b9-a6-8f-52')
     @winrt_commethod(6)
@@ -97,12 +97,12 @@ class ILocalLocationFinderResult(c_void_p):
     def get_Status(self) -> Windows.Services.Maps.LocalSearch.LocalLocationFinderStatus: ...
     LocalLocations = property(get_LocalLocations, None)
     Status = property(get_Status, None)
-class ILocalLocationFinderStatics(c_void_p):
+class ILocalLocationFinderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d2ef7344-a0de-48ca-81-a8-07-c7-dc-fd-37-ab')
     @winrt_commethod(6)
     def FindLocalLocationsAsync(self, searchTerm: WinRT_String, searchArea: Windows.Devices.Geolocation.Geocircle, localCategory: WinRT_String, maxResults: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.LocalSearch.LocalLocationFinderResult]: ...
-class ILocalLocationHoursOfOperationItem(c_void_p):
+class ILocalLocationHoursOfOperationItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('23548c72-a1c7-43f1-a4-f0-10-91-c3-9e-c6-40')
     @winrt_commethod(6)
@@ -114,7 +114,7 @@ class ILocalLocationHoursOfOperationItem(c_void_p):
     Day = property(get_Day, None)
     Start = property(get_Start, None)
     Span = property(get_Span, None)
-class ILocalLocationRatingInfo(c_void_p):
+class ILocalLocationRatingInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cb1dab56-3354-4311-8b-c0-a2-d4-d5-eb-80-6e')
     @winrt_commethod(6)
@@ -126,12 +126,12 @@ class ILocalLocationRatingInfo(c_void_p):
     AggregateRating = property(get_AggregateRating, None)
     RatingCount = property(get_RatingCount, None)
     ProviderIdentifier = property(get_ProviderIdentifier, None)
-class IPlaceInfoHelperStatics(c_void_p):
+class IPlaceInfoHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dd1ca9a7-a9c6-491b-bc-09-e8-0f-ce-a4-8e-e6')
     @winrt_commethod(6)
     def CreateFromLocalLocation(self, location: Windows.Services.Maps.LocalSearch.LocalLocation) -> Windows.Services.Maps.PlaceInfo: ...
-class LocalCategories(c_void_p):
+class LocalCategories(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.LocalSearch.LocalCategories'
     @winrt_classmethod
@@ -158,7 +158,7 @@ class LocalCategories(c_void_p):
     Parking = property(get_Parking, None)
     SeeDo = property(get_SeeDo, None)
     Shop = property(get_Shop, None)
-class LocalLocation(c_void_p):
+class LocalLocation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.LocalSearch.LocalLocation'
     @winrt_mixinmethod
@@ -191,12 +191,12 @@ class LocalLocation(c_void_p):
     Category = property(get_Category, None)
     RatingInfo = property(get_RatingInfo, None)
     HoursOfOperation = property(get_HoursOfOperation, None)
-class LocalLocationFinder(c_void_p):
+class LocalLocationFinder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.LocalSearch.LocalLocationFinder'
     @winrt_classmethod
     def FindLocalLocationsAsync(cls: Windows.Services.Maps.LocalSearch.ILocalLocationFinderStatics, searchTerm: WinRT_String, searchArea: Windows.Devices.Geolocation.Geocircle, localCategory: WinRT_String, maxResults: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.LocalSearch.LocalLocationFinderResult]: ...
-class LocalLocationFinderResult(c_void_p):
+class LocalLocationFinderResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.LocalSearch.LocalLocationFinderResult'
     @winrt_mixinmethod
@@ -214,7 +214,7 @@ LocalLocationFinderStatus_InvalidSearchTerm: LocalLocationFinderStatus = 4
 LocalLocationFinderStatus_InvalidSearchArea: LocalLocationFinderStatus = 5
 LocalLocationFinderStatus_NetworkFailure: LocalLocationFinderStatus = 6
 LocalLocationFinderStatus_NotSupported: LocalLocationFinderStatus = 7
-class LocalLocationHoursOfOperationItem(c_void_p):
+class LocalLocationHoursOfOperationItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.LocalSearch.LocalLocationHoursOfOperationItem'
     @winrt_mixinmethod
@@ -226,7 +226,7 @@ class LocalLocationHoursOfOperationItem(c_void_p):
     Day = property(get_Day, None)
     Start = property(get_Start, None)
     Span = property(get_Span, None)
-class LocalLocationRatingInfo(c_void_p):
+class LocalLocationRatingInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.LocalSearch.LocalLocationRatingInfo'
     @winrt_mixinmethod
@@ -238,7 +238,7 @@ class LocalLocationRatingInfo(c_void_p):
     AggregateRating = property(get_AggregateRating, None)
     RatingCount = property(get_RatingCount, None)
     ProviderIdentifier = property(get_ProviderIdentifier, None)
-class PlaceInfoHelper(c_void_p):
+class PlaceInfoHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.LocalSearch.PlaceInfoHelper'
     @winrt_classmethod

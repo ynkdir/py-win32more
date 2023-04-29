@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.ExtendedExecution
@@ -28,7 +28,7 @@ ExtendedExecutionReason_SavingData: ExtendedExecutionReason = 2
 ExtendedExecutionResult = Int32
 ExtendedExecutionResult_Allowed: ExtendedExecutionResult = 0
 ExtendedExecutionResult_Denied: ExtendedExecutionResult = 1
-class ExtendedExecutionRevokedEventArgs(c_void_p):
+class ExtendedExecutionRevokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionRevokedEventArgs'
     @winrt_mixinmethod
@@ -37,7 +37,7 @@ class ExtendedExecutionRevokedEventArgs(c_void_p):
 ExtendedExecutionRevokedReason = Int32
 ExtendedExecutionRevokedReason_Resumed: ExtendedExecutionRevokedReason = 0
 ExtendedExecutionRevokedReason_SystemPolicy: ExtendedExecutionRevokedReason = 1
-class ExtendedExecutionSession(c_void_p):
+class ExtendedExecutionSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionSession'
     @winrt_activatemethod
@@ -65,13 +65,13 @@ class ExtendedExecutionSession(c_void_p):
     Reason = property(get_Reason, put_Reason)
     Description = property(get_Description, put_Description)
     PercentProgress = property(get_PercentProgress, put_PercentProgress)
-class IExtendedExecutionRevokedEventArgs(c_void_p):
+class IExtendedExecutionRevokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bfbc9f16-63b5-4c0b-aa-d6-82-8a-f5-37-3e-c3')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionRevokedReason: ...
     Reason = property(get_Reason, None)
-class IExtendedExecutionSession(c_void_p):
+class IExtendedExecutionSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('af908a2d-118b-48f1-93-08-0c-4f-c4-1e-20-0f')
     @winrt_commethod(6)

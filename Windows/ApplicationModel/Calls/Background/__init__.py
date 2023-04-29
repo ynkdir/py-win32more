@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Calls.Background
@@ -22,7 +22,7 @@ def __getattr__(name):
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
 CallsBackgroundContract: UInt32 = 262144
-class IPhoneCallBlockedTriggerDetails(c_void_p):
+class IPhoneCallBlockedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a4a690a2-e4c1-427f-86-4e-e4-70-47-7d-db-67')
     @winrt_commethod(6)
@@ -34,7 +34,7 @@ class IPhoneCallBlockedTriggerDetails(c_void_p):
     PhoneNumber = property(get_PhoneNumber, None)
     LineId = property(get_LineId, None)
     CallBlockedReason = property(get_CallBlockedReason, None)
-class IPhoneCallOriginDataRequestTriggerDetails(c_void_p):
+class IPhoneCallOriginDataRequestTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6e9b5b3f-c54b-4e82-4c-c9-e3-29-a4-18-45-92')
     @winrt_commethod(6)
@@ -43,7 +43,7 @@ class IPhoneCallOriginDataRequestTriggerDetails(c_void_p):
     def get_PhoneNumber(self) -> WinRT_String: ...
     RequestId = property(get_RequestId, None)
     PhoneNumber = property(get_PhoneNumber, None)
-class IPhoneIncomingCallDismissedTriggerDetails(c_void_p):
+class IPhoneIncomingCallDismissedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bad30276-83b6-5732-9c-38-0c-20-65-46-19-6a')
     @winrt_commethod(6)
@@ -64,7 +64,7 @@ class IPhoneIncomingCallDismissedTriggerDetails(c_void_p):
     DismissalTime = property(get_DismissalTime, None)
     TextReplyMessage = property(get_TextReplyMessage, None)
     Reason = property(get_Reason, None)
-class IPhoneIncomingCallNotificationTriggerDetails(c_void_p):
+class IPhoneIncomingCallNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2b0e6044-9b32-5d42-82-22-d2-81-2e-39-fb-21')
     @winrt_commethod(6)
@@ -73,7 +73,7 @@ class IPhoneIncomingCallNotificationTriggerDetails(c_void_p):
     def get_CallId(self) -> WinRT_String: ...
     LineId = property(get_LineId, None)
     CallId = property(get_CallId, None)
-class IPhoneLineChangedTriggerDetails(c_void_p):
+class IPhoneLineChangedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c6d321e7-d11d-40d8-b2-b7-e4-0a-01-d6-62-49')
     @winrt_commethod(6)
@@ -84,7 +84,7 @@ class IPhoneLineChangedTriggerDetails(c_void_p):
     def HasLinePropertyChanged(self, lineProperty: Windows.ApplicationModel.Calls.Background.PhoneLineProperties) -> Boolean: ...
     LineId = property(get_LineId, None)
     ChangeType = property(get_ChangeType, None)
-class IPhoneNewVoicemailMessageTriggerDetails(c_void_p):
+class IPhoneNewVoicemailMessageTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('13a8c01b-b831-48d3-8b-a9-8d-22-a6-58-0d-cf')
     @winrt_commethod(6)
@@ -100,7 +100,7 @@ PhoneCallBlockedReason = Int32
 PhoneCallBlockedReason_InCallBlockingList: PhoneCallBlockedReason = 0
 PhoneCallBlockedReason_PrivateNumber: PhoneCallBlockedReason = 1
 PhoneCallBlockedReason_UnknownNumber: PhoneCallBlockedReason = 2
-class PhoneCallBlockedTriggerDetails(c_void_p):
+class PhoneCallBlockedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Calls.Background.PhoneCallBlockedTriggerDetails'
     @winrt_mixinmethod
@@ -112,7 +112,7 @@ class PhoneCallBlockedTriggerDetails(c_void_p):
     PhoneNumber = property(get_PhoneNumber, None)
     LineId = property(get_LineId, None)
     CallBlockedReason = property(get_CallBlockedReason, None)
-class PhoneCallOriginDataRequestTriggerDetails(c_void_p):
+class PhoneCallOriginDataRequestTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Calls.Background.PhoneCallOriginDataRequestTriggerDetails'
     @winrt_mixinmethod
@@ -126,7 +126,7 @@ PhoneIncomingCallDismissedReason_Unknown: PhoneIncomingCallDismissedReason = 0
 PhoneIncomingCallDismissedReason_CallRejected: PhoneIncomingCallDismissedReason = 1
 PhoneIncomingCallDismissedReason_TextReply: PhoneIncomingCallDismissedReason = 2
 PhoneIncomingCallDismissedReason_ConnectionLost: PhoneIncomingCallDismissedReason = 3
-class PhoneIncomingCallDismissedTriggerDetails(c_void_p):
+class PhoneIncomingCallDismissedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Calls.Background.PhoneIncomingCallDismissedTriggerDetails'
     @winrt_mixinmethod
@@ -147,7 +147,7 @@ class PhoneIncomingCallDismissedTriggerDetails(c_void_p):
     DismissalTime = property(get_DismissalTime, None)
     TextReplyMessage = property(get_TextReplyMessage, None)
     Reason = property(get_Reason, None)
-class PhoneIncomingCallNotificationTriggerDetails(c_void_p):
+class PhoneIncomingCallNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Calls.Background.PhoneIncomingCallNotificationTriggerDetails'
     @winrt_mixinmethod
@@ -160,7 +160,7 @@ PhoneLineChangeKind = Int32
 PhoneLineChangeKind_Added: PhoneLineChangeKind = 0
 PhoneLineChangeKind_Removed: PhoneLineChangeKind = 1
 PhoneLineChangeKind_PropertiesChanged: PhoneLineChangeKind = 2
-class PhoneLineChangedTriggerDetails(c_void_p):
+class PhoneLineChangedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Calls.Background.PhoneLineChangedTriggerDetails'
     @winrt_mixinmethod
@@ -182,7 +182,7 @@ PhoneLineProperties_NetworkName: PhoneLineProperties = 32
 PhoneLineProperties_NetworkState: PhoneLineProperties = 64
 PhoneLineProperties_Transport: PhoneLineProperties = 128
 PhoneLineProperties_Voicemail: PhoneLineProperties = 256
-class PhoneNewVoicemailMessageTriggerDetails(c_void_p):
+class PhoneNewVoicemailMessageTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Calls.Background.PhoneNewVoicemailMessageTriggerDetails'
     @winrt_mixinmethod

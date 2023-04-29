@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -25,7 +25,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IInstalledVoicesStatic(c_void_p):
+class IInstalledVoicesStatic(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7d526ecc-7533-4c3f-85-be-88-8c-2b-ae-eb-dc')
     @winrt_commethod(6)
@@ -34,18 +34,18 @@ class IInstalledVoicesStatic(c_void_p):
     def get_DefaultVoice(self) -> Windows.Media.SpeechSynthesis.VoiceInformation: ...
     AllVoices = property(get_AllVoices, None)
     DefaultVoice = property(get_DefaultVoice, None)
-class IInstalledVoicesStatic2(c_void_p):
+class IInstalledVoicesStatic2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('64255f2e-358d-4058-be-9a-fd-3f-cb-42-35-30')
     @winrt_commethod(6)
     def TrySetDefaultVoiceAsync(self, voice: Windows.Media.SpeechSynthesis.VoiceInformation) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
-class ISpeechSynthesisStream(c_void_p):
+class ISpeechSynthesisStream(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('83e46e93-244c-4622-ba-0b-62-29-c4-d0-d6-5d')
     @winrt_commethod(6)
     def get_Markers(self) -> Windows.Foundation.Collections.IVectorView[Windows.Media.IMediaMarker]: ...
     Markers = property(get_Markers, None)
-class ISpeechSynthesizer(c_void_p):
+class ISpeechSynthesizer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ce9f7c76-97f4-4ced-ad-68-d5-1c-45-8e-45-c6')
     @winrt_commethod(6)
@@ -57,13 +57,13 @@ class ISpeechSynthesizer(c_void_p):
     @winrt_commethod(9)
     def get_Voice(self) -> Windows.Media.SpeechSynthesis.VoiceInformation: ...
     Voice = property(get_Voice, put_Voice)
-class ISpeechSynthesizer2(c_void_p):
+class ISpeechSynthesizer2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a7c5ecb2-4339-4d6a-bb-f8-c7-a4-f1-54-4c-2e')
     @winrt_commethod(6)
     def get_Options(self) -> Windows.Media.SpeechSynthesis.SpeechSynthesizerOptions: ...
     Options = property(get_Options, None)
-class ISpeechSynthesizerOptions(c_void_p):
+class ISpeechSynthesizerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a0e23871-cc3d-43c9-91-b1-ee-18-53-24-d8-3d')
     @winrt_commethod(6)
@@ -76,7 +76,7 @@ class ISpeechSynthesizerOptions(c_void_p):
     def put_IncludeSentenceBoundaryMetadata(self, value: Boolean) -> Void: ...
     IncludeWordBoundaryMetadata = property(get_IncludeWordBoundaryMetadata, put_IncludeWordBoundaryMetadata)
     IncludeSentenceBoundaryMetadata = property(get_IncludeSentenceBoundaryMetadata, put_IncludeSentenceBoundaryMetadata)
-class ISpeechSynthesizerOptions2(c_void_p):
+class ISpeechSynthesizerOptions2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1cbef60e-119c-4bed-b1-18-d2-50-c3-a2-57-93')
     @winrt_commethod(6)
@@ -94,7 +94,7 @@ class ISpeechSynthesizerOptions2(c_void_p):
     AudioVolume = property(get_AudioVolume, put_AudioVolume)
     SpeakingRate = property(get_SpeakingRate, put_SpeakingRate)
     AudioPitch = property(get_AudioPitch, put_AudioPitch)
-class ISpeechSynthesizerOptions3(c_void_p):
+class ISpeechSynthesizerOptions3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('401ed877-902c-4814-a5-82-a5-d0-c0-76-9f-a8')
     @winrt_commethod(6)
@@ -107,7 +107,7 @@ class ISpeechSynthesizerOptions3(c_void_p):
     def put_PunctuationSilence(self, value: Windows.Media.SpeechSynthesis.SpeechPunctuationSilence) -> Void: ...
     AppendedSilence = property(get_AppendedSilence, put_AppendedSilence)
     PunctuationSilence = property(get_PunctuationSilence, put_PunctuationSilence)
-class IVoiceInformation(c_void_p):
+class IVoiceInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b127d6a4-1291-4604-aa-9c-83-13-40-83-35-2c')
     @winrt_commethod(6)
@@ -131,7 +131,7 @@ SpeechAppendedSilence_Min: SpeechAppendedSilence = 1
 SpeechPunctuationSilence = Int32
 SpeechPunctuationSilence_Default: SpeechPunctuationSilence = 0
 SpeechPunctuationSilence_Min: SpeechPunctuationSilence = 1
-class SpeechSynthesisStream(c_void_p):
+class SpeechSynthesisStream(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.SpeechSynthesis.SpeechSynthesisStream'
     @winrt_mixinmethod
@@ -173,7 +173,7 @@ class SpeechSynthesisStream(c_void_p):
     CanWrite = property(get_CanWrite, None)
     ContentType = property(get_ContentType, None)
     TimedMetadataTracks = property(get_TimedMetadataTracks, None)
-class SpeechSynthesizer(c_void_p):
+class SpeechSynthesizer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.SpeechSynthesis.SpeechSynthesizer'
     @winrt_activatemethod
@@ -200,7 +200,7 @@ class SpeechSynthesizer(c_void_p):
     Options = property(get_Options, None)
     AllVoices = property(get_AllVoices, None)
     DefaultVoice = property(get_DefaultVoice, None)
-class SpeechSynthesizerOptions(c_void_p):
+class SpeechSynthesizerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.SpeechSynthesis.SpeechSynthesizerOptions'
     @winrt_mixinmethod
@@ -241,7 +241,7 @@ class SpeechSynthesizerOptions(c_void_p):
 VoiceGender = Int32
 VoiceGender_Male: VoiceGender = 0
 VoiceGender_Female: VoiceGender = 1
-class VoiceInformation(c_void_p):
+class VoiceInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.SpeechSynthesis.VoiceInformation'
     @winrt_mixinmethod

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Store.Preview.InstallControl
@@ -24,7 +24,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AppInstallItem(c_void_p):
+class AppInstallItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem'
     @winrt_mixinmethod
@@ -97,7 +97,7 @@ class AppInstallItem(c_void_p):
     PinToTaskbarAfterInstall = property(get_PinToTaskbarAfterInstall, put_PinToTaskbarAfterInstall)
     CompletedInstallToastNotificationMode = property(get_CompletedInstallToastNotificationMode, put_CompletedInstallToastNotificationMode)
     InstallInProgressToastNotificationMode = property(get_InstallInProgressToastNotificationMode, put_InstallInProgressToastNotificationMode)
-class AppInstallManager(c_void_p):
+class AppInstallManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager'
     @winrt_activatemethod
@@ -203,13 +203,13 @@ class AppInstallManager(c_void_p):
     AcquisitionIdentity = property(get_AcquisitionIdentity, put_AcquisitionIdentity)
     AppInstallItemsWithGroupSupport = property(get_AppInstallItemsWithGroupSupport, None)
     CanInstallForAllUsers = property(get_CanInstallForAllUsers, None)
-class AppInstallManagerItemEventArgs(c_void_p):
+class AppInstallManagerItemEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManagerItemEventArgs'
     @winrt_mixinmethod
     def get_Item(self: Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallManagerItemEventArgs) -> Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem: ...
     Item = property(get_Item, None)
-class AppInstallOptions(c_void_p):
+class AppInstallOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallOptions'
     @winrt_activatemethod
@@ -304,7 +304,7 @@ AppInstallState_PausedLowBattery: AppInstallState = 10
 AppInstallState_PausedWiFiRecommended: AppInstallState = 11
 AppInstallState_PausedWiFiRequired: AppInstallState = 12
 AppInstallState_ReadyToDownload: AppInstallState = 13
-class AppInstallStatus(c_void_p):
+class AppInstallStatus(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallStatus'
     @winrt_mixinmethod
@@ -340,7 +340,7 @@ AppInstallationToastNotificationMode_Default: AppInstallationToastNotificationMo
 AppInstallationToastNotificationMode_Toast: AppInstallationToastNotificationMode = 1
 AppInstallationToastNotificationMode_ToastWithoutPopup: AppInstallationToastNotificationMode = 2
 AppInstallationToastNotificationMode_NoToast: AppInstallationToastNotificationMode = 3
-class AppUpdateOptions(c_void_p):
+class AppUpdateOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppUpdateOptions'
     @winrt_activatemethod
@@ -365,7 +365,7 @@ AutoUpdateSetting_Disabled: AutoUpdateSetting = 0
 AutoUpdateSetting_Enabled: AutoUpdateSetting = 1
 AutoUpdateSetting_DisabledByPolicy: AutoUpdateSetting = 2
 AutoUpdateSetting_EnabledByPolicy: AutoUpdateSetting = 3
-class GetEntitlementResult(c_void_p):
+class GetEntitlementResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Store.Preview.InstallControl.GetEntitlementResult'
     @winrt_mixinmethod
@@ -376,7 +376,7 @@ GetEntitlementStatus_Succeeded: GetEntitlementStatus = 0
 GetEntitlementStatus_NoStoreAccount: GetEntitlementStatus = 1
 GetEntitlementStatus_NetworkError: GetEntitlementStatus = 2
 GetEntitlementStatus_ServerError: GetEntitlementStatus = 3
-class IAppInstallItem(c_void_p):
+class IAppInstallItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('49d3dfab-168a-4cbf-a9-3a-9e-44-8c-82-73-7d')
     @winrt_commethod(6)
@@ -407,7 +407,7 @@ class IAppInstallItem(c_void_p):
     PackageFamilyName = property(get_PackageFamilyName, None)
     InstallType = property(get_InstallType, None)
     IsUserInitiated = property(get_IsUserInitiated, None)
-class IAppInstallItem2(c_void_p):
+class IAppInstallItem2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d3972af8-40c0-4fd7-aa-6c-0a-a1-3c-a6-18-8c')
     @winrt_commethod(6)
@@ -416,7 +416,7 @@ class IAppInstallItem2(c_void_p):
     def PauseWithTelemetry(self, correlationVector: WinRT_String) -> Void: ...
     @winrt_commethod(8)
     def RestartWithTelemetry(self, correlationVector: WinRT_String) -> Void: ...
-class IAppInstallItem3(c_void_p):
+class IAppInstallItem3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6f3dc998-dd47-433c-92-34-56-01-72-d6-7a-45')
     @winrt_commethod(6)
@@ -425,7 +425,7 @@ class IAppInstallItem3(c_void_p):
     def get_ItemOperationsMightAffectOtherItems(self) -> Boolean: ...
     Children = property(get_Children, None)
     ItemOperationsMightAffectOtherItems = property(get_ItemOperationsMightAffectOtherItems, None)
-class IAppInstallItem4(c_void_p):
+class IAppInstallItem4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c2d1ce12-71ff-4fc8-b5-40-45-3d-4b-37-e1-d1')
     @winrt_commethod(6)
@@ -433,7 +433,7 @@ class IAppInstallItem4(c_void_p):
     @winrt_commethod(7)
     def put_LaunchAfterInstall(self, value: Boolean) -> Void: ...
     LaunchAfterInstall = property(get_LaunchAfterInstall, put_LaunchAfterInstall)
-class IAppInstallItem5(c_void_p):
+class IAppInstallItem5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5510e7cc-4076-4a0b-94-72-c2-1d-9d-38-0e-55')
     @winrt_commethod(6)
@@ -461,7 +461,7 @@ class IAppInstallItem5(c_void_p):
     PinToTaskbarAfterInstall = property(get_PinToTaskbarAfterInstall, put_PinToTaskbarAfterInstall)
     CompletedInstallToastNotificationMode = property(get_CompletedInstallToastNotificationMode, put_CompletedInstallToastNotificationMode)
     InstallInProgressToastNotificationMode = property(get_InstallInProgressToastNotificationMode, put_InstallInProgressToastNotificationMode)
-class IAppInstallManager(c_void_p):
+class IAppInstallManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9353e170-8441-4b45-bd-72-7c-2f-a9-25-be-ee')
     @winrt_commethod(6)
@@ -505,7 +505,7 @@ class IAppInstallManager(c_void_p):
     AppInstallItems = property(get_AppInstallItems, None)
     AutoUpdateSetting = property(get_AutoUpdateSetting, put_AutoUpdateSetting)
     AcquisitionIdentity = property(get_AcquisitionIdentity, put_AcquisitionIdentity)
-class IAppInstallManager2(c_void_p):
+class IAppInstallManager2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('16937851-ed37-480d-83-14-52-e2-7c-03-f0-4a')
     @winrt_commethod(6)
@@ -524,7 +524,7 @@ class IAppInstallManager2(c_void_p):
     def PauseWithTelemetry(self, productId: WinRT_String, correlationVector: WinRT_String) -> Void: ...
     @winrt_commethod(13)
     def RestartWithTelemetry(self, productId: WinRT_String, correlationVector: WinRT_String) -> Void: ...
-class IAppInstallManager3(c_void_p):
+class IAppInstallManager3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('95b24b17-e96a-4d0e-84-e1-c8-cb-41-7a-01-78')
     @winrt_commethod(6)
@@ -543,7 +543,7 @@ class IAppInstallManager3(c_void_p):
     def GetIsApplicableForUserAsync(self, user: Windows.System.User, productId: WinRT_String, skuId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(13)
     def MoveToFrontOfDownloadQueue(self, productId: WinRT_String, correlationVector: WinRT_String) -> Void: ...
-class IAppInstallManager4(c_void_p):
+class IAppInstallManager4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('260a2a16-5a9e-4ebd-b9-44-f2-ba-75-c3-11-59')
     @winrt_commethod(6)
@@ -552,13 +552,13 @@ class IAppInstallManager4(c_void_p):
     def GetFreeUserEntitlementForUserAsync(self, user: Windows.System.User, storeId: WinRT_String, campaignId: WinRT_String, correlationVector: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Store.Preview.InstallControl.GetEntitlementResult]: ...
     @winrt_commethod(8)
     def GetFreeDeviceEntitlementAsync(self, storeId: WinRT_String, campaignId: WinRT_String, correlationVector: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Store.Preview.InstallControl.GetEntitlementResult]: ...
-class IAppInstallManager5(c_void_p):
+class IAppInstallManager5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3cd7be4c-1be9-4f7f-b6-75-aa-1d-64-a5-29-b2')
     @winrt_commethod(6)
     def get_AppInstallItemsWithGroupSupport(self) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem]: ...
     AppInstallItemsWithGroupSupport = property(get_AppInstallItemsWithGroupSupport, None)
-class IAppInstallManager6(c_void_p):
+class IAppInstallManager6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c9e7d408-f27a-4471-b2-f4-e7-6e-fc-be-bc-ca')
     @winrt_commethod(6)
@@ -577,19 +577,19 @@ class IAppInstallManager6(c_void_p):
     def GetIsPackageIdentityAllowedToInstallAsync(self, correlationVector: WinRT_String, packageIdentityName: WinRT_String, publisherCertificateName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(13)
     def GetIsPackageIdentityAllowedToInstallForUserAsync(self, user: Windows.System.User, correlationVector: WinRT_String, packageIdentityName: WinRT_String, publisherCertificateName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
-class IAppInstallManager7(c_void_p):
+class IAppInstallManager7(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a5ee7b30-d5e4-49a3-98-53-3d-b0-32-03-32-1d')
     @winrt_commethod(6)
     def get_CanInstallForAllUsers(self) -> Boolean: ...
     CanInstallForAllUsers = property(get_CanInstallForAllUsers, None)
-class IAppInstallManagerItemEventArgs(c_void_p):
+class IAppInstallManagerItemEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bc505743-4674-4dd1-95-7e-c2-56-82-08-6a-14')
     @winrt_commethod(6)
     def get_Item(self) -> Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem: ...
     Item = property(get_Item, None)
-class IAppInstallOptions(c_void_p):
+class IAppInstallOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c9808300-1cb8-4eb6-8c-9f-6a-30-c6-4a-5b-51')
     @winrt_commethod(6)
@@ -622,7 +622,7 @@ class IAppInstallOptions(c_void_p):
     Repair = property(get_Repair, put_Repair)
     TargetVolume = property(get_TargetVolume, put_TargetVolume)
     LaunchAfterInstall = property(get_LaunchAfterInstall, put_LaunchAfterInstall)
-class IAppInstallOptions2(c_void_p):
+class IAppInstallOptions2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8a04c0d7-c94b-425e-95-b4-bf-27-fa-ea-ee-89')
     @winrt_commethod(6)
@@ -670,7 +670,7 @@ class IAppInstallOptions2(c_void_p):
     StageButDoNotInstall = property(get_StageButDoNotInstall, put_StageButDoNotInstall)
     CampaignId = property(get_CampaignId, put_CampaignId)
     ExtendedCampaignId = property(get_ExtendedCampaignId, put_ExtendedCampaignId)
-class IAppInstallStatus(c_void_p):
+class IAppInstallStatus(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('936dccfa-2450-4126-88-b1-61-27-a6-44-dd-5c')
     @winrt_commethod(6)
@@ -688,7 +688,7 @@ class IAppInstallStatus(c_void_p):
     BytesDownloaded = property(get_BytesDownloaded, None)
     PercentComplete = property(get_PercentComplete, None)
     ErrorCode = property(get_ErrorCode, None)
-class IAppInstallStatus2(c_void_p):
+class IAppInstallStatus2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('96e7818a-5e92-4aa9-8e-dc-58-fe-d4-b8-7e-00')
     @winrt_commethod(6)
@@ -697,13 +697,13 @@ class IAppInstallStatus2(c_void_p):
     def get_ReadyForLaunch(self) -> Boolean: ...
     User = property(get_User, None)
     ReadyForLaunch = property(get_ReadyForLaunch, None)
-class IAppInstallStatus3(c_void_p):
+class IAppInstallStatus3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cb880c56-837b-4b4c-9e-bb-6d-44-a0-a9-63-07')
     @winrt_commethod(6)
     def get_IsStaged(self) -> Boolean: ...
     IsStaged = property(get_IsStaged, None)
-class IAppUpdateOptions(c_void_p):
+class IAppUpdateOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('26f0b02f-c2f3-4aea-af-8c-63-08-dd-9d-b8-5f')
     @winrt_commethod(6)
@@ -716,7 +716,7 @@ class IAppUpdateOptions(c_void_p):
     def put_AllowForcedAppRestart(self, value: Boolean) -> Void: ...
     CatalogId = property(get_CatalogId, put_CatalogId)
     AllowForcedAppRestart = property(get_AllowForcedAppRestart, put_AllowForcedAppRestart)
-class IAppUpdateOptions2(c_void_p):
+class IAppUpdateOptions2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f4646e08-ed26-4bf9-96-79-48-f6-28-e5-3d-f8')
     @winrt_commethod(6)
@@ -724,7 +724,7 @@ class IAppUpdateOptions2(c_void_p):
     @winrt_commethod(7)
     def put_AutomaticallyDownloadAndInstallUpdateIfFound(self, value: Boolean) -> Void: ...
     AutomaticallyDownloadAndInstallUpdateIfFound = property(get_AutomaticallyDownloadAndInstallUpdateIfFound, put_AutomaticallyDownloadAndInstallUpdateIfFound)
-class IGetEntitlementResult(c_void_p):
+class IGetEntitlementResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('74fc843f-1a9e-4609-8e-4d-81-90-86-d0-8a-3d')
     @winrt_commethod(6)

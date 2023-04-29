@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -30,7 +30,7 @@ AuthenticationProtocol_Kerberos: AuthenticationProtocol = 3
 AuthenticationProtocol_Negotiate: AuthenticationProtocol = 4
 AuthenticationProtocol_CredSsp: AuthenticationProtocol = 5
 AuthenticationProtocol_Custom: AuthenticationProtocol = 6
-class CredentialPicker(c_void_p):
+class CredentialPicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Credentials.UI.CredentialPicker'
     @winrt_classmethod
@@ -39,7 +39,7 @@ class CredentialPicker(c_void_p):
     def PickWithMessageAsync(cls: Windows.Security.Credentials.UI.ICredentialPickerStatics, targetName: WinRT_String, message: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.UI.CredentialPickerResults]: ...
     @winrt_classmethod
     def PickWithCaptionAsync(cls: Windows.Security.Credentials.UI.ICredentialPickerStatics, targetName: WinRT_String, message: WinRT_String, caption: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.UI.CredentialPickerResults]: ...
-class CredentialPickerOptions(c_void_p):
+class CredentialPickerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Credentials.UI.CredentialPickerOptions'
     @winrt_activatemethod
@@ -94,7 +94,7 @@ class CredentialPickerOptions(c_void_p):
     AlwaysDisplayDialog = property(get_AlwaysDisplayDialog, put_AlwaysDisplayDialog)
     CallerSavesCredential = property(get_CallerSavesCredential, put_CallerSavesCredential)
     CredentialSaveOption = property(get_CredentialSaveOption, put_CredentialSaveOption)
-class CredentialPickerResults(c_void_p):
+class CredentialPickerResults(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Credentials.UI.CredentialPickerResults'
     @winrt_mixinmethod
@@ -122,7 +122,7 @@ CredentialSaveOption = Int32
 CredentialSaveOption_Unselected: CredentialSaveOption = 0
 CredentialSaveOption_Selected: CredentialSaveOption = 1
 CredentialSaveOption_Hidden: CredentialSaveOption = 2
-class ICredentialPickerOptions(c_void_p):
+class ICredentialPickerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('965a0b4c-95fa-467f-99-2b-0b-22-e5-85-9b-f6')
     @winrt_commethod(6)
@@ -175,7 +175,7 @@ class ICredentialPickerOptions(c_void_p):
     AlwaysDisplayDialog = property(get_AlwaysDisplayDialog, put_AlwaysDisplayDialog)
     CallerSavesCredential = property(get_CallerSavesCredential, put_CallerSavesCredential)
     CredentialSaveOption = property(get_CredentialSaveOption, put_CredentialSaveOption)
-class ICredentialPickerResults(c_void_p):
+class ICredentialPickerResults(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1948f99a-cc30-410c-9c-38-cc-08-84-c5-b3-d7')
     @winrt_commethod(6)
@@ -199,7 +199,7 @@ class ICredentialPickerResults(c_void_p):
     CredentialDomainName = property(get_CredentialDomainName, None)
     CredentialUserName = property(get_CredentialUserName, None)
     CredentialPassword = property(get_CredentialPassword, None)
-class ICredentialPickerStatics(c_void_p):
+class ICredentialPickerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('aa3a5c73-c9ea-4782-99-fb-e6-d7-e9-38-e1-2d')
     @winrt_commethod(6)
@@ -208,7 +208,7 @@ class ICredentialPickerStatics(c_void_p):
     def PickWithMessageAsync(self, targetName: WinRT_String, message: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.UI.CredentialPickerResults]: ...
     @winrt_commethod(8)
     def PickWithCaptionAsync(self, targetName: WinRT_String, message: WinRT_String, caption: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.UI.CredentialPickerResults]: ...
-class IUserConsentVerifierStatics(c_void_p):
+class IUserConsentVerifierStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('af4f3f91-564c-4ddc-b8-b5-97-34-47-62-7c-65')
     @winrt_commethod(6)
@@ -223,7 +223,7 @@ UserConsentVerificationResult_DisabledByPolicy: UserConsentVerificationResult = 
 UserConsentVerificationResult_DeviceBusy: UserConsentVerificationResult = 4
 UserConsentVerificationResult_RetriesExhausted: UserConsentVerificationResult = 5
 UserConsentVerificationResult_Canceled: UserConsentVerificationResult = 6
-class UserConsentVerifier(c_void_p):
+class UserConsentVerifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Credentials.UI.UserConsentVerifier'
     @winrt_classmethod

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Adc.Provider
@@ -21,7 +21,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IAdcControllerProvider(c_void_p):
+class IAdcControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('be545828-816d-4de5-a0-48-ab-a0-69-58-aa-a8')
     @winrt_commethod(6)
@@ -49,7 +49,7 @@ class IAdcControllerProvider(c_void_p):
     MinValue = property(get_MinValue, None)
     MaxValue = property(get_MaxValue, None)
     ChannelMode = property(get_ChannelMode, put_ChannelMode)
-class IAdcProvider(c_void_p):
+class IAdcProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('28953668-9359-4c57-bc-88-e2-75-e8-16-38-c9')
     @winrt_commethod(6)

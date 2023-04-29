@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -24,7 +24,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class Buffer(c_void_p):
+class Buffer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Streams.Buffer'
     @winrt_factorymethod
@@ -44,7 +44,7 @@ class Buffer(c_void_p):
 ByteOrder = Int32
 ByteOrder_LittleEndian: ByteOrder = 0
 ByteOrder_BigEndian: ByteOrder = 1
-class DataReader(c_void_p):
+class DataReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Streams.DataReader'
     @winrt_factorymethod
@@ -109,7 +109,7 @@ class DataReader(c_void_p):
     UnicodeEncoding = property(get_UnicodeEncoding, put_UnicodeEncoding)
     ByteOrder = property(get_ByteOrder, put_ByteOrder)
     InputStreamOptions = property(get_InputStreamOptions, put_InputStreamOptions)
-class DataReaderLoadOperation(c_void_p):
+class DataReaderLoadOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Streams.DataReaderLoadOperation'
     @winrt_mixinmethod
@@ -132,7 +132,7 @@ class DataReaderLoadOperation(c_void_p):
     Id = property(get_Id, None)
     Status = property(get_Status, None)
     ErrorCode = property(get_ErrorCode, None)
-class DataWriter(c_void_p):
+class DataWriter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Streams.DataWriter'
     @winrt_factorymethod
@@ -198,7 +198,7 @@ class DataWriter(c_void_p):
     UnstoredBufferLength = property(get_UnstoredBufferLength, None)
     UnicodeEncoding = property(get_UnicodeEncoding, put_UnicodeEncoding)
     ByteOrder = property(get_ByteOrder, put_ByteOrder)
-class DataWriterStoreOperation(c_void_p):
+class DataWriterStoreOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Streams.DataWriterStoreOperation'
     @winrt_mixinmethod
@@ -221,7 +221,7 @@ class DataWriterStoreOperation(c_void_p):
     Id = property(get_Id, None)
     Status = property(get_Status, None)
     ErrorCode = property(get_ErrorCode, None)
-class FileInputStream(c_void_p):
+class FileInputStream(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Streams.FileInputStream'
     @winrt_mixinmethod
@@ -234,7 +234,7 @@ FileOpenDisposition_OpenAlways: FileOpenDisposition = 1
 FileOpenDisposition_CreateNew: FileOpenDisposition = 2
 FileOpenDisposition_CreateAlways: FileOpenDisposition = 3
 FileOpenDisposition_TruncateExisting: FileOpenDisposition = 4
-class FileOutputStream(c_void_p):
+class FileOutputStream(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Streams.FileOutputStream'
     @winrt_mixinmethod
@@ -243,7 +243,7 @@ class FileOutputStream(c_void_p):
     def FlushAsync(self: Windows.Storage.Streams.IOutputStream) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
-class FileRandomAccessStream(c_void_p):
+class FileRandomAccessStream(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Streams.FileRandomAccessStream'
     @winrt_mixinmethod
@@ -292,7 +292,7 @@ class FileRandomAccessStream(c_void_p):
     Position = property(get_Position, None)
     CanRead = property(get_CanRead, None)
     CanWrite = property(get_CanWrite, None)
-class IBuffer(c_void_p):
+class IBuffer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('905a0fe0-bc53-11df-8c-49-00-1e-4f-c6-86-da')
     @winrt_commethod(6)
@@ -303,25 +303,25 @@ class IBuffer(c_void_p):
     def put_Length(self, value: UInt32) -> Void: ...
     Capacity = property(get_Capacity, None)
     Length = property(get_Length, put_Length)
-class IBufferFactory(c_void_p):
+class IBufferFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('71af914d-c10f-484b-bc-50-14-bc-62-3b-3a-27')
     @winrt_commethod(6)
     def Create(self, capacity: UInt32) -> Windows.Storage.Streams.Buffer: ...
-class IBufferStatics(c_void_p):
+class IBufferStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e901e65b-d716-475a-a9-0a-af-72-29-b1-e7-41')
     @winrt_commethod(6)
     def CreateCopyFromMemoryBuffer(self, input: Windows.Foundation.IMemoryBuffer) -> Windows.Storage.Streams.Buffer: ...
     @winrt_commethod(7)
     def CreateMemoryBufferOverIBuffer(self, input: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.MemoryBuffer: ...
-class IContentTypeProvider(c_void_p):
+class IContentTypeProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('97d098a5-3b99-4de9-88-a5-e1-1d-2f-50-c7-95')
     @winrt_commethod(6)
     def get_ContentType(self) -> WinRT_String: ...
     ContentType = property(get_ContentType, None)
-class IDataReader(c_void_p):
+class IDataReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e2b50029-b4c1-4314-a4-b8-fb-81-3a-2f-27-5e')
     @winrt_commethod(6)
@@ -380,17 +380,17 @@ class IDataReader(c_void_p):
     UnicodeEncoding = property(get_UnicodeEncoding, put_UnicodeEncoding)
     ByteOrder = property(get_ByteOrder, put_ByteOrder)
     InputStreamOptions = property(get_InputStreamOptions, put_InputStreamOptions)
-class IDataReaderFactory(c_void_p):
+class IDataReaderFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d7527847-57da-4e15-91-4c-06-80-66-99-a0-98')
     @winrt_commethod(6)
     def CreateDataReader(self, inputStream: Windows.Storage.Streams.IInputStream) -> Windows.Storage.Streams.DataReader: ...
-class IDataReaderStatics(c_void_p):
+class IDataReaderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('11fcbfc8-f93a-471b-b1-21-f3-79-e3-49-31-3c')
     @winrt_commethod(6)
     def FromBuffer(self, buffer: Windows.Storage.Streams.IBuffer) -> Windows.Storage.Streams.DataReader: ...
-class IDataWriter(c_void_p):
+class IDataWriter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('64b89265-d341-4922-b3-8a-dd-4a-f8-80-8c-4e')
     @winrt_commethod(6)
@@ -450,12 +450,12 @@ class IDataWriter(c_void_p):
     UnstoredBufferLength = property(get_UnstoredBufferLength, None)
     UnicodeEncoding = property(get_UnicodeEncoding, put_UnicodeEncoding)
     ByteOrder = property(get_ByteOrder, put_ByteOrder)
-class IDataWriterFactory(c_void_p):
+class IDataWriterFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('338c67c2-8b84-4c2b-9c-50-7b-87-67-84-7a-1f')
     @winrt_commethod(6)
     def CreateDataWriter(self, outputStream: Windows.Storage.Streams.IOutputStream) -> Windows.Storage.Streams.DataWriter: ...
-class IFileRandomAccessStreamStatics(c_void_p):
+class IFileRandomAccessStreamStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('73550107-3b57-4b5d-83-45-55-4d-2f-c6-21-f0')
     @winrt_commethod(6)
@@ -474,31 +474,31 @@ class IFileRandomAccessStreamStatics(c_void_p):
     def OpenTransactedWriteForUserAsync(self, user: Windows.System.User, filePath: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageStreamTransaction]: ...
     @winrt_commethod(13)
     def OpenTransactedWriteForUserWithOptionsAsync(self, user: Windows.System.User, filePath: WinRT_String, openOptions: Windows.Storage.StorageOpenOptions, openDisposition: Windows.Storage.Streams.FileOpenDisposition) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageStreamTransaction]: ...
-class IInputStream(c_void_p):
+class IInputStream(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('905a0fe2-bc53-11df-8c-49-00-1e-4f-c6-86-da')
     @winrt_commethod(6)
     def ReadAsync(self, buffer: Windows.Storage.Streams.IBuffer, count: UInt32, options: Windows.Storage.Streams.InputStreamOptions) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Storage.Streams.IBuffer, UInt32]: ...
-class IInputStreamReference(c_void_p):
+class IInputStreamReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('43929d18-5ec9-4b5a-91-9c-42-05-b0-c8-04-b6')
     @winrt_commethod(6)
     def OpenSequentialReadAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IInputStream]: ...
-class IOutputStream(c_void_p):
+class IOutputStream(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('905a0fe6-bc53-11df-8c-49-00-1e-4f-c6-86-da')
     @winrt_commethod(6)
     def WriteAsync(self, buffer: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncOperationWithProgress[UInt32, UInt32]: ...
     @winrt_commethod(7)
     def FlushAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
-class IPropertySetSerializer(c_void_p):
+class IPropertySetSerializer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6e8ebf1c-ef3d-4376-b2-0e-5b-e6-38-ae-ac-77')
     @winrt_commethod(6)
     def Serialize(self, propertySet: Windows.Foundation.Collections.IPropertySet) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(7)
     def Deserialize(self, propertySet: Windows.Foundation.Collections.IPropertySet, buffer: Windows.Storage.Streams.IBuffer) -> Void: ...
-class IRandomAccessStream(c_void_p):
+class IRandomAccessStream(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('905a0fe1-bc53-11df-8c-49-00-1e-4f-c6-86-da')
     @winrt_commethod(6)
@@ -523,12 +523,12 @@ class IRandomAccessStream(c_void_p):
     Position = property(get_Position, None)
     CanRead = property(get_CanRead, None)
     CanWrite = property(get_CanWrite, None)
-class IRandomAccessStreamReference(c_void_p):
+class IRandomAccessStreamReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('33ee3134-1dd6-4e3a-80-67-d1-c1-62-e8-64-2b')
     @winrt_commethod(6)
     def OpenReadAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IRandomAccessStreamWithContentType]: ...
-class IRandomAccessStreamReferenceStatics(c_void_p):
+class IRandomAccessStreamReferenceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('857309dc-3fbf-4e7d-98-6f-ef-3b-1a-07-a9-64')
     @winrt_commethod(6)
@@ -537,7 +537,7 @@ class IRandomAccessStreamReferenceStatics(c_void_p):
     def CreateFromUri(self, uri: Windows.Foundation.Uri) -> Windows.Storage.Streams.RandomAccessStreamReference: ...
     @winrt_commethod(8)
     def CreateFromStream(self, stream: Windows.Storage.Streams.IRandomAccessStream) -> Windows.Storage.Streams.RandomAccessStreamReference: ...
-class IRandomAccessStreamStatics(c_void_p):
+class IRandomAccessStreamStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('524cedcf-6e29-4ce5-95-73-6b-75-3d-b6-6c-3a')
     @winrt_commethod(6)
@@ -546,10 +546,10 @@ class IRandomAccessStreamStatics(c_void_p):
     def CopySizeAsync(self, source: Windows.Storage.Streams.IInputStream, destination: Windows.Storage.Streams.IOutputStream, bytesToCopy: UInt64) -> Windows.Foundation.IAsyncOperationWithProgress[UInt64, UInt64]: ...
     @winrt_commethod(8)
     def CopyAndCloseAsync(self, source: Windows.Storage.Streams.IInputStream, destination: Windows.Storage.Streams.IOutputStream) -> Windows.Foundation.IAsyncOperationWithProgress[UInt64, UInt64]: ...
-class IRandomAccessStreamWithContentType(c_void_p):
+class IRandomAccessStreamWithContentType(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cc254827-4b3d-438f-92-32-10-c7-6b-c7-e0-38')
-class InMemoryRandomAccessStream(c_void_p):
+class InMemoryRandomAccessStream(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Streams.InMemoryRandomAccessStream'
     @winrt_activatemethod
@@ -588,14 +588,14 @@ InputStreamOptions = UInt32
 InputStreamOptions_None: InputStreamOptions = 0
 InputStreamOptions_Partial: InputStreamOptions = 1
 InputStreamOptions_ReadAhead: InputStreamOptions = 2
-class InputStreamOverStream(c_void_p):
+class InputStreamOverStream(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Streams.InputStreamOverStream'
     @winrt_mixinmethod
     def ReadAsync(self: Windows.Storage.Streams.IInputStream, buffer: Windows.Storage.Streams.IBuffer, count: UInt32, options: Windows.Storage.Streams.InputStreamOptions) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Storage.Streams.IBuffer, UInt32]: ...
     @winrt_mixinmethod
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
-class OutputStreamOverStream(c_void_p):
+class OutputStreamOverStream(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Streams.OutputStreamOverStream'
     @winrt_mixinmethod
@@ -604,7 +604,7 @@ class OutputStreamOverStream(c_void_p):
     def FlushAsync(self: Windows.Storage.Streams.IOutputStream) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
-class RandomAccessStream(c_void_p):
+class RandomAccessStream(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Streams.RandomAccessStream'
     @winrt_classmethod
@@ -613,7 +613,7 @@ class RandomAccessStream(c_void_p):
     def CopySizeAsync(cls: Windows.Storage.Streams.IRandomAccessStreamStatics, source: Windows.Storage.Streams.IInputStream, destination: Windows.Storage.Streams.IOutputStream, bytesToCopy: UInt64) -> Windows.Foundation.IAsyncOperationWithProgress[UInt64, UInt64]: ...
     @winrt_classmethod
     def CopyAndCloseAsync(cls: Windows.Storage.Streams.IRandomAccessStreamStatics, source: Windows.Storage.Streams.IInputStream, destination: Windows.Storage.Streams.IOutputStream) -> Windows.Foundation.IAsyncOperationWithProgress[UInt64, UInt64]: ...
-class RandomAccessStreamOverStream(c_void_p):
+class RandomAccessStreamOverStream(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Streams.RandomAccessStreamOverStream'
     @winrt_mixinmethod
@@ -646,7 +646,7 @@ class RandomAccessStreamOverStream(c_void_p):
     Position = property(get_Position, None)
     CanRead = property(get_CanRead, None)
     CanWrite = property(get_CanWrite, None)
-class RandomAccessStreamReference(c_void_p):
+class RandomAccessStreamReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Streams.RandomAccessStreamReference'
     @winrt_mixinmethod

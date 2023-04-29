@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Geolocation
@@ -29,13 +29,13 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class CustomMapTileDataSource(c_void_p):
+class CustomMapTileDataSource(ComPtr):
     extends: Windows.UI.Xaml.Controls.Maps.MapTileDataSource
     @winrt_commethod(10)
     def add_BitmapRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Xaml.Controls.Maps.CustomMapTileDataSource, Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_BitmapRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class HttpMapTileDataSource(c_void_p):
+class HttpMapTileDataSource(ComPtr):
     extends: Windows.UI.Xaml.Controls.Maps.MapTileDataSource
     @winrt_commethod(16)
     def get_UriFormatString(self) -> WinRT_String: ...
@@ -54,19 +54,19 @@ class HttpMapTileDataSource(c_void_p):
     UriFormatString = property(get_UriFormatString, put_UriFormatString)
     AdditionalRequestHeaders = property(get_AdditionalRequestHeaders, None)
     AllowCaching = property(get_AllowCaching, put_AllowCaching)
-class ICustomMapTileDataSource(c_void_p):
+class ICustomMapTileDataSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('65da384a-2db1-4be1-b1-55-3d-0c-9e-cf-47-99')
     @winrt_commethod(6)
     def add_BitmapRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Xaml.Controls.Maps.CustomMapTileDataSource, Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_BitmapRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class ICustomMapTileDataSourceFactory(c_void_p):
+class ICustomMapTileDataSourceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c8477947-c955-4f22-94-44-a1-d8-d7-44-af-11')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Controls.Maps.CustomMapTileDataSource: ...
-class IHttpMapTileDataSource(c_void_p):
+class IHttpMapTileDataSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9d03cb5c-fd79-4795-87-be-7e-54-ca-0b-37-d0')
     @winrt_commethod(6)
@@ -86,14 +86,14 @@ class IHttpMapTileDataSource(c_void_p):
     UriFormatString = property(get_UriFormatString, put_UriFormatString)
     AdditionalRequestHeaders = property(get_AdditionalRequestHeaders, None)
     AllowCaching = property(get_AllowCaching, put_AllowCaching)
-class IHttpMapTileDataSourceFactory(c_void_p):
+class IHttpMapTileDataSourceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('53b4b107-84dc-4291-89-f8-6d-0b-b6-12-a0-55')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource: ...
     @winrt_commethod(7)
     def CreateInstanceWithUriFormatString(self, uriFormatString: WinRT_String, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource: ...
-class ILocalMapTileDataSource(c_void_p):
+class ILocalMapTileDataSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('616257b5-9108-4f12-8b-f4-bb-3c-8f-62-74-e5')
     @winrt_commethod(6)
@@ -105,38 +105,38 @@ class ILocalMapTileDataSource(c_void_p):
     @winrt_commethod(9)
     def remove_UriRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     UriFormatString = property(get_UriFormatString, put_UriFormatString)
-class ILocalMapTileDataSourceFactory(c_void_p):
+class ILocalMapTileDataSourceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c5cfe9fc-72ac-4839-8a-0d-01-1f-24-69-3c-79')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource: ...
     @winrt_commethod(7)
     def CreateInstanceWithUriFormatString(self, uriFormatString: WinRT_String, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource: ...
-class IMapActualCameraChangedEventArgs(c_void_p):
+class IMapActualCameraChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('daa080da-b7f4-422c-a6-18-bb-aa-7c-1d-81-4c')
     @winrt_commethod(6)
     def get_Camera(self) -> Windows.UI.Xaml.Controls.Maps.MapCamera: ...
     Camera = property(get_Camera, None)
-class IMapActualCameraChangedEventArgs2(c_void_p):
+class IMapActualCameraChangedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7ba4c7e5-10dc-455a-9d-04-1d-72-fb-6d-9b-93')
     @winrt_commethod(6)
     def get_ChangeReason(self) -> Windows.UI.Xaml.Controls.Maps.MapCameraChangeReason: ...
     ChangeReason = property(get_ChangeReason, None)
-class IMapActualCameraChangingEventArgs(c_void_p):
+class IMapActualCameraChangingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6b0dbed6-93f7-4682-8d-e5-a4-7a-1c-c7-a9-45')
     @winrt_commethod(6)
     def get_Camera(self) -> Windows.UI.Xaml.Controls.Maps.MapCamera: ...
     Camera = property(get_Camera, None)
-class IMapActualCameraChangingEventArgs2(c_void_p):
+class IMapActualCameraChangingEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f2867897-40ac-4e8a-a9-27-51-0f-38-46-a4-7e')
     @winrt_commethod(6)
     def get_ChangeReason(self) -> Windows.UI.Xaml.Controls.Maps.MapCameraChangeReason: ...
     ChangeReason = property(get_ChangeReason, None)
-class IMapBillboard(c_void_p):
+class IMapBillboard(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1694259d-0ae2-4f42-a0-2e-29-2c-a8-35-d3-9d')
     @winrt_commethod(6)
@@ -162,12 +162,12 @@ class IMapBillboard(c_void_p):
     Image = property(get_Image, put_Image)
     CollisionBehaviorDesired = property(get_CollisionBehaviorDesired, put_CollisionBehaviorDesired)
     ReferenceCamera = property(get_ReferenceCamera, None)
-class IMapBillboardFactory(c_void_p):
+class IMapBillboardFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('be45a4c5-8f09-4b86-ae-28-78-37-40-eb-8b-31')
     @winrt_commethod(6)
     def CreateInstanceFromCamera(self, camera: Windows.UI.Xaml.Controls.Maps.MapCamera) -> Windows.UI.Xaml.Controls.Maps.MapBillboard: ...
-class IMapBillboardStatics(c_void_p):
+class IMapBillboardStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fdf839fe-e1f7-4fb0-88-87-7d-a6-8c-64-73-33')
     @winrt_commethod(6)
@@ -179,7 +179,7 @@ class IMapBillboardStatics(c_void_p):
     LocationProperty = property(get_LocationProperty, None)
     NormalizedAnchorPointProperty = property(get_NormalizedAnchorPointProperty, None)
     CollisionBehaviorDesiredProperty = property(get_CollisionBehaviorDesiredProperty, None)
-class IMapCamera(c_void_p):
+class IMapCamera(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('53a6b623-c0f8-4d8b-ad-1e-a5-95-98-ea-84-0b')
     @winrt_commethod(6)
@@ -207,7 +207,7 @@ class IMapCamera(c_void_p):
     Pitch = property(get_Pitch, put_Pitch)
     Roll = property(get_Roll, put_Roll)
     FieldOfView = property(get_FieldOfView, put_FieldOfView)
-class IMapCameraFactory(c_void_p):
+class IMapCameraFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ea3b0f16-83af-4ace-8e-71-10-ad-9f-1e-9e-7f')
     @winrt_commethod(6)
@@ -218,7 +218,7 @@ class IMapCameraFactory(c_void_p):
     def CreateInstanceWithLocationHeadingAndPitch(self, location: Windows.Devices.Geolocation.Geopoint, headingInDegrees: Double, pitchInDegrees: Double) -> Windows.UI.Xaml.Controls.Maps.MapCamera: ...
     @winrt_commethod(9)
     def CreateInstanceWithLocationHeadingPitchRollAndFieldOfView(self, location: Windows.Devices.Geolocation.Geopoint, headingInDegrees: Double, pitchInDegrees: Double, rollInDegrees: Double, fieldOfViewInDegrees: Double) -> Windows.UI.Xaml.Controls.Maps.MapCamera: ...
-class IMapContextRequestedEventArgs(c_void_p):
+class IMapContextRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fdd1b423-c961-4df2-bb-57-82-ee-0f-0b-b5-91')
     @winrt_commethod(6)
@@ -230,7 +230,7 @@ class IMapContextRequestedEventArgs(c_void_p):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElements = property(get_MapElements, None)
-class IMapControl(c_void_p):
+class IMapControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('42d0b851-5256-4747-9e-6c-0d-11-e9-66-14-1e')
     @winrt_commethod(6)
@@ -371,7 +371,7 @@ class IMapControl(c_void_p):
     MapElements = property(get_MapElements, None)
     Routes = property(get_Routes, None)
     TileSources = property(get_TileSources, None)
-class IMapControl2(c_void_p):
+class IMapControl2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e1fd644d-96ec-4065-b0-f0-75-28-1d-a3-65-4d')
     @winrt_commethod(6)
@@ -484,14 +484,14 @@ class IMapControl2(c_void_p):
     ActualCamera = property(get_ActualCamera, None)
     TargetCamera = property(get_TargetCamera, None)
     CustomExperience = property(get_CustomExperience, put_CustomExperience)
-class IMapControl3(c_void_p):
+class IMapControl3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('586328f8-8cdd-40ae-93-38-af-2a-7b-e8-45-e5')
     @winrt_commethod(6)
     def add_MapRightTapped(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Xaml.Controls.Maps.MapControl, Windows.UI.Xaml.Controls.Maps.MapRightTappedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_MapRightTapped(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IMapControl4(c_void_p):
+class IMapControl4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('068f132a-1817-466d-b7-ce-41-9b-3f-8e-24-8b')
     @winrt_commethod(6)
@@ -506,7 +506,7 @@ class IMapControl4(c_void_p):
     def GetVisibleRegion(self, region: Windows.UI.Xaml.Controls.Maps.MapVisibleRegionKind) -> Windows.Devices.Geolocation.Geopath: ...
     BusinessLandmarksEnabled = property(get_BusinessLandmarksEnabled, put_BusinessLandmarksEnabled)
     TransitFeaturesEnabled = property(get_TransitFeaturesEnabled, put_TransitFeaturesEnabled)
-class IMapControl5(c_void_p):
+class IMapControl5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dd9b0ffd-7823-46a2-82-c9-65-dd-ac-4f-36-5f')
     @winrt_commethod(6)
@@ -540,7 +540,7 @@ class IMapControl5(c_void_p):
     MapProjection = property(get_MapProjection, put_MapProjection)
     StyleSheet = property(get_StyleSheet, put_StyleSheet)
     ViewPadding = property(get_ViewPadding, put_ViewPadding)
-class IMapControl6(c_void_p):
+class IMapControl6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b0da89a2-1041-4bea-b8-8a-12-ac-9a-82-e0-e2')
     @winrt_commethod(6)
@@ -552,7 +552,7 @@ class IMapControl6(c_void_p):
     @winrt_commethod(9)
     def TryGetLocationFromOffsetWithReferenceSystem(self, offset: Windows.Foundation.Point, desiredReferenceSystem: Windows.Devices.Geolocation.AltitudeReferenceSystem, location: POINTER(Windows.Devices.Geolocation.Geopoint)) -> Boolean: ...
     Layers = property(get_Layers, put_Layers)
-class IMapControl7(c_void_p):
+class IMapControl7(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0d86e453-0c1f-4f7e-ae-66-4a-d0-b4-98-78-57')
     @winrt_commethod(6)
@@ -560,7 +560,7 @@ class IMapControl7(c_void_p):
     @winrt_commethod(7)
     def put_Region(self, value: WinRT_String) -> Void: ...
     Region = property(get_Region, put_Region)
-class IMapControl8(c_void_p):
+class IMapControl8(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('009e9c46-724d-53ca-94-21-7a-48-fc-73-15-23')
     @winrt_commethod(6)
@@ -575,31 +575,31 @@ class IMapControl8(c_void_p):
     CanTiltUp = property(get_CanTiltUp, None)
     CanZoomIn = property(get_CanZoomIn, None)
     CanZoomOut = property(get_CanZoomOut, None)
-class IMapControlBusinessLandmarkClickEventArgs(c_void_p):
+class IMapControlBusinessLandmarkClickEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5e464922-4a1a-4797-be-b7-5c-f7-75-4c-b8-67')
     @winrt_commethod(6)
     def get_LocalLocations(self) -> Windows.Foundation.Collections.IVectorView[Windows.Services.Maps.LocalSearch.LocalLocation]: ...
     LocalLocations = property(get_LocalLocations, None)
-class IMapControlBusinessLandmarkPointerEnteredEventArgs(c_void_p):
+class IMapControlBusinessLandmarkPointerEnteredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5e4081a6-ea98-4f95-8c-af-5b-42-69-6f-f5-04')
     @winrt_commethod(6)
     def get_LocalLocations(self) -> Windows.Foundation.Collections.IVectorView[Windows.Services.Maps.LocalSearch.LocalLocation]: ...
     LocalLocations = property(get_LocalLocations, None)
-class IMapControlBusinessLandmarkPointerExitedEventArgs(c_void_p):
+class IMapControlBusinessLandmarkPointerExitedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2bb52caf-f24a-46d0-b4-63-65-f7-19-73-10-57')
     @winrt_commethod(6)
     def get_LocalLocations(self) -> Windows.Foundation.Collections.IVectorView[Windows.Services.Maps.LocalSearch.LocalLocation]: ...
     LocalLocations = property(get_LocalLocations, None)
-class IMapControlBusinessLandmarkRightTappedEventArgs(c_void_p):
+class IMapControlBusinessLandmarkRightTappedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('59ab8ae7-f184-4ab1-b0-b0-35-c8-bf-06-54-b2')
     @winrt_commethod(6)
     def get_LocalLocations(self) -> Windows.Foundation.Collections.IVectorView[Windows.Services.Maps.LocalSearch.LocalLocation]: ...
     LocalLocations = property(get_LocalLocations, None)
-class IMapControlDataHelper(c_void_p):
+class IMapControlDataHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8bb0f09c-14ab-486c-9d-e5-5a-5d-ef-02-05-a2')
     @winrt_commethod(6)
@@ -618,7 +618,7 @@ class IMapControlDataHelper(c_void_p):
     def add_TransitFeatureRightTapped(self, value: Windows.Foundation.TypedEventHandler[Windows.UI.Xaml.Controls.Maps.MapControl, Windows.UI.Xaml.Controls.Maps.MapControlTransitFeatureRightTappedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_TransitFeatureRightTapped(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IMapControlDataHelper2(c_void_p):
+class IMapControlDataHelper2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('59ce429e-562f-4c21-a6-74-0f-11-de-cf-0f-b3')
     @winrt_commethod(6)
@@ -637,17 +637,17 @@ class IMapControlDataHelper2(c_void_p):
     def add_TransitFeaturePointerExited(self, value: Windows.Foundation.TypedEventHandler[Windows.UI.Xaml.Controls.Maps.MapControl, Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerExitedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_TransitFeaturePointerExited(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IMapControlDataHelperFactory(c_void_p):
+class IMapControlDataHelperFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3b70aa8e-02ef-469c-bb-af-dc-21-58-d4-28-9b')
     @winrt_commethod(6)
     def CreateInstance(self, map: Windows.UI.Xaml.Controls.Maps.MapControl) -> Windows.UI.Xaml.Controls.Maps.MapControlDataHelper: ...
-class IMapControlDataHelperStatics(c_void_p):
+class IMapControlDataHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7a6632d6-e944-4110-83-cf-31-4d-07-22-e2-e5')
     @winrt_commethod(6)
     def CreateMapControl(self, rasterRenderMode: Boolean) -> Windows.UI.Xaml.Controls.Maps.MapControl: ...
-class IMapControlStatics(c_void_p):
+class IMapControlStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c2c61795-2147-4f0a-94-2a-54-93-a8-5d-e8-07')
     @winrt_commethod(6)
@@ -718,7 +718,7 @@ class IMapControlStatics(c_void_p):
     TileSourcesProperty = property(get_TileSourcesProperty, None)
     LocationProperty = property(get_LocationProperty, None)
     NormalizedAnchorPointProperty = property(get_NormalizedAnchorPointProperty, None)
-class IMapControlStatics2(c_void_p):
+class IMapControlStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('04852b93-b446-4d31-97-52-1e-c6-9a-59-96-ae')
     @winrt_commethod(6)
@@ -748,7 +748,7 @@ class IMapControlStatics2(c_void_p):
     Is3DSupportedProperty = property(get_Is3DSupportedProperty, None)
     IsStreetsideSupportedProperty = property(get_IsStreetsideSupportedProperty, None)
     SceneProperty = property(get_SceneProperty, None)
-class IMapControlStatics4(c_void_p):
+class IMapControlStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fe785d97-5d13-4fa1-bf-1d-84-06-17-68-c1-83')
     @winrt_commethod(6)
@@ -757,7 +757,7 @@ class IMapControlStatics4(c_void_p):
     def get_TransitFeaturesEnabledProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     BusinessLandmarksEnabledProperty = property(get_BusinessLandmarksEnabledProperty, None)
     TransitFeaturesEnabledProperty = property(get_TransitFeaturesEnabledProperty, None)
-class IMapControlStatics5(c_void_p):
+class IMapControlStatics5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('09626f00-b7dd-4189-a7-f7-83-0c-41-2d-ee-a3')
     @winrt_commethod(6)
@@ -769,19 +769,19 @@ class IMapControlStatics5(c_void_p):
     MapProjectionProperty = property(get_MapProjectionProperty, None)
     StyleSheetProperty = property(get_StyleSheetProperty, None)
     ViewPaddingProperty = property(get_ViewPaddingProperty, None)
-class IMapControlStatics6(c_void_p):
+class IMapControlStatics6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3ccfdd7f-24d1-40a2-83-51-b3-06-3a-8c-95-a4')
     @winrt_commethod(6)
     def get_LayersProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     LayersProperty = property(get_LayersProperty, None)
-class IMapControlStatics7(c_void_p):
+class IMapControlStatics7(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('55f1ac4d-72c2-46b2-b7-ae-79-02-60-be-64-1b')
     @winrt_commethod(6)
     def get_RegionProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     RegionProperty = property(get_RegionProperty, None)
-class IMapControlStatics8(c_void_p):
+class IMapControlStatics8(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('adb7a7b0-0605-592c-bf-9d-d1-0b-dc-2b-e4-7b')
     @winrt_commethod(6)
@@ -796,7 +796,7 @@ class IMapControlStatics8(c_void_p):
     CanTiltUpProperty = property(get_CanTiltUpProperty, None)
     CanZoomInProperty = property(get_CanZoomInProperty, None)
     CanZoomOutProperty = property(get_CanZoomOutProperty, None)
-class IMapControlTransitFeatureClickEventArgs(c_void_p):
+class IMapControlTransitFeatureClickEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('76179969-b765-4622-b0-8a-30-72-74-5a-45-41')
     @winrt_commethod(6)
@@ -808,7 +808,7 @@ class IMapControlTransitFeatureClickEventArgs(c_void_p):
     DisplayName = property(get_DisplayName, None)
     Location = property(get_Location, None)
     TransitProperties = property(get_TransitProperties, None)
-class IMapControlTransitFeaturePointerEnteredEventArgs(c_void_p):
+class IMapControlTransitFeaturePointerEnteredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('73911a4e-ec4f-479e-94-a1-36-e0-81-d0-d8-97')
     @winrt_commethod(6)
@@ -820,7 +820,7 @@ class IMapControlTransitFeaturePointerEnteredEventArgs(c_void_p):
     DisplayName = property(get_DisplayName, None)
     Location = property(get_Location, None)
     TransitProperties = property(get_TransitProperties, None)
-class IMapControlTransitFeaturePointerExitedEventArgs(c_void_p):
+class IMapControlTransitFeaturePointerExitedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6a11258d-448d-44e7-bc-69-d1-3d-49-71-54-e9')
     @winrt_commethod(6)
@@ -832,7 +832,7 @@ class IMapControlTransitFeaturePointerExitedEventArgs(c_void_p):
     DisplayName = property(get_DisplayName, None)
     Location = property(get_Location, None)
     TransitProperties = property(get_TransitProperties, None)
-class IMapControlTransitFeatureRightTappedEventArgs(c_void_p):
+class IMapControlTransitFeatureRightTappedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('aea1cc49-a729-4eae-a5-9a-3e-c9-a1-25-a0-28')
     @winrt_commethod(6)
@@ -844,18 +844,18 @@ class IMapControlTransitFeatureRightTappedEventArgs(c_void_p):
     DisplayName = property(get_DisplayName, None)
     Location = property(get_Location, None)
     TransitProperties = property(get_TransitProperties, None)
-class IMapCustomExperience(c_void_p):
+class IMapCustomExperience(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('64592866-14a3-4e5f-88-83-8e-9c-50-0e-ee-de')
-class IMapCustomExperienceChangedEventArgs(c_void_p):
+class IMapCustomExperienceChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b9e6fb9b-8fc1-4042-ac-34-a6-1b-38-bb-75-14')
-class IMapCustomExperienceFactory(c_void_p):
+class IMapCustomExperienceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7a403fb5-a1b1-4e7f-92-1e-3e-6b-8d-8e-be-d6')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Controls.Maps.MapCustomExperience: ...
-class IMapElement(c_void_p):
+class IMapElement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d61fc4df-b245-47f2-9a-c2-43-c0-58-b1-c9-03')
     @winrt_commethod(6)
@@ -868,7 +868,7 @@ class IMapElement(c_void_p):
     def put_Visible(self, value: Boolean) -> Void: ...
     ZIndex = property(get_ZIndex, put_ZIndex)
     Visible = property(get_Visible, put_Visible)
-class IMapElement2(c_void_p):
+class IMapElement2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6619f261-fba6-4964-a7-ff-f1-af-63-ab-9c-b0')
     @winrt_commethod(6)
@@ -876,7 +876,7 @@ class IMapElement2(c_void_p):
     @winrt_commethod(7)
     def put_MapTabIndex(self, value: Int32) -> Void: ...
     MapTabIndex = property(get_MapTabIndex, put_MapTabIndex)
-class IMapElement3(c_void_p):
+class IMapElement3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('13efbc59-45ed-48b4-93-ad-e3-f7-8f-8c-f2-18')
     @winrt_commethod(6)
@@ -894,7 +894,7 @@ class IMapElement3(c_void_p):
     MapStyleSheetEntry = property(get_MapStyleSheetEntry, put_MapStyleSheetEntry)
     MapStyleSheetEntryState = property(get_MapStyleSheetEntryState, put_MapStyleSheetEntryState)
     Tag = property(get_Tag, put_Tag)
-class IMapElement3D(c_void_p):
+class IMapElement3D(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('827af8d5-3843-48e2-bd-00-0f-06-44-fb-e6-a5')
     @winrt_commethod(6)
@@ -927,7 +927,7 @@ class IMapElement3D(c_void_p):
     Pitch = property(get_Pitch, put_Pitch)
     Roll = property(get_Roll, put_Roll)
     Scale = property(get_Scale, put_Scale)
-class IMapElement3DStatics(c_void_p):
+class IMapElement3DStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6128011a-450f-442a-b9-d9-aa-81-5c-71-90-7a')
     @winrt_commethod(6)
@@ -945,7 +945,7 @@ class IMapElement3DStatics(c_void_p):
     PitchProperty = property(get_PitchProperty, None)
     RollProperty = property(get_RollProperty, None)
     ScaleProperty = property(get_ScaleProperty, None)
-class IMapElement4(c_void_p):
+class IMapElement4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('645883b6-1fc1-4ceb-93-bd-dc-2c-96-00-72-e9')
     @winrt_commethod(6)
@@ -953,7 +953,7 @@ class IMapElement4(c_void_p):
     @winrt_commethod(7)
     def put_IsEnabled(self, value: Boolean) -> Void: ...
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
-class IMapElementClickEventArgs(c_void_p):
+class IMapElementClickEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('40168a11-d080-4519-99-a1-31-49-fb-89-99-d0')
     @winrt_commethod(6)
@@ -965,12 +965,12 @@ class IMapElementClickEventArgs(c_void_p):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElements = property(get_MapElements, None)
-class IMapElementFactory(c_void_p):
+class IMapElementFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4a30d007-0bd6-47a5-86-0b-7e-7c-f5-f0-c5-73')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Controls.Maps.MapElement: ...
-class IMapElementPointerEnteredEventArgs(c_void_p):
+class IMapElementPointerEnteredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ab85dd4e-91d7-4b31-8f-0a-d3-90-c7-d3-a2-ef')
     @winrt_commethod(6)
@@ -982,7 +982,7 @@ class IMapElementPointerEnteredEventArgs(c_void_p):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElement = property(get_MapElement, None)
-class IMapElementPointerExitedEventArgs(c_void_p):
+class IMapElementPointerExitedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c1a45af9-60c9-4679-91-19-20-ab-c7-5d-93-1f')
     @winrt_commethod(6)
@@ -994,7 +994,7 @@ class IMapElementPointerExitedEventArgs(c_void_p):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElement = property(get_MapElement, None)
-class IMapElementStatics(c_void_p):
+class IMapElementStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e8c71cf2-bfef-4b49-8e-99-41-b5-e3-78-9f-d2')
     @winrt_commethod(6)
@@ -1003,13 +1003,13 @@ class IMapElementStatics(c_void_p):
     def get_VisibleProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     ZIndexProperty = property(get_ZIndexProperty, None)
     VisibleProperty = property(get_VisibleProperty, None)
-class IMapElementStatics2(c_void_p):
+class IMapElementStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9bf72f30-80fe-4f30-bc-c1-fa-89-40-50-f6-76')
     @winrt_commethod(6)
     def get_MapTabIndexProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     MapTabIndexProperty = property(get_MapTabIndexProperty, None)
-class IMapElementStatics3(c_void_p):
+class IMapElementStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e11ee92f-9742-49aa-aa-d8-2e-46-6b-ff-37-96')
     @winrt_commethod(6)
@@ -1021,13 +1021,13 @@ class IMapElementStatics3(c_void_p):
     MapStyleSheetEntryProperty = property(get_MapStyleSheetEntryProperty, None)
     MapStyleSheetEntryStateProperty = property(get_MapStyleSheetEntryStateProperty, None)
     TagProperty = property(get_TagProperty, None)
-class IMapElementStatics4(c_void_p):
+class IMapElementStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a4296f0b-dff8-467c-93-15-6f-6d-b9-3e-e2-ba')
     @winrt_commethod(6)
     def get_IsEnabledProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     IsEnabledProperty = property(get_IsEnabledProperty, None)
-class IMapElementsLayer(c_void_p):
+class IMapElementsLayer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('de79689a-01ef-46f4-ac-60-7c-20-0b-55-26-10')
     @winrt_commethod(6)
@@ -1051,7 +1051,7 @@ class IMapElementsLayer(c_void_p):
     @winrt_commethod(15)
     def remove_MapContextRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     MapElements = property(get_MapElements, put_MapElements)
-class IMapElementsLayerClickEventArgs(c_void_p):
+class IMapElementsLayerClickEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2ca7cf66-af1b-4c05-8c-85-f7-4a-e3-d4-67-7f')
     @winrt_commethod(6)
@@ -1063,7 +1063,7 @@ class IMapElementsLayerClickEventArgs(c_void_p):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElements = property(get_MapElements, None)
-class IMapElementsLayerContextRequestedEventArgs(c_void_p):
+class IMapElementsLayerContextRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('da45d0b3-7a0e-4758-80-8b-3a-63-76-27-eb-0d')
     @winrt_commethod(6)
@@ -1075,7 +1075,7 @@ class IMapElementsLayerContextRequestedEventArgs(c_void_p):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElements = property(get_MapElements, None)
-class IMapElementsLayerPointerEnteredEventArgs(c_void_p):
+class IMapElementsLayerPointerEnteredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('757fc032-4694-4404-8c-89-34-8b-6b-76-c5-e6')
     @winrt_commethod(6)
@@ -1087,7 +1087,7 @@ class IMapElementsLayerPointerEnteredEventArgs(c_void_p):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElement = property(get_MapElement, None)
-class IMapElementsLayerPointerExitedEventArgs(c_void_p):
+class IMapElementsLayerPointerExitedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('92f3c6ad-03ed-4c39-af-20-2a-07-ee-1c-ce-a6')
     @winrt_commethod(6)
@@ -1099,13 +1099,13 @@ class IMapElementsLayerPointerExitedEventArgs(c_void_p):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElement = property(get_MapElement, None)
-class IMapElementsLayerStatics(c_void_p):
+class IMapElementsLayerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('34005727-f509-4d28-91-80-91-1c-03-41-1d-74')
     @winrt_commethod(6)
     def get_MapElementsProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     MapElementsProperty = property(get_MapElementsProperty, None)
-class IMapIcon(c_void_p):
+class IMapIcon(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d2096872-23d9-4a2b-8b-e0-69-f3-a8-54-82-ab')
     @winrt_commethod(6)
@@ -1128,7 +1128,7 @@ class IMapIcon(c_void_p):
     Title = property(get_Title, put_Title)
     NormalizedAnchorPoint = property(get_NormalizedAnchorPoint, put_NormalizedAnchorPoint)
     Image = property(get_Image, put_Image)
-class IMapIcon2(c_void_p):
+class IMapIcon2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('611254b9-d8aa-4bbd-a3-16-ba-df-06-91-1d-63')
     @winrt_commethod(6)
@@ -1136,7 +1136,7 @@ class IMapIcon2(c_void_p):
     @winrt_commethod(7)
     def put_CollisionBehaviorDesired(self, value: Windows.UI.Xaml.Controls.Maps.MapElementCollisionBehavior) -> Void: ...
     CollisionBehaviorDesired = property(get_CollisionBehaviorDesired, put_CollisionBehaviorDesired)
-class IMapIconStatics(c_void_p):
+class IMapIconStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dcbc9e56-1190-4b5d-9e-56-e5-b6-72-4a-a3-28')
     @winrt_commethod(6)
@@ -1148,13 +1148,13 @@ class IMapIconStatics(c_void_p):
     LocationProperty = property(get_LocationProperty, None)
     TitleProperty = property(get_TitleProperty, None)
     NormalizedAnchorPointProperty = property(get_NormalizedAnchorPointProperty, None)
-class IMapIconStatics2(c_void_p):
+class IMapIconStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ff4c306a-cf76-46ab-a1-2f-b6-03-b9-86-c6-96')
     @winrt_commethod(6)
     def get_CollisionBehaviorDesiredProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     CollisionBehaviorDesiredProperty = property(get_CollisionBehaviorDesiredProperty, None)
-class IMapInputEventArgs(c_void_p):
+class IMapInputEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9fc503a0-a8a2-4394-92-e9-22-47-76-4f-2f-49')
     @winrt_commethod(6)
@@ -1163,7 +1163,7 @@ class IMapInputEventArgs(c_void_p):
     def get_Location(self) -> Windows.Devices.Geolocation.Geopoint: ...
     Position = property(get_Position, None)
     Location = property(get_Location, None)
-class IMapItemsControl(c_void_p):
+class IMapItemsControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('94c2c4d3-b335-42c5-b6-60-e6-a0-7e-c3-bd-dc')
     @winrt_commethod(6)
@@ -1179,7 +1179,7 @@ class IMapItemsControl(c_void_p):
     ItemsSource = property(get_ItemsSource, put_ItemsSource)
     Items = property(get_Items, None)
     ItemTemplate = property(get_ItemTemplate, put_ItemTemplate)
-class IMapItemsControlStatics(c_void_p):
+class IMapItemsControlStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('33a859c7-789b-425c-8a-0a-32-38-58-96-cb-4a')
     @winrt_commethod(6)
@@ -1191,7 +1191,7 @@ class IMapItemsControlStatics(c_void_p):
     ItemsSourceProperty = property(get_ItemsSourceProperty, None)
     ItemsProperty = property(get_ItemsProperty, None)
     ItemTemplateProperty = property(get_ItemTemplateProperty, None)
-class IMapLayer(c_void_p):
+class IMapLayer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6d0ff9c1-a14d-4f97-8f-57-46-71-5b-57-68-3a')
     @winrt_commethod(6)
@@ -1209,12 +1209,12 @@ class IMapLayer(c_void_p):
     MapTabIndex = property(get_MapTabIndex, put_MapTabIndex)
     Visible = property(get_Visible, put_Visible)
     ZIndex = property(get_ZIndex, put_ZIndex)
-class IMapLayerFactory(c_void_p):
+class IMapLayerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e02a2207-dee3-47c8-98-25-bd-02-9c-57-52-f7')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Controls.Maps.MapLayer: ...
-class IMapLayerStatics(c_void_p):
+class IMapLayerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9ca4a26b-5db9-4f0c-bd-d5-b1-bf-fd-cc-e9-46')
     @winrt_commethod(6)
@@ -1226,22 +1226,22 @@ class IMapLayerStatics(c_void_p):
     MapTabIndexProperty = property(get_MapTabIndexProperty, None)
     VisibleProperty = property(get_VisibleProperty, None)
     ZIndexProperty = property(get_ZIndexProperty, None)
-class IMapModel3D(c_void_p):
+class IMapModel3D(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f8c541a1-ca27-4968-a2-bf-9c-20-f0-6a-04-68')
-class IMapModel3DFactory(c_void_p):
+class IMapModel3DFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('df7f0bcc-580a-498b-93-9b-01-19-a9-da-db-9e')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Controls.Maps.MapModel3D: ...
-class IMapModel3DStatics(c_void_p):
+class IMapModel3DStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4834a480-8e56-4b0f-87-2d-7e-ad-10-31-87-cd')
     @winrt_commethod(6)
     def CreateFrom3MFAsync(self, source: Windows.Storage.Streams.IRandomAccessStreamReference) -> Windows.Foundation.IAsyncOperation[Windows.UI.Xaml.Controls.Maps.MapModel3D]: ...
     @winrt_commethod(7)
     def CreateFrom3MFWithShadingOptionAsync(self, source: Windows.Storage.Streams.IRandomAccessStreamReference, shadingOption: Windows.UI.Xaml.Controls.Maps.MapModel3DShadingOption) -> Windows.Foundation.IAsyncOperation[Windows.UI.Xaml.Controls.Maps.MapModel3D]: ...
-class IMapPolygon(c_void_p):
+class IMapPolygon(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('abda2285-4926-4c3a-a5-f9-19-df-7f-69-db-3d')
     @winrt_commethod(6)
@@ -1269,13 +1269,13 @@ class IMapPolygon(c_void_p):
     StrokeThickness = property(get_StrokeThickness, put_StrokeThickness)
     StrokeDashed = property(get_StrokeDashed, put_StrokeDashed)
     FillColor = property(get_FillColor, put_FillColor)
-class IMapPolygon2(c_void_p):
+class IMapPolygon2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('96c8a11e-636b-4018-9c-2e-ac-c9-12-2a-01-b2')
     @winrt_commethod(6)
     def get_Paths(self) -> Windows.Foundation.Collections.IVector[Windows.Devices.Geolocation.Geopath]: ...
     Paths = property(get_Paths, None)
-class IMapPolygonStatics(c_void_p):
+class IMapPolygonStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('37f573be-097b-424c-87-cc-2e-e0-42-fd-a6-d2')
     @winrt_commethod(6)
@@ -1287,7 +1287,7 @@ class IMapPolygonStatics(c_void_p):
     PathProperty = property(get_PathProperty, None)
     StrokeThicknessProperty = property(get_StrokeThicknessProperty, None)
     StrokeDashedProperty = property(get_StrokeDashedProperty, None)
-class IMapPolyline(c_void_p):
+class IMapPolyline(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fbad24a2-24df-4a86-8f-fa-0f-8f-4d-9e-c1-7d')
     @winrt_commethod(6)
@@ -1310,7 +1310,7 @@ class IMapPolyline(c_void_p):
     StrokeColor = property(get_StrokeColor, put_StrokeColor)
     StrokeThickness = property(get_StrokeThickness, put_StrokeThickness)
     StrokeDashed = property(get_StrokeDashed, put_StrokeDashed)
-class IMapPolylineStatics(c_void_p):
+class IMapPolylineStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('61fde44b-1ddf-4303-b8-09-ec-87-f5-8a-d0-65')
     @winrt_commethod(6)
@@ -1319,7 +1319,7 @@ class IMapPolylineStatics(c_void_p):
     def get_StrokeDashedProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     PathProperty = property(get_PathProperty, None)
     StrokeDashedProperty = property(get_StrokeDashedProperty, None)
-class IMapRightTappedEventArgs(c_void_p):
+class IMapRightTappedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('20943171-6fe8-40a6-ad-0e-29-73-79-b5-75-a7')
     @winrt_commethod(6)
@@ -1328,7 +1328,7 @@ class IMapRightTappedEventArgs(c_void_p):
     def get_Location(self) -> Windows.Devices.Geolocation.Geopoint: ...
     Position = property(get_Position, None)
     Location = property(get_Location, None)
-class IMapRouteView(c_void_p):
+class IMapRouteView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('740eaec5-bacc-41e1-a6-7e-dd-65-13-83-20-49')
     @winrt_commethod(6)
@@ -1344,12 +1344,12 @@ class IMapRouteView(c_void_p):
     RouteColor = property(get_RouteColor, put_RouteColor)
     OutlineColor = property(get_OutlineColor, put_OutlineColor)
     Route = property(get_Route, None)
-class IMapRouteViewFactory(c_void_p):
+class IMapRouteViewFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f083addf-0066-4628-82-fe-ea-78-c2-3c-ec-1e')
     @winrt_commethod(6)
     def CreateInstanceWithMapRoute(self, route: Windows.Services.Maps.MapRoute, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Controls.Maps.MapRouteView: ...
-class IMapScene(c_void_p):
+class IMapScene(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8bba10a9-50e7-482c-97-89-c6-88-b1-78-ac-24')
     @winrt_commethod(6)
@@ -1359,7 +1359,7 @@ class IMapScene(c_void_p):
     @winrt_commethod(8)
     def remove_TargetCameraChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     TargetCamera = property(get_TargetCamera, None)
-class IMapSceneStatics(c_void_p):
+class IMapSceneStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('03e4ad6c-86ec-44d9-95-97-fb-75-b7-de-ba-0a')
     @winrt_commethod(6)
@@ -1380,10 +1380,10 @@ class IMapSceneStatics(c_void_p):
     def CreateFromLocations(self, locations: Windows.Foundation.Collections.IIterable[Windows.Devices.Geolocation.Geopoint]) -> Windows.UI.Xaml.Controls.Maps.MapScene: ...
     @winrt_commethod(14)
     def CreateFromLocationsWithHeadingAndPitch(self, locations: Windows.Foundation.Collections.IIterable[Windows.Devices.Geolocation.Geopoint], headingInDegrees: Double, pitchInDegrees: Double) -> Windows.UI.Xaml.Controls.Maps.MapScene: ...
-class IMapStyleSheet(c_void_p):
+class IMapStyleSheet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ae54b2bf-8991-42ed-8d-58-20-47-3d-ee-de-1d')
-class IMapStyleSheetEntriesStatics(c_void_p):
+class IMapStyleSheetEntriesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c9636345-ef1a-41a4-a7-57-bd-4f-43-e1-e4-d1')
     @winrt_commethod(6)
@@ -1578,7 +1578,7 @@ class IMapStyleSheetEntriesStatics(c_void_p):
     RouteLine = property(get_RouteLine, None)
     WalkingRoute = property(get_WalkingRoute, None)
     DrivingRoute = property(get_DrivingRoute, None)
-class IMapStyleSheetEntryStatesStatics(c_void_p):
+class IMapStyleSheetEntryStatesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('23ac5532-866d-4bfa-b4-81-39-be-a1-de-35-06')
     @winrt_commethod(6)
@@ -1590,7 +1590,7 @@ class IMapStyleSheetEntryStatesStatics(c_void_p):
     Disabled = property(get_Disabled, None)
     Hover = property(get_Hover, None)
     Selected = property(get_Selected, None)
-class IMapStyleSheetStatics(c_void_p):
+class IMapStyleSheetStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('abbd00ad-0a1c-4335-82-f4-61-d9-36-aa-19-7d')
     @winrt_commethod(6)
@@ -1611,19 +1611,19 @@ class IMapStyleSheetStatics(c_void_p):
     def ParseFromJson(self, styleAsJson: WinRT_String) -> Windows.UI.Xaml.Controls.Maps.MapStyleSheet: ...
     @winrt_commethod(14)
     def TryParseFromJson(self, styleAsJson: WinRT_String, styleSheet: POINTER(Windows.UI.Xaml.Controls.Maps.MapStyleSheet)) -> Boolean: ...
-class IMapTargetCameraChangedEventArgs(c_void_p):
+class IMapTargetCameraChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dbf00472-e953-4fa8-97-d0-ea-86-35-90-57-cf')
     @winrt_commethod(6)
     def get_Camera(self) -> Windows.UI.Xaml.Controls.Maps.MapCamera: ...
     Camera = property(get_Camera, None)
-class IMapTargetCameraChangedEventArgs2(c_void_p):
+class IMapTargetCameraChangedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('97c0b332-f2b6-460b-8d-91-ac-02-0a-23-83-dd')
     @winrt_commethod(6)
     def get_ChangeReason(self) -> Windows.UI.Xaml.Controls.Maps.MapCameraChangeReason: ...
     ChangeReason = property(get_ChangeReason, None)
-class IMapTileBitmapRequest(c_void_p):
+class IMapTileBitmapRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('46733fbc-d89d-472b-b5-f6-d7-06-6b-05-84-f4')
     @winrt_commethod(6)
@@ -1633,12 +1633,12 @@ class IMapTileBitmapRequest(c_void_p):
     @winrt_commethod(8)
     def GetDeferral(self) -> Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestDeferral: ...
     PixelData = property(get_PixelData, put_PixelData)
-class IMapTileBitmapRequestDeferral(c_void_p):
+class IMapTileBitmapRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fe370542-a4ac-4efa-96-65-04-90-b0-ca-fd-d2')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
-class IMapTileBitmapRequestedEventArgs(c_void_p):
+class IMapTileBitmapRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('337f691d-9b02-4aa2-8b-1e-cc-4d-91-71-9b-f3')
     @winrt_commethod(6)
@@ -1653,21 +1653,21 @@ class IMapTileBitmapRequestedEventArgs(c_void_p):
     Y = property(get_Y, None)
     ZoomLevel = property(get_ZoomLevel, None)
     Request = property(get_Request, None)
-class IMapTileBitmapRequestedEventArgs2(c_void_p):
+class IMapTileBitmapRequestedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0261d114-246a-5296-bc-85-59-0f-53-aa-39-c8')
     @winrt_commethod(6)
     def get_FrameIndex(self) -> Int32: ...
     FrameIndex = property(get_FrameIndex, None)
-class IMapTileDataSource(c_void_p):
+class IMapTileDataSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c03d9f5e-be1f-4c69-99-69-79-46-7a-51-3c-38')
-class IMapTileDataSourceFactory(c_void_p):
+class IMapTileDataSourceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a3920fbd-e446-4648-a7-4d-fd-2c-5d-55-7c-06')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Controls.Maps.MapTileDataSource: ...
-class IMapTileSource(c_void_p):
+class IMapTileSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('88a76e4e-2fdf-4567-92-55-11-00-51-9c-8d-62')
     @winrt_commethod(6)
@@ -1725,7 +1725,7 @@ class IMapTileSource(c_void_p):
     ZIndex = property(get_ZIndex, put_ZIndex)
     TilePixelSize = property(get_TilePixelSize, put_TilePixelSize)
     Visible = property(get_Visible, put_Visible)
-class IMapTileSource2(c_void_p):
+class IMapTileSource2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8e65ebbd-4095-5c15-99-f1-12-60-b4-e8-b0-a9')
     @winrt_commethod(6)
@@ -1752,7 +1752,7 @@ class IMapTileSource2(c_void_p):
     AutoPlay = property(get_AutoPlay, put_AutoPlay)
     FrameCount = property(get_FrameCount, put_FrameCount)
     FrameDuration = property(get_FrameDuration, put_FrameDuration)
-class IMapTileSourceFactory(c_void_p):
+class IMapTileSourceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cd7f811f-77fa-482b-9d-34-71-d3-1d-46-5c-48')
     @winrt_commethod(6)
@@ -1765,7 +1765,7 @@ class IMapTileSourceFactory(c_void_p):
     def CreateInstanceWithDataSourceZoomRangeAndBounds(self, dataSource: Windows.UI.Xaml.Controls.Maps.MapTileDataSource, zoomLevelRange: Windows.UI.Xaml.Controls.Maps.MapZoomLevelRange, bounds: Windows.Devices.Geolocation.GeoboundingBox, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
     @winrt_commethod(10)
     def CreateInstanceWithDataSourceZoomRangeBoundsAndTileSize(self, dataSource: Windows.UI.Xaml.Controls.Maps.MapTileDataSource, zoomLevelRange: Windows.UI.Xaml.Controls.Maps.MapZoomLevelRange, bounds: Windows.Devices.Geolocation.GeoboundingBox, tileSizeInPixels: Int32, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Controls.Maps.MapTileSource: ...
-class IMapTileSourceStatics(c_void_p):
+class IMapTileSourceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('93fcc93c-7035-4603-99-b1-e6-59-92-1b-60-93')
     @winrt_commethod(6)
@@ -1801,7 +1801,7 @@ class IMapTileSourceStatics(c_void_p):
     ZIndexProperty = property(get_ZIndexProperty, None)
     TilePixelSizeProperty = property(get_TilePixelSizeProperty, None)
     VisibleProperty = property(get_VisibleProperty, None)
-class IMapTileSourceStatics2(c_void_p):
+class IMapTileSourceStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('75cdd47e-669c-50fd-ad-85-5e-a5-17-4c-f5-9b')
     @winrt_commethod(6)
@@ -1816,7 +1816,7 @@ class IMapTileSourceStatics2(c_void_p):
     AutoPlayProperty = property(get_AutoPlayProperty, None)
     FrameCountProperty = property(get_FrameCountProperty, None)
     FrameDurationProperty = property(get_FrameDurationProperty, None)
-class IMapTileUriRequest(c_void_p):
+class IMapTileUriRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('17402335-3127-45b8-87-a7-99-f8-7d-4e-27-45')
     @winrt_commethod(6)
@@ -1826,12 +1826,12 @@ class IMapTileUriRequest(c_void_p):
     @winrt_commethod(8)
     def GetDeferral(self) -> Windows.UI.Xaml.Controls.Maps.MapTileUriRequestDeferral: ...
     Uri = property(get_Uri, put_Uri)
-class IMapTileUriRequestDeferral(c_void_p):
+class IMapTileUriRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c117ade0-bf3e-4c51-8f-aa-4b-59-3c-f6-8e-b2')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
-class IMapTileUriRequestedEventArgs(c_void_p):
+class IMapTileUriRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d2147b43-1bbf-4b98-8d-d3-b7-83-4e-40-7e-0d')
     @winrt_commethod(6)
@@ -1846,13 +1846,13 @@ class IMapTileUriRequestedEventArgs(c_void_p):
     Y = property(get_Y, None)
     ZoomLevel = property(get_ZoomLevel, None)
     Request = property(get_Request, None)
-class IMapTileUriRequestedEventArgs2(c_void_p):
+class IMapTileUriRequestedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2302185d-33b5-5a55-92-f5-74-a8-6a-22-ef-a6')
     @winrt_commethod(6)
     def get_FrameIndex(self) -> Int32: ...
     FrameIndex = property(get_FrameIndex, None)
-class IStreetsideExperience(c_void_p):
+class IStreetsideExperience(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a558aec9-e30c-46c8-81-16-48-46-91-67-55-58')
     @winrt_commethod(6)
@@ -1885,27 +1885,27 @@ class IStreetsideExperience(c_void_p):
     StreetLabelsVisible = property(get_StreetLabelsVisible, put_StreetLabelsVisible)
     ExitButtonVisible = property(get_ExitButtonVisible, put_ExitButtonVisible)
     ZoomButtonsVisible = property(get_ZoomButtonsVisible, put_ZoomButtonsVisible)
-class IStreetsideExperienceFactory(c_void_p):
+class IStreetsideExperienceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7a5bcf3c-649e-4342-99-95-68-a6-cf-59-61-a7')
     @winrt_commethod(6)
     def CreateInstanceWithPanorama(self, panorama: Windows.UI.Xaml.Controls.Maps.StreetsidePanorama) -> Windows.UI.Xaml.Controls.Maps.StreetsideExperience: ...
     @winrt_commethod(7)
     def CreateInstanceWithPanoramaHeadingPitchAndFieldOfView(self, panorama: Windows.UI.Xaml.Controls.Maps.StreetsidePanorama, headingInDegrees: Double, pitchInDegrees: Double, fieldOfViewInDegrees: Double) -> Windows.UI.Xaml.Controls.Maps.StreetsideExperience: ...
-class IStreetsidePanorama(c_void_p):
+class IStreetsidePanorama(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6fe00fd8-ad60-4664-b5-39-b1-06-9f-16-c5-af')
     @winrt_commethod(6)
     def get_Location(self) -> Windows.Devices.Geolocation.Geopoint: ...
     Location = property(get_Location, None)
-class IStreetsidePanoramaStatics(c_void_p):
+class IStreetsidePanoramaStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d3b47f69-54b3-4ec5-b2-a0-4f-82-04-57-65-07')
     @winrt_commethod(6)
     def FindNearbyWithLocationAsync(self, location: Windows.Devices.Geolocation.Geopoint) -> Windows.Foundation.IAsyncOperation[Windows.UI.Xaml.Controls.Maps.StreetsidePanorama]: ...
     @winrt_commethod(7)
     def FindNearbyWithLocationAndRadiusAsync(self, location: Windows.Devices.Geolocation.Geopoint, radiusInMeters: Double) -> Windows.Foundation.IAsyncOperation[Windows.UI.Xaml.Controls.Maps.StreetsidePanorama]: ...
-class LocalMapTileDataSource(c_void_p):
+class LocalMapTileDataSource(ComPtr):
     extends: Windows.UI.Xaml.Controls.Maps.MapTileDataSource
     @winrt_commethod(13)
     def get_UriFormatString(self) -> WinRT_String: ...
@@ -1916,7 +1916,7 @@ class LocalMapTileDataSource(c_void_p):
     @winrt_commethod(16)
     def remove_UriRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     UriFormatString = property(get_UriFormatString, put_UriFormatString)
-class MapActualCameraChangedEventArgs(c_void_p):
+class MapActualCameraChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapActualCameraChangedEventArgs'
     @winrt_activatemethod
@@ -1927,7 +1927,7 @@ class MapActualCameraChangedEventArgs(c_void_p):
     def get_ChangeReason(self: Windows.UI.Xaml.Controls.Maps.IMapActualCameraChangedEventArgs2) -> Windows.UI.Xaml.Controls.Maps.MapCameraChangeReason: ...
     Camera = property(get_Camera, None)
     ChangeReason = property(get_ChangeReason, None)
-class MapActualCameraChangingEventArgs(c_void_p):
+class MapActualCameraChangingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapActualCameraChangingEventArgs'
     @winrt_activatemethod
@@ -1943,7 +1943,7 @@ MapAnimationKind_Default: MapAnimationKind = 0
 MapAnimationKind_None: MapAnimationKind = 1
 MapAnimationKind_Linear: MapAnimationKind = 2
 MapAnimationKind_Bow: MapAnimationKind = 3
-class MapBillboard(c_void_p):
+class MapBillboard(ComPtr):
     extends: Windows.UI.Xaml.Controls.Maps.MapElement
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapBillboard'
     @winrt_factorymethod
@@ -1980,7 +1980,7 @@ class MapBillboard(c_void_p):
     LocationProperty = property(get_LocationProperty, None)
     NormalizedAnchorPointProperty = property(get_NormalizedAnchorPointProperty, None)
     CollisionBehaviorDesiredProperty = property(get_CollisionBehaviorDesiredProperty, None)
-class MapCamera(c_void_p):
+class MapCamera(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapCamera'
     @winrt_factorymethod
@@ -2023,7 +2023,7 @@ MapCameraChangeReason_Programmatic: MapCameraChangeReason = 2
 MapColorScheme = Int32
 MapColorScheme_Light: MapColorScheme = 0
 MapColorScheme_Dark: MapColorScheme = 1
-class MapContextRequestedEventArgs(c_void_p):
+class MapContextRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapContextRequestedEventArgs'
     @winrt_activatemethod
@@ -2037,7 +2037,7 @@ class MapContextRequestedEventArgs(c_void_p):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElements = property(get_MapElements, None)
-class MapControl(c_void_p):
+class MapControl(ComPtr):
     extends: Windows.UI.Xaml.Controls.Control
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapControl'
     @winrt_activatemethod
@@ -2491,7 +2491,7 @@ class MapControl(c_void_p):
     TileSourcesProperty = property(get_TileSourcesProperty, None)
     LocationProperty = property(get_LocationProperty, None)
     NormalizedAnchorPointProperty = property(get_NormalizedAnchorPointProperty, None)
-class MapControlBusinessLandmarkClickEventArgs(c_void_p):
+class MapControlBusinessLandmarkClickEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkClickEventArgs'
     @winrt_activatemethod
@@ -2499,7 +2499,7 @@ class MapControlBusinessLandmarkClickEventArgs(c_void_p):
     @winrt_mixinmethod
     def get_LocalLocations(self: Windows.UI.Xaml.Controls.Maps.IMapControlBusinessLandmarkClickEventArgs) -> Windows.Foundation.Collections.IVectorView[Windows.Services.Maps.LocalSearch.LocalLocation]: ...
     LocalLocations = property(get_LocalLocations, None)
-class MapControlBusinessLandmarkPointerEnteredEventArgs(c_void_p):
+class MapControlBusinessLandmarkPointerEnteredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkPointerEnteredEventArgs'
     @winrt_activatemethod
@@ -2507,7 +2507,7 @@ class MapControlBusinessLandmarkPointerEnteredEventArgs(c_void_p):
     @winrt_mixinmethod
     def get_LocalLocations(self: Windows.UI.Xaml.Controls.Maps.IMapControlBusinessLandmarkPointerEnteredEventArgs) -> Windows.Foundation.Collections.IVectorView[Windows.Services.Maps.LocalSearch.LocalLocation]: ...
     LocalLocations = property(get_LocalLocations, None)
-class MapControlBusinessLandmarkPointerExitedEventArgs(c_void_p):
+class MapControlBusinessLandmarkPointerExitedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkPointerExitedEventArgs'
     @winrt_activatemethod
@@ -2515,7 +2515,7 @@ class MapControlBusinessLandmarkPointerExitedEventArgs(c_void_p):
     @winrt_mixinmethod
     def get_LocalLocations(self: Windows.UI.Xaml.Controls.Maps.IMapControlBusinessLandmarkPointerExitedEventArgs) -> Windows.Foundation.Collections.IVectorView[Windows.Services.Maps.LocalSearch.LocalLocation]: ...
     LocalLocations = property(get_LocalLocations, None)
-class MapControlBusinessLandmarkRightTappedEventArgs(c_void_p):
+class MapControlBusinessLandmarkRightTappedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapControlBusinessLandmarkRightTappedEventArgs'
     @winrt_activatemethod
@@ -2523,7 +2523,7 @@ class MapControlBusinessLandmarkRightTappedEventArgs(c_void_p):
     @winrt_mixinmethod
     def get_LocalLocations(self: Windows.UI.Xaml.Controls.Maps.IMapControlBusinessLandmarkRightTappedEventArgs) -> Windows.Foundation.Collections.IVectorView[Windows.Services.Maps.LocalSearch.LocalLocation]: ...
     LocalLocations = property(get_LocalLocations, None)
-class MapControlDataHelper(c_void_p):
+class MapControlDataHelper(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapControlDataHelper'
     @winrt_factorymethod
@@ -2562,7 +2562,7 @@ class MapControlDataHelper(c_void_p):
     def remove_TransitFeaturePointerExited(self: Windows.UI.Xaml.Controls.Maps.IMapControlDataHelper2, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def CreateMapControl(cls: Windows.UI.Xaml.Controls.Maps.IMapControlDataHelperStatics, rasterRenderMode: Boolean) -> Windows.UI.Xaml.Controls.Maps.MapControl: ...
-class MapControlTransitFeatureClickEventArgs(c_void_p):
+class MapControlTransitFeatureClickEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapControlTransitFeatureClickEventArgs'
     @winrt_activatemethod
@@ -2576,7 +2576,7 @@ class MapControlTransitFeatureClickEventArgs(c_void_p):
     DisplayName = property(get_DisplayName, None)
     Location = property(get_Location, None)
     TransitProperties = property(get_TransitProperties, None)
-class MapControlTransitFeaturePointerEnteredEventArgs(c_void_p):
+class MapControlTransitFeaturePointerEnteredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerEnteredEventArgs'
     @winrt_activatemethod
@@ -2590,7 +2590,7 @@ class MapControlTransitFeaturePointerEnteredEventArgs(c_void_p):
     DisplayName = property(get_DisplayName, None)
     Location = property(get_Location, None)
     TransitProperties = property(get_TransitProperties, None)
-class MapControlTransitFeaturePointerExitedEventArgs(c_void_p):
+class MapControlTransitFeaturePointerExitedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerExitedEventArgs'
     @winrt_activatemethod
@@ -2604,7 +2604,7 @@ class MapControlTransitFeaturePointerExitedEventArgs(c_void_p):
     DisplayName = property(get_DisplayName, None)
     Location = property(get_Location, None)
     TransitProperties = property(get_TransitProperties, None)
-class MapControlTransitFeatureRightTappedEventArgs(c_void_p):
+class MapControlTransitFeatureRightTappedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapControlTransitFeatureRightTappedEventArgs'
     @winrt_activatemethod
@@ -2618,14 +2618,14 @@ class MapControlTransitFeatureRightTappedEventArgs(c_void_p):
     DisplayName = property(get_DisplayName, None)
     Location = property(get_Location, None)
     TransitProperties = property(get_TransitProperties, None)
-class MapCustomExperience(c_void_p):
+class MapCustomExperience(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-class MapCustomExperienceChangedEventArgs(c_void_p):
+class MapCustomExperienceChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapCustomExperienceChangedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Controls.Maps.MapCustomExperienceChangedEventArgs: ...
-class MapElement(c_void_p):
+class MapElement(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     @winrt_commethod(28)
     def get_ZIndex(self) -> Int32: ...
@@ -2683,7 +2683,7 @@ class MapElement(c_void_p):
     MapTabIndexProperty = property(get_MapTabIndexProperty, None)
     ZIndexProperty = property(get_ZIndexProperty, None)
     VisibleProperty = property(get_VisibleProperty, None)
-class MapElement3D(c_void_p):
+class MapElement3D(ComPtr):
     extends: Windows.UI.Xaml.Controls.Maps.MapElement
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapElement3D'
     @winrt_activatemethod
@@ -2733,7 +2733,7 @@ class MapElement3D(c_void_p):
     PitchProperty = property(get_PitchProperty, None)
     RollProperty = property(get_RollProperty, None)
     ScaleProperty = property(get_ScaleProperty, None)
-class MapElementClickEventArgs(c_void_p):
+class MapElementClickEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapElementClickEventArgs'
     @winrt_activatemethod
@@ -2750,7 +2750,7 @@ class MapElementClickEventArgs(c_void_p):
 MapElementCollisionBehavior = Int32
 MapElementCollisionBehavior_Hide: MapElementCollisionBehavior = 0
 MapElementCollisionBehavior_RemainVisible: MapElementCollisionBehavior = 1
-class MapElementPointerEnteredEventArgs(c_void_p):
+class MapElementPointerEnteredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapElementPointerEnteredEventArgs'
     @winrt_activatemethod
@@ -2764,7 +2764,7 @@ class MapElementPointerEnteredEventArgs(c_void_p):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElement = property(get_MapElement, None)
-class MapElementPointerExitedEventArgs(c_void_p):
+class MapElementPointerExitedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapElementPointerExitedEventArgs'
     @winrt_activatemethod
@@ -2778,7 +2778,7 @@ class MapElementPointerExitedEventArgs(c_void_p):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElement = property(get_MapElement, None)
-class MapElementsLayer(c_void_p):
+class MapElementsLayer(ComPtr):
     extends: Windows.UI.Xaml.Controls.Maps.MapLayer
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapElementsLayer'
     @winrt_activatemethod
@@ -2807,7 +2807,7 @@ class MapElementsLayer(c_void_p):
     def get_MapElementsProperty(cls: Windows.UI.Xaml.Controls.Maps.IMapElementsLayerStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     MapElements = property(get_MapElements, put_MapElements)
     MapElementsProperty = property(get_MapElementsProperty, None)
-class MapElementsLayerClickEventArgs(c_void_p):
+class MapElementsLayerClickEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapElementsLayerClickEventArgs'
     @winrt_activatemethod
@@ -2821,7 +2821,7 @@ class MapElementsLayerClickEventArgs(c_void_p):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElements = property(get_MapElements, None)
-class MapElementsLayerContextRequestedEventArgs(c_void_p):
+class MapElementsLayerContextRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapElementsLayerContextRequestedEventArgs'
     @winrt_activatemethod
@@ -2835,7 +2835,7 @@ class MapElementsLayerContextRequestedEventArgs(c_void_p):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElements = property(get_MapElements, None)
-class MapElementsLayerPointerEnteredEventArgs(c_void_p):
+class MapElementsLayerPointerEnteredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapElementsLayerPointerEnteredEventArgs'
     @winrt_activatemethod
@@ -2849,7 +2849,7 @@ class MapElementsLayerPointerEnteredEventArgs(c_void_p):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElement = property(get_MapElement, None)
-class MapElementsLayerPointerExitedEventArgs(c_void_p):
+class MapElementsLayerPointerExitedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapElementsLayerPointerExitedEventArgs'
     @winrt_activatemethod
@@ -2863,7 +2863,7 @@ class MapElementsLayerPointerExitedEventArgs(c_void_p):
     Position = property(get_Position, None)
     Location = property(get_Location, None)
     MapElement = property(get_MapElement, None)
-class MapIcon(c_void_p):
+class MapIcon(ComPtr):
     extends: Windows.UI.Xaml.Controls.Maps.MapElement
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapIcon'
     @winrt_activatemethod
@@ -2905,7 +2905,7 @@ class MapIcon(c_void_p):
     LocationProperty = property(get_LocationProperty, None)
     TitleProperty = property(get_TitleProperty, None)
     NormalizedAnchorPointProperty = property(get_NormalizedAnchorPointProperty, None)
-class MapInputEventArgs(c_void_p):
+class MapInputEventArgs(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapInputEventArgs'
     @winrt_activatemethod
@@ -2925,7 +2925,7 @@ MapInteractionMode_ControlOnly: MapInteractionMode = 3
 MapInteractionMode_GestureAndControl: MapInteractionMode = 4
 MapInteractionMode_PointerKeyboardAndControl: MapInteractionMode = 4
 MapInteractionMode_PointerOnly: MapInteractionMode = 5
-class MapItemsControl(c_void_p):
+class MapItemsControl(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapItemsControl'
     @winrt_activatemethod
@@ -2952,7 +2952,7 @@ class MapItemsControl(c_void_p):
     ItemsSourceProperty = property(get_ItemsSourceProperty, None)
     ItemsProperty = property(get_ItemsProperty, None)
     ItemTemplateProperty = property(get_ItemTemplateProperty, None)
-class MapLayer(c_void_p):
+class MapLayer(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     @winrt_commethod(16)
     def get_MapTabIndex(self) -> Int32: ...
@@ -2983,7 +2983,7 @@ MapLoadingStatus_Loading: MapLoadingStatus = 0
 MapLoadingStatus_Loaded: MapLoadingStatus = 1
 MapLoadingStatus_DataUnavailable: MapLoadingStatus = 2
 MapLoadingStatus_DownloadedMapsManagerUnavailable: MapLoadingStatus = 3
-class MapModel3D(c_void_p):
+class MapModel3D(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     @winrt_classmethod
     def CreateFrom3MFAsync(cls: Windows.UI.Xaml.Controls.Maps.IMapModel3DStatics, source: Windows.Storage.Streams.IRandomAccessStreamReference) -> Windows.Foundation.IAsyncOperation[Windows.UI.Xaml.Controls.Maps.MapModel3D]: ...
@@ -2996,7 +2996,7 @@ MapModel3DShadingOption_Smooth: MapModel3DShadingOption = 2
 MapPanInteractionMode = Int32
 MapPanInteractionMode_Auto: MapPanInteractionMode = 0
 MapPanInteractionMode_Disabled: MapPanInteractionMode = 1
-class MapPolygon(c_void_p):
+class MapPolygon(ComPtr):
     extends: Windows.UI.Xaml.Controls.Maps.MapElement
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapPolygon'
     @winrt_activatemethod
@@ -3038,7 +3038,7 @@ class MapPolygon(c_void_p):
     PathProperty = property(get_PathProperty, None)
     StrokeThicknessProperty = property(get_StrokeThicknessProperty, None)
     StrokeDashedProperty = property(get_StrokeDashedProperty, None)
-class MapPolyline(c_void_p):
+class MapPolyline(ComPtr):
     extends: Windows.UI.Xaml.Controls.Maps.MapElement
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapPolyline'
     @winrt_activatemethod
@@ -3072,7 +3072,7 @@ class MapPolyline(c_void_p):
 MapProjection = Int32
 MapProjection_WebMercator: MapProjection = 0
 MapProjection_Globe: MapProjection = 1
-class MapRightTappedEventArgs(c_void_p):
+class MapRightTappedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapRightTappedEventArgs'
     @winrt_activatemethod
@@ -3083,7 +3083,7 @@ class MapRightTappedEventArgs(c_void_p):
     def get_Location(self: Windows.UI.Xaml.Controls.Maps.IMapRightTappedEventArgs) -> Windows.Devices.Geolocation.Geopoint: ...
     Position = property(get_Position, None)
     Location = property(get_Location, None)
-class MapRouteView(c_void_p):
+class MapRouteView(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     @winrt_commethod(12)
     def get_RouteColor(self) -> Windows.UI.Color: ...
@@ -3098,7 +3098,7 @@ class MapRouteView(c_void_p):
     RouteColor = property(get_RouteColor, put_RouteColor)
     OutlineColor = property(get_OutlineColor, put_OutlineColor)
     Route = property(get_Route, None)
-class MapScene(c_void_p):
+class MapScene(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapScene'
     @winrt_mixinmethod
@@ -3135,7 +3135,7 @@ MapStyle_Terrain: MapStyle = 4
 MapStyle_Aerial3D: MapStyle = 5
 MapStyle_Aerial3DWithRoads: MapStyle = 6
 MapStyle_Custom: MapStyle = 7
-class MapStyleSheet(c_void_p):
+class MapStyleSheet(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapStyleSheet'
     @winrt_classmethod
@@ -3156,7 +3156,7 @@ class MapStyleSheet(c_void_p):
     def ParseFromJson(cls: Windows.UI.Xaml.Controls.Maps.IMapStyleSheetStatics, styleAsJson: WinRT_String) -> Windows.UI.Xaml.Controls.Maps.MapStyleSheet: ...
     @winrt_classmethod
     def TryParseFromJson(cls: Windows.UI.Xaml.Controls.Maps.IMapStyleSheetStatics, styleAsJson: WinRT_String, styleSheet: POINTER(Windows.UI.Xaml.Controls.Maps.MapStyleSheet)) -> Boolean: ...
-class MapStyleSheetEntries(c_void_p):
+class MapStyleSheetEntries(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapStyleSheetEntries'
     @winrt_classmethod
@@ -3351,7 +3351,7 @@ class MapStyleSheetEntries(c_void_p):
     RouteLine = property(get_RouteLine, None)
     WalkingRoute = property(get_WalkingRoute, None)
     DrivingRoute = property(get_DrivingRoute, None)
-class MapStyleSheetEntryStates(c_void_p):
+class MapStyleSheetEntryStates(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapStyleSheetEntryStates'
     @winrt_classmethod
@@ -3363,7 +3363,7 @@ class MapStyleSheetEntryStates(c_void_p):
     Disabled = property(get_Disabled, None)
     Hover = property(get_Hover, None)
     Selected = property(get_Selected, None)
-class MapTargetCameraChangedEventArgs(c_void_p):
+class MapTargetCameraChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapTargetCameraChangedEventArgs'
     @winrt_activatemethod
@@ -3378,7 +3378,7 @@ MapTileAnimationState = Int32
 MapTileAnimationState_Stopped: MapTileAnimationState = 0
 MapTileAnimationState_Paused: MapTileAnimationState = 1
 MapTileAnimationState_Playing: MapTileAnimationState = 2
-class MapTileBitmapRequest(c_void_p):
+class MapTileBitmapRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequest'
     @winrt_activatemethod
@@ -3390,14 +3390,14 @@ class MapTileBitmapRequest(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.UI.Xaml.Controls.Maps.IMapTileBitmapRequest) -> Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestDeferral: ...
     PixelData = property(get_PixelData, put_PixelData)
-class MapTileBitmapRequestDeferral(c_void_p):
+class MapTileBitmapRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestDeferral'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestDeferral: ...
     @winrt_mixinmethod
     def Complete(self: Windows.UI.Xaml.Controls.Maps.IMapTileBitmapRequestDeferral) -> Void: ...
-class MapTileBitmapRequestedEventArgs(c_void_p):
+class MapTileBitmapRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapTileBitmapRequestedEventArgs'
     @winrt_activatemethod
@@ -3417,7 +3417,7 @@ class MapTileBitmapRequestedEventArgs(c_void_p):
     ZoomLevel = property(get_ZoomLevel, None)
     Request = property(get_Request, None)
     FrameIndex = property(get_FrameIndex, None)
-class MapTileDataSource(c_void_p):
+class MapTileDataSource(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
 MapTileLayer = Int32
 MapTileLayer_LabelOverlay: MapTileLayer = 0
@@ -3425,7 +3425,7 @@ MapTileLayer_RoadOverlay: MapTileLayer = 1
 MapTileLayer_AreaOverlay: MapTileLayer = 2
 MapTileLayer_BackgroundOverlay: MapTileLayer = 3
 MapTileLayer_BackgroundReplacement: MapTileLayer = 4
-class MapTileSource(c_void_p):
+class MapTileSource(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     @winrt_commethod(58)
     def get_DataSource(self) -> Windows.UI.Xaml.Controls.Maps.MapTileDataSource: ...
@@ -3551,7 +3551,7 @@ class MapTileSource(c_void_p):
     ZIndexProperty = property(get_ZIndexProperty, None)
     TilePixelSizeProperty = property(get_TilePixelSizeProperty, None)
     VisibleProperty = property(get_VisibleProperty, None)
-class MapTileUriRequest(c_void_p):
+class MapTileUriRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapTileUriRequest'
     @winrt_activatemethod
@@ -3563,14 +3563,14 @@ class MapTileUriRequest(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.UI.Xaml.Controls.Maps.IMapTileUriRequest) -> Windows.UI.Xaml.Controls.Maps.MapTileUriRequestDeferral: ...
     Uri = property(get_Uri, put_Uri)
-class MapTileUriRequestDeferral(c_void_p):
+class MapTileUriRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapTileUriRequestDeferral'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Controls.Maps.MapTileUriRequestDeferral: ...
     @winrt_mixinmethod
     def Complete(self: Windows.UI.Xaml.Controls.Maps.IMapTileUriRequestDeferral) -> Void: ...
-class MapTileUriRequestedEventArgs(c_void_p):
+class MapTileUriRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Controls.Maps.MapTileUriRequestedEventArgs'
     @winrt_activatemethod
@@ -3599,7 +3599,7 @@ MapWatermarkMode_On: MapWatermarkMode = 1
 class MapZoomLevelRange(EasyCastStructure):
     Min: Double
     Max: Double
-class StreetsideExperience(c_void_p):
+class StreetsideExperience(ComPtr):
     extends: Windows.UI.Xaml.Controls.Maps.MapCustomExperience
     ClassId = 'Windows.UI.Xaml.Controls.Maps.StreetsideExperience'
     @winrt_factorymethod
@@ -3636,7 +3636,7 @@ class StreetsideExperience(c_void_p):
     StreetLabelsVisible = property(get_StreetLabelsVisible, put_StreetLabelsVisible)
     ExitButtonVisible = property(get_ExitButtonVisible, put_ExitButtonVisible)
     ZoomButtonsVisible = property(get_ZoomButtonsVisible, put_ZoomButtonsVisible)
-class StreetsidePanorama(c_void_p):
+class StreetsidePanorama(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
     ClassId = 'Windows.UI.Xaml.Controls.Maps.StreetsidePanorama'
     @winrt_mixinmethod

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -26,7 +26,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class FileInformation(c_void_p):
+class FileInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.BulkAccess.FileInformation'
     @winrt_mixinmethod
@@ -141,7 +141,7 @@ class FileInformation(c_void_p):
     Properties = property(get_Properties, None)
     Provider = property(get_Provider, None)
     IsAvailable = property(get_IsAvailable, None)
-class FileInformationFactory(c_void_p):
+class FileInformationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.BulkAccess.FileInformationFactory'
     @winrt_factorymethod
@@ -170,7 +170,7 @@ class FileInformationFactory(c_void_p):
     def GetVirtualizedFilesVector(self: Windows.Storage.BulkAccess.IFileInformationFactory) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
     def GetVirtualizedFoldersVector(self: Windows.Storage.BulkAccess.IFileInformationFactory) -> Windows.Win32.System.WinRT.IInspectable_head: ...
-class FolderInformation(c_void_p):
+class FolderInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.BulkAccess.FolderInformation'
     @winrt_mixinmethod
@@ -304,7 +304,7 @@ class FolderInformation(c_void_p):
     FolderRelativeId = property(get_FolderRelativeId, None)
     Properties = property(get_Properties, None)
     Provider = property(get_Provider, None)
-class IFileInformationFactory(c_void_p):
+class IFileInformationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('401d88be-960f-4d6d-a7-d0-1a-38-61-e7-6c-83')
     @winrt_commethod(6)
@@ -325,7 +325,7 @@ class IFileInformationFactory(c_void_p):
     def GetVirtualizedFilesVector(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_commethod(14)
     def GetVirtualizedFoldersVector(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
-class IFileInformationFactoryFactory(c_void_p):
+class IFileInformationFactoryFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('84ea0e7d-e4a2-4f00-8a-fa-af-5e-0f-82-6b-d5')
     @winrt_commethod(6)
@@ -336,7 +336,7 @@ class IFileInformationFactoryFactory(c_void_p):
     def CreateWithModeAndSizeAndOptions(self, queryResult: Windows.Storage.Search.IStorageQueryResultBase, mode: Windows.Storage.FileProperties.ThumbnailMode, requestedThumbnailSize: UInt32, thumbnailOptions: Windows.Storage.FileProperties.ThumbnailOptions) -> Windows.Storage.BulkAccess.FileInformationFactory: ...
     @winrt_commethod(9)
     def CreateWithModeAndSizeAndOptionsAndFlags(self, queryResult: Windows.Storage.Search.IStorageQueryResultBase, mode: Windows.Storage.FileProperties.ThumbnailMode, requestedThumbnailSize: UInt32, thumbnailOptions: Windows.Storage.FileProperties.ThumbnailOptions, delayLoad: Boolean) -> Windows.Storage.BulkAccess.FileInformationFactory: ...
-class IStorageItemInformation(c_void_p):
+class IStorageItemInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('87a5cb8b-8972-4f40-8d-e0-d8-6f-b1-79-d8-fa')
     @winrt_commethod(6)

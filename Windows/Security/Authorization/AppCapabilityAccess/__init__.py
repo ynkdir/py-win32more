@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -23,7 +23,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AppCapability(c_void_p):
+class AppCapability(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authorization.AppCapabilityAccess.AppCapability'
     @winrt_mixinmethod
@@ -53,7 +53,7 @@ class AppCapability(c_void_p):
     CapabilityName = property(get_CapabilityName, None)
     User = property(get_User, None)
     DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
-class AppCapabilityAccessChangedEventArgs(c_void_p):
+class AppCapabilityAccessChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authorization.AppCapabilityAccess.AppCapabilityAccessChangedEventArgs'
 AppCapabilityAccessStatus = Int32
@@ -62,7 +62,7 @@ AppCapabilityAccessStatus_NotDeclaredByApp: AppCapabilityAccessStatus = 1
 AppCapabilityAccessStatus_DeniedByUser: AppCapabilityAccessStatus = 2
 AppCapabilityAccessStatus_UserPromptRequired: AppCapabilityAccessStatus = 3
 AppCapabilityAccessStatus_Allowed: AppCapabilityAccessStatus = 4
-class IAppCapability(c_void_p):
+class IAppCapability(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4c49d915-8a2a-4295-94-37-2d-f7-c3-96-af-f4')
     @winrt_commethod(6)
@@ -79,7 +79,7 @@ class IAppCapability(c_void_p):
     def remove_AccessChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     CapabilityName = property(get_CapabilityName, None)
     User = property(get_User, None)
-class IAppCapability2(c_void_p):
+class IAppCapability2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('11c7ccb6-c74f-50a3-b9-60-88-00-87-67-d9-39')
     @winrt_commethod(6)
@@ -87,10 +87,10 @@ class IAppCapability2(c_void_p):
     @winrt_commethod(7)
     def put_DisplayMessage(self, value: WinRT_String) -> Void: ...
     DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
-class IAppCapabilityAccessChangedEventArgs(c_void_p):
+class IAppCapabilityAccessChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0a578d15-bdd7-457e-8c-ca-6f-53-bd-2e-59-44')
-class IAppCapabilityStatics(c_void_p):
+class IAppCapabilityStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7c353e2a-46ee-44e5-af-3d-6a-d3-fc-49-bd-22')
     @winrt_commethod(6)

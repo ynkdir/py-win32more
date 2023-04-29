@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Contacts
@@ -24,7 +24,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IQuickLink(c_void_p):
+class IQuickLink(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('603e4308-f0be-4adc-ac-c9-8b-27-ab-9c-f5-56')
     @winrt_commethod(6)
@@ -48,7 +48,7 @@ class IQuickLink(c_void_p):
     Id = property(get_Id, put_Id)
     SupportedDataFormats = property(get_SupportedDataFormats, None)
     SupportedFileTypes = property(get_SupportedFileTypes, None)
-class IShareOperation(c_void_p):
+class IShareOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2246bab8-d0f8-41c1-a8-2a-41-37-db-65-04-fb')
     @winrt_commethod(6)
@@ -71,18 +71,18 @@ class IShareOperation(c_void_p):
     def ReportError(self, value: WinRT_String) -> Void: ...
     Data = property(get_Data, None)
     QuickLinkId = property(get_QuickLinkId, None)
-class IShareOperation2(c_void_p):
+class IShareOperation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0ffb97c1-9778-4a09-8e-5b-cb-5e-48-2d-05-55')
     @winrt_commethod(6)
     def DismissUI(self) -> Void: ...
-class IShareOperation3(c_void_p):
+class IShareOperation3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5ef6b382-b7a7-4571-a2-a6-99-4a-03-49-88-b2')
     @winrt_commethod(6)
     def get_Contacts(self) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Contacts.Contact]: ...
     Contacts = property(get_Contacts, None)
-class QuickLink(c_void_p):
+class QuickLink(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.ShareTarget.QuickLink'
     @winrt_activatemethod
@@ -108,7 +108,7 @@ class QuickLink(c_void_p):
     Id = property(get_Id, put_Id)
     SupportedDataFormats = property(get_SupportedDataFormats, None)
     SupportedFileTypes = property(get_SupportedFileTypes, None)
-class ShareOperation(c_void_p):
+class ShareOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.ShareTarget.ShareOperation'
     @winrt_mixinmethod

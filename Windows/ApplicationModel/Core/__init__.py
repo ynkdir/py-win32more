@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel
@@ -26,7 +26,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AppListEntry(c_void_p):
+class AppListEntry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Core.AppListEntry'
     @winrt_mixinmethod
@@ -47,7 +47,7 @@ AppRestartFailureReason_RestartPending: AppRestartFailureReason = 0
 AppRestartFailureReason_NotInForeground: AppRestartFailureReason = 1
 AppRestartFailureReason_InvalidUser: AppRestartFailureReason = 2
 AppRestartFailureReason_Other: AppRestartFailureReason = 3
-class CoreApplication(c_void_p):
+class CoreApplication(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Core.CoreApplication'
     @winrt_classmethod
@@ -114,7 +114,7 @@ class CoreApplication(c_void_p):
     MainView = property(get_MainView, None)
     Id = property(get_Id, None)
     Properties = property(get_Properties, None)
-class CoreApplicationView(c_void_p):
+class CoreApplicationView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Core.CoreApplicationView'
     @winrt_mixinmethod
@@ -149,7 +149,7 @@ class CoreApplicationView(c_void_p):
     TitleBar = property(get_TitleBar, None)
     Properties = property(get_Properties, None)
     DispatcherQueue = property(get_DispatcherQueue, None)
-class CoreApplicationViewTitleBar(c_void_p):
+class CoreApplicationViewTitleBar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Core.CoreApplicationViewTitleBar'
     @winrt_mixinmethod
@@ -177,12 +177,12 @@ class CoreApplicationViewTitleBar(c_void_p):
     SystemOverlayRightInset = property(get_SystemOverlayRightInset, None)
     Height = property(get_Height, None)
     IsVisible = property(get_IsVisible, None)
-class HostedViewClosingEventArgs(c_void_p):
+class HostedViewClosingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Core.HostedViewClosingEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.Core.IHostedViewClosingEventArgs) -> Windows.Foundation.Deferral: ...
-class IAppListEntry(c_void_p):
+class IAppListEntry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ef00f07f-2108-490a-87-7a-8a-9f-17-c2-5f-ad')
     @winrt_commethod(6)
@@ -190,24 +190,24 @@ class IAppListEntry(c_void_p):
     @winrt_commethod(7)
     def LaunchAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     DisplayInfo = property(get_DisplayInfo, None)
-class IAppListEntry2(c_void_p):
+class IAppListEntry2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d0a618ad-bf35-42ac-ac-06-86-ee-eb-41-d0-4b')
     @winrt_commethod(6)
     def get_AppUserModelId(self) -> WinRT_String: ...
     AppUserModelId = property(get_AppUserModelId, None)
-class IAppListEntry3(c_void_p):
+class IAppListEntry3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6099f28d-fc32-470a-bc-69-4b-06-1a-76-ef-2e')
     @winrt_commethod(6)
     def LaunchForUserAsync(self, user: Windows.System.User) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
-class IAppListEntry4(c_void_p):
+class IAppListEntry4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2a131ed2-56f5-487c-86-97-51-66-f3-b3-3d-a0')
     @winrt_commethod(6)
     def get_AppInfo(self) -> Windows.ApplicationModel.AppInfo: ...
     AppInfo = property(get_AppInfo, None)
-class ICoreApplication(c_void_p):
+class ICoreApplication(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0aacf7a4-5e1d-49df-80-34-fb-6a-68-bc-5e-d1')
     @winrt_commethod(6)
@@ -230,7 +230,7 @@ class ICoreApplication(c_void_p):
     def RunWithActivationFactories(self, activationFactoryCallback: Windows.Foundation.IGetActivationFactory) -> Void: ...
     Id = property(get_Id, None)
     Properties = property(get_Properties, None)
-class ICoreApplication2(c_void_p):
+class ICoreApplication2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('998681fb-1ab6-4b7f-be-4a-9a-06-45-22-4c-04')
     @winrt_commethod(6)
@@ -247,14 +247,14 @@ class ICoreApplication2(c_void_p):
     def remove_EnteredBackground(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(12)
     def EnablePrelaunch(self, value: Boolean) -> Void: ...
-class ICoreApplication3(c_void_p):
+class ICoreApplication3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('feec0d39-598b-4507-8a-67-77-26-32-58-0a-57')
     @winrt_commethod(6)
     def RequestRestartAsync(self, launchArguments: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Core.AppRestartFailureReason]: ...
     @winrt_commethod(7)
     def RequestRestartForUserAsync(self, user: Windows.System.User, launchArguments: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Core.AppRestartFailureReason]: ...
-class ICoreApplicationExit(c_void_p):
+class ICoreApplicationExit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cf86461d-261e-4b72-9a-cd-44-ed-2a-ce-6a-29')
     @winrt_commethod(6)
@@ -263,21 +263,21 @@ class ICoreApplicationExit(c_void_p):
     def add_Exiting(self, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_Exiting(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class ICoreApplicationUnhandledError(c_void_p):
+class ICoreApplicationUnhandledError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f0e24ab0-dd09-42e1-b0-bc-e0-e1-31-f7-8d-7e')
     @winrt_commethod(6)
     def add_UnhandledErrorDetected(self, handler: Windows.Foundation.EventHandler[Windows.ApplicationModel.Core.UnhandledErrorDetectedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_UnhandledErrorDetected(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class ICoreApplicationUseCount(c_void_p):
+class ICoreApplicationUseCount(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('518dc408-c077-475b-80-9e-0b-c0-c5-7e-4b-74')
     @winrt_commethod(6)
     def IncrementApplicationUseCount(self) -> Void: ...
     @winrt_commethod(7)
     def DecrementApplicationUseCount(self) -> Void: ...
-class ICoreApplicationView(c_void_p):
+class ICoreApplicationView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('638bb2db-451d-4661-b0-99-41-4f-34-ff-b9-f1')
     @winrt_commethod(6)
@@ -293,13 +293,13 @@ class ICoreApplicationView(c_void_p):
     CoreWindow = property(get_CoreWindow, None)
     IsMain = property(get_IsMain, None)
     IsHosted = property(get_IsHosted, None)
-class ICoreApplicationView2(c_void_p):
+class ICoreApplicationView2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('68eb7adf-917f-48eb-9a-eb-7d-e5-3e-08-6a-b1')
     @winrt_commethod(6)
     def get_Dispatcher(self) -> Windows.UI.Core.CoreDispatcher: ...
     Dispatcher = property(get_Dispatcher, None)
-class ICoreApplicationView3(c_void_p):
+class ICoreApplicationView3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('07ebe1b3-a4cf-4550-ab-70-b0-7e-85-33-0b-c8')
     @winrt_commethod(6)
@@ -312,19 +312,19 @@ class ICoreApplicationView3(c_void_p):
     def remove_HostedViewClosing(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     IsComponent = property(get_IsComponent, None)
     TitleBar = property(get_TitleBar, None)
-class ICoreApplicationView5(c_void_p):
+class ICoreApplicationView5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2bc095a8-8ef0-446d-9e-60-3a-3e-04-28-c6-71')
     @winrt_commethod(6)
     def get_Properties(self) -> Windows.Foundation.Collections.IPropertySet: ...
     Properties = property(get_Properties, None)
-class ICoreApplicationView6(c_void_p):
+class ICoreApplicationView6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c119d49a-0679-49ba-80-3f-b7-9c-5c-f3-4c-ca')
     @winrt_commethod(6)
     def get_DispatcherQueue(self) -> Windows.System.DispatcherQueue: ...
     DispatcherQueue = property(get_DispatcherQueue, None)
-class ICoreApplicationViewTitleBar(c_void_p):
+class ICoreApplicationViewTitleBar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('006d35e3-e1f1-431b-95-08-29-b9-69-26-ac-53')
     @winrt_commethod(6)
@@ -352,7 +352,7 @@ class ICoreApplicationViewTitleBar(c_void_p):
     SystemOverlayRightInset = property(get_SystemOverlayRightInset, None)
     Height = property(get_Height, None)
     IsVisible = property(get_IsVisible, None)
-class ICoreImmersiveApplication(c_void_p):
+class ICoreImmersiveApplication(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1ada0e3e-e4a2-4123-b4-51-dc-96-bf-80-04-19')
     @winrt_commethod(6)
@@ -363,17 +363,17 @@ class ICoreImmersiveApplication(c_void_p):
     def get_MainView(self) -> Windows.ApplicationModel.Core.CoreApplicationView: ...
     Views = property(get_Views, None)
     MainView = property(get_MainView, None)
-class ICoreImmersiveApplication2(c_void_p):
+class ICoreImmersiveApplication2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('828e1e36-e9e3-4cfc-9b-66-48-b7-8e-a9-bb-2c')
     @winrt_commethod(6)
     def CreateNewViewFromMainView(self) -> Windows.ApplicationModel.Core.CoreApplicationView: ...
-class ICoreImmersiveApplication3(c_void_p):
+class ICoreImmersiveApplication3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('34a05b2f-ee0d-41e5-83-14-cf-10-c9-1b-f0-af')
     @winrt_commethod(6)
     def CreateNewViewWithViewSource(self, viewSource: Windows.ApplicationModel.Core.IFrameworkViewSource) -> Windows.ApplicationModel.Core.CoreApplicationView: ...
-class IFrameworkView(c_void_p):
+class IFrameworkView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('faab5cd0-8924-45ac-ad-0f-a0-8f-ae-5d-03-24')
     @winrt_commethod(6)
@@ -386,17 +386,17 @@ class IFrameworkView(c_void_p):
     def Run(self) -> Void: ...
     @winrt_commethod(10)
     def Uninitialize(self) -> Void: ...
-class IFrameworkViewSource(c_void_p):
+class IFrameworkViewSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cd770614-65c4-426c-94-94-34-fc-43-55-48-62')
     @winrt_commethod(6)
     def CreateView(self) -> Windows.ApplicationModel.Core.IFrameworkView: ...
-class IHostedViewClosingEventArgs(c_void_p):
+class IHostedViewClosingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d238943c-b24e-4790-ac-b5-3e-42-43-c4-ff-87')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
-class IUnhandledError(c_void_p):
+class IUnhandledError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9459b726-53b5-4686-9e-af-fa-81-62-dc-39-80')
     @winrt_commethod(6)
@@ -404,13 +404,13 @@ class IUnhandledError(c_void_p):
     @winrt_commethod(7)
     def Propagate(self) -> Void: ...
     Handled = property(get_Handled, None)
-class IUnhandledErrorDetectedEventArgs(c_void_p):
+class IUnhandledErrorDetectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('679ab78b-b336-4822-ac-40-0d-75-0f-0b-7a-2b')
     @winrt_commethod(6)
     def get_UnhandledError(self) -> Windows.ApplicationModel.Core.UnhandledError: ...
     UnhandledError = property(get_UnhandledError, None)
-class UnhandledError(c_void_p):
+class UnhandledError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Core.UnhandledError'
     @winrt_mixinmethod
@@ -418,7 +418,7 @@ class UnhandledError(c_void_p):
     @winrt_mixinmethod
     def Propagate(self: Windows.ApplicationModel.Core.IUnhandledError) -> Void: ...
     Handled = property(get_Handled, None)
-class UnhandledErrorDetectedEventArgs(c_void_p):
+class UnhandledErrorDetectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Core.UnhandledErrorDetectedEventArgs'
     @winrt_mixinmethod

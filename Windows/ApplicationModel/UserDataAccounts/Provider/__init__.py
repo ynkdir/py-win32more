@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.UserDataAccounts
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IUserDataAccountPartnerAccountInfo(c_void_p):
+class IUserDataAccountPartnerAccountInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5f200037-f6ef-4ec3-86-30-01-2c-59-c1-14-9f')
     @winrt_commethod(6)
@@ -34,7 +34,7 @@ class IUserDataAccountPartnerAccountInfo(c_void_p):
     DisplayName = property(get_DisplayName, None)
     Priority = property(get_Priority, None)
     AccountKind = property(get_AccountKind, None)
-class IUserDataAccountProviderAddAccountOperation(c_void_p):
+class IUserDataAccountProviderAddAccountOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b9c72530-3f84-4b5d-8e-aa-45-e9-7a-a8-42-ed')
     @winrt_commethod(6)
@@ -45,13 +45,13 @@ class IUserDataAccountProviderAddAccountOperation(c_void_p):
     def ReportCompleted(self, userDataAccountId: WinRT_String) -> Void: ...
     ContentKinds = property(get_ContentKinds, None)
     PartnerAccountInfos = property(get_PartnerAccountInfos, None)
-class IUserDataAccountProviderOperation(c_void_p):
+class IUserDataAccountProviderOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a20aad63-888c-4a62-a3-dd-34-d0-7a-80-2b-2b')
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderOperationKind: ...
     Kind = property(get_Kind, None)
-class IUserDataAccountProviderResolveErrorsOperation(c_void_p):
+class IUserDataAccountProviderResolveErrorsOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6235dc15-bfcb-41e1-99-57-97-59-a2-88-46-cc')
     @winrt_commethod(6)
@@ -59,7 +59,7 @@ class IUserDataAccountProviderResolveErrorsOperation(c_void_p):
     @winrt_commethod(7)
     def ReportCompleted(self) -> Void: ...
     UserDataAccountId = property(get_UserDataAccountId, None)
-class IUserDataAccountProviderSettingsOperation(c_void_p):
+class IUserDataAccountProviderSettingsOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('92034db7-8648-4f30-ac-fa-30-02-65-8c-a8-0d')
     @winrt_commethod(6)
@@ -67,7 +67,7 @@ class IUserDataAccountProviderSettingsOperation(c_void_p):
     @winrt_commethod(7)
     def ReportCompleted(self) -> Void: ...
     UserDataAccountId = property(get_UserDataAccountId, None)
-class UserDataAccountPartnerAccountInfo(c_void_p):
+class UserDataAccountPartnerAccountInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountPartnerAccountInfo'
     @winrt_mixinmethod
@@ -79,7 +79,7 @@ class UserDataAccountPartnerAccountInfo(c_void_p):
     DisplayName = property(get_DisplayName, None)
     Priority = property(get_Priority, None)
     AccountKind = property(get_AccountKind, None)
-class UserDataAccountProviderAddAccountOperation(c_void_p):
+class UserDataAccountProviderAddAccountOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderAddAccountOperation'
     @winrt_mixinmethod
@@ -100,7 +100,7 @@ UserDataAccountProviderOperationKind_ResolveErrors: UserDataAccountProviderOpera
 UserDataAccountProviderPartnerAccountKind = Int32
 UserDataAccountProviderPartnerAccountKind_Exchange: UserDataAccountProviderPartnerAccountKind = 0
 UserDataAccountProviderPartnerAccountKind_PopOrImap: UserDataAccountProviderPartnerAccountKind = 1
-class UserDataAccountProviderResolveErrorsOperation(c_void_p):
+class UserDataAccountProviderResolveErrorsOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderResolveErrorsOperation'
     @winrt_mixinmethod
@@ -111,7 +111,7 @@ class UserDataAccountProviderResolveErrorsOperation(c_void_p):
     def get_Kind(self: Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderOperation) -> Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderOperationKind: ...
     UserDataAccountId = property(get_UserDataAccountId, None)
     Kind = property(get_Kind, None)
-class UserDataAccountProviderSettingsOperation(c_void_p):
+class UserDataAccountProviderSettingsOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataAccounts.Provider.UserDataAccountProviderSettingsOperation'
     @winrt_mixinmethod

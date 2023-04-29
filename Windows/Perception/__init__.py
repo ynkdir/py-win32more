@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -21,7 +21,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IPerceptionTimestamp(c_void_p):
+class IPerceptionTimestamp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('87c24804-a22e-4adb-ba-26-d7-8e-f6-39-bc-f4')
     @winrt_commethod(6)
@@ -30,23 +30,23 @@ class IPerceptionTimestamp(c_void_p):
     def get_PredictionAmount(self) -> Windows.Foundation.TimeSpan: ...
     TargetTime = property(get_TargetTime, None)
     PredictionAmount = property(get_PredictionAmount, None)
-class IPerceptionTimestamp2(c_void_p):
+class IPerceptionTimestamp2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e354b7ed-2bd1-41b7-9e-d0-74-a1-5c-35-45-37')
     @winrt_commethod(6)
     def get_SystemRelativeTargetTime(self) -> Windows.Foundation.TimeSpan: ...
     SystemRelativeTargetTime = property(get_SystemRelativeTargetTime, None)
-class IPerceptionTimestampHelperStatics(c_void_p):
+class IPerceptionTimestampHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('47a611d4-a9df-4edc-85-5d-f4-d3-39-d9-67-ac')
     @winrt_commethod(6)
     def FromHistoricalTargetTime(self, targetTime: Windows.Foundation.DateTime) -> Windows.Perception.PerceptionTimestamp: ...
-class IPerceptionTimestampHelperStatics2(c_void_p):
+class IPerceptionTimestampHelperStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('73d1a7fe-3fb9-4571-87-d4-3c-92-0a-5e-86-eb')
     @winrt_commethod(6)
     def FromSystemRelativeTargetTime(self, targetTime: Windows.Foundation.TimeSpan) -> Windows.Perception.PerceptionTimestamp: ...
-class PerceptionTimestamp(c_void_p):
+class PerceptionTimestamp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.PerceptionTimestamp'
     @winrt_mixinmethod
@@ -58,7 +58,7 @@ class PerceptionTimestamp(c_void_p):
     TargetTime = property(get_TargetTime, None)
     PredictionAmount = property(get_PredictionAmount, None)
     SystemRelativeTargetTime = property(get_SystemRelativeTargetTime, None)
-class PerceptionTimestampHelper(c_void_p):
+class PerceptionTimestampHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.PerceptionTimestampHelper'
     @winrt_classmethod

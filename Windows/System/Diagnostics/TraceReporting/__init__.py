@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation.Collections
@@ -21,7 +21,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IPlatformDiagnosticActionsStatics(c_void_p):
+class IPlatformDiagnosticActionsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c1145cfa-9292-4267-89-0a-9e-a3-ed-07-23-12')
     @winrt_commethod(6)
@@ -40,7 +40,7 @@ class IPlatformDiagnosticActionsStatics(c_void_p):
     def GetActiveTraceRuntime(self, slotType: Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceSlotType) -> Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceRuntimeInfo: ...
     @winrt_commethod(13)
     def GetKnownTraceList(self, slotType: Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceSlotType) -> Windows.Foundation.Collections.IVectorView[Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo]: ...
-class IPlatformDiagnosticTraceInfo(c_void_p):
+class IPlatformDiagnosticTraceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f870ed97-d597-4bf7-88-dc-cf-5c-7d-c2-a1-d2')
     @winrt_commethod(6)
@@ -61,7 +61,7 @@ class IPlatformDiagnosticTraceInfo(c_void_p):
     IsAutoLogger = property(get_IsAutoLogger, None)
     MaxTraceDurationFileTime = property(get_MaxTraceDurationFileTime, None)
     Priority = property(get_Priority, None)
-class IPlatformDiagnosticTraceRuntimeInfo(c_void_p):
+class IPlatformDiagnosticTraceRuntimeInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3d4d5e2d-01d8-4768-85-54-1e-b1-ca-61-09-86')
     @winrt_commethod(6)
@@ -74,7 +74,7 @@ PlatformDiagnosticActionState = Int32
 PlatformDiagnosticActionState_Success: PlatformDiagnosticActionState = 0
 PlatformDiagnosticActionState_FreeNetworkNotAvailable: PlatformDiagnosticActionState = 1
 PlatformDiagnosticActionState_ACPowerNotAvailable: PlatformDiagnosticActionState = 2
-class PlatformDiagnosticActions(c_void_p):
+class PlatformDiagnosticActions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions'
     @winrt_classmethod
@@ -100,7 +100,7 @@ PlatformDiagnosticEventBufferLatencies = UInt32
 PlatformDiagnosticEventBufferLatencies_Normal: PlatformDiagnosticEventBufferLatencies = 1
 PlatformDiagnosticEventBufferLatencies_CostDeferred: PlatformDiagnosticEventBufferLatencies = 2
 PlatformDiagnosticEventBufferLatencies_Realtime: PlatformDiagnosticEventBufferLatencies = 4
-class PlatformDiagnosticTraceInfo(c_void_p):
+class PlatformDiagnosticTraceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo'
     @winrt_mixinmethod
@@ -124,7 +124,7 @@ class PlatformDiagnosticTraceInfo(c_void_p):
 PlatformDiagnosticTracePriority = Int32
 PlatformDiagnosticTracePriority_Normal: PlatformDiagnosticTracePriority = 0
 PlatformDiagnosticTracePriority_UserElevated: PlatformDiagnosticTracePriority = 1
-class PlatformDiagnosticTraceRuntimeInfo(c_void_p):
+class PlatformDiagnosticTraceRuntimeInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceRuntimeInfo'
     @winrt_mixinmethod

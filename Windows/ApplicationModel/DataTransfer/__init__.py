@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.DataTransfer
@@ -26,7 +26,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class Clipboard(c_void_p):
+class Clipboard(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.Clipboard'
     @winrt_classmethod
@@ -67,7 +67,7 @@ class Clipboard(c_void_p):
     def add_ContentChanged(cls: Windows.ApplicationModel.DataTransfer.IClipboardStatics, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
     def remove_ContentChanged(cls: Windows.ApplicationModel.DataTransfer.IClipboardStatics, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class ClipboardContentOptions(c_void_p):
+class ClipboardContentOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.ClipboardContentOptions'
     @winrt_activatemethod
@@ -88,10 +88,10 @@ class ClipboardContentOptions(c_void_p):
     IsAllowedInHistory = property(get_IsAllowedInHistory, put_IsAllowedInHistory)
     RoamingFormats = property(get_RoamingFormats, None)
     HistoryFormats = property(get_HistoryFormats, None)
-class ClipboardHistoryChangedEventArgs(c_void_p):
+class ClipboardHistoryChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.ClipboardHistoryChangedEventArgs'
-class ClipboardHistoryItem(c_void_p):
+class ClipboardHistoryItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.ClipboardHistoryItem'
     @winrt_mixinmethod
@@ -103,7 +103,7 @@ class ClipboardHistoryItem(c_void_p):
     Id = property(get_Id, None)
     Timestamp = property(get_Timestamp, None)
     Content = property(get_Content, None)
-class ClipboardHistoryItemsResult(c_void_p):
+class ClipboardHistoryItemsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.ClipboardHistoryItemsResult'
     @winrt_mixinmethod
@@ -116,7 +116,7 @@ ClipboardHistoryItemsResultStatus = Int32
 ClipboardHistoryItemsResultStatus_Success: ClipboardHistoryItemsResultStatus = 0
 ClipboardHistoryItemsResultStatus_AccessDenied: ClipboardHistoryItemsResultStatus = 1
 ClipboardHistoryItemsResultStatus_ClipboardHistoryDisabled: ClipboardHistoryItemsResultStatus = 2
-class DataPackage(c_void_p):
+class DataPackage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.DataPackage'
     @winrt_activatemethod
@@ -177,7 +177,7 @@ DataPackageOperation_None: DataPackageOperation = 0
 DataPackageOperation_Copy: DataPackageOperation = 1
 DataPackageOperation_Move: DataPackageOperation = 2
 DataPackageOperation_Link: DataPackageOperation = 4
-class DataPackagePropertySet(c_void_p):
+class DataPackagePropertySet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.DataPackagePropertySet'
     @winrt_mixinmethod
@@ -260,7 +260,7 @@ class DataPackagePropertySet(c_void_p):
     LogoBackgroundColor = property(get_LogoBackgroundColor, put_LogoBackgroundColor)
     EnterpriseId = property(get_EnterpriseId, put_EnterpriseId)
     ContentSourceUserActivityJson = property(get_ContentSourceUserActivityJson, put_ContentSourceUserActivityJson)
-class DataPackagePropertySetView(c_void_p):
+class DataPackagePropertySetView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.DataPackagePropertySetView'
     @winrt_mixinmethod
@@ -316,7 +316,7 @@ class DataPackagePropertySetView(c_void_p):
     ContentSourceUserActivityJson = property(get_ContentSourceUserActivityJson, None)
     IsFromRoamingClipboard = property(get_IsFromRoamingClipboard, None)
     Size = property(get_Size, None)
-class DataPackageView(c_void_p):
+class DataPackageView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.DataPackageView'
     @winrt_mixinmethod
@@ -362,18 +362,18 @@ class DataPackageView(c_void_p):
     Properties = property(get_Properties, None)
     RequestedOperation = property(get_RequestedOperation, None)
     AvailableFormats = property(get_AvailableFormats, None)
-class DataProviderDeferral(c_void_p):
+class DataProviderDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.DataProviderDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.ApplicationModel.DataTransfer.IDataProviderDeferral) -> Void: ...
-class DataProviderHandler(c_void_p):
+class DataProviderHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e7ecd720-f2f4-4a2d-92-0e-17-0a-2f-48-2a-27')
     ClassId = 'Windows.ApplicationModel.DataTransfer.DataProviderHandler'
     @winrt_commethod(3)
     def Invoke(self, request: Windows.ApplicationModel.DataTransfer.DataProviderRequest) -> Void: ...
-class DataProviderRequest(c_void_p):
+class DataProviderRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.DataProviderRequest'
     @winrt_mixinmethod
@@ -386,7 +386,7 @@ class DataProviderRequest(c_void_p):
     def SetData(self: Windows.ApplicationModel.DataTransfer.IDataProviderRequest, value: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
     FormatId = property(get_FormatId, None)
     Deadline = property(get_Deadline, None)
-class DataRequest(c_void_p):
+class DataRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.DataRequest'
     @winrt_mixinmethod
@@ -401,18 +401,18 @@ class DataRequest(c_void_p):
     def GetDeferral(self: Windows.ApplicationModel.DataTransfer.IDataRequest) -> Windows.ApplicationModel.DataTransfer.DataRequestDeferral: ...
     Data = property(get_Data, put_Data)
     Deadline = property(get_Deadline, None)
-class DataRequestDeferral(c_void_p):
+class DataRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.DataRequestDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.ApplicationModel.DataTransfer.IDataRequestDeferral) -> Void: ...
-class DataRequestedEventArgs(c_void_p):
+class DataRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.DataRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.DataTransfer.IDataRequestedEventArgs) -> Windows.ApplicationModel.DataTransfer.DataRequest: ...
     Request = property(get_Request, None)
-class DataTransferManager(c_void_p):
+class DataTransferManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.DataTransferManager'
     @winrt_mixinmethod
@@ -435,14 +435,14 @@ class DataTransferManager(c_void_p):
     def ShowShareUI(cls: Windows.ApplicationModel.DataTransfer.IDataTransferManagerStatics) -> Void: ...
     @winrt_classmethod
     def GetForCurrentView(cls: Windows.ApplicationModel.DataTransfer.IDataTransferManagerStatics) -> Windows.ApplicationModel.DataTransfer.DataTransferManager: ...
-class HtmlFormatHelper(c_void_p):
+class HtmlFormatHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.HtmlFormatHelper'
     @winrt_classmethod
     def GetStaticFragment(cls: Windows.ApplicationModel.DataTransfer.IHtmlFormatHelperStatics, htmlFormat: WinRT_String) -> WinRT_String: ...
     @winrt_classmethod
     def CreateHtmlFormat(cls: Windows.ApplicationModel.DataTransfer.IHtmlFormatHelperStatics, htmlFragment: WinRT_String) -> WinRT_String: ...
-class IClipboardContentOptions(c_void_p):
+class IClipboardContentOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e888a98c-ad4b-5447-a0-56-ab-35-56-27-6d-2b')
     @winrt_commethod(6)
@@ -461,10 +461,10 @@ class IClipboardContentOptions(c_void_p):
     IsAllowedInHistory = property(get_IsAllowedInHistory, put_IsAllowedInHistory)
     RoamingFormats = property(get_RoamingFormats, None)
     HistoryFormats = property(get_HistoryFormats, None)
-class IClipboardHistoryChangedEventArgs(c_void_p):
+class IClipboardHistoryChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c0be453f-8ea2-53ce-9a-ba-8d-22-12-57-34-52')
-class IClipboardHistoryItem(c_void_p):
+class IClipboardHistoryItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0173bd8a-afff-5c50-ab-92-3d-19-f4-81-ec-58')
     @winrt_commethod(6)
@@ -476,7 +476,7 @@ class IClipboardHistoryItem(c_void_p):
     Id = property(get_Id, None)
     Timestamp = property(get_Timestamp, None)
     Content = property(get_Content, None)
-class IClipboardHistoryItemsResult(c_void_p):
+class IClipboardHistoryItemsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e6dfdee6-0ee2-52e3-85-2b-f2-95-db-65-93-9a')
     @winrt_commethod(6)
@@ -485,7 +485,7 @@ class IClipboardHistoryItemsResult(c_void_p):
     def get_Items(self) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.DataTransfer.ClipboardHistoryItem]: ...
     Status = property(get_Status, None)
     Items = property(get_Items, None)
-class IClipboardStatics(c_void_p):
+class IClipboardStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c627e291-34e2-4963-8e-ed-93-cb-b0-ea-3d-70')
     @winrt_commethod(6)
@@ -500,7 +500,7 @@ class IClipboardStatics(c_void_p):
     def add_ContentChanged(self, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_ContentChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IClipboardStatics2(c_void_p):
+class IClipboardStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d2ac1b6a-d29f-554b-b3-03-f0-45-23-45-fe-02')
     @winrt_commethod(6)
@@ -529,7 +529,7 @@ class IClipboardStatics2(c_void_p):
     def add_HistoryEnabledChanged(self, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(18)
     def remove_HistoryEnabledChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IDataPackage(c_void_p):
+class IDataPackage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('61ebf5c7-efea-4346-95-54-98-1d-7e-19-8f-fe')
     @winrt_commethod(6)
@@ -571,28 +571,28 @@ class IDataPackage(c_void_p):
     Properties = property(get_Properties, None)
     RequestedOperation = property(get_RequestedOperation, put_RequestedOperation)
     ResourceMap = property(get_ResourceMap, None)
-class IDataPackage2(c_void_p):
+class IDataPackage2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('041c1fe9-2409-45e1-a5-38-4c-53-ee-ee-04-a7')
     @winrt_commethod(6)
     def SetApplicationLink(self, value: Windows.Foundation.Uri) -> Void: ...
     @winrt_commethod(7)
     def SetWebLink(self, value: Windows.Foundation.Uri) -> Void: ...
-class IDataPackage3(c_void_p):
+class IDataPackage3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('88f31f5d-787b-4d32-96-5a-a9-83-81-05-a0-56')
     @winrt_commethod(6)
     def add_ShareCompleted(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.DataTransfer.DataPackage, Windows.ApplicationModel.DataTransfer.ShareCompletedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ShareCompleted(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IDataPackage4(c_void_p):
+class IDataPackage4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('13a24ec8-9382-536f-85-2a-30-45-e1-b2-9a-3b')
     @winrt_commethod(6)
     def add_ShareCanceled(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.DataTransfer.DataPackage, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ShareCanceled(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IDataPackagePropertySet(c_void_p):
+class IDataPackagePropertySet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cd1c93eb-4c4c-443a-a8-d3-f5-c2-41-e9-16-89')
     @winrt_commethod(6)
@@ -623,7 +623,7 @@ class IDataPackagePropertySet(c_void_p):
     FileTypes = property(get_FileTypes, None)
     ApplicationName = property(get_ApplicationName, put_ApplicationName)
     ApplicationListingUri = property(get_ApplicationListingUri, put_ApplicationListingUri)
-class IDataPackagePropertySet2(c_void_p):
+class IDataPackagePropertySet2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('eb505d4a-9800-46aa-b1-81-7b-6f-0f-2b-91-9a')
     @winrt_commethod(6)
@@ -651,7 +651,7 @@ class IDataPackagePropertySet2(c_void_p):
     PackageFamilyName = property(get_PackageFamilyName, put_PackageFamilyName)
     Square30x30Logo = property(get_Square30x30Logo, put_Square30x30Logo)
     LogoBackgroundColor = property(get_LogoBackgroundColor, put_LogoBackgroundColor)
-class IDataPackagePropertySet3(c_void_p):
+class IDataPackagePropertySet3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9e87fd9b-5205-401b-87-4a-45-56-53-bd-39-e8')
     @winrt_commethod(6)
@@ -659,7 +659,7 @@ class IDataPackagePropertySet3(c_void_p):
     @winrt_commethod(7)
     def put_EnterpriseId(self, value: WinRT_String) -> Void: ...
     EnterpriseId = property(get_EnterpriseId, put_EnterpriseId)
-class IDataPackagePropertySet4(c_void_p):
+class IDataPackagePropertySet4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6390ebf5-1739-4c74-b2-2f-86-5f-ab-5e-85-45')
     @winrt_commethod(6)
@@ -667,7 +667,7 @@ class IDataPackagePropertySet4(c_void_p):
     @winrt_commethod(7)
     def put_ContentSourceUserActivityJson(self, value: WinRT_String) -> Void: ...
     ContentSourceUserActivityJson = property(get_ContentSourceUserActivityJson, put_ContentSourceUserActivityJson)
-class IDataPackagePropertySetView(c_void_p):
+class IDataPackagePropertySetView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b94cec01-0c1a-4c57-be-55-75-d0-12-89-73-5d')
     @winrt_commethod(6)
@@ -688,7 +688,7 @@ class IDataPackagePropertySetView(c_void_p):
     FileTypes = property(get_FileTypes, None)
     ApplicationName = property(get_ApplicationName, None)
     ApplicationListingUri = property(get_ApplicationListingUri, None)
-class IDataPackagePropertySetView2(c_void_p):
+class IDataPackagePropertySetView2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6054509b-8ebe-4feb-9c-1e-75-e6-9d-e5-4b-84')
     @winrt_commethod(6)
@@ -706,25 +706,25 @@ class IDataPackagePropertySetView2(c_void_p):
     ContentSourceApplicationLink = property(get_ContentSourceApplicationLink, None)
     Square30x30Logo = property(get_Square30x30Logo, None)
     LogoBackgroundColor = property(get_LogoBackgroundColor, None)
-class IDataPackagePropertySetView3(c_void_p):
+class IDataPackagePropertySetView3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('db764ce5-d174-495c-84-fc-1a-51-f6-ab-45-d7')
     @winrt_commethod(6)
     def get_EnterpriseId(self) -> WinRT_String: ...
     EnterpriseId = property(get_EnterpriseId, None)
-class IDataPackagePropertySetView4(c_void_p):
+class IDataPackagePropertySetView4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4474c80d-d16f-40ae-95-80-6f-85-62-b9-42-35')
     @winrt_commethod(6)
     def get_ContentSourceUserActivityJson(self) -> WinRT_String: ...
     ContentSourceUserActivityJson = property(get_ContentSourceUserActivityJson, None)
-class IDataPackagePropertySetView5(c_void_p):
+class IDataPackagePropertySetView5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6f0a9445-3760-50bb-85-23-c4-20-2d-ed-7d-78')
     @winrt_commethod(6)
     def get_IsFromRoamingClipboard(self) -> Boolean: ...
     IsFromRoamingClipboard = property(get_IsFromRoamingClipboard, None)
-class IDataPackageView(c_void_p):
+class IDataPackageView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7b840471-5900-4d85-a9-0b-10-cb-85-fe-35-52')
     @winrt_commethod(6)
@@ -758,14 +758,14 @@ class IDataPackageView(c_void_p):
     Properties = property(get_Properties, None)
     RequestedOperation = property(get_RequestedOperation, None)
     AvailableFormats = property(get_AvailableFormats, None)
-class IDataPackageView2(c_void_p):
+class IDataPackageView2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('40ecba95-2450-4c1d-b6-b4-ed-45-46-3d-ee-9c')
     @winrt_commethod(6)
     def GetApplicationLinkAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Uri]: ...
     @winrt_commethod(7)
     def GetWebLinkAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Uri]: ...
-class IDataPackageView3(c_void_p):
+class IDataPackageView3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d37771a8-ddad-4288-84-28-d1-ca-e3-94-12-8b')
     @winrt_commethod(6)
@@ -774,17 +774,17 @@ class IDataPackageView3(c_void_p):
     def RequestAccessWithEnterpriseIdAsync(self, enterpriseId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.EnterpriseData.ProtectionPolicyEvaluationResult]: ...
     @winrt_commethod(8)
     def UnlockAndAssumeEnterpriseIdentity(self) -> Windows.Security.EnterpriseData.ProtectionPolicyEvaluationResult: ...
-class IDataPackageView4(c_void_p):
+class IDataPackageView4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dfe96f1f-e042-4433-a0-9f-26-d6-ff-da-8b-85')
     @winrt_commethod(6)
     def SetAcceptedFormatId(self, formatId: WinRT_String) -> Void: ...
-class IDataProviderDeferral(c_void_p):
+class IDataProviderDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c2cf2373-2d26-43d9-b6-9d-dc-b8-6d-03-f6-da')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
-class IDataProviderRequest(c_void_p):
+class IDataProviderRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ebbc7157-d3c8-47da-ac-de-f8-23-88-d5-f7-16')
     @winrt_commethod(6)
@@ -797,7 +797,7 @@ class IDataProviderRequest(c_void_p):
     def SetData(self, value: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
     FormatId = property(get_FormatId, None)
     Deadline = property(get_Deadline, None)
-class IDataRequest(c_void_p):
+class IDataRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4341ae3b-fc12-4e53-8c-02-ac-71-4c-41-5a-27')
     @winrt_commethod(6)
@@ -812,18 +812,18 @@ class IDataRequest(c_void_p):
     def GetDeferral(self) -> Windows.ApplicationModel.DataTransfer.DataRequestDeferral: ...
     Data = property(get_Data, put_Data)
     Deadline = property(get_Deadline, None)
-class IDataRequestDeferral(c_void_p):
+class IDataRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6dc4b89f-0386-4263-87-c1-ed-7d-ce-30-89-0e')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
-class IDataRequestedEventArgs(c_void_p):
+class IDataRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cb8ba807-6ac5-43c9-8a-c5-9b-a2-32-16-31-82')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.ApplicationModel.DataTransfer.DataRequest: ...
     Request = property(get_Request, None)
-class IDataTransferManager(c_void_p):
+class IDataTransferManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a5caee9b-8708-49d1-8d-36-67-d2-5a-8d-a0-0c')
     @winrt_commethod(6)
@@ -834,56 +834,56 @@ class IDataTransferManager(c_void_p):
     def add_TargetApplicationChosen(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.DataTransfer.DataTransferManager, Windows.ApplicationModel.DataTransfer.TargetApplicationChosenEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_TargetApplicationChosen(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IDataTransferManager2(c_void_p):
+class IDataTransferManager2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('30ae7d71-8ba8-4c02-8e-3f-dd-b2-3b-38-87-15')
     @winrt_commethod(6)
     def add_ShareProvidersRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.DataTransfer.DataTransferManager, Windows.ApplicationModel.DataTransfer.ShareProvidersRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ShareProvidersRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IDataTransferManagerStatics(c_void_p):
+class IDataTransferManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a9da01aa-e00e-4cfe-aa-44-2d-d9-32-dc-a3-d8')
     @winrt_commethod(6)
     def ShowShareUI(self) -> Void: ...
     @winrt_commethod(7)
     def GetForCurrentView(self) -> Windows.ApplicationModel.DataTransfer.DataTransferManager: ...
-class IDataTransferManagerStatics2(c_void_p):
+class IDataTransferManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c54ec2ec-9f97-4d63-98-68-39-5e-27-1a-d8-f5')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
-class IDataTransferManagerStatics3(c_void_p):
+class IDataTransferManagerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('05845473-6c82-4f5c-ac-23-62-e4-58-36-1f-ac')
     @winrt_commethod(6)
     def ShowShareUIWithOptions(self, options: Windows.ApplicationModel.DataTransfer.ShareUIOptions) -> Void: ...
-class IHtmlFormatHelperStatics(c_void_p):
+class IHtmlFormatHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e22e7749-dd70-446f-ae-fc-61-ce-e5-9f-65-5e')
     @winrt_commethod(6)
     def GetStaticFragment(self, htmlFormat: WinRT_String) -> WinRT_String: ...
     @winrt_commethod(7)
     def CreateHtmlFormat(self, htmlFragment: WinRT_String) -> WinRT_String: ...
-class IOperationCompletedEventArgs(c_void_p):
+class IOperationCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e7af329d-051d-4fab-b1-a9-47-fd-77-f7-0a-41')
     @winrt_commethod(6)
     def get_Operation(self) -> Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
     Operation = property(get_Operation, None)
-class IOperationCompletedEventArgs2(c_void_p):
+class IOperationCompletedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('858fa073-1e19-4105-b2-f7-c8-47-88-08-d5-62')
     @winrt_commethod(6)
     def get_AcceptedFormatId(self) -> WinRT_String: ...
     AcceptedFormatId = property(get_AcceptedFormatId, None)
-class IShareCompletedEventArgs(c_void_p):
+class IShareCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4574c442-f913-4f60-9d-f7-cc-40-60-ab-19-16')
     @winrt_commethod(6)
     def get_ShareTarget(self) -> Windows.ApplicationModel.DataTransfer.ShareTargetInfo: ...
     ShareTarget = property(get_ShareTarget, None)
-class IShareProvider(c_void_p):
+class IShareProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2fabe026-443e-4cda-af-25-8d-81-07-0e-fd-80')
     @winrt_commethod(6)
@@ -900,12 +900,12 @@ class IShareProvider(c_void_p):
     DisplayIcon = property(get_DisplayIcon, None)
     BackgroundColor = property(get_BackgroundColor, None)
     Tag = property(get_Tag, put_Tag)
-class IShareProviderFactory(c_void_p):
+class IShareProviderFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('172a174c-e79e-4f6d-b0-7d-12-8f-46-9e-02-96')
     @winrt_commethod(6)
     def Create(self, title: WinRT_String, displayIcon: Windows.Storage.Streams.RandomAccessStreamReference, backgroundColor: Windows.UI.Color, handler: Windows.ApplicationModel.DataTransfer.ShareProviderHandler) -> Windows.ApplicationModel.DataTransfer.ShareProvider: ...
-class IShareProviderOperation(c_void_p):
+class IShareProviderOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('19cef937-d435-4179-b6-af-14-e0-49-2b-69-f6')
     @winrt_commethod(6)
@@ -916,7 +916,7 @@ class IShareProviderOperation(c_void_p):
     def ReportCompleted(self) -> Void: ...
     Data = property(get_Data, None)
     Provider = property(get_Provider, None)
-class IShareProvidersRequestedEventArgs(c_void_p):
+class IShareProvidersRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f888f356-a3f8-4fce-85-e4-88-26-e6-3b-e7-99')
     @winrt_commethod(6)
@@ -927,7 +927,7 @@ class IShareProvidersRequestedEventArgs(c_void_p):
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Providers = property(get_Providers, None)
     Data = property(get_Data, None)
-class IShareTargetInfo(c_void_p):
+class IShareTargetInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('385be607-c6e8-4114-b2-94-28-f3-bb-6f-99-04')
     @winrt_commethod(6)
@@ -936,7 +936,7 @@ class IShareTargetInfo(c_void_p):
     def get_ShareProvider(self) -> Windows.ApplicationModel.DataTransfer.ShareProvider: ...
     AppUserModelId = property(get_AppUserModelId, None)
     ShareProvider = property(get_ShareProvider, None)
-class IShareUIOptions(c_void_p):
+class IShareUIOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('72fa8a80-342f-4d90-95-51-2a-e0-4e-37-68-0c')
     @winrt_commethod(6)
@@ -949,7 +949,7 @@ class IShareUIOptions(c_void_p):
     def put_SelectionRect(self, value: Windows.Foundation.IReference[Windows.Foundation.Rect]) -> Void: ...
     Theme = property(get_Theme, put_Theme)
     SelectionRect = property(get_SelectionRect, put_SelectionRect)
-class ISharedStorageAccessManagerStatics(c_void_p):
+class ISharedStorageAccessManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c6132ada-34b1-4849-bd-5f-d0-9f-ee-31-58-c5')
     @winrt_commethod(6)
@@ -958,7 +958,7 @@ class ISharedStorageAccessManagerStatics(c_void_p):
     def RedeemTokenForFileAsync(self, token: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFile]: ...
     @winrt_commethod(8)
     def RemoveFile(self, token: WinRT_String) -> Void: ...
-class IStandardDataFormatsStatics(c_void_p):
+class IStandardDataFormatsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7ed681a1-a880-40c9-b4-ed-0b-ee-1e-15-f5-49')
     @winrt_commethod(6)
@@ -979,7 +979,7 @@ class IStandardDataFormatsStatics(c_void_p):
     Rtf = property(get_Rtf, None)
     Bitmap = property(get_Bitmap, None)
     StorageItems = property(get_StorageItems, None)
-class IStandardDataFormatsStatics2(c_void_p):
+class IStandardDataFormatsStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('42a254f4-9d76-42e8-86-1b-47-c2-5d-d0-cf-71')
     @winrt_commethod(6)
@@ -988,19 +988,19 @@ class IStandardDataFormatsStatics2(c_void_p):
     def get_ApplicationLink(self) -> WinRT_String: ...
     WebLink = property(get_WebLink, None)
     ApplicationLink = property(get_ApplicationLink, None)
-class IStandardDataFormatsStatics3(c_void_p):
+class IStandardDataFormatsStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3b57b069-01d4-474c-8b-5f-bc-8e-27-f3-8b-21')
     @winrt_commethod(6)
     def get_UserActivityJsonArray(self) -> WinRT_String: ...
     UserActivityJsonArray = property(get_UserActivityJsonArray, None)
-class ITargetApplicationChosenEventArgs(c_void_p):
+class ITargetApplicationChosenEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ca6fb8ac-2987-4ee3-9c-54-d8-af-bc-b8-6c-1d')
     @winrt_commethod(6)
     def get_ApplicationName(self) -> WinRT_String: ...
     ApplicationName = property(get_ApplicationName, None)
-class OperationCompletedEventArgs(c_void_p):
+class OperationCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.OperationCompletedEventArgs'
     @winrt_mixinmethod
@@ -1013,13 +1013,13 @@ SetHistoryItemAsContentStatus = Int32
 SetHistoryItemAsContentStatus_Success: SetHistoryItemAsContentStatus = 0
 SetHistoryItemAsContentStatus_AccessDenied: SetHistoryItemAsContentStatus = 1
 SetHistoryItemAsContentStatus_ItemDeleted: SetHistoryItemAsContentStatus = 2
-class ShareCompletedEventArgs(c_void_p):
+class ShareCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.ShareCompletedEventArgs'
     @winrt_mixinmethod
     def get_ShareTarget(self: Windows.ApplicationModel.DataTransfer.IShareCompletedEventArgs) -> Windows.ApplicationModel.DataTransfer.ShareTargetInfo: ...
     ShareTarget = property(get_ShareTarget, None)
-class ShareProvider(c_void_p):
+class ShareProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.ShareProvider'
     @winrt_factorymethod
@@ -1038,13 +1038,13 @@ class ShareProvider(c_void_p):
     DisplayIcon = property(get_DisplayIcon, None)
     BackgroundColor = property(get_BackgroundColor, None)
     Tag = property(get_Tag, put_Tag)
-class ShareProviderHandler(c_void_p):
+class ShareProviderHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('e7f9d9ba-e1ba-4e4d-bd-65-d4-38-45-d3-21-2f')
     ClassId = 'Windows.ApplicationModel.DataTransfer.ShareProviderHandler'
     @winrt_commethod(3)
     def Invoke(self, operation: Windows.ApplicationModel.DataTransfer.ShareProviderOperation) -> Void: ...
-class ShareProviderOperation(c_void_p):
+class ShareProviderOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.ShareProviderOperation'
     @winrt_mixinmethod
@@ -1055,7 +1055,7 @@ class ShareProviderOperation(c_void_p):
     def ReportCompleted(self: Windows.ApplicationModel.DataTransfer.IShareProviderOperation) -> Void: ...
     Data = property(get_Data, None)
     Provider = property(get_Provider, None)
-class ShareProvidersRequestedEventArgs(c_void_p):
+class ShareProvidersRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.ShareProvidersRequestedEventArgs'
     @winrt_mixinmethod
@@ -1066,7 +1066,7 @@ class ShareProvidersRequestedEventArgs(c_void_p):
     def GetDeferral(self: Windows.ApplicationModel.DataTransfer.IShareProvidersRequestedEventArgs) -> Windows.Foundation.Deferral: ...
     Providers = property(get_Providers, None)
     Data = property(get_Data, None)
-class ShareTargetInfo(c_void_p):
+class ShareTargetInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.ShareTargetInfo'
     @winrt_mixinmethod
@@ -1075,7 +1075,7 @@ class ShareTargetInfo(c_void_p):
     def get_ShareProvider(self: Windows.ApplicationModel.DataTransfer.IShareTargetInfo) -> Windows.ApplicationModel.DataTransfer.ShareProvider: ...
     AppUserModelId = property(get_AppUserModelId, None)
     ShareProvider = property(get_ShareProvider, None)
-class ShareUIOptions(c_void_p):
+class ShareUIOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.ShareUIOptions'
     @winrt_activatemethod
@@ -1094,7 +1094,7 @@ ShareUITheme = Int32
 ShareUITheme_Default: ShareUITheme = 0
 ShareUITheme_Light: ShareUITheme = 1
 ShareUITheme_Dark: ShareUITheme = 2
-class SharedStorageAccessManager(c_void_p):
+class SharedStorageAccessManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.SharedStorageAccessManager'
     @winrt_classmethod
@@ -1103,7 +1103,7 @@ class SharedStorageAccessManager(c_void_p):
     def RedeemTokenForFileAsync(cls: Windows.ApplicationModel.DataTransfer.ISharedStorageAccessManagerStatics, token: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFile]: ...
     @winrt_classmethod
     def RemoveFile(cls: Windows.ApplicationModel.DataTransfer.ISharedStorageAccessManagerStatics, token: WinRT_String) -> Void: ...
-class StandardDataFormats(c_void_p):
+class StandardDataFormats(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.StandardDataFormats'
     @winrt_classmethod
@@ -1133,7 +1133,7 @@ class StandardDataFormats(c_void_p):
     Rtf = property(get_Rtf, None)
     Bitmap = property(get_Bitmap, None)
     StorageItems = property(get_StorageItems, None)
-class TargetApplicationChosenEventArgs(c_void_p):
+class TargetApplicationChosenEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.DataTransfer.TargetApplicationChosenEventArgs'
     @winrt_mixinmethod

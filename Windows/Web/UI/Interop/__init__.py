@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.DataTransfer
@@ -30,7 +30,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IWebViewControlAcceleratorKeyPressedEventArgs(c_void_p):
+class IWebViewControlAcceleratorKeyPressedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('77a2a53e-7c74-437d-a2-90-3a-c0-d8-cd-56-55')
     @winrt_commethod(6)
@@ -50,13 +50,13 @@ class IWebViewControlAcceleratorKeyPressedEventArgs(c_void_p):
     KeyStatus = property(get_KeyStatus, None)
     RoutingStage = property(get_RoutingStage, None)
     Handled = property(get_Handled, put_Handled)
-class IWebViewControlMoveFocusRequestedEventArgs(c_void_p):
+class IWebViewControlMoveFocusRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6b2a340d-4bd0-405e-b7-c1-1e-72-a4-92-f4-46')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.Web.UI.Interop.WebViewControlMoveFocusReason: ...
     Reason = property(get_Reason, None)
-class IWebViewControlProcess(c_void_p):
+class IWebViewControlProcess(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('02c723ec-98d6-424a-b6-3e-c6-13-6c-36-a0-f2')
     @winrt_commethod(6)
@@ -78,12 +78,12 @@ class IWebViewControlProcess(c_void_p):
     ProcessId = property(get_ProcessId, None)
     EnterpriseId = property(get_EnterpriseId, None)
     IsPrivateNetworkClientServerCapabilityEnabled = property(get_IsPrivateNetworkClientServerCapabilityEnabled, None)
-class IWebViewControlProcessFactory(c_void_p):
+class IWebViewControlProcessFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('47b65cf9-a2d2-453c-b0-97-f6-77-9d-4b-8e-02')
     @winrt_commethod(6)
     def CreateWithOptions(self, processOptions: Windows.Web.UI.Interop.WebViewControlProcessOptions) -> Windows.Web.UI.Interop.WebViewControlProcess: ...
-class IWebViewControlProcessOptions(c_void_p):
+class IWebViewControlProcessOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1cca72a7-3bd6-4826-82-61-6c-81-89-50-5d-89')
     @winrt_commethod(6)
@@ -96,7 +96,7 @@ class IWebViewControlProcessOptions(c_void_p):
     def get_PrivateNetworkClientServerCapability(self) -> Windows.Web.UI.Interop.WebViewControlProcessCapabilityState: ...
     EnterpriseId = property(get_EnterpriseId, put_EnterpriseId)
     PrivateNetworkClientServerCapability = property(get_PrivateNetworkClientServerCapability, put_PrivateNetworkClientServerCapability)
-class IWebViewControlSite(c_void_p):
+class IWebViewControlSite(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('133f47c6-12dc-4898-bd-47-04-96-7d-e6-48-ba')
     @winrt_commethod(6)
@@ -129,7 +129,7 @@ class IWebViewControlSite(c_void_p):
     Scale = property(get_Scale, put_Scale)
     Bounds = property(get_Bounds, put_Bounds)
     IsVisible = property(get_IsVisible, put_IsVisible)
-class IWebViewControlSite2(c_void_p):
+class IWebViewControlSite2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d13b2e3f-48ee-4730-82-43-d2-ed-0c-05-60-6a')
     @winrt_commethod(6)
@@ -140,7 +140,7 @@ class IWebViewControlSite2(c_void_p):
     def add_LostFocus(self, handler: Windows.Foundation.TypedEventHandler[Windows.Web.UI.Interop.WebViewControl, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_LostFocus(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class WebViewControl(c_void_p):
+class WebViewControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.Interop.WebViewControl'
     @winrt_mixinmethod
@@ -305,7 +305,7 @@ class WebViewControl(c_void_p):
     Scale = property(get_Scale, put_Scale)
     Bounds = property(get_Bounds, put_Bounds)
     IsVisible = property(get_IsVisible, put_IsVisible)
-class WebViewControlAcceleratorKeyPressedEventArgs(c_void_p):
+class WebViewControlAcceleratorKeyPressedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.Interop.WebViewControlAcceleratorKeyPressedEventArgs'
     @winrt_mixinmethod
@@ -332,13 +332,13 @@ WebViewControlMoveFocusReason = Int32
 WebViewControlMoveFocusReason_Programmatic: WebViewControlMoveFocusReason = 0
 WebViewControlMoveFocusReason_Next: WebViewControlMoveFocusReason = 1
 WebViewControlMoveFocusReason_Previous: WebViewControlMoveFocusReason = 2
-class WebViewControlMoveFocusRequestedEventArgs(c_void_p):
+class WebViewControlMoveFocusRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.Interop.WebViewControlMoveFocusRequestedEventArgs'
     @winrt_mixinmethod
     def get_Reason(self: Windows.Web.UI.Interop.IWebViewControlMoveFocusRequestedEventArgs) -> Windows.Web.UI.Interop.WebViewControlMoveFocusReason: ...
     Reason = property(get_Reason, None)
-class WebViewControlProcess(c_void_p):
+class WebViewControlProcess(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.Interop.WebViewControlProcess'
     @winrt_factorymethod
@@ -368,7 +368,7 @@ WebViewControlProcessCapabilityState = Int32
 WebViewControlProcessCapabilityState_Default: WebViewControlProcessCapabilityState = 0
 WebViewControlProcessCapabilityState_Disabled: WebViewControlProcessCapabilityState = 1
 WebViewControlProcessCapabilityState_Enabled: WebViewControlProcessCapabilityState = 2
-class WebViewControlProcessOptions(c_void_p):
+class WebViewControlProcessOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.Interop.WebViewControlProcessOptions'
     @winrt_activatemethod

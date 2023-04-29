@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices
@@ -26,7 +26,7 @@ def __getattr__(name):
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
 DevicesLowLevelContract: UInt32 = 196608
-class ILowLevelDevicesAggregateProvider(c_void_p):
+class ILowLevelDevicesAggregateProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a73e561c-aac1-4ec7-a8-52-47-9f-70-60-d0-1f')
     @winrt_commethod(6)
@@ -44,15 +44,15 @@ class ILowLevelDevicesAggregateProvider(c_void_p):
     GpioControllerProvider = property(get_GpioControllerProvider, None)
     I2cControllerProvider = property(get_I2cControllerProvider, None)
     SpiControllerProvider = property(get_SpiControllerProvider, None)
-class ILowLevelDevicesAggregateProviderFactory(c_void_p):
+class ILowLevelDevicesAggregateProviderFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9ac4aaf6-3473-465e-96-d5-36-28-1a-2c-57-af')
     @winrt_commethod(6)
     def Create(self, adc: Windows.Devices.Adc.Provider.IAdcControllerProvider, pwm: Windows.Devices.Pwm.Provider.IPwmControllerProvider, gpio: Windows.Devices.Gpio.Provider.IGpioControllerProvider, i2c: Windows.Devices.I2c.Provider.II2cControllerProvider, spi: Windows.Devices.Spi.Provider.ISpiControllerProvider) -> Windows.Devices.LowLevelDevicesAggregateProvider: ...
-class ILowLevelDevicesController(c_void_p):
+class ILowLevelDevicesController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2ec23dd4-179b-45de-9b-39-3a-e0-25-27-de-52')
-class ILowLevelDevicesControllerStatics(c_void_p):
+class ILowLevelDevicesControllerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('093e926a-fccb-4394-a6-97-19-de-63-7c-2d-b3')
     @winrt_commethod(6)
@@ -60,7 +60,7 @@ class ILowLevelDevicesControllerStatics(c_void_p):
     @winrt_commethod(7)
     def put_DefaultProvider(self, value: Windows.Devices.ILowLevelDevicesAggregateProvider) -> Void: ...
     DefaultProvider = property(get_DefaultProvider, put_DefaultProvider)
-class LowLevelDevicesAggregateProvider(c_void_p):
+class LowLevelDevicesAggregateProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.LowLevelDevicesAggregateProvider'
     @winrt_factorymethod
@@ -80,7 +80,7 @@ class LowLevelDevicesAggregateProvider(c_void_p):
     GpioControllerProvider = property(get_GpioControllerProvider, None)
     I2cControllerProvider = property(get_I2cControllerProvider, None)
     SpiControllerProvider = property(get_SpiControllerProvider, None)
-class LowLevelDevicesController(c_void_p):
+class LowLevelDevicesController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.LowLevelDevicesController'
     @winrt_classmethod

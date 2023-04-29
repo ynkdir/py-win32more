@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.UserDataTasks
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IUserDataTaskDataProviderConnection(c_void_p):
+class IUserDataTaskDataProviderConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9ff39d1d-a447-428b-af-e9-e5-40-2b-de-b0-41')
     @winrt_commethod(6)
@@ -47,13 +47,13 @@ class IUserDataTaskDataProviderConnection(c_void_p):
     def remove_DeleteTaskRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(16)
     def Start(self) -> Void: ...
-class IUserDataTaskDataProviderTriggerDetails(c_void_p):
+class IUserDataTaskDataProviderTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ae273202-b1c9-453e-af-c5-b3-0a-f3-bd-21-7d')
     @winrt_commethod(6)
     def get_Connection(self) -> Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskDataProviderConnection: ...
     Connection = property(get_Connection, None)
-class IUserDataTaskListCompleteTaskRequest(c_void_p):
+class IUserDataTaskListCompleteTaskRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f65e14a3-1a42-49da-85-52-28-73-e5-2c-55-eb')
     @winrt_commethod(6)
@@ -66,7 +66,7 @@ class IUserDataTaskListCompleteTaskRequest(c_void_p):
     def ReportFailedAsync(self) -> Windows.Foundation.IAsyncAction: ...
     TaskListId = property(get_TaskListId, None)
     TaskId = property(get_TaskId, None)
-class IUserDataTaskListCompleteTaskRequestEventArgs(c_void_p):
+class IUserDataTaskListCompleteTaskRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d77c393d-4cf2-48ad-87-fd-96-3f-0e-aa-7a-95')
     @winrt_commethod(6)
@@ -74,7 +74,7 @@ class IUserDataTaskListCompleteTaskRequestEventArgs(c_void_p):
     @winrt_commethod(7)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-class IUserDataTaskListCreateOrUpdateTaskRequest(c_void_p):
+class IUserDataTaskListCreateOrUpdateTaskRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2133772c-55c2-4300-82-79-04-32-6e-07-cc-e4')
     @winrt_commethod(6)
@@ -87,7 +87,7 @@ class IUserDataTaskListCreateOrUpdateTaskRequest(c_void_p):
     def ReportFailedAsync(self) -> Windows.Foundation.IAsyncAction: ...
     TaskListId = property(get_TaskListId, None)
     Task = property(get_Task, None)
-class IUserDataTaskListCreateOrUpdateTaskRequestEventArgs(c_void_p):
+class IUserDataTaskListCreateOrUpdateTaskRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('12c55a52-e378-419b-ae-38-a5-e9-e6-04-47-6e')
     @winrt_commethod(6)
@@ -95,7 +95,7 @@ class IUserDataTaskListCreateOrUpdateTaskRequestEventArgs(c_void_p):
     @winrt_commethod(7)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-class IUserDataTaskListDeleteTaskRequest(c_void_p):
+class IUserDataTaskListDeleteTaskRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4b863c68-7657-4f3d-b0-74-d4-7e-c8-df-07-e7')
     @winrt_commethod(6)
@@ -108,7 +108,7 @@ class IUserDataTaskListDeleteTaskRequest(c_void_p):
     def ReportFailedAsync(self) -> Windows.Foundation.IAsyncAction: ...
     TaskListId = property(get_TaskListId, None)
     TaskId = property(get_TaskId, None)
-class IUserDataTaskListDeleteTaskRequestEventArgs(c_void_p):
+class IUserDataTaskListDeleteTaskRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6063dad9-f562-4145-8e-fe-d5-00-78-c9-2b-7f')
     @winrt_commethod(6)
@@ -116,7 +116,7 @@ class IUserDataTaskListDeleteTaskRequestEventArgs(c_void_p):
     @winrt_commethod(7)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-class IUserDataTaskListSkipOccurrenceRequest(c_void_p):
+class IUserDataTaskListSkipOccurrenceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ab87e34d-1cd3-431c-9f-58-08-9a-a4-33-8d-85')
     @winrt_commethod(6)
@@ -129,7 +129,7 @@ class IUserDataTaskListSkipOccurrenceRequest(c_void_p):
     def ReportFailedAsync(self) -> Windows.Foundation.IAsyncAction: ...
     TaskListId = property(get_TaskListId, None)
     TaskId = property(get_TaskId, None)
-class IUserDataTaskListSkipOccurrenceRequestEventArgs(c_void_p):
+class IUserDataTaskListSkipOccurrenceRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7a3b924a-cc2f-4e7b-aa-cd-a5-b9-d2-9c-fa-4e')
     @winrt_commethod(6)
@@ -137,7 +137,7 @@ class IUserDataTaskListSkipOccurrenceRequestEventArgs(c_void_p):
     @winrt_commethod(7)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-class IUserDataTaskListSyncManagerSyncRequest(c_void_p):
+class IUserDataTaskListSyncManagerSyncRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('40a73807-7590-4149-ae-19-b2-11-43-1a-9f-48')
     @winrt_commethod(6)
@@ -147,7 +147,7 @@ class IUserDataTaskListSyncManagerSyncRequest(c_void_p):
     @winrt_commethod(8)
     def ReportFailedAsync(self) -> Windows.Foundation.IAsyncAction: ...
     TaskListId = property(get_TaskListId, None)
-class IUserDataTaskListSyncManagerSyncRequestEventArgs(c_void_p):
+class IUserDataTaskListSyncManagerSyncRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8ead1c12-768e-43bd-83-85-5c-dc-35-1f-fd-ea')
     @winrt_commethod(6)
@@ -155,7 +155,7 @@ class IUserDataTaskListSyncManagerSyncRequestEventArgs(c_void_p):
     @winrt_commethod(7)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-class UserDataTaskDataProviderConnection(c_void_p):
+class UserDataTaskDataProviderConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskDataProviderConnection'
     @winrt_mixinmethod
@@ -180,13 +180,13 @@ class UserDataTaskDataProviderConnection(c_void_p):
     def remove_DeleteTaskRequested(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskDataProviderConnection, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_mixinmethod
     def Start(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskDataProviderConnection) -> Void: ...
-class UserDataTaskDataProviderTriggerDetails(c_void_p):
+class UserDataTaskDataProviderTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskDataProviderTriggerDetails'
     @winrt_mixinmethod
     def get_Connection(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskDataProviderTriggerDetails) -> Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskDataProviderConnection: ...
     Connection = property(get_Connection, None)
-class UserDataTaskListCompleteTaskRequest(c_void_p):
+class UserDataTaskListCompleteTaskRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCompleteTaskRequest'
     @winrt_mixinmethod
@@ -199,7 +199,7 @@ class UserDataTaskListCompleteTaskRequest(c_void_p):
     def ReportFailedAsync(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCompleteTaskRequest) -> Windows.Foundation.IAsyncAction: ...
     TaskListId = property(get_TaskListId, None)
     TaskId = property(get_TaskId, None)
-class UserDataTaskListCompleteTaskRequestEventArgs(c_void_p):
+class UserDataTaskListCompleteTaskRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCompleteTaskRequestEventArgs'
     @winrt_mixinmethod
@@ -207,7 +207,7 @@ class UserDataTaskListCompleteTaskRequestEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCompleteTaskRequestEventArgs) -> Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-class UserDataTaskListCreateOrUpdateTaskRequest(c_void_p):
+class UserDataTaskListCreateOrUpdateTaskRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCreateOrUpdateTaskRequest'
     @winrt_mixinmethod
@@ -220,7 +220,7 @@ class UserDataTaskListCreateOrUpdateTaskRequest(c_void_p):
     def ReportFailedAsync(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCreateOrUpdateTaskRequest) -> Windows.Foundation.IAsyncAction: ...
     TaskListId = property(get_TaskListId, None)
     Task = property(get_Task, None)
-class UserDataTaskListCreateOrUpdateTaskRequestEventArgs(c_void_p):
+class UserDataTaskListCreateOrUpdateTaskRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCreateOrUpdateTaskRequestEventArgs'
     @winrt_mixinmethod
@@ -228,7 +228,7 @@ class UserDataTaskListCreateOrUpdateTaskRequestEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCreateOrUpdateTaskRequestEventArgs) -> Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-class UserDataTaskListDeleteTaskRequest(c_void_p):
+class UserDataTaskListDeleteTaskRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListDeleteTaskRequest'
     @winrt_mixinmethod
@@ -241,7 +241,7 @@ class UserDataTaskListDeleteTaskRequest(c_void_p):
     def ReportFailedAsync(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListDeleteTaskRequest) -> Windows.Foundation.IAsyncAction: ...
     TaskListId = property(get_TaskListId, None)
     TaskId = property(get_TaskId, None)
-class UserDataTaskListDeleteTaskRequestEventArgs(c_void_p):
+class UserDataTaskListDeleteTaskRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListDeleteTaskRequestEventArgs'
     @winrt_mixinmethod
@@ -249,7 +249,7 @@ class UserDataTaskListDeleteTaskRequestEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListDeleteTaskRequestEventArgs) -> Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-class UserDataTaskListSkipOccurrenceRequest(c_void_p):
+class UserDataTaskListSkipOccurrenceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSkipOccurrenceRequest'
     @winrt_mixinmethod
@@ -262,7 +262,7 @@ class UserDataTaskListSkipOccurrenceRequest(c_void_p):
     def ReportFailedAsync(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListSkipOccurrenceRequest) -> Windows.Foundation.IAsyncAction: ...
     TaskListId = property(get_TaskListId, None)
     TaskId = property(get_TaskId, None)
-class UserDataTaskListSkipOccurrenceRequestEventArgs(c_void_p):
+class UserDataTaskListSkipOccurrenceRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSkipOccurrenceRequestEventArgs'
     @winrt_mixinmethod
@@ -270,7 +270,7 @@ class UserDataTaskListSkipOccurrenceRequestEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListSkipOccurrenceRequestEventArgs) -> Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-class UserDataTaskListSyncManagerSyncRequest(c_void_p):
+class UserDataTaskListSyncManagerSyncRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSyncManagerSyncRequest'
     @winrt_mixinmethod
@@ -280,7 +280,7 @@ class UserDataTaskListSyncManagerSyncRequest(c_void_p):
     @winrt_mixinmethod
     def ReportFailedAsync(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListSyncManagerSyncRequest) -> Windows.Foundation.IAsyncAction: ...
     TaskListId = property(get_TaskListId, None)
-class UserDataTaskListSyncManagerSyncRequestEventArgs(c_void_p):
+class UserDataTaskListSyncManagerSyncRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSyncManagerSyncRequestEventArgs'
     @winrt_mixinmethod

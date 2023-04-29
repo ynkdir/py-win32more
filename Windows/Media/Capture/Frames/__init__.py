@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Enumeration
@@ -33,7 +33,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AudioMediaFrame(c_void_p):
+class AudioMediaFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.AudioMediaFrame'
     @winrt_mixinmethod
@@ -44,7 +44,7 @@ class AudioMediaFrame(c_void_p):
     def GetAudioFrame(self: Windows.Media.Capture.Frames.IAudioMediaFrame) -> Windows.Media.AudioFrame: ...
     FrameReference = property(get_FrameReference, None)
     AudioEncodingProperties = property(get_AudioEncodingProperties, None)
-class BufferMediaFrame(c_void_p):
+class BufferMediaFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.BufferMediaFrame'
     @winrt_mixinmethod
@@ -53,7 +53,7 @@ class BufferMediaFrame(c_void_p):
     def get_Buffer(self: Windows.Media.Capture.Frames.IBufferMediaFrame) -> Windows.Storage.Streams.IBuffer: ...
     FrameReference = property(get_FrameReference, None)
     Buffer = property(get_Buffer, None)
-class DepthMediaFrame(c_void_p):
+class DepthMediaFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.DepthMediaFrame'
     @winrt_mixinmethod
@@ -73,7 +73,7 @@ class DepthMediaFrame(c_void_p):
     DepthFormat = property(get_DepthFormat, None)
     MaxReliableDepth = property(get_MaxReliableDepth, None)
     MinReliableDepth = property(get_MinReliableDepth, None)
-class DepthMediaFrameFormat(c_void_p):
+class DepthMediaFrameFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.DepthMediaFrameFormat'
     @winrt_mixinmethod
@@ -82,7 +82,7 @@ class DepthMediaFrameFormat(c_void_p):
     def get_DepthScaleInMeters(self: Windows.Media.Capture.Frames.IDepthMediaFrameFormat) -> Double: ...
     VideoFormat = property(get_VideoFormat, None)
     DepthScaleInMeters = property(get_DepthScaleInMeters, None)
-class IAudioMediaFrame(c_void_p):
+class IAudioMediaFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a3a9feff-8021-441b-9a-46-e7-f0-13-7b-79-81')
     @winrt_commethod(6)
@@ -93,7 +93,7 @@ class IAudioMediaFrame(c_void_p):
     def GetAudioFrame(self) -> Windows.Media.AudioFrame: ...
     FrameReference = property(get_FrameReference, None)
     AudioEncodingProperties = property(get_AudioEncodingProperties, None)
-class IBufferMediaFrame(c_void_p):
+class IBufferMediaFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b5b153c7-9b84-4062-b7-9c-a3-65-b2-59-68-54')
     @winrt_commethod(6)
@@ -102,7 +102,7 @@ class IBufferMediaFrame(c_void_p):
     def get_Buffer(self) -> Windows.Storage.Streams.IBuffer: ...
     FrameReference = property(get_FrameReference, None)
     Buffer = property(get_Buffer, None)
-class IDepthMediaFrame(c_void_p):
+class IDepthMediaFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('47135e4f-8549-45c0-92-5b-80-d3-5e-fd-b1-0a')
     @winrt_commethod(6)
@@ -116,7 +116,7 @@ class IDepthMediaFrame(c_void_p):
     FrameReference = property(get_FrameReference, None)
     VideoMediaFrame = property(get_VideoMediaFrame, None)
     DepthFormat = property(get_DepthFormat, None)
-class IDepthMediaFrame2(c_void_p):
+class IDepthMediaFrame2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6cca473d-c4a4-4176-b0-cd-33-ea-e3-b3-5a-a3')
     @winrt_commethod(6)
@@ -125,7 +125,7 @@ class IDepthMediaFrame2(c_void_p):
     def get_MinReliableDepth(self) -> UInt32: ...
     MaxReliableDepth = property(get_MaxReliableDepth, None)
     MinReliableDepth = property(get_MinReliableDepth, None)
-class IDepthMediaFrameFormat(c_void_p):
+class IDepthMediaFrameFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c312cf40-d729-453e-87-80-2e-04-f1-40-d2-8e')
     @winrt_commethod(6)
@@ -134,7 +134,7 @@ class IDepthMediaFrameFormat(c_void_p):
     def get_DepthScaleInMeters(self) -> Double: ...
     VideoFormat = property(get_VideoFormat, None)
     DepthScaleInMeters = property(get_DepthScaleInMeters, None)
-class IInfraredMediaFrame(c_void_p):
+class IInfraredMediaFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3fd13503-004b-4f0e-91-ac-46-52-99-b4-16-58')
     @winrt_commethod(6)
@@ -146,10 +146,10 @@ class IInfraredMediaFrame(c_void_p):
     FrameReference = property(get_FrameReference, None)
     VideoMediaFrame = property(get_VideoMediaFrame, None)
     IsIlluminated = property(get_IsIlluminated, None)
-class IMediaFrameArrivedEventArgs(c_void_p):
+class IMediaFrameArrivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0b430add-a490-4435-ad-a1-9a-ff-d5-52-39-f7')
-class IMediaFrameFormat(c_void_p):
+class IMediaFrameFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('71902b4e-b279-4a97-a9-db-bd-5a-2f-b7-8f-39')
     @winrt_commethod(6)
@@ -167,13 +167,13 @@ class IMediaFrameFormat(c_void_p):
     FrameRate = property(get_FrameRate, None)
     Properties = property(get_Properties, None)
     VideoFormat = property(get_VideoFormat, None)
-class IMediaFrameFormat2(c_void_p):
+class IMediaFrameFormat2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('63856340-5e87-4c10-86-d1-6d-f0-97-a6-c6-a8')
     @winrt_commethod(6)
     def get_AudioEncodingProperties(self) -> Windows.Media.MediaProperties.AudioEncodingProperties: ...
     AudioEncodingProperties = property(get_AudioEncodingProperties, None)
-class IMediaFrameReader(c_void_p):
+class IMediaFrameReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e4c94395-2028-48ed-90-b0-d1-c1-b1-62-e2-4c')
     @winrt_commethod(6)
@@ -186,7 +186,7 @@ class IMediaFrameReader(c_void_p):
     def StartAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.Frames.MediaFrameReaderStartStatus]: ...
     @winrt_commethod(10)
     def StopAsync(self) -> Windows.Foundation.IAsyncAction: ...
-class IMediaFrameReader2(c_void_p):
+class IMediaFrameReader2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('871127b3-8531-4050-87-cc-a1-37-33-cf-3e-9b')
     @winrt_commethod(6)
@@ -194,7 +194,7 @@ class IMediaFrameReader2(c_void_p):
     @winrt_commethod(7)
     def get_AcquisitionMode(self) -> Windows.Media.Capture.Frames.MediaFrameReaderAcquisitionMode: ...
     AcquisitionMode = property(get_AcquisitionMode, put_AcquisitionMode)
-class IMediaFrameReference(c_void_p):
+class IMediaFrameReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f6b88641-f0dc-4044-8d-c9-96-1c-ed-d0-5b-ad')
     @winrt_commethod(6)
@@ -221,13 +221,13 @@ class IMediaFrameReference(c_void_p):
     BufferMediaFrame = property(get_BufferMediaFrame, None)
     VideoMediaFrame = property(get_VideoMediaFrame, None)
     CoordinateSystem = property(get_CoordinateSystem, None)
-class IMediaFrameReference2(c_void_p):
+class IMediaFrameReference2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ddbc3ecc-d5b2-49ef-83-6a-94-7d-98-9b-80-c1')
     @winrt_commethod(6)
     def get_AudioMediaFrame(self) -> Windows.Media.Capture.Frames.AudioMediaFrame: ...
     AudioMediaFrame = property(get_AudioMediaFrame, None)
-class IMediaFrameSource(c_void_p):
+class IMediaFrameSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d6782953-90db-46a8-8a-dd-2a-a8-84-a8-d2-53')
     @winrt_commethod(6)
@@ -250,7 +250,7 @@ class IMediaFrameSource(c_void_p):
     Controller = property(get_Controller, None)
     SupportedFormats = property(get_SupportedFormats, None)
     CurrentFormat = property(get_CurrentFormat, None)
-class IMediaFrameSourceController(c_void_p):
+class IMediaFrameSourceController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6d076635-316d-4b8f-b7-b6-ee-b0-4a-8c-65-25')
     @winrt_commethod(6)
@@ -260,20 +260,20 @@ class IMediaFrameSourceController(c_void_p):
     @winrt_commethod(8)
     def get_VideoDeviceController(self) -> Windows.Media.Devices.VideoDeviceController: ...
     VideoDeviceController = property(get_VideoDeviceController, None)
-class IMediaFrameSourceController2(c_void_p):
+class IMediaFrameSourceController2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('efc49fd4-fcf2-4a03-b4-e4-ac-96-28-73-9b-ee')
     @winrt_commethod(6)
     def GetPropertyByExtendedIdAsync(self, extendedPropertyId: c_char_p_no, maxPropertyValueSize: Windows.Foundation.IReference[UInt32]) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.Frames.MediaFrameSourceGetPropertyResult]: ...
     @winrt_commethod(7)
     def SetPropertyByExtendedIdAsync(self, extendedPropertyId: c_char_p_no, propertyValue: c_char_p_no) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.Frames.MediaFrameSourceSetPropertyStatus]: ...
-class IMediaFrameSourceController3(c_void_p):
+class IMediaFrameSourceController3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1f0cf815-2464-4651-b1-e8-4a-82-db-db-54-de')
     @winrt_commethod(6)
     def get_AudioDeviceController(self) -> Windows.Media.Devices.AudioDeviceController: ...
     AudioDeviceController = property(get_AudioDeviceController, None)
-class IMediaFrameSourceGetPropertyResult(c_void_p):
+class IMediaFrameSourceGetPropertyResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('088616c2-3a64-4bd5-bd-2b-e7-c8-98-d2-f3-7a')
     @winrt_commethod(6)
@@ -282,7 +282,7 @@ class IMediaFrameSourceGetPropertyResult(c_void_p):
     def get_Value(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     Status = property(get_Status, None)
     Value = property(get_Value, None)
-class IMediaFrameSourceGroup(c_void_p):
+class IMediaFrameSourceGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7f605b87-4832-4b5f-ae-3d-41-2f-aa-b3-7d-34')
     @winrt_commethod(6)
@@ -294,7 +294,7 @@ class IMediaFrameSourceGroup(c_void_p):
     Id = property(get_Id, None)
     DisplayName = property(get_DisplayName, None)
     SourceInfos = property(get_SourceInfos, None)
-class IMediaFrameSourceGroupStatics(c_void_p):
+class IMediaFrameSourceGroupStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1c48bfc5-436f-4508-94-cf-d5-d8-b7-32-64-45')
     @winrt_commethod(6)
@@ -303,7 +303,7 @@ class IMediaFrameSourceGroupStatics(c_void_p):
     def FromIdAsync(self, id: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.Frames.MediaFrameSourceGroup]: ...
     @winrt_commethod(8)
     def GetDeviceSelector(self) -> WinRT_String: ...
-class IMediaFrameSourceInfo(c_void_p):
+class IMediaFrameSourceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('87bdc9cd-4601-408f-91-cf-03-83-18-cd-0a-f3')
     @winrt_commethod(6)
@@ -327,7 +327,7 @@ class IMediaFrameSourceInfo(c_void_p):
     DeviceInformation = property(get_DeviceInformation, None)
     Properties = property(get_Properties, None)
     CoordinateSystem = property(get_CoordinateSystem, None)
-class IMediaFrameSourceInfo2(c_void_p):
+class IMediaFrameSourceInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('195a7855-6457-42c6-a7-69-19-b6-5b-d3-2e-6e')
     @winrt_commethod(6)
@@ -336,21 +336,21 @@ class IMediaFrameSourceInfo2(c_void_p):
     def get_VideoProfileMediaDescription(self) -> Windows.Foundation.Collections.IVectorView[Windows.Media.Capture.MediaCaptureVideoProfileMediaDescription]: ...
     ProfileId = property(get_ProfileId, None)
     VideoProfileMediaDescription = property(get_VideoProfileMediaDescription, None)
-class IMediaFrameSourceInfo3(c_void_p):
+class IMediaFrameSourceInfo3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ca824ab6-66ea-5885-a2-b6-26-c0-ee-ec-3c-7b')
     @winrt_commethod(6)
     def GetRelativePanel(self, displayRegion: Windows.UI.WindowManagement.DisplayRegion) -> Windows.Devices.Enumeration.Panel: ...
-class IMediaFrameSourceInfo4(c_void_p):
+class IMediaFrameSourceInfo4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4817d721-85eb-470c-8f-37-43-ca-54-98-e4-1d')
     @winrt_commethod(6)
     def get_IsShareable(self) -> Boolean: ...
     IsShareable = property(get_IsShareable, None)
-class IMultiSourceMediaFrameArrivedEventArgs(c_void_p):
+class IMultiSourceMediaFrameArrivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('63115e01-cf51-48fd-aa-b0-6d-69-3e-b4-81-27')
-class IMultiSourceMediaFrameReader(c_void_p):
+class IMultiSourceMediaFrameReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8d144402-f763-488d-98-f2-b4-37-bc-f0-75-e7')
     @winrt_commethod(6)
@@ -363,7 +363,7 @@ class IMultiSourceMediaFrameReader(c_void_p):
     def StartAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.Frames.MultiSourceMediaFrameReaderStartStatus]: ...
     @winrt_commethod(10)
     def StopAsync(self) -> Windows.Foundation.IAsyncAction: ...
-class IMultiSourceMediaFrameReader2(c_void_p):
+class IMultiSourceMediaFrameReader2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ef5c8abd-fc5c-4c6b-9d-81-3c-b9-cc-63-7c-26')
     @winrt_commethod(6)
@@ -371,12 +371,12 @@ class IMultiSourceMediaFrameReader2(c_void_p):
     @winrt_commethod(7)
     def get_AcquisitionMode(self) -> Windows.Media.Capture.Frames.MediaFrameReaderAcquisitionMode: ...
     AcquisitionMode = property(get_AcquisitionMode, put_AcquisitionMode)
-class IMultiSourceMediaFrameReference(c_void_p):
+class IMultiSourceMediaFrameReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('21964b1a-7fe2-44d6-92-e5-29-8e-6d-28-10-e9')
     @winrt_commethod(6)
     def TryGetFrameReferenceBySourceId(self, sourceId: WinRT_String) -> Windows.Media.Capture.Frames.MediaFrameReference: ...
-class IVideoMediaFrame(c_void_p):
+class IVideoMediaFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('00dd4ccb-32bd-4fe1-a0-13-7c-c1-3c-f5-db-cf')
     @winrt_commethod(6)
@@ -402,7 +402,7 @@ class IVideoMediaFrame(c_void_p):
     CameraIntrinsics = property(get_CameraIntrinsics, None)
     InfraredMediaFrame = property(get_InfraredMediaFrame, None)
     DepthMediaFrame = property(get_DepthMediaFrame, None)
-class IVideoMediaFrameFormat(c_void_p):
+class IVideoMediaFrameFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('46027fc0-d71b-45c7-8f-14-6d-9a-0a-e6-04-e4')
     @winrt_commethod(6)
@@ -417,7 +417,7 @@ class IVideoMediaFrameFormat(c_void_p):
     DepthFormat = property(get_DepthFormat, None)
     Width = property(get_Width, None)
     Height = property(get_Height, None)
-class InfraredMediaFrame(c_void_p):
+class InfraredMediaFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.InfraredMediaFrame'
     @winrt_mixinmethod
@@ -429,10 +429,10 @@ class InfraredMediaFrame(c_void_p):
     FrameReference = property(get_FrameReference, None)
     VideoMediaFrame = property(get_VideoMediaFrame, None)
     IsIlluminated = property(get_IsIlluminated, None)
-class MediaFrameArrivedEventArgs(c_void_p):
+class MediaFrameArrivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.MediaFrameArrivedEventArgs'
-class MediaFrameFormat(c_void_p):
+class MediaFrameFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.MediaFrameFormat'
     @winrt_mixinmethod
@@ -453,7 +453,7 @@ class MediaFrameFormat(c_void_p):
     Properties = property(get_Properties, None)
     VideoFormat = property(get_VideoFormat, None)
     AudioEncodingProperties = property(get_AudioEncodingProperties, None)
-class MediaFrameReader(c_void_p):
+class MediaFrameReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.MediaFrameReader'
     @winrt_mixinmethod
@@ -482,7 +482,7 @@ MediaFrameReaderStartStatus_UnknownFailure: MediaFrameReaderStartStatus = 1
 MediaFrameReaderStartStatus_DeviceNotAvailable: MediaFrameReaderStartStatus = 2
 MediaFrameReaderStartStatus_OutputFormatNotSupported: MediaFrameReaderStartStatus = 3
 MediaFrameReaderStartStatus_ExclusiveControlNotAvailable: MediaFrameReaderStartStatus = 4
-class MediaFrameReference(c_void_p):
+class MediaFrameReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.MediaFrameReference'
     @winrt_mixinmethod
@@ -514,7 +514,7 @@ class MediaFrameReference(c_void_p):
     VideoMediaFrame = property(get_VideoMediaFrame, None)
     CoordinateSystem = property(get_CoordinateSystem, None)
     AudioMediaFrame = property(get_AudioMediaFrame, None)
-class MediaFrameSource(c_void_p):
+class MediaFrameSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.MediaFrameSource'
     @winrt_mixinmethod
@@ -537,7 +537,7 @@ class MediaFrameSource(c_void_p):
     Controller = property(get_Controller, None)
     SupportedFormats = property(get_SupportedFormats, None)
     CurrentFormat = property(get_CurrentFormat, None)
-class MediaFrameSourceController(c_void_p):
+class MediaFrameSourceController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.MediaFrameSourceController'
     @winrt_mixinmethod
@@ -554,7 +554,7 @@ class MediaFrameSourceController(c_void_p):
     def get_AudioDeviceController(self: Windows.Media.Capture.Frames.IMediaFrameSourceController3) -> Windows.Media.Devices.AudioDeviceController: ...
     VideoDeviceController = property(get_VideoDeviceController, None)
     AudioDeviceController = property(get_AudioDeviceController, None)
-class MediaFrameSourceGetPropertyResult(c_void_p):
+class MediaFrameSourceGetPropertyResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.MediaFrameSourceGetPropertyResult'
     @winrt_mixinmethod
@@ -570,7 +570,7 @@ MediaFrameSourceGetPropertyStatus_NotSupported: MediaFrameSourceGetPropertyStatu
 MediaFrameSourceGetPropertyStatus_DeviceNotAvailable: MediaFrameSourceGetPropertyStatus = 3
 MediaFrameSourceGetPropertyStatus_MaxPropertyValueSizeTooSmall: MediaFrameSourceGetPropertyStatus = 4
 MediaFrameSourceGetPropertyStatus_MaxPropertyValueSizeRequired: MediaFrameSourceGetPropertyStatus = 5
-class MediaFrameSourceGroup(c_void_p):
+class MediaFrameSourceGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.MediaFrameSourceGroup'
     @winrt_mixinmethod
@@ -588,7 +588,7 @@ class MediaFrameSourceGroup(c_void_p):
     Id = property(get_Id, None)
     DisplayName = property(get_DisplayName, None)
     SourceInfos = property(get_SourceInfos, None)
-class MediaFrameSourceInfo(c_void_p):
+class MediaFrameSourceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.MediaFrameSourceInfo'
     @winrt_mixinmethod
@@ -638,10 +638,10 @@ MediaFrameSourceSetPropertyStatus_NotSupported: MediaFrameSourceSetPropertyStatu
 MediaFrameSourceSetPropertyStatus_InvalidValue: MediaFrameSourceSetPropertyStatus = 3
 MediaFrameSourceSetPropertyStatus_DeviceNotAvailable: MediaFrameSourceSetPropertyStatus = 4
 MediaFrameSourceSetPropertyStatus_NotInControl: MediaFrameSourceSetPropertyStatus = 5
-class MultiSourceMediaFrameArrivedEventArgs(c_void_p):
+class MultiSourceMediaFrameArrivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.MultiSourceMediaFrameArrivedEventArgs'
-class MultiSourceMediaFrameReader(c_void_p):
+class MultiSourceMediaFrameReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.MultiSourceMediaFrameReader'
     @winrt_mixinmethod
@@ -667,14 +667,14 @@ MultiSourceMediaFrameReaderStartStatus_NotSupported: MultiSourceMediaFrameReader
 MultiSourceMediaFrameReaderStartStatus_InsufficientResources: MultiSourceMediaFrameReaderStartStatus = 2
 MultiSourceMediaFrameReaderStartStatus_DeviceNotAvailable: MultiSourceMediaFrameReaderStartStatus = 3
 MultiSourceMediaFrameReaderStartStatus_UnknownFailure: MultiSourceMediaFrameReaderStartStatus = 4
-class MultiSourceMediaFrameReference(c_void_p):
+class MultiSourceMediaFrameReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.MultiSourceMediaFrameReference'
     @winrt_mixinmethod
     def TryGetFrameReferenceBySourceId(self: Windows.Media.Capture.Frames.IMultiSourceMediaFrameReference, sourceId: WinRT_String) -> Windows.Media.Capture.Frames.MediaFrameReference: ...
     @winrt_mixinmethod
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
-class VideoMediaFrame(c_void_p):
+class VideoMediaFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.VideoMediaFrame'
     @winrt_mixinmethod
@@ -700,7 +700,7 @@ class VideoMediaFrame(c_void_p):
     CameraIntrinsics = property(get_CameraIntrinsics, None)
     InfraredMediaFrame = property(get_InfraredMediaFrame, None)
     DepthMediaFrame = property(get_DepthMediaFrame, None)
-class VideoMediaFrameFormat(c_void_p):
+class VideoMediaFrameFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Frames.VideoMediaFrameFormat'
     @winrt_mixinmethod

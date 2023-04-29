@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IVariablePhotoCapturedEventArgs(c_void_p):
+class IVariablePhotoCapturedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d1eb4c5c-1b53-4e4a-8b-5c-db-78-87-ac-94-9b')
     @winrt_commethod(6)
@@ -37,7 +37,7 @@ class IVariablePhotoCapturedEventArgs(c_void_p):
     CaptureTimeOffset = property(get_CaptureTimeOffset, None)
     UsedFrameControllerIndex = property(get_UsedFrameControllerIndex, None)
     CapturedFrameControlValues = property(get_CapturedFrameControlValues, None)
-class IVariablePhotoSequenceCapture(c_void_p):
+class IVariablePhotoSequenceCapture(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d0112d1d-031e-4041-a6-d6-bd-74-24-76-a8-ee')
     @winrt_commethod(6)
@@ -54,12 +54,12 @@ class IVariablePhotoSequenceCapture(c_void_p):
     def add_Stopped(self, handler: Windows.Foundation.TypedEventHandler[Windows.Media.Capture.Core.VariablePhotoSequenceCapture, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_Stopped(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IVariablePhotoSequenceCapture2(c_void_p):
+class IVariablePhotoSequenceCapture2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fe2c62bc-50b0-43e3-91-7c-e3-b9-27-98-94-2f')
     @winrt_commethod(6)
     def UpdateSettingsAsync(self) -> Windows.Foundation.IAsyncAction: ...
-class VariablePhotoCapturedEventArgs(c_void_p):
+class VariablePhotoCapturedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Core.VariablePhotoCapturedEventArgs'
     @winrt_mixinmethod
@@ -74,7 +74,7 @@ class VariablePhotoCapturedEventArgs(c_void_p):
     CaptureTimeOffset = property(get_CaptureTimeOffset, None)
     UsedFrameControllerIndex = property(get_UsedFrameControllerIndex, None)
     CapturedFrameControlValues = property(get_CapturedFrameControlValues, None)
-class VariablePhotoSequenceCapture(c_void_p):
+class VariablePhotoSequenceCapture(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Capture.Core.VariablePhotoSequenceCapture'
     @winrt_mixinmethod

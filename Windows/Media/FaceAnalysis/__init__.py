@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -24,13 +24,13 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class DetectedFace(c_void_p):
+class DetectedFace(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.FaceAnalysis.DetectedFace'
     @winrt_mixinmethod
     def get_FaceBox(self: Windows.Media.FaceAnalysis.IDetectedFace) -> Windows.Graphics.Imaging.BitmapBounds: ...
     FaceBox = property(get_FaceBox, None)
-class FaceDetector(c_void_p):
+class FaceDetector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.FaceAnalysis.FaceDetector'
     @winrt_mixinmethod
@@ -56,7 +56,7 @@ class FaceDetector(c_void_p):
     MinDetectableFaceSize = property(get_MinDetectableFaceSize, put_MinDetectableFaceSize)
     MaxDetectableFaceSize = property(get_MaxDetectableFaceSize, put_MaxDetectableFaceSize)
     IsSupported = property(get_IsSupported, None)
-class FaceTracker(c_void_p):
+class FaceTracker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.FaceAnalysis.FaceTracker'
     @winrt_mixinmethod
@@ -80,13 +80,13 @@ class FaceTracker(c_void_p):
     MinDetectableFaceSize = property(get_MinDetectableFaceSize, put_MinDetectableFaceSize)
     MaxDetectableFaceSize = property(get_MaxDetectableFaceSize, put_MaxDetectableFaceSize)
     IsSupported = property(get_IsSupported, None)
-class IDetectedFace(c_void_p):
+class IDetectedFace(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8200d454-66bc-34df-94-10-e8-94-00-19-54-14')
     @winrt_commethod(6)
     def get_FaceBox(self) -> Windows.Graphics.Imaging.BitmapBounds: ...
     FaceBox = property(get_FaceBox, None)
-class IFaceDetector(c_void_p):
+class IFaceDetector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('16b672dc-fe6f-3117-8d-95-c3-f0-4d-51-63-0c')
     @winrt_commethod(6)
@@ -103,7 +103,7 @@ class IFaceDetector(c_void_p):
     def put_MaxDetectableFaceSize(self, value: Windows.Graphics.Imaging.BitmapSize) -> Void: ...
     MinDetectableFaceSize = property(get_MinDetectableFaceSize, put_MinDetectableFaceSize)
     MaxDetectableFaceSize = property(get_MaxDetectableFaceSize, put_MaxDetectableFaceSize)
-class IFaceDetectorStatics(c_void_p):
+class IFaceDetectorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bc042d67-9047-33f6-88-1b-67-46-c1-b2-18-b8')
     @winrt_commethod(6)
@@ -115,7 +115,7 @@ class IFaceDetectorStatics(c_void_p):
     @winrt_commethod(9)
     def get_IsSupported(self) -> Boolean: ...
     IsSupported = property(get_IsSupported, None)
-class IFaceTracker(c_void_p):
+class IFaceTracker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6ba67d8c-a841-4420-93-e6-24-20-a1-88-4f-cf')
     @winrt_commethod(6)
@@ -130,7 +130,7 @@ class IFaceTracker(c_void_p):
     def put_MaxDetectableFaceSize(self, value: Windows.Graphics.Imaging.BitmapSize) -> Void: ...
     MinDetectableFaceSize = property(get_MinDetectableFaceSize, put_MinDetectableFaceSize)
     MaxDetectableFaceSize = property(get_MaxDetectableFaceSize, put_MaxDetectableFaceSize)
-class IFaceTrackerStatics(c_void_p):
+class IFaceTrackerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e9629198-1801-3fa5-93-2e-31-d7-67-af-6c-4d')
     @winrt_commethod(6)

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -23,7 +23,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class GameControllerFactoryManager(c_void_p):
+class GameControllerFactoryManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.Custom.GameControllerFactoryManager'
     @winrt_classmethod
@@ -42,7 +42,7 @@ class GameControllerVersionInfo(EasyCastStructure):
 class GipFirmwareUpdateProgress(EasyCastStructure):
     PercentCompleted: Double
     CurrentComponentId: UInt32
-class GipFirmwareUpdateResult(c_void_p):
+class GipFirmwareUpdateResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.Custom.GipFirmwareUpdateResult'
     @winrt_mixinmethod
@@ -58,7 +58,7 @@ GipFirmwareUpdateStatus = Int32
 GipFirmwareUpdateStatus_Completed: GipFirmwareUpdateStatus = 0
 GipFirmwareUpdateStatus_UpToDate: GipFirmwareUpdateStatus = 1
 GipFirmwareUpdateStatus_Failed: GipFirmwareUpdateStatus = 2
-class GipGameControllerProvider(c_void_p):
+class GipGameControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.Custom.GipGameControllerProvider'
     @winrt_mixinmethod
@@ -86,7 +86,7 @@ GipMessageClass = Int32
 GipMessageClass_Command: GipMessageClass = 0
 GipMessageClass_LowLatency: GipMessageClass = 1
 GipMessageClass_StandardLatency: GipMessageClass = 2
-class HidGameControllerProvider(c_void_p):
+class HidGameControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.Custom.HidGameControllerProvider'
     @winrt_mixinmethod
@@ -116,7 +116,7 @@ class HidGameControllerProvider(c_void_p):
     HardwareVendorId = property(get_HardwareVendorId, None)
     HardwareVersionInfo = property(get_HardwareVersionInfo, None)
     IsConnected = property(get_IsConnected, None)
-class ICustomGameControllerFactory(c_void_p):
+class ICustomGameControllerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('69a0ae5e-758e-4cbe-ac-e6-62-15-5f-e9-12-6f')
     @winrt_commethod(6)
@@ -125,7 +125,7 @@ class ICustomGameControllerFactory(c_void_p):
     def OnGameControllerAdded(self, value: Windows.Gaming.Input.IGameController) -> Void: ...
     @winrt_commethod(8)
     def OnGameControllerRemoved(self, value: Windows.Gaming.Input.IGameController) -> Void: ...
-class IGameControllerFactoryManagerStatics(c_void_p):
+class IGameControllerFactoryManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('36cb66e3-d0a1-4986-a2-4c-40-b1-37-de-ba-9e')
     @winrt_commethod(6)
@@ -134,19 +134,19 @@ class IGameControllerFactoryManagerStatics(c_void_p):
     def RegisterCustomFactoryForHardwareId(self, factory: Windows.Gaming.Input.Custom.ICustomGameControllerFactory, hardwareVendorId: UInt16, hardwareProductId: UInt16) -> Void: ...
     @winrt_commethod(8)
     def RegisterCustomFactoryForXusbType(self, factory: Windows.Gaming.Input.Custom.ICustomGameControllerFactory, xusbType: Windows.Gaming.Input.Custom.XusbDeviceType, xusbSubtype: Windows.Gaming.Input.Custom.XusbDeviceSubtype) -> Void: ...
-class IGameControllerFactoryManagerStatics2(c_void_p):
+class IGameControllerFactoryManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('eace5644-19df-4115-b3-2a-27-93-e2-ae-a3-bb')
     @winrt_commethod(6)
     def TryGetFactoryControllerFromGameController(self, factory: Windows.Gaming.Input.Custom.ICustomGameControllerFactory, gameController: Windows.Gaming.Input.IGameController) -> Windows.Gaming.Input.IGameController: ...
-class IGameControllerInputSink(c_void_p):
+class IGameControllerInputSink(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1ff6f922-c640-4c78-a8-20-9a-71-5c-55-8b-cb')
     @winrt_commethod(6)
     def OnInputResumed(self, timestamp: UInt64) -> Void: ...
     @winrt_commethod(7)
     def OnInputSuspended(self, timestamp: UInt64) -> Void: ...
-class IGameControllerProvider(c_void_p):
+class IGameControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e6d73982-2996-4559-b1-6c-3e-57-d4-6e-58-d6')
     @winrt_commethod(6)
@@ -164,7 +164,7 @@ class IGameControllerProvider(c_void_p):
     HardwareVendorId = property(get_HardwareVendorId, None)
     HardwareVersionInfo = property(get_HardwareVersionInfo, None)
     IsConnected = property(get_IsConnected, None)
-class IGipFirmwareUpdateResult(c_void_p):
+class IGipFirmwareUpdateResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6b794d32-8553-4292-8e-03-e1-66-51-a2-f8-bc')
     @winrt_commethod(6)
@@ -176,14 +176,14 @@ class IGipFirmwareUpdateResult(c_void_p):
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
     FinalComponentId = property(get_FinalComponentId, None)
     Status = property(get_Status, None)
-class IGipGameControllerInputSink(c_void_p):
+class IGipGameControllerInputSink(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a2108abf-09f1-43bc-a1-40-80-f8-99-ec-36-fb')
     @winrt_commethod(6)
     def OnKeyReceived(self, timestamp: UInt64, keyCode: Byte, isPressed: Boolean) -> Void: ...
     @winrt_commethod(7)
     def OnMessageReceived(self, timestamp: UInt64, messageClass: Windows.Gaming.Input.Custom.GipMessageClass, messageId: Byte, sequenceId: Byte, messageBuffer: c_char_p_no) -> Void: ...
-class IGipGameControllerProvider(c_void_p):
+class IGipGameControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dbcf1e19-1af5-45a8-bf-02-a0-ee-50-c8-23-fc')
     @winrt_commethod(6)
@@ -192,12 +192,12 @@ class IGipGameControllerProvider(c_void_p):
     def SendReceiveMessage(self, messageClass: Windows.Gaming.Input.Custom.GipMessageClass, messageId: Byte, requestMessageBuffer: c_char_p_no, responseMessageBuffer: c_char_p_no) -> Void: ...
     @winrt_commethod(8)
     def UpdateFirmwareAsync(self, firmwareImage: Windows.Storage.Streams.IInputStream) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Gaming.Input.Custom.GipFirmwareUpdateResult, Windows.Gaming.Input.Custom.GipFirmwareUpdateProgress]: ...
-class IHidGameControllerInputSink(c_void_p):
+class IHidGameControllerInputSink(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f754c322-182d-40e4-a1-26-fc-ee-4f-fa-1e-31')
     @winrt_commethod(6)
     def OnInputReportReceived(self, timestamp: UInt64, reportId: Byte, reportBuffer: c_char_p_no) -> Void: ...
-class IHidGameControllerProvider(c_void_p):
+class IHidGameControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('95ce3af4-abf0-4b68-a0-81-3b-7d-e7-3f-f0-e7')
     @winrt_commethod(6)
@@ -212,12 +212,12 @@ class IHidGameControllerProvider(c_void_p):
     def SendOutputReport(self, reportId: Byte, reportBuffer: c_char_p_no) -> Void: ...
     UsageId = property(get_UsageId, None)
     UsagePage = property(get_UsagePage, None)
-class IXusbGameControllerInputSink(c_void_p):
+class IXusbGameControllerInputSink(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b2ac1d95-6ecb-42b3-8a-ab-02-54-01-ca-47-12')
     @winrt_commethod(6)
     def OnInputReceived(self, timestamp: UInt64, reportId: Byte, inputBuffer: c_char_p_no) -> Void: ...
-class IXusbGameControllerProvider(c_void_p):
+class IXusbGameControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6e2971eb-0efb-48b4-80-8b-83-76-43-b2-f2-16')
     @winrt_commethod(6)
@@ -237,7 +237,7 @@ XusbDeviceSubtype_DancePad: XusbDeviceSubtype = 10
 XusbDeviceType = Int32
 XusbDeviceType_Unknown: XusbDeviceType = 0
 XusbDeviceType_Gamepad: XusbDeviceType = 1
-class XusbGameControllerProvider(c_void_p):
+class XusbGameControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.Custom.XusbGameControllerProvider'
     @winrt_mixinmethod

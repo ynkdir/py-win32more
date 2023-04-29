@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ISystemUpdateItem(c_void_p):
+class ISystemUpdateItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('779740eb-5624-519e-a8-e2-09-e9-17-3b-3f-b7')
     @winrt_commethod(6)
@@ -49,7 +49,7 @@ class ISystemUpdateItem(c_void_p):
     DownloadProgress = property(get_DownloadProgress, None)
     InstallProgress = property(get_InstallProgress, None)
     ExtendedError = property(get_ExtendedError, None)
-class ISystemUpdateLastErrorInfo(c_void_p):
+class ISystemUpdateLastErrorInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7ee887f7-8a44-5b6e-bd-07-7a-ec-e4-11-6e-a9')
     @winrt_commethod(6)
@@ -61,7 +61,7 @@ class ISystemUpdateLastErrorInfo(c_void_p):
     State = property(get_State, None)
     ExtendedError = property(get_ExtendedError, None)
     IsInteractive = property(get_IsInteractive, None)
-class ISystemUpdateManagerStatics(c_void_p):
+class ISystemUpdateManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b2d3fcef-2971-51be-b4-1a-8b-d7-03-bb-70-1a')
     @winrt_commethod(6)
@@ -129,7 +129,7 @@ SystemUpdateAttentionRequiredReason_NetworkRequired: SystemUpdateAttentionRequir
 SystemUpdateAttentionRequiredReason_InsufficientDiskSpace: SystemUpdateAttentionRequiredReason = 2
 SystemUpdateAttentionRequiredReason_InsufficientBattery: SystemUpdateAttentionRequiredReason = 3
 SystemUpdateAttentionRequiredReason_UpdateBlocked: SystemUpdateAttentionRequiredReason = 4
-class SystemUpdateItem(c_void_p):
+class SystemUpdateItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.System.Update.SystemUpdateItem'
     @winrt_mixinmethod
@@ -166,7 +166,7 @@ SystemUpdateItemState_Installing: SystemUpdateItemState = 5
 SystemUpdateItemState_Completed: SystemUpdateItemState = 6
 SystemUpdateItemState_RebootRequired: SystemUpdateItemState = 7
 SystemUpdateItemState_Error: SystemUpdateItemState = 8
-class SystemUpdateLastErrorInfo(c_void_p):
+class SystemUpdateLastErrorInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.System.Update.SystemUpdateLastErrorInfo'
     @winrt_mixinmethod
@@ -178,7 +178,7 @@ class SystemUpdateLastErrorInfo(c_void_p):
     State = property(get_State, None)
     ExtendedError = property(get_ExtendedError, None)
     IsInteractive = property(get_IsInteractive, None)
-class SystemUpdateManager(c_void_p):
+class SystemUpdateManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.System.Update.SystemUpdateManager'
     @winrt_classmethod

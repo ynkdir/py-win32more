@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -23,7 +23,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ISecondaryAuthenticationFactorAuthentication(c_void_p):
+class ISecondaryAuthenticationFactorAuthentication(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('020a16e5-6a25-40a3-8c-00-50-a0-23-f6-19-d1')
     @winrt_commethod(6)
@@ -42,7 +42,7 @@ class ISecondaryAuthenticationFactorAuthentication(c_void_p):
     SessionNonce = property(get_SessionNonce, None)
     DeviceNonce = property(get_DeviceNonce, None)
     DeviceConfigurationData = property(get_DeviceConfigurationData, None)
-class ISecondaryAuthenticationFactorAuthenticationResult(c_void_p):
+class ISecondaryAuthenticationFactorAuthenticationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9cbb5987-ef6d-4bc2-bf-49-46-17-51-5a-0f-9a')
     @winrt_commethod(6)
@@ -51,13 +51,13 @@ class ISecondaryAuthenticationFactorAuthenticationResult(c_void_p):
     def get_Authentication(self) -> Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication: ...
     Status = property(get_Status, None)
     Authentication = property(get_Authentication, None)
-class ISecondaryAuthenticationFactorAuthenticationStageChangedEventArgs(c_void_p):
+class ISecondaryAuthenticationFactorAuthenticationStageChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d4a5ee56-7291-4073-bc-1f-cc-b8-f5-af-df-96')
     @winrt_commethod(6)
     def get_StageInfo(self) -> Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStageInfo: ...
     StageInfo = property(get_StageInfo, None)
-class ISecondaryAuthenticationFactorAuthenticationStageInfo(c_void_p):
+class ISecondaryAuthenticationFactorAuthenticationStageInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('56fec28b-e8aa-4c0f-8e-4c-a5-59-e7-3a-dd-88')
     @winrt_commethod(6)
@@ -69,7 +69,7 @@ class ISecondaryAuthenticationFactorAuthenticationStageInfo(c_void_p):
     Stage = property(get_Stage, None)
     Scenario = property(get_Scenario, None)
     DeviceId = property(get_DeviceId, None)
-class ISecondaryAuthenticationFactorAuthenticationStatics(c_void_p):
+class ISecondaryAuthenticationFactorAuthenticationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3f582656-28f8-4e0f-ae-8c-58-98-b9-ae-24-69')
     @winrt_commethod(6)
@@ -82,7 +82,7 @@ class ISecondaryAuthenticationFactorAuthenticationStatics(c_void_p):
     def remove_AuthenticationStageChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
     def GetAuthenticationStageInfoAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStageInfo]: ...
-class ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics(c_void_p):
+class ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('90499a19-7ef2-4523-95-1c-a4-17-a2-4a-cf-93')
     @winrt_commethod(6)
@@ -93,7 +93,7 @@ class ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics(
     def UnregisterDevicePresenceMonitoringAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(9)
     def IsDevicePresenceMonitoringSupported(self) -> Boolean: ...
-class ISecondaryAuthenticationFactorInfo(c_void_p):
+class ISecondaryAuthenticationFactorInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1e2ba861-8533-4fce-83-9b-ec-b7-24-10-ac-14')
     @winrt_commethod(6)
@@ -108,7 +108,7 @@ class ISecondaryAuthenticationFactorInfo(c_void_p):
     DeviceFriendlyName = property(get_DeviceFriendlyName, None)
     DeviceModelNumber = property(get_DeviceModelNumber, None)
     DeviceConfigurationData = property(get_DeviceConfigurationData, None)
-class ISecondaryAuthenticationFactorInfo2(c_void_p):
+class ISecondaryAuthenticationFactorInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('14d981a3-fc26-4ff7-ab-c3-48-e8-2a-51-2a-0a')
     @winrt_commethod(6)
@@ -119,14 +119,14 @@ class ISecondaryAuthenticationFactorInfo2(c_void_p):
     def get_IsAuthenticationSupported(self) -> Boolean: ...
     PresenceMonitoringMode = property(get_PresenceMonitoringMode, None)
     IsAuthenticationSupported = property(get_IsAuthenticationSupported, None)
-class ISecondaryAuthenticationFactorRegistration(c_void_p):
+class ISecondaryAuthenticationFactorRegistration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9f4cbbb4-8cba-48b0-84-0d-db-b2-2a-54-c6-78')
     @winrt_commethod(6)
     def FinishRegisteringDeviceAsync(self, deviceConfigurationData: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def AbortRegisteringDeviceAsync(self, errorLogMessage: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
-class ISecondaryAuthenticationFactorRegistrationResult(c_void_p):
+class ISecondaryAuthenticationFactorRegistrationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a4fe35f0-ade3-4981-af-6b-ec-19-59-21-68-2a')
     @winrt_commethod(6)
@@ -135,7 +135,7 @@ class ISecondaryAuthenticationFactorRegistrationResult(c_void_p):
     def get_Registration(self) -> Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration: ...
     Status = property(get_Status, None)
     Registration = property(get_Registration, None)
-class ISecondaryAuthenticationFactorRegistrationStatics(c_void_p):
+class ISecondaryAuthenticationFactorRegistrationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1adf0f65-e3b7-4155-99-7f-b7-56-ef-65-be-ba')
     @winrt_commethod(6)
@@ -146,7 +146,7 @@ class ISecondaryAuthenticationFactorRegistrationStatics(c_void_p):
     def UnregisterDeviceAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(9)
     def UpdateDeviceConfigurationDataAsync(self, deviceId: WinRT_String, deviceConfigurationData: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncAction: ...
-class SecondaryAuthenticationFactorAuthentication(c_void_p):
+class SecondaryAuthenticationFactorAuthentication(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication'
     @winrt_mixinmethod
@@ -205,7 +205,7 @@ SecondaryAuthenticationFactorAuthenticationMessage_MoveHandFarther: SecondaryAut
 SecondaryAuthenticationFactorAuthenticationMessage_PlaceHandAbove: SecondaryAuthenticationFactorAuthenticationMessage = 26
 SecondaryAuthenticationFactorAuthenticationMessage_RecognitionFailed: SecondaryAuthenticationFactorAuthenticationMessage = 27
 SecondaryAuthenticationFactorAuthenticationMessage_DeviceUnavailable: SecondaryAuthenticationFactorAuthenticationMessage = 28
-class SecondaryAuthenticationFactorAuthenticationResult(c_void_p):
+class SecondaryAuthenticationFactorAuthenticationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationResult'
     @winrt_mixinmethod
@@ -227,13 +227,13 @@ SecondaryAuthenticationFactorAuthenticationStage_CredentialAuthenticated: Second
 SecondaryAuthenticationFactorAuthenticationStage_StoppingAuthentication: SecondaryAuthenticationFactorAuthenticationStage = 6
 SecondaryAuthenticationFactorAuthenticationStage_ReadyForLock: SecondaryAuthenticationFactorAuthenticationStage = 7
 SecondaryAuthenticationFactorAuthenticationStage_CheckingDevicePresence: SecondaryAuthenticationFactorAuthenticationStage = 8
-class SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs(c_void_p):
+class SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs'
     @winrt_mixinmethod
     def get_StageInfo(self: Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorAuthenticationStageChangedEventArgs) -> Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStageInfo: ...
     StageInfo = property(get_StageInfo, None)
-class SecondaryAuthenticationFactorAuthenticationStageInfo(c_void_p):
+class SecondaryAuthenticationFactorAuthenticationStageInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthenticationStageInfo'
     @winrt_mixinmethod
@@ -278,7 +278,7 @@ SecondaryAuthenticationFactorFinishAuthenticationStatus = Int32
 SecondaryAuthenticationFactorFinishAuthenticationStatus_Failed: SecondaryAuthenticationFactorFinishAuthenticationStatus = 0
 SecondaryAuthenticationFactorFinishAuthenticationStatus_Completed: SecondaryAuthenticationFactorFinishAuthenticationStatus = 1
 SecondaryAuthenticationFactorFinishAuthenticationStatus_NonceExpired: SecondaryAuthenticationFactorFinishAuthenticationStatus = 2
-class SecondaryAuthenticationFactorInfo(c_void_p):
+class SecondaryAuthenticationFactorInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorInfo'
     @winrt_mixinmethod
@@ -301,7 +301,7 @@ class SecondaryAuthenticationFactorInfo(c_void_p):
     DeviceConfigurationData = property(get_DeviceConfigurationData, None)
     PresenceMonitoringMode = property(get_PresenceMonitoringMode, None)
     IsAuthenticationSupported = property(get_IsAuthenticationSupported, None)
-class SecondaryAuthenticationFactorRegistration(c_void_p):
+class SecondaryAuthenticationFactorRegistration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration'
     @winrt_mixinmethod
@@ -324,7 +324,7 @@ class SecondaryAuthenticationFactorRegistration(c_void_p):
     def UnregisterDeviceAsync(cls: Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorRegistrationStatics, deviceId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
     def UpdateDeviceConfigurationDataAsync(cls: Windows.Security.Authentication.Identity.Provider.ISecondaryAuthenticationFactorRegistrationStatics, deviceId: WinRT_String, deviceConfigurationData: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncAction: ...
-class SecondaryAuthenticationFactorRegistrationResult(c_void_p):
+class SecondaryAuthenticationFactorRegistrationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistrationResult'
     @winrt_mixinmethod

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.AppService
@@ -26,7 +26,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IVoiceCommand(c_void_p):
+class IVoiceCommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('936f5273-ec82-42a6-a5-5c-d2-d7-9e-c6-f9-20')
     @winrt_commethod(6)
@@ -38,19 +38,19 @@ class IVoiceCommand(c_void_p):
     CommandName = property(get_CommandName, None)
     Properties = property(get_Properties, None)
     SpeechRecognitionResult = property(get_SpeechRecognitionResult, None)
-class IVoiceCommandCompletedEventArgs(c_void_p):
+class IVoiceCommandCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c85e675d-fe42-432c-99-07-09-df-9f-cf-64-e8')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.ApplicationModel.VoiceCommands.VoiceCommandCompletionReason: ...
     Reason = property(get_Reason, None)
-class IVoiceCommandConfirmationResult(c_void_p):
+class IVoiceCommandConfirmationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a022593e-8221-4526-b0-83-84-09-72-26-22-47')
     @winrt_commethod(6)
     def get_Confirmed(self) -> Boolean: ...
     Confirmed = property(get_Confirmed, None)
-class IVoiceCommandContentTile(c_void_p):
+class IVoiceCommandContentTile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3eefe9f0-b8c7-4c76-a0-de-16-07-89-5e-e3-27')
     @winrt_commethod(6)
@@ -93,7 +93,7 @@ class IVoiceCommandContentTile(c_void_p):
     AppContext = property(get_AppContext, put_AppContext)
     AppLaunchArgument = property(get_AppLaunchArgument, put_AppLaunchArgument)
     ContentTileType = property(get_ContentTileType, put_ContentTileType)
-class IVoiceCommandDefinition(c_void_p):
+class IVoiceCommandDefinition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7972aad0-0974-4979-98-4b-cb-89-59-cd-61-ae')
     @winrt_commethod(6)
@@ -104,7 +104,7 @@ class IVoiceCommandDefinition(c_void_p):
     def SetPhraseListAsync(self, phraseListName: WinRT_String, phraseList: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncAction: ...
     Language = property(get_Language, None)
     Name = property(get_Name, None)
-class IVoiceCommandDefinitionManagerStatics(c_void_p):
+class IVoiceCommandDefinitionManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8fe7a69e-067e-4f16-a1-8c-5b-17-e9-49-99-40')
     @winrt_commethod(6)
@@ -112,13 +112,13 @@ class IVoiceCommandDefinitionManagerStatics(c_void_p):
     @winrt_commethod(7)
     def get_InstalledCommandDefinitions(self) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinition]: ...
     InstalledCommandDefinitions = property(get_InstalledCommandDefinitions, None)
-class IVoiceCommandDisambiguationResult(c_void_p):
+class IVoiceCommandDisambiguationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ecc68cfe-c9ac-45df-a8-ea-fe-ea-08-ef-9c-5e')
     @winrt_commethod(6)
     def get_SelectedItem(self) -> Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile: ...
     SelectedItem = property(get_SelectedItem, None)
-class IVoiceCommandResponse(c_void_p):
+class IVoiceCommandResponse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0284b30e-8a3b-4cc4-a6-a1-ca-d5-be-27-16-b5')
     @winrt_commethod(6)
@@ -139,7 +139,7 @@ class IVoiceCommandResponse(c_void_p):
     RepeatMessage = property(get_RepeatMessage, put_RepeatMessage)
     AppLaunchArgument = property(get_AppLaunchArgument, put_AppLaunchArgument)
     VoiceCommandContentTiles = property(get_VoiceCommandContentTiles, None)
-class IVoiceCommandResponseStatics(c_void_p):
+class IVoiceCommandResponseStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2932f813-0d3b-49f2-96-dd-62-50-19-bd-3b-5d')
     @winrt_commethod(6)
@@ -153,7 +153,7 @@ class IVoiceCommandResponseStatics(c_void_p):
     @winrt_commethod(10)
     def CreateResponseForPromptWithTiles(self, message: Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage, repeatMessage: Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage, contentTiles: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile]) -> Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse: ...
     MaxSupportedVoiceCommandContentTiles = property(get_MaxSupportedVoiceCommandContentTiles, None)
-class IVoiceCommandServiceConnection(c_void_p):
+class IVoiceCommandServiceConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d894bb9f-21da-44a4-98-a2-fb-13-19-20-a9-cc')
     @winrt_commethod(6)
@@ -177,12 +177,12 @@ class IVoiceCommandServiceConnection(c_void_p):
     @winrt_commethod(15)
     def remove_VoiceCommandCompleted(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     Language = property(get_Language, None)
-class IVoiceCommandServiceConnectionStatics(c_void_p):
+class IVoiceCommandServiceConnectionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('370ebffb-2d34-42df-87-70-07-4d-0f-33-46-97')
     @winrt_commethod(6)
     def FromAppServiceTriggerDetails(self, triggerDetails: Windows.ApplicationModel.AppService.AppServiceTriggerDetails) -> Windows.ApplicationModel.VoiceCommands.VoiceCommandServiceConnection: ...
-class IVoiceCommandUserMessage(c_void_p):
+class IVoiceCommandUserMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('674eb3c0-44f6-4f07-b9-79-4c-72-3f-c0-85-97')
     @winrt_commethod(6)
@@ -195,7 +195,7 @@ class IVoiceCommandUserMessage(c_void_p):
     def put_SpokenMessage(self, value: WinRT_String) -> Void: ...
     DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
     SpokenMessage = property(get_SpokenMessage, put_SpokenMessage)
-class VoiceCommand(c_void_p):
+class VoiceCommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.VoiceCommands.VoiceCommand'
     @winrt_mixinmethod
@@ -207,7 +207,7 @@ class VoiceCommand(c_void_p):
     CommandName = property(get_CommandName, None)
     Properties = property(get_Properties, None)
     SpeechRecognitionResult = property(get_SpeechRecognitionResult, None)
-class VoiceCommandCompletedEventArgs(c_void_p):
+class VoiceCommandCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandCompletedEventArgs'
     @winrt_mixinmethod
@@ -221,13 +221,13 @@ VoiceCommandCompletionReason_Canceled: VoiceCommandCompletionReason = 3
 VoiceCommandCompletionReason_TimeoutExceeded: VoiceCommandCompletionReason = 4
 VoiceCommandCompletionReason_AppLaunched: VoiceCommandCompletionReason = 5
 VoiceCommandCompletionReason_Completed: VoiceCommandCompletionReason = 6
-class VoiceCommandConfirmationResult(c_void_p):
+class VoiceCommandConfirmationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandConfirmationResult'
     @winrt_mixinmethod
     def get_Confirmed(self: Windows.ApplicationModel.VoiceCommands.IVoiceCommandConfirmationResult) -> Boolean: ...
     Confirmed = property(get_Confirmed, None)
-class VoiceCommandContentTile(c_void_p):
+class VoiceCommandContentTile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile'
     @winrt_activatemethod
@@ -281,7 +281,7 @@ VoiceCommandContentTileType_TitleWith68x92Icon: VoiceCommandContentTileType = 4
 VoiceCommandContentTileType_TitleWith68x92IconAndText: VoiceCommandContentTileType = 5
 VoiceCommandContentTileType_TitleWith280x140Icon: VoiceCommandContentTileType = 6
 VoiceCommandContentTileType_TitleWith280x140IconAndText: VoiceCommandContentTileType = 7
-class VoiceCommandDefinition(c_void_p):
+class VoiceCommandDefinition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinition'
     @winrt_mixinmethod
@@ -292,7 +292,7 @@ class VoiceCommandDefinition(c_void_p):
     def SetPhraseListAsync(self: Windows.ApplicationModel.VoiceCommands.IVoiceCommandDefinition, phraseListName: WinRT_String, phraseList: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncAction: ...
     Language = property(get_Language, None)
     Name = property(get_Name, None)
-class VoiceCommandDefinitionManager(c_void_p):
+class VoiceCommandDefinitionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager'
     @winrt_classmethod
@@ -300,13 +300,13 @@ class VoiceCommandDefinitionManager(c_void_p):
     @winrt_classmethod
     def get_InstalledCommandDefinitions(cls: Windows.ApplicationModel.VoiceCommands.IVoiceCommandDefinitionManagerStatics) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinition]: ...
     InstalledCommandDefinitions = property(get_InstalledCommandDefinitions, None)
-class VoiceCommandDisambiguationResult(c_void_p):
+class VoiceCommandDisambiguationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandDisambiguationResult'
     @winrt_mixinmethod
     def get_SelectedItem(self: Windows.ApplicationModel.VoiceCommands.IVoiceCommandDisambiguationResult) -> Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile: ...
     SelectedItem = property(get_SelectedItem, None)
-class VoiceCommandResponse(c_void_p):
+class VoiceCommandResponse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandResponse'
     @winrt_mixinmethod
@@ -338,7 +338,7 @@ class VoiceCommandResponse(c_void_p):
     AppLaunchArgument = property(get_AppLaunchArgument, put_AppLaunchArgument)
     VoiceCommandContentTiles = property(get_VoiceCommandContentTiles, None)
     MaxSupportedVoiceCommandContentTiles = property(get_MaxSupportedVoiceCommandContentTiles, None)
-class VoiceCommandServiceConnection(c_void_p):
+class VoiceCommandServiceConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandServiceConnection'
     @winrt_mixinmethod
@@ -364,7 +364,7 @@ class VoiceCommandServiceConnection(c_void_p):
     @winrt_classmethod
     def FromAppServiceTriggerDetails(cls: Windows.ApplicationModel.VoiceCommands.IVoiceCommandServiceConnectionStatics, triggerDetails: Windows.ApplicationModel.AppService.AppServiceTriggerDetails) -> Windows.ApplicationModel.VoiceCommands.VoiceCommandServiceConnection: ...
     Language = property(get_Language, None)
-class VoiceCommandUserMessage(c_void_p):
+class VoiceCommandUserMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.VoiceCommands.VoiceCommandUserMessage'
     @winrt_activatemethod

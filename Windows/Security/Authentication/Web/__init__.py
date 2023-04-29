@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IWebAuthenticationBrokerStatics(c_void_p):
+class IWebAuthenticationBrokerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2f149f1a-e673-40b5-bc-22-20-1a-68-64-a3-7b')
     @winrt_commethod(6)
@@ -31,7 +31,7 @@ class IWebAuthenticationBrokerStatics(c_void_p):
     def AuthenticateWithoutCallbackUriAsync(self, options: Windows.Security.Authentication.Web.WebAuthenticationOptions, requestUri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Web.WebAuthenticationResult]: ...
     @winrt_commethod(8)
     def GetCurrentApplicationCallbackUri(self) -> Windows.Foundation.Uri: ...
-class IWebAuthenticationBrokerStatics2(c_void_p):
+class IWebAuthenticationBrokerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('73cdfb9e-14e7-41da-a9-71-aa-f4-41-0b-62-1e')
     @winrt_commethod(6)
@@ -44,7 +44,7 @@ class IWebAuthenticationBrokerStatics2(c_void_p):
     def AuthenticateSilentlyAsync(self, requestUri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Web.WebAuthenticationResult]: ...
     @winrt_commethod(10)
     def AuthenticateSilentlyWithOptionsAsync(self, requestUri: Windows.Foundation.Uri, options: Windows.Security.Authentication.Web.WebAuthenticationOptions) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Web.WebAuthenticationResult]: ...
-class IWebAuthenticationResult(c_void_p):
+class IWebAuthenticationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('64002b4b-ede9-470a-a5-cd-03-23-fa-f6-e2-62')
     @winrt_commethod(6)
@@ -60,7 +60,7 @@ TokenBindingKeyType = Int32
 TokenBindingKeyType_Rsa2048: TokenBindingKeyType = 0
 TokenBindingKeyType_EcdsaP256: TokenBindingKeyType = 1
 TokenBindingKeyType_AnyExisting: TokenBindingKeyType = 2
-class WebAuthenticationBroker(c_void_p):
+class WebAuthenticationBroker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Web.WebAuthenticationBroker'
     @winrt_classmethod
@@ -85,7 +85,7 @@ WebAuthenticationOptions_SilentMode: WebAuthenticationOptions = 1
 WebAuthenticationOptions_UseTitle: WebAuthenticationOptions = 2
 WebAuthenticationOptions_UseHttpPost: WebAuthenticationOptions = 4
 WebAuthenticationOptions_UseCorporateNetwork: WebAuthenticationOptions = 8
-class WebAuthenticationResult(c_void_p):
+class WebAuthenticationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Web.WebAuthenticationResult'
     @winrt_mixinmethod

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -27,7 +27,7 @@ CredentialPromptType = Int32
 CredentialPromptType_PromptIfNeeded: CredentialPromptType = 0
 CredentialPromptType_RetypeCredentials: CredentialPromptType = 1
 CredentialPromptType_DoNotPrompt: CredentialPromptType = 2
-class IOnlineIdAuthenticator(c_void_p):
+class IOnlineIdAuthenticator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a003f58a-29ab-4817-b8-84-d7-51-6d-ad-18-b9')
     @winrt_commethod(6)
@@ -47,7 +47,7 @@ class IOnlineIdAuthenticator(c_void_p):
     ApplicationId = property(get_ApplicationId, put_ApplicationId)
     CanSignOut = property(get_CanSignOut, None)
     AuthenticatedSafeCustomerId = property(get_AuthenticatedSafeCustomerId, None)
-class IOnlineIdServiceTicket(c_void_p):
+class IOnlineIdServiceTicket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c95c547f-d781-4a94-ac-b8-c5-98-74-23-8c-26')
     @winrt_commethod(6)
@@ -59,7 +59,7 @@ class IOnlineIdServiceTicket(c_void_p):
     Value = property(get_Value, None)
     Request = property(get_Request, None)
     ErrorCode = property(get_ErrorCode, None)
-class IOnlineIdServiceTicketRequest(c_void_p):
+class IOnlineIdServiceTicketRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('297445d3-fb63-4135-89-09-4e-35-4c-06-14-66')
     @winrt_commethod(6)
@@ -68,14 +68,14 @@ class IOnlineIdServiceTicketRequest(c_void_p):
     def get_Policy(self) -> WinRT_String: ...
     Service = property(get_Service, None)
     Policy = property(get_Policy, None)
-class IOnlineIdServiceTicketRequestFactory(c_void_p):
+class IOnlineIdServiceTicketRequestFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bebb0a08-9e73-4077-96-14-08-61-4c-0b-c2-45')
     @winrt_commethod(6)
     def CreateOnlineIdServiceTicketRequest(self, service: WinRT_String, policy: WinRT_String) -> Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest: ...
     @winrt_commethod(7)
     def CreateOnlineIdServiceTicketRequestAdvanced(self, service: WinRT_String) -> Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest: ...
-class IOnlineIdSystemAuthenticatorForUser(c_void_p):
+class IOnlineIdSystemAuthenticatorForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5798befb-1de4-4186-a2-e6-b5-63-f8-6a-af-44')
     @winrt_commethod(6)
@@ -88,7 +88,7 @@ class IOnlineIdSystemAuthenticatorForUser(c_void_p):
     def get_User(self) -> Windows.System.User: ...
     ApplicationId = property(get_ApplicationId, put_ApplicationId)
     User = property(get_User, None)
-class IOnlineIdSystemAuthenticatorStatics(c_void_p):
+class IOnlineIdSystemAuthenticatorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('85047792-f634-41e3-96-a4-51-64-e9-02-c7-40')
     @winrt_commethod(6)
@@ -96,7 +96,7 @@ class IOnlineIdSystemAuthenticatorStatics(c_void_p):
     @winrt_commethod(7)
     def GetForUser(self, user: Windows.System.User) -> Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser: ...
     Default = property(get_Default, None)
-class IOnlineIdSystemIdentity(c_void_p):
+class IOnlineIdSystemIdentity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('743cd20d-b6ca-434d-81-24-53-ea-12-68-53-07')
     @winrt_commethod(6)
@@ -105,7 +105,7 @@ class IOnlineIdSystemIdentity(c_void_p):
     def get_Id(self) -> WinRT_String: ...
     Ticket = property(get_Ticket, None)
     Id = property(get_Id, None)
-class IOnlineIdSystemTicketResult(c_void_p):
+class IOnlineIdSystemTicketResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('db0a5ff8-b098-4acd-9d-13-9e-64-06-52-b5-b6')
     @winrt_commethod(6)
@@ -117,7 +117,7 @@ class IOnlineIdSystemTicketResult(c_void_p):
     Identity = property(get_Identity, None)
     Status = property(get_Status, None)
     ExtendedError = property(get_ExtendedError, None)
-class IUserIdentity(c_void_p):
+class IUserIdentity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2146d9cd-0742-4be3-8a-1c-7c-7a-e6-79-aa-88')
     @winrt_commethod(6)
@@ -144,7 +144,7 @@ class IUserIdentity(c_void_p):
     LastName = property(get_LastName, None)
     IsBetaAccount = property(get_IsBetaAccount, None)
     IsConfirmedPC = property(get_IsConfirmedPC, None)
-class OnlineIdAuthenticator(c_void_p):
+class OnlineIdAuthenticator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator'
     @winrt_activatemethod
@@ -166,7 +166,7 @@ class OnlineIdAuthenticator(c_void_p):
     ApplicationId = property(get_ApplicationId, put_ApplicationId)
     CanSignOut = property(get_CanSignOut, None)
     AuthenticatedSafeCustomerId = property(get_AuthenticatedSafeCustomerId, None)
-class OnlineIdServiceTicket(c_void_p):
+class OnlineIdServiceTicket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.OnlineId.OnlineIdServiceTicket'
     @winrt_mixinmethod
@@ -178,7 +178,7 @@ class OnlineIdServiceTicket(c_void_p):
     Value = property(get_Value, None)
     Request = property(get_Request, None)
     ErrorCode = property(get_ErrorCode, None)
-class OnlineIdServiceTicketRequest(c_void_p):
+class OnlineIdServiceTicketRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest'
     @winrt_factorymethod
@@ -191,7 +191,7 @@ class OnlineIdServiceTicketRequest(c_void_p):
     def get_Policy(self: Windows.Security.Authentication.OnlineId.IOnlineIdServiceTicketRequest) -> WinRT_String: ...
     Service = property(get_Service, None)
     Policy = property(get_Policy, None)
-class OnlineIdSystemAuthenticator(c_void_p):
+class OnlineIdSystemAuthenticator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticator'
     @winrt_classmethod
@@ -199,7 +199,7 @@ class OnlineIdSystemAuthenticator(c_void_p):
     @winrt_classmethod
     def GetForUser(cls: Windows.Security.Authentication.OnlineId.IOnlineIdSystemAuthenticatorStatics, user: Windows.System.User) -> Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser: ...
     Default = property(get_Default, None)
-class OnlineIdSystemAuthenticatorForUser(c_void_p):
+class OnlineIdSystemAuthenticatorForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser'
     @winrt_mixinmethod
@@ -212,7 +212,7 @@ class OnlineIdSystemAuthenticatorForUser(c_void_p):
     def get_User(self: Windows.Security.Authentication.OnlineId.IOnlineIdSystemAuthenticatorForUser) -> Windows.System.User: ...
     ApplicationId = property(get_ApplicationId, put_ApplicationId)
     User = property(get_User, None)
-class OnlineIdSystemIdentity(c_void_p):
+class OnlineIdSystemIdentity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.OnlineId.OnlineIdSystemIdentity'
     @winrt_mixinmethod
@@ -221,7 +221,7 @@ class OnlineIdSystemIdentity(c_void_p):
     def get_Id(self: Windows.Security.Authentication.OnlineId.IOnlineIdSystemIdentity) -> WinRT_String: ...
     Ticket = property(get_Ticket, None)
     Id = property(get_Id, None)
-class OnlineIdSystemTicketResult(c_void_p):
+class OnlineIdSystemTicketResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.OnlineId.OnlineIdSystemTicketResult'
     @winrt_mixinmethod
@@ -237,7 +237,7 @@ OnlineIdSystemTicketStatus = Int32
 OnlineIdSystemTicketStatus_Success: OnlineIdSystemTicketStatus = 0
 OnlineIdSystemTicketStatus_Error: OnlineIdSystemTicketStatus = 1
 OnlineIdSystemTicketStatus_ServiceConnectionError: OnlineIdSystemTicketStatus = 2
-class SignOutUserOperation(c_void_p):
+class SignOutUserOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.OnlineId.SignOutUserOperation'
     @winrt_mixinmethod
@@ -260,7 +260,7 @@ class SignOutUserOperation(c_void_p):
     Id = property(get_Id, None)
     Status = property(get_Status, None)
     ErrorCode = property(get_ErrorCode, None)
-class UserAuthenticationOperation(c_void_p):
+class UserAuthenticationOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.OnlineId.UserAuthenticationOperation'
     @winrt_mixinmethod
@@ -283,7 +283,7 @@ class UserAuthenticationOperation(c_void_p):
     Id = property(get_Id, None)
     Status = property(get_Status, None)
     ErrorCode = property(get_ErrorCode, None)
-class UserIdentity(c_void_p):
+class UserIdentity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.OnlineId.UserIdentity'
     @winrt_mixinmethod

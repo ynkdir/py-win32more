@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Enumeration
@@ -39,7 +39,7 @@ AutoLoadedDisplayPropertyKind_None: AutoLoadedDisplayPropertyKind = 0
 AutoLoadedDisplayPropertyKind_MusicOrVideo: AutoLoadedDisplayPropertyKind = 1
 AutoLoadedDisplayPropertyKind_Music: AutoLoadedDisplayPropertyKind = 2
 AutoLoadedDisplayPropertyKind_Video: AutoLoadedDisplayPropertyKind = 3
-class BackgroundMediaPlayer(c_void_p):
+class BackgroundMediaPlayer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.BackgroundMediaPlayer'
     @winrt_classmethod
@@ -61,7 +61,7 @@ class BackgroundMediaPlayer(c_void_p):
     @winrt_classmethod
     def Shutdown(cls: Windows.Media.Playback.IBackgroundMediaPlayerStatics) -> Void: ...
     Current = property(get_Current, None)
-class CurrentMediaPlaybackItemChangedEventArgs(c_void_p):
+class CurrentMediaPlaybackItemChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.CurrentMediaPlaybackItemChangedEventArgs'
     @winrt_mixinmethod
@@ -77,7 +77,7 @@ FailedMediaStreamKind = Int32
 FailedMediaStreamKind_Unknown: FailedMediaStreamKind = 0
 FailedMediaStreamKind_Audio: FailedMediaStreamKind = 1
 FailedMediaStreamKind_Video: FailedMediaStreamKind = 2
-class IBackgroundMediaPlayerStatics(c_void_p):
+class IBackgroundMediaPlayerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('856ddbc1-55f7-471f-a0-f2-68-ac-4c-90-45-92')
     @winrt_commethod(6)
@@ -99,7 +99,7 @@ class IBackgroundMediaPlayerStatics(c_void_p):
     @winrt_commethod(14)
     def Shutdown(self) -> Void: ...
     Current = property(get_Current, None)
-class ICurrentMediaPlaybackItemChangedEventArgs(c_void_p):
+class ICurrentMediaPlaybackItemChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1743a892-5c43-4a15-96-7a-57-2d-2d-0f-26-c6')
     @winrt_commethod(6)
@@ -108,13 +108,13 @@ class ICurrentMediaPlaybackItemChangedEventArgs(c_void_p):
     def get_OldItem(self) -> Windows.Media.Playback.MediaPlaybackItem: ...
     NewItem = property(get_NewItem, None)
     OldItem = property(get_OldItem, None)
-class ICurrentMediaPlaybackItemChangedEventArgs2(c_void_p):
+class ICurrentMediaPlaybackItemChangedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1d80a51e-996e-40a9-be-48-e6-6e-c9-0b-2b-7d')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.Media.Playback.MediaPlaybackItemChangedReason: ...
     Reason = property(get_Reason, None)
-class IMediaBreak(c_void_p):
+class IMediaBreak(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('714be270-0def-4ebc-a4-89-6b-34-93-0e-15-58')
     @winrt_commethod(6)
@@ -134,20 +134,20 @@ class IMediaBreak(c_void_p):
     InsertionMethod = property(get_InsertionMethod, None)
     CustomProperties = property(get_CustomProperties, None)
     CanStart = property(get_CanStart, put_CanStart)
-class IMediaBreakEndedEventArgs(c_void_p):
+class IMediaBreakEndedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('32b93276-1c5d-4fee-87-32-23-6d-c3-a8-85-80')
     @winrt_commethod(6)
     def get_MediaBreak(self) -> Windows.Media.Playback.MediaBreak: ...
     MediaBreak = property(get_MediaBreak, None)
-class IMediaBreakFactory(c_void_p):
+class IMediaBreakFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4516e002-18e0-4079-8b-5f-d3-34-95-c1-5d-2e')
     @winrt_commethod(6)
     def Create(self, insertionMethod: Windows.Media.Playback.MediaBreakInsertionMethod) -> Windows.Media.Playback.MediaBreak: ...
     @winrt_commethod(7)
     def CreateWithPresentationPosition(self, insertionMethod: Windows.Media.Playback.MediaBreakInsertionMethod, presentationPosition: Windows.Foundation.TimeSpan) -> Windows.Media.Playback.MediaBreak: ...
-class IMediaBreakManager(c_void_p):
+class IMediaBreakManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a854ddb1-feb4-4d9b-9d-97-0f-db-e5-8e-5e-39')
     @winrt_commethod(6)
@@ -176,7 +176,7 @@ class IMediaBreakManager(c_void_p):
     def SkipCurrentBreak(self) -> Void: ...
     CurrentBreak = property(get_CurrentBreak, None)
     PlaybackSession = property(get_PlaybackSession, None)
-class IMediaBreakSchedule(c_void_p):
+class IMediaBreakSchedule(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a19a5813-98b6-41d8-83-da-f9-71-d2-2b-7b-ba')
     @winrt_commethod(6)
@@ -203,7 +203,7 @@ class IMediaBreakSchedule(c_void_p):
     PrerollBreak = property(get_PrerollBreak, put_PrerollBreak)
     PostrollBreak = property(get_PostrollBreak, put_PostrollBreak)
     PlaybackItem = property(get_PlaybackItem, None)
-class IMediaBreakSeekedOverEventArgs(c_void_p):
+class IMediaBreakSeekedOverEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e5aa6746-0606-4492-b9-d3-c3-c8-fd-e0-a4-ea')
     @winrt_commethod(6)
@@ -215,19 +215,19 @@ class IMediaBreakSeekedOverEventArgs(c_void_p):
     SeekedOverBreaks = property(get_SeekedOverBreaks, None)
     OldPosition = property(get_OldPosition, None)
     NewPosition = property(get_NewPosition, None)
-class IMediaBreakSkippedEventArgs(c_void_p):
+class IMediaBreakSkippedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6ee94c05-2f54-4a3e-a3-ab-24-c3-b2-70-b4-a3')
     @winrt_commethod(6)
     def get_MediaBreak(self) -> Windows.Media.Playback.MediaBreak: ...
     MediaBreak = property(get_MediaBreak, None)
-class IMediaBreakStartedEventArgs(c_void_p):
+class IMediaBreakStartedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a87efe71-dfd4-454a-95-6e-0a-4a-64-83-95-f8')
     @winrt_commethod(6)
     def get_MediaBreak(self) -> Windows.Media.Playback.MediaBreak: ...
     MediaBreak = property(get_MediaBreak, None)
-class IMediaEnginePlaybackSource(c_void_p):
+class IMediaEnginePlaybackSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5c1d0ba7-3856-48b9-8d-c6-24-4b-f1-07-bf-8c')
     @winrt_commethod(6)
@@ -235,7 +235,7 @@ class IMediaEnginePlaybackSource(c_void_p):
     @winrt_commethod(7)
     def SetPlaybackSource(self, source: Windows.Media.Playback.IMediaPlaybackSource) -> Void: ...
     CurrentItem = property(get_CurrentItem, None)
-class IMediaItemDisplayProperties(c_void_p):
+class IMediaItemDisplayProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1e3c1b48-7097-4384-a2-17-c1-29-1d-fa-8c-16')
     @winrt_commethod(6)
@@ -256,7 +256,7 @@ class IMediaItemDisplayProperties(c_void_p):
     MusicProperties = property(get_MusicProperties, None)
     VideoProperties = property(get_VideoProperties, None)
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
-class IMediaPlaybackCommandManager(c_void_p):
+class IMediaPlaybackCommandManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5acee5a6-5cb6-4a5a-85-21-cc-86-b1-c1-ed-37')
     @winrt_commethod(6)
@@ -337,7 +337,7 @@ class IMediaPlaybackCommandManager(c_void_p):
     AutoRepeatModeBehavior = property(get_AutoRepeatModeBehavior, None)
     PositionBehavior = property(get_PositionBehavior, None)
     RateBehavior = property(get_RateBehavior, None)
-class IMediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs(c_void_p):
+class IMediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3d6f4f23-5230-4411-a0-e9-ba-d9-4c-2a-04-5c')
     @winrt_commethod(6)
@@ -350,7 +350,7 @@ class IMediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs(c_void_p):
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
     AutoRepeatMode = property(get_AutoRepeatMode, None)
-class IMediaPlaybackCommandManagerCommandBehavior(c_void_p):
+class IMediaPlaybackCommandManagerCommandBehavior(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('786c1e78-ce78-4a10-af-d6-84-3f-cb-b9-0c-2e')
     @winrt_commethod(6)
@@ -368,7 +368,7 @@ class IMediaPlaybackCommandManagerCommandBehavior(c_void_p):
     CommandManager = property(get_CommandManager, None)
     IsEnabled = property(get_IsEnabled, None)
     EnablingRule = property(get_EnablingRule, put_EnablingRule)
-class IMediaPlaybackCommandManagerFastForwardReceivedEventArgs(c_void_p):
+class IMediaPlaybackCommandManagerFastForwardReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('30f064d9-b491-4d0a-bc-21-30-98-bd-13-32-e9')
     @winrt_commethod(6)
@@ -378,7 +378,7 @@ class IMediaPlaybackCommandManagerFastForwardReceivedEventArgs(c_void_p):
     @winrt_commethod(8)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class IMediaPlaybackCommandManagerNextReceivedEventArgs(c_void_p):
+class IMediaPlaybackCommandManagerNextReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e1504433-a2b0-45d4-b9-de-5f-42-ac-14-a8-39')
     @winrt_commethod(6)
@@ -388,7 +388,7 @@ class IMediaPlaybackCommandManagerNextReceivedEventArgs(c_void_p):
     @winrt_commethod(8)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class IMediaPlaybackCommandManagerPauseReceivedEventArgs(c_void_p):
+class IMediaPlaybackCommandManagerPauseReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5ceccd1c-c25c-4221-b1-6c-c3-c9-8c-e0-12-d6')
     @winrt_commethod(6)
@@ -398,7 +398,7 @@ class IMediaPlaybackCommandManagerPauseReceivedEventArgs(c_void_p):
     @winrt_commethod(8)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class IMediaPlaybackCommandManagerPlayReceivedEventArgs(c_void_p):
+class IMediaPlaybackCommandManagerPlayReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9af0004e-578b-4c56-a0-06-16-15-9d-88-8a-48')
     @winrt_commethod(6)
@@ -408,7 +408,7 @@ class IMediaPlaybackCommandManagerPlayReceivedEventArgs(c_void_p):
     @winrt_commethod(8)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class IMediaPlaybackCommandManagerPositionReceivedEventArgs(c_void_p):
+class IMediaPlaybackCommandManagerPositionReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5591a754-d627-4bdd-a9-0d-86-a0-15-b2-49-02')
     @winrt_commethod(6)
@@ -421,7 +421,7 @@ class IMediaPlaybackCommandManagerPositionReceivedEventArgs(c_void_p):
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
     Position = property(get_Position, None)
-class IMediaPlaybackCommandManagerPreviousReceivedEventArgs(c_void_p):
+class IMediaPlaybackCommandManagerPreviousReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('525e3081-4632-4f76-99-b1-d7-71-62-3f-62-87')
     @winrt_commethod(6)
@@ -431,7 +431,7 @@ class IMediaPlaybackCommandManagerPreviousReceivedEventArgs(c_void_p):
     @winrt_commethod(8)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class IMediaPlaybackCommandManagerRateReceivedEventArgs(c_void_p):
+class IMediaPlaybackCommandManagerRateReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('18ea3939-4a16-4169-8b-05-3e-b9-f5-ff-78-eb')
     @winrt_commethod(6)
@@ -444,7 +444,7 @@ class IMediaPlaybackCommandManagerRateReceivedEventArgs(c_void_p):
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
     PlaybackRate = property(get_PlaybackRate, None)
-class IMediaPlaybackCommandManagerRewindReceivedEventArgs(c_void_p):
+class IMediaPlaybackCommandManagerRewindReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9f085947-a3c0-425d-aa-ef-97-ba-78-98-b1-41')
     @winrt_commethod(6)
@@ -454,7 +454,7 @@ class IMediaPlaybackCommandManagerRewindReceivedEventArgs(c_void_p):
     @winrt_commethod(8)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class IMediaPlaybackCommandManagerShuffleReceivedEventArgs(c_void_p):
+class IMediaPlaybackCommandManagerShuffleReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('50a05cef-63ee-4a96-b7-b5-fe-e0-8b-9f-f9-0c')
     @winrt_commethod(6)
@@ -467,7 +467,7 @@ class IMediaPlaybackCommandManagerShuffleReceivedEventArgs(c_void_p):
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
     IsShuffleRequested = property(get_IsShuffleRequested, None)
-class IMediaPlaybackItem(c_void_p):
+class IMediaPlaybackItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('047097d2-e4af-48ab-b2-83-69-29-e6-74-ec-e2')
     @winrt_commethod(6)
@@ -494,7 +494,7 @@ class IMediaPlaybackItem(c_void_p):
     AudioTracks = property(get_AudioTracks, None)
     VideoTracks = property(get_VideoTracks, None)
     TimedMetadataTracks = property(get_TimedMetadataTracks, None)
-class IMediaPlaybackItem2(c_void_p):
+class IMediaPlaybackItem2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d859d171-d7ef-4b81-ac-1f-f4-04-93-cb-b0-91')
     @winrt_commethod(6)
@@ -515,7 +515,7 @@ class IMediaPlaybackItem2(c_void_p):
     StartTime = property(get_StartTime, None)
     DurationLimit = property(get_DurationLimit, None)
     CanSkip = property(get_CanSkip, put_CanSkip)
-class IMediaPlaybackItem3(c_void_p):
+class IMediaPlaybackItem3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0d328220-b80a-4d09-9f-f8-f8-70-94-a1-c8-31')
     @winrt_commethod(6)
@@ -531,7 +531,7 @@ class IMediaPlaybackItem3(c_void_p):
     IsDisabledInPlaybackList = property(get_IsDisabledInPlaybackList, put_IsDisabledInPlaybackList)
     TotalDownloadProgress = property(get_TotalDownloadProgress, None)
     AutoLoadedDisplayProperties = property(get_AutoLoadedDisplayProperties, put_AutoLoadedDisplayProperties)
-class IMediaPlaybackItemError(c_void_p):
+class IMediaPlaybackItemError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('69fbef2b-dcd6-4df9-a4-50-db-f4-c6-f1-c2-c2')
     @winrt_commethod(6)
@@ -540,19 +540,19 @@ class IMediaPlaybackItemError(c_void_p):
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     ErrorCode = property(get_ErrorCode, None)
     ExtendedError = property(get_ExtendedError, None)
-class IMediaPlaybackItemFactory(c_void_p):
+class IMediaPlaybackItemFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7133fce1-1769-4ff9-a7-c1-38-d2-c4-d4-23-60')
     @winrt_commethod(6)
     def Create(self, source: Windows.Media.Core.MediaSource) -> Windows.Media.Playback.MediaPlaybackItem: ...
-class IMediaPlaybackItemFactory2(c_void_p):
+class IMediaPlaybackItemFactory2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d77cdf3a-b947-4972-b3-5d-ad-fb-93-1a-71-e6')
     @winrt_commethod(6)
     def CreateWithStartTime(self, source: Windows.Media.Core.MediaSource, startTime: Windows.Foundation.TimeSpan) -> Windows.Media.Playback.MediaPlaybackItem: ...
     @winrt_commethod(7)
     def CreateWithStartTimeAndDurationLimit(self, source: Windows.Media.Core.MediaSource, startTime: Windows.Foundation.TimeSpan, durationLimit: Windows.Foundation.TimeSpan) -> Windows.Media.Playback.MediaPlaybackItem: ...
-class IMediaPlaybackItemFailedEventArgs(c_void_p):
+class IMediaPlaybackItemFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7703134a-e9a7-47c3-86-2c-c6-56-d3-06-83-d4')
     @winrt_commethod(6)
@@ -561,18 +561,18 @@ class IMediaPlaybackItemFailedEventArgs(c_void_p):
     def get_Error(self) -> Windows.Media.Playback.MediaPlaybackItemError: ...
     Item = property(get_Item, None)
     Error = property(get_Error, None)
-class IMediaPlaybackItemOpenedEventArgs(c_void_p):
+class IMediaPlaybackItemOpenedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cbd9bd82-3037-4fbe-ae-8f-39-fc-39-ed-f4-ef')
     @winrt_commethod(6)
     def get_Item(self) -> Windows.Media.Playback.MediaPlaybackItem: ...
     Item = property(get_Item, None)
-class IMediaPlaybackItemStatics(c_void_p):
+class IMediaPlaybackItemStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4b1be7f4-4345-403c-8a-67-f5-de-91-df-4c-86')
     @winrt_commethod(6)
     def FindFromMediaSource(self, source: Windows.Media.Core.MediaSource) -> Windows.Media.Playback.MediaPlaybackItem: ...
-class IMediaPlaybackList(c_void_p):
+class IMediaPlaybackList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7f77ee9c-dc42-4e26-a9-8d-78-50-df-8e-c9-25')
     @winrt_commethod(6)
@@ -612,7 +612,7 @@ class IMediaPlaybackList(c_void_p):
     ShuffleEnabled = property(get_ShuffleEnabled, put_ShuffleEnabled)
     CurrentItem = property(get_CurrentItem, None)
     CurrentItemIndex = property(get_CurrentItemIndex, None)
-class IMediaPlaybackList2(c_void_p):
+class IMediaPlaybackList2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0e09b478-600a-4274-a1-4b-0b-67-23-d0-f4-8b')
     @winrt_commethod(6)
@@ -630,7 +630,7 @@ class IMediaPlaybackList2(c_void_p):
     MaxPrefetchTime = property(get_MaxPrefetchTime, put_MaxPrefetchTime)
     StartingItem = property(get_StartingItem, put_StartingItem)
     ShuffledItems = property(get_ShuffledItems, None)
-class IMediaPlaybackList3(c_void_p):
+class IMediaPlaybackList3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dd24bba9-bc47-4463-aa-90-c1-8b-7e-5f-fd-e1')
     @winrt_commethod(6)
@@ -638,7 +638,7 @@ class IMediaPlaybackList3(c_void_p):
     @winrt_commethod(7)
     def put_MaxPlayedItemsToKeepOpen(self, value: Windows.Foundation.IReference[UInt32]) -> Void: ...
     MaxPlayedItemsToKeepOpen = property(get_MaxPlayedItemsToKeepOpen, put_MaxPlayedItemsToKeepOpen)
-class IMediaPlaybackSession(c_void_p):
+class IMediaPlaybackSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c32b683d-0407-41ba-89-46-8b-34-5a-5a-54-35')
     @winrt_commethod(6)
@@ -731,7 +731,7 @@ class IMediaPlaybackSession(c_void_p):
     NaturalVideoWidth = property(get_NaturalVideoWidth, None)
     NormalizedSourceRect = property(get_NormalizedSourceRect, put_NormalizedSourceRect)
     StereoscopicVideoPackingMode = property(get_StereoscopicVideoPackingMode, put_StereoscopicVideoPackingMode)
-class IMediaPlaybackSession2(c_void_p):
+class IMediaPlaybackSession2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f8ba7c79-1fc8-4097-ad-70-c0-fa-18-cc-00-50')
     @winrt_commethod(6)
@@ -766,7 +766,7 @@ class IMediaPlaybackSession2(c_void_p):
     def IsSupportedPlaybackRateRange(self, rate1: Double, rate2: Double) -> Boolean: ...
     SphericalVideoProjection = property(get_SphericalVideoProjection, None)
     IsMirroring = property(get_IsMirroring, put_IsMirroring)
-class IMediaPlaybackSession3(c_void_p):
+class IMediaPlaybackSession3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7ba2b41a-a3e2-405f-b7-7b-a4-81-2c-23-8b-66')
     @winrt_commethod(6)
@@ -776,22 +776,22 @@ class IMediaPlaybackSession3(c_void_p):
     @winrt_commethod(8)
     def GetOutputDegradationPolicyState(self) -> Windows.Media.Playback.MediaPlaybackSessionOutputDegradationPolicyState: ...
     PlaybackRotation = property(get_PlaybackRotation, put_PlaybackRotation)
-class IMediaPlaybackSessionBufferingStartedEventArgs(c_void_p):
+class IMediaPlaybackSessionBufferingStartedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cd6aafed-74e2-43b5-b1-15-76-23-6c-33-79-1a')
     @winrt_commethod(6)
     def get_IsPlaybackInterruption(self) -> Boolean: ...
     IsPlaybackInterruption = property(get_IsPlaybackInterruption, None)
-class IMediaPlaybackSessionOutputDegradationPolicyState(c_void_p):
+class IMediaPlaybackSessionOutputDegradationPolicyState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('558e727d-f633-49f9-96-5a-ab-aa-1d-b7-09-be')
     @winrt_commethod(6)
     def get_VideoConstrictionReason(self) -> Windows.Media.Playback.MediaPlaybackSessionVideoConstrictionReason: ...
     VideoConstrictionReason = property(get_VideoConstrictionReason, None)
-class IMediaPlaybackSource(c_void_p):
+class IMediaPlaybackSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ef9dc2bc-9317-4696-b0-51-2b-ad-64-31-77-b5')
-class IMediaPlaybackSphericalVideoProjection(c_void_p):
+class IMediaPlaybackSphericalVideoProjection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d405b37c-6f0e-4661-b8-ee-d4-87-ba-97-52-d5')
     @winrt_commethod(6)
@@ -819,7 +819,7 @@ class IMediaPlaybackSphericalVideoProjection(c_void_p):
     HorizontalFieldOfViewInDegrees = property(get_HorizontalFieldOfViewInDegrees, put_HorizontalFieldOfViewInDegrees)
     ViewOrientation = property(get_ViewOrientation, put_ViewOrientation)
     ProjectionMode = property(get_ProjectionMode, put_ProjectionMode)
-class IMediaPlaybackTimedMetadataTrackList(c_void_p):
+class IMediaPlaybackTimedMetadataTrackList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('72b41319-bbfb-46a3-93-72-9c-9c-74-4b-94-38')
     @winrt_commethod(6)
@@ -830,7 +830,7 @@ class IMediaPlaybackTimedMetadataTrackList(c_void_p):
     def GetPresentationMode(self, index: UInt32) -> Windows.Media.Playback.TimedMetadataTrackPresentationMode: ...
     @winrt_commethod(9)
     def SetPresentationMode(self, index: UInt32, value: Windows.Media.Playback.TimedMetadataTrackPresentationMode) -> Void: ...
-class IMediaPlayer(c_void_p):
+class IMediaPlayer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('381a83cb-6fff-499b-8d-64-28-85-df-c1-24-9e')
     @winrt_commethod(6)
@@ -930,7 +930,7 @@ class IMediaPlayer(c_void_p):
     PlaybackRate = property(get_PlaybackRate, put_PlaybackRate)
     Volume = property(get_Volume, put_Volume)
     PlaybackMediaMarkers = property(get_PlaybackMediaMarkers, None)
-class IMediaPlayer2(c_void_p):
+class IMediaPlayer2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3c841218-2123-4fc5-90-82-2f-88-3f-77-bd-f5')
     @winrt_commethod(6)
@@ -946,7 +946,7 @@ class IMediaPlayer2(c_void_p):
     SystemMediaTransportControls = property(get_SystemMediaTransportControls, None)
     AudioCategory = property(get_AudioCategory, put_AudioCategory)
     AudioDeviceType = property(get_AudioDeviceType, put_AudioDeviceType)
-class IMediaPlayer3(c_void_p):
+class IMediaPlayer3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ee0660da-031b-4feb-bd-9b-92-e0-a0-a8-d2-99')
     @winrt_commethod(6)
@@ -1002,14 +1002,14 @@ class IMediaPlayer3(c_void_p):
     TimelineController = property(get_TimelineController, put_TimelineController)
     TimelineControllerPositionOffset = property(get_TimelineControllerPositionOffset, put_TimelineControllerPositionOffset)
     PlaybackSession = property(get_PlaybackSession, None)
-class IMediaPlayer4(c_void_p):
+class IMediaPlayer4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('80035db0-7448-4770-af-cf-2a-57-45-09-14-c5')
     @winrt_commethod(6)
     def SetSurfaceSize(self, size: Windows.Foundation.Size) -> Void: ...
     @winrt_commethod(7)
     def GetSurface(self, compositor: Windows.UI.Composition.Compositor) -> Windows.Media.Playback.MediaPlayerSurface: ...
-class IMediaPlayer5(c_void_p):
+class IMediaPlayer5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cfe537fd-f86a-4446-bf-4d-c8-e7-92-b7-b4-b3')
     @winrt_commethod(6)
@@ -1027,7 +1027,7 @@ class IMediaPlayer5(c_void_p):
     @winrt_commethod(12)
     def CopyFrameToStereoscopicVideoSurfaces(self, destinationLeftEye: Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface, destinationRightEye: Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface) -> Void: ...
     IsVideoFrameServerEnabled = property(get_IsVideoFrameServerEnabled, put_IsVideoFrameServerEnabled)
-class IMediaPlayer6(c_void_p):
+class IMediaPlayer6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e0caa086-ae65-414c-b0-10-8b-c5-5f-00-e6-92')
     @winrt_commethod(6)
@@ -1038,31 +1038,31 @@ class IMediaPlayer6(c_void_p):
     def RenderSubtitlesToSurface(self, destination: Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface) -> Boolean: ...
     @winrt_commethod(9)
     def RenderSubtitlesToSurfaceWithTargetRectangle(self, destination: Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface, targetRectangle: Windows.Foundation.Rect) -> Boolean: ...
-class IMediaPlayer7(c_void_p):
+class IMediaPlayer7(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5d1dc478-4500-4531-b3-f4-77-7a-71-49-1f-7f')
     @winrt_commethod(6)
     def get_AudioStateMonitor(self) -> Windows.Media.Audio.AudioStateMonitor: ...
     AudioStateMonitor = property(get_AudioStateMonitor, None)
-class IMediaPlayerDataReceivedEventArgs(c_void_p):
+class IMediaPlayerDataReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c75a9405-c801-412a-83-5b-83-fc-0e-62-2a-8e')
     @winrt_commethod(6)
     def get_Data(self) -> Windows.Foundation.Collections.ValueSet: ...
     Data = property(get_Data, None)
-class IMediaPlayerEffects(c_void_p):
+class IMediaPlayerEffects(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('85a1deda-cab6-4cc0-8b-e3-60-35-f4-de-25-91')
     @winrt_commethod(6)
     def AddAudioEffect(self, activatableClassId: WinRT_String, effectOptional: Boolean, configuration: Windows.Foundation.Collections.IPropertySet) -> Void: ...
     @winrt_commethod(7)
     def RemoveAllEffects(self) -> Void: ...
-class IMediaPlayerEffects2(c_void_p):
+class IMediaPlayerEffects2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fa419a79-1bbe-46c5-ae-1f-8e-e6-9f-b3-c2-c7')
     @winrt_commethod(6)
     def AddVideoEffect(self, activatableClassId: WinRT_String, effectOptional: Boolean, effectConfiguration: Windows.Foundation.Collections.IPropertySet) -> Void: ...
-class IMediaPlayerFailedEventArgs(c_void_p):
+class IMediaPlayerFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2744e9b9-a7e3-4f16-ba-c4-79-14-eb-c0-83-01')
     @winrt_commethod(6)
@@ -1074,13 +1074,13 @@ class IMediaPlayerFailedEventArgs(c_void_p):
     Error = property(get_Error, None)
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
     ErrorMessage = property(get_ErrorMessage, None)
-class IMediaPlayerRateChangedEventArgs(c_void_p):
+class IMediaPlayerRateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('40600d58-3b61-4bb2-98-9f-fc-65-60-8b-6c-ab')
     @winrt_commethod(6)
     def get_NewRate(self) -> Double: ...
     NewRate = property(get_NewRate, None)
-class IMediaPlayerSource(c_void_p):
+class IMediaPlayerSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bd4f8897-1423-4c3e-82-c5-0f-b1-af-94-f7-15')
     @winrt_commethod(6)
@@ -1094,7 +1094,7 @@ class IMediaPlayerSource(c_void_p):
     @winrt_commethod(10)
     def SetMediaSource(self, source: Windows.Media.Core.IMediaSource) -> Void: ...
     ProtectionManager = property(get_ProtectionManager, put_ProtectionManager)
-class IMediaPlayerSource2(c_void_p):
+class IMediaPlayerSource2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('82449b9f-7322-4c0b-b0-3b-3e-69-a4-82-60-c5')
     @winrt_commethod(6)
@@ -1102,7 +1102,7 @@ class IMediaPlayerSource2(c_void_p):
     @winrt_commethod(7)
     def put_Source(self, value: Windows.Media.Playback.IMediaPlaybackSource) -> Void: ...
     Source = property(get_Source, put_Source)
-class IMediaPlayerSurface(c_void_p):
+class IMediaPlayerSurface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0ed653bc-b736-49c3-83-0b-76-4a-38-45-31-3a')
     @winrt_commethod(6)
@@ -1114,7 +1114,7 @@ class IMediaPlayerSurface(c_void_p):
     CompositionSurface = property(get_CompositionSurface, None)
     Compositor = property(get_Compositor, None)
     MediaPlayer = property(get_MediaPlayer, None)
-class IPlaybackMediaMarker(c_void_p):
+class IPlaybackMediaMarker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c4d22f5c-3c1c-4444-b6-b9-77-8b-04-22-d4-1a')
     @winrt_commethod(6)
@@ -1126,20 +1126,20 @@ class IPlaybackMediaMarker(c_void_p):
     Time = property(get_Time, None)
     MediaMarkerType = property(get_MediaMarkerType, None)
     Text = property(get_Text, None)
-class IPlaybackMediaMarkerFactory(c_void_p):
+class IPlaybackMediaMarkerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8c530a78-e0ae-4e1a-a8-c8-e2-3f-98-2a-93-7b')
     @winrt_commethod(6)
     def CreateFromTime(self, value: Windows.Foundation.TimeSpan) -> Windows.Media.Playback.PlaybackMediaMarker: ...
     @winrt_commethod(7)
     def Create(self, value: Windows.Foundation.TimeSpan, mediaMarketType: WinRT_String, text: WinRT_String) -> Windows.Media.Playback.PlaybackMediaMarker: ...
-class IPlaybackMediaMarkerReachedEventArgs(c_void_p):
+class IPlaybackMediaMarkerReachedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('578cd1b9-90e2-4e60-ab-c4-87-40-b0-1f-61-96')
     @winrt_commethod(6)
     def get_PlaybackMediaMarker(self) -> Windows.Media.Playback.PlaybackMediaMarker: ...
     PlaybackMediaMarker = property(get_PlaybackMediaMarker, None)
-class IPlaybackMediaMarkerSequence(c_void_p):
+class IPlaybackMediaMarkerSequence(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f2810cee-638b-46cf-88-17-1d-11-1f-e9-d8-c4')
     @winrt_commethod(6)
@@ -1149,7 +1149,7 @@ class IPlaybackMediaMarkerSequence(c_void_p):
     @winrt_commethod(8)
     def Clear(self) -> Void: ...
     Size = property(get_Size, None)
-class ITimedMetadataPresentationModeChangedEventArgs(c_void_p):
+class ITimedMetadataPresentationModeChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d1636099-65df-45ae-8c-ef-dc-0b-53-fd-c2-bb')
     @winrt_commethod(6)
@@ -1161,7 +1161,7 @@ class ITimedMetadataPresentationModeChangedEventArgs(c_void_p):
     Track = property(get_Track, None)
     OldPresentationMode = property(get_OldPresentationMode, None)
     NewPresentationMode = property(get_NewPresentationMode, None)
-class MediaBreak(c_void_p):
+class MediaBreak(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaBreak'
     @winrt_factorymethod
@@ -1185,7 +1185,7 @@ class MediaBreak(c_void_p):
     InsertionMethod = property(get_InsertionMethod, None)
     CustomProperties = property(get_CustomProperties, None)
     CanStart = property(get_CanStart, put_CanStart)
-class MediaBreakEndedEventArgs(c_void_p):
+class MediaBreakEndedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaBreakEndedEventArgs'
     @winrt_mixinmethod
@@ -1194,7 +1194,7 @@ class MediaBreakEndedEventArgs(c_void_p):
 MediaBreakInsertionMethod = Int32
 MediaBreakInsertionMethod_Interrupt: MediaBreakInsertionMethod = 0
 MediaBreakInsertionMethod_Replace: MediaBreakInsertionMethod = 1
-class MediaBreakManager(c_void_p):
+class MediaBreakManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaBreakManager'
     @winrt_mixinmethod
@@ -1223,7 +1223,7 @@ class MediaBreakManager(c_void_p):
     def SkipCurrentBreak(self: Windows.Media.Playback.IMediaBreakManager) -> Void: ...
     CurrentBreak = property(get_CurrentBreak, None)
     PlaybackSession = property(get_PlaybackSession, None)
-class MediaBreakSchedule(c_void_p):
+class MediaBreakSchedule(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaBreakSchedule'
     @winrt_mixinmethod
@@ -1250,7 +1250,7 @@ class MediaBreakSchedule(c_void_p):
     PrerollBreak = property(get_PrerollBreak, put_PrerollBreak)
     PostrollBreak = property(get_PostrollBreak, put_PostrollBreak)
     PlaybackItem = property(get_PlaybackItem, None)
-class MediaBreakSeekedOverEventArgs(c_void_p):
+class MediaBreakSeekedOverEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaBreakSeekedOverEventArgs'
     @winrt_mixinmethod
@@ -1262,13 +1262,13 @@ class MediaBreakSeekedOverEventArgs(c_void_p):
     SeekedOverBreaks = property(get_SeekedOverBreaks, None)
     OldPosition = property(get_OldPosition, None)
     NewPosition = property(get_NewPosition, None)
-class MediaBreakSkippedEventArgs(c_void_p):
+class MediaBreakSkippedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaBreakSkippedEventArgs'
     @winrt_mixinmethod
     def get_MediaBreak(self: Windows.Media.Playback.IMediaBreakSkippedEventArgs) -> Windows.Media.Playback.MediaBreak: ...
     MediaBreak = property(get_MediaBreak, None)
-class MediaBreakStartedEventArgs(c_void_p):
+class MediaBreakStartedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaBreakStartedEventArgs'
     @winrt_mixinmethod
@@ -1278,7 +1278,7 @@ MediaCommandEnablingRule = Int32
 MediaCommandEnablingRule_Auto: MediaCommandEnablingRule = 0
 MediaCommandEnablingRule_Always: MediaCommandEnablingRule = 1
 MediaCommandEnablingRule_Never: MediaCommandEnablingRule = 2
-class MediaItemDisplayProperties(c_void_p):
+class MediaItemDisplayProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaItemDisplayProperties'
     @winrt_mixinmethod
@@ -1299,7 +1299,7 @@ class MediaItemDisplayProperties(c_void_p):
     MusicProperties = property(get_MusicProperties, None)
     VideoProperties = property(get_VideoProperties, None)
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
-class MediaPlaybackAudioTrackList(c_void_p):
+class MediaPlaybackAudioTrackList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackAudioTrackList'
     @winrt_mixinmethod
@@ -1322,7 +1322,7 @@ class MediaPlaybackAudioTrackList(c_void_p):
     def get_SelectedIndex(self: Windows.Media.Core.ISingleSelectMediaTrackList) -> Int32: ...
     Size = property(get_Size, None)
     SelectedIndex = property(get_SelectedIndex, put_SelectedIndex)
-class MediaPlaybackCommandManager(c_void_p):
+class MediaPlaybackCommandManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackCommandManager'
     @winrt_mixinmethod
@@ -1403,7 +1403,7 @@ class MediaPlaybackCommandManager(c_void_p):
     AutoRepeatModeBehavior = property(get_AutoRepeatModeBehavior, None)
     PositionBehavior = property(get_PositionBehavior, None)
     RateBehavior = property(get_RateBehavior, None)
-class MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs(c_void_p):
+class MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs'
     @winrt_mixinmethod
@@ -1416,7 +1416,7 @@ class MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs(c_void_p):
     def GetDeferral(self: Windows.Media.Playback.IMediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
     AutoRepeatMode = property(get_AutoRepeatMode, None)
-class MediaPlaybackCommandManagerCommandBehavior(c_void_p):
+class MediaPlaybackCommandManagerCommandBehavior(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackCommandManagerCommandBehavior'
     @winrt_mixinmethod
@@ -1434,7 +1434,7 @@ class MediaPlaybackCommandManagerCommandBehavior(c_void_p):
     CommandManager = property(get_CommandManager, None)
     IsEnabled = property(get_IsEnabled, None)
     EnablingRule = property(get_EnablingRule, put_EnablingRule)
-class MediaPlaybackCommandManagerFastForwardReceivedEventArgs(c_void_p):
+class MediaPlaybackCommandManagerFastForwardReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackCommandManagerFastForwardReceivedEventArgs'
     @winrt_mixinmethod
@@ -1444,7 +1444,7 @@ class MediaPlaybackCommandManagerFastForwardReceivedEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.Media.Playback.IMediaPlaybackCommandManagerFastForwardReceivedEventArgs) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class MediaPlaybackCommandManagerNextReceivedEventArgs(c_void_p):
+class MediaPlaybackCommandManagerNextReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackCommandManagerNextReceivedEventArgs'
     @winrt_mixinmethod
@@ -1454,7 +1454,7 @@ class MediaPlaybackCommandManagerNextReceivedEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.Media.Playback.IMediaPlaybackCommandManagerNextReceivedEventArgs) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class MediaPlaybackCommandManagerPauseReceivedEventArgs(c_void_p):
+class MediaPlaybackCommandManagerPauseReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackCommandManagerPauseReceivedEventArgs'
     @winrt_mixinmethod
@@ -1464,7 +1464,7 @@ class MediaPlaybackCommandManagerPauseReceivedEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.Media.Playback.IMediaPlaybackCommandManagerPauseReceivedEventArgs) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class MediaPlaybackCommandManagerPlayReceivedEventArgs(c_void_p):
+class MediaPlaybackCommandManagerPlayReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackCommandManagerPlayReceivedEventArgs'
     @winrt_mixinmethod
@@ -1474,7 +1474,7 @@ class MediaPlaybackCommandManagerPlayReceivedEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.Media.Playback.IMediaPlaybackCommandManagerPlayReceivedEventArgs) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class MediaPlaybackCommandManagerPositionReceivedEventArgs(c_void_p):
+class MediaPlaybackCommandManagerPositionReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackCommandManagerPositionReceivedEventArgs'
     @winrt_mixinmethod
@@ -1487,7 +1487,7 @@ class MediaPlaybackCommandManagerPositionReceivedEventArgs(c_void_p):
     def GetDeferral(self: Windows.Media.Playback.IMediaPlaybackCommandManagerPositionReceivedEventArgs) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
     Position = property(get_Position, None)
-class MediaPlaybackCommandManagerPreviousReceivedEventArgs(c_void_p):
+class MediaPlaybackCommandManagerPreviousReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackCommandManagerPreviousReceivedEventArgs'
     @winrt_mixinmethod
@@ -1497,7 +1497,7 @@ class MediaPlaybackCommandManagerPreviousReceivedEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.Media.Playback.IMediaPlaybackCommandManagerPreviousReceivedEventArgs) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class MediaPlaybackCommandManagerRateReceivedEventArgs(c_void_p):
+class MediaPlaybackCommandManagerRateReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackCommandManagerRateReceivedEventArgs'
     @winrt_mixinmethod
@@ -1510,7 +1510,7 @@ class MediaPlaybackCommandManagerRateReceivedEventArgs(c_void_p):
     def GetDeferral(self: Windows.Media.Playback.IMediaPlaybackCommandManagerRateReceivedEventArgs) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
     PlaybackRate = property(get_PlaybackRate, None)
-class MediaPlaybackCommandManagerRewindReceivedEventArgs(c_void_p):
+class MediaPlaybackCommandManagerRewindReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackCommandManagerRewindReceivedEventArgs'
     @winrt_mixinmethod
@@ -1520,7 +1520,7 @@ class MediaPlaybackCommandManagerRewindReceivedEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.Media.Playback.IMediaPlaybackCommandManagerRewindReceivedEventArgs) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class MediaPlaybackCommandManagerShuffleReceivedEventArgs(c_void_p):
+class MediaPlaybackCommandManagerShuffleReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackCommandManagerShuffleReceivedEventArgs'
     @winrt_mixinmethod
@@ -1533,7 +1533,7 @@ class MediaPlaybackCommandManagerShuffleReceivedEventArgs(c_void_p):
     def GetDeferral(self: Windows.Media.Playback.IMediaPlaybackCommandManagerShuffleReceivedEventArgs) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
     IsShuffleRequested = property(get_IsShuffleRequested, None)
-class MediaPlaybackItem(c_void_p):
+class MediaPlaybackItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackItem'
     @winrt_factorymethod
@@ -1604,7 +1604,7 @@ MediaPlaybackItemChangedReason_InitialItem: MediaPlaybackItemChangedReason = 0
 MediaPlaybackItemChangedReason_EndOfStream: MediaPlaybackItemChangedReason = 1
 MediaPlaybackItemChangedReason_Error: MediaPlaybackItemChangedReason = 2
 MediaPlaybackItemChangedReason_AppRequested: MediaPlaybackItemChangedReason = 3
-class MediaPlaybackItemError(c_void_p):
+class MediaPlaybackItemError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackItemError'
     @winrt_mixinmethod
@@ -1620,7 +1620,7 @@ MediaPlaybackItemErrorCode_NetworkError: MediaPlaybackItemErrorCode = 2
 MediaPlaybackItemErrorCode_DecodeError: MediaPlaybackItemErrorCode = 3
 MediaPlaybackItemErrorCode_SourceNotSupportedError: MediaPlaybackItemErrorCode = 4
 MediaPlaybackItemErrorCode_EncryptionError: MediaPlaybackItemErrorCode = 5
-class MediaPlaybackItemFailedEventArgs(c_void_p):
+class MediaPlaybackItemFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackItemFailedEventArgs'
     @winrt_mixinmethod
@@ -1629,13 +1629,13 @@ class MediaPlaybackItemFailedEventArgs(c_void_p):
     def get_Error(self: Windows.Media.Playback.IMediaPlaybackItemFailedEventArgs) -> Windows.Media.Playback.MediaPlaybackItemError: ...
     Item = property(get_Item, None)
     Error = property(get_Error, None)
-class MediaPlaybackItemOpenedEventArgs(c_void_p):
+class MediaPlaybackItemOpenedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackItemOpenedEventArgs'
     @winrt_mixinmethod
     def get_Item(self: Windows.Media.Playback.IMediaPlaybackItemOpenedEventArgs) -> Windows.Media.Playback.MediaPlaybackItem: ...
     Item = property(get_Item, None)
-class MediaPlaybackList(c_void_p):
+class MediaPlaybackList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackList'
     @winrt_activatemethod
@@ -1697,7 +1697,7 @@ class MediaPlaybackList(c_void_p):
     StartingItem = property(get_StartingItem, put_StartingItem)
     ShuffledItems = property(get_ShuffledItems, None)
     MaxPlayedItemsToKeepOpen = property(get_MaxPlayedItemsToKeepOpen, put_MaxPlayedItemsToKeepOpen)
-class MediaPlaybackSession(c_void_p):
+class MediaPlaybackSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackSession'
     @winrt_mixinmethod
@@ -1829,13 +1829,13 @@ class MediaPlaybackSession(c_void_p):
     SphericalVideoProjection = property(get_SphericalVideoProjection, None)
     IsMirroring = property(get_IsMirroring, put_IsMirroring)
     PlaybackRotation = property(get_PlaybackRotation, put_PlaybackRotation)
-class MediaPlaybackSessionBufferingStartedEventArgs(c_void_p):
+class MediaPlaybackSessionBufferingStartedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackSessionBufferingStartedEventArgs'
     @winrt_mixinmethod
     def get_IsPlaybackInterruption(self: Windows.Media.Playback.IMediaPlaybackSessionBufferingStartedEventArgs) -> Boolean: ...
     IsPlaybackInterruption = property(get_IsPlaybackInterruption, None)
-class MediaPlaybackSessionOutputDegradationPolicyState(c_void_p):
+class MediaPlaybackSessionOutputDegradationPolicyState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackSessionOutputDegradationPolicyState'
     @winrt_mixinmethod
@@ -1849,7 +1849,7 @@ MediaPlaybackSessionVideoConstrictionReason_UnsignedDriver: MediaPlaybackSession
 MediaPlaybackSessionVideoConstrictionReason_FrameServerEnabled: MediaPlaybackSessionVideoConstrictionReason = 4
 MediaPlaybackSessionVideoConstrictionReason_OutputProtectionFailed: MediaPlaybackSessionVideoConstrictionReason = 5
 MediaPlaybackSessionVideoConstrictionReason_Unknown: MediaPlaybackSessionVideoConstrictionReason = 6
-class MediaPlaybackSphericalVideoProjection(c_void_p):
+class MediaPlaybackSphericalVideoProjection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackSphericalVideoProjection'
     @winrt_mixinmethod
@@ -1883,7 +1883,7 @@ MediaPlaybackState_Opening: MediaPlaybackState = 1
 MediaPlaybackState_Buffering: MediaPlaybackState = 2
 MediaPlaybackState_Playing: MediaPlaybackState = 3
 MediaPlaybackState_Paused: MediaPlaybackState = 4
-class MediaPlaybackTimedMetadataTrackList(c_void_p):
+class MediaPlaybackTimedMetadataTrackList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackTimedMetadataTrackList'
     @winrt_mixinmethod
@@ -1905,7 +1905,7 @@ class MediaPlaybackTimedMetadataTrackList(c_void_p):
     @winrt_mixinmethod
     def SetPresentationMode(self: Windows.Media.Playback.IMediaPlaybackTimedMetadataTrackList, index: UInt32, value: Windows.Media.Playback.TimedMetadataTrackPresentationMode) -> Void: ...
     Size = property(get_Size, None)
-class MediaPlaybackVideoTrackList(c_void_p):
+class MediaPlaybackVideoTrackList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlaybackVideoTrackList'
     @winrt_mixinmethod
@@ -1928,7 +1928,7 @@ class MediaPlaybackVideoTrackList(c_void_p):
     def get_SelectedIndex(self: Windows.Media.Core.ISingleSelectMediaTrackList) -> Int32: ...
     Size = property(get_Size, None)
     SelectedIndex = property(get_SelectedIndex, put_SelectedIndex)
-class MediaPlayer(c_void_p):
+class MediaPlayer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlayer'
     @winrt_activatemethod
@@ -2165,7 +2165,7 @@ MediaPlayerAudioDeviceType = Int32
 MediaPlayerAudioDeviceType_Console: MediaPlayerAudioDeviceType = 0
 MediaPlayerAudioDeviceType_Multimedia: MediaPlayerAudioDeviceType = 1
 MediaPlayerAudioDeviceType_Communications: MediaPlayerAudioDeviceType = 2
-class MediaPlayerDataReceivedEventArgs(c_void_p):
+class MediaPlayerDataReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlayerDataReceivedEventArgs'
     @winrt_mixinmethod
@@ -2177,7 +2177,7 @@ MediaPlayerError_Aborted: MediaPlayerError = 1
 MediaPlayerError_NetworkError: MediaPlayerError = 2
 MediaPlayerError_DecodingError: MediaPlayerError = 3
 MediaPlayerError_SourceNotSupported: MediaPlayerError = 4
-class MediaPlayerFailedEventArgs(c_void_p):
+class MediaPlayerFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlayerFailedEventArgs'
     @winrt_mixinmethod
@@ -2189,7 +2189,7 @@ class MediaPlayerFailedEventArgs(c_void_p):
     Error = property(get_Error, None)
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
     ErrorMessage = property(get_ErrorMessage, None)
-class MediaPlayerRateChangedEventArgs(c_void_p):
+class MediaPlayerRateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlayerRateChangedEventArgs'
     @winrt_mixinmethod
@@ -2202,7 +2202,7 @@ MediaPlayerState_Buffering: MediaPlayerState = 2
 MediaPlayerState_Playing: MediaPlayerState = 3
 MediaPlayerState_Paused: MediaPlayerState = 4
 MediaPlayerState_Stopped: MediaPlayerState = 5
-class MediaPlayerSurface(c_void_p):
+class MediaPlayerSurface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.MediaPlayerSurface'
     @winrt_mixinmethod
@@ -2216,7 +2216,7 @@ class MediaPlayerSurface(c_void_p):
     CompositionSurface = property(get_CompositionSurface, None)
     Compositor = property(get_Compositor, None)
     MediaPlayer = property(get_MediaPlayer, None)
-class PlaybackMediaMarker(c_void_p):
+class PlaybackMediaMarker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.PlaybackMediaMarker'
     @winrt_factorymethod
@@ -2232,13 +2232,13 @@ class PlaybackMediaMarker(c_void_p):
     Time = property(get_Time, None)
     MediaMarkerType = property(get_MediaMarkerType, None)
     Text = property(get_Text, None)
-class PlaybackMediaMarkerReachedEventArgs(c_void_p):
+class PlaybackMediaMarkerReachedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.PlaybackMediaMarkerReachedEventArgs'
     @winrt_mixinmethod
     def get_PlaybackMediaMarker(self: Windows.Media.Playback.IPlaybackMediaMarkerReachedEventArgs) -> Windows.Media.Playback.PlaybackMediaMarker: ...
     PlaybackMediaMarker = property(get_PlaybackMediaMarker, None)
-class PlaybackMediaMarkerSequence(c_void_p):
+class PlaybackMediaMarkerSequence(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.PlaybackMediaMarkerSequence'
     @winrt_mixinmethod
@@ -2256,7 +2256,7 @@ SphericalVideoProjectionMode_Flat: SphericalVideoProjectionMode = 1
 StereoscopicVideoRenderMode = Int32
 StereoscopicVideoRenderMode_Mono: StereoscopicVideoRenderMode = 0
 StereoscopicVideoRenderMode_Stereo: StereoscopicVideoRenderMode = 1
-class TimedMetadataPresentationModeChangedEventArgs(c_void_p):
+class TimedMetadataPresentationModeChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Playback.TimedMetadataPresentationModeChangedEventArgs'
     @winrt_mixinmethod

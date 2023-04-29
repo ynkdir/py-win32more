@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Enumeration
@@ -25,7 +25,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class CastingConnection(c_void_p):
+class CastingConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Casting.CastingConnection'
     @winrt_mixinmethod
@@ -53,7 +53,7 @@ class CastingConnection(c_void_p):
     State = property(get_State, None)
     Device = property(get_Device, None)
     Source = property(get_Source, put_Source)
-class CastingConnectionErrorOccurredEventArgs(c_void_p):
+class CastingConnectionErrorOccurredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Casting.CastingConnectionErrorOccurredEventArgs'
     @winrt_mixinmethod
@@ -76,7 +76,7 @@ CastingConnectionState_Connected: CastingConnectionState = 1
 CastingConnectionState_Rendering: CastingConnectionState = 2
 CastingConnectionState_Disconnecting: CastingConnectionState = 3
 CastingConnectionState_Connecting: CastingConnectionState = 4
-class CastingDevice(c_void_p):
+class CastingDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Casting.CastingDevice'
     @winrt_mixinmethod
@@ -100,7 +100,7 @@ class CastingDevice(c_void_p):
     Id = property(get_Id, None)
     FriendlyName = property(get_FriendlyName, None)
     Icon = property(get_Icon, None)
-class CastingDevicePicker(c_void_p):
+class CastingDevicePicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Casting.CastingDevicePicker'
     @winrt_activatemethod
@@ -125,7 +125,7 @@ class CastingDevicePicker(c_void_p):
     def Hide(self: Windows.Media.Casting.ICastingDevicePicker) -> Void: ...
     Filter = property(get_Filter, None)
     Appearance = property(get_Appearance, None)
-class CastingDevicePickerFilter(c_void_p):
+class CastingDevicePickerFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Casting.CastingDevicePickerFilter'
     @winrt_mixinmethod
@@ -146,7 +146,7 @@ class CastingDevicePickerFilter(c_void_p):
     SupportsVideo = property(get_SupportsVideo, put_SupportsVideo)
     SupportsPictures = property(get_SupportsPictures, put_SupportsPictures)
     SupportedCastingSources = property(get_SupportedCastingSources, None)
-class CastingDeviceSelectedEventArgs(c_void_p):
+class CastingDeviceSelectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Casting.CastingDeviceSelectedEventArgs'
     @winrt_mixinmethod
@@ -157,7 +157,7 @@ CastingPlaybackTypes_None: CastingPlaybackTypes = 0
 CastingPlaybackTypes_Audio: CastingPlaybackTypes = 1
 CastingPlaybackTypes_Video: CastingPlaybackTypes = 2
 CastingPlaybackTypes_Picture: CastingPlaybackTypes = 4
-class CastingSource(c_void_p):
+class CastingSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Casting.CastingSource'
     @winrt_mixinmethod
@@ -165,7 +165,7 @@ class CastingSource(c_void_p):
     @winrt_mixinmethod
     def put_PreferredSourceUri(self: Windows.Media.Casting.ICastingSource, value: Windows.Foundation.Uri) -> Void: ...
     PreferredSourceUri = property(get_PreferredSourceUri, put_PreferredSourceUri)
-class ICastingConnection(c_void_p):
+class ICastingConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cd951653-c2f1-4498-8b-78-5f-b4-cd-36-40-dd')
     @winrt_commethod(6)
@@ -191,7 +191,7 @@ class ICastingConnection(c_void_p):
     State = property(get_State, None)
     Device = property(get_Device, None)
     Source = property(get_Source, put_Source)
-class ICastingConnectionErrorOccurredEventArgs(c_void_p):
+class ICastingConnectionErrorOccurredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a7fb3c69-8719-4f00-81-fb-96-18-63-c7-9a-32')
     @winrt_commethod(6)
@@ -200,7 +200,7 @@ class ICastingConnectionErrorOccurredEventArgs(c_void_p):
     def get_Message(self) -> WinRT_String: ...
     ErrorStatus = property(get_ErrorStatus, None)
     Message = property(get_Message, None)
-class ICastingDevice(c_void_p):
+class ICastingDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('de721c83-4a43-4ad1-a6-d2-24-92-a7-96-c3-f2')
     @winrt_commethod(6)
@@ -216,7 +216,7 @@ class ICastingDevice(c_void_p):
     Id = property(get_Id, None)
     FriendlyName = property(get_FriendlyName, None)
     Icon = property(get_Icon, None)
-class ICastingDevicePicker(c_void_p):
+class ICastingDevicePicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dcd39924-0591-49be-aa-cb-4b-82-ee-75-6a-95')
     @winrt_commethod(6)
@@ -239,7 +239,7 @@ class ICastingDevicePicker(c_void_p):
     def Hide(self) -> Void: ...
     Filter = property(get_Filter, None)
     Appearance = property(get_Appearance, None)
-class ICastingDevicePickerFilter(c_void_p):
+class ICastingDevicePickerFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('be8c619c-b563-4354-ae-33-9f-da-ad-8c-62-91')
     @winrt_commethod(6)
@@ -260,13 +260,13 @@ class ICastingDevicePickerFilter(c_void_p):
     SupportsVideo = property(get_SupportsVideo, put_SupportsVideo)
     SupportsPictures = property(get_SupportsPictures, put_SupportsPictures)
     SupportedCastingSources = property(get_SupportedCastingSources, None)
-class ICastingDeviceSelectedEventArgs(c_void_p):
+class ICastingDeviceSelectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dc439e86-dd57-4d0d-94-00-af-45-e4-fb-36-63')
     @winrt_commethod(6)
     def get_SelectedCastingDevice(self) -> Windows.Media.Casting.CastingDevice: ...
     SelectedCastingDevice = property(get_SelectedCastingDevice, None)
-class ICastingDeviceStatics(c_void_p):
+class ICastingDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e7d958d7-4d13-4237-a3-65-4c-4f-6a-4c-fd-2f')
     @winrt_commethod(6)
@@ -277,7 +277,7 @@ class ICastingDeviceStatics(c_void_p):
     def FromIdAsync(self, value: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Media.Casting.CastingDevice]: ...
     @winrt_commethod(9)
     def DeviceInfoSupportsCastingAsync(self, device: Windows.Devices.Enumeration.DeviceInformation) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
-class ICastingSource(c_void_p):
+class ICastingSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f429ea72-3467-47e6-a0-27-52-29-23-e9-d7-27')
     @winrt_commethod(6)

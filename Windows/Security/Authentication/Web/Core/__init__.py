@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -24,7 +24,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class FindAllAccountsResult(c_void_p):
+class FindAllAccountsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Web.Core.FindAllAccountsResult'
     @winrt_mixinmethod
@@ -41,7 +41,7 @@ FindAllWebAccountsStatus_Success: FindAllWebAccountsStatus = 0
 FindAllWebAccountsStatus_NotAllowedByProvider: FindAllWebAccountsStatus = 1
 FindAllWebAccountsStatus_NotSupportedByProvider: FindAllWebAccountsStatus = 2
 FindAllWebAccountsStatus_ProviderError: FindAllWebAccountsStatus = 3
-class IFindAllAccountsResult(c_void_p):
+class IFindAllAccountsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a5812b5d-b72e-420c-86-ab-aa-c0-d7-b7-26-1f')
     @winrt_commethod(6)
@@ -53,13 +53,13 @@ class IFindAllAccountsResult(c_void_p):
     Accounts = property(get_Accounts, None)
     Status = property(get_Status, None)
     ProviderError = property(get_ProviderError, None)
-class IWebAccountEventArgs(c_void_p):
+class IWebAccountEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6fb7037d-424e-44ec-97-7c-ef-24-15-46-2a-5a')
     @winrt_commethod(6)
     def get_Account(self) -> Windows.Security.Credentials.WebAccount: ...
     Account = property(get_Account, None)
-class IWebAccountMonitor(c_void_p):
+class IWebAccountMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7445f5fd-aa9d-4619-8d-5d-c1-38-a4-ed-e3-e5')
     @winrt_commethod(6)
@@ -74,14 +74,14 @@ class IWebAccountMonitor(c_void_p):
     def add_DefaultSignInAccountChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Security.Authentication.Web.Core.WebAccountMonitor, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_DefaultSignInAccountChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IWebAccountMonitor2(c_void_p):
+class IWebAccountMonitor2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a7adc1f8-24b8-4f01-9a-e5-24-54-5e-71-23-3a')
     @winrt_commethod(6)
     def add_AccountPictureUpdated(self, handler: Windows.Foundation.TypedEventHandler[Windows.Security.Authentication.Web.Core.WebAccountMonitor, Windows.Security.Authentication.Web.Core.WebAccountEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_AccountPictureUpdated(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IWebAuthenticationCoreManagerStatics(c_void_p):
+class IWebAuthenticationCoreManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6aca7c92-a581-4479-9c-10-75-2e-ff-44-fd-34')
     @winrt_commethod(6)
@@ -98,17 +98,17 @@ class IWebAuthenticationCoreManagerStatics(c_void_p):
     def FindAccountProviderAsync(self, webAccountProviderId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.WebAccountProvider]: ...
     @winrt_commethod(12)
     def FindAccountProviderWithAuthorityAsync(self, webAccountProviderId: WinRT_String, authority: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.WebAccountProvider]: ...
-class IWebAuthenticationCoreManagerStatics2(c_void_p):
+class IWebAuthenticationCoreManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f584184a-8b57-4820-b6-a4-70-a5-b6-fc-f4-4a')
     @winrt_commethod(6)
     def FindAccountProviderWithAuthorityForUserAsync(self, webAccountProviderId: WinRT_String, authority: WinRT_String, user: Windows.System.User) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.WebAccountProvider]: ...
-class IWebAuthenticationCoreManagerStatics3(c_void_p):
+class IWebAuthenticationCoreManagerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2404eeb2-8924-4d93-ab-3a-99-68-8b-41-9d-56')
     @winrt_commethod(6)
     def CreateWebAccountMonitor(self, webAccounts: Windows.Foundation.Collections.IIterable[Windows.Security.Credentials.WebAccount]) -> Windows.Security.Authentication.Web.Core.WebAccountMonitor: ...
-class IWebAuthenticationCoreManagerStatics4(c_void_p):
+class IWebAuthenticationCoreManagerStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('54e633fe-96e0-41e8-98-32-12-98-89-7c-2a-af')
     @winrt_commethod(6)
@@ -121,7 +121,7 @@ class IWebAuthenticationCoreManagerStatics4(c_void_p):
     def FindSystemAccountProviderWithAuthorityAsync(self, webAccountProviderId: WinRT_String, authority: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.WebAccountProvider]: ...
     @winrt_commethod(10)
     def FindSystemAccountProviderWithAuthorityForUserAsync(self, webAccountProviderId: WinRT_String, authority: WinRT_String, user: Windows.System.User) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.WebAccountProvider]: ...
-class IWebProviderError(c_void_p):
+class IWebProviderError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('db191bb1-50c5-4809-8d-ca-09-c9-94-10-24-5c')
     @winrt_commethod(6)
@@ -133,12 +133,12 @@ class IWebProviderError(c_void_p):
     ErrorCode = property(get_ErrorCode, None)
     ErrorMessage = property(get_ErrorMessage, None)
     Properties = property(get_Properties, None)
-class IWebProviderErrorFactory(c_void_p):
+class IWebProviderErrorFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e3c40a2d-89ef-4e37-84-7f-a8-b9-d5-a3-29-10')
     @winrt_commethod(6)
     def Create(self, errorCode: UInt32, errorMessage: WinRT_String) -> Windows.Security.Authentication.Web.Core.WebProviderError: ...
-class IWebTokenRequest(c_void_p):
+class IWebTokenRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b77b4d68-adcb-4673-b3-64-0c-f7-b3-5c-af-97')
     @winrt_commethod(6)
@@ -156,13 +156,13 @@ class IWebTokenRequest(c_void_p):
     ClientId = property(get_ClientId, None)
     PromptType = property(get_PromptType, None)
     Properties = property(get_Properties, None)
-class IWebTokenRequest2(c_void_p):
+class IWebTokenRequest2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d700c079-30c8-4397-96-54-96-1c-3b-e8-b8-55')
     @winrt_commethod(6)
     def get_AppProperties(self) -> Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
     AppProperties = property(get_AppProperties, None)
-class IWebTokenRequest3(c_void_p):
+class IWebTokenRequest3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5a755b51-3bb1-41a5-a6-3d-90-bc-32-c7-db-9a')
     @winrt_commethod(6)
@@ -170,7 +170,7 @@ class IWebTokenRequest3(c_void_p):
     @winrt_commethod(7)
     def put_CorrelationId(self, value: WinRT_String) -> Void: ...
     CorrelationId = property(get_CorrelationId, put_CorrelationId)
-class IWebTokenRequestFactory(c_void_p):
+class IWebTokenRequestFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6cf2141c-0ff0-4c67-b8-4f-99-dd-be-4a-72-c9')
     @winrt_commethod(6)
@@ -181,7 +181,7 @@ class IWebTokenRequestFactory(c_void_p):
     def CreateWithProvider(self, provider: Windows.Security.Credentials.WebAccountProvider) -> Windows.Security.Authentication.Web.Core.WebTokenRequest: ...
     @winrt_commethod(9)
     def CreateWithScope(self, provider: Windows.Security.Credentials.WebAccountProvider, scope: WinRT_String) -> Windows.Security.Authentication.Web.Core.WebTokenRequest: ...
-class IWebTokenRequestResult(c_void_p):
+class IWebTokenRequestResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c12a8305-d1f8-4483-8d-54-38-fe-29-27-84-ff')
     @winrt_commethod(6)
@@ -195,7 +195,7 @@ class IWebTokenRequestResult(c_void_p):
     ResponseData = property(get_ResponseData, None)
     ResponseStatus = property(get_ResponseStatus, None)
     ResponseError = property(get_ResponseError, None)
-class IWebTokenResponse(c_void_p):
+class IWebTokenResponse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('67a7c5ca-83f6-44c6-a3-b1-0e-b6-9e-41-fa-8a')
     @winrt_commethod(6)
@@ -210,7 +210,7 @@ class IWebTokenResponse(c_void_p):
     ProviderError = property(get_ProviderError, None)
     WebAccount = property(get_WebAccount, None)
     Properties = property(get_Properties, None)
-class IWebTokenResponseFactory(c_void_p):
+class IWebTokenResponseFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ab6bf7f8-5450-4ef6-97-f7-05-2b-04-31-c0-f0')
     @winrt_commethod(6)
@@ -219,13 +219,13 @@ class IWebTokenResponseFactory(c_void_p):
     def CreateWithTokenAndAccount(self, token: WinRT_String, webAccount: Windows.Security.Credentials.WebAccount) -> Windows.Security.Authentication.Web.Core.WebTokenResponse: ...
     @winrt_commethod(8)
     def CreateWithTokenAccountAndError(self, token: WinRT_String, webAccount: Windows.Security.Credentials.WebAccount, error: Windows.Security.Authentication.Web.Core.WebProviderError) -> Windows.Security.Authentication.Web.Core.WebTokenResponse: ...
-class WebAccountEventArgs(c_void_p):
+class WebAccountEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Web.Core.WebAccountEventArgs'
     @winrt_mixinmethod
     def get_Account(self: Windows.Security.Authentication.Web.Core.IWebAccountEventArgs) -> Windows.Security.Credentials.WebAccount: ...
     Account = property(get_Account, None)
-class WebAccountMonitor(c_void_p):
+class WebAccountMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Web.Core.WebAccountMonitor'
     @winrt_mixinmethod
@@ -244,7 +244,7 @@ class WebAccountMonitor(c_void_p):
     def add_AccountPictureUpdated(self: Windows.Security.Authentication.Web.Core.IWebAccountMonitor2, handler: Windows.Foundation.TypedEventHandler[Windows.Security.Authentication.Web.Core.WebAccountMonitor, Windows.Security.Authentication.Web.Core.WebAccountEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_AccountPictureUpdated(self: Windows.Security.Authentication.Web.Core.IWebAccountMonitor2, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class WebAuthenticationCoreManager(c_void_p):
+class WebAuthenticationCoreManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager'
     @winrt_classmethod
@@ -275,7 +275,7 @@ class WebAuthenticationCoreManager(c_void_p):
     def FindAccountProviderAsync(cls: Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics, webAccountProviderId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.WebAccountProvider]: ...
     @winrt_classmethod
     def FindAccountProviderWithAuthorityAsync(cls: Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics, webAccountProviderId: WinRT_String, authority: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.WebAccountProvider]: ...
-class WebProviderError(c_void_p):
+class WebProviderError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Web.Core.WebProviderError'
     @winrt_factorymethod
@@ -289,7 +289,7 @@ class WebProviderError(c_void_p):
     ErrorCode = property(get_ErrorCode, None)
     ErrorMessage = property(get_ErrorMessage, None)
     Properties = property(get_Properties, None)
-class WebTokenRequest(c_void_p):
+class WebTokenRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Web.Core.WebTokenRequest'
     @winrt_factorymethod
@@ -326,7 +326,7 @@ class WebTokenRequest(c_void_p):
 WebTokenRequestPromptType = Int32
 WebTokenRequestPromptType_Default: WebTokenRequestPromptType = 0
 WebTokenRequestPromptType_ForceAuthentication: WebTokenRequestPromptType = 1
-class WebTokenRequestResult(c_void_p):
+class WebTokenRequestResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Web.Core.WebTokenRequestResult'
     @winrt_mixinmethod
@@ -347,7 +347,7 @@ WebTokenRequestStatus_AccountSwitch: WebTokenRequestStatus = 2
 WebTokenRequestStatus_UserInteractionRequired: WebTokenRequestStatus = 3
 WebTokenRequestStatus_AccountProviderNotAvailable: WebTokenRequestStatus = 4
 WebTokenRequestStatus_ProviderError: WebTokenRequestStatus = 5
-class WebTokenResponse(c_void_p):
+class WebTokenResponse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Web.Core.WebTokenResponse'
     @winrt_activatemethod

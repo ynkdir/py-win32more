@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -25,7 +25,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class INDClient(c_void_p):
+class INDClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3bd6781b-61b8-46e2-99-a5-8a-bc-b6-b9-f7-d6')
     @winrt_commethod(6)
@@ -56,12 +56,12 @@ class INDClient(c_void_p):
     def ReRegistrationAsync(self, registrationCustomData: Windows.Media.Protection.PlayReady.INDCustomData) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(19)
     def Close(self) -> Void: ...
-class INDClientFactory(c_void_p):
+class INDClientFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3e53dd62-fee8-451f-b0-d4-f7-06-cc-a3-e0-37')
     @winrt_commethod(6)
     def CreateInstance(self, downloadEngine: Windows.Media.Protection.PlayReady.INDDownloadEngine, streamParser: Windows.Media.Protection.PlayReady.INDStreamParser, pMessenger: Windows.Media.Protection.PlayReady.INDMessenger) -> Windows.Media.Protection.PlayReady.NDClient: ...
-class INDClosedCaptionDataReceivedEventArgs(c_void_p):
+class INDClosedCaptionDataReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4738d29f-c345-4649-84-68-b8-c5-fc-35-71-90')
     @winrt_commethod(6)
@@ -73,7 +73,7 @@ class INDClosedCaptionDataReceivedEventArgs(c_void_p):
     ClosedCaptionDataFormat = property(get_ClosedCaptionDataFormat, None)
     PresentationTimestamp = property(get_PresentationTimestamp, None)
     ClosedCaptionData = property(get_ClosedCaptionData, None)
-class INDCustomData(c_void_p):
+class INDCustomData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f5cb0fdc-2d09-4f19-b5-e1-76-a0-b3-ee-92-67')
     @winrt_commethod(6)
@@ -82,12 +82,12 @@ class INDCustomData(c_void_p):
     def get_CustomData(self) -> c_char_p_no: ...
     CustomDataTypeID = property(get_CustomDataTypeID, None)
     CustomData = property(get_CustomData, None)
-class INDCustomDataFactory(c_void_p):
+class INDCustomDataFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d65405ab-3424-4833-8c-9a-af-5f-de-b2-28-72')
     @winrt_commethod(6)
     def CreateInstance(self, customDataTypeIDBytes: c_char_p_no, customDataBytes: c_char_p_no) -> Windows.Media.Protection.PlayReady.NDCustomData: ...
-class INDDownloadEngine(c_void_p):
+class INDDownloadEngine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2d223d65-c4b6-4438-8d-46-b9-6e-6d-0f-b2-1f')
     @winrt_commethod(6)
@@ -112,7 +112,7 @@ class INDDownloadEngine(c_void_p):
     BufferFullMinThresholdInSamples = property(get_BufferFullMinThresholdInSamples, None)
     BufferFullMaxThresholdInSamples = property(get_BufferFullMaxThresholdInSamples, None)
     Notifier = property(get_Notifier, None)
-class INDDownloadEngineNotifier(c_void_p):
+class INDDownloadEngineNotifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d720b4d4-f4b8-4530-a8-09-91-93-a5-71-e7-fc')
     @winrt_commethod(6)
@@ -127,13 +127,13 @@ class INDDownloadEngineNotifier(c_void_p):
     def OnEndOfStream(self) -> Void: ...
     @winrt_commethod(11)
     def OnNetworkError(self) -> Void: ...
-class INDLicenseFetchCompletedEventArgs(c_void_p):
+class INDLicenseFetchCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1ee30a1a-11b2-4558-88-65-e3-a5-16-92-25-17')
     @winrt_commethod(6)
     def get_ResponseCustomData(self) -> Windows.Media.Protection.PlayReady.INDCustomData: ...
     ResponseCustomData = property(get_ResponseCustomData, None)
-class INDLicenseFetchDescriptor(c_void_p):
+class INDLicenseFetchDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5498d33a-e686-4935-a5-67-7c-a7-7a-d2-0f-a4')
     @winrt_commethod(6)
@@ -147,18 +147,18 @@ class INDLicenseFetchDescriptor(c_void_p):
     ContentIDType = property(get_ContentIDType, None)
     ContentID = property(get_ContentID, None)
     LicenseFetchChallengeCustomData = property(get_LicenseFetchChallengeCustomData, put_LicenseFetchChallengeCustomData)
-class INDLicenseFetchDescriptorFactory(c_void_p):
+class INDLicenseFetchDescriptorFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d0031202-cfac-4f00-ae-6a-97-af-80-b8-48-f2')
     @winrt_commethod(6)
     def CreateInstance(self, contentIDType: Windows.Media.Protection.PlayReady.NDContentIDType, contentIDBytes: c_char_p_no, licenseFetchChallengeCustomData: Windows.Media.Protection.PlayReady.INDCustomData) -> Windows.Media.Protection.PlayReady.NDLicenseFetchDescriptor: ...
-class INDLicenseFetchResult(c_void_p):
+class INDLicenseFetchResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('21d39698-aa62-45ff-a5-ff-80-37-e5-43-38-25')
     @winrt_commethod(6)
     def get_ResponseCustomData(self) -> Windows.Media.Protection.PlayReady.INDCustomData: ...
     ResponseCustomData = property(get_ResponseCustomData, None)
-class INDMessenger(c_void_p):
+class INDMessenger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d42df95d-a75b-47bf-82-49-bc-83-82-0d-a3-8a')
     @winrt_commethod(6)
@@ -169,13 +169,13 @@ class INDMessenger(c_void_p):
     def SendProximityDetectionResponseAsync(self, pdType: Windows.Media.Protection.PlayReady.NDProximityDetectionType, transmitterChannelBytes: c_char_p_no, sessionIDBytes: c_char_p_no, responseDataBytes: c_char_p_no) -> Windows.Foundation.IAsyncOperation[Windows.Media.Protection.PlayReady.INDSendResult]: ...
     @winrt_commethod(9)
     def SendLicenseFetchRequestAsync(self, sessionIDBytes: c_char_p_no, challengeDataBytes: c_char_p_no) -> Windows.Foundation.IAsyncOperation[Windows.Media.Protection.PlayReady.INDSendResult]: ...
-class INDProximityDetectionCompletedEventArgs(c_void_p):
+class INDProximityDetectionCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2a706328-da25-4f8c-9e-b7-5d-0f-c3-65-8b-ca')
     @winrt_commethod(6)
     def get_ProximityDetectionRetryCount(self) -> UInt32: ...
     ProximityDetectionRetryCount = property(get_ProximityDetectionRetryCount, None)
-class INDRegistrationCompletedEventArgs(c_void_p):
+class INDRegistrationCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9e39b64d-ab5b-4905-ac-dc-78-7a-77-c6-37-4d')
     @winrt_commethod(6)
@@ -189,24 +189,24 @@ class INDRegistrationCompletedEventArgs(c_void_p):
     ResponseCustomData = property(get_ResponseCustomData, None)
     TransmitterProperties = property(get_TransmitterProperties, None)
     TransmitterCertificateAccepted = property(get_TransmitterCertificateAccepted, put_TransmitterCertificateAccepted)
-class INDSendResult(c_void_p):
+class INDSendResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e3685517-a584-479d-90-b7-d6-89-c7-bf-7c-80')
     @winrt_commethod(6)
     def get_Response(self) -> c_char_p_no: ...
     Response = property(get_Response, None)
-class INDStartResult(c_void_p):
+class INDStartResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('79f6e96e-f50f-4015-8b-a4-c2-bc-34-4e-bd-4e')
     @winrt_commethod(6)
     def get_MediaStreamSource(self) -> Windows.Media.Core.MediaStreamSource: ...
     MediaStreamSource = property(get_MediaStreamSource, None)
-class INDStorageFileHelper(c_void_p):
+class INDStorageFileHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d8f0bef8-91d2-4d47-a3-f9-ea-ff-4e-db-72-9f')
     @winrt_commethod(6)
     def GetFileURLs(self, file: Windows.Storage.IStorageFile) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
-class INDStreamParser(c_void_p):
+class INDStreamParser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e0baa198-9796-41c9-86-95-59-43-7e-67-e6-6a')
     @winrt_commethod(6)
@@ -220,7 +220,7 @@ class INDStreamParser(c_void_p):
     @winrt_commethod(10)
     def get_Notifier(self) -> Windows.Media.Protection.PlayReady.NDStreamParserNotifier: ...
     Notifier = property(get_Notifier, None)
-class INDStreamParserNotifier(c_void_p):
+class INDStreamParserNotifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c167acd0-2ce6-426c-ac-e5-5e-92-75-fe-a7-15')
     @winrt_commethod(6)
@@ -231,12 +231,12 @@ class INDStreamParserNotifier(c_void_p):
     def OnSampleParsed(self, streamID: UInt32, streamType: Windows.Media.Protection.PlayReady.NDMediaStreamType, streamSample: Windows.Media.Core.MediaStreamSample, pts: Int64, ccFormat: Windows.Media.Protection.PlayReady.NDClosedCaptionFormat, ccDataBytes: c_char_p_no) -> Void: ...
     @winrt_commethod(9)
     def OnBeginSetupDecryptor(self, descriptor: Windows.Media.Core.IMediaStreamDescriptor, keyID: Guid, proBytes: c_char_p_no) -> Void: ...
-class INDTCPMessengerFactory(c_void_p):
+class INDTCPMessengerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7dd85cfe-1b99-4f68-8f-82-81-77-f7-ce-df-2b')
     @winrt_commethod(6)
     def CreateInstance(self, remoteHostName: WinRT_String, remoteHostPort: UInt32) -> Windows.Media.Protection.PlayReady.NDTCPMessenger: ...
-class INDTransmitterProperties(c_void_p):
+class INDTransmitterProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e536af23-ac4f-4adc-8c-66-4f-f7-c2-70-2d-d6')
     @winrt_commethod(6)
@@ -272,7 +272,7 @@ class INDTransmitterProperties(c_void_p):
     ModelManufacturerName = property(get_ModelManufacturerName, None)
     ModelName = property(get_ModelName, None)
     ModelNumber = property(get_ModelNumber, None)
-class IPlayReadyContentHeader(c_void_p):
+class IPlayReadyContentHeader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9a438a6a-7f4c-452e-88-bd-01-48-c6-38-7a-2c')
     @winrt_commethod(6)
@@ -304,7 +304,7 @@ class IPlayReadyContentHeader(c_void_p):
     CustomAttributes = property(get_CustomAttributes, None)
     DecryptorSetup = property(get_DecryptorSetup, None)
     HeaderWithEmbeddedUpdates = property(get_HeaderWithEmbeddedUpdates, None)
-class IPlayReadyContentHeader2(c_void_p):
+class IPlayReadyContentHeader2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('359c79f4-2180-498c-96-5b-e7-54-d8-75-ea-b2')
     @winrt_commethod(6)
@@ -313,7 +313,7 @@ class IPlayReadyContentHeader2(c_void_p):
     def get_KeyIdStrings(self) -> POINTER(WinRT_String): ...
     KeyIds = property(get_KeyIds, None)
     KeyIdStrings = property(get_KeyIdStrings, None)
-class IPlayReadyContentHeaderFactory(c_void_p):
+class IPlayReadyContentHeaderFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cb97c8ff-b758-4776-bf-01-21-7a-8b-51-0b-2c')
     @winrt_commethod(6)
@@ -322,17 +322,17 @@ class IPlayReadyContentHeaderFactory(c_void_p):
     def CreateInstanceFromComponents(self, contentKeyId: Guid, contentKeyIdString: WinRT_String, contentEncryptionAlgorithm: Windows.Media.Protection.PlayReady.PlayReadyEncryptionAlgorithm, licenseAcquisitionUrl: Windows.Foundation.Uri, licenseAcquisitionUserInterfaceUrl: Windows.Foundation.Uri, customAttributes: WinRT_String, domainServiceId: Guid) -> Windows.Media.Protection.PlayReady.PlayReadyContentHeader: ...
     @winrt_commethod(8)
     def CreateInstanceFromPlayReadyHeader(self, headerBytes: c_char_p_no) -> Windows.Media.Protection.PlayReady.PlayReadyContentHeader: ...
-class IPlayReadyContentHeaderFactory2(c_void_p):
+class IPlayReadyContentHeaderFactory2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d1239cf5-ae6d-4778-97-fd-6e-3a-2e-ea-db-eb')
     @winrt_commethod(6)
     def CreateInstanceFromComponents2(self, dwFlags: UInt32, contentKeyIds: POINTER(Guid), contentKeyIdStrings: POINTER(WinRT_String), contentEncryptionAlgorithm: Windows.Media.Protection.PlayReady.PlayReadyEncryptionAlgorithm, licenseAcquisitionUrl: Windows.Foundation.Uri, licenseAcquisitionUserInterfaceUrl: Windows.Foundation.Uri, customAttributes: WinRT_String, domainServiceId: Guid) -> Windows.Media.Protection.PlayReady.PlayReadyContentHeader: ...
-class IPlayReadyContentResolver(c_void_p):
+class IPlayReadyContentResolver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fbfd2523-906d-4982-a6-b8-68-49-56-5a-7c-e8')
     @winrt_commethod(6)
     def ServiceRequest(self, contentHeader: Windows.Media.Protection.PlayReady.PlayReadyContentHeader) -> Windows.Media.Protection.PlayReady.IPlayReadyServiceRequest: ...
-class IPlayReadyDomain(c_void_p):
+class IPlayReadyDomain(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('adcc93ac-97e6-43ef-95-e4-d7-86-8f-3b-16-a9')
     @winrt_commethod(6)
@@ -350,12 +350,12 @@ class IPlayReadyDomain(c_void_p):
     Revision = property(get_Revision, None)
     FriendlyName = property(get_FriendlyName, None)
     DomainJoinUrl = property(get_DomainJoinUrl, None)
-class IPlayReadyDomainIterableFactory(c_void_p):
+class IPlayReadyDomainIterableFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4df384ee-3121-4df3-a5-e8-d0-c2-4c-05-00-fc')
     @winrt_commethod(6)
     def CreateInstance(self, domainAccountId: Guid) -> Windows.Media.Protection.PlayReady.PlayReadyDomainIterable: ...
-class IPlayReadyDomainJoinServiceRequest(c_void_p):
+class IPlayReadyDomainJoinServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('171b4a5a-405f-4739-b0-40-67-b9-f0-c3-87-58')
     @winrt_commethod(6)
@@ -373,7 +373,7 @@ class IPlayReadyDomainJoinServiceRequest(c_void_p):
     DomainAccountId = property(get_DomainAccountId, put_DomainAccountId)
     DomainFriendlyName = property(get_DomainFriendlyName, put_DomainFriendlyName)
     DomainServiceId = property(get_DomainServiceId, put_DomainServiceId)
-class IPlayReadyDomainLeaveServiceRequest(c_void_p):
+class IPlayReadyDomainLeaveServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('062d58be-97ad-4917-aa-03-46-d4-c2-52-d4-64')
     @winrt_commethod(6)
@@ -386,15 +386,15 @@ class IPlayReadyDomainLeaveServiceRequest(c_void_p):
     def put_DomainServiceId(self, value: Guid) -> Void: ...
     DomainAccountId = property(get_DomainAccountId, put_DomainAccountId)
     DomainServiceId = property(get_DomainServiceId, put_DomainServiceId)
-class IPlayReadyITADataGenerator(c_void_p):
+class IPlayReadyITADataGenerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('24446b8e-10b9-4530-b2-5b-90-1a-80-29-a9-b2')
     @winrt_commethod(6)
     def GenerateData(self, guidCPSystemId: Guid, countOfStreams: UInt32, configuration: Windows.Foundation.Collections.IPropertySet, format: Windows.Media.Protection.PlayReady.PlayReadyITADataFormat) -> c_char_p_no: ...
-class IPlayReadyIndividualizationServiceRequest(c_void_p):
+class IPlayReadyIndividualizationServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('21f5a86b-008c-4611-ab-2f-aa-a6-c6-9f-0e-24')
-class IPlayReadyLicense(c_void_p):
+class IPlayReadyLicense(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ee474c4e-fa3c-414d-a9-f2-3f-fc-1e-f8-32-d4')
     @winrt_commethod(6)
@@ -417,7 +417,7 @@ class IPlayReadyLicense(c_void_p):
     ExpireAfterFirstPlay = property(get_ExpireAfterFirstPlay, None)
     DomainAccountID = property(get_DomainAccountID, None)
     ChainDepth = property(get_ChainDepth, None)
-class IPlayReadyLicense2(c_void_p):
+class IPlayReadyLicense2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('30f4e7a7-d8e3-48a0-bc-da-ff-9f-40-53-04-36')
     @winrt_commethod(6)
@@ -432,7 +432,7 @@ class IPlayReadyLicense2(c_void_p):
     SecurityLevel = property(get_SecurityLevel, None)
     InMemoryOnly = property(get_InMemoryOnly, None)
     ExpiresInRealTime = property(get_ExpiresInRealTime, None)
-class IPlayReadyLicenseAcquisitionServiceRequest(c_void_p):
+class IPlayReadyLicenseAcquisitionServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5d85ff45-3e9f-4f48-93-e1-95-30-c8-d5-8c-3e')
     @winrt_commethod(6)
@@ -445,45 +445,45 @@ class IPlayReadyLicenseAcquisitionServiceRequest(c_void_p):
     def put_DomainServiceId(self, value: Guid) -> Void: ...
     ContentHeader = property(get_ContentHeader, put_ContentHeader)
     DomainServiceId = property(get_DomainServiceId, put_DomainServiceId)
-class IPlayReadyLicenseAcquisitionServiceRequest2(c_void_p):
+class IPlayReadyLicenseAcquisitionServiceRequest2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b7fa5eb5-fe0c-b225-bc-60-5a-9e-dd-32-ce-b5')
     @winrt_commethod(6)
     def get_SessionId(self) -> Guid: ...
     SessionId = property(get_SessionId, None)
-class IPlayReadyLicenseAcquisitionServiceRequest3(c_void_p):
+class IPlayReadyLicenseAcquisitionServiceRequest3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('394e5f4d-7f75-430d-b2-e7-7f-75-f3-4b-2d-75')
     @winrt_commethod(6)
     def CreateLicenseIterable(self, contentHeader: Windows.Media.Protection.PlayReady.PlayReadyContentHeader, fullyEvaluated: Boolean) -> Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable: ...
-class IPlayReadyLicenseIterableFactory(c_void_p):
+class IPlayReadyLicenseIterableFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d4179f08-0837-4978-8e-68-be-42-93-c8-d7-a6')
     @winrt_commethod(6)
     def CreateInstance(self, contentHeader: Windows.Media.Protection.PlayReady.PlayReadyContentHeader, fullyEvaluated: Boolean) -> Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable: ...
-class IPlayReadyLicenseManagement(c_void_p):
+class IPlayReadyLicenseManagement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('aaeb2141-0957-4405-b8-92-8b-f3-ec-5d-ad-d9')
     @winrt_commethod(6)
     def DeleteLicenses(self, contentHeader: Windows.Media.Protection.PlayReady.PlayReadyContentHeader) -> Windows.Foundation.IAsyncAction: ...
-class IPlayReadyLicenseSession(c_void_p):
+class IPlayReadyLicenseSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a1723a39-87fa-4fdd-ab-bb-a9-72-0e-84-52-59')
     @winrt_commethod(6)
     def CreateLAServiceRequest(self) -> Windows.Media.Protection.PlayReady.IPlayReadyLicenseAcquisitionServiceRequest: ...
     @winrt_commethod(7)
     def ConfigureMediaProtectionManager(self, mpm: Windows.Media.Protection.MediaProtectionManager) -> Void: ...
-class IPlayReadyLicenseSession2(c_void_p):
+class IPlayReadyLicenseSession2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4909be3a-3aed-4656-8a-d7-ee-0f-d7-79-95-10')
     @winrt_commethod(6)
     def CreateLicenseIterable(self, contentHeader: Windows.Media.Protection.PlayReady.PlayReadyContentHeader, fullyEvaluated: Boolean) -> Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable: ...
-class IPlayReadyLicenseSessionFactory(c_void_p):
+class IPlayReadyLicenseSessionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('62492699-6527-429e-98-be-48-d7-98-ac-27-39')
     @winrt_commethod(6)
     def CreateInstance(self, configuration: Windows.Foundation.Collections.IPropertySet) -> Windows.Media.Protection.PlayReady.PlayReadyLicenseSession: ...
-class IPlayReadyMeteringReportServiceRequest(c_void_p):
+class IPlayReadyMeteringReportServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c12b231c-0ecd-4f11-a1-85-1e-24-a4-a6-7f-b7')
     @winrt_commethod(6)
@@ -491,15 +491,15 @@ class IPlayReadyMeteringReportServiceRequest(c_void_p):
     @winrt_commethod(7)
     def put_MeteringCertificate(self, meteringCertBytes: c_char_p_no) -> Void: ...
     MeteringCertificate = property(get_MeteringCertificate, put_MeteringCertificate)
-class IPlayReadyRevocationServiceRequest(c_void_p):
+class IPlayReadyRevocationServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('543d66ac-faf0-4560-84-a5-0e-4a-ce-c9-39-e4')
-class IPlayReadySecureStopIterableFactory(c_void_p):
+class IPlayReadySecureStopIterableFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5f1f0165-4214-4d9e-81-eb-e8-9f-9d-29-4a-ee')
     @winrt_commethod(6)
     def CreateInstance(self, publisherCertBytes: c_char_p_no) -> Windows.Media.Protection.PlayReady.PlayReadySecureStopIterable: ...
-class IPlayReadySecureStopServiceRequest(c_void_p):
+class IPlayReadySecureStopServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b5501ee5-01bf-4401-96-77-05-63-0a-6a-4c-c8')
     @winrt_commethod(6)
@@ -517,14 +517,14 @@ class IPlayReadySecureStopServiceRequest(c_void_p):
     UpdateTime = property(get_UpdateTime, None)
     Stopped = property(get_Stopped, None)
     PublisherCertificate = property(get_PublisherCertificate, None)
-class IPlayReadySecureStopServiceRequestFactory(c_void_p):
+class IPlayReadySecureStopServiceRequestFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0e448ac9-e67e-494e-9f-49-62-85-43-8c-76-cf')
     @winrt_commethod(6)
     def CreateInstance(self, publisherCertBytes: c_char_p_no) -> Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest: ...
     @winrt_commethod(7)
     def CreateInstanceFromSessionID(self, sessionID: Guid, publisherCertBytes: c_char_p_no) -> Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest: ...
-class IPlayReadyServiceRequest(c_void_p):
+class IPlayReadyServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8bad2836-a703-45a6-a1-80-76-f3-56-5a-a7-25')
     @winrt_commethod(6)
@@ -548,7 +548,7 @@ class IPlayReadyServiceRequest(c_void_p):
     Uri = property(get_Uri, put_Uri)
     ResponseCustomData = property(get_ResponseCustomData, None)
     ChallengeCustomData = property(get_ChallengeCustomData, put_ChallengeCustomData)
-class IPlayReadySoapMessage(c_void_p):
+class IPlayReadySoapMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b659fcb5-ce41-41ba-8a-0d-61-df-5f-ff-a1-39')
     @winrt_commethod(6)
@@ -559,7 +559,7 @@ class IPlayReadySoapMessage(c_void_p):
     def get_Uri(self) -> Windows.Foundation.Uri: ...
     MessageHeaders = property(get_MessageHeaders, None)
     Uri = property(get_Uri, None)
-class IPlayReadyStatics(c_void_p):
+class IPlayReadyStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5e69c00d-247c-469a-8f-31-5c-1a-15-71-d9-c6')
     @winrt_commethod(6)
@@ -586,13 +586,13 @@ class IPlayReadyStatics(c_void_p):
     RevocationServiceRequestType = property(get_RevocationServiceRequestType, None)
     MediaProtectionSystemId = property(get_MediaProtectionSystemId, None)
     PlayReadySecurityVersion = property(get_PlayReadySecurityVersion, None)
-class IPlayReadyStatics2(c_void_p):
+class IPlayReadyStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1f8d6a92-5f9a-423e-94-66-b3-39-69-af-7a-3d')
     @winrt_commethod(6)
     def get_PlayReadyCertificateSecurityLevel(self) -> UInt32: ...
     PlayReadyCertificateSecurityLevel = property(get_PlayReadyCertificateSecurityLevel, None)
-class IPlayReadyStatics3(c_void_p):
+class IPlayReadyStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3fa33f71-2dd3-4bed-ae-49-f7-14-8e-63-e7-10')
     @winrt_commethod(6)
@@ -600,7 +600,7 @@ class IPlayReadyStatics3(c_void_p):
     @winrt_commethod(7)
     def CheckSupportedHardware(self, hwdrmFeature: Windows.Media.Protection.PlayReady.PlayReadyHardwareDRMFeatures) -> Boolean: ...
     SecureStopServiceRequestType = property(get_SecureStopServiceRequestType, None)
-class IPlayReadyStatics4(c_void_p):
+class IPlayReadyStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('50a91300-d824-4231-9d-5e-78-ef-88-44-c7-d7')
     @winrt_commethod(6)
@@ -609,7 +609,7 @@ class IPlayReadyStatics4(c_void_p):
     def get_ProtectionSystemId(self) -> Guid: ...
     InputTrustAuthorityToCreate = property(get_InputTrustAuthorityToCreate, None)
     ProtectionSystemId = property(get_ProtectionSystemId, None)
-class IPlayReadyStatics5(c_void_p):
+class IPlayReadyStatics5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('230a7075-dfa0-4f8e-a7-79-ce-fe-a9-c6-82-4b')
     @winrt_commethod(6)
@@ -655,7 +655,7 @@ NDCertificateType_Metering: NDCertificateType = 9
 NDCertificateType_KeyFileSigner: NDCertificateType = 10
 NDCertificateType_Server: NDCertificateType = 11
 NDCertificateType_LicenseSigner: NDCertificateType = 12
-class NDClient(c_void_p):
+class NDClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.NDClient'
     @winrt_factorymethod
@@ -696,7 +696,7 @@ NDContentIDType = Int32
 NDContentIDType_KeyID: NDContentIDType = 1
 NDContentIDType_PlayReadyObject: NDContentIDType = 2
 NDContentIDType_Custom: NDContentIDType = 3
-class NDCustomData(c_void_p):
+class NDCustomData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.NDCustomData'
     @winrt_factorymethod
@@ -707,7 +707,7 @@ class NDCustomData(c_void_p):
     def get_CustomData(self: Windows.Media.Protection.PlayReady.INDCustomData) -> c_char_p_no: ...
     CustomDataTypeID = property(get_CustomDataTypeID, None)
     CustomData = property(get_CustomData, None)
-class NDDownloadEngineNotifier(c_void_p):
+class NDDownloadEngineNotifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.NDDownloadEngineNotifier'
     @winrt_activatemethod
@@ -724,7 +724,7 @@ class NDDownloadEngineNotifier(c_void_p):
     def OnEndOfStream(self: Windows.Media.Protection.PlayReady.INDDownloadEngineNotifier) -> Void: ...
     @winrt_mixinmethod
     def OnNetworkError(self: Windows.Media.Protection.PlayReady.INDDownloadEngineNotifier) -> Void: ...
-class NDLicenseFetchDescriptor(c_void_p):
+class NDLicenseFetchDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.NDLicenseFetchDescriptor'
     @winrt_factorymethod
@@ -750,14 +750,14 @@ NDProximityDetectionType_TransportAgnostic: NDProximityDetectionType = 4
 NDStartAsyncOptions = Int32
 NDStartAsyncOptions_MutualAuthentication: NDStartAsyncOptions = 1
 NDStartAsyncOptions_WaitForLicenseDescriptor: NDStartAsyncOptions = 2
-class NDStorageFileHelper(c_void_p):
+class NDStorageFileHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.NDStorageFileHelper'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Protection.PlayReady.NDStorageFileHelper: ...
     @winrt_mixinmethod
     def GetFileURLs(self: Windows.Media.Protection.PlayReady.INDStorageFileHelper, file: Windows.Storage.IStorageFile) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
-class NDStreamParserNotifier(c_void_p):
+class NDStreamParserNotifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.NDStreamParserNotifier'
     @winrt_activatemethod
@@ -770,7 +770,7 @@ class NDStreamParserNotifier(c_void_p):
     def OnSampleParsed(self: Windows.Media.Protection.PlayReady.INDStreamParserNotifier, streamID: UInt32, streamType: Windows.Media.Protection.PlayReady.NDMediaStreamType, streamSample: Windows.Media.Core.MediaStreamSample, pts: Int64, ccFormat: Windows.Media.Protection.PlayReady.NDClosedCaptionFormat, ccDataBytes: c_char_p_no) -> Void: ...
     @winrt_mixinmethod
     def OnBeginSetupDecryptor(self: Windows.Media.Protection.PlayReady.INDStreamParserNotifier, descriptor: Windows.Media.Core.IMediaStreamDescriptor, keyID: Guid, proBytes: c_char_p_no) -> Void: ...
-class NDTCPMessenger(c_void_p):
+class NDTCPMessenger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.NDTCPMessenger'
     @winrt_factorymethod
@@ -783,7 +783,7 @@ class NDTCPMessenger(c_void_p):
     def SendProximityDetectionResponseAsync(self: Windows.Media.Protection.PlayReady.INDMessenger, pdType: Windows.Media.Protection.PlayReady.NDProximityDetectionType, transmitterChannelBytes: c_char_p_no, sessionIDBytes: c_char_p_no, responseDataBytes: c_char_p_no) -> Windows.Foundation.IAsyncOperation[Windows.Media.Protection.PlayReady.INDSendResult]: ...
     @winrt_mixinmethod
     def SendLicenseFetchRequestAsync(self: Windows.Media.Protection.PlayReady.INDMessenger, sessionIDBytes: c_char_p_no, challengeDataBytes: c_char_p_no) -> Windows.Foundation.IAsyncOperation[Windows.Media.Protection.PlayReady.INDSendResult]: ...
-class PlayReadyContentHeader(c_void_p):
+class PlayReadyContentHeader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyContentHeader'
     @winrt_factorymethod
@@ -829,7 +829,7 @@ class PlayReadyContentHeader(c_void_p):
     HeaderWithEmbeddedUpdates = property(get_HeaderWithEmbeddedUpdates, None)
     KeyIds = property(get_KeyIds, None)
     KeyIdStrings = property(get_KeyIdStrings, None)
-class PlayReadyContentResolver(c_void_p):
+class PlayReadyContentResolver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyContentResolver'
     @winrt_classmethod
@@ -837,7 +837,7 @@ class PlayReadyContentResolver(c_void_p):
 PlayReadyDecryptorSetup = Int32
 PlayReadyDecryptorSetup_Uninitialized: PlayReadyDecryptorSetup = 0
 PlayReadyDecryptorSetup_OnDemand: PlayReadyDecryptorSetup = 1
-class PlayReadyDomain(c_void_p):
+class PlayReadyDomain(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyDomain'
     @winrt_mixinmethod
@@ -855,14 +855,14 @@ class PlayReadyDomain(c_void_p):
     Revision = property(get_Revision, None)
     FriendlyName = property(get_FriendlyName, None)
     DomainJoinUrl = property(get_DomainJoinUrl, None)
-class PlayReadyDomainIterable(c_void_p):
+class PlayReadyDomainIterable(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyDomainIterable'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Media.Protection.PlayReady.IPlayReadyDomainIterableFactory, domainAccountId: Guid) -> Windows.Media.Protection.PlayReady.PlayReadyDomainIterable: ...
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Media.Protection.PlayReady.IPlayReadyDomain]) -> Windows.Foundation.Collections.IIterator[Windows.Media.Protection.PlayReady.IPlayReadyDomain]: ...
-class PlayReadyDomainIterator(c_void_p):
+class PlayReadyDomainIterator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyDomainIterator'
     @winrt_mixinmethod
@@ -875,7 +875,7 @@ class PlayReadyDomainIterator(c_void_p):
     def GetMany(self: Windows.Foundation.Collections.IIterator[Windows.Media.Protection.PlayReady.IPlayReadyDomain], items: POINTER(Windows.Media.Protection.PlayReady.IPlayReadyDomain)) -> UInt32: ...
     Current = property(get_Current, None)
     HasCurrent = property(get_HasCurrent, None)
-class PlayReadyDomainJoinServiceRequest(c_void_p):
+class PlayReadyDomainJoinServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyDomainJoinServiceRequest'
     @winrt_activatemethod
@@ -922,7 +922,7 @@ class PlayReadyDomainJoinServiceRequest(c_void_p):
     ChallengeCustomData = property(get_ChallengeCustomData, put_ChallengeCustomData)
     ProtectionSystem = property(get_ProtectionSystem, None)
     Type = property(get_Type, None)
-class PlayReadyDomainLeaveServiceRequest(c_void_p):
+class PlayReadyDomainLeaveServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyDomainLeaveServiceRequest'
     @winrt_activatemethod
@@ -978,14 +978,14 @@ PlayReadyHardwareDRMFeatures_Aes128Cbc: PlayReadyHardwareDRMFeatures = 3
 PlayReadyITADataFormat = Int32
 PlayReadyITADataFormat_SerializedProperties: PlayReadyITADataFormat = 0
 PlayReadyITADataFormat_SerializedProperties_WithContentProtectionWrapper: PlayReadyITADataFormat = 1
-class PlayReadyITADataGenerator(c_void_p):
+class PlayReadyITADataGenerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyITADataGenerator'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Protection.PlayReady.PlayReadyITADataGenerator: ...
     @winrt_mixinmethod
     def GenerateData(self: Windows.Media.Protection.PlayReady.IPlayReadyITADataGenerator, guidCPSystemId: Guid, countOfStreams: UInt32, configuration: Windows.Foundation.Collections.IPropertySet, format: Windows.Media.Protection.PlayReady.PlayReadyITADataFormat) -> c_char_p_no: ...
-class PlayReadyIndividualizationServiceRequest(c_void_p):
+class PlayReadyIndividualizationServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyIndividualizationServiceRequest'
     @winrt_activatemethod
@@ -1017,7 +1017,7 @@ class PlayReadyIndividualizationServiceRequest(c_void_p):
     ChallengeCustomData = property(get_ChallengeCustomData, put_ChallengeCustomData)
     ProtectionSystem = property(get_ProtectionSystem, None)
     Type = property(get_Type, None)
-class PlayReadyLicense(c_void_p):
+class PlayReadyLicense(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyLicense'
     @winrt_mixinmethod
@@ -1052,7 +1052,7 @@ class PlayReadyLicense(c_void_p):
     SecurityLevel = property(get_SecurityLevel, None)
     InMemoryOnly = property(get_InMemoryOnly, None)
     ExpiresInRealTime = property(get_ExpiresInRealTime, None)
-class PlayReadyLicenseAcquisitionServiceRequest(c_void_p):
+class PlayReadyLicenseAcquisitionServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseAcquisitionServiceRequest'
     @winrt_activatemethod
@@ -1099,7 +1099,7 @@ class PlayReadyLicenseAcquisitionServiceRequest(c_void_p):
     ProtectionSystem = property(get_ProtectionSystem, None)
     Type = property(get_Type, None)
     SessionId = property(get_SessionId, None)
-class PlayReadyLicenseIterable(c_void_p):
+class PlayReadyLicenseIterable(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable'
     @winrt_factorymethod
@@ -1108,7 +1108,7 @@ class PlayReadyLicenseIterable(c_void_p):
     def New(cls) -> Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable: ...
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Media.Protection.PlayReady.IPlayReadyLicense]) -> Windows.Foundation.Collections.IIterator[Windows.Media.Protection.PlayReady.IPlayReadyLicense]: ...
-class PlayReadyLicenseIterator(c_void_p):
+class PlayReadyLicenseIterator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseIterator'
     @winrt_mixinmethod
@@ -1121,12 +1121,12 @@ class PlayReadyLicenseIterator(c_void_p):
     def GetMany(self: Windows.Foundation.Collections.IIterator[Windows.Media.Protection.PlayReady.IPlayReadyLicense], items: POINTER(Windows.Media.Protection.PlayReady.IPlayReadyLicense)) -> UInt32: ...
     Current = property(get_Current, None)
     HasCurrent = property(get_HasCurrent, None)
-class PlayReadyLicenseManagement(c_void_p):
+class PlayReadyLicenseManagement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseManagement'
     @winrt_classmethod
     def DeleteLicenses(cls: Windows.Media.Protection.PlayReady.IPlayReadyLicenseManagement, contentHeader: Windows.Media.Protection.PlayReady.PlayReadyContentHeader) -> Windows.Foundation.IAsyncAction: ...
-class PlayReadyLicenseSession(c_void_p):
+class PlayReadyLicenseSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseSession'
     @winrt_factorymethod
@@ -1137,7 +1137,7 @@ class PlayReadyLicenseSession(c_void_p):
     def ConfigureMediaProtectionManager(self: Windows.Media.Protection.PlayReady.IPlayReadyLicenseSession, mpm: Windows.Media.Protection.MediaProtectionManager) -> Void: ...
     @winrt_mixinmethod
     def CreateLicenseIterable(self: Windows.Media.Protection.PlayReady.IPlayReadyLicenseSession2, contentHeader: Windows.Media.Protection.PlayReady.PlayReadyContentHeader, fullyEvaluated: Boolean) -> Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable: ...
-class PlayReadyMeteringReportServiceRequest(c_void_p):
+class PlayReadyMeteringReportServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyMeteringReportServiceRequest'
     @winrt_activatemethod
@@ -1174,7 +1174,7 @@ class PlayReadyMeteringReportServiceRequest(c_void_p):
     ChallengeCustomData = property(get_ChallengeCustomData, put_ChallengeCustomData)
     ProtectionSystem = property(get_ProtectionSystem, None)
     Type = property(get_Type, None)
-class PlayReadyRevocationServiceRequest(c_void_p):
+class PlayReadyRevocationServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyRevocationServiceRequest'
     @winrt_activatemethod
@@ -1206,14 +1206,14 @@ class PlayReadyRevocationServiceRequest(c_void_p):
     ChallengeCustomData = property(get_ChallengeCustomData, put_ChallengeCustomData)
     ProtectionSystem = property(get_ProtectionSystem, None)
     Type = property(get_Type, None)
-class PlayReadySecureStopIterable(c_void_p):
+class PlayReadySecureStopIterable(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadySecureStopIterable'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Media.Protection.PlayReady.IPlayReadySecureStopIterableFactory, publisherCertBytes: c_char_p_no) -> Windows.Media.Protection.PlayReady.PlayReadySecureStopIterable: ...
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequest]) -> Windows.Foundation.Collections.IIterator[Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequest]: ...
-class PlayReadySecureStopIterator(c_void_p):
+class PlayReadySecureStopIterator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadySecureStopIterator'
     @winrt_mixinmethod
@@ -1226,7 +1226,7 @@ class PlayReadySecureStopIterator(c_void_p):
     def GetMany(self: Windows.Foundation.Collections.IIterator[Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequest], items: POINTER(Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequest)) -> UInt32: ...
     Current = property(get_Current, None)
     HasCurrent = property(get_HasCurrent, None)
-class PlayReadySecureStopServiceRequest(c_void_p):
+class PlayReadySecureStopServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest'
     @winrt_factorymethod
@@ -1275,7 +1275,7 @@ class PlayReadySecureStopServiceRequest(c_void_p):
     ChallengeCustomData = property(get_ChallengeCustomData, put_ChallengeCustomData)
     ProtectionSystem = property(get_ProtectionSystem, None)
     Type = property(get_Type, None)
-class PlayReadySoapMessage(c_void_p):
+class PlayReadySoapMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadySoapMessage'
     @winrt_mixinmethod
@@ -1286,7 +1286,7 @@ class PlayReadySoapMessage(c_void_p):
     def get_Uri(self: Windows.Media.Protection.PlayReady.IPlayReadySoapMessage) -> Windows.Foundation.Uri: ...
     MessageHeaders = property(get_MessageHeaders, None)
     Uri = property(get_Uri, None)
-class PlayReadyStatics(c_void_p):
+class PlayReadyStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyStatics'
     @winrt_classmethod

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Display
@@ -28,7 +28,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class DisplayAdapter(c_void_p):
+class DisplayAdapter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayAdapter'
     @winrt_mixinmethod
@@ -65,7 +65,7 @@ DisplayBitsPerChannel_Bpc10: DisplayBitsPerChannel = 4
 DisplayBitsPerChannel_Bpc12: DisplayBitsPerChannel = 8
 DisplayBitsPerChannel_Bpc14: DisplayBitsPerChannel = 16
 DisplayBitsPerChannel_Bpc16: DisplayBitsPerChannel = 32
-class DisplayDevice(c_void_p):
+class DisplayDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayDevice'
     @winrt_mixinmethod
@@ -86,10 +86,10 @@ class DisplayDevice(c_void_p):
     def CreateSimpleScanoutWithDirtyRectsAndOptions(self: Windows.Devices.Display.Core.IDisplayDevice2, source: Windows.Devices.Display.Core.DisplaySource, surface: Windows.Devices.Display.Core.DisplaySurface, subresourceIndex: UInt32, syncInterval: UInt32, dirtyRects: Windows.Foundation.Collections.IIterable[Windows.Graphics.RectInt32], options: Windows.Devices.Display.Core.DisplayScanoutOptions) -> Windows.Devices.Display.Core.DisplayScanout: ...
 DisplayDeviceCapability = Int32
 DisplayDeviceCapability_FlipOverride: DisplayDeviceCapability = 0
-class DisplayFence(c_void_p):
+class DisplayFence(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayFence'
-class DisplayManager(c_void_p):
+class DisplayManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayManager'
     @winrt_mixinmethod
@@ -134,7 +134,7 @@ class DisplayManager(c_void_p):
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
     @winrt_classmethod
     def Create(cls: Windows.Devices.Display.Core.IDisplayManagerStatics, options: Windows.Devices.Display.Core.DisplayManagerOptions) -> Windows.Devices.Display.Core.DisplayManager: ...
-class DisplayManagerChangedEventArgs(c_void_p):
+class DisplayManagerChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayManagerChangedEventArgs'
     @winrt_mixinmethod
@@ -144,7 +144,7 @@ class DisplayManagerChangedEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.Devices.Display.Core.IDisplayManagerChangedEventArgs) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class DisplayManagerDisabledEventArgs(c_void_p):
+class DisplayManagerDisabledEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayManagerDisabledEventArgs'
     @winrt_mixinmethod
@@ -154,7 +154,7 @@ class DisplayManagerDisabledEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.Devices.Display.Core.IDisplayManagerDisabledEventArgs) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class DisplayManagerEnabledEventArgs(c_void_p):
+class DisplayManagerEnabledEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayManagerEnabledEventArgs'
     @winrt_mixinmethod
@@ -168,7 +168,7 @@ DisplayManagerOptions = UInt32
 DisplayManagerOptions_None: DisplayManagerOptions = 0
 DisplayManagerOptions_EnforceSourceOwnership: DisplayManagerOptions = 1
 DisplayManagerOptions_VirtualRefreshRateAware: DisplayManagerOptions = 2
-class DisplayManagerPathsFailedOrInvalidatedEventArgs(c_void_p):
+class DisplayManagerPathsFailedOrInvalidatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayManagerPathsFailedOrInvalidatedEventArgs'
     @winrt_mixinmethod
@@ -184,7 +184,7 @@ DisplayManagerResult_UnknownFailure: DisplayManagerResult = 1
 DisplayManagerResult_TargetAccessDenied: DisplayManagerResult = 2
 DisplayManagerResult_TargetStale: DisplayManagerResult = 3
 DisplayManagerResult_RemoteSessionNotSupported: DisplayManagerResult = 4
-class DisplayManagerResultWithState(c_void_p):
+class DisplayManagerResultWithState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayManagerResultWithState'
     @winrt_mixinmethod
@@ -196,7 +196,7 @@ class DisplayManagerResultWithState(c_void_p):
     ErrorCode = property(get_ErrorCode, None)
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
     State = property(get_State, None)
-class DisplayModeInfo(c_void_p):
+class DisplayModeInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayModeInfo'
     @winrt_mixinmethod
@@ -230,7 +230,7 @@ class DisplayModeInfo(c_void_p):
 DisplayModeQueryOptions = UInt32
 DisplayModeQueryOptions_None: DisplayModeQueryOptions = 0
 DisplayModeQueryOptions_OnlyPreferredResolution: DisplayModeQueryOptions = 1
-class DisplayPath(c_void_p):
+class DisplayPath(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayPath'
     @winrt_mixinmethod
@@ -323,7 +323,7 @@ DisplayPresentStatus_UnknownFailure: DisplayPresentStatus = 5
 class DisplayPresentationRate(EasyCastStructure):
     VerticalSyncRate: Windows.Foundation.Numerics.Rational
     VerticalSyncsPerPresentation: Int32
-class DisplayPrimaryDescription(c_void_p):
+class DisplayPrimaryDescription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayPrimaryDescription'
     @winrt_factorymethod
@@ -356,13 +356,13 @@ DisplayRotation_None: DisplayRotation = 0
 DisplayRotation_Clockwise90Degrees: DisplayRotation = 1
 DisplayRotation_Clockwise180Degrees: DisplayRotation = 2
 DisplayRotation_Clockwise270Degrees: DisplayRotation = 3
-class DisplayScanout(c_void_p):
+class DisplayScanout(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayScanout'
 DisplayScanoutOptions = UInt32
 DisplayScanoutOptions_None: DisplayScanoutOptions = 0
 DisplayScanoutOptions_AllowTearing: DisplayScanoutOptions = 2
-class DisplaySource(c_void_p):
+class DisplaySource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplaySource'
     @winrt_mixinmethod
@@ -386,7 +386,7 @@ DisplaySourceStatus_PoweredOff: DisplaySourceStatus = 1
 DisplaySourceStatus_Invalid: DisplaySourceStatus = 2
 DisplaySourceStatus_OwnedByAnotherDevice: DisplaySourceStatus = 3
 DisplaySourceStatus_Unowned: DisplaySourceStatus = 4
-class DisplayState(c_void_p):
+class DisplayState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayState'
     @winrt_mixinmethod
@@ -431,7 +431,7 @@ DisplayStateFunctionalizeOptions = UInt32
 DisplayStateFunctionalizeOptions_None: DisplayStateFunctionalizeOptions = 0
 DisplayStateFunctionalizeOptions_FailIfStateChanged: DisplayStateFunctionalizeOptions = 1
 DisplayStateFunctionalizeOptions_ValidateTopologyOnly: DisplayStateFunctionalizeOptions = 2
-class DisplayStateOperationResult(c_void_p):
+class DisplayStateOperationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayStateOperationResult'
     @winrt_mixinmethod
@@ -449,10 +449,10 @@ DisplayStateOperationStatus_SystemStateChanged: DisplayStateOperationStatus = 4
 DisplayStateOperationStatus_TooManyPathsForAdapter: DisplayStateOperationStatus = 5
 DisplayStateOperationStatus_ModesNotSupported: DisplayStateOperationStatus = 6
 DisplayStateOperationStatus_RemoteSessionNotSupported: DisplayStateOperationStatus = 7
-class DisplaySurface(c_void_p):
+class DisplaySurface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplaySurface'
-class DisplayTarget(c_void_p):
+class DisplayTarget(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayTarget'
     @winrt_mixinmethod
@@ -499,7 +499,7 @@ DisplayTargetPersistence_None: DisplayTargetPersistence = 0
 DisplayTargetPersistence_BootPersisted: DisplayTargetPersistence = 1
 DisplayTargetPersistence_TemporaryPersisted: DisplayTargetPersistence = 2
 DisplayTargetPersistence_PathPersisted: DisplayTargetPersistence = 3
-class DisplayTask(c_void_p):
+class DisplayTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayTask'
     @winrt_mixinmethod
@@ -508,7 +508,7 @@ class DisplayTask(c_void_p):
     def SetWait(self: Windows.Devices.Display.Core.IDisplayTask, readyFence: Windows.Devices.Display.Core.DisplayFence, readyFenceValue: UInt64) -> Void: ...
     @winrt_mixinmethod
     def SetSignal(self: Windows.Devices.Display.Core.IDisplayTask2, signalKind: Windows.Devices.Display.Core.DisplayTaskSignalKind, fence: Windows.Devices.Display.Core.DisplayFence) -> Void: ...
-class DisplayTaskPool(c_void_p):
+class DisplayTaskPool(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayTaskPool'
     @winrt_mixinmethod
@@ -517,7 +517,7 @@ class DisplayTaskPool(c_void_p):
     def ExecuteTask(self: Windows.Devices.Display.Core.IDisplayTaskPool, task: Windows.Devices.Display.Core.DisplayTask) -> Void: ...
     @winrt_mixinmethod
     def TryExecuteTask(self: Windows.Devices.Display.Core.IDisplayTaskPool2, task: Windows.Devices.Display.Core.DisplayTask) -> Windows.Devices.Display.Core.DisplayTaskResult: ...
-class DisplayTaskResult(c_void_p):
+class DisplayTaskResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayTaskResult'
     @winrt_mixinmethod
@@ -532,7 +532,7 @@ class DisplayTaskResult(c_void_p):
 DisplayTaskSignalKind = Int32
 DisplayTaskSignalKind_OnPresentFlipAway: DisplayTaskSignalKind = 0
 DisplayTaskSignalKind_OnPresentFlipTo: DisplayTaskSignalKind = 1
-class DisplayView(c_void_p):
+class DisplayView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayView'
     @winrt_mixinmethod
@@ -548,7 +548,7 @@ class DisplayView(c_void_p):
     Paths = property(get_Paths, None)
     ContentResolution = property(get_ContentResolution, put_ContentResolution)
     Properties = property(get_Properties, None)
-class DisplayWireFormat(c_void_p):
+class DisplayWireFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.Core.DisplayWireFormat'
     @winrt_factorymethod
@@ -591,7 +591,7 @@ DisplayWireFormatPixelEncoding_Ycc444: DisplayWireFormatPixelEncoding = 1
 DisplayWireFormatPixelEncoding_Ycc422: DisplayWireFormatPixelEncoding = 2
 DisplayWireFormatPixelEncoding_Ycc420: DisplayWireFormatPixelEncoding = 3
 DisplayWireFormatPixelEncoding_Intensity: DisplayWireFormatPixelEncoding = 4
-class IDisplayAdapter(c_void_p):
+class IDisplayAdapter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a56f5287-f000-5f2e-b5-ac-37-83-a2-b6-9a-f5')
     @winrt_commethod(6)
@@ -618,12 +618,12 @@ class IDisplayAdapter(c_void_p):
     PciSubSystemId = property(get_PciSubSystemId, None)
     PciRevision = property(get_PciRevision, None)
     Properties = property(get_Properties, None)
-class IDisplayAdapterStatics(c_void_p):
+class IDisplayAdapterStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1dac3cda-481f-5469-84-70-82-c4-ba-68-0a-28')
     @winrt_commethod(6)
     def FromId(self, id: Windows.Graphics.DisplayAdapterId) -> Windows.Devices.Display.Core.DisplayAdapter: ...
-class IDisplayDevice(c_void_p):
+class IDisplayDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a4c9b62c-335f-5731-8c-b4-c1-cc-d4-73-10-70')
     @winrt_commethod(6)
@@ -640,15 +640,15 @@ class IDisplayDevice(c_void_p):
     def CreateSimpleScanout(self, pSource: Windows.Devices.Display.Core.DisplaySource, pSurface: Windows.Devices.Display.Core.DisplaySurface, SubResourceIndex: UInt32, SyncInterval: UInt32) -> Windows.Devices.Display.Core.DisplayScanout: ...
     @winrt_commethod(12)
     def IsCapabilitySupported(self, capability: Windows.Devices.Display.Core.DisplayDeviceCapability) -> Boolean: ...
-class IDisplayDevice2(c_void_p):
+class IDisplayDevice2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3fefe50c-0940-54bd-a0-2f-f9-c7-a5-36-ad-60')
     @winrt_commethod(6)
     def CreateSimpleScanoutWithDirtyRectsAndOptions(self, source: Windows.Devices.Display.Core.DisplaySource, surface: Windows.Devices.Display.Core.DisplaySurface, subresourceIndex: UInt32, syncInterval: UInt32, dirtyRects: Windows.Foundation.Collections.IIterable[Windows.Graphics.RectInt32], options: Windows.Devices.Display.Core.DisplayScanoutOptions) -> Windows.Devices.Display.Core.DisplayScanout: ...
-class IDisplayFence(c_void_p):
+class IDisplayFence(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('04dcf9ef-3406-5700-8f-ec-77-eb-a4-c5-a7-4b')
-class IDisplayManager(c_void_p):
+class IDisplayManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4ed9245b-15ec-56e2-90-72-7f-e5-08-4a-31-a7')
     @winrt_commethod(6)
@@ -689,7 +689,7 @@ class IDisplayManager(c_void_p):
     def Start(self) -> Void: ...
     @winrt_commethod(24)
     def Stop(self) -> Void: ...
-class IDisplayManagerChangedEventArgs(c_void_p):
+class IDisplayManagerChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6abfa285-6cca-5731-bc-dc-42-e5-d2-f5-c5-0f')
     @winrt_commethod(6)
@@ -699,7 +699,7 @@ class IDisplayManagerChangedEventArgs(c_void_p):
     @winrt_commethod(8)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class IDisplayManagerDisabledEventArgs(c_void_p):
+class IDisplayManagerDisabledEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8726dde4-6793-5973-a1-1f-5f-fb-c9-3f-db-90')
     @winrt_commethod(6)
@@ -709,7 +709,7 @@ class IDisplayManagerDisabledEventArgs(c_void_p):
     @winrt_commethod(8)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class IDisplayManagerEnabledEventArgs(c_void_p):
+class IDisplayManagerEnabledEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f0cf3f6f-42fa-59a2-b2-97-26-e1-71-3d-e8-48')
     @winrt_commethod(6)
@@ -719,7 +719,7 @@ class IDisplayManagerEnabledEventArgs(c_void_p):
     @winrt_commethod(8)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class IDisplayManagerPathsFailedOrInvalidatedEventArgs(c_void_p):
+class IDisplayManagerPathsFailedOrInvalidatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('03a65659-1dec-5c15-b2-a2-8f-e9-12-98-69-fe')
     @winrt_commethod(6)
@@ -729,7 +729,7 @@ class IDisplayManagerPathsFailedOrInvalidatedEventArgs(c_void_p):
     @winrt_commethod(8)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class IDisplayManagerResultWithState(c_void_p):
+class IDisplayManagerResultWithState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8e656aa6-6614-54be-bf-ef-49-94-54-7f-7b-e1')
     @winrt_commethod(6)
@@ -741,12 +741,12 @@ class IDisplayManagerResultWithState(c_void_p):
     ErrorCode = property(get_ErrorCode, None)
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
     State = property(get_State, None)
-class IDisplayManagerStatics(c_void_p):
+class IDisplayManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2b6b9446-b999-5535-9d-69-53-f0-92-c7-80-a1')
     @winrt_commethod(6)
     def Create(self, options: Windows.Devices.Display.Core.DisplayManagerOptions) -> Windows.Devices.Display.Core.DisplayManager: ...
-class IDisplayModeInfo(c_void_p):
+class IDisplayModeInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('48d513a0-f79b-5a74-a0-5e-da-82-1f-47-08-68')
     @winrt_commethod(6)
@@ -774,13 +774,13 @@ class IDisplayModeInfo(c_void_p):
     PresentationRate = property(get_PresentationRate, None)
     IsInterlaced = property(get_IsInterlaced, None)
     Properties = property(get_Properties, None)
-class IDisplayModeInfo2(c_void_p):
+class IDisplayModeInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c86fa386-0ddb-5473-bf-b0-4b-78-07-b5-f9-09')
     @winrt_commethod(6)
     def get_PhysicalPresentationRate(self) -> Windows.Devices.Display.Core.DisplayPresentationRate: ...
     PhysicalPresentationRate = property(get_PhysicalPresentationRate, None)
-class IDisplayPath(c_void_p):
+class IDisplayPath(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b3dfd64a-7460-5cde-81-1b-d5-ae-9f-3d-9f-84')
     @winrt_commethod(6)
@@ -844,7 +844,7 @@ class IDisplayPath(c_void_p):
     Rotation = property(get_Rotation, put_Rotation)
     Scaling = property(get_Scaling, put_Scaling)
     Properties = property(get_Properties, None)
-class IDisplayPath2(c_void_p):
+class IDisplayPath2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f32459c5-e994-570b-9e-c8-ef-42-c3-5a-85-47')
     @winrt_commethod(6)
@@ -852,7 +852,7 @@ class IDisplayPath2(c_void_p):
     @winrt_commethod(7)
     def put_PhysicalPresentationRate(self, value: Windows.Foundation.IReference[Windows.Devices.Display.Core.DisplayPresentationRate]) -> Void: ...
     PhysicalPresentationRate = property(get_PhysicalPresentationRate, put_PhysicalPresentationRate)
-class IDisplayPrimaryDescription(c_void_p):
+class IDisplayPrimaryDescription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('872591d2-d533-50ff-a8-5e-06-69-61-94-b7-7c')
     @winrt_commethod(6)
@@ -876,20 +876,20 @@ class IDisplayPrimaryDescription(c_void_p):
     IsStereo = property(get_IsStereo, None)
     MultisampleDescription = property(get_MultisampleDescription, None)
     Properties = property(get_Properties, None)
-class IDisplayPrimaryDescriptionFactory(c_void_p):
+class IDisplayPrimaryDescriptionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1a6aff7b-3637-5c46-b4-79-76-d5-76-21-6e-65')
     @winrt_commethod(6)
     def CreateInstance(self, width: UInt32, height: UInt32, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, colorSpace: Windows.Graphics.DirectX.DirectXColorSpace, isStereo: Boolean, multisampleDescription: Windows.Graphics.DirectX.Direct3D11.Direct3DMultisampleDescription) -> Windows.Devices.Display.Core.DisplayPrimaryDescription: ...
-class IDisplayPrimaryDescriptionStatics(c_void_p):
+class IDisplayPrimaryDescriptionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e60e4cfb-36c9-56dd-8f-a1-6f-f8-c4-e0-ff-07')
     @winrt_commethod(6)
     def CreateWithProperties(self, extraProperties: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[Guid, Windows.Win32.System.WinRT.IInspectable_head]], width: UInt32, height: UInt32, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, colorSpace: Windows.Graphics.DirectX.DirectXColorSpace, isStereo: Boolean, multisampleDescription: Windows.Graphics.DirectX.Direct3D11.Direct3DMultisampleDescription) -> Windows.Devices.Display.Core.DisplayPrimaryDescription: ...
-class IDisplayScanout(c_void_p):
+class IDisplayScanout(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e3051828-1ba5-50e7-8a-39-bb-1f-d2-f4-f8-b9')
-class IDisplaySource(c_void_p):
+class IDisplaySource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ecd15fc1-eadc-51bc-97-1d-3b-c6-28-db-2d-d4')
     @winrt_commethod(6)
@@ -900,7 +900,7 @@ class IDisplaySource(c_void_p):
     def GetMetadata(self, Key: Guid) -> Windows.Storage.Streams.IBuffer: ...
     AdapterId = property(get_AdapterId, None)
     SourceId = property(get_SourceId, None)
-class IDisplaySource2(c_void_p):
+class IDisplaySource2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('71e18952-b321-5af4-bf-e8-03-fb-ea-31-e4-0d')
     @winrt_commethod(6)
@@ -910,7 +910,7 @@ class IDisplaySource2(c_void_p):
     @winrt_commethod(8)
     def remove_StatusChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
-class IDisplayState(c_void_p):
+class IDisplayState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('08129321-11b5-5cb2-99-f8-e9-0b-47-9a-8a-1d')
     @winrt_commethod(6)
@@ -946,7 +946,7 @@ class IDisplayState(c_void_p):
     Targets = property(get_Targets, None)
     Views = property(get_Views, None)
     Properties = property(get_Properties, None)
-class IDisplayStateOperationResult(c_void_p):
+class IDisplayStateOperationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fcadbfdf-dc27-5638-b7-f2-eb-df-a4-f7-ea-93')
     @winrt_commethod(6)
@@ -955,10 +955,10 @@ class IDisplayStateOperationResult(c_void_p):
     def get_ExtendedErrorCode(self) -> Windows.Foundation.HResult: ...
     Status = property(get_Status, None)
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
-class IDisplaySurface(c_void_p):
+class IDisplaySurface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('594f6cc6-139a-56d6-a4-b1-15-fe-2c-b7-6a-db')
-class IDisplayTarget(c_void_p):
+class IDisplayTarget(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('aec57c6f-47b4-546b-98-7c-e7-3f-a7-91-fe-3a')
     @winrt_commethod(6)
@@ -1000,31 +1000,31 @@ class IDisplayTarget(c_void_p):
     StableMonitorId = property(get_StableMonitorId, None)
     Properties = property(get_Properties, None)
     IsStale = property(get_IsStale, None)
-class IDisplayTask(c_void_p):
+class IDisplayTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5e087448-135b-5bb0-bf-63-63-7f-84-22-7c-7a')
     @winrt_commethod(6)
     def SetScanout(self, scanout: Windows.Devices.Display.Core.DisplayScanout) -> Void: ...
     @winrt_commethod(7)
     def SetWait(self, readyFence: Windows.Devices.Display.Core.DisplayFence, readyFenceValue: UInt64) -> Void: ...
-class IDisplayTask2(c_void_p):
+class IDisplayTask2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0957ea19-bd55-55de-92-67-c9-7b-61-e7-1c-37')
     @winrt_commethod(6)
     def SetSignal(self, signalKind: Windows.Devices.Display.Core.DisplayTaskSignalKind, fence: Windows.Devices.Display.Core.DisplayFence) -> Void: ...
-class IDisplayTaskPool(c_void_p):
+class IDisplayTaskPool(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c676253d-237d-5548-aa-fa-3e-51-7f-ef-ef-1c')
     @winrt_commethod(6)
     def CreateTask(self) -> Windows.Devices.Display.Core.DisplayTask: ...
     @winrt_commethod(7)
     def ExecuteTask(self, task: Windows.Devices.Display.Core.DisplayTask) -> Void: ...
-class IDisplayTaskPool2(c_void_p):
+class IDisplayTaskPool2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('46b879b6-5d17-5955-a8-72-eb-38-00-3d-b5-86')
     @winrt_commethod(6)
     def TryExecuteTask(self, task: Windows.Devices.Display.Core.DisplayTask) -> Windows.Devices.Display.Core.DisplayTaskResult: ...
-class IDisplayTaskResult(c_void_p):
+class IDisplayTaskResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6fbc7d67-f9b1-55e0-9d-88-d3-a5-19-7a-3f-59')
     @winrt_commethod(6)
@@ -1036,7 +1036,7 @@ class IDisplayTaskResult(c_void_p):
     PresentStatus = property(get_PresentStatus, None)
     PresentId = property(get_PresentId, None)
     SourceStatus = property(get_SourceStatus, None)
-class IDisplayView(c_void_p):
+class IDisplayView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b0c98ca1-b759-5b59-b1-ad-f0-78-6a-a9-e5-3d')
     @winrt_commethod(6)
@@ -1052,7 +1052,7 @@ class IDisplayView(c_void_p):
     Paths = property(get_Paths, None)
     ContentResolution = property(get_ContentResolution, put_ContentResolution)
     Properties = property(get_Properties, None)
-class IDisplayWireFormat(c_void_p):
+class IDisplayWireFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1acc967d-872c-5a38-bb-b9-1d-48-72-b7-62-55')
     @winrt_commethod(6)
@@ -1073,12 +1073,12 @@ class IDisplayWireFormat(c_void_p):
     Eotf = property(get_Eotf, None)
     HdrMetadata = property(get_HdrMetadata, None)
     Properties = property(get_Properties, None)
-class IDisplayWireFormatFactory(c_void_p):
+class IDisplayWireFormatFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b2efc8d5-09d6-55e6-ad-22-90-14-b3-d2-52-29')
     @winrt_commethod(6)
     def CreateInstance(self, pixelEncoding: Windows.Devices.Display.Core.DisplayWireFormatPixelEncoding, bitsPerChannel: Int32, colorSpace: Windows.Devices.Display.Core.DisplayWireFormatColorSpace, eotf: Windows.Devices.Display.Core.DisplayWireFormatEotf, hdrMetadata: Windows.Devices.Display.Core.DisplayWireFormatHdrMetadata) -> Windows.Devices.Display.Core.DisplayWireFormat: ...
-class IDisplayWireFormatStatics(c_void_p):
+class IDisplayWireFormatStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c575a22d-c3e6-5f7a-bd-fb-87-c6-ab-86-61-d5')
     @winrt_commethod(6)

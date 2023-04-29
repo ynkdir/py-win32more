@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Wallet
@@ -25,7 +25,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IWalletBarcode(c_void_p):
+class IWalletBarcode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4f857b29-de80-4ea4-a1-cd-81-cd-08-4d-ac-27')
     @winrt_commethod(6)
@@ -36,14 +36,14 @@ class IWalletBarcode(c_void_p):
     def GetImageAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IRandomAccessStreamReference]: ...
     Symbology = property(get_Symbology, None)
     Value = property(get_Value, None)
-class IWalletBarcodeFactory(c_void_p):
+class IWalletBarcodeFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('30117161-ed9c-469e-bb-fd-30-6c-95-ea-71-08')
     @winrt_commethod(6)
     def CreateWalletBarcode(self, symbology: Windows.ApplicationModel.Wallet.WalletBarcodeSymbology, value: WinRT_String) -> Windows.ApplicationModel.Wallet.WalletBarcode: ...
     @winrt_commethod(7)
     def CreateCustomWalletBarcode(self, streamToBarcodeImage: Windows.Storage.Streams.IRandomAccessStreamReference) -> Windows.ApplicationModel.Wallet.WalletBarcode: ...
-class IWalletItem(c_void_p):
+class IWalletItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('20b54be8-118d-4ec4-99-6c-b9-63-e7-bd-3e-74')
     @winrt_commethod(6)
@@ -179,7 +179,7 @@ class IWalletItem(c_void_p):
     IsMoreTransactionHistoryLaunchable = property(get_IsMoreTransactionHistoryLaunchable, put_IsMoreTransactionHistoryLaunchable)
     DisplayProperties = property(get_DisplayProperties, None)
     Verbs = property(get_Verbs, None)
-class IWalletItemCustomProperty(c_void_p):
+class IWalletItemCustomProperty(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b94b40f3-fa00-40fd-98-dc-9d-e4-66-97-f1-e7')
     @winrt_commethod(6)
@@ -207,17 +207,17 @@ class IWalletItemCustomProperty(c_void_p):
     AutoDetectLinks = property(get_AutoDetectLinks, put_AutoDetectLinks)
     DetailViewPosition = property(get_DetailViewPosition, put_DetailViewPosition)
     SummaryViewPosition = property(get_SummaryViewPosition, put_SummaryViewPosition)
-class IWalletItemCustomPropertyFactory(c_void_p):
+class IWalletItemCustomPropertyFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d0046a44-61a1-41aa-b2-59-a5-61-0a-b5-d5-75')
     @winrt_commethod(6)
     def CreateWalletItemCustomProperty(self, name: WinRT_String, value: WinRT_String) -> Windows.ApplicationModel.Wallet.WalletItemCustomProperty: ...
-class IWalletItemFactory(c_void_p):
+class IWalletItemFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('53e27470-4f0b-4a3e-99-e5-0b-bb-1e-ab-38-d4')
     @winrt_commethod(6)
     def CreateWalletItem(self, kind: Windows.ApplicationModel.Wallet.WalletItemKind, displayName: WinRT_String) -> Windows.ApplicationModel.Wallet.WalletItem: ...
-class IWalletItemStore(c_void_p):
+class IWalletItemStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7160484b-6d49-48f8-91-a9-40-a1-d0-f1-3e-f4')
     @winrt_commethod(6)
@@ -240,19 +240,19 @@ class IWalletItemStore(c_void_p):
     def ShowItemAsync(self, id: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(15)
     def UpdateAsync(self, item: Windows.ApplicationModel.Wallet.WalletItem) -> Windows.Foundation.IAsyncAction: ...
-class IWalletItemStore2(c_void_p):
+class IWalletItemStore2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('65e682f0-7009-4a15-bd-54-4f-ff-37-9b-ff-e2')
     @winrt_commethod(6)
     def add_ItemsChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Wallet.WalletItemStore, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ItemsChanged(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IWalletManagerStatics(c_void_p):
+class IWalletManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5111d6b8-c9a4-4c64-b4-dd-e1-e5-48-00-1c-0d')
     @winrt_commethod(6)
     def RequestStoreAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Wallet.WalletItemStore]: ...
-class IWalletRelevantLocation(c_void_p):
+class IWalletRelevantLocation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9fd8782a-e3f9-4de1-ba-b3-bb-19-2e-46-b3-f3')
     @winrt_commethod(6)
@@ -265,7 +265,7 @@ class IWalletRelevantLocation(c_void_p):
     def put_DisplayMessage(self, value: WinRT_String) -> Void: ...
     Position = property(get_Position, put_Position)
     DisplayMessage = property(get_DisplayMessage, put_DisplayMessage)
-class IWalletTransaction(c_void_p):
+class IWalletTransaction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('40e1e940-2606-4519-81-cb-bf-f1-c6-0d-1f-79')
     @winrt_commethod(6)
@@ -298,7 +298,7 @@ class IWalletTransaction(c_void_p):
     DisplayLocation = property(get_DisplayLocation, put_DisplayLocation)
     TransactionDate = property(get_TransactionDate, put_TransactionDate)
     IsLaunchable = property(get_IsLaunchable, put_IsLaunchable)
-class IWalletVerb(c_void_p):
+class IWalletVerb(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('17b826d6-e3c1-4c74-8a-94-21-7a-ad-bc-48-84')
     @winrt_commethod(6)
@@ -306,12 +306,12 @@ class IWalletVerb(c_void_p):
     @winrt_commethod(7)
     def put_Name(self, value: WinRT_String) -> Void: ...
     Name = property(get_Name, put_Name)
-class IWalletVerbFactory(c_void_p):
+class IWalletVerbFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('76012771-be58-4d5e-83-ed-58-b1-66-9c-7a-d9')
     @winrt_commethod(6)
     def CreateWalletVerb(self, name: WinRT_String) -> Windows.ApplicationModel.Wallet.WalletVerb: ...
-class WalletBarcode(c_void_p):
+class WalletBarcode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Wallet.WalletBarcode'
     @winrt_factorymethod
@@ -355,7 +355,7 @@ WalletDetailViewPosition_FooterField1: WalletDetailViewPosition = 11
 WalletDetailViewPosition_FooterField2: WalletDetailViewPosition = 12
 WalletDetailViewPosition_FooterField3: WalletDetailViewPosition = 13
 WalletDetailViewPosition_FooterField4: WalletDetailViewPosition = 14
-class WalletItem(c_void_p):
+class WalletItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Wallet.WalletItem'
     @winrt_factorymethod
@@ -493,7 +493,7 @@ class WalletItem(c_void_p):
     IsMoreTransactionHistoryLaunchable = property(get_IsMoreTransactionHistoryLaunchable, put_IsMoreTransactionHistoryLaunchable)
     DisplayProperties = property(get_DisplayProperties, None)
     Verbs = property(get_Verbs, None)
-class WalletItemCustomProperty(c_void_p):
+class WalletItemCustomProperty(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Wallet.WalletItemCustomProperty'
     @winrt_factorymethod
@@ -531,7 +531,7 @@ WalletItemKind_PaymentInstrument: WalletItemKind = 3
 WalletItemKind_Ticket: WalletItemKind = 4
 WalletItemKind_BoardingPass: WalletItemKind = 5
 WalletItemKind_MembershipCard: WalletItemKind = 6
-class WalletItemStore(c_void_p):
+class WalletItemStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Wallet.WalletItemStore'
     @winrt_mixinmethod
@@ -554,12 +554,12 @@ class WalletItemStore(c_void_p):
     def ShowItemAsync(self: Windows.ApplicationModel.Wallet.IWalletItemStore, id: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def UpdateAsync(self: Windows.ApplicationModel.Wallet.IWalletItemStore, item: Windows.ApplicationModel.Wallet.WalletItem) -> Windows.Foundation.IAsyncAction: ...
-class WalletManager(c_void_p):
+class WalletManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Wallet.WalletManager'
     @winrt_classmethod
     def RequestStoreAsync(cls: Windows.ApplicationModel.Wallet.IWalletManagerStatics) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Wallet.WalletItemStore]: ...
-class WalletRelevantLocation(c_void_p):
+class WalletRelevantLocation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Wallet.WalletRelevantLocation'
     @winrt_activatemethod
@@ -578,7 +578,7 @@ WalletSummaryViewPosition = Int32
 WalletSummaryViewPosition_Hidden: WalletSummaryViewPosition = 0
 WalletSummaryViewPosition_Field1: WalletSummaryViewPosition = 1
 WalletSummaryViewPosition_Field2: WalletSummaryViewPosition = 2
-class WalletTransaction(c_void_p):
+class WalletTransaction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Wallet.WalletTransaction'
     @winrt_activatemethod
@@ -613,7 +613,7 @@ class WalletTransaction(c_void_p):
     DisplayLocation = property(get_DisplayLocation, put_DisplayLocation)
     TransactionDate = property(get_TransactionDate, put_TransactionDate)
     IsLaunchable = property(get_IsLaunchable, put_IsLaunchable)
-class WalletVerb(c_void_p):
+class WalletVerb(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Wallet.WalletVerb'
     @winrt_factorymethod

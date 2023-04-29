@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IMessageDialog(c_void_p):
+class IMessageDialog(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('33f59b01-5325-43ab-9a-b3-bd-ae-44-0e-41-21')
     @winrt_commethod(6)
@@ -55,14 +55,14 @@ class IMessageDialog(c_void_p):
     CancelCommandIndex = property(get_CancelCommandIndex, put_CancelCommandIndex)
     Content = property(get_Content, put_Content)
     Options = property(get_Options, put_Options)
-class IMessageDialogFactory(c_void_p):
+class IMessageDialogFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2d161777-a66f-4ea5-bb-87-79-3f-fa-49-41-f2')
     @winrt_commethod(6)
     def Create(self, content: WinRT_String) -> Windows.UI.Popups.MessageDialog: ...
     @winrt_commethod(7)
     def CreateWithTitle(self, content: WinRT_String, title: WinRT_String) -> Windows.UI.Popups.MessageDialog: ...
-class IPopupMenu(c_void_p):
+class IPopupMenu(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4e9bc6dc-880d-47fc-a0-a1-72-b6-39-e6-25-59')
     @winrt_commethod(6)
@@ -74,7 +74,7 @@ class IPopupMenu(c_void_p):
     @winrt_commethod(9)
     def ShowAsyncWithRectAndPlacement(self, selection: Windows.Foundation.Rect, preferredPlacement: Windows.UI.Popups.Placement) -> Windows.Foundation.IAsyncOperation[Windows.UI.Popups.IUICommand]: ...
     Commands = property(get_Commands, None)
-class IUICommand(c_void_p):
+class IUICommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4ff93a75-4145-47ff-ac-7f-df-f1-c1-fa-5b-0f')
     @winrt_commethod(6)
@@ -92,7 +92,7 @@ class IUICommand(c_void_p):
     Label = property(get_Label, put_Label)
     Invoked = property(get_Invoked, put_Invoked)
     Id = property(get_Id, put_Id)
-class IUICommandFactory(c_void_p):
+class IUICommandFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a21a8189-26b0-4676-ae-94-54-04-1b-c1-25-e8')
     @winrt_commethod(6)
@@ -101,7 +101,7 @@ class IUICommandFactory(c_void_p):
     def CreateWithHandler(self, label: WinRT_String, action: Windows.UI.Popups.UICommandInvokedHandler) -> Windows.UI.Popups.UICommand: ...
     @winrt_commethod(8)
     def CreateWithHandlerAndId(self, label: WinRT_String, action: Windows.UI.Popups.UICommandInvokedHandler, commandId: Windows.Win32.System.WinRT.IInspectable_head) -> Windows.UI.Popups.UICommand: ...
-class MessageDialog(c_void_p):
+class MessageDialog(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Popups.MessageDialog'
     @winrt_factorymethod
@@ -147,7 +147,7 @@ Placement_Above: Placement = 1
 Placement_Below: Placement = 2
 Placement_Left: Placement = 3
 Placement_Right: Placement = 4
-class PopupMenu(c_void_p):
+class PopupMenu(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Popups.PopupMenu'
     @winrt_activatemethod
@@ -161,7 +161,7 @@ class PopupMenu(c_void_p):
     @winrt_mixinmethod
     def ShowAsyncWithRectAndPlacement(self: Windows.UI.Popups.IPopupMenu, selection: Windows.Foundation.Rect, preferredPlacement: Windows.UI.Popups.Placement) -> Windows.Foundation.IAsyncOperation[Windows.UI.Popups.IUICommand]: ...
     Commands = property(get_Commands, None)
-class UICommand(c_void_p):
+class UICommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Popups.UICommand'
     @winrt_factorymethod
@@ -187,13 +187,13 @@ class UICommand(c_void_p):
     Label = property(get_Label, put_Label)
     Invoked = property(get_Invoked, put_Invoked)
     Id = property(get_Id, put_Id)
-class UICommandInvokedHandler(c_void_p):
+class UICommandInvokedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('daf77a4f-c27a-4298-9a-c6-29-22-c4-5e-7d-a6')
     ClassId = 'Windows.UI.Popups.UICommandInvokedHandler'
     @winrt_commethod(3)
     def Invoke(self, command: Windows.UI.Popups.IUICommand) -> Void: ...
-class UICommandSeparator(c_void_p):
+class UICommandSeparator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Popups.UICommandSeparator'
     @winrt_activatemethod

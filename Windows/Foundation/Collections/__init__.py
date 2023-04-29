@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -26,12 +26,12 @@ CollectionChange_Reset: CollectionChange = 0
 CollectionChange_ItemInserted: CollectionChange = 1
 CollectionChange_ItemRemoved: CollectionChange = 2
 CollectionChange_ItemChanged: CollectionChange = 3
-class IIterable(Generic[T], c_void_p):
+class IIterable(Generic[T], ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('faa585ea-6214-4217-af-da-7f-46-de-58-69-b3')
     @winrt_commethod(6)
     def First(self) -> Windows.Foundation.Collections.IIterator[T]: ...
-class IIterator(Generic[T], c_void_p):
+class IIterator(Generic[T], ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6a79e863-4300-459a-99-66-cb-b6-60-96-3e-e1')
     @winrt_commethod(6)
@@ -44,7 +44,7 @@ class IIterator(Generic[T], c_void_p):
     def GetMany(self, items: POINTER(T)) -> UInt32: ...
     Current = property(get_Current, None)
     HasCurrent = property(get_HasCurrent, None)
-class IKeyValuePair(Generic[K, V], c_void_p):
+class IKeyValuePair(Generic[K, V], ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('02b51929-c1c4-4a7e-89-40-03-12-b5-c1-85-00')
     @winrt_commethod(6)
@@ -53,7 +53,7 @@ class IKeyValuePair(Generic[K, V], c_void_p):
     def get_Value(self) -> V: ...
     Key = property(get_Key, None)
     Value = property(get_Value, None)
-class IMapChangedEventArgs(Generic[K], c_void_p):
+class IMapChangedEventArgs(Generic[K], ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9939f4df-050a-4c0f-aa-60-77-07-5f-9c-47-77')
     @winrt_commethod(6)
@@ -62,7 +62,7 @@ class IMapChangedEventArgs(Generic[K], c_void_p):
     def get_Key(self) -> K: ...
     CollectionChange = property(get_CollectionChange, None)
     Key = property(get_Key, None)
-class IMapView(Generic[K, V], c_void_p):
+class IMapView(Generic[K, V], ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e480ce40-a338-4ada-ad-cf-27-22-72-e4-8c-b9')
     @winrt_commethod(6)
@@ -74,7 +74,7 @@ class IMapView(Generic[K, V], c_void_p):
     @winrt_commethod(9)
     def Split(self, first: POINTER(Windows.Foundation.Collections.IMapView[K, V]), second: POINTER(Windows.Foundation.Collections.IMapView[K, V])) -> Void: ...
     Size = property(get_Size, None)
-class IMap(Generic[K, V], c_void_p):
+class IMap(Generic[K, V], ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3c2925fe-8519-45c1-aa-79-19-7b-67-18-c1-c1')
     @winrt_commethod(6)
@@ -92,24 +92,24 @@ class IMap(Generic[K, V], c_void_p):
     @winrt_commethod(12)
     def Clear(self) -> Void: ...
     Size = property(get_Size, None)
-class IObservableMap(Generic[K, V], c_void_p):
+class IObservableMap(Generic[K, V], ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('65df2bf5-bf39-41b5-ae-bc-5a-9d-86-5e-47-2b')
     @winrt_commethod(6)
     def add_MapChanged(self, vhnd: Windows.Foundation.Collections.MapChangedEventHandler[K, V]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_MapChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IObservableVector(Generic[T], c_void_p):
+class IObservableVector(Generic[T], ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5917eb53-50b4-4a0d-b3-09-65-86-2b-3f-1d-bc')
     @winrt_commethod(6)
     def add_VectorChanged(self, vhnd: Windows.Foundation.Collections.VectorChangedEventHandler[T]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_VectorChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IPropertySet(c_void_p):
+class IPropertySet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8a43ed9f-f4e6-4421-ac-f9-1d-ab-29-86-82-0c')
-class IVectorChangedEventArgs(c_void_p):
+class IVectorChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('575933df-34fe-4480-af-15-07-69-1f-3d-5d-9b')
     @winrt_commethod(6)
@@ -118,7 +118,7 @@ class IVectorChangedEventArgs(c_void_p):
     def get_Index(self) -> UInt32: ...
     CollectionChange = property(get_CollectionChange, None)
     Index = property(get_Index, None)
-class IVectorView(Generic[T], c_void_p):
+class IVectorView(Generic[T], ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bbe1fa4c-b0e3-4583-ba-ef-1f-1b-2e-48-3e-56')
     @winrt_commethod(6)
@@ -130,7 +130,7 @@ class IVectorView(Generic[T], c_void_p):
     @winrt_commethod(9)
     def GetMany(self, startIndex: UInt32, items: POINTER(T)) -> UInt32: ...
     Size = property(get_Size, None)
-class IVector(Generic[T], c_void_p):
+class IVector(Generic[T], ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('913337e9-11a1-4345-a3-a2-4e-7f-95-6e-22-2d')
     @winrt_commethod(6)
@@ -158,13 +158,13 @@ class IVector(Generic[T], c_void_p):
     @winrt_commethod(17)
     def ReplaceAll(self, items: POINTER(T)) -> Void: ...
     Size = property(get_Size, None)
-class MapChangedEventHandler(Generic[K, V], c_void_p):
+class MapChangedEventHandler(Generic[K, V], ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('179517f3-94ee-41f8-bd-dc-76-8a-89-55-44-f3')
     ClassId = 'Windows.Foundation.Collections.MapChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Foundation.Collections.IObservableMap[K, V], event: Windows.Foundation.Collections.IMapChangedEventArgs[K]) -> Void: ...
-class PropertySet(c_void_p):
+class PropertySet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Foundation.Collections.PropertySet'
     @winrt_activatemethod
@@ -190,7 +190,7 @@ class PropertySet(c_void_p):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]]) -> Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]]: ...
     Size = property(get_Size, None)
-class StringMap(c_void_p):
+class StringMap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Foundation.Collections.StringMap'
     @winrt_activatemethod
@@ -216,7 +216,7 @@ class StringMap(c_void_p):
     @winrt_mixinmethod
     def remove_MapChanged(self: Windows.Foundation.Collections.IObservableMap[WinRT_String, WinRT_String], token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     Size = property(get_Size, None)
-class ValueSet(c_void_p):
+class ValueSet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Foundation.Collections.ValueSet'
     @winrt_activatemethod
@@ -242,7 +242,7 @@ class ValueSet(c_void_p):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]]) -> Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]]: ...
     Size = property(get_Size, None)
-class VectorChangedEventHandler(Generic[T], c_void_p):
+class VectorChangedEventHandler(Generic[T], ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c051752-9fbf-4c70-aa-0c-0e-4c-82-d9-a7-61')
     ClassId = 'Windows.Foundation.Collections.VectorChangedEventHandler'

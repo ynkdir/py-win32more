@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -27,7 +27,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class HttpBaseProtocolFilter(c_void_p):
+class HttpBaseProtocolFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Filters.HttpBaseProtocolFilter'
     @winrt_activatemethod
@@ -106,7 +106,7 @@ class HttpBaseProtocolFilter(c_void_p):
     MaxVersion = property(get_MaxVersion, put_MaxVersion)
     CookieUsageBehavior = property(get_CookieUsageBehavior, put_CookieUsageBehavior)
     User = property(get_User, None)
-class HttpCacheControl(c_void_p):
+class HttpCacheControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Filters.HttpCacheControl'
     @winrt_mixinmethod
@@ -130,7 +130,7 @@ HttpCacheWriteBehavior_NoCache: HttpCacheWriteBehavior = 1
 HttpCookieUsageBehavior = Int32
 HttpCookieUsageBehavior_Default: HttpCookieUsageBehavior = 0
 HttpCookieUsageBehavior_NoCookies: HttpCookieUsageBehavior = 1
-class HttpServerCustomValidationRequestedEventArgs(c_void_p):
+class HttpServerCustomValidationRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Filters.HttpServerCustomValidationRequestedEventArgs'
     @winrt_mixinmethod
@@ -152,7 +152,7 @@ class HttpServerCustomValidationRequestedEventArgs(c_void_p):
     ServerCertificateErrorSeverity = property(get_ServerCertificateErrorSeverity, None)
     ServerCertificateErrors = property(get_ServerCertificateErrors, None)
     ServerIntermediateCertificates = property(get_ServerIntermediateCertificates, None)
-class IHttpBaseProtocolFilter(c_void_p):
+class IHttpBaseProtocolFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('71c89b09-e131-4b54-a5-3c-eb-43-ff-37-e9-bb')
     @winrt_commethod(6)
@@ -204,7 +204,7 @@ class IHttpBaseProtocolFilter(c_void_p):
     ProxyCredential = property(get_ProxyCredential, put_ProxyCredential)
     ServerCredential = property(get_ServerCredential, put_ServerCredential)
     UseProxy = property(get_UseProxy, put_UseProxy)
-class IHttpBaseProtocolFilter2(c_void_p):
+class IHttpBaseProtocolFilter2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2ec30013-9427-4900-a0-17-fa-7d-a3-b5-c9-ae')
     @winrt_commethod(6)
@@ -212,7 +212,7 @@ class IHttpBaseProtocolFilter2(c_void_p):
     @winrt_commethod(7)
     def put_MaxVersion(self, value: Windows.Web.Http.HttpVersion) -> Void: ...
     MaxVersion = property(get_MaxVersion, put_MaxVersion)
-class IHttpBaseProtocolFilter3(c_void_p):
+class IHttpBaseProtocolFilter3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d43f4d4c-bd42-43ae-87-17-ad-2c-8f-4b-29-37')
     @winrt_commethod(6)
@@ -220,7 +220,7 @@ class IHttpBaseProtocolFilter3(c_void_p):
     @winrt_commethod(7)
     def put_CookieUsageBehavior(self, value: Windows.Web.Http.Filters.HttpCookieUsageBehavior) -> Void: ...
     CookieUsageBehavior = property(get_CookieUsageBehavior, put_CookieUsageBehavior)
-class IHttpBaseProtocolFilter4(c_void_p):
+class IHttpBaseProtocolFilter4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9fe36ccf-2983-4893-94-1f-eb-51-8c-a8-ce-f9')
     @winrt_commethod(6)
@@ -229,18 +229,18 @@ class IHttpBaseProtocolFilter4(c_void_p):
     def remove_ServerCustomValidationRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def ClearAuthenticationCache(self) -> Void: ...
-class IHttpBaseProtocolFilter5(c_void_p):
+class IHttpBaseProtocolFilter5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('416e4993-31e3-4816-bf-09-e0-18-ee-8d-c1-f5')
     @winrt_commethod(6)
     def get_User(self) -> Windows.System.User: ...
     User = property(get_User, None)
-class IHttpBaseProtocolFilterStatics(c_void_p):
+class IHttpBaseProtocolFilterStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6d4dee0c-e908-494e-b5-a3-12-63-c9-b8-24-2a')
     @winrt_commethod(6)
     def CreateForUser(self, user: Windows.System.User) -> Windows.Web.Http.Filters.HttpBaseProtocolFilter: ...
-class IHttpCacheControl(c_void_p):
+class IHttpCacheControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c77e1cb4-3cea-4eb5-ac-85-04-e1-86-e6-3a-b7')
     @winrt_commethod(6)
@@ -253,12 +253,12 @@ class IHttpCacheControl(c_void_p):
     def put_WriteBehavior(self, value: Windows.Web.Http.Filters.HttpCacheWriteBehavior) -> Void: ...
     ReadBehavior = property(get_ReadBehavior, put_ReadBehavior)
     WriteBehavior = property(get_WriteBehavior, put_WriteBehavior)
-class IHttpFilter(c_void_p):
+class IHttpFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a4cb6dd5-0902-439e-bf-d7-e1-25-52-b1-65-ce')
     @winrt_commethod(6)
     def SendRequestAsync(self, request: Windows.Web.Http.HttpRequestMessage) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Web.Http.HttpResponseMessage, Windows.Web.Http.HttpProgress]: ...
-class IHttpServerCustomValidationRequestedEventArgs(c_void_p):
+class IHttpServerCustomValidationRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3165fe32-e7dd-48b7-a3-61-93-9c-75-0e-63-cc')
     @winrt_commethod(6)

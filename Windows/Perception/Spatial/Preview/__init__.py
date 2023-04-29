@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation.Numerics
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ISpatialGraphInteropFrameOfReferencePreview(c_void_p):
+class ISpatialGraphInteropFrameOfReferencePreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a8271b23-735f-5729-a9-8e-e6-4e-d1-89-ab-c5')
     @winrt_commethod(6)
@@ -34,7 +34,7 @@ class ISpatialGraphInteropFrameOfReferencePreview(c_void_p):
     CoordinateSystem = property(get_CoordinateSystem, None)
     NodeId = property(get_NodeId, None)
     CoordinateSystemToNodeTransform = property(get_CoordinateSystemToNodeTransform, None)
-class ISpatialGraphInteropPreviewStatics(c_void_p):
+class ISpatialGraphInteropPreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c042644c-20d8-4ed0-ae-f7-68-05-b8-e5-3f-55')
     @winrt_commethod(6)
@@ -45,7 +45,7 @@ class ISpatialGraphInteropPreviewStatics(c_void_p):
     def CreateCoordinateSystemForNodeWithPositionAndOrientation(self, nodeId: Guid, relativePosition: Windows.Foundation.Numerics.Vector3, relativeOrientation: Windows.Foundation.Numerics.Quaternion) -> Windows.Perception.Spatial.SpatialCoordinateSystem: ...
     @winrt_commethod(9)
     def CreateLocatorForNode(self, nodeId: Guid) -> Windows.Perception.Spatial.SpatialLocator: ...
-class ISpatialGraphInteropPreviewStatics2(c_void_p):
+class ISpatialGraphInteropPreviewStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2490b15f-6cbd-4b1e-b7-65-31-e4-62-a3-2d-f2')
     @winrt_commethod(6)
@@ -54,7 +54,7 @@ class ISpatialGraphInteropPreviewStatics2(c_void_p):
     def TryCreateFrameOfReferenceWithPosition(self, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, relativePosition: Windows.Foundation.Numerics.Vector3) -> Windows.Perception.Spatial.Preview.SpatialGraphInteropFrameOfReferencePreview: ...
     @winrt_commethod(8)
     def TryCreateFrameOfReferenceWithPositionAndOrientation(self, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, relativePosition: Windows.Foundation.Numerics.Vector3, relativeOrientation: Windows.Foundation.Numerics.Quaternion) -> Windows.Perception.Spatial.Preview.SpatialGraphInteropFrameOfReferencePreview: ...
-class SpatialGraphInteropFrameOfReferencePreview(c_void_p):
+class SpatialGraphInteropFrameOfReferencePreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.Preview.SpatialGraphInteropFrameOfReferencePreview'
     @winrt_mixinmethod
@@ -66,7 +66,7 @@ class SpatialGraphInteropFrameOfReferencePreview(c_void_p):
     CoordinateSystem = property(get_CoordinateSystem, None)
     NodeId = property(get_NodeId, None)
     CoordinateSystemToNodeTransform = property(get_CoordinateSystemToNodeTransform, None)
-class SpatialGraphInteropPreview(c_void_p):
+class SpatialGraphInteropPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.Preview.SpatialGraphInteropPreview'
     @winrt_classmethod

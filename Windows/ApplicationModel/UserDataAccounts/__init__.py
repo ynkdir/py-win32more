@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Appointments
@@ -28,7 +28,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IUserDataAccount(c_void_p):
+class IUserDataAccount(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b9c4367e-b348-4910-be-94-4a-d4-bb-a6-de-a7')
     @winrt_commethod(6)
@@ -65,7 +65,7 @@ class IUserDataAccount(c_void_p):
     Icon = property(get_Icon, None)
     DeviceAccountTypeId = property(get_DeviceAccountTypeId, None)
     PackageFamilyName = property(get_PackageFamilyName, None)
-class IUserDataAccount2(c_void_p):
+class IUserDataAccount2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('078cd89f-de82-404b-81-95-c8-a3-ac-19-8f-60')
     @winrt_commethod(6)
@@ -74,7 +74,7 @@ class IUserDataAccount2(c_void_p):
     def get_IsProtectedUnderLock(self) -> Boolean: ...
     EnterpriseId = property(get_EnterpriseId, None)
     IsProtectedUnderLock = property(get_IsProtectedUnderLock, None)
-class IUserDataAccount3(c_void_p):
+class IUserDataAccount3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('01533845-6c43-4286-9d-69-3e-17-09-a1-f2-66')
     @winrt_commethod(6)
@@ -85,7 +85,7 @@ class IUserDataAccount3(c_void_p):
     def put_DisplayName(self, value: WinRT_String) -> Void: ...
     ExplictReadAccessPackageFamilyNames = property(get_ExplictReadAccessPackageFamilyNames, None)
     DisplayName = property(get_DisplayName, put_DisplayName)
-class IUserDataAccount4(c_void_p):
+class IUserDataAccount4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c4315210-eae5-4f0a-a8-b2-1c-ca-11-5e-00-8f')
     @winrt_commethod(6)
@@ -108,7 +108,7 @@ class IUserDataAccount4(c_void_p):
     ProviderProperties = property(get_ProviderProperties, None)
     IsProtectedUnderLock = property(None, put_IsProtectedUnderLock)
     Icon = property(None, put_Icon)
-class IUserDataAccountManagerForUser(c_void_p):
+class IUserDataAccountManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('56a6e8db-db8f-41ab-a6-5f-8c-59-71-aa-c9-82')
     @winrt_commethod(6)
@@ -116,7 +116,7 @@ class IUserDataAccountManagerForUser(c_void_p):
     @winrt_commethod(7)
     def get_User(self) -> Windows.System.User: ...
     User = property(get_User, None)
-class IUserDataAccountManagerStatics(c_void_p):
+class IUserDataAccountManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0d9b89ea-1928-4a20-86-d5-3c-73-7f-7d-c3-b0')
     @winrt_commethod(6)
@@ -127,12 +127,12 @@ class IUserDataAccountManagerStatics(c_void_p):
     def ShowAccountSettingsAsync(self, id: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(9)
     def ShowAccountErrorResolverAsync(self, id: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
-class IUserDataAccountManagerStatics2(c_void_p):
+class IUserDataAccountManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6a3ded88-316b-435e-b5-34-f7-d4-b4-b7-db-a6')
     @winrt_commethod(6)
     def GetForUser(self, user: Windows.System.User) -> Windows.ApplicationModel.UserDataAccounts.UserDataAccountManagerForUser: ...
-class IUserDataAccountStore(c_void_p):
+class IUserDataAccountStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2073b0ad-7d0a-4e76-bf-45-23-68-f9-78-a5-9a')
     @winrt_commethod(6)
@@ -141,7 +141,7 @@ class IUserDataAccountStore(c_void_p):
     def GetAccountAsync(self, id: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataAccounts.UserDataAccount]: ...
     @winrt_commethod(8)
     def CreateAccountAsync(self, userDisplayName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataAccounts.UserDataAccount]: ...
-class IUserDataAccountStore2(c_void_p):
+class IUserDataAccountStore2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b1e0aef7-9560-4631-8a-f0-06-1d-30-16-14-69')
     @winrt_commethod(6)
@@ -150,17 +150,17 @@ class IUserDataAccountStore2(c_void_p):
     def add_StoreChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.UserDataAccounts.UserDataAccountStore, Windows.ApplicationModel.UserDataAccounts.UserDataAccountStoreChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(8)
     def remove_StoreChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IUserDataAccountStore3(c_void_p):
+class IUserDataAccountStore3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8142c094-f3c9-478b-b1-17-65-85-be-bb-67-89')
     @winrt_commethod(6)
     def CreateAccountWithPackageRelativeAppIdAndEnterpriseIdAsync(self, userDisplayName: WinRT_String, packageRelativeAppId: WinRT_String, enterpriseId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataAccounts.UserDataAccount]: ...
-class IUserDataAccountStoreChangedEventArgs(c_void_p):
+class IUserDataAccountStoreChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('84e3e2e5-8820-4512-b1-f6-2e-03-5b-e1-07-2c')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
-class UserDataAccount(c_void_p):
+class UserDataAccount(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccount'
     @winrt_mixinmethod
@@ -233,7 +233,7 @@ UserDataAccountContentKinds = UInt32
 UserDataAccountContentKinds_Email: UserDataAccountContentKinds = 1
 UserDataAccountContentKinds_Contact: UserDataAccountContentKinds = 2
 UserDataAccountContentKinds_Appointment: UserDataAccountContentKinds = 4
-class UserDataAccountManager(c_void_p):
+class UserDataAccountManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountManager'
     @winrt_classmethod
@@ -246,7 +246,7 @@ class UserDataAccountManager(c_void_p):
     def ShowAccountSettingsAsync(cls: Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerStatics, id: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
     def ShowAccountErrorResolverAsync(cls: Windows.ApplicationModel.UserDataAccounts.IUserDataAccountManagerStatics, id: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
-class UserDataAccountManagerForUser(c_void_p):
+class UserDataAccountManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountManagerForUser'
     @winrt_mixinmethod
@@ -258,7 +258,7 @@ UserDataAccountOtherAppReadAccess = Int32
 UserDataAccountOtherAppReadAccess_SystemOnly: UserDataAccountOtherAppReadAccess = 0
 UserDataAccountOtherAppReadAccess_Full: UserDataAccountOtherAppReadAccess = 1
 UserDataAccountOtherAppReadAccess_None: UserDataAccountOtherAppReadAccess = 2
-class UserDataAccountStore(c_void_p):
+class UserDataAccountStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountStore'
     @winrt_mixinmethod
@@ -278,7 +278,7 @@ class UserDataAccountStore(c_void_p):
 UserDataAccountStoreAccessType = Int32
 UserDataAccountStoreAccessType_AllAccountsReadOnly: UserDataAccountStoreAccessType = 0
 UserDataAccountStoreAccessType_AppAccountsReadWrite: UserDataAccountStoreAccessType = 1
-class UserDataAccountStoreChangedEventArgs(c_void_p):
+class UserDataAccountStoreChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataAccounts.UserDataAccountStoreChangedEventArgs'
     @winrt_mixinmethod

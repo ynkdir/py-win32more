@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Data.Xml.Dom
@@ -23,7 +23,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IPrintTicketCapabilities(c_void_p):
+class IPrintTicketCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8c45508b-bbdc-4256-a1-42-2f-d6-15-ec-b4-16')
     @winrt_commethod(6)
@@ -84,7 +84,7 @@ class IPrintTicketCapabilities(c_void_p):
     PageOutputColorFeature = property(get_PageOutputColorFeature, None)
     PageOutputQualityFeature = property(get_PageOutputQualityFeature, None)
     PageResolutionFeature = property(get_PageResolutionFeature, None)
-class IPrintTicketFeature(c_void_p):
+class IPrintTicketFeature(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e7607d6a-59f5-4103-88-58-b9-77-10-96-3d-39')
     @winrt_commethod(6)
@@ -111,7 +111,7 @@ class IPrintTicketFeature(c_void_p):
     DisplayName = property(get_DisplayName, None)
     Options = property(get_Options, None)
     SelectionType = property(get_SelectionType, None)
-class IPrintTicketOption(c_void_p):
+class IPrintTicketOption(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b086cf90-b367-4e4b-bd-48-9c-78-a0-bb-31-ce')
     @winrt_commethod(6)
@@ -134,7 +134,7 @@ class IPrintTicketOption(c_void_p):
     XmlNamespace = property(get_XmlNamespace, None)
     XmlNode = property(get_XmlNode, None)
     DisplayName = property(get_DisplayName, None)
-class IPrintTicketParameterDefinition(c_void_p):
+class IPrintTicketParameterDefinition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d6bab4e4-2962-4c01-b7-f3-9a-92-94-eb-83-35')
     @winrt_commethod(6)
@@ -158,7 +158,7 @@ class IPrintTicketParameterDefinition(c_void_p):
     UnitType = property(get_UnitType, None)
     RangeMin = property(get_RangeMin, None)
     RangeMax = property(get_RangeMax, None)
-class IPrintTicketParameterInitializer(c_void_p):
+class IPrintTicketParameterInitializer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5e3335bb-a0a5-48b1-9d-5c-07-11-6d-dc-59-7a')
     @winrt_commethod(6)
@@ -175,7 +175,7 @@ class IPrintTicketParameterInitializer(c_void_p):
     XmlNamespace = property(get_XmlNamespace, None)
     XmlNode = property(get_XmlNode, None)
     Value = property(get_Value, put_Value)
-class IPrintTicketValue(c_void_p):
+class IPrintTicketValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('66b30a32-244d-4e22-a9-8b-bb-3c-f1-f2-dd-91')
     @winrt_commethod(6)
@@ -185,7 +185,7 @@ class IPrintTicketValue(c_void_p):
     @winrt_commethod(8)
     def GetValueAsString(self) -> WinRT_String: ...
     Type = property(get_Type, None)
-class IWorkflowPrintTicket(c_void_p):
+class IWorkflowPrintTicket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('41d52285-35e8-448e-a8-c5-e4-b6-a2-cf-82-6c')
     @winrt_commethod(6)
@@ -258,7 +258,7 @@ class IWorkflowPrintTicket(c_void_p):
     PageOutputColorFeature = property(get_PageOutputColorFeature, None)
     PageOutputQualityFeature = property(get_PageOutputQualityFeature, None)
     PageResolutionFeature = property(get_PageResolutionFeature, None)
-class IWorkflowPrintTicketValidationResult(c_void_p):
+class IWorkflowPrintTicketValidationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0ad1f392-da7b-4a36-bf-36-6a-99-a6-2e-20-59')
     @winrt_commethod(6)
@@ -267,7 +267,7 @@ class IWorkflowPrintTicketValidationResult(c_void_p):
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     Validated = property(get_Validated, None)
     ExtendedError = property(get_ExtendedError, None)
-class PrintTicketCapabilities(c_void_p):
+class PrintTicketCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.PrintTicket.PrintTicketCapabilities'
     @winrt_mixinmethod
@@ -328,7 +328,7 @@ class PrintTicketCapabilities(c_void_p):
     PageOutputColorFeature = property(get_PageOutputColorFeature, None)
     PageOutputQualityFeature = property(get_PageOutputQualityFeature, None)
     PageResolutionFeature = property(get_PageResolutionFeature, None)
-class PrintTicketFeature(c_void_p):
+class PrintTicketFeature(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.PrintTicket.PrintTicketFeature'
     @winrt_mixinmethod
@@ -358,7 +358,7 @@ class PrintTicketFeature(c_void_p):
 PrintTicketFeatureSelectionType = Int32
 PrintTicketFeatureSelectionType_PickOne: PrintTicketFeatureSelectionType = 0
 PrintTicketFeatureSelectionType_PickMany: PrintTicketFeatureSelectionType = 1
-class PrintTicketOption(c_void_p):
+class PrintTicketOption(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.PrintTicket.PrintTicketOption'
     @winrt_mixinmethod
@@ -385,7 +385,7 @@ PrintTicketParameterDataType = Int32
 PrintTicketParameterDataType_Integer: PrintTicketParameterDataType = 0
 PrintTicketParameterDataType_NumericString: PrintTicketParameterDataType = 1
 PrintTicketParameterDataType_String: PrintTicketParameterDataType = 2
-class PrintTicketParameterDefinition(c_void_p):
+class PrintTicketParameterDefinition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.PrintTicket.PrintTicketParameterDefinition'
     @winrt_mixinmethod
@@ -409,7 +409,7 @@ class PrintTicketParameterDefinition(c_void_p):
     UnitType = property(get_UnitType, None)
     RangeMin = property(get_RangeMin, None)
     RangeMax = property(get_RangeMax, None)
-class PrintTicketParameterInitializer(c_void_p):
+class PrintTicketParameterInitializer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.PrintTicket.PrintTicketParameterInitializer'
     @winrt_mixinmethod
@@ -426,7 +426,7 @@ class PrintTicketParameterInitializer(c_void_p):
     XmlNamespace = property(get_XmlNamespace, None)
     XmlNode = property(get_XmlNode, None)
     Value = property(get_Value, put_Value)
-class PrintTicketValue(c_void_p):
+class PrintTicketValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.PrintTicket.PrintTicketValue'
     @winrt_mixinmethod
@@ -440,7 +440,7 @@ PrintTicketValueType = Int32
 PrintTicketValueType_Integer: PrintTicketValueType = 0
 PrintTicketValueType_String: PrintTicketValueType = 1
 PrintTicketValueType_Unknown: PrintTicketValueType = 2
-class WorkflowPrintTicket(c_void_p):
+class WorkflowPrintTicket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket'
     @winrt_mixinmethod
@@ -513,7 +513,7 @@ class WorkflowPrintTicket(c_void_p):
     PageOutputColorFeature = property(get_PageOutputColorFeature, None)
     PageOutputQualityFeature = property(get_PageOutputQualityFeature, None)
     PageResolutionFeature = property(get_PageResolutionFeature, None)
-class WorkflowPrintTicketValidationResult(c_void_p):
+class WorkflowPrintTicketValidationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicketValidationResult'
     @winrt_mixinmethod

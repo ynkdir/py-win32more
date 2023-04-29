@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -23,7 +23,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ComponentLoadFailedEventArgs(c_void_p):
+class ComponentLoadFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.ComponentLoadFailedEventArgs'
     @winrt_mixinmethod
@@ -32,7 +32,7 @@ class ComponentLoadFailedEventArgs(c_void_p):
     def get_Completion(self: Windows.Media.Protection.IComponentLoadFailedEventArgs) -> Windows.Media.Protection.MediaProtectionServiceCompletion: ...
     Information = property(get_Information, None)
     Completion = property(get_Completion, None)
-class ComponentLoadFailedEventHandler(c_void_p):
+class ComponentLoadFailedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('95da643c-6db9-424b-86-ca-09-1a-f4-32-08-1c')
     ClassId = 'Windows.Media.Protection.ComponentLoadFailedEventHandler'
@@ -49,7 +49,7 @@ HdcpProtection = Int32
 HdcpProtection_Off: HdcpProtection = 0
 HdcpProtection_On: HdcpProtection = 1
 HdcpProtection_OnWithTypeEnforcement: HdcpProtection = 2
-class HdcpSession(c_void_p):
+class HdcpSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.HdcpSession'
     @winrt_activatemethod
@@ -71,7 +71,7 @@ HdcpSetProtectionResult_Success: HdcpSetProtectionResult = 0
 HdcpSetProtectionResult_TimedOut: HdcpSetProtectionResult = 1
 HdcpSetProtectionResult_NotSupported: HdcpSetProtectionResult = 2
 HdcpSetProtectionResult_UnknownFailure: HdcpSetProtectionResult = 3
-class IComponentLoadFailedEventArgs(c_void_p):
+class IComponentLoadFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('95972e93-7746-417e-84-95-f0-31-bb-c5-86-2c')
     @winrt_commethod(6)
@@ -80,7 +80,7 @@ class IComponentLoadFailedEventArgs(c_void_p):
     def get_Completion(self) -> Windows.Media.Protection.MediaProtectionServiceCompletion: ...
     Information = property(get_Information, None)
     Completion = property(get_Completion, None)
-class IHdcpSession(c_void_p):
+class IHdcpSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('718845e9-64d7-426d-80-9b-1b-e4-61-94-1a-2a')
     @winrt_commethod(6)
@@ -93,7 +93,7 @@ class IHdcpSession(c_void_p):
     def add_ProtectionChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Media.Protection.HdcpSession, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_ProtectionChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IMediaProtectionManager(c_void_p):
+class IMediaProtectionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('45694947-c741-434b-a7-9e-47-4c-12-d9-3d-2f')
     @winrt_commethod(6)
@@ -111,23 +111,23 @@ class IMediaProtectionManager(c_void_p):
     @winrt_commethod(12)
     def get_Properties(self) -> Windows.Foundation.Collections.IPropertySet: ...
     Properties = property(get_Properties, None)
-class IMediaProtectionPMPServer(c_void_p):
+class IMediaProtectionPMPServer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0c111226-7b26-4d31-95-bb-9c-1b-08-ef-7f-c0')
     @winrt_commethod(6)
     def get_Properties(self) -> Windows.Foundation.Collections.IPropertySet: ...
     Properties = property(get_Properties, None)
-class IMediaProtectionPMPServerFactory(c_void_p):
+class IMediaProtectionPMPServerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('602c8e5e-f7d2-487e-af-91-db-c4-25-2b-21-82')
     @winrt_commethod(6)
     def CreatePMPServer(self, pProperties: Windows.Foundation.Collections.IPropertySet) -> Windows.Media.Protection.MediaProtectionPMPServer: ...
-class IMediaProtectionServiceCompletion(c_void_p):
+class IMediaProtectionServiceCompletion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8b5cca18-cfd5-44ee-a2-ed-df-76-01-0c-14-b5')
     @winrt_commethod(6)
     def Complete(self, success: Boolean) -> Void: ...
-class IMediaProtectionServiceRequest(c_void_p):
+class IMediaProtectionServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b1de0ea6-2094-478d-87-a4-8b-95-20-0f-85-c6')
     @winrt_commethod(6)
@@ -136,18 +136,18 @@ class IMediaProtectionServiceRequest(c_void_p):
     def get_Type(self) -> Guid: ...
     ProtectionSystem = property(get_ProtectionSystem, None)
     Type = property(get_Type, None)
-class IProtectionCapabilities(c_void_p):
+class IProtectionCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c7ac5d7e-7480-4d29-a4-64-7b-cd-91-3d-d8-e4')
     @winrt_commethod(6)
     def IsTypeSupported(self, type: WinRT_String, keySystem: WinRT_String) -> Windows.Media.Protection.ProtectionCapabilityResult: ...
-class IRevocationAndRenewalInformation(c_void_p):
+class IRevocationAndRenewalInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f3a1937b-2501-439e-a6-e7-6f-c9-5e-17-5f-cf')
     @winrt_commethod(6)
     def get_Items(self) -> Windows.Foundation.Collections.IVector[Windows.Media.Protection.RevocationAndRenewalItem]: ...
     Items = property(get_Items, None)
-class IRevocationAndRenewalItem(c_void_p):
+class IRevocationAndRenewalItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3099c20c-3cf0-49ea-90-2d-ca-f3-2d-2d-de-2c')
     @winrt_commethod(6)
@@ -165,7 +165,7 @@ class IRevocationAndRenewalItem(c_void_p):
     PublicKeyHash = property(get_PublicKeyHash, None)
     Name = property(get_Name, None)
     RenewalId = property(get_RenewalId, None)
-class IServiceRequestedEventArgs(c_void_p):
+class IServiceRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('34283baf-abb4-4fc1-bd-89-93-f1-06-57-3a-49')
     @winrt_commethod(6)
@@ -174,13 +174,13 @@ class IServiceRequestedEventArgs(c_void_p):
     def get_Completion(self) -> Windows.Media.Protection.MediaProtectionServiceCompletion: ...
     Request = property(get_Request, None)
     Completion = property(get_Completion, None)
-class IServiceRequestedEventArgs2(c_void_p):
+class IServiceRequestedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('553c69d6-fafe-4128-8d-fa-13-0e-39-8a-13-a7')
     @winrt_commethod(6)
     def get_MediaPlaybackItem(self) -> Windows.Media.Playback.MediaPlaybackItem: ...
     MediaPlaybackItem = property(get_MediaPlaybackItem, None)
-class MediaProtectionManager(c_void_p):
+class MediaProtectionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.MediaProtectionManager'
     @winrt_activatemethod
@@ -200,7 +200,7 @@ class MediaProtectionManager(c_void_p):
     @winrt_mixinmethod
     def get_Properties(self: Windows.Media.Protection.IMediaProtectionManager) -> Windows.Foundation.Collections.IPropertySet: ...
     Properties = property(get_Properties, None)
-class MediaProtectionPMPServer(c_void_p):
+class MediaProtectionPMPServer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.MediaProtectionPMPServer'
     @winrt_factorymethod
@@ -208,12 +208,12 @@ class MediaProtectionPMPServer(c_void_p):
     @winrt_mixinmethod
     def get_Properties(self: Windows.Media.Protection.IMediaProtectionPMPServer) -> Windows.Foundation.Collections.IPropertySet: ...
     Properties = property(get_Properties, None)
-class MediaProtectionServiceCompletion(c_void_p):
+class MediaProtectionServiceCompletion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.MediaProtectionServiceCompletion'
     @winrt_mixinmethod
     def Complete(self: Windows.Media.Protection.IMediaProtectionServiceCompletion, success: Boolean) -> Void: ...
-class ProtectionCapabilities(c_void_p):
+class ProtectionCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.ProtectionCapabilities'
     @winrt_activatemethod
@@ -224,19 +224,19 @@ ProtectionCapabilityResult = Int32
 ProtectionCapabilityResult_NotSupported: ProtectionCapabilityResult = 0
 ProtectionCapabilityResult_Maybe: ProtectionCapabilityResult = 1
 ProtectionCapabilityResult_Probably: ProtectionCapabilityResult = 2
-class RebootNeededEventHandler(c_void_p):
+class RebootNeededEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('64e12a45-973b-4a3a-b2-60-91-89-8a-49-a8-2c')
     ClassId = 'Windows.Media.Protection.RebootNeededEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Protection.MediaProtectionManager) -> Void: ...
-class RevocationAndRenewalInformation(c_void_p):
+class RevocationAndRenewalInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.RevocationAndRenewalInformation'
     @winrt_mixinmethod
     def get_Items(self: Windows.Media.Protection.IRevocationAndRenewalInformation) -> Windows.Foundation.Collections.IVector[Windows.Media.Protection.RevocationAndRenewalItem]: ...
     Items = property(get_Items, None)
-class RevocationAndRenewalItem(c_void_p):
+class RevocationAndRenewalItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.RevocationAndRenewalItem'
     @winrt_mixinmethod
@@ -270,7 +270,7 @@ RevocationAndRenewalReasons_ComponentLowSecurityCertificateRevoked: RevocationAn
 RevocationAndRenewalReasons_BootDriverVerificationFailed: RevocationAndRenewalReasons = 1048576
 RevocationAndRenewalReasons_ComponentSignedWithTestCertificate: RevocationAndRenewalReasons = 16777216
 RevocationAndRenewalReasons_EncryptionFailure: RevocationAndRenewalReasons = 268435456
-class ServiceRequestedEventArgs(c_void_p):
+class ServiceRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Protection.ServiceRequestedEventArgs'
     @winrt_mixinmethod
@@ -282,7 +282,7 @@ class ServiceRequestedEventArgs(c_void_p):
     Request = property(get_Request, None)
     Completion = property(get_Completion, None)
     MediaPlaybackItem = property(get_MediaPlaybackItem, None)
-class ServiceRequestedEventHandler(c_void_p):
+class ServiceRequestedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d2d690ba-cac9-48e1-95-c0-d3-84-95-a8-40-55')
     ClassId = 'Windows.Media.Protection.ServiceRequestedEventHandler'

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Contacts
@@ -27,7 +27,7 @@ AddContactResult = Int32
 AddContactResult_Added: AddContactResult = 0
 AddContactResult_AlreadyAdded: AddContactResult = 1
 AddContactResult_Unavailable: AddContactResult = 2
-class ContactPickerUI(c_void_p):
+class ContactPickerUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Contacts.Provider.ContactPickerUI'
     @winrt_mixinmethod
@@ -51,13 +51,13 @@ class ContactPickerUI(c_void_p):
     DesiredFields = property(get_DesiredFields, None)
     SelectionMode = property(get_SelectionMode, None)
     DesiredFieldsWithContactFieldType = property(get_DesiredFieldsWithContactFieldType, None)
-class ContactRemovedEventArgs(c_void_p):
+class ContactRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Contacts.Provider.ContactRemovedEventArgs'
     @winrt_mixinmethod
     def get_Id(self: Windows.ApplicationModel.Contacts.Provider.IContactRemovedEventArgs) -> WinRT_String: ...
     Id = property(get_Id, None)
-class IContactPickerUI(c_void_p):
+class IContactPickerUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e2cc1366-cf66-43c4-a9-6a-a5-a1-12-db-47-46')
     @winrt_commethod(6)
@@ -76,7 +76,7 @@ class IContactPickerUI(c_void_p):
     def remove_ContactRemoved(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     DesiredFields = property(get_DesiredFields, None)
     SelectionMode = property(get_SelectionMode, None)
-class IContactPickerUI2(c_void_p):
+class IContactPickerUI2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6e449e28-7b25-4999-9b-0b-87-54-00-a1-e8-c8')
     @winrt_commethod(6)
@@ -84,7 +84,7 @@ class IContactPickerUI2(c_void_p):
     @winrt_commethod(7)
     def get_DesiredFieldsWithContactFieldType(self) -> Windows.Foundation.Collections.IVector[Windows.ApplicationModel.Contacts.ContactFieldType]: ...
     DesiredFieldsWithContactFieldType = property(get_DesiredFieldsWithContactFieldType, None)
-class IContactRemovedEventArgs(c_void_p):
+class IContactRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6f354338-3302-4d13-ad-8d-ad-cc-0f-f9-e4-7c')
     @winrt_commethod(6)

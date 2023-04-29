@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Calls.Provider
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IPhoneCallOrigin(c_void_p):
+class IPhoneCallOrigin(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('20613479-0ef9-4454-87-1c-af-b6-6a-14-b6-a5')
     @winrt_commethod(6)
@@ -40,7 +40,7 @@ class IPhoneCallOrigin(c_void_p):
     Category = property(get_Category, put_Category)
     CategoryDescription = property(get_CategoryDescription, put_CategoryDescription)
     Location = property(get_Location, put_Location)
-class IPhoneCallOrigin2(c_void_p):
+class IPhoneCallOrigin2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('04c7e980-9ac2-4768-b5-36-b6-8d-a4-95-7d-02')
     @winrt_commethod(6)
@@ -48,7 +48,7 @@ class IPhoneCallOrigin2(c_void_p):
     @winrt_commethod(7)
     def put_DisplayName(self, value: WinRT_String) -> Void: ...
     DisplayName = property(get_DisplayName, put_DisplayName)
-class IPhoneCallOrigin3(c_void_p):
+class IPhoneCallOrigin3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('49330fb4-d1a7-43a2-ae-ee-c0-7b-6d-ba-f0-68')
     @winrt_commethod(6)
@@ -56,7 +56,7 @@ class IPhoneCallOrigin3(c_void_p):
     @winrt_commethod(7)
     def put_DisplayPicture(self, value: Windows.Storage.StorageFile) -> Void: ...
     DisplayPicture = property(get_DisplayPicture, put_DisplayPicture)
-class IPhoneCallOriginManagerStatics(c_void_p):
+class IPhoneCallOriginManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ccfc5a0a-9af7-6149-39-d0-e0-76-fc-ce-13-95')
     @winrt_commethod(6)
@@ -66,18 +66,18 @@ class IPhoneCallOriginManagerStatics(c_void_p):
     @winrt_commethod(8)
     def SetCallOrigin(self, requestId: Guid, callOrigin: Windows.ApplicationModel.Calls.Provider.PhoneCallOrigin) -> Void: ...
     IsCurrentAppActiveCallOriginApp = property(get_IsCurrentAppActiveCallOriginApp, None)
-class IPhoneCallOriginManagerStatics2(c_void_p):
+class IPhoneCallOriginManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8bf3ee3f-40f4-4380-8c-7c-ae-a2-c9-b8-dd-7a')
     @winrt_commethod(6)
     def RequestSetAsActiveCallOriginAppAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
-class IPhoneCallOriginManagerStatics3(c_void_p):
+class IPhoneCallOriginManagerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2ed69764-a6e3-50f0-b7-6a-d6-7c-b3-9b-df-de')
     @winrt_commethod(6)
     def get_IsSupported(self) -> Boolean: ...
     IsSupported = property(get_IsSupported, None)
-class PhoneCallOrigin(c_void_p):
+class PhoneCallOrigin(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Calls.Provider.PhoneCallOrigin'
     @winrt_activatemethod
@@ -107,7 +107,7 @@ class PhoneCallOrigin(c_void_p):
     Location = property(get_Location, put_Location)
     DisplayName = property(get_DisplayName, put_DisplayName)
     DisplayPicture = property(get_DisplayPicture, put_DisplayPicture)
-class PhoneCallOriginManager(c_void_p):
+class PhoneCallOriginManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Calls.Provider.PhoneCallOriginManager'
     @winrt_classmethod

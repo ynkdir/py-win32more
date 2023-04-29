@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel
@@ -24,7 +24,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AppExtension(c_void_p):
+class AppExtension(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.AppExtensions.AppExtension'
     @winrt_mixinmethod
@@ -49,7 +49,7 @@ class AppExtension(c_void_p):
     Package = property(get_Package, None)
     AppInfo = property(get_AppInfo, None)
     AppUserModelId = property(get_AppUserModelId, None)
-class AppExtensionCatalog(c_void_p):
+class AppExtensionCatalog(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.AppExtensions.AppExtensionCatalog'
     @winrt_mixinmethod
@@ -78,7 +78,7 @@ class AppExtensionCatalog(c_void_p):
     def remove_PackageStatusChanged(self: Windows.ApplicationModel.AppExtensions.IAppExtensionCatalog, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def Open(cls: Windows.ApplicationModel.AppExtensions.IAppExtensionCatalogStatics, appExtensionName: WinRT_String) -> Windows.ApplicationModel.AppExtensions.AppExtensionCatalog: ...
-class AppExtensionPackageInstalledEventArgs(c_void_p):
+class AppExtensionPackageInstalledEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageInstalledEventArgs'
     @winrt_mixinmethod
@@ -90,7 +90,7 @@ class AppExtensionPackageInstalledEventArgs(c_void_p):
     AppExtensionName = property(get_AppExtensionName, None)
     Package = property(get_Package, None)
     Extensions = property(get_Extensions, None)
-class AppExtensionPackageStatusChangedEventArgs(c_void_p):
+class AppExtensionPackageStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageStatusChangedEventArgs'
     @winrt_mixinmethod
@@ -99,7 +99,7 @@ class AppExtensionPackageStatusChangedEventArgs(c_void_p):
     def get_Package(self: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageStatusChangedEventArgs) -> Windows.ApplicationModel.Package: ...
     AppExtensionName = property(get_AppExtensionName, None)
     Package = property(get_Package, None)
-class AppExtensionPackageUninstallingEventArgs(c_void_p):
+class AppExtensionPackageUninstallingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageUninstallingEventArgs'
     @winrt_mixinmethod
@@ -108,7 +108,7 @@ class AppExtensionPackageUninstallingEventArgs(c_void_p):
     def get_Package(self: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageUninstallingEventArgs) -> Windows.ApplicationModel.Package: ...
     AppExtensionName = property(get_AppExtensionName, None)
     Package = property(get_Package, None)
-class AppExtensionPackageUpdatedEventArgs(c_void_p):
+class AppExtensionPackageUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageUpdatedEventArgs'
     @winrt_mixinmethod
@@ -120,7 +120,7 @@ class AppExtensionPackageUpdatedEventArgs(c_void_p):
     AppExtensionName = property(get_AppExtensionName, None)
     Package = property(get_Package, None)
     Extensions = property(get_Extensions, None)
-class AppExtensionPackageUpdatingEventArgs(c_void_p):
+class AppExtensionPackageUpdatingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageUpdatingEventArgs'
     @winrt_mixinmethod
@@ -129,7 +129,7 @@ class AppExtensionPackageUpdatingEventArgs(c_void_p):
     def get_Package(self: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageUpdatingEventArgs) -> Windows.ApplicationModel.Package: ...
     AppExtensionName = property(get_AppExtensionName, None)
     Package = property(get_Package, None)
-class IAppExtension(c_void_p):
+class IAppExtension(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8450902c-15ed-4faf-93-ea-22-37-bb-f8-cb-d6')
     @winrt_commethod(6)
@@ -151,13 +151,13 @@ class IAppExtension(c_void_p):
     Description = property(get_Description, None)
     Package = property(get_Package, None)
     AppInfo = property(get_AppInfo, None)
-class IAppExtension2(c_void_p):
+class IAppExtension2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ab3b15f0-14f9-4b9f-94-19-a3-49-a2-42-ef-38')
     @winrt_commethod(6)
     def get_AppUserModelId(self) -> WinRT_String: ...
     AppUserModelId = property(get_AppUserModelId, None)
-class IAppExtensionCatalog(c_void_p):
+class IAppExtensionCatalog(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('97872032-8426-4ad1-90-84-92-e8-8c-2d-a2-00')
     @winrt_commethod(6)
@@ -184,12 +184,12 @@ class IAppExtensionCatalog(c_void_p):
     def add_PackageStatusChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.AppExtensions.AppExtensionCatalog, Windows.ApplicationModel.AppExtensions.AppExtensionPackageStatusChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(17)
     def remove_PackageStatusChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IAppExtensionCatalogStatics(c_void_p):
+class IAppExtensionCatalogStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3c36668a-5f18-4f0b-9c-e5-ca-b6-1d-19-6f-11')
     @winrt_commethod(6)
     def Open(self, appExtensionName: WinRT_String) -> Windows.ApplicationModel.AppExtensions.AppExtensionCatalog: ...
-class IAppExtensionPackageInstalledEventArgs(c_void_p):
+class IAppExtensionPackageInstalledEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('39e59234-3351-4a8d-97-45-e7-d3-dd-45-bc-48')
     @winrt_commethod(6)
@@ -201,7 +201,7 @@ class IAppExtensionPackageInstalledEventArgs(c_void_p):
     AppExtensionName = property(get_AppExtensionName, None)
     Package = property(get_Package, None)
     Extensions = property(get_Extensions, None)
-class IAppExtensionPackageStatusChangedEventArgs(c_void_p):
+class IAppExtensionPackageStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1ce17433-1153-44fd-87-b1-8a-e1-05-03-03-df')
     @winrt_commethod(6)
@@ -210,7 +210,7 @@ class IAppExtensionPackageStatusChangedEventArgs(c_void_p):
     def get_Package(self) -> Windows.ApplicationModel.Package: ...
     AppExtensionName = property(get_AppExtensionName, None)
     Package = property(get_Package, None)
-class IAppExtensionPackageUninstallingEventArgs(c_void_p):
+class IAppExtensionPackageUninstallingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('60f160c5-171e-40ff-ae-98-ab-2c-20-dd-4d-75')
     @winrt_commethod(6)
@@ -219,7 +219,7 @@ class IAppExtensionPackageUninstallingEventArgs(c_void_p):
     def get_Package(self) -> Windows.ApplicationModel.Package: ...
     AppExtensionName = property(get_AppExtensionName, None)
     Package = property(get_Package, None)
-class IAppExtensionPackageUpdatedEventArgs(c_void_p):
+class IAppExtensionPackageUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3a83c43f-797e-44b5-ba-24-a4-c8-b5-a5-43-d7')
     @winrt_commethod(6)
@@ -231,7 +231,7 @@ class IAppExtensionPackageUpdatedEventArgs(c_void_p):
     AppExtensionName = property(get_AppExtensionName, None)
     Package = property(get_Package, None)
     Extensions = property(get_Extensions, None)
-class IAppExtensionPackageUpdatingEventArgs(c_void_p):
+class IAppExtensionPackageUpdatingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7ed59329-1a65-4800-a7-00-b3-21-00-9e-30-6a')
     @winrt_commethod(6)

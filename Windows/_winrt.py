@@ -9,6 +9,7 @@ from Windows import (
     Boolean,
     Byte,
     Char,
+    ComPtr,
     Double,
     Guid,
     Int32,
@@ -282,7 +283,7 @@ def _get_type_signature(cls) -> str:
         piid_guid = str(cls.Guid)
         args = ";".join(_get_type_signature(arg) for arg in cls.__args__)
         return f"pinterface({piid_guid};{args})"
-    elif issubclass(cls, c_void_p):
+    elif issubclass(cls, ComPtr):
         return str(cls.Guid)
     elif issubclass(cls, WinRT_String):
         return "string"

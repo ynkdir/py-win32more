@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Geolocation
@@ -25,7 +25,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class BasicProperties(c_void_p):
+class BasicProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.FileProperties.BasicProperties'
     @winrt_mixinmethod
@@ -43,7 +43,7 @@ class BasicProperties(c_void_p):
     Size = property(get_Size, None)
     DateModified = property(get_DateModified, None)
     ItemDate = property(get_ItemDate, None)
-class DocumentProperties(c_void_p):
+class DocumentProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.FileProperties.DocumentProperties'
     @winrt_mixinmethod
@@ -68,7 +68,7 @@ class DocumentProperties(c_void_p):
     Title = property(get_Title, put_Title)
     Keywords = property(get_Keywords, None)
     Comment = property(get_Comment, put_Comment)
-class GeotagHelper(c_void_p):
+class GeotagHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.FileProperties.GeotagHelper'
     @winrt_classmethod
@@ -77,7 +77,7 @@ class GeotagHelper(c_void_p):
     def SetGeotagFromGeolocatorAsync(cls: Windows.Storage.FileProperties.IGeotagHelperStatics, file: Windows.Storage.IStorageFile, geolocator: Windows.Devices.Geolocation.Geolocator) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
     def SetGeotagAsync(cls: Windows.Storage.FileProperties.IGeotagHelperStatics, file: Windows.Storage.IStorageFile, geopoint: Windows.Devices.Geolocation.Geopoint) -> Windows.Foundation.IAsyncAction: ...
-class IBasicProperties(c_void_p):
+class IBasicProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d05d55db-785e-4a66-be-02-9b-ee-c5-8a-ea-81')
     @winrt_commethod(6)
@@ -89,7 +89,7 @@ class IBasicProperties(c_void_p):
     Size = property(get_Size, None)
     DateModified = property(get_DateModified, None)
     ItemDate = property(get_ItemDate, None)
-class IDocumentProperties(c_void_p):
+class IDocumentProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7eab19bc-1821-4923-b4-a9-0a-ea-40-4d-00-70')
     @winrt_commethod(6)
@@ -108,7 +108,7 @@ class IDocumentProperties(c_void_p):
     Title = property(get_Title, put_Title)
     Keywords = property(get_Keywords, None)
     Comment = property(get_Comment, put_Comment)
-class IGeotagHelperStatics(c_void_p):
+class IGeotagHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('41493244-2524-4655-86-a6-ed-16-f5-fc-71-6b')
     @winrt_commethod(6)
@@ -117,7 +117,7 @@ class IGeotagHelperStatics(c_void_p):
     def SetGeotagFromGeolocatorAsync(self, file: Windows.Storage.IStorageFile, geolocator: Windows.Devices.Geolocation.Geolocator) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(8)
     def SetGeotagAsync(self, file: Windows.Storage.IStorageFile, geopoint: Windows.Devices.Geolocation.Geopoint) -> Windows.Foundation.IAsyncAction: ...
-class IImageProperties(c_void_p):
+class IImageProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('523c9424-fcff-4275-af-ee-ec-db-9a-b4-79-73')
     @winrt_commethod(6)
@@ -166,7 +166,7 @@ class IImageProperties(c_void_p):
     CameraModel = property(get_CameraModel, put_CameraModel)
     Orientation = property(get_Orientation, None)
     PeopleNames = property(get_PeopleNames, None)
-class IMusicProperties(c_void_p):
+class IMusicProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bc8aab62-66ec-419a-bc-5d-ca-65-a4-cb-46-da')
     @winrt_commethod(6)
@@ -235,7 +235,7 @@ class IMusicProperties(c_void_p):
     Publisher = property(get_Publisher, put_Publisher)
     Writers = property(get_Writers, None)
     Year = property(get_Year, put_Year)
-class IStorageItemContentProperties(c_void_p):
+class IStorageItemContentProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('05294bad-bc38-48bf-85-d7-77-0e-0e-2a-e0-ba')
     @winrt_commethod(6)
@@ -246,7 +246,7 @@ class IStorageItemContentProperties(c_void_p):
     def GetImagePropertiesAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Storage.FileProperties.ImageProperties]: ...
     @winrt_commethod(9)
     def GetDocumentPropertiesAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Storage.FileProperties.DocumentProperties]: ...
-class IStorageItemExtraProperties(c_void_p):
+class IStorageItemExtraProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c54361b2-54cd-432b-bd-bc-4b-19-c4-b4-70-d7')
     @winrt_commethod(6)
@@ -255,7 +255,7 @@ class IStorageItemExtraProperties(c_void_p):
     def SavePropertiesAsync(self, propertiesToSave: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]]) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(8)
     def SavePropertiesAsyncOverloadDefault(self) -> Windows.Foundation.IAsyncAction: ...
-class IThumbnailProperties(c_void_p):
+class IThumbnailProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('693dd42f-dbe7-49b5-b3-b3-28-93-ac-5d-34-23')
     @winrt_commethod(6)
@@ -270,7 +270,7 @@ class IThumbnailProperties(c_void_p):
     OriginalHeight = property(get_OriginalHeight, None)
     ReturnedSmallerCachedSize = property(get_ReturnedSmallerCachedSize, None)
     Type = property(get_Type, None)
-class IVideoProperties(c_void_p):
+class IVideoProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('719ae507-68de-4db8-97-de-49-99-8c-05-9f-2f')
     @winrt_commethod(6)
@@ -331,7 +331,7 @@ class IVideoProperties(c_void_p):
     Bitrate = property(get_Bitrate, None)
     Directors = property(get_Directors, None)
     Orientation = property(get_Orientation, None)
-class ImageProperties(c_void_p):
+class ImageProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.FileProperties.ImageProperties'
     @winrt_mixinmethod
@@ -386,7 +386,7 @@ class ImageProperties(c_void_p):
     CameraModel = property(get_CameraModel, put_CameraModel)
     Orientation = property(get_Orientation, None)
     PeopleNames = property(get_PeopleNames, None)
-class MusicProperties(c_void_p):
+class MusicProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.FileProperties.MusicProperties'
     @winrt_mixinmethod
@@ -478,7 +478,7 @@ PropertyPrefetchOptions_VideoProperties: PropertyPrefetchOptions = 2
 PropertyPrefetchOptions_ImageProperties: PropertyPrefetchOptions = 4
 PropertyPrefetchOptions_DocumentProperties: PropertyPrefetchOptions = 8
 PropertyPrefetchOptions_BasicProperties: PropertyPrefetchOptions = 16
-class StorageItemContentProperties(c_void_p):
+class StorageItemContentProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.FileProperties.StorageItemContentProperties'
     @winrt_mixinmethod
@@ -495,7 +495,7 @@ class StorageItemContentProperties(c_void_p):
     def SavePropertiesAsync(self: Windows.Storage.FileProperties.IStorageItemExtraProperties, propertiesToSave: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]]) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def SavePropertiesAsyncOverloadDefault(self: Windows.Storage.FileProperties.IStorageItemExtraProperties) -> Windows.Foundation.IAsyncAction: ...
-class StorageItemThumbnail(c_void_p):
+class StorageItemThumbnail(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.FileProperties.StorageItemThumbnail'
     @winrt_mixinmethod
@@ -563,7 +563,7 @@ VideoOrientation_Normal: VideoOrientation = 0
 VideoOrientation_Rotate90: VideoOrientation = 90
 VideoOrientation_Rotate180: VideoOrientation = 180
 VideoOrientation_Rotate270: VideoOrientation = 270
-class VideoProperties(c_void_p):
+class VideoProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.FileProperties.VideoProperties'
     @winrt_mixinmethod

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Appointments
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AddAppointmentOperation(c_void_p):
+class AddAppointmentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.AddAppointmentOperation'
     @winrt_mixinmethod
@@ -39,7 +39,7 @@ class AddAppointmentOperation(c_void_p):
     def DismissUI(self: Windows.ApplicationModel.Appointments.AppointmentsProvider.IAddAppointmentOperation) -> Void: ...
     AppointmentInformation = property(get_AppointmentInformation, None)
     SourcePackageFamilyName = property(get_SourcePackageFamilyName, None)
-class AppointmentsProviderLaunchActionVerbs(c_void_p):
+class AppointmentsProviderLaunchActionVerbs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.AppointmentsProviderLaunchActionVerbs'
     @winrt_classmethod
@@ -57,7 +57,7 @@ class AppointmentsProviderLaunchActionVerbs(c_void_p):
     ReplaceAppointment = property(get_ReplaceAppointment, None)
     RemoveAppointment = property(get_RemoveAppointment, None)
     ShowTimeFrame = property(get_ShowTimeFrame, None)
-class IAddAppointmentOperation(c_void_p):
+class IAddAppointmentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ec4a9af3-620d-4c69-ad-d7-97-94-e9-18-08-1f')
     @winrt_commethod(6)
@@ -74,7 +74,7 @@ class IAddAppointmentOperation(c_void_p):
     def DismissUI(self) -> Void: ...
     AppointmentInformation = property(get_AppointmentInformation, None)
     SourcePackageFamilyName = property(get_SourcePackageFamilyName, None)
-class IAppointmentsProviderLaunchActionVerbsStatics(c_void_p):
+class IAppointmentsProviderLaunchActionVerbsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('36dbba28-9e2e-49c6-8e-f7-3a-b7-a5-dc-c8-b8')
     @winrt_commethod(6)
@@ -89,13 +89,13 @@ class IAppointmentsProviderLaunchActionVerbsStatics(c_void_p):
     ReplaceAppointment = property(get_ReplaceAppointment, None)
     RemoveAppointment = property(get_RemoveAppointment, None)
     ShowTimeFrame = property(get_ShowTimeFrame, None)
-class IAppointmentsProviderLaunchActionVerbsStatics2(c_void_p):
+class IAppointmentsProviderLaunchActionVerbsStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ef9049a4-af21-473c-88-dc-76-cd-89-f6-0c-a5')
     @winrt_commethod(6)
     def get_ShowAppointmentDetails(self) -> WinRT_String: ...
     ShowAppointmentDetails = property(get_ShowAppointmentDetails, None)
-class IRemoveAppointmentOperation(c_void_p):
+class IRemoveAppointmentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('08b66aba-fe33-46cd-a5-0c-a8-ff-b3-26-05-37')
     @winrt_commethod(6)
@@ -115,7 +115,7 @@ class IRemoveAppointmentOperation(c_void_p):
     AppointmentId = property(get_AppointmentId, None)
     InstanceStartDate = property(get_InstanceStartDate, None)
     SourcePackageFamilyName = property(get_SourcePackageFamilyName, None)
-class IReplaceAppointmentOperation(c_void_p):
+class IReplaceAppointmentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f4903d9b-9e61-4de2-a7-32-26-87-c0-7d-1d-e8')
     @winrt_commethod(6)
@@ -138,7 +138,7 @@ class IReplaceAppointmentOperation(c_void_p):
     AppointmentInformation = property(get_AppointmentInformation, None)
     InstanceStartDate = property(get_InstanceStartDate, None)
     SourcePackageFamilyName = property(get_SourcePackageFamilyName, None)
-class RemoveAppointmentOperation(c_void_p):
+class RemoveAppointmentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.RemoveAppointmentOperation'
     @winrt_mixinmethod
@@ -158,7 +158,7 @@ class RemoveAppointmentOperation(c_void_p):
     AppointmentId = property(get_AppointmentId, None)
     InstanceStartDate = property(get_InstanceStartDate, None)
     SourcePackageFamilyName = property(get_SourcePackageFamilyName, None)
-class ReplaceAppointmentOperation(c_void_p):
+class ReplaceAppointmentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.ReplaceAppointmentOperation'
     @winrt_mixinmethod

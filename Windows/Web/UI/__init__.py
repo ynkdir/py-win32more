@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.DataTransfer
@@ -27,7 +27,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IWebViewControl(c_void_p):
+class IWebViewControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3f921316-bc70-4bda-91-36-c9-43-70-89-9f-ab')
     @winrt_commethod(6)
@@ -152,24 +152,24 @@ class IWebViewControl(c_void_p):
     ContainsFullScreenElement = property(get_ContainsFullScreenElement, None)
     Settings = property(get_Settings, None)
     DeferredPermissionRequests = property(get_DeferredPermissionRequests, None)
-class IWebViewControl2(c_void_p):
+class IWebViewControl2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4d3c06f9-c8df-41cc-8b-d5-2a-94-7b-20-45-03')
     @winrt_commethod(6)
     def AddInitializeScript(self, script: WinRT_String) -> Void: ...
-class IWebViewControlContentLoadingEventArgs(c_void_p):
+class IWebViewControlContentLoadingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9a3fccb2-b9bb-404b-a2-2b-66-dc-cd-12-50-c6')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
     Uri = property(get_Uri, None)
-class IWebViewControlDOMContentLoadedEventArgs(c_void_p):
+class IWebViewControlDOMContentLoadedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('be8bc008-9541-4545-9f-f2-2d-f5-85-b2-9f-7d')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
     Uri = property(get_Uri, None)
-class IWebViewControlDeferredPermissionRequest(c_void_p):
+class IWebViewControlDeferredPermissionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2ce349e0-d759-445c-99-26-89-95-29-8f-15-2b')
     @winrt_commethod(6)
@@ -185,7 +185,7 @@ class IWebViewControlDeferredPermissionRequest(c_void_p):
     Id = property(get_Id, None)
     Uri = property(get_Uri, None)
     PermissionType = property(get_PermissionType, None)
-class IWebViewControlLongRunningScriptDetectedEventArgs(c_void_p):
+class IWebViewControlLongRunningScriptDetectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2a6e5bba-98b4-45bc-bb-eb-0f-69-ce-49-c5-99')
     @winrt_commethod(6)
@@ -196,7 +196,7 @@ class IWebViewControlLongRunningScriptDetectedEventArgs(c_void_p):
     def put_StopPageScriptExecution(self, value: Boolean) -> Void: ...
     ExecutionTime = property(get_ExecutionTime, None)
     StopPageScriptExecution = property(get_StopPageScriptExecution, put_StopPageScriptExecution)
-class IWebViewControlNavigationCompletedEventArgs(c_void_p):
+class IWebViewControlNavigationCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('20409918-4a15-4c46-a5-5d-f7-9e-db-0b-de-8b')
     @winrt_commethod(6)
@@ -208,7 +208,7 @@ class IWebViewControlNavigationCompletedEventArgs(c_void_p):
     Uri = property(get_Uri, None)
     IsSuccess = property(get_IsSuccess, None)
     WebErrorStatus = property(get_WebErrorStatus, None)
-class IWebViewControlNavigationStartingEventArgs(c_void_p):
+class IWebViewControlNavigationStartingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0c9057c5-0a08-41c7-86-3b-71-e3-a9-54-91-37')
     @winrt_commethod(6)
@@ -219,7 +219,7 @@ class IWebViewControlNavigationStartingEventArgs(c_void_p):
     def put_Cancel(self, value: Boolean) -> Void: ...
     Uri = property(get_Uri, None)
     Cancel = property(get_Cancel, put_Cancel)
-class IWebViewControlNewWindowRequestedEventArgs(c_void_p):
+class IWebViewControlNewWindowRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3df44bbb-a124-46d5-a0-83-d0-2c-ac-df-f5-ad')
     @winrt_commethod(6)
@@ -233,7 +233,7 @@ class IWebViewControlNewWindowRequestedEventArgs(c_void_p):
     Uri = property(get_Uri, None)
     Referrer = property(get_Referrer, None)
     Handled = property(get_Handled, put_Handled)
-class IWebViewControlNewWindowRequestedEventArgs2(c_void_p):
+class IWebViewControlNewWindowRequestedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b53c5ca6-2aae-4bfc-92-b9-c3-0e-92-b4-80-98')
     @winrt_commethod(6)
@@ -243,7 +243,7 @@ class IWebViewControlNewWindowRequestedEventArgs2(c_void_p):
     @winrt_commethod(8)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     NewWindow = property(get_NewWindow, put_NewWindow)
-class IWebViewControlPermissionRequest(c_void_p):
+class IWebViewControlPermissionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e5bc836c-f22f-40e2-95-b2-77-29-f8-40-eb-7f')
     @winrt_commethod(6)
@@ -264,13 +264,13 @@ class IWebViewControlPermissionRequest(c_void_p):
     Uri = property(get_Uri, None)
     PermissionType = property(get_PermissionType, None)
     State = property(get_State, None)
-class IWebViewControlPermissionRequestedEventArgs(c_void_p):
+class IWebViewControlPermissionRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('27204d51-2488-4cc5-96-8e-0a-77-1e-59-c1-47')
     @winrt_commethod(6)
     def get_PermissionRequest(self) -> Windows.Web.UI.WebViewControlPermissionRequest: ...
     PermissionRequest = property(get_PermissionRequest, None)
-class IWebViewControlScriptNotifyEventArgs(c_void_p):
+class IWebViewControlScriptNotifyEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('491de57b-6f49-41bb-b5-91-51-b8-5b-81-70-37')
     @winrt_commethod(6)
@@ -279,7 +279,7 @@ class IWebViewControlScriptNotifyEventArgs(c_void_p):
     def get_Value(self) -> WinRT_String: ...
     Uri = property(get_Uri, None)
     Value = property(get_Value, None)
-class IWebViewControlSettings(c_void_p):
+class IWebViewControlSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c9967fbf-5e98-4cfd-8c-ce-27-b0-91-1e-3d-e8')
     @winrt_commethod(6)
@@ -297,7 +297,7 @@ class IWebViewControlSettings(c_void_p):
     IsJavaScriptEnabled = property(get_IsJavaScriptEnabled, put_IsJavaScriptEnabled)
     IsIndexedDBEnabled = property(get_IsIndexedDBEnabled, put_IsIndexedDBEnabled)
     IsScriptNotifyAllowed = property(get_IsScriptNotifyAllowed, put_IsScriptNotifyAllowed)
-class IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs(c_void_p):
+class IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e3b81944-e4fc-43dc-94-ca-f9-80-f3-0b-c5-1d')
     @winrt_commethod(6)
@@ -308,7 +308,7 @@ class IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs(c_void_p):
     def put_Handled(self, value: Boolean) -> Void: ...
     Uri = property(get_Uri, None)
     Handled = property(get_Handled, put_Handled)
-class IWebViewControlUnviewableContentIdentifiedEventArgs(c_void_p):
+class IWebViewControlUnviewableContentIdentifiedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4a9680db-88f2-4e20-b6-93-b4-e2-df-4a-a5-81')
     @winrt_commethod(6)
@@ -320,7 +320,7 @@ class IWebViewControlUnviewableContentIdentifiedEventArgs(c_void_p):
     Uri = property(get_Uri, None)
     Referrer = property(get_Referrer, None)
     MediaType = property(get_MediaType, None)
-class IWebViewControlWebResourceRequestedEventArgs(c_void_p):
+class IWebViewControlWebResourceRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('44d6524d-55a4-4d8b-89-1c-93-1d-8e-25-d4-2e')
     @winrt_commethod(6)
@@ -333,19 +333,19 @@ class IWebViewControlWebResourceRequestedEventArgs(c_void_p):
     def get_Response(self) -> Windows.Web.Http.HttpResponseMessage: ...
     Request = property(get_Request, None)
     Response = property(get_Response, put_Response)
-class WebViewControlContentLoadingEventArgs(c_void_p):
+class WebViewControlContentLoadingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.WebViewControlContentLoadingEventArgs'
     @winrt_mixinmethod
     def get_Uri(self: Windows.Web.UI.IWebViewControlContentLoadingEventArgs) -> Windows.Foundation.Uri: ...
     Uri = property(get_Uri, None)
-class WebViewControlDOMContentLoadedEventArgs(c_void_p):
+class WebViewControlDOMContentLoadedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.WebViewControlDOMContentLoadedEventArgs'
     @winrt_mixinmethod
     def get_Uri(self: Windows.Web.UI.IWebViewControlDOMContentLoadedEventArgs) -> Windows.Foundation.Uri: ...
     Uri = property(get_Uri, None)
-class WebViewControlDeferredPermissionRequest(c_void_p):
+class WebViewControlDeferredPermissionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.WebViewControlDeferredPermissionRequest'
     @winrt_mixinmethod
@@ -361,7 +361,7 @@ class WebViewControlDeferredPermissionRequest(c_void_p):
     Id = property(get_Id, None)
     Uri = property(get_Uri, None)
     PermissionType = property(get_PermissionType, None)
-class WebViewControlLongRunningScriptDetectedEventArgs(c_void_p):
+class WebViewControlLongRunningScriptDetectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.WebViewControlLongRunningScriptDetectedEventArgs'
     @winrt_mixinmethod
@@ -372,7 +372,7 @@ class WebViewControlLongRunningScriptDetectedEventArgs(c_void_p):
     def put_StopPageScriptExecution(self: Windows.Web.UI.IWebViewControlLongRunningScriptDetectedEventArgs, value: Boolean) -> Void: ...
     ExecutionTime = property(get_ExecutionTime, None)
     StopPageScriptExecution = property(get_StopPageScriptExecution, put_StopPageScriptExecution)
-class WebViewControlNavigationCompletedEventArgs(c_void_p):
+class WebViewControlNavigationCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.WebViewControlNavigationCompletedEventArgs'
     @winrt_mixinmethod
@@ -384,7 +384,7 @@ class WebViewControlNavigationCompletedEventArgs(c_void_p):
     Uri = property(get_Uri, None)
     IsSuccess = property(get_IsSuccess, None)
     WebErrorStatus = property(get_WebErrorStatus, None)
-class WebViewControlNavigationStartingEventArgs(c_void_p):
+class WebViewControlNavigationStartingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.WebViewControlNavigationStartingEventArgs'
     @winrt_mixinmethod
@@ -395,7 +395,7 @@ class WebViewControlNavigationStartingEventArgs(c_void_p):
     def put_Cancel(self: Windows.Web.UI.IWebViewControlNavigationStartingEventArgs, value: Boolean) -> Void: ...
     Uri = property(get_Uri, None)
     Cancel = property(get_Cancel, put_Cancel)
-class WebViewControlNewWindowRequestedEventArgs(c_void_p):
+class WebViewControlNewWindowRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.WebViewControlNewWindowRequestedEventArgs'
     @winrt_mixinmethod
@@ -416,7 +416,7 @@ class WebViewControlNewWindowRequestedEventArgs(c_void_p):
     Referrer = property(get_Referrer, None)
     Handled = property(get_Handled, put_Handled)
     NewWindow = property(get_NewWindow, put_NewWindow)
-class WebViewControlPermissionRequest(c_void_p):
+class WebViewControlPermissionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.WebViewControlPermissionRequest'
     @winrt_mixinmethod
@@ -437,7 +437,7 @@ class WebViewControlPermissionRequest(c_void_p):
     Uri = property(get_Uri, None)
     PermissionType = property(get_PermissionType, None)
     State = property(get_State, None)
-class WebViewControlPermissionRequestedEventArgs(c_void_p):
+class WebViewControlPermissionRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.WebViewControlPermissionRequestedEventArgs'
     @winrt_mixinmethod
@@ -456,7 +456,7 @@ WebViewControlPermissionType_PointerLock: WebViewControlPermissionType = 3
 WebViewControlPermissionType_WebNotifications: WebViewControlPermissionType = 4
 WebViewControlPermissionType_Screen: WebViewControlPermissionType = 5
 WebViewControlPermissionType_ImmersiveView: WebViewControlPermissionType = 6
-class WebViewControlScriptNotifyEventArgs(c_void_p):
+class WebViewControlScriptNotifyEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.WebViewControlScriptNotifyEventArgs'
     @winrt_mixinmethod
@@ -465,7 +465,7 @@ class WebViewControlScriptNotifyEventArgs(c_void_p):
     def get_Value(self: Windows.Web.UI.IWebViewControlScriptNotifyEventArgs) -> WinRT_String: ...
     Uri = property(get_Uri, None)
     Value = property(get_Value, None)
-class WebViewControlSettings(c_void_p):
+class WebViewControlSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.WebViewControlSettings'
     @winrt_mixinmethod
@@ -483,7 +483,7 @@ class WebViewControlSettings(c_void_p):
     IsJavaScriptEnabled = property(get_IsJavaScriptEnabled, put_IsJavaScriptEnabled)
     IsIndexedDBEnabled = property(get_IsIndexedDBEnabled, put_IsIndexedDBEnabled)
     IsScriptNotifyAllowed = property(get_IsScriptNotifyAllowed, put_IsScriptNotifyAllowed)
-class WebViewControlUnsupportedUriSchemeIdentifiedEventArgs(c_void_p):
+class WebViewControlUnsupportedUriSchemeIdentifiedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.WebViewControlUnsupportedUriSchemeIdentifiedEventArgs'
     @winrt_mixinmethod
@@ -494,7 +494,7 @@ class WebViewControlUnsupportedUriSchemeIdentifiedEventArgs(c_void_p):
     def put_Handled(self: Windows.Web.UI.IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs, value: Boolean) -> Void: ...
     Uri = property(get_Uri, None)
     Handled = property(get_Handled, put_Handled)
-class WebViewControlUnviewableContentIdentifiedEventArgs(c_void_p):
+class WebViewControlUnviewableContentIdentifiedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.WebViewControlUnviewableContentIdentifiedEventArgs'
     @winrt_mixinmethod
@@ -506,7 +506,7 @@ class WebViewControlUnviewableContentIdentifiedEventArgs(c_void_p):
     Uri = property(get_Uri, None)
     Referrer = property(get_Referrer, None)
     MediaType = property(get_MediaType, None)
-class WebViewControlWebResourceRequestedEventArgs(c_void_p):
+class WebViewControlWebResourceRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.UI.WebViewControlWebResourceRequestedEventArgs'
     @winrt_mixinmethod

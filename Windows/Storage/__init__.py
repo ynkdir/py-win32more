@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -27,7 +27,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AppDataPaths(c_void_p):
+class AppDataPaths(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.AppDataPaths'
     @winrt_mixinmethod
@@ -61,7 +61,7 @@ class AppDataPaths(c_void_p):
     LocalAppData = property(get_LocalAppData, None)
     ProgramData = property(get_ProgramData, None)
     RoamingAppData = property(get_RoamingAppData, None)
-class ApplicationData(c_void_p):
+class ApplicationData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.ApplicationData'
     @winrt_mixinmethod
@@ -114,7 +114,7 @@ class ApplicationData(c_void_p):
     LocalCacheFolder = property(get_LocalCacheFolder, None)
     SharedLocalFolder = property(get_SharedLocalFolder, None)
     Current = property(get_Current, None)
-class ApplicationDataCompositeValue(c_void_p):
+class ApplicationDataCompositeValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.ApplicationDataCompositeValue'
     @winrt_activatemethod
@@ -140,7 +140,7 @@ class ApplicationDataCompositeValue(c_void_p):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]]) -> Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]]: ...
     Size = property(get_Size, None)
-class ApplicationDataContainer(c_void_p):
+class ApplicationDataContainer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.ApplicationDataContainer'
     @winrt_mixinmethod
@@ -161,7 +161,7 @@ class ApplicationDataContainer(c_void_p):
     Locality = property(get_Locality, None)
     Values = property(get_Values, None)
     Containers = property(get_Containers, None)
-class ApplicationDataContainerSettings(c_void_p):
+class ApplicationDataContainerSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.ApplicationDataContainerSettings'
     @winrt_mixinmethod
@@ -194,13 +194,13 @@ ApplicationDataLocality_Roaming: ApplicationDataLocality = 1
 ApplicationDataLocality_Temporary: ApplicationDataLocality = 2
 ApplicationDataLocality_LocalCache: ApplicationDataLocality = 3
 ApplicationDataLocality_SharedLocal: ApplicationDataLocality = 4
-class ApplicationDataSetVersionHandler(c_void_p):
+class ApplicationDataSetVersionHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('a05791e6-cc9f-4687-ac-ab-a3-64-fd-78-54-63')
     ClassId = 'Windows.Storage.ApplicationDataSetVersionHandler'
     @winrt_commethod(3)
     def Invoke(self, setVersionRequest: Windows.Storage.SetVersionRequest) -> Void: ...
-class CachedFileManager(c_void_p):
+class CachedFileManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.CachedFileManager'
     @winrt_classmethod
@@ -212,7 +212,7 @@ CreationCollisionOption_GenerateUniqueName: CreationCollisionOption = 0
 CreationCollisionOption_ReplaceExisting: CreationCollisionOption = 1
 CreationCollisionOption_FailIfExists: CreationCollisionOption = 2
 CreationCollisionOption_OpenIfExists: CreationCollisionOption = 3
-class DownloadsFolder(c_void_p):
+class DownloadsFolder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.DownloadsFolder'
     @winrt_classmethod
@@ -241,7 +241,7 @@ FileAttributes_Directory: FileAttributes = 16
 FileAttributes_Archive: FileAttributes = 32
 FileAttributes_Temporary: FileAttributes = 256
 FileAttributes_LocallyIncomplete: FileAttributes = 512
-class FileIO(c_void_p):
+class FileIO(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.FileIO'
     @winrt_classmethod
@@ -274,7 +274,7 @@ class FileIO(c_void_p):
     def WriteBufferAsync(cls: Windows.Storage.IFileIOStatics, file: Windows.Storage.IStorageFile, buffer: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
     def WriteBytesAsync(cls: Windows.Storage.IFileIOStatics, file: Windows.Storage.IStorageFile, buffer: c_char_p_no) -> Windows.Foundation.IAsyncAction: ...
-class IAppDataPaths(c_void_p):
+class IAppDataPaths(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7301d60a-79a2-48c9-9e-c0-3f-da-09-2f-79-e1')
     @winrt_commethod(6)
@@ -304,14 +304,14 @@ class IAppDataPaths(c_void_p):
     LocalAppData = property(get_LocalAppData, None)
     ProgramData = property(get_ProgramData, None)
     RoamingAppData = property(get_RoamingAppData, None)
-class IAppDataPathsStatics(c_void_p):
+class IAppDataPathsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d8eb2afe-a9d9-4b14-b9-99-e3-92-13-79-d9-03')
     @winrt_commethod(6)
     def GetForUser(self, user: Windows.System.User) -> Windows.Storage.AppDataPaths: ...
     @winrt_commethod(7)
     def GetDefault(self) -> Windows.Storage.AppDataPaths: ...
-class IApplicationData(c_void_p):
+class IApplicationData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c3da6fb7-b744-4b45-b0-b8-22-3a-09-38-d0-dc')
     @winrt_commethod(6)
@@ -347,13 +347,13 @@ class IApplicationData(c_void_p):
     RoamingFolder = property(get_RoamingFolder, None)
     TemporaryFolder = property(get_TemporaryFolder, None)
     RoamingStorageQuota = property(get_RoamingStorageQuota, None)
-class IApplicationData2(c_void_p):
+class IApplicationData2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9e65cd69-0ba3-4e32-be-29-b0-2d-e6-60-76-38')
     @winrt_commethod(6)
     def get_LocalCacheFolder(self) -> Windows.Storage.StorageFolder: ...
     LocalCacheFolder = property(get_LocalCacheFolder, None)
-class IApplicationData3(c_void_p):
+class IApplicationData3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dc222cf4-2772-4c1d-aa-2c-c9-f7-43-ad-e8-d1')
     @winrt_commethod(6)
@@ -363,7 +363,7 @@ class IApplicationData3(c_void_p):
     @winrt_commethod(8)
     def get_SharedLocalFolder(self) -> Windows.Storage.StorageFolder: ...
     SharedLocalFolder = property(get_SharedLocalFolder, None)
-class IApplicationDataContainer(c_void_p):
+class IApplicationDataContainer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c5aefd1e-f467-40ba-85-66-ab-64-0a-44-1e-1d')
     @winrt_commethod(6)
@@ -382,25 +382,25 @@ class IApplicationDataContainer(c_void_p):
     Locality = property(get_Locality, None)
     Values = property(get_Values, None)
     Containers = property(get_Containers, None)
-class IApplicationDataStatics(c_void_p):
+class IApplicationDataStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5612147b-e843-45e3-94-d8-06-16-9e-3c-8e-17')
     @winrt_commethod(6)
     def get_Current(self) -> Windows.Storage.ApplicationData: ...
     Current = property(get_Current, None)
-class IApplicationDataStatics2(c_void_p):
+class IApplicationDataStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cd606211-cf49-40a4-a4-7c-c7-f0-db-ba-81-07')
     @winrt_commethod(6)
     def GetForUserAsync(self, user: Windows.System.User) -> Windows.Foundation.IAsyncOperation[Windows.Storage.ApplicationData]: ...
-class ICachedFileManagerStatics(c_void_p):
+class ICachedFileManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8ffc224a-e782-495d-b6-14-65-4c-4f-0b-23-70')
     @winrt_commethod(6)
     def DeferUpdates(self, file: Windows.Storage.IStorageFile) -> Void: ...
     @winrt_commethod(7)
     def CompleteUpdatesAsync(self, file: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Provider.FileUpdateStatus]: ...
-class IDownloadsFolderStatics(c_void_p):
+class IDownloadsFolderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('27862ed0-404e-47df-a1-e2-e3-73-08-be-7b-37')
     @winrt_commethod(6)
@@ -411,7 +411,7 @@ class IDownloadsFolderStatics(c_void_p):
     def CreateFileWithCollisionOptionAsync(self, desiredName: WinRT_String, option: Windows.Storage.CreationCollisionOption) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFile]: ...
     @winrt_commethod(9)
     def CreateFolderWithCollisionOptionAsync(self, desiredName: WinRT_String, option: Windows.Storage.CreationCollisionOption) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFolder]: ...
-class IDownloadsFolderStatics2(c_void_p):
+class IDownloadsFolderStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e93045bd-8ef8-4f8e-8d-15-ac-0e-26-5f-39-0d')
     @winrt_commethod(6)
@@ -422,7 +422,7 @@ class IDownloadsFolderStatics2(c_void_p):
     def CreateFileForUserWithCollisionOptionAsync(self, user: Windows.System.User, desiredName: WinRT_String, option: Windows.Storage.CreationCollisionOption) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFile]: ...
     @winrt_commethod(9)
     def CreateFolderForUserWithCollisionOptionAsync(self, user: Windows.System.User, desiredName: WinRT_String, option: Windows.Storage.CreationCollisionOption) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFolder]: ...
-class IFileIOStatics(c_void_p):
+class IFileIOStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('887411eb-7f54-4732-a5-f0-5e-43-e3-b8-c2-f5')
     @winrt_commethod(6)
@@ -455,25 +455,25 @@ class IFileIOStatics(c_void_p):
     def WriteBufferAsync(self, file: Windows.Storage.IStorageFile, buffer: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(20)
     def WriteBytesAsync(self, file: Windows.Storage.IStorageFile, buffer: c_char_p_no) -> Windows.Foundation.IAsyncAction: ...
-class IKnownFoldersCameraRollStatics(c_void_p):
+class IKnownFoldersCameraRollStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5d115e66-27e8-492f-b8-e5-2f-90-89-6c-d4-cd')
     @winrt_commethod(6)
     def get_CameraRoll(self) -> Windows.Storage.StorageFolder: ...
     CameraRoll = property(get_CameraRoll, None)
-class IKnownFoldersPlaylistsStatics(c_void_p):
+class IKnownFoldersPlaylistsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dad5ecd6-306f-4d6a-b4-96-46-ba-8e-b1-06-ce')
     @winrt_commethod(6)
     def get_Playlists(self) -> Windows.Storage.StorageFolder: ...
     Playlists = property(get_Playlists, None)
-class IKnownFoldersSavedPicturesStatics(c_void_p):
+class IKnownFoldersSavedPicturesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('055c93ea-253d-467c-b6-ca-a9-7d-a1-e9-a1-8d')
     @winrt_commethod(6)
     def get_SavedPictures(self) -> Windows.Storage.StorageFolder: ...
     SavedPictures = property(get_SavedPictures, None)
-class IKnownFoldersStatics(c_void_p):
+class IKnownFoldersStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5a2a7520-4802-452d-9a-d9-43-51-ad-a7-ec-35')
     @winrt_commethod(6)
@@ -497,7 +497,7 @@ class IKnownFoldersStatics(c_void_p):
     HomeGroup = property(get_HomeGroup, None)
     RemovableDevices = property(get_RemovableDevices, None)
     MediaServerDevices = property(get_MediaServerDevices, None)
-class IKnownFoldersStatics2(c_void_p):
+class IKnownFoldersStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('194bd0cd-cf6e-4d07-9d-53-e9-16-3a-25-36-e9')
     @winrt_commethod(6)
@@ -509,12 +509,12 @@ class IKnownFoldersStatics2(c_void_p):
     Objects3D = property(get_Objects3D, None)
     AppCaptures = property(get_AppCaptures, None)
     RecordedCalls = property(get_RecordedCalls, None)
-class IKnownFoldersStatics3(c_void_p):
+class IKnownFoldersStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c5194341-9742-4ed5-82-3d-fc-14-01-14-87-64')
     @winrt_commethod(6)
     def GetFolderForUserAsync(self, user: Windows.System.User, folderId: Windows.Storage.KnownFolderId) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFolder]: ...
-class IKnownFoldersStatics4(c_void_p):
+class IKnownFoldersStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1722e6bf-9ff9-4b21-be-d5-90-ec-b1-3a-19-2e')
     @winrt_commethod(6)
@@ -523,7 +523,7 @@ class IKnownFoldersStatics4(c_void_p):
     def RequestAccessForUserAsync(self, user: Windows.System.User, folderId: Windows.Storage.KnownFolderId) -> Windows.Foundation.IAsyncOperation[Windows.Storage.KnownFoldersAccessStatus]: ...
     @winrt_commethod(8)
     def GetFolderAsync(self, folderId: Windows.Storage.KnownFolderId) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFolder]: ...
-class IPathIOStatics(c_void_p):
+class IPathIOStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0f2f3758-8ec7-4381-92-2b-8f-6c-07-d2-88-f3')
     @winrt_commethod(6)
@@ -556,12 +556,12 @@ class IPathIOStatics(c_void_p):
     def WriteBufferAsync(self, absolutePath: WinRT_String, buffer: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(20)
     def WriteBytesAsync(self, absolutePath: WinRT_String, buffer: c_char_p_no) -> Windows.Foundation.IAsyncAction: ...
-class ISetVersionDeferral(c_void_p):
+class ISetVersionDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('033508a2-781a-437a-b0-78-3f-32-ba-dc-fe-47')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
-class ISetVersionRequest(c_void_p):
+class ISetVersionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b9c76b9b-1056-4e69-83-30-16-26-19-95-6f-9b')
     @winrt_commethod(6)
@@ -572,7 +572,7 @@ class ISetVersionRequest(c_void_p):
     def GetDeferral(self) -> Windows.Storage.SetVersionDeferral: ...
     CurrentVersion = property(get_CurrentVersion, None)
     DesiredVersion = property(get_DesiredVersion, None)
-class IStorageFile(c_void_p):
+class IStorageFile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fa3f6186-4214-428c-a6-4c-14-c9-ac-73-15-ea')
     @winrt_commethod(6)
@@ -601,20 +601,20 @@ class IStorageFile(c_void_p):
     def MoveAndReplaceAsync(self, fileToReplace: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncAction: ...
     FileType = property(get_FileType, None)
     ContentType = property(get_ContentType, None)
-class IStorageFile2(c_void_p):
+class IStorageFile2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('954e4bcf-0a77-42fb-b7-77-c2-ed-58-a5-2e-44')
     @winrt_commethod(6)
     def OpenWithOptionsAsync(self, accessMode: Windows.Storage.FileAccessMode, options: Windows.Storage.StorageOpenOptions) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IRandomAccessStream]: ...
     @winrt_commethod(7)
     def OpenTransactedWriteWithOptionsAsync(self, options: Windows.Storage.StorageOpenOptions) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageStreamTransaction]: ...
-class IStorageFilePropertiesWithAvailability(c_void_p):
+class IStorageFilePropertiesWithAvailability(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('afcbbe9b-582b-4133-96-48-e4-4c-a4-6e-e4-91')
     @winrt_commethod(6)
     def get_IsAvailable(self) -> Boolean: ...
     IsAvailable = property(get_IsAvailable, None)
-class IStorageFileStatics(c_void_p):
+class IStorageFileStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5984c710-daf2-43c8-8b-b4-a4-d3-ea-cf-d0-3f')
     @winrt_commethod(6)
@@ -629,12 +629,12 @@ class IStorageFileStatics(c_void_p):
     def CreateStreamedFileFromUriAsync(self, displayNameWithExtension: WinRT_String, uri: Windows.Foundation.Uri, thumbnail: Windows.Storage.Streams.IRandomAccessStreamReference) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFile]: ...
     @winrt_commethod(11)
     def ReplaceWithStreamedFileFromUriAsync(self, fileToReplace: Windows.Storage.IStorageFile, uri: Windows.Foundation.Uri, thumbnail: Windows.Storage.Streams.IRandomAccessStreamReference) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFile]: ...
-class IStorageFileStatics2(c_void_p):
+class IStorageFileStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5c76a781-212e-4af9-8f-04-74-0c-ae-10-89-74')
     @winrt_commethod(6)
     def GetFileFromPathForUserAsync(self, user: Windows.System.User, path: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFile]: ...
-class IStorageFolder(c_void_p):
+class IStorageFolder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('72d1cb78-b3ef-4f75-a8-0b-6f-d9-da-e2-94-4b')
     @winrt_commethod(6)
@@ -657,27 +657,27 @@ class IStorageFolder(c_void_p):
     def GetFoldersAsyncOverloadDefaultOptionsStartAndCount(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageFolder]]: ...
     @winrt_commethod(15)
     def GetItemsAsyncOverloadDefaultStartAndCount(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Storage.IStorageItem]]: ...
-class IStorageFolder2(c_void_p):
+class IStorageFolder2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e827e8b9-08d9-4a8e-a0-ac-fe-5e-d3-cb-bb-d3')
     @winrt_commethod(6)
     def TryGetItemAsync(self, name: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Storage.IStorageItem]: ...
-class IStorageFolder3(c_void_p):
+class IStorageFolder3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9f617899-bde1-4124-ae-b3-b0-6a-d9-6f-98-d4')
     @winrt_commethod(6)
     def TryGetChangeTracker(self) -> Windows.Storage.StorageLibraryChangeTracker: ...
-class IStorageFolderStatics(c_void_p):
+class IStorageFolderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('08f327ff-85d5-48b9-ae-e9-28-51-1e-33-9f-9f')
     @winrt_commethod(6)
     def GetFolderFromPathAsync(self, path: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFolder]: ...
-class IStorageFolderStatics2(c_void_p):
+class IStorageFolderStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b4656dc3-71d2-467d-8b-29-37-1f-0f-62-bf-6f')
     @winrt_commethod(6)
     def GetFolderFromPathForUserAsync(self, user: Windows.System.User, path: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFolder]: ...
-class IStorageItem(c_void_p):
+class IStorageItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4207a996-ca2f-42f7-bd-e8-8b-10-45-7a-7f-30')
     @winrt_commethod(6)
@@ -704,14 +704,14 @@ class IStorageItem(c_void_p):
     Path = property(get_Path, None)
     Attributes = property(get_Attributes, None)
     DateCreated = property(get_DateCreated, None)
-class IStorageItem2(c_void_p):
+class IStorageItem2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('53f926d2-083c-4283-b4-5b-81-c0-07-23-7e-44')
     @winrt_commethod(6)
     def GetParentAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFolder]: ...
     @winrt_commethod(7)
     def IsEqual(self, item: Windows.Storage.IStorageItem) -> Boolean: ...
-class IStorageItemProperties(c_void_p):
+class IStorageItemProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('86664478-8029-46fe-a7-89-1c-2f-3e-2f-fb-5c')
     @winrt_commethod(6)
@@ -732,7 +732,7 @@ class IStorageItemProperties(c_void_p):
     DisplayType = property(get_DisplayType, None)
     FolderRelativeId = property(get_FolderRelativeId, None)
     Properties = property(get_Properties, None)
-class IStorageItemProperties2(c_void_p):
+class IStorageItemProperties2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8e86a951-04b9-4bd2-92-9d-fe-f3-f7-16-21-d0')
     @winrt_commethod(6)
@@ -741,13 +741,13 @@ class IStorageItemProperties2(c_void_p):
     def GetScaledImageAsThumbnailAsyncOverloadDefaultOptions(self, mode: Windows.Storage.FileProperties.ThumbnailMode, requestedSize: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Storage.FileProperties.StorageItemThumbnail]: ...
     @winrt_commethod(8)
     def GetScaledImageAsThumbnailAsync(self, mode: Windows.Storage.FileProperties.ThumbnailMode, requestedSize: UInt32, options: Windows.Storage.FileProperties.ThumbnailOptions) -> Windows.Foundation.IAsyncOperation[Windows.Storage.FileProperties.StorageItemThumbnail]: ...
-class IStorageItemPropertiesWithProvider(c_void_p):
+class IStorageItemPropertiesWithProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('861bf39b-6368-4dee-b4-0e-74-68-4a-5c-e7-14')
     @winrt_commethod(6)
     def get_Provider(self) -> Windows.Storage.StorageProvider: ...
     Provider = property(get_Provider, None)
-class IStorageLibrary(c_void_p):
+class IStorageLibrary(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1edd7103-0e5e-4d6c-b5-e8-93-18-98-3d-6a-03')
     @winrt_commethod(6)
@@ -764,18 +764,18 @@ class IStorageLibrary(c_void_p):
     def remove_DefinitionChanged(self, eventCookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
     Folders = property(get_Folders, None)
     SaveFolder = property(get_SaveFolder, None)
-class IStorageLibrary2(c_void_p):
+class IStorageLibrary2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5b0ce348-fcb3-4031-af-b0-a6-8d-7b-d4-45-34')
     @winrt_commethod(6)
     def get_ChangeTracker(self) -> Windows.Storage.StorageLibraryChangeTracker: ...
     ChangeTracker = property(get_ChangeTracker, None)
-class IStorageLibrary3(c_void_p):
+class IStorageLibrary3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8a281291-2154-4201-81-13-d2-c0-5c-e1-ad-23')
     @winrt_commethod(6)
     def AreFolderSuggestionsAvailableAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
-class IStorageLibraryChange(c_void_p):
+class IStorageLibraryChange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('00980b23-2be2-4909-aa-48-15-9f-52-03-a5-1e')
     @winrt_commethod(6)
@@ -791,19 +791,19 @@ class IStorageLibraryChange(c_void_p):
     ChangeType = property(get_ChangeType, None)
     Path = property(get_Path, None)
     PreviousPath = property(get_PreviousPath, None)
-class IStorageLibraryChangeReader(c_void_p):
+class IStorageLibraryChangeReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f205bc83-fca2-41f9-89-54-ee-2e-99-1e-b9-6f')
     @winrt_commethod(6)
     def ReadBatchAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageLibraryChange]]: ...
     @winrt_commethod(7)
     def AcceptChangesAsync(self) -> Windows.Foundation.IAsyncAction: ...
-class IStorageLibraryChangeReader2(c_void_p):
+class IStorageLibraryChangeReader2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('abf4868b-fbcc-4a4f-99-9e-e7-ab-7c-64-6d-be')
     @winrt_commethod(6)
     def GetLastChangeId(self) -> UInt64: ...
-class IStorageLibraryChangeTracker(c_void_p):
+class IStorageLibraryChangeTracker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9e157316-6073-44f6-96-81-74-92-d1-28-6c-90')
     @winrt_commethod(6)
@@ -812,14 +812,14 @@ class IStorageLibraryChangeTracker(c_void_p):
     def Enable(self) -> Void: ...
     @winrt_commethod(8)
     def Reset(self) -> Void: ...
-class IStorageLibraryChangeTracker2(c_void_p):
+class IStorageLibraryChangeTracker2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cd051c3b-0f9f-42f9-8f-b3-15-8d-82-e1-38-21')
     @winrt_commethod(6)
     def EnableWithOptions(self, options: Windows.Storage.StorageLibraryChangeTrackerOptions) -> Void: ...
     @winrt_commethod(7)
     def Disable(self) -> Void: ...
-class IStorageLibraryChangeTrackerOptions(c_void_p):
+class IStorageLibraryChangeTrackerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bb52bcd4-1a6d-59c0-ad-2a-82-3a-20-53-24-83')
     @winrt_commethod(6)
@@ -827,26 +827,26 @@ class IStorageLibraryChangeTrackerOptions(c_void_p):
     @winrt_commethod(7)
     def put_TrackChangeDetails(self, value: Boolean) -> Void: ...
     TrackChangeDetails = property(get_TrackChangeDetails, put_TrackChangeDetails)
-class IStorageLibraryLastChangeId(c_void_p):
+class IStorageLibraryLastChangeId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5281826a-bbe1-53bc-82-ca-81-cc-7f-03-93-29')
-class IStorageLibraryLastChangeIdStatics(c_void_p):
+class IStorageLibraryLastChangeIdStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('81a49128-2ca3-5309-b0-d1-cf-07-88-e4-07-62')
     @winrt_commethod(6)
     def get_Unknown(self) -> UInt64: ...
     Unknown = property(get_Unknown, None)
-class IStorageLibraryStatics(c_void_p):
+class IStorageLibraryStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4208a6db-684a-49c6-9e-59-90-12-1e-e0-50-d6')
     @winrt_commethod(6)
     def GetLibraryAsync(self, libraryId: Windows.Storage.KnownLibraryId) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageLibrary]: ...
-class IStorageLibraryStatics2(c_void_p):
+class IStorageLibraryStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ffb08ddc-fa75-4695-b9-d1-7f-81-f9-78-32-e3')
     @winrt_commethod(6)
     def GetLibraryForUserAsync(self, user: Windows.System.User, libraryId: Windows.Storage.KnownLibraryId) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageLibrary]: ...
-class IStorageProvider(c_void_p):
+class IStorageProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e705eed4-d478-47d6-ba-46-1a-8e-be-11-4a-20')
     @winrt_commethod(6)
@@ -855,12 +855,12 @@ class IStorageProvider(c_void_p):
     def get_DisplayName(self) -> WinRT_String: ...
     Id = property(get_Id, None)
     DisplayName = property(get_DisplayName, None)
-class IStorageProvider2(c_void_p):
+class IStorageProvider2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('010d1917-3404-414b-9f-d7-cd-44-47-2e-aa-39')
     @winrt_commethod(6)
     def IsPropertySupportedForPartialFileAsync(self, propertyCanonicalName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
-class IStorageStreamTransaction(c_void_p):
+class IStorageStreamTransaction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f67cf363-a53d-4d94-ae-2c-67-23-2d-93-ac-dd')
     @winrt_commethod(6)
@@ -868,18 +868,18 @@ class IStorageStreamTransaction(c_void_p):
     @winrt_commethod(7)
     def CommitAsync(self) -> Windows.Foundation.IAsyncAction: ...
     Stream = property(get_Stream, None)
-class IStreamedFileDataRequest(c_void_p):
+class IStreamedFileDataRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1673fcce-dabd-4d50-be-ee-18-0b-8a-81-91-b6')
     @winrt_commethod(6)
     def FailAndClose(self, failureMode: Windows.Storage.StreamedFileFailureMode) -> Void: ...
-class ISystemAudioProperties(c_void_p):
+class ISystemAudioProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3f8f38b7-308c-47e1-92-4d-86-45-34-8e-5d-b7')
     @winrt_commethod(6)
     def get_EncodingBitrate(self) -> WinRT_String: ...
     EncodingBitrate = property(get_EncodingBitrate, None)
-class ISystemDataPaths(c_void_p):
+class ISystemDataPaths(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e32abf70-d8fa-45ec-a9-42-d2-e2-6f-b6-0b-a5')
     @winrt_commethod(6)
@@ -930,12 +930,12 @@ class ISystemDataPaths(c_void_p):
     SystemArm = property(get_SystemArm, None)
     UserProfiles = property(get_UserProfiles, None)
     Windows = property(get_Windows, None)
-class ISystemDataPathsStatics(c_void_p):
+class ISystemDataPathsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e0f96fd0-9920-4bca-b3-79-f9-6f-df-7c-aa-d8')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Storage.SystemDataPaths: ...
-class ISystemGPSProperties(c_void_p):
+class ISystemGPSProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c0f46eb4-c174-481a-bc-25-92-19-86-f6-a6-f3')
     @winrt_commethod(6)
@@ -944,7 +944,7 @@ class ISystemGPSProperties(c_void_p):
     def get_LongitudeDecimal(self) -> WinRT_String: ...
     LatitudeDecimal = property(get_LatitudeDecimal, None)
     LongitudeDecimal = property(get_LongitudeDecimal, None)
-class ISystemImageProperties(c_void_p):
+class ISystemImageProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('011b2e30-8b39-4308-be-a1-e8-aa-61-e4-78-26')
     @winrt_commethod(6)
@@ -953,7 +953,7 @@ class ISystemImageProperties(c_void_p):
     def get_VerticalSize(self) -> WinRT_String: ...
     HorizontalSize = property(get_HorizontalSize, None)
     VerticalSize = property(get_VerticalSize, None)
-class ISystemMediaProperties(c_void_p):
+class ISystemMediaProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a42b3316-8415-40dc-8c-44-98-36-1d-23-54-30')
     @winrt_commethod(6)
@@ -974,7 +974,7 @@ class ISystemMediaProperties(c_void_p):
     SubTitle = property(get_SubTitle, None)
     Writer = property(get_Writer, None)
     Year = property(get_Year, None)
-class ISystemMusicProperties(c_void_p):
+class ISystemMusicProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b47988d5-67af-4bc3-8d-39-5b-89-02-20-26-a1')
     @winrt_commethod(6)
@@ -1001,7 +1001,7 @@ class ISystemMusicProperties(c_void_p):
     DisplayArtist = property(get_DisplayArtist, None)
     Genre = property(get_Genre, None)
     TrackNumber = property(get_TrackNumber, None)
-class ISystemPhotoProperties(c_void_p):
+class ISystemPhotoProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4734fc3d-ab21-4424-b7-35-f4-35-3a-56-c8-fc')
     @winrt_commethod(6)
@@ -1019,7 +1019,7 @@ class ISystemPhotoProperties(c_void_p):
     DateTaken = property(get_DateTaken, None)
     Orientation = property(get_Orientation, None)
     PeopleNames = property(get_PeopleNames, None)
-class ISystemProperties(c_void_p):
+class ISystemProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('917a71c1-85f3-4dd1-b0-01-a5-0b-fd-21-c8-d2')
     @winrt_commethod(6)
@@ -1061,7 +1061,7 @@ class ISystemProperties(c_void_p):
     Photo = property(get_Photo, None)
     Video = property(get_Video, None)
     Image = property(get_Image, None)
-class ISystemVideoProperties(c_void_p):
+class ISystemVideoProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2040f715-67f8-4322-9b-80-4f-a9-fe-fb-83-e8')
     @winrt_commethod(6)
@@ -1079,7 +1079,7 @@ class ISystemVideoProperties(c_void_p):
     FrameWidth = property(get_FrameWidth, None)
     Orientation = property(get_Orientation, None)
     TotalBitrate = property(get_TotalBitrate, None)
-class IUserDataPaths(c_void_p):
+class IUserDataPaths(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f9c53912-abc4-46ff-8a-2b-dc-9d-7f-a6-e5-2f')
     @winrt_commethod(6)
@@ -1139,7 +1139,7 @@ class IUserDataPaths(c_void_p):
     Screenshots = property(get_Screenshots, None)
     Templates = property(get_Templates, None)
     Videos = property(get_Videos, None)
-class IUserDataPathsStatics(c_void_p):
+class IUserDataPathsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('01b29def-e062-48a1-8b-0c-f2-c7-a9-ca-56-c0')
     @winrt_commethod(6)
@@ -1164,7 +1164,7 @@ KnownFolderId_VideosLibrary: KnownFolderId = 13
 KnownFolderId_AllAppMods: KnownFolderId = 14
 KnownFolderId_CurrentAppMods: KnownFolderId = 15
 KnownFolderId_DownloadsFolder: KnownFolderId = 16
-class KnownFolders(c_void_p):
+class KnownFolders(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.KnownFolders'
     @winrt_classmethod
@@ -1230,7 +1230,7 @@ NameCollisionOption = Int32
 NameCollisionOption_GenerateUniqueName: NameCollisionOption = 0
 NameCollisionOption_ReplaceExisting: NameCollisionOption = 1
 NameCollisionOption_FailIfExists: NameCollisionOption = 2
-class PathIO(c_void_p):
+class PathIO(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.PathIO'
     @winrt_classmethod
@@ -1263,12 +1263,12 @@ class PathIO(c_void_p):
     def WriteBufferAsync(cls: Windows.Storage.IPathIOStatics, absolutePath: WinRT_String, buffer: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
     def WriteBytesAsync(cls: Windows.Storage.IPathIOStatics, absolutePath: WinRT_String, buffer: c_char_p_no) -> Windows.Foundation.IAsyncAction: ...
-class SetVersionDeferral(c_void_p):
+class SetVersionDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.SetVersionDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.Storage.ISetVersionDeferral) -> Void: ...
-class SetVersionRequest(c_void_p):
+class SetVersionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.SetVersionRequest'
     @winrt_mixinmethod
@@ -1282,7 +1282,7 @@ class SetVersionRequest(c_void_p):
 StorageDeleteOption = Int32
 StorageDeleteOption_Default: StorageDeleteOption = 0
 StorageDeleteOption_PermanentDelete: StorageDeleteOption = 1
-class StorageFile(c_void_p):
+class StorageFile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.StorageFile'
     @winrt_mixinmethod
@@ -1391,7 +1391,7 @@ class StorageFile(c_void_p):
     Properties = property(get_Properties, None)
     Provider = property(get_Provider, None)
     IsAvailable = property(get_IsAvailable, None)
-class StorageFolder(c_void_p):
+class StorageFolder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.StorageFolder'
     @winrt_mixinmethod
@@ -1515,7 +1515,7 @@ StorageItemTypes = UInt32
 StorageItemTypes_None: StorageItemTypes = 0
 StorageItemTypes_File: StorageItemTypes = 1
 StorageItemTypes_Folder: StorageItemTypes = 2
-class StorageLibrary(c_void_p):
+class StorageLibrary(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.StorageLibrary'
     @winrt_mixinmethod
@@ -1541,7 +1541,7 @@ class StorageLibrary(c_void_p):
     Folders = property(get_Folders, None)
     SaveFolder = property(get_SaveFolder, None)
     ChangeTracker = property(get_ChangeTracker, None)
-class StorageLibraryChange(c_void_p):
+class StorageLibraryChange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.StorageLibraryChange'
     @winrt_mixinmethod
@@ -1557,7 +1557,7 @@ class StorageLibraryChange(c_void_p):
     ChangeType = property(get_ChangeType, None)
     Path = property(get_Path, None)
     PreviousPath = property(get_PreviousPath, None)
-class StorageLibraryChangeReader(c_void_p):
+class StorageLibraryChangeReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.StorageLibraryChangeReader'
     @winrt_mixinmethod
@@ -1566,7 +1566,7 @@ class StorageLibraryChangeReader(c_void_p):
     def AcceptChangesAsync(self: Windows.Storage.IStorageLibraryChangeReader) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def GetLastChangeId(self: Windows.Storage.IStorageLibraryChangeReader2) -> UInt64: ...
-class StorageLibraryChangeTracker(c_void_p):
+class StorageLibraryChangeTracker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.StorageLibraryChangeTracker'
     @winrt_mixinmethod
@@ -1579,7 +1579,7 @@ class StorageLibraryChangeTracker(c_void_p):
     def EnableWithOptions(self: Windows.Storage.IStorageLibraryChangeTracker2, options: Windows.Storage.StorageLibraryChangeTrackerOptions) -> Void: ...
     @winrt_mixinmethod
     def Disable(self: Windows.Storage.IStorageLibraryChangeTracker2) -> Void: ...
-class StorageLibraryChangeTrackerOptions(c_void_p):
+class StorageLibraryChangeTrackerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.StorageLibraryChangeTrackerOptions'
     @winrt_activatemethod
@@ -1600,7 +1600,7 @@ StorageLibraryChangeType_ContentsReplaced: StorageLibraryChangeType = 6
 StorageLibraryChangeType_IndexingStatusChanged: StorageLibraryChangeType = 7
 StorageLibraryChangeType_EncryptionChanged: StorageLibraryChangeType = 8
 StorageLibraryChangeType_ChangeTrackingLost: StorageLibraryChangeType = 9
-class StorageLibraryLastChangeId(c_void_p):
+class StorageLibraryLastChangeId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.StorageLibraryLastChangeId'
     @winrt_classmethod
@@ -1610,7 +1610,7 @@ StorageOpenOptions = UInt32
 StorageOpenOptions_None: StorageOpenOptions = 0
 StorageOpenOptions_AllowOnlyReaders: StorageOpenOptions = 1
 StorageOpenOptions_AllowReadersAndWriters: StorageOpenOptions = 2
-class StorageProvider(c_void_p):
+class StorageProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.StorageProvider'
     @winrt_mixinmethod
@@ -1621,7 +1621,7 @@ class StorageProvider(c_void_p):
     def IsPropertySupportedForPartialFileAsync(self: Windows.Storage.IStorageProvider2, propertyCanonicalName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     Id = property(get_Id, None)
     DisplayName = property(get_DisplayName, None)
-class StorageStreamTransaction(c_void_p):
+class StorageStreamTransaction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.StorageStreamTransaction'
     @winrt_mixinmethod
@@ -1631,7 +1631,7 @@ class StorageStreamTransaction(c_void_p):
     @winrt_mixinmethod
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
     Stream = property(get_Stream, None)
-class StreamedFileDataRequest(c_void_p):
+class StreamedFileDataRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.StreamedFileDataRequest'
     @winrt_mixinmethod
@@ -1642,7 +1642,7 @@ class StreamedFileDataRequest(c_void_p):
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
     @winrt_mixinmethod
     def FailAndClose(self: Windows.Storage.IStreamedFileDataRequest, failureMode: Windows.Storage.StreamedFileFailureMode) -> Void: ...
-class StreamedFileDataRequestedHandler(c_void_p):
+class StreamedFileDataRequestedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fef6a824-2fe1-4d07-a3-5b-b7-7c-50-b5-f4-cc')
     ClassId = 'Windows.Storage.StreamedFileDataRequestedHandler'
@@ -1652,13 +1652,13 @@ StreamedFileFailureMode = Int32
 StreamedFileFailureMode_Failed: StreamedFileFailureMode = 0
 StreamedFileFailureMode_CurrentlyUnavailable: StreamedFileFailureMode = 1
 StreamedFileFailureMode_Incomplete: StreamedFileFailureMode = 2
-class SystemAudioProperties(c_void_p):
+class SystemAudioProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.SystemAudioProperties'
     @winrt_mixinmethod
     def get_EncodingBitrate(self: Windows.Storage.ISystemAudioProperties) -> WinRT_String: ...
     EncodingBitrate = property(get_EncodingBitrate, None)
-class SystemDataPaths(c_void_p):
+class SystemDataPaths(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.SystemDataPaths'
     @winrt_mixinmethod
@@ -1711,7 +1711,7 @@ class SystemDataPaths(c_void_p):
     SystemArm = property(get_SystemArm, None)
     UserProfiles = property(get_UserProfiles, None)
     Windows = property(get_Windows, None)
-class SystemGPSProperties(c_void_p):
+class SystemGPSProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.SystemGPSProperties'
     @winrt_mixinmethod
@@ -1720,7 +1720,7 @@ class SystemGPSProperties(c_void_p):
     def get_LongitudeDecimal(self: Windows.Storage.ISystemGPSProperties) -> WinRT_String: ...
     LatitudeDecimal = property(get_LatitudeDecimal, None)
     LongitudeDecimal = property(get_LongitudeDecimal, None)
-class SystemImageProperties(c_void_p):
+class SystemImageProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.SystemImageProperties'
     @winrt_mixinmethod
@@ -1729,7 +1729,7 @@ class SystemImageProperties(c_void_p):
     def get_VerticalSize(self: Windows.Storage.ISystemImageProperties) -> WinRT_String: ...
     HorizontalSize = property(get_HorizontalSize, None)
     VerticalSize = property(get_VerticalSize, None)
-class SystemMediaProperties(c_void_p):
+class SystemMediaProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.SystemMediaProperties'
     @winrt_mixinmethod
@@ -1750,7 +1750,7 @@ class SystemMediaProperties(c_void_p):
     SubTitle = property(get_SubTitle, None)
     Writer = property(get_Writer, None)
     Year = property(get_Year, None)
-class SystemMusicProperties(c_void_p):
+class SystemMusicProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.SystemMusicProperties'
     @winrt_mixinmethod
@@ -1777,7 +1777,7 @@ class SystemMusicProperties(c_void_p):
     DisplayArtist = property(get_DisplayArtist, None)
     Genre = property(get_Genre, None)
     TrackNumber = property(get_TrackNumber, None)
-class SystemPhotoProperties(c_void_p):
+class SystemPhotoProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.SystemPhotoProperties'
     @winrt_mixinmethod
@@ -1795,7 +1795,7 @@ class SystemPhotoProperties(c_void_p):
     DateTaken = property(get_DateTaken, None)
     Orientation = property(get_Orientation, None)
     PeopleNames = property(get_PeopleNames, None)
-class SystemProperties(c_void_p):
+class SystemProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.SystemProperties'
     @winrt_classmethod
@@ -1837,7 +1837,7 @@ class SystemProperties(c_void_p):
     Photo = property(get_Photo, None)
     Video = property(get_Video, None)
     Image = property(get_Image, None)
-class SystemVideoProperties(c_void_p):
+class SystemVideoProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.SystemVideoProperties'
     @winrt_mixinmethod
@@ -1855,7 +1855,7 @@ class SystemVideoProperties(c_void_p):
     FrameWidth = property(get_FrameWidth, None)
     Orientation = property(get_Orientation, None)
     TotalBitrate = property(get_TotalBitrate, None)
-class UserDataPaths(c_void_p):
+class UserDataPaths(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.UserDataPaths'
     @winrt_mixinmethod

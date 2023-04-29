@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -26,7 +26,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ISpatialAnchor(c_void_p):
+class ISpatialAnchor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0529e5ce-1d34-3702-bc-ec-ea-bf-f5-78-a8-69')
     @winrt_commethod(6)
@@ -39,13 +39,13 @@ class ISpatialAnchor(c_void_p):
     def remove_RawCoordinateSystemAdjusted(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
     CoordinateSystem = property(get_CoordinateSystem, None)
     RawCoordinateSystem = property(get_RawCoordinateSystem, None)
-class ISpatialAnchor2(c_void_p):
+class ISpatialAnchor2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ed17c908-a695-4cf6-92-fd-97-26-3b-a7-10-47')
     @winrt_commethod(6)
     def get_RemovedByUser(self) -> Boolean: ...
     RemovedByUser = property(get_RemovedByUser, None)
-class ISpatialAnchorExportSufficiency(c_void_p):
+class ISpatialAnchorExportSufficiency(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('77c25b2b-3409-4088-b9-1b-fd-fd-05-d1-64-8f')
     @winrt_commethod(6)
@@ -57,32 +57,32 @@ class ISpatialAnchorExportSufficiency(c_void_p):
     IsMinimallySufficient = property(get_IsMinimallySufficient, None)
     SufficiencyLevel = property(get_SufficiencyLevel, None)
     RecommendedSufficiencyLevel = property(get_RecommendedSufficiencyLevel, None)
-class ISpatialAnchorExporter(c_void_p):
+class ISpatialAnchorExporter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9a2a4338-24fb-4269-89-c5-88-30-4a-ee-f2-0f')
     @winrt_commethod(6)
     def GetAnchorExportSufficiencyAsync(self, anchor: Windows.Perception.Spatial.SpatialAnchor, purpose: Windows.Perception.Spatial.SpatialAnchorExportPurpose) -> Windows.Foundation.IAsyncOperation[Windows.Perception.Spatial.SpatialAnchorExportSufficiency]: ...
     @winrt_commethod(7)
     def TryExportAnchorAsync(self, anchor: Windows.Perception.Spatial.SpatialAnchor, purpose: Windows.Perception.Spatial.SpatialAnchorExportPurpose, stream: Windows.Storage.Streams.IOutputStream) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
-class ISpatialAnchorExporterStatics(c_void_p):
+class ISpatialAnchorExporterStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ed2507b8-2475-439c-85-ff-7f-ed-34-1f-dc-88')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Perception.Spatial.SpatialAnchorExporter: ...
     @winrt_commethod(7)
     def RequestAccessAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Perception.Spatial.SpatialPerceptionAccessStatus]: ...
-class ISpatialAnchorManagerStatics(c_void_p):
+class ISpatialAnchorManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('88e30eab-f3b7-420b-b0-86-8a-80-c0-7d-91-0d')
     @winrt_commethod(6)
     def RequestStoreAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Perception.Spatial.SpatialAnchorStore]: ...
-class ISpatialAnchorRawCoordinateSystemAdjustedEventArgs(c_void_p):
+class ISpatialAnchorRawCoordinateSystemAdjustedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a1e81eb8-56c7-3117-a2-e4-81-e0-fc-f2-8e-00')
     @winrt_commethod(6)
     def get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform(self) -> Windows.Foundation.Numerics.Matrix4x4: ...
     OldRawCoordinateSystemToNewRawCoordinateSystemTransform = property(get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform, None)
-class ISpatialAnchorStatics(c_void_p):
+class ISpatialAnchorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a9928642-0174-311c-ae-79-0e-51-07-66-9f-16')
     @winrt_commethod(6)
@@ -91,7 +91,7 @@ class ISpatialAnchorStatics(c_void_p):
     def TryCreateWithPositionRelativeTo(self, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, position: Windows.Foundation.Numerics.Vector3) -> Windows.Perception.Spatial.SpatialAnchor: ...
     @winrt_commethod(8)
     def TryCreateWithPositionAndOrientationRelativeTo(self, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, position: Windows.Foundation.Numerics.Vector3, orientation: Windows.Foundation.Numerics.Quaternion) -> Windows.Perception.Spatial.SpatialAnchor: ...
-class ISpatialAnchorStore(c_void_p):
+class ISpatialAnchorStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b0bc3636-486a-3cb0-9e-6f-12-45-16-5c-4d-b6')
     @winrt_commethod(6)
@@ -102,7 +102,7 @@ class ISpatialAnchorStore(c_void_p):
     def Remove(self, id: WinRT_String) -> Void: ...
     @winrt_commethod(9)
     def Clear(self) -> Void: ...
-class ISpatialAnchorTransferManagerStatics(c_void_p):
+class ISpatialAnchorTransferManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('03bbf9b9-12d8-4bce-88-35-c5-df-3a-c0-ad-ab')
     @winrt_commethod(6)
@@ -111,10 +111,10 @@ class ISpatialAnchorTransferManagerStatics(c_void_p):
     def TryExportAnchorsAsync(self, anchors: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.Perception.Spatial.SpatialAnchor]], stream: Windows.Storage.Streams.IOutputStream) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(8)
     def RequestAccessAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Perception.Spatial.SpatialPerceptionAccessStatus]: ...
-class ISpatialBoundingVolume(c_void_p):
+class ISpatialBoundingVolume(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fb2065da-68c3-33df-b7-af-4c-78-72-07-99-9c')
-class ISpatialBoundingVolumeStatics(c_void_p):
+class ISpatialBoundingVolumeStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('05889117-b3e1-36d8-b0-17-56-61-81-a5-b1-96')
     @winrt_commethod(6)
@@ -125,12 +125,12 @@ class ISpatialBoundingVolumeStatics(c_void_p):
     def FromSphere(self, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, sphere: Windows.Perception.Spatial.SpatialBoundingSphere) -> Windows.Perception.Spatial.SpatialBoundingVolume: ...
     @winrt_commethod(9)
     def FromFrustum(self, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, frustum: Windows.Perception.Spatial.SpatialBoundingFrustum) -> Windows.Perception.Spatial.SpatialBoundingVolume: ...
-class ISpatialCoordinateSystem(c_void_p):
+class ISpatialCoordinateSystem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('69ebca4b-60a3-3586-a6-53-59-a7-bd-67-6d-07')
     @winrt_commethod(6)
     def TryGetTransformTo(self, target: Windows.Perception.Spatial.SpatialCoordinateSystem) -> Windows.Foundation.IReference[Windows.Foundation.Numerics.Matrix4x4]: ...
-class ISpatialEntity(c_void_p):
+class ISpatialEntity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('166de955-e1eb-454c-ba-08-e6-c0-66-8d-dc-65')
     @winrt_commethod(6)
@@ -142,26 +142,26 @@ class ISpatialEntity(c_void_p):
     Id = property(get_Id, None)
     Anchor = property(get_Anchor, None)
     Properties = property(get_Properties, None)
-class ISpatialEntityAddedEventArgs(c_void_p):
+class ISpatialEntityAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a397f49b-156a-4707-ac-2c-d3-1d-57-0e-d3-99')
     @winrt_commethod(6)
     def get_Entity(self) -> Windows.Perception.Spatial.SpatialEntity: ...
     Entity = property(get_Entity, None)
-class ISpatialEntityFactory(c_void_p):
+class ISpatialEntityFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e1f1e325-349f-4225-a2-f3-4b-01-c1-5f-e0-56')
     @winrt_commethod(6)
     def CreateWithSpatialAnchor(self, spatialAnchor: Windows.Perception.Spatial.SpatialAnchor) -> Windows.Perception.Spatial.SpatialEntity: ...
     @winrt_commethod(7)
     def CreateWithSpatialAnchorAndProperties(self, spatialAnchor: Windows.Perception.Spatial.SpatialAnchor, propertySet: Windows.Foundation.Collections.ValueSet) -> Windows.Perception.Spatial.SpatialEntity: ...
-class ISpatialEntityRemovedEventArgs(c_void_p):
+class ISpatialEntityRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('91741800-536d-4e9f-ab-f6-41-5b-54-44-d6-51')
     @winrt_commethod(6)
     def get_Entity(self) -> Windows.Perception.Spatial.SpatialEntity: ...
     Entity = property(get_Entity, None)
-class ISpatialEntityStore(c_void_p):
+class ISpatialEntityStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('329788ba-e513-4f06-88-9d-1b-e3-0e-cf-43-e6')
     @winrt_commethod(6)
@@ -170,7 +170,7 @@ class ISpatialEntityStore(c_void_p):
     def RemoveAsync(self, entity: Windows.Perception.Spatial.SpatialEntity) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(8)
     def CreateEntityWatcher(self) -> Windows.Perception.Spatial.SpatialEntityWatcher: ...
-class ISpatialEntityStoreStatics(c_void_p):
+class ISpatialEntityStoreStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6b4b389e-7c50-4e92-8a-62-4d-1d-4b-7c-cd-3e')
     @winrt_commethod(6)
@@ -178,13 +178,13 @@ class ISpatialEntityStoreStatics(c_void_p):
     @winrt_commethod(7)
     def TryGetForRemoteSystemSession(self, session: Windows.System.RemoteSystems.RemoteSystemSession) -> Windows.Perception.Spatial.SpatialEntityStore: ...
     IsSupported = property(get_IsSupported, None)
-class ISpatialEntityUpdatedEventArgs(c_void_p):
+class ISpatialEntityUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e5671766-627b-43cb-a4-9f-b3-be-6d-47-de-ed')
     @winrt_commethod(6)
     def get_Entity(self) -> Windows.Perception.Spatial.SpatialEntity: ...
     Entity = property(get_Entity, None)
-class ISpatialEntityWatcher(c_void_p):
+class ISpatialEntityWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b3b85fa0-6d5e-4bbc-80-5d-5f-e5-b9-ba-19-59')
     @winrt_commethod(6)
@@ -210,7 +210,7 @@ class ISpatialEntityWatcher(c_void_p):
     @winrt_commethod(16)
     def Stop(self) -> Void: ...
     Status = property(get_Status, None)
-class ISpatialLocation(c_void_p):
+class ISpatialLocation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1d81d29d-24a1-37d5-8f-a1-39-b4-f9-ad-67-e2')
     @winrt_commethod(6)
@@ -231,7 +231,7 @@ class ISpatialLocation(c_void_p):
     AbsoluteLinearAcceleration = property(get_AbsoluteLinearAcceleration, None)
     AbsoluteAngularVelocity = property(get_AbsoluteAngularVelocity, None)
     AbsoluteAngularAcceleration = property(get_AbsoluteAngularAcceleration, None)
-class ISpatialLocation2(c_void_p):
+class ISpatialLocation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('117f2416-38a7-4a18-b4-04-ab-8f-ab-e1-d7-8b')
     @winrt_commethod(6)
@@ -240,7 +240,7 @@ class ISpatialLocation2(c_void_p):
     def get_AbsoluteAngularAccelerationAxisAngle(self) -> Windows.Foundation.Numerics.Vector3: ...
     AbsoluteAngularVelocityAxisAngle = property(get_AbsoluteAngularVelocityAxisAngle, None)
     AbsoluteAngularAccelerationAxisAngle = property(get_AbsoluteAngularAccelerationAxisAngle, None)
-class ISpatialLocator(c_void_p):
+class ISpatialLocator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f6478925-9e0c-3bb6-99-7e-b6-4e-cc-a2-4c-f4')
     @winrt_commethod(6)
@@ -272,7 +272,7 @@ class ISpatialLocator(c_void_p):
     @winrt_commethod(19)
     def CreateStationaryFrameOfReferenceAtCurrentLocationWithPositionAndOrientationAndRelativeHeading(self, relativePosition: Windows.Foundation.Numerics.Vector3, relativeOrientation: Windows.Foundation.Numerics.Quaternion, relativeHeadingInRadians: Double) -> Windows.Perception.Spatial.SpatialStationaryFrameOfReference: ...
     Locatability = property(get_Locatability, None)
-class ISpatialLocatorAttachedFrameOfReference(c_void_p):
+class ISpatialLocatorAttachedFrameOfReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e1774ef6-1f4f-499c-96-25-ef-5e-6e-d7-a0-48')
     @winrt_commethod(6)
@@ -291,7 +291,7 @@ class ISpatialLocatorAttachedFrameOfReference(c_void_p):
     def TryGetRelativeHeadingAtTimestamp(self, timestamp: Windows.Perception.PerceptionTimestamp) -> Windows.Foundation.IReference[Double]: ...
     RelativePosition = property(get_RelativePosition, put_RelativePosition)
     RelativeOrientation = property(get_RelativeOrientation, put_RelativeOrientation)
-class ISpatialLocatorPositionalTrackingDeactivatingEventArgs(c_void_p):
+class ISpatialLocatorPositionalTrackingDeactivatingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b8a84063-e3f4-368b-90-61-9e-a9-d1-d6-cc-16')
     @winrt_commethod(6)
@@ -299,12 +299,12 @@ class ISpatialLocatorPositionalTrackingDeactivatingEventArgs(c_void_p):
     @winrt_commethod(7)
     def put_Canceled(self, value: Boolean) -> Void: ...
     Canceled = property(get_Canceled, put_Canceled)
-class ISpatialLocatorStatics(c_void_p):
+class ISpatialLocatorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b76e3340-a7c2-361b-bb-82-56-e9-3b-89-b1-bb')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Perception.Spatial.SpatialLocator: ...
-class ISpatialStageFrameOfReference(c_void_p):
+class ISpatialStageFrameOfReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7a8a3464-ad0d-4590-ab-86-33-06-2b-67-49-26')
     @winrt_commethod(6)
@@ -320,7 +320,7 @@ class ISpatialStageFrameOfReference(c_void_p):
     CoordinateSystem = property(get_CoordinateSystem, None)
     MovementRange = property(get_MovementRange, None)
     LookDirectionRange = property(get_LookDirectionRange, None)
-class ISpatialStageFrameOfReferenceStatics(c_void_p):
+class ISpatialStageFrameOfReferenceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f78d5c4d-a0a4-499c-8d-91-a8-c9-65-d4-06-54')
     @winrt_commethod(6)
@@ -332,13 +332,13 @@ class ISpatialStageFrameOfReferenceStatics(c_void_p):
     @winrt_commethod(9)
     def RequestNewStageAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Perception.Spatial.SpatialStageFrameOfReference]: ...
     Current = property(get_Current, None)
-class ISpatialStationaryFrameOfReference(c_void_p):
+class ISpatialStationaryFrameOfReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('09dbccb9-bcf8-3e7f-be-7e-7e-dc-cb-b1-78-a8')
     @winrt_commethod(6)
     def get_CoordinateSystem(self) -> Windows.Perception.Spatial.SpatialCoordinateSystem: ...
     CoordinateSystem = property(get_CoordinateSystem, None)
-class SpatialAnchor(c_void_p):
+class SpatialAnchor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialAnchor'
     @winrt_mixinmethod
@@ -363,7 +363,7 @@ class SpatialAnchor(c_void_p):
 SpatialAnchorExportPurpose = Int32
 SpatialAnchorExportPurpose_Relocalization: SpatialAnchorExportPurpose = 0
 SpatialAnchorExportPurpose_Sharing: SpatialAnchorExportPurpose = 1
-class SpatialAnchorExportSufficiency(c_void_p):
+class SpatialAnchorExportSufficiency(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialAnchorExportSufficiency'
     @winrt_mixinmethod
@@ -375,7 +375,7 @@ class SpatialAnchorExportSufficiency(c_void_p):
     IsMinimallySufficient = property(get_IsMinimallySufficient, None)
     SufficiencyLevel = property(get_SufficiencyLevel, None)
     RecommendedSufficiencyLevel = property(get_RecommendedSufficiencyLevel, None)
-class SpatialAnchorExporter(c_void_p):
+class SpatialAnchorExporter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialAnchorExporter'
     @winrt_mixinmethod
@@ -386,18 +386,18 @@ class SpatialAnchorExporter(c_void_p):
     def GetDefault(cls: Windows.Perception.Spatial.ISpatialAnchorExporterStatics) -> Windows.Perception.Spatial.SpatialAnchorExporter: ...
     @winrt_classmethod
     def RequestAccessAsync(cls: Windows.Perception.Spatial.ISpatialAnchorExporterStatics) -> Windows.Foundation.IAsyncOperation[Windows.Perception.Spatial.SpatialPerceptionAccessStatus]: ...
-class SpatialAnchorManager(c_void_p):
+class SpatialAnchorManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialAnchorManager'
     @winrt_classmethod
     def RequestStoreAsync(cls: Windows.Perception.Spatial.ISpatialAnchorManagerStatics) -> Windows.Foundation.IAsyncOperation[Windows.Perception.Spatial.SpatialAnchorStore]: ...
-class SpatialAnchorRawCoordinateSystemAdjustedEventArgs(c_void_p):
+class SpatialAnchorRawCoordinateSystemAdjustedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialAnchorRawCoordinateSystemAdjustedEventArgs'
     @winrt_mixinmethod
     def get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform(self: Windows.Perception.Spatial.ISpatialAnchorRawCoordinateSystemAdjustedEventArgs) -> Windows.Foundation.Numerics.Matrix4x4: ...
     OldRawCoordinateSystemToNewRawCoordinateSystemTransform = property(get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform, None)
-class SpatialAnchorStore(c_void_p):
+class SpatialAnchorStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialAnchorStore'
     @winrt_mixinmethod
@@ -408,7 +408,7 @@ class SpatialAnchorStore(c_void_p):
     def Remove(self: Windows.Perception.Spatial.ISpatialAnchorStore, id: WinRT_String) -> Void: ...
     @winrt_mixinmethod
     def Clear(self: Windows.Perception.Spatial.ISpatialAnchorStore) -> Void: ...
-class SpatialAnchorTransferManager(c_void_p):
+class SpatialAnchorTransferManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialAnchorTransferManager'
     @winrt_classmethod
@@ -434,7 +434,7 @@ class SpatialBoundingOrientedBox(EasyCastStructure):
 class SpatialBoundingSphere(EasyCastStructure):
     Center: Windows.Foundation.Numerics.Vector3
     Radius: Single
-class SpatialBoundingVolume(c_void_p):
+class SpatialBoundingVolume(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialBoundingVolume'
     @winrt_classmethod
@@ -445,12 +445,12 @@ class SpatialBoundingVolume(c_void_p):
     def FromSphere(cls: Windows.Perception.Spatial.ISpatialBoundingVolumeStatics, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, sphere: Windows.Perception.Spatial.SpatialBoundingSphere) -> Windows.Perception.Spatial.SpatialBoundingVolume: ...
     @winrt_classmethod
     def FromFrustum(cls: Windows.Perception.Spatial.ISpatialBoundingVolumeStatics, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, frustum: Windows.Perception.Spatial.SpatialBoundingFrustum) -> Windows.Perception.Spatial.SpatialBoundingVolume: ...
-class SpatialCoordinateSystem(c_void_p):
+class SpatialCoordinateSystem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialCoordinateSystem'
     @winrt_mixinmethod
     def TryGetTransformTo(self: Windows.Perception.Spatial.ISpatialCoordinateSystem, target: Windows.Perception.Spatial.SpatialCoordinateSystem) -> Windows.Foundation.IReference[Windows.Foundation.Numerics.Matrix4x4]: ...
-class SpatialEntity(c_void_p):
+class SpatialEntity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialEntity'
     @winrt_factorymethod
@@ -466,19 +466,19 @@ class SpatialEntity(c_void_p):
     Id = property(get_Id, None)
     Anchor = property(get_Anchor, None)
     Properties = property(get_Properties, None)
-class SpatialEntityAddedEventArgs(c_void_p):
+class SpatialEntityAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialEntityAddedEventArgs'
     @winrt_mixinmethod
     def get_Entity(self: Windows.Perception.Spatial.ISpatialEntityAddedEventArgs) -> Windows.Perception.Spatial.SpatialEntity: ...
     Entity = property(get_Entity, None)
-class SpatialEntityRemovedEventArgs(c_void_p):
+class SpatialEntityRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialEntityRemovedEventArgs'
     @winrt_mixinmethod
     def get_Entity(self: Windows.Perception.Spatial.ISpatialEntityRemovedEventArgs) -> Windows.Perception.Spatial.SpatialEntity: ...
     Entity = property(get_Entity, None)
-class SpatialEntityStore(c_void_p):
+class SpatialEntityStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialEntityStore'
     @winrt_mixinmethod
@@ -492,13 +492,13 @@ class SpatialEntityStore(c_void_p):
     @winrt_classmethod
     def TryGetForRemoteSystemSession(cls: Windows.Perception.Spatial.ISpatialEntityStoreStatics, session: Windows.System.RemoteSystems.RemoteSystemSession) -> Windows.Perception.Spatial.SpatialEntityStore: ...
     IsSupported = property(get_IsSupported, None)
-class SpatialEntityUpdatedEventArgs(c_void_p):
+class SpatialEntityUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialEntityUpdatedEventArgs'
     @winrt_mixinmethod
     def get_Entity(self: Windows.Perception.Spatial.ISpatialEntityUpdatedEventArgs) -> Windows.Perception.Spatial.SpatialEntity: ...
     Entity = property(get_Entity, None)
-class SpatialEntityWatcher(c_void_p):
+class SpatialEntityWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialEntityWatcher'
     @winrt_mixinmethod
@@ -537,7 +537,7 @@ SpatialLocatability_OrientationOnly: SpatialLocatability = 1
 SpatialLocatability_PositionalTrackingActivating: SpatialLocatability = 2
 SpatialLocatability_PositionalTrackingActive: SpatialLocatability = 3
 SpatialLocatability_PositionalTrackingInhibited: SpatialLocatability = 4
-class SpatialLocation(c_void_p):
+class SpatialLocation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialLocation'
     @winrt_mixinmethod
@@ -564,7 +564,7 @@ class SpatialLocation(c_void_p):
     AbsoluteAngularAcceleration = property(get_AbsoluteAngularAcceleration, None)
     AbsoluteAngularVelocityAxisAngle = property(get_AbsoluteAngularVelocityAxisAngle, None)
     AbsoluteAngularAccelerationAxisAngle = property(get_AbsoluteAngularAccelerationAxisAngle, None)
-class SpatialLocator(c_void_p):
+class SpatialLocator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialLocator'
     @winrt_mixinmethod
@@ -598,7 +598,7 @@ class SpatialLocator(c_void_p):
     @winrt_classmethod
     def GetDefault(cls: Windows.Perception.Spatial.ISpatialLocatorStatics) -> Windows.Perception.Spatial.SpatialLocator: ...
     Locatability = property(get_Locatability, None)
-class SpatialLocatorAttachedFrameOfReference(c_void_p):
+class SpatialLocatorAttachedFrameOfReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialLocatorAttachedFrameOfReference'
     @winrt_mixinmethod
@@ -617,7 +617,7 @@ class SpatialLocatorAttachedFrameOfReference(c_void_p):
     def TryGetRelativeHeadingAtTimestamp(self: Windows.Perception.Spatial.ISpatialLocatorAttachedFrameOfReference, timestamp: Windows.Perception.PerceptionTimestamp) -> Windows.Foundation.IReference[Double]: ...
     RelativePosition = property(get_RelativePosition, put_RelativePosition)
     RelativeOrientation = property(get_RelativeOrientation, put_RelativeOrientation)
-class SpatialLocatorPositionalTrackingDeactivatingEventArgs(c_void_p):
+class SpatialLocatorPositionalTrackingDeactivatingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialLocatorPositionalTrackingDeactivatingEventArgs'
     @winrt_mixinmethod
@@ -639,7 +639,7 @@ SpatialPerceptionAccessStatus_DeniedBySystem: SpatialPerceptionAccessStatus = 3
 class SpatialRay(EasyCastStructure):
     Origin: Windows.Foundation.Numerics.Vector3
     Direction: Windows.Foundation.Numerics.Vector3
-class SpatialStageFrameOfReference(c_void_p):
+class SpatialStageFrameOfReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialStageFrameOfReference'
     @winrt_mixinmethod
@@ -664,7 +664,7 @@ class SpatialStageFrameOfReference(c_void_p):
     MovementRange = property(get_MovementRange, None)
     LookDirectionRange = property(get_LookDirectionRange, None)
     Current = property(get_Current, None)
-class SpatialStationaryFrameOfReference(c_void_p):
+class SpatialStationaryFrameOfReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.SpatialStationaryFrameOfReference'
     @winrt_mixinmethod

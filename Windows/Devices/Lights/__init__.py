@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Lights
@@ -25,7 +25,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ILamp(c_void_p):
+class ILamp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('047d5b9a-ea45-4b2b-b1-a2-14-df-f0-0b-de-7b')
     @winrt_commethod(6)
@@ -53,7 +53,7 @@ class ILamp(c_void_p):
     BrightnessLevel = property(get_BrightnessLevel, put_BrightnessLevel)
     IsColorSettable = property(get_IsColorSettable, None)
     Color = property(get_Color, put_Color)
-class ILampArray(c_void_p):
+class ILampArray(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7ace9787-c8a0-4e95-a1-e0-d5-86-76-53-86-49')
     @winrt_commethod(6)
@@ -120,20 +120,20 @@ class ILampArray(c_void_p):
     BrightnessLevel = property(get_BrightnessLevel, put_BrightnessLevel)
     IsConnected = property(get_IsConnected, None)
     SupportsVirtualKeys = property(get_SupportsVirtualKeys, None)
-class ILampArrayStatics(c_void_p):
+class ILampArrayStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7bb8c98d-5fc1-452d-bb-1f-4a-d4-10-d3-98-ff')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Lights.LampArray]: ...
-class ILampAvailabilityChangedEventArgs(c_void_p):
+class ILampAvailabilityChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4f6e3ded-07a2-499d-92-60-67-e3-04-53-2b-a4')
     @winrt_commethod(6)
     def get_IsAvailable(self) -> Boolean: ...
     IsAvailable = property(get_IsAvailable, None)
-class ILampInfo(c_void_p):
+class ILampInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('30bb521c-0acf-49da-8c-10-15-0b-9c-f6-27-13')
     @winrt_commethod(6)
@@ -165,7 +165,7 @@ class ILampInfo(c_void_p):
     GainLevelCount = property(get_GainLevelCount, None)
     FixedColor = property(get_FixedColor, None)
     UpdateLatency = property(get_UpdateLatency, None)
-class ILampStatics(c_void_p):
+class ILampStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a822416c-8885-401e-b8-21-8e-8b-38-a8-e8-ec')
     @winrt_commethod(6)
@@ -174,7 +174,7 @@ class ILampStatics(c_void_p):
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Lights.Lamp]: ...
     @winrt_commethod(8)
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Lights.Lamp]: ...
-class Lamp(c_void_p):
+class Lamp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Lights.Lamp'
     @winrt_mixinmethod
@@ -210,7 +210,7 @@ class Lamp(c_void_p):
     BrightnessLevel = property(get_BrightnessLevel, put_BrightnessLevel)
     IsColorSettable = property(get_IsColorSettable, None)
     Color = property(get_Color, put_Color)
-class LampArray(c_void_p):
+class LampArray(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Lights.LampArray'
     @winrt_mixinmethod
@@ -293,13 +293,13 @@ LampArrayKind_Chassis: LampArrayKind = 7
 LampArrayKind_Wearable: LampArrayKind = 8
 LampArrayKind_Furniture: LampArrayKind = 9
 LampArrayKind_Art: LampArrayKind = 10
-class LampAvailabilityChangedEventArgs(c_void_p):
+class LampAvailabilityChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Lights.LampAvailabilityChangedEventArgs'
     @winrt_mixinmethod
     def get_IsAvailable(self: Windows.Devices.Lights.ILampAvailabilityChangedEventArgs) -> Boolean: ...
     IsAvailable = property(get_IsAvailable, None)
-class LampInfo(c_void_p):
+class LampInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Lights.LampInfo'
     @winrt_mixinmethod

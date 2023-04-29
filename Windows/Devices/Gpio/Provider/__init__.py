@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Gpio.Provider
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class GpioPinProviderValueChangedEventArgs(c_void_p):
+class GpioPinProviderValueChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Gpio.Provider.GpioPinProviderValueChangedEventArgs'
     @winrt_factorymethod
@@ -30,7 +30,7 @@ class GpioPinProviderValueChangedEventArgs(c_void_p):
     @winrt_mixinmethod
     def get_Edge(self: Windows.Devices.Gpio.Provider.IGpioPinProviderValueChangedEventArgs) -> Windows.Devices.Gpio.Provider.ProviderGpioPinEdge: ...
     Edge = property(get_Edge, None)
-class IGpioControllerProvider(c_void_p):
+class IGpioControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ad11cec7-19ea-4b21-87-4f-b9-1a-ed-4a-25-db')
     @winrt_commethod(6)
@@ -38,7 +38,7 @@ class IGpioControllerProvider(c_void_p):
     @winrt_commethod(7)
     def OpenPinProvider(self, pin: Int32, sharingMode: Windows.Devices.Gpio.Provider.ProviderGpioSharingMode) -> Windows.Devices.Gpio.Provider.IGpioPinProvider: ...
     PinCount = property(get_PinCount, None)
-class IGpioPinProvider(c_void_p):
+class IGpioPinProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('42344cb7-6abc-40ff-9c-e7-73-b8-53-01-b9-00')
     @winrt_commethod(6)
@@ -66,18 +66,18 @@ class IGpioPinProvider(c_void_p):
     DebounceTimeout = property(get_DebounceTimeout, put_DebounceTimeout)
     PinNumber = property(get_PinNumber, None)
     SharingMode = property(get_SharingMode, None)
-class IGpioPinProviderValueChangedEventArgs(c_void_p):
+class IGpioPinProviderValueChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('32a6d6f2-3d5b-44cd-8f-be-13-a6-9f-2e-db-24')
     @winrt_commethod(6)
     def get_Edge(self) -> Windows.Devices.Gpio.Provider.ProviderGpioPinEdge: ...
     Edge = property(get_Edge, None)
-class IGpioPinProviderValueChangedEventArgsFactory(c_void_p):
+class IGpioPinProviderValueChangedEventArgsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3ecb0b59-568c-4392-b2-4a-8a-59-a9-02-b1-f1')
     @winrt_commethod(6)
     def Create(self, edge: Windows.Devices.Gpio.Provider.ProviderGpioPinEdge) -> Windows.Devices.Gpio.Provider.GpioPinProviderValueChangedEventArgs: ...
-class IGpioProvider(c_void_p):
+class IGpioProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('44e82707-08ca-434a-af-e0-d6-15-80-44-6f-7e')
     @winrt_commethod(6)

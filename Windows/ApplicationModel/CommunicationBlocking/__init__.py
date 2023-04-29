@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.CommunicationBlocking
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class CommunicationBlockingAccessManager(c_void_p):
+class CommunicationBlockingAccessManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager'
     @winrt_classmethod
@@ -38,7 +38,7 @@ class CommunicationBlockingAccessManager(c_void_p):
     @winrt_classmethod
     def ShowBlockedMessagesUI(cls: Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAccessManagerStatics) -> Void: ...
     IsBlockingActive = property(get_IsBlockingActive, None)
-class CommunicationBlockingAppManager(c_void_p):
+class CommunicationBlockingAppManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAppManager'
     @winrt_classmethod
@@ -49,7 +49,7 @@ class CommunicationBlockingAppManager(c_void_p):
     def ShowCommunicationBlockingSettingsUI(cls: Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAppManagerStatics) -> Void: ...
     IsCurrentAppActiveBlockingApp = property(get_IsCurrentAppActiveBlockingApp, None)
 CommunicationBlockingContract: UInt32 = 131072
-class ICommunicationBlockingAccessManagerStatics(c_void_p):
+class ICommunicationBlockingAccessManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1c969998-9d2a-5db7-ed-d5-0c-e4-07-fc-25-95')
     @winrt_commethod(6)
@@ -65,7 +65,7 @@ class ICommunicationBlockingAccessManagerStatics(c_void_p):
     @winrt_commethod(11)
     def ShowBlockedMessagesUI(self) -> Void: ...
     IsBlockingActive = property(get_IsBlockingActive, None)
-class ICommunicationBlockingAppManagerStatics(c_void_p):
+class ICommunicationBlockingAppManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('77db58ec-14a6-4baa-94-2a-6a-67-3d-99-9b-f2')
     @winrt_commethod(6)
@@ -73,7 +73,7 @@ class ICommunicationBlockingAppManagerStatics(c_void_p):
     @winrt_commethod(7)
     def ShowCommunicationBlockingSettingsUI(self) -> Void: ...
     IsCurrentAppActiveBlockingApp = property(get_IsCurrentAppActiveBlockingApp, None)
-class ICommunicationBlockingAppManagerStatics2(c_void_p):
+class ICommunicationBlockingAppManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('14a68edd-ed88-457a-a3-64-a3-63-4d-6f-16-6d')
     @winrt_commethod(6)

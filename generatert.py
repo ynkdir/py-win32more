@@ -50,6 +50,7 @@ BASE_EXPORTS = [
     "make_head",
     "EasyCastStructure",
     "EasyCastUnion",
+    "ComPtr",
 ]
 BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
 
@@ -1281,10 +1282,10 @@ class PyGenerator:
         if td.is_generic:
             generic_parameters = td.format_generic_parameters()
             name = td.generic_strip_suffix(td.name)
-            base = f"Generic[{generic_parameters}], c_void_p"
+            base = f"Generic[{generic_parameters}], ComPtr"
         else:
             name = td.name
-            base = "c_void_p"
+            base = "ComPtr"
         extends = self.com_base_type(td)
         writer.write(f"class {name}({base}):\n")
         writer.write(f"    extends: {extends}\n")

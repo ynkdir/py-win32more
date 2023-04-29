@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Geolocation
@@ -23,7 +23,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IOfflineMapPackage(c_void_p):
+class IOfflineMapPackage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a797673b-a5b5-4144-b5-25-e6-8c-88-62-66-4b')
     @winrt_commethod(6)
@@ -44,7 +44,7 @@ class IOfflineMapPackage(c_void_p):
     DisplayName = property(get_DisplayName, None)
     EnclosingRegionName = property(get_EnclosingRegionName, None)
     EstimatedSizeInBytes = property(get_EstimatedSizeInBytes, None)
-class IOfflineMapPackageQueryResult(c_void_p):
+class IOfflineMapPackageQueryResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('55585411-39e1-4e41-a4-e1-5f-48-72-be-e1-99')
     @winrt_commethod(6)
@@ -53,13 +53,13 @@ class IOfflineMapPackageQueryResult(c_void_p):
     def get_Packages(self) -> Windows.Foundation.Collections.IVectorView[Windows.Services.Maps.OfflineMaps.OfflineMapPackage]: ...
     Status = property(get_Status, None)
     Packages = property(get_Packages, None)
-class IOfflineMapPackageStartDownloadResult(c_void_p):
+class IOfflineMapPackageStartDownloadResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d965b918-d4d6-4afe-93-78-3e-c7-1e-f1-1c-3d')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Services.Maps.OfflineMaps.OfflineMapPackageStartDownloadStatus: ...
     Status = property(get_Status, None)
-class IOfflineMapPackageStatics(c_void_p):
+class IOfflineMapPackageStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('185e7922-a831-4ab0-94-1f-69-98-fa-92-92-85')
     @winrt_commethod(6)
@@ -68,7 +68,7 @@ class IOfflineMapPackageStatics(c_void_p):
     def FindPackagesInBoundingBoxAsync(self, queryBoundingBox: Windows.Devices.Geolocation.GeoboundingBox) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryResult]: ...
     @winrt_commethod(8)
     def FindPackagesInGeocircleAsync(self, queryCircle: Windows.Devices.Geolocation.Geocircle) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryResult]: ...
-class OfflineMapPackage(c_void_p):
+class OfflineMapPackage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.OfflineMaps.OfflineMapPackage'
     @winrt_mixinmethod
@@ -95,7 +95,7 @@ class OfflineMapPackage(c_void_p):
     DisplayName = property(get_DisplayName, None)
     EnclosingRegionName = property(get_EnclosingRegionName, None)
     EstimatedSizeInBytes = property(get_EstimatedSizeInBytes, None)
-class OfflineMapPackageQueryResult(c_void_p):
+class OfflineMapPackageQueryResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryResult'
     @winrt_mixinmethod
@@ -109,7 +109,7 @@ OfflineMapPackageQueryStatus_Success: OfflineMapPackageQueryStatus = 0
 OfflineMapPackageQueryStatus_UnknownError: OfflineMapPackageQueryStatus = 1
 OfflineMapPackageQueryStatus_InvalidCredentials: OfflineMapPackageQueryStatus = 2
 OfflineMapPackageQueryStatus_NetworkFailure: OfflineMapPackageQueryStatus = 3
-class OfflineMapPackageStartDownloadResult(c_void_p):
+class OfflineMapPackageStartDownloadResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.OfflineMaps.OfflineMapPackageStartDownloadResult'
     @winrt_mixinmethod

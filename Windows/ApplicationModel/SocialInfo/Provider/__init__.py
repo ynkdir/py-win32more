@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.SocialInfo
@@ -23,7 +23,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ISocialDashboardItemUpdater(c_void_p):
+class ISocialDashboardItemUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3cde9dc9-4800-46cd-86-9b-19-73-ec-68-5b-de')
     @winrt_commethod(6)
@@ -49,7 +49,7 @@ class ISocialDashboardItemUpdater(c_void_p):
     Timestamp = property(get_Timestamp, put_Timestamp)
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
     TargetUri = property(get_TargetUri, put_TargetUri)
-class ISocialFeedUpdater(c_void_p):
+class ISocialFeedUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7a0c0aa7-ed89-4bd5-a8-d9-15-f4-d9-86-1c-10')
     @winrt_commethod(6)
@@ -63,7 +63,7 @@ class ISocialFeedUpdater(c_void_p):
     OwnerRemoteId = property(get_OwnerRemoteId, None)
     Kind = property(get_Kind, None)
     Items = property(get_Items, None)
-class ISocialInfoProviderManagerStatics(c_void_p):
+class ISocialInfoProviderManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1b88e52b-7787-48d6-aa-12-d8-e8-f4-7a-b8-5a')
     @winrt_commethod(6)
@@ -78,7 +78,7 @@ class ISocialInfoProviderManagerStatics(c_void_p):
     def ProvisionAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(11)
     def DeprovisionAsync(self) -> Windows.Foundation.IAsyncAction: ...
-class SocialDashboardItemUpdater(c_void_p):
+class SocialDashboardItemUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.SocialInfo.Provider.SocialDashboardItemUpdater'
     @winrt_mixinmethod
@@ -104,7 +104,7 @@ class SocialDashboardItemUpdater(c_void_p):
     Timestamp = property(get_Timestamp, put_Timestamp)
     Thumbnail = property(get_Thumbnail, put_Thumbnail)
     TargetUri = property(get_TargetUri, put_TargetUri)
-class SocialFeedUpdater(c_void_p):
+class SocialFeedUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.SocialInfo.Provider.SocialFeedUpdater'
     @winrt_mixinmethod
@@ -118,7 +118,7 @@ class SocialFeedUpdater(c_void_p):
     OwnerRemoteId = property(get_OwnerRemoteId, None)
     Kind = property(get_Kind, None)
     Items = property(get_Items, None)
-class SocialInfoProviderManager(c_void_p):
+class SocialInfoProviderManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.SocialInfo.Provider.SocialInfoProviderManager'
     @winrt_classmethod

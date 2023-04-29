@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -21,7 +21,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class BackgroundEnergyManager(c_void_p):
+class BackgroundEnergyManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.System.Power.BackgroundEnergyManager'
     @winrt_classmethod
@@ -65,7 +65,7 @@ EnergySaverStatus = Int32
 EnergySaverStatus_Disabled: EnergySaverStatus = 0
 EnergySaverStatus_Off: EnergySaverStatus = 1
 EnergySaverStatus_On: EnergySaverStatus = 2
-class ForegroundEnergyManager(c_void_p):
+class ForegroundEnergyManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.System.Power.ForegroundEnergyManager'
     @winrt_classmethod
@@ -94,7 +94,7 @@ class ForegroundEnergyManager(c_void_p):
     ExcessiveUsageLevel = property(get_ExcessiveUsageLevel, None)
     RecentEnergyUsage = property(get_RecentEnergyUsage, None)
     RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
-class IBackgroundEnergyManagerStatics(c_void_p):
+class IBackgroundEnergyManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b3161d95-1180-4376-96-e1-40-95-56-81-47-ce')
     @winrt_commethod(6)
@@ -129,7 +129,7 @@ class IBackgroundEnergyManagerStatics(c_void_p):
     TerminationUsageLevel = property(get_TerminationUsageLevel, None)
     RecentEnergyUsage = property(get_RecentEnergyUsage, None)
     RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
-class IForegroundEnergyManagerStatics(c_void_p):
+class IForegroundEnergyManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9ff86872-e677-4814-9a-20-53-37-ca-73-2b-98')
     @winrt_commethod(6)
@@ -158,7 +158,7 @@ class IForegroundEnergyManagerStatics(c_void_p):
     ExcessiveUsageLevel = property(get_ExcessiveUsageLevel, None)
     RecentEnergyUsage = property(get_RecentEnergyUsage, None)
     RecentEnergyUsageLevel = property(get_RecentEnergyUsageLevel, None)
-class IPowerManagerStatics(c_void_p):
+class IPowerManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1394825d-62ce-4364-98-d5-aa-28-c7-fb-d1-5b')
     @winrt_commethod(6)
@@ -196,7 +196,7 @@ class IPowerManagerStatics(c_void_p):
     PowerSupplyStatus = property(get_PowerSupplyStatus, None)
     RemainingChargePercent = property(get_RemainingChargePercent, None)
     RemainingDischargeTime = property(get_RemainingDischargeTime, None)
-class PowerManager(c_void_p):
+class PowerManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.System.Power.PowerManager'
     @winrt_classmethod

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -45,7 +45,7 @@ HdmiDisplayHdrOption_None: HdmiDisplayHdrOption = 0
 HdmiDisplayHdrOption_EotfSdr: HdmiDisplayHdrOption = 1
 HdmiDisplayHdrOption_Eotf2084: HdmiDisplayHdrOption = 2
 HdmiDisplayHdrOption_DolbyVisionLowLatency: HdmiDisplayHdrOption = 3
-class HdmiDisplayInformation(c_void_p):
+class HdmiDisplayInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Display.Core.HdmiDisplayInformation'
     @winrt_mixinmethod
@@ -66,7 +66,7 @@ class HdmiDisplayInformation(c_void_p):
     def remove_DisplayModesChanged(self: Windows.Graphics.Display.Core.IHdmiDisplayInformation, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def GetForCurrentView(cls: Windows.Graphics.Display.Core.IHdmiDisplayInformationStatics) -> Windows.Graphics.Display.Core.HdmiDisplayInformation: ...
-class HdmiDisplayMode(c_void_p):
+class HdmiDisplayMode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Display.Core.HdmiDisplayMode'
     @winrt_mixinmethod
@@ -109,7 +109,7 @@ HdmiDisplayPixelEncoding_Rgb444: HdmiDisplayPixelEncoding = 0
 HdmiDisplayPixelEncoding_Ycc444: HdmiDisplayPixelEncoding = 1
 HdmiDisplayPixelEncoding_Ycc422: HdmiDisplayPixelEncoding = 2
 HdmiDisplayPixelEncoding_Ycc420: HdmiDisplayPixelEncoding = 3
-class IHdmiDisplayInformation(c_void_p):
+class IHdmiDisplayInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('130b3c0a-f565-476e-ab-d5-ea-05-ae-e7-4c-69')
     @winrt_commethod(6)
@@ -128,12 +128,12 @@ class IHdmiDisplayInformation(c_void_p):
     def add_DisplayModesChanged(self, value: Windows.Foundation.TypedEventHandler[Windows.Graphics.Display.Core.HdmiDisplayInformation, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(13)
     def remove_DisplayModesChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IHdmiDisplayInformationStatics(c_void_p):
+class IHdmiDisplayInformationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6ce6b260-f42a-4a15-91-4c-7b-8e-2a-5a-65-df')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.Graphics.Display.Core.HdmiDisplayInformation: ...
-class IHdmiDisplayMode(c_void_p):
+class IHdmiDisplayMode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0c06d5ad-1b90-4f51-99-81-ef-5a-1c-0d-df-66')
     @winrt_commethod(6)
@@ -168,7 +168,7 @@ class IHdmiDisplayMode(c_void_p):
     IsSdrLuminanceSupported = property(get_IsSdrLuminanceSupported, None)
     IsSmpte2084Supported = property(get_IsSmpte2084Supported, None)
     Is2086MetadataSupported = property(get_Is2086MetadataSupported, None)
-class IHdmiDisplayMode2(c_void_p):
+class IHdmiDisplayMode2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('07cd4e9f-4b3c-42b8-84-e7-89-53-68-71-8a-f2')
     @winrt_commethod(6)

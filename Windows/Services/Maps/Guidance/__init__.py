@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Geolocation
@@ -36,7 +36,7 @@ GuidanceAudioNotificationKind_Gps: GuidanceAudioNotificationKind = 2
 GuidanceAudioNotificationKind_SpeedLimit: GuidanceAudioNotificationKind = 3
 GuidanceAudioNotificationKind_Traffic: GuidanceAudioNotificationKind = 4
 GuidanceAudioNotificationKind_TrafficCamera: GuidanceAudioNotificationKind = 5
-class GuidanceAudioNotificationRequestedEventArgs(c_void_p):
+class GuidanceAudioNotificationRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.Guidance.GuidanceAudioNotificationRequestedEventArgs'
     @winrt_mixinmethod
@@ -56,7 +56,7 @@ GuidanceAudioNotifications_Gps: GuidanceAudioNotifications = 4
 GuidanceAudioNotifications_SpeedLimit: GuidanceAudioNotifications = 8
 GuidanceAudioNotifications_Traffic: GuidanceAudioNotifications = 16
 GuidanceAudioNotifications_TrafficCamera: GuidanceAudioNotifications = 32
-class GuidanceLaneInfo(c_void_p):
+class GuidanceLaneInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.Guidance.GuidanceLaneInfo'
     @winrt_mixinmethod
@@ -77,7 +77,7 @@ GuidanceLaneMarkers_Left: GuidanceLaneMarkers = 64
 GuidanceLaneMarkers_LightLeft: GuidanceLaneMarkers = 128
 GuidanceLaneMarkers_UTurnRight: GuidanceLaneMarkers = 256
 GuidanceLaneMarkers_Unknown: GuidanceLaneMarkers = 4294967295
-class GuidanceManeuver(c_void_p):
+class GuidanceManeuver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.Guidance.GuidanceManeuver'
     @winrt_mixinmethod
@@ -165,7 +165,7 @@ GuidanceManeuverKind_End: GuidanceManeuverKind = 44
 GuidanceManeuverKind_TakeFerry: GuidanceManeuverKind = 45
 GuidanceManeuverKind_PassTransitStation: GuidanceManeuverKind = 46
 GuidanceManeuverKind_LeaveTransitStation: GuidanceManeuverKind = 47
-class GuidanceMapMatchedCoordinate(c_void_p):
+class GuidanceMapMatchedCoordinate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.Guidance.GuidanceMapMatchedCoordinate'
     @winrt_mixinmethod
@@ -188,7 +188,7 @@ GuidanceMode_None: GuidanceMode = 0
 GuidanceMode_Simulation: GuidanceMode = 1
 GuidanceMode_Navigation: GuidanceMode = 2
 GuidanceMode_Tracking: GuidanceMode = 3
-class GuidanceNavigator(c_void_p):
+class GuidanceNavigator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.Guidance.GuidanceNavigator'
     @winrt_mixinmethod
@@ -263,13 +263,13 @@ class GuidanceNavigator(c_void_p):
     AudioNotifications = property(get_AudioNotifications, put_AudioNotifications)
     IsGuidanceAudioMuted = property(get_IsGuidanceAudioMuted, put_IsGuidanceAudioMuted)
     UseAppProvidedVoice = property(get_UseAppProvidedVoice, None)
-class GuidanceReroutedEventArgs(c_void_p):
+class GuidanceReroutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.Guidance.GuidanceReroutedEventArgs'
     @winrt_mixinmethod
     def get_Route(self: Windows.Services.Maps.Guidance.IGuidanceReroutedEventArgs) -> Windows.Services.Maps.Guidance.GuidanceRoute: ...
     Route = property(get_Route, None)
-class GuidanceRoadSegment(c_void_p):
+class GuidanceRoadSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.Guidance.GuidanceRoadSegment'
     @winrt_mixinmethod
@@ -302,7 +302,7 @@ class GuidanceRoadSegment(c_void_p):
     IsTunnel = property(get_IsTunnel, None)
     IsTollRoad = property(get_IsTollRoad, None)
     IsScenic = property(get_IsScenic, None)
-class GuidanceRoadSignpost(c_void_p):
+class GuidanceRoadSignpost(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.Guidance.GuidanceRoadSignpost'
     @winrt_mixinmethod
@@ -320,7 +320,7 @@ class GuidanceRoadSignpost(c_void_p):
     BackgroundColor = property(get_BackgroundColor, None)
     ForegroundColor = property(get_ForegroundColor, None)
     ExitDirections = property(get_ExitDirections, None)
-class GuidanceRoute(c_void_p):
+class GuidanceRoute(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.Guidance.GuidanceRoute'
     @winrt_mixinmethod
@@ -347,7 +347,7 @@ class GuidanceRoute(c_void_p):
     BoundingBox = property(get_BoundingBox, None)
     Path = property(get_Path, None)
     RoadSegments = property(get_RoadSegments, None)
-class GuidanceTelemetryCollector(c_void_p):
+class GuidanceTelemetryCollector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.Guidance.GuidanceTelemetryCollector'
     @winrt_mixinmethod
@@ -369,7 +369,7 @@ class GuidanceTelemetryCollector(c_void_p):
     Enabled = property(get_Enabled, put_Enabled)
     SpeedTrigger = property(get_SpeedTrigger, put_SpeedTrigger)
     UploadFrequency = property(get_UploadFrequency, put_UploadFrequency)
-class GuidanceUpdatedEventArgs(c_void_p):
+class GuidanceUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs'
     @winrt_mixinmethod
@@ -414,7 +414,7 @@ class GuidanceUpdatedEventArgs(c_void_p):
     CurrentLocation = property(get_CurrentLocation, None)
     IsNewManeuver = property(get_IsNewManeuver, None)
     LaneInfo = property(get_LaneInfo, None)
-class IGuidanceAudioNotificationRequestedEventArgs(c_void_p):
+class IGuidanceAudioNotificationRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ca2aa24a-c7c2-4d4c-9d-7c-49-95-76-bc-ed-db')
     @winrt_commethod(6)
@@ -426,7 +426,7 @@ class IGuidanceAudioNotificationRequestedEventArgs(c_void_p):
     AudioNotification = property(get_AudioNotification, None)
     AudioFilePaths = property(get_AudioFilePaths, None)
     AudioText = property(get_AudioText, None)
-class IGuidanceLaneInfo(c_void_p):
+class IGuidanceLaneInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8404d114-6581-43b7-ac-15-c9-07-9b-f9-0d-f1')
     @winrt_commethod(6)
@@ -435,7 +435,7 @@ class IGuidanceLaneInfo(c_void_p):
     def get_IsOnRoute(self) -> Boolean: ...
     LaneMarkers = property(get_LaneMarkers, None)
     IsOnRoute = property(get_IsOnRoute, None)
-class IGuidanceManeuver(c_void_p):
+class IGuidanceManeuver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fc09326c-ecc9-4928-a2-a1-72-32-b9-9b-94-a1')
     @winrt_commethod(6)
@@ -474,7 +474,7 @@ class IGuidanceManeuver(c_void_p):
     EndAngle = property(get_EndAngle, None)
     RoadSignpost = property(get_RoadSignpost, None)
     InstructionText = property(get_InstructionText, None)
-class IGuidanceMapMatchedCoordinate(c_void_p):
+class IGuidanceMapMatchedCoordinate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b7acb168-2912-4a99-af-f1-79-86-09-b9-81-fe')
     @winrt_commethod(6)
@@ -492,7 +492,7 @@ class IGuidanceMapMatchedCoordinate(c_void_p):
     CurrentSpeed = property(get_CurrentSpeed, None)
     IsOnStreet = property(get_IsOnStreet, None)
     Road = property(get_Road, None)
-class IGuidanceNavigator(c_void_p):
+class IGuidanceNavigator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('08f17ef7-8e3f-4d9a-be-8a-10-8f-9a-01-2c-67')
     @winrt_commethod(6)
@@ -553,7 +553,7 @@ class IGuidanceNavigator(c_void_p):
     def UpdateUserLocationWithPositionOverride(self, userLocation: Windows.Devices.Geolocation.Geocoordinate, positionOverride: Windows.Devices.Geolocation.BasicGeoposition) -> Void: ...
     AudioMeasurementSystem = property(get_AudioMeasurementSystem, put_AudioMeasurementSystem)
     AudioNotifications = property(get_AudioNotifications, put_AudioNotifications)
-class IGuidanceNavigator2(c_void_p):
+class IGuidanceNavigator2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6cdc50d1-041c-4bf3-b6-33-a1-01-fc-2f-6b-57')
     @winrt_commethod(6)
@@ -565,24 +565,24 @@ class IGuidanceNavigator2(c_void_p):
     @winrt_commethod(9)
     def put_IsGuidanceAudioMuted(self, value: Boolean) -> Void: ...
     IsGuidanceAudioMuted = property(get_IsGuidanceAudioMuted, put_IsGuidanceAudioMuted)
-class IGuidanceNavigatorStatics(c_void_p):
+class IGuidanceNavigatorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('00fd9513-4456-4e66-a1-43-3a-dd-6b-e0-84-26')
     @winrt_commethod(6)
     def GetCurrent(self) -> Windows.Services.Maps.Guidance.GuidanceNavigator: ...
-class IGuidanceNavigatorStatics2(c_void_p):
+class IGuidanceNavigatorStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('54c5c3e2-7784-4c85-8c-95-d0-c6-ef-b4-39-65')
     @winrt_commethod(6)
     def get_UseAppProvidedVoice(self) -> Boolean: ...
     UseAppProvidedVoice = property(get_UseAppProvidedVoice, None)
-class IGuidanceReroutedEventArgs(c_void_p):
+class IGuidanceReroutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('115d4008-d528-454e-bb-94-a5-03-41-d2-c9-f1')
     @winrt_commethod(6)
     def get_Route(self) -> Windows.Services.Maps.Guidance.GuidanceRoute: ...
     Route = property(get_Route, None)
-class IGuidanceRoadSegment(c_void_p):
+class IGuidanceRoadSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b32758a6-be78-4c63-af-e7-6c-29-57-47-9b-3e')
     @winrt_commethod(6)
@@ -612,13 +612,13 @@ class IGuidanceRoadSegment(c_void_p):
     IsHighway = property(get_IsHighway, None)
     IsTunnel = property(get_IsTunnel, None)
     IsTollRoad = property(get_IsTollRoad, None)
-class IGuidanceRoadSegment2(c_void_p):
+class IGuidanceRoadSegment2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2474a61d-1723-49f1-89-5b-47-a2-c4-aa-9c-55')
     @winrt_commethod(6)
     def get_IsScenic(self) -> Boolean: ...
     IsScenic = property(get_IsScenic, None)
-class IGuidanceRoadSignpost(c_void_p):
+class IGuidanceRoadSignpost(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f1a728b6-f77a-4742-83-12-53-30-0f-98-45-f0')
     @winrt_commethod(6)
@@ -636,7 +636,7 @@ class IGuidanceRoadSignpost(c_void_p):
     BackgroundColor = property(get_BackgroundColor, None)
     ForegroundColor = property(get_ForegroundColor, None)
     ExitDirections = property(get_ExitDirections, None)
-class IGuidanceRoute(c_void_p):
+class IGuidanceRoute(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3a14545d-801a-40bd-a2-86-af-b2-01-0c-ce-6c')
     @winrt_commethod(6)
@@ -659,14 +659,14 @@ class IGuidanceRoute(c_void_p):
     BoundingBox = property(get_BoundingBox, None)
     Path = property(get_Path, None)
     RoadSegments = property(get_RoadSegments, None)
-class IGuidanceRouteStatics(c_void_p):
+class IGuidanceRouteStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f56d926a-55ed-49c1-b0-9c-4b-82-23-b5-0d-b3')
     @winrt_commethod(6)
     def CanCreateFromMapRoute(self, mapRoute: Windows.Services.Maps.MapRoute) -> Boolean: ...
     @winrt_commethod(7)
     def TryCreateFromMapRoute(self, mapRoute: Windows.Services.Maps.MapRoute) -> Windows.Services.Maps.Guidance.GuidanceRoute: ...
-class IGuidanceTelemetryCollector(c_void_p):
+class IGuidanceTelemetryCollector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('db1f8da5-b878-4d92-98-dd-34-7d-23-d3-82-62')
     @winrt_commethod(6)
@@ -686,12 +686,12 @@ class IGuidanceTelemetryCollector(c_void_p):
     Enabled = property(get_Enabled, put_Enabled)
     SpeedTrigger = property(get_SpeedTrigger, put_SpeedTrigger)
     UploadFrequency = property(get_UploadFrequency, put_UploadFrequency)
-class IGuidanceTelemetryCollectorStatics(c_void_p):
+class IGuidanceTelemetryCollectorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('36532047-f160-44fb-b5-78-94-57-7c-a0-59-90')
     @winrt_commethod(6)
     def GetCurrent(self) -> Windows.Services.Maps.Guidance.GuidanceTelemetryCollector: ...
-class IGuidanceUpdatedEventArgs(c_void_p):
+class IGuidanceUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fdac160b-9e8d-4de3-a9-fa-b0-63-21-d1-8d-b9')
     @winrt_commethod(6)

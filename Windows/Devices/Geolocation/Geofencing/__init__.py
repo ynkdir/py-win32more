@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Geolocation
@@ -23,7 +23,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class Geofence(c_void_p):
+class Geofence(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Geolocation.Geofencing.Geofence'
     @winrt_factorymethod
@@ -55,7 +55,7 @@ class Geofence(c_void_p):
     MonitoredStates = property(get_MonitoredStates, None)
     Geoshape = property(get_Geoshape, None)
     SingleUse = property(get_SingleUse, None)
-class GeofenceMonitor(c_void_p):
+class GeofenceMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Geolocation.Geofencing.GeofenceMonitor'
     @winrt_mixinmethod
@@ -95,7 +95,7 @@ GeofenceState_None: GeofenceState = 0
 GeofenceState_Entered: GeofenceState = 1
 GeofenceState_Exited: GeofenceState = 2
 GeofenceState_Removed: GeofenceState = 4
-class GeofenceStateChangeReport(c_void_p):
+class GeofenceStateChangeReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Geolocation.Geofencing.GeofenceStateChangeReport'
     @winrt_mixinmethod
@@ -110,7 +110,7 @@ class GeofenceStateChangeReport(c_void_p):
     Geofence = property(get_Geofence, None)
     Geoposition = property(get_Geoposition, None)
     RemovalReason = property(get_RemovalReason, None)
-class IGeofence(c_void_p):
+class IGeofence(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9c090823-edb8-47e0-82-45-5b-f6-1d-32-1f-2d')
     @winrt_commethod(6)
@@ -134,7 +134,7 @@ class IGeofence(c_void_p):
     MonitoredStates = property(get_MonitoredStates, None)
     Geoshape = property(get_Geoshape, None)
     SingleUse = property(get_SingleUse, None)
-class IGeofenceFactory(c_void_p):
+class IGeofenceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('841f624b-325f-4b90-bc-a7-2b-80-22-a9-37-96')
     @winrt_commethod(6)
@@ -145,7 +145,7 @@ class IGeofenceFactory(c_void_p):
     def CreateWithMonitorStatesAndDwellTime(self, id: WinRT_String, geoshape: Windows.Devices.Geolocation.IGeoshape, monitoredStates: Windows.Devices.Geolocation.Geofencing.MonitoredGeofenceStates, singleUse: Boolean, dwellTime: Windows.Foundation.TimeSpan) -> Windows.Devices.Geolocation.Geofencing.Geofence: ...
     @winrt_commethod(9)
     def CreateWithMonitorStatesDwellTimeStartTimeAndDuration(self, id: WinRT_String, geoshape: Windows.Devices.Geolocation.IGeoshape, monitoredStates: Windows.Devices.Geolocation.Geofencing.MonitoredGeofenceStates, singleUse: Boolean, dwellTime: Windows.Foundation.TimeSpan, startTime: Windows.Foundation.DateTime, duration: Windows.Foundation.TimeSpan) -> Windows.Devices.Geolocation.Geofencing.Geofence: ...
-class IGeofenceMonitor(c_void_p):
+class IGeofenceMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4c0f5f78-1c1f-4621-bb-bd-83-3b-92-24-72-26')
     @winrt_commethod(6)
@@ -167,13 +167,13 @@ class IGeofenceMonitor(c_void_p):
     Status = property(get_Status, None)
     Geofences = property(get_Geofences, None)
     LastKnownGeoposition = property(get_LastKnownGeoposition, None)
-class IGeofenceMonitorStatics(c_void_p):
+class IGeofenceMonitorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2dd32fcf-7e75-4899-ac-e3-2b-d0-a6-5c-ce-06')
     @winrt_commethod(6)
     def get_Current(self) -> Windows.Devices.Geolocation.Geofencing.GeofenceMonitor: ...
     Current = property(get_Current, None)
-class IGeofenceStateChangeReport(c_void_p):
+class IGeofenceStateChangeReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9a243c18-2464-4c89-be-05-b3-ff-ff-5b-ab-c5')
     @winrt_commethod(6)

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -24,10 +24,10 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class CurrentSessionChangedEventArgs(c_void_p):
+class CurrentSessionChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Control.CurrentSessionChangedEventArgs'
-class GlobalSystemMediaTransportControlsSession(c_void_p):
+class GlobalSystemMediaTransportControlsSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSession'
     @winrt_mixinmethod
@@ -81,7 +81,7 @@ class GlobalSystemMediaTransportControlsSession(c_void_p):
     @winrt_mixinmethod
     def remove_MediaPropertiesChanged(self: Windows.Media.Control.IGlobalSystemMediaTransportControlsSession, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     SourceAppUserModelId = property(get_SourceAppUserModelId, None)
-class GlobalSystemMediaTransportControlsSessionManager(c_void_p):
+class GlobalSystemMediaTransportControlsSessionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSessionManager'
     @winrt_mixinmethod
@@ -98,7 +98,7 @@ class GlobalSystemMediaTransportControlsSessionManager(c_void_p):
     def remove_SessionsChanged(self: Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionManager, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_classmethod
     def RequestAsync(cls: Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionManagerStatics) -> Windows.Foundation.IAsyncOperation[Windows.Media.Control.GlobalSystemMediaTransportControlsSessionManager]: ...
-class GlobalSystemMediaTransportControlsSessionMediaProperties(c_void_p):
+class GlobalSystemMediaTransportControlsSessionMediaProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSessionMediaProperties'
     @winrt_mixinmethod
@@ -131,7 +131,7 @@ class GlobalSystemMediaTransportControlsSessionMediaProperties(c_void_p):
     AlbumTrackCount = property(get_AlbumTrackCount, None)
     PlaybackType = property(get_PlaybackType, None)
     Thumbnail = property(get_Thumbnail, None)
-class GlobalSystemMediaTransportControlsSessionPlaybackControls(c_void_p):
+class GlobalSystemMediaTransportControlsSessionPlaybackControls(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSessionPlaybackControls'
     @winrt_mixinmethod
@@ -179,7 +179,7 @@ class GlobalSystemMediaTransportControlsSessionPlaybackControls(c_void_p):
     IsRepeatEnabled = property(get_IsRepeatEnabled, None)
     IsPlaybackRateEnabled = property(get_IsPlaybackRateEnabled, None)
     IsPlaybackPositionEnabled = property(get_IsPlaybackPositionEnabled, None)
-class GlobalSystemMediaTransportControlsSessionPlaybackInfo(c_void_p):
+class GlobalSystemMediaTransportControlsSessionPlaybackInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSessionPlaybackInfo'
     @winrt_mixinmethod
@@ -207,7 +207,7 @@ GlobalSystemMediaTransportControlsSessionPlaybackStatus_Changing: GlobalSystemMe
 GlobalSystemMediaTransportControlsSessionPlaybackStatus_Stopped: GlobalSystemMediaTransportControlsSessionPlaybackStatus = 3
 GlobalSystemMediaTransportControlsSessionPlaybackStatus_Playing: GlobalSystemMediaTransportControlsSessionPlaybackStatus = 4
 GlobalSystemMediaTransportControlsSessionPlaybackStatus_Paused: GlobalSystemMediaTransportControlsSessionPlaybackStatus = 5
-class GlobalSystemMediaTransportControlsSessionTimelineProperties(c_void_p):
+class GlobalSystemMediaTransportControlsSessionTimelineProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSessionTimelineProperties'
     @winrt_mixinmethod
@@ -228,10 +228,10 @@ class GlobalSystemMediaTransportControlsSessionTimelineProperties(c_void_p):
     MaxSeekTime = property(get_MaxSeekTime, None)
     Position = property(get_Position, None)
     LastUpdatedTime = property(get_LastUpdatedTime, None)
-class ICurrentSessionChangedEventArgs(c_void_p):
+class ICurrentSessionChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6969cb39-0bfa-5fe0-8d-73-09-cc-5e-54-08-e1')
-class IGlobalSystemMediaTransportControlsSession(c_void_p):
+class IGlobalSystemMediaTransportControlsSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7148c835-9b14-5ae2-ab-85-dc-9b-1c-14-e1-a8')
     @winrt_commethod(6)
@@ -285,7 +285,7 @@ class IGlobalSystemMediaTransportControlsSession(c_void_p):
     @winrt_commethod(30)
     def remove_MediaPropertiesChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     SourceAppUserModelId = property(get_SourceAppUserModelId, None)
-class IGlobalSystemMediaTransportControlsSessionManager(c_void_p):
+class IGlobalSystemMediaTransportControlsSessionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cace8eac-e86e-504a-ab-31-5f-f8-ff-1b-ce-49')
     @winrt_commethod(6)
@@ -300,12 +300,12 @@ class IGlobalSystemMediaTransportControlsSessionManager(c_void_p):
     def add_SessionsChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Media.Control.GlobalSystemMediaTransportControlsSessionManager, Windows.Media.Control.SessionsChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(11)
     def remove_SessionsChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IGlobalSystemMediaTransportControlsSessionManagerStatics(c_void_p):
+class IGlobalSystemMediaTransportControlsSessionManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2050c4ee-11a0-57de-ae-d7-c9-7c-70-33-82-45')
     @winrt_commethod(6)
     def RequestAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Media.Control.GlobalSystemMediaTransportControlsSessionManager]: ...
-class IGlobalSystemMediaTransportControlsSessionMediaProperties(c_void_p):
+class IGlobalSystemMediaTransportControlsSessionMediaProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('68856cf6-adb4-54b2-ac-16-05-83-79-07-ac-b6')
     @winrt_commethod(6)
@@ -338,7 +338,7 @@ class IGlobalSystemMediaTransportControlsSessionMediaProperties(c_void_p):
     AlbumTrackCount = property(get_AlbumTrackCount, None)
     PlaybackType = property(get_PlaybackType, None)
     Thumbnail = property(get_Thumbnail, None)
-class IGlobalSystemMediaTransportControlsSessionPlaybackControls(c_void_p):
+class IGlobalSystemMediaTransportControlsSessionPlaybackControls(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6501a3e6-bc7a-503a-bb-1b-68-f1-58-f3-fb-03')
     @winrt_commethod(6)
@@ -386,7 +386,7 @@ class IGlobalSystemMediaTransportControlsSessionPlaybackControls(c_void_p):
     IsRepeatEnabled = property(get_IsRepeatEnabled, None)
     IsPlaybackRateEnabled = property(get_IsPlaybackRateEnabled, None)
     IsPlaybackPositionEnabled = property(get_IsPlaybackPositionEnabled, None)
-class IGlobalSystemMediaTransportControlsSessionPlaybackInfo(c_void_p):
+class IGlobalSystemMediaTransportControlsSessionPlaybackInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('94b4b6cf-e8ba-51ad-87-a7-c1-0a-de-10-61-27')
     @winrt_commethod(6)
@@ -407,7 +407,7 @@ class IGlobalSystemMediaTransportControlsSessionPlaybackInfo(c_void_p):
     AutoRepeatMode = property(get_AutoRepeatMode, None)
     PlaybackRate = property(get_PlaybackRate, None)
     IsShuffleActive = property(get_IsShuffleActive, None)
-class IGlobalSystemMediaTransportControlsSessionTimelineProperties(c_void_p):
+class IGlobalSystemMediaTransportControlsSessionTimelineProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ede34136-6f25-588d-8e-cf-ea-5b-67-35-aa-a5')
     @winrt_commethod(6)
@@ -428,28 +428,28 @@ class IGlobalSystemMediaTransportControlsSessionTimelineProperties(c_void_p):
     MaxSeekTime = property(get_MaxSeekTime, None)
     Position = property(get_Position, None)
     LastUpdatedTime = property(get_LastUpdatedTime, None)
-class IMediaPropertiesChangedEventArgs(c_void_p):
+class IMediaPropertiesChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7d3741cb-adf0-5cef-91-ba-cf-ab-cd-d7-76-78')
-class IPlaybackInfoChangedEventArgs(c_void_p):
+class IPlaybackInfoChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('786756c2-bc0d-50a5-88-07-05-42-91-fe-f1-39')
-class ISessionsChangedEventArgs(c_void_p):
+class ISessionsChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bbf0cd32-42c4-5a58-b3-17-f3-4b-bf-bd-26-e0')
-class ITimelinePropertiesChangedEventArgs(c_void_p):
+class ITimelinePropertiesChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('29033a2f-c923-5a77-bc-af-05-5f-f4-15-ad-32')
-class MediaPropertiesChangedEventArgs(c_void_p):
+class MediaPropertiesChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Control.MediaPropertiesChangedEventArgs'
-class PlaybackInfoChangedEventArgs(c_void_p):
+class PlaybackInfoChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Control.PlaybackInfoChangedEventArgs'
-class SessionsChangedEventArgs(c_void_p):
+class SessionsChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Control.SessionsChangedEventArgs'
-class TimelinePropertiesChangedEventArgs(c_void_p):
+class TimelinePropertiesChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Control.TimelinePropertiesChangedEventArgs'
 make_head(_module, 'CurrentSessionChangedEventArgs')

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Payments
@@ -23,7 +23,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IPaymentAppCanMakePaymentTriggerDetails(c_void_p):
+class IPaymentAppCanMakePaymentTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0ce201f0-8b93-4eb6-8c-46-2e-4a-6c-6a-26-f6')
     @winrt_commethod(6)
@@ -31,20 +31,20 @@ class IPaymentAppCanMakePaymentTriggerDetails(c_void_p):
     @winrt_commethod(7)
     def ReportCanMakePaymentResult(self, value: Windows.ApplicationModel.Payments.PaymentCanMakePaymentResult) -> Void: ...
     Request = property(get_Request, None)
-class IPaymentAppManager(c_void_p):
+class IPaymentAppManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0e47aa53-8521-4969-a9-57-df-25-38-a3-a9-8f')
     @winrt_commethod(6)
     def RegisterAsync(self, supportedPaymentMethodIds: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def UnregisterAsync(self) -> Windows.Foundation.IAsyncAction: ...
-class IPaymentAppManagerStatics(c_void_p):
+class IPaymentAppManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a341ac28-fc89-4406-b4-d9-34-e7-fe-79-df-b6')
     @winrt_commethod(6)
     def get_Current(self) -> Windows.ApplicationModel.Payments.Provider.PaymentAppManager: ...
     Current = property(get_Current, None)
-class IPaymentTransaction(c_void_p):
+class IPaymentTransaction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('62581da0-26a5-4e9b-a6-eb-66-60-6c-f0-01-d3')
     @winrt_commethod(6)
@@ -73,18 +73,18 @@ class IPaymentTransaction(c_void_p):
     PayerEmail = property(get_PayerEmail, put_PayerEmail)
     PayerName = property(get_PayerName, put_PayerName)
     PayerPhoneNumber = property(get_PayerPhoneNumber, put_PayerPhoneNumber)
-class IPaymentTransactionAcceptResult(c_void_p):
+class IPaymentTransactionAcceptResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('060e3276-d30c-4817-95-a2-df-7a-e9-27-3b-56')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.ApplicationModel.Payments.PaymentRequestCompletionStatus: ...
     Status = property(get_Status, None)
-class IPaymentTransactionStatics(c_void_p):
+class IPaymentTransactionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8d639750-ee0a-4df5-9b-1e-1c-0f-9e-c5-98-81')
     @winrt_commethod(6)
     def FromIdAsync(self, id: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Payments.Provider.PaymentTransaction]: ...
-class PaymentAppCanMakePaymentTriggerDetails(c_void_p):
+class PaymentAppCanMakePaymentTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Payments.Provider.PaymentAppCanMakePaymentTriggerDetails'
     @winrt_mixinmethod
@@ -92,7 +92,7 @@ class PaymentAppCanMakePaymentTriggerDetails(c_void_p):
     @winrt_mixinmethod
     def ReportCanMakePaymentResult(self: Windows.ApplicationModel.Payments.Provider.IPaymentAppCanMakePaymentTriggerDetails, value: Windows.ApplicationModel.Payments.PaymentCanMakePaymentResult) -> Void: ...
     Request = property(get_Request, None)
-class PaymentAppManager(c_void_p):
+class PaymentAppManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Payments.Provider.PaymentAppManager'
     @winrt_mixinmethod
@@ -102,7 +102,7 @@ class PaymentAppManager(c_void_p):
     @winrt_classmethod
     def get_Current(cls: Windows.ApplicationModel.Payments.Provider.IPaymentAppManagerStatics) -> Windows.ApplicationModel.Payments.Provider.PaymentAppManager: ...
     Current = property(get_Current, None)
-class PaymentTransaction(c_void_p):
+class PaymentTransaction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Payments.Provider.PaymentTransaction'
     @winrt_mixinmethod
@@ -133,7 +133,7 @@ class PaymentTransaction(c_void_p):
     PayerEmail = property(get_PayerEmail, put_PayerEmail)
     PayerName = property(get_PayerName, put_PayerName)
     PayerPhoneNumber = property(get_PayerPhoneNumber, put_PayerPhoneNumber)
-class PaymentTransactionAcceptResult(c_void_p):
+class PaymentTransactionAcceptResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Payments.Provider.PaymentTransactionAcceptResult'
     @winrt_mixinmethod

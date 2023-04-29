@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Wallet
@@ -24,7 +24,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IWalletItemSystemStore(c_void_p):
+class IWalletItemSystemStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('522e2bff-96a2-4a17-8d-19-fe-1d-9f-83-75-61')
     @winrt_commethod(6)
@@ -37,14 +37,14 @@ class IWalletItemSystemStore(c_void_p):
     def GetAppStatusForItem(self, item: Windows.ApplicationModel.Wallet.WalletItem) -> Windows.ApplicationModel.Wallet.System.WalletItemAppAssociation: ...
     @winrt_commethod(10)
     def LaunchAppForItemAsync(self, item: Windows.ApplicationModel.Wallet.WalletItem) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
-class IWalletItemSystemStore2(c_void_p):
+class IWalletItemSystemStore2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f98d3a4e-be00-4fdd-97-34-6c-11-3c-1a-c1-cb')
     @winrt_commethod(6)
     def add_ItemsChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Wallet.System.WalletItemSystemStore, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ItemsChanged(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IWalletManagerSystemStatics(c_void_p):
+class IWalletManagerSystemStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bee8eb89-2634-4b9a-8b-23-ee-89-03-c9-1f-e0')
     @winrt_commethod(6)
@@ -53,7 +53,7 @@ WalletItemAppAssociation = Int32
 WalletItemAppAssociation_None: WalletItemAppAssociation = 0
 WalletItemAppAssociation_AppInstalled: WalletItemAppAssociation = 1
 WalletItemAppAssociation_AppNotInstalled: WalletItemAppAssociation = 2
-class WalletItemSystemStore(c_void_p):
+class WalletItemSystemStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Wallet.System.WalletItemSystemStore'
     @winrt_mixinmethod
@@ -70,7 +70,7 @@ class WalletItemSystemStore(c_void_p):
     def add_ItemsChanged(self: Windows.ApplicationModel.Wallet.System.IWalletItemSystemStore2, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Wallet.System.WalletItemSystemStore, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ItemsChanged(self: Windows.ApplicationModel.Wallet.System.IWalletItemSystemStore2, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class WalletManagerSystem(c_void_p):
+class WalletManagerSystem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Wallet.System.WalletManagerSystem'
     @winrt_classmethod

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class DataProtectionProvider(c_void_p):
+class DataProtectionProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.DataProtection.DataProtectionProvider'
     @winrt_factorymethod
@@ -37,7 +37,7 @@ class DataProtectionProvider(c_void_p):
     def ProtectStreamAsync(self: Windows.Security.Cryptography.DataProtection.IDataProtectionProvider, src: Windows.Storage.Streams.IInputStream, dest: Windows.Storage.Streams.IOutputStream) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
     def UnprotectStreamAsync(self: Windows.Security.Cryptography.DataProtection.IDataProtectionProvider, src: Windows.Storage.Streams.IInputStream, dest: Windows.Storage.Streams.IOutputStream) -> Windows.Foundation.IAsyncAction: ...
-class IDataProtectionProvider(c_void_p):
+class IDataProtectionProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('09639948-ed22-4270-bd-1c-6d-72-c0-0f-87-87')
     @winrt_commethod(6)
@@ -48,7 +48,7 @@ class IDataProtectionProvider(c_void_p):
     def ProtectStreamAsync(self, src: Windows.Storage.Streams.IInputStream, dest: Windows.Storage.Streams.IOutputStream) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(9)
     def UnprotectStreamAsync(self, src: Windows.Storage.Streams.IInputStream, dest: Windows.Storage.Streams.IOutputStream) -> Windows.Foundation.IAsyncAction: ...
-class IDataProtectionProviderFactory(c_void_p):
+class IDataProtectionProviderFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('adf33dac-4932-4cdf-ac-41-72-14-33-35-14-ca')
     @winrt_commethod(6)

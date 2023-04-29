@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -24,7 +24,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AsymmetricAlgorithmNames(c_void_p):
+class AsymmetricAlgorithmNames(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.AsymmetricAlgorithmNames'
     @winrt_classmethod
@@ -90,7 +90,7 @@ class AsymmetricAlgorithmNames(c_void_p):
     RsaSignPssSha256 = property(get_RsaSignPssSha256, None)
     RsaSignPssSha384 = property(get_RsaSignPssSha384, None)
     RsaSignPssSha512 = property(get_RsaSignPssSha512, None)
-class AsymmetricKeyAlgorithmProvider(c_void_p):
+class AsymmetricKeyAlgorithmProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider'
     @winrt_mixinmethod
@@ -115,7 +115,7 @@ class AsymmetricKeyAlgorithmProvider(c_void_p):
 Capi1KdfTargetAlgorithm = Int32
 Capi1KdfTargetAlgorithm_NotAes: Capi1KdfTargetAlgorithm = 0
 Capi1KdfTargetAlgorithm_Aes: Capi1KdfTargetAlgorithm = 1
-class CryptographicEngine(c_void_p):
+class CryptographicEngine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.CryptographicEngine'
     @winrt_classmethod
@@ -142,14 +142,14 @@ class CryptographicEngine(c_void_p):
     def VerifySignature(cls: Windows.Security.Cryptography.Core.ICryptographicEngineStatics, key: Windows.Security.Cryptography.Core.CryptographicKey, data: Windows.Storage.Streams.IBuffer, signature: Windows.Storage.Streams.IBuffer) -> Boolean: ...
     @winrt_classmethod
     def DeriveKeyMaterial(cls: Windows.Security.Cryptography.Core.ICryptographicEngineStatics, key: Windows.Security.Cryptography.Core.CryptographicKey, parameters: Windows.Security.Cryptography.Core.KeyDerivationParameters, desiredKeySize: UInt32) -> Windows.Storage.Streams.IBuffer: ...
-class CryptographicHash(c_void_p):
+class CryptographicHash(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.CryptographicHash'
     @winrt_mixinmethod
     def Append(self: Windows.Security.Cryptography.Core.IHashComputation, data: Windows.Storage.Streams.IBuffer) -> Void: ...
     @winrt_mixinmethod
     def GetValueAndReset(self: Windows.Security.Cryptography.Core.IHashComputation) -> Windows.Storage.Streams.IBuffer: ...
-class CryptographicKey(c_void_p):
+class CryptographicKey(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.CryptographicKey'
     @winrt_mixinmethod
@@ -180,7 +180,7 @@ CryptographicPublicKeyBlobType_Pkcs1RsaPublicKey: CryptographicPublicKeyBlobType
 CryptographicPublicKeyBlobType_BCryptPublicKey: CryptographicPublicKeyBlobType = 2
 CryptographicPublicKeyBlobType_Capi1PublicKey: CryptographicPublicKeyBlobType = 3
 CryptographicPublicKeyBlobType_BCryptEccFullPublicKey: CryptographicPublicKeyBlobType = 4
-class EccCurveNames(c_void_p):
+class EccCurveNames(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.EccCurveNames'
     @winrt_classmethod
@@ -321,7 +321,7 @@ class EccCurveNames(c_void_p):
     X962P239v3 = property(get_X962P239v3, None)
     X962P256v1 = property(get_X962P256v1, None)
     AllEccCurveNames = property(get_AllEccCurveNames, None)
-class EncryptedAndAuthenticatedData(c_void_p):
+class EncryptedAndAuthenticatedData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.EncryptedAndAuthenticatedData'
     @winrt_mixinmethod
@@ -330,7 +330,7 @@ class EncryptedAndAuthenticatedData(c_void_p):
     def get_AuthenticationTag(self: Windows.Security.Cryptography.Core.IEncryptedAndAuthenticatedData) -> Windows.Storage.Streams.IBuffer: ...
     EncryptedData = property(get_EncryptedData, None)
     AuthenticationTag = property(get_AuthenticationTag, None)
-class HashAlgorithmNames(c_void_p):
+class HashAlgorithmNames(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.HashAlgorithmNames'
     @winrt_classmethod
@@ -348,7 +348,7 @@ class HashAlgorithmNames(c_void_p):
     Sha256 = property(get_Sha256, None)
     Sha384 = property(get_Sha384, None)
     Sha512 = property(get_Sha512, None)
-class HashAlgorithmProvider(c_void_p):
+class HashAlgorithmProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.HashAlgorithmProvider'
     @winrt_mixinmethod
@@ -363,7 +363,7 @@ class HashAlgorithmProvider(c_void_p):
     def OpenAlgorithm(cls: Windows.Security.Cryptography.Core.IHashAlgorithmProviderStatics, algorithm: WinRT_String) -> Windows.Security.Cryptography.Core.HashAlgorithmProvider: ...
     AlgorithmName = property(get_AlgorithmName, None)
     HashLength = property(get_HashLength, None)
-class IAsymmetricAlgorithmNamesStatics(c_void_p):
+class IAsymmetricAlgorithmNamesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('caf6fce4-67c0-46aa-84-f9-75-2e-77-44-9f-9b')
     @winrt_commethod(6)
@@ -420,7 +420,7 @@ class IAsymmetricAlgorithmNamesStatics(c_void_p):
     RsaSignPssSha256 = property(get_RsaSignPssSha256, None)
     RsaSignPssSha384 = property(get_RsaSignPssSha384, None)
     RsaSignPssSha512 = property(get_RsaSignPssSha512, None)
-class IAsymmetricAlgorithmNamesStatics2(c_void_p):
+class IAsymmetricAlgorithmNamesStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f141c0d6-4bff-4f23-ba-66-60-45-b1-37-d5-df')
     @winrt_commethod(6)
@@ -432,7 +432,7 @@ class IAsymmetricAlgorithmNamesStatics2(c_void_p):
     EcdsaSha256 = property(get_EcdsaSha256, None)
     EcdsaSha384 = property(get_EcdsaSha384, None)
     EcdsaSha512 = property(get_EcdsaSha512, None)
-class IAsymmetricKeyAlgorithmProvider(c_void_p):
+class IAsymmetricKeyAlgorithmProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e8d2ff37-6259-4e88-b7-e0-94-19-1f-de-69-9e')
     @winrt_commethod(6)
@@ -448,19 +448,19 @@ class IAsymmetricKeyAlgorithmProvider(c_void_p):
     @winrt_commethod(11)
     def ImportPublicKeyWithBlobType(self, keyBlob: Windows.Storage.Streams.IBuffer, BlobType: Windows.Security.Cryptography.Core.CryptographicPublicKeyBlobType) -> Windows.Security.Cryptography.Core.CryptographicKey: ...
     AlgorithmName = property(get_AlgorithmName, None)
-class IAsymmetricKeyAlgorithmProvider2(c_void_p):
+class IAsymmetricKeyAlgorithmProvider2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4e322a7e-7c4d-4997-ac-4f-1b-84-8b-36-30-6e')
     @winrt_commethod(6)
     def CreateKeyPairWithCurveName(self, curveName: WinRT_String) -> Windows.Security.Cryptography.Core.CryptographicKey: ...
     @winrt_commethod(7)
     def CreateKeyPairWithCurveParameters(self, parameters: c_char_p_no) -> Windows.Security.Cryptography.Core.CryptographicKey: ...
-class IAsymmetricKeyAlgorithmProviderStatics(c_void_p):
+class IAsymmetricKeyAlgorithmProviderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('425bde18-a7f3-47a6-a8-d2-c4-8d-60-33-a6-5c')
     @winrt_commethod(6)
     def OpenAlgorithm(self, algorithm: WinRT_String) -> Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider: ...
-class ICryptographicEngineStatics(c_void_p):
+class ICryptographicEngineStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9fea0639-6ff7-4c85-a0-95-95-eb-31-71-5e-b9')
     @winrt_commethod(6)
@@ -477,7 +477,7 @@ class ICryptographicEngineStatics(c_void_p):
     def VerifySignature(self, key: Windows.Security.Cryptography.Core.CryptographicKey, data: Windows.Storage.Streams.IBuffer, signature: Windows.Storage.Streams.IBuffer) -> Boolean: ...
     @winrt_commethod(12)
     def DeriveKeyMaterial(self, key: Windows.Security.Cryptography.Core.CryptographicKey, parameters: Windows.Security.Cryptography.Core.KeyDerivationParameters, desiredKeySize: UInt32) -> Windows.Storage.Streams.IBuffer: ...
-class ICryptographicEngineStatics2(c_void_p):
+class ICryptographicEngineStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('675948fe-df9f-4191-92-c7-6c-e6-f5-84-20-e0')
     @winrt_commethod(6)
@@ -490,7 +490,7 @@ class ICryptographicEngineStatics2(c_void_p):
     def SignAsync(self, key: Windows.Security.Cryptography.Core.CryptographicKey, data: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IBuffer]: ...
     @winrt_commethod(10)
     def SignHashedDataAsync(self, key: Windows.Security.Cryptography.Core.CryptographicKey, data: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IBuffer]: ...
-class ICryptographicKey(c_void_p):
+class ICryptographicKey(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ed2a3b70-8e7b-4009-84-01-ff-d1-a6-2e-eb-27')
     @winrt_commethod(6)
@@ -504,7 +504,7 @@ class ICryptographicKey(c_void_p):
     @winrt_commethod(10)
     def ExportPublicKeyWithBlobType(self, BlobType: Windows.Security.Cryptography.Core.CryptographicPublicKeyBlobType) -> Windows.Storage.Streams.IBuffer: ...
     KeySize = property(get_KeySize, None)
-class IEccCurveNamesStatics(c_void_p):
+class IEccCurveNamesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b3ff930c-aeeb-409e-b7-d4-9b-95-29-5a-ae-cf')
     @winrt_commethod(6)
@@ -645,7 +645,7 @@ class IEccCurveNamesStatics(c_void_p):
     X962P239v3 = property(get_X962P239v3, None)
     X962P256v1 = property(get_X962P256v1, None)
     AllEccCurveNames = property(get_AllEccCurveNames, None)
-class IEncryptedAndAuthenticatedData(c_void_p):
+class IEncryptedAndAuthenticatedData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6fa42fe7-1ecb-4b00-be-a5-60-b8-3f-86-2f-17')
     @winrt_commethod(6)
@@ -654,7 +654,7 @@ class IEncryptedAndAuthenticatedData(c_void_p):
     def get_AuthenticationTag(self) -> Windows.Storage.Streams.IBuffer: ...
     EncryptedData = property(get_EncryptedData, None)
     AuthenticationTag = property(get_AuthenticationTag, None)
-class IHashAlgorithmNamesStatics(c_void_p):
+class IHashAlgorithmNamesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6b5e0516-de96-4f0a-8d-57-dc-c9-da-e3-6c-76')
     @winrt_commethod(6)
@@ -672,7 +672,7 @@ class IHashAlgorithmNamesStatics(c_void_p):
     Sha256 = property(get_Sha256, None)
     Sha384 = property(get_Sha384, None)
     Sha512 = property(get_Sha512, None)
-class IHashAlgorithmProvider(c_void_p):
+class IHashAlgorithmProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('be9b3080-b2c3-422b-bc-e1-ec-90-ef-b5-d7-b5')
     @winrt_commethod(6)
@@ -685,19 +685,19 @@ class IHashAlgorithmProvider(c_void_p):
     def CreateHash(self) -> Windows.Security.Cryptography.Core.CryptographicHash: ...
     AlgorithmName = property(get_AlgorithmName, None)
     HashLength = property(get_HashLength, None)
-class IHashAlgorithmProviderStatics(c_void_p):
+class IHashAlgorithmProviderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9fac9741-5cc4-4336-ae-38-62-12-b7-5a-91-5a')
     @winrt_commethod(6)
     def OpenAlgorithm(self, algorithm: WinRT_String) -> Windows.Security.Cryptography.Core.HashAlgorithmProvider: ...
-class IHashComputation(c_void_p):
+class IHashComputation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5904d1b6-ad31-4603-a3-a4-b1-bd-a9-8e-25-62')
     @winrt_commethod(6)
     def Append(self, data: Windows.Storage.Streams.IBuffer) -> Void: ...
     @winrt_commethod(7)
     def GetValueAndReset(self) -> Windows.Storage.Streams.IBuffer: ...
-class IKeyDerivationAlgorithmNamesStatics(c_void_p):
+class IKeyDerivationAlgorithmNamesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7b6e363e-94d2-4739-a5-7b-02-2e-0c-3a-40-2a')
     @winrt_commethod(6)
@@ -745,7 +745,7 @@ class IKeyDerivationAlgorithmNamesStatics(c_void_p):
     Sp80056aConcatSha256 = property(get_Sp80056aConcatSha256, None)
     Sp80056aConcatSha384 = property(get_Sp80056aConcatSha384, None)
     Sp80056aConcatSha512 = property(get_Sp80056aConcatSha512, None)
-class IKeyDerivationAlgorithmNamesStatics2(c_void_p):
+class IKeyDerivationAlgorithmNamesStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('57953fab-6044-466f-97-f4-33-7b-78-08-38-4d')
     @winrt_commethod(6)
@@ -763,7 +763,7 @@ class IKeyDerivationAlgorithmNamesStatics2(c_void_p):
     CapiKdfSha256 = property(get_CapiKdfSha256, None)
     CapiKdfSha384 = property(get_CapiKdfSha384, None)
     CapiKdfSha512 = property(get_CapiKdfSha512, None)
-class IKeyDerivationAlgorithmProvider(c_void_p):
+class IKeyDerivationAlgorithmProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e1fba83b-4671-43b7-91-58-76-3a-aa-98-b6-bf')
     @winrt_commethod(6)
@@ -771,12 +771,12 @@ class IKeyDerivationAlgorithmProvider(c_void_p):
     @winrt_commethod(7)
     def CreateKey(self, keyMaterial: Windows.Storage.Streams.IBuffer) -> Windows.Security.Cryptography.Core.CryptographicKey: ...
     AlgorithmName = property(get_AlgorithmName, None)
-class IKeyDerivationAlgorithmProviderStatics(c_void_p):
+class IKeyDerivationAlgorithmProviderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0a22097a-0a1c-443b-94-18-b9-49-8a-eb-16-03')
     @winrt_commethod(6)
     def OpenAlgorithm(self, algorithm: WinRT_String) -> Windows.Security.Cryptography.Core.KeyDerivationAlgorithmProvider: ...
-class IKeyDerivationParameters(c_void_p):
+class IKeyDerivationParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7bf05967-047b-4a8c-96-4a-46-9f-fd-55-22-e2')
     @winrt_commethod(6)
@@ -787,7 +787,7 @@ class IKeyDerivationParameters(c_void_p):
     def get_IterationCount(self) -> UInt32: ...
     KdfGenericBinary = property(get_KdfGenericBinary, put_KdfGenericBinary)
     IterationCount = property(get_IterationCount, None)
-class IKeyDerivationParameters2(c_void_p):
+class IKeyDerivationParameters2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cd4166d1-417e-4f4c-b6-66-c0-d8-79-f3-f8-e0')
     @winrt_commethod(6)
@@ -795,7 +795,7 @@ class IKeyDerivationParameters2(c_void_p):
     @winrt_commethod(7)
     def put_Capi1KdfTargetAlgorithm(self, value: Windows.Security.Cryptography.Core.Capi1KdfTargetAlgorithm) -> Void: ...
     Capi1KdfTargetAlgorithm = property(get_Capi1KdfTargetAlgorithm, put_Capi1KdfTargetAlgorithm)
-class IKeyDerivationParametersStatics(c_void_p):
+class IKeyDerivationParametersStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ea961fbe-f37f-4146-9d-fe-a4-56-f1-73-5f-4b')
     @winrt_commethod(6)
@@ -804,12 +804,12 @@ class IKeyDerivationParametersStatics(c_void_p):
     def BuildForSP800108(self, label: Windows.Storage.Streams.IBuffer, context: Windows.Storage.Streams.IBuffer) -> Windows.Security.Cryptography.Core.KeyDerivationParameters: ...
     @winrt_commethod(8)
     def BuildForSP80056a(self, algorithmId: Windows.Storage.Streams.IBuffer, partyUInfo: Windows.Storage.Streams.IBuffer, partyVInfo: Windows.Storage.Streams.IBuffer, suppPubInfo: Windows.Storage.Streams.IBuffer, suppPrivInfo: Windows.Storage.Streams.IBuffer) -> Windows.Security.Cryptography.Core.KeyDerivationParameters: ...
-class IKeyDerivationParametersStatics2(c_void_p):
+class IKeyDerivationParametersStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a5783dd5-58e3-4efb-b2-83-a1-65-31-26-e1-be')
     @winrt_commethod(6)
     def BuildForCapi1Kdf(self, capi1KdfTargetAlgorithm: Windows.Security.Cryptography.Core.Capi1KdfTargetAlgorithm) -> Windows.Security.Cryptography.Core.KeyDerivationParameters: ...
-class IMacAlgorithmNamesStatics(c_void_p):
+class IMacAlgorithmNamesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('41412678-fb1e-43a4-89-5e-a9-02-6e-43-90-a3')
     @winrt_commethod(6)
@@ -830,7 +830,7 @@ class IMacAlgorithmNamesStatics(c_void_p):
     HmacSha384 = property(get_HmacSha384, None)
     HmacSha512 = property(get_HmacSha512, None)
     AesCmac = property(get_AesCmac, None)
-class IMacAlgorithmProvider(c_void_p):
+class IMacAlgorithmProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4a3fc5c3-1cbd-41ce-a0-92-aa-0b-c5-d2-d2-f5')
     @winrt_commethod(6)
@@ -841,24 +841,24 @@ class IMacAlgorithmProvider(c_void_p):
     def CreateKey(self, keyMaterial: Windows.Storage.Streams.IBuffer) -> Windows.Security.Cryptography.Core.CryptographicKey: ...
     AlgorithmName = property(get_AlgorithmName, None)
     MacLength = property(get_MacLength, None)
-class IMacAlgorithmProvider2(c_void_p):
+class IMacAlgorithmProvider2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6da32a15-d931-42ed-8e-7e-c3-01-ca-ee-11-9c')
     @winrt_commethod(6)
     def CreateHash(self, keyMaterial: Windows.Storage.Streams.IBuffer) -> Windows.Security.Cryptography.Core.CryptographicHash: ...
-class IMacAlgorithmProviderStatics(c_void_p):
+class IMacAlgorithmProviderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c9bdc147-cc77-4df0-9e-4e-b9-21-e0-80-64-4c')
     @winrt_commethod(6)
     def OpenAlgorithm(self, algorithm: WinRT_String) -> Windows.Security.Cryptography.Core.MacAlgorithmProvider: ...
-class IPersistedKeyProviderStatics(c_void_p):
+class IPersistedKeyProviderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('77274814-d9d4-4cf5-b6-68-e0-45-7d-f3-08-94')
     @winrt_commethod(6)
     def OpenKeyPairFromCertificateAsync(self, certificate: Windows.Security.Cryptography.Certificates.Certificate, hashAlgorithmName: WinRT_String, padding: Windows.Security.Cryptography.Core.CryptographicPadding) -> Windows.Foundation.IAsyncOperation[Windows.Security.Cryptography.Core.CryptographicKey]: ...
     @winrt_commethod(7)
     def OpenPublicKeyFromCertificate(self, certificate: Windows.Security.Cryptography.Certificates.Certificate, hashAlgorithmName: WinRT_String, padding: Windows.Security.Cryptography.Core.CryptographicPadding) -> Windows.Security.Cryptography.Core.CryptographicKey: ...
-class ISymmetricAlgorithmNamesStatics(c_void_p):
+class ISymmetricAlgorithmNamesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6870727b-c996-4eae-84-d7-79-b2-ae-b7-3b-9c')
     @winrt_commethod(6)
@@ -918,7 +918,7 @@ class ISymmetricAlgorithmNamesStatics(c_void_p):
     Rc2CbcPkcs7 = property(get_Rc2CbcPkcs7, None)
     Rc2EcbPkcs7 = property(get_Rc2EcbPkcs7, None)
     Rc4 = property(get_Rc4, None)
-class ISymmetricKeyAlgorithmProvider(c_void_p):
+class ISymmetricKeyAlgorithmProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3d7e4a33-3bd0-4902-8a-c8-47-0d-50-d2-13-76')
     @winrt_commethod(6)
@@ -929,12 +929,12 @@ class ISymmetricKeyAlgorithmProvider(c_void_p):
     def CreateSymmetricKey(self, keyMaterial: Windows.Storage.Streams.IBuffer) -> Windows.Security.Cryptography.Core.CryptographicKey: ...
     AlgorithmName = property(get_AlgorithmName, None)
     BlockLength = property(get_BlockLength, None)
-class ISymmetricKeyAlgorithmProviderStatics(c_void_p):
+class ISymmetricKeyAlgorithmProviderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8d3b2326-1f37-491f-b6-0e-f5-43-1b-26-b4-83')
     @winrt_commethod(6)
     def OpenAlgorithm(self, algorithm: WinRT_String) -> Windows.Security.Cryptography.Core.SymmetricKeyAlgorithmProvider: ...
-class KeyDerivationAlgorithmNames(c_void_p):
+class KeyDerivationAlgorithmNames(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.KeyDerivationAlgorithmNames'
     @winrt_classmethod
@@ -997,7 +997,7 @@ class KeyDerivationAlgorithmNames(c_void_p):
     Sp80056aConcatSha256 = property(get_Sp80056aConcatSha256, None)
     Sp80056aConcatSha384 = property(get_Sp80056aConcatSha384, None)
     Sp80056aConcatSha512 = property(get_Sp80056aConcatSha512, None)
-class KeyDerivationAlgorithmProvider(c_void_p):
+class KeyDerivationAlgorithmProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.KeyDerivationAlgorithmProvider'
     @winrt_mixinmethod
@@ -1007,7 +1007,7 @@ class KeyDerivationAlgorithmProvider(c_void_p):
     @winrt_classmethod
     def OpenAlgorithm(cls: Windows.Security.Cryptography.Core.IKeyDerivationAlgorithmProviderStatics, algorithm: WinRT_String) -> Windows.Security.Cryptography.Core.KeyDerivationAlgorithmProvider: ...
     AlgorithmName = property(get_AlgorithmName, None)
-class KeyDerivationParameters(c_void_p):
+class KeyDerivationParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.KeyDerivationParameters'
     @winrt_mixinmethod
@@ -1031,7 +1031,7 @@ class KeyDerivationParameters(c_void_p):
     KdfGenericBinary = property(get_KdfGenericBinary, put_KdfGenericBinary)
     IterationCount = property(get_IterationCount, None)
     Capi1KdfTargetAlgorithm = property(get_Capi1KdfTargetAlgorithm, put_Capi1KdfTargetAlgorithm)
-class MacAlgorithmNames(c_void_p):
+class MacAlgorithmNames(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.MacAlgorithmNames'
     @winrt_classmethod
@@ -1052,7 +1052,7 @@ class MacAlgorithmNames(c_void_p):
     HmacSha384 = property(get_HmacSha384, None)
     HmacSha512 = property(get_HmacSha512, None)
     AesCmac = property(get_AesCmac, None)
-class MacAlgorithmProvider(c_void_p):
+class MacAlgorithmProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.MacAlgorithmProvider'
     @winrt_mixinmethod
@@ -1067,14 +1067,14 @@ class MacAlgorithmProvider(c_void_p):
     def OpenAlgorithm(cls: Windows.Security.Cryptography.Core.IMacAlgorithmProviderStatics, algorithm: WinRT_String) -> Windows.Security.Cryptography.Core.MacAlgorithmProvider: ...
     AlgorithmName = property(get_AlgorithmName, None)
     MacLength = property(get_MacLength, None)
-class PersistedKeyProvider(c_void_p):
+class PersistedKeyProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.PersistedKeyProvider'
     @winrt_classmethod
     def OpenKeyPairFromCertificateAsync(cls: Windows.Security.Cryptography.Core.IPersistedKeyProviderStatics, certificate: Windows.Security.Cryptography.Certificates.Certificate, hashAlgorithmName: WinRT_String, padding: Windows.Security.Cryptography.Core.CryptographicPadding) -> Windows.Foundation.IAsyncOperation[Windows.Security.Cryptography.Core.CryptographicKey]: ...
     @winrt_classmethod
     def OpenPublicKeyFromCertificate(cls: Windows.Security.Cryptography.Core.IPersistedKeyProviderStatics, certificate: Windows.Security.Cryptography.Certificates.Certificate, hashAlgorithmName: WinRT_String, padding: Windows.Security.Cryptography.Core.CryptographicPadding) -> Windows.Security.Cryptography.Core.CryptographicKey: ...
-class SymmetricAlgorithmNames(c_void_p):
+class SymmetricAlgorithmNames(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.SymmetricAlgorithmNames'
     @winrt_classmethod
@@ -1134,7 +1134,7 @@ class SymmetricAlgorithmNames(c_void_p):
     Rc2CbcPkcs7 = property(get_Rc2CbcPkcs7, None)
     Rc2EcbPkcs7 = property(get_Rc2EcbPkcs7, None)
     Rc4 = property(get_Rc4, None)
-class SymmetricKeyAlgorithmProvider(c_void_p):
+class SymmetricKeyAlgorithmProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Cryptography.Core.SymmetricKeyAlgorithmProvider'
     @winrt_mixinmethod

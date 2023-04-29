@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -26,7 +26,7 @@ def __getattr__(name):
 CaretType = Int32
 CaretType_Normal: CaretType = 0
 CaretType_Null: CaretType = 1
-class ContentLinkInfo(c_void_p):
+class ContentLinkInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Text.ContentLinkInfo'
     @winrt_activatemethod
@@ -77,7 +77,7 @@ FontStyle_Oblique: FontStyle = 1
 FontStyle_Italic: FontStyle = 2
 class FontWeight(EasyCastStructure):
     Weight: UInt16
-class FontWeights(c_void_p):
+class FontWeights(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Text.FontWeights'
     @winrt_classmethod
@@ -122,7 +122,7 @@ HorizontalCharacterAlignment = Int32
 HorizontalCharacterAlignment_Left: HorizontalCharacterAlignment = 0
 HorizontalCharacterAlignment_Right: HorizontalCharacterAlignment = 1
 HorizontalCharacterAlignment_Center: HorizontalCharacterAlignment = 2
-class IContentLinkInfo(c_void_p):
+class IContentLinkInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1ed52525-1c5f-48cb-b3-35-78-b5-0a-2e-e6-42')
     @winrt_commethod(6)
@@ -150,10 +150,10 @@ class IContentLinkInfo(c_void_p):
     SecondaryText = property(get_SecondaryText, put_SecondaryText)
     Uri = property(get_Uri, put_Uri)
     LinkContentKind = property(get_LinkContentKind, put_LinkContentKind)
-class IFontWeights(c_void_p):
+class IFontWeights(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7880a444-01ab-4997-85-17-df-82-2a-0c-45-f1')
-class IFontWeightsStatics(c_void_p):
+class IFontWeightsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b3b579d5-1ba9-48eb-9d-ad-c0-95-e8-c2-3b-a3')
     @winrt_commethod(6)
@@ -189,7 +189,7 @@ class IFontWeightsStatics(c_void_p):
     SemiBold = property(get_SemiBold, None)
     SemiLight = property(get_SemiLight, None)
     Thin = property(get_Thin, None)
-class IRichEditTextRange(c_void_p):
+class IRichEditTextRange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('374e3515-ba8a-4a6e-8c-59-0d-de-3d-0c-f5-cd')
     @winrt_commethod(6)
@@ -197,7 +197,7 @@ class IRichEditTextRange(c_void_p):
     @winrt_commethod(7)
     def put_ContentLinkInfo(self, value: Windows.UI.Text.ContentLinkInfo) -> Void: ...
     ContentLinkInfo = property(get_ContentLinkInfo, put_ContentLinkInfo)
-class ITextCharacterFormat(c_void_p):
+class ITextCharacterFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5adef3db-05fb-442d-80-65-64-2a-fe-a0-2c-ed')
     @winrt_commethod(6)
@@ -324,7 +324,7 @@ class ITextCharacterFormat(c_void_p):
     TextScript = property(get_TextScript, put_TextScript)
     Underline = property(get_Underline, put_Underline)
     Weight = property(get_Weight, put_Weight)
-class ITextConstantsStatics(c_void_p):
+class ITextConstantsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('779e7c33-189d-4bfa-97-c8-10-db-13-5d-97-6e')
     @winrt_commethod(6)
@@ -351,7 +351,7 @@ class ITextConstantsStatics(c_void_p):
     UndefinedInt32Value = property(get_UndefinedInt32Value, None)
     UndefinedFontStretch = property(get_UndefinedFontStretch, None)
     UndefinedFontStyle = property(get_UndefinedFontStyle, None)
-class ITextDocument(c_void_p):
+class ITextDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('beee4ddb-90b2-408c-a2-f6-0a-0a-c3-1e-33-e4')
     @winrt_commethod(6)
@@ -412,7 +412,7 @@ class ITextDocument(c_void_p):
     DefaultTabStop = property(get_DefaultTabStop, put_DefaultTabStop)
     Selection = property(get_Selection, None)
     UndoLimit = property(get_UndoLimit, put_UndoLimit)
-class ITextDocument2(c_void_p):
+class ITextDocument2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f2311112-8c89-49c9-91-18-f0-57-cb-b8-14-ee')
     @winrt_commethod(6)
@@ -425,12 +425,12 @@ class ITextDocument2(c_void_p):
     def put_IgnoreTrailingCharacterSpacing(self, value: Boolean) -> Void: ...
     AlignmentIncludesTrailingWhitespace = property(get_AlignmentIncludesTrailingWhitespace, put_AlignmentIncludesTrailingWhitespace)
     IgnoreTrailingCharacterSpacing = property(get_IgnoreTrailingCharacterSpacing, put_IgnoreTrailingCharacterSpacing)
-class ITextDocument3(c_void_p):
+class ITextDocument3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('75ab03a1-a6f8-441d-aa-18-0a-85-1d-6e-5e-3c')
     @winrt_commethod(6)
     def ClearUndoRedoHistory(self) -> Void: ...
-class ITextDocument4(c_void_p):
+class ITextDocument4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('619c20f2-cb3b-4521-98-1f-28-65-b1-b9-3f-04')
     @winrt_commethod(6)
@@ -439,7 +439,7 @@ class ITextDocument4(c_void_p):
     def GetMath(self, value: POINTER(WinRT_String)) -> Void: ...
     @winrt_commethod(8)
     def SetMathMode(self, mode: Windows.UI.Text.RichEditMathMode) -> Void: ...
-class ITextParagraphFormat(c_void_p):
+class ITextParagraphFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2cf8cfa6-4676-498a-93-f5-bb-db-fc-0b-d8-83')
     @winrt_commethod(6)
@@ -560,7 +560,7 @@ class ITextParagraphFormat(c_void_p):
     SpaceBefore = property(get_SpaceBefore, put_SpaceBefore)
     WidowControl = property(get_WidowControl, put_WidowControl)
     TabCount = property(get_TabCount, None)
-class ITextRange(c_void_p):
+class ITextRange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5b9e4e57-c072-42a0-89-45-af-50-3e-e5-47-68')
     @winrt_commethod(6)
@@ -678,7 +678,7 @@ class ITextRange(c_void_p):
     StartPosition = property(get_StartPosition, put_StartPosition)
     StoryLength = property(get_StoryLength, None)
     Text = property(get_Text, put_Text)
-class ITextSelection(c_void_p):
+class ITextSelection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a6d36724-f28f-430a-b2-cf-c3-43-67-1e-c0-e9')
     @winrt_commethod(6)
@@ -801,7 +801,7 @@ RangeGravity_Outward: RangeGravity = 4
 RichEditMathMode = Int32
 RichEditMathMode_NoMath: RichEditMathMode = 0
 RichEditMathMode_MathOnly: RichEditMathMode = 1
-class RichEditTextDocument(c_void_p):
+class RichEditTextDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Text.RichEditTextDocument'
     @winrt_mixinmethod
@@ -880,7 +880,7 @@ class RichEditTextDocument(c_void_p):
     DefaultTabStop = property(get_DefaultTabStop, put_DefaultTabStop)
     Selection = property(get_Selection, None)
     UndoLimit = property(get_UndoLimit, put_UndoLimit)
-class RichEditTextRange(c_void_p):
+class RichEditTextRange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Text.RichEditTextRange'
     @winrt_mixinmethod
@@ -1028,7 +1028,7 @@ TabLeader_Dashes: TabLeader = 2
 TabLeader_Lines: TabLeader = 3
 TabLeader_ThickLines: TabLeader = 4
 TabLeader_Equals: TabLeader = 5
-class TextConstants(c_void_p):
+class TextConstants(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Text.TextConstants'
     @winrt_classmethod

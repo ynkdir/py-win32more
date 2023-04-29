@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -24,12 +24,12 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IUserDataAvailabilityStateChangedEventArgs(c_void_p):
+class IUserDataAvailabilityStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a76582c9-06a2-4273-a8-03-83-4c-9f-87-fb-eb')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
-class IUserDataBufferUnprotectResult(c_void_p):
+class IUserDataBufferUnprotectResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8efd0e90-fa9a-46a4-a3-77-01-ce-bf-1e-74-d8')
     @winrt_commethod(6)
@@ -38,7 +38,7 @@ class IUserDataBufferUnprotectResult(c_void_p):
     def get_UnprotectedBuffer(self) -> Windows.Storage.Streams.IBuffer: ...
     Status = property(get_Status, None)
     UnprotectedBuffer = property(get_UnprotectedBuffer, None)
-class IUserDataProtectionManager(c_void_p):
+class IUserDataProtectionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1f13237d-b42e-4a88-94-80-0f-24-09-24-c8-76')
     @winrt_commethod(6)
@@ -55,14 +55,14 @@ class IUserDataProtectionManager(c_void_p):
     def add_DataAvailabilityStateChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Security.DataProtection.UserDataProtectionManager, Windows.Security.DataProtection.UserDataAvailabilityStateChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_DataAvailabilityStateChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IUserDataProtectionManagerStatics(c_void_p):
+class IUserDataProtectionManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('977780e8-6dce-4fae-af-85-78-2a-c2-cf-45-72')
     @winrt_commethod(6)
     def TryGetDefault(self) -> Windows.Security.DataProtection.UserDataProtectionManager: ...
     @winrt_commethod(7)
     def TryGetForUser(self, user: Windows.System.User) -> Windows.Security.DataProtection.UserDataProtectionManager: ...
-class IUserDataStorageItemProtectionInfo(c_void_p):
+class IUserDataStorageItemProtectionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5b6680f6-e87f-40a1-b1-9d-a6-18-7a-0c-66-2f')
     @winrt_commethod(6)
@@ -72,12 +72,12 @@ UserDataAvailability = Int32
 UserDataAvailability_Always: UserDataAvailability = 0
 UserDataAvailability_AfterFirstUnlock: UserDataAvailability = 1
 UserDataAvailability_WhileUnlocked: UserDataAvailability = 2
-class UserDataAvailabilityStateChangedEventArgs(c_void_p):
+class UserDataAvailabilityStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.DataProtection.UserDataAvailabilityStateChangedEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.Security.DataProtection.IUserDataAvailabilityStateChangedEventArgs) -> Windows.Foundation.Deferral: ...
-class UserDataBufferUnprotectResult(c_void_p):
+class UserDataBufferUnprotectResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.DataProtection.UserDataBufferUnprotectResult'
     @winrt_mixinmethod
@@ -89,7 +89,7 @@ class UserDataBufferUnprotectResult(c_void_p):
 UserDataBufferUnprotectStatus = Int32
 UserDataBufferUnprotectStatus_Succeeded: UserDataBufferUnprotectStatus = 0
 UserDataBufferUnprotectStatus_Unavailable: UserDataBufferUnprotectStatus = 1
-class UserDataProtectionManager(c_void_p):
+class UserDataProtectionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.DataProtection.UserDataProtectionManager'
     @winrt_mixinmethod
@@ -110,7 +110,7 @@ class UserDataProtectionManager(c_void_p):
     def TryGetDefault(cls: Windows.Security.DataProtection.IUserDataProtectionManagerStatics) -> Windows.Security.DataProtection.UserDataProtectionManager: ...
     @winrt_classmethod
     def TryGetForUser(cls: Windows.Security.DataProtection.IUserDataProtectionManagerStatics, user: Windows.System.User) -> Windows.Security.DataProtection.UserDataProtectionManager: ...
-class UserDataStorageItemProtectionInfo(c_void_p):
+class UserDataStorageItemProtectionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.DataProtection.UserDataStorageItemProtectionInfo'
     @winrt_mixinmethod

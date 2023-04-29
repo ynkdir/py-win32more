@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -26,7 +26,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IMediaTranscoder(c_void_p):
+class IMediaTranscoder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('190c99d2-a0aa-4d34-86-bc-ee-d1-b1-2c-2f-5b')
     @winrt_commethod(6)
@@ -63,7 +63,7 @@ class IMediaTranscoder(c_void_p):
     TrimStopTime = property(get_TrimStopTime, put_TrimStopTime)
     AlwaysReencode = property(get_AlwaysReencode, put_AlwaysReencode)
     HardwareAccelerationEnabled = property(get_HardwareAccelerationEnabled, put_HardwareAccelerationEnabled)
-class IMediaTranscoder2(c_void_p):
+class IMediaTranscoder2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('40531d74-35e0-4f04-85-74-ca-8b-c4-e5-a0-82')
     @winrt_commethod(6)
@@ -73,7 +73,7 @@ class IMediaTranscoder2(c_void_p):
     @winrt_commethod(8)
     def get_VideoProcessingAlgorithm(self) -> Windows.Media.Transcoding.MediaVideoProcessingAlgorithm: ...
     VideoProcessingAlgorithm = property(get_VideoProcessingAlgorithm, put_VideoProcessingAlgorithm)
-class IPrepareTranscodeResult(c_void_p):
+class IPrepareTranscodeResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('05f25dce-994f-4a34-9d-68-97-cc-ce-17-30-d6')
     @winrt_commethod(6)
@@ -84,7 +84,7 @@ class IPrepareTranscodeResult(c_void_p):
     def TranscodeAsync(self) -> Windows.Foundation.IAsyncActionWithProgress[Double]: ...
     CanTranscode = property(get_CanTranscode, None)
     FailureReason = property(get_FailureReason, None)
-class MediaTranscoder(c_void_p):
+class MediaTranscoder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Transcoding.MediaTranscoder'
     @winrt_activatemethod
@@ -133,7 +133,7 @@ class MediaTranscoder(c_void_p):
 MediaVideoProcessingAlgorithm = Int32
 MediaVideoProcessingAlgorithm_Default: MediaVideoProcessingAlgorithm = 0
 MediaVideoProcessingAlgorithm_MrfCrf444: MediaVideoProcessingAlgorithm = 1
-class PrepareTranscodeResult(c_void_p):
+class PrepareTranscodeResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Transcoding.PrepareTranscodeResult'
     @winrt_mixinmethod

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Haptics
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IKnownSimpleHapticsControllerWaveformsStatics(c_void_p):
+class IKnownSimpleHapticsControllerWaveformsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3d577ef7-4cee-11e6-b5-35-00-1b-dc-06-ab-3b')
     @winrt_commethod(6)
@@ -40,7 +40,7 @@ class IKnownSimpleHapticsControllerWaveformsStatics(c_void_p):
     RumbleContinuous = property(get_RumbleContinuous, None)
     Press = property(get_Press, None)
     Release = property(get_Release, None)
-class IKnownSimpleHapticsControllerWaveformsStatics2(c_void_p):
+class IKnownSimpleHapticsControllerWaveformsStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a7d24c27-b79d-510a-bf-79-ff-6d-49-17-3e-1d')
     @winrt_commethod(6)
@@ -73,7 +73,7 @@ class IKnownSimpleHapticsControllerWaveformsStatics2(c_void_p):
     MarkerContinuous = property(get_MarkerContinuous, None)
     PencilContinuous = property(get_PencilContinuous, None)
     Success = property(get_Success, None)
-class ISimpleHapticsController(c_void_p):
+class ISimpleHapticsController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3d577ef9-4cee-11e6-b5-35-00-1b-dc-06-ab-3b')
     @winrt_commethod(6)
@@ -104,7 +104,7 @@ class ISimpleHapticsController(c_void_p):
     IsPlayCountSupported = property(get_IsPlayCountSupported, None)
     IsPlayDurationSupported = property(get_IsPlayDurationSupported, None)
     IsReplayPauseIntervalSupported = property(get_IsReplayPauseIntervalSupported, None)
-class ISimpleHapticsControllerFeedback(c_void_p):
+class ISimpleHapticsControllerFeedback(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3d577ef8-4cee-11e6-b5-35-00-1b-dc-06-ab-3b')
     @winrt_commethod(6)
@@ -113,7 +113,7 @@ class ISimpleHapticsControllerFeedback(c_void_p):
     def get_Duration(self) -> Windows.Foundation.TimeSpan: ...
     Waveform = property(get_Waveform, None)
     Duration = property(get_Duration, None)
-class IVibrationDevice(c_void_p):
+class IVibrationDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('40f21a3e-8844-47ff-b3-12-06-18-5a-38-44-da')
     @winrt_commethod(6)
@@ -122,7 +122,7 @@ class IVibrationDevice(c_void_p):
     def get_SimpleHapticsController(self) -> Windows.Devices.Haptics.SimpleHapticsController: ...
     Id = property(get_Id, None)
     SimpleHapticsController = property(get_SimpleHapticsController, None)
-class IVibrationDeviceStatics(c_void_p):
+class IVibrationDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('53e2eded-2290-4ac9-8e-b3-1a-84-12-2e-b7-1c')
     @winrt_commethod(6)
@@ -135,7 +135,7 @@ class IVibrationDeviceStatics(c_void_p):
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Haptics.VibrationDevice]: ...
     @winrt_commethod(10)
     def FindAllAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.Haptics.VibrationDevice]]: ...
-class KnownSimpleHapticsControllerWaveforms(c_void_p):
+class KnownSimpleHapticsControllerWaveforms(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms'
     @winrt_classmethod
@@ -183,7 +183,7 @@ class KnownSimpleHapticsControllerWaveforms(c_void_p):
     RumbleContinuous = property(get_RumbleContinuous, None)
     Press = property(get_Press, None)
     Release = property(get_Release, None)
-class SimpleHapticsController(c_void_p):
+class SimpleHapticsController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Haptics.SimpleHapticsController'
     @winrt_mixinmethod
@@ -214,7 +214,7 @@ class SimpleHapticsController(c_void_p):
     IsPlayCountSupported = property(get_IsPlayCountSupported, None)
     IsPlayDurationSupported = property(get_IsPlayDurationSupported, None)
     IsReplayPauseIntervalSupported = property(get_IsReplayPauseIntervalSupported, None)
-class SimpleHapticsControllerFeedback(c_void_p):
+class SimpleHapticsControllerFeedback(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Haptics.SimpleHapticsControllerFeedback'
     @winrt_mixinmethod
@@ -228,7 +228,7 @@ VibrationAccessStatus_Allowed: VibrationAccessStatus = 0
 VibrationAccessStatus_DeniedByUser: VibrationAccessStatus = 1
 VibrationAccessStatus_DeniedBySystem: VibrationAccessStatus = 2
 VibrationAccessStatus_DeniedByEnergySaver: VibrationAccessStatus = 3
-class VibrationDevice(c_void_p):
+class VibrationDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Haptics.VibrationDevice'
     @winrt_mixinmethod

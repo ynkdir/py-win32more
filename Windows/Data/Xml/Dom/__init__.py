@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Data.Xml.Dom
@@ -24,7 +24,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class DtdEntity(c_void_p):
+class DtdEntity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Xml.Dom.DtdEntity'
     @winrt_mixinmethod
@@ -111,7 +111,7 @@ class DtdEntity(c_void_p):
     LocalName = property(get_LocalName, None)
     Prefix = property(get_Prefix, put_Prefix)
     InnerText = property(get_InnerText, put_InnerText)
-class DtdNotation(c_void_p):
+class DtdNotation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Xml.Dom.DtdNotation'
     @winrt_mixinmethod
@@ -195,7 +195,7 @@ class DtdNotation(c_void_p):
     LocalName = property(get_LocalName, None)
     Prefix = property(get_Prefix, put_Prefix)
     InnerText = property(get_InnerText, put_InnerText)
-class IDtdEntity(c_void_p):
+class IDtdEntity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6a0b5ffc-63b4-480f-9e-6a-8a-92-81-6a-ad-e4')
     @winrt_commethod(6)
@@ -207,7 +207,7 @@ class IDtdEntity(c_void_p):
     PublicId = property(get_PublicId, None)
     SystemId = property(get_SystemId, None)
     NotationName = property(get_NotationName, None)
-class IDtdNotation(c_void_p):
+class IDtdNotation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8cb4e04d-6d46-4edb-ab-73-df-83-c5-1a-d3-97')
     @winrt_commethod(6)
@@ -216,7 +216,7 @@ class IDtdNotation(c_void_p):
     def get_SystemId(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     PublicId = property(get_PublicId, None)
     SystemId = property(get_SystemId, None)
-class IXmlAttribute(c_void_p):
+class IXmlAttribute(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ac144aa4-b4f1-4db6-b2-06-8a-22-c3-08-db-0a')
     @winrt_commethod(6)
@@ -230,10 +230,10 @@ class IXmlAttribute(c_void_p):
     Name = property(get_Name, None)
     Specified = property(get_Specified, None)
     Value = property(get_Value, put_Value)
-class IXmlCDataSection(c_void_p):
+class IXmlCDataSection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4d04b46f-c8bd-45b4-88-99-04-00-d7-c2-c6-0f')
-class IXmlCharacterData(c_void_p):
+class IXmlCharacterData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('132e42ab-4e36-4df6-b1-c8-0c-e6-2f-d8-8b-26')
     @winrt_commethod(6)
@@ -254,10 +254,10 @@ class IXmlCharacterData(c_void_p):
     def ReplaceData(self, offset: UInt32, count: UInt32, data: WinRT_String) -> Void: ...
     Data = property(get_Data, put_Data)
     Length = property(get_Length, None)
-class IXmlComment(c_void_p):
+class IXmlComment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bca474d5-b61f-4611-9c-ac-2e-92-e3-47-6d-47')
-class IXmlDocument(c_void_p):
+class IXmlDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f7f3a506-1e87-42d6-bc-fb-b8-c8-09-fa-54-94')
     @winrt_commethod(6)
@@ -298,10 +298,10 @@ class IXmlDocument(c_void_p):
     Implementation = property(get_Implementation, None)
     DocumentElement = property(get_DocumentElement, None)
     DocumentUri = property(get_DocumentUri, None)
-class IXmlDocumentFragment(c_void_p):
+class IXmlDocumentFragment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e2ea6a96-0c21-44a5-8b-c9-9e-4a-26-27-08-ec')
-class IXmlDocumentIO(c_void_p):
+class IXmlDocumentIO(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6cd0e74e-ee65-4489-9e-bf-ca-43-e8-7b-a6-37')
     @winrt_commethod(6)
@@ -310,14 +310,14 @@ class IXmlDocumentIO(c_void_p):
     def LoadXmlWithSettings(self, xml: WinRT_String, loadSettings: Windows.Data.Xml.Dom.XmlLoadSettings) -> Void: ...
     @winrt_commethod(8)
     def SaveToFileAsync(self, file: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncAction: ...
-class IXmlDocumentIO2(c_void_p):
+class IXmlDocumentIO2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5d034661-7bd8-4ad5-9e-bf-81-e6-34-72-63-b1')
     @winrt_commethod(6)
     def LoadXmlFromBuffer(self, buffer: Windows.Storage.Streams.IBuffer) -> Void: ...
     @winrt_commethod(7)
     def LoadXmlFromBufferWithSettings(self, buffer: Windows.Storage.Streams.IBuffer, loadSettings: Windows.Data.Xml.Dom.XmlLoadSettings) -> Void: ...
-class IXmlDocumentStatics(c_void_p):
+class IXmlDocumentStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5543d254-d757-4b79-95-39-23-2b-18-f5-0b-f1')
     @winrt_commethod(6)
@@ -328,7 +328,7 @@ class IXmlDocumentStatics(c_void_p):
     def LoadFromFileAsync(self, file: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Windows.Data.Xml.Dom.XmlDocument]: ...
     @winrt_commethod(9)
     def LoadFromFileWithSettingsAsync(self, file: Windows.Storage.IStorageFile, loadSettings: Windows.Data.Xml.Dom.XmlLoadSettings) -> Windows.Foundation.IAsyncOperation[Windows.Data.Xml.Dom.XmlDocument]: ...
-class IXmlDocumentType(c_void_p):
+class IXmlDocumentType(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f7342425-9781-4964-8e-94-9b-1c-6d-fc-9b-c7')
     @winrt_commethod(6)
@@ -340,12 +340,12 @@ class IXmlDocumentType(c_void_p):
     Name = property(get_Name, None)
     Entities = property(get_Entities, None)
     Notations = property(get_Notations, None)
-class IXmlDomImplementation(c_void_p):
+class IXmlDomImplementation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6de58132-f11d-4fbb-8c-c6-58-3c-ba-93-11-2f')
     @winrt_commethod(6)
     def HasFeature(self, feature: WinRT_String, version: Windows.Win32.System.WinRT.IInspectable_head) -> Boolean: ...
-class IXmlElement(c_void_p):
+class IXmlElement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2dfb8a1f-6b10-4ef8-9f-83-ef-cc-e8-fa-ec-37')
     @winrt_commethod(6)
@@ -375,10 +375,10 @@ class IXmlElement(c_void_p):
     @winrt_commethod(18)
     def GetAttributeNodeNS(self, namespaceUri: Windows.Win32.System.WinRT.IInspectable_head, localName: WinRT_String) -> Windows.Data.Xml.Dom.XmlAttribute: ...
     TagName = property(get_TagName, None)
-class IXmlEntityReference(c_void_p):
+class IXmlEntityReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2e2f47bc-c3d0-4ccf-bb-86-0a-b8-c3-6a-61-cf')
-class IXmlLoadSettings(c_void_p):
+class IXmlLoadSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('58aa07a8-fed6-46f7-b4-c5-fb-1b-a7-21-08-d6')
     @winrt_commethod(6)
@@ -406,7 +406,7 @@ class IXmlLoadSettings(c_void_p):
     ResolveExternals = property(get_ResolveExternals, put_ResolveExternals)
     ValidateOnParse = property(get_ValidateOnParse, put_ValidateOnParse)
     ElementContentWhiteSpace = property(get_ElementContentWhiteSpace, put_ElementContentWhiteSpace)
-class IXmlNamedNodeMap(c_void_p):
+class IXmlNamedNodeMap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b3a69eb0-aab0-4b82-a6-fa-b1-45-3f-7c-02-1b')
     @winrt_commethod(6)
@@ -426,7 +426,7 @@ class IXmlNamedNodeMap(c_void_p):
     @winrt_commethod(13)
     def SetNamedItemNS(self, node: Windows.Data.Xml.Dom.IXmlNode) -> Windows.Data.Xml.Dom.IXmlNode: ...
     Length = property(get_Length, None)
-class IXmlNode(c_void_p):
+class IXmlNode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1c741d59-2122-47d5-a8-56-83-f3-d4-21-48-75')
     @winrt_commethod(6)
@@ -489,7 +489,7 @@ class IXmlNode(c_void_p):
     NamespaceUri = property(get_NamespaceUri, None)
     LocalName = property(get_LocalName, None)
     Prefix = property(get_Prefix, put_Prefix)
-class IXmlNodeList(c_void_p):
+class IXmlNodeList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8c60ad77-83a4-4ec1-9c-54-7b-a4-29-e1-3d-a6')
     @winrt_commethod(6)
@@ -497,7 +497,7 @@ class IXmlNodeList(c_void_p):
     @winrt_commethod(7)
     def Item(self, index: UInt32) -> Windows.Data.Xml.Dom.IXmlNode: ...
     Length = property(get_Length, None)
-class IXmlNodeSelector(c_void_p):
+class IXmlNodeSelector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('63dbba8b-d0db-4fe1-b7-45-f9-43-3a-fd-c2-5b')
     @winrt_commethod(6)
@@ -508,7 +508,7 @@ class IXmlNodeSelector(c_void_p):
     def SelectSingleNodeNS(self, xpath: WinRT_String, namespaces: Windows.Win32.System.WinRT.IInspectable_head) -> Windows.Data.Xml.Dom.IXmlNode: ...
     @winrt_commethod(9)
     def SelectNodesNS(self, xpath: WinRT_String, namespaces: Windows.Win32.System.WinRT.IInspectable_head) -> Windows.Data.Xml.Dom.XmlNodeList: ...
-class IXmlNodeSerializer(c_void_p):
+class IXmlNodeSerializer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5cc5b382-e6dd-4991-ab-ef-06-d8-d2-e7-bd-0c')
     @winrt_commethod(6)
@@ -518,7 +518,7 @@ class IXmlNodeSerializer(c_void_p):
     @winrt_commethod(8)
     def put_InnerText(self, value: WinRT_String) -> Void: ...
     InnerText = property(get_InnerText, put_InnerText)
-class IXmlProcessingInstruction(c_void_p):
+class IXmlProcessingInstruction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2707fd1e-1e92-4ece-b6-f4-26-f0-69-07-8d-dc')
     @winrt_commethod(6)
@@ -529,7 +529,7 @@ class IXmlProcessingInstruction(c_void_p):
     def put_Data(self, value: WinRT_String) -> Void: ...
     Target = property(get_Target, None)
     Data = property(get_Data, put_Data)
-class IXmlText(c_void_p):
+class IXmlText(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f931a4cb-308d-4760-a1-d5-43-b6-74-50-ac-7e')
     @winrt_commethod(6)
@@ -548,7 +548,7 @@ NodeType_DocumentNode: NodeType = 9
 NodeType_DocumentTypeNode: NodeType = 10
 NodeType_DocumentFragmentNode: NodeType = 11
 NodeType_NotationNode: NodeType = 12
-class XmlAttribute(c_void_p):
+class XmlAttribute(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Xml.Dom.XmlAttribute'
     @winrt_mixinmethod
@@ -637,7 +637,7 @@ class XmlAttribute(c_void_p):
     LocalName = property(get_LocalName, None)
     Prefix = property(get_Prefix, put_Prefix)
     InnerText = property(get_InnerText, put_InnerText)
-class XmlCDataSection(c_void_p):
+class XmlCDataSection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Xml.Dom.XmlCDataSection'
     @winrt_mixinmethod
@@ -735,7 +735,7 @@ class XmlCDataSection(c_void_p):
     LocalName = property(get_LocalName, None)
     Prefix = property(get_Prefix, put_Prefix)
     InnerText = property(get_InnerText, put_InnerText)
-class XmlComment(c_void_p):
+class XmlComment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Xml.Dom.XmlComment'
     @winrt_mixinmethod
@@ -831,7 +831,7 @@ class XmlComment(c_void_p):
     LocalName = property(get_LocalName, None)
     Prefix = property(get_Prefix, put_Prefix)
     InnerText = property(get_InnerText, put_InnerText)
-class XmlDocument(c_void_p):
+class XmlDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Xml.Dom.XmlDocument'
     @winrt_activatemethod
@@ -967,7 +967,7 @@ class XmlDocument(c_void_p):
     LocalName = property(get_LocalName, None)
     Prefix = property(get_Prefix, put_Prefix)
     InnerText = property(get_InnerText, put_InnerText)
-class XmlDocumentFragment(c_void_p):
+class XmlDocumentFragment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Xml.Dom.XmlDocumentFragment'
     @winrt_mixinmethod
@@ -1045,7 +1045,7 @@ class XmlDocumentFragment(c_void_p):
     LocalName = property(get_LocalName, None)
     Prefix = property(get_Prefix, put_Prefix)
     InnerText = property(get_InnerText, put_InnerText)
-class XmlDocumentType(c_void_p):
+class XmlDocumentType(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Xml.Dom.XmlDocumentType'
     @winrt_mixinmethod
@@ -1132,12 +1132,12 @@ class XmlDocumentType(c_void_p):
     LocalName = property(get_LocalName, None)
     Prefix = property(get_Prefix, put_Prefix)
     InnerText = property(get_InnerText, put_InnerText)
-class XmlDomImplementation(c_void_p):
+class XmlDomImplementation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Xml.Dom.XmlDomImplementation'
     @winrt_mixinmethod
     def HasFeature(self: Windows.Data.Xml.Dom.IXmlDomImplementation, feature: WinRT_String, version: Windows.Win32.System.WinRT.IInspectable_head) -> Boolean: ...
-class XmlElement(c_void_p):
+class XmlElement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Xml.Dom.XmlElement'
     @winrt_mixinmethod
@@ -1242,7 +1242,7 @@ class XmlElement(c_void_p):
     LocalName = property(get_LocalName, None)
     Prefix = property(get_Prefix, put_Prefix)
     InnerText = property(get_InnerText, put_InnerText)
-class XmlEntityReference(c_void_p):
+class XmlEntityReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Xml.Dom.XmlEntityReference'
     @winrt_mixinmethod
@@ -1320,7 +1320,7 @@ class XmlEntityReference(c_void_p):
     LocalName = property(get_LocalName, None)
     Prefix = property(get_Prefix, put_Prefix)
     InnerText = property(get_InnerText, put_InnerText)
-class XmlLoadSettings(c_void_p):
+class XmlLoadSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Xml.Dom.XmlLoadSettings'
     @winrt_activatemethod
@@ -1350,7 +1350,7 @@ class XmlLoadSettings(c_void_p):
     ResolveExternals = property(get_ResolveExternals, put_ResolveExternals)
     ValidateOnParse = property(get_ValidateOnParse, put_ValidateOnParse)
     ElementContentWhiteSpace = property(get_ElementContentWhiteSpace, put_ElementContentWhiteSpace)
-class XmlNamedNodeMap(c_void_p):
+class XmlNamedNodeMap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Xml.Dom.XmlNamedNodeMap'
     @winrt_mixinmethod
@@ -1381,7 +1381,7 @@ class XmlNamedNodeMap(c_void_p):
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Data.Xml.Dom.IXmlNode]) -> Windows.Foundation.Collections.IIterator[Windows.Data.Xml.Dom.IXmlNode]: ...
     Length = property(get_Length, None)
     Size = property(get_Size, None)
-class XmlNodeList(c_void_p):
+class XmlNodeList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Xml.Dom.XmlNodeList'
     @winrt_mixinmethod
@@ -1400,7 +1400,7 @@ class XmlNodeList(c_void_p):
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Data.Xml.Dom.IXmlNode]) -> Windows.Foundation.Collections.IIterator[Windows.Data.Xml.Dom.IXmlNode]: ...
     Length = property(get_Length, None)
     Size = property(get_Size, None)
-class XmlProcessingInstruction(c_void_p):
+class XmlProcessingInstruction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Xml.Dom.XmlProcessingInstruction'
     @winrt_mixinmethod
@@ -1486,7 +1486,7 @@ class XmlProcessingInstruction(c_void_p):
     LocalName = property(get_LocalName, None)
     Prefix = property(get_Prefix, put_Prefix)
     InnerText = property(get_InnerText, put_InnerText)
-class XmlText(c_void_p):
+class XmlText(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Xml.Dom.XmlText'
     @winrt_mixinmethod

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -25,7 +25,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class DnssdRegistrationResult(c_void_p):
+class DnssdRegistrationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdRegistrationResult'
     @winrt_activatemethod
@@ -46,7 +46,7 @@ DnssdRegistrationStatus_Success: DnssdRegistrationStatus = 0
 DnssdRegistrationStatus_InvalidServiceName: DnssdRegistrationStatus = 1
 DnssdRegistrationStatus_ServerError: DnssdRegistrationStatus = 2
 DnssdRegistrationStatus_SecurityError: DnssdRegistrationStatus = 3
-class DnssdServiceInstance(c_void_p):
+class DnssdServiceInstance(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance'
     @winrt_factorymethod
@@ -89,7 +89,7 @@ class DnssdServiceInstance(c_void_p):
     Priority = property(get_Priority, put_Priority)
     Weight = property(get_Weight, put_Weight)
     TextAttributes = property(get_TextAttributes, None)
-class DnssdServiceInstanceCollection(c_void_p):
+class DnssdServiceInstanceCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstanceCollection'
     @winrt_mixinmethod
@@ -103,7 +103,7 @@ class DnssdServiceInstanceCollection(c_void_p):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance]) -> Windows.Foundation.Collections.IIterator[Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance]: ...
     Size = property(get_Size, None)
-class DnssdServiceWatcher(c_void_p):
+class DnssdServiceWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher'
     @winrt_mixinmethod
@@ -132,7 +132,7 @@ DnssdServiceWatcherStatus_EnumerationCompleted: DnssdServiceWatcherStatus = 2
 DnssdServiceWatcherStatus_Stopping: DnssdServiceWatcherStatus = 3
 DnssdServiceWatcherStatus_Stopped: DnssdServiceWatcherStatus = 4
 DnssdServiceWatcherStatus_Aborted: DnssdServiceWatcherStatus = 5
-class IDnssdRegistrationResult(c_void_p):
+class IDnssdRegistrationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3d786ad2-e606-5350-73-ea-7e-97-f0-66-16-2f')
     @winrt_commethod(6)
@@ -144,7 +144,7 @@ class IDnssdRegistrationResult(c_void_p):
     Status = property(get_Status, None)
     IPAddress = property(get_IPAddress, None)
     HasInstanceNameChanged = property(get_HasInstanceNameChanged, None)
-class IDnssdServiceInstance(c_void_p):
+class IDnssdServiceInstance(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e246db7e-98a5-4ca1-b9-e4-c2-53-d3-3c-35-ff')
     @winrt_commethod(6)
@@ -183,12 +183,12 @@ class IDnssdServiceInstance(c_void_p):
     Priority = property(get_Priority, put_Priority)
     Weight = property(get_Weight, put_Weight)
     TextAttributes = property(get_TextAttributes, None)
-class IDnssdServiceInstanceFactory(c_void_p):
+class IDnssdServiceInstanceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6cb061a1-c478-4331-96-84-4a-f2-18-6c-0a-2b')
     @winrt_commethod(6)
     def Create(self, dnssdServiceInstanceName: WinRT_String, hostName: Windows.Networking.HostName, port: UInt16) -> Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance: ...
-class IDnssdServiceWatcher(c_void_p):
+class IDnssdServiceWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cc34d9c1-db7d-4b69-98-3d-c6-f8-3f-20-56-82')
     @winrt_commethod(6)

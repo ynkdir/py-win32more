@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -26,7 +26,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ISpatialSurfaceInfo(c_void_p):
+class ISpatialSurfaceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f8e9ebe7-39b7-3962-bb-03-57-f5-6e-1f-b0-a1')
     @winrt_commethod(6)
@@ -41,7 +41,7 @@ class ISpatialSurfaceInfo(c_void_p):
     def TryComputeLatestMeshWithOptionsAsync(self, maxTrianglesPerCubicMeter: Double, options: Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions) -> Windows.Foundation.IAsyncOperation[Windows.Perception.Spatial.Surfaces.SpatialSurfaceMesh]: ...
     Id = property(get_Id, None)
     UpdateTime = property(get_UpdateTime, None)
-class ISpatialSurfaceMesh(c_void_p):
+class ISpatialSurfaceMesh(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('108f57d9-df0d-3950-a0-fd-f9-72-c7-7c-27-b4')
     @winrt_commethod(6)
@@ -62,7 +62,7 @@ class ISpatialSurfaceMesh(c_void_p):
     VertexPositions = property(get_VertexPositions, None)
     VertexPositionScale = property(get_VertexPositionScale, None)
     VertexNormals = property(get_VertexNormals, None)
-class ISpatialSurfaceMeshBuffer(c_void_p):
+class ISpatialSurfaceMeshBuffer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('93cf59e0-871f-33f8-98-b2-03-d1-01-45-8f-6f')
     @winrt_commethod(6)
@@ -77,7 +77,7 @@ class ISpatialSurfaceMeshBuffer(c_void_p):
     Stride = property(get_Stride, None)
     ElementCount = property(get_ElementCount, None)
     Data = property(get_Data, None)
-class ISpatialSurfaceMeshOptions(c_void_p):
+class ISpatialSurfaceMeshOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d2759f89-3572-3d2d-a1-0d-5f-ee-93-94-aa-37')
     @winrt_commethod(6)
@@ -100,7 +100,7 @@ class ISpatialSurfaceMeshOptions(c_void_p):
     TriangleIndexFormat = property(get_TriangleIndexFormat, put_TriangleIndexFormat)
     VertexNormalFormat = property(get_VertexNormalFormat, put_VertexNormalFormat)
     IncludeVertexNormals = property(get_IncludeVertexNormals, put_IncludeVertexNormals)
-class ISpatialSurfaceMeshOptionsStatics(c_void_p):
+class ISpatialSurfaceMeshOptionsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9b340abf-9781-4505-89-35-01-35-75-ca-ae-5e')
     @winrt_commethod(6)
@@ -112,7 +112,7 @@ class ISpatialSurfaceMeshOptionsStatics(c_void_p):
     SupportedVertexPositionFormats = property(get_SupportedVertexPositionFormats, None)
     SupportedTriangleIndexFormats = property(get_SupportedTriangleIndexFormats, None)
     SupportedVertexNormalFormats = property(get_SupportedVertexNormalFormats, None)
-class ISpatialSurfaceObserver(c_void_p):
+class ISpatialSurfaceObserver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('10b69819-ddca-3483-ac-3a-74-8f-e8-c8-6d-f5')
     @winrt_commethod(6)
@@ -125,17 +125,17 @@ class ISpatialSurfaceObserver(c_void_p):
     def add_ObservedSurfacesChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_ObservedSurfacesChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class ISpatialSurfaceObserverStatics(c_void_p):
+class ISpatialSurfaceObserverStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('165951ed-2108-4168-91-75-87-e0-27-bc-92-85')
     @winrt_commethod(6)
     def RequestAccessAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Perception.Spatial.SpatialPerceptionAccessStatus]: ...
-class ISpatialSurfaceObserverStatics2(c_void_p):
+class ISpatialSurfaceObserverStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0f534261-c55d-4e6b-a8-95-a1-9d-e6-9a-42-e3')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
-class SpatialSurfaceInfo(c_void_p):
+class SpatialSurfaceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceInfo'
     @winrt_mixinmethod
@@ -150,7 +150,7 @@ class SpatialSurfaceInfo(c_void_p):
     def TryComputeLatestMeshWithOptionsAsync(self: Windows.Perception.Spatial.Surfaces.ISpatialSurfaceInfo, maxTrianglesPerCubicMeter: Double, options: Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions) -> Windows.Foundation.IAsyncOperation[Windows.Perception.Spatial.Surfaces.SpatialSurfaceMesh]: ...
     Id = property(get_Id, None)
     UpdateTime = property(get_UpdateTime, None)
-class SpatialSurfaceMesh(c_void_p):
+class SpatialSurfaceMesh(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceMesh'
     @winrt_mixinmethod
@@ -171,7 +171,7 @@ class SpatialSurfaceMesh(c_void_p):
     VertexPositions = property(get_VertexPositions, None)
     VertexPositionScale = property(get_VertexPositionScale, None)
     VertexNormals = property(get_VertexNormals, None)
-class SpatialSurfaceMeshBuffer(c_void_p):
+class SpatialSurfaceMeshBuffer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshBuffer'
     @winrt_mixinmethod
@@ -186,7 +186,7 @@ class SpatialSurfaceMeshBuffer(c_void_p):
     Stride = property(get_Stride, None)
     ElementCount = property(get_ElementCount, None)
     Data = property(get_Data, None)
-class SpatialSurfaceMeshOptions(c_void_p):
+class SpatialSurfaceMeshOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions'
     @winrt_activatemethod
@@ -220,7 +220,7 @@ class SpatialSurfaceMeshOptions(c_void_p):
     SupportedVertexPositionFormats = property(get_SupportedVertexPositionFormats, None)
     SupportedTriangleIndexFormats = property(get_SupportedTriangleIndexFormats, None)
     SupportedVertexNormalFormats = property(get_SupportedVertexNormalFormats, None)
-class SpatialSurfaceObserver(c_void_p):
+class SpatialSurfaceObserver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver'
     @winrt_activatemethod

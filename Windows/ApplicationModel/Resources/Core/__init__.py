@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Resources.Core
@@ -25,7 +25,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class INamedResource(c_void_p):
+class INamedResource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1c98c219-0b13-4240-89-a5-d4-95-dc-18-9a-00')
     @winrt_commethod(6)
@@ -42,7 +42,7 @@ class INamedResource(c_void_p):
     def ResolveAllForContext(self, resourceContext: Windows.ApplicationModel.Resources.Core.ResourceContext) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.ResourceCandidate]: ...
     Uri = property(get_Uri, None)
     Candidates = property(get_Candidates, None)
-class IResourceCandidate(c_void_p):
+class IResourceCandidate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('af5207d9-c433-4764-b3-fd-8f-a6-bf-bc-ba-dc')
     @winrt_commethod(6)
@@ -64,18 +64,18 @@ class IResourceCandidate(c_void_p):
     IsMatchAsDefault = property(get_IsMatchAsDefault, None)
     IsDefault = property(get_IsDefault, None)
     ValueAsString = property(get_ValueAsString, None)
-class IResourceCandidate2(c_void_p):
+class IResourceCandidate2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('69e5b468-f6fc-4013-aa-a2-d5-3f-17-57-d3-b5')
     @winrt_commethod(6)
     def GetValueAsStreamAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IRandomAccessStream]: ...
-class IResourceCandidate3(c_void_p):
+class IResourceCandidate3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('08ae97f8-517a-4674-95-8c-4a-3c-7c-d2-cc-6b')
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.ApplicationModel.Resources.Core.ResourceCandidateKind: ...
     Kind = property(get_Kind, None)
-class IResourceContext(c_void_p):
+class IResourceContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2fa22f4b-707e-4b27-ad-0d-d0-d8-cd-46-8f-d2')
     @winrt_commethod(6)
@@ -94,12 +94,12 @@ class IResourceContext(c_void_p):
     def put_Languages(self, languages: Windows.Foundation.Collections.IVectorView[WinRT_String]) -> Void: ...
     QualifierValues = property(get_QualifierValues, None)
     Languages = property(get_Languages, put_Languages)
-class IResourceContextStatics(c_void_p):
+class IResourceContextStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('98be9d6c-6338-4b31-99-df-b2-b4-42-f1-71-49')
     @winrt_commethod(6)
     def CreateMatchingContext(self, result: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Resources.Core.ResourceQualifier]) -> Windows.ApplicationModel.Resources.Core.ResourceContext: ...
-class IResourceContextStatics2(c_void_p):
+class IResourceContextStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('41f752ef-12af-41b9-ab-36-b1-eb-4b-51-24-60')
     @winrt_commethod(6)
@@ -112,17 +112,17 @@ class IResourceContextStatics2(c_void_p):
     def ResetGlobalQualifierValuesForSpecifiedQualifiers(self, qualifierNames: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Void: ...
     @winrt_commethod(10)
     def GetForViewIndependentUse(self) -> Windows.ApplicationModel.Resources.Core.ResourceContext: ...
-class IResourceContextStatics3(c_void_p):
+class IResourceContextStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('20cf492c-af0f-450b-9d-a6-10-6d-d0-c2-9a-39')
     @winrt_commethod(6)
     def SetGlobalQualifierValueWithPersistence(self, key: WinRT_String, value: WinRT_String, persistence: Windows.ApplicationModel.Resources.Core.ResourceQualifierPersistence) -> Void: ...
-class IResourceContextStatics4(c_void_p):
+class IResourceContextStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('22eb9ccd-fb31-4bfa-b8-6b-df-9d-9d-7b-dc-39')
     @winrt_commethod(6)
     def GetForUIContext(self, context: Windows.UI.UIContext) -> Windows.ApplicationModel.Resources.Core.ResourceContext: ...
-class IResourceManager(c_void_p):
+class IResourceManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f744d97b-9988-44fb-ab-d6-53-78-84-4c-fa-8b')
     @winrt_commethod(6)
@@ -138,14 +138,14 @@ class IResourceManager(c_void_p):
     MainResourceMap = property(get_MainResourceMap, None)
     AllResourceMaps = property(get_AllResourceMaps, None)
     DefaultContext = property(get_DefaultContext, None)
-class IResourceManager2(c_void_p):
+class IResourceManager2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9d66fe6c-a4d7-4c23-9e-85-67-5f-30-4c-25-2d')
     @winrt_commethod(6)
     def GetAllNamedResourcesForPackage(self, packageName: WinRT_String, resourceLayoutInfo: Windows.ApplicationModel.Resources.Core.ResourceLayoutInfo) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.NamedResource]: ...
     @winrt_commethod(7)
     def GetAllSubtreesForPackage(self, packageName: WinRT_String, resourceLayoutInfo: Windows.ApplicationModel.Resources.Core.ResourceLayoutInfo) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.ResourceMap]: ...
-class IResourceManagerStatics(c_void_p):
+class IResourceManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1cc0fdfc-69ee-4e43-99-01-47-f1-26-87-ba-f7')
     @winrt_commethod(6)
@@ -153,7 +153,7 @@ class IResourceManagerStatics(c_void_p):
     @winrt_commethod(7)
     def IsResourceReference(self, resourceReference: WinRT_String) -> Boolean: ...
     Current = property(get_Current, None)
-class IResourceMap(c_void_p):
+class IResourceMap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('72284824-db8c-42f8-b0-8c-53-ff-35-7d-ad-82')
     @winrt_commethod(6)
@@ -165,7 +165,7 @@ class IResourceMap(c_void_p):
     @winrt_commethod(9)
     def GetSubtree(self, reference: WinRT_String) -> Windows.ApplicationModel.Resources.Core.ResourceMap: ...
     Uri = property(get_Uri, None)
-class IResourceQualifier(c_void_p):
+class IResourceQualifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('785da5b2-4afd-4376-a8-88-c5-f9-a6-b7-a0-5c')
     @winrt_commethod(6)
@@ -183,7 +183,7 @@ class IResourceQualifier(c_void_p):
     IsDefault = property(get_IsDefault, None)
     IsMatch = property(get_IsMatch, None)
     Score = property(get_Score, None)
-class NamedResource(c_void_p):
+class NamedResource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Resources.Core.NamedResource'
     @winrt_mixinmethod
@@ -200,7 +200,7 @@ class NamedResource(c_void_p):
     def ResolveAllForContext(self: Windows.ApplicationModel.Resources.Core.INamedResource, resourceContext: Windows.ApplicationModel.Resources.Core.ResourceContext) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Resources.Core.ResourceCandidate]: ...
     Uri = property(get_Uri, None)
     Candidates = property(get_Candidates, None)
-class ResourceCandidate(c_void_p):
+class ResourceCandidate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Resources.Core.ResourceCandidate'
     @winrt_mixinmethod
@@ -231,7 +231,7 @@ ResourceCandidateKind = Int32
 ResourceCandidateKind_String: ResourceCandidateKind = 0
 ResourceCandidateKind_File: ResourceCandidateKind = 1
 ResourceCandidateKind_EmbeddedData: ResourceCandidateKind = 2
-class ResourceCandidateVectorView(c_void_p):
+class ResourceCandidateVectorView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Resources.Core.ResourceCandidateVectorView'
     @winrt_mixinmethod
@@ -245,7 +245,7 @@ class ResourceCandidateVectorView(c_void_p):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Resources.Core.ResourceCandidate]) -> Windows.Foundation.Collections.IIterator[Windows.ApplicationModel.Resources.Core.ResourceCandidate]: ...
     Size = property(get_Size, None)
-class ResourceContext(c_void_p):
+class ResourceContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Resources.Core.ResourceContext'
     @winrt_activatemethod
@@ -282,7 +282,7 @@ class ResourceContext(c_void_p):
     def CreateMatchingContext(cls: Windows.ApplicationModel.Resources.Core.IResourceContextStatics, result: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.Resources.Core.ResourceQualifier]) -> Windows.ApplicationModel.Resources.Core.ResourceContext: ...
     QualifierValues = property(get_QualifierValues, None)
     Languages = property(get_Languages, put_Languages)
-class ResourceContextLanguagesVectorView(c_void_p):
+class ResourceContextLanguagesVectorView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Resources.Core.ResourceContextLanguagesVectorView'
     @winrt_mixinmethod
@@ -302,7 +302,7 @@ class ResourceLayoutInfo(EasyCastStructure):
     ResourceSubtreeCount: UInt32
     NamedResourceCount: UInt32
     Checksum: Int32
-class ResourceManager(c_void_p):
+class ResourceManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Resources.Core.ResourceManager'
     @winrt_mixinmethod
@@ -327,7 +327,7 @@ class ResourceManager(c_void_p):
     AllResourceMaps = property(get_AllResourceMaps, None)
     DefaultContext = property(get_DefaultContext, None)
     Current = property(get_Current, None)
-class ResourceMap(c_void_p):
+class ResourceMap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Resources.Core.ResourceMap'
     @winrt_mixinmethod
@@ -350,7 +350,7 @@ class ResourceMap(c_void_p):
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.NamedResource]]) -> Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.NamedResource]]: ...
     Uri = property(get_Uri, None)
     Size = property(get_Size, None)
-class ResourceMapIterator(c_void_p):
+class ResourceMapIterator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Resources.Core.ResourceMapIterator'
     @winrt_mixinmethod
@@ -363,7 +363,7 @@ class ResourceMapIterator(c_void_p):
     def GetMany(self: Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.NamedResource]], items: POINTER(Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.NamedResource])) -> UInt32: ...
     Current = property(get_Current, None)
     HasCurrent = property(get_HasCurrent, None)
-class ResourceMapMapView(c_void_p):
+class ResourceMapMapView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Resources.Core.ResourceMapMapView'
     @winrt_mixinmethod
@@ -377,7 +377,7 @@ class ResourceMapMapView(c_void_p):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.ResourceMap]]) -> Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.ResourceMap]]: ...
     Size = property(get_Size, None)
-class ResourceMapMapViewIterator(c_void_p):
+class ResourceMapMapViewIterator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Resources.Core.ResourceMapMapViewIterator'
     @winrt_mixinmethod
@@ -390,7 +390,7 @@ class ResourceMapMapViewIterator(c_void_p):
     def GetMany(self: Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.ResourceMap]], items: POINTER(Windows.Foundation.Collections.IKeyValuePair[WinRT_String, Windows.ApplicationModel.Resources.Core.ResourceMap])) -> UInt32: ...
     Current = property(get_Current, None)
     HasCurrent = property(get_HasCurrent, None)
-class ResourceQualifier(c_void_p):
+class ResourceQualifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Resources.Core.ResourceQualifier'
     @winrt_mixinmethod
@@ -408,7 +408,7 @@ class ResourceQualifier(c_void_p):
     IsDefault = property(get_IsDefault, None)
     IsMatch = property(get_IsMatch, None)
     Score = property(get_Score, None)
-class ResourceQualifierMapView(c_void_p):
+class ResourceQualifierMapView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Resources.Core.ResourceQualifierMapView'
     @winrt_mixinmethod
@@ -422,7 +422,7 @@ class ResourceQualifierMapView(c_void_p):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> Windows.Foundation.Collections.IIterator[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]: ...
     Size = property(get_Size, None)
-class ResourceQualifierObservableMap(c_void_p):
+class ResourceQualifierObservableMap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Resources.Core.ResourceQualifierObservableMap'
     @winrt_mixinmethod
@@ -449,7 +449,7 @@ class ResourceQualifierObservableMap(c_void_p):
 ResourceQualifierPersistence = Int32
 ResourceQualifierPersistence_None: ResourceQualifierPersistence = 0
 ResourceQualifierPersistence_LocalMachine: ResourceQualifierPersistence = 1
-class ResourceQualifierVectorView(c_void_p):
+class ResourceQualifierVectorView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Resources.Core.ResourceQualifierVectorView'
     @winrt_mixinmethod

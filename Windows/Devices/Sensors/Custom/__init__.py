@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Sensors.Custom
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class CustomSensor(c_void_p):
+class CustomSensor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Sensors.Custom.CustomSensor'
     @winrt_mixinmethod
@@ -54,7 +54,7 @@ class CustomSensor(c_void_p):
     DeviceId = property(get_DeviceId, None)
     ReportLatency = property(get_ReportLatency, put_ReportLatency)
     MaxBatchSize = property(get_MaxBatchSize, None)
-class CustomSensorReading(c_void_p):
+class CustomSensorReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Sensors.Custom.CustomSensorReading'
     @winrt_mixinmethod
@@ -66,13 +66,13 @@ class CustomSensorReading(c_void_p):
     Timestamp = property(get_Timestamp, None)
     Properties = property(get_Properties, None)
     PerformanceCount = property(get_PerformanceCount, None)
-class CustomSensorReadingChangedEventArgs(c_void_p):
+class CustomSensorReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Sensors.Custom.CustomSensorReadingChangedEventArgs'
     @winrt_mixinmethod
     def get_Reading(self: Windows.Devices.Sensors.Custom.ICustomSensorReadingChangedEventArgs) -> Windows.Devices.Sensors.Custom.CustomSensorReading: ...
     Reading = property(get_Reading, None)
-class ICustomSensor(c_void_p):
+class ICustomSensor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a136f9ad-4034-4b4d-99-dd-53-1a-ac-64-9c-09')
     @winrt_commethod(6)
@@ -92,7 +92,7 @@ class ICustomSensor(c_void_p):
     MinimumReportInterval = property(get_MinimumReportInterval, None)
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
     DeviceId = property(get_DeviceId, None)
-class ICustomSensor2(c_void_p):
+class ICustomSensor2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('20db3111-ec58-4d9f-bf-bd-e7-78-25-08-85-10')
     @winrt_commethod(6)
@@ -103,7 +103,7 @@ class ICustomSensor2(c_void_p):
     def get_MaxBatchSize(self) -> UInt32: ...
     ReportLatency = property(get_ReportLatency, put_ReportLatency)
     MaxBatchSize = property(get_MaxBatchSize, None)
-class ICustomSensorReading(c_void_p):
+class ICustomSensorReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('64004f4d-446a-4366-a8-7a-5f-96-32-68-ec-53')
     @winrt_commethod(6)
@@ -112,19 +112,19 @@ class ICustomSensorReading(c_void_p):
     def get_Properties(self) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]: ...
     Timestamp = property(get_Timestamp, None)
     Properties = property(get_Properties, None)
-class ICustomSensorReading2(c_void_p):
+class ICustomSensorReading2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('223c98ea-bf73-4992-9a-48-d3-c8-97-59-4c-cb')
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     PerformanceCount = property(get_PerformanceCount, None)
-class ICustomSensorReadingChangedEventArgs(c_void_p):
+class ICustomSensorReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6b202023-cffd-4cc1-8f-f0-e2-18-23-d7-6f-cc')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.Custom.CustomSensorReading: ...
     Reading = property(get_Reading, None)
-class ICustomSensorStatics(c_void_p):
+class ICustomSensorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('992052cf-f422-4c7d-83-6b-e7-dc-74-a7-12-4b')
     @winrt_commethod(6)

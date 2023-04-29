@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.UserDataTasks
@@ -23,7 +23,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IUserDataTask(c_void_p):
+class IUserDataTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7c6585d1-e0d4-4f99-ae-e2-bc-2d-5d-da-df-4c')
     @winrt_commethod(6)
@@ -95,13 +95,13 @@ class IUserDataTask(c_void_p):
     Sensitivity = property(get_Sensitivity, put_Sensitivity)
     Subject = property(get_Subject, put_Subject)
     StartDate = property(get_StartDate, put_StartDate)
-class IUserDataTaskBatch(c_void_p):
+class IUserDataTaskBatch(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('382da5fe-20b5-431c-8f-42-a5-d2-92-ec-93-0c')
     @winrt_commethod(6)
     def get_Tasks(self) -> Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.UserDataTasks.UserDataTask]: ...
     Tasks = property(get_Tasks, None)
-class IUserDataTaskList(c_void_p):
+class IUserDataTaskList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('49412e39-7c1d-4df1-be-d3-31-4b-7c-bf-5e-4e')
     @winrt_commethod(6)
@@ -150,7 +150,7 @@ class IUserDataTaskList(c_void_p):
     OtherAppWriteAccess = property(get_OtherAppWriteAccess, put_OtherAppWriteAccess)
     LimitedWriteOperations = property(get_LimitedWriteOperations, None)
     SyncManager = property(get_SyncManager, None)
-class IUserDataTaskListLimitedWriteOperations(c_void_p):
+class IUserDataTaskListLimitedWriteOperations(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7aa267f2-6078-4183-91-9e-4f-29-f1-9c-fa-e9')
     @winrt_commethod(6)
@@ -161,7 +161,7 @@ class IUserDataTaskListLimitedWriteOperations(c_void_p):
     def TryDeleteTaskAsync(self, userDataTaskId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(9)
     def TrySkipOccurrenceAsync(self, userDataTaskId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
-class IUserDataTaskListSyncManager(c_void_p):
+class IUserDataTaskListSyncManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8e591a95-1dcf-469f-93-ec-ba-48-bb-55-3c-6b')
     @winrt_commethod(6)
@@ -185,7 +185,7 @@ class IUserDataTaskListSyncManager(c_void_p):
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, put_LastAttemptedSyncTime)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, put_LastSuccessfulSyncTime)
     Status = property(get_Status, put_Status)
-class IUserDataTaskManager(c_void_p):
+class IUserDataTaskManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8451c914-e60b-48a9-92-11-7f-b8-a5-6c-b8-4c')
     @winrt_commethod(6)
@@ -193,14 +193,14 @@ class IUserDataTaskManager(c_void_p):
     @winrt_commethod(7)
     def get_User(self) -> Windows.System.User: ...
     User = property(get_User, None)
-class IUserDataTaskManagerStatics(c_void_p):
+class IUserDataTaskManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b35539f8-c502-47fc-a8-1e-10-08-83-71-9d-55')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.ApplicationModel.UserDataTasks.UserDataTaskManager: ...
     @winrt_commethod(7)
     def GetForUser(self, user: Windows.System.User) -> Windows.ApplicationModel.UserDataTasks.UserDataTaskManager: ...
-class IUserDataTaskQueryOptions(c_void_p):
+class IUserDataTaskQueryOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('959f27ed-909a-4d30-8c-1b-33-1d-8f-e6-67-e2')
     @winrt_commethod(6)
@@ -213,12 +213,12 @@ class IUserDataTaskQueryOptions(c_void_p):
     def put_Kind(self, value: Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryKind) -> Void: ...
     SortProperty = property(get_SortProperty, put_SortProperty)
     Kind = property(get_Kind, put_Kind)
-class IUserDataTaskReader(c_void_p):
+class IUserDataTaskReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('03e688b1-4ccf-4500-88-3b-e7-62-90-cf-ed-63')
     @winrt_commethod(6)
     def ReadBatchAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataTasks.UserDataTaskBatch]: ...
-class IUserDataTaskRecurrenceProperties(c_void_p):
+class IUserDataTaskRecurrenceProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('73df80b0-27c6-40ce-b1-49-9c-d4-14-85-a6-9e')
     @winrt_commethod(6)
@@ -261,7 +261,7 @@ class IUserDataTaskRecurrenceProperties(c_void_p):
     WeekOfMonth = property(get_WeekOfMonth, put_WeekOfMonth)
     Month = property(get_Month, put_Month)
     Day = property(get_Day, put_Day)
-class IUserDataTaskRegenerationProperties(c_void_p):
+class IUserDataTaskRegenerationProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('92ab0007-090e-4704-bb-5c-84-fc-0b-0d-9c-31')
     @winrt_commethod(6)
@@ -284,7 +284,7 @@ class IUserDataTaskRegenerationProperties(c_void_p):
     Occurrences = property(get_Occurrences, put_Occurrences)
     Until = property(get_Until, put_Until)
     Interval = property(get_Interval, put_Interval)
-class IUserDataTaskStore(c_void_p):
+class IUserDataTaskStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f06a9cb0-f1db-45ba-8a-62-08-60-04-c0-21-3d')
     @winrt_commethod(6)
@@ -295,7 +295,7 @@ class IUserDataTaskStore(c_void_p):
     def FindListsAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.UserDataTasks.UserDataTaskList]]: ...
     @winrt_commethod(9)
     def GetListAsync(self, taskListId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataTasks.UserDataTaskList]: ...
-class UserDataTask(c_void_p):
+class UserDataTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.UserDataTask'
     @winrt_activatemethod
@@ -369,7 +369,7 @@ class UserDataTask(c_void_p):
     Sensitivity = property(get_Sensitivity, put_Sensitivity)
     Subject = property(get_Subject, put_Subject)
     StartDate = property(get_StartDate, put_StartDate)
-class UserDataTaskBatch(c_void_p):
+class UserDataTaskBatch(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskBatch'
     @winrt_mixinmethod
@@ -391,7 +391,7 @@ UserDataTaskKind = Int32
 UserDataTaskKind_Single: UserDataTaskKind = 0
 UserDataTaskKind_Recurring: UserDataTaskKind = 1
 UserDataTaskKind_Regenerating: UserDataTaskKind = 2
-class UserDataTaskList(c_void_p):
+class UserDataTaskList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskList'
     @winrt_mixinmethod
@@ -440,7 +440,7 @@ class UserDataTaskList(c_void_p):
     OtherAppWriteAccess = property(get_OtherAppWriteAccess, put_OtherAppWriteAccess)
     LimitedWriteOperations = property(get_LimitedWriteOperations, None)
     SyncManager = property(get_SyncManager, None)
-class UserDataTaskListLimitedWriteOperations(c_void_p):
+class UserDataTaskListLimitedWriteOperations(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskListLimitedWriteOperations'
     @winrt_mixinmethod
@@ -458,7 +458,7 @@ UserDataTaskListOtherAppReadAccess_None: UserDataTaskListOtherAppReadAccess = 2
 UserDataTaskListOtherAppWriteAccess = Int32
 UserDataTaskListOtherAppWriteAccess_Limited: UserDataTaskListOtherAppWriteAccess = 0
 UserDataTaskListOtherAppWriteAccess_None: UserDataTaskListOtherAppWriteAccess = 1
-class UserDataTaskListSyncManager(c_void_p):
+class UserDataTaskListSyncManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskListSyncManager'
     @winrt_mixinmethod
@@ -489,7 +489,7 @@ UserDataTaskListSyncStatus_UpToDate: UserDataTaskListSyncStatus = 2
 UserDataTaskListSyncStatus_AuthenticationError: UserDataTaskListSyncStatus = 3
 UserDataTaskListSyncStatus_PolicyError: UserDataTaskListSyncStatus = 4
 UserDataTaskListSyncStatus_UnknownError: UserDataTaskListSyncStatus = 5
-class UserDataTaskManager(c_void_p):
+class UserDataTaskManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskManager'
     @winrt_mixinmethod
@@ -509,7 +509,7 @@ UserDataTaskQueryKind = Int32
 UserDataTaskQueryKind_All: UserDataTaskQueryKind = 0
 UserDataTaskQueryKind_Incomplete: UserDataTaskQueryKind = 1
 UserDataTaskQueryKind_Complete: UserDataTaskQueryKind = 2
-class UserDataTaskQueryOptions(c_void_p):
+class UserDataTaskQueryOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskQueryOptions'
     @winrt_activatemethod
@@ -526,12 +526,12 @@ class UserDataTaskQueryOptions(c_void_p):
     Kind = property(get_Kind, put_Kind)
 UserDataTaskQuerySortProperty = Int32
 UserDataTaskQuerySortProperty_DueDate: UserDataTaskQuerySortProperty = 0
-class UserDataTaskReader(c_void_p):
+class UserDataTaskReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskReader'
     @winrt_mixinmethod
     def ReadBatchAsync(self: Windows.ApplicationModel.UserDataTasks.IUserDataTaskReader) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataTasks.UserDataTaskBatch]: ...
-class UserDataTaskRecurrenceProperties(c_void_p):
+class UserDataTaskRecurrenceProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties'
     @winrt_activatemethod
@@ -583,7 +583,7 @@ UserDataTaskRecurrenceUnit_Monthly: UserDataTaskRecurrenceUnit = 2
 UserDataTaskRecurrenceUnit_MonthlyOnDay: UserDataTaskRecurrenceUnit = 3
 UserDataTaskRecurrenceUnit_Yearly: UserDataTaskRecurrenceUnit = 4
 UserDataTaskRecurrenceUnit_YearlyOnDay: UserDataTaskRecurrenceUnit = 5
-class UserDataTaskRegenerationProperties(c_void_p):
+class UserDataTaskRegenerationProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties'
     @winrt_activatemethod
@@ -616,7 +616,7 @@ UserDataTaskRegenerationUnit_Yearly: UserDataTaskRegenerationUnit = 4
 UserDataTaskSensitivity = Int32
 UserDataTaskSensitivity_Public: UserDataTaskSensitivity = 0
 UserDataTaskSensitivity_Private: UserDataTaskSensitivity = 1
-class UserDataTaskStore(c_void_p):
+class UserDataTaskStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.UserDataTasks.UserDataTaskStore'
     @winrt_mixinmethod

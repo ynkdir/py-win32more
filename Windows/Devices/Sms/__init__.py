@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Sms
@@ -27,7 +27,7 @@ CellularClass = Int32
 CellularClass_None: CellularClass = 0
 CellularClass_Gsm: CellularClass = 1
 CellularClass_Cdma: CellularClass = 2
-class ISmsAppMessage(c_void_p):
+class ISmsAppMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e8bb8494-d3a0-4a0a-86-d7-29-10-33-a8-cf-54')
     @winrt_commethod(6)
@@ -86,7 +86,7 @@ class ISmsAppMessage(c_void_p):
     TeleserviceId = property(get_TeleserviceId, put_TeleserviceId)
     ProtocolId = property(get_ProtocolId, put_ProtocolId)
     BinaryBody = property(get_BinaryBody, put_BinaryBody)
-class ISmsBroadcastMessage(c_void_p):
+class ISmsBroadcastMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('75aebbf1-e4b7-4874-a0-9c-29-56-e5-92-f9-57')
     @winrt_commethod(6)
@@ -119,7 +119,7 @@ class ISmsBroadcastMessage(c_void_p):
     BroadcastType = property(get_BroadcastType, None)
     IsEmergencyAlert = property(get_IsEmergencyAlert, None)
     IsUserPopupRequested = property(get_IsUserPopupRequested, None)
-class ISmsDevice2(c_void_p):
+class ISmsDevice2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bd8a5c13-e522-46cb-b8-d5-9e-ad-30-fb-6c-47')
     @winrt_commethod(6)
@@ -150,7 +150,7 @@ class ISmsDevice2(c_void_p):
     AccountPhoneNumber = property(get_AccountPhoneNumber, None)
     CellularClass = property(get_CellularClass, None)
     DeviceStatus = property(get_DeviceStatus, None)
-class ISmsDevice2Statics(c_void_p):
+class ISmsDevice2Statics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('65c78325-1031-491e-8f-b6-ef-99-91-af-e3-63')
     @winrt_commethod(6)
@@ -161,7 +161,7 @@ class ISmsDevice2Statics(c_void_p):
     def GetDefault(self) -> Windows.Devices.Sms.SmsDevice2: ...
     @winrt_commethod(9)
     def FromParentId(self, parentDeviceId: WinRT_String) -> Windows.Devices.Sms.SmsDevice2: ...
-class ISmsFilterRule(c_void_p):
+class ISmsFilterRule(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('40e32fae-b049-4fbc-af-e9-e2-a6-10-ef-f5-5c')
     @winrt_commethod(6)
@@ -205,12 +205,12 @@ class ISmsFilterRule(c_void_p):
     WapContentTypes = property(get_WapContentTypes, None)
     BroadcastTypes = property(get_BroadcastTypes, None)
     BroadcastChannels = property(get_BroadcastChannels, None)
-class ISmsFilterRuleFactory(c_void_p):
+class ISmsFilterRuleFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('00c36508-6296-4f29-9a-ad-89-20-ce-ba-3c-e8')
     @winrt_commethod(6)
     def CreateFilterRule(self, messageType: Windows.Devices.Sms.SmsMessageType) -> Windows.Devices.Sms.SmsFilterRule: ...
-class ISmsFilterRules(c_void_p):
+class ISmsFilterRules(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4e47eafb-79cd-4881-98-94-55-a4-13-5b-23-fa')
     @winrt_commethod(6)
@@ -219,12 +219,12 @@ class ISmsFilterRules(c_void_p):
     def get_Rules(self) -> Windows.Foundation.Collections.IVector[Windows.Devices.Sms.SmsFilterRule]: ...
     ActionType = property(get_ActionType, None)
     Rules = property(get_Rules, None)
-class ISmsFilterRulesFactory(c_void_p):
+class ISmsFilterRulesFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a09924ed-6e2e-4530-9f-de-46-5d-02-ee-d0-0e')
     @winrt_commethod(6)
     def CreateFilterRules(self, actionType: Windows.Devices.Sms.SmsFilterActionType) -> Windows.Devices.Sms.SmsFilterRules: ...
-class ISmsMessageBase(c_void_p):
+class ISmsMessageBase(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2cf0fe30-fe50-4fc6-aa-88-4c-cf-e2-7a-29-ea')
     @winrt_commethod(6)
@@ -242,7 +242,7 @@ class ISmsMessageBase(c_void_p):
     CellularClass = property(get_CellularClass, None)
     MessageClass = property(get_MessageClass, None)
     SimIccId = property(get_SimIccId, None)
-class ISmsMessageReceivedTriggerDetails(c_void_p):
+class ISmsMessageReceivedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2bcfcbd4-2657-4128-ad-5f-e3-87-71-32-bd-b1')
     @winrt_commethod(6)
@@ -270,7 +270,7 @@ class ISmsMessageReceivedTriggerDetails(c_void_p):
     BroadcastMessage = property(get_BroadcastMessage, None)
     VoicemailMessage = property(get_VoicemailMessage, None)
     StatusMessage = property(get_StatusMessage, None)
-class ISmsMessageRegistration(c_void_p):
+class ISmsMessageRegistration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1720503e-f34f-446b-83-b3-0f-f1-99-23-b4-09')
     @winrt_commethod(6)
@@ -282,7 +282,7 @@ class ISmsMessageRegistration(c_void_p):
     @winrt_commethod(9)
     def remove_MessageReceived(self, eventCookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
     Id = property(get_Id, None)
-class ISmsMessageRegistrationStatics(c_void_p):
+class ISmsMessageRegistrationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('63a05464-2898-4778-a0-3c-6f-99-49-07-d6-3a')
     @winrt_commethod(6)
@@ -290,7 +290,7 @@ class ISmsMessageRegistrationStatics(c_void_p):
     @winrt_commethod(7)
     def Register(self, id: WinRT_String, filterRules: Windows.Devices.Sms.SmsFilterRules) -> Windows.Devices.Sms.SmsMessageRegistration: ...
     AllRegistrations = property(get_AllRegistrations, None)
-class ISmsSendMessageResult(c_void_p):
+class ISmsSendMessageResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('db139af2-78c9-4feb-96-22-45-23-28-08-8d-62')
     @winrt_commethod(6)
@@ -314,7 +314,7 @@ class ISmsSendMessageResult(c_void_p):
     IsErrorTransient = property(get_IsErrorTransient, None)
     NetworkCauseCode = property(get_NetworkCauseCode, None)
     TransportFailureCause = property(get_TransportFailureCause, None)
-class ISmsStatusMessage(c_void_p):
+class ISmsStatusMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e6d28342-b70b-4677-93-79-c9-78-3f-df-f8-f4')
     @winrt_commethod(6)
@@ -338,7 +338,7 @@ class ISmsStatusMessage(c_void_p):
     MessageReferenceNumber = property(get_MessageReferenceNumber, None)
     ServiceCenterTimestamp = property(get_ServiceCenterTimestamp, None)
     DischargeTime = property(get_DischargeTime, None)
-class ISmsTextMessage2(c_void_p):
+class ISmsTextMessage2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('22a0d893-4555-4755-b5-a1-e7-fd-84-95-5f-8d')
     @winrt_commethod(6)
@@ -383,7 +383,7 @@ class ISmsTextMessage2(c_void_p):
     RetryAttemptCount = property(get_RetryAttemptCount, put_RetryAttemptCount)
     TeleserviceId = property(get_TeleserviceId, None)
     ProtocolId = property(get_ProtocolId, None)
-class ISmsVoicemailMessage(c_void_p):
+class ISmsVoicemailMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('271aa0a6-95b1-44ff-bc-b8-b8-fd-d7-e0-8b-c3')
     @winrt_commethod(6)
@@ -398,7 +398,7 @@ class ISmsVoicemailMessage(c_void_p):
     To = property(get_To, None)
     Body = property(get_Body, None)
     MessageCount = property(get_MessageCount, None)
-class ISmsWapMessage(c_void_p):
+class ISmsWapMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cd937743-7a55-4d3b-90-21-f2-2e-02-2d-09-c5')
     @winrt_commethod(6)
@@ -422,7 +422,7 @@ class ISmsWapMessage(c_void_p):
     ContentType = property(get_ContentType, None)
     BinaryBody = property(get_BinaryBody, None)
     Headers = property(get_Headers, None)
-class SmsAppMessage(c_void_p):
+class SmsAppMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Sms.SmsAppMessage'
     @winrt_activatemethod
@@ -498,7 +498,7 @@ class SmsAppMessage(c_void_p):
     CellularClass = property(get_CellularClass, None)
     MessageClass = property(get_MessageClass, None)
     SimIccId = property(get_SimIccId, None)
-class SmsBroadcastMessage(c_void_p):
+class SmsBroadcastMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Sms.SmsBroadcastMessage'
     @winrt_mixinmethod
@@ -568,7 +568,7 @@ SmsDataFormat_CdmaSubmit: SmsDataFormat = 1
 SmsDataFormat_GsmSubmit: SmsDataFormat = 2
 SmsDataFormat_CdmaDeliver: SmsDataFormat = 3
 SmsDataFormat_GsmDeliver: SmsDataFormat = 4
-class SmsDevice2(c_void_p):
+class SmsDevice2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Sms.SmsDevice2'
     @winrt_mixinmethod
@@ -639,7 +639,7 @@ SmsFilterActionType_AcceptImmediately: SmsFilterActionType = 0
 SmsFilterActionType_Drop: SmsFilterActionType = 1
 SmsFilterActionType_Peek: SmsFilterActionType = 2
 SmsFilterActionType_Accept: SmsFilterActionType = 3
-class SmsFilterRule(c_void_p):
+class SmsFilterRule(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Sms.SmsFilterRule'
     @winrt_factorymethod
@@ -685,7 +685,7 @@ class SmsFilterRule(c_void_p):
     WapContentTypes = property(get_WapContentTypes, None)
     BroadcastTypes = property(get_BroadcastTypes, None)
     BroadcastChannels = property(get_BroadcastChannels, None)
-class SmsFilterRules(c_void_p):
+class SmsFilterRules(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Sms.SmsFilterRules'
     @winrt_factorymethod
@@ -708,7 +708,7 @@ SmsMessageClass_Class0: SmsMessageClass = 1
 SmsMessageClass_Class1: SmsMessageClass = 2
 SmsMessageClass_Class2: SmsMessageClass = 3
 SmsMessageClass_Class3: SmsMessageClass = 4
-class SmsMessageReceivedTriggerDetails(c_void_p):
+class SmsMessageReceivedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Sms.SmsMessageReceivedTriggerDetails'
     @winrt_mixinmethod
@@ -736,7 +736,7 @@ class SmsMessageReceivedTriggerDetails(c_void_p):
     BroadcastMessage = property(get_BroadcastMessage, None)
     VoicemailMessage = property(get_VoicemailMessage, None)
     StatusMessage = property(get_StatusMessage, None)
-class SmsMessageRegistration(c_void_p):
+class SmsMessageRegistration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Sms.SmsMessageRegistration'
     @winrt_mixinmethod
@@ -774,7 +774,7 @@ SmsModemErrorCode_NetworkNotReady: SmsModemErrorCode = 8
 SmsModemErrorCode_InvalidSmscAddress: SmsModemErrorCode = 9
 SmsModemErrorCode_NetworkFailure: SmsModemErrorCode = 10
 SmsModemErrorCode_FixedDialingNumberRestricted: SmsModemErrorCode = 11
-class SmsSendMessageResult(c_void_p):
+class SmsSendMessageResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Sms.SmsSendMessageResult'
     @winrt_mixinmethod
@@ -798,7 +798,7 @@ class SmsSendMessageResult(c_void_p):
     IsErrorTransient = property(get_IsErrorTransient, None)
     NetworkCauseCode = property(get_NetworkCauseCode, None)
     TransportFailureCause = property(get_TransportFailureCause, None)
-class SmsStatusMessage(c_void_p):
+class SmsStatusMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Sms.SmsStatusMessage'
     @winrt_mixinmethod
@@ -837,7 +837,7 @@ class SmsStatusMessage(c_void_p):
     CellularClass = property(get_CellularClass, None)
     MessageClass = property(get_MessageClass, None)
     SimIccId = property(get_SimIccId, None)
-class SmsTextMessage2(c_void_p):
+class SmsTextMessage2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Sms.SmsTextMessage2'
     @winrt_activatemethod
@@ -899,7 +899,7 @@ class SmsTextMessage2(c_void_p):
     CellularClass = property(get_CellularClass, None)
     MessageClass = property(get_MessageClass, None)
     SimIccId = property(get_SimIccId, None)
-class SmsVoicemailMessage(c_void_p):
+class SmsVoicemailMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Sms.SmsVoicemailMessage'
     @winrt_mixinmethod
@@ -929,7 +929,7 @@ class SmsVoicemailMessage(c_void_p):
     CellularClass = property(get_CellularClass, None)
     MessageClass = property(get_MessageClass, None)
     SimIccId = property(get_SimIccId, None)
-class SmsWapMessage(c_void_p):
+class SmsWapMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Sms.SmsWapMessage'
     @winrt_mixinmethod

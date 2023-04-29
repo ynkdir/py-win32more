@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Power
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class Battery(c_void_p):
+class Battery(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Power.Battery'
     @winrt_mixinmethod
@@ -41,7 +41,7 @@ class Battery(c_void_p):
     def GetDeviceSelector(cls: Windows.Devices.Power.IBatteryStatics) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
     AggregateBattery = property(get_AggregateBattery, None)
-class BatteryReport(c_void_p):
+class BatteryReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Power.BatteryReport'
     @winrt_mixinmethod
@@ -59,7 +59,7 @@ class BatteryReport(c_void_p):
     FullChargeCapacityInMilliwattHours = property(get_FullChargeCapacityInMilliwattHours, None)
     RemainingCapacityInMilliwattHours = property(get_RemainingCapacityInMilliwattHours, None)
     Status = property(get_Status, None)
-class IBattery(c_void_p):
+class IBattery(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bc894fc6-0072-47c8-8b-5d-61-4a-aa-7a-43-7e')
     @winrt_commethod(6)
@@ -71,7 +71,7 @@ class IBattery(c_void_p):
     @winrt_commethod(9)
     def remove_ReportUpdated(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceId = property(get_DeviceId, None)
-class IBatteryReport(c_void_p):
+class IBatteryReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c9858c3a-4e13-420a-a8-d0-24-f1-8f-39-54-01')
     @winrt_commethod(6)
@@ -89,7 +89,7 @@ class IBatteryReport(c_void_p):
     FullChargeCapacityInMilliwattHours = property(get_FullChargeCapacityInMilliwattHours, None)
     RemainingCapacityInMilliwattHours = property(get_RemainingCapacityInMilliwattHours, None)
     Status = property(get_Status, None)
-class IBatteryStatics(c_void_p):
+class IBatteryStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('79cd72b6-9e5e-4452-be-a6-df-cd-54-1e-59-7f')
     @winrt_commethod(6)

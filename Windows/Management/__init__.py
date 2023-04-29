@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IMdmAlert(c_void_p):
+class IMdmAlert(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b0fbc327-28c1-4b52-a5-48-c5-80-7c-af-70-b6')
     @winrt_commethod(6)
@@ -58,7 +58,7 @@ class IMdmAlert(c_void_p):
     Status = property(get_Status, None)
     Target = property(get_Target, put_Target)
     Type = property(get_Type, put_Type)
-class IMdmSession(c_void_p):
+class IMdmSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fe89314c-8f64-4797-a9-d7-9d-88-f8-6a-e1-66')
     @winrt_commethod(6)
@@ -81,7 +81,7 @@ class IMdmSession(c_void_p):
     ExtendedError = property(get_ExtendedError, None)
     Id = property(get_Id, None)
     State = property(get_State, None)
-class IMdmSessionManagerStatics(c_void_p):
+class IMdmSessionManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cf4ad959-f745-4b79-9b-5c-de-0b-f8-ef-e4-4b')
     @winrt_commethod(6)
@@ -93,7 +93,7 @@ class IMdmSessionManagerStatics(c_void_p):
     @winrt_commethod(9)
     def GetSessionById(self, sessionId: WinRT_String) -> Windows.Management.MdmSession: ...
     SessionIds = property(get_SessionIds, None)
-class MdmAlert(c_void_p):
+class MdmAlert(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Management.MdmAlert'
     @winrt_activatemethod
@@ -142,7 +142,7 @@ MdmAlertMark_Fatal: MdmAlertMark = 1
 MdmAlertMark_Critical: MdmAlertMark = 2
 MdmAlertMark_Warning: MdmAlertMark = 3
 MdmAlertMark_Informational: MdmAlertMark = 4
-class MdmSession(c_void_p):
+class MdmSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Management.MdmSession'
     @winrt_mixinmethod
@@ -165,7 +165,7 @@ class MdmSession(c_void_p):
     ExtendedError = property(get_ExtendedError, None)
     Id = property(get_Id, None)
     State = property(get_State, None)
-class MdmSessionManager(c_void_p):
+class MdmSessionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Management.MdmSessionManager'
     @winrt_classmethod

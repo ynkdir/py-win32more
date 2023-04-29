@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.UI
@@ -25,14 +25,14 @@ class Color(EasyCastStructure):
     R: Byte
     G: Byte
     B: Byte
-class ColorHelper(c_void_p):
+class ColorHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.ColorHelper'
     @winrt_classmethod
     def ToDisplayName(cls: Windows.UI.IColorHelperStatics2, color: Windows.UI.Color) -> WinRT_String: ...
     @winrt_classmethod
     def FromArgb(cls: Windows.UI.IColorHelperStatics, a: Byte, r: Byte, g: Byte, b: Byte) -> Windows.UI.Color: ...
-class Colors(c_void_p):
+class Colors(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Colors'
     @winrt_classmethod
@@ -458,23 +458,23 @@ class Colors(c_void_p):
     WhiteSmoke = property(get_WhiteSmoke, None)
     Yellow = property(get_Yellow, None)
     YellowGreen = property(get_YellowGreen, None)
-class IColorHelper(c_void_p):
+class IColorHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('193cfbe7-65c7-4540-ad-08-62-83-ba-76-87-9a')
-class IColorHelperStatics(c_void_p):
+class IColorHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8504dbea-fb6a-4144-a6-c2-33-49-9c-92-84-f5')
     @winrt_commethod(6)
     def FromArgb(self, a: Byte, r: Byte, g: Byte, b: Byte) -> Windows.UI.Color: ...
-class IColorHelperStatics2(c_void_p):
+class IColorHelperStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('24d9af02-6eb0-4b94-85-5c-fc-f0-81-8d-9a-16')
     @winrt_commethod(6)
     def ToDisplayName(self, color: Windows.UI.Color) -> WinRT_String: ...
-class IColors(c_void_p):
+class IColors(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9b8c9326-4ca6-4ce5-89-94-9e-ff-65-ca-bd-cc')
-class IColorsStatics(c_void_p):
+class IColorsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cff52e04-cca6-4614-a1-7e-75-49-10-c8-4a-99')
     @winrt_commethod(6)
@@ -900,22 +900,22 @@ class IColorsStatics(c_void_p):
     WhiteSmoke = property(get_WhiteSmoke, None)
     Yellow = property(get_Yellow, None)
     YellowGreen = property(get_YellowGreen, None)
-class IUIContentRoot(c_void_p):
+class IUIContentRoot(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1dfcbac6-b36b-5cb9-9b-c5-2b-7a-0e-dd-c3-78')
     @winrt_commethod(6)
     def get_UIContext(self) -> Windows.UI.UIContext: ...
     UIContext = property(get_UIContext, None)
-class IUIContext(c_void_p):
+class IUIContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bb5cfacd-5bd8-59d0-a5-9e-1c-17-a4-d6-d2-43')
-class UIContentRoot(c_void_p):
+class UIContentRoot(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.UIContentRoot'
     @winrt_mixinmethod
     def get_UIContext(self: Windows.UI.IUIContentRoot) -> Windows.UI.UIContext: ...
     UIContext = property(get_UIContext, None)
-class UIContext(c_void_p):
+class UIContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.UIContext'
 class WindowId(EasyCastStructure):

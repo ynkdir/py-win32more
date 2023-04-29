@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -24,7 +24,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IOcrEngine(c_void_p):
+class IOcrEngine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5a14bc41-5b76-3140-b6-80-88-25-56-26-83-ac')
     @winrt_commethod(6)
@@ -32,7 +32,7 @@ class IOcrEngine(c_void_p):
     @winrt_commethod(7)
     def get_RecognizerLanguage(self) -> Windows.Globalization.Language: ...
     RecognizerLanguage = property(get_RecognizerLanguage, None)
-class IOcrEngineStatics(c_void_p):
+class IOcrEngineStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5bffa85a-3384-3540-99-40-69-91-20-d4-28-a8')
     @winrt_commethod(6)
@@ -47,7 +47,7 @@ class IOcrEngineStatics(c_void_p):
     def TryCreateFromUserProfileLanguages(self) -> Windows.Media.Ocr.OcrEngine: ...
     MaxImageDimension = property(get_MaxImageDimension, None)
     AvailableRecognizerLanguages = property(get_AvailableRecognizerLanguages, None)
-class IOcrLine(c_void_p):
+class IOcrLine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0043a16f-e31f-3a24-89-9c-d4-44-bd-08-81-24')
     @winrt_commethod(6)
@@ -56,7 +56,7 @@ class IOcrLine(c_void_p):
     def get_Text(self) -> WinRT_String: ...
     Words = property(get_Words, None)
     Text = property(get_Text, None)
-class IOcrResult(c_void_p):
+class IOcrResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9bd235b2-175b-3d6a-92-e2-38-8c-20-6e-2f-63')
     @winrt_commethod(6)
@@ -68,7 +68,7 @@ class IOcrResult(c_void_p):
     Lines = property(get_Lines, None)
     TextAngle = property(get_TextAngle, None)
     Text = property(get_Text, None)
-class IOcrWord(c_void_p):
+class IOcrWord(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3c2a477a-5cd9-3525-ba-2a-23-d1-e0-a6-8a-1d')
     @winrt_commethod(6)
@@ -77,7 +77,7 @@ class IOcrWord(c_void_p):
     def get_Text(self) -> WinRT_String: ...
     BoundingRect = property(get_BoundingRect, None)
     Text = property(get_Text, None)
-class OcrEngine(c_void_p):
+class OcrEngine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Ocr.OcrEngine'
     @winrt_mixinmethod
@@ -97,7 +97,7 @@ class OcrEngine(c_void_p):
     RecognizerLanguage = property(get_RecognizerLanguage, None)
     MaxImageDimension = property(get_MaxImageDimension, None)
     AvailableRecognizerLanguages = property(get_AvailableRecognizerLanguages, None)
-class OcrLine(c_void_p):
+class OcrLine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Ocr.OcrLine'
     @winrt_mixinmethod
@@ -106,7 +106,7 @@ class OcrLine(c_void_p):
     def get_Text(self: Windows.Media.Ocr.IOcrLine) -> WinRT_String: ...
     Words = property(get_Words, None)
     Text = property(get_Text, None)
-class OcrResult(c_void_p):
+class OcrResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Ocr.OcrResult'
     @winrt_mixinmethod
@@ -118,7 +118,7 @@ class OcrResult(c_void_p):
     Lines = property(get_Lines, None)
     TextAngle = property(get_TextAngle, None)
     Text = property(get_Text, None)
-class OcrWord(c_void_p):
+class OcrWord(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.Ocr.OcrWord'
     @winrt_mixinmethod

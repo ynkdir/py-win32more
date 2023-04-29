@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -25,7 +25,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IXamlDirect(c_void_p):
+class IXamlDirect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5ffa1295-add2-590f-a0-51-70-98-9b-86-6a-de')
     @winrt_commethod(6)
@@ -132,15 +132,15 @@ class IXamlDirect(c_void_p):
     def AddEventHandler_HandledEventsToo(self, xamlDirectObject: Windows.UI.Xaml.Core.Direct.IXamlDirectObject, eventIndex: Windows.UI.Xaml.Core.Direct.XamlEventIndex, handler: Windows.Win32.System.WinRT.IInspectable_head, handledEventsToo: Boolean) -> Void: ...
     @winrt_commethod(57)
     def RemoveEventHandler(self, xamlDirectObject: Windows.UI.Xaml.Core.Direct.IXamlDirectObject, eventIndex: Windows.UI.Xaml.Core.Direct.XamlEventIndex, handler: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
-class IXamlDirectObject(c_void_p):
+class IXamlDirectObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('10614a82-cee4-4645-ba-25-d0-71-ce-77-83-55')
-class IXamlDirectStatics(c_void_p):
+class IXamlDirectStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('321887cc-14e4-5c6f-87-8d-fb-b6-04-ad-7d-17')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.UI.Xaml.Core.Direct.XamlDirect: ...
-class XamlDirect(c_void_p):
+class XamlDirect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Xaml.Core.Direct.XamlDirect'
     @winrt_mixinmethod

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -28,7 +28,7 @@ AddFileResult_Added: AddFileResult = 0
 AddFileResult_AlreadyAdded: AddFileResult = 1
 AddFileResult_NotAllowed: AddFileResult = 2
 AddFileResult_Unavailable: AddFileResult = 3
-class FileOpenPickerUI(c_void_p):
+class FileOpenPickerUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Pickers.Provider.FileOpenPickerUI'
     @winrt_mixinmethod
@@ -61,13 +61,13 @@ class FileOpenPickerUI(c_void_p):
     SelectionMode = property(get_SelectionMode, None)
     SettingsIdentifier = property(get_SettingsIdentifier, None)
     Title = property(get_Title, put_Title)
-class FileRemovedEventArgs(c_void_p):
+class FileRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Pickers.Provider.FileRemovedEventArgs'
     @winrt_mixinmethod
     def get_Id(self: Windows.Storage.Pickers.Provider.IFileRemovedEventArgs) -> WinRT_String: ...
     Id = property(get_Id, None)
-class FileSavePickerUI(c_void_p):
+class FileSavePickerUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Pickers.Provider.FileSavePickerUI'
     @winrt_mixinmethod
@@ -97,7 +97,7 @@ class FileSavePickerUI(c_void_p):
 FileSelectionMode = Int32
 FileSelectionMode_Single: FileSelectionMode = 0
 FileSelectionMode_Multiple: FileSelectionMode = 1
-class IFileOpenPickerUI(c_void_p):
+class IFileOpenPickerUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dda45a10-f9d4-40c4-8a-f5-c5-b6-b5-a6-1d-1d')
     @winrt_commethod(6)
@@ -130,13 +130,13 @@ class IFileOpenPickerUI(c_void_p):
     SelectionMode = property(get_SelectionMode, None)
     SettingsIdentifier = property(get_SettingsIdentifier, None)
     Title = property(get_Title, put_Title)
-class IFileRemovedEventArgs(c_void_p):
+class IFileRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('13043da7-7fca-4c2b-9e-ca-68-90-f9-f0-01-85')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     Id = property(get_Id, None)
-class IFileSavePickerUI(c_void_p):
+class IFileSavePickerUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9656c1e7-3e56-43cc-8a-39-33-c7-3d-9d-54-2b')
     @winrt_commethod(6)
@@ -163,12 +163,12 @@ class IFileSavePickerUI(c_void_p):
     AllowedFileTypes = property(get_AllowedFileTypes, None)
     SettingsIdentifier = property(get_SettingsIdentifier, None)
     FileName = property(get_FileName, None)
-class IPickerClosingDeferral(c_void_p):
+class IPickerClosingDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7af7f71e-1a67-4a31-ae-80-e9-07-70-8a-61-9b')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
-class IPickerClosingEventArgs(c_void_p):
+class IPickerClosingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7e59f224-b332-4f12-8b-9f-a8-c2-f0-6b-32-cd')
     @winrt_commethod(6)
@@ -177,7 +177,7 @@ class IPickerClosingEventArgs(c_void_p):
     def get_IsCanceled(self) -> Boolean: ...
     ClosingOperation = property(get_ClosingOperation, None)
     IsCanceled = property(get_IsCanceled, None)
-class IPickerClosingOperation(c_void_p):
+class IPickerClosingOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4ce9fb84-beee-4e39-a7-73-fc-5f-0e-ae-32-8d')
     @winrt_commethod(6)
@@ -185,7 +185,7 @@ class IPickerClosingOperation(c_void_p):
     @winrt_commethod(7)
     def get_Deadline(self) -> Windows.Foundation.DateTime: ...
     Deadline = property(get_Deadline, None)
-class ITargetFileRequest(c_void_p):
+class ITargetFileRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('42bd3355-7f88-478b-8e-81-69-0b-20-34-06-78')
     @winrt_commethod(6)
@@ -195,23 +195,23 @@ class ITargetFileRequest(c_void_p):
     @winrt_commethod(8)
     def GetDeferral(self) -> Windows.Storage.Pickers.Provider.TargetFileRequestDeferral: ...
     TargetFile = property(get_TargetFile, put_TargetFile)
-class ITargetFileRequestDeferral(c_void_p):
+class ITargetFileRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4aee9d91-bf15-4da9-95-f6-f6-b7-d5-58-22-5b')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
-class ITargetFileRequestedEventArgs(c_void_p):
+class ITargetFileRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b163dbc1-1b51-4c89-a5-91-0f-d4-0b-3c-57-c9')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.Storage.Pickers.Provider.TargetFileRequest: ...
     Request = property(get_Request, None)
-class PickerClosingDeferral(c_void_p):
+class PickerClosingDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Pickers.Provider.PickerClosingDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.Storage.Pickers.Provider.IPickerClosingDeferral) -> Void: ...
-class PickerClosingEventArgs(c_void_p):
+class PickerClosingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Pickers.Provider.PickerClosingEventArgs'
     @winrt_mixinmethod
@@ -220,7 +220,7 @@ class PickerClosingEventArgs(c_void_p):
     def get_IsCanceled(self: Windows.Storage.Pickers.Provider.IPickerClosingEventArgs) -> Boolean: ...
     ClosingOperation = property(get_ClosingOperation, None)
     IsCanceled = property(get_IsCanceled, None)
-class PickerClosingOperation(c_void_p):
+class PickerClosingOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Pickers.Provider.PickerClosingOperation'
     @winrt_mixinmethod
@@ -232,7 +232,7 @@ SetFileNameResult = Int32
 SetFileNameResult_Succeeded: SetFileNameResult = 0
 SetFileNameResult_NotAllowed: SetFileNameResult = 1
 SetFileNameResult_Unavailable: SetFileNameResult = 2
-class TargetFileRequest(c_void_p):
+class TargetFileRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Pickers.Provider.TargetFileRequest'
     @winrt_mixinmethod
@@ -242,12 +242,12 @@ class TargetFileRequest(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.Storage.Pickers.Provider.ITargetFileRequest) -> Windows.Storage.Pickers.Provider.TargetFileRequestDeferral: ...
     TargetFile = property(get_TargetFile, put_TargetFile)
-class TargetFileRequestDeferral(c_void_p):
+class TargetFileRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Pickers.Provider.TargetFileRequestDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.Storage.Pickers.Provider.ITargetFileRequestDeferral) -> Void: ...
-class TargetFileRequestedEventArgs(c_void_p):
+class TargetFileRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Pickers.Provider.TargetFileRequestedEventArgs'
     @winrt_mixinmethod

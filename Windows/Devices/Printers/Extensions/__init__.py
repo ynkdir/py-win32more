@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Printers.Extensions
@@ -21,7 +21,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IPrint3DWorkflow(c_void_p):
+class IPrint3DWorkflow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c56f74bd-3669-4a66-ab-42-c8-15-19-30-cd-34')
     @winrt_commethod(6)
@@ -38,14 +38,14 @@ class IPrint3DWorkflow(c_void_p):
     def remove_PrintRequested(self, eventCookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
     DeviceID = property(get_DeviceID, None)
     IsPrintReady = property(get_IsPrintReady, put_IsPrintReady)
-class IPrint3DWorkflow2(c_void_p):
+class IPrint3DWorkflow2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a2a6c54f-8ac1-4918-97-41-e3-4f-30-04-23-9e')
     @winrt_commethod(6)
     def add_PrinterChanged(self, eventHandler: Windows.Foundation.TypedEventHandler[Windows.Devices.Printers.Extensions.Print3DWorkflow, Windows.Devices.Printers.Extensions.Print3DWorkflowPrinterChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_PrinterChanged(self, eventCookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IPrint3DWorkflowPrintRequestedEventArgs(c_void_p):
+class IPrint3DWorkflowPrintRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('19f8c858-5ac8-4b55-8a-5f-e6-15-67-da-fb-4d')
     @winrt_commethod(6)
@@ -57,13 +57,13 @@ class IPrint3DWorkflowPrintRequestedEventArgs(c_void_p):
     @winrt_commethod(9)
     def SetSourceChanged(self, value: Boolean) -> Void: ...
     Status = property(get_Status, None)
-class IPrint3DWorkflowPrinterChangedEventArgs(c_void_p):
+class IPrint3DWorkflowPrinterChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('45226402-95fc-4847-93-b3-13-4d-bf-5c-60-f7')
     @winrt_commethod(6)
     def get_NewDeviceId(self) -> WinRT_String: ...
     NewDeviceId = property(get_NewDeviceId, None)
-class Print3DWorkflow(c_void_p):
+class Print3DWorkflow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Printers.Extensions.Print3DWorkflow'
     @winrt_mixinmethod
@@ -92,7 +92,7 @@ Print3DWorkflowDetail_InvalidMaterialSelection: Print3DWorkflowDetail = 3
 Print3DWorkflowDetail_InvalidModel: Print3DWorkflowDetail = 4
 Print3DWorkflowDetail_ModelNotManifold: Print3DWorkflowDetail = 5
 Print3DWorkflowDetail_InvalidPrintTicket: Print3DWorkflowDetail = 6
-class Print3DWorkflowPrintRequestedEventArgs(c_void_p):
+class Print3DWorkflowPrintRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Printers.Extensions.Print3DWorkflowPrintRequestedEventArgs'
     @winrt_mixinmethod
@@ -104,7 +104,7 @@ class Print3DWorkflowPrintRequestedEventArgs(c_void_p):
     @winrt_mixinmethod
     def SetSourceChanged(self: Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrintRequestedEventArgs, value: Boolean) -> Void: ...
     Status = property(get_Status, None)
-class Print3DWorkflowPrinterChangedEventArgs(c_void_p):
+class Print3DWorkflowPrinterChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Printers.Extensions.Print3DWorkflowPrinterChangedEventArgs'
     @winrt_mixinmethod

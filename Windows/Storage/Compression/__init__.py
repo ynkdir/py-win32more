@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -29,7 +29,7 @@ CompressAlgorithm_Mszip: CompressAlgorithm = 2
 CompressAlgorithm_Xpress: CompressAlgorithm = 3
 CompressAlgorithm_XpressHuff: CompressAlgorithm = 4
 CompressAlgorithm_Lzms: CompressAlgorithm = 5
-class Compressor(c_void_p):
+class Compressor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Compression.Compressor'
     @winrt_factorymethod
@@ -46,7 +46,7 @@ class Compressor(c_void_p):
     def FlushAsync(self: Windows.Storage.Streams.IOutputStream) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
-class Decompressor(c_void_p):
+class Decompressor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Storage.Compression.Decompressor'
     @winrt_factorymethod
@@ -57,26 +57,26 @@ class Decompressor(c_void_p):
     def ReadAsync(self: Windows.Storage.Streams.IInputStream, buffer: Windows.Storage.Streams.IBuffer, count: UInt32, options: Windows.Storage.Streams.InputStreamOptions) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Storage.Streams.IBuffer, UInt32]: ...
     @winrt_mixinmethod
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
-class ICompressor(c_void_p):
+class ICompressor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0ac3645a-57ac-4ee1-b7-02-84-d3-9d-54-24-e0')
     @winrt_commethod(6)
     def FinishAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(7)
     def DetachStream(self) -> Windows.Storage.Streams.IOutputStream: ...
-class ICompressorFactory(c_void_p):
+class ICompressorFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5f3d96a4-2cfb-442c-a8-ba-d7-d1-1b-03-9d-a0')
     @winrt_commethod(6)
     def CreateCompressor(self, underlyingStream: Windows.Storage.Streams.IOutputStream) -> Windows.Storage.Compression.Compressor: ...
     @winrt_commethod(7)
     def CreateCompressorEx(self, underlyingStream: Windows.Storage.Streams.IOutputStream, algorithm: Windows.Storage.Compression.CompressAlgorithm, blockSize: UInt32) -> Windows.Storage.Compression.Compressor: ...
-class IDecompressor(c_void_p):
+class IDecompressor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b883fe46-d68a-4c8b-ad-a0-4e-e8-13-fc-52-83')
     @winrt_commethod(6)
     def DetachStream(self) -> Windows.Storage.Streams.IInputStream: ...
-class IDecompressorFactory(c_void_p):
+class IDecompressorFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5337e252-1da2-42e1-88-34-03-79-d2-8d-74-2f')
     @winrt_commethod(6)

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -28,7 +28,7 @@ ContentAccessRestrictionLevel_Allow: ContentAccessRestrictionLevel = 0
 ContentAccessRestrictionLevel_Warn: ContentAccessRestrictionLevel = 1
 ContentAccessRestrictionLevel_Block: ContentAccessRestrictionLevel = 2
 ContentAccessRestrictionLevel_Hide: ContentAccessRestrictionLevel = 3
-class ContentRestrictionsBrowsePolicy(c_void_p):
+class ContentRestrictionsBrowsePolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.ContentRestrictions.ContentRestrictionsBrowsePolicy'
     @winrt_mixinmethod
@@ -40,7 +40,7 @@ class ContentRestrictionsBrowsePolicy(c_void_p):
     GeographicRegion = property(get_GeographicRegion, None)
     MaxBrowsableAgeRating = property(get_MaxBrowsableAgeRating, None)
     PreferredAgeRating = property(get_PreferredAgeRating, None)
-class IContentRestrictionsBrowsePolicy(c_void_p):
+class IContentRestrictionsBrowsePolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8c0133a4-442e-461a-87-57-fa-d2-f5-bd-37-e4')
     @winrt_commethod(6)
@@ -52,7 +52,7 @@ class IContentRestrictionsBrowsePolicy(c_void_p):
     GeographicRegion = property(get_GeographicRegion, None)
     MaxBrowsableAgeRating = property(get_MaxBrowsableAgeRating, None)
     PreferredAgeRating = property(get_PreferredAgeRating, None)
-class IRatedContentDescription(c_void_p):
+class IRatedContentDescription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('694866df-66b2-4dc3-96-b1-f0-90-ee-de-e2-55')
     @winrt_commethod(6)
@@ -80,12 +80,12 @@ class IRatedContentDescription(c_void_p):
     Image = property(get_Image, put_Image)
     Category = property(get_Category, put_Category)
     Ratings = property(get_Ratings, put_Ratings)
-class IRatedContentDescriptionFactory(c_void_p):
+class IRatedContentDescriptionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2e38df62-9b90-4fa6-89-c1-4b-8d-2f-fb-35-73')
     @winrt_commethod(6)
     def Create(self, id: WinRT_String, title: WinRT_String, category: Windows.Media.ContentRestrictions.RatedContentCategory) -> Windows.Media.ContentRestrictions.RatedContentDescription: ...
-class IRatedContentRestrictions(c_void_p):
+class IRatedContentRestrictions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3f7f23cb-ba07-4401-a4-9d-8b-92-22-20-57-23')
     @winrt_commethod(6)
@@ -98,7 +98,7 @@ class IRatedContentRestrictions(c_void_p):
     def add_RestrictionsChanged(self, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(10)
     def remove_RestrictionsChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IRatedContentRestrictionsFactory(c_void_p):
+class IRatedContentRestrictionsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fb4b2996-c3bd-4910-96-19-97-cf-d0-69-4d-56')
     @winrt_commethod(6)
@@ -110,7 +110,7 @@ RatedContentCategory_Game: RatedContentCategory = 2
 RatedContentCategory_Movie: RatedContentCategory = 3
 RatedContentCategory_Television: RatedContentCategory = 4
 RatedContentCategory_Music: RatedContentCategory = 5
-class RatedContentDescription(c_void_p):
+class RatedContentDescription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.ContentRestrictions.RatedContentDescription'
     @winrt_factorymethod
@@ -140,7 +140,7 @@ class RatedContentDescription(c_void_p):
     Image = property(get_Image, put_Image)
     Category = property(get_Category, put_Category)
     Ratings = property(get_Ratings, put_Ratings)
-class RatedContentRestrictions(c_void_p):
+class RatedContentRestrictions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Media.ContentRestrictions.RatedContentRestrictions'
     @winrt_factorymethod

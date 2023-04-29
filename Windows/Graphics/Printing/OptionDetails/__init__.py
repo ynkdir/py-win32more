@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -24,7 +24,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IPrintBindingOptionDetails(c_void_p):
+class IPrintBindingOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c3f4cc98-9564-4f16-a0-55-a9-8b-9a-49-e9-d3')
     @winrt_commethod(6)
@@ -37,7 +37,7 @@ class IPrintBindingOptionDetails(c_void_p):
     def get_Description(self) -> WinRT_String: ...
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class IPrintBorderingOptionDetails(c_void_p):
+class IPrintBorderingOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4d73bc8f-fb53-4eb2-98-5f-1d-91-de-0b-76-39')
     @winrt_commethod(6)
@@ -50,7 +50,7 @@ class IPrintBorderingOptionDetails(c_void_p):
     def get_Description(self) -> WinRT_String: ...
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class IPrintCollationOptionDetails(c_void_p):
+class IPrintCollationOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d6abb166-a5a6-40dc-ac-c3-73-9f-28-f1-e5-d3')
     @winrt_commethod(6)
@@ -63,7 +63,7 @@ class IPrintCollationOptionDetails(c_void_p):
     def get_Description(self) -> WinRT_String: ...
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class IPrintColorModeOptionDetails(c_void_p):
+class IPrintColorModeOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dba97704-f1d6-4843-a4-84-9b-44-7c-dc-f3-b6')
     @winrt_commethod(6)
@@ -76,7 +76,7 @@ class IPrintColorModeOptionDetails(c_void_p):
     def get_Description(self) -> WinRT_String: ...
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class IPrintCopiesOptionDetails(c_void_p):
+class IPrintCopiesOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('42053099-4339-4343-89-8d-2c-47-b5-e0-c3-41')
     @winrt_commethod(6)
@@ -89,7 +89,7 @@ class IPrintCopiesOptionDetails(c_void_p):
     def get_Description(self) -> WinRT_String: ...
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class IPrintCustomItemDetails(c_void_p):
+class IPrintCustomItemDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5704b637-5c3a-449a-aa-36-b3-29-1b-11-92-fd')
     @winrt_commethod(6)
@@ -100,17 +100,17 @@ class IPrintCustomItemDetails(c_void_p):
     def get_ItemDisplayName(self) -> WinRT_String: ...
     ItemId = property(get_ItemId, None)
     ItemDisplayName = property(get_ItemDisplayName, put_ItemDisplayName)
-class IPrintCustomItemListOptionDetails(c_void_p):
+class IPrintCustomItemListOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a5fafd88-58f2-4ebd-b9-0f-51-e4-f2-94-4c-5d')
     @winrt_commethod(6)
     def AddItem(self, itemId: WinRT_String, displayName: WinRT_String) -> Void: ...
-class IPrintCustomItemListOptionDetails2(c_void_p):
+class IPrintCustomItemListOptionDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c9d6353d-651c-4a39-90-6e-10-91-a1-80-1b-f1')
     @winrt_commethod(6)
     def AddItem(self, itemId: WinRT_String, displayName: WinRT_String, description: WinRT_String, icon: Windows.Storage.Streams.IRandomAccessStreamWithContentType) -> Void: ...
-class IPrintCustomItemListOptionDetails3(c_void_p):
+class IPrintCustomItemListOptionDetails3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4fa1b53f-3c34-4868-a4-07-fc-5e-ab-25-9b-21')
     @winrt_commethod(6)
@@ -123,7 +123,7 @@ class IPrintCustomItemListOptionDetails3(c_void_p):
     def get_Description(self) -> WinRT_String: ...
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class IPrintCustomOptionDetails(c_void_p):
+class IPrintCustomOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e32bde1c-28af-4b90-95-da-a3-ac-f3-20-b9-29')
     @winrt_commethod(6)
@@ -131,7 +131,7 @@ class IPrintCustomOptionDetails(c_void_p):
     @winrt_commethod(7)
     def get_DisplayName(self) -> WinRT_String: ...
     DisplayName = property(get_DisplayName, put_DisplayName)
-class IPrintCustomTextOptionDetails(c_void_p):
+class IPrintCustomTextOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2ad171f8-c8bd-4905-91-92-0d-75-13-6e-8b-31')
     @winrt_commethod(6)
@@ -139,7 +139,7 @@ class IPrintCustomTextOptionDetails(c_void_p):
     @winrt_commethod(7)
     def get_MaxCharacters(self) -> UInt32: ...
     MaxCharacters = property(get_MaxCharacters, put_MaxCharacters)
-class IPrintCustomTextOptionDetails2(c_void_p):
+class IPrintCustomTextOptionDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cea70b54-b977-4718-83-38-7e-d2-b0-d8-6f-e3')
     @winrt_commethod(6)
@@ -152,7 +152,7 @@ class IPrintCustomTextOptionDetails2(c_void_p):
     def get_Description(self) -> WinRT_String: ...
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class IPrintCustomToggleOptionDetails(c_void_p):
+class IPrintCustomToggleOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9db4d514-e461-4608-8e-e9-db-6f-5e-d0-73-c6')
     @winrt_commethod(6)
@@ -165,7 +165,7 @@ class IPrintCustomToggleOptionDetails(c_void_p):
     def get_Description(self) -> WinRT_String: ...
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class IPrintDuplexOptionDetails(c_void_p):
+class IPrintDuplexOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fcd94591-d4a4-44fa-b3-fe-42-e0-ba-28-d5-ad')
     @winrt_commethod(6)
@@ -178,7 +178,7 @@ class IPrintDuplexOptionDetails(c_void_p):
     def get_Description(self) -> WinRT_String: ...
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class IPrintHolePunchOptionDetails(c_void_p):
+class IPrintHolePunchOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a6de1f18-482c-4657-9d-71-8d-dd-db-ea-1e-1e')
     @winrt_commethod(6)
@@ -191,13 +191,13 @@ class IPrintHolePunchOptionDetails(c_void_p):
     def get_Description(self) -> WinRT_String: ...
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class IPrintItemListOptionDetails(c_void_p):
+class IPrintItemListOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9a2257bf-fe61-43d8-a2-4f-a3-f6-ab-73-20-e7')
     @winrt_commethod(6)
     def get_Items(self) -> Windows.Foundation.Collections.IVectorView[Windows.Win32.System.WinRT.IInspectable_head]: ...
     Items = property(get_Items, None)
-class IPrintMediaSizeOptionDetails(c_void_p):
+class IPrintMediaSizeOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6c8d5bcf-c0bf-47c8-b8-4a-62-8e-7d-0d-1a-1d')
     @winrt_commethod(6)
@@ -210,7 +210,7 @@ class IPrintMediaSizeOptionDetails(c_void_p):
     def get_Description(self) -> WinRT_String: ...
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class IPrintMediaTypeOptionDetails(c_void_p):
+class IPrintMediaTypeOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f8c7000b-abf3-4abc-8e-86-22-ab-c5-74-4a-43')
     @winrt_commethod(6)
@@ -223,7 +223,7 @@ class IPrintMediaTypeOptionDetails(c_void_p):
     def get_Description(self) -> WinRT_String: ...
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class IPrintNumberOptionDetails(c_void_p):
+class IPrintNumberOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4d01bbaf-645c-4de9-96-5f-6f-c6-bb-c4-7c-ab')
     @winrt_commethod(6)
@@ -232,7 +232,7 @@ class IPrintNumberOptionDetails(c_void_p):
     def get_MaxValue(self) -> UInt32: ...
     MinValue = property(get_MinValue, None)
     MaxValue = property(get_MaxValue, None)
-class IPrintOptionDetails(c_void_p):
+class IPrintOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('390686cf-d682-495f-ad-fe-d7-33-3f-5c-18-08')
     @winrt_commethod(6)
@@ -256,7 +256,7 @@ class IPrintOptionDetails(c_void_p):
     ErrorText = property(get_ErrorText, put_ErrorText)
     State = property(get_State, put_State)
     Value = property(get_Value, None)
-class IPrintOrientationOptionDetails(c_void_p):
+class IPrintOrientationOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('46c38879-66e0-4da0-87-b4-d2-54-57-82-4e-b7')
     @winrt_commethod(6)
@@ -269,7 +269,7 @@ class IPrintOrientationOptionDetails(c_void_p):
     def get_Description(self) -> WinRT_String: ...
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class IPrintPageRangeOptionDetails(c_void_p):
+class IPrintPageRangeOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5a19e4b7-2be8-4aa7-9e-a5-de-fb-e8-71-3b-4e')
     @winrt_commethod(6)
@@ -282,7 +282,7 @@ class IPrintPageRangeOptionDetails(c_void_p):
     def get_Description(self) -> WinRT_String: ...
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class IPrintQualityOptionDetails(c_void_p):
+class IPrintQualityOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2dd06ba1-ce1a-44e6-84-f9-3a-92-ea-1e-30-44')
     @winrt_commethod(6)
@@ -295,7 +295,7 @@ class IPrintQualityOptionDetails(c_void_p):
     def get_Description(self) -> WinRT_String: ...
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class IPrintStapleOptionDetails(c_void_p):
+class IPrintStapleOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d43175bd-9c0b-44e0-84-f6-ce-eb-ce-65-38-00')
     @winrt_commethod(6)
@@ -308,13 +308,13 @@ class IPrintStapleOptionDetails(c_void_p):
     def get_Description(self) -> WinRT_String: ...
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class IPrintTaskOptionChangedEventArgs(c_void_p):
+class IPrintTaskOptionChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('65197d05-a5ee-4307-94-07-9a-ca-d1-47-67-9c')
     @winrt_commethod(6)
     def get_OptionId(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     OptionId = property(get_OptionId, None)
-class IPrintTaskOptionDetails(c_void_p):
+class IPrintTaskOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f5720af1-a89e-42a6-81-af-f8-e0-10-b3-8a-68')
     @winrt_commethod(6)
@@ -332,23 +332,23 @@ class IPrintTaskOptionDetails(c_void_p):
     @winrt_commethod(12)
     def remove_BeginValidation(self, eventCookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
     Options = property(get_Options, None)
-class IPrintTaskOptionDetails2(c_void_p):
+class IPrintTaskOptionDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('53730a09-f968-4692-a1-77-c0-74-59-71-86-db')
     @winrt_commethod(6)
     def CreateToggleOption(self, optionId: WinRT_String, displayName: WinRT_String) -> Windows.Graphics.Printing.OptionDetails.PrintCustomToggleOptionDetails: ...
-class IPrintTaskOptionDetailsStatic(c_void_p):
+class IPrintTaskOptionDetailsStatic(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('135da193-0961-4b6e-87-66-f1-3b-7f-bc-cd-58')
     @winrt_commethod(6)
     def GetFromPrintTaskOptions(self, printTaskOptions: Windows.Graphics.Printing.PrintTaskOptions) -> Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails: ...
-class IPrintTextOptionDetails(c_void_p):
+class IPrintTextOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ad75e563-5ce4-46bc-99-18-ab-9f-ad-14-4c-5b')
     @winrt_commethod(6)
     def get_MaxCharacters(self) -> UInt32: ...
     MaxCharacters = property(get_MaxCharacters, None)
-class PrintBindingOptionDetails(c_void_p):
+class PrintBindingOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintBindingOptionDetails'
     @winrt_mixinmethod
@@ -385,7 +385,7 @@ class PrintBindingOptionDetails(c_void_p):
     Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class PrintBorderingOptionDetails(c_void_p):
+class PrintBorderingOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintBorderingOptionDetails'
     @winrt_mixinmethod
@@ -422,7 +422,7 @@ class PrintBorderingOptionDetails(c_void_p):
     Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class PrintCollationOptionDetails(c_void_p):
+class PrintCollationOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintCollationOptionDetails'
     @winrt_mixinmethod
@@ -459,7 +459,7 @@ class PrintCollationOptionDetails(c_void_p):
     Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class PrintColorModeOptionDetails(c_void_p):
+class PrintColorModeOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintColorModeOptionDetails'
     @winrt_mixinmethod
@@ -496,7 +496,7 @@ class PrintColorModeOptionDetails(c_void_p):
     Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class PrintCopiesOptionDetails(c_void_p):
+class PrintCopiesOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintCopiesOptionDetails'
     @winrt_mixinmethod
@@ -536,7 +536,7 @@ class PrintCopiesOptionDetails(c_void_p):
     MaxValue = property(get_MaxValue, None)
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class PrintCustomItemDetails(c_void_p):
+class PrintCustomItemDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintCustomItemDetails'
     @winrt_mixinmethod
@@ -547,7 +547,7 @@ class PrintCustomItemDetails(c_void_p):
     def get_ItemDisplayName(self: Windows.Graphics.Printing.OptionDetails.IPrintCustomItemDetails) -> WinRT_String: ...
     ItemId = property(get_ItemId, None)
     ItemDisplayName = property(get_ItemDisplayName, put_ItemDisplayName)
-class PrintCustomItemListOptionDetails(c_void_p):
+class PrintCustomItemListOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintCustomItemListOptionDetails'
     @winrt_mixinmethod
@@ -593,7 +593,7 @@ class PrintCustomItemListOptionDetails(c_void_p):
     Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class PrintCustomTextOptionDetails(c_void_p):
+class PrintCustomTextOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintCustomTextOptionDetails'
     @winrt_mixinmethod
@@ -637,7 +637,7 @@ class PrintCustomTextOptionDetails(c_void_p):
     MaxCharacters = property(get_MaxCharacters, put_MaxCharacters)
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class PrintCustomToggleOptionDetails(c_void_p):
+class PrintCustomToggleOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintCustomToggleOptionDetails'
     @winrt_mixinmethod
@@ -676,7 +676,7 @@ class PrintCustomToggleOptionDetails(c_void_p):
     DisplayName = property(get_DisplayName, put_DisplayName)
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class PrintDuplexOptionDetails(c_void_p):
+class PrintDuplexOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintDuplexOptionDetails'
     @winrt_mixinmethod
@@ -713,7 +713,7 @@ class PrintDuplexOptionDetails(c_void_p):
     Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class PrintHolePunchOptionDetails(c_void_p):
+class PrintHolePunchOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintHolePunchOptionDetails'
     @winrt_mixinmethod
@@ -750,7 +750,7 @@ class PrintHolePunchOptionDetails(c_void_p):
     Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class PrintMediaSizeOptionDetails(c_void_p):
+class PrintMediaSizeOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintMediaSizeOptionDetails'
     @winrt_mixinmethod
@@ -787,7 +787,7 @@ class PrintMediaSizeOptionDetails(c_void_p):
     Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class PrintMediaTypeOptionDetails(c_void_p):
+class PrintMediaTypeOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintMediaTypeOptionDetails'
     @winrt_mixinmethod
@@ -834,7 +834,7 @@ PrintOptionType_Number: PrintOptionType = 1
 PrintOptionType_Text: PrintOptionType = 2
 PrintOptionType_ItemList: PrintOptionType = 3
 PrintOptionType_Toggle: PrintOptionType = 4
-class PrintOrientationOptionDetails(c_void_p):
+class PrintOrientationOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintOrientationOptionDetails'
     @winrt_mixinmethod
@@ -871,7 +871,7 @@ class PrintOrientationOptionDetails(c_void_p):
     Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class PrintPageRangeOptionDetails(c_void_p):
+class PrintPageRangeOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintPageRangeOptionDetails'
     @winrt_mixinmethod
@@ -905,7 +905,7 @@ class PrintPageRangeOptionDetails(c_void_p):
     Value = property(get_Value, None)
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class PrintQualityOptionDetails(c_void_p):
+class PrintQualityOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintQualityOptionDetails'
     @winrt_mixinmethod
@@ -942,7 +942,7 @@ class PrintQualityOptionDetails(c_void_p):
     Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class PrintStapleOptionDetails(c_void_p):
+class PrintStapleOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintStapleOptionDetails'
     @winrt_mixinmethod
@@ -979,13 +979,13 @@ class PrintStapleOptionDetails(c_void_p):
     Items = property(get_Items, None)
     WarningText = property(get_WarningText, put_WarningText)
     Description = property(get_Description, put_Description)
-class PrintTaskOptionChangedEventArgs(c_void_p):
+class PrintTaskOptionChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintTaskOptionChangedEventArgs'
     @winrt_mixinmethod
     def get_OptionId(self: Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionChangedEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     OptionId = property(get_OptionId, None)
-class PrintTaskOptionDetails(c_void_p):
+class PrintTaskOptionDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails'
     @winrt_mixinmethod

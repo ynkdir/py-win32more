@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.System.Diagnostics.Telemetry
@@ -20,20 +20,20 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IPlatformTelemetryClientStatics(c_void_p):
+class IPlatformTelemetryClientStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9bf3f25d-d5c3-4eea-8d-be-9c-8d-bb-0d-9d-8f')
     @winrt_commethod(6)
     def Register(self, id: WinRT_String) -> Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult: ...
     @winrt_commethod(7)
     def RegisterWithSettings(self, id: WinRT_String, settings: Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings) -> Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult: ...
-class IPlatformTelemetryRegistrationResult(c_void_p):
+class IPlatformTelemetryRegistrationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4d8518ab-2292-49bd-a1-5a-3d-71-d2-14-51-12')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationStatus: ...
     Status = property(get_Status, None)
-class IPlatformTelemetryRegistrationSettings(c_void_p):
+class IPlatformTelemetryRegistrationSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('819a8582-ca19-415e-bb-79-9c-22-4b-fa-3a-73')
     @winrt_commethod(6)
@@ -46,20 +46,20 @@ class IPlatformTelemetryRegistrationSettings(c_void_p):
     def put_UploadQuotaSize(self, value: UInt32) -> Void: ...
     StorageSize = property(get_StorageSize, put_StorageSize)
     UploadQuotaSize = property(get_UploadQuotaSize, put_UploadQuotaSize)
-class PlatformTelemetryClient(c_void_p):
+class PlatformTelemetryClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.System.Diagnostics.Telemetry.PlatformTelemetryClient'
     @winrt_classmethod
     def Register(cls: Windows.System.Diagnostics.Telemetry.IPlatformTelemetryClientStatics, id: WinRT_String) -> Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult: ...
     @winrt_classmethod
     def RegisterWithSettings(cls: Windows.System.Diagnostics.Telemetry.IPlatformTelemetryClientStatics, id: WinRT_String, settings: Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings) -> Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult: ...
-class PlatformTelemetryRegistrationResult(c_void_p):
+class PlatformTelemetryRegistrationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.System.Diagnostics.Telemetry.IPlatformTelemetryRegistrationResult) -> Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationStatus: ...
     Status = property(get_Status, None)
-class PlatformTelemetryRegistrationSettings(c_void_p):
+class PlatformTelemetryRegistrationSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings'
     @winrt_activatemethod

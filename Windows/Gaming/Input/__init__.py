@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Haptics
@@ -26,7 +26,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ArcadeStick(c_void_p):
+class ArcadeStick(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.ArcadeStick'
     @winrt_mixinmethod
@@ -86,7 +86,7 @@ ArcadeStickButtons_Special2: ArcadeStickButtons = 2048
 class ArcadeStickReading(EasyCastStructure):
     Timestamp: UInt64
     Buttons: Windows.Gaming.Input.ArcadeStickButtons
-class FlightStick(c_void_p):
+class FlightStick(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.FlightStick'
     @winrt_mixinmethod
@@ -228,7 +228,7 @@ GameControllerSwitchPosition_Down: GameControllerSwitchPosition = 5
 GameControllerSwitchPosition_DownLeft: GameControllerSwitchPosition = 6
 GameControllerSwitchPosition_Left: GameControllerSwitchPosition = 7
 GameControllerSwitchPosition_UpLeft: GameControllerSwitchPosition = 8
-class Gamepad(c_void_p):
+class Gamepad(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.Gamepad'
     @winrt_mixinmethod
@@ -310,7 +310,7 @@ class GamepadVibration(EasyCastStructure):
     RightMotor: Double
     LeftTrigger: Double
     RightTrigger: Double
-class Headset(c_void_p):
+class Headset(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.Headset'
     @winrt_mixinmethod
@@ -321,14 +321,14 @@ class Headset(c_void_p):
     def TryGetBatteryReport(self: Windows.Gaming.Input.IGameControllerBatteryInfo) -> Windows.Devices.Power.BatteryReport: ...
     CaptureDeviceId = property(get_CaptureDeviceId, None)
     RenderDeviceId = property(get_RenderDeviceId, None)
-class IArcadeStick(c_void_p):
+class IArcadeStick(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b14a539d-befb-4c81-80-51-15-ec-f3-b1-30-36')
     @winrt_commethod(6)
     def GetButtonLabel(self, button: Windows.Gaming.Input.ArcadeStickButtons) -> Windows.Gaming.Input.GameControllerButtonLabel: ...
     @winrt_commethod(7)
     def GetCurrentReading(self) -> Windows.Gaming.Input.ArcadeStickReading: ...
-class IArcadeStickStatics(c_void_p):
+class IArcadeStickStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5c37b8c8-37b1-4ad8-94-58-20-0f-1a-30-01-8e')
     @winrt_commethod(6)
@@ -342,12 +342,12 @@ class IArcadeStickStatics(c_void_p):
     @winrt_commethod(10)
     def get_ArcadeSticks(self) -> Windows.Foundation.Collections.IVectorView[Windows.Gaming.Input.ArcadeStick]: ...
     ArcadeSticks = property(get_ArcadeSticks, None)
-class IArcadeStickStatics2(c_void_p):
+class IArcadeStickStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('52b5d744-bb86-445a-b5-9c-59-6f-0e-2a-49-df')
     @winrt_commethod(6)
     def FromGameController(self, gameController: Windows.Gaming.Input.IGameController) -> Windows.Gaming.Input.ArcadeStick: ...
-class IFlightStick(c_void_p):
+class IFlightStick(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b4a2c01c-b83b-4459-a1-a9-97-b0-3c-33-da-7c')
     @winrt_commethod(6)
@@ -357,7 +357,7 @@ class IFlightStick(c_void_p):
     @winrt_commethod(8)
     def GetCurrentReading(self) -> Windows.Gaming.Input.FlightStickReading: ...
     HatSwitchKind = property(get_HatSwitchKind, None)
-class IFlightStickStatics(c_void_p):
+class IFlightStickStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5514924a-fecc-435e-83-dc-5c-ec-8a-18-a5-20')
     @winrt_commethod(6)
@@ -373,7 +373,7 @@ class IFlightStickStatics(c_void_p):
     @winrt_commethod(11)
     def FromGameController(self, gameController: Windows.Gaming.Input.IGameController) -> Windows.Gaming.Input.FlightStick: ...
     FlightSticks = property(get_FlightSticks, None)
-class IGameController(c_void_p):
+class IGameController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1baf6522-5f64-42c5-82-67-b9-fe-22-15-bf-bd')
     @winrt_commethod(6)
@@ -397,12 +397,12 @@ class IGameController(c_void_p):
     Headset = property(get_Headset, None)
     IsWireless = property(get_IsWireless, None)
     User = property(get_User, None)
-class IGameControllerBatteryInfo(c_void_p):
+class IGameControllerBatteryInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dcecc681-3963-4da6-95-5d-55-3f-3b-6f-61-61')
     @winrt_commethod(6)
     def TryGetBatteryReport(self) -> Windows.Devices.Power.BatteryReport: ...
-class IGamepad(c_void_p):
+class IGamepad(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bc7bb43c-0a69-3903-9e-9d-a5-0f-86-a4-5d-e5')
     @winrt_commethod(6)
@@ -412,12 +412,12 @@ class IGamepad(c_void_p):
     @winrt_commethod(8)
     def GetCurrentReading(self) -> Windows.Gaming.Input.GamepadReading: ...
     Vibration = property(get_Vibration, put_Vibration)
-class IGamepad2(c_void_p):
+class IGamepad2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3c1689bd-5915-4245-b0-c0-c8-9f-ae-03-08-ff')
     @winrt_commethod(6)
     def GetButtonLabel(self, button: Windows.Gaming.Input.GamepadButtons) -> Windows.Gaming.Input.GameControllerButtonLabel: ...
-class IGamepadStatics(c_void_p):
+class IGamepadStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8bbce529-d49c-39e9-95-60-e4-7d-de-96-b7-c8')
     @winrt_commethod(6)
@@ -431,12 +431,12 @@ class IGamepadStatics(c_void_p):
     @winrt_commethod(10)
     def get_Gamepads(self) -> Windows.Foundation.Collections.IVectorView[Windows.Gaming.Input.Gamepad]: ...
     Gamepads = property(get_Gamepads, None)
-class IGamepadStatics2(c_void_p):
+class IGamepadStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('42676dc5-0856-47c4-92-13-b3-95-50-4c-3a-3c')
     @winrt_commethod(6)
     def FromGameController(self, gameController: Windows.Gaming.Input.IGameController) -> Windows.Gaming.Input.Gamepad: ...
-class IHeadset(c_void_p):
+class IHeadset(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3fd156ef-6925-3fa8-91-81-02-9c-52-23-ae-3b')
     @winrt_commethod(6)
@@ -445,7 +445,7 @@ class IHeadset(c_void_p):
     def get_RenderDeviceId(self) -> WinRT_String: ...
     CaptureDeviceId = property(get_CaptureDeviceId, None)
     RenderDeviceId = property(get_RenderDeviceId, None)
-class IRacingWheel(c_void_p):
+class IRacingWheel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f546656f-e106-4c82-a9-0f-55-40-12-90-4b-85')
     @winrt_commethod(6)
@@ -470,7 +470,7 @@ class IRacingWheel(c_void_p):
     MaxPatternShifterGear = property(get_MaxPatternShifterGear, None)
     MaxWheelAngle = property(get_MaxWheelAngle, None)
     WheelMotor = property(get_WheelMotor, None)
-class IRacingWheelStatics(c_void_p):
+class IRacingWheelStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3ac12cd5-581b-4936-9f-94-69-f1-e6-51-4c-7d')
     @winrt_commethod(6)
@@ -484,12 +484,12 @@ class IRacingWheelStatics(c_void_p):
     @winrt_commethod(10)
     def get_RacingWheels(self) -> Windows.Foundation.Collections.IVectorView[Windows.Gaming.Input.RacingWheel]: ...
     RacingWheels = property(get_RacingWheels, None)
-class IRacingWheelStatics2(c_void_p):
+class IRacingWheelStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e666bcaa-edfd-4323-a9-f6-3c-38-40-48-d1-ed')
     @winrt_commethod(6)
     def FromGameController(self, gameController: Windows.Gaming.Input.IGameController) -> Windows.Gaming.Input.RacingWheel: ...
-class IRawGameController(c_void_p):
+class IRawGameController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7cad6d91-a7e1-4f71-9a-78-33-e9-c5-df-ea-62')
     @winrt_commethod(6)
@@ -516,7 +516,7 @@ class IRawGameController(c_void_p):
     HardwareProductId = property(get_HardwareProductId, None)
     HardwareVendorId = property(get_HardwareVendorId, None)
     SwitchCount = property(get_SwitchCount, None)
-class IRawGameController2(c_void_p):
+class IRawGameController2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('43c0c035-bb73-4756-a7-87-3e-d6-be-a6-17-bd')
     @winrt_commethod(6)
@@ -528,7 +528,7 @@ class IRawGameController2(c_void_p):
     SimpleHapticsControllers = property(get_SimpleHapticsControllers, None)
     NonRoamableId = property(get_NonRoamableId, None)
     DisplayName = property(get_DisplayName, None)
-class IRawGameControllerStatics(c_void_p):
+class IRawGameControllerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('eb8d0792-e95a-4b19-af-c7-0a-59-f8-bf-75-9e')
     @winrt_commethod(6)
@@ -544,7 +544,7 @@ class IRawGameControllerStatics(c_void_p):
     @winrt_commethod(11)
     def FromGameController(self, gameController: Windows.Gaming.Input.IGameController) -> Windows.Gaming.Input.RawGameController: ...
     RawGameControllers = property(get_RawGameControllers, None)
-class IUINavigationController(c_void_p):
+class IUINavigationController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e5aeefdd-f50e-4a55-8c-dc-d3-32-29-54-81-75')
     @winrt_commethod(6)
@@ -553,7 +553,7 @@ class IUINavigationController(c_void_p):
     def GetOptionalButtonLabel(self, button: Windows.Gaming.Input.OptionalUINavigationButtons) -> Windows.Gaming.Input.GameControllerButtonLabel: ...
     @winrt_commethod(8)
     def GetRequiredButtonLabel(self, button: Windows.Gaming.Input.RequiredUINavigationButtons) -> Windows.Gaming.Input.GameControllerButtonLabel: ...
-class IUINavigationControllerStatics(c_void_p):
+class IUINavigationControllerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2f14930a-f6f8-4a48-8d-89-94-78-6c-ca-0c-2e')
     @winrt_commethod(6)
@@ -567,7 +567,7 @@ class IUINavigationControllerStatics(c_void_p):
     @winrt_commethod(10)
     def get_UINavigationControllers(self) -> Windows.Foundation.Collections.IVectorView[Windows.Gaming.Input.UINavigationController]: ...
     UINavigationControllers = property(get_UINavigationControllers, None)
-class IUINavigationControllerStatics2(c_void_p):
+class IUINavigationControllerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e0cb28e3-b20b-4b0b-9e-d4-f3-d5-3c-ec-0d-e4')
     @winrt_commethod(6)
@@ -586,7 +586,7 @@ OptionalUINavigationButtons_ScrollUp: OptionalUINavigationButtons = 256
 OptionalUINavigationButtons_ScrollDown: OptionalUINavigationButtons = 512
 OptionalUINavigationButtons_ScrollLeft: OptionalUINavigationButtons = 1024
 OptionalUINavigationButtons_ScrollRight: OptionalUINavigationButtons = 2048
-class RacingWheel(c_void_p):
+class RacingWheel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.RacingWheel'
     @winrt_mixinmethod
@@ -680,7 +680,7 @@ class RacingWheelReading(EasyCastStructure):
     Brake: Double
     Clutch: Double
     Handbrake: Double
-class RawGameController(c_void_p):
+class RawGameController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.RawGameController'
     @winrt_mixinmethod
@@ -762,7 +762,7 @@ RequiredUINavigationButtons_Up: RequiredUINavigationButtons = 16
 RequiredUINavigationButtons_Down: RequiredUINavigationButtons = 32
 RequiredUINavigationButtons_Left: RequiredUINavigationButtons = 64
 RequiredUINavigationButtons_Right: RequiredUINavigationButtons = 128
-class UINavigationController(c_void_p):
+class UINavigationController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.UINavigationController'
     @winrt_mixinmethod

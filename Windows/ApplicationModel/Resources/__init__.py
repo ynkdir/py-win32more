@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Resources
@@ -22,27 +22,27 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IResourceLoader(c_void_p):
+class IResourceLoader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('08524908-16ef-45ad-a6-02-29-36-37-d7-e6-1a')
     @winrt_commethod(6)
     def GetString(self, resource: WinRT_String) -> WinRT_String: ...
-class IResourceLoader2(c_void_p):
+class IResourceLoader2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('10eb6ec6-8138-48c1-bc-65-e1-f1-42-07-36-7c')
     @winrt_commethod(6)
     def GetStringForUri(self, uri: Windows.Foundation.Uri) -> WinRT_String: ...
-class IResourceLoaderFactory(c_void_p):
+class IResourceLoaderFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c33a3603-69dc-4285-a0-77-d5-c0-e4-7c-cb-e8')
     @winrt_commethod(6)
     def CreateResourceLoaderByName(self, name: WinRT_String) -> Windows.ApplicationModel.Resources.ResourceLoader: ...
-class IResourceLoaderStatics(c_void_p):
+class IResourceLoaderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bf777ce1-19c8-49c2-95-3c-47-e9-22-7b-33-4e')
     @winrt_commethod(6)
     def GetStringForReference(self, uri: Windows.Foundation.Uri) -> WinRT_String: ...
-class IResourceLoaderStatics2(c_void_p):
+class IResourceLoaderStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0cc04141-6466-4989-94-94-0b-82-df-c5-3f-1f')
     @winrt_commethod(6)
@@ -53,17 +53,17 @@ class IResourceLoaderStatics2(c_void_p):
     def GetForViewIndependentUse(self) -> Windows.ApplicationModel.Resources.ResourceLoader: ...
     @winrt_commethod(9)
     def GetForViewIndependentUseWithName(self, name: WinRT_String) -> Windows.ApplicationModel.Resources.ResourceLoader: ...
-class IResourceLoaderStatics3(c_void_p):
+class IResourceLoaderStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('64609dfb-64ac-491b-81-00-0e-55-8d-61-c1-d0')
     @winrt_commethod(6)
     def GetForUIContext(self, context: Windows.UI.UIContext) -> Windows.ApplicationModel.Resources.ResourceLoader: ...
-class IResourceLoaderStatics4(c_void_p):
+class IResourceLoaderStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9fb36c32-6c8c-4316-96-2e-90-95-39-b5-c2-59')
     @winrt_commethod(6)
     def GetDefaultPriPath(self, packageFullName: WinRT_String) -> WinRT_String: ...
-class ResourceLoader(c_void_p):
+class ResourceLoader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Resources.ResourceLoader'
     @winrt_activatemethod

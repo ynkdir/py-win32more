@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -22,20 +22,20 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class CoreAppWindowPreview(c_void_p):
+class CoreAppWindowPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.Preview.CoreAppWindowPreview'
     @winrt_classmethod
     def GetIdFromWindow(cls: Windows.UI.Core.Preview.ICoreAppWindowPreviewStatics, window: Windows.UI.WindowManagement.AppWindow) -> Int32: ...
-class ICoreAppWindowPreview(c_void_p):
+class ICoreAppWindowPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a4f6e665-365e-5fde-87-a5-95-43-c3-a1-5a-a8')
-class ICoreAppWindowPreviewStatics(c_void_p):
+class ICoreAppWindowPreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('33ac21be-423b-5db6-8a-8e-4d-c8-73-53-b7-5b')
     @winrt_commethod(6)
     def GetIdFromWindow(self, window: Windows.UI.WindowManagement.AppWindow) -> Int32: ...
-class ISystemNavigationCloseRequestedPreviewEventArgs(c_void_p):
+class ISystemNavigationCloseRequestedPreviewEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('83d00de1-cbe5-4f31-84-14-36-1d-a0-46-51-8f')
     @winrt_commethod(6)
@@ -45,19 +45,19 @@ class ISystemNavigationCloseRequestedPreviewEventArgs(c_void_p):
     @winrt_commethod(8)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class ISystemNavigationManagerPreview(c_void_p):
+class ISystemNavigationManagerPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ec5f0488-6425-4777-a5-36-cb-56-34-42-7f-0d')
     @winrt_commethod(6)
     def add_CloseRequested(self, handler: Windows.Foundation.EventHandler[Windows.UI.Core.Preview.SystemNavigationCloseRequestedPreviewEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_CloseRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class ISystemNavigationManagerPreviewStatics(c_void_p):
+class ISystemNavigationManagerPreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0e971360-df74-4bce-84-cb-bd-11-81-ac-0a-71')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.Core.Preview.SystemNavigationManagerPreview: ...
-class SystemNavigationCloseRequestedPreviewEventArgs(c_void_p):
+class SystemNavigationCloseRequestedPreviewEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.Preview.SystemNavigationCloseRequestedPreviewEventArgs'
     @winrt_mixinmethod
@@ -67,7 +67,7 @@ class SystemNavigationCloseRequestedPreviewEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.UI.Core.Preview.ISystemNavigationCloseRequestedPreviewEventArgs) -> Windows.Foundation.Deferral: ...
     Handled = property(get_Handled, put_Handled)
-class SystemNavigationManagerPreview(c_void_p):
+class SystemNavigationManagerPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Core.Preview.SystemNavigationManagerPreview'
     @winrt_mixinmethod

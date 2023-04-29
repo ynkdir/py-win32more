@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -26,7 +26,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class HttpCacheDirectiveHeaderValueCollection(c_void_p):
+class HttpCacheDirectiveHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection'
     @winrt_mixinmethod
@@ -82,7 +82,7 @@ class HttpCacheDirectiveHeaderValueCollection(c_void_p):
     MinFresh = property(get_MinFresh, put_MinFresh)
     SharedMaxAge = property(get_SharedMaxAge, put_SharedMaxAge)
     Size = property(get_Size, None)
-class HttpChallengeHeaderValue(c_void_p):
+class HttpChallengeHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpChallengeHeaderValue'
     @winrt_factorymethod
@@ -104,7 +104,7 @@ class HttpChallengeHeaderValue(c_void_p):
     Parameters = property(get_Parameters, None)
     Scheme = property(get_Scheme, None)
     Token = property(get_Token, None)
-class HttpChallengeHeaderValueCollection(c_void_p):
+class HttpChallengeHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpChallengeHeaderValueCollection'
     @winrt_mixinmethod
@@ -140,7 +140,7 @@ class HttpChallengeHeaderValueCollection(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Size = property(get_Size, None)
-class HttpConnectionOptionHeaderValue(c_void_p):
+class HttpConnectionOptionHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue'
     @winrt_factorymethod
@@ -154,7 +154,7 @@ class HttpConnectionOptionHeaderValue(c_void_p):
     @winrt_classmethod
     def TryParse(cls: Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValueStatics, input: WinRT_String, connectionOptionHeaderValue: POINTER(Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue)) -> Boolean: ...
     Token = property(get_Token, None)
-class HttpConnectionOptionHeaderValueCollection(c_void_p):
+class HttpConnectionOptionHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpConnectionOptionHeaderValueCollection'
     @winrt_mixinmethod
@@ -190,7 +190,7 @@ class HttpConnectionOptionHeaderValueCollection(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Size = property(get_Size, None)
-class HttpContentCodingHeaderValue(c_void_p):
+class HttpContentCodingHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpContentCodingHeaderValue'
     @winrt_factorymethod
@@ -204,7 +204,7 @@ class HttpContentCodingHeaderValue(c_void_p):
     @winrt_classmethod
     def TryParse(cls: Windows.Web.Http.Headers.IHttpContentCodingHeaderValueStatics, input: WinRT_String, contentCodingHeaderValue: POINTER(Windows.Web.Http.Headers.HttpContentCodingHeaderValue)) -> Boolean: ...
     ContentCoding = property(get_ContentCoding, None)
-class HttpContentCodingHeaderValueCollection(c_void_p):
+class HttpContentCodingHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpContentCodingHeaderValueCollection'
     @winrt_mixinmethod
@@ -240,7 +240,7 @@ class HttpContentCodingHeaderValueCollection(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Size = property(get_Size, None)
-class HttpContentCodingWithQualityHeaderValue(c_void_p):
+class HttpContentCodingWithQualityHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue'
     @winrt_factorymethod
@@ -259,7 +259,7 @@ class HttpContentCodingWithQualityHeaderValue(c_void_p):
     def TryParse(cls: Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValueStatics, input: WinRT_String, contentCodingWithQualityHeaderValue: POINTER(Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue)) -> Boolean: ...
     ContentCoding = property(get_ContentCoding, None)
     Quality = property(get_Quality, None)
-class HttpContentCodingWithQualityHeaderValueCollection(c_void_p):
+class HttpContentCodingWithQualityHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValueCollection'
     @winrt_mixinmethod
@@ -295,7 +295,7 @@ class HttpContentCodingWithQualityHeaderValueCollection(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Size = property(get_Size, None)
-class HttpContentDispositionHeaderValue(c_void_p):
+class HttpContentDispositionHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpContentDispositionHeaderValue'
     @winrt_factorymethod
@@ -334,7 +334,7 @@ class HttpContentDispositionHeaderValue(c_void_p):
     Name = property(get_Name, put_Name)
     Parameters = property(get_Parameters, None)
     Size = property(get_Size, put_Size)
-class HttpContentHeaderCollection(c_void_p):
+class HttpContentHeaderCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpContentHeaderCollection'
     @winrt_activatemethod
@@ -408,7 +408,7 @@ class HttpContentHeaderCollection(c_void_p):
     Expires = property(get_Expires, put_Expires)
     LastModified = property(get_LastModified, put_LastModified)
     Size = property(get_Size, None)
-class HttpContentRangeHeaderValue(c_void_p):
+class HttpContentRangeHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpContentRangeHeaderValue'
     @winrt_factorymethod
@@ -437,7 +437,7 @@ class HttpContentRangeHeaderValue(c_void_p):
     LastBytePosition = property(get_LastBytePosition, None)
     Length = property(get_Length, None)
     Unit = property(get_Unit, put_Unit)
-class HttpCookiePairHeaderValue(c_void_p):
+class HttpCookiePairHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpCookiePairHeaderValue'
     @winrt_factorymethod
@@ -458,7 +458,7 @@ class HttpCookiePairHeaderValue(c_void_p):
     def TryParse(cls: Windows.Web.Http.Headers.IHttpCookiePairHeaderValueStatics, input: WinRT_String, cookiePairHeaderValue: POINTER(Windows.Web.Http.Headers.HttpCookiePairHeaderValue)) -> Boolean: ...
     Name = property(get_Name, None)
     Value = property(get_Value, put_Value)
-class HttpCookiePairHeaderValueCollection(c_void_p):
+class HttpCookiePairHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpCookiePairHeaderValueCollection'
     @winrt_mixinmethod
@@ -494,7 +494,7 @@ class HttpCookiePairHeaderValueCollection(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Size = property(get_Size, None)
-class HttpCredentialsHeaderValue(c_void_p):
+class HttpCredentialsHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpCredentialsHeaderValue'
     @winrt_factorymethod
@@ -516,7 +516,7 @@ class HttpCredentialsHeaderValue(c_void_p):
     Parameters = property(get_Parameters, None)
     Scheme = property(get_Scheme, None)
     Token = property(get_Token, None)
-class HttpDateOrDeltaHeaderValue(c_void_p):
+class HttpDateOrDeltaHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue'
     @winrt_mixinmethod
@@ -531,7 +531,7 @@ class HttpDateOrDeltaHeaderValue(c_void_p):
     def TryParse(cls: Windows.Web.Http.Headers.IHttpDateOrDeltaHeaderValueStatics, input: WinRT_String, dateOrDeltaHeaderValue: POINTER(Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue)) -> Boolean: ...
     Date = property(get_Date, None)
     Delta = property(get_Delta, None)
-class HttpExpectationHeaderValue(c_void_p):
+class HttpExpectationHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpExpectationHeaderValue'
     @winrt_factorymethod
@@ -555,7 +555,7 @@ class HttpExpectationHeaderValue(c_void_p):
     Name = property(get_Name, None)
     Value = property(get_Value, put_Value)
     Parameters = property(get_Parameters, None)
-class HttpExpectationHeaderValueCollection(c_void_p):
+class HttpExpectationHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpExpectationHeaderValueCollection'
     @winrt_mixinmethod
@@ -591,7 +591,7 @@ class HttpExpectationHeaderValueCollection(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Size = property(get_Size, None)
-class HttpLanguageHeaderValueCollection(c_void_p):
+class HttpLanguageHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpLanguageHeaderValueCollection'
     @winrt_mixinmethod
@@ -627,7 +627,7 @@ class HttpLanguageHeaderValueCollection(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Size = property(get_Size, None)
-class HttpLanguageRangeWithQualityHeaderValue(c_void_p):
+class HttpLanguageRangeWithQualityHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue'
     @winrt_factorymethod
@@ -646,7 +646,7 @@ class HttpLanguageRangeWithQualityHeaderValue(c_void_p):
     def TryParse(cls: Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValueStatics, input: WinRT_String, languageRangeWithQualityHeaderValue: POINTER(Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue)) -> Boolean: ...
     LanguageRange = property(get_LanguageRange, None)
     Quality = property(get_Quality, None)
-class HttpLanguageRangeWithQualityHeaderValueCollection(c_void_p):
+class HttpLanguageRangeWithQualityHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValueCollection'
     @winrt_mixinmethod
@@ -682,7 +682,7 @@ class HttpLanguageRangeWithQualityHeaderValueCollection(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Size = property(get_Size, None)
-class HttpMediaTypeHeaderValue(c_void_p):
+class HttpMediaTypeHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpMediaTypeHeaderValue'
     @winrt_factorymethod
@@ -706,7 +706,7 @@ class HttpMediaTypeHeaderValue(c_void_p):
     CharSet = property(get_CharSet, put_CharSet)
     MediaType = property(get_MediaType, put_MediaType)
     Parameters = property(get_Parameters, None)
-class HttpMediaTypeWithQualityHeaderValue(c_void_p):
+class HttpMediaTypeWithQualityHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue'
     @winrt_factorymethod
@@ -737,7 +737,7 @@ class HttpMediaTypeWithQualityHeaderValue(c_void_p):
     MediaType = property(get_MediaType, put_MediaType)
     Parameters = property(get_Parameters, None)
     Quality = property(get_Quality, put_Quality)
-class HttpMediaTypeWithQualityHeaderValueCollection(c_void_p):
+class HttpMediaTypeWithQualityHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValueCollection'
     @winrt_mixinmethod
@@ -773,7 +773,7 @@ class HttpMediaTypeWithQualityHeaderValueCollection(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Size = property(get_Size, None)
-class HttpMethodHeaderValueCollection(c_void_p):
+class HttpMethodHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpMethodHeaderValueCollection'
     @winrt_mixinmethod
@@ -809,7 +809,7 @@ class HttpMethodHeaderValueCollection(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Size = property(get_Size, None)
-class HttpNameValueHeaderValue(c_void_p):
+class HttpNameValueHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpNameValueHeaderValue'
     @winrt_factorymethod
@@ -830,7 +830,7 @@ class HttpNameValueHeaderValue(c_void_p):
     def TryParse(cls: Windows.Web.Http.Headers.IHttpNameValueHeaderValueStatics, input: WinRT_String, nameValueHeaderValue: POINTER(Windows.Web.Http.Headers.HttpNameValueHeaderValue)) -> Boolean: ...
     Name = property(get_Name, None)
     Value = property(get_Value, put_Value)
-class HttpProductHeaderValue(c_void_p):
+class HttpProductHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpProductHeaderValue'
     @winrt_factorymethod
@@ -849,7 +849,7 @@ class HttpProductHeaderValue(c_void_p):
     def TryParse(cls: Windows.Web.Http.Headers.IHttpProductHeaderValueStatics, input: WinRT_String, productHeaderValue: POINTER(Windows.Web.Http.Headers.HttpProductHeaderValue)) -> Boolean: ...
     Name = property(get_Name, None)
     Version = property(get_Version, None)
-class HttpProductInfoHeaderValue(c_void_p):
+class HttpProductInfoHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpProductInfoHeaderValue'
     @winrt_factorymethod
@@ -868,7 +868,7 @@ class HttpProductInfoHeaderValue(c_void_p):
     def TryParse(cls: Windows.Web.Http.Headers.IHttpProductInfoHeaderValueStatics, input: WinRT_String, productInfoHeaderValue: POINTER(Windows.Web.Http.Headers.HttpProductInfoHeaderValue)) -> Boolean: ...
     Product = property(get_Product, None)
     Comment = property(get_Comment, None)
-class HttpProductInfoHeaderValueCollection(c_void_p):
+class HttpProductInfoHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpProductInfoHeaderValueCollection'
     @winrt_mixinmethod
@@ -904,7 +904,7 @@ class HttpProductInfoHeaderValueCollection(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Size = property(get_Size, None)
-class HttpRequestHeaderCollection(c_void_p):
+class HttpRequestHeaderCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpRequestHeaderCollection'
     @winrt_mixinmethod
@@ -1002,7 +1002,7 @@ class HttpRequestHeaderCollection(c_void_p):
     TransferEncoding = property(get_TransferEncoding, None)
     UserAgent = property(get_UserAgent, None)
     Size = property(get_Size, None)
-class HttpResponseHeaderCollection(c_void_p):
+class HttpResponseHeaderCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpResponseHeaderCollection'
     @winrt_mixinmethod
@@ -1066,7 +1066,7 @@ class HttpResponseHeaderCollection(c_void_p):
     TransferEncoding = property(get_TransferEncoding, None)
     WwwAuthenticate = property(get_WwwAuthenticate, None)
     Size = property(get_Size, None)
-class HttpTransferCodingHeaderValue(c_void_p):
+class HttpTransferCodingHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpTransferCodingHeaderValue'
     @winrt_factorymethod
@@ -1083,7 +1083,7 @@ class HttpTransferCodingHeaderValue(c_void_p):
     def TryParse(cls: Windows.Web.Http.Headers.IHttpTransferCodingHeaderValueStatics, input: WinRT_String, transferCodingHeaderValue: POINTER(Windows.Web.Http.Headers.HttpTransferCodingHeaderValue)) -> Boolean: ...
     Parameters = property(get_Parameters, None)
     Value = property(get_Value, None)
-class HttpTransferCodingHeaderValueCollection(c_void_p):
+class HttpTransferCodingHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.Headers.HttpTransferCodingHeaderValueCollection'
     @winrt_mixinmethod
@@ -1119,7 +1119,7 @@ class HttpTransferCodingHeaderValueCollection(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Size = property(get_Size, None)
-class IHttpCacheDirectiveHeaderValueCollection(c_void_p):
+class IHttpCacheDirectiveHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9a586b89-d5d0-4fbe-bd-9d-b5-b3-63-68-11-b4')
     @winrt_commethod(6)
@@ -1146,7 +1146,7 @@ class IHttpCacheDirectiveHeaderValueCollection(c_void_p):
     MaxStale = property(get_MaxStale, put_MaxStale)
     MinFresh = property(get_MinFresh, put_MinFresh)
     SharedMaxAge = property(get_SharedMaxAge, put_SharedMaxAge)
-class IHttpChallengeHeaderValue(c_void_p):
+class IHttpChallengeHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('393361af-0f7d-4820-9f-dd-a2-b9-56-ee-ae-ab')
     @winrt_commethod(6)
@@ -1158,78 +1158,78 @@ class IHttpChallengeHeaderValue(c_void_p):
     Parameters = property(get_Parameters, None)
     Scheme = property(get_Scheme, None)
     Token = property(get_Token, None)
-class IHttpChallengeHeaderValueCollection(c_void_p):
+class IHttpChallengeHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ca9e5f81-aee0-4353-a1-0b-e6-25-ba-bd-64-c2')
     @winrt_commethod(6)
     def ParseAdd(self, input: WinRT_String) -> Void: ...
     @winrt_commethod(7)
     def TryParseAdd(self, input: WinRT_String) -> Boolean: ...
-class IHttpChallengeHeaderValueFactory(c_void_p):
+class IHttpChallengeHeaderValueFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c452c451-d99c-40aa-93-99-90-ee-b9-8f-c6-13')
     @winrt_commethod(6)
     def CreateFromScheme(self, scheme: WinRT_String) -> Windows.Web.Http.Headers.HttpChallengeHeaderValue: ...
     @winrt_commethod(7)
     def CreateFromSchemeWithToken(self, scheme: WinRT_String, token: WinRT_String) -> Windows.Web.Http.Headers.HttpChallengeHeaderValue: ...
-class IHttpChallengeHeaderValueStatics(c_void_p):
+class IHttpChallengeHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f3d38a72-fc01-4d01-a0-08-fc-b7-c4-59-d6-35')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpChallengeHeaderValue: ...
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, challengeHeaderValue: POINTER(Windows.Web.Http.Headers.HttpChallengeHeaderValue)) -> Boolean: ...
-class IHttpConnectionOptionHeaderValue(c_void_p):
+class IHttpConnectionOptionHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cb4af27a-4e90-45eb-8d-cd-fd-14-08-f4-c4-4f')
     @winrt_commethod(6)
     def get_Token(self) -> WinRT_String: ...
     Token = property(get_Token, None)
-class IHttpConnectionOptionHeaderValueCollection(c_void_p):
+class IHttpConnectionOptionHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e4f56c1d-5142-4e00-8e-0f-01-95-09-33-76-29')
     @winrt_commethod(6)
     def ParseAdd(self, input: WinRT_String) -> Void: ...
     @winrt_commethod(7)
     def TryParseAdd(self, input: WinRT_String) -> Boolean: ...
-class IHttpConnectionOptionHeaderValueFactory(c_void_p):
+class IHttpConnectionOptionHeaderValueFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d93ccc1e-0b7d-4c3f-a5-8d-a2-a1-bd-ea-bc-0a')
     @winrt_commethod(6)
     def Create(self, token: WinRT_String) -> Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue: ...
-class IHttpConnectionOptionHeaderValueStatics(c_void_p):
+class IHttpConnectionOptionHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('aaa75d37-a946-4b1f-85-af-48-b6-8b-3c-50-bd')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue: ...
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, connectionOptionHeaderValue: POINTER(Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue)) -> Boolean: ...
-class IHttpContentCodingHeaderValue(c_void_p):
+class IHttpContentCodingHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bcf7f92a-9376-4d85-bc-cc-9f-4f-9a-ca-b4-34')
     @winrt_commethod(6)
     def get_ContentCoding(self) -> WinRT_String: ...
     ContentCoding = property(get_ContentCoding, None)
-class IHttpContentCodingHeaderValueCollection(c_void_p):
+class IHttpContentCodingHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7d221721-a6db-436e-8e-83-91-59-61-92-81-9c')
     @winrt_commethod(6)
     def ParseAdd(self, input: WinRT_String) -> Void: ...
     @winrt_commethod(7)
     def TryParseAdd(self, input: WinRT_String) -> Boolean: ...
-class IHttpContentCodingHeaderValueFactory(c_void_p):
+class IHttpContentCodingHeaderValueFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c53d2bd7-332b-4350-85-10-2e-67-a2-28-9a-5a')
     @winrt_commethod(6)
     def Create(self, contentCoding: WinRT_String) -> Windows.Web.Http.Headers.HttpContentCodingHeaderValue: ...
-class IHttpContentCodingHeaderValueStatics(c_void_p):
+class IHttpContentCodingHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('94d8602e-f9bf-42f7-aa-46-ed-27-2a-41-e2-12')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpContentCodingHeaderValue: ...
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, contentCodingHeaderValue: POINTER(Windows.Web.Http.Headers.HttpContentCodingHeaderValue)) -> Boolean: ...
-class IHttpContentCodingWithQualityHeaderValue(c_void_p):
+class IHttpContentCodingWithQualityHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('94531cd5-8b13-4d73-86-51-f7-6b-38-f8-84-95')
     @winrt_commethod(6)
@@ -1238,28 +1238,28 @@ class IHttpContentCodingWithQualityHeaderValue(c_void_p):
     def get_Quality(self) -> Windows.Foundation.IReference[Double]: ...
     ContentCoding = property(get_ContentCoding, None)
     Quality = property(get_Quality, None)
-class IHttpContentCodingWithQualityHeaderValueCollection(c_void_p):
+class IHttpContentCodingWithQualityHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7c0d753e-e899-4378-b5-c8-41-2d-82-07-11-cc')
     @winrt_commethod(6)
     def ParseAdd(self, input: WinRT_String) -> Void: ...
     @winrt_commethod(7)
     def TryParseAdd(self, input: WinRT_String) -> Boolean: ...
-class IHttpContentCodingWithQualityHeaderValueFactory(c_void_p):
+class IHttpContentCodingWithQualityHeaderValueFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c45eee1a-c553-46fc-ad-e2-d7-5c-1d-53-df-7b')
     @winrt_commethod(6)
     def CreateFromValue(self, contentCoding: WinRT_String) -> Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue: ...
     @winrt_commethod(7)
     def CreateFromValueWithQuality(self, contentCoding: WinRT_String, quality: Double) -> Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue: ...
-class IHttpContentCodingWithQualityHeaderValueStatics(c_void_p):
+class IHttpContentCodingWithQualityHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e8c9357c-8f89-4801-8e-75-4c-9a-bf-c3-de-71')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue: ...
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, contentCodingWithQualityHeaderValue: POINTER(Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue)) -> Boolean: ...
-class IHttpContentDispositionHeaderValue(c_void_p):
+class IHttpContentDispositionHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f2a2eedc-2629-4b49-99-08-96-a1-68-e9-36-5e')
     @winrt_commethod(6)
@@ -1290,19 +1290,19 @@ class IHttpContentDispositionHeaderValue(c_void_p):
     Name = property(get_Name, put_Name)
     Parameters = property(get_Parameters, None)
     Size = property(get_Size, put_Size)
-class IHttpContentDispositionHeaderValueFactory(c_void_p):
+class IHttpContentDispositionHeaderValueFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9915bbc4-456c-4e81-82-95-b2-ab-3c-bc-f5-45')
     @winrt_commethod(6)
     def Create(self, dispositionType: WinRT_String) -> Windows.Web.Http.Headers.HttpContentDispositionHeaderValue: ...
-class IHttpContentDispositionHeaderValueStatics(c_void_p):
+class IHttpContentDispositionHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('29c56067-5a37-46e4-b0-74-c5-17-7d-69-ca-66')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpContentDispositionHeaderValue: ...
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, contentDispositionHeaderValue: POINTER(Windows.Web.Http.Headers.HttpContentDispositionHeaderValue)) -> Boolean: ...
-class IHttpContentHeaderCollection(c_void_p):
+class IHttpContentHeaderCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('40612a44-47ae-4b7e-91-24-69-62-8b-64-aa-18')
     @winrt_commethod(6)
@@ -1355,7 +1355,7 @@ class IHttpContentHeaderCollection(c_void_p):
     ContentType = property(get_ContentType, put_ContentType)
     Expires = property(get_Expires, put_Expires)
     LastModified = property(get_LastModified, put_LastModified)
-class IHttpContentRangeHeaderValue(c_void_p):
+class IHttpContentRangeHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('04d967d3-a4f6-495c-95-30-85-79-fc-ba-8a-a9')
     @winrt_commethod(6)
@@ -1372,7 +1372,7 @@ class IHttpContentRangeHeaderValue(c_void_p):
     LastBytePosition = property(get_LastBytePosition, None)
     Length = property(get_Length, None)
     Unit = property(get_Unit, put_Unit)
-class IHttpContentRangeHeaderValueFactory(c_void_p):
+class IHttpContentRangeHeaderValueFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3f5bd691-a03c-4456-9a-6f-ef-27-ec-d0-3c-ae')
     @winrt_commethod(6)
@@ -1381,14 +1381,14 @@ class IHttpContentRangeHeaderValueFactory(c_void_p):
     def CreateFromRange(self, from_: UInt64, to: UInt64) -> Windows.Web.Http.Headers.HttpContentRangeHeaderValue: ...
     @winrt_commethod(8)
     def CreateFromRangeWithLength(self, from_: UInt64, to: UInt64, length: UInt64) -> Windows.Web.Http.Headers.HttpContentRangeHeaderValue: ...
-class IHttpContentRangeHeaderValueStatics(c_void_p):
+class IHttpContentRangeHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('80a346ca-174c-4fae-82-1c-13-4c-d2-94-aa-38')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpContentRangeHeaderValue: ...
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, contentRangeHeaderValue: POINTER(Windows.Web.Http.Headers.HttpContentRangeHeaderValue)) -> Boolean: ...
-class IHttpCookiePairHeaderValue(c_void_p):
+class IHttpCookiePairHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cbd46217-4b29-412b-bd-90-b3-d8-14-ab-8e-1b')
     @winrt_commethod(6)
@@ -1399,28 +1399,28 @@ class IHttpCookiePairHeaderValue(c_void_p):
     def put_Value(self, value: WinRT_String) -> Void: ...
     Name = property(get_Name, None)
     Value = property(get_Value, put_Value)
-class IHttpCookiePairHeaderValueCollection(c_void_p):
+class IHttpCookiePairHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f3f44350-581e-4ecc-9f-59-e5-07-d0-4f-06-e6')
     @winrt_commethod(6)
     def ParseAdd(self, input: WinRT_String) -> Void: ...
     @winrt_commethod(7)
     def TryParseAdd(self, input: WinRT_String) -> Boolean: ...
-class IHttpCookiePairHeaderValueFactory(c_void_p):
+class IHttpCookiePairHeaderValueFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('635e326f-146f-4f56-aa-21-2c-b7-d6-d5-8b-1e')
     @winrt_commethod(6)
     def CreateFromName(self, name: WinRT_String) -> Windows.Web.Http.Headers.HttpCookiePairHeaderValue: ...
     @winrt_commethod(7)
     def CreateFromNameWithValue(self, name: WinRT_String, value: WinRT_String) -> Windows.Web.Http.Headers.HttpCookiePairHeaderValue: ...
-class IHttpCookiePairHeaderValueStatics(c_void_p):
+class IHttpCookiePairHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6e866d48-06af-4462-81-58-99-38-8d-5d-ca-81')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpCookiePairHeaderValue: ...
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, cookiePairHeaderValue: POINTER(Windows.Web.Http.Headers.HttpCookiePairHeaderValue)) -> Boolean: ...
-class IHttpCredentialsHeaderValue(c_void_p):
+class IHttpCredentialsHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c34cc3cb-542e-4177-a6-c7-b6-74-ce-19-3f-bf')
     @winrt_commethod(6)
@@ -1432,21 +1432,21 @@ class IHttpCredentialsHeaderValue(c_void_p):
     Parameters = property(get_Parameters, None)
     Scheme = property(get_Scheme, None)
     Token = property(get_Token, None)
-class IHttpCredentialsHeaderValueFactory(c_void_p):
+class IHttpCredentialsHeaderValueFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f21d9e91-4d1c-4182-bf-d1-34-47-0a-62-f9-50')
     @winrt_commethod(6)
     def CreateFromScheme(self, scheme: WinRT_String) -> Windows.Web.Http.Headers.HttpCredentialsHeaderValue: ...
     @winrt_commethod(7)
     def CreateFromSchemeWithToken(self, scheme: WinRT_String, token: WinRT_String) -> Windows.Web.Http.Headers.HttpCredentialsHeaderValue: ...
-class IHttpCredentialsHeaderValueStatics(c_void_p):
+class IHttpCredentialsHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a69b2be6-ce8c-4443-a3-5a-1b-72-7b-13-10-36')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpCredentialsHeaderValue: ...
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, credentialsHeaderValue: POINTER(Windows.Web.Http.Headers.HttpCredentialsHeaderValue)) -> Boolean: ...
-class IHttpDateOrDeltaHeaderValue(c_void_p):
+class IHttpDateOrDeltaHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('eafcaa6a-c4dc-49e2-a2-7d-04-3a-df-58-67-a3')
     @winrt_commethod(6)
@@ -1455,14 +1455,14 @@ class IHttpDateOrDeltaHeaderValue(c_void_p):
     def get_Delta(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     Date = property(get_Date, None)
     Delta = property(get_Delta, None)
-class IHttpDateOrDeltaHeaderValueStatics(c_void_p):
+class IHttpDateOrDeltaHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7c2659a8-6672-4e90-9a-9a-f3-97-66-f7-f5-76')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue: ...
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, dateOrDeltaHeaderValue: POINTER(Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue)) -> Boolean: ...
-class IHttpExpectationHeaderValue(c_void_p):
+class IHttpExpectationHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4ce585cd-3a99-43af-a2-e6-ec-23-2f-ea-96-58')
     @winrt_commethod(6)
@@ -1476,35 +1476,35 @@ class IHttpExpectationHeaderValue(c_void_p):
     Name = property(get_Name, None)
     Value = property(get_Value, put_Value)
     Parameters = property(get_Parameters, None)
-class IHttpExpectationHeaderValueCollection(c_void_p):
+class IHttpExpectationHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e78521b3-a0e2-4ac4-9e-66-79-70-6c-b9-fd-58')
     @winrt_commethod(6)
     def ParseAdd(self, input: WinRT_String) -> Void: ...
     @winrt_commethod(7)
     def TryParseAdd(self, input: WinRT_String) -> Boolean: ...
-class IHttpExpectationHeaderValueFactory(c_void_p):
+class IHttpExpectationHeaderValueFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4ea275cb-d53e-4868-88-56-1e-21-a5-03-0d-c0')
     @winrt_commethod(6)
     def CreateFromName(self, name: WinRT_String) -> Windows.Web.Http.Headers.HttpExpectationHeaderValue: ...
     @winrt_commethod(7)
     def CreateFromNameWithValue(self, name: WinRT_String, value: WinRT_String) -> Windows.Web.Http.Headers.HttpExpectationHeaderValue: ...
-class IHttpExpectationHeaderValueStatics(c_void_p):
+class IHttpExpectationHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3019abe2-cfe5-473b-a5-7f-fb-a5-b1-4e-b2-57')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpExpectationHeaderValue: ...
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, expectationHeaderValue: POINTER(Windows.Web.Http.Headers.HttpExpectationHeaderValue)) -> Boolean: ...
-class IHttpLanguageHeaderValueCollection(c_void_p):
+class IHttpLanguageHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9ebd7ca3-8219-44f6-99-02-8c-56-df-d3-34-0c')
     @winrt_commethod(6)
     def ParseAdd(self, input: WinRT_String) -> Void: ...
     @winrt_commethod(7)
     def TryParseAdd(self, input: WinRT_String) -> Boolean: ...
-class IHttpLanguageRangeWithQualityHeaderValue(c_void_p):
+class IHttpLanguageRangeWithQualityHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7256e102-0080-4db4-a0-83-7d-e7-b2-e5-ba-4c')
     @winrt_commethod(6)
@@ -1513,28 +1513,28 @@ class IHttpLanguageRangeWithQualityHeaderValue(c_void_p):
     def get_Quality(self) -> Windows.Foundation.IReference[Double]: ...
     LanguageRange = property(get_LanguageRange, None)
     Quality = property(get_Quality, None)
-class IHttpLanguageRangeWithQualityHeaderValueCollection(c_void_p):
+class IHttpLanguageRangeWithQualityHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('885d5abd-4b4f-480a-89-ce-8a-ed-ce-e6-e3-a0')
     @winrt_commethod(6)
     def ParseAdd(self, input: WinRT_String) -> Void: ...
     @winrt_commethod(7)
     def TryParseAdd(self, input: WinRT_String) -> Boolean: ...
-class IHttpLanguageRangeWithQualityHeaderValueFactory(c_void_p):
+class IHttpLanguageRangeWithQualityHeaderValueFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7bb83970-780f-4c83-9f-e4-dc-30-87-f6-bd-55')
     @winrt_commethod(6)
     def CreateFromLanguageRange(self, languageRange: WinRT_String) -> Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue: ...
     @winrt_commethod(7)
     def CreateFromLanguageRangeWithQuality(self, languageRange: WinRT_String, quality: Double) -> Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue: ...
-class IHttpLanguageRangeWithQualityHeaderValueStatics(c_void_p):
+class IHttpLanguageRangeWithQualityHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2541e146-f308-46f5-b6-95-42-f5-40-24-ec-68')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue: ...
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, languageRangeWithQualityHeaderValue: POINTER(Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue)) -> Boolean: ...
-class IHttpMediaTypeHeaderValue(c_void_p):
+class IHttpMediaTypeHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('16b28533-e728-4fcb-bd-b0-08-a4-31-a1-48-44')
     @winrt_commethod(6)
@@ -1550,19 +1550,19 @@ class IHttpMediaTypeHeaderValue(c_void_p):
     CharSet = property(get_CharSet, put_CharSet)
     MediaType = property(get_MediaType, put_MediaType)
     Parameters = property(get_Parameters, None)
-class IHttpMediaTypeHeaderValueFactory(c_void_p):
+class IHttpMediaTypeHeaderValueFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bed747a8-cd17-42dd-93-67-ab-9c-5b-56-dd-7d')
     @winrt_commethod(6)
     def Create(self, mediaType: WinRT_String) -> Windows.Web.Http.Headers.HttpMediaTypeHeaderValue: ...
-class IHttpMediaTypeHeaderValueStatics(c_void_p):
+class IHttpMediaTypeHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e04d83df-1d41-4d8c-a2-de-6f-d2-ed-87-39-9b')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpMediaTypeHeaderValue: ...
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, mediaTypeHeaderValue: POINTER(Windows.Web.Http.Headers.HttpMediaTypeHeaderValue)) -> Boolean: ...
-class IHttpMediaTypeWithQualityHeaderValue(c_void_p):
+class IHttpMediaTypeWithQualityHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('188d5e32-76be-44a0-b1-cd-20-74-bd-ed-2d-de')
     @winrt_commethod(6)
@@ -1583,35 +1583,35 @@ class IHttpMediaTypeWithQualityHeaderValue(c_void_p):
     MediaType = property(get_MediaType, put_MediaType)
     Parameters = property(get_Parameters, None)
     Quality = property(get_Quality, put_Quality)
-class IHttpMediaTypeWithQualityHeaderValueCollection(c_void_p):
+class IHttpMediaTypeWithQualityHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3c0c6b73-1342-4587-a0-56-18-d0-2f-f6-71-65')
     @winrt_commethod(6)
     def ParseAdd(self, input: WinRT_String) -> Void: ...
     @winrt_commethod(7)
     def TryParseAdd(self, input: WinRT_String) -> Boolean: ...
-class IHttpMediaTypeWithQualityHeaderValueFactory(c_void_p):
+class IHttpMediaTypeWithQualityHeaderValueFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4c6d20f4-9457-44e6-a3-23-d1-22-b9-58-78-0b')
     @winrt_commethod(6)
     def CreateFromMediaType(self, mediaType: WinRT_String) -> Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue: ...
     @winrt_commethod(7)
     def CreateFromMediaTypeWithQuality(self, mediaType: WinRT_String, quality: Double) -> Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue: ...
-class IHttpMediaTypeWithQualityHeaderValueStatics(c_void_p):
+class IHttpMediaTypeWithQualityHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5b070cd9-b560-4fc8-98-35-7e-6c-0a-65-7b-24')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue: ...
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, mediaTypeWithQualityHeaderValue: POINTER(Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue)) -> Boolean: ...
-class IHttpMethodHeaderValueCollection(c_void_p):
+class IHttpMethodHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('43bc3ff4-6119-4adf-93-8c-34-bf-ff-cf-92-ed')
     @winrt_commethod(6)
     def ParseAdd(self, input: WinRT_String) -> Void: ...
     @winrt_commethod(7)
     def TryParseAdd(self, input: WinRT_String) -> Boolean: ...
-class IHttpNameValueHeaderValue(c_void_p):
+class IHttpNameValueHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d8ba7463-5b9a-4d1b-93-f9-aa-5b-44-ec-fd-df')
     @winrt_commethod(6)
@@ -1622,21 +1622,21 @@ class IHttpNameValueHeaderValue(c_void_p):
     def put_Value(self, value: WinRT_String) -> Void: ...
     Name = property(get_Name, None)
     Value = property(get_Value, put_Value)
-class IHttpNameValueHeaderValueFactory(c_void_p):
+class IHttpNameValueHeaderValueFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('770e2267-cbf8-4736-a9-25-93-fb-e1-0c-7c-a8')
     @winrt_commethod(6)
     def CreateFromName(self, name: WinRT_String) -> Windows.Web.Http.Headers.HttpNameValueHeaderValue: ...
     @winrt_commethod(7)
     def CreateFromNameWithValue(self, name: WinRT_String, value: WinRT_String) -> Windows.Web.Http.Headers.HttpNameValueHeaderValue: ...
-class IHttpNameValueHeaderValueStatics(c_void_p):
+class IHttpNameValueHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ffd4030f-1130-4152-86-59-25-69-09-a9-d1-15')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpNameValueHeaderValue: ...
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, nameValueHeaderValue: POINTER(Windows.Web.Http.Headers.HttpNameValueHeaderValue)) -> Boolean: ...
-class IHttpProductHeaderValue(c_void_p):
+class IHttpProductHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f4feee03-ebd4-4160-b9-ff-80-7c-51-83-b6-e6')
     @winrt_commethod(6)
@@ -1645,21 +1645,21 @@ class IHttpProductHeaderValue(c_void_p):
     def get_Version(self) -> WinRT_String: ...
     Name = property(get_Name, None)
     Version = property(get_Version, None)
-class IHttpProductHeaderValueFactory(c_void_p):
+class IHttpProductHeaderValueFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('611aa4f5-82bc-42fb-97-7b-dc-00-53-6e-5e-86')
     @winrt_commethod(6)
     def CreateFromName(self, productName: WinRT_String) -> Windows.Web.Http.Headers.HttpProductHeaderValue: ...
     @winrt_commethod(7)
     def CreateFromNameWithVersion(self, productName: WinRT_String, productVersion: WinRT_String) -> Windows.Web.Http.Headers.HttpProductHeaderValue: ...
-class IHttpProductHeaderValueStatics(c_void_p):
+class IHttpProductHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('90c33e29-befc-4337-be-62-49-f0-97-97-5f-53')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpProductHeaderValue: ...
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, productHeaderValue: POINTER(Windows.Web.Http.Headers.HttpProductHeaderValue)) -> Boolean: ...
-class IHttpProductInfoHeaderValue(c_void_p):
+class IHttpProductInfoHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1b1a8732-4c35-486a-96-6f-64-64-89-19-8e-4d')
     @winrt_commethod(6)
@@ -1668,28 +1668,28 @@ class IHttpProductInfoHeaderValue(c_void_p):
     def get_Comment(self) -> WinRT_String: ...
     Product = property(get_Product, None)
     Comment = property(get_Comment, None)
-class IHttpProductInfoHeaderValueCollection(c_void_p):
+class IHttpProductInfoHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('877df74a-d69b-44f8-ad-4f-45-3a-f9-c4-2e-d0')
     @winrt_commethod(6)
     def ParseAdd(self, input: WinRT_String) -> Void: ...
     @winrt_commethod(7)
     def TryParseAdd(self, input: WinRT_String) -> Boolean: ...
-class IHttpProductInfoHeaderValueFactory(c_void_p):
+class IHttpProductInfoHeaderValueFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('24220fbe-eabe-4464-b4-60-ec-01-0b-7c-41-e2')
     @winrt_commethod(6)
     def CreateFromComment(self, productComment: WinRT_String) -> Windows.Web.Http.Headers.HttpProductInfoHeaderValue: ...
     @winrt_commethod(7)
     def CreateFromNameWithVersion(self, productName: WinRT_String, productVersion: WinRT_String) -> Windows.Web.Http.Headers.HttpProductInfoHeaderValue: ...
-class IHttpProductInfoHeaderValueStatics(c_void_p):
+class IHttpProductInfoHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('db7fd857-327a-4e73-81-e5-70-59-a3-02-b0-42')
     @winrt_commethod(6)
     def Parse(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpProductInfoHeaderValue: ...
     @winrt_commethod(7)
     def TryParse(self, input: WinRT_String, productInfoHeaderValue: POINTER(Windows.Web.Http.Headers.HttpProductInfoHeaderValue)) -> Boolean: ...
-class IHttpRequestHeaderCollection(c_void_p):
+class IHttpRequestHeaderCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('af40329b-b544-469b-86-b9-ac-3d-46-6f-ea-36')
     @winrt_commethod(6)
@@ -1768,7 +1768,7 @@ class IHttpRequestHeaderCollection(c_void_p):
     Referer = property(get_Referer, put_Referer)
     TransferEncoding = property(get_TransferEncoding, None)
     UserAgent = property(get_UserAgent, None)
-class IHttpResponseHeaderCollection(c_void_p):
+class IHttpResponseHeaderCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7a990969-fa3f-41ed-aa-c6-bf-95-79-75-c1-6b')
     @winrt_commethod(6)
@@ -1813,7 +1813,7 @@ class IHttpResponseHeaderCollection(c_void_p):
     RetryAfter = property(get_RetryAfter, put_RetryAfter)
     TransferEncoding = property(get_TransferEncoding, None)
     WwwAuthenticate = property(get_WwwAuthenticate, None)
-class IHttpTransferCodingHeaderValue(c_void_p):
+class IHttpTransferCodingHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('436f32f9-3ded-42bd-b3-8a-54-96-a2-51-1c-e6')
     @winrt_commethod(6)
@@ -1822,19 +1822,19 @@ class IHttpTransferCodingHeaderValue(c_void_p):
     def get_Value(self) -> WinRT_String: ...
     Parameters = property(get_Parameters, None)
     Value = property(get_Value, None)
-class IHttpTransferCodingHeaderValueCollection(c_void_p):
+class IHttpTransferCodingHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('202c8c34-2c03-49b8-96-65-73-e2-7c-b2-fc-79')
     @winrt_commethod(6)
     def ParseAdd(self, input: WinRT_String) -> Void: ...
     @winrt_commethod(7)
     def TryParseAdd(self, input: WinRT_String) -> Boolean: ...
-class IHttpTransferCodingHeaderValueFactory(c_void_p):
+class IHttpTransferCodingHeaderValueFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bb62dffc-e361-4f08-8e-4f-c9-e7-23-de-70-3b')
     @winrt_commethod(6)
     def Create(self, input: WinRT_String) -> Windows.Web.Http.Headers.HttpTransferCodingHeaderValue: ...
-class IHttpTransferCodingHeaderValueStatics(c_void_p):
+class IHttpTransferCodingHeaderValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6ab8892a-1a98-4d32-a9-06-74-70-a9-87-5c-e5')
     @winrt_commethod(6)

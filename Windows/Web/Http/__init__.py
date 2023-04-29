@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -27,7 +27,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class HttpBufferContent(c_void_p):
+class HttpBufferContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpBufferContent'
     @winrt_factorymethod
@@ -53,7 +53,7 @@ class HttpBufferContent(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Headers = property(get_Headers, None)
-class HttpClient(c_void_p):
+class HttpClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpClient'
     @winrt_factorymethod
@@ -115,7 +115,7 @@ class HttpClient(c_void_p):
 HttpCompletionOption = Int32
 HttpCompletionOption_ResponseContentRead: HttpCompletionOption = 0
 HttpCompletionOption_ResponseHeadersRead: HttpCompletionOption = 1
-class HttpCookie(c_void_p):
+class HttpCookie(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpCookie'
     @winrt_factorymethod
@@ -151,7 +151,7 @@ class HttpCookie(c_void_p):
     HttpOnly = property(get_HttpOnly, put_HttpOnly)
     Secure = property(get_Secure, put_Secure)
     Value = property(get_Value, put_Value)
-class HttpCookieCollection(c_void_p):
+class HttpCookieCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpCookieCollection'
     @winrt_mixinmethod
@@ -165,7 +165,7 @@ class HttpCookieCollection(c_void_p):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Web.Http.HttpCookie]) -> Windows.Foundation.Collections.IIterator[Windows.Web.Http.HttpCookie]: ...
     Size = property(get_Size, None)
-class HttpCookieManager(c_void_p):
+class HttpCookieManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpCookieManager'
     @winrt_mixinmethod
@@ -176,7 +176,7 @@ class HttpCookieManager(c_void_p):
     def DeleteCookie(self: Windows.Web.Http.IHttpCookieManager, cookie: Windows.Web.Http.HttpCookie) -> Void: ...
     @winrt_mixinmethod
     def GetCookies(self: Windows.Web.Http.IHttpCookieManager, uri: Windows.Foundation.Uri) -> Windows.Web.Http.HttpCookieCollection: ...
-class HttpFormUrlEncodedContent(c_void_p):
+class HttpFormUrlEncodedContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpFormUrlEncodedContent'
     @winrt_factorymethod
@@ -200,7 +200,7 @@ class HttpFormUrlEncodedContent(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Headers = property(get_Headers, None)
-class HttpGetBufferResult(c_void_p):
+class HttpGetBufferResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpGetBufferResult'
     @winrt_mixinmethod
@@ -222,7 +222,7 @@ class HttpGetBufferResult(c_void_p):
     ResponseMessage = property(get_ResponseMessage, None)
     Succeeded = property(get_Succeeded, None)
     Value = property(get_Value, None)
-class HttpGetInputStreamResult(c_void_p):
+class HttpGetInputStreamResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpGetInputStreamResult'
     @winrt_mixinmethod
@@ -244,7 +244,7 @@ class HttpGetInputStreamResult(c_void_p):
     ResponseMessage = property(get_ResponseMessage, None)
     Succeeded = property(get_Succeeded, None)
     Value = property(get_Value, None)
-class HttpGetStringResult(c_void_p):
+class HttpGetStringResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpGetStringResult'
     @winrt_mixinmethod
@@ -266,7 +266,7 @@ class HttpGetStringResult(c_void_p):
     ResponseMessage = property(get_ResponseMessage, None)
     Succeeded = property(get_Succeeded, None)
     Value = property(get_Value, None)
-class HttpMethod(c_void_p):
+class HttpMethod(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpMethod'
     @winrt_factorymethod
@@ -297,7 +297,7 @@ class HttpMethod(c_void_p):
     Patch = property(get_Patch, None)
     Post = property(get_Post, None)
     Put = property(get_Put, None)
-class HttpMultipartContent(c_void_p):
+class HttpMultipartContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpMultipartContent'
     @winrt_factorymethod
@@ -329,7 +329,7 @@ class HttpMultipartContent(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Headers = property(get_Headers, None)
-class HttpMultipartFormDataContent(c_void_p):
+class HttpMultipartFormDataContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpMultipartFormDataContent'
     @winrt_factorymethod
@@ -381,7 +381,7 @@ HttpProgressStage_SendingContent: HttpProgressStage = 60
 HttpProgressStage_WaitingForResponse: HttpProgressStage = 70
 HttpProgressStage_ReceivingHeaders: HttpProgressStage = 80
 HttpProgressStage_ReceivingContent: HttpProgressStage = 90
-class HttpRequestMessage(c_void_p):
+class HttpRequestMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpRequestMessage'
     @winrt_activatemethod
@@ -421,7 +421,7 @@ class HttpRequestMessage(c_void_p):
     RequestUri = property(get_RequestUri, put_RequestUri)
     TransportInformation = property(get_TransportInformation, None)
     PrivacyAnnotation = property(get_PrivacyAnnotation, put_PrivacyAnnotation)
-class HttpRequestResult(c_void_p):
+class HttpRequestResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpRequestResult'
     @winrt_mixinmethod
@@ -440,7 +440,7 @@ class HttpRequestResult(c_void_p):
     RequestMessage = property(get_RequestMessage, None)
     ResponseMessage = property(get_ResponseMessage, None)
     Succeeded = property(get_Succeeded, None)
-class HttpResponseMessage(c_void_p):
+class HttpResponseMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpResponseMessage'
     @winrt_activatemethod
@@ -552,7 +552,7 @@ HttpStatusCode_InsufficientStorage: HttpStatusCode = 507
 HttpStatusCode_LoopDetected: HttpStatusCode = 508
 HttpStatusCode_NotExtended: HttpStatusCode = 510
 HttpStatusCode_NetworkAuthenticationRequired: HttpStatusCode = 511
-class HttpStreamContent(c_void_p):
+class HttpStreamContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpStreamContent'
     @winrt_factorymethod
@@ -576,7 +576,7 @@ class HttpStreamContent(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Headers = property(get_Headers, None)
-class HttpStringContent(c_void_p):
+class HttpStringContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpStringContent'
     @winrt_factorymethod
@@ -604,7 +604,7 @@ class HttpStringContent(c_void_p):
     @winrt_mixinmethod
     def ToString(self: Windows.Foundation.IStringable) -> WinRT_String: ...
     Headers = property(get_Headers, None)
-class HttpTransportInformation(c_void_p):
+class HttpTransportInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Http.HttpTransportInformation'
     @winrt_mixinmethod
@@ -626,14 +626,14 @@ HttpVersion_None: HttpVersion = 0
 HttpVersion_Http10: HttpVersion = 1
 HttpVersion_Http11: HttpVersion = 2
 HttpVersion_Http20: HttpVersion = 3
-class IHttpBufferContentFactory(c_void_p):
+class IHttpBufferContentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bc20c193-c41f-4ff7-91-23-64-35-73-6e-ad-c2')
     @winrt_commethod(6)
     def CreateFromBuffer(self, content: Windows.Storage.Streams.IBuffer) -> Windows.Web.Http.HttpBufferContent: ...
     @winrt_commethod(7)
     def CreateFromBufferWithOffset(self, content: Windows.Storage.Streams.IBuffer, offset: UInt32, count: UInt32) -> Windows.Web.Http.HttpBufferContent: ...
-class IHttpClient(c_void_p):
+class IHttpClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7fda1151-3574-4880-a8-ba-e6-b1-e0-06-1f-3d')
     @winrt_commethod(6)
@@ -659,7 +659,7 @@ class IHttpClient(c_void_p):
     @winrt_commethod(16)
     def get_DefaultRequestHeaders(self) -> Windows.Web.Http.Headers.HttpRequestHeaderCollection: ...
     DefaultRequestHeaders = property(get_DefaultRequestHeaders, None)
-class IHttpClient2(c_void_p):
+class IHttpClient2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cdd83348-e8b7-4cec-b1-b0-dc-45-5f-e7-2c-92')
     @winrt_commethod(6)
@@ -682,7 +682,7 @@ class IHttpClient2(c_void_p):
     def TrySendRequestAsync(self, request: Windows.Web.Http.HttpRequestMessage) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Web.Http.HttpRequestResult, Windows.Web.Http.HttpProgress]: ...
     @winrt_commethod(15)
     def TrySendRequestAsync2(self, request: Windows.Web.Http.HttpRequestMessage, completionOption: Windows.Web.Http.HttpCompletionOption) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Web.Http.HttpRequestResult, Windows.Web.Http.HttpProgress]: ...
-class IHttpClient3(c_void_p):
+class IHttpClient3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1172fd01-9899-4194-96-3f-8f-9d-72-a7-ec-15')
     @winrt_commethod(6)
@@ -690,12 +690,12 @@ class IHttpClient3(c_void_p):
     @winrt_commethod(7)
     def put_DefaultPrivacyAnnotation(self, value: WinRT_String) -> Void: ...
     DefaultPrivacyAnnotation = property(get_DefaultPrivacyAnnotation, put_DefaultPrivacyAnnotation)
-class IHttpClientFactory(c_void_p):
+class IHttpClientFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c30c4eca-e3fa-4f99-af-b4-63-cc-65-00-94-62')
     @winrt_commethod(6)
     def Create(self, filter: Windows.Web.Http.Filters.IHttpFilter) -> Windows.Web.Http.HttpClient: ...
-class IHttpContent(c_void_p):
+class IHttpContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6b14a441-fba7-4bd2-af-0a-83-9d-e7-c2-95-da')
     @winrt_commethod(6)
@@ -713,7 +713,7 @@ class IHttpContent(c_void_p):
     @winrt_commethod(12)
     def WriteToStreamAsync(self, outputStream: Windows.Storage.Streams.IOutputStream) -> Windows.Foundation.IAsyncOperationWithProgress[UInt64, UInt64]: ...
     Headers = property(get_Headers, None)
-class IHttpCookie(c_void_p):
+class IHttpCookie(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1f5488e2-cc2d-4779-86-a7-88-f1-06-87-d2-49')
     @winrt_commethod(6)
@@ -745,12 +745,12 @@ class IHttpCookie(c_void_p):
     HttpOnly = property(get_HttpOnly, put_HttpOnly)
     Secure = property(get_Secure, put_Secure)
     Value = property(get_Value, put_Value)
-class IHttpCookieFactory(c_void_p):
+class IHttpCookieFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6a0585a9-931c-4cd1-a9-6d-c2-17-01-78-5c-5f')
     @winrt_commethod(6)
     def Create(self, name: WinRT_String, domain: WinRT_String, path: WinRT_String) -> Windows.Web.Http.HttpCookie: ...
-class IHttpCookieManager(c_void_p):
+class IHttpCookieManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7a431780-cd4f-4e57-a8-4a-5b-0a-53-d6-bb-96')
     @winrt_commethod(6)
@@ -761,12 +761,12 @@ class IHttpCookieManager(c_void_p):
     def DeleteCookie(self, cookie: Windows.Web.Http.HttpCookie) -> Void: ...
     @winrt_commethod(9)
     def GetCookies(self, uri: Windows.Foundation.Uri) -> Windows.Web.Http.HttpCookieCollection: ...
-class IHttpFormUrlEncodedContentFactory(c_void_p):
+class IHttpFormUrlEncodedContentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('43f0138c-2f73-4302-b5-f3-ea-e9-23-8a-5e-01')
     @winrt_commethod(6)
     def Create(self, content: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> Windows.Web.Http.HttpFormUrlEncodedContent: ...
-class IHttpGetBufferResult(c_void_p):
+class IHttpGetBufferResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('53d08e7c-e209-404e-9a-49-74-2d-82-36-fd-3a')
     @winrt_commethod(6)
@@ -784,7 +784,7 @@ class IHttpGetBufferResult(c_void_p):
     ResponseMessage = property(get_ResponseMessage, None)
     Succeeded = property(get_Succeeded, None)
     Value = property(get_Value, None)
-class IHttpGetInputStreamResult(c_void_p):
+class IHttpGetInputStreamResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d5d63463-13aa-4ee0-be-95-a0-c3-9f-e9-12-03')
     @winrt_commethod(6)
@@ -802,7 +802,7 @@ class IHttpGetInputStreamResult(c_void_p):
     ResponseMessage = property(get_ResponseMessage, None)
     Succeeded = property(get_Succeeded, None)
     Value = property(get_Value, None)
-class IHttpGetStringResult(c_void_p):
+class IHttpGetStringResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9bac466d-8509-4775-b1-6d-89-53-f4-7a-7f-5f')
     @winrt_commethod(6)
@@ -820,18 +820,18 @@ class IHttpGetStringResult(c_void_p):
     ResponseMessage = property(get_ResponseMessage, None)
     Succeeded = property(get_Succeeded, None)
     Value = property(get_Value, None)
-class IHttpMethod(c_void_p):
+class IHttpMethod(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('728d4022-700d-4fe0-af-a5-40-29-9c-58-db-fd')
     @winrt_commethod(6)
     def get_Method(self) -> WinRT_String: ...
     Method = property(get_Method, None)
-class IHttpMethodFactory(c_void_p):
+class IHttpMethodFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3c51d10d-36d7-40f8-a8-6d-e7-59-ca-f2-f8-3f')
     @winrt_commethod(6)
     def Create(self, method: WinRT_String) -> Windows.Web.Http.HttpMethod: ...
-class IHttpMethodStatics(c_void_p):
+class IHttpMethodStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('64d171f0-d99a-4153-8d-c6-d6-8c-c4-cc-e3-17')
     @winrt_commethod(6)
@@ -855,19 +855,19 @@ class IHttpMethodStatics(c_void_p):
     Patch = property(get_Patch, None)
     Post = property(get_Post, None)
     Put = property(get_Put, None)
-class IHttpMultipartContent(c_void_p):
+class IHttpMultipartContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('df916aff-9926-4ac9-aa-f1-e0-d0-4e-f0-9b-b9')
     @winrt_commethod(6)
     def Add(self, content: Windows.Web.Http.IHttpContent) -> Void: ...
-class IHttpMultipartContentFactory(c_void_p):
+class IHttpMultipartContentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7eb42e62-0222-4f20-b3-72-47-d5-db-5d-33-b4')
     @winrt_commethod(6)
     def CreateWithSubtype(self, subtype: WinRT_String) -> Windows.Web.Http.HttpMultipartContent: ...
     @winrt_commethod(7)
     def CreateWithSubtypeAndBoundary(self, subtype: WinRT_String, boundary: WinRT_String) -> Windows.Web.Http.HttpMultipartContent: ...
-class IHttpMultipartFormDataContent(c_void_p):
+class IHttpMultipartFormDataContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('64d337e2-e967-4624-b6-d1-cf-74-60-4a-4a-42')
     @winrt_commethod(6)
@@ -876,12 +876,12 @@ class IHttpMultipartFormDataContent(c_void_p):
     def AddWithName(self, content: Windows.Web.Http.IHttpContent, name: WinRT_String) -> Void: ...
     @winrt_commethod(8)
     def AddWithNameAndFileName(self, content: Windows.Web.Http.IHttpContent, name: WinRT_String, fileName: WinRT_String) -> Void: ...
-class IHttpMultipartFormDataContentFactory(c_void_p):
+class IHttpMultipartFormDataContentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a04d7311-5017-4622-93-a8-49-b2-4a-4f-cb-fc')
     @winrt_commethod(6)
     def CreateWithBoundary(self, boundary: WinRT_String) -> Windows.Web.Http.HttpMultipartFormDataContent: ...
-class IHttpRequestMessage(c_void_p):
+class IHttpRequestMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f5762b3c-74d4-4811-b5-dc-9f-8b-4e-2f-9a-bf')
     @winrt_commethod(6)
@@ -908,7 +908,7 @@ class IHttpRequestMessage(c_void_p):
     Properties = property(get_Properties, None)
     RequestUri = property(get_RequestUri, put_RequestUri)
     TransportInformation = property(get_TransportInformation, None)
-class IHttpRequestMessage2(c_void_p):
+class IHttpRequestMessage2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c3c60489-62c2-4a3f-95-54-22-6e-7c-60-bd-96')
     @winrt_commethod(6)
@@ -916,12 +916,12 @@ class IHttpRequestMessage2(c_void_p):
     @winrt_commethod(7)
     def put_PrivacyAnnotation(self, value: WinRT_String) -> Void: ...
     PrivacyAnnotation = property(get_PrivacyAnnotation, put_PrivacyAnnotation)
-class IHttpRequestMessageFactory(c_void_p):
+class IHttpRequestMessageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5bac994e-3886-412e-ae-c3-52-ec-7f-25-61-6f')
     @winrt_commethod(6)
     def Create(self, method: Windows.Web.Http.HttpMethod, uri: Windows.Foundation.Uri) -> Windows.Web.Http.HttpRequestMessage: ...
-class IHttpRequestResult(c_void_p):
+class IHttpRequestResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6acf4da8-b5eb-4a35-a9-02-42-17-fb-e8-20-c5')
     @winrt_commethod(6)
@@ -936,7 +936,7 @@ class IHttpRequestResult(c_void_p):
     RequestMessage = property(get_RequestMessage, None)
     ResponseMessage = property(get_ResponseMessage, None)
     Succeeded = property(get_Succeeded, None)
-class IHttpResponseMessage(c_void_p):
+class IHttpResponseMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fee200fb-8664-44e0-95-d9-42-69-61-99-bf-fc')
     @winrt_commethod(6)
@@ -977,17 +977,17 @@ class IHttpResponseMessage(c_void_p):
     Source = property(get_Source, put_Source)
     StatusCode = property(get_StatusCode, put_StatusCode)
     Version = property(get_Version, put_Version)
-class IHttpResponseMessageFactory(c_void_p):
+class IHttpResponseMessageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('52a8af99-f095-43da-b6-0f-7c-fc-2b-c7-ea-2f')
     @winrt_commethod(6)
     def Create(self, statusCode: Windows.Web.Http.HttpStatusCode) -> Windows.Web.Http.HttpResponseMessage: ...
-class IHttpStreamContentFactory(c_void_p):
+class IHttpStreamContentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f3e64d9d-f725-407e-94-2f-0e-da-18-98-09-f4')
     @winrt_commethod(6)
     def CreateFromInputStream(self, content: Windows.Storage.Streams.IInputStream) -> Windows.Web.Http.HttpStreamContent: ...
-class IHttpStringContentFactory(c_void_p):
+class IHttpStringContentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('46649d5b-2e93-48eb-8e-61-19-67-78-78-e5-7f')
     @winrt_commethod(6)
@@ -996,7 +996,7 @@ class IHttpStringContentFactory(c_void_p):
     def CreateFromStringWithEncoding(self, content: WinRT_String, encoding: Windows.Storage.Streams.UnicodeEncoding) -> Windows.Web.Http.HttpStringContent: ...
     @winrt_commethod(8)
     def CreateFromStringWithEncodingAndMediaType(self, content: WinRT_String, encoding: Windows.Storage.Streams.UnicodeEncoding, mediaType: WinRT_String) -> Windows.Web.Http.HttpStringContent: ...
-class IHttpTransportInformation(c_void_p):
+class IHttpTransportInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('70127198-c6a7-4ed0-83-3a-83-fd-8b-8f-17-8d')
     @winrt_commethod(6)

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Usb
@@ -23,7 +23,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IUsbBulkInEndpointDescriptor(c_void_p):
+class IUsbBulkInEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3c6e4846-06cf-42a9-9d-c2-97-1c-1b-14-b6-e3')
     @winrt_commethod(6)
@@ -35,7 +35,7 @@ class IUsbBulkInEndpointDescriptor(c_void_p):
     MaxPacketSize = property(get_MaxPacketSize, None)
     EndpointNumber = property(get_EndpointNumber, None)
     Pipe = property(get_Pipe, None)
-class IUsbBulkInPipe(c_void_p):
+class IUsbBulkInPipe(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f01d2d3b-4548-4d50-b3-26-d8-2c-da-be-12-20')
     @winrt_commethod(6)
@@ -56,7 +56,7 @@ class IUsbBulkInPipe(c_void_p):
     EndpointDescriptor = property(get_EndpointDescriptor, None)
     ReadOptions = property(get_ReadOptions, put_ReadOptions)
     InputStream = property(get_InputStream, None)
-class IUsbBulkOutEndpointDescriptor(c_void_p):
+class IUsbBulkOutEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2820847a-ffee-4f60-9b-e1-95-6c-ac-3e-cb-65')
     @winrt_commethod(6)
@@ -68,7 +68,7 @@ class IUsbBulkOutEndpointDescriptor(c_void_p):
     MaxPacketSize = property(get_MaxPacketSize, None)
     EndpointNumber = property(get_EndpointNumber, None)
     Pipe = property(get_Pipe, None)
-class IUsbBulkOutPipe(c_void_p):
+class IUsbBulkOutPipe(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a8e9ee6e-0115-45aa-8b-21-37-b2-25-bc-ce-e7')
     @winrt_commethod(6)
@@ -84,7 +84,7 @@ class IUsbBulkOutPipe(c_void_p):
     EndpointDescriptor = property(get_EndpointDescriptor, None)
     WriteOptions = property(get_WriteOptions, put_WriteOptions)
     OutputStream = property(get_OutputStream, None)
-class IUsbConfiguration(c_void_p):
+class IUsbConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('68177429-36a9-46d7-b8-73-fc-68-92-51-ec-30')
     @winrt_commethod(6)
@@ -96,7 +96,7 @@ class IUsbConfiguration(c_void_p):
     UsbInterfaces = property(get_UsbInterfaces, None)
     ConfigurationDescriptor = property(get_ConfigurationDescriptor, None)
     Descriptors = property(get_Descriptors, None)
-class IUsbConfigurationDescriptor(c_void_p):
+class IUsbConfigurationDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f2176d92-b442-407a-82-07-7d-64-6c-03-85-f3')
     @winrt_commethod(6)
@@ -111,14 +111,14 @@ class IUsbConfigurationDescriptor(c_void_p):
     MaxPowerMilliamps = property(get_MaxPowerMilliamps, None)
     SelfPowered = property(get_SelfPowered, None)
     RemoteWakeup = property(get_RemoteWakeup, None)
-class IUsbConfigurationDescriptorStatics(c_void_p):
+class IUsbConfigurationDescriptorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('424ced93-e740-40a1-92-bd-da-12-0e-a0-49-14')
     @winrt_commethod(6)
     def TryParse(self, descriptor: Windows.Devices.Usb.UsbDescriptor, parsed: POINTER(Windows.Devices.Usb.UsbConfigurationDescriptor)) -> Boolean: ...
     @winrt_commethod(7)
     def Parse(self, descriptor: Windows.Devices.Usb.UsbDescriptor) -> Windows.Devices.Usb.UsbConfigurationDescriptor: ...
-class IUsbControlRequestType(c_void_p):
+class IUsbControlRequestType(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8e9465a6-d73d-46de-94-be-aa-e7-f0-7c-0f-5c')
     @winrt_commethod(6)
@@ -141,7 +141,7 @@ class IUsbControlRequestType(c_void_p):
     ControlTransferType = property(get_ControlTransferType, put_ControlTransferType)
     Recipient = property(get_Recipient, put_Recipient)
     AsByte = property(get_AsByte, put_AsByte)
-class IUsbDescriptor(c_void_p):
+class IUsbDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0a89f216-5f9d-4874-89-04-da-9a-d3-f5-52-8f')
     @winrt_commethod(6)
@@ -152,7 +152,7 @@ class IUsbDescriptor(c_void_p):
     def ReadDescriptorBuffer(self, buffer: Windows.Storage.Streams.IBuffer) -> Void: ...
     Length = property(get_Length, None)
     DescriptorType = property(get_DescriptorType, None)
-class IUsbDevice(c_void_p):
+class IUsbDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5249b992-c456-44d5-ad-5e-24-f5-a0-89-f6-3b')
     @winrt_commethod(6)
@@ -172,7 +172,7 @@ class IUsbDevice(c_void_p):
     DefaultInterface = property(get_DefaultInterface, None)
     DeviceDescriptor = property(get_DeviceDescriptor, None)
     Configuration = property(get_Configuration, None)
-class IUsbDeviceClass(c_void_p):
+class IUsbDeviceClass(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('051942f9-845e-47eb-b1-2a-38-f2-f6-17-af-e7')
     @winrt_commethod(6)
@@ -190,10 +190,10 @@ class IUsbDeviceClass(c_void_p):
     ClassCode = property(get_ClassCode, put_ClassCode)
     SubclassCode = property(get_SubclassCode, put_SubclassCode)
     ProtocolCode = property(get_ProtocolCode, put_ProtocolCode)
-class IUsbDeviceClasses(c_void_p):
+class IUsbDeviceClasses(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('686f955d-9b92-4b30-97-81-c2-2c-55-ac-35-cb')
-class IUsbDeviceClassesStatics(c_void_p):
+class IUsbDeviceClassesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b20b0527-c580-4599-a1-65-98-1b-4f-d0-32-30')
     @winrt_commethod(6)
@@ -223,7 +223,7 @@ class IUsbDeviceClassesStatics(c_void_p):
     Irda = property(get_Irda, None)
     Measurement = property(get_Measurement, None)
     VendorSpecific = property(get_VendorSpecific, None)
-class IUsbDeviceDescriptor(c_void_p):
+class IUsbDeviceDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1f48d1f6-ba97-4322-b9-2c-b5-b1-89-21-65-88')
     @winrt_commethod(6)
@@ -244,7 +244,7 @@ class IUsbDeviceDescriptor(c_void_p):
     ProductId = property(get_ProductId, None)
     BcdDeviceRevision = property(get_BcdDeviceRevision, None)
     NumberOfConfigurations = property(get_NumberOfConfigurations, None)
-class IUsbDeviceStatics(c_void_p):
+class IUsbDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('066b85a2-09b7-4446-85-02-6f-e6-dc-aa-73-09')
     @winrt_commethod(6)
@@ -257,7 +257,7 @@ class IUsbDeviceStatics(c_void_p):
     def GetDeviceClassSelector(self, usbClass: Windows.Devices.Usb.UsbDeviceClass) -> WinRT_String: ...
     @winrt_commethod(10)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Usb.UsbDevice]: ...
-class IUsbEndpointDescriptor(c_void_p):
+class IUsbEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6b4862d9-8df7-4b40-ac-83-57-8f-13-9f-05-75')
     @winrt_commethod(6)
@@ -281,14 +281,14 @@ class IUsbEndpointDescriptor(c_void_p):
     AsInterruptInEndpointDescriptor = property(get_AsInterruptInEndpointDescriptor, None)
     AsBulkOutEndpointDescriptor = property(get_AsBulkOutEndpointDescriptor, None)
     AsInterruptOutEndpointDescriptor = property(get_AsInterruptOutEndpointDescriptor, None)
-class IUsbEndpointDescriptorStatics(c_void_p):
+class IUsbEndpointDescriptorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c890b201-9a6a-495e-a8-2c-29-5b-9e-70-81-06')
     @winrt_commethod(6)
     def TryParse(self, descriptor: Windows.Devices.Usb.UsbDescriptor, parsed: POINTER(Windows.Devices.Usb.UsbEndpointDescriptor)) -> Boolean: ...
     @winrt_commethod(7)
     def Parse(self, descriptor: Windows.Devices.Usb.UsbDescriptor) -> Windows.Devices.Usb.UsbEndpointDescriptor: ...
-class IUsbInterface(c_void_p):
+class IUsbInterface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a0322b95-7f47-48ab-a7-27-67-8c-25-be-21-12')
     @winrt_commethod(6)
@@ -312,7 +312,7 @@ class IUsbInterface(c_void_p):
     InterfaceSettings = property(get_InterfaceSettings, None)
     InterfaceNumber = property(get_InterfaceNumber, None)
     Descriptors = property(get_Descriptors, None)
-class IUsbInterfaceDescriptor(c_void_p):
+class IUsbInterfaceDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('199670c7-b7ee-4f90-8c-d5-94-a2-e2-57-59-8a')
     @winrt_commethod(6)
@@ -330,14 +330,14 @@ class IUsbInterfaceDescriptor(c_void_p):
     ProtocolCode = property(get_ProtocolCode, None)
     AlternateSettingNumber = property(get_AlternateSettingNumber, None)
     InterfaceNumber = property(get_InterfaceNumber, None)
-class IUsbInterfaceDescriptorStatics(c_void_p):
+class IUsbInterfaceDescriptorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e34a9ff5-77d6-48b6-b0-be-16-c6-42-23-16-fe')
     @winrt_commethod(6)
     def TryParse(self, descriptor: Windows.Devices.Usb.UsbDescriptor, parsed: POINTER(Windows.Devices.Usb.UsbInterfaceDescriptor)) -> Boolean: ...
     @winrt_commethod(7)
     def Parse(self, descriptor: Windows.Devices.Usb.UsbDescriptor) -> Windows.Devices.Usb.UsbInterfaceDescriptor: ...
-class IUsbInterfaceSetting(c_void_p):
+class IUsbInterfaceSetting(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1827bba7-8da7-4af7-8f-4c-7f-30-32-e7-81-f5')
     @winrt_commethod(6)
@@ -363,7 +363,7 @@ class IUsbInterfaceSetting(c_void_p):
     Selected = property(get_Selected, None)
     InterfaceDescriptor = property(get_InterfaceDescriptor, None)
     Descriptors = property(get_Descriptors, None)
-class IUsbInterruptInEndpointDescriptor(c_void_p):
+class IUsbInterruptInEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c0528967-c911-4c3a-86-b2-41-9c-2d-a8-90-39')
     @winrt_commethod(6)
@@ -378,13 +378,13 @@ class IUsbInterruptInEndpointDescriptor(c_void_p):
     EndpointNumber = property(get_EndpointNumber, None)
     Interval = property(get_Interval, None)
     Pipe = property(get_Pipe, None)
-class IUsbInterruptInEventArgs(c_void_p):
+class IUsbInterruptInEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b7b04092-1418-4936-82-09-29-9c-f5-60-55-83')
     @winrt_commethod(6)
     def get_InterruptData(self) -> Windows.Storage.Streams.IBuffer: ...
     InterruptData = property(get_InterruptData, None)
-class IUsbInterruptInPipe(c_void_p):
+class IUsbInterruptInPipe(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fa007116-84d7-48c7-8a-3f-4c-0b-23-5f-2e-a6')
     @winrt_commethod(6)
@@ -396,7 +396,7 @@ class IUsbInterruptInPipe(c_void_p):
     @winrt_commethod(9)
     def remove_DataReceived(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     EndpointDescriptor = property(get_EndpointDescriptor, None)
-class IUsbInterruptOutEndpointDescriptor(c_void_p):
+class IUsbInterruptOutEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cc9fed81-10ca-4533-95-2d-9e-27-83-41-e8-0f')
     @winrt_commethod(6)
@@ -411,7 +411,7 @@ class IUsbInterruptOutEndpointDescriptor(c_void_p):
     EndpointNumber = property(get_EndpointNumber, None)
     Interval = property(get_Interval, None)
     Pipe = property(get_Pipe, None)
-class IUsbInterruptOutPipe(c_void_p):
+class IUsbInterruptOutPipe(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e984c8a9-aaf9-49d0-b9-6c-f6-61-ab-4a-7f-95')
     @winrt_commethod(6)
@@ -427,7 +427,7 @@ class IUsbInterruptOutPipe(c_void_p):
     EndpointDescriptor = property(get_EndpointDescriptor, None)
     WriteOptions = property(get_WriteOptions, put_WriteOptions)
     OutputStream = property(get_OutputStream, None)
-class IUsbSetupPacket(c_void_p):
+class IUsbSetupPacket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('104ba132-c78f-4c51-b6-54-e4-9d-02-f2-cb-03')
     @winrt_commethod(6)
@@ -455,12 +455,12 @@ class IUsbSetupPacket(c_void_p):
     Value = property(get_Value, put_Value)
     Index = property(get_Index, put_Index)
     Length = property(get_Length, put_Length)
-class IUsbSetupPacketFactory(c_void_p):
+class IUsbSetupPacketFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c9257d50-1b2e-4a41-a2-a7-33-8f-0c-ef-3c-14')
     @winrt_commethod(6)
     def CreateWithEightByteBuffer(self, eightByteBuffer: Windows.Storage.Streams.IBuffer) -> Windows.Devices.Usb.UsbSetupPacket: ...
-class UsbBulkInEndpointDescriptor(c_void_p):
+class UsbBulkInEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbBulkInEndpointDescriptor'
     @winrt_mixinmethod
@@ -472,7 +472,7 @@ class UsbBulkInEndpointDescriptor(c_void_p):
     MaxPacketSize = property(get_MaxPacketSize, None)
     EndpointNumber = property(get_EndpointNumber, None)
     Pipe = property(get_Pipe, None)
-class UsbBulkInPipe(c_void_p):
+class UsbBulkInPipe(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbBulkInPipe'
     @winrt_mixinmethod
@@ -493,7 +493,7 @@ class UsbBulkInPipe(c_void_p):
     EndpointDescriptor = property(get_EndpointDescriptor, None)
     ReadOptions = property(get_ReadOptions, put_ReadOptions)
     InputStream = property(get_InputStream, None)
-class UsbBulkOutEndpointDescriptor(c_void_p):
+class UsbBulkOutEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbBulkOutEndpointDescriptor'
     @winrt_mixinmethod
@@ -505,7 +505,7 @@ class UsbBulkOutEndpointDescriptor(c_void_p):
     MaxPacketSize = property(get_MaxPacketSize, None)
     EndpointNumber = property(get_EndpointNumber, None)
     Pipe = property(get_Pipe, None)
-class UsbBulkOutPipe(c_void_p):
+class UsbBulkOutPipe(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbBulkOutPipe'
     @winrt_mixinmethod
@@ -521,7 +521,7 @@ class UsbBulkOutPipe(c_void_p):
     EndpointDescriptor = property(get_EndpointDescriptor, None)
     WriteOptions = property(get_WriteOptions, put_WriteOptions)
     OutputStream = property(get_OutputStream, None)
-class UsbConfiguration(c_void_p):
+class UsbConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbConfiguration'
     @winrt_mixinmethod
@@ -533,7 +533,7 @@ class UsbConfiguration(c_void_p):
     UsbInterfaces = property(get_UsbInterfaces, None)
     ConfigurationDescriptor = property(get_ConfigurationDescriptor, None)
     Descriptors = property(get_Descriptors, None)
-class UsbConfigurationDescriptor(c_void_p):
+class UsbConfigurationDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbConfigurationDescriptor'
     @winrt_mixinmethod
@@ -558,7 +558,7 @@ UsbControlRecipient_SpecifiedInterface: UsbControlRecipient = 1
 UsbControlRecipient_Endpoint: UsbControlRecipient = 2
 UsbControlRecipient_Other: UsbControlRecipient = 3
 UsbControlRecipient_DefaultInterface: UsbControlRecipient = 4
-class UsbControlRequestType(c_void_p):
+class UsbControlRequestType(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbControlRequestType'
     @winrt_activatemethod
@@ -587,7 +587,7 @@ UsbControlTransferType = Int32
 UsbControlTransferType_Standard: UsbControlTransferType = 0
 UsbControlTransferType_Class: UsbControlTransferType = 1
 UsbControlTransferType_Vendor: UsbControlTransferType = 2
-class UsbDescriptor(c_void_p):
+class UsbDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbDescriptor'
     @winrt_mixinmethod
@@ -598,7 +598,7 @@ class UsbDescriptor(c_void_p):
     def ReadDescriptorBuffer(self: Windows.Devices.Usb.IUsbDescriptor, buffer: Windows.Storage.Streams.IBuffer) -> Void: ...
     Length = property(get_Length, None)
     DescriptorType = property(get_DescriptorType, None)
-class UsbDevice(c_void_p):
+class UsbDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbDevice'
     @winrt_mixinmethod
@@ -630,7 +630,7 @@ class UsbDevice(c_void_p):
     DefaultInterface = property(get_DefaultInterface, None)
     DeviceDescriptor = property(get_DeviceDescriptor, None)
     Configuration = property(get_Configuration, None)
-class UsbDeviceClass(c_void_p):
+class UsbDeviceClass(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbDeviceClass'
     @winrt_activatemethod
@@ -650,7 +650,7 @@ class UsbDeviceClass(c_void_p):
     ClassCode = property(get_ClassCode, put_ClassCode)
     SubclassCode = property(get_SubclassCode, put_SubclassCode)
     ProtocolCode = property(get_ProtocolCode, put_ProtocolCode)
-class UsbDeviceClasses(c_void_p):
+class UsbDeviceClasses(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbDeviceClasses'
     @winrt_classmethod
@@ -680,7 +680,7 @@ class UsbDeviceClasses(c_void_p):
     Irda = property(get_Irda, None)
     Measurement = property(get_Measurement, None)
     VendorSpecific = property(get_VendorSpecific, None)
-class UsbDeviceDescriptor(c_void_p):
+class UsbDeviceDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbDeviceDescriptor'
     @winrt_mixinmethod
@@ -701,7 +701,7 @@ class UsbDeviceDescriptor(c_void_p):
     ProductId = property(get_ProductId, None)
     BcdDeviceRevision = property(get_BcdDeviceRevision, None)
     NumberOfConfigurations = property(get_NumberOfConfigurations, None)
-class UsbEndpointDescriptor(c_void_p):
+class UsbEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbEndpointDescriptor'
     @winrt_mixinmethod
@@ -734,7 +734,7 @@ UsbEndpointType_Control: UsbEndpointType = 0
 UsbEndpointType_Isochronous: UsbEndpointType = 1
 UsbEndpointType_Bulk: UsbEndpointType = 2
 UsbEndpointType_Interrupt: UsbEndpointType = 3
-class UsbInterface(c_void_p):
+class UsbInterface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbInterface'
     @winrt_mixinmethod
@@ -758,7 +758,7 @@ class UsbInterface(c_void_p):
     InterfaceSettings = property(get_InterfaceSettings, None)
     InterfaceNumber = property(get_InterfaceNumber, None)
     Descriptors = property(get_Descriptors, None)
-class UsbInterfaceDescriptor(c_void_p):
+class UsbInterfaceDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbInterfaceDescriptor'
     @winrt_mixinmethod
@@ -780,7 +780,7 @@ class UsbInterfaceDescriptor(c_void_p):
     ProtocolCode = property(get_ProtocolCode, None)
     AlternateSettingNumber = property(get_AlternateSettingNumber, None)
     InterfaceNumber = property(get_InterfaceNumber, None)
-class UsbInterfaceSetting(c_void_p):
+class UsbInterfaceSetting(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbInterfaceSetting'
     @winrt_mixinmethod
@@ -806,7 +806,7 @@ class UsbInterfaceSetting(c_void_p):
     Selected = property(get_Selected, None)
     InterfaceDescriptor = property(get_InterfaceDescriptor, None)
     Descriptors = property(get_Descriptors, None)
-class UsbInterruptInEndpointDescriptor(c_void_p):
+class UsbInterruptInEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbInterruptInEndpointDescriptor'
     @winrt_mixinmethod
@@ -821,13 +821,13 @@ class UsbInterruptInEndpointDescriptor(c_void_p):
     EndpointNumber = property(get_EndpointNumber, None)
     Interval = property(get_Interval, None)
     Pipe = property(get_Pipe, None)
-class UsbInterruptInEventArgs(c_void_p):
+class UsbInterruptInEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbInterruptInEventArgs'
     @winrt_mixinmethod
     def get_InterruptData(self: Windows.Devices.Usb.IUsbInterruptInEventArgs) -> Windows.Storage.Streams.IBuffer: ...
     InterruptData = property(get_InterruptData, None)
-class UsbInterruptInPipe(c_void_p):
+class UsbInterruptInPipe(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbInterruptInPipe'
     @winrt_mixinmethod
@@ -839,7 +839,7 @@ class UsbInterruptInPipe(c_void_p):
     @winrt_mixinmethod
     def remove_DataReceived(self: Windows.Devices.Usb.IUsbInterruptInPipe, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     EndpointDescriptor = property(get_EndpointDescriptor, None)
-class UsbInterruptOutEndpointDescriptor(c_void_p):
+class UsbInterruptOutEndpointDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbInterruptOutEndpointDescriptor'
     @winrt_mixinmethod
@@ -854,7 +854,7 @@ class UsbInterruptOutEndpointDescriptor(c_void_p):
     EndpointNumber = property(get_EndpointNumber, None)
     Interval = property(get_Interval, None)
     Pipe = property(get_Pipe, None)
-class UsbInterruptOutPipe(c_void_p):
+class UsbInterruptOutPipe(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbInterruptOutPipe'
     @winrt_mixinmethod
@@ -876,7 +876,7 @@ UsbReadOptions_AutoClearStall: UsbReadOptions = 1
 UsbReadOptions_OverrideAutomaticBufferManagement: UsbReadOptions = 2
 UsbReadOptions_IgnoreShortPacket: UsbReadOptions = 4
 UsbReadOptions_AllowPartialReads: UsbReadOptions = 8
-class UsbSetupPacket(c_void_p):
+class UsbSetupPacket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Usb.UsbSetupPacket'
     @winrt_factorymethod

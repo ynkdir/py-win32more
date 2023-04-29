@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class AsyncCausalityTracer(c_void_p):
+class AsyncCausalityTracer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Foundation.Diagnostics.AsyncCausalityTracer'
     @winrt_classmethod
@@ -57,7 +57,7 @@ CausalityTraceLevel = Int32
 CausalityTraceLevel_Required: CausalityTraceLevel = 0
 CausalityTraceLevel_Important: CausalityTraceLevel = 1
 CausalityTraceLevel_Verbose: CausalityTraceLevel = 2
-class ErrorDetails(c_void_p):
+class ErrorDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Foundation.Diagnostics.ErrorDetails'
     @winrt_mixinmethod
@@ -77,7 +77,7 @@ ErrorOptions_SuppressExceptions: ErrorOptions = 1
 ErrorOptions_ForceExceptions: ErrorOptions = 2
 ErrorOptions_UseSetErrorInfo: ErrorOptions = 4
 ErrorOptions_SuppressSetErrorInfo: ErrorOptions = 8
-class FileLoggingSession(c_void_p):
+class FileLoggingSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Foundation.Diagnostics.FileLoggingSession'
     @winrt_factorymethod
@@ -99,7 +99,7 @@ class FileLoggingSession(c_void_p):
     @winrt_mixinmethod
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
     Name = property(get_Name, None)
-class IAsyncCausalityTracerStatics(c_void_p):
+class IAsyncCausalityTracerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('50850b26-267e-451b-a8-90-ab-6a-37-02-45-ee')
     @winrt_commethod(6)
@@ -116,7 +116,7 @@ class IAsyncCausalityTracerStatics(c_void_p):
     def add_TracingStatusChanged(self, handler: Windows.Foundation.EventHandler[Windows.Foundation.Diagnostics.TracingStatusChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(12)
     def remove_TracingStatusChanged(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IErrorDetails(c_void_p):
+class IErrorDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('378cbb01-2cc9-428f-8c-55-2c-99-0d-46-3e-8f')
     @winrt_commethod(6)
@@ -128,19 +128,19 @@ class IErrorDetails(c_void_p):
     Description = property(get_Description, None)
     LongDescription = property(get_LongDescription, None)
     HelpUri = property(get_HelpUri, None)
-class IErrorDetailsStatics(c_void_p):
+class IErrorDetailsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b7703750-0b1d-46c8-aa-0e-4b-81-78-e4-fc-e9')
     @winrt_commethod(6)
     def CreateFromHResultAsync(self, errorCode: Int32) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Diagnostics.ErrorDetails]: ...
-class IErrorReportingSettings(c_void_p):
+class IErrorReportingSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('16369792-b03e-4ba1-8b-b8-d2-8f-4a-b4-d2-c0')
     @winrt_commethod(6)
     def SetErrorOptions(self, value: Windows.Foundation.Diagnostics.ErrorOptions) -> Void: ...
     @winrt_commethod(7)
     def GetErrorOptions(self) -> Windows.Foundation.Diagnostics.ErrorOptions: ...
-class IFileLoggingSession(c_void_p):
+class IFileLoggingSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('24c74216-fed2-404c-89-5f-1f-96-99-cb-02-f7')
     @winrt_commethod(6)
@@ -158,18 +158,18 @@ class IFileLoggingSession(c_void_p):
     @winrt_commethod(12)
     def remove_LogFileGenerated(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     Name = property(get_Name, None)
-class IFileLoggingSessionFactory(c_void_p):
+class IFileLoggingSessionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('eea08dce-8447-4daa-91-33-12-eb-46-f6-97-d4')
     @winrt_commethod(6)
     def Create(self, name: WinRT_String) -> Windows.Foundation.Diagnostics.FileLoggingSession: ...
-class ILogFileGeneratedEventArgs(c_void_p):
+class ILogFileGeneratedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('269e976f-0d38-4c1a-b5-3f-b3-95-d8-81-df-84')
     @winrt_commethod(6)
     def get_File(self) -> Windows.Storage.StorageFile: ...
     File = property(get_File, None)
-class ILoggingActivity(c_void_p):
+class ILoggingActivity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bc032941-b766-4cb5-98-48-97-ac-6b-a6-d6-0c')
     @winrt_commethod(6)
@@ -178,7 +178,7 @@ class ILoggingActivity(c_void_p):
     def get_Id(self) -> Guid: ...
     Name = property(get_Name, None)
     Id = property(get_Id, None)
-class ILoggingActivity2(c_void_p):
+class ILoggingActivity2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('26c29808-6322-456a-af-82-80-c8-64-2f-17-8b')
     @winrt_commethod(6)
@@ -190,14 +190,14 @@ class ILoggingActivity2(c_void_p):
     @winrt_commethod(9)
     def StopActivityWithFieldsAndOptions(self, stopEventName: WinRT_String, fields: Windows.Foundation.Diagnostics.LoggingFields, options: Windows.Foundation.Diagnostics.LoggingOptions) -> Void: ...
     Channel = property(get_Channel, None)
-class ILoggingActivityFactory(c_void_p):
+class ILoggingActivityFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6b33b483-e10a-4c58-97-d5-10-fb-45-10-74-fb')
     @winrt_commethod(6)
     def CreateLoggingActivity(self, activityName: WinRT_String, loggingChannel: Windows.Foundation.Diagnostics.ILoggingChannel) -> Windows.Foundation.Diagnostics.LoggingActivity: ...
     @winrt_commethod(7)
     def CreateLoggingActivityWithLevel(self, activityName: WinRT_String, loggingChannel: Windows.Foundation.Diagnostics.ILoggingChannel, level: Windows.Foundation.Diagnostics.LoggingLevel) -> Windows.Foundation.Diagnostics.LoggingActivity: ...
-class ILoggingChannel(c_void_p):
+class ILoggingChannel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e9a50343-11d7-4f01-b5-ca-cf-49-52-78-c0-a8')
     @winrt_commethod(6)
@@ -221,25 +221,25 @@ class ILoggingChannel(c_void_p):
     Name = property(get_Name, None)
     Enabled = property(get_Enabled, None)
     Level = property(get_Level, None)
-class ILoggingChannel2(c_void_p):
+class ILoggingChannel2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9f4c3cf3-0bac-45a5-9e-33-ba-f3-f3-a2-46-a5')
     @winrt_commethod(6)
     def get_Id(self) -> Guid: ...
     Id = property(get_Id, None)
-class ILoggingChannelFactory(c_void_p):
+class ILoggingChannelFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4edc5b9c-af80-4a9b-b0-dc-39-8f-9a-e5-20-7b')
     @winrt_commethod(6)
     def Create(self, name: WinRT_String) -> Windows.Foundation.Diagnostics.LoggingChannel: ...
-class ILoggingChannelFactory2(c_void_p):
+class ILoggingChannelFactory2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4c6ef5dd-3b27-4dc9-99-f0-29-9c-6e-46-03-a1')
     @winrt_commethod(6)
     def CreateWithOptions(self, name: WinRT_String, options: Windows.Foundation.Diagnostics.LoggingChannelOptions) -> Windows.Foundation.Diagnostics.LoggingChannel: ...
     @winrt_commethod(7)
     def CreateWithOptionsAndId(self, name: WinRT_String, options: Windows.Foundation.Diagnostics.LoggingChannelOptions, id: Guid) -> Windows.Foundation.Diagnostics.LoggingChannel: ...
-class ILoggingChannelOptions(c_void_p):
+class ILoggingChannelOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c3e847ff-0ebb-4a53-8c-54-de-c2-49-26-cb-2c')
     @winrt_commethod(6)
@@ -247,12 +247,12 @@ class ILoggingChannelOptions(c_void_p):
     @winrt_commethod(7)
     def put_Group(self, value: Guid) -> Void: ...
     Group = property(get_Group, put_Group)
-class ILoggingChannelOptionsFactory(c_void_p):
+class ILoggingChannelOptionsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a93151da-7faf-4191-87-55-5e-86-dc-65-d8-96')
     @winrt_commethod(6)
     def Create(self, group: Guid) -> Windows.Foundation.Diagnostics.LoggingChannelOptions: ...
-class ILoggingFields(c_void_p):
+class ILoggingFields(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d7f6b7af-762d-4579-83-bd-52-c2-3b-c3-33-bc')
     @winrt_commethod(6)
@@ -485,7 +485,7 @@ class ILoggingFields(c_void_p):
     def AddRectArrayWithFormat(self, name: WinRT_String, value: POINTER(Windows.Foundation.Rect_head), format: Windows.Foundation.Diagnostics.LoggingFieldFormat) -> Void: ...
     @winrt_commethod(120)
     def AddRectArrayWithFormatAndTags(self, name: WinRT_String, value: POINTER(Windows.Foundation.Rect_head), format: Windows.Foundation.Diagnostics.LoggingFieldFormat, tags: Int32) -> Void: ...
-class ILoggingOptions(c_void_p):
+class ILoggingOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('90bc7850-0192-4f5d-ac-26-00-6a-da-ca-12-d8')
     @winrt_commethod(6)
@@ -518,12 +518,12 @@ class ILoggingOptions(c_void_p):
     Opcode = property(get_Opcode, put_Opcode)
     ActivityId = property(get_ActivityId, put_ActivityId)
     RelatedActivityId = property(get_RelatedActivityId, put_RelatedActivityId)
-class ILoggingOptionsFactory(c_void_p):
+class ILoggingOptionsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d713c6cb-98ab-464b-9f-22-a3-26-84-78-36-8a')
     @winrt_commethod(6)
     def CreateWithKeywords(self, keywords: Int64) -> Windows.Foundation.Diagnostics.LoggingOptions: ...
-class ILoggingSession(c_void_p):
+class ILoggingSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6221f306-9380-4ad7-ba-f5-41-ea-93-10-d7-68')
     @winrt_commethod(6)
@@ -537,12 +537,12 @@ class ILoggingSession(c_void_p):
     @winrt_commethod(10)
     def RemoveLoggingChannel(self, loggingChannel: Windows.Foundation.Diagnostics.ILoggingChannel) -> Void: ...
     Name = property(get_Name, None)
-class ILoggingSessionFactory(c_void_p):
+class ILoggingSessionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4e937ee5-58fd-45e0-8c-2f-a1-32-ef-f9-5c-1e')
     @winrt_commethod(6)
     def Create(self, name: WinRT_String) -> Windows.Foundation.Diagnostics.LoggingSession: ...
-class ILoggingTarget(c_void_p):
+class ILoggingTarget(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('65f16c35-e388-4e26-b1-7a-f5-1c-d3-a8-39-16')
     @winrt_commethod(6)
@@ -567,7 +567,7 @@ class ILoggingTarget(c_void_p):
     def StartActivityWithFieldsAndLevel(self, startEventName: WinRT_String, fields: Windows.Foundation.Diagnostics.LoggingFields, level: Windows.Foundation.Diagnostics.LoggingLevel) -> Windows.Foundation.Diagnostics.LoggingActivity: ...
     @winrt_commethod(16)
     def StartActivityWithFieldsAndOptions(self, startEventName: WinRT_String, fields: Windows.Foundation.Diagnostics.LoggingFields, level: Windows.Foundation.Diagnostics.LoggingLevel, options: Windows.Foundation.Diagnostics.LoggingOptions) -> Windows.Foundation.Diagnostics.LoggingActivity: ...
-class ITracingStatusChangedEventArgs(c_void_p):
+class ITracingStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('410b7711-ff3b-477f-9c-9a-d2-ef-da-30-2d-c3')
     @winrt_commethod(6)
@@ -576,13 +576,13 @@ class ITracingStatusChangedEventArgs(c_void_p):
     def get_TraceLevel(self) -> Windows.Foundation.Diagnostics.CausalityTraceLevel: ...
     Enabled = property(get_Enabled, None)
     TraceLevel = property(get_TraceLevel, None)
-class LogFileGeneratedEventArgs(c_void_p):
+class LogFileGeneratedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Foundation.Diagnostics.LogFileGeneratedEventArgs'
     @winrt_mixinmethod
     def get_File(self: Windows.Foundation.Diagnostics.ILogFileGeneratedEventArgs) -> Windows.Storage.StorageFile: ...
     File = property(get_File, None)
-class LoggingActivity(c_void_p):
+class LoggingActivity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Foundation.Diagnostics.LoggingActivity'
     @winrt_factorymethod
@@ -628,7 +628,7 @@ class LoggingActivity(c_void_p):
     Name = property(get_Name, None)
     Id = property(get_Id, None)
     Channel = property(get_Channel, None)
-class LoggingChannel(c_void_p):
+class LoggingChannel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Foundation.Diagnostics.LoggingChannel'
     @winrt_factorymethod
@@ -685,7 +685,7 @@ class LoggingChannel(c_void_p):
     Enabled = property(get_Enabled, None)
     Level = property(get_Level, None)
     Id = property(get_Id, None)
-class LoggingChannelOptions(c_void_p):
+class LoggingChannelOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Foundation.Diagnostics.LoggingChannelOptions'
     @winrt_activatemethod
@@ -717,7 +717,7 @@ LoggingFieldFormat_HResult: LoggingFieldFormat = 15
 LoggingFieldFormat_FileTime: LoggingFieldFormat = 16
 LoggingFieldFormat_Signed: LoggingFieldFormat = 17
 LoggingFieldFormat_Unsigned: LoggingFieldFormat = 18
-class LoggingFields(c_void_p):
+class LoggingFields(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Foundation.Diagnostics.LoggingFields'
     @winrt_activatemethod
@@ -966,7 +966,7 @@ LoggingOpcode_Reply: LoggingOpcode = 6
 LoggingOpcode_Resume: LoggingOpcode = 7
 LoggingOpcode_Suspend: LoggingOpcode = 8
 LoggingOpcode_Send: LoggingOpcode = 9
-class LoggingOptions(c_void_p):
+class LoggingOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Foundation.Diagnostics.LoggingOptions'
     @winrt_factorymethod
@@ -1003,7 +1003,7 @@ class LoggingOptions(c_void_p):
     Opcode = property(get_Opcode, put_Opcode)
     ActivityId = property(get_ActivityId, put_ActivityId)
     RelatedActivityId = property(get_RelatedActivityId, put_RelatedActivityId)
-class LoggingSession(c_void_p):
+class LoggingSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Foundation.Diagnostics.LoggingSession'
     @winrt_factorymethod
@@ -1021,7 +1021,7 @@ class LoggingSession(c_void_p):
     @winrt_mixinmethod
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
     Name = property(get_Name, None)
-class RuntimeBrokerErrorSettings(c_void_p):
+class RuntimeBrokerErrorSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Foundation.Diagnostics.RuntimeBrokerErrorSettings'
     @winrt_activatemethod
@@ -1030,7 +1030,7 @@ class RuntimeBrokerErrorSettings(c_void_p):
     def SetErrorOptions(self: Windows.Foundation.Diagnostics.IErrorReportingSettings, value: Windows.Foundation.Diagnostics.ErrorOptions) -> Void: ...
     @winrt_mixinmethod
     def GetErrorOptions(self: Windows.Foundation.Diagnostics.IErrorReportingSettings) -> Windows.Foundation.Diagnostics.ErrorOptions: ...
-class TracingStatusChangedEventArgs(c_void_p):
+class TracingStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Foundation.Diagnostics.TracingStatusChangedEventArgs'
     @winrt_mixinmethod

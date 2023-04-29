@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Enumeration
@@ -23,7 +23,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IMidiChannelPressureMessage(c_void_p):
+class IMidiChannelPressureMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('be1fa860-62b4-4d52-a3-7e-92-e5-4d-35-b9-09')
     @winrt_commethod(6)
@@ -32,12 +32,12 @@ class IMidiChannelPressureMessage(c_void_p):
     def get_Pressure(self) -> Byte: ...
     Channel = property(get_Channel, None)
     Pressure = property(get_Pressure, None)
-class IMidiChannelPressureMessageFactory(c_void_p):
+class IMidiChannelPressureMessageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6218ed2f-2284-412a-94-cf-10-fb-04-84-2c-6c')
     @winrt_commethod(6)
     def CreateMidiChannelPressureMessage(self, channel: Byte, pressure: Byte) -> Windows.Devices.Midi.MidiChannelPressureMessage: ...
-class IMidiControlChangeMessage(c_void_p):
+class IMidiControlChangeMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b7e15f83-780d-405f-b7-81-3e-15-98-c9-7f-40')
     @winrt_commethod(6)
@@ -49,12 +49,12 @@ class IMidiControlChangeMessage(c_void_p):
     Channel = property(get_Channel, None)
     Controller = property(get_Controller, None)
     ControlValue = property(get_ControlValue, None)
-class IMidiControlChangeMessageFactory(c_void_p):
+class IMidiControlChangeMessageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2ab14321-956c-46ad-97-52-f8-7f-55-05-2f-e3')
     @winrt_commethod(6)
     def CreateMidiControlChangeMessage(self, channel: Byte, controller: Byte, controlValue: Byte) -> Windows.Devices.Midi.MidiControlChangeMessage: ...
-class IMidiInPort(c_void_p):
+class IMidiInPort(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d5c1d9db-971a-4eaf-a2-3d-ea-19-fe-60-7f-f9')
     @winrt_commethod(6)
@@ -64,14 +64,14 @@ class IMidiInPort(c_void_p):
     @winrt_commethod(8)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
-class IMidiInPortStatics(c_void_p):
+class IMidiInPortStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('44c439dc-67ff-4a6e-8b-ac-fd-b6-61-0c-f2-96')
     @winrt_commethod(6)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Midi.MidiInPort]: ...
     @winrt_commethod(7)
     def GetDeviceSelector(self) -> WinRT_String: ...
-class IMidiMessage(c_void_p):
+class IMidiMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('79767945-1094-4283-9b-e0-28-9f-c0-ee-83-34')
     @winrt_commethod(6)
@@ -83,13 +83,13 @@ class IMidiMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class IMidiMessageReceivedEventArgs(c_void_p):
+class IMidiMessageReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('76566e56-f328-4b51-90-7d-b3-a8-ce-96-bf-80')
     @winrt_commethod(6)
     def get_Message(self) -> Windows.Devices.Midi.IMidiMessage: ...
     Message = property(get_Message, None)
-class IMidiNoteOffMessage(c_void_p):
+class IMidiNoteOffMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('16fd8af4-198e-4d8f-a6-54-d3-05-a2-93-54-8f')
     @winrt_commethod(6)
@@ -101,12 +101,12 @@ class IMidiNoteOffMessage(c_void_p):
     Channel = property(get_Channel, None)
     Note = property(get_Note, None)
     Velocity = property(get_Velocity, None)
-class IMidiNoteOffMessageFactory(c_void_p):
+class IMidiNoteOffMessageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a6b240e0-a749-425f-8a-f4-a4-d9-79-cc-15-b5')
     @winrt_commethod(6)
     def CreateMidiNoteOffMessage(self, channel: Byte, note: Byte, velocity: Byte) -> Windows.Devices.Midi.MidiNoteOffMessage: ...
-class IMidiNoteOnMessage(c_void_p):
+class IMidiNoteOnMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e0224af5-6181-46dd-af-a2-41-00-04-c0-57-aa')
     @winrt_commethod(6)
@@ -118,12 +118,12 @@ class IMidiNoteOnMessage(c_void_p):
     Channel = property(get_Channel, None)
     Note = property(get_Note, None)
     Velocity = property(get_Velocity, None)
-class IMidiNoteOnMessageFactory(c_void_p):
+class IMidiNoteOnMessageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9b4280a0-59c1-420e-b5-17-15-a1-0a-a9-60-6b')
     @winrt_commethod(6)
     def CreateMidiNoteOnMessage(self, channel: Byte, note: Byte, velocity: Byte) -> Windows.Devices.Midi.MidiNoteOnMessage: ...
-class IMidiOutPort(c_void_p):
+class IMidiOutPort(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('931d6d9f-57a2-4a3a-ad-b8-46-40-88-6f-66-93')
     @winrt_commethod(6)
@@ -133,14 +133,14 @@ class IMidiOutPort(c_void_p):
     @winrt_commethod(8)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
-class IMidiOutPortStatics(c_void_p):
+class IMidiOutPortStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('065cc3e9-0f88-448b-9b-64-a9-58-26-c6-5b-8f')
     @winrt_commethod(6)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Midi.IMidiOutPort]: ...
     @winrt_commethod(7)
     def GetDeviceSelector(self) -> WinRT_String: ...
-class IMidiPitchBendChangeMessage(c_void_p):
+class IMidiPitchBendChangeMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('29df4cb1-2e9f-4faf-8c-2b-9c-b8-2a-90-79-ca')
     @winrt_commethod(6)
@@ -149,12 +149,12 @@ class IMidiPitchBendChangeMessage(c_void_p):
     def get_Bend(self) -> UInt16: ...
     Channel = property(get_Channel, None)
     Bend = property(get_Bend, None)
-class IMidiPitchBendChangeMessageFactory(c_void_p):
+class IMidiPitchBendChangeMessageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f5eedf55-cfc8-4926-b3-0e-a3-62-23-93-30-6c')
     @winrt_commethod(6)
     def CreateMidiPitchBendChangeMessage(self, channel: Byte, bend: UInt16) -> Windows.Devices.Midi.MidiPitchBendChangeMessage: ...
-class IMidiPolyphonicKeyPressureMessage(c_void_p):
+class IMidiPolyphonicKeyPressureMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1f7337fe-ace8-48a0-86-8e-7c-db-f2-0f-04-d6')
     @winrt_commethod(6)
@@ -166,12 +166,12 @@ class IMidiPolyphonicKeyPressureMessage(c_void_p):
     Channel = property(get_Channel, None)
     Note = property(get_Note, None)
     Pressure = property(get_Pressure, None)
-class IMidiPolyphonicKeyPressureMessageFactory(c_void_p):
+class IMidiPolyphonicKeyPressureMessageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e98f483e-c4b3-4dd2-91-7c-e3-49-81-5a-1b-3b')
     @winrt_commethod(6)
     def CreateMidiPolyphonicKeyPressureMessage(self, channel: Byte, note: Byte, pressure: Byte) -> Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage: ...
-class IMidiProgramChangeMessage(c_void_p):
+class IMidiProgramChangeMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9cbb3c78-7a3e-4327-aa-98-20-b8-e4-48-5a-f8')
     @winrt_commethod(6)
@@ -180,34 +180,34 @@ class IMidiProgramChangeMessage(c_void_p):
     def get_Program(self) -> Byte: ...
     Channel = property(get_Channel, None)
     Program = property(get_Program, None)
-class IMidiProgramChangeMessageFactory(c_void_p):
+class IMidiProgramChangeMessageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d6b04387-524b-4104-9c-99-65-72-bf-d2-e2-61')
     @winrt_commethod(6)
     def CreateMidiProgramChangeMessage(self, channel: Byte, program: Byte) -> Windows.Devices.Midi.MidiProgramChangeMessage: ...
-class IMidiSongPositionPointerMessage(c_void_p):
+class IMidiSongPositionPointerMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4ca50c56-ec5e-4ae4-a1-15-88-dc-57-cc-2b-79')
     @winrt_commethod(6)
     def get_Beats(self) -> UInt16: ...
     Beats = property(get_Beats, None)
-class IMidiSongPositionPointerMessageFactory(c_void_p):
+class IMidiSongPositionPointerMessageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9c00e996-f10b-4fea-b3-95-f5-d6-cf-80-f6-4e')
     @winrt_commethod(6)
     def CreateMidiSongPositionPointerMessage(self, beats: UInt16) -> Windows.Devices.Midi.MidiSongPositionPointerMessage: ...
-class IMidiSongSelectMessage(c_void_p):
+class IMidiSongSelectMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('49f0f27f-6d83-4741-a5-bf-46-29-f6-be-97-4f')
     @winrt_commethod(6)
     def get_Song(self) -> Byte: ...
     Song = property(get_Song, None)
-class IMidiSongSelectMessageFactory(c_void_p):
+class IMidiSongSelectMessageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('848878e4-8748-4129-a6-6c-a0-54-93-f7-5d-aa')
     @winrt_commethod(6)
     def CreateMidiSongSelectMessage(self, song: Byte) -> Windows.Devices.Midi.MidiSongSelectMessage: ...
-class IMidiSynthesizer(c_void_p):
+class IMidiSynthesizer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f0da155e-db90-405f-b8-ae-21-d2-e1-7f-2e-45')
     @winrt_commethod(6)
@@ -218,7 +218,7 @@ class IMidiSynthesizer(c_void_p):
     def put_Volume(self, value: Double) -> Void: ...
     AudioDevice = property(get_AudioDevice, None)
     Volume = property(get_Volume, put_Volume)
-class IMidiSynthesizerStatics(c_void_p):
+class IMidiSynthesizerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4224eaa8-6629-4d6b-aa-8f-d4-52-1a-5a-31-ce')
     @winrt_commethod(6)
@@ -227,12 +227,12 @@ class IMidiSynthesizerStatics(c_void_p):
     def CreateFromAudioDeviceAsync(self, audioDevice: Windows.Devices.Enumeration.DeviceInformation) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Midi.MidiSynthesizer]: ...
     @winrt_commethod(8)
     def IsSynthesizer(self, midiDevice: Windows.Devices.Enumeration.DeviceInformation) -> Boolean: ...
-class IMidiSystemExclusiveMessageFactory(c_void_p):
+class IMidiSystemExclusiveMessageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('083de222-3b74-4320-9b-42-0c-a8-54-5f-8a-24')
     @winrt_commethod(6)
     def CreateMidiSystemExclusiveMessage(self, rawData: Windows.Storage.Streams.IBuffer) -> Windows.Devices.Midi.MidiSystemExclusiveMessage: ...
-class IMidiTimeCodeMessage(c_void_p):
+class IMidiTimeCodeMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0bf7087d-fa63-4a1c-8d-eb-c0-e8-77-96-a6-d7')
     @winrt_commethod(6)
@@ -241,12 +241,12 @@ class IMidiTimeCodeMessage(c_void_p):
     def get_Values(self) -> Byte: ...
     FrameType = property(get_FrameType, None)
     Values = property(get_Values, None)
-class IMidiTimeCodeMessageFactory(c_void_p):
+class IMidiTimeCodeMessageFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('eb3099c5-771c-40de-b9-61-17-5a-74-89-a8-5e')
     @winrt_commethod(6)
     def CreateMidiTimeCodeMessage(self, frameType: Byte, values: Byte) -> Windows.Devices.Midi.MidiTimeCodeMessage: ...
-class MidiActiveSensingMessage(c_void_p):
+class MidiActiveSensingMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiActiveSensingMessage'
     @winrt_activatemethod
@@ -260,7 +260,7 @@ class MidiActiveSensingMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiChannelPressureMessage(c_void_p):
+class MidiChannelPressureMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiChannelPressureMessage'
     @winrt_factorymethod
@@ -280,7 +280,7 @@ class MidiChannelPressureMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiContinueMessage(c_void_p):
+class MidiContinueMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiContinueMessage'
     @winrt_activatemethod
@@ -294,7 +294,7 @@ class MidiContinueMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiControlChangeMessage(c_void_p):
+class MidiControlChangeMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiControlChangeMessage'
     @winrt_factorymethod
@@ -317,7 +317,7 @@ class MidiControlChangeMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiInPort(c_void_p):
+class MidiInPort(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiInPort'
     @winrt_mixinmethod
@@ -333,7 +333,7 @@ class MidiInPort(c_void_p):
     @winrt_classmethod
     def GetDeviceSelector(cls: Windows.Devices.Midi.IMidiInPortStatics) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
-class MidiMessageReceivedEventArgs(c_void_p):
+class MidiMessageReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiMessageReceivedEventArgs'
     @winrt_mixinmethod
@@ -360,7 +360,7 @@ MidiMessageType_Continue: MidiMessageType = 251
 MidiMessageType_Stop: MidiMessageType = 252
 MidiMessageType_ActiveSensing: MidiMessageType = 254
 MidiMessageType_SystemReset: MidiMessageType = 255
-class MidiNoteOffMessage(c_void_p):
+class MidiNoteOffMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiNoteOffMessage'
     @winrt_factorymethod
@@ -383,7 +383,7 @@ class MidiNoteOffMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiNoteOnMessage(c_void_p):
+class MidiNoteOnMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiNoteOnMessage'
     @winrt_factorymethod
@@ -406,7 +406,7 @@ class MidiNoteOnMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiOutPort(c_void_p):
+class MidiOutPort(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiOutPort'
     @winrt_mixinmethod
@@ -422,7 +422,7 @@ class MidiOutPort(c_void_p):
     @winrt_classmethod
     def GetDeviceSelector(cls: Windows.Devices.Midi.IMidiOutPortStatics) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
-class MidiPitchBendChangeMessage(c_void_p):
+class MidiPitchBendChangeMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiPitchBendChangeMessage'
     @winrt_factorymethod
@@ -442,7 +442,7 @@ class MidiPitchBendChangeMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiPolyphonicKeyPressureMessage(c_void_p):
+class MidiPolyphonicKeyPressureMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage'
     @winrt_factorymethod
@@ -465,7 +465,7 @@ class MidiPolyphonicKeyPressureMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiProgramChangeMessage(c_void_p):
+class MidiProgramChangeMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiProgramChangeMessage'
     @winrt_factorymethod
@@ -485,7 +485,7 @@ class MidiProgramChangeMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiSongPositionPointerMessage(c_void_p):
+class MidiSongPositionPointerMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiSongPositionPointerMessage'
     @winrt_factorymethod
@@ -502,7 +502,7 @@ class MidiSongPositionPointerMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiSongSelectMessage(c_void_p):
+class MidiSongSelectMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiSongSelectMessage'
     @winrt_factorymethod
@@ -519,7 +519,7 @@ class MidiSongSelectMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiStartMessage(c_void_p):
+class MidiStartMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiStartMessage'
     @winrt_activatemethod
@@ -533,7 +533,7 @@ class MidiStartMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiStopMessage(c_void_p):
+class MidiStopMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiStopMessage'
     @winrt_activatemethod
@@ -547,7 +547,7 @@ class MidiStopMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiSynthesizer(c_void_p):
+class MidiSynthesizer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiSynthesizer'
     @winrt_mixinmethod
@@ -573,7 +573,7 @@ class MidiSynthesizer(c_void_p):
     AudioDevice = property(get_AudioDevice, None)
     Volume = property(get_Volume, put_Volume)
     DeviceId = property(get_DeviceId, None)
-class MidiSystemExclusiveMessage(c_void_p):
+class MidiSystemExclusiveMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiSystemExclusiveMessage'
     @winrt_factorymethod
@@ -587,7 +587,7 @@ class MidiSystemExclusiveMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiSystemResetMessage(c_void_p):
+class MidiSystemResetMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiSystemResetMessage'
     @winrt_activatemethod
@@ -601,7 +601,7 @@ class MidiSystemResetMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiTimeCodeMessage(c_void_p):
+class MidiTimeCodeMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiTimeCodeMessage'
     @winrt_factorymethod
@@ -621,7 +621,7 @@ class MidiTimeCodeMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiTimingClockMessage(c_void_p):
+class MidiTimingClockMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiTimingClockMessage'
     @winrt_activatemethod
@@ -635,7 +635,7 @@ class MidiTimingClockMessage(c_void_p):
     Timestamp = property(get_Timestamp, None)
     RawData = property(get_RawData, None)
     Type = property(get_Type, None)
-class MidiTuneRequestMessage(c_void_p):
+class MidiTuneRequestMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Midi.MidiTuneRequestMessage'
     @winrt_activatemethod

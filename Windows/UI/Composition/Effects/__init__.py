@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Graphics.Effects
@@ -21,7 +21,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ISceneLightingEffect(c_void_p):
+class ISceneLightingEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('91bb5e52-95d1-4f8b-9a-5a-64-08-b2-4b-8c-6a')
     @winrt_commethod(6)
@@ -49,7 +49,7 @@ class ISceneLightingEffect(c_void_p):
     NormalMapSource = property(get_NormalMapSource, put_NormalMapSource)
     SpecularAmount = property(get_SpecularAmount, put_SpecularAmount)
     SpecularShine = property(get_SpecularShine, put_SpecularShine)
-class ISceneLightingEffect2(c_void_p):
+class ISceneLightingEffect2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9e270e81-72f0-4c5c-95-f8-8a-6e-00-24-f4-09')
     @winrt_commethod(6)
@@ -57,7 +57,7 @@ class ISceneLightingEffect2(c_void_p):
     @winrt_commethod(7)
     def put_ReflectanceModel(self, value: Windows.UI.Composition.Effects.SceneLightingEffectReflectanceModel) -> Void: ...
     ReflectanceModel = property(get_ReflectanceModel, put_ReflectanceModel)
-class SceneLightingEffect(c_void_p):
+class SceneLightingEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Composition.Effects.SceneLightingEffect'
     @winrt_activatemethod

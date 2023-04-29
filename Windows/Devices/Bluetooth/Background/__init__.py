@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Bluetooth
@@ -32,7 +32,7 @@ BluetoothEventTriggeringMode = Int32
 BluetoothEventTriggeringMode_Serial: BluetoothEventTriggeringMode = 0
 BluetoothEventTriggeringMode_Batch: BluetoothEventTriggeringMode = 1
 BluetoothEventTriggeringMode_KeepLatest: BluetoothEventTriggeringMode = 2
-class BluetoothLEAdvertisementPublisherTriggerDetails(c_void_p):
+class BluetoothLEAdvertisementPublisherTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Bluetooth.Background.BluetoothLEAdvertisementPublisherTriggerDetails'
     @winrt_mixinmethod
@@ -44,7 +44,7 @@ class BluetoothLEAdvertisementPublisherTriggerDetails(c_void_p):
     Status = property(get_Status, None)
     Error = property(get_Error, None)
     SelectedTransmitPowerLevelInDBm = property(get_SelectedTransmitPowerLevelInDBm, None)
-class BluetoothLEAdvertisementWatcherTriggerDetails(c_void_p):
+class BluetoothLEAdvertisementWatcherTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Bluetooth.Background.BluetoothLEAdvertisementWatcherTriggerDetails'
     @winrt_mixinmethod
@@ -56,7 +56,7 @@ class BluetoothLEAdvertisementWatcherTriggerDetails(c_void_p):
     Error = property(get_Error, None)
     Advertisements = property(get_Advertisements, None)
     SignalStrengthFilter = property(get_SignalStrengthFilter, None)
-class GattCharacteristicNotificationTriggerDetails(c_void_p):
+class GattCharacteristicNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Bluetooth.Background.GattCharacteristicNotificationTriggerDetails'
     @winrt_mixinmethod
@@ -74,7 +74,7 @@ class GattCharacteristicNotificationTriggerDetails(c_void_p):
     Error = property(get_Error, None)
     EventTriggeringMode = property(get_EventTriggeringMode, None)
     ValueChangedEvents = property(get_ValueChangedEvents, None)
-class GattServiceProviderConnection(c_void_p):
+class GattServiceProviderConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Bluetooth.Background.GattServiceProviderConnection'
     @winrt_mixinmethod
@@ -88,13 +88,13 @@ class GattServiceProviderConnection(c_void_p):
     TriggerId = property(get_TriggerId, None)
     Service = property(get_Service, None)
     AllServices = property(get_AllServices, None)
-class GattServiceProviderTriggerDetails(c_void_p):
+class GattServiceProviderTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Bluetooth.Background.GattServiceProviderTriggerDetails'
     @winrt_mixinmethod
     def get_Connection(self: Windows.Devices.Bluetooth.Background.IGattServiceProviderTriggerDetails) -> Windows.Devices.Bluetooth.Background.GattServiceProviderConnection: ...
     Connection = property(get_Connection, None)
-class IBluetoothLEAdvertisementPublisherTriggerDetails(c_void_p):
+class IBluetoothLEAdvertisementPublisherTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('610eca86-3480-41c9-a9-18-7d-da-df-20-7e-00')
     @winrt_commethod(6)
@@ -103,13 +103,13 @@ class IBluetoothLEAdvertisementPublisherTriggerDetails(c_void_p):
     def get_Error(self) -> Windows.Devices.Bluetooth.BluetoothError: ...
     Status = property(get_Status, None)
     Error = property(get_Error, None)
-class IBluetoothLEAdvertisementPublisherTriggerDetails2(c_void_p):
+class IBluetoothLEAdvertisementPublisherTriggerDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d4a3d025-c601-42d6-98-29-4c-cb-3f-5c-d7-7f')
     @winrt_commethod(6)
     def get_SelectedTransmitPowerLevelInDBm(self) -> Windows.Foundation.IReference[Int16]: ...
     SelectedTransmitPowerLevelInDBm = property(get_SelectedTransmitPowerLevelInDBm, None)
-class IBluetoothLEAdvertisementWatcherTriggerDetails(c_void_p):
+class IBluetoothLEAdvertisementWatcherTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a7db5ad7-2257-4e69-97-84-fe-e6-45-c1-dc-e0')
     @winrt_commethod(6)
@@ -121,7 +121,7 @@ class IBluetoothLEAdvertisementWatcherTriggerDetails(c_void_p):
     Error = property(get_Error, None)
     Advertisements = property(get_Advertisements, None)
     SignalStrengthFilter = property(get_SignalStrengthFilter, None)
-class IGattCharacteristicNotificationTriggerDetails(c_void_p):
+class IGattCharacteristicNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9ba03b18-0fec-436a-93-b1-f4-6c-69-75-32-a2')
     @winrt_commethod(6)
@@ -130,7 +130,7 @@ class IGattCharacteristicNotificationTriggerDetails(c_void_p):
     def get_Value(self) -> Windows.Storage.Streams.IBuffer: ...
     Characteristic = property(get_Characteristic, None)
     Value = property(get_Value, None)
-class IGattCharacteristicNotificationTriggerDetails2(c_void_p):
+class IGattCharacteristicNotificationTriggerDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('727a50dc-949d-454a-b1-92-98-34-67-e3-d5-0f')
     @winrt_commethod(6)
@@ -142,7 +142,7 @@ class IGattCharacteristicNotificationTriggerDetails2(c_void_p):
     Error = property(get_Error, None)
     EventTriggeringMode = property(get_EventTriggeringMode, None)
     ValueChangedEvents = property(get_ValueChangedEvents, None)
-class IGattServiceProviderConnection(c_void_p):
+class IGattServiceProviderConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7fa1b9b9-2f13-40b5-95-82-8e-b7-8e-98-ef-13')
     @winrt_commethod(6)
@@ -153,19 +153,19 @@ class IGattServiceProviderConnection(c_void_p):
     def Start(self) -> Void: ...
     TriggerId = property(get_TriggerId, None)
     Service = property(get_Service, None)
-class IGattServiceProviderConnectionStatics(c_void_p):
+class IGattServiceProviderConnectionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3d509f4b-0b0e-4466-b8-cd-6e-bd-da-1f-a1-7d')
     @winrt_commethod(6)
     def get_AllServices(self) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Devices.Bluetooth.Background.GattServiceProviderConnection]: ...
     AllServices = property(get_AllServices, None)
-class IGattServiceProviderTriggerDetails(c_void_p):
+class IGattServiceProviderTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ae8c0625-05ff-4afb-b1-6a-de-95-f3-cf-01-58')
     @winrt_commethod(6)
     def get_Connection(self) -> Windows.Devices.Bluetooth.Background.GattServiceProviderConnection: ...
     Connection = property(get_Connection, None)
-class IRfcommConnectionTriggerDetails(c_void_p):
+class IRfcommConnectionTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f922734d-2e3c-4efc-ab-59-fc-5c-f9-6f-97-e3')
     @winrt_commethod(6)
@@ -177,7 +177,7 @@ class IRfcommConnectionTriggerDetails(c_void_p):
     Socket = property(get_Socket, None)
     Incoming = property(get_Incoming, None)
     RemoteDevice = property(get_RemoteDevice, None)
-class IRfcommInboundConnectionInformation(c_void_p):
+class IRfcommInboundConnectionInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6d3e75a8-5429-4059-92-e3-1e-8b-65-52-87-07')
     @winrt_commethod(6)
@@ -195,7 +195,7 @@ class IRfcommInboundConnectionInformation(c_void_p):
     SdpRecord = property(get_SdpRecord, put_SdpRecord)
     LocalServiceId = property(get_LocalServiceId, put_LocalServiceId)
     ServiceCapabilities = property(get_ServiceCapabilities, put_ServiceCapabilities)
-class IRfcommOutboundConnectionInformation(c_void_p):
+class IRfcommOutboundConnectionInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b091227b-f434-4cb0-99-b1-4a-b8-ce-da-ed-d7')
     @winrt_commethod(6)
@@ -203,7 +203,7 @@ class IRfcommOutboundConnectionInformation(c_void_p):
     @winrt_commethod(7)
     def put_RemoteServiceId(self, value: Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId) -> Void: ...
     RemoteServiceId = property(get_RemoteServiceId, put_RemoteServiceId)
-class RfcommConnectionTriggerDetails(c_void_p):
+class RfcommConnectionTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Bluetooth.Background.RfcommConnectionTriggerDetails'
     @winrt_mixinmethod
@@ -215,7 +215,7 @@ class RfcommConnectionTriggerDetails(c_void_p):
     Socket = property(get_Socket, None)
     Incoming = property(get_Incoming, None)
     RemoteDevice = property(get_RemoteDevice, None)
-class RfcommInboundConnectionInformation(c_void_p):
+class RfcommInboundConnectionInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Bluetooth.Background.RfcommInboundConnectionInformation'
     @winrt_mixinmethod
@@ -233,7 +233,7 @@ class RfcommInboundConnectionInformation(c_void_p):
     SdpRecord = property(get_SdpRecord, put_SdpRecord)
     LocalServiceId = property(get_LocalServiceId, put_LocalServiceId)
     ServiceCapabilities = property(get_ServiceCapabilities, put_ServiceCapabilities)
-class RfcommOutboundConnectionInformation(c_void_p):
+class RfcommOutboundConnectionInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Bluetooth.Background.RfcommOutboundConnectionInformation'
     @winrt_mixinmethod

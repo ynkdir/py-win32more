@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Spi
@@ -23,7 +23,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ISpiBusInfo(c_void_p):
+class ISpiBusInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9929444a-54f2-48c6-b9-52-9c-32-fc-02-c6-69')
     @winrt_commethod(6)
@@ -38,7 +38,7 @@ class ISpiBusInfo(c_void_p):
     MinClockFrequency = property(get_MinClockFrequency, None)
     MaxClockFrequency = property(get_MaxClockFrequency, None)
     SupportedDataBitLengths = property(get_SupportedDataBitLengths, None)
-class ISpiConnectionSettings(c_void_p):
+class ISpiConnectionSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5283a37f-f935-4b9f-a7-a7-3a-78-90-af-a5-ce')
     @winrt_commethod(6)
@@ -66,24 +66,24 @@ class ISpiConnectionSettings(c_void_p):
     DataBitLength = property(get_DataBitLength, put_DataBitLength)
     ClockFrequency = property(get_ClockFrequency, put_ClockFrequency)
     SharingMode = property(get_SharingMode, put_SharingMode)
-class ISpiConnectionSettingsFactory(c_void_p):
+class ISpiConnectionSettingsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ff99081e-10c4-44b7-9f-ea-a7-48-b5-a4-6f-31')
     @winrt_commethod(6)
     def Create(self, chipSelectLine: Int32) -> Windows.Devices.Spi.SpiConnectionSettings: ...
-class ISpiController(c_void_p):
+class ISpiController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a8d3c829-9895-4159-a9-34-87-41-f1-ee-6d-27')
     @winrt_commethod(6)
     def GetDevice(self, settings: Windows.Devices.Spi.SpiConnectionSettings) -> Windows.Devices.Spi.SpiDevice: ...
-class ISpiControllerStatics(c_void_p):
+class ISpiControllerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0d5229e2-138b-4e48-b9-64-4f-2f-79-b9-c5-a2')
     @winrt_commethod(6)
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Spi.SpiController]: ...
     @winrt_commethod(7)
     def GetControllersAsync(self, provider: Windows.Devices.Spi.Provider.ISpiProvider) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.Spi.SpiController]]: ...
-class ISpiDevice(c_void_p):
+class ISpiDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('05d5356d-11b6-4d39-84-d5-95-df-b4-c9-f2-ce')
     @winrt_commethod(6)
@@ -100,7 +100,7 @@ class ISpiDevice(c_void_p):
     def TransferFullDuplex(self, writeBuffer: c_char_p_no, readBuffer: c_char_p_no) -> Void: ...
     DeviceId = property(get_DeviceId, None)
     ConnectionSettings = property(get_ConnectionSettings, None)
-class ISpiDeviceStatics(c_void_p):
+class ISpiDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a278e559-5720-4d3f-bd-93-56-f5-ff-5a-58-79')
     @winrt_commethod(6)
@@ -111,7 +111,7 @@ class ISpiDeviceStatics(c_void_p):
     def GetBusInfo(self, busId: WinRT_String) -> Windows.Devices.Spi.SpiBusInfo: ...
     @winrt_commethod(9)
     def FromIdAsync(self, busId: WinRT_String, settings: Windows.Devices.Spi.SpiConnectionSettings) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Spi.SpiDevice]: ...
-class SpiBusInfo(c_void_p):
+class SpiBusInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Spi.SpiBusInfo'
     @winrt_mixinmethod
@@ -126,7 +126,7 @@ class SpiBusInfo(c_void_p):
     MinClockFrequency = property(get_MinClockFrequency, None)
     MaxClockFrequency = property(get_MaxClockFrequency, None)
     SupportedDataBitLengths = property(get_SupportedDataBitLengths, None)
-class SpiConnectionSettings(c_void_p):
+class SpiConnectionSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Spi.SpiConnectionSettings'
     @winrt_factorymethod
@@ -156,7 +156,7 @@ class SpiConnectionSettings(c_void_p):
     DataBitLength = property(get_DataBitLength, put_DataBitLength)
     ClockFrequency = property(get_ClockFrequency, put_ClockFrequency)
     SharingMode = property(get_SharingMode, put_SharingMode)
-class SpiController(c_void_p):
+class SpiController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Spi.SpiController'
     @winrt_mixinmethod
@@ -165,7 +165,7 @@ class SpiController(c_void_p):
     def GetDefaultAsync(cls: Windows.Devices.Spi.ISpiControllerStatics) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Spi.SpiController]: ...
     @winrt_classmethod
     def GetControllersAsync(cls: Windows.Devices.Spi.ISpiControllerStatics, provider: Windows.Devices.Spi.Provider.ISpiProvider) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.Spi.SpiController]]: ...
-class SpiDevice(c_void_p):
+class SpiDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Spi.SpiDevice'
     @winrt_mixinmethod

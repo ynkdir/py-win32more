@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Data.Xml.Dom
@@ -24,7 +24,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ISyndicationAttribute(c_void_p):
+class ISyndicationAttribute(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('71e8f969-526e-4001-9a-91-e8-4f-83-16-1a-b1')
     @winrt_commethod(6)
@@ -42,12 +42,12 @@ class ISyndicationAttribute(c_void_p):
     Name = property(get_Name, put_Name)
     Namespace = property(get_Namespace, put_Namespace)
     Value = property(get_Value, put_Value)
-class ISyndicationAttributeFactory(c_void_p):
+class ISyndicationAttributeFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('624f1599-ed3e-420f-be-86-64-04-14-88-6e-4b')
     @winrt_commethod(6)
     def CreateSyndicationAttribute(self, attributeName: WinRT_String, attributeNamespace: WinRT_String, attributeValue: WinRT_String) -> Windows.Web.Syndication.SyndicationAttribute: ...
-class ISyndicationCategory(c_void_p):
+class ISyndicationCategory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8715626f-0cba-4a7f-89-ff-ec-b5-28-14-23-b6')
     @winrt_commethod(6)
@@ -65,14 +65,14 @@ class ISyndicationCategory(c_void_p):
     Label = property(get_Label, put_Label)
     Scheme = property(get_Scheme, put_Scheme)
     Term = property(get_Term, put_Term)
-class ISyndicationCategoryFactory(c_void_p):
+class ISyndicationCategoryFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ab42802f-49e0-4525-8a-b2-ab-45-c0-25-28-ff')
     @winrt_commethod(6)
     def CreateSyndicationCategory(self, term: WinRT_String) -> Windows.Web.Syndication.SyndicationCategory: ...
     @winrt_commethod(7)
     def CreateSyndicationCategoryEx(self, term: WinRT_String, scheme: WinRT_String, label: WinRT_String) -> Windows.Web.Syndication.SyndicationCategory: ...
-class ISyndicationClient(c_void_p):
+class ISyndicationClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9e18a9b7-7249-4b45-b2-29-7d-f8-95-a5-a1-f5')
     @winrt_commethod(6)
@@ -104,12 +104,12 @@ class ISyndicationClient(c_void_p):
     MaxResponseBufferSize = property(get_MaxResponseBufferSize, put_MaxResponseBufferSize)
     Timeout = property(get_Timeout, put_Timeout)
     BypassCacheOnRetrieve = property(get_BypassCacheOnRetrieve, put_BypassCacheOnRetrieve)
-class ISyndicationClientFactory(c_void_p):
+class ISyndicationClientFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2ec4b32c-a79b-4114-b2-9a-05-df-fb-af-b9-a4')
     @winrt_commethod(6)
     def CreateSyndicationClient(self, serverCredential: Windows.Security.Credentials.PasswordCredential) -> Windows.Web.Syndication.SyndicationClient: ...
-class ISyndicationContent(c_void_p):
+class ISyndicationContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4641fefe-0e55-40d0-b8-d0-6a-2c-cb-a9-fc-7c')
     @winrt_commethod(6)
@@ -117,19 +117,19 @@ class ISyndicationContent(c_void_p):
     @winrt_commethod(7)
     def put_SourceUri(self, value: Windows.Foundation.Uri) -> Void: ...
     SourceUri = property(get_SourceUri, put_SourceUri)
-class ISyndicationContentFactory(c_void_p):
+class ISyndicationContentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3d2fbb93-9520-4173-93-88-7e-2d-f3-24-a8-a0')
     @winrt_commethod(6)
     def CreateSyndicationContent(self, text: WinRT_String, type: Windows.Web.Syndication.SyndicationTextType) -> Windows.Web.Syndication.SyndicationContent: ...
     @winrt_commethod(7)
     def CreateSyndicationContentWithSourceUri(self, sourceUri: Windows.Foundation.Uri) -> Windows.Web.Syndication.SyndicationContent: ...
-class ISyndicationErrorStatics(c_void_p):
+class ISyndicationErrorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1fbb2361-45c7-4833-8a-a0-be-5f-3b-58-a7-f4')
     @winrt_commethod(6)
     def GetStatus(self, hresult: Int32) -> Windows.Web.Syndication.SyndicationErrorStatus: ...
-class ISyndicationFeed(c_void_p):
+class ISyndicationFeed(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7ffe3cd2-5b66-4d62-84-03-1b-c1-0d-91-0d-6b')
     @winrt_commethod(6)
@@ -206,12 +206,12 @@ class ISyndicationFeed(c_void_p):
     NextUri = property(get_NextUri, None)
     PreviousUri = property(get_PreviousUri, None)
     SourceFormat = property(get_SourceFormat, None)
-class ISyndicationFeedFactory(c_void_p):
+class ISyndicationFeedFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('23472232-8be9-48b7-89-34-62-05-13-1d-93-57')
     @winrt_commethod(6)
     def CreateSyndicationFeed(self, title: WinRT_String, subtitle: WinRT_String, uri: Windows.Foundation.Uri) -> Windows.Web.Syndication.SyndicationFeed: ...
-class ISyndicationGenerator(c_void_p):
+class ISyndicationGenerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9768b379-fb2b-4f6d-b4-1c-08-8a-58-68-82-5c')
     @winrt_commethod(6)
@@ -229,12 +229,12 @@ class ISyndicationGenerator(c_void_p):
     Text = property(get_Text, put_Text)
     Uri = property(get_Uri, put_Uri)
     Version = property(get_Version, put_Version)
-class ISyndicationGeneratorFactory(c_void_p):
+class ISyndicationGeneratorFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a34083e3-1e26-4dbc-ba-9d-1a-b8-4b-ef-f9-7b')
     @winrt_commethod(6)
     def CreateSyndicationGenerator(self, text: WinRT_String) -> Windows.Web.Syndication.SyndicationGenerator: ...
-class ISyndicationItem(c_void_p):
+class ISyndicationItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('548db883-c384-45c1-8a-e8-a3-78-c4-ec-48-6c')
     @winrt_commethod(6)
@@ -310,12 +310,12 @@ class ISyndicationItem(c_void_p):
     EditMediaUri = property(get_EditMediaUri, None)
     ETag = property(get_ETag, None)
     ItemUri = property(get_ItemUri, None)
-class ISyndicationItemFactory(c_void_p):
+class ISyndicationItemFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('251d434f-7db8-487a-85-e4-10-d1-91-e6-6e-bb')
     @winrt_commethod(6)
     def CreateSyndicationItem(self, title: WinRT_String, content: Windows.Web.Syndication.SyndicationContent, uri: Windows.Foundation.Uri) -> Windows.Web.Syndication.SyndicationItem: ...
-class ISyndicationLink(c_void_p):
+class ISyndicationLink(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('27553abd-a10e-41b5-86-bd-97-59-08-6e-b0-c5')
     @winrt_commethod(6)
@@ -348,14 +348,14 @@ class ISyndicationLink(c_void_p):
     Title = property(get_Title, put_Title)
     Uri = property(get_Uri, put_Uri)
     ResourceLanguage = property(get_ResourceLanguage, put_ResourceLanguage)
-class ISyndicationLinkFactory(c_void_p):
+class ISyndicationLinkFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5ed863d4-5535-48ac-98-d4-c1-90-99-50-80-b3')
     @winrt_commethod(6)
     def CreateSyndicationLink(self, uri: Windows.Foundation.Uri) -> Windows.Web.Syndication.SyndicationLink: ...
     @winrt_commethod(7)
     def CreateSyndicationLinkEx(self, uri: Windows.Foundation.Uri, relationship: WinRT_String, title: WinRT_String, mediaType: WinRT_String, length: UInt32) -> Windows.Web.Syndication.SyndicationLink: ...
-class ISyndicationNode(c_void_p):
+class ISyndicationNode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('753cef78-51f8-45c0-a9-f5-f1-71-9d-ec-3f-b2')
     @winrt_commethod(6)
@@ -391,12 +391,12 @@ class ISyndicationNode(c_void_p):
     BaseUri = property(get_BaseUri, put_BaseUri)
     AttributeExtensions = property(get_AttributeExtensions, None)
     ElementExtensions = property(get_ElementExtensions, None)
-class ISyndicationNodeFactory(c_void_p):
+class ISyndicationNodeFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('12902188-4acb-49a8-b7-77-a5-eb-92-e1-8a-79')
     @winrt_commethod(6)
     def CreateSyndicationNode(self, nodeName: WinRT_String, nodeNamespace: WinRT_String, nodeValue: WinRT_String) -> Windows.Web.Syndication.SyndicationNode: ...
-class ISyndicationPerson(c_void_p):
+class ISyndicationPerson(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fa1ee5da-a7c6-4517-a0-96-01-43-fa-f2-93-27')
     @winrt_commethod(6)
@@ -414,14 +414,14 @@ class ISyndicationPerson(c_void_p):
     Email = property(get_Email, put_Email)
     Name = property(get_Name, put_Name)
     Uri = property(get_Uri, put_Uri)
-class ISyndicationPersonFactory(c_void_p):
+class ISyndicationPersonFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dcf4886d-229d-4b58-a4-9b-f3-d2-f0-f5-c9-9f')
     @winrt_commethod(6)
     def CreateSyndicationPerson(self, name: WinRT_String) -> Windows.Web.Syndication.SyndicationPerson: ...
     @winrt_commethod(7)
     def CreateSyndicationPersonEx(self, name: WinRT_String, email: WinRT_String, uri: Windows.Foundation.Uri) -> Windows.Web.Syndication.SyndicationPerson: ...
-class ISyndicationText(c_void_p):
+class ISyndicationText(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b9cc5e80-313a-4091-a2-a6-24-3e-0e-e9-23-f9')
     @winrt_commethod(6)
@@ -439,7 +439,7 @@ class ISyndicationText(c_void_p):
     Text = property(get_Text, put_Text)
     Type = property(get_Type, put_Type)
     Xml = property(get_Xml, put_Xml)
-class ISyndicationTextFactory(c_void_p):
+class ISyndicationTextFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ee7342f7-11c6-4b25-ab-62-e5-96-bd-16-29-46')
     @winrt_commethod(6)
@@ -449,7 +449,7 @@ class ISyndicationTextFactory(c_void_p):
 class RetrievalProgress(EasyCastStructure):
     BytesRetrieved: UInt32
     TotalBytesToRetrieve: UInt32
-class SyndicationAttribute(c_void_p):
+class SyndicationAttribute(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Syndication.SyndicationAttribute'
     @winrt_factorymethod
@@ -471,7 +471,7 @@ class SyndicationAttribute(c_void_p):
     Name = property(get_Name, put_Name)
     Namespace = property(get_Namespace, put_Namespace)
     Value = property(get_Value, put_Value)
-class SyndicationCategory(c_void_p):
+class SyndicationCategory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Syndication.SyndicationCategory'
     @winrt_activatemethod
@@ -528,7 +528,7 @@ class SyndicationCategory(c_void_p):
     BaseUri = property(get_BaseUri, put_BaseUri)
     AttributeExtensions = property(get_AttributeExtensions, None)
     ElementExtensions = property(get_ElementExtensions, None)
-class SyndicationClient(c_void_p):
+class SyndicationClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Syndication.SyndicationClient'
     @winrt_activatemethod
@@ -564,7 +564,7 @@ class SyndicationClient(c_void_p):
     MaxResponseBufferSize = property(get_MaxResponseBufferSize, put_MaxResponseBufferSize)
     Timeout = property(get_Timeout, put_Timeout)
     BypassCacheOnRetrieve = property(get_BypassCacheOnRetrieve, put_BypassCacheOnRetrieve)
-class SyndicationContent(c_void_p):
+class SyndicationContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Syndication.SyndicationContent'
     @winrt_factorymethod
@@ -626,7 +626,7 @@ class SyndicationContent(c_void_p):
     AttributeExtensions = property(get_AttributeExtensions, None)
     ElementExtensions = property(get_ElementExtensions, None)
     SourceUri = property(get_SourceUri, put_SourceUri)
-class SyndicationError(c_void_p):
+class SyndicationError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Syndication.SyndicationError'
     @winrt_classmethod
@@ -638,7 +638,7 @@ SyndicationErrorStatus_MissingRequiredAttribute: SyndicationErrorStatus = 2
 SyndicationErrorStatus_InvalidXml: SyndicationErrorStatus = 3
 SyndicationErrorStatus_UnexpectedContent: SyndicationErrorStatus = 4
 SyndicationErrorStatus_UnsupportedFormat: SyndicationErrorStatus = 5
-class SyndicationFeed(c_void_p):
+class SyndicationFeed(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Syndication.SyndicationFeed'
     @winrt_factorymethod
@@ -759,7 +759,7 @@ SyndicationFormat_Rss10: SyndicationFormat = 2
 SyndicationFormat_Rss092: SyndicationFormat = 3
 SyndicationFormat_Rss091: SyndicationFormat = 4
 SyndicationFormat_Atom03: SyndicationFormat = 5
-class SyndicationGenerator(c_void_p):
+class SyndicationGenerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Syndication.SyndicationGenerator'
     @winrt_activatemethod
@@ -814,7 +814,7 @@ class SyndicationGenerator(c_void_p):
     BaseUri = property(get_BaseUri, put_BaseUri)
     AttributeExtensions = property(get_AttributeExtensions, None)
     ElementExtensions = property(get_ElementExtensions, None)
-class SyndicationItem(c_void_p):
+class SyndicationItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Syndication.SyndicationItem'
     @winrt_activatemethod
@@ -927,7 +927,7 @@ class SyndicationItem(c_void_p):
     BaseUri = property(get_BaseUri, put_BaseUri)
     AttributeExtensions = property(get_AttributeExtensions, None)
     ElementExtensions = property(get_ElementExtensions, None)
-class SyndicationLink(c_void_p):
+class SyndicationLink(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Syndication.SyndicationLink'
     @winrt_activatemethod
@@ -999,7 +999,7 @@ class SyndicationLink(c_void_p):
     BaseUri = property(get_BaseUri, put_BaseUri)
     AttributeExtensions = property(get_AttributeExtensions, None)
     ElementExtensions = property(get_ElementExtensions, None)
-class SyndicationNode(c_void_p):
+class SyndicationNode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Syndication.SyndicationNode'
     @winrt_activatemethod
@@ -1039,7 +1039,7 @@ class SyndicationNode(c_void_p):
     BaseUri = property(get_BaseUri, put_BaseUri)
     AttributeExtensions = property(get_AttributeExtensions, None)
     ElementExtensions = property(get_ElementExtensions, None)
-class SyndicationPerson(c_void_p):
+class SyndicationPerson(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Syndication.SyndicationPerson'
     @winrt_activatemethod
@@ -1096,7 +1096,7 @@ class SyndicationPerson(c_void_p):
     BaseUri = property(get_BaseUri, put_BaseUri)
     AttributeExtensions = property(get_AttributeExtensions, None)
     ElementExtensions = property(get_ElementExtensions, None)
-class SyndicationText(c_void_p):
+class SyndicationText(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Web.Syndication.SyndicationText'
     @winrt_factorymethod

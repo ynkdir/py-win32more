@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Appointments
@@ -25,7 +25,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class Appointment(c_void_p):
+class Appointment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.Appointment'
     @winrt_activatemethod
@@ -164,7 +164,7 @@ AppointmentBusyStatus_Tentative: AppointmentBusyStatus = 1
 AppointmentBusyStatus_Free: AppointmentBusyStatus = 2
 AppointmentBusyStatus_OutOfOffice: AppointmentBusyStatus = 3
 AppointmentBusyStatus_WorkingElsewhere: AppointmentBusyStatus = 4
-class AppointmentCalendar(c_void_p):
+class AppointmentCalendar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentCalendar'
     @winrt_mixinmethod
@@ -298,7 +298,7 @@ AppointmentCalendarOtherAppWriteAccess = Int32
 AppointmentCalendarOtherAppWriteAccess_None: AppointmentCalendarOtherAppWriteAccess = 0
 AppointmentCalendarOtherAppWriteAccess_SystemOnly: AppointmentCalendarOtherAppWriteAccess = 1
 AppointmentCalendarOtherAppWriteAccess_Limited: AppointmentCalendarOtherAppWriteAccess = 2
-class AppointmentCalendarSyncManager(c_void_p):
+class AppointmentCalendarSyncManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentCalendarSyncManager'
     @winrt_mixinmethod
@@ -330,7 +330,7 @@ AppointmentCalendarSyncStatus_AuthenticationError: AppointmentCalendarSyncStatus
 AppointmentCalendarSyncStatus_PolicyError: AppointmentCalendarSyncStatus = 4
 AppointmentCalendarSyncStatus_UnknownError: AppointmentCalendarSyncStatus = 5
 AppointmentCalendarSyncStatus_ManualAccountRemovalRequired: AppointmentCalendarSyncStatus = 6
-class AppointmentConflictResult(c_void_p):
+class AppointmentConflictResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentConflictResult'
     @winrt_mixinmethod
@@ -355,7 +355,7 @@ AppointmentDaysOfWeek_Saturday: AppointmentDaysOfWeek = 64
 AppointmentDetailsKind = Int32
 AppointmentDetailsKind_PlainText: AppointmentDetailsKind = 0
 AppointmentDetailsKind_Html: AppointmentDetailsKind = 1
-class AppointmentException(c_void_p):
+class AppointmentException(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentException'
     @winrt_mixinmethod
@@ -367,7 +367,7 @@ class AppointmentException(c_void_p):
     Appointment = property(get_Appointment, None)
     ExceptionProperties = property(get_ExceptionProperties, None)
     IsDeleted = property(get_IsDeleted, None)
-class AppointmentInvitee(c_void_p):
+class AppointmentInvitee(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentInvitee'
     @winrt_activatemethod
@@ -392,7 +392,7 @@ class AppointmentInvitee(c_void_p):
     Response = property(get_Response, put_Response)
     DisplayName = property(get_DisplayName, put_DisplayName)
     Address = property(get_Address, put_Address)
-class AppointmentManager(c_void_p):
+class AppointmentManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentManager'
     @winrt_classmethod
@@ -423,7 +423,7 @@ class AppointmentManager(c_void_p):
     def ShowRemoveAppointmentWithPlacementAndDateAsync(cls: Windows.ApplicationModel.Appointments.IAppointmentManagerStatics, appointmentId: WinRT_String, selection: Windows.Foundation.Rect, preferredPlacement: Windows.UI.Popups.Placement, instanceStartDate: Windows.Foundation.DateTime) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_classmethod
     def ShowTimeFrameAsync(cls: Windows.ApplicationModel.Appointments.IAppointmentManagerStatics, timeToShow: Windows.Foundation.DateTime, duration: Windows.Foundation.TimeSpan) -> Windows.Foundation.IAsyncAction: ...
-class AppointmentManagerForUser(c_void_p):
+class AppointmentManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentManagerForUser'
     @winrt_mixinmethod
@@ -455,7 +455,7 @@ class AppointmentManagerForUser(c_void_p):
     @winrt_mixinmethod
     def get_User(self: Windows.ApplicationModel.Appointments.IAppointmentManagerForUser) -> Windows.System.User: ...
     User = property(get_User, None)
-class AppointmentOrganizer(c_void_p):
+class AppointmentOrganizer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentOrganizer'
     @winrt_activatemethod
@@ -480,7 +480,7 @@ AppointmentParticipantRole = Int32
 AppointmentParticipantRole_RequiredAttendee: AppointmentParticipantRole = 0
 AppointmentParticipantRole_OptionalAttendee: AppointmentParticipantRole = 1
 AppointmentParticipantRole_Resource: AppointmentParticipantRole = 2
-class AppointmentProperties(c_void_p):
+class AppointmentProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentProperties'
     @winrt_classmethod
@@ -561,7 +561,7 @@ class AppointmentProperties(c_void_p):
     Uri = property(get_Uri, None)
     Invitees = property(get_Invitees, None)
     DefaultProperties = property(get_DefaultProperties, None)
-class AppointmentRecurrence(c_void_p):
+class AppointmentRecurrence(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentRecurrence'
     @winrt_activatemethod
@@ -627,7 +627,7 @@ AppointmentRecurrenceUnit_YearlyOnDay: AppointmentRecurrenceUnit = 5
 AppointmentSensitivity = Int32
 AppointmentSensitivity_Public: AppointmentSensitivity = 0
 AppointmentSensitivity_Private: AppointmentSensitivity = 1
-class AppointmentStore(c_void_p):
+class AppointmentStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentStore'
     @winrt_mixinmethod
@@ -685,7 +685,7 @@ AppointmentStoreAccessType = Int32
 AppointmentStoreAccessType_AppCalendarsReadWrite: AppointmentStoreAccessType = 0
 AppointmentStoreAccessType_AllCalendarsReadOnly: AppointmentStoreAccessType = 1
 AppointmentStoreAccessType_AllCalendarsReadWrite: AppointmentStoreAccessType = 2
-class AppointmentStoreChange(c_void_p):
+class AppointmentStoreChange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentStoreChange'
     @winrt_mixinmethod
@@ -697,7 +697,7 @@ class AppointmentStoreChange(c_void_p):
     Appointment = property(get_Appointment, None)
     ChangeType = property(get_ChangeType, None)
     AppointmentCalendar = property(get_AppointmentCalendar, None)
-class AppointmentStoreChangeReader(c_void_p):
+class AppointmentStoreChangeReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentStoreChangeReader'
     @winrt_mixinmethod
@@ -706,7 +706,7 @@ class AppointmentStoreChangeReader(c_void_p):
     def AcceptChanges(self: Windows.ApplicationModel.Appointments.IAppointmentStoreChangeReader) -> Void: ...
     @winrt_mixinmethod
     def AcceptChangesThrough(self: Windows.ApplicationModel.Appointments.IAppointmentStoreChangeReader, lastChangeToAccept: Windows.ApplicationModel.Appointments.AppointmentStoreChange) -> Void: ...
-class AppointmentStoreChangeTracker(c_void_p):
+class AppointmentStoreChangeTracker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentStoreChangeTracker'
     @winrt_mixinmethod
@@ -726,17 +726,17 @@ AppointmentStoreChangeType_ChangeTrackingLost: AppointmentStoreChangeType = 3
 AppointmentStoreChangeType_CalendarCreated: AppointmentStoreChangeType = 4
 AppointmentStoreChangeType_CalendarModified: AppointmentStoreChangeType = 5
 AppointmentStoreChangeType_CalendarDeleted: AppointmentStoreChangeType = 6
-class AppointmentStoreChangedDeferral(c_void_p):
+class AppointmentStoreChangedDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentStoreChangedDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.ApplicationModel.Appointments.IAppointmentStoreChangedDeferral) -> Void: ...
-class AppointmentStoreChangedEventArgs(c_void_p):
+class AppointmentStoreChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentStoreChangedEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.Appointments.IAppointmentStoreChangedEventArgs) -> Windows.ApplicationModel.Appointments.AppointmentStoreChangedDeferral: ...
-class AppointmentStoreNotificationTriggerDetails(c_void_p):
+class AppointmentStoreNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.AppointmentStoreNotificationTriggerDetails'
 AppointmentSummaryCardView = Int32
@@ -751,7 +751,7 @@ AppointmentWeekOfMonth_Last: AppointmentWeekOfMonth = 4
 FindAppointmentCalendarsOptions = UInt32
 FindAppointmentCalendarsOptions_None: FindAppointmentCalendarsOptions = 0
 FindAppointmentCalendarsOptions_IncludeHidden: FindAppointmentCalendarsOptions = 1
-class FindAppointmentsOptions(c_void_p):
+class FindAppointmentsOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Appointments.FindAppointmentsOptions'
     @winrt_activatemethod
@@ -772,7 +772,7 @@ class FindAppointmentsOptions(c_void_p):
     FetchProperties = property(get_FetchProperties, None)
     IncludeHidden = property(get_IncludeHidden, put_IncludeHidden)
     MaxCount = property(get_MaxCount, put_MaxCount)
-class IAppointment(c_void_p):
+class IAppointment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dd002f2f-2bdd-4076-90-a3-22-c2-75-31-29-65')
     @winrt_commethod(6)
@@ -838,7 +838,7 @@ class IAppointment(c_void_p):
     AllDay = property(get_AllDay, put_AllDay)
     Sensitivity = property(get_Sensitivity, put_Sensitivity)
     Uri = property(get_Uri, put_Uri)
-class IAppointment2(c_void_p):
+class IAppointment2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5e85983c-540f-3452-9b-5c-0d-d7-ad-4c-65-a2')
     @winrt_commethod(6)
@@ -893,7 +893,7 @@ class IAppointment2(c_void_p):
     HasInvitees = property(get_HasInvitees, None)
     IsCanceledMeeting = property(get_IsCanceledMeeting, put_IsCanceledMeeting)
     IsOrganizedByUser = property(get_IsOrganizedByUser, put_IsOrganizedByUser)
-class IAppointment3(c_void_p):
+class IAppointment3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bfcc45a9-8961-4991-93-4b-c4-87-68-e5-a9-6c')
     @winrt_commethod(6)
@@ -909,7 +909,7 @@ class IAppointment3(c_void_p):
     ChangeNumber = property(get_ChangeNumber, None)
     RemoteChangeNumber = property(get_RemoteChangeNumber, put_RemoteChangeNumber)
     DetailsKind = property(get_DetailsKind, put_DetailsKind)
-class IAppointmentCalendar(c_void_p):
+class IAppointmentCalendar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5273819d-8339-3d4f-a0-2f-64-08-44-52-bb-5d')
     @winrt_commethod(6)
@@ -972,7 +972,7 @@ class IAppointmentCalendar(c_void_p):
     OtherAppWriteAccess = property(get_OtherAppWriteAccess, put_OtherAppWriteAccess)
     SourceDisplayName = property(get_SourceDisplayName, None)
     SummaryCardView = property(get_SummaryCardView, put_SummaryCardView)
-class IAppointmentCalendar2(c_void_p):
+class IAppointmentCalendar2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('18e7e422-2467-4e1c-a4-59-d8-a2-93-03-d0-92')
     @winrt_commethod(6)
@@ -1037,12 +1037,12 @@ class IAppointmentCalendar2(c_void_p):
     CanUpdateMeetingResponses = property(get_CanUpdateMeetingResponses, put_CanUpdateMeetingResponses)
     CanNotifyInvitees = property(get_CanNotifyInvitees, put_CanNotifyInvitees)
     MustNofityInvitees = property(get_MustNofityInvitees, put_MustNofityInvitees)
-class IAppointmentCalendar3(c_void_p):
+class IAppointmentCalendar3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('eb23d22b-a685-42ae-84-95-b3-11-9a-db-41-67')
     @winrt_commethod(6)
     def RegisterSyncManagerAsync(self) -> Windows.Foundation.IAsyncAction: ...
-class IAppointmentCalendarSyncManager(c_void_p):
+class IAppointmentCalendarSyncManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2b21b3a0-4aff-4392-bc-5f-56-45-ff-cf-fb-17')
     @winrt_commethod(6)
@@ -1060,7 +1060,7 @@ class IAppointmentCalendarSyncManager(c_void_p):
     Status = property(get_Status, None)
     LastSuccessfulSyncTime = property(get_LastSuccessfulSyncTime, None)
     LastAttemptedSyncTime = property(get_LastAttemptedSyncTime, None)
-class IAppointmentCalendarSyncManager2(c_void_p):
+class IAppointmentCalendarSyncManager2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('647528ad-0d29-4c7c-aa-a7-bf-99-68-05-53-7c')
     @winrt_commethod(6)
@@ -1072,7 +1072,7 @@ class IAppointmentCalendarSyncManager2(c_void_p):
     Status = property(None, put_Status)
     LastSuccessfulSyncTime = property(None, put_LastSuccessfulSyncTime)
     LastAttemptedSyncTime = property(None, put_LastAttemptedSyncTime)
-class IAppointmentConflictResult(c_void_p):
+class IAppointmentConflictResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d5cdf0be-2f2f-3b7d-af-0a-a7-e2-0f-3a-46-e3')
     @winrt_commethod(6)
@@ -1081,7 +1081,7 @@ class IAppointmentConflictResult(c_void_p):
     def get_Date(self) -> Windows.Foundation.DateTime: ...
     Type = property(get_Type, None)
     Date = property(get_Date, None)
-class IAppointmentException(c_void_p):
+class IAppointmentException(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a2076767-16f6-4bce-9f-5a-86-00-b8-01-9f-cb')
     @winrt_commethod(6)
@@ -1093,7 +1093,7 @@ class IAppointmentException(c_void_p):
     Appointment = property(get_Appointment, None)
     ExceptionProperties = property(get_ExceptionProperties, None)
     IsDeleted = property(get_IsDeleted, None)
-class IAppointmentInvitee(c_void_p):
+class IAppointmentInvitee(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('13bf0796-9842-495b-b0-e7-ef-8f-79-c0-70-1d')
     @winrt_commethod(6)
@@ -1106,7 +1106,7 @@ class IAppointmentInvitee(c_void_p):
     def put_Response(self, value: Windows.ApplicationModel.Appointments.AppointmentParticipantResponse) -> Void: ...
     Role = property(get_Role, put_Role)
     Response = property(get_Response, put_Response)
-class IAppointmentManagerForUser(c_void_p):
+class IAppointmentManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('70261423-73cc-4660-b3-18-b0-13-65-30-2a-03')
     @winrt_commethod(6)
@@ -1138,7 +1138,7 @@ class IAppointmentManagerForUser(c_void_p):
     @winrt_commethod(19)
     def get_User(self) -> Windows.System.User: ...
     User = property(get_User, None)
-class IAppointmentManagerStatics(c_void_p):
+class IAppointmentManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3a30fa01-5c40-499d-b3-3f-a4-30-50-f7-4f-c4')
     @winrt_commethod(6)
@@ -1159,7 +1159,7 @@ class IAppointmentManagerStatics(c_void_p):
     def ShowRemoveAppointmentWithPlacementAndDateAsync(self, appointmentId: WinRT_String, selection: Windows.Foundation.Rect, preferredPlacement: Windows.UI.Popups.Placement, instanceStartDate: Windows.Foundation.DateTime) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(14)
     def ShowTimeFrameAsync(self, timeToShow: Windows.Foundation.DateTime, duration: Windows.Foundation.TimeSpan) -> Windows.Foundation.IAsyncAction: ...
-class IAppointmentManagerStatics2(c_void_p):
+class IAppointmentManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0a81f60d-d04f-4034-af-72-a3-65-73-b4-5f-f0')
     @winrt_commethod(6)
@@ -1170,12 +1170,12 @@ class IAppointmentManagerStatics2(c_void_p):
     def ShowEditNewAppointmentAsync(self, appointment: Windows.ApplicationModel.Appointments.Appointment) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_commethod(9)
     def RequestStoreAsync(self, options: Windows.ApplicationModel.Appointments.AppointmentStoreAccessType) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Appointments.AppointmentStore]: ...
-class IAppointmentManagerStatics3(c_void_p):
+class IAppointmentManagerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2f9ae09c-b34c-4dc7-a3-5d-ca-fd-88-ae-3e-c6')
     @winrt_commethod(6)
     def GetForUser(self, user: Windows.System.User) -> Windows.ApplicationModel.Appointments.AppointmentManagerForUser: ...
-class IAppointmentParticipant(c_void_p):
+class IAppointmentParticipant(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('615e2902-9718-467b-83-fb-b2-93-a1-91-21-de')
     @winrt_commethod(6)
@@ -1188,7 +1188,7 @@ class IAppointmentParticipant(c_void_p):
     def put_Address(self, value: WinRT_String) -> Void: ...
     DisplayName = property(get_DisplayName, put_DisplayName)
     Address = property(get_Address, put_Address)
-class IAppointmentPropertiesStatics(c_void_p):
+class IAppointmentPropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('25141fe9-68ae-3aae-85-5f-bc-44-41-ca-a2-34')
     @winrt_commethod(6)
@@ -1260,7 +1260,7 @@ class IAppointmentPropertiesStatics(c_void_p):
     Uri = property(get_Uri, None)
     Invitees = property(get_Invitees, None)
     DefaultProperties = property(get_DefaultProperties, None)
-class IAppointmentPropertiesStatics2(c_void_p):
+class IAppointmentPropertiesStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dffc434b-b017-45dd-8a-f5-d1-63-d1-08-01-bb')
     @winrt_commethod(6)
@@ -1272,7 +1272,7 @@ class IAppointmentPropertiesStatics2(c_void_p):
     ChangeNumber = property(get_ChangeNumber, None)
     RemoteChangeNumber = property(get_RemoteChangeNumber, None)
     DetailsKind = property(get_DetailsKind, None)
-class IAppointmentRecurrence(c_void_p):
+class IAppointmentRecurrence(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d87b3e83-15a6-487b-b9-59-0c-36-1e-60-e9-54')
     @winrt_commethod(6)
@@ -1315,7 +1315,7 @@ class IAppointmentRecurrence(c_void_p):
     WeekOfMonth = property(get_WeekOfMonth, put_WeekOfMonth)
     Month = property(get_Month, put_Month)
     Day = property(get_Day, put_Day)
-class IAppointmentRecurrence2(c_void_p):
+class IAppointmentRecurrence2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3df3a2e0-05a7-4f50-9f-86-b0-3f-94-36-25-4d')
     @winrt_commethod(6)
@@ -1326,13 +1326,13 @@ class IAppointmentRecurrence2(c_void_p):
     def put_TimeZone(self, value: WinRT_String) -> Void: ...
     RecurrenceType = property(get_RecurrenceType, None)
     TimeZone = property(get_TimeZone, put_TimeZone)
-class IAppointmentRecurrence3(c_void_p):
+class IAppointmentRecurrence3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('89ff96d9-da4d-4a17-8d-d2-1c-eb-c2-b5-ff-9d')
     @winrt_commethod(6)
     def get_CalendarIdentifier(self) -> WinRT_String: ...
     CalendarIdentifier = property(get_CalendarIdentifier, None)
-class IAppointmentStore(c_void_p):
+class IAppointmentStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a461918c-7a47-4d96-96-c9-15-cd-8a-05-a7-35')
     @winrt_commethod(6)
@@ -1378,7 +1378,7 @@ class IAppointmentStore(c_void_p):
     @winrt_commethod(26)
     def FindLocalIdsFromRoamingIdAsync(self, roamingId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[WinRT_String]]: ...
     ChangeTracker = property(get_ChangeTracker, None)
-class IAppointmentStore2(c_void_p):
+class IAppointmentStore2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('25c48c20-1c41-424f-80-84-67-c1-cf-e0-a8-54')
     @winrt_commethod(6)
@@ -1387,12 +1387,12 @@ class IAppointmentStore2(c_void_p):
     def remove_StoreChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(8)
     def CreateAppointmentCalendarInAccountAsync(self, name: WinRT_String, userDataAccountId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Appointments.AppointmentCalendar]: ...
-class IAppointmentStore3(c_void_p):
+class IAppointmentStore3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4251940b-b078-470a-9a-40-c2-e0-17-61-f7-2f')
     @winrt_commethod(6)
     def GetChangeTracker(self, identity: WinRT_String) -> Windows.ApplicationModel.Appointments.AppointmentStoreChangeTracker: ...
-class IAppointmentStoreChange(c_void_p):
+class IAppointmentStoreChange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a5a6e035-0a33-3654-84-63-b5-43-e9-0c-3b-79')
     @winrt_commethod(6)
@@ -1401,13 +1401,13 @@ class IAppointmentStoreChange(c_void_p):
     def get_ChangeType(self) -> Windows.ApplicationModel.Appointments.AppointmentStoreChangeType: ...
     Appointment = property(get_Appointment, None)
     ChangeType = property(get_ChangeType, None)
-class IAppointmentStoreChange2(c_void_p):
+class IAppointmentStoreChange2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b37d0dce-5211-4402-a6-08-a9-6f-e7-0b-8e-e2')
     @winrt_commethod(6)
     def get_AppointmentCalendar(self) -> Windows.ApplicationModel.Appointments.AppointmentCalendar: ...
     AppointmentCalendar = property(get_AppointmentCalendar, None)
-class IAppointmentStoreChangeReader(c_void_p):
+class IAppointmentStoreChangeReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8b2409f1-65f3-42a0-96-1d-4c-20-9b-f3-03-70')
     @winrt_commethod(6)
@@ -1416,7 +1416,7 @@ class IAppointmentStoreChangeReader(c_void_p):
     def AcceptChanges(self) -> Void: ...
     @winrt_commethod(8)
     def AcceptChangesThrough(self, lastChangeToAccept: Windows.ApplicationModel.Appointments.AppointmentStoreChange) -> Void: ...
-class IAppointmentStoreChangeTracker(c_void_p):
+class IAppointmentStoreChangeTracker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1b25f4b1-8ece-4f17-93-c8-e6-41-24-58-fd-5c')
     @winrt_commethod(6)
@@ -1425,26 +1425,26 @@ class IAppointmentStoreChangeTracker(c_void_p):
     def Enable(self) -> Void: ...
     @winrt_commethod(8)
     def Reset(self) -> Void: ...
-class IAppointmentStoreChangeTracker2(c_void_p):
+class IAppointmentStoreChangeTracker2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b66aaf45-9542-4cf7-85-50-eb-37-0e-0c-08-d3')
     @winrt_commethod(6)
     def get_IsTracking(self) -> Boolean: ...
     IsTracking = property(get_IsTracking, None)
-class IAppointmentStoreChangedDeferral(c_void_p):
+class IAppointmentStoreChangedDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4cb82026-fedb-4bc3-96-62-95-a9-be-fd-f4-df')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
-class IAppointmentStoreChangedEventArgs(c_void_p):
+class IAppointmentStoreChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2285f8b9-0791-417e-bf-ea-cc-6d-41-63-6c-8c')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.ApplicationModel.Appointments.AppointmentStoreChangedDeferral: ...
-class IAppointmentStoreNotificationTriggerDetails(c_void_p):
+class IAppointmentStoreNotificationTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9b33cb11-c301-421e-af-ef-04-7e-cf-a7-6a-db')
-class IFindAppointmentsOptions(c_void_p):
+class IFindAppointmentsOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('55f7dc55-9942-3086-82-b5-2c-b2-9f-64-d5-f5')
     @winrt_commethod(6)

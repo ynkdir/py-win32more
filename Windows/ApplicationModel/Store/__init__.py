@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Store
@@ -23,7 +23,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class CurrentApp(c_void_p):
+class CurrentApp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Store.CurrentApp'
     @winrt_classmethod
@@ -65,7 +65,7 @@ class CurrentApp(c_void_p):
     LicenseInformation = property(get_LicenseInformation, None)
     LinkUri = property(get_LinkUri, None)
     AppId = property(get_AppId, None)
-class CurrentAppSimulator(c_void_p):
+class CurrentAppSimulator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Store.CurrentAppSimulator'
     @winrt_classmethod
@@ -109,7 +109,7 @@ FulfillmentResult_NothingToFulfill: FulfillmentResult = 1
 FulfillmentResult_PurchasePending: FulfillmentResult = 2
 FulfillmentResult_PurchaseReverted: FulfillmentResult = 3
 FulfillmentResult_ServerError: FulfillmentResult = 4
-class ICurrentApp(c_void_p):
+class ICurrentApp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d52dc065-da3f-4685-99-5e-9b-48-2e-b5-e6-03')
     @winrt_commethod(6)
@@ -131,14 +131,14 @@ class ICurrentApp(c_void_p):
     LicenseInformation = property(get_LicenseInformation, None)
     LinkUri = property(get_LinkUri, None)
     AppId = property(get_AppId, None)
-class ICurrentApp2Statics(c_void_p):
+class ICurrentApp2Statics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('df4e6e2d-3171-4ad3-86-14-2c-61-24-43-73-cb')
     @winrt_commethod(6)
     def GetCustomerPurchaseIdAsync(self, serviceTicket: WinRT_String, publisherUserId: WinRT_String) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_commethod(7)
     def GetCustomerCollectionsIdAsync(self, serviceTicket: WinRT_String, publisherUserId: WinRT_String) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
-class ICurrentAppSimulator(c_void_p):
+class ICurrentAppSimulator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f17f9db1-74cd-4787-97-87-19-86-6e-9a-55-59')
     @winrt_commethod(6)
@@ -162,19 +162,19 @@ class ICurrentAppSimulator(c_void_p):
     LicenseInformation = property(get_LicenseInformation, None)
     LinkUri = property(get_LinkUri, None)
     AppId = property(get_AppId, None)
-class ICurrentAppSimulatorStaticsWithFiltering(c_void_p):
+class ICurrentAppSimulatorStaticsWithFiltering(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('617e70e2-f86f-4b54-96-66-dd-e2-85-09-2c-68')
     @winrt_commethod(6)
     def LoadListingInformationByProductIdsAsync(self, productIds: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Store.ListingInformation]: ...
     @winrt_commethod(7)
     def LoadListingInformationByKeywordsAsync(self, keywords: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Store.ListingInformation]: ...
-class ICurrentAppSimulatorWithCampaignId(c_void_p):
+class ICurrentAppSimulatorWithCampaignId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('84678a43-df00-4672-a4-3f-b2-5b-14-41-cf-cf')
     @winrt_commethod(6)
     def GetAppPurchaseCampaignIdAsync(self) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
-class ICurrentAppSimulatorWithConsumables(c_void_p):
+class ICurrentAppSimulatorWithConsumables(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4e51f0ab-20e7-4412-9b-85-59-bb-78-38-86-67')
     @winrt_commethod(6)
@@ -185,7 +185,7 @@ class ICurrentAppSimulatorWithConsumables(c_void_p):
     def RequestProductPurchaseWithDisplayPropertiesAsync(self, productId: WinRT_String, offerId: WinRT_String, displayProperties: Windows.ApplicationModel.Store.ProductPurchaseDisplayProperties) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Store.PurchaseResults]: ...
     @winrt_commethod(9)
     def GetUnfulfilledConsumablesAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Store.UnfulfilledConsumable]]: ...
-class ICurrentAppStaticsWithFiltering(c_void_p):
+class ICurrentAppStaticsWithFiltering(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d36d6542-9085-438e-97-ba-a2-5c-97-6b-e2-fd')
     @winrt_commethod(6)
@@ -194,12 +194,12 @@ class ICurrentAppStaticsWithFiltering(c_void_p):
     def LoadListingInformationByKeywordsAsync(self, keywords: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Store.ListingInformation]: ...
     @winrt_commethod(8)
     def ReportProductFulfillment(self, productId: WinRT_String) -> Void: ...
-class ICurrentAppWithCampaignId(c_void_p):
+class ICurrentAppWithCampaignId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('312f4cd0-36c1-44a6-b3-2b-43-2d-60-8e-4d-d6')
     @winrt_commethod(6)
     def GetAppPurchaseCampaignIdAsync(self) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
-class ICurrentAppWithConsumables(c_void_p):
+class ICurrentAppWithConsumables(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('844e0071-9e4f-4f79-99-5a-5f-91-17-2e-6c-ef')
     @winrt_commethod(6)
@@ -210,7 +210,7 @@ class ICurrentAppWithConsumables(c_void_p):
     def RequestProductPurchaseWithDisplayPropertiesAsync(self, productId: WinRT_String, offerId: WinRT_String, displayProperties: Windows.ApplicationModel.Store.ProductPurchaseDisplayProperties) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Store.PurchaseResults]: ...
     @winrt_commethod(9)
     def GetUnfulfilledConsumablesAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Store.UnfulfilledConsumable]]: ...
-class ILicenseInformation(c_void_p):
+class ILicenseInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8eb7dc30-f170-4ed5-8e-21-15-16-da-3f-d3-67')
     @winrt_commethod(6)
@@ -229,7 +229,7 @@ class ILicenseInformation(c_void_p):
     IsActive = property(get_IsActive, None)
     IsTrial = property(get_IsTrial, None)
     ExpirationDate = property(get_ExpirationDate, None)
-class IListingInformation(c_void_p):
+class IListingInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('588b4abf-bc74-4383-b7-8c-99-60-63-23-de-ce')
     @winrt_commethod(6)
@@ -250,7 +250,7 @@ class IListingInformation(c_void_p):
     FormattedPrice = property(get_FormattedPrice, None)
     Name = property(get_Name, None)
     AgeRating = property(get_AgeRating, None)
-class IListingInformation2(c_void_p):
+class IListingInformation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c0fd2c1d-b30e-4384-84-ea-72-fe-fa-82-22-3e')
     @winrt_commethod(6)
@@ -265,7 +265,7 @@ class IListingInformation2(c_void_p):
     SaleEndDate = property(get_SaleEndDate, None)
     IsOnSale = property(get_IsOnSale, None)
     CurrencyCode = property(get_CurrencyCode, None)
-class IProductLicense(c_void_p):
+class IProductLicense(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('363308c7-2bcf-4c0e-8f-2f-e8-08-aa-a8-f9-9d')
     @winrt_commethod(6)
@@ -277,13 +277,13 @@ class IProductLicense(c_void_p):
     ProductId = property(get_ProductId, None)
     IsActive = property(get_IsActive, None)
     ExpirationDate = property(get_ExpirationDate, None)
-class IProductLicenseWithFulfillment(c_void_p):
+class IProductLicenseWithFulfillment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fc535c8a-f667-40f3-ba-3c-04-5a-63-ab-b3-ac')
     @winrt_commethod(6)
     def get_IsConsumable(self) -> Boolean: ...
     IsConsumable = property(get_IsConsumable, None)
-class IProductListing(c_void_p):
+class IProductListing(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('45a7d6ad-c750-4d9c-94-7c-b0-0d-cb-f9-e9-c2')
     @winrt_commethod(6)
@@ -295,7 +295,7 @@ class IProductListing(c_void_p):
     ProductId = property(get_ProductId, None)
     FormattedPrice = property(get_FormattedPrice, None)
     Name = property(get_Name, None)
-class IProductListing2(c_void_p):
+class IProductListing2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f89e290f-73fe-494d-a9-39-08-a9-b2-49-5a-be')
     @winrt_commethod(6)
@@ -310,13 +310,13 @@ class IProductListing2(c_void_p):
     SaleEndDate = property(get_SaleEndDate, None)
     IsOnSale = property(get_IsOnSale, None)
     CurrencyCode = property(get_CurrencyCode, None)
-class IProductListingWithConsumables(c_void_p):
+class IProductListingWithConsumables(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('eb9e9790-8f6b-481f-93-a7-5c-3a-63-06-81-49')
     @winrt_commethod(6)
     def get_ProductType(self) -> Windows.ApplicationModel.Store.ProductType: ...
     ProductType = property(get_ProductType, None)
-class IProductListingWithMetadata(c_void_p):
+class IProductListingWithMetadata(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('124da567-23f8-423e-95-32-18-99-43-c4-0a-ce')
     @winrt_commethod(6)
@@ -334,7 +334,7 @@ class IProductListingWithMetadata(c_void_p):
     ProductType = property(get_ProductType, None)
     Tag = property(get_Tag, None)
     ImageUri = property(get_ImageUri, None)
-class IProductPurchaseDisplayProperties(c_void_p):
+class IProductPurchaseDisplayProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d70b7420-bc92-401b-a8-09-c9-b2-e5-db-bd-af')
     @winrt_commethod(6)
@@ -352,12 +352,12 @@ class IProductPurchaseDisplayProperties(c_void_p):
     Name = property(get_Name, put_Name)
     Description = property(get_Description, put_Description)
     Image = property(get_Image, put_Image)
-class IProductPurchaseDisplayPropertiesFactory(c_void_p):
+class IProductPurchaseDisplayPropertiesFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6f491df4-32d6-4b40-b4-74-b8-30-38-a4-d9-cf')
     @winrt_commethod(6)
     def CreateProductPurchaseDisplayProperties(self, name: WinRT_String) -> Windows.ApplicationModel.Store.ProductPurchaseDisplayProperties: ...
-class IPurchaseResults(c_void_p):
+class IPurchaseResults(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ed50b37e-8656-4f65-b8-c8-ac-7e-0c-b1-a1-c2')
     @winrt_commethod(6)
@@ -372,7 +372,7 @@ class IPurchaseResults(c_void_p):
     TransactionId = property(get_TransactionId, None)
     ReceiptXml = property(get_ReceiptXml, None)
     OfferId = property(get_OfferId, None)
-class IUnfulfilledConsumable(c_void_p):
+class IUnfulfilledConsumable(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2df7fbbb-1cdd-4cb8-a0-14-7b-9c-f8-98-69-27')
     @winrt_commethod(6)
@@ -384,13 +384,13 @@ class IUnfulfilledConsumable(c_void_p):
     ProductId = property(get_ProductId, None)
     TransactionId = property(get_TransactionId, None)
     OfferId = property(get_OfferId, None)
-class LicenseChangedEventHandler(c_void_p):
+class LicenseChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('d4a50255-1369-4c36-83-2f-6f-2d-88-e3-65-9b')
     ClassId = 'Windows.ApplicationModel.Store.LicenseChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self) -> Void: ...
-class LicenseInformation(c_void_p):
+class LicenseInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Store.LicenseInformation'
     @winrt_mixinmethod
@@ -409,7 +409,7 @@ class LicenseInformation(c_void_p):
     IsActive = property(get_IsActive, None)
     IsTrial = property(get_IsTrial, None)
     ExpirationDate = property(get_ExpirationDate, None)
-class ListingInformation(c_void_p):
+class ListingInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Store.ListingInformation'
     @winrt_mixinmethod
@@ -442,7 +442,7 @@ class ListingInformation(c_void_p):
     SaleEndDate = property(get_SaleEndDate, None)
     IsOnSale = property(get_IsOnSale, None)
     CurrencyCode = property(get_CurrencyCode, None)
-class ProductLicense(c_void_p):
+class ProductLicense(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Store.ProductLicense'
     @winrt_mixinmethod
@@ -457,7 +457,7 @@ class ProductLicense(c_void_p):
     IsActive = property(get_IsActive, None)
     ExpirationDate = property(get_ExpirationDate, None)
     IsConsumable = property(get_IsConsumable, None)
-class ProductListing(c_void_p):
+class ProductListing(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Store.ProductListing'
     @winrt_mixinmethod
@@ -496,7 +496,7 @@ class ProductListing(c_void_p):
     SaleEndDate = property(get_SaleEndDate, None)
     IsOnSale = property(get_IsOnSale, None)
     CurrencyCode = property(get_CurrencyCode, None)
-class ProductPurchaseDisplayProperties(c_void_p):
+class ProductPurchaseDisplayProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Store.ProductPurchaseDisplayProperties'
     @winrt_factorymethod
@@ -527,7 +527,7 @@ ProductType = Int32
 ProductType_Unknown: ProductType = 0
 ProductType_Durable: ProductType = 1
 ProductType_Consumable: ProductType = 2
-class PurchaseResults(c_void_p):
+class PurchaseResults(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Store.PurchaseResults'
     @winrt_mixinmethod
@@ -542,7 +542,7 @@ class PurchaseResults(c_void_p):
     TransactionId = property(get_TransactionId, None)
     ReceiptXml = property(get_ReceiptXml, None)
     OfferId = property(get_OfferId, None)
-class UnfulfilledConsumable(c_void_p):
+class UnfulfilledConsumable(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Store.UnfulfilledConsumable'
     @winrt_mixinmethod

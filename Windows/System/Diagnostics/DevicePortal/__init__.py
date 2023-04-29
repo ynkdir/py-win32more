@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.AppService
@@ -25,7 +25,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class DevicePortalConnection(c_void_p):
+class DevicePortalConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.System.Diagnostics.DevicePortal.DevicePortalConnection'
     @winrt_mixinmethod
@@ -48,7 +48,7 @@ class DevicePortalConnection(c_void_p):
     def GetServerStreamWebSocketForRequest2(self: Windows.System.Diagnostics.DevicePortal.IDevicePortalWebSocketConnection, request: Windows.Web.Http.HttpRequestMessage, protocol: WinRT_String, outboundBufferSizeInBytes: UInt32, noDelay: Boolean) -> Windows.Networking.Sockets.ServerStreamWebSocket: ...
     @winrt_classmethod
     def GetForAppServiceConnection(cls: Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionStatics, appServiceConnection: Windows.ApplicationModel.AppService.AppServiceConnection) -> Windows.System.Diagnostics.DevicePortal.DevicePortalConnection: ...
-class DevicePortalConnectionClosedEventArgs(c_void_p):
+class DevicePortalConnectionClosedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionClosedEventArgs'
     @winrt_mixinmethod
@@ -61,7 +61,7 @@ DevicePortalConnectionClosedReason_ProtocolError: DevicePortalConnectionClosedRe
 DevicePortalConnectionClosedReason_NotAuthorized: DevicePortalConnectionClosedReason = 3
 DevicePortalConnectionClosedReason_UserNotPresent: DevicePortalConnectionClosedReason = 4
 DevicePortalConnectionClosedReason_ServiceTerminated: DevicePortalConnectionClosedReason = 5
-class DevicePortalConnectionRequestReceivedEventArgs(c_void_p):
+class DevicePortalConnectionRequestReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionRequestReceivedEventArgs'
     @winrt_mixinmethod
@@ -78,7 +78,7 @@ class DevicePortalConnectionRequestReceivedEventArgs(c_void_p):
     ResponseMessage = property(get_ResponseMessage, None)
     IsWebSocketUpgradeRequest = property(get_IsWebSocketUpgradeRequest, None)
     WebSocketProtocolsRequested = property(get_WebSocketProtocolsRequested, None)
-class IDevicePortalConnection(c_void_p):
+class IDevicePortalConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0f447f51-1198-4da1-8d-54-bd-ef-39-3e-09-b6')
     @winrt_commethod(6)
@@ -89,13 +89,13 @@ class IDevicePortalConnection(c_void_p):
     def add_RequestReceived(self, handler: Windows.Foundation.TypedEventHandler[Windows.System.Diagnostics.DevicePortal.DevicePortalConnection, Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionRequestReceivedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_RequestReceived(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IDevicePortalConnectionClosedEventArgs(c_void_p):
+class IDevicePortalConnectionClosedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fcf70e38-7032-428c-9f-50-94-5c-15-a9-f0-cb')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionClosedReason: ...
     Reason = property(get_Reason, None)
-class IDevicePortalConnectionRequestReceivedEventArgs(c_void_p):
+class IDevicePortalConnectionRequestReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('64dae045-6fda-4459-9e-bd-ec-ce-22-e3-85-59')
     @winrt_commethod(6)
@@ -104,12 +104,12 @@ class IDevicePortalConnectionRequestReceivedEventArgs(c_void_p):
     def get_ResponseMessage(self) -> Windows.Web.Http.HttpResponseMessage: ...
     RequestMessage = property(get_RequestMessage, None)
     ResponseMessage = property(get_ResponseMessage, None)
-class IDevicePortalConnectionStatics(c_void_p):
+class IDevicePortalConnectionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4bbe31e7-e9b9-4645-8f-ed-a5-3e-ea-0e-db-d6')
     @winrt_commethod(6)
     def GetForAppServiceConnection(self, appServiceConnection: Windows.ApplicationModel.AppService.AppServiceConnection) -> Windows.System.Diagnostics.DevicePortal.DevicePortalConnection: ...
-class IDevicePortalWebSocketConnection(c_void_p):
+class IDevicePortalWebSocketConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('67657920-d65a-42f0-ae-f4-78-78-08-09-8b-7b')
     @winrt_commethod(6)
@@ -122,7 +122,7 @@ class IDevicePortalWebSocketConnection(c_void_p):
     def GetServerStreamWebSocketForRequest(self, request: Windows.Web.Http.HttpRequestMessage) -> Windows.Networking.Sockets.ServerStreamWebSocket: ...
     @winrt_commethod(10)
     def GetServerStreamWebSocketForRequest2(self, request: Windows.Web.Http.HttpRequestMessage, protocol: WinRT_String, outboundBufferSizeInBytes: UInt32, noDelay: Boolean) -> Windows.Networking.Sockets.ServerStreamWebSocket: ...
-class IDevicePortalWebSocketConnectionRequestReceivedEventArgs(c_void_p):
+class IDevicePortalWebSocketConnectionRequestReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('79fdcaba-175c-4739-9f-74-dd-a7-97-c3-5b-3f')
     @winrt_commethod(6)

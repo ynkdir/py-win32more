@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Display
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class DisplayMonitor(c_void_p):
+class DisplayMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Display.DisplayMonitor'
     @winrt_mixinmethod
@@ -114,7 +114,7 @@ DisplayMonitorUsageKind = Int32
 DisplayMonitorUsageKind_Standard: DisplayMonitorUsageKind = 0
 DisplayMonitorUsageKind_HeadMounted: DisplayMonitorUsageKind = 1
 DisplayMonitorUsageKind_SpecialPurpose: DisplayMonitorUsageKind = 2
-class IDisplayMonitor(c_void_p):
+class IDisplayMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1f6b15d4-1d01-4c51-87-e2-6f-95-4a-77-2b-59')
     @winrt_commethod(6)
@@ -176,13 +176,13 @@ class IDisplayMonitor(c_void_p):
     MaxLuminanceInNits = property(get_MaxLuminanceInNits, None)
     MinLuminanceInNits = property(get_MinLuminanceInNits, None)
     MaxAverageFullFrameLuminanceInNits = property(get_MaxAverageFullFrameLuminanceInNits, None)
-class IDisplayMonitor2(c_void_p):
+class IDisplayMonitor2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('023018e6-cb23-5830-96-df-a7-bf-6e-60-25-77')
     @winrt_commethod(6)
     def get_IsDolbyVisionSupportedInHdrMode(self) -> Boolean: ...
     IsDolbyVisionSupportedInHdrMode = property(get_IsDolbyVisionSupportedInHdrMode, None)
-class IDisplayMonitorStatics(c_void_p):
+class IDisplayMonitorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6eae698f-a228-4c05-82-1d-b6-95-d6-67-de-8e')
     @winrt_commethod(6)

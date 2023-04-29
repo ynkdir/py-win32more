@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation.Collections
@@ -21,7 +21,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class CharacterGrouping(c_void_p):
+class CharacterGrouping(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Globalization.Collation.CharacterGrouping'
     @winrt_mixinmethod
@@ -30,7 +30,7 @@ class CharacterGrouping(c_void_p):
     def get_Label(self: Windows.Globalization.Collation.ICharacterGrouping) -> WinRT_String: ...
     First = property(get_First, None)
     Label = property(get_Label, None)
-class CharacterGroupings(c_void_p):
+class CharacterGroupings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Globalization.Collation.CharacterGroupings'
     @winrt_factorymethod
@@ -50,7 +50,7 @@ class CharacterGroupings(c_void_p):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Globalization.Collation.CharacterGrouping]) -> Windows.Foundation.Collections.IIterator[Windows.Globalization.Collation.CharacterGrouping]: ...
     Size = property(get_Size, None)
-class ICharacterGrouping(c_void_p):
+class ICharacterGrouping(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fae761bb-805d-4bb0-95-bb-c1-f7-c3-e8-eb-8e')
     @winrt_commethod(6)
@@ -59,12 +59,12 @@ class ICharacterGrouping(c_void_p):
     def get_Label(self) -> WinRT_String: ...
     First = property(get_First, None)
     Label = property(get_Label, None)
-class ICharacterGroupings(c_void_p):
+class ICharacterGroupings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b8d20a75-d4cf-4055-80-e5-ce-16-9c-22-64-96')
     @winrt_commethod(6)
     def Lookup(self, text: WinRT_String) -> WinRT_String: ...
-class ICharacterGroupingsFactory(c_void_p):
+class ICharacterGroupingsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('99ea9fd9-886d-4401-9f-98-69-c8-2d-4c-2f-78')
     @winrt_commethod(6)

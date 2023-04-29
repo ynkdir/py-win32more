@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.SerialCommunication
@@ -22,25 +22,25 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ErrorReceivedEventArgs(c_void_p):
+class ErrorReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.SerialCommunication.ErrorReceivedEventArgs'
     @winrt_mixinmethod
     def get_Error(self: Windows.Devices.SerialCommunication.IErrorReceivedEventArgs) -> Windows.Devices.SerialCommunication.SerialError: ...
     Error = property(get_Error, None)
-class IErrorReceivedEventArgs(c_void_p):
+class IErrorReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fcc6bf59-1283-4d8a-bf-df-56-6b-33-dd-b2-8f')
     @winrt_commethod(6)
     def get_Error(self) -> Windows.Devices.SerialCommunication.SerialError: ...
     Error = property(get_Error, None)
-class IPinChangedEventArgs(c_void_p):
+class IPinChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a2bf1db0-fc9c-4607-93-d0-fa-5e-83-43-ee-22')
     @winrt_commethod(6)
     def get_PinChange(self) -> Windows.Devices.SerialCommunication.SerialPinChange: ...
     PinChange = property(get_PinChange, None)
-class ISerialDevice(c_void_p):
+class ISerialDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e187ccc6-2210-414f-b6-5a-f5-55-3a-03-37-2a')
     @winrt_commethod(6)
@@ -128,7 +128,7 @@ class ISerialDevice(c_void_p):
     WriteTimeout = property(get_WriteTimeout, put_WriteTimeout)
     InputStream = property(get_InputStream, None)
     OutputStream = property(get_OutputStream, None)
-class ISerialDeviceStatics(c_void_p):
+class ISerialDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('058c4a70-0836-4993-ae-1a-b6-1a-e3-be-05-6b')
     @winrt_commethod(6)
@@ -139,13 +139,13 @@ class ISerialDeviceStatics(c_void_p):
     def GetDeviceSelectorFromUsbVidPid(self, vendorId: UInt16, productId: UInt16) -> WinRT_String: ...
     @winrt_commethod(9)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.SerialCommunication.SerialDevice]: ...
-class PinChangedEventArgs(c_void_p):
+class PinChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.SerialCommunication.PinChangedEventArgs'
     @winrt_mixinmethod
     def get_PinChange(self: Windows.Devices.SerialCommunication.IPinChangedEventArgs) -> Windows.Devices.SerialCommunication.SerialPinChange: ...
     PinChange = property(get_PinChange, None)
-class SerialDevice(c_void_p):
+class SerialDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.SerialCommunication.SerialDevice'
     @winrt_mixinmethod

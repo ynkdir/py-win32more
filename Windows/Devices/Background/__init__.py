@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Background
@@ -21,7 +21,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class DeviceServicingDetails(c_void_p):
+class DeviceServicingDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Background.DeviceServicingDetails'
     @winrt_mixinmethod
@@ -33,7 +33,7 @@ class DeviceServicingDetails(c_void_p):
     DeviceId = property(get_DeviceId, None)
     Arguments = property(get_Arguments, None)
     ExpectedDuration = property(get_ExpectedDuration, None)
-class DeviceUseDetails(c_void_p):
+class DeviceUseDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.Background.DeviceUseDetails'
     @winrt_mixinmethod
@@ -42,7 +42,7 @@ class DeviceUseDetails(c_void_p):
     def get_Arguments(self: Windows.Devices.Background.IDeviceUseDetails) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
     Arguments = property(get_Arguments, None)
-class IDeviceServicingDetails(c_void_p):
+class IDeviceServicingDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4aabee29-2344-4ac4-85-27-4a-8e-f6-90-56-45')
     @winrt_commethod(6)
@@ -54,7 +54,7 @@ class IDeviceServicingDetails(c_void_p):
     DeviceId = property(get_DeviceId, None)
     Arguments = property(get_Arguments, None)
     ExpectedDuration = property(get_ExpectedDuration, None)
-class IDeviceUseDetails(c_void_p):
+class IDeviceUseDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7d565141-557e-4154-b9-94-e4-f7-a1-1f-b3-23')
     @winrt_commethod(6)

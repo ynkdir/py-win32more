@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Activation
@@ -90,7 +90,7 @@ ApplicationExecutionState_Running: ApplicationExecutionState = 1
 ApplicationExecutionState_Suspended: ApplicationExecutionState = 2
 ApplicationExecutionState_Terminated: ApplicationExecutionState = 3
 ApplicationExecutionState_ClosedByUser: ApplicationExecutionState = 4
-class AppointmentsProviderAddAppointmentActivatedEventArgs(c_void_p):
+class AppointmentsProviderAddAppointmentActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.AppointmentsProviderAddAppointmentActivatedEventArgs'
     @winrt_mixinmethod
@@ -111,7 +111,7 @@ class AppointmentsProviderAddAppointmentActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class AppointmentsProviderRemoveAppointmentActivatedEventArgs(c_void_p):
+class AppointmentsProviderRemoveAppointmentActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.AppointmentsProviderRemoveAppointmentActivatedEventArgs'
     @winrt_mixinmethod
@@ -132,7 +132,7 @@ class AppointmentsProviderRemoveAppointmentActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class AppointmentsProviderReplaceAppointmentActivatedEventArgs(c_void_p):
+class AppointmentsProviderReplaceAppointmentActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.AppointmentsProviderReplaceAppointmentActivatedEventArgs'
     @winrt_mixinmethod
@@ -153,7 +153,7 @@ class AppointmentsProviderReplaceAppointmentActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class AppointmentsProviderShowAppointmentDetailsActivatedEventArgs(c_void_p):
+class AppointmentsProviderShowAppointmentDetailsActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.AppointmentsProviderShowAppointmentDetailsActivatedEventArgs'
     @winrt_mixinmethod
@@ -180,7 +180,7 @@ class AppointmentsProviderShowAppointmentDetailsActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class AppointmentsProviderShowTimeFrameActivatedEventArgs(c_void_p):
+class AppointmentsProviderShowTimeFrameActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.AppointmentsProviderShowTimeFrameActivatedEventArgs'
     @winrt_mixinmethod
@@ -204,13 +204,13 @@ class AppointmentsProviderShowTimeFrameActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class BackgroundActivatedEventArgs(c_void_p):
+class BackgroundActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.BackgroundActivatedEventArgs'
     @winrt_mixinmethod
     def get_TaskInstance(self: Windows.ApplicationModel.Activation.IBackgroundActivatedEventArgs) -> Windows.ApplicationModel.Background.IBackgroundTaskInstance: ...
     TaskInstance = property(get_TaskInstance, None)
-class BarcodeScannerPreviewActivatedEventArgs(c_void_p):
+class BarcodeScannerPreviewActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.BarcodeScannerPreviewActivatedEventArgs'
     @winrt_mixinmethod
@@ -228,7 +228,7 @@ class BarcodeScannerPreviewActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class CachedFileUpdaterActivatedEventArgs(c_void_p):
+class CachedFileUpdaterActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.CachedFileUpdaterActivatedEventArgs'
     @winrt_mixinmethod
@@ -246,7 +246,7 @@ class CachedFileUpdaterActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class CommandLineActivatedEventArgs(c_void_p):
+class CommandLineActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.CommandLineActivatedEventArgs'
     @winrt_mixinmethod
@@ -264,7 +264,7 @@ class CommandLineActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class CommandLineActivationOperation(c_void_p):
+class CommandLineActivationOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.CommandLineActivationOperation'
     @winrt_mixinmethod
@@ -280,7 +280,7 @@ class CommandLineActivationOperation(c_void_p):
     Arguments = property(get_Arguments, None)
     CurrentDirectoryPath = property(get_CurrentDirectoryPath, None)
     ExitCode = property(get_ExitCode, put_ExitCode)
-class ContactPanelActivatedEventArgs(c_void_p):
+class ContactPanelActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.ContactPanelActivatedEventArgs'
     @winrt_mixinmethod
@@ -301,7 +301,7 @@ class ContactPanelActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class DeviceActivatedEventArgs(c_void_p):
+class DeviceActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.DeviceActivatedEventArgs'
     @winrt_mixinmethod
@@ -328,7 +328,7 @@ class DeviceActivatedEventArgs(c_void_p):
     CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
     ViewSwitcher = property(get_ViewSwitcher, None)
     User = property(get_User, None)
-class DevicePairingActivatedEventArgs(c_void_p):
+class DevicePairingActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.DevicePairingActivatedEventArgs'
     @winrt_mixinmethod
@@ -346,7 +346,7 @@ class DevicePairingActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class DialReceiverActivatedEventArgs(c_void_p):
+class DialReceiverActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.DialReceiverActivatedEventArgs'
     @winrt_mixinmethod
@@ -376,7 +376,7 @@ class DialReceiverActivatedEventArgs(c_void_p):
     CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
     ViewSwitcher = property(get_ViewSwitcher, None)
     User = property(get_User, None)
-class FileActivatedEventArgs(c_void_p):
+class FileActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.FileActivatedEventArgs'
     @winrt_mixinmethod
@@ -409,7 +409,7 @@ class FileActivatedEventArgs(c_void_p):
     CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
     ViewSwitcher = property(get_ViewSwitcher, None)
     User = property(get_User, None)
-class FileOpenPickerActivatedEventArgs(c_void_p):
+class FileOpenPickerActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.FileOpenPickerActivatedEventArgs'
     @winrt_mixinmethod
@@ -430,7 +430,7 @@ class FileOpenPickerActivatedEventArgs(c_void_p):
     SplashScreen = property(get_SplashScreen, None)
     CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
     User = property(get_User, None)
-class FileOpenPickerContinuationEventArgs(c_void_p):
+class FileOpenPickerContinuationEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.FileOpenPickerContinuationEventArgs'
     @winrt_mixinmethod
@@ -451,7 +451,7 @@ class FileOpenPickerContinuationEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class FileSavePickerActivatedEventArgs(c_void_p):
+class FileSavePickerActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.FileSavePickerActivatedEventArgs'
     @winrt_mixinmethod
@@ -475,7 +475,7 @@ class FileSavePickerActivatedEventArgs(c_void_p):
     CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
     EnterpriseId = property(get_EnterpriseId, None)
     User = property(get_User, None)
-class FileSavePickerContinuationEventArgs(c_void_p):
+class FileSavePickerContinuationEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.FileSavePickerContinuationEventArgs'
     @winrt_mixinmethod
@@ -496,7 +496,7 @@ class FileSavePickerContinuationEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class FolderPickerContinuationEventArgs(c_void_p):
+class FolderPickerContinuationEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.FolderPickerContinuationEventArgs'
     @winrt_mixinmethod
@@ -517,7 +517,7 @@ class FolderPickerContinuationEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class IActivatedEventArgs(c_void_p):
+class IActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cf651713-cd08-4fd8-b6-97-a2-81-b6-54-4e-2e')
     @winrt_commethod(6)
@@ -529,43 +529,43 @@ class IActivatedEventArgs(c_void_p):
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
-class IActivatedEventArgsWithUser(c_void_p):
+class IActivatedEventArgsWithUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1cf09b9e-9962-4936-80-ff-af-c8-e8-ae-5c-8c')
     @winrt_commethod(6)
     def get_User(self) -> Windows.System.User: ...
     User = property(get_User, None)
-class IApplicationViewActivatedEventArgs(c_void_p):
+class IApplicationViewActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('930cef4b-b829-40fc-88-f4-85-13-e8-a6-47-38')
     @winrt_commethod(6)
     def get_CurrentlyShownApplicationViewId(self) -> Int32: ...
     CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
-class IAppointmentsProviderActivatedEventArgs(c_void_p):
+class IAppointmentsProviderActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3364c405-933c-4e7d-a0-34-50-0f-b8-dc-d9-f3')
     @winrt_commethod(6)
     def get_Verb(self) -> WinRT_String: ...
     Verb = property(get_Verb, None)
-class IAppointmentsProviderAddAppointmentActivatedEventArgs(c_void_p):
+class IAppointmentsProviderAddAppointmentActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a2861367-cee5-4e4d-9e-d7-41-c3-4e-c1-8b-02')
     @winrt_commethod(6)
     def get_AddAppointmentOperation(self) -> Windows.ApplicationModel.Appointments.AppointmentsProvider.AddAppointmentOperation: ...
     AddAppointmentOperation = property(get_AddAppointmentOperation, None)
-class IAppointmentsProviderRemoveAppointmentActivatedEventArgs(c_void_p):
+class IAppointmentsProviderRemoveAppointmentActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('751f3ab8-0b8e-451c-9f-15-96-6e-69-9b-ac-25')
     @winrt_commethod(6)
     def get_RemoveAppointmentOperation(self) -> Windows.ApplicationModel.Appointments.AppointmentsProvider.RemoveAppointmentOperation: ...
     RemoveAppointmentOperation = property(get_RemoveAppointmentOperation, None)
-class IAppointmentsProviderReplaceAppointmentActivatedEventArgs(c_void_p):
+class IAppointmentsProviderReplaceAppointmentActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1551b7d4-a981-4067-8a-62-05-24-e4-ad-e1-21')
     @winrt_commethod(6)
     def get_ReplaceAppointmentOperation(self) -> Windows.ApplicationModel.Appointments.AppointmentsProvider.ReplaceAppointmentOperation: ...
     ReplaceAppointmentOperation = property(get_ReplaceAppointmentOperation, None)
-class IAppointmentsProviderShowAppointmentDetailsActivatedEventArgs(c_void_p):
+class IAppointmentsProviderShowAppointmentDetailsActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3958f065-9841-4ca5-99-9b-88-51-98-b9-ef-2a')
     @winrt_commethod(6)
@@ -577,7 +577,7 @@ class IAppointmentsProviderShowAppointmentDetailsActivatedEventArgs(c_void_p):
     InstanceStartDate = property(get_InstanceStartDate, None)
     LocalId = property(get_LocalId, None)
     RoamingId = property(get_RoamingId, None)
-class IAppointmentsProviderShowTimeFrameActivatedEventArgs(c_void_p):
+class IAppointmentsProviderShowTimeFrameActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9baeaba6-0e0b-49aa-ba-bc-12-b1-dc-77-49-86')
     @winrt_commethod(6)
@@ -586,31 +586,31 @@ class IAppointmentsProviderShowTimeFrameActivatedEventArgs(c_void_p):
     def get_Duration(self) -> Windows.Foundation.TimeSpan: ...
     TimeToShow = property(get_TimeToShow, None)
     Duration = property(get_Duration, None)
-class IBackgroundActivatedEventArgs(c_void_p):
+class IBackgroundActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ab14bee0-e760-440e-a9-1c-44-79-6d-e3-a9-2d')
     @winrt_commethod(6)
     def get_TaskInstance(self) -> Windows.ApplicationModel.Background.IBackgroundTaskInstance: ...
     TaskInstance = property(get_TaskInstance, None)
-class IBarcodeScannerPreviewActivatedEventArgs(c_void_p):
+class IBarcodeScannerPreviewActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6772797c-99bf-4349-af-22-e4-12-35-60-37-1c')
     @winrt_commethod(6)
     def get_ConnectionId(self) -> WinRT_String: ...
     ConnectionId = property(get_ConnectionId, None)
-class ICachedFileUpdaterActivatedEventArgs(c_void_p):
+class ICachedFileUpdaterActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d06eb1c7-3805-4ecb-b7-57-6c-f1-5e-26-fe-f3')
     @winrt_commethod(6)
     def get_CachedFileUpdaterUI(self) -> Windows.Storage.Provider.CachedFileUpdaterUI: ...
     CachedFileUpdaterUI = property(get_CachedFileUpdaterUI, None)
-class ICommandLineActivatedEventArgs(c_void_p):
+class ICommandLineActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4506472c-006a-48eb-8a-fb-d0-7a-b2-5e-33-66')
     @winrt_commethod(6)
     def get_Operation(self) -> Windows.ApplicationModel.Activation.CommandLineActivationOperation: ...
     Operation = property(get_Operation, None)
-class ICommandLineActivationOperation(c_void_p):
+class ICommandLineActivationOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('994b2841-c59e-4f69-bc-fd-b6-1e-d4-e6-22-eb')
     @winrt_commethod(6)
@@ -626,7 +626,7 @@ class ICommandLineActivationOperation(c_void_p):
     Arguments = property(get_Arguments, None)
     CurrentDirectoryPath = property(get_CurrentDirectoryPath, None)
     ExitCode = property(get_ExitCode, put_ExitCode)
-class IContactPanelActivatedEventArgs(c_void_p):
+class IContactPanelActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('52bb63e4-d3d4-4b63-80-51-4a-f2-08-2c-ab-80')
     @winrt_commethod(6)
@@ -635,13 +635,13 @@ class IContactPanelActivatedEventArgs(c_void_p):
     def get_Contact(self) -> Windows.ApplicationModel.Contacts.Contact: ...
     ContactPanel = property(get_ContactPanel, None)
     Contact = property(get_Contact, None)
-class IContinuationActivatedEventArgs(c_void_p):
+class IContinuationActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e58106b5-155f-4a94-a7-42-c7-e0-8f-4e-18-8c')
     @winrt_commethod(6)
     def get_ContinuationData(self) -> Windows.Foundation.Collections.ValueSet: ...
     ContinuationData = property(get_ContinuationData, None)
-class IDeviceActivatedEventArgs(c_void_p):
+class IDeviceActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cd50b9a9-ce10-44d2-82-34-c3-55-a0-73-ef-33')
     @winrt_commethod(6)
@@ -650,19 +650,19 @@ class IDeviceActivatedEventArgs(c_void_p):
     def get_Verb(self) -> WinRT_String: ...
     DeviceInformationId = property(get_DeviceInformationId, None)
     Verb = property(get_Verb, None)
-class IDevicePairingActivatedEventArgs(c_void_p):
+class IDevicePairingActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('eba0d1e4-ecc6-4148-94-ed-f4-b3-7e-c0-5b-3e')
     @winrt_commethod(6)
     def get_DeviceInformation(self) -> Windows.Devices.Enumeration.DeviceInformation: ...
     DeviceInformation = property(get_DeviceInformation, None)
-class IDialReceiverActivatedEventArgs(c_void_p):
+class IDialReceiverActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fb777ed7-85ee-456e-a4-4d-85-d7-30-e7-0a-ed')
     @winrt_commethod(6)
     def get_AppName(self) -> WinRT_String: ...
     AppName = property(get_AppName, None)
-class IFileActivatedEventArgs(c_void_p):
+class IFileActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bb2afc33-93b1-42ed-8b-26-23-6d-d9-c7-84-96')
     @winrt_commethod(6)
@@ -671,43 +671,43 @@ class IFileActivatedEventArgs(c_void_p):
     def get_Verb(self) -> WinRT_String: ...
     Files = property(get_Files, None)
     Verb = property(get_Verb, None)
-class IFileActivatedEventArgsWithCallerPackageFamilyName(c_void_p):
+class IFileActivatedEventArgsWithCallerPackageFamilyName(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2d60f06b-d25f-4d25-86-53-e1-c5-e1-10-83-09')
     @winrt_commethod(6)
     def get_CallerPackageFamilyName(self) -> WinRT_String: ...
     CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
-class IFileActivatedEventArgsWithNeighboringFiles(c_void_p):
+class IFileActivatedEventArgsWithNeighboringFiles(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('433ba1a4-e1e2-48fd-b7-fc-b5-d6-ee-e6-50-33')
     @winrt_commethod(6)
     def get_NeighboringFilesQuery(self) -> Windows.Storage.Search.StorageFileQueryResult: ...
     NeighboringFilesQuery = property(get_NeighboringFilesQuery, None)
-class IFileOpenPickerActivatedEventArgs(c_void_p):
+class IFileOpenPickerActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('72827082-5525-4bf2-bc-09-1f-50-95-d4-96-4d')
     @winrt_commethod(6)
     def get_FileOpenPickerUI(self) -> Windows.Storage.Pickers.Provider.FileOpenPickerUI: ...
     FileOpenPickerUI = property(get_FileOpenPickerUI, None)
-class IFileOpenPickerActivatedEventArgs2(c_void_p):
+class IFileOpenPickerActivatedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5e731f66-8d1f-45fb-af-1d-73-20-5c-8f-c7-a1')
     @winrt_commethod(6)
     def get_CallerPackageFamilyName(self) -> WinRT_String: ...
     CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
-class IFileOpenPickerContinuationEventArgs(c_void_p):
+class IFileOpenPickerContinuationEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f0fa3f3a-d4e8-4ad3-9c-34-23-08-f3-2f-ce-c9')
     @winrt_commethod(6)
     def get_Files(self) -> Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageFile]: ...
     Files = property(get_Files, None)
-class IFileSavePickerActivatedEventArgs(c_void_p):
+class IFileSavePickerActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('81c19cf1-74e6-4387-82-eb-bb-8f-d6-4b-43-46')
     @winrt_commethod(6)
     def get_FileSavePickerUI(self) -> Windows.Storage.Pickers.Provider.FileSavePickerUI: ...
     FileSavePickerUI = property(get_FileSavePickerUI, None)
-class IFileSavePickerActivatedEventArgs2(c_void_p):
+class IFileSavePickerActivatedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6b73fe13-2cf2-4d48-8c-bc-af-67-d2-3f-1c-e7')
     @winrt_commethod(6)
@@ -716,19 +716,19 @@ class IFileSavePickerActivatedEventArgs2(c_void_p):
     def get_EnterpriseId(self) -> WinRT_String: ...
     CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
     EnterpriseId = property(get_EnterpriseId, None)
-class IFileSavePickerContinuationEventArgs(c_void_p):
+class IFileSavePickerContinuationEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2c846fe1-3bad-4f33-8c-8b-e4-6f-ae-82-4b-4b')
     @winrt_commethod(6)
     def get_File(self) -> Windows.Storage.StorageFile: ...
     File = property(get_File, None)
-class IFolderPickerContinuationEventArgs(c_void_p):
+class IFolderPickerContinuationEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('51882366-9f4b-498f-be-b0-42-68-4f-6e-1c-29')
     @winrt_commethod(6)
     def get_Folder(self) -> Windows.Storage.StorageFolder: ...
     Folder = property(get_Folder, None)
-class ILaunchActivatedEventArgs(c_void_p):
+class ILaunchActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fbc93e26-a14a-4b4f-82-b0-33-be-d9-20-af-52')
     @winrt_commethod(6)
@@ -737,43 +737,43 @@ class ILaunchActivatedEventArgs(c_void_p):
     def get_TileId(self) -> WinRT_String: ...
     Arguments = property(get_Arguments, None)
     TileId = property(get_TileId, None)
-class ILaunchActivatedEventArgs2(c_void_p):
+class ILaunchActivatedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0fd37ebc-9dc9-46b5-9a-ce-bd-95-d4-56-53-45')
     @winrt_commethod(6)
     def get_TileActivatedInfo(self) -> Windows.ApplicationModel.Activation.TileActivatedInfo: ...
     TileActivatedInfo = property(get_TileActivatedInfo, None)
-class ILockScreenActivatedEventArgs(c_void_p):
+class ILockScreenActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3ca77966-6108-4a41-82-20-ee-7d-13-3c-85-32')
     @winrt_commethod(6)
     def get_Info(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     Info = property(get_Info, None)
-class IPhoneCallActivatedEventArgs(c_void_p):
+class IPhoneCallActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('54615221-a3c1-4ced-b6-2f-8c-60-52-36-19-ad')
     @winrt_commethod(6)
     def get_LineId(self) -> Guid: ...
     LineId = property(get_LineId, None)
-class IPickerReturnedActivatedEventArgs(c_void_p):
+class IPickerReturnedActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('360defb9-a9d3-4984-a4-ed-9e-c7-34-60-49-21')
     @winrt_commethod(6)
     def get_PickerOperationId(self) -> WinRT_String: ...
     PickerOperationId = property(get_PickerOperationId, None)
-class IPrelaunchActivatedEventArgs(c_void_p):
+class IPrelaunchActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0c44717b-19f7-48d6-b0-46-cf-22-82-6e-aa-74')
     @winrt_commethod(6)
     def get_PrelaunchActivated(self) -> Boolean: ...
     PrelaunchActivated = property(get_PrelaunchActivated, None)
-class IProtocolActivatedEventArgs(c_void_p):
+class IProtocolActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6095f4dd-b7c0-46ab-81-fe-d9-0f-36-d0-0d-24')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
     Uri = property(get_Uri, None)
-class IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData(c_void_p):
+class IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d84a0c12-5c8f-438c-83-cb-c2-8f-cc-0b-2f-db')
     @winrt_commethod(6)
@@ -782,19 +782,19 @@ class IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData(c_void_p):
     def get_Data(self) -> Windows.Foundation.Collections.ValueSet: ...
     CallerPackageFamilyName = property(get_CallerPackageFamilyName, None)
     Data = property(get_Data, None)
-class IProtocolForResultsActivatedEventArgs(c_void_p):
+class IProtocolForResultsActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e75132c2-7ae7-4517-80-ac-db-e8-d7-cc-5b-9c')
     @winrt_commethod(6)
     def get_ProtocolForResultsOperation(self) -> Windows.System.ProtocolForResultsOperation: ...
     ProtocolForResultsOperation = property(get_ProtocolForResultsOperation, None)
-class IRestrictedLaunchActivatedEventArgs(c_void_p):
+class IRestrictedLaunchActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e0b7ac81-bfc3-4344-a5-da-19-fd-5a-27-ba-ae')
     @winrt_commethod(6)
     def get_SharedContext(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     SharedContext = property(get_SharedContext, None)
-class ISearchActivatedEventArgs(c_void_p):
+class ISearchActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8cb36951-58c8-43e3-94-bc-41-d3-3f-8b-63-0e')
     @winrt_commethod(6)
@@ -803,19 +803,19 @@ class ISearchActivatedEventArgs(c_void_p):
     def get_Language(self) -> WinRT_String: ...
     QueryText = property(get_QueryText, None)
     Language = property(get_Language, None)
-class ISearchActivatedEventArgsWithLinguisticDetails(c_void_p):
+class ISearchActivatedEventArgsWithLinguisticDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c09f33da-08ab-4931-9b-7c-45-10-25-f2-1f-81')
     @winrt_commethod(6)
     def get_LinguisticDetails(self) -> Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails: ...
     LinguisticDetails = property(get_LinguisticDetails, None)
-class IShareTargetActivatedEventArgs(c_void_p):
+class IShareTargetActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4bdaf9c8-cdb2-4acb-bf-c3-66-48-56-33-78-ec')
     @winrt_commethod(6)
     def get_ShareOperation(self) -> Windows.ApplicationModel.DataTransfer.ShareTarget.ShareOperation: ...
     ShareOperation = property(get_ShareOperation, None)
-class ISplashScreen(c_void_p):
+class ISplashScreen(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ca4d975c-d4d6-43f0-97-c0-08-33-c6-39-1c-24')
     @winrt_commethod(6)
@@ -825,19 +825,19 @@ class ISplashScreen(c_void_p):
     @winrt_commethod(8)
     def remove_Dismissed(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
     ImageLocation = property(get_ImageLocation, None)
-class IStartupTaskActivatedEventArgs(c_void_p):
+class IStartupTaskActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('03b11a58-5276-4d91-86-21-54-61-18-64-d5-fa')
     @winrt_commethod(6)
     def get_TaskId(self) -> WinRT_String: ...
     TaskId = property(get_TaskId, None)
-class ITileActivatedInfo(c_void_p):
+class ITileActivatedInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('80e4a3b1-3980-4f17-b7-38-89-19-4e-0b-8f-65')
     @winrt_commethod(6)
     def get_RecentlyShownNotifications(self) -> Windows.Foundation.Collections.IVectorView[Windows.UI.Notifications.ShownTileNotification]: ...
     RecentlyShownNotifications = property(get_RecentlyShownNotifications, None)
-class IToastNotificationActivatedEventArgs(c_void_p):
+class IToastNotificationActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('92a86f82-5290-431d-be-85-c4-aa-ee-b8-68-5f')
     @winrt_commethod(6)
@@ -846,37 +846,37 @@ class IToastNotificationActivatedEventArgs(c_void_p):
     def get_UserInput(self) -> Windows.Foundation.Collections.ValueSet: ...
     Argument = property(get_Argument, None)
     UserInput = property(get_UserInput, None)
-class IUserDataAccountProviderActivatedEventArgs(c_void_p):
+class IUserDataAccountProviderActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1bc9f723-8ef1-4a51-a6-3a-fe-71-1e-ea-b6-07')
     @winrt_commethod(6)
     def get_Operation(self) -> Windows.ApplicationModel.UserDataAccounts.Provider.IUserDataAccountProviderOperation: ...
     Operation = property(get_Operation, None)
-class IViewSwitcherProvider(c_void_p):
+class IViewSwitcherProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('33f288a6-5c2c-4d27-ba-c7-75-36-08-8f-12-19')
     @winrt_commethod(6)
     def get_ViewSwitcher(self) -> Windows.UI.ViewManagement.ActivationViewSwitcher: ...
     ViewSwitcher = property(get_ViewSwitcher, None)
-class IVoiceCommandActivatedEventArgs(c_void_p):
+class IVoiceCommandActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ab92dcfd-8d43-4de6-97-75-20-70-4b-58-1b-00')
     @winrt_commethod(6)
     def get_Result(self) -> Windows.Media.SpeechRecognition.SpeechRecognitionResult: ...
     Result = property(get_Result, None)
-class IWebAccountProviderActivatedEventArgs(c_void_p):
+class IWebAccountProviderActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('72b71774-98ea-4ccf-97-52-46-d9-05-10-04-f1')
     @winrt_commethod(6)
     def get_Operation(self) -> Windows.Security.Authentication.Web.Provider.IWebAccountProviderOperation: ...
     Operation = property(get_Operation, None)
-class IWebAuthenticationBrokerContinuationEventArgs(c_void_p):
+class IWebAuthenticationBrokerContinuationEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('75dda3d4-7714-453d-b7-ff-b9-5e-3a-17-09-da')
     @winrt_commethod(6)
     def get_WebAuthenticationResult(self) -> Windows.Security.Authentication.Web.WebAuthenticationResult: ...
     WebAuthenticationResult = property(get_WebAuthenticationResult, None)
-class LaunchActivatedEventArgs(c_void_p):
+class LaunchActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.LaunchActivatedEventArgs'
     @winrt_mixinmethod
@@ -909,7 +909,7 @@ class LaunchActivatedEventArgs(c_void_p):
     ViewSwitcher = property(get_ViewSwitcher, None)
     TileActivatedInfo = property(get_TileActivatedInfo, None)
     User = property(get_User, None)
-class LockScreenActivatedEventArgs(c_void_p):
+class LockScreenActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.LockScreenActivatedEventArgs'
     @winrt_mixinmethod
@@ -927,7 +927,7 @@ class LockScreenActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class LockScreenComponentActivatedEventArgs(c_void_p):
+class LockScreenComponentActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.LockScreenComponentActivatedEventArgs'
     @winrt_mixinmethod
@@ -939,7 +939,7 @@ class LockScreenComponentActivatedEventArgs(c_void_p):
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
-class PhoneCallActivatedEventArgs(c_void_p):
+class PhoneCallActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.PhoneCallActivatedEventArgs'
     @winrt_mixinmethod
@@ -957,7 +957,7 @@ class PhoneCallActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class PickerReturnedActivatedEventArgs(c_void_p):
+class PickerReturnedActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.PickerReturnedActivatedEventArgs'
     @winrt_mixinmethod
@@ -972,7 +972,7 @@ class PickerReturnedActivatedEventArgs(c_void_p):
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
-class ProtocolActivatedEventArgs(c_void_p):
+class ProtocolActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.ProtocolActivatedEventArgs'
     @winrt_mixinmethod
@@ -1002,7 +1002,7 @@ class ProtocolActivatedEventArgs(c_void_p):
     CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
     ViewSwitcher = property(get_ViewSwitcher, None)
     User = property(get_User, None)
-class ProtocolForResultsActivatedEventArgs(c_void_p):
+class ProtocolForResultsActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.ProtocolForResultsActivatedEventArgs'
     @winrt_mixinmethod
@@ -1035,7 +1035,7 @@ class ProtocolForResultsActivatedEventArgs(c_void_p):
     CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
     ViewSwitcher = property(get_ViewSwitcher, None)
     User = property(get_User, None)
-class RestrictedLaunchActivatedEventArgs(c_void_p):
+class RestrictedLaunchActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.RestrictedLaunchActivatedEventArgs'
     @winrt_mixinmethod
@@ -1053,7 +1053,7 @@ class RestrictedLaunchActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class SearchActivatedEventArgs(c_void_p):
+class SearchActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.SearchActivatedEventArgs'
     @winrt_mixinmethod
@@ -1083,7 +1083,7 @@ class SearchActivatedEventArgs(c_void_p):
     LinguisticDetails = property(get_LinguisticDetails, None)
     ViewSwitcher = property(get_ViewSwitcher, None)
     User = property(get_User, None)
-class ShareTargetActivatedEventArgs(c_void_p):
+class ShareTargetActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.ShareTargetActivatedEventArgs'
     @winrt_mixinmethod
@@ -1101,7 +1101,7 @@ class ShareTargetActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class SplashScreen(c_void_p):
+class SplashScreen(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.SplashScreen'
     @winrt_mixinmethod
@@ -1111,7 +1111,7 @@ class SplashScreen(c_void_p):
     @winrt_mixinmethod
     def remove_Dismissed(self: Windows.ApplicationModel.Activation.ISplashScreen, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
     ImageLocation = property(get_ImageLocation, None)
-class StartupTaskActivatedEventArgs(c_void_p):
+class StartupTaskActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.StartupTaskActivatedEventArgs'
     @winrt_mixinmethod
@@ -1129,13 +1129,13 @@ class StartupTaskActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class TileActivatedInfo(c_void_p):
+class TileActivatedInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.TileActivatedInfo'
     @winrt_mixinmethod
     def get_RecentlyShownNotifications(self: Windows.ApplicationModel.Activation.ITileActivatedInfo) -> Windows.Foundation.Collections.IVectorView[Windows.UI.Notifications.ShownTileNotification]: ...
     RecentlyShownNotifications = property(get_RecentlyShownNotifications, None)
-class ToastNotificationActivatedEventArgs(c_void_p):
+class ToastNotificationActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.ToastNotificationActivatedEventArgs'
     @winrt_mixinmethod
@@ -1159,7 +1159,7 @@ class ToastNotificationActivatedEventArgs(c_void_p):
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
     CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
-class UserDataAccountProviderActivatedEventArgs(c_void_p):
+class UserDataAccountProviderActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.UserDataAccountProviderActivatedEventArgs'
     @winrt_mixinmethod
@@ -1174,7 +1174,7 @@ class UserDataAccountProviderActivatedEventArgs(c_void_p):
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
-class VoiceCommandActivatedEventArgs(c_void_p):
+class VoiceCommandActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.VoiceCommandActivatedEventArgs'
     @winrt_mixinmethod
@@ -1192,7 +1192,7 @@ class VoiceCommandActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class WebAccountProviderActivatedEventArgs(c_void_p):
+class WebAccountProviderActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.WebAccountProviderActivatedEventArgs'
     @winrt_mixinmethod
@@ -1210,7 +1210,7 @@ class WebAccountProviderActivatedEventArgs(c_void_p):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
-class WebAuthenticationBrokerContinuationEventArgs(c_void_p):
+class WebAuthenticationBrokerContinuationEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Activation.WebAuthenticationBrokerContinuationEventArgs'
     @winrt_mixinmethod

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IPreviewBuildsManager(c_void_p):
+class IPreviewBuildsManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fa07dd61-7e4f-59f7-7c-9f-de-f9-05-1c-5f-62')
     @winrt_commethod(6)
@@ -34,20 +34,20 @@ class IPreviewBuildsManager(c_void_p):
     @winrt_commethod(9)
     def SyncAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     ArePreviewBuildsAllowed = property(get_ArePreviewBuildsAllowed, put_ArePreviewBuildsAllowed)
-class IPreviewBuildsManagerStatics(c_void_p):
+class IPreviewBuildsManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3e422887-b112-5a70-7d-a1-97-d7-8d-32-aa-29')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Management.Update.PreviewBuildsManager: ...
     @winrt_commethod(7)
     def IsSupported(self) -> Boolean: ...
-class IPreviewBuildsState(c_void_p):
+class IPreviewBuildsState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a2f2903e-b223-5f63-75-46-3e-8e-ac-07-0a-2e')
     @winrt_commethod(6)
     def get_Properties(self) -> Windows.Foundation.Collections.ValueSet: ...
     Properties = property(get_Properties, None)
-class PreviewBuildsManager(c_void_p):
+class PreviewBuildsManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Management.Update.PreviewBuildsManager'
     @winrt_mixinmethod
@@ -63,7 +63,7 @@ class PreviewBuildsManager(c_void_p):
     @winrt_classmethod
     def IsSupported(cls: Windows.Management.Update.IPreviewBuildsManagerStatics) -> Boolean: ...
     ArePreviewBuildsAllowed = property(get_ArePreviewBuildsAllowed, put_ArePreviewBuildsAllowed)
-class PreviewBuildsState(c_void_p):
+class PreviewBuildsState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Management.Update.PreviewBuildsState'
     @winrt_mixinmethod

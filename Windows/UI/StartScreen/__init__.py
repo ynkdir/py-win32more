@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Core
@@ -30,7 +30,7 @@ def __getattr__(name):
 ForegroundText = Int32
 ForegroundText_Dark: ForegroundText = 0
 ForegroundText_Light: ForegroundText = 1
-class IJumpList(c_void_p):
+class IJumpList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b0234c3e-cd6f-4cb6-a6-11-61-fd-50-5f-3e-d1')
     @winrt_commethod(6)
@@ -43,7 +43,7 @@ class IJumpList(c_void_p):
     def SaveAsync(self) -> Windows.Foundation.IAsyncAction: ...
     Items = property(get_Items, None)
     SystemGroupKind = property(get_SystemGroupKind, put_SystemGroupKind)
-class IJumpListItem(c_void_p):
+class IJumpListItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7adb6717-8b5d-4820-99-5b-9b-41-8d-be-48-b0')
     @winrt_commethod(6)
@@ -75,21 +75,21 @@ class IJumpListItem(c_void_p):
     DisplayName = property(get_DisplayName, put_DisplayName)
     GroupName = property(get_GroupName, put_GroupName)
     Logo = property(get_Logo, put_Logo)
-class IJumpListItemStatics(c_void_p):
+class IJumpListItemStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f1bfc4e8-c7aa-49cb-8d-de-ec-fc-cd-7a-d7-e4')
     @winrt_commethod(6)
     def CreateWithArguments(self, arguments: WinRT_String, displayName: WinRT_String) -> Windows.UI.StartScreen.JumpListItem: ...
     @winrt_commethod(7)
     def CreateSeparator(self) -> Windows.UI.StartScreen.JumpListItem: ...
-class IJumpListStatics(c_void_p):
+class IJumpListStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a7e0c681-e67e-4b74-82-50-3f-32-2c-4d-92-c3')
     @winrt_commethod(6)
     def LoadCurrentAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.UI.StartScreen.JumpList]: ...
     @winrt_commethod(7)
     def IsSupported(self) -> Boolean: ...
-class ISecondaryTile(c_void_p):
+class ISecondaryTile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9e9e51e0-2bb5-4bc0-bb-8d-42-b2-3a-bc-c8-8d')
     @winrt_commethod(6)
@@ -170,7 +170,7 @@ class ISecondaryTile(c_void_p):
     TileOptions = property(get_TileOptions, put_TileOptions)
     ForegroundText = property(get_ForegroundText, put_ForegroundText)
     BackgroundColor = property(get_BackgroundColor, put_BackgroundColor)
-class ISecondaryTile2(c_void_p):
+class ISecondaryTile2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b2f6cc35-3250-4990-92-3c-29-4a-b4-b6-94-dd')
     @winrt_commethod(6)
@@ -190,7 +190,7 @@ class ISecondaryTile2(c_void_p):
     PhoneticName = property(get_PhoneticName, put_PhoneticName)
     VisualElements = property(get_VisualElements, None)
     RoamingEnabled = property(get_RoamingEnabled, put_RoamingEnabled)
-class ISecondaryTileFactory(c_void_p):
+class ISecondaryTileFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('57f52ca0-51bc-4abf-8e-bf-62-7a-03-98-b0-5a')
     @winrt_commethod(6)
@@ -199,12 +199,12 @@ class ISecondaryTileFactory(c_void_p):
     def CreateWideTile(self, tileId: WinRT_String, shortName: WinRT_String, displayName: WinRT_String, arguments: WinRT_String, tileOptions: Windows.UI.StartScreen.TileOptions, logoReference: Windows.Foundation.Uri, wideLogoReference: Windows.Foundation.Uri) -> Windows.UI.StartScreen.SecondaryTile: ...
     @winrt_commethod(8)
     def CreateWithId(self, tileId: WinRT_String) -> Windows.UI.StartScreen.SecondaryTile: ...
-class ISecondaryTileFactory2(c_void_p):
+class ISecondaryTileFactory2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('274b8a3b-522d-448e-9e-b2-d0-67-2a-b3-45-c8')
     @winrt_commethod(6)
     def CreateMinimalTile(self, tileId: WinRT_String, displayName: WinRT_String, arguments: WinRT_String, square150x150Logo: Windows.Foundation.Uri, desiredSize: Windows.UI.StartScreen.TileSize) -> Windows.UI.StartScreen.SecondaryTile: ...
-class ISecondaryTileStatics(c_void_p):
+class ISecondaryTileStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('99908dae-d051-4676-87-fe-9e-c2-42-d8-3c-74')
     @winrt_commethod(6)
@@ -215,7 +215,7 @@ class ISecondaryTileStatics(c_void_p):
     def FindAllForApplicationAsync(self, applicationId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.UI.StartScreen.SecondaryTile]]: ...
     @winrt_commethod(9)
     def FindAllForPackageAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.UI.StartScreen.SecondaryTile]]: ...
-class ISecondaryTileVisualElements(c_void_p):
+class ISecondaryTileVisualElements(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1d8df333-815e-413f-9f-50-a8-1d-a7-0a-96-b2')
     @winrt_commethod(6)
@@ -268,7 +268,7 @@ class ISecondaryTileVisualElements(c_void_p):
     ShowNameOnSquare150x150Logo = property(get_ShowNameOnSquare150x150Logo, put_ShowNameOnSquare150x150Logo)
     ShowNameOnWide310x150Logo = property(get_ShowNameOnWide310x150Logo, put_ShowNameOnWide310x150Logo)
     ShowNameOnSquare310x310Logo = property(get_ShowNameOnSquare310x310Logo, put_ShowNameOnSquare310x310Logo)
-class ISecondaryTileVisualElements2(c_void_p):
+class ISecondaryTileVisualElements2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fd2e31d0-57dc-4794-8e-cf-56-82-f5-f3-e6-ef')
     @winrt_commethod(6)
@@ -276,7 +276,7 @@ class ISecondaryTileVisualElements2(c_void_p):
     @winrt_commethod(7)
     def get_Square71x71Logo(self) -> Windows.Foundation.Uri: ...
     Square71x71Logo = property(get_Square71x71Logo, put_Square71x71Logo)
-class ISecondaryTileVisualElements3(c_void_p):
+class ISecondaryTileVisualElements3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('56b55ad6-d15c-40f4-81-e7-57-ff-d8-f8-a4-e9')
     @winrt_commethod(6)
@@ -284,13 +284,13 @@ class ISecondaryTileVisualElements3(c_void_p):
     @winrt_commethod(7)
     def get_Square44x44Logo(self) -> Windows.Foundation.Uri: ...
     Square44x44Logo = property(get_Square44x44Logo, put_Square44x44Logo)
-class ISecondaryTileVisualElements4(c_void_p):
+class ISecondaryTileVisualElements4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('66566117-b544-40d2-8d-12-74-d4-ec-24-d0-4c')
     @winrt_commethod(6)
     def get_MixedRealityModel(self) -> Windows.UI.StartScreen.TileMixedRealityModel: ...
     MixedRealityModel = property(get_MixedRealityModel, None)
-class IStartScreenManager(c_void_p):
+class IStartScreenManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4a1dcbcb-26e9-4eb4-89-33-85-9e-b6-ec-db-29')
     @winrt_commethod(6)
@@ -302,21 +302,21 @@ class IStartScreenManager(c_void_p):
     @winrt_commethod(9)
     def RequestAddAppListEntryAsync(self, appListEntry: Windows.ApplicationModel.Core.AppListEntry) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     User = property(get_User, None)
-class IStartScreenManager2(c_void_p):
+class IStartScreenManager2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('08a716b6-316b-4ad9-ac-b8-fe-9c-f0-0b-d6-08')
     @winrt_commethod(6)
     def ContainsSecondaryTileAsync(self, tileId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(7)
     def TryRemoveSecondaryTileAsync(self, tileId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
-class IStartScreenManagerStatics(c_void_p):
+class IStartScreenManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7865ef0f-b585-464e-89-93-34-e8-f8-73-8d-48')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.UI.StartScreen.StartScreenManager: ...
     @winrt_commethod(7)
     def GetForUser(self, user: Windows.System.User) -> Windows.UI.StartScreen.StartScreenManager: ...
-class ITileMixedRealityModel(c_void_p):
+class ITileMixedRealityModel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b0764e5b-887d-4242-9a-19-3d-0a-4e-a7-80-31')
     @winrt_commethod(6)
@@ -329,7 +329,7 @@ class ITileMixedRealityModel(c_void_p):
     def get_BoundingBox(self) -> Windows.Foundation.IReference[Windows.Perception.Spatial.SpatialBoundingBox]: ...
     Uri = property(get_Uri, put_Uri)
     BoundingBox = property(get_BoundingBox, put_BoundingBox)
-class ITileMixedRealityModel2(c_void_p):
+class ITileMixedRealityModel2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('439470b2-d7c5-410b-83-19-94-86-a2-7b-6c-67')
     @winrt_commethod(6)
@@ -337,7 +337,7 @@ class ITileMixedRealityModel2(c_void_p):
     @winrt_commethod(7)
     def get_ActivationBehavior(self) -> Windows.UI.StartScreen.TileMixedRealityModelActivationBehavior: ...
     ActivationBehavior = property(get_ActivationBehavior, put_ActivationBehavior)
-class IVisualElementsRequest(c_void_p):
+class IVisualElementsRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c138333a-9308-4072-88-cc-d0-68-db-34-7c-68')
     @winrt_commethod(6)
@@ -351,18 +351,18 @@ class IVisualElementsRequest(c_void_p):
     VisualElements = property(get_VisualElements, None)
     AlternateVisualElements = property(get_AlternateVisualElements, None)
     Deadline = property(get_Deadline, None)
-class IVisualElementsRequestDeferral(c_void_p):
+class IVisualElementsRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a1656eb0-0126-4357-82-04-bd-82-bb-2a-04-6d')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
-class IVisualElementsRequestedEventArgs(c_void_p):
+class IVisualElementsRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7b6fc982-3a0d-4ece-af-96-cd-17-e1-b0-0b-2d')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.UI.StartScreen.VisualElementsRequest: ...
     Request = property(get_Request, None)
-class JumpList(c_void_p):
+class JumpList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.StartScreen.JumpList'
     @winrt_mixinmethod
@@ -379,7 +379,7 @@ class JumpList(c_void_p):
     def IsSupported(cls: Windows.UI.StartScreen.IJumpListStatics) -> Boolean: ...
     Items = property(get_Items, None)
     SystemGroupKind = property(get_SystemGroupKind, put_SystemGroupKind)
-class JumpListItem(c_void_p):
+class JumpListItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.StartScreen.JumpListItem'
     @winrt_mixinmethod
@@ -422,7 +422,7 @@ JumpListSystemGroupKind = Int32
 JumpListSystemGroupKind_None: JumpListSystemGroupKind = 0
 JumpListSystemGroupKind_Frequent: JumpListSystemGroupKind = 1
 JumpListSystemGroupKind_Recent: JumpListSystemGroupKind = 2
-class SecondaryTile(c_void_p):
+class SecondaryTile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.StartScreen.SecondaryTile'
     @winrt_activatemethod
@@ -538,7 +538,7 @@ class SecondaryTile(c_void_p):
     PhoneticName = property(get_PhoneticName, put_PhoneticName)
     VisualElements = property(get_VisualElements, None)
     RoamingEnabled = property(get_RoamingEnabled, put_RoamingEnabled)
-class SecondaryTileVisualElements(c_void_p):
+class SecondaryTileVisualElements(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.StartScreen.SecondaryTileVisualElements'
     @winrt_mixinmethod
@@ -604,7 +604,7 @@ class SecondaryTileVisualElements(c_void_p):
     Square71x71Logo = property(get_Square71x71Logo, put_Square71x71Logo)
     Square44x44Logo = property(get_Square44x44Logo, put_Square44x44Logo)
     MixedRealityModel = property(get_MixedRealityModel, None)
-class StartScreenManager(c_void_p):
+class StartScreenManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.StartScreen.StartScreenManager'
     @winrt_mixinmethod
@@ -624,7 +624,7 @@ class StartScreenManager(c_void_p):
     @winrt_classmethod
     def GetForUser(cls: Windows.UI.StartScreen.IStartScreenManagerStatics, user: Windows.System.User) -> Windows.UI.StartScreen.StartScreenManager: ...
     User = property(get_User, None)
-class TileMixedRealityModel(c_void_p):
+class TileMixedRealityModel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.StartScreen.TileMixedRealityModel'
     @winrt_mixinmethod
@@ -659,7 +659,7 @@ TileSize_Wide310x150: TileSize = 4
 TileSize_Square310x310: TileSize = 5
 TileSize_Square71x71: TileSize = 6
 TileSize_Square44x44: TileSize = 7
-class VisualElementsRequest(c_void_p):
+class VisualElementsRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.StartScreen.VisualElementsRequest'
     @winrt_mixinmethod
@@ -673,12 +673,12 @@ class VisualElementsRequest(c_void_p):
     VisualElements = property(get_VisualElements, None)
     AlternateVisualElements = property(get_AlternateVisualElements, None)
     Deadline = property(get_Deadline, None)
-class VisualElementsRequestDeferral(c_void_p):
+class VisualElementsRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.StartScreen.VisualElementsRequestDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.UI.StartScreen.IVisualElementsRequestDeferral) -> Void: ...
-class VisualElementsRequestedEventArgs(c_void_p):
+class VisualElementsRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.StartScreen.VisualElementsRequestedEventArgs'
     @winrt_mixinmethod

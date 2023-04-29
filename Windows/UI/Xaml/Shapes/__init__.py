@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.UI.Composition
@@ -23,15 +23,15 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class Ellipse(c_void_p):
+class Ellipse(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
     ClassId = 'Windows.UI.Xaml.Shapes.Ellipse'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Shapes.Ellipse: ...
-class IEllipse(c_void_p):
+class IEllipse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('70e05ac4-d38d-4bab-83-1f-4a-22-ef-52-ac-86')
-class ILine(c_void_p):
+class ILine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('46a5433d-4ffb-48df-87-32-4e-15-c8-34-81-6b')
     @winrt_commethod(6)
@@ -54,7 +54,7 @@ class ILine(c_void_p):
     Y1 = property(get_Y1, put_Y1)
     X2 = property(get_X2, put_X2)
     Y2 = property(get_Y2, put_Y2)
-class ILineStatics(c_void_p):
+class ILineStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('267c123d-6ea4-4c50-8b-1d-50-20-7a-ff-1e-8a')
     @winrt_commethod(6)
@@ -69,7 +69,7 @@ class ILineStatics(c_void_p):
     Y1Property = property(get_Y1Property, None)
     X2Property = property(get_X2Property, None)
     Y2Property = property(get_Y2Property, None)
-class IPath(c_void_p):
+class IPath(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('78883609-3d57-4f3c-b8-a5-6c-ab-ca-c9-71-1f')
     @winrt_commethod(6)
@@ -77,18 +77,18 @@ class IPath(c_void_p):
     @winrt_commethod(7)
     def put_Data(self, value: Windows.UI.Xaml.Media.Geometry) -> Void: ...
     Data = property(get_Data, put_Data)
-class IPathFactory(c_void_p):
+class IPathFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2340a4e3-5a86-4fc6-9a-50-cb-b9-3b-82-87-66')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Shapes.Path: ...
-class IPathStatics(c_void_p):
+class IPathStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f627e59d-87dc-4142-81-f1-97-fc-7f-f8-64-1c')
     @winrt_commethod(6)
     def get_DataProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     DataProperty = property(get_DataProperty, None)
-class IPolygon(c_void_p):
+class IPolygon(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e3755c19-2e4d-4bcc-8d-34-86-87-19-57-fa-01')
     @winrt_commethod(6)
@@ -101,7 +101,7 @@ class IPolygon(c_void_p):
     def put_Points(self, value: Windows.UI.Xaml.Media.PointCollection) -> Void: ...
     FillRule = property(get_FillRule, put_FillRule)
     Points = property(get_Points, put_Points)
-class IPolygonStatics(c_void_p):
+class IPolygonStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('362a8aab-d463-4366-9e-1a-be-ba-72-81-0f-b7')
     @winrt_commethod(6)
@@ -110,7 +110,7 @@ class IPolygonStatics(c_void_p):
     def get_PointsProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     FillRuleProperty = property(get_FillRuleProperty, None)
     PointsProperty = property(get_PointsProperty, None)
-class IPolyline(c_void_p):
+class IPolyline(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('91dc62f8-42b3-47f3-84-76-c5-51-24-a7-c4-c6')
     @winrt_commethod(6)
@@ -123,7 +123,7 @@ class IPolyline(c_void_p):
     def put_Points(self, value: Windows.UI.Xaml.Media.PointCollection) -> Void: ...
     FillRule = property(get_FillRule, put_FillRule)
     Points = property(get_Points, put_Points)
-class IPolylineStatics(c_void_p):
+class IPolylineStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c7aa2cd1-a26c-43b0-aa-a5-82-2f-a6-4a-11-b9')
     @winrt_commethod(6)
@@ -132,7 +132,7 @@ class IPolylineStatics(c_void_p):
     def get_PointsProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     FillRuleProperty = property(get_FillRuleProperty, None)
     PointsProperty = property(get_PointsProperty, None)
-class IRectangle(c_void_p):
+class IRectangle(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('855bc230-8a11-4e18-a1-36-4b-c2-1c-78-27-b0')
     @winrt_commethod(6)
@@ -145,7 +145,7 @@ class IRectangle(c_void_p):
     def put_RadiusY(self, value: Double) -> Void: ...
     RadiusX = property(get_RadiusX, put_RadiusX)
     RadiusY = property(get_RadiusY, put_RadiusY)
-class IRectangleStatics(c_void_p):
+class IRectangleStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9f25aa53-bb3a-4c3c-89-db-6f-bc-0d-1f-a0-cc')
     @winrt_commethod(6)
@@ -154,7 +154,7 @@ class IRectangleStatics(c_void_p):
     def get_RadiusYProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     RadiusXProperty = property(get_RadiusXProperty, None)
     RadiusYProperty = property(get_RadiusYProperty, None)
-class IShape(c_void_p):
+class IShape(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('786f2b75-9aa0-454d-ae-06-a2-46-6e-37-c8-32')
     @winrt_commethod(6)
@@ -215,17 +215,17 @@ class IShape(c_void_p):
     StrokeDashArray = property(get_StrokeDashArray, put_StrokeDashArray)
     Stretch = property(get_Stretch, put_Stretch)
     GeometryTransform = property(get_GeometryTransform, None)
-class IShape2(c_void_p):
+class IShape2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('97248dba-49f2-49a4-a5-dd-16-4d-f8-24-db-14')
     @winrt_commethod(6)
     def GetAlphaMask(self) -> Windows.UI.Composition.CompositionBrush: ...
-class IShapeFactory(c_void_p):
+class IShapeFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4b717613-f6aa-48d5-95-88-e1-d1-88-ea-cb-c9')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Shapes.Shape: ...
-class IShapeStatics(c_void_p):
+class IShapeStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1d7b4c55-9df3-48dc-91-94-9d-30-6f-aa-60-89')
     @winrt_commethod(6)
@@ -261,7 +261,7 @@ class IShapeStatics(c_void_p):
     StrokeDashCapProperty = property(get_StrokeDashCapProperty, None)
     StrokeDashArrayProperty = property(get_StrokeDashArrayProperty, None)
     StretchProperty = property(get_StretchProperty, None)
-class Line(c_void_p):
+class Line(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
     ClassId = 'Windows.UI.Xaml.Shapes.Line'
     @winrt_activatemethod
@@ -298,7 +298,7 @@ class Line(c_void_p):
     Y1Property = property(get_Y1Property, None)
     X2Property = property(get_X2Property, None)
     Y2Property = property(get_Y2Property, None)
-class Path(c_void_p):
+class Path(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
     @winrt_commethod(442)
     def get_Data(self) -> Windows.UI.Xaml.Media.Geometry: ...
@@ -308,7 +308,7 @@ class Path(c_void_p):
     def get_DataProperty(cls: Windows.UI.Xaml.Shapes.IPathStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     Data = property(get_Data, put_Data)
     DataProperty = property(get_DataProperty, None)
-class Polygon(c_void_p):
+class Polygon(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
     ClassId = 'Windows.UI.Xaml.Shapes.Polygon'
     @winrt_activatemethod
@@ -329,7 +329,7 @@ class Polygon(c_void_p):
     Points = property(get_Points, put_Points)
     FillRuleProperty = property(get_FillRuleProperty, None)
     PointsProperty = property(get_PointsProperty, None)
-class Polyline(c_void_p):
+class Polyline(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
     ClassId = 'Windows.UI.Xaml.Shapes.Polyline'
     @winrt_activatemethod
@@ -350,7 +350,7 @@ class Polyline(c_void_p):
     Points = property(get_Points, put_Points)
     FillRuleProperty = property(get_FillRuleProperty, None)
     PointsProperty = property(get_PointsProperty, None)
-class Rectangle(c_void_p):
+class Rectangle(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
     ClassId = 'Windows.UI.Xaml.Shapes.Rectangle'
     @winrt_activatemethod
@@ -371,7 +371,7 @@ class Rectangle(c_void_p):
     RadiusY = property(get_RadiusY, put_RadiusY)
     RadiusXProperty = property(get_RadiusXProperty, None)
     RadiusYProperty = property(get_RadiusYProperty, None)
-class Shape(c_void_p):
+class Shape(ComPtr):
     extends: Windows.UI.Xaml.FrameworkElement
     @winrt_commethod(438)
     def get_Fill(self) -> Windows.UI.Xaml.Media.Brush: ...

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -26,7 +26,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class EyesPose(c_void_p):
+class EyesPose(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.People.EyesPose'
     @winrt_mixinmethod
@@ -69,7 +69,7 @@ HandJointKind_LittleProximal: HandJointKind = 22
 HandJointKind_LittleIntermediate: HandJointKind = 23
 HandJointKind_LittleDistal: HandJointKind = 24
 HandJointKind_LittleTip: HandJointKind = 25
-class HandMeshObserver(c_void_p):
+class HandMeshObserver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.People.HandMeshObserver'
     @winrt_mixinmethod
@@ -97,7 +97,7 @@ class HandMeshObserver(c_void_p):
 class HandMeshVertex(EasyCastStructure):
     Position: Windows.Foundation.Numerics.Vector3
     Normal: Windows.Foundation.Numerics.Vector3
-class HandMeshVertexState(c_void_p):
+class HandMeshVertexState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.People.HandMeshVertexState'
     @winrt_mixinmethod
@@ -108,7 +108,7 @@ class HandMeshVertexState(c_void_p):
     def get_UpdateTimestamp(self: Windows.Perception.People.IHandMeshVertexState) -> Windows.Perception.PerceptionTimestamp: ...
     CoordinateSystem = property(get_CoordinateSystem, None)
     UpdateTimestamp = property(get_UpdateTimestamp, None)
-class HandPose(c_void_p):
+class HandPose(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.People.HandPose'
     @winrt_mixinmethod
@@ -119,7 +119,7 @@ class HandPose(c_void_p):
     def GetRelativeJoint(self: Windows.Perception.People.IHandPose, joint: Windows.Perception.People.HandJointKind, referenceJoint: Windows.Perception.People.HandJointKind) -> Windows.Perception.People.JointPose: ...
     @winrt_mixinmethod
     def GetRelativeJoints(self: Windows.Perception.People.IHandPose, joints: POINTER(Windows.Perception.People.HandJointKind), referenceJoints: POINTER(Windows.Perception.People.HandJointKind), jointPoses: POINTER(Windows.Perception.People.JointPose_head)) -> Void: ...
-class HeadPose(c_void_p):
+class HeadPose(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Perception.People.HeadPose'
     @winrt_mixinmethod
@@ -131,7 +131,7 @@ class HeadPose(c_void_p):
     Position = property(get_Position, None)
     ForwardDirection = property(get_ForwardDirection, None)
     UpDirection = property(get_UpDirection, None)
-class IEyesPose(c_void_p):
+class IEyesPose(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('682a9b23-8a1e-5b86-a0-60-90-6f-fa-cb-62-a4')
     @winrt_commethod(6)
@@ -143,14 +143,14 @@ class IEyesPose(c_void_p):
     IsCalibrationValid = property(get_IsCalibrationValid, None)
     Gaze = property(get_Gaze, None)
     UpdateTimestamp = property(get_UpdateTimestamp, None)
-class IEyesPoseStatics(c_void_p):
+class IEyesPoseStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1cff7413-b21f-54c0-80-c1-e6-0d-99-4c-a5-8c')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
     @winrt_commethod(7)
     def RequestAccessAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.UI.Input.GazeInputAccessStatus]: ...
-class IHandMeshObserver(c_void_p):
+class IHandMeshObserver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('85ae30cb-6fc3-55c4-a7-b4-29-e3-38-96-ca-69')
     @winrt_commethod(6)
@@ -175,7 +175,7 @@ class IHandMeshObserver(c_void_p):
     NeutralPose = property(get_NeutralPose, None)
     NeutralPoseVersion = property(get_NeutralPoseVersion, None)
     ModelId = property(get_ModelId, None)
-class IHandMeshVertexState(c_void_p):
+class IHandMeshVertexState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('046c5fef-1d8b-55de-ab-2c-1c-d4-24-88-6d-8f')
     @winrt_commethod(6)
@@ -186,7 +186,7 @@ class IHandMeshVertexState(c_void_p):
     def get_UpdateTimestamp(self) -> Windows.Perception.PerceptionTimestamp: ...
     CoordinateSystem = property(get_CoordinateSystem, None)
     UpdateTimestamp = property(get_UpdateTimestamp, None)
-class IHandPose(c_void_p):
+class IHandPose(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4d98e79a-bb08-5d09-91-de-df-0d-d3-fa-e4-6c')
     @winrt_commethod(6)
@@ -197,7 +197,7 @@ class IHandPose(c_void_p):
     def GetRelativeJoint(self, joint: Windows.Perception.People.HandJointKind, referenceJoint: Windows.Perception.People.HandJointKind) -> Windows.Perception.People.JointPose: ...
     @winrt_commethod(9)
     def GetRelativeJoints(self, joints: POINTER(Windows.Perception.People.HandJointKind), referenceJoints: POINTER(Windows.Perception.People.HandJointKind), jointPoses: POINTER(Windows.Perception.People.JointPose_head)) -> Void: ...
-class IHeadPose(c_void_p):
+class IHeadPose(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7f5ac5a5-49db-379f-94-29-32-a2-fa-f3-4f-a6')
     @winrt_commethod(6)

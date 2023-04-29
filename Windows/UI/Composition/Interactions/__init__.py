@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -25,7 +25,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class CompositionConditionalValue(c_void_p):
+class CompositionConditionalValue(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
     ClassId = 'Windows.UI.Composition.Interactions.CompositionConditionalValue'
     @winrt_mixinmethod
@@ -40,7 +40,7 @@ class CompositionConditionalValue(c_void_p):
     def Create(cls: Windows.UI.Composition.Interactions.ICompositionConditionalValueStatics, compositor: Windows.UI.Composition.Compositor) -> Windows.UI.Composition.Interactions.CompositionConditionalValue: ...
     Condition = property(get_Condition, put_Condition)
     Value = property(get_Value, put_Value)
-class CompositionInteractionSourceCollection(c_void_p):
+class CompositionInteractionSourceCollection(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
     ClassId = 'Windows.UI.Composition.Interactions.CompositionInteractionSourceCollection'
     @winrt_mixinmethod
@@ -54,7 +54,7 @@ class CompositionInteractionSourceCollection(c_void_p):
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.UI.Composition.Interactions.ICompositionInteractionSource]) -> Windows.Foundation.Collections.IIterator[Windows.UI.Composition.Interactions.ICompositionInteractionSource]: ...
     Count = property(get_Count, None)
-class ICompositionConditionalValue(c_void_p):
+class ICompositionConditionalValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('43250538-eb73-4561-a7-1d-1a-43-ea-eb-7a-9b')
     @winrt_commethod(6)
@@ -67,15 +67,15 @@ class ICompositionConditionalValue(c_void_p):
     def put_Value(self, value: Windows.UI.Composition.ExpressionAnimation) -> Void: ...
     Condition = property(get_Condition, put_Condition)
     Value = property(get_Value, put_Value)
-class ICompositionConditionalValueStatics(c_void_p):
+class ICompositionConditionalValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('090c4b72-8467-4d0a-90-65-ac-46-b8-0a-55-22')
     @winrt_commethod(6)
     def Create(self, compositor: Windows.UI.Composition.Compositor) -> Windows.UI.Composition.Interactions.CompositionConditionalValue: ...
-class ICompositionInteractionSource(c_void_p):
+class ICompositionInteractionSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('043b2431-06e3-495a-ba-54-40-9f-00-17-fa-c0')
-class ICompositionInteractionSourceCollection(c_void_p):
+class ICompositionInteractionSourceCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1b468e4b-a5bf-47d8-a5-47-38-94-15-5a-15-8c')
     @winrt_commethod(6)
@@ -87,7 +87,7 @@ class ICompositionInteractionSourceCollection(c_void_p):
     @winrt_commethod(9)
     def RemoveAll(self) -> Void: ...
     Count = property(get_Count, None)
-class IInteractionSourceConfiguration(c_void_p):
+class IInteractionSourceConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a78347e5-a9d1-4d02-98-5e-b9-30-cd-0b-9d-a4')
     @winrt_commethod(6)
@@ -105,7 +105,7 @@ class IInteractionSourceConfiguration(c_void_p):
     PositionXSourceMode = property(get_PositionXSourceMode, put_PositionXSourceMode)
     PositionYSourceMode = property(get_PositionYSourceMode, put_PositionYSourceMode)
     ScaleSourceMode = property(get_ScaleSourceMode, put_ScaleSourceMode)
-class IInteractionTracker(c_void_p):
+class IInteractionTracker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2a8e8cb1-1000-4416-83-63-cc-27-fb-87-73-08')
     @winrt_commethod(6)
@@ -189,19 +189,19 @@ class IInteractionTracker(c_void_p):
     Scale = property(get_Scale, None)
     ScaleInertiaDecayRate = property(get_ScaleInertiaDecayRate, put_ScaleInertiaDecayRate)
     ScaleVelocityInPercentPerSecond = property(get_ScaleVelocityInPercentPerSecond, None)
-class IInteractionTracker2(c_void_p):
+class IInteractionTracker2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('25769a3e-ce6d-448c-83-86-92-62-0d-24-07-56')
     @winrt_commethod(6)
     def ConfigureCenterPointXInertiaModifiers(self, conditionalValues: Windows.Foundation.Collections.IIterable[Windows.UI.Composition.Interactions.CompositionConditionalValue]) -> Void: ...
     @winrt_commethod(7)
     def ConfigureCenterPointYInertiaModifiers(self, conditionalValues: Windows.Foundation.Collections.IIterable[Windows.UI.Composition.Interactions.CompositionConditionalValue]) -> Void: ...
-class IInteractionTracker3(c_void_p):
+class IInteractionTracker3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e6c5d7a2-5c4b-42c6-84-b7-f6-94-41-b1-80-91')
     @winrt_commethod(6)
     def ConfigureVector2PositionInertiaModifiers(self, modifiers: Windows.Foundation.Collections.IIterable[Windows.UI.Composition.Interactions.InteractionTrackerVector2InertiaModifier]) -> Void: ...
-class IInteractionTracker4(c_void_p):
+class IInteractionTracker4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ebd222bc-04af-4ac7-84-7d-06-ea-36-e8-0a-16')
     @winrt_commethod(6)
@@ -211,42 +211,42 @@ class IInteractionTracker4(c_void_p):
     @winrt_commethod(8)
     def get_IsInertiaFromImpulse(self) -> Boolean: ...
     IsInertiaFromImpulse = property(get_IsInertiaFromImpulse, None)
-class IInteractionTracker5(c_void_p):
+class IInteractionTracker5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d3ef5da2-a254-40e4-88-d5-44-e4-e1-6b-58-09')
     @winrt_commethod(6)
     def TryUpdatePositionWithOption(self, value: Windows.Foundation.Numerics.Vector3, option: Windows.UI.Composition.Interactions.InteractionTrackerClampingOption, posUpdateOption: Windows.UI.Composition.Interactions.InteractionTrackerPositionUpdateOption) -> Int32: ...
-class IInteractionTrackerCustomAnimationStateEnteredArgs(c_void_p):
+class IInteractionTrackerCustomAnimationStateEnteredArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8d1c8cf1-d7b0-434c-a5-d2-2d-76-11-86-48-34')
     @winrt_commethod(6)
     def get_RequestId(self) -> Int32: ...
     RequestId = property(get_RequestId, None)
-class IInteractionTrackerCustomAnimationStateEnteredArgs2(c_void_p):
+class IInteractionTrackerCustomAnimationStateEnteredArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('47d579b7-0985-5e99-b0-24-2f-32-c3-80-c1-a4')
     @winrt_commethod(6)
     def get_IsFromBinding(self) -> Boolean: ...
     IsFromBinding = property(get_IsFromBinding, None)
-class IInteractionTrackerIdleStateEnteredArgs(c_void_p):
+class IInteractionTrackerIdleStateEnteredArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('50012faa-1510-4142-a1-a5-01-9b-09-f8-85-7b')
     @winrt_commethod(6)
     def get_RequestId(self) -> Int32: ...
     RequestId = property(get_RequestId, None)
-class IInteractionTrackerIdleStateEnteredArgs2(c_void_p):
+class IInteractionTrackerIdleStateEnteredArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f2e771ed-b803-5137-94-35-1c-96-e4-87-21-e9')
     @winrt_commethod(6)
     def get_IsFromBinding(self) -> Boolean: ...
     IsFromBinding = property(get_IsFromBinding, None)
-class IInteractionTrackerInertiaModifier(c_void_p):
+class IInteractionTrackerInertiaModifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a0e2c920-26b4-4da2-8b-61-5e-68-39-79-bb-e2')
-class IInteractionTrackerInertiaModifierFactory(c_void_p):
+class IInteractionTrackerInertiaModifierFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('993818fe-c94e-4b86-87-f3-92-26-65-ba-46-b9')
-class IInteractionTrackerInertiaMotion(c_void_p):
+class IInteractionTrackerInertiaMotion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('04922fdc-f154-4cb8-bf-33-cc-1b-a6-11-e6-db')
     @winrt_commethod(6)
@@ -259,12 +259,12 @@ class IInteractionTrackerInertiaMotion(c_void_p):
     def put_Motion(self, value: Windows.UI.Composition.ExpressionAnimation) -> Void: ...
     Condition = property(get_Condition, put_Condition)
     Motion = property(get_Motion, put_Motion)
-class IInteractionTrackerInertiaMotionStatics(c_void_p):
+class IInteractionTrackerInertiaMotionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8cc83dd6-ba7b-431a-84-4b-6e-ac-91-30-f9-9a')
     @winrt_commethod(6)
     def Create(self, compositor: Windows.UI.Composition.Compositor) -> Windows.UI.Composition.Interactions.InteractionTrackerInertiaMotion: ...
-class IInteractionTrackerInertiaNaturalMotion(c_void_p):
+class IInteractionTrackerInertiaNaturalMotion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('70acdaae-27dc-48ed-a3-c3-6d-61-c9-a0-29-d2')
     @winrt_commethod(6)
@@ -277,12 +277,12 @@ class IInteractionTrackerInertiaNaturalMotion(c_void_p):
     def put_NaturalMotion(self, value: Windows.UI.Composition.ScalarNaturalMotionAnimation) -> Void: ...
     Condition = property(get_Condition, put_Condition)
     NaturalMotion = property(get_NaturalMotion, put_NaturalMotion)
-class IInteractionTrackerInertiaNaturalMotionStatics(c_void_p):
+class IInteractionTrackerInertiaNaturalMotionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cfda55b0-5e3e-4289-93-2d-ee-5f-50-e7-42-83')
     @winrt_commethod(6)
     def Create(self, compositor: Windows.UI.Composition.Compositor) -> Windows.UI.Composition.Interactions.InteractionTrackerInertiaNaturalMotion: ...
-class IInteractionTrackerInertiaRestingValue(c_void_p):
+class IInteractionTrackerInertiaRestingValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('86f7ec09-5096-4170-9c-c8-df-2f-e1-01-bb-93')
     @winrt_commethod(6)
@@ -295,12 +295,12 @@ class IInteractionTrackerInertiaRestingValue(c_void_p):
     def put_RestingValue(self, value: Windows.UI.Composition.ExpressionAnimation) -> Void: ...
     Condition = property(get_Condition, put_Condition)
     RestingValue = property(get_RestingValue, put_RestingValue)
-class IInteractionTrackerInertiaRestingValueStatics(c_void_p):
+class IInteractionTrackerInertiaRestingValueStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('18ed4699-0745-4096-bc-ab-3a-4e-99-56-9b-cf')
     @winrt_commethod(6)
     def Create(self, compositor: Windows.UI.Composition.Compositor) -> Windows.UI.Composition.Interactions.InteractionTrackerInertiaRestingValue: ...
-class IInteractionTrackerInertiaStateEnteredArgs(c_void_p):
+class IInteractionTrackerInertiaStateEnteredArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('87108cf2-e7ff-4f7d-9f-fd-d7-2f-1e-40-9b-63')
     @winrt_commethod(6)
@@ -324,31 +324,31 @@ class IInteractionTrackerInertiaStateEnteredArgs(c_void_p):
     PositionVelocityInPixelsPerSecond = property(get_PositionVelocityInPixelsPerSecond, None)
     RequestId = property(get_RequestId, None)
     ScaleVelocityInPercentPerSecond = property(get_ScaleVelocityInPercentPerSecond, None)
-class IInteractionTrackerInertiaStateEnteredArgs2(c_void_p):
+class IInteractionTrackerInertiaStateEnteredArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b1eb32f6-c26c-41f6-a1-89-fa-bc-22-b3-23-cc')
     @winrt_commethod(6)
     def get_IsInertiaFromImpulse(self) -> Boolean: ...
     IsInertiaFromImpulse = property(get_IsInertiaFromImpulse, None)
-class IInteractionTrackerInertiaStateEnteredArgs3(c_void_p):
+class IInteractionTrackerInertiaStateEnteredArgs3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('48ac1c2f-47bd-59af-a5-8c-79-bd-2e-b9-ef-71')
     @winrt_commethod(6)
     def get_IsFromBinding(self) -> Boolean: ...
     IsFromBinding = property(get_IsFromBinding, None)
-class IInteractionTrackerInteractingStateEnteredArgs(c_void_p):
+class IInteractionTrackerInteractingStateEnteredArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a7263939-a17b-4011-99-fd-b5-c2-4f-14-37-48')
     @winrt_commethod(6)
     def get_RequestId(self) -> Int32: ...
     RequestId = property(get_RequestId, None)
-class IInteractionTrackerInteractingStateEnteredArgs2(c_void_p):
+class IInteractionTrackerInteractingStateEnteredArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('509652d6-d488-59cd-81-9f-f5-23-10-29-5b-11')
     @winrt_commethod(6)
     def get_IsFromBinding(self) -> Boolean: ...
     IsFromBinding = property(get_IsFromBinding, None)
-class IInteractionTrackerOwner(c_void_p):
+class IInteractionTrackerOwner(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('db2e8af3-4deb-4e53-b2-9c-b0-6c-9f-96-d6-51')
     @winrt_commethod(6)
@@ -363,27 +363,27 @@ class IInteractionTrackerOwner(c_void_p):
     def RequestIgnored(self, sender: Windows.UI.Composition.Interactions.InteractionTracker, args: Windows.UI.Composition.Interactions.InteractionTrackerRequestIgnoredArgs) -> Void: ...
     @winrt_commethod(11)
     def ValuesChanged(self, sender: Windows.UI.Composition.Interactions.InteractionTracker, args: Windows.UI.Composition.Interactions.InteractionTrackerValuesChangedArgs) -> Void: ...
-class IInteractionTrackerRequestIgnoredArgs(c_void_p):
+class IInteractionTrackerRequestIgnoredArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('80dd82f1-ce25-488f-91-dd-cb-64-55-cc-ff-2e')
     @winrt_commethod(6)
     def get_RequestId(self) -> Int32: ...
     RequestId = property(get_RequestId, None)
-class IInteractionTrackerStatics(c_void_p):
+class IInteractionTrackerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('bba5d7b7-6590-4498-8d-6c-eb-62-b5-14-c9-2a')
     @winrt_commethod(6)
     def Create(self, compositor: Windows.UI.Composition.Compositor) -> Windows.UI.Composition.Interactions.InteractionTracker: ...
     @winrt_commethod(7)
     def CreateWithOwner(self, compositor: Windows.UI.Composition.Compositor, owner: Windows.UI.Composition.Interactions.IInteractionTrackerOwner) -> Windows.UI.Composition.Interactions.InteractionTracker: ...
-class IInteractionTrackerStatics2(c_void_p):
+class IInteractionTrackerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('35e53720-46b7-5cb0-b5-05-f3-d6-88-4a-61-63')
     @winrt_commethod(6)
     def SetBindingMode(self, boundTracker1: Windows.UI.Composition.Interactions.InteractionTracker, boundTracker2: Windows.UI.Composition.Interactions.InteractionTracker, axisMode: Windows.UI.Composition.Interactions.InteractionBindingAxisModes) -> Void: ...
     @winrt_commethod(7)
     def GetBindingMode(self, boundTracker1: Windows.UI.Composition.Interactions.InteractionTracker, boundTracker2: Windows.UI.Composition.Interactions.InteractionTracker) -> Windows.UI.Composition.Interactions.InteractionBindingAxisModes: ...
-class IInteractionTrackerValuesChangedArgs(c_void_p):
+class IInteractionTrackerValuesChangedArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cf1578ef-d3df-4501-b9-e6-f0-2f-b2-2f-73-d0')
     @winrt_commethod(6)
@@ -395,13 +395,13 @@ class IInteractionTrackerValuesChangedArgs(c_void_p):
     Position = property(get_Position, None)
     RequestId = property(get_RequestId, None)
     Scale = property(get_Scale, None)
-class IInteractionTrackerVector2InertiaModifier(c_void_p):
+class IInteractionTrackerVector2InertiaModifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('87e08ab0-3086-4853-a4-b7-77-88-2a-d5-d7-e3')
-class IInteractionTrackerVector2InertiaModifierFactory(c_void_p):
+class IInteractionTrackerVector2InertiaModifierFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7401d6c4-6c6d-48df-bc-3e-17-1e-22-7e-7d-7f')
-class IInteractionTrackerVector2InertiaNaturalMotion(c_void_p):
+class IInteractionTrackerVector2InertiaNaturalMotion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5f17695c-162d-4c07-94-00-c2-82-b2-82-76-ca')
     @winrt_commethod(6)
@@ -414,12 +414,12 @@ class IInteractionTrackerVector2InertiaNaturalMotion(c_void_p):
     def put_NaturalMotion(self, value: Windows.UI.Composition.Vector2NaturalMotionAnimation) -> Void: ...
     Condition = property(get_Condition, put_Condition)
     NaturalMotion = property(get_NaturalMotion, put_NaturalMotion)
-class IInteractionTrackerVector2InertiaNaturalMotionStatics(c_void_p):
+class IInteractionTrackerVector2InertiaNaturalMotionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('82001a48-09c0-434f-81-89-14-1c-66-df-36-2f')
     @winrt_commethod(6)
     def Create(self, compositor: Windows.UI.Composition.Compositor) -> Windows.UI.Composition.Interactions.InteractionTrackerVector2InertiaNaturalMotion: ...
-class IVisualInteractionSource(c_void_p):
+class IVisualInteractionSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ca0e8a86-d8d6-4111-b0-88-70-34-7b-d2-b0-ed')
     @winrt_commethod(6)
@@ -472,7 +472,7 @@ class IVisualInteractionSource(c_void_p):
     ScaleChainingMode = property(get_ScaleChainingMode, put_ScaleChainingMode)
     ScaleSourceMode = property(get_ScaleSourceMode, put_ScaleSourceMode)
     Source = property(get_Source, None)
-class IVisualInteractionSource2(c_void_p):
+class IVisualInteractionSource2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('aa914893-a73c-414d-80-d0-24-9b-ad-2f-bd-93')
     @winrt_commethod(6)
@@ -503,21 +503,21 @@ class IVisualInteractionSource2(c_void_p):
     PositionVelocity = property(get_PositionVelocity, None)
     Scale = property(get_Scale, None)
     ScaleVelocity = property(get_ScaleVelocity, None)
-class IVisualInteractionSource3(c_void_p):
+class IVisualInteractionSource3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d941ef2a-0d5c-4057-92-d7-c9-71-15-33-20-4f')
     @winrt_commethod(6)
     def get_PointerWheelConfig(self) -> Windows.UI.Composition.Interactions.InteractionSourceConfiguration: ...
     PointerWheelConfig = property(get_PointerWheelConfig, None)
-class IVisualInteractionSourceObjectFactory(c_void_p):
+class IVisualInteractionSourceObjectFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b2ca917c-e98a-41f2-b3-c9-89-1c-92-66-c8-f6')
-class IVisualInteractionSourceStatics(c_void_p):
+class IVisualInteractionSourceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('369965e1-8645-4f75-ba-00-64-79-cd-10-c8-e6')
     @winrt_commethod(6)
     def Create(self, source: Windows.UI.Composition.Visual) -> Windows.UI.Composition.Interactions.VisualInteractionSource: ...
-class IVisualInteractionSourceStatics2(c_void_p):
+class IVisualInteractionSourceStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a979c032-5764-55e0-bc-1f-07-78-78-6d-cf-de')
     @winrt_commethod(6)
@@ -531,7 +531,7 @@ InteractionChainingMode = Int32
 InteractionChainingMode_Auto: InteractionChainingMode = 0
 InteractionChainingMode_Always: InteractionChainingMode = 1
 InteractionChainingMode_Never: InteractionChainingMode = 2
-class InteractionSourceConfiguration(c_void_p):
+class InteractionSourceConfiguration(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
     ClassId = 'Windows.UI.Composition.Interactions.InteractionSourceConfiguration'
     @winrt_mixinmethod
@@ -556,7 +556,7 @@ InteractionSourceMode_EnabledWithoutInertia: InteractionSourceMode = 2
 InteractionSourceRedirectionMode = Int32
 InteractionSourceRedirectionMode_Disabled: InteractionSourceRedirectionMode = 0
 InteractionSourceRedirectionMode_Enabled: InteractionSourceRedirectionMode = 1
-class InteractionTracker(c_void_p):
+class InteractionTracker(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
     ClassId = 'Windows.UI.Composition.Interactions.InteractionTracker'
     @winrt_mixinmethod
@@ -666,7 +666,7 @@ class InteractionTracker(c_void_p):
 InteractionTrackerClampingOption = Int32
 InteractionTrackerClampingOption_Auto: InteractionTrackerClampingOption = 0
 InteractionTrackerClampingOption_Disabled: InteractionTrackerClampingOption = 1
-class InteractionTrackerCustomAnimationStateEnteredArgs(c_void_p):
+class InteractionTrackerCustomAnimationStateEnteredArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerCustomAnimationStateEnteredArgs'
     @winrt_mixinmethod
@@ -675,7 +675,7 @@ class InteractionTrackerCustomAnimationStateEnteredArgs(c_void_p):
     def get_IsFromBinding(self: Windows.UI.Composition.Interactions.IInteractionTrackerCustomAnimationStateEnteredArgs2) -> Boolean: ...
     RequestId = property(get_RequestId, None)
     IsFromBinding = property(get_IsFromBinding, None)
-class InteractionTrackerIdleStateEnteredArgs(c_void_p):
+class InteractionTrackerIdleStateEnteredArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerIdleStateEnteredArgs'
     @winrt_mixinmethod
@@ -684,9 +684,9 @@ class InteractionTrackerIdleStateEnteredArgs(c_void_p):
     def get_IsFromBinding(self: Windows.UI.Composition.Interactions.IInteractionTrackerIdleStateEnteredArgs2) -> Boolean: ...
     RequestId = property(get_RequestId, None)
     IsFromBinding = property(get_IsFromBinding, None)
-class InteractionTrackerInertiaModifier(c_void_p):
+class InteractionTrackerInertiaModifier(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
-class InteractionTrackerInertiaMotion(c_void_p):
+class InteractionTrackerInertiaMotion(ComPtr):
     extends: Windows.UI.Composition.Interactions.InteractionTrackerInertiaModifier
     ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerInertiaMotion'
     @winrt_mixinmethod
@@ -701,7 +701,7 @@ class InteractionTrackerInertiaMotion(c_void_p):
     def Create(cls: Windows.UI.Composition.Interactions.IInteractionTrackerInertiaMotionStatics, compositor: Windows.UI.Composition.Compositor) -> Windows.UI.Composition.Interactions.InteractionTrackerInertiaMotion: ...
     Condition = property(get_Condition, put_Condition)
     Motion = property(get_Motion, put_Motion)
-class InteractionTrackerInertiaNaturalMotion(c_void_p):
+class InteractionTrackerInertiaNaturalMotion(ComPtr):
     extends: Windows.UI.Composition.Interactions.InteractionTrackerInertiaModifier
     ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerInertiaNaturalMotion'
     @winrt_mixinmethod
@@ -716,7 +716,7 @@ class InteractionTrackerInertiaNaturalMotion(c_void_p):
     def Create(cls: Windows.UI.Composition.Interactions.IInteractionTrackerInertiaNaturalMotionStatics, compositor: Windows.UI.Composition.Compositor) -> Windows.UI.Composition.Interactions.InteractionTrackerInertiaNaturalMotion: ...
     Condition = property(get_Condition, put_Condition)
     NaturalMotion = property(get_NaturalMotion, put_NaturalMotion)
-class InteractionTrackerInertiaRestingValue(c_void_p):
+class InteractionTrackerInertiaRestingValue(ComPtr):
     extends: Windows.UI.Composition.Interactions.InteractionTrackerInertiaModifier
     ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerInertiaRestingValue'
     @winrt_mixinmethod
@@ -731,7 +731,7 @@ class InteractionTrackerInertiaRestingValue(c_void_p):
     def Create(cls: Windows.UI.Composition.Interactions.IInteractionTrackerInertiaRestingValueStatics, compositor: Windows.UI.Composition.Compositor) -> Windows.UI.Composition.Interactions.InteractionTrackerInertiaRestingValue: ...
     Condition = property(get_Condition, put_Condition)
     RestingValue = property(get_RestingValue, put_RestingValue)
-class InteractionTrackerInertiaStateEnteredArgs(c_void_p):
+class InteractionTrackerInertiaStateEnteredArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerInertiaStateEnteredArgs'
     @winrt_mixinmethod
@@ -761,7 +761,7 @@ class InteractionTrackerInertiaStateEnteredArgs(c_void_p):
     ScaleVelocityInPercentPerSecond = property(get_ScaleVelocityInPercentPerSecond, None)
     IsInertiaFromImpulse = property(get_IsInertiaFromImpulse, None)
     IsFromBinding = property(get_IsFromBinding, None)
-class InteractionTrackerInteractingStateEnteredArgs(c_void_p):
+class InteractionTrackerInteractingStateEnteredArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerInteractingStateEnteredArgs'
     @winrt_mixinmethod
@@ -773,13 +773,13 @@ class InteractionTrackerInteractingStateEnteredArgs(c_void_p):
 InteractionTrackerPositionUpdateOption = Int32
 InteractionTrackerPositionUpdateOption_Default: InteractionTrackerPositionUpdateOption = 0
 InteractionTrackerPositionUpdateOption_AllowActiveCustomScaleAnimation: InteractionTrackerPositionUpdateOption = 1
-class InteractionTrackerRequestIgnoredArgs(c_void_p):
+class InteractionTrackerRequestIgnoredArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerRequestIgnoredArgs'
     @winrt_mixinmethod
     def get_RequestId(self: Windows.UI.Composition.Interactions.IInteractionTrackerRequestIgnoredArgs) -> Int32: ...
     RequestId = property(get_RequestId, None)
-class InteractionTrackerValuesChangedArgs(c_void_p):
+class InteractionTrackerValuesChangedArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerValuesChangedArgs'
     @winrt_mixinmethod
@@ -791,9 +791,9 @@ class InteractionTrackerValuesChangedArgs(c_void_p):
     Position = property(get_Position, None)
     RequestId = property(get_RequestId, None)
     Scale = property(get_Scale, None)
-class InteractionTrackerVector2InertiaModifier(c_void_p):
+class InteractionTrackerVector2InertiaModifier(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
-class InteractionTrackerVector2InertiaNaturalMotion(c_void_p):
+class InteractionTrackerVector2InertiaNaturalMotion(ComPtr):
     extends: Windows.UI.Composition.Interactions.InteractionTrackerVector2InertiaModifier
     ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerVector2InertiaNaturalMotion'
     @winrt_mixinmethod
@@ -808,7 +808,7 @@ class InteractionTrackerVector2InertiaNaturalMotion(c_void_p):
     def Create(cls: Windows.UI.Composition.Interactions.IInteractionTrackerVector2InertiaNaturalMotionStatics, compositor: Windows.UI.Composition.Compositor) -> Windows.UI.Composition.Interactions.InteractionTrackerVector2InertiaNaturalMotion: ...
     Condition = property(get_Condition, put_Condition)
     NaturalMotion = property(get_NaturalMotion, put_NaturalMotion)
-class VisualInteractionSource(c_void_p):
+class VisualInteractionSource(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
     @winrt_commethod(40)
     def get_IsPositionXRailsEnabled(self) -> Boolean: ...

@@ -361,8 +361,8 @@ def press_interface(prototype):
     hints = get_type_hints(prototype)
     if hints["extends"] is None:
         return prototype
-    # Generic class have multiple base class (Generic[], c_void_p).
-    prototype.__bases__ = tuple(hints["extends"] if t is c_void_p else t for t in prototype.__bases__)
+    # Generic class have multiple base class (Generic[], ComPtr).
+    prototype.__bases__ = tuple(hints["extends"] if t is ComPtr else t for t in prototype.__bases__)
     return prototype
 
 

@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -21,7 +21,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class GameBar(c_void_p):
+class GameBar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.UI.GameBar'
     @winrt_classmethod
@@ -41,7 +41,7 @@ class GameBar(c_void_p):
 GameChatMessageOrigin = Int32
 GameChatMessageOrigin_Voice: GameChatMessageOrigin = 0
 GameChatMessageOrigin_Text: GameChatMessageOrigin = 1
-class GameChatOverlay(c_void_p):
+class GameChatOverlay(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.UI.GameChatOverlay'
     @winrt_mixinmethod
@@ -62,7 +62,7 @@ GameChatOverlayPosition_MiddleLeft: GameChatOverlayPosition = 4
 GameChatOverlayPosition_TopCenter: GameChatOverlayPosition = 5
 GameChatOverlayPosition_TopLeft: GameChatOverlayPosition = 6
 GameChatOverlayPosition_TopRight: GameChatOverlayPosition = 7
-class IGameBarStatics(c_void_p):
+class IGameBarStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1db9a292-cc78-4173-be-45-b6-1e-67-28-3e-a7')
     @winrt_commethod(6)
@@ -79,7 +79,7 @@ class IGameBarStatics(c_void_p):
     def get_IsInputRedirected(self) -> Boolean: ...
     Visible = property(get_Visible, None)
     IsInputRedirected = property(get_IsInputRedirected, None)
-class IGameChatOverlay(c_void_p):
+class IGameChatOverlay(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('fbc64865-f6fc-4a48-ae-07-03-ac-6e-d4-37-04')
     @winrt_commethod(6)
@@ -89,7 +89,7 @@ class IGameChatOverlay(c_void_p):
     @winrt_commethod(8)
     def AddMessage(self, sender: WinRT_String, message: WinRT_String, origin: Windows.Gaming.UI.GameChatMessageOrigin) -> Void: ...
     DesiredPosition = property(get_DesiredPosition, put_DesiredPosition)
-class IGameChatOverlayStatics(c_void_p):
+class IGameChatOverlayStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('89acf614-7867-49f7-96-87-25-d9-db-f4-44-d1')
     @winrt_commethod(6)

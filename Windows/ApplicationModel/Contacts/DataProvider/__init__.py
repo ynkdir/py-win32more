@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Contacts
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ContactDataProviderConnection(c_void_p):
+class ContactDataProviderConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Contacts.DataProvider.ContactDataProviderConnection'
     @winrt_mixinmethod
@@ -43,13 +43,13 @@ class ContactDataProviderConnection(c_void_p):
     def add_DeleteContactRequested(self: Windows.ApplicationModel.Contacts.DataProvider.IContactDataProviderConnection2, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Contacts.DataProvider.ContactDataProviderConnection, Windows.ApplicationModel.Contacts.DataProvider.ContactListDeleteContactRequestEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_DeleteContactRequested(self: Windows.ApplicationModel.Contacts.DataProvider.IContactDataProviderConnection2, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class ContactDataProviderTriggerDetails(c_void_p):
+class ContactDataProviderTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Contacts.DataProvider.ContactDataProviderTriggerDetails'
     @winrt_mixinmethod
     def get_Connection(self: Windows.ApplicationModel.Contacts.DataProvider.IContactDataProviderTriggerDetails) -> Windows.ApplicationModel.Contacts.DataProvider.ContactDataProviderConnection: ...
     Connection = property(get_Connection, None)
-class ContactListCreateOrUpdateContactRequest(c_void_p):
+class ContactListCreateOrUpdateContactRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Contacts.DataProvider.ContactListCreateOrUpdateContactRequest'
     @winrt_mixinmethod
@@ -62,7 +62,7 @@ class ContactListCreateOrUpdateContactRequest(c_void_p):
     def ReportFailedAsync(self: Windows.ApplicationModel.Contacts.DataProvider.IContactListCreateOrUpdateContactRequest) -> Windows.Foundation.IAsyncAction: ...
     ContactListId = property(get_ContactListId, None)
     Contact = property(get_Contact, None)
-class ContactListCreateOrUpdateContactRequestEventArgs(c_void_p):
+class ContactListCreateOrUpdateContactRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Contacts.DataProvider.ContactListCreateOrUpdateContactRequestEventArgs'
     @winrt_mixinmethod
@@ -70,7 +70,7 @@ class ContactListCreateOrUpdateContactRequestEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.Contacts.DataProvider.IContactListCreateOrUpdateContactRequestEventArgs) -> Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-class ContactListDeleteContactRequest(c_void_p):
+class ContactListDeleteContactRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Contacts.DataProvider.ContactListDeleteContactRequest'
     @winrt_mixinmethod
@@ -83,7 +83,7 @@ class ContactListDeleteContactRequest(c_void_p):
     def ReportFailedAsync(self: Windows.ApplicationModel.Contacts.DataProvider.IContactListDeleteContactRequest) -> Windows.Foundation.IAsyncAction: ...
     ContactListId = property(get_ContactListId, None)
     ContactId = property(get_ContactId, None)
-class ContactListDeleteContactRequestEventArgs(c_void_p):
+class ContactListDeleteContactRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Contacts.DataProvider.ContactListDeleteContactRequestEventArgs'
     @winrt_mixinmethod
@@ -91,7 +91,7 @@ class ContactListDeleteContactRequestEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.Contacts.DataProvider.IContactListDeleteContactRequestEventArgs) -> Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-class ContactListServerSearchReadBatchRequest(c_void_p):
+class ContactListServerSearchReadBatchRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Contacts.DataProvider.ContactListServerSearchReadBatchRequest'
     @winrt_mixinmethod
@@ -112,7 +112,7 @@ class ContactListServerSearchReadBatchRequest(c_void_p):
     ContactListId = property(get_ContactListId, None)
     Options = property(get_Options, None)
     SuggestedBatchSize = property(get_SuggestedBatchSize, None)
-class ContactListServerSearchReadBatchRequestEventArgs(c_void_p):
+class ContactListServerSearchReadBatchRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Contacts.DataProvider.ContactListServerSearchReadBatchRequestEventArgs'
     @winrt_mixinmethod
@@ -120,7 +120,7 @@ class ContactListServerSearchReadBatchRequestEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.Contacts.DataProvider.IContactListServerSearchReadBatchRequestEventArgs) -> Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-class ContactListSyncManagerSyncRequest(c_void_p):
+class ContactListSyncManagerSyncRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Contacts.DataProvider.ContactListSyncManagerSyncRequest'
     @winrt_mixinmethod
@@ -130,7 +130,7 @@ class ContactListSyncManagerSyncRequest(c_void_p):
     @winrt_mixinmethod
     def ReportFailedAsync(self: Windows.ApplicationModel.Contacts.DataProvider.IContactListSyncManagerSyncRequest) -> Windows.Foundation.IAsyncAction: ...
     ContactListId = property(get_ContactListId, None)
-class ContactListSyncManagerSyncRequestEventArgs(c_void_p):
+class ContactListSyncManagerSyncRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Contacts.DataProvider.ContactListSyncManagerSyncRequestEventArgs'
     @winrt_mixinmethod
@@ -138,7 +138,7 @@ class ContactListSyncManagerSyncRequestEventArgs(c_void_p):
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.Contacts.DataProvider.IContactListSyncManagerSyncRequestEventArgs) -> Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-class IContactDataProviderConnection(c_void_p):
+class IContactDataProviderConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1a398a52-8c9d-4d6f-a4-e0-11-1e-9a-12-5a-30')
     @winrt_commethod(6)
@@ -151,7 +151,7 @@ class IContactDataProviderConnection(c_void_p):
     def remove_ServerSearchReadBatchRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     @winrt_commethod(10)
     def Start(self) -> Void: ...
-class IContactDataProviderConnection2(c_void_p):
+class IContactDataProviderConnection2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a1d327b0-196c-4bfd-8f-0f-c6-8d-67-f2-49-d3')
     @winrt_commethod(6)
@@ -162,13 +162,13 @@ class IContactDataProviderConnection2(c_void_p):
     def add_DeleteContactRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Contacts.DataProvider.ContactDataProviderConnection, Windows.ApplicationModel.Contacts.DataProvider.ContactListDeleteContactRequestEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(9)
     def remove_DeleteContactRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IContactDataProviderTriggerDetails(c_void_p):
+class IContactDataProviderTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('527104be-3c62-43c8-9a-e7-db-53-16-85-cd-99')
     @winrt_commethod(6)
     def get_Connection(self) -> Windows.ApplicationModel.Contacts.DataProvider.ContactDataProviderConnection: ...
     Connection = property(get_Connection, None)
-class IContactListCreateOrUpdateContactRequest(c_void_p):
+class IContactListCreateOrUpdateContactRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b4af411f-c849-47d0-b1-19-91-cf-60-5b-2f-2a')
     @winrt_commethod(6)
@@ -181,7 +181,7 @@ class IContactListCreateOrUpdateContactRequest(c_void_p):
     def ReportFailedAsync(self) -> Windows.Foundation.IAsyncAction: ...
     ContactListId = property(get_ContactListId, None)
     Contact = property(get_Contact, None)
-class IContactListCreateOrUpdateContactRequestEventArgs(c_void_p):
+class IContactListCreateOrUpdateContactRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('851c1690-1a51-4b0c-ae-ef-12-40-ac-5b-ed-75')
     @winrt_commethod(6)
@@ -189,7 +189,7 @@ class IContactListCreateOrUpdateContactRequestEventArgs(c_void_p):
     @winrt_commethod(7)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-class IContactListDeleteContactRequest(c_void_p):
+class IContactListDeleteContactRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5e114687-ce03-4de5-85-57-9c-cf-55-2d-47-2a')
     @winrt_commethod(6)
@@ -202,7 +202,7 @@ class IContactListDeleteContactRequest(c_void_p):
     def ReportFailedAsync(self) -> Windows.Foundation.IAsyncAction: ...
     ContactListId = property(get_ContactListId, None)
     ContactId = property(get_ContactId, None)
-class IContactListDeleteContactRequestEventArgs(c_void_p):
+class IContactListDeleteContactRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b22054a1-e8fa-4db5-93-89-2d-12-ee-7d-15-ee')
     @winrt_commethod(6)
@@ -210,7 +210,7 @@ class IContactListDeleteContactRequestEventArgs(c_void_p):
     @winrt_commethod(7)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-class IContactListServerSearchReadBatchRequest(c_void_p):
+class IContactListServerSearchReadBatchRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ba776a97-4030-4925-9f-b4-14-3b-29-5e-65-3b')
     @winrt_commethod(6)
@@ -231,7 +231,7 @@ class IContactListServerSearchReadBatchRequest(c_void_p):
     ContactListId = property(get_ContactListId, None)
     Options = property(get_Options, None)
     SuggestedBatchSize = property(get_SuggestedBatchSize, None)
-class IContactListServerSearchReadBatchRequestEventArgs(c_void_p):
+class IContactListServerSearchReadBatchRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1a27e87b-69d7-4e4e-80-42-86-1c-ba-61-47-1e')
     @winrt_commethod(6)
@@ -239,7 +239,7 @@ class IContactListServerSearchReadBatchRequestEventArgs(c_void_p):
     @winrt_commethod(7)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Request = property(get_Request, None)
-class IContactListSyncManagerSyncRequest(c_void_p):
+class IContactListSyncManagerSyncRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3c0e57a4-c4e7-4970-9a-8f-9a-66-a2-bb-6c-1a')
     @winrt_commethod(6)
@@ -249,7 +249,7 @@ class IContactListSyncManagerSyncRequest(c_void_p):
     @winrt_commethod(8)
     def ReportFailedAsync(self) -> Windows.Foundation.IAsyncAction: ...
     ContactListId = property(get_ContactListId, None)
-class IContactListSyncManagerSyncRequestEventArgs(c_void_p):
+class IContactListSyncManagerSyncRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('158e4dac-446d-4f10-af-c2-02-68-3e-c5-33-a6')
     @winrt_commethod(6)

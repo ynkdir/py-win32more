@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Data.Pdf
@@ -24,7 +24,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IPdfDocument(c_void_p):
+class IPdfDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ac7ebedd-80fa-4089-84-6e-81-b7-7f-f5-a8-6c')
     @winrt_commethod(6)
@@ -35,7 +35,7 @@ class IPdfDocument(c_void_p):
     def get_IsPasswordProtected(self) -> Boolean: ...
     PageCount = property(get_PageCount, None)
     IsPasswordProtected = property(get_IsPasswordProtected, None)
-class IPdfDocumentStatics(c_void_p):
+class IPdfDocumentStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('433a0b5f-c007-4788-90-f2-08-14-3d-92-25-99')
     @winrt_commethod(6)
@@ -46,7 +46,7 @@ class IPdfDocumentStatics(c_void_p):
     def LoadFromStreamAsync(self, inputStream: Windows.Storage.Streams.IRandomAccessStream) -> Windows.Foundation.IAsyncOperation[Windows.Data.Pdf.PdfDocument]: ...
     @winrt_commethod(9)
     def LoadFromStreamWithPasswordAsync(self, inputStream: Windows.Storage.Streams.IRandomAccessStream, password: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Data.Pdf.PdfDocument]: ...
-class IPdfPage(c_void_p):
+class IPdfPage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9db4b0c8-5320-4cfc-ad-76-49-3f-da-d0-e5-94')
     @winrt_commethod(6)
@@ -70,7 +70,7 @@ class IPdfPage(c_void_p):
     Dimensions = property(get_Dimensions, None)
     Rotation = property(get_Rotation, None)
     PreferredZoom = property(get_PreferredZoom, None)
-class IPdfPageDimensions(c_void_p):
+class IPdfPageDimensions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('22170471-313e-44e8-83-5d-63-a3-e7-62-4a-10')
     @winrt_commethod(6)
@@ -88,7 +88,7 @@ class IPdfPageDimensions(c_void_p):
     BleedBox = property(get_BleedBox, None)
     TrimBox = property(get_TrimBox, None)
     ArtBox = property(get_ArtBox, None)
-class IPdfPageRenderOptions(c_void_p):
+class IPdfPageRenderOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3c98056f-b7cf-4c29-9a-04-52-d9-02-67-f4-25')
     @winrt_commethod(6)
@@ -121,7 +121,7 @@ class IPdfPageRenderOptions(c_void_p):
     BackgroundColor = property(get_BackgroundColor, put_BackgroundColor)
     IsIgnoringHighContrast = property(get_IsIgnoringHighContrast, put_IsIgnoringHighContrast)
     BitmapEncoderId = property(get_BitmapEncoderId, put_BitmapEncoderId)
-class PdfDocument(c_void_p):
+class PdfDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Pdf.PdfDocument'
     @winrt_mixinmethod
@@ -140,7 +140,7 @@ class PdfDocument(c_void_p):
     def LoadFromStreamWithPasswordAsync(cls: Windows.Data.Pdf.IPdfDocumentStatics, inputStream: Windows.Storage.Streams.IRandomAccessStream, password: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Data.Pdf.PdfDocument]: ...
     PageCount = property(get_PageCount, None)
     IsPasswordProtected = property(get_IsPasswordProtected, None)
-class PdfPage(c_void_p):
+class PdfPage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Pdf.PdfPage'
     @winrt_mixinmethod
@@ -166,7 +166,7 @@ class PdfPage(c_void_p):
     Dimensions = property(get_Dimensions, None)
     Rotation = property(get_Rotation, None)
     PreferredZoom = property(get_PreferredZoom, None)
-class PdfPageDimensions(c_void_p):
+class PdfPageDimensions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Pdf.PdfPageDimensions'
     @winrt_mixinmethod
@@ -184,7 +184,7 @@ class PdfPageDimensions(c_void_p):
     BleedBox = property(get_BleedBox, None)
     TrimBox = property(get_TrimBox, None)
     ArtBox = property(get_ArtBox, None)
-class PdfPageRenderOptions(c_void_p):
+class PdfPageRenderOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Data.Pdf.PdfPageRenderOptions'
     @winrt_activatemethod

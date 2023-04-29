@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Devices.Enumeration
@@ -26,7 +26,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IWiFiDirectAdvertisement(c_void_p):
+class IWiFiDirectAdvertisement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ab511a2d-2a06-49a1-a5-84-61-43-5c-79-05-a6')
     @winrt_commethod(6)
@@ -47,13 +47,13 @@ class IWiFiDirectAdvertisement(c_void_p):
     ListenStateDiscoverability = property(get_ListenStateDiscoverability, put_ListenStateDiscoverability)
     IsAutonomousGroupOwnerEnabled = property(get_IsAutonomousGroupOwnerEnabled, put_IsAutonomousGroupOwnerEnabled)
     LegacySettings = property(get_LegacySettings, None)
-class IWiFiDirectAdvertisement2(c_void_p):
+class IWiFiDirectAdvertisement2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b759aa46-d816-491b-91-7a-b4-0d-7d-c4-03-a2')
     @winrt_commethod(6)
     def get_SupportedConfigurationMethods(self) -> Windows.Foundation.Collections.IVector[Windows.Devices.WiFiDirect.WiFiDirectConfigurationMethod]: ...
     SupportedConfigurationMethods = property(get_SupportedConfigurationMethods, None)
-class IWiFiDirectAdvertisementPublisher(c_void_p):
+class IWiFiDirectAdvertisementPublisher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b35a2d1a-9b1f-45d9-92-5a-69-4d-66-df-68-ef')
     @winrt_commethod(6)
@@ -70,7 +70,7 @@ class IWiFiDirectAdvertisementPublisher(c_void_p):
     def Stop(self) -> Void: ...
     Advertisement = property(get_Advertisement, None)
     Status = property(get_Status, None)
-class IWiFiDirectAdvertisementPublisherStatusChangedEventArgs(c_void_p):
+class IWiFiDirectAdvertisementPublisherStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('aafde53c-5481-46e6-90-dd-32-11-65-18-f1-92')
     @winrt_commethod(6)
@@ -79,14 +79,14 @@ class IWiFiDirectAdvertisementPublisherStatusChangedEventArgs(c_void_p):
     def get_Error(self) -> Windows.Devices.WiFiDirect.WiFiDirectError: ...
     Status = property(get_Status, None)
     Error = property(get_Error, None)
-class IWiFiDirectConnectionListener(c_void_p):
+class IWiFiDirectConnectionListener(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('699c1b0d-8d13-4ee9-b9-ec-9c-72-f8-25-1f-7d')
     @winrt_commethod(6)
     def add_ConnectionRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.WiFiDirect.WiFiDirectConnectionListener, Windows.Devices.WiFiDirect.WiFiDirectConnectionRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ConnectionRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IWiFiDirectConnectionParameters(c_void_p):
+class IWiFiDirectConnectionParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b2e55405-5702-4b16-a0-2c-bb-cd-21-ef-60-98')
     @winrt_commethod(6)
@@ -94,7 +94,7 @@ class IWiFiDirectConnectionParameters(c_void_p):
     @winrt_commethod(7)
     def put_GroupOwnerIntent(self, value: Int16) -> Void: ...
     GroupOwnerIntent = property(get_GroupOwnerIntent, put_GroupOwnerIntent)
-class IWiFiDirectConnectionParameters2(c_void_p):
+class IWiFiDirectConnectionParameters2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ab3b0fbe-aa82-44b4-88-c8-e3-05-6b-89-80-1d')
     @winrt_commethod(6)
@@ -105,23 +105,23 @@ class IWiFiDirectConnectionParameters2(c_void_p):
     def put_PreferredPairingProcedure(self, value: Windows.Devices.WiFiDirect.WiFiDirectPairingProcedure) -> Void: ...
     PreferenceOrderedConfigurationMethods = property(get_PreferenceOrderedConfigurationMethods, None)
     PreferredPairingProcedure = property(get_PreferredPairingProcedure, put_PreferredPairingProcedure)
-class IWiFiDirectConnectionParametersStatics(c_void_p):
+class IWiFiDirectConnectionParametersStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('598af493-7642-456f-b9-d8-e8-a9-eb-1f-40-1a')
     @winrt_commethod(6)
     def GetDevicePairingKinds(self, configurationMethod: Windows.Devices.WiFiDirect.WiFiDirectConfigurationMethod) -> Windows.Devices.Enumeration.DevicePairingKinds: ...
-class IWiFiDirectConnectionRequest(c_void_p):
+class IWiFiDirectConnectionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8eb99605-914f-49c3-a6-14-d1-8d-c5-b1-9b-43')
     @winrt_commethod(6)
     def get_DeviceInformation(self) -> Windows.Devices.Enumeration.DeviceInformation: ...
     DeviceInformation = property(get_DeviceInformation, None)
-class IWiFiDirectConnectionRequestedEventArgs(c_void_p):
+class IWiFiDirectConnectionRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f99d20be-d38d-484f-82-15-e7-b6-5a-bf-24-4c')
     @winrt_commethod(6)
     def GetConnectionRequest(self) -> Windows.Devices.WiFiDirect.WiFiDirectConnectionRequest: ...
-class IWiFiDirectDevice(c_void_p):
+class IWiFiDirectDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('72deaaa8-72eb-4dae-8a-28-85-13-35-5d-27-77')
     @winrt_commethod(6)
@@ -136,21 +136,21 @@ class IWiFiDirectDevice(c_void_p):
     def GetConnectionEndpointPairs(self) -> Windows.Foundation.Collections.IVectorView[Windows.Networking.EndpointPair]: ...
     ConnectionStatus = property(get_ConnectionStatus, None)
     DeviceId = property(get_DeviceId, None)
-class IWiFiDirectDeviceStatics(c_void_p):
+class IWiFiDirectDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e86cb57c-3aac-4851-a7-92-48-2a-af-93-1b-04')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.WiFiDirect.WiFiDirectDevice]: ...
-class IWiFiDirectDeviceStatics2(c_void_p):
+class IWiFiDirectDeviceStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1a953e49-b103-437e-92-26-ab-67-97-13-42-f9')
     @winrt_commethod(6)
     def GetDeviceSelector(self, type: Windows.Devices.WiFiDirect.WiFiDirectDeviceSelectorType) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String, connectionParameters: Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters) -> Windows.Foundation.IAsyncOperation[Windows.Devices.WiFiDirect.WiFiDirectDevice]: ...
-class IWiFiDirectInformationElement(c_void_p):
+class IWiFiDirectInformationElement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('affb72d6-76bb-497e-ac-8b-dc-72-83-8b-c3-09')
     @winrt_commethod(6)
@@ -168,14 +168,14 @@ class IWiFiDirectInformationElement(c_void_p):
     Oui = property(get_Oui, put_Oui)
     OuiType = property(get_OuiType, put_OuiType)
     Value = property(get_Value, put_Value)
-class IWiFiDirectInformationElementStatics(c_void_p):
+class IWiFiDirectInformationElementStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('dbd02f16-11a5-4e60-8c-aa-34-77-21-48-37-8a')
     @winrt_commethod(6)
     def CreateFromBuffer(self, buffer: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.Collections.IVector[Windows.Devices.WiFiDirect.WiFiDirectInformationElement]: ...
     @winrt_commethod(7)
     def CreateFromDeviceInformation(self, deviceInformation: Windows.Devices.Enumeration.DeviceInformation) -> Windows.Foundation.Collections.IVector[Windows.Devices.WiFiDirect.WiFiDirectInformationElement]: ...
-class IWiFiDirectLegacySettings(c_void_p):
+class IWiFiDirectLegacySettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a64fdbba-f2fd-4567-a9-1b-f5-c2-f5-32-10-57')
     @winrt_commethod(6)
@@ -193,7 +193,7 @@ class IWiFiDirectLegacySettings(c_void_p):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
     Ssid = property(get_Ssid, put_Ssid)
     Passphrase = property(get_Passphrase, put_Passphrase)
-class WiFiDirectAdvertisement(c_void_p):
+class WiFiDirectAdvertisement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.WiFiDirect.WiFiDirectAdvertisement'
     @winrt_mixinmethod
@@ -221,7 +221,7 @@ WiFiDirectAdvertisementListenStateDiscoverability = Int32
 WiFiDirectAdvertisementListenStateDiscoverability_None: WiFiDirectAdvertisementListenStateDiscoverability = 0
 WiFiDirectAdvertisementListenStateDiscoverability_Normal: WiFiDirectAdvertisementListenStateDiscoverability = 1
 WiFiDirectAdvertisementListenStateDiscoverability_Intensive: WiFiDirectAdvertisementListenStateDiscoverability = 2
-class WiFiDirectAdvertisementPublisher(c_void_p):
+class WiFiDirectAdvertisementPublisher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisher'
     @winrt_activatemethod
@@ -245,7 +245,7 @@ WiFiDirectAdvertisementPublisherStatus_Created: WiFiDirectAdvertisementPublisher
 WiFiDirectAdvertisementPublisherStatus_Started: WiFiDirectAdvertisementPublisherStatus = 1
 WiFiDirectAdvertisementPublisherStatus_Stopped: WiFiDirectAdvertisementPublisherStatus = 2
 WiFiDirectAdvertisementPublisherStatus_Aborted: WiFiDirectAdvertisementPublisherStatus = 3
-class WiFiDirectAdvertisementPublisherStatusChangedEventArgs(c_void_p):
+class WiFiDirectAdvertisementPublisherStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisherStatusChangedEventArgs'
     @winrt_mixinmethod
@@ -258,7 +258,7 @@ WiFiDirectConfigurationMethod = Int32
 WiFiDirectConfigurationMethod_ProvidePin: WiFiDirectConfigurationMethod = 0
 WiFiDirectConfigurationMethod_DisplayPin: WiFiDirectConfigurationMethod = 1
 WiFiDirectConfigurationMethod_PushButton: WiFiDirectConfigurationMethod = 2
-class WiFiDirectConnectionListener(c_void_p):
+class WiFiDirectConnectionListener(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.WiFiDirect.WiFiDirectConnectionListener'
     @winrt_activatemethod
@@ -267,7 +267,7 @@ class WiFiDirectConnectionListener(c_void_p):
     def add_ConnectionRequested(self: Windows.Devices.WiFiDirect.IWiFiDirectConnectionListener, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.WiFiDirect.WiFiDirectConnectionListener, Windows.Devices.WiFiDirect.WiFiDirectConnectionRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_ConnectionRequested(self: Windows.Devices.WiFiDirect.IWiFiDirectConnectionListener, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class WiFiDirectConnectionParameters(c_void_p):
+class WiFiDirectConnectionParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters'
     @winrt_activatemethod
@@ -287,7 +287,7 @@ class WiFiDirectConnectionParameters(c_void_p):
     GroupOwnerIntent = property(get_GroupOwnerIntent, put_GroupOwnerIntent)
     PreferenceOrderedConfigurationMethods = property(get_PreferenceOrderedConfigurationMethods, None)
     PreferredPairingProcedure = property(get_PreferredPairingProcedure, put_PreferredPairingProcedure)
-class WiFiDirectConnectionRequest(c_void_p):
+class WiFiDirectConnectionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.WiFiDirect.WiFiDirectConnectionRequest'
     @winrt_mixinmethod
@@ -295,7 +295,7 @@ class WiFiDirectConnectionRequest(c_void_p):
     @winrt_mixinmethod
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
     DeviceInformation = property(get_DeviceInformation, None)
-class WiFiDirectConnectionRequestedEventArgs(c_void_p):
+class WiFiDirectConnectionRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.WiFiDirect.WiFiDirectConnectionRequestedEventArgs'
     @winrt_mixinmethod
@@ -303,7 +303,7 @@ class WiFiDirectConnectionRequestedEventArgs(c_void_p):
 WiFiDirectConnectionStatus = Int32
 WiFiDirectConnectionStatus_Disconnected: WiFiDirectConnectionStatus = 0
 WiFiDirectConnectionStatus_Connected: WiFiDirectConnectionStatus = 1
-class WiFiDirectDevice(c_void_p):
+class WiFiDirectDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.WiFiDirect.WiFiDirectDevice'
     @winrt_mixinmethod
@@ -335,7 +335,7 @@ WiFiDirectError = Int32
 WiFiDirectError_Success: WiFiDirectError = 0
 WiFiDirectError_RadioNotAvailable: WiFiDirectError = 1
 WiFiDirectError_ResourceInUse: WiFiDirectError = 2
-class WiFiDirectInformationElement(c_void_p):
+class WiFiDirectInformationElement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.WiFiDirect.WiFiDirectInformationElement'
     @winrt_activatemethod
@@ -359,7 +359,7 @@ class WiFiDirectInformationElement(c_void_p):
     Oui = property(get_Oui, put_Oui)
     OuiType = property(get_OuiType, put_OuiType)
     Value = property(get_Value, put_Value)
-class WiFiDirectLegacySettings(c_void_p):
+class WiFiDirectLegacySettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Devices.WiFiDirect.WiFiDirectLegacySettings'
     @winrt_mixinmethod

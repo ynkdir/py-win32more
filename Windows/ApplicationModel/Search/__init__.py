@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Search
@@ -23,7 +23,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ILocalContentSuggestionSettings(c_void_p):
+class ILocalContentSuggestionSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('eeaeb062-743d-456e-84-a3-23-f0-6f-2d-15-d7')
     @winrt_commethod(6)
@@ -42,7 +42,7 @@ class ILocalContentSuggestionSettings(c_void_p):
     Locations = property(get_Locations, None)
     AqsFilter = property(get_AqsFilter, put_AqsFilter)
     PropertiesToMatch = property(get_PropertiesToMatch, None)
-class ISearchPaneQueryLinguisticDetails(c_void_p):
+class ISearchPaneQueryLinguisticDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('82fb460e-0940-4b6d-b8-d0-64-2b-30-98-9e-15')
     @winrt_commethod(6)
@@ -54,7 +54,7 @@ class ISearchPaneQueryLinguisticDetails(c_void_p):
     QueryTextAlternatives = property(get_QueryTextAlternatives, None)
     QueryTextCompositionStart = property(get_QueryTextCompositionStart, None)
     QueryTextCompositionLength = property(get_QueryTextCompositionLength, None)
-class ISearchQueryLinguisticDetails(c_void_p):
+class ISearchQueryLinguisticDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('46a1205b-69c9-4745-b7-2f-a8-a4-fc-8f-24-ae')
     @winrt_commethod(6)
@@ -66,12 +66,12 @@ class ISearchQueryLinguisticDetails(c_void_p):
     QueryTextAlternatives = property(get_QueryTextAlternatives, None)
     QueryTextCompositionStart = property(get_QueryTextCompositionStart, None)
     QueryTextCompositionLength = property(get_QueryTextCompositionLength, None)
-class ISearchQueryLinguisticDetailsFactory(c_void_p):
+class ISearchQueryLinguisticDetailsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('cac6c3b8-3c64-4dfd-ad-9f-47-9e-4d-40-65-a4')
     @winrt_commethod(6)
     def CreateInstance(self, queryTextAlternatives: Windows.Foundation.Collections.IIterable[WinRT_String], queryTextCompositionStart: UInt32, queryTextCompositionLength: UInt32) -> Windows.ApplicationModel.Search.SearchQueryLinguisticDetails: ...
-class ISearchSuggestionCollection(c_void_p):
+class ISearchSuggestionCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('323a8a4b-fbea-4446-ab-bc-3d-a7-91-5f-dd-3a')
     @winrt_commethod(6)
@@ -85,7 +85,7 @@ class ISearchSuggestionCollection(c_void_p):
     @winrt_commethod(10)
     def AppendSearchSeparator(self, label: WinRT_String) -> Void: ...
     Size = property(get_Size, None)
-class ISearchSuggestionsRequest(c_void_p):
+class ISearchSuggestionsRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4e4e26a7-44e5-4039-90-99-60-00-ea-d1-f0-c6')
     @winrt_commethod(6)
@@ -96,12 +96,12 @@ class ISearchSuggestionsRequest(c_void_p):
     def GetDeferral(self) -> Windows.ApplicationModel.Search.SearchSuggestionsRequestDeferral: ...
     IsCanceled = property(get_IsCanceled, None)
     SearchSuggestionCollection = property(get_SearchSuggestionCollection, None)
-class ISearchSuggestionsRequestDeferral(c_void_p):
+class ISearchSuggestionsRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b71598a9-c065-456d-a8-45-1e-cc-ec-5d-c2-8b')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
-class LocalContentSuggestionSettings(c_void_p):
+class LocalContentSuggestionSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Search.LocalContentSuggestionSettings'
     @winrt_activatemethod
@@ -122,7 +122,7 @@ class LocalContentSuggestionSettings(c_void_p):
     Locations = property(get_Locations, None)
     AqsFilter = property(get_AqsFilter, put_AqsFilter)
     PropertiesToMatch = property(get_PropertiesToMatch, None)
-class SearchPaneQueryLinguisticDetails(c_void_p):
+class SearchPaneQueryLinguisticDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails'
     @winrt_mixinmethod
@@ -134,7 +134,7 @@ class SearchPaneQueryLinguisticDetails(c_void_p):
     QueryTextAlternatives = property(get_QueryTextAlternatives, None)
     QueryTextCompositionStart = property(get_QueryTextCompositionStart, None)
     QueryTextCompositionLength = property(get_QueryTextCompositionLength, None)
-class SearchQueryLinguisticDetails(c_void_p):
+class SearchQueryLinguisticDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Search.SearchQueryLinguisticDetails'
     @winrt_factorymethod
@@ -148,7 +148,7 @@ class SearchQueryLinguisticDetails(c_void_p):
     QueryTextAlternatives = property(get_QueryTextAlternatives, None)
     QueryTextCompositionStart = property(get_QueryTextCompositionStart, None)
     QueryTextCompositionLength = property(get_QueryTextCompositionLength, None)
-class SearchSuggestionCollection(c_void_p):
+class SearchSuggestionCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Search.SearchSuggestionCollection'
     @winrt_mixinmethod
@@ -162,7 +162,7 @@ class SearchSuggestionCollection(c_void_p):
     @winrt_mixinmethod
     def AppendSearchSeparator(self: Windows.ApplicationModel.Search.ISearchSuggestionCollection, label: WinRT_String) -> Void: ...
     Size = property(get_Size, None)
-class SearchSuggestionsRequest(c_void_p):
+class SearchSuggestionsRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Search.SearchSuggestionsRequest'
     @winrt_mixinmethod
@@ -173,7 +173,7 @@ class SearchSuggestionsRequest(c_void_p):
     def GetDeferral(self: Windows.ApplicationModel.Search.ISearchSuggestionsRequest) -> Windows.ApplicationModel.Search.SearchSuggestionsRequestDeferral: ...
     IsCanceled = property(get_IsCanceled, None)
     SearchSuggestionCollection = property(get_SearchSuggestionCollection, None)
-class SearchSuggestionsRequestDeferral(c_void_p):
+class SearchSuggestionsRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.ApplicationModel.Search.SearchSuggestionsRequestDeferral'
     @winrt_mixinmethod

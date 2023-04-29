@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class IMicrosoftAccountMultiFactorAuthenticationManager(c_void_p):
+class IMicrosoftAccountMultiFactorAuthenticationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0fd340a5-f574-4320-a0-8e-0a-19-a8-23-22-aa')
     @winrt_commethod(6)
@@ -45,13 +45,13 @@ class IMicrosoftAccountMultiFactorAuthenticationManager(c_void_p):
     def DenySessionUsingAuthSessionInfoAsync(self, authenticationSessionInfo: Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionInfo) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorServiceResponse]: ...
     @winrt_commethod(15)
     def DenySessionAsync(self, userAccountId: WinRT_String, sessionId: WinRT_String, sessionAuthenticationType: Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationType) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorServiceResponse]: ...
-class IMicrosoftAccountMultiFactorAuthenticatorStatics(c_void_p):
+class IMicrosoftAccountMultiFactorAuthenticatorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d964c2e6-f446-4c71-8b-79-6e-a4-02-4a-a9-b8')
     @winrt_commethod(6)
     def get_Current(self) -> Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager: ...
     Current = property(get_Current, None)
-class IMicrosoftAccountMultiFactorGetSessionsResult(c_void_p):
+class IMicrosoftAccountMultiFactorGetSessionsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('4e23a9a0-e9fa-497a-95-de-6d-57-47-bf-97-4c')
     @winrt_commethod(6)
@@ -60,7 +60,7 @@ class IMicrosoftAccountMultiFactorGetSessionsResult(c_void_p):
     def get_ServiceResponse(self) -> Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorServiceResponse: ...
     Sessions = property(get_Sessions, None)
     ServiceResponse = property(get_ServiceResponse, None)
-class IMicrosoftAccountMultiFactorOneTimeCodedInfo(c_void_p):
+class IMicrosoftAccountMultiFactorOneTimeCodedInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('82ba264b-d87c-4668-a9-76-40-cf-ae-54-7d-08')
     @winrt_commethod(6)
@@ -75,7 +75,7 @@ class IMicrosoftAccountMultiFactorOneTimeCodedInfo(c_void_p):
     TimeInterval = property(get_TimeInterval, None)
     TimeToLive = property(get_TimeToLive, None)
     ServiceResponse = property(get_ServiceResponse, None)
-class IMicrosoftAccountMultiFactorSessionInfo(c_void_p):
+class IMicrosoftAccountMultiFactorSessionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5f7eabb4-a278-4635-b7-65-b4-94-eb-26-0a-f4')
     @winrt_commethod(6)
@@ -99,7 +99,7 @@ class IMicrosoftAccountMultiFactorSessionInfo(c_void_p):
     AuthenticationType = property(get_AuthenticationType, None)
     RequestTime = property(get_RequestTime, None)
     ExpirationTime = property(get_ExpirationTime, None)
-class IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo(c_void_p):
+class IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('aa7ec5fb-da3f-4088-a2-0d-56-18-af-ad-b2-e5')
     @winrt_commethod(6)
@@ -111,7 +111,7 @@ class IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo(c_void_p):
     Sessions = property(get_Sessions, None)
     UnregisteredAccounts = property(get_UnregisteredAccounts, None)
     ServiceResponse = property(get_ServiceResponse, None)
-class MicrosoftAccountMultiFactorAuthenticationManager(c_void_p):
+class MicrosoftAccountMultiFactorAuthenticationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager'
     @winrt_mixinmethod
@@ -140,7 +140,7 @@ class MicrosoftAccountMultiFactorAuthenticationManager(c_void_p):
 MicrosoftAccountMultiFactorAuthenticationType = Int32
 MicrosoftAccountMultiFactorAuthenticationType_User: MicrosoftAccountMultiFactorAuthenticationType = 0
 MicrosoftAccountMultiFactorAuthenticationType_Device: MicrosoftAccountMultiFactorAuthenticationType = 1
-class MicrosoftAccountMultiFactorGetSessionsResult(c_void_p):
+class MicrosoftAccountMultiFactorGetSessionsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorGetSessionsResult'
     @winrt_mixinmethod
@@ -149,7 +149,7 @@ class MicrosoftAccountMultiFactorGetSessionsResult(c_void_p):
     def get_ServiceResponse(self: Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorGetSessionsResult) -> Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorServiceResponse: ...
     Sessions = property(get_Sessions, None)
     ServiceResponse = property(get_ServiceResponse, None)
-class MicrosoftAccountMultiFactorOneTimeCodedInfo(c_void_p):
+class MicrosoftAccountMultiFactorOneTimeCodedInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorOneTimeCodedInfo'
     @winrt_mixinmethod
@@ -194,7 +194,7 @@ MicrosoftAccountMultiFactorSessionApprovalStatus_Denied: MicrosoftAccountMultiFa
 MicrosoftAccountMultiFactorSessionAuthenticationStatus = Int32
 MicrosoftAccountMultiFactorSessionAuthenticationStatus_Authenticated: MicrosoftAccountMultiFactorSessionAuthenticationStatus = 0
 MicrosoftAccountMultiFactorSessionAuthenticationStatus_Unauthenticated: MicrosoftAccountMultiFactorSessionAuthenticationStatus = 1
-class MicrosoftAccountMultiFactorSessionInfo(c_void_p):
+class MicrosoftAccountMultiFactorSessionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionInfo'
     @winrt_mixinmethod
@@ -218,7 +218,7 @@ class MicrosoftAccountMultiFactorSessionInfo(c_void_p):
     AuthenticationType = property(get_AuthenticationType, None)
     RequestTime = property(get_RequestTime, None)
     ExpirationTime = property(get_ExpirationTime, None)
-class MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo(c_void_p):
+class MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo'
     @winrt_mixinmethod

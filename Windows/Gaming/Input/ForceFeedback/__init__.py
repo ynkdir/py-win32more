@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.Foundation
@@ -22,7 +22,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
-class ConditionForceEffect(c_void_p):
+class ConditionForceEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.ForceFeedback.ConditionForceEffect'
     @winrt_factorymethod
@@ -49,7 +49,7 @@ ConditionForceEffectKind_Spring: ConditionForceEffectKind = 0
 ConditionForceEffectKind_Damper: ConditionForceEffectKind = 1
 ConditionForceEffectKind_Inertia: ConditionForceEffectKind = 2
 ConditionForceEffectKind_Friction: ConditionForceEffectKind = 3
-class ConstantForceEffect(c_void_p):
+class ConstantForceEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.ForceFeedback.ConstantForceEffect'
     @winrt_activatemethod
@@ -84,7 +84,7 @@ ForceFeedbackLoadEffectResult = Int32
 ForceFeedbackLoadEffectResult_Succeeded: ForceFeedbackLoadEffectResult = 0
 ForceFeedbackLoadEffectResult_EffectStorageFull: ForceFeedbackLoadEffectResult = 1
 ForceFeedbackLoadEffectResult_EffectNotSupported: ForceFeedbackLoadEffectResult = 2
-class ForceFeedbackMotor(c_void_p):
+class ForceFeedbackMotor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.ForceFeedback.ForceFeedbackMotor'
     @winrt_mixinmethod
@@ -117,7 +117,7 @@ class ForceFeedbackMotor(c_void_p):
     MasterGain = property(get_MasterGain, put_MasterGain)
     IsEnabled = property(get_IsEnabled, None)
     SupportedAxes = property(get_SupportedAxes, None)
-class IConditionForceEffect(c_void_p):
+class IConditionForceEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('32d1ea68-3695-4e69-85-c0-cd-19-44-18-91-40')
     @winrt_commethod(6)
@@ -125,19 +125,19 @@ class IConditionForceEffect(c_void_p):
     @winrt_commethod(7)
     def SetParameters(self, direction: Windows.Foundation.Numerics.Vector3, positiveCoefficient: Single, negativeCoefficient: Single, maxPositiveMagnitude: Single, maxNegativeMagnitude: Single, deadZone: Single, bias: Single) -> Void: ...
     Kind = property(get_Kind, None)
-class IConditionForceEffectFactory(c_void_p):
+class IConditionForceEffectFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('91a99264-1810-4eb6-a7-73-bf-d3-b8-cd-db-ab')
     @winrt_commethod(6)
     def CreateInstance(self, effectKind: Windows.Gaming.Input.ForceFeedback.ConditionForceEffectKind) -> Windows.Gaming.Input.ForceFeedback.ConditionForceEffect: ...
-class IConstantForceEffect(c_void_p):
+class IConstantForceEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9bfa0140-f3c7-415c-b0-68-0f-06-87-34-bc-e0')
     @winrt_commethod(6)
     def SetParameters(self, vector: Windows.Foundation.Numerics.Vector3, duration: Windows.Foundation.TimeSpan) -> Void: ...
     @winrt_commethod(7)
     def SetParametersWithEnvelope(self, vector: Windows.Foundation.Numerics.Vector3, attackGain: Single, sustainGain: Single, releaseGain: Single, startDelay: Windows.Foundation.TimeSpan, attackDuration: Windows.Foundation.TimeSpan, sustainDuration: Windows.Foundation.TimeSpan, releaseDuration: Windows.Foundation.TimeSpan, repeatCount: UInt32) -> Void: ...
-class IForceFeedbackEffect(c_void_p):
+class IForceFeedbackEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a17fba0c-2ae4-48c2-80-63-ea-bd-07-77-cb-89')
     @winrt_commethod(6)
@@ -152,7 +152,7 @@ class IForceFeedbackEffect(c_void_p):
     def Stop(self) -> Void: ...
     Gain = property(get_Gain, put_Gain)
     State = property(get_State, None)
-class IForceFeedbackMotor(c_void_p):
+class IForceFeedbackMotor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8d3d417c-a5ea-4516-80-26-2b-00-f7-4e-f6-e5')
     @winrt_commethod(6)
@@ -185,7 +185,7 @@ class IForceFeedbackMotor(c_void_p):
     MasterGain = property(get_MasterGain, put_MasterGain)
     IsEnabled = property(get_IsEnabled, None)
     SupportedAxes = property(get_SupportedAxes, None)
-class IPeriodicForceEffect(c_void_p):
+class IPeriodicForceEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5c5138d7-fc75-4d52-9a-0a-ef-e4-ca-b5-fe-64')
     @winrt_commethod(6)
@@ -195,19 +195,19 @@ class IPeriodicForceEffect(c_void_p):
     @winrt_commethod(8)
     def SetParametersWithEnvelope(self, vector: Windows.Foundation.Numerics.Vector3, frequency: Single, phase: Single, bias: Single, attackGain: Single, sustainGain: Single, releaseGain: Single, startDelay: Windows.Foundation.TimeSpan, attackDuration: Windows.Foundation.TimeSpan, sustainDuration: Windows.Foundation.TimeSpan, releaseDuration: Windows.Foundation.TimeSpan, repeatCount: UInt32) -> Void: ...
     Kind = property(get_Kind, None)
-class IPeriodicForceEffectFactory(c_void_p):
+class IPeriodicForceEffectFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6f62eb1a-9851-477b-b3-18-35-ec-aa-15-07-0f')
     @winrt_commethod(6)
     def CreateInstance(self, effectKind: Windows.Gaming.Input.ForceFeedback.PeriodicForceEffectKind) -> Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect: ...
-class IRampForceEffect(c_void_p):
+class IRampForceEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f1f81259-1ca6-4080-b5-6d-b4-3f-33-54-d0-52')
     @winrt_commethod(6)
     def SetParameters(self, startVector: Windows.Foundation.Numerics.Vector3, endVector: Windows.Foundation.Numerics.Vector3, duration: Windows.Foundation.TimeSpan) -> Void: ...
     @winrt_commethod(7)
     def SetParametersWithEnvelope(self, startVector: Windows.Foundation.Numerics.Vector3, endVector: Windows.Foundation.Numerics.Vector3, attackGain: Single, sustainGain: Single, releaseGain: Single, startDelay: Windows.Foundation.TimeSpan, attackDuration: Windows.Foundation.TimeSpan, sustainDuration: Windows.Foundation.TimeSpan, releaseDuration: Windows.Foundation.TimeSpan, repeatCount: UInt32) -> Void: ...
-class PeriodicForceEffect(c_void_p):
+class PeriodicForceEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.ForceFeedback.PeriodicForceEffect'
     @winrt_factorymethod
@@ -237,7 +237,7 @@ PeriodicForceEffectKind_SineWave: PeriodicForceEffectKind = 1
 PeriodicForceEffectKind_TriangleWave: PeriodicForceEffectKind = 2
 PeriodicForceEffectKind_SawtoothWaveUp: PeriodicForceEffectKind = 3
 PeriodicForceEffectKind_SawtoothWaveDown: PeriodicForceEffectKind = 4
-class RampForceEffect(c_void_p):
+class RampForceEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.Gaming.Input.ForceFeedback.RampForceEffect'
     @winrt_activatemethod

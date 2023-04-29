@@ -7,7 +7,7 @@ V = TypeVar('V')
 TProgress = TypeVar('TProgress')
 TResult = TypeVar('TResult')
 TSender = TypeVar('TSender')
-from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
+from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion, ComPtr
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel
@@ -27,7 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 AdaptiveNotificationContentKind = Int32
 AdaptiveNotificationContentKind_Text: AdaptiveNotificationContentKind = 0
-class AdaptiveNotificationText(c_void_p):
+class AdaptiveNotificationText(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.AdaptiveNotificationText'
     @winrt_activatemethod
@@ -48,7 +48,7 @@ class AdaptiveNotificationText(c_void_p):
     Language = property(get_Language, put_Language)
     Kind = property(get_Kind, None)
     Hints = property(get_Hints, None)
-class BadgeNotification(c_void_p):
+class BadgeNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.BadgeNotification'
     @winrt_factorymethod
@@ -64,7 +64,7 @@ class BadgeNotification(c_void_p):
 BadgeTemplateType = Int32
 BadgeTemplateType_BadgeGlyph: BadgeTemplateType = 0
 BadgeTemplateType_BadgeNumber: BadgeTemplateType = 1
-class BadgeUpdateManager(c_void_p):
+class BadgeUpdateManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.BadgeUpdateManager'
     @winrt_classmethod
@@ -77,7 +77,7 @@ class BadgeUpdateManager(c_void_p):
     def CreateBadgeUpdaterForSecondaryTile(cls: Windows.UI.Notifications.IBadgeUpdateManagerStatics, tileId: WinRT_String) -> Windows.UI.Notifications.BadgeUpdater: ...
     @winrt_classmethod
     def GetTemplateContent(cls: Windows.UI.Notifications.IBadgeUpdateManagerStatics, type: Windows.UI.Notifications.BadgeTemplateType) -> Windows.Data.Xml.Dom.XmlDocument: ...
-class BadgeUpdateManagerForUser(c_void_p):
+class BadgeUpdateManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.BadgeUpdateManagerForUser'
     @winrt_mixinmethod
@@ -89,7 +89,7 @@ class BadgeUpdateManagerForUser(c_void_p):
     @winrt_mixinmethod
     def get_User(self: Windows.UI.Notifications.IBadgeUpdateManagerForUser) -> Windows.System.User: ...
     User = property(get_User, None)
-class BadgeUpdater(c_void_p):
+class BadgeUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.BadgeUpdater'
     @winrt_mixinmethod
@@ -102,7 +102,7 @@ class BadgeUpdater(c_void_p):
     def StartPeriodicUpdateAtTime(self: Windows.UI.Notifications.IBadgeUpdater, badgeContent: Windows.Foundation.Uri, startTime: Windows.Foundation.DateTime, requestedInterval: Windows.UI.Notifications.PeriodicUpdateRecurrence) -> Void: ...
     @winrt_mixinmethod
     def StopPeriodicUpdate(self: Windows.UI.Notifications.IBadgeUpdater) -> Void: ...
-class IAdaptiveNotificationContent(c_void_p):
+class IAdaptiveNotificationContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('eb0dbe66-7448-448d-9d-b8-d7-8a-cd-2a-bb-a9')
     @winrt_commethod(6)
@@ -111,7 +111,7 @@ class IAdaptiveNotificationContent(c_void_p):
     def get_Hints(self) -> Windows.Foundation.Collections.IMap[WinRT_String, WinRT_String]: ...
     Kind = property(get_Kind, None)
     Hints = property(get_Hints, None)
-class IAdaptiveNotificationText(c_void_p):
+class IAdaptiveNotificationText(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('46d4a3be-609a-4326-a4-0b-bf-de-87-20-34-a3')
     @winrt_commethod(6)
@@ -124,7 +124,7 @@ class IAdaptiveNotificationText(c_void_p):
     def put_Language(self, value: WinRT_String) -> Void: ...
     Text = property(get_Text, put_Text)
     Language = property(get_Language, put_Language)
-class IBadgeNotification(c_void_p):
+class IBadgeNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('075cb4ca-d08a-4e2f-92-33-7e-28-9c-1f-77-22')
     @winrt_commethod(6)
@@ -135,12 +135,12 @@ class IBadgeNotification(c_void_p):
     def get_ExpirationTime(self) -> Windows.Foundation.IReference[Windows.Foundation.DateTime]: ...
     Content = property(get_Content, None)
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
-class IBadgeNotificationFactory(c_void_p):
+class IBadgeNotificationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('edf255ce-0618-4d59-94-8a-5a-61-04-0c-52-f9')
     @winrt_commethod(6)
     def CreateBadgeNotification(self, content: Windows.Data.Xml.Dom.XmlDocument) -> Windows.UI.Notifications.BadgeNotification: ...
-class IBadgeUpdateManagerForUser(c_void_p):
+class IBadgeUpdateManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('996b21bc-0386-44e5-ba-8d-0c-10-77-a6-2e-92')
     @winrt_commethod(6)
@@ -152,7 +152,7 @@ class IBadgeUpdateManagerForUser(c_void_p):
     @winrt_commethod(9)
     def get_User(self) -> Windows.System.User: ...
     User = property(get_User, None)
-class IBadgeUpdateManagerStatics(c_void_p):
+class IBadgeUpdateManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('33400faa-6dd5-4105-ae-bc-9b-50-fc-a4-92-da')
     @winrt_commethod(6)
@@ -163,12 +163,12 @@ class IBadgeUpdateManagerStatics(c_void_p):
     def CreateBadgeUpdaterForSecondaryTile(self, tileId: WinRT_String) -> Windows.UI.Notifications.BadgeUpdater: ...
     @winrt_commethod(9)
     def GetTemplateContent(self, type: Windows.UI.Notifications.BadgeTemplateType) -> Windows.Data.Xml.Dom.XmlDocument: ...
-class IBadgeUpdateManagerStatics2(c_void_p):
+class IBadgeUpdateManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('979a35ce-f940-48bf-94-e8-ca-24-4d-40-0b-41')
     @winrt_commethod(6)
     def GetForUser(self, user: Windows.System.User) -> Windows.UI.Notifications.BadgeUpdateManagerForUser: ...
-class IBadgeUpdater(c_void_p):
+class IBadgeUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b5fa1fd4-7562-4f6c-bf-a3-1b-6e-d2-e5-7f-2f')
     @winrt_commethod(6)
@@ -181,7 +181,7 @@ class IBadgeUpdater(c_void_p):
     def StartPeriodicUpdateAtTime(self, badgeContent: Windows.Foundation.Uri, startTime: Windows.Foundation.DateTime, requestedInterval: Windows.UI.Notifications.PeriodicUpdateRecurrence) -> Void: ...
     @winrt_commethod(10)
     def StopPeriodicUpdate(self) -> Void: ...
-class IKnownAdaptiveNotificationHintsStatics(c_void_p):
+class IKnownAdaptiveNotificationHintsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('06206598-d496-497d-86-92-4f-7d-7c-27-70-df')
     @winrt_commethod(6)
@@ -202,7 +202,7 @@ class IKnownAdaptiveNotificationHintsStatics(c_void_p):
     MinLines = property(get_MinLines, None)
     TextStacking = property(get_TextStacking, None)
     Align = property(get_Align, None)
-class IKnownAdaptiveNotificationTextStylesStatics(c_void_p):
+class IKnownAdaptiveNotificationTextStylesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('202192d7-8996-45aa-8b-a1-d4-61-d7-2c-2a-1b')
     @winrt_commethod(6)
@@ -262,13 +262,13 @@ class IKnownAdaptiveNotificationTextStylesStatics(c_void_p):
     SubheaderNumeralSubtle = property(get_SubheaderNumeralSubtle, None)
     HeaderSubtle = property(get_HeaderSubtle, None)
     HeaderNumeralSubtle = property(get_HeaderNumeralSubtle, None)
-class IKnownNotificationBindingsStatics(c_void_p):
+class IKnownNotificationBindingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('79427bae-a8b7-4d58-89-ea-76-a7-b7-bc-cd-ed')
     @winrt_commethod(6)
     def get_ToastGeneric(self) -> WinRT_String: ...
     ToastGeneric = property(get_ToastGeneric, None)
-class INotification(c_void_p):
+class INotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('108037fe-eb76-4f82-97-bc-da-07-53-0a-2e-20')
     @winrt_commethod(6)
@@ -281,7 +281,7 @@ class INotification(c_void_p):
     def put_Visual(self, value: Windows.UI.Notifications.NotificationVisual) -> Void: ...
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
     Visual = property(get_Visual, put_Visual)
-class INotificationBinding(c_void_p):
+class INotificationBinding(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('f29e4b85-0370-4ad3-b4-ea-da-9e-35-e7-ea-bf')
     @winrt_commethod(6)
@@ -299,7 +299,7 @@ class INotificationBinding(c_void_p):
     Template = property(get_Template, put_Template)
     Language = property(get_Language, put_Language)
     Hints = property(get_Hints, None)
-class INotificationData(c_void_p):
+class INotificationData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9ffd2312-9d6a-4aaf-b6-ac-ff-17-f0-c1-f2-80')
     @winrt_commethod(6)
@@ -310,14 +310,14 @@ class INotificationData(c_void_p):
     def put_SequenceNumber(self, value: UInt32) -> Void: ...
     Values = property(get_Values, None)
     SequenceNumber = property(get_SequenceNumber, put_SequenceNumber)
-class INotificationDataFactory(c_void_p):
+class INotificationDataFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('23c1e33a-1c10-46fb-80-40-de-c3-84-62-1c-f8')
     @winrt_commethod(6)
     def CreateNotificationDataWithValuesAndSequenceNumber(self, initialValues: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]], sequenceNumber: UInt32) -> Windows.UI.Notifications.NotificationData: ...
     @winrt_commethod(7)
     def CreateNotificationDataWithValues(self, initialValues: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]]) -> Windows.UI.Notifications.NotificationData: ...
-class INotificationVisual(c_void_p):
+class INotificationVisual(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('68835b8e-aa56-4e11-86-d3-5f-9a-69-57-bc-5b')
     @winrt_commethod(6)
@@ -330,7 +330,7 @@ class INotificationVisual(c_void_p):
     def GetBinding(self, templateName: WinRT_String) -> Windows.UI.Notifications.NotificationBinding: ...
     Language = property(get_Language, put_Language)
     Bindings = property(get_Bindings, None)
-class IScheduledTileNotification(c_void_p):
+class IScheduledTileNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0abca6d5-99dc-4c78-a1-1c-c9-e7-f8-6d-7e-f7')
     @winrt_commethod(6)
@@ -354,12 +354,12 @@ class IScheduledTileNotification(c_void_p):
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
     Tag = property(get_Tag, put_Tag)
     Id = property(get_Id, put_Id)
-class IScheduledTileNotificationFactory(c_void_p):
+class IScheduledTileNotificationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3383138a-98c0-4c3b-bb-d6-4a-63-3c-7c-fc-29')
     @winrt_commethod(6)
     def CreateScheduledTileNotification(self, content: Windows.Data.Xml.Dom.XmlDocument, deliveryTime: Windows.Foundation.DateTime) -> Windows.UI.Notifications.ScheduledTileNotification: ...
-class IScheduledToastNotification(c_void_p):
+class IScheduledToastNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('79f577f8-0de7-48cd-97-40-9b-37-04-90-c8-38')
     @winrt_commethod(6)
@@ -379,7 +379,7 @@ class IScheduledToastNotification(c_void_p):
     SnoozeInterval = property(get_SnoozeInterval, None)
     MaximumSnoozeCount = property(get_MaximumSnoozeCount, None)
     Id = property(get_Id, put_Id)
-class IScheduledToastNotification2(c_void_p):
+class IScheduledToastNotification2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a66ea09c-31b4-43b0-b5-dd-7a-40-e8-53-63-b1')
     @winrt_commethod(6)
@@ -397,7 +397,7 @@ class IScheduledToastNotification2(c_void_p):
     Tag = property(get_Tag, put_Tag)
     Group = property(get_Group, put_Group)
     SuppressPopup = property(get_SuppressPopup, put_SuppressPopup)
-class IScheduledToastNotification3(c_void_p):
+class IScheduledToastNotification3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('98429e8b-bd32-4a3b-9d-15-22-ae-a4-94-62-a1')
     @winrt_commethod(6)
@@ -410,7 +410,7 @@ class IScheduledToastNotification3(c_void_p):
     def put_RemoteId(self, value: WinRT_String) -> Void: ...
     NotificationMirroring = property(get_NotificationMirroring, put_NotificationMirroring)
     RemoteId = property(get_RemoteId, put_RemoteId)
-class IScheduledToastNotification4(c_void_p):
+class IScheduledToastNotification4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('1d4761fd-bdef-4e4a-96-be-01-01-36-9b-58-d2')
     @winrt_commethod(6)
@@ -418,14 +418,14 @@ class IScheduledToastNotification4(c_void_p):
     @winrt_commethod(7)
     def put_ExpirationTime(self, value: Windows.Foundation.IReference[Windows.Foundation.DateTime]) -> Void: ...
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
-class IScheduledToastNotificationFactory(c_void_p):
+class IScheduledToastNotificationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e7bed191-0bb9-4189-83-94-31-76-1b-47-6f-d7')
     @winrt_commethod(6)
     def CreateScheduledToastNotification(self, content: Windows.Data.Xml.Dom.XmlDocument, deliveryTime: Windows.Foundation.DateTime) -> Windows.UI.Notifications.ScheduledToastNotification: ...
     @winrt_commethod(7)
     def CreateScheduledToastNotificationRecurring(self, content: Windows.Data.Xml.Dom.XmlDocument, deliveryTime: Windows.Foundation.DateTime, snoozeInterval: Windows.Foundation.TimeSpan, maximumSnoozeCount: UInt32) -> Windows.UI.Notifications.ScheduledToastNotification: ...
-class IScheduledToastNotificationShowingEventArgs(c_void_p):
+class IScheduledToastNotificationShowingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('6173f6b4-412a-5e2c-a6-ed-a0-20-9a-ef-9a-09')
     @winrt_commethod(6)
@@ -438,13 +438,13 @@ class IScheduledToastNotificationShowingEventArgs(c_void_p):
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     Cancel = property(get_Cancel, put_Cancel)
     ScheduledToastNotification = property(get_ScheduledToastNotification, None)
-class IShownTileNotification(c_void_p):
+class IShownTileNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('342d8988-5af2-481a-a6-a3-f2-fd-c7-8d-e8-8e')
     @winrt_commethod(6)
     def get_Arguments(self) -> WinRT_String: ...
     Arguments = property(get_Arguments, None)
-class ITileFlyoutNotification(c_void_p):
+class ITileFlyoutNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9a53b261-c70c-42be-b2-f3-f4-2a-a9-7d-34-e5')
     @winrt_commethod(6)
@@ -455,12 +455,12 @@ class ITileFlyoutNotification(c_void_p):
     def get_ExpirationTime(self) -> Windows.Foundation.IReference[Windows.Foundation.DateTime]: ...
     Content = property(get_Content, None)
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
-class ITileFlyoutNotificationFactory(c_void_p):
+class ITileFlyoutNotificationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ef556ff5-5226-4f2b-b2-78-88-a3-5d-fe-56-9f')
     @winrt_commethod(6)
     def CreateTileFlyoutNotification(self, content: Windows.Data.Xml.Dom.XmlDocument) -> Windows.UI.Notifications.TileFlyoutNotification: ...
-class ITileFlyoutUpdateManagerStatics(c_void_p):
+class ITileFlyoutUpdateManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('04363b0b-1ac0-4b99-88-e7-ad-a8-3e-95-3d-48')
     @winrt_commethod(6)
@@ -471,7 +471,7 @@ class ITileFlyoutUpdateManagerStatics(c_void_p):
     def CreateTileFlyoutUpdaterForSecondaryTile(self, tileId: WinRT_String) -> Windows.UI.Notifications.TileFlyoutUpdater: ...
     @winrt_commethod(9)
     def GetTemplateContent(self, type: Windows.UI.Notifications.TileFlyoutTemplateType) -> Windows.Data.Xml.Dom.XmlDocument: ...
-class ITileFlyoutUpdater(c_void_p):
+class ITileFlyoutUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8d40c76a-c465-4052-a7-40-5c-26-54-c1-a0-89')
     @winrt_commethod(6)
@@ -487,7 +487,7 @@ class ITileFlyoutUpdater(c_void_p):
     @winrt_commethod(11)
     def get_Setting(self) -> Windows.UI.Notifications.NotificationSetting: ...
     Setting = property(get_Setting, None)
-class ITileNotification(c_void_p):
+class ITileNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ebaec8fa-50ec-4c18-b4-d0-3a-f0-2e-55-40-ab')
     @winrt_commethod(6)
@@ -503,12 +503,12 @@ class ITileNotification(c_void_p):
     Content = property(get_Content, None)
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
     Tag = property(get_Tag, put_Tag)
-class ITileNotificationFactory(c_void_p):
+class ITileNotificationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('c6abdd6e-4928-46c8-bd-bf-81-a0-47-de-a0-d4')
     @winrt_commethod(6)
     def CreateTileNotification(self, content: Windows.Data.Xml.Dom.XmlDocument) -> Windows.UI.Notifications.TileNotification: ...
-class ITileUpdateManagerForUser(c_void_p):
+class ITileUpdateManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('55141348-2ee2-4e2d-9c-c1-21-6a-20-de-cc-9f')
     @winrt_commethod(6)
@@ -520,7 +520,7 @@ class ITileUpdateManagerForUser(c_void_p):
     @winrt_commethod(9)
     def get_User(self) -> Windows.System.User: ...
     User = property(get_User, None)
-class ITileUpdateManagerStatics(c_void_p):
+class ITileUpdateManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('da159e5d-3ea9-4986-8d-84-b0-9d-5e-12-27-6d')
     @winrt_commethod(6)
@@ -531,12 +531,12 @@ class ITileUpdateManagerStatics(c_void_p):
     def CreateTileUpdaterForSecondaryTile(self, tileId: WinRT_String) -> Windows.UI.Notifications.TileUpdater: ...
     @winrt_commethod(9)
     def GetTemplateContent(self, type: Windows.UI.Notifications.TileTemplateType) -> Windows.Data.Xml.Dom.XmlDocument: ...
-class ITileUpdateManagerStatics2(c_void_p):
+class ITileUpdateManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('731c1ddc-8e14-4b7c-a3-4b-9d-22-de-76-c8-4d')
     @winrt_commethod(6)
     def GetForUser(self, user: Windows.System.User) -> Windows.UI.Notifications.TileUpdateManagerForUser: ...
-class ITileUpdater(c_void_p):
+class ITileUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0942a48b-1d91-44ec-92-43-c1-e8-21-c2-9a-20')
     @winrt_commethod(6)
@@ -564,7 +564,7 @@ class ITileUpdater(c_void_p):
     @winrt_commethod(17)
     def StartPeriodicUpdateBatchAtTime(self, tileContents: Windows.Foundation.Collections.IIterable[Windows.Foundation.Uri], startTime: Windows.Foundation.DateTime, requestedInterval: Windows.UI.Notifications.PeriodicUpdateRecurrence) -> Void: ...
     Setting = property(get_Setting, None)
-class ITileUpdater2(c_void_p):
+class ITileUpdater2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('a2266e12-15ee-43ed-83-f5-65-b3-52-bb-1a-84')
     @winrt_commethod(6)
@@ -573,19 +573,19 @@ class ITileUpdater2(c_void_p):
     def EnableNotificationQueueForWide310x150(self, enable: Boolean) -> Void: ...
     @winrt_commethod(8)
     def EnableNotificationQueueForSquare310x310(self, enable: Boolean) -> Void: ...
-class IToastActivatedEventArgs(c_void_p):
+class IToastActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('e3bf92f3-c197-436f-82-65-06-25-82-4f-8d-ac')
     @winrt_commethod(6)
     def get_Arguments(self) -> WinRT_String: ...
     Arguments = property(get_Arguments, None)
-class IToastActivatedEventArgs2(c_void_p):
+class IToastActivatedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ab7da512-cc61-568e-81-be-30-4a-c3-10-38-fa')
     @winrt_commethod(6)
     def get_UserInput(self) -> Windows.Foundation.Collections.ValueSet: ...
     UserInput = property(get_UserInput, None)
-class IToastCollection(c_void_p):
+class IToastCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0a8bc3b0-e0be-4858-bc-2a-89-df-e0-b3-28-63')
     @winrt_commethod(6)
@@ -606,12 +606,12 @@ class IToastCollection(c_void_p):
     DisplayName = property(get_DisplayName, put_DisplayName)
     LaunchArgs = property(get_LaunchArgs, put_LaunchArgs)
     Icon = property(get_Icon, put_Icon)
-class IToastCollectionFactory(c_void_p):
+class IToastCollectionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('164dd3d7-73c4-44f7-b4-ff-fb-6d-4b-f1-f4-c6')
     @winrt_commethod(6)
     def CreateInstance(self, collectionId: WinRT_String, displayName: WinRT_String, launchArgs: WinRT_String, iconUri: Windows.Foundation.Uri) -> Windows.UI.Notifications.ToastCollection: ...
-class IToastCollectionManager(c_void_p):
+class IToastCollectionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('2a1821fe-179d-49bc-b7-9d-a5-27-92-0d-36-65')
     @winrt_commethod(6)
@@ -630,19 +630,19 @@ class IToastCollectionManager(c_void_p):
     def get_AppId(self) -> WinRT_String: ...
     User = property(get_User, None)
     AppId = property(get_AppId, None)
-class IToastDismissedEventArgs(c_void_p):
+class IToastDismissedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3f89d935-d9cb-4538-a0-f0-ff-e7-65-99-38-f8')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.UI.Notifications.ToastDismissalReason: ...
     Reason = property(get_Reason, None)
-class IToastFailedEventArgs(c_void_p):
+class IToastFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('35176862-cfd4-44f8-ad-64-f5-00-fd-89-6c-3b')
     @winrt_commethod(6)
     def get_ErrorCode(self) -> Windows.Foundation.HResult: ...
     ErrorCode = property(get_ErrorCode, None)
-class IToastNotification(c_void_p):
+class IToastNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('997e2675-059e-4e60-8b-06-17-60-91-7c-8b-80')
     @winrt_commethod(6)
@@ -665,7 +665,7 @@ class IToastNotification(c_void_p):
     def remove_Failed(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     Content = property(get_Content, None)
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
-class IToastNotification2(c_void_p):
+class IToastNotification2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9dfb9fd1-143a-490e-90-bf-b9-fb-a7-13-2d-e7')
     @winrt_commethod(6)
@@ -683,7 +683,7 @@ class IToastNotification2(c_void_p):
     Tag = property(get_Tag, put_Tag)
     Group = property(get_Group, put_Group)
     SuppressPopup = property(get_SuppressPopup, put_SuppressPopup)
-class IToastNotification3(c_void_p):
+class IToastNotification3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('31e8aed8-8141-4f99-bc-0a-c4-ed-21-29-7d-77')
     @winrt_commethod(6)
@@ -696,7 +696,7 @@ class IToastNotification3(c_void_p):
     def put_RemoteId(self, value: WinRT_String) -> Void: ...
     NotificationMirroring = property(get_NotificationMirroring, put_NotificationMirroring)
     RemoteId = property(get_RemoteId, put_RemoteId)
-class IToastNotification4(c_void_p):
+class IToastNotification4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('15154935-28ea-4727-88-e9-c5-86-80-e2-d1-18')
     @winrt_commethod(6)
@@ -709,7 +709,7 @@ class IToastNotification4(c_void_p):
     def put_Priority(self, value: Windows.UI.Notifications.ToastNotificationPriority) -> Void: ...
     Data = property(get_Data, put_Data)
     Priority = property(get_Priority, put_Priority)
-class IToastNotification6(c_void_p):
+class IToastNotification6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('43ebfe53-89ae-5c1e-a2-79-3a-ec-fe-9b-6f-54')
     @winrt_commethod(6)
@@ -717,7 +717,7 @@ class IToastNotification6(c_void_p):
     @winrt_commethod(7)
     def put_ExpiresOnReboot(self, value: Boolean) -> Void: ...
     ExpiresOnReboot = property(get_ExpiresOnReboot, put_ExpiresOnReboot)
-class IToastNotificationActionTriggerDetail(c_void_p):
+class IToastNotificationActionTriggerDetail(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('9445135a-38f3-42f6-96-aa-79-55-b0-f0-3d-a2')
     @winrt_commethod(6)
@@ -726,12 +726,12 @@ class IToastNotificationActionTriggerDetail(c_void_p):
     def get_UserInput(self) -> Windows.Foundation.Collections.ValueSet: ...
     Argument = property(get_Argument, None)
     UserInput = property(get_UserInput, None)
-class IToastNotificationFactory(c_void_p):
+class IToastNotificationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('04124b20-82c6-4229-b1-09-fd-9e-d4-66-2b-53')
     @winrt_commethod(6)
     def CreateToastNotification(self, content: Windows.Data.Xml.Dom.XmlDocument) -> Windows.UI.Notifications.ToastNotification: ...
-class IToastNotificationHistory(c_void_p):
+class IToastNotificationHistory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('5caddc63-01d3-4c97-98-6f-05-33-48-3f-ee-14')
     @winrt_commethod(6)
@@ -748,26 +748,26 @@ class IToastNotificationHistory(c_void_p):
     def Clear(self) -> Void: ...
     @winrt_commethod(12)
     def ClearWithId(self, applicationId: WinRT_String) -> Void: ...
-class IToastNotificationHistory2(c_void_p):
+class IToastNotificationHistory2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3bc3d253-2f31-4092-91-29-8a-d5-ab-f0-67-da')
     @winrt_commethod(6)
     def GetHistory(self) -> Windows.Foundation.Collections.IVectorView[Windows.UI.Notifications.ToastNotification]: ...
     @winrt_commethod(7)
     def GetHistoryWithId(self, applicationId: WinRT_String) -> Windows.Foundation.Collections.IVectorView[Windows.UI.Notifications.ToastNotification]: ...
-class IToastNotificationHistoryChangedTriggerDetail(c_void_p):
+class IToastNotificationHistoryChangedTriggerDetail(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('db037ffa-0068-412c-9c-83-26-7c-37-f6-56-70')
     @winrt_commethod(6)
     def get_ChangeType(self) -> Windows.UI.Notifications.ToastHistoryChangedType: ...
     ChangeType = property(get_ChangeType, None)
-class IToastNotificationHistoryChangedTriggerDetail2(c_void_p):
+class IToastNotificationHistoryChangedTriggerDetail2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('0b36e982-c871-49fb-ba-bb-25-bd-bc-4c-c4-5b')
     @winrt_commethod(6)
     def get_CollectionId(self) -> WinRT_String: ...
     CollectionId = property(get_CollectionId, None)
-class IToastNotificationManagerForUser(c_void_p):
+class IToastNotificationManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('79ab57f6-43fe-487b-8a-7f-99-56-72-00-ae-94')
     @winrt_commethod(6)
@@ -780,7 +780,7 @@ class IToastNotificationManagerForUser(c_void_p):
     def get_User(self) -> Windows.System.User: ...
     History = property(get_History, None)
     User = property(get_User, None)
-class IToastNotificationManagerForUser2(c_void_p):
+class IToastNotificationManagerForUser2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('679c64b7-81ab-42c2-88-19-c9-58-76-77-53-f4')
     @winrt_commethod(6)
@@ -791,7 +791,7 @@ class IToastNotificationManagerForUser2(c_void_p):
     def GetToastCollectionManager(self) -> Windows.UI.Notifications.ToastCollectionManager: ...
     @winrt_commethod(9)
     def GetToastCollectionManagerWithAppId(self, appId: WinRT_String) -> Windows.UI.Notifications.ToastCollectionManager: ...
-class IToastNotificationManagerForUser3(c_void_p):
+class IToastNotificationManagerForUser3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('3efcb176-6cc1-56dc-97-3b-25-1f-7a-ac-b1-c5')
     @winrt_commethod(6)
@@ -801,7 +801,7 @@ class IToastNotificationManagerForUser3(c_void_p):
     @winrt_commethod(8)
     def remove_NotificationModeChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     NotificationMode = property(get_NotificationMode, None)
-class IToastNotificationManagerStatics(c_void_p):
+class IToastNotificationManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('50ac103f-d235-4598-bb-ef-98-fe-4d-1a-3a-d4')
     @winrt_commethod(6)
@@ -810,25 +810,25 @@ class IToastNotificationManagerStatics(c_void_p):
     def CreateToastNotifierWithId(self, applicationId: WinRT_String) -> Windows.UI.Notifications.ToastNotifier: ...
     @winrt_commethod(8)
     def GetTemplateContent(self, type: Windows.UI.Notifications.ToastTemplateType) -> Windows.Data.Xml.Dom.XmlDocument: ...
-class IToastNotificationManagerStatics2(c_void_p):
+class IToastNotificationManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('7ab93c52-0e48-4750-ba-9d-1a-41-13-98-18-47')
     @winrt_commethod(6)
     def get_History(self) -> Windows.UI.Notifications.ToastNotificationHistory: ...
     History = property(get_History, None)
-class IToastNotificationManagerStatics4(c_void_p):
+class IToastNotificationManagerStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('8f993fd3-e516-45fb-81-30-39-8e-93-fa-52-c3')
     @winrt_commethod(6)
     def GetForUser(self, user: Windows.System.User) -> Windows.UI.Notifications.ToastNotificationManagerForUser: ...
     @winrt_commethod(7)
     def ConfigureNotificationMirroring(self, value: Windows.UI.Notifications.NotificationMirroring) -> Void: ...
-class IToastNotificationManagerStatics5(c_void_p):
+class IToastNotificationManagerStatics5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('d6f5f569-d40d-407c-89-89-88-ca-b4-2c-fd-14')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.UI.Notifications.ToastNotificationManagerForUser: ...
-class IToastNotifier(c_void_p):
+class IToastNotifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('75927b93-03f3-41ec-91-d3-6e-5b-ac-1b-38-e7')
     @winrt_commethod(6)
@@ -844,21 +844,21 @@ class IToastNotifier(c_void_p):
     @winrt_commethod(11)
     def GetScheduledToastNotifications(self) -> Windows.Foundation.Collections.IVectorView[Windows.UI.Notifications.ScheduledToastNotification]: ...
     Setting = property(get_Setting, None)
-class IToastNotifier2(c_void_p):
+class IToastNotifier2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('354389c6-7c01-4bd5-9c-20-60-43-40-cd-2b-74')
     @winrt_commethod(6)
     def UpdateWithTagAndGroup(self, data: Windows.UI.Notifications.NotificationData, tag: WinRT_String, group: WinRT_String) -> Windows.UI.Notifications.NotificationUpdateResult: ...
     @winrt_commethod(7)
     def UpdateWithTag(self, data: Windows.UI.Notifications.NotificationData, tag: WinRT_String) -> Windows.UI.Notifications.NotificationUpdateResult: ...
-class IToastNotifier3(c_void_p):
+class IToastNotifier3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('ae75a04a-3b0c-51ad-b7-e8-b0-8a-b6-05-25-49')
     @winrt_commethod(6)
     def add_ScheduledToastNotificationShowing(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Notifications.ToastNotifier, Windows.UI.Notifications.ScheduledToastNotificationShowingEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ScheduledToastNotificationShowing(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
-class IUserNotification(c_void_p):
+class IUserNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('adf7e52f-4e53-42d5-9c-33-eb-5e-a5-15-b2-3e')
     @winrt_commethod(6)
@@ -873,7 +873,7 @@ class IUserNotification(c_void_p):
     AppInfo = property(get_AppInfo, None)
     Id = property(get_Id, None)
     CreationTime = property(get_CreationTime, None)
-class IUserNotificationChangedEventArgs(c_void_p):
+class IUserNotificationChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     Guid = Guid('b6bd6839-79cf-4b25-82-c0-0c-e1-ee-f8-1f-8c')
     @winrt_commethod(6)
@@ -882,7 +882,7 @@ class IUserNotificationChangedEventArgs(c_void_p):
     def get_UserNotificationId(self) -> UInt32: ...
     ChangeKind = property(get_ChangeKind, None)
     UserNotificationId = property(get_UserNotificationId, None)
-class KnownAdaptiveNotificationHints(c_void_p):
+class KnownAdaptiveNotificationHints(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.KnownAdaptiveNotificationHints'
     @winrt_classmethod
@@ -903,7 +903,7 @@ class KnownAdaptiveNotificationHints(c_void_p):
     MinLines = property(get_MinLines, None)
     TextStacking = property(get_TextStacking, None)
     Align = property(get_Align, None)
-class KnownAdaptiveNotificationTextStyles(c_void_p):
+class KnownAdaptiveNotificationTextStyles(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.KnownAdaptiveNotificationTextStyles'
     @winrt_classmethod
@@ -963,13 +963,13 @@ class KnownAdaptiveNotificationTextStyles(c_void_p):
     SubheaderNumeralSubtle = property(get_SubheaderNumeralSubtle, None)
     HeaderSubtle = property(get_HeaderSubtle, None)
     HeaderNumeralSubtle = property(get_HeaderNumeralSubtle, None)
-class KnownNotificationBindings(c_void_p):
+class KnownNotificationBindings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.KnownNotificationBindings'
     @winrt_classmethod
     def get_ToastGeneric(cls: Windows.UI.Notifications.IKnownNotificationBindingsStatics) -> WinRT_String: ...
     ToastGeneric = property(get_ToastGeneric, None)
-class Notification(c_void_p):
+class Notification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.Notification'
     @winrt_activatemethod
@@ -984,7 +984,7 @@ class Notification(c_void_p):
     def put_Visual(self: Windows.UI.Notifications.INotification, value: Windows.UI.Notifications.NotificationVisual) -> Void: ...
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
     Visual = property(get_Visual, put_Visual)
-class NotificationBinding(c_void_p):
+class NotificationBinding(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.NotificationBinding'
     @winrt_mixinmethod
@@ -1002,7 +1002,7 @@ class NotificationBinding(c_void_p):
     Template = property(get_Template, put_Template)
     Language = property(get_Language, put_Language)
     Hints = property(get_Hints, None)
-class NotificationData(c_void_p):
+class NotificationData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.NotificationData'
     @winrt_factorymethod
@@ -1035,7 +1035,7 @@ NotificationUpdateResult = Int32
 NotificationUpdateResult_Succeeded: NotificationUpdateResult = 0
 NotificationUpdateResult_Failed: NotificationUpdateResult = 1
 NotificationUpdateResult_NotificationNotFound: NotificationUpdateResult = 2
-class NotificationVisual(c_void_p):
+class NotificationVisual(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.NotificationVisual'
     @winrt_mixinmethod
@@ -1054,7 +1054,7 @@ PeriodicUpdateRecurrence_Hour: PeriodicUpdateRecurrence = 1
 PeriodicUpdateRecurrence_SixHours: PeriodicUpdateRecurrence = 2
 PeriodicUpdateRecurrence_TwelveHours: PeriodicUpdateRecurrence = 3
 PeriodicUpdateRecurrence_Daily: PeriodicUpdateRecurrence = 4
-class ScheduledTileNotification(c_void_p):
+class ScheduledTileNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.ScheduledTileNotification'
     @winrt_factorymethod
@@ -1080,7 +1080,7 @@ class ScheduledTileNotification(c_void_p):
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
     Tag = property(get_Tag, put_Tag)
     Id = property(get_Id, put_Id)
-class ScheduledToastNotification(c_void_p):
+class ScheduledToastNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.ScheduledToastNotification'
     @winrt_factorymethod
@@ -1134,7 +1134,7 @@ class ScheduledToastNotification(c_void_p):
     NotificationMirroring = property(get_NotificationMirroring, put_NotificationMirroring)
     RemoteId = property(get_RemoteId, put_RemoteId)
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
-class ScheduledToastNotificationShowingEventArgs(c_void_p):
+class ScheduledToastNotificationShowingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.ScheduledToastNotificationShowingEventArgs'
     @winrt_mixinmethod
@@ -1147,13 +1147,13 @@ class ScheduledToastNotificationShowingEventArgs(c_void_p):
     def GetDeferral(self: Windows.UI.Notifications.IScheduledToastNotificationShowingEventArgs) -> Windows.Foundation.Deferral: ...
     Cancel = property(get_Cancel, put_Cancel)
     ScheduledToastNotification = property(get_ScheduledToastNotification, None)
-class ShownTileNotification(c_void_p):
+class ShownTileNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.ShownTileNotification'
     @winrt_mixinmethod
     def get_Arguments(self: Windows.UI.Notifications.IShownTileNotification) -> WinRT_String: ...
     Arguments = property(get_Arguments, None)
-class TileFlyoutNotification(c_void_p):
+class TileFlyoutNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.TileFlyoutNotification'
     @winrt_factorymethod
@@ -1168,7 +1168,7 @@ class TileFlyoutNotification(c_void_p):
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
 TileFlyoutTemplateType = Int32
 TileFlyoutTemplateType_TileFlyoutTemplate01: TileFlyoutTemplateType = 0
-class TileFlyoutUpdateManager(c_void_p):
+class TileFlyoutUpdateManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.TileFlyoutUpdateManager'
     @winrt_classmethod
@@ -1179,7 +1179,7 @@ class TileFlyoutUpdateManager(c_void_p):
     def CreateTileFlyoutUpdaterForSecondaryTile(cls: Windows.UI.Notifications.ITileFlyoutUpdateManagerStatics, tileId: WinRT_String) -> Windows.UI.Notifications.TileFlyoutUpdater: ...
     @winrt_classmethod
     def GetTemplateContent(cls: Windows.UI.Notifications.ITileFlyoutUpdateManagerStatics, type: Windows.UI.Notifications.TileFlyoutTemplateType) -> Windows.Data.Xml.Dom.XmlDocument: ...
-class TileFlyoutUpdater(c_void_p):
+class TileFlyoutUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.TileFlyoutUpdater'
     @winrt_mixinmethod
@@ -1195,7 +1195,7 @@ class TileFlyoutUpdater(c_void_p):
     @winrt_mixinmethod
     def get_Setting(self: Windows.UI.Notifications.ITileFlyoutUpdater) -> Windows.UI.Notifications.NotificationSetting: ...
     Setting = property(get_Setting, None)
-class TileNotification(c_void_p):
+class TileNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.TileNotification'
     @winrt_factorymethod
@@ -1340,7 +1340,7 @@ TileTemplateType_TileSquare150x150IconWithBadge: TileTemplateType = 76
 TileTemplateType_TileWide310x150IconWithBadgeAndText: TileTemplateType = 77
 TileTemplateType_TileSquare71x71Image: TileTemplateType = 78
 TileTemplateType_TileTall150x310Image: TileTemplateType = 79
-class TileUpdateManager(c_void_p):
+class TileUpdateManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.TileUpdateManager'
     @winrt_classmethod
@@ -1353,7 +1353,7 @@ class TileUpdateManager(c_void_p):
     def CreateTileUpdaterForSecondaryTile(cls: Windows.UI.Notifications.ITileUpdateManagerStatics, tileId: WinRT_String) -> Windows.UI.Notifications.TileUpdater: ...
     @winrt_classmethod
     def GetTemplateContent(cls: Windows.UI.Notifications.ITileUpdateManagerStatics, type: Windows.UI.Notifications.TileTemplateType) -> Windows.Data.Xml.Dom.XmlDocument: ...
-class TileUpdateManagerForUser(c_void_p):
+class TileUpdateManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.TileUpdateManagerForUser'
     @winrt_mixinmethod
@@ -1365,7 +1365,7 @@ class TileUpdateManagerForUser(c_void_p):
     @winrt_mixinmethod
     def get_User(self: Windows.UI.Notifications.ITileUpdateManagerForUser) -> Windows.System.User: ...
     User = property(get_User, None)
-class TileUpdater(c_void_p):
+class TileUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.TileUpdater'
     @winrt_mixinmethod
@@ -1399,7 +1399,7 @@ class TileUpdater(c_void_p):
     @winrt_mixinmethod
     def EnableNotificationQueueForSquare310x310(self: Windows.UI.Notifications.ITileUpdater2, enable: Boolean) -> Void: ...
     Setting = property(get_Setting, None)
-class ToastActivatedEventArgs(c_void_p):
+class ToastActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.ToastActivatedEventArgs'
     @winrt_mixinmethod
@@ -1408,7 +1408,7 @@ class ToastActivatedEventArgs(c_void_p):
     def get_UserInput(self: Windows.UI.Notifications.IToastActivatedEventArgs2) -> Windows.Foundation.Collections.ValueSet: ...
     Arguments = property(get_Arguments, None)
     UserInput = property(get_UserInput, None)
-class ToastCollection(c_void_p):
+class ToastCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.ToastCollection'
     @winrt_factorymethod
@@ -1431,7 +1431,7 @@ class ToastCollection(c_void_p):
     DisplayName = property(get_DisplayName, put_DisplayName)
     LaunchArgs = property(get_LaunchArgs, put_LaunchArgs)
     Icon = property(get_Icon, put_Icon)
-class ToastCollectionManager(c_void_p):
+class ToastCollectionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.ToastCollectionManager'
     @winrt_mixinmethod
@@ -1454,13 +1454,13 @@ ToastDismissalReason = Int32
 ToastDismissalReason_UserCanceled: ToastDismissalReason = 0
 ToastDismissalReason_ApplicationHidden: ToastDismissalReason = 1
 ToastDismissalReason_TimedOut: ToastDismissalReason = 2
-class ToastDismissedEventArgs(c_void_p):
+class ToastDismissedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.ToastDismissedEventArgs'
     @winrt_mixinmethod
     def get_Reason(self: Windows.UI.Notifications.IToastDismissedEventArgs) -> Windows.UI.Notifications.ToastDismissalReason: ...
     Reason = property(get_Reason, None)
-class ToastFailedEventArgs(c_void_p):
+class ToastFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.ToastFailedEventArgs'
     @winrt_mixinmethod
@@ -1471,7 +1471,7 @@ ToastHistoryChangedType_Cleared: ToastHistoryChangedType = 0
 ToastHistoryChangedType_Removed: ToastHistoryChangedType = 1
 ToastHistoryChangedType_Expired: ToastHistoryChangedType = 2
 ToastHistoryChangedType_Added: ToastHistoryChangedType = 3
-class ToastNotification(c_void_p):
+class ToastNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.ToastNotification'
     @winrt_factorymethod
@@ -1536,7 +1536,7 @@ class ToastNotification(c_void_p):
     Data = property(get_Data, put_Data)
     Priority = property(get_Priority, put_Priority)
     ExpiresOnReboot = property(get_ExpiresOnReboot, put_ExpiresOnReboot)
-class ToastNotificationActionTriggerDetail(c_void_p):
+class ToastNotificationActionTriggerDetail(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.ToastNotificationActionTriggerDetail'
     @winrt_mixinmethod
@@ -1545,7 +1545,7 @@ class ToastNotificationActionTriggerDetail(c_void_p):
     def get_UserInput(self: Windows.UI.Notifications.IToastNotificationActionTriggerDetail) -> Windows.Foundation.Collections.ValueSet: ...
     Argument = property(get_Argument, None)
     UserInput = property(get_UserInput, None)
-class ToastNotificationHistory(c_void_p):
+class ToastNotificationHistory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.ToastNotificationHistory'
     @winrt_mixinmethod
@@ -1566,7 +1566,7 @@ class ToastNotificationHistory(c_void_p):
     def Clear(self: Windows.UI.Notifications.IToastNotificationHistory) -> Void: ...
     @winrt_mixinmethod
     def ClearWithId(self: Windows.UI.Notifications.IToastNotificationHistory, applicationId: WinRT_String) -> Void: ...
-class ToastNotificationHistoryChangedTriggerDetail(c_void_p):
+class ToastNotificationHistoryChangedTriggerDetail(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.ToastNotificationHistoryChangedTriggerDetail'
     @winrt_mixinmethod
@@ -1575,7 +1575,7 @@ class ToastNotificationHistoryChangedTriggerDetail(c_void_p):
     def get_CollectionId(self: Windows.UI.Notifications.IToastNotificationHistoryChangedTriggerDetail2) -> WinRT_String: ...
     ChangeType = property(get_ChangeType, None)
     CollectionId = property(get_CollectionId, None)
-class ToastNotificationManager(c_void_p):
+class ToastNotificationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.ToastNotificationManager'
     @winrt_classmethod
@@ -1593,7 +1593,7 @@ class ToastNotificationManager(c_void_p):
     @winrt_classmethod
     def GetTemplateContent(cls: Windows.UI.Notifications.IToastNotificationManagerStatics, type: Windows.UI.Notifications.ToastTemplateType) -> Windows.Data.Xml.Dom.XmlDocument: ...
     History = property(get_History, None)
-class ToastNotificationManagerForUser(c_void_p):
+class ToastNotificationManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.ToastNotificationManagerForUser'
     @winrt_mixinmethod
@@ -1628,7 +1628,7 @@ ToastNotificationMode_AlarmsOnly: ToastNotificationMode = 2
 ToastNotificationPriority = Int32
 ToastNotificationPriority_Default: ToastNotificationPriority = 0
 ToastNotificationPriority_High: ToastNotificationPriority = 1
-class ToastNotifier(c_void_p):
+class ToastNotifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.ToastNotifier'
     @winrt_mixinmethod
@@ -1661,7 +1661,7 @@ ToastTemplateType_ToastText01: ToastTemplateType = 4
 ToastTemplateType_ToastText02: ToastTemplateType = 5
 ToastTemplateType_ToastText03: ToastTemplateType = 6
 ToastTemplateType_ToastText04: ToastTemplateType = 7
-class UserNotification(c_void_p):
+class UserNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.UserNotification'
     @winrt_mixinmethod
@@ -1676,7 +1676,7 @@ class UserNotification(c_void_p):
     AppInfo = property(get_AppInfo, None)
     Id = property(get_Id, None)
     CreationTime = property(get_CreationTime, None)
-class UserNotificationChangedEventArgs(c_void_p):
+class UserNotificationChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.Notifications.UserNotificationChangedEventArgs'
     @winrt_mixinmethod
