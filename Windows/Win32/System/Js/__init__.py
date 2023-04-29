@@ -2,9 +2,9 @@ from __future__ import annotations
 from ctypes import c_void_p, c_char_p, c_wchar_p, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll
 from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr, Single, Double, String, Boolean, Void, Guid, SUCCEEDED, FAILED, cfunctype, winfunctype, commethod, cfunctype_pointer, winfunctype_pointer, press, make_head, EasyCastStructure, EasyCastUnion
 import Windows.Win32.Foundation
-import Windows.Win32.System.Com
 import Windows.Win32.System.Diagnostics.Debug.ActiveScript
 import Windows.Win32.System.Js
+import Windows.Win32.System.Variant
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
@@ -102,9 +102,9 @@ def JsStringToPointer(value: c_void_p, stringValue: POINTER(POINTER(UInt16)), st
 @winfunctype('chakra.dll')
 def JsConvertValueToString(value: c_void_p, stringValue: POINTER(c_void_p)) -> Windows.Win32.System.Js.JsErrorCode: ...
 @winfunctype('chakra.dll')
-def JsVariantToValue(variant: POINTER(Windows.Win32.System.Com.VARIANT_head), value: POINTER(c_void_p)) -> Windows.Win32.System.Js.JsErrorCode: ...
+def JsVariantToValue(variant: POINTER(Windows.Win32.System.Variant.VARIANT_head), value: POINTER(c_void_p)) -> Windows.Win32.System.Js.JsErrorCode: ...
 @winfunctype('chakra.dll')
-def JsValueToVariant(object: c_void_p, variant: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.System.Js.JsErrorCode: ...
+def JsValueToVariant(object: c_void_p, variant: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.System.Js.JsErrorCode: ...
 @winfunctype('chakra.dll')
 def JsGetGlobalObject(globalObject: POINTER(c_void_p)) -> Windows.Win32.System.Js.JsErrorCode: ...
 @winfunctype('chakra.dll')

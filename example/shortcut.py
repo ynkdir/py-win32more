@@ -16,9 +16,7 @@ if FAILED(hr):
     raise WinError(hr)
 
 shell_link = IShellLinkW()
-hr = CoCreateInstance(
-    ShellLink, None, CLSCTX_INPROC_SERVER, IShellLinkW.Guid, shell_link
-)
+hr = CoCreateInstance(ShellLink, None, CLSCTX_INPROC_SERVER, IShellLinkW.Guid, shell_link)
 if FAILED(hr):
     raise WinError(hr)
 

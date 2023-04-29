@@ -6,6 +6,7 @@ import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.System.Com
 import Windows.Win32.System.Com.StructuredStorage
+import Windows.Win32.System.Variant
 import Windows.Win32.UI.WindowsAndMessaging
 import sys
 _module = sys.modules[__name__]
@@ -1947,7 +1948,7 @@ class WIA_PROPERTY_CONTEXT(EasyCastStructure):
     pChanged: POINTER(Windows.Win32.Foundation.BOOL)
 class WIA_PROPERTY_INFO(EasyCastStructure):
     lAccessFlags: UInt32
-    vt: Windows.Win32.System.Com.VARENUM
+    vt: Windows.Win32.System.Variant.VARENUM
     ValidVal: _ValidVal_e__Union
     class _ValidVal_e__Union(EasyCastUnion):
         Range: _Range_e__Struct

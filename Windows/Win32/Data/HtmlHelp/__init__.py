@@ -5,6 +5,7 @@ import Windows.Win32.Data.HtmlHelp
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.Search
+import Windows.Win32.System.Variant
 import Windows.Win32.UI.Controls
 import sys
 _module = sys.modules[__name__]
@@ -314,7 +315,7 @@ class HH_FTS_QUERY(EasyCastStructure):
     pszWindow: POINTER(SByte)
 class HH_GLOBAL_PROPERTY(EasyCastStructure):
     id: Windows.Win32.Data.HtmlHelp.HH_GPROPID
-    var: Windows.Win32.System.Com.VARIANT
+    var: Windows.Win32.System.Variant.VARIANT
 HH_GPROPID = Int32
 HH_GPROPID_SINGLETHREAD: HH_GPROPID = 1
 HH_GPROPID_TOOLBAR_MARGIN: HH_GPROPID = 2
@@ -422,8 +423,6 @@ class IITDatabase(c_void_p):
     def GetObject(self, dwObjInstance: UInt32, riid: POINTER(Guid), ppvObj: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetObjectPersistence(self, lpwszObject: Windows.Win32.Foundation.PWSTR, dwObjInstance: UInt32, ppvPersistence: POINTER(c_void_p), fStream: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
-class IITGroup(EasyCastStructure):
-    pass
 class IITPropList(c_void_p):
     extends: Windows.Win32.System.Com.IPersistStreamInit
     Guid = Guid('1f403bb1-9997-11d0-a8-50-00-aa-00-6c-7d-01')
@@ -463,8 +462,6 @@ class IITPropList(c_void_p):
     def LoadFromMem(self, lpvData: c_void_p, dwBufSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def SaveToMem(self, lpvData: c_void_p, dwBufSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-class IITQuery(EasyCastStructure):
-    pass
 class IITResultSet(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('3bb91d41-998b-11d0-a8-50-00-aa-00-6c-7d-01')
@@ -528,37 +525,6 @@ class IITResultSet(c_void_p):
     def GetRowStatus(self, lRowFirst: Int32, cRows: Int32, lpRowStatus: POINTER(Windows.Win32.Data.HtmlHelp.ROWSTATUS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(32)
     def GetColumnStatus(self, lpColStatus: POINTER(Windows.Win32.Data.HtmlHelp.COLUMNSTATUS_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IITStopWordList(EasyCastStructure):
-    pass
-class IITWordWheel(c_void_p):
-    extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8fa0d5a4-dedf-11d0-9a-61-00-c0-4f-b6-8b-f7')
-    @commethod(3)
-    def Open(self, lpITDB: Windows.Win32.Data.HtmlHelp.IITDatabase_head, lpszMoniker: Windows.Win32.Foundation.PWSTR, dwFlags: Windows.Win32.Data.HtmlHelp.WORD_WHEEL_OPEN_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(4)
-    def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(5)
-    def GetLocaleInfo(self, pdwCodePageID: POINTER(UInt32), plcid: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(6)
-    def GetSorterInstance(self, pdwObjInstance: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(7)
-    def Count(self, pcEntries: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(8)
-    def Lookup(self, lpcvPrefix: c_void_p, fExactMatch: Windows.Win32.Foundation.BOOL, plEntry: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(9)
-    def Lookup(self, lEntry: Int32, lpITResult: Windows.Win32.Data.HtmlHelp.IITResultSet_head, cEntries: Int32) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(10)
-    def Lookup(self, lEntry: Int32, lpvKeyBuf: c_void_p, cbKeyBuf: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(11)
-    def SetGroup(self, piitGroup: POINTER(Windows.Win32.Data.HtmlHelp.IITGroup_head)) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(12)
-    def GetGroup(self, ppiitGroup: POINTER(POINTER(Windows.Win32.Data.HtmlHelp.IITGroup_head))) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(13)
-    def GetDataCount(self, lEntry: Int32, pdwCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(14)
-    def GetData(self, lEntry: Int32, lpITResult: Windows.Win32.Data.HtmlHelp.IITResultSet_head) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(15)
-    def GetDataColumns(self, pRS: Windows.Win32.Data.HtmlHelp.IITResultSet_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IStemSink(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('fe77c330-7f42-11ce-be-57-00-aa-00-51-fe-20')
@@ -611,8 +577,6 @@ class ROWSTATUS(EasyCastStructure):
     cRows: Int32
     cProperties: Int32
     cRowsTotal: Int32
-WORD_WHEEL_OPEN_FLAGS = UInt32
-ITWW_OPEN_CONNECT: WORD_WHEEL_OPEN_FLAGS = 0
 make_head(_module, 'COLUMNSTATUS')
 make_head(_module, 'CProperty')
 make_head(_module, 'HHNTRACK')
@@ -626,12 +590,8 @@ make_head(_module, 'HH_POPUP')
 make_head(_module, 'HH_SET_INFOTYPE')
 make_head(_module, 'HH_WINTYPE')
 make_head(_module, 'IITDatabase')
-make_head(_module, 'IITGroup')
 make_head(_module, 'IITPropList')
-make_head(_module, 'IITQuery')
 make_head(_module, 'IITResultSet')
-make_head(_module, 'IITStopWordList')
-make_head(_module, 'IITWordWheel')
 make_head(_module, 'IStemSink')
 make_head(_module, 'IStemmerConfig')
 make_head(_module, 'IWordBreakerConfig')

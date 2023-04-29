@@ -1102,8 +1102,6 @@ class DHCP_CLIENT_INFO_VQ(EasyCastStructure):
     Status: Windows.Win32.NetworkManagement.Dhcp.QuarantineStatus
     ProbationEnds: Windows.Win32.NetworkManagement.Dhcp.DATE_TIME
     QuarantineCapable: Windows.Win32.Foundation.BOOL
-class DHCP_CLIENT_SEARCH_UNION(EasyCastUnion):
-    pass
 DHCP_FAILOVER_MODE = Int32
 DHCP_FAILOVER_MODE_LoadBalance: DHCP_FAILOVER_MODE = 0
 DHCP_FAILOVER_MODE_HotStandby: DHCP_FAILOVER_MODE = 1
@@ -1298,8 +1296,6 @@ DHCP_OPTION_DATA_TYPE_DhcpStringDataOption: DHCP_OPTION_DATA_TYPE = 5
 DHCP_OPTION_DATA_TYPE_DhcpBinaryDataOption: DHCP_OPTION_DATA_TYPE = 6
 DHCP_OPTION_DATA_TYPE_DhcpEncapsulatedDataOption: DHCP_OPTION_DATA_TYPE = 7
 DHCP_OPTION_DATA_TYPE_DhcpIpv6AddressOption: DHCP_OPTION_DATA_TYPE = 8
-class DHCP_OPTION_ELEMENT_UNION(EasyCastUnion):
-    pass
 class DHCP_OPTION_LIST(EasyCastStructure):
     NumOptions: UInt32
     Options: POINTER(Windows.Win32.NetworkManagement.Dhcp.DHCP_OPTION_VALUE_head)
@@ -1330,8 +1326,6 @@ DHCP_OPTION_SCOPE_TYPE6_DhcpDefaultOptions6: DHCP_OPTION_SCOPE_TYPE6 = 0
 DHCP_OPTION_SCOPE_TYPE6_DhcpScopeOptions6: DHCP_OPTION_SCOPE_TYPE6 = 1
 DHCP_OPTION_SCOPE_TYPE6_DhcpReservedOptions6: DHCP_OPTION_SCOPE_TYPE6 = 2
 DHCP_OPTION_SCOPE_TYPE6_DhcpGlobalOptions6: DHCP_OPTION_SCOPE_TYPE6 = 3
-class DHCP_OPTION_SCOPE_UNION6(EasyCastUnion):
-    pass
 DHCP_OPTION_TYPE = Int32
 DHCP_OPTION_TYPE_DhcpUnaryElementTypeOption: DHCP_OPTION_TYPE = 0
 DHCP_OPTION_TYPE_DhcpArrayTypeOption: DHCP_OPTION_TYPE = 1
@@ -1631,12 +1625,6 @@ DHCP_SUBNET_ELEMENT_TYPE_V6 = Int32
 DHCP_SUBNET_ELEMENT_TYPE_V6_Dhcpv6IpRanges: DHCP_SUBNET_ELEMENT_TYPE_V6 = 0
 DHCP_SUBNET_ELEMENT_TYPE_V6_Dhcpv6ReservedIps: DHCP_SUBNET_ELEMENT_TYPE_V6 = 1
 DHCP_SUBNET_ELEMENT_TYPE_V6_Dhcpv6ExcludedIpRanges: DHCP_SUBNET_ELEMENT_TYPE_V6 = 2
-class DHCP_SUBNET_ELEMENT_UNION(EasyCastUnion):
-    pass
-class DHCP_SUBNET_ELEMENT_UNION_V4(EasyCastUnion):
-    pass
-class DHCP_SUBNET_ELEMENT_UNION_V6(EasyCastUnion):
-    pass
 class DHCP_SUBNET_INFO(EasyCastStructure):
     SubnetAddress: UInt32
     SubnetMask: UInt32
@@ -1802,7 +1790,6 @@ make_head(_module, 'DHCP_CLIENT_INFO_V4')
 make_head(_module, 'DHCP_CLIENT_INFO_V5')
 make_head(_module, 'DHCP_CLIENT_INFO_V6')
 make_head(_module, 'DHCP_CLIENT_INFO_VQ')
-make_head(_module, 'DHCP_CLIENT_SEARCH_UNION')
 make_head(_module, 'DHCP_FAILOVER_RELATIONSHIP')
 make_head(_module, 'DHCP_FAILOVER_RELATIONSHIP_ARRAY')
 make_head(_module, 'DHCP_FAILOVER_STATISTICS')
@@ -1830,11 +1817,9 @@ make_head(_module, 'DHCP_OPTION')
 make_head(_module, 'DHCP_OPTION_ARRAY')
 make_head(_module, 'DHCP_OPTION_DATA')
 make_head(_module, 'DHCP_OPTION_DATA_ELEMENT')
-make_head(_module, 'DHCP_OPTION_ELEMENT_UNION')
 make_head(_module, 'DHCP_OPTION_LIST')
 make_head(_module, 'DHCP_OPTION_SCOPE_INFO')
 make_head(_module, 'DHCP_OPTION_SCOPE_INFO6')
-make_head(_module, 'DHCP_OPTION_SCOPE_UNION6')
 make_head(_module, 'DHCP_OPTION_VALUE')
 make_head(_module, 'DHCP_OPTION_VALUE_ARRAY')
 make_head(_module, 'DHCP_PERF_STATS')
@@ -1869,9 +1854,6 @@ make_head(_module, 'DHCP_SUBNET_ELEMENT_INFO_ARRAY')
 make_head(_module, 'DHCP_SUBNET_ELEMENT_INFO_ARRAY_V4')
 make_head(_module, 'DHCP_SUBNET_ELEMENT_INFO_ARRAY_V5')
 make_head(_module, 'DHCP_SUBNET_ELEMENT_INFO_ARRAY_V6')
-make_head(_module, 'DHCP_SUBNET_ELEMENT_UNION')
-make_head(_module, 'DHCP_SUBNET_ELEMENT_UNION_V4')
-make_head(_module, 'DHCP_SUBNET_ELEMENT_UNION_V6')
 make_head(_module, 'DHCP_SUBNET_INFO')
 make_head(_module, 'DHCP_SUBNET_INFO_V6')
 make_head(_module, 'DHCP_SUBNET_INFO_VQ')

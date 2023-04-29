@@ -6812,19 +6812,15 @@ HANDLE_FLAGS = UInt32
 HANDLE_FLAG_INHERIT: HANDLE_FLAGS = 1
 HANDLE_FLAG_PROTECT_FROM_CLOSE: HANDLE_FLAGS = 2
 HANDLE_PTR = UIntPtr
-HGLOBAL = IntPtr
-HLOCAL = IntPtr
-class HLSURF__(EasyCastStructure):
-    unused: Int32
+HGLOBAL = c_void_p
+HLOCAL = c_void_p
+HLSURF = IntPtr
 HMODULE = IntPtr
 HRESULT = Int32
 HRSRC = IntPtr
-class HSPRITE__(EasyCastStructure):
-    unused: Int32
-class HSTR__(EasyCastStructure):
-    unused: Int32
-class HUMPD__(EasyCastStructure):
-    unused: Int32
+HSPRITE = IntPtr
+HSTR = IntPtr
+HUMPD = IntPtr
 HWND = IntPtr
 LPARAM = IntPtr
 LRESULT = IntPtr
@@ -10183,10 +10179,6 @@ make_head(_module, 'DECIMAL')
 make_head(_module, 'FARPROC')
 make_head(_module, 'FILETIME')
 make_head(_module, 'FLOAT128')
-make_head(_module, 'HLSURF__')
-make_head(_module, 'HSPRITE__')
-make_head(_module, 'HSTR__')
-make_head(_module, 'HUMPD__')
 make_head(_module, 'LUID')
 make_head(_module, 'NEARPROC')
 make_head(_module, 'PAPCFUNC')

@@ -425,7 +425,7 @@ class DUMP_DRIVER_EX(EasyCastStructure):
     BaseName: Char * 15
     DriverFullPath: Windows.Win32.Storage.IscsiDisc.NTSCSI_UNICODE_STRING
 class DUMP_POINTERS(EasyCastStructure):
-    AdapterObject: POINTER(Windows.Win32.Storage.IscsiDisc._ADAPTER_OBJECT_head)
+    AdapterObject: POINTER(Windows.Win32.Storage.IscsiDisc._ADAPTER_OBJECT)
     MappedRegisterBase: c_void_p
     DumpData: c_void_p
     CommonBufferVa: c_void_p
@@ -1112,8 +1112,7 @@ TARGET_INFORMATION_CLASS_PersistentTargetMappings: TARGET_INFORMATION_CLASS = 4
 TARGET_INFORMATION_CLASS_InitiatorName: TARGET_INFORMATION_CLASS = 5
 TARGET_INFORMATION_CLASS_TargetFlags: TARGET_INFORMATION_CLASS = 6
 TARGET_INFORMATION_CLASS_LoginOptions: TARGET_INFORMATION_CLASS = 7
-class _ADAPTER_OBJECT(EasyCastStructure):
-    pass
+_ADAPTER_OBJECT = IntPtr
 make_head(_module, 'ATA_PASS_THROUGH_DIRECT')
 if ARCH in 'X64,ARM64':
     make_head(_module, 'ATA_PASS_THROUGH_DIRECT32')
@@ -1206,4 +1205,3 @@ make_head(_module, 'STORAGE_FIRMWARE_INFO')
 make_head(_module, 'STORAGE_FIRMWARE_INFO_V2')
 make_head(_module, 'STORAGE_FIRMWARE_SLOT_INFO')
 make_head(_module, 'STORAGE_FIRMWARE_SLOT_INFO_V2')
-make_head(_module, '_ADAPTER_OBJECT')

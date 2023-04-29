@@ -1832,7 +1832,8 @@ TTFCFP_ISO_PLATFORMID: CREATE_FONT_PACKAGE_SUBSET_PLATFORM = 2
 CREATE_POLYGON_RGN_MODE = UInt32
 ALTERNATE: CREATE_POLYGON_RGN_MODE = 1
 WINDING: CREATE_POLYGON_RGN_MODE = 2
-CreatedHDC = IntPtr
+class CreatedHDC(EasyCastStructure):
+    Value: IntPtr
 DC_LAYOUT = UInt32
 LAYOUT_BITMAPORIENTATIONPRESERVED: DC_LAYOUT = 8
 LAYOUT_RTL: DC_LAYOUT = 1
@@ -3113,8 +3114,10 @@ HMONITOR = IntPtr
 HPALETTE = IntPtr
 HPEN = IntPtr
 HRGN = IntPtr
-HdcMetdataEnhFileHandle = IntPtr
-HdcMetdataFileHandle = IntPtr
+class HdcMetdataEnhFileHandle(EasyCastStructure):
+    Value: IntPtr
+class HdcMetdataFileHandle(EasyCastStructure):
+    Value: IntPtr
 class KERNINGPAIR(EasyCastStructure):
     wFirst: UInt16
     wSecond: UInt16
@@ -3824,6 +3827,7 @@ make_head(_module, 'CFP_REALLOCPROC')
 make_head(_module, 'CIEXYZ')
 make_head(_module, 'CIEXYZTRIPLE')
 make_head(_module, 'COLORADJUSTMENT')
+make_head(_module, 'CreatedHDC')
 make_head(_module, 'DESIGNVECTOR')
 make_head(_module, 'DEVMODEA')
 make_head(_module, 'DEVMODEW')
@@ -3924,6 +3928,8 @@ make_head(_module, 'GRADIENT_RECT')
 make_head(_module, 'GRADIENT_TRIANGLE')
 make_head(_module, 'GRAYSTRINGPROC')
 make_head(_module, 'HANDLETABLE')
+make_head(_module, 'HdcMetdataEnhFileHandle')
+make_head(_module, 'HdcMetdataFileHandle')
 make_head(_module, 'KERNINGPAIR')
 make_head(_module, 'LINEDDAPROC')
 make_head(_module, 'LOGBRUSH')

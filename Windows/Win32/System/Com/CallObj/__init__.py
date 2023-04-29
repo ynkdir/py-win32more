@@ -4,6 +4,7 @@ from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, 
 import Windows.Win32.Foundation
 import Windows.Win32.System.Com
 import Windows.Win32.System.Com.CallObj
+import Windows.Win32.System.Variant
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
@@ -81,9 +82,9 @@ class ICallFrame(c_void_p):
     @commethod(10)
     def GetParamInfo(self, iparam: UInt32, pInfo: POINTER(Windows.Win32.System.Com.CallObj.CALLFRAMEPARAMINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def SetParam(self, iparam: UInt32, pvar: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetParam(self, iparam: UInt32, pvar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
-    def GetParam(self, iparam: UInt32, pvar: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetParam(self, iparam: UInt32, pvar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
     def Copy(self, copyControl: Windows.Win32.System.Com.CallObj.CALLFRAME_COPY, pWalker: Windows.Win32.System.Com.CallObj.ICallFrameWalker_head, ppFrame: POINTER(Windows.Win32.System.Com.CallObj.ICallFrame_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)

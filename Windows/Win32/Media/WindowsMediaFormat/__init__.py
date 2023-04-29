@@ -5,6 +5,7 @@ import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.Media.WindowsMediaFormat
 import Windows.Win32.System.Com
+import Windows.Win32.System.Variant
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
@@ -418,7 +419,7 @@ class INSNetSourceCreator(c_void_p):
     @commethod(6)
     def GetNetSourceSharedNamespace(self, ppSharedNamespace: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetNetSourceAdminInterface(self, pszStreamName: Windows.Win32.Foundation.PWSTR, pVal: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetNetSourceAdminInterface(self, pszStreamName: Windows.Win32.Foundation.PWSTR, pVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetNumProtocolsSupported(self, pcProtocols: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)

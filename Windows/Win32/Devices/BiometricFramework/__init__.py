@@ -993,9 +993,9 @@ class WINBIO_PIPELINE(EasyCastStructure):
     SensorInterface: POINTER(Windows.Win32.Devices.BiometricFramework.WINBIO_SENSOR_INTERFACE_head)
     EngineInterface: POINTER(Windows.Win32.Devices.BiometricFramework.WINBIO_ENGINE_INTERFACE_head)
     StorageInterface: POINTER(Windows.Win32.Devices.BiometricFramework.WINBIO_STORAGE_INTERFACE_head)
-    SensorContext: POINTER(Windows.Win32.Devices.BiometricFramework._WINIBIO_SENSOR_CONTEXT_head)
-    EngineContext: POINTER(Windows.Win32.Devices.BiometricFramework._WINIBIO_ENGINE_CONTEXT_head)
-    StorageContext: POINTER(Windows.Win32.Devices.BiometricFramework._WINIBIO_STORAGE_CONTEXT_head)
+    SensorContext: POINTER(Windows.Win32.Devices.BiometricFramework.WINIBIO_SENSOR_CONTEXT)
+    EngineContext: POINTER(Windows.Win32.Devices.BiometricFramework.WINIBIO_ENGINE_CONTEXT)
+    StorageContext: POINTER(Windows.Win32.Devices.BiometricFramework.WINIBIO_STORAGE_CONTEXT)
     FrameworkInterface: POINTER(Windows.Win32.Devices.BiometricFramework.WINBIO_FRAMEWORK_INTERFACE_head)
 WINBIO_POLICY_SOURCE = Int32
 WINBIO_POLICY_UNKNOWN: WINBIO_POLICY_SOURCE = 0
@@ -1195,12 +1195,9 @@ class WINBIO_UPDATE_FIRMWARE(EasyCastStructure):
 class WINBIO_VERSION(EasyCastStructure):
     MajorVersion: UInt32
     MinorVersion: UInt32
-class _WINIBIO_ENGINE_CONTEXT(EasyCastStructure):
-    pass
-class _WINIBIO_SENSOR_CONTEXT(EasyCastStructure):
-    pass
-class _WINIBIO_STORAGE_CONTEXT(EasyCastStructure):
-    pass
+WINIBIO_ENGINE_CONTEXT = IntPtr
+WINIBIO_SENSOR_CONTEXT = IntPtr
+WINIBIO_STORAGE_CONTEXT = IntPtr
 make_head(_module, 'PIBIO_ENGINE_ACCEPT_PRIVATE_SENSOR_TYPE_INFO_FN')
 make_head(_module, 'PIBIO_ENGINE_ACCEPT_SAMPLE_DATA_FN')
 make_head(_module, 'PIBIO_ENGINE_ACTIVATE_FN')
@@ -1381,6 +1378,3 @@ make_head(_module, 'WINBIO_SUPPORTED_ALGORITHMS')
 make_head(_module, 'WINBIO_UNIT_SCHEMA')
 make_head(_module, 'WINBIO_UPDATE_FIRMWARE')
 make_head(_module, 'WINBIO_VERSION')
-make_head(_module, '_WINIBIO_ENGINE_CONTEXT')
-make_head(_module, '_WINIBIO_SENSOR_CONTEXT')
-make_head(_module, '_WINIBIO_STORAGE_CONTEXT')

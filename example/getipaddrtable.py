@@ -3,9 +3,7 @@ from ctypes import POINTER, WinError, byref, cast, resize
 from ctypes.wintypes import ULONG
 
 from Windows.Win32.Foundation import ERROR_INSUFFICIENT_BUFFER, NO_ERROR
-from Windows.Win32.NetworkManagement.IpHelper import (MIB_IPADDRROW_XP,
-                                                      MIB_IPADDRTABLE,
-                                                      GetIpAddrTable)
+from Windows.Win32.NetworkManagement.IpHelper import MIB_IPADDRROW_XP, MIB_IPADDRTABLE, GetIpAddrTable
 
 dwSize = ULONG(0)
 if (r := GetIpAddrTable(None, dwSize, False)) != ERROR_INSUFFICIENT_BUFFER:

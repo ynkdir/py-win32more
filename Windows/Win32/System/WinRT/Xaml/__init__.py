@@ -136,13 +136,13 @@ class ITrackerOwner(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('eb24c20b-9816-4ac7-8c-ff-36-f6-7a-11-8f-4e')
     @commethod(3)
-    def CreateTrackerHandle(self, returnValue: POINTER(POINTER(Windows.Win32.System.WinRT.Xaml.TrackerHandle___head))) -> Windows.Win32.Foundation.HRESULT: ...
+    def CreateTrackerHandle(self, returnValue: POINTER(Windows.Win32.System.WinRT.Xaml.TrackerHandle)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def DeleteTrackerHandle(self, handle: POINTER(Windows.Win32.System.WinRT.Xaml.TrackerHandle___head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def DeleteTrackerHandle(self, handle: Windows.Win32.System.WinRT.Xaml.TrackerHandle) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def SetTrackerValue(self, handle: POINTER(Windows.Win32.System.WinRT.Xaml.TrackerHandle___head), value: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetTrackerValue(self, handle: Windows.Win32.System.WinRT.Xaml.TrackerHandle, value: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def TryGetSafeTrackerValue(self, handle: POINTER(Windows.Win32.System.WinRT.Xaml.TrackerHandle___head), returnValue: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Byte: ...
+    def TryGetSafeTrackerValue(self, handle: Windows.Win32.System.WinRT.Xaml.TrackerHandle, returnValue: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Byte: ...
 class IVirtualSurfaceImageSourceNative(c_void_p):
     extends: Windows.Win32.System.WinRT.Xaml.ISurfaceImageSourceNative
     Guid = Guid('e9550983-360b-4f53-b3-91-af-d6-95-07-86-91')
@@ -163,8 +163,7 @@ class IVirtualSurfaceUpdatesCallbackNative(c_void_p):
     Guid = Guid('dbf2e947-8e6c-4254-9e-ee-77-38-f7-13-86-c9')
     @commethod(3)
     def UpdatesNeeded(self) -> Windows.Win32.Foundation.HRESULT: ...
-class TrackerHandle__(EasyCastStructure):
-    unused: Int32
+TrackerHandle = IntPtr
 XAML_REFERENCETRACKER_DISCONNECT = Int32
 XAML_REFERENCETRACKER_DISCONNECT_DEFAULT: XAML_REFERENCETRACKER_DISCONNECT = 0
 XAML_REFERENCETRACKER_DISCONNECT_SUSPEND: XAML_REFERENCETRACKER_DISCONNECT = 1
@@ -185,4 +184,3 @@ make_head(_module, 'ISwapChainPanelNative2')
 make_head(_module, 'ITrackerOwner')
 make_head(_module, 'IVirtualSurfaceImageSourceNative')
 make_head(_module, 'IVirtualSurfaceUpdatesCallbackNative')
-make_head(_module, 'TrackerHandle__')

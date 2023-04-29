@@ -4,6 +4,7 @@ from Windows import ARCH, MissingType, Byte, SByte, Char, Int16, UInt16, Int32, 
 import Windows.Win32.Foundation
 import Windows.Win32.Media.LibrarySharingServices
 import Windows.Win32.System.Com
+import Windows.Win32.System.Variant
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
@@ -39,7 +40,7 @@ class IWindowsMediaLibrarySharingDeviceProperty(c_void_p):
     @commethod(7)
     def get_Name(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def get_Value(self, value: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def get_Value(self, value: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWindowsMediaLibrarySharingDevices(c_void_p):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('1803f9d6-fe6d-4546-bf-5b-99-2f-e8-ec-12-d1')

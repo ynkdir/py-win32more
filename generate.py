@@ -1031,6 +1031,7 @@ class PyGenerator:
             attrs.append(f"entry_point={entry_point}")
         if md.signature.header.calling_convention == "VarArgs":
             assert functype == "cfunctype"
+            attrs.append("variadic=True")
             params.append("*__arglist")
         params_csv = ", ".join(params)
         attrs_csv = ", ".join(attrs)

@@ -1934,7 +1934,6 @@ class HOSTENT(EasyCastStructure):
     h_addrtype: Int16
     h_length: Int16
     h_addr_list: POINTER(POINTER(SByte))
-HWSAEVENT = IntPtr
 ICMP4_TIME_EXCEED_CODE = Int32
 ICMP4_TIME_EXCEED_TRANSIT: ICMP4_TIME_EXCEED_CODE = 0
 ICMP4_TIME_EXCEED_REASSEMBLY: ICMP4_TIME_EXCEED_CODE = 1
@@ -2322,31 +2321,31 @@ def LPFN_GETACCEPTEXSOCKADDRS(lpOutputBuffer: c_void_p, dwReceiveDataLength: UIn
 @winfunctype_pointer
 def LPFN_NSPAPI() -> UInt32: ...
 @winfunctype_pointer
-def LPFN_RIOCLOSECOMPLETIONQUEUE(CQ: POINTER(Windows.Win32.Networking.WinSock.RIO_CQ_t_head)) -> Void: ...
+def LPFN_RIOCLOSECOMPLETIONQUEUE(CQ: Windows.Win32.Networking.WinSock.RIO_CQ) -> Void: ...
 @winfunctype_pointer
-def LPFN_RIOCREATECOMPLETIONQUEUE(QueueSize: UInt32, NotificationCompletion: POINTER(Windows.Win32.Networking.WinSock.RIO_NOTIFICATION_COMPLETION_head)) -> POINTER(Windows.Win32.Networking.WinSock.RIO_CQ_t_head): ...
+def LPFN_RIOCREATECOMPLETIONQUEUE(QueueSize: UInt32, NotificationCompletion: POINTER(Windows.Win32.Networking.WinSock.RIO_NOTIFICATION_COMPLETION_head)) -> Windows.Win32.Networking.WinSock.RIO_CQ: ...
 @winfunctype_pointer
-def LPFN_RIOCREATEREQUESTQUEUE(Socket: Windows.Win32.Networking.WinSock.SOCKET, MaxOutstandingReceive: UInt32, MaxReceiveDataBuffers: UInt32, MaxOutstandingSend: UInt32, MaxSendDataBuffers: UInt32, ReceiveCQ: POINTER(Windows.Win32.Networking.WinSock.RIO_CQ_t_head), SendCQ: POINTER(Windows.Win32.Networking.WinSock.RIO_CQ_t_head), SocketContext: c_void_p) -> POINTER(Windows.Win32.Networking.WinSock.RIO_RQ_t_head): ...
+def LPFN_RIOCREATEREQUESTQUEUE(Socket: Windows.Win32.Networking.WinSock.SOCKET, MaxOutstandingReceive: UInt32, MaxReceiveDataBuffers: UInt32, MaxOutstandingSend: UInt32, MaxSendDataBuffers: UInt32, ReceiveCQ: Windows.Win32.Networking.WinSock.RIO_CQ, SendCQ: Windows.Win32.Networking.WinSock.RIO_CQ, SocketContext: c_void_p) -> Windows.Win32.Networking.WinSock.RIO_RQ: ...
 @winfunctype_pointer
-def LPFN_RIODEQUEUECOMPLETION(CQ: POINTER(Windows.Win32.Networking.WinSock.RIO_CQ_t_head), Array: POINTER(Windows.Win32.Networking.WinSock.RIORESULT_head), ArraySize: UInt32) -> UInt32: ...
+def LPFN_RIODEQUEUECOMPLETION(CQ: Windows.Win32.Networking.WinSock.RIO_CQ, Array: POINTER(Windows.Win32.Networking.WinSock.RIORESULT_head), ArraySize: UInt32) -> UInt32: ...
 @winfunctype_pointer
-def LPFN_RIODEREGISTERBUFFER(BufferId: POINTER(Windows.Win32.Networking.WinSock.RIO_BUFFERID_t_head)) -> Void: ...
+def LPFN_RIODEREGISTERBUFFER(BufferId: Windows.Win32.Networking.WinSock.RIO_BUFFERID) -> Void: ...
 @winfunctype_pointer
-def LPFN_RIONOTIFY(CQ: POINTER(Windows.Win32.Networking.WinSock.RIO_CQ_t_head)) -> Int32: ...
+def LPFN_RIONOTIFY(CQ: Windows.Win32.Networking.WinSock.RIO_CQ) -> Int32: ...
 @winfunctype_pointer
-def LPFN_RIORECEIVE(SocketQueue: POINTER(Windows.Win32.Networking.WinSock.RIO_RQ_t_head), pData: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), DataBufferCount: UInt32, Flags: UInt32, RequestContext: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def LPFN_RIORECEIVE(SocketQueue: Windows.Win32.Networking.WinSock.RIO_RQ, pData: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), DataBufferCount: UInt32, Flags: UInt32, RequestContext: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPFN_RIORECEIVEEX(SocketQueue: POINTER(Windows.Win32.Networking.WinSock.RIO_RQ_t_head), pData: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), DataBufferCount: UInt32, pLocalAddress: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pRemoteAddress: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pControlContext: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pFlags: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), Flags: UInt32, RequestContext: c_void_p) -> Int32: ...
+def LPFN_RIORECEIVEEX(SocketQueue: Windows.Win32.Networking.WinSock.RIO_RQ, pData: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), DataBufferCount: UInt32, pLocalAddress: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pRemoteAddress: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pControlContext: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pFlags: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), Flags: UInt32, RequestContext: c_void_p) -> Int32: ...
 @winfunctype_pointer
-def LPFN_RIOREGISTERBUFFER(DataBuffer: Windows.Win32.Foundation.PSTR, DataLength: UInt32) -> POINTER(Windows.Win32.Networking.WinSock.RIO_BUFFERID_t_head): ...
+def LPFN_RIOREGISTERBUFFER(DataBuffer: Windows.Win32.Foundation.PSTR, DataLength: UInt32) -> Windows.Win32.Networking.WinSock.RIO_BUFFERID: ...
 @winfunctype_pointer
-def LPFN_RIORESIZECOMPLETIONQUEUE(CQ: POINTER(Windows.Win32.Networking.WinSock.RIO_CQ_t_head), QueueSize: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def LPFN_RIORESIZECOMPLETIONQUEUE(CQ: Windows.Win32.Networking.WinSock.RIO_CQ, QueueSize: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPFN_RIORESIZEREQUESTQUEUE(RQ: POINTER(Windows.Win32.Networking.WinSock.RIO_RQ_t_head), MaxOutstandingReceive: UInt32, MaxOutstandingSend: UInt32) -> Windows.Win32.Foundation.BOOL: ...
+def LPFN_RIORESIZEREQUESTQUEUE(RQ: Windows.Win32.Networking.WinSock.RIO_RQ, MaxOutstandingReceive: UInt32, MaxOutstandingSend: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPFN_RIOSEND(SocketQueue: POINTER(Windows.Win32.Networking.WinSock.RIO_RQ_t_head), pData: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), DataBufferCount: UInt32, Flags: UInt32, RequestContext: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def LPFN_RIOSEND(SocketQueue: Windows.Win32.Networking.WinSock.RIO_RQ, pData: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), DataBufferCount: UInt32, Flags: UInt32, RequestContext: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
-def LPFN_RIOSENDEX(SocketQueue: POINTER(Windows.Win32.Networking.WinSock.RIO_RQ_t_head), pData: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), DataBufferCount: UInt32, pLocalAddress: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pRemoteAddress: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pControlContext: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pFlags: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), Flags: UInt32, RequestContext: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
+def LPFN_RIOSENDEX(SocketQueue: Windows.Win32.Networking.WinSock.RIO_RQ, pData: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), DataBufferCount: UInt32, pLocalAddress: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pRemoteAddress: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pControlContext: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), pFlags: POINTER(Windows.Win32.Networking.WinSock.RIO_BUF_head), Flags: UInt32, RequestContext: c_void_p) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
 def LPFN_TRANSMITFILE(hSocket: Windows.Win32.Networking.WinSock.SOCKET, hFile: Windows.Win32.Foundation.HANDLE, nNumberOfBytesToWrite: UInt32, nNumberOfBytesPerSend: UInt32, lpOverlapped: POINTER(Windows.Win32.System.IO.OVERLAPPED_head), lpTransmitBuffers: POINTER(Windows.Win32.Networking.WinSock.TRANSMIT_FILE_BUFFERS_head), dwReserved: UInt32) -> Windows.Win32.Foundation.BOOL: ...
 @winfunctype_pointer
@@ -3026,15 +3025,13 @@ class RIORESULT(EasyCastStructure):
     SocketContext: UInt64
     RequestContext: UInt64
 class RIO_BUF(EasyCastStructure):
-    BufferId: POINTER(Windows.Win32.Networking.WinSock.RIO_BUFFERID_t_head)
+    BufferId: Windows.Win32.Networking.WinSock.RIO_BUFFERID
     Offset: UInt32
     Length: UInt32
-class RIO_BUFFERID_t(EasyCastStructure):
-    pass
+RIO_BUFFERID = IntPtr
 class RIO_CMSG_BUFFER(EasyCastStructure):
     TotalLength: UInt32
-class RIO_CQ_t(EasyCastStructure):
-    pass
+RIO_CQ = IntPtr
 class RIO_EXTENSION_FUNCTION_TABLE(EasyCastStructure):
     cbSize: UInt32
     RIOReceive: Windows.Win32.Networking.WinSock.LPFN_RIORECEIVE
@@ -3066,8 +3063,7 @@ class RIO_NOTIFICATION_COMPLETION(EasyCastStructure):
 RIO_NOTIFICATION_COMPLETION_TYPE = Int32
 RIO_EVENT_COMPLETION: RIO_NOTIFICATION_COMPLETION_TYPE = 1
 RIO_IOCP_COMPLETION: RIO_NOTIFICATION_COMPLETION_TYPE = 2
-class RIO_RQ_t(EasyCastStructure):
-    pass
+RIO_RQ = IntPtr
 class RM_FEC_INFO(EasyCastStructure):
     FECBlockSize: UInt16
     FECProActivePackets: UInt16
@@ -3652,6 +3648,7 @@ WSAESETSERVICEOP = Int32
 RNRSERVICE_REGISTER: WSAESETSERVICEOP = 0
 RNRSERVICE_DEREGISTER: WSAESETSERVICEOP = 1
 RNRSERVICE_DELETE: WSAESETSERVICEOP = 2
+WSAEVENT = IntPtr
 class WSAMSG(EasyCastStructure):
     name: POINTER(Windows.Win32.Networking.WinSock.SOCKADDR_head)
     namelen: Int32
@@ -4022,7 +4019,8 @@ class netent(EasyCastStructure):
     n_aliases: POINTER(POINTER(SByte))
     n_addrtype: Int16
     n_net: UInt32
-sa_family_t = UInt16
+class sa_family_t(EasyCastStructure):
+    Value: UInt16
 class sockaddr_gen(EasyCastUnion):
     Address: Windows.Win32.Networking.WinSock.SOCKADDR
     AddressIn: Windows.Win32.Networking.WinSock.SOCKADDR_IN
@@ -4282,12 +4280,9 @@ make_head(_module, 'REAL_TIME_NOTIFICATION_SETTING_INPUT_EX')
 make_head(_module, 'REAL_TIME_NOTIFICATION_SETTING_OUTPUT')
 make_head(_module, 'RIORESULT')
 make_head(_module, 'RIO_BUF')
-make_head(_module, 'RIO_BUFFERID_t')
 make_head(_module, 'RIO_CMSG_BUFFER')
-make_head(_module, 'RIO_CQ_t')
 make_head(_module, 'RIO_EXTENSION_FUNCTION_TABLE')
 make_head(_module, 'RIO_NOTIFICATION_COMPLETION')
-make_head(_module, 'RIO_RQ_t')
 make_head(_module, 'RM_FEC_INFO')
 make_head(_module, 'RM_RECEIVER_STATS')
 make_head(_module, 'RM_SENDER_STATS')
@@ -4396,6 +4391,7 @@ make_head(_module, 'WSPDATA')
 make_head(_module, 'WSPPROC_TABLE')
 make_head(_module, 'WSPUPCALLTABLE')
 make_head(_module, 'netent')
+make_head(_module, 'sa_family_t')
 make_head(_module, 'sockaddr_gen')
 make_head(_module, 'sockaddr_in6_old')
 make_head(_module, 'sockproto')

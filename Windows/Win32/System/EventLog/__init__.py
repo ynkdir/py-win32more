@@ -406,8 +406,10 @@ EVT_VARIANT_TYPE_EvtVarTypeHexInt32: EVT_VARIANT_TYPE = 20
 EVT_VARIANT_TYPE_EvtVarTypeHexInt64: EVT_VARIANT_TYPE = 21
 EVT_VARIANT_TYPE_EvtVarTypeEvtHandle: EVT_VARIANT_TYPE = 32
 EVT_VARIANT_TYPE_EvtVarTypeEvtXml: EVT_VARIANT_TYPE = 35
-EventLogHandle = IntPtr
-EventSourceHandle = IntPtr
+class EventLogHandle(EasyCastStructure):
+    Value: IntPtr
+class EventSourceHandle(EasyCastStructure):
+    Value: IntPtr
 READ_EVENT_LOG_READ_FLAGS = UInt32
 EVENTLOG_SEEK_READ: READ_EVENT_LOG_READ_FLAGS = 2
 EVENTLOG_SEQUENTIAL_READ: READ_EVENT_LOG_READ_FLAGS = 1
@@ -424,3 +426,5 @@ make_head(_module, 'EVENTSFORLOGFILE')
 make_head(_module, 'EVT_RPC_LOGIN')
 make_head(_module, 'EVT_SUBSCRIBE_CALLBACK')
 make_head(_module, 'EVT_VARIANT')
+make_head(_module, 'EventLogHandle')
+make_head(_module, 'EventSourceHandle')

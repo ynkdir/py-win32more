@@ -6,6 +6,7 @@ import Windows.Win32.Foundation
 import Windows.Win32.Graphics.Gdi
 import Windows.Win32.System.AssessmentTool
 import Windows.Win32.System.Com
+import Windows.Win32.System.Variant
 import Windows.Win32.UI.Accessibility
 import sys
 _module = sys.modules[__name__]
@@ -53,7 +54,7 @@ class IProvideWinSATResultsInfo(c_void_p):
     @commethod(8)
     def get_AssessmentState(self, state: POINTER(Windows.Win32.System.AssessmentTool.WINSAT_ASSESSMENT_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def get_AssessmentDateTime(self, fileTime: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def get_AssessmentDateTime(self, fileTime: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def get_SystemRating(self, level: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)

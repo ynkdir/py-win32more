@@ -1,8 +1,7 @@
-from ctypes import c_void_p, c_wchar, cast, sizeof, wstring_at
+from ctypes import c_wchar, sizeof, wstring_at
 
 from Windows import IntPtr
-from Windows.Win32.System.Environment import (FreeEnvironmentStringsW,
-                                              GetEnvironmentStringsW)
+from Windows.Win32.System.Environment import FreeEnvironmentStringsW, GetEnvironmentStringsW
 
 
 # Unsafe case for c_wchar_p to python str auto-conversion.
@@ -16,6 +15,7 @@ def GetEnvironmentStrings():
         yield s.split("=", maxsplit=1)
         p += (len(s) + 1) * sizeof(c_wchar)
     FreeEnvironmentStringsW(ptr)
+
 
 for name, value in GetEnvironmentStrings():
     print(f"{name} = {value}")

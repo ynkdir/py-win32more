@@ -18,7 +18,6 @@ from Windows import (
     Char,
     Double,
     EasyCastStructure,
-    EasyCastUnion,
     ForeignFunction,
     Int32,
     UInt32,

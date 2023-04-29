@@ -99,9 +99,9 @@ def RoUninitialize() -> Void: ...
 @winfunctype('api-ms-win-core-winrt-l1-1-0.dll')
 def RoActivateInstance(activatableClassId: Windows.Win32.System.WinRT.HSTRING, instance: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-winrt-l1-1-0.dll')
-def RoRegisterActivationFactories(activatableClassIds: POINTER(Windows.Win32.System.WinRT.HSTRING), activationFactoryCallbacks: POINTER(Windows.Win32.System.WinRT.PFNGETACTIVATIONFACTORY), count: UInt32, cookie: POINTER(IntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
+def RoRegisterActivationFactories(activatableClassIds: POINTER(Windows.Win32.System.WinRT.HSTRING), activationFactoryCallbacks: POINTER(Windows.Win32.System.WinRT.PFNGETACTIVATIONFACTORY), count: UInt32, cookie: POINTER(Windows.Win32.System.WinRT.RO_REGISTRATION_COOKIE)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-winrt-l1-1-0.dll')
-def RoRevokeActivationFactories(cookie: IntPtr) -> Void: ...
+def RoRevokeActivationFactories(cookie: Windows.Win32.System.WinRT.RO_REGISTRATION_COOKIE) -> Void: ...
 @winfunctype('api-ms-win-core-winrt-l1-1-0.dll')
 def RoGetActivationFactory(activatableClassId: Windows.Win32.System.WinRT.HSTRING, iid: POINTER(Guid), factory: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('api-ms-win-core-winrt-l1-1-0.dll')
@@ -467,6 +467,7 @@ RO_ERROR_REPORTING_SUPPRESSSETERRORINFO: RO_ERROR_REPORTING_FLAGS = 8
 RO_INIT_TYPE = Int32
 RO_INIT_SINGLETHREADED: RO_INIT_TYPE = 0
 RO_INIT_MULTITHREADED: RO_INIT_TYPE = 1
+RO_REGISTRATION_COOKIE = IntPtr
 class ServerInformation(EasyCastStructure):
     dwServerPid: UInt32
     dwServerTid: UInt32
@@ -475,8 +476,6 @@ TrustLevel = Int32
 TrustLevel_BaseTrust: TrustLevel = 0
 TrustLevel_PartialTrust: TrustLevel = 1
 TrustLevel_FullTrust: TrustLevel = 2
-class _RO_REGISTRATION_COOKIE(EasyCastStructure):
-    pass
 make_head(_module, 'DispatcherQueueOptions')
 make_head(_module, 'EventRegistrationToken')
 make_head(_module, 'HSTRING_HEADER')
@@ -524,4 +523,3 @@ make_head(_module, 'PINSPECT_HSTRING_CALLBACK')
 make_head(_module, 'PINSPECT_HSTRING_CALLBACK2')
 make_head(_module, 'PINSPECT_MEMORY_CALLBACK')
 make_head(_module, 'ServerInformation')
-make_head(_module, '_RO_REGISTRATION_COOKIE')

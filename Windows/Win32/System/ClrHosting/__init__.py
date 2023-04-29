@@ -8,6 +8,7 @@ import Windows.Win32.System.Com
 import Windows.Win32.System.Diagnostics.Debug
 import Windows.Win32.System.IO
 import Windows.Win32.System.Threading
+import Windows.Win32.System.Variant
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
@@ -1026,7 +1027,7 @@ class IObjectHandle(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('c460e2b4-e199-412a-84-56-84-dc-3e-48-38-c3')
     @commethod(3)
-    def Unwrap(self, ppv: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def Unwrap(self, ppv: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITypeName(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('b81ff171-20f3-11d2-8d-cc-00-a0-c9-b0-05-22')

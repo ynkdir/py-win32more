@@ -9,6 +9,7 @@ import Windows.Win32.System.Com.StructuredStorage
 import Windows.Win32.System.DistributedTransactionCoordinator
 import Windows.Win32.System.Search
 import Windows.Win32.System.Search.Common
+import Windows.Win32.System.Variant
 import Windows.Win32.UI.Shell.Common
 import Windows.Win32.UI.Shell.PropertiesSystem
 import sys
@@ -4237,6 +4238,8 @@ DBCOLUMNDESCFLAGS_PRECISION: DBCOLUMNDESCFLAGSENUM = 128
 DBCOLUMNDESCFLAGS_SCALE: DBCOLUMNDESCFLAGSENUM = 256
 DBCOLUMNFLAGS15ENUM = Int32
 DBCOLUMNFLAGS_ISCHAPTER: DBCOLUMNFLAGS15ENUM = 8192
+DBCOLUMNFLAGSDEPRECATED = Int32
+DBCOLUMNFLAGS_KEYCOLUMN: DBCOLUMNFLAGSDEPRECATED = 32768
 DBCOLUMNFLAGSENUM = Int32
 DBCOLUMNFLAGS_ISBOOKMARK: DBCOLUMNFLAGSENUM = 1
 DBCOLUMNFLAGS_MAYDEFER: DBCOLUMNFLAGSENUM = 2
@@ -4624,14 +4627,14 @@ if ARCH in 'X64,ARM64':
         dwOptions: UInt32
         dwStatus: UInt32
         colid: Windows.Win32.Storage.IndexServer.DBID
-        vValue: Windows.Win32.System.Com.VARIANT
+        vValue: Windows.Win32.System.Variant.VARIANT
 if ARCH in 'X86':
     class DBPROP(EasyCastStructure):
         dwPropertyID: UInt32
         dwOptions: UInt32
         dwStatus: UInt32
         colid: Windows.Win32.Storage.IndexServer.DBID
-        vValue: Windows.Win32.System.Com.VARIANT
+        vValue: Windows.Win32.System.Variant.VARIANT
         _pack_ = 2
 DBPROPENUM = Int32
 DBPROP_ABORTPRESERVE: DBPROPENUM = 2
@@ -4906,6 +4909,10 @@ DBPROP_TABLESTATISTICS: DBPROPENUM26 = 288
 DBPROP_SKIPROWCOUNTRESULTS: DBPROPENUM26 = 291
 DBPROP_IRowsetBookmark: DBPROPENUM26 = 292
 MDPROP_VISUALMODE: DBPROPENUM26 = 293
+DBPROPENUMDEPRECATED = Int32
+DBPROP_IRowsetExactScroll: DBPROPENUMDEPRECATED = 154
+DBPROP_MARSHALLABLE: DBPROPENUMDEPRECATED = 197
+DBPROP_FILTEROPS: DBPROPENUMDEPRECATED = 208
 DBPROPFLAGSENUM = Int32
 DBPROPFLAGS_NOTSUPPORTED: DBPROPFLAGSENUM = 0
 DBPROPFLAGS_COLUMN: DBPROPFLAGSENUM = 1
@@ -4943,15 +4950,15 @@ if ARCH in 'X64,ARM64':
         pwszDescription: Windows.Win32.Foundation.PWSTR
         dwPropertyID: UInt32
         dwFlags: UInt32
-        vtType: Windows.Win32.System.Com.VARENUM
-        vValues: Windows.Win32.System.Com.VARIANT
+        vtType: Windows.Win32.System.Variant.VARENUM
+        vValues: Windows.Win32.System.Variant.VARIANT
 if ARCH in 'X86':
     class DBPROPINFO(EasyCastStructure):
         pwszDescription: Windows.Win32.Foundation.PWSTR
         dwPropertyID: UInt32
         dwFlags: UInt32
-        vtType: Windows.Win32.System.Com.VARENUM
-        vValues: Windows.Win32.System.Com.VARIANT
+        vtType: Windows.Win32.System.Variant.VARENUM
+        vValues: Windows.Win32.System.Variant.VARIANT
         _pack_ = 2
 if ARCH in 'X64,ARM64':
     class DBPROPINFOSET(EasyCastStructure):
@@ -5243,7 +5250,7 @@ class DB_VARNUMERIC(EasyCastStructure):
     val: Byte * 1
 class DCINFO(EasyCastStructure):
     eInfoType: UInt32
-    vData: Windows.Win32.System.Com.VARIANT
+    vData: Windows.Win32.System.Variant.VARIANT
 DCINFOTYPEENUM = Int32
 DCINFOTYPE_VERSION: DCINFOTYPEENUM = 1
 DELIVERY_AGENT_FLAGS = Int32
@@ -5615,7 +5622,7 @@ class IDBSchemaRowset(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('0c733a7b-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
     @commethod(3)
-    def GetRowset(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, rguidSchema: POINTER(Guid), cRestrictions: UInt32, rgRestrictions: POINTER(Windows.Win32.System.Com.VARIANT_head), riid: POINTER(Guid), cPropertySets: UInt32, rgPropertySets: POINTER(Windows.Win32.System.Search.DBPROPSET_head), ppRowset: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetRowset(self, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, rguidSchema: POINTER(Guid), cRestrictions: UInt32, rgRestrictions: POINTER(Windows.Win32.System.Variant.VARIANT_head), riid: POINTER(Guid), cPropertySets: UInt32, rgPropertySets: POINTER(Windows.Win32.System.Search.DBPROPSET_head), ppRowset: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetSchemas(self, pcSchemas: POINTER(UInt32), prgSchemas: POINTER(POINTER(Guid)), prgRestrictionSupport: POINTER(POINTER(UInt32))) -> Windows.Win32.Foundation.HRESULT: ...
 class IDCInfo(c_void_p):
@@ -6081,8 +6088,11 @@ class IRowsetEvents(c_void_p):
     def OnDeletedItem(self, itemID: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head), deletedItemState: Windows.Win32.System.Search.ROWSETEVENT_ITEMSTATE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
     def OnRowsetEvent(self, eventType: Windows.Win32.System.Search.ROWSETEVENT_TYPE, eventData: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
-class IRowsetExactScroll(EasyCastStructure):
-    pass
+class IRowsetExactScroll(c_void_p):
+    extends: Windows.Win32.System.Search.IRowsetScroll
+    Guid = Guid('0c733a7f-2a1c-11ce-ad-e5-00-aa-00-44-77-3d')
+    @commethod(14)
+    def GetExactPosition(self, hChapter: UIntPtr, cbBookmark: UIntPtr, pBookmark: POINTER(Byte), pulPosition: POINTER(UIntPtr), pcRows: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRowsetFastLoad(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('5cf4ca13-ef21-11d0-97-e7-00-c0-4f-c2-ad-98')
@@ -6676,9 +6686,9 @@ class ISubscriptionItem(c_void_p):
     @commethod(5)
     def SetSubscriptionItemInfo(self, pSubscriptionItemInfo: POINTER(Windows.Win32.System.Search.SUBSCRIPTIONITEMINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def ReadProperties(self, nCount: UInt32, rgwszName: POINTER(Windows.Win32.Foundation.PWSTR), rgValue: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def ReadProperties(self, nCount: UInt32, rgwszName: POINTER(Windows.Win32.Foundation.PWSTR), rgValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def WriteProperties(self, nCount: UInt32, rgwszName: POINTER(Windows.Win32.Foundation.PWSTR), rgValue: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def WriteProperties(self, nCount: UInt32, rgwszName: POINTER(Windows.Win32.Foundation.PWSTR), rgValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def EnumProperties(self, ppEnumItemProperties: POINTER(Windows.Win32.System.Search.IEnumItemProperties_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
@@ -6720,7 +6730,7 @@ class ISubscriptionMgr2(c_void_p):
     @commethod(17)
     def AbortAll(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITEMPROP(EasyCastStructure):
-    variantValue: Windows.Win32.System.Com.VARIANT
+    variantValue: Windows.Win32.System.Variant.VARIANT
     pwszName: Windows.Win32.Foundation.PWSTR
 class ITEM_INFO(EasyCastStructure):
     dwSize: UInt32
@@ -6943,11 +6953,11 @@ class IWordSink(c_void_p):
 Interval = Guid('d957171f-4bf9-4de2-bc-d5-c7-0a-7c-a5-58-36')
 class KAGGETDIAG(EasyCastStructure):
     ulSize: UInt32
-    vDiagInfo: Windows.Win32.System.Com.VARIANT
+    vDiagInfo: Windows.Win32.System.Variant.VARIANT
     sDiagField: Int16
 class KAGREQDIAG(EasyCastStructure):
     ulDiagFlags: UInt32
-    vt: Windows.Win32.System.Com.VARENUM
+    vt: Windows.Win32.System.Variant.VARENUM
     sDiagField: Int16
 KAGREQDIAGFLAGSENUM = Int32
 KAGREQDIAGFLAGS_HEADER: KAGREQDIAGFLAGSENUM = 1
@@ -7020,9 +7030,9 @@ class OLEDBSimpleProvider(c_void_p):
     @commethod(5)
     def getRWStatus(self, iRow: IntPtr, iColumn: IntPtr, prwStatus: POINTER(Windows.Win32.System.Search.OSPRW)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def getVariant(self, iRow: IntPtr, iColumn: IntPtr, format: Windows.Win32.System.Search.OSPFORMAT, pVar: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def getVariant(self, iRow: IntPtr, iColumn: IntPtr, format: Windows.Win32.System.Search.OSPFORMAT, pVar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def setVariant(self, iRow: IntPtr, iColumn: IntPtr, format: Windows.Win32.System.Search.OSPFORMAT, Var: Windows.Win32.System.Com.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
+    def setVariant(self, iRow: IntPtr, iColumn: IntPtr, format: Windows.Win32.System.Search.OSPFORMAT, Var: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def getLocale(self, pbstrLocale: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
@@ -7030,7 +7040,7 @@ class OLEDBSimpleProvider(c_void_p):
     @commethod(10)
     def insertRows(self, iRow: IntPtr, cRows: IntPtr, pcRowsInserted: POINTER(IntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
-    def find(self, iRowStart: IntPtr, iColumn: IntPtr, val: Windows.Win32.System.Com.VARIANT, findFlags: Windows.Win32.System.Search.OSPFIND, compType: Windows.Win32.System.Search.OSPCOMP, piRowFound: POINTER(IntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
+    def find(self, iRowStart: IntPtr, iColumn: IntPtr, val: Windows.Win32.System.Variant.VARIANT, findFlags: Windows.Win32.System.Search.OSPFIND, compType: Windows.Win32.System.Search.OSPCOMP, piRowFound: POINTER(IntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def addOLEDBSimpleProviderListener(self, pospIListener: Windows.Win32.System.Search.OLEDBSimpleProviderListener_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -7146,7 +7156,7 @@ if ARCH in 'X64,ARM64':
         cBSTR: UInt32
         rgBSTR: POINTER(Windows.Win32.Foundation.BSTR)
         cVARIANT: UInt32
-        rgVARIANT: POINTER(Windows.Win32.System.Com.VARIANT_head)
+        rgVARIANT: POINTER(Windows.Win32.System.Variant.VARIANT_head)
         cIDISPATCH: UInt32
         rgIDISPATCH: POINTER(Windows.Win32.System.Com.IDispatch_head)
         cIUNKNOWN: UInt32
@@ -7154,7 +7164,7 @@ if ARCH in 'X64,ARM64':
         cPROPVARIANT: UInt32
         rgPROPVARIANT: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)
         cArray: UInt32
-        rgArray: POINTER(Windows.Win32.System.Com.VARIANT_head)
+        rgArray: POINTER(Windows.Win32.System.Variant.VARIANT_head)
 if ARCH in 'X86':
     class RMTPACK(EasyCastStructure):
         pISeqStream: Windows.Win32.System.Com.ISequentialStream_head
@@ -7162,7 +7172,7 @@ if ARCH in 'X86':
         cBSTR: UInt32
         rgBSTR: POINTER(Windows.Win32.Foundation.BSTR)
         cVARIANT: UInt32
-        rgVARIANT: POINTER(Windows.Win32.System.Com.VARIANT_head)
+        rgVARIANT: POINTER(Windows.Win32.System.Variant.VARIANT_head)
         cIDISPATCH: UInt32
         rgIDISPATCH: POINTER(Windows.Win32.System.Com.IDispatch_head)
         cIUNKNOWN: UInt32
@@ -7170,7 +7180,7 @@ if ARCH in 'X86':
         cPROPVARIANT: UInt32
         rgPROPVARIANT: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)
         cArray: UInt32
-        rgArray: POINTER(Windows.Win32.System.Com.VARIANT_head)
+        rgArray: POINTER(Windows.Win32.System.Variant.VARIANT_head)
         _pack_ = 2
 ROWSETEVENT_ITEMSTATE = Int32
 ROWSETEVENT_ITEMSTATE_NOTINROWSET: ROWSETEVENT_ITEMSTATE = 0

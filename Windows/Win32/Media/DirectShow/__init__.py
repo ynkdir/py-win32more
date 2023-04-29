@@ -9,7 +9,6 @@ import Windows.Win32.Media
 import Windows.Win32.Media.Audio
 import Windows.Win32.Media.Audio.DirectSound
 import Windows.Win32.Media.DirectShow
-import Windows.Win32.Media.KernelStreaming
 import Windows.Win32.Media.MediaFoundation
 import Windows.Win32.Media.WindowsMediaFormat
 import Windows.Win32.System.Com
@@ -17,6 +16,7 @@ import Windows.Win32.System.Com.StructuredStorage
 import Windows.Win32.System.Diagnostics.Etw
 import Windows.Win32.System.Ole
 import Windows.Win32.System.Registry
+import Windows.Win32.System.Variant
 import Windows.Win32.UI.WindowsAndMessaging
 import sys
 _module = sys.modules[__name__]
@@ -5029,15 +5029,15 @@ class IEncoderAPI(c_void_p):
     @commethod(4)
     def IsAvailable(self, Api: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
-    def GetParameterRange(self, Api: POINTER(Guid), ValueMin: POINTER(Windows.Win32.System.Com.VARIANT_head), ValueMax: POINTER(Windows.Win32.System.Com.VARIANT_head), SteppingDelta: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetParameterRange(self, Api: POINTER(Guid), ValueMin: POINTER(Windows.Win32.System.Variant.VARIANT_head), ValueMax: POINTER(Windows.Win32.System.Variant.VARIANT_head), SteppingDelta: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
-    def GetParameterValues(self, Api: POINTER(Guid), Values: POINTER(POINTER(Windows.Win32.System.Com.VARIANT_head)), ValuesCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetParameterValues(self, Api: POINTER(Guid), Values: POINTER(POINTER(Windows.Win32.System.Variant.VARIANT_head)), ValuesCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
-    def GetDefaultValue(self, Api: POINTER(Guid), Value: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetDefaultValue(self, Api: POINTER(Guid), Value: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
-    def GetValue(self, Api: POINTER(Guid), Value: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def GetValue(self, Api: POINTER(Guid), Value: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
-    def SetValue(self, Api: POINTER(Guid), Value: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def SetValue(self, Api: POINTER(Guid), Value: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumFilters(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('56a86893-0ad4-11ce-b0-3a-00-20-af-0b-a7-70')
@@ -5362,25 +5362,6 @@ class IKsNodeControl(c_void_p):
     def put_NodeId(self, dwNodeId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def put_KsControl(self, pKsControl: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
-class IKsTopologyInfo(c_void_p):
-    extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('720d4ac0-7533-11d0-a5-d6-28-db-04-c1-00-00')
-    @commethod(3)
-    def get_NumCategories(self, pdwNumCategories: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(4)
-    def get_Category(self, dwIndex: UInt32, pCategory: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(5)
-    def get_NumConnections(self, pdwNumConnections: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(6)
-    def get_ConnectionInfo(self, dwIndex: UInt32, pConnectionInfo: POINTER(Windows.Win32.Media.KernelStreaming.KSTOPOLOGY_CONNECTION_head)) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(7)
-    def get_NodeName(self, dwNodeId: UInt32, pwchNodeName: Windows.Win32.Foundation.PWSTR, dwBufSize: UInt32, pdwNameLen: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(8)
-    def get_NumNodes(self, pdwNumNodes: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(9)
-    def get_NodeType(self, dwNodeId: UInt32, pNodeType: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
-    @commethod(10)
-    def CreateNodeInstance(self, dwNodeId: UInt32, iid: POINTER(Guid), ppvObject: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMPEG2PIDMap(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('afb6c2a1-2c41-11d3-8a-60-00-00-f8-1e-0e-4a')
@@ -5521,7 +5502,7 @@ class IMediaPropertyBag(c_void_p):
     extends: Windows.Win32.System.Com.StructuredStorage.IPropertyBag
     Guid = Guid('6025a880-c0d5-11d0-bd-4e-00-a0-c9-11-ce-86')
     @commethod(5)
-    def EnumProperty(self, iProperty: UInt32, pvarPropertyName: POINTER(Windows.Win32.System.Com.VARIANT_head), pvarPropertyValue: POINTER(Windows.Win32.System.Com.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
+    def EnumProperty(self, iProperty: UInt32, pvarPropertyName: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarPropertyValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMediaSample(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('56a8689a-0ad4-11ce-b0-3a-00-20-af-0b-a7-70')
@@ -5973,9 +5954,9 @@ class IQueueCommand(c_void_p):
     extends: Windows.Win32.System.Com.IUnknown
     Guid = Guid('56a868b7-0ad4-11ce-b0-3a-00-20-af-0b-a7-70')
     @commethod(3)
-    def InvokeAtStreamTime(self, pCmd: POINTER(Windows.Win32.Media.DirectShow.IDeferredCommand_head), time: Double, iid: POINTER(Guid), dispidMethod: Int32, wFlags: Int16, cArgs: Int32, pDispParams: POINTER(Windows.Win32.System.Com.VARIANT_head), pvarResult: POINTER(Windows.Win32.System.Com.VARIANT_head), puArgErr: POINTER(Int16)) -> Windows.Win32.Foundation.HRESULT: ...
+    def InvokeAtStreamTime(self, pCmd: POINTER(Windows.Win32.Media.DirectShow.IDeferredCommand_head), time: Double, iid: POINTER(Guid), dispidMethod: Int32, wFlags: Int16, cArgs: Int32, pDispParams: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head), puArgErr: POINTER(Int16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
-    def InvokeAtPresentationTime(self, pCmd: POINTER(Windows.Win32.Media.DirectShow.IDeferredCommand_head), time: Double, iid: POINTER(Guid), dispidMethod: Int32, wFlags: Int16, cArgs: Int32, pDispParams: POINTER(Windows.Win32.System.Com.VARIANT_head), pvarResult: POINTER(Windows.Win32.System.Com.VARIANT_head), puArgErr: POINTER(Int16)) -> Windows.Win32.Foundation.HRESULT: ...
+    def InvokeAtPresentationTime(self, pCmd: POINTER(Windows.Win32.Media.DirectShow.IDeferredCommand_head), time: Double, iid: POINTER(Guid), dispidMethod: Int32, wFlags: Int16, cArgs: Int32, pDispParams: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head), puArgErr: POINTER(Int16)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRegFilterInfo(c_void_p):
     extends: Windows.Win32.System.Com.IDispatch
     Guid = Guid('56a868bb-0ad4-11ce-b0-3a-00-20-af-0b-a7-70')
@@ -7978,7 +7959,6 @@ make_head(_module, 'IGraphConfigCallback')
 make_head(_module, 'IGraphVersion')
 make_head(_module, 'IIPDVDec')
 make_head(_module, 'IKsNodeControl')
-make_head(_module, 'IKsTopologyInfo')
 make_head(_module, 'IMPEG2PIDMap')
 make_head(_module, 'IMPEG2StreamIdMap')
 make_head(_module, 'IMediaControl')

@@ -35,9 +35,7 @@ def enum_tokens():
             raise WinError(hr)
         defer.callback(cat.Release)
 
-        hr = cat.SetId(
-            r"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices", False
-        )
+        hr = cat.SetId(r"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices", False)
         if FAILED(hr):
             raise WinError(hr)
 

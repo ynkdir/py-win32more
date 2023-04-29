@@ -119,25 +119,25 @@ def FilterAttachAtAltitude(lpFilterName: Windows.Win32.Foundation.PWSTR, lpVolum
 @winfunctype('FLTLIB.dll')
 def FilterDetach(lpFilterName: Windows.Win32.Foundation.PWSTR, lpVolumeName: Windows.Win32.Foundation.PWSTR, lpInstanceName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
-def FilterFindFirst(dwInformationClass: Windows.Win32.Storage.InstallableFileSystems.FILTER_INFORMATION_CLASS, lpBuffer: c_void_p, dwBufferSize: UInt32, lpBytesReturned: POINTER(UInt32), lpFilterFind: POINTER(Windows.Win32.Storage.InstallableFileSystems.FilterFindHandle)) -> Windows.Win32.Foundation.HRESULT: ...
+def FilterFindFirst(dwInformationClass: Windows.Win32.Storage.InstallableFileSystems.FILTER_INFORMATION_CLASS, lpBuffer: c_void_p, dwBufferSize: UInt32, lpBytesReturned: POINTER(UInt32), lpFilterFind: POINTER(Windows.Win32.Storage.InstallableFileSystems.FilterFindHandle_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
 def FilterFindNext(hFilterFind: Windows.Win32.Foundation.HANDLE, dwInformationClass: Windows.Win32.Storage.InstallableFileSystems.FILTER_INFORMATION_CLASS, lpBuffer: c_void_p, dwBufferSize: UInt32, lpBytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
 def FilterFindClose(hFilterFind: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
-def FilterVolumeFindFirst(dwInformationClass: Windows.Win32.Storage.InstallableFileSystems.FILTER_VOLUME_INFORMATION_CLASS, lpBuffer: c_void_p, dwBufferSize: UInt32, lpBytesReturned: POINTER(UInt32), lpVolumeFind: POINTER(Windows.Win32.Storage.InstallableFileSystems.FilterVolumeFindHandle)) -> Windows.Win32.Foundation.HRESULT: ...
+def FilterVolumeFindFirst(dwInformationClass: Windows.Win32.Storage.InstallableFileSystems.FILTER_VOLUME_INFORMATION_CLASS, lpBuffer: c_void_p, dwBufferSize: UInt32, lpBytesReturned: POINTER(UInt32), lpVolumeFind: POINTER(Windows.Win32.Storage.InstallableFileSystems.FilterVolumeFindHandle_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
 def FilterVolumeFindNext(hVolumeFind: Windows.Win32.Foundation.HANDLE, dwInformationClass: Windows.Win32.Storage.InstallableFileSystems.FILTER_VOLUME_INFORMATION_CLASS, lpBuffer: c_void_p, dwBufferSize: UInt32, lpBytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
 def FilterVolumeFindClose(hVolumeFind: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
-def FilterInstanceFindFirst(lpFilterName: Windows.Win32.Foundation.PWSTR, dwInformationClass: Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS, lpBuffer: c_void_p, dwBufferSize: UInt32, lpBytesReturned: POINTER(UInt32), lpFilterInstanceFind: POINTER(Windows.Win32.Storage.InstallableFileSystems.FilterInstanceFindHandle)) -> Windows.Win32.Foundation.HRESULT: ...
+def FilterInstanceFindFirst(lpFilterName: Windows.Win32.Foundation.PWSTR, dwInformationClass: Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS, lpBuffer: c_void_p, dwBufferSize: UInt32, lpBytesReturned: POINTER(UInt32), lpFilterInstanceFind: POINTER(Windows.Win32.Storage.InstallableFileSystems.FilterInstanceFindHandle_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
 def FilterInstanceFindNext(hFilterInstanceFind: Windows.Win32.Foundation.HANDLE, dwInformationClass: Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS, lpBuffer: c_void_p, dwBufferSize: UInt32, lpBytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
 def FilterInstanceFindClose(hFilterInstanceFind: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
-def FilterVolumeInstanceFindFirst(lpVolumeName: Windows.Win32.Foundation.PWSTR, dwInformationClass: Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS, lpBuffer: c_void_p, dwBufferSize: UInt32, lpBytesReturned: POINTER(UInt32), lpVolumeInstanceFind: POINTER(Windows.Win32.Storage.InstallableFileSystems.FilterVolumeInstanceFindHandle)) -> Windows.Win32.Foundation.HRESULT: ...
+def FilterVolumeInstanceFindFirst(lpVolumeName: Windows.Win32.Foundation.PWSTR, dwInformationClass: Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS, lpBuffer: c_void_p, dwBufferSize: UInt32, lpBytesReturned: POINTER(UInt32), lpVolumeInstanceFind: POINTER(Windows.Win32.Storage.InstallableFileSystems.FilterVolumeInstanceFindHandle_head)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
 def FilterVolumeInstanceFindNext(hVolumeInstanceFind: Windows.Win32.Foundation.HANDLE, dwInformationClass: Windows.Win32.Storage.InstallableFileSystems.INSTANCE_INFORMATION_CLASS, lpBuffer: c_void_p, dwBufferSize: UInt32, lpBytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 @winfunctype('FLTLIB.dll')
@@ -255,10 +255,14 @@ FLT_FSTYPE_CSVFS: FLT_FILESYSTEM_TYPE = 27
 FLT_FSTYPE_REFS: FLT_FILESYSTEM_TYPE = 28
 FLT_FSTYPE_OPENAFS: FLT_FILESYSTEM_TYPE = 29
 FLT_FSTYPE_CIMFS: FLT_FILESYSTEM_TYPE = 30
-FilterFindHandle = IntPtr
-FilterInstanceFindHandle = IntPtr
-FilterVolumeFindHandle = IntPtr
-FilterVolumeInstanceFindHandle = IntPtr
+class FilterFindHandle(EasyCastStructure):
+    Value: IntPtr
+class FilterInstanceFindHandle(EasyCastStructure):
+    Value: IntPtr
+class FilterVolumeFindHandle(EasyCastStructure):
+    Value: IntPtr
+class FilterVolumeInstanceFindHandle(EasyCastStructure):
+    Value: IntPtr
 HFILTER = IntPtr
 HFILTER_INSTANCE = IntPtr
 class INSTANCE_AGGREGATE_STANDARD_INFORMATION(EasyCastStructure):
@@ -322,6 +326,10 @@ make_head(_module, 'FILTER_MESSAGE_HEADER')
 make_head(_module, 'FILTER_REPLY_HEADER')
 make_head(_module, 'FILTER_VOLUME_BASIC_INFORMATION')
 make_head(_module, 'FILTER_VOLUME_STANDARD_INFORMATION')
+make_head(_module, 'FilterFindHandle')
+make_head(_module, 'FilterInstanceFindHandle')
+make_head(_module, 'FilterVolumeFindHandle')
+make_head(_module, 'FilterVolumeInstanceFindHandle')
 make_head(_module, 'INSTANCE_AGGREGATE_STANDARD_INFORMATION')
 make_head(_module, 'INSTANCE_BASIC_INFORMATION')
 make_head(_module, 'INSTANCE_FULL_INFORMATION')
