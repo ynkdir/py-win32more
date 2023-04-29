@@ -296,14 +296,14 @@ MTP_RESPONSE_MAX_PARAMS: UInt32 = 5
 MTP_RESPONSE_OK: UInt16 = 8193
 class IComponentAuthenticate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a9889c00-6d2b-11d3-84-96-00-c0-4f-79-db-c0')
+    _iid_ = Guid('a9889c00-6d2b-11d3-84-96-00-c0-4f-79-db-c0')
     @commethod(3)
     def SACAuth(self, dwProtocolID: UInt32, dwPass: UInt32, pbDataIn: POINTER(Byte), dwDataInLen: UInt32, ppbDataOut: POINTER(POINTER(Byte)), pdwDataOutLen: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SACGetProtocols(self, ppdwProtocols: POINTER(POINTER(UInt32)), pdwProtocolCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDSPDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a12-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a12-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def GetName(self, pwszName: Windows.Win32.Foundation.PWSTR, nMaxChars: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -328,7 +328,7 @@ class IMDSPDevice(ComPtr):
     def SendOpaqueCommand(self, pCommand: POINTER(Windows.Win32.Media.DeviceManager.OPAQUECOMMAND_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDSPDevice2(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IMDSPDevice
-    Guid = Guid('420d16ad-c97d-4e00-82-aa-00-e9-f4-33-5d-dd')
+    _iid_ = Guid('420d16ad-c97d-4e00-82-aa-00-e9-f4-33-5d-dd')
     @commethod(14)
     def GetStorage(self, pszStorageName: Windows.Win32.Foundation.PWSTR, ppStorage: POINTER(Windows.Win32.Media.DeviceManager.IMDSPStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -339,7 +339,7 @@ class IMDSPDevice2(ComPtr):
     def GetCanonicalName(self, pwszPnPName: Windows.Win32.Foundation.PWSTR, nMaxChars: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDSPDevice3(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IMDSPDevice2
-    Guid = Guid('1a839845-fc55-487c-97-6f-ee-38-ac-0e-8c-4e')
+    _iid_ = Guid('1a839845-fc55-487c-97-6f-ee-38-ac-0e-8c-4e')
     @commethod(18)
     def GetProperty(self, pwszPropName: Windows.Win32.Foundation.PWSTR, pValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
@@ -352,7 +352,7 @@ class IMDSPDevice3(ComPtr):
     def FindStorage(self, findScope: Windows.Win32.Media.DeviceManager.WMDM_FIND_SCOPE, pwszUniqueID: Windows.Win32.Foundation.PWSTR, ppStorage: POINTER(Windows.Win32.Media.DeviceManager.IMDSPStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDSPDeviceControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a14-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a14-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def GetDCStatus(self, pdwStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -371,12 +371,12 @@ class IMDSPDeviceControl(ComPtr):
     def Seek(self, fuMode: UInt32, nOffset: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDSPDirectTransfer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c2fe57a8-9304-478c-9e-e4-47-e3-97-b9-12-d7')
+    _iid_ = Guid('c2fe57a8-9304-478c-9e-e4-47-e3-97-b9-12-d7')
     @commethod(3)
     def TransferToDevice(self, pwszSourceFilePath: Windows.Win32.Foundation.PWSTR, pSourceOperation: Windows.Win32.Media.DeviceManager.IWMDMOperation_head, fuFlags: UInt32, pwszDestinationName: Windows.Win32.Foundation.PWSTR, pSourceMetaData: Windows.Win32.Media.DeviceManager.IWMDMMetaData_head, pTransferProgress: Windows.Win32.Media.DeviceManager.IWMDMProgress_head, ppNewObject: POINTER(Windows.Win32.Media.DeviceManager.IMDSPStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDSPEnumDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a11-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a11-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def Next(self, celt: UInt32, ppDevice: POINTER(Windows.Win32.Media.DeviceManager.IMDSPDevice_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -387,7 +387,7 @@ class IMDSPEnumDevice(ComPtr):
     def Clone(self, ppEnumDevice: POINTER(Windows.Win32.Media.DeviceManager.IMDSPEnumDevice_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDSPEnumStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a15-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a15-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def Next(self, celt: UInt32, ppStorage: POINTER(Windows.Win32.Media.DeviceManager.IMDSPStorage_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -398,7 +398,7 @@ class IMDSPEnumStorage(ComPtr):
     def Clone(self, ppEnumStorage: POINTER(Windows.Win32.Media.DeviceManager.IMDSPEnumStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDSPObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a18-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a18-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def Open(self, fuMode: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -417,14 +417,14 @@ class IMDSPObject(ComPtr):
     def Close(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDSPObject2(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IMDSPObject
-    Guid = Guid('3f34cd3e-5907-4341-9a-f9-97-f4-18-7c-3a-a5')
+    _iid_ = Guid('3f34cd3e-5907-4341-9a-f9-97-f4-18-7c-3a-a5')
     @commethod(11)
     def ReadOnClearChannel(self, pData: POINTER(Byte), pdwSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def WriteOnClearChannel(self, pData: POINTER(Byte), pdwSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDSPObjectInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a19-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a19-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def GetPlayLength(self, pdwLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -441,12 +441,12 @@ class IMDSPObjectInfo(ComPtr):
     def GetLongestPlayPosition(self, pdwLongestPos: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDSPRevoked(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a4e8f2d4-3f31-464d-b5-3d-4f-c3-35-99-81-84')
+    _iid_ = Guid('a4e8f2d4-3f31-464d-b5-3d-4f-c3-35-99-81-84')
     @commethod(3)
     def GetRevocationURL(self, ppwszRevocationURL: POINTER(Windows.Win32.Foundation.PWSTR), pdwBufferLen: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDSPStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a16-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a16-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def SetAttributes(self, dwAttributes: UInt32, pFormat: POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -469,7 +469,7 @@ class IMDSPStorage(ComPtr):
     def SendOpaqueCommand(self, pCommand: POINTER(Windows.Win32.Media.DeviceManager.OPAQUECOMMAND_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDSPStorage2(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IMDSPStorage
-    Guid = Guid('0a5e07a5-6454-4451-9c-36-1c-6a-e7-e2-b1-d6')
+    _iid_ = Guid('0a5e07a5-6454-4451-9c-36-1c-6a-e7-e2-b1-d6')
     @commethod(13)
     def GetStorage(self, pszStorageName: Windows.Win32.Foundation.PWSTR, ppStorage: POINTER(Windows.Win32.Media.DeviceManager.IMDSPStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
@@ -480,14 +480,14 @@ class IMDSPStorage2(ComPtr):
     def GetAttributes2(self, pdwAttributes: POINTER(UInt32), pdwAttributesEx: POINTER(UInt32), pAudioFormat: POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head), pVideoFormat: POINTER(Windows.Win32.Media.MediaFoundation.VIDEOINFOHEADER_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDSPStorage3(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IMDSPStorage2
-    Guid = Guid('6c669867-97ed-4a67-97-06-1c-55-29-d2-a4-14')
+    _iid_ = Guid('6c669867-97ed-4a67-97-06-1c-55-29-d2-a4-14')
     @commethod(17)
     def GetMetadata(self, pMetadata: Windows.Win32.Media.DeviceManager.IWMDMMetaData_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
     def SetMetadata(self, pMetadata: Windows.Win32.Media.DeviceManager.IWMDMMetaData_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDSPStorage4(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IMDSPStorage3
-    Guid = Guid('3133b2c4-515c-481b-b1-ce-39-32-7e-cb-4f-74')
+    _iid_ = Guid('3133b2c4-515c-481b-b1-ce-39-32-7e-cb-4f-74')
     @commethod(19)
     def SetReferences(self, dwRefs: UInt32, ppISPStorage: POINTER(Windows.Win32.Media.DeviceManager.IMDSPStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
@@ -502,7 +502,7 @@ class IMDSPStorage4(ComPtr):
     def GetParent(self, ppStorage: POINTER(Windows.Win32.Media.DeviceManager.IMDSPStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDSPStorageGlobals(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a17-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a17-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def GetCapabilities(self, pdwCapabilities: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -523,34 +523,34 @@ class IMDSPStorageGlobals(ComPtr):
     def GetRootStorage(self, ppRoot: POINTER(Windows.Win32.Media.DeviceManager.IMDSPStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDServiceProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a10-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a10-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def GetDeviceCount(self, pdwCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EnumDevices(self, ppEnumDevice: POINTER(Windows.Win32.Media.DeviceManager.IMDSPEnumDevice_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDServiceProvider2(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IMDServiceProvider
-    Guid = Guid('b2fa24b7-cda3-4694-98-62-41-3a-e1-a3-48-19')
+    _iid_ = Guid('b2fa24b7-cda3-4694-98-62-41-3a-e1-a3-48-19')
     @commethod(5)
     def CreateDevice(self, pwszDevicePath: Windows.Win32.Foundation.PWSTR, pdwCount: POINTER(UInt32), pppDeviceArray: POINTER(POINTER(Windows.Win32.Media.DeviceManager.IMDSPDevice_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IMDServiceProvider3(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IMDServiceProvider2
-    Guid = Guid('4ed13ef3-a971-4d19-9f-51-0e-18-26-b2-da-57')
+    _iid_ = Guid('4ed13ef3-a971-4d19-9f-51-0e-18-26-b2-da-57')
     @commethod(6)
     def SetDeviceEnumPreference(self, dwEnumPref: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISCPSecureAuthenticate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a0f-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a0f-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def GetSecureQuery(self, ppSecureQuery: POINTER(Windows.Win32.Media.DeviceManager.ISCPSecureQuery_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISCPSecureAuthenticate2(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.ISCPSecureAuthenticate
-    Guid = Guid('b580cfae-1672-47e2-ac-aa-44-bb-ec-bc-ae-5b')
+    _iid_ = Guid('b580cfae-1672-47e2-ac-aa-44-bb-ec-bc-ae-5b')
     @commethod(4)
     def GetSCPSession(self, ppSCPSession: POINTER(Windows.Win32.Media.DeviceManager.ISCPSession_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISCPSecureExchange(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a0e-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a0e-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def TransferContainerData(self, pData: POINTER(Byte), dwSize: UInt32, pfuReadyFlags: POINTER(UInt32), abMac: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -559,12 +559,12 @@ class ISCPSecureExchange(ComPtr):
     def TransferComplete(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISCPSecureExchange2(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.ISCPSecureExchange
-    Guid = Guid('6c62fc7b-2690-483f-9d-44-0a-20-cb-35-57-7c')
+    _iid_ = Guid('6c62fc7b-2690-483f-9d-44-0a-20-cb-35-57-7c')
     @commethod(6)
     def TransferContainerData2(self, pData: POINTER(Byte), dwSize: UInt32, pProgressCallback: Windows.Win32.Media.DeviceManager.IWMDMProgress3_head, pfuReadyFlags: POINTER(UInt32), abMac: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISCPSecureExchange3(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.ISCPSecureExchange2
-    Guid = Guid('ab4e77e4-8908-4b17-bd-2a-b1-db-e6-dd-69-e1')
+    _iid_ = Guid('ab4e77e4-8908-4b17-bd-2a-b1-db-e6-dd-69-e1')
     @commethod(7)
     def TransferContainerDataOnClearChannel(self, pDevice: Windows.Win32.Media.DeviceManager.IMDSPDevice_head, pData: POINTER(Byte), dwSize: UInt32, pProgressCallback: Windows.Win32.Media.DeviceManager.IWMDMProgress3_head, pfuReadyFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -573,7 +573,7 @@ class ISCPSecureExchange3(ComPtr):
     def TransferCompleteForDevice(self, pDevice: Windows.Win32.Media.DeviceManager.IMDSPDevice_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISCPSecureQuery(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a0d-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a0d-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def GetDataDemands(self, pfuFlags: POINTER(UInt32), pdwMinRightsData: POINTER(UInt32), pdwMinExamineData: POINTER(UInt32), pdwMinDecideData: POINTER(UInt32), abMac: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -584,19 +584,19 @@ class ISCPSecureQuery(ComPtr):
     def GetRights(self, pData: POINTER(Byte), dwSize: UInt32, pbSPSessionKey: POINTER(Byte), dwSessionKeyLen: UInt32, pStgGlobals: Windows.Win32.Media.DeviceManager.IMDSPStorageGlobals_head, ppRights: POINTER(POINTER(Windows.Win32.Media.DeviceManager.WMDMRIGHTS_head)), pnRightsCount: POINTER(UInt32), abMac: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISCPSecureQuery2(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.ISCPSecureQuery
-    Guid = Guid('ebe17e25-4fd7-4632-af-46-6d-93-d4-fc-c7-2e')
+    _iid_ = Guid('ebe17e25-4fd7-4632-af-46-6d-93-d4-fc-c7-2e')
     @commethod(7)
     def MakeDecision2(self, fuFlags: UInt32, pData: POINTER(Byte), dwSize: UInt32, dwAppSec: UInt32, pbSPSessionKey: POINTER(Byte), dwSessionKeyLen: UInt32, pStorageGlobals: Windows.Win32.Media.DeviceManager.IMDSPStorageGlobals_head, pAppCertApp: POINTER(Byte), dwAppCertAppLen: UInt32, pAppCertSP: POINTER(Byte), dwAppCertSPLen: UInt32, pszRevocationURL: POINTER(Windows.Win32.Foundation.PWSTR), pdwRevocationURLLen: POINTER(UInt32), pdwRevocationBitFlag: POINTER(UInt32), pqwFileSize: POINTER(UInt64), pUnknown: Windows.Win32.System.Com.IUnknown_head, ppExchange: POINTER(Windows.Win32.Media.DeviceManager.ISCPSecureExchange_head), abMac: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISCPSecureQuery3(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.ISCPSecureQuery2
-    Guid = Guid('b7edd1a2-4dab-484b-b3-c5-ad-39-b8-b4-c0-b1')
+    _iid_ = Guid('b7edd1a2-4dab-484b-b3-c5-ad-39-b8-b4-c0-b1')
     @commethod(8)
     def GetRightsOnClearChannel(self, pData: POINTER(Byte), dwSize: UInt32, pbSPSessionKey: POINTER(Byte), dwSessionKeyLen: UInt32, pStgGlobals: Windows.Win32.Media.DeviceManager.IMDSPStorageGlobals_head, pProgressCallback: Windows.Win32.Media.DeviceManager.IWMDMProgress3_head, ppRights: POINTER(POINTER(Windows.Win32.Media.DeviceManager.WMDMRIGHTS_head)), pnRightsCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def MakeDecisionOnClearChannel(self, fuFlags: UInt32, pData: POINTER(Byte), dwSize: UInt32, dwAppSec: UInt32, pbSPSessionKey: POINTER(Byte), dwSessionKeyLen: UInt32, pStorageGlobals: Windows.Win32.Media.DeviceManager.IMDSPStorageGlobals_head, pProgressCallback: Windows.Win32.Media.DeviceManager.IWMDMProgress3_head, pAppCertApp: POINTER(Byte), dwAppCertAppLen: UInt32, pAppCertSP: POINTER(Byte), dwAppCertSPLen: UInt32, pszRevocationURL: POINTER(Windows.Win32.Foundation.PWSTR), pdwRevocationURLLen: POINTER(UInt32), pdwRevocationBitFlag: POINTER(UInt32), pqwFileSize: POINTER(UInt64), pUnknown: Windows.Win32.System.Com.IUnknown_head, ppExchange: POINTER(Windows.Win32.Media.DeviceManager.ISCPSecureExchange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISCPSession(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('88a3e6ed-eee4-4619-bb-b3-fd-4f-b6-27-15-d1')
+    _iid_ = Guid('88a3e6ed-eee4-4619-bb-b3-fd-4f-b6-27-15-d1')
     @commethod(3)
     def BeginSession(self, pIDevice: Windows.Win32.Media.DeviceManager.IMDSPDevice_head, pCtx: POINTER(Byte), dwSizeCtx: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -605,7 +605,7 @@ class ISCPSession(ComPtr):
     def GetSecureQuery(self, ppSecureQuery: POINTER(Windows.Win32.Media.DeviceManager.ISCPSecureQuery_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a02-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a02-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def GetName(self, pwszName: Windows.Win32.Foundation.PWSTR, nMaxChars: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -630,7 +630,7 @@ class IWMDMDevice(ComPtr):
     def SendOpaqueCommand(self, pCommand: POINTER(Windows.Win32.Media.DeviceManager.OPAQUECOMMAND_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMDevice2(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IWMDMDevice
-    Guid = Guid('e34f3d37-9d67-4fc1-92-52-62-d2-8b-2f-8b-55')
+    _iid_ = Guid('e34f3d37-9d67-4fc1-92-52-62-d2-8b-2f-8b-55')
     @commethod(14)
     def GetStorage(self, pszStorageName: Windows.Win32.Foundation.PWSTR, ppStorage: POINTER(Windows.Win32.Media.DeviceManager.IWMDMStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -641,7 +641,7 @@ class IWMDMDevice2(ComPtr):
     def GetCanonicalName(self, pwszPnPName: Windows.Win32.Foundation.PWSTR, nMaxChars: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMDevice3(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IWMDMDevice2
-    Guid = Guid('6c03e4fe-05db-4dda-9e-3c-06-23-3a-6d-5d-65')
+    _iid_ = Guid('6c03e4fe-05db-4dda-9e-3c-06-23-3a-6d-5d-65')
     @commethod(18)
     def GetProperty(self, pwszPropName: Windows.Win32.Foundation.PWSTR, pValue: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(19)
@@ -654,7 +654,7 @@ class IWMDMDevice3(ComPtr):
     def FindStorage(self, findScope: Windows.Win32.Media.DeviceManager.WMDM_FIND_SCOPE, pwszUniqueID: Windows.Win32.Foundation.PWSTR, ppStorage: POINTER(Windows.Win32.Media.DeviceManager.IWMDMStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMDeviceControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a04-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a04-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def GetStatus(self, pdwStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -673,14 +673,14 @@ class IWMDMDeviceControl(ComPtr):
     def Seek(self, fuMode: UInt32, nOffset: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMDeviceSession(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('82af0a65-9d96-412c-83-e5-3c-43-e4-b0-6c-c7')
+    _iid_ = Guid('82af0a65-9d96-412c-83-e5-3c-43-e4-b0-6c-c7')
     @commethod(3)
     def BeginSession(self, type: Windows.Win32.Media.DeviceManager.WMDM_SESSION_TYPE, pCtx: POINTER(Byte), dwSizeCtx: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EndSession(self, type: Windows.Win32.Media.DeviceManager.WMDM_SESSION_TYPE, pCtx: POINTER(Byte), dwSizeCtx: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMEnumDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a01-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a01-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def Next(self, celt: UInt32, ppDevice: POINTER(Windows.Win32.Media.DeviceManager.IWMDMDevice_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -691,7 +691,7 @@ class IWMDMEnumDevice(ComPtr):
     def Clone(self, ppEnumDevice: POINTER(Windows.Win32.Media.DeviceManager.IWMDMEnumDevice_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMEnumStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a05-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a05-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def Next(self, celt: UInt32, ppStorage: POINTER(Windows.Win32.Media.DeviceManager.IWMDMStorage_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -702,7 +702,7 @@ class IWMDMEnumStorage(ComPtr):
     def Clone(self, ppEnumStorage: POINTER(Windows.Win32.Media.DeviceManager.IWMDMEnumStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMLogger(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('110a3200-5a79-11d3-8d-78-44-45-53-54-00-00')
+    _iid_ = Guid('110a3200-5a79-11d3-8d-78-44-45-53-54-00-00')
     @commethod(3)
     def IsEnabled(self, pfEnabled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -723,7 +723,7 @@ class IWMDMLogger(ComPtr):
     def SetSizeParams(self, dwMaxSize: UInt32, dwShrinkToSize: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMMetaData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ec3b0663-0951-460a-9a-80-0d-ce-ed-3c-04-3c')
+    _iid_ = Guid('ec3b0663-0951-460a-9a-80-0d-ce-ed-3c-04-3c')
     @commethod(3)
     def AddItem(self, Type: Windows.Win32.Media.DeviceManager.WMDM_TAG_DATATYPE, pwszTagName: Windows.Win32.Foundation.PWSTR, pValue: POINTER(Byte), iLength: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -734,12 +734,12 @@ class IWMDMMetaData(ComPtr):
     def GetItemCount(self, iCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMNotification(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3f5e95c0-0f43-4ed4-93-d2-c8-9a-45-d5-9b-81')
+    _iid_ = Guid('3f5e95c0-0f43-4ed4-93-d2-c8-9a-45-d5-9b-81')
     @commethod(3)
     def WMDMMessage(self, dwMessageType: UInt32, pwszCanonicalName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMObjectInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a09-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a09-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def GetPlayLength(self, pdwLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -756,7 +756,7 @@ class IWMDMObjectInfo(ComPtr):
     def GetLongestPlayPosition(self, pdwLongestPos: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMOperation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a0b-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a0b-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def BeginRead(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -779,19 +779,19 @@ class IWMDMOperation(ComPtr):
     def End(self, phCompletionCode: POINTER(Windows.Win32.Foundation.HRESULT), pNewObject: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMOperation2(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IWMDMOperation
-    Guid = Guid('33445b48-7df7-425c-ad-8f-0f-c6-d8-2f-9f-75')
+    _iid_ = Guid('33445b48-7df7-425c-ad-8f-0f-c6-d8-2f-9f-75')
     @commethod(13)
     def SetObjectAttributes2(self, dwAttributes: UInt32, dwAttributesEx: UInt32, pFormat: POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head), pVideoFormat: POINTER(Windows.Win32.Media.MediaFoundation.VIDEOINFOHEADER_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetObjectAttributes2(self, pdwAttributes: POINTER(UInt32), pdwAttributesEx: POINTER(UInt32), pAudioFormat: POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head), pVideoFormat: POINTER(Windows.Win32.Media.MediaFoundation.VIDEOINFOHEADER_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMOperation3(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IWMDMOperation
-    Guid = Guid('d1f9b46a-9ca8-46d8-9d-0f-1e-c9-ba-e5-49-19')
+    _iid_ = Guid('d1f9b46a-9ca8-46d8-9d-0f-1e-c9-ba-e5-49-19')
     @commethod(13)
     def TransferObjectDataOnClearChannel(self, pData: POINTER(Byte), pdwSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMProgress(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a0c-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a0c-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def Begin(self, dwEstimatedTicks: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -800,12 +800,12 @@ class IWMDMProgress(ComPtr):
     def End(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMProgress2(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IWMDMProgress
-    Guid = Guid('3a43f550-b383-4e92-b0-4a-e6-bb-c6-60-fe-fc')
+    _iid_ = Guid('3a43f550-b383-4e92-b0-4a-e6-bb-c6-60-fe-fc')
     @commethod(6)
     def End2(self, hrCompletionCode: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMProgress3(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IWMDMProgress2
-    Guid = Guid('21de01cb-3bb4-4929-b2-1a-17-af-3f-80-f6-58')
+    _iid_ = Guid('21de01cb-3bb4-4929-b2-1a-17-af-3f-80-f6-58')
     @commethod(7)
     def Begin3(self, EventId: Guid, dwEstimatedTicks: UInt32, pContext: POINTER(Windows.Win32.Media.DeviceManager.OPAQUECOMMAND_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -814,12 +814,12 @@ class IWMDMProgress3(ComPtr):
     def End3(self, EventId: Guid, hrCompletionCode: Windows.Win32.Foundation.HRESULT, pContext: POINTER(Windows.Win32.Media.DeviceManager.OPAQUECOMMAND_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMRevoked(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ebeccedb-88ee-4e55-b6-a4-8d-9f-07-d6-96-aa')
+    _iid_ = Guid('ebeccedb-88ee-4e55-b6-a4-8d-9f-07-d6-96-aa')
     @commethod(3)
     def GetRevocationURL(self, ppwszRevocationURL: POINTER(Windows.Win32.Foundation.PWSTR), pdwBufferLen: POINTER(UInt32), pdwRevokedBitFlag: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a06-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a06-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def SetAttributes(self, dwAttributes: UInt32, pFormat: POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -840,7 +840,7 @@ class IWMDMStorage(ComPtr):
     def SendOpaqueCommand(self, pCommand: POINTER(Windows.Win32.Media.DeviceManager.OPAQUECOMMAND_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMStorage2(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IWMDMStorage
-    Guid = Guid('1ed5a144-5cd5-4683-9e-ff-72-cb-db-2d-95-33')
+    _iid_ = Guid('1ed5a144-5cd5-4683-9e-ff-72-cb-db-2d-95-33')
     @commethod(12)
     def GetStorage(self, pszStorageName: Windows.Win32.Foundation.PWSTR, ppStorage: POINTER(Windows.Win32.Media.DeviceManager.IWMDMStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -849,7 +849,7 @@ class IWMDMStorage2(ComPtr):
     def GetAttributes2(self, pdwAttributes: POINTER(UInt32), pdwAttributesEx: POINTER(UInt32), pAudioFormat: POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head), pVideoFormat: POINTER(Windows.Win32.Media.MediaFoundation.VIDEOINFOHEADER_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMStorage3(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IWMDMStorage2
-    Guid = Guid('97717eea-926a-464e-96-a4-24-7b-02-16-02-6e')
+    _iid_ = Guid('97717eea-926a-464e-96-a4-24-7b-02-16-02-6e')
     @commethod(15)
     def GetMetadata(self, ppMetadata: POINTER(Windows.Win32.Media.DeviceManager.IWMDMMetaData_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
@@ -860,7 +860,7 @@ class IWMDMStorage3(ComPtr):
     def SetEnumPreference(self, pMode: POINTER(Windows.Win32.Media.DeviceManager.WMDM_STORAGE_ENUM_MODE), nViews: UInt32, pViews: POINTER(Windows.Win32.Media.DeviceManager.WMDMMetadataView_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMStorage4(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IWMDMStorage3
-    Guid = Guid('c225bac5-a03a-40b8-9a-23-91-cf-47-8c-64-a6')
+    _iid_ = Guid('c225bac5-a03a-40b8-9a-23-91-cf-47-8c-64-a6')
     @commethod(19)
     def SetReferences(self, dwRefs: UInt32, ppIWMDMStorage: POINTER(Windows.Win32.Media.DeviceManager.IWMDMStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(20)
@@ -875,7 +875,7 @@ class IWMDMStorage4(ComPtr):
     def GetParent(self, ppStorage: POINTER(Windows.Win32.Media.DeviceManager.IWMDMStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMStorageControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a08-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a08-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def Insert(self, fuMode: UInt32, pwszFile: Windows.Win32.Foundation.PWSTR, pOperation: Windows.Win32.Media.DeviceManager.IWMDMOperation_head, pProgress: Windows.Win32.Media.DeviceManager.IWMDMProgress_head, ppNewObject: POINTER(Windows.Win32.Media.DeviceManager.IWMDMStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -888,17 +888,17 @@ class IWMDMStorageControl(ComPtr):
     def Move(self, fuMode: UInt32, pTargetObject: Windows.Win32.Media.DeviceManager.IWMDMStorage_head, pProgress: Windows.Win32.Media.DeviceManager.IWMDMProgress_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMStorageControl2(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IWMDMStorageControl
-    Guid = Guid('972c2e88-bd6c-4125-8e-09-84-f8-37-e6-37-b6')
+    _iid_ = Guid('972c2e88-bd6c-4125-8e-09-84-f8-37-e6-37-b6')
     @commethod(8)
     def Insert2(self, fuMode: UInt32, pwszFileSource: Windows.Win32.Foundation.PWSTR, pwszFileDest: Windows.Win32.Foundation.PWSTR, pOperation: Windows.Win32.Media.DeviceManager.IWMDMOperation_head, pProgress: Windows.Win32.Media.DeviceManager.IWMDMProgress_head, pUnknown: Windows.Win32.System.Com.IUnknown_head, ppNewObject: POINTER(Windows.Win32.Media.DeviceManager.IWMDMStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMStorageControl3(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IWMDMStorageControl2
-    Guid = Guid('b3266365-d4f3-4696-8d-53-bd-27-ec-60-99-3a')
+    _iid_ = Guid('b3266365-d4f3-4696-8d-53-bd-27-ec-60-99-3a')
     @commethod(9)
     def Insert3(self, fuMode: UInt32, fuType: UInt32, pwszFileSource: Windows.Win32.Foundation.PWSTR, pwszFileDest: Windows.Win32.Foundation.PWSTR, pOperation: Windows.Win32.Media.DeviceManager.IWMDMOperation_head, pProgress: Windows.Win32.Media.DeviceManager.IWMDMProgress_head, pMetaData: Windows.Win32.Media.DeviceManager.IWMDMMetaData_head, pUnknown: Windows.Win32.System.Com.IUnknown_head, ppNewObject: POINTER(Windows.Win32.Media.DeviceManager.IWMDMStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDMStorageGlobals(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a07-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a07-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def GetCapabilities(self, pdwCapabilities: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -915,7 +915,7 @@ class IWMDMStorageGlobals(ComPtr):
     def Initialize(self, fuMode: UInt32, pProgress: Windows.Win32.Media.DeviceManager.IWMDMProgress_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDeviceManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dcb3a00-33ed-11d3-84-70-00-c0-4f-79-db-c0')
+    _iid_ = Guid('1dcb3a00-33ed-11d3-84-70-00-c0-4f-79-db-c0')
     @commethod(3)
     def GetRevision(self, pdwRevision: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -924,7 +924,7 @@ class IWMDeviceManager(ComPtr):
     def EnumDevices(self, ppEnumDevice: POINTER(Windows.Win32.Media.DeviceManager.IWMDMEnumDevice_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDeviceManager2(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IWMDeviceManager
-    Guid = Guid('923e5249-8731-4c5b-9b-1c-b8-b6-0b-6e-46-af')
+    _iid_ = Guid('923e5249-8731-4c5b-9b-1c-b8-b6-0b-6e-46-af')
     @commethod(6)
     def GetDeviceFromCanonicalName(self, pwszCanonicalName: Windows.Win32.Foundation.PWSTR, ppDevice: POINTER(Windows.Win32.Media.DeviceManager.IWMDMDevice_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -933,7 +933,7 @@ class IWMDeviceManager2(ComPtr):
     def Reinitialize(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWMDeviceManager3(ComPtr):
     extends: Windows.Win32.Media.DeviceManager.IWMDeviceManager2
-    Guid = Guid('af185c41-100d-46ed-be-2e-9c-e8-c4-45-94-ef')
+    _iid_ = Guid('af185c41-100d-46ed-be-2e-9c-e8-c4-45-94-ef')
     @commethod(9)
     def SetDeviceEnumPreference(self, dwEnumPref: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class MACINFO(EasyCastStructure):

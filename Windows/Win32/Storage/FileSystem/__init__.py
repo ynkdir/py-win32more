@@ -1935,7 +1935,7 @@ GET_TAPE_MEDIA_INFORMATION: GET_TAPE_DRIVE_PARAMETERS_OPERATION = 0
 HIORING = IntPtr
 class IDiskQuotaControl(ComPtr):
     extends: Windows.Win32.System.Com.IConnectionPointContainer
-    Guid = Guid('7988b572-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
+    _iid_ = Guid('7988b572-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
     @commethod(5)
     def Initialize(self, pszPath: Windows.Win32.Foundation.PWSTR, bReadWrite: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -1980,12 +1980,12 @@ class IDiskQuotaControl(ComPtr):
     def ShutdownNameResolution(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiskQuotaEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7988b579-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
+    _iid_ = Guid('7988b579-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
     @commethod(3)
     def OnUserNameChanged(self, pUser: Windows.Win32.Storage.FileSystem.IDiskQuotaUser_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiskQuotaUser(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7988b574-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
+    _iid_ = Guid('7988b574-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
     @commethod(3)
     def GetID(self, pulID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2018,7 +2018,7 @@ class IDiskQuotaUser(ComPtr):
     def GetAccountStatus(self, pdwStatus: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiskQuotaUserBatch(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7988b576-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
+    _iid_ = Guid('7988b576-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
     @commethod(3)
     def Add(self, pUser: Windows.Win32.Storage.FileSystem.IDiskQuotaUser_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2029,7 +2029,7 @@ class IDiskQuotaUserBatch(ComPtr):
     def FlushToDisk(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumDiskQuotaUsers(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7988b577-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
+    _iid_ = Guid('7988b577-ec89-11cf-9c-00-00-aa-00-a1-4f-56')
     @commethod(3)
     def Next(self, cUsers: UInt32, rgUsers: POINTER(Windows.Win32.Storage.FileSystem.IDiskQuotaUser_head), pcUsersFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

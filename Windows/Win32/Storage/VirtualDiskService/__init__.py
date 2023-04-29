@@ -511,7 +511,7 @@ class CREATE_PARTITION_PARAMETERS(EasyCastStructure):
             name: Char * 36
 class IEnumVdsObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('118610b7-8d94-4030-b5-b8-50-08-89-78-8e-4e')
+    _iid_ = Guid('118610b7-8d94-4030-b5-b8-50-08-89-78-8e-4e')
     @commethod(3)
     def Next(self, celt: UInt32, ppObjectArray: POINTER(Windows.Win32.System.Com.IUnknown_head), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -522,14 +522,14 @@ class IEnumVdsObject(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsAdmin(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d188e97d-85aa-4d33-ab-c6-26-29-9a-10-ff-c1')
+    _iid_ = Guid('d188e97d-85aa-4d33-ab-c6-26-29-9a-10-ff-c1')
     @commethod(3)
     def RegisterProvider(self, providerId: Guid, providerClsid: Guid, pwszName: Windows.Win32.Foundation.PWSTR, type: Windows.Win32.Storage.VirtualDiskService.VDS_PROVIDER_TYPE, pwszMachineName: Windows.Win32.Foundation.PWSTR, pwszVersion: Windows.Win32.Foundation.PWSTR, guidVersionId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UnregisterProvider(self, providerId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsAdvancedDisk(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6e6f6b40-977c-4069-bd-dd-ac-71-00-59-f8-c0')
+    _iid_ = Guid('6e6f6b40-977c-4069-bd-dd-ac-71-00-59-f8-c0')
     @commethod(3)
     def GetPartitionProperties(self, ullOffset: UInt64, pPartitionProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_PARTITION_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -552,24 +552,24 @@ class IVdsAdvancedDisk(ComPtr):
     def Clean(self, bForce: Windows.Win32.Foundation.BOOL, bForceOEM: Windows.Win32.Foundation.BOOL, bFullClean: Windows.Win32.Foundation.BOOL, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsAdvancedDisk2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9723f420-9355-42de-ab-66-e3-1b-b1-5b-ee-ac')
+    _iid_ = Guid('9723f420-9355-42de-ab-66-e3-1b-b1-5b-ee-ac')
     @commethod(3)
     def ChangePartitionType(self, ullOffset: UInt64, bForce: Windows.Win32.Foundation.BOOL, para: POINTER(Windows.Win32.Storage.VirtualDiskService.CHANGE_PARTITION_TYPE_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsAdvancedDisk3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3858c0d5-0f35-4bf5-97-14-69-87-49-63-bc-36')
+    _iid_ = Guid('3858c0d5-0f35-4bf5-97-14-69-87-49-63-bc-36')
     @commethod(3)
     def GetProperties(self, pAdvDiskProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ADVANCEDDISK_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetUniqueId(self, ppwszId: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsAdviseSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8326cd1d-cf59-4936-b7-86-5e-fc-08-79-8e-25')
+    _iid_ = Guid('8326cd1d-cf59-4936-b7-86-5e-fc-08-79-8e-25')
     @commethod(3)
     def OnNotify(self, lNumberOfNotifications: Int32, pNotificationArray: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_NOTIFICATION_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsAsync(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d5d23b6d-5a55-4492-98-89-39-7a-3c-2d-2d-bc')
+    _iid_ = Guid('d5d23b6d-5a55-4492-98-89-39-7a-3c-2d-2d-bc')
     @commethod(3)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -578,7 +578,7 @@ class IVdsAsync(ComPtr):
     def QueryStatus(self, pHrResult: POINTER(Windows.Win32.Foundation.HRESULT), pulPercentCompleted: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsController(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('cb53d96e-dffb-474a-a0-78-79-0d-1e-2b-c0-82')
+    _iid_ = Guid('cb53d96e-dffb-474a-a0-78-79-0d-1e-2b-c0-82')
     @commethod(3)
     def GetProperties(self, pControllerProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_CONTROLLER_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -597,12 +597,12 @@ class IVdsController(ComPtr):
     def SetStatus(self, status: Windows.Win32.Storage.VirtualDiskService.VDS_CONTROLLER_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsControllerControllerPort(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ca5d735f-6bae-42c0-b3-0e-f2-66-60-45-ce-71')
+    _iid_ = Guid('ca5d735f-6bae-42c0-b3-0e-f2-66-60-45-ce-71')
     @commethod(3)
     def QueryControllerPorts(self, ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsControllerPort(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('18691d0d-4e7f-43e8-92-e4-cf-44-be-ee-d1-1c')
+    _iid_ = Guid('18691d0d-4e7f-43e8-92-e4-cf-44-be-ee-d1-1c')
     @commethod(3)
     def GetProperties(self, pPortProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_PORT_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -615,12 +615,12 @@ class IVdsControllerPort(ComPtr):
     def SetStatus(self, status: Windows.Win32.Storage.VirtualDiskService.VDS_PORT_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsCreatePartitionEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9882f547-cfc3-420b-97-50-00-df-be-c5-06-62')
+    _iid_ = Guid('9882f547-cfc3-420b-97-50-00-df-be-c5-06-62')
     @commethod(3)
     def CreatePartitionEx(self, ullOffset: UInt64, ullSize: UInt64, ulAlign: UInt32, para: POINTER(Windows.Win32.Storage.VirtualDiskService.CREATE_PARTITION_PARAMETERS_head), ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsDisk(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('07e5c822-f00c-47a1-8f-ce-b2-44-da-56-fd-06')
+    _iid_ = Guid('07e5c822-f00c-47a1-8f-ce-b2-44-da-56-fd-06')
     @commethod(3)
     def GetProperties(self, pDiskProperties: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_DISK_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -637,26 +637,26 @@ class IVdsDisk(ComPtr):
     def ClearFlags(self, ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsDisk2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('40f73c8b-687d-4a13-8d-96-3d-7f-2e-68-39-36')
+    _iid_ = Guid('40f73c8b-687d-4a13-8d-96-3d-7f-2e-68-39-36')
     @commethod(3)
     def SetSANMode(self, bEnable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsDisk3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8f4b2f5d-ec15-4357-99-2f-47-3e-f1-09-75-b9')
+    _iid_ = Guid('8f4b2f5d-ec15-4357-99-2f-47-3e-f1-09-75-b9')
     @commethod(3)
     def GetProperties2(self, pDiskProperties: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_DISK_PROP2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def QueryFreeExtents(self, ulAlign: UInt32, ppFreeExtentArray: POINTER(POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_DISK_FREE_EXTENT_head)), plNumberOfFreeExtents: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsDiskOnline(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('90681b1d-6a7f-48e8-90-61-31-b7-aa-12-53-22')
+    _iid_ = Guid('90681b1d-6a7f-48e8-90-61-31-b7-aa-12-53-22')
     @commethod(3)
     def Online(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Offline(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsDiskPartitionMF(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('538684e0-ba3d-4bc0-ac-a9-16-4a-ff-85-c2-a9')
+    _iid_ = Guid('538684e0-ba3d-4bc0-ac-a9-16-4a-ff-85-c2-a9')
     @commethod(3)
     def GetPartitionFileSystemProperties(self, ullOffset: UInt64, pFileSystemProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -667,12 +667,12 @@ class IVdsDiskPartitionMF(ComPtr):
     def FormatPartitionEx(self, ullOffset: UInt64, pwszFileSystemTypeName: Windows.Win32.Foundation.PWSTR, usFileSystemRevision: UInt16, ulDesiredUnitAllocationSize: UInt32, pwszLabel: Windows.Win32.Foundation.PWSTR, bForce: Windows.Win32.Foundation.BOOL, bQuickFormat: Windows.Win32.Foundation.BOOL, bEnableCompression: Windows.Win32.Foundation.BOOL, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsDiskPartitionMF2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9cbe50ca-f2d2-4bf4-ac-e1-96-89-6b-72-96-25')
+    _iid_ = Guid('9cbe50ca-f2d2-4bf4-ac-e1-96-89-6b-72-96-25')
     @commethod(3)
     def FormatPartitionEx2(self, ullOffset: UInt64, pwszFileSystemTypeName: Windows.Win32.Foundation.PWSTR, usFileSystemRevision: UInt16, ulDesiredUnitAllocationSize: UInt32, pwszLabel: Windows.Win32.Foundation.PWSTR, Options: UInt32, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsDrive(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ff24efa4-aade-4b6b-89-8b-ea-a6-a2-08-87-c7')
+    _iid_ = Guid('ff24efa4-aade-4b6b-89-8b-ea-a6-a2-08-87-c7')
     @commethod(3)
     def GetProperties(self, pDriveProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_DRIVE_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -687,19 +687,19 @@ class IVdsDrive(ComPtr):
     def SetStatus(self, status: Windows.Win32.Storage.VirtualDiskService.VDS_DRIVE_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsDrive2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('60b5a730-addf-4436-8c-a7-57-69-e2-d1-ff-a4')
+    _iid_ = Guid('60b5a730-addf-4436-8c-a7-57-69-e2-d1-ff-a4')
     @commethod(3)
     def GetProperties2(self, pDriveProp2: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_DRIVE_PROP2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsHbaPort(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2abd757f-2851-4997-9a-13-47-d2-a8-85-d6-ca')
+    _iid_ = Guid('2abd757f-2851-4997-9a-13-47-d2-a8-85-d6-ca')
     @commethod(3)
     def GetProperties(self, pHbaPortProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_HBAPORT_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetAllPathStatuses(self, status: Windows.Win32.Storage.VirtualDiskService.VDS_PATH_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsHwProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d99bdaae-b13a-4178-9f-db-e2-7f-16-b4-60-3e')
+    _iid_ = Guid('d99bdaae-b13a-4178-9f-db-e2-7f-16-b4-60-3e')
     @commethod(3)
     def QuerySubSystems(self, ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -708,17 +708,17 @@ class IVdsHwProvider(ComPtr):
     def Refresh(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsHwProviderPrivate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('98f17bf3-9f33-4f12-87-14-8b-40-75-09-2c-2e')
+    _iid_ = Guid('98f17bf3-9f33-4f12-87-14-8b-40-75-09-2c-2e')
     @commethod(3)
     def QueryIfCreatedLun(self, pwszDevicePath: Windows.Win32.Foundation.PWSTR, pVdsLunInformation: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_LUN_INFORMATION_head), pLunId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsHwProviderPrivateMpio(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('310a7715-ac2b-4c6f-98-27-3d-74-2f-35-16-76')
+    _iid_ = Guid('310a7715-ac2b-4c6f-98-27-3d-74-2f-35-16-76')
     @commethod(3)
     def SetAllPathStatusesFromHbaPort(self, hbaPortProp: Windows.Win32.Storage.VirtualDiskService.VDS_HBAPORT_PROP, status: Windows.Win32.Storage.VirtualDiskService.VDS_PATH_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsHwProviderStoragePools(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d5b5937a-f188-4c79-b8-6c-11-c9-20-ad-11-b8')
+    _iid_ = Guid('d5b5937a-f188-4c79-b8-6c-11-c9-20-ad-11-b8')
     @commethod(3)
     def QueryStoragePools(self, ulFlags: UInt32, ullRemainingFreeSpace: UInt64, pPoolAttributes: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_POOL_ATTRIBUTES_head), ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -727,17 +727,17 @@ class IVdsHwProviderStoragePools(ComPtr):
     def QueryMaxLunCreateSizeInStoragePool(self, type: Windows.Win32.Storage.VirtualDiskService.VDS_LUN_TYPE, StoragePoolId: Guid, pHints2: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_HINTS2_head), pullMaxLunSize: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsHwProviderType(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3e0f5166-542d-4fc6-94-7a-01-21-74-24-0b-7e')
+    _iid_ = Guid('3e0f5166-542d-4fc6-94-7a-01-21-74-24-0b-7e')
     @commethod(3)
     def GetProviderType(self, pType: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_HWPROVIDER_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsHwProviderType2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8190236f-c4d0-4e81-80-11-d6-95-12-fc-c9-84')
+    _iid_ = Guid('8190236f-c4d0-4e81-80-11-d6-95-12-fc-c9-84')
     @commethod(3)
     def GetProviderType2(self, pType: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_HWPROVIDER_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsIscsiInitiatorAdapter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b07fedd4-1682-4440-91-89-a3-9b-55-19-4d-c5')
+    _iid_ = Guid('b07fedd4-1682-4440-91-89-a3-9b-55-19-4d-c5')
     @commethod(3)
     def GetProperties(self, pInitiatorAdapterProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_INITIATOR_ADAPTER_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -748,7 +748,7 @@ class IVdsIscsiInitiatorAdapter(ComPtr):
     def LogoutFromTarget(self, targetId: Guid, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsIscsiInitiatorPortal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('38a0a9ab-7cc8-4693-ac-07-1f-28-bd-03-c3-da')
+    _iid_ = Guid('38a0a9ab-7cc8-4693-ac-07-1f-28-bd-03-c3-da')
     @commethod(3)
     def GetProperties(self, pInitiatorPortalProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_INITIATOR_PORTAL_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -761,7 +761,7 @@ class IVdsIscsiInitiatorPortal(ComPtr):
     def SetIpsecSecurity(self, targetPortalId: Guid, ullSecurityFlags: UInt64, pIpsecKey: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_KEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsIscsiPortal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7fa1499d-ec85-4a8a-a4-7b-ff-69-20-1f-cd-34')
+    _iid_ = Guid('7fa1499d-ec85-4a8a-a4-7b-ff-69-20-1f-cd-34')
     @commethod(3)
     def GetProperties(self, pPortalProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_PORTAL_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -778,7 +778,7 @@ class IVdsIscsiPortal(ComPtr):
     def SetIpsecSecurity(self, pInitiatorPortalAddress: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_IPADDRESS_head), ullSecurityFlags: UInt64, pIpsecKey: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_KEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsIscsiPortalGroup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fef5f89d-a3dd-4b36-bf-28-e7-dd-e0-45-c5-93')
+    _iid_ = Guid('fef5f89d-a3dd-4b36-bf-28-e7-dd-e0-45-c5-93')
     @commethod(3)
     def GetProperties(self, pPortalGroupProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_PORTALGROUP_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -793,12 +793,12 @@ class IVdsIscsiPortalGroup(ComPtr):
     def Delete(self, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsIscsiPortalLocal(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ad837c28-52c1-421d-bf-04-fa-e7-da-66-53-96')
+    _iid_ = Guid('ad837c28-52c1-421d-bf-04-fa-e7-da-66-53-96')
     @commethod(3)
     def SetIpsecSecurityLocal(self, ullSecurityFlags: UInt64, pIpsecKey: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_KEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsIscsiTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa8f5055-83e5-4bcc-aa-73-19-85-1a-36-a8-49')
+    _iid_ = Guid('aa8f5055-83e5-4bcc-aa-73-19-85-1a-36-a8-49')
     @commethod(3)
     def GetProperties(self, pTargetProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_TARGET_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -821,7 +821,7 @@ class IVdsIscsiTarget(ComPtr):
     def GetConnectedInitiators(self, pppwszInitiatorList: POINTER(POINTER(Windows.Win32.Foundation.PWSTR)), plNumberOfInitiators: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsLun(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3540a9c7-e60f-4111-a8-40-8b-ba-6c-2c-83-d8')
+    _iid_ = Guid('3540a9c7-e60f-4111-a8-40-8b-ba-6c-2c-83-d8')
     @commethod(3)
     def GetProperties(self, pLunProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_LUN_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -858,28 +858,28 @@ class IVdsLun(ComPtr):
     def QueryMaxLunExtendSize(self, pDriveIdArray: POINTER(Guid), lNumberOfDrives: Int32, pullMaxBytesToBeAdded: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsLun2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e5b3a735-9efb-499a-80-71-43-94-d9-ee-6f-cb')
+    _iid_ = Guid('e5b3a735-9efb-499a-80-71-43-94-d9-ee-6f-cb')
     @commethod(3)
     def QueryHints2(self, pHints2: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_HINTS2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ApplyHints2(self, pHints2: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_HINTS2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsLunControllerPorts(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('451fe266-da6d-406a-bb-60-82-e5-34-f8-5a-eb')
+    _iid_ = Guid('451fe266-da6d-406a-bb-60-82-e5-34-f8-5a-eb')
     @commethod(3)
     def AssociateControllerPorts(self, pActiveControllerPortIdArray: POINTER(Guid), lNumberOfActiveControllerPorts: Int32, pInactiveControllerPortIdArray: POINTER(Guid), lNumberOfInactiveControllerPorts: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def QueryActiveControllerPorts(self, ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsLunIscsi(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0d7c1e64-b59b-45ae-b8-6a-2c-2c-c6-a4-20-67')
+    _iid_ = Guid('0d7c1e64-b59b-45ae-b8-6a-2c-2c-c6-a4-20-67')
     @commethod(3)
     def AssociateTargets(self, pTargetIdArray: POINTER(Guid), lNumberOfTargets: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def QueryAssociatedTargets(self, ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsLunMpio(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7c5fbae3-333a-48a1-a9-82-33-c1-57-88-cd-e3')
+    _iid_ = Guid('7c5fbae3-333a-48a1-a9-82-33-c1-57-88-cd-e3')
     @commethod(3)
     def GetPathInfo(self, ppPaths: POINTER(POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_PATH_INFO_head)), plNumberOfPaths: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -890,17 +890,17 @@ class IVdsLunMpio(ComPtr):
     def GetSupportedLbPolicies(self, pulLbFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsLunNaming(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('907504cb-6b4e-4d88-a3-4d-17-ba-66-1f-bb-06')
+    _iid_ = Guid('907504cb-6b4e-4d88-a3-4d-17-ba-66-1f-bb-06')
     @commethod(3)
     def SetFriendlyName(self, pwszFriendlyName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsLunNumber(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d3f95e46-54b3-41f9-b6-78-0f-18-71-44-3a-08')
+    _iid_ = Guid('d3f95e46-54b3-41f9-b6-78-0f-18-71-44-3a-08')
     @commethod(3)
     def GetLunNumber(self, pulLunNumber: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsLunPlex(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0ee1a790-5d2e-4abb-8c-99-c4-81-e8-be-21-38')
+    _iid_ = Guid('0ee1a790-5d2e-4abb-8c-99-c4-81-e8-be-21-38')
     @commethod(3)
     def GetProperties(self, pPlexProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_LUN_PLEX_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -913,7 +913,7 @@ class IVdsLunPlex(ComPtr):
     def ApplyHints(self, pHints: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_HINTS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsMaintenance(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('daebeef3-8523-47ed-a2-b9-05-ce-cc-e2-a1-ae')
+    _iid_ = Guid('daebeef3-8523-47ed-a2-b9-05-ce-cc-e2-a1-ae')
     @commethod(3)
     def StartMaintenance(self, operation: Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -922,7 +922,7 @@ class IVdsMaintenance(ComPtr):
     def PulseMaintenance(self, operation: Windows.Win32.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsOpenVDisk(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('75c8f324-f715-4fe3-a2-8e-f9-01-1b-61-a4-a1')
+    _iid_ = Guid('75c8f324-f715-4fe3-a2-8e-f9-01-1b-61-a4-a1')
     @commethod(3)
     def Attach(self, pStringSecurityDescriptor: Windows.Win32.Foundation.PWSTR, Flags: Windows.Win32.Storage.Vhd.ATTACH_VIRTUAL_DISK_FLAG, ProviderSpecificFlags: UInt32, TimeoutInMs: UInt32, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -937,7 +937,7 @@ class IVdsOpenVDisk(ComPtr):
     def Expand(self, Flags: Windows.Win32.Storage.Vhd.EXPAND_VIRTUAL_DISK_FLAG, NewSize: UInt64, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsPack(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3b69d7f5-9d94-4648-91-ca-79-93-9b-a2-63-bf')
+    _iid_ = Guid('3b69d7f5-9d94-4648-91-ca-79-93-9b-a2-63-bf')
     @commethod(3)
     def GetProperties(self, pPackProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_PACK_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -960,17 +960,17 @@ class IVdsPack(ComPtr):
     def Recover(self, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsPack2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('13b50bff-290a-47dd-85-58-b7-c5-8d-b1-a7-1a')
+    _iid_ = Guid('13b50bff-290a-47dd-85-58-b7-c5-8d-b1-a7-1a')
     @commethod(3)
     def CreateVolume2(self, type: Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_TYPE, pInputDiskArray: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_INPUT_DISK_head), lNumberOfDisks: Int32, ulStripeSize: UInt32, ulAlign: UInt32, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('10c5e575-7984-4e81-a5-6b-43-1f-5f-92-ae-42')
+    _iid_ = Guid('10c5e575-7984-4e81-a5-6b-43-1f-5f-92-ae-42')
     @commethod(3)
     def GetProperties(self, pProviderProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_PROVIDER_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsProviderPrivate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('11f3cd41-b7e8-48ff-94-72-9d-ff-01-8a-a2-92')
+    _iid_ = Guid('11f3cd41-b7e8-48ff-94-72-9d-ff-01-8a-a2-92')
     @commethod(3)
     def GetObject(self, ObjectId: Guid, type: Windows.Win32.Storage.VirtualDiskService.VDS_OBJECT_TYPE, ppObjectUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -979,19 +979,19 @@ class IVdsProviderPrivate(ComPtr):
     def OnUnload(self, bForceUnload: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsProviderSupport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1732be13-e8f9-4a03-bf-bc-5f-61-6a-a6-6c-e1')
+    _iid_ = Guid('1732be13-e8f9-4a03-bf-bc-5f-61-6a-a6-6c-e1')
     @commethod(3)
     def GetVersionSupport(self, ulVersionSupport: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsRemovable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0316560b-5db4-4ed9-bb-b5-21-34-36-dd-c0-d9')
+    _iid_ = Guid('0316560b-5db4-4ed9-bb-b5-21-34-36-dd-c0-d9')
     @commethod(3)
     def QueryMedia(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Eject(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0818a8ef-9ba9-40d8-a6-f9-e2-28-33-cc-77-1e')
+    _iid_ = Guid('0818a8ef-9ba9-40d8-a6-f9-e2-28-33-cc-77-1e')
     @commethod(3)
     def IsServiceReady(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1028,17 +1028,17 @@ class IVdsService(ComPtr):
     def ClearFlags(self, ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsServiceHba(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0ac13689-3134-47c6-a1-7c-46-69-21-68-01-be')
+    _iid_ = Guid('0ac13689-3134-47c6-a1-7c-46-69-21-68-01-be')
     @commethod(3)
     def QueryHbaPorts(self, ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsServiceInitialization(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4afc3636-db01-4052-80-c3-03-bb-cb-8d-3c-69')
+    _iid_ = Guid('4afc3636-db01-4052-80-c3-03-bb-cb-8d-3c-69')
     @commethod(3)
     def Initialize(self, pwszMachineName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsServiceIscsi(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('14fbe036-3ed7-4e10-90-e9-a5-ff-99-1a-ff-01')
+    _iid_ = Guid('14fbe036-3ed7-4e10-90-e9-a5-ff-99-1a-ff-01')
     @commethod(3)
     def GetInitiatorName(self, ppwszIscsiName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1055,31 +1055,31 @@ class IVdsServiceIscsi(ComPtr):
     def RememberTargetSharedSecret(self, targetId: Guid, pTargetSharedSecret: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_SHARED_SECRET_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsServiceLoader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e0393303-90d4-4a97-ab-71-e9-b6-71-ee-27-29')
+    _iid_ = Guid('e0393303-90d4-4a97-ab-71-e9-b6-71-ee-27-29')
     @commethod(3)
     def LoadService(self, pwszMachineName: Windows.Win32.Foundation.PWSTR, ppService: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsService_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsServiceSAN(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fc5d23e8-a88b-41a5-8d-e0-2d-2f-73-c5-a6-30')
+    _iid_ = Guid('fc5d23e8-a88b-41a5-8d-e0-2d-2f-73-c5-a6-30')
     @commethod(3)
     def GetSANPolicy(self, pSanPolicy: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_SAN_POLICY)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetSANPolicy(self, SanPolicy: Windows.Win32.Storage.VirtualDiskService.VDS_SAN_POLICY) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsServiceSw(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('15fc031c-0652-4306-b2-c3-f5-58-b8-f8-37-e2')
+    _iid_ = Guid('15fc031c-0652-4306-b2-c3-f5-58-b8-f8-37-e2')
     @commethod(3)
     def GetDiskObject(self, pwszDeviceID: Windows.Win32.Foundation.PWSTR, ppDiskUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsServiceUninstallDisk(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b6b22da8-f903-4be7-b4-92-c0-9d-87-5a-c9-da')
+    _iid_ = Guid('b6b22da8-f903-4be7-b4-92-c0-9d-87-5a-c9-da')
     @commethod(3)
     def GetDiskIdFromLunInfo(self, pLunInfo: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_LUN_INFORMATION_head), pDiskId: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UninstallDisks(self, pDiskIdArray: POINTER(Guid), ulCount: UInt32, bForce: Windows.Win32.Foundation.BOOLEAN, pbReboot: POINTER(Byte), pResults: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsStoragePool(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('932ca8cf-0eb3-4ba8-96-20-22-66-5d-7f-84-50')
+    _iid_ = Guid('932ca8cf-0eb3-4ba8-96-20-22-66-5d-7f-84-50')
     @commethod(3)
     def GetProvider(self, ppProvider: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1094,7 +1094,7 @@ class IVdsStoragePool(ComPtr):
     def QueryAllocatedStoragePools(self, ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsSubSystem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6fcee2d3-6d90-4f91-80-e2-a5-c7-ca-ac-a9-d8')
+    _iid_ = Guid('6fcee2d3-6d90-4f91-80-e2-a5-c7-ca-ac-a9-d8')
     @commethod(3)
     def GetProperties(self, pSubSystemProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_SUB_SYSTEM_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1121,7 +1121,7 @@ class IVdsSubSystem(ComPtr):
     def QueryMaxLunCreateSize(self, type: Windows.Win32.Storage.VirtualDiskService.VDS_LUN_TYPE, pDriveIdArray: POINTER(Guid), lNumberOfDrives: Int32, pHints: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_HINTS_head), pullMaxLunSize: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsSubSystem2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('be666735-7800-4a77-9d-9c-40-f8-5b-87-e2-92')
+    _iid_ = Guid('be666735-7800-4a77-9d-9c-40-f8-5b-87-e2-92')
     @commethod(3)
     def GetProperties2(self, pSubSystemProp2: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_SUB_SYSTEM_PROP2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1132,19 +1132,19 @@ class IVdsSubSystem2(ComPtr):
     def QueryMaxLunCreateSize2(self, type: Windows.Win32.Storage.VirtualDiskService.VDS_LUN_TYPE, pDriveIdArray: POINTER(Guid), lNumberOfDrives: Int32, pHints2: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_HINTS2_head), pullMaxLunSize: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsSubSystemImportTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('83bfb87f-43fb-4903-ba-a6-12-7f-01-02-9e-ec')
+    _iid_ = Guid('83bfb87f-43fb-4903-ba-a6-12-7f-01-02-9e-ec')
     @commethod(3)
     def GetImportTarget(self, ppwszIscsiName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetImportTarget(self, pwszIscsiName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsSubSystemInterconnect(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9e6fa560-c141-477b-83-ba-0b-6c-38-f7-fe-bf')
+    _iid_ = Guid('9e6fa560-c141-477b-83-ba-0b-6c-38-f7-fe-bf')
     @commethod(3)
     def GetSupportedInterconnects(self, pulSupportedInterconnectsFlag: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsSubSystemIscsi(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0027346f-40d0-4b45-8c-ec-59-06-dc-03-80-c8')
+    _iid_ = Guid('0027346f-40d0-4b45-8c-ec-59-06-dc-03-80-c8')
     @commethod(3)
     def QueryTargets(self, ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1155,19 +1155,19 @@ class IVdsSubSystemIscsi(ComPtr):
     def SetIpsecGroupPresharedKey(self, pIpsecKey: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_KEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsSubSystemNaming(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0d70faa3-9cd4-4900-aa-20-69-81-b6-aa-fc-75')
+    _iid_ = Guid('0d70faa3-9cd4-4900-aa-20-69-81-b6-aa-fc-75')
     @commethod(3)
     def SetFriendlyName(self, pwszFriendlyName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsSwProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9aa58360-ce33-4f92-b6-58-ed-24-b1-44-25-b8')
+    _iid_ = Guid('9aa58360-ce33-4f92-b6-58-ed-24-b1-44-25-b8')
     @commethod(3)
     def QueryPacks(self, ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CreatePack(self, ppPack: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsPack_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsVDisk(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1e062b84-e5e6-4b4b-8a-25-67-b8-1e-8f-13-e8')
+    _iid_ = Guid('1e062b84-e5e6-4b4b-8a-25-67-b8-1e-8f-13-e8')
     @commethod(3)
     def Open(self, AccessMask: Windows.Win32.Storage.Vhd.VIRTUAL_DISK_ACCESS_MASK, Flags: Windows.Win32.Storage.Vhd.OPEN_VIRTUAL_DISK_FLAG, ReadWriteDepth: UInt32, ppOpenVDisk: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsOpenVDisk_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1178,7 +1178,7 @@ class IVdsVDisk(ComPtr):
     def GetDeviceName(self, ppDeviceName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsVdProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b481498c-8354-45f9-84-a0-0b-dd-28-32-a9-1f')
+    _iid_ = Guid('b481498c-8354-45f9-84-a0-0b-dd-28-32-a9-1f')
     @commethod(3)
     def QueryVDisks(self, ppEnum: POINTER(Windows.Win32.Storage.VirtualDiskService.IEnumVdsObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1191,7 +1191,7 @@ class IVdsVdProvider(ComPtr):
     def GetVDiskFromDisk(self, pDisk: Windows.Win32.Storage.VirtualDiskService.IVdsDisk_head, ppVDisk: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsVDisk_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsVolume(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('88306bb2-e71f-478c-86-a2-79-da-20-0a-0f-11')
+    _iid_ = Guid('88306bb2-e71f-478c-86-a2-79-da-20-0a-0f-11')
     @commethod(3)
     def GetProperties(self, pVolumeProperties: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1216,12 +1216,12 @@ class IVdsVolume(ComPtr):
     def ClearFlags(self, ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsVolume2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('72ae6713-dcbb-4a03-b3-6b-37-1f-6a-c6-b5-3d')
+    _iid_ = Guid('72ae6713-dcbb-4a03-b3-6b-37-1f-6a-c6-b5-3d')
     @commethod(3)
     def GetProperties2(self, pVolumeProperties: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_PROP2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsVolumeMF(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ee2d5ded-6236-4169-93-1d-b9-77-8c-e0-3d-c6')
+    _iid_ = Guid('ee2d5ded-6236-4169-93-1d-b9-77-8c-e0-3d-c6')
     @commethod(3)
     def GetFileSystemProperties(self, pFileSystemProp: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_FILE_SYSTEM_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1244,7 +1244,7 @@ class IVdsVolumeMF(ComPtr):
     def ClearFileSystemFlags(self, ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsVolumeMF2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4dbcee9a-6343-4651-b8-5f-5e-75-d7-4d-98-3c')
+    _iid_ = Guid('4dbcee9a-6343-4651-b8-5f-5e-75-d7-4d-98-3c')
     @commethod(3)
     def GetFileSystemTypeName(self, ppwszFileSystemTypeName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1253,7 +1253,7 @@ class IVdsVolumeMF2(ComPtr):
     def FormatEx(self, pwszFileSystemTypeName: Windows.Win32.Foundation.PWSTR, usFileSystemRevision: UInt16, ulDesiredUnitAllocationSize: UInt32, pwszLabel: Windows.Win32.Foundation.PWSTR, bForce: Windows.Win32.Foundation.BOOL, bQuickFormat: Windows.Win32.Foundation.BOOL, bEnableCompression: Windows.Win32.Foundation.BOOL, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsVolumeMF3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6788faf9-214e-4b85-ba-59-26-69-53-61-6e-09')
+    _iid_ = Guid('6788faf9-214e-4b85-ba-59-26-69-53-61-6e-09')
     @commethod(3)
     def QueryVolumeGuidPathnames(self, pwszPathArray: POINTER(POINTER(Windows.Win32.Foundation.PWSTR)), pulNumberOfPaths: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1262,12 +1262,12 @@ class IVdsVolumeMF3(ComPtr):
     def OfflineVolume(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsVolumeOnline(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1be2275a-b315-4f70-9e-44-87-9b-3a-2a-53-f2')
+    _iid_ = Guid('1be2275a-b315-4f70-9e-44-87-9b-3a-2a-53-f2')
     @commethod(3)
     def Online(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsVolumePlex(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4daa0135-e1d1-40f1-aa-a5-3c-c1-e5-32-21-c3')
+    _iid_ = Guid('4daa0135-e1d1-40f1-aa-a5-3c-c1-e5-32-21-c3')
     @commethod(3)
     def GetProperties(self, pPlexProperties: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_VOLUME_PLEX_PROP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1278,7 +1278,7 @@ class IVdsVolumePlex(ComPtr):
     def Repair(self, pInputDiskArray: POINTER(Windows.Win32.Storage.VirtualDiskService.VDS_INPUT_DISK_head), lNumberOfDisks: Int32, ppAsync: POINTER(Windows.Win32.Storage.VirtualDiskService.IVdsAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVdsVolumeShrink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d68168c9-82a2-4f85-b6-e9-74-70-7c-49-a5-8f')
+    _iid_ = Guid('d68168c9-82a2-4f85-b6-e9-74-70-7c-49-a5-8f')
     @commethod(3)
     def QueryMaxReclaimableBytes(self, pullMaxNumberOfReclaimableBytes: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

@@ -17,12 +17,12 @@ def __getattr__(name):
     return getattr(_module, name)
 class ICompositionCapabilitiesInteropFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2c9db356-e70d-4642-82-98-bc-4a-a5-b4-86-5c')
+    _iid_ = Guid('2c9db356-e70d-4642-82-98-bc-4a-a5-b4-86-5c')
     @commethod(6)
     def GetForWindow(self, hwnd: Windows.Win32.Foundation.HWND, result: POINTER(MissingType)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICompositionDrawingSurfaceInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fd04e6e3-fe0c-4c3c-ab-19-a0-76-01-a5-76-ee')
+    _iid_ = Guid('fd04e6e3-fe0c-4c3c-ab-19-a0-76-01-a5-76-ee')
     @commethod(3)
     def BeginDraw(self, updateRect: POINTER(Windows.Win32.Foundation.RECT_head), iid: POINTER(Guid), updateObject: POINTER(c_void_p), updateOffset: POINTER(Windows.Win32.Foundation.POINT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -37,26 +37,26 @@ class ICompositionDrawingSurfaceInterop(ComPtr):
     def SuspendDraw(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ICompositionDrawingSurfaceInterop2(ComPtr):
     extends: Windows.Win32.System.WinRT.Composition.ICompositionDrawingSurfaceInterop
-    Guid = Guid('41e64aae-98c0-4239-8e-95-a3-30-dd-6a-a1-8b')
+    _iid_ = Guid('41e64aae-98c0-4239-8e-95-a3-30-dd-6a-a1-8b')
     @commethod(9)
     def CopySurface(self, destinationResource: Windows.Win32.System.Com.IUnknown_head, destinationOffsetX: Int32, destinationOffsetY: Int32, sourceRectangle: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICompositionGraphicsDeviceInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a116ff71-f8bf-4c8a-9c-98-70-77-9a-32-a9-c8')
+    _iid_ = Guid('a116ff71-f8bf-4c8a-9c-98-70-77-9a-32-a9-c8')
     @commethod(3)
     def GetRenderingDevice(self, value: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetRenderingDevice(self, value: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ICompositorDesktopInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('29e691fa-4567-4dca-b3-19-d0-f2-07-eb-68-07')
+    _iid_ = Guid('29e691fa-4567-4dca-b3-19-d0-f2-07-eb-68-07')
     @commethod(3)
     def CreateDesktopWindowTarget(self, hwndTarget: Windows.Win32.Foundation.HWND, isTopmost: Windows.Win32.Foundation.BOOL, result: POINTER(MissingType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EnsureOnThread(self, threadId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ICompositorInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('25297d5c-3ad4-4c9c-b5-cf-e3-6a-38-51-23-30')
+    _iid_ = Guid('25297d5c-3ad4-4c9c-b5-cf-e3-6a-38-51-23-30')
     @commethod(3)
     def CreateCompositionSurfaceForHandle(self, swapChain: Windows.Win32.Foundation.HANDLE, result: POINTER(MissingType)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -65,12 +65,12 @@ class ICompositorInterop(ComPtr):
     def CreateGraphicsDevice(self, renderingDevice: Windows.Win32.System.Com.IUnknown_head, result: POINTER(MissingType)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDesktopWindowTargetInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('35dbf59e-e3f9-45b0-81-e7-fe-75-f4-14-5d-c9')
+    _iid_ = Guid('35dbf59e-e3f9-45b0-81-e7-fe-75-f4-14-5d-c9')
     @commethod(3)
     def get_Hwnd(self, value: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
 class IVisualInteractionSourceInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('11f62cd1-2f9d-42d3-b0-5f-d6-79-0d-9e-9f-8e')
+    _iid_ = Guid('11f62cd1-2f9d-42d3-b0-5f-d6-79-0d-9e-9f-8e')
     @commethod(3)
     def TryRedirectForManipulation(self, pointerInfo: POINTER(Windows.Win32.UI.Input.Pointer.POINTER_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 make_head(_module, 'ICompositionCapabilitiesInteropFactory')

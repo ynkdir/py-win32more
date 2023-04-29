@@ -60,7 +60,7 @@ ICSTT_NAME: ICS_TARGETTYPE = 0
 ICSTT_IPADDRESS: ICS_TARGETTYPE = 1
 class IDynamicPortMapping(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('4fc80282-23b6-4378-9a-27-cd-8f-17-c9-40-0c')
+    _iid_ = Guid('4fc80282-23b6-4378-9a-27-cd-8f-17-c9-40-0c')
     @commethod(7)
     def get_ExternalIPAddress(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -91,7 +91,7 @@ class IDynamicPortMapping(ComPtr):
     def EditInternalPort(self, lInternalPort: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDynamicPortMappingCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('b60de00f-156e-4e8d-9e-c1-3a-23-42-c1-08-99')
+    _iid_ = Guid('b60de00f-156e-4e8d-9e-c1-3a-23-42-c1-08-99')
     @commethod(7)
     def get__NewEnum(self, pVal: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -104,7 +104,7 @@ class IDynamicPortMappingCollection(ComPtr):
     def Add(self, bstrRemoteHost: Windows.Win32.Foundation.BSTR, lExternalPort: Int32, bstrProtocol: Windows.Win32.Foundation.BSTR, lInternalPort: Int32, bstrInternalClient: Windows.Win32.Foundation.BSTR, bEnabled: Windows.Win32.Foundation.VARIANT_BOOL, bstrDescription: Windows.Win32.Foundation.BSTR, lLeaseDuration: Int32, ppDPM: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.IDynamicPortMapping_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumNetConnection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c08956a0-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    _iid_ = Guid('c08956a0-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.INetConnection_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -115,7 +115,7 @@ class IEnumNetConnection(ComPtr):
     def Clone(self, ppenum: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.IEnumNetConnection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumNetSharingEveryConnection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c08956b8-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    _iid_ = Guid('c08956b8-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
     @commethod(3)
     def Next(self, celt: UInt32, rgVar: POINTER(Windows.Win32.System.Variant.VARIANT_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -126,7 +126,7 @@ class IEnumNetSharingEveryConnection(ComPtr):
     def Clone(self, ppenum: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.IEnumNetSharingEveryConnection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumNetSharingPortMapping(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c08956b0-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    _iid_ = Guid('c08956b0-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
     @commethod(3)
     def Next(self, celt: UInt32, rgVar: POINTER(Windows.Win32.System.Variant.VARIANT_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -137,7 +137,7 @@ class IEnumNetSharingPortMapping(ComPtr):
     def Clone(self, ppenum: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.IEnumNetSharingPortMapping_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumNetSharingPrivateConnection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c08956b5-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    _iid_ = Guid('c08956b5-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
     @commethod(3)
     def Next(self, celt: UInt32, rgVar: POINTER(Windows.Win32.System.Variant.VARIANT_head), pCeltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -148,7 +148,7 @@ class IEnumNetSharingPrivateConnection(ComPtr):
     def Clone(self, ppenum: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.IEnumNetSharingPrivateConnection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumNetSharingPublicConnection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c08956b4-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    _iid_ = Guid('c08956b4-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
     @commethod(3)
     def Next(self, celt: UInt32, rgVar: POINTER(Windows.Win32.System.Variant.VARIANT_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -159,19 +159,19 @@ class IEnumNetSharingPublicConnection(ComPtr):
     def Clone(self, ppenum: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.IEnumNetSharingPublicConnection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class INATEventManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('624bd588-9060-4109-b0-b0-1a-db-bc-ac-32-df')
+    _iid_ = Guid('624bd588-9060-4109-b0-b0-1a-db-bc-ac-32-df')
     @commethod(7)
     def put_ExternalIPAddressCallback(self, pUnk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def put_NumberOfEntriesCallback(self, pUnk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class INATExternalIPAddressCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9c416740-a34e-446f-ba-06-ab-d0-4c-31-49-ae')
+    _iid_ = Guid('9c416740-a34e-446f-ba-06-ab-d0-4c-31-49-ae')
     @commethod(3)
     def NewExternalIPAddress(self, bstrNewExternalIPAddress: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class INATNumberOfEntriesCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c83a0a74-91ee-41b6-b6-7a-67-e0-f0-0b-bd-78')
+    _iid_ = Guid('c83a0a74-91ee-41b6-b6-7a-67-e0-f0-0b-bd-78')
     @commethod(3)
     def NewNumberOfEntries(self, lNewNumberOfEntries: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class INET_FIREWALL_AC_BINARIES(EasyCastStructure):
@@ -212,7 +212,7 @@ class INET_FIREWALL_APP_CONTAINER(EasyCastStructure):
     packageFullName: Windows.Win32.Foundation.PWSTR
 class INetConnection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c08956a1-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    _iid_ = Guid('c08956a1-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
     @commethod(3)
     def Connect(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -229,7 +229,7 @@ class INetConnection(ComPtr):
     def Rename(self, pszwNewName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class INetConnectionConnectUi(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c08956a3-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    _iid_ = Guid('c08956a3-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
     @commethod(3)
     def SetConnection(self, pCon: Windows.Win32.NetworkManagement.WindowsFirewall.INetConnection_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -238,12 +238,12 @@ class INetConnectionConnectUi(ComPtr):
     def Disconnect(self, hwndParent: Windows.Win32.Foundation.HWND, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class INetConnectionManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c08956a2-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    _iid_ = Guid('c08956a2-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
     @commethod(3)
     def EnumConnections(self, Flags: Windows.Win32.NetworkManagement.WindowsFirewall.NETCONMGR_ENUM_FLAGS, ppEnum: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.IEnumNetConnection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetConnectionProps(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('f4277c95-ce5b-463d-81-67-56-62-d9-bc-aa-72')
+    _iid_ = Guid('f4277c95-ce5b-463d-81-67-56-62-d9-bc-aa-72')
     @commethod(7)
     def get_Guid(self, pbstrGuid: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -258,7 +258,7 @@ class INetConnectionProps(ComPtr):
     def get_Characteristics(self, pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwAuthorizedApplication(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('b5e64ffa-c2c5-444e-a3-01-fb-5e-00-01-80-50')
+    _iid_ = Guid('b5e64ffa-c2c5-444e-a3-01-fb-5e-00-01-80-50')
     @commethod(7)
     def get_Name(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -285,7 +285,7 @@ class INetFwAuthorizedApplication(ComPtr):
     def put_Enabled(self, enabled: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwAuthorizedApplications(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('644efd52-ccf9-486c-97-a2-39-f3-52-57-0b-30')
+    _iid_ = Guid('644efd52-ccf9-486c-97-a2-39-f3-52-57-0b-30')
     @commethod(7)
     def get_Count(self, count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -298,7 +298,7 @@ class INetFwAuthorizedApplications(ComPtr):
     def get__NewEnum(self, newEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwIcmpSettings(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('a6207b2e-7cdd-426a-95-1e-5e-1c-bc-5a-fe-ad')
+    _iid_ = Guid('a6207b2e-7cdd-426a-95-1e-5e-1c-bc-5a-fe-ad')
     @commethod(7)
     def get_AllowOutboundDestinationUnreachable(self, allow: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -341,7 +341,7 @@ class INetFwIcmpSettings(ComPtr):
     def put_AllowOutboundPacketTooBig(self, allow: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwMgr(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('f7898af5-cac4-4632-a2-ec-da-06-e5-11-1a-f2')
+    _iid_ = Guid('f7898af5-cac4-4632-a2-ec-da-06-e5-11-1a-f2')
     @commethod(7)
     def get_LocalPolicy(self, localPolicy: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.INetFwPolicy_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -354,7 +354,7 @@ class INetFwMgr(ComPtr):
     def IsIcmpTypeAllowed(self, ipVersion: Windows.Win32.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION, localAddress: Windows.Win32.Foundation.BSTR, type: Byte, allowed: POINTER(Windows.Win32.System.Variant.VARIANT_head), restricted: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwOpenPort(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('e0483ba0-47ff-4d9c-a6-d6-77-41-d0-b1-95-f7')
+    _iid_ = Guid('e0483ba0-47ff-4d9c-a6-d6-77-41-d0-b1-95-f7')
     @commethod(7)
     def get_Name(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -387,7 +387,7 @@ class INetFwOpenPort(ComPtr):
     def get_BuiltIn(self, builtIn: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwOpenPorts(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c0e9d7fa-e07e-430a-b1-9a-09-0c-e8-2d-92-e2')
+    _iid_ = Guid('c0e9d7fa-e07e-430a-b1-9a-09-0c-e8-2d-92-e2')
     @commethod(7)
     def get_Count(self, count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -400,14 +400,14 @@ class INetFwOpenPorts(ComPtr):
     def get__NewEnum(self, newEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwPolicy(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d46d2478-9ac9-4008-9d-c7-55-63-ce-55-36-cc')
+    _iid_ = Guid('d46d2478-9ac9-4008-9d-c7-55-63-ce-55-36-cc')
     @commethod(7)
     def get_CurrentProfile(self, profile: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.INetFwProfile_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetProfileByType(self, profileType: Windows.Win32.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE, profile: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.INetFwProfile_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwPolicy2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('98325047-c671-4174-8d-81-de-fc-d3-f0-31-86')
+    _iid_ = Guid('98325047-c671-4174-8d-81-de-fc-d3-f0-31-86')
     @commethod(7)
     def get_CurrentProfileTypes(self, profileTypesBitmask: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -454,7 +454,7 @@ class INetFwPolicy2(ComPtr):
     def get_LocalPolicyModifyState(self, modifyState: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.NET_FW_MODIFY_STATE)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwProduct(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('71881699-18f4-458b-b8-92-3f-fc-e5-e0-7f-75')
+    _iid_ = Guid('71881699-18f4-458b-b8-92-3f-fc-e5-e0-7f-75')
     @commethod(7)
     def get_RuleCategories(self, ruleCategories: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -467,7 +467,7 @@ class INetFwProduct(ComPtr):
     def get_PathToSignedProductExe(self, path: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwProducts(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('39eb36e0-2097-40bd-8a-f2-63-a1-3b-52-53-62')
+    _iid_ = Guid('39eb36e0-2097-40bd-8a-f2-63-a1-3b-52-53-62')
     @commethod(7)
     def get_Count(self, count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -478,7 +478,7 @@ class INetFwProducts(ComPtr):
     def get__NewEnum(self, newEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwProfile(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('174a0dda-e9f9-449d-99-3b-21-ab-66-7c-a4-56')
+    _iid_ = Guid('174a0dda-e9f9-449d-99-3b-21-ab-66-7c-a4-56')
     @commethod(7)
     def get_Type(self, type: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -509,7 +509,7 @@ class INetFwProfile(ComPtr):
     def get_AuthorizedApplications(self, apps: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.INetFwAuthorizedApplications_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwRemoteAdminSettings(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d4becddf-6f73-4a83-b8-32-9c-66-87-4c-d2-0e')
+    _iid_ = Guid('d4becddf-6f73-4a83-b8-32-9c-66-87-4c-d2-0e')
     @commethod(7)
     def get_IpVersion(self, ipVersion: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -528,7 +528,7 @@ class INetFwRemoteAdminSettings(ComPtr):
     def put_Enabled(self, enabled: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('af230d27-baba-4e42-ac-ed-f5-24-f2-2c-fc-e2')
+    _iid_ = Guid('af230d27-baba-4e42-ac-ed-f5-24-f2-2c-fc-e2')
     @commethod(7)
     def get_Name(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -603,14 +603,14 @@ class INetFwRule(ComPtr):
     def put_Action(self, action: Windows.Win32.NetworkManagement.WindowsFirewall.NET_FW_ACTION) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwRule2(ComPtr):
     extends: Windows.Win32.NetworkManagement.WindowsFirewall.INetFwRule
-    Guid = Guid('9c27c8da-189b-4dde-89-f7-8b-39-a3-16-78-2c')
+    _iid_ = Guid('9c27c8da-189b-4dde-89-f7-8b-39-a3-16-78-2c')
     @commethod(43)
     def get_EdgeTraversalOptions(self, lOptions: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(44)
     def put_EdgeTraversalOptions(self, lOptions: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwRule3(ComPtr):
     extends: Windows.Win32.NetworkManagement.WindowsFirewall.INetFwRule2
-    Guid = Guid('b21563ff-d696-4222-ab-46-4e-89-b7-3a-b3-4a')
+    _iid_ = Guid('b21563ff-d696-4222-ab-46-4e-89-b7-3a-b3-4a')
     @commethod(45)
     def get_LocalAppPackageId(self, wszPackageId: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(46)
@@ -637,7 +637,7 @@ class INetFwRule3(ComPtr):
     def put_SecureFlags(self, lOptions: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwRules(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('9c4c6277-5027-441e-af-ae-ca-1f-54-2d-a0-09')
+    _iid_ = Guid('9c4c6277-5027-441e-af-ae-ca-1f-54-2d-a0-09')
     @commethod(7)
     def get_Count(self, count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -650,7 +650,7 @@ class INetFwRules(ComPtr):
     def get__NewEnum(self, newEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwService(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('79fd57c8-908e-4a36-98-88-d5-b3-f0-a4-44-cf')
+    _iid_ = Guid('79fd57c8-908e-4a36-98-88-d5-b3-f0-a4-44-cf')
     @commethod(7)
     def get_Name(self, name: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -677,7 +677,7 @@ class INetFwService(ComPtr):
     def get_GloballyOpenPorts(self, openPorts: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.INetFwOpenPorts_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwServiceRestriction(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('8267bbe3-f890-491c-b7-b6-2d-b1-ef-0e-5d-2b')
+    _iid_ = Guid('8267bbe3-f890-491c-b7-b6-2d-b1-ef-0e-5d-2b')
     @commethod(7)
     def RestrictService(self, serviceName: Windows.Win32.Foundation.BSTR, appName: Windows.Win32.Foundation.BSTR, restrictService: Windows.Win32.Foundation.VARIANT_BOOL, serviceSidRestricted: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -686,7 +686,7 @@ class INetFwServiceRestriction(ComPtr):
     def get_Rules(self, rules: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.INetFwRules_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetFwServices(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('79649bb4-903e-421b-94-c9-79-84-8e-79-f6-ee')
+    _iid_ = Guid('79649bb4-903e-421b-94-c9-79-84-8e-79-f6-ee')
     @commethod(7)
     def get_Count(self, count: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -695,7 +695,7 @@ class INetFwServices(ComPtr):
     def get__NewEnum(self, newEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetSharingConfiguration(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c08956b6-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    _iid_ = Guid('c08956b6-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
     @commethod(7)
     def get_SharingEnabled(self, pbEnabled: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -718,14 +718,14 @@ class INetSharingConfiguration(ComPtr):
     def RemovePortMapping(self, pMapping: Windows.Win32.NetworkManagement.WindowsFirewall.INetSharingPortMapping_head) -> Windows.Win32.Foundation.HRESULT: ...
 class INetSharingEveryConnectionCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('33c4643c-7811-46fa-a8-9a-76-85-97-bd-72-23')
+    _iid_ = Guid('33c4643c-7811-46fa-a8-9a-76-85-97-bd-72-23')
     @commethod(7)
     def get__NewEnum(self, pVal: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetSharingManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c08956b7-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    _iid_ = Guid('c08956b7-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
     @commethod(7)
     def get_SharingInstalled(self, pbInstalled: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -740,7 +740,7 @@ class INetSharingManager(ComPtr):
     def get_NetConnectionProps(self, pNetConnection: Windows.Win32.NetworkManagement.WindowsFirewall.INetConnection_head, ppProps: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.INetConnectionProps_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetSharingPortMapping(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('c08956b1-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
+    _iid_ = Guid('c08956b1-1cd3-11d1-b1-c5-00-80-5f-c1-27-0e')
     @commethod(7)
     def Disable(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -751,14 +751,14 @@ class INetSharingPortMapping(ComPtr):
     def Delete(self) -> Windows.Win32.Foundation.HRESULT: ...
 class INetSharingPortMappingCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('02e4a2de-da20-4e34-89-c8-ac-22-27-5a-01-0b')
+    _iid_ = Guid('02e4a2de-da20-4e34-89-c8-ac-22-27-5a-01-0b')
     @commethod(7)
     def get__NewEnum(self, pVal: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetSharingPortMappingProps(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('24b7e9b5-e38f-4685-85-1b-00-89-2c-f5-f9-40')
+    _iid_ = Guid('24b7e9b5-e38f-4685-85-1b-00-89-2c-f5-f9-40')
     @commethod(7)
     def get_Name(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -777,21 +777,21 @@ class INetSharingPortMappingProps(ComPtr):
     def get_Enabled(self, pbool: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetSharingPrivateConnectionCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('38ae69e0-4409-402a-a2-cb-e9-65-c7-27-f8-40')
+    _iid_ = Guid('38ae69e0-4409-402a-a2-cb-e9-65-c7-27-f8-40')
     @commethod(7)
     def get__NewEnum(self, pVal: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetSharingPublicConnectionCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('7d7a6355-f372-4971-a1-49-bf-c9-27-be-76-2a')
+    _iid_ = Guid('7d7a6355-f372-4971-a1-49-bf-c9-27-be-76-2a')
     @commethod(7)
     def get__NewEnum(self, pVal: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_Count(self, pVal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IStaticPortMapping(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6f10711f-729b-41e5-93-b8-f2-1d-0f-81-8d-f1')
+    _iid_ = Guid('6f10711f-729b-41e5-93-b8-f2-1d-0f-81-8d-f1')
     @commethod(7)
     def get_ExternalIPAddress(self, pVal: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -816,7 +816,7 @@ class IStaticPortMapping(ComPtr):
     def EditInternalPort(self, lInternalPort: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IStaticPortMappingCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('cd1f3e77-66d6-4664-82-c7-36-db-b6-41-d0-f1')
+    _iid_ = Guid('cd1f3e77-66d6-4664-82-c7-36-db-b6-41-d0-f1')
     @commethod(7)
     def get__NewEnum(self, pVal: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -829,7 +829,7 @@ class IStaticPortMappingCollection(ComPtr):
     def Add(self, lExternalPort: Int32, bstrProtocol: Windows.Win32.Foundation.BSTR, lInternalPort: Int32, bstrInternalClient: Windows.Win32.Foundation.BSTR, bEnabled: Windows.Win32.Foundation.VARIANT_BOOL, bstrDescription: Windows.Win32.Foundation.BSTR, ppSPM: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.IStaticPortMapping_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUPnPNAT(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('b171c812-cc76-485a-94-d8-b6-b3-a2-79-4e-99')
+    _iid_ = Guid('b171c812-cc76-485a-94-d8-b6-b3-a2-79-4e-99')
     @commethod(7)
     def get_StaticPortMappingCollection(self, ppSPMs: POINTER(Windows.Win32.NetworkManagement.WindowsFirewall.IStaticPortMappingCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)

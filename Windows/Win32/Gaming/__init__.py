@@ -107,7 +107,7 @@ GameStatistics = Guid('dbc85a2c-c0dc-4961-b6-e2-d2-8b-62-c1-1a-d4')
 def GameUICompletionRoutine(returnCode: Windows.Win32.Foundation.HRESULT, context: c_void_p) -> Void: ...
 class IGameExplorer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e7b2fb72-d728-49b3-a5-f2-18-eb-f5-f1-34-9e')
+    _iid_ = Guid('e7b2fb72-d728-49b3-a5-f2-18-eb-f5-f1-34-9e')
     @commethod(3)
     def AddGame(self, bstrGDFBinaryPath: Windows.Win32.Foundation.BSTR, bstrGameInstallDirectory: Windows.Win32.Foundation.BSTR, installScope: Windows.Win32.Gaming.GAME_INSTALL_SCOPE, pguidInstanceID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -118,7 +118,7 @@ class IGameExplorer(ComPtr):
     def VerifyAccess(self, bstrGDFBinaryPath: Windows.Win32.Foundation.BSTR, pfHasAccess: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGameExplorer2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('86874aa7-a1ed-450d-a7-eb-b8-9e-20-b2-ff-f3')
+    _iid_ = Guid('86874aa7-a1ed-450d-a7-eb-b8-9e-20-b2-ff-f3')
     @commethod(3)
     def InstallGame(self, binaryGDFPath: Windows.Win32.Foundation.PWSTR, installDirectory: Windows.Win32.Foundation.PWSTR, installScope: Windows.Win32.Gaming.GAME_INSTALL_SCOPE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -127,7 +127,7 @@ class IGameExplorer2(ComPtr):
     def CheckAccess(self, binaryGDFPath: Windows.Win32.Foundation.PWSTR, pHasAccess: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGameStatistics(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3887c9ca-04a0-42ae-bc-4c-5f-a6-c7-72-11-45')
+    _iid_ = Guid('3887c9ca-04a0-42ae-bc-4c-5f-a6-c7-72-11-45')
     @commethod(3)
     def GetMaxCategoryLength(self, cch: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -154,14 +154,14 @@ class IGameStatistics(ComPtr):
     def GetLastPlayedCategory(self, pCategoryIndex: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGameStatisticsMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aff3ea11-e70e-407d-95-dd-35-e6-12-c4-1c-e2')
+    _iid_ = Guid('aff3ea11-e70e-407d-95-dd-35-e6-12-c4-1c-e2')
     @commethod(3)
     def GetGameStatistics(self, GDFBinaryPath: Windows.Win32.Foundation.PWSTR, openType: Windows.Win32.Gaming.GAMESTATS_OPEN_TYPE, pOpenResult: POINTER(Windows.Win32.Gaming.GAMESTATS_OPEN_RESULT), ppiStats: POINTER(Windows.Win32.Gaming.IGameStatistics_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RemoveGameStatistics(self, GDFBinaryPath: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IXblIdpAuthManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('eb5ddb08-8bbf-449b-ac-21-b0-2d-de-b3-b1-36')
+    _iid_ = Guid('eb5ddb08-8bbf-449b-ac-21-b0-2d-de-b3-b1-36')
     @commethod(3)
     def SetGamerAccount(self, msaAccountId: Windows.Win32.Foundation.PWSTR, xuid: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -176,12 +176,12 @@ class IXblIdpAuthManager(ComPtr):
     def GetTokenAndSignatureWithTokenResult(self, msaAccountId: Windows.Win32.Foundation.PWSTR, appSid: Windows.Win32.Foundation.PWSTR, msaTarget: Windows.Win32.Foundation.PWSTR, msaPolicy: Windows.Win32.Foundation.PWSTR, httpMethod: Windows.Win32.Foundation.PWSTR, uri: Windows.Win32.Foundation.PWSTR, headers: Windows.Win32.Foundation.PWSTR, body: POINTER(Byte), bodySize: UInt32, forceRefresh: Windows.Win32.Foundation.BOOL, result: POINTER(Windows.Win32.Gaming.IXblIdpAuthTokenResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXblIdpAuthManager2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bf8c0950-8389-43dd-9a-76-a1-97-28-ec-5d-c5')
+    _iid_ = Guid('bf8c0950-8389-43dd-9a-76-a1-97-28-ec-5d-c5')
     @commethod(3)
     def GetUserlessTokenAndSignatureWithTokenResult(self, appSid: Windows.Win32.Foundation.PWSTR, msaTarget: Windows.Win32.Foundation.PWSTR, msaPolicy: Windows.Win32.Foundation.PWSTR, httpMethod: Windows.Win32.Foundation.PWSTR, uri: Windows.Win32.Foundation.PWSTR, headers: Windows.Win32.Foundation.PWSTR, body: POINTER(Byte), bodySize: UInt32, forceRefresh: Windows.Win32.Foundation.BOOL, result: POINTER(Windows.Win32.Gaming.IXblIdpAuthTokenResult_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXblIdpAuthTokenResult(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('46ce0225-f267-4d68-b2-99-b2-76-25-52-de-c1')
+    _iid_ = Guid('46ce0225-f267-4d68-b2-99-b2-76-25-52-de-c1')
     @commethod(3)
     def GetStatus(self, status: POINTER(Windows.Win32.Gaming.XBL_IDP_AUTH_TOKEN_STATUS)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -224,7 +224,7 @@ class IXblIdpAuthTokenResult(ComPtr):
     def GetTitleRestrictions(self, titleRestrictions: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXblIdpAuthTokenResult2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('75d760b0-60b9-412d-99-4f-26-b2-cd-5f-78-12')
+    _iid_ = Guid('75d760b0-60b9-412d-99-4f-26-b2-cd-5f-78-12')
     @commethod(3)
     def GetModernGamertag(self, value: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

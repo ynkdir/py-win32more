@@ -33,7 +33,7 @@ def IsDestinationReachableW(lpszDestination: Windows.Win32.Foundation.PWSTR, lpQ
 def IsNetworkAlive(lpdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.BOOL: ...
 class ISensLogon(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d597bab3-5b9f-11d1-8d-d2-00-aa-00-4a-bd-5e')
+    _iid_ = Guid('d597bab3-5b9f-11d1-8d-d2-00-aa-00-4a-bd-5e')
     @commethod(7)
     def Logon(self, bstrUserName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -50,7 +50,7 @@ class ISensLogon(ComPtr):
     def StopScreenSaver(self, bstrUserName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ISensLogon2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d597bab4-5b9f-11d1-8d-d2-00-aa-00-4a-bd-5e')
+    _iid_ = Guid('d597bab4-5b9f-11d1-8d-d2-00-aa-00-4a-bd-5e')
     @commethod(7)
     def Logon(self, bstrUserName: Windows.Win32.Foundation.BSTR, dwSessionId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -63,7 +63,7 @@ class ISensLogon2(ComPtr):
     def PostShell(self, bstrUserName: Windows.Win32.Foundation.BSTR, dwSessionId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISensNetwork(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d597bab1-5b9f-11d1-8d-d2-00-aa-00-4a-bd-5e')
+    _iid_ = Guid('d597bab1-5b9f-11d1-8d-d2-00-aa-00-4a-bd-5e')
     @commethod(7)
     def ConnectionMade(self, bstrConnection: Windows.Win32.Foundation.BSTR, ulType: UInt32, lpQOCInfo: POINTER(Windows.Win32.System.EventNotificationService.SENS_QOCINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -76,7 +76,7 @@ class ISensNetwork(ComPtr):
     def DestinationReachableNoQOCInfo(self, bstrDestination: Windows.Win32.Foundation.BSTR, bstrConnection: Windows.Win32.Foundation.BSTR, ulType: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISensOnNow(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d597bab2-5b9f-11d1-8d-d2-00-aa-00-4a-bd-5e')
+    _iid_ = Guid('d597bab2-5b9f-11d1-8d-d2-00-aa-00-4a-bd-5e')
     @commethod(7)
     def OnACPower(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)

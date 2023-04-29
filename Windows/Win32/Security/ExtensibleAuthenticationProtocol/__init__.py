@@ -726,7 +726,7 @@ class EapUsernamePasswordCredential(EasyCastStructure):
     password: Windows.Win32.Foundation.PWSTR
 class IAccountingProviderConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('66a2db18-d706-11d0-a3-7b-00-c0-4f-c9-da-04')
+    _iid_ = Guid('66a2db18-d706-11d0-a3-7b-00-c0-4f-c9-da-04')
     @commethod(3)
     def Initialize(self, pszMachineName: Windows.Win32.Foundation.PWSTR, puConnectionParam: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -739,7 +739,7 @@ class IAccountingProviderConfig(ComPtr):
     def Deactivate(self, uConnectionParam: UIntPtr, uReserved1: UIntPtr, uReserved2: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IAuthenticationProviderConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('66a2db17-d706-11d0-a3-7b-00-c0-4f-c9-da-04')
+    _iid_ = Guid('66a2db17-d706-11d0-a3-7b-00-c0-4f-c9-da-04')
     @commethod(3)
     def Initialize(self, pszMachineName: Windows.Win32.Foundation.PWSTR, puConnectionParam: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -752,7 +752,7 @@ class IAuthenticationProviderConfig(ComPtr):
     def Deactivate(self, uConnectionParam: UIntPtr, uReserved1: UIntPtr, uReserved2: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IEAPProviderConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('66a2db19-d706-11d0-a3-7b-00-c0-4f-c9-da-04')
+    _iid_ = Guid('66a2db19-d706-11d0-a3-7b-00-c0-4f-c9-da-04')
     @commethod(3)
     def Initialize(self, pszMachineName: Windows.Win32.Foundation.PWSTR, dwEapTypeId: UInt32, puConnectionParam: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -765,19 +765,19 @@ class IEAPProviderConfig(ComPtr):
     def RouterInvokeCredentialsUI(self, dwEapTypeId: UInt32, uConnectionParam: UIntPtr, hwndParent: Windows.Win32.Foundation.HWND, dwFlags: UInt32, pConnectionDataIn: POINTER(Byte), dwSizeOfConnectionDataIn: UInt32, pUserDataIn: POINTER(Byte), dwSizeOfUserDataIn: UInt32, ppUserDataOut: POINTER(POINTER(Byte)), pdwSizeOfUserDataOut: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEAPProviderConfig2(ComPtr):
     extends: Windows.Win32.Security.ExtensibleAuthenticationProtocol.IEAPProviderConfig
-    Guid = Guid('d565917a-85c4-4466-85-6e-67-1c-37-42-ea-9a')
+    _iid_ = Guid('d565917a-85c4-4466-85-6e-67-1c-37-42-ea-9a')
     @commethod(8)
     def ServerInvokeConfigUI2(self, dwEapTypeId: UInt32, uConnectionParam: UIntPtr, hWnd: Windows.Win32.Foundation.HWND, pConfigDataIn: POINTER(Byte), dwSizeOfConfigDataIn: UInt32, ppConfigDataOut: POINTER(POINTER(Byte)), pdwSizeOfConfigDataOut: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetGlobalConfig(self, dwEapTypeId: UInt32, ppConfigDataOut: POINTER(POINTER(Byte)), pdwSizeOfConfigDataOut: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEAPProviderConfig3(ComPtr):
     extends: Windows.Win32.Security.ExtensibleAuthenticationProtocol.IEAPProviderConfig2
-    Guid = Guid('b78ecd12-68bb-4f86-9b-f0-84-38-dd-3b-e9-82')
+    _iid_ = Guid('b78ecd12-68bb-4f86-9b-f0-84-38-dd-3b-e9-82')
     @commethod(10)
     def ServerInvokeCertificateConfigUI(self, dwEapTypeId: UInt32, uConnectionParam: UIntPtr, hWnd: Windows.Win32.Foundation.HWND, pConfigDataIn: POINTER(Byte), dwSizeOfConfigDataIn: UInt32, ppConfigDataOut: POINTER(POINTER(Byte)), pdwSizeOfConfigDataOut: POINTER(UInt32), uReserved: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IRouterProtocolConfig(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('66a2db16-d706-11d0-a3-7b-00-c0-4f-c9-da-04')
+    _iid_ = Guid('66a2db16-d706-11d0-a3-7b-00-c0-4f-c9-da-04')
     @commethod(3)
     def AddProtocol(self, pszMachineName: Windows.Win32.Foundation.PWSTR, dwTransportId: UInt32, dwProtocolId: UInt32, hWnd: Windows.Win32.Foundation.HWND, dwFlags: UInt32, pRouter: Windows.Win32.System.Com.IUnknown_head, uReserved1: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

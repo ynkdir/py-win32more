@@ -225,7 +225,7 @@ BITS_MC_PEERCACHING_PORT: Int32 = -2145828854
 BITS_MC_WSD_PORT: Int32 = -2145828853
 class AsyncIBackgroundCopyCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ca29d251-b4bb-4679-a3-d9-ae-80-06-11-9d-54')
+    _iid_ = Guid('ca29d251-b4bb-4679-a3-d9-ae-80-06-11-9d-54')
     @commethod(3)
     def Begin_JobTransferred(self, pJob: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -381,7 +381,7 @@ GROUPPROP_DISPLAYNAME: GROUPPROP = 11
 GROUPPROP_DESCRIPTION: GROUPPROP = 12
 class IBITSExtensionSetup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('29cfbbf7-09e4-4b97-b0-bc-f2-28-7e-3d-8e-b3')
+    _iid_ = Guid('29cfbbf7-09e4-4b97-b0-bc-f2-28-7e-3d-8e-b3')
     @commethod(7)
     def EnableBITSUploads(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -392,12 +392,12 @@ class IBITSExtensionSetup(ComPtr):
     def GetCleanupTask(self, riid: POINTER(Guid), ppUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBITSExtensionSetupFactory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d5d2d542-5503-4e64-8b-48-72-ef-91-a3-2e-e1')
+    _iid_ = Guid('d5d2d542-5503-4e64-8b-48-72-ef-91-a3-2e-e1')
     @commethod(7)
     def GetObject(self, Path: Windows.Win32.Foundation.BSTR, ppExtensionSetup: POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.IBITSExtensionSetup_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('97ea99c7-0186-4ad4-8d-f9-c5-b4-e0-ed-6b-22')
+    _iid_ = Guid('97ea99c7-0186-4ad4-8d-f9-c5-b4-e0-ed-6b-22')
     @commethod(3)
     def JobTransferred(self, pJob: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -406,7 +406,7 @@ class IBackgroundCopyCallback(ComPtr):
     def JobModification(self, pJob: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head, dwReserved: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyCallback1(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('084f6593-3800-4e08-9b-59-99-fa-59-ad-df-82')
+    _iid_ = Guid('084f6593-3800-4e08-9b-59-99-fa-59-ad-df-82')
     @commethod(3)
     def OnStatus(self, pGroup: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyGroup_head, pJob: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob1_head, dwFileIndex: UInt32, dwStatus: UInt32, dwNumOfRetries: UInt32, dwWin32Result: UInt32, dwTransportResult: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -415,17 +415,17 @@ class IBackgroundCopyCallback1(ComPtr):
     def OnProgressEx(self, ProgressType: UInt32, pGroup: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyGroup_head, pJob: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob1_head, dwFileIndex: UInt32, dwProgressValue: UInt32, dwByteArraySize: UInt32, pByte: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyCallback2(ComPtr):
     extends: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyCallback
-    Guid = Guid('659cdeac-489e-11d9-a9-cd-00-0d-56-96-52-51')
+    _iid_ = Guid('659cdeac-489e-11d9-a9-cd-00-0d-56-96-52-51')
     @commethod(6)
     def FileTransferred(self, pJob: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head, pFile: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyCallback3(ComPtr):
     extends: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyCallback2
-    Guid = Guid('98c97bd2-e32b-4ad8-a5-28-95-fd-8b-16-bd-42')
+    _iid_ = Guid('98c97bd2-e32b-4ad8-a5-28-95-fd-8b-16-bd-42')
     @commethod(7)
     def FileRangesTransferred(self, job: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head, file: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile_head, rangeCount: UInt32, ranges: POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_FILE_RANGE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyError(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('19c613a0-fcb8-4f28-81-ae-89-7c-3d-07-8f-81')
+    _iid_ = Guid('19c613a0-fcb8-4f28-81-ae-89-7c-3d-07-8f-81')
     @commethod(3)
     def GetError(self, pContext: POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_ERROR_CONTEXT), pCode: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -438,7 +438,7 @@ class IBackgroundCopyError(ComPtr):
     def GetProtocol(self, pProtocol: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyFile(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('01b7bd23-fb88-4a77-84-90-58-91-d3-e4-65-3a')
+    _iid_ = Guid('01b7bd23-fb88-4a77-84-90-58-91-d3-e4-65-3a')
     @commethod(3)
     def GetRemoteName(self, pVal: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -447,14 +447,14 @@ class IBackgroundCopyFile(ComPtr):
     def GetProgress(self, pVal: POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_FILE_PROGRESS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyFile2(ComPtr):
     extends: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile
-    Guid = Guid('83e81b93-0873-474d-8a-8c-f2-01-8b-1a-93-9c')
+    _iid_ = Guid('83e81b93-0873-474d-8a-8c-f2-01-8b-1a-93-9c')
     @commethod(6)
     def GetFileRanges(self, RangeCount: POINTER(UInt32), Ranges: POINTER(POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_FILE_RANGE_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def SetRemoteName(self, Val: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyFile3(ComPtr):
     extends: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile2
-    Guid = Guid('659cdeaa-489e-11d9-a9-cd-00-0d-56-96-52-51')
+    _iid_ = Guid('659cdeaa-489e-11d9-a9-cd-00-0d-56-96-52-51')
     @commethod(8)
     def GetTemporaryName(self, pFilename: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
@@ -465,19 +465,19 @@ class IBackgroundCopyFile3(ComPtr):
     def IsDownloadedFromPeer(self, pVal: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyFile4(ComPtr):
     extends: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile3
-    Guid = Guid('ef7e0655-7888-4960-b0-e5-73-08-46-e0-34-92')
+    _iid_ = Guid('ef7e0655-7888-4960-b0-e5-73-08-46-e0-34-92')
     @commethod(12)
     def GetPeerDownloadStats(self, pFromOrigin: POINTER(UInt64), pFromPeers: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyFile5(ComPtr):
     extends: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile4
-    Guid = Guid('85c1657f-dafc-40e8-88-34-df-18-ea-25-71-7e')
+    _iid_ = Guid('85c1657f-dafc-40e8-88-34-df-18-ea-25-71-7e')
     @commethod(13)
     def SetProperty(self, PropertyId: Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_FILE_PROPERTY_ID, PropertyValue: Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_FILE_PROPERTY_VALUE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def GetProperty(self, PropertyId: Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_FILE_PROPERTY_ID, PropertyValue: POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_FILE_PROPERTY_VALUE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyFile6(ComPtr):
     extends: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile5
-    Guid = Guid('cf6784f7-d677-49fd-93-68-cb-47-ae-e9-d1-ad')
+    _iid_ = Guid('cf6784f7-d677-49fd-93-68-cb-47-ae-e9-d1-ad')
     @commethod(15)
     def UpdateDownloadPosition(self, offset: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
@@ -486,7 +486,7 @@ class IBackgroundCopyFile6(ComPtr):
     def GetFilledFileRanges(self, rangeCount: POINTER(UInt32), ranges: POINTER(POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_FILE_RANGE_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyGroup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1ded80a7-53ea-424f-8a-04-17-fe-a9-ad-c4-f5')
+    _iid_ = Guid('1ded80a7-53ea-424f-8a-04-17-fe-a9-ad-c4-f5')
     @commethod(3)
     def GetProp(self, propID: Windows.Win32.Networking.BackgroundIntelligentTransferService.GROUPPROP, pvarVal: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -519,7 +519,7 @@ class IBackgroundCopyGroup(ComPtr):
     def SetNotificationPointer(self, iid: POINTER(Guid), pUnk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyJob(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('37668d37-507e-4160-93-16-26-30-6d-15-0b-12')
+    _iid_ = Guid('37668d37-507e-4160-93-16-26-30-6d-15-0b-12')
     @commethod(3)
     def AddFileSet(self, cFileCount: UInt32, pFileSet: POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_FILE_INFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -586,7 +586,7 @@ class IBackgroundCopyJob(ComPtr):
     def TakeOwnership(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyJob1(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('59f5553c-2031-4629-bb-18-26-45-a6-97-09-47')
+    _iid_ = Guid('59f5553c-2031-4629-bb-18-26-45-a6-97-09-47')
     @commethod(3)
     def CancelJob(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -605,7 +605,7 @@ class IBackgroundCopyJob1(ComPtr):
     def get_JobID(self, pguidJobID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyJob2(ComPtr):
     extends: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob
-    Guid = Guid('54b50739-686f-45eb-9d-ff-d6-a9-a0-fa-a9-af')
+    _iid_ = Guid('54b50739-686f-45eb-9d-ff-d6-a9-a0-fa-a9-af')
     @commethod(35)
     def SetNotifyCmdLine(self, Program: Windows.Win32.Foundation.PWSTR, Parameters: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(36)
@@ -624,7 +624,7 @@ class IBackgroundCopyJob2(ComPtr):
     def RemoveCredentials(self, Target: Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_AUTH_TARGET, Scheme: Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_AUTH_SCHEME) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyJob3(ComPtr):
     extends: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob2
-    Guid = Guid('443c8934-90ff-48ed-bc-de-26-f5-c7-45-00-42')
+    _iid_ = Guid('443c8934-90ff-48ed-bc-de-26-f5-c7-45-00-42')
     @commethod(43)
     def ReplaceRemotePrefix(self, OldPrefix: Windows.Win32.Foundation.PWSTR, NewPrefix: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(44)
@@ -635,7 +635,7 @@ class IBackgroundCopyJob3(ComPtr):
     def GetFileACLFlags(self, Flags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyJob4(ComPtr):
     extends: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob3
-    Guid = Guid('659cdeae-489e-11d9-a9-cd-00-0d-56-96-52-51')
+    _iid_ = Guid('659cdeae-489e-11d9-a9-cd-00-0d-56-96-52-51')
     @commethod(47)
     def SetPeerCachingFlags(self, Flags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(48)
@@ -650,14 +650,14 @@ class IBackgroundCopyJob4(ComPtr):
     def GetMaximumDownloadTime(self, pTimeout: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyJob5(ComPtr):
     extends: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob4
-    Guid = Guid('e847030c-bbba-4657-af-6d-48-4a-a4-2b-f1-fe')
+    _iid_ = Guid('e847030c-bbba-4657-af-6d-48-4a-a4-2b-f1-fe')
     @commethod(53)
     def SetProperty(self, PropertyId: Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_PROPERTY_ID, PropertyValue: Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_PROPERTY_VALUE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(54)
     def GetProperty(self, PropertyId: Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_PROPERTY_ID, PropertyValue: POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.BITS_JOB_PROPERTY_VALUE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyJobHttpOptions(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f1bd1079-9f01-4bdc-80-36-f0-9b-70-09-50-66')
+    _iid_ = Guid('f1bd1079-9f01-4bdc-80-36-f0-9b-70-09-50-66')
     @commethod(3)
     def SetClientCertificateByID(self, StoreLocation: Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_CERT_STORE_LOCATION, StoreName: Windows.Win32.Foundation.PWSTR, pCertHashBlob: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -676,21 +676,21 @@ class IBackgroundCopyJobHttpOptions(ComPtr):
     def GetSecurityFlags(self, pFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyJobHttpOptions2(ComPtr):
     extends: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJobHttpOptions
-    Guid = Guid('b591a192-a405-4fc3-83-23-4c-5c-54-25-78-fc')
+    _iid_ = Guid('b591a192-a405-4fc3-83-23-4c-5c-54-25-78-fc')
     @commethod(11)
     def SetHttpMethod(self, method: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
     def GetHttpMethod(self, method: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyJobHttpOptions3(ComPtr):
     extends: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJobHttpOptions2
-    Guid = Guid('8a9263d3-fd4c-4eda-9b-28-30-13-2a-4d-4e-3c')
+    _iid_ = Guid('8a9263d3-fd4c-4eda-9b-28-30-13-2a-4d-4e-3c')
     @commethod(13)
     def SetServerCertificateValidationInterface(self, certValidationCallback: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
     def MakeCustomHeadersWriteOnly(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5ce34c0d-0dc9-4c1f-89-7c-da-a1-b7-8c-ee-7c')
+    _iid_ = Guid('5ce34c0d-0dc9-4c1f-89-7c-da-a1-b7-8c-ee-7c')
     @commethod(3)
     def CreateJob(self, DisplayName: Windows.Win32.Foundation.PWSTR, Type: Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_JOB_TYPE, pJobId: POINTER(Guid), ppJob: POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -701,7 +701,7 @@ class IBackgroundCopyManager(ComPtr):
     def GetErrorDescription(self, hResult: Windows.Win32.Foundation.HRESULT, LanguageId: UInt32, pErrorDescription: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyQMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('16f41c69-09f5-41d2-8c-d8-3c-08-c4-7b-c8-a8')
+    _iid_ = Guid('16f41c69-09f5-41d2-8c-d8-3c-08-c4-7b-c8-a8')
     @commethod(3)
     def CreateGroup(self, guidGroupID: Guid, ppGroup: POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyGroup_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -710,12 +710,12 @@ class IBackgroundCopyQMgr(ComPtr):
     def EnumGroups(self, dwFlags: UInt32, ppEnumGroups: POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.IEnumBackgroundCopyGroups_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBackgroundCopyServerCertificateValidationCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4cec0d02-def7-4158-81-3a-c3-2a-46-94-5f-f7')
+    _iid_ = Guid('4cec0d02-def7-4158-81-3a-c3-2a-46-94-5f-f7')
     @commethod(3)
     def ValidateServerCertificate(self, job: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head, file: Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile_head, certLength: UInt32, certData: POINTER(Byte), certEncodingType: UInt32, certStoreLength: UInt32, certStoreData: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBitsPeer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('659cdea2-489e-11d9-a9-cd-00-0d-56-96-52-51')
+    _iid_ = Guid('659cdea2-489e-11d9-a9-cd-00-0d-56-96-52-51')
     @commethod(3)
     def GetPeerName(self, pName: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -724,7 +724,7 @@ class IBitsPeer(ComPtr):
     def IsAvailable(self, pOnline: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IBitsPeerCacheAdministration(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('659cdead-489e-11d9-a9-cd-00-0d-56-96-52-51')
+    _iid_ = Guid('659cdead-489e-11d9-a9-cd-00-0d-56-96-52-51')
     @commethod(3)
     def GetMaximumCacheSize(self, pBytes: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -755,7 +755,7 @@ class IBitsPeerCacheAdministration(ComPtr):
     def DiscoverPeers(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IBitsPeerCacheRecord(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('659cdeaf-489e-11d9-a9-cd-00-0d-56-96-52-51')
+    _iid_ = Guid('659cdeaf-489e-11d9-a9-cd-00-0d-56-96-52-51')
     @commethod(3)
     def GetId(self, pVal: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -772,7 +772,7 @@ class IBitsPeerCacheRecord(ComPtr):
     def GetFileRanges(self, pRangeCount: POINTER(UInt32), ppRanges: POINTER(POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_FILE_RANGE_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IBitsTokenOptions(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9a2584c3-f7d2-457a-9a-5e-22-b6-7b-ff-c7-d2')
+    _iid_ = Guid('9a2584c3-f7d2-457a-9a-5e-22-b6-7b-ff-c7-d2')
     @commethod(3)
     def SetHelperTokenFlags(self, UsageFlags: Windows.Win32.Networking.BackgroundIntelligentTransferService.BG_TOKEN) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -785,7 +785,7 @@ class IBitsTokenOptions(ComPtr):
     def GetHelperTokenSid(self, pSid: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumBackgroundCopyFiles(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ca51e165-c365-424c-8d-41-24-aa-a4-ff-3c-40')
+    _iid_ = Guid('ca51e165-c365-424c-8d-41-24-aa-a4-ff-3c-40')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -798,7 +798,7 @@ class IEnumBackgroundCopyFiles(ComPtr):
     def GetCount(self, puCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumBackgroundCopyGroups(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d993e603-4aa4-47c5-86-65-c2-0d-39-c2-ba-4f')
+    _iid_ = Guid('d993e603-4aa4-47c5-86-65-c2-0d-39-c2-ba-4f')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Guid), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -811,7 +811,7 @@ class IEnumBackgroundCopyGroups(ComPtr):
     def GetCount(self, puCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumBackgroundCopyJobs(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1af4f612-3b71-466f-8f-58-7b-6f-73-ac-57-ad')
+    _iid_ = Guid('1af4f612-3b71-466f-8f-58-7b-6f-73-ac-57-ad')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -824,7 +824,7 @@ class IEnumBackgroundCopyJobs(ComPtr):
     def GetCount(self, puCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumBackgroundCopyJobs1(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8baeba9d-8f1c-42c4-b8-2c-09-ae-79-98-0d-25')
+    _iid_ = Guid('8baeba9d-8f1c-42c4-b8-2c-09-ae-79-98-0d-25')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Guid), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -837,7 +837,7 @@ class IEnumBackgroundCopyJobs1(ComPtr):
     def GetCount(self, puCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumBitsPeerCacheRecords(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('659cdea4-489e-11d9-a9-cd-00-0d-56-96-52-51')
+    _iid_ = Guid('659cdea4-489e-11d9-a9-cd-00-0d-56-96-52-51')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.IBitsPeerCacheRecord_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -850,7 +850,7 @@ class IEnumBitsPeerCacheRecords(ComPtr):
     def GetCount(self, puCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumBitsPeers(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('659cdea5-489e-11d9-a9-cd-00-0d-56-96-52-51')
+    _iid_ = Guid('659cdea5-489e-11d9-a9-cd-00-0d-56-96-52-51')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.Networking.BackgroundIntelligentTransferService.IBitsPeer_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

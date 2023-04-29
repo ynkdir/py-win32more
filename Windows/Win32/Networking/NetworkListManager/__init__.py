@@ -31,7 +31,7 @@ NLM_MAX_ADDRESS_LIST_SIZE: UInt32 = 10
 NLM_UNKNOWN_DATAPLAN_STATUS: UInt32 = 4294967295
 class IEnumNetworkConnections(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('dcb00006-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    _iid_ = Guid('dcb00006-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
     @commethod(7)
     def get__NewEnum(self, ppEnumVar: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -44,7 +44,7 @@ class IEnumNetworkConnections(ComPtr):
     def Clone(self, ppEnumNetwork: POINTER(Windows.Win32.Networking.NetworkListManager.IEnumNetworkConnections_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumNetworks(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('dcb00003-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    _iid_ = Guid('dcb00003-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
     @commethod(7)
     def get__NewEnum(self, ppEnumVar: POINTER(Windows.Win32.System.Ole.IEnumVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -57,7 +57,7 @@ class IEnumNetworks(ComPtr):
     def Clone(self, ppEnumNetwork: POINTER(Windows.Win32.Networking.NetworkListManager.IEnumNetworks_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetwork(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('dcb00002-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    _iid_ = Guid('dcb00002-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
     @commethod(7)
     def GetName(self, pszNetworkName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -86,12 +86,12 @@ class INetwork(ComPtr):
     def SetCategory(self, NewCategory: Windows.Win32.Networking.NetworkListManager.NLM_NETWORK_CATEGORY) -> Windows.Win32.Foundation.HRESULT: ...
 class INetwork2(ComPtr):
     extends: Windows.Win32.Networking.NetworkListManager.INetwork
-    Guid = Guid('b5550abb-3391-4310-80-4f-25-dc-c3-25-ed-81')
+    _iid_ = Guid('b5550abb-3391-4310-80-4f-25-dc-c3-25-ed-81')
     @commethod(20)
     def IsDomainAuthenticatedBy(self, domainAuthenticationKind: Windows.Win32.Networking.NetworkListManager.NLM_DOMAIN_AUTHENTICATION_KIND, pValue: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetworkConnection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('dcb00005-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    _iid_ = Guid('dcb00005-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
     @commethod(7)
     def GetNetwork(self, ppNetwork: POINTER(Windows.Win32.Networking.NetworkListManager.INetwork_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -108,33 +108,33 @@ class INetworkConnection(ComPtr):
     def GetDomainType(self, pDomainType: POINTER(Windows.Win32.Networking.NetworkListManager.NLM_DOMAIN_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetworkConnection2(ComPtr):
     extends: Windows.Win32.Networking.NetworkListManager.INetworkConnection
-    Guid = Guid('00e676ed-5a35-4738-92-eb-85-81-73-8d-0f-0a')
+    _iid_ = Guid('00e676ed-5a35-4738-92-eb-85-81-73-8d-0f-0a')
     @commethod(14)
     def IsDomainAuthenticatedBy(self, domainAuthenticationKind: Windows.Win32.Networking.NetworkListManager.NLM_DOMAIN_AUTHENTICATION_KIND, pValue: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetworkConnectionCost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('dcb0000a-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    _iid_ = Guid('dcb0000a-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
     @commethod(3)
     def GetCost(self, pCost: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDataPlanStatus(self, pDataPlanStatus: POINTER(Windows.Win32.Networking.NetworkListManager.NLM_DATAPLAN_STATUS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetworkConnectionCostEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('dcb0000b-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    _iid_ = Guid('dcb0000b-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
     @commethod(3)
     def ConnectionCostChanged(self, connectionId: Guid, newCost: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ConnectionDataPlanStatusChanged(self, connectionId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
 class INetworkConnectionEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('dcb00007-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    _iid_ = Guid('dcb00007-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
     @commethod(3)
     def NetworkConnectionConnectivityChanged(self, connectionId: Guid, newConnectivity: Windows.Win32.Networking.NetworkListManager.NLM_CONNECTIVITY) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def NetworkConnectionPropertyChanged(self, connectionId: Guid, flags: Windows.Win32.Networking.NetworkListManager.NLM_CONNECTION_PROPERTY_CHANGE) -> Windows.Win32.Foundation.HRESULT: ...
 class INetworkCostManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('dcb00008-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    _iid_ = Guid('dcb00008-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
     @commethod(3)
     def GetCost(self, pCost: POINTER(UInt32), pDestIPAddr: POINTER(Windows.Win32.Networking.NetworkListManager.NLM_SOCKADDR_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -143,14 +143,14 @@ class INetworkCostManager(ComPtr):
     def SetDestinationAddresses(self, length: UInt32, pDestIPAddrList: POINTER(Windows.Win32.Networking.NetworkListManager.NLM_SOCKADDR_head), bAppend: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class INetworkCostManagerEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('dcb00009-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    _iid_ = Guid('dcb00009-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
     @commethod(3)
     def CostChanged(self, newCost: UInt32, pDestAddr: POINTER(Windows.Win32.Networking.NetworkListManager.NLM_SOCKADDR_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def DataPlanStatusChanged(self, pDestAddr: POINTER(Windows.Win32.Networking.NetworkListManager.NLM_SOCKADDR_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class INetworkEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('dcb00004-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    _iid_ = Guid('dcb00004-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
     @commethod(3)
     def NetworkAdded(self, networkId: Guid) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -161,7 +161,7 @@ class INetworkEvents(ComPtr):
     def NetworkPropertyChanged(self, networkId: Guid, flags: Windows.Win32.Networking.NetworkListManager.NLM_NETWORK_PROPERTY_CHANGE) -> Windows.Win32.Foundation.HRESULT: ...
 class INetworkListManager(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('dcb00000-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    _iid_ = Guid('dcb00000-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
     @commethod(7)
     def GetNetworks(self, Flags: Windows.Win32.Networking.NetworkListManager.NLM_ENUM_NETWORK, ppEnumNetwork: POINTER(Windows.Win32.Networking.NetworkListManager.IEnumNetworks_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -182,7 +182,7 @@ class INetworkListManager(ComPtr):
     def ClearSimulatedProfileInfo(self) -> Windows.Win32.Foundation.HRESULT: ...
 class INetworkListManagerEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('dcb00001-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
+    _iid_ = Guid('dcb00001-570f-4a9b-8d-69-19-9f-db-a5-72-3b')
     @commethod(3)
     def ConnectivityChanged(self, newConnectivity: Windows.Win32.Networking.NetworkListManager.NLM_CONNECTIVITY) -> Windows.Win32.Foundation.HRESULT: ...
 NLM_CONNECTION_COST = Int32

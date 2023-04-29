@@ -1106,8 +1106,9 @@ class PyGenerator:
             writer.write(f"{indent}    pass\n")
             return writer.getvalue()
         if td.custom_attributes.has_guid():
+            # FIXME: What id?
             guid = td.custom_attributes.get_guid()
-            writer.write(f"{indent}    Guid = Guid('{guid}')\n")
+            writer.write(f"{indent}    _uuid_ = Guid('{guid}')\n")
         for fd in self.struct_union_static_fields(td):
             writer.write(f"{indent}    {fd.name} = {fd.pyvalue}\n")
         for fd in self.struct_union_fields(td):
@@ -1153,7 +1154,7 @@ class PyGenerator:
         writer.write(f"    extends: {base}\n")
         if td.custom_attributes.has_guid():
             guid = td.custom_attributes.get_guid()
-            writer.write(f"    Guid = Guid('{guid}')\n")
+            writer.write(f"    _iid_ = Guid('{guid}')\n")
         for md in td.method_definitions:
             restype = md.signature.return_type.pytype
             params = ["self"]

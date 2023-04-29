@@ -1824,12 +1824,12 @@ DRS_RADIO_MAX: DEVICE_RADIO_STATE = 6
 EnumBthMtpConnectors = Guid('a1570149-e645-4f43-8b-0d-40-9b-06-1d-b2-fc')
 class IConnectionRequestCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('272c9ae0-7161-4ae0-91-bd-9f-44-8e-e9-c4-27')
+    _iid_ = Guid('272c9ae0-7161-4ae0-91-bd-9f-44-8e-e9-c4-27')
     @commethod(3)
     def OnComplete(self, hrStatus: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumPortableDeviceConnectors(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bfdef549-9247-454f-bd-82-06-fe-80-85-3f-aa')
+    _iid_ = Guid('bfdef549-9247-454f-bd-82-06-fe-80-85-3f-aa')
     @commethod(3)
     def Next(self, cRequested: UInt32, pConnectors: POINTER(Windows.Win32.Devices.PortableDevices.IPortableDeviceConnector_head), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1840,7 +1840,7 @@ class IEnumPortableDeviceConnectors(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.Devices.PortableDevices.IEnumPortableDeviceConnectors_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumPortableDeviceObjectIDs(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('10ece955-cf41-4728-bf-a0-41-ee-df-1b-bf-19')
+    _iid_ = Guid('10ece955-cf41-4728-bf-a0-41-ee-df-1b-bf-19')
     @commethod(3)
     def Next(self, cObjects: UInt32, pObjIDs: POINTER(Windows.Win32.Foundation.PWSTR), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1853,14 +1853,14 @@ class IEnumPortableDeviceObjectIDs(ComPtr):
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IMediaRadioManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6cfdcab5-fc47-42a5-92-41-07-4b-58-83-0e-73')
+    _iid_ = Guid('6cfdcab5-fc47-42a5-92-41-07-4b-58-83-0e-73')
     @commethod(3)
     def GetRadioInstances(self, ppCollection: POINTER(Windows.Win32.Devices.PortableDevices.IRadioInstanceCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnSystemRadioStateChange(self, sysRadioState: Windows.Win32.Devices.PortableDevices.SYSTEM_RADIO_STATE, uTimeoutSec: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMediaRadioManagerNotifySink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('89d81f5f-c147-49ed-a1-1c-77-b2-0c-31-e7-c9')
+    _iid_ = Guid('89d81f5f-c147-49ed-a1-1c-77-b2-0c-31-e7-c9')
     @commethod(3)
     def OnInstanceAdd(self, pRadioInstance: Windows.Win32.Devices.PortableDevices.IRadioInstance_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1869,7 +1869,7 @@ class IMediaRadioManagerNotifySink(ComPtr):
     def OnInstanceRadioChange(self, bstrRadioInstanceId: Windows.Win32.Foundation.BSTR, radioState: Windows.Win32.Devices.PortableDevices.DEVICE_RADIO_STATE) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDevice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('625e2df8-6392-4cf0-9a-d1-3c-fa-5f-17-77-5c')
+    _iid_ = Guid('625e2df8-6392-4cf0-9a-d1-3c-fa-5f-17-77-5c')
     @commethod(3)
     def Open(self, pszPnPDeviceID: Windows.Win32.Foundation.PWSTR, pClientInfo: Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1890,7 +1890,7 @@ class IPortableDevice(ComPtr):
     def GetPnPDeviceID(self, ppszPnPDeviceID: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceCapabilities(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2c8c6dbf-e3dc-4061-be-cc-85-42-e8-10-d1-26')
+    _iid_ = Guid('2c8c6dbf-e3dc-4061-be-cc-85-42-e8-10-d1-26')
     @commethod(3)
     def GetSupportedCommands(self, ppCommands: POINTER(Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1915,7 +1915,7 @@ class IPortableDeviceCapabilities(ComPtr):
     def GetEventOptions(self, Event: POINTER(Guid), ppOptions: POINTER(Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceConnector(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('625e2df8-6392-4cf0-9a-d1-3c-fa-5f-17-77-5c')
+    _iid_ = Guid('625e2df8-6392-4cf0-9a-d1-3c-fa-5f-17-77-5c')
     @commethod(3)
     def Connect(self, pCallback: Windows.Win32.Devices.PortableDevices.IConnectionRequestCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1930,7 +1930,7 @@ class IPortableDeviceConnector(ComPtr):
     def GetPnPID(self, ppwszPnPID: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceContent(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6a96ed84-7c73-4480-99-38-bf-5a-f4-77-d4-26')
+    _iid_ = Guid('6a96ed84-7c73-4480-99-38-bf-5a-f4-77-d4-26')
     @commethod(3)
     def EnumObjects(self, dwFlags: UInt32, pszParentObjectID: Windows.Win32.Foundation.PWSTR, pFilter: Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppEnum: POINTER(Windows.Win32.Devices.PortableDevices.IEnumPortableDeviceObjectIDs_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1953,29 +1953,29 @@ class IPortableDeviceContent(ComPtr):
     def Copy(self, pObjectIDs: Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head, pszDestinationFolderObjectID: Windows.Win32.Foundation.PWSTR, ppResults: POINTER(Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceContent2(ComPtr):
     extends: Windows.Win32.Devices.PortableDevices.IPortableDeviceContent
-    Guid = Guid('9b4add96-f6bf-4034-87-08-ec-a7-2b-f1-05-54')
+    _iid_ = Guid('9b4add96-f6bf-4034-87-08-ec-a7-2b-f1-05-54')
     @commethod(13)
     def UpdateObjectWithPropertiesAndData(self, pszObjectID: Windows.Win32.Foundation.PWSTR, pProperties: Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppData: POINTER(Windows.Win32.System.Com.IStream_head), pdwOptimalWriteBufferSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceDataStream(ComPtr):
     extends: Windows.Win32.System.Com.IStream
-    Guid = Guid('88e04db3-1012-4d64-99-96-f7-03-a9-50-d3-f4')
+    _iid_ = Guid('88e04db3-1012-4d64-99-96-f7-03-a9-50-d3-f4')
     @commethod(14)
     def GetObjectID(self, ppszObjectID: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceDispatchFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5e1eafc3-e3d7-4132-96-fa-75-9c-0f-9d-1e-0f')
+    _iid_ = Guid('5e1eafc3-e3d7-4132-96-fa-75-9c-0f-9d-1e-0f')
     @commethod(3)
     def GetDeviceDispatch(self, pszPnPDeviceID: Windows.Win32.Foundation.PWSTR, ppDeviceDispatch: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceEventCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a8792a31-f385-493c-a8-93-40-f6-4e-b4-5f-6e')
+    _iid_ = Guid('a8792a31-f385-493c-a8-93-40-f6-4e-b4-5f-6e')
     @commethod(3)
     def OnEvent(self, pEventParameters: Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceKeyCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('dada2357-e0ad-492e-98-db-dd-61-c5-3b-a3-53')
+    _iid_ = Guid('dada2357-e0ad-492e-98-db-dd-61-c5-3b-a3-53')
     @commethod(3)
     def GetCount(self, pcElems: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1988,7 +1988,7 @@ class IPortableDeviceKeyCollection(ComPtr):
     def RemoveAt(self, dwIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a1567595-4c2f-4574-a6-fa-ec-ef-91-7b-9a-40')
+    _iid_ = Guid('a1567595-4c2f-4574-a6-fa-ec-ef-91-7b-9a-40')
     @commethod(3)
     def GetDevices(self, pPnPDeviceIDs: POINTER(Windows.Win32.Foundation.PWSTR), pcPnPDeviceIDs: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2005,7 +2005,7 @@ class IPortableDeviceManager(ComPtr):
     def GetPrivateDevices(self, pPnPDeviceIDs: POINTER(Windows.Win32.Foundation.PWSTR), pcPnPDeviceIDs: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDevicePropVariantCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('89b2e422-4f1b-4316-bc-ef-a4-4a-fe-a8-3e-b3')
+    _iid_ = Guid('89b2e422-4f1b-4316-bc-ef-a4-4a-fe-a8-3e-b3')
     @commethod(3)
     def GetCount(self, pcElems: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2022,7 +2022,7 @@ class IPortableDevicePropVariantCollection(ComPtr):
     def RemoveAt(self, dwIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7f6d695c-03df-4439-a8-09-59-26-6b-ee-e3-a6')
+    _iid_ = Guid('7f6d695c-03df-4439-a8-09-59-26-6b-ee-e3-a6')
     @commethod(3)
     def GetSupportedProperties(self, pszObjectID: Windows.Win32.Foundation.PWSTR, ppKeys: POINTER(Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2037,7 +2037,7 @@ class IPortableDeviceProperties(ComPtr):
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDevicePropertiesBulk(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('482b05c0-4056-44ed-9e-0f-5e-23-b0-09-da-93')
+    _iid_ = Guid('482b05c0-4056-44ed-9e-0f-5e-23-b0-09-da-93')
     @commethod(3)
     def QueueGetValuesByObjectList(self, pObjectIDs: Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head, pKeys: Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head, pCallback: Windows.Win32.Devices.PortableDevices.IPortableDevicePropertiesBulkCallback_head, pContext: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2050,7 +2050,7 @@ class IPortableDevicePropertiesBulk(ComPtr):
     def Cancel(self, pContext: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDevicePropertiesBulkCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9deacb80-11e8-40e3-a9-f3-f5-57-98-6a-78-45')
+    _iid_ = Guid('9deacb80-11e8-40e3-a9-f3-f5-57-98-6a-78-45')
     @commethod(3)
     def OnStart(self, pContext: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2059,7 +2059,7 @@ class IPortableDevicePropertiesBulkCallback(ComPtr):
     def OnEnd(self, pContext: POINTER(Guid), hrStatus: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceResources(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fd8878ac-d841-4d17-89-1c-e6-82-9c-db-69-34')
+    _iid_ = Guid('fd8878ac-d841-4d17-89-1c-e6-82-9c-db-69-34')
     @commethod(3)
     def GetSupportedResources(self, pszObjectID: Windows.Win32.Foundation.PWSTR, ppKeys: POINTER(Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2074,7 +2074,7 @@ class IPortableDeviceResources(ComPtr):
     def CreateResource(self, pResourceAttributes: Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppData: POINTER(Windows.Win32.System.Com.IStream_head), pdwOptimalWriteBufferSize: POINTER(UInt32), ppszCookie: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceService(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d3bd3a44-d7b5-40a9-98-b7-2f-a4-d0-1d-ec-08')
+    _iid_ = Guid('d3bd3a44-d7b5-40a9-98-b7-2f-a4-d0-1d-ec-08')
     @commethod(3)
     def Open(self, pszPnPServiceID: Windows.Win32.Foundation.PWSTR, pClientInfo: Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2099,14 +2099,14 @@ class IPortableDeviceService(ComPtr):
     def SendCommand(self, dwFlags: UInt32, pParameters: Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppResults: POINTER(Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceServiceActivation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e56b0534-d9b9-425c-9b-99-75-f9-7c-b3-d7-c8')
+    _iid_ = Guid('e56b0534-d9b9-425c-9b-99-75-f9-7c-b3-d7-c8')
     @commethod(3)
     def OpenAsync(self, pszPnPServiceID: Windows.Win32.Foundation.PWSTR, pClientInfo: Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, pCallback: Windows.Win32.Devices.PortableDevices.IPortableDeviceServiceOpenCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CancelOpenAsync(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceServiceCapabilities(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('24dbd89d-413e-43e0-bd-5b-19-7f-3c-56-c8-86')
+    _iid_ = Guid('24dbd89d-413e-43e0-bd-5b-19-7f-3c-56-c8-86')
     @commethod(3)
     def GetSupportedMethods(self, ppMethods: POINTER(Windows.Win32.Devices.PortableDevices.IPortableDevicePropVariantCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2141,19 +2141,19 @@ class IPortableDeviceServiceCapabilities(ComPtr):
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceServiceManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a8abc4e9-a84a-47a9-80-b3-c5-d9-b1-72-a9-61')
+    _iid_ = Guid('a8abc4e9-a84a-47a9-80-b3-c5-d9-b1-72-a9-61')
     @commethod(3)
     def GetDeviceServices(self, pszPnPDeviceID: Windows.Win32.Foundation.PWSTR, guidServiceCategory: POINTER(Guid), pServices: POINTER(Windows.Win32.Foundation.PWSTR), pcServices: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDeviceForService(self, pszPnPServiceID: Windows.Win32.Foundation.PWSTR, ppszPnPDeviceID: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceServiceMethodCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c424233c-afce-4828-a7-56-7e-d7-a2-35-00-83')
+    _iid_ = Guid('c424233c-afce-4828-a7-56-7e-d7-a2-35-00-83')
     @commethod(3)
     def OnComplete(self, hrStatus: Windows.Win32.Foundation.HRESULT, pResults: Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceServiceMethods(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e20333c9-fd34-412d-a3-81-cc-6f-2d-82-0d-f7')
+    _iid_ = Guid('e20333c9-fd34-412d-a3-81-cc-6f-2d-82-0d-f7')
     @commethod(3)
     def Invoke(self, Method: POINTER(Guid), pParameters: Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head, ppResults: POINTER(Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2162,19 +2162,19 @@ class IPortableDeviceServiceMethods(ComPtr):
     def Cancel(self, pCallback: Windows.Win32.Devices.PortableDevices.IPortableDeviceServiceMethodCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceServiceOpenCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bced49c8-8efe-41ed-96-0b-61-31-3a-bd-47-a9')
+    _iid_ = Guid('bced49c8-8efe-41ed-96-0b-61-31-3a-bd-47-a9')
     @commethod(3)
     def OnComplete(self, hrStatus: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceUnitsStream(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5e98025f-bfc4-47a2-9a-5f-bc-90-0a-50-7c-67')
+    _iid_ = Guid('5e98025f-bfc4-47a2-9a-5f-bc-90-0a-50-7c-67')
     @commethod(3)
     def SeekInUnits(self, dlibMove: Int64, units: Windows.Win32.Devices.PortableDevices.WPD_STREAM_UNITS, dwOrigin: UInt32, plibNewPosition: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceValues(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6848f6f2-3155-4f86-b6-f5-26-3e-ee-ab-31-43')
+    _iid_ = Guid('6848f6f2-3155-4f86-b6-f5-26-3e-ee-ab-31-43')
     @commethod(3)
     def GetCount(self, pcelt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2257,7 +2257,7 @@ class IPortableDeviceValues(ComPtr):
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceValuesCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6e3f2d79-4e07-48c4-82-08-d8-c2-e5-af-4a-99')
+    _iid_ = Guid('6e3f2d79-4e07-48c4-82-08-d8-c2-e5-af-4a-99')
     @commethod(3)
     def GetCount(self, pcElems: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2270,14 +2270,14 @@ class IPortableDeviceValuesCollection(ComPtr):
     def RemoveAt(self, dwIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IPortableDeviceWebControl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('94fc7953-5ca1-483a-8a-ee-df-52-e7-74-7d-00')
+    _iid_ = Guid('94fc7953-5ca1-483a-8a-ee-df-52-e7-74-7d-00')
     @commethod(7)
     def GetDeviceFromId(self, deviceId: Windows.Win32.Foundation.BSTR, ppDevice: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def GetDeviceFromIdAsync(self, deviceId: Windows.Win32.Foundation.BSTR, pCompletionHandler: Windows.Win32.System.Com.IDispatch_head, pErrorHandler: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IRadioInstance(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('70aa1c9e-f2b4-4c61-86-d3-6b-9f-b7-5f-d1-a2')
+    _iid_ = Guid('70aa1c9e-f2b4-4c61-86-d3-6b-9f-b7-5f-d1-a2')
     @commethod(3)
     def GetRadioManagerSignature(self, pguidSignature: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2294,14 +2294,14 @@ class IRadioInstance(ComPtr):
     def IsAssociatingDevice(self) -> Windows.Win32.Foundation.BOOL: ...
 class IRadioInstanceCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e5791fae-5665-4e0c-95-be-5f-de-31-64-41-85')
+    _iid_ = Guid('e5791fae-5665-4e0c-95-be-5f-de-31-64-41-85')
     @commethod(3)
     def GetCount(self, pcInstance: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetAt(self, uIndex: UInt32, ppRadioInstance: POINTER(Windows.Win32.Devices.PortableDevices.IRadioInstance_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWpdSerializer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b32f4002-bb27-45ff-af-4f-06-63-1c-1e-8d-ad')
+    _iid_ = Guid('b32f4002-bb27-45ff-af-4f-06-63-1c-1e-8d-ad')
     @commethod(3)
     def GetIPortableDeviceValuesFromBuffer(self, pBuffer: POINTER(Byte), dwInputBufferLength: UInt32, ppParams: POINTER(Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

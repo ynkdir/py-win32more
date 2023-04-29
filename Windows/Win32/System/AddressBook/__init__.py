@@ -782,7 +782,7 @@ class ITableData(ComPtr):
     def HrDeleteRows(self, ulFlags: UInt32, lprowsetToDelete: POINTER(Windows.Win32.System.AddressBook.SRowSet_head), cRowsDeleted: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWABExtInit(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ea22ebf0-87a4-11d1-9a-cf-00-a0-c9-1f-9c-8b')
+    _iid_ = Guid('ea22ebf0-87a4-11d1-9a-cf-00-a0-c9-1f-9c-8b')
     @commethod(3)
     def Initialize(self, lpWABExtDisplay: POINTER(Windows.Win32.System.AddressBook.WABEXTDISPLAY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWABObject(ComPtr):

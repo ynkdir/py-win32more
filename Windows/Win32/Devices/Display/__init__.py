@@ -1734,7 +1734,7 @@ HSEMAPHORE = IntPtr
 HSURF = IntPtr
 class ICloneViewHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f6a3d4c4-5632-4d83-b0-a1-fb-88-71-2b-1e-b7')
+    _iid_ = Guid('f6a3d4c4-5632-4d83-b0-a1-fb-88-71-2b-1e-b7')
     @commethod(3)
     def GetConnectedIDs(self, wszAdaptorName: Windows.Win32.Foundation.PWSTR, pulCount: POINTER(UInt32), pulID: POINTER(UInt32), ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1880,7 +1880,7 @@ class INDIRECT_DISPLAY_INFO(EasyCastStructure):
     DisplayAdapterTargetBase: UInt32
 class IViewHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e85ccef5-aaaa-47f0-b5-e3-61-f7-ae-cd-c4-c1')
+    _iid_ = Guid('e85ccef5-aaaa-47f0-b5-e3-61-f7-ae-cd-c4-c1')
     @commethod(3)
     def GetConnectedIDs(self, wszAdaptorName: Windows.Win32.Foundation.PWSTR, pulCount: POINTER(UInt32), pulID: POINTER(UInt32), ulFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

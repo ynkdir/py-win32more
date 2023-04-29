@@ -31,7 +31,7 @@ DtdProcessing_Parse: DtdProcessing = 1
 _DtdProcessing_Last: DtdProcessing = 1
 class IXmlReader(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7279fc81-709d-4095-b6-3d-69-fe-4b-0d-90-30')
+    _iid_ = Guid('7279fc81-709d-4095-b6-3d-69-fe-4b-0d-90-30')
     @commethod(3)
     def SetInput(self, pInput: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -80,12 +80,12 @@ class IXmlReader(ComPtr):
     def IsEOF(self) -> Windows.Win32.Foundation.BOOL: ...
 class IXmlResolver(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7279fc82-709d-4095-b6-3d-69-fe-4b-0d-90-30')
+    _iid_ = Guid('7279fc82-709d-4095-b6-3d-69-fe-4b-0d-90-30')
     @commethod(3)
     def ResolveUri(self, pwszBaseUri: Windows.Win32.Foundation.PWSTR, pwszPublicIdentifier: Windows.Win32.Foundation.PWSTR, pwszSystemIdentifier: Windows.Win32.Foundation.PWSTR, ppResolvedInput: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXmlWriter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7279fc88-709d-4095-b6-3d-69-fe-4b-0d-90-30')
+    _iid_ = Guid('7279fc88-709d-4095-b6-3d-69-fe-4b-0d-90-30')
     @commethod(3)
     def SetOutput(self, pOutput: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -146,7 +146,7 @@ class IXmlWriter(ComPtr):
     def Flush(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IXmlWriterLite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('862494c6-1310-4aad-b3-cd-2d-be-eb-f6-70-d3')
+    _iid_ = Guid('862494c6-1310-4aad-b3-cd-2d-be-eb-f6-70-d3')
     @commethod(3)
     def SetOutput(self, pOutput: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

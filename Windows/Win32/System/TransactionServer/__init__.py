@@ -19,7 +19,7 @@ CatalogObject = Guid('6eb22882-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
 ComponentUtil = Guid('6eb22884-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
 class ICatalog(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6eb22870-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
+    _iid_ = Guid('6eb22870-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
     @commethod(7)
     def GetCollection(self, bstrCollName: Windows.Win32.Foundation.BSTR, ppCatalogCollection: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -30,7 +30,7 @@ class ICatalog(ComPtr):
     def get_MinorVersion(self, retval: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IComponentUtil(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6eb22873-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
+    _iid_ = Guid('6eb22873-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
     @commethod(7)
     def InstallComponent(self, bstrDLLFile: Windows.Win32.Foundation.BSTR, bstrTypelibFile: Windows.Win32.Foundation.BSTR, bstrProxyStubDLLFile: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -41,7 +41,7 @@ class IComponentUtil(ComPtr):
     def GetCLSIDs(self, bstrDLLFile: Windows.Win32.Foundation.BSTR, bstrTypelibFile: Windows.Win32.Foundation.BSTR, aCLSIDs: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
 class IPackageUtil(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6eb22874-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
+    _iid_ = Guid('6eb22874-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
     @commethod(7)
     def InstallPackage(self, bstrPackageFile: Windows.Win32.Foundation.BSTR, bstrInstallPath: Windows.Win32.Foundation.BSTR, lOptions: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -50,14 +50,14 @@ class IPackageUtil(ComPtr):
     def ShutdownPackage(self, bstrPackageID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IRemoteComponentUtil(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6eb22875-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
+    _iid_ = Guid('6eb22875-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
     @commethod(7)
     def InstallRemoteComponent(self, bstrServer: Windows.Win32.Foundation.BSTR, bstrPackageID: Windows.Win32.Foundation.BSTR, bstrCLSID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def InstallRemoteComponentByName(self, bstrServer: Windows.Win32.Foundation.BSTR, bstrPackageName: Windows.Win32.Foundation.BSTR, bstrProgID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IRoleAssociationUtil(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('6eb22876-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
+    _iid_ = Guid('6eb22876-8a19-11d0-81-b6-00-a0-c9-23-1c-29')
     @commethod(7)
     def AssociateRole(self, bstrRoleID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)

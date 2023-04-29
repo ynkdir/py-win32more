@@ -581,7 +581,7 @@ ICM_QUERY: ICM_MODE = 3
 ICM_DONE_OUTSIDEDC: ICM_MODE = 4
 class IDeviceModelPlugIn(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1cd63475-07c4-46fe-a9-03-d6-55-31-6d-11-fd')
+    _iid_ = Guid('1cd63475-07c4-46fe-a9-03-d6-55-31-6d-11-fd')
     @commethod(3)
     def Initialize(self, bstrXml: Windows.Win32.Foundation.BSTR, cNumModels: UInt32, iModelPosition: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -606,7 +606,7 @@ class IDeviceModelPlugIn(ComPtr):
     def GetNeutralAxis(self, cColors: UInt32, pXYZColors: POINTER(Windows.Win32.UI.ColorSystem.XYZColorF_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGamutMapModelPlugIn(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2dd80115-ad1e-41f6-a2-19-a4-f4-b5-83-d1-f9')
+    _iid_ = Guid('2dd80115-ad1e-41f6-a2-19-a4-f4-b5-83-d1-f9')
     @commethod(3)
     def Initialize(self, bstrXml: Windows.Win32.Foundation.BSTR, pSrcPlugIn: Windows.Win32.UI.ColorSystem.IDeviceModelPlugIn_head, pDestPlugIn: Windows.Win32.UI.ColorSystem.IDeviceModelPlugIn_head, pSrcGBD: POINTER(Windows.Win32.UI.ColorSystem.GamutBoundaryDescription_head), pDestGBD: POINTER(Windows.Win32.UI.ColorSystem.GamutBoundaryDescription_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

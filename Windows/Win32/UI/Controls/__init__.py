@@ -3595,7 +3595,7 @@ EBM_HOT: IEBARMENUSTATES = 2
 EBM_PRESSED: IEBARMENUSTATES = 3
 class IImageList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('46eb5926-582e-4017-9f-df-e8-99-8d-aa-09-50')
+    _iid_ = Guid('46eb5926-582e-4017-9f-df-e8-99-8d-aa-09-50')
     @commethod(3)
     def Add(self, hbmImage: Windows.Win32.Graphics.Gdi.HBITMAP, hbmMask: Windows.Win32.Graphics.Gdi.HBITMAP, pi: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3656,7 +3656,7 @@ class IImageList(ComPtr):
     def GetOverlayImage(self, iOverlay: Int32, piIndex: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IImageList2(ComPtr):
     extends: Windows.Win32.UI.Controls.IImageList
-    Guid = Guid('192b9d83-50fc-457b-90-a0-2b-82-a8-b5-da-e1')
+    _iid_ = Guid('192b9d83-50fc-457b-90-a0-2b-82-a8-b5-da-e1')
     @commethod(32)
     def Resize(self, cxNewIconSize: Int32, cyNewIconSize: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(33)

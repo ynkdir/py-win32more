@@ -40,7 +40,7 @@ def DeriveRestrictedAppContainerSidFromAppContainerSidAndRestrictedName(psidAppC
 def DeriveAppContainerSidFromAppContainerName(pszAppContainerName: Windows.Win32.Foundation.PWSTR, ppsidAppContainerSid: POINTER(Windows.Win32.Foundation.PSID)) -> Windows.Win32.Foundation.HRESULT: ...
 class IIsolatedAppLauncher(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f686878f-7b42-4cc4-96-fb-f4-f3-b6-e3-d2-4d')
+    _iid_ = Guid('f686878f-7b42-4cc4-96-fb-f4-f3-b6-e3-d2-4d')
     @commethod(3)
     def Launch(self, appUserModelId: Windows.Win32.Foundation.PWSTR, arguments: Windows.Win32.Foundation.PWSTR, telemetryParameters: POINTER(Windows.Win32.Security.Isolation.IsolatedAppLauncherTelemetryParameters_head)) -> Windows.Win32.Foundation.HRESULT: ...
 IsolatedAppLauncher = Guid('bc812430-e75e-4fd1-96-41-1f-9f-1e-2d-9a-1f')

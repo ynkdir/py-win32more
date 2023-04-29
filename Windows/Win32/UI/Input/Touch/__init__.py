@@ -66,7 +66,7 @@ HGESTUREINFO = IntPtr
 HTOUCHINPUT = IntPtr
 class IInertiaProcessor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('18b00c6d-c5ee-41b1-90-a9-9d-4a-92-90-95-ad')
+    _iid_ = Guid('18b00c6d-c5ee-41b1-90-a9-9d-4a-92-90-95-ad')
     @commethod(3)
     def get_InitialOriginX(self, x: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -167,7 +167,7 @@ class IInertiaProcessor(ComPtr):
     def CompleteTime(self, timestamp: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IManipulationProcessor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a22ac519-8300-48a0-be-f4-f1-be-87-37-db-a4')
+    _iid_ = Guid('a22ac519-8300-48a0-be-f4-f1-be-87-37-db-a4')
     @commethod(3)
     def get_SupportedManipulations(self, manipulations: POINTER(Windows.Win32.UI.Input.Touch.MANIPULATION_PROCESSOR_MANIPULATIONS)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -248,7 +248,7 @@ TOUCHINPUTMASKF_EXTRAINFO: TOUCHINPUTMASKF_MASK = 2
 TOUCHINPUTMASKF_CONTACTAREA: TOUCHINPUTMASKF_MASK = 4
 class _IManipulationEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4f62c8da-9c53-4b22-93-df-92-7a-86-2b-bb-03')
+    _iid_ = Guid('4f62c8da-9c53-4b22-93-df-92-7a-86-2b-bb-03')
     @commethod(3)
     def ManipulationStarted(self, x: Single, y: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

@@ -787,14 +787,14 @@ class IO_COUNTERS(EasyCastStructure):
     OtherTransferCount: UInt64
 class IRtwqAsyncCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a27003cf-2354-4f2a-8d-6a-ab-7c-ff-15-43-7e')
+    _iid_ = Guid('a27003cf-2354-4f2a-8d-6a-ab-7c-ff-15-43-7e')
     @commethod(3)
     def GetParameters(self, pdwFlags: POINTER(UInt32), pdwQueue: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Invoke(self, pAsyncResult: Windows.Win32.System.Threading.IRtwqAsyncResult_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IRtwqAsyncResult(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ac6b7889-0740-4d51-86-19-90-59-94-a5-5c-c6')
+    _iid_ = Guid('ac6b7889-0740-4d51-86-19-90-59-94-a5-5c-c6')
     @commethod(3)
     def GetState(self, ppunkState: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -807,7 +807,7 @@ class IRtwqAsyncResult(ComPtr):
     def GetStateNoAddRef(self) -> Windows.Win32.System.Com.IUnknown_head: ...
 class IRtwqPlatformEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('63d9255a-7ff1-4b61-8f-af-ed-64-60-da-cf-2b')
+    _iid_ = Guid('63d9255a-7ff1-4b61-8f-af-ed-64-60-da-cf-2b')
     @commethod(3)
     def InitializationComplete(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

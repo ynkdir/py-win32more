@@ -453,7 +453,7 @@ FR_SHOWHELP: FINDREPLACE_FLAGS = 128
 FR_WHOLEWORD: FINDREPLACE_FLAGS = 2
 class IPrintDialogCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5852a2c3-6530-11d1-b6-a3-00-00-f8-75-7b-f9')
+    _iid_ = Guid('5852a2c3-6530-11d1-b6-a3-00-00-f8-75-7b-f9')
     @commethod(3)
     def InitDone(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -462,7 +462,7 @@ class IPrintDialogCallback(ComPtr):
     def HandleMessage(self, hDlg: Windows.Win32.Foundation.HWND, uMsg: UInt32, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM, pResult: POINTER(Windows.Win32.Foundation.LRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintDialogServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('509aaeda-5639-11d1-b6-a1-00-00-f8-75-7b-f9')
+    _iid_ = Guid('509aaeda-5639-11d1-b6-a1-00-00-f8-75-7b-f9')
     @commethod(3)
     def GetCurrentDevMode(self, pDevMode: POINTER(Windows.Win32.Graphics.Gdi.DEVMODEA_head), pcbSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

@@ -143,7 +143,7 @@ SOURCETEXT_ATTR_MEMBERLOOKUP: UInt32 = 512
 SOURCETEXT_ATTR_THIS: UInt32 = 1024
 class AsyncIDebugApplicationNodeEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a2e3aa3b-aa8d-4ebf-84-cd-64-8b-73-7b-8c-13')
+    _iid_ = Guid('a2e3aa3b-aa8d-4ebf-84-cd-64-8b-73-7b-8c-13')
     @commethod(3)
     def Begin_onAddChild(self, prddpChild: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugApplicationNode_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -219,7 +219,7 @@ ERRORRESUMEACTION_AbortCallAndReturnErrorToCaller: ERRORRESUMEACTION = 1
 ERRORRESUMEACTION_SkipErrorStatement: ERRORRESUMEACTION = 2
 class IActiveScript(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bb1a2ae1-a4f9-11cf-8f-20-00-80-5f-2c-d0-64')
+    _iid_ = Guid('bb1a2ae1-a4f9-11cf-8f-20-00-80-5f-2c-d0-64')
     @commethod(3)
     def SetScriptSite(self, pass_: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptSite_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -248,7 +248,7 @@ class IActiveScript(ComPtr):
     def Clone(self, ppscript: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScript_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptAuthor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9c109da0-7006-11d1-b3-6c-00-a0-c9-11-e8-b2')
+    _iid_ = Guid('9c109da0-7006-11d1-b3-6c-00-a0-c9-11-e8-b2')
     @commethod(3)
     def AddNamedItem(self, pszName: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pdisp: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -279,12 +279,12 @@ class IActiveScriptAuthor(ComPtr):
     def IsCommitChar(self, ch: Char, pfcommit: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptAuthorProcedure(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7e2d4b70-bd9a-11d0-93-36-00-a0-c9-0d-ca-a9')
+    _iid_ = Guid('7e2d4b70-bd9a-11d0-93-36-00-a0-c9-0d-ca-a9')
     @commethod(3)
     def ParseProcedureText(self, pszCode: Windows.Win32.Foundation.PWSTR, pszFormalParams: Windows.Win32.Foundation.PWSTR, pszProcedureName: Windows.Win32.Foundation.PWSTR, pszItemName: Windows.Win32.Foundation.PWSTR, pszDelimiter: Windows.Win32.Foundation.PWSTR, dwCookie: UInt32, dwFlags: UInt32, pdispFor: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptDebug32(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c10-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c10-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def GetScriptTextAttributes(self, pstrCode: Windows.Win32.Foundation.PWSTR, uNumCodeChars: UInt32, pstrDelimiter: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pattr: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -293,7 +293,7 @@ class IActiveScriptDebug32(ComPtr):
     def EnumCodeContextsOfPosition(self, dwSourceContext: UInt32, uCharacterOffset: UInt32, uNumChars: UInt32, ppescc: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumDebugCodeContexts_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptDebug64(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bc437e23-f5b8-47f4-bb-79-7d-1c-e5-48-3b-86')
+    _iid_ = Guid('bc437e23-f5b8-47f4-bb-79-7d-1c-e5-48-3b-86')
     @commethod(3)
     def GetScriptTextAttributes(self, pstrCode: Windows.Win32.Foundation.PWSTR, uNumCodeChars: UInt32, pstrDelimiter: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pattr: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -302,7 +302,7 @@ class IActiveScriptDebug64(ComPtr):
     def EnumCodeContextsOfPosition(self, dwSourceContext: UInt64, uCharacterOffset: UInt32, uNumChars: UInt32, ppescc: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumDebugCodeContexts_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptEncode(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bb1a2ae3-a4f9-11cf-8f-20-00-80-5f-2c-d0-64')
+    _iid_ = Guid('bb1a2ae3-a4f9-11cf-8f-20-00-80-5f-2c-d0-64')
     @commethod(3)
     def EncodeSection(self, pchIn: Windows.Win32.Foundation.PWSTR, cchIn: UInt32, pchOut: Windows.Win32.Foundation.PWSTR, cchOut: UInt32, pcchRet: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -311,7 +311,7 @@ class IActiveScriptEncode(ComPtr):
     def GetEncodeProgId(self, pbstrOut: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptError(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('eae1ba61-a4ed-11cf-8f-20-00-80-5f-2c-d0-64')
+    _iid_ = Guid('eae1ba61-a4ed-11cf-8f-20-00-80-5f-2c-d0-64')
     @commethod(3)
     def GetExceptionInfo(self, pexcepinfo: POINTER(Windows.Win32.System.Com.EXCEPINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -320,34 +320,34 @@ class IActiveScriptError(ComPtr):
     def GetSourceLineText(self, pbstrSourceLine: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptError64(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptError
-    Guid = Guid('b21fb2a1-5b8f-4963-8c-21-21-45-0f-84-ed-7f')
+    _iid_ = Guid('b21fb2a1-5b8f-4963-8c-21-21-45-0f-84-ed-7f')
     @commethod(6)
     def GetSourcePosition64(self, pdwSourceContext: POINTER(UInt64), pulLineNumber: POINTER(UInt32), plCharacterPosition: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptErrorDebug(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptError
-    Guid = Guid('51973c12-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c12-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(6)
     def GetDocumentContext(self, ppssc: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def GetStackFrame(self, ppdsf: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugStackFrame_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptErrorDebug110(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('516e42b6-89a8-4530-93-7b-5f-07-08-43-14-42')
+    _iid_ = Guid('516e42b6-89a8-4530-93-7b-5f-07-08-43-14-42')
     @commethod(3)
     def GetExceptionThrownKind(self, pExceptionKind: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.SCRIPT_ERROR_DEBUG_EXCEPTION_THROWN_KIND)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptGarbageCollector(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6aa2c4a0-2b53-11d4-a2-a0-00-10-4b-d3-50-90')
+    _iid_ = Guid('6aa2c4a0-2b53-11d4-a2-a0-00-10-4b-d3-50-90')
     @commethod(3)
     def CollectGarbage(self, scriptgctype: Windows.Win32.System.Diagnostics.Debug.ActiveScript.SCRIPTGCTYPE) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptHostEncode(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bee9b76e-cfe3-11d1-b7-47-00-c0-4f-c2-b0-85')
+    _iid_ = Guid('bee9b76e-cfe3-11d1-b7-47-00-c0-4f-c2-b0-85')
     @commethod(3)
     def EncodeScriptHostFile(self, bstrInFile: Windows.Win32.Foundation.BSTR, pbstrOutFile: POINTER(Windows.Win32.Foundation.BSTR), cFlags: UInt32, bstrDefaultLang: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptParse32(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bb1a2ae2-a4f9-11cf-8f-20-00-80-5f-2c-d0-64')
+    _iid_ = Guid('bb1a2ae2-a4f9-11cf-8f-20-00-80-5f-2c-d0-64')
     @commethod(3)
     def InitNew(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -356,7 +356,7 @@ class IActiveScriptParse32(ComPtr):
     def ParseScriptText(self, pstrCode: Windows.Win32.Foundation.PWSTR, pstrItemName: Windows.Win32.Foundation.PWSTR, punkContext: Windows.Win32.System.Com.IUnknown_head, pstrDelimiter: Windows.Win32.Foundation.PWSTR, dwSourceContextCookie: UInt32, ulStartingLineNumber: UInt32, dwFlags: UInt32, pvarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head), pexcepinfo: POINTER(Windows.Win32.System.Com.EXCEPINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptParse64(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c7ef7658-e1ee-480e-97-ea-d5-2c-b4-d7-6d-17')
+    _iid_ = Guid('c7ef7658-e1ee-480e-97-ea-d5-2c-b4-d7-6d-17')
     @commethod(3)
     def InitNew(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -365,33 +365,33 @@ class IActiveScriptParse64(ComPtr):
     def ParseScriptText(self, pstrCode: Windows.Win32.Foundation.PWSTR, pstrItemName: Windows.Win32.Foundation.PWSTR, punkContext: Windows.Win32.System.Com.IUnknown_head, pstrDelimiter: Windows.Win32.Foundation.PWSTR, dwSourceContextCookie: UInt64, ulStartingLineNumber: UInt32, dwFlags: UInt32, pvarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head), pexcepinfo: POINTER(Windows.Win32.System.Com.EXCEPINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptParseProcedure2_32(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptParseProcedure32
-    Guid = Guid('71ee5b20-fb04-11d1-b3-a8-00-a0-c9-11-e8-b2')
+    _iid_ = Guid('71ee5b20-fb04-11d1-b3-a8-00-a0-c9-11-e8-b2')
 class IActiveScriptParseProcedure2_64(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptParseProcedure64
-    Guid = Guid('fe7c4271-210c-448d-9f-54-76-da-b7-04-7b-28')
+    _iid_ = Guid('fe7c4271-210c-448d-9f-54-76-da-b7-04-7b-28')
 class IActiveScriptParseProcedure32(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa5b6a80-b834-11d0-93-2f-00-a0-c9-0d-ca-a9')
+    _iid_ = Guid('aa5b6a80-b834-11d0-93-2f-00-a0-c9-0d-ca-a9')
     @commethod(3)
     def ParseProcedureText(self, pstrCode: Windows.Win32.Foundation.PWSTR, pstrFormalParams: Windows.Win32.Foundation.PWSTR, pstrProcedureName: Windows.Win32.Foundation.PWSTR, pstrItemName: Windows.Win32.Foundation.PWSTR, punkContext: Windows.Win32.System.Com.IUnknown_head, pstrDelimiter: Windows.Win32.Foundation.PWSTR, dwSourceContextCookie: UInt32, ulStartingLineNumber: UInt32, dwFlags: UInt32, ppdisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptParseProcedure64(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c64713b6-e029-4cc5-92-00-43-8b-72-89-0b-6a')
+    _iid_ = Guid('c64713b6-e029-4cc5-92-00-43-8b-72-89-0b-6a')
     @commethod(3)
     def ParseProcedureText(self, pstrCode: Windows.Win32.Foundation.PWSTR, pstrFormalParams: Windows.Win32.Foundation.PWSTR, pstrProcedureName: Windows.Win32.Foundation.PWSTR, pstrItemName: Windows.Win32.Foundation.PWSTR, punkContext: Windows.Win32.System.Com.IUnknown_head, pstrDelimiter: Windows.Win32.Foundation.PWSTR, dwSourceContextCookie: UInt64, ulStartingLineNumber: UInt32, dwFlags: UInt32, ppdisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptParseProcedureOld32(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1cff0050-6fdd-11d0-93-28-00-a0-c9-0d-ca-a9')
+    _iid_ = Guid('1cff0050-6fdd-11d0-93-28-00-a0-c9-0d-ca-a9')
     @commethod(3)
     def ParseProcedureText(self, pstrCode: Windows.Win32.Foundation.PWSTR, pstrFormalParams: Windows.Win32.Foundation.PWSTR, pstrItemName: Windows.Win32.Foundation.PWSTR, punkContext: Windows.Win32.System.Com.IUnknown_head, pstrDelimiter: Windows.Win32.Foundation.PWSTR, dwSourceContextCookie: UInt32, ulStartingLineNumber: UInt32, dwFlags: UInt32, ppdisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptParseProcedureOld64(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('21f57128-08c9-4638-ba-12-22-d1-5d-88-dc-5c')
+    _iid_ = Guid('21f57128-08c9-4638-ba-12-22-d1-5d-88-dc-5c')
     @commethod(3)
     def ParseProcedureText(self, pstrCode: Windows.Win32.Foundation.PWSTR, pstrFormalParams: Windows.Win32.Foundation.PWSTR, pstrItemName: Windows.Win32.Foundation.PWSTR, punkContext: Windows.Win32.System.Com.IUnknown_head, pstrDelimiter: Windows.Win32.Foundation.PWSTR, dwSourceContextCookie: UInt64, ulStartingLineNumber: UInt32, dwFlags: UInt32, ppdisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptProfilerCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('740eca23-7d9d-42e5-ba-9d-f8-b2-4b-1c-7a-9b')
+    _iid_ = Guid('740eca23-7d9d-42e5-ba-9d-f8-b2-4b-1c-7a-9b')
     @commethod(3)
     def Initialize(self, dwContext: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -406,19 +406,19 @@ class IActiveScriptProfilerCallback(ComPtr):
     def OnFunctionExit(self, scriptId: Int32, functionId: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptProfilerCallback2(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptProfilerCallback
-    Guid = Guid('31b7f8ad-a637-409c-b2-2f-04-09-95-b6-10-3d')
+    _iid_ = Guid('31b7f8ad-a637-409c-b2-2f-04-09-95-b6-10-3d')
     @commethod(9)
     def OnFunctionEnterByName(self, pwszFunctionName: Windows.Win32.Foundation.PWSTR, type: Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_SCRIPT_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
     def OnFunctionExitByName(self, pwszFunctionName: Windows.Win32.Foundation.PWSTR, type: Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_SCRIPT_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptProfilerCallback3(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptProfilerCallback2
-    Guid = Guid('6ac5ad25-2037-4687-91-df-b5-99-79-d9-3d-73')
+    _iid_ = Guid('6ac5ad25-2037-4687-91-df-b5-99-79-d9-3d-73')
     @commethod(11)
     def SetWebWorkerId(self, webWorkerId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptProfilerControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('784b5ff0-69b0-47d1-a7-dc-25-18-f4-23-0e-90')
+    _iid_ = Guid('784b5ff0-69b0-47d1-a7-dc-25-18-f4-23-0e-90')
     @commethod(3)
     def StartProfiling(self, clsidProfilerObject: POINTER(Guid), dwEventMask: UInt32, dwContext: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -427,29 +427,29 @@ class IActiveScriptProfilerControl(ComPtr):
     def StopProfiling(self, hrShutdownReason: Windows.Win32.Foundation.HRESULT) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptProfilerControl2(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptProfilerControl
-    Guid = Guid('47810165-498f-40be-94-f1-65-35-57-e9-e7-da')
+    _iid_ = Guid('47810165-498f-40be-94-f1-65-35-57-e9-e7-da')
     @commethod(6)
     def CompleteProfilerStart(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
     def PrepareProfilerStop(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptProfilerControl3(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptProfilerControl2
-    Guid = Guid('0b403015-f381-4023-a5-d0-6f-ed-07-6d-e7-16')
+    _iid_ = Guid('0b403015-f381-4023-a5-d0-6f-ed-07-6d-e7-16')
     @commethod(8)
     def EnumHeap(self, ppEnum: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptProfilerHeapEnum_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptProfilerControl4(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptProfilerControl3
-    Guid = Guid('160f94fd-9dbc-40d4-9e-ac-2b-71-db-31-32-f4')
+    _iid_ = Guid('160f94fd-9dbc-40d4-9e-ac-2b-71-db-31-32-f4')
     @commethod(9)
     def SummarizeHeap(self, heapSummary: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_SUMMARY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptProfilerControl5(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptProfilerControl4
-    Guid = Guid('1c01a2d1-8f0f-46a5-97-20-0d-7e-d2-c6-2f-0a')
+    _iid_ = Guid('1c01a2d1-8f0f-46a5-97-20-0d-7e-d2-c6-2f-0a')
     @commethod(10)
     def EnumHeap2(self, enumFlags: Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_ENUM_FLAGS, ppEnum: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptProfilerHeapEnum_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptProfilerHeapEnum(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('32e4694e-0d37-419b-b9-3d-fa-20-de-d6-e8-ea')
+    _iid_ = Guid('32e4694e-0d37-419b-b9-3d-fa-20-de-d6-e8-ea')
     @commethod(3)
     def Next(self, celt: UInt32, heapObjects: POINTER(POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.PROFILER_HEAP_OBJECT_head)), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -460,19 +460,19 @@ class IActiveScriptProfilerHeapEnum(ComPtr):
     def GetNameIdMap(self, pNameList: POINTER(POINTER(POINTER(Windows.Win32.Foundation.PWSTR))), pcelt: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptProperty(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4954e0d0-fbc7-11d1-84-10-00-60-08-c3-fb-fc')
+    _iid_ = Guid('4954e0d0-fbc7-11d1-84-10-00-60-08-c3-fb-fc')
     @commethod(3)
     def GetProperty(self, dwProperty: UInt32, pvarIndex: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetProperty(self, dwProperty: UInt32, pvarIndex: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptSIPInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('764651d0-38de-11d4-a2-a3-00-10-4b-d3-50-90')
+    _iid_ = Guid('764651d0-38de-11d4-a2-a3-00-10-4b-d3-50-90')
     @commethod(3)
     def GetSIPOID(self, poid_sip: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('db01a1e3-a42b-11cf-8f-20-00-80-5f-2c-d0-64')
+    _iid_ = Guid('db01a1e3-a42b-11cf-8f-20-00-80-5f-2c-d0-64')
     @commethod(3)
     def GetLCID(self, plcid: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -491,7 +491,7 @@ class IActiveScriptSite(ComPtr):
     def OnLeaveScript(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptSiteDebug32(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c11-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c11-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def GetDocumentContextFromPosition(self, dwSourceContext: UInt32, uCharacterOffset: UInt32, uNumChars: UInt32, ppsc: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -502,7 +502,7 @@ class IActiveScriptSiteDebug32(ComPtr):
     def OnScriptErrorDebug(self, pErrorDebug: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptErrorDebug_head, pfEnterDebugger: POINTER(Windows.Win32.Foundation.BOOL), pfCallOnScriptErrorWhenContinuing: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptSiteDebug64(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d6b96b0a-7463-402c-92-ac-89-98-42-26-94-2f')
+    _iid_ = Guid('d6b96b0a-7463-402c-92-ac-89-98-42-26-94-2f')
     @commethod(3)
     def GetDocumentContextFromPosition(self, dwSourceContext: UInt64, uCharacterOffset: UInt32, uNumChars: UInt32, ppsc: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -513,34 +513,34 @@ class IActiveScriptSiteDebug64(ComPtr):
     def OnScriptErrorDebug(self, pErrorDebug: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptErrorDebug_head, pfEnterDebugger: POINTER(Windows.Win32.Foundation.BOOL), pfCallOnScriptErrorWhenContinuing: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptSiteDebugEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bb722ccb-6ad2-41c6-b7-80-af-9c-03-ee-69-f5')
+    _iid_ = Guid('bb722ccb-6ad2-41c6-b7-80-af-9c-03-ee-69-f5')
     @commethod(3)
     def OnCanNotJITScriptErrorDebug(self, pErrorDebug: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptErrorDebug_head, pfCallOnScriptErrorWhenContinuing: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptSiteInterruptPoll(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('539698a0-cdca-11cf-a5-eb-00-aa-00-47-a0-63')
+    _iid_ = Guid('539698a0-cdca-11cf-a5-eb-00-aa-00-47-a0-63')
     @commethod(3)
     def QueryContinue(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptSiteTraceInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4b7272ae-1955-4bfe-98-b0-78-06-21-88-85-69')
+    _iid_ = Guid('4b7272ae-1955-4bfe-98-b0-78-06-21-88-85-69')
     @commethod(3)
     def SendScriptTraceInfo(self, stiEventType: Windows.Win32.System.Diagnostics.Debug.ActiveScript.SCRIPTTRACEINFO, guidContextID: Guid, dwScriptContextCookie: UInt32, lScriptStatementStart: Int32, lScriptStatementEnd: Int32, dwReserved: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptSiteUIControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aedae97e-d7ee-4796-b9-60-7f-09-2a-e8-44-ab')
+    _iid_ = Guid('aedae97e-d7ee-4796-b9-60-7f-09-2a-e8-44-ab')
     @commethod(3)
     def GetUIBehavior(self, UicItem: Windows.Win32.System.Diagnostics.Debug.ActiveScript.SCRIPTUICITEM, pUicHandling: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.SCRIPTUICHANDLING)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptSiteWindow(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d10f6761-83e9-11cf-8f-20-00-80-5f-2c-d0-64')
+    _iid_ = Guid('d10f6761-83e9-11cf-8f-20-00-80-5f-2c-d0-64')
     @commethod(3)
     def GetWindow(self, phwnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EnableModeless(self, fEnable: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptStats(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b8da6310-e19b-11d0-93-3c-00-a0-c9-0d-ca-a9')
+    _iid_ = Guid('b8da6310-e19b-11d0-93-3c-00-a0-c9-0d-ca-a9')
     @commethod(3)
     def GetStat(self, stid: UInt32, pluHi: POINTER(UInt32), pluLo: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -549,19 +549,19 @@ class IActiveScriptStats(ComPtr):
     def ResetStats(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptStringCompare(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('58562769-ed52-42f7-84-03-49-63-51-4e-1f-11')
+    _iid_ = Guid('58562769-ed52-42f7-84-03-49-63-51-4e-1f-11')
     @commethod(3)
     def StrComp(self, bszStr1: Windows.Win32.Foundation.BSTR, bszStr2: Windows.Win32.Foundation.BSTR, iRet: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptTraceInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c35456e7-bebf-4a1b-86-a9-24-d5-6b-e8-b3-69')
+    _iid_ = Guid('c35456e7-bebf-4a1b-86-a9-24-d5-6b-e8-b3-69')
     @commethod(3)
     def StartScriptTracing(self, pSiteTraceInfo: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptSiteTraceInfo_head, guidContextID: Guid) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def StopScriptTracing(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IActiveScriptWinRTErrorDebug(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptError
-    Guid = Guid('73a3f82a-0fe9-4b33-ba-3b-fe-09-5f-69-7e-0a')
+    _iid_ = Guid('73a3f82a-0fe9-4b33-ba-3b-fe-09-5f-69-7e-0a')
     @commethod(6)
     def GetRestrictedErrorString(self, errorString: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -570,7 +570,7 @@ class IActiveScriptWinRTErrorDebug(ComPtr):
     def GetCapabilitySid(self, capabilitySid: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IApplicationDebugger(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c2a-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c2a-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def QueryAlive(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -585,19 +585,19 @@ class IApplicationDebugger(ComPtr):
     def onDebuggerEvent(self, riid: POINTER(Guid), punk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IApplicationDebuggerUI(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c2b-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c2b-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def BringDocumentToTop(self, pddt: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentText_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def BringDocumentContextToTop(self, pddc: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentContext_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IBindEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('63cdbcb0-c1b1-11d0-93-36-00-a0-c9-0d-ca-a9')
+    _iid_ = Guid('63cdbcb0-c1b1-11d0-93-36-00-a0-c9-0d-ca-a9')
     @commethod(3)
     def BindHandler(self, pstrEvent: Windows.Win32.Foundation.PWSTR, pdisp: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugApplication11032(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IRemoteDebugApplication110
-    Guid = Guid('bdb3b5de-89f2-4e11-84-a5-97-44-5f-94-1c-7d')
+    _iid_ = Guid('bdb3b5de-89f2-4e11-84-a5-97-44-5f-94-1c-7d')
     @commethod(6)
     def SynchronousCallInMainThread(self, pptc: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugThreadCall32_head, dwParam1: UIntPtr, dwParam2: UIntPtr, dwParam3: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -606,7 +606,7 @@ class IDebugApplication11032(ComPtr):
     def CallableWaitForHandles(self, handleCount: UInt32, pHandles: POINTER(Windows.Win32.Foundation.HANDLE), pIndex: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugApplication11064(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IRemoteDebugApplication110
-    Guid = Guid('2039d958-4eeb-496a-87-bb-2e-52-01-ea-de-ef')
+    _iid_ = Guid('2039d958-4eeb-496a-87-bb-2e-52-01-ea-de-ef')
     @commethod(6)
     def SynchronousCallInMainThread(self, pptc: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugThreadCall64_head, dwParam1: UIntPtr, dwParam2: UIntPtr, dwParam3: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -615,7 +615,7 @@ class IDebugApplication11064(ComPtr):
     def CallableWaitForHandles(self, handleCount: UInt32, pHandles: POINTER(Windows.Win32.Foundation.HANDLE), pIndex: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugApplication32(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IRemoteDebugApplication
-    Guid = Guid('51973c32-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c32-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(14)
     def SetName(self, pstrName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -658,7 +658,7 @@ class IDebugApplication32(ComPtr):
     def RemoveGlobalExpressionContextProvider(self, dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugApplication64(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IRemoteDebugApplication
-    Guid = Guid('4dedc754-04c7-4f10-9e-60-16-a3-90-fe-6e-62')
+    _iid_ = Guid('4dedc754-04c7-4f10-9e-60-16-a3-90-fe-6e-62')
     @commethod(14)
     def SetName(self, pstrName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
@@ -701,7 +701,7 @@ class IDebugApplication64(ComPtr):
     def RemoveGlobalExpressionContextProvider(self, dwCookie: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugApplicationNode(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentProvider
-    Guid = Guid('51973c34-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c34-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(6)
     def EnumChildren(self, pperddp: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumDebugApplicationNodes_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -716,7 +716,7 @@ class IDebugApplicationNode(ComPtr):
     def Detach(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugApplicationNode100(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('90a7734e-841b-4f77-93-84-a2-89-1e-76-e7-e2')
+    _iid_ = Guid('90a7734e-841b-4f77-93-84-a2-89-1e-76-e7-e2')
     @commethod(3)
     def SetFilterForEventSink(self, dwCookie: UInt32, filter: Windows.Win32.System.Diagnostics.Debug.ActiveScript.APPLICATION_NODE_EVENT_FILTER) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -725,7 +725,7 @@ class IDebugApplicationNode100(ComPtr):
     def QueryIsChildNode(self, pSearchKey: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocument_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugApplicationNodeEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c35-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c35-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def onAddChild(self, prddpChild: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugApplicationNode_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -736,7 +736,7 @@ class IDebugApplicationNodeEvents(ComPtr):
     def onAttach(self, prddpParent: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugApplicationNode_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugApplicationThread(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IRemoteDebugApplicationThread
-    Guid = Guid('51973c38-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c38-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(12)
     def SynchronousCallIntoThread32(self, pstcb: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugThreadCall32_head, dwParam1: UInt32, dwParam2: UInt32, dwParam3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -749,7 +749,7 @@ class IDebugApplicationThread(ComPtr):
     def SetStateString(self, pstrState: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugApplicationThread11032(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2194ac5c-6561-404a-a2-e9-f5-7d-72-de-37-02')
+    _iid_ = Guid('2194ac5c-6561-404a-a2-e9-f5-7d-72-de-37-02')
     @commethod(3)
     def GetActiveThreadRequestCount(self, puiThreadRequests: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -760,7 +760,7 @@ class IDebugApplicationThread11032(ComPtr):
     def AsynchronousCallIntoThread(self, pptc: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugThreadCall32_head, dwParam1: UIntPtr, dwParam2: UIntPtr, dwParam3: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugApplicationThread11064(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('420aa4cc-efd8-4dac-98-3b-47-12-78-26-91-7d')
+    _iid_ = Guid('420aa4cc-efd8-4dac-98-3b-47-12-78-26-91-7d')
     @commethod(3)
     def GetActiveThreadRequestCount(self, puiThreadRequests: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -771,12 +771,12 @@ class IDebugApplicationThread11064(ComPtr):
     def AsynchronousCallIntoThread(self, pptc: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugThreadCall64_head, dwParam1: UIntPtr, dwParam2: UIntPtr, dwParam3: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugApplicationThread64(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugApplicationThread
-    Guid = Guid('9dac5886-dbad-456d-9d-ee-5d-ec-39-ab-3d-da')
+    _iid_ = Guid('9dac5886-dbad-456d-9d-ee-5d-ec-39-ab-3d-da')
     @commethod(17)
     def SynchronousCallIntoThread64(self, pstcb: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugThreadCall64_head, dwParam1: UInt64, dwParam2: UInt64, dwParam3: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugApplicationThreadEvents110(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('84e5e468-d5da-48a8-83-f4-40-36-64-29-00-7b')
+    _iid_ = Guid('84e5e468-d5da-48a8-83-f4-40-36-64-29-00-7b')
     @commethod(3)
     def OnSuspendForBreakPoint(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -787,7 +787,7 @@ class IDebugApplicationThreadEvents110(ComPtr):
     def OnBeginThreadRequest(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugAsyncOperation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c1b-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c1b-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def GetSyncDebugOperation(self, ppsdo: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugSyncOperation_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -800,34 +800,34 @@ class IDebugAsyncOperation(ComPtr):
     def GetResult(self, phrResult: POINTER(Windows.Win32.Foundation.HRESULT), ppunkResult: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugAsyncOperationCallBack(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c1c-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c1c-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def onComplete(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugCodeContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c13-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c13-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def GetDocumentContext(self, ppsc: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetBreakPoint(self, bps: Windows.Win32.System.Diagnostics.Debug.ActiveScript.BREAKPOINT_STATE) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugCookie(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c39-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c39-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def SetDebugCookie(self, dwDebugAppCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugDocument(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentInfo
-    Guid = Guid('51973c21-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c21-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
 class IDebugDocumentContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c28-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c28-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def GetDocument(self, ppsd: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocument_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EnumCodeContexts(self, ppescc: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumDebugCodeContexts_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugDocumentHelper32(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c26-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c26-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def Init(self, pda: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugApplication32_head, pszShortName: Windows.Win32.Foundation.PWSTR, pszLongName: Windows.Win32.Foundation.PWSTR, docAttr: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -866,7 +866,7 @@ class IDebugDocumentHelper32(ComPtr):
     def BringDocumentContextToTop(self, pddc: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentContext_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugDocumentHelper64(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c4c7363c-20fd-47f9-bd-82-48-55-e0-15-08-71')
+    _iid_ = Guid('c4c7363c-20fd-47f9-bd-82-48-55-e0-15-08-71')
     @commethod(3)
     def Init(self, pda: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugApplication64_head, pszShortName: Windows.Win32.Foundation.PWSTR, pszLongName: Windows.Win32.Foundation.PWSTR, docAttr: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -905,7 +905,7 @@ class IDebugDocumentHelper64(ComPtr):
     def BringDocumentContextToTop(self, pddc: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentContext_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugDocumentHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c27-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c27-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def GetDeferredText(self, dwTextStartCookie: UInt32, pcharText: Windows.Win32.Foundation.PWSTR, pstaTextAttr: POINTER(UInt16), pcNumChars: POINTER(UInt32), cMaxChars: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -920,19 +920,19 @@ class IDebugDocumentHost(ComPtr):
     def NotifyChanged(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugDocumentInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c1f-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c1f-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def GetName(self, dnt: Windows.Win32.System.Diagnostics.Debug.ActiveScript.DOCUMENTNAMETYPE, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDocumentClassId(self, pclsidDocument: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugDocumentProvider(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentInfo
-    Guid = Guid('51973c20-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c20-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(5)
     def GetDocument(self, ppssd: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocument_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugDocumentText(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocument
-    Guid = Guid('51973c22-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c22-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(5)
     def GetDocumentAttributes(self, ptextdocattr: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(6)
@@ -949,7 +949,7 @@ class IDebugDocumentText(ComPtr):
     def GetContextOfPosition(self, cCharacterPosition: UInt32, cNumChars: UInt32, ppsc: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugDocumentTextAuthor(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentText
-    Guid = Guid('51973c24-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c24-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(12)
     def InsertText(self, cCharacterPosition: UInt32, cNumToInsert: UInt32, pcharText: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(13)
@@ -958,7 +958,7 @@ class IDebugDocumentTextAuthor(ComPtr):
     def ReplaceText(self, cCharacterPosition: UInt32, cNumToReplace: UInt32, pcharText: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugDocumentTextEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c23-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c23-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def onDestroy(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -973,7 +973,7 @@ class IDebugDocumentTextEvents(ComPtr):
     def onUpdateDocumentAttributes(self, textdocattr: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugDocumentTextExternalAuthor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c25-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c25-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def GetPathName(self, pbstrLongName: POINTER(Windows.Win32.Foundation.BSTR), pfIsOriginalFile: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -982,7 +982,7 @@ class IDebugDocumentTextExternalAuthor(ComPtr):
     def NotifyChanged(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugExpression(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c14-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c14-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def Start(self, pdecb: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugExpressionCallBack_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -995,19 +995,19 @@ class IDebugExpression(ComPtr):
     def GetResultAsDebugProperty(self, phrResult: POINTER(Windows.Win32.Foundation.HRESULT), ppdp: POINTER(Windows.Win32.System.Diagnostics.Debug.IDebugProperty_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugExpressionCallBack(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c16-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c16-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def onComplete(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugExpressionContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c15-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c15-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def ParseLanguageText(self, pstrCode: Windows.Win32.Foundation.PWSTR, nRadix: UInt32, pstrDelimiter: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, ppe: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugExpression_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetLanguageInfo(self, pbstrLanguageName: POINTER(Windows.Win32.Foundation.BSTR), pLanguageID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugFormatter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c05-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c05-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def GetStringForVariant(self, pvar: POINTER(Windows.Win32.System.Variant.VARIANT_head), nRadix: UInt32, pbstrValue: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1016,7 +1016,7 @@ class IDebugFormatter(ComPtr):
     def GetStringForVarType(self, vt: Windows.Win32.System.Variant.VARENUM, ptdescArrayType: POINTER(Windows.Win32.System.Com.TYPEDESC_head), pbstr: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c3f-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c3f-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def CreatePropertyBrowser(self, pvar: POINTER(Windows.Win32.System.Variant.VARIANT_head), bstrName: Windows.Win32.Foundation.PWSTR, pdat: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugApplicationThread_head, ppdob: POINTER(Windows.Win32.System.Diagnostics.Debug.IDebugProperty_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1025,12 +1025,12 @@ class IDebugHelper(ComPtr):
     def CreateSimpleConnectionPoint(self, pdisp: Windows.Win32.System.Com.IDispatch_head, ppscp: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.ISimpleConnectionPoint_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugSessionProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c29-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c29-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def StartDebugSession(self, pda: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IRemoteDebugApplication_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugStackFrame(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c17-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c17-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def GetCodeContext(self, ppcc: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugCodeContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1043,29 +1043,29 @@ class IDebugStackFrame(ComPtr):
     def GetDebugProperty(self, ppDebugProp: POINTER(Windows.Win32.System.Diagnostics.Debug.IDebugProperty_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugStackFrame110(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugStackFrame
-    Guid = Guid('4b509611-b6ea-4b24-ad-cb-d0-cc-fd-1a-7e-33')
+    _iid_ = Guid('4b509611-b6ea-4b24-ad-cb-d0-cc-fd-1a-7e-33')
     @commethod(8)
     def GetStackFrameType(self, pStackFrameKind: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.DEBUG_STACKFRAME_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
     def GetScriptInvocationContext(self, ppInvocationContext: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IScriptInvocationContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugStackFrameSniffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c18-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c18-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def EnumStackFrames(self, ppedsf: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumDebugStackFrames_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugStackFrameSnifferEx32(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugStackFrameSniffer
-    Guid = Guid('51973c19-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c19-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(4)
     def EnumStackFramesEx32(self, dwSpMin: UInt32, ppedsf: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumDebugStackFrames_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugStackFrameSnifferEx64(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugStackFrameSniffer
-    Guid = Guid('8cd12af4-49c1-4d52-8d-8a-c1-46-f4-75-81-aa')
+    _iid_ = Guid('8cd12af4-49c1-4d52-8d-8a-c1-46-f4-75-81-aa')
     @commethod(4)
     def EnumStackFramesEx64(self, dwSpMin: UInt64, ppedsf: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumDebugStackFrames64_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugSyncOperation(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c1a-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c1a-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def GetTargetThread(self, ppatTarget: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugApplicationThread_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1074,17 +1074,17 @@ class IDebugSyncOperation(ComPtr):
     def InProgressAbort(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugThreadCall32(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c36-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c36-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def ThreadCallHandler(self, dwParam1: UInt32, dwParam2: UInt32, dwParam3: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugThreadCall64(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('cb3fa335-e979-42fd-9f-cf-a7-54-6a-0f-39-05')
+    _iid_ = Guid('cb3fa335-e979-42fd-9f-cf-a7-54-6a-0f-39-05')
     @commethod(3)
     def ThreadCallHandler(self, dwParam1: UInt64, dwParam2: UInt64, dwParam3: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumDebugApplicationNodes(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c3a-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c3a-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def Next(self, celt: UInt32, pprddp: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugApplicationNode_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1095,7 +1095,7 @@ class IEnumDebugApplicationNodes(ComPtr):
     def Clone(self, pperddp: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumDebugApplicationNodes_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumDebugCodeContexts(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c1d-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c1d-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def Next(self, celt: UInt32, pscc: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugCodeContext_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1106,7 +1106,7 @@ class IEnumDebugCodeContexts(ComPtr):
     def Clone(self, ppescc: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumDebugCodeContexts_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumDebugExpressionContexts(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c40-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c40-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def Next(self, celt: UInt32, ppdec: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugExpressionContext_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1117,7 +1117,7 @@ class IEnumDebugExpressionContexts(ComPtr):
     def Clone(self, ppedec: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumDebugExpressionContexts_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumDebugStackFrames(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c1e-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c1e-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def Next(self, celt: UInt32, prgdsfd: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.DebugStackFrameDescriptor_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1128,19 +1128,19 @@ class IEnumDebugStackFrames(ComPtr):
     def Clone(self, ppedsf: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumDebugStackFrames_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumDebugStackFrames64(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumDebugStackFrames
-    Guid = Guid('0dc38853-c1b0-4176-a9-84-b2-98-36-10-27-af')
+    _iid_ = Guid('0dc38853-c1b0-4176-a9-84-b2-98-36-10-27-af')
     @commethod(7)
     def Next64(self, celt: UInt32, prgdsfd: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.DebugStackFrameDescriptor64_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumJsStackFrames(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5e7da34b-fb51-4791-ab-e7-cb-5b-df-41-97-55')
+    _iid_ = Guid('5e7da34b-fb51-4791-ab-e7-cb-5b-df-41-97-55')
     @commethod(3)
     def Next(self, cFrameCount: UInt32, pFrames: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.JS_NATIVE_FRAME_head), pcFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumRemoteDebugApplicationThreads(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c3c-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c3c-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def Next(self, celt: UInt32, pprdat: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IRemoteDebugApplicationThread_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1151,7 +1151,7 @@ class IEnumRemoteDebugApplicationThreads(ComPtr):
     def Clone(self, pperdat: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumRemoteDebugApplicationThreads_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumRemoteDebugApplications(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c3b-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c3b-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def Next(self, celt: UInt32, ppda: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IRemoteDebugApplication_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1162,12 +1162,12 @@ class IEnumRemoteDebugApplications(ComPtr):
     def Clone(self, ppessd: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumRemoteDebugApplications_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IJsDebug(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('be0e89da-2ac5-4c04-ac-5e-59-95-6a-ae-36-13')
+    _iid_ = Guid('be0e89da-2ac5-4c04-ac-5e-59-95-6a-ae-36-13')
     @commethod(3)
     def OpenVirtualProcess(self, processId: UInt32, runtimeJsBaseAddress: UInt64, pDataTarget: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IJsDebugDataTarget_head, ppProcess: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IJsDebugProcess_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IJsDebugBreakPoint(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('df6773e3-ed8d-488b-8a-3e-58-12-57-7d-15-42')
+    _iid_ = Guid('df6773e3-ed8d-488b-8a-3e-58-12-57-7d-15-42')
     @commethod(3)
     def IsEnabled(self, pIsEnabled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1180,7 +1180,7 @@ class IJsDebugBreakPoint(ComPtr):
     def GetDocumentPosition(self, pDocumentId: POINTER(UInt64), pCharacterOffset: POINTER(UInt32), pStatementCharCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IJsDebugDataTarget(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('53b28977-53a1-48e5-90-00-5d-0d-fa-89-39-31')
+    _iid_ = Guid('53b28977-53a1-48e5-90-00-5d-0d-fa-89-39-31')
     @commethod(3)
     def ReadMemory(self, address: UInt64, flags: Windows.Win32.System.Diagnostics.Debug.ActiveScript.JsDebugReadMemoryFlags, pBuffer: POINTER(Byte), size: UInt32, pBytesRead: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1201,7 +1201,7 @@ class IJsDebugDataTarget(ComPtr):
     def GetThreadContext(self, threadId: UInt32, contextFlags: UInt32, contextSize: UInt32, pContext: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
 class IJsDebugFrame(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c9196637-ab9d-44b2-ba-d2-13-b9-5b-3f-39-0e')
+    _iid_ = Guid('c9196637-ab9d-44b2-ba-d2-13-b9-5b-3f-39-0e')
     @commethod(3)
     def GetStackRange(self, pStart: POINTER(UInt64), pEnd: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1218,7 +1218,7 @@ class IJsDebugFrame(ComPtr):
     def Evaluate(self, pExpressionText: Windows.Win32.Foundation.PWSTR, ppDebugProperty: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IJsDebugProperty_head), pError: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IJsDebugProcess(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3d587168-6a2d-4041-bd-3b-0d-e6-74-50-28-62')
+    _iid_ = Guid('3d587168-6a2d-4041-bd-3b-0d-e6-74-50-28-62')
     @commethod(3)
     def CreateStackWalker(self, threadId: UInt32, ppStackWalker: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IJsDebugStackWalker_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1229,26 +1229,26 @@ class IJsDebugProcess(ComPtr):
     def GetExternalStepAddress(self, pCodeAddress: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 class IJsDebugProperty(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f8ffcf2b-3aa4-4320-85-c3-52-a3-12-ba-96-33')
+    _iid_ = Guid('f8ffcf2b-3aa4-4320-85-c3-52-a3-12-ba-96-33')
     @commethod(3)
     def GetPropertyInfo(self, nRadix: UInt32, pPropertyInfo: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.JsDebugPropertyInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetMembers(self, members: Windows.Win32.System.Diagnostics.Debug.ActiveScript.JS_PROPERTY_MEMBERS, ppEnum: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IJsEnumDebugProperty_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IJsDebugStackWalker(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('db24b094-73c4-456c-a4-ec-e9-0e-a0-0b-df-e3')
+    _iid_ = Guid('db24b094-73c4-456c-a4-ec-e9-0e-a0-0b-df-e3')
     @commethod(3)
     def GetNext(self, ppFrame: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IJsDebugFrame_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IJsEnumDebugProperty(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4092432f-2f0f-4fe1-b6-38-5b-74-a5-2c-dc-be')
+    _iid_ = Guid('4092432f-2f0f-4fe1-b6-38-5b-74-a5-2c-dc-be')
     @commethod(3)
     def Next(self, count: UInt32, ppDebugProperty: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IJsDebugProperty_head), pActualCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetCount(self, pCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMachineDebugManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c2c-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c2c-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def AddApplication(self, pda: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IRemoteDebugApplication_head, pdwAppCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1257,7 +1257,7 @@ class IMachineDebugManager(ComPtr):
     def EnumApplications(self, ppeda: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumRemoteDebugApplications_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMachineDebugManagerCookie(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c2d-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c2d-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def AddApplication(self, pda: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IRemoteDebugApplication_head, dwDebugAppCookie: UInt32, pdwAppCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1266,14 +1266,14 @@ class IMachineDebugManagerCookie(ComPtr):
     def EnumApplications(self, ppeda: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumRemoteDebugApplications_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMachineDebugManagerEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c2e-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c2e-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def onAddApplication(self, pda: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IRemoteDebugApplication_head, dwAppCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def onRemoveApplication(self, pda: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IRemoteDebugApplication_head, dwAppCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IProcessDebugManager32(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c2f-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c2f-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def CreateApplication(self, ppda: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugApplication32_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1286,7 +1286,7 @@ class IProcessDebugManager32(ComPtr):
     def CreateDebugDocumentHelper(self, punkOuter: Windows.Win32.System.Com.IUnknown_head, pddh: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentHelper32_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IProcessDebugManager64(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('56b9fc1c-63a9-4cc1-ac-21-08-7d-69-a1-7f-ab')
+    _iid_ = Guid('56b9fc1c-63a9-4cc1-ac-21-08-7d-69-a1-7f-ab')
     @commethod(3)
     def CreateApplication(self, ppda: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugApplication64_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1299,12 +1299,12 @@ class IProcessDebugManager64(ComPtr):
     def CreateDebugDocumentHelper(self, punkOuter: Windows.Win32.System.Com.IUnknown_head, pddh: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentHelper64_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IProvideExpressionContexts(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c41-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c41-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def EnumExpressionContexts(self, ppedec: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumDebugExpressionContexts_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRemoteDebugApplication(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c30-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c30-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def ResumeFromBreakPoint(self, prptFocus: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IRemoteDebugApplicationThread_head, bra: Windows.Win32.System.Diagnostics.Debug.ActiveScript.BREAKRESUMEACTION, era: Windows.Win32.System.Diagnostics.Debug.ActiveScript.ERRORRESUMEACTION) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1329,7 +1329,7 @@ class IRemoteDebugApplication(ComPtr):
     def EnumGlobalExpressionContexts(self, ppedec: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IEnumDebugExpressionContexts_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRemoteDebugApplication110(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d5fe005b-2836-485e-b1-f9-89-d9-1a-a2-4f-d4')
+    _iid_ = Guid('d5fe005b-2836-485e-b1-f9-89-d9-1a-a2-4f-d4')
     @commethod(3)
     def SetDebuggerOptions(self, mask: Windows.Win32.System.Diagnostics.Debug.ActiveScript.SCRIPT_DEBUGGER_OPTIONS, value: Windows.Win32.System.Diagnostics.Debug.ActiveScript.SCRIPT_DEBUGGER_OPTIONS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1338,7 +1338,7 @@ class IRemoteDebugApplication110(ComPtr):
     def GetMainThread(self, ppThread: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IRemoteDebugApplicationThread_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRemoteDebugApplicationEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c33-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c33-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def OnConnectDebugger(self, pad: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IApplicationDebugger_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1361,7 +1361,7 @@ class IRemoteDebugApplicationEvents(ComPtr):
     def OnBreakFlagChange(self, abf: UInt32, prdatSteppingThread: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IRemoteDebugApplicationThread_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IRemoteDebugApplicationThread(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c37-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c37-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def GetSystemThreadId(self, dwThreadId: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1382,17 +1382,17 @@ class IRemoteDebugApplicationThread(ComPtr):
     def GetSuspendCount(self, pdwCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRemoteDebugCriticalErrorEvent110(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2f69c611-6b14-47e8-92-60-4b-b7-c5-2f-50-4b')
+    _iid_ = Guid('2f69c611-6b14-47e8-92-60-4b-b7-c5-2f-50-4b')
     @commethod(3)
     def GetErrorInfo(self, pbstrSource: POINTER(Windows.Win32.Foundation.BSTR), pMessageId: POINTER(Int32), pbstrMessage: POINTER(Windows.Win32.Foundation.BSTR), ppLocation: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRemoteDebugInfoEvent110(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9ff56bb6-eb89-4c0f-88-23-cc-2a-4c-0b-7f-26')
+    _iid_ = Guid('9ff56bb6-eb89-4c0f-88-23-cc-2a-4c-0b-7f-26')
     @commethod(3)
     def GetEventInfo(self, pMessageType: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.DEBUG_EVENT_INFO_TYPE), pbstrMessage: POINTER(Windows.Win32.Foundation.BSTR), pbstrUrl: POINTER(Windows.Win32.Foundation.BSTR), ppLocation: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IDebugDocumentContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IScriptEntry(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IScriptNode
-    Guid = Guid('0aee2a95-bcbb-11d0-8c-72-00-c0-4f-c2-b0-85')
+    _iid_ = Guid('0aee2a95-bcbb-11d0-8c-72-00-c0-4f-c2-b0-85')
     @commethod(13)
     def GetText(self, pbstr: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
@@ -1417,7 +1417,7 @@ class IScriptEntry(ComPtr):
     def GetRange(self, pichMin: POINTER(UInt32), pcch: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IScriptInvocationContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5d7741b7-af7e-4a2a-85-e5-c7-7f-4d-06-59-fb')
+    _iid_ = Guid('5d7741b7-af7e-4a2a-85-e5-c7-7f-4d-06-59-fb')
     @commethod(3)
     def GetContextType(self, pInvocationContextType: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.SCRIPT_INVOCATION_CONTEXT_TYPE)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1426,7 +1426,7 @@ class IScriptInvocationContext(ComPtr):
     def GetContextObject(self, ppContextObject: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IScriptNode(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0aee2a94-bcbb-11d0-8c-72-00-c0-4f-c2-b0-85')
+    _iid_ = Guid('0aee2a94-bcbb-11d0-8c-72-00-c0-4f-c2-b0-85')
     @commethod(3)
     def Alive(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1449,7 +1449,7 @@ class IScriptNode(ComPtr):
     def CreateChildHandler(self, pszDefaultName: Windows.Win32.Foundation.PWSTR, prgpszNames: POINTER(Windows.Win32.Foundation.PWSTR), cpszNames: UInt32, pszEvent: Windows.Win32.Foundation.PWSTR, pszDelimiter: Windows.Win32.Foundation.PWSTR, ptiSignature: Windows.Win32.System.Com.ITypeInfo_head, iMethodSignature: UInt32, isn: UInt32, dwCookie: UInt32, ppse: POINTER(Windows.Win32.System.Diagnostics.Debug.ActiveScript.IScriptEntry_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IScriptScriptlet(ComPtr):
     extends: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IScriptEntry
-    Guid = Guid('0aee2a96-bcbb-11d0-8c-72-00-c0-4f-c2-b0-85')
+    _iid_ = Guid('0aee2a96-bcbb-11d0-8c-72-00-c0-4f-c2-b0-85')
     @commethod(24)
     def GetSubItemName(self, pbstr: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
@@ -1464,7 +1464,7 @@ class IScriptScriptlet(ComPtr):
     def SetSimpleEventName(self, psz: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ISimpleConnectionPoint(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('51973c3e-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
+    _iid_ = Guid('51973c3e-cb0c-11d0-b5-c9-00-a0-24-4a-0e-7a')
     @commethod(3)
     def GetEventCount(self, pulCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1475,17 +1475,17 @@ class ISimpleConnectionPoint(ComPtr):
     def Unadvise(self, dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITridentEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dc9ca50-06ef-11d2-84-15-00-60-08-c3-fb-fc')
+    _iid_ = Guid('1dc9ca50-06ef-11d2-84-15-00-60-08-c3-fb-fc')
     @commethod(3)
     def FireEvent(self, pstrEvent: Windows.Win32.Foundation.PWSTR, pdp: POINTER(Windows.Win32.System.Com.DISPPARAMS_head), pvarRes: POINTER(Windows.Win32.System.Variant.VARIANT_head), pei: POINTER(Windows.Win32.System.Com.EXCEPINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWebAppDiagnosticsObjectInitialization(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('16ff3a42-a5f5-432b-b6-25-8e-8e-16-f5-7e-15')
+    _iid_ = Guid('16ff3a42-a5f5-432b-b6-25-8e-8e-16-f5-7e-15')
     @commethod(3)
     def Initialize(self, hPassedHandle: Windows.Win32.Foundation.HANDLE_PTR, pDebugApplication: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IWebAppDiagnosticsSetup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('379bfbe1-c6c9-432a-93-e1-6d-17-65-6c-53-8c')
+    _iid_ = Guid('379bfbe1-c6c9-432a-93-e1-6d-17-65-6c-53-8c')
     @commethod(3)
     def DiagnosticsSupported(self, pRetVal: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

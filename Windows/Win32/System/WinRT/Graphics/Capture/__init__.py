@@ -16,7 +16,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IGraphicsCaptureItemInterop(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3628e81b-3cac-4c60-b7-f4-23-ce-0e-0c-33-56')
+    _iid_ = Guid('3628e81b-3cac-4c60-b7-f4-23-ce-0e-0c-33-56')
     @commethod(3)
     def CreateForWindow(self, window: Windows.Win32.Foundation.HWND, riid: POINTER(Guid), result: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

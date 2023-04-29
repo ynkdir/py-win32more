@@ -16,24 +16,24 @@ def __getattr__(name):
 TPMVSC_DEFAULT_ADMIN_ALGORITHM_ID: UInt32 = 130
 class ITpmVirtualSmartCardManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('112b1dff-d9dc-41f7-86-9f-d6-7f-ee-7c-b5-91')
+    _iid_ = Guid('112b1dff-d9dc-41f7-86-9f-d6-7f-ee-7c-b5-91')
     @commethod(3)
     def CreateVirtualSmartCard(self, pszFriendlyName: Windows.Win32.Foundation.PWSTR, bAdminAlgId: Byte, pbAdminKey: POINTER(Byte), cbAdminKey: UInt32, pbAdminKcv: POINTER(Byte), cbAdminKcv: UInt32, pbPuk: POINTER(Byte), cbPuk: UInt32, pbPin: POINTER(Byte), cbPin: UInt32, fGenerate: Windows.Win32.Foundation.BOOL, pStatusCallback: Windows.Win32.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback_head, ppszInstanceId: POINTER(Windows.Win32.Foundation.PWSTR), pfNeedReboot: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def DestroyVirtualSmartCard(self, pszInstanceId: Windows.Win32.Foundation.PWSTR, pStatusCallback: Windows.Win32.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback_head, pfNeedReboot: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITpmVirtualSmartCardManager2(ComPtr):
     extends: Windows.Win32.Security.Tpm.ITpmVirtualSmartCardManager
-    Guid = Guid('fdf8a2b9-02de-47f4-bc-26-aa-85-ab-5e-52-67')
+    _iid_ = Guid('fdf8a2b9-02de-47f4-bc-26-aa-85-ab-5e-52-67')
     @commethod(5)
     def CreateVirtualSmartCardWithPinPolicy(self, pszFriendlyName: Windows.Win32.Foundation.PWSTR, bAdminAlgId: Byte, pbAdminKey: POINTER(Byte), cbAdminKey: UInt32, pbAdminKcv: POINTER(Byte), cbAdminKcv: UInt32, pbPuk: POINTER(Byte), cbPuk: UInt32, pbPin: POINTER(Byte), cbPin: UInt32, pbPinPolicy: POINTER(Byte), cbPinPolicy: UInt32, fGenerate: Windows.Win32.Foundation.BOOL, pStatusCallback: Windows.Win32.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback_head, ppszInstanceId: POINTER(Windows.Win32.Foundation.PWSTR), pfNeedReboot: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITpmVirtualSmartCardManager3(ComPtr):
     extends: Windows.Win32.Security.Tpm.ITpmVirtualSmartCardManager2
-    Guid = Guid('3c745a97-f375-4150-be-17-59-50-f6-94-c6-99')
+    _iid_ = Guid('3c745a97-f375-4150-be-17-59-50-f6-94-c6-99')
     @commethod(6)
     def CreateVirtualSmartCardWithAttestation(self, pszFriendlyName: Windows.Win32.Foundation.PWSTR, bAdminAlgId: Byte, pbAdminKey: POINTER(Byte), cbAdminKey: UInt32, pbAdminKcv: POINTER(Byte), cbAdminKcv: UInt32, pbPuk: POINTER(Byte), cbPuk: UInt32, pbPin: POINTER(Byte), cbPin: UInt32, pbPinPolicy: POINTER(Byte), cbPinPolicy: UInt32, attestationType: Windows.Win32.Security.Tpm.TPMVSC_ATTESTATION_TYPE, fGenerate: Windows.Win32.Foundation.BOOL, pStatusCallback: Windows.Win32.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback_head, ppszInstanceId: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITpmVirtualSmartCardManagerStatusCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1a1bb35f-abb8-451c-a1-ae-33-d9-8f-1b-ef-4a')
+    _iid_ = Guid('1a1bb35f-abb8-451c-a1-ae-33-d9-8f-1b-ef-4a')
     @commethod(3)
     def ReportProgress(self, Status: Windows.Win32.Security.Tpm.TPMVSCMGR_STATUS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

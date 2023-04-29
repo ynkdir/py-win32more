@@ -252,7 +252,7 @@ IFILTER_INIT_DISABLE_EMBEDDED: IFILTER_INIT = 2048
 IFILTER_INIT_EMIT_FORMATTING: IFILTER_INIT = 4096
 class IFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('89bcb740-6119-101a-bc-b7-00-dd-01-06-55-af')
+    _iid_ = Guid('89bcb740-6119-101a-bc-b7-00-dd-01-06-55-af')
     @commethod(3)
     def Init(self, grfFlags: UInt32, cAttributes: UInt32, aAttributes: POINTER(Windows.Win32.Storage.IndexServer.FULLPROPSPEC_head), pFlags: POINTER(UInt32)) -> Int32: ...
     @commethod(4)
@@ -265,7 +265,7 @@ class IFilter(ComPtr):
     def BindRegion(self, origPos: Windows.Win32.Storage.IndexServer.FILTERREGION, riid: POINTER(Guid), ppunk: POINTER(c_void_p)) -> Int32: ...
 class IPhraseSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('cc906ff0-c058-101a-b5-54-08-00-2b-33-b0-e6')
+    _iid_ = Guid('cc906ff0-c058-101a-b5-54-08-00-2b-33-b0-e6')
     @commethod(3)
     def PutSmallPhrase(self, pwcNoun: Windows.Win32.Foundation.PWSTR, cwcNoun: UInt32, pwcModifier: Windows.Win32.Foundation.PWSTR, cwcModifier: UInt32, ulAttachmentType: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

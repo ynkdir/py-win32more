@@ -62,7 +62,7 @@ CLSID_DeviceIoControl: Guid = Guid('12d3e372-874b-457d-9f-df-73-97-77-78-68-6c')
 def CreateDeviceAccessInstance(deviceInterfacePath: Windows.Win32.Foundation.PWSTR, desiredAccess: UInt32, createAsync: POINTER(Windows.Win32.Devices.DeviceAccess.ICreateDeviceAccessAsync_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICreateDeviceAccessAsync(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3474628f-683d-42d2-ab-cb-db-01-8c-65-03-bc')
+    _iid_ = Guid('3474628f-683d-42d2-ab-cb-db-01-8c-65-03-bc')
     @commethod(3)
     def Cancel(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -73,7 +73,7 @@ class ICreateDeviceAccessAsync(ComPtr):
     def GetResult(self, riid: POINTER(Guid), deviceAccess: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDeviceIoControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9eefe161-23ab-4f18-9b-49-99-1b-58-6a-e9-70')
+    _iid_ = Guid('9eefe161-23ab-4f18-9b-49-99-1b-58-6a-e9-70')
     @commethod(3)
     def DeviceIoControlSync(self, ioControlCode: UInt32, inputBuffer: POINTER(Byte), inputBufferSize: UInt32, outputBuffer: POINTER(Byte), outputBufferSize: UInt32, bytesReturned: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -82,7 +82,7 @@ class IDeviceIoControl(ComPtr):
     def CancelOperation(self, cancelContext: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IDeviceRequestCompletionCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('999bad24-9acd-45bb-86-69-2a-2f-c0-28-8b-04')
+    _iid_ = Guid('999bad24-9acd-45bb-86-69-2a-2f-c0-28-8b-04')
     @commethod(3)
     def Invoke(self, requestResult: Windows.Win32.Foundation.HRESULT, bytesReturned: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 make_head(_module, 'ICreateDeviceAccessAsync')

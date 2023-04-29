@@ -33,10 +33,10 @@ EventObjectChange = Guid('d0565000-9df4-11d1-a2-81-00-c0-4f-ca-0a-a7')
 EventObjectChange2 = Guid('bb07bacd-cd56-4e63-a8-ff-cb-f0-35-5f-b9-f4')
 class IDontSupportEventSubscription(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('784121f1-62a6-4b89-85-5f-d6-5f-29-6d-e8-3a')
+    _iid_ = Guid('784121f1-62a6-4b89-85-5f-d6-5f-29-6d-e8-3a')
 class IEnumEventObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f4a07d63-2e25-11d1-99-64-00-c0-4f-bb-b3-45')
+    _iid_ = Guid('f4a07d63-2e25-11d1-99-64-00-c0-4f-bb-b3-45')
     @commethod(3)
     def Clone(self, ppInterface: POINTER(Windows.Win32.System.Com.Events.IEnumEventObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -47,7 +47,7 @@ class IEnumEventObject(ComPtr):
     def Skip(self, cSkipElem: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEventClass(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('fb2b72a0-7a68-11d1-88-f9-00-80-c7-d7-71-bf')
+    _iid_ = Guid('fb2b72a0-7a68-11d1-88-f9-00-80-c7-d7-71-bf')
     @commethod(7)
     def get_EventClassID(self, pbstrEventClassID: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -78,7 +78,7 @@ class IEventClass(ComPtr):
     def put_TypeLib(self, bstrTypeLib: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IEventClass2(ComPtr):
     extends: Windows.Win32.System.Com.Events.IEventClass
-    Guid = Guid('fb2b72a1-7a68-11d1-88-f9-00-80-c7-d7-71-bf')
+    _iid_ = Guid('fb2b72a1-7a68-11d1-88-f9-00-80-c7-d7-71-bf')
     @commethod(21)
     def get_PublisherID(self, pbstrPublisherID: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(22)
@@ -97,7 +97,7 @@ class IEventClass2(ComPtr):
     def put_FireInParallel(self, fFireInParallel: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IEventControl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('0343e2f4-86f6-11d1-b7-60-00-c0-4f-b9-26-af')
+    _iid_ = Guid('0343e2f4-86f6-11d1-b7-60-00-c0-4f-b9-26-af')
     @commethod(7)
     def SetPublisherFilter(self, methodName: Windows.Win32.Foundation.BSTR, pPublisherFilter: Windows.Win32.System.Com.Events.IPublisherFilter_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -110,7 +110,7 @@ class IEventControl(ComPtr):
     def SetDefaultQuery(self, methodName: Windows.Win32.Foundation.BSTR, criteria: Windows.Win32.Foundation.BSTR, errorIndex: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEventObjectChange(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f4a07d70-2e25-11d1-99-64-00-c0-4f-bb-b3-45')
+    _iid_ = Guid('f4a07d70-2e25-11d1-99-64-00-c0-4f-bb-b3-45')
     @commethod(3)
     def ChangedSubscription(self, changeType: Windows.Win32.System.Com.Events.EOC_ChangeType, bstrSubscriptionID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -119,14 +119,14 @@ class IEventObjectChange(ComPtr):
     def ChangedPublisher(self, changeType: Windows.Win32.System.Com.Events.EOC_ChangeType, bstrPublisherID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IEventObjectChange2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7701a9c3-bd68-438f-83-e0-67-bf-4f-53-a4-22')
+    _iid_ = Guid('7701a9c3-bd68-438f-83-e0-67-bf-4f-53-a4-22')
     @commethod(3)
     def ChangedSubscription(self, pInfo: POINTER(Windows.Win32.System.Com.Events.COMEVENTSYSCHANGEINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ChangedEventClass(self, pInfo: POINTER(Windows.Win32.System.Com.Events.COMEVENTSYSCHANGEINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEventObjectCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('f89ac270-d4eb-11d1-b6-82-00-80-5f-c7-92-16')
+    _iid_ = Guid('f89ac270-d4eb-11d1-b6-82-00-80-5f-c7-92-16')
     @commethod(7)
     def get__NewEnum(self, ppUnkEnum: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -141,7 +141,7 @@ class IEventObjectCollection(ComPtr):
     def Remove(self, objectID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IEventProperty(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('da538ee2-f4de-11d1-b6-bb-00-80-5f-c7-92-16')
+    _iid_ = Guid('da538ee2-f4de-11d1-b6-bb-00-80-5f-c7-92-16')
     @commethod(7)
     def get_Name(self, propertyName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -152,7 +152,7 @@ class IEventProperty(ComPtr):
     def put_Value(self, propertyValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEventPublisher(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('e341516b-2e32-11d1-99-64-00-c0-4f-bb-b3-45')
+    _iid_ = Guid('e341516b-2e32-11d1-99-64-00-c0-4f-bb-b3-45')
     @commethod(7)
     def get_PublisherID(self, pbstrPublisherID: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -183,7 +183,7 @@ class IEventPublisher(ComPtr):
     def GetDefaultPropertyCollection(self, collection: POINTER(Windows.Win32.System.Com.Events.IEventObjectCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEventSubscription(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('4a6b0e15-2e38-11d1-99-65-00-c0-4f-bb-b3-45')
+    _iid_ = Guid('4a6b0e15-2e38-11d1-99-65-00-c0-4f-bb-b3-45')
     @commethod(7)
     def get_SubscriptionID(self, pbstrSubscriptionID: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -254,7 +254,7 @@ class IEventSubscription(ComPtr):
     def put_InterfaceID(self, bstrInterfaceID: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IEventSystem(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('4e14fb9f-2e22-11d1-99-64-00-c0-4f-bb-b3-45')
+    _iid_ = Guid('4e14fb9f-2e22-11d1-99-64-00-c0-4f-bb-b3-45')
     @commethod(7)
     def Query(self, progID: Windows.Win32.Foundation.BSTR, queryCriteria: Windows.Win32.Foundation.BSTR, errorIndex: POINTER(Int32), ppInterface: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -269,12 +269,12 @@ class IEventSystem(ComPtr):
     def RemoveS(self, progID: Windows.Win32.Foundation.BSTR, queryCriteria: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IFiringControl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('e0498c93-4efe-11d1-99-71-00-c0-4f-bb-b3-45')
+    _iid_ = Guid('e0498c93-4efe-11d1-99-71-00-c0-4f-bb-b3-45')
     @commethod(7)
     def FireSubscription(self, subscription: Windows.Win32.System.Com.Events.IEventSubscription_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IMultiInterfaceEventControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0343e2f5-86f6-11d1-b7-60-00-c0-4f-b9-26-af')
+    _iid_ = Guid('0343e2f5-86f6-11d1-b7-60-00-c0-4f-b9-26-af')
     @commethod(3)
     def SetMultiInterfacePublisherFilter(self, classFilter: Windows.Win32.System.Com.Events.IMultiInterfacePublisherFilter_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -291,14 +291,14 @@ class IMultiInterfaceEventControl(ComPtr):
     def put_FireInParallel(self, fFireInParallel: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IMultiInterfacePublisherFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('465e5cc1-7b26-11d1-88-fb-00-80-c7-d7-71-bf')
+    _iid_ = Guid('465e5cc1-7b26-11d1-88-fb-00-80-c7-d7-71-bf')
     @commethod(3)
     def Initialize(self, pEIC: Windows.Win32.System.Com.Events.IMultiInterfaceEventControl_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def PrepareToFire(self, iid: POINTER(Guid), methodName: Windows.Win32.Foundation.BSTR, firingControl: Windows.Win32.System.Com.Events.IFiringControl_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IPublisherFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('465e5cc0-7b26-11d1-88-fb-00-80-c7-d7-71-bf')
+    _iid_ = Guid('465e5cc0-7b26-11d1-88-fb-00-80-c7-d7-71-bf')
     @commethod(3)
     def Initialize(self, methodName: Windows.Win32.Foundation.BSTR, dispUserDefined: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

@@ -3469,7 +3469,7 @@ class HEAPALIGNMENT(EasyCastStructure):
     FlipTarget: Windows.Win32.Graphics.DirectDraw.SURFACEALIGNMENT
 class IDDVideoPortContainer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6c142760-a733-11ce-a5-21-00-20-af-0b-e5-60')
+    _iid_ = Guid('6c142760-a733-11ce-a5-21-00-20-af-0b-e5-60')
     @commethod(3)
     def CreateVideoPort(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTDESC_head), param2: POINTER(Windows.Win32.Graphics.DirectDraw.IDirectDrawVideoPort_head), param3: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3480,7 +3480,7 @@ class IDDVideoPortContainer(ComPtr):
     def QueryVideoPortStatus(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTSTATUS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDraw(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6c14db80-a733-11ce-a5-21-00-20-af-0b-e5-60')
+    _iid_ = Guid('6c14db80-a733-11ce-a5-21-00-20-af-0b-e5-60')
     @commethod(3)
     def Compact(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3523,7 +3523,7 @@ class IDirectDraw(ComPtr):
     def WaitForVerticalBlank(self, param0: UInt32, param1: Windows.Win32.Foundation.HANDLE) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDraw2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b3a6f3e0-2b43-11cf-a2-de-00-aa-00-b9-33-56')
+    _iid_ = Guid('b3a6f3e0-2b43-11cf-a2-de-00-aa-00-b9-33-56')
     @commethod(3)
     def Compact(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3568,7 +3568,7 @@ class IDirectDraw2(ComPtr):
     def GetAvailableVidMem(self, param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDSCAPS_head), param1: POINTER(UInt32), param2: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDraw4(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9c59509a-39bd-11d1-8c-4a-00-c0-4f-d9-30-c5')
+    _iid_ = Guid('9c59509a-39bd-11d1-8c-4a-00-c0-4f-d9-30-c5')
     @commethod(3)
     def Compact(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3621,7 +3621,7 @@ class IDirectDraw4(ComPtr):
     def GetDeviceIdentifier(self, param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDDEVICEIDENTIFIER_head), param1: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDraw7(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('15e65ec0-3b9c-11d2-b9-2f-00-60-97-97-ea-5b')
+    _iid_ = Guid('15e65ec0-3b9c-11d2-b9-2f-00-60-97-97-ea-5b')
     @commethod(3)
     def Compact(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3678,7 +3678,7 @@ class IDirectDraw7(ComPtr):
     def EvaluateMode(self, param0: UInt32, param1: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawClipper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6c14db85-a733-11ce-a5-21-00-20-af-0b-e5-60')
+    _iid_ = Guid('6c14db85-a733-11ce-a5-21-00-20-af-0b-e5-60')
     @commethod(3)
     def GetClipList(self, param0: POINTER(Windows.Win32.Foundation.RECT_head), param1: POINTER(Windows.Win32.Graphics.Gdi.RGNDATA_head), param2: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3693,21 +3693,21 @@ class IDirectDrawClipper(ComPtr):
     def SetHWnd(self, param0: UInt32, param1: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawColorControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4b9f0ee0-0d7e-11d0-9b-06-00-a0-c9-03-a3-b8')
+    _iid_ = Guid('4b9f0ee0-0d7e-11d0-9b-06-00-a0-c9-03-a3-b8')
     @commethod(3)
     def GetColorControls(self, param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDCOLORCONTROL_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetColorControls(self, param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDCOLORCONTROL_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawGammaControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('69c11c3e-b46b-11d1-ad-7a-00-c0-4f-c2-9b-4e')
+    _iid_ = Guid('69c11c3e-b46b-11d1-ad-7a-00-c0-4f-c2-9b-4e')
     @commethod(3)
     def GetGammaRamp(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDGAMMARAMP_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetGammaRamp(self, param0: UInt32, param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDGAMMARAMP_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawKernel(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8d56c120-6a08-11d0-9b-06-00-a0-c9-03-a3-b8')
+    _iid_ = Guid('8d56c120-6a08-11d0-9b-06-00-a0-c9-03-a3-b8')
     @commethod(3)
     def GetCaps(self, param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDKERNELCAPS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3716,7 +3716,7 @@ class IDirectDrawKernel(ComPtr):
     def ReleaseKernelHandle(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawPalette(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6c14db84-a733-11ce-a5-21-00-20-af-0b-e5-60')
+    _iid_ = Guid('6c14db84-a733-11ce-a5-21-00-20-af-0b-e5-60')
     @commethod(3)
     def GetCaps(self, param0: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3727,7 +3727,7 @@ class IDirectDrawPalette(ComPtr):
     def SetEntries(self, param0: UInt32, param1: UInt32, param2: UInt32, param3: POINTER(Windows.Win32.Graphics.Gdi.PALETTEENTRY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawSurface(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6c14db81-a733-11ce-a5-21-00-20-af-0b-e5-60')
+    _iid_ = Guid('6c14db81-a733-11ce-a5-21-00-20-af-0b-e5-60')
     @commethod(3)
     def AddAttachedSurface(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3796,7 +3796,7 @@ class IDirectDrawSurface(ComPtr):
     def UpdateOverlayZOrder(self, param0: UInt32, param1: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawSurface2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('57805885-6eec-11cf-94-41-a8-23-03-c1-0e-27')
+    _iid_ = Guid('57805885-6eec-11cf-94-41-a8-23-03-c1-0e-27')
     @commethod(3)
     def AddAttachedSurface(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface2_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3871,7 +3871,7 @@ class IDirectDrawSurface2(ComPtr):
     def PageUnlock(self, param0: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawSurface3(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('da044e00-69b2-11d0-a1-d5-00-aa-00-b8-df-bb')
+    _iid_ = Guid('da044e00-69b2-11d0-a1-d5-00-aa-00-b8-df-bb')
     @commethod(3)
     def AddAttachedSurface(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface3_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3948,7 +3948,7 @@ class IDirectDrawSurface3(ComPtr):
     def SetSurfaceDesc(self, param0: POINTER(Windows.Win32.Graphics.DirectDraw.DDSURFACEDESC_head), param1: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawSurface4(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0b2b8630-ad35-11d0-8e-a6-00-60-97-97-ea-5b')
+    _iid_ = Guid('0b2b8630-ad35-11d0-8e-a6-00-60-97-97-ea-5b')
     @commethod(3)
     def AddAttachedSurface(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface4_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -4035,7 +4035,7 @@ class IDirectDrawSurface4(ComPtr):
     def ChangeUniquenessValue(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawSurface7(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('06675a80-3b9b-11d2-b9-2f-00-60-97-97-ea-5b')
+    _iid_ = Guid('06675a80-3b9b-11d2-b9-2f-00-60-97-97-ea-5b')
     @commethod(3)
     def AddAttachedSurface(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface7_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -4130,14 +4130,14 @@ class IDirectDrawSurface7(ComPtr):
     def GetLOD(self, param0: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawSurfaceKernel(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('60755da0-6a40-11d0-9b-06-00-a0-c9-03-a3-b8')
+    _iid_ = Guid('60755da0-6a40-11d0-9b-06-00-a0-c9-03-a3-b8')
     @commethod(3)
     def GetKernelHandle(self, param0: POINTER(UIntPtr)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ReleaseKernelHandle(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawVideoPort(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b36d93e0-2b43-11cf-a2-de-00-aa-00-b9-33-56')
+    _iid_ = Guid('b36d93e0-2b43-11cf-a2-de-00-aa-00-b9-33-56')
     @commethod(3)
     def Flip(self, param0: Windows.Win32.Graphics.DirectDraw.IDirectDrawSurface_head, param1: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -4168,7 +4168,7 @@ class IDirectDrawVideoPort(ComPtr):
     def WaitForSync(self, param0: UInt32, param1: UInt32, param2: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectDrawVideoPortNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a655fb94-0589-4e57-b3-33-56-7a-89-46-8c-88')
+    _iid_ = Guid('a655fb94-0589-4e57-b3-33-56-7a-89-46-8c-88')
     @commethod(3)
     def AcquireNotification(self, param0: POINTER(Windows.Win32.Foundation.HANDLE), param1: POINTER(Windows.Win32.Graphics.DirectDraw.DDVIDEOPORTNOTIFY_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

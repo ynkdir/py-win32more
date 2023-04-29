@@ -132,7 +132,7 @@ def timeKillEvent(uTimerID: UInt32) -> UInt32: ...
 HTASK = IntPtr
 class IReferenceClock(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('56a86897-0ad4-11ce-b0-3a-00-20-af-0b-a7-70')
+    _iid_ = Guid('56a86897-0ad4-11ce-b0-3a-00-20-af-0b-a7-70')
     @commethod(3)
     def GetTime(self, pTime: POINTER(Int64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -143,10 +143,10 @@ class IReferenceClock(ComPtr):
     def Unadvise(self, dwAdviseCookie: UIntPtr) -> Windows.Win32.Foundation.HRESULT: ...
 class IReferenceClock2(ComPtr):
     extends: Windows.Win32.Media.IReferenceClock
-    Guid = Guid('36b73885-c2c8-11cf-8b-46-00-80-5f-6c-ef-60')
+    _iid_ = Guid('36b73885-c2c8-11cf-8b-46-00-80-5f-6c-ef-60')
 class IReferenceClockTimerControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ebec459c-2eca-4d42-a8-af-30-df-55-76-14-b8')
+    _iid_ = Guid('ebec459c-2eca-4d42-a8-af-30-df-55-76-14-b8')
     @commethod(3)
     def SetDefaultTimerResolution(self, timerResolution: Int64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

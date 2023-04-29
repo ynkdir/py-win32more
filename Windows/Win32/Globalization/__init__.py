@@ -3464,12 +3464,12 @@ HIMCC = IntPtr
 HSAVEDUILANGUAGES = IntPtr
 class IComprehensiveSpellCheckProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0c58f8de-8e94-479e-97-17-70-c4-2c-4a-d2-c3')
+    _iid_ = Guid('0c58f8de-8e94-479e-97-17-70-c4-2c-4a-d2-c3')
     @commethod(3)
     def ComprehensiveCheck(self, text: Windows.Win32.Foundation.PWSTR, value: POINTER(Windows.Win32.Globalization.IEnumSpellingError_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumCodePage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('275c23e3-3747-11d0-9f-ea-00-aa-00-3f-86-46')
+    _iid_ = Guid('275c23e3-3747-11d0-9f-ea-00-aa-00-3f-86-46')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Globalization.IEnumCodePage_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3480,7 +3480,7 @@ class IEnumCodePage(ComPtr):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumRfc1766(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3dc39d1d-c030-11d0-b8-1b-00-c0-4f-c9-b3-1f')
+    _iid_ = Guid('3dc39d1d-c030-11d0-b8-1b-00-c0-4f-c9-b3-1f')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Globalization.IEnumRfc1766_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3491,7 +3491,7 @@ class IEnumRfc1766(ComPtr):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumScript(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ae5f1430-388b-11d2-83-80-00-c0-4f-8f-5d-a1')
+    _iid_ = Guid('ae5f1430-388b-11d2-83-80-00-c0-4f-8f-5d-a1')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.Globalization.IEnumScript_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3502,12 +3502,12 @@ class IEnumScript(ComPtr):
     def Skip(self, celt: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumSpellingError(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('803e3bd4-2828-4410-82-90-41-8d-1d-73-c7-62')
+    _iid_ = Guid('803e3bd4-2828-4410-82-90-41-8d-1d-73-c7-62')
     @commethod(3)
     def Next(self, value: POINTER(Windows.Win32.Globalization.ISpellingError_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMLangCodePages(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('359f3443-bd4a-11d0-b1-88-00-aa-00-38-c9-69')
+    _iid_ = Guid('359f3443-bd4a-11d0-b1-88-00-aa-00-38-c9-69')
     @commethod(3)
     def GetCharCodePages(self, chSrc: Char, pdwCodePages: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3518,7 +3518,7 @@ class IMLangCodePages(ComPtr):
     def CodePagesToCodePage(self, dwCodePages: UInt32, uDefaultCodePage: UInt32, puCodePage: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMLangConvertCharset(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d66d6f98-cdaa-11d0-b8-22-00-c0-4f-c9-b3-1f')
+    _iid_ = Guid('d66d6f98-cdaa-11d0-b8-22-00-c0-4f-c9-b3-1f')
     @commethod(3)
     def Initialize(self, uiSrcCodePage: UInt32, uiDstCodePage: UInt32, dwProperty: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3535,7 +3535,7 @@ class IMLangConvertCharset(ComPtr):
     def DoConversionFromUnicode(self, pSrcStr: Windows.Win32.Foundation.PWSTR, pcSrcSize: POINTER(UInt32), pDstStr: Windows.Win32.Foundation.PSTR, pcDstSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMLangFontLink(ComPtr):
     extends: Windows.Win32.Globalization.IMLangCodePages
-    Guid = Guid('359f3441-bd4a-11d0-b1-88-00-aa-00-38-c9-69')
+    _iid_ = Guid('359f3441-bd4a-11d0-b1-88-00-aa-00-38-c9-69')
     @commethod(7)
     def GetFontCodePages(self, hDC: Windows.Win32.Graphics.Gdi.HDC, hFont: Windows.Win32.Graphics.Gdi.HFONT, pdwCodePages: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3546,7 +3546,7 @@ class IMLangFontLink(ComPtr):
     def ResetFontMapping(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IMLangFontLink2(ComPtr):
     extends: Windows.Win32.Globalization.IMLangCodePages
-    Guid = Guid('dccfc162-2b38-11d2-b7-ec-00-c0-4f-8f-5d-9a')
+    _iid_ = Guid('dccfc162-2b38-11d2-b7-ec-00-c0-4f-8f-5d-9a')
     @commethod(7)
     def GetFontCodePages(self, hDC: Windows.Win32.Graphics.Gdi.HDC, hFont: Windows.Win32.Graphics.Gdi.HFONT, pdwCodePages: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3563,7 +3563,7 @@ class IMLangFontLink2(ComPtr):
     def CodePageToScriptID(self, uiCodePage: UInt32, pSid: POINTER(Byte)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMLangLineBreakConsole(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f5be2ee1-bfd7-11d0-b1-88-00-aa-00-38-c9-69')
+    _iid_ = Guid('f5be2ee1-bfd7-11d0-b1-88-00-aa-00-38-c9-69')
     @commethod(3)
     def BreakLineML(self, pSrcMLStr: Windows.Win32.Globalization.IMLangString_head, lSrcPos: Int32, lSrcLen: Int32, cMinColumns: Int32, cMaxColumns: Int32, plLineLen: POINTER(Int32), plSkipLen: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3572,7 +3572,7 @@ class IMLangLineBreakConsole(ComPtr):
     def BreakLineA(self, locale: UInt32, uCodePage: UInt32, pszSrc: Windows.Win32.Foundation.PSTR, cchSrc: Int32, cMaxColumns: Int32, pcchLine: POINTER(Int32), pcchSkip: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMLangString(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c04d65ce-b70d-11d0-b1-88-00-aa-00-38-c9-69')
+    _iid_ = Guid('c04d65ce-b70d-11d0-b1-88-00-aa-00-38-c9-69')
     @commethod(3)
     def Sync(self, fNoAccess: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3583,7 +3583,7 @@ class IMLangString(ComPtr):
     def GetMLStr(self, lSrcPos: Int32, lSrcLen: Int32, pUnkOuter: Windows.Win32.System.Com.IUnknown_head, dwClsContext: UInt32, piid: POINTER(Guid), ppDestMLStr: POINTER(Windows.Win32.System.Com.IUnknown_head), plDestPos: POINTER(Int32), plDestLen: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMLangStringAStr(ComPtr):
     extends: Windows.Win32.Globalization.IMLangString
-    Guid = Guid('c04d65d2-b70d-11d0-b1-88-00-aa-00-38-c9-69')
+    _iid_ = Guid('c04d65d2-b70d-11d0-b1-88-00-aa-00-38-c9-69')
     @commethod(7)
     def SetAStr(self, lDestPos: Int32, lDestLen: Int32, uCodePage: UInt32, pszSrc: Windows.Win32.Foundation.PSTR, cchSrc: Int32, pcchActual: POINTER(Int32), plActualLen: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3602,7 +3602,7 @@ class IMLangStringAStr(ComPtr):
     def GetLocale(self, lSrcPos: Int32, lSrcMaxLen: Int32, plocale: POINTER(UInt32), plLocalePos: POINTER(Int32), plLocaleLen: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMLangStringBufA(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d24acd23-ba72-11d0-b1-88-00-aa-00-38-c9-69')
+    _iid_ = Guid('d24acd23-ba72-11d0-b1-88-00-aa-00-38-c9-69')
     @commethod(3)
     def GetStatus(self, plFlags: POINTER(Int32), pcchBuf: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3615,7 +3615,7 @@ class IMLangStringBufA(ComPtr):
     def Delete(self, cchOffset: Int32, cchDelete: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMLangStringBufW(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d24acd21-ba72-11d0-b1-88-00-aa-00-38-c9-69')
+    _iid_ = Guid('d24acd21-ba72-11d0-b1-88-00-aa-00-38-c9-69')
     @commethod(3)
     def GetStatus(self, plFlags: POINTER(Int32), pcchBuf: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3628,7 +3628,7 @@ class IMLangStringBufW(ComPtr):
     def Delete(self, cchOffset: Int32, cchDelete: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMLangStringWStr(ComPtr):
     extends: Windows.Win32.Globalization.IMLangString
-    Guid = Guid('c04d65d0-b70d-11d0-b1-88-00-aa-00-38-c9-69')
+    _iid_ = Guid('c04d65d0-b70d-11d0-b1-88-00-aa-00-38-c9-69')
     @commethod(7)
     def SetWStr(self, lDestPos: Int32, lDestLen: Int32, pszSrc: Windows.Win32.Foundation.PWSTR, cchSrc: Int32, pcchActual: POINTER(Int32), plActualLen: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -3647,7 +3647,7 @@ class IMLangStringWStr(ComPtr):
     def GetLocale(self, lSrcPos: Int32, lSrcMaxLen: Int32, plocale: POINTER(UInt32), plLocalePos: POINTER(Int32), plLocaleLen: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMultiLanguage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('275c23e1-3747-11d0-9f-ea-00-aa-00-3f-86-46')
+    _iid_ = Guid('275c23e1-3747-11d0-9f-ea-00-aa-00-3f-86-46')
     @commethod(3)
     def GetNumberOfCodePageInfo(self, pcCodePage: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3680,7 +3680,7 @@ class IMultiLanguage(ComPtr):
     def CreateConvertCharset(self, uiSrcCodePage: UInt32, uiDstCodePage: UInt32, dwProperty: UInt32, ppMLangConvertCharset: POINTER(Windows.Win32.Globalization.IMLangConvertCharset_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMultiLanguage2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('dccfc164-2b38-11d2-b7-ec-00-c0-4f-8f-5d-9a')
+    _iid_ = Guid('dccfc164-2b38-11d2-b7-ec-00-c0-4f-8f-5d-9a')
     @commethod(3)
     def GetNumberOfCodePageInfo(self, pcCodePage: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3737,14 +3737,14 @@ class IMultiLanguage2(ComPtr):
     def ValidateCodePageEx(self, uiCodePage: UInt32, hwnd: Windows.Win32.Foundation.HWND, dwfIODControl: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMultiLanguage3(ComPtr):
     extends: Windows.Win32.Globalization.IMultiLanguage2
-    Guid = Guid('4e5868ab-b157-4623-9a-cc-6a-1d-9c-ae-be-04')
+    _iid_ = Guid('4e5868ab-b157-4623-9a-cc-6a-1d-9c-ae-be-04')
     @commethod(30)
     def DetectOutboundCodePage(self, dwFlags: UInt32, lpWideCharStr: Windows.Win32.Foundation.PWSTR, cchWideChar: UInt32, puiPreferredCodePages: POINTER(UInt32), nPreferredCodePages: UInt32, puiDetectedCodePages: POINTER(UInt32), pnDetectedCodePages: POINTER(UInt32), lpSpecialChar: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(31)
     def DetectOutboundCodePageInIStream(self, dwFlags: UInt32, pStrIn: Windows.Win32.System.Com.IStream_head, puiPreferredCodePages: POINTER(UInt32), nPreferredCodePages: UInt32, puiDetectedCodePages: POINTER(UInt32), pnDetectedCodePages: POINTER(UInt32), lpSpecialChar: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IOptionDescription(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('432e5f85-35cf-4606-a8-01-6f-70-27-7e-1d-7a')
+    _iid_ = Guid('432e5f85-35cf-4606-a8-01-6f-70-27-7e-1d-7a')
     @commethod(3)
     def get_Id(self, value: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3774,7 +3774,7 @@ LCID_INSTALLED: IS_VALID_LOCALE_FLAGS = 1
 LCID_SUPPORTED: IS_VALID_LOCALE_FLAGS = 2
 class ISpellCheckProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('73e976e0-8ed4-4eb1-80-d7-1b-e0-a1-6b-0c-38')
+    _iid_ = Guid('73e976e0-8ed4-4eb1-80-d7-1b-e0-a1-6b-0c-38')
     @commethod(3)
     def get_LanguageTag(self, value: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3797,7 +3797,7 @@ class ISpellCheckProvider(ComPtr):
     def InitializeWordlist(self, wordlistType: Windows.Win32.Globalization.WORDLIST_TYPE, words: Windows.Win32.System.Com.IEnumString_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpellCheckProviderFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9f671e11-77d6-4c92-ae-fb-61-52-15-e3-a4-be')
+    _iid_ = Guid('9f671e11-77d6-4c92-ae-fb-61-52-15-e3-a4-be')
     @commethod(3)
     def get_SupportedLanguages(self, value: POINTER(Windows.Win32.System.Com.IEnumString_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3806,7 +3806,7 @@ class ISpellCheckProviderFactory(ComPtr):
     def CreateSpellCheckProvider(self, languageTag: Windows.Win32.Foundation.PWSTR, value: POINTER(Windows.Win32.Globalization.ISpellCheckProvider_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpellChecker(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b6fd0b71-e2bc-4653-8d-05-f1-97-e4-12-77-0b')
+    _iid_ = Guid('b6fd0b71-e2bc-4653-8d-05-f1-97-e4-12-77-0b')
     @commethod(3)
     def get_LanguageTag(self, value: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3837,17 +3837,17 @@ class ISpellChecker(ComPtr):
     def ComprehensiveCheck(self, text: Windows.Win32.Foundation.PWSTR, value: POINTER(Windows.Win32.Globalization.IEnumSpellingError_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpellChecker2(ComPtr):
     extends: Windows.Win32.Globalization.ISpellChecker
-    Guid = Guid('e7ed1c71-87f7-4378-a8-40-c9-20-0d-ac-ee-47')
+    _iid_ = Guid('e7ed1c71-87f7-4378-a8-40-c9-20-0d-ac-ee-47')
     @commethod(17)
     def Remove(self, word: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpellCheckerChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0b83a5b0-792f-4eab-97-99-ac-f5-2c-5e-d0-8a')
+    _iid_ = Guid('0b83a5b0-792f-4eab-97-99-ac-f5-2c-5e-d0-8a')
     @commethod(3)
     def Invoke(self, sender: Windows.Win32.Globalization.ISpellChecker_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpellCheckerFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8e018a9d-2415-4677-bf-08-79-4e-a6-1f-94-bb')
+    _iid_ = Guid('8e018a9d-2415-4677-bf-08-79-4e-a6-1f-94-bb')
     @commethod(3)
     def get_SupportedLanguages(self, value: POINTER(Windows.Win32.System.Com.IEnumString_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3856,7 +3856,7 @@ class ISpellCheckerFactory(ComPtr):
     def CreateSpellChecker(self, languageTag: Windows.Win32.Foundation.PWSTR, value: POINTER(Windows.Win32.Globalization.ISpellChecker_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISpellingError(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b7c82d61-fbe8-4b47-9b-27-6c-0d-2e-0d-e0-a3')
+    _iid_ = Guid('b7c82d61-fbe8-4b47-9b-27-6c-0d-2e-0d-e0-a3')
     @commethod(3)
     def get_StartIndex(self, value: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -3867,7 +3867,7 @@ class ISpellingError(ComPtr):
     def get_Replacement(self, value: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IUserDictionariesRegistrar(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa176b85-0e12-4844-8e-1a-ee-f1-da-77-f5-86')
+    _iid_ = Guid('aa176b85-0e12-4844-8e-1a-ee-f1-da-77-f5-86')
     @commethod(3)
     def RegisterUserDictionary(self, dictionaryPath: Windows.Win32.Foundation.PWSTR, languageTag: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

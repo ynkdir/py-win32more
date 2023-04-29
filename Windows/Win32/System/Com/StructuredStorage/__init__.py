@@ -402,7 +402,7 @@ class CLIPDATA(EasyCastStructure):
     pClipData: POINTER(Byte)
 class IDirectWriterLock(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0e6d4d92-6738-11cf-96-08-00-aa-00-68-0d-b4')
+    _iid_ = Guid('0e6d4d92-6738-11cf-96-08-00-aa-00-68-0d-b4')
     @commethod(3)
     def WaitForWriteAccess(self, dwTimeout: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -411,7 +411,7 @@ class IDirectWriterLock(ComPtr):
     def HaveWriteAccess(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumSTATPROPSETSTG(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0000013b-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('0000013b-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.System.Com.StructuredStorage.STATPROPSETSTG_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -422,7 +422,7 @@ class IEnumSTATPROPSETSTG(ComPtr):
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Com.StructuredStorage.IEnumSTATPROPSETSTG_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumSTATPROPSTG(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('00000139-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('00000139-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.System.Com.StructuredStorage.STATPROPSTG_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -433,7 +433,7 @@ class IEnumSTATPROPSTG(ComPtr):
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Com.StructuredStorage.IEnumSTATPROPSTG_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumSTATSTG(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0000000d-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('0000000d-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def Next(self, celt: UInt32, rgelt: POINTER(Windows.Win32.System.Com.STATSTG_head), pceltFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -444,7 +444,7 @@ class IEnumSTATSTG(ComPtr):
     def Clone(self, ppenum: POINTER(Windows.Win32.System.Com.StructuredStorage.IEnumSTATSTG_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IFillLockBytes(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('99caf010-415e-11cf-88-14-00-aa-00-b5-69-f5')
+    _iid_ = Guid('99caf010-415e-11cf-88-14-00-aa-00-b5-69-f5')
     @commethod(3)
     def FillAppend(self, pv: c_void_p, cb: UInt32, pcbWritten: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -455,7 +455,7 @@ class IFillLockBytes(ComPtr):
     def Terminate(self, bCanceled: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class ILayoutStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0e6d4d90-6738-11cf-96-08-00-aa-00-68-0d-b4')
+    _iid_ = Guid('0e6d4d90-6738-11cf-96-08-00-aa-00-68-0d-b4')
     @commethod(3)
     def LayoutScript(self, pStorageLayout: POINTER(Windows.Win32.System.Com.StorageLayout_head), nEntries: UInt32, glfInterleavedFlag: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -468,7 +468,7 @@ class ILayoutStorage(ComPtr):
     def ReLayoutDocfileOnILockBytes(self, pILockBytes: Windows.Win32.System.Com.StructuredStorage.ILockBytes_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ILockBytes(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0000000a-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('0000000a-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def ReadAt(self, ulOffset: UInt64, pv: c_void_p, cb: UInt32, pcbRead: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -485,7 +485,7 @@ class ILockBytes(ComPtr):
     def Stat(self, pstatstg: POINTER(Windows.Win32.System.Com.STATSTG_head), grfStatFlag: Windows.Win32.System.Com.STATFLAG) -> Windows.Win32.Foundation.HRESULT: ...
 class IPersistStorage(ComPtr):
     extends: Windows.Win32.System.Com.IPersist
-    Guid = Guid('0000010a-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('0000010a-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(4)
     def IsDirty(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -500,14 +500,14 @@ class IPersistStorage(ComPtr):
     def HandsOffStorage(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyBag(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('55272a00-42cb-11ce-81-35-00-aa-00-4b-b8-51')
+    _iid_ = Guid('55272a00-42cb-11ce-81-35-00-aa-00-4b-b8-51')
     @commethod(3)
     def Read(self, pszPropName: Windows.Win32.Foundation.PWSTR, pVar: POINTER(Windows.Win32.System.Variant.VARIANT_head), pErrorLog: Windows.Win32.System.Com.IErrorLog_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Write(self, pszPropName: Windows.Win32.Foundation.PWSTR, pVar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyBag2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('22f55882-280b-11d0-a8-a9-00-a0-c9-0c-20-04')
+    _iid_ = Guid('22f55882-280b-11d0-a8-a9-00-a0-c9-0c-20-04')
     @commethod(3)
     def Read(self, cProperties: UInt32, pPropBag: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPBAG2_head), pErrLog: Windows.Win32.System.Com.IErrorLog_head, pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head), phrError: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -520,7 +520,7 @@ class IPropertyBag2(ComPtr):
     def LoadObject(self, pstrName: Windows.Win32.Foundation.PWSTR, dwHint: UInt32, pUnkObject: Windows.Win32.System.Com.IUnknown_head, pErrLog: Windows.Win32.System.Com.IErrorLog_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertySetStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0000013a-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('0000013a-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def Create(self, rfmtid: POINTER(Guid), pclsid: POINTER(Guid), grfFlags: UInt32, grfMode: UInt32, ppprstg: POINTER(Windows.Win32.System.Com.StructuredStorage.IPropertyStorage_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -531,7 +531,7 @@ class IPropertySetStorage(ComPtr):
     def Enum(self, ppenum: POINTER(Windows.Win32.System.Com.StructuredStorage.IEnumSTATPROPSETSTG_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPropertyStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('00000138-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('00000138-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def ReadMultiple(self, cpspec: UInt32, rgpspec: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPSPEC_head), rgpropvar: POINTER(Windows.Win32.System.Com.StructuredStorage.PROPVARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -558,12 +558,12 @@ class IPropertyStorage(ComPtr):
     def Stat(self, pstatpsstg: POINTER(Windows.Win32.System.Com.StructuredStorage.STATPROPSETSTG_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRootStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('00000012-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('00000012-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def SwitchToFile(self, pszFile: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IStorage(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0000000b-0000-0000-c0-00-00-00-00-00-00-46')
+    _iid_ = Guid('0000000b-0000-0000-c0-00-00-00-00-00-00-46')
     @commethod(3)
     def CreateStream(self, pwcsName: Windows.Win32.Foundation.PWSTR, grfMode: Windows.Win32.System.Com.STGM, reserved1: UInt32, reserved2: UInt32, ppstm: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

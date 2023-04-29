@@ -514,7 +514,7 @@ class DVAudInfo(EasyCastStructure):
     wBlkDiv: UInt16
 class IDirectMusic(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6536115a-7b2d-11d2-ba-18-00-00-f8-75-ac-12')
+    _iid_ = Guid('6536115a-7b2d-11d2-ba-18-00-00-f8-75-ac-12')
     @commethod(3)
     def EnumPort(self, dwIndex: UInt32, pPortCaps: POINTER(Windows.Win32.Media.Audio.DirectMusic.DMUS_PORTCAPS_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -535,12 +535,12 @@ class IDirectMusic(ComPtr):
     def SetDirectSound(self, pDirectSound: Windows.Win32.Media.Audio.DirectSound.IDirectSound_head, hWnd: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusic8(ComPtr):
     extends: Windows.Win32.Media.Audio.DirectMusic.IDirectMusic
-    Guid = Guid('2d3629f7-813d-4939-85-08-f0-5c-6b-75-fd-97')
+    _iid_ = Guid('2d3629f7-813d-4939-85-08-f0-5c-6b-75-fd-97')
     @commethod(12)
     def SetExternalMasterClock(self, pClock: Windows.Win32.Media.IReferenceClock_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d2ac2878-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    _iid_ = Guid('d2ac2878-b39b-11d1-87-04-00-60-08-93-b1-bd')
     @commethod(3)
     def Flush(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -569,29 +569,29 @@ class IDirectMusicBuffer(ComPtr):
     def SetUsedBytes(self, cb: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d2ac287c-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    _iid_ = Guid('d2ac287c-b39b-11d1-87-04-00-60-08-93-b1-bd')
     @commethod(3)
     def GetInstrument(self, dwPatch: UInt32, ppInstrument: POINTER(Windows.Win32.Media.Audio.DirectMusic.IDirectMusicInstrument_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EnumInstrument(self, dwIndex: UInt32, pdwPatch: POINTER(UInt32), pwszName: Windows.Win32.Foundation.PWSTR, dwNameLen: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicDownload(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d2ac287b-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    _iid_ = Guid('d2ac287b-b39b-11d1-87-04-00-60-08-93-b1-bd')
     @commethod(3)
     def GetBuffer(self, ppvBuffer: POINTER(c_void_p), pdwSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicDownloadedInstrument(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d2ac287e-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    _iid_ = Guid('d2ac287e-b39b-11d1-87-04-00-60-08-93-b1-bd')
 class IDirectMusicInstrument(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d2ac287d-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    _iid_ = Guid('d2ac287d-b39b-11d1-87-04-00-60-08-93-b1-bd')
     @commethod(3)
     def GetPatch(self, pdwPatch: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetPatch(self, dwPatch: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicPort(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('08f2d8c9-37c2-11d2-b9-f9-00-00-f8-75-ac-12')
+    _iid_ = Guid('08f2d8c9-37c2-11d2-b9-f9-00-00-f8-75-ac-12')
     @commethod(3)
     def PlayBuffer(self, pBuffer: Windows.Win32.Media.Audio.DirectMusic.IDirectMusicBuffer_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -628,7 +628,7 @@ class IDirectMusicPort(ComPtr):
     def GetFormat(self, pWaveFormatEx: POINTER(Windows.Win32.Media.Audio.WAVEFORMATEX_head), pdwWaveFormatExSize: POINTER(UInt32), pdwBufferSize: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicPortDownload(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d2ac287a-b39b-11d1-87-04-00-60-08-93-b1-bd')
+    _iid_ = Guid('d2ac287a-b39b-11d1-87-04-00-60-08-93-b1-bd')
     @commethod(3)
     def GetBuffer(self, dwDLId: UInt32, ppIDMDownload: POINTER(Windows.Win32.Media.Audio.DirectMusic.IDirectMusicDownload_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -643,7 +643,7 @@ class IDirectMusicPortDownload(ComPtr):
     def Unload(self, pIDMDownload: Windows.Win32.Media.Audio.DirectMusic.IDirectMusicDownload_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicSynth(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('09823661-5c85-11d2-af-a6-00-aa-00-24-d8-b6')
+    _iid_ = Guid('09823661-5c85-11d2-af-a6-00-aa-00-24-d8-b6')
     @commethod(3)
     def Open(self, pPortParams: POINTER(Windows.Win32.Media.Audio.DirectMusic.DMUS_PORTPARAMS8_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -680,7 +680,7 @@ class IDirectMusicSynth(ComPtr):
     def GetAppend(self, pdwAppend: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicSynth8(ComPtr):
     extends: Windows.Win32.Media.Audio.DirectMusic.IDirectMusicSynth
-    Guid = Guid('53cab625-2711-4c9f-9d-e7-1b-7f-92-5f-6f-c8')
+    _iid_ = Guid('53cab625-2711-4c9f-9d-e7-1b-7f-92-5f-6f-c8')
     @commethod(20)
     def PlayVoice(self, rt: Int64, dwVoiceId: UInt32, dwChannelGroup: UInt32, dwChannel: UInt32, dwDLId: UInt32, prPitch: Int32, vrVolume: Int32, stVoiceStart: UInt64, stLoopStart: UInt64, stLoopEnd: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(21)
@@ -693,7 +693,7 @@ class IDirectMusicSynth8(ComPtr):
     def AssignChannelToBuses(self, dwChannelGroup: UInt32, dwChannel: UInt32, pdwBuses: POINTER(UInt32), cBuses: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicSynthSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('09823663-5c85-11d2-af-a6-00-aa-00-24-d8-b6')
+    _iid_ = Guid('09823663-5c85-11d2-af-a6-00-aa-00-24-d8-b6')
     @commethod(3)
     def Init(self, pSynth: Windows.Win32.Media.Audio.DirectMusic.IDirectMusicSynth_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -712,7 +712,7 @@ class IDirectMusicSynthSink(ComPtr):
     def GetDesiredBufferSize(self, pdwBufferSizeInSamples: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirectMusicThru(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ced153e7-3606-11d2-b9-f9-00-00-f8-75-ac-12')
+    _iid_ = Guid('ced153e7-3606-11d2-b9-f9-00-00-f8-75-ac-12')
     @commethod(3)
     def ThruChannel(self, dwSourceChannelGroup: UInt32, dwSourceChannel: UInt32, dwDestinationChannelGroup: UInt32, dwDestinationChannel: UInt32, pDestinationPort: Windows.Win32.Media.Audio.DirectMusic.IDirectMusicPort_head) -> Windows.Win32.Foundation.HRESULT: ...
 class INSTHEADER(EasyCastStructure):

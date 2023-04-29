@@ -75,7 +75,7 @@ DMO_REGISTER_FLAGS = Int32
 DMO_REGISTERF_IS_KEYED: DMO_REGISTER_FLAGS = 1
 class IDMOQualityControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('65abea96-cf36-453f-af-8a-70-5e-98-f1-62-60')
+    _iid_ = Guid('65abea96-cf36-453f-af-8a-70-5e-98-f1-62-60')
     @commethod(3)
     def SetNow(self, rtNow: Int64) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -84,7 +84,7 @@ class IDMOQualityControl(ComPtr):
     def GetStatus(self, pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDMOVideoOutputOptimizations(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('be8f4f4e-5b16-4d29-b3-50-7f-6b-5d-92-98-ac')
+    _iid_ = Guid('be8f4f4e-5b16-4d29-b3-50-7f-6b-5d-92-98-ac')
     @commethod(3)
     def QueryOperationModePreferences(self, ulOutputStreamIndex: UInt32, pdwRequestedCapabilities: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -95,7 +95,7 @@ class IDMOVideoOutputOptimizations(ComPtr):
     def GetCurrentSampleRequirements(self, ulOutputStreamIndex: UInt32, pdwRequestedFeatures: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumDMO(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2c3cd98a-2bfa-4a53-9c-27-52-49-ba-64-ba-0f')
+    _iid_ = Guid('2c3cd98a-2bfa-4a53-9c-27-52-49-ba-64-ba-0f')
     @commethod(3)
     def Next(self, cItemsToFetch: UInt32, pCLSID: POINTER(Guid), Names: POINTER(Windows.Win32.Foundation.PWSTR), pcItemsFetched: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -106,7 +106,7 @@ class IEnumDMO(ComPtr):
     def Clone(self, ppEnum: POINTER(Windows.Win32.Media.DxMediaObjects.IEnumDMO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMediaBuffer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('59eff8b9-938c-4a26-82-f2-95-cb-84-cd-c8-37')
+    _iid_ = Guid('59eff8b9-938c-4a26-82-f2-95-cb-84-cd-c8-37')
     @commethod(3)
     def SetLength(self, cbLength: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -115,7 +115,7 @@ class IMediaBuffer(ComPtr):
     def GetBufferAndLength(self, ppBuffer: POINTER(POINTER(Byte)), pcbLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMediaObject(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d8ad0f58-5494-4102-97-c5-ec-79-8e-59-bc-f4')
+    _iid_ = Guid('d8ad0f58-5494-4102-97-c5-ec-79-8e-59-bc-f4')
     @commethod(3)
     def GetStreamCount(self, pcInputStreams: POINTER(UInt32), pcOutputStreams: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -160,7 +160,7 @@ class IMediaObject(ComPtr):
     def Lock(self, bLock: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMediaObjectInPlace(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('651b9ad0-0fc7-4aa9-95-38-d8-99-31-01-07-41')
+    _iid_ = Guid('651b9ad0-0fc7-4aa9-95-38-d8-99-31-01-07-41')
     @commethod(3)
     def Process(self, ulSize: UInt32, pData: POINTER(Byte), refTimeStart: Int64, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

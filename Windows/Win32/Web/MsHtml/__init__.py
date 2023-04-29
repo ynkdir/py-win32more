@@ -6509,733 +6509,733 @@ DEP_BUBBLING_PHASE: DOM_EVENT_PHASE = 3
 DOM_EVENT_PHASE_Max: DOM_EVENT_PHASE = 2147483647
 class DWebBridgeEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('a6d897ff-0a95-11d1-b0-ba-00-60-08-16-6e-11')
+    _iid_ = Guid('a6d897ff-0a95-11d1-b0-ba-00-60-08-16-6e-11')
 class DispApplicationCache(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900e4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900e4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispCEventObj(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f558-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f558-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispCPlugins(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f54a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f54a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispCPrintManagerTemplatePrinter(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900e9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900e9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispCanvasGradient(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059008c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059008c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispCanvasImageData(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059008f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059008f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispCanvasPattern(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059008d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059008d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispCanvasRenderingContext2D(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590082-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590082-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispCanvasTextMetrics(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059008e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059008e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMBeforeUnloadEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900a8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900a8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMChildrenCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f577-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f577-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMCloseEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900dc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900dc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMCompositionEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590078-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590078-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMCustomEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059007c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059007c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMDocumentType(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590098-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590098-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMDragEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900a7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900a7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5a2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5a2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMException(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590094-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590094-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMFocusEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590071-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590071-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMKeyboardEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590077-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590077-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMMSAnimationEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900bc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900bc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMMSManipulationEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900e1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900e1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMMSTransitionEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900bb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900bb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMMessageEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590092-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590092-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMMouseEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590073-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590073-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMMouseWheelEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590074-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590074-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMMutationEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590079-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590079-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMParser(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900ae-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900ae-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMProcessingInstruction(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059009b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059009b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMProgressEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590091-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590091-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMSiteModeEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900a9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900a9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMStorageEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590093-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590093-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMTextEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590076-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590076-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMUIEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590072-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590072-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispDOMWheelEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590075-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590075-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispEventException(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590099-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590099-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTCAttachBehavior(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f583-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f583-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTCDefaultDispatch(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f573-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f573-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTCDescBehavior(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f57e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f57e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTCEventBehavior(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f574-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f574-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTCMethodBehavior(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f587-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f587-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTCPropertyBehavior(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f57f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f57f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLAnchorElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f502-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f502-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLAppBehavior(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f57c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f57c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLAreaElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f503-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f503-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLAreasCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f56a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f56a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLAttributeCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f56c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f56c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLAudioElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059008a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059008a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLBGsound(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f53c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f53c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLBRElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f53a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f53a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLBaseElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f518-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f518-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLBaseFontElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f504-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f504-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLBlockElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f506-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f506-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLBody(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f507-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f507-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLButtonElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f51f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f51f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLCSSImportRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059007e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059007e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLCSSMediaList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590097-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590097-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLCSSMediaRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059007f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059007f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLCSSNamespaceRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590080-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590080-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLCSSRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059007d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059007d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLCSSStyleDeclaration(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059009a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059009a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLCanvasElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059007b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059007b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLCommentElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f50a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f50a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLCurrentStyle(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f557-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f557-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLDDElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f50b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f50b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLDListElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f53b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f53b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLDOMAttribute(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f564-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f564-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLDOMImplementation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f58f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f58f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLDOMRange(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5a3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5a3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLDOMTextNode(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f565-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f565-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLDTElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f50d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f50d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLDefaults(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f58c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f58c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLDivElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f50c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f50c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLDivPosition(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f50f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f50f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLDocument(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f55f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f55f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLDocumentCompatibleInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f53e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f53e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLDocumentCompatibleInfoCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f53f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f53f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLElementCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f56b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f56b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLEmbed(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f52e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f52e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLFieldSetElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f545-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f545-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLFontElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f512-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f512-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLFormElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f510-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f510-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLFrameBase(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f541-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f541-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLFrameElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f513-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f513-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLFrameSetSite(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f514-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f514-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLGenericElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f563-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f563-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLHRElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f53d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f53d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLHeadElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f561-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f561-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLHeaderElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f515-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f515-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLHistory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f549-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f549-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLHtmlElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f560-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f560-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLIFrame(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f51b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f51b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLImg(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f51c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f51c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLInputElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f57d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f57d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLIsIndexElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f519-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f519-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLLIElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f523-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f523-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLLabelElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f522-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f522-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLLegendElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f546-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f546-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLLinkElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f524-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f524-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLListElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f525-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f525-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLLocation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f54e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f54e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLMSCSSKeyframeRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900de-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900de-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLMSCSSKeyframesRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900df-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900df-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLMapElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f526-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f526-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLMarqueeElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f527-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f527-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLMediaElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590088-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590088-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLMediaError(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590086-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590086-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLMetaElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f517-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f517-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLNamespace(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f54f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f54f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLNamespaceCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f550-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f550-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLNavigator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f54c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f54c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLNextIdElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f51a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f51a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLNoShowElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f528-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f528-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLOListElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f52a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f52a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLObjectElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f529-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f529-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLOptionElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f52b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f52b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLParaElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f52c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f52c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLParamElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f590-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f590-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLPerformance(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059009f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059009f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLPerformanceNavigation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900a0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900a0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLPerformanceTiming(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900a1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900a1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLPhraseElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f52d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f52d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLPopup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f589-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f589-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLProgressElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900af-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900af-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLRenderStyle(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f58b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f58b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLRichtextElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f54d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f54d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLRuleStyle(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f55c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f55c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLScreen(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f591-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f591-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLScriptElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f530-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f530-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLSelectElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f531-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f531-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLSemanticElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900ba-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900ba-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLSourceElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590089-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590089-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLSpanElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f548-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f548-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLSpanFlow(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f544-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f544-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLStorage(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f59d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f59d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLStyle(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f55a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f55a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLStyleElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f511-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f511-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLStyleFontFace(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590081-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590081-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLStyleMedia(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059009e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059009e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLStyleSheet(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f58d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f58d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLStyleSheetPage(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f540-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f540-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLStyleSheetPagesCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f543-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f543-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLStyleSheetRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f50e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f50e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLStyleSheetRulesAppliedCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5a6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5a6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLStyleSheetRulesCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f52f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f52f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLStyleSheetsCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f547-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f547-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLTable(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f532-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f532-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLTableCaption(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f508-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f508-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLTableCell(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f536-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f536-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLTableCol(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f533-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f533-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLTableRow(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f535-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f535-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLTableSection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f534-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f534-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLTextAreaElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f521-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f521-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLTextElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f537-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f537-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLTimeRanges(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590087-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590087-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLTitleElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f516-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f516-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLUListElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f538-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f538-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLUnknownElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f539-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f539-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLUrnCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f551-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f551-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLVideoElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059008b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059008b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLW3CComputedStyle(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590070-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590070-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLWindow2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f55d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f55d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLWindowProxy(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f55e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f55e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLWndOptionElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f598-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f598-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLWndSelectElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f597-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f597-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispHTMLXMLHttpRequest(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f596-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f596-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispIHTMLInputButtonElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f51e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f51e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispIHTMLInputFileElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f542-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f542-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispIHTMLInputImage(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f51d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f51d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispIHTMLInputTextElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f520-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f520-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispIHTMLOptionButtonElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f509-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f509-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispNodeIterator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059009c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059009c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispRangeException(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590095-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590095-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispRulesApplied(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5a5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5a5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispRulesAppliedCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5a4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5a4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGAElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590033-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590033-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGCircleElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059000a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059000a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGClipPathElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059003b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059003b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGDefsElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590003-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590003-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGDescElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590005-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590005-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590000-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590000-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGElementInstance(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590007-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590007-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGElementInstanceList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590008-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590008-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGEllipseElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059000b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059000b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGException(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590096-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590096-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGGElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590002-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590002-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGGradientElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059002e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059002e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGImageElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590027-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590027-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGLineElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059000c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059000c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGLinearGradientElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059002a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059002a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGMarkerElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590036-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590036-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGMaskElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059003c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059003c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGMetadataElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059002f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059002f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590011-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590011-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegArcAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590013-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590013-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegArcRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590014-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590014-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegClosePath(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590015-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590015-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegCurvetoCubicAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590016-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590016-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegCurvetoCubicRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590017-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590017-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegCurvetoCubicSmoothAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590018-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590018-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegCurvetoCubicSmoothRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590019-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590019-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegCurvetoQuadraticAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059001a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059001a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegCurvetoQuadraticRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059001b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059001b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegCurvetoQuadraticSmoothAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059001c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059001c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegCurvetoQuadraticSmoothRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059001d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059001d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegLinetoAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059001e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059001e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegLinetoHorizontalAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059001f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059001f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegLinetoHorizontalRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590020-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590020-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegLinetoRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590021-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590021-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegLinetoVerticalAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590022-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590022-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegLinetoVerticalRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590023-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590023-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegMovetoAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590024-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590024-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPathSegMovetoRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590025-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590025-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPatternElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059002c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059002c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPolygonElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059000d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059000d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGPolylineElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059000e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059000e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGRadialGradientElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059002b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059002b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGRectElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590009-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590009-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGSVGElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590001-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590001-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGScriptElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590039-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590039-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGStopElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059002d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059002d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGStyleElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590029-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590029-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGSwitchElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590030-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590030-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGSymbolElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590004-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590004-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGTSpanElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059003a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059003a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGTextContentElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590035-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590035-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGTextElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590037-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590037-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGTextPathElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059003d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059003d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGTextPositioningElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590038-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590038-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGTitleElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590006-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590006-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGUseElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590010-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590010-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGViewElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590034-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590034-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispSVGZoomEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30590031-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30590031-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispStaticNodeList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f59b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f59b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispTreeWalker(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3059009d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3059009d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispWebGeocoordinates(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900be-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900be-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispWebGeolocation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900bd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900bd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispWebGeoposition(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900c1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900c1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispWebGeopositionError(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900bf-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900bf-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispXDomainRequest(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f599-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f599-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispXMLHttpRequestEventTarget(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900e7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900e7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class DispXMLSerializer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305900ad-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305900ad-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 DomConstructor = Int32
 DomConstructor_DomConstructorObject: DomConstructor = 0
 DomConstructor_DomConstructorAttr: DomConstructor = 1
@@ -7621,10 +7621,10 @@ HTCPropertyBehavior = Guid('3050f5de-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLAnchorElement = Guid('3050f248-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLAnchorEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f29d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f29d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLAnchorEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f610-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f610-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLAppBehavior = Guid('3050f5cb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLAppFlag = Int32
 HTMLAppFlag_HTMLAppFlagNo: HTMLAppFlag = 0
@@ -7637,10 +7637,10 @@ HTMLAppFlag_HTMLAppFlag_Max: HTMLAppFlag = 2147483647
 HTMLAreaElement = Guid('3050f283-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLAreaEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f366-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f366-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLAreaEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f611-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f611-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLAreasCollection = Guid('3050f4ca-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLAttributeCollection = Guid('3050f4cc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLAudioElement = Guid('3051070e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
@@ -7667,10 +7667,10 @@ HTMLBorderStyle_HTMLBorderStyle_Max: HTMLBorderStyle = 2147483647
 HTMLButtonElement = Guid('3050f2c6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLButtonElementEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2b3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2b3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLButtonElementEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f617-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f617-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLCSSImportRule = Guid('305106f0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLCSSMediaList = Guid('30510732-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLCSSMediaRule = Guid('305106f1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
@@ -7685,10 +7685,10 @@ HTMLCaptionFlag_HTMLCaptionFlag_Max: HTMLCaptionFlag = 2147483647
 HTMLCommentElement = Guid('3050f317-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLControlElementEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4ea-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4ea-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLControlElementEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f612-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f612-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLCurrentStyle = Guid('3050f3dc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLDDElement = Guid('3050f27f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLDListElement = Guid('3050f27d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
@@ -7734,48 +7734,48 @@ HTMLDocumentCompatibleInfo = Guid('3051041b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLDocumentCompatibleInfoCollection = Guid('30510419-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLDocumentEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f260-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f260-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLDocumentEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f613-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f613-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLDocumentEvents3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5a0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5a0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLDocumentEvents4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510737-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510737-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLElementCollection = Guid('3050f4cb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLElementEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f33c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f33c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLElementEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f60f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f60f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLElementEvents3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f59f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f59f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLElementEvents4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051075e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051075e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLEmbed = Guid('3050f25d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLFieldSetElement = Guid('3050f3e8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLFontElement = Guid('3050f27b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLFormElement = Guid('3050f251-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLFormElementEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f364-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f364-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLFormElementEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f614-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f614-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLFrameBase = Guid('3050f312-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLFrameElement = Guid('3050f314-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLFrameSetSite = Guid('3050f31a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLFrameSiteEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f800-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f800-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLFrameSiteEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f7ff-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f7ff-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLGenericElement = Guid('3050f4b8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLHRElement = Guid('3050f252-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLHeadElement = Guid('3050f493-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
@@ -7787,50 +7787,50 @@ HTMLImageElementFactory = Guid('3050f38f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLImg = Guid('3050f241-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLImgEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f25b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f25b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLImgEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f616-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f616-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLInputButtonElement = Guid('3050f2b4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLInputElement = Guid('3050f5d8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLInputFileElement = Guid('3050f2ae-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLInputFileElementEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2af-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2af-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLInputFileElementEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f61a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f61a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLInputImage = Guid('3050f2c4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLInputImageEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2c3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2c3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLInputImageEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f61b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f61b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLInputTextElement = Guid('3050f2ab-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLInputTextElementEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2a7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2a7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLInputTextElementEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f618-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f618-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLIsIndexElement = Guid('3050f278-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLLIElement = Guid('3050f273-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLLabelElement = Guid('3050f32b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLLabelEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f329-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f329-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLLabelEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f61c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f61c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLLegendElement = Guid('3050f3e9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLLinkElement = Guid('3050f277-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLLinkElementEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3cc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3cc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLLinkElementEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f61d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f61d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLListElement = Guid('3050f272-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLLocation = Guid('163bb1e1-6e00-11cf-83-7a-48-dc-04-c1-00-00')
 HTMLMSCSSKeyframeRule = Guid('3051080e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
@@ -7838,17 +7838,17 @@ HTMLMSCSSKeyframesRule = Guid('3051080f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLMapElement = Guid('3050f271-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLMapEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3ba-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3ba-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLMapEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f61e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f61e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLMarqueeElement = Guid('3050f2b9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLMarqueeElementEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2b8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2b8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLMarqueeElementEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f61f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f61f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLMaximizeFlag = Int32
 HTMLMaximizeFlag_HTMLMaximizeFlagNo: HTMLMaximizeFlag = 0
 HTMLMaximizeFlag_HTMLMaximizeFlagYes: HTMLMaximizeFlag = 65536
@@ -7864,7 +7864,7 @@ HTMLNamespace = Guid('3050f6bc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLNamespaceCollection = Guid('3050f6b9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLNamespaceEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f6bd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6bd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLNavigator = Guid('feceaaa6-8405-11cf-8b-a1-00-aa-00-47-6d-a6')
 HTMLNextIdElement = Guid('3050f279-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLNoShowElement = Guid('3050f38b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
@@ -7872,17 +7872,17 @@ HTMLOListElement = Guid('3050f270-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLObjectElement = Guid('3050f24e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLObjectElementEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3c4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3c4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLObjectElementEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f620-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f620-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLOptionButtonElement = Guid('3050f2be-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLOptionButtonElementEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2bd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2bd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLOptionButtonElementEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f619-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f619-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLOptionElement = Guid('3050f24d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLOptionElementFactory = Guid('3050f38d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLParaElement = Guid('3050f26f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
@@ -7900,17 +7900,17 @@ HTMLScreen = Guid('3050f35d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLScriptElement = Guid('3050f28c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLScriptEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3e2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3e2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLScriptEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f621-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f621-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLSelectElement = Guid('3050f245-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLSelectElementEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f302-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f302-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLSelectElementEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f622-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f622-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLSemanticElement = Guid('305107b0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLSourceElement = Guid('3051070d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLSpanElement = Guid('3050f3f5-98b4-11cf-bb-82-00-aa-00-bd-ce-0b')
@@ -7920,10 +7920,10 @@ HTMLStyle = Guid('3050f285-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLStyleElement = Guid('3050f37d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLStyleElementEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3cb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3cb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLStyleElementEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f615-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f615-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLStyleFontFace = Guid('3050f3d4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLStyleMedia = Guid('3051074c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLStyleSheet = Guid('3050f2e4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
@@ -7943,19 +7943,19 @@ HTMLTableCell = Guid('3050f246-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLTableCol = Guid('3050f26c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLTableEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f407-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f407-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLTableEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f623-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f623-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLTableRow = Guid('3050f26d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLTableSection = Guid('3050f2e9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLTextAreaElement = Guid('3050f2ac-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLTextContainerEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('1ff6aa72-5842-11cf-a7-07-00-aa-00-c0-09-8d')
+    _iid_ = Guid('1ff6aa72-5842-11cf-a7-07-00-aa-00-c0-09-8d')
 class HTMLTextContainerEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f624-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f624-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLTextElement = Guid('3050f26a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLTimeRanges = Guid('3051070b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLTitleElement = Guid('3050f284-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
@@ -7967,13 +7967,13 @@ HTMLW3CComputedStyle = Guid('305106c8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLWindow2 = Guid('d48a6ec6-6a4a-11cf-94-a7-44-45-53-54-00-00')
 class HTMLWindowEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('96a0a4e0-d062-11cf-94-b6-00-aa-00-60-27-5c')
+    _iid_ = Guid('96a0a4e0-d062-11cf-94-b6-00-aa-00-60-27-5c')
 class HTMLWindowEvents2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f625-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f625-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLWindowEvents3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5a1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5a1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLWindowProxy = Guid('3050f391-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLWindowState = Int32
 HTMLWindowState_HTMLWindowStateNormal: HTMLWindowState = 1
@@ -7985,7 +7985,7 @@ HTMLWndSelectElement = Guid('3050f2cf-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLXMLHttpRequest = Guid('3051040b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class HTMLXMLHttpRequestEvents(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510498-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510498-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTMLXMLHttpRequestFactory = Guid('3051040d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 HTML_PAINTER = Int32
 HTMLPAINTER_OPAQUE: HTML_PAINTER = 1
@@ -8054,14 +8054,14 @@ HostDialogHelper = IntPtr
 HtmlDlgSafeHelper = Guid('3050f819-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class IBFCacheable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('30510861-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510861-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def EnterBFCache(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ExitBFCache(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IBlockFormats(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f830-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f830-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get__NewEnum(self, p: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8070,26 +8070,26 @@ class IBlockFormats(ComPtr):
     def Item(self, pvarIndex: POINTER(Windows.Win32.System.Variant.VARIANT_head), pbstrBlockFormat: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICSSFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f3ec-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3ec-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def SetSite(self, pSink: Windows.Win32.Web.MsHtml.ICSSFilterSite_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnAmbientPropertyChange(self, dispid: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class ICSSFilterSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f3ed-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3ed-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetElement(self, Element: POINTER(Windows.Win32.Web.MsHtml.IHTMLElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def FireOnFilterChangeEvent(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ICanvasGradient(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510714-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510714-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def addColorStop(self, offset: Single, color: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ICanvasImageData(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051071a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051071a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_width(self, p: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8098,20 +8098,20 @@ class ICanvasImageData(ComPtr):
     def get_data(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICanvasPattern(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510716-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510716-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class ICanvasPixelArray(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051071c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051071c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICanvasPixelArrayData(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('305107f9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107f9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetBufferPointer(self, ppBuffer: POINTER(POINTER(Byte)), pBufferLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICanvasRenderingContext2D(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106ff-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106ff-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_canvas(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLCanvasElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8242,17 +8242,17 @@ class ICanvasRenderingContext2D(ComPtr):
     def putImageData(self, imagedata: Windows.Win32.Web.MsHtml.ICanvasImageData_head, dx: Single, dy: Single, dirtyX: Windows.Win32.System.Variant.VARIANT, dirtyY: Windows.Win32.System.Variant.VARIANT, dirtyWidth: Windows.Win32.System.Variant.VARIANT, dirtyHeight: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class ICanvasTextMetrics(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510718-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510718-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_width(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class IClassFactoryEx(ComPtr):
     extends: Windows.Win32.System.Com.IClassFactory
-    Guid = Guid('342d1ea0-ae25-11d1-89-c5-00-60-08-c3-fb-fc')
+    _iid_ = Guid('342d1ea0-ae25-11d1-89-c5-00-60-08-c3-fb-fc')
     @commethod(5)
     def CreateInstanceWithContext(self, punkContext: Windows.Win32.System.Com.IUnknown_head, punkOuter: Windows.Win32.System.Com.IUnknown_head, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class IClientCaps(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('7e8bc44d-aeff-11d1-89-c2-00-c0-4f-b6-bf-c4')
+    _iid_ = Guid('7e8bc44d-aeff-11d1-89-c2-00-c0-4f-b6-bf-c4')
     @commethod(7)
     def get_javaEnabled(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8297,26 +8297,26 @@ class IClientCaps(ComPtr):
     def clearComponentRequest(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ICustomDoc(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f3f0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3f0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def SetUIHandler(self, pUIHandler: Windows.Win32.Web.MsHtml.IDocHostUIHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMBeforeUnloadEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510763-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510763-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_returnValue(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_returnValue(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMCloseEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305107ff-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107ff-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_wasClean(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def initCloseEvent(self, eventType: Windows.Win32.Foundation.BSTR, canBubble: Windows.Win32.Foundation.VARIANT_BOOL, cancelable: Windows.Win32.Foundation.VARIANT_BOOL, wasClean: Windows.Win32.Foundation.VARIANT_BOOL, code: Int32, reason: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMCompositionEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106d8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106d8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_data(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8325,14 +8325,14 @@ class IDOMCompositionEvent(ComPtr):
     def get_locale(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMCustomEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106de-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106de-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_detail(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def initCustomEvent(self, eventType: Windows.Win32.Foundation.BSTR, canBubble: Windows.Win32.Foundation.VARIANT_BOOL, cancelable: Windows.Win32.Foundation.VARIANT_BOOL, detail: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMDocumentType(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510738-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510738-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_name(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8347,14 +8347,14 @@ class IDOMDocumentType(ComPtr):
     def get_internalSubset(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMDragEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510761-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510761-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_dataTransfer(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLDataTransfer_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def initDragEvent(self, eventType: Windows.Win32.Foundation.BSTR, canBubble: Windows.Win32.Foundation.VARIANT_BOOL, cancelable: Windows.Win32.Foundation.VARIANT_BOOL, viewArg: Windows.Win32.Web.MsHtml.IHTMLWindow2_head, detailArg: Int32, screenXArg: Int32, screenYArg: Int32, clientXArg: Int32, clientYArg: Int32, ctrlKeyArg: Windows.Win32.Foundation.VARIANT_BOOL, altKeyArg: Windows.Win32.Foundation.VARIANT_BOOL, shiftKeyArg: Windows.Win32.Foundation.VARIANT_BOOL, metaKeyArg: Windows.Win32.Foundation.VARIANT_BOOL, buttonArg: UInt16, relatedTargetArg: Windows.Win32.Web.MsHtml.IEventTarget_head, dataTransferArg: Windows.Win32.Web.MsHtml.IHTMLDataTransfer_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104ba-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104ba-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_bubbles(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8389,14 +8389,14 @@ class IDOMEvent(ComPtr):
     def get_srcElement(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMEventRegistrationCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3051083b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051083b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def OnDOMEventListenerAdded(self, pszEventType: Windows.Win32.Foundation.PWSTR, pHandler: Windows.Win32.Web.MsHtml.IScriptEventHandler_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnDOMEventListenerRemoved(self, ullCookie: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMException(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051072b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051072b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_code(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8405,14 +8405,14 @@ class IDOMException(ComPtr):
     def get_message(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMFocusEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106cc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106cc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_relatedTarget(self, p: POINTER(Windows.Win32.Web.MsHtml.IEventTarget_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def initFocusEvent(self, eventType: Windows.Win32.Foundation.BSTR, canBubble: Windows.Win32.Foundation.VARIANT_BOOL, cancelable: Windows.Win32.Foundation.VARIANT_BOOL, view: Windows.Win32.Web.MsHtml.IHTMLWindow2_head, detail: Int32, relatedTargetArg: Windows.Win32.Web.MsHtml.IEventTarget_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMKeyboardEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106d6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106d6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_key(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8443,7 +8443,7 @@ class IDOMKeyboardEvent(ComPtr):
     def get_locale(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMMSAnimationEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305107b7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107b7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_animationName(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8452,7 +8452,7 @@ class IDOMMSAnimationEvent(ComPtr):
     def initMSAnimationEvent(self, eventType: Windows.Win32.Foundation.BSTR, canBubble: Windows.Win32.Foundation.VARIANT_BOOL, cancelable: Windows.Win32.Foundation.VARIANT_BOOL, animationName: Windows.Win32.Foundation.BSTR, elapsedTime: Single) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMMSManipulationEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510816-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510816-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_lastState(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8461,7 +8461,7 @@ class IDOMMSManipulationEvent(ComPtr):
     def initMSManipulationEvent(self, eventType: Windows.Win32.Foundation.BSTR, canBubble: Windows.Win32.Foundation.VARIANT_BOOL, cancelable: Windows.Win32.Foundation.VARIANT_BOOL, viewArg: Windows.Win32.Web.MsHtml.IHTMLWindow2_head, detailArg: Int32, lastState: Int32, currentState: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMMSTransitionEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305107b5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107b5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_propertyName(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8470,7 +8470,7 @@ class IDOMMSTransitionEvent(ComPtr):
     def initMSTransitionEvent(self, eventType: Windows.Win32.Foundation.BSTR, canBubble: Windows.Win32.Foundation.VARIANT_BOOL, cancelable: Windows.Win32.Foundation.VARIANT_BOOL, propertyName: Windows.Win32.Foundation.BSTR, elapsedTime: Single) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMMessageEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510720-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510720-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_data(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8481,7 +8481,7 @@ class IDOMMessageEvent(ComPtr):
     def initMessageEvent(self, eventType: Windows.Win32.Foundation.BSTR, canBubble: Windows.Win32.Foundation.VARIANT_BOOL, cancelable: Windows.Win32.Foundation.VARIANT_BOOL, data: Windows.Win32.Foundation.BSTR, origin: Windows.Win32.Foundation.BSTR, lastEventId: Windows.Win32.Foundation.BSTR, source: Windows.Win32.Web.MsHtml.IHTMLWindow2_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMMouseEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106ce-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106ce-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_screenX(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8532,14 +8532,14 @@ class IDOMMouseEvent(ComPtr):
     def get_which(self, p: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMMouseWheelEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106d0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106d0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_wheelDelta(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def initMouseWheelEvent(self, eventType: Windows.Win32.Foundation.BSTR, canBubble: Windows.Win32.Foundation.VARIANT_BOOL, cancelable: Windows.Win32.Foundation.VARIANT_BOOL, viewArg: Windows.Win32.Web.MsHtml.IHTMLWindow2_head, detailArg: Int32, screenXArg: Int32, screenYArg: Int32, clientXArg: Int32, clientYArg: Int32, buttonArg: UInt16, relatedTargetArg: Windows.Win32.Web.MsHtml.IEventTarget_head, modifiersListArg: Windows.Win32.Foundation.BSTR, wheelDeltaArg: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMMutationEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106da-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106da-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_relatedNode(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8554,7 +8554,7 @@ class IDOMMutationEvent(ComPtr):
     def initMutationEvent(self, eventType: Windows.Win32.Foundation.BSTR, canBubble: Windows.Win32.Foundation.VARIANT_BOOL, cancelable: Windows.Win32.Foundation.VARIANT_BOOL, relatedNodeArg: Windows.Win32.System.Com.IDispatch_head, prevValueArg: Windows.Win32.Foundation.BSTR, newValueArg: Windows.Win32.Foundation.BSTR, attrNameArg: Windows.Win32.Foundation.BSTR, attrChangeArg: UInt16) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMNodeIterator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510746-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510746-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_root(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8571,17 +8571,17 @@ class IDOMNodeIterator(ComPtr):
     def detach(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMParser(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510781-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510781-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def parseFromString(self, xmlSource: Windows.Win32.Foundation.BSTR, mimeType: Windows.Win32.Foundation.BSTR, ppNode: POINTER(Windows.Win32.Web.MsHtml.IHTMLDocument2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMParserFactory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510783-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510783-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def create(self, __MIDL__IDOMParserFactory0000: POINTER(Windows.Win32.Web.MsHtml.IDOMParser_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMProcessingInstruction(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510742-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510742-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_target(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8590,7 +8590,7 @@ class IDOMProcessingInstruction(ComPtr):
     def get_data(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMProgressEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051071e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051071e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_lengthComputable(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8601,14 +8601,14 @@ class IDOMProgressEvent(ComPtr):
     def initProgressEvent(self, eventType: Windows.Win32.Foundation.BSTR, canBubble: Windows.Win32.Foundation.VARIANT_BOOL, cancelable: Windows.Win32.Foundation.VARIANT_BOOL, lengthComputableArg: Windows.Win32.Foundation.VARIANT_BOOL, loadedArg: UInt64, totalArg: UInt64) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMSiteModeEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510765-98b6-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510765-98b6-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_buttonID(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_actionURL(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMStorageEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510722-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510722-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_key(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8623,7 +8623,7 @@ class IDOMStorageEvent(ComPtr):
     def initStorageEvent(self, eventType: Windows.Win32.Foundation.BSTR, canBubble: Windows.Win32.Foundation.VARIANT_BOOL, cancelable: Windows.Win32.Foundation.VARIANT_BOOL, keyArg: Windows.Win32.Foundation.BSTR, oldValueArg: Windows.Win32.Foundation.BSTR, newValueArg: Windows.Win32.Foundation.BSTR, urlArg: Windows.Win32.Foundation.BSTR, storageAreaArg: Windows.Win32.Web.MsHtml.IHTMLStorage_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMTextEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106d4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106d4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_data(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8634,7 +8634,7 @@ class IDOMTextEvent(ComPtr):
     def get_locale(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMTreeWalker(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510748-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510748-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_root(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8663,7 +8663,7 @@ class IDOMTreeWalker(ComPtr):
     def nextNode(self, ppRetNode: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMUIEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106ca-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106ca-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_view(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLWindow2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8672,7 +8672,7 @@ class IDOMUIEvent(ComPtr):
     def initUIEvent(self, eventType: Windows.Win32.Foundation.BSTR, canBubble: Windows.Win32.Foundation.VARIANT_BOOL, cancelable: Windows.Win32.Foundation.VARIANT_BOOL, view: Windows.Win32.Web.MsHtml.IHTMLWindow2_head, detail: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMWheelEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106d2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106d2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_deltaX(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8685,17 +8685,17 @@ class IDOMWheelEvent(ComPtr):
     def initWheelEvent(self, eventType: Windows.Win32.Foundation.BSTR, canBubble: Windows.Win32.Foundation.VARIANT_BOOL, cancelable: Windows.Win32.Foundation.VARIANT_BOOL, viewArg: Windows.Win32.Web.MsHtml.IHTMLWindow2_head, detailArg: Int32, screenXArg: Int32, screenYArg: Int32, clientXArg: Int32, clientYArg: Int32, buttonArg: UInt16, relatedTargetArg: Windows.Win32.Web.MsHtml.IEventTarget_head, modifiersListArg: Windows.Win32.Foundation.BSTR, deltaX: Int32, deltaY: Int32, deltaZ: Int32, deltaMode: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMXmlSerializer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051077d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051077d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def serializeToString(self, pNode: Windows.Win32.Web.MsHtml.IHTMLDOMNode_head, pString: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDOMXmlSerializerFactory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051077f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051077f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def create(self, __MIDL__IDOMXmlSerializerFactory0000: POINTER(Windows.Win32.Web.MsHtml.IDOMXmlSerializer_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDebugCallbackNotificationHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('30510842-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510842-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def RequestedCallbackTypes(self, pCallbackMask: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -8712,7 +8712,7 @@ class IDebugCallbackNotificationHandler(ComPtr):
     def InvokeCallbackComplete(self, eCallbackType: Windows.Win32.Web.MsHtml.SCRIPT_TIMER_TYPE, callbackCookie: UInt32, pDispHandler: Windows.Win32.System.Com.IDispatch_head, ullHandlerCookie: UInt64, functionName: Windows.Win32.Foundation.BSTR, line: UInt32, column: UInt32, cchLength: UInt32, pDebugDocumentContext: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDeveloperConsoleMessageReceiver(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('30510808-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510808-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def Write(self, source: Windows.Win32.Foundation.PWSTR, level: Windows.Win32.Web.MsHtml.DEV_CONSOLE_MESSAGE_LEVEL, messageId: Int32, messageText: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -8723,7 +8723,7 @@ class IDeveloperConsoleMessageReceiver(ComPtr):
     def WriteWithUrlLineAndColumn(self, source: Windows.Win32.Foundation.PWSTR, level: Windows.Win32.Web.MsHtml.DEV_CONSOLE_MESSAGE_LEVEL, messageId: Int32, messageText: Windows.Win32.Foundation.PWSTR, fileUrl: Windows.Win32.Foundation.PWSTR, line: UInt32, column: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiagnosticsScriptEngine(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('30510859-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510859-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def EvaluateScript(self, pszScript: Windows.Win32.Foundation.PWSTR, pszScriptName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -8732,19 +8732,19 @@ class IDiagnosticsScriptEngine(ComPtr):
     def Detach(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiagnosticsScriptEngineProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3051085a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051085a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def CreateDiagnosticsScriptEngine(self, pScriptSite: Windows.Win32.Web.MsHtml.IDiagnosticsScriptEngineSite_head, fDebuggingEnabled: Windows.Win32.Foundation.BOOL, ulProcessId: UInt32, ppEngine: POINTER(Windows.Win32.Web.MsHtml.IDiagnosticsScriptEngine_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDiagnosticsScriptEngineSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('30510858-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510858-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def OnMessage(self, pszData: POINTER(Windows.Win32.Foundation.PWSTR), ulDataCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnScriptError(self, pScriptError: Windows.Win32.System.Diagnostics.Debug.ActiveScript.IActiveScriptError_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDisplayPointer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f69e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f69e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def MoveToPoint(self, ptPoint: Windows.Win32.Foundation.POINT, eCoordSystem: Windows.Win32.Web.MsHtml.COORD_SYSTEM, pElementContext: Windows.Win32.Web.MsHtml.IHTMLElement_head, dwHitTestOptions: UInt32, pdwHitTestResults: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -8785,7 +8785,7 @@ class IDisplayPointer(ComPtr):
     def QueryBreaks(self, pdwBreaks: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDisplayServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f69d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f69d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def CreateDisplayPointer(self, ppDispPointer: POINTER(Windows.Win32.Web.MsHtml.IDisplayPointer_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -8802,14 +8802,14 @@ class IDisplayServices(ComPtr):
     def HasFlowLayout(self, pIElement: Windows.Win32.Web.MsHtml.IHTMLElement_head, pfHasFlowLayout: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDocHostShowUI(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c4d244b0-d43e-11cf-89-3b-00-aa-00-bd-ce-1a')
+    _iid_ = Guid('c4d244b0-d43e-11cf-89-3b-00-aa-00-bd-ce-1a')
     @commethod(3)
     def ShowMessage(self, hwnd: Windows.Win32.Foundation.HWND, lpstrText: Windows.Win32.Foundation.PWSTR, lpstrCaption: Windows.Win32.Foundation.PWSTR, dwType: UInt32, lpstrHelpFile: Windows.Win32.Foundation.PWSTR, dwHelpContext: UInt32, plResult: POINTER(Windows.Win32.Foundation.LRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ShowHelp(self, hwnd: Windows.Win32.Foundation.HWND, pszHelpFile: Windows.Win32.Foundation.PWSTR, uCommand: UInt32, dwData: UInt32, ptMouse: Windows.Win32.Foundation.POINT, pDispatchObjectHit: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IDocHostUIHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bd3f23c0-d43e-11cf-89-3b-00-aa-00-bd-ce-1a')
+    _iid_ = Guid('bd3f23c0-d43e-11cf-89-3b-00-aa-00-bd-ce-1a')
     @commethod(3)
     def ShowContextMenu(self, dwID: UInt32, ppt: POINTER(Windows.Win32.Foundation.POINT_head), pcmdtReserved: Windows.Win32.System.Com.IUnknown_head, pdispReserved: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -8842,29 +8842,29 @@ class IDocHostUIHandler(ComPtr):
     def FilterDataObject(self, pDO: Windows.Win32.System.Com.IDataObject_head, ppDORet: POINTER(Windows.Win32.System.Com.IDataObject_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDocHostUIHandler2(ComPtr):
     extends: Windows.Win32.Web.MsHtml.IDocHostUIHandler
-    Guid = Guid('3050f6d0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6d0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(18)
     def GetOverrideKeyPath(self, pchKey: POINTER(Windows.Win32.Foundation.PWSTR), dw: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDocumentEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104bc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104bc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def createEvent(self, eventType: Windows.Win32.Foundation.BSTR, ppEvent: POINTER(Windows.Win32.Web.MsHtml.IDOMEvent_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDocumentRange(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104af-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104af-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def createRange(self, ppIHTMLDOMRange: POINTER(Windows.Win32.Web.MsHtml.IHTMLDOMRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDocumentSelector(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510462-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510462-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def querySelector(self, v: Windows.Win32.Foundation.BSTR, pel: POINTER(Windows.Win32.Web.MsHtml.IHTMLElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def querySelectorAll(self, v: Windows.Win32.Foundation.BSTR, pel: POINTER(Windows.Win32.Web.MsHtml.IHTMLDOMChildrenCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDocumentTraversal(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510744-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510744-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def createNodeIterator(self, pRootNode: Windows.Win32.System.Com.IDispatch_head, ulWhatToShow: Int32, pFilter: POINTER(Windows.Win32.System.Variant.VARIANT_head), fEntityReferenceExpansion: Windows.Win32.Foundation.VARIANT_BOOL, ppNodeIterator: POINTER(Windows.Win32.Web.MsHtml.IDOMNodeIterator_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -8875,7 +8875,7 @@ def IEISXMLNSREGISTEREDFN(lpszURI: Windows.Win32.Foundation.PWSTR, pCLSID: POINT
 def IEREGISTERXMLNSFN(lpszURI: Windows.Win32.Foundation.PWSTR, clsid: Guid, fMachine: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementBehavior(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f425-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f425-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def Init(self, pBehaviorSite: Windows.Win32.Web.MsHtml.IElementBehaviorSite_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -8884,22 +8884,22 @@ class IElementBehavior(ComPtr):
     def Detach(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementBehaviorCategory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f4ed-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4ed-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetCategory(self, ppchCategory: POINTER(Windows.Win32.Foundation.PWSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementBehaviorFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f429-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f429-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def FindBehavior(self, bstrBehavior: Windows.Win32.Foundation.BSTR, bstrBehaviorUrl: Windows.Win32.Foundation.BSTR, pSite: Windows.Win32.Web.MsHtml.IElementBehaviorSite_head, ppBehavior: POINTER(Windows.Win32.Web.MsHtml.IElementBehavior_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementBehaviorFocus(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f6b6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6b6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetFocusRect(self, pRect: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementBehaviorLayout(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f6ba-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6ba-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetSize(self, dwFlags: Int32, sizeContent: Windows.Win32.Foundation.SIZE, pptTranslateBy: POINTER(Windows.Win32.Foundation.POINT_head), pptTopLeft: POINTER(Windows.Win32.Foundation.POINT_head), psizeProposed: POINTER(Windows.Win32.Foundation.SIZE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -8910,12 +8910,12 @@ class IElementBehaviorLayout(ComPtr):
     def MapSize(self, psizeIn: POINTER(Windows.Win32.Foundation.SIZE_head), prcOut: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementBehaviorLayout2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f846-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f846-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetTextDescent(self, plDescent: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementBehaviorRender(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f4aa-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4aa-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def Draw(self, hdc: Windows.Win32.Graphics.Gdi.HDC, lLayer: Int32, pRect: POINTER(Windows.Win32.Foundation.RECT_head), pReserved: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -8924,19 +8924,19 @@ class IElementBehaviorRender(ComPtr):
     def HitTestPoint(self, pPoint: POINTER(Windows.Win32.Foundation.POINT_head), pReserved: Windows.Win32.System.Com.IUnknown_head, pbHit: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementBehaviorSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f427-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f427-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetElement(self, ppElement: POINTER(Windows.Win32.Web.MsHtml.IHTMLElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def RegisterNotification(self, lEvent: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementBehaviorSiteCategory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f4ee-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4ee-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetRelatedBehaviors(self, lDirection: Int32, pchCategory: Windows.Win32.Foundation.PWSTR, ppEnumerator: POINTER(Windows.Win32.System.Com.IEnumUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementBehaviorSiteLayout(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f6b7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6b7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def InvalidateLayoutInfo(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -8945,12 +8945,12 @@ class IElementBehaviorSiteLayout(ComPtr):
     def GetMediaResolution(self, psizeResolution: POINTER(Windows.Win32.Foundation.SIZE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementBehaviorSiteLayout2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f847-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f847-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetFontInfo(self, plf: POINTER(Windows.Win32.Graphics.Gdi.LOGFONTW_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementBehaviorSiteOM(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f489-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f489-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def RegisterEvent(self, pchEvent: Windows.Win32.Foundation.PWSTR, lFlags: Int32, plCookie: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -8965,12 +8965,12 @@ class IElementBehaviorSiteOM(ComPtr):
     def RegisterUrn(self, pchUrn: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementBehaviorSiteOM2(ComPtr):
     extends: Windows.Win32.Web.MsHtml.IElementBehaviorSiteOM
-    Guid = Guid('3050f659-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f659-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(9)
     def GetDefaults(self, ppDefaults: POINTER(Windows.Win32.Web.MsHtml.IHTMLElementDefaults_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementBehaviorSiteRender(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f4a7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4a7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def Invalidate(self, pRect: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -8979,39 +8979,39 @@ class IElementBehaviorSiteRender(ComPtr):
     def InvalidateStyle(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementBehaviorSubmit(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f646-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f646-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetSubmitInfo(self, pSubmitData: Windows.Win32.Web.MsHtml.IHTMLSubmitData_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementNamespace(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f671-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f671-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def AddTag(self, bstrTagName: Windows.Win32.Foundation.BSTR, lFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementNamespaceFactory(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f672-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f672-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def Create(self, pNamespace: Windows.Win32.Web.MsHtml.IElementNamespace_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementNamespaceFactory2(ComPtr):
     extends: Windows.Win32.Web.MsHtml.IElementNamespaceFactory
-    Guid = Guid('3050f805-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f805-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(4)
     def CreateWithImplementation(self, pNamespace: Windows.Win32.Web.MsHtml.IElementNamespace_head, bstrImplementation: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementNamespaceFactoryCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f7fd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f7fd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def Resolve(self, bstrNamespace: Windows.Win32.Foundation.BSTR, bstrTagName: Windows.Win32.Foundation.BSTR, bstrAttrs: Windows.Win32.Foundation.BSTR, pNamespace: Windows.Win32.Web.MsHtml.IElementNamespace_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementNamespaceTable(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f670-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f670-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def AddNamespace(self, bstrNamespace: Windows.Win32.Foundation.BSTR, bstrUrn: Windows.Win32.Foundation.BSTR, lFlags: Int32, pvarFactory: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementSegment(ComPtr):
     extends: Windows.Win32.Web.MsHtml.ISegment
-    Guid = Guid('3050f68f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f68f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(4)
     def GetElement(self, ppIElement: POINTER(Windows.Win32.Web.MsHtml.IHTMLElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -9020,14 +9020,14 @@ class IElementSegment(ComPtr):
     def IsPrimary(self, pfPrimary: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementSelector(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510463-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510463-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def querySelector(self, v: Windows.Win32.Foundation.BSTR, pel: POINTER(Windows.Win32.Web.MsHtml.IHTMLElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def querySelectorAll(self, v: Windows.Win32.Foundation.BSTR, pel: POINTER(Windows.Win32.Web.MsHtml.IHTMLDOMChildrenCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IElementTraversal(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510736-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510736-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_firstElementChild(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9040,7 +9040,7 @@ class IElementTraversal(ComPtr):
     def get_childElementCount(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumPrivacyRecords(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f844-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f844-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -9051,7 +9051,7 @@ class IEnumPrivacyRecords(ComPtr):
     def Next(self, pbstrUrl: POINTER(Windows.Win32.Foundation.BSTR), pbstrPolicyRef: POINTER(Windows.Win32.Foundation.BSTR), pdwReserved: POINTER(Int32), pdwPrivacyFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEventException(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051073a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051073a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_code(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9060,7 +9060,7 @@ class IEventException(ComPtr):
     def get_message(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEventTarget(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104b9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104b9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def addEventListener(self, type: Windows.Win32.Foundation.BSTR, listener: Windows.Win32.System.Com.IDispatch_head, useCapture: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9069,7 +9069,7 @@ class IEventTarget(ComPtr):
     def dispatchEvent(self, evt: Windows.Win32.Web.MsHtml.IDOMEvent_head, pfResult: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEventTarget2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('30510839-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510839-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetRegisteredEventTypes(self, ppEventTypeArray: POINTER(POINTER(Windows.Win32.System.Com.SAFEARRAY_head))) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -9080,7 +9080,7 @@ class IEventTarget2(ComPtr):
     def UnregisterForDOMEventListeners(self, pCallback: Windows.Win32.Web.MsHtml.IDOMEventRegistrationCallback_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IFontNames(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f839-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f839-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get__NewEnum(self, p: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9089,24 +9089,24 @@ class IFontNames(ComPtr):
     def Item(self, pvarIndex: POINTER(Windows.Win32.System.Variant.VARIANT_head), pbstrFontName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IGetSVGDocument(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305105ab-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305105ab-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def getSVGDocument(self, ppSVGDocument: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTCAttachBehavior(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5f4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5f4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def fireEvent(self, evt: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def detachEvent(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTCAttachBehavior2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f7eb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f7eb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def fireEvent(self, evt: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTCDefaultDispatch(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4fd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4fd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_element(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9117,22 +9117,22 @@ class IHTCDefaultDispatch(ComPtr):
     def get_document(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTCDescBehavior(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5dc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5dc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_urn(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_name(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTCEventBehavior(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4ff-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4ff-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def fire(self, pvar: Windows.Win32.Web.MsHtml.IHTMLEventObj_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTCMethodBehavior(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f631-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f631-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class IHTCPropertyBehavior(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5df-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5df-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def fireChange(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9141,7 +9141,7 @@ class IHTCPropertyBehavior(ComPtr):
     def get_value(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAnchorElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f1da-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f1da-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_href(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9226,7 +9226,7 @@ class IHTMLAnchorElement(ComPtr):
     def blur(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAnchorElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f825-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f825-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_charset(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9249,7 +9249,7 @@ class IHTMLAnchorElement2(ComPtr):
     def get_type(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAnchorElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051041d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051041d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_shape(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9264,7 +9264,7 @@ class IHTMLAnchorElement3(ComPtr):
     def get_href(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAppBehavior(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5ca-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5ca-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_applicationName(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9317,7 +9317,7 @@ class IHTMLAppBehavior(ComPtr):
     def get_commandLine(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAppBehavior2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5c9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5c9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_contextMenu(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9340,14 +9340,14 @@ class IHTMLAppBehavior2(ComPtr):
     def get_selection(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAppBehavior3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5cd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5cd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_navigable(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_navigable(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLApplicationCache(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510828-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510828-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_status(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9390,7 +9390,7 @@ class IHTMLApplicationCache(ComPtr):
     def abort(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAreaElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f265-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f265-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_shape(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9461,7 +9461,7 @@ class IHTMLAreaElement(ComPtr):
     def blur(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAreaElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051041f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051041f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_shape(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9476,7 +9476,7 @@ class IHTMLAreaElement2(ComPtr):
     def get_href(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAreasCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f383-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f383-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_length(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9493,17 +9493,17 @@ class IHTMLAreasCollection(ComPtr):
     def remove(self, index: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAreasCollection2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5ec-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5ec-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def urns(self, urn: Windows.Win32.System.Variant.VARIANT, pdisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAreasCollection3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f837-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f837-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def namedItem(self, name: Windows.Win32.Foundation.BSTR, pdisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAreasCollection4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510492-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510492-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9512,7 +9512,7 @@ class IHTMLAreasCollection4(ComPtr):
     def namedItem(self, name: Windows.Win32.Foundation.BSTR, pNode: POINTER(Windows.Win32.Web.MsHtml.IHTMLElement2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAttributeCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4c3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4c3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9521,7 +9521,7 @@ class IHTMLAttributeCollection(ComPtr):
     def item(self, name: POINTER(Windows.Win32.System.Variant.VARIANT_head), pdisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAttributeCollection2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f80a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f80a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def getNamedItem(self, bstrName: Windows.Win32.Foundation.BSTR, newretNode: POINTER(Windows.Win32.Web.MsHtml.IHTMLDOMAttribute_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9530,7 +9530,7 @@ class IHTMLAttributeCollection2(ComPtr):
     def removeNamedItem(self, bstrName: Windows.Win32.Foundation.BSTR, newretNode: POINTER(Windows.Win32.Web.MsHtml.IHTMLDOMAttribute_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAttributeCollection3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510469-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510469-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def getNamedItem(self, bstrName: Windows.Win32.Foundation.BSTR, ppNodeOut: POINTER(Windows.Win32.Web.MsHtml.IHTMLDOMAttribute_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9543,7 +9543,7 @@ class IHTMLAttributeCollection3(ComPtr):
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAttributeCollection4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106fa-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106fa-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def getNamedItemNS(self, pvarNS: POINTER(Windows.Win32.System.Variant.VARIANT_head), bstrName: Windows.Win32.Foundation.BSTR, ppNodeOut: POINTER(Windows.Win32.Web.MsHtml.IHTMLDOMAttribute2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9562,15 +9562,15 @@ class IHTMLAttributeCollection4(ComPtr):
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLAudioElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510708-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510708-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class IHTMLAudioElementFactory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305107eb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107eb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def create(self, src: Windows.Win32.System.Variant.VARIANT, __MIDL__IHTMLAudioElementFactory0000: POINTER(Windows.Win32.Web.MsHtml.IHTMLAudioElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLBGsound(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f369-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f369-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_src(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9589,14 +9589,14 @@ class IHTMLBGsound(ComPtr):
     def get_balance(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLBRElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f1f0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f1f0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_clear(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_clear(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLBaseElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f204-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f204-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_href(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9607,14 +9607,14 @@ class IHTMLBaseElement(ComPtr):
     def get_target(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLBaseElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510420-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510420-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_href(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_href(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLBaseFontElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f202-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f202-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_color(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9629,14 +9629,14 @@ class IHTMLBaseFontElement(ComPtr):
     def get_size(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLBlockElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f208-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f208-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_clear(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_clear(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLBlockElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f823-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f823-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_cite(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9647,14 +9647,14 @@ class IHTMLBlockElement2(ComPtr):
     def get_width(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLBlockElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510494-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510494-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_cite(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_cite(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLBodyElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f1d8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f1d8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_background(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9727,7 +9727,7 @@ class IHTMLBodyElement(ComPtr):
     def createTextRange(self, range: POINTER(Windows.Win32.Web.MsHtml.IHTMLTxtRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLBodyElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5c5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5c5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_onbeforeprint(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9738,7 +9738,7 @@ class IHTMLBodyElement2(ComPtr):
     def get_onafterprint(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLBodyElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510422-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510422-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_background(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9757,7 +9757,7 @@ class IHTMLBodyElement3(ComPtr):
     def get_onhashchange(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLBodyElement4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510795-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510795-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_onmessage(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9768,14 +9768,14 @@ class IHTMLBodyElement4(ComPtr):
     def get_onstorage(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLBodyElement5(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510822-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510822-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_onpopstate(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_onpopstate(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLBookmarkCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4ce-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4ce-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9784,7 +9784,7 @@ class IHTMLBookmarkCollection(ComPtr):
     def item(self, index: Int32, pVarBookmark: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLButtonElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2bb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2bb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_type(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9809,14 +9809,14 @@ class IHTMLButtonElement(ComPtr):
     def createTextRange(self, range: POINTER(Windows.Win32.Web.MsHtml.IHTMLTxtRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLButtonElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106f3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106f3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_type(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_type(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCSSImportRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106ea-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106ea-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_href(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9827,7 +9827,7 @@ class IHTMLCSSImportRule(ComPtr):
     def get_styleSheet(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLStyleSheet_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCSSMediaList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510731-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510731-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_mediaText(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9842,7 +9842,7 @@ class IHTMLCSSMediaList(ComPtr):
     def deleteMedium(self, bstrMedium: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCSSMediaRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106eb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106eb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_media(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9855,14 +9855,14 @@ class IHTMLCSSMediaRule(ComPtr):
     def deleteRule(self, lIndex: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCSSNamespaceRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106ee-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106ee-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_namespaceURI(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_prefix(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCSSRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106e9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106e9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_type(self, p: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -9875,7 +9875,7 @@ class IHTMLCSSRule(ComPtr):
     def get_parentStyleSheet(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLStyleSheet_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCSSStyleDeclaration(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510740-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510740-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -10626,7 +10626,7 @@ class IHTMLCSSStyleDeclaration(ComPtr):
     def get_msTransformOrigin(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCSSStyleDeclaration2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305107d1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107d1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_msScrollChaining(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11085,7 +11085,7 @@ class IHTMLCSSStyleDeclaration2(ComPtr):
     def get_animationFillMode(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCSSStyleDeclaration3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051085c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051085c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_flex(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11168,7 +11168,7 @@ class IHTMLCSSStyleDeclaration3(ComPtr):
     def get_touchAction(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCSSStyleDeclaration4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d6100f3b-27c8-4132-af-ea-f0-e4-b1-e0-00-60')
+    _iid_ = Guid('d6100f3b-27c8-4132-af-ea-f0-e4-b1-e0-00-60')
     @commethod(7)
     def put_webkitAppearance(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11351,7 +11351,7 @@ class IHTMLCSSStyleDeclaration4(ComPtr):
     def get_webkitAnimationFillMode(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCanvasElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106e4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106e4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_width(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11366,7 +11366,7 @@ class IHTMLCanvasElement(ComPtr):
     def toDataURL(self, type: Windows.Win32.Foundation.BSTR, jpegquality: Windows.Win32.System.Variant.VARIANT, pUrl: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCaret(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f604-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f604-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def MoveCaretToPointer(self, pDispPointer: Windows.Win32.Web.MsHtml.IDisplayPointer_head, fScrollIntoView: Windows.Win32.Foundation.BOOL, eDir: Windows.Win32.Web.MsHtml.CARET_DIRECTION) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -11393,22 +11393,22 @@ class IHTMLCaret(ComPtr):
     def SetCaretDirection(self, eDir: Windows.Win32.Web.MsHtml.CARET_DIRECTION) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLChangeLog(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f649-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f649-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetNextChange(self, pbBuffer: POINTER(Byte), nBufferSize: Int32, pnRecordLength: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLChangePlayback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f6e0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6e0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def ExecChange(self, pbRecord: POINTER(Byte), fForward: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLChangeSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f64a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f64a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def Notify(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCommentElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f20c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f20c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_text(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11419,7 +11419,7 @@ class IHTMLCommentElement(ComPtr):
     def get_atomic(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCommentElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f813-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f813-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_data(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11438,7 +11438,7 @@ class IHTMLCommentElement2(ComPtr):
     def replaceData(self, offset: Int32, Count: Int32, bstrstring: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCommentElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051073f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051073f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def substringData(self, offset: Int32, Count: Int32, pbstrsubString: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11449,7 +11449,7 @@ class IHTMLCommentElement3(ComPtr):
     def replaceData(self, offset: Int32, Count: Int32, bstrstring: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLComputedStyle(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f6c3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6c3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def get_bold(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -11490,7 +11490,7 @@ class IHTMLComputedStyle(ComPtr):
     def IsEqual(self, pComputedStyle: Windows.Win32.Web.MsHtml.IHTMLComputedStyle_head, pfEqual: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLControlElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4e9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4e9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_tabIndex(self, v: Int16) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11529,7 +11529,7 @@ class IHTMLControlElement(ComPtr):
     def get_clientLeft(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLControlRange(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f29c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f29c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def select(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11562,12 +11562,12 @@ class IHTMLControlRange(ComPtr):
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLControlRange2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f65e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f65e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def addElement(self, item: Windows.Win32.Web.MsHtml.IHTMLElement_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCurrentStyle(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3db-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3db-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_position(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11752,7 +11752,7 @@ class IHTMLCurrentStyle(ComPtr):
     def get_textTransform(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCurrentStyle2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f658-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f658-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_layoutFlow(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11791,7 +11791,7 @@ class IHTMLCurrentStyle2(ComPtr):
     def get_isBlock(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCurrentStyle3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f818-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f818-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_textOverflow(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11802,7 +11802,7 @@ class IHTMLCurrentStyle3(ComPtr):
     def get_whiteSpace(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCurrentStyle4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f33b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f33b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_msInterpolationMode(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11813,7 +11813,7 @@ class IHTMLCurrentStyle4(ComPtr):
     def get_maxWidth(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLCurrentStyle5(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510481-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510481-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_captionSide(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11842,21 +11842,21 @@ class IHTMLCurrentStyle5(ComPtr):
     def get_quotes(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDDElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f1f2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f1f2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_noWrap(self, v: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_noWrap(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDListElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f1f1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f1f1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_compact(self, v: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_compact(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMAttribute(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4b0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4b0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_nodeName(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11867,7 +11867,7 @@ class IHTMLDOMAttribute(ComPtr):
     def get_specified(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMAttribute2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f810-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f810-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_name(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11908,7 +11908,7 @@ class IHTMLDOMAttribute2(ComPtr):
     def cloneNode(self, fDeep: Windows.Win32.Foundation.VARIANT_BOOL, clonedNode: POINTER(Windows.Win32.Web.MsHtml.IHTMLDOMAttribute_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMAttribute3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510468-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510468-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_nodeValue(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11923,7 +11923,7 @@ class IHTMLDOMAttribute3(ComPtr):
     def get_ownerElement(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLElement2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMAttribute4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106f9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106f9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_nodeValue(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11952,7 +11952,7 @@ class IHTMLDOMAttribute4(ComPtr):
     def get_specified(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMChildrenCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5ab-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5ab-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11961,12 +11961,12 @@ class IHTMLDOMChildrenCollection(ComPtr):
     def item(self, index: Int32, ppItem: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMChildrenCollection2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510791-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510791-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def item(self, index: Int32, ppItem: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMConstructor(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051049b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051049b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_constructor(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -11979,7 +11979,7 @@ class IHTMLDOMConstructor(ComPtr):
     def DefineSetter(self, propname: Windows.Win32.Foundation.BSTR, pdispHandler: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMConstructorCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051049c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051049c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_Attr(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12194,12 +12194,12 @@ class IHTMLDOMConstructorCollection(ComPtr):
     def get_XMLHttpRequest(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMImplementation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f80d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f80d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def hasFeature(self, bstrfeature: Windows.Win32.Foundation.BSTR, version: Windows.Win32.System.Variant.VARIANT, pfHasFeature: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMImplementation2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051073c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051073c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def createDocumentType(self, bstrQualifiedName: Windows.Win32.Foundation.BSTR, pvarPublicId: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarSystemId: POINTER(Windows.Win32.System.Variant.VARIANT_head), newDocumentType: POINTER(Windows.Win32.Web.MsHtml.IDOMDocumentType_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12210,7 +12210,7 @@ class IHTMLDOMImplementation2(ComPtr):
     def hasFeature(self, bstrfeature: Windows.Win32.Foundation.BSTR, version: Windows.Win32.System.Variant.VARIANT, pfHasFeature: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMNode(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5da-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5da-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_nodeType(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12253,12 +12253,12 @@ class IHTMLDOMNode(ComPtr):
     def get_nextSibling(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLDOMNode_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMNode2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f80b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f80b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_ownerDocument(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMNode3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106e0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106e0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_prefix(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12295,7 +12295,7 @@ class IHTMLDOMNode3(ComPtr):
     def isSupported(self, feature: Windows.Win32.Foundation.BSTR, version: Windows.Win32.System.Variant.VARIANT, pfisSupported: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMRange(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104ae-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104ae-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_startContainer(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLDOMNode_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12350,7 +12350,7 @@ class IHTMLDOMRange(ComPtr):
     def getBoundingClientRect(self, ppRect: POINTER(Windows.Win32.Web.MsHtml.IHTMLRect_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMTextNode(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4b1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4b1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_data(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12363,7 +12363,7 @@ class IHTMLDOMTextNode(ComPtr):
     def splitText(self, offset: Int32, pRetNode: POINTER(Windows.Win32.Web.MsHtml.IHTMLDOMNode_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMTextNode2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f809-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f809-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def substringData(self, offset: Int32, Count: Int32, pbstrsubString: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12376,7 +12376,7 @@ class IHTMLDOMTextNode2(ComPtr):
     def replaceData(self, offset: Int32, Count: Int32, bstrstring: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDOMTextNode3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051073e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051073e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def substringData(self, offset: Int32, Count: Int32, pbstrsubString: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12397,14 +12397,14 @@ class IHTMLDOMTextNode3(ComPtr):
     def normalize(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDTElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f1f3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f1f3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_noWrap(self, v: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_noWrap(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDataTransfer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4b3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4b3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def setData(self, format: Windows.Win32.Foundation.BSTR, data: POINTER(Windows.Win32.System.Variant.VARIANT_head), pret: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12421,7 +12421,7 @@ class IHTMLDataTransfer(ComPtr):
     def get_effectAllowed(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDatabinding(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3f2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3f2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_dataFld(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12436,7 +12436,7 @@ class IHTMLDatabinding(ComPtr):
     def get_dataFormatAs(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDialog(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f216-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f216-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_dialogTop(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12467,7 +12467,7 @@ class IHTMLDialog(ComPtr):
     def toString(self, String: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDialog2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5e0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5e0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_status(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12478,7 +12478,7 @@ class IHTMLDialog2(ComPtr):
     def get_resizable(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDialog3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f388-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f388-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_unadorned(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12489,7 +12489,7 @@ class IHTMLDialog3(ComPtr):
     def get_dialogHide(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDivElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f200-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f200-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_align(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12500,19 +12500,19 @@ class IHTMLDivElement(ComPtr):
     def get_noWrap(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDivPosition(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f212-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f212-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_align(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_align(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDocument(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('626fc520-a41e-11cf-a7-31-00-a0-c9-08-26-37')
+    _iid_ = Guid('626fc520-a41e-11cf-a7-31-00-a0-c9-08-26-37')
     @commethod(7)
     def get_Script(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDocument2(ComPtr):
     extends: Windows.Win32.Web.MsHtml.IHTMLDocument
-    Guid = Guid('332c4425-26cb-11d0-b4-83-00-c0-4f-d9-01-19')
+    _iid_ = Guid('332c4425-26cb-11d0-b4-83-00-c0-4f-d9-01-19')
     @commethod(8)
     def get_all(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLElementCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(9)
@@ -12731,7 +12731,7 @@ class IHTMLDocument2(ComPtr):
     def createStyleSheet(self, bstrHref: Windows.Win32.Foundation.BSTR, lIndex: Int32, ppnewStyleSheet: POINTER(Windows.Win32.Web.MsHtml.IHTMLStyleSheet_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDocument3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f485-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f485-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def releaseCapture(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12816,7 +12816,7 @@ class IHTMLDocument3(ComPtr):
     def getElementsByTagName(self, v: Windows.Win32.Foundation.BSTR, pelColl: POINTER(Windows.Win32.Web.MsHtml.IHTMLElementCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDocument4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f69a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f69a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def focus(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12847,7 +12847,7 @@ class IHTMLDocument4(ComPtr):
     def get_URLUnencoded(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDocument5(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f80c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f80c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_onmousewheel(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12888,7 +12888,7 @@ class IHTMLDocument5(ComPtr):
     def get_compatMode(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDocument6(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510417-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510417-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_compatible(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLDocumentCompatibleInfoCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -12907,7 +12907,7 @@ class IHTMLDocument6(ComPtr):
     def updateSettings(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDocument7(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104b8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104b8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_defaultView(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLWindow2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -13118,7 +13118,7 @@ class IHTMLDocument7(ComPtr):
     def get_head(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDocument8(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305107d0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107d0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_onmscontentzoom(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -13193,21 +13193,21 @@ class IHTMLDocument8(ComPtr):
     def get_msCapsLockWarningOff(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDocumentCompatibleInfo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051041a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051041a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_userAgent(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_version(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLDocumentCompatibleInfoCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510418-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510418-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def item(self, index: Int32, compatibleInfo: POINTER(Windows.Win32.Web.MsHtml.IHTMLDocumentCompatibleInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLEditDesigner(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f662-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f662-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def PreHandleEvent(self, inEvtDispId: Int32, pIEventObj: Windows.Win32.Web.MsHtml.IHTMLEventObj_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -13218,17 +13218,17 @@ class IHTMLEditDesigner(ComPtr):
     def PostEditorEventNotify(self, inEvtDispId: Int32, pIEventObj: Windows.Win32.Web.MsHtml.IHTMLEventObj_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLEditHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f6a0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6a0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def SnapRect(self, pIElement: Windows.Win32.Web.MsHtml.IHTMLElement_head, prcNew: POINTER(Windows.Win32.Foundation.RECT_head), eHandle: Windows.Win32.Web.MsHtml.ELEMENT_CORNER) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLEditHost2(ComPtr):
     extends: Windows.Win32.Web.MsHtml.IHTMLEditHost
-    Guid = Guid('3050f848-98b5-11cf-bb-82-00-aa-00-bd-ce-0d')
+    _iid_ = Guid('3050f848-98b5-11cf-bb-82-00-aa-00-bd-ce-0d')
     @commethod(4)
     def PreDrag(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLEditServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f663-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f663-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def AddDesigner(self, pIDesigner: Windows.Win32.Web.MsHtml.IHTMLEditDesigner_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -13243,7 +13243,7 @@ class IHTMLEditServices(ComPtr):
     def SelectRange(self, pStart: Windows.Win32.Web.MsHtml.IMarkupPointer_head, pEnd: Windows.Win32.Web.MsHtml.IMarkupPointer_head, eType: Windows.Win32.Web.MsHtml.SELECTION_TYPE) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLEditServices2(ComPtr):
     extends: Windows.Win32.Web.MsHtml.IHTMLEditServices
-    Guid = Guid('3050f812-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f812-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(9)
     def MoveToSelectionAnchorEx(self, pIStartAnchor: Windows.Win32.Web.MsHtml.IDisplayPointer_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -13254,7 +13254,7 @@ class IHTMLEditServices2(ComPtr):
     def UnFreezeVirtualCaretPos(self, fReset: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f1ff-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f1ff-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def setAttribute(self, strAttributeName: Windows.Win32.Foundation.BSTR, AttributeValue: Windows.Win32.System.Variant.VARIANT, lFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -13431,7 +13431,7 @@ class IHTMLElement(ComPtr):
     def get_all(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f434-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f434-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_scopeName(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -13630,7 +13630,7 @@ class IHTMLElement2(ComPtr):
     def getElementsByTagName(self, v: Windows.Win32.Foundation.BSTR, pelColl: POINTER(Windows.Win32.Web.MsHtml.IHTMLElementCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f673-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f673-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def mergeAttributes(self, mergeThis: Windows.Win32.Web.MsHtml.IHTMLElement_head, pvarFlags: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -13719,7 +13719,7 @@ class IHTMLElement3(ComPtr):
     def get_glyphMode(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLElement4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f80f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f80f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_onmousewheel(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -13746,7 +13746,7 @@ class IHTMLElement4(ComPtr):
     def get_onfocusout(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLElement5(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051045d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051045d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def getAttributeNode(self, bstrname: Windows.Win32.Foundation.BSTR, ppretAttribute: POINTER(Windows.Win32.Web.MsHtml.IHTMLDOMAttribute2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -13879,7 +13879,7 @@ class IHTMLElement5(ComPtr):
     def get_ariaRelevant(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLElement6(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106f8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106f8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def getAttributeNS(self, pvarNS: POINTER(Windows.Win32.System.Variant.VARIANT_head), strAttributeName: Windows.Win32.Foundation.BSTR, AttributeValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14032,7 +14032,7 @@ class IHTMLElement6(ComPtr):
     def hasAttributes(self, pfHasAttributes: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLElement7(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305107aa-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107aa-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_onmspointerdown(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14143,14 +14143,14 @@ class IHTMLElement7(ComPtr):
     def get_oncuechange(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLElementAppliedStyles(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104bd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104bd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def msGetRulesApplied(self, ppRulesAppliedCollection: POINTER(Windows.Win32.Web.MsHtml.IRulesAppliedCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def msGetRulesAppliedWithAncestor(self, varContext: Windows.Win32.System.Variant.VARIANT, ppRulesAppliedCollection: POINTER(Windows.Win32.Web.MsHtml.IRulesAppliedCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLElementCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f21f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f21f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def toString(self, String: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14165,17 +14165,17 @@ class IHTMLElementCollection(ComPtr):
     def tags(self, tagName: Windows.Win32.System.Variant.VARIANT, pdisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLElementCollection2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5ee-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5ee-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def urns(self, urn: Windows.Win32.System.Variant.VARIANT, pdisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLElementCollection3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f835-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f835-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def namedItem(self, name: Windows.Win32.Foundation.BSTR, pdisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLElementCollection4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510425-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510425-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14184,7 +14184,7 @@ class IHTMLElementCollection4(ComPtr):
     def namedItem(self, name: Windows.Win32.Foundation.BSTR, pNode: POINTER(Windows.Win32.Web.MsHtml.IHTMLElement2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLElementDefaults(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f6c9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6c9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_style(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLStyle_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14229,14 +14229,14 @@ class IHTMLElementDefaults(ComPtr):
     def get_frozen(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLElementRender(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f669-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f669-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def DrawToDC(self, hDC: Windows.Win32.Graphics.Gdi.HDC) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetDocumentPrinter(self, bstrPrinterName: Windows.Win32.Foundation.BSTR, hDC: Windows.Win32.Graphics.Gdi.HDC) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLEmbedElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f25f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f25f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_hidden(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14267,7 +14267,7 @@ class IHTMLEmbedElement(ComPtr):
     def get_height(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLEmbedElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510493-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510493-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_src(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14276,7 +14276,7 @@ class IHTMLEmbedElement2(ComPtr):
     def get_pluginspage(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLEventObj(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f32d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f32d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_srcElement(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14329,7 +14329,7 @@ class IHTMLEventObj(ComPtr):
     def get_srcFilter(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLEventObj2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f48b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f48b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def setAttribute(self, strAttributeName: Windows.Win32.Foundation.BSTR, AttributeValue: Windows.Win32.System.Variant.VARIANT, lFlags: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14444,7 +14444,7 @@ class IHTMLEventObj2(ComPtr):
     def get_dataTransfer(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLDataTransfer_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLEventObj3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f680-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f680-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_contentOverflow(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14479,12 +14479,12 @@ class IHTMLEventObj3(ComPtr):
     def get_nextPage(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLEventObj4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f814-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f814-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_wheelDelta(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLEventObj5(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510478-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510478-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_url(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14505,26 +14505,26 @@ class IHTMLEventObj5(ComPtr):
     def get_issession(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLEventObj6(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510734-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510734-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_actionURL(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_buttonID(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFieldSetElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3e7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3e7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_align(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_align(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFieldSetElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f833-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f833-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_form(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLFormElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFiltersCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3ee-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3ee-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14533,7 +14533,7 @@ class IHTMLFiltersCollection(ComPtr):
     def item(self, pvarIndex: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFontElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f1d9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f1d9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_color(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14548,7 +14548,7 @@ class IHTMLFontElement(ComPtr):
     def get_size(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFontNamesCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f376-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f376-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14557,7 +14557,7 @@ class IHTMLFontNamesCollection(ComPtr):
     def item(self, index: Int32, pBstr: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFontSizesCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f377-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f377-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14568,7 +14568,7 @@ class IHTMLFontSizesCollection(ComPtr):
     def item(self, index: Int32, plSize: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFormElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f1f7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f1f7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_action(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14619,7 +14619,7 @@ class IHTMLFormElement(ComPtr):
     def tags(self, tagName: Windows.Win32.System.Variant.VARIANT, pdisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFormElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4f6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4f6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_acceptCharset(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14628,19 +14628,19 @@ class IHTMLFormElement2(ComPtr):
     def urns(self, urn: Windows.Win32.System.Variant.VARIANT, pdisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFormElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f836-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f836-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def namedItem(self, name: Windows.Win32.Foundation.BSTR, pdisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFormElement4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051042c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051042c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_action(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_action(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFrameBase(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f311-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f311-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_src(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14679,7 +14679,7 @@ class IHTMLFrameBase(ComPtr):
     def get_scrolling(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFrameBase2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f6db-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6db-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_contentWindow(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLWindow2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14698,21 +14698,21 @@ class IHTMLFrameBase2(ComPtr):
     def get_allowTransparency(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFrameBase3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f82e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f82e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_longDesc(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_longDesc(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFrameElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f313-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f313-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_borderColor(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_borderColor(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFrameElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f7f5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f7f5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_height(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14723,7 +14723,7 @@ class IHTMLFrameElement2(ComPtr):
     def get_width(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFrameElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051042d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051042d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_contentDocument(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14740,7 +14740,7 @@ class IHTMLFrameElement3(ComPtr):
     def get_frameBorder(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFrameSetElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f319-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f319-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_rows(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14783,7 +14783,7 @@ class IHTMLFrameSetElement(ComPtr):
     def get_onbeforeunload(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFrameSetElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5c6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5c6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_onbeforeprint(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14794,7 +14794,7 @@ class IHTMLFrameSetElement2(ComPtr):
     def get_onafterprint(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFrameSetElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510796-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510796-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_onhashchange(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14817,21 +14817,21 @@ class IHTMLFrameSetElement3(ComPtr):
     def get_onstorage(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLFramesCollection2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('332c4426-26cb-11d0-b4-83-00-c0-4f-d9-01-19')
+    _iid_ = Guid('332c4426-26cb-11d0-b4-83-00-c0-4f-d9-01-19')
     @commethod(7)
     def item(self, pvarIndex: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLGenericElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4b7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4b7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_recordset(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def namedRecordset(self, dataMember: Windows.Win32.Foundation.BSTR, hierarchy: POINTER(Windows.Win32.System.Variant.VARIANT_head), ppRecordset: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLHRElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f1f4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f1f4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_align(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14854,35 +14854,35 @@ class IHTMLHRElement(ComPtr):
     def get_size(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLHeadElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f81d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f81d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_profile(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_profile(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLHeadElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051042f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051042f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_profile(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_profile(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLHeaderElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f1f6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f1f6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_align(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_align(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLHtmlElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f81c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f81c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_version(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_version(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLIFrameElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f315-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f315-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_vspace(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14897,7 +14897,7 @@ class IHTMLIFrameElement(ComPtr):
     def get_align(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLIFrameElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4e6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4e6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_height(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14908,7 +14908,7 @@ class IHTMLIFrameElement2(ComPtr):
     def get_width(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLIFrameElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510433-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510433-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_contentDocument(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14925,7 +14925,7 @@ class IHTMLIFrameElement3(ComPtr):
     def get_frameBorder(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLIPrintCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f6b5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6b5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -14934,12 +14934,12 @@ class IHTMLIPrintCollection(ComPtr):
     def item(self, index: Int32, ppIPrint: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLImageElementFactory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f38e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f38e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def create(self, width: Windows.Win32.System.Variant.VARIANT, height: Windows.Win32.System.Variant.VARIANT, __MIDL__IHTMLImageElementFactory0000: POINTER(Windows.Win32.Web.MsHtml.IHTMLImgElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLImgElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f240-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f240-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_isMap(self, v: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15038,14 +15038,14 @@ class IHTMLImgElement(ComPtr):
     def get_start(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLImgElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f826-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f826-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_longDesc(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_longDesc(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLImgElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510434-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510434-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_longDesc(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15064,14 +15064,14 @@ class IHTMLImgElement3(ComPtr):
     def get_dynsrc(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLImgElement4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305107f6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107f6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_naturalWidth(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_naturalHeight(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLInputButtonElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2b2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2b2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_type(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15096,7 +15096,7 @@ class IHTMLInputButtonElement(ComPtr):
     def createTextRange(self, range: POINTER(Windows.Win32.Web.MsHtml.IHTMLTxtRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLInputElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5d2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5d2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_type(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15229,7 +15229,7 @@ class IHTMLInputElement(ComPtr):
     def get_start(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLInputElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f821-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f821-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_accept(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15240,7 +15240,7 @@ class IHTMLInputElement2(ComPtr):
     def get_useMap(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLInputElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510435-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510435-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_src(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15259,7 +15259,7 @@ class IHTMLInputElement3(ComPtr):
     def get_dynsrc(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLInputFileElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2ad-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2ad-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_type(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15300,7 +15300,7 @@ class IHTMLInputFileElement(ComPtr):
     def get_value(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLInputHiddenElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2a4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2a4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_type(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15325,7 +15325,7 @@ class IHTMLInputHiddenElement(ComPtr):
     def createTextRange(self, range: POINTER(Windows.Win32.Web.MsHtml.IHTMLTxtRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLInputImage(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2c2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2c2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_type(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15406,7 +15406,7 @@ class IHTMLInputImage(ComPtr):
     def get_start(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLInputRangeElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2d4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2d4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_disabled(self, v: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15447,7 +15447,7 @@ class IHTMLInputRangeElement(ComPtr):
     def stepDown(self, n: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLInputTextElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2a6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2a6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_type(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15498,7 +15498,7 @@ class IHTMLInputTextElement(ComPtr):
     def createTextRange(self, range: POINTER(Windows.Win32.Web.MsHtml.IHTMLTxtRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLInputTextElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2d2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2d2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_selectionStart(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15511,7 +15511,7 @@ class IHTMLInputTextElement2(ComPtr):
     def setSelectionRange(self, start: Int32, end: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLIsIndexElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f206-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f206-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_prompt(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15522,12 +15522,12 @@ class IHTMLIsIndexElement(ComPtr):
     def get_action(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLIsIndexElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f82f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f82f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_form(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLFormElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLLIElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f1e0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f1e0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_type(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15538,7 +15538,7 @@ class IHTMLLIElement(ComPtr):
     def get_value(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLLabelElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f32a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f32a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_htmlFor(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15549,24 +15549,24 @@ class IHTMLLabelElement(ComPtr):
     def get_accessKey(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLLabelElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f832-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f832-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_form(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLFormElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLLegendElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3ea-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3ea-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_align(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_align(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLLegendElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f834-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f834-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_form(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLFormElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLLinkElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f205-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f205-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_href(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15609,14 +15609,14 @@ class IHTMLLinkElement(ComPtr):
     def get_media(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLLinkElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4e5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4e5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_target(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_target(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLLinkElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f81e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f81e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_charset(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15627,29 +15627,29 @@ class IHTMLLinkElement3(ComPtr):
     def get_hreflang(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLLinkElement4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051043a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051043a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_href(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_href(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLLinkElement5(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510726-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510726-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_sheet(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLStyleSheet_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLListElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f20e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f20e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class IHTMLListElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f822-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f822-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_compact(self, v: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_compact(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLLocation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('163bb1e0-6e00-11cf-83-7a-48-dc-04-c1-00-00')
+    _iid_ = Guid('163bb1e0-6e00-11cf-83-7a-48-dc-04-c1-00-00')
     @commethod(7)
     def put_href(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15692,7 +15692,7 @@ class IHTMLLocation(ComPtr):
     def toString(self, string: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLMSCSSKeyframeRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051080c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051080c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_keyText(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15701,7 +15701,7 @@ class IHTMLMSCSSKeyframeRule(ComPtr):
     def get_style(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLRuleStyle_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLMSCSSKeyframesRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051080d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051080d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_name(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15716,7 +15716,7 @@ class IHTMLMSCSSKeyframesRule(ComPtr):
     def findRule(self, bstrKey: Windows.Win32.Foundation.BSTR, ppMSKeyframeRule: POINTER(Windows.Win32.Web.MsHtml.IHTMLMSCSSKeyframeRule_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLMSImgElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510793-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510793-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_msPlayToDisabled(self, v: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15727,7 +15727,7 @@ class IHTMLMSImgElement(ComPtr):
     def get_msPlayToPrimary(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLMSMediaElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510792-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510792-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_msPlayToDisabled(self, v: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15738,7 +15738,7 @@ class IHTMLMSMediaElement(ComPtr):
     def get_msPlayToPrimary(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLMapElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f266-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f266-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_areas(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLAreasCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15747,7 +15747,7 @@ class IHTMLMapElement(ComPtr):
     def get_name(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLMarqueeElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2b5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2b5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_bgColor(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15810,7 +15810,7 @@ class IHTMLMarqueeElement(ComPtr):
     def stop(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLMediaElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510706-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510706-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_error(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLMediaError_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15887,7 +15887,7 @@ class IHTMLMediaElement(ComPtr):
     def get_autobuffer(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLMediaElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510809-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510809-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_currentTimeDouble(self, v: Double) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15910,12 +15910,12 @@ class IHTMLMediaElement2(ComPtr):
     def get_volumeDouble(self, p: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLMediaError(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510704-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510704-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_code(self, p: POINTER(Int16)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLMetaElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f203-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f203-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_httpEquiv(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15938,26 +15938,26 @@ class IHTMLMetaElement(ComPtr):
     def get_charset(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLMetaElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f81f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f81f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_scheme(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_scheme(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLMetaElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510495-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510495-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_url(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_url(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLMimeTypesCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3fc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3fc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLModelessInit(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5e4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5e4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_parameters(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15968,7 +15968,7 @@ class IHTMLModelessInit(ComPtr):
     def get_document(self, p: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLNamespace(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f6bb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6bb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_name(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15989,7 +15989,7 @@ class IHTMLNamespace(ComPtr):
     def detachEvent(self, event: Windows.Win32.Foundation.BSTR, pDisp: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLNamespaceCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f6b8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6b8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -15998,17 +15998,17 @@ class IHTMLNamespaceCollection(ComPtr):
     def add(self, bstrNamespace: Windows.Win32.Foundation.BSTR, bstrUrn: Windows.Win32.Foundation.BSTR, implementationUrl: Windows.Win32.System.Variant.VARIANT, ppNamespace: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLNextIdElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f207-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f207-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_n(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_n(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLNoShowElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f38a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f38a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class IHTMLOListElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f1de-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f1de-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_compact(self, v: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16023,7 +16023,7 @@ class IHTMLOListElement(ComPtr):
     def get_type(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLOMWindowServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f5fc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5fc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def moveTo(self, x: Int32, y: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -16034,7 +16034,7 @@ class IHTMLOMWindowServices(ComPtr):
     def resizeBy(self, x: Int32, y: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLObjectElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f24f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f24f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_object(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16105,7 +16105,7 @@ class IHTMLObjectElement(ComPtr):
     def get_hspace(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLObjectElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4cd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4cd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def namedRecordset(self, dataMember: Windows.Win32.Foundation.BSTR, hierarchy: POINTER(Windows.Win32.System.Variant.VARIANT_head), ppRecordset: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16118,7 +16118,7 @@ class IHTMLObjectElement2(ComPtr):
     def get_data(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLObjectElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f827-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f827-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_archive(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16145,7 +16145,7 @@ class IHTMLObjectElement3(ComPtr):
     def get_useMap(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLObjectElement4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051043e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051043e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_contentDocument(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16158,14 +16158,14 @@ class IHTMLObjectElement4(ComPtr):
     def get_data(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLObjectElement5(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104b5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104b5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_object(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_object(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLOpsProfile(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f401-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f401-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def addRequest(self, name: Windows.Win32.Foundation.BSTR, reserved: Windows.Win32.System.Variant.VARIANT, success: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16186,7 +16186,7 @@ class IHTMLOpsProfile(ComPtr):
     def doWriteRequest(self, success: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLOptionButtonElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2bc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2bc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_value(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16225,7 +16225,7 @@ class IHTMLOptionButtonElement(ComPtr):
     def get_form(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLFormElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLOptionElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f211-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f211-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_selected(self, v: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16250,26 +16250,26 @@ class IHTMLOptionElement(ComPtr):
     def get_form(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLFormElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLOptionElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f820-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f820-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_label(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_label(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLOptionElement4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305107b4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107b4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_value(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_value(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLOptionElementFactory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f38c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f38c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def create(self, text: Windows.Win32.System.Variant.VARIANT, value: Windows.Win32.System.Variant.VARIANT, defaultselected: Windows.Win32.System.Variant.VARIANT, selected: Windows.Win32.System.Variant.VARIANT, __MIDL__IHTMLOptionElementFactory0000: POINTER(Windows.Win32.Web.MsHtml.IHTMLOptionElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLOptionsHolder(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f378-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f378-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_document(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLDocument2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16326,7 +16326,7 @@ class IHTMLOptionsHolder(ComPtr):
     def get_secureConnectionInfo(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLPaintSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f6a7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6a7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def InvalidatePainterInfo(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -16343,7 +16343,7 @@ class IHTMLPaintSite(ComPtr):
     def GetHitTestCookie(self, plCookie: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLPainter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f6a6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6a6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def Draw(self, rcBounds: Windows.Win32.Foundation.RECT, rcUpdate: Windows.Win32.Foundation.RECT, lDrawFlags: Int32, hdc: Windows.Win32.Graphics.Gdi.HDC, pvDrawObject: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -16354,7 +16354,7 @@ class IHTMLPainter(ComPtr):
     def HitTestPoint(self, pt: Windows.Win32.Foundation.POINT, pbHit: POINTER(Windows.Win32.Foundation.BOOL), plPartID: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLPainterEventInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f6df-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6df-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetEventInfoFlags(self, plEventInfoFlags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -16365,19 +16365,19 @@ class IHTMLPainterEventInfo(ComPtr):
     def StringFromPartID(self, lPartID: Int32, pbstrPart: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLPainterOverlay(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f7e3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f7e3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def OnMove(self, rcDevice: Windows.Win32.Foundation.RECT) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLParaElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f1f5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f1f5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_align(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_align(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLParamElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f83d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f83d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_name(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16396,7 +16396,7 @@ class IHTMLParamElement(ComPtr):
     def get_valueType(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLParamElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510444-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510444-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_name(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16415,7 +16415,7 @@ class IHTMLParamElement2(ComPtr):
     def get_valueType(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLPerformance(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051074e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051074e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_navigation(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLPerformanceNavigation_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16426,7 +16426,7 @@ class IHTMLPerformance(ComPtr):
     def toJSON(self, pVar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLPerformanceNavigation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510750-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510750-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_type(self, p: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16437,7 +16437,7 @@ class IHTMLPerformanceNavigation(ComPtr):
     def toJSON(self, pVar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLPerformanceTiming(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510752-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510752-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_navigationStart(self, p: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16486,10 +16486,10 @@ class IHTMLPerformanceTiming(ComPtr):
     def toJSON(self, pVar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLPhraseElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f20a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f20a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class IHTMLPhraseElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f824-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f824-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_cite(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16500,21 +16500,21 @@ class IHTMLPhraseElement2(ComPtr):
     def get_dateTime(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLPhraseElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051043d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051043d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_cite(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_cite(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLPluginsCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3fd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3fd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def refresh(self, reload: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLPopup(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f666-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f666-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def show(self, x: Int32, y: Int32, w: Int32, h: Int32, pElement: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16525,7 +16525,7 @@ class IHTMLPopup(ComPtr):
     def get_isOpen(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLProgressElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2d6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2d6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_value(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16540,7 +16540,7 @@ class IHTMLProgressElement(ComPtr):
     def get_form(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLFormElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLRect(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4a3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4a3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_left(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16559,14 +16559,14 @@ class IHTMLRect(ComPtr):
     def get_bottom(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLRect2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051076c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051076c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_width(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_height(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLRectCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4a4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4a4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16575,7 +16575,7 @@ class IHTMLRectCollection(ComPtr):
     def item(self, pvarIndex: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLRenderStyle(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f6ae-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6ae-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_textLineThroughStyle(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16614,7 +16614,7 @@ class IHTMLRenderStyle(ComPtr):
     def get_textDecoration(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLRuleStyle(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3cf-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3cf-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_fontFamily(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -16941,7 +16941,7 @@ class IHTMLRuleStyle(ComPtr):
     def removeAttribute(self, strAttributeName: Windows.Win32.Foundation.BSTR, lFlags: Int32, pfSuccess: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLRuleStyle2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4ac-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4ac-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_tableLayout(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -17064,7 +17064,7 @@ class IHTMLRuleStyle2(ComPtr):
     def get_accelerator(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLRuleStyle3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f657-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f657-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_layoutFlow(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -17127,7 +17127,7 @@ class IHTMLRuleStyle3(ComPtr):
     def get_textKashidaSpace(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLRuleStyle4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f817-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f817-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_textOverflow(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -17138,7 +17138,7 @@ class IHTMLRuleStyle4(ComPtr):
     def get_minHeight(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLRuleStyle5(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f335-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f335-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_msInterpolationMode(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -17157,7 +17157,7 @@ class IHTMLRuleStyle5(ComPtr):
     def get_maxWidth(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLRuleStyle6(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510471-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510471-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_content(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -17224,7 +17224,7 @@ class IHTMLRuleStyle6(ComPtr):
     def get_quotes(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLScreen(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f35c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f35c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_colorDepth(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -17247,7 +17247,7 @@ class IHTMLScreen(ComPtr):
     def get_fontSmoothingEnabled(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLScreen2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f84a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f84a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_logicalXDPI(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -17258,19 +17258,19 @@ class IHTMLScreen2(ComPtr):
     def get_deviceYDPI(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLScreen3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104a1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104a1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_systemXDPI(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_systemYDPI(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLScreen4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051076b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051076b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_pixelDepth(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLScriptElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f28b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f28b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_src(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -17303,26 +17303,26 @@ class IHTMLScriptElement(ComPtr):
     def get_type(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLScriptElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f828-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f828-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_charset(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_charset(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLScriptElement3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510447-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510447-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_src(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_src(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLScriptElement4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510801-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510801-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_usedCharset(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLSelectElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f244-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f244-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_size(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -17373,22 +17373,22 @@ class IHTMLSelectElement(ComPtr):
     def tags(self, tagName: Windows.Win32.System.Variant.VARIANT, pdisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLSelectElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5ed-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5ed-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def urns(self, urn: Windows.Win32.System.Variant.VARIANT, pdisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLSelectElement4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f838-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f838-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def namedItem(self, name: Windows.Win32.Foundation.BSTR, pdisp: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLSelectElement5(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051049d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051049d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def add(self, pElem: Windows.Win32.Web.MsHtml.IHTMLOptionElement_head, pvarBefore: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLSelectElement6(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510760-98b6-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510760-98b6-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def add(self, pElem: Windows.Win32.Web.MsHtml.IHTMLOptionElement_head, pvarBefore: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -17397,7 +17397,7 @@ class IHTMLSelectElement6(ComPtr):
     def get_value(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLSelectElementEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f2d1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2d1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def ShowDropdown(self, fShow: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -17408,7 +17408,7 @@ class IHTMLSelectElementEx(ComPtr):
     def GetDropdownOpen(self, pfOpen: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLSelection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104b6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104b6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_anchorNode(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLDOMNode_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -17443,7 +17443,7 @@ class IHTMLSelection(ComPtr):
     def toString(self, pSelectionString: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLSelectionObject(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f25a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f25a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def createRange(self, range: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -17454,14 +17454,14 @@ class IHTMLSelectionObject(ComPtr):
     def get_type(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLSelectionObject2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f7ec-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f7ec-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def createRangeCollection(self, rangeCollection: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_typeDetail(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLSourceElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510707-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510707-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_src(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -17476,17 +17476,17 @@ class IHTMLSourceElement(ComPtr):
     def get_media(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLSpanElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3f3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3f3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class IHTMLSpanFlow(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3e5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3e5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_align(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_align(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStorage(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510474-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510474-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -17503,12 +17503,12 @@ class IHTMLStorage(ComPtr):
     def clear(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStorage2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510799-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510799-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def setItem(self, bstrKey: Windows.Win32.Foundation.BSTR, bstrValue: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyle(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f25e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f25e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_fontFamily(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -17869,7 +17869,7 @@ class IHTMLStyle(ComPtr):
     def toString(self, String: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyle2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4a2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4a2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_tableLayout(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -17998,7 +17998,7 @@ class IHTMLStyle2(ComPtr):
     def get_accelerator(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyle3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f656-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f656-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_layoutFlow(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18061,7 +18061,7 @@ class IHTMLStyle3(ComPtr):
     def get_textKashidaSpace(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyle4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f816-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f816-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_textOverflow(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18072,7 +18072,7 @@ class IHTMLStyle4(ComPtr):
     def get_minHeight(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyle5(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f33a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f33a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_msInterpolationMode(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18091,7 +18091,7 @@ class IHTMLStyle5(ComPtr):
     def get_maxWidth(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyle6(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510480-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510480-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_content(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18158,7 +18158,7 @@ class IHTMLStyle6(ComPtr):
     def get_quotes(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f375-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f375-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_type(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18189,38 +18189,38 @@ class IHTMLStyleElement(ComPtr):
     def get_media(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051072a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051072a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_sheet(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLStyleSheet_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleEnabled(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104c2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104c2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def msGetPropertyEnabled(self, name: Windows.Win32.Foundation.BSTR, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def msPutPropertyEnabled(self, name: Windows.Win32.Foundation.BSTR, b: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleFontFace(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3d5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3d5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_fontsrc(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_fontsrc(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleFontFace2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106ec-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106ec-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_style(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLRuleStyle_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleMedia(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051074b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051074b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_type(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def matchMedium(self, mediaQuery: Windows.Win32.Foundation.BSTR, matches: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleSheet(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2e3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2e3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_title(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18265,14 +18265,14 @@ class IHTMLStyleSheet(ComPtr):
     def get_rules(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLStyleSheetRulesCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleSheet2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f3d1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f3d1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_pages(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLStyleSheetPagesCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def addPageRule(self, bstrSelector: Windows.Win32.Foundation.BSTR, bstrStyle: Windows.Win32.Foundation.BSTR, lIndex: Int32, plNewIndex: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleSheet3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510496-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510496-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_href(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18283,7 +18283,7 @@ class IHTMLStyleSheet3(ComPtr):
     def get_isPrefAlternate(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleSheet4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106f4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106f4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_type(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18304,14 +18304,14 @@ class IHTMLStyleSheet4(ComPtr):
     def deleteRule(self, lIndex: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleSheetPage(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f7ee-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f7ee-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_selector(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_pseudoClass(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleSheetPage2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106ed-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106ed-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_selectorText(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18320,14 +18320,14 @@ class IHTMLStyleSheetPage2(ComPtr):
     def get_style(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLRuleStyle_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleSheetPagesCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f7f0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f7f0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def item(self, index: Int32, ppHTMLStyleSheetPage: POINTER(Windows.Win32.Web.MsHtml.IHTMLStyleSheetPage_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleSheetRule(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f357-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f357-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_selectorText(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18338,21 +18338,21 @@ class IHTMLStyleSheetRule(ComPtr):
     def get_readOnly(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleSheetRule2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106fd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106fd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_selectorText(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_selectorText(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleSheetRuleApplied(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104c1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104c1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_msSpecificity(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def msGetSpecificity(self, index: Int32, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleSheetRulesAppliedCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104c0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104c0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def item(self, index: Int32, ppHTMLStyleSheetRule: POINTER(Windows.Win32.Web.MsHtml.IHTMLStyleSheetRule_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18365,21 +18365,21 @@ class IHTMLStyleSheetRulesAppliedCollection(ComPtr):
     def propertyAppliedTraceLength(self, name: Windows.Win32.Foundation.BSTR, pLength: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleSheetRulesCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2e5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2e5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def item(self, index: Int32, ppHTMLStyleSheetRule: POINTER(Windows.Win32.Web.MsHtml.IHTMLStyleSheetRule_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleSheetRulesCollection2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106e8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106e8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def item(self, index: Int32, ppHTMLCSSRule: POINTER(Windows.Win32.Web.MsHtml.IHTMLCSSRule_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleSheetsCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f37e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f37e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18388,12 +18388,12 @@ class IHTMLStyleSheetsCollection(ComPtr):
     def item(self, pvarIndex: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLStyleSheetsCollection2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106e7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106e7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def item(self, index: Int32, pvarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLSubmitData(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f645-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f645-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def appendNameValuePair(self, name: Windows.Win32.Foundation.BSTR, value: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18402,7 +18402,7 @@ class IHTMLSubmitData(ComPtr):
     def appendItemSeparator(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTable(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f21e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f21e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_cols(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18503,7 +18503,7 @@ class IHTMLTable(ComPtr):
     def get_onreadystatechange(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTable2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4ad-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4ad-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def firstPage(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18514,14 +18514,14 @@ class IHTMLTable2(ComPtr):
     def moveRow(self, indexFrom: Int32, indexTo: Int32, row: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTable3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f829-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f829-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_summary(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_summary(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTable4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106c2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106c2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_tHead(self, v: Windows.Win32.Web.MsHtml.IHTMLTableSection_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18542,7 +18542,7 @@ class IHTMLTable4(ComPtr):
     def createTBody(self, tbody: POINTER(Windows.Win32.Web.MsHtml.IHTMLTableSection_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTableCaption(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2eb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2eb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_align(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18553,7 +18553,7 @@ class IHTMLTableCaption(ComPtr):
     def get_vAlign(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTableCell(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f23d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f23d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_rowSpan(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18606,7 +18606,7 @@ class IHTMLTableCell(ComPtr):
     def get_cellIndex(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTableCell2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f82d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f82d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_abbr(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18633,7 +18633,7 @@ class IHTMLTableCell2(ComPtr):
     def get_scope(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTableCell3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106c7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106c7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_ch(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18644,7 +18644,7 @@ class IHTMLTableCell3(ComPtr):
     def get_chOff(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTableCol(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f23a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f23a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_span(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18663,7 +18663,7 @@ class IHTMLTableCol(ComPtr):
     def get_vAlign(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTableCol2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f82a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f82a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_ch(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18674,7 +18674,7 @@ class IHTMLTableCol2(ComPtr):
     def get_chOff(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTableCol3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106c4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106c4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_ch(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18685,7 +18685,7 @@ class IHTMLTableCol3(ComPtr):
     def get_chOff(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTableRow(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f23c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f23c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_align(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18722,14 +18722,14 @@ class IHTMLTableRow(ComPtr):
     def deleteCell(self, index: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTableRow2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4a1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4a1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_height(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_height(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTableRow3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f82c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f82c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_ch(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18740,7 +18740,7 @@ class IHTMLTableRow3(ComPtr):
     def get_chOff(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTableRow4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106c6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106c6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_ch(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18755,7 +18755,7 @@ class IHTMLTableRow4(ComPtr):
     def deleteCell(self, index: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTableRowMetrics(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f413-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f413-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_clientHeight(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18766,7 +18766,7 @@ class IHTMLTableRowMetrics(ComPtr):
     def get_clientLeft(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTableSection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f23b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f23b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_align(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18787,12 +18787,12 @@ class IHTMLTableSection(ComPtr):
     def deleteRow(self, index: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTableSection2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5c7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5c7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def moveRow(self, indexFrom: Int32, indexTo: Int32, row: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTableSection3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f82b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f82b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_ch(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18803,7 +18803,7 @@ class IHTMLTableSection3(ComPtr):
     def get_chOff(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTableSection4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305106c5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106c5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_ch(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18818,7 +18818,7 @@ class IHTMLTableSection4(ComPtr):
     def deleteRow(self, index: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTextAreaElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2aa-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2aa-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_type(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18873,7 +18873,7 @@ class IHTMLTextAreaElement(ComPtr):
     def createTextRange(self, range: POINTER(Windows.Win32.Web.MsHtml.IHTMLTxtRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTextAreaElement2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f2d3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f2d3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_selectionStart(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18886,7 +18886,7 @@ class IHTMLTextAreaElement2(ComPtr):
     def setSelectionRange(self, start: Int32, end: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTextContainer(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f230-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f230-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def createControlRange(self, range: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18907,10 +18907,10 @@ class IHTMLTextContainer(ComPtr):
     def get_onscroll(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTextElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f218-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f218-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class IHTMLTextRangeMetrics(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f40b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f40b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_offsetTop(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18925,14 +18925,14 @@ class IHTMLTextRangeMetrics(ComPtr):
     def get_boundingHeight(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTextRangeMetrics2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4a6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4a6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def getClientRects(self, pRectCol: POINTER(Windows.Win32.Web.MsHtml.IHTMLRectCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def getBoundingClientRect(self, pRect: POINTER(Windows.Win32.Web.MsHtml.IHTMLRect_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTimeRanges(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510705-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510705-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -18941,21 +18941,21 @@ class IHTMLTimeRanges(ComPtr):
     def end(self, index: Int32, endTime: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTimeRanges2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051080b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051080b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def startDouble(self, index: Int32, startTime: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def endDouble(self, index: Int32, endTime: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTitleElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f322-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f322-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_text(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_text(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTxtRange(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f220-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f220-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_htmlText(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19018,7 +19018,7 @@ class IHTMLTxtRange(ComPtr):
     def execCommandShowHelp(self, cmdID: Windows.Win32.Foundation.BSTR, pfRet: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLTxtRangeCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f7ed-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f7ed-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19027,7 +19027,7 @@ class IHTMLTxtRangeCollection(ComPtr):
     def item(self, pvarIndex: POINTER(Windows.Win32.System.Variant.VARIANT_head), pvarResult: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLUListElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f1dd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f1dd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_compact(self, v: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19038,24 +19038,24 @@ class IHTMLUListElement(ComPtr):
     def get_type(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLUniqueName(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4d0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4d0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_uniqueNumber(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_uniqueID(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLUnknownElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f209-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f209-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class IHTMLUrnCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f5e2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5e2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def item(self, index: Int32, ppUrn: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLVideoElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510709-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510709-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_width(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19074,7 +19074,7 @@ class IHTMLVideoElement(ComPtr):
     def get_poster(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLWindow2(ComPtr):
     extends: Windows.Win32.Web.MsHtml.IHTMLFramesCollection2
-    Guid = Guid('332c4427-26cb-11d0-b4-83-00-c0-4f-d9-01-19')
+    _iid_ = Guid('332c4427-26cb-11d0-b4-83-00-c0-4f-d9-01-19')
     @commethod(9)
     def get_frames(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLFramesCollection2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(10)
@@ -19213,7 +19213,7 @@ class IHTMLWindow2(ComPtr):
     def get_external(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLWindow3(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f4ae-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4ae-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_screenLeft(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19242,21 +19242,21 @@ class IHTMLWindow3(ComPtr):
     def showModelessDialog(self, url: Windows.Win32.Foundation.BSTR, varArgIn: POINTER(Windows.Win32.System.Variant.VARIANT_head), options: POINTER(Windows.Win32.System.Variant.VARIANT_head), pDialog: POINTER(Windows.Win32.Web.MsHtml.IHTMLWindow2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLWindow4(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f6cf-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6cf-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def createPopup(self, varArgIn: POINTER(Windows.Win32.System.Variant.VARIANT_head), ppPopup: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_frameElement(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLFrameBase_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLWindow5(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051040e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051040e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_XMLHttpRequest(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_XMLHttpRequest(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLWindow6(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510453-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510453-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_XDomainRequest(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19283,7 +19283,7 @@ class IHTMLWindow6(ComPtr):
     def msWriteProfilerMark(self, bstrProfilerMarkName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLWindow7(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104b7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104b7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def getSelection(self, ppIHTMLSelection: POINTER(Windows.Win32.Web.MsHtml.IHTMLSelection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19524,7 +19524,7 @@ class IHTMLWindow7(ComPtr):
     def get_onwaiting(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLWindow8(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305107ab-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107ab-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_onmspointerdown(self, v: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19589,7 +19589,7 @@ class IHTMLWindow8(ComPtr):
     def get_onpopstate(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLXDomainRequest(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510454-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510454-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_responseText(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19622,12 +19622,12 @@ class IHTMLXDomainRequest(ComPtr):
     def send(self, varBody: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLXDomainRequestFactory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510456-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510456-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def create(self, __MIDL__IHTMLXDomainRequestFactory0000: POINTER(Windows.Win32.Web.MsHtml.IHTMLXDomainRequest_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLXMLHttpRequest(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051040a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051040a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_readyState(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19658,7 +19658,7 @@ class IHTMLXMLHttpRequest(ComPtr):
     def setRequestHeader(self, bstrHeader: Windows.Win32.Foundation.BSTR, bstrValue: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLXMLHttpRequest2(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510482-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510482-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_timeout(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19669,12 +19669,12 @@ class IHTMLXMLHttpRequest2(ComPtr):
     def get_ontimeout(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHTMLXMLHttpRequestFactory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051040c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051040c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def create(self, __MIDL__IHTMLXMLHttpRequestFactory0000: POINTER(Windows.Win32.Web.MsHtml.IHTMLXMLHttpRequest_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IHighlightRenderingServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f606-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f606-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def AddSegment(self, pDispPointerStart: Windows.Win32.Web.MsHtml.IDisplayPointer_head, pDispPointerEnd: Windows.Win32.Web.MsHtml.IDisplayPointer_head, pIRenderStyle: Windows.Win32.Web.MsHtml.IHTMLRenderStyle_head, ppISegment: POINTER(Windows.Win32.Web.MsHtml.IHighlightSegment_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -19683,20 +19683,20 @@ class IHighlightRenderingServices(ComPtr):
     def RemoveSegment(self, pISegment: Windows.Win32.Web.MsHtml.IHighlightSegment_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IHighlightSegment(ComPtr):
     extends: Windows.Win32.Web.MsHtml.ISegment
-    Guid = Guid('3050f690-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f690-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class IHostBehaviorInit(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f842-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f842-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def PopulateNamespaceTable(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IHostDialogHelper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('53dec138-a51e-11d2-86-1e-00-c0-4f-a3-5c-89')
+    _iid_ = Guid('53dec138-a51e-11d2-86-1e-00-c0-4f-a3-5c-89')
     @commethod(3)
     def ShowHTMLDialog(self, hwndParent: Windows.Win32.Foundation.HWND, pMk: Windows.Win32.System.Com.IMoniker_head, pvarArgIn: POINTER(Windows.Win32.System.Variant.VARIANT_head), pchOptions: Windows.Win32.Foundation.PWSTR, pvarArgOut: POINTER(Windows.Win32.System.Variant.VARIANT_head), punkHost: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IHtmlDlgSafeHelper(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f81a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f81a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def choosecolordlg(self, initColor: Windows.Win32.System.Variant.VARIANT, rgbColor: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19707,21 +19707,21 @@ class IHtmlDlgSafeHelper(ComPtr):
     def get_BlockFormats(self, p: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IICCSVGColor(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104d6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104d6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class IIE70DispatchEx(ComPtr):
     extends: Windows.Win32.System.Ole.IDispatchEx
-    Guid = Guid('3051046b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051046b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class IIE80DispatchEx(ComPtr):
     extends: Windows.Win32.System.Ole.IDispatchEx
-    Guid = Guid('3051046c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051046c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class IIMEServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f6ca-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6ca-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetActiveIMM(self, ppActiveIMM: POINTER(Windows.Win32.UI.Input.Ime.IActiveIMMApp_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ILineInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f7e2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f7e2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def get_x(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -19734,12 +19734,12 @@ class ILineInfo(ComPtr):
     def get_lineDirection(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMarkupContainer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f5f9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5f9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def OwningDoc(self, ppDoc: POINTER(Windows.Win32.Web.MsHtml.IHTMLDocument2_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMarkupContainer2(ComPtr):
     extends: Windows.Win32.Web.MsHtml.IMarkupContainer
-    Guid = Guid('3050f648-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f648-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(4)
     def CreateChangeLog(self, pChangeSink: Windows.Win32.Web.MsHtml.IHTMLChangeSink_head, ppChangeLog: POINTER(Windows.Win32.Web.MsHtml.IHTMLChangeLog_head), fForward: Windows.Win32.Foundation.BOOL, fBackward: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -19754,7 +19754,7 @@ class IMarkupContainer2(ComPtr):
     def GetMasterElement(self, ppElementMaster: POINTER(Windows.Win32.Web.MsHtml.IHTMLElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMarkupPointer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f49f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f49f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def OwningDoc(self, ppDoc: POINTER(Windows.Win32.Web.MsHtml.IHTMLDocument2_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -19799,7 +19799,7 @@ class IMarkupPointer(ComPtr):
     def FindText(self, pchFindText: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32, pIEndMatch: Windows.Win32.Web.MsHtml.IMarkupPointer_head, pIEndSearch: Windows.Win32.Web.MsHtml.IMarkupPointer_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IMarkupPointer2(ComPtr):
     extends: Windows.Win32.Web.MsHtml.IMarkupPointer
-    Guid = Guid('3050f675-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f675-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(24)
     def IsAtWordBreak(self, pfAtBreak: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(25)
@@ -19814,7 +19814,7 @@ class IMarkupPointer2(ComPtr):
     def MoveToContent(self, pIElement: Windows.Win32.Web.MsHtml.IHTMLElement_head, fAtStart: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IMarkupServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f4a0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f4a0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def CreateMarkupPointer(self, ppPointer: POINTER(Windows.Win32.Web.MsHtml.IMarkupPointer_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -19857,7 +19857,7 @@ class IMarkupServices(ComPtr):
     def EndUndoUnit(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IMarkupServices2(ComPtr):
     extends: Windows.Win32.Web.MsHtml.IMarkupServices
-    Guid = Guid('3050f682-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f682-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(23)
     def ParseGlobalEx(self, hglobalHTML: Windows.Win32.Foundation.HGLOBAL, dwFlags: UInt32, pContext: Windows.Win32.Web.MsHtml.IMarkupContainer_head, ppContainerResult: POINTER(Windows.Win32.Web.MsHtml.IMarkupContainer_head), pPointerStart: Windows.Win32.Web.MsHtml.IMarkupPointer_head, pPointerFinish: Windows.Win32.Web.MsHtml.IMarkupPointer_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(24)
@@ -19866,7 +19866,7 @@ class IMarkupServices2(ComPtr):
     def SaveSegmentsToClipboard(self, pSegmentList: Windows.Win32.Web.MsHtml.ISegmentList_head, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMarkupTextFrags(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f5fa-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f5fa-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetTextFragCount(self, pcFrags: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -19879,17 +19879,17 @@ class IMarkupTextFrags(ComPtr):
     def FindTextFragFromMarkupPointer(self, pPointerFind: Windows.Win32.Web.MsHtml.IMarkupPointer_head, piFrag: POINTER(Int32), pfFragFound: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class INavigatorDoNotTrack(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510804-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510804-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_msDoNotTrack(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class INavigatorGeolocation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305107cf-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107cf-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_geolocation(self, p: POINTER(Windows.Win32.Web.MsHtml.IWebGeolocation_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOmHistory(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('feceaaa2-8405-11cf-8b-a1-00-aa-00-47-6d-a6')
+    _iid_ = Guid('feceaaa2-8405-11cf-8b-a1-00-aa-00-47-6d-a6')
     @commethod(7)
     def get_length(self, p: POINTER(Int16)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19900,7 +19900,7 @@ class IOmHistory(ComPtr):
     def go(self, pvargdistance: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IOmNavigator(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('feceaaa5-8405-11cf-8b-a1-00-aa-00-47-6d-a6')
+    _iid_ = Guid('feceaaa5-8405-11cf-8b-a1-00-aa-00-47-6d-a6')
     @commethod(7)
     def get_appCodeName(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19943,7 +19943,7 @@ class IOmNavigator(ComPtr):
     def get_userProfile(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLOpsProfile_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintManagerTemplatePrinter(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('f633be14-9eff-4c4d-92-9e-05-71-7b-21-b3-e6')
+    _iid_ = Guid('f633be14-9eff-4c4d-92-9e-05-71-7b-21-b3-e6')
     @commethod(7)
     def startPrint(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19958,7 +19958,7 @@ class IPrintManagerTemplatePrinter(ComPtr):
     def endPrint(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IPrintManagerTemplatePrinter2(ComPtr):
     extends: Windows.Win32.Web.MsHtml.IPrintManagerTemplatePrinter
-    Guid = Guid('c6403497-7493-4f09-80-16-54-b0-3e-9b-da-69')
+    _iid_ = Guid('c6403497-7493-4f09-80-16-54-b0-3e-9b-da-69')
     @commethod(13)
     def get_showHeaderFooter(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(14)
@@ -19967,7 +19967,7 @@ class IPrintManagerTemplatePrinter2(ComPtr):
     def get_percentScale(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRangeException(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051072d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051072d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_code(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19976,7 +19976,7 @@ class IRangeException(ComPtr):
     def get_message(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRulesApplied(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104bf-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104bf-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_element(self, p: POINTER(Windows.Win32.Web.MsHtml.IHTMLElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -19991,7 +19991,7 @@ class IRulesApplied(ComPtr):
     def hasInheritableProperty(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRulesAppliedCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104be-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104be-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def item(self, index: Int32, ppRulesApplied: POINTER(Windows.Win32.Web.MsHtml.IRulesApplied_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20010,14 +20010,14 @@ class IRulesAppliedCollection(ComPtr):
     def propertyInheritedTraceLength(self, name: Windows.Win32.Foundation.BSTR, pLength: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGAElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051054b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051054b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_target(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedString_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_target(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedString_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGAngle(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104d3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104d3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_unitType(self, v: Int16) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20040,7 +20040,7 @@ class ISVGAngle(ComPtr):
     def convertToSpecifiedUnits(self, unitType: Int16) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGAnimatedAngle(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104d4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104d4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_baseVal(self, v: Windows.Win32.Web.MsHtml.ISVGAngle_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20051,7 +20051,7 @@ class ISVGAnimatedAngle(ComPtr):
     def get_animVal(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAngle_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGAnimatedBoolean(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104c6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104c6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_baseVal(self, v: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20062,7 +20062,7 @@ class ISVGAnimatedBoolean(ComPtr):
     def get_animVal(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGAnimatedEnumeration(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104c9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104c9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_baseVal(self, v: UInt16) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20073,7 +20073,7 @@ class ISVGAnimatedEnumeration(ComPtr):
     def get_animVal(self, p: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGAnimatedInteger(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104ca-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104ca-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_baseVal(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20084,7 +20084,7 @@ class ISVGAnimatedInteger(ComPtr):
     def get_animVal(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGAnimatedLength(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104d0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104d0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_baseVal(self, v: Windows.Win32.Web.MsHtml.ISVGLength_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20095,7 +20095,7 @@ class ISVGAnimatedLength(ComPtr):
     def get_animVal(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGLength_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGAnimatedLengthList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104d2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104d2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_baseVal(self, v: Windows.Win32.Web.MsHtml.ISVGLengthList_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20106,7 +20106,7 @@ class ISVGAnimatedLengthList(ComPtr):
     def get_animVal(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGLengthList_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGAnimatedNumber(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104cc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104cc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_baseVal(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20117,7 +20117,7 @@ class ISVGAnimatedNumber(ComPtr):
     def get_animVal(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGAnimatedNumberList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104ce-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104ce-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_baseVal(self, v: Windows.Win32.Web.MsHtml.ISVGNumberList_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20128,7 +20128,7 @@ class ISVGAnimatedNumberList(ComPtr):
     def get_animVal(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGNumberList_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGAnimatedPathData(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510511-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510511-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_pathSegList(self, v: Windows.Win32.Web.MsHtml.ISVGPathSegList_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20147,7 +20147,7 @@ class ISVGAnimatedPathData(ComPtr):
     def get_animatedNormalizedPathSegList(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGPathSegList_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGAnimatedPoints(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510517-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510517-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_points(self, v: Windows.Win32.Web.MsHtml.ISVGPointList_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20158,7 +20158,7 @@ class ISVGAnimatedPoints(ComPtr):
     def get_animatedPoints(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGPointList_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGAnimatedPreserveAspectRatio(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104fb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104fb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_baseVal(self, v: Windows.Win32.Web.MsHtml.ISVGPreserveAspectRatio_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20169,7 +20169,7 @@ class ISVGAnimatedPreserveAspectRatio(ComPtr):
     def get_animVal(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGPreserveAspectRatio_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGAnimatedRect(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104d8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104d8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_baseVal(self, v: Windows.Win32.Web.MsHtml.ISVGRect_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20180,7 +20180,7 @@ class ISVGAnimatedRect(ComPtr):
     def get_animVal(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGRect_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGAnimatedString(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104c7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104c7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_baseVal(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20189,7 +20189,7 @@ class ISVGAnimatedString(ComPtr):
     def get_animVal(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGAnimatedTransformList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104f9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104f9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_baseVal(self, v: Windows.Win32.Web.MsHtml.ISVGTransformList_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20200,7 +20200,7 @@ class ISVGAnimatedTransformList(ComPtr):
     def get_animVal(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGTransformList_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGCircleElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510514-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510514-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_cx(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20215,25 +20215,25 @@ class ISVGCircleElement(ComPtr):
     def get_r(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGClipPathElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051052d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051052d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_clipPathUnits(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedEnumeration_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_clipPathUnits(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedEnumeration_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGDefsElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104e9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104e9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class ISVGDescElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104ea-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104ea-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class ISVGDocument(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104e6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104e6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_rootElement(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGSVGElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104c5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104c5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_xmlbase(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20252,7 +20252,7 @@ class ISVGElement(ComPtr):
     def get_focusable(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedEnumeration_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGElementInstance(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104ee-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104ee-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_correspondingElement(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20271,14 +20271,14 @@ class ISVGElementInstance(ComPtr):
     def get_nextSibling(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGElementInstance_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGElementInstanceList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104ef-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104ef-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_length(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def item(self, index: Int32, ppResult: POINTER(Windows.Win32.Web.MsHtml.ISVGElementInstance_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGEllipseElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510515-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510515-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_cx(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20297,7 +20297,7 @@ class ISVGEllipseElement(ComPtr):
     def get_ry(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGException(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051072f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051072f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_code(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20306,12 +20306,12 @@ class ISVGException(ComPtr):
     def get_message(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGExternalResourcesRequired(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104df-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104df-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_externalResourcesRequired(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedBoolean_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGFitToViewBox(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104e0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104e0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_viewBox(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedRect_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20320,10 +20320,10 @@ class ISVGFitToViewBox(ComPtr):
     def get_preserveAspectRatio(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedPreserveAspectRatio_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGGElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104e8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104e8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class ISVGGradientElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510528-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510528-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_gradientUnits(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedEnumeration_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20338,7 +20338,7 @@ class ISVGGradientElement(ComPtr):
     def get_spreadMethod(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedEnumeration_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGImageElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104f0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104f0-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_x(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20357,7 +20357,7 @@ class ISVGImageElement(ComPtr):
     def get_height(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGLangSpace(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104de-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104de-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_xmllang(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20368,7 +20368,7 @@ class ISVGLangSpace(ComPtr):
     def get_xmlspace(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGLength(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104cf-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104cf-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_unitType(self, v: Int16) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20391,7 +20391,7 @@ class ISVGLength(ComPtr):
     def convertToSpecifiedUnits(self, unitType: Int16) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGLengthList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104d1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104d1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_numberOfItems(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20412,7 +20412,7 @@ class ISVGLengthList(ComPtr):
     def appendItem(self, newItem: Windows.Win32.Web.MsHtml.ISVGLength_head, ppResult: POINTER(Windows.Win32.Web.MsHtml.ISVGLength_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGLineElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510516-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510516-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_x1(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20431,7 +20431,7 @@ class ISVGLineElement(ComPtr):
     def get_y2(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGLinearGradientElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510529-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510529-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_x1(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20450,7 +20450,7 @@ class ISVGLinearGradientElement(ComPtr):
     def get_y2(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGLocatable(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104db-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104db-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_nearestViewportElement(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20465,7 +20465,7 @@ class ISVGLocatable(ComPtr):
     def getTransformToElement(self, pElement: Windows.Win32.Web.MsHtml.ISVGElement_head, ppResult: POINTER(Windows.Win32.Web.MsHtml.ISVGMatrix_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGMarkerElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510525-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510525-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_refX(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20500,7 +20500,7 @@ class ISVGMarkerElement(ComPtr):
     def setOrientToAngle(self, pSVGAngle: Windows.Win32.Web.MsHtml.ISVGAngle_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGMaskElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051052e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051052e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_maskUnits(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedEnumeration_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20527,7 +20527,7 @@ class ISVGMaskElement(ComPtr):
     def get_height(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGMatrix(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104f6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104f6-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_a(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20576,17 +20576,17 @@ class ISVGMatrix(ComPtr):
     def skewY(self, angle: Single, ppResult: POINTER(Windows.Win32.Web.MsHtml.ISVGMatrix_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGMetadataElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510560-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510560-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class ISVGNumber(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104cb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104cb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_value(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_value(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGNumberList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104cd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104cd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_numberOfItems(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20607,10 +20607,10 @@ class ISVGNumberList(ComPtr):
     def appendItem(self, newItem: Windows.Win32.Web.MsHtml.ISVGNumber_head, ppResult: POINTER(Windows.Win32.Web.MsHtml.ISVGNumber_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPaint(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510524-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510524-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class ISVGPathElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510512-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510512-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_pathLength(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedNumber_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20661,7 +20661,7 @@ class ISVGPathElement(ComPtr):
     def createSVGPathSegCurvetoQuadraticSmoothRel(self, x: Single, y: Single, ppResult: POINTER(Windows.Win32.Web.MsHtml.ISVGPathSegCurvetoQuadraticSmoothRel_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSeg(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104fc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104fc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_pathSegType(self, v: Int16) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20670,7 +20670,7 @@ class ISVGPathSeg(ComPtr):
     def get_pathSegTypeAsLetter(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegArcAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510506-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510506-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20701,7 +20701,7 @@ class ISVGPathSegArcAbs(ComPtr):
     def get_sweepFlag(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegArcRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510507-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510507-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20732,10 +20732,10 @@ class ISVGPathSegArcRel(ComPtr):
     def get_sweepFlag(self, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegClosePath(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104fd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104fd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class ISVGPathSegCurvetoCubicAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510502-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510502-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20762,7 +20762,7 @@ class ISVGPathSegCurvetoCubicAbs(ComPtr):
     def get_y2(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegCurvetoCubicRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510503-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510503-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20789,7 +20789,7 @@ class ISVGPathSegCurvetoCubicRel(ComPtr):
     def get_y2(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegCurvetoCubicSmoothAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051050c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051050c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20808,7 +20808,7 @@ class ISVGPathSegCurvetoCubicSmoothAbs(ComPtr):
     def get_y2(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegCurvetoCubicSmoothRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051050d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051050d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20827,7 +20827,7 @@ class ISVGPathSegCurvetoCubicSmoothRel(ComPtr):
     def get_y2(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegCurvetoQuadraticAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510504-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510504-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20846,7 +20846,7 @@ class ISVGPathSegCurvetoQuadraticAbs(ComPtr):
     def get_y1(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegCurvetoQuadraticRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510505-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510505-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20865,7 +20865,7 @@ class ISVGPathSegCurvetoQuadraticRel(ComPtr):
     def get_y1(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegCurvetoQuadraticSmoothAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051050e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051050e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20876,7 +20876,7 @@ class ISVGPathSegCurvetoQuadraticSmoothAbs(ComPtr):
     def get_y(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegCurvetoQuadraticSmoothRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051050f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051050f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20887,7 +20887,7 @@ class ISVGPathSegCurvetoQuadraticSmoothRel(ComPtr):
     def get_y(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegLinetoAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510500-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510500-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20898,21 +20898,21 @@ class ISVGPathSegLinetoAbs(ComPtr):
     def get_y(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegLinetoHorizontalAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510508-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510508-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_x(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegLinetoHorizontalRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510509-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510509-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_x(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegLinetoRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510501-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510501-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20923,21 +20923,21 @@ class ISVGPathSegLinetoRel(ComPtr):
     def get_y(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegLinetoVerticalAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051050a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051050a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_y(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_y(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegLinetoVerticalRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051050b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051050b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_y(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_y(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510510-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510510-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_numberOfItems(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20958,7 +20958,7 @@ class ISVGPathSegList(ComPtr):
     def appendItem(self, newItem: Windows.Win32.Web.MsHtml.ISVGPathSeg_head, ppResult: POINTER(Windows.Win32.Web.MsHtml.ISVGPathSeg_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegMovetoAbs(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104fe-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104fe-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20969,7 +20969,7 @@ class ISVGPathSegMovetoAbs(ComPtr):
     def get_y(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPathSegMovetoRel(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104ff-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104ff-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -20980,7 +20980,7 @@ class ISVGPathSegMovetoRel(ComPtr):
     def get_y(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPatternElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051052c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051052c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_patternUnits(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedEnumeration_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21011,7 +21011,7 @@ class ISVGPatternElement(ComPtr):
     def get_height(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPoint(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104f4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104f4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21024,7 +21024,7 @@ class ISVGPoint(ComPtr):
     def matrixTransform(self, pMatrix: Windows.Win32.Web.MsHtml.ISVGMatrix_head, ppResult: POINTER(Windows.Win32.Web.MsHtml.ISVGPoint_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPointList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104f5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104f5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_numberOfItems(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21045,13 +21045,13 @@ class ISVGPointList(ComPtr):
     def appendItem(self, pNewItem: Windows.Win32.Web.MsHtml.ISVGPoint_head, ppResult: POINTER(Windows.Win32.Web.MsHtml.ISVGPoint_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGPolygonElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510519-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510519-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class ISVGPolylineElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510518-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510518-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class ISVGPreserveAspectRatio(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104fa-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104fa-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_align(self, v: Int16) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21062,7 +21062,7 @@ class ISVGPreserveAspectRatio(ComPtr):
     def get_meetOrSlice(self, p: POINTER(Int16)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGRadialGradientElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051052a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051052a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_cx(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21085,7 +21085,7 @@ class ISVGRadialGradientElement(ComPtr):
     def get_fy(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGRect(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104d7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104d7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_x(self, v: Single) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21104,7 +21104,7 @@ class ISVGRect(ComPtr):
     def get_height(self, p: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGRectElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510513-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510513-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_x(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21131,7 +21131,7 @@ class ISVGRectElement(ComPtr):
     def get_ry(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGSVGElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104e7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104e7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_x(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21240,21 +21240,21 @@ class ISVGSVGElement(ComPtr):
     def getElementById(self, elementId: Windows.Win32.Foundation.BSTR, pResult: POINTER(Windows.Win32.Web.MsHtml.IHTMLElement_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGScriptElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051054d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051054d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_type(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_type(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGStopElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051052b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051052b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_offset(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedNumber_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_offset(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedNumber_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGStringList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104c8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104c8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_numberOfItems(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21275,12 +21275,12 @@ class ISVGStringList(ComPtr):
     def appendItem(self, newItem: Windows.Win32.Foundation.BSTR, ppResult: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGStylable(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104da-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104da-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_className(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedString_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGStyleElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104f3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104f3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_type(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21291,16 +21291,16 @@ class ISVGStyleElement(ComPtr):
     def get_media(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGSwitchElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104f1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104f1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class ISVGSymbolElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104ec-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104ec-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class ISVGTSpanElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051051d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051051d-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class ISVGTests(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104dd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104dd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_requiredFeatures(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGStringList_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21311,7 +21311,7 @@ class ISVGTests(ComPtr):
     def hasExtension(self, extension: Windows.Win32.Foundation.BSTR, pResult: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGTextContentElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051051a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051051a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_textLength(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21340,10 +21340,10 @@ class ISVGTextContentElement(ComPtr):
     def selectSubString(self, charnum: Int32, nchars: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGTextElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051051c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051051c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class ISVGTextPathElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051051f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051051f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_startOffset(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21358,7 +21358,7 @@ class ISVGTextPathElement(ComPtr):
     def get_spacing(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedEnumeration_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGTextPositioningElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051051b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051051b-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_x(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedLengthList_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21381,10 +21381,10 @@ class ISVGTextPositioningElement(ComPtr):
     def get_rotate(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedNumberList_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGTitleElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104eb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104eb-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class ISVGTransform(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104f7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104f7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_type(self, v: Int16) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21411,7 +21411,7 @@ class ISVGTransform(ComPtr):
     def setSkewY(self, angle: Single) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGTransformList(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104f8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104f8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def put_numberOfItems(self, v: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21436,17 +21436,17 @@ class ISVGTransformList(ComPtr):
     def consolidate(self, ppResult: POINTER(Windows.Win32.Web.MsHtml.ISVGTransform_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGTransformable(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104dc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104dc-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_transform(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedTransformList_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGURIReference(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104e3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104e3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_href(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGAnimatedString_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGUseElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104ed-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104ed-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_x(self, v: Windows.Win32.Web.MsHtml.ISVGAnimatedLength_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21473,22 +21473,22 @@ class ISVGUseElement(ComPtr):
     def get_animatedInstanceRoot(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGElementInstance_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGViewElement(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051054c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051054c-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def putref_viewTarget(self, v: Windows.Win32.Web.MsHtml.ISVGStringList_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_viewTarget(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGStringList_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGViewSpec(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104e2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104e2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 class ISVGZoomAndPan(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305104e1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104e1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_zoomAndPan(self, p: POINTER(Int16)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISVGZoomEvent(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3051054e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051054e-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_zoomRectScreen(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGRect_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21501,7 +21501,7 @@ class ISVGZoomEvent(ComPtr):
     def get_newTranslate(self, p: POINTER(Windows.Win32.Web.MsHtml.ISVGPoint_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IScriptEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3051083a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3051083a-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def FunctionName(self, pbstrFunctionName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -21514,22 +21514,22 @@ class IScriptEventHandler(ComPtr):
     def Cookie(self, pullCookie: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 class IScriptEventHandlerSourceInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('30510841-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510841-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetSourceInfo(self, pbstrFunctionName: POINTER(Windows.Win32.Foundation.BSTR), line: POINTER(UInt32), column: POINTER(UInt32), cchLength: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISecureUrlHost(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c81984c4-74c8-11d2-ba-a9-00-c0-4f-c2-04-0e')
+    _iid_ = Guid('c81984c4-74c8-11d2-ba-a9-00-c0-4f-c2-04-0e')
     @commethod(3)
     def ValidateSecureUrl(self, pfAllow: POINTER(Windows.Win32.Foundation.BOOL), pchUrlInQuestion: Windows.Win32.Foundation.PWSTR, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISegment(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f683-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f683-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetPointers(self, pIStart: Windows.Win32.Web.MsHtml.IMarkupPointer_head, pIEnd: Windows.Win32.Web.MsHtml.IMarkupPointer_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISegmentList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f605-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f605-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def CreateIterator(self, ppIIter: POINTER(Windows.Win32.Web.MsHtml.ISegmentListIterator_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -21538,7 +21538,7 @@ class ISegmentList(ComPtr):
     def IsEmpty(self, pfEmpty: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISegmentListIterator(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f692-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f692-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def Current(self, ppISegment: POINTER(Windows.Win32.Web.MsHtml.ISegment_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -21549,7 +21549,7 @@ class ISegmentListIterator(ComPtr):
     def Advance(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISelectionServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f684-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f684-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def SetSelectionType(self, eType: Windows.Win32.Web.MsHtml.SELECTION_TYPE, pIListener: Windows.Win32.Web.MsHtml.ISelectionServicesListener_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -21564,7 +21564,7 @@ class ISelectionServices(ComPtr):
     def GetSelectionServicesListener(self, ppISelectionServicesListener: POINTER(Windows.Win32.Web.MsHtml.ISelectionServicesListener_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISelectionServicesListener(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f699-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f699-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def BeginSelectionUndo(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -21577,12 +21577,12 @@ class ISelectionServicesListener(ComPtr):
     def GetTypeDetail(self, pTypeDetail: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISequenceNumber(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3050f6c1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6c1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetSequenceNumber(self, nCurrent: Int32, pnNew: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISurfacePresenter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('305106e2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106e2-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def Present(self, uBuffer: UInt32, pDirty: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -21591,7 +21591,7 @@ class ISurfacePresenter(ComPtr):
     def IsCurrent(self, pIsCurrent: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITemplatePrinter(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('3050f6b4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f6b4-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def startDoc(self, bstrTitle: Windows.Win32.Foundation.BSTR, p: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21704,7 +21704,7 @@ class ITemplatePrinter(ComPtr):
     def updatePageStatus(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITemplatePrinter2(ComPtr):
     extends: Windows.Win32.Web.MsHtml.ITemplatePrinter
-    Guid = Guid('3050f83f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('3050f83f-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(62)
     def put_selectionEnabled(self, v: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(63)
@@ -21725,7 +21725,7 @@ class ITemplatePrinter2(ComPtr):
     def deviceSupports(self, bstrProperty: Windows.Win32.Foundation.BSTR, pvar: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITemplatePrinter3(ComPtr):
     extends: Windows.Win32.Web.MsHtml.ITemplatePrinter2
-    Guid = Guid('305104a3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305104a3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(71)
     def put_headerFooterFont(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(72)
@@ -21748,24 +21748,24 @@ class ITemplatePrinter3(ComPtr):
     def getPageMarginLeftImportant(self, pageRule: Windows.Win32.System.Com.IDispatch_head, pbImportant: POINTER(Windows.Win32.Foundation.VARIANT_BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITrackingProtection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('30510803-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510803-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def EvaluateUrl(self, bstrUrl: Windows.Win32.Foundation.BSTR, pfAllowed: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetEnabled(self, pfEnabled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IViewObjectPresentNotify(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('305107f8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107f8-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def OnPreRender(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IViewObjectPresentNotifySite(ComPtr):
     extends: Windows.Win32.Web.MsHtml.IViewObjectPresentSite
-    Guid = Guid('305107fa-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107fa-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(6)
     def RequestFrame(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IViewObjectPresentSite(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('305106e1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106e1-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def CreateSurfacePresenter(self, pDevice: Windows.Win32.System.Com.IUnknown_head, width: UInt32, height: UInt32, backBufferCount: UInt32, format: Windows.Win32.Graphics.Dxgi.Common.DXGI_FORMAT, mode: Windows.Win32.Web.MsHtml.VIEW_OBJECT_ALPHA_MODE, ppQueue: POINTER(Windows.Win32.Web.MsHtml.ISurfacePresenter_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -21774,12 +21774,12 @@ class IViewObjectPresentSite(ComPtr):
     def SetCompositionMode(self, mode: Windows.Win32.Web.MsHtml.VIEW_OBJECT_COMPOSITION_MODE) -> Windows.Win32.Foundation.HRESULT: ...
 class IViewObjectPrint(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('305106e3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305106e3-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetPrintBitmap(self, ppPrintBitmap: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWBScriptControl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('a5170870-0cf8-11d1-8b-91-00-80-c7-44-f3-89')
+    _iid_ = Guid('a5170870-0cf8-11d1-8b-91-00-80-c7-44-f3-89')
     @commethod(7)
     def raiseEvent(self, name: Windows.Win32.Foundation.BSTR, eventData: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21806,14 +21806,14 @@ class IWBScriptControl(ComPtr):
     def get_onvisibilitychange(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWPCBlockedUrls(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('30510413-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510413-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(3)
     def GetCount(self, pdwCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetUrl(self, dwIdx: UInt32, pbstrUrl: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWebBridge(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('ae24fdad-03c6-11d1-8b-76-00-80-c7-44-f3-89')
+    _iid_ = Guid('ae24fdad-03c6-11d1-8b-76-00-80-c7-44-f3-89')
     @commethod(7)
     def put_URL(self, v: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21834,7 +21834,7 @@ class IWebBridge(ComPtr):
     def AboutBox(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IWebGeocoordinates(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305107c7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107c7-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_latitude(self, p: POINTER(Double)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21851,7 +21851,7 @@ class IWebGeocoordinates(ComPtr):
     def get_speed(self, p: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWebGeolocation(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305107c5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107c5-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def getCurrentPosition(self, successCallback: Windows.Win32.System.Com.IDispatch_head, errorCallback: Windows.Win32.System.Com.IDispatch_head, options: Windows.Win32.System.Com.IDispatch_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -21860,26 +21860,26 @@ class IWebGeolocation(ComPtr):
     def clearWatch(self, watchId: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class IWebGeoposition(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305107cd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107cd-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_coords(self, p: POINTER(Windows.Win32.Web.MsHtml.IWebGeocoordinates_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_timestamp(self, p: POINTER(UInt64)) -> Windows.Win32.Foundation.HRESULT: ...
 class IWebGeopositionError(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('305107c9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('305107c9-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
     @commethod(7)
     def get_code(self, p: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
     def get_message(self, p: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class IXMLGenericParse(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e4e23071-4d07-11d2-ae-76-00-80-c7-3b-c1-99')
+    _iid_ = Guid('e4e23071-4d07-11d2-ae-76-00-80-c7-3b-c1-99')
     @commethod(3)
     def SetGenericParse(self, fDoGeneric: Windows.Win32.Foundation.VARIANT_BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class IXMLHttpRequestEventTarget(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('30510830-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
+    _iid_ = Guid('30510830-98b5-11cf-bb-82-00-aa-00-bd-ce-0b')
 LINE_DIRECTION = Int32
 LINE_DIRECTION_RightToLeft: LINE_DIRECTION = 1
 LINE_DIRECTION_LeftToRight: LINE_DIRECTION = 2

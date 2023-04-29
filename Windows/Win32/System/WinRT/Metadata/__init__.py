@@ -860,7 +860,7 @@ CorValidatorModuleType_ValidatorModuleTypeIncr: CorValidatorModuleType = 4
 CorValidatorModuleType_ValidatorModuleTypeMax: CorValidatorModuleType = 4
 class ICeeGen(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7ed1bdff-8e36-11d2-9c-56-00-a0-c9-b7-cc-45')
+    _iid_ = Guid('7ed1bdff-8e36-11d2-9c-56-00-a0-c9-b7-cc-45')
     @commethod(3)
     def EmitString(self, lpString: Windows.Win32.Foundation.PWSTR, RVA: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -893,7 +893,7 @@ class ICeeGen(ComPtr):
     def ComputePointer(self, section: c_void_p, RVA: UInt32, lpBuffer: POINTER(POINTER(Byte))) -> Windows.Win32.Foundation.HRESULT: ...
 class IHostFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d0e80dd3-12d4-11d3-b3-9d-00-c0-4f-f8-17-95')
+    _iid_ = Guid('d0e80dd3-12d4-11d3-b3-9d-00-c0-4f-f8-17-95')
     @commethod(3)
     def MarkToken(self, tk: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMAGE_COR_ILMETHOD(EasyCastUnion):
@@ -952,12 +952,12 @@ class IMAGE_COR_VTABLEFIXUP(EasyCastStructure):
     Type: UInt16
 class IMapToken(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('06a3ea8b-0225-11d1-bf-72-00-c0-4f-c3-1e-12')
+    _iid_ = Guid('06a3ea8b-0225-11d1-bf-72-00-c0-4f-c3-1e-12')
     @commethod(3)
     def Map(self, tkImp: UInt32, tkEmit: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMetaDataAssemblyEmit(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('211ef15b-5317-4438-b1-96-de-c8-7b-88-76-93')
+    _iid_ = Guid('211ef15b-5317-4438-b1-96-de-c8-7b-88-76-93')
     @commethod(3)
     def DefineAssembly(self, pbPublicKey: c_void_p, cbPublicKey: UInt32, ulHashAlgId: UInt32, szName: Windows.Win32.Foundation.PWSTR, pMetaData: POINTER(Windows.Win32.System.WinRT.Metadata.ASSEMBLYMETADATA_head), dwAssemblyFlags: UInt32, pma: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -980,7 +980,7 @@ class IMetaDataAssemblyEmit(ComPtr):
     def SetManifestResourceProps(self, mr: UInt32, tkImplementation: UInt32, dwOffset: UInt32, dwResourceFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMetaDataAssemblyImport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ee62470b-e94b-424e-9b-7c-2f-00-c9-24-9f-93')
+    _iid_ = Guid('ee62470b-e94b-424e-9b-7c-2f-00-c9-24-9f-93')
     @commethod(3)
     def GetAssemblyProps(self, mda: UInt32, ppbPublicKey: POINTER(c_void_p), pcbPublicKey: POINTER(UInt32), pulHashAlgId: POINTER(UInt32), szName: Windows.Win32.Foundation.PWSTR, cchName: UInt32, pchName: POINTER(UInt32), pMetaData: POINTER(Windows.Win32.System.WinRT.Metadata.ASSEMBLYMETADATA_head), pdwAssemblyFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1011,7 +1011,7 @@ class IMetaDataAssemblyImport(ComPtr):
     def FindAssembliesByName(self, szAppBase: Windows.Win32.Foundation.PWSTR, szPrivateBin: Windows.Win32.Foundation.PWSTR, szAssemblyName: Windows.Win32.Foundation.PWSTR, ppIUnk: POINTER(Windows.Win32.System.Com.IUnknown_head), cMax: UInt32, pcAssemblies: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMetaDataDispenser(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('809c652e-7396-11d2-97-71-00-a0-c9-b4-d5-0c')
+    _iid_ = Guid('809c652e-7396-11d2-97-71-00-a0-c9-b4-d5-0c')
     @commethod(3)
     def DefineScope(self, rclsid: POINTER(Guid), dwCreateFlags: UInt32, riid: POINTER(Guid), ppIUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1020,7 +1020,7 @@ class IMetaDataDispenser(ComPtr):
     def OpenScopeOnMemory(self, pData: c_void_p, cbData: UInt32, dwOpenFlags: UInt32, riid: POINTER(Guid), ppIUnk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMetaDataDispenserEx(ComPtr):
     extends: Windows.Win32.System.WinRT.Metadata.IMetaDataDispenser
-    Guid = Guid('31bcfce2-dafb-11d2-9f-81-00-c0-4f-79-a0-a3')
+    _iid_ = Guid('31bcfce2-dafb-11d2-9f-81-00-c0-4f-79-a0-a3')
     @commethod(6)
     def SetOption(self, optionid: POINTER(Guid), value: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(7)
@@ -1035,7 +1035,7 @@ class IMetaDataDispenserEx(ComPtr):
     def FindAssemblyModule(self, szAppBase: Windows.Win32.Foundation.PWSTR, szPrivateBin: Windows.Win32.Foundation.PWSTR, szGlobalBin: Windows.Win32.Foundation.PWSTR, szAssemblyName: Windows.Win32.Foundation.PWSTR, szModuleName: Windows.Win32.Foundation.PWSTR, szName: Windows.Win32.Foundation.PWSTR, cchName: UInt32, pcName: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMetaDataEmit(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ba3fee4c-ecb9-4e41-83-b7-18-3f-a4-1c-d8-59')
+    _iid_ = Guid('ba3fee4c-ecb9-4e41-83-b7-18-3f-a4-1c-d8-59')
     @commethod(3)
     def SetModuleProps(self, szName: Windows.Win32.Foundation.PWSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1136,7 +1136,7 @@ class IMetaDataEmit(ComPtr):
     def MergeEnd(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IMetaDataEmit2(ComPtr):
     extends: Windows.Win32.System.WinRT.Metadata.IMetaDataEmit
-    Guid = Guid('f5dd9950-f693-42e6-83-0e-7b-83-3e-81-46-a9')
+    _iid_ = Guid('f5dd9950-f693-42e6-83-0e-7b-83-3e-81-46-a9')
     @commethod(52)
     def DefineMethodSpec(self, tkParent: UInt32, pvSigBlob: POINTER(Byte), cbSigBlob: UInt32, pmi: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(53)
@@ -1155,12 +1155,12 @@ class IMetaDataEmit2(ComPtr):
     def ResetENCLog(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IMetaDataError(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b81ff171-20f3-11d2-8d-cc-00-a0-c9-b0-9c-19')
+    _iid_ = Guid('b81ff171-20f3-11d2-8d-cc-00-a0-c9-b0-9c-19')
     @commethod(3)
     def OnError(self, hrError: Windows.Win32.Foundation.HRESULT, token: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IMetaDataFilter(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d0e80dd1-12d4-11d3-b3-9d-00-c0-4f-f8-17-95')
+    _iid_ = Guid('d0e80dd1-12d4-11d3-b3-9d-00-c0-4f-f8-17-95')
     @commethod(3)
     def UnmarkAll(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1169,7 +1169,7 @@ class IMetaDataFilter(ComPtr):
     def IsTokenMarked(self, tk: UInt32, pIsMarked: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMetaDataImport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7dac8207-d3ae-4c75-9b-67-92-80-1a-49-7d-44')
+    _iid_ = Guid('7dac8207-d3ae-4c75-9b-67-92-80-1a-49-7d-44')
     @commethod(3)
     def CloseEnum(self, hEnum: c_void_p) -> Void: ...
     @commethod(4)
@@ -1296,7 +1296,7 @@ class IMetaDataImport(ComPtr):
     def IsGlobal(self, pd: UInt32, pbGlobal: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMetaDataImport2(ComPtr):
     extends: Windows.Win32.System.WinRT.Metadata.IMetaDataImport
-    Guid = Guid('fce5efa0-8bba-4f8e-a0-36-8f-20-22-b0-84-66')
+    _iid_ = Guid('fce5efa0-8bba-4f8e-a0-36-8f-20-22-b0-84-66')
     @commethod(65)
     def EnumGenericParams(self, phEnum: POINTER(c_void_p), tk: UInt32, rGenericParams: POINTER(UInt32), cMax: UInt32, pcGenericParams: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(66)
@@ -1315,12 +1315,12 @@ class IMetaDataImport2(ComPtr):
     def EnumMethodSpecs(self, phEnum: POINTER(c_void_p), tk: UInt32, rMethodSpecs: POINTER(UInt32), cMax: UInt32, pcMethodSpecs: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMetaDataInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7998ea64-7f95-48b8-86-fc-17-ca-f4-8b-f5-cb')
+    _iid_ = Guid('7998ea64-7f95-48b8-86-fc-17-ca-f4-8b-f5-cb')
     @commethod(3)
     def GetFileMapping(self, ppvData: POINTER(c_void_p), pcbData: POINTER(UInt64), pdwMappingType: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMetaDataTables(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d8f579ab-402d-4b8e-82-d9-5d-63-b1-06-5c-68')
+    _iid_ = Guid('d8f579ab-402d-4b8e-82-d9-5d-63-b1-06-5c-68')
     @commethod(3)
     def GetStringHeapSize(self, pcbStrings: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1361,21 +1361,21 @@ class IMetaDataTables(ComPtr):
     def GetNextUserString(self, ixUserString: UInt32, pNext: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMetaDataTables2(ComPtr):
     extends: Windows.Win32.System.WinRT.Metadata.IMetaDataTables
-    Guid = Guid('badb5f70-58da-43a9-a1-c6-d7-48-19-f1-9b-15')
+    _iid_ = Guid('badb5f70-58da-43a9-a1-c6-d7-48-19-f1-9b-15')
     @commethod(22)
     def GetMetaDataStorage(self, ppvMd: POINTER(c_void_p), pcbMd: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(23)
     def GetMetaDataStreamInfo(self, ix: UInt32, ppchName: POINTER(POINTER(SByte)), ppv: POINTER(c_void_p), pcb: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IMetaDataValidate(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4709c9c6-81ff-11d3-9f-c7-00-c0-4f-79-a0-a3')
+    _iid_ = Guid('4709c9c6-81ff-11d3-9f-c7-00-c0-4f-79-a0-a3')
     @commethod(3)
     def ValidatorInit(self, dwModuleType: UInt32, pUnk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ValidateMetaData(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IMetaDataWinMDImport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('969ea0c5-964e-411b-a8-07-b0-f3-c2-df-cb-d4')
+    _iid_ = Guid('969ea0c5-964e-411b-a8-07-b0-f3-c2-df-cb-d4')
     @commethod(3)
     def GetUntransformedTypeRefProps(self, tr: UInt32, ptkResolutionScope: POINTER(UInt32), szName: Windows.Win32.Foundation.PWSTR, cchName: UInt32, pchName: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IRoMetaDataLocator(ComPtr):

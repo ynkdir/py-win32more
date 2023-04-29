@@ -18,7 +18,7 @@ def __getattr__(name):
 CLSID_XMLGraphBuilder: Guid = Guid('1bb05961-5fbf-11d2-a5-21-44-df-07-c1-00-00')
 class IXMLGraphBuilder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1bb05960-5fbf-11d2-a5-21-44-df-07-c1-00-00')
+    _iid_ = Guid('1bb05960-5fbf-11d2-a5-21-44-df-07-c1-00-00')
     @commethod(3)
     def BuildFromXML(self, pGraph: Windows.Win32.Media.DirectShow.IGraphBuilder_head, pxml: Windows.Win32.Data.Xml.MsXml.IXMLElement_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

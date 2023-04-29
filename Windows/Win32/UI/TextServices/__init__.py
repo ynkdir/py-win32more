@@ -477,7 +477,7 @@ TF_GTP_INCL_TEXT: GET_TEXT_AND_PROPERTY_UPDATES_FLAGS = 1
 HKL = IntPtr
 class IAccClientDocMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4c896039-7b6d-49e6-a8-c1-45-11-6a-98-29-2b')
+    _iid_ = Guid('4c896039-7b6d-49e6-a8-c1-45-11-6a-98-29-2b')
     @commethod(3)
     def GetDocuments(self, enumUnknown: POINTER(Windows.Win32.System.Com.IEnumUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -488,7 +488,7 @@ class IAccClientDocMgr(ComPtr):
     def GetFocused(self, riid: POINTER(Guid), ppunk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccDictionary(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1dc4cb5f-d737-474d-ad-e9-5c-cf-c9-bc-1c-c9')
+    _iid_ = Guid('1dc4cb5f-d737-474d-ad-e9-5c-cf-c9-bc-1c-c9')
     @commethod(3)
     def GetLocalizedString(self, Term: POINTER(Guid), lcid: UInt32, pResult: POINTER(Windows.Win32.Foundation.BSTR), plcid: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -501,7 +501,7 @@ class IAccDictionary(ComPtr):
     def ConvertValueToString(self, Term: POINTER(Guid), lcid: UInt32, varValue: Windows.Win32.System.Variant.VARIANT, pbstrResult: POINTER(Windows.Win32.Foundation.BSTR), plcid: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccServerDocMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ad7c73cf-6dd5-4855-ab-c2-b0-4b-ad-5b-91-53')
+    _iid_ = Guid('ad7c73cf-6dd5-4855-ab-c2-b0-4b-ad-5b-91-53')
     @commethod(3)
     def NewDocument(self, riid: POINTER(Guid), punk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -510,7 +510,7 @@ class IAccServerDocMgr(ComPtr):
     def OnDocumentFocus(self, punk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class IAccStore(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e2cd4a63-2b72-4d48-b7-39-95-e4-76-51-95-ba')
+    _iid_ = Guid('e2cd4a63-2b72-4d48-b7-39-95-e4-76-51-95-ba')
     @commethod(3)
     def Register(self, riid: POINTER(Guid), punk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -527,7 +527,7 @@ class IAccStore(ComPtr):
     def GetFocused(self, riid: POINTER(Guid), ppunk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IAnchor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0feb7e34-5a60-4356-8e-f7-ab-de-c2-ff-7c-f8')
+    _iid_ = Guid('0feb7e34-5a60-4356-8e-f7-ab-de-c2-ff-7c-f8')
     @commethod(3)
     def SetGravity(self, gravity: Windows.Win32.UI.TextServices.TsGravity) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -552,29 +552,29 @@ class IAnchor(ComPtr):
     def Clone(self, ppaClone: POINTER(Windows.Win32.UI.TextServices.IAnchor_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IClonableWrapper(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b33e75ff-e84c-4dca-a2-5c-33-b8-dc-00-33-74')
+    _iid_ = Guid('b33e75ff-e84c-4dca-a2-5c-33-b8-dc-00-33-74')
     @commethod(3)
     def CloneNewWrapper(self, riid: POINTER(Guid), ppv: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
 class ICoCreateLocally(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('03de00aa-f272-41e3-99-cb-03-c5-e8-11-4e-a0')
+    _iid_ = Guid('03de00aa-f272-41e3-99-cb-03-c5-e8-11-4e-a0')
     @commethod(3)
     def CoCreateLocally(self, rclsid: POINTER(Guid), dwClsContext: UInt32, riid: POINTER(Guid), punk: POINTER(Windows.Win32.System.Com.IUnknown_head), riidParam: POINTER(Guid), punkParam: Windows.Win32.System.Com.IUnknown_head, varParam: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class ICoCreatedLocally(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0a53eb6c-1908-4742-8c-ff-2c-ee-2e-93-f9-4c')
+    _iid_ = Guid('0a53eb6c-1908-4742-8c-ff-2c-ee-2e-93-f9-4c')
     @commethod(3)
     def LocalInit(self, punkLocalObject: Windows.Win32.System.Com.IUnknown_head, riidParam: POINTER(Guid), punkParam: Windows.Win32.System.Com.IUnknown_head, varParam: Windows.Win32.System.Variant.VARIANT) -> Windows.Win32.Foundation.HRESULT: ...
 class IDocWrap(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('dcd285fe-0be0-43bd-99-c9-aa-ae-c5-13-c5-55')
+    _iid_ = Guid('dcd285fe-0be0-43bd-99-c9-aa-ae-c5-13-c5-55')
     @commethod(3)
     def SetDoc(self, riid: POINTER(Guid), punk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetWrappedDoc(self, riid: POINTER(Guid), ppunk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumITfCompositionView(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5efd22ba-7838-46cb-88-e2-ca-db-14-12-4f-8f')
+    _iid_ = Guid('5efd22ba-7838-46cb-88-e2-ca-db-14-12-4f-8f')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumITfCompositionView_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -585,7 +585,7 @@ class IEnumITfCompositionView(ComPtr):
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumSpeechCommands(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8c5dac4f-083c-4b85-a4-c9-71-74-60-48-ad-ca')
+    _iid_ = Guid('8c5dac4f-083c-4b85-a4-c9-71-74-60-48-ad-ca')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumSpeechCommands_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -596,7 +596,7 @@ class IEnumSpeechCommands(ComPtr):
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumTfCandidates(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('defb1926-6c80-4ce8-87-d4-d6-b7-2b-81-2b-de')
+    _iid_ = Guid('defb1926-6c80-4ce8-87-d4-d6-b7-2b-81-2b-de')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfCandidates_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -607,7 +607,7 @@ class IEnumTfCandidates(ComPtr):
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumTfContextViews(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f0c0f8dd-cf38-44e1-bb-0f-68-cf-0d-55-1c-78')
+    _iid_ = Guid('f0c0f8dd-cf38-44e1-bb-0f-68-cf-0d-55-1c-78')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfContextViews_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -618,7 +618,7 @@ class IEnumTfContextViews(ComPtr):
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumTfContexts(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8f1a7ea6-1654-4502-a8-6e-b2-90-23-44-d5-07')
+    _iid_ = Guid('8f1a7ea6-1654-4502-a8-6e-b2-90-23-44-d5-07')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfContexts_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -629,7 +629,7 @@ class IEnumTfContexts(ComPtr):
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumTfDisplayAttributeInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7cef04d7-cb75-4e80-a7-ab-5f-5b-c7-d3-32-de')
+    _iid_ = Guid('7cef04d7-cb75-4e80-a7-ab-5f-5b-c7-d3-32-de')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfDisplayAttributeInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -640,7 +640,7 @@ class IEnumTfDisplayAttributeInfo(ComPtr):
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumTfDocumentMgrs(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa80e808-2021-11d2-93-e0-00-60-b0-67-b8-6e')
+    _iid_ = Guid('aa80e808-2021-11d2-93-e0-00-60-b0-67-b8-6e')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfDocumentMgrs_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -651,7 +651,7 @@ class IEnumTfDocumentMgrs(ComPtr):
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumTfFunctionProviders(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e4b24db0-0990-11d3-8d-f0-00-10-5a-27-99-b5')
+    _iid_ = Guid('e4b24db0-0990-11d3-8d-f0-00-10-5a-27-99-b5')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfFunctionProviders_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -662,7 +662,7 @@ class IEnumTfFunctionProviders(ComPtr):
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumTfInputProcessorProfiles(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('71c6e74d-0f28-11d8-a8-2a-00-06-5b-84-43-5c')
+    _iid_ = Guid('71c6e74d-0f28-11d8-a8-2a-00-06-5b-84-43-5c')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfInputProcessorProfiles_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -673,7 +673,7 @@ class IEnumTfInputProcessorProfiles(ComPtr):
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumTfLangBarItems(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('583f34d0-de25-11d2-af-dd-00-10-5a-27-99-b5')
+    _iid_ = Guid('583f34d0-de25-11d2-af-dd-00-10-5a-27-99-b5')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfLangBarItems_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -684,7 +684,7 @@ class IEnumTfLangBarItems(ComPtr):
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumTfLanguageProfiles(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3d61bf11-ac5f-42c8-a4-cb-93-1b-cc-28-c7-44')
+    _iid_ = Guid('3d61bf11-ac5f-42c8-a4-cb-93-1b-cc-28-c7-44')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfLanguageProfiles_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -695,7 +695,7 @@ class IEnumTfLanguageProfiles(ComPtr):
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumTfLatticeElements(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('56988052-47da-4a05-91-1a-e3-d9-41-f1-71-45')
+    _iid_ = Guid('56988052-47da-4a05-91-1a-e3-d9-41-f1-71-45')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfLatticeElements_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -706,7 +706,7 @@ class IEnumTfLatticeElements(ComPtr):
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumTfProperties(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('19188cb0-aca9-11d2-af-c5-00-10-5a-27-99-b5')
+    _iid_ = Guid('19188cb0-aca9-11d2-af-c5-00-10-5a-27-99-b5')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfProperties_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -717,7 +717,7 @@ class IEnumTfProperties(ComPtr):
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumTfPropertyValue(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8ed8981b-7c10-4d7d-9f-b3-ab-72-e9-c7-5f-72')
+    _iid_ = Guid('8ed8981b-7c10-4d7d-9f-b3-ab-72-e9-c7-5f-72')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfPropertyValue_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -728,7 +728,7 @@ class IEnumTfPropertyValue(ComPtr):
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumTfRanges(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f99d3f40-8e32-11d2-bf-46-00-10-5a-27-99-b5')
+    _iid_ = Guid('f99d3f40-8e32-11d2-bf-46-00-10-5a-27-99-b5')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfRanges_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -739,7 +739,7 @@ class IEnumTfRanges(ComPtr):
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IEnumTfUIElements(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('887aa91e-acba-4931-84-da-3c-52-08-cf-54-3f')
+    _iid_ = Guid('887aa91e-acba-4931-84-da-3c-52-08-cf-54-3f')
     @commethod(3)
     def Clone(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfUIElements_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -750,7 +750,7 @@ class IEnumTfUIElements(ComPtr):
     def Skip(self, ulCount: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IInternalDocWrap(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e1aa6466-9db4-40ba-be-03-77-c3-8e-8e-60-b2')
+    _iid_ = Guid('e1aa6466-9db4-40ba-be-03-77-c3-8e-8e-60-b2')
     @commethod(3)
     def NotifyRevoke(self) -> Windows.Win32.Foundation.HRESULT: ...
 INSERT_TEXT_AT_SELECTION_FLAGS = UInt32
@@ -759,14 +759,14 @@ TF_IAS_QUERYONLY: INSERT_TEXT_AT_SELECTION_FLAGS = 2
 TF_IAS_NO_DEFAULT_COMPOSITION: INSERT_TEXT_AT_SELECTION_FLAGS = 2147483648
 class ISpeechCommandProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('38e09d4c-586d-435a-b5-92-c8-a8-66-91-de-c6')
+    _iid_ = Guid('38e09d4c-586d-435a-b5-92-c8-a8-66-91-de-c6')
     @commethod(3)
     def EnumSpeechCommands(self, langid: UInt16, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumSpeechCommands_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def ProcessCommand(self, pszCommand: Windows.Win32.Foundation.PWSTR, cch: UInt32, langid: UInt16) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextStoreACP(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('28888fe3-c2a0-483a-a3-ea-8c-b1-ce-51-ff-3d')
+    _iid_ = Guid('28888fe3-c2a0-483a-a3-ea-8c-b1-ce-51-ff-3d')
     @commethod(3)
     def AdviseSink(self, riid: POINTER(Guid), punk: Windows.Win32.System.Com.IUnknown_head, dwMask: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -821,7 +821,7 @@ class ITextStoreACP(ComPtr):
     def GetWnd(self, vcView: UInt32, phwnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextStoreACP2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('f86ad89f-5fe4-4b8d-bb-9f-ef-37-97-a8-4f-1f')
+    _iid_ = Guid('f86ad89f-5fe4-4b8d-bb-9f-ef-37-97-a8-4f-1f')
     @commethod(3)
     def AdviseSink(self, riid: POINTER(Guid), punk: Windows.Win32.System.Com.IUnknown_head, dwMask: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -874,12 +874,12 @@ class ITextStoreACP2(ComPtr):
     def GetScreenExt(self, vcView: UInt32, prc: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextStoreACPEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a2de3bc2-3d8e-11d3-81-a9-f7-53-fb-e6-1a-00')
+    _iid_ = Guid('a2de3bc2-3d8e-11d3-81-a9-f7-53-fb-e6-1a-00')
     @commethod(3)
     def ScrollToRect(self, acpStart: Int32, acpEnd: Int32, rc: Windows.Win32.Foundation.RECT, dwPosition: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextStoreACPServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa80e901-2021-11d2-93-e0-00-60-b0-67-b8-6e')
+    _iid_ = Guid('aa80e901-2021-11d2-93-e0-00-60-b0-67-b8-6e')
     @commethod(3)
     def Serialize(self, pProp: Windows.Win32.UI.TextServices.ITfProperty_head, pRange: Windows.Win32.UI.TextServices.ITfRange_head, pHdr: POINTER(Windows.Win32.UI.TextServices.TF_PERSISTENT_PROPERTY_HEADER_ACP_head), pStream: Windows.Win32.System.Com.IStream_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -890,7 +890,7 @@ class ITextStoreACPServices(ComPtr):
     def CreateRange(self, acpStart: Int32, acpEnd: Int32, ppRange: POINTER(Windows.Win32.UI.TextServices.ITfRangeACP_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextStoreACPSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('22d44c94-a419-4542-a2-72-ae-26-09-3e-ce-cf')
+    _iid_ = Guid('22d44c94-a419-4542-a2-72-ae-26-09-3e-ce-cf')
     @commethod(3)
     def OnTextChange(self, dwFlags: Windows.Win32.UI.TextServices.TEXT_STORE_TEXT_CHANGE_FLAGS, pChange: POINTER(Windows.Win32.UI.TextServices.TS_TEXTCHANGE_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -909,12 +909,12 @@ class ITextStoreACPSink(ComPtr):
     def OnEndEditTransaction(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextStoreACPSinkEx(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITextStoreACPSink
-    Guid = Guid('2bdf9464-41e2-43e3-95-0c-a6-86-5b-a2-5c-d4')
+    _iid_ = Guid('2bdf9464-41e2-43e3-95-0c-a6-86-5b-a2-5c-d4')
     @commethod(11)
     def OnDisconnect(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextStoreAnchor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9b2077b0-5f18-4dec-be-e9-3c-c7-22-f5-df-e0')
+    _iid_ = Guid('9b2077b0-5f18-4dec-be-e9-3c-c7-22-f5-df-e0')
     @commethod(3)
     def AdviseSink(self, riid: POINTER(Guid), punk: Windows.Win32.System.Com.IUnknown_head, dwMask: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -971,12 +971,12 @@ class ITextStoreAnchor(ComPtr):
     def InsertEmbeddedAtSelection(self, dwFlags: UInt32, pDataObject: Windows.Win32.System.Com.IDataObject_head, ppaStart: POINTER(Windows.Win32.UI.TextServices.IAnchor_head), ppaEnd: POINTER(Windows.Win32.UI.TextServices.IAnchor_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextStoreAnchorEx(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a2de3bc1-3d8e-11d3-81-a9-f7-53-fb-e6-1a-00')
+    _iid_ = Guid('a2de3bc1-3d8e-11d3-81-a9-f7-53-fb-e6-1a-00')
     @commethod(3)
     def ScrollToRect(self, pStart: Windows.Win32.UI.TextServices.IAnchor_head, pEnd: Windows.Win32.UI.TextServices.IAnchor_head, rc: Windows.Win32.Foundation.RECT, dwPosition: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextStoreAnchorSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa80e905-2021-11d2-93-e0-00-60-b0-67-b8-6e')
+    _iid_ = Guid('aa80e905-2021-11d2-93-e0-00-60-b0-67-b8-6e')
     @commethod(3)
     def OnTextChange(self, dwFlags: Windows.Win32.UI.TextServices.TEXT_STORE_CHANGE_FLAGS, paStart: Windows.Win32.UI.TextServices.IAnchor_head, paEnd: Windows.Win32.UI.TextServices.IAnchor_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -995,17 +995,17 @@ class ITextStoreAnchorSink(ComPtr):
     def OnEndEditTransaction(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITextStoreSinkAnchorEx(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITextStoreAnchorSink
-    Guid = Guid('25642426-028d-4474-97-7b-11-1b-b1-14-fe-3e')
+    _iid_ = Guid('25642426-028d-4474-97-7b-11-1b-b1-14-fe-3e')
     @commethod(11)
     def OnDisconnect(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfActiveLanguageProfileNotifySink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b246cb75-a93e-4652-bf-8c-b3-fe-0c-fd-7e-57')
+    _iid_ = Guid('b246cb75-a93e-4652-bf-8c-b3-fe-0c-fd-7e-57')
     @commethod(3)
     def OnActivated(self, clsid: POINTER(Guid), guidProfile: POINTER(Guid), fActivated: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfCandidateList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a3ad50fb-9bdb-49e3-a8-43-6c-76-52-0f-bf-5d')
+    _iid_ = Guid('a3ad50fb-9bdb-49e3-a8-43-6c-76-52-0f-bf-5d')
     @commethod(3)
     def EnumCandidates(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfCandidates_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1016,7 +1016,7 @@ class ITfCandidateList(ComPtr):
     def SetResult(self, nIndex: UInt32, imcr: Windows.Win32.UI.TextServices.TfCandidateResult) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfCandidateListUIElement(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfUIElement
-    Guid = Guid('ea1ea138-19df-11d7-a6-d2-00-06-5b-84-43-5c')
+    _iid_ = Guid('ea1ea138-19df-11d7-a6-d2-00-06-5b-84-43-5c')
     @commethod(7)
     def GetUpdatedFlags(self, pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1035,7 +1035,7 @@ class ITfCandidateListUIElement(ComPtr):
     def GetCurrentPage(self, puPage: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfCandidateListUIElementBehavior(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfCandidateListUIElement
-    Guid = Guid('85fad185-58ce-497a-94-60-35-53-66-b6-4b-9a')
+    _iid_ = Guid('85fad185-58ce-497a-94-60-35-53-66-b6-4b-9a')
     @commethod(15)
     def SetSelection(self, nIndex: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(16)
@@ -1044,14 +1044,14 @@ class ITfCandidateListUIElementBehavior(ComPtr):
     def Abort(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfCandidateString(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('581f317e-fd9d-443f-b9-72-ed-00-46-7c-5d-40')
+    _iid_ = Guid('581f317e-fd9d-443f-b9-72-ed-00-46-7c-5d-40')
     @commethod(3)
     def GetString(self, pbstr: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetIndex(self, pnIndex: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfCategoryMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c3acefb5-f69d-4905-93-8f-fc-ad-cf-4b-e8-30')
+    _iid_ = Guid('c3acefb5-f69d-4905-93-8f-fc-ad-cf-4b-e8-30')
     @commethod(3)
     def RegisterCategory(self, rclsid: POINTER(Guid), rcatid: POINTER(Guid), rguid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1082,36 +1082,36 @@ class ITfCategoryMgr(ComPtr):
     def IsEqualTfGuidAtom(self, guidatom: UInt32, rguid: POINTER(Guid), pfEqual: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfCleanupContextDurationSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('45c35144-154e-4797-be-d8-d3-3a-e7-bf-87-94')
+    _iid_ = Guid('45c35144-154e-4797-be-d8-d3-3a-e7-bf-87-94')
     @commethod(3)
     def OnStartCleanupContext(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnEndCleanupContext(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfCleanupContextSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('01689689-7acb-4e9b-ab-7c-7e-a4-6b-12-b5-22')
+    _iid_ = Guid('01689689-7acb-4e9b-ab-7c-7e-a4-6b-12-b5-22')
     @commethod(3)
     def OnCleanupContext(self, ecWrite: UInt32, pic: Windows.Win32.UI.TextServices.ITfContext_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfClientId(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d60a7b49-1b9f-4be2-b7-02-47-e9-dc-05-de-c3')
+    _iid_ = Guid('d60a7b49-1b9f-4be2-b7-02-47-e9-dc-05-de-c3')
     @commethod(3)
     def GetClientId(self, rclsid: POINTER(Guid), ptid: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfCompartment(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bb08f7a9-607a-4384-86-23-05-68-92-b6-43-71')
+    _iid_ = Guid('bb08f7a9-607a-4384-86-23-05-68-92-b6-43-71')
     @commethod(3)
     def SetValue(self, tid: UInt32, pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetValue(self, pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfCompartmentEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('743abd5f-f26d-48df-8c-c5-23-84-92-41-9b-64')
+    _iid_ = Guid('743abd5f-f26d-48df-8c-c5-23-84-92-41-9b-64')
     @commethod(3)
     def OnChange(self, rguid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfCompartmentMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7dcf57ac-18ad-438b-82-4d-97-9b-ff-b7-4b-7c')
+    _iid_ = Guid('7dcf57ac-18ad-438b-82-4d-97-9b-ff-b7-4b-7c')
     @commethod(3)
     def GetCompartment(self, rguid: POINTER(Guid), ppcomp: POINTER(Windows.Win32.UI.TextServices.ITfCompartment_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1120,7 +1120,7 @@ class ITfCompartmentMgr(ComPtr):
     def EnumCompartments(self, ppEnum: POINTER(Windows.Win32.System.Com.IEnumGUID_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfComposition(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('20168d64-5a8f-4a5a-b7-bd-cf-a2-9f-4d-0f-d9')
+    _iid_ = Guid('20168d64-5a8f-4a5a-b7-bd-cf-a2-9f-4d-0f-d9')
     @commethod(3)
     def GetRange(self, ppRange: POINTER(Windows.Win32.UI.TextServices.ITfRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1131,26 +1131,26 @@ class ITfComposition(ComPtr):
     def EndComposition(self, ecWrite: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfCompositionSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a781718c-579a-4b15-a2-80-32-b8-57-7a-cc-5e')
+    _iid_ = Guid('a781718c-579a-4b15-a2-80-32-b8-57-7a-cc-5e')
     @commethod(3)
     def OnCompositionTerminated(self, ecWrite: UInt32, pComposition: Windows.Win32.UI.TextServices.ITfComposition_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfCompositionView(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d7540241-f9a1-4364-be-fc-db-cd-2c-43-95-b7')
+    _iid_ = Guid('d7540241-f9a1-4364-be-fc-db-cd-2c-43-95-b7')
     @commethod(3)
     def GetOwnerClsid(self, pclsid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetRange(self, ppRange: POINTER(Windows.Win32.UI.TextServices.ITfRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfConfigureSystemKeystrokeFeed(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0d2c969a-bc9c-437c-84-ee-95-1c-49-b1-a7-64')
+    _iid_ = Guid('0d2c969a-bc9c-437c-84-ee-95-1c-49-b1-a7-64')
     @commethod(3)
     def DisableSystemKeystrokeFeed(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EnableSystemKeystrokeFeed(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfContext(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa80e7fd-2021-11d2-93-e0-00-60-b0-67-b8-6e')
+    _iid_ = Guid('aa80e7fd-2021-11d2-93-e0-00-60-b0-67-b8-6e')
     @commethod(3)
     def RequestEditSession(self, tid: UInt32, pes: Windows.Win32.UI.TextServices.ITfEditSession_head, dwFlags: Windows.Win32.UI.TextServices.TF_CONTEXT_EDIT_CONTEXT_FLAGS, phrSession: POINTER(Windows.Win32.Foundation.HRESULT)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1183,7 +1183,7 @@ class ITfContext(ComPtr):
     def CreateRangeBackup(self, ec: UInt32, pRange: Windows.Win32.UI.TextServices.ITfRange_head, ppBackup: POINTER(Windows.Win32.UI.TextServices.ITfRangeBackup_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfContextComposition(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d40c8aae-ac92-4fc7-9a-11-0e-e0-e2-3a-a3-9b')
+    _iid_ = Guid('d40c8aae-ac92-4fc7-9a-11-0e-e0-e2-3a-a3-9b')
     @commethod(3)
     def StartComposition(self, ecWrite: UInt32, pCompositionRange: Windows.Win32.UI.TextServices.ITfRange_head, pSink: Windows.Win32.UI.TextServices.ITfCompositionSink_head, ppComposition: POINTER(Windows.Win32.UI.TextServices.ITfComposition_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1194,7 +1194,7 @@ class ITfContextComposition(ComPtr):
     def TakeOwnership(self, ecWrite: UInt32, pComposition: Windows.Win32.UI.TextServices.ITfCompositionView_head, pSink: Windows.Win32.UI.TextServices.ITfCompositionSink_head, ppComposition: POINTER(Windows.Win32.UI.TextServices.ITfComposition_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfContextKeyEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0552ba5d-c835-4934-bf-50-84-6a-aa-67-43-2f')
+    _iid_ = Guid('0552ba5d-c835-4934-bf-50-84-6a-aa-67-43-2f')
     @commethod(3)
     def OnKeyDown(self, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM, pfEaten: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1205,7 +1205,7 @@ class ITfContextKeyEventSink(ComPtr):
     def OnTestKeyUp(self, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM, pfEaten: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfContextOwner(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa80e80c-2021-11d2-93-e0-00-60-b0-67-b8-6e')
+    _iid_ = Guid('aa80e80c-2021-11d2-93-e0-00-60-b0-67-b8-6e')
     @commethod(3)
     def GetACPFromPoint(self, ptScreen: POINTER(Windows.Win32.Foundation.POINT_head), dwFlags: UInt32, pacp: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1220,12 +1220,12 @@ class ITfContextOwner(ComPtr):
     def GetAttribute(self, rguidAttribute: POINTER(Guid), pvarValue: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfContextOwnerCompositionServices(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfContextComposition
-    Guid = Guid('86462810-593b-4916-97-64-19-c0-8e-9c-e1-10')
+    _iid_ = Guid('86462810-593b-4916-97-64-19-c0-8e-9c-e1-10')
     @commethod(7)
     def TerminateComposition(self, pComposition: Windows.Win32.UI.TextServices.ITfCompositionView_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfContextOwnerCompositionSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5f20aa40-b57a-4f34-96-ab-35-76-f3-77-cc-79')
+    _iid_ = Guid('5f20aa40-b57a-4f34-96-ab-35-76-f3-77-cc-79')
     @commethod(3)
     def OnStartComposition(self, pComposition: Windows.Win32.UI.TextServices.ITfCompositionView_head, pfOk: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1234,7 +1234,7 @@ class ITfContextOwnerCompositionSink(ComPtr):
     def OnEndComposition(self, pComposition: Windows.Win32.UI.TextServices.ITfCompositionView_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfContextOwnerServices(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b23eb630-3e1c-11d3-a7-45-00-50-04-0a-b4-07')
+    _iid_ = Guid('b23eb630-3e1c-11d3-a7-45-00-50-04-0a-b4-07')
     @commethod(3)
     def OnLayoutChange(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1251,7 +1251,7 @@ class ITfContextOwnerServices(ComPtr):
     def CreateRange(self, acpStart: Int32, acpEnd: Int32, ppRange: POINTER(Windows.Win32.UI.TextServices.ITfRangeACP_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfContextView(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2433bf8e-0f9b-435c-ba-2c-18-06-11-97-8c-30')
+    _iid_ = Guid('2433bf8e-0f9b-435c-ba-2c-18-06-11-97-8c-30')
     @commethod(3)
     def GetRangeFromPoint(self, ec: UInt32, ppt: POINTER(Windows.Win32.Foundation.POINT_head), dwFlags: UInt32, ppRange: POINTER(Windows.Win32.UI.TextServices.ITfRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1262,14 +1262,14 @@ class ITfContextView(ComPtr):
     def GetWnd(self, phwnd: POINTER(Windows.Win32.Foundation.HWND)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfCreatePropertyStore(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2463fbf0-b0af-11d2-af-c5-00-10-5a-27-99-b5')
+    _iid_ = Guid('2463fbf0-b0af-11d2-af-c5-00-10-5a-27-99-b5')
     @commethod(3)
     def IsStoreSerializable(self, guidProp: POINTER(Guid), pRange: Windows.Win32.UI.TextServices.ITfRange_head, pPropStore: Windows.Win32.UI.TextServices.ITfPropertyStore_head, pfSerializable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CreatePropertyStore(self, guidProp: POINTER(Guid), pRange: Windows.Win32.UI.TextServices.ITfRange_head, cb: UInt32, pStream: Windows.Win32.System.Com.IStream_head, ppStore: POINTER(Windows.Win32.UI.TextServices.ITfPropertyStore_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfDisplayAttributeInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('70528852-2f26-4aea-8c-96-21-51-50-57-89-32')
+    _iid_ = Guid('70528852-2f26-4aea-8c-96-21-51-50-57-89-32')
     @commethod(3)
     def GetGUID(self, pguid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1282,7 +1282,7 @@ class ITfDisplayAttributeInfo(ComPtr):
     def Reset(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfDisplayAttributeMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8ded7393-5db1-475c-9e-71-a3-91-11-b0-ff-67')
+    _iid_ = Guid('8ded7393-5db1-475c-9e-71-a3-91-11-b0-ff-67')
     @commethod(3)
     def OnUpdateInfo(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1291,19 +1291,19 @@ class ITfDisplayAttributeMgr(ComPtr):
     def GetDisplayAttributeInfo(self, guid: POINTER(Guid), ppInfo: POINTER(Windows.Win32.UI.TextServices.ITfDisplayAttributeInfo_head), pclsidOwner: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfDisplayAttributeNotifySink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ad56f402-e162-4f25-90-8f-7d-57-7c-f9-bd-a9')
+    _iid_ = Guid('ad56f402-e162-4f25-90-8f-7d-57-7c-f9-bd-a9')
     @commethod(3)
     def OnUpdateInfo(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfDisplayAttributeProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fee47777-163c-4769-99-6a-6e-9c-50-ad-8f-54')
+    _iid_ = Guid('fee47777-163c-4769-99-6a-6e-9c-50-ad-8f-54')
     @commethod(3)
     def EnumDisplayAttributeInfo(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfDisplayAttributeInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDisplayAttributeInfo(self, guid: POINTER(Guid), ppInfo: POINTER(Windows.Win32.UI.TextServices.ITfDisplayAttributeInfo_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfDocumentMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa80e7f4-2021-11d2-93-e0-00-60-b0-67-b8-6e')
+    _iid_ = Guid('aa80e7f4-2021-11d2-93-e0-00-60-b0-67-b8-6e')
     @commethod(3)
     def CreateContext(self, tidOwner: UInt32, dwFlags: UInt32, punk: Windows.Win32.System.Com.IUnknown_head, ppic: POINTER(Windows.Win32.UI.TextServices.ITfContext_head), pecTextStore: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1318,78 +1318,78 @@ class ITfDocumentMgr(ComPtr):
     def EnumContexts(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfContexts_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfEditRecord(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('42d4d099-7c1a-4a89-b8-36-6c-6f-22-16-0d-f0')
+    _iid_ = Guid('42d4d099-7c1a-4a89-b8-36-6c-6f-22-16-0d-f0')
     @commethod(3)
     def GetSelectionStatus(self, pfChanged: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetTextAndPropertyUpdates(self, dwFlags: Windows.Win32.UI.TextServices.GET_TEXT_AND_PROPERTY_UPDATES_FLAGS, prgProperties: POINTER(POINTER(Guid)), cProperties: UInt32, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfRanges_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfEditSession(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa80e803-2021-11d2-93-e0-00-60-b0-67-b8-6e')
+    _iid_ = Guid('aa80e803-2021-11d2-93-e0-00-60-b0-67-b8-6e')
     @commethod(3)
     def DoEditSession(self, ec: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfEditTransactionSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('708fbf70-b520-416b-b0-6c-2c-41-ab-44-f8-ba')
+    _iid_ = Guid('708fbf70-b520-416b-b0-6c-2c-41-ab-44-f8-ba')
     @commethod(3)
     def OnStartEditTransaction(self, pic: Windows.Win32.UI.TextServices.ITfContext_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnEndEditTransaction(self, pic: Windows.Win32.UI.TextServices.ITfContext_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnAdviseText(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfFunction
-    Guid = Guid('3527268b-7d53-4dd9-92-b7-72-96-ae-46-12-49')
+    _iid_ = Guid('3527268b-7d53-4dd9-92-b7-72-96-ae-46-12-49')
     @commethod(4)
     def OnTextUpdate(self, pRange: Windows.Win32.UI.TextServices.ITfRange_head, pchText: Windows.Win32.Foundation.PWSTR, cch: Int32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def OnLatticeUpdate(self, pRange: Windows.Win32.UI.TextServices.ITfRange_head, pLattice: Windows.Win32.UI.TextServices.ITfLMLattice_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnBalloon(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3bab89e4-5fbe-45f4-a5-bc-dc-a3-6a-d2-25-a8')
+    _iid_ = Guid('3bab89e4-5fbe-45f4-a5-bc-dc-a3-6a-d2-25-a8')
     @commethod(3)
     def UpdateBalloon(self, style: Windows.Win32.UI.TextServices.TfLBBalloonStyle, pch: Windows.Win32.Foundation.PWSTR, cch: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnConfigure(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfFunction
-    Guid = Guid('88f567c6-1757-49f8-a1-b2-89-23-4c-1e-ef-f9')
+    _iid_ = Guid('88f567c6-1757-49f8-a1-b2-89-23-4c-1e-ef-f9')
     @commethod(4)
     def Show(self, hwndParent: Windows.Win32.Foundation.HWND, langid: UInt16, rguidProfile: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnConfigureRegisterEudc(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfFunction
-    Guid = Guid('b5e26ff5-d7ad-4304-91-3f-21-a2-ed-95-a1-b0')
+    _iid_ = Guid('b5e26ff5-d7ad-4304-91-3f-21-a2-ed-95-a1-b0')
     @commethod(4)
     def Show(self, hwndParent: Windows.Win32.Foundation.HWND, langid: UInt16, rguidProfile: POINTER(Guid), bstrRegistered: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnConfigureRegisterWord(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfFunction
-    Guid = Guid('bb95808a-6d8f-4bca-84-00-53-90-b5-86-ae-df')
+    _iid_ = Guid('bb95808a-6d8f-4bca-84-00-53-90-b5-86-ae-df')
     @commethod(4)
     def Show(self, hwndParent: Windows.Win32.Foundation.HWND, langid: UInt16, rguidProfile: POINTER(Guid), bstrRegistered: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnCustomSpeechCommand(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfFunction
-    Guid = Guid('fca6c349-a12f-43a3-8d-d6-5a-5a-42-82-57-7b')
+    _iid_ = Guid('fca6c349-a12f-43a3-8d-d6-5a-5a-42-82-57-7b')
     @commethod(4)
     def SetSpeechCommandProvider(self, pspcmdProvider: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnGetLinguisticAlternates(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfFunction
-    Guid = Guid('ea163ce2-7a65-4506-82-a3-c5-28-21-5d-a6-4e')
+    _iid_ = Guid('ea163ce2-7a65-4506-82-a3-c5-28-21-5d-a6-4e')
     @commethod(4)
     def GetAlternates(self, pRange: Windows.Win32.UI.TextServices.ITfRange_head, ppCandidateList: POINTER(Windows.Win32.UI.TextServices.ITfCandidateList_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnGetPreferredTouchKeyboardLayout(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfFunction
-    Guid = Guid('5f309a41-590a-4acc-a9-7f-d8-ef-ff-13-fd-fc')
+    _iid_ = Guid('5f309a41-590a-4acc-a9-7f-d8-ef-ff-13-fd-fc')
     @commethod(4)
     def GetLayout(self, pTKBLayoutType: POINTER(Windows.Win32.UI.TextServices.TKBLayoutType), pwPreferredLayoutId: POINTER(UInt16)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnGetSAPIObject(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfFunction
-    Guid = Guid('5c0ab7ea-167d-4f59-bf-b5-46-93-75-5e-90-ca')
+    _iid_ = Guid('5c0ab7ea-167d-4f59-bf-b5-46-93-75-5e-90-ca')
     @commethod(4)
     def Get(self, sObj: Windows.Win32.UI.TextServices.TfSapiObject, ppunk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnLMInternal(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfFnLMProcessor
-    Guid = Guid('04b825b1-ac9a-4f7b-b5-ad-c7-16-8f-1e-e4-45')
+    _iid_ = Guid('04b825b1-ac9a-4f7b-b5-ad-c7-16-8f-1e-e4-45')
     @commethod(11)
     def ProcessLattice(self, pRange: Windows.Win32.UI.TextServices.ITfRange_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnLMProcessor(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfFunction
-    Guid = Guid('7afbf8e7-ac4b-4082-b0-58-89-08-99-d3-a0-10')
+    _iid_ = Guid('7afbf8e7-ac4b-4082-b0-58-89-08-99-d3-a0-10')
     @commethod(4)
     def QueryRange(self, pRange: Windows.Win32.UI.TextServices.ITfRange_head, ppNewRange: POINTER(Windows.Win32.UI.TextServices.ITfRange_head), pfAccepted: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -1406,28 +1406,28 @@ class ITfFnLMProcessor(ComPtr):
     def InvokeFunc(self, pic: Windows.Win32.UI.TextServices.ITfContext_head, refguidFunc: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnLangProfileUtil(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfFunction
-    Guid = Guid('a87a8574-a6c1-4e15-99-f0-3d-39-65-f5-48-eb')
+    _iid_ = Guid('a87a8574-a6c1-4e15-99-f0-3d-39-65-f5-48-eb')
     @commethod(4)
     def RegisterActiveProfiles(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def IsProfileAvailableForLang(self, langid: UInt16, pfAvailable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnPlayBack(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfFunction
-    Guid = Guid('a3a416a4-0f64-11d3-b5-b7-00-c0-4f-c3-24-a1')
+    _iid_ = Guid('a3a416a4-0f64-11d3-b5-b7-00-c0-4f-c3-24-a1')
     @commethod(4)
     def QueryRange(self, pRange: Windows.Win32.UI.TextServices.ITfRange_head, ppNewRange: POINTER(Windows.Win32.UI.TextServices.ITfRange_head), pfPlayable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def Play(self, pRange: Windows.Win32.UI.TextServices.ITfRange_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnPropertyUIStatus(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfFunction
-    Guid = Guid('2338ac6e-2b9d-44c0-a7-5e-ee-64-f2-56-b3-bd')
+    _iid_ = Guid('2338ac6e-2b9d-44c0-a7-5e-ee-64-f2-56-b3-bd')
     @commethod(4)
     def GetStatus(self, refguidProp: POINTER(Guid), pdw: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetStatus(self, refguidProp: POINTER(Guid), dw: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnReconversion(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfFunction
-    Guid = Guid('4cea93c0-0a58-11d3-8d-f0-00-10-5a-27-99-b5')
+    _iid_ = Guid('4cea93c0-0a58-11d3-8d-f0-00-10-5a-27-99-b5')
     @commethod(4)
     def QueryRange(self, pRange: Windows.Win32.UI.TextServices.ITfRange_head, ppNewRange: POINTER(Windows.Win32.UI.TextServices.ITfRange_head), pfConvertable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
@@ -1436,24 +1436,24 @@ class ITfFnReconversion(ComPtr):
     def Reconvert(self, pRange: Windows.Win32.UI.TextServices.ITfRange_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnSearchCandidateProvider(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfFunction
-    Guid = Guid('87a2ad8f-f27b-4920-85-01-67-60-22-80-17-5d')
+    _iid_ = Guid('87a2ad8f-f27b-4920-85-01-67-60-22-80-17-5d')
     @commethod(4)
     def GetSearchCandidates(self, bstrQuery: Windows.Win32.Foundation.BSTR, bstrApplicationId: Windows.Win32.Foundation.BSTR, pplist: POINTER(Windows.Win32.UI.TextServices.ITfCandidateList_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(5)
     def SetResult(self, bstrQuery: Windows.Win32.Foundation.BSTR, bstrApplicationID: Windows.Win32.Foundation.BSTR, bstrResult: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFnShowHelp(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfFunction
-    Guid = Guid('5ab1d30c-094d-4c29-8e-a5-0b-f5-9b-e8-7b-f3')
+    _iid_ = Guid('5ab1d30c-094d-4c29-8e-a5-0b-f5-9b-e8-7b-f3')
     @commethod(4)
     def Show(self, hwndParent: Windows.Win32.Foundation.HWND) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFunction(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('db593490-098f-11d3-8d-f0-00-10-5a-27-99-b5')
+    _iid_ = Guid('db593490-098f-11d3-8d-f0-00-10-5a-27-99-b5')
     @commethod(3)
     def GetDisplayName(self, pbstrName: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfFunctionProvider(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('101d6610-0990-11d3-8d-f0-00-10-5a-27-99-b5')
+    _iid_ = Guid('101d6610-0990-11d3-8d-f0-00-10-5a-27-99-b5')
     @commethod(3)
     def GetType(self, pguid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1462,12 +1462,12 @@ class ITfFunctionProvider(ComPtr):
     def GetFunction(self, rguid: POINTER(Guid), riid: POINTER(Guid), ppunk: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfInputProcessorProfileActivationSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('71c6e74e-0f28-11d8-a8-2a-00-06-5b-84-43-5c')
+    _iid_ = Guid('71c6e74e-0f28-11d8-a8-2a-00-06-5b-84-43-5c')
     @commethod(3)
     def OnActivated(self, dwProfileType: UInt32, langid: UInt16, clsid: POINTER(Guid), catid: POINTER(Guid), guidProfile: POINTER(Guid), hkl: Windows.Win32.UI.TextServices.HKL, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfInputProcessorProfileMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('71c6e74c-0f28-11d8-a8-2a-00-06-5b-84-43-5c')
+    _iid_ = Guid('71c6e74c-0f28-11d8-a8-2a-00-06-5b-84-43-5c')
     @commethod(3)
     def ActivateProfile(self, dwProfileType: UInt32, langid: UInt16, clsid: POINTER(Guid), guidProfile: POINTER(Guid), hkl: Windows.Win32.UI.TextServices.HKL, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1486,12 +1486,12 @@ class ITfInputProcessorProfileMgr(ComPtr):
     def GetActiveProfile(self, catid: POINTER(Guid), pProfile: POINTER(Windows.Win32.UI.TextServices.TF_INPUTPROCESSORPROFILE_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfInputProcessorProfileSubstituteLayout(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4fd67194-1002-4513-bf-f2-c0-dd-f6-25-85-52')
+    _iid_ = Guid('4fd67194-1002-4513-bf-f2-c0-dd-f6-25-85-52')
     @commethod(3)
     def GetSubstituteKeyboardLayout(self, rclsid: POINTER(Guid), langid: UInt16, guidProfile: POINTER(Guid), phKL: POINTER(Windows.Win32.UI.TextServices.HKL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfInputProcessorProfiles(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1f02b6c5-7842-4ee6-8a-0b-9a-24-18-3a-95-ca')
+    _iid_ = Guid('1f02b6c5-7842-4ee6-8a-0b-9a-24-18-3a-95-ca')
     @commethod(3)
     def Register(self, rclsid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1530,12 +1530,12 @@ class ITfInputProcessorProfiles(ComPtr):
     def SubstituteKeyboardLayout(self, rclsid: POINTER(Guid), langid: UInt16, guidProfile: POINTER(Guid), hKL: Windows.Win32.UI.TextServices.HKL) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfInputProcessorProfilesEx(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfInputProcessorProfiles
-    Guid = Guid('892f230f-fe00-4a41-a9-8e-fc-d6-de-0d-35-ef')
+    _iid_ = Guid('892f230f-fe00-4a41-a9-8e-fc-d6-de-0d-35-ef')
     @commethod(21)
     def SetLanguageProfileDisplayName(self, rclsid: POINTER(Guid), langid: UInt16, guidProfile: POINTER(Guid), pchFile: Windows.Win32.Foundation.PWSTR, cchFile: UInt32, uResId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfInputScope(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('fde1eaee-6924-4cdf-91-e7-da-38-cf-f5-55-9d')
+    _iid_ = Guid('fde1eaee-6924-4cdf-91-e7-da-38-cf-f5-55-9d')
     @commethod(3)
     def GetInputScopes(self, pprgInputScopes: POINTER(POINTER(Windows.Win32.UI.TextServices.InputScope)), pcCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1548,19 +1548,19 @@ class ITfInputScope(ComPtr):
     def GetXML(self, pbstrXML: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfInputScope2(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfInputScope
-    Guid = Guid('5731eaa0-6bc2-4681-a5-32-92-fb-b7-4d-7c-41')
+    _iid_ = Guid('5731eaa0-6bc2-4681-a5-32-92-fb-b7-4d-7c-41')
     @commethod(8)
     def EnumWordList(self, ppEnumString: POINTER(Windows.Win32.System.Com.IEnumString_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfInsertAtSelection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('55ce16ba-3014-41c1-9c-eb-fa-de-14-46-ac-6c')
+    _iid_ = Guid('55ce16ba-3014-41c1-9c-eb-fa-de-14-46-ac-6c')
     @commethod(3)
     def InsertTextAtSelection(self, ec: UInt32, dwFlags: Windows.Win32.UI.TextServices.INSERT_TEXT_AT_SELECTION_FLAGS, pchText: Windows.Win32.Foundation.PWSTR, cch: Int32, ppRange: POINTER(Windows.Win32.UI.TextServices.ITfRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def InsertEmbeddedAtSelection(self, ec: UInt32, dwFlags: UInt32, pDataObject: Windows.Win32.System.Com.IDataObject_head, ppRange: POINTER(Windows.Win32.UI.TextServices.ITfRange_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfIntegratableCandidateListUIElement(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c7a6f54f-b180-416f-b2-bf-7b-f2-e4-68-3d-7b')
+    _iid_ = Guid('c7a6f54f-b180-416f-b2-bf-7b-f2-e4-68-3d-7b')
     @commethod(3)
     def SetIntegrationStyle(self, guidIntegrationStyle: Guid) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1573,7 +1573,7 @@ class ITfIntegratableCandidateListUIElement(ComPtr):
     def FinalizeExactCompositionString(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfKeyEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa80e7f5-2021-11d2-93-e0-00-60-b0-67-b8-6e')
+    _iid_ = Guid('aa80e7f5-2021-11d2-93-e0-00-60-b0-67-b8-6e')
     @commethod(3)
     def OnSetFocus(self, fForeground: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1588,14 +1588,14 @@ class ITfKeyEventSink(ComPtr):
     def OnPreservedKey(self, pic: Windows.Win32.UI.TextServices.ITfContext_head, rguid: POINTER(Guid), pfEaten: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfKeyTraceEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1cd4c13b-1c36-4191-a7-0a-7f-3e-61-1f-36-7d')
+    _iid_ = Guid('1cd4c13b-1c36-4191-a7-0a-7f-3e-61-1f-36-7d')
     @commethod(3)
     def OnKeyTraceDown(self, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnKeyTraceUp(self, wParam: Windows.Win32.Foundation.WPARAM, lParam: Windows.Win32.Foundation.LPARAM) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfKeystrokeMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa80e7f0-2021-11d2-93-e0-00-60-b0-67-b8-6e')
+    _iid_ = Guid('aa80e7f0-2021-11d2-93-e0-00-60-b0-67-b8-6e')
     @commethod(3)
     def AdviseKeyEventSink(self, tid: UInt32, pSink: Windows.Win32.UI.TextServices.ITfKeyEventSink_head, fForeground: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1626,14 +1626,14 @@ class ITfKeystrokeMgr(ComPtr):
     def SimulatePreservedKey(self, pic: Windows.Win32.UI.TextServices.ITfContext_head, rguid: POINTER(Guid), pfEaten: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfLMLattice(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d4236675-a5bf-4570-9d-42-5d-6d-7b-02-d5-9b')
+    _iid_ = Guid('d4236675-a5bf-4570-9d-42-5d-6d-7b-02-d5-9b')
     @commethod(3)
     def QueryType(self, rguidType: POINTER(Guid), pfSupported: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def EnumLatticeElements(self, dwFrameStart: UInt32, rguidType: POINTER(Guid), ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfLatticeElements_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfLangBarEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('18a4e900-e0ae-11d2-af-dd-00-10-5a-27-99-b5')
+    _iid_ = Guid('18a4e900-e0ae-11d2-af-dd-00-10-5a-27-99-b5')
     @commethod(3)
     def OnSetFocus(self, dwThreadId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1648,7 +1648,7 @@ class ITfLangBarEventSink(ComPtr):
     def GetItemFloatingRect(self, dwThreadId: UInt32, rguid: POINTER(Guid), prc: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfLangBarItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('73540d69-edeb-4ee9-96-c9-23-aa-30-b2-59-16')
+    _iid_ = Guid('73540d69-edeb-4ee9-96-c9-23-aa-30-b2-59-16')
     @commethod(3)
     def GetInfo(self, pInfo: POINTER(Windows.Win32.UI.TextServices.TF_LANGBARITEMINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1659,7 +1659,7 @@ class ITfLangBarItem(ComPtr):
     def GetTooltipString(self, pbstrToolTip: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfLangBarItemBalloon(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfLangBarItem
-    Guid = Guid('01c2d285-d3c7-4b7b-b5-b5-d9-74-11-d0-c2-83')
+    _iid_ = Guid('01c2d285-d3c7-4b7b-b5-b5-d9-74-11-d0-c2-83')
     @commethod(7)
     def OnClick(self, click: Windows.Win32.UI.TextServices.TfLBIClick, pt: Windows.Win32.Foundation.POINT, prcArea: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1668,7 +1668,7 @@ class ITfLangBarItemBalloon(ComPtr):
     def GetBalloonInfo(self, pInfo: POINTER(Windows.Win32.UI.TextServices.TF_LBBALLOONINFO_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfLangBarItemBitmap(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfLangBarItem
-    Guid = Guid('73830352-d722-4179-ad-a5-f0-45-c9-8d-f3-55')
+    _iid_ = Guid('73830352-d722-4179-ad-a5-f0-45-c9-8d-f3-55')
     @commethod(7)
     def OnClick(self, click: Windows.Win32.UI.TextServices.TfLBIClick, pt: Windows.Win32.Foundation.POINT, prcArea: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1677,7 +1677,7 @@ class ITfLangBarItemBitmap(ComPtr):
     def DrawBitmap(self, bmWidth: Int32, bmHeight: Int32, dwFlags: UInt32, phbmp: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP), phbmpMask: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfLangBarItemBitmapButton(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfLangBarItem
-    Guid = Guid('a26a0525-3fae-4fa0-89-ee-88-a9-64-f9-f1-b5')
+    _iid_ = Guid('a26a0525-3fae-4fa0-89-ee-88-a9-64-f9-f1-b5')
     @commethod(7)
     def OnClick(self, click: Windows.Win32.UI.TextServices.TfLBIClick, pt: Windows.Win32.Foundation.POINT, prcArea: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1692,7 +1692,7 @@ class ITfLangBarItemBitmapButton(ComPtr):
     def GetText(self, pbstrText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfLangBarItemButton(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfLangBarItem
-    Guid = Guid('28c7f1d0-de25-11d2-af-dd-00-10-5a-27-99-b5')
+    _iid_ = Guid('28c7f1d0-de25-11d2-af-dd-00-10-5a-27-99-b5')
     @commethod(7)
     def OnClick(self, click: Windows.Win32.UI.TextServices.TfLBIClick, pt: Windows.Win32.Foundation.POINT, prcArea: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1705,7 +1705,7 @@ class ITfLangBarItemButton(ComPtr):
     def GetText(self, pbstrText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfLangBarItemMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ba468c55-9956-4fb1-a5-9d-52-a7-dd-7c-c6-aa')
+    _iid_ = Guid('ba468c55-9956-4fb1-a5-9d-52-a7-dd-7c-c6-aa')
     @commethod(3)
     def EnumItems(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfLangBarItems_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1732,12 +1732,12 @@ class ITfLangBarItemMgr(ComPtr):
     def UnadviseItemsSink(self, ulCount: UInt32, pdwCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfLangBarItemSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('57dbe1a0-de25-11d2-af-dd-00-10-5a-27-99-b5')
+    _iid_ = Guid('57dbe1a0-de25-11d2-af-dd-00-10-5a-27-99-b5')
     @commethod(3)
     def OnUpdate(self, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfLangBarMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('87955690-e627-11d2-8d-db-00-10-5a-27-99-b5')
+    _iid_ = Guid('87955690-e627-11d2-8d-db-00-10-5a-27-99-b5')
     @commethod(3)
     def AdviseEventSink(self, pSink: Windows.Win32.UI.TextServices.ITfLangBarEventSink_head, hwnd: Windows.Win32.Foundation.HWND, dwFlags: UInt32, pdwCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1758,26 +1758,26 @@ class ITfLangBarMgr(ComPtr):
     def GetShowFloatingStatus(self, pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfLanguageProfileNotifySink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('43c9fe15-f494-4c17-9d-e2-b8-a4-ac-35-0a-a8')
+    _iid_ = Guid('43c9fe15-f494-4c17-9d-e2-b8-a4-ac-35-0a-a8')
     @commethod(3)
     def OnLanguageChange(self, langid: UInt16, pfAccept: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnLanguageChanged(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfMSAAControl(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b5f8fb3b-393f-4f7c-84-cb-50-49-24-c2-70-5a')
+    _iid_ = Guid('b5f8fb3b-393f-4f7c-84-cb-50-49-24-c2-70-5a')
     @commethod(3)
     def SystemEnableMSAA(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SystemDisableMSAA(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfMenu(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6f8a98e4-aaa0-4f15-8c-5b-07-e0-df-0a-3d-d8')
+    _iid_ = Guid('6f8a98e4-aaa0-4f15-8c-5b-07-e0-df-0a-3d-d8')
     @commethod(3)
     def AddMenuItem(self, uId: UInt32, dwFlags: UInt32, hbmp: Windows.Win32.Graphics.Gdi.HBITMAP, hbmpMask: Windows.Win32.Graphics.Gdi.HBITMAP, pch: Windows.Win32.Foundation.PWSTR, cch: UInt32, ppMenu: POINTER(Windows.Win32.UI.TextServices.ITfMenu_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfMessagePump(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8f1b8ad8-0b6b-4874-90-c5-bd-76-01-1e-8f-7c')
+    _iid_ = Guid('8f1b8ad8-0b6b-4874-90-c5-bd-76-01-1e-8f-7c')
     @commethod(3)
     def PeekMessageA(self, pMsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head), hwnd: Windows.Win32.Foundation.HWND, wMsgFilterMin: UInt32, wMsgFilterMax: UInt32, wRemoveMsg: UInt32, pfResult: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1788,36 +1788,36 @@ class ITfMessagePump(ComPtr):
     def GetMessageW(self, pMsg: POINTER(Windows.Win32.UI.WindowsAndMessaging.MSG_head), hwnd: Windows.Win32.Foundation.HWND, wMsgFilterMin: UInt32, wMsgFilterMax: UInt32, pfResult: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfMouseSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a1adaaa2-3a24-449d-ac-96-51-83-e7-f5-c2-17')
+    _iid_ = Guid('a1adaaa2-3a24-449d-ac-96-51-83-e7-f5-c2-17')
     @commethod(3)
     def OnMouseEvent(self, uEdge: UInt32, uQuadrant: UInt32, dwBtnStatus: UInt32, pfEaten: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfMouseTracker(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('09d146cd-a544-4132-92-5b-7a-fa-8e-f3-22-d0')
+    _iid_ = Guid('09d146cd-a544-4132-92-5b-7a-fa-8e-f3-22-d0')
     @commethod(3)
     def AdviseMouseSink(self, range: Windows.Win32.UI.TextServices.ITfRange_head, pSink: Windows.Win32.UI.TextServices.ITfMouseSink_head, pdwCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UnadviseMouseSink(self, dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfMouseTrackerACP(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('3bdd78e2-c16e-47fd-b8-83-ce-6f-ac-c1-a2-08')
+    _iid_ = Guid('3bdd78e2-c16e-47fd-b8-83-ce-6f-ac-c1-a2-08')
     @commethod(3)
     def AdviseMouseSink(self, range: Windows.Win32.UI.TextServices.ITfRangeACP_head, pSink: Windows.Win32.UI.TextServices.ITfMouseSink_head, pdwCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UnadviseMouseSink(self, dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfPersistentPropertyLoaderACP(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4ef89150-0807-11d3-8d-f0-00-10-5a-27-99-b5')
+    _iid_ = Guid('4ef89150-0807-11d3-8d-f0-00-10-5a-27-99-b5')
     @commethod(3)
     def LoadProperty(self, pHdr: POINTER(Windows.Win32.UI.TextServices.TF_PERSISTENT_PROPERTY_HEADER_ACP_head), ppStream: POINTER(Windows.Win32.System.Com.IStream_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfPreservedKeyNotifySink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6f77c993-d2b1-446e-85-3e-59-12-ef-c8-a2-86')
+    _iid_ = Guid('6f77c993-d2b1-446e-85-3e-59-12-ef-c8-a2-86')
     @commethod(3)
     def OnUpdated(self, pprekey: POINTER(Windows.Win32.UI.TextServices.TF_PRESERVEDKEY_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfProperty(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfReadOnlyProperty
-    Guid = Guid('e2449660-9542-11d2-bf-46-00-10-5a-27-99-b5')
+    _iid_ = Guid('e2449660-9542-11d2-bf-46-00-10-5a-27-99-b5')
     @commethod(7)
     def FindRange(self, ec: UInt32, pRange: Windows.Win32.UI.TextServices.ITfRange_head, ppRange: POINTER(Windows.Win32.UI.TextServices.ITfRange_head), aPos: Windows.Win32.UI.TextServices.TfAnchor) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1828,7 +1828,7 @@ class ITfProperty(ComPtr):
     def Clear(self, ec: UInt32, pRange: Windows.Win32.UI.TextServices.ITfRange_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfPropertyStore(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6834b120-88cb-11d2-bf-45-00-10-5a-27-99-b5')
+    _iid_ = Guid('6834b120-88cb-11d2-bf-45-00-10-5a-27-99-b5')
     @commethod(3)
     def GetType(self, pguid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1849,12 +1849,12 @@ class ITfPropertyStore(ComPtr):
     def Serialize(self, pStream: Windows.Win32.System.Com.IStream_head, pcb: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfQueryEmbedded(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0fab9bdb-d250-4169-84-e5-6b-e1-18-fd-d7-a8')
+    _iid_ = Guid('0fab9bdb-d250-4169-84-e5-6b-e1-18-fd-d7-a8')
     @commethod(3)
     def QueryInsertEmbedded(self, pguidService: POINTER(Guid), pFormatEtc: POINTER(Windows.Win32.System.Com.FORMATETC_head), pfInsertable: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfRange(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa80e7ff-2021-11d2-93-e0-00-60-b0-67-b8-6e')
+    _iid_ = Guid('aa80e7ff-2021-11d2-93-e0-00-60-b0-67-b8-6e')
     @commethod(3)
     def GetText(self, ec: UInt32, dwFlags: UInt32, pchText: Windows.Win32.Foundation.PWSTR, cchMax: UInt32, pcch: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1901,19 +1901,19 @@ class ITfRange(ComPtr):
     def GetContext(self, ppContext: POINTER(Windows.Win32.UI.TextServices.ITfContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfRangeACP(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfRange
-    Guid = Guid('057a6296-029b-4154-b7-9a-0d-46-1d-4e-a9-4c')
+    _iid_ = Guid('057a6296-029b-4154-b7-9a-0d-46-1d-4e-a9-4c')
     @commethod(25)
     def GetExtent(self, pacpAnchor: POINTER(Int32), pcch: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(26)
     def SetExtent(self, acpAnchor: Int32, cch: Int32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfRangeBackup(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('463a506d-6992-49d2-9b-88-93-d5-5e-70-bb-16')
+    _iid_ = Guid('463a506d-6992-49d2-9b-88-93-d5-5e-70-bb-16')
     @commethod(3)
     def Restore(self, ec: UInt32, pRange: Windows.Win32.UI.TextServices.ITfRange_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfReadOnlyProperty(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('17d49a3d-f8b8-4b2f-b2-54-52-31-9d-d6-4c-53')
+    _iid_ = Guid('17d49a3d-f8b8-4b2f-b2-54-52-31-9d-d6-4c-53')
     @commethod(3)
     def GetType(self, pguid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1924,7 +1924,7 @@ class ITfReadOnlyProperty(ComPtr):
     def GetContext(self, ppContext: POINTER(Windows.Win32.UI.TextServices.ITfContext_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfReadingInformationUIElement(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfUIElement
-    Guid = Guid('ea1ea139-19df-11d7-a6-d2-00-06-5b-84-43-5c')
+    _iid_ = Guid('ea1ea139-19df-11d7-a6-d2-00-06-5b-84-43-5c')
     @commethod(7)
     def GetUpdatedFlags(self, pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -1939,38 +1939,38 @@ class ITfReadingInformationUIElement(ComPtr):
     def IsVerticalOrderPreferred(self, pfVertical: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfReverseConversion(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a415e162-157d-417d-8a-8c-0a-b2-6c-7d-27-81')
+    _iid_ = Guid('a415e162-157d-417d-8a-8c-0a-b2-6c-7d-27-81')
     @commethod(3)
     def DoReverseConversion(self, lpstr: Windows.Win32.Foundation.PWSTR, ppList: POINTER(Windows.Win32.UI.TextServices.ITfReverseConversionList_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfReverseConversionList(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('151d69f0-86f4-4674-b7-21-56-91-1e-79-7f-47')
+    _iid_ = Guid('151d69f0-86f4-4674-b7-21-56-91-1e-79-7f-47')
     @commethod(3)
     def GetLength(self, puIndex: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetString(self, uIndex: UInt32, pbstr: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfReverseConversionMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b643c236-c493-41b6-ab-b3-69-24-12-77-5c-c4')
+    _iid_ = Guid('b643c236-c493-41b6-ab-b3-69-24-12-77-5c-c4')
     @commethod(3)
     def GetReverseConversion(self, langid: UInt16, guidProfile: POINTER(Guid), dwflag: UInt32, ppReverseConversion: POINTER(Windows.Win32.UI.TextServices.ITfReverseConversion_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfSource(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('4ea48a35-60ae-446f-8f-d6-e6-a8-d8-24-59-f7')
+    _iid_ = Guid('4ea48a35-60ae-446f-8f-d6-e6-a8-d8-24-59-f7')
     @commethod(3)
     def AdviseSink(self, riid: POINTER(Guid), punk: Windows.Win32.System.Com.IUnknown_head, pdwCookie: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UnadviseSink(self, dwCookie: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfSourceSingle(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('73131f9c-56a9-49dd-b0-ee-d0-46-63-3f-75-28')
+    _iid_ = Guid('73131f9c-56a9-49dd-b0-ee-d0-46-63-3f-75-28')
     @commethod(3)
     def AdviseSingleSink(self, tid: UInt32, riid: POINTER(Guid), punk: Windows.Win32.System.Com.IUnknown_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def UnadviseSingleSink(self, tid: UInt32, riid: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfSpeechUIServer(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('90e9a944-9244-489f-a7-8f-de-67-af-c0-13-a7')
+    _iid_ = Guid('90e9a944-9244-489f-a7-8f-de-67-af-c0-13-a7')
     @commethod(3)
     def Initialize(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1979,69 +1979,69 @@ class ITfSpeechUIServer(ComPtr):
     def UpdateBalloon(self, style: Windows.Win32.UI.TextServices.TfLBBalloonStyle, pch: Windows.Win32.Foundation.PWSTR, cch: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfStatusSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6b7d8d73-b267-4f69-b3-2e-1c-a3-21-ce-4f-45')
+    _iid_ = Guid('6b7d8d73-b267-4f69-b3-2e-1c-a3-21-ce-4f-45')
     @commethod(3)
     def OnStatusChange(self, pic: Windows.Win32.UI.TextServices.ITfContext_head, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfSystemDeviceTypeLangBarItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('45672eb9-9059-46a2-83-8d-45-30-35-5f-6a-77')
+    _iid_ = Guid('45672eb9-9059-46a2-83-8d-45-30-35-5f-6a-77')
     @commethod(3)
     def SetIconMode(self, dwFlags: Windows.Win32.UI.TextServices.LANG_BAR_ITEM_ICON_MODE_FLAGS) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetIconMode(self, pdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfSystemLangBarItem(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1e13e9ec-6b33-4d4a-b5-eb-8a-92-f0-29-f3-56')
+    _iid_ = Guid('1e13e9ec-6b33-4d4a-b5-eb-8a-92-f0-29-f3-56')
     @commethod(3)
     def SetIcon(self, hIcon: Windows.Win32.UI.WindowsAndMessaging.HICON) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def SetTooltipString(self, pchToolTip: Windows.Win32.Foundation.PWSTR, cch: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfSystemLangBarItemSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('1449d9ab-13cf-4687-aa-3e-8d-8b-18-57-43-96')
+    _iid_ = Guid('1449d9ab-13cf-4687-aa-3e-8d-8b-18-57-43-96')
     @commethod(3)
     def InitMenu(self, pMenu: Windows.Win32.UI.TextServices.ITfMenu_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnMenuSelect(self, wID: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfSystemLangBarItemText(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5c4ce0e5-ba49-4b52-ac-6b-3b-39-7b-4f-70-1f')
+    _iid_ = Guid('5c4ce0e5-ba49-4b52-ac-6b-3b-39-7b-4f-70-1f')
     @commethod(3)
     def SetItemText(self, pch: Windows.Win32.Foundation.PWSTR, cch: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetItemText(self, pbstrText: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfTextEditSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8127d409-ccd3-4683-96-7a-b4-3d-5b-48-2b-f7')
+    _iid_ = Guid('8127d409-ccd3-4683-96-7a-b4-3d-5b-48-2b-f7')
     @commethod(3)
     def OnEndEdit(self, pic: Windows.Win32.UI.TextServices.ITfContext_head, ecReadOnly: UInt32, pEditRecord: Windows.Win32.UI.TextServices.ITfEditRecord_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfTextInputProcessor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa80e7f7-2021-11d2-93-e0-00-60-b0-67-b8-6e')
+    _iid_ = Guid('aa80e7f7-2021-11d2-93-e0-00-60-b0-67-b8-6e')
     @commethod(3)
     def Activate(self, ptim: Windows.Win32.UI.TextServices.ITfThreadMgr_head, tid: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def Deactivate(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfTextInputProcessorEx(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfTextInputProcessor
-    Guid = Guid('6e4e2102-f9cd-433d-b4-96-30-3c-e0-3a-65-07')
+    _iid_ = Guid('6e4e2102-f9cd-433d-b4-96-30-3c-e0-3a-65-07')
     @commethod(5)
     def ActivateEx(self, ptim: Windows.Win32.UI.TextServices.ITfThreadMgr_head, tid: UInt32, dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfTextLayoutSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2af2d06a-dd5b-4927-a0-b4-54-f1-9c-91-fa-de')
+    _iid_ = Guid('2af2d06a-dd5b-4927-a0-b4-54-f1-9c-91-fa-de')
     @commethod(3)
     def OnLayoutChange(self, pic: Windows.Win32.UI.TextServices.ITfContext_head, lcode: Windows.Win32.UI.TextServices.TfLayoutCode, pView: Windows.Win32.UI.TextServices.ITfContextView_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfThreadFocusSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('c0f1db0c-3a20-405c-a3-03-96-b6-01-0a-88-5f')
+    _iid_ = Guid('c0f1db0c-3a20-405c-a3-03-96-b6-01-0a-88-5f')
     @commethod(3)
     def OnSetThreadFocus(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def OnKillThreadFocus(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfThreadMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa80e801-2021-11d2-93-e0-00-60-b0-67-b8-6e')
+    _iid_ = Guid('aa80e801-2021-11d2-93-e0-00-60-b0-67-b8-6e')
     @commethod(3)
     def Activate(self, ptid: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2066,7 +2066,7 @@ class ITfThreadMgr(ComPtr):
     def GetGlobalCompartment(self, ppCompMgr: POINTER(Windows.Win32.UI.TextServices.ITfCompartmentMgr_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfThreadMgr2(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0ab198ef-6477-4ee8-88-12-67-80-ed-b8-2d-5e')
+    _iid_ = Guid('0ab198ef-6477-4ee8-88-12-67-80-ed-b8-2d-5e')
     @commethod(3)
     def Activate(self, ptid: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2097,7 +2097,7 @@ class ITfThreadMgr2(ComPtr):
     def ResumeKeystrokeHandling(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfThreadMgrEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('aa80e80e-2021-11d2-93-e0-00-60-b0-67-b8-6e')
+    _iid_ = Guid('aa80e80e-2021-11d2-93-e0-00-60-b0-67-b8-6e')
     @commethod(3)
     def OnInitDocumentMgr(self, pdim: Windows.Win32.UI.TextServices.ITfDocumentMgr_head) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2110,29 +2110,29 @@ class ITfThreadMgrEventSink(ComPtr):
     def OnPopContext(self, pic: Windows.Win32.UI.TextServices.ITfContext_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfThreadMgrEx(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfThreadMgr
-    Guid = Guid('3e90ade3-7594-4cb0-bb-58-69-62-8f-5f-45-8c')
+    _iid_ = Guid('3e90ade3-7594-4cb0-bb-58-69-62-8f-5f-45-8c')
     @commethod(14)
     def ActivateEx(self, ptid: POINTER(UInt32), dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)
     def GetActiveFlags(self, lpdwFlags: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfToolTipUIElement(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfUIElement
-    Guid = Guid('52b18b5c-555d-46b2-b0-0a-fa-68-01-44-fb-db')
+    _iid_ = Guid('52b18b5c-555d-46b2-b0-0a-fa-68-01-44-fb-db')
     @commethod(7)
     def GetString(self, pstr: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfTransitoryExtensionSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a615096f-1c57-4813-8a-15-55-ee-6e-5a-83-9c')
+    _iid_ = Guid('a615096f-1c57-4813-8a-15-55-ee-6e-5a-83-9c')
     @commethod(3)
     def OnTransitoryExtensionUpdated(self, pic: Windows.Win32.UI.TextServices.ITfContext_head, ecReadOnly: UInt32, pResultRange: Windows.Win32.UI.TextServices.ITfRange_head, pCompositionRange: Windows.Win32.UI.TextServices.ITfRange_head, pfDeleteResultRange: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfTransitoryExtensionUIElement(ComPtr):
     extends: Windows.Win32.UI.TextServices.ITfUIElement
-    Guid = Guid('858f956a-972f-42a2-a2-f2-03-21-e1-ab-e2-09')
+    _iid_ = Guid('858f956a-972f-42a2-a2-f2-03-21-e1-ab-e2-09')
     @commethod(7)
     def GetDocumentMgr(self, ppdim: POINTER(Windows.Win32.UI.TextServices.ITfDocumentMgr_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfUIElement(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ea1ea137-19df-11d7-a6-d2-00-06-5b-84-43-5c')
+    _iid_ = Guid('ea1ea137-19df-11d7-a6-d2-00-06-5b-84-43-5c')
     @commethod(3)
     def GetDescription(self, pbstrDescription: POINTER(Windows.Win32.Foundation.BSTR)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2143,7 +2143,7 @@ class ITfUIElement(ComPtr):
     def IsShown(self, pbShow: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfUIElementMgr(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ea1ea135-19df-11d7-a6-d2-00-06-5b-84-43-5c')
+    _iid_ = Guid('ea1ea135-19df-11d7-a6-d2-00-06-5b-84-43-5c')
     @commethod(3)
     def BeginUIElement(self, pElement: Windows.Win32.UI.TextServices.ITfUIElement_head, pbShow: POINTER(Windows.Win32.Foundation.BOOL), pdwUIElementId: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2156,7 +2156,7 @@ class ITfUIElementMgr(ComPtr):
     def EnumUIElements(self, ppEnum: POINTER(Windows.Win32.UI.TextServices.IEnumTfUIElements_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ITfUIElementSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ea1ea136-19df-11d7-a6-d2-00-06-5b-84-43-5c')
+    _iid_ = Guid('ea1ea136-19df-11d7-a6-d2-00-06-5b-84-43-5c')
     @commethod(3)
     def BeginUIElement(self, dwUIElementId: UInt32, pbShow: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2165,7 +2165,7 @@ class ITfUIElementSink(ComPtr):
     def EndUIElement(self, dwUIElementId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IUIManagerEventSink(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('cd91d690-a7e8-4265-9b-38-8b-b3-bb-ab-a7-de')
+    _iid_ = Guid('cd91d690-a7e8-4265-9b-38-8b-b3-bb-ab-a7-de')
     @commethod(3)
     def OnWindowOpening(self, prcBounds: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2180,7 +2180,7 @@ class IUIManagerEventSink(ComPtr):
     def OnWindowClosed(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IVersionInfo(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('401518ec-db00-4611-9b-29-2a-0e-4b-9a-fa-85')
+    _iid_ = Guid('401518ec-db00-4611-9b-29-2a-0e-4b-9a-fa-85')
     @commethod(3)
     def GetSubcomponentCount(self, ulSub: UInt32, ulCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

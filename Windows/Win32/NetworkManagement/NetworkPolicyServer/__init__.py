@@ -415,7 +415,7 @@ IPFILTERPROPERTIES = Int32
 PROPERTY_IPFILTER_ATTRIBUTES_COLLECTION: IPFILTERPROPERTIES = 1024
 class ISdo(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('56bc53de-96db-11d1-bf-3f-00-00-00-00-00-00')
+    _iid_ = Guid('56bc53de-96db-11d1-bf-3f-00-00-00-00-00-00')
     @commethod(7)
     def GetPropertyInfo(self, Id: Int32, ppPropertyInfo: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -432,7 +432,7 @@ class ISdo(ComPtr):
     def get__NewEnum(self, ppEnumVARIANT: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISdoCollection(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('56bc53e2-96db-11d1-bf-3f-00-00-00-00-00-00')
+    _iid_ = Guid('56bc53e2-96db-11d1-bf-3f-00-00-00-00-00-00')
     @commethod(7)
     def get_Count(self, pCount: POINTER(Int32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -451,7 +451,7 @@ class ISdoCollection(ComPtr):
     def get__NewEnum(self, ppEnumVARIANT: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISdoDictionaryOld(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('d432e5f4-53d8-11d2-9a-3a-00-c0-4f-b9-98-ac')
+    _iid_ = Guid('d432e5f4-53d8-11d2-9a-3a-00-c0-4f-b9-98-ac')
     @commethod(7)
     def EnumAttributes(self, Id: POINTER(Windows.Win32.System.Variant.VARIANT_head), pValues: POINTER(Windows.Win32.System.Variant.VARIANT_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -464,7 +464,7 @@ class ISdoDictionaryOld(ComPtr):
     def GetAttributeID(self, bstrAttributeName: Windows.Win32.Foundation.BSTR, pId: POINTER(Windows.Win32.NetworkManagement.NetworkPolicyServer.ATTRIBUTEID)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISdoMachine(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('479f6e75-49a2-11d2-8e-ca-00-c0-4f-c2-f5-19')
+    _iid_ = Guid('479f6e75-49a2-11d2-8e-ca-00-c0-4f-c2-f5-19')
     @commethod(7)
     def Attach(self, bstrComputerName: Windows.Win32.Foundation.BSTR) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -485,7 +485,7 @@ class ISdoMachine(ComPtr):
     def GetSDOSchema(self, ppSDOSchema: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISdoMachine2(ComPtr):
     extends: Windows.Win32.NetworkManagement.NetworkPolicyServer.ISdoMachine
-    Guid = Guid('518e5ffe-d8ce-4f7e-a5-db-b4-0a-35-41-9d-3b')
+    _iid_ = Guid('518e5ffe-d8ce-4f7e-a5-db-b4-0a-35-41-9d-3b')
     @commethod(16)
     def GetTemplatesSDO(self, bstrServiceName: Windows.Win32.Foundation.BSTR, ppTemplatesSDO: POINTER(Windows.Win32.System.Com.IUnknown_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(17)
@@ -498,7 +498,7 @@ class ISdoMachine2(ComPtr):
     def Reload(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISdoServiceControl(ComPtr):
     extends: Windows.Win32.System.Com.IDispatch
-    Guid = Guid('479f6e74-49a2-11d2-8e-ca-00-c0-4f-c2-f5-19')
+    _iid_ = Guid('479f6e74-49a2-11d2-8e-ca-00-c0-4f-c2-f5-19')
     @commethod(7)
     def StartService(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(8)
@@ -509,7 +509,7 @@ class ISdoServiceControl(ComPtr):
     def ResetService(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ITemplateSdo(ComPtr):
     extends: Windows.Win32.NetworkManagement.NetworkPolicyServer.ISdo
-    Guid = Guid('8aa85302-d2e2-4e20-8b-1f-a5-71-e4-37-d6-c9')
+    _iid_ = Guid('8aa85302-d2e2-4e20-8b-1f-a5-71-e4-37-d6-c9')
     @commethod(14)
     def AddToCollection(self, bstrName: Windows.Win32.Foundation.BSTR, pCollection: Windows.Win32.System.Com.IDispatch_head, ppItem: POINTER(Windows.Win32.System.Com.IDispatch_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(15)

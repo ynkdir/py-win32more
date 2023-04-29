@@ -1542,7 +1542,7 @@ class D3D_OMAC(EasyCastStructure):
     Omac: Byte * 16
 class IDirect3D9(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('81bdcbca-64d4-426d-ae-8d-ad-01-47-f4-27-5c')
+    _iid_ = Guid('81bdcbca-64d4-426d-ae-8d-ad-01-47-f4-27-5c')
     @commethod(3)
     def RegisterSoftwareDevice(self, pInitializeFunction: c_void_p) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1573,7 +1573,7 @@ class IDirect3D9(ComPtr):
     def CreateDevice(self, Adapter: UInt32, DeviceType: Windows.Win32.Graphics.Direct3D9.D3DDEVTYPE, hFocusWindow: Windows.Win32.Foundation.HWND, BehaviorFlags: UInt32, pPresentationParameters: POINTER(Windows.Win32.Graphics.Direct3D9.D3DPRESENT_PARAMETERS_head), ppReturnedDeviceInterface: POINTER(Windows.Win32.Graphics.Direct3D9.IDirect3DDevice9_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3D9Ex(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D9.IDirect3D9
-    Guid = Guid('02177241-69fc-400c-8f-f1-93-a4-4d-f6-86-1d')
+    _iid_ = Guid('02177241-69fc-400c-8f-f1-93-a4-4d-f6-86-1d')
     @commethod(17)
     def GetAdapterModeCountEx(self, Adapter: UInt32, pFilter: POINTER(Windows.Win32.Graphics.Direct3D9.D3DDISPLAYMODEFILTER_head)) -> UInt32: ...
     @commethod(18)
@@ -1586,7 +1586,7 @@ class IDirect3D9Ex(ComPtr):
     def GetAdapterLUID(self, Adapter: UInt32, pLUID: POINTER(Windows.Win32.Foundation.LUID_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DBaseTexture9(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D9.IDirect3DResource9
-    Guid = Guid('580ca87e-1d3c-4d54-99-1d-b7-d3-e3-c2-98-ce')
+    _iid_ = Guid('580ca87e-1d3c-4d54-99-1d-b7-d3-e3-c2-98-ce')
     @commethod(11)
     def SetLOD(self, LODNew: UInt32) -> UInt32: ...
     @commethod(12)
@@ -1601,7 +1601,7 @@ class IDirect3DBaseTexture9(ComPtr):
     def GenerateMipSubLevels(self) -> Void: ...
 class IDirect3DCubeTexture9(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D9.IDirect3DBaseTexture9
-    Guid = Guid('fff32f81-d953-473a-92-23-93-d6-52-ab-a9-3f')
+    _iid_ = Guid('fff32f81-d953-473a-92-23-93-d6-52-ab-a9-3f')
     @commethod(17)
     def GetLevelDesc(self, Level: UInt32, pDesc: POINTER(Windows.Win32.Graphics.Direct3D9.D3DSURFACE_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
@@ -1614,7 +1614,7 @@ class IDirect3DCubeTexture9(ComPtr):
     def AddDirtyRect(self, FaceType: Windows.Win32.Graphics.Direct3D9.D3DCUBEMAP_FACES, pDirtyRect: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DDevice9(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d0223b96-bf7a-43fd-92-bd-a4-3b-0d-82-b9-eb')
+    _iid_ = Guid('d0223b96-bf7a-43fd-92-bd-a4-3b-0d-82-b9-eb')
     @commethod(3)
     def TestCooperativeLevel(self) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1849,7 +1849,7 @@ class IDirect3DDevice9(ComPtr):
     def CreateQuery(self, Type: Windows.Win32.Graphics.Direct3D9.D3DQUERYTYPE, ppQuery: POINTER(Windows.Win32.Graphics.Direct3D9.IDirect3DQuery9_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DDevice9Ex(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D9.IDirect3DDevice9
-    Guid = Guid('b18b10ce-2649-405a-87-0f-95-f7-77-d4-31-3a')
+    _iid_ = Guid('b18b10ce-2649-405a-87-0f-95-f7-77-d4-31-3a')
     @commethod(119)
     def SetConvolutionMonoKernel(self, width: UInt32, height: UInt32, rows: POINTER(Single), columns: POINTER(Single)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(120)
@@ -1882,7 +1882,7 @@ class IDirect3DDevice9Ex(ComPtr):
     def GetDisplayModeEx(self, iSwapChain: UInt32, pMode: POINTER(Windows.Win32.Graphics.Direct3D9.D3DDISPLAYMODEEX_head), pRotation: POINTER(Windows.Win32.Graphics.Direct3D9.D3DDISPLAYROTATION)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DIndexBuffer9(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D9.IDirect3DResource9
-    Guid = Guid('7c9dd65e-d3f7-4529-ac-ee-78-58-30-ac-de-35')
+    _iid_ = Guid('7c9dd65e-d3f7-4529-ac-ee-78-58-30-ac-de-35')
     @commethod(11)
     def Lock(self, OffsetToLock: UInt32, SizeToLock: UInt32, ppbData: POINTER(c_void_p), Flags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -1891,14 +1891,14 @@ class IDirect3DIndexBuffer9(ComPtr):
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D9.D3DINDEXBUFFER_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DPixelShader9(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('6d3bdbdc-5b02-4415-b8-52-ce-5e-8b-cc-b2-89')
+    _iid_ = Guid('6d3bdbdc-5b02-4415-b8-52-ce-5e-8b-cc-b2-89')
     @commethod(3)
     def GetDevice(self, ppDevice: POINTER(Windows.Win32.Graphics.Direct3D9.IDirect3DDevice9_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetFunction(self, param0: c_void_p, pSizeOfData: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DQuery9(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d9771460-a695-4f26-bb-d3-27-b8-40-b5-41-cc')
+    _iid_ = Guid('d9771460-a695-4f26-bb-d3-27-b8-40-b5-41-cc')
     @commethod(3)
     def GetDevice(self, ppDevice: POINTER(Windows.Win32.Graphics.Direct3D9.IDirect3DDevice9_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1911,7 +1911,7 @@ class IDirect3DQuery9(ComPtr):
     def GetData(self, pData: c_void_p, dwSize: UInt32, dwGetDataFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DResource9(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('05eec05d-8f7d-4362-b9-99-d1-ba-f3-57-c7-04')
+    _iid_ = Guid('05eec05d-8f7d-4362-b9-99-d1-ba-f3-57-c7-04')
     @commethod(3)
     def GetDevice(self, ppDevice: POINTER(Windows.Win32.Graphics.Direct3D9.IDirect3DDevice9_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1930,7 +1930,7 @@ class IDirect3DResource9(ComPtr):
     def GetType(self) -> Windows.Win32.Graphics.Direct3D9.D3DRESOURCETYPE: ...
 class IDirect3DStateBlock9(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('b07c4fe5-310d-4ba8-a2-3c-4f-0f-20-6f-21-8b')
+    _iid_ = Guid('b07c4fe5-310d-4ba8-a2-3c-4f-0f-20-6f-21-8b')
     @commethod(3)
     def GetDevice(self, ppDevice: POINTER(Windows.Win32.Graphics.Direct3D9.IDirect3DDevice9_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1939,7 +1939,7 @@ class IDirect3DStateBlock9(ComPtr):
     def Apply(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DSurface9(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D9.IDirect3DResource9
-    Guid = Guid('0cfbaf3a-9ff6-429a-99-b3-a2-79-6a-f8-b8-9b')
+    _iid_ = Guid('0cfbaf3a-9ff6-429a-99-b3-a2-79-6a-f8-b8-9b')
     @commethod(11)
     def GetContainer(self, riid: POINTER(Guid), ppContainer: POINTER(c_void_p)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -1954,7 +1954,7 @@ class IDirect3DSurface9(ComPtr):
     def ReleaseDC(self, hdc: Windows.Win32.Graphics.Gdi.HDC) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DSwapChain9(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('794950f2-adfc-458a-90-5e-10-a1-0b-0b-50-3b')
+    _iid_ = Guid('794950f2-adfc-458a-90-5e-10-a1-0b-0b-50-3b')
     @commethod(3)
     def Present(self, pSourceRect: POINTER(Windows.Win32.Foundation.RECT_head), pDestRect: POINTER(Windows.Win32.Foundation.RECT_head), hDestWindowOverride: Windows.Win32.Foundation.HWND, pDirtyRegion: POINTER(Windows.Win32.Graphics.Gdi.RGNDATA_head), dwFlags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -1971,7 +1971,7 @@ class IDirect3DSwapChain9(ComPtr):
     def GetPresentParameters(self, pPresentationParameters: POINTER(Windows.Win32.Graphics.Direct3D9.D3DPRESENT_PARAMETERS_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DSwapChain9Ex(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D9.IDirect3DSwapChain9
-    Guid = Guid('91886caf-1c3d-4d2e-a0-ab-3e-4c-7d-8d-33-03')
+    _iid_ = Guid('91886caf-1c3d-4d2e-a0-ab-3e-4c-7d-8d-33-03')
     @commethod(10)
     def GetLastPresentCount(self, pLastPresentCount: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(11)
@@ -1980,7 +1980,7 @@ class IDirect3DSwapChain9Ex(ComPtr):
     def GetDisplayModeEx(self, pMode: POINTER(Windows.Win32.Graphics.Direct3D9.D3DDISPLAYMODEEX_head), pRotation: POINTER(Windows.Win32.Graphics.Direct3D9.D3DDISPLAYROTATION)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DTexture9(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D9.IDirect3DBaseTexture9
-    Guid = Guid('85c31227-3de5-4f00-9b-3a-f1-1a-c3-8c-18-b5')
+    _iid_ = Guid('85c31227-3de5-4f00-9b-3a-f1-1a-c3-8c-18-b5')
     @commethod(17)
     def GetLevelDesc(self, Level: UInt32, pDesc: POINTER(Windows.Win32.Graphics.Direct3D9.D3DSURFACE_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)
@@ -1993,7 +1993,7 @@ class IDirect3DTexture9(ComPtr):
     def AddDirtyRect(self, pDirtyRect: POINTER(Windows.Win32.Foundation.RECT_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DVertexBuffer9(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D9.IDirect3DResource9
-    Guid = Guid('b64bb1b5-fd70-4df6-bf-91-19-d0-a1-24-55-e3')
+    _iid_ = Guid('b64bb1b5-fd70-4df6-bf-91-19-d0-a1-24-55-e3')
     @commethod(11)
     def Lock(self, OffsetToLock: UInt32, SizeToLock: UInt32, ppbData: POINTER(c_void_p), Flags: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(12)
@@ -2002,21 +2002,21 @@ class IDirect3DVertexBuffer9(ComPtr):
     def GetDesc(self, pDesc: POINTER(Windows.Win32.Graphics.Direct3D9.D3DVERTEXBUFFER_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DVertexDeclaration9(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('dd13c59c-36fa-4098-a8-fb-c7-ed-39-dc-85-46')
+    _iid_ = Guid('dd13c59c-36fa-4098-a8-fb-c7-ed-39-dc-85-46')
     @commethod(3)
     def GetDevice(self, ppDevice: POINTER(Windows.Win32.Graphics.Direct3D9.IDirect3DDevice9_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetDeclaration(self, pElement: POINTER(Windows.Win32.Graphics.Direct3D9.D3DVERTEXELEMENT9_head), pNumElements: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DVertexShader9(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('efc5557e-6265-4613-8a-94-43-85-78-89-eb-36')
+    _iid_ = Guid('efc5557e-6265-4613-8a-94-43-85-78-89-eb-36')
     @commethod(3)
     def GetDevice(self, ppDevice: POINTER(Windows.Win32.Graphics.Direct3D9.IDirect3DDevice9_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def GetFunction(self, param0: c_void_p, pSizeOfData: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DVolume9(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('24f416e6-1f67-4aa7-b8-8e-d3-3f-6f-31-28-a1')
+    _iid_ = Guid('24f416e6-1f67-4aa7-b8-8e-d3-3f-6f-31-28-a1')
     @commethod(3)
     def GetDevice(self, ppDevice: POINTER(Windows.Win32.Graphics.Direct3D9.IDirect3DDevice9_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -2035,7 +2035,7 @@ class IDirect3DVolume9(ComPtr):
     def UnlockBox(self) -> Windows.Win32.Foundation.HRESULT: ...
 class IDirect3DVolumeTexture9(ComPtr):
     extends: Windows.Win32.Graphics.Direct3D9.IDirect3DBaseTexture9
-    Guid = Guid('2518526c-e789-4111-a7-b9-47-ef-32-8d-13-e6')
+    _iid_ = Guid('2518526c-e789-4111-a7-b9-47-ef-32-8d-13-e6')
     @commethod(17)
     def GetLevelDesc(self, Level: UInt32, pDesc: POINTER(Windows.Win32.Graphics.Direct3D9.D3DVOLUME_DESC_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(18)

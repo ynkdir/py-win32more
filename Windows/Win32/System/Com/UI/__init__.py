@@ -18,12 +18,12 @@ def __getattr__(name):
     return getattr(_module, name)
 class IDummyHICONIncluder(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('947990de-cc28-11d2-a0-f7-00-80-5f-85-8f-b1')
+    _iid_ = Guid('947990de-cc28-11d2-a0-f7-00-80-5f-85-8f-b1')
     @commethod(3)
     def Dummy(self, h1: Windows.Win32.UI.WindowsAndMessaging.HICON, h2: Windows.Win32.Graphics.Gdi.HDC) -> Windows.Win32.Foundation.HRESULT: ...
 class IThumbnailExtractor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('969dc708-5c76-11d1-8d-86-00-00-f8-04-b0-57')
+    _iid_ = Guid('969dc708-5c76-11d1-8d-86-00-00-f8-04-b0-57')
     @commethod(3)
     def ExtractThumbnail(self, pStg: Windows.Win32.System.Com.StructuredStorage.IStorage_head, ulLength: UInt32, ulHeight: UInt32, pulOutputLength: POINTER(UInt32), pulOutputHeight: POINTER(UInt32), phOutputBitmap: POINTER(Windows.Win32.Graphics.Gdi.HBITMAP)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

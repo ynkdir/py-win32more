@@ -713,14 +713,14 @@ D3D11_TESSELLATOR_PARTITIONING_FRACTIONAL_ODD: D3D_TESSELLATOR_PARTITIONING = 3
 D3D11_TESSELLATOR_PARTITIONING_FRACTIONAL_EVEN: D3D_TESSELLATOR_PARTITIONING = 4
 class ID3DBlob(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('8ba5fb08-5195-40e2-ac-58-0d-98-9c-3a-01-02')
+    _iid_ = Guid('8ba5fb08-5195-40e2-ac-58-0d-98-9c-3a-01-02')
     @commethod(3)
     def GetBufferPointer(self) -> c_void_p: ...
     @commethod(4)
     def GetBufferSize(self) -> UIntPtr: ...
 class ID3DDestructionNotifier(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('a06eb39a-50da-425b-8c-31-4e-ec-d6-c2-70-f3')
+    _iid_ = Guid('a06eb39a-50da-425b-8c-31-4e-ec-d6-c2-70-f3')
     @commethod(3)
     def RegisterDestructionCallback(self, callbackFn: Windows.Win32.Graphics.Direct3D.PFN_DESTRUCTION_CALLBACK, pData: c_void_p, pCallbackID: POINTER(UInt32)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)

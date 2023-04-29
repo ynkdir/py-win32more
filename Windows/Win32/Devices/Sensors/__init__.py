@@ -566,14 +566,14 @@ HUMAN_PRESENCE_DETECTION_TYPE_COUNT = Int32
 HUMAN_PRESENCE_DETECTION_TYPE_COUNT_HumanPresenceDetectionTypeCount: HUMAN_PRESENCE_DETECTION_TYPE_COUNT = 4
 class ILocationPermissions(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d5fb0a7f-e74e-44f5-8e-02-48-06-86-3a-27-4f')
+    _iid_ = Guid('d5fb0a7f-e74e-44f5-8e-02-48-06-86-3a-27-4f')
     @commethod(3)
     def GetGlobalLocationPermission(self, pfEnabled: POINTER(Windows.Win32.Foundation.BOOL)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
     def CheckLocationCapability(self, dwClientThreadId: UInt32) -> Windows.Win32.Foundation.HRESULT: ...
 class ISensor(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5fa08f80-2657-458e-af-75-46-f7-3f-a6-ac-5c')
+    _iid_ = Guid('5fa08f80-2657-458e-af-75-46-f7-3f-a6-ac-5c')
     @commethod(3)
     def GetID(self, pID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -606,7 +606,7 @@ class ISensor(ComPtr):
     def SetEventSink(self, pEvents: Windows.Win32.Devices.Sensors.ISensorEvents_head) -> Windows.Win32.Foundation.HRESULT: ...
 class ISensorCollection(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('23571e11-e545-4dd8-a3-37-b8-9b-f4-4b-10-df')
+    _iid_ = Guid('23571e11-e545-4dd8-a3-37-b8-9b-f4-4b-10-df')
     @commethod(3)
     def GetAt(self, ulIndex: UInt32, ppSensor: POINTER(Windows.Win32.Devices.Sensors.ISensor_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -621,7 +621,7 @@ class ISensorCollection(ComPtr):
     def Clear(self) -> Windows.Win32.Foundation.HRESULT: ...
 class ISensorDataReport(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0ab9df9b-c4b5-4796-88-98-04-70-70-6a-2e-1d')
+    _iid_ = Guid('0ab9df9b-c4b5-4796-88-98-04-70-70-6a-2e-1d')
     @commethod(3)
     def GetTimestamp(self, pTimeStamp: POINTER(Windows.Win32.Foundation.SYSTEMTIME_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -630,7 +630,7 @@ class ISensorDataReport(ComPtr):
     def GetSensorValues(self, pKeys: Windows.Win32.Devices.PortableDevices.IPortableDeviceKeyCollection_head, ppValues: POINTER(Windows.Win32.Devices.PortableDevices.IPortableDeviceValues_head)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISensorEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('5d8dcc91-4641-47e7-b7-c3-b7-4f-48-a6-c3-91')
+    _iid_ = Guid('5d8dcc91-4641-47e7-b7-c3-b7-4f-48-a6-c3-91')
     @commethod(3)
     def OnStateChanged(self, pSensor: Windows.Win32.Devices.Sensors.ISensor_head, state: Windows.Win32.Devices.Sensors.SensorState) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -641,7 +641,7 @@ class ISensorEvents(ComPtr):
     def OnLeave(self, ID: POINTER(Guid)) -> Windows.Win32.Foundation.HRESULT: ...
 class ISensorManager(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('bd77db67-45a8-42dc-8d-00-6d-cf-15-f8-37-7a')
+    _iid_ = Guid('bd77db67-45a8-42dc-8d-00-6d-cf-15-f8-37-7a')
     @commethod(3)
     def GetSensorsByCategory(self, sensorCategory: POINTER(Guid), ppSensorsFound: POINTER(Windows.Win32.Devices.Sensors.ISensorCollection_head)) -> Windows.Win32.Foundation.HRESULT: ...
     @commethod(4)
@@ -654,7 +654,7 @@ class ISensorManager(ComPtr):
     def RequestPermissions(self, hParent: Windows.Win32.Foundation.HWND, pSensors: Windows.Win32.Devices.Sensors.ISensorCollection_head, fModal: Windows.Win32.Foundation.BOOL) -> Windows.Win32.Foundation.HRESULT: ...
 class ISensorManagerEvents(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('9b3b0b86-266a-4aad-b2-1f-fd-e5-50-10-01-b7')
+    _iid_ = Guid('9b3b0b86-266a-4aad-b2-1f-fd-e5-50-10-01-b7')
     @commethod(3)
     def OnSensorEnter(self, pSensor: Windows.Win32.Devices.Sensors.ISensor_head, state: Windows.Win32.Devices.Sensors.SensorState) -> Windows.Win32.Foundation.HRESULT: ...
 LOCATION_DESIRED_ACCURACY = Int32
