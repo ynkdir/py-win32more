@@ -126,7 +126,6 @@ def winrt_commethod(vtbl_index):
         delegate_generic = {}
 
         def wrapper(self, *args, **kwargs):
-            nonlocal delegate_generic
             if is_generic_instance(self):
                 generic_args = self.__orig_class__.__args__
             else:
