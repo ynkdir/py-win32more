@@ -23,7 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ISceneLightingEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('91bb5e52-95d1-4f8b-9a-5a-64-08-b2-4b-8c-6a')
+    _iid_ = Guid('91bb5e52-95d1-4f8b-9a-5a-64-08-b2-4b-8c-6a')
     @winrt_commethod(6)
     def get_AmbientAmount(self) -> Single: ...
     @winrt_commethod(7)
@@ -51,7 +51,7 @@ class ISceneLightingEffect(ComPtr):
     SpecularShine = property(get_SpecularShine, put_SpecularShine)
 class ISceneLightingEffect2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9e270e81-72f0-4c5c-95-f8-8a-6e-00-24-f4-09')
+    _iid_ = Guid('9e270e81-72f0-4c5c-95-f8-8a-6e-00-24-f4-09')
     @winrt_commethod(6)
     def get_ReflectanceModel(self) -> Windows.UI.Composition.Effects.SceneLightingEffectReflectanceModel: ...
     @winrt_commethod(7)

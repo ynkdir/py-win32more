@@ -193,7 +193,7 @@ class DecimalFormatter(ComPtr):
     IsZeroSigned = property(get_IsZeroSigned, put_IsZeroSigned)
 class ICurrencyFormatter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('11730ca5-4b00-41b2-b3-32-73-b1-2a-49-7d-54')
+    _iid_ = Guid('11730ca5-4b00-41b2-b3-32-73-b1-2a-49-7d-54')
     @winrt_commethod(6)
     def get_Currency(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -201,7 +201,7 @@ class ICurrencyFormatter(ComPtr):
     Currency = property(get_Currency, put_Currency)
 class ICurrencyFormatter2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('072c2f1d-e7ba-4197-92-0e-24-7c-92-f7-de-a6')
+    _iid_ = Guid('072c2f1d-e7ba-4197-92-0e-24-7c-92-f7-de-a6')
     @winrt_commethod(6)
     def get_Mode(self) -> Windows.Globalization.NumberFormatting.CurrencyFormatterMode: ...
     @winrt_commethod(7)
@@ -211,19 +211,19 @@ class ICurrencyFormatter2(ComPtr):
     Mode = property(get_Mode, put_Mode)
 class ICurrencyFormatterFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('86c7537e-b938-4aa2-84-b0-2c-33-dc-5b-14-50')
+    _iid_ = Guid('86c7537e-b938-4aa2-84-b0-2c-33-dc-5b-14-50')
     @winrt_commethod(6)
     def CreateCurrencyFormatterCode(self, currencyCode: WinRT_String) -> Windows.Globalization.NumberFormatting.CurrencyFormatter: ...
     @winrt_commethod(7)
     def CreateCurrencyFormatterCodeContext(self, currencyCode: WinRT_String, languages: Windows.Foundation.Collections.IIterable[WinRT_String], geographicRegion: WinRT_String) -> Windows.Globalization.NumberFormatting.CurrencyFormatter: ...
 class IDecimalFormatterFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0d018c9a-e393-46b8-b8-30-7a-69-c8-f8-9f-bb')
+    _iid_ = Guid('0d018c9a-e393-46b8-b8-30-7a-69-c8-f8-9f-bb')
     @winrt_commethod(6)
     def CreateDecimalFormatter(self, languages: Windows.Foundation.Collections.IIterable[WinRT_String], geographicRegion: WinRT_String) -> Windows.Globalization.NumberFormatting.DecimalFormatter: ...
 class IIncrementNumberRounder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('70a64ff8-66ab-4155-9d-a1-73-9e-46-76-45-43')
+    _iid_ = Guid('70a64ff8-66ab-4155-9d-a1-73-9e-46-76-45-43')
     @winrt_commethod(6)
     def get_RoundingAlgorithm(self) -> Windows.Globalization.NumberFormatting.RoundingAlgorithm: ...
     @winrt_commethod(7)
@@ -236,7 +236,7 @@ class IIncrementNumberRounder(ComPtr):
     Increment = property(get_Increment, put_Increment)
 class INumberFormatter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a5007c49-7676-4db7-86-31-1b-6f-f2-65-ca-a9')
+    _iid_ = Guid('a5007c49-7676-4db7-86-31-1b-6f-f2-65-ca-a9')
     @winrt_commethod(6)
     def FormatInt(self, value: Int64) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -245,7 +245,7 @@ class INumberFormatter(ComPtr):
     def FormatDouble(self, value: Double) -> WinRT_String: ...
 class INumberFormatter2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d4a8c1f0-80d0-4b0d-a8-9e-88-2c-1e-8f-83-10')
+    _iid_ = Guid('d4a8c1f0-80d0-4b0d-a8-9e-88-2c-1e-8f-83-10')
     @winrt_commethod(6)
     def FormatInt(self, value: Int64) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -254,7 +254,7 @@ class INumberFormatter2(ComPtr):
     def FormatDouble(self, value: Double) -> WinRT_String: ...
 class INumberFormatterOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('80332d21-aee1-4a39-ba-a2-07-ed-8c-96-da-f6')
+    _iid_ = Guid('80332d21-aee1-4a39-ba-a2-07-ed-8c-96-da-f6')
     @winrt_commethod(6)
     def get_Languages(self) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_commethod(7)
@@ -294,7 +294,7 @@ class INumberFormatterOptions(ComPtr):
     ResolvedGeographicRegion = property(get_ResolvedGeographicRegion, None)
 class INumberParser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e6659412-4a13-4a53-83-a1-39-2f-be-4c-ff-9f')
+    _iid_ = Guid('e6659412-4a13-4a53-83-a1-39-2f-be-4c-ff-9f')
     @winrt_commethod(6)
     def ParseInt(self, text: WinRT_String) -> Windows.Foundation.IReference[Int64]: ...
     @winrt_commethod(7)
@@ -303,7 +303,7 @@ class INumberParser(ComPtr):
     def ParseDouble(self, text: WinRT_String) -> Windows.Foundation.IReference[Double]: ...
 class INumberRounder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5473c375-38ed-4631-b8-0c-ef-34-fc-48-b7-f5')
+    _iid_ = Guid('5473c375-38ed-4631-b8-0c-ef-34-fc-48-b7-f5')
     @winrt_commethod(6)
     def RoundInt32(self, value: Int32) -> Int32: ...
     @winrt_commethod(7)
@@ -318,7 +318,7 @@ class INumberRounder(ComPtr):
     def RoundDouble(self, value: Double) -> Double: ...
 class INumberRounderOption(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3b088433-646f-4efe-8d-48-66-eb-2e-49-e7-36')
+    _iid_ = Guid('3b088433-646f-4efe-8d-48-66-eb-2e-49-e7-36')
     @winrt_commethod(6)
     def get_NumberRounder(self) -> Windows.Globalization.NumberFormatting.INumberRounder: ...
     @winrt_commethod(7)
@@ -326,7 +326,7 @@ class INumberRounderOption(ComPtr):
     NumberRounder = property(get_NumberRounder, put_NumberRounder)
 class INumeralSystemTranslator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('28f5bc2c-8c23-4234-ad-2e-fa-5a-3a-42-6e-9b')
+    _iid_ = Guid('28f5bc2c-8c23-4234-ad-2e-fa-5a-3a-42-6e-9b')
     @winrt_commethod(6)
     def get_Languages(self) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_commethod(7)
@@ -342,22 +342,22 @@ class INumeralSystemTranslator(ComPtr):
     NumeralSystem = property(get_NumeralSystem, put_NumeralSystem)
 class INumeralSystemTranslatorFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9630c8da-36ef-4d88-a8-5c-6f-0d-98-d6-20-a6')
+    _iid_ = Guid('9630c8da-36ef-4d88-a8-5c-6f-0d-98-d6-20-a6')
     @winrt_commethod(6)
     def Create(self, languages: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Globalization.NumberFormatting.NumeralSystemTranslator: ...
 class IPercentFormatterFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b7828aef-fed4-4018-a6-e2-e0-99-61-e0-37-65')
+    _iid_ = Guid('b7828aef-fed4-4018-a6-e2-e0-99-61-e0-37-65')
     @winrt_commethod(6)
     def CreatePercentFormatter(self, languages: Windows.Foundation.Collections.IIterable[WinRT_String], geographicRegion: WinRT_String) -> Windows.Globalization.NumberFormatting.PercentFormatter: ...
 class IPermilleFormatterFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2b37b4ac-e638-4ed5-a9-98-62-f6-b0-6a-49-ae')
+    _iid_ = Guid('2b37b4ac-e638-4ed5-a9-98-62-f6-b0-6a-49-ae')
     @winrt_commethod(6)
     def CreatePermilleFormatter(self, languages: Windows.Foundation.Collections.IIterable[WinRT_String], geographicRegion: WinRT_String) -> Windows.Globalization.NumberFormatting.PermilleFormatter: ...
 class ISignedZeroOption(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fd1cdd31-0a3c-49c4-a6-42-96-a1-56-4f-4f-30')
+    _iid_ = Guid('fd1cdd31-0a3c-49c4-a6-42-96-a1-56-4f-4f-30')
     @winrt_commethod(6)
     def get_IsZeroSigned(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -365,7 +365,7 @@ class ISignedZeroOption(ComPtr):
     IsZeroSigned = property(get_IsZeroSigned, put_IsZeroSigned)
 class ISignificantDigitsNumberRounder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f5941bca-6646-4913-8c-76-1b-19-1f-f9-4d-fd')
+    _iid_ = Guid('f5941bca-6646-4913-8c-76-1b-19-1f-f9-4d-fd')
     @winrt_commethod(6)
     def get_RoundingAlgorithm(self) -> Windows.Globalization.NumberFormatting.RoundingAlgorithm: ...
     @winrt_commethod(7)
@@ -378,7 +378,7 @@ class ISignificantDigitsNumberRounder(ComPtr):
     SignificantDigits = property(get_SignificantDigits, put_SignificantDigits)
 class ISignificantDigitsOption(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1d4dfcdd-2d43-4ee8-bb-f1-c1-b2-6a-71-1a-58')
+    _iid_ = Guid('1d4dfcdd-2d43-4ee8-bb-f1-c1-b2-6a-71-1a-58')
     @winrt_commethod(6)
     def get_SignificantDigits(self) -> Int32: ...
     @winrt_commethod(7)

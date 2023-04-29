@@ -124,7 +124,7 @@ HorizontalCharacterAlignment_Right: HorizontalCharacterAlignment = 1
 HorizontalCharacterAlignment_Center: HorizontalCharacterAlignment = 2
 class IContentLinkInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1ed52525-1c5f-48cb-b3-35-78-b5-0a-2e-e6-42')
+    _iid_ = Guid('1ed52525-1c5f-48cb-b3-35-78-b5-0a-2e-e6-42')
     @winrt_commethod(6)
     def get_Id(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -152,10 +152,10 @@ class IContentLinkInfo(ComPtr):
     LinkContentKind = property(get_LinkContentKind, put_LinkContentKind)
 class IFontWeights(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7880a444-01ab-4997-85-17-df-82-2a-0c-45-f1')
+    _iid_ = Guid('7880a444-01ab-4997-85-17-df-82-2a-0c-45-f1')
 class IFontWeightsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b3b579d5-1ba9-48eb-9d-ad-c0-95-e8-c2-3b-a3')
+    _iid_ = Guid('b3b579d5-1ba9-48eb-9d-ad-c0-95-e8-c2-3b-a3')
     @winrt_commethod(6)
     def get_Black(self) -> Windows.UI.Text.FontWeight: ...
     @winrt_commethod(7)
@@ -191,7 +191,7 @@ class IFontWeightsStatics(ComPtr):
     Thin = property(get_Thin, None)
 class IRichEditTextRange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('374e3515-ba8a-4a6e-8c-59-0d-de-3d-0c-f5-cd')
+    _iid_ = Guid('374e3515-ba8a-4a6e-8c-59-0d-de-3d-0c-f5-cd')
     @winrt_commethod(6)
     def get_ContentLinkInfo(self) -> Windows.UI.Text.ContentLinkInfo: ...
     @winrt_commethod(7)
@@ -199,7 +199,7 @@ class IRichEditTextRange(ComPtr):
     ContentLinkInfo = property(get_ContentLinkInfo, put_ContentLinkInfo)
 class ITextCharacterFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5adef3db-05fb-442d-80-65-64-2a-fe-a0-2c-ed')
+    _iid_ = Guid('5adef3db-05fb-442d-80-65-64-2a-fe-a0-2c-ed')
     @winrt_commethod(6)
     def get_AllCaps(self) -> Windows.UI.Text.FormatEffect: ...
     @winrt_commethod(7)
@@ -326,7 +326,7 @@ class ITextCharacterFormat(ComPtr):
     Weight = property(get_Weight, put_Weight)
 class ITextConstantsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('779e7c33-189d-4bfa-97-c8-10-db-13-5d-97-6e')
+    _iid_ = Guid('779e7c33-189d-4bfa-97-c8-10-db-13-5d-97-6e')
     @winrt_commethod(6)
     def get_AutoColor(self) -> Windows.UI.Color: ...
     @winrt_commethod(7)
@@ -353,7 +353,7 @@ class ITextConstantsStatics(ComPtr):
     UndefinedFontStyle = property(get_UndefinedFontStyle, None)
 class ITextDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('beee4ddb-90b2-408c-a2-f6-0a-0a-c3-1e-33-e4')
+    _iid_ = Guid('beee4ddb-90b2-408c-a2-f6-0a-0a-c3-1e-33-e4')
     @winrt_commethod(6)
     def get_CaretType(self) -> Windows.UI.Text.CaretType: ...
     @winrt_commethod(7)
@@ -414,7 +414,7 @@ class ITextDocument(ComPtr):
     UndoLimit = property(get_UndoLimit, put_UndoLimit)
 class ITextDocument2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f2311112-8c89-49c9-91-18-f0-57-cb-b8-14-ee')
+    _iid_ = Guid('f2311112-8c89-49c9-91-18-f0-57-cb-b8-14-ee')
     @winrt_commethod(6)
     def get_AlignmentIncludesTrailingWhitespace(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -427,12 +427,12 @@ class ITextDocument2(ComPtr):
     IgnoreTrailingCharacterSpacing = property(get_IgnoreTrailingCharacterSpacing, put_IgnoreTrailingCharacterSpacing)
 class ITextDocument3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('75ab03a1-a6f8-441d-aa-18-0a-85-1d-6e-5e-3c')
+    _iid_ = Guid('75ab03a1-a6f8-441d-aa-18-0a-85-1d-6e-5e-3c')
     @winrt_commethod(6)
     def ClearUndoRedoHistory(self) -> Void: ...
 class ITextDocument4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('619c20f2-cb3b-4521-98-1f-28-65-b1-b9-3f-04')
+    _iid_ = Guid('619c20f2-cb3b-4521-98-1f-28-65-b1-b9-3f-04')
     @winrt_commethod(6)
     def SetMath(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(7)
@@ -441,7 +441,7 @@ class ITextDocument4(ComPtr):
     def SetMathMode(self, mode: Windows.UI.Text.RichEditMathMode) -> Void: ...
 class ITextParagraphFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2cf8cfa6-4676-498a-93-f5-bb-db-fc-0b-d8-83')
+    _iid_ = Guid('2cf8cfa6-4676-498a-93-f5-bb-db-fc-0b-d8-83')
     @winrt_commethod(6)
     def get_Alignment(self) -> Windows.UI.Text.ParagraphAlignment: ...
     @winrt_commethod(7)
@@ -562,7 +562,7 @@ class ITextParagraphFormat(ComPtr):
     TabCount = property(get_TabCount, None)
 class ITextRange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5b9e4e57-c072-42a0-89-45-af-50-3e-e5-47-68')
+    _iid_ = Guid('5b9e4e57-c072-42a0-89-45-af-50-3e-e5-47-68')
     @winrt_commethod(6)
     def get_Character(self) -> Char: ...
     @winrt_commethod(7)
@@ -680,7 +680,7 @@ class ITextRange(ComPtr):
     Text = property(get_Text, put_Text)
 class ITextSelection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a6d36724-f28f-430a-b2-cf-c3-43-67-1e-c0-e9')
+    _iid_ = Guid('a6d36724-f28f-430a-b2-cf-c3-43-67-1e-c0-e9')
     @winrt_commethod(6)
     def get_Options(self) -> Windows.UI.Text.SelectionOptions: ...
     @winrt_commethod(7)

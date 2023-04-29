@@ -51,7 +51,7 @@ class EasClientDeviceInformation(ComPtr):
     SystemFirmwareVersion = property(get_SystemFirmwareVersion, None)
 class IEasClientDeviceInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('54dfd981-1968-4ca3-b9-58-e5-95-d1-65-05-eb')
+    _iid_ = Guid('54dfd981-1968-4ca3-b9-58-e5-95-d1-65-05-eb')
     @winrt_commethod(6)
     def get_Id(self) -> Guid: ...
     @winrt_commethod(7)
@@ -72,7 +72,7 @@ class IEasClientDeviceInformation(ComPtr):
     SystemSku = property(get_SystemSku, None)
 class IEasClientDeviceInformation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ffb35923-bb26-4d6a-81-bc-16-5a-ee-0a-d7-54')
+    _iid_ = Guid('ffb35923-bb26-4d6a-81-bc-16-5a-ee-0a-d7-54')
     @winrt_commethod(6)
     def get_SystemHardwareVersion(self) -> WinRT_String: ...
     @winrt_commethod(7)

@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IInputActivationListenerPreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f0551ce5-0de6-5be0-a5-89-f7-37-20-1a-45-82')
+    _iid_ = Guid('f0551ce5-0de6-5be0-a5-89-f7-37-20-1a-45-82')
     @winrt_commethod(6)
     def CreateForApplicationWindow(self, window: Windows.UI.WindowManagement.AppWindow) -> Windows.UI.Input.InputActivationListener: ...
 class InputActivationListenerPreview(ComPtr):

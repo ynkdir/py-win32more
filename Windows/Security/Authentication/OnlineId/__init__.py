@@ -29,7 +29,7 @@ CredentialPromptType_RetypeCredentials: CredentialPromptType = 1
 CredentialPromptType_DoNotPrompt: CredentialPromptType = 2
 class IOnlineIdAuthenticator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a003f58a-29ab-4817-b8-84-d7-51-6d-ad-18-b9')
+    _iid_ = Guid('a003f58a-29ab-4817-b8-84-d7-51-6d-ad-18-b9')
     @winrt_commethod(6)
     def AuthenticateUserAsync(self, request: Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest) -> Windows.Security.Authentication.OnlineId.UserAuthenticationOperation: ...
     @winrt_commethod(7)
@@ -49,7 +49,7 @@ class IOnlineIdAuthenticator(ComPtr):
     AuthenticatedSafeCustomerId = property(get_AuthenticatedSafeCustomerId, None)
 class IOnlineIdServiceTicket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c95c547f-d781-4a94-ac-b8-c5-98-74-23-8c-26')
+    _iid_ = Guid('c95c547f-d781-4a94-ac-b8-c5-98-74-23-8c-26')
     @winrt_commethod(6)
     def get_Value(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -61,7 +61,7 @@ class IOnlineIdServiceTicket(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
 class IOnlineIdServiceTicketRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('297445d3-fb63-4135-89-09-4e-35-4c-06-14-66')
+    _iid_ = Guid('297445d3-fb63-4135-89-09-4e-35-4c-06-14-66')
     @winrt_commethod(6)
     def get_Service(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -70,14 +70,14 @@ class IOnlineIdServiceTicketRequest(ComPtr):
     Policy = property(get_Policy, None)
 class IOnlineIdServiceTicketRequestFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bebb0a08-9e73-4077-96-14-08-61-4c-0b-c2-45')
+    _iid_ = Guid('bebb0a08-9e73-4077-96-14-08-61-4c-0b-c2-45')
     @winrt_commethod(6)
     def CreateOnlineIdServiceTicketRequest(self, service: WinRT_String, policy: WinRT_String) -> Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest: ...
     @winrt_commethod(7)
     def CreateOnlineIdServiceTicketRequestAdvanced(self, service: WinRT_String) -> Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest: ...
 class IOnlineIdSystemAuthenticatorForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5798befb-1de4-4186-a2-e6-b5-63-f8-6a-af-44')
+    _iid_ = Guid('5798befb-1de4-4186-a2-e6-b5-63-f8-6a-af-44')
     @winrt_commethod(6)
     def GetTicketAsync(self, request: Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.OnlineId.OnlineIdSystemTicketResult]: ...
     @winrt_commethod(7)
@@ -90,7 +90,7 @@ class IOnlineIdSystemAuthenticatorForUser(ComPtr):
     User = property(get_User, None)
 class IOnlineIdSystemAuthenticatorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('85047792-f634-41e3-96-a4-51-64-e9-02-c7-40')
+    _iid_ = Guid('85047792-f634-41e3-96-a4-51-64-e9-02-c7-40')
     @winrt_commethod(6)
     def get_Default(self) -> Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser: ...
     @winrt_commethod(7)
@@ -98,7 +98,7 @@ class IOnlineIdSystemAuthenticatorStatics(ComPtr):
     Default = property(get_Default, None)
 class IOnlineIdSystemIdentity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('743cd20d-b6ca-434d-81-24-53-ea-12-68-53-07')
+    _iid_ = Guid('743cd20d-b6ca-434d-81-24-53-ea-12-68-53-07')
     @winrt_commethod(6)
     def get_Ticket(self) -> Windows.Security.Authentication.OnlineId.OnlineIdServiceTicket: ...
     @winrt_commethod(7)
@@ -107,7 +107,7 @@ class IOnlineIdSystemIdentity(ComPtr):
     Id = property(get_Id, None)
 class IOnlineIdSystemTicketResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('db0a5ff8-b098-4acd-9d-13-9e-64-06-52-b5-b6')
+    _iid_ = Guid('db0a5ff8-b098-4acd-9d-13-9e-64-06-52-b5-b6')
     @winrt_commethod(6)
     def get_Identity(self) -> Windows.Security.Authentication.OnlineId.OnlineIdSystemIdentity: ...
     @winrt_commethod(7)
@@ -119,7 +119,7 @@ class IOnlineIdSystemTicketResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class IUserIdentity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2146d9cd-0742-4be3-8a-1c-7c-7a-e6-79-aa-88')
+    _iid_ = Guid('2146d9cd-0742-4be3-8a-1c-7c-7a-e6-79-aa-88')
     @winrt_commethod(6)
     def get_Tickets(self) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Authentication.OnlineId.OnlineIdServiceTicket]: ...
     @winrt_commethod(7)

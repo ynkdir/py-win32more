@@ -673,7 +673,7 @@ class BluetoothUuidHelper(ComPtr):
     def TryGetShortId(cls: Windows.Devices.Bluetooth.IBluetoothUuidHelperStatics, uuid: Guid) -> Windows.Foundation.IReference[UInt32]: ...
 class IBluetoothAdapter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7974f04c-5f7a-4a34-92-25-a8-55-f8-4b-1a-8b')
+    _iid_ = Guid('7974f04c-5f7a-4a34-92-25-a8-55-f8-4b-1a-8b')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -699,7 +699,7 @@ class IBluetoothAdapter(ComPtr):
     IsAdvertisementOffloadSupported = property(get_IsAdvertisementOffloadSupported, None)
 class IBluetoothAdapter2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ac94cecc-24d5-41b3-91-6d-10-97-c5-0b-10-2b')
+    _iid_ = Guid('ac94cecc-24d5-41b3-91-6d-10-97-c5-0b-10-2b')
     @winrt_commethod(6)
     def get_AreClassicSecureConnectionsSupported(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -708,7 +708,7 @@ class IBluetoothAdapter2(ComPtr):
     AreLowEnergySecureConnectionsSupported = property(get_AreLowEnergySecureConnectionsSupported, None)
 class IBluetoothAdapter3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8f8624e0-cba9-5211-9f-89-3a-ac-62-b4-c6-b8')
+    _iid_ = Guid('8f8624e0-cba9-5211-9f-89-3a-ac-62-b4-c6-b8')
     @winrt_commethod(6)
     def get_IsExtendedAdvertisingSupported(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -717,7 +717,7 @@ class IBluetoothAdapter3(ComPtr):
     MaxAdvertisementDataLength = property(get_MaxAdvertisementDataLength, None)
 class IBluetoothAdapterStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8b02fb6a-ac4c-4741-86-61-8e-ab-7d-17-ea-9f')
+    _iid_ = Guid('8b02fb6a-ac4c-4741-86-61-8e-ab-7d-17-ea-9f')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -726,7 +726,7 @@ class IBluetoothAdapterStatics(ComPtr):
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Bluetooth.BluetoothAdapter]: ...
 class IBluetoothClassOfDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d640227e-d7d7-4661-94-54-65-03-9c-a1-7a-2b')
+    _iid_ = Guid('d640227e-d7d7-4661-94-54-65-03-9c-a1-7a-2b')
     @winrt_commethod(6)
     def get_RawValue(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -741,14 +741,14 @@ class IBluetoothClassOfDevice(ComPtr):
     ServiceCapabilities = property(get_ServiceCapabilities, None)
 class IBluetoothClassOfDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e46135bd-0fa2-416c-91-b4-c1-e4-8c-a0-61-c1')
+    _iid_ = Guid('e46135bd-0fa2-416c-91-b4-c1-e4-8c-a0-61-c1')
     @winrt_commethod(6)
     def FromRawValue(self, rawValue: UInt32) -> Windows.Devices.Bluetooth.BluetoothClassOfDevice: ...
     @winrt_commethod(7)
     def FromParts(self, majorClass: Windows.Devices.Bluetooth.BluetoothMajorClass, minorClass: Windows.Devices.Bluetooth.BluetoothMinorClass, serviceCapabilities: Windows.Devices.Bluetooth.BluetoothServiceCapabilities) -> Windows.Devices.Bluetooth.BluetoothClassOfDevice: ...
 class IBluetoothDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2335b156-90d2-4a04-ae-f5-0e-20-b9-e6-b7-07')
+    _iid_ = Guid('2335b156-90d2-4a04-ae-f5-0e-20-b9-e6-b7-07')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -787,13 +787,13 @@ class IBluetoothDevice(ComPtr):
     BluetoothAddress = property(get_BluetoothAddress, None)
 class IBluetoothDevice2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0133f954-b156-4dd0-b1-f5-c1-1b-c3-1a-51-63')
+    _iid_ = Guid('0133f954-b156-4dd0-b1-f5-c1-1b-c3-1a-51-63')
     @winrt_commethod(6)
     def get_DeviceInformation(self) -> Windows.Devices.Enumeration.DeviceInformation: ...
     DeviceInformation = property(get_DeviceInformation, None)
 class IBluetoothDevice3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('57fff78b-651a-4454-b9-0f-eb-21-ef-0b-0d-71')
+    _iid_ = Guid('57fff78b-651a-4454-b9-0f-eb-21-ef-0b-0d-71')
     @winrt_commethod(6)
     def get_DeviceAccessInformation(self) -> Windows.Devices.Enumeration.DeviceAccessInformation: ...
     @winrt_commethod(7)
@@ -809,19 +809,19 @@ class IBluetoothDevice3(ComPtr):
     DeviceAccessInformation = property(get_DeviceAccessInformation, None)
 class IBluetoothDevice4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('817c34ad-0e9c-42b2-a8-dc-3e-80-94-94-0d-12')
+    _iid_ = Guid('817c34ad-0e9c-42b2-a8-dc-3e-80-94-94-0d-12')
     @winrt_commethod(6)
     def get_BluetoothDeviceId(self) -> Windows.Devices.Bluetooth.BluetoothDeviceId: ...
     BluetoothDeviceId = property(get_BluetoothDeviceId, None)
 class IBluetoothDevice5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b5e0b385-5e85-4559-a1-0d-1c-72-81-37-9f-96')
+    _iid_ = Guid('b5e0b385-5e85-4559-a1-0d-1c-72-81-37-9f-96')
     @winrt_commethod(6)
     def get_WasSecureConnectionUsedForPairing(self) -> Boolean: ...
     WasSecureConnectionUsedForPairing = property(get_WasSecureConnectionUsedForPairing, None)
 class IBluetoothDeviceId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c17949af-57c1-4642-bc-ce-e6-c0-6b-20-ae-76')
+    _iid_ = Guid('c17949af-57c1-4642-bc-ce-e6-c0-6b-20-ae-76')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -833,12 +833,12 @@ class IBluetoothDeviceId(ComPtr):
     IsLowEnergyDevice = property(get_IsLowEnergyDevice, None)
 class IBluetoothDeviceIdStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a7884e67-3efb-4f31-bb-c2-81-0e-09-97-74-04')
+    _iid_ = Guid('a7884e67-3efb-4f31-bb-c2-81-0e-09-97-74-04')
     @winrt_commethod(6)
     def FromId(self, deviceId: WinRT_String) -> Windows.Devices.Bluetooth.BluetoothDeviceId: ...
 class IBluetoothDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0991df51-57db-4725-bb-d7-84-f6-43-27-ec-2c')
+    _iid_ = Guid('0991df51-57db-4725-bb-d7-84-f6-43-27-ec-2c')
     @winrt_commethod(6)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Bluetooth.BluetoothDevice]: ...
     @winrt_commethod(7)
@@ -849,7 +849,7 @@ class IBluetoothDeviceStatics(ComPtr):
     def GetDeviceSelector(self) -> WinRT_String: ...
 class IBluetoothDeviceStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c29e8e2f-4e14-4477-aa-1b-b8-b4-7e-5b-7e-ce')
+    _iid_ = Guid('c29e8e2f-4e14-4477-aa-1b-b8-b4-7e-5b-7e-ce')
     @winrt_commethod(6)
     def GetDeviceSelectorFromPairingState(self, pairingState: Boolean) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -862,7 +862,7 @@ class IBluetoothDeviceStatics2(ComPtr):
     def GetDeviceSelectorFromClassOfDevice(self, classOfDevice: Windows.Devices.Bluetooth.BluetoothClassOfDevice) -> WinRT_String: ...
 class IBluetoothLEAppearance(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5d2079f2-66a8-4258-98-5e-02-b4-d9-50-9f-18')
+    _iid_ = Guid('5d2079f2-66a8-4258-98-5e-02-b4-d9-50-9f-18')
     @winrt_commethod(6)
     def get_RawValue(self) -> UInt16: ...
     @winrt_commethod(7)
@@ -874,7 +874,7 @@ class IBluetoothLEAppearance(ComPtr):
     SubCategory = property(get_SubCategory, None)
 class IBluetoothLEAppearanceCategoriesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6d4d54fe-046a-4185-aa-b6-82-4c-f0-61-08-61')
+    _iid_ = Guid('6d4d54fe-046a-4185-aa-b6-82-4c-f0-61-08-61')
     @winrt_commethod(6)
     def get_Uncategorized(self) -> UInt16: ...
     @winrt_commethod(7)
@@ -943,14 +943,14 @@ class IBluetoothLEAppearanceCategoriesStatics(ComPtr):
     OutdoorSportActivity = property(get_OutdoorSportActivity, None)
 class IBluetoothLEAppearanceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a193c0c7-4504-4f4a-9b-a5-cd-10-54-e5-e0-65')
+    _iid_ = Guid('a193c0c7-4504-4f4a-9b-a5-cd-10-54-e5-e0-65')
     @winrt_commethod(6)
     def FromRawValue(self, rawValue: UInt16) -> Windows.Devices.Bluetooth.BluetoothLEAppearance: ...
     @winrt_commethod(7)
     def FromParts(self, appearanceCategory: UInt16, appearanceSubCategory: UInt16) -> Windows.Devices.Bluetooth.BluetoothLEAppearance: ...
 class IBluetoothLEAppearanceSubcategoriesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e57ba606-2144-415a-83-12-71-cc-f2-91-f8-d1')
+    _iid_ = Guid('e57ba606-2144-415a-83-12-71-cc-f2-91-f8-d1')
     @winrt_commethod(6)
     def get_Generic(self) -> UInt16: ...
     @winrt_commethod(7)
@@ -1037,7 +1037,7 @@ class IBluetoothLEAppearanceSubcategoriesStatics(ComPtr):
     LocationNavigationPod = property(get_LocationNavigationPod, None)
 class IBluetoothLEConnectionParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('33cb0771-8da9-508f-a3-66-1c-a3-88-c9-29-ab')
+    _iid_ = Guid('33cb0771-8da9-508f-a3-66-1c-a3-88-c9-29-ab')
     @winrt_commethod(6)
     def get_LinkTimeout(self) -> UInt16: ...
     @winrt_commethod(7)
@@ -1049,7 +1049,7 @@ class IBluetoothLEConnectionParameters(ComPtr):
     ConnectionInterval = property(get_ConnectionInterval, None)
 class IBluetoothLEConnectionPhy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('781e5e48-621e-5a7e-8b-e6-1b-95-61-ff-63-c9')
+    _iid_ = Guid('781e5e48-621e-5a7e-8b-e6-1b-95-61-ff-63-c9')
     @winrt_commethod(6)
     def get_TransmitInfo(self) -> Windows.Devices.Bluetooth.BluetoothLEConnectionPhyInfo: ...
     @winrt_commethod(7)
@@ -1058,7 +1058,7 @@ class IBluetoothLEConnectionPhy(ComPtr):
     ReceiveInfo = property(get_ReceiveInfo, None)
 class IBluetoothLEConnectionPhyInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9a100bdd-602e-5c27-a1-ae-b2-30-01-5a-63-94')
+    _iid_ = Guid('9a100bdd-602e-5c27-a1-ae-b2-30-01-5a-63-94')
     @winrt_commethod(6)
     def get_IsUncoded1MPhy(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -1070,7 +1070,7 @@ class IBluetoothLEConnectionPhyInfo(ComPtr):
     IsCodedPhy = property(get_IsCodedPhy, None)
 class IBluetoothLEDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b5ee2f7b-4ad8-4642-ac-48-80-a0-b5-00-e8-87')
+    _iid_ = Guid('b5ee2f7b-4ad8-4642-ac-48-80-a0-b5-00-e8-87')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1102,7 +1102,7 @@ class IBluetoothLEDevice(ComPtr):
     BluetoothAddress = property(get_BluetoothAddress, None)
 class IBluetoothLEDevice2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('26f062b3-7aee-4d31-ba-ba-b1-b9-77-5f-59-16')
+    _iid_ = Guid('26f062b3-7aee-4d31-ba-ba-b1-b9-77-5f-59-16')
     @winrt_commethod(6)
     def get_DeviceInformation(self) -> Windows.Devices.Enumeration.DeviceInformation: ...
     @winrt_commethod(7)
@@ -1114,7 +1114,7 @@ class IBluetoothLEDevice2(ComPtr):
     BluetoothAddressType = property(get_BluetoothAddressType, None)
 class IBluetoothLEDevice3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('aee9e493-44ac-40dc-af-33-b2-c1-3c-01-ca-46')
+    _iid_ = Guid('aee9e493-44ac-40dc-af-33-b2-c1-3c-01-ca-46')
     @winrt_commethod(6)
     def get_DeviceAccessInformation(self) -> Windows.Devices.Enumeration.DeviceAccessInformation: ...
     @winrt_commethod(7)
@@ -1130,19 +1130,19 @@ class IBluetoothLEDevice3(ComPtr):
     DeviceAccessInformation = property(get_DeviceAccessInformation, None)
 class IBluetoothLEDevice4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2b605031-2248-4b2f-ac-f0-7c-ee-36-fc-58-70')
+    _iid_ = Guid('2b605031-2248-4b2f-ac-f0-7c-ee-36-fc-58-70')
     @winrt_commethod(6)
     def get_BluetoothDeviceId(self) -> Windows.Devices.Bluetooth.BluetoothDeviceId: ...
     BluetoothDeviceId = property(get_BluetoothDeviceId, None)
 class IBluetoothLEDevice5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9d6a1260-5287-458e-95-ba-17-c8-b7-bb-32-6e')
+    _iid_ = Guid('9d6a1260-5287-458e-95-ba-17-c8-b7-bb-32-6e')
     @winrt_commethod(6)
     def get_WasSecureConnectionUsedForPairing(self) -> Boolean: ...
     WasSecureConnectionUsedForPairing = property(get_WasSecureConnectionUsedForPairing, None)
 class IBluetoothLEDevice6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ca7190ef-0cae-573c-a1-ca-e1-fc-5b-fc-39-e2')
+    _iid_ = Guid('ca7190ef-0cae-573c-a1-ca-e1-fc-5b-fc-39-e2')
     @winrt_commethod(6)
     def GetConnectionParameters(self) -> Windows.Devices.Bluetooth.BluetoothLEConnectionParameters: ...
     @winrt_commethod(7)
@@ -1159,7 +1159,7 @@ class IBluetoothLEDevice6(ComPtr):
     def remove_ConnectionPhyChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IBluetoothLEDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c8cf1a19-f0b6-4bf0-86-89-41-30-3d-e2-d9-f4')
+    _iid_ = Guid('c8cf1a19-f0b6-4bf0-86-89-41-30-3d-e2-d9-f4')
     @winrt_commethod(6)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Bluetooth.BluetoothLEDevice]: ...
     @winrt_commethod(7)
@@ -1168,7 +1168,7 @@ class IBluetoothLEDeviceStatics(ComPtr):
     def GetDeviceSelector(self) -> WinRT_String: ...
 class IBluetoothLEDeviceStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5f12c06b-3bac-43e8-ad-16-56-32-71-bd-41-c2')
+    _iid_ = Guid('5f12c06b-3bac-43e8-ad-16-56-32-71-bd-41-c2')
     @winrt_commethod(6)
     def GetDeviceSelectorFromPairingState(self, pairingState: Boolean) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1185,7 +1185,7 @@ class IBluetoothLEDeviceStatics2(ComPtr):
     def FromBluetoothAddressWithBluetoothAddressTypeAsync(self, bluetoothAddress: UInt64, bluetoothAddressType: Windows.Devices.Bluetooth.BluetoothAddressType) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Bluetooth.BluetoothLEDevice]: ...
 class IBluetoothLEPreferredConnectionParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f2f44344-7372-5f7b-9b-34-29-c9-44-f5-a7-15')
+    _iid_ = Guid('f2f44344-7372-5f7b-9b-34-29-c9-44-f5-a7-15')
     @winrt_commethod(6)
     def get_LinkTimeout(self) -> UInt16: ...
     @winrt_commethod(7)
@@ -1200,13 +1200,13 @@ class IBluetoothLEPreferredConnectionParameters(ComPtr):
     MaxConnectionInterval = property(get_MaxConnectionInterval, None)
 class IBluetoothLEPreferredConnectionParametersRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8a375276-a528-5266-b6-61-cc-e6-a5-ff-97-39')
+    _iid_ = Guid('8a375276-a528-5266-b6-61-cc-e6-a5-ff-97-39')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Bluetooth.BluetoothLEPreferredConnectionParametersRequestStatus: ...
     Status = property(get_Status, None)
 class IBluetoothLEPreferredConnectionParametersStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0e3e8edc-2751-55aa-a8-38-8f-ae-ee-81-8d-72')
+    _iid_ = Guid('0e3e8edc-2751-55aa-a8-38-8f-ae-ee-81-8d-72')
     @winrt_commethod(6)
     def get_Balanced(self) -> Windows.Devices.Bluetooth.BluetoothLEPreferredConnectionParameters: ...
     @winrt_commethod(7)
@@ -1218,7 +1218,7 @@ class IBluetoothLEPreferredConnectionParametersStatics(ComPtr):
     PowerOptimized = property(get_PowerOptimized, None)
 class IBluetoothSignalStrengthFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('df7b7391-6bb5-4cfe-90-b1-5d-73-24-ed-cf-7f')
+    _iid_ = Guid('df7b7391-6bb5-4cfe-90-b1-5d-73-24-ed-cf-7f')
     @winrt_commethod(6)
     def get_InRangeThresholdInDBm(self) -> Windows.Foundation.IReference[Int16]: ...
     @winrt_commethod(7)
@@ -1241,7 +1241,7 @@ class IBluetoothSignalStrengthFilter(ComPtr):
     SamplingInterval = property(get_SamplingInterval, put_SamplingInterval)
 class IBluetoothUuidHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('17df0cd8-cf74-4b21-af-e6-f5-7a-11-bc-de-a0')
+    _iid_ = Guid('17df0cd8-cf74-4b21-af-e6-f5-7a-11-bc-de-a0')
     @winrt_commethod(6)
     def FromShortId(self, shortId: UInt32) -> Guid: ...
     @winrt_commethod(7)

@@ -30,10 +30,10 @@ class Ellipse(ComPtr):
     def New(cls) -> Windows.UI.Xaml.Shapes.Ellipse: ...
 class IEllipse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('70e05ac4-d38d-4bab-83-1f-4a-22-ef-52-ac-86')
+    _iid_ = Guid('70e05ac4-d38d-4bab-83-1f-4a-22-ef-52-ac-86')
 class ILine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('46a5433d-4ffb-48df-87-32-4e-15-c8-34-81-6b')
+    _iid_ = Guid('46a5433d-4ffb-48df-87-32-4e-15-c8-34-81-6b')
     @winrt_commethod(6)
     def get_X1(self) -> Double: ...
     @winrt_commethod(7)
@@ -56,7 +56,7 @@ class ILine(ComPtr):
     Y2 = property(get_Y2, put_Y2)
 class ILineStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('267c123d-6ea4-4c50-8b-1d-50-20-7a-ff-1e-8a')
+    _iid_ = Guid('267c123d-6ea4-4c50-8b-1d-50-20-7a-ff-1e-8a')
     @winrt_commethod(6)
     def get_X1Property(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -71,7 +71,7 @@ class ILineStatics(ComPtr):
     Y2Property = property(get_Y2Property, None)
 class IPath(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('78883609-3d57-4f3c-b8-a5-6c-ab-ca-c9-71-1f')
+    _iid_ = Guid('78883609-3d57-4f3c-b8-a5-6c-ab-ca-c9-71-1f')
     @winrt_commethod(6)
     def get_Data(self) -> Windows.UI.Xaml.Media.Geometry: ...
     @winrt_commethod(7)
@@ -79,18 +79,18 @@ class IPath(ComPtr):
     Data = property(get_Data, put_Data)
 class IPathFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2340a4e3-5a86-4fc6-9a-50-cb-b9-3b-82-87-66')
+    _iid_ = Guid('2340a4e3-5a86-4fc6-9a-50-cb-b9-3b-82-87-66')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Shapes.Path: ...
 class IPathStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f627e59d-87dc-4142-81-f1-97-fc-7f-f8-64-1c')
+    _iid_ = Guid('f627e59d-87dc-4142-81-f1-97-fc-7f-f8-64-1c')
     @winrt_commethod(6)
     def get_DataProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     DataProperty = property(get_DataProperty, None)
 class IPolygon(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e3755c19-2e4d-4bcc-8d-34-86-87-19-57-fa-01')
+    _iid_ = Guid('e3755c19-2e4d-4bcc-8d-34-86-87-19-57-fa-01')
     @winrt_commethod(6)
     def get_FillRule(self) -> Windows.UI.Xaml.Media.FillRule: ...
     @winrt_commethod(7)
@@ -103,7 +103,7 @@ class IPolygon(ComPtr):
     Points = property(get_Points, put_Points)
 class IPolygonStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('362a8aab-d463-4366-9e-1a-be-ba-72-81-0f-b7')
+    _iid_ = Guid('362a8aab-d463-4366-9e-1a-be-ba-72-81-0f-b7')
     @winrt_commethod(6)
     def get_FillRuleProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -112,7 +112,7 @@ class IPolygonStatics(ComPtr):
     PointsProperty = property(get_PointsProperty, None)
 class IPolyline(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('91dc62f8-42b3-47f3-84-76-c5-51-24-a7-c4-c6')
+    _iid_ = Guid('91dc62f8-42b3-47f3-84-76-c5-51-24-a7-c4-c6')
     @winrt_commethod(6)
     def get_FillRule(self) -> Windows.UI.Xaml.Media.FillRule: ...
     @winrt_commethod(7)
@@ -125,7 +125,7 @@ class IPolyline(ComPtr):
     Points = property(get_Points, put_Points)
 class IPolylineStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c7aa2cd1-a26c-43b0-aa-a5-82-2f-a6-4a-11-b9')
+    _iid_ = Guid('c7aa2cd1-a26c-43b0-aa-a5-82-2f-a6-4a-11-b9')
     @winrt_commethod(6)
     def get_FillRuleProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -134,7 +134,7 @@ class IPolylineStatics(ComPtr):
     PointsProperty = property(get_PointsProperty, None)
 class IRectangle(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('855bc230-8a11-4e18-a1-36-4b-c2-1c-78-27-b0')
+    _iid_ = Guid('855bc230-8a11-4e18-a1-36-4b-c2-1c-78-27-b0')
     @winrt_commethod(6)
     def get_RadiusX(self) -> Double: ...
     @winrt_commethod(7)
@@ -147,7 +147,7 @@ class IRectangle(ComPtr):
     RadiusY = property(get_RadiusY, put_RadiusY)
 class IRectangleStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9f25aa53-bb3a-4c3c-89-db-6f-bc-0d-1f-a0-cc')
+    _iid_ = Guid('9f25aa53-bb3a-4c3c-89-db-6f-bc-0d-1f-a0-cc')
     @winrt_commethod(6)
     def get_RadiusXProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -156,7 +156,7 @@ class IRectangleStatics(ComPtr):
     RadiusYProperty = property(get_RadiusYProperty, None)
 class IShape(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('786f2b75-9aa0-454d-ae-06-a2-46-6e-37-c8-32')
+    _iid_ = Guid('786f2b75-9aa0-454d-ae-06-a2-46-6e-37-c8-32')
     @winrt_commethod(6)
     def get_Fill(self) -> Windows.UI.Xaml.Media.Brush: ...
     @winrt_commethod(7)
@@ -217,17 +217,17 @@ class IShape(ComPtr):
     GeometryTransform = property(get_GeometryTransform, None)
 class IShape2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('97248dba-49f2-49a4-a5-dd-16-4d-f8-24-db-14')
+    _iid_ = Guid('97248dba-49f2-49a4-a5-dd-16-4d-f8-24-db-14')
     @winrt_commethod(6)
     def GetAlphaMask(self) -> Windows.UI.Composition.CompositionBrush: ...
 class IShapeFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4b717613-f6aa-48d5-95-88-e1-d1-88-ea-cb-c9')
+    _iid_ = Guid('4b717613-f6aa-48d5-95-88-e1-d1-88-ea-cb-c9')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Shapes.Shape: ...
 class IShapeStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1d7b4c55-9df3-48dc-91-94-9d-30-6f-aa-60-89')
+    _iid_ = Guid('1d7b4c55-9df3-48dc-91-94-9d-30-6f-aa-60-89')
     @winrt_commethod(6)
     def get_FillProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)

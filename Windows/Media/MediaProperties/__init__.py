@@ -142,7 +142,7 @@ class H264ProfileIds(ComPtr):
     MultiviewHigh = property(get_MultiviewHigh, None)
 class IAudioEncodingProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('62bc7a16-005c-4b3b-8a-0b-0a-09-0e-96-87-f3')
+    _iid_ = Guid('62bc7a16-005c-4b3b-8a-0b-0a-09-0e-96-87-f3')
     @winrt_commethod(6)
     def put_Bitrate(self, value: UInt32) -> Void: ...
     @winrt_commethod(7)
@@ -165,18 +165,18 @@ class IAudioEncodingProperties(ComPtr):
     BitsPerSample = property(get_BitsPerSample, put_BitsPerSample)
 class IAudioEncodingProperties2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c45d54da-80bd-4c23-80-d5-72-d4-a1-81-e8-94')
+    _iid_ = Guid('c45d54da-80bd-4c23-80-d5-72-d4-a1-81-e8-94')
     @winrt_commethod(6)
     def get_IsSpatial(self) -> Boolean: ...
     IsSpatial = property(get_IsSpatial, None)
 class IAudioEncodingProperties3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('87600341-748c-4f8d-b0-fd-10-ca-f0-8f-f0-87')
+    _iid_ = Guid('87600341-748c-4f8d-b0-fd-10-ca-f0-8f-f0-87')
     @winrt_commethod(6)
     def Copy(self) -> Windows.Media.MediaProperties.AudioEncodingProperties: ...
 class IAudioEncodingPropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0cad332c-ebe9-4527-b3-6d-e4-2a-13-cf-38-db')
+    _iid_ = Guid('0cad332c-ebe9-4527-b3-6d-e4-2a-13-cf-38-db')
     @winrt_commethod(6)
     def CreateAac(self, sampleRate: UInt32, channelCount: UInt32, bitrate: UInt32) -> Windows.Media.MediaProperties.AudioEncodingProperties: ...
     @winrt_commethod(7)
@@ -189,29 +189,29 @@ class IAudioEncodingPropertiesStatics(ComPtr):
     def CreateWma(self, sampleRate: UInt32, channelCount: UInt32, bitrate: UInt32) -> Windows.Media.MediaProperties.AudioEncodingProperties: ...
 class IAudioEncodingPropertiesStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7489316f-77a0-433d-8e-d5-40-40-28-0e-86-65')
+    _iid_ = Guid('7489316f-77a0-433d-8e-d5-40-40-28-0e-86-65')
     @winrt_commethod(6)
     def CreateAlac(self, sampleRate: UInt32, channelCount: UInt32, bitsPerSample: UInt32) -> Windows.Media.MediaProperties.AudioEncodingProperties: ...
     @winrt_commethod(7)
     def CreateFlac(self, sampleRate: UInt32, channelCount: UInt32, bitsPerSample: UInt32) -> Windows.Media.MediaProperties.AudioEncodingProperties: ...
 class IAudioEncodingPropertiesWithFormatUserData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('98f10d79-13ea-49ff-be-70-26-73-db-69-70-2c')
+    _iid_ = Guid('98f10d79-13ea-49ff-be-70-26-73-db-69-70-2c')
     @winrt_commethod(6)
     def SetFormatUserData(self, value: c_char_p_no) -> Void: ...
     @winrt_commethod(7)
     def GetFormatUserData(self, value: POINTER(c_char_p_no)) -> Void: ...
 class IContainerEncodingProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('59ac2a57-b32a-479e-8a-61-4b-7f-2e-9e-7e-a0')
+    _iid_ = Guid('59ac2a57-b32a-479e-8a-61-4b-7f-2e-9e-7e-a0')
 class IContainerEncodingProperties2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b272c029-ae26-4819-ba-ad-ad-7a-49-b0-a8-76')
+    _iid_ = Guid('b272c029-ae26-4819-ba-ad-ad-7a-49-b0-a8-76')
     @winrt_commethod(6)
     def Copy(self) -> Windows.Media.MediaProperties.ContainerEncodingProperties: ...
 class IH264ProfileIdsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('38654ca7-846a-4f97-a2-e5-c3-a1-5b-bf-70-fd')
+    _iid_ = Guid('38654ca7-846a-4f97-a2-e5-c3-a1-5b-bf-70-fd')
     @winrt_commethod(6)
     def get_ConstrainedBaseline(self) -> Int32: ...
     @winrt_commethod(7)
@@ -244,7 +244,7 @@ class IH264ProfileIdsStatics(ComPtr):
     MultiviewHigh = property(get_MultiviewHigh, None)
 class IImageEncodingProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('78625635-f331-4189-b1-c3-b4-8d-5a-e0-34-f1')
+    _iid_ = Guid('78625635-f331-4189-b1-c3-b4-8d-5a-e0-34-f1')
     @winrt_commethod(6)
     def put_Width(self, value: UInt32) -> Void: ...
     @winrt_commethod(7)
@@ -257,12 +257,12 @@ class IImageEncodingProperties(ComPtr):
     Height = property(get_Height, put_Height)
 class IImageEncodingProperties2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c854a2df-c923-469b-ac-8e-6a-9f-3c-1c-d9-e3')
+    _iid_ = Guid('c854a2df-c923-469b-ac-8e-6a-9f-3c-1c-d9-e3')
     @winrt_commethod(6)
     def Copy(self) -> Windows.Media.MediaProperties.ImageEncodingProperties: ...
 class IImageEncodingPropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('257c68dc-8b99-439e-aa-59-91-3a-36-16-12-97')
+    _iid_ = Guid('257c68dc-8b99-439e-aa-59-91-3a-36-16-12-97')
     @winrt_commethod(6)
     def CreateJpeg(self) -> Windows.Media.MediaProperties.ImageEncodingProperties: ...
     @winrt_commethod(7)
@@ -271,19 +271,19 @@ class IImageEncodingPropertiesStatics(ComPtr):
     def CreateJpegXR(self) -> Windows.Media.MediaProperties.ImageEncodingProperties: ...
 class IImageEncodingPropertiesStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f6c25b29-3824-46b0-95-6e-50-13-29-e1-be-3c')
+    _iid_ = Guid('f6c25b29-3824-46b0-95-6e-50-13-29-e1-be-3c')
     @winrt_commethod(6)
     def CreateUncompressed(self, format: Windows.Media.MediaProperties.MediaPixelFormat) -> Windows.Media.MediaProperties.ImageEncodingProperties: ...
     @winrt_commethod(7)
     def CreateBmp(self) -> Windows.Media.MediaProperties.ImageEncodingProperties: ...
 class IImageEncodingPropertiesStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('48f4814d-a2ff-48dc-8e-a0-e9-06-80-66-36-56')
+    _iid_ = Guid('48f4814d-a2ff-48dc-8e-a0-e9-06-80-66-36-56')
     @winrt_commethod(6)
     def CreateHeif(self) -> Windows.Media.MediaProperties.ImageEncodingProperties: ...
 class IMediaEncodingProfile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e7dbf5a8-1db9-4783-87-6b-3d-fe-12-ac-fd-b3')
+    _iid_ = Guid('e7dbf5a8-1db9-4783-87-6b-3d-fe-12-ac-fd-b3')
     @winrt_commethod(6)
     def put_Audio(self, value: Windows.Media.MediaProperties.AudioEncodingProperties) -> Void: ...
     @winrt_commethod(7)
@@ -301,7 +301,7 @@ class IMediaEncodingProfile(ComPtr):
     Container = property(get_Container, put_Container)
 class IMediaEncodingProfile2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('349b3e0a-4035-488e-98-77-85-63-28-65-ed-10')
+    _iid_ = Guid('349b3e0a-4035-488e-98-77-85-63-28-65-ed-10')
     @winrt_commethod(6)
     def SetAudioTracks(self, value: Windows.Foundation.Collections.IIterable[Windows.Media.Core.AudioStreamDescriptor]) -> Void: ...
     @winrt_commethod(7)
@@ -312,14 +312,14 @@ class IMediaEncodingProfile2(ComPtr):
     def GetVideoTracks(self) -> Windows.Foundation.Collections.IVector[Windows.Media.Core.VideoStreamDescriptor]: ...
 class IMediaEncodingProfile3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ba6ebe88-7570-4e69-ac-cf-56-11-ad-01-5f-88')
+    _iid_ = Guid('ba6ebe88-7570-4e69-ac-cf-56-11-ad-01-5f-88')
     @winrt_commethod(6)
     def SetTimedMetadataTracks(self, value: Windows.Foundation.Collections.IIterable[Windows.Media.Core.TimedMetadataStreamDescriptor]) -> Void: ...
     @winrt_commethod(7)
     def GetTimedMetadataTracks(self) -> Windows.Foundation.Collections.IVector[Windows.Media.Core.TimedMetadataStreamDescriptor]: ...
 class IMediaEncodingProfileStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('197f352c-2ede-4a45-a8-96-81-7a-48-54-f8-fe')
+    _iid_ = Guid('197f352c-2ede-4a45-a8-96-81-7a-48-54-f8-fe')
     @winrt_commethod(6)
     def CreateM4a(self, quality: Windows.Media.MediaProperties.AudioEncodingQuality) -> Windows.Media.MediaProperties.MediaEncodingProfile: ...
     @winrt_commethod(7)
@@ -336,14 +336,14 @@ class IMediaEncodingProfileStatics(ComPtr):
     def CreateFromStreamAsync(self, stream: Windows.Storage.Streams.IRandomAccessStream) -> Windows.Foundation.IAsyncOperation[Windows.Media.MediaProperties.MediaEncodingProfile]: ...
 class IMediaEncodingProfileStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ce8de74f-6af4-4288-8f-e2-79-ad-f1-f7-9a-43')
+    _iid_ = Guid('ce8de74f-6af4-4288-8f-e2-79-ad-f1-f7-9a-43')
     @winrt_commethod(6)
     def CreateWav(self, quality: Windows.Media.MediaProperties.AudioEncodingQuality) -> Windows.Media.MediaProperties.MediaEncodingProfile: ...
     @winrt_commethod(7)
     def CreateAvi(self, quality: Windows.Media.MediaProperties.VideoEncodingQuality) -> Windows.Media.MediaProperties.MediaEncodingProfile: ...
 class IMediaEncodingProfileStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('90dac5aa-cf76-4294-a9-ed-1a-14-20-f5-1f-6b')
+    _iid_ = Guid('90dac5aa-cf76-4294-a9-ed-1a-14-20-f5-1f-6b')
     @winrt_commethod(6)
     def CreateAlac(self, quality: Windows.Media.MediaProperties.AudioEncodingQuality) -> Windows.Media.MediaProperties.MediaEncodingProfile: ...
     @winrt_commethod(7)
@@ -352,7 +352,7 @@ class IMediaEncodingProfileStatics3(ComPtr):
     def CreateHevc(self, quality: Windows.Media.MediaProperties.VideoEncodingQuality) -> Windows.Media.MediaProperties.MediaEncodingProfile: ...
 class IMediaEncodingProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b4002af6-acd4-4e5a-a2-4b-5d-74-98-a8-b8-c4')
+    _iid_ = Guid('b4002af6-acd4-4e5a-a2-4b-5d-74-98-a8-b8-c4')
     @winrt_commethod(6)
     def get_Properties(self) -> Windows.Media.MediaProperties.MediaPropertySet: ...
     @winrt_commethod(7)
@@ -366,7 +366,7 @@ class IMediaEncodingProperties(ComPtr):
     Subtype = property(get_Subtype, put_Subtype)
 class IMediaEncodingSubtypesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('37b6580e-a171-4464-ba-5a-53-18-9e-48-c1-c8')
+    _iid_ = Guid('37b6580e-a171-4464-ba-5a-53-18-9e-48-c1-c8')
     @winrt_commethod(6)
     def get_Aac(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -489,7 +489,7 @@ class IMediaEncodingSubtypesStatics(ComPtr):
     Yv12 = property(get_Yv12, None)
 class IMediaEncodingSubtypesStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4b7cd23d-42ff-4d33-85-31-06-26-be-e4-b5-2d')
+    _iid_ = Guid('4b7cd23d-42ff-4d33-85-31-06-26-be-e4-b5-2d')
     @winrt_commethod(6)
     def get_Vp9(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -504,7 +504,7 @@ class IMediaEncodingSubtypesStatics2(ComPtr):
     D16 = property(get_D16, None)
 class IMediaEncodingSubtypesStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ba2414e4-883d-464e-a4-4f-09-7d-a0-8e-f7-ff')
+    _iid_ = Guid('ba2414e4-883d-464e-a4-4f-09-7d-a0-8e-f7-ff')
     @winrt_commethod(6)
     def get_Alac(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -513,19 +513,19 @@ class IMediaEncodingSubtypesStatics3(ComPtr):
     Flac = property(get_Flac, None)
 class IMediaEncodingSubtypesStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ddece58a-3949-4644-8a-2c-59-ef-02-c6-42-fa')
+    _iid_ = Guid('ddece58a-3949-4644-8a-2c-59-ef-02-c6-42-fa')
     @winrt_commethod(6)
     def get_P010(self) -> WinRT_String: ...
     P010 = property(get_P010, None)
 class IMediaEncodingSubtypesStatics5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5ad4a007-ffce-4760-98-28-5d-0c-99-63-7e-6a')
+    _iid_ = Guid('5ad4a007-ffce-4760-98-28-5d-0c-99-63-7e-6a')
     @winrt_commethod(6)
     def get_Heif(self) -> WinRT_String: ...
     Heif = property(get_Heif, None)
 class IMediaEncodingSubtypesStatics6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a1252973-a984-5912-93-bb-54-e7-e5-69-e0-53')
+    _iid_ = Guid('a1252973-a984-5912-93-bb-54-e7-e5-69-e0-53')
     @winrt_commethod(6)
     def get_Pgs(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -540,7 +540,7 @@ class IMediaEncodingSubtypesStatics6(ComPtr):
     VobSub = property(get_VobSub, None)
 class IMediaRatio(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d2d0fee5-8929-401d-ac-78-7d-35-7e-37-81-63')
+    _iid_ = Guid('d2d0fee5-8929-401d-ac-78-7d-35-7e-37-81-63')
     @winrt_commethod(6)
     def put_Numerator(self, value: UInt32) -> Void: ...
     @winrt_commethod(7)
@@ -553,7 +553,7 @@ class IMediaRatio(ComPtr):
     Denominator = property(get_Denominator, put_Denominator)
 class IMpeg2ProfileIdsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a461ff85-e57a-4128-9b-21-d5-33-1b-04-23-5c')
+    _iid_ = Guid('a461ff85-e57a-4128-9b-21-d5-33-1b-04-23-5c')
     @winrt_commethod(6)
     def get_Simple(self) -> Int32: ...
     @winrt_commethod(7)
@@ -571,7 +571,7 @@ class IMpeg2ProfileIdsStatics(ComPtr):
     High = property(get_High, None)
 class ITimedMetadataEncodingProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('51cd30d3-d690-4cfa-97-f4-4a-39-8e-9d-b4-20')
+    _iid_ = Guid('51cd30d3-d690-4cfa-97-f4-4a-39-8e-9d-b4-20')
     @winrt_commethod(6)
     def SetFormatUserData(self, value: c_char_p_no) -> Void: ...
     @winrt_commethod(7)
@@ -580,7 +580,7 @@ class ITimedMetadataEncodingProperties(ComPtr):
     def Copy(self) -> Windows.Media.MediaProperties.TimedMetadataEncodingProperties: ...
 class ITimedMetadataEncodingPropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6629bb67-6e55-5643-89-a0-7a-7e-8d-85-b5-2c')
+    _iid_ = Guid('6629bb67-6e55-5643-89-a0-7a-7e-8d-85-b5-2c')
     @winrt_commethod(6)
     def CreatePgs(self) -> Windows.Media.MediaProperties.TimedMetadataEncodingProperties: ...
     @winrt_commethod(7)
@@ -591,7 +591,7 @@ class ITimedMetadataEncodingPropertiesStatics(ComPtr):
     def CreateVobSub(self, formatUserData: c_char_p_no) -> Windows.Media.MediaProperties.TimedMetadataEncodingProperties: ...
 class IVideoEncodingProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('76ee6c9a-37c2-4f2a-88-0a-12-82-bb-b4-37-3d')
+    _iid_ = Guid('76ee6c9a-37c2-4f2a-88-0a-12-82-bb-b4-37-3d')
     @winrt_commethod(6)
     def put_Bitrate(self, value: UInt32) -> Void: ...
     @winrt_commethod(7)
@@ -615,7 +615,7 @@ class IVideoEncodingProperties(ComPtr):
     PixelAspectRatio = property(get_PixelAspectRatio, None)
 class IVideoEncodingProperties2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f743a1ef-d465-4290-a9-4b-ef-0f-15-28-f8-e3')
+    _iid_ = Guid('f743a1ef-d465-4290-a9-4b-ef-0f-15-28-f8-e3')
     @winrt_commethod(6)
     def SetFormatUserData(self, value: c_char_p_no) -> Void: ...
     @winrt_commethod(7)
@@ -627,24 +627,24 @@ class IVideoEncodingProperties2(ComPtr):
     ProfileId = property(get_ProfileId, put_ProfileId)
 class IVideoEncodingProperties3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('386bcdc4-873a-479f-b3-eb-56-c1-fc-be-c6-d7')
+    _iid_ = Guid('386bcdc4-873a-479f-b3-eb-56-c1-fc-be-c6-d7')
     @winrt_commethod(6)
     def get_StereoscopicVideoPackingMode(self) -> Windows.Media.MediaProperties.StereoscopicVideoPackingMode: ...
     StereoscopicVideoPackingMode = property(get_StereoscopicVideoPackingMode, None)
 class IVideoEncodingProperties4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('724ef014-c10c-40f2-9d-72-3e-e1-3b-45-fa-8e')
+    _iid_ = Guid('724ef014-c10c-40f2-9d-72-3e-e1-3b-45-fa-8e')
     @winrt_commethod(6)
     def get_SphericalVideoFrameFormat(self) -> Windows.Media.MediaProperties.SphericalVideoFrameFormat: ...
     SphericalVideoFrameFormat = property(get_SphericalVideoFrameFormat, None)
 class IVideoEncodingProperties5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4959080f-272f-4ece-a4-df-c0-cc-db-33-d8-40')
+    _iid_ = Guid('4959080f-272f-4ece-a4-df-c0-cc-db-33-d8-40')
     @winrt_commethod(6)
     def Copy(self) -> Windows.Media.MediaProperties.VideoEncodingProperties: ...
 class IVideoEncodingPropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3ce14d44-1dc5-43db-9f-38-eb-eb-f9-01-52-cb')
+    _iid_ = Guid('3ce14d44-1dc5-43db-9f-38-eb-eb-f9-01-52-cb')
     @winrt_commethod(6)
     def CreateH264(self) -> Windows.Media.MediaProperties.VideoEncodingProperties: ...
     @winrt_commethod(7)
@@ -653,7 +653,7 @@ class IVideoEncodingPropertiesStatics(ComPtr):
     def CreateUncompressed(self, subtype: WinRT_String, width: UInt32, height: UInt32) -> Windows.Media.MediaProperties.VideoEncodingProperties: ...
 class IVideoEncodingPropertiesStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cf1ebd5d-49fe-4d00-b5-9a-cf-a4-df-c5-19-44')
+    _iid_ = Guid('cf1ebd5d-49fe-4d00-b5-9a-cf-a4-df-c5-19-44')
     @winrt_commethod(6)
     def CreateHevc(self) -> Windows.Media.MediaProperties.VideoEncodingProperties: ...
 class ImageEncodingProperties(ComPtr):

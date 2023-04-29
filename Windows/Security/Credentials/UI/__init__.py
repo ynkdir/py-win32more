@@ -124,7 +124,7 @@ CredentialSaveOption_Selected: CredentialSaveOption = 1
 CredentialSaveOption_Hidden: CredentialSaveOption = 2
 class ICredentialPickerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('965a0b4c-95fa-467f-99-2b-0b-22-e5-85-9b-f6')
+    _iid_ = Guid('965a0b4c-95fa-467f-99-2b-0b-22-e5-85-9b-f6')
     @winrt_commethod(6)
     def put_Caption(self, value: WinRT_String) -> Void: ...
     @winrt_commethod(7)
@@ -177,7 +177,7 @@ class ICredentialPickerOptions(ComPtr):
     CredentialSaveOption = property(get_CredentialSaveOption, put_CredentialSaveOption)
 class ICredentialPickerResults(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1948f99a-cc30-410c-9c-38-cc-08-84-c5-b3-d7')
+    _iid_ = Guid('1948f99a-cc30-410c-9c-38-cc-08-84-c5-b3-d7')
     @winrt_commethod(6)
     def get_ErrorCode(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -201,7 +201,7 @@ class ICredentialPickerResults(ComPtr):
     CredentialPassword = property(get_CredentialPassword, None)
 class ICredentialPickerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('aa3a5c73-c9ea-4782-99-fb-e6-d7-e9-38-e1-2d')
+    _iid_ = Guid('aa3a5c73-c9ea-4782-99-fb-e6-d7-e9-38-e1-2d')
     @winrt_commethod(6)
     def PickWithOptionsAsync(self, options: Windows.Security.Credentials.UI.CredentialPickerOptions) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.UI.CredentialPickerResults]: ...
     @winrt_commethod(7)
@@ -210,7 +210,7 @@ class ICredentialPickerStatics(ComPtr):
     def PickWithCaptionAsync(self, targetName: WinRT_String, message: WinRT_String, caption: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.UI.CredentialPickerResults]: ...
 class IUserConsentVerifierStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('af4f3f91-564c-4ddc-b8-b5-97-34-47-62-7c-65')
+    _iid_ = Guid('af4f3f91-564c-4ddc-b8-b5-97-34-47-62-7c-65')
     @winrt_commethod(6)
     def CheckAvailabilityAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Security.Credentials.UI.UserConsentVerifierAvailability]: ...
     @winrt_commethod(7)

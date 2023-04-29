@@ -83,7 +83,7 @@ class CoreAutomationRemoteOperationContext(ComPtr):
     def SetOperand2(self: Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperationContext, id: Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId, operand: Windows.Win32.System.WinRT.IInspectable_head, operandInterfaceId: Guid) -> Void: ...
 class IAutomationRemoteOperationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e0f80c42-4a67-5534-bf-5a-09-e8-a9-9b-36-b1')
+    _iid_ = Guid('e0f80c42-4a67-5534-bf-5a-09-e8-a9-9b-36-b1')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.UI.UIAutomation.Core.AutomationRemoteOperationStatus: ...
     @winrt_commethod(7)
@@ -99,20 +99,20 @@ class IAutomationRemoteOperationResult(ComPtr):
     ErrorLocation = property(get_ErrorLocation, None)
 class ICoreAutomationConnectionBoundObjectProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0620bb64-9616-5593-be-3a-eb-8e-6d-ae-b3-fa')
+    _iid_ = Guid('0620bb64-9616-5593-be-3a-eb-8e-6d-ae-b3-fa')
     @winrt_commethod(6)
     def get_IsComThreadingRequired(self) -> Boolean: ...
     IsComThreadingRequired = property(get_IsComThreadingRequired, None)
 class ICoreAutomationRegistrarStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3e50129b-d6dc-5680-b5-80-ff-ff-78-30-03-04')
+    _iid_ = Guid('3e50129b-d6dc-5680-b5-80-ff-ff-78-30-03-04')
     @winrt_commethod(6)
     def RegisterAnnotationType(self, guid: Guid) -> Windows.UI.UIAutomation.Core.AutomationAnnotationTypeRegistration: ...
     @winrt_commethod(7)
     def UnregisterAnnotationType(self, registration: Windows.UI.UIAutomation.Core.AutomationAnnotationTypeRegistration) -> Void: ...
 class ICoreAutomationRemoteOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3ac656f4-e2bc-5c6e-b8-e7-b2-24-fb-74-b0-60')
+    _iid_ = Guid('3ac656f4-e2bc-5c6e-b8-e7-b2-24-fb-74-b0-60')
     @winrt_commethod(6)
     def IsOpcodeSupported(self, opcode: UInt32) -> Boolean: ...
     @winrt_commethod(7)
@@ -125,12 +125,12 @@ class ICoreAutomationRemoteOperation(ComPtr):
     def Execute(self, bytecodeBuffer: c_char_p_no) -> Windows.UI.UIAutomation.Core.AutomationRemoteOperationResult: ...
 class ICoreAutomationRemoteOperation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('eefaf86f-e953-5099-8c-e9-dc-a8-13-48-2b-a0')
+    _iid_ = Guid('eefaf86f-e953-5099-8c-e9-dc-a8-13-48-2b-a0')
     @winrt_commethod(6)
     def ImportConnectionBoundObject(self, operandId: Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId, connectionBoundObject: Windows.UI.UIAutomation.AutomationConnectionBoundObject) -> Void: ...
 class ICoreAutomationRemoteOperationContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b9af9cbb-3d3e-5918-a1-6b-78-61-62-6a-3a-eb')
+    _iid_ = Guid('b9af9cbb-3d3e-5918-a1-6b-78-61-62-6a-3a-eb')
     @winrt_commethod(6)
     def GetOperand(self, id: Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_commethod(7)
@@ -139,14 +139,14 @@ class ICoreAutomationRemoteOperationContext(ComPtr):
     def SetOperand2(self, id: Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId, operand: Windows.Win32.System.WinRT.IInspectable_head, operandInterfaceId: Guid) -> Void: ...
 class ICoreAutomationRemoteOperationExtensionProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('88f53e67-dc69-553b-a0-aa-70-47-7e-72-4d-a8')
+    _iid_ = Guid('88f53e67-dc69-553b-a0-aa-70-47-7e-72-4d-a8')
     @winrt_commethod(6)
     def CallExtension(self, extensionId: Guid, context: Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperationContext, operandIds: POINTER(Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId_head)) -> Void: ...
     @winrt_commethod(7)
     def IsExtensionSupported(self, extensionId: Guid) -> Boolean: ...
 class IRemoteAutomationClientSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5c8a091d-94cc-5b33-af-db-67-8c-de-d2-bd-54')
+    _iid_ = Guid('5c8a091d-94cc-5b33-af-db-67-8c-de-d2-bd-54')
     @winrt_commethod(6)
     def Start(self) -> Void: ...
     @winrt_commethod(7)
@@ -166,14 +166,14 @@ class IRemoteAutomationClientSession(ComPtr):
     SessionId = property(get_SessionId, None)
 class IRemoteAutomationClientSessionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f250263d-6057-5373-a5-a5-ed-72-65-fe-03-76')
+    _iid_ = Guid('f250263d-6057-5373-a5-a5-ed-72-65-fe-03-76')
     @winrt_commethod(6)
     def CreateInstance(self, name: WinRT_String) -> Windows.UI.UIAutomation.Core.RemoteAutomationClientSession: ...
     @winrt_commethod(7)
     def CreateInstance2(self, name: WinRT_String, sessionId: Guid) -> Windows.UI.UIAutomation.Core.RemoteAutomationClientSession: ...
 class IRemoteAutomationConnectionRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ea3319a8-e3a8-5dc6-ad-f8-04-4e-46-b1-4a-f5')
+    _iid_ = Guid('ea3319a8-e3a8-5dc6-ad-f8-04-4e-46-b1-4a-f5')
     @winrt_commethod(6)
     def get_LocalPipeName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -182,18 +182,18 @@ class IRemoteAutomationConnectionRequestedEventArgs(ComPtr):
     RemoteProcessId = property(get_RemoteProcessId, None)
 class IRemoteAutomationDisconnectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bbb33a3d-5d90-5c38-9e-b2-dd-9d-cc-1b-2e-3f')
+    _iid_ = Guid('bbb33a3d-5d90-5c38-9e-b2-dd-9d-cc-1b-2e-3f')
     @winrt_commethod(6)
     def get_LocalPipeName(self) -> WinRT_String: ...
     LocalPipeName = property(get_LocalPipeName, None)
 class IRemoteAutomationServerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e6e8945e-0c11-5028-9a-e3-c2-77-12-88-b6-b7')
+    _iid_ = Guid('e6e8945e-0c11-5028-9a-e3-c2-77-12-88-b6-b7')
     @winrt_commethod(6)
     def ReportSession(self, sessionId: Guid) -> Void: ...
 class IRemoteAutomationWindow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7c607689-496d-512a-9b-d5-c0-50-cf-af-14-28')
+    _iid_ = Guid('7c607689-496d-512a-9b-d5-c0-50-cf-af-14-28')
     @winrt_commethod(6)
     def get_AutomationProvider(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_commethod(7)

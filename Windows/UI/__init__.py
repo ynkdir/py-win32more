@@ -460,23 +460,23 @@ class Colors(ComPtr):
     YellowGreen = property(get_YellowGreen, None)
 class IColorHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('193cfbe7-65c7-4540-ad-08-62-83-ba-76-87-9a')
+    _iid_ = Guid('193cfbe7-65c7-4540-ad-08-62-83-ba-76-87-9a')
 class IColorHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8504dbea-fb6a-4144-a6-c2-33-49-9c-92-84-f5')
+    _iid_ = Guid('8504dbea-fb6a-4144-a6-c2-33-49-9c-92-84-f5')
     @winrt_commethod(6)
     def FromArgb(self, a: Byte, r: Byte, g: Byte, b: Byte) -> Windows.UI.Color: ...
 class IColorHelperStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('24d9af02-6eb0-4b94-85-5c-fc-f0-81-8d-9a-16')
+    _iid_ = Guid('24d9af02-6eb0-4b94-85-5c-fc-f0-81-8d-9a-16')
     @winrt_commethod(6)
     def ToDisplayName(self, color: Windows.UI.Color) -> WinRT_String: ...
 class IColors(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9b8c9326-4ca6-4ce5-89-94-9e-ff-65-ca-bd-cc')
+    _iid_ = Guid('9b8c9326-4ca6-4ce5-89-94-9e-ff-65-ca-bd-cc')
 class IColorsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cff52e04-cca6-4614-a1-7e-75-49-10-c8-4a-99')
+    _iid_ = Guid('cff52e04-cca6-4614-a1-7e-75-49-10-c8-4a-99')
     @winrt_commethod(6)
     def get_AliceBlue(self) -> Windows.UI.Color: ...
     @winrt_commethod(7)
@@ -902,13 +902,13 @@ class IColorsStatics(ComPtr):
     YellowGreen = property(get_YellowGreen, None)
 class IUIContentRoot(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1dfcbac6-b36b-5cb9-9b-c5-2b-7a-0e-dd-c3-78')
+    _iid_ = Guid('1dfcbac6-b36b-5cb9-9b-c5-2b-7a-0e-dd-c3-78')
     @winrt_commethod(6)
     def get_UIContext(self) -> Windows.UI.UIContext: ...
     UIContext = property(get_UIContext, None)
 class IUIContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bb5cfacd-5bd8-59d0-a5-9e-1c-17-a4-d6-d2-43')
+    _iid_ = Guid('bb5cfacd-5bd8-59d0-a5-9e-1c-17-a4-d6-d2-43')
 class UIContentRoot(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     ClassId = 'Windows.UI.UIContentRoot'

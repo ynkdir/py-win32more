@@ -26,7 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IRadialControllerIndependentInputSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3d577ef6-4cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('3d577ef6-4cee-11e6-b5-35-00-1b-dc-06-ab-3b')
     @winrt_commethod(6)
     def get_Controller(self) -> Windows.UI.Input.RadialController: ...
     @winrt_commethod(7)
@@ -35,13 +35,13 @@ class IRadialControllerIndependentInputSource(ComPtr):
     Dispatcher = property(get_Dispatcher, None)
 class IRadialControllerIndependentInputSource2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7073aad8-35f3-4eeb-87-51-be-4d-0a-66-fa-f4')
+    _iid_ = Guid('7073aad8-35f3-4eeb-87-51-be-4d-0a-66-fa-f4')
     @winrt_commethod(6)
     def get_DispatcherQueue(self) -> Windows.System.DispatcherQueue: ...
     DispatcherQueue = property(get_DispatcherQueue, None)
 class IRadialControllerIndependentInputSourceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3d577ef5-4cee-11e6-b5-35-00-1b-dc-06-ab-3b')
+    _iid_ = Guid('3d577ef5-4cee-11e6-b5-35-00-1b-dc-06-ab-3b')
     @winrt_commethod(6)
     def CreateForView(self, view: Windows.ApplicationModel.Core.CoreApplicationView) -> Windows.UI.Input.Core.RadialControllerIndependentInputSource: ...
 class RadialControllerIndependentInputSource(ComPtr):

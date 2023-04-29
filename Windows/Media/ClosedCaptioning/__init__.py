@@ -100,7 +100,7 @@ ClosedCaptionStyle_Cursive: ClosedCaptionStyle = 6
 ClosedCaptionStyle_SmallCapitals: ClosedCaptionStyle = 7
 class IClosedCaptionPropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('10aa1f84-cc30-4141-b5-03-52-72-28-9e-0c-20')
+    _iid_ = Guid('10aa1f84-cc30-4141-b5-03-52-72-28-9e-0c-20')
     @winrt_commethod(6)
     def get_FontColor(self) -> Windows.Media.ClosedCaptioning.ClosedCaptionColor: ...
     @winrt_commethod(7)

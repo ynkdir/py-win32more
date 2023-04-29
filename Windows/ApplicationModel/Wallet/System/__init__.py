@@ -26,7 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IWalletItemSystemStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('522e2bff-96a2-4a17-8d-19-fe-1d-9f-83-75-61')
+    _iid_ = Guid('522e2bff-96a2-4a17-8d-19-fe-1d-9f-83-75-61')
     @winrt_commethod(6)
     def GetItemsAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Wallet.WalletItem]]: ...
     @winrt_commethod(7)
@@ -39,14 +39,14 @@ class IWalletItemSystemStore(ComPtr):
     def LaunchAppForItemAsync(self, item: Windows.ApplicationModel.Wallet.WalletItem) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IWalletItemSystemStore2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f98d3a4e-be00-4fdd-97-34-6c-11-3c-1a-c1-cb')
+    _iid_ = Guid('f98d3a4e-be00-4fdd-97-34-6c-11-3c-1a-c1-cb')
     @winrt_commethod(6)
     def add_ItemsChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Wallet.System.WalletItemSystemStore, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_ItemsChanged(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IWalletManagerSystemStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bee8eb89-2634-4b9a-8b-23-ee-89-03-c9-1f-e0')
+    _iid_ = Guid('bee8eb89-2634-4b9a-8b-23-ee-89-03-c9-1f-e0')
     @winrt_commethod(6)
     def RequestStoreAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Wallet.System.WalletItemSystemStore]: ...
 WalletItemAppAssociation = Int32

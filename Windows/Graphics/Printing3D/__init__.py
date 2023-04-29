@@ -27,21 +27,21 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPrint3DManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4d2fcb0a-7366-4971-8b-d5-17-c4-e3-e8-c6-c0')
+    _iid_ = Guid('4d2fcb0a-7366-4971-8b-d5-17-c4-e3-e8-c6-c0')
     @winrt_commethod(6)
     def add_TaskRequested(self, eventHandler: Windows.Foundation.TypedEventHandler[Windows.Graphics.Printing3D.Print3DManager, Windows.Graphics.Printing3D.Print3DTaskRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_TaskRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IPrint3DManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0ef1cafe-a9ad-4c08-a9-17-1d-1f-86-3e-ab-cb')
+    _iid_ = Guid('0ef1cafe-a9ad-4c08-a9-17-1d-1f-86-3e-ab-cb')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.Graphics.Printing3D.Print3DManager: ...
     @winrt_commethod(7)
     def ShowPrintUIAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IPrint3DTask(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8ce3d080-2118-4c28-80-de-f4-26-d7-01-91-ae')
+    _iid_ = Guid('8ce3d080-2118-4c28-80-de-f4-26-d7-01-91-ae')
     @winrt_commethod(6)
     def get_Source(self) -> Windows.Graphics.Printing3D.Printing3D3MFPackage: ...
     @winrt_commethod(7)
@@ -59,7 +59,7 @@ class IPrint3DTask(ComPtr):
     Source = property(get_Source, None)
 class IPrint3DTaskCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cc1914af-2614-4f1d-ac-cc-d6-fc-4f-da-54-55')
+    _iid_ = Guid('cc1914af-2614-4f1d-ac-cc-d6-fc-4f-da-54-55')
     @winrt_commethod(6)
     def get_Completion(self) -> Windows.Graphics.Printing3D.Print3DTaskCompletion: ...
     @winrt_commethod(7)
@@ -68,29 +68,29 @@ class IPrint3DTaskCompletedEventArgs(ComPtr):
     ExtendedStatus = property(get_ExtendedStatus, None)
 class IPrint3DTaskRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2595c46f-2245-4c5a-87-31-0d-60-4d-c6-bc-3c')
+    _iid_ = Guid('2595c46f-2245-4c5a-87-31-0d-60-4d-c6-bc-3c')
     @winrt_commethod(6)
     def CreateTask(self, title: WinRT_String, printerId: WinRT_String, handler: Windows.Graphics.Printing3D.Print3DTaskSourceRequestedHandler) -> Windows.Graphics.Printing3D.Print3DTask: ...
 class IPrint3DTaskRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('150cb77f-18c5-40d7-9f-40-fa-b3-09-6e-05-a9')
+    _iid_ = Guid('150cb77f-18c5-40d7-9f-40-fa-b3-09-6e-05-a9')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.Graphics.Printing3D.Print3DTaskRequest: ...
     Request = property(get_Request, None)
 class IPrint3DTaskSourceChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5bcd34af-24e9-4c10-8d-07-14-c3-46-ba-3f-cf')
+    _iid_ = Guid('5bcd34af-24e9-4c10-8d-07-14-c3-46-ba-3f-cf')
     @winrt_commethod(6)
     def get_Source(self) -> Windows.Graphics.Printing3D.Printing3D3MFPackage: ...
     Source = property(get_Source, None)
 class IPrint3DTaskSourceRequestedArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c77c9aba-24af-424d-a3-bf-92-25-0c-35-56-02')
+    _iid_ = Guid('c77c9aba-24af-424d-a3-bf-92-25-0c-35-56-02')
     @winrt_commethod(6)
     def SetSource(self, source: Windows.Graphics.Printing3D.Printing3D3MFPackage) -> Void: ...
 class IPrinting3D3MFPackage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f64dd5c8-2ab7-45a9-a1-b7-26-7e-94-8d-5b-18')
+    _iid_ = Guid('f64dd5c8-2ab7-45a9-a1-b7-26-7e-94-8d-5b-18')
     @winrt_commethod(6)
     def SaveAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IRandomAccessStream]: ...
     @winrt_commethod(7)
@@ -117,7 +117,7 @@ class IPrinting3D3MFPackage(ComPtr):
     Textures = property(get_Textures, None)
 class IPrinting3D3MFPackage2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('965c7ac4-93cb-4430-92-b8-78-9c-d4-54-f8-83')
+    _iid_ = Guid('965c7ac4-93cb-4430-92-b8-78-9c-d4-54-f8-83')
     @winrt_commethod(6)
     def get_Compression(self) -> Windows.Graphics.Printing3D.Printing3DPackageCompression: ...
     @winrt_commethod(7)
@@ -125,12 +125,12 @@ class IPrinting3D3MFPackage2(ComPtr):
     Compression = property(get_Compression, put_Compression)
 class IPrinting3D3MFPackageStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7058d9af-7a9a-4787-b8-17-f6-f4-59-21-48-23')
+    _iid_ = Guid('7058d9af-7a9a-4787-b8-17-f6-f4-59-21-48-23')
     @winrt_commethod(6)
     def LoadAsync(self, value: Windows.Storage.Streams.IRandomAccessStream) -> Windows.Foundation.IAsyncOperation[Windows.Graphics.Printing3D.Printing3D3MFPackage]: ...
 class IPrinting3DBaseMaterial(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d0f0e743-c50c-4bcb-9d-04-fc-16-ad-ce-a2-c9')
+    _iid_ = Guid('d0f0e743-c50c-4bcb-9d-04-fc-16-ad-ce-a2-c9')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -143,7 +143,7 @@ class IPrinting3DBaseMaterial(ComPtr):
     Color = property(get_Color, put_Color)
 class IPrinting3DBaseMaterialGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('94f070b8-2515-4a8d-a1-f0-d0-fc-13-d0-60-21')
+    _iid_ = Guid('94f070b8-2515-4a8d-a1-f0-d0-fc-13-d0-60-21')
     @winrt_commethod(6)
     def get_Bases(self) -> Windows.Foundation.Collections.IVector[Windows.Graphics.Printing3D.Printing3DBaseMaterial]: ...
     @winrt_commethod(7)
@@ -152,12 +152,12 @@ class IPrinting3DBaseMaterialGroup(ComPtr):
     MaterialGroupId = property(get_MaterialGroupId, None)
 class IPrinting3DBaseMaterialGroupFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5c1546dc-8697-4193-97-6b-84-bb-41-16-e5-bf')
+    _iid_ = Guid('5c1546dc-8697-4193-97-6b-84-bb-41-16-e5-bf')
     @winrt_commethod(6)
     def Create(self, MaterialGroupId: UInt32) -> Windows.Graphics.Printing3D.Printing3DBaseMaterialGroup: ...
 class IPrinting3DBaseMaterialStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('815a47bc-374a-476d-be-92-3e-cf-d1-cb-97-76')
+    _iid_ = Guid('815a47bc-374a-476d-be-92-3e-cf-d1-cb-97-76')
     @winrt_commethod(6)
     def get_Abs(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -166,7 +166,7 @@ class IPrinting3DBaseMaterialStatics(ComPtr):
     Pla = property(get_Pla, None)
 class IPrinting3DColorMaterial(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e1899928-7ce7-4285-a3-5d-f1-45-c9-51-0c-7b')
+    _iid_ = Guid('e1899928-7ce7-4285-a3-5d-f1-45-c9-51-0c-7b')
     @winrt_commethod(6)
     def get_Value(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -174,7 +174,7 @@ class IPrinting3DColorMaterial(ComPtr):
     Value = property(get_Value, put_Value)
 class IPrinting3DColorMaterial2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fab0e852-0aef-44e9-9d-dd-36-ee-ea-5a-cd-44')
+    _iid_ = Guid('fab0e852-0aef-44e9-9d-dd-36-ee-ea-5a-cd-44')
     @winrt_commethod(6)
     def get_Color(self) -> Windows.UI.Color: ...
     @winrt_commethod(7)
@@ -182,7 +182,7 @@ class IPrinting3DColorMaterial2(ComPtr):
     Color = property(get_Color, put_Color)
 class IPrinting3DColorMaterialGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('001a6bd0-aadf-4226-af-e9-f3-69-a0-b4-50-04')
+    _iid_ = Guid('001a6bd0-aadf-4226-af-e9-f3-69-a0-b4-50-04')
     @winrt_commethod(6)
     def get_Colors(self) -> Windows.Foundation.Collections.IVector[Windows.Graphics.Printing3D.Printing3DColorMaterial]: ...
     @winrt_commethod(7)
@@ -191,12 +191,12 @@ class IPrinting3DColorMaterialGroup(ComPtr):
     MaterialGroupId = property(get_MaterialGroupId, None)
 class IPrinting3DColorMaterialGroupFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('71d38d6d-b1ea-4a5b-bc-54-19-c6-5f-3d-f0-44')
+    _iid_ = Guid('71d38d6d-b1ea-4a5b-bc-54-19-c6-5f-3d-f0-44')
     @winrt_commethod(6)
     def Create(self, MaterialGroupId: UInt32) -> Windows.Graphics.Printing3D.Printing3DColorMaterialGroup: ...
 class IPrinting3DComponent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7e287845-bf7f-4cdb-a2-7f-30-a0-14-37-fe-de')
+    _iid_ = Guid('7e287845-bf7f-4cdb-a2-7f-30-a0-14-37-fe-de')
     @winrt_commethod(6)
     def get_Mesh(self) -> Windows.Graphics.Printing3D.Printing3DMesh: ...
     @winrt_commethod(7)
@@ -227,7 +227,7 @@ class IPrinting3DComponent(ComPtr):
     PartNumber = property(get_PartNumber, put_PartNumber)
 class IPrinting3DComponentWithMatrix(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3279f335-0ef0-456b-9a-21-49-be-be-8b-51-c2')
+    _iid_ = Guid('3279f335-0ef0-456b-9a-21-49-be-be-8b-51-c2')
     @winrt_commethod(6)
     def get_Component(self) -> Windows.Graphics.Printing3D.Printing3DComponent: ...
     @winrt_commethod(7)
@@ -240,13 +240,13 @@ class IPrinting3DComponentWithMatrix(ComPtr):
     Matrix = property(get_Matrix, put_Matrix)
 class IPrinting3DCompositeMaterial(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('462238dd-562e-4f6c-88-2d-f4-d8-41-fd-63-c7')
+    _iid_ = Guid('462238dd-562e-4f6c-88-2d-f4-d8-41-fd-63-c7')
     @winrt_commethod(6)
     def get_Values(self) -> Windows.Foundation.Collections.IVector[Double]: ...
     Values = property(get_Values, None)
 class IPrinting3DCompositeMaterialGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8d946a5b-40f1-496d-a5-fb-34-0a-5a-67-8e-30')
+    _iid_ = Guid('8d946a5b-40f1-496d-a5-fb-34-0a-5a-67-8e-30')
     @winrt_commethod(6)
     def get_Composites(self) -> Windows.Foundation.Collections.IVector[Windows.Graphics.Printing3D.Printing3DCompositeMaterial]: ...
     @winrt_commethod(7)
@@ -258,7 +258,7 @@ class IPrinting3DCompositeMaterialGroup(ComPtr):
     MaterialIndices = property(get_MaterialIndices, None)
 class IPrinting3DCompositeMaterialGroup2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('06e86d62-7d3b-41e1-94-4c-ba-fd-e4-55-54-83')
+    _iid_ = Guid('06e86d62-7d3b-41e1-94-4c-ba-fd-e4-55-54-83')
     @winrt_commethod(6)
     def get_BaseMaterialGroup(self) -> Windows.Graphics.Printing3D.Printing3DBaseMaterialGroup: ...
     @winrt_commethod(7)
@@ -266,12 +266,12 @@ class IPrinting3DCompositeMaterialGroup2(ComPtr):
     BaseMaterialGroup = property(get_BaseMaterialGroup, put_BaseMaterialGroup)
 class IPrinting3DCompositeMaterialGroupFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d08ecd13-92ff-43aa-a6-27-8d-43-c2-2c-81-7e')
+    _iid_ = Guid('d08ecd13-92ff-43aa-a6-27-8d-43-c2-2c-81-7e')
     @winrt_commethod(6)
     def Create(self, MaterialGroupId: UInt32) -> Windows.Graphics.Printing3D.Printing3DCompositeMaterialGroup: ...
 class IPrinting3DFaceReductionOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bbfed397-2d74-46f7-be-85-99-a6-7b-bb-66-29')
+    _iid_ = Guid('bbfed397-2d74-46f7-be-85-99-a6-7b-bb-66-29')
     @winrt_commethod(6)
     def get_MaxReductionArea(self) -> Double: ...
     @winrt_commethod(7)
@@ -289,7 +289,7 @@ class IPrinting3DFaceReductionOptions(ComPtr):
     MaxEdgeLength = property(get_MaxEdgeLength, put_MaxEdgeLength)
 class IPrinting3DMaterial(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('378db256-ed62-4952-b8-5b-03-56-7d-7c-46-5e')
+    _iid_ = Guid('378db256-ed62-4952-b8-5b-03-56-7d-7c-46-5e')
     @winrt_commethod(6)
     def get_BaseGroups(self) -> Windows.Foundation.Collections.IVector[Windows.Graphics.Printing3D.Printing3DBaseMaterialGroup]: ...
     @winrt_commethod(7)
@@ -307,7 +307,7 @@ class IPrinting3DMaterial(ComPtr):
     MultiplePropertyGroups = property(get_MultiplePropertyGroups, None)
 class IPrinting3DMesh(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('192e90dc-0228-2e01-bc-20-c5-29-0c-bf-32-c4')
+    _iid_ = Guid('192e90dc-0228-2e01-bc-20-c5-29-0c-bf-32-c4')
     @winrt_commethod(6)
     def get_VertexCount(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -364,7 +364,7 @@ class IPrinting3DMesh(ComPtr):
     BufferSet = property(get_BufferSet, None)
 class IPrinting3DMeshVerificationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('195671ba-e93a-4e8a-a4-6f-de-a8-e8-52-19-7e')
+    _iid_ = Guid('195671ba-e93a-4e8a-a4-6f-de-a8-e8-52-19-7e')
     @winrt_commethod(6)
     def get_IsValid(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -376,7 +376,7 @@ class IPrinting3DMeshVerificationResult(ComPtr):
     ReversedNormalTriangles = property(get_ReversedNormalTriangles, None)
 class IPrinting3DModel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2d012ef0-52fb-919a-77-b0-4b-1a-3b-80-32-4f')
+    _iid_ = Guid('2d012ef0-52fb-919a-77-b0-4b-1a-3b-80-32-4f')
     @winrt_commethod(6)
     def get_Unit(self) -> Windows.Graphics.Printing3D.Printing3DModelUnit: ...
     @winrt_commethod(7)
@@ -418,7 +418,7 @@ class IPrinting3DModel(ComPtr):
     Metadata = property(get_Metadata, None)
 class IPrinting3DModel2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c92069c7-c841-47f3-a8-4e-a1-49-fd-08-b6-57')
+    _iid_ = Guid('c92069c7-c841-47f3-a8-4e-a1-49-fd-08-b6-57')
     @winrt_commethod(6)
     def TryPartialRepairAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(7)
@@ -433,7 +433,7 @@ class IPrinting3DModel2(ComPtr):
     def RepairWithProgressAsync(self) -> Windows.Foundation.IAsyncOperationWithProgress[Boolean, Double]: ...
 class IPrinting3DModelTexture(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5dafcf01-b59d-483c-97-bb-a4-d5-46-d1-c7-5c')
+    _iid_ = Guid('5dafcf01-b59d-483c-97-bb-a4-d5-46-d1-c7-5c')
     @winrt_commethod(6)
     def get_TextureResource(self) -> Windows.Graphics.Printing3D.Printing3DTextureResource: ...
     @winrt_commethod(7)
@@ -451,13 +451,13 @@ class IPrinting3DModelTexture(ComPtr):
     TileStyleV = property(get_TileStyleV, put_TileStyleV)
 class IPrinting3DMultiplePropertyMaterial(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('25a6254b-c6e9-484d-a2-14-a2-5e-57-76-ba-62')
+    _iid_ = Guid('25a6254b-c6e9-484d-a2-14-a2-5e-57-76-ba-62')
     @winrt_commethod(6)
     def get_MaterialIndices(self) -> Windows.Foundation.Collections.IVector[UInt32]: ...
     MaterialIndices = property(get_MaterialIndices, None)
 class IPrinting3DMultiplePropertyMaterialGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f0950519-aeb9-4515-a3-9b-a0-88-fb-bb-27-7c')
+    _iid_ = Guid('f0950519-aeb9-4515-a3-9b-a0-88-fb-bb-27-7c')
     @winrt_commethod(6)
     def get_MultipleProperties(self) -> Windows.Foundation.Collections.IVector[Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterial]: ...
     @winrt_commethod(7)
@@ -469,12 +469,12 @@ class IPrinting3DMultiplePropertyMaterialGroup(ComPtr):
     MaterialGroupId = property(get_MaterialGroupId, None)
 class IPrinting3DMultiplePropertyMaterialGroupFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('323e196e-d4c6-451e-a8-14-4d-78-a2-10-fe-53')
+    _iid_ = Guid('323e196e-d4c6-451e-a8-14-4d-78-a2-10-fe-53')
     @winrt_commethod(6)
     def Create(self, MaterialGroupId: UInt32) -> Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterialGroup: ...
 class IPrinting3DTexture2CoordMaterial(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8d844bfb-07e9-4986-98-33-8d-d3-d4-8c-68-59')
+    _iid_ = Guid('8d844bfb-07e9-4986-98-33-8d-d3-d4-8c-68-59')
     @winrt_commethod(6)
     def get_Texture(self) -> Windows.Graphics.Printing3D.Printing3DModelTexture: ...
     @winrt_commethod(7)
@@ -492,7 +492,7 @@ class IPrinting3DTexture2CoordMaterial(ComPtr):
     V = property(get_V, put_V)
 class IPrinting3DTexture2CoordMaterialGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('627d7ca7-6d90-4fb9-9f-c4-9f-ef-f3-df-a8-92')
+    _iid_ = Guid('627d7ca7-6d90-4fb9-9f-c4-9f-ef-f3-df-a8-92')
     @winrt_commethod(6)
     def get_Texture2Coords(self) -> Windows.Foundation.Collections.IVector[Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterial]: ...
     @winrt_commethod(7)
@@ -501,7 +501,7 @@ class IPrinting3DTexture2CoordMaterialGroup(ComPtr):
     MaterialGroupId = property(get_MaterialGroupId, None)
 class IPrinting3DTexture2CoordMaterialGroup2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('69fbdbba-b12e-429b-83-86-df-52-84-f6-e8-0f')
+    _iid_ = Guid('69fbdbba-b12e-429b-83-86-df-52-84-f6-e8-0f')
     @winrt_commethod(6)
     def get_Texture(self) -> Windows.Graphics.Printing3D.Printing3DModelTexture: ...
     @winrt_commethod(7)
@@ -509,12 +509,12 @@ class IPrinting3DTexture2CoordMaterialGroup2(ComPtr):
     Texture = property(get_Texture, put_Texture)
 class IPrinting3DTexture2CoordMaterialGroupFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cbb049b0-468a-4c6f-b2-a2-8e-b8-ba-8d-ea-48')
+    _iid_ = Guid('cbb049b0-468a-4c6f-b2-a2-8e-b8-ba-8d-ea-48')
     @winrt_commethod(6)
     def Create(self, MaterialGroupId: UInt32) -> Windows.Graphics.Printing3D.Printing3DTexture2CoordMaterialGroup: ...
 class IPrinting3DTextureResource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a70df32d-6ab1-44ae-bc-45-a2-73-82-c0-d3-8c')
+    _iid_ = Guid('a70df32d-6ab1-44ae-bc-45-a2-73-82-c0-d3-8c')
     @winrt_commethod(6)
     def get_TextureData(self) -> Windows.Storage.Streams.IRandomAccessStreamWithContentType: ...
     @winrt_commethod(7)
@@ -601,7 +601,7 @@ class Print3DTaskSourceRequestedArgs(ComPtr):
     def SetSource(self: Windows.Graphics.Printing3D.IPrint3DTaskSourceRequestedArgs, source: Windows.Graphics.Printing3D.Printing3D3MFPackage) -> Void: ...
 class Print3DTaskSourceRequestedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('e9175e70-c917-46de-bb-51-d9-a9-4d-b3-71-1f')
+    _iid_ = Guid('e9175e70-c917-46de-bb-51-d9-a9-4d-b3-71-1f')
     ClassId = 'Windows.Graphics.Printing3D.Print3DTaskSourceRequestedHandler'
     @winrt_commethod(3)
     def Invoke(self, args: Windows.Graphics.Printing3D.Print3DTaskSourceRequestedArgs) -> Void: ...

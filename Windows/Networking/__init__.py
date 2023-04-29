@@ -86,7 +86,7 @@ HostNameType_Ipv6: HostNameType = 2
 HostNameType_Bluetooth: HostNameType = 3
 class IEndpointPair(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('33a0aa36-f8fa-4b30-b8-56-76-51-7c-3b-d0-6d')
+    _iid_ = Guid('33a0aa36-f8fa-4b30-b8-56-76-51-7c-3b-d0-6d')
     @winrt_commethod(6)
     def get_LocalHostName(self) -> Windows.Networking.HostName: ...
     @winrt_commethod(7)
@@ -109,12 +109,12 @@ class IEndpointPair(ComPtr):
     RemoteServiceName = property(get_RemoteServiceName, put_RemoteServiceName)
 class IEndpointPairFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b609d971-64e0-442b-aa-6f-cc-8c-8f-18-1f-78')
+    _iid_ = Guid('b609d971-64e0-442b-aa-6f-cc-8c-8f-18-1f-78')
     @winrt_commethod(6)
     def CreateEndpointPair(self, localHostName: Windows.Networking.HostName, localServiceName: WinRT_String, remoteHostName: Windows.Networking.HostName, remoteServiceName: WinRT_String) -> Windows.Networking.EndpointPair: ...
 class IHostName(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bf8ecaad-ed96-49a7-90-84-d4-16-ca-e8-8d-cb')
+    _iid_ = Guid('bf8ecaad-ed96-49a7-90-84-d4-16-ca-e8-8d-cb')
     @winrt_commethod(6)
     def get_IPInformation(self) -> Windows.Networking.Connectivity.IPInformation: ...
     @winrt_commethod(7)
@@ -134,12 +134,12 @@ class IHostName(ComPtr):
     Type = property(get_Type, None)
 class IHostNameFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('458c23ed-712f-4576-ad-f1-c2-0b-2c-64-35-58')
+    _iid_ = Guid('458c23ed-712f-4576-ad-f1-c2-0b-2c-64-35-58')
     @winrt_commethod(6)
     def CreateHostName(self, hostName: WinRT_String) -> Windows.Networking.HostName: ...
 class IHostNameStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f68cd4bf-a388-4e8b-91-ea-54-dd-6d-d9-01-c0')
+    _iid_ = Guid('f68cd4bf-a388-4e8b-91-ea-54-dd-6d-d9-01-c0')
     @winrt_commethod(6)
     def Compare(self, value1: WinRT_String, value2: WinRT_String) -> Int32: ...
 make_head(_module, 'EndpointPair')

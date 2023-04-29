@@ -131,7 +131,7 @@ class AppExtensionPackageUpdatingEventArgs(ComPtr):
     Package = property(get_Package, None)
 class IAppExtension(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8450902c-15ed-4faf-93-ea-22-37-bb-f8-cb-d6')
+    _iid_ = Guid('8450902c-15ed-4faf-93-ea-22-37-bb-f8-cb-d6')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -153,13 +153,13 @@ class IAppExtension(ComPtr):
     AppInfo = property(get_AppInfo, None)
 class IAppExtension2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ab3b15f0-14f9-4b9f-94-19-a3-49-a2-42-ef-38')
+    _iid_ = Guid('ab3b15f0-14f9-4b9f-94-19-a3-49-a2-42-ef-38')
     @winrt_commethod(6)
     def get_AppUserModelId(self) -> WinRT_String: ...
     AppUserModelId = property(get_AppUserModelId, None)
 class IAppExtensionCatalog(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('97872032-8426-4ad1-90-84-92-e8-8c-2d-a2-00')
+    _iid_ = Guid('97872032-8426-4ad1-90-84-92-e8-8c-2d-a2-00')
     @winrt_commethod(6)
     def FindAllAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.AppExtensions.AppExtension]]: ...
     @winrt_commethod(7)
@@ -186,12 +186,12 @@ class IAppExtensionCatalog(ComPtr):
     def remove_PackageStatusChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IAppExtensionCatalogStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3c36668a-5f18-4f0b-9c-e5-ca-b6-1d-19-6f-11')
+    _iid_ = Guid('3c36668a-5f18-4f0b-9c-e5-ca-b6-1d-19-6f-11')
     @winrt_commethod(6)
     def Open(self, appExtensionName: WinRT_String) -> Windows.ApplicationModel.AppExtensions.AppExtensionCatalog: ...
 class IAppExtensionPackageInstalledEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('39e59234-3351-4a8d-97-45-e7-d3-dd-45-bc-48')
+    _iid_ = Guid('39e59234-3351-4a8d-97-45-e7-d3-dd-45-bc-48')
     @winrt_commethod(6)
     def get_AppExtensionName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -203,7 +203,7 @@ class IAppExtensionPackageInstalledEventArgs(ComPtr):
     Extensions = property(get_Extensions, None)
 class IAppExtensionPackageStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1ce17433-1153-44fd-87-b1-8a-e1-05-03-03-df')
+    _iid_ = Guid('1ce17433-1153-44fd-87-b1-8a-e1-05-03-03-df')
     @winrt_commethod(6)
     def get_AppExtensionName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -212,7 +212,7 @@ class IAppExtensionPackageStatusChangedEventArgs(ComPtr):
     Package = property(get_Package, None)
 class IAppExtensionPackageUninstallingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('60f160c5-171e-40ff-ae-98-ab-2c-20-dd-4d-75')
+    _iid_ = Guid('60f160c5-171e-40ff-ae-98-ab-2c-20-dd-4d-75')
     @winrt_commethod(6)
     def get_AppExtensionName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -221,7 +221,7 @@ class IAppExtensionPackageUninstallingEventArgs(ComPtr):
     Package = property(get_Package, None)
 class IAppExtensionPackageUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3a83c43f-797e-44b5-ba-24-a4-c8-b5-a5-43-d7')
+    _iid_ = Guid('3a83c43f-797e-44b5-ba-24-a4-c8-b5-a5-43-d7')
     @winrt_commethod(6)
     def get_AppExtensionName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -233,7 +233,7 @@ class IAppExtensionPackageUpdatedEventArgs(ComPtr):
     Extensions = property(get_Extensions, None)
 class IAppExtensionPackageUpdatingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7ed59329-1a65-4800-a7-00-b3-21-00-9e-30-6a')
+    _iid_ = Guid('7ed59329-1a65-4800-a7-00-b3-21-00-9e-30-6a')
     @winrt_commethod(6)
     def get_AppExtensionName(self) -> WinRT_String: ...
     @winrt_commethod(7)

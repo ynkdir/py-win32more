@@ -339,21 +339,21 @@ class BarcodeSymbologyAttributesBuilder(ComPtr):
     IsDecodeLengthSupported = property(get_IsDecodeLengthSupported, put_IsDecodeLengthSupported)
 class IBarcodeScannerDisableScannerRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('88ecf7c0-37b9-4275-8e-77-c8-e5-2a-e5-a9-c8')
+    _iid_ = Guid('88ecf7c0-37b9-4275-8e-77-c8-e5-2a-e5-a9-c8')
     @winrt_commethod(6)
     def ReportCompletedAsync(self) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def ReportFailedAsync(self) -> Windows.Foundation.IAsyncAction: ...
 class IBarcodeScannerDisableScannerRequest2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ccdfe625-65c3-4ccc-b4-57-f3-9c-7a-9e-a6-0d')
+    _iid_ = Guid('ccdfe625-65c3-4ccc-b4-57-f3-9c-7a-9e-a6-0d')
     @winrt_commethod(6)
     def ReportFailedWithFailedReasonAsync(self, reason: Int32) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def ReportFailedWithFailedReasonAndDescriptionAsync(self, reason: Int32, failedReasonDescription: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class IBarcodeScannerDisableScannerRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7006e142-e802-46f5-b6-04-35-2a-15-ce-92-32')
+    _iid_ = Guid('7006e142-e802-46f5-b6-04-35-2a-15-ce-92-32')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.Devices.PointOfService.Provider.BarcodeScannerDisableScannerRequest: ...
     @winrt_commethod(7)
@@ -361,21 +361,21 @@ class IBarcodeScannerDisableScannerRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IBarcodeScannerEnableScannerRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c0b3e9ba-816a-452b-bd-77-b7-e4-53-ec-44-6d')
+    _iid_ = Guid('c0b3e9ba-816a-452b-bd-77-b7-e4-53-ec-44-6d')
     @winrt_commethod(6)
     def ReportCompletedAsync(self) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def ReportFailedAsync(self) -> Windows.Foundation.IAsyncAction: ...
 class IBarcodeScannerEnableScannerRequest2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('71a4f2a8-9905-41ac-91-21-b6-45-91-6a-84-a1')
+    _iid_ = Guid('71a4f2a8-9905-41ac-91-21-b6-45-91-6a-84-a1')
     @winrt_commethod(6)
     def ReportFailedWithFailedReasonAsync(self, reason: Int32) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def ReportFailedWithFailedReasonAndDescriptionAsync(self, reason: Int32, failedReasonDescription: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class IBarcodeScannerEnableScannerRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('956c9419-7b4e-4451-8c-41-8e-10-cf-bc-5b-41')
+    _iid_ = Guid('956c9419-7b4e-4451-8c-41-8e-10-cf-bc-5b-41')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.Devices.PointOfService.Provider.BarcodeScannerEnableScannerRequest: ...
     @winrt_commethod(7)
@@ -383,7 +383,7 @@ class IBarcodeScannerEnableScannerRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IBarcodeScannerFrameReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('dbc72b07-64c3-482b-93-c8-65-fb-33-c2-22-08')
+    _iid_ = Guid('dbc72b07-64c3-482b-93-c8-65-fb-33-c2-22-08')
     @winrt_commethod(6)
     def StartAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(7)
@@ -399,12 +399,12 @@ class IBarcodeScannerFrameReader(ComPtr):
     Connection = property(get_Connection, None)
 class IBarcodeScannerFrameReaderFrameArrivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b0bbd604-54fd-436d-86-29-71-2e-78-72-23-dd')
+    _iid_ = Guid('b0bbd604-54fd-436d-86-29-71-2e-78-72-23-dd')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
 class IBarcodeScannerGetSymbologyAttributesRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9774c46a-58e4-4c5f-b8-e9-e4-14-67-63-27-00')
+    _iid_ = Guid('9774c46a-58e4-4c5f-b8-e9-e4-14-67-63-27-00')
     @winrt_commethod(6)
     def get_Symbology(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -414,14 +414,14 @@ class IBarcodeScannerGetSymbologyAttributesRequest(ComPtr):
     Symbology = property(get_Symbology, None)
 class IBarcodeScannerGetSymbologyAttributesRequest2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6a6a2b13-75a8-49fb-b8-52-bf-b9-3d-76-0a-f7')
+    _iid_ = Guid('6a6a2b13-75a8-49fb-b8-52-bf-b9-3d-76-0a-f7')
     @winrt_commethod(6)
     def ReportFailedWithFailedReasonAsync(self, reason: Int32) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def ReportFailedWithFailedReasonAndDescriptionAsync(self, reason: Int32, failedReasonDescription: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class IBarcodeScannerGetSymbologyAttributesRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7f89de3e-fb5d-493c-b4-02-35-6b-24-d5-74-a6')
+    _iid_ = Guid('7f89de3e-fb5d-493c-b4-02-35-6b-24-d5-74-a6')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.Devices.PointOfService.Provider.BarcodeScannerGetSymbologyAttributesRequest: ...
     @winrt_commethod(7)
@@ -429,21 +429,21 @@ class IBarcodeScannerGetSymbologyAttributesRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IBarcodeScannerHideVideoPreviewRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fa4ebe7f-6670-40e1-b9-0b-bb-10-d8-d4-25-fa')
+    _iid_ = Guid('fa4ebe7f-6670-40e1-b9-0b-bb-10-d8-d4-25-fa')
     @winrt_commethod(6)
     def ReportCompletedAsync(self) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def ReportFailedAsync(self) -> Windows.Foundation.IAsyncAction: ...
 class IBarcodeScannerHideVideoPreviewRequest2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7e28435d-9814-431d-a2-f2-d6-24-8c-5a-d4-b5')
+    _iid_ = Guid('7e28435d-9814-431d-a2-f2-d6-24-8c-5a-d4-b5')
     @winrt_commethod(6)
     def ReportFailedWithFailedReasonAsync(self, reason: Int32) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def ReportFailedWithFailedReasonAndDescriptionAsync(self, reason: Int32, failedReasonDescription: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class IBarcodeScannerHideVideoPreviewRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('16a281fc-d6be-4bc7-9d-f1-33-74-1f-3e-ad-ea')
+    _iid_ = Guid('16a281fc-d6be-4bc7-9d-f1-33-74-1f-3e-ad-ea')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.Devices.PointOfService.Provider.BarcodeScannerHideVideoPreviewRequest: ...
     @winrt_commethod(7)
@@ -451,7 +451,7 @@ class IBarcodeScannerHideVideoPreviewRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IBarcodeScannerProviderConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b44acbed-0b3a-4fa3-86-c5-49-1e-a3-07-80-eb')
+    _iid_ = Guid('b44acbed-0b3a-4fa3-86-c5-49-1e-a3-07-80-eb')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -520,7 +520,7 @@ class IBarcodeScannerProviderConnection(ComPtr):
     Version = property(get_Version, put_Version)
 class IBarcodeScannerProviderConnection2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('be9b53cd-1134-418c-a0-6b-04-42-3a-73-f3-d7')
+    _iid_ = Guid('be9b53cd-1134-418c-a0-6b-04-42-3a-73-f3-d7')
     @winrt_commethod(6)
     def CreateFrameReaderAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.PointOfService.Provider.BarcodeScannerFrameReader]: ...
     @winrt_commethod(7)
@@ -529,13 +529,13 @@ class IBarcodeScannerProviderConnection2(ComPtr):
     def CreateFrameReaderWithFormatAndSizeAsync(self, preferredFormat: Windows.Graphics.Imaging.BitmapPixelFormat, preferredSize: Windows.Graphics.Imaging.BitmapSize) -> Windows.Foundation.IAsyncOperation[Windows.Devices.PointOfService.Provider.BarcodeScannerFrameReader]: ...
 class IBarcodeScannerProviderTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('50856d82-24e3-48ce-99-c7-70-aa-c1-cb-c9-f7')
+    _iid_ = Guid('50856d82-24e3-48ce-99-c7-70-aa-c1-cb-c9-f7')
     @winrt_commethod(6)
     def get_Connection(self) -> Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection: ...
     Connection = property(get_Connection, None)
 class IBarcodeScannerSetActiveSymbologiesRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('db3f32b9-f7da-41a1-9f-79-07-bc-d9-5f-0b-df')
+    _iid_ = Guid('db3f32b9-f7da-41a1-9f-79-07-bc-d9-5f-0b-df')
     @winrt_commethod(6)
     def get_Symbologies(self) -> Windows.Foundation.Collections.IVectorView[UInt32]: ...
     @winrt_commethod(7)
@@ -545,14 +545,14 @@ class IBarcodeScannerSetActiveSymbologiesRequest(ComPtr):
     Symbologies = property(get_Symbologies, None)
 class IBarcodeScannerSetActiveSymbologiesRequest2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f5ff6edf-fa9a-4749-b1-1b-e8-fc-cb-75-bc-6b')
+    _iid_ = Guid('f5ff6edf-fa9a-4749-b1-1b-e8-fc-cb-75-bc-6b')
     @winrt_commethod(6)
     def ReportFailedWithFailedReasonAsync(self, reason: Int32) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def ReportFailedWithFailedReasonAndDescriptionAsync(self, reason: Int32, failedReasonDescription: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class IBarcodeScannerSetActiveSymbologiesRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('06305afa-7bf6-4d52-80-1a-33-02-72-f6-0a-e1')
+    _iid_ = Guid('06305afa-7bf6-4d52-80-1a-33-02-72-f6-0a-e1')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.Devices.PointOfService.Provider.BarcodeScannerSetActiveSymbologiesRequest: ...
     @winrt_commethod(7)
@@ -560,7 +560,7 @@ class IBarcodeScannerSetActiveSymbologiesRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IBarcodeScannerSetSymbologyAttributesRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('32fb814f-a37f-48b0-ac-ea-dc-e1-48-0f-12-ae')
+    _iid_ = Guid('32fb814f-a37f-48b0-ac-ea-dc-e1-48-0f-12-ae')
     @winrt_commethod(6)
     def get_Symbology(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -573,14 +573,14 @@ class IBarcodeScannerSetSymbologyAttributesRequest(ComPtr):
     Attributes = property(get_Attributes, None)
 class IBarcodeScannerSetSymbologyAttributesRequest2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('dffbbfc1-dba8-4b77-be-1e-b5-6c-d7-2f-65-b3')
+    _iid_ = Guid('dffbbfc1-dba8-4b77-be-1e-b5-6c-d7-2f-65-b3')
     @winrt_commethod(6)
     def ReportFailedWithFailedReasonAsync(self, reason: Int32) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def ReportFailedWithFailedReasonAndDescriptionAsync(self, reason: Int32, failedReasonDescription: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class IBarcodeScannerSetSymbologyAttributesRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b2b89809-9824-47d4-85-bd-d0-07-7b-aa-7b-d2')
+    _iid_ = Guid('b2b89809-9824-47d4-85-bd-d0-07-7b-aa-7b-d2')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.Devices.PointOfService.Provider.BarcodeScannerSetSymbologyAttributesRequest: ...
     @winrt_commethod(7)
@@ -588,21 +588,21 @@ class IBarcodeScannerSetSymbologyAttributesRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IBarcodeScannerStartSoftwareTriggerRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e3fa7b27-ff62-4454-af-4a-cb-61-44-a3-e3-f7')
+    _iid_ = Guid('e3fa7b27-ff62-4454-af-4a-cb-61-44-a3-e3-f7')
     @winrt_commethod(6)
     def ReportCompletedAsync(self) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def ReportFailedAsync(self) -> Windows.Foundation.IAsyncAction: ...
 class IBarcodeScannerStartSoftwareTriggerRequest2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('eb72a25c-6658-4765-a6-8e-32-74-82-65-3d-eb')
+    _iid_ = Guid('eb72a25c-6658-4765-a6-8e-32-74-82-65-3d-eb')
     @winrt_commethod(6)
     def ReportFailedWithFailedReasonAsync(self, reason: Int32) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def ReportFailedWithFailedReasonAndDescriptionAsync(self, reason: Int32, failedReasonDescription: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class IBarcodeScannerStartSoftwareTriggerRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2305d843-c88f-4f3b-8c-3b-d3-df-07-10-51-ec')
+    _iid_ = Guid('2305d843-c88f-4f3b-8c-3b-d3-df-07-10-51-ec')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.Devices.PointOfService.Provider.BarcodeScannerStartSoftwareTriggerRequest: ...
     @winrt_commethod(7)
@@ -610,21 +610,21 @@ class IBarcodeScannerStartSoftwareTriggerRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IBarcodeScannerStopSoftwareTriggerRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6f9faf35-e287-4ca8-b7-0d-5a-91-d6-94-f6-68')
+    _iid_ = Guid('6f9faf35-e287-4ca8-b7-0d-5a-91-d6-94-f6-68')
     @winrt_commethod(6)
     def ReportCompletedAsync(self) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def ReportFailedAsync(self) -> Windows.Foundation.IAsyncAction: ...
 class IBarcodeScannerStopSoftwareTriggerRequest2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cb57c5dd-fe50-49f8-a0-b4-bd-c2-30-81-4d-a2')
+    _iid_ = Guid('cb57c5dd-fe50-49f8-a0-b4-bd-c2-30-81-4d-a2')
     @winrt_commethod(6)
     def ReportFailedWithFailedReasonAsync(self, reason: Int32) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def ReportFailedWithFailedReasonAndDescriptionAsync(self, reason: Int32, failedReasonDescription: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class IBarcodeScannerStopSoftwareTriggerRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('eac34450-4eb7-481a-92-73-14-7a-27-3b-99-b8')
+    _iid_ = Guid('eac34450-4eb7-481a-92-73-14-7a-27-3b-99-b8')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.Devices.PointOfService.Provider.BarcodeScannerStopSoftwareTriggerRequest: ...
     @winrt_commethod(7)
@@ -632,7 +632,7 @@ class IBarcodeScannerStopSoftwareTriggerRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class IBarcodeScannerVideoFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7e585248-9df7-4121-a1-75-80-1d-80-00-11-2e')
+    _iid_ = Guid('7e585248-9df7-4121-a1-75-80-1d-80-00-11-2e')
     @winrt_commethod(6)
     def get_Format(self) -> Windows.Graphics.Imaging.BitmapPixelFormat: ...
     @winrt_commethod(7)
@@ -647,7 +647,7 @@ class IBarcodeScannerVideoFrame(ComPtr):
     PixelData = property(get_PixelData, None)
 class IBarcodeSymbologyAttributesBuilder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c57b0cbf-e4f5-40b9-84-cf-e6-3f-ba-ea-42-b4')
+    _iid_ = Guid('c57b0cbf-e4f5-40b9-84-cf-e6-3f-ba-ea-42-b4')
     @winrt_commethod(6)
     def get_IsCheckDigitValidationSupported(self) -> Boolean: ...
     @winrt_commethod(7)

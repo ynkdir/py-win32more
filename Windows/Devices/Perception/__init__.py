@@ -29,7 +29,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IKnownCameraIntrinsicsPropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('08c03978-437a-4d97-a6-63-fd-31-95-60-02-49')
+    _iid_ = Guid('08c03978-437a-4d97-a6-63-fd-31-95-60-02-49')
     @winrt_commethod(6)
     def get_FocalLength(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -44,7 +44,7 @@ class IKnownCameraIntrinsicsPropertiesStatics(ComPtr):
     TangentialDistortion = property(get_TangentialDistortion, None)
 class IKnownPerceptionColorFrameSourcePropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5df1cca2-01f8-4a87-b8-59-d5-e5-b7-e1-de-4b')
+    _iid_ = Guid('5df1cca2-01f8-4a87-b8-59-d5-e5-b7-e1-de-4b')
     @winrt_commethod(6)
     def get_Exposure(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -56,7 +56,7 @@ class IKnownPerceptionColorFrameSourcePropertiesStatics(ComPtr):
     ExposureCompensation = property(get_ExposureCompensation, None)
 class IKnownPerceptionDepthFrameSourcePropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5df1cca2-01f8-4a87-b8-59-d5-e5-b7-e1-de-4a')
+    _iid_ = Guid('5df1cca2-01f8-4a87-b8-59-d5-e5-b7-e1-de-4a')
     @winrt_commethod(6)
     def get_MinDepth(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -65,7 +65,7 @@ class IKnownPerceptionDepthFrameSourcePropertiesStatics(ComPtr):
     MaxDepth = property(get_MaxDepth, None)
 class IKnownPerceptionFrameSourcePropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5df1cca2-01f8-4a87-b8-59-d5-e5-b7-e1-de-47')
+    _iid_ = Guid('5df1cca2-01f8-4a87-b8-59-d5-e5-b7-e1-de-47')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -83,13 +83,13 @@ class IKnownPerceptionFrameSourcePropertiesStatics(ComPtr):
     EnclosureLocation = property(get_EnclosureLocation, None)
 class IKnownPerceptionFrameSourcePropertiesStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a9c86871-05dc-4a4d-8a-5c-a4-ec-f2-6b-bc-46')
+    _iid_ = Guid('a9c86871-05dc-4a4d-8a-5c-a4-ec-f2-6b-bc-46')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
 class IKnownPerceptionInfraredFrameSourcePropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5df1cca2-01f8-4a87-b8-59-d5-e5-b7-e1-de-49')
+    _iid_ = Guid('5df1cca2-01f8-4a87-b8-59-d5-e5-b7-e1-de-49')
     @winrt_commethod(6)
     def get_Exposure(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -113,7 +113,7 @@ class IKnownPerceptionInfraredFrameSourcePropertiesStatics(ComPtr):
     InterleavedIlluminationEnabled = property(get_InterleavedIlluminationEnabled, None)
 class IKnownPerceptionVideoFrameSourcePropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5df1cca2-01f8-4a87-b8-59-d5-e5-b7-e1-de-48')
+    _iid_ = Guid('5df1cca2-01f8-4a87-b8-59-d5-e5-b7-e1-de-48')
     @winrt_commethod(6)
     def get_VideoProfile(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -131,7 +131,7 @@ class IKnownPerceptionVideoFrameSourcePropertiesStatics(ComPtr):
     CameraIntrinsics = property(get_CameraIntrinsics, None)
 class IKnownPerceptionVideoProfilePropertiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8f08e2e7-5a76-43e3-a1-3a-da-3d-91-a9-ef-98')
+    _iid_ = Guid('8f08e2e7-5a76-43e3-a1-3a-da-3d-91-a9-ef-98')
     @winrt_commethod(6)
     def get_BitmapPixelFormat(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -149,13 +149,13 @@ class IKnownPerceptionVideoProfilePropertiesStatics(ComPtr):
     FrameDuration = property(get_FrameDuration, None)
 class IPerceptionColorFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fe621549-2cbf-4f94-98-61-f8-17-ea-31-77-47')
+    _iid_ = Guid('fe621549-2cbf-4f94-98-61-f8-17-ea-31-77-47')
     @winrt_commethod(6)
     def get_VideoFrame(self) -> Windows.Media.VideoFrame: ...
     VideoFrame = property(get_VideoFrame, None)
 class IPerceptionColorFrameArrivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8fad02d5-86f7-4d8d-b9-66-5a-37-61-ba-9f-59')
+    _iid_ = Guid('8fad02d5-86f7-4d8d-b9-66-5a-37-61-ba-9f-59')
     @winrt_commethod(6)
     def get_RelativeTime(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -163,7 +163,7 @@ class IPerceptionColorFrameArrivedEventArgs(ComPtr):
     RelativeTime = property(get_RelativeTime, None)
 class IPerceptionColorFrameReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7650f56e-b9f5-461b-83-ad-f2-22-af-2a-aa-dc')
+    _iid_ = Guid('7650f56e-b9f5-461b-83-ad-f2-22-af-2a-aa-dc')
     @winrt_commethod(6)
     def add_FrameArrived(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionColorFrameReader, Windows.Devices.Perception.PerceptionColorFrameArrivedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -180,7 +180,7 @@ class IPerceptionColorFrameReader(ComPtr):
     IsPaused = property(get_IsPaused, put_IsPaused)
 class IPerceptionColorFrameSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('dc6dba7c-0b58-468d-9c-a1-6d-b0-4c-c0-47-7c')
+    _iid_ = Guid('dc6dba7c-0b58-468d-9c-a1-6d-b0-4c-c0-47-7c')
     @winrt_commethod(6)
     def add_AvailableChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionColorFrameSource, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -252,25 +252,25 @@ class IPerceptionColorFrameSource(ComPtr):
     CameraIntrinsics = property(get_CameraIntrinsics, None)
 class IPerceptionColorFrameSource2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f88008e5-5631-45ed-ad-98-8c-6a-a0-4c-fb-91')
+    _iid_ = Guid('f88008e5-5631-45ed-ad-98-8c-6a-a0-4c-fb-91')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
 class IPerceptionColorFrameSourceAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d16bf4e6-da24-442c-bb-d5-55-54-9b-5b-94-f3')
+    _iid_ = Guid('d16bf4e6-da24-442c-bb-d5-55-54-9b-5b-94-f3')
     @winrt_commethod(6)
     def get_FrameSource(self) -> Windows.Devices.Perception.PerceptionColorFrameSource: ...
     FrameSource = property(get_FrameSource, None)
 class IPerceptionColorFrameSourceRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d277fa69-eb4c-42ef-ba-4f-28-8f-61-5c-93-c1')
+    _iid_ = Guid('d277fa69-eb4c-42ef-ba-4f-28-8f-61-5c-93-c1')
     @winrt_commethod(6)
     def get_FrameSource(self) -> Windows.Devices.Perception.PerceptionColorFrameSource: ...
     FrameSource = property(get_FrameSource, None)
 class IPerceptionColorFrameSourceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5df3cca2-01f8-4a87-b8-59-d5-e5-b7-e1-de-49')
+    _iid_ = Guid('5df3cca2-01f8-4a87-b8-59-d5-e5-b7-e1-de-49')
     @winrt_commethod(6)
     def CreateWatcher(self) -> Windows.Devices.Perception.PerceptionColorFrameSourceWatcher: ...
     @winrt_commethod(7)
@@ -281,7 +281,7 @@ class IPerceptionColorFrameSourceStatics(ComPtr):
     def RequestAccessAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Perception.PerceptionFrameSourceAccessStatus]: ...
 class IPerceptionColorFrameSourceWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('96bd1392-e667-40c4-89-f9-14-62-de-a6-a9-cc')
+    _iid_ = Guid('96bd1392-e667-40c4-89-f9-14-62-de-a6-a9-cc')
     @winrt_commethod(6)
     def add_SourceAdded(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionColorFrameSourceWatcher, Windows.Devices.Perception.PerceptionColorFrameSourceAddedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -307,7 +307,7 @@ class IPerceptionColorFrameSourceWatcher(ComPtr):
     Status = property(get_Status, None)
 class IPerceptionControlSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('99998653-5a3d-417f-92-39-f1-88-9e-54-8b-48')
+    _iid_ = Guid('99998653-5a3d-417f-92-39-f1-88-9e-54-8b-48')
     @winrt_commethod(6)
     def add_ControlLost(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionControlSession, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -316,7 +316,7 @@ class IPerceptionControlSession(ComPtr):
     def TrySetPropertyAsync(self, name: WinRT_String, value: Windows.Win32.System.WinRT.IInspectable_head) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Perception.PerceptionFrameSourcePropertyChangeResult]: ...
 class IPerceptionDepthCorrelatedCameraIntrinsics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6548ca01-86de-5be1-65-82-80-7f-cf-4c-95-cf')
+    _iid_ = Guid('6548ca01-86de-5be1-65-82-80-7f-cf-4c-95-cf')
     @winrt_commethod(6)
     def UnprojectPixelAtCorrelatedDepth(self, pixelCoordinate: Windows.Foundation.Point, depthFrame: Windows.Devices.Perception.PerceptionDepthFrame) -> Windows.Foundation.Numerics.Vector3: ...
     @winrt_commethod(7)
@@ -327,7 +327,7 @@ class IPerceptionDepthCorrelatedCameraIntrinsics(ComPtr):
     def UnprojectAllPixelsAtCorrelatedDepthAsync(self, depthFrame: Windows.Devices.Perception.PerceptionDepthFrame, results: POINTER(Windows.Foundation.Numerics.Vector3_head)) -> Windows.Foundation.IAsyncAction: ...
 class IPerceptionDepthCorrelatedCoordinateMapper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5b4d9d1d-b5f6-469c-b8-c2-b9-7a-45-e6-86-3b')
+    _iid_ = Guid('5b4d9d1d-b5f6-469c-b8-c2-b9-7a-45-e6-86-3b')
     @winrt_commethod(6)
     def MapPixelToTarget(self, sourcePixelCoordinate: Windows.Foundation.Point, depthFrame: Windows.Devices.Perception.PerceptionDepthFrame) -> Windows.Foundation.Point: ...
     @winrt_commethod(7)
@@ -338,13 +338,13 @@ class IPerceptionDepthCorrelatedCoordinateMapper(ComPtr):
     def MapAllPixelsToTargetAsync(self, depthFrame: Windows.Devices.Perception.PerceptionDepthFrame, targetCoordinates: POINTER(Windows.Foundation.Point_head)) -> Windows.Foundation.IAsyncAction: ...
 class IPerceptionDepthFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a37b81fc-9906-4ffd-91-61-00-24-b3-60-b6-57')
+    _iid_ = Guid('a37b81fc-9906-4ffd-91-61-00-24-b3-60-b6-57')
     @winrt_commethod(6)
     def get_VideoFrame(self) -> Windows.Media.VideoFrame: ...
     VideoFrame = property(get_VideoFrame, None)
 class IPerceptionDepthFrameArrivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('443d25b2-b282-4637-91-73-ac-97-84-35-c9-85')
+    _iid_ = Guid('443d25b2-b282-4637-91-73-ac-97-84-35-c9-85')
     @winrt_commethod(6)
     def get_RelativeTime(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -352,7 +352,7 @@ class IPerceptionDepthFrameArrivedEventArgs(ComPtr):
     RelativeTime = property(get_RelativeTime, None)
 class IPerceptionDepthFrameReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b1a3c09f-299b-4612-a4-f7-27-0f-25-a0-96-ec')
+    _iid_ = Guid('b1a3c09f-299b-4612-a4-f7-27-0f-25-a0-96-ec')
     @winrt_commethod(6)
     def add_FrameArrived(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionDepthFrameReader, Windows.Devices.Perception.PerceptionDepthFrameArrivedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -369,7 +369,7 @@ class IPerceptionDepthFrameReader(ComPtr):
     IsPaused = property(get_IsPaused, put_IsPaused)
 class IPerceptionDepthFrameSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('79d433d6-47fb-4df1-bf-c9-f0-1d-40-bd-99-42')
+    _iid_ = Guid('79d433d6-47fb-4df1-bf-c9-f0-1d-40-bd-99-42')
     @winrt_commethod(6)
     def add_AvailableChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionDepthFrameSource, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -441,25 +441,25 @@ class IPerceptionDepthFrameSource(ComPtr):
     CameraIntrinsics = property(get_CameraIntrinsics, None)
 class IPerceptionDepthFrameSource2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e3d23d2e-6e2c-4e6d-91-d9-70-4c-d8-df-f7-9d')
+    _iid_ = Guid('e3d23d2e-6e2c-4e6d-91-d9-70-4c-d8-df-f7-9d')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
 class IPerceptionDepthFrameSourceAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('93a48168-8bf8-45d2-a2-f8-4a-c0-93-1c-c7-a6')
+    _iid_ = Guid('93a48168-8bf8-45d2-a2-f8-4a-c0-93-1c-c7-a6')
     @winrt_commethod(6)
     def get_FrameSource(self) -> Windows.Devices.Perception.PerceptionDepthFrameSource: ...
     FrameSource = property(get_FrameSource, None)
 class IPerceptionDepthFrameSourceRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a0c0cc4d-e96c-4d81-86-dd-38-b9-5e-49-c6-df')
+    _iid_ = Guid('a0c0cc4d-e96c-4d81-86-dd-38-b9-5e-49-c6-df')
     @winrt_commethod(6)
     def get_FrameSource(self) -> Windows.Devices.Perception.PerceptionDepthFrameSource: ...
     FrameSource = property(get_FrameSource, None)
 class IPerceptionDepthFrameSourceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5df3cca2-01f8-4a87-b8-59-d5-e5-b7-e1-de-48')
+    _iid_ = Guid('5df3cca2-01f8-4a87-b8-59-d5-e5-b7-e1-de-48')
     @winrt_commethod(6)
     def CreateWatcher(self) -> Windows.Devices.Perception.PerceptionDepthFrameSourceWatcher: ...
     @winrt_commethod(7)
@@ -470,7 +470,7 @@ class IPerceptionDepthFrameSourceStatics(ComPtr):
     def RequestAccessAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Perception.PerceptionFrameSourceAccessStatus]: ...
 class IPerceptionDepthFrameSourceWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('780e96d1-8d02-4d2b-ad-a4-5b-a6-24-a0-eb-10')
+    _iid_ = Guid('780e96d1-8d02-4d2b-ad-a4-5b-a6-24-a0-eb-10')
     @winrt_commethod(6)
     def add_SourceAdded(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionDepthFrameSourceWatcher, Windows.Devices.Perception.PerceptionDepthFrameSourceAddedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -496,7 +496,7 @@ class IPerceptionDepthFrameSourceWatcher(ComPtr):
     Status = property(get_Status, None)
 class IPerceptionFrameSourcePropertiesChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6c68e068-bcf1-4ecc-b8-91-76-25-d1-24-4b-6b')
+    _iid_ = Guid('6c68e068-bcf1-4ecc-b8-91-76-25-d1-24-4b-6b')
     @winrt_commethod(6)
     def get_CollectionChange(self) -> Windows.Foundation.Collections.CollectionChange: ...
     @winrt_commethod(7)
@@ -505,7 +505,7 @@ class IPerceptionFrameSourcePropertiesChangedEventArgs(ComPtr):
     Key = property(get_Key, None)
 class IPerceptionFrameSourcePropertyChangeResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1e33390a-3c90-4d22-b8-98-f4-2b-ba-64-18-ff')
+    _iid_ = Guid('1e33390a-3c90-4d22-b8-98-f4-2b-ba-64-18-ff')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Perception.PerceptionFrameSourcePropertyChangeStatus: ...
     @winrt_commethod(7)
@@ -514,13 +514,13 @@ class IPerceptionFrameSourcePropertyChangeResult(ComPtr):
     NewValue = property(get_NewValue, None)
 class IPerceptionInfraredFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b0886276-849e-4c7a-8a-e6-b5-60-64-53-21-53')
+    _iid_ = Guid('b0886276-849e-4c7a-8a-e6-b5-60-64-53-21-53')
     @winrt_commethod(6)
     def get_VideoFrame(self) -> Windows.Media.VideoFrame: ...
     VideoFrame = property(get_VideoFrame, None)
 class IPerceptionInfraredFrameArrivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9f77fac7-b4bd-4857-9d-50-be-8e-f0-75-da-ef')
+    _iid_ = Guid('9f77fac7-b4bd-4857-9d-50-be-8e-f0-75-da-ef')
     @winrt_commethod(6)
     def get_RelativeTime(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -528,7 +528,7 @@ class IPerceptionInfraredFrameArrivedEventArgs(ComPtr):
     RelativeTime = property(get_RelativeTime, None)
 class IPerceptionInfraredFrameReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7960ce18-d39b-4fc8-a0-4a-92-97-34-c6-75-6c')
+    _iid_ = Guid('7960ce18-d39b-4fc8-a0-4a-92-97-34-c6-75-6c')
     @winrt_commethod(6)
     def add_FrameArrived(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionInfraredFrameReader, Windows.Devices.Perception.PerceptionInfraredFrameArrivedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -545,7 +545,7 @@ class IPerceptionInfraredFrameReader(ComPtr):
     IsPaused = property(get_IsPaused, put_IsPaused)
 class IPerceptionInfraredFrameSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('55b08742-1808-494e-9e-30-9d-2a-7b-e8-f7-00')
+    _iid_ = Guid('55b08742-1808-494e-9e-30-9d-2a-7b-e8-f7-00')
     @winrt_commethod(6)
     def add_AvailableChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionInfraredFrameSource, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -617,25 +617,25 @@ class IPerceptionInfraredFrameSource(ComPtr):
     CameraIntrinsics = property(get_CameraIntrinsics, None)
 class IPerceptionInfraredFrameSource2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('dcd4d798-4b0b-4300-8d-85-41-08-17-fa-a0-32')
+    _iid_ = Guid('dcd4d798-4b0b-4300-8d-85-41-08-17-fa-a0-32')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
 class IPerceptionInfraredFrameSourceAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6d334120-95ce-4660-90-7a-d9-80-35-aa-2b-7c')
+    _iid_ = Guid('6d334120-95ce-4660-90-7a-d9-80-35-aa-2b-7c')
     @winrt_commethod(6)
     def get_FrameSource(self) -> Windows.Devices.Perception.PerceptionInfraredFrameSource: ...
     FrameSource = property(get_FrameSource, None)
 class IPerceptionInfraredFrameSourceRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ea1a8071-7a70-4a61-af-94-07-30-38-53-f6-95')
+    _iid_ = Guid('ea1a8071-7a70-4a61-af-94-07-30-38-53-f6-95')
     @winrt_commethod(6)
     def get_FrameSource(self) -> Windows.Devices.Perception.PerceptionInfraredFrameSource: ...
     FrameSource = property(get_FrameSource, None)
 class IPerceptionInfraredFrameSourceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5df3cca2-01f8-4a87-b8-59-d5-e5-b7-e1-de-47')
+    _iid_ = Guid('5df3cca2-01f8-4a87-b8-59-d5-e5-b7-e1-de-47')
     @winrt_commethod(6)
     def CreateWatcher(self) -> Windows.Devices.Perception.PerceptionInfraredFrameSourceWatcher: ...
     @winrt_commethod(7)
@@ -646,7 +646,7 @@ class IPerceptionInfraredFrameSourceStatics(ComPtr):
     def RequestAccessAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Perception.PerceptionFrameSourceAccessStatus]: ...
 class IPerceptionInfraredFrameSourceWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('383cff99-d70c-444d-a8-b0-72-0c-2e-66-fe-3b')
+    _iid_ = Guid('383cff99-d70c-444d-a8-b0-72-0c-2e-66-fe-3b')
     @winrt_commethod(6)
     def add_SourceAdded(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Perception.PerceptionInfraredFrameSourceWatcher, Windows.Devices.Perception.PerceptionInfraredFrameSourceAddedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -672,7 +672,7 @@ class IPerceptionInfraredFrameSourceWatcher(ComPtr):
     Status = property(get_Status, None)
 class IPerceptionVideoProfile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('75763ea3-011a-470e-82-25-6f-05-ad-e2-56-48')
+    _iid_ = Guid('75763ea3-011a-470e-82-25-6f-05-ad-e2-56-48')
     @winrt_commethod(6)
     def get_BitmapPixelFormat(self) -> Windows.Graphics.Imaging.BitmapPixelFormat: ...
     @winrt_commethod(7)

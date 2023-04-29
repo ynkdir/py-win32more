@@ -59,7 +59,7 @@ class ContactRemovedEventArgs(ComPtr):
     Id = property(get_Id, None)
 class IContactPickerUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e2cc1366-cf66-43c4-a9-6a-a5-a1-12-db-47-46')
+    _iid_ = Guid('e2cc1366-cf66-43c4-a9-6a-a5-a1-12-db-47-46')
     @winrt_commethod(6)
     def AddContact(self, id: WinRT_String, contact: Windows.ApplicationModel.Contacts.Contact) -> Windows.ApplicationModel.Contacts.Provider.AddContactResult: ...
     @winrt_commethod(7)
@@ -78,7 +78,7 @@ class IContactPickerUI(ComPtr):
     SelectionMode = property(get_SelectionMode, None)
 class IContactPickerUI2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6e449e28-7b25-4999-9b-0b-87-54-00-a1-e8-c8')
+    _iid_ = Guid('6e449e28-7b25-4999-9b-0b-87-54-00-a1-e8-c8')
     @winrt_commethod(6)
     def AddContact(self, contact: Windows.ApplicationModel.Contacts.Contact) -> Windows.ApplicationModel.Contacts.Provider.AddContactResult: ...
     @winrt_commethod(7)
@@ -86,7 +86,7 @@ class IContactPickerUI2(ComPtr):
     DesiredFieldsWithContactFieldType = property(get_DesiredFieldsWithContactFieldType, None)
 class IContactRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6f354338-3302-4d13-ad-8d-ad-cc-0f-f9-e4-7c')
+    _iid_ = Guid('6f354338-3302-4d13-ad-8d-ad-cc-0f-f9-e4-7c')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     Id = property(get_Id, None)

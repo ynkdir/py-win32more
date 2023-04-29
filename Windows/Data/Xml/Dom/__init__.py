@@ -197,7 +197,7 @@ class DtdNotation(ComPtr):
     InnerText = property(get_InnerText, put_InnerText)
 class IDtdEntity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6a0b5ffc-63b4-480f-9e-6a-8a-92-81-6a-ad-e4')
+    _iid_ = Guid('6a0b5ffc-63b4-480f-9e-6a-8a-92-81-6a-ad-e4')
     @winrt_commethod(6)
     def get_PublicId(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_commethod(7)
@@ -209,7 +209,7 @@ class IDtdEntity(ComPtr):
     NotationName = property(get_NotationName, None)
 class IDtdNotation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8cb4e04d-6d46-4edb-ab-73-df-83-c5-1a-d3-97')
+    _iid_ = Guid('8cb4e04d-6d46-4edb-ab-73-df-83-c5-1a-d3-97')
     @winrt_commethod(6)
     def get_PublicId(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_commethod(7)
@@ -218,7 +218,7 @@ class IDtdNotation(ComPtr):
     SystemId = property(get_SystemId, None)
 class IXmlAttribute(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ac144aa4-b4f1-4db6-b2-06-8a-22-c3-08-db-0a')
+    _iid_ = Guid('ac144aa4-b4f1-4db6-b2-06-8a-22-c3-08-db-0a')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -232,10 +232,10 @@ class IXmlAttribute(ComPtr):
     Value = property(get_Value, put_Value)
 class IXmlCDataSection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4d04b46f-c8bd-45b4-88-99-04-00-d7-c2-c6-0f')
+    _iid_ = Guid('4d04b46f-c8bd-45b4-88-99-04-00-d7-c2-c6-0f')
 class IXmlCharacterData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('132e42ab-4e36-4df6-b1-c8-0c-e6-2f-d8-8b-26')
+    _iid_ = Guid('132e42ab-4e36-4df6-b1-c8-0c-e6-2f-d8-8b-26')
     @winrt_commethod(6)
     def get_Data(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -256,10 +256,10 @@ class IXmlCharacterData(ComPtr):
     Length = property(get_Length, None)
 class IXmlComment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bca474d5-b61f-4611-9c-ac-2e-92-e3-47-6d-47')
+    _iid_ = Guid('bca474d5-b61f-4611-9c-ac-2e-92-e3-47-6d-47')
 class IXmlDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f7f3a506-1e87-42d6-bc-fb-b8-c8-09-fa-54-94')
+    _iid_ = Guid('f7f3a506-1e87-42d6-bc-fb-b8-c8-09-fa-54-94')
     @winrt_commethod(6)
     def get_Doctype(self) -> Windows.Data.Xml.Dom.XmlDocumentType: ...
     @winrt_commethod(7)
@@ -300,10 +300,10 @@ class IXmlDocument(ComPtr):
     DocumentUri = property(get_DocumentUri, None)
 class IXmlDocumentFragment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e2ea6a96-0c21-44a5-8b-c9-9e-4a-26-27-08-ec')
+    _iid_ = Guid('e2ea6a96-0c21-44a5-8b-c9-9e-4a-26-27-08-ec')
 class IXmlDocumentIO(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6cd0e74e-ee65-4489-9e-bf-ca-43-e8-7b-a6-37')
+    _iid_ = Guid('6cd0e74e-ee65-4489-9e-bf-ca-43-e8-7b-a6-37')
     @winrt_commethod(6)
     def LoadXml(self, xml: WinRT_String) -> Void: ...
     @winrt_commethod(7)
@@ -312,14 +312,14 @@ class IXmlDocumentIO(ComPtr):
     def SaveToFileAsync(self, file: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncAction: ...
 class IXmlDocumentIO2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5d034661-7bd8-4ad5-9e-bf-81-e6-34-72-63-b1')
+    _iid_ = Guid('5d034661-7bd8-4ad5-9e-bf-81-e6-34-72-63-b1')
     @winrt_commethod(6)
     def LoadXmlFromBuffer(self, buffer: Windows.Storage.Streams.IBuffer) -> Void: ...
     @winrt_commethod(7)
     def LoadXmlFromBufferWithSettings(self, buffer: Windows.Storage.Streams.IBuffer, loadSettings: Windows.Data.Xml.Dom.XmlLoadSettings) -> Void: ...
 class IXmlDocumentStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5543d254-d757-4b79-95-39-23-2b-18-f5-0b-f1')
+    _iid_ = Guid('5543d254-d757-4b79-95-39-23-2b-18-f5-0b-f1')
     @winrt_commethod(6)
     def LoadFromUriAsync(self, uri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperation[Windows.Data.Xml.Dom.XmlDocument]: ...
     @winrt_commethod(7)
@@ -330,7 +330,7 @@ class IXmlDocumentStatics(ComPtr):
     def LoadFromFileWithSettingsAsync(self, file: Windows.Storage.IStorageFile, loadSettings: Windows.Data.Xml.Dom.XmlLoadSettings) -> Windows.Foundation.IAsyncOperation[Windows.Data.Xml.Dom.XmlDocument]: ...
 class IXmlDocumentType(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f7342425-9781-4964-8e-94-9b-1c-6d-fc-9b-c7')
+    _iid_ = Guid('f7342425-9781-4964-8e-94-9b-1c-6d-fc-9b-c7')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -342,12 +342,12 @@ class IXmlDocumentType(ComPtr):
     Notations = property(get_Notations, None)
 class IXmlDomImplementation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6de58132-f11d-4fbb-8c-c6-58-3c-ba-93-11-2f')
+    _iid_ = Guid('6de58132-f11d-4fbb-8c-c6-58-3c-ba-93-11-2f')
     @winrt_commethod(6)
     def HasFeature(self, feature: WinRT_String, version: Windows.Win32.System.WinRT.IInspectable_head) -> Boolean: ...
 class IXmlElement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2dfb8a1f-6b10-4ef8-9f-83-ef-cc-e8-fa-ec-37')
+    _iid_ = Guid('2dfb8a1f-6b10-4ef8-9f-83-ef-cc-e8-fa-ec-37')
     @winrt_commethod(6)
     def get_TagName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -377,10 +377,10 @@ class IXmlElement(ComPtr):
     TagName = property(get_TagName, None)
 class IXmlEntityReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2e2f47bc-c3d0-4ccf-bb-86-0a-b8-c3-6a-61-cf')
+    _iid_ = Guid('2e2f47bc-c3d0-4ccf-bb-86-0a-b8-c3-6a-61-cf')
 class IXmlLoadSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('58aa07a8-fed6-46f7-b4-c5-fb-1b-a7-21-08-d6')
+    _iid_ = Guid('58aa07a8-fed6-46f7-b4-c5-fb-1b-a7-21-08-d6')
     @winrt_commethod(6)
     def get_MaxElementDepth(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -408,7 +408,7 @@ class IXmlLoadSettings(ComPtr):
     ElementContentWhiteSpace = property(get_ElementContentWhiteSpace, put_ElementContentWhiteSpace)
 class IXmlNamedNodeMap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b3a69eb0-aab0-4b82-a6-fa-b1-45-3f-7c-02-1b')
+    _iid_ = Guid('b3a69eb0-aab0-4b82-a6-fa-b1-45-3f-7c-02-1b')
     @winrt_commethod(6)
     def get_Length(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -428,7 +428,7 @@ class IXmlNamedNodeMap(ComPtr):
     Length = property(get_Length, None)
 class IXmlNode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1c741d59-2122-47d5-a8-56-83-f3-d4-21-48-75')
+    _iid_ = Guid('1c741d59-2122-47d5-a8-56-83-f3-d4-21-48-75')
     @winrt_commethod(6)
     def get_NodeValue(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_commethod(7)
@@ -491,7 +491,7 @@ class IXmlNode(ComPtr):
     Prefix = property(get_Prefix, put_Prefix)
 class IXmlNodeList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8c60ad77-83a4-4ec1-9c-54-7b-a4-29-e1-3d-a6')
+    _iid_ = Guid('8c60ad77-83a4-4ec1-9c-54-7b-a4-29-e1-3d-a6')
     @winrt_commethod(6)
     def get_Length(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -499,7 +499,7 @@ class IXmlNodeList(ComPtr):
     Length = property(get_Length, None)
 class IXmlNodeSelector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('63dbba8b-d0db-4fe1-b7-45-f9-43-3a-fd-c2-5b')
+    _iid_ = Guid('63dbba8b-d0db-4fe1-b7-45-f9-43-3a-fd-c2-5b')
     @winrt_commethod(6)
     def SelectSingleNode(self, xpath: WinRT_String) -> Windows.Data.Xml.Dom.IXmlNode: ...
     @winrt_commethod(7)
@@ -510,7 +510,7 @@ class IXmlNodeSelector(ComPtr):
     def SelectNodesNS(self, xpath: WinRT_String, namespaces: Windows.Win32.System.WinRT.IInspectable_head) -> Windows.Data.Xml.Dom.XmlNodeList: ...
 class IXmlNodeSerializer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5cc5b382-e6dd-4991-ab-ef-06-d8-d2-e7-bd-0c')
+    _iid_ = Guid('5cc5b382-e6dd-4991-ab-ef-06-d8-d2-e7-bd-0c')
     @winrt_commethod(6)
     def GetXml(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -520,7 +520,7 @@ class IXmlNodeSerializer(ComPtr):
     InnerText = property(get_InnerText, put_InnerText)
 class IXmlProcessingInstruction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2707fd1e-1e92-4ece-b6-f4-26-f0-69-07-8d-dc')
+    _iid_ = Guid('2707fd1e-1e92-4ece-b6-f4-26-f0-69-07-8d-dc')
     @winrt_commethod(6)
     def get_Target(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -531,7 +531,7 @@ class IXmlProcessingInstruction(ComPtr):
     Data = property(get_Data, put_Data)
 class IXmlText(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f931a4cb-308d-4760-a1-d5-43-b6-74-50-ac-7e')
+    _iid_ = Guid('f931a4cb-308d-4760-a1-d5-43-b6-74-50-ac-7e')
     @winrt_commethod(6)
     def SplitText(self, offset: UInt32) -> Windows.Data.Xml.Dom.IXmlText: ...
 NodeType = Int32

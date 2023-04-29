@@ -431,7 +431,7 @@ AdaptiveMediaSourceResourceType_InitializationVector: AdaptiveMediaSourceResourc
 AdaptiveMediaSourceResourceType_MediaSegmentIndex: AdaptiveMediaSourceResourceType = 5
 class IAdaptiveMediaSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4c7332ef-d39f-4396-b4-d9-04-39-57-a7-c9-64')
+    _iid_ = Guid('4c7332ef-d39f-4396-b4-d9-04-39-57-a7-c9-64')
     @winrt_commethod(6)
     def get_IsLive(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -497,13 +497,13 @@ class IAdaptiveMediaSource(ComPtr):
     InboundBitsPerSecondWindow = property(get_InboundBitsPerSecondWindow, put_InboundBitsPerSecondWindow)
 class IAdaptiveMediaSource2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('17890342-6760-4bb9-a5-8a-f7-aa-98-b0-8c-0e')
+    _iid_ = Guid('17890342-6760-4bb9-a5-8a-f7-aa-98-b0-8c-0e')
     @winrt_commethod(6)
     def get_AdvancedSettings(self) -> Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceAdvancedSettings: ...
     AdvancedSettings = property(get_AdvancedSettings, None)
 class IAdaptiveMediaSource3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ba7023fd-c334-461b-a3-6e-c9-9f-54-f7-17-4a')
+    _iid_ = Guid('ba7023fd-c334-461b-a3-6e-c9-9f-54-f7-17-4a')
     @winrt_commethod(6)
     def get_MinLiveOffset(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
@@ -522,7 +522,7 @@ class IAdaptiveMediaSource3(ComPtr):
     Diagnostics = property(get_Diagnostics, None)
 class IAdaptiveMediaSourceAdvancedSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('55db1680-1aeb-47dc-aa-08-9a-11-61-0b-a4-5a')
+    _iid_ = Guid('55db1680-1aeb-47dc-aa-08-9a-11-61-0b-a4-5a')
     @winrt_commethod(6)
     def get_AllSegmentsIndependent(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -540,7 +540,7 @@ class IAdaptiveMediaSourceAdvancedSettings(ComPtr):
     BitrateDowngradeTriggerRatio = property(get_BitrateDowngradeTriggerRatio, put_BitrateDowngradeTriggerRatio)
 class IAdaptiveMediaSourceCorrelatedTimes(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('05108787-e032-48e1-ab-8d-00-2b-0b-30-51-df')
+    _iid_ = Guid('05108787-e032-48e1-ab-8d-00-2b-0b-30-51-df')
     @winrt_commethod(6)
     def get_Position(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
@@ -552,7 +552,7 @@ class IAdaptiveMediaSourceCorrelatedTimes(ComPtr):
     ProgramDateTime = property(get_ProgramDateTime, None)
 class IAdaptiveMediaSourceCreationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4686b6b2-800f-4e31-90-93-76-d4-78-20-13-e7')
+    _iid_ = Guid('4686b6b2-800f-4e31-90-93-76-d4-78-20-13-e7')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceCreationStatus: ...
     @winrt_commethod(7)
@@ -564,13 +564,13 @@ class IAdaptiveMediaSourceCreationResult(ComPtr):
     HttpResponseMessage = property(get_HttpResponseMessage, None)
 class IAdaptiveMediaSourceCreationResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1c3243bf-1c44-404b-a2-01-df-45-ac-78-98-e8')
+    _iid_ = Guid('1c3243bf-1c44-404b-a2-01-df-45-ac-78-98-e8')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
 class IAdaptiveMediaSourceDiagnosticAvailableEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3af64f06-6d9c-494a-b7-a9-b3-a5-de-e6-ad-68')
+    _iid_ = Guid('3af64f06-6d9c-494a-b7-a9-b3-a5-de-e6-ad-68')
     @winrt_commethod(6)
     def get_DiagnosticType(self) -> Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticType: ...
     @winrt_commethod(7)
@@ -600,13 +600,13 @@ class IAdaptiveMediaSourceDiagnosticAvailableEventArgs(ComPtr):
     Bitrate = property(get_Bitrate, None)
 class IAdaptiveMediaSourceDiagnosticAvailableEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8c6dd857-16a5-4d9f-81-0e-00-bd-90-1b-3e-f9')
+    _iid_ = Guid('8c6dd857-16a5-4d9f-81-0e-00-bd-90-1b-3e-f9')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
 class IAdaptiveMediaSourceDiagnosticAvailableEventArgs3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c3650cd5-daeb-4103-84-da-68-76-9a-d5-13-ff')
+    _iid_ = Guid('c3650cd5-daeb-4103-84-da-68-76-9a-d5-13-ff')
     @winrt_commethod(6)
     def get_ResourceDuration(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
@@ -615,14 +615,14 @@ class IAdaptiveMediaSourceDiagnosticAvailableEventArgs3(ComPtr):
     ResourceContentType = property(get_ResourceContentType, None)
 class IAdaptiveMediaSourceDiagnostics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9b24ee68-962e-448c-ae-bf-b2-9b-56-09-8e-23')
+    _iid_ = Guid('9b24ee68-962e-448c-ae-bf-b2-9b-56-09-8e-23')
     @winrt_commethod(6)
     def add_DiagnosticAvailable(self, handler: Windows.Foundation.TypedEventHandler[Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnostics, Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnosticAvailableEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_DiagnosticAvailable(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IAdaptiveMediaSourceDownloadBitrateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('670c0a44-e04e-4eff-81-6a-17-39-9f-78-f4-ba')
+    _iid_ = Guid('670c0a44-e04e-4eff-81-6a-17-39-9f-78-f4-ba')
     @winrt_commethod(6)
     def get_OldValue(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -631,13 +631,13 @@ class IAdaptiveMediaSourceDownloadBitrateChangedEventArgs(ComPtr):
     NewValue = property(get_NewValue, None)
 class IAdaptiveMediaSourceDownloadBitrateChangedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f3f1f444-96ae-4de0-b5-40-2b-32-46-e6-96-8c')
+    _iid_ = Guid('f3f1f444-96ae-4de0-b5-40-2b-32-46-e6-96-8c')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadBitrateChangedReason: ...
     Reason = property(get_Reason, None)
 class IAdaptiveMediaSourceDownloadCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('19240dc3-5b37-4a1a-89-70-d6-21-cb-6c-a8-3b')
+    _iid_ = Guid('19240dc3-5b37-4a1a-89-70-d6-21-cb-6c-a8-3b')
     @winrt_commethod(6)
     def get_ResourceType(self) -> Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceResourceType: ...
     @winrt_commethod(7)
@@ -655,7 +655,7 @@ class IAdaptiveMediaSourceDownloadCompletedEventArgs(ComPtr):
     HttpResponseMessage = property(get_HttpResponseMessage, None)
 class IAdaptiveMediaSourceDownloadCompletedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('704744c4-964a-40e4-af-95-91-77-dd-6d-fa-00')
+    _iid_ = Guid('704744c4-964a-40e4-af-95-91-77-dd-6d-fa-00')
     @winrt_commethod(6)
     def get_RequestId(self) -> Int32: ...
     @winrt_commethod(7)
@@ -667,7 +667,7 @@ class IAdaptiveMediaSourceDownloadCompletedEventArgs2(ComPtr):
     Position = property(get_Position, None)
 class IAdaptiveMediaSourceDownloadCompletedEventArgs3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0f8a8bd1-93b2-47c6-ba-dc-8b-e2-c8-f7-f6-e8')
+    _iid_ = Guid('0f8a8bd1-93b2-47c6-ba-dc-8b-e2-c8-f7-f6-e8')
     @winrt_commethod(6)
     def get_ResourceDuration(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
@@ -676,7 +676,7 @@ class IAdaptiveMediaSourceDownloadCompletedEventArgs3(ComPtr):
     ResourceContentType = property(get_ResourceContentType, None)
 class IAdaptiveMediaSourceDownloadFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('37739048-f4ab-40a4-b1-35-c6-df-d8-bd-7f-f1')
+    _iid_ = Guid('37739048-f4ab-40a4-b1-35-c6-df-d8-bd-7f-f1')
     @winrt_commethod(6)
     def get_ResourceType(self) -> Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceResourceType: ...
     @winrt_commethod(7)
@@ -694,7 +694,7 @@ class IAdaptiveMediaSourceDownloadFailedEventArgs(ComPtr):
     HttpResponseMessage = property(get_HttpResponseMessage, None)
 class IAdaptiveMediaSourceDownloadFailedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('70919568-967c-4986-90-c5-c6-fc-4b-31-e2-d8')
+    _iid_ = Guid('70919568-967c-4986-90-c5-c6-fc-4b-31-e2-d8')
     @winrt_commethod(6)
     def get_RequestId(self) -> Int32: ...
     @winrt_commethod(7)
@@ -709,7 +709,7 @@ class IAdaptiveMediaSourceDownloadFailedEventArgs2(ComPtr):
     Position = property(get_Position, None)
 class IAdaptiveMediaSourceDownloadFailedEventArgs3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d0354549-1132-4a10-91-5a-c2-21-1b-5b-94-09')
+    _iid_ = Guid('d0354549-1132-4a10-91-5a-c2-21-1b-5b-94-09')
     @winrt_commethod(6)
     def get_ResourceDuration(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
@@ -718,12 +718,12 @@ class IAdaptiveMediaSourceDownloadFailedEventArgs3(ComPtr):
     ResourceContentType = property(get_ResourceContentType, None)
 class IAdaptiveMediaSourceDownloadRequestedDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('05c68f64-fa20-4dbd-98-21-4b-f4-c9-bf-77-ab')
+    _iid_ = Guid('05c68f64-fa20-4dbd-98-21-4b-f4-c9-bf-77-ab')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class IAdaptiveMediaSourceDownloadRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c83fdffd-44a9-47a2-bf-96-03-39-8b-4b-fa-af')
+    _iid_ = Guid('c83fdffd-44a9-47a2-bf-96-03-39-8b-4b-fa-af')
     @winrt_commethod(6)
     def get_ResourceType(self) -> Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceResourceType: ...
     @winrt_commethod(7)
@@ -743,7 +743,7 @@ class IAdaptiveMediaSourceDownloadRequestedEventArgs(ComPtr):
     Result = property(get_Result, None)
 class IAdaptiveMediaSourceDownloadRequestedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b37d8bfe-aa44-4d82-82-5b-61-1d-e3-bc-fe-cb')
+    _iid_ = Guid('b37d8bfe-aa44-4d82-82-5b-61-1d-e3-bc-fe-cb')
     @winrt_commethod(6)
     def get_RequestId(self) -> Int32: ...
     @winrt_commethod(7)
@@ -752,7 +752,7 @@ class IAdaptiveMediaSourceDownloadRequestedEventArgs2(ComPtr):
     Position = property(get_Position, None)
 class IAdaptiveMediaSourceDownloadRequestedEventArgs3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('333c50fd-4f62-4481-ab-44-1e-47-b0-57-42-25')
+    _iid_ = Guid('333c50fd-4f62-4481-ab-44-1e-47-b0-57-42-25')
     @winrt_commethod(6)
     def get_ResourceDuration(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
@@ -761,7 +761,7 @@ class IAdaptiveMediaSourceDownloadRequestedEventArgs3(ComPtr):
     ResourceContentType = property(get_ResourceContentType, None)
 class IAdaptiveMediaSourceDownloadResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f4afdc73-bcee-4a6a-9f-0a-fe-c4-1e-23-39-b0')
+    _iid_ = Guid('f4afdc73-bcee-4a6a-9f-0a-fe-c4-1e-23-39-b0')
     @winrt_commethod(6)
     def get_ResourceUri(self) -> Windows.Foundation.Uri: ...
     @winrt_commethod(7)
@@ -789,7 +789,7 @@ class IAdaptiveMediaSourceDownloadResult(ComPtr):
     ExtendedStatus = property(get_ExtendedStatus, put_ExtendedStatus)
 class IAdaptiveMediaSourceDownloadResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('15552cb7-7b80-4ac4-86-60-a4-b9-7f-7c-70-f0')
+    _iid_ = Guid('15552cb7-7b80-4ac4-86-60-a4-b9-7f-7c-70-f0')
     @winrt_commethod(6)
     def get_ResourceByteRangeOffset(self) -> Windows.Foundation.IReference[UInt64]: ...
     @winrt_commethod(7)
@@ -802,7 +802,7 @@ class IAdaptiveMediaSourceDownloadResult2(ComPtr):
     ResourceByteRangeLength = property(get_ResourceByteRangeLength, put_ResourceByteRangeLength)
 class IAdaptiveMediaSourceDownloadStatistics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a306cefb-e96a-4dff-a9-b8-1a-e0-8c-01-ae-98')
+    _iid_ = Guid('a306cefb-e96a-4dff-a9-b8-1a-e0-8c-01-ae-98')
     @winrt_commethod(6)
     def get_ContentBytesReceivedCount(self) -> UInt64: ...
     @winrt_commethod(7)
@@ -817,7 +817,7 @@ class IAdaptiveMediaSourceDownloadStatistics(ComPtr):
     TimeToLastByteReceived = property(get_TimeToLastByteReceived, None)
 class IAdaptiveMediaSourcePlaybackBitrateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('23a29f6d-7dda-4a51-87-a9-6f-a8-c5-b2-92-be')
+    _iid_ = Guid('23a29f6d-7dda-4a51-87-a9-6f-a8-c5-b2-92-be')
     @winrt_commethod(6)
     def get_OldValue(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -829,7 +829,7 @@ class IAdaptiveMediaSourcePlaybackBitrateChangedEventArgs(ComPtr):
     AudioOnly = property(get_AudioOnly, None)
 class IAdaptiveMediaSourceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('50a6bd5d-66ef-4cd3-95-79-9e-66-05-07-dc-3f')
+    _iid_ = Guid('50a6bd5d-66ef-4cd3-95-79-9e-66-05-07-dc-3f')
     @winrt_commethod(6)
     def IsContentTypeSupported(self, contentType: WinRT_String) -> Boolean: ...
     @winrt_commethod(7)

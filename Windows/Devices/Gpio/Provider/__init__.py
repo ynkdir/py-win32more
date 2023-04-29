@@ -32,7 +32,7 @@ class GpioPinProviderValueChangedEventArgs(ComPtr):
     Edge = property(get_Edge, None)
 class IGpioControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ad11cec7-19ea-4b21-87-4f-b9-1a-ed-4a-25-db')
+    _iid_ = Guid('ad11cec7-19ea-4b21-87-4f-b9-1a-ed-4a-25-db')
     @winrt_commethod(6)
     def get_PinCount(self) -> Int32: ...
     @winrt_commethod(7)
@@ -40,7 +40,7 @@ class IGpioControllerProvider(ComPtr):
     PinCount = property(get_PinCount, None)
 class IGpioPinProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('42344cb7-6abc-40ff-9c-e7-73-b8-53-01-b9-00')
+    _iid_ = Guid('42344cb7-6abc-40ff-9c-e7-73-b8-53-01-b9-00')
     @winrt_commethod(6)
     def add_ValueChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Gpio.Provider.IGpioPinProvider, Windows.Devices.Gpio.Provider.GpioPinProviderValueChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -68,18 +68,18 @@ class IGpioPinProvider(ComPtr):
     SharingMode = property(get_SharingMode, None)
 class IGpioPinProviderValueChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('32a6d6f2-3d5b-44cd-8f-be-13-a6-9f-2e-db-24')
+    _iid_ = Guid('32a6d6f2-3d5b-44cd-8f-be-13-a6-9f-2e-db-24')
     @winrt_commethod(6)
     def get_Edge(self) -> Windows.Devices.Gpio.Provider.ProviderGpioPinEdge: ...
     Edge = property(get_Edge, None)
 class IGpioPinProviderValueChangedEventArgsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3ecb0b59-568c-4392-b2-4a-8a-59-a9-02-b1-f1')
+    _iid_ = Guid('3ecb0b59-568c-4392-b2-4a-8a-59-a9-02-b1-f1')
     @winrt_commethod(6)
     def Create(self, edge: Windows.Devices.Gpio.Provider.ProviderGpioPinEdge) -> Windows.Devices.Gpio.Provider.GpioPinProviderValueChangedEventArgs: ...
 class IGpioProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('44e82707-08ca-434a-af-e0-d6-15-80-44-6f-7e')
+    _iid_ = Guid('44e82707-08ca-434a-af-e0-d6-15-80-44-6f-7e')
     @winrt_commethod(6)
     def GetControllers(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Gpio.Provider.IGpioControllerProvider]: ...
 ProviderGpioPinDriveMode = Int32

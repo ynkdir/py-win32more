@@ -28,7 +28,7 @@ def __getattr__(name):
 DevicesLowLevelContract: UInt32 = 196608
 class ILowLevelDevicesAggregateProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a73e561c-aac1-4ec7-a8-52-47-9f-70-60-d0-1f')
+    _iid_ = Guid('a73e561c-aac1-4ec7-a8-52-47-9f-70-60-d0-1f')
     @winrt_commethod(6)
     def get_AdcControllerProvider(self) -> Windows.Devices.Adc.Provider.IAdcControllerProvider: ...
     @winrt_commethod(7)
@@ -46,15 +46,15 @@ class ILowLevelDevicesAggregateProvider(ComPtr):
     SpiControllerProvider = property(get_SpiControllerProvider, None)
 class ILowLevelDevicesAggregateProviderFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9ac4aaf6-3473-465e-96-d5-36-28-1a-2c-57-af')
+    _iid_ = Guid('9ac4aaf6-3473-465e-96-d5-36-28-1a-2c-57-af')
     @winrt_commethod(6)
     def Create(self, adc: Windows.Devices.Adc.Provider.IAdcControllerProvider, pwm: Windows.Devices.Pwm.Provider.IPwmControllerProvider, gpio: Windows.Devices.Gpio.Provider.IGpioControllerProvider, i2c: Windows.Devices.I2c.Provider.II2cControllerProvider, spi: Windows.Devices.Spi.Provider.ISpiControllerProvider) -> Windows.Devices.LowLevelDevicesAggregateProvider: ...
 class ILowLevelDevicesController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2ec23dd4-179b-45de-9b-39-3a-e0-25-27-de-52')
+    _iid_ = Guid('2ec23dd4-179b-45de-9b-39-3a-e0-25-27-de-52')
 class ILowLevelDevicesControllerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('093e926a-fccb-4394-a6-97-19-de-63-7c-2d-b3')
+    _iid_ = Guid('093e926a-fccb-4394-a6-97-19-de-63-7c-2d-b3')
     @winrt_commethod(6)
     def get_DefaultProvider(self) -> Windows.Devices.ILowLevelDevicesAggregateProvider: ...
     @winrt_commethod(7)

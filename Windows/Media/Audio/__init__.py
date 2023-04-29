@@ -893,19 +893,19 @@ class FrameInputNodeQuantumStartedEventArgs(ComPtr):
     RequiredSamples = property(get_RequiredSamples, None)
 class IAudioDeviceInputNode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b01b6be1-6f4e-49e2-ac-01-55-9d-62-be-b3-a9')
+    _iid_ = Guid('b01b6be1-6f4e-49e2-ac-01-55-9d-62-be-b3-a9')
     @winrt_commethod(6)
     def get_Device(self) -> Windows.Devices.Enumeration.DeviceInformation: ...
     Device = property(get_Device, None)
 class IAudioDeviceOutputNode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('362edbff-ff1c-4434-9e-0f-bd-2e-f5-22-ac-82')
+    _iid_ = Guid('362edbff-ff1c-4434-9e-0f-bd-2e-f5-22-ac-82')
     @winrt_commethod(6)
     def get_Device(self) -> Windows.Devices.Enumeration.DeviceInformation: ...
     Device = property(get_Device, None)
 class IAudioFileInputNode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('905b67c8-6f65-4cd4-88-90-46-94-84-3c-27-6d')
+    _iid_ = Guid('905b67c8-6f65-4cd4-88-90-46-94-84-3c-27-6d')
     @winrt_commethod(6)
     def put_PlaybackSpeedFactor(self, value: Double) -> Void: ...
     @winrt_commethod(7)
@@ -943,7 +943,7 @@ class IAudioFileInputNode(ComPtr):
     SourceFile = property(get_SourceFile, None)
 class IAudioFileOutputNode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('50e01980-5166-4093-80-f8-ad-a0-00-89-e9-cf')
+    _iid_ = Guid('50e01980-5166-4093-80-f8-ad-a0-00-89-e9-cf')
     @winrt_commethod(6)
     def get_File(self) -> Windows.Storage.IStorageFile: ...
     @winrt_commethod(7)
@@ -954,13 +954,13 @@ class IAudioFileOutputNode(ComPtr):
     FileEncodingProfile = property(get_FileEncodingProfile, None)
 class IAudioFrameCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('dc7c829e-0208-4504-a5-a8-f0-f2-68-92-0a-65')
+    _iid_ = Guid('dc7c829e-0208-4504-a5-a8-f0-f2-68-92-0a-65')
     @winrt_commethod(6)
     def get_Frame(self) -> Windows.Media.AudioFrame: ...
     Frame = property(get_Frame, None)
 class IAudioFrameInputNode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('01b266c7-fd96-4ff5-a3-c5-d2-7a-9b-f4-42-37')
+    _iid_ = Guid('01b266c7-fd96-4ff5-a3-c5-d2-7a-9b-f4-42-37')
     @winrt_commethod(6)
     def put_PlaybackSpeedFactor(self, value: Double) -> Void: ...
     @winrt_commethod(7)
@@ -983,12 +983,12 @@ class IAudioFrameInputNode(ComPtr):
     QueuedSampleCount = property(get_QueuedSampleCount, None)
 class IAudioFrameOutputNode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b847371b-3299-45f5-88-b3-c9-d1-2a-3f-1c-c8')
+    _iid_ = Guid('b847371b-3299-45f5-88-b3-c9-d1-2a-3f-1c-c8')
     @winrt_commethod(6)
     def GetFrame(self) -> Windows.Media.AudioFrame: ...
 class IAudioGraph(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1ad46eed-e48c-4e14-96-60-2c-4f-83-e9-cd-d8')
+    _iid_ = Guid('1ad46eed-e48c-4e14-96-60-2c-4f-83-e9-cd-d8')
     @winrt_commethod(6)
     def CreateFrameInputNode(self) -> Windows.Media.Audio.AudioFrameInputNode: ...
     @winrt_commethod(7)
@@ -1053,7 +1053,7 @@ class IAudioGraph(ComPtr):
     SamplesPerQuantum = property(get_SamplesPerQuantum, None)
 class IAudioGraph2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4e4c3bd5-4fc1-45f6-a9-47-3c-d3-8f-4f-d8-39')
+    _iid_ = Guid('4e4c3bd5-4fc1-45f6-a9-47-3c-d3-8f-4f-d8-39')
     @winrt_commethod(6)
     def CreateFrameInputNodeWithFormatAndEmitter(self, encodingProperties: Windows.Media.MediaProperties.AudioEncodingProperties, emitter: Windows.Media.Audio.AudioNodeEmitter) -> Windows.Media.Audio.AudioFrameInputNode: ...
     @winrt_commethod(7)
@@ -1066,14 +1066,14 @@ class IAudioGraph2(ComPtr):
     def CreateBatchUpdater(self) -> Windows.Media.Audio.AudioGraphBatchUpdater: ...
 class IAudioGraph3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ddcd25ae-1185-42a7-83-1d-6a-9b-0f-c8-68-20')
+    _iid_ = Guid('ddcd25ae-1185-42a7-83-1d-6a-9b-0f-c8-68-20')
     @winrt_commethod(6)
     def CreateMediaSourceAudioInputNodeAsync(self, mediaSource: Windows.Media.Core.MediaSource) -> Windows.Foundation.IAsyncOperation[Windows.Media.Audio.CreateMediaSourceAudioInputNodeResult]: ...
     @winrt_commethod(7)
     def CreateMediaSourceAudioInputNodeWithEmitterAsync(self, mediaSource: Windows.Media.Core.MediaSource, emitter: Windows.Media.Audio.AudioNodeEmitter) -> Windows.Foundation.IAsyncOperation[Windows.Media.Audio.CreateMediaSourceAudioInputNodeResult]: ...
 class IAudioGraphConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('763070ed-d04e-4fac-b2-33-60-0b-42-ed-d4-69')
+    _iid_ = Guid('763070ed-d04e-4fac-b2-33-60-0b-42-ed-d4-69')
     @winrt_commethod(6)
     def get_Destination(self) -> Windows.Media.Audio.IAudioNode: ...
     @winrt_commethod(7)
@@ -1084,7 +1084,7 @@ class IAudioGraphConnection(ComPtr):
     Gain = property(get_Gain, put_Gain)
 class IAudioGraphSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1d59647f-e6fe-4628-84-f8-9d-8b-db-a2-57-85')
+    _iid_ = Guid('1d59647f-e6fe-4628-84-f8-9d-8b-db-a2-57-85')
     @winrt_commethod(6)
     def get_EncodingProperties(self) -> Windows.Media.MediaProperties.AudioEncodingProperties: ...
     @winrt_commethod(7)
@@ -1117,7 +1117,7 @@ class IAudioGraphSettings(ComPtr):
     DesiredRenderDeviceAudioProcessing = property(get_DesiredRenderDeviceAudioProcessing, put_DesiredRenderDeviceAudioProcessing)
 class IAudioGraphSettings2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('72919787-4dab-46e3-b4-c9-d8-e1-a2-63-60-62')
+    _iid_ = Guid('72919787-4dab-46e3-b4-c9-d8-e1-a2-63-60-62')
     @winrt_commethod(6)
     def put_MaxPlaybackSpeedFactor(self, value: Double) -> Void: ...
     @winrt_commethod(7)
@@ -1125,23 +1125,23 @@ class IAudioGraphSettings2(ComPtr):
     MaxPlaybackSpeedFactor = property(get_MaxPlaybackSpeedFactor, put_MaxPlaybackSpeedFactor)
 class IAudioGraphSettingsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a5d91cc6-c2eb-4a61-a2-14-1d-66-d7-5f-83-da')
+    _iid_ = Guid('a5d91cc6-c2eb-4a61-a2-14-1d-66-d7-5f-83-da')
     @winrt_commethod(6)
     def Create(self, audioRenderCategory: Windows.Media.Render.AudioRenderCategory) -> Windows.Media.Audio.AudioGraphSettings: ...
 class IAudioGraphStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('76ec3132-e159-4ab7-a8-2a-17-be-b4-b3-1e-94')
+    _iid_ = Guid('76ec3132-e159-4ab7-a8-2a-17-be-b4-b3-1e-94')
     @winrt_commethod(6)
     def CreateAsync(self, settings: Windows.Media.Audio.AudioGraphSettings) -> Windows.Foundation.IAsyncOperation[Windows.Media.Audio.CreateAudioGraphResult]: ...
 class IAudioGraphUnrecoverableErrorOccurredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c3d9cbe0-3ff6-4fb3-b2-62-50-d4-35-c5-54-23')
+    _iid_ = Guid('c3d9cbe0-3ff6-4fb3-b2-62-50-d4-35-c5-54-23')
     @winrt_commethod(6)
     def get_Error(self) -> Windows.Media.Audio.AudioGraphUnrecoverableError: ...
     Error = property(get_Error, None)
 class IAudioInputNode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d148005c-8428-4784-b7-fd-a9-9d-46-8c-5d-20')
+    _iid_ = Guid('d148005c-8428-4784-b7-fd-a9-9d-46-8c-5d-20')
     @winrt_commethod(6)
     def get_OutgoingConnections(self) -> Windows.Foundation.Collections.IVectorView[Windows.Media.Audio.AudioGraphConnection]: ...
     @winrt_commethod(7)
@@ -1153,13 +1153,13 @@ class IAudioInputNode(ComPtr):
     OutgoingConnections = property(get_OutgoingConnections, None)
 class IAudioInputNode2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('905156b7-ca68-4c6d-a8-bc-e3-ee-17-fe-3f-d2')
+    _iid_ = Guid('905156b7-ca68-4c6d-a8-bc-e3-ee-17-fe-3f-d2')
     @winrt_commethod(6)
     def get_Emitter(self) -> Windows.Media.Audio.AudioNodeEmitter: ...
     Emitter = property(get_Emitter, None)
 class IAudioNode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('15389d7f-dbd8-4819-bf-03-66-8e-93-57-cd-6d')
+    _iid_ = Guid('15389d7f-dbd8-4819-bf-03-66-8e-93-57-cd-6d')
     @winrt_commethod(6)
     def get_EffectDefinitions(self) -> Windows.Foundation.Collections.IVector[Windows.Media.Effects.IAudioEffectDefinition]: ...
     @winrt_commethod(7)
@@ -1188,7 +1188,7 @@ class IAudioNode(ComPtr):
     ConsumeInput = property(get_ConsumeInput, put_ConsumeInput)
 class IAudioNodeEmitter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3676971d-880a-47b8-ad-f7-13-23-a9-d9-65-be')
+    _iid_ = Guid('3676971d-880a-47b8-ad-f7-13-23-a9-d9-65-be')
     @winrt_commethod(6)
     def get_Position(self) -> Windows.Foundation.Numerics.Vector3: ...
     @winrt_commethod(7)
@@ -1230,7 +1230,7 @@ class IAudioNodeEmitter(ComPtr):
     IsDopplerDisabled = property(get_IsDopplerDisabled, None)
 class IAudioNodeEmitter2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4ab6eecb-ec29-47f8-81-8c-b6-b6-60-a5-ae-b1')
+    _iid_ = Guid('4ab6eecb-ec29-47f8-81-8c-b6-b6-60-a5-ae-b1')
     @winrt_commethod(6)
     def get_SpatialAudioModel(self) -> Windows.Media.Audio.SpatialAudioModel: ...
     @winrt_commethod(7)
@@ -1238,7 +1238,7 @@ class IAudioNodeEmitter2(ComPtr):
     SpatialAudioModel = property(get_SpatialAudioModel, put_SpatialAudioModel)
 class IAudioNodeEmitterConeProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e99b2cee-02ca-4375-93-26-0c-6a-e4-bc-df-b5')
+    _iid_ = Guid('e99b2cee-02ca-4375-93-26-0c-6a-e4-bc-df-b5')
     @winrt_commethod(6)
     def get_InnerAngle(self) -> Double: ...
     @winrt_commethod(7)
@@ -1250,7 +1250,7 @@ class IAudioNodeEmitterConeProperties(ComPtr):
     OuterAngleGain = property(get_OuterAngleGain, None)
 class IAudioNodeEmitterDecayModel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1d1d5af7-0d53-4fa9-bd-84-d5-81-6a-86-f3-ff')
+    _iid_ = Guid('1d1d5af7-0d53-4fa9-bd-84-d5-81-6a-86-f3-ff')
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.Media.Audio.AudioNodeEmitterDecayKind: ...
     @winrt_commethod(7)
@@ -1265,19 +1265,19 @@ class IAudioNodeEmitterDecayModel(ComPtr):
     NaturalProperties = property(get_NaturalProperties, None)
 class IAudioNodeEmitterDecayModelStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c7787ca8-f178-462f-bc-81-8d-d5-cb-e5-da-e8')
+    _iid_ = Guid('c7787ca8-f178-462f-bc-81-8d-d5-cb-e5-da-e8')
     @winrt_commethod(6)
     def CreateNatural(self, minGain: Double, maxGain: Double, unityGainDistance: Double, cutoffDistance: Double) -> Windows.Media.Audio.AudioNodeEmitterDecayModel: ...
     @winrt_commethod(7)
     def CreateCustom(self, minGain: Double, maxGain: Double) -> Windows.Media.Audio.AudioNodeEmitterDecayModel: ...
 class IAudioNodeEmitterFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fdc8489a-6ad6-4ce4-b7-f7-a9-93-70-df-7e-e9')
+    _iid_ = Guid('fdc8489a-6ad6-4ce4-b7-f7-a9-93-70-df-7e-e9')
     @winrt_commethod(6)
     def CreateAudioNodeEmitter(self, shape: Windows.Media.Audio.AudioNodeEmitterShape, decayModel: Windows.Media.Audio.AudioNodeEmitterDecayModel, settings: Windows.Media.Audio.AudioNodeEmitterSettings) -> Windows.Media.Audio.AudioNodeEmitter: ...
 class IAudioNodeEmitterNaturalDecayModelProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('48934bcf-cf2c-4efc-93-31-75-bd-22-df-1f-0c')
+    _iid_ = Guid('48934bcf-cf2c-4efc-93-31-75-bd-22-df-1f-0c')
     @winrt_commethod(6)
     def get_UnityGainDistance(self) -> Double: ...
     @winrt_commethod(7)
@@ -1286,7 +1286,7 @@ class IAudioNodeEmitterNaturalDecayModelProperties(ComPtr):
     CutoffDistance = property(get_CutoffDistance, None)
 class IAudioNodeEmitterShape(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ea0311c5-e73d-44bc-85-9c-45-55-3b-bc-48-28')
+    _iid_ = Guid('ea0311c5-e73d-44bc-85-9c-45-55-3b-bc-48-28')
     @winrt_commethod(6)
     def get_Kind(self) -> Windows.Media.Audio.AudioNodeEmitterShapeKind: ...
     @winrt_commethod(7)
@@ -1295,14 +1295,14 @@ class IAudioNodeEmitterShape(ComPtr):
     ConeProperties = property(get_ConeProperties, None)
 class IAudioNodeEmitterShapeStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('57bb2771-ffa5-4b86-a7-79-e2-64-ae-b9-14-5f')
+    _iid_ = Guid('57bb2771-ffa5-4b86-a7-79-e2-64-ae-b9-14-5f')
     @winrt_commethod(6)
     def CreateCone(self, innerAngle: Double, outerAngle: Double, outerAngleGain: Double) -> Windows.Media.Audio.AudioNodeEmitterShape: ...
     @winrt_commethod(7)
     def CreateOmnidirectional(self) -> Windows.Media.Audio.AudioNodeEmitterShape: ...
 class IAudioNodeListener(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d9722e16-0c0a-41da-b7-55-6c-77-83-5f-b1-eb')
+    _iid_ = Guid('d9722e16-0c0a-41da-b7-55-6c-77-83-5f-b1-eb')
     @winrt_commethod(6)
     def get_Position(self) -> Windows.Foundation.Numerics.Vector3: ...
     @winrt_commethod(7)
@@ -1325,7 +1325,7 @@ class IAudioNodeListener(ComPtr):
     DopplerVelocity = property(get_DopplerVelocity, put_DopplerVelocity)
 class IAudioNodeWithListener(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0e0f907c-79ff-4544-9e-eb-01-25-7b-15-10-5a')
+    _iid_ = Guid('0e0f907c-79ff-4544-9e-eb-01-25-7b-15-10-5a')
     @winrt_commethod(6)
     def put_Listener(self, value: Windows.Media.Audio.AudioNodeListener) -> Void: ...
     @winrt_commethod(7)
@@ -1333,7 +1333,7 @@ class IAudioNodeWithListener(ComPtr):
     Listener = property(get_Listener, put_Listener)
 class IAudioPlaybackConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1a4c1dea-cafc-50e7-87-18-ea-3f-81-cb-fa-51')
+    _iid_ = Guid('1a4c1dea-cafc-50e7-87-18-ea-3f-81-cb-fa-51')
     @winrt_commethod(6)
     def Start(self) -> Void: ...
     @winrt_commethod(7)
@@ -1354,7 +1354,7 @@ class IAudioPlaybackConnection(ComPtr):
     State = property(get_State, None)
 class IAudioPlaybackConnectionOpenResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4e656aef-39f9-5fc9-a5-19-a5-bb-fd-9f-e9-21')
+    _iid_ = Guid('4e656aef-39f9-5fc9-a5-19-a5-bb-fd-9f-e9-21')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Media.Audio.AudioPlaybackConnectionOpenResultStatus: ...
     @winrt_commethod(7)
@@ -1363,14 +1363,14 @@ class IAudioPlaybackConnectionOpenResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class IAudioPlaybackConnectionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e60963a2-69e6-5ffc-9e-13-82-4a-85-21-3d-af')
+    _iid_ = Guid('e60963a2-69e6-5ffc-9e-13-82-4a-85-21-3d-af')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def TryCreateFromId(self, id: WinRT_String) -> Windows.Media.Audio.AudioPlaybackConnection: ...
 class IAudioStateMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1d13d136-0199-4cdc-b8-4e-e7-2c-2b-58-1e-ce')
+    _iid_ = Guid('1d13d136-0199-4cdc-b8-4e-e7-2c-2b-58-1e-ce')
     @winrt_commethod(6)
     def add_SoundLevelChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Media.Audio.AudioStateMonitor, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -1380,7 +1380,7 @@ class IAudioStateMonitor(ComPtr):
     SoundLevel = property(get_SoundLevel, None)
 class IAudioStateMonitorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6374ea4c-1b3b-4001-94-d9-dd-22-53-30-fa-40')
+    _iid_ = Guid('6374ea4c-1b3b-4001-94-d9-dd-22-53-30-fa-40')
     @winrt_commethod(6)
     def CreateForRenderMonitoring(self) -> Windows.Media.Audio.AudioStateMonitor: ...
     @winrt_commethod(7)
@@ -1399,7 +1399,7 @@ class IAudioStateMonitorStatics(ComPtr):
     def CreateForCaptureMonitoringWithCategoryAndDeviceId(self, category: Windows.Media.Capture.MediaCategory, deviceId: WinRT_String) -> Windows.Media.Audio.AudioStateMonitor: ...
 class ICreateAudioDeviceInputNodeResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('16eec7a8-1ca7-40ef-91-a4-d3-46-e0-aa-1b-ba')
+    _iid_ = Guid('16eec7a8-1ca7-40ef-91-a4-d3-46-e0-aa-1b-ba')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Media.Audio.AudioDeviceNodeCreationStatus: ...
     @winrt_commethod(7)
@@ -1408,13 +1408,13 @@ class ICreateAudioDeviceInputNodeResult(ComPtr):
     DeviceInputNode = property(get_DeviceInputNode, None)
 class ICreateAudioDeviceInputNodeResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('921c69ce-3f35-41c7-96-22-79-f6-08-ba-ed-c2')
+    _iid_ = Guid('921c69ce-3f35-41c7-96-22-79-f6-08-ba-ed-c2')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
 class ICreateAudioDeviceOutputNodeResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f7776d27-1d9a-47f7-9c-d4-28-59-cc-1b-7b-ff')
+    _iid_ = Guid('f7776d27-1d9a-47f7-9c-d4-28-59-cc-1b-7b-ff')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Media.Audio.AudioDeviceNodeCreationStatus: ...
     @winrt_commethod(7)
@@ -1423,13 +1423,13 @@ class ICreateAudioDeviceOutputNodeResult(ComPtr):
     DeviceOutputNode = property(get_DeviceOutputNode, None)
 class ICreateAudioDeviceOutputNodeResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4864269f-bdce-4ab1-bd-38-fb-ae-93-ae-da-ca')
+    _iid_ = Guid('4864269f-bdce-4ab1-bd-38-fb-ae-93-ae-da-ca')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
 class ICreateAudioFileInputNodeResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ce83d61c-e297-4c50-9c-e7-1c-7a-69-d6-bd-09')
+    _iid_ = Guid('ce83d61c-e297-4c50-9c-e7-1c-7a-69-d6-bd-09')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Media.Audio.AudioFileNodeCreationStatus: ...
     @winrt_commethod(7)
@@ -1438,13 +1438,13 @@ class ICreateAudioFileInputNodeResult(ComPtr):
     FileInputNode = property(get_FileInputNode, None)
 class ICreateAudioFileInputNodeResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f9082020-3d80-4fe0-81-c1-76-8f-ea-7c-a7-e0')
+    _iid_ = Guid('f9082020-3d80-4fe0-81-c1-76-8f-ea-7c-a7-e0')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
 class ICreateAudioFileOutputNodeResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('47d6ba7b-e909-453f-86-6e-55-40-cd-a7-34-ff')
+    _iid_ = Guid('47d6ba7b-e909-453f-86-6e-55-40-cd-a7-34-ff')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Media.Audio.AudioFileNodeCreationStatus: ...
     @winrt_commethod(7)
@@ -1453,13 +1453,13 @@ class ICreateAudioFileOutputNodeResult(ComPtr):
     FileOutputNode = property(get_FileOutputNode, None)
 class ICreateAudioFileOutputNodeResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9f01b50d-3318-47b3-a6-0a-1b-49-2b-e7-fc-0d')
+    _iid_ = Guid('9f01b50d-3318-47b3-a6-0a-1b-49-2b-e7-fc-0d')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
 class ICreateAudioGraphResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5453ef7e-7bde-4b76-bb-5d-48-f7-9c-fc-8c-0b')
+    _iid_ = Guid('5453ef7e-7bde-4b76-bb-5d-48-f7-9c-fc-8c-0b')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Media.Audio.AudioGraphCreationStatus: ...
     @winrt_commethod(7)
@@ -1468,13 +1468,13 @@ class ICreateAudioGraphResult(ComPtr):
     Graph = property(get_Graph, None)
 class ICreateAudioGraphResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6d738dfc-88c6-4fcb-a5-34-85-ce-dd-40-50-a1')
+    _iid_ = Guid('6d738dfc-88c6-4fcb-a5-34-85-ce-dd-40-50-a1')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
 class ICreateMediaSourceAudioInputNodeResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('46a658a3-53c0-4d59-9e-51-cc-1d-10-44-a4-c4')
+    _iid_ = Guid('46a658a3-53c0-4d59-9e-51-cc-1d-10-44-a4-c4')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Media.Audio.MediaSourceAudioInputNodeCreationStatus: ...
     @winrt_commethod(7)
@@ -1483,13 +1483,13 @@ class ICreateMediaSourceAudioInputNodeResult(ComPtr):
     Node = property(get_Node, None)
 class ICreateMediaSourceAudioInputNodeResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('63514ce8-6a1a-49e3-97-ec-28-fd-5b-e1-14-e5')
+    _iid_ = Guid('63514ce8-6a1a-49e3-97-ec-28-fd-5b-e1-14-e5')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
 class IEchoEffectDefinition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0e4d3faa-36b8-4c91-b9-da-11-f4-4a-8a-66-10')
+    _iid_ = Guid('0e4d3faa-36b8-4c91-b9-da-11-f4-4a-8a-66-10')
     @winrt_commethod(6)
     def put_WetDryMix(self, value: Double) -> Void: ...
     @winrt_commethod(7)
@@ -1507,12 +1507,12 @@ class IEchoEffectDefinition(ComPtr):
     Delay = property(get_Delay, put_Delay)
 class IEchoEffectDefinitionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0d4e2257-aaf2-4e86-a5-4c-fb-79-db-8f-6c-12')
+    _iid_ = Guid('0d4e2257-aaf2-4e86-a5-4c-fb-79-db-8f-6c-12')
     @winrt_commethod(6)
     def Create(self, audioGraph: Windows.Media.Audio.AudioGraph) -> Windows.Media.Audio.EchoEffectDefinition: ...
 class IEqualizerBand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c00a5a6a-262d-4b85-9b-b7-43-28-0b-62-ed-0c')
+    _iid_ = Guid('c00a5a6a-262d-4b85-9b-b7-43-28-0b-62-ed-0c')
     @winrt_commethod(6)
     def get_Bandwidth(self) -> Double: ...
     @winrt_commethod(7)
@@ -1530,24 +1530,24 @@ class IEqualizerBand(ComPtr):
     Gain = property(get_Gain, put_Gain)
 class IEqualizerEffectDefinition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('023f6f1f-83fe-449a-a8-22-c6-96-44-2d-16-b0')
+    _iid_ = Guid('023f6f1f-83fe-449a-a8-22-c6-96-44-2d-16-b0')
     @winrt_commethod(6)
     def get_Bands(self) -> Windows.Foundation.Collections.IVectorView[Windows.Media.Audio.EqualizerBand]: ...
     Bands = property(get_Bands, None)
 class IEqualizerEffectDefinitionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d2876fc4-d410-4eb5-9e-69-c9-aa-12-77-ea-f0')
+    _iid_ = Guid('d2876fc4-d410-4eb5-9e-69-c9-aa-12-77-ea-f0')
     @winrt_commethod(6)
     def Create(self, audioGraph: Windows.Media.Audio.AudioGraph) -> Windows.Media.Audio.EqualizerEffectDefinition: ...
 class IFrameInputNodeQuantumStartedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3d9bd498-a306-4f06-bd-9f-e9-ef-c8-22-63-04')
+    _iid_ = Guid('3d9bd498-a306-4f06-bd-9f-e9-ef-c8-22-63-04')
     @winrt_commethod(6)
     def get_RequiredSamples(self) -> Int32: ...
     RequiredSamples = property(get_RequiredSamples, None)
 class ILimiterEffectDefinition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6b755d19-2603-47ba-bd-eb-39-05-5e-34-86-dc')
+    _iid_ = Guid('6b755d19-2603-47ba-bd-eb-39-05-5e-34-86-dc')
     @winrt_commethod(6)
     def put_Release(self, value: UInt32) -> Void: ...
     @winrt_commethod(7)
@@ -1560,12 +1560,12 @@ class ILimiterEffectDefinition(ComPtr):
     Loudness = property(get_Loudness, put_Loudness)
 class ILimiterEffectDefinitionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ecbae6f1-61ff-45ef-b8-f5-48-65-9a-57-c7-2d')
+    _iid_ = Guid('ecbae6f1-61ff-45ef-b8-f5-48-65-9a-57-c7-2d')
     @winrt_commethod(6)
     def Create(self, audioGraph: Windows.Media.Audio.AudioGraph) -> Windows.Media.Audio.LimiterEffectDefinition: ...
 class IMediaSourceAudioInputNode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('99d8983b-a88a-4041-8e-4f-dd-ba-c0-c9-1f-d3')
+    _iid_ = Guid('99d8983b-a88a-4041-8e-4f-dd-ba-c0-c9-1f-d3')
     @winrt_commethod(6)
     def put_PlaybackSpeedFactor(self, value: Double) -> Void: ...
     @winrt_commethod(7)
@@ -1603,7 +1603,7 @@ class IMediaSourceAudioInputNode(ComPtr):
     MediaSource = property(get_MediaSource, None)
 class IReverbEffectDefinition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4606aa89-f563-4d0a-8f-6e-f0-cd-df-f3-5d-84')
+    _iid_ = Guid('4606aa89-f563-4d0a-8f-6e-f0-cd-df-f3-5d-84')
     @winrt_commethod(6)
     def put_WetDryMix(self, value: Double) -> Void: ...
     @winrt_commethod(7)
@@ -1721,18 +1721,18 @@ class IReverbEffectDefinition(ComPtr):
     DisableLateField = property(get_DisableLateField, put_DisableLateField)
 class IReverbEffectDefinitionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a7d5cbfe-100b-4ff0-9d-a6-dc-4e-05-a7-59-f0')
+    _iid_ = Guid('a7d5cbfe-100b-4ff0-9d-a6-dc-4e-05-a7-59-f0')
     @winrt_commethod(6)
     def Create(self, audioGraph: Windows.Media.Audio.AudioGraph) -> Windows.Media.Audio.ReverbEffectDefinition: ...
 class ISetDefaultSpatialAudioFormatResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1c2aa511-1400-5e70-9e-a9-ae-15-12-41-e8-ea')
+    _iid_ = Guid('1c2aa511-1400-5e70-9e-a9-ae-15-12-41-e8-ea')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Media.Audio.SetDefaultSpatialAudioFormatStatus: ...
     Status = property(get_Status, None)
 class ISpatialAudioDeviceConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ee830034-61cf-5749-9d-a4-10-f0-fe-02-81-99')
+    _iid_ = Guid('ee830034-61cf-5749-9d-a4-10-f0-fe-02-81-99')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1755,12 +1755,12 @@ class ISpatialAudioDeviceConfiguration(ComPtr):
     DefaultSpatialAudioFormat = property(get_DefaultSpatialAudioFormat, None)
 class ISpatialAudioDeviceConfigurationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3ec37f7b-936d-4e04-97-28-28-27-d9-f7-58-c4')
+    _iid_ = Guid('3ec37f7b-936d-4e04-97-28-28-27-d9-f7-58-c4')
     @winrt_commethod(6)
     def GetForDeviceId(self, deviceId: WinRT_String) -> Windows.Media.Audio.SpatialAudioDeviceConfiguration: ...
 class ISpatialAudioFormatConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('32df09a8-50f0-5395-99-23-7d-44-ca-71-ed-6d')
+    _iid_ = Guid('32df09a8-50f0-5395-99-23-7d-44-ca-71-ed-6d')
     @winrt_commethod(6)
     def ReportLicenseChangedAsync(self, subtype: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
@@ -1772,12 +1772,12 @@ class ISpatialAudioFormatConfiguration(ComPtr):
     MixedRealityExclusiveModePolicy = property(get_MixedRealityExclusiveModePolicy, put_MixedRealityExclusiveModePolicy)
 class ISpatialAudioFormatConfigurationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2b5fef71-67c9-4e5f-a3-5b-41-68-07-11-f8-c7')
+    _iid_ = Guid('2b5fef71-67c9-4e5f-a3-5b-41-68-07-11-f8-c7')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Media.Audio.SpatialAudioFormatConfiguration: ...
 class ISpatialAudioFormatSubtypeStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b3de8a47-83ee-4266-a9-45-be-df-50-7a-fe-ed')
+    _iid_ = Guid('b3de8a47-83ee-4266-a9-45-be-df-50-7a-fe-ed')
     @winrt_commethod(6)
     def get_WindowsSonic(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1798,7 +1798,7 @@ class ISpatialAudioFormatSubtypeStatics(ComPtr):
     DTSXUltra = property(get_DTSXUltra, None)
 class ISpatialAudioFormatSubtypeStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4565e6cb-d95b-5621-b6-af-0e-88-49-c5-7c-80')
+    _iid_ = Guid('4565e6cb-d95b-5621-b6-af-0e-88-49-c5-7c-80')
     @winrt_commethod(6)
     def get_DTSXForHomeTheater(self) -> WinRT_String: ...
     DTSXForHomeTheater = property(get_DTSXForHomeTheater, None)

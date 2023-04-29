@@ -38,19 +38,19 @@ class CardRemovedEventArgs(ComPtr):
     SmartCard = property(get_SmartCard, None)
 class ICardAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('18bbef98-f18b-4dd3-b1-18-df-b2-c8-e2-3c-c6')
+    _iid_ = Guid('18bbef98-f18b-4dd3-b1-18-df-b2-c8-e2-3c-c6')
     @winrt_commethod(6)
     def get_SmartCard(self) -> Windows.Devices.SmartCards.SmartCard: ...
     SmartCard = property(get_SmartCard, None)
 class ICardRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('15331aaf-22d7-4945-af-c9-03-b4-6f-42-a6-cd')
+    _iid_ = Guid('15331aaf-22d7-4945-af-c9-03-b4-6f-42-a6-cd')
     @winrt_commethod(6)
     def get_SmartCard(self) -> Windows.Devices.SmartCards.SmartCard: ...
     SmartCard = property(get_SmartCard, None)
 class IKnownSmartCardAppletIds(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7b04d8d8-95b4-4c88-8c-ea-41-1e-55-51-1e-fc')
+    _iid_ = Guid('7b04d8d8-95b4-4c88-8c-ea-41-1e-55-51-1e-fc')
     @winrt_commethod(6)
     def get_PaymentSystemEnvironment(self) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(7)
@@ -59,7 +59,7 @@ class IKnownSmartCardAppletIds(ComPtr):
     ProximityPaymentSystemEnvironment = property(get_ProximityPaymentSystemEnvironment, None)
 class ISmartCard(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1b718871-6434-43f4-b5-5a-6a-29-62-38-70-aa')
+    _iid_ = Guid('1b718871-6434-43f4-b5-5a-6a-29-62-38-70-aa')
     @winrt_commethod(6)
     def get_Reader(self) -> Windows.Devices.SmartCards.SmartCardReader: ...
     @winrt_commethod(7)
@@ -69,7 +69,7 @@ class ISmartCard(ComPtr):
     Reader = property(get_Reader, None)
 class ISmartCardAppletIdGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7db165e6-6264-56f4-5e-03-c8-63-85-39-5e-b1')
+    _iid_ = Guid('7db165e6-6264-56f4-5e-03-c8-63-85-39-5e-b1')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -95,7 +95,7 @@ class ISmartCardAppletIdGroup(ComPtr):
     AutomaticEnablement = property(get_AutomaticEnablement, put_AutomaticEnablement)
 class ISmartCardAppletIdGroup2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6b0ef9dc-9956-4a62-8d-4e-d3-7a-68-eb-c3-a6')
+    _iid_ = Guid('6b0ef9dc-9956-4a62-8d-4e-d3-7a-68-eb-c3-a6')
     @winrt_commethod(6)
     def get_Logo(self) -> Windows.Storage.Streams.IRandomAccessStreamReference: ...
     @winrt_commethod(7)
@@ -116,12 +116,12 @@ class ISmartCardAppletIdGroup2(ComPtr):
     SecureUserAuthenticationRequired = property(get_SecureUserAuthenticationRequired, put_SecureUserAuthenticationRequired)
 class ISmartCardAppletIdGroupFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9105eb4d-4a65-4e41-80-61-cb-e8-3f-36-95-e5')
+    _iid_ = Guid('9105eb4d-4a65-4e41-80-61-cb-e8-3f-36-95-e5')
     @winrt_commethod(6)
     def Create(self, displayName: WinRT_String, appletIds: Windows.Foundation.Collections.IVector[Windows.Storage.Streams.IBuffer], emulationCategory: Windows.Devices.SmartCards.SmartCardEmulationCategory, emulationType: Windows.Devices.SmartCards.SmartCardEmulationType) -> Windows.Devices.SmartCards.SmartCardAppletIdGroup: ...
 class ISmartCardAppletIdGroupRegistration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('df1208d1-31bb-5596-43-b1-6d-69-a0-25-7b-3a')
+    _iid_ = Guid('df1208d1-31bb-5596-43-b1-6d-69-a0-25-7b-3a')
     @winrt_commethod(6)
     def get_ActivationPolicy(self) -> Windows.Devices.SmartCards.SmartCardAppletIdGroupActivationPolicy: ...
     @winrt_commethod(7)
@@ -137,7 +137,7 @@ class ISmartCardAppletIdGroupRegistration(ComPtr):
     Id = property(get_Id, None)
 class ISmartCardAppletIdGroupRegistration2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5f5508d8-98a7-4f2e-91-d9-6c-fc-ce-da-40-7f')
+    _iid_ = Guid('5f5508d8-98a7-4f2e-91-d9-6c-fc-ce-da-40-7f')
     @winrt_commethod(6)
     def get_SmartCardReaderId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -145,13 +145,13 @@ class ISmartCardAppletIdGroupRegistration2(ComPtr):
     SmartCardReaderId = property(get_SmartCardReaderId, None)
 class ISmartCardAppletIdGroupStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ab2899a9-e76c-45cf-bf-1d-90-ea-a6-20-59-27')
+    _iid_ = Guid('ab2899a9-e76c-45cf-bf-1d-90-ea-a6-20-59-27')
     @winrt_commethod(6)
     def get_MaxAppletIds(self) -> UInt16: ...
     MaxAppletIds = property(get_MaxAppletIds, None)
 class ISmartCardAutomaticResponseApdu(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('52152bab-c63e-4531-a8-57-d7-56-d9-9b-98-6a')
+    _iid_ = Guid('52152bab-c63e-4531-a8-57-d7-56-d9-9b-98-6a')
     @winrt_commethod(6)
     def get_CommandApdu(self) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(7)
@@ -179,7 +179,7 @@ class ISmartCardAutomaticResponseApdu(ComPtr):
     ResponseApdu = property(get_ResponseApdu, put_ResponseApdu)
 class ISmartCardAutomaticResponseApdu2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('44aebb14-559d-4531-4e-51-89-db-6f-a8-a5-7a')
+    _iid_ = Guid('44aebb14-559d-4531-4e-51-89-db-6f-a8-a5-7a')
     @winrt_commethod(6)
     def get_InputState(self) -> Windows.Foundation.IReference[UInt32]: ...
     @winrt_commethod(7)
@@ -192,7 +192,7 @@ class ISmartCardAutomaticResponseApdu2(ComPtr):
     OutputState = property(get_OutputState, put_OutputState)
 class ISmartCardAutomaticResponseApdu3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bf43da74-6576-4392-93-67-fe-3b-c9-e2-d4-96')
+    _iid_ = Guid('bf43da74-6576-4392-93-67-fe-3b-c9-e2-d4-96')
     @winrt_commethod(6)
     def get_AllowWhenCryptogramGeneratorNotPrepared(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -200,12 +200,12 @@ class ISmartCardAutomaticResponseApdu3(ComPtr):
     AllowWhenCryptogramGeneratorNotPrepared = property(get_AllowWhenCryptogramGeneratorNotPrepared, put_AllowWhenCryptogramGeneratorNotPrepared)
 class ISmartCardAutomaticResponseApduFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e97ea2fa-d02c-4c55-b0-2a-8c-ff-7f-a9-f0-5b')
+    _iid_ = Guid('e97ea2fa-d02c-4c55-b0-2a-8c-ff-7f-a9-f0-5b')
     @winrt_commethod(6)
     def Create(self, commandApdu: Windows.Storage.Streams.IBuffer, responseApdu: Windows.Storage.Streams.IBuffer) -> Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu: ...
 class ISmartCardChallengeContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('192a5319-c9c4-4947-81-cc-44-79-4a-61-ef-91')
+    _iid_ = Guid('192a5319-c9c4-4947-81-cc-44-79-4a-61-ef-91')
     @winrt_commethod(6)
     def get_Challenge(self) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(7)
@@ -219,17 +219,17 @@ class ISmartCardChallengeContext(ComPtr):
     Challenge = property(get_Challenge, None)
 class ISmartCardConnect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2fdf87e5-028d-491e-a0-58-33-82-c3-98-6f-40')
+    _iid_ = Guid('2fdf87e5-028d-491e-a0-58-33-82-c3-98-6f-40')
     @winrt_commethod(6)
     def ConnectAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.SmartCards.SmartCardConnection]: ...
 class ISmartCardConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7edb991a-a81a-47bc-a6-49-15-6b-e6-b7-f2-31')
+    _iid_ = Guid('7edb991a-a81a-47bc-a6-49-15-6b-e6-b7-f2-31')
     @winrt_commethod(6)
     def TransmitAsync(self, command: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IBuffer]: ...
 class ISmartCardCryptogramGenerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e39f587b-edd3-4e49-b5-94-0f-f5-e4-d0-c7-6f')
+    _iid_ = Guid('e39f587b-edd3-4e49-b5-94-0f-f5-e4-d0-c7-6f')
     @winrt_commethod(6)
     def get_SupportedCryptogramMaterialTypes(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.SmartCards.SmartCardCryptogramMaterialType]: ...
     @winrt_commethod(7)
@@ -261,7 +261,7 @@ class ISmartCardCryptogramGenerator(ComPtr):
     SupportedSmartCardCryptogramStorageKeyCapabilities = property(get_SupportedSmartCardCryptogramStorageKeyCapabilities, None)
 class ISmartCardCryptogramGenerator2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7116aa34-5d6d-4b4a-96-a3-ef-a4-7d-2a-7e-25')
+    _iid_ = Guid('7116aa34-5d6d-4b4a-96-a3-ef-a4-7d-2a-7e-25')
     @winrt_commethod(6)
     def ValidateRequestApduAsync(self, promptingBehavior: Windows.Devices.SmartCards.SmartCardUnlockPromptingBehavior, apduToValidate: Windows.Storage.Streams.IBuffer, cryptogramPlacementSteps: Windows.Foundation.Collections.IIterable[Windows.Devices.SmartCards.SmartCardCryptogramPlacementStep]) -> Windows.Foundation.IAsyncOperation[Windows.Devices.SmartCards.SmartCardCryptogramGeneratorOperationStatus]: ...
     @winrt_commethod(7)
@@ -274,17 +274,17 @@ class ISmartCardCryptogramGenerator2(ComPtr):
     def GetAllCryptogramMaterialCharacteristicsAsync(self, promptingBehavior: Windows.Devices.SmartCards.SmartCardUnlockPromptingBehavior, materialPackageName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.SmartCards.SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult]: ...
 class ISmartCardCryptogramGeneratorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('09933910-cb9c-4015-96-7d-52-34-f3-b0-29-00')
+    _iid_ = Guid('09933910-cb9c-4015-96-7d-52-34-f3-b0-29-00')
     @winrt_commethod(6)
     def GetSmartCardCryptogramGeneratorAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.SmartCards.SmartCardCryptogramGenerator]: ...
 class ISmartCardCryptogramGeneratorStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('09bdf5e5-b4bd-4e23-a5-88-74-46-92-04-c1-28')
+    _iid_ = Guid('09bdf5e5-b4bd-4e23-a5-88-74-46-92-04-c1-28')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
 class ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2798e029-d687-4c92-86-c6-39-9e-9a-0e-cb-09')
+    _iid_ = Guid('2798e029-d687-4c92-86-c6-39-9e-9a-0e-cb-09')
     @winrt_commethod(6)
     def get_OperationStatus(self) -> Windows.Devices.SmartCards.SmartCardCryptogramGeneratorOperationStatus: ...
     @winrt_commethod(7)
@@ -293,7 +293,7 @@ class ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult(ComPtr):
     Characteristics = property(get_Characteristics, None)
 class ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4e6a8a5c-9773-46c4-a3-2f-b1-e5-43-15-9e-04')
+    _iid_ = Guid('4e6a8a5c-9773-46c4-a3-2f-b1-e5-43-15-9e-04')
     @winrt_commethod(6)
     def get_OperationStatus(self) -> Windows.Devices.SmartCards.SmartCardCryptogramGeneratorOperationStatus: ...
     @winrt_commethod(7)
@@ -302,7 +302,7 @@ class ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult(C
     Characteristics = property(get_Characteristics, None)
 class ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8c7ce857-a7e7-489d-b9-d6-36-80-61-51-50-12')
+    _iid_ = Guid('8c7ce857-a7e7-489d-b9-d6-36-80-61-51-50-12')
     @winrt_commethod(6)
     def get_OperationStatus(self) -> Windows.Devices.SmartCards.SmartCardCryptogramGeneratorOperationStatus: ...
     @winrt_commethod(7)
@@ -311,7 +311,7 @@ class ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult(ComPtr
     Characteristics = property(get_Characteristics, None)
 class ISmartCardCryptogramMaterialCharacteristics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fc9ac5cc-c1d7-4153-92-3b-a2-d4-3c-6c-8d-49')
+    _iid_ = Guid('fc9ac5cc-c1d7-4153-92-3b-a2-d4-3c-6c-8d-49')
     @winrt_commethod(6)
     def get_MaterialName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -338,7 +338,7 @@ class ISmartCardCryptogramMaterialCharacteristics(ComPtr):
     MaterialLength = property(get_MaterialLength, None)
 class ISmartCardCryptogramMaterialPackageCharacteristics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ffb58e1f-0692-4c47-93-cf-34-d9-1f-9d-cd-00')
+    _iid_ = Guid('ffb58e1f-0692-4c47-93-cf-34-d9-1f-9d-cd-00')
     @winrt_commethod(6)
     def get_PackageName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -353,7 +353,7 @@ class ISmartCardCryptogramMaterialPackageCharacteristics(ComPtr):
     PackageFormat = property(get_PackageFormat, None)
 class ISmartCardCryptogramMaterialPossessionProof(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e5b9ab8c-a141-4135-9a-dd-b0-d2-e3-aa-1f-c9')
+    _iid_ = Guid('e5b9ab8c-a141-4135-9a-dd-b0-d2-e3-aa-1f-c9')
     @winrt_commethod(6)
     def get_OperationStatus(self) -> Windows.Devices.SmartCards.SmartCardCryptogramGeneratorOperationStatus: ...
     @winrt_commethod(7)
@@ -362,7 +362,7 @@ class ISmartCardCryptogramMaterialPossessionProof(ComPtr):
     Proof = property(get_Proof, None)
 class ISmartCardCryptogramPlacementStep(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('947b03eb-8342-4792-a2-e5-92-56-36-37-8a-53')
+    _iid_ = Guid('947b03eb-8342-4792-a2-e5-92-56-36-37-8a-53')
     @winrt_commethod(6)
     def get_Algorithm(self) -> Windows.Devices.SmartCards.SmartCardCryptogramAlgorithm: ...
     @winrt_commethod(7)
@@ -410,7 +410,7 @@ class ISmartCardCryptogramPlacementStep(ComPtr):
     ChainedOutputStep = property(get_ChainedOutputStep, put_ChainedOutputStep)
 class ISmartCardCryptogramStorageKeyCharacteristics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8552546e-4457-4825-b4-64-63-54-71-a3-9f-5c')
+    _iid_ = Guid('8552546e-4457-4825-b4-64-63-54-71-a3-9f-5c')
     @winrt_commethod(6)
     def get_StorageKeyName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -425,7 +425,7 @@ class ISmartCardCryptogramStorageKeyCharacteristics(ComPtr):
     Capabilities = property(get_Capabilities, None)
 class ISmartCardCryptogramStorageKeyInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('77b0f00d-b097-4f61-a2-6a-95-61-63-9c-9c-3a')
+    _iid_ = Guid('77b0f00d-b097-4f61-a2-6a-95-61-63-9c-9c-3a')
     @winrt_commethod(6)
     def get_OperationStatus(self) -> Windows.Devices.SmartCards.SmartCardCryptogramGeneratorOperationStatus: ...
     @winrt_commethod(7)
@@ -449,19 +449,19 @@ class ISmartCardCryptogramStorageKeyInfo(ComPtr):
     Capabilities = property(get_Capabilities, None)
 class ISmartCardCryptogramStorageKeyInfo2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('000440f9-f7fd-417d-89-e1-fb-b0-38-2a-dc-4d')
+    _iid_ = Guid('000440f9-f7fd-417d-89-e1-fb-b0-38-2a-dc-4d')
     @winrt_commethod(6)
     def get_OperationalRequirements(self) -> WinRT_String: ...
     OperationalRequirements = property(get_OperationalRequirements, None)
 class ISmartCardEmulator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('dfb906b2-875e-47e5-80-77-e8-bf-f1-b1-c6-fb')
+    _iid_ = Guid('dfb906b2-875e-47e5-80-77-e8-bf-f1-b1-c6-fb')
     @winrt_commethod(6)
     def get_EnablementPolicy(self) -> Windows.Devices.SmartCards.SmartCardEmulatorEnablementPolicy: ...
     EnablementPolicy = property(get_EnablementPolicy, None)
 class ISmartCardEmulator2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fe3fc0b8-8529-411a-80-7b-48-ed-c2-a0-ab-44')
+    _iid_ = Guid('fe3fc0b8-8529-411a-80-7b-48-ed-c2-a0-ab-44')
     @winrt_commethod(6)
     def add_ApduReceived(self, value: Windows.Foundation.TypedEventHandler[Windows.Devices.SmartCards.SmartCardEmulator, Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -476,7 +476,7 @@ class ISmartCardEmulator2(ComPtr):
     def IsHostCardEmulationSupported(self) -> Boolean: ...
 class ISmartCardEmulatorApduReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d55d1576-69d2-5333-5b-5f-f8-c0-d6-e9-f0-9f')
+    _iid_ = Guid('d55d1576-69d2-5333-5b-5f-f8-c0-d6-e9-f0-9f')
     @winrt_commethod(6)
     def get_CommandApdu(self) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(7)
@@ -490,7 +490,7 @@ class ISmartCardEmulatorApduReceivedEventArgs(ComPtr):
     AutomaticResponseStatus = property(get_AutomaticResponseStatus, None)
 class ISmartCardEmulatorApduReceivedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8bf93df0-22e1-4238-86-10-94-ce-4a-96-54-25')
+    _iid_ = Guid('8bf93df0-22e1-4238-86-10-94-ce-4a-96-54-25')
     @winrt_commethod(6)
     def get_State(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -498,14 +498,14 @@ class ISmartCardEmulatorApduReceivedEventArgs2(ComPtr):
     State = property(get_State, None)
 class ISmartCardEmulatorApduReceivedEventArgsWithCryptograms(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d550bac7-b7bf-4e29-92-94-0c-4a-c3-c9-41-bd')
+    _iid_ = Guid('d550bac7-b7bf-4e29-92-94-0c-4a-c3-c9-41-bd')
     @winrt_commethod(6)
     def TryRespondWithCryptogramsAsync(self, responseTemplate: Windows.Storage.Streams.IBuffer, cryptogramPlacementSteps: Windows.Foundation.Collections.IIterable[Windows.Devices.SmartCards.SmartCardCryptogramPlacementStep]) -> Windows.Foundation.IAsyncOperation[Windows.Devices.SmartCards.SmartCardCryptogramGeneratorOperationStatus]: ...
     @winrt_commethod(7)
     def TryRespondWithCryptogramsAndStateAsync(self, responseTemplate: Windows.Storage.Streams.IBuffer, cryptogramPlacementSteps: Windows.Foundation.Collections.IIterable[Windows.Devices.SmartCards.SmartCardCryptogramPlacementStep], nextState: Windows.Foundation.IReference[UInt32]) -> Windows.Foundation.IAsyncOperation[Windows.Devices.SmartCards.SmartCardCryptogramGeneratorOperationStatus]: ...
 class ISmartCardEmulatorConnectionDeactivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2186d8d3-c5eb-5262-43-df-62-a0-a1-b5-55-57')
+    _iid_ = Guid('2186d8d3-c5eb-5262-43-df-62-a0-a1-b5-55-57')
     @winrt_commethod(6)
     def get_ConnectionProperties(self) -> Windows.Devices.SmartCards.SmartCardEmulatorConnectionProperties: ...
     @winrt_commethod(7)
@@ -514,7 +514,7 @@ class ISmartCardEmulatorConnectionDeactivatedEventArgs(ComPtr):
     Reason = property(get_Reason, None)
 class ISmartCardEmulatorConnectionProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4e2ca5ee-f969-507d-6c-f9-34-e2-d1-8d-f3-11')
+    _iid_ = Guid('4e2ca5ee-f969-507d-6c-f9-34-e2-d1-8d-f3-11')
     @winrt_commethod(6)
     def get_Id(self) -> Guid: ...
     @winrt_commethod(7)
@@ -523,12 +523,12 @@ class ISmartCardEmulatorConnectionProperties(ComPtr):
     Source = property(get_Source, None)
 class ISmartCardEmulatorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7a9bfc4b-c4d3-494f-b8-a2-62-15-d8-1e-85-b2')
+    _iid_ = Guid('7a9bfc4b-c4d3-494f-b8-a2-62-15-d8-1e-85-b2')
     @winrt_commethod(6)
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.SmartCards.SmartCardEmulator]: ...
 class ISmartCardEmulatorStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('69ae9f8a-b775-488b-84-36-6c-1e-28-ed-73-1f')
+    _iid_ = Guid('69ae9f8a-b775-488b-84-36-6c-1e-28-ed-73-1f')
     @winrt_commethod(6)
     def GetAppletIdGroupRegistrationsAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.SmartCards.SmartCardAppletIdGroupRegistration]]: ...
     @winrt_commethod(7)
@@ -540,12 +540,12 @@ class ISmartCardEmulatorStatics2(ComPtr):
     MaxAppletIdGroupRegistrations = property(get_MaxAppletIdGroupRegistrations, None)
 class ISmartCardEmulatorStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('59ea142a-9f09-43f5-85-65-cf-a8-14-8e-4c-b2')
+    _iid_ = Guid('59ea142a-9f09-43f5-85-65-cf-a8-14-8e-4c-b2')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
 class ISmartCardPinPolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('183ce184-4db6-4841-ac-9e-2a-c1-f3-9b-73-04')
+    _iid_ = Guid('183ce184-4db6-4841-ac-9e-2a-c1-f3-9b-73-04')
     @winrt_commethod(6)
     def get_MinLength(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -578,12 +578,12 @@ class ISmartCardPinPolicy(ComPtr):
     SpecialCharacters = property(get_SpecialCharacters, put_SpecialCharacters)
 class ISmartCardPinResetDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('18c94aac-7805-4004-85-e4-bb-ef-ac-8f-68-84')
+    _iid_ = Guid('18c94aac-7805-4004-85-e4-bb-ef-ac-8f-68-84')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class ISmartCardPinResetRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('12fe3c4d-5fb9-4e8e-9f-f6-61-f4-75-12-4f-ef')
+    _iid_ = Guid('12fe3c4d-5fb9-4e8e-9f-f6-61-f4-75-12-4f-ef')
     @winrt_commethod(6)
     def get_Challenge(self) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(7)
@@ -596,7 +596,7 @@ class ISmartCardPinResetRequest(ComPtr):
     Deadline = property(get_Deadline, None)
 class ISmartCardProvisioning(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('19eeedbd-1fab-477c-b7-12-1a-2c-5a-f1-fd-6e')
+    _iid_ = Guid('19eeedbd-1fab-477c-b7-12-1a-2c-5a-f1-fd-6e')
     @winrt_commethod(6)
     def get_SmartCard(self) -> Windows.Devices.SmartCards.SmartCard: ...
     @winrt_commethod(7)
@@ -612,12 +612,12 @@ class ISmartCardProvisioning(ComPtr):
     SmartCard = property(get_SmartCard, None)
 class ISmartCardProvisioning2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('10fd28eb-3f79-4b66-9b-7c-11-c1-49-b7-d0-bc')
+    _iid_ = Guid('10fd28eb-3f79-4b66-9b-7c-11-c1-49-b7-d0-bc')
     @winrt_commethod(6)
     def GetAuthorityKeyContainerNameAsync(self) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
 class ISmartCardProvisioningStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('13882848-0d13-4e70-97-35-51-da-ec-a5-25-4f')
+    _iid_ = Guid('13882848-0d13-4e70-97-35-51-da-ec-a5-25-4f')
     @winrt_commethod(6)
     def FromSmartCardAsync(self, card: Windows.Devices.SmartCards.SmartCard) -> Windows.Foundation.IAsyncOperation[Windows.Devices.SmartCards.SmartCardProvisioning]: ...
     @winrt_commethod(7)
@@ -628,14 +628,14 @@ class ISmartCardProvisioningStatics(ComPtr):
     def RequestVirtualSmartCardDeletionAsync(self, card: Windows.Devices.SmartCards.SmartCard) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class ISmartCardProvisioningStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3447c6a8-c9a0-4bd6-b5-0d-25-1f-4e-8d-3a-62')
+    _iid_ = Guid('3447c6a8-c9a0-4bd6-b5-0d-25-1f-4e-8d-3a-62')
     @winrt_commethod(6)
     def RequestAttestedVirtualSmartCardCreationAsync(self, friendlyName: WinRT_String, administrativeKey: Windows.Storage.Streams.IBuffer, pinPolicy: Windows.Devices.SmartCards.SmartCardPinPolicy) -> Windows.Foundation.IAsyncOperation[Windows.Devices.SmartCards.SmartCardProvisioning]: ...
     @winrt_commethod(7)
     def RequestAttestedVirtualSmartCardCreationAsyncWithCardId(self, friendlyName: WinRT_String, administrativeKey: Windows.Storage.Streams.IBuffer, pinPolicy: Windows.Devices.SmartCards.SmartCardPinPolicy, cardId: Guid) -> Windows.Foundation.IAsyncOperation[Windows.Devices.SmartCards.SmartCardProvisioning]: ...
 class ISmartCardReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1074b4e0-54c2-4df0-81-7a-14-c1-43-78-f0-6c')
+    _iid_ = Guid('1074b4e0-54c2-4df0-81-7a-14-c1-43-78-f0-6c')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -659,7 +659,7 @@ class ISmartCardReader(ComPtr):
     Kind = property(get_Kind, None)
 class ISmartCardReaderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('103c04e1-a1ca-48f2-a2-81-5b-6f-66-9a-f1-07')
+    _iid_ = Guid('103c04e1-a1ca-48f2-a2-81-5b-6f-66-9a-f1-07')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -668,7 +668,7 @@ class ISmartCardReaderStatics(ComPtr):
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.SmartCards.SmartCardReader]: ...
 class ISmartCardTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5f9bf11e-39ef-4f2b-b4-4f-0a-91-55-b1-77-bc')
+    _iid_ = Guid('5f9bf11e-39ef-4f2b-b4-4f-0a-91-55-b1-77-bc')
     @winrt_commethod(6)
     def get_TriggerType(self) -> Windows.Devices.SmartCards.SmartCardTriggerType: ...
     @winrt_commethod(7)
@@ -680,7 +680,7 @@ class ISmartCardTriggerDetails(ComPtr):
     TriggerData = property(get_TriggerData, None)
 class ISmartCardTriggerDetails2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2945c569-8975-4a51-9e-1a-5f-8a-76-ee-51-af')
+    _iid_ = Guid('2945c569-8975-4a51-9e-1a-5f-8a-76-ee-51-af')
     @winrt_commethod(6)
     def get_Emulator(self) -> Windows.Devices.SmartCards.SmartCardEmulator: ...
     @winrt_commethod(7)
@@ -690,7 +690,7 @@ class ISmartCardTriggerDetails2(ComPtr):
     Emulator = property(get_Emulator, None)
 class ISmartCardTriggerDetails3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b3e2c27d-18c6-4ba8-83-76-ef-03-d4-91-26-66')
+    _iid_ = Guid('b3e2c27d-18c6-4ba8-83-76-ef-03-d4-91-26-66')
     @winrt_commethod(6)
     def get_SmartCard(self) -> Windows.Devices.SmartCards.SmartCard: ...
     SmartCard = property(get_SmartCard, None)
@@ -1295,7 +1295,7 @@ class SmartCardPinResetDeferral(ComPtr):
     def Complete(self: Windows.Devices.SmartCards.ISmartCardPinResetDeferral) -> Void: ...
 class SmartCardPinResetHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('138d5e40-f3bc-4a5c-b4-1d-4b-4e-f6-84-e2-37')
+    _iid_ = Guid('138d5e40-f3bc-4a5c-b4-1d-4b-4e-f6-84-e2-37')
     ClassId = 'Windows.Devices.SmartCards.SmartCardPinResetHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Devices.SmartCards.SmartCardProvisioning, request: Windows.Devices.SmartCards.SmartCardPinResetRequest) -> Void: ...

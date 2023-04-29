@@ -28,7 +28,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IWiFiDirectService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('50aabbb8-5f71-45ec-84-f1-a1-e4-fc-78-79-a3')
+    _iid_ = Guid('50aabbb8-5f71-45ec-84-f1-a1-e4-fc-78-79-a3')
     @winrt_commethod(6)
     def get_RemoteServiceInfo(self) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(7)
@@ -60,7 +60,7 @@ class IWiFiDirectService(ComPtr):
     ServiceError = property(get_ServiceError, None)
 class IWiFiDirectServiceAdvertiser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a4aa1ee1-9d8f-4f4f-93-ee-7d-de-a2-e3-7f-46')
+    _iid_ = Guid('a4aa1ee1-9d8f-4f4f-93-ee-7d-de-a2-e3-7f-46')
     @winrt_commethod(6)
     def get_ServiceName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -128,12 +128,12 @@ class IWiFiDirectServiceAdvertiser(ComPtr):
     ServiceError = property(get_ServiceError, None)
 class IWiFiDirectServiceAdvertiserFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3106ac0d-b446-4f13-9f-9a-8a-e9-25-fe-ba-2b')
+    _iid_ = Guid('3106ac0d-b446-4f13-9f-9a-8a-e9-25-fe-ba-2b')
     @winrt_commethod(6)
     def CreateWiFiDirectServiceAdvertiser(self, serviceName: WinRT_String) -> Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser: ...
 class IWiFiDirectServiceAutoAcceptSessionConnectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('dcd9e01e-83df-43e5-8f-43-cb-e8-47-9e-84-eb')
+    _iid_ = Guid('dcd9e01e-83df-43e5-8f-43-cb-e8-47-9e-84-eb')
     @winrt_commethod(6)
     def get_Session(self) -> Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSession: ...
     @winrt_commethod(7)
@@ -142,7 +142,7 @@ class IWiFiDirectServiceAutoAcceptSessionConnectedEventArgs(ComPtr):
     SessionInfo = property(get_SessionInfo, None)
 class IWiFiDirectServiceProvisioningInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8bdb7cfe-97d9-45a2-8e-99-db-50-91-0f-b6-a6')
+    _iid_ = Guid('8bdb7cfe-97d9-45a2-8e-99-db-50-91-0f-b6-a6')
     @winrt_commethod(6)
     def get_SelectedConfigurationMethod(self) -> Windows.Devices.WiFiDirect.Services.WiFiDirectServiceConfigurationMethod: ...
     @winrt_commethod(7)
@@ -151,7 +151,7 @@ class IWiFiDirectServiceProvisioningInfo(ComPtr):
     IsGroupFormationNeeded = property(get_IsGroupFormationNeeded, None)
 class IWiFiDirectServiceRemotePortAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d4cebac1-3fd3-4f0e-b7-bd-78-29-06-f4-44-11')
+    _iid_ = Guid('d4cebac1-3fd3-4f0e-b7-bd-78-29-06-f4-44-11')
     @winrt_commethod(6)
     def get_EndpointPairs(self) -> Windows.Foundation.Collections.IVectorView[Windows.Networking.EndpointPair]: ...
     @winrt_commethod(7)
@@ -160,7 +160,7 @@ class IWiFiDirectServiceRemotePortAddedEventArgs(ComPtr):
     Protocol = property(get_Protocol, None)
 class IWiFiDirectServiceSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('81142163-e426-47cb-86-40-e1-b3-58-8b-f2-6f')
+    _iid_ = Guid('81142163-e426-47cb-86-40-e1-b3-58-8b-f2-6f')
     @winrt_commethod(6)
     def get_ServiceName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -198,13 +198,13 @@ class IWiFiDirectServiceSession(ComPtr):
     SessionAddress = property(get_SessionAddress, None)
 class IWiFiDirectServiceSessionDeferredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8dfc197f-1201-4f1f-b6-f4-5d-f1-b7-b9-fb-2e')
+    _iid_ = Guid('8dfc197f-1201-4f1f-b6-f4-5d-f1-b7-b9-fb-2e')
     @winrt_commethod(6)
     def get_DeferredSessionInfo(self) -> Windows.Storage.Streams.IBuffer: ...
     DeferredSessionInfo = property(get_DeferredSessionInfo, None)
 class IWiFiDirectServiceSessionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a0e27c8b-50cb-4a58-9b-cf-e4-72-b9-9f-ba-04')
+    _iid_ = Guid('a0e27c8b-50cb-4a58-9b-cf-e4-72-b9-9f-ba-04')
     @winrt_commethod(6)
     def get_DeviceInformation(self) -> Windows.Devices.Enumeration.DeviceInformation: ...
     @winrt_commethod(7)
@@ -216,12 +216,12 @@ class IWiFiDirectServiceSessionRequest(ComPtr):
     SessionInfo = property(get_SessionInfo, None)
 class IWiFiDirectServiceSessionRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('74bdcc11-53d6-4999-b4-f8-6c-8e-cc-17-71-e7')
+    _iid_ = Guid('74bdcc11-53d6-4999-b4-f8-6c-8e-cc-17-71-e7')
     @winrt_commethod(6)
     def GetSessionRequest(self) -> Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSessionRequest: ...
 class IWiFiDirectServiceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7db40045-fd74-4688-b7-25-5d-ce-86-ac-f2-33')
+    _iid_ = Guid('7db40045-fd74-4688-b7-25-5d-ce-86-ac-f2-33')
     @winrt_commethod(6)
     def GetSelector(self, serviceName: WinRT_String) -> WinRT_String: ...
     @winrt_commethod(7)

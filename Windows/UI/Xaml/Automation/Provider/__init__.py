@@ -27,7 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IAnnotationProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('95ba1417-4437-451b-94-61-05-0a-49-b5-9d-06')
+    _iid_ = Guid('95ba1417-4437-451b-94-61-05-0a-49-b5-9d-06')
     @winrt_commethod(6)
     def get_AnnotationTypeId(self) -> Int32: ...
     @winrt_commethod(7)
@@ -45,12 +45,12 @@ class IAnnotationProvider(ComPtr):
     Target = property(get_Target, None)
 class ICustomNavigationProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2bd8a6d0-2fa3-4717-b2-8c-49-17-ce-54-92-8d')
+    _iid_ = Guid('2bd8a6d0-2fa3-4717-b2-8c-49-17-ce-54-92-8d')
     @winrt_commethod(6)
     def NavigateCustom(self, direction: Windows.UI.Xaml.Automation.Peers.AutomationNavigationDirection) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class IDockProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('48c243f8-78b1-44a0-ac-5f-75-07-57-bc-de-3c')
+    _iid_ = Guid('48c243f8-78b1-44a0-ac-5f-75-07-57-bc-de-3c')
     @winrt_commethod(6)
     def get_DockPosition(self) -> Windows.UI.Xaml.Automation.DockPosition: ...
     @winrt_commethod(7)
@@ -58,7 +58,7 @@ class IDockProvider(ComPtr):
     DockPosition = property(get_DockPosition, None)
 class IDragProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2e7786a9-7ffc-4f57-b9-65-1e-f1-f3-73-f5-46')
+    _iid_ = Guid('2e7786a9-7ffc-4f57-b9-65-1e-f1-f3-73-f5-46')
     @winrt_commethod(6)
     def get_IsGrabbed(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -72,7 +72,7 @@ class IDragProvider(ComPtr):
     DropEffects = property(get_DropEffects, None)
 class IDropTargetProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7a245bdd-b458-4fe0-98-c8-aa-c8-9d-f5-6d-61')
+    _iid_ = Guid('7a245bdd-b458-4fe0-98-c8-aa-c8-9d-f5-6d-61')
     @winrt_commethod(6)
     def get_DropEffect(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -81,7 +81,7 @@ class IDropTargetProvider(ComPtr):
     DropEffects = property(get_DropEffects, None)
 class IExpandCollapseProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('49ac8399-d626-4543-94-b9-a6-d9-a9-59-3a-f6')
+    _iid_ = Guid('49ac8399-d626-4543-94-b9-a6-d9-a9-59-3a-f6')
     @winrt_commethod(6)
     def get_ExpandCollapseState(self) -> Windows.UI.Xaml.Automation.ExpandCollapseState: ...
     @winrt_commethod(7)
@@ -91,7 +91,7 @@ class IExpandCollapseProvider(ComPtr):
     ExpandCollapseState = property(get_ExpandCollapseState, None)
 class IGridItemProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fff3683c-7407-45bb-a9-36-df-3e-d6-d3-83-7d')
+    _iid_ = Guid('fff3683c-7407-45bb-a9-36-df-3e-d6-d3-83-7d')
     @winrt_commethod(6)
     def get_Column(self) -> Int32: ...
     @winrt_commethod(7)
@@ -109,7 +109,7 @@ class IGridItemProvider(ComPtr):
     RowSpan = property(get_RowSpan, None)
 class IGridProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8b62b7a0-932c-4490-9a-13-02-fd-b3-9a-8f-5b')
+    _iid_ = Guid('8b62b7a0-932c-4490-9a-13-02-fd-b3-9a-8f-5b')
     @winrt_commethod(6)
     def get_ColumnCount(self) -> Int32: ...
     @winrt_commethod(7)
@@ -120,20 +120,20 @@ class IGridProvider(ComPtr):
     RowCount = property(get_RowCount, None)
 class IIRawElementProviderSimple(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ec752224-9b77-4720-bb-21-4a-c8-9f-db-1a-fd')
+    _iid_ = Guid('ec752224-9b77-4720-bb-21-4a-c8-9f-db-1a-fd')
 class IInvokeProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f7d1a187-b13c-4540-b0-9e-67-78-e2-dc-9b-a5')
+    _iid_ = Guid('f7d1a187-b13c-4540-b0-9e-67-78-e2-dc-9b-a5')
     @winrt_commethod(6)
     def Invoke(self) -> Void: ...
 class IItemContainerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ef5cd845-e1d4-40f4-ba-d5-c7-fa-d4-4a-70-3e')
+    _iid_ = Guid('ef5cd845-e1d4-40f4-ba-d5-c7-fa-d4-4a-70-3e')
     @winrt_commethod(6)
     def FindItemByProperty(self, startAfter: Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple, automationProperty: Windows.UI.Xaml.Automation.AutomationProperty, value: Windows.Win32.System.WinRT.IInspectable_head) -> Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple: ...
 class IMultipleViewProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d014e196-0e50-4843-a5-d2-c2-28-97-c8-84-5a')
+    _iid_ = Guid('d014e196-0e50-4843-a5-d2-c2-28-97-c8-84-5a')
     @winrt_commethod(6)
     def get_CurrentView(self) -> Int32: ...
     @winrt_commethod(7)
@@ -145,12 +145,12 @@ class IMultipleViewProvider(ComPtr):
     CurrentView = property(get_CurrentView, None)
 class IObjectModelProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c3ca36b9-0793-4ed0-bb-f4-9f-f4-e0-f9-8f-80')
+    _iid_ = Guid('c3ca36b9-0793-4ed0-bb-f4-9f-f4-e0-f9-8f-80')
     @winrt_commethod(6)
     def GetUnderlyingObjectModel(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class IRangeValueProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('838a34a8-7d5f-4079-af-03-c3-d0-15-e9-34-13')
+    _iid_ = Guid('838a34a8-7d5f-4079-af-03-c3-d0-15-e9-34-13')
     @winrt_commethod(6)
     def get_IsReadOnly(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -176,12 +176,12 @@ class IRawElementProviderSimple(ComPtr):
     ClassId = 'Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple'
 class IScrollItemProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9a3ec090-5d2c-4e42-9e-e6-9d-58-db-10-0b-55')
+    _iid_ = Guid('9a3ec090-5d2c-4e42-9e-e6-9d-58-db-10-0b-55')
     @winrt_commethod(6)
     def ScrollIntoView(self) -> Void: ...
 class IScrollProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('374bf581-7716-4bbc-82-eb-d9-97-00-6e-a9-99')
+    _iid_ = Guid('374bf581-7716-4bbc-82-eb-d9-97-00-6e-a9-99')
     @winrt_commethod(6)
     def get_HorizontallyScrollable(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -206,7 +206,7 @@ class IScrollProvider(ComPtr):
     VerticalViewSize = property(get_VerticalViewSize, None)
 class ISelectionItemProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6a4977c1-830d-42d2-bf-62-04-2e-bd-de-cc-19')
+    _iid_ = Guid('6a4977c1-830d-42d2-bf-62-04-2e-bd-de-cc-19')
     @winrt_commethod(6)
     def get_IsSelected(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -221,7 +221,7 @@ class ISelectionItemProvider(ComPtr):
     SelectionContainer = property(get_SelectionContainer, None)
 class ISelectionProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1f018fca-b944-4395-8d-e1-88-f6-74-af-51-d3')
+    _iid_ = Guid('1f018fca-b944-4395-8d-e1-88-f6-74-af-51-d3')
     @winrt_commethod(6)
     def get_CanSelectMultiple(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -232,7 +232,7 @@ class ISelectionProvider(ComPtr):
     IsSelectionRequired = property(get_IsSelectionRequired, None)
 class ISpreadsheetItemProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ebde8f92-6015-4826-b7-19-47-52-1a-81-c6-7e')
+    _iid_ = Guid('ebde8f92-6015-4826-b7-19-47-52-1a-81-c6-7e')
     @winrt_commethod(6)
     def get_Formula(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -242,12 +242,12 @@ class ISpreadsheetItemProvider(ComPtr):
     Formula = property(get_Formula, None)
 class ISpreadsheetProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('15359093-bd99-4cfd-9f-07-3b-14-b3-15-e2-3d')
+    _iid_ = Guid('15359093-bd99-4cfd-9f-07-3b-14-b3-15-e2-3d')
     @winrt_commethod(6)
     def GetItemByName(self, name: WinRT_String) -> Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple: ...
 class IStylesProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1a5b7a17-7c01-4bec-9c-d4-2d-fa-7d-c2-46-cd')
+    _iid_ = Guid('1a5b7a17-7c01-4bec-9c-d4-2d-fa-7d-c2-46-cd')
     @winrt_commethod(6)
     def get_ExtendedProperties(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -271,21 +271,21 @@ class IStylesProvider(ComPtr):
     StyleName = property(get_StyleName, None)
 class ISynchronizedInputProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3d60cecb-da54-4aa3-b9-15-e3-24-44-27-d4-ac')
+    _iid_ = Guid('3d60cecb-da54-4aa3-b9-15-e3-24-44-27-d4-ac')
     @winrt_commethod(6)
     def Cancel(self) -> Void: ...
     @winrt_commethod(7)
     def StartListening(self, inputType: Windows.UI.Xaml.Automation.SynchronizedInputType) -> Void: ...
 class ITableItemProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3b2c49cd-1de2-4ee2-a3-e1-fb-55-35-59-d1-5d')
+    _iid_ = Guid('3b2c49cd-1de2-4ee2-a3-e1-fb-55-35-59-d1-5d')
     @winrt_commethod(6)
     def GetColumnHeaderItems(self) -> POINTER(Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple): ...
     @winrt_commethod(7)
     def GetRowHeaderItems(self) -> POINTER(Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple): ...
 class ITableProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7a8ed399-6824-4595-ba-b3-46-4b-c9-a0-44-17')
+    _iid_ = Guid('7a8ed399-6824-4595-ba-b3-46-4b-c9-a0-44-17')
     @winrt_commethod(6)
     def get_RowOrColumnMajor(self) -> Windows.UI.Xaml.Automation.RowOrColumnMajor: ...
     @winrt_commethod(7)
@@ -295,7 +295,7 @@ class ITableProvider(ComPtr):
     RowOrColumnMajor = property(get_RowOrColumnMajor, None)
 class ITextChildProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1133c336-a89b-4130-9b-e6-55-e3-33-34-f5-57')
+    _iid_ = Guid('1133c336-a89b-4130-9b-e6-55-e3-33-34-f5-57')
     @winrt_commethod(6)
     def get_TextContainer(self) -> Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple: ...
     @winrt_commethod(7)
@@ -304,14 +304,14 @@ class ITextChildProvider(ComPtr):
     TextRange = property(get_TextRange, None)
 class ITextEditProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ea3605b4-3a05-400e-b5-f9-4e-91-b4-0f-61-76')
+    _iid_ = Guid('ea3605b4-3a05-400e-b5-f9-4e-91-b4-0f-61-76')
     @winrt_commethod(6)
     def GetActiveComposition(self) -> Windows.UI.Xaml.Automation.Provider.ITextRangeProvider: ...
     @winrt_commethod(7)
     def GetConversionTarget(self) -> Windows.UI.Xaml.Automation.Provider.ITextRangeProvider: ...
 class ITextProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('db5bbc9f-4807-4f2a-86-78-1b-13-f3-c6-0e-22')
+    _iid_ = Guid('db5bbc9f-4807-4f2a-86-78-1b-13-f3-c6-0e-22')
     @winrt_commethod(6)
     def get_DocumentRange(self) -> Windows.UI.Xaml.Automation.Provider.ITextRangeProvider: ...
     @winrt_commethod(7)
@@ -328,14 +328,14 @@ class ITextProvider(ComPtr):
     SupportedTextSelection = property(get_SupportedTextSelection, None)
 class ITextProvider2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('df1d48bc-0487-4e7f-9d-5e-f0-9e-77-e4-12-46')
+    _iid_ = Guid('df1d48bc-0487-4e7f-9d-5e-f0-9e-77-e4-12-46')
     @winrt_commethod(6)
     def RangeFromAnnotation(self, annotationElement: Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple) -> Windows.UI.Xaml.Automation.Provider.ITextRangeProvider: ...
     @winrt_commethod(7)
     def GetCaretRange(self, isActive: POINTER(Boolean)) -> Windows.UI.Xaml.Automation.Provider.ITextRangeProvider: ...
 class ITextRangeProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0274688d-06e9-4f66-94-46-28-a5-be-98-fb-d0')
+    _iid_ = Guid('0274688d-06e9-4f66-94-46-28-a5-be-98-fb-d0')
     @winrt_commethod(6)
     def Clone(self) -> Windows.UI.Xaml.Automation.Provider.ITextRangeProvider: ...
     @winrt_commethod(7)
@@ -374,12 +374,12 @@ class ITextRangeProvider(ComPtr):
     def GetChildren(self) -> POINTER(Windows.UI.Xaml.Automation.Provider.IRawElementProviderSimple): ...
 class ITextRangeProvider2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d3be3dfb-9f54-4642-a7-a5-5c-18-d5-ee-2a-3f')
+    _iid_ = Guid('d3be3dfb-9f54-4642-a7-a5-5c-18-d5-ee-2a-3f')
     @winrt_commethod(6)
     def ShowContextMenu(self) -> Void: ...
 class IToggleProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('93b88290-656f-44f7-ae-af-78-b8-f9-44-d0-62')
+    _iid_ = Guid('93b88290-656f-44f7-ae-af-78-b8-f9-44-d0-62')
     @winrt_commethod(6)
     def get_ToggleState(self) -> Windows.UI.Xaml.Automation.ToggleState: ...
     @winrt_commethod(7)
@@ -387,7 +387,7 @@ class IToggleProvider(ComPtr):
     ToggleState = property(get_ToggleState, None)
 class ITransformProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('79670fdd-f6a9-4a65-af-17-86-1d-b7-99-a2-da')
+    _iid_ = Guid('79670fdd-f6a9-4a65-af-17-86-1d-b7-99-a2-da')
     @winrt_commethod(6)
     def get_CanMove(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -405,7 +405,7 @@ class ITransformProvider(ComPtr):
     CanRotate = property(get_CanRotate, None)
 class ITransformProvider2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a8b11756-a39f-4e97-8c-7d-c1-ea-8d-d6-33-c5')
+    _iid_ = Guid('a8b11756-a39f-4e97-8c-7d-c1-ea-8d-d6-33-c5')
     @winrt_commethod(6)
     def get_CanZoom(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -424,7 +424,7 @@ class ITransformProvider2(ComPtr):
     MinZoom = property(get_MinZoom, None)
 class IValueProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2086b7a7-ac0e-47d1-ab-9b-2a-64-29-2a-fd-f8')
+    _iid_ = Guid('2086b7a7-ac0e-47d1-ab-9b-2a-64-29-2a-fd-f8')
     @winrt_commethod(6)
     def get_IsReadOnly(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -435,12 +435,12 @@ class IValueProvider(ComPtr):
     Value = property(get_Value, None)
 class IVirtualizedItemProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('17d4a04b-d658-48e0-a5-74-5a-51-6c-58-df-a7')
+    _iid_ = Guid('17d4a04b-d658-48e0-a5-74-5a-51-6c-58-df-a7')
     @winrt_commethod(6)
     def Realize(self) -> Void: ...
 class IWindowProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1baa8b3d-38cf-415a-85-d3-20-e4-3a-0e-c1-b1')
+    _iid_ = Guid('1baa8b3d-38cf-415a-85-d3-20-e4-3a-0e-c1-b1')
     @winrt_commethod(6)
     def get_IsModal(self) -> Boolean: ...
     @winrt_commethod(7)

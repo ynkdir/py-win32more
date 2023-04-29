@@ -660,7 +660,7 @@ class HumanPresenceSettings(ComPtr):
     IsAttentionAwareDimmingEnabled = property(get_IsAttentionAwareDimmingEnabled, put_IsAttentionAwareDimmingEnabled)
 class IAccelerometer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('df184548-2711-4da7-80-98-4b-82-20-5d-3c-7d')
+    _iid_ = Guid('df184548-2711-4da7-80-98-4b-82-20-5d-3c-7d')
     @winrt_commethod(6)
     def GetCurrentReading(self) -> Windows.Devices.Sensors.AccelerometerReading: ...
     @winrt_commethod(7)
@@ -681,7 +681,7 @@ class IAccelerometer(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
 class IAccelerometer2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e8f092ee-4964-401a-b6-02-22-0d-71-53-c6-0a')
+    _iid_ = Guid('e8f092ee-4964-401a-b6-02-22-0d-71-53-c6-0a')
     @winrt_commethod(6)
     def put_ReadingTransform(self, value: Windows.Graphics.Display.DisplayOrientations) -> Void: ...
     @winrt_commethod(7)
@@ -689,7 +689,7 @@ class IAccelerometer2(ComPtr):
     ReadingTransform = property(get_ReadingTransform, put_ReadingTransform)
 class IAccelerometer3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('87e0022a-ed80-49eb-bf-8a-a4-ea-31-e5-cd-84')
+    _iid_ = Guid('87e0022a-ed80-49eb-bf-8a-a4-ea-31-e5-cd-84')
     @winrt_commethod(6)
     def put_ReportLatency(self, value: UInt32) -> Void: ...
     @winrt_commethod(7)
@@ -700,19 +700,19 @@ class IAccelerometer3(ComPtr):
     MaxBatchSize = property(get_MaxBatchSize, None)
 class IAccelerometer4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1d373c4f-42d3-45b2-81-44-ab-7f-b6-65-eb-59')
+    _iid_ = Guid('1d373c4f-42d3-45b2-81-44-ab-7f-b6-65-eb-59')
     @winrt_commethod(6)
     def get_ReadingType(self) -> Windows.Devices.Sensors.AccelerometerReadingType: ...
     ReadingType = property(get_ReadingType, None)
 class IAccelerometer5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7e7e7021-def4-53a6-af-43-80-6f-d5-38-ed-f6')
+    _iid_ = Guid('7e7e7021-def4-53a6-af-43-80-6f-d5-38-ed-f6')
     @winrt_commethod(6)
     def get_ReportThreshold(self) -> Windows.Devices.Sensors.AccelerometerDataThreshold: ...
     ReportThreshold = property(get_ReportThreshold, None)
 class IAccelerometerDataThreshold(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f92c1b68-6320-5577-87-9e-99-42-62-1c-3d-d9')
+    _iid_ = Guid('f92c1b68-6320-5577-87-9e-99-42-62-1c-3d-d9')
     @winrt_commethod(6)
     def get_XAxisInGForce(self) -> Double: ...
     @winrt_commethod(7)
@@ -730,13 +730,13 @@ class IAccelerometerDataThreshold(ComPtr):
     ZAxisInGForce = property(get_ZAxisInGForce, put_ZAxisInGForce)
 class IAccelerometerDeviceId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7eac64a9-97d5-446d-ab-5a-91-7d-f9-b9-6a-2c')
+    _iid_ = Guid('7eac64a9-97d5-446d-ab-5a-91-7d-f9-b9-6a-2c')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
 class IAccelerometerReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b9fe7acb-d351-40af-8b-b6-7a-a9-ae-64-1f-b7')
+    _iid_ = Guid('b9fe7acb-d351-40af-8b-b6-7a-a9-ae-64-1f-b7')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -751,7 +751,7 @@ class IAccelerometerReading(ComPtr):
     AccelerationZ = property(get_AccelerationZ, None)
 class IAccelerometerReading2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0a864aa2-15ae-4a40-be-55-db-58-d7-de-73-89')
+    _iid_ = Guid('0a864aa2-15ae-4a40-be-55-db-58-d7-de-73-89')
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
@@ -760,36 +760,36 @@ class IAccelerometerReading2(ComPtr):
     Properties = property(get_Properties, None)
 class IAccelerometerReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0095c65b-b6ac-475a-9f-44-8b-32-d3-5a-3f-25')
+    _iid_ = Guid('0095c65b-b6ac-475a-9f-44-8b-32-d3-5a-3f-25')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.AccelerometerReading: ...
     Reading = property(get_Reading, None)
 class IAccelerometerShakenEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('95ff01d1-4a28-4f35-98-e8-81-78-aa-e4-08-4a')
+    _iid_ = Guid('95ff01d1-4a28-4f35-98-e8-81-78-aa-e4-08-4a')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     Timestamp = property(get_Timestamp, None)
 class IAccelerometerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a5e28b74-5a87-4a2d-be-cc-0f-90-6e-a0-61-dd')
+    _iid_ = Guid('a5e28b74-5a87-4a2d-be-cc-0f-90-6e-a0-61-dd')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Devices.Sensors.Accelerometer: ...
 class IAccelerometerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c4c4842f-d86b-4685-b2-d7-33-96-f7-98-d5-7b')
+    _iid_ = Guid('c4c4842f-d86b-4685-b2-d7-33-96-f7-98-d5-7b')
     @winrt_commethod(6)
     def GetDefaultWithAccelerometerReadingType(self, readingType: Windows.Devices.Sensors.AccelerometerReadingType) -> Windows.Devices.Sensors.Accelerometer: ...
 class IAccelerometerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9de218cf-455d-4cf3-82-00-70-e1-41-03-40-f8')
+    _iid_ = Guid('9de218cf-455d-4cf3-82-00-70-e1-41-03-40-f8')
     @winrt_commethod(6)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Sensors.Accelerometer]: ...
     @winrt_commethod(7)
     def GetDeviceSelector(self, readingType: Windows.Devices.Sensors.AccelerometerReadingType) -> WinRT_String: ...
 class IActivitySensor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cd7a630c-fb5f-48eb-b0-9b-a2-70-8d-1c-61-ef')
+    _iid_ = Guid('cd7a630c-fb5f-48eb-b0-9b-a2-70-8d-1c-61-ef')
     @winrt_commethod(6)
     def GetCurrentReadingAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Sensors.ActivitySensorReading]: ...
     @winrt_commethod(7)
@@ -813,7 +813,7 @@ class IActivitySensor(ComPtr):
     MinimumReportInterval = property(get_MinimumReportInterval, None)
 class IActivitySensorReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('85125a96-1472-40a2-b2-ae-e1-ef-29-22-6c-78')
+    _iid_ = Guid('85125a96-1472-40a2-b2-ae-e1-ef-29-22-6c-78')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -825,19 +825,19 @@ class IActivitySensorReading(ComPtr):
     Confidence = property(get_Confidence, None)
 class IActivitySensorReadingChangeReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4f3c2915-d93b-47bd-96-0a-f2-0f-b2-f3-22-b9')
+    _iid_ = Guid('4f3c2915-d93b-47bd-96-0a-f2-0f-b2-f3-22-b9')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.ActivitySensorReading: ...
     Reading = property(get_Reading, None)
 class IActivitySensorReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('de386717-aeb6-4ec7-94-6a-d9-cc-19-b9-51-ec')
+    _iid_ = Guid('de386717-aeb6-4ec7-94-6a-d9-cc-19-b9-51-ec')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.ActivitySensorReading: ...
     Reading = property(get_Reading, None)
 class IActivitySensorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a71e0e9d-ee8b-45d1-b2-5b-08-cc-0d-f9-2a-b6')
+    _iid_ = Guid('a71e0e9d-ee8b-45d1-b2-5b-08-cc-0d-f9-2a-b6')
     @winrt_commethod(6)
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Sensors.ActivitySensor]: ...
     @winrt_commethod(7)
@@ -850,12 +850,12 @@ class IActivitySensorStatics(ComPtr):
     def GetSystemHistoryWithDurationAsync(self, fromTime: Windows.Foundation.DateTime, duration: Windows.Foundation.TimeSpan) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.Sensors.ActivitySensorReading]]: ...
 class IActivitySensorTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2c9e6612-b9ca-4677-b2-63-24-32-97-f7-9d-3a')
+    _iid_ = Guid('2c9e6612-b9ca-4677-b2-63-24-32-97-f7-9d-3a')
     @winrt_commethod(6)
     def ReadReports(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Sensors.ActivitySensorReadingChangeReport]: ...
 class IAltimeter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('72f057fd-8f04-49f1-b4-a7-f4-e3-63-b7-01-a2')
+    _iid_ = Guid('72f057fd-8f04-49f1-b4-a7-f4-e3-63-b7-01-a2')
     @winrt_commethod(6)
     def GetCurrentReading(self) -> Windows.Devices.Sensors.AltimeterReading: ...
     @winrt_commethod(7)
@@ -875,7 +875,7 @@ class IAltimeter(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
 class IAltimeter2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c9471bf9-2add-48f5-9f-08-3d-0c-76-60-d9-38')
+    _iid_ = Guid('c9471bf9-2add-48f5-9f-08-3d-0c-76-60-d9-38')
     @winrt_commethod(6)
     def put_ReportLatency(self, value: UInt32) -> Void: ...
     @winrt_commethod(7)
@@ -886,7 +886,7 @@ class IAltimeter2(ComPtr):
     MaxBatchSize = property(get_MaxBatchSize, None)
 class IAltimeterReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fbe8ef73-7f5e-48c8-aa-1a-f1-f3-be-fc-11-44')
+    _iid_ = Guid('fbe8ef73-7f5e-48c8-aa-1a-f1-f3-be-fc-11-44')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -895,7 +895,7 @@ class IAltimeterReading(ComPtr):
     AltitudeChangeInMeters = property(get_AltitudeChangeInMeters, None)
 class IAltimeterReading2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('543a1bd9-6d0b-42b2-bd-69-bc-8f-ae-0f-78-2c')
+    _iid_ = Guid('543a1bd9-6d0b-42b2-bd-69-bc-8f-ae-0f-78-2c')
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
@@ -904,18 +904,18 @@ class IAltimeterReading2(ComPtr):
     Properties = property(get_Properties, None)
 class IAltimeterReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7069d077-446d-47f7-99-8c-eb-c2-3b-45-e4-a2')
+    _iid_ = Guid('7069d077-446d-47f7-99-8c-eb-c2-3b-45-e4-a2')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.AltimeterReading: ...
     Reading = property(get_Reading, None)
 class IAltimeterStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9eb4d7c3-e5ac-47ce-8e-ef-d3-71-81-68-c0-1f')
+    _iid_ = Guid('9eb4d7c3-e5ac-47ce-8e-ef-d3-71-81-68-c0-1f')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Devices.Sensors.Altimeter: ...
 class IBarometer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('934475a8-78bf-452f-b0-17-f0-20-9c-e6-da-b4')
+    _iid_ = Guid('934475a8-78bf-452f-b0-17-f0-20-9c-e6-da-b4')
     @winrt_commethod(6)
     def GetCurrentReading(self) -> Windows.Devices.Sensors.BarometerReading: ...
     @winrt_commethod(7)
@@ -935,7 +935,7 @@ class IBarometer(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
 class IBarometer2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('32bcc418-3eeb-4d04-95-74-76-33-a8-78-1f-9f')
+    _iid_ = Guid('32bcc418-3eeb-4d04-95-74-76-33-a8-78-1f-9f')
     @winrt_commethod(6)
     def put_ReportLatency(self, value: UInt32) -> Void: ...
     @winrt_commethod(7)
@@ -946,13 +946,13 @@ class IBarometer2(ComPtr):
     MaxBatchSize = property(get_MaxBatchSize, None)
 class IBarometer3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0e35f0ea-02b5-5a04-b0-3d-82-20-84-86-3a-54')
+    _iid_ = Guid('0e35f0ea-02b5-5a04-b0-3d-82-20-84-86-3a-54')
     @winrt_commethod(6)
     def get_ReportThreshold(self) -> Windows.Devices.Sensors.BarometerDataThreshold: ...
     ReportThreshold = property(get_ReportThreshold, None)
 class IBarometerDataThreshold(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('076b952c-cb62-5a90-a0-d1-f8-5e-4a-93-63-94')
+    _iid_ = Guid('076b952c-cb62-5a90-a0-d1-f8-5e-4a-93-63-94')
     @winrt_commethod(6)
     def get_Hectopascals(self) -> Double: ...
     @winrt_commethod(7)
@@ -960,7 +960,7 @@ class IBarometerDataThreshold(ComPtr):
     Hectopascals = property(get_Hectopascals, put_Hectopascals)
 class IBarometerReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f5b9d2e6-1df6-4a1a-a7-ad-32-1d-4f-5d-b2-47')
+    _iid_ = Guid('f5b9d2e6-1df6-4a1a-a7-ad-32-1d-4f-5d-b2-47')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -969,7 +969,7 @@ class IBarometerReading(ComPtr):
     StationPressureInHectopascals = property(get_StationPressureInHectopascals, None)
 class IBarometerReading2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('85a244eb-90c5-4875-89-1c-38-65-b4-c3-57-e7')
+    _iid_ = Guid('85a244eb-90c5-4875-89-1c-38-65-b4-c3-57-e7')
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
@@ -978,25 +978,25 @@ class IBarometerReading2(ComPtr):
     Properties = property(get_Properties, None)
 class IBarometerReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3d84945f-037b-404f-9b-bb-62-32-d6-95-43-c3')
+    _iid_ = Guid('3d84945f-037b-404f-9b-bb-62-32-d6-95-43-c3')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.BarometerReading: ...
     Reading = property(get_Reading, None)
 class IBarometerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('286b270a-02e3-4f86-84-fc-fd-d8-92-b5-94-0f')
+    _iid_ = Guid('286b270a-02e3-4f86-84-fc-fd-d8-92-b5-94-0f')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Devices.Sensors.Barometer: ...
 class IBarometerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8fc6b1e7-95ff-44ac-87-8e-d6-5c-83-08-c3-4c')
+    _iid_ = Guid('8fc6b1e7-95ff-44ac-87-8e-d6-5c-83-08-c3-4c')
     @winrt_commethod(6)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Sensors.Barometer]: ...
     @winrt_commethod(7)
     def GetDeviceSelector(self) -> WinRT_String: ...
 class ICompass(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('292ffa94-1b45-403c-ba-06-b1-06-db-a6-9a-64')
+    _iid_ = Guid('292ffa94-1b45-403c-ba-06-b1-06-db-a6-9a-64')
     @winrt_commethod(6)
     def GetCurrentReading(self) -> Windows.Devices.Sensors.CompassReading: ...
     @winrt_commethod(7)
@@ -1013,7 +1013,7 @@ class ICompass(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
 class ICompass2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('36f26d09-c7d7-434f-b4-61-97-9d-df-c2-32-2f')
+    _iid_ = Guid('36f26d09-c7d7-434f-b4-61-97-9d-df-c2-32-2f')
     @winrt_commethod(6)
     def put_ReadingTransform(self, value: Windows.Graphics.Display.DisplayOrientations) -> Void: ...
     @winrt_commethod(7)
@@ -1021,7 +1021,7 @@ class ICompass2(ComPtr):
     ReadingTransform = property(get_ReadingTransform, put_ReadingTransform)
 class ICompass3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a424801b-c5ea-4d45-a0-ec-4b-79-1f-04-1a-89')
+    _iid_ = Guid('a424801b-c5ea-4d45-a0-ec-4b-79-1f-04-1a-89')
     @winrt_commethod(6)
     def put_ReportLatency(self, value: UInt32) -> Void: ...
     @winrt_commethod(7)
@@ -1032,13 +1032,13 @@ class ICompass3(ComPtr):
     MaxBatchSize = property(get_MaxBatchSize, None)
 class ICompass4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('291e7f11-ec32-5dcc-bf-cb-0b-b3-9e-ba-57-74')
+    _iid_ = Guid('291e7f11-ec32-5dcc-bf-cb-0b-b3-9e-ba-57-74')
     @winrt_commethod(6)
     def get_ReportThreshold(self) -> Windows.Devices.Sensors.CompassDataThreshold: ...
     ReportThreshold = property(get_ReportThreshold, None)
 class ICompassDataThreshold(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d15b52b3-d39d-5ec8-b2-e4-f1-93-e6-ab-34-ed')
+    _iid_ = Guid('d15b52b3-d39d-5ec8-b2-e4-f1-93-e6-ab-34-ed')
     @winrt_commethod(6)
     def get_Degrees(self) -> Double: ...
     @winrt_commethod(7)
@@ -1046,13 +1046,13 @@ class ICompassDataThreshold(ComPtr):
     Degrees = property(get_Degrees, put_Degrees)
 class ICompassDeviceId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d181ca29-b085-4b1d-87-0a-4f-f5-7b-a7-4f-d4')
+    _iid_ = Guid('d181ca29-b085-4b1d-87-0a-4f-f5-7b-a7-4f-d4')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
 class ICompassReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('82911128-513d-4dc9-b7-81-5e-ed-fb-f0-2d-0c')
+    _iid_ = Guid('82911128-513d-4dc9-b7-81-5e-ed-fb-f0-2d-0c')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -1064,7 +1064,7 @@ class ICompassReading(ComPtr):
     HeadingTrueNorth = property(get_HeadingTrueNorth, None)
 class ICompassReading2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b13a661e-51bb-4a12-be-dd-ad-47-ff-87-d2-e8')
+    _iid_ = Guid('b13a661e-51bb-4a12-be-dd-ad-47-ff-87-d2-e8')
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
@@ -1073,31 +1073,31 @@ class ICompassReading2(ComPtr):
     Properties = property(get_Properties, None)
 class ICompassReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8f1549b0-e8bc-4c7e-b0-09-4e-41-df-13-70-72')
+    _iid_ = Guid('8f1549b0-e8bc-4c7e-b0-09-4e-41-df-13-70-72')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.CompassReading: ...
     Reading = property(get_Reading, None)
 class ICompassReadingHeadingAccuracy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e761354e-8911-40f7-9e-16-6e-cc-7d-ae-c5-de')
+    _iid_ = Guid('e761354e-8911-40f7-9e-16-6e-cc-7d-ae-c5-de')
     @winrt_commethod(6)
     def get_HeadingAccuracy(self) -> Windows.Devices.Sensors.MagnetometerAccuracy: ...
     HeadingAccuracy = property(get_HeadingAccuracy, None)
 class ICompassStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9abc97df-56ec-4c25-b5-4d-40-a6-8b-b5-b2-69')
+    _iid_ = Guid('9abc97df-56ec-4c25-b5-4d-40-a6-8b-b5-b2-69')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Devices.Sensors.Compass: ...
 class ICompassStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0ace0ead-3baa-4990-9c-e4-be-09-13-75-4e-d2')
+    _iid_ = Guid('0ace0ead-3baa-4990-9c-e4-be-09-13-75-4e-d2')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Sensors.Compass]: ...
 class IGyrometer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fdb9a9c4-84b1-4ca2-97-63-9b-58-95-06-c7-0c')
+    _iid_ = Guid('fdb9a9c4-84b1-4ca2-97-63-9b-58-95-06-c7-0c')
     @winrt_commethod(6)
     def GetCurrentReading(self) -> Windows.Devices.Sensors.GyrometerReading: ...
     @winrt_commethod(7)
@@ -1114,7 +1114,7 @@ class IGyrometer(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
 class IGyrometer2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('63df2443-8ce8-41c3-ac-44-86-98-81-0b-55-7f')
+    _iid_ = Guid('63df2443-8ce8-41c3-ac-44-86-98-81-0b-55-7f')
     @winrt_commethod(6)
     def put_ReadingTransform(self, value: Windows.Graphics.Display.DisplayOrientations) -> Void: ...
     @winrt_commethod(7)
@@ -1122,7 +1122,7 @@ class IGyrometer2(ComPtr):
     ReadingTransform = property(get_ReadingTransform, put_ReadingTransform)
 class IGyrometer3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5d6f88d5-8fbc-4484-91-4b-52-8a-df-d9-47-b1')
+    _iid_ = Guid('5d6f88d5-8fbc-4484-91-4b-52-8a-df-d9-47-b1')
     @winrt_commethod(6)
     def put_ReportLatency(self, value: UInt32) -> Void: ...
     @winrt_commethod(7)
@@ -1133,13 +1133,13 @@ class IGyrometer3(ComPtr):
     MaxBatchSize = property(get_MaxBatchSize, None)
 class IGyrometer4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0628a60c-4c4b-5096-94-e6-c3-56-df-68-be-f7')
+    _iid_ = Guid('0628a60c-4c4b-5096-94-e6-c3-56-df-68-be-f7')
     @winrt_commethod(6)
     def get_ReportThreshold(self) -> Windows.Devices.Sensors.GyrometerDataThreshold: ...
     ReportThreshold = property(get_ReportThreshold, None)
 class IGyrometerDataThreshold(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8648b31e-6e52-5259-bb-ad-24-2a-69-dc-38-c8')
+    _iid_ = Guid('8648b31e-6e52-5259-bb-ad-24-2a-69-dc-38-c8')
     @winrt_commethod(6)
     def get_XAxisInDegreesPerSecond(self) -> Double: ...
     @winrt_commethod(7)
@@ -1157,13 +1157,13 @@ class IGyrometerDataThreshold(ComPtr):
     ZAxisInDegreesPerSecond = property(get_ZAxisInDegreesPerSecond, put_ZAxisInDegreesPerSecond)
 class IGyrometerDeviceId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1ee5e978-89a2-4275-9e-95-71-26-f4-70-87-60')
+    _iid_ = Guid('1ee5e978-89a2-4275-9e-95-71-26-f4-70-87-60')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
 class IGyrometerReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b3d6de5c-1ee4-456f-9d-e7-e2-49-3b-5c-8e-03')
+    _iid_ = Guid('b3d6de5c-1ee4-456f-9d-e7-e2-49-3b-5c-8e-03')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -1178,7 +1178,7 @@ class IGyrometerReading(ComPtr):
     AngularVelocityZ = property(get_AngularVelocityZ, None)
 class IGyrometerReading2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('16afe13c-2b89-44bb-82-2b-d1-e1-55-6f-f0-9b')
+    _iid_ = Guid('16afe13c-2b89-44bb-82-2b-d1-e1-55-6f-f0-9b')
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
@@ -1187,25 +1187,25 @@ class IGyrometerReading2(ComPtr):
     Properties = property(get_Properties, None)
 class IGyrometerReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0fdf1895-6f9e-42ce-8d-58-38-8c-0a-b8-35-6d')
+    _iid_ = Guid('0fdf1895-6f9e-42ce-8d-58-38-8c-0a-b8-35-6d')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.GyrometerReading: ...
     Reading = property(get_Reading, None)
 class IGyrometerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('83b6e7c9-e49d-4b39-86-e6-cd-55-4b-e4-c5-c1')
+    _iid_ = Guid('83b6e7c9-e49d-4b39-86-e6-cd-55-4b-e4-c5-c1')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Devices.Sensors.Gyrometer: ...
 class IGyrometerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ef83f7a1-d700-4204-96-13-79-c6-b1-61-df-4e')
+    _iid_ = Guid('ef83f7a1-d700-4204-96-13-79-c6-b1-61-df-4e')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Sensors.Gyrometer]: ...
 class IHingeAngleReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a3cd45b9-1bf1-4f65-a7-04-e2-da-04-f1-82-c0')
+    _iid_ = Guid('a3cd45b9-1bf1-4f65-a7-04-e2-da-04-f1-82-c0')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -1217,7 +1217,7 @@ class IHingeAngleReading(ComPtr):
     Properties = property(get_Properties, None)
 class IHingeAngleSensor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e9d3be02-bfdf-437f-8c-29-88-c7-73-93-d3-09')
+    _iid_ = Guid('e9d3be02-bfdf-437f-8c-29-88-c7-73-93-d3-09')
     @winrt_commethod(6)
     def GetCurrentReadingAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Sensors.HingeAngleReading]: ...
     @winrt_commethod(7)
@@ -1237,13 +1237,13 @@ class IHingeAngleSensor(ComPtr):
     ReportThresholdInDegrees = property(get_ReportThresholdInDegrees, put_ReportThresholdInDegrees)
 class IHingeAngleSensorReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('24d9558b-fad0-42b8-a8-54-78-92-30-49-a1-ba')
+    _iid_ = Guid('24d9558b-fad0-42b8-a8-54-78-92-30-49-a1-ba')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.HingeAngleReading: ...
     Reading = property(get_Reading, None)
 class IHingeAngleSensorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b7b63910-fbb1-4123-89-ce-4e-a3-4e-b0-df-ca')
+    _iid_ = Guid('b7b63910-fbb1-4123-89-ce-4e-a3-4e-b0-df-ca')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1254,7 +1254,7 @@ class IHingeAngleSensorStatics(ComPtr):
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Sensors.HingeAngleSensor]: ...
 class IHumanPresenceFeatures(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bdb09fda-3244-557a-bd-29-8b-00-4f-59-f2-cc')
+    _iid_ = Guid('bdb09fda-3244-557a-bd-29-8b-00-4f-59-f2-cc')
     @winrt_commethod(6)
     def get_SensorId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1272,7 +1272,7 @@ class IHumanPresenceFeatures(ComPtr):
     IsAttentionAwareDimmingSupported = property(get_IsAttentionAwareDimmingSupported, None)
 class IHumanPresenceSensor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2116788b-e389-5cc3-9a-97-cb-17-be-10-08-bd')
+    _iid_ = Guid('2116788b-e389-5cc3-9a-97-cb-17-be-10-08-bd')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1290,7 +1290,7 @@ class IHumanPresenceSensor(ComPtr):
     MinDetectableDistanceInMillimeters = property(get_MinDetectableDistanceInMillimeters, None)
 class IHumanPresenceSensorReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('83533bf5-a85a-5d50-8b-e4-60-72-d7-45-a3-bb')
+    _iid_ = Guid('83533bf5-a85a-5d50-8b-e4-60-72-d7-45-a3-bb')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -1305,13 +1305,13 @@ class IHumanPresenceSensorReading(ComPtr):
     DistanceInMillimeters = property(get_DistanceInMillimeters, None)
 class IHumanPresenceSensorReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a9dc4583-fd69-5c5e-ab-1f-94-22-04-ea-e2-db')
+    _iid_ = Guid('a9dc4583-fd69-5c5e-ab-1f-94-22-04-ea-e2-db')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.HumanPresenceSensorReading: ...
     Reading = property(get_Reading, None)
 class IHumanPresenceSensorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2ae89842-dba9-56b2-9f-27-ea-c6-9d-62-10-04')
+    _iid_ = Guid('2ae89842-dba9-56b2-9f-27-ea-c6-9d-62-10-04')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1320,7 +1320,7 @@ class IHumanPresenceSensorStatics(ComPtr):
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Sensors.HumanPresenceSensor]: ...
 class IHumanPresenceSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ef4daf5b-07b7-5eb6-86-bb-b7-ff-49-ce-44-fb')
+    _iid_ = Guid('ef4daf5b-07b7-5eb6-86-bb-b7-ff-49-ce-44-fb')
     @winrt_commethod(6)
     def get_SensorId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1358,7 +1358,7 @@ class IHumanPresenceSettings(ComPtr):
     IsAttentionAwareDimmingEnabled = property(get_IsAttentionAwareDimmingEnabled, put_IsAttentionAwareDimmingEnabled)
 class IHumanPresenceSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7f343202-e010-52c4-af-0c-04-a8-f1-e0-33-da')
+    _iid_ = Guid('7f343202-e010-52c4-af-0c-04-a8-f1-e0-33-da')
     @winrt_commethod(6)
     def GetCurrentSettingsAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Sensors.HumanPresenceSettings]: ...
     @winrt_commethod(7)
@@ -1379,7 +1379,7 @@ class IHumanPresenceSettingsStatics(ComPtr):
     def remove_SettingsChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IInclinometer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2648ca6f-2286-406f-91-61-f0-c4-bd-80-6e-bf')
+    _iid_ = Guid('2648ca6f-2286-406f-91-61-f0-c4-bd-80-6e-bf')
     @winrt_commethod(6)
     def GetCurrentReading(self) -> Windows.Devices.Sensors.InclinometerReading: ...
     @winrt_commethod(7)
@@ -1396,7 +1396,7 @@ class IInclinometer(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
 class IInclinometer2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('029f3393-28b2-45f8-bb-16-61-e8-6a-7f-ae-6e')
+    _iid_ = Guid('029f3393-28b2-45f8-bb-16-61-e8-6a-7f-ae-6e')
     @winrt_commethod(6)
     def put_ReadingTransform(self, value: Windows.Graphics.Display.DisplayOrientations) -> Void: ...
     @winrt_commethod(7)
@@ -1407,7 +1407,7 @@ class IInclinometer2(ComPtr):
     ReadingType = property(get_ReadingType, None)
 class IInclinometer3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3a095004-d765-4384-a3-d7-02-83-f3-ab-e6-ae')
+    _iid_ = Guid('3a095004-d765-4384-a3-d7-02-83-f3-ab-e6-ae')
     @winrt_commethod(6)
     def put_ReportLatency(self, value: UInt32) -> Void: ...
     @winrt_commethod(7)
@@ -1418,13 +1418,13 @@ class IInclinometer3(ComPtr):
     MaxBatchSize = property(get_MaxBatchSize, None)
 class IInclinometer4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('43852618-8fca-548e-bb-f5-5c-50-41-2b-6a-a4')
+    _iid_ = Guid('43852618-8fca-548e-bb-f5-5c-50-41-2b-6a-a4')
     @winrt_commethod(6)
     def get_ReportThreshold(self) -> Windows.Devices.Sensors.InclinometerDataThreshold: ...
     ReportThreshold = property(get_ReportThreshold, None)
 class IInclinometerDataThreshold(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f80a4783-7bfe-545e-bb-60-a0-eb-c4-7b-d2-fb')
+    _iid_ = Guid('f80a4783-7bfe-545e-bb-60-a0-eb-c4-7b-d2-fb')
     @winrt_commethod(6)
     def get_PitchInDegrees(self) -> Single: ...
     @winrt_commethod(7)
@@ -1442,13 +1442,13 @@ class IInclinometerDataThreshold(ComPtr):
     YawInDegrees = property(get_YawInDegrees, put_YawInDegrees)
 class IInclinometerDeviceId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('01e91982-41ff-4406-ae-83-62-21-0f-f1-6f-e3')
+    _iid_ = Guid('01e91982-41ff-4406-ae-83-62-21-0f-f1-6f-e3')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
 class IInclinometerReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9f44f055-b6f6-497f-b1-27-1a-77-5e-50-14-58')
+    _iid_ = Guid('9f44f055-b6f6-497f-b1-27-1a-77-5e-50-14-58')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -1463,7 +1463,7 @@ class IInclinometerReading(ComPtr):
     YawDegrees = property(get_YawDegrees, None)
 class IInclinometerReading2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4f164781-e90b-4658-89-15-01-03-e0-8a-80-5a')
+    _iid_ = Guid('4f164781-e90b-4658-89-15-01-03-e0-8a-80-5a')
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
@@ -1472,41 +1472,41 @@ class IInclinometerReading2(ComPtr):
     Properties = property(get_Properties, None)
 class IInclinometerReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4ae91dc1-e7eb-4938-85-11-ae-0d-6b-44-04-38')
+    _iid_ = Guid('4ae91dc1-e7eb-4938-85-11-ae-0d-6b-44-04-38')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.InclinometerReading: ...
     Reading = property(get_Reading, None)
 class IInclinometerReadingYawAccuracy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b453e880-1fe3-4986-a2-57-e6-ec-e2-72-39-49')
+    _iid_ = Guid('b453e880-1fe3-4986-a2-57-e6-ec-e2-72-39-49')
     @winrt_commethod(6)
     def get_YawAccuracy(self) -> Windows.Devices.Sensors.MagnetometerAccuracy: ...
     YawAccuracy = property(get_YawAccuracy, None)
 class IInclinometerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f22ec551-9c30-453a-8b-49-3c-3e-eb-33-cb-61')
+    _iid_ = Guid('f22ec551-9c30-453a-8b-49-3c-3e-eb-33-cb-61')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Devices.Sensors.Inclinometer: ...
 class IInclinometerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('043f9775-6a1e-499c-86-e0-63-8c-1a-86-4b-00')
+    _iid_ = Guid('043f9775-6a1e-499c-86-e0-63-8c-1a-86-4b-00')
     @winrt_commethod(6)
     def GetDefaultForRelativeReadings(self) -> Windows.Devices.Sensors.Inclinometer: ...
 class IInclinometerStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bd9a4280-b91a-4829-93-92-ab-c0-b6-bd-f2-b4')
+    _iid_ = Guid('bd9a4280-b91a-4829-93-92-ab-c0-b6-bd-f2-b4')
     @winrt_commethod(6)
     def GetDefaultWithSensorReadingType(self, sensorReadingtype: Windows.Devices.Sensors.SensorReadingType) -> Windows.Devices.Sensors.Inclinometer: ...
 class IInclinometerStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e8ba96f9-6e85-4a83-ae-d0-d7-cd-cc-98-56-c8')
+    _iid_ = Guid('e8ba96f9-6e85-4a83-ae-d0-d7-cd-cc-98-56-c8')
     @winrt_commethod(6)
     def GetDeviceSelector(self, readingType: Windows.Devices.Sensors.SensorReadingType) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Sensors.Inclinometer]: ...
 class ILightSensor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f84c0718-0c54-47ae-92-2e-78-9f-57-fb-03-a0')
+    _iid_ = Guid('f84c0718-0c54-47ae-92-2e-78-9f-57-fb-03-a0')
     @winrt_commethod(6)
     def GetCurrentReading(self) -> Windows.Devices.Sensors.LightSensorReading: ...
     @winrt_commethod(7)
@@ -1523,7 +1523,7 @@ class ILightSensor(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
 class ILightSensor2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('486b24e8-a94c-4090-8f-48-09-f7-82-a9-f7-d5')
+    _iid_ = Guid('486b24e8-a94c-4090-8f-48-09-f7-82-a9-f7-d5')
     @winrt_commethod(6)
     def put_ReportLatency(self, value: UInt32) -> Void: ...
     @winrt_commethod(7)
@@ -1534,13 +1534,13 @@ class ILightSensor2(ComPtr):
     MaxBatchSize = property(get_MaxBatchSize, None)
 class ILightSensor3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4876d0ff-9f4c-5f72-ad-bd-a3-47-1b-06-3c-00')
+    _iid_ = Guid('4876d0ff-9f4c-5f72-ad-bd-a3-47-1b-06-3c-00')
     @winrt_commethod(6)
     def get_ReportThreshold(self) -> Windows.Devices.Sensors.LightSensorDataThreshold: ...
     ReportThreshold = property(get_ReportThreshold, None)
 class ILightSensorDataThreshold(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b160afd1-878f-5492-9f-2c-33-dc-3a-e5-84-a3')
+    _iid_ = Guid('b160afd1-878f-5492-9f-2c-33-dc-3a-e5-84-a3')
     @winrt_commethod(6)
     def get_LuxPercentage(self) -> Single: ...
     @winrt_commethod(7)
@@ -1553,13 +1553,13 @@ class ILightSensorDataThreshold(ComPtr):
     AbsoluteLux = property(get_AbsoluteLux, put_AbsoluteLux)
 class ILightSensorDeviceId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7fee49f8-0afb-4f51-87-f0-6c-26-37-5c-e9-4f')
+    _iid_ = Guid('7fee49f8-0afb-4f51-87-f0-6c-26-37-5c-e9-4f')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
 class ILightSensorReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ffdf6300-227c-4d2b-b3-02-fc-01-42-48-5c-68')
+    _iid_ = Guid('ffdf6300-227c-4d2b-b3-02-fc-01-42-48-5c-68')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -1568,7 +1568,7 @@ class ILightSensorReading(ComPtr):
     IlluminanceInLux = property(get_IlluminanceInLux, None)
 class ILightSensorReading2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b7512185-44a3-44c9-81-90-9e-f6-de-0a-8a-74')
+    _iid_ = Guid('b7512185-44a3-44c9-81-90-9e-f6-de-0a-8a-74')
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
@@ -1577,25 +1577,25 @@ class ILightSensorReading2(ComPtr):
     Properties = property(get_Properties, None)
 class ILightSensorReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a3a2f4cf-258b-420c-b8-ab-8e-dd-60-1e-cf-50')
+    _iid_ = Guid('a3a2f4cf-258b-420c-b8-ab-8e-dd-60-1e-cf-50')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.LightSensorReading: ...
     Reading = property(get_Reading, None)
 class ILightSensorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('45db8c84-c3a8-471e-9a-53-64-57-fa-d8-7c-0e')
+    _iid_ = Guid('45db8c84-c3a8-471e-9a-53-64-57-fa-d8-7c-0e')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Devices.Sensors.LightSensor: ...
 class ILightSensorStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0ec0a650-ddc6-40ab-ac-e3-ec-33-59-d4-2c-51')
+    _iid_ = Guid('0ec0a650-ddc6-40ab-ac-e3-ec-33-59-d4-2c-51')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Sensors.LightSensor]: ...
 class IMagnetometer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('484f626e-d3c9-4111-b3-f6-2c-f1-fa-a4-18-d5')
+    _iid_ = Guid('484f626e-d3c9-4111-b3-f6-2c-f1-fa-a4-18-d5')
     @winrt_commethod(6)
     def GetCurrentReading(self) -> Windows.Devices.Sensors.MagnetometerReading: ...
     @winrt_commethod(7)
@@ -1612,7 +1612,7 @@ class IMagnetometer(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
 class IMagnetometer2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b4656c85-26f6-444b-a9-e2-a2-3f-96-6c-d3-68')
+    _iid_ = Guid('b4656c85-26f6-444b-a9-e2-a2-3f-96-6c-d3-68')
     @winrt_commethod(6)
     def put_ReadingTransform(self, value: Windows.Graphics.Display.DisplayOrientations) -> Void: ...
     @winrt_commethod(7)
@@ -1620,7 +1620,7 @@ class IMagnetometer2(ComPtr):
     ReadingTransform = property(get_ReadingTransform, put_ReadingTransform)
 class IMagnetometer3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('be93db7c-a625-48ef-ac-f7-fa-c1-04-83-26-71')
+    _iid_ = Guid('be93db7c-a625-48ef-ac-f7-fa-c1-04-83-26-71')
     @winrt_commethod(6)
     def put_ReportLatency(self, value: UInt32) -> Void: ...
     @winrt_commethod(7)
@@ -1631,13 +1631,13 @@ class IMagnetometer3(ComPtr):
     MaxBatchSize = property(get_MaxBatchSize, None)
 class IMagnetometer4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('dfb17901-3e0f-508f-b2-4b-f2-bb-75-01-5f-40')
+    _iid_ = Guid('dfb17901-3e0f-508f-b2-4b-f2-bb-75-01-5f-40')
     @winrt_commethod(6)
     def get_ReportThreshold(self) -> Windows.Devices.Sensors.MagnetometerDataThreshold: ...
     ReportThreshold = property(get_ReportThreshold, None)
 class IMagnetometerDataThreshold(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d177cb01-9063-5fa5-b5-96-b4-45-e9-dc-34-01')
+    _iid_ = Guid('d177cb01-9063-5fa5-b5-96-b4-45-e9-dc-34-01')
     @winrt_commethod(6)
     def get_XAxisMicroteslas(self) -> Single: ...
     @winrt_commethod(7)
@@ -1655,13 +1655,13 @@ class IMagnetometerDataThreshold(ComPtr):
     ZAxisMicroteslas = property(get_ZAxisMicroteslas, put_ZAxisMicroteslas)
 class IMagnetometerDeviceId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('58b498c2-7e4b-404c-9f-c5-5d-e8-b4-0e-ba-e3')
+    _iid_ = Guid('58b498c2-7e4b-404c-9f-c5-5d-e8-b4-0e-ba-e3')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
 class IMagnetometerReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0c2cc40d-ebfd-4e5c-bb-11-af-c2-9b-3c-ae-61')
+    _iid_ = Guid('0c2cc40d-ebfd-4e5c-bb-11-af-c2-9b-3c-ae-61')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -1679,7 +1679,7 @@ class IMagnetometerReading(ComPtr):
     DirectionalAccuracy = property(get_DirectionalAccuracy, None)
 class IMagnetometerReading2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d4c95c61-61d9-404b-a3-28-06-6f-17-7a-14-09')
+    _iid_ = Guid('d4c95c61-61d9-404b-a3-28-06-6f-17-7a-14-09')
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
@@ -1688,25 +1688,25 @@ class IMagnetometerReading2(ComPtr):
     Properties = property(get_Properties, None)
 class IMagnetometerReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('17eae872-2eb9-4ee7-8a-d0-31-27-53-7d-94-9b')
+    _iid_ = Guid('17eae872-2eb9-4ee7-8a-d0-31-27-53-7d-94-9b')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.MagnetometerReading: ...
     Reading = property(get_Reading, None)
 class IMagnetometerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('853c64cc-0698-4dda-a6-df-9c-b9-cc-4a-b4-0a')
+    _iid_ = Guid('853c64cc-0698-4dda-a6-df-9c-b9-cc-4a-b4-0a')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Devices.Sensors.Magnetometer: ...
 class IMagnetometerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2c0819f0-ffc6-4f89-a0-6f-18-fa-10-79-29-33')
+    _iid_ = Guid('2c0819f0-ffc6-4f89-a0-6f-18-fa-10-79-29-33')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Sensors.Magnetometer]: ...
 class IOrientationSensor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5e354635-cf6b-4c63-ab-d8-10-25-2b-0b-f6-ec')
+    _iid_ = Guid('5e354635-cf6b-4c63-ab-d8-10-25-2b-0b-f6-ec')
     @winrt_commethod(6)
     def GetCurrentReading(self) -> Windows.Devices.Sensors.OrientationSensorReading: ...
     @winrt_commethod(7)
@@ -1723,7 +1723,7 @@ class IOrientationSensor(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
 class IOrientationSensor2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0d924cf9-2f1f-49c9-80-42-4a-18-13-d6-77-60')
+    _iid_ = Guid('0d924cf9-2f1f-49c9-80-42-4a-18-13-d6-77-60')
     @winrt_commethod(6)
     def put_ReadingTransform(self, value: Windows.Graphics.Display.DisplayOrientations) -> Void: ...
     @winrt_commethod(7)
@@ -1734,7 +1734,7 @@ class IOrientationSensor2(ComPtr):
     ReadingType = property(get_ReadingType, None)
 class IOrientationSensor3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2cce578d-646b-48c5-b7-ee-44-fd-c4-c6-aa-fd')
+    _iid_ = Guid('2cce578d-646b-48c5-b7-ee-44-fd-c4-c6-aa-fd')
     @winrt_commethod(6)
     def put_ReportLatency(self, value: UInt32) -> Void: ...
     @winrt_commethod(7)
@@ -1745,13 +1745,13 @@ class IOrientationSensor3(ComPtr):
     MaxBatchSize = property(get_MaxBatchSize, None)
 class IOrientationSensorDeviceId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5a69b648-4c29-49ec-b2-8f-ea-1d-11-7b-66-f0')
+    _iid_ = Guid('5a69b648-4c29-49ec-b2-8f-ea-1d-11-7b-66-f0')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
 class IOrientationSensorReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4756c993-6595-4897-bc-c6-d5-37-ee-75-75-64')
+    _iid_ = Guid('4756c993-6595-4897-bc-c6-d5-37-ee-75-75-64')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -1763,7 +1763,7 @@ class IOrientationSensorReading(ComPtr):
     Quaternion = property(get_Quaternion, None)
 class IOrientationSensorReading2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('00576e5f-49f8-4c05-9e-07-24-fa-c7-94-08-c3')
+    _iid_ = Guid('00576e5f-49f8-4c05-9e-07-24-fa-c7-94-08-c3')
     @winrt_commethod(6)
     def get_PerformanceCount(self) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_commethod(7)
@@ -1772,36 +1772,36 @@ class IOrientationSensorReading2(ComPtr):
     Properties = property(get_Properties, None)
 class IOrientationSensorReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('012c1186-c3ba-46bc-ae-65-7a-98-99-6c-bf-b8')
+    _iid_ = Guid('012c1186-c3ba-46bc-ae-65-7a-98-99-6c-bf-b8')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.OrientationSensorReading: ...
     Reading = property(get_Reading, None)
 class IOrientationSensorReadingYawAccuracy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d1ac9824-3f5a-49a2-bc-7b-11-80-bc-38-cd-2b')
+    _iid_ = Guid('d1ac9824-3f5a-49a2-bc-7b-11-80-bc-38-cd-2b')
     @winrt_commethod(6)
     def get_YawAccuracy(self) -> Windows.Devices.Sensors.MagnetometerAccuracy: ...
     YawAccuracy = property(get_YawAccuracy, None)
 class IOrientationSensorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('10ef8712-fb4c-428a-89-8b-27-65-e4-09-e6-69')
+    _iid_ = Guid('10ef8712-fb4c-428a-89-8b-27-65-e4-09-e6-69')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Devices.Sensors.OrientationSensor: ...
 class IOrientationSensorStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('59da0d0b-d40a-4c71-92-76-8a-27-2a-0a-66-19')
+    _iid_ = Guid('59da0d0b-d40a-4c71-92-76-8a-27-2a-0a-66-19')
     @winrt_commethod(6)
     def GetDefaultForRelativeReadings(self) -> Windows.Devices.Sensors.OrientationSensor: ...
 class IOrientationSensorStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d82ce920-2777-40ff-9f-59-d6-54-b0-85-f1-2f')
+    _iid_ = Guid('d82ce920-2777-40ff-9f-59-d6-54-b0-85-f1-2f')
     @winrt_commethod(6)
     def GetDefaultWithSensorReadingType(self, sensorReadingtype: Windows.Devices.Sensors.SensorReadingType) -> Windows.Devices.Sensors.OrientationSensor: ...
     @winrt_commethod(7)
     def GetDefaultWithSensorReadingTypeAndSensorOptimizationGoal(self, sensorReadingType: Windows.Devices.Sensors.SensorReadingType, optimizationGoal: Windows.Devices.Sensors.SensorOptimizationGoal) -> Windows.Devices.Sensors.OrientationSensor: ...
 class IOrientationSensorStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a67feb55-2c85-4b28-a0-fe-58-c4-b2-04-95-f5')
+    _iid_ = Guid('a67feb55-2c85-4b28-a0-fe-58-c4-b2-04-95-f5')
     @winrt_commethod(6)
     def GetDeviceSelector(self, readingType: Windows.Devices.Sensors.SensorReadingType) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1810,7 +1810,7 @@ class IOrientationSensorStatics4(ComPtr):
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Sensors.OrientationSensor]: ...
 class IPedometer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9a1e013d-3d98-45f8-89-20-8e-4e-ca-ca-5f-97')
+    _iid_ = Guid('9a1e013d-3d98-45f8-89-20-8e-4e-ca-ca-5f-97')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1831,17 +1831,17 @@ class IPedometer(ComPtr):
     ReportInterval = property(get_ReportInterval, put_ReportInterval)
 class IPedometer2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e5a406df-2b81-4add-b2-ff-77-ab-6c-98-ba-19')
+    _iid_ = Guid('e5a406df-2b81-4add-b2-ff-77-ab-6c-98-ba-19')
     @winrt_commethod(6)
     def GetCurrentReadings(self) -> Windows.Foundation.Collections.IMapView[Windows.Devices.Sensors.PedometerStepKind, Windows.Devices.Sensors.PedometerReading]: ...
 class IPedometerDataThresholdFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cbad8f50-7a54-466b-90-10-77-a1-62-fc-a5-d7')
+    _iid_ = Guid('cbad8f50-7a54-466b-90-10-77-a1-62-fc-a5-d7')
     @winrt_commethod(6)
     def Create(self, sensor: Windows.Devices.Sensors.Pedometer, stepGoal: Int32) -> Windows.Devices.Sensors.PedometerDataThreshold: ...
 class IPedometerReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2245dcf4-a8e1-432f-89-6a-be-0d-d9-b0-2d-24')
+    _iid_ = Guid('2245dcf4-a8e1-432f-89-6a-be-0d-d9-b0-2d-24')
     @winrt_commethod(6)
     def get_StepKind(self) -> Windows.Devices.Sensors.PedometerStepKind: ...
     @winrt_commethod(7)
@@ -1856,13 +1856,13 @@ class IPedometerReading(ComPtr):
     CumulativeStepsDuration = property(get_CumulativeStepsDuration, None)
 class IPedometerReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f855e47e-abbc-4456-86-a8-25-cf-2b-33-37-42')
+    _iid_ = Guid('f855e47e-abbc-4456-86-a8-25-cf-2b-33-37-42')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.PedometerReading: ...
     Reading = property(get_Reading, None)
 class IPedometerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('82980a2f-4083-4dfb-b4-11-93-8e-a0-f4-b9-46')
+    _iid_ = Guid('82980a2f-4083-4dfb-b4-11-93-8e-a0-f4-b9-46')
     @winrt_commethod(6)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Sensors.Pedometer]: ...
     @winrt_commethod(7)
@@ -1875,12 +1875,12 @@ class IPedometerStatics(ComPtr):
     def GetSystemHistoryWithDurationAsync(self, fromTime: Windows.Foundation.DateTime, duration: Windows.Foundation.TimeSpan) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.Sensors.PedometerReading]]: ...
 class IPedometerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('79f5c6bb-ce0e-4133-b4-7e-86-27-ea-72-f6-77')
+    _iid_ = Guid('79f5c6bb-ce0e-4133-b4-7e-86-27-ea-72-f6-77')
     @winrt_commethod(6)
     def GetReadingsFromTriggerDetails(self, triggerDetails: Windows.Devices.Sensors.SensorDataThresholdTriggerDetails) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Sensors.PedometerReading]: ...
 class IProximitySensor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('54c076b8-ecfb-4944-b9-28-74-fc-50-4d-47-ee')
+    _iid_ = Guid('54c076b8-ecfb-4944-b9-28-74-fc-50-4d-47-ee')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1900,12 +1900,12 @@ class IProximitySensor(ComPtr):
     MinDistanceInMillimeters = property(get_MinDistanceInMillimeters, None)
 class IProximitySensorDataThresholdFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('905ac121-6d27-4ad3-9d-b5-64-67-f2-a5-ad-9d')
+    _iid_ = Guid('905ac121-6d27-4ad3-9d-b5-64-67-f2-a5-ad-9d')
     @winrt_commethod(6)
     def Create(self, sensor: Windows.Devices.Sensors.ProximitySensor) -> Windows.Devices.Sensors.ProximitySensorDataThreshold: ...
 class IProximitySensorReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('71228d59-132d-4d5f-8f-f9-2f-0d-b8-75-1c-ed')
+    _iid_ = Guid('71228d59-132d-4d5f-8f-f9-2f-0d-b8-75-1c-ed')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -1917,28 +1917,28 @@ class IProximitySensorReading(ComPtr):
     DistanceInMillimeters = property(get_DistanceInMillimeters, None)
 class IProximitySensorReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cfc2f366-c3e8-40fd-8c-c3-67-e2-89-00-49-38')
+    _iid_ = Guid('cfc2f366-c3e8-40fd-8c-c3-67-e2-89-00-49-38')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.Devices.Sensors.ProximitySensorReading: ...
     Reading = property(get_Reading, None)
 class IProximitySensorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('29186649-6269-4e57-a5-ad-82-be-80-81-33-92')
+    _iid_ = Guid('29186649-6269-4e57-a5-ad-82-be-80-81-33-92')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromId(self, sensorId: WinRT_String) -> Windows.Devices.Sensors.ProximitySensor: ...
 class IProximitySensorStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cbf473ae-e9ca-422f-ad-67-4c-3d-25-df-35-0c')
+    _iid_ = Guid('cbf473ae-e9ca-422f-ad-67-4c-3d-25-df-35-0c')
     @winrt_commethod(6)
     def GetReadingsFromTriggerDetails(self, triggerDetails: Windows.Devices.Sensors.SensorDataThresholdTriggerDetails) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Sensors.ProximitySensorReading]: ...
 class ISensorDataThreshold(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('54daec61-fe4b-4e07-b2-60-3a-4c-df-be-39-6e')
+    _iid_ = Guid('54daec61-fe4b-4e07-b2-60-3a-4c-df-be-39-6e')
 class ISensorDataThresholdTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9106f1b7-e88d-48b1-bc-90-61-9c-7b-34-93-91')
+    _iid_ = Guid('9106f1b7-e88d-48b1-bc-90-61-9c-7b-34-93-91')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1947,7 +1947,7 @@ class ISensorDataThresholdTriggerDetails(ComPtr):
     SensorType = property(get_SensorType, None)
 class ISensorQuaternion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c9c5c827-c71c-46e7-9d-a3-36-a1-93-b2-32-bc')
+    _iid_ = Guid('c9c5c827-c71c-46e7-9d-a3-36-a1-93-b2-32-bc')
     @winrt_commethod(6)
     def get_W(self) -> Single: ...
     @winrt_commethod(7)
@@ -1962,7 +1962,7 @@ class ISensorQuaternion(ComPtr):
     Z = property(get_Z, None)
 class ISensorRotationMatrix(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0a3d5a67-22f4-4392-95-38-65-d0-bd-06-4a-a6')
+    _iid_ = Guid('0a3d5a67-22f4-4392-95-38-65-d0-bd-06-4a-a6')
     @winrt_commethod(6)
     def get_M11(self) -> Single: ...
     @winrt_commethod(7)
@@ -1992,7 +1992,7 @@ class ISensorRotationMatrix(ComPtr):
     M33 = property(get_M33, None)
 class ISimpleOrientationSensor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5ff53856-214a-4dee-a3-f9-61-6f-1a-b0-6f-fd')
+    _iid_ = Guid('5ff53856-214a-4dee-a3-f9-61-6f-1a-b0-6f-fd')
     @winrt_commethod(6)
     def GetCurrentOrientation(self) -> Windows.Devices.Sensors.SimpleOrientation: ...
     @winrt_commethod(7)
@@ -2001,7 +2001,7 @@ class ISimpleOrientationSensor(ComPtr):
     def remove_OrientationChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ISimpleOrientationSensor2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a277a798-8870-453e-8b-d6-b8-f5-d8-d7-94-1b')
+    _iid_ = Guid('a277a798-8870-453e-8b-d6-b8-f5-d8-d7-94-1b')
     @winrt_commethod(6)
     def put_ReadingTransform(self, value: Windows.Graphics.Display.DisplayOrientations) -> Void: ...
     @winrt_commethod(7)
@@ -2009,13 +2009,13 @@ class ISimpleOrientationSensor2(ComPtr):
     ReadingTransform = property(get_ReadingTransform, put_ReadingTransform)
 class ISimpleOrientationSensorDeviceId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fbc00acb-3b76-41f6-80-91-30-ef-e6-46-d3-cf')
+    _iid_ = Guid('fbc00acb-3b76-41f6-80-91-30-ef-e6-46-d3-cf')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     DeviceId = property(get_DeviceId, None)
 class ISimpleOrientationSensorOrientationChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bcd5c660-23d4-4b4c-a2-2e-ba-81-ad-e0-c6-01')
+    _iid_ = Guid('bcd5c660-23d4-4b4c-a2-2e-ba-81-ad-e0-c6-01')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -2024,12 +2024,12 @@ class ISimpleOrientationSensorOrientationChangedEventArgs(ComPtr):
     Orientation = property(get_Orientation, None)
 class ISimpleOrientationSensorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('72ed066f-70aa-40c6-9b-1b-34-33-f7-45-9b-4e')
+    _iid_ = Guid('72ed066f-70aa-40c6-9b-1b-34-33-f7-45-9b-4e')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Devices.Sensors.SimpleOrientationSensor: ...
 class ISimpleOrientationSensorStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('848f9c7f-b138-4e11-89-10-a2-a2-a3-b5-6d-83')
+    _iid_ = Guid('848f9c7f-b138-4e11-89-10-a2-a2-a3-b5-6d-83')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)

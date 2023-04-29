@@ -53,7 +53,7 @@ class ActivatedDeferral(ComPtr):
     def Complete(self: Windows.UI.WebUI.IActivatedDeferral) -> Void: ...
 class ActivatedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('50f1e730-c5d1-4b6b-9a-db-8a-11-75-6b-e2-9c')
+    _iid_ = Guid('50f1e730-c5d1-4b6b-9a-db-8a-11-75-6b-e2-9c')
     ClassId = 'Windows.UI.WebUI.ActivatedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, eventArgs: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Void: ...
@@ -70,7 +70,7 @@ class BackgroundActivatedEventArgs(ComPtr):
     TaskInstance = property(get_TaskInstance, None)
 class BackgroundActivatedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('edb19fbb-0761-47cc-9a-77-24-d7-07-29-65-ca')
+    _iid_ = Guid('edb19fbb-0761-47cc-9a-77-24-d7-07-29-65-ca')
     ClassId = 'Windows.UI.WebUI.BackgroundActivatedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, eventArgs: Windows.ApplicationModel.Activation.IBackgroundActivatedEventArgs) -> Void: ...
@@ -81,7 +81,7 @@ class EnteredBackgroundEventArgs(ComPtr):
     def GetDeferral(self: Windows.ApplicationModel.IEnteredBackgroundEventArgs) -> Windows.Foundation.Deferral: ...
 class EnteredBackgroundEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('2b09a173-b68e-4def-88-c1-8d-e8-4e-5a-ab-2f')
+    _iid_ = Guid('2b09a173-b68e-4def-88-c1-8d-e8-4e-5a-ab-2f')
     ClassId = 'Windows.UI.WebUI.EnteredBackgroundEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.ApplicationModel.IEnteredBackgroundEventArgs) -> Void: ...
@@ -137,23 +137,23 @@ class HtmlPrintDocumentSource(ComPtr):
     PageRange = property(get_PageRange, None)
 class IActivatedDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c3bd1978-a431-49d8-a7-6a-39-5a-4e-03-dc-f3')
+    _iid_ = Guid('c3bd1978-a431-49d8-a7-6a-39-5a-4e-03-dc-f3')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class IActivatedEventArgsDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ca6d5f74-63c2-44a6-b9-7b-d9-a0-3c-20-bc-9b')
+    _iid_ = Guid('ca6d5f74-63c2-44a6-b9-7b-d9-a0-3c-20-bc-9b')
     @winrt_commethod(6)
     def get_ActivatedOperation(self) -> Windows.UI.WebUI.ActivatedOperation: ...
     ActivatedOperation = property(get_ActivatedOperation, None)
 class IActivatedOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b6a0b4bc-c6ca-42fd-98-18-71-90-4e-45-fe-d7')
+    _iid_ = Guid('b6a0b4bc-c6ca-42fd-98-18-71-90-4e-45-fe-d7')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.UI.WebUI.ActivatedDeferral: ...
 class IHtmlPrintDocumentSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cea6469a-0e05-467a-ab-c9-36-ec-1d-4c-dc-b6')
+    _iid_ = Guid('cea6469a-0e05-467a-ab-c9-36-ec-1d-4c-dc-b6')
     @winrt_commethod(6)
     def get_Content(self) -> Windows.UI.WebUI.PrintContent: ...
     @winrt_commethod(7)
@@ -201,7 +201,7 @@ class IHtmlPrintDocumentSource(ComPtr):
     PageRange = property(get_PageRange, None)
 class INewWebUIViewCreatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e8e1b216-be2b-4c9e-85-e7-08-31-43-ec-4b-e7')
+    _iid_ = Guid('e8e1b216-be2b-4c9e-85-e7-08-31-43-ec-4b-e7')
     @winrt_commethod(6)
     def get_WebUIView(self) -> Windows.UI.WebUI.WebUIView: ...
     @winrt_commethod(7)
@@ -215,7 +215,7 @@ class INewWebUIViewCreatedEventArgs(ComPtr):
     HasPendingNavigate = property(get_HasPendingNavigate, None)
 class IWebUIActivationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('351b86bd-43b3-482b-85-db-35-d8-7b-51-7a-d9')
+    _iid_ = Guid('351b86bd-43b3-482b-85-db-35-d8-7b-51-7a-d9')
     @winrt_commethod(6)
     def add_Activated(self, handler: Windows.UI.WebUI.ActivatedEventHandler) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -234,7 +234,7 @@ class IWebUIActivationStatics(ComPtr):
     def remove_Navigated(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IWebUIActivationStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c8e88696-4d78-4aa4-8f-06-2a-9e-ad-c6-c4-0a')
+    _iid_ = Guid('c8e88696-4d78-4aa4-8f-06-2a-9e-ad-c6-c4-0a')
     @winrt_commethod(6)
     def add_LeavingBackground(self, handler: Windows.UI.WebUI.LeavingBackgroundEventHandler) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -247,14 +247,14 @@ class IWebUIActivationStatics2(ComPtr):
     def EnablePrelaunch(self, value: Boolean) -> Void: ...
 class IWebUIActivationStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('91abb686-1af5-4445-b4-9f-94-59-f4-0f-c8-de')
+    _iid_ = Guid('91abb686-1af5-4445-b4-9f-94-59-f4-0f-c8-de')
     @winrt_commethod(6)
     def RequestRestartAsync(self, launchArguments: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Core.AppRestartFailureReason]: ...
     @winrt_commethod(7)
     def RequestRestartForUserAsync(self, user: Windows.System.User, launchArguments: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Core.AppRestartFailureReason]: ...
 class IWebUIActivationStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5e391429-183f-478d-8a-25-67-f8-0d-03-93-5b')
+    _iid_ = Guid('5e391429-183f-478d-8a-25-67-f8-0d-03-93-5b')
     @winrt_commethod(6)
     def add_NewWebUIViewCreated(self, handler: Windows.Foundation.EventHandler[Windows.UI.WebUI.NewWebUIViewCreatedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -265,7 +265,7 @@ class IWebUIActivationStatics4(ComPtr):
     def remove_BackgroundActivated(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IWebUIBackgroundTaskInstance(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('23f12c25-e2f7-4741-bc-9c-39-45-95-de-24-dc')
+    _iid_ = Guid('23f12c25-e2f7-4741-bc-9c-39-45-95-de-24-dc')
     @winrt_commethod(6)
     def get_Succeeded(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -273,29 +273,29 @@ class IWebUIBackgroundTaskInstance(ComPtr):
     Succeeded = property(get_Succeeded, put_Succeeded)
 class IWebUIBackgroundTaskInstanceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9c7a5291-19ae-4ca3-b9-4b-fe-4e-c7-44-a7-40')
+    _iid_ = Guid('9c7a5291-19ae-4ca3-b9-4b-fe-4e-c7-44-a7-40')
     @winrt_commethod(6)
     def get_Current(self) -> Windows.UI.WebUI.IWebUIBackgroundTaskInstance: ...
     Current = property(get_Current, None)
 class IWebUINavigatedDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d804204d-831f-46e2-b4-32-3a-fc-e2-11-f9-62')
+    _iid_ = Guid('d804204d-831f-46e2-b4-32-3a-fc-e2-11-f9-62')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class IWebUINavigatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a75841b8-2499-4030-a6-9d-15-d2-d9-cf-e5-24')
+    _iid_ = Guid('a75841b8-2499-4030-a6-9d-15-d2-d9-cf-e5-24')
     @winrt_commethod(6)
     def get_NavigatedOperation(self) -> Windows.UI.WebUI.WebUINavigatedOperation: ...
     NavigatedOperation = property(get_NavigatedOperation, None)
 class IWebUINavigatedOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7a965f08-8182-4a89-ab-67-84-92-e8-75-0d-4b')
+    _iid_ = Guid('7a965f08-8182-4a89-ab-67-84-92-e8-75-0d-4b')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.UI.WebUI.WebUINavigatedDeferral: ...
 class IWebUIView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6783f64f-52da-4fd7-be-69-8e-f6-28-4b-42-3c')
+    _iid_ = Guid('6783f64f-52da-4fd7-be-69-8e-f6-28-4b-42-3c')
     @winrt_commethod(6)
     def get_ApplicationViewId(self) -> Int32: ...
     @winrt_commethod(7)
@@ -314,7 +314,7 @@ class IWebUIView(ComPtr):
     IgnoreApplicationContentUriRulesNavigationRestrictions = property(get_IgnoreApplicationContentUriRulesNavigationRestrictions, put_IgnoreApplicationContentUriRulesNavigationRestrictions)
 class IWebUIViewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b591e668-8e59-44f9-88-03-1b-24-c9-14-9d-30')
+    _iid_ = Guid('b591e668-8e59-44f9-88-03-1b-24-c9-14-9d-30')
     @winrt_commethod(6)
     def CreateAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.UI.WebUI.WebUIView]: ...
     @winrt_commethod(7)
@@ -326,13 +326,13 @@ class LeavingBackgroundEventArgs(ComPtr):
     def GetDeferral(self: Windows.ApplicationModel.ILeavingBackgroundEventArgs) -> Windows.Foundation.Deferral: ...
 class LeavingBackgroundEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('00b4ccd9-7a9c-4b6b-9a-c4-13-47-4f-26-8b-c4')
+    _iid_ = Guid('00b4ccd9-7a9c-4b6b-9a-c4-13-47-4f-26-8b-c4')
     ClassId = 'Windows.UI.WebUI.LeavingBackgroundEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.ApplicationModel.ILeavingBackgroundEventArgs) -> Void: ...
 class NavigatedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('7af46fe6-40ca-4e49-a7-d6-db-db-33-0c-d1-a3')
+    _iid_ = Guid('7af46fe6-40ca-4e49-a7-d6-db-db-33-0c-d1-a3')
     ClassId = 'Windows.UI.WebUI.NavigatedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.WebUI.IWebUINavigatedEventArgs) -> Void: ...
@@ -357,7 +357,7 @@ PrintContent_CustomPageRange: PrintContent = 2
 PrintContent_CurrentSelection: PrintContent = 3
 class ResumingEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('26599ba9-a22d-4806-a7-28-ac-ad-c1-d0-75-fa')
+    _iid_ = Guid('26599ba9-a22d-4806-a7-28-ac-ad-c1-d0-75-fa')
     ClassId = 'Windows.UI.WebUI.ResumingEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
@@ -374,7 +374,7 @@ class SuspendingEventArgs(ComPtr):
     SuspendingOperation = property(get_SuspendingOperation, None)
 class SuspendingEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('509c429c-78e2-4883-ab-c8-89-60-dc-de-1b-5c')
+    _iid_ = Guid('509c429c-78e2-4883-ab-c8-89-60-dc-de-1b-5c')
     ClassId = 'Windows.UI.WebUI.SuspendingEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.ApplicationModel.ISuspendingEventArgs) -> Void: ...

@@ -22,7 +22,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IGraphicsEffect(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cb51c0ce-8fe6-4636-b2-02-86-1f-aa-07-d8-f3')
+    _iid_ = Guid('cb51c0ce-8fe6-4636-b2-02-86-1f-aa-07-d8-f3')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -30,6 +30,6 @@ class IGraphicsEffect(ComPtr):
     Name = property(get_Name, put_Name)
 class IGraphicsEffectSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2d8f9ddc-4339-4eb9-92-16-f9-de-b7-56-58-a2')
+    _iid_ = Guid('2d8f9ddc-4339-4eb9-92-16-f9-de-b7-56-58-a2')
 make_head(_module, 'IGraphicsEffect')
 make_head(_module, 'IGraphicsEffectSource')

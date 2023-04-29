@@ -64,7 +64,7 @@ GameChatOverlayPosition_TopLeft: GameChatOverlayPosition = 6
 GameChatOverlayPosition_TopRight: GameChatOverlayPosition = 7
 class IGameBarStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1db9a292-cc78-4173-be-45-b6-1e-67-28-3e-a7')
+    _iid_ = Guid('1db9a292-cc78-4173-be-45-b6-1e-67-28-3e-a7')
     @winrt_commethod(6)
     def add_VisibilityChanged(self, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -81,7 +81,7 @@ class IGameBarStatics(ComPtr):
     IsInputRedirected = property(get_IsInputRedirected, None)
 class IGameChatOverlay(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fbc64865-f6fc-4a48-ae-07-03-ac-6e-d4-37-04')
+    _iid_ = Guid('fbc64865-f6fc-4a48-ae-07-03-ac-6e-d4-37-04')
     @winrt_commethod(6)
     def get_DesiredPosition(self) -> Windows.Gaming.UI.GameChatOverlayPosition: ...
     @winrt_commethod(7)
@@ -91,7 +91,7 @@ class IGameChatOverlay(ComPtr):
     DesiredPosition = property(get_DesiredPosition, put_DesiredPosition)
 class IGameChatOverlayStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('89acf614-7867-49f7-96-87-25-d9-db-f4-44-d1')
+    _iid_ = Guid('89acf614-7867-49f7-96-87-25-d9-db-f4-44-d1')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Gaming.UI.GameChatOverlay: ...
 make_head(_module, 'GameBar')

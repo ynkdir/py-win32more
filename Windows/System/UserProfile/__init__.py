@@ -140,7 +140,7 @@ class GlobalizationPreferencesForUser(ComPtr):
     WeekStartsOn = property(get_WeekStartsOn, None)
 class IAdvertisingManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('928bf3d0-cf7c-4ab0-a7-dc-6d-c5-bc-d4-42-52')
+    _iid_ = Guid('928bf3d0-cf7c-4ab0-a7-dc-6d-c5-bc-d4-42-52')
     @winrt_commethod(6)
     def get_AdvertisingId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -149,18 +149,18 @@ class IAdvertisingManagerForUser(ComPtr):
     User = property(get_User, None)
 class IAdvertisingManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('add3468c-a273-48cb-b3-46-35-44-52-2d-55-81')
+    _iid_ = Guid('add3468c-a273-48cb-b3-46-35-44-52-2d-55-81')
     @winrt_commethod(6)
     def get_AdvertisingId(self) -> WinRT_String: ...
     AdvertisingId = property(get_AdvertisingId, None)
 class IAdvertisingManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('dd0947af-1a6d-46b0-95-bc-f3-f9-d6-be-b9-fb')
+    _iid_ = Guid('dd0947af-1a6d-46b0-95-bc-f3-f9-d6-be-b9-fb')
     @winrt_commethod(6)
     def GetForUser(self, user: Windows.System.User) -> Windows.System.UserProfile.AdvertisingManagerForUser: ...
 class IAssignedAccessSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1bc57f1c-e971-5757-b8-e0-51-2f-8b-8c-46-d2')
+    _iid_ = Guid('1bc57f1c-e971-5757-b8-e0-51-2f-8b-8c-46-d2')
     @winrt_commethod(6)
     def get_IsEnabled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -172,14 +172,14 @@ class IAssignedAccessSettings(ComPtr):
     User = property(get_User, None)
 class IAssignedAccessSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('34a81d0d-8a29-5ef3-a7-be-61-8e-6a-c3-bd-01')
+    _iid_ = Guid('34a81d0d-8a29-5ef3-a7-be-61-8e-6a-c3-bd-01')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.System.UserProfile.AssignedAccessSettings: ...
     @winrt_commethod(7)
     def GetForUser(self, user: Windows.System.User) -> Windows.System.UserProfile.AssignedAccessSettings: ...
 class IDiagnosticsSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e5e9eccd-2711-44e0-97-3c-49-1d-78-04-8d-24')
+    _iid_ = Guid('e5e9eccd-2711-44e0-97-3c-49-1d-78-04-8d-24')
     @winrt_commethod(6)
     def get_CanUseDiagnosticsToTailorExperiences(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -188,22 +188,22 @@ class IDiagnosticsSettings(ComPtr):
     User = property(get_User, None)
 class IDiagnosticsSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('72d2e80f-5390-4793-99-0b-3c-cc-7d-6a-c9-c8')
+    _iid_ = Guid('72d2e80f-5390-4793-99-0b-3c-cc-7d-6a-c9-c8')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.System.UserProfile.DiagnosticsSettings: ...
     @winrt_commethod(7)
     def GetForUser(self, user: Windows.System.User) -> Windows.System.UserProfile.DiagnosticsSettings: ...
 class IFirstSignInSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3e945153-3a5e-452e-a6-01-f5-ba-ad-2a-48-70')
+    _iid_ = Guid('3e945153-3a5e-452e-a6-01-f5-ba-ad-2a-48-70')
 class IFirstSignInSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1ce18f0f-1c41-4ea0-b7-a2-6f-0c-1c-7e-84-38')
+    _iid_ = Guid('1ce18f0f-1c41-4ea0-b7-a2-6f-0c-1c-7e-84-38')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.System.UserProfile.FirstSignInSettings: ...
 class IGlobalizationPreferencesForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('150f0795-4f6e-40ba-a0-10-e2-7d-81-bd-a7-f5')
+    _iid_ = Guid('150f0795-4f6e-40ba-a0-10-e2-7d-81-bd-a7-f5')
     @winrt_commethod(6)
     def get_User(self) -> Windows.System.User: ...
     @winrt_commethod(7)
@@ -227,7 +227,7 @@ class IGlobalizationPreferencesForUser(ComPtr):
     WeekStartsOn = property(get_WeekStartsOn, None)
 class IGlobalizationPreferencesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('01bf4326-ed37-4e96-b0-e9-c1-34-0d-1e-a1-58')
+    _iid_ = Guid('01bf4326-ed37-4e96-b0-e9-c1-34-0d-1e-a1-58')
     @winrt_commethod(6)
     def get_Calendars(self) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_commethod(7)
@@ -248,26 +248,26 @@ class IGlobalizationPreferencesStatics(ComPtr):
     WeekStartsOn = property(get_WeekStartsOn, None)
 class IGlobalizationPreferencesStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fcce85f1-4300-4cd0-9c-ac-1a-8e-7b-7e-18-f4')
+    _iid_ = Guid('fcce85f1-4300-4cd0-9c-ac-1a-8e-7b-7e-18-f4')
     @winrt_commethod(6)
     def TrySetHomeGeographicRegion(self, region: WinRT_String) -> Boolean: ...
     @winrt_commethod(7)
     def TrySetLanguages(self, languageTags: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Boolean: ...
 class IGlobalizationPreferencesStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1e059733-35f5-40d8-b9-e8-ae-f3-ef-85-6f-ce')
+    _iid_ = Guid('1e059733-35f5-40d8-b9-e8-ae-f3-ef-85-6f-ce')
     @winrt_commethod(6)
     def GetForUser(self, user: Windows.System.User) -> Windows.System.UserProfile.GlobalizationPreferencesForUser: ...
 class IUserProfilePersonalizationSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8ceddab4-7998-46d5-8d-d3-18-4f-1c-5f-9a-b9')
+    _iid_ = Guid('8ceddab4-7998-46d5-8d-d3-18-4f-1c-5f-9a-b9')
     @winrt_commethod(6)
     def TrySetLockScreenImageAsync(self, imageFile: Windows.Storage.StorageFile) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(7)
     def TrySetWallpaperImageAsync(self, imageFile: Windows.Storage.StorageFile) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IUserProfilePersonalizationSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('91acb841-5037-454b-98-83-bb-77-2d-08-dd-16')
+    _iid_ = Guid('91acb841-5037-454b-98-83-bb-77-2d-08-dd-16')
     @winrt_commethod(6)
     def get_Current(self) -> Windows.System.UserProfile.UserProfilePersonalizationSettings: ...
     @winrt_commethod(7)

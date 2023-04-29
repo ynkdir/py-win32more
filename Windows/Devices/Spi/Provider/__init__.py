@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IProviderSpiConnectionSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f6034550-a542-4ec0-96-01-a4-dd-68-f8-69-7b')
+    _iid_ = Guid('f6034550-a542-4ec0-96-01-a4-dd-68-f8-69-7b')
     @winrt_commethod(6)
     def get_ChipSelectLine(self) -> Int32: ...
     @winrt_commethod(7)
@@ -52,17 +52,17 @@ class IProviderSpiConnectionSettings(ComPtr):
     SharingMode = property(get_SharingMode, put_SharingMode)
 class IProviderSpiConnectionSettingsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('66456b5a-0c79-43e3-9f-3c-e5-97-80-ac-18-fa')
+    _iid_ = Guid('66456b5a-0c79-43e3-9f-3c-e5-97-80-ac-18-fa')
     @winrt_commethod(6)
     def Create(self, chipSelectLine: Int32) -> Windows.Devices.Spi.Provider.ProviderSpiConnectionSettings: ...
 class ISpiControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c1686504-02ce-4226-a3-85-4f-11-fb-04-b4-1b')
+    _iid_ = Guid('c1686504-02ce-4226-a3-85-4f-11-fb-04-b4-1b')
     @winrt_commethod(6)
     def GetDeviceProvider(self, settings: Windows.Devices.Spi.Provider.ProviderSpiConnectionSettings) -> Windows.Devices.Spi.Provider.ISpiDeviceProvider: ...
 class ISpiDeviceProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0d1c3443-304b-405c-b4-f7-f5-ab-10-74-46-1e')
+    _iid_ = Guid('0d1c3443-304b-405c-b4-f7-f5-ab-10-74-46-1e')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -79,7 +79,7 @@ class ISpiDeviceProvider(ComPtr):
     ConnectionSettings = property(get_ConnectionSettings, None)
 class ISpiProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('96b461e2-77d4-48ce-aa-a0-75-71-5a-83-62-cf')
+    _iid_ = Guid('96b461e2-77d4-48ce-aa-a0-75-71-5a-83-62-cf')
     @winrt_commethod(6)
     def GetControllersAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.Spi.Provider.ISpiControllerProvider]]: ...
 class ProviderSpiConnectionSettings(ComPtr):

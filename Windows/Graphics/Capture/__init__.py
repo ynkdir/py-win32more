@@ -119,7 +119,7 @@ class GraphicsCaptureSession(ComPtr):
     IsBorderRequired = property(get_IsBorderRequired, put_IsBorderRequired)
 class IDirect3D11CaptureFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fa50c623-38da-4b32-ac-f3-fa-97-34-ad-80-0e')
+    _iid_ = Guid('fa50c623-38da-4b32-ac-f3-fa-97-34-ad-80-0e')
     @winrt_commethod(6)
     def get_Surface(self) -> Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface: ...
     @winrt_commethod(7)
@@ -131,7 +131,7 @@ class IDirect3D11CaptureFrame(ComPtr):
     ContentSize = property(get_ContentSize, None)
 class IDirect3D11CaptureFramePool(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('24eb6d22-1975-422e-82-e7-78-0d-bd-8d-df-24')
+    _iid_ = Guid('24eb6d22-1975-422e-82-e7-78-0d-bd-8d-df-24')
     @winrt_commethod(6)
     def Recreate(self, device: Windows.Graphics.DirectX.Direct3D11.IDirect3DDevice, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, numberOfBuffers: Int32, size: Windows.Graphics.SizeInt32) -> Void: ...
     @winrt_commethod(7)
@@ -147,22 +147,22 @@ class IDirect3D11CaptureFramePool(ComPtr):
     DispatcherQueue = property(get_DispatcherQueue, None)
 class IDirect3D11CaptureFramePoolStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7784056a-67aa-4d53-ae-54-10-88-d5-a8-ca-21')
+    _iid_ = Guid('7784056a-67aa-4d53-ae-54-10-88-d5-a8-ca-21')
     @winrt_commethod(6)
     def Create(self, device: Windows.Graphics.DirectX.Direct3D11.IDirect3DDevice, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, numberOfBuffers: Int32, size: Windows.Graphics.SizeInt32) -> Windows.Graphics.Capture.Direct3D11CaptureFramePool: ...
 class IDirect3D11CaptureFramePoolStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('589b103f-6bbc-5df5-a9-91-02-e2-8b-3b-66-d5')
+    _iid_ = Guid('589b103f-6bbc-5df5-a9-91-02-e2-8b-3b-66-d5')
     @winrt_commethod(6)
     def CreateFreeThreaded(self, device: Windows.Graphics.DirectX.Direct3D11.IDirect3DDevice, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, numberOfBuffers: Int32, size: Windows.Graphics.SizeInt32) -> Windows.Graphics.Capture.Direct3D11CaptureFramePool: ...
 class IGraphicsCaptureAccessStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('743ed370-06ec-5040-a5-8a-90-1f-0f-75-70-95')
+    _iid_ = Guid('743ed370-06ec-5040-a5-8a-90-1f-0f-75-70-95')
     @winrt_commethod(6)
     def RequestAccessAsync(self, request: Windows.Graphics.Capture.GraphicsCaptureAccessKind) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authorization.AppCapabilityAccess.AppCapabilityAccessStatus]: ...
 class IGraphicsCaptureItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('79c3f95b-31f7-4ec2-a4-64-63-2e-f5-d3-07-60')
+    _iid_ = Guid('79c3f95b-31f7-4ec2-a4-64-63-2e-f5-d3-07-60')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -175,29 +175,29 @@ class IGraphicsCaptureItem(ComPtr):
     Size = property(get_Size, None)
 class IGraphicsCaptureItemStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a87ebea5-457c-5788-ab-47-0c-f1-d3-63-7e-74')
+    _iid_ = Guid('a87ebea5-457c-5788-ab-47-0c-f1-d3-63-7e-74')
     @winrt_commethod(6)
     def CreateFromVisual(self, visual: Windows.UI.Composition.Visual) -> Windows.Graphics.Capture.GraphicsCaptureItem: ...
 class IGraphicsCaptureItemStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3b92acc9-e584-5862-bf-5c-9c-31-6c-6d-2d-bb')
+    _iid_ = Guid('3b92acc9-e584-5862-bf-5c-9c-31-6c-6d-2d-bb')
     @winrt_commethod(6)
     def TryCreateFromWindowId(self, windowId: Windows.UI.WindowId) -> Windows.Graphics.Capture.GraphicsCaptureItem: ...
     @winrt_commethod(7)
     def TryCreateFromDisplayId(self, displayId: Windows.Graphics.DisplayId) -> Windows.Graphics.Capture.GraphicsCaptureItem: ...
 class IGraphicsCapturePicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5a1711b3-ad79-4b4a-93-36-13-18-fd-de-35-39')
+    _iid_ = Guid('5a1711b3-ad79-4b4a-93-36-13-18-fd-de-35-39')
     @winrt_commethod(6)
     def PickSingleItemAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Graphics.Capture.GraphicsCaptureItem]: ...
 class IGraphicsCaptureSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('814e42a9-f70f-4ad7-93-9b-fd-dc-c6-eb-88-0d')
+    _iid_ = Guid('814e42a9-f70f-4ad7-93-9b-fd-dc-c6-eb-88-0d')
     @winrt_commethod(6)
     def StartCapture(self) -> Void: ...
 class IGraphicsCaptureSession2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2c39ae40-7d2e-5044-80-4e-8b-67-99-d4-cf-9e')
+    _iid_ = Guid('2c39ae40-7d2e-5044-80-4e-8b-67-99-d4-cf-9e')
     @winrt_commethod(6)
     def get_IsCursorCaptureEnabled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -205,7 +205,7 @@ class IGraphicsCaptureSession2(ComPtr):
     IsCursorCaptureEnabled = property(get_IsCursorCaptureEnabled, put_IsCursorCaptureEnabled)
 class IGraphicsCaptureSession3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f2cdd966-22ae-5ea1-95-96-3a-28-93-44-c3-be')
+    _iid_ = Guid('f2cdd966-22ae-5ea1-95-96-3a-28-93-44-c3-be')
     @winrt_commethod(6)
     def get_IsBorderRequired(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -213,7 +213,7 @@ class IGraphicsCaptureSession3(ComPtr):
     IsBorderRequired = property(get_IsBorderRequired, put_IsBorderRequired)
 class IGraphicsCaptureSessionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2224a540-5974-49aa-b2-32-08-82-53-6f-4c-b5')
+    _iid_ = Guid('2224a540-5974-49aa-b2-32-08-82-53-6f-4c-b5')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
 make_head(_module, 'Direct3D11CaptureFrame')

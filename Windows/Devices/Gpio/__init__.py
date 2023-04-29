@@ -179,7 +179,7 @@ GpioSharingMode_Exclusive: GpioSharingMode = 0
 GpioSharingMode_SharedReadOnly: GpioSharingMode = 1
 class IGpioChangeCounter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cb5ec0de-6801-43ff-80-3d-45-76-62-8a-8b-26')
+    _iid_ = Guid('cb5ec0de-6801-43ff-80-3d-45-76-62-8a-8b-26')
     @winrt_commethod(6)
     def put_Polarity(self, value: Windows.Devices.Gpio.GpioChangePolarity) -> Void: ...
     @winrt_commethod(7)
@@ -198,12 +198,12 @@ class IGpioChangeCounter(ComPtr):
     IsStarted = property(get_IsStarted, None)
 class IGpioChangeCounterFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('147d94b6-0a9e-410c-b4-fa-f8-9f-40-52-08-4d')
+    _iid_ = Guid('147d94b6-0a9e-410c-b4-fa-f8-9f-40-52-08-4d')
     @winrt_commethod(6)
     def Create(self, pin: Windows.Devices.Gpio.GpioPin) -> Windows.Devices.Gpio.GpioChangeCounter: ...
 class IGpioChangeReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0abc885f-e031-48e8-85-90-70-de-78-36-3c-6d')
+    _iid_ = Guid('0abc885f-e031-48e8-85-90-70-de-78-36-3c-6d')
     @winrt_commethod(6)
     def get_Capacity(self) -> Int32: ...
     @winrt_commethod(7)
@@ -240,14 +240,14 @@ class IGpioChangeReader(ComPtr):
     IsStarted = property(get_IsStarted, None)
 class IGpioChangeReaderFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a9598ef3-390e-441a-9d-1c-e8-de-0b-2d-f0-df')
+    _iid_ = Guid('a9598ef3-390e-441a-9d-1c-e8-de-0b-2d-f0-df')
     @winrt_commethod(6)
     def Create(self, pin: Windows.Devices.Gpio.GpioPin) -> Windows.Devices.Gpio.GpioChangeReader: ...
     @winrt_commethod(7)
     def CreateWithCapacity(self, pin: Windows.Devices.Gpio.GpioPin, minCapacity: Int32) -> Windows.Devices.Gpio.GpioChangeReader: ...
 class IGpioController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('284012e3-7461-469c-a8-bc-61-d6-9d-08-a5-3c')
+    _iid_ = Guid('284012e3-7461-469c-a8-bc-61-d6-9d-08-a5-3c')
     @winrt_commethod(6)
     def get_PinCount(self) -> Int32: ...
     @winrt_commethod(7)
@@ -259,19 +259,19 @@ class IGpioController(ComPtr):
     PinCount = property(get_PinCount, None)
 class IGpioControllerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2ed6f42e-7af7-4116-95-33-c4-3d-99-a1-fb-64')
+    _iid_ = Guid('2ed6f42e-7af7-4116-95-33-c4-3d-99-a1-fb-64')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Devices.Gpio.GpioController: ...
 class IGpioControllerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('912b7d20-6ca4-4106-a3-73-ff-fd-34-6b-0e-5b')
+    _iid_ = Guid('912b7d20-6ca4-4106-a3-73-ff-fd-34-6b-0e-5b')
     @winrt_commethod(6)
     def GetControllersAsync(self, provider: Windows.Devices.Gpio.Provider.IGpioProvider) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.Gpio.GpioController]]: ...
     @winrt_commethod(7)
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Gpio.GpioController]: ...
 class IGpioPin(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('11d9b087-afae-4790-9e-e9-e0-ea-c9-42-d2-01')
+    _iid_ = Guid('11d9b087-afae-4790-9e-e9-e0-ea-c9-42-d2-01')
     @winrt_commethod(6)
     def add_ValueChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Gpio.GpioPin, Windows.Devices.Gpio.GpioPinValueChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -299,7 +299,7 @@ class IGpioPin(ComPtr):
     SharingMode = property(get_SharingMode, None)
 class IGpioPinValueChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3137aae1-703d-4059-bd-24-b5-b2-5d-ff-b8-4e')
+    _iid_ = Guid('3137aae1-703d-4059-bd-24-b5-b2-5d-ff-b8-4e')
     @winrt_commethod(6)
     def get_Edge(self) -> Windows.Devices.Gpio.GpioPinEdge: ...
     Edge = property(get_Edge, None)

@@ -99,7 +99,7 @@ FileSelectionMode_Single: FileSelectionMode = 0
 FileSelectionMode_Multiple: FileSelectionMode = 1
 class IFileOpenPickerUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('dda45a10-f9d4-40c4-8a-f5-c5-b6-b5-a6-1d-1d')
+    _iid_ = Guid('dda45a10-f9d4-40c4-8a-f5-c5-b6-b5-a6-1d-1d')
     @winrt_commethod(6)
     def AddFile(self, id: WinRT_String, file: Windows.Storage.IStorageFile) -> Windows.Storage.Pickers.Provider.AddFileResult: ...
     @winrt_commethod(7)
@@ -132,13 +132,13 @@ class IFileOpenPickerUI(ComPtr):
     Title = property(get_Title, put_Title)
 class IFileRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('13043da7-7fca-4c2b-9e-ca-68-90-f9-f0-01-85')
+    _iid_ = Guid('13043da7-7fca-4c2b-9e-ca-68-90-f9-f0-01-85')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     Id = property(get_Id, None)
 class IFileSavePickerUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9656c1e7-3e56-43cc-8a-39-33-c7-3d-9d-54-2b')
+    _iid_ = Guid('9656c1e7-3e56-43cc-8a-39-33-c7-3d-9d-54-2b')
     @winrt_commethod(6)
     def get_Title(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -165,12 +165,12 @@ class IFileSavePickerUI(ComPtr):
     FileName = property(get_FileName, None)
 class IPickerClosingDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7af7f71e-1a67-4a31-ae-80-e9-07-70-8a-61-9b')
+    _iid_ = Guid('7af7f71e-1a67-4a31-ae-80-e9-07-70-8a-61-9b')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class IPickerClosingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7e59f224-b332-4f12-8b-9f-a8-c2-f0-6b-32-cd')
+    _iid_ = Guid('7e59f224-b332-4f12-8b-9f-a8-c2-f0-6b-32-cd')
     @winrt_commethod(6)
     def get_ClosingOperation(self) -> Windows.Storage.Pickers.Provider.PickerClosingOperation: ...
     @winrt_commethod(7)
@@ -179,7 +179,7 @@ class IPickerClosingEventArgs(ComPtr):
     IsCanceled = property(get_IsCanceled, None)
 class IPickerClosingOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4ce9fb84-beee-4e39-a7-73-fc-5f-0e-ae-32-8d')
+    _iid_ = Guid('4ce9fb84-beee-4e39-a7-73-fc-5f-0e-ae-32-8d')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.Storage.Pickers.Provider.PickerClosingDeferral: ...
     @winrt_commethod(7)
@@ -187,7 +187,7 @@ class IPickerClosingOperation(ComPtr):
     Deadline = property(get_Deadline, None)
 class ITargetFileRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('42bd3355-7f88-478b-8e-81-69-0b-20-34-06-78')
+    _iid_ = Guid('42bd3355-7f88-478b-8e-81-69-0b-20-34-06-78')
     @winrt_commethod(6)
     def get_TargetFile(self) -> Windows.Storage.IStorageFile: ...
     @winrt_commethod(7)
@@ -197,12 +197,12 @@ class ITargetFileRequest(ComPtr):
     TargetFile = property(get_TargetFile, put_TargetFile)
 class ITargetFileRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4aee9d91-bf15-4da9-95-f6-f6-b7-d5-58-22-5b')
+    _iid_ = Guid('4aee9d91-bf15-4da9-95-f6-f6-b7-d5-58-22-5b')
     @winrt_commethod(6)
     def Complete(self) -> Void: ...
 class ITargetFileRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b163dbc1-1b51-4c89-a5-91-0f-d4-0b-3c-57-c9')
+    _iid_ = Guid('b163dbc1-1b51-4c89-a5-91-0f-d4-0b-3c-57-c9')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.Storage.Pickers.Provider.TargetFileRequest: ...
     Request = property(get_Request, None)

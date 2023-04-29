@@ -80,7 +80,7 @@ class DevicePortalConnectionRequestReceivedEventArgs(ComPtr):
     WebSocketProtocolsRequested = property(get_WebSocketProtocolsRequested, None)
 class IDevicePortalConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0f447f51-1198-4da1-8d-54-bd-ef-39-3e-09-b6')
+    _iid_ = Guid('0f447f51-1198-4da1-8d-54-bd-ef-39-3e-09-b6')
     @winrt_commethod(6)
     def add_Closed(self, handler: Windows.Foundation.TypedEventHandler[Windows.System.Diagnostics.DevicePortal.DevicePortalConnection, Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionClosedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -91,13 +91,13 @@ class IDevicePortalConnection(ComPtr):
     def remove_RequestReceived(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IDevicePortalConnectionClosedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fcf70e38-7032-428c-9f-50-94-5c-15-a9-f0-cb')
+    _iid_ = Guid('fcf70e38-7032-428c-9f-50-94-5c-15-a9-f0-cb')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionClosedReason: ...
     Reason = property(get_Reason, None)
 class IDevicePortalConnectionRequestReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('64dae045-6fda-4459-9e-bd-ec-ce-22-e3-85-59')
+    _iid_ = Guid('64dae045-6fda-4459-9e-bd-ec-ce-22-e3-85-59')
     @winrt_commethod(6)
     def get_RequestMessage(self) -> Windows.Web.Http.HttpRequestMessage: ...
     @winrt_commethod(7)
@@ -106,12 +106,12 @@ class IDevicePortalConnectionRequestReceivedEventArgs(ComPtr):
     ResponseMessage = property(get_ResponseMessage, None)
 class IDevicePortalConnectionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4bbe31e7-e9b9-4645-8f-ed-a5-3e-ea-0e-db-d6')
+    _iid_ = Guid('4bbe31e7-e9b9-4645-8f-ed-a5-3e-ea-0e-db-d6')
     @winrt_commethod(6)
     def GetForAppServiceConnection(self, appServiceConnection: Windows.ApplicationModel.AppService.AppServiceConnection) -> Windows.System.Diagnostics.DevicePortal.DevicePortalConnection: ...
 class IDevicePortalWebSocketConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('67657920-d65a-42f0-ae-f4-78-78-08-09-8b-7b')
+    _iid_ = Guid('67657920-d65a-42f0-ae-f4-78-78-08-09-8b-7b')
     @winrt_commethod(6)
     def GetServerMessageWebSocketForRequest(self, request: Windows.Web.Http.HttpRequestMessage) -> Windows.Networking.Sockets.ServerMessageWebSocket: ...
     @winrt_commethod(7)
@@ -124,7 +124,7 @@ class IDevicePortalWebSocketConnection(ComPtr):
     def GetServerStreamWebSocketForRequest2(self, request: Windows.Web.Http.HttpRequestMessage, protocol: WinRT_String, outboundBufferSizeInBytes: UInt32, noDelay: Boolean) -> Windows.Networking.Sockets.ServerStreamWebSocket: ...
 class IDevicePortalWebSocketConnectionRequestReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('79fdcaba-175c-4739-9f-74-dd-a7-97-c3-5b-3f')
+    _iid_ = Guid('79fdcaba-175c-4739-9f-74-dd-a7-97-c3-5b-3f')
     @winrt_commethod(6)
     def get_IsWebSocketUpgradeRequest(self) -> Boolean: ...
     @winrt_commethod(7)

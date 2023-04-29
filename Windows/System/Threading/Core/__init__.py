@@ -24,12 +24,12 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPreallocatedWorkItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b6daa9fc-bc5b-401a-a8-b2-6e-75-4d-14-da-a6')
+    _iid_ = Guid('b6daa9fc-bc5b-401a-a8-b2-6e-75-4d-14-da-a6')
     @winrt_commethod(6)
     def RunAsync(self) -> Windows.Foundation.IAsyncAction: ...
 class IPreallocatedWorkItemFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e3d32b45-dfea-469b-82-c5-f6-e3-ce-fd-ea-fb')
+    _iid_ = Guid('e3d32b45-dfea-469b-82-c5-f6-e3-ce-fd-ea-fb')
     @winrt_commethod(6)
     def CreateWorkItem(self, handler: Windows.System.Threading.WorkItemHandler) -> Windows.System.Threading.Core.PreallocatedWorkItem: ...
     @winrt_commethod(7)
@@ -38,14 +38,14 @@ class IPreallocatedWorkItemFactory(ComPtr):
     def CreateWorkItemWithPriorityAndOptions(self, handler: Windows.System.Threading.WorkItemHandler, priority: Windows.System.Threading.WorkItemPriority, options: Windows.System.Threading.WorkItemOptions) -> Windows.System.Threading.Core.PreallocatedWorkItem: ...
 class ISignalNotifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('14285e06-63a7-4713-b6-d9-62-f6-4b-56-fb-8b')
+    _iid_ = Guid('14285e06-63a7-4713-b6-d9-62-f6-4b-56-fb-8b')
     @winrt_commethod(6)
     def Enable(self) -> Void: ...
     @winrt_commethod(7)
     def Terminate(self) -> Void: ...
 class ISignalNotifierStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1c4e4566-8400-46d3-a1-15-7d-0c-0d-fc-9f-62')
+    _iid_ = Guid('1c4e4566-8400-46d3-a1-15-7d-0c-0d-fc-9f-62')
     @winrt_commethod(6)
     def AttachToEvent(self, name: WinRT_String, handler: Windows.System.Threading.Core.SignalHandler) -> Windows.System.Threading.Core.SignalNotifier: ...
     @winrt_commethod(7)
@@ -67,7 +67,7 @@ class PreallocatedWorkItem(ComPtr):
     def RunAsync(self: Windows.System.Threading.Core.IPreallocatedWorkItem) -> Windows.Foundation.IAsyncAction: ...
 class SignalHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('923c402e-4721-440e-9d-da-55-b6-f2-e0-77-10')
+    _iid_ = Guid('923c402e-4721-440e-9d-da-55-b6-f2-e0-77-10')
     ClassId = 'Windows.System.Threading.Core.SignalHandler'
     @winrt_commethod(3)
     def Invoke(self, signalNotifier: Windows.System.Threading.Core.SignalNotifier, timedOut: Boolean) -> Void: ...

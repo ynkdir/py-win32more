@@ -150,10 +150,10 @@ def winrt_mixinmethod(prototype):
             interface_class = hints["self"]
         interface = interface_class()
         if is_generic_class(interface_class):
-            guid = _ro_get_parameterized_type_instance_iid(interface_class)
+            iid = _ro_get_parameterized_type_instance_iid(interface_class)
         else:
-            guid = interface_class.Guid
-        hr = self.QueryInterface(guid, interface)
+            iid = interface_class._iid_
+        hr = self.QueryInterface(iid, interface)
         if FAILED(hr):
             raise WinError(hr)
         try:
@@ -229,7 +229,7 @@ def _winrt_create_string(s: str):
 def _winrt_get_activation_factory(classid: str, factory_class: type[T]) -> T:
     hs = _winrt_create_string(classid)
     factory = factory_class()
-    hr = RoGetActivationFactory(hs, factory_class.Guid, factory)
+    hr = RoGetActivationFactory(hs, factory_class._iid_, factory)
     WindowsDeleteString(hs)
     if FAILED(hr):
         raise WinError(hr)
@@ -280,11 +280,11 @@ def _ro_get_parameterized_type_instance_iid(ga: _GenericAlias) -> Guid:
 # FIXME: not completed
 def _get_type_signature(cls) -> str:
     if isinstance(cls, _GenericAlias):
-        piid_guid = str(cls.Guid)
+        piid_guid = str(cls._iid_)
         args = ";".join(_get_type_signature(arg) for arg in cls.__args__)
         return f"pinterface({piid_guid};{args})"
     elif issubclass(cls, ComPtr):
-        return str(cls.Guid)
+        return str(cls._iid_)
     elif issubclass(cls, WinRT_String):
         return "string"
     elif issubclass(cls, Char):

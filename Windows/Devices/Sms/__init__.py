@@ -29,7 +29,7 @@ CellularClass_Gsm: CellularClass = 1
 CellularClass_Cdma: CellularClass = 2
 class ISmsAppMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e8bb8494-d3a0-4a0a-86-d7-29-10-33-a8-cf-54')
+    _iid_ = Guid('e8bb8494-d3a0-4a0a-86-d7-29-10-33-a8-cf-54')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -88,7 +88,7 @@ class ISmsAppMessage(ComPtr):
     BinaryBody = property(get_BinaryBody, put_BinaryBody)
 class ISmsBroadcastMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('75aebbf1-e4b7-4874-a0-9c-29-56-e5-92-f9-57')
+    _iid_ = Guid('75aebbf1-e4b7-4874-a0-9c-29-56-e5-92-f9-57')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -121,7 +121,7 @@ class ISmsBroadcastMessage(ComPtr):
     IsUserPopupRequested = property(get_IsUserPopupRequested, None)
 class ISmsDevice2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bd8a5c13-e522-46cb-b8-d5-9e-ad-30-fb-6c-47')
+    _iid_ = Guid('bd8a5c13-e522-46cb-b8-d5-9e-ad-30-fb-6c-47')
     @winrt_commethod(6)
     def get_SmscAddress(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -152,7 +152,7 @@ class ISmsDevice2(ComPtr):
     DeviceStatus = property(get_DeviceStatus, None)
 class ISmsDevice2Statics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('65c78325-1031-491e-8f-b6-ef-99-91-af-e3-63')
+    _iid_ = Guid('65c78325-1031-491e-8f-b6-ef-99-91-af-e3-63')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -163,7 +163,7 @@ class ISmsDevice2Statics(ComPtr):
     def FromParentId(self, parentDeviceId: WinRT_String) -> Windows.Devices.Sms.SmsDevice2: ...
 class ISmsFilterRule(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('40e32fae-b049-4fbc-af-e9-e2-a6-10-ef-f5-5c')
+    _iid_ = Guid('40e32fae-b049-4fbc-af-e9-e2-a6-10-ef-f5-5c')
     @winrt_commethod(6)
     def get_MessageType(self) -> Windows.Devices.Sms.SmsMessageType: ...
     @winrt_commethod(7)
@@ -207,12 +207,12 @@ class ISmsFilterRule(ComPtr):
     BroadcastChannels = property(get_BroadcastChannels, None)
 class ISmsFilterRuleFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('00c36508-6296-4f29-9a-ad-89-20-ce-ba-3c-e8')
+    _iid_ = Guid('00c36508-6296-4f29-9a-ad-89-20-ce-ba-3c-e8')
     @winrt_commethod(6)
     def CreateFilterRule(self, messageType: Windows.Devices.Sms.SmsMessageType) -> Windows.Devices.Sms.SmsFilterRule: ...
 class ISmsFilterRules(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4e47eafb-79cd-4881-98-94-55-a4-13-5b-23-fa')
+    _iid_ = Guid('4e47eafb-79cd-4881-98-94-55-a4-13-5b-23-fa')
     @winrt_commethod(6)
     def get_ActionType(self) -> Windows.Devices.Sms.SmsFilterActionType: ...
     @winrt_commethod(7)
@@ -221,12 +221,12 @@ class ISmsFilterRules(ComPtr):
     Rules = property(get_Rules, None)
 class ISmsFilterRulesFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a09924ed-6e2e-4530-9f-de-46-5d-02-ee-d0-0e')
+    _iid_ = Guid('a09924ed-6e2e-4530-9f-de-46-5d-02-ee-d0-0e')
     @winrt_commethod(6)
     def CreateFilterRules(self, actionType: Windows.Devices.Sms.SmsFilterActionType) -> Windows.Devices.Sms.SmsFilterRules: ...
 class ISmsMessageBase(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2cf0fe30-fe50-4fc6-aa-88-4c-cf-e2-7a-29-ea')
+    _iid_ = Guid('2cf0fe30-fe50-4fc6-aa-88-4c-cf-e2-7a-29-ea')
     @winrt_commethod(6)
     def get_MessageType(self) -> Windows.Devices.Sms.SmsMessageType: ...
     @winrt_commethod(7)
@@ -244,7 +244,7 @@ class ISmsMessageBase(ComPtr):
     SimIccId = property(get_SimIccId, None)
 class ISmsMessageReceivedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2bcfcbd4-2657-4128-ad-5f-e3-87-71-32-bd-b1')
+    _iid_ = Guid('2bcfcbd4-2657-4128-ad-5f-e3-87-71-32-bd-b1')
     @winrt_commethod(6)
     def get_MessageType(self) -> Windows.Devices.Sms.SmsMessageType: ...
     @winrt_commethod(7)
@@ -272,7 +272,7 @@ class ISmsMessageReceivedTriggerDetails(ComPtr):
     StatusMessage = property(get_StatusMessage, None)
 class ISmsMessageRegistration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1720503e-f34f-446b-83-b3-0f-f1-99-23-b4-09')
+    _iid_ = Guid('1720503e-f34f-446b-83-b3-0f-f1-99-23-b4-09')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -284,7 +284,7 @@ class ISmsMessageRegistration(ComPtr):
     Id = property(get_Id, None)
 class ISmsMessageRegistrationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('63a05464-2898-4778-a0-3c-6f-99-49-07-d6-3a')
+    _iid_ = Guid('63a05464-2898-4778-a0-3c-6f-99-49-07-d6-3a')
     @winrt_commethod(6)
     def get_AllRegistrations(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Sms.SmsMessageRegistration]: ...
     @winrt_commethod(7)
@@ -292,7 +292,7 @@ class ISmsMessageRegistrationStatics(ComPtr):
     AllRegistrations = property(get_AllRegistrations, None)
 class ISmsSendMessageResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('db139af2-78c9-4feb-96-22-45-23-28-08-8d-62')
+    _iid_ = Guid('db139af2-78c9-4feb-96-22-45-23-28-08-8d-62')
     @winrt_commethod(6)
     def get_IsSuccessful(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -316,7 +316,7 @@ class ISmsSendMessageResult(ComPtr):
     TransportFailureCause = property(get_TransportFailureCause, None)
 class ISmsStatusMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e6d28342-b70b-4677-93-79-c9-78-3f-df-f8-f4')
+    _iid_ = Guid('e6d28342-b70b-4677-93-79-c9-78-3f-df-f8-f4')
     @winrt_commethod(6)
     def get_To(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -340,7 +340,7 @@ class ISmsStatusMessage(ComPtr):
     DischargeTime = property(get_DischargeTime, None)
 class ISmsTextMessage2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('22a0d893-4555-4755-b5-a1-e7-fd-84-95-5f-8d')
+    _iid_ = Guid('22a0d893-4555-4755-b5-a1-e7-fd-84-95-5f-8d')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -385,7 +385,7 @@ class ISmsTextMessage2(ComPtr):
     ProtocolId = property(get_ProtocolId, None)
 class ISmsVoicemailMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('271aa0a6-95b1-44ff-bc-b8-b8-fd-d7-e0-8b-c3')
+    _iid_ = Guid('271aa0a6-95b1-44ff-bc-b8-b8-fd-d7-e0-8b-c3')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -400,7 +400,7 @@ class ISmsVoicemailMessage(ComPtr):
     MessageCount = property(get_MessageCount, None)
 class ISmsWapMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cd937743-7a55-4d3b-90-21-f2-2e-02-2d-09-c5')
+    _iid_ = Guid('cd937743-7a55-4d3b-90-21-f2-2e-02-2d-09-c5')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)

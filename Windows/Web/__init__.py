@@ -24,12 +24,12 @@ def __getattr__(name):
     return getattr(_module, name)
 class IUriToStreamResolver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b0aba86a-9aeb-4d3a-95-90-00-3e-3c-a7-e2-90')
+    _iid_ = Guid('b0aba86a-9aeb-4d3a-95-90-00-3e-3c-a7-e2-90')
     @winrt_commethod(6)
     def UriToStreamAsync(self, uri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IInputStream]: ...
 class IWebErrorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fe616766-bf27-4064-87-b7-65-63-bb-11-ce-2e')
+    _iid_ = Guid('fe616766-bf27-4064-87-b7-65-63-bb-11-ce-2e')
     @winrt_commethod(6)
     def GetStatus(self, hresult: Int32) -> Windows.Web.WebErrorStatus: ...
 class WebError(ComPtr):

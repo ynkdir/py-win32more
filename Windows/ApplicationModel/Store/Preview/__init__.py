@@ -50,7 +50,7 @@ class DeliveryOptimizationSettings(ComPtr):
     DownloadModeSource = property(get_DownloadModeSource, None)
 class IDeliveryOptimizationSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1810fda0-e853-565e-b8-74-7a-8a-7b-9a-0e-0f')
+    _iid_ = Guid('1810fda0-e853-565e-b8-74-7a-8a-7b-9a-0e-0f')
     @winrt_commethod(6)
     def get_DownloadMode(self) -> Windows.ApplicationModel.Store.Preview.DeliveryOptimizationDownloadMode: ...
     @winrt_commethod(7)
@@ -59,12 +59,12 @@ class IDeliveryOptimizationSettings(ComPtr):
     DownloadModeSource = property(get_DownloadModeSource, None)
 class IDeliveryOptimizationSettingsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5c817caf-aed5-5999-b4-c9-8c-60-89-8b-c4-f3')
+    _iid_ = Guid('5c817caf-aed5-5999-b4-c9-8c-60-89-8b-c4-f3')
     @winrt_commethod(6)
     def GetCurrentSettings(self) -> Windows.ApplicationModel.Store.Preview.DeliveryOptimizationSettings: ...
 class IStoreConfigurationStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('728f7fc0-8628-42ec-84-a2-07-78-0e-b4-4d-8b')
+    _iid_ = Guid('728f7fc0-8628-42ec-84-a2-07-78-0e-b4-4d-8b')
     @winrt_commethod(6)
     def SetSystemConfiguration(self, catalogHardwareManufacturerId: WinRT_String, catalogStoreContentModifierId: WinRT_String, systemConfigurationExpiration: Windows.Foundation.DateTime, catalogHardwareDescriptor: WinRT_String) -> Void: ...
     @winrt_commethod(7)
@@ -80,7 +80,7 @@ class IStoreConfigurationStatics(ComPtr):
     HardwareManufacturerInfo = property(get_HardwareManufacturerInfo, None)
 class IStoreConfigurationStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('657c4595-c8b7-4fe9-9f-4c-4d-71-02-7d-34-7e')
+    _iid_ = Guid('657c4595-c8b7-4fe9-9f-4c-4d-71-02-7d-34-7e')
     @winrt_commethod(6)
     def get_PurchasePromptingPolicy(self) -> Windows.Foundation.IReference[UInt32]: ...
     @winrt_commethod(7)
@@ -88,7 +88,7 @@ class IStoreConfigurationStatics2(ComPtr):
     PurchasePromptingPolicy = property(get_PurchasePromptingPolicy, put_PurchasePromptingPolicy)
 class IStoreConfigurationStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6d45f57c-f144-4cb5-9d-3f-4e-b0-5e-30-b6-d3')
+    _iid_ = Guid('6d45f57c-f144-4cb5-9d-3f-4e-b0-5e-30-b6-d3')
     @winrt_commethod(6)
     def HasStoreWebAccount(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -105,7 +105,7 @@ class IStoreConfigurationStatics3(ComPtr):
     def SetPurchasePromptingPolicyForUser(self, user: Windows.System.User, value: Windows.Foundation.IReference[UInt32]) -> Void: ...
 class IStoreConfigurationStatics4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('20ff56d2-4ee3-4cf0-9b-12-55-2c-03-31-0f-75')
+    _iid_ = Guid('20ff56d2-4ee3-4cf0-9b-12-55-2c-03-31-0f-75')
     @winrt_commethod(6)
     def GetStoreWebAccountId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -124,7 +124,7 @@ class IStoreConfigurationStatics4(ComPtr):
     def ShouldRestrictToEnterpriseStoreOnlyForUser(self, user: Windows.System.User) -> Boolean: ...
 class IStoreConfigurationStatics5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f7613191-8fa9-49db-82-2b-01-60-e7-e4-e5-c5')
+    _iid_ = Guid('f7613191-8fa9-49db-82-2b-01-60-e7-e4-e5-c5')
     @winrt_commethod(6)
     def IsPinToDesktopSupported(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -137,7 +137,7 @@ class IStoreConfigurationStatics5(ComPtr):
     def PinToDesktopForUser(self, user: Windows.System.User, appPackageFamilyName: WinRT_String) -> Void: ...
 class IStoreHardwareManufacturerInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f292dc08-c654-43ac-a2-1f-34-80-1c-9d-33-88')
+    _iid_ = Guid('f292dc08-c654-43ac-a2-1f-34-80-1c-9d-33-88')
     @winrt_commethod(6)
     def get_HardwareManufacturerId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -152,14 +152,14 @@ class IStoreHardwareManufacturerInfo(ComPtr):
     ManufacturerName = property(get_ManufacturerName, None)
 class IStorePreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8a157241-840e-49a9-bc-01-5d-5b-01-fb-c8-e9')
+    _iid_ = Guid('8a157241-840e-49a9-bc-01-5d-5b-01-fb-c8-e9')
     @winrt_commethod(6)
     def RequestProductPurchaseByProductIdAndSkuIdAsync(self, productId: WinRT_String, skuId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Store.Preview.StorePreviewPurchaseResults]: ...
     @winrt_commethod(7)
     def LoadAddOnProductInfosAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Store.Preview.StorePreviewProductInfo]]: ...
 class IStorePreviewProductInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1937dbb3-6c01-4c9d-85-cd-5b-ab-aa-c2-b3-51')
+    _iid_ = Guid('1937dbb3-6c01-4c9d-85-cd-5b-ab-aa-c2-b3-51')
     @winrt_commethod(6)
     def get_ProductId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -177,13 +177,13 @@ class IStorePreviewProductInfo(ComPtr):
     SkuInfoList = property(get_SkuInfoList, None)
 class IStorePreviewPurchaseResults(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b0daaed1-d6c5-4e53-a0-43-fb-a0-d8-e6-12-31')
+    _iid_ = Guid('b0daaed1-d6c5-4e53-a0-43-fb-a0-d8-e6-12-31')
     @winrt_commethod(6)
     def get_ProductPurchaseStatus(self) -> Windows.ApplicationModel.Store.Preview.StorePreviewProductPurchaseStatus: ...
     ProductPurchaseStatus = property(get_ProductPurchaseStatus, None)
 class IStorePreviewSkuInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('81fd76e2-0b26-48d9-98-ce-27-46-1c-66-9d-6c')
+    _iid_ = Guid('81fd76e2-0b26-48d9-98-ce-27-46-1c-66-9d-6c')
     @winrt_commethod(6)
     def get_ProductId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -213,7 +213,7 @@ class IStorePreviewSkuInfo(ComPtr):
     ExtendedData = property(get_ExtendedData, None)
 class IWebAuthenticationCoreManagerHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('06a50525-e715-4123-92-76-9d-6f-86-5b-a5-5f')
+    _iid_ = Guid('06a50525-e715-4123-92-76-9d-6f-86-5b-a5-5f')
     @winrt_commethod(6)
     def RequestTokenWithUIElementHostingAsync(self, request: Windows.Security.Authentication.Web.Core.WebTokenRequest, uiElement: Windows.UI.Xaml.UIElement) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Web.Core.WebTokenRequestResult]: ...
     @winrt_commethod(7)

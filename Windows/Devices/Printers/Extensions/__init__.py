@@ -23,7 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPrint3DWorkflow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c56f74bd-3669-4a66-ab-42-c8-15-19-30-cd-34')
+    _iid_ = Guid('c56f74bd-3669-4a66-ab-42-c8-15-19-30-cd-34')
     @winrt_commethod(6)
     def get_DeviceID(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -40,14 +40,14 @@ class IPrint3DWorkflow(ComPtr):
     IsPrintReady = property(get_IsPrintReady, put_IsPrintReady)
 class IPrint3DWorkflow2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a2a6c54f-8ac1-4918-97-41-e3-4f-30-04-23-9e')
+    _iid_ = Guid('a2a6c54f-8ac1-4918-97-41-e3-4f-30-04-23-9e')
     @winrt_commethod(6)
     def add_PrinterChanged(self, eventHandler: Windows.Foundation.TypedEventHandler[Windows.Devices.Printers.Extensions.Print3DWorkflow, Windows.Devices.Printers.Extensions.Print3DWorkflowPrinterChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_PrinterChanged(self, eventCookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IPrint3DWorkflowPrintRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('19f8c858-5ac8-4b55-8a-5f-e6-15-67-da-fb-4d')
+    _iid_ = Guid('19f8c858-5ac8-4b55-8a-5f-e6-15-67-da-fb-4d')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Printers.Extensions.Print3DWorkflowStatus: ...
     @winrt_commethod(7)
@@ -59,7 +59,7 @@ class IPrint3DWorkflowPrintRequestedEventArgs(ComPtr):
     Status = property(get_Status, None)
 class IPrint3DWorkflowPrinterChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('45226402-95fc-4847-93-b3-13-4d-bf-5c-60-f7')
+    _iid_ = Guid('45226402-95fc-4847-93-b3-13-4d-bf-5c-60-f7')
     @winrt_commethod(6)
     def get_NewDeviceId(self) -> WinRT_String: ...
     NewDeviceId = property(get_NewDeviceId, None)

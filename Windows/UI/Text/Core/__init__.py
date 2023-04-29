@@ -386,7 +386,7 @@ CoreTextTextUpdatingResult_Succeeded: CoreTextTextUpdatingResult = 0
 CoreTextTextUpdatingResult_Failed: CoreTextTextUpdatingResult = 1
 class ICoreTextCompositionCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1f34ebb6-b79f-4121-a5-e7-fd-a9-b8-61-6e-30')
+    _iid_ = Guid('1f34ebb6-b79f-4121-a5-e7-fd-a9-b8-61-6e-30')
     @winrt_commethod(6)
     def get_IsCanceled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -397,7 +397,7 @@ class ICoreTextCompositionCompletedEventArgs(ComPtr):
     CompositionSegments = property(get_CompositionSegments, None)
 class ICoreTextCompositionSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('776c6bd9-4ead-4da7-8f-47-3a-88-b5-23-cc-34')
+    _iid_ = Guid('776c6bd9-4ead-4da7-8f-47-3a-88-b5-23-cc-34')
     @winrt_commethod(6)
     def get_PreconversionString(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -406,7 +406,7 @@ class ICoreTextCompositionSegment(ComPtr):
     Range = property(get_Range, None)
 class ICoreTextCompositionStartedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('276b16a9-64e7-4ab0-bc-4b-a0-2d-73-83-5b-fb')
+    _iid_ = Guid('276b16a9-64e7-4ab0-bc-4b-a0-2d-73-83-5b-fb')
     @winrt_commethod(6)
     def get_IsCanceled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -414,7 +414,7 @@ class ICoreTextCompositionStartedEventArgs(ComPtr):
     IsCanceled = property(get_IsCanceled, None)
 class ICoreTextEditContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bf6608af-4041-47c3-b2-63-a9-18-eb-5e-ae-f2')
+    _iid_ = Guid('bf6608af-4041-47c3-b2-63-a9-18-eb-5e-ae-f2')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -483,14 +483,14 @@ class ICoreTextEditContext(ComPtr):
     InputPaneDisplayPolicy = property(get_InputPaneDisplayPolicy, put_InputPaneDisplayPolicy)
 class ICoreTextEditContext2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b1867dbb-083b-49e1-b2-81-2b-35-d6-2b-f4-66')
+    _iid_ = Guid('b1867dbb-083b-49e1-b2-81-2b-35-d6-2b-f4-66')
     @winrt_commethod(6)
     def add_NotifyFocusLeaveCompleted(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Text.Core.CoreTextEditContext, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_NotifyFocusLeaveCompleted(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ICoreTextFormatUpdatingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7310bd33-b4a8-43b1-b3-7b-07-24-d4-ac-a7-ab')
+    _iid_ = Guid('7310bd33-b4a8-43b1-b3-7b-07-24-d4-ac-a7-ab')
     @winrt_commethod(6)
     def get_Range(self) -> Windows.UI.Text.Core.CoreTextRange: ...
     @winrt_commethod(7)
@@ -521,7 +521,7 @@ class ICoreTextFormatUpdatingEventArgs(ComPtr):
     IsCanceled = property(get_IsCanceled, None)
 class ICoreTextLayoutBounds(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e972c974-4436-4917-80-d0-a5-25-e4-ca-67-80')
+    _iid_ = Guid('e972c974-4436-4917-80-d0-a5-25-e4-ca-67-80')
     @winrt_commethod(6)
     def get_TextBounds(self) -> Windows.Foundation.Rect: ...
     @winrt_commethod(7)
@@ -534,7 +534,7 @@ class ICoreTextLayoutBounds(ComPtr):
     ControlBounds = property(get_ControlBounds, put_ControlBounds)
 class ICoreTextLayoutRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2555a8cc-51fd-4f03-98-bf-ac-78-17-4d-68-e0')
+    _iid_ = Guid('2555a8cc-51fd-4f03-98-bf-ac-78-17-4d-68-e0')
     @winrt_commethod(6)
     def get_Range(self) -> Windows.UI.Text.Core.CoreTextRange: ...
     @winrt_commethod(7)
@@ -548,19 +548,19 @@ class ICoreTextLayoutRequest(ComPtr):
     IsCanceled = property(get_IsCanceled, None)
 class ICoreTextLayoutRequest2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('676de624-cd3d-4bcd-bf-01-7f-71-10-95-45-11')
+    _iid_ = Guid('676de624-cd3d-4bcd-bf-01-7f-71-10-95-45-11')
     @winrt_commethod(6)
     def get_LayoutBoundsVisualPixels(self) -> Windows.UI.Text.Core.CoreTextLayoutBounds: ...
     LayoutBoundsVisualPixels = property(get_LayoutBoundsVisualPixels, None)
 class ICoreTextLayoutRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b1dc6ae0-9a7b-4e9e-a5-66-4a-6b-5f-8a-d6-76')
+    _iid_ = Guid('b1dc6ae0-9a7b-4e9e-a5-66-4a-6b-5f-8a-d6-76')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.UI.Text.Core.CoreTextLayoutRequest: ...
     Request = property(get_Request, None)
 class ICoreTextSelectionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f0a70403-208b-4301-88-3c-74-ca-74-85-fd-8d')
+    _iid_ = Guid('f0a70403-208b-4301-88-3c-74-ca-74-85-fd-8d')
     @winrt_commethod(6)
     def get_Selection(self) -> Windows.UI.Text.Core.CoreTextRange: ...
     @winrt_commethod(7)
@@ -573,13 +573,13 @@ class ICoreTextSelectionRequest(ComPtr):
     IsCanceled = property(get_IsCanceled, None)
 class ICoreTextSelectionRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('13c6682b-f614-421a-8f-4b-9e-c8-a5-a3-7f-cd')
+    _iid_ = Guid('13c6682b-f614-421a-8f-4b-9e-c8-a5-a3-7f-cd')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.UI.Text.Core.CoreTextSelectionRequest: ...
     Request = property(get_Request, None)
 class ICoreTextSelectionUpdatingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d445839f-fe7f-4bd5-8a-26-09-22-c1-b3-e6-39')
+    _iid_ = Guid('d445839f-fe7f-4bd5-8a-26-09-22-c1-b3-e6-39')
     @winrt_commethod(6)
     def get_Selection(self) -> Windows.UI.Text.Core.CoreTextRange: ...
     @winrt_commethod(7)
@@ -595,7 +595,7 @@ class ICoreTextSelectionUpdatingEventArgs(ComPtr):
     IsCanceled = property(get_IsCanceled, None)
 class ICoreTextServicesManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c2507d83-6e0a-4a8a-bd-f8-19-48-87-48-54-ba')
+    _iid_ = Guid('c2507d83-6e0a-4a8a-bd-f8-19-48-87-48-54-ba')
     @winrt_commethod(6)
     def get_InputLanguage(self) -> Windows.Globalization.Language: ...
     @winrt_commethod(7)
@@ -607,18 +607,18 @@ class ICoreTextServicesManager(ComPtr):
     InputLanguage = property(get_InputLanguage, None)
 class ICoreTextServicesManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1520a388-e2cf-4d65-ae-b9-b3-2d-86-fe-39-b9')
+    _iid_ = Guid('1520a388-e2cf-4d65-ae-b9-b3-2d-86-fe-39-b9')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.UI.Text.Core.CoreTextServicesManager: ...
 class ICoreTextServicesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('91859a46-eccf-47a4-8a-e7-09-8a-9c-6f-bb-15')
+    _iid_ = Guid('91859a46-eccf-47a4-8a-e7-09-8a-9c-6f-bb-15')
     @winrt_commethod(6)
     def get_HiddenCharacter(self) -> Char: ...
     HiddenCharacter = property(get_HiddenCharacter, None)
 class ICoreTextTextRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('50d950a9-f51e-4cc1-8c-a1-e6-34-6d-1a-61-be')
+    _iid_ = Guid('50d950a9-f51e-4cc1-8c-a1-e6-34-6d-1a-61-be')
     @winrt_commethod(6)
     def get_Range(self) -> Windows.UI.Text.Core.CoreTextRange: ...
     @winrt_commethod(7)
@@ -634,13 +634,13 @@ class ICoreTextTextRequest(ComPtr):
     IsCanceled = property(get_IsCanceled, None)
 class ICoreTextTextRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f096a2d0-41c6-4c02-8b-1a-d9-53-b0-0c-ab-b3')
+    _iid_ = Guid('f096a2d0-41c6-4c02-8b-1a-d9-53-b0-0c-ab-b3')
     @winrt_commethod(6)
     def get_Request(self) -> Windows.UI.Text.Core.CoreTextTextRequest: ...
     Request = property(get_Request, None)
 class ICoreTextTextUpdatingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('eea7918d-cc2b-4f03-8f-f6-02-fd-21-7d-b4-50')
+    _iid_ = Guid('eea7918d-cc2b-4f03-8f-f6-02-fd-21-7d-b4-50')
     @winrt_commethod(6)
     def get_Range(self) -> Windows.UI.Text.Core.CoreTextRange: ...
     @winrt_commethod(7)

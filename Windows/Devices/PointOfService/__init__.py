@@ -1169,7 +1169,7 @@ class ClaimedSlipPrinter(ComPtr):
     IsReadyToPrint = property(get_IsReadyToPrint, None)
 class IBarcodeScanner(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bea33e06-b264-4f03-a9-c1-45-b2-0f-01-13-4f')
+    _iid_ = Guid('bea33e06-b264-4f03-a9-c1-45-b2-0f-01-13-4f')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1196,13 +1196,13 @@ class IBarcodeScanner(ComPtr):
     Capabilities = property(get_Capabilities, None)
 class IBarcodeScanner2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('89215167-8cee-436d-89-ab-8d-fb-43-bb-42-86')
+    _iid_ = Guid('89215167-8cee-436d-89-ab-8d-fb-43-bb-42-86')
     @winrt_commethod(6)
     def get_VideoDeviceId(self) -> WinRT_String: ...
     VideoDeviceId = property(get_VideoDeviceId, None)
 class IBarcodeScannerCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c60691e4-f2c8-4420-a3-07-b1-2e-f6-62-28-57')
+    _iid_ = Guid('c60691e4-f2c8-4420-a3-07-b1-2e-f6-62-28-57')
     @winrt_commethod(6)
     def get_PowerReportingType(self) -> Windows.Devices.PointOfService.UnifiedPosPowerReportingType: ...
     @winrt_commethod(7)
@@ -1217,25 +1217,25 @@ class IBarcodeScannerCapabilities(ComPtr):
     IsImagePreviewSupported = property(get_IsImagePreviewSupported, None)
 class IBarcodeScannerCapabilities1(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8e5ab3e9-0e2c-472f-a1-cc-ee-80-54-b6-a6-84')
+    _iid_ = Guid('8e5ab3e9-0e2c-472f-a1-cc-ee-80-54-b6-a6-84')
     @winrt_commethod(6)
     def get_IsSoftwareTriggerSupported(self) -> Boolean: ...
     IsSoftwareTriggerSupported = property(get_IsSoftwareTriggerSupported, None)
 class IBarcodeScannerCapabilities2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f211cfec-e1a1-4ea8-9a-bc-92-b1-59-62-70-ab')
+    _iid_ = Guid('f211cfec-e1a1-4ea8-9a-bc-92-b1-59-62-70-ab')
     @winrt_commethod(6)
     def get_IsVideoPreviewSupported(self) -> Boolean: ...
     IsVideoPreviewSupported = property(get_IsVideoPreviewSupported, None)
 class IBarcodeScannerDataReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4234a7e2-ed97-467d-ad-2b-01-e4-43-13-a9-29')
+    _iid_ = Guid('4234a7e2-ed97-467d-ad-2b-01-e4-43-13-a9-29')
     @winrt_commethod(6)
     def get_Report(self) -> Windows.Devices.PointOfService.BarcodeScannerReport: ...
     Report = property(get_Report, None)
 class IBarcodeScannerErrorOccurredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2cd2602f-cf3a-4002-a7-5a-c5-ec-46-8f-0a-20')
+    _iid_ = Guid('2cd2602f-cf3a-4002-a7-5a-c5-ec-46-8f-0a-20')
     @winrt_commethod(6)
     def get_PartialInputData(self) -> Windows.Devices.PointOfService.BarcodeScannerReport: ...
     @winrt_commethod(7)
@@ -1247,13 +1247,13 @@ class IBarcodeScannerErrorOccurredEventArgs(ComPtr):
     ErrorData = property(get_ErrorData, None)
 class IBarcodeScannerImagePreviewReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f3b7de85-6e8b-434e-9f-58-06-ef-26-bc-4b-af')
+    _iid_ = Guid('f3b7de85-6e8b-434e-9f-58-06-ef-26-bc-4b-af')
     @winrt_commethod(6)
     def get_Preview(self) -> Windows.Storage.Streams.IRandomAccessStreamWithContentType: ...
     Preview = property(get_Preview, None)
 class IBarcodeScannerReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5ce4d8b0-a489-4b96-86-c4-f0-bf-8a-37-75-3d')
+    _iid_ = Guid('5ce4d8b0-a489-4b96-86-c4-f0-bf-8a-37-75-3d')
     @winrt_commethod(6)
     def get_ScanDataType(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -1265,12 +1265,12 @@ class IBarcodeScannerReport(ComPtr):
     ScanDataLabel = property(get_ScanDataLabel, None)
 class IBarcodeScannerReportFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a2547326-2013-457c-89-63-49-c1-5d-ca-78-ce')
+    _iid_ = Guid('a2547326-2013-457c-89-63-49-c1-5d-ca-78-ce')
     @winrt_commethod(6)
     def CreateInstance(self, scanDataType: UInt32, scanData: Windows.Storage.Streams.IBuffer, scanDataLabel: Windows.Storage.Streams.IBuffer) -> Windows.Devices.PointOfService.BarcodeScannerReport: ...
 class IBarcodeScannerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5d115f6f-da49-41e8-8c-8c-f0-cb-62-a9-c4-fc')
+    _iid_ = Guid('5d115f6f-da49-41e8-8c-8c-f0-cb-62-a9-c4-fc')
     @winrt_commethod(6)
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.PointOfService.BarcodeScanner]: ...
     @winrt_commethod(7)
@@ -1279,12 +1279,12 @@ class IBarcodeScannerStatics(ComPtr):
     def GetDeviceSelector(self) -> WinRT_String: ...
 class IBarcodeScannerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b8652473-a36f-4007-b1-d0-27-9e-be-92-a6-56')
+    _iid_ = Guid('b8652473-a36f-4007-b1-d0-27-9e-be-92-a6-56')
     @winrt_commethod(6)
     def GetDeviceSelectorWithConnectionTypes(self, connectionTypes: Windows.Devices.PointOfService.PosConnectionTypes) -> WinRT_String: ...
 class IBarcodeScannerStatusUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('355d8586-9c43-462b-a9-1a-81-6d-c9-7f-45-2c')
+    _iid_ = Guid('355d8586-9c43-462b-a9-1a-81-6d-c9-7f-45-2c')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.PointOfService.BarcodeScannerStatus: ...
     @winrt_commethod(7)
@@ -1293,7 +1293,7 @@ class IBarcodeScannerStatusUpdatedEventArgs(ComPtr):
     ExtendedStatus = property(get_ExtendedStatus, None)
 class IBarcodeSymbologiesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ca8549bb-06d2-43f4-a4-4b-c6-20-67-9f-d8-d0')
+    _iid_ = Guid('ca8549bb-06d2-43f4-a4-4b-c6-20-67-9f-d8-d0')
     @winrt_commethod(6)
     def get_Unknown(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -1577,13 +1577,13 @@ class IBarcodeSymbologiesStatics(ComPtr):
     ExtendedBase = property(get_ExtendedBase, None)
 class IBarcodeSymbologiesStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8b7518f4-99d0-40bf-94-24-b9-1d-6d-d4-c6-e0')
+    _iid_ = Guid('8b7518f4-99d0-40bf-94-24-b9-1d-6d-d4-c6-e0')
     @winrt_commethod(6)
     def get_Gs1DWCode(self) -> UInt32: ...
     Gs1DWCode = property(get_Gs1DWCode, None)
 class IBarcodeSymbologyAttributes(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('66413a78-ab7a-4ada-8e-ce-93-60-14-b2-ea-d7')
+    _iid_ = Guid('66413a78-ab7a-4ada-8e-ce-93-60-14-b2-ea-d7')
     @winrt_commethod(6)
     def get_IsCheckDigitValidationEnabled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -1620,7 +1620,7 @@ class IBarcodeSymbologyAttributes(ComPtr):
     IsDecodeLengthSupported = property(get_IsDecodeLengthSupported, None)
 class ICashDrawer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9f88f5c8-de54-4aee-a8-90-92-0b-cb-fe-30-fc')
+    _iid_ = Guid('9f88f5c8-de54-4aee-a8-90-92-0b-cb-fe-30-fc')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1648,7 +1648,7 @@ class ICashDrawer(ComPtr):
     DrawerEventSource = property(get_DrawerEventSource, None)
 class ICashDrawerCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0bc6de0b-e8e7-4b1f-b1-d1-3e-50-1a-d0-82-47')
+    _iid_ = Guid('0bc6de0b-e8e7-4b1f-b1-d1-3e-50-1a-d0-82-47')
     @winrt_commethod(6)
     def get_PowerReportingType(self) -> Windows.Devices.PointOfService.UnifiedPosPowerReportingType: ...
     @winrt_commethod(7)
@@ -1669,7 +1669,7 @@ class ICashDrawerCapabilities(ComPtr):
     IsDrawerOpenSensorAvailable = property(get_IsDrawerOpenSensorAvailable, None)
 class ICashDrawerCloseAlarm(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6bf88cc7-6f63-430e-ab-3b-95-d7-5f-fb-e8-7f')
+    _iid_ = Guid('6bf88cc7-6f63-430e-ab-3b-95-d7-5f-fb-e8-7f')
     @winrt_commethod(6)
     def put_AlarmTimeout(self, value: Windows.Foundation.TimeSpan) -> Void: ...
     @winrt_commethod(7)
@@ -1698,7 +1698,7 @@ class ICashDrawerCloseAlarm(ComPtr):
     BeepDelay = property(get_BeepDelay, put_BeepDelay)
 class ICashDrawerEventSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e006e46c-f2f9-442f-8d-d6-06-c1-0a-42-27-ba')
+    _iid_ = Guid('e006e46c-f2f9-442f-8d-d6-06-c1-0a-42-27-ba')
     @winrt_commethod(6)
     def add_DrawerClosed(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.PointOfService.CashDrawerEventSource, Windows.Devices.PointOfService.CashDrawerClosedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -1709,13 +1709,13 @@ class ICashDrawerEventSource(ComPtr):
     def remove_DrawerOpened(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ICashDrawerEventSourceEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('69cb3bc1-147f-421c-9c-23-09-01-23-bb-78-6c')
+    _iid_ = Guid('69cb3bc1-147f-421c-9c-23-09-01-23-bb-78-6c')
     @winrt_commethod(6)
     def get_CashDrawer(self) -> Windows.Devices.PointOfService.CashDrawer: ...
     CashDrawer = property(get_CashDrawer, None)
 class ICashDrawerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('dfa0955a-d437-4fff-b5-47-dd-a9-69-a4-f8-83')
+    _iid_ = Guid('dfa0955a-d437-4fff-b5-47-dd-a9-69-a4-f8-83')
     @winrt_commethod(6)
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.PointOfService.CashDrawer]: ...
     @winrt_commethod(7)
@@ -1724,12 +1724,12 @@ class ICashDrawerStatics(ComPtr):
     def GetDeviceSelector(self) -> WinRT_String: ...
 class ICashDrawerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3e818121-8c42-40e8-9c-0e-40-29-70-48-10-4c')
+    _iid_ = Guid('3e818121-8c42-40e8-9c-0e-40-29-70-48-10-4c')
     @winrt_commethod(6)
     def GetDeviceSelectorWithConnectionTypes(self, connectionTypes: Windows.Devices.PointOfService.PosConnectionTypes) -> WinRT_String: ...
 class ICashDrawerStatus(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6bbd78bf-dca1-4e06-99-eb-5a-f6-a5-ae-c1-08')
+    _iid_ = Guid('6bbd78bf-dca1-4e06-99-eb-5a-f6-a5-ae-c1-08')
     @winrt_commethod(6)
     def get_StatusKind(self) -> Windows.Devices.PointOfService.CashDrawerStatusKind: ...
     @winrt_commethod(7)
@@ -1738,13 +1738,13 @@ class ICashDrawerStatus(ComPtr):
     ExtendedStatus = property(get_ExtendedStatus, None)
 class ICashDrawerStatusUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('30aae98a-0d70-459c-95-53-87-e1-24-c5-24-88')
+    _iid_ = Guid('30aae98a-0d70-459c-95-53-87-e1-24-c5-24-88')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.PointOfService.CashDrawerStatus: ...
     Status = property(get_Status, None)
 class IClaimedBarcodeScanner(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4a63b49c-8fa4-4332-bb-26-94-5d-11-d8-1e-0f')
+    _iid_ = Guid('4a63b49c-8fa4-4332-bb-26-94-5d-11-d8-1e-0f')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1801,21 +1801,21 @@ class IClaimedBarcodeScanner(ComPtr):
     IsDecodeDataEnabled = property(get_IsDecodeDataEnabled, put_IsDecodeDataEnabled)
 class IClaimedBarcodeScanner1(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f61aad0c-8551-42b4-99-8c-97-0c-20-21-0a-22')
+    _iid_ = Guid('f61aad0c-8551-42b4-99-8c-97-0c-20-21-0a-22')
     @winrt_commethod(6)
     def StartSoftwareTriggerAsync(self) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def StopSoftwareTriggerAsync(self) -> Windows.Foundation.IAsyncAction: ...
 class IClaimedBarcodeScanner2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e3b59e8c-2d8b-4f70-8a-f3-34-48-be-dd-5f-e2')
+    _iid_ = Guid('e3b59e8c-2d8b-4f70-8a-f3-34-48-be-dd-5f-e2')
     @winrt_commethod(6)
     def GetSymbologyAttributesAsync(self, barcodeSymbology: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Devices.PointOfService.BarcodeSymbologyAttributes]: ...
     @winrt_commethod(7)
     def SetSymbologyAttributesAsync(self, barcodeSymbology: UInt32, attributes: Windows.Devices.PointOfService.BarcodeSymbologyAttributes) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IClaimedBarcodeScanner3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e6ceb430-712e-45fc-8b-86-cd-55-f5-ae-f7-9d')
+    _iid_ = Guid('e6ceb430-712e-45fc-8b-86-cd-55-f5-ae-f7-9d')
     @winrt_commethod(6)
     def ShowVideoPreviewAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_commethod(7)
@@ -1827,17 +1827,17 @@ class IClaimedBarcodeScanner3(ComPtr):
     IsVideoPreviewShownOnEnable = property(get_IsVideoPreviewShownOnEnable, put_IsVideoPreviewShownOnEnable)
 class IClaimedBarcodeScanner4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5d501f97-376a-41a8-a2-30-2f-37-c1-94-9d-de')
+    _iid_ = Guid('5d501f97-376a-41a8-a2-30-2f-37-c1-94-9d-de')
     @winrt_commethod(6)
     def add_Closed(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.PointOfService.ClaimedBarcodeScanner, Windows.Devices.PointOfService.ClaimedBarcodeScannerClosedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Closed(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IClaimedBarcodeScannerClosedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cf7d5489-a22c-4c65-a9-01-88-d7-7d-83-39-54')
+    _iid_ = Guid('cf7d5489-a22c-4c65-a9-01-88-d7-7d-83-39-54')
 class IClaimedCashDrawer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ca3f99af-abb8-42c1-8a-84-5c-66-51-2f-5a-75')
+    _iid_ = Guid('ca3f99af-abb8-42c1-8a-84-5c-66-51-2f-5a-75')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1868,22 +1868,22 @@ class IClaimedCashDrawer(ComPtr):
     CloseAlarm = property(get_CloseAlarm, None)
 class IClaimedCashDrawer2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9cbab5a2-de42-4d5b-b0-c1-9b-57-a2-ba-89-c3')
+    _iid_ = Guid('9cbab5a2-de42-4d5b-b0-c1-9b-57-a2-ba-89-c3')
     @winrt_commethod(6)
     def add_Closed(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.PointOfService.ClaimedCashDrawer, Windows.Devices.PointOfService.ClaimedCashDrawerClosedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Closed(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IClaimedCashDrawerClosedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cc573f33-3f34-4c5c-ba-ae-de-ad-f1-6c-d7-fa')
+    _iid_ = Guid('cc573f33-3f34-4c5c-ba-ae-de-ad-f1-6c-d7-fa')
 class IClaimedJournalPrinter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('67ea0630-517d-487f-9f-df-d2-e0-a0-a2-64-a5')
+    _iid_ = Guid('67ea0630-517d-487f-9f-df-d2-e0-a0-a2-64-a5')
     @winrt_commethod(6)
     def CreateJob(self) -> Windows.Devices.PointOfService.JournalPrintJob: ...
 class IClaimedLineDisplay(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('120ac970-9a75-4acf-aa-e7-09-97-2b-cf-87-94')
+    _iid_ = Guid('120ac970-9a75-4acf-aa-e7-09-97-2b-cf-87-94')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1916,7 +1916,7 @@ class IClaimedLineDisplay(ComPtr):
     DefaultWindow = property(get_DefaultWindow, None)
 class IClaimedLineDisplay2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a31c75ed-41f5-4e76-a0-74-79-5e-47-a4-6e-97')
+    _iid_ = Guid('a31c75ed-41f5-4e76-a0-74-79-5e-47-a4-6e-97')
     @winrt_commethod(6)
     def GetStatisticsAsync(self, statisticsCategories: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_commethod(7)
@@ -1957,17 +1957,17 @@ class IClaimedLineDisplay2(ComPtr):
     CustomGlyphs = property(get_CustomGlyphs, None)
 class IClaimedLineDisplay3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('642ecd92-e9d4-4ecc-af-75-32-9c-27-4c-d1-8f')
+    _iid_ = Guid('642ecd92-e9d4-4ecc-af-75-32-9c-27-4c-d1-8f')
     @winrt_commethod(6)
     def add_Closed(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.PointOfService.ClaimedLineDisplay, Windows.Devices.PointOfService.ClaimedLineDisplayClosedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Closed(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IClaimedLineDisplayClosedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f915f364-d3d5-4f10-b5-11-90-93-9e-df-ac-d8')
+    _iid_ = Guid('f915f364-d3d5-4f10-b5-11-90-93-9e-df-ac-d8')
 class IClaimedLineDisplayStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('78ca98fb-8b6b-4973-86-f0-3e-57-0c-35-18-25')
+    _iid_ = Guid('78ca98fb-8b6b-4973-86-f0-3e-57-0c-35-18-25')
     @winrt_commethod(6)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.PointOfService.ClaimedLineDisplay]: ...
     @winrt_commethod(7)
@@ -1976,7 +1976,7 @@ class IClaimedLineDisplayStatics(ComPtr):
     def GetDeviceSelectorWithConnectionTypes(self, connectionTypes: Windows.Devices.PointOfService.PosConnectionTypes) -> WinRT_String: ...
 class IClaimedMagneticStripeReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('475ca8f3-9417-48bc-b9-d7-41-63-a7-84-4c-02')
+    _iid_ = Guid('475ca8f3-9417-48bc-b9-d7-41-63-a7-84-4c-02')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -2053,17 +2053,17 @@ class IClaimedMagneticStripeReader(ComPtr):
     IsTransmitSentinelsEnabled = property(get_IsTransmitSentinelsEnabled, put_IsTransmitSentinelsEnabled)
 class IClaimedMagneticStripeReader2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('236fafdf-e2dc-4d7d-9c-78-06-0d-f2-bf-29-28')
+    _iid_ = Guid('236fafdf-e2dc-4d7d-9c-78-06-0d-f2-bf-29-28')
     @winrt_commethod(6)
     def add_Closed(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.PointOfService.ClaimedMagneticStripeReader, Windows.Devices.PointOfService.ClaimedMagneticStripeReaderClosedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Closed(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IClaimedMagneticStripeReaderClosedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('14ada93a-adcd-4c80-ac-da-c3-ea-ed-26-47-e1')
+    _iid_ = Guid('14ada93a-adcd-4c80-ac-da-c3-ea-ed-26-47-e1')
 class IClaimedPosPrinter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6d64ce0c-e03e-4b14-a3-8e-c2-8c-34-b8-63-53')
+    _iid_ = Guid('6d64ce0c-e03e-4b14-a3-8e-c2-8c-34-b8-63-53')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -2113,17 +2113,17 @@ class IClaimedPosPrinter(ComPtr):
     Journal = property(get_Journal, None)
 class IClaimedPosPrinter2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5bf7a3d5-5198-437a-82-df-58-99-93-fa-77-e1')
+    _iid_ = Guid('5bf7a3d5-5198-437a-82-df-58-99-93-fa-77-e1')
     @winrt_commethod(6)
     def add_Closed(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.PointOfService.ClaimedPosPrinter, Windows.Devices.PointOfService.ClaimedPosPrinterClosedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Closed(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IClaimedPosPrinterClosedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e2b7a27b-4d40-471d-92-ed-63-37-5b-18-c7-88')
+    _iid_ = Guid('e2b7a27b-4d40-471d-92-ed-63-37-5b-18-c7-88')
 class IClaimedReceiptPrinter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9ad27a74-dd61-4ee2-98-37-5b-5d-72-d5-38-b9')
+    _iid_ = Guid('9ad27a74-dd61-4ee2-98-37-5b-5d-72-d5-38-b9')
     @winrt_commethod(6)
     def get_SidewaysMaxLines(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -2143,7 +2143,7 @@ class IClaimedReceiptPrinter(ComPtr):
     PrintArea = property(get_PrintArea, None)
 class IClaimedSlipPrinter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bd5deff2-af90-4e8a-b7-7b-e3-ae-9c-a6-3a-7f')
+    _iid_ = Guid('bd5deff2-af90-4e8a-b7-7b-e3-ae-9c-a6-3a-7f')
     @winrt_commethod(6)
     def get_SidewaysMaxLines(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -2179,7 +2179,7 @@ class IClaimedSlipPrinter(ComPtr):
     PrintArea = property(get_PrintArea, None)
 class ICommonClaimedPosPrinterStation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b7eb66a8-fe8a-4cfb-8b-42-e3-5b-28-0c-b2-7c')
+    _iid_ = Guid('b7eb66a8-fe8a-4cfb-8b-42-e3-5b-28-0c-b2-7c')
     @winrt_commethod(6)
     def put_CharactersPerLine(self, value: UInt32) -> Void: ...
     @winrt_commethod(7)
@@ -2233,7 +2233,7 @@ class ICommonClaimedPosPrinterStation(ComPtr):
     IsReadyToPrint = property(get_IsReadyToPrint, None)
 class ICommonPosPrintStationCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('de5b52ca-e02e-40e9-9e-5e-1b-48-8e-6a-ac-fc')
+    _iid_ = Guid('de5b52ca-e02e-40e9-9e-5e-1b-48-8e-6a-ac-fc')
     @winrt_commethod(6)
     def get_IsPrinterPresent(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -2275,7 +2275,7 @@ class ICommonPosPrintStationCapabilities(ComPtr):
     SupportedCharactersPerLine = property(get_SupportedCharactersPerLine, None)
 class ICommonReceiptSlipCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('09286b8b-9873-4d05-bf-be-47-27-a6-03-8f-69')
+    _iid_ = Guid('09286b8b-9873-4d05-bf-be-47-27-a6-03-8f-69')
     @winrt_commethod(6)
     def get_IsBarcodeSupported(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -2305,7 +2305,7 @@ class ICommonReceiptSlipCapabilities(ComPtr):
     SupportedBitmapRotations = property(get_SupportedBitmapRotations, None)
 class IJournalPrintJob(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9f4f2864-f3f0-55d0-8c-39-74-cc-91-78-3e-ed')
+    _iid_ = Guid('9f4f2864-f3f0-55d0-8c-39-74-cc-91-78-3e-ed')
     @winrt_commethod(6)
     def Print(self, data: WinRT_String, printOptions: Windows.Devices.PointOfService.PosPrinterPrintOptions) -> Void: ...
     @winrt_commethod(7)
@@ -2314,10 +2314,10 @@ class IJournalPrintJob(ComPtr):
     def FeedPaperByMapModeUnit(self, distance: Int32) -> Void: ...
 class IJournalPrinterCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3b5ccc43-e047-4463-bb-58-17-b5-ba-1d-80-56')
+    _iid_ = Guid('3b5ccc43-e047-4463-bb-58-17-b5-ba-1d-80-56')
 class IJournalPrinterCapabilities2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('03b0b645-33b8-533b-ba-aa-a4-38-92-83-ab-0a')
+    _iid_ = Guid('03b0b645-33b8-533b-ba-aa-a4-38-92-83-ab-0a')
     @winrt_commethod(6)
     def get_IsReverseVideoSupported(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -2338,7 +2338,7 @@ class IJournalPrinterCapabilities2(ComPtr):
     IsReversePaperFeedByMapModeUnitSupported = property(get_IsReversePaperFeedByMapModeUnitSupported, None)
 class ILineDisplay(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('24f5df4e-3c99-44e2-b7-3f-e5-1b-e3-63-7a-8c')
+    _iid_ = Guid('24f5df4e-3c99-44e2-b7-3f-e5-1b-e3-63-7a-8c')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -2364,12 +2364,12 @@ class ILineDisplay(ComPtr):
     DeviceServiceVersion = property(get_DeviceServiceVersion, None)
 class ILineDisplay2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c296a628-ef44-40f3-bd-1c-b0-4c-6a-5c-dc-7d')
+    _iid_ = Guid('c296a628-ef44-40f3-bd-1c-b0-4c-6a-5c-dc-7d')
     @winrt_commethod(6)
     def CheckPowerStatusAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.PointOfService.LineDisplayPowerStatus]: ...
 class ILineDisplayAttributes(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c17de99c-229a-4c14-a6-f1-b4-e4-b1-fe-ad-92')
+    _iid_ = Guid('c17de99c-229a-4c14-a6-f1-b4-e4-b1-fe-ad-92')
     @winrt_commethod(6)
     def get_IsPowerNotifyEnabled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -2407,7 +2407,7 @@ class ILineDisplayAttributes(ComPtr):
     CurrentWindow = property(get_CurrentWindow, put_CurrentWindow)
 class ILineDisplayCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5a15b5d1-8dc5-4b9c-91-72-30-3e-47-b7-0c-55')
+    _iid_ = Guid('5a15b5d1-8dc5-4b9c-91-72-30-3e-47-b7-0c-55')
     @winrt_commethod(6)
     def get_IsStatisticsReportingSupported(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -2464,7 +2464,7 @@ class ILineDisplayCapabilities(ComPtr):
     SupportedWindows = property(get_SupportedWindows, None)
 class ILineDisplayCursor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ecdffc45-754a-4e3b-ab-2b-15-11-81-08-56-05')
+    _iid_ = Guid('ecdffc45-754a-4e3b-ab-2b-15-11-81-08-56-05')
     @winrt_commethod(6)
     def get_CanCustomize(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -2492,7 +2492,7 @@ class ILineDisplayCursor(ComPtr):
     IsOtherSupported = property(get_IsOtherSupported, None)
 class ILineDisplayCursorAttributes(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4e2d54fe-4ffd-4190-aa-e1-ce-28-5f-20-c8-96')
+    _iid_ = Guid('4e2d54fe-4ffd-4190-aa-e1-ce-28-5f-20-c8-96')
     @winrt_commethod(6)
     def get_IsBlinkEnabled(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -2515,7 +2515,7 @@ class ILineDisplayCursorAttributes(ComPtr):
     Position = property(get_Position, put_Position)
 class ILineDisplayCustomGlyphs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2257f63c-f263-44f1-a1-a0-e7-50-a6-a0-ec-54')
+    _iid_ = Guid('2257f63c-f263-44f1-a1-a0-e7-50-a6-a0-ec-54')
     @winrt_commethod(6)
     def get_SizeInPixels(self) -> Windows.Foundation.Size: ...
     @winrt_commethod(7)
@@ -2526,7 +2526,7 @@ class ILineDisplayCustomGlyphs(ComPtr):
     SupportedGlyphCodes = property(get_SupportedGlyphCodes, None)
 class ILineDisplayMarquee(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a3d33e3e-f46a-4b7a-bc-21-53-eb-3b-57-f8-b4')
+    _iid_ = Guid('a3d33e3e-f46a-4b7a-bc-21-53-eb-3b-57-f8-b4')
     @winrt_commethod(6)
     def get_Format(self) -> Windows.Devices.PointOfService.LineDisplayMarqueeFormat: ...
     @winrt_commethod(7)
@@ -2548,7 +2548,7 @@ class ILineDisplayMarquee(ComPtr):
     ScrollWaitInterval = property(get_ScrollWaitInterval, put_ScrollWaitInterval)
 class ILineDisplayStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('022dc0b6-11b0-4690-95-47-0b-39-c5-af-21-14')
+    _iid_ = Guid('022dc0b6-11b0-4690-95-47-0b-39-c5-af-21-14')
     @winrt_commethod(6)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.PointOfService.LineDisplay]: ...
     @winrt_commethod(7)
@@ -2559,13 +2559,13 @@ class ILineDisplayStatics(ComPtr):
     def GetDeviceSelectorWithConnectionTypes(self, connectionTypes: Windows.Devices.PointOfService.PosConnectionTypes) -> WinRT_String: ...
 class ILineDisplayStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('600c3f1c-77ab-4968-a7-de-c0-2f-f1-69-f2-cc')
+    _iid_ = Guid('600c3f1c-77ab-4968-a7-de-c0-2f-f1-69-f2-cc')
     @winrt_commethod(6)
     def get_StatisticsCategorySelector(self) -> Windows.Devices.PointOfService.LineDisplayStatisticsCategorySelector: ...
     StatisticsCategorySelector = property(get_StatisticsCategorySelector, None)
 class ILineDisplayStatisticsCategorySelector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b521c46b-9274-4d24-94-f3-b6-01-7b-83-24-44')
+    _iid_ = Guid('b521c46b-9274-4d24-94-f3-b6-01-7b-83-24-44')
     @winrt_commethod(6)
     def get_AllStatistics(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -2577,13 +2577,13 @@ class ILineDisplayStatisticsCategorySelector(ComPtr):
     ManufacturerStatistics = property(get_ManufacturerStatistics, None)
 class ILineDisplayStatusUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ddd57c1a-86fb-4eba-93-d1-6f-5e-da-52-b7-52')
+    _iid_ = Guid('ddd57c1a-86fb-4eba-93-d1-6f-5e-da-52-b7-52')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.PointOfService.LineDisplayPowerStatus: ...
     Status = property(get_Status, None)
 class ILineDisplayStoredBitmap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f621515b-d81e-43ba-bf-1b-bc-fa-3c-78-5b-a0')
+    _iid_ = Guid('f621515b-d81e-43ba-bf-1b-bc-fa-3c-78-5b-a0')
     @winrt_commethod(6)
     def get_EscapeSequence(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -2591,7 +2591,7 @@ class ILineDisplayStoredBitmap(ComPtr):
     EscapeSequence = property(get_EscapeSequence, None)
 class ILineDisplayWindow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d21feef4-2364-4be5-be-e1-85-16-80-af-49-64')
+    _iid_ = Guid('d21feef4-2364-4be5-be-e1-85-16-80-af-49-64')
     @winrt_commethod(6)
     def get_SizeInCharacters(self) -> Windows.Foundation.Size: ...
     @winrt_commethod(7)
@@ -2614,7 +2614,7 @@ class ILineDisplayWindow(ComPtr):
     InterCharacterWaitInterval = property(get_InterCharacterWaitInterval, put_InterCharacterWaitInterval)
 class ILineDisplayWindow2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a95ce2e6-bdd8-4365-8e-11-de-94-de-8d-ff-02')
+    _iid_ = Guid('a95ce2e6-bdd8-4365-8e-11-de-94-de-8d-ff-02')
     @winrt_commethod(6)
     def get_Cursor(self) -> Windows.Devices.PointOfService.LineDisplayCursor: ...
     @winrt_commethod(7)
@@ -2637,7 +2637,7 @@ class ILineDisplayWindow2(ComPtr):
     Marquee = property(get_Marquee, None)
 class IMagneticStripeReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1a92b015-47c3-468a-93-33-0c-65-17-57-48-83')
+    _iid_ = Guid('1a92b015-47c3-468a-93-33-0c-65-17-57-48-83')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -2664,7 +2664,7 @@ class IMagneticStripeReader(ComPtr):
     DeviceAuthenticationProtocol = property(get_DeviceAuthenticationProtocol, None)
 class IMagneticStripeReaderAamvaCardDataReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0a4bbd51-c316-4910-87-f3-7a-62-ba-86-2d-31')
+    _iid_ = Guid('0a4bbd51-c316-4910-87-f3-7a-62-ba-86-2d-31')
     @winrt_commethod(6)
     def get_Report(self) -> Windows.Devices.PointOfService.MagneticStripeReaderReport: ...
     @winrt_commethod(7)
@@ -2724,7 +2724,7 @@ class IMagneticStripeReaderAamvaCardDataReceivedEventArgs(ComPtr):
     PostalCode = property(get_PostalCode, None)
 class IMagneticStripeReaderBankCardDataReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2e958823-a31a-4763-88-2c-23-72-5e-39-b0-8e')
+    _iid_ = Guid('2e958823-a31a-4763-88-2c-23-72-5e-39-b0-8e')
     @winrt_commethod(6)
     def get_Report(self) -> Windows.Devices.PointOfService.MagneticStripeReaderReport: ...
     @winrt_commethod(7)
@@ -2754,7 +2754,7 @@ class IMagneticStripeReaderBankCardDataReceivedEventArgs(ComPtr):
     Suffix = property(get_Suffix, None)
 class IMagneticStripeReaderCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7128809c-c440-44a2-a4-67-46-91-75-d0-28-96')
+    _iid_ = Guid('7128809c-c440-44a2-a4-67-46-91-75-d0-28-96')
     @winrt_commethod(6)
     def get_CardAuthentication(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -2790,7 +2790,7 @@ class IMagneticStripeReaderCapabilities(ComPtr):
     IsTransmitSentinelsSupported = property(get_IsTransmitSentinelsSupported, None)
 class IMagneticStripeReaderCardTypesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('528f2c5d-2986-474f-84-54-7c-cd-05-92-8d-5f')
+    _iid_ = Guid('528f2c5d-2986-474f-84-54-7c-cd-05-92-8d-5f')
     @winrt_commethod(6)
     def get_Unknown(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -2805,7 +2805,7 @@ class IMagneticStripeReaderCardTypesStatics(ComPtr):
     ExtendedBase = property(get_ExtendedBase, None)
 class IMagneticStripeReaderEncryptionAlgorithmsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('53b57350-c3db-4754-9c-00-41-39-23-74-a1-09')
+    _iid_ = Guid('53b57350-c3db-4754-9c-00-41-39-23-74-a1-09')
     @winrt_commethod(6)
     def get_None(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -2817,7 +2817,7 @@ class IMagneticStripeReaderEncryptionAlgorithmsStatics(ComPtr):
     ExtendedBase = property(get_ExtendedBase, None)
 class IMagneticStripeReaderErrorOccurredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1fedf95d-2c84-41ad-b7-78-f2-35-6a-78-9a-b1')
+    _iid_ = Guid('1fedf95d-2c84-41ad-b7-78-f2-35-6a-78-9a-b1')
     @winrt_commethod(6)
     def get_Track1Status(self) -> Windows.Devices.PointOfService.MagneticStripeReaderTrackErrorType: ...
     @winrt_commethod(7)
@@ -2838,7 +2838,7 @@ class IMagneticStripeReaderErrorOccurredEventArgs(ComPtr):
     PartialInputData = property(get_PartialInputData, None)
 class IMagneticStripeReaderReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6a5b6047-99b0-4188-be-f1-ed-df-79-f7-8f-e6')
+    _iid_ = Guid('6a5b6047-99b0-4188-be-f1-ed-df-79-f7-8f-e6')
     @winrt_commethod(6)
     def get_CardType(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -2868,7 +2868,7 @@ class IMagneticStripeReaderReport(ComPtr):
     AdditionalSecurityInformation = property(get_AdditionalSecurityInformation, None)
 class IMagneticStripeReaderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c45fab4a-efd7-4760-a5-ce-15-b0-e4-7e-94-eb')
+    _iid_ = Guid('c45fab4a-efd7-4760-a5-ce-15-b0-e4-7e-94-eb')
     @winrt_commethod(6)
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.PointOfService.MagneticStripeReader]: ...
     @winrt_commethod(7)
@@ -2877,12 +2877,12 @@ class IMagneticStripeReaderStatics(ComPtr):
     def GetDeviceSelector(self) -> WinRT_String: ...
 class IMagneticStripeReaderStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8cadc362-d667-48fa-86-bc-f5-ae-11-89-26-2b')
+    _iid_ = Guid('8cadc362-d667-48fa-86-bc-f5-ae-11-89-26-2b')
     @winrt_commethod(6)
     def GetDeviceSelectorWithConnectionTypes(self, connectionTypes: Windows.Devices.PointOfService.PosConnectionTypes) -> WinRT_String: ...
 class IMagneticStripeReaderStatusUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('09cc6bb0-3262-401d-9e-8a-e8-0d-63-58-90-6b')
+    _iid_ = Guid('09cc6bb0-3262-401d-9e-8a-e8-0d-63-58-90-6b')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.PointOfService.MagneticStripeReaderStatus: ...
     @winrt_commethod(7)
@@ -2891,7 +2891,7 @@ class IMagneticStripeReaderStatusUpdatedEventArgs(ComPtr):
     ExtendedStatus = property(get_ExtendedStatus, None)
 class IMagneticStripeReaderTrackData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('104cf671-4a9d-446e-ab-c5-20-40-23-07-ba-36')
+    _iid_ = Guid('104cf671-4a9d-446e-ab-c5-20-40-23-07-ba-36')
     @winrt_commethod(6)
     def get_Data(self) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(7)
@@ -2903,13 +2903,13 @@ class IMagneticStripeReaderTrackData(ComPtr):
     EncryptedData = property(get_EncryptedData, None)
 class IMagneticStripeReaderVendorSpecificCardDataReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('af0a5514-59cc-4a60-99-e8-99-a5-3d-ac-e5-aa')
+    _iid_ = Guid('af0a5514-59cc-4a60-99-e8-99-a5-3d-ac-e5-aa')
     @winrt_commethod(6)
     def get_Report(self) -> Windows.Devices.PointOfService.MagneticStripeReaderReport: ...
     Report = property(get_Report, None)
 class IPosPrinter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2a03c10e-9a19-4a01-99-4f-12-df-ad-6a-dc-bf')
+    _iid_ = Guid('2a03c10e-9a19-4a01-99-4f-12-df-ad-6a-dc-bf')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -2937,7 +2937,7 @@ class IPosPrinter(ComPtr):
     Status = property(get_Status, None)
 class IPosPrinter2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('248475e8-8b98-5517-8e-48-76-0e-86-f6-89-87')
+    _iid_ = Guid('248475e8-8b98-5517-8e-48-76-0e-86-f6-89-87')
     @winrt_commethod(6)
     def get_SupportedBarcodeSymbologies(self) -> Windows.Foundation.Collections.IVectorView[UInt32]: ...
     @winrt_commethod(7)
@@ -2945,7 +2945,7 @@ class IPosPrinter2(ComPtr):
     SupportedBarcodeSymbologies = property(get_SupportedBarcodeSymbologies, None)
 class IPosPrinterCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cde95721-4380-4985-ad-c5-39-db-30-cd-93-bc')
+    _iid_ = Guid('cde95721-4380-4985-ad-c5-39-db-30-cd-93-bc')
     @winrt_commethod(6)
     def get_PowerReportingType(self) -> Windows.Devices.PointOfService.UnifiedPosPowerReportingType: ...
     @winrt_commethod(7)
@@ -2978,7 +2978,7 @@ class IPosPrinterCapabilities(ComPtr):
     Journal = property(get_Journal, None)
 class IPosPrinterCharacterSetIdsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5c709eff-709a-4fe7-b2-15-06-a7-48-a3-8b-39')
+    _iid_ = Guid('5c709eff-709a-4fe7-b2-15-06-a7-48-a3-8b-39')
     @winrt_commethod(6)
     def get_Utf16LE(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -2990,7 +2990,7 @@ class IPosPrinterCharacterSetIdsStatics(ComPtr):
     Ansi = property(get_Ansi, None)
 class IPosPrinterFontProperty(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a7f4e93a-f8ac-5f04-84-d2-29-b1-6d-8a-63-3c')
+    _iid_ = Guid('a7f4e93a-f8ac-5f04-84-d2-29-b1-6d-8a-63-3c')
     @winrt_commethod(6)
     def get_TypeFace(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -3002,7 +3002,7 @@ class IPosPrinterFontProperty(ComPtr):
     CharacterSizes = property(get_CharacterSizes, None)
 class IPosPrinterJob(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9a94005c-0615-4591-a5-8f-30-f8-7e-df-e2-e4')
+    _iid_ = Guid('9a94005c-0615-4591-a5-8f-30-f8-7e-df-e2-e4')
     @winrt_commethod(6)
     def Print(self, data: WinRT_String) -> Void: ...
     @winrt_commethod(7)
@@ -3013,7 +3013,7 @@ class IPosPrinterJob(ComPtr):
     def ExecuteAsync(self) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IPosPrinterPrintOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0a2e16fd-1d02-5a58-9d-59-bf-cd-e7-6f-de-86')
+    _iid_ = Guid('0a2e16fd-1d02-5a58-9d-59-bf-cd-e7-6f-de-86')
     @winrt_commethod(6)
     def get_TypeFace(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -3081,10 +3081,10 @@ class IPosPrinterPrintOptions(ComPtr):
     CharacterSet = property(get_CharacterSet, put_CharacterSet)
 class IPosPrinterReleaseDeviceRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2bcba359-1cef-40b2-9e-cb-f9-27-f8-56-ae-3c')
+    _iid_ = Guid('2bcba359-1cef-40b2-9e-cb-f9-27-f8-56-ae-3c')
 class IPosPrinterStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8ce0d4ea-132f-4cdf-a6-4a-2d-0d-7c-96-a8-5b')
+    _iid_ = Guid('8ce0d4ea-132f-4cdf-a6-4a-2d-0d-7c-96-a8-5b')
     @winrt_commethod(6)
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.PointOfService.PosPrinter]: ...
     @winrt_commethod(7)
@@ -3093,12 +3093,12 @@ class IPosPrinterStatics(ComPtr):
     def GetDeviceSelector(self) -> WinRT_String: ...
 class IPosPrinterStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('eecd2c1c-b0d0-42e7-b1-37-b8-9b-16-24-4d-41')
+    _iid_ = Guid('eecd2c1c-b0d0-42e7-b1-37-b8-9b-16-24-4d-41')
     @winrt_commethod(6)
     def GetDeviceSelectorWithConnectionTypes(self, connectionTypes: Windows.Devices.PointOfService.PosConnectionTypes) -> WinRT_String: ...
 class IPosPrinterStatus(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d1f0c730-da40-4328-bf-76-51-56-fa-33-b7-47')
+    _iid_ = Guid('d1f0c730-da40-4328-bf-76-51-56-fa-33-b7-47')
     @winrt_commethod(6)
     def get_StatusKind(self) -> Windows.Devices.PointOfService.PosPrinterStatusKind: ...
     @winrt_commethod(7)
@@ -3107,13 +3107,13 @@ class IPosPrinterStatus(ComPtr):
     ExtendedStatus = property(get_ExtendedStatus, None)
 class IPosPrinterStatusUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2edb87df-13a6-428d-ba-81-b0-e7-c3-e5-a3-cd')
+    _iid_ = Guid('2edb87df-13a6-428d-ba-81-b0-e7-c3-e5-a3-cd')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.PointOfService.PosPrinterStatus: ...
     Status = property(get_Status, None)
 class IReceiptOrSlipJob(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('532199be-c8c3-4dc2-89-e9-5c-4a-37-b3-4d-dc')
+    _iid_ = Guid('532199be-c8c3-4dc2-89-e9-5c-4a-37-b3-4d-dc')
     @winrt_commethod(6)
     def SetBarcodeRotation(self, value: Windows.Devices.PointOfService.PosPrinterRotation) -> Void: ...
     @winrt_commethod(7)
@@ -3146,7 +3146,7 @@ class IReceiptOrSlipJob(ComPtr):
     def PrintBitmapCustomWidthCustomAlign(self, bitmap: Windows.Graphics.Imaging.BitmapFrame, alignmentDistance: UInt32, width: UInt32) -> Void: ...
 class IReceiptPrintJob(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('aa96066e-acad-4b79-9d-0f-c0-cf-c0-8d-c7-7b')
+    _iid_ = Guid('aa96066e-acad-4b79-9d-0f-c0-cf-c0-8d-c7-7b')
     @winrt_commethod(6)
     def MarkFeed(self, kind: Windows.Devices.PointOfService.PosPrinterMarkFeedKind) -> Void: ...
     @winrt_commethod(7)
@@ -3155,7 +3155,7 @@ class IReceiptPrintJob(ComPtr):
     def CutPaperDefault(self) -> Void: ...
 class IReceiptPrintJob2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0cbc12e3-9e29-5179-bc-d8-18-11-d3-b9-a1-0e')
+    _iid_ = Guid('0cbc12e3-9e29-5179-bc-d8-18-11-d3-b9-a1-0e')
     @winrt_commethod(6)
     def StampPaper(self) -> Void: ...
     @winrt_commethod(7)
@@ -3166,7 +3166,7 @@ class IReceiptPrintJob2(ComPtr):
     def FeedPaperByMapModeUnit(self, distance: Int32) -> Void: ...
 class IReceiptPrinterCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b8f0b58f-51a8-43fc-9b-d5-8d-e2-72-a6-41-5b')
+    _iid_ = Guid('b8f0b58f-51a8-43fc-9b-d5-8d-e2-72-a6-41-5b')
     @winrt_commethod(6)
     def get_CanCutPaper(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -3178,7 +3178,7 @@ class IReceiptPrinterCapabilities(ComPtr):
     MarkFeedCapabilities = property(get_MarkFeedCapabilities, None)
 class IReceiptPrinterCapabilities2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('20030638-8a2c-55ac-9a-7b-75-76-d8-86-9e-99')
+    _iid_ = Guid('20030638-8a2c-55ac-9a-7b-75-76-d8-86-9e-99')
     @winrt_commethod(6)
     def get_IsReverseVideoSupported(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -3199,7 +3199,7 @@ class IReceiptPrinterCapabilities2(ComPtr):
     IsReversePaperFeedByMapModeUnitSupported = property(get_IsReversePaperFeedByMapModeUnitSupported, None)
 class ISlipPrintJob(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5d88f95d-6131-5a4b-b7-d5-8e-f2-da-7b-41-65')
+    _iid_ = Guid('5d88f95d-6131-5a4b-b7-d5-8e-f2-da-7b-41-65')
     @winrt_commethod(6)
     def Print(self, data: WinRT_String, printOptions: Windows.Devices.PointOfService.PosPrinterPrintOptions) -> Void: ...
     @winrt_commethod(7)
@@ -3208,7 +3208,7 @@ class ISlipPrintJob(ComPtr):
     def FeedPaperByMapModeUnit(self, distance: Int32) -> Void: ...
 class ISlipPrinterCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('99b16399-488c-4157-8a-c2-9f-57-f7-08-d3-db')
+    _iid_ = Guid('99b16399-488c-4157-8a-c2-9f-57-f7-08-d3-db')
     @winrt_commethod(6)
     def get_IsFullLengthSupported(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -3217,7 +3217,7 @@ class ISlipPrinterCapabilities(ComPtr):
     IsBothSidesPrintingSupported = property(get_IsBothSidesPrintingSupported, None)
 class ISlipPrinterCapabilities2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6ff89671-2d1a-5000-87-c2-b0-85-1b-fd-f0-7e')
+    _iid_ = Guid('6ff89671-2d1a-5000-87-c2-b0-85-1b-fd-f0-7e')
     @winrt_commethod(6)
     def get_IsReverseVideoSupported(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -3238,7 +3238,7 @@ class ISlipPrinterCapabilities2(ComPtr):
     IsReversePaperFeedByMapModeUnitSupported = property(get_IsReversePaperFeedByMapModeUnitSupported, None)
 class IUnifiedPosErrorData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2b998c3a-555c-4889-8e-d8-c5-99-bb-3a-71-2a')
+    _iid_ = Guid('2b998c3a-555c-4889-8e-d8-c5-99-bb-3a-71-2a')
     @winrt_commethod(6)
     def get_Message(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -3253,7 +3253,7 @@ class IUnifiedPosErrorData(ComPtr):
     ExtendedReason = property(get_ExtendedReason, None)
 class IUnifiedPosErrorDataFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4b982551-1ffe-451b-a3-68-63-e0-ce-46-5f-5a')
+    _iid_ = Guid('4b982551-1ffe-451b-a3-68-63-e0-ce-46-5f-5a')
     @winrt_commethod(6)
     def CreateInstance(self, message: WinRT_String, severity: Windows.Devices.PointOfService.UnifiedPosErrorSeverity, reason: Windows.Devices.PointOfService.UnifiedPosErrorReason, extendedReason: UInt32) -> Windows.Devices.PointOfService.UnifiedPosErrorData: ...
 class JournalPrintJob(ComPtr):

@@ -33,7 +33,7 @@ class AddPagesEventArgs(ComPtr):
     PrintTaskOptions = property(get_PrintTaskOptions, None)
 class AddPagesEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('d4b57970-57a0-4209-84-7c-c0-93-b5-4b-c7-29')
+    _iid_ = Guid('d4b57970-57a0-4209-84-7c-c0-93-b5-4b-c7-29')
     ClassId = 'Windows.UI.Xaml.Printing.AddPagesEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Printing.AddPagesEventArgs) -> Void: ...
@@ -47,25 +47,25 @@ class GetPreviewPageEventArgs(ComPtr):
     PageNumber = property(get_PageNumber, None)
 class GetPreviewPageEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('ccb3e9ed-9c11-4e50-ab-49-e9-80-86-bb-fd-ef')
+    _iid_ = Guid('ccb3e9ed-9c11-4e50-ab-49-e9-80-86-bb-fd-ef')
     ClassId = 'Windows.UI.Xaml.Printing.GetPreviewPageEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Printing.GetPreviewPageEventArgs) -> Void: ...
 class IAddPagesEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e2e52be5-056c-4420-97-95-cb-35-26-ce-0c-20')
+    _iid_ = Guid('e2e52be5-056c-4420-97-95-cb-35-26-ce-0c-20')
     @winrt_commethod(6)
     def get_PrintTaskOptions(self) -> Windows.Graphics.Printing.PrintTaskOptions: ...
     PrintTaskOptions = property(get_PrintTaskOptions, None)
 class IGetPreviewPageEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a43d703d-dea9-4df6-a7-ed-35-04-9c-d4-85-c7')
+    _iid_ = Guid('a43d703d-dea9-4df6-a7-ed-35-04-9c-d4-85-c7')
     @winrt_commethod(6)
     def get_PageNumber(self) -> Int32: ...
     PageNumber = property(get_PageNumber, None)
 class IPaginateEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ed945fd6-79ab-42b7-93-0a-3d-6e-09-01-1d-21')
+    _iid_ = Guid('ed945fd6-79ab-42b7-93-0a-3d-6e-09-01-1d-21')
     @winrt_commethod(6)
     def get_PrintTaskOptions(self) -> Windows.Graphics.Printing.PrintTaskOptions: ...
     @winrt_commethod(7)
@@ -74,7 +74,7 @@ class IPaginateEventArgs(ComPtr):
     CurrentPreviewPageNumber = property(get_CurrentPreviewPageNumber, None)
 class IPrintDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e44327c3-a999-485b-b1-d8-72-dc-51-78-21-e6')
+    _iid_ = Guid('e44327c3-a999-485b-b1-d8-72-dc-51-78-21-e6')
     @winrt_commethod(6)
     def get_DocumentSource(self) -> Windows.Graphics.Printing.IPrintDocumentSource: ...
     @winrt_commethod(7)
@@ -102,12 +102,12 @@ class IPrintDocument(ComPtr):
     DocumentSource = property(get_DocumentSource, None)
 class IPrintDocumentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fb87b18f-2606-4a2f-99-d4-a7-cd-bc-35-d7-c7')
+    _iid_ = Guid('fb87b18f-2606-4a2f-99-d4-a7-cd-bc-35-d7-c7')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Printing.PrintDocument: ...
 class IPrintDocumentStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fd970a3c-b152-49e0-a6-bd-6a-a6-47-7e-43-c7')
+    _iid_ = Guid('fd970a3c-b152-49e0-a6-bd-6a-a6-47-7e-43-c7')
     @winrt_commethod(6)
     def get_DocumentSourceProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     DocumentSourceProperty = property(get_DocumentSourceProperty, None)
@@ -124,7 +124,7 @@ class PaginateEventArgs(ComPtr):
     CurrentPreviewPageNumber = property(get_CurrentPreviewPageNumber, None)
 class PaginateEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('0cc05b61-811b-4a32-99-65-13-eb-78-db-b0-1b')
+    _iid_ = Guid('0cc05b61-811b-4a32-99-65-13-eb-78-db-b0-1b')
     ClassId = 'Windows.UI.Xaml.Printing.PaginateEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Printing.PaginateEventArgs) -> Void: ...

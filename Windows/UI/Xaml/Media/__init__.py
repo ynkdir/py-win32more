@@ -611,7 +611,7 @@ class GradientStopCollection(ComPtr):
     Size = property(get_Size, None)
 class IAcrylicBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('79bbcf4e-cd66-4f1b-a8-b6-cd-6d-29-77-c1-8d')
+    _iid_ = Guid('79bbcf4e-cd66-4f1b-a8-b6-cd-6d-29-77-c1-8d')
     @winrt_commethod(6)
     def get_BackgroundSource(self) -> Windows.UI.Xaml.Media.AcrylicBackgroundSource: ...
     @winrt_commethod(7)
@@ -639,7 +639,7 @@ class IAcrylicBrush(ComPtr):
     AlwaysUseFallback = property(get_AlwaysUseFallback, put_AlwaysUseFallback)
 class IAcrylicBrush2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c9645383-b19e-5ac0-86-ff-3d-90-50-6d-bc-da')
+    _iid_ = Guid('c9645383-b19e-5ac0-86-ff-3d-90-50-6d-bc-da')
     @winrt_commethod(6)
     def get_TintLuminosityOpacity(self) -> Windows.Foundation.IReference[Double]: ...
     @winrt_commethod(7)
@@ -647,12 +647,12 @@ class IAcrylicBrush2(ComPtr):
     TintLuminosityOpacity = property(get_TintLuminosityOpacity, put_TintLuminosityOpacity)
 class IAcrylicBrushFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('81a32568-f6cc-4013-83-63-92-8a-e2-3b-7a-61')
+    _iid_ = Guid('81a32568-f6cc-4013-83-63-92-8a-e2-3b-7a-61')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.AcrylicBrush: ...
 class IAcrylicBrushStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2787fd79-a3da-423f-b8-1a-59-91-47-97-15-23')
+    _iid_ = Guid('2787fd79-a3da-423f-b8-1a-59-91-47-97-15-23')
     @winrt_commethod(6)
     def get_BackgroundSourceProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -670,13 +670,13 @@ class IAcrylicBrushStatics(ComPtr):
     AlwaysUseFallbackProperty = property(get_AlwaysUseFallbackProperty, None)
 class IAcrylicBrushStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('129188a8-bf11-5bbc-84-45-8c-51-0e-59-26-c0')
+    _iid_ = Guid('129188a8-bf11-5bbc-84-45-8c-51-0e-59-26-c0')
     @winrt_commethod(6)
     def get_TintLuminosityOpacityProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     TintLuminosityOpacityProperty = property(get_TintLuminosityOpacityProperty, None)
 class IArcSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('07940c5f-63fb-4469-91-be-f1-09-7c-16-80-52')
+    _iid_ = Guid('07940c5f-63fb-4469-91-be-f1-09-7c-16-80-52')
     @winrt_commethod(6)
     def get_Point(self) -> Windows.Foundation.Point: ...
     @winrt_commethod(7)
@@ -704,7 +704,7 @@ class IArcSegment(ComPtr):
     SweepDirection = property(get_SweepDirection, put_SweepDirection)
 class IArcSegmentStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('82348f6e-8a69-4204-9c-12-72-07-df-31-76-43')
+    _iid_ = Guid('82348f6e-8a69-4204-9c-12-72-07-df-31-76-43')
     @winrt_commethod(6)
     def get_PointProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -722,7 +722,7 @@ class IArcSegmentStatics(ComPtr):
     SweepDirectionProperty = property(get_SweepDirectionProperty, None)
 class IBezierSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('af4bb9ee-8984-49b7-81-df-3f-35-99-4b-95-eb')
+    _iid_ = Guid('af4bb9ee-8984-49b7-81-df-3f-35-99-4b-95-eb')
     @winrt_commethod(6)
     def get_Point1(self) -> Windows.Foundation.Point: ...
     @winrt_commethod(7)
@@ -740,7 +740,7 @@ class IBezierSegment(ComPtr):
     Point3 = property(get_Point3, put_Point3)
 class IBezierSegmentStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c0287bac-1410-4530-84-52-1c-9d-0a-d1-f3-41')
+    _iid_ = Guid('c0287bac-1410-4530-84-52-1c-9d-0a-d1-f3-41')
     @winrt_commethod(6)
     def get_Point1Property(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -752,10 +752,10 @@ class IBezierSegmentStatics(ComPtr):
     Point3Property = property(get_Point3Property, None)
 class IBitmapCache(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('79c2219e-44d2-4610-97-35-9b-ec-83-80-9e-cf')
+    _iid_ = Guid('79c2219e-44d2-4610-97-35-9b-ec-83-80-9e-cf')
 class IBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8806a321-1e06-422c-a1-cc-01-69-65-59-e0-21')
+    _iid_ = Guid('8806a321-1e06-422c-a1-cc-01-69-65-59-e0-21')
     @winrt_commethod(6)
     def get_Opacity(self) -> Double: ...
     @winrt_commethod(7)
@@ -773,17 +773,17 @@ class IBrush(ComPtr):
     RelativeTransform = property(get_RelativeTransform, put_RelativeTransform)
 class IBrushFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('399658a2-14fb-4b8f-83-e6-6e-3d-ab-12-06-9b')
+    _iid_ = Guid('399658a2-14fb-4b8f-83-e6-6e-3d-ab-12-06-9b')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Brush: ...
 class IBrushOverrides2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d092b151-d83b-5a81-a7-1e-a1-c7-f8-ad-69-63')
+    _iid_ = Guid('d092b151-d83b-5a81-a7-1e-a1-c7-f8-ad-69-63')
     @winrt_commethod(6)
     def PopulatePropertyInfoOverride(self, propertyName: WinRT_String, animationPropertyInfo: Windows.UI.Composition.AnimationPropertyInfo) -> Void: ...
 class IBrushStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e70c3102-0225-47f5-b2-2e-04-67-61-9f-6a-22')
+    _iid_ = Guid('e70c3102-0225-47f5-b2-2e-04-67-61-9f-6a-22')
     @winrt_commethod(6)
     def get_OpacityProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -795,15 +795,15 @@ class IBrushStatics(ComPtr):
     RelativeTransformProperty = property(get_RelativeTransformProperty, None)
 class ICacheMode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('98dc8b11-c6f9-4dab-b8-38-5f-d5-ec-8c-73-50')
+    _iid_ = Guid('98dc8b11-c6f9-4dab-b8-38-5f-d5-ec-8c-73-50')
 class ICacheModeFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('eb1f8c5b-0abb-4e70-b8-a8-62-0d-0d-95-3a-b2')
+    _iid_ = Guid('eb1f8c5b-0abb-4e70-b8-a8-62-0d-0d-95-3a-b2')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.CacheMode: ...
 class ICompositeTransform(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c8a4385b-f24a-4701-a2-65-a7-88-46-f1-42-b9')
+    _iid_ = Guid('c8a4385b-f24a-4701-a2-65-a7-88-46-f1-42-b9')
     @winrt_commethod(6)
     def get_CenterX(self) -> Double: ...
     @winrt_commethod(7)
@@ -851,7 +851,7 @@ class ICompositeTransform(ComPtr):
     TranslateY = property(get_TranslateY, put_TranslateY)
 class ICompositeTransformStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2f190c08-8266-496f-96-53-a1-8b-d4-f8-36-aa')
+    _iid_ = Guid('2f190c08-8266-496f-96-53-a1-8b-d4-f8-36-aa')
     @winrt_commethod(6)
     def get_CenterXProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -881,10 +881,10 @@ class ICompositeTransformStatics(ComPtr):
     TranslateYProperty = property(get_TranslateYProperty, None)
 class ICompositionTarget(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('26cfbff0-713c-4bec-88-03-e1-01-f7-b1-4e-d3')
+    _iid_ = Guid('26cfbff0-713c-4bec-88-03-e1-01-f7-b1-4e-d3')
 class ICompositionTargetStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2b1af03d-1ed2-4b59-bd-00-75-94-ee-92-83-2b')
+    _iid_ = Guid('2b1af03d-1ed2-4b59-bd-00-75-94-ee-92-83-2b')
     @winrt_commethod(6)
     def add_Rendering(self, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -895,14 +895,14 @@ class ICompositionTargetStatics(ComPtr):
     def remove_SurfaceContentsLost(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ICompositionTargetStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bc0a7cd9-6750-4708-99-4c-20-28-e0-31-2a-c8')
+    _iid_ = Guid('bc0a7cd9-6750-4708-99-4c-20-28-e0-31-2a-c8')
     @winrt_commethod(6)
     def add_Rendered(self, handler: Windows.Foundation.EventHandler[Windows.UI.Xaml.Media.RenderedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_Rendered(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IEllipseGeometry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d4f61bba-4ea2-40d6-aa-6c-8d-38-aa-87-65-1f')
+    _iid_ = Guid('d4f61bba-4ea2-40d6-aa-6c-8d-38-aa-87-65-1f')
     @winrt_commethod(6)
     def get_Center(self) -> Windows.Foundation.Point: ...
     @winrt_commethod(7)
@@ -920,7 +920,7 @@ class IEllipseGeometry(ComPtr):
     RadiusY = property(get_RadiusY, put_RadiusY)
 class IEllipseGeometryStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1744db47-f635-4b16-ae-e6-e0-52-a6-5d-ef-b2')
+    _iid_ = Guid('1744db47-f635-4b16-ae-e6-e0-52-a6-5d-ef-b2')
     @winrt_commethod(6)
     def get_CenterProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -932,24 +932,24 @@ class IEllipseGeometryStatics(ComPtr):
     RadiusYProperty = property(get_RadiusYProperty, None)
 class IFontFamily(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('92467e64-d66a-4cf4-93-22-3d-23-b3-c0-c3-61')
+    _iid_ = Guid('92467e64-d66a-4cf4-93-22-3d-23-b3-c0-c3-61')
     @winrt_commethod(6)
     def get_Source(self) -> WinRT_String: ...
     Source = property(get_Source, None)
 class IFontFamilyFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d5603377-3dae-4dcd-af-09-f9-49-8e-9e-c6-59')
+    _iid_ = Guid('d5603377-3dae-4dcd-af-09-f9-49-8e-9e-c6-59')
     @winrt_commethod(6)
     def CreateInstanceWithName(self, familyName: WinRT_String, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.FontFamily: ...
 class IFontFamilyStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('52ad7af9-37e6-4297-a2-38-97-fb-6a-40-8d-9e')
+    _iid_ = Guid('52ad7af9-37e6-4297-a2-38-97-fb-6a-40-8d-9e')
     @winrt_commethod(6)
     def get_XamlAutoFontFamily(self) -> Windows.UI.Xaml.Media.FontFamily: ...
     XamlAutoFontFamily = property(get_XamlAutoFontFamily, None)
 class IGeneralTransform(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a06798b7-a2ec-415f-ad-e2-ea-de-93-33-f2-c7')
+    _iid_ = Guid('a06798b7-a2ec-415f-ad-e2-ea-de-93-33-f2-c7')
     @winrt_commethod(6)
     def get_Inverse(self) -> Windows.UI.Xaml.Media.GeneralTransform: ...
     @winrt_commethod(7)
@@ -961,12 +961,12 @@ class IGeneralTransform(ComPtr):
     Inverse = property(get_Inverse, None)
 class IGeneralTransformFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7a25c930-29c4-4e31-b6-f9-de-dd-52-e4-df-1b')
+    _iid_ = Guid('7a25c930-29c4-4e31-b6-f9-de-dd-52-e4-df-1b')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.GeneralTransform: ...
 class IGeneralTransformOverrides(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4f121083-24cf-4524-90-ad-8a-42-b1-c1-27-83')
+    _iid_ = Guid('4f121083-24cf-4524-90-ad-8a-42-b1-c1-27-83')
     @winrt_commethod(6)
     def get_InverseCore(self) -> Windows.UI.Xaml.Media.GeneralTransform: ...
     @winrt_commethod(7)
@@ -976,7 +976,7 @@ class IGeneralTransformOverrides(ComPtr):
     InverseCore = property(get_InverseCore, None)
 class IGeometry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fa123889-0acd-417b-b6-2d-5c-a1-bf-4d-fc-0e')
+    _iid_ = Guid('fa123889-0acd-417b-b6-2d-5c-a1-bf-4d-fc-0e')
     @winrt_commethod(6)
     def get_Transform(self) -> Windows.UI.Xaml.Media.Transform: ...
     @winrt_commethod(7)
@@ -987,10 +987,10 @@ class IGeometry(ComPtr):
     Bounds = property(get_Bounds, None)
 class IGeometryFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f65daf23-d5fd-42f9-b3-2a-92-9c-5a-4b-54-e1')
+    _iid_ = Guid('f65daf23-d5fd-42f9-b3-2a-92-9c-5a-4b-54-e1')
 class IGeometryGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('55225a61-8677-4c8c-8e-46-ee-3d-c3-55-11-4b')
+    _iid_ = Guid('55225a61-8677-4c8c-8e-46-ee-3d-c3-55-11-4b')
     @winrt_commethod(6)
     def get_FillRule(self) -> Windows.UI.Xaml.Media.FillRule: ...
     @winrt_commethod(7)
@@ -1003,7 +1003,7 @@ class IGeometryGroup(ComPtr):
     Children = property(get_Children, put_Children)
 class IGeometryGroupStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('56c955f4-8496-4bb6-ab-f0-61-7b-1f-e7-8b-45')
+    _iid_ = Guid('56c955f4-8496-4bb6-ab-f0-61-7b-1f-e7-8b-45')
     @winrt_commethod(6)
     def get_FillRuleProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -1012,7 +1012,7 @@ class IGeometryGroupStatics(ComPtr):
     ChildrenProperty = property(get_ChildrenProperty, None)
 class IGeometryStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7a70aa8c-0b06-465f-b6-37-9a-47-e5-a7-01-11')
+    _iid_ = Guid('7a70aa8c-0b06-465f-b6-37-9a-47-e5-a7-01-11')
     @winrt_commethod(6)
     def get_Empty(self) -> Windows.UI.Xaml.Media.Geometry: ...
     @winrt_commethod(7)
@@ -1024,7 +1024,7 @@ class IGeometryStatics(ComPtr):
     TransformProperty = property(get_TransformProperty, None)
 class IGradientBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2166e69f-935a-4191-8e-3c-1c-8d-fd-fc-dc-78')
+    _iid_ = Guid('2166e69f-935a-4191-8e-3c-1c-8d-fd-fc-dc-78')
     @winrt_commethod(6)
     def get_SpreadMethod(self) -> Windows.UI.Xaml.Media.GradientSpreadMethod: ...
     @winrt_commethod(7)
@@ -1047,12 +1047,12 @@ class IGradientBrush(ComPtr):
     GradientStops = property(get_GradientStops, put_GradientStops)
 class IGradientBrushFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ed4779ca-45bd-4131-b6-25-be-86-e0-7c-61-12')
+    _iid_ = Guid('ed4779ca-45bd-4131-b6-25-be-86-e0-7c-61-12')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.GradientBrush: ...
 class IGradientBrushStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('961661f9-8bb4-4e6c-b9-23-b5-d7-87-e0-f1-a9')
+    _iid_ = Guid('961661f9-8bb4-4e6c-b9-23-b5-d7-87-e0-f1-a9')
     @winrt_commethod(6)
     def get_SpreadMethodProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -1067,7 +1067,7 @@ class IGradientBrushStatics(ComPtr):
     GradientStopsProperty = property(get_GradientStopsProperty, None)
 class IGradientStop(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('665f44fe-2e59-4c4a-ab-53-07-6a-10-0c-cd-81')
+    _iid_ = Guid('665f44fe-2e59-4c4a-ab-53-07-6a-10-0c-cd-81')
     @winrt_commethod(6)
     def get_Color(self) -> Windows.UI.Color: ...
     @winrt_commethod(7)
@@ -1080,7 +1080,7 @@ class IGradientStop(ComPtr):
     Offset = property(get_Offset, put_Offset)
 class IGradientStopStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('602a6d75-6193-4fe5-8e-82-c7-c6-f6-fe-ba-fd')
+    _iid_ = Guid('602a6d75-6193-4fe5-8e-82-c7-c6-f6-fe-ba-fd')
     @winrt_commethod(6)
     def get_ColorProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -1089,7 +1089,7 @@ class IGradientStopStatics(ComPtr):
     OffsetProperty = property(get_OffsetProperty, None)
 class IImageBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9fd11377-c12a-4493-bf-7d-f3-a8-ad-74-b5-54')
+    _iid_ = Guid('9fd11377-c12a-4493-bf-7d-f3-a8-ad-74-b5-54')
     @winrt_commethod(6)
     def get_ImageSource(self) -> Windows.UI.Xaml.Media.ImageSource: ...
     @winrt_commethod(7)
@@ -1105,19 +1105,19 @@ class IImageBrush(ComPtr):
     ImageSource = property(get_ImageSource, put_ImageSource)
 class IImageBrushStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1255b1b2-dd18-42e5-89-2c-ea-e3-0c-30-5b-8c')
+    _iid_ = Guid('1255b1b2-dd18-42e5-89-2c-ea-e3-0c-30-5b-8c')
     @winrt_commethod(6)
     def get_ImageSourceProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     ImageSourceProperty = property(get_ImageSourceProperty, None)
 class IImageSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('737ef309-ea41-4d96-a7-1c-98-e9-8e-fc-ab-07')
+    _iid_ = Guid('737ef309-ea41-4d96-a7-1c-98-e9-8e-fc-ab-07')
 class IImageSourceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('297ec001-2540-4e5a-ab-66-88-03-5d-d3-dd-b5')
+    _iid_ = Guid('297ec001-2540-4e5a-ab-66-88-03-5d-d3-dd-b5')
 class ILineGeometry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('30edd4a2-8fc5-40af-a7-a2-c2-7f-e7-aa-13-63')
+    _iid_ = Guid('30edd4a2-8fc5-40af-a7-a2-c2-7f-e7-aa-13-63')
     @winrt_commethod(6)
     def get_StartPoint(self) -> Windows.Foundation.Point: ...
     @winrt_commethod(7)
@@ -1130,7 +1130,7 @@ class ILineGeometry(ComPtr):
     EndPoint = property(get_EndPoint, put_EndPoint)
 class ILineGeometryStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('578ae763-5562-4ee4-87-03-ea-40-36-d8-91-e3')
+    _iid_ = Guid('578ae763-5562-4ee4-87-03-ea-40-36-d8-91-e3')
     @winrt_commethod(6)
     def get_StartPointProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -1139,7 +1139,7 @@ class ILineGeometryStatics(ComPtr):
     EndPointProperty = property(get_EndPointProperty, None)
 class ILineSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ef6a2e25-3ff0-4420-a4-11-71-82-a4-ce-cb-15')
+    _iid_ = Guid('ef6a2e25-3ff0-4420-a4-11-71-82-a4-ce-cb-15')
     @winrt_commethod(6)
     def get_Point(self) -> Windows.Foundation.Point: ...
     @winrt_commethod(7)
@@ -1147,13 +1147,13 @@ class ILineSegment(ComPtr):
     Point = property(get_Point, put_Point)
 class ILineSegmentStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9fcab141-04c0-4afb-87-b3-e8-00-b9-69-b8-94')
+    _iid_ = Guid('9fcab141-04c0-4afb-87-b3-e8-00-b9-69-b8-94')
     @winrt_commethod(6)
     def get_PointProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     PointProperty = property(get_PointProperty, None)
 class ILinearGradientBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8e96d16b-bb84-4c6f-9d-bf-9d-6c-5c-6d-9c-39')
+    _iid_ = Guid('8e96d16b-bb84-4c6f-9d-bf-9d-6c-5c-6d-9c-39')
     @winrt_commethod(6)
     def get_StartPoint(self) -> Windows.Foundation.Point: ...
     @winrt_commethod(7)
@@ -1166,12 +1166,12 @@ class ILinearGradientBrush(ComPtr):
     EndPoint = property(get_EndPoint, put_EndPoint)
 class ILinearGradientBrushFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0ae0861c-1e7a-4fed-98-57-ea-8c-aa-79-84-90')
+    _iid_ = Guid('0ae0861c-1e7a-4fed-98-57-ea-8c-aa-79-84-90')
     @winrt_commethod(6)
     def CreateInstanceWithGradientStopCollectionAndAngle(self, gradientStopCollection: Windows.UI.Xaml.Media.GradientStopCollection, angle: Double) -> Windows.UI.Xaml.Media.LinearGradientBrush: ...
 class ILinearGradientBrushStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7af6e504-2dc3-40e3-be-0b-b3-14-c1-3c-b9-91')
+    _iid_ = Guid('7af6e504-2dc3-40e3-be-0b-b3-14-c1-3c-b9-91')
     @winrt_commethod(6)
     def get_StartPointProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -1180,13 +1180,13 @@ class ILinearGradientBrushStatics(ComPtr):
     EndPointProperty = property(get_EndPointProperty, None)
 class ILoadedImageSourceLoadCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1ac60b1e-7837-4489-b3-e5-d0-d5-ad-0a-56-c4')
+    _iid_ = Guid('1ac60b1e-7837-4489-b3-e5-d0-d5-ad-0a-56-c4')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.UI.Xaml.Media.LoadedImageSourceLoadStatus: ...
     Status = property(get_Status, None)
 class ILoadedImageSurface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('050c8313-6737-45ba-85-31-33-09-4f-eb-ef-55')
+    _iid_ = Guid('050c8313-6737-45ba-85-31-33-09-4f-eb-ef-55')
     @winrt_commethod(6)
     def get_DecodedPhysicalSize(self) -> Windows.Foundation.Size: ...
     @winrt_commethod(7)
@@ -1202,7 +1202,7 @@ class ILoadedImageSurface(ComPtr):
     NaturalSize = property(get_NaturalSize, None)
 class ILoadedImageSurfaceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('22b8edf6-84ad-40ab-93-7d-48-71-61-3e-76-5d')
+    _iid_ = Guid('22b8edf6-84ad-40ab-93-7d-48-71-61-3e-76-5d')
     @winrt_commethod(6)
     def StartLoadFromUriWithSize(self, uri: Windows.Foundation.Uri, desiredMaxSize: Windows.Foundation.Size) -> Windows.UI.Xaml.Media.LoadedImageSurface: ...
     @winrt_commethod(7)
@@ -1213,7 +1213,7 @@ class ILoadedImageSurfaceStatics(ComPtr):
     def StartLoadFromStream(self, stream: Windows.Storage.Streams.IRandomAccessStream) -> Windows.UI.Xaml.Media.LoadedImageSurface: ...
 class IMatrix3DProjection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6f03e149-bfc9-4c01-b5-78-50-33-8c-ec-97-fc')
+    _iid_ = Guid('6f03e149-bfc9-4c01-b5-78-50-33-8c-ec-97-fc')
     @winrt_commethod(6)
     def get_ProjectionMatrix(self) -> Windows.UI.Xaml.Media.Media3D.Matrix3D: ...
     @winrt_commethod(7)
@@ -1221,16 +1221,16 @@ class IMatrix3DProjection(ComPtr):
     ProjectionMatrix = property(get_ProjectionMatrix, put_ProjectionMatrix)
 class IMatrix3DProjectionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ae9d5895-41ec-4e37-ab-aa-69-f4-1d-2f-87-6b')
+    _iid_ = Guid('ae9d5895-41ec-4e37-ab-aa-69-f4-1d-2f-87-6b')
     @winrt_commethod(6)
     def get_ProjectionMatrixProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     ProjectionMatrixProperty = property(get_ProjectionMatrixProperty, None)
 class IMatrixHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f3cf4882-06b5-48c8-9e-b2-17-63-e9-36-40-38')
+    _iid_ = Guid('f3cf4882-06b5-48c8-9e-b2-17-63-e9-36-40-38')
 class IMatrixHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c18606a6-39f4-4b8a-84-03-28-e5-e5-f0-33-b4')
+    _iid_ = Guid('c18606a6-39f4-4b8a-84-03-28-e5-e5-f0-33-b4')
     @winrt_commethod(6)
     def get_Identity(self) -> Windows.UI.Xaml.Media.Matrix: ...
     @winrt_commethod(7)
@@ -1242,7 +1242,7 @@ class IMatrixHelperStatics(ComPtr):
     Identity = property(get_Identity, None)
 class IMatrixTransform(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('edfdd551-5fed-45fc-ae-62-92-a4-b6-cf-97-07')
+    _iid_ = Guid('edfdd551-5fed-45fc-ae-62-92-a4-b6-cf-97-07')
     @winrt_commethod(6)
     def get_Matrix(self) -> Windows.UI.Xaml.Media.Matrix: ...
     @winrt_commethod(7)
@@ -1250,32 +1250,32 @@ class IMatrixTransform(ComPtr):
     Matrix = property(get_Matrix, put_Matrix)
 class IMatrixTransformStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('43e02e47-15b8-4758-bb-97-7d-52-42-0a-cc-5b')
+    _iid_ = Guid('43e02e47-15b8-4758-bb-97-7d-52-42-0a-cc-5b')
     @winrt_commethod(6)
     def get_MatrixProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     MatrixProperty = property(get_MatrixProperty, None)
 class IMediaTransportControlsThumbnailRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e4a8b21c-e3c2-485c-ae-69-f1-53-7b-76-75-5a')
+    _iid_ = Guid('e4a8b21c-e3c2-485c-ae-69-f1-53-7b-76-75-5a')
     @winrt_commethod(6)
     def SetThumbnailImage(self, source: Windows.Storage.Streams.IInputStream) -> Void: ...
     @winrt_commethod(7)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
 class IPartialMediaFailureDetectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('02b65a91-e5a1-442b-88-d3-2d-c1-27-bf-c5-9b')
+    _iid_ = Guid('02b65a91-e5a1-442b-88-d3-2d-c1-27-bf-c5-9b')
     @winrt_commethod(6)
     def get_StreamKind(self) -> Windows.Media.Playback.FailedMediaStreamKind: ...
     StreamKind = property(get_StreamKind, None)
 class IPartialMediaFailureDetectedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('73074875-890d-416b-b9-ae-e8-4d-fd-9c-4b-1b')
+    _iid_ = Guid('73074875-890d-416b-b9-ae-e8-4d-fd-9c-4b-1b')
     @winrt_commethod(6)
     def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
 class IPathFigure(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5d955c8c-5fa9-4dda-a3-cc-10-fc-dc-aa-20-d7')
+    _iid_ = Guid('5d955c8c-5fa9-4dda-a3-cc-10-fc-dc-aa-20-d7')
     @winrt_commethod(6)
     def get_Segments(self) -> Windows.UI.Xaml.Media.PathSegmentCollection: ...
     @winrt_commethod(7)
@@ -1298,7 +1298,7 @@ class IPathFigure(ComPtr):
     IsFilled = property(get_IsFilled, put_IsFilled)
 class IPathFigureStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b60591d9-2395-4317-95-52-3a-58-52-6f-8c-7b')
+    _iid_ = Guid('b60591d9-2395-4317-95-52-3a-58-52-6f-8c-7b')
     @winrt_commethod(6)
     def get_SegmentsProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -1313,7 +1313,7 @@ class IPathFigureStatics(ComPtr):
     IsFilledProperty = property(get_IsFilledProperty, None)
 class IPathGeometry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('081b9df8-bae6-4bcb-81-3c-bd-e0-e4-6d-c8-b7')
+    _iid_ = Guid('081b9df8-bae6-4bcb-81-3c-bd-e0-e4-6d-c8-b7')
     @winrt_commethod(6)
     def get_FillRule(self) -> Windows.UI.Xaml.Media.FillRule: ...
     @winrt_commethod(7)
@@ -1326,7 +1326,7 @@ class IPathGeometry(ComPtr):
     Figures = property(get_Figures, put_Figures)
 class IPathGeometryStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d9e58bba-2cba-4741-8f-8d-31-98-cf-51-86-b9')
+    _iid_ = Guid('d9e58bba-2cba-4741-8f-8d-31-98-cf-51-86-b9')
     @winrt_commethod(6)
     def get_FillRuleProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -1335,13 +1335,13 @@ class IPathGeometryStatics(ComPtr):
     FiguresProperty = property(get_FiguresProperty, None)
 class IPathSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fcfa71cf-9ce3-474f-81-57-10-b6-43-5a-61-6b')
+    _iid_ = Guid('fcfa71cf-9ce3-474f-81-57-10-b6-43-5a-61-6b')
 class IPathSegmentFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2a1c0aae-eccd-4464-a1-48-6f-fd-b3-aa-28-1f')
+    _iid_ = Guid('2a1c0aae-eccd-4464-a1-48-6f-fd-b3-aa-28-1f')
 class IPlaneProjection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e6f82bfa-6726-469a-b2-59-a5-18-83-47-ca-8f')
+    _iid_ = Guid('e6f82bfa-6726-469a-b2-59-a5-18-83-47-ca-8f')
     @winrt_commethod(6)
     def get_LocalOffsetX(self) -> Double: ...
     @winrt_commethod(7)
@@ -1407,7 +1407,7 @@ class IPlaneProjection(ComPtr):
     ProjectionMatrix = property(get_ProjectionMatrix, None)
 class IPlaneProjectionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ad919c67-3bdc-4855-89-69-d1-f9-a3-ad-c2-7d')
+    _iid_ = Guid('ad919c67-3bdc-4855-89-69-d1-f9-a3-ad-c2-7d')
     @winrt_commethod(6)
     def get_LocalOffsetXProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -1449,7 +1449,7 @@ class IPlaneProjectionStatics(ComPtr):
     ProjectionMatrixProperty = property(get_ProjectionMatrixProperty, None)
 class IPolyBezierSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('36805271-38c4-4bcf-96-cd-02-8a-6d-38-af-25')
+    _iid_ = Guid('36805271-38c4-4bcf-96-cd-02-8a-6d-38-af-25')
     @winrt_commethod(6)
     def get_Points(self) -> Windows.UI.Xaml.Media.PointCollection: ...
     @winrt_commethod(7)
@@ -1457,13 +1457,13 @@ class IPolyBezierSegment(ComPtr):
     Points = property(get_Points, put_Points)
 class IPolyBezierSegmentStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1d91a6da-1492-4acc-bd-66-a4-96-f3-d8-29-d6')
+    _iid_ = Guid('1d91a6da-1492-4acc-bd-66-a4-96-f3-d8-29-d6')
     @winrt_commethod(6)
     def get_PointsProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     PointsProperty = property(get_PointsProperty, None)
 class IPolyLineSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4b397f87-a2e6-479d-bd-c8-6f-44-64-64-68-87')
+    _iid_ = Guid('4b397f87-a2e6-479d-bd-c8-6f-44-64-64-68-87')
     @winrt_commethod(6)
     def get_Points(self) -> Windows.UI.Xaml.Media.PointCollection: ...
     @winrt_commethod(7)
@@ -1471,13 +1471,13 @@ class IPolyLineSegment(ComPtr):
     Points = property(get_Points, put_Points)
 class IPolyLineSegmentStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d64a2c87-33f1-4e70-a4-7f-b4-98-1e-f6-48-a2')
+    _iid_ = Guid('d64a2c87-33f1-4e70-a4-7f-b4-98-1e-f6-48-a2')
     @winrt_commethod(6)
     def get_PointsProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     PointsProperty = property(get_PointsProperty, None)
 class IPolyQuadraticBezierSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('dd5ced7d-e6db-4c96-b6-a1-3f-ce-96-e9-87-a6')
+    _iid_ = Guid('dd5ced7d-e6db-4c96-b6-a1-3f-ce-96-e9-87-a6')
     @winrt_commethod(6)
     def get_Points(self) -> Windows.UI.Xaml.Media.PointCollection: ...
     @winrt_commethod(7)
@@ -1485,21 +1485,21 @@ class IPolyQuadraticBezierSegment(ComPtr):
     Points = property(get_Points, put_Points)
 class IPolyQuadraticBezierSegmentStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fdf5eb75-7ad5-4c89-81-69-8c-97-86-ab-d9-eb')
+    _iid_ = Guid('fdf5eb75-7ad5-4c89-81-69-8c-97-86-ab-d9-eb')
     @winrt_commethod(6)
     def get_PointsProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     PointsProperty = property(get_PointsProperty, None)
 class IProjection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b3443557-7f39-4d04-a8-9c-84-43-38-ca-c8-97')
+    _iid_ = Guid('b3443557-7f39-4d04-a8-9c-84-43-38-ca-c8-97')
 class IProjectionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c4f29cab-60ad-4f24-bd-27-9d-69-c3-12-7c-9a')
+    _iid_ = Guid('c4f29cab-60ad-4f24-bd-27-9d-69-c3-12-7c-9a')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.Projection: ...
 class IQuadraticBezierSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2c509a5b-bf18-455a-a0-78-91-4b-52-32-d8-af')
+    _iid_ = Guid('2c509a5b-bf18-455a-a0-78-91-4b-52-32-d8-af')
     @winrt_commethod(6)
     def get_Point1(self) -> Windows.Foundation.Point: ...
     @winrt_commethod(7)
@@ -1512,7 +1512,7 @@ class IQuadraticBezierSegment(ComPtr):
     Point2 = property(get_Point2, put_Point2)
 class IQuadraticBezierSegmentStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('69c78278-3c0b-4b4f-b7-a2-f0-03-de-d4-1b-b0')
+    _iid_ = Guid('69c78278-3c0b-4b4f-b7-a2-f0-03-de-d4-1b-b0')
     @winrt_commethod(6)
     def get_Point1Property(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -1521,10 +1521,10 @@ class IQuadraticBezierSegmentStatics(ComPtr):
     Point2Property = property(get_Point2Property, None)
 class IRateChangedRoutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9016aa6f-3ca8-4c80-8e-2f-88-51-a6-8f-13-1f')
+    _iid_ = Guid('9016aa6f-3ca8-4c80-8e-2f-88-51-a6-8f-13-1f')
 class IRectangleGeometry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a25a1f58-c575-4196-91-cf-9f-df-b1-04-45-c3')
+    _iid_ = Guid('a25a1f58-c575-4196-91-cf-9f-df-b1-04-45-c3')
     @winrt_commethod(6)
     def get_Rect(self) -> Windows.Foundation.Rect: ...
     @winrt_commethod(7)
@@ -1532,41 +1532,41 @@ class IRectangleGeometry(ComPtr):
     Rect = property(get_Rect, put_Rect)
 class IRectangleGeometryStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('377f8dba-7902-48e3-83-be-7c-80-02-a6-65-3c')
+    _iid_ = Guid('377f8dba-7902-48e3-83-be-7c-80-02-a6-65-3c')
     @winrt_commethod(6)
     def get_RectProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     RectProperty = property(get_RectProperty, None)
 class IRenderedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e349817d-81c7-4938-82-8c-a7-e2-79-7b-35-a6')
+    _iid_ = Guid('e349817d-81c7-4938-82-8c-a7-e2-79-7b-35-a6')
     @winrt_commethod(6)
     def get_FrameDuration(self) -> Windows.Foundation.TimeSpan: ...
     FrameDuration = property(get_FrameDuration, None)
 class IRenderingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5bf7d30d-9748-4aed-83-80-d7-89-0e-b7-76-a0')
+    _iid_ = Guid('5bf7d30d-9748-4aed-83-80-d7-89-0e-b7-76-a0')
     @winrt_commethod(6)
     def get_RenderingTime(self) -> Windows.Foundation.TimeSpan: ...
     RenderingTime = property(get_RenderingTime, None)
 class IRevealBackgroundBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('261dcc0e-1991-4cdf-ae-e0-63-50-a3-f9-0b-b9')
+    _iid_ = Guid('261dcc0e-1991-4cdf-ae-e0-63-50-a3-f9-0b-b9')
 class IRevealBackgroundBrushFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8c56bcaa-02a5-4f45-85-06-8d-39-22-8f-5d-3f')
+    _iid_ = Guid('8c56bcaa-02a5-4f45-85-06-8d-39-22-8f-5d-3f')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.RevealBackgroundBrush: ...
 class IRevealBorderBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('060ba115-c542-483c-82-02-5f-03-33-18-66-c9')
+    _iid_ = Guid('060ba115-c542-483c-82-02-5f-03-33-18-66-c9')
 class IRevealBorderBrushFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('94c25298-f5f8-4482-a2-5c-67-58-50-1a-86-26')
+    _iid_ = Guid('94c25298-f5f8-4482-a2-5c-67-58-50-1a-86-26')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.RevealBorderBrush: ...
 class IRevealBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2036a0ed-8271-4398-90-19-25-87-20-93-f1-3f')
+    _iid_ = Guid('2036a0ed-8271-4398-90-19-25-87-20-93-f1-3f')
     @winrt_commethod(6)
     def get_Color(self) -> Windows.UI.Color: ...
     @winrt_commethod(7)
@@ -1584,12 +1584,12 @@ class IRevealBrush(ComPtr):
     AlwaysUseFallback = property(get_AlwaysUseFallback, put_AlwaysUseFallback)
 class IRevealBrushFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9d9379ce-e3a0-4aaf-be-37-ea-9d-9d-d4-31-05')
+    _iid_ = Guid('9d9379ce-e3a0-4aaf-be-37-ea-9d-9d-d4-31-05')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.RevealBrush: ...
 class IRevealBrushStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('190f2625-7209-4d42-a8-47-1a-c4-bb-bb-34-99')
+    _iid_ = Guid('190f2625-7209-4d42-a8-47-1a-c4-bb-bb-34-99')
     @winrt_commethod(6)
     def get_ColorProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -1608,7 +1608,7 @@ class IRevealBrushStatics(ComPtr):
     StateProperty = property(get_StateProperty, None)
 class IRotateTransform(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('688ea9b9-1e4e-4596-86-e3-42-8b-27-33-4f-af')
+    _iid_ = Guid('688ea9b9-1e4e-4596-86-e3-42-8b-27-33-4f-af')
     @winrt_commethod(6)
     def get_CenterX(self) -> Double: ...
     @winrt_commethod(7)
@@ -1626,7 +1626,7 @@ class IRotateTransform(ComPtr):
     Angle = property(get_Angle, put_Angle)
 class IRotateTransformStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a131eb8a-51a3-41b6-b9-d3-a1-0e-42-90-54-ab')
+    _iid_ = Guid('a131eb8a-51a3-41b6-b9-d3-a1-0e-42-90-54-ab')
     @winrt_commethod(6)
     def get_CenterXProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -1638,7 +1638,7 @@ class IRotateTransformStatics(ComPtr):
     AngleProperty = property(get_AngleProperty, None)
 class IScaleTransform(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ed67f18d-936e-43ab-92-9a-e9-cd-0a-51-1e-52')
+    _iid_ = Guid('ed67f18d-936e-43ab-92-9a-e9-cd-0a-51-1e-52')
     @winrt_commethod(6)
     def get_CenterX(self) -> Double: ...
     @winrt_commethod(7)
@@ -1661,7 +1661,7 @@ class IScaleTransform(ComPtr):
     ScaleY = property(get_ScaleY, put_ScaleY)
 class IScaleTransformStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9d9436f4-40a7-46dd-97-5a-07-d3-37-cd-85-2e')
+    _iid_ = Guid('9d9436f4-40a7-46dd-97-5a-07-d3-37-cd-85-2e')
     @winrt_commethod(6)
     def get_CenterXProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -1676,13 +1676,13 @@ class IScaleTransformStatics(ComPtr):
     ScaleYProperty = property(get_ScaleYProperty, None)
 class IShadow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6813a583-f3b4-5fcf-86-94-2c-d0-ae-fc-2f-ad')
+    _iid_ = Guid('6813a583-f3b4-5fcf-86-94-2c-d0-ae-fc-2f-ad')
 class IShadowFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('19899f25-d28b-51e6-94-b0-d7-e7-09-68-63-05')
+    _iid_ = Guid('19899f25-d28b-51e6-94-b0-d7-e7-09-68-63-05')
 class ISkewTransform(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4e8a3b15-7a0f-4617-9e-98-1e-65-bd-c9-21-15')
+    _iid_ = Guid('4e8a3b15-7a0f-4617-9e-98-1e-65-bd-c9-21-15')
     @winrt_commethod(6)
     def get_CenterX(self) -> Double: ...
     @winrt_commethod(7)
@@ -1705,7 +1705,7 @@ class ISkewTransform(ComPtr):
     AngleY = property(get_AngleY, put_AngleY)
 class ISkewTransformStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ecd11d73-5614-4b31-b6-af-be-ae-10-10-56-24')
+    _iid_ = Guid('ecd11d73-5614-4b31-b6-af-be-ae-10-10-56-24')
     @winrt_commethod(6)
     def get_CenterXProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -1720,7 +1720,7 @@ class ISkewTransformStatics(ComPtr):
     AngleYProperty = property(get_AngleYProperty, None)
 class ISolidColorBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9d850850-66f3-48df-9a-8f-82-4b-d5-e0-70-af')
+    _iid_ = Guid('9d850850-66f3-48df-9a-8f-82-4b-d5-e0-70-af')
     @winrt_commethod(6)
     def get_Color(self) -> Windows.UI.Color: ...
     @winrt_commethod(7)
@@ -1728,29 +1728,29 @@ class ISolidColorBrush(ComPtr):
     Color = property(get_Color, put_Color)
 class ISolidColorBrushFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d935ce0c-86f5-4da6-8a-27-b1-61-9e-f7-f9-2b')
+    _iid_ = Guid('d935ce0c-86f5-4da6-8a-27-b1-61-9e-f7-f9-2b')
     @winrt_commethod(6)
     def CreateInstanceWithColor(self, color: Windows.UI.Color) -> Windows.UI.Xaml.Media.SolidColorBrush: ...
 class ISolidColorBrushStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e1a65efa-2b23-41ba-b9-ba-70-94-ec-8e-4e-9f')
+    _iid_ = Guid('e1a65efa-2b23-41ba-b9-ba-70-94-ec-8e-4e-9f')
     @winrt_commethod(6)
     def get_ColorProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     ColorProperty = property(get_ColorProperty, None)
 class IThemeShadow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3eccad09-7985-5f39-8b-62-6c-10-69-6d-ca-6f')
+    _iid_ = Guid('3eccad09-7985-5f39-8b-62-6c-10-69-6d-ca-6f')
     @winrt_commethod(6)
     def get_Receivers(self) -> Windows.UI.Xaml.UIElementWeakCollection: ...
     Receivers = property(get_Receivers, None)
 class IThemeShadowFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2e71465d-0f67-590e-83-1b-7e-5e-2a-32-b7-78')
+    _iid_ = Guid('2e71465d-0f67-590e-83-1b-7e-5e-2a-32-b7-78')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.ThemeShadow: ...
 class ITileBrush(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c201cf06-cd84-48a5-96-07-66-4d-73-61-cd-61')
+    _iid_ = Guid('c201cf06-cd84-48a5-96-07-66-4d-73-61-cd-61')
     @winrt_commethod(6)
     def get_AlignmentX(self) -> Windows.UI.Xaml.Media.AlignmentX: ...
     @winrt_commethod(7)
@@ -1768,12 +1768,12 @@ class ITileBrush(ComPtr):
     Stretch = property(get_Stretch, put_Stretch)
 class ITileBrushFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('aa159f7c-ed6a-4fb3-b0-14-b5-c7-e3-79-a4-de')
+    _iid_ = Guid('aa159f7c-ed6a-4fb3-b0-14-b5-c7-e3-79-a4-de')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.TileBrush: ...
 class ITileBrushStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3497c25b-b562-4e68-84-35-23-99-f6-eb-94-d5')
+    _iid_ = Guid('3497c25b-b562-4e68-84-35-23-99-f6-eb-94-d5')
     @winrt_commethod(6)
     def get_AlignmentXProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -1785,7 +1785,7 @@ class ITileBrushStatics(ComPtr):
     StretchProperty = property(get_StretchProperty, None)
 class ITimelineMarker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a68ef02d-45ba-4e50-8c-ad-aa-ea-3a-22-7a-f5')
+    _iid_ = Guid('a68ef02d-45ba-4e50-8c-ad-aa-ea-3a-22-7a-f5')
     @winrt_commethod(6)
     def get_Time(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -1803,7 +1803,7 @@ class ITimelineMarker(ComPtr):
     Text = property(get_Text, put_Text)
 class ITimelineMarkerRoutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7c3b3ef3-2c88-4d9c-99-b6-46-cd-bd-48-d4-c1')
+    _iid_ = Guid('7c3b3ef3-2c88-4d9c-99-b6-46-cd-bd-48-d4-c1')
     @winrt_commethod(6)
     def get_Marker(self) -> Windows.UI.Xaml.Media.TimelineMarker: ...
     @winrt_commethod(7)
@@ -1811,7 +1811,7 @@ class ITimelineMarkerRoutedEventArgs(ComPtr):
     Marker = property(get_Marker, put_Marker)
 class ITimelineMarkerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c4aef0c6-16a3-484b-87-f5-65-28-b8-f0-4a-47')
+    _iid_ = Guid('c4aef0c6-16a3-484b-87-f5-65-28-b8-f0-4a-47')
     @winrt_commethod(6)
     def get_TimeProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -1823,13 +1823,13 @@ class ITimelineMarkerStatics(ComPtr):
     TextProperty = property(get_TextProperty, None)
 class ITransform(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4df74078-bfd6-4ed1-96-82-d2-fd-8b-f2-fe-6f')
+    _iid_ = Guid('4df74078-bfd6-4ed1-96-82-d2-fd-8b-f2-fe-6f')
 class ITransformFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1a955a66-7cf4-4320-b4-16-61-81-19-2f-cc-6d')
+    _iid_ = Guid('1a955a66-7cf4-4320-b4-16-61-81-19-2f-cc-6d')
 class ITransformGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('63418ccc-8d2d-4737-b9-51-2a-fc-e1-dd-c4-c4')
+    _iid_ = Guid('63418ccc-8d2d-4737-b9-51-2a-fc-e1-dd-c4-c4')
     @winrt_commethod(6)
     def get_Children(self) -> Windows.UI.Xaml.Media.TransformCollection: ...
     @winrt_commethod(7)
@@ -1840,13 +1840,13 @@ class ITransformGroup(ComPtr):
     Value = property(get_Value, None)
 class ITransformGroupStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('25312f2a-cfab-4b24-97-13-5b-de-ad-19-29-c0')
+    _iid_ = Guid('25312f2a-cfab-4b24-97-13-5b-de-ad-19-29-c0')
     @winrt_commethod(6)
     def get_ChildrenProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     ChildrenProperty = property(get_ChildrenProperty, None)
 class ITranslateTransform(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c975905c-3c36-4229-81-7b-17-8f-64-c0-e1-13')
+    _iid_ = Guid('c975905c-3c36-4229-81-7b-17-8f-64-c0-e1-13')
     @winrt_commethod(6)
     def get_X(self) -> Double: ...
     @winrt_commethod(7)
@@ -1859,7 +1859,7 @@ class ITranslateTransform(ComPtr):
     Y = property(get_Y, put_Y)
 class ITranslateTransformStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f419aa91-e042-4111-9c-2f-d2-01-30-41-23-dd')
+    _iid_ = Guid('f419aa91-e042-4111-9c-2f-d2-01-30-41-23-dd')
     @winrt_commethod(6)
     def get_XProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_commethod(7)
@@ -1868,10 +1868,10 @@ class ITranslateTransformStatics(ComPtr):
     YProperty = property(get_YProperty, None)
 class IVisualTreeHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('24b935e3-52c7-4141-8b-ac-a7-3d-06-13-05-69')
+    _iid_ = Guid('24b935e3-52c7-4141-8b-ac-a7-3d-06-13-05-69')
 class IVisualTreeHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e75758c4-d25d-4b1d-97-1f-59-6f-17-f1-2b-aa')
+    _iid_ = Guid('e75758c4-d25d-4b1d-97-1f-59-6f-17-f1-2b-aa')
     @winrt_commethod(6)
     def FindElementsInHostCoordinatesPoint(self, intersectingPoint: Windows.Foundation.Point, subtree: Windows.UI.Xaml.UIElement) -> Windows.Foundation.Collections.IIterable[Windows.UI.Xaml.UIElement]: ...
     @winrt_commethod(7)
@@ -1890,17 +1890,17 @@ class IVisualTreeHelperStatics(ComPtr):
     def DisconnectChildrenRecursive(self, element: Windows.UI.Xaml.UIElement) -> Void: ...
 class IVisualTreeHelperStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('07bcd176-869f-44a7-87-97-21-03-a4-c3-e4-7a')
+    _iid_ = Guid('07bcd176-869f-44a7-87-97-21-03-a4-c3-e4-7a')
     @winrt_commethod(6)
     def GetOpenPopups(self, window: Windows.UI.Xaml.Window) -> Windows.Foundation.Collections.IVectorView[Windows.UI.Xaml.Controls.Primitives.Popup]: ...
 class IVisualTreeHelperStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('40420d50-ca16-57da-8a-ac-94-4c-8a-f5-77-fd')
+    _iid_ = Guid('40420d50-ca16-57da-8a-ac-94-4c-8a-f5-77-fd')
     @winrt_commethod(6)
     def GetOpenPopupsForXamlRoot(self, xamlRoot: Windows.UI.Xaml.XamlRoot) -> Windows.Foundation.Collections.IVectorView[Windows.UI.Xaml.Controls.Primitives.Popup]: ...
 class IXamlCompositionBrushBase(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('03e432d9-b35c-4a79-81-1c-c5-65-20-04-da-0e')
+    _iid_ = Guid('03e432d9-b35c-4a79-81-1c-c5-65-20-04-da-0e')
     @winrt_commethod(6)
     def get_FallbackColor(self) -> Windows.UI.Color: ...
     @winrt_commethod(7)
@@ -1908,19 +1908,19 @@ class IXamlCompositionBrushBase(ComPtr):
     FallbackColor = property(get_FallbackColor, put_FallbackColor)
 class IXamlCompositionBrushBaseFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('394f0823-2451-4ed8-bd-24-48-81-49-b3-42-8d')
+    _iid_ = Guid('394f0823-2451-4ed8-bd-24-48-81-49-b3-42-8d')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.XamlCompositionBrushBase: ...
 class IXamlCompositionBrushBaseOverrides(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d19127f1-38b4-4ea1-8f-33-84-96-29-a4-c9-c1')
+    _iid_ = Guid('d19127f1-38b4-4ea1-8f-33-84-96-29-a4-c9-c1')
     @winrt_commethod(6)
     def OnConnected(self) -> Void: ...
     @winrt_commethod(7)
     def OnDisconnected(self) -> Void: ...
 class IXamlCompositionBrushBaseProtected(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1513f3d8-0457-4e1c-ad-77-11-c1-d9-87-97-43')
+    _iid_ = Guid('1513f3d8-0457-4e1c-ad-77-11-c1-d9-87-97-43')
     @winrt_commethod(6)
     def get_CompositionBrush(self) -> Windows.UI.Composition.CompositionBrush: ...
     @winrt_commethod(7)
@@ -1928,21 +1928,21 @@ class IXamlCompositionBrushBaseProtected(ComPtr):
     CompositionBrush = property(get_CompositionBrush, put_CompositionBrush)
 class IXamlCompositionBrushBaseStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4fd49b06-061a-441f-b9-7a-ad-fb-d4-1a-e6-81')
+    _iid_ = Guid('4fd49b06-061a-441f-b9-7a-ad-fb-d4-1a-e6-81')
     @winrt_commethod(6)
     def get_FallbackColorProperty(self) -> Windows.UI.Xaml.DependencyProperty: ...
     FallbackColorProperty = property(get_FallbackColorProperty, None)
 class IXamlLight(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0cc3fc1f-b327-4a18-96-48-7c-84-db-26-ce-22')
+    _iid_ = Guid('0cc3fc1f-b327-4a18-96-48-7c-84-db-26-ce-22')
 class IXamlLightFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('87ded768-3055-43b8-8e-f6-79-8d-c4-c2-32-9a')
+    _iid_ = Guid('87ded768-3055-43b8-8e-f6-79-8d-c4-c2-32-9a')
     @winrt_commethod(6)
     def CreateInstance(self, baseInterface: Windows.Win32.System.WinRT.IInspectable_head, innerInterface: POINTER(Windows.Win32.System.WinRT.IInspectable_head)) -> Windows.UI.Xaml.Media.XamlLight: ...
 class IXamlLightOverrides(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7c6296c7-0173-48e1-b7-3d-7f-a2-16-a9-ac-28')
+    _iid_ = Guid('7c6296c7-0173-48e1-b7-3d-7f-a2-16-a9-ac-28')
     @winrt_commethod(6)
     def GetId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -1951,7 +1951,7 @@ class IXamlLightOverrides(ComPtr):
     def OnDisconnected(self, oldElement: Windows.UI.Xaml.UIElement) -> Void: ...
 class IXamlLightProtected(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5ecf220b-1252-43d0-97-29-6e-a6-92-04-68-38')
+    _iid_ = Guid('5ecf220b-1252-43d0-97-29-6e-a6-92-04-68-38')
     @winrt_commethod(6)
     def get_CompositionLight(self) -> Windows.UI.Composition.CompositionLight: ...
     @winrt_commethod(7)
@@ -1959,7 +1959,7 @@ class IXamlLightProtected(ComPtr):
     CompositionLight = property(get_CompositionLight, put_CompositionLight)
 class IXamlLightStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b5ea9d69-b508-4e9c-bd-27-6b-04-4b-5f-78-a0')
+    _iid_ = Guid('b5ea9d69-b508-4e9c-bd-27-6b-04-4b-5f-78-a0')
     @winrt_commethod(6)
     def AddTargetElement(self, lightId: WinRT_String, element: Windows.UI.Xaml.UIElement) -> Void: ...
     @winrt_commethod(7)
@@ -2500,7 +2500,7 @@ class RateChangedRoutedEventArgs(ComPtr):
     def New(cls) -> Windows.UI.Xaml.Media.RateChangedRoutedEventArgs: ...
 class RateChangedRoutedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('08e9a257-ae05-489b-88-39-28-c6-22-5d-23-49')
+    _iid_ = Guid('08e9a257-ae05-489b-88-39-28-c6-22-5d-23-49')
     ClassId = 'Windows.UI.Xaml.Media.RateChangedRoutedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Media.RateChangedRoutedEventArgs) -> Void: ...
@@ -2814,7 +2814,7 @@ class TimelineMarkerRoutedEventArgs(ComPtr):
     Marker = property(get_Marker, put_Marker)
 class TimelineMarkerRoutedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('72e2fa9c-6dea-4cbe-a1-59-06-ce-95-fb-ec-ed')
+    _iid_ = Guid('72e2fa9c-6dea-4cbe-a1-59-06-ce-95-fb-ec-ed')
     ClassId = 'Windows.UI.Xaml.Media.TimelineMarkerRoutedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Media.TimelineMarkerRoutedEventArgs) -> Void: ...

@@ -60,7 +60,7 @@ T = TypeVar("T")
 
 
 class AsyncOperationCompletedHandlerImpl(Generic[T], Structure):
-    Guid = AsyncOperationCompletedHandler.Guid
+    _iid_ = AsyncOperationCompletedHandler._iid_
 
     _fields_ = [("vtable", POINTER(c_void_p)), ("self", py_object)]
 
@@ -86,11 +86,10 @@ class AsyncOperationCompletedHandlerImpl(Generic[T], Structure):
             self.guid_t = _ro_get_parameterized_type_instance_iid(value)
         return super().__setattr__(key, value)
 
-    @WINFUNCTYPE(HRESULT, c_void_p, c_void_p, POINTER(c_void_p))
+    @WINFUNCTYPE(HRESULT, c_void_p, POINTER(Guid), POINTER(c_void_p))
     def _QueryInterface(this, riid, ppvObject):
         print(this)
         self = cast(this, POINTER(AsyncOperationCompletedHandlerImpl)).contents.self
-        riid = cast(riid, POINTER(Guid))  # for Guid name conflict
         return self.QueryInterface(this, riid, ppvObject)
 
     def QueryInterface(self, this, riid, ppvObject):
@@ -166,7 +165,7 @@ async def winrt_dialog(hwnd):
         defer.callback(dialog.Release)
 
         ii = IInitializeWithWindow()
-        hr = dialog.QueryInterface(IInitializeWithWindow.Guid, ii)
+        hr = dialog.QueryInterface(IInitializeWithWindow._iid_, ii)
         if FAILED(hr):
             raise WinError(hr)
         defer.callback(ii.Release)

@@ -28,10 +28,10 @@ class ApplicationDataManager(ComPtr):
     def CreateForPackageFamily(cls: Windows.Management.Core.IApplicationDataManagerStatics, packageFamilyName: WinRT_String) -> Windows.Storage.ApplicationData: ...
 class IApplicationDataManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('74d10432-2e99-4000-9a-3a-64-30-7e-85-81-29')
+    _iid_ = Guid('74d10432-2e99-4000-9a-3a-64-30-7e-85-81-29')
 class IApplicationDataManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1e1862e3-698e-49a1-97-52-de-e9-49-25-b9-b3')
+    _iid_ = Guid('1e1862e3-698e-49a1-97-52-de-e9-49-25-b9-b3')
     @winrt_commethod(6)
     def CreateForPackageFamily(self, packageFamilyName: WinRT_String) -> Windows.Storage.ApplicationData: ...
 make_head(_module, 'ApplicationDataManager')

@@ -375,7 +375,7 @@ BluetoothLEScanningMode_Active: BluetoothLEScanningMode = 1
 BluetoothLEScanningMode_None: BluetoothLEScanningMode = 2
 class IBluetoothLEAdvertisement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('066fb2b7-33d1-4e7d-83-67-cf-81-d0-f7-96-53')
+    _iid_ = Guid('066fb2b7-33d1-4e7d-83-67-cf-81-d0-f7-96-53')
     @winrt_commethod(6)
     def get_Flags(self) -> Windows.Foundation.IReference[Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementFlags]: ...
     @winrt_commethod(7)
@@ -401,7 +401,7 @@ class IBluetoothLEAdvertisement(ComPtr):
     DataSections = property(get_DataSections, None)
 class IBluetoothLEAdvertisementBytePattern(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fbfad7f2-b9c5-4a08-bc-51-50-2f-8e-f6-8a-79')
+    _iid_ = Guid('fbfad7f2-b9c5-4a08-bc-51-50-2f-8e-f6-8a-79')
     @winrt_commethod(6)
     def get_DataType(self) -> Byte: ...
     @winrt_commethod(7)
@@ -419,12 +419,12 @@ class IBluetoothLEAdvertisementBytePattern(ComPtr):
     Data = property(get_Data, put_Data)
 class IBluetoothLEAdvertisementBytePatternFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c2e24d73-fd5c-4ec3-be-2a-9c-a6-fa-11-b7-bd')
+    _iid_ = Guid('c2e24d73-fd5c-4ec3-be-2a-9c-a6-fa-11-b7-bd')
     @winrt_commethod(6)
     def Create(self, dataType: Byte, offset: Int16, data: Windows.Storage.Streams.IBuffer) -> Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementBytePattern: ...
 class IBluetoothLEAdvertisementDataSection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d7213314-3a43-40f9-b6-f0-92-bf-ef-c3-4a-e3')
+    _iid_ = Guid('d7213314-3a43-40f9-b6-f0-92-bf-ef-c3-4a-e3')
     @winrt_commethod(6)
     def get_DataType(self) -> Byte: ...
     @winrt_commethod(7)
@@ -437,12 +437,12 @@ class IBluetoothLEAdvertisementDataSection(ComPtr):
     Data = property(get_Data, put_Data)
 class IBluetoothLEAdvertisementDataSectionFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e7a40942-a845-4045-bf-7e-3e-99-71-db-8a-6b')
+    _iid_ = Guid('e7a40942-a845-4045-bf-7e-3e-99-71-db-8a-6b')
     @winrt_commethod(6)
     def Create(self, dataType: Byte, data: Windows.Storage.Streams.IBuffer) -> Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataSection: ...
 class IBluetoothLEAdvertisementDataTypesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3bb6472f-0606-434b-a7-6e-74-15-9f-06-84-d3')
+    _iid_ = Guid('3bb6472f-0606-434b-a7-6e-74-15-9f-06-84-d3')
     @winrt_commethod(6)
     def get_Flags(self) -> Byte: ...
     @winrt_commethod(7)
@@ -511,7 +511,7 @@ class IBluetoothLEAdvertisementDataTypesStatics(ComPtr):
     ManufacturerSpecificData = property(get_ManufacturerSpecificData, None)
 class IBluetoothLEAdvertisementFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('131eb0d3-d04e-47b1-83-7e-49-40-5b-f6-f8-0f')
+    _iid_ = Guid('131eb0d3-d04e-47b1-83-7e-49-40-5b-f6-f8-0f')
     @winrt_commethod(6)
     def get_Advertisement(self) -> Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement: ...
     @winrt_commethod(7)
@@ -522,7 +522,7 @@ class IBluetoothLEAdvertisementFilter(ComPtr):
     BytePatterns = property(get_BytePatterns, None)
 class IBluetoothLEAdvertisementPublisher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cde820f9-d9fa-43d6-a2-64-dd-d8-b7-da-8b-78')
+    _iid_ = Guid('cde820f9-d9fa-43d6-a2-64-dd-d8-b7-da-8b-78')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisherStatus: ...
     @winrt_commethod(7)
@@ -539,7 +539,7 @@ class IBluetoothLEAdvertisementPublisher(ComPtr):
     Advertisement = property(get_Advertisement, None)
 class IBluetoothLEAdvertisementPublisher2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fbdb545e-56f1-510f-a4-34-21-7f-bd-9e-7b-d2')
+    _iid_ = Guid('fbdb545e-56f1-510f-a4-34-21-7f-bd-9e-7b-d2')
     @winrt_commethod(6)
     def get_PreferredTransmitPowerLevelInDBm(self) -> Windows.Foundation.IReference[Int16]: ...
     @winrt_commethod(7)
@@ -562,12 +562,12 @@ class IBluetoothLEAdvertisementPublisher2(ComPtr):
     IncludeTransmitPowerLevel = property(get_IncludeTransmitPowerLevel, put_IncludeTransmitPowerLevel)
 class IBluetoothLEAdvertisementPublisherFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5c5f065e-b863-4981-a1-af-1c-54-4d-8b-0c-0d')
+    _iid_ = Guid('5c5f065e-b863-4981-a1-af-1c-54-4d-8b-0c-0d')
     @winrt_commethod(6)
     def Create(self, advertisement: Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement) -> Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisher: ...
 class IBluetoothLEAdvertisementPublisherStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('09c2bd9f-2dff-4b23-86-ee-0d-14-fb-94-ae-ae')
+    _iid_ = Guid('09c2bd9f-2dff-4b23-86-ee-0d-14-fb-94-ae-ae')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisherStatus: ...
     @winrt_commethod(7)
@@ -576,13 +576,13 @@ class IBluetoothLEAdvertisementPublisherStatusChangedEventArgs(ComPtr):
     Error = property(get_Error, None)
 class IBluetoothLEAdvertisementPublisherStatusChangedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8f62790e-dc88-5c8b-b3-4e-10-b3-21-85-0f-88')
+    _iid_ = Guid('8f62790e-dc88-5c8b-b3-4e-10-b3-21-85-0f-88')
     @winrt_commethod(6)
     def get_SelectedTransmitPowerLevelInDBm(self) -> Windows.Foundation.IReference[Int16]: ...
     SelectedTransmitPowerLevelInDBm = property(get_SelectedTransmitPowerLevelInDBm, None)
 class IBluetoothLEAdvertisementReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('27987ddf-e596-41be-8d-43-9e-67-31-d4-a9-13')
+    _iid_ = Guid('27987ddf-e596-41be-8d-43-9e-67-31-d4-a9-13')
     @winrt_commethod(6)
     def get_RawSignalStrengthInDBm(self) -> Int16: ...
     @winrt_commethod(7)
@@ -600,7 +600,7 @@ class IBluetoothLEAdvertisementReceivedEventArgs(ComPtr):
     Advertisement = property(get_Advertisement, None)
 class IBluetoothLEAdvertisementReceivedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('12d9c87b-0399-5f0e-a3-48-53-b0-2b-6b-16-2e')
+    _iid_ = Guid('12d9c87b-0399-5f0e-a3-48-53-b0-2b-6b-16-2e')
     @winrt_commethod(6)
     def get_BluetoothAddressType(self) -> Windows.Devices.Bluetooth.BluetoothAddressType: ...
     @winrt_commethod(7)
@@ -624,7 +624,7 @@ class IBluetoothLEAdvertisementReceivedEventArgs2(ComPtr):
     IsScanResponse = property(get_IsScanResponse, None)
 class IBluetoothLEAdvertisementWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a6ac336f-f3d3-4297-8d-6c-c8-1e-a6-62-3f-40')
+    _iid_ = Guid('a6ac336f-f3d3-4297-8d-6c-c8-1e-a6-62-3f-40')
     @winrt_commethod(6)
     def get_MinSamplingInterval(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -669,7 +669,7 @@ class IBluetoothLEAdvertisementWatcher(ComPtr):
     AdvertisementFilter = property(get_AdvertisementFilter, put_AdvertisementFilter)
 class IBluetoothLEAdvertisementWatcher2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('01bf26bc-b164-5805-90-a3-e8-a7-99-7f-f2-25')
+    _iid_ = Guid('01bf26bc-b164-5805-90-a3-e8-a7-99-7f-f2-25')
     @winrt_commethod(6)
     def get_AllowExtendedAdvertisements(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -677,18 +677,18 @@ class IBluetoothLEAdvertisementWatcher2(ComPtr):
     AllowExtendedAdvertisements = property(get_AllowExtendedAdvertisements, put_AllowExtendedAdvertisements)
 class IBluetoothLEAdvertisementWatcherFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9aaf2d56-39ac-453e-b3-2a-85-c6-57-e0-17-f1')
+    _iid_ = Guid('9aaf2d56-39ac-453e-b3-2a-85-c6-57-e0-17-f1')
     @winrt_commethod(6)
     def Create(self, advertisementFilter: Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementFilter) -> Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementWatcher: ...
 class IBluetoothLEAdvertisementWatcherStoppedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('dd40f84d-e7b9-43e3-9c-04-06-85-d0-85-fd-8c')
+    _iid_ = Guid('dd40f84d-e7b9-43e3-9c-04-06-85-d0-85-fd-8c')
     @winrt_commethod(6)
     def get_Error(self) -> Windows.Devices.Bluetooth.BluetoothError: ...
     Error = property(get_Error, None)
 class IBluetoothLEManufacturerData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('912dba18-6963-4533-b0-61-46-94-da-fb-34-e5')
+    _iid_ = Guid('912dba18-6963-4533-b0-61-46-94-da-fb-34-e5')
     @winrt_commethod(6)
     def get_CompanyId(self) -> UInt16: ...
     @winrt_commethod(7)
@@ -701,7 +701,7 @@ class IBluetoothLEManufacturerData(ComPtr):
     Data = property(get_Data, put_Data)
 class IBluetoothLEManufacturerDataFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c09b39f8-319a-441e-8d-e5-66-a8-1e-87-7a-6c')
+    _iid_ = Guid('c09b39f8-319a-441e-8d-e5-66-a8-1e-87-7a-6c')
     @winrt_commethod(6)
     def Create(self, companyId: UInt16, data: Windows.Storage.Streams.IBuffer) -> Windows.Devices.Bluetooth.Advertisement.BluetoothLEManufacturerData: ...
 make_head(_module, 'BluetoothLEAdvertisement')

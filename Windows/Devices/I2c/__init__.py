@@ -98,7 +98,7 @@ I2cTransferStatus_ClockStretchTimeout: I2cTransferStatus = 3
 I2cTransferStatus_UnknownError: I2cTransferStatus = 4
 class II2cConnectionSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f2db1307-ab6f-4639-a7-67-54-53-6d-c3-46-0f')
+    _iid_ = Guid('f2db1307-ab6f-4639-a7-67-54-53-6d-c3-46-0f')
     @winrt_commethod(6)
     def get_SlaveAddress(self) -> Int32: ...
     @winrt_commethod(7)
@@ -116,24 +116,24 @@ class II2cConnectionSettings(ComPtr):
     SharingMode = property(get_SharingMode, put_SharingMode)
 class II2cConnectionSettingsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('81b586b3-9693-41b1-a2-43-de-d4-f6-e6-69-26')
+    _iid_ = Guid('81b586b3-9693-41b1-a2-43-de-d4-f6-e6-69-26')
     @winrt_commethod(6)
     def Create(self, slaveAddress: Int32) -> Windows.Devices.I2c.I2cConnectionSettings: ...
 class II2cController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c48ab1b2-87a0-4166-8e-3e-b4-b8-f9-7c-d7-29')
+    _iid_ = Guid('c48ab1b2-87a0-4166-8e-3e-b4-b8-f9-7c-d7-29')
     @winrt_commethod(6)
     def GetDevice(self, settings: Windows.Devices.I2c.I2cConnectionSettings) -> Windows.Devices.I2c.I2cDevice: ...
 class II2cControllerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('40fc0365-5f05-4e7e-84-bd-10-0d-b8-e0-ae-c5')
+    _iid_ = Guid('40fc0365-5f05-4e7e-84-bd-10-0d-b8-e0-ae-c5')
     @winrt_commethod(6)
     def GetControllersAsync(self, provider: Windows.Devices.I2c.Provider.II2cProvider) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.I2c.I2cController]]: ...
     @winrt_commethod(7)
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.I2c.I2cController]: ...
 class II2cDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8636c136-b9c5-4f70-94-49-cc-46-dc-6f-57-eb')
+    _iid_ = Guid('8636c136-b9c5-4f70-94-49-cc-46-dc-6f-57-eb')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -154,7 +154,7 @@ class II2cDevice(ComPtr):
     ConnectionSettings = property(get_ConnectionSettings, None)
 class II2cDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('91a33be3-7334-4512-96-bc-fb-ae-94-59-f5-f6')
+    _iid_ = Guid('91a33be3-7334-4512-96-bc-fb-ae-94-59-f5-f6')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)

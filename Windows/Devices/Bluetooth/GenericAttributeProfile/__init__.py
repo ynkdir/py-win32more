@@ -1181,7 +1181,7 @@ class GattWriteResult(ComPtr):
     ProtocolError = property(get_ProtocolError, None)
 class IGattCharacteristic(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('59cb50c1-5934-4f68-a1-98-eb-86-4f-a4-4e-6b')
+    _iid_ = Guid('59cb50c1-5934-4f68-a1-98-eb-86-4f-a4-4e-6b')
     @winrt_commethod(6)
     def GetDescriptors(self, descriptorUuid: Guid) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor]: ...
     @winrt_commethod(7)
@@ -1222,7 +1222,7 @@ class IGattCharacteristic(ComPtr):
     PresentationFormats = property(get_PresentationFormats, None)
 class IGattCharacteristic2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ae1ab578-ec06-4764-b7-80-98-35-a1-d3-5d-6e')
+    _iid_ = Guid('ae1ab578-ec06-4764-b7-80-98-35-a1-d3-5d-6e')
     @winrt_commethod(6)
     def get_Service(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService: ...
     @winrt_commethod(7)
@@ -1230,7 +1230,7 @@ class IGattCharacteristic2(ComPtr):
     Service = property(get_Service, None)
 class IGattCharacteristic3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3f3c663e-93d4-406b-b8-17-db-81-f8-ed-53-b3')
+    _iid_ = Guid('3f3c663e-93d4-406b-b8-17-db-81-f8-ed-53-b3')
     @winrt_commethod(6)
     def GetDescriptorsAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptorsResult]: ...
     @winrt_commethod(7)
@@ -1247,12 +1247,12 @@ class IGattCharacteristic3(ComPtr):
     def WriteClientCharacteristicConfigurationDescriptorWithResultAsync(self, clientCharacteristicConfigurationDescriptorValue: Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientCharacteristicConfigurationDescriptorValue) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteResult]: ...
 class IGattCharacteristicStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('59cb50c3-5934-4f68-a1-98-eb-86-4f-a4-4e-6b')
+    _iid_ = Guid('59cb50c3-5934-4f68-a1-98-eb-86-4f-a4-4e-6b')
     @winrt_commethod(6)
     def ConvertShortIdToUuid(self, shortId: UInt16) -> Guid: ...
 class IGattCharacteristicUuidsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('58fa4586-b1de-470c-b7-de-0d-11-ff-44-f4-b7')
+    _iid_ = Guid('58fa4586-b1de-470c-b7-de-0d-11-ff-44-f4-b7')
     @winrt_commethod(6)
     def get_BatteryLevel(self) -> Guid: ...
     @winrt_commethod(7)
@@ -1318,7 +1318,7 @@ class IGattCharacteristicUuidsStatics(ComPtr):
     TemperatureType = property(get_TemperatureType, None)
 class IGattCharacteristicUuidsStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1855b425-d46e-4a2c-9c-3f-ed-6d-ea-29-e7-be')
+    _iid_ = Guid('1855b425-d46e-4a2c-9c-3f-ed-6d-ea-29-e7-be')
     @winrt_commethod(6)
     def get_AlertCategoryId(self) -> Guid: ...
     @winrt_commethod(7)
@@ -1501,7 +1501,7 @@ class IGattCharacteristicUuidsStatics2(ComPtr):
     UnreadAlertStatus = property(get_UnreadAlertStatus, None)
 class IGattCharacteristicsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1194945c-b257-4f3e-9d-b7-f6-8b-c9-a9-ae-f2')
+    _iid_ = Guid('1194945c-b257-4f3e-9d-b7-f6-8b-c9-a9-ae-f2')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus: ...
     @winrt_commethod(7)
@@ -1513,7 +1513,7 @@ class IGattCharacteristicsResult(ComPtr):
     Characteristics = property(get_Characteristics, None)
 class IGattClientNotificationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('506d5599-0112-419a-8e-3b-ae-21-af-ab-d2-c2')
+    _iid_ = Guid('506d5599-0112-419a-8e-3b-ae-21-af-ab-d2-c2')
     @winrt_commethod(6)
     def get_SubscribedClient(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattSubscribedClient: ...
     @winrt_commethod(7)
@@ -1525,13 +1525,13 @@ class IGattClientNotificationResult(ComPtr):
     ProtocolError = property(get_ProtocolError, None)
 class IGattClientNotificationResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8faec497-45e0-497e-95-82-29-a1-fe-28-1a-d5')
+    _iid_ = Guid('8faec497-45e0-497e-95-82-29-a1-fe-28-1a-d5')
     @winrt_commethod(6)
     def get_BytesSent(self) -> UInt16: ...
     BytesSent = property(get_BytesSent, None)
 class IGattDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('92055f2b-8084-4344-b4-c2-28-4d-e1-9a-85-06')
+    _iid_ = Guid('92055f2b-8084-4344-b4-c2-28-4d-e1-9a-85-06')
     @winrt_commethod(6)
     def get_ProtectionLevel(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattProtectionLevel: ...
     @winrt_commethod(7)
@@ -1551,17 +1551,17 @@ class IGattDescriptor(ComPtr):
     AttributeHandle = property(get_AttributeHandle, None)
 class IGattDescriptor2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8f563d39-d630-406c-ba-11-10-cd-d1-6b-0e-5e')
+    _iid_ = Guid('8f563d39-d630-406c-ba-11-10-cd-d1-6b-0e-5e')
     @winrt_commethod(6)
     def WriteValueWithResultAsync(self, value: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteResult]: ...
 class IGattDescriptorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('92055f2d-8084-4344-b4-c2-28-4d-e1-9a-85-06')
+    _iid_ = Guid('92055f2d-8084-4344-b4-c2-28-4d-e1-9a-85-06')
     @winrt_commethod(6)
     def ConvertShortIdToUuid(self, shortId: UInt16) -> Guid: ...
 class IGattDescriptorUuidsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a6f862ce-9cfc-42f1-91-85-ff-37-b7-51-81-d3')
+    _iid_ = Guid('a6f862ce-9cfc-42f1-91-85-ff-37-b7-51-81-d3')
     @winrt_commethod(6)
     def get_CharacteristicAggregateFormat(self) -> Guid: ...
     @winrt_commethod(7)
@@ -1582,7 +1582,7 @@ class IGattDescriptorUuidsStatics(ComPtr):
     ServerCharacteristicConfiguration = property(get_ServerCharacteristicConfiguration, None)
 class IGattDescriptorsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9bc091f3-95e7-4489-8d-25-ff-81-95-5a-57-b9')
+    _iid_ = Guid('9bc091f3-95e7-4489-8d-25-ff-81-95-5a-57-b9')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus: ...
     @winrt_commethod(7)
@@ -1594,7 +1594,7 @@ class IGattDescriptorsResult(ComPtr):
     Descriptors = property(get_Descriptors, None)
 class IGattDeviceService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ac7b7c05-b33c-47cf-99-0f-6b-8f-55-77-df-71')
+    _iid_ = Guid('ac7b7c05-b33c-47cf-99-0f-6b-8f-55-77-df-71')
     @winrt_commethod(6)
     def GetCharacteristics(self, characteristicUuid: Guid) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic]: ...
     @winrt_commethod(7)
@@ -1610,7 +1610,7 @@ class IGattDeviceService(ComPtr):
     AttributeHandle = property(get_AttributeHandle, None)
 class IGattDeviceService2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fc54520b-0b0d-4708-ba-e0-9f-fd-94-89-bc-59')
+    _iid_ = Guid('fc54520b-0b0d-4708-ba-e0-9f-fd-94-89-bc-59')
     @winrt_commethod(6)
     def get_Device(self) -> Windows.Devices.Bluetooth.BluetoothLEDevice: ...
     @winrt_commethod(7)
@@ -1623,7 +1623,7 @@ class IGattDeviceService2(ComPtr):
     ParentServices = property(get_ParentServices, None)
 class IGattDeviceService3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b293a950-0c53-437c-a9-b3-5c-32-10-c6-e5-69')
+    _iid_ = Guid('b293a950-0c53-437c-a9-b3-5c-32-10-c6-e5-69')
     @winrt_commethod(6)
     def get_DeviceAccessInformation(self) -> Windows.Devices.Enumeration.DeviceAccessInformation: ...
     @winrt_commethod(7)
@@ -1655,7 +1655,7 @@ class IGattDeviceService3(ComPtr):
     SharingMode = property(get_SharingMode, None)
 class IGattDeviceServiceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('196d0022-faad-45dc-ae-5b-2a-c3-18-4e-84-db')
+    _iid_ = Guid('196d0022-faad-45dc-ae-5b-2a-c3-18-4e-84-db')
     @winrt_commethod(6)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService]: ...
     @winrt_commethod(7)
@@ -1666,7 +1666,7 @@ class IGattDeviceServiceStatics(ComPtr):
     def ConvertShortIdToUuid(self, shortId: UInt16) -> Guid: ...
 class IGattDeviceServiceStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0604186e-24a6-4b0d-a2-f2-30-cc-01-54-5d-25')
+    _iid_ = Guid('0604186e-24a6-4b0d-a2-f2-30-cc-01-54-5d-25')
     @winrt_commethod(6)
     def FromIdWithSharingModeAsync(self, deviceId: WinRT_String, sharingMode: Windows.Devices.Bluetooth.GenericAttributeProfile.GattSharingMode) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService]: ...
     @winrt_commethod(7)
@@ -1679,7 +1679,7 @@ class IGattDeviceServiceStatics2(ComPtr):
     def GetDeviceSelectorForBluetoothDeviceIdAndUuidWithCacheMode(self, bluetoothDeviceId: Windows.Devices.Bluetooth.BluetoothDeviceId, serviceUuid: Guid, cacheMode: Windows.Devices.Bluetooth.BluetoothCacheMode) -> WinRT_String: ...
 class IGattDeviceServicesResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('171dd3ee-016d-419d-83-8a-57-6c-f4-75-a3-d8')
+    _iid_ = Guid('171dd3ee-016d-419d-83-8a-57-6c-f4-75-a3-d8')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus: ...
     @winrt_commethod(7)
@@ -1691,7 +1691,7 @@ class IGattDeviceServicesResult(ComPtr):
     Services = property(get_Services, None)
 class IGattLocalCharacteristic(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('aede376d-5412-4d74-92-a8-8d-eb-85-26-82-9c')
+    _iid_ = Guid('aede376d-5412-4d74-92-a8-8d-eb-85-26-82-9c')
     @winrt_commethod(6)
     def get_Uuid(self) -> Guid: ...
     @winrt_commethod(7)
@@ -1739,7 +1739,7 @@ class IGattLocalCharacteristic(ComPtr):
     SubscribedClients = property(get_SubscribedClients, None)
 class IGattLocalCharacteristicParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('faf73db4-4cff-44c7-84-45-04-0e-6e-ad-00-63')
+    _iid_ = Guid('faf73db4-4cff-44c7-84-45-04-0e-6e-ad-00-63')
     @winrt_commethod(6)
     def put_StaticValue(self, value: Windows.Storage.Streams.IBuffer) -> Void: ...
     @winrt_commethod(7)
@@ -1770,7 +1770,7 @@ class IGattLocalCharacteristicParameters(ComPtr):
     PresentationFormats = property(get_PresentationFormats, None)
 class IGattLocalCharacteristicResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7975de9b-0170-4397-96-66-92-f8-63-f1-2e-e6')
+    _iid_ = Guid('7975de9b-0170-4397-96-66-92-f8-63-f1-2e-e6')
     @winrt_commethod(6)
     def get_Characteristic(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic: ...
     @winrt_commethod(7)
@@ -1779,7 +1779,7 @@ class IGattLocalCharacteristicResult(ComPtr):
     Error = property(get_Error, None)
 class IGattLocalDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f48ebe06-789d-4a4b-86-52-bd-01-7b-5d-2f-c6')
+    _iid_ = Guid('f48ebe06-789d-4a4b-86-52-bd-01-7b-5d-2f-c6')
     @winrt_commethod(6)
     def get_Uuid(self) -> Guid: ...
     @winrt_commethod(7)
@@ -1802,7 +1802,7 @@ class IGattLocalDescriptor(ComPtr):
     WriteProtectionLevel = property(get_WriteProtectionLevel, None)
 class IGattLocalDescriptorParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5fdede6a-f3c1-4b66-8c-4b-e3-d2-29-3b-40-e9')
+    _iid_ = Guid('5fdede6a-f3c1-4b66-8c-4b-e3-d2-29-3b-40-e9')
     @winrt_commethod(6)
     def put_StaticValue(self, value: Windows.Storage.Streams.IBuffer) -> Void: ...
     @winrt_commethod(7)
@@ -1820,7 +1820,7 @@ class IGattLocalDescriptorParameters(ComPtr):
     WriteProtectionLevel = property(get_WriteProtectionLevel, put_WriteProtectionLevel)
 class IGattLocalDescriptorResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('375791be-321f-4366-bf-c1-3b-c6-b8-2c-79-f8')
+    _iid_ = Guid('375791be-321f-4366-bf-c1-3b-c6-b8-2c-79-f8')
     @winrt_commethod(6)
     def get_Descriptor(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptor: ...
     @winrt_commethod(7)
@@ -1829,7 +1829,7 @@ class IGattLocalDescriptorResult(ComPtr):
     Error = property(get_Error, None)
 class IGattLocalService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f513e258-f7f7-4902-b8-03-57-fc-c7-d6-fe-83')
+    _iid_ = Guid('f513e258-f7f7-4902-b8-03-57-fc-c7-d6-fe-83')
     @winrt_commethod(6)
     def get_Uuid(self) -> Guid: ...
     @winrt_commethod(7)
@@ -1840,7 +1840,7 @@ class IGattLocalService(ComPtr):
     Characteristics = property(get_Characteristics, None)
 class IGattPresentationFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('196d0021-faad-45dc-ae-5b-2a-c3-18-4e-84-db')
+    _iid_ = Guid('196d0021-faad-45dc-ae-5b-2a-c3-18-4e-84-db')
     @winrt_commethod(6)
     def get_FormatType(self) -> Byte: ...
     @winrt_commethod(7)
@@ -1858,18 +1858,18 @@ class IGattPresentationFormat(ComPtr):
     Description = property(get_Description, None)
 class IGattPresentationFormatStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('196d0020-faad-45dc-ae-5b-2a-c3-18-4e-84-db')
+    _iid_ = Guid('196d0020-faad-45dc-ae-5b-2a-c3-18-4e-84-db')
     @winrt_commethod(6)
     def get_BluetoothSigAssignedNumbers(self) -> Byte: ...
     BluetoothSigAssignedNumbers = property(get_BluetoothSigAssignedNumbers, None)
 class IGattPresentationFormatStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a9c21713-b82f-435e-b6-34-21-fd-85-a4-3c-07')
+    _iid_ = Guid('a9c21713-b82f-435e-b6-34-21-fd-85-a4-3c-07')
     @winrt_commethod(6)
     def FromParts(self, formatType: Byte, exponent: Int32, unit: UInt16, namespaceId: Byte, description: UInt16) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattPresentationFormat: ...
 class IGattPresentationFormatTypesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('faf1ba0a-30ba-409c-be-f7-cf-fb-6d-03-b8-fb')
+    _iid_ = Guid('faf1ba0a-30ba-409c-be-f7-cf-fb-6d-03-b8-fb')
     @winrt_commethod(6)
     def get_Boolean(self) -> Byte: ...
     @winrt_commethod(7)
@@ -1953,7 +1953,7 @@ class IGattPresentationFormatTypesStatics(ComPtr):
     Struct = property(get_Struct, None)
 class IGattProtocolErrorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ca46c5c5-0ecc-4809-be-a3-cf-79-bc-99-1e-37')
+    _iid_ = Guid('ca46c5c5-0ecc-4809-be-a3-cf-79-bc-99-1e-37')
     @winrt_commethod(6)
     def get_InvalidHandle(self) -> Byte: ...
     @winrt_commethod(7)
@@ -2007,7 +2007,7 @@ class IGattProtocolErrorStatics(ComPtr):
     InsufficientResources = property(get_InsufficientResources, None)
 class IGattReadClientCharacteristicConfigurationDescriptorResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('63a66f09-1aea-4c4c-a5-0f-97-ba-e4-74-b3-48')
+    _iid_ = Guid('63a66f09-1aea-4c4c-a5-0f-97-ba-e4-74-b3-48')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus: ...
     @winrt_commethod(7)
@@ -2016,13 +2016,13 @@ class IGattReadClientCharacteristicConfigurationDescriptorResult(ComPtr):
     ClientCharacteristicConfigurationDescriptor = property(get_ClientCharacteristicConfigurationDescriptor, None)
 class IGattReadClientCharacteristicConfigurationDescriptorResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1bf1a59d-ba4d-4622-86-51-f4-ee-15-0d-0a-5d')
+    _iid_ = Guid('1bf1a59d-ba4d-4622-86-51-f4-ee-15-0d-0a-5d')
     @winrt_commethod(6)
     def get_ProtocolError(self) -> Windows.Foundation.IReference[Byte]: ...
     ProtocolError = property(get_ProtocolError, None)
 class IGattReadRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f1dd6535-6acd-42a6-a4-bb-d7-89-da-e0-04-3e')
+    _iid_ = Guid('f1dd6535-6acd-42a6-a4-bb-d7-89-da-e0-04-3e')
     @winrt_commethod(6)
     def get_Offset(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -2042,7 +2042,7 @@ class IGattReadRequest(ComPtr):
     State = property(get_State, None)
 class IGattReadRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('93497243-f39c-484b-8a-b6-99-6b-a4-86-cf-a3')
+    _iid_ = Guid('93497243-f39c-484b-8a-b6-99-6b-a4-86-cf-a3')
     @winrt_commethod(6)
     def get_Session(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession: ...
     @winrt_commethod(7)
@@ -2052,7 +2052,7 @@ class IGattReadRequestedEventArgs(ComPtr):
     Session = property(get_Session, None)
 class IGattReadResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('63a66f08-1aea-4c4c-a5-0f-97-ba-e4-74-b3-48')
+    _iid_ = Guid('63a66f08-1aea-4c4c-a5-0f-97-ba-e4-74-b3-48')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus: ...
     @winrt_commethod(7)
@@ -2061,25 +2061,25 @@ class IGattReadResult(ComPtr):
     Value = property(get_Value, None)
 class IGattReadResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a10f50a0-fb43-48af-ba-aa-63-8a-5c-63-29-fe')
+    _iid_ = Guid('a10f50a0-fb43-48af-ba-aa-63-8a-5c-63-29-fe')
     @winrt_commethod(6)
     def get_ProtocolError(self) -> Windows.Foundation.IReference[Byte]: ...
     ProtocolError = property(get_ProtocolError, None)
 class IGattReliableWriteTransaction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('63a66f07-1aea-4c4c-a5-0f-97-ba-e4-74-b3-48')
+    _iid_ = Guid('63a66f07-1aea-4c4c-a5-0f-97-ba-e4-74-b3-48')
     @winrt_commethod(6)
     def WriteValue(self, characteristic: Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic, value: Windows.Storage.Streams.IBuffer) -> Void: ...
     @winrt_commethod(7)
     def CommitAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus]: ...
 class IGattReliableWriteTransaction2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('51113987-ef12-462f-9f-b2-a1-a4-3a-67-94-16')
+    _iid_ = Guid('51113987-ef12-462f-9f-b2-a1-a4-3a-67-94-16')
     @winrt_commethod(6)
     def CommitWithResultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteResult]: ...
 class IGattRequestStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e834d92c-27be-44b3-9d-0d-4f-c6-e8-08-dd-3f')
+    _iid_ = Guid('e834d92c-27be-44b3-9d-0d-4f-c6-e8-08-dd-3f')
     @winrt_commethod(6)
     def get_State(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattRequestState: ...
     @winrt_commethod(7)
@@ -2088,7 +2088,7 @@ class IGattRequestStateChangedEventArgs(ComPtr):
     Error = property(get_Error, None)
 class IGattServiceProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7822b3cd-2889-4f86-a0-51-3f-0a-ed-1c-27-60')
+    _iid_ = Guid('7822b3cd-2889-4f86-a0-51-3f-0a-ed-1c-27-60')
     @winrt_commethod(6)
     def get_Service(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalService: ...
     @winrt_commethod(7)
@@ -2107,7 +2107,7 @@ class IGattServiceProvider(ComPtr):
     AdvertisementStatus = property(get_AdvertisementStatus, None)
 class IGattServiceProviderAdvertisementStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('59a5aa65-fa21-4ffc-b1-55-04-d9-28-01-26-86')
+    _iid_ = Guid('59a5aa65-fa21-4ffc-b1-55-04-d9-28-01-26-86')
     @winrt_commethod(6)
     def get_Error(self) -> Windows.Devices.Bluetooth.BluetoothError: ...
     @winrt_commethod(7)
@@ -2116,7 +2116,7 @@ class IGattServiceProviderAdvertisementStatusChangedEventArgs(ComPtr):
     Status = property(get_Status, None)
 class IGattServiceProviderAdvertisingParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e2ce31ab-6315-4c22-9b-d7-78-1d-bc-3d-8d-82')
+    _iid_ = Guid('e2ce31ab-6315-4c22-9b-d7-78-1d-bc-3d-8d-82')
     @winrt_commethod(6)
     def put_IsConnectable(self, value: Boolean) -> Void: ...
     @winrt_commethod(7)
@@ -2129,7 +2129,7 @@ class IGattServiceProviderAdvertisingParameters(ComPtr):
     IsDiscoverable = property(get_IsDiscoverable, put_IsDiscoverable)
 class IGattServiceProviderAdvertisingParameters2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ff68468d-ca92-4434-97-43-0e-90-98-8a-d8-79')
+    _iid_ = Guid('ff68468d-ca92-4434-97-43-0e-90-98-8a-d8-79')
     @winrt_commethod(6)
     def put_ServiceData(self, value: Windows.Storage.Streams.IBuffer) -> Void: ...
     @winrt_commethod(7)
@@ -2137,7 +2137,7 @@ class IGattServiceProviderAdvertisingParameters2(ComPtr):
     ServiceData = property(get_ServiceData, put_ServiceData)
 class IGattServiceProviderResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('764696d8-c53e-428c-8a-48-67-af-e0-2c-3a-e6')
+    _iid_ = Guid('764696d8-c53e-428c-8a-48-67-af-e0-2c-3a-e6')
     @winrt_commethod(6)
     def get_Error(self) -> Windows.Devices.Bluetooth.BluetoothError: ...
     @winrt_commethod(7)
@@ -2146,12 +2146,12 @@ class IGattServiceProviderResult(ComPtr):
     ServiceProvider = property(get_ServiceProvider, None)
 class IGattServiceProviderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('31794063-5256-4054-a4-f4-7b-be-77-55-a5-7e')
+    _iid_ = Guid('31794063-5256-4054-a4-f4-7b-be-77-55-a5-7e')
     @winrt_commethod(6)
     def CreateAsync(self, serviceUuid: Guid) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderResult]: ...
 class IGattServiceUuidsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6dc57058-9aba-4417-b8-f2-dc-e0-16-d3-4e-e2')
+    _iid_ = Guid('6dc57058-9aba-4417-b8-f2-dc-e0-16-d3-4e-e2')
     @winrt_commethod(6)
     def get_Battery(self) -> Guid: ...
     @winrt_commethod(7)
@@ -2181,7 +2181,7 @@ class IGattServiceUuidsStatics(ComPtr):
     RunningSpeedAndCadence = property(get_RunningSpeedAndCadence, None)
 class IGattServiceUuidsStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d2ae94f5-3d15-4f79-9c-0c-ea-af-a6-75-15-5c')
+    _iid_ = Guid('d2ae94f5-3d15-4f79-9c-0c-ea-af-a6-75-15-5c')
     @winrt_commethod(6)
     def get_AlertNotification(self) -> Guid: ...
     @winrt_commethod(7)
@@ -2223,7 +2223,7 @@ class IGattServiceUuidsStatics2(ComPtr):
     TxPower = property(get_TxPower, None)
 class IGattSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d23b5143-e04e-4c24-99-9c-9c-25-6f-98-56-b1')
+    _iid_ = Guid('d23b5143-e04e-4c24-99-9c-9c-25-6f-98-56-b1')
     @winrt_commethod(6)
     def get_DeviceId(self) -> Windows.Devices.Bluetooth.BluetoothDeviceId: ...
     @winrt_commethod(7)
@@ -2251,12 +2251,12 @@ class IGattSession(ComPtr):
     SessionStatus = property(get_SessionStatus, None)
 class IGattSessionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2e65b95c-539f-4db7-82-a8-73-bd-bb-f7-3e-bf')
+    _iid_ = Guid('2e65b95c-539f-4db7-82-a8-73-bd-bb-f7-3e-bf')
     @winrt_commethod(6)
     def FromDeviceIdAsync(self, deviceId: Windows.Devices.Bluetooth.BluetoothDeviceId) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession]: ...
 class IGattSessionStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7605b72e-837f-404c-ab-34-31-63-f3-9d-df-32')
+    _iid_ = Guid('7605b72e-837f-404c-ab-34-31-63-f3-9d-df-32')
     @winrt_commethod(6)
     def get_Error(self) -> Windows.Devices.Bluetooth.BluetoothError: ...
     @winrt_commethod(7)
@@ -2265,7 +2265,7 @@ class IGattSessionStatusChangedEventArgs(ComPtr):
     Status = property(get_Status, None)
 class IGattSubscribedClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('736e9001-15a4-4ec2-92-48-e3-f2-0d-46-3b-e9')
+    _iid_ = Guid('736e9001-15a4-4ec2-92-48-e3-f2-0d-46-3b-e9')
     @winrt_commethod(6)
     def get_Session(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession: ...
     @winrt_commethod(7)
@@ -2278,7 +2278,7 @@ class IGattSubscribedClient(ComPtr):
     MaxNotificationSize = property(get_MaxNotificationSize, None)
 class IGattValueChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d21bdb54-06e3-4ed8-a2-63-ac-fa-c8-ba-73-13')
+    _iid_ = Guid('d21bdb54-06e3-4ed8-a2-63-ac-fa-c8-ba-73-13')
     @winrt_commethod(6)
     def get_CharacteristicValue(self) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(7)
@@ -2287,7 +2287,7 @@ class IGattValueChangedEventArgs(ComPtr):
     Timestamp = property(get_Timestamp, None)
 class IGattWriteRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('aeb6a9ed-de2f-4fc2-a9-a8-94-ea-78-44-f1-3d')
+    _iid_ = Guid('aeb6a9ed-de2f-4fc2-a9-a8-94-ea-78-44-f1-3d')
     @winrt_commethod(6)
     def get_Value(self) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_commethod(7)
@@ -2310,7 +2310,7 @@ class IGattWriteRequest(ComPtr):
     State = property(get_State, None)
 class IGattWriteRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2dec8bbe-a73a-471a-94-d5-03-7d-ea-dd-08-06')
+    _iid_ = Guid('2dec8bbe-a73a-471a-94-d5-03-7d-ea-dd-08-06')
     @winrt_commethod(6)
     def get_Session(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession: ...
     @winrt_commethod(7)
@@ -2320,7 +2320,7 @@ class IGattWriteRequestedEventArgs(ComPtr):
     Session = property(get_Session, None)
 class IGattWriteResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4991ddb1-cb2b-44f7-99-fc-d2-9a-28-71-dc-9b')
+    _iid_ = Guid('4991ddb1-cb2b-44f7-99-fc-d2-9a-28-71-dc-9b')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus: ...
     @winrt_commethod(7)

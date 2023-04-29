@@ -31,7 +31,7 @@ HingeState_Convex: HingeState = 4
 HingeState_Full: HingeState = 5
 class ITwoPanelHingedDevicePosturePreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('72245c31-4b39-42a6-8e-73-72-35-ad-e1-68-53')
+    _iid_ = Guid('72245c31-4b39-42a6-8e-73-72-35-ad-e1-68-53')
     @winrt_commethod(6)
     def GetCurrentPostureAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading]: ...
     @winrt_commethod(7)
@@ -40,7 +40,7 @@ class ITwoPanelHingedDevicePosturePreview(ComPtr):
     def remove_PostureChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ITwoPanelHingedDevicePosturePreviewReading(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a0251452-4ad6-4b38-84-26-c5-9a-15-49-3a-7d')
+    _iid_ = Guid('a0251452-4ad6-4b38-84-26-c5-9a-15-49-3a-7d')
     @winrt_commethod(6)
     def get_Timestamp(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -61,13 +61,13 @@ class ITwoPanelHingedDevicePosturePreviewReading(ComPtr):
     Panel2Id = property(get_Panel2Id, None)
 class ITwoPanelHingedDevicePosturePreviewReadingChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2d2d1bc6-02ce-474a-a5-56-a7-5b-1c-f9-3a-03')
+    _iid_ = Guid('2d2d1bc6-02ce-474a-a5-56-a7-5b-1c-f9-3a-03')
     @winrt_commethod(6)
     def get_Reading(self) -> Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading: ...
     Reading = property(get_Reading, None)
 class ITwoPanelHingedDevicePosturePreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0c4733d2-57e0-4180-bd-5e-f3-1a-21-38-42-3e')
+    _iid_ = Guid('0c4733d2-57e0-4180-bd-5e-f3-1a-21-38-42-3e')
     @winrt_commethod(6)
     def GetDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.System.Preview.TwoPanelHingedDevicePosturePreview]: ...
 class TwoPanelHingedDevicePosturePreview(ComPtr):

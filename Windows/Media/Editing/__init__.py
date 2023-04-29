@@ -80,7 +80,7 @@ class EmbeddedAudioTrack(ComPtr):
     def GetAudioEncodingProperties(self: Windows.Media.Editing.IEmbeddedAudioTrack) -> Windows.Media.MediaProperties.AudioEncodingProperties: ...
 class IBackgroundAudioTrack(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4b91b3bd-9e21-4266-a9-c2-67-dd-01-1a-23-57')
+    _iid_ = Guid('4b91b3bd-9e21-4266-a9-c2-67-dd-01-1a-23-57')
     @winrt_commethod(6)
     def get_TrimTimeFromStart(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -119,19 +119,19 @@ class IBackgroundAudioTrack(ComPtr):
     AudioEffectDefinitions = property(get_AudioEffectDefinitions, None)
 class IBackgroundAudioTrackStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d9b1c0d7-d018-42a8-a5-59-cb-4d-9e-97-e6-64')
+    _iid_ = Guid('d9b1c0d7-d018-42a8-a5-59-cb-4d-9e-97-e6-64')
     @winrt_commethod(6)
     def CreateFromEmbeddedAudioTrack(self, embeddedAudioTrack: Windows.Media.Editing.EmbeddedAudioTrack) -> Windows.Media.Editing.BackgroundAudioTrack: ...
     @winrt_commethod(7)
     def CreateFromFileAsync(self, file: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Windows.Media.Editing.BackgroundAudioTrack]: ...
 class IEmbeddedAudioTrack(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('55ee5a7a-2d30-3fba-a1-90-4f-1a-64-54-f8-8f')
+    _iid_ = Guid('55ee5a7a-2d30-3fba-a1-90-4f-1a-64-54-f8-8f')
     @winrt_commethod(6)
     def GetAudioEncodingProperties(self) -> Windows.Media.MediaProperties.AudioEncodingProperties: ...
 class IMediaClip(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('53f25366-5fba-3ea4-86-93-24-76-18-11-14-0a')
+    _iid_ = Guid('53f25366-5fba-3ea4-86-93-24-76-18-11-14-0a')
     @winrt_commethod(6)
     def get_TrimTimeFromStart(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -182,7 +182,7 @@ class IMediaClip(ComPtr):
     VideoEffectDefinitions = property(get_VideoEffectDefinitions, None)
 class IMediaClipStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fa402b68-928f-43c4-bc-6e-78-3a-1a-35-96-56')
+    _iid_ = Guid('fa402b68-928f-43c4-bc-6e-78-3a-1a-35-96-56')
     @winrt_commethod(6)
     def CreateFromColor(self, color: Windows.UI.Color, originalDuration: Windows.Foundation.TimeSpan) -> Windows.Media.Editing.MediaClip: ...
     @winrt_commethod(7)
@@ -191,12 +191,12 @@ class IMediaClipStatics(ComPtr):
     def CreateFromImageFileAsync(self, file: Windows.Storage.IStorageFile, originalDuration: Windows.Foundation.TimeSpan) -> Windows.Foundation.IAsyncOperation[Windows.Media.Editing.MediaClip]: ...
 class IMediaClipStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5b1dd7b3-854e-4d9b-87-7d-47-74-a5-56-cd-12')
+    _iid_ = Guid('5b1dd7b3-854e-4d9b-87-7d-47-74-a5-56-cd-12')
     @winrt_commethod(6)
     def CreateFromSurface(self, surface: Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface, originalDuration: Windows.Foundation.TimeSpan) -> Windows.Media.Editing.MediaClip: ...
 class IMediaComposition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2e06e605-dc71-41d6-b8-37-2d-2b-c1-4a-29-47')
+    _iid_ = Guid('2e06e605-dc71-41d6-b8-37-2d-2b-c1-4a-29-47')
     @winrt_commethod(6)
     def get_Duration(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -233,18 +233,18 @@ class IMediaComposition(ComPtr):
     UserData = property(get_UserData, None)
 class IMediaComposition2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a59e5372-2366-492c-be-c8-e6-df-ba-6d-02-81')
+    _iid_ = Guid('a59e5372-2366-492c-be-c8-e6-df-ba-6d-02-81')
     @winrt_commethod(6)
     def get_OverlayLayers(self) -> Windows.Foundation.Collections.IVector[Windows.Media.Editing.MediaOverlayLayer]: ...
     OverlayLayers = property(get_OverlayLayers, None)
 class IMediaCompositionStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('87a08f04-e32a-45ce-8f-66-a3-0d-f0-76-62-24')
+    _iid_ = Guid('87a08f04-e32a-45ce-8f-66-a3-0d-f0-76-62-24')
     @winrt_commethod(6)
     def LoadAsync(self, file: Windows.Storage.StorageFile) -> Windows.Foundation.IAsyncOperation[Windows.Media.Editing.MediaComposition]: ...
 class IMediaOverlay(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a902ae5d-7869-4830-8a-b1-94-dc-01-c0-5f-a4')
+    _iid_ = Guid('a902ae5d-7869-4830-8a-b1-94-dc-01-c0-5f-a4')
     @winrt_commethod(6)
     def get_Position(self) -> Windows.Foundation.Rect: ...
     @winrt_commethod(7)
@@ -272,14 +272,14 @@ class IMediaOverlay(ComPtr):
     AudioEnabled = property(get_AudioEnabled, put_AudioEnabled)
 class IMediaOverlayFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b584828a-6188-4f8f-a2-e0-aa-55-2d-59-8e-18')
+    _iid_ = Guid('b584828a-6188-4f8f-a2-e0-aa-55-2d-59-8e-18')
     @winrt_commethod(6)
     def Create(self, clip: Windows.Media.Editing.MediaClip) -> Windows.Media.Editing.MediaOverlay: ...
     @winrt_commethod(7)
     def CreateWithPositionAndOpacity(self, clip: Windows.Media.Editing.MediaClip, position: Windows.Foundation.Rect, opacity: Double) -> Windows.Media.Editing.MediaOverlay: ...
 class IMediaOverlayLayer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a6d9ba57-eeda-46c6-bb-e5-e3-98-c8-41-68-ac')
+    _iid_ = Guid('a6d9ba57-eeda-46c6-bb-e5-e3-98-c8-41-68-ac')
     @winrt_commethod(6)
     def Clone(self) -> Windows.Media.Editing.MediaOverlayLayer: ...
     @winrt_commethod(7)
@@ -290,7 +290,7 @@ class IMediaOverlayLayer(ComPtr):
     CustomCompositorDefinition = property(get_CustomCompositorDefinition, None)
 class IMediaOverlayLayerFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('947cb473-a39e-4362-ab-bf-9f-8b-50-70-a0-62')
+    _iid_ = Guid('947cb473-a39e-4362-ab-bf-9f-8b-50-70-a0-62')
     @winrt_commethod(6)
     def CreateWithCompositorDefinition(self, compositorDefinition: Windows.Media.Effects.IVideoCompositorDefinition) -> Windows.Media.Editing.MediaOverlayLayer: ...
 class MediaClip(ComPtr):

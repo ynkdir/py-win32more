@@ -23,7 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPerceptionTimestamp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('87c24804-a22e-4adb-ba-26-d7-8e-f6-39-bc-f4')
+    _iid_ = Guid('87c24804-a22e-4adb-ba-26-d7-8e-f6-39-bc-f4')
     @winrt_commethod(6)
     def get_TargetTime(self) -> Windows.Foundation.DateTime: ...
     @winrt_commethod(7)
@@ -32,18 +32,18 @@ class IPerceptionTimestamp(ComPtr):
     PredictionAmount = property(get_PredictionAmount, None)
 class IPerceptionTimestamp2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e354b7ed-2bd1-41b7-9e-d0-74-a1-5c-35-45-37')
+    _iid_ = Guid('e354b7ed-2bd1-41b7-9e-d0-74-a1-5c-35-45-37')
     @winrt_commethod(6)
     def get_SystemRelativeTargetTime(self) -> Windows.Foundation.TimeSpan: ...
     SystemRelativeTargetTime = property(get_SystemRelativeTargetTime, None)
 class IPerceptionTimestampHelperStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('47a611d4-a9df-4edc-85-5d-f4-d3-39-d9-67-ac')
+    _iid_ = Guid('47a611d4-a9df-4edc-85-5d-f4-d3-39-d9-67-ac')
     @winrt_commethod(6)
     def FromHistoricalTargetTime(self, targetTime: Windows.Foundation.DateTime) -> Windows.Perception.PerceptionTimestamp: ...
 class IPerceptionTimestampHelperStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('73d1a7fe-3fb9-4571-87-d4-3c-92-0a-5e-86-eb')
+    _iid_ = Guid('73d1a7fe-3fb9-4571-87-d4-3c-92-0a-5e-86-eb')
     @winrt_commethod(6)
     def FromSystemRelativeTargetTime(self, targetTime: Windows.Foundation.TimeSpan) -> Windows.Perception.PerceptionTimestamp: ...
 class PerceptionTimestamp(ComPtr):

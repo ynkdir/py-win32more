@@ -233,7 +233,7 @@ class FolderPicker(ComPtr):
     User = property(get_User, None)
 class IFileOpenPicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2ca8278a-12c5-4c5f-89-77-94-54-77-93-c2-41')
+    _iid_ = Guid('2ca8278a-12c5-4c5f-89-77-94-54-77-93-c2-41')
     @winrt_commethod(6)
     def get_ViewMode(self) -> Windows.Storage.Pickers.PickerViewMode: ...
     @winrt_commethod(7)
@@ -263,7 +263,7 @@ class IFileOpenPicker(ComPtr):
     FileTypeFilter = property(get_FileTypeFilter, None)
 class IFileOpenPicker2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8ceb6cd2-b446-46f7-b2-65-90-f8-e5-5a-d6-50')
+    _iid_ = Guid('8ceb6cd2-b446-46f7-b2-65-90-f8-e5-5a-d6-50')
     @winrt_commethod(6)
     def get_ContinuationData(self) -> Windows.Foundation.Collections.ValueSet: ...
     @winrt_commethod(7)
@@ -273,28 +273,28 @@ class IFileOpenPicker2(ComPtr):
     ContinuationData = property(get_ContinuationData, None)
 class IFileOpenPicker3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d9a5c5b3-c5dc-5b98-bd-80-a8-d0-ca-05-84-d8')
+    _iid_ = Guid('d9a5c5b3-c5dc-5b98-bd-80-a8-d0-ca-05-84-d8')
     @winrt_commethod(6)
     def get_User(self) -> Windows.System.User: ...
     User = property(get_User, None)
 class IFileOpenPickerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6821573b-2f02-4833-96-d4-ab-bf-ad-72-b6-7b')
+    _iid_ = Guid('6821573b-2f02-4833-96-d4-ab-bf-ad-72-b6-7b')
     @winrt_commethod(6)
     def ResumePickSingleFileAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFile]: ...
 class IFileOpenPickerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e8917415-eddd-5c98-b6-f3-36-6f-df-ca-d3-92')
+    _iid_ = Guid('e8917415-eddd-5c98-b6-f3-36-6f-df-ca-d3-92')
     @winrt_commethod(6)
     def CreateForUser(self, user: Windows.System.User) -> Windows.Storage.Pickers.FileOpenPicker: ...
 class IFileOpenPickerWithOperationId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3f57b569-2522-4ca5-aa-73-a1-55-09-f1-fc-bf')
+    _iid_ = Guid('3f57b569-2522-4ca5-aa-73-a1-55-09-f1-fc-bf')
     @winrt_commethod(6)
     def PickSingleFileAsync(self, pickerOperationId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFile]: ...
 class IFileSavePicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3286ffcb-617f-4cc5-af-6a-b3-fd-f2-9a-d1-45')
+    _iid_ = Guid('3286ffcb-617f-4cc5-af-6a-b3-fd-f2-9a-d1-45')
     @winrt_commethod(6)
     def get_SettingsIdentifier(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -332,7 +332,7 @@ class IFileSavePicker(ComPtr):
     SuggestedFileName = property(get_SuggestedFileName, put_SuggestedFileName)
 class IFileSavePicker2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0ec313a2-d24b-449a-81-97-e8-91-04-fd-42-cc')
+    _iid_ = Guid('0ec313a2-d24b-449a-81-97-e8-91-04-fd-42-cc')
     @winrt_commethod(6)
     def get_ContinuationData(self) -> Windows.Foundation.Collections.ValueSet: ...
     @winrt_commethod(7)
@@ -340,7 +340,7 @@ class IFileSavePicker2(ComPtr):
     ContinuationData = property(get_ContinuationData, None)
 class IFileSavePicker3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('698aec69-ba3c-4e51-bd-90-4a-bc-bb-f4-cf-af')
+    _iid_ = Guid('698aec69-ba3c-4e51-bd-90-4a-bc-bb-f4-cf-af')
     @winrt_commethod(6)
     def get_EnterpriseId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -348,18 +348,18 @@ class IFileSavePicker3(ComPtr):
     EnterpriseId = property(get_EnterpriseId, put_EnterpriseId)
 class IFileSavePicker4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e7d83a5a-ddfa-5de0-8b-70-c8-42-c2-19-88-ec')
+    _iid_ = Guid('e7d83a5a-ddfa-5de0-8b-70-c8-42-c2-19-88-ec')
     @winrt_commethod(6)
     def get_User(self) -> Windows.System.User: ...
     User = property(get_User, None)
 class IFileSavePickerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('28e3cf9e-961c-5e2c-ae-d7-e6-47-37-f4-ce-37')
+    _iid_ = Guid('28e3cf9e-961c-5e2c-ae-d7-e6-47-37-f4-ce-37')
     @winrt_commethod(6)
     def CreateForUser(self, user: Windows.System.User) -> Windows.Storage.Pickers.FileSavePicker: ...
 class IFolderPicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('084f7799-f3fb-400a-99-b1-7b-4a-77-2f-d6-0d')
+    _iid_ = Guid('084f7799-f3fb-400a-99-b1-7b-4a-77-2f-d6-0d')
     @winrt_commethod(6)
     def get_ViewMode(self) -> Windows.Storage.Pickers.PickerViewMode: ...
     @winrt_commethod(7)
@@ -387,7 +387,7 @@ class IFolderPicker(ComPtr):
     FileTypeFilter = property(get_FileTypeFilter, None)
 class IFolderPicker2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8eb3ba97-dc85-4616-be-94-96-60-88-1f-2f-5d')
+    _iid_ = Guid('8eb3ba97-dc85-4616-be-94-96-60-88-1f-2f-5d')
     @winrt_commethod(6)
     def get_ContinuationData(self) -> Windows.Foundation.Collections.ValueSet: ...
     @winrt_commethod(7)
@@ -395,13 +395,13 @@ class IFolderPicker2(ComPtr):
     ContinuationData = property(get_ContinuationData, None)
 class IFolderPicker3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('673b1e29-d326-53c0-bd-24-a2-5c-71-4c-ee-36')
+    _iid_ = Guid('673b1e29-d326-53c0-bd-24-a2-5c-71-4c-ee-36')
     @winrt_commethod(6)
     def get_User(self) -> Windows.System.User: ...
     User = property(get_User, None)
 class IFolderPickerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9be34740-7ca1-5942-a3-c8-46-f2-55-1e-cf-f3')
+    _iid_ = Guid('9be34740-7ca1-5942-a3-c8-46-f2-55-1e-cf-f3')
     @winrt_commethod(6)
     def CreateForUser(self, user: Windows.System.User) -> Windows.Storage.Pickers.FolderPicker: ...
 PickerLocationId = Int32

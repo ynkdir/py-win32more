@@ -146,7 +146,7 @@ class CoreWetStrokeUpdateSource(ComPtr):
     InkPresenter = property(get_InkPresenter, None)
 class ICoreIncrementalInkStroke(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fda015d3-9d66-4f7d-a5-7f-cc-70-b9-cf-aa-76')
+    _iid_ = Guid('fda015d3-9d66-4f7d-a5-7f-cc-70-b9-cf-aa-76')
     @winrt_commethod(6)
     def AppendInkPoints(self, inkPoints: Windows.Foundation.Collections.IIterable[Windows.UI.Input.Inking.InkPoint]) -> Windows.Foundation.Rect: ...
     @winrt_commethod(7)
@@ -162,12 +162,12 @@ class ICoreIncrementalInkStroke(ComPtr):
     BoundingRect = property(get_BoundingRect, None)
 class ICoreIncrementalInkStrokeFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d7c59f46-8da8-4f70-97-51-e5-3b-b6-df-45-96')
+    _iid_ = Guid('d7c59f46-8da8-4f70-97-51-e5-3b-b6-df-45-96')
     @winrt_commethod(6)
     def Create(self, drawingAttributes: Windows.UI.Input.Inking.InkDrawingAttributes, pointTransform: Windows.Foundation.Numerics.Matrix3x2) -> Windows.UI.Input.Inking.Core.CoreIncrementalInkStroke: ...
 class ICoreInkIndependentInputSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('39b38da9-7639-4499-a5-b5-19-1d-00-e3-5b-16')
+    _iid_ = Guid('39b38da9-7639-4499-a5-b5-19-1d-00-e3-5b-16')
     @winrt_commethod(6)
     def add_PointerEntering(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Input.Inking.Core.CoreInkIndependentInputSource, Windows.UI.Core.PointerEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -201,7 +201,7 @@ class ICoreInkIndependentInputSource(ComPtr):
     InkPresenter = property(get_InkPresenter, None)
 class ICoreInkIndependentInputSource2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2846b012-0b59-5bb9-a3-c5-be-cb-7c-f0-3a-33')
+    _iid_ = Guid('2846b012-0b59-5bb9-a3-c5-be-cb-7c-f0-3a-33')
     @winrt_commethod(6)
     def get_PointerCursor(self) -> Windows.UI.Core.CoreCursor: ...
     @winrt_commethod(7)
@@ -209,12 +209,12 @@ class ICoreInkIndependentInputSource2(ComPtr):
     PointerCursor = property(get_PointerCursor, put_PointerCursor)
 class ICoreInkIndependentInputSourceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('73e6011b-80c0-4dfb-9b-66-10-ba-7f-3f-9c-84')
+    _iid_ = Guid('73e6011b-80c0-4dfb-9b-66-10-ba-7f-3f-9c-84')
     @winrt_commethod(6)
     def Create(self, inkPresenter: Windows.UI.Input.Inking.InkPresenter) -> Windows.UI.Input.Inking.Core.CoreInkIndependentInputSource: ...
 class ICoreInkPresenterHost(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('396e89e6-7d55-4617-9e-58-68-c7-0c-91-69-b9')
+    _iid_ = Guid('396e89e6-7d55-4617-9e-58-68-c7-0c-91-69-b9')
     @winrt_commethod(6)
     def get_InkPresenter(self) -> Windows.UI.Input.Inking.InkPresenter: ...
     @winrt_commethod(7)
@@ -225,7 +225,7 @@ class ICoreInkPresenterHost(ComPtr):
     RootVisual = property(get_RootVisual, put_RootVisual)
 class ICoreWetStrokeUpdateEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fb07d14c-3380-457a-a9-87-99-13-57-89-6c-1b')
+    _iid_ = Guid('fb07d14c-3380-457a-a9-87-99-13-57-89-6c-1b')
     @winrt_commethod(6)
     def get_NewInkPoints(self) -> Windows.Foundation.Collections.IVector[Windows.UI.Input.Inking.InkPoint]: ...
     @winrt_commethod(7)
@@ -239,7 +239,7 @@ class ICoreWetStrokeUpdateEventArgs(ComPtr):
     Disposition = property(get_Disposition, put_Disposition)
 class ICoreWetStrokeUpdateSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1f718e22-ee52-4e00-82-09-4c-3e-5b-21-a3-cc')
+    _iid_ = Guid('1f718e22-ee52-4e00-82-09-4c-3e-5b-21-a3-cc')
     @winrt_commethod(6)
     def add_WetStrokeStarting(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateSource, Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -265,7 +265,7 @@ class ICoreWetStrokeUpdateSource(ComPtr):
     InkPresenter = property(get_InkPresenter, None)
 class ICoreWetStrokeUpdateSourceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3dad9cba-1d3d-46ae-ab-9d-86-47-48-6c-6f-90')
+    _iid_ = Guid('3dad9cba-1d3d-46ae-ab-9d-86-47-48-6c-6f-90')
     @winrt_commethod(6)
     def Create(self, inkPresenter: Windows.UI.Input.Inking.InkPresenter) -> Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateSource: ...
 make_head(_module, 'CoreIncrementalInkStroke')

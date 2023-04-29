@@ -33,25 +33,25 @@ class ConnectionRequestedEventArgs(ComPtr):
     PeerInformation = property(get_PeerInformation, None)
 class DeviceArrivedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('efa9da69-f6e1-49c9-a4-9e-8e-0f-c5-8f-b9-11')
+    _iid_ = Guid('efa9da69-f6e1-49c9-a4-9e-8e-0f-c5-8f-b9-11')
     ClassId = 'Windows.Networking.Proximity.DeviceArrivedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Networking.Proximity.ProximityDevice) -> Void: ...
 class DeviceDepartedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('efa9da69-f6e2-49c9-a4-9e-8e-0f-c5-8f-b9-11')
+    _iid_ = Guid('efa9da69-f6e2-49c9-a4-9e-8e-0f-c5-8f-b9-11')
     ClassId = 'Windows.Networking.Proximity.DeviceDepartedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Networking.Proximity.ProximityDevice) -> Void: ...
 class IConnectionRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('eb6891ae-4f1e-4c66-bd-0d-46-92-4a-94-2e-08')
+    _iid_ = Guid('eb6891ae-4f1e-4c66-bd-0d-46-92-4a-94-2e-08')
     @winrt_commethod(6)
     def get_PeerInformation(self) -> Windows.Networking.Proximity.PeerInformation: ...
     PeerInformation = property(get_PeerInformation, None)
 class IPeerFinderStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('914b3b61-f6e1-47c4-a1-4c-14-8a-19-03-d0-c6')
+    _iid_ = Guid('914b3b61-f6e1-47c4-a1-4c-14-8a-19-03-d0-c6')
     @winrt_commethod(6)
     def get_AllowBluetooth(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -98,7 +98,7 @@ class IPeerFinderStatics(ComPtr):
     AlternateIdentities = property(get_AlternateIdentities, None)
 class IPeerFinderStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d6e73c65-fdd0-4b0b-93-12-86-64-08-93-5d-82')
+    _iid_ = Guid('d6e73c65-fdd0-4b0b-93-12-86-64-08-93-5d-82')
     @winrt_commethod(6)
     def get_Role(self) -> Windows.Networking.Proximity.PeerRole: ...
     @winrt_commethod(7)
@@ -113,13 +113,13 @@ class IPeerFinderStatics2(ComPtr):
     DiscoveryData = property(get_DiscoveryData, put_DiscoveryData)
 class IPeerInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('20024f08-9fff-45f4-b6-e9-40-8b-2e-be-f3-73')
+    _iid_ = Guid('20024f08-9fff-45f4-b6-e9-40-8b-2e-be-f3-73')
     @winrt_commethod(6)
     def get_DisplayName(self) -> WinRT_String: ...
     DisplayName = property(get_DisplayName, None)
 class IPeerInformation3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b20f612a-dbd0-40f8-95-bd-2d-42-09-c7-83-6f')
+    _iid_ = Guid('b20f612a-dbd0-40f8-95-bd-2d-42-09-c7-83-6f')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -128,7 +128,7 @@ class IPeerInformation3(ComPtr):
     DiscoveryData = property(get_DiscoveryData, None)
 class IPeerInformationWithHostAndService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ecc7ccad-1b70-4e8b-92-db-bb-e7-81-41-93-08')
+    _iid_ = Guid('ecc7ccad-1b70-4e8b-92-db-bb-e7-81-41-93-08')
     @winrt_commethod(6)
     def get_HostName(self) -> Windows.Networking.HostName: ...
     @winrt_commethod(7)
@@ -137,7 +137,7 @@ class IPeerInformationWithHostAndService(ComPtr):
     ServiceName = property(get_ServiceName, None)
 class IPeerWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3cee21f8-2fa6-4679-96-91-03-c9-4a-42-0f-34')
+    _iid_ = Guid('3cee21f8-2fa6-4679-96-91-03-c9-4a-42-0f-34')
     @winrt_commethod(6)
     def add_Added(self, handler: Windows.Foundation.TypedEventHandler[Windows.Networking.Proximity.PeerWatcher, Windows.Networking.Proximity.PeerInformation]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -167,7 +167,7 @@ class IPeerWatcher(ComPtr):
     Status = property(get_Status, None)
 class IProximityDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('efa8a552-f6e1-4329-a0-fc-ab-6b-0f-d2-82-62')
+    _iid_ = Guid('efa8a552-f6e1-4329-a0-fc-ab-6b-0f-d2-82-62')
     @winrt_commethod(6)
     def SubscribeForMessage(self, messageType: WinRT_String, messageReceivedHandler: Windows.Networking.Proximity.MessageReceivedHandler) -> Int64: ...
     @winrt_commethod(7)
@@ -205,7 +205,7 @@ class IProximityDevice(ComPtr):
     DeviceId = property(get_DeviceId, None)
 class IProximityDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('914ba01d-f6e1-47c4-a1-4c-14-8a-19-03-d0-c6')
+    _iid_ = Guid('914ba01d-f6e1-47c4-a1-4c-14-8a-19-03-d0-c6')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -214,7 +214,7 @@ class IProximityDeviceStatics(ComPtr):
     def FromId(self, deviceId: WinRT_String) -> Windows.Networking.Proximity.ProximityDevice: ...
 class IProximityMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('efab0782-f6e1-4675-a0-45-d8-e3-20-c2-48-08')
+    _iid_ = Guid('efab0782-f6e1-4675-a0-45-d8-e3-20-c2-48-08')
     @winrt_commethod(6)
     def get_MessageType(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -229,7 +229,7 @@ class IProximityMessage(ComPtr):
     DataAsString = property(get_DataAsString, None)
 class ITriggeredConnectionStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c6a780ad-f6e1-4d54-96-e2-33-f6-20-bc-a8-8a')
+    _iid_ = Guid('c6a780ad-f6e1-4d54-96-e2-33-f6-20-bc-a8-8a')
     @winrt_commethod(6)
     def get_State(self) -> Windows.Networking.Proximity.TriggeredConnectState: ...
     @winrt_commethod(7)
@@ -241,13 +241,13 @@ class ITriggeredConnectionStateChangedEventArgs(ComPtr):
     Socket = property(get_Socket, None)
 class MessageReceivedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('efab0782-f6e2-4675-a0-45-d8-e3-20-c2-48-08')
+    _iid_ = Guid('efab0782-f6e2-4675-a0-45-d8-e3-20-c2-48-08')
     ClassId = 'Windows.Networking.Proximity.MessageReceivedHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Networking.Proximity.ProximityDevice, message: Windows.Networking.Proximity.ProximityMessage) -> Void: ...
 class MessageTransmittedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('efaa0b4a-f6e2-4d7d-85-6c-78-fc-8e-fc-02-1e')
+    _iid_ = Guid('efaa0b4a-f6e2-4d7d-85-6c-78-fc-8e-fc-02-1e')
     ClassId = 'Windows.Networking.Proximity.MessageTransmittedHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Networking.Proximity.ProximityDevice, messageId: Int64) -> Void: ...

@@ -280,7 +280,7 @@ DeviceAccountSyncScheduleKind_Daily: DeviceAccountSyncScheduleKind = 5
 DeviceAccountSyncScheduleKind_AsItemsArrive: DeviceAccountSyncScheduleKind = 6
 class IDeviceAccountConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ad0123a3-fbdc-4d1b-be-43-5a-27-ea-4a-1b-63')
+    _iid_ = Guid('ad0123a3-fbdc-4d1b-be-43-5a-27-ea-4a-1b-63')
     @winrt_commethod(6)
     def get_AccountName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -363,7 +363,7 @@ class IDeviceAccountConfiguration(ComPtr):
     OutgoingServerUsername = property(get_OutgoingServerUsername, put_OutgoingServerUsername)
 class IDeviceAccountConfiguration2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f2b2e5a6-728d-4a4a-89-45-2b-f8-58-01-36-de')
+    _iid_ = Guid('f2b2e5a6-728d-4a4a-89-45-2b-f8-58-01-36-de')
     @winrt_commethod(6)
     def get_IncomingServerCredential(self) -> Windows.Security.Credentials.PasswordCredential: ...
     @winrt_commethod(7)
@@ -507,12 +507,12 @@ class IDeviceAccountConfiguration2(ComPtr):
     IsSyncScheduleManagedBySystem = property(get_IsSyncScheduleManagedBySystem, put_IsSyncScheduleManagedBySystem)
 class IUserDataAccountSystemAccessManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9d6b11b9-cbe5-45f5-82-2b-c2-67-b8-1d-bd-b6')
+    _iid_ = Guid('9d6b11b9-cbe5-45f5-82-2b-c2-67-b8-1d-bd-b6')
     @winrt_commethod(6)
     def AddAndShowDeviceAccountsAsync(self, accounts: Windows.Foundation.Collections.IIterable[Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration]) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[WinRT_String]]: ...
 class IUserDataAccountSystemAccessManagerStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('943f854d-4b4e-439f-83-d3-97-9b-27-c0-5a-c7')
+    _iid_ = Guid('943f854d-4b4e-439f-83-d3-97-9b-27-c0-5a-c7')
     @winrt_commethod(6)
     def SuppressLocalAccountWithAccountAsync(self, userDataAccountId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)

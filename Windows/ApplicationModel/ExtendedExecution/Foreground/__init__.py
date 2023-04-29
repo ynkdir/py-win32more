@@ -63,13 +63,13 @@ class ExtendedExecutionForegroundSession(ComPtr):
     Reason = property(get_Reason, put_Reason)
 class IExtendedExecutionForegroundRevokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b07cd940-9557-aea4-2c-99-bd-d5-6d-9b-e4-61')
+    _iid_ = Guid('b07cd940-9557-aea4-2c-99-bd-d5-6d-9b-e4-61')
     @winrt_commethod(6)
     def get_Reason(self) -> Windows.ApplicationModel.ExtendedExecution.Foreground.ExtendedExecutionForegroundRevokedReason: ...
     Reason = property(get_Reason, None)
 class IExtendedExecutionForegroundSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fbf440e1-9d10-4201-b0-1e-c8-32-75-29-6f-2e')
+    _iid_ = Guid('fbf440e1-9d10-4201-b0-1e-c8-32-75-29-6f-2e')
     @winrt_commethod(6)
     def get_Description(self) -> WinRT_String: ...
     @winrt_commethod(7)

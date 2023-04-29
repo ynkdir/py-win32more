@@ -25,13 +25,13 @@ def __getattr__(name):
     return getattr(_module, name)
 class IKeyboardCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3a3f9b56-6798-4bbc-83-3e-0f-34-b1-7c-65-ff')
+    _iid_ = Guid('3a3f9b56-6798-4bbc-83-3e-0f-34-b1-7c-65-ff')
     @winrt_commethod(6)
     def get_KeyboardPresent(self) -> Int32: ...
     KeyboardPresent = property(get_KeyboardPresent, None)
 class IMouseCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bca5e023-7dd9-4b6b-9a-92-55-d4-3c-b3-8f-73')
+    _iid_ = Guid('bca5e023-7dd9-4b6b-9a-92-55-d4-3c-b3-8f-73')
     @winrt_commethod(6)
     def get_MousePresent(self) -> Int32: ...
     @winrt_commethod(7)
@@ -49,25 +49,25 @@ class IMouseCapabilities(ComPtr):
     NumberOfButtons = property(get_NumberOfButtons, None)
 class IMouseDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('88edf458-f2c8-49f4-be-1f-c2-56-b3-88-bc-11')
+    _iid_ = Guid('88edf458-f2c8-49f4-be-1f-c2-56-b3-88-bc-11')
     @winrt_commethod(6)
     def add_MouseMoved(self, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Input.MouseDevice, Windows.Devices.Input.MouseEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
     def remove_MouseMoved(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IMouseDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('484a9045-6d70-49db-8e-68-46-ff-bd-17-d3-8d')
+    _iid_ = Guid('484a9045-6d70-49db-8e-68-46-ff-bd-17-d3-8d')
     @winrt_commethod(6)
     def GetForCurrentView(self) -> Windows.Devices.Input.MouseDevice: ...
 class IMouseEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f625aa5d-2354-4cc7-92-30-96-94-1c-96-9f-de')
+    _iid_ = Guid('f625aa5d-2354-4cc7-92-30-96-94-1c-96-9f-de')
     @winrt_commethod(6)
     def get_MouseDelta(self) -> Windows.Devices.Input.MouseDelta: ...
     MouseDelta = property(get_MouseDelta, None)
 class IPenButtonListener(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8245c376-1ee3-53f7-b1-f7-83-34-a1-6f-28-15')
+    _iid_ = Guid('8245c376-1ee3-53f7-b1-f7-83-34-a1-6f-28-15')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -88,29 +88,29 @@ class IPenButtonListener(ComPtr):
     def remove_TailButtonLongPressed(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IPenButtonListenerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('19a8a584-862f-5f69-bf-ea-05-f6-58-4f-13-3f')
+    _iid_ = Guid('19a8a584-862f-5f69-bf-ea-05-f6-58-4f-13-3f')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Devices.Input.PenButtonListener: ...
 class IPenDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('31856eba-a738-5a8c-b8-f6-f9-7e-f6-8d-18-ef')
+    _iid_ = Guid('31856eba-a738-5a8c-b8-f6-f9-7e-f6-8d-18-ef')
     @winrt_commethod(6)
     def get_PenId(self) -> Guid: ...
     PenId = property(get_PenId, None)
 class IPenDevice2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0207d327-7fb8-5566-8c-34-f8-34-20-37-b7-f9')
+    _iid_ = Guid('0207d327-7fb8-5566-8c-34-f8-34-20-37-b7-f9')
     @winrt_commethod(6)
     def get_SimpleHapticsController(self) -> Windows.Devices.Haptics.SimpleHapticsController: ...
     SimpleHapticsController = property(get_SimpleHapticsController, None)
 class IPenDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9dfbbe01-0966-5180-bc-b4-b8-50-60-e3-94-79')
+    _iid_ = Guid('9dfbbe01-0966-5180-bc-b4-b8-50-60-e3-94-79')
     @winrt_commethod(6)
     def GetFromPointerId(self, pointerId: UInt32) -> Windows.Devices.Input.PenDevice: ...
 class IPenDockListener(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('759f4d90-1dc0-55cb-ad-18-b9-10-14-56-f5-92')
+    _iid_ = Guid('759f4d90-1dc0-55cb-ad-18-b9-10-14-56-f5-92')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -127,27 +127,27 @@ class IPenDockListener(ComPtr):
     def remove_Undocked(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class IPenDockListenerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cab75e9a-0016-5c72-96-9e-a9-7e-11-99-2a-93')
+    _iid_ = Guid('cab75e9a-0016-5c72-96-9e-a9-7e-11-99-2a-93')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Devices.Input.PenDockListener: ...
 class IPenDockedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fd4277c6-ca63-5d4e-9e-d3-a2-8a-54-52-1c-8c')
+    _iid_ = Guid('fd4277c6-ca63-5d4e-9e-d3-a2-8a-54-52-1c-8c')
 class IPenTailButtonClickedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5d2fb7b6-6ad3-5d3e-ab-29-05-ea-24-10-e3-90')
+    _iid_ = Guid('5d2fb7b6-6ad3-5d3e-ab-29-05-ea-24-10-e3-90')
 class IPenTailButtonDoubleClickedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('846321a2-618a-5478-b0-4c-b3-58-23-1d-a4-a7')
+    _iid_ = Guid('846321a2-618a-5478-b0-4c-b3-58-23-1d-a4-a7')
 class IPenTailButtonLongPressedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f37c606e-c60a-5f42-b8-18-a5-31-12-40-6c-13')
+    _iid_ = Guid('f37c606e-c60a-5f42-b8-18-a5-31-12-40-6c-13')
 class IPenUndockedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ccd09150-261b-59e6-a5-d4-c1-96-4c-d0-3f-eb')
+    _iid_ = Guid('ccd09150-261b-59e6-a5-d4-c1-96-4c-d0-3f-eb')
 class IPointerDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('93c9bafc-ebcb-467e-82-c6-27-6f-ea-e3-6b-5a')
+    _iid_ = Guid('93c9bafc-ebcb-467e-82-c6-27-6f-ea-e3-6b-5a')
     @winrt_commethod(6)
     def get_PointerDeviceType(self) -> Windows.Devices.Input.PointerDeviceType: ...
     @winrt_commethod(7)
@@ -168,20 +168,20 @@ class IPointerDevice(ComPtr):
     SupportedUsages = property(get_SupportedUsages, None)
 class IPointerDevice2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f8a6d2a0-c484-489f-ae-3e-30-d2-ee-1f-fd-3e')
+    _iid_ = Guid('f8a6d2a0-c484-489f-ae-3e-30-d2-ee-1f-fd-3e')
     @winrt_commethod(6)
     def get_MaxPointersWithZDistance(self) -> UInt32: ...
     MaxPointersWithZDistance = property(get_MaxPointersWithZDistance, None)
 class IPointerDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d8b89aa1-d1c6-416e-bd-8d-57-90-91-4d-c5-63')
+    _iid_ = Guid('d8b89aa1-d1c6-416e-bd-8d-57-90-91-4d-c5-63')
     @winrt_commethod(6)
     def GetPointerDevice(self, pointerId: UInt32) -> Windows.Devices.Input.PointerDevice: ...
     @winrt_commethod(7)
     def GetPointerDevices(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Input.PointerDevice]: ...
 class ITouchCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('20dd55f9-13f1-46c8-92-85-2c-05-fa-3e-da-6f')
+    _iid_ = Guid('20dd55f9-13f1-46c8-92-85-2c-05-fa-3e-da-6f')
     @winrt_commethod(6)
     def get_TouchPresent(self) -> Int32: ...
     @winrt_commethod(7)

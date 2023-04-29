@@ -133,7 +133,7 @@ class HeadPose(ComPtr):
     UpDirection = property(get_UpDirection, None)
 class IEyesPose(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('682a9b23-8a1e-5b86-a0-60-90-6f-fa-cb-62-a4')
+    _iid_ = Guid('682a9b23-8a1e-5b86-a0-60-90-6f-fa-cb-62-a4')
     @winrt_commethod(6)
     def get_IsCalibrationValid(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -145,14 +145,14 @@ class IEyesPose(ComPtr):
     UpdateTimestamp = property(get_UpdateTimestamp, None)
 class IEyesPoseStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1cff7413-b21f-54c0-80-c1-e6-0d-99-4c-a5-8c')
+    _iid_ = Guid('1cff7413-b21f-54c0-80-c1-e6-0d-99-4c-a5-8c')
     @winrt_commethod(6)
     def IsSupported(self) -> Boolean: ...
     @winrt_commethod(7)
     def RequestAccessAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.UI.Input.GazeInputAccessStatus]: ...
 class IHandMeshObserver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('85ae30cb-6fc3-55c4-a7-b4-29-e3-38-96-ca-69')
+    _iid_ = Guid('85ae30cb-6fc3-55c4-a7-b4-29-e3-38-96-ca-69')
     @winrt_commethod(6)
     def get_Source(self) -> Windows.UI.Input.Spatial.SpatialInteractionSource: ...
     @winrt_commethod(7)
@@ -177,7 +177,7 @@ class IHandMeshObserver(ComPtr):
     ModelId = property(get_ModelId, None)
 class IHandMeshVertexState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('046c5fef-1d8b-55de-ab-2c-1c-d4-24-88-6d-8f')
+    _iid_ = Guid('046c5fef-1d8b-55de-ab-2c-1c-d4-24-88-6d-8f')
     @winrt_commethod(6)
     def get_CoordinateSystem(self) -> Windows.Perception.Spatial.SpatialCoordinateSystem: ...
     @winrt_commethod(7)
@@ -188,7 +188,7 @@ class IHandMeshVertexState(ComPtr):
     UpdateTimestamp = property(get_UpdateTimestamp, None)
 class IHandPose(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4d98e79a-bb08-5d09-91-de-df-0d-d3-fa-e4-6c')
+    _iid_ = Guid('4d98e79a-bb08-5d09-91-de-df-0d-d3-fa-e4-6c')
     @winrt_commethod(6)
     def TryGetJoint(self, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, joint: Windows.Perception.People.HandJointKind, jointPose: POINTER(Windows.Perception.People.JointPose_head)) -> Boolean: ...
     @winrt_commethod(7)
@@ -199,7 +199,7 @@ class IHandPose(ComPtr):
     def GetRelativeJoints(self, joints: POINTER(Windows.Perception.People.HandJointKind), referenceJoints: POINTER(Windows.Perception.People.HandJointKind), jointPoses: POINTER(Windows.Perception.People.JointPose_head)) -> Void: ...
 class IHeadPose(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7f5ac5a5-49db-379f-94-29-32-a2-fa-f3-4f-a6')
+    _iid_ = Guid('7f5ac5a5-49db-379f-94-29-32-a2-fa-f3-4f-a6')
     @winrt_commethod(6)
     def get_Position(self) -> Windows.Foundation.Numerics.Vector3: ...
     @winrt_commethod(7)

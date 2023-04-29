@@ -134,7 +134,7 @@ DnssdServiceWatcherStatus_Stopped: DnssdServiceWatcherStatus = 4
 DnssdServiceWatcherStatus_Aborted: DnssdServiceWatcherStatus = 5
 class IDnssdRegistrationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3d786ad2-e606-5350-73-ea-7e-97-f0-66-16-2f')
+    _iid_ = Guid('3d786ad2-e606-5350-73-ea-7e-97-f0-66-16-2f')
     @winrt_commethod(6)
     def get_Status(self) -> Windows.Networking.ServiceDiscovery.Dnssd.DnssdRegistrationStatus: ...
     @winrt_commethod(7)
@@ -146,7 +146,7 @@ class IDnssdRegistrationResult(ComPtr):
     HasInstanceNameChanged = property(get_HasInstanceNameChanged, None)
 class IDnssdServiceInstance(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e246db7e-98a5-4ca1-b9-e4-c2-53-d3-3c-35-ff')
+    _iid_ = Guid('e246db7e-98a5-4ca1-b9-e4-c2-53-d3-3c-35-ff')
     @winrt_commethod(6)
     def get_DnssdServiceInstanceName(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -185,12 +185,12 @@ class IDnssdServiceInstance(ComPtr):
     TextAttributes = property(get_TextAttributes, None)
 class IDnssdServiceInstanceFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6cb061a1-c478-4331-96-84-4a-f2-18-6c-0a-2b')
+    _iid_ = Guid('6cb061a1-c478-4331-96-84-4a-f2-18-6c-0a-2b')
     @winrt_commethod(6)
     def Create(self, dnssdServiceInstanceName: WinRT_String, hostName: Windows.Networking.HostName, port: UInt16) -> Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance: ...
 class IDnssdServiceWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cc34d9c1-db7d-4b69-98-3d-c6-f8-3f-20-56-82')
+    _iid_ = Guid('cc34d9c1-db7d-4b69-98-3d-c6-f8-3f-20-56-82')
     @winrt_commethod(6)
     def add_Added(self, handler: Windows.Foundation.TypedEventHandler[Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)

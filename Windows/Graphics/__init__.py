@@ -27,7 +27,7 @@ class DisplayId(EasyCastStructure):
     Value: UInt64
 class IGeometrySource2D(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('caff7902-670c-4181-a6-24-da-97-72-03-b8-45')
+    _iid_ = Guid('caff7902-670c-4181-a6-24-da-97-72-03-b8-45')
 class PointInt32(EasyCastStructure):
     X: Int32
     Y: Int32

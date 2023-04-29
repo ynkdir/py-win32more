@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IMessageDialog(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('33f59b01-5325-43ab-9a-b3-bd-ae-44-0e-41-21')
+    _iid_ = Guid('33f59b01-5325-43ab-9a-b3-bd-ae-44-0e-41-21')
     @winrt_commethod(6)
     def get_Title(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -57,14 +57,14 @@ class IMessageDialog(ComPtr):
     Options = property(get_Options, put_Options)
 class IMessageDialogFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2d161777-a66f-4ea5-bb-87-79-3f-fa-49-41-f2')
+    _iid_ = Guid('2d161777-a66f-4ea5-bb-87-79-3f-fa-49-41-f2')
     @winrt_commethod(6)
     def Create(self, content: WinRT_String) -> Windows.UI.Popups.MessageDialog: ...
     @winrt_commethod(7)
     def CreateWithTitle(self, content: WinRT_String, title: WinRT_String) -> Windows.UI.Popups.MessageDialog: ...
 class IPopupMenu(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4e9bc6dc-880d-47fc-a0-a1-72-b6-39-e6-25-59')
+    _iid_ = Guid('4e9bc6dc-880d-47fc-a0-a1-72-b6-39-e6-25-59')
     @winrt_commethod(6)
     def get_Commands(self) -> Windows.Foundation.Collections.IVector[Windows.UI.Popups.IUICommand]: ...
     @winrt_commethod(7)
@@ -76,7 +76,7 @@ class IPopupMenu(ComPtr):
     Commands = property(get_Commands, None)
 class IUICommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4ff93a75-4145-47ff-ac-7f-df-f1-c1-fa-5b-0f')
+    _iid_ = Guid('4ff93a75-4145-47ff-ac-7f-df-f1-c1-fa-5b-0f')
     @winrt_commethod(6)
     def get_Label(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -94,7 +94,7 @@ class IUICommand(ComPtr):
     Id = property(get_Id, put_Id)
 class IUICommandFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a21a8189-26b0-4676-ae-94-54-04-1b-c1-25-e8')
+    _iid_ = Guid('a21a8189-26b0-4676-ae-94-54-04-1b-c1-25-e8')
     @winrt_commethod(6)
     def Create(self, label: WinRT_String) -> Windows.UI.Popups.UICommand: ...
     @winrt_commethod(7)
@@ -189,7 +189,7 @@ class UICommand(ComPtr):
     Id = property(get_Id, put_Id)
 class UICommandInvokedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
-    Guid = Guid('daf77a4f-c27a-4298-9a-c6-29-22-c4-5e-7d-a6')
+    _iid_ = Guid('daf77a4f-c27a-4298-9a-c6-29-22-c4-5e-7d-a6')
     ClassId = 'Windows.UI.Popups.UICommandInvokedHandler'
     @winrt_commethod(3)
     def Invoke(self, command: Windows.UI.Popups.IUICommand) -> Void: ...

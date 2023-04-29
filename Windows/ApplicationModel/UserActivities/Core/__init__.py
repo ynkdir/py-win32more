@@ -31,7 +31,7 @@ class CoreUserActivityManager(ComPtr):
     def DeleteUserActivitySessionsInTimeRangeAsync(cls: Windows.ApplicationModel.UserActivities.Core.ICoreUserActivityManagerStatics, channel: Windows.ApplicationModel.UserActivities.UserActivityChannel, startTime: Windows.Foundation.DateTime, endTime: Windows.Foundation.DateTime) -> Windows.Foundation.IAsyncAction: ...
 class ICoreUserActivityManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ca3adb02-a4be-4d4d-bf-a8-67-95-f4-26-4e-fb')
+    _iid_ = Guid('ca3adb02-a4be-4d4d-bf-a8-67-95-f4-26-4e-fb')
     @winrt_commethod(6)
     def CreateUserActivitySessionInBackground(self, activity: Windows.ApplicationModel.UserActivities.UserActivity) -> Windows.ApplicationModel.UserActivities.UserActivitySession: ...
     @winrt_commethod(7)

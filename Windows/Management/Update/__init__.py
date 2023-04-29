@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPreviewBuildsManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fa07dd61-7e4f-59f7-7c-9f-de-f9-05-1c-5f-62')
+    _iid_ = Guid('fa07dd61-7e4f-59f7-7c-9f-de-f9-05-1c-5f-62')
     @winrt_commethod(6)
     def get_ArePreviewBuildsAllowed(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -36,14 +36,14 @@ class IPreviewBuildsManager(ComPtr):
     ArePreviewBuildsAllowed = property(get_ArePreviewBuildsAllowed, put_ArePreviewBuildsAllowed)
 class IPreviewBuildsManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3e422887-b112-5a70-7d-a1-97-d7-8d-32-aa-29')
+    _iid_ = Guid('3e422887-b112-5a70-7d-a1-97-d7-8d-32-aa-29')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Management.Update.PreviewBuildsManager: ...
     @winrt_commethod(7)
     def IsSupported(self) -> Boolean: ...
 class IPreviewBuildsState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a2f2903e-b223-5f63-75-46-3e-8e-ac-07-0a-2e')
+    _iid_ = Guid('a2f2903e-b223-5f63-75-46-3e-8e-ac-07-0a-2e')
     @winrt_commethod(6)
     def get_Properties(self) -> Windows.Foundation.Collections.ValueSet: ...
     Properties = property(get_Properties, None)

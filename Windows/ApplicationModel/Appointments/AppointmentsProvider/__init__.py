@@ -59,7 +59,7 @@ class AppointmentsProviderLaunchActionVerbs(ComPtr):
     ShowTimeFrame = property(get_ShowTimeFrame, None)
 class IAddAppointmentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ec4a9af3-620d-4c69-ad-d7-97-94-e9-18-08-1f')
+    _iid_ = Guid('ec4a9af3-620d-4c69-ad-d7-97-94-e9-18-08-1f')
     @winrt_commethod(6)
     def get_AppointmentInformation(self) -> Windows.ApplicationModel.Appointments.Appointment: ...
     @winrt_commethod(7)
@@ -76,7 +76,7 @@ class IAddAppointmentOperation(ComPtr):
     SourcePackageFamilyName = property(get_SourcePackageFamilyName, None)
 class IAppointmentsProviderLaunchActionVerbsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('36dbba28-9e2e-49c6-8e-f7-3a-b7-a5-dc-c8-b8')
+    _iid_ = Guid('36dbba28-9e2e-49c6-8e-f7-3a-b7-a5-dc-c8-b8')
     @winrt_commethod(6)
     def get_AddAppointment(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -91,13 +91,13 @@ class IAppointmentsProviderLaunchActionVerbsStatics(ComPtr):
     ShowTimeFrame = property(get_ShowTimeFrame, None)
 class IAppointmentsProviderLaunchActionVerbsStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ef9049a4-af21-473c-88-dc-76-cd-89-f6-0c-a5')
+    _iid_ = Guid('ef9049a4-af21-473c-88-dc-76-cd-89-f6-0c-a5')
     @winrt_commethod(6)
     def get_ShowAppointmentDetails(self) -> WinRT_String: ...
     ShowAppointmentDetails = property(get_ShowAppointmentDetails, None)
 class IRemoveAppointmentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('08b66aba-fe33-46cd-a5-0c-a8-ff-b3-26-05-37')
+    _iid_ = Guid('08b66aba-fe33-46cd-a5-0c-a8-ff-b3-26-05-37')
     @winrt_commethod(6)
     def get_AppointmentId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -117,7 +117,7 @@ class IRemoveAppointmentOperation(ComPtr):
     SourcePackageFamilyName = property(get_SourcePackageFamilyName, None)
 class IReplaceAppointmentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f4903d9b-9e61-4de2-a7-32-26-87-c0-7d-1d-e8')
+    _iid_ = Guid('f4903d9b-9e61-4de2-a7-32-26-87-c0-7d-1d-e8')
     @winrt_commethod(6)
     def get_AppointmentId(self) -> WinRT_String: ...
     @winrt_commethod(7)

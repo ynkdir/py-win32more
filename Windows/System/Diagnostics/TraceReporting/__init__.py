@@ -23,7 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IPlatformDiagnosticActionsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c1145cfa-9292-4267-89-0a-9e-a3-ed-07-23-12')
+    _iid_ = Guid('c1145cfa-9292-4267-89-0a-9e-a3-ed-07-23-12')
     @winrt_commethod(6)
     def IsScenarioEnabled(self, scenarioId: Guid) -> Boolean: ...
     @winrt_commethod(7)
@@ -42,7 +42,7 @@ class IPlatformDiagnosticActionsStatics(ComPtr):
     def GetKnownTraceList(self, slotType: Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceSlotType) -> Windows.Foundation.Collections.IVectorView[Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticTraceInfo]: ...
 class IPlatformDiagnosticTraceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f870ed97-d597-4bf7-88-dc-cf-5c-7d-c2-a1-d2')
+    _iid_ = Guid('f870ed97-d597-4bf7-88-dc-cf-5c-7d-c2-a1-d2')
     @winrt_commethod(6)
     def get_ScenarioId(self) -> Guid: ...
     @winrt_commethod(7)
@@ -63,7 +63,7 @@ class IPlatformDiagnosticTraceInfo(ComPtr):
     Priority = property(get_Priority, None)
 class IPlatformDiagnosticTraceRuntimeInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3d4d5e2d-01d8-4768-85-54-1e-b1-ca-61-09-86')
+    _iid_ = Guid('3d4d5e2d-01d8-4768-85-54-1e-b1-ca-61-09-86')
     @winrt_commethod(6)
     def get_RuntimeFileTime(self) -> Int64: ...
     @winrt_commethod(7)

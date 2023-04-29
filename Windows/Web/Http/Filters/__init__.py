@@ -154,7 +154,7 @@ class HttpServerCustomValidationRequestedEventArgs(ComPtr):
     ServerIntermediateCertificates = property(get_ServerIntermediateCertificates, None)
 class IHttpBaseProtocolFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('71c89b09-e131-4b54-a5-3c-eb-43-ff-37-e9-bb')
+    _iid_ = Guid('71c89b09-e131-4b54-a5-3c-eb-43-ff-37-e9-bb')
     @winrt_commethod(6)
     def get_AllowAutoRedirect(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -206,7 +206,7 @@ class IHttpBaseProtocolFilter(ComPtr):
     UseProxy = property(get_UseProxy, put_UseProxy)
 class IHttpBaseProtocolFilter2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2ec30013-9427-4900-a0-17-fa-7d-a3-b5-c9-ae')
+    _iid_ = Guid('2ec30013-9427-4900-a0-17-fa-7d-a3-b5-c9-ae')
     @winrt_commethod(6)
     def get_MaxVersion(self) -> Windows.Web.Http.HttpVersion: ...
     @winrt_commethod(7)
@@ -214,7 +214,7 @@ class IHttpBaseProtocolFilter2(ComPtr):
     MaxVersion = property(get_MaxVersion, put_MaxVersion)
 class IHttpBaseProtocolFilter3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d43f4d4c-bd42-43ae-87-17-ad-2c-8f-4b-29-37')
+    _iid_ = Guid('d43f4d4c-bd42-43ae-87-17-ad-2c-8f-4b-29-37')
     @winrt_commethod(6)
     def get_CookieUsageBehavior(self) -> Windows.Web.Http.Filters.HttpCookieUsageBehavior: ...
     @winrt_commethod(7)
@@ -222,7 +222,7 @@ class IHttpBaseProtocolFilter3(ComPtr):
     CookieUsageBehavior = property(get_CookieUsageBehavior, put_CookieUsageBehavior)
 class IHttpBaseProtocolFilter4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9fe36ccf-2983-4893-94-1f-eb-51-8c-a8-ce-f9')
+    _iid_ = Guid('9fe36ccf-2983-4893-94-1f-eb-51-8c-a8-ce-f9')
     @winrt_commethod(6)
     def add_ServerCustomValidationRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.Web.Http.Filters.HttpBaseProtocolFilter, Windows.Web.Http.Filters.HttpServerCustomValidationRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_commethod(7)
@@ -231,18 +231,18 @@ class IHttpBaseProtocolFilter4(ComPtr):
     def ClearAuthenticationCache(self) -> Void: ...
 class IHttpBaseProtocolFilter5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('416e4993-31e3-4816-bf-09-e0-18-ee-8d-c1-f5')
+    _iid_ = Guid('416e4993-31e3-4816-bf-09-e0-18-ee-8d-c1-f5')
     @winrt_commethod(6)
     def get_User(self) -> Windows.System.User: ...
     User = property(get_User, None)
 class IHttpBaseProtocolFilterStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6d4dee0c-e908-494e-b5-a3-12-63-c9-b8-24-2a')
+    _iid_ = Guid('6d4dee0c-e908-494e-b5-a3-12-63-c9-b8-24-2a')
     @winrt_commethod(6)
     def CreateForUser(self, user: Windows.System.User) -> Windows.Web.Http.Filters.HttpBaseProtocolFilter: ...
 class IHttpCacheControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c77e1cb4-3cea-4eb5-ac-85-04-e1-86-e6-3a-b7')
+    _iid_ = Guid('c77e1cb4-3cea-4eb5-ac-85-04-e1-86-e6-3a-b7')
     @winrt_commethod(6)
     def get_ReadBehavior(self) -> Windows.Web.Http.Filters.HttpCacheReadBehavior: ...
     @winrt_commethod(7)
@@ -255,12 +255,12 @@ class IHttpCacheControl(ComPtr):
     WriteBehavior = property(get_WriteBehavior, put_WriteBehavior)
 class IHttpFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a4cb6dd5-0902-439e-bf-d7-e1-25-52-b1-65-ce')
+    _iid_ = Guid('a4cb6dd5-0902-439e-bf-d7-e1-25-52-b1-65-ce')
     @winrt_commethod(6)
     def SendRequestAsync(self, request: Windows.Web.Http.HttpRequestMessage) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Web.Http.HttpResponseMessage, Windows.Web.Http.HttpProgress]: ...
 class IHttpServerCustomValidationRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3165fe32-e7dd-48b7-a3-61-93-9c-75-0e-63-cc')
+    _iid_ = Guid('3165fe32-e7dd-48b7-a3-61-93-9c-75-0e-63-cc')
     @winrt_commethod(6)
     def get_RequestMessage(self) -> Windows.Web.Http.HttpRequestMessage: ...
     @winrt_commethod(7)

@@ -378,7 +378,7 @@ class DownloadOperation(ComPtr):
     CurrentWebErrorStatus = property(get_CurrentWebErrorStatus, None)
 class IBackgroundDownloader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c1c79333-6649-4b1d-a8-26-a4-b3-dd-23-4d-0b')
+    _iid_ = Guid('c1c79333-6649-4b1d-a8-26-a4-b3-dd-23-4d-0b')
     @winrt_commethod(6)
     def CreateDownload(self, uri: Windows.Foundation.Uri, resultFile: Windows.Storage.IStorageFile) -> Windows.Networking.BackgroundTransfer.DownloadOperation: ...
     @winrt_commethod(7)
@@ -387,7 +387,7 @@ class IBackgroundDownloader(ComPtr):
     def CreateDownloadAsync(self, uri: Windows.Foundation.Uri, resultFile: Windows.Storage.IStorageFile, requestBodyStream: Windows.Storage.Streams.IInputStream) -> Windows.Foundation.IAsyncOperation[Windows.Networking.BackgroundTransfer.DownloadOperation]: ...
 class IBackgroundDownloader2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a94a5847-348d-4a35-89-0e-8a-1e-f3-79-84-79')
+    _iid_ = Guid('a94a5847-348d-4a35-89-0e-8a-1e-f3-79-84-79')
     @winrt_commethod(6)
     def get_TransferGroup(self) -> Windows.Networking.BackgroundTransfer.BackgroundTransferGroup: ...
     @winrt_commethod(7)
@@ -415,35 +415,35 @@ class IBackgroundDownloader2(ComPtr):
     FailureTileNotification = property(get_FailureTileNotification, put_FailureTileNotification)
 class IBackgroundDownloader3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d11a8c48-86e8-48e2-b6-15-69-76-aa-bf-86-1d')
+    _iid_ = Guid('d11a8c48-86e8-48e2-b6-15-69-76-aa-bf-86-1d')
     @winrt_commethod(6)
     def get_CompletionGroup(self) -> Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup: ...
     CompletionGroup = property(get_CompletionGroup, None)
 class IBackgroundDownloaderFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('26836c24-d89e-46f4-a2-9a-4f-4d-4f-14-41-55')
+    _iid_ = Guid('26836c24-d89e-46f4-a2-9a-4f-4d-4f-14-41-55')
     @winrt_commethod(6)
     def CreateWithCompletionGroup(self, completionGroup: Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup) -> Windows.Networking.BackgroundTransfer.BackgroundDownloader: ...
 class IBackgroundDownloaderStaticMethods(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('52a65a35-c64e-426c-99-19-54-0d-0d-21-a6-50')
+    _iid_ = Guid('52a65a35-c64e-426c-99-19-54-0d-0d-21-a6-50')
     @winrt_commethod(6)
     def GetCurrentDownloadsAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Networking.BackgroundTransfer.DownloadOperation]]: ...
     @winrt_commethod(7)
     def GetCurrentDownloadsForGroupAsync(self, group: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Networking.BackgroundTransfer.DownloadOperation]]: ...
 class IBackgroundDownloaderStaticMethods2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2faa1327-1ad4-4ca5-b2-cd-08-db-f0-74-6a-fe')
+    _iid_ = Guid('2faa1327-1ad4-4ca5-b2-cd-08-db-f0-74-6a-fe')
     @winrt_commethod(6)
     def GetCurrentDownloadsForTransferGroupAsync(self, group: Windows.Networking.BackgroundTransfer.BackgroundTransferGroup) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Networking.BackgroundTransfer.DownloadOperation]]: ...
 class IBackgroundDownloaderUserConsent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5d14e906-9266-4808-bd-71-59-25-f2-a3-13-0a')
+    _iid_ = Guid('5d14e906-9266-4808-bd-71-59-25-f2-a3-13-0a')
     @winrt_commethod(6)
     def RequestUnconstrainedDownloadsAsync(self, operations: Windows.Foundation.Collections.IIterable[Windows.Networking.BackgroundTransfer.DownloadOperation]) -> Windows.Foundation.IAsyncOperation[Windows.Networking.BackgroundTransfer.UnconstrainedTransferRequestResult]: ...
 class IBackgroundTransferBase(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2a9da250-c769-458c-af-e8-fe-b8-d4-d3-b2-ef')
+    _iid_ = Guid('2a9da250-c769-458c-af-e8-fe-b8-d4-d3-b2-ef')
     @winrt_commethod(6)
     def SetRequestHeader(self, headerName: WinRT_String, headerValue: WinRT_String) -> Void: ...
     @winrt_commethod(7)
@@ -473,7 +473,7 @@ class IBackgroundTransferBase(ComPtr):
     CostPolicy = property(get_CostPolicy, put_CostPolicy)
 class IBackgroundTransferCompletionGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2d930225-986b-574d-79-50-0a-dd-47-f5-d7-06')
+    _iid_ = Guid('2d930225-986b-574d-79-50-0a-dd-47-f5-d7-06')
     @winrt_commethod(6)
     def get_Trigger(self) -> Windows.ApplicationModel.Background.IBackgroundTrigger: ...
     @winrt_commethod(7)
@@ -484,7 +484,7 @@ class IBackgroundTransferCompletionGroup(ComPtr):
     IsEnabled = property(get_IsEnabled, None)
 class IBackgroundTransferCompletionGroupTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7b6be286-6e47-5136-7f-cb-fa-43-89-f4-6f-5b')
+    _iid_ = Guid('7b6be286-6e47-5136-7f-cb-fa-43-89-f4-6f-5b')
     @winrt_commethod(6)
     def get_Downloads(self) -> Windows.Foundation.Collections.IVectorView[Windows.Networking.BackgroundTransfer.DownloadOperation]: ...
     @winrt_commethod(7)
@@ -493,7 +493,7 @@ class IBackgroundTransferCompletionGroupTriggerDetails(ComPtr):
     Uploads = property(get_Uploads, None)
 class IBackgroundTransferContentPart(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e8e15657-d7d1-4ed8-83-8e-67-4a-c2-17-ac-e6')
+    _iid_ = Guid('e8e15657-d7d1-4ed8-83-8e-67-4a-c2-17-ac-e6')
     @winrt_commethod(6)
     def SetHeader(self, headerName: WinRT_String, headerValue: WinRT_String) -> Void: ...
     @winrt_commethod(7)
@@ -502,19 +502,19 @@ class IBackgroundTransferContentPart(ComPtr):
     def SetFile(self, value: Windows.Storage.IStorageFile) -> Void: ...
 class IBackgroundTransferContentPartFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('90ef98a9-7a01-4a0b-9f-80-a0-b0-bb-37-0f-8d')
+    _iid_ = Guid('90ef98a9-7a01-4a0b-9f-80-a0-b0-bb-37-0f-8d')
     @winrt_commethod(6)
     def CreateWithName(self, name: WinRT_String) -> Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart: ...
     @winrt_commethod(7)
     def CreateWithNameAndFileName(self, name: WinRT_String, fileName: WinRT_String) -> Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart: ...
 class IBackgroundTransferErrorStaticMethods(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('aad33b04-1192-4bf4-8b-68-39-c5-ad-d2-44-e2')
+    _iid_ = Guid('aad33b04-1192-4bf4-8b-68-39-c5-ad-d2-44-e2')
     @winrt_commethod(6)
     def GetStatus(self, hresult: Int32) -> Windows.Web.WebErrorStatus: ...
 class IBackgroundTransferGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('d8c3e3e4-6459-4540-85-eb-aa-a1-c8-90-36-77')
+    _iid_ = Guid('d8c3e3e4-6459-4540-85-eb-aa-a1-c8-90-36-77')
     @winrt_commethod(6)
     def get_Name(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -525,12 +525,12 @@ class IBackgroundTransferGroup(ComPtr):
     TransferBehavior = property(get_TransferBehavior, put_TransferBehavior)
 class IBackgroundTransferGroupStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('02ec50b2-7d18-495b-aa-22-32-a9-7d-45-d3-e2')
+    _iid_ = Guid('02ec50b2-7d18-495b-aa-22-32-a9-7d-45-d3-e2')
     @winrt_commethod(6)
     def CreateGroup(self, name: WinRT_String) -> Windows.Networking.BackgroundTransfer.BackgroundTransferGroup: ...
 class IBackgroundTransferOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ded06846-90ca-44fb-8f-b1-12-41-54-c0-d5-39')
+    _iid_ = Guid('ded06846-90ca-44fb-8f-b1-12-41-54-c0-d5-39')
     @winrt_commethod(6)
     def get_Guid(self) -> Guid: ...
     @winrt_commethod(7)
@@ -554,7 +554,7 @@ class IBackgroundTransferOperation(ComPtr):
     CostPolicy = property(get_CostPolicy, put_CostPolicy)
 class IBackgroundTransferOperationPriority(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('04854327-5254-4b3a-91-5e-0a-a4-92-75-c0-f9')
+    _iid_ = Guid('04854327-5254-4b3a-91-5e-0a-a4-92-75-c0-f9')
     @winrt_commethod(6)
     def get_Priority(self) -> Windows.Networking.BackgroundTransfer.BackgroundTransferPriority: ...
     @winrt_commethod(7)
@@ -562,7 +562,7 @@ class IBackgroundTransferOperationPriority(ComPtr):
     Priority = property(get_Priority, put_Priority)
 class IBackgroundTransferRangesDownloadedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3ebc7453-bf48-4a88-92-48-b0-c1-65-18-4f-5c')
+    _iid_ = Guid('3ebc7453-bf48-4a88-92-48-b0-c1-65-18-4f-5c')
     @winrt_commethod(6)
     def get_WasDownloadRestarted(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -573,7 +573,7 @@ class IBackgroundTransferRangesDownloadedEventArgs(ComPtr):
     AddedRanges = property(get_AddedRanges, None)
 class IBackgroundUploader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c595c9ae-cead-465b-88-01-c5-5a-c9-0a-01-ce')
+    _iid_ = Guid('c595c9ae-cead-465b-88-01-c5-5a-c9-0a-01-ce')
     @winrt_commethod(6)
     def CreateUpload(self, uri: Windows.Foundation.Uri, sourceFile: Windows.Storage.IStorageFile) -> Windows.Networking.BackgroundTransfer.UploadOperation: ...
     @winrt_commethod(7)
@@ -586,7 +586,7 @@ class IBackgroundUploader(ComPtr):
     def CreateUploadWithSubTypeAndBoundaryAsync(self, uri: Windows.Foundation.Uri, parts: Windows.Foundation.Collections.IIterable[Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart], subType: WinRT_String, boundary: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Networking.BackgroundTransfer.UploadOperation]: ...
 class IBackgroundUploader2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8e0612ce-0c34-4463-80-7f-19-8a-1b-8b-d4-ad')
+    _iid_ = Guid('8e0612ce-0c34-4463-80-7f-19-8a-1b-8b-d4-ad')
     @winrt_commethod(6)
     def get_TransferGroup(self) -> Windows.Networking.BackgroundTransfer.BackgroundTransferGroup: ...
     @winrt_commethod(7)
@@ -614,35 +614,35 @@ class IBackgroundUploader2(ComPtr):
     FailureTileNotification = property(get_FailureTileNotification, put_FailureTileNotification)
 class IBackgroundUploader3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b95e9439-5bf0-4b3a-8c-47-2c-61-99-a8-54-b9')
+    _iid_ = Guid('b95e9439-5bf0-4b3a-8c-47-2c-61-99-a8-54-b9')
     @winrt_commethod(6)
     def get_CompletionGroup(self) -> Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup: ...
     CompletionGroup = property(get_CompletionGroup, None)
 class IBackgroundUploaderFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('736203c7-10e7-48a0-ac-3c-1a-c7-10-95-ec-57')
+    _iid_ = Guid('736203c7-10e7-48a0-ac-3c-1a-c7-10-95-ec-57')
     @winrt_commethod(6)
     def CreateWithCompletionGroup(self, completionGroup: Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup) -> Windows.Networking.BackgroundTransfer.BackgroundUploader: ...
 class IBackgroundUploaderStaticMethods(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f2875cfb-9b05-4741-91-21-74-0a-83-e2-47-df')
+    _iid_ = Guid('f2875cfb-9b05-4741-91-21-74-0a-83-e2-47-df')
     @winrt_commethod(6)
     def GetCurrentUploadsAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Networking.BackgroundTransfer.UploadOperation]]: ...
     @winrt_commethod(7)
     def GetCurrentUploadsForGroupAsync(self, group: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Networking.BackgroundTransfer.UploadOperation]]: ...
 class IBackgroundUploaderStaticMethods2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e919ac62-ea08-42f0-a2-ac-07-e4-67-54-90-80')
+    _iid_ = Guid('e919ac62-ea08-42f0-a2-ac-07-e4-67-54-90-80')
     @winrt_commethod(6)
     def GetCurrentUploadsForTransferGroupAsync(self, group: Windows.Networking.BackgroundTransfer.BackgroundTransferGroup) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Networking.BackgroundTransfer.UploadOperation]]: ...
 class IBackgroundUploaderUserConsent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3bb384cb-0760-461d-90-7f-51-38-f8-4d-44-c1')
+    _iid_ = Guid('3bb384cb-0760-461d-90-7f-51-38-f8-4d-44-c1')
     @winrt_commethod(6)
     def RequestUnconstrainedUploadsAsync(self, operations: Windows.Foundation.Collections.IIterable[Windows.Networking.BackgroundTransfer.UploadOperation]) -> Windows.Foundation.IAsyncOperation[Windows.Networking.BackgroundTransfer.UnconstrainedTransferRequestResult]: ...
 class IContentPrefetcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a8d6f754-7dc1-4cd9-88-10-2a-6a-a9-41-7e-11')
+    _iid_ = Guid('a8d6f754-7dc1-4cd9-88-10-2a-6a-a9-41-7e-11')
     @winrt_commethod(6)
     def get_ContentUris(self) -> Windows.Foundation.Collections.IVector[Windows.Foundation.Uri]: ...
     @winrt_commethod(7)
@@ -653,13 +653,13 @@ class IContentPrefetcher(ComPtr):
     IndirectContentUri = property(get_IndirectContentUri, put_IndirectContentUri)
 class IContentPrefetcherTime(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e361fd08-132a-4fde-a7-cc-fc-b0-e6-65-23-af')
+    _iid_ = Guid('e361fd08-132a-4fde-a7-cc-fc-b0-e6-65-23-af')
     @winrt_commethod(6)
     def get_LastSuccessfulPrefetchTime(self) -> Windows.Foundation.IReference[Windows.Foundation.DateTime]: ...
     LastSuccessfulPrefetchTime = property(get_LastSuccessfulPrefetchTime, None)
 class IDownloadOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('bd87ebb0-5714-4e09-ba-68-be-f7-39-03-b0-d7')
+    _iid_ = Guid('bd87ebb0-5714-4e09-ba-68-be-f7-39-03-b0-d7')
     @winrt_commethod(6)
     def get_ResultFile(self) -> Windows.Storage.IStorageFile: ...
     @winrt_commethod(7)
@@ -676,13 +676,13 @@ class IDownloadOperation(ComPtr):
     Progress = property(get_Progress, None)
 class IDownloadOperation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a3cced40-8f9c-4353-9c-d4-29-0d-ee-38-7c-38')
+    _iid_ = Guid('a3cced40-8f9c-4353-9c-d4-29-0d-ee-38-7c-38')
     @winrt_commethod(6)
     def get_TransferGroup(self) -> Windows.Networking.BackgroundTransfer.BackgroundTransferGroup: ...
     TransferGroup = property(get_TransferGroup, None)
 class IDownloadOperation3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5027351c-7d5e-4adc-b8-d3-df-5c-60-31-b9-cc')
+    _iid_ = Guid('5027351c-7d5e-4adc-b8-d3-df-5c-60-31-b9-cc')
     @winrt_commethod(6)
     def get_IsRandomAccessRequired(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -707,19 +707,19 @@ class IDownloadOperation3(ComPtr):
     CurrentWebErrorStatus = property(get_CurrentWebErrorStatus, None)
 class IDownloadOperation4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0cdaaef4-8cef-404a-96-6d-f0-58-40-0b-ed-80')
+    _iid_ = Guid('0cdaaef4-8cef-404a-96-6d-f0-58-40-0b-ed-80')
     @winrt_commethod(6)
     def MakeCurrentInTransferGroup(self) -> Void: ...
 class IDownloadOperation5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a699a86f-5590-463a-b8-d6-1e-49-1a-27-60-a5')
+    _iid_ = Guid('a699a86f-5590-463a-b8-d6-1e-49-1a-27-60-a5')
     @winrt_commethod(6)
     def SetRequestHeader(self, headerName: WinRT_String, headerValue: WinRT_String) -> Void: ...
     @winrt_commethod(7)
     def RemoveRequestHeader(self, headerName: WinRT_String) -> Void: ...
 class IResponseInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f8bb9a12-f713-4792-8b-68-d9-d2-97-f9-1d-2e')
+    _iid_ = Guid('f8bb9a12-f713-4792-8b-68-d9-d2-97-f9-1d-2e')
     @winrt_commethod(6)
     def get_IsResumable(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -734,13 +734,13 @@ class IResponseInformation(ComPtr):
     Headers = property(get_Headers, None)
 class IUnconstrainedTransferRequestResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4c24b81f-d944-4112-a9-8e-6a-69-52-2b-7e-bb')
+    _iid_ = Guid('4c24b81f-d944-4112-a9-8e-6a-69-52-2b-7e-bb')
     @winrt_commethod(6)
     def get_IsUnconstrained(self) -> Boolean: ...
     IsUnconstrained = property(get_IsUnconstrained, None)
 class IUploadOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3e5624e0-7389-434c-8b-35-42-7f-d3-6b-bd-ae')
+    _iid_ = Guid('3e5624e0-7389-434c-8b-35-42-7f-d3-6b-bd-ae')
     @winrt_commethod(6)
     def get_SourceFile(self) -> Windows.Storage.IStorageFile: ...
     @winrt_commethod(7)
@@ -753,18 +753,18 @@ class IUploadOperation(ComPtr):
     Progress = property(get_Progress, None)
 class IUploadOperation2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('556189f2-2774-4df6-9f-a5-20-9f-2b-fb-12-f7')
+    _iid_ = Guid('556189f2-2774-4df6-9f-a5-20-9f-2b-fb-12-f7')
     @winrt_commethod(6)
     def get_TransferGroup(self) -> Windows.Networking.BackgroundTransfer.BackgroundTransferGroup: ...
     TransferGroup = property(get_TransferGroup, None)
 class IUploadOperation3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('42c92ca3-de39-4546-bc-62-37-74-b4-29-4d-e3')
+    _iid_ = Guid('42c92ca3-de39-4546-bc-62-37-74-b4-29-4d-e3')
     @winrt_commethod(6)
     def MakeCurrentInTransferGroup(self) -> Void: ...
 class IUploadOperation4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('50edef31-fac5-41ee-b0-30-dc-77-ca-ee-9f-aa')
+    _iid_ = Guid('50edef31-fac5-41ee-b0-30-dc-77-ca-ee-9f-aa')
     @winrt_commethod(6)
     def SetRequestHeader(self, headerName: WinRT_String, headerValue: WinRT_String) -> Void: ...
     @winrt_commethod(7)

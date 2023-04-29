@@ -116,7 +116,7 @@ DisplayMonitorUsageKind_HeadMounted: DisplayMonitorUsageKind = 1
 DisplayMonitorUsageKind_SpecialPurpose: DisplayMonitorUsageKind = 2
 class IDisplayMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1f6b15d4-1d01-4c51-87-e2-6f-95-4a-77-2b-59')
+    _iid_ = Guid('1f6b15d4-1d01-4c51-87-e2-6f-95-4a-77-2b-59')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -178,13 +178,13 @@ class IDisplayMonitor(ComPtr):
     MaxAverageFullFrameLuminanceInNits = property(get_MaxAverageFullFrameLuminanceInNits, None)
 class IDisplayMonitor2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('023018e6-cb23-5830-96-df-a7-bf-6e-60-25-77')
+    _iid_ = Guid('023018e6-cb23-5830-96-df-a7-bf-6e-60-25-77')
     @winrt_commethod(6)
     def get_IsDolbyVisionSupportedInHdrMode(self) -> Boolean: ...
     IsDolbyVisionSupportedInHdrMode = property(get_IsDolbyVisionSupportedInHdrMode, None)
 class IDisplayMonitorStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6eae698f-a228-4c05-82-1d-b6-95-d6-67-de-8e')
+    _iid_ = Guid('6eae698f-a228-4c05-82-1d-b6-95-d6-67-de-8e')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)

@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ISoundLevelBrokerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6a633961-dbed-464c-a0-9a-33-41-2f-5c-aa-3f')
+    _iid_ = Guid('6a633961-dbed-464c-a0-9a-33-41-2f-5c-aa-3f')
     @winrt_commethod(6)
     def get_SoundLevel(self) -> Windows.Media.SoundLevel: ...
     @winrt_commethod(7)

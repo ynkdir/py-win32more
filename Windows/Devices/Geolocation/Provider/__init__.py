@@ -40,7 +40,7 @@ class GeolocationProvider(ComPtr):
     IsOverridden = property(get_IsOverridden, None)
 class IGeolocationProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e4cf071d-3f64-509f-8d-c2-0b-74-a0-59-82-9d')
+    _iid_ = Guid('e4cf071d-3f64-509f-8d-c2-0b-74-a0-59-82-9d')
     @winrt_commethod(6)
     def get_IsOverridden(self) -> Boolean: ...
     @winrt_commethod(7)

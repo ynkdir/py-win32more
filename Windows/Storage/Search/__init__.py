@@ -100,7 +100,7 @@ FolderDepth_Shallow: FolderDepth = 0
 FolderDepth_Deep: FolderDepth = 1
 class IContentIndexer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b1767f8d-f698-4982-b0-5f-3a-6e-8c-ab-01-a2')
+    _iid_ = Guid('b1767f8d-f698-4982-b0-5f-3a-6e-8c-ab-01-a2')
     @winrt_commethod(6)
     def AddAsync(self, indexableContent: Windows.Storage.Search.IIndexableContent) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
@@ -118,7 +118,7 @@ class IContentIndexer(ComPtr):
     Revision = property(get_Revision, None)
 class IContentIndexerQuery(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('70e3b0f8-4bfc-428a-88-89-cc-51-da-9a-7b-9d')
+    _iid_ = Guid('70e3b0f8-4bfc-428a-88-89-cc-51-da-9a-7b-9d')
     @winrt_commethod(6)
     def GetCountAsync(self) -> Windows.Foundation.IAsyncOperation[UInt32]: ...
     @winrt_commethod(7)
@@ -134,7 +134,7 @@ class IContentIndexerQuery(ComPtr):
     QueryFolder = property(get_QueryFolder, None)
 class IContentIndexerQueryOperations(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('28823e10-4786-42f1-97-30-79-2b-35-66-b1-50')
+    _iid_ = Guid('28823e10-4786-42f1-97-30-79-2b-35-66-b1-50')
     @winrt_commethod(6)
     def CreateQueryWithSortOrderAndLanguage(self, searchFilter: WinRT_String, propertiesToRetrieve: Windows.Foundation.Collections.IIterable[WinRT_String], sortOrder: Windows.Foundation.Collections.IIterable[Windows.Storage.Search.SortEntry], searchFilterLanguage: WinRT_String) -> Windows.Storage.Search.ContentIndexerQuery: ...
     @winrt_commethod(7)
@@ -143,14 +143,14 @@ class IContentIndexerQueryOperations(ComPtr):
     def CreateQuery(self, searchFilter: WinRT_String, propertiesToRetrieve: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Storage.Search.ContentIndexerQuery: ...
 class IContentIndexerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('8c488375-b37e-4c60-9b-a8-b7-60-fd-a3-e5-9d')
+    _iid_ = Guid('8c488375-b37e-4c60-9b-a8-b7-60-fd-a3-e5-9d')
     @winrt_commethod(6)
     def GetIndexerWithName(self, indexName: WinRT_String) -> Windows.Storage.Search.ContentIndexer: ...
     @winrt_commethod(7)
     def GetIndexer(self) -> Windows.Storage.Search.ContentIndexer: ...
 class IIndexableContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ccf1a05f-d4b5-483a-b0-6e-e0-db-1e-c4-20-e4')
+    _iid_ = Guid('ccf1a05f-d4b5-483a-b0-6e-e0-db-1e-c4-20-e4')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -171,7 +171,7 @@ class IIndexableContent(ComPtr):
     StreamContentType = property(get_StreamContentType, put_StreamContentType)
 class IQueryOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1e5e46ee-0f45-4838-a8-e9-d0-47-9d-44-6c-30')
+    _iid_ = Guid('1e5e46ee-0f45-4838-a8-e9-d0-47-9d-44-6c-30')
     @winrt_commethod(6)
     def get_FileTypeFilter(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_commethod(7)
@@ -219,32 +219,32 @@ class IQueryOptions(ComPtr):
     DateStackOption = property(get_DateStackOption, None)
 class IQueryOptionsFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('032e1f8c-a9c1-4e71-80-11-0d-ee-9d-48-11-a3')
+    _iid_ = Guid('032e1f8c-a9c1-4e71-80-11-0d-ee-9d-48-11-a3')
     @winrt_commethod(6)
     def CreateCommonFileQuery(self, query: Windows.Storage.Search.CommonFileQuery, fileTypeFilter: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Storage.Search.QueryOptions: ...
     @winrt_commethod(7)
     def CreateCommonFolderQuery(self, query: Windows.Storage.Search.CommonFolderQuery) -> Windows.Storage.Search.QueryOptions: ...
 class IQueryOptionsWithProviderFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('5b9d1026-15c4-44dd-b8-9a-47-a5-9b-7d-7c-4f')
+    _iid_ = Guid('5b9d1026-15c4-44dd-b8-9a-47-a5-9b-7d-7c-4f')
     @winrt_commethod(6)
     def get_StorageProviderIdFilter(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
     StorageProviderIdFilter = property(get_StorageProviderIdFilter, None)
 class IStorageFileQueryResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('52fda447-2baa-412c-b2-9f-d4-b1-77-8e-fa-1e')
+    _iid_ = Guid('52fda447-2baa-412c-b2-9f-d4-b1-77-8e-fa-1e')
     @winrt_commethod(6)
     def GetFilesAsync(self, startIndex: UInt32, maxNumberOfItems: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageFile]]: ...
     @winrt_commethod(7)
     def GetFilesAsyncDefaultStartAndCount(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageFile]]: ...
 class IStorageFileQueryResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4e5db9dd-7141-46c4-8b-e3-e9-dc-9e-27-27-5c')
+    _iid_ = Guid('4e5db9dd-7141-46c4-8b-e3-e9-dc-9e-27-27-5c')
     @winrt_commethod(6)
     def GetMatchingPropertiesWithRanges(self, file: Windows.Storage.StorageFile) -> Windows.Foundation.Collections.IMap[WinRT_String, Windows.Foundation.Collections.IVectorView[Windows.Data.Text.TextSegment]]: ...
 class IStorageFolderQueryOperations(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cb43ccc9-446b-4a4f-be-97-75-77-71-be-52-03')
+    _iid_ = Guid('cb43ccc9-446b-4a4f-be-97-75-77-71-be-52-03')
     @winrt_commethod(6)
     def GetIndexedStateAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Search.IndexedState]: ...
     @winrt_commethod(7)
@@ -281,21 +281,21 @@ class IStorageFolderQueryOperations(ComPtr):
     def IsCommonFileQuerySupported(self, query: Windows.Storage.Search.CommonFileQuery) -> Boolean: ...
 class IStorageFolderQueryResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('6654c911-7d66-46fa-ae-cf-e4-a4-ba-a9-3a-b8')
+    _iid_ = Guid('6654c911-7d66-46fa-ae-cf-e4-a4-ba-a9-3a-b8')
     @winrt_commethod(6)
     def GetFoldersAsync(self, startIndex: UInt32, maxNumberOfItems: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageFolder]]: ...
     @winrt_commethod(7)
     def GetFoldersAsyncDefaultStartAndCount(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageFolder]]: ...
 class IStorageItemQueryResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e8948079-9d58-47b8-b2-b2-41-b0-7f-47-95-f9')
+    _iid_ = Guid('e8948079-9d58-47b8-b2-b2-41-b0-7f-47-95-f9')
     @winrt_commethod(6)
     def GetItemsAsync(self, startIndex: UInt32, maxNumberOfItems: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Storage.IStorageItem]]: ...
     @winrt_commethod(7)
     def GetItemsAsyncDefaultStartAndCount(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Storage.IStorageItem]]: ...
 class IStorageLibraryChangeTrackerTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1dc7a369-b7a3-4df2-9d-61-eb-a8-5a-03-43-d2')
+    _iid_ = Guid('1dc7a369-b7a3-4df2-9d-61-eb-a8-5a-03-43-d2')
     @winrt_commethod(6)
     def get_Folder(self) -> Windows.Storage.StorageFolder: ...
     @winrt_commethod(7)
@@ -304,7 +304,7 @@ class IStorageLibraryChangeTrackerTriggerDetails(ComPtr):
     ChangeTracker = property(get_ChangeTracker, None)
 class IStorageLibraryContentChangedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2a371977-abbf-4e1d-8a-a5-63-85-d8-88-47-99')
+    _iid_ = Guid('2a371977-abbf-4e1d-8a-a5-63-85-d8-88-47-99')
     @winrt_commethod(6)
     def get_Folder(self) -> Windows.Storage.StorageFolder: ...
     @winrt_commethod(7)
@@ -312,7 +312,7 @@ class IStorageLibraryContentChangedTriggerDetails(ComPtr):
     Folder = property(get_Folder, None)
 class IStorageQueryResultBase(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c297d70d-7353-47ab-ba-58-8c-61-42-5d-c5-4b')
+    _iid_ = Guid('c297d70d-7353-47ab-ba-58-8c-61-42-5d-c5-4b')
     @winrt_commethod(6)
     def GetItemCountAsync(self) -> Windows.Foundation.IAsyncOperation[UInt32]: ...
     @winrt_commethod(7)
@@ -334,7 +334,7 @@ class IStorageQueryResultBase(ComPtr):
     Folder = property(get_Folder, None)
 class IValueAndLanguage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b9914881-a1ee-4bc4-92-a5-46-69-68-e3-04-36')
+    _iid_ = Guid('b9914881-a1ee-4bc4-92-a5-46-69-68-e3-04-36')
     @winrt_commethod(6)
     def get_Language(self) -> WinRT_String: ...
     @winrt_commethod(7)

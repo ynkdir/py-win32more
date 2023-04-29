@@ -29,7 +29,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IWebViewControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3f921316-bc70-4bda-91-36-c9-43-70-89-9f-ab')
+    _iid_ = Guid('3f921316-bc70-4bda-91-36-c9-43-70-89-9f-ab')
     @winrt_commethod(6)
     def get_Source(self) -> Windows.Foundation.Uri: ...
     @winrt_commethod(7)
@@ -154,24 +154,24 @@ class IWebViewControl(ComPtr):
     DeferredPermissionRequests = property(get_DeferredPermissionRequests, None)
 class IWebViewControl2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4d3c06f9-c8df-41cc-8b-d5-2a-94-7b-20-45-03')
+    _iid_ = Guid('4d3c06f9-c8df-41cc-8b-d5-2a-94-7b-20-45-03')
     @winrt_commethod(6)
     def AddInitializeScript(self, script: WinRT_String) -> Void: ...
 class IWebViewControlContentLoadingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9a3fccb2-b9bb-404b-a2-2b-66-dc-cd-12-50-c6')
+    _iid_ = Guid('9a3fccb2-b9bb-404b-a2-2b-66-dc-cd-12-50-c6')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
     Uri = property(get_Uri, None)
 class IWebViewControlDOMContentLoadedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('be8bc008-9541-4545-9f-f2-2d-f5-85-b2-9f-7d')
+    _iid_ = Guid('be8bc008-9541-4545-9f-f2-2d-f5-85-b2-9f-7d')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
     Uri = property(get_Uri, None)
 class IWebViewControlDeferredPermissionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2ce349e0-d759-445c-99-26-89-95-29-8f-15-2b')
+    _iid_ = Guid('2ce349e0-d759-445c-99-26-89-95-29-8f-15-2b')
     @winrt_commethod(6)
     def get_Id(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -187,7 +187,7 @@ class IWebViewControlDeferredPermissionRequest(ComPtr):
     PermissionType = property(get_PermissionType, None)
 class IWebViewControlLongRunningScriptDetectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2a6e5bba-98b4-45bc-bb-eb-0f-69-ce-49-c5-99')
+    _iid_ = Guid('2a6e5bba-98b4-45bc-bb-eb-0f-69-ce-49-c5-99')
     @winrt_commethod(6)
     def get_ExecutionTime(self) -> Windows.Foundation.TimeSpan: ...
     @winrt_commethod(7)
@@ -198,7 +198,7 @@ class IWebViewControlLongRunningScriptDetectedEventArgs(ComPtr):
     StopPageScriptExecution = property(get_StopPageScriptExecution, put_StopPageScriptExecution)
 class IWebViewControlNavigationCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('20409918-4a15-4c46-a5-5d-f7-9e-db-0b-de-8b')
+    _iid_ = Guid('20409918-4a15-4c46-a5-5d-f7-9e-db-0b-de-8b')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
     @winrt_commethod(7)
@@ -210,7 +210,7 @@ class IWebViewControlNavigationCompletedEventArgs(ComPtr):
     WebErrorStatus = property(get_WebErrorStatus, None)
 class IWebViewControlNavigationStartingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0c9057c5-0a08-41c7-86-3b-71-e3-a9-54-91-37')
+    _iid_ = Guid('0c9057c5-0a08-41c7-86-3b-71-e3-a9-54-91-37')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
     @winrt_commethod(7)
@@ -221,7 +221,7 @@ class IWebViewControlNavigationStartingEventArgs(ComPtr):
     Cancel = property(get_Cancel, put_Cancel)
 class IWebViewControlNewWindowRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3df44bbb-a124-46d5-a0-83-d0-2c-ac-df-f5-ad')
+    _iid_ = Guid('3df44bbb-a124-46d5-a0-83-d0-2c-ac-df-f5-ad')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
     @winrt_commethod(7)
@@ -235,7 +235,7 @@ class IWebViewControlNewWindowRequestedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IWebViewControlNewWindowRequestedEventArgs2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b53c5ca6-2aae-4bfc-92-b9-c3-0e-92-b4-80-98')
+    _iid_ = Guid('b53c5ca6-2aae-4bfc-92-b9-c3-0e-92-b4-80-98')
     @winrt_commethod(6)
     def get_NewWindow(self) -> Windows.Web.UI.IWebViewControl: ...
     @winrt_commethod(7)
@@ -245,7 +245,7 @@ class IWebViewControlNewWindowRequestedEventArgs2(ComPtr):
     NewWindow = property(get_NewWindow, put_NewWindow)
 class IWebViewControlPermissionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e5bc836c-f22f-40e2-95-b2-77-29-f8-40-eb-7f')
+    _iid_ = Guid('e5bc836c-f22f-40e2-95-b2-77-29-f8-40-eb-7f')
     @winrt_commethod(6)
     def get_Id(self) -> UInt32: ...
     @winrt_commethod(7)
@@ -266,13 +266,13 @@ class IWebViewControlPermissionRequest(ComPtr):
     State = property(get_State, None)
 class IWebViewControlPermissionRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('27204d51-2488-4cc5-96-8e-0a-77-1e-59-c1-47')
+    _iid_ = Guid('27204d51-2488-4cc5-96-8e-0a-77-1e-59-c1-47')
     @winrt_commethod(6)
     def get_PermissionRequest(self) -> Windows.Web.UI.WebViewControlPermissionRequest: ...
     PermissionRequest = property(get_PermissionRequest, None)
 class IWebViewControlScriptNotifyEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('491de57b-6f49-41bb-b5-91-51-b8-5b-81-70-37')
+    _iid_ = Guid('491de57b-6f49-41bb-b5-91-51-b8-5b-81-70-37')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
     @winrt_commethod(7)
@@ -281,7 +281,7 @@ class IWebViewControlScriptNotifyEventArgs(ComPtr):
     Value = property(get_Value, None)
 class IWebViewControlSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c9967fbf-5e98-4cfd-8c-ce-27-b0-91-1e-3d-e8')
+    _iid_ = Guid('c9967fbf-5e98-4cfd-8c-ce-27-b0-91-1e-3d-e8')
     @winrt_commethod(6)
     def put_IsJavaScriptEnabled(self, value: Boolean) -> Void: ...
     @winrt_commethod(7)
@@ -299,7 +299,7 @@ class IWebViewControlSettings(ComPtr):
     IsScriptNotifyAllowed = property(get_IsScriptNotifyAllowed, put_IsScriptNotifyAllowed)
 class IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e3b81944-e4fc-43dc-94-ca-f9-80-f3-0b-c5-1d')
+    _iid_ = Guid('e3b81944-e4fc-43dc-94-ca-f9-80-f3-0b-c5-1d')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
     @winrt_commethod(7)
@@ -310,7 +310,7 @@ class IWebViewControlUnsupportedUriSchemeIdentifiedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class IWebViewControlUnviewableContentIdentifiedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4a9680db-88f2-4e20-b6-93-b4-e2-df-4a-a5-81')
+    _iid_ = Guid('4a9680db-88f2-4e20-b6-93-b4-e2-df-4a-a5-81')
     @winrt_commethod(6)
     def get_Uri(self) -> Windows.Foundation.Uri: ...
     @winrt_commethod(7)
@@ -322,7 +322,7 @@ class IWebViewControlUnviewableContentIdentifiedEventArgs(ComPtr):
     MediaType = property(get_MediaType, None)
 class IWebViewControlWebResourceRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('44d6524d-55a4-4d8b-89-1c-93-1d-8e-25-d4-2e')
+    _iid_ = Guid('44d6524d-55a4-4d8b-89-1c-93-1d-8e-25-d4-2e')
     @winrt_commethod(6)
     def GetDeferral(self) -> Windows.Foundation.Deferral: ...
     @winrt_commethod(7)

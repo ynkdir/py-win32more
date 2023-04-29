@@ -48,12 +48,12 @@ Direct3DUsage_Dynamic: Direct3DUsage = 2
 Direct3DUsage_Staging: Direct3DUsage = 3
 class IDirect3DDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a37624ab-8d5f-4650-9d-3e-9e-ae-3d-9b-c6-70')
+    _iid_ = Guid('a37624ab-8d5f-4650-9d-3e-9e-ae-3d-9b-c6-70')
     @winrt_commethod(6)
     def Trim(self) -> Void: ...
 class IDirect3DSurface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0bf4a146-13c1-4694-be-e3-7a-bf-15-ea-f5-86')
+    _iid_ = Guid('0bf4a146-13c1-4694-be-e3-7a-bf-15-ea-f5-86')
     @winrt_commethod(6)
     def get_Description(self) -> Windows.Graphics.DirectX.Direct3D11.Direct3DSurfaceDescription: ...
     Description = property(get_Description, None)

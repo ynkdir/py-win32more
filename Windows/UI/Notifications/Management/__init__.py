@@ -25,7 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IUserNotificationListener(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('62553e41-8a06-4cef-82-15-60-33-a5-be-4b-03')
+    _iid_ = Guid('62553e41-8a06-4cef-82-15-60-33-a5-be-4b-03')
     @winrt_commethod(6)
     def RequestAccessAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.UI.Notifications.Management.UserNotificationListenerAccessStatus]: ...
     @winrt_commethod(7)
@@ -44,7 +44,7 @@ class IUserNotificationListener(ComPtr):
     def RemoveNotification(self, notificationId: UInt32) -> Void: ...
 class IUserNotificationListenerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ff6123cf-4386-4aa3-b7-3d-b8-04-e5-b6-3b-23')
+    _iid_ = Guid('ff6123cf-4386-4aa3-b7-3d-b8-04-e5-b6-3b-23')
     @winrt_commethod(6)
     def get_Current(self) -> Windows.UI.Notifications.Management.UserNotificationListener: ...
     Current = property(get_Current, None)

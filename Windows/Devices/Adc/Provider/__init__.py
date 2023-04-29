@@ -23,7 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class IAdcControllerProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('be545828-816d-4de5-a0-48-ab-a0-69-58-aa-a8')
+    _iid_ = Guid('be545828-816d-4de5-a0-48-ab-a0-69-58-aa-a8')
     @winrt_commethod(6)
     def get_ChannelCount(self) -> Int32: ...
     @winrt_commethod(7)
@@ -51,7 +51,7 @@ class IAdcControllerProvider(ComPtr):
     ChannelMode = property(get_ChannelMode, put_ChannelMode)
 class IAdcProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('28953668-9359-4c57-bc-88-e2-75-e8-16-38-c9')
+    _iid_ = Guid('28953668-9359-4c57-bc-88-e2-75-e8-16-38-c9')
     @winrt_commethod(6)
     def GetControllers(self) -> Windows.Foundation.Collections.IVectorView[Windows.Devices.Adc.Provider.IAdcControllerProvider]: ...
 ProviderAdcChannelMode = Int32

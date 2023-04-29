@@ -27,7 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ILamp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('047d5b9a-ea45-4b2b-b1-a2-14-df-f0-0b-de-7b')
+    _iid_ = Guid('047d5b9a-ea45-4b2b-b1-a2-14-df-f0-0b-de-7b')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -55,7 +55,7 @@ class ILamp(ComPtr):
     Color = property(get_Color, put_Color)
 class ILampArray(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7ace9787-c8a0-4e95-a1-e0-d5-86-76-53-86-49')
+    _iid_ = Guid('7ace9787-c8a0-4e95-a1-e0-d5-86-76-53-86-49')
     @winrt_commethod(6)
     def get_DeviceId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -122,20 +122,20 @@ class ILampArray(ComPtr):
     SupportsVirtualKeys = property(get_SupportsVirtualKeys, None)
 class ILampArrayStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('7bb8c98d-5fc1-452d-bb-1f-4a-d4-10-d3-98-ff')
+    _iid_ = Guid('7bb8c98d-5fc1-452d-bb-1f-4a-d4-10-d3-98-ff')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Lights.LampArray]: ...
 class ILampAvailabilityChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('4f6e3ded-07a2-499d-92-60-67-e3-04-53-2b-a4')
+    _iid_ = Guid('4f6e3ded-07a2-499d-92-60-67-e3-04-53-2b-a4')
     @winrt_commethod(6)
     def get_IsAvailable(self) -> Boolean: ...
     IsAvailable = property(get_IsAvailable, None)
 class ILampInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('30bb521c-0acf-49da-8c-10-15-0b-9c-f6-27-13')
+    _iid_ = Guid('30bb521c-0acf-49da-8c-10-15-0b-9c-f6-27-13')
     @winrt_commethod(6)
     def get_Index(self) -> Int32: ...
     @winrt_commethod(7)
@@ -167,7 +167,7 @@ class ILampInfo(ComPtr):
     UpdateLatency = property(get_UpdateLatency, None)
 class ILampStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a822416c-8885-401e-b8-21-8e-8b-38-a8-e8-ec')
+    _iid_ = Guid('a822416c-8885-401e-b8-21-8e-8b-38-a8-e8-ec')
     @winrt_commethod(6)
     def GetDeviceSelector(self) -> WinRT_String: ...
     @winrt_commethod(7)

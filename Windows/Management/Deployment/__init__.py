@@ -229,7 +229,7 @@ class DeploymentResult(ComPtr):
     IsRegistered = property(get_IsRegistered, None)
 class IAddPackageOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('05cee018-f68f-422b-95-a4-66-67-9e-c7-7f-c0')
+    _iid_ = Guid('05cee018-f68f-422b-95-a4-66-67-9e-c7-7f-c0')
     @winrt_commethod(6)
     def get_DependencyPackageUris(self) -> Windows.Foundation.Collections.IVector[Windows.Foundation.Uri]: ...
     @winrt_commethod(7)
@@ -309,7 +309,7 @@ class IAddPackageOptions(ComPtr):
     DeferRegistrationWhenPackagesAreInUse = property(get_DeferRegistrationWhenPackagesAreInUse, put_DeferRegistrationWhenPackagesAreInUse)
 class IAddPackageOptions2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('ee515828-bf33-40f7-84-af-1b-6f-ad-29-19-d7')
+    _iid_ = Guid('ee515828-bf33-40f7-84-af-1b-6f-ad-29-19-d7')
     @winrt_commethod(6)
     def get_ExpectedDigests(self) -> Windows.Foundation.Collections.IMap[Windows.Foundation.Uri, WinRT_String]: ...
     @winrt_commethod(7)
@@ -320,7 +320,7 @@ class IAddPackageOptions2(ComPtr):
     LimitToExistingPackages = property(get_LimitToExistingPackages, put_LimitToExistingPackages)
 class IAppInstallerManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e7ee21c3-2103-53ee-9b-18-68-af-ea-b0-03-3d')
+    _iid_ = Guid('e7ee21c3-2103-53ee-9b-18-68-af-ea-b0-03-3d')
     @winrt_commethod(6)
     def SetAutoUpdateSettings(self, packageFamilyName: WinRT_String, appInstallerInfo: Windows.Management.Deployment.AutoUpdateSettingsOptions) -> Void: ...
     @winrt_commethod(7)
@@ -329,14 +329,14 @@ class IAppInstallerManager(ComPtr):
     def PauseAutoUpdatesUntil(self, packageFamilyName: WinRT_String, dateTime: Windows.Foundation.DateTime) -> Void: ...
 class IAppInstallerManagerStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('c95a6ed5-fc59-5336-9b-2e-2b-07-c5-e6-14-34')
+    _iid_ = Guid('c95a6ed5-fc59-5336-9b-2e-2b-07-c5-e6-14-34')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.Management.Deployment.AppInstallerManager: ...
     @winrt_commethod(7)
     def GetForSystem(self) -> Windows.Management.Deployment.AppInstallerManager: ...
 class IAutoUpdateSettingsOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('67491d87-35e1-512a-89-68-1a-e8-8d-1b-e6-d3')
+    _iid_ = Guid('67491d87-35e1-512a-89-68-1a-e8-8d-1b-e6-d3')
     @winrt_commethod(6)
     def get_Version(self) -> Windows.ApplicationModel.PackageVersion: ...
     @winrt_commethod(7)
@@ -396,12 +396,12 @@ class IAutoUpdateSettingsOptions(ComPtr):
     OptionalPackageUris = property(get_OptionalPackageUris, None)
 class IAutoUpdateSettingsOptionsStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('887b337d-0c05-54d0-bd-49-3b-b7-a2-c0-84-cb')
+    _iid_ = Guid('887b337d-0c05-54d0-bd-49-3b-b7-a2-c0-84-cb')
     @winrt_commethod(6)
     def CreateFromAppInstallerInfo(self, appInstallerInfo: Windows.ApplicationModel.AppInstallerInfo) -> Windows.Management.Deployment.AutoUpdateSettingsOptions: ...
 class IDeploymentResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('2563b9ae-b77d-4c1f-8a-7b-20-e6-ad-51-5e-f3')
+    _iid_ = Guid('2563b9ae-b77d-4c1f-8a-7b-20-e6-ad-51-5e-f3')
     @winrt_commethod(6)
     def get_ErrorText(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -413,13 +413,13 @@ class IDeploymentResult(ComPtr):
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
 class IDeploymentResult2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('fc0e715c-5a01-4bd7-bc-f1-38-1c-8c-82-e0-4a')
+    _iid_ = Guid('fc0e715c-5a01-4bd7-bc-f1-38-1c-8c-82-e0-4a')
     @winrt_commethod(6)
     def get_IsRegistered(self) -> Boolean: ...
     IsRegistered = property(get_IsRegistered, None)
 class IPackageAllUserProvisioningOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('da35aa22-1de0-5d3e-99-ff-d2-4f-31-18-bf-5e')
+    _iid_ = Guid('da35aa22-1de0-5d3e-99-ff-d2-4f-31-18-bf-5e')
     @winrt_commethod(6)
     def get_OptionalPackageFamilyNames(self) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_commethod(7)
@@ -428,7 +428,7 @@ class IPackageAllUserProvisioningOptions(ComPtr):
     ProjectionOrderPackageFamilyNames = property(get_ProjectionOrderPackageFamilyNames, None)
 class IPackageManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('9a7d4b65-5e8f-4fc7-a2-e5-7f-69-25-cb-8b-53')
+    _iid_ = Guid('9a7d4b65-5e8f-4fc7-a2-e5-7f-69-25-cb-8b-53')
     @winrt_commethod(6)
     def AddPackageAsync(self, packageUri: Windows.Foundation.Uri, dependencyPackageUris: Windows.Foundation.Collections.IIterable[Windows.Foundation.Uri], deploymentOptions: Windows.Management.Deployment.DeploymentOptions) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Management.Deployment.DeploymentResult, Windows.Management.Deployment.DeploymentProgress]: ...
     @winrt_commethod(7)
@@ -463,12 +463,12 @@ class IPackageManager(ComPtr):
     def FindPackageByUserSecurityIdPackageFullName(self, userSecurityId: WinRT_String, packageFullName: WinRT_String) -> Windows.ApplicationModel.Package: ...
 class IPackageManager10(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a7d7d07e-2e66-4093-ae-d5-e0-93-ed-87-b3-bb')
+    _iid_ = Guid('a7d7d07e-2e66-4093-ae-d5-e0-93-ed-87-b3-bb')
     @winrt_commethod(6)
     def ProvisionPackageForAllUsersWithOptionsAsync(self, mainPackageFamilyName: WinRT_String, options: Windows.Management.Deployment.PackageAllUserProvisioningOptions) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Management.Deployment.DeploymentResult, Windows.Management.Deployment.DeploymentProgress]: ...
 class IPackageManager2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f7aad08d-0840-46f2-b5-d8-ca-d4-76-93-a0-95')
+    _iid_ = Guid('f7aad08d-0840-46f2-b5-d8-ca-d4-76-93-a0-95')
     @winrt_commethod(6)
     def RemovePackageWithOptionsAsync(self, packageFullName: WinRT_String, removalOptions: Windows.Management.Deployment.RemovalOptions) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Management.Deployment.DeploymentResult, Windows.Management.Deployment.DeploymentProgress]: ...
     @winrt_commethod(7)
@@ -491,7 +491,7 @@ class IPackageManager2(ComPtr):
     def StageUserDataAsync(self, packageFullName: WinRT_String) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Management.Deployment.DeploymentResult, Windows.Management.Deployment.DeploymentProgress]: ...
 class IPackageManager3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('daad9948-36f1-41a7-91-88-bc-26-3e-0d-cb-72')
+    _iid_ = Guid('daad9948-36f1-41a7-91-88-bc-26-3e-0d-cb-72')
     @winrt_commethod(6)
     def AddPackageVolumeAsync(self, packageStorePath: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Management.Deployment.PackageVolume]: ...
     @winrt_commethod(7)
@@ -524,12 +524,12 @@ class IPackageManager3(ComPtr):
     def StageUserDataWithOptionsAsync(self, packageFullName: WinRT_String, deploymentOptions: Windows.Management.Deployment.DeploymentOptions) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Management.Deployment.DeploymentResult, Windows.Management.Deployment.DeploymentProgress]: ...
 class IPackageManager4(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3c719963-bab6-46bf-8f-f7-da-47-19-23-0a-e6')
+    _iid_ = Guid('3c719963-bab6-46bf-8f-f7-da-47-19-23-0a-e6')
     @winrt_commethod(6)
     def GetPackageVolumesAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Management.Deployment.PackageVolume]]: ...
 class IPackageManager5(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('711f3117-1afd-4313-97-8c-9b-b6-e1-b8-64-a7')
+    _iid_ = Guid('711f3117-1afd-4313-97-8c-9b-b6-e1-b8-64-a7')
     @winrt_commethod(6)
     def AddPackageToVolumeAndOptionalPackagesAsync(self, packageUri: Windows.Foundation.Uri, dependencyPackageUris: Windows.Foundation.Collections.IIterable[Windows.Foundation.Uri], deploymentOptions: Windows.Management.Deployment.DeploymentOptions, targetVolume: Windows.Management.Deployment.PackageVolume, optionalPackageFamilyNames: Windows.Foundation.Collections.IIterable[WinRT_String], externalPackageUris: Windows.Foundation.Collections.IIterable[Windows.Foundation.Uri]) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Management.Deployment.DeploymentResult, Windows.Management.Deployment.DeploymentProgress]: ...
     @winrt_commethod(7)
@@ -541,7 +541,7 @@ class IPackageManager5(ComPtr):
     DebugSettings = property(get_DebugSettings, None)
 class IPackageManager6(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0847e909-53cd-4e4f-83-2e-57-d1-80-f6-e4-47')
+    _iid_ = Guid('0847e909-53cd-4e4f-83-2e-57-d1-80-f6-e4-47')
     @winrt_commethod(6)
     def ProvisionPackageForAllUsersAsync(self, packageFamilyName: WinRT_String) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Management.Deployment.DeploymentResult, Windows.Management.Deployment.DeploymentProgress]: ...
     @winrt_commethod(7)
@@ -556,17 +556,17 @@ class IPackageManager6(ComPtr):
     def RequestAddPackageAsync(self, packageUri: Windows.Foundation.Uri, dependencyPackageUris: Windows.Foundation.Collections.IIterable[Windows.Foundation.Uri], deploymentOptions: Windows.Management.Deployment.DeploymentOptions, targetVolume: Windows.Management.Deployment.PackageVolume, optionalPackageFamilyNames: Windows.Foundation.Collections.IIterable[WinRT_String], relatedPackageUris: Windows.Foundation.Collections.IIterable[Windows.Foundation.Uri]) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Management.Deployment.DeploymentResult, Windows.Management.Deployment.DeploymentProgress]: ...
 class IPackageManager7(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f28654f4-2ba7-4b80-88-d6-be-15-f9-a2-3f-ba')
+    _iid_ = Guid('f28654f4-2ba7-4b80-88-d6-be-15-f9-a2-3f-ba')
     @winrt_commethod(6)
     def RequestAddPackageAndRelatedSetAsync(self, packageUri: Windows.Foundation.Uri, dependencyPackageUris: Windows.Foundation.Collections.IIterable[Windows.Foundation.Uri], deploymentOptions: Windows.Management.Deployment.DeploymentOptions, targetVolume: Windows.Management.Deployment.PackageVolume, optionalPackageFamilyNames: Windows.Foundation.Collections.IIterable[WinRT_String], relatedPackageUris: Windows.Foundation.Collections.IIterable[Windows.Foundation.Uri], packageUrisToInstall: Windows.Foundation.Collections.IIterable[Windows.Foundation.Uri]) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Management.Deployment.DeploymentResult, Windows.Management.Deployment.DeploymentProgress]: ...
 class IPackageManager8(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b8575330-1298-4ee2-80-ee-7f-65-9c-5d-27-82')
+    _iid_ = Guid('b8575330-1298-4ee2-80-ee-7f-65-9c-5d-27-82')
     @winrt_commethod(6)
     def DeprovisionPackageForAllUsersAsync(self, packageFamilyName: WinRT_String) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Management.Deployment.DeploymentResult, Windows.Management.Deployment.DeploymentProgress]: ...
 class IPackageManager9(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1aa79035-cc71-4b2e-80-a6-c7-04-1d-85-79-a7')
+    _iid_ = Guid('1aa79035-cc71-4b2e-80-a6-c7-04-1d-85-79-a7')
     @winrt_commethod(6)
     def FindProvisionedPackages(self) -> Windows.Foundation.Collections.IVector[Windows.ApplicationModel.Package]: ...
     @winrt_commethod(7)
@@ -583,14 +583,14 @@ class IPackageManager9(ComPtr):
     def GetPackageStubPreference(self, packageFamilyName: WinRT_String) -> Windows.Management.Deployment.PackageStubPreference: ...
 class IPackageManagerDebugSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('1a611683-a988-4fcf-8f-0f-ce-17-58-98-e8-eb')
+    _iid_ = Guid('1a611683-a988-4fcf-8f-0f-ce-17-58-98-e8-eb')
     @winrt_commethod(6)
     def SetContentGroupStateAsync(self, package: Windows.ApplicationModel.Package, contentGroupName: WinRT_String, state: Windows.ApplicationModel.PackageContentGroupState) -> Windows.Foundation.IAsyncAction: ...
     @winrt_commethod(7)
     def SetContentGroupStateWithPercentageAsync(self, package: Windows.ApplicationModel.Package, contentGroupName: WinRT_String, state: Windows.ApplicationModel.PackageContentGroupState, completionPercentage: Double) -> Windows.Foundation.IAsyncAction: ...
 class IPackageUserInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f6383423-fa09-4cbc-90-55-15-ca-27-5e-2e-7e')
+    _iid_ = Guid('f6383423-fa09-4cbc-90-55-15-ca-27-5e-2e-7e')
     @winrt_commethod(6)
     def get_UserSecurityId(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -599,7 +599,7 @@ class IPackageUserInformation(ComPtr):
     InstallState = property(get_InstallState, None)
 class IPackageVolume(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cf2672c3-1a40-4450-97-39-2a-ce-2e-89-88-53')
+    _iid_ = Guid('cf2672c3-1a40-4450-97-39-2a-ce-2e-89-88-53')
     @winrt_commethod(6)
     def get_IsOffline(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -648,7 +648,7 @@ class IPackageVolume(ComPtr):
     SupportsHardLinks = property(get_SupportsHardLinks, None)
 class IPackageVolume2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('46abcf2e-9dd4-47a2-ab-8c-c6-40-83-49-bc-d8')
+    _iid_ = Guid('46abcf2e-9dd4-47a2-ab-8c-c6-40-83-49-bc-d8')
     @winrt_commethod(6)
     def get_IsFullTrustPackageSupported(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -659,7 +659,7 @@ class IPackageVolume2(ComPtr):
     IsAppxInstallSupported = property(get_IsAppxInstallSupported, None)
 class IRegisterPackageOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('677112a7-50d4-496c-84-15-06-02-b4-c6-d3-bf')
+    _iid_ = Guid('677112a7-50d4-496c-84-15-06-02-b4-c6-d3-bf')
     @winrt_commethod(6)
     def get_DependencyPackageUris(self) -> Windows.Foundation.Collections.IVector[Windows.Foundation.Uri]: ...
     @winrt_commethod(7)
@@ -718,13 +718,13 @@ class IRegisterPackageOptions(ComPtr):
     DeferRegistrationWhenPackagesAreInUse = property(get_DeferRegistrationWhenPackagesAreInUse, put_DeferRegistrationWhenPackagesAreInUse)
 class IRegisterPackageOptions2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('3dfa9743-86ff-4a11-bc-93-43-4e-b6-be-3a-0b')
+    _iid_ = Guid('3dfa9743-86ff-4a11-bc-93-43-4e-b6-be-3a-0b')
     @winrt_commethod(6)
     def get_ExpectedDigests(self) -> Windows.Foundation.Collections.IMap[Windows.Foundation.Uri, WinRT_String]: ...
     ExpectedDigests = property(get_ExpectedDigests, None)
 class IStagePackageOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('0b110c9c-b95d-4c56-bd-36-6d-65-68-00-d0-6b')
+    _iid_ = Guid('0b110c9c-b95d-4c56-bd-36-6d-65-68-00-d0-6b')
     @winrt_commethod(6)
     def get_DependencyPackageUris(self) -> Windows.Foundation.Collections.IVector[Windows.Foundation.Uri]: ...
     @winrt_commethod(7)
@@ -784,7 +784,7 @@ class IStagePackageOptions(ComPtr):
     AllowUnsigned = property(get_AllowUnsigned, put_AllowUnsigned)
 class IStagePackageOptions2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('990c4ccc-6226-4192-ba-92-79-87-5f-ce-0d-9c')
+    _iid_ = Guid('990c4ccc-6226-4192-ba-92-79-87-5f-ce-0d-9c')
     @winrt_commethod(6)
     def get_ExpectedDigests(self) -> Windows.Foundation.Collections.IMap[Windows.Foundation.Uri, WinRT_String]: ...
     ExpectedDigests = property(get_ExpectedDigests, None)

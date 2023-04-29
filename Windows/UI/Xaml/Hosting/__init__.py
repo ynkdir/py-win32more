@@ -49,10 +49,10 @@ class ElementCompositionPreview(ComPtr):
     def GetScrollViewerManipulationPropertySet(cls: Windows.UI.Xaml.Hosting.IElementCompositionPreviewStatics, scrollViewer: Windows.UI.Xaml.Controls.ScrollViewer) -> Windows.UI.Composition.CompositionPropertySet: ...
 class IElementCompositionPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('b6f1a676-cfe6-46ac-ac-f6-c4-68-7b-b6-5e-60')
+    _iid_ = Guid('b6f1a676-cfe6-46ac-ac-f6-c4-68-7b-b6-5e-60')
 class IElementCompositionPreviewStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('08c92b38-ec99-4c55-bc-85-a1-c1-80-b2-76-46')
+    _iid_ = Guid('08c92b38-ec99-4c55-bc-85-a1-c1-80-b2-76-46')
     @winrt_commethod(6)
     def GetElementVisual(self, element: Windows.UI.Xaml.UIElement) -> Windows.UI.Composition.Visual: ...
     @winrt_commethod(7)
@@ -63,7 +63,7 @@ class IElementCompositionPreviewStatics(ComPtr):
     def GetScrollViewerManipulationPropertySet(self, scrollViewer: Windows.UI.Xaml.Controls.ScrollViewer) -> Windows.UI.Composition.CompositionPropertySet: ...
 class IElementCompositionPreviewStatics2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('24148fbb-23d6-4f37-ba-0c-07-33-e7-99-72-2d')
+    _iid_ = Guid('24148fbb-23d6-4f37-ba-0c-07-33-e7-99-72-2d')
     @winrt_commethod(6)
     def SetImplicitShowAnimation(self, element: Windows.UI.Xaml.UIElement, animation: Windows.UI.Composition.ICompositionAnimationBase) -> Void: ...
     @winrt_commethod(7)
@@ -74,7 +74,7 @@ class IElementCompositionPreviewStatics2(ComPtr):
     def GetPointerPositionPropertySet(self, targetElement: Windows.UI.Xaml.UIElement) -> Windows.UI.Composition.CompositionPropertySet: ...
 class IElementCompositionPreviewStatics3(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('843bc4c3-c105-59fe-a3-d1-37-3c-1d-3e-6f-bc')
+    _iid_ = Guid('843bc4c3-c105-59fe-a3-d1-37-3c-1d-3e-6f-bc')
     @winrt_commethod(6)
     def SetAppWindowContent(self, appWindow: Windows.UI.WindowManagement.AppWindow, xamlContent: Windows.UI.Xaml.UIElement) -> Void: ...
     @winrt_commethod(7)

@@ -167,7 +167,7 @@ class CastingSource(ComPtr):
     PreferredSourceUri = property(get_PreferredSourceUri, put_PreferredSourceUri)
 class ICastingConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('cd951653-c2f1-4498-8b-78-5f-b4-cd-36-40-dd')
+    _iid_ = Guid('cd951653-c2f1-4498-8b-78-5f-b4-cd-36-40-dd')
     @winrt_commethod(6)
     def get_State(self) -> Windows.Media.Casting.CastingConnectionState: ...
     @winrt_commethod(7)
@@ -193,7 +193,7 @@ class ICastingConnection(ComPtr):
     Source = property(get_Source, put_Source)
 class ICastingConnectionErrorOccurredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('a7fb3c69-8719-4f00-81-fb-96-18-63-c7-9a-32')
+    _iid_ = Guid('a7fb3c69-8719-4f00-81-fb-96-18-63-c7-9a-32')
     @winrt_commethod(6)
     def get_ErrorStatus(self) -> Windows.Media.Casting.CastingConnectionErrorStatus: ...
     @winrt_commethod(7)
@@ -202,7 +202,7 @@ class ICastingConnectionErrorOccurredEventArgs(ComPtr):
     Message = property(get_Message, None)
 class ICastingDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('de721c83-4a43-4ad1-a6-d2-24-92-a7-96-c3-f2')
+    _iid_ = Guid('de721c83-4a43-4ad1-a6-d2-24-92-a7-96-c3-f2')
     @winrt_commethod(6)
     def get_Id(self) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -218,7 +218,7 @@ class ICastingDevice(ComPtr):
     Icon = property(get_Icon, None)
 class ICastingDevicePicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('dcd39924-0591-49be-aa-cb-4b-82-ee-75-6a-95')
+    _iid_ = Guid('dcd39924-0591-49be-aa-cb-4b-82-ee-75-6a-95')
     @winrt_commethod(6)
     def get_Filter(self) -> Windows.Media.Casting.CastingDevicePickerFilter: ...
     @winrt_commethod(7)
@@ -241,7 +241,7 @@ class ICastingDevicePicker(ComPtr):
     Appearance = property(get_Appearance, None)
 class ICastingDevicePickerFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('be8c619c-b563-4354-ae-33-9f-da-ad-8c-62-91')
+    _iid_ = Guid('be8c619c-b563-4354-ae-33-9f-da-ad-8c-62-91')
     @winrt_commethod(6)
     def get_SupportsAudio(self) -> Boolean: ...
     @winrt_commethod(7)
@@ -262,13 +262,13 @@ class ICastingDevicePickerFilter(ComPtr):
     SupportedCastingSources = property(get_SupportedCastingSources, None)
 class ICastingDeviceSelectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('dc439e86-dd57-4d0d-94-00-af-45-e4-fb-36-63')
+    _iid_ = Guid('dc439e86-dd57-4d0d-94-00-af-45-e4-fb-36-63')
     @winrt_commethod(6)
     def get_SelectedCastingDevice(self) -> Windows.Media.Casting.CastingDevice: ...
     SelectedCastingDevice = property(get_SelectedCastingDevice, None)
 class ICastingDeviceStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('e7d958d7-4d13-4237-a3-65-4c-4f-6a-4c-fd-2f')
+    _iid_ = Guid('e7d958d7-4d13-4237-a3-65-4c-4f-6a-4c-fd-2f')
     @winrt_commethod(6)
     def GetDeviceSelector(self, type: Windows.Media.Casting.CastingPlaybackTypes) -> WinRT_String: ...
     @winrt_commethod(7)
@@ -279,7 +279,7 @@ class ICastingDeviceStatics(ComPtr):
     def DeviceInfoSupportsCastingAsync(self, device: Windows.Devices.Enumeration.DeviceInformation) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class ICastingSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    Guid = Guid('f429ea72-3467-47e6-a0-27-52-29-23-e9-d7-27')
+    _iid_ = Guid('f429ea72-3467-47e6-a0-27-52-29-23-e9-d7-27')
     @winrt_commethod(6)
     def get_PreferredSourceUri(self) -> Windows.Foundation.Uri: ...
     @winrt_commethod(7)
