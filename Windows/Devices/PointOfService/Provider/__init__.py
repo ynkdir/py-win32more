@@ -27,7 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class BarcodeScannerDisableScannerRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerDisableScannerRequest'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerDisableScannerRequest'
     @winrt_mixinmethod
     def ReportCompletedAsync(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerDisableScannerRequest) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -38,7 +38,7 @@ class BarcodeScannerDisableScannerRequest(ComPtr):
     def ReportFailedWithFailedReasonAndDescriptionAsync(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerDisableScannerRequest2, reason: Int32, failedReasonDescription: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class BarcodeScannerDisableScannerRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerDisableScannerRequestEventArgs'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerDisableScannerRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerDisableScannerRequestEventArgs) -> Windows.Devices.PointOfService.Provider.BarcodeScannerDisableScannerRequest: ...
     @winrt_mixinmethod
@@ -46,7 +46,7 @@ class BarcodeScannerDisableScannerRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class BarcodeScannerEnableScannerRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerEnableScannerRequest'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerEnableScannerRequest'
     @winrt_mixinmethod
     def ReportCompletedAsync(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerEnableScannerRequest) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -57,7 +57,7 @@ class BarcodeScannerEnableScannerRequest(ComPtr):
     def ReportFailedWithFailedReasonAndDescriptionAsync(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerEnableScannerRequest2, reason: Int32, failedReasonDescription: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class BarcodeScannerEnableScannerRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerEnableScannerRequestEventArgs'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerEnableScannerRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerEnableScannerRequestEventArgs) -> Windows.Devices.PointOfService.Provider.BarcodeScannerEnableScannerRequest: ...
     @winrt_mixinmethod
@@ -65,7 +65,7 @@ class BarcodeScannerEnableScannerRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class BarcodeScannerFrameReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerFrameReader'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerFrameReader'
     @winrt_mixinmethod
     def StartAsync(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerFrameReader) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
@@ -83,12 +83,12 @@ class BarcodeScannerFrameReader(ComPtr):
     Connection = property(get_Connection, None)
 class BarcodeScannerFrameReaderFrameArrivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerFrameReaderFrameArrivedEventArgs'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerFrameReaderFrameArrivedEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerFrameReaderFrameArrivedEventArgs) -> Windows.Foundation.Deferral: ...
 class BarcodeScannerGetSymbologyAttributesRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerGetSymbologyAttributesRequest'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerGetSymbologyAttributesRequest'
     @winrt_mixinmethod
     def get_Symbology(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerGetSymbologyAttributesRequest) -> UInt32: ...
     @winrt_mixinmethod
@@ -102,7 +102,7 @@ class BarcodeScannerGetSymbologyAttributesRequest(ComPtr):
     Symbology = property(get_Symbology, None)
 class BarcodeScannerGetSymbologyAttributesRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerGetSymbologyAttributesRequestEventArgs'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerGetSymbologyAttributesRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerGetSymbologyAttributesRequestEventArgs) -> Windows.Devices.PointOfService.Provider.BarcodeScannerGetSymbologyAttributesRequest: ...
     @winrt_mixinmethod
@@ -110,7 +110,7 @@ class BarcodeScannerGetSymbologyAttributesRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class BarcodeScannerHideVideoPreviewRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerHideVideoPreviewRequest'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerHideVideoPreviewRequest'
     @winrt_mixinmethod
     def ReportCompletedAsync(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerHideVideoPreviewRequest) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -121,7 +121,7 @@ class BarcodeScannerHideVideoPreviewRequest(ComPtr):
     def ReportFailedWithFailedReasonAndDescriptionAsync(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerHideVideoPreviewRequest2, reason: Int32, failedReasonDescription: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class BarcodeScannerHideVideoPreviewRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerHideVideoPreviewRequestEventArgs'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerHideVideoPreviewRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerHideVideoPreviewRequestEventArgs) -> Windows.Devices.PointOfService.Provider.BarcodeScannerHideVideoPreviewRequest: ...
     @winrt_mixinmethod
@@ -129,7 +129,7 @@ class BarcodeScannerHideVideoPreviewRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class BarcodeScannerProviderConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerProviderConnection) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -206,13 +206,13 @@ class BarcodeScannerProviderConnection(ComPtr):
     Version = property(get_Version, put_Version)
 class BarcodeScannerProviderTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerProviderTriggerDetails'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerProviderTriggerDetails'
     @winrt_mixinmethod
     def get_Connection(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerProviderTriggerDetails) -> Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection: ...
     Connection = property(get_Connection, None)
 class BarcodeScannerSetActiveSymbologiesRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerSetActiveSymbologiesRequest'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerSetActiveSymbologiesRequest'
     @winrt_mixinmethod
     def get_Symbologies(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerSetActiveSymbologiesRequest) -> Windows.Foundation.Collections.IVectorView[UInt32]: ...
     @winrt_mixinmethod
@@ -226,7 +226,7 @@ class BarcodeScannerSetActiveSymbologiesRequest(ComPtr):
     Symbologies = property(get_Symbologies, None)
 class BarcodeScannerSetActiveSymbologiesRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerSetActiveSymbologiesRequestEventArgs'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerSetActiveSymbologiesRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerSetActiveSymbologiesRequestEventArgs) -> Windows.Devices.PointOfService.Provider.BarcodeScannerSetActiveSymbologiesRequest: ...
     @winrt_mixinmethod
@@ -234,7 +234,7 @@ class BarcodeScannerSetActiveSymbologiesRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class BarcodeScannerSetSymbologyAttributesRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerSetSymbologyAttributesRequest'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerSetSymbologyAttributesRequest'
     @winrt_mixinmethod
     def get_Symbology(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerSetSymbologyAttributesRequest) -> UInt32: ...
     @winrt_mixinmethod
@@ -251,7 +251,7 @@ class BarcodeScannerSetSymbologyAttributesRequest(ComPtr):
     Attributes = property(get_Attributes, None)
 class BarcodeScannerSetSymbologyAttributesRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerSetSymbologyAttributesRequestEventArgs'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerSetSymbologyAttributesRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerSetSymbologyAttributesRequestEventArgs) -> Windows.Devices.PointOfService.Provider.BarcodeScannerSetSymbologyAttributesRequest: ...
     @winrt_mixinmethod
@@ -259,7 +259,7 @@ class BarcodeScannerSetSymbologyAttributesRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class BarcodeScannerStartSoftwareTriggerRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerStartSoftwareTriggerRequest'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerStartSoftwareTriggerRequest'
     @winrt_mixinmethod
     def ReportCompletedAsync(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerStartSoftwareTriggerRequest) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -270,7 +270,7 @@ class BarcodeScannerStartSoftwareTriggerRequest(ComPtr):
     def ReportFailedWithFailedReasonAndDescriptionAsync(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerStartSoftwareTriggerRequest2, reason: Int32, failedReasonDescription: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class BarcodeScannerStartSoftwareTriggerRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerStartSoftwareTriggerRequestEventArgs'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerStartSoftwareTriggerRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerStartSoftwareTriggerRequestEventArgs) -> Windows.Devices.PointOfService.Provider.BarcodeScannerStartSoftwareTriggerRequest: ...
     @winrt_mixinmethod
@@ -278,7 +278,7 @@ class BarcodeScannerStartSoftwareTriggerRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class BarcodeScannerStopSoftwareTriggerRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerStopSoftwareTriggerRequest'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerStopSoftwareTriggerRequest'
     @winrt_mixinmethod
     def ReportCompletedAsync(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerStopSoftwareTriggerRequest) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -289,7 +289,7 @@ class BarcodeScannerStopSoftwareTriggerRequest(ComPtr):
     def ReportFailedWithFailedReasonAndDescriptionAsync(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerStopSoftwareTriggerRequest2, reason: Int32, failedReasonDescription: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class BarcodeScannerStopSoftwareTriggerRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerStopSoftwareTriggerRequestEventArgs'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerStopSoftwareTriggerRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerStopSoftwareTriggerRequestEventArgs) -> Windows.Devices.PointOfService.Provider.BarcodeScannerStopSoftwareTriggerRequest: ...
     @winrt_mixinmethod
@@ -300,7 +300,7 @@ BarcodeScannerTriggerState_Released: BarcodeScannerTriggerState = 0
 BarcodeScannerTriggerState_Pressed: BarcodeScannerTriggerState = 1
 class BarcodeScannerVideoFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeScannerVideoFrame'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeScannerVideoFrame'
     @winrt_mixinmethod
     def get_Format(self: Windows.Devices.PointOfService.Provider.IBarcodeScannerVideoFrame) -> Windows.Graphics.Imaging.BitmapPixelFormat: ...
     @winrt_mixinmethod
@@ -317,7 +317,7 @@ class BarcodeScannerVideoFrame(ComPtr):
     PixelData = property(get_PixelData, None)
 class BarcodeSymbologyAttributesBuilder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.PointOfService.Provider.BarcodeSymbologyAttributesBuilder'
+    _classid_ = 'Windows.Devices.PointOfService.Provider.BarcodeSymbologyAttributesBuilder'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.PointOfService.Provider.BarcodeSymbologyAttributesBuilder: ...
     @winrt_mixinmethod

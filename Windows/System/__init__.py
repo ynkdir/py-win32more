@@ -32,7 +32,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AppActivationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppActivationResult'
+    _classid_ = 'Windows.System.AppActivationResult'
     @winrt_mixinmethod
     def get_ExtendedError(self: Windows.System.IAppActivationResult) -> Windows.Foundation.HResult: ...
     @winrt_mixinmethod
@@ -41,7 +41,7 @@ class AppActivationResult(ComPtr):
     AppResourceGroupInfo = property(get_AppResourceGroupInfo, None)
 class AppDiagnosticInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppDiagnosticInfo'
+    _classid_ = 'Windows.System.AppDiagnosticInfo'
     @winrt_mixinmethod
     def get_AppInfo(self: Windows.System.IAppDiagnosticInfo) -> Windows.ApplicationModel.AppInfo: ...
     @winrt_mixinmethod
@@ -65,7 +65,7 @@ class AppDiagnosticInfo(ComPtr):
     AppInfo = property(get_AppInfo, None)
 class AppDiagnosticInfoWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppDiagnosticInfoWatcher'
+    _classid_ = 'Windows.System.AppDiagnosticInfoWatcher'
     @winrt_mixinmethod
     def add_Added(self: Windows.System.IAppDiagnosticInfoWatcher, handler: Windows.Foundation.TypedEventHandler[Windows.System.AppDiagnosticInfoWatcher, Windows.System.AppDiagnosticInfoWatcherEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -91,7 +91,7 @@ class AppDiagnosticInfoWatcher(ComPtr):
     Status = property(get_Status, None)
 class AppDiagnosticInfoWatcherEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppDiagnosticInfoWatcherEventArgs'
+    _classid_ = 'Windows.System.AppDiagnosticInfoWatcherEventArgs'
     @winrt_mixinmethod
     def get_AppDiagnosticInfo(self: Windows.System.IAppDiagnosticInfoWatcherEventArgs) -> Windows.System.AppDiagnosticInfo: ...
     AppDiagnosticInfo = property(get_AppDiagnosticInfo, None)
@@ -104,13 +104,13 @@ AppDiagnosticInfoWatcherStatus_Stopped: AppDiagnosticInfoWatcherStatus = 4
 AppDiagnosticInfoWatcherStatus_Aborted: AppDiagnosticInfoWatcherStatus = 5
 class AppExecutionStateChangeResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppExecutionStateChangeResult'
+    _classid_ = 'Windows.System.AppExecutionStateChangeResult'
     @winrt_mixinmethod
     def get_ExtendedError(self: Windows.System.IAppExecutionStateChangeResult) -> Windows.Foundation.HResult: ...
     ExtendedError = property(get_ExtendedError, None)
 class AppMemoryReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppMemoryReport'
+    _classid_ = 'Windows.System.AppMemoryReport'
     @winrt_mixinmethod
     def get_PrivateCommitUsage(self: Windows.System.IAppMemoryReport) -> UInt64: ...
     @winrt_mixinmethod
@@ -133,7 +133,7 @@ AppMemoryUsageLevel_High: AppMemoryUsageLevel = 2
 AppMemoryUsageLevel_OverLimit: AppMemoryUsageLevel = 3
 class AppMemoryUsageLimitChangingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppMemoryUsageLimitChangingEventArgs'
+    _classid_ = 'Windows.System.AppMemoryUsageLimitChangingEventArgs'
     @winrt_mixinmethod
     def get_OldLimit(self: Windows.System.IAppMemoryUsageLimitChangingEventArgs) -> UInt64: ...
     @winrt_mixinmethod
@@ -142,7 +142,7 @@ class AppMemoryUsageLimitChangingEventArgs(ComPtr):
     NewLimit = property(get_NewLimit, None)
 class AppResourceGroupBackgroundTaskReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppResourceGroupBackgroundTaskReport'
+    _classid_ = 'Windows.System.AppResourceGroupBackgroundTaskReport'
     @winrt_mixinmethod
     def get_TaskId(self: Windows.System.IAppResourceGroupBackgroundTaskReport) -> Guid: ...
     @winrt_mixinmethod
@@ -167,7 +167,7 @@ AppResourceGroupExecutionState_Suspended: AppResourceGroupExecutionState = 3
 AppResourceGroupExecutionState_NotRunning: AppResourceGroupExecutionState = 4
 class AppResourceGroupInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppResourceGroupInfo'
+    _classid_ = 'Windows.System.AppResourceGroupInfo'
     @winrt_mixinmethod
     def get_InstanceId(self: Windows.System.IAppResourceGroupInfo) -> Guid: ...
     @winrt_mixinmethod
@@ -190,7 +190,7 @@ class AppResourceGroupInfo(ComPtr):
     IsShared = property(get_IsShared, None)
 class AppResourceGroupInfoWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppResourceGroupInfoWatcher'
+    _classid_ = 'Windows.System.AppResourceGroupInfoWatcher'
     @winrt_mixinmethod
     def add_Added(self: Windows.System.IAppResourceGroupInfoWatcher, handler: Windows.Foundation.TypedEventHandler[Windows.System.AppResourceGroupInfoWatcher, Windows.System.AppResourceGroupInfoWatcherEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -220,7 +220,7 @@ class AppResourceGroupInfoWatcher(ComPtr):
     Status = property(get_Status, None)
 class AppResourceGroupInfoWatcherEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppResourceGroupInfoWatcherEventArgs'
+    _classid_ = 'Windows.System.AppResourceGroupInfoWatcherEventArgs'
     @winrt_mixinmethod
     def get_AppDiagnosticInfos(self: Windows.System.IAppResourceGroupInfoWatcherEventArgs) -> Windows.Foundation.Collections.IVectorView[Windows.System.AppDiagnosticInfo]: ...
     @winrt_mixinmethod
@@ -229,7 +229,7 @@ class AppResourceGroupInfoWatcherEventArgs(ComPtr):
     AppResourceGroupInfo = property(get_AppResourceGroupInfo, None)
 class AppResourceGroupInfoWatcherExecutionStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppResourceGroupInfoWatcherExecutionStateChangedEventArgs'
+    _classid_ = 'Windows.System.AppResourceGroupInfoWatcherExecutionStateChangedEventArgs'
     @winrt_mixinmethod
     def get_AppDiagnosticInfos(self: Windows.System.IAppResourceGroupInfoWatcherExecutionStateChangedEventArgs) -> Windows.Foundation.Collections.IVectorView[Windows.System.AppDiagnosticInfo]: ...
     @winrt_mixinmethod
@@ -245,7 +245,7 @@ AppResourceGroupInfoWatcherStatus_Stopped: AppResourceGroupInfoWatcherStatus = 4
 AppResourceGroupInfoWatcherStatus_Aborted: AppResourceGroupInfoWatcherStatus = 5
 class AppResourceGroupMemoryReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppResourceGroupMemoryReport'
+    _classid_ = 'Windows.System.AppResourceGroupMemoryReport'
     @winrt_mixinmethod
     def get_CommitUsageLimit(self: Windows.System.IAppResourceGroupMemoryReport) -> UInt64: ...
     @winrt_mixinmethod
@@ -260,7 +260,7 @@ class AppResourceGroupMemoryReport(ComPtr):
     TotalCommitUsage = property(get_TotalCommitUsage, None)
 class AppResourceGroupStateReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppResourceGroupStateReport'
+    _classid_ = 'Windows.System.AppResourceGroupStateReport'
     @winrt_mixinmethod
     def get_ExecutionState(self: Windows.System.IAppResourceGroupStateReport) -> Windows.System.AppResourceGroupExecutionState: ...
     @winrt_mixinmethod
@@ -269,7 +269,7 @@ class AppResourceGroupStateReport(ComPtr):
     EnergyQuotaState = property(get_EnergyQuotaState, None)
 class AppUriHandlerHost(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppUriHandlerHost'
+    _classid_ = 'Windows.System.AppUriHandlerHost'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.System.IAppUriHandlerHostFactory, name: WinRT_String) -> Windows.System.AppUriHandlerHost: ...
     @winrt_activatemethod
@@ -286,7 +286,7 @@ class AppUriHandlerHost(ComPtr):
     IsEnabled = property(get_IsEnabled, put_IsEnabled)
 class AppUriHandlerRegistration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppUriHandlerRegistration'
+    _classid_ = 'Windows.System.AppUriHandlerRegistration'
     @winrt_mixinmethod
     def get_Name(self: Windows.System.IAppUriHandlerRegistration) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -306,7 +306,7 @@ class AppUriHandlerRegistration(ComPtr):
     PackageFamilyName = property(get_PackageFamilyName, None)
 class AppUriHandlerRegistrationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.AppUriHandlerRegistrationManager'
+    _classid_ = 'Windows.System.AppUriHandlerRegistrationManager'
     @winrt_mixinmethod
     def get_User(self: Windows.System.IAppUriHandlerRegistrationManager) -> Windows.System.User: ...
     @winrt_mixinmethod
@@ -329,7 +329,7 @@ AutoUpdateTimeZoneStatus_TimedOut: AutoUpdateTimeZoneStatus = 1
 AutoUpdateTimeZoneStatus_Failed: AutoUpdateTimeZoneStatus = 2
 class DateTimeSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.DateTimeSettings'
+    _classid_ = 'Windows.System.DateTimeSettings'
     @winrt_classmethod
     def SetSystemDateTime(cls: Windows.System.IDateTimeSettingsStatics, utcDateTime: Windows.Foundation.DateTime) -> Void: ...
 DiagnosticAccessStatus = Int32
@@ -339,7 +339,7 @@ DiagnosticAccessStatus_Limited: DiagnosticAccessStatus = 2
 DiagnosticAccessStatus_Allowed: DiagnosticAccessStatus = 3
 class DispatcherQueue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.DispatcherQueue'
+    _classid_ = 'Windows.System.DispatcherQueue'
     @winrt_mixinmethod
     def CreateTimer(self: Windows.System.IDispatcherQueue) -> Windows.System.DispatcherQueueTimer: ...
     @winrt_mixinmethod
@@ -361,7 +361,7 @@ class DispatcherQueue(ComPtr):
     HasThreadAccess = property(get_HasThreadAccess, None)
 class DispatcherQueueController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.DispatcherQueueController'
+    _classid_ = 'Windows.System.DispatcherQueueController'
     @winrt_mixinmethod
     def get_DispatcherQueue(self: Windows.System.IDispatcherQueueController) -> Windows.System.DispatcherQueue: ...
     @winrt_mixinmethod
@@ -372,7 +372,7 @@ class DispatcherQueueController(ComPtr):
 class DispatcherQueueHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('dfa2dc9c-1a2d-4917-98-f2-93-9a-f1-d6-e0-c8')
-    ClassId = 'Windows.System.DispatcherQueueHandler'
+    _classid_ = 'Windows.System.DispatcherQueueHandler'
     @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 DispatcherQueuePriority = Int32
@@ -381,12 +381,12 @@ DispatcherQueuePriority_Normal: DispatcherQueuePriority = 0
 DispatcherQueuePriority_High: DispatcherQueuePriority = 10
 class DispatcherQueueShutdownStartingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.DispatcherQueueShutdownStartingEventArgs'
+    _classid_ = 'Windows.System.DispatcherQueueShutdownStartingEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.System.IDispatcherQueueShutdownStartingEventArgs) -> Windows.Foundation.Deferral: ...
 class DispatcherQueueTimer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.DispatcherQueueTimer'
+    _classid_ = 'Windows.System.DispatcherQueueTimer'
     @winrt_mixinmethod
     def get_Interval(self: Windows.System.IDispatcherQueueTimer) -> Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
@@ -410,7 +410,7 @@ class DispatcherQueueTimer(ComPtr):
     IsRepeating = property(get_IsRepeating, put_IsRepeating)
 class FolderLauncherOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.FolderLauncherOptions'
+    _classid_ = 'Windows.System.FolderLauncherOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.System.FolderLauncherOptions: ...
     @winrt_mixinmethod
@@ -1307,7 +1307,7 @@ class IUserWatcher(ComPtr):
     Status = property(get_Status, None)
 class KnownUserProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.KnownUserProperties'
+    _classid_ = 'Windows.System.KnownUserProperties'
     @winrt_classmethod
     def get_AgeEnforcementRegion(cls: Windows.System.IKnownUserPropertiesStatics2) -> WinRT_String: ...
     @winrt_classmethod
@@ -1355,7 +1355,7 @@ LaunchQuerySupportType_Uri: LaunchQuerySupportType = 0
 LaunchQuerySupportType_UriForResults: LaunchQuerySupportType = 1
 class LaunchUriResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.LaunchUriResult'
+    _classid_ = 'Windows.System.LaunchUriResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.System.ILaunchUriResult) -> Windows.System.LaunchUriStatus: ...
     @winrt_mixinmethod
@@ -1369,7 +1369,7 @@ LaunchUriStatus_ProtocolUnavailable: LaunchUriStatus = 2
 LaunchUriStatus_Unknown: LaunchUriStatus = 3
 class Launcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Launcher'
+    _classid_ = 'Windows.System.Launcher'
     @winrt_classmethod
     def LaunchFolderPathAsync(cls: Windows.System.ILauncherStatics5, path: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_classmethod
@@ -1428,7 +1428,7 @@ class Launcher(ComPtr):
     def FindFileHandlersAsync(cls: Windows.System.ILauncherStatics2, extension: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.AppInfo]]: ...
 class LauncherOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.LauncherOptions'
+    _classid_ = 'Windows.System.LauncherOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.System.LauncherOptions: ...
     @winrt_mixinmethod
@@ -1491,7 +1491,7 @@ class LauncherOptions(ComPtr):
     DesiredRemainingView = property(get_DesiredRemainingView, put_DesiredRemainingView)
 class LauncherUIOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.LauncherUIOptions'
+    _classid_ = 'Windows.System.LauncherUIOptions'
     @winrt_mixinmethod
     def get_InvocationPoint(self: Windows.System.ILauncherUIOptions) -> Windows.Foundation.IReference[Windows.Foundation.Point]: ...
     @winrt_mixinmethod
@@ -1509,7 +1509,7 @@ class LauncherUIOptions(ComPtr):
     PreferredPlacement = property(get_PreferredPlacement, put_PreferredPlacement)
 class MemoryManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.MemoryManager'
+    _classid_ = 'Windows.System.MemoryManager'
     @winrt_classmethod
     def get_ExpectedAppMemoryUsageLimit(cls: Windows.System.IMemoryManagerStatics4) -> UInt64: ...
     @winrt_classmethod
@@ -1545,14 +1545,14 @@ PowerState_ConnectedStandby: PowerState = 0
 PowerState_SleepS3: PowerState = 1
 class ProcessLauncher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.ProcessLauncher'
+    _classid_ = 'Windows.System.ProcessLauncher'
     @winrt_classmethod
     def RunToCompletionAsync(cls: Windows.System.IProcessLauncherStatics, fileName: WinRT_String, args: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.System.ProcessLauncherResult]: ...
     @winrt_classmethod
     def RunToCompletionAsyncWithOptions(cls: Windows.System.IProcessLauncherStatics, fileName: WinRT_String, args: WinRT_String, options: Windows.System.ProcessLauncherOptions) -> Windows.Foundation.IAsyncOperation[Windows.System.ProcessLauncherResult]: ...
 class ProcessLauncherOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.ProcessLauncherOptions'
+    _classid_ = 'Windows.System.ProcessLauncherOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.System.ProcessLauncherOptions: ...
     @winrt_mixinmethod
@@ -1577,13 +1577,13 @@ class ProcessLauncherOptions(ComPtr):
     WorkingDirectory = property(get_WorkingDirectory, put_WorkingDirectory)
 class ProcessLauncherResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.ProcessLauncherResult'
+    _classid_ = 'Windows.System.ProcessLauncherResult'
     @winrt_mixinmethod
     def get_ExitCode(self: Windows.System.IProcessLauncherResult) -> UInt32: ...
     ExitCode = property(get_ExitCode, None)
 class ProcessMemoryReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.ProcessMemoryReport'
+    _classid_ = 'Windows.System.ProcessMemoryReport'
     @winrt_mixinmethod
     def get_PrivateWorkingSetUsage(self: Windows.System.IProcessMemoryReport) -> UInt64: ...
     @winrt_mixinmethod
@@ -1600,7 +1600,7 @@ ProcessorArchitecture_X86OnArm64: ProcessorArchitecture = 14
 ProcessorArchitecture_Unknown: ProcessorArchitecture = 65535
 class ProtocolForResultsOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.ProtocolForResultsOperation'
+    _classid_ = 'Windows.System.ProtocolForResultsOperation'
     @winrt_mixinmethod
     def ReportCompleted(self: Windows.System.IProtocolForResultsOperation, data: Windows.Foundation.Collections.ValueSet) -> Void: ...
 RemoteLaunchUriStatus = Int32
@@ -1614,7 +1614,7 @@ RemoteLaunchUriStatus_DeniedByLocalSystem: RemoteLaunchUriStatus = 6
 RemoteLaunchUriStatus_DeniedByRemoteSystem: RemoteLaunchUriStatus = 7
 class RemoteLauncher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteLauncher'
+    _classid_ = 'Windows.System.RemoteLauncher'
     @winrt_classmethod
     def LaunchUriAsync(cls: Windows.System.IRemoteLauncherStatics, remoteSystemConnectionRequest: Windows.System.RemoteSystems.RemoteSystemConnectionRequest, uri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperation[Windows.System.RemoteLaunchUriStatus]: ...
     @winrt_classmethod
@@ -1623,7 +1623,7 @@ class RemoteLauncher(ComPtr):
     def LaunchUriWithDataAsync(cls: Windows.System.IRemoteLauncherStatics, remoteSystemConnectionRequest: Windows.System.RemoteSystems.RemoteSystemConnectionRequest, uri: Windows.Foundation.Uri, options: Windows.System.RemoteLauncherOptions, inputData: Windows.Foundation.Collections.ValueSet) -> Windows.Foundation.IAsyncOperation[Windows.System.RemoteLaunchUriStatus]: ...
 class RemoteLauncherOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteLauncherOptions'
+    _classid_ = 'Windows.System.RemoteLauncherOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.System.RemoteLauncherOptions: ...
     @winrt_mixinmethod
@@ -1639,7 +1639,7 @@ ShutdownKind_Shutdown: ShutdownKind = 0
 ShutdownKind_Restart: ShutdownKind = 1
 class ShutdownManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.ShutdownManager'
+    _classid_ = 'Windows.System.ShutdownManager'
     @winrt_classmethod
     def IsPowerStateSupported(cls: Windows.System.IShutdownManagerStatics2, powerState: Windows.System.PowerState) -> Boolean: ...
     @winrt_classmethod
@@ -1653,7 +1653,7 @@ class ShutdownManager(ComPtr):
 SystemManagementContract: UInt32 = 458752
 class TimeZoneSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.TimeZoneSettings'
+    _classid_ = 'Windows.System.TimeZoneSettings'
     @winrt_classmethod
     def AutoUpdateTimeZoneAsync(cls: Windows.System.ITimeZoneSettingsStatics2, timeout: Windows.Foundation.TimeSpan) -> Windows.Foundation.IAsyncOperation[Windows.System.AutoUpdateTimeZoneStatus]: ...
     @winrt_classmethod
@@ -1669,7 +1669,7 @@ class TimeZoneSettings(ComPtr):
     CanChangeTimeZone = property(get_CanChangeTimeZone, None)
 class User(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.User'
+    _classid_ = 'Windows.System.User'
     @winrt_mixinmethod
     def get_NonRoamableId(self: Windows.System.IUser) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1715,12 +1715,12 @@ UserAuthenticationStatus_LocallyAuthenticated: UserAuthenticationStatus = 1
 UserAuthenticationStatus_RemotelyAuthenticated: UserAuthenticationStatus = 2
 class UserAuthenticationStatusChangeDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.UserAuthenticationStatusChangeDeferral'
+    _classid_ = 'Windows.System.UserAuthenticationStatusChangeDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.System.IUserAuthenticationStatusChangeDeferral) -> Void: ...
 class UserAuthenticationStatusChangingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.UserAuthenticationStatusChangingEventArgs'
+    _classid_ = 'Windows.System.UserAuthenticationStatusChangingEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.System.IUserAuthenticationStatusChangingEventArgs) -> Windows.System.UserAuthenticationStatusChangeDeferral: ...
     @winrt_mixinmethod
@@ -1734,7 +1734,7 @@ class UserAuthenticationStatusChangingEventArgs(ComPtr):
     CurrentStatus = property(get_CurrentStatus, None)
 class UserChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.UserChangedEventArgs'
+    _classid_ = 'Windows.System.UserChangedEventArgs'
     @winrt_mixinmethod
     def get_User(self: Windows.System.IUserChangedEventArgs) -> Windows.System.User: ...
     @winrt_mixinmethod
@@ -1743,7 +1743,7 @@ class UserChangedEventArgs(ComPtr):
     ChangedPropertyKinds = property(get_ChangedPropertyKinds, None)
 class UserDeviceAssociation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.UserDeviceAssociation'
+    _classid_ = 'Windows.System.UserDeviceAssociation'
     @winrt_classmethod
     def FindUserFromDeviceId(cls: Windows.System.IUserDeviceAssociationStatics, deviceId: WinRT_String) -> Windows.System.User: ...
     @winrt_classmethod
@@ -1752,7 +1752,7 @@ class UserDeviceAssociation(ComPtr):
     def remove_UserDeviceAssociationChanged(cls: Windows.System.IUserDeviceAssociationStatics, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class UserDeviceAssociationChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.UserDeviceAssociationChangedEventArgs'
+    _classid_ = 'Windows.System.UserDeviceAssociationChangedEventArgs'
     @winrt_mixinmethod
     def get_DeviceId(self: Windows.System.IUserDeviceAssociationChangedEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1764,7 +1764,7 @@ class UserDeviceAssociationChangedEventArgs(ComPtr):
     OldUser = property(get_OldUser, None)
 class UserPicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.UserPicker'
+    _classid_ = 'Windows.System.UserPicker'
     @winrt_activatemethod
     def New(cls) -> Windows.System.UserPicker: ...
     @winrt_mixinmethod
@@ -1794,7 +1794,7 @@ UserType_RemoteGuest: UserType = 3
 UserType_SystemManaged: UserType = 4
 class UserWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.UserWatcher'
+    _classid_ = 'Windows.System.UserWatcher'
     @winrt_mixinmethod
     def get_Status(self: Windows.System.IUserWatcher) -> Windows.System.UserWatcherStatus: ...
     @winrt_mixinmethod

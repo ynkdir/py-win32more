@@ -56,7 +56,7 @@ class ISignalNotifierStatics(ComPtr):
     def AttachToSemaphoreWithTimeout(self, name: WinRT_String, handler: Windows.System.Threading.Core.SignalHandler, timeout: Windows.Foundation.TimeSpan) -> Windows.System.Threading.Core.SignalNotifier: ...
 class PreallocatedWorkItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Threading.Core.PreallocatedWorkItem'
+    _classid_ = 'Windows.System.Threading.Core.PreallocatedWorkItem'
     @winrt_factorymethod
     def CreateWorkItem(cls: Windows.System.Threading.Core.IPreallocatedWorkItemFactory, handler: Windows.System.Threading.WorkItemHandler) -> Windows.System.Threading.Core.PreallocatedWorkItem: ...
     @winrt_factorymethod
@@ -68,12 +68,12 @@ class PreallocatedWorkItem(ComPtr):
 class SignalHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('923c402e-4721-440e-9d-da-55-b6-f2-e0-77-10')
-    ClassId = 'Windows.System.Threading.Core.SignalHandler'
+    _classid_ = 'Windows.System.Threading.Core.SignalHandler'
     @winrt_commethod(3)
     def Invoke(self, signalNotifier: Windows.System.Threading.Core.SignalNotifier, timedOut: Boolean) -> Void: ...
 class SignalNotifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Threading.Core.SignalNotifier'
+    _classid_ = 'Windows.System.Threading.Core.SignalNotifier'
     @winrt_mixinmethod
     def Enable(self: Windows.System.Threading.Core.ISignalNotifier) -> Void: ...
     @winrt_mixinmethod

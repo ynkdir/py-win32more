@@ -27,14 +27,14 @@ class Color(EasyCastStructure):
     B: Byte
 class ColorHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.ColorHelper'
+    _classid_ = 'Windows.UI.ColorHelper'
     @winrt_classmethod
     def ToDisplayName(cls: Windows.UI.IColorHelperStatics2, color: Windows.UI.Color) -> WinRT_String: ...
     @winrt_classmethod
     def FromArgb(cls: Windows.UI.IColorHelperStatics, a: Byte, r: Byte, g: Byte, b: Byte) -> Windows.UI.Color: ...
 class Colors(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Colors'
+    _classid_ = 'Windows.UI.Colors'
     @winrt_classmethod
     def get_AliceBlue(cls: Windows.UI.IColorsStatics) -> Windows.UI.Color: ...
     @winrt_classmethod
@@ -911,13 +911,13 @@ class IUIContext(ComPtr):
     _iid_ = Guid('bb5cfacd-5bd8-59d0-a5-9e-1c-17-a4-d6-d2-43')
 class UIContentRoot(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.UIContentRoot'
+    _classid_ = 'Windows.UI.UIContentRoot'
     @winrt_mixinmethod
     def get_UIContext(self: Windows.UI.IUIContentRoot) -> Windows.UI.UIContext: ...
     UIContext = property(get_UIContext, None)
 class UIContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.UIContext'
+    _classid_ = 'Windows.UI.UIContext'
 class WindowId(EasyCastStructure):
     Value: UInt64
 make_head(_module, 'Color')

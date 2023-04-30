@@ -46,7 +46,7 @@ class IRadialControllerIndependentInputSourceStatics(ComPtr):
     def CreateForView(self, view: Windows.ApplicationModel.Core.CoreApplicationView) -> Windows.UI.Input.Core.RadialControllerIndependentInputSource: ...
 class RadialControllerIndependentInputSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Core.RadialControllerIndependentInputSource'
+    _classid_ = 'Windows.UI.Input.Core.RadialControllerIndependentInputSource'
     @winrt_mixinmethod
     def get_Controller(self: Windows.UI.Input.Core.IRadialControllerIndependentInputSource) -> Windows.UI.Input.RadialController: ...
     @winrt_mixinmethod

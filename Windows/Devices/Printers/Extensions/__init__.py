@@ -65,7 +65,7 @@ class IPrint3DWorkflowPrinterChangedEventArgs(ComPtr):
     NewDeviceId = property(get_NewDeviceId, None)
 class Print3DWorkflow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Printers.Extensions.Print3DWorkflow'
+    _classid_ = 'Windows.Devices.Printers.Extensions.Print3DWorkflow'
     @winrt_mixinmethod
     def get_DeviceID(self: Windows.Devices.Printers.Extensions.IPrint3DWorkflow) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -94,7 +94,7 @@ Print3DWorkflowDetail_ModelNotManifold: Print3DWorkflowDetail = 5
 Print3DWorkflowDetail_InvalidPrintTicket: Print3DWorkflowDetail = 6
 class Print3DWorkflowPrintRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Printers.Extensions.Print3DWorkflowPrintRequestedEventArgs'
+    _classid_ = 'Windows.Devices.Printers.Extensions.Print3DWorkflowPrintRequestedEventArgs'
     @winrt_mixinmethod
     def get_Status(self: Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrintRequestedEventArgs) -> Windows.Devices.Printers.Extensions.Print3DWorkflowStatus: ...
     @winrt_mixinmethod
@@ -106,7 +106,7 @@ class Print3DWorkflowPrintRequestedEventArgs(ComPtr):
     Status = property(get_Status, None)
 class Print3DWorkflowPrinterChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Printers.Extensions.Print3DWorkflowPrinterChangedEventArgs'
+    _classid_ = 'Windows.Devices.Printers.Extensions.Print3DWorkflowPrinterChangedEventArgs'
     @winrt_mixinmethod
     def get_NewDeviceId(self: Windows.Devices.Printers.Extensions.IPrint3DWorkflowPrinterChangedEventArgs) -> WinRT_String: ...
     NewDeviceId = property(get_NewDeviceId, None)

@@ -657,7 +657,7 @@ NDCertificateType_Server: NDCertificateType = 11
 NDCertificateType_LicenseSigner: NDCertificateType = 12
 class NDClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.NDClient'
+    _classid_ = 'Windows.Media.Protection.PlayReady.NDClient'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Media.Protection.PlayReady.INDClientFactory, downloadEngine: Windows.Media.Protection.PlayReady.INDDownloadEngine, streamParser: Windows.Media.Protection.PlayReady.INDStreamParser, pMessenger: Windows.Media.Protection.PlayReady.INDMessenger) -> Windows.Media.Protection.PlayReady.NDClient: ...
     @winrt_mixinmethod
@@ -698,7 +698,7 @@ NDContentIDType_PlayReadyObject: NDContentIDType = 2
 NDContentIDType_Custom: NDContentIDType = 3
 class NDCustomData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.NDCustomData'
+    _classid_ = 'Windows.Media.Protection.PlayReady.NDCustomData'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Media.Protection.PlayReady.INDCustomDataFactory, customDataTypeIDBytes: c_char_p_no, customDataBytes: c_char_p_no) -> Windows.Media.Protection.PlayReady.NDCustomData: ...
     @winrt_mixinmethod
@@ -709,7 +709,7 @@ class NDCustomData(ComPtr):
     CustomData = property(get_CustomData, None)
 class NDDownloadEngineNotifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.NDDownloadEngineNotifier'
+    _classid_ = 'Windows.Media.Protection.PlayReady.NDDownloadEngineNotifier'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Protection.PlayReady.NDDownloadEngineNotifier: ...
     @winrt_mixinmethod
@@ -726,7 +726,7 @@ class NDDownloadEngineNotifier(ComPtr):
     def OnNetworkError(self: Windows.Media.Protection.PlayReady.INDDownloadEngineNotifier) -> Void: ...
 class NDLicenseFetchDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.NDLicenseFetchDescriptor'
+    _classid_ = 'Windows.Media.Protection.PlayReady.NDLicenseFetchDescriptor'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Media.Protection.PlayReady.INDLicenseFetchDescriptorFactory, contentIDType: Windows.Media.Protection.PlayReady.NDContentIDType, contentIDBytes: c_char_p_no, licenseFetchChallengeCustomData: Windows.Media.Protection.PlayReady.INDCustomData) -> Windows.Media.Protection.PlayReady.NDLicenseFetchDescriptor: ...
     @winrt_mixinmethod
@@ -752,14 +752,14 @@ NDStartAsyncOptions_MutualAuthentication: NDStartAsyncOptions = 1
 NDStartAsyncOptions_WaitForLicenseDescriptor: NDStartAsyncOptions = 2
 class NDStorageFileHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.NDStorageFileHelper'
+    _classid_ = 'Windows.Media.Protection.PlayReady.NDStorageFileHelper'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Protection.PlayReady.NDStorageFileHelper: ...
     @winrt_mixinmethod
     def GetFileURLs(self: Windows.Media.Protection.PlayReady.INDStorageFileHelper, file: Windows.Storage.IStorageFile) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
 class NDStreamParserNotifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.NDStreamParserNotifier'
+    _classid_ = 'Windows.Media.Protection.PlayReady.NDStreamParserNotifier'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Protection.PlayReady.NDStreamParserNotifier: ...
     @winrt_mixinmethod
@@ -772,7 +772,7 @@ class NDStreamParserNotifier(ComPtr):
     def OnBeginSetupDecryptor(self: Windows.Media.Protection.PlayReady.INDStreamParserNotifier, descriptor: Windows.Media.Core.IMediaStreamDescriptor, keyID: Guid, proBytes: c_char_p_no) -> Void: ...
 class NDTCPMessenger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.NDTCPMessenger'
+    _classid_ = 'Windows.Media.Protection.PlayReady.NDTCPMessenger'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Media.Protection.PlayReady.INDTCPMessengerFactory, remoteHostName: WinRT_String, remoteHostPort: UInt32) -> Windows.Media.Protection.PlayReady.NDTCPMessenger: ...
     @winrt_mixinmethod
@@ -785,7 +785,7 @@ class NDTCPMessenger(ComPtr):
     def SendLicenseFetchRequestAsync(self: Windows.Media.Protection.PlayReady.INDMessenger, sessionIDBytes: c_char_p_no, challengeDataBytes: c_char_p_no) -> Windows.Foundation.IAsyncOperation[Windows.Media.Protection.PlayReady.INDSendResult]: ...
 class PlayReadyContentHeader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyContentHeader'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyContentHeader'
     @winrt_factorymethod
     def CreateInstanceFromComponents2(cls: Windows.Media.Protection.PlayReady.IPlayReadyContentHeaderFactory2, dwFlags: UInt32, contentKeyIds: POINTER(Guid), contentKeyIdStrings: POINTER(WinRT_String), contentEncryptionAlgorithm: Windows.Media.Protection.PlayReady.PlayReadyEncryptionAlgorithm, licenseAcquisitionUrl: Windows.Foundation.Uri, licenseAcquisitionUserInterfaceUrl: Windows.Foundation.Uri, customAttributes: WinRT_String, domainServiceId: Guid) -> Windows.Media.Protection.PlayReady.PlayReadyContentHeader: ...
     @winrt_factorymethod
@@ -831,7 +831,7 @@ class PlayReadyContentHeader(ComPtr):
     KeyIdStrings = property(get_KeyIdStrings, None)
 class PlayReadyContentResolver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyContentResolver'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyContentResolver'
     @winrt_classmethod
     def ServiceRequest(cls: Windows.Media.Protection.PlayReady.IPlayReadyContentResolver, contentHeader: Windows.Media.Protection.PlayReady.PlayReadyContentHeader) -> Windows.Media.Protection.PlayReady.IPlayReadyServiceRequest: ...
 PlayReadyDecryptorSetup = Int32
@@ -839,7 +839,7 @@ PlayReadyDecryptorSetup_Uninitialized: PlayReadyDecryptorSetup = 0
 PlayReadyDecryptorSetup_OnDemand: PlayReadyDecryptorSetup = 1
 class PlayReadyDomain(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyDomain'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyDomain'
     @winrt_mixinmethod
     def get_AccountId(self: Windows.Media.Protection.PlayReady.IPlayReadyDomain) -> Guid: ...
     @winrt_mixinmethod
@@ -857,14 +857,14 @@ class PlayReadyDomain(ComPtr):
     DomainJoinUrl = property(get_DomainJoinUrl, None)
 class PlayReadyDomainIterable(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyDomainIterable'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyDomainIterable'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Media.Protection.PlayReady.IPlayReadyDomainIterableFactory, domainAccountId: Guid) -> Windows.Media.Protection.PlayReady.PlayReadyDomainIterable: ...
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Media.Protection.PlayReady.IPlayReadyDomain]) -> Windows.Foundation.Collections.IIterator[Windows.Media.Protection.PlayReady.IPlayReadyDomain]: ...
 class PlayReadyDomainIterator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyDomainIterator'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyDomainIterator'
     @winrt_mixinmethod
     def get_Current(self: Windows.Foundation.Collections.IIterator[Windows.Media.Protection.PlayReady.IPlayReadyDomain]) -> Windows.Media.Protection.PlayReady.IPlayReadyDomain: ...
     @winrt_mixinmethod
@@ -877,7 +877,7 @@ class PlayReadyDomainIterator(ComPtr):
     HasCurrent = property(get_HasCurrent, None)
 class PlayReadyDomainJoinServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyDomainJoinServiceRequest'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyDomainJoinServiceRequest'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Protection.PlayReady.PlayReadyDomainJoinServiceRequest: ...
     @winrt_mixinmethod
@@ -924,7 +924,7 @@ class PlayReadyDomainJoinServiceRequest(ComPtr):
     Type = property(get_Type, None)
 class PlayReadyDomainLeaveServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyDomainLeaveServiceRequest'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyDomainLeaveServiceRequest'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Protection.PlayReady.PlayReadyDomainLeaveServiceRequest: ...
     @winrt_mixinmethod
@@ -980,14 +980,14 @@ PlayReadyITADataFormat_SerializedProperties: PlayReadyITADataFormat = 0
 PlayReadyITADataFormat_SerializedProperties_WithContentProtectionWrapper: PlayReadyITADataFormat = 1
 class PlayReadyITADataGenerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyITADataGenerator'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyITADataGenerator'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Protection.PlayReady.PlayReadyITADataGenerator: ...
     @winrt_mixinmethod
     def GenerateData(self: Windows.Media.Protection.PlayReady.IPlayReadyITADataGenerator, guidCPSystemId: Guid, countOfStreams: UInt32, configuration: Windows.Foundation.Collections.IPropertySet, format: Windows.Media.Protection.PlayReady.PlayReadyITADataFormat) -> c_char_p_no: ...
 class PlayReadyIndividualizationServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyIndividualizationServiceRequest'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyIndividualizationServiceRequest'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Protection.PlayReady.PlayReadyIndividualizationServiceRequest: ...
     @winrt_mixinmethod
@@ -1019,7 +1019,7 @@ class PlayReadyIndividualizationServiceRequest(ComPtr):
     Type = property(get_Type, None)
 class PlayReadyLicense(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyLicense'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyLicense'
     @winrt_mixinmethod
     def get_FullyEvaluated(self: Windows.Media.Protection.PlayReady.IPlayReadyLicense) -> Boolean: ...
     @winrt_mixinmethod
@@ -1054,7 +1054,7 @@ class PlayReadyLicense(ComPtr):
     ExpiresInRealTime = property(get_ExpiresInRealTime, None)
 class PlayReadyLicenseAcquisitionServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseAcquisitionServiceRequest'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseAcquisitionServiceRequest'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Protection.PlayReady.PlayReadyLicenseAcquisitionServiceRequest: ...
     @winrt_mixinmethod
@@ -1101,7 +1101,7 @@ class PlayReadyLicenseAcquisitionServiceRequest(ComPtr):
     SessionId = property(get_SessionId, None)
 class PlayReadyLicenseIterable(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Media.Protection.PlayReady.IPlayReadyLicenseIterableFactory, contentHeader: Windows.Media.Protection.PlayReady.PlayReadyContentHeader, fullyEvaluated: Boolean) -> Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable: ...
     @winrt_activatemethod
@@ -1110,7 +1110,7 @@ class PlayReadyLicenseIterable(ComPtr):
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Media.Protection.PlayReady.IPlayReadyLicense]) -> Windows.Foundation.Collections.IIterator[Windows.Media.Protection.PlayReady.IPlayReadyLicense]: ...
 class PlayReadyLicenseIterator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseIterator'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseIterator'
     @winrt_mixinmethod
     def get_Current(self: Windows.Foundation.Collections.IIterator[Windows.Media.Protection.PlayReady.IPlayReadyLicense]) -> Windows.Media.Protection.PlayReady.IPlayReadyLicense: ...
     @winrt_mixinmethod
@@ -1123,12 +1123,12 @@ class PlayReadyLicenseIterator(ComPtr):
     HasCurrent = property(get_HasCurrent, None)
 class PlayReadyLicenseManagement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseManagement'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseManagement'
     @winrt_classmethod
     def DeleteLicenses(cls: Windows.Media.Protection.PlayReady.IPlayReadyLicenseManagement, contentHeader: Windows.Media.Protection.PlayReady.PlayReadyContentHeader) -> Windows.Foundation.IAsyncAction: ...
 class PlayReadyLicenseSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseSession'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyLicenseSession'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Media.Protection.PlayReady.IPlayReadyLicenseSessionFactory, configuration: Windows.Foundation.Collections.IPropertySet) -> Windows.Media.Protection.PlayReady.PlayReadyLicenseSession: ...
     @winrt_mixinmethod
@@ -1139,7 +1139,7 @@ class PlayReadyLicenseSession(ComPtr):
     def CreateLicenseIterable(self: Windows.Media.Protection.PlayReady.IPlayReadyLicenseSession2, contentHeader: Windows.Media.Protection.PlayReady.PlayReadyContentHeader, fullyEvaluated: Boolean) -> Windows.Media.Protection.PlayReady.PlayReadyLicenseIterable: ...
 class PlayReadyMeteringReportServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyMeteringReportServiceRequest'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyMeteringReportServiceRequest'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Protection.PlayReady.PlayReadyMeteringReportServiceRequest: ...
     @winrt_mixinmethod
@@ -1176,7 +1176,7 @@ class PlayReadyMeteringReportServiceRequest(ComPtr):
     Type = property(get_Type, None)
 class PlayReadyRevocationServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyRevocationServiceRequest'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyRevocationServiceRequest'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Protection.PlayReady.PlayReadyRevocationServiceRequest: ...
     @winrt_mixinmethod
@@ -1208,14 +1208,14 @@ class PlayReadyRevocationServiceRequest(ComPtr):
     Type = property(get_Type, None)
 class PlayReadySecureStopIterable(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadySecureStopIterable'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadySecureStopIterable'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Media.Protection.PlayReady.IPlayReadySecureStopIterableFactory, publisherCertBytes: c_char_p_no) -> Windows.Media.Protection.PlayReady.PlayReadySecureStopIterable: ...
     @winrt_mixinmethod
     def First(self: Windows.Foundation.Collections.IIterable[Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequest]) -> Windows.Foundation.Collections.IIterator[Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequest]: ...
 class PlayReadySecureStopIterator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadySecureStopIterator'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadySecureStopIterator'
     @winrt_mixinmethod
     def get_Current(self: Windows.Foundation.Collections.IIterator[Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequest]) -> Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequest: ...
     @winrt_mixinmethod
@@ -1228,7 +1228,7 @@ class PlayReadySecureStopIterator(ComPtr):
     HasCurrent = property(get_HasCurrent, None)
 class PlayReadySecureStopServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequestFactory, publisherCertBytes: c_char_p_no) -> Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest: ...
     @winrt_factorymethod
@@ -1277,7 +1277,7 @@ class PlayReadySecureStopServiceRequest(ComPtr):
     Type = property(get_Type, None)
 class PlayReadySoapMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadySoapMessage'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadySoapMessage'
     @winrt_mixinmethod
     def GetMessageBody(self: Windows.Media.Protection.PlayReady.IPlayReadySoapMessage) -> c_char_p_no: ...
     @winrt_mixinmethod
@@ -1288,7 +1288,7 @@ class PlayReadySoapMessage(ComPtr):
     Uri = property(get_Uri, None)
 class PlayReadyStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.PlayReady.PlayReadyStatics'
+    _classid_ = 'Windows.Media.Protection.PlayReady.PlayReadyStatics'
     @winrt_classmethod
     def get_HardwareDRMDisabledAtTime(cls: Windows.Media.Protection.PlayReady.IPlayReadyStatics5) -> Windows.Foundation.IReference[Windows.Foundation.DateTime]: ...
     @winrt_classmethod

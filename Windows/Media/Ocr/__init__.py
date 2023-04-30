@@ -79,7 +79,7 @@ class IOcrWord(ComPtr):
     Text = property(get_Text, None)
 class OcrEngine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Ocr.OcrEngine'
+    _classid_ = 'Windows.Media.Ocr.OcrEngine'
     @winrt_mixinmethod
     def RecognizeAsync(self: Windows.Media.Ocr.IOcrEngine, bitmap: Windows.Graphics.Imaging.SoftwareBitmap) -> Windows.Foundation.IAsyncOperation[Windows.Media.Ocr.OcrResult]: ...
     @winrt_mixinmethod
@@ -99,7 +99,7 @@ class OcrEngine(ComPtr):
     AvailableRecognizerLanguages = property(get_AvailableRecognizerLanguages, None)
 class OcrLine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Ocr.OcrLine'
+    _classid_ = 'Windows.Media.Ocr.OcrLine'
     @winrt_mixinmethod
     def get_Words(self: Windows.Media.Ocr.IOcrLine) -> Windows.Foundation.Collections.IVectorView[Windows.Media.Ocr.OcrWord]: ...
     @winrt_mixinmethod
@@ -108,7 +108,7 @@ class OcrLine(ComPtr):
     Text = property(get_Text, None)
 class OcrResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Ocr.OcrResult'
+    _classid_ = 'Windows.Media.Ocr.OcrResult'
     @winrt_mixinmethod
     def get_Lines(self: Windows.Media.Ocr.IOcrResult) -> Windows.Foundation.Collections.IVectorView[Windows.Media.Ocr.OcrLine]: ...
     @winrt_mixinmethod
@@ -120,7 +120,7 @@ class OcrResult(ComPtr):
     Text = property(get_Text, None)
 class OcrWord(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Ocr.OcrWord'
+    _classid_ = 'Windows.Media.Ocr.OcrWord'
     @winrt_mixinmethod
     def get_BoundingRect(self: Windows.Media.Ocr.IOcrWord) -> Windows.Foundation.Rect: ...
     @winrt_mixinmethod

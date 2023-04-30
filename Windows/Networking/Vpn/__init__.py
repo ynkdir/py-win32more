@@ -748,7 +748,7 @@ class IVpnTrafficFilterFactory(ComPtr):
     def Create(self, appId: Windows.Networking.Vpn.VpnAppId) -> Windows.Networking.Vpn.VpnTrafficFilter: ...
 class VpnAppId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnAppId'
+    _classid_ = 'Windows.Networking.Vpn.VpnAppId'
     @winrt_factorymethod
     def Create(cls: Windows.Networking.Vpn.IVpnAppIdFactory, type: Windows.Networking.Vpn.VpnAppIdType, value: WinRT_String) -> Windows.Networking.Vpn.VpnAppId: ...
     @winrt_mixinmethod
@@ -772,7 +772,7 @@ VpnAuthenticationMethod_Certificate: VpnAuthenticationMethod = 2
 VpnAuthenticationMethod_PresharedKey: VpnAuthenticationMethod = 3
 class VpnChannel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnChannel'
+    _classid_ = 'Windows.Networking.Vpn.VpnChannel'
     @winrt_mixinmethod
     def AssociateTransport(self: Windows.Networking.Vpn.IVpnChannel, mainOuterTunnelTransport: Windows.Win32.System.WinRT.IInspectable_head, optionalOuterTunnelTransport: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
     @winrt_mixinmethod
@@ -860,7 +860,7 @@ class VpnChannel(ComPtr):
     CurrentRequestTransportContext = property(get_CurrentRequestTransportContext, None)
 class VpnChannelActivityEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnChannelActivityEventArgs'
+    _classid_ = 'Windows.Networking.Vpn.VpnChannelActivityEventArgs'
     @winrt_mixinmethod
     def get_Type(self: Windows.Networking.Vpn.IVpnChannelActivityEventArgs) -> Windows.Networking.Vpn.VpnChannelActivityEventType: ...
     Type = property(get_Type, None)
@@ -869,13 +869,13 @@ VpnChannelActivityEventType_Idle: VpnChannelActivityEventType = 0
 VpnChannelActivityEventType_Active: VpnChannelActivityEventType = 1
 class VpnChannelActivityStateChangedArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnChannelActivityStateChangedArgs'
+    _classid_ = 'Windows.Networking.Vpn.VpnChannelActivityStateChangedArgs'
     @winrt_mixinmethod
     def get_ActivityState(self: Windows.Networking.Vpn.IVpnChannelActivityStateChangedArgs) -> Windows.Networking.Vpn.VpnChannelActivityEventType: ...
     ActivityState = property(get_ActivityState, None)
 class VpnChannelConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnChannelConfiguration'
+    _classid_ = 'Windows.Networking.Vpn.VpnChannelConfiguration'
     @winrt_mixinmethod
     def get_ServerServiceName(self: Windows.Networking.Vpn.IVpnChannelConfiguration) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -894,7 +894,7 @@ VpnChannelRequestCredentialsOptions_Retrying: VpnChannelRequestCredentialsOption
 VpnChannelRequestCredentialsOptions_UseForSingleSignIn: VpnChannelRequestCredentialsOptions = 2
 class VpnCredential(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnCredential'
+    _classid_ = 'Windows.Networking.Vpn.VpnCredential'
     @winrt_mixinmethod
     def get_PasskeyCredential(self: Windows.Networking.Vpn.IVpnCredential) -> Windows.Security.Credentials.PasswordCredential: ...
     @winrt_mixinmethod
@@ -917,7 +917,7 @@ VpnCredentialType_ProtectedCertificate: VpnCredentialType = 5
 VpnCredentialType_UnProtectedCertificate: VpnCredentialType = 6
 class VpnCustomCheckBox(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnCustomCheckBox'
+    _classid_ = 'Windows.Networking.Vpn.VpnCustomCheckBox'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Vpn.VpnCustomCheckBox: ...
     @winrt_mixinmethod
@@ -945,7 +945,7 @@ class VpnCustomCheckBox(ComPtr):
     Bordered = property(get_Bordered, put_Bordered)
 class VpnCustomComboBox(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnCustomComboBox'
+    _classid_ = 'Windows.Networking.Vpn.VpnCustomComboBox'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Vpn.VpnCustomComboBox: ...
     @winrt_mixinmethod
@@ -973,7 +973,7 @@ class VpnCustomComboBox(ComPtr):
     Bordered = property(get_Bordered, put_Bordered)
 class VpnCustomEditBox(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnCustomEditBox'
+    _classid_ = 'Windows.Networking.Vpn.VpnCustomEditBox'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Vpn.VpnCustomEditBox: ...
     @winrt_mixinmethod
@@ -1006,7 +1006,7 @@ class VpnCustomEditBox(ComPtr):
     Bordered = property(get_Bordered, put_Bordered)
 class VpnCustomErrorBox(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnCustomErrorBox'
+    _classid_ = 'Windows.Networking.Vpn.VpnCustomErrorBox'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Vpn.VpnCustomErrorBox: ...
     @winrt_mixinmethod
@@ -1026,7 +1026,7 @@ class VpnCustomErrorBox(ComPtr):
     Bordered = property(get_Bordered, put_Bordered)
 class VpnCustomPromptBooleanInput(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnCustomPromptBooleanInput'
+    _classid_ = 'Windows.Networking.Vpn.VpnCustomPromptBooleanInput'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Vpn.VpnCustomPromptBooleanInput: ...
     @winrt_mixinmethod
@@ -1054,7 +1054,7 @@ class VpnCustomPromptBooleanInput(ComPtr):
     Emphasized = property(get_Emphasized, put_Emphasized)
 class VpnCustomPromptOptionSelector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnCustomPromptOptionSelector'
+    _classid_ = 'Windows.Networking.Vpn.VpnCustomPromptOptionSelector'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Vpn.VpnCustomPromptOptionSelector: ...
     @winrt_mixinmethod
@@ -1080,7 +1080,7 @@ class VpnCustomPromptOptionSelector(ComPtr):
     Emphasized = property(get_Emphasized, put_Emphasized)
 class VpnCustomPromptText(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnCustomPromptText'
+    _classid_ = 'Windows.Networking.Vpn.VpnCustomPromptText'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Vpn.VpnCustomPromptText: ...
     @winrt_mixinmethod
@@ -1105,7 +1105,7 @@ class VpnCustomPromptText(ComPtr):
     Emphasized = property(get_Emphasized, put_Emphasized)
 class VpnCustomPromptTextInput(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnCustomPromptTextInput'
+    _classid_ = 'Windows.Networking.Vpn.VpnCustomPromptTextInput'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Vpn.VpnCustomPromptTextInput: ...
     @winrt_mixinmethod
@@ -1138,7 +1138,7 @@ class VpnCustomPromptTextInput(ComPtr):
     Emphasized = property(get_Emphasized, put_Emphasized)
 class VpnCustomTextBox(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnCustomTextBox'
+    _classid_ = 'Windows.Networking.Vpn.VpnCustomTextBox'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Vpn.VpnCustomTextBox: ...
     @winrt_mixinmethod
@@ -1166,7 +1166,7 @@ VpnDataPathType_Send: VpnDataPathType = 0
 VpnDataPathType_Receive: VpnDataPathType = 1
 class VpnDomainNameAssignment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnDomainNameAssignment'
+    _classid_ = 'Windows.Networking.Vpn.VpnDomainNameAssignment'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Vpn.VpnDomainNameAssignment: ...
     @winrt_mixinmethod
@@ -1179,7 +1179,7 @@ class VpnDomainNameAssignment(ComPtr):
     ProxyAutoConfigurationUri = property(get_ProxyAutoConfigurationUri, put_ProxyAutoConfigurationUri)
 class VpnDomainNameInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnDomainNameInfo'
+    _classid_ = 'Windows.Networking.Vpn.VpnDomainNameInfo'
     @winrt_factorymethod
     def CreateVpnDomainNameInfo(cls: Windows.Networking.Vpn.IVpnDomainNameInfoFactory, name: WinRT_String, nameType: Windows.Networking.Vpn.VpnDomainNameType, dnsServerList: Windows.Foundation.Collections.IIterable[Windows.Networking.HostName], proxyServerList: Windows.Foundation.Collections.IIterable[Windows.Networking.HostName]) -> Windows.Networking.Vpn.VpnDomainNameInfo: ...
     @winrt_mixinmethod
@@ -1207,7 +1207,7 @@ VpnDomainNameType_FullyQualified: VpnDomainNameType = 1
 VpnDomainNameType_Reserved: VpnDomainNameType = 65535
 class VpnForegroundActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnForegroundActivatedEventArgs'
+    _classid_ = 'Windows.Networking.Vpn.VpnForegroundActivatedEventArgs'
     @winrt_mixinmethod
     def get_ProfileName(self: Windows.Networking.Vpn.IVpnForegroundActivatedEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1231,7 +1231,7 @@ class VpnForegroundActivatedEventArgs(ComPtr):
     User = property(get_User, None)
 class VpnForegroundActivationOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnForegroundActivationOperation'
+    _classid_ = 'Windows.Networking.Vpn.VpnForegroundActivationOperation'
     @winrt_mixinmethod
     def Complete(self: Windows.Networking.Vpn.IVpnForegroundActivationOperation, result: Windows.Foundation.Collections.ValueSet) -> Void: ...
 VpnIPProtocol = Int32
@@ -1244,14 +1244,14 @@ VpnIPProtocol_Igmp: VpnIPProtocol = 2
 VpnIPProtocol_Pgm: VpnIPProtocol = 113
 class VpnInterfaceId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnInterfaceId'
+    _classid_ = 'Windows.Networking.Vpn.VpnInterfaceId'
     @winrt_factorymethod
     def CreateVpnInterfaceId(cls: Windows.Networking.Vpn.IVpnInterfaceIdFactory, address: c_char_p_no) -> Windows.Networking.Vpn.VpnInterfaceId: ...
     @winrt_mixinmethod
     def GetAddressInfo(self: Windows.Networking.Vpn.IVpnInterfaceId, id: POINTER(c_char_p_no)) -> Void: ...
 class VpnManagementAgent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnManagementAgent'
+    _classid_ = 'Windows.Networking.Vpn.VpnManagementAgent'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Vpn.VpnManagementAgent: ...
     @winrt_mixinmethod
@@ -1299,7 +1299,7 @@ VpnManagementErrorStatus_DnsNotResolvable: VpnManagementErrorStatus = 17
 VpnManagementErrorStatus_InvalidIP: VpnManagementErrorStatus = 18
 class VpnNamespaceAssignment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnNamespaceAssignment'
+    _classid_ = 'Windows.Networking.Vpn.VpnNamespaceAssignment'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Vpn.VpnNamespaceAssignment: ...
     @winrt_mixinmethod
@@ -1314,7 +1314,7 @@ class VpnNamespaceAssignment(ComPtr):
     ProxyAutoConfigUri = property(get_ProxyAutoConfigUri, put_ProxyAutoConfigUri)
 class VpnNamespaceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnNamespaceInfo'
+    _classid_ = 'Windows.Networking.Vpn.VpnNamespaceInfo'
     @winrt_factorymethod
     def CreateVpnNamespaceInfo(cls: Windows.Networking.Vpn.IVpnNamespaceInfoFactory, name: WinRT_String, dnsServerList: Windows.Foundation.Collections.IVector[Windows.Networking.HostName], proxyServerList: Windows.Foundation.Collections.IVector[Windows.Networking.HostName]) -> Windows.Networking.Vpn.VpnNamespaceInfo: ...
     @winrt_mixinmethod
@@ -1334,7 +1334,7 @@ class VpnNamespaceInfo(ComPtr):
     WebProxyServers = property(get_WebProxyServers, put_WebProxyServers)
 class VpnNativeProfile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnNativeProfile'
+    _classid_ = 'Windows.Networking.Vpn.VpnNativeProfile'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Vpn.VpnNativeProfile: ...
     @winrt_mixinmethod
@@ -1406,7 +1406,7 @@ VpnNativeProtocolType_L2tp: VpnNativeProtocolType = 1
 VpnNativeProtocolType_IpsecIkev2: VpnNativeProtocolType = 2
 class VpnPacketBuffer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnPacketBuffer'
+    _classid_ = 'Windows.Networking.Vpn.VpnPacketBuffer'
     @winrt_factorymethod
     def CreateVpnPacketBuffer(cls: Windows.Networking.Vpn.IVpnPacketBufferFactory, parentBuffer: Windows.Networking.Vpn.VpnPacketBuffer, offset: UInt32, length: UInt32) -> Windows.Networking.Vpn.VpnPacketBuffer: ...
     @winrt_mixinmethod
@@ -1432,7 +1432,7 @@ class VpnPacketBuffer(ComPtr):
     TransportContext = property(get_TransportContext, put_TransportContext)
 class VpnPacketBufferList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnPacketBufferList'
+    _classid_ = 'Windows.Networking.Vpn.VpnPacketBufferList'
     @winrt_mixinmethod
     def Append(self: Windows.Networking.Vpn.IVpnPacketBufferList, nextVpnPacketBuffer: Windows.Networking.Vpn.VpnPacketBuffer) -> Void: ...
     @winrt_mixinmethod
@@ -1458,7 +1458,7 @@ VpnPacketBufferStatus_Ok: VpnPacketBufferStatus = 0
 VpnPacketBufferStatus_InvalidBufferSize: VpnPacketBufferStatus = 1
 class VpnPickedCredential(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnPickedCredential'
+    _classid_ = 'Windows.Networking.Vpn.VpnPickedCredential'
     @winrt_mixinmethod
     def get_PasskeyCredential(self: Windows.Networking.Vpn.IVpnPickedCredential) -> Windows.Security.Credentials.PasswordCredential: ...
     @winrt_mixinmethod
@@ -1470,7 +1470,7 @@ class VpnPickedCredential(ComPtr):
     OldPasswordCredential = property(get_OldPasswordCredential, None)
 class VpnPlugInProfile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnPlugInProfile'
+    _classid_ = 'Windows.Networking.Vpn.VpnPlugInProfile'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Vpn.VpnPlugInProfile: ...
     @winrt_mixinmethod
@@ -1523,7 +1523,7 @@ class VpnPlugInProfile(ComPtr):
     ConnectionStatus = property(get_ConnectionStatus, None)
 class VpnRoute(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnRoute'
+    _classid_ = 'Windows.Networking.Vpn.VpnRoute'
     @winrt_factorymethod
     def CreateVpnRoute(cls: Windows.Networking.Vpn.IVpnRouteFactory, address: Windows.Networking.HostName, prefixSize: Byte) -> Windows.Networking.Vpn.VpnRoute: ...
     @winrt_mixinmethod
@@ -1538,7 +1538,7 @@ class VpnRoute(ComPtr):
     PrefixSize = property(get_PrefixSize, put_PrefixSize)
 class VpnRouteAssignment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnRouteAssignment'
+    _classid_ = 'Windows.Networking.Vpn.VpnRouteAssignment'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Vpn.VpnRouteAssignment: ...
     @winrt_mixinmethod
@@ -1571,13 +1571,13 @@ VpnRoutingPolicyType_SplitRouting: VpnRoutingPolicyType = 0
 VpnRoutingPolicyType_ForceAllTrafficOverVpn: VpnRoutingPolicyType = 1
 class VpnSystemHealth(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnSystemHealth'
+    _classid_ = 'Windows.Networking.Vpn.VpnSystemHealth'
     @winrt_mixinmethod
     def get_StatementOfHealth(self: Windows.Networking.Vpn.IVpnSystemHealth) -> Windows.Storage.Streams.Buffer: ...
     StatementOfHealth = property(get_StatementOfHealth, None)
 class VpnTrafficFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnTrafficFilter'
+    _classid_ = 'Windows.Networking.Vpn.VpnTrafficFilter'
     @winrt_factorymethod
     def Create(cls: Windows.Networking.Vpn.IVpnTrafficFilterFactory, appId: Windows.Networking.Vpn.VpnAppId) -> Windows.Networking.Vpn.VpnTrafficFilter: ...
     @winrt_mixinmethod
@@ -1612,7 +1612,7 @@ class VpnTrafficFilter(ComPtr):
     RoutingPolicyType = property(get_RoutingPolicyType, put_RoutingPolicyType)
 class VpnTrafficFilterAssignment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Vpn.VpnTrafficFilterAssignment'
+    _classid_ = 'Windows.Networking.Vpn.VpnTrafficFilterAssignment'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Vpn.VpnTrafficFilterAssignment: ...
     @winrt_mixinmethod

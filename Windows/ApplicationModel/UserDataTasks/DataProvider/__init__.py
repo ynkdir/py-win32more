@@ -157,7 +157,7 @@ class IUserDataTaskListSyncManagerSyncRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class UserDataTaskDataProviderConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskDataProviderConnection'
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskDataProviderConnection'
     @winrt_mixinmethod
     def add_CreateOrUpdateTaskRequested(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskDataProviderConnection, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskDataProviderConnection, Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCreateOrUpdateTaskRequestEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -182,13 +182,13 @@ class UserDataTaskDataProviderConnection(ComPtr):
     def Start(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskDataProviderConnection) -> Void: ...
 class UserDataTaskDataProviderTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskDataProviderTriggerDetails'
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskDataProviderTriggerDetails'
     @winrt_mixinmethod
     def get_Connection(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskDataProviderTriggerDetails) -> Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskDataProviderConnection: ...
     Connection = property(get_Connection, None)
 class UserDataTaskListCompleteTaskRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCompleteTaskRequest'
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCompleteTaskRequest'
     @winrt_mixinmethod
     def get_TaskListId(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCompleteTaskRequest) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -201,7 +201,7 @@ class UserDataTaskListCompleteTaskRequest(ComPtr):
     TaskId = property(get_TaskId, None)
 class UserDataTaskListCompleteTaskRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCompleteTaskRequestEventArgs'
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCompleteTaskRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCompleteTaskRequestEventArgs) -> Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCompleteTaskRequest: ...
     @winrt_mixinmethod
@@ -209,7 +209,7 @@ class UserDataTaskListCompleteTaskRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class UserDataTaskListCreateOrUpdateTaskRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCreateOrUpdateTaskRequest'
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCreateOrUpdateTaskRequest'
     @winrt_mixinmethod
     def get_TaskListId(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCreateOrUpdateTaskRequest) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -222,7 +222,7 @@ class UserDataTaskListCreateOrUpdateTaskRequest(ComPtr):
     Task = property(get_Task, None)
 class UserDataTaskListCreateOrUpdateTaskRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCreateOrUpdateTaskRequestEventArgs'
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCreateOrUpdateTaskRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListCreateOrUpdateTaskRequestEventArgs) -> Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListCreateOrUpdateTaskRequest: ...
     @winrt_mixinmethod
@@ -230,7 +230,7 @@ class UserDataTaskListCreateOrUpdateTaskRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class UserDataTaskListDeleteTaskRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListDeleteTaskRequest'
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListDeleteTaskRequest'
     @winrt_mixinmethod
     def get_TaskListId(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListDeleteTaskRequest) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -243,7 +243,7 @@ class UserDataTaskListDeleteTaskRequest(ComPtr):
     TaskId = property(get_TaskId, None)
 class UserDataTaskListDeleteTaskRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListDeleteTaskRequestEventArgs'
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListDeleteTaskRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListDeleteTaskRequestEventArgs) -> Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListDeleteTaskRequest: ...
     @winrt_mixinmethod
@@ -251,7 +251,7 @@ class UserDataTaskListDeleteTaskRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class UserDataTaskListSkipOccurrenceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSkipOccurrenceRequest'
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSkipOccurrenceRequest'
     @winrt_mixinmethod
     def get_TaskListId(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListSkipOccurrenceRequest) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -264,7 +264,7 @@ class UserDataTaskListSkipOccurrenceRequest(ComPtr):
     TaskId = property(get_TaskId, None)
 class UserDataTaskListSkipOccurrenceRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSkipOccurrenceRequestEventArgs'
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSkipOccurrenceRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListSkipOccurrenceRequestEventArgs) -> Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSkipOccurrenceRequest: ...
     @winrt_mixinmethod
@@ -272,7 +272,7 @@ class UserDataTaskListSkipOccurrenceRequestEventArgs(ComPtr):
     Request = property(get_Request, None)
 class UserDataTaskListSyncManagerSyncRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSyncManagerSyncRequest'
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSyncManagerSyncRequest'
     @winrt_mixinmethod
     def get_TaskListId(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListSyncManagerSyncRequest) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -282,7 +282,7 @@ class UserDataTaskListSyncManagerSyncRequest(ComPtr):
     TaskListId = property(get_TaskListId, None)
 class UserDataTaskListSyncManagerSyncRequestEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSyncManagerSyncRequestEventArgs'
+    _classid_ = 'Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSyncManagerSyncRequestEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.UserDataTasks.DataProvider.IUserDataTaskListSyncManagerSyncRequestEventArgs) -> Windows.ApplicationModel.UserDataTasks.DataProvider.UserDataTaskListSyncManagerSyncRequest: ...
     @winrt_mixinmethod

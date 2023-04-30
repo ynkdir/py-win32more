@@ -27,12 +27,12 @@ def __getattr__(name):
     return getattr(_module, name)
 class AppServiceCatalog(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.AppService.AppServiceCatalog'
+    _classid_ = 'Windows.ApplicationModel.AppService.AppServiceCatalog'
     @winrt_classmethod
     def FindAppServiceProvidersAsync(cls: Windows.ApplicationModel.AppService.IAppServiceCatalogStatics, appServiceName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.AppInfo]]: ...
 class AppServiceClosedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.AppService.AppServiceClosedEventArgs'
+    _classid_ = 'Windows.ApplicationModel.AppService.AppServiceClosedEventArgs'
     @winrt_mixinmethod
     def get_Status(self: Windows.ApplicationModel.AppService.IAppServiceClosedEventArgs) -> Windows.ApplicationModel.AppService.AppServiceClosedStatus: ...
     Status = property(get_Status, None)
@@ -43,7 +43,7 @@ AppServiceClosedStatus_ResourceLimitsExceeded: AppServiceClosedStatus = 2
 AppServiceClosedStatus_Unknown: AppServiceClosedStatus = 3
 class AppServiceConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.AppService.AppServiceConnection'
+    _classid_ = 'Windows.ApplicationModel.AppService.AppServiceConnection'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.AppService.AppServiceConnection: ...
     @winrt_mixinmethod
@@ -94,12 +94,12 @@ AppServiceConnectionStatus_DisabledByPolicy: AppServiceConnectionStatus = 10
 AppServiceConnectionStatus_WebServiceUnavailable: AppServiceConnectionStatus = 11
 class AppServiceDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.AppService.AppServiceDeferral'
+    _classid_ = 'Windows.ApplicationModel.AppService.AppServiceDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.ApplicationModel.AppService.IAppServiceDeferral) -> Void: ...
 class AppServiceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.AppService.AppServiceRequest'
+    _classid_ = 'Windows.ApplicationModel.AppService.AppServiceRequest'
     @winrt_mixinmethod
     def get_Message(self: Windows.ApplicationModel.AppService.IAppServiceRequest) -> Windows.Foundation.Collections.ValueSet: ...
     @winrt_mixinmethod
@@ -107,7 +107,7 @@ class AppServiceRequest(ComPtr):
     Message = property(get_Message, None)
 class AppServiceRequestReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.AppService.AppServiceRequestReceivedEventArgs'
+    _classid_ = 'Windows.ApplicationModel.AppService.AppServiceRequestReceivedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.AppService.IAppServiceRequestReceivedEventArgs) -> Windows.ApplicationModel.AppService.AppServiceRequest: ...
     @winrt_mixinmethod
@@ -115,7 +115,7 @@ class AppServiceRequestReceivedEventArgs(ComPtr):
     Request = property(get_Request, None)
 class AppServiceResponse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.AppService.AppServiceResponse'
+    _classid_ = 'Windows.ApplicationModel.AppService.AppServiceResponse'
     @winrt_mixinmethod
     def get_Message(self: Windows.ApplicationModel.AppService.IAppServiceResponse) -> Windows.Foundation.Collections.ValueSet: ...
     @winrt_mixinmethod
@@ -136,7 +136,7 @@ AppServiceResponseStatus_DisabledByPolicy: AppServiceResponseStatus = 9
 AppServiceResponseStatus_WebServiceUnavailable: AppServiceResponseStatus = 10
 class AppServiceTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.AppService.AppServiceTriggerDetails'
+    _classid_ = 'Windows.ApplicationModel.AppService.AppServiceTriggerDetails'
     @winrt_mixinmethod
     def get_Name(self: Windows.ApplicationModel.AppService.IAppServiceTriggerDetails) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -275,7 +275,7 @@ class IStatelessAppServiceResponse(ComPtr):
     Status = property(get_Status, None)
 class StatelessAppServiceResponse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.AppService.StatelessAppServiceResponse'
+    _classid_ = 'Windows.ApplicationModel.AppService.StatelessAppServiceResponse'
     @winrt_mixinmethod
     def get_Message(self: Windows.ApplicationModel.AppService.IStatelessAppServiceResponse) -> Windows.Foundation.Collections.ValueSet: ...
     @winrt_mixinmethod

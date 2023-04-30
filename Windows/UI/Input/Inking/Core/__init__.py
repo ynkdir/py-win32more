@@ -28,7 +28,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CoreIncrementalInkStroke(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.Core.CoreIncrementalInkStroke'
+    _classid_ = 'Windows.UI.Input.Inking.Core.CoreIncrementalInkStroke'
     @winrt_factorymethod
     def Create(cls: Windows.UI.Input.Inking.Core.ICoreIncrementalInkStrokeFactory, drawingAttributes: Windows.UI.Input.Inking.InkDrawingAttributes, pointTransform: Windows.Foundation.Numerics.Matrix3x2) -> Windows.UI.Input.Inking.Core.CoreIncrementalInkStroke: ...
     @winrt_mixinmethod
@@ -46,7 +46,7 @@ class CoreIncrementalInkStroke(ComPtr):
     BoundingRect = property(get_BoundingRect, None)
 class CoreInkIndependentInputSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.Core.CoreInkIndependentInputSource'
+    _classid_ = 'Windows.UI.Input.Inking.Core.CoreInkIndependentInputSource'
     @winrt_mixinmethod
     def add_PointerEntering(self: Windows.UI.Input.Inking.Core.ICoreInkIndependentInputSource, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Input.Inking.Core.CoreInkIndependentInputSource, Windows.UI.Core.PointerEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -87,7 +87,7 @@ class CoreInkIndependentInputSource(ComPtr):
     PointerCursor = property(get_PointerCursor, put_PointerCursor)
 class CoreInkPresenterHost(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.Core.CoreInkPresenterHost'
+    _classid_ = 'Windows.UI.Input.Inking.Core.CoreInkPresenterHost'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Input.Inking.Core.CoreInkPresenterHost: ...
     @winrt_mixinmethod
@@ -104,7 +104,7 @@ CoreWetStrokeDisposition_Completed: CoreWetStrokeDisposition = 1
 CoreWetStrokeDisposition_Canceled: CoreWetStrokeDisposition = 2
 class CoreWetStrokeUpdateEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateEventArgs'
+    _classid_ = 'Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateEventArgs'
     @winrt_mixinmethod
     def get_NewInkPoints(self: Windows.UI.Input.Inking.Core.ICoreWetStrokeUpdateEventArgs) -> Windows.Foundation.Collections.IVector[Windows.UI.Input.Inking.InkPoint]: ...
     @winrt_mixinmethod
@@ -118,7 +118,7 @@ class CoreWetStrokeUpdateEventArgs(ComPtr):
     Disposition = property(get_Disposition, put_Disposition)
 class CoreWetStrokeUpdateSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateSource'
+    _classid_ = 'Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateSource'
     @winrt_mixinmethod
     def add_WetStrokeStarting(self: Windows.UI.Input.Inking.Core.ICoreWetStrokeUpdateSource, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateSource, Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod

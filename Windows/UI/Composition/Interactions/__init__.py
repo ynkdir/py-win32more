@@ -27,7 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CompositionConditionalValue(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
-    ClassId = 'Windows.UI.Composition.Interactions.CompositionConditionalValue'
+    _classid_ = 'Windows.UI.Composition.Interactions.CompositionConditionalValue'
     @winrt_mixinmethod
     def get_Condition(self: Windows.UI.Composition.Interactions.ICompositionConditionalValue) -> Windows.UI.Composition.ExpressionAnimation: ...
     @winrt_mixinmethod
@@ -42,7 +42,7 @@ class CompositionConditionalValue(ComPtr):
     Value = property(get_Value, put_Value)
 class CompositionInteractionSourceCollection(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
-    ClassId = 'Windows.UI.Composition.Interactions.CompositionInteractionSourceCollection'
+    _classid_ = 'Windows.UI.Composition.Interactions.CompositionInteractionSourceCollection'
     @winrt_mixinmethod
     def get_Count(self: Windows.UI.Composition.Interactions.ICompositionInteractionSourceCollection) -> Int32: ...
     @winrt_mixinmethod
@@ -533,7 +533,7 @@ InteractionChainingMode_Always: InteractionChainingMode = 1
 InteractionChainingMode_Never: InteractionChainingMode = 2
 class InteractionSourceConfiguration(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
-    ClassId = 'Windows.UI.Composition.Interactions.InteractionSourceConfiguration'
+    _classid_ = 'Windows.UI.Composition.Interactions.InteractionSourceConfiguration'
     @winrt_mixinmethod
     def get_PositionXSourceMode(self: Windows.UI.Composition.Interactions.IInteractionSourceConfiguration) -> Windows.UI.Composition.Interactions.InteractionSourceRedirectionMode: ...
     @winrt_mixinmethod
@@ -558,7 +558,7 @@ InteractionSourceRedirectionMode_Disabled: InteractionSourceRedirectionMode = 0
 InteractionSourceRedirectionMode_Enabled: InteractionSourceRedirectionMode = 1
 class InteractionTracker(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
-    ClassId = 'Windows.UI.Composition.Interactions.InteractionTracker'
+    _classid_ = 'Windows.UI.Composition.Interactions.InteractionTracker'
     @winrt_mixinmethod
     def get_InteractionSources(self: Windows.UI.Composition.Interactions.IInteractionTracker) -> Windows.UI.Composition.Interactions.CompositionInteractionSourceCollection: ...
     @winrt_mixinmethod
@@ -668,7 +668,7 @@ InteractionTrackerClampingOption_Auto: InteractionTrackerClampingOption = 0
 InteractionTrackerClampingOption_Disabled: InteractionTrackerClampingOption = 1
 class InteractionTrackerCustomAnimationStateEnteredArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerCustomAnimationStateEnteredArgs'
+    _classid_ = 'Windows.UI.Composition.Interactions.InteractionTrackerCustomAnimationStateEnteredArgs'
     @winrt_mixinmethod
     def get_RequestId(self: Windows.UI.Composition.Interactions.IInteractionTrackerCustomAnimationStateEnteredArgs) -> Int32: ...
     @winrt_mixinmethod
@@ -677,7 +677,7 @@ class InteractionTrackerCustomAnimationStateEnteredArgs(ComPtr):
     IsFromBinding = property(get_IsFromBinding, None)
 class InteractionTrackerIdleStateEnteredArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerIdleStateEnteredArgs'
+    _classid_ = 'Windows.UI.Composition.Interactions.InteractionTrackerIdleStateEnteredArgs'
     @winrt_mixinmethod
     def get_RequestId(self: Windows.UI.Composition.Interactions.IInteractionTrackerIdleStateEnteredArgs) -> Int32: ...
     @winrt_mixinmethod
@@ -688,7 +688,7 @@ class InteractionTrackerInertiaModifier(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
 class InteractionTrackerInertiaMotion(ComPtr):
     extends: Windows.UI.Composition.Interactions.InteractionTrackerInertiaModifier
-    ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerInertiaMotion'
+    _classid_ = 'Windows.UI.Composition.Interactions.InteractionTrackerInertiaMotion'
     @winrt_mixinmethod
     def get_Condition(self: Windows.UI.Composition.Interactions.IInteractionTrackerInertiaMotion) -> Windows.UI.Composition.ExpressionAnimation: ...
     @winrt_mixinmethod
@@ -703,7 +703,7 @@ class InteractionTrackerInertiaMotion(ComPtr):
     Motion = property(get_Motion, put_Motion)
 class InteractionTrackerInertiaNaturalMotion(ComPtr):
     extends: Windows.UI.Composition.Interactions.InteractionTrackerInertiaModifier
-    ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerInertiaNaturalMotion'
+    _classid_ = 'Windows.UI.Composition.Interactions.InteractionTrackerInertiaNaturalMotion'
     @winrt_mixinmethod
     def get_Condition(self: Windows.UI.Composition.Interactions.IInteractionTrackerInertiaNaturalMotion) -> Windows.UI.Composition.ExpressionAnimation: ...
     @winrt_mixinmethod
@@ -718,7 +718,7 @@ class InteractionTrackerInertiaNaturalMotion(ComPtr):
     NaturalMotion = property(get_NaturalMotion, put_NaturalMotion)
 class InteractionTrackerInertiaRestingValue(ComPtr):
     extends: Windows.UI.Composition.Interactions.InteractionTrackerInertiaModifier
-    ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerInertiaRestingValue'
+    _classid_ = 'Windows.UI.Composition.Interactions.InteractionTrackerInertiaRestingValue'
     @winrt_mixinmethod
     def get_Condition(self: Windows.UI.Composition.Interactions.IInteractionTrackerInertiaRestingValue) -> Windows.UI.Composition.ExpressionAnimation: ...
     @winrt_mixinmethod
@@ -733,7 +733,7 @@ class InteractionTrackerInertiaRestingValue(ComPtr):
     RestingValue = property(get_RestingValue, put_RestingValue)
 class InteractionTrackerInertiaStateEnteredArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerInertiaStateEnteredArgs'
+    _classid_ = 'Windows.UI.Composition.Interactions.InteractionTrackerInertiaStateEnteredArgs'
     @winrt_mixinmethod
     def get_ModifiedRestingPosition(self: Windows.UI.Composition.Interactions.IInteractionTrackerInertiaStateEnteredArgs) -> Windows.Foundation.IReference[Windows.Foundation.Numerics.Vector3]: ...
     @winrt_mixinmethod
@@ -763,7 +763,7 @@ class InteractionTrackerInertiaStateEnteredArgs(ComPtr):
     IsFromBinding = property(get_IsFromBinding, None)
 class InteractionTrackerInteractingStateEnteredArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerInteractingStateEnteredArgs'
+    _classid_ = 'Windows.UI.Composition.Interactions.InteractionTrackerInteractingStateEnteredArgs'
     @winrt_mixinmethod
     def get_RequestId(self: Windows.UI.Composition.Interactions.IInteractionTrackerInteractingStateEnteredArgs) -> Int32: ...
     @winrt_mixinmethod
@@ -775,13 +775,13 @@ InteractionTrackerPositionUpdateOption_Default: InteractionTrackerPositionUpdate
 InteractionTrackerPositionUpdateOption_AllowActiveCustomScaleAnimation: InteractionTrackerPositionUpdateOption = 1
 class InteractionTrackerRequestIgnoredArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerRequestIgnoredArgs'
+    _classid_ = 'Windows.UI.Composition.Interactions.InteractionTrackerRequestIgnoredArgs'
     @winrt_mixinmethod
     def get_RequestId(self: Windows.UI.Composition.Interactions.IInteractionTrackerRequestIgnoredArgs) -> Int32: ...
     RequestId = property(get_RequestId, None)
 class InteractionTrackerValuesChangedArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerValuesChangedArgs'
+    _classid_ = 'Windows.UI.Composition.Interactions.InteractionTrackerValuesChangedArgs'
     @winrt_mixinmethod
     def get_Position(self: Windows.UI.Composition.Interactions.IInteractionTrackerValuesChangedArgs) -> Windows.Foundation.Numerics.Vector3: ...
     @winrt_mixinmethod
@@ -795,7 +795,7 @@ class InteractionTrackerVector2InertiaModifier(ComPtr):
     extends: Windows.UI.Composition.CompositionObject
 class InteractionTrackerVector2InertiaNaturalMotion(ComPtr):
     extends: Windows.UI.Composition.Interactions.InteractionTrackerVector2InertiaModifier
-    ClassId = 'Windows.UI.Composition.Interactions.InteractionTrackerVector2InertiaNaturalMotion'
+    _classid_ = 'Windows.UI.Composition.Interactions.InteractionTrackerVector2InertiaNaturalMotion'
     @winrt_mixinmethod
     def get_Condition(self: Windows.UI.Composition.Interactions.IInteractionTrackerVector2InertiaNaturalMotion) -> Windows.UI.Composition.ExpressionAnimation: ...
     @winrt_mixinmethod

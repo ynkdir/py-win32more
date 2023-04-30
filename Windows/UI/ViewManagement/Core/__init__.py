@@ -25,7 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CoreFrameworkInputView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.ViewManagement.Core.CoreFrameworkInputView'
+    _classid_ = 'Windows.UI.ViewManagement.Core.CoreFrameworkInputView'
     @winrt_mixinmethod
     def add_PrimaryViewAnimationStarting(self: Windows.UI.ViewManagement.Core.ICoreFrameworkInputView, handler: Windows.Foundation.TypedEventHandler[Windows.UI.ViewManagement.Core.CoreFrameworkInputView, Windows.UI.ViewManagement.Core.CoreFrameworkInputViewAnimationStartingEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -40,7 +40,7 @@ class CoreFrameworkInputView(ComPtr):
     def GetForCurrentView(cls: Windows.UI.ViewManagement.Core.ICoreFrameworkInputViewStatics) -> Windows.UI.ViewManagement.Core.CoreFrameworkInputView: ...
 class CoreFrameworkInputViewAnimationStartingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.ViewManagement.Core.CoreFrameworkInputViewAnimationStartingEventArgs'
+    _classid_ = 'Windows.UI.ViewManagement.Core.CoreFrameworkInputViewAnimationStartingEventArgs'
     @winrt_mixinmethod
     def get_Occlusions(self: Windows.UI.ViewManagement.Core.ICoreFrameworkInputViewAnimationStartingEventArgs) -> Windows.Foundation.Collections.IVectorView[Windows.UI.ViewManagement.Core.CoreInputViewOcclusion]: ...
     @winrt_mixinmethod
@@ -52,7 +52,7 @@ class CoreFrameworkInputViewAnimationStartingEventArgs(ComPtr):
     AnimationDuration = property(get_AnimationDuration, None)
 class CoreFrameworkInputViewOcclusionsChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.ViewManagement.Core.CoreFrameworkInputViewOcclusionsChangedEventArgs'
+    _classid_ = 'Windows.UI.ViewManagement.Core.CoreFrameworkInputViewOcclusionsChangedEventArgs'
     @winrt_mixinmethod
     def get_Occlusions(self: Windows.UI.ViewManagement.Core.ICoreFrameworkInputViewOcclusionsChangedEventArgs) -> Windows.Foundation.Collections.IVectorView[Windows.UI.ViewManagement.Core.CoreInputViewOcclusion]: ...
     @winrt_mixinmethod
@@ -61,7 +61,7 @@ class CoreFrameworkInputViewOcclusionsChangedEventArgs(ComPtr):
     Handled = property(get_Handled, None)
 class CoreInputView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.ViewManagement.Core.CoreInputView'
+    _classid_ = 'Windows.UI.ViewManagement.Core.CoreInputView'
     @winrt_mixinmethod
     def add_OcclusionsChanged(self: Windows.UI.ViewManagement.Core.ICoreInputView, handler: Windows.Foundation.TypedEventHandler[Windows.UI.ViewManagement.Core.CoreInputView, Windows.UI.ViewManagement.Core.CoreInputViewOcclusionsChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -112,7 +112,7 @@ class CoreInputView(ComPtr):
     def GetForCurrentView(cls: Windows.UI.ViewManagement.Core.ICoreInputViewStatics) -> Windows.UI.ViewManagement.Core.CoreInputView: ...
 class CoreInputViewAnimationStartingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.ViewManagement.Core.CoreInputViewAnimationStartingEventArgs'
+    _classid_ = 'Windows.UI.ViewManagement.Core.CoreInputViewAnimationStartingEventArgs'
     @winrt_mixinmethod
     def get_Occlusions(self: Windows.UI.ViewManagement.Core.ICoreInputViewAnimationStartingEventArgs) -> Windows.Foundation.Collections.IVectorView[Windows.UI.ViewManagement.Core.CoreInputViewOcclusion]: ...
     @winrt_mixinmethod
@@ -126,7 +126,7 @@ class CoreInputViewAnimationStartingEventArgs(ComPtr):
     AnimationDuration = property(get_AnimationDuration, None)
 class CoreInputViewHidingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.ViewManagement.Core.CoreInputViewHidingEventArgs'
+    _classid_ = 'Windows.UI.ViewManagement.Core.CoreInputViewHidingEventArgs'
     @winrt_mixinmethod
     def TryCancel(self: Windows.UI.ViewManagement.Core.ICoreInputViewHidingEventArgs) -> Boolean: ...
 CoreInputViewKind = Int32
@@ -139,7 +139,7 @@ CoreInputViewKind_Clipboard: CoreInputViewKind = 5
 CoreInputViewKind_Dictation: CoreInputViewKind = 6
 class CoreInputViewOcclusion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.ViewManagement.Core.CoreInputViewOcclusion'
+    _classid_ = 'Windows.UI.ViewManagement.Core.CoreInputViewOcclusion'
     @winrt_mixinmethod
     def get_OccludingRect(self: Windows.UI.ViewManagement.Core.ICoreInputViewOcclusion) -> Windows.Foundation.Rect: ...
     @winrt_mixinmethod
@@ -152,7 +152,7 @@ CoreInputViewOcclusionKind_Floating: CoreInputViewOcclusionKind = 1
 CoreInputViewOcclusionKind_Overlay: CoreInputViewOcclusionKind = 2
 class CoreInputViewOcclusionsChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.ViewManagement.Core.CoreInputViewOcclusionsChangedEventArgs'
+    _classid_ = 'Windows.UI.ViewManagement.Core.CoreInputViewOcclusionsChangedEventArgs'
     @winrt_mixinmethod
     def get_Occlusions(self: Windows.UI.ViewManagement.Core.ICoreInputViewOcclusionsChangedEventArgs) -> Windows.Foundation.Collections.IVectorView[Windows.UI.ViewManagement.Core.CoreInputViewOcclusion]: ...
     @winrt_mixinmethod
@@ -163,12 +163,12 @@ class CoreInputViewOcclusionsChangedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class CoreInputViewShowingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.ViewManagement.Core.CoreInputViewShowingEventArgs'
+    _classid_ = 'Windows.UI.ViewManagement.Core.CoreInputViewShowingEventArgs'
     @winrt_mixinmethod
     def TryCancel(self: Windows.UI.ViewManagement.Core.ICoreInputViewShowingEventArgs) -> Boolean: ...
 class CoreInputViewTransferringXYFocusEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.ViewManagement.Core.CoreInputViewTransferringXYFocusEventArgs'
+    _classid_ = 'Windows.UI.ViewManagement.Core.CoreInputViewTransferringXYFocusEventArgs'
     @winrt_mixinmethod
     def get_Origin(self: Windows.UI.ViewManagement.Core.ICoreInputViewTransferringXYFocusEventArgs) -> Windows.Foundation.Rect: ...
     @winrt_mixinmethod
@@ -381,7 +381,7 @@ class IUISettingsControllerStatics(ComPtr):
     def RequestDefaultAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.UI.ViewManagement.Core.UISettingsController]: ...
 class UISettingsController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.ViewManagement.Core.UISettingsController'
+    _classid_ = 'Windows.UI.ViewManagement.Core.UISettingsController'
     @winrt_mixinmethod
     def SetAdvancedEffectsEnabled(self: Windows.UI.ViewManagement.Core.IUISettingsController, value: Boolean) -> Void: ...
     @winrt_mixinmethod

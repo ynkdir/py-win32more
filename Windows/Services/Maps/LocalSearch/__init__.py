@@ -133,7 +133,7 @@ class IPlaceInfoHelperStatics(ComPtr):
     def CreateFromLocalLocation(self, location: Windows.Services.Maps.LocalSearch.LocalLocation) -> Windows.Services.Maps.PlaceInfo: ...
 class LocalCategories(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.LocalSearch.LocalCategories'
+    _classid_ = 'Windows.Services.Maps.LocalSearch.LocalCategories'
     @winrt_classmethod
     def get_BankAndCreditUnions(cls: Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -160,7 +160,7 @@ class LocalCategories(ComPtr):
     Shop = property(get_Shop, None)
 class LocalLocation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.LocalSearch.LocalLocation'
+    _classid_ = 'Windows.Services.Maps.LocalSearch.LocalLocation'
     @winrt_mixinmethod
     def get_Address(self: Windows.Services.Maps.LocalSearch.ILocalLocation) -> Windows.Services.Maps.MapAddress: ...
     @winrt_mixinmethod
@@ -193,12 +193,12 @@ class LocalLocation(ComPtr):
     HoursOfOperation = property(get_HoursOfOperation, None)
 class LocalLocationFinder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.LocalSearch.LocalLocationFinder'
+    _classid_ = 'Windows.Services.Maps.LocalSearch.LocalLocationFinder'
     @winrt_classmethod
     def FindLocalLocationsAsync(cls: Windows.Services.Maps.LocalSearch.ILocalLocationFinderStatics, searchTerm: WinRT_String, searchArea: Windows.Devices.Geolocation.Geocircle, localCategory: WinRT_String, maxResults: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.LocalSearch.LocalLocationFinderResult]: ...
 class LocalLocationFinderResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.LocalSearch.LocalLocationFinderResult'
+    _classid_ = 'Windows.Services.Maps.LocalSearch.LocalLocationFinderResult'
     @winrt_mixinmethod
     def get_LocalLocations(self: Windows.Services.Maps.LocalSearch.ILocalLocationFinderResult) -> Windows.Foundation.Collections.IVectorView[Windows.Services.Maps.LocalSearch.LocalLocation]: ...
     @winrt_mixinmethod
@@ -216,7 +216,7 @@ LocalLocationFinderStatus_NetworkFailure: LocalLocationFinderStatus = 6
 LocalLocationFinderStatus_NotSupported: LocalLocationFinderStatus = 7
 class LocalLocationHoursOfOperationItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.LocalSearch.LocalLocationHoursOfOperationItem'
+    _classid_ = 'Windows.Services.Maps.LocalSearch.LocalLocationHoursOfOperationItem'
     @winrt_mixinmethod
     def get_Day(self: Windows.Services.Maps.LocalSearch.ILocalLocationHoursOfOperationItem) -> Windows.Globalization.DayOfWeek: ...
     @winrt_mixinmethod
@@ -228,7 +228,7 @@ class LocalLocationHoursOfOperationItem(ComPtr):
     Span = property(get_Span, None)
 class LocalLocationRatingInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.LocalSearch.LocalLocationRatingInfo'
+    _classid_ = 'Windows.Services.Maps.LocalSearch.LocalLocationRatingInfo'
     @winrt_mixinmethod
     def get_AggregateRating(self: Windows.Services.Maps.LocalSearch.ILocalLocationRatingInfo) -> Windows.Foundation.IReference[Double]: ...
     @winrt_mixinmethod
@@ -240,7 +240,7 @@ class LocalLocationRatingInfo(ComPtr):
     ProviderIdentifier = property(get_ProviderIdentifier, None)
 class PlaceInfoHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.LocalSearch.PlaceInfoHelper'
+    _classid_ = 'Windows.Services.Maps.LocalSearch.PlaceInfoHelper'
     @winrt_classmethod
     def CreateFromLocalLocation(cls: Windows.Services.Maps.LocalSearch.IPlaceInfoHelperStatics, location: Windows.Services.Maps.LocalSearch.LocalLocation) -> Windows.Services.Maps.PlaceInfo: ...
 make_head(_module, 'ILocalCategoriesStatics')

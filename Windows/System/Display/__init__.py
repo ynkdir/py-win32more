@@ -22,7 +22,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class DisplayRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Display.DisplayRequest'
+    _classid_ = 'Windows.System.Display.DisplayRequest'
     @winrt_activatemethod
     def New(cls) -> Windows.System.Display.DisplayRequest: ...
     @winrt_mixinmethod

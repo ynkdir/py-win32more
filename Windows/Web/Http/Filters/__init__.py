@@ -29,7 +29,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class HttpBaseProtocolFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Filters.HttpBaseProtocolFilter'
+    _classid_ = 'Windows.Web.Http.Filters.HttpBaseProtocolFilter'
     @winrt_activatemethod
     def New(cls) -> Windows.Web.Http.Filters.HttpBaseProtocolFilter: ...
     @winrt_mixinmethod
@@ -108,7 +108,7 @@ class HttpBaseProtocolFilter(ComPtr):
     User = property(get_User, None)
 class HttpCacheControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Filters.HttpCacheControl'
+    _classid_ = 'Windows.Web.Http.Filters.HttpCacheControl'
     @winrt_mixinmethod
     def get_ReadBehavior(self: Windows.Web.Http.Filters.IHttpCacheControl) -> Windows.Web.Http.Filters.HttpCacheReadBehavior: ...
     @winrt_mixinmethod
@@ -132,7 +132,7 @@ HttpCookieUsageBehavior_Default: HttpCookieUsageBehavior = 0
 HttpCookieUsageBehavior_NoCookies: HttpCookieUsageBehavior = 1
 class HttpServerCustomValidationRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Filters.HttpServerCustomValidationRequestedEventArgs'
+    _classid_ = 'Windows.Web.Http.Filters.HttpServerCustomValidationRequestedEventArgs'
     @winrt_mixinmethod
     def get_RequestMessage(self: Windows.Web.Http.Filters.IHttpServerCustomValidationRequestedEventArgs) -> Windows.Web.Http.HttpRequestMessage: ...
     @winrt_mixinmethod

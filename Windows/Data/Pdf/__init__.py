@@ -123,7 +123,7 @@ class IPdfPageRenderOptions(ComPtr):
     BitmapEncoderId = property(get_BitmapEncoderId, put_BitmapEncoderId)
 class PdfDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Pdf.PdfDocument'
+    _classid_ = 'Windows.Data.Pdf.PdfDocument'
     @winrt_mixinmethod
     def GetPage(self: Windows.Data.Pdf.IPdfDocument, pageIndex: UInt32) -> Windows.Data.Pdf.PdfPage: ...
     @winrt_mixinmethod
@@ -142,7 +142,7 @@ class PdfDocument(ComPtr):
     IsPasswordProtected = property(get_IsPasswordProtected, None)
 class PdfPage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Pdf.PdfPage'
+    _classid_ = 'Windows.Data.Pdf.PdfPage'
     @winrt_mixinmethod
     def RenderToStreamAsync(self: Windows.Data.Pdf.IPdfPage, outputStream: Windows.Storage.Streams.IRandomAccessStream) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -168,7 +168,7 @@ class PdfPage(ComPtr):
     PreferredZoom = property(get_PreferredZoom, None)
 class PdfPageDimensions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Pdf.PdfPageDimensions'
+    _classid_ = 'Windows.Data.Pdf.PdfPageDimensions'
     @winrt_mixinmethod
     def get_MediaBox(self: Windows.Data.Pdf.IPdfPageDimensions) -> Windows.Foundation.Rect: ...
     @winrt_mixinmethod
@@ -186,7 +186,7 @@ class PdfPageDimensions(ComPtr):
     ArtBox = property(get_ArtBox, None)
 class PdfPageRenderOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Pdf.PdfPageRenderOptions'
+    _classid_ = 'Windows.Data.Pdf.PdfPageRenderOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Data.Pdf.PdfPageRenderOptions: ...
     @winrt_mixinmethod

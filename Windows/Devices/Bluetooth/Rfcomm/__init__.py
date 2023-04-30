@@ -150,7 +150,7 @@ class IRfcommServiceProviderStatics(ComPtr):
     def CreateAsync(self, serviceId: Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Bluetooth.Rfcomm.RfcommServiceProvider]: ...
 class RfcommDeviceService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService'
+    _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService'
     @winrt_mixinmethod
     def get_ConnectionHostName(self: Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceService) -> Windows.Networking.HostName: ...
     @winrt_mixinmethod
@@ -194,7 +194,7 @@ class RfcommDeviceService(ComPtr):
     DeviceAccessInformation = property(get_DeviceAccessInformation, None)
 class RfcommDeviceServicesResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceServicesResult'
+    _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceServicesResult'
     @winrt_mixinmethod
     def get_Error(self: Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceServicesResult) -> Windows.Devices.Bluetooth.BluetoothError: ...
     @winrt_mixinmethod
@@ -203,7 +203,7 @@ class RfcommDeviceServicesResult(ComPtr):
     Services = property(get_Services, None)
 class RfcommServiceId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId'
+    _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId'
     @winrt_mixinmethod
     def get_Uuid(self: Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceId) -> Guid: ...
     @winrt_mixinmethod
@@ -235,7 +235,7 @@ class RfcommServiceId(ComPtr):
     GenericFileTransfer = property(get_GenericFileTransfer, None)
 class RfcommServiceProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Bluetooth.Rfcomm.RfcommServiceProvider'
+    _classid_ = 'Windows.Devices.Bluetooth.Rfcomm.RfcommServiceProvider'
     @winrt_mixinmethod
     def get_ServiceId(self: Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceProvider) -> Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId: ...
     @winrt_mixinmethod

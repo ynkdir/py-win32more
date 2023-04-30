@@ -28,7 +28,7 @@ class AutomationRemoteOperationOperandId(EasyCastStructure):
     Value: Int32
 class AutomationRemoteOperationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.UIAutomation.Core.AutomationRemoteOperationResult'
+    _classid_ = 'Windows.UI.UIAutomation.Core.AutomationRemoteOperationResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.UI.UIAutomation.Core.IAutomationRemoteOperationResult) -> Windows.UI.UIAutomation.Core.AutomationRemoteOperationStatus: ...
     @winrt_mixinmethod
@@ -50,14 +50,14 @@ AutomationRemoteOperationStatus_UnhandledException: AutomationRemoteOperationSta
 AutomationRemoteOperationStatus_ExecutionFailure: AutomationRemoteOperationStatus = 4
 class CoreAutomationRegistrar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.UIAutomation.Core.CoreAutomationRegistrar'
+    _classid_ = 'Windows.UI.UIAutomation.Core.CoreAutomationRegistrar'
     @winrt_classmethod
     def RegisterAnnotationType(cls: Windows.UI.UIAutomation.Core.ICoreAutomationRegistrarStatics, guid: Guid) -> Windows.UI.UIAutomation.Core.AutomationAnnotationTypeRegistration: ...
     @winrt_classmethod
     def UnregisterAnnotationType(cls: Windows.UI.UIAutomation.Core.ICoreAutomationRegistrarStatics, registration: Windows.UI.UIAutomation.Core.AutomationAnnotationTypeRegistration) -> Void: ...
 class CoreAutomationRemoteOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperation'
+    _classid_ = 'Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperation: ...
     @winrt_mixinmethod
@@ -74,7 +74,7 @@ class CoreAutomationRemoteOperation(ComPtr):
     def ImportConnectionBoundObject(self: Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperation2, operandId: Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId, connectionBoundObject: Windows.UI.UIAutomation.AutomationConnectionBoundObject) -> Void: ...
 class CoreAutomationRemoteOperationContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperationContext'
+    _classid_ = 'Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperationContext'
     @winrt_mixinmethod
     def GetOperand(self: Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperationContext, id: Windows.UI.UIAutomation.Core.AutomationRemoteOperationOperandId) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
@@ -201,7 +201,7 @@ class IRemoteAutomationWindow(ComPtr):
     AutomationProvider = property(get_AutomationProvider, None)
 class RemoteAutomationClientSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.UIAutomation.Core.RemoteAutomationClientSession'
+    _classid_ = 'Windows.UI.UIAutomation.Core.RemoteAutomationClientSession'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.UI.UIAutomation.Core.IRemoteAutomationClientSessionFactory, name: WinRT_String) -> Windows.UI.UIAutomation.Core.RemoteAutomationClientSession: ...
     @winrt_factorymethod
@@ -225,7 +225,7 @@ class RemoteAutomationClientSession(ComPtr):
     SessionId = property(get_SessionId, None)
 class RemoteAutomationConnectionRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.UIAutomation.Core.RemoteAutomationConnectionRequestedEventArgs'
+    _classid_ = 'Windows.UI.UIAutomation.Core.RemoteAutomationConnectionRequestedEventArgs'
     @winrt_mixinmethod
     def get_LocalPipeName(self: Windows.UI.UIAutomation.Core.IRemoteAutomationConnectionRequestedEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -234,18 +234,18 @@ class RemoteAutomationConnectionRequestedEventArgs(ComPtr):
     RemoteProcessId = property(get_RemoteProcessId, None)
 class RemoteAutomationDisconnectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.UIAutomation.Core.RemoteAutomationDisconnectedEventArgs'
+    _classid_ = 'Windows.UI.UIAutomation.Core.RemoteAutomationDisconnectedEventArgs'
     @winrt_mixinmethod
     def get_LocalPipeName(self: Windows.UI.UIAutomation.Core.IRemoteAutomationDisconnectedEventArgs) -> WinRT_String: ...
     LocalPipeName = property(get_LocalPipeName, None)
 class RemoteAutomationServer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.UIAutomation.Core.RemoteAutomationServer'
+    _classid_ = 'Windows.UI.UIAutomation.Core.RemoteAutomationServer'
     @winrt_classmethod
     def ReportSession(cls: Windows.UI.UIAutomation.Core.IRemoteAutomationServerStatics, sessionId: Guid) -> Void: ...
 class RemoteAutomationWindow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.UIAutomation.Core.RemoteAutomationWindow'
+    _classid_ = 'Windows.UI.UIAutomation.Core.RemoteAutomationWindow'
     @winrt_mixinmethod
     def get_AutomationProvider(self: Windows.UI.UIAutomation.Core.IRemoteAutomationWindow) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod

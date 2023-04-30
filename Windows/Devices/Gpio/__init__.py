@@ -28,7 +28,7 @@ class GpioChangeCount(EasyCastStructure):
     RelativeTime: Windows.Foundation.TimeSpan
 class GpioChangeCounter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Gpio.GpioChangeCounter'
+    _classid_ = 'Windows.Devices.Gpio.GpioChangeCounter'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.Gpio.IGpioChangeCounterFactory, pin: Windows.Devices.Gpio.GpioPin) -> Windows.Devices.Gpio.GpioChangeCounter: ...
     @winrt_mixinmethod
@@ -55,7 +55,7 @@ GpioChangePolarity_Rising: GpioChangePolarity = 1
 GpioChangePolarity_Both: GpioChangePolarity = 2
 class GpioChangeReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Gpio.GpioChangeReader'
+    _classid_ = 'Windows.Devices.Gpio.GpioChangeReader'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.Gpio.IGpioChangeReaderFactory, pin: Windows.Devices.Gpio.GpioPin) -> Windows.Devices.Gpio.GpioChangeReader: ...
     @winrt_factorymethod
@@ -101,7 +101,7 @@ class GpioChangeRecord(EasyCastStructure):
     Edge: Windows.Devices.Gpio.GpioPinEdge
 class GpioController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Gpio.GpioController'
+    _classid_ = 'Windows.Devices.Gpio.GpioController'
     @winrt_mixinmethod
     def get_PinCount(self: Windows.Devices.Gpio.IGpioController) -> Int32: ...
     @winrt_mixinmethod
@@ -125,7 +125,7 @@ GpioOpenStatus_MuxingConflict: GpioOpenStatus = 3
 GpioOpenStatus_UnknownError: GpioOpenStatus = 4
 class GpioPin(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Gpio.GpioPin'
+    _classid_ = 'Windows.Devices.Gpio.GpioPin'
     @winrt_mixinmethod
     def add_ValueChanged(self: Windows.Devices.Gpio.IGpioPin, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Gpio.GpioPin, Windows.Devices.Gpio.GpioPinValueChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -170,7 +170,7 @@ GpioPinValue_Low: GpioPinValue = 0
 GpioPinValue_High: GpioPinValue = 1
 class GpioPinValueChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Gpio.GpioPinValueChangedEventArgs'
+    _classid_ = 'Windows.Devices.Gpio.GpioPinValueChangedEventArgs'
     @winrt_mixinmethod
     def get_Edge(self: Windows.Devices.Gpio.IGpioPinValueChangedEventArgs) -> Windows.Devices.Gpio.GpioPinEdge: ...
     Edge = property(get_Edge, None)

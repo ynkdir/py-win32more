@@ -65,7 +65,7 @@ class IResourceLoaderStatics4(ComPtr):
     def GetDefaultPriPath(self, packageFullName: WinRT_String) -> WinRT_String: ...
 class ResourceLoader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Resources.ResourceLoader'
+    _classid_ = 'Windows.ApplicationModel.Resources.ResourceLoader'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Resources.ResourceLoader: ...
     @winrt_factorymethod

@@ -25,7 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ComponentLoadFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.ComponentLoadFailedEventArgs'
+    _classid_ = 'Windows.Media.Protection.ComponentLoadFailedEventArgs'
     @winrt_mixinmethod
     def get_Information(self: Windows.Media.Protection.IComponentLoadFailedEventArgs) -> Windows.Media.Protection.RevocationAndRenewalInformation: ...
     @winrt_mixinmethod
@@ -35,7 +35,7 @@ class ComponentLoadFailedEventArgs(ComPtr):
 class ComponentLoadFailedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('95da643c-6db9-424b-86-ca-09-1a-f4-32-08-1c')
-    ClassId = 'Windows.Media.Protection.ComponentLoadFailedEventHandler'
+    _classid_ = 'Windows.Media.Protection.ComponentLoadFailedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Protection.MediaProtectionManager, e: Windows.Media.Protection.ComponentLoadFailedEventArgs) -> Void: ...
 GraphicsTrustStatus = Int32
@@ -51,7 +51,7 @@ HdcpProtection_On: HdcpProtection = 1
 HdcpProtection_OnWithTypeEnforcement: HdcpProtection = 2
 class HdcpSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.HdcpSession'
+    _classid_ = 'Windows.Media.Protection.HdcpSession'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Protection.HdcpSession: ...
     @winrt_mixinmethod
@@ -182,7 +182,7 @@ class IServiceRequestedEventArgs2(ComPtr):
     MediaPlaybackItem = property(get_MediaPlaybackItem, None)
 class MediaProtectionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.MediaProtectionManager'
+    _classid_ = 'Windows.Media.Protection.MediaProtectionManager'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Protection.MediaProtectionManager: ...
     @winrt_mixinmethod
@@ -202,7 +202,7 @@ class MediaProtectionManager(ComPtr):
     Properties = property(get_Properties, None)
 class MediaProtectionPMPServer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.MediaProtectionPMPServer'
+    _classid_ = 'Windows.Media.Protection.MediaProtectionPMPServer'
     @winrt_factorymethod
     def CreatePMPServer(cls: Windows.Media.Protection.IMediaProtectionPMPServerFactory, pProperties: Windows.Foundation.Collections.IPropertySet) -> Windows.Media.Protection.MediaProtectionPMPServer: ...
     @winrt_mixinmethod
@@ -210,12 +210,12 @@ class MediaProtectionPMPServer(ComPtr):
     Properties = property(get_Properties, None)
 class MediaProtectionServiceCompletion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.MediaProtectionServiceCompletion'
+    _classid_ = 'Windows.Media.Protection.MediaProtectionServiceCompletion'
     @winrt_mixinmethod
     def Complete(self: Windows.Media.Protection.IMediaProtectionServiceCompletion, success: Boolean) -> Void: ...
 class ProtectionCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.ProtectionCapabilities'
+    _classid_ = 'Windows.Media.Protection.ProtectionCapabilities'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Protection.ProtectionCapabilities: ...
     @winrt_mixinmethod
@@ -227,18 +227,18 @@ ProtectionCapabilityResult_Probably: ProtectionCapabilityResult = 2
 class RebootNeededEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('64e12a45-973b-4a3a-b2-60-91-89-8a-49-a8-2c')
-    ClassId = 'Windows.Media.Protection.RebootNeededEventHandler'
+    _classid_ = 'Windows.Media.Protection.RebootNeededEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Protection.MediaProtectionManager) -> Void: ...
 class RevocationAndRenewalInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.RevocationAndRenewalInformation'
+    _classid_ = 'Windows.Media.Protection.RevocationAndRenewalInformation'
     @winrt_mixinmethod
     def get_Items(self: Windows.Media.Protection.IRevocationAndRenewalInformation) -> Windows.Foundation.Collections.IVector[Windows.Media.Protection.RevocationAndRenewalItem]: ...
     Items = property(get_Items, None)
 class RevocationAndRenewalItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.RevocationAndRenewalItem'
+    _classid_ = 'Windows.Media.Protection.RevocationAndRenewalItem'
     @winrt_mixinmethod
     def get_Reasons(self: Windows.Media.Protection.IRevocationAndRenewalItem) -> Windows.Media.Protection.RevocationAndRenewalReasons: ...
     @winrt_mixinmethod
@@ -272,7 +272,7 @@ RevocationAndRenewalReasons_ComponentSignedWithTestCertificate: RevocationAndRen
 RevocationAndRenewalReasons_EncryptionFailure: RevocationAndRenewalReasons = 268435456
 class ServiceRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Protection.ServiceRequestedEventArgs'
+    _classid_ = 'Windows.Media.Protection.ServiceRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.Media.Protection.IServiceRequestedEventArgs) -> Windows.Media.Protection.IMediaProtectionServiceRequest: ...
     @winrt_mixinmethod
@@ -285,7 +285,7 @@ class ServiceRequestedEventArgs(ComPtr):
 class ServiceRequestedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('d2d690ba-cac9-48e1-95-c0-d3-84-95-a8-40-55')
-    ClassId = 'Windows.Media.Protection.ServiceRequestedEventHandler'
+    _classid_ = 'Windows.Media.Protection.ServiceRequestedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Protection.MediaProtectionManager, e: Windows.Media.Protection.ServiceRequestedEventArgs) -> Void: ...
 make_head(_module, 'ComponentLoadFailedEventArgs')

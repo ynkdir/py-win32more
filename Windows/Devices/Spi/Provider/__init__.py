@@ -84,7 +84,7 @@ class ISpiProvider(ComPtr):
     def GetControllersAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Devices.Spi.Provider.ISpiControllerProvider]]: ...
 class ProviderSpiConnectionSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Spi.Provider.ProviderSpiConnectionSettings'
+    _classid_ = 'Windows.Devices.Spi.Provider.ProviderSpiConnectionSettings'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.Spi.Provider.IProviderSpiConnectionSettingsFactory, chipSelectLine: Int32) -> Windows.Devices.Spi.Provider.ProviderSpiConnectionSettings: ...
     @winrt_mixinmethod

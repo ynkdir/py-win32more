@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class DataProtectionProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Cryptography.DataProtection.DataProtectionProvider'
+    _classid_ = 'Windows.Security.Cryptography.DataProtection.DataProtectionProvider'
     @winrt_factorymethod
     def CreateOverloadExplicit(cls: Windows.Security.Cryptography.DataProtection.IDataProtectionProviderFactory, protectionDescriptor: WinRT_String) -> Windows.Security.Cryptography.DataProtection.DataProtectionProvider: ...
     @winrt_activatemethod

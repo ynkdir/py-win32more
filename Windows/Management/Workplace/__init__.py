@@ -38,7 +38,7 @@ class IMdmPolicyStatics2(ComPtr):
     def GetMessagingSyncPolicy(self) -> Windows.Management.Workplace.MessagingSyncPolicy: ...
 class MdmPolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Workplace.MdmPolicy'
+    _classid_ = 'Windows.Management.Workplace.MdmPolicy'
     @winrt_classmethod
     def GetMessagingSyncPolicy(cls: Windows.Management.Workplace.IMdmPolicyStatics2) -> Windows.Management.Workplace.MessagingSyncPolicy: ...
     @winrt_classmethod

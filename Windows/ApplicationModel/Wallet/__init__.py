@@ -313,7 +313,7 @@ class IWalletVerbFactory(ComPtr):
     def CreateWalletVerb(self, name: WinRT_String) -> Windows.ApplicationModel.Wallet.WalletVerb: ...
 class WalletBarcode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Wallet.WalletBarcode'
+    _classid_ = 'Windows.ApplicationModel.Wallet.WalletBarcode'
     @winrt_factorymethod
     def CreateWalletBarcode(cls: Windows.ApplicationModel.Wallet.IWalletBarcodeFactory, symbology: Windows.ApplicationModel.Wallet.WalletBarcodeSymbology, value: WinRT_String) -> Windows.ApplicationModel.Wallet.WalletBarcode: ...
     @winrt_factorymethod
@@ -357,7 +357,7 @@ WalletDetailViewPosition_FooterField3: WalletDetailViewPosition = 13
 WalletDetailViewPosition_FooterField4: WalletDetailViewPosition = 14
 class WalletItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Wallet.WalletItem'
+    _classid_ = 'Windows.ApplicationModel.Wallet.WalletItem'
     @winrt_factorymethod
     def CreateWalletItem(cls: Windows.ApplicationModel.Wallet.IWalletItemFactory, kind: Windows.ApplicationModel.Wallet.WalletItemKind, displayName: WinRT_String) -> Windows.ApplicationModel.Wallet.WalletItem: ...
     @winrt_mixinmethod
@@ -495,7 +495,7 @@ class WalletItem(ComPtr):
     Verbs = property(get_Verbs, None)
 class WalletItemCustomProperty(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Wallet.WalletItemCustomProperty'
+    _classid_ = 'Windows.ApplicationModel.Wallet.WalletItemCustomProperty'
     @winrt_factorymethod
     def CreateWalletItemCustomProperty(cls: Windows.ApplicationModel.Wallet.IWalletItemCustomPropertyFactory, name: WinRT_String, value: WinRT_String) -> Windows.ApplicationModel.Wallet.WalletItemCustomProperty: ...
     @winrt_mixinmethod
@@ -533,7 +533,7 @@ WalletItemKind_BoardingPass: WalletItemKind = 5
 WalletItemKind_MembershipCard: WalletItemKind = 6
 class WalletItemStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Wallet.WalletItemStore'
+    _classid_ = 'Windows.ApplicationModel.Wallet.WalletItemStore'
     @winrt_mixinmethod
     def AddAsync(self: Windows.ApplicationModel.Wallet.IWalletItemStore, id: WinRT_String, item: Windows.ApplicationModel.Wallet.WalletItem) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -556,12 +556,12 @@ class WalletItemStore(ComPtr):
     def UpdateAsync(self: Windows.ApplicationModel.Wallet.IWalletItemStore, item: Windows.ApplicationModel.Wallet.WalletItem) -> Windows.Foundation.IAsyncAction: ...
 class WalletManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Wallet.WalletManager'
+    _classid_ = 'Windows.ApplicationModel.Wallet.WalletManager'
     @winrt_classmethod
     def RequestStoreAsync(cls: Windows.ApplicationModel.Wallet.IWalletManagerStatics) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Wallet.WalletItemStore]: ...
 class WalletRelevantLocation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Wallet.WalletRelevantLocation'
+    _classid_ = 'Windows.ApplicationModel.Wallet.WalletRelevantLocation'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Wallet.WalletRelevantLocation: ...
     @winrt_mixinmethod
@@ -580,7 +580,7 @@ WalletSummaryViewPosition_Field1: WalletSummaryViewPosition = 1
 WalletSummaryViewPosition_Field2: WalletSummaryViewPosition = 2
 class WalletTransaction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Wallet.WalletTransaction'
+    _classid_ = 'Windows.ApplicationModel.Wallet.WalletTransaction'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Wallet.WalletTransaction: ...
     @winrt_mixinmethod
@@ -615,7 +615,7 @@ class WalletTransaction(ComPtr):
     IsLaunchable = property(get_IsLaunchable, put_IsLaunchable)
 class WalletVerb(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Wallet.WalletVerb'
+    _classid_ = 'Windows.ApplicationModel.Wallet.WalletVerb'
     @winrt_factorymethod
     def CreateWalletVerb(cls: Windows.ApplicationModel.Wallet.IWalletVerbFactory, name: WinRT_String) -> Windows.ApplicationModel.Wallet.WalletVerb: ...
     @winrt_mixinmethod

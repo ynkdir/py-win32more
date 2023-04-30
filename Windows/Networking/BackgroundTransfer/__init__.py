@@ -36,7 +36,7 @@ class BackgroundDownloadProgress(EasyCastStructure):
     HasRestarted: Boolean
 class BackgroundDownloader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.BackgroundTransfer.BackgroundDownloader'
+    _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundDownloader'
     @winrt_factorymethod
     def CreateWithCompletionGroup(cls: Windows.Networking.BackgroundTransfer.IBackgroundDownloaderFactory, completionGroup: Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup) -> Windows.Networking.BackgroundTransfer.BackgroundDownloader: ...
     @winrt_activatemethod
@@ -115,7 +115,7 @@ BackgroundTransferBehavior_Parallel: BackgroundTransferBehavior = 0
 BackgroundTransferBehavior_Serialized: BackgroundTransferBehavior = 1
 class BackgroundTransferCompletionGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup'
+    _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup: ...
     @winrt_mixinmethod
@@ -128,7 +128,7 @@ class BackgroundTransferCompletionGroup(ComPtr):
     IsEnabled = property(get_IsEnabled, None)
 class BackgroundTransferCompletionGroupTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroupTriggerDetails'
+    _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroupTriggerDetails'
     @winrt_mixinmethod
     def get_Downloads(self: Windows.Networking.BackgroundTransfer.IBackgroundTransferCompletionGroupTriggerDetails) -> Windows.Foundation.Collections.IVectorView[Windows.Networking.BackgroundTransfer.DownloadOperation]: ...
     @winrt_mixinmethod
@@ -137,7 +137,7 @@ class BackgroundTransferCompletionGroupTriggerDetails(ComPtr):
     Uploads = property(get_Uploads, None)
 class BackgroundTransferContentPart(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart'
+    _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart'
     @winrt_factorymethod
     def CreateWithName(cls: Windows.Networking.BackgroundTransfer.IBackgroundTransferContentPartFactory, name: WinRT_String) -> Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart: ...
     @winrt_factorymethod
@@ -156,7 +156,7 @@ BackgroundTransferCostPolicy_UnrestrictedOnly: BackgroundTransferCostPolicy = 1
 BackgroundTransferCostPolicy_Always: BackgroundTransferCostPolicy = 2
 class BackgroundTransferError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.BackgroundTransfer.BackgroundTransferError'
+    _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundTransferError'
     @winrt_classmethod
     def GetStatus(cls: Windows.Networking.BackgroundTransfer.IBackgroundTransferErrorStaticMethods, hresult: Int32) -> Windows.Web.WebErrorStatus: ...
 class BackgroundTransferFileRange(EasyCastStructure):
@@ -164,7 +164,7 @@ class BackgroundTransferFileRange(EasyCastStructure):
     Length: UInt64
 class BackgroundTransferGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.BackgroundTransfer.BackgroundTransferGroup'
+    _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundTransferGroup'
     @winrt_mixinmethod
     def get_Name(self: Windows.Networking.BackgroundTransfer.IBackgroundTransferGroup) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -181,7 +181,7 @@ BackgroundTransferPriority_High: BackgroundTransferPriority = 1
 BackgroundTransferPriority_Low: BackgroundTransferPriority = 2
 class BackgroundTransferRangesDownloadedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.BackgroundTransfer.BackgroundTransferRangesDownloadedEventArgs'
+    _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundTransferRangesDownloadedEventArgs'
     @winrt_mixinmethod
     def get_WasDownloadRestarted(self: Windows.Networking.BackgroundTransfer.IBackgroundTransferRangesDownloadedEventArgs) -> Boolean: ...
     @winrt_mixinmethod
@@ -211,7 +211,7 @@ class BackgroundUploadProgress(EasyCastStructure):
     HasRestarted: Boolean
 class BackgroundUploader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.BackgroundTransfer.BackgroundUploader'
+    _classid_ = 'Windows.Networking.BackgroundTransfer.BackgroundUploader'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.BackgroundTransfer.BackgroundUploader: ...
     @winrt_factorymethod
@@ -291,7 +291,7 @@ class BackgroundUploader(ComPtr):
     CompletionGroup = property(get_CompletionGroup, None)
 class ContentPrefetcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.BackgroundTransfer.ContentPrefetcher'
+    _classid_ = 'Windows.Networking.BackgroundTransfer.ContentPrefetcher'
     @winrt_classmethod
     def get_LastSuccessfulPrefetchTime(cls: Windows.Networking.BackgroundTransfer.IContentPrefetcherTime) -> Windows.Foundation.IReference[Windows.Foundation.DateTime]: ...
     @winrt_classmethod
@@ -305,7 +305,7 @@ class ContentPrefetcher(ComPtr):
     IndirectContentUri = property(get_IndirectContentUri, put_IndirectContentUri)
 class DownloadOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.BackgroundTransfer.DownloadOperation'
+    _classid_ = 'Windows.Networking.BackgroundTransfer.DownloadOperation'
     @winrt_mixinmethod
     def get_ResultFile(self: Windows.Networking.BackgroundTransfer.IDownloadOperation) -> Windows.Storage.IStorageFile: ...
     @winrt_mixinmethod
@@ -771,7 +771,7 @@ class IUploadOperation4(ComPtr):
     def RemoveRequestHeader(self, headerName: WinRT_String) -> Void: ...
 class ResponseInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.BackgroundTransfer.ResponseInformation'
+    _classid_ = 'Windows.Networking.BackgroundTransfer.ResponseInformation'
     @winrt_mixinmethod
     def get_IsResumable(self: Windows.Networking.BackgroundTransfer.IResponseInformation) -> Boolean: ...
     @winrt_mixinmethod
@@ -786,13 +786,13 @@ class ResponseInformation(ComPtr):
     Headers = property(get_Headers, None)
 class UnconstrainedTransferRequestResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.BackgroundTransfer.UnconstrainedTransferRequestResult'
+    _classid_ = 'Windows.Networking.BackgroundTransfer.UnconstrainedTransferRequestResult'
     @winrt_mixinmethod
     def get_IsUnconstrained(self: Windows.Networking.BackgroundTransfer.IUnconstrainedTransferRequestResult) -> Boolean: ...
     IsUnconstrained = property(get_IsUnconstrained, None)
 class UploadOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.BackgroundTransfer.UploadOperation'
+    _classid_ = 'Windows.Networking.BackgroundTransfer.UploadOperation'
     @winrt_mixinmethod
     def get_SourceFile(self: Windows.Networking.BackgroundTransfer.IUploadOperation) -> Windows.Storage.IStorageFile: ...
     @winrt_mixinmethod

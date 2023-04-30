@@ -30,7 +30,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class Direct3D11CaptureFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Graphics.Capture.Direct3D11CaptureFrame'
+    _classid_ = 'Windows.Graphics.Capture.Direct3D11CaptureFrame'
     @winrt_mixinmethod
     def get_Surface(self: Windows.Graphics.Capture.IDirect3D11CaptureFrame) -> Windows.Graphics.DirectX.Direct3D11.IDirect3DSurface: ...
     @winrt_mixinmethod
@@ -44,7 +44,7 @@ class Direct3D11CaptureFrame(ComPtr):
     ContentSize = property(get_ContentSize, None)
 class Direct3D11CaptureFramePool(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Graphics.Capture.Direct3D11CaptureFramePool'
+    _classid_ = 'Windows.Graphics.Capture.Direct3D11CaptureFramePool'
     @winrt_mixinmethod
     def Recreate(self: Windows.Graphics.Capture.IDirect3D11CaptureFramePool, device: Windows.Graphics.DirectX.Direct3D11.IDirect3DDevice, pixelFormat: Windows.Graphics.DirectX.DirectXPixelFormat, numberOfBuffers: Int32, size: Windows.Graphics.SizeInt32) -> Void: ...
     @winrt_mixinmethod
@@ -66,7 +66,7 @@ class Direct3D11CaptureFramePool(ComPtr):
     DispatcherQueue = property(get_DispatcherQueue, None)
 class GraphicsCaptureAccess(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Graphics.Capture.GraphicsCaptureAccess'
+    _classid_ = 'Windows.Graphics.Capture.GraphicsCaptureAccess'
     @winrt_classmethod
     def RequestAccessAsync(cls: Windows.Graphics.Capture.IGraphicsCaptureAccessStatics, request: Windows.Graphics.Capture.GraphicsCaptureAccessKind) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authorization.AppCapabilityAccess.AppCapabilityAccessStatus]: ...
 GraphicsCaptureAccessKind = Int32
@@ -74,7 +74,7 @@ GraphicsCaptureAccessKind_Borderless: GraphicsCaptureAccessKind = 0
 GraphicsCaptureAccessKind_Programmatic: GraphicsCaptureAccessKind = 1
 class GraphicsCaptureItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Graphics.Capture.GraphicsCaptureItem'
+    _classid_ = 'Windows.Graphics.Capture.GraphicsCaptureItem'
     @winrt_mixinmethod
     def get_DisplayName(self: Windows.Graphics.Capture.IGraphicsCaptureItem) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -93,14 +93,14 @@ class GraphicsCaptureItem(ComPtr):
     Size = property(get_Size, None)
 class GraphicsCapturePicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Graphics.Capture.GraphicsCapturePicker'
+    _classid_ = 'Windows.Graphics.Capture.GraphicsCapturePicker'
     @winrt_activatemethod
     def New(cls) -> Windows.Graphics.Capture.GraphicsCapturePicker: ...
     @winrt_mixinmethod
     def PickSingleItemAsync(self: Windows.Graphics.Capture.IGraphicsCapturePicker) -> Windows.Foundation.IAsyncOperation[Windows.Graphics.Capture.GraphicsCaptureItem]: ...
 class GraphicsCaptureSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Graphics.Capture.GraphicsCaptureSession'
+    _classid_ = 'Windows.Graphics.Capture.GraphicsCaptureSession'
     @winrt_mixinmethod
     def StartCapture(self: Windows.Graphics.Capture.IGraphicsCaptureSession) -> Void: ...
     @winrt_mixinmethod

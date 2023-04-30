@@ -259,7 +259,7 @@ class IWebProviderTokenResponseFactory(ComPtr):
     def Create(self, webTokenResponse: Windows.Security.Authentication.Web.Core.WebTokenResponse) -> Windows.Security.Authentication.Web.Provider.WebProviderTokenResponse: ...
 class WebAccountClientView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Web.Provider.WebAccountClientView'
+    _classid_ = 'Windows.Security.Authentication.Web.Provider.WebAccountClientView'
     @winrt_factorymethod
     def Create(cls: Windows.Security.Authentication.Web.Provider.IWebAccountClientViewFactory, viewType: Windows.Security.Authentication.Web.Provider.WebAccountClientViewType, applicationCallbackUri: Windows.Foundation.Uri) -> Windows.Security.Authentication.Web.Provider.WebAccountClientView: ...
     @winrt_factorymethod
@@ -278,7 +278,7 @@ WebAccountClientViewType_IdOnly: WebAccountClientViewType = 0
 WebAccountClientViewType_IdAndProperties: WebAccountClientViewType = 1
 class WebAccountManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Web.Provider.WebAccountManager'
+    _classid_ = 'Windows.Security.Authentication.Web.Provider.WebAccountManager'
     @winrt_classmethod
     def InvalidateAppCacheForAllAccountsAsync(cls: Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics4) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
@@ -329,7 +329,7 @@ class WebAccountManager(ComPtr):
     def ClearWebAccountPictureAsync(cls: Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics, webAccount: Windows.Security.Credentials.WebAccount) -> Windows.Foundation.IAsyncAction: ...
 class WebAccountProviderAddAccountOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderAddAccountOperation'
+    _classid_ = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderAddAccountOperation'
     @winrt_mixinmethod
     def ReportCompleted(self: Windows.Security.Authentication.Web.Provider.IWebAccountProviderAddAccountOperation) -> Void: ...
     @winrt_mixinmethod
@@ -337,7 +337,7 @@ class WebAccountProviderAddAccountOperation(ComPtr):
     Kind = property(get_Kind, None)
 class WebAccountProviderDeleteAccountOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderDeleteAccountOperation'
+    _classid_ = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderDeleteAccountOperation'
     @winrt_mixinmethod
     def get_WebAccount(self: Windows.Security.Authentication.Web.Provider.IWebAccountProviderDeleteAccountOperation) -> Windows.Security.Credentials.WebAccount: ...
     @winrt_mixinmethod
@@ -350,7 +350,7 @@ class WebAccountProviderDeleteAccountOperation(ComPtr):
     Kind = property(get_Kind, None)
 class WebAccountProviderGetTokenSilentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderGetTokenSilentOperation'
+    _classid_ = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderGetTokenSilentOperation'
     @winrt_mixinmethod
     def get_ProviderRequest(self: Windows.Security.Authentication.Web.Provider.IWebAccountProviderTokenOperation) -> Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest: ...
     @winrt_mixinmethod
@@ -375,7 +375,7 @@ class WebAccountProviderGetTokenSilentOperation(ComPtr):
     Kind = property(get_Kind, None)
 class WebAccountProviderManageAccountOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderManageAccountOperation'
+    _classid_ = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderManageAccountOperation'
     @winrt_mixinmethod
     def get_WebAccount(self: Windows.Security.Authentication.Web.Provider.IWebAccountProviderManageAccountOperation) -> Windows.Security.Credentials.WebAccount: ...
     @winrt_mixinmethod
@@ -394,7 +394,7 @@ WebAccountProviderOperationKind_RetrieveCookies: WebAccountProviderOperationKind
 WebAccountProviderOperationKind_SignOutAccount: WebAccountProviderOperationKind = 6
 class WebAccountProviderRequestTokenOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderRequestTokenOperation'
+    _classid_ = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderRequestTokenOperation'
     @winrt_mixinmethod
     def get_ProviderRequest(self: Windows.Security.Authentication.Web.Provider.IWebAccountProviderTokenOperation) -> Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest: ...
     @winrt_mixinmethod
@@ -417,7 +417,7 @@ class WebAccountProviderRequestTokenOperation(ComPtr):
     Kind = property(get_Kind, None)
 class WebAccountProviderRetrieveCookiesOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderRetrieveCookiesOperation'
+    _classid_ = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderRetrieveCookiesOperation'
     @winrt_mixinmethod
     def get_Context(self: Windows.Security.Authentication.Web.Provider.IWebAccountProviderRetrieveCookiesOperation) -> Windows.Foundation.Uri: ...
     @winrt_mixinmethod
@@ -441,7 +441,7 @@ class WebAccountProviderRetrieveCookiesOperation(ComPtr):
     Kind = property(get_Kind, None)
 class WebAccountProviderSignOutAccountOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderSignOutAccountOperation'
+    _classid_ = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderSignOutAccountOperation'
     @winrt_mixinmethod
     def get_WebAccount(self: Windows.Security.Authentication.Web.Provider.IWebAccountProviderSignOutAccountOperation) -> Windows.Security.Credentials.WebAccount: ...
     @winrt_mixinmethod
@@ -460,7 +460,7 @@ class WebAccountProviderSignOutAccountOperation(ComPtr):
     Kind = property(get_Kind, None)
 class WebAccountProviderTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderTriggerDetails'
+    _classid_ = 'Windows.Security.Authentication.Web.Provider.WebAccountProviderTriggerDetails'
     @winrt_mixinmethod
     def get_Operation(self: Windows.Security.Authentication.Web.Provider.IWebAccountProviderTokenObjects) -> Windows.Security.Authentication.Web.Provider.IWebAccountProviderOperation: ...
     @winrt_mixinmethod
@@ -475,7 +475,7 @@ WebAccountSelectionOptions_Default: WebAccountSelectionOptions = 0
 WebAccountSelectionOptions_New: WebAccountSelectionOptions = 1
 class WebProviderTokenRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest'
+    _classid_ = 'Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest'
     @winrt_mixinmethod
     def get_ClientRequest(self: Windows.Security.Authentication.Web.Provider.IWebProviderTokenRequest) -> Windows.Security.Authentication.Web.Core.WebTokenRequest: ...
     @winrt_mixinmethod
@@ -502,7 +502,7 @@ class WebProviderTokenRequest(ComPtr):
     ApplicationProcessName = property(get_ApplicationProcessName, None)
 class WebProviderTokenResponse(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Web.Provider.WebProviderTokenResponse'
+    _classid_ = 'Windows.Security.Authentication.Web.Provider.WebProviderTokenResponse'
     @winrt_factorymethod
     def Create(cls: Windows.Security.Authentication.Web.Provider.IWebProviderTokenResponseFactory, webTokenResponse: Windows.Security.Authentication.Web.Core.WebTokenResponse) -> Windows.Security.Authentication.Web.Provider.WebProviderTokenResponse: ...
     @winrt_mixinmethod

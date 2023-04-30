@@ -31,7 +31,7 @@ CompressAlgorithm_XpressHuff: CompressAlgorithm = 4
 CompressAlgorithm_Lzms: CompressAlgorithm = 5
 class Compressor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Compression.Compressor'
+    _classid_ = 'Windows.Storage.Compression.Compressor'
     @winrt_factorymethod
     def CreateCompressor(cls: Windows.Storage.Compression.ICompressorFactory, underlyingStream: Windows.Storage.Streams.IOutputStream) -> Windows.Storage.Compression.Compressor: ...
     @winrt_factorymethod
@@ -48,7 +48,7 @@ class Compressor(ComPtr):
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
 class Decompressor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Compression.Decompressor'
+    _classid_ = 'Windows.Storage.Compression.Decompressor'
     @winrt_factorymethod
     def CreateDecompressor(cls: Windows.Storage.Compression.IDecompressorFactory, underlyingStream: Windows.Storage.Streams.IInputStream) -> Windows.Storage.Compression.Decompressor: ...
     @winrt_mixinmethod

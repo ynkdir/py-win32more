@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class DateTimeFormatter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Globalization.DateTimeFormatting.DateTimeFormatter'
+    _classid_ = 'Windows.Globalization.DateTimeFormatting.DateTimeFormatter'
     @winrt_factorymethod
     def CreateDateTimeFormatter(cls: Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory, formatTemplate: WinRT_String) -> Windows.Globalization.DateTimeFormatting.DateTimeFormatter: ...
     @winrt_factorymethod

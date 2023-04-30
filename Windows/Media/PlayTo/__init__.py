@@ -25,7 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CurrentTimeChangeRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.PlayTo.CurrentTimeChangeRequestedEventArgs'
+    _classid_ = 'Windows.Media.PlayTo.CurrentTimeChangeRequestedEventArgs'
     @winrt_mixinmethod
     def get_Time(self: Windows.Media.PlayTo.ICurrentTimeChangeRequestedEventArgs) -> Windows.Foundation.TimeSpan: ...
     Time = property(get_Time, None)
@@ -308,13 +308,13 @@ class IVolumeChangeRequestedEventArgs(ComPtr):
     Volume = property(get_Volume, None)
 class MuteChangeRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.PlayTo.MuteChangeRequestedEventArgs'
+    _classid_ = 'Windows.Media.PlayTo.MuteChangeRequestedEventArgs'
     @winrt_mixinmethod
     def get_Mute(self: Windows.Media.PlayTo.IMuteChangeRequestedEventArgs) -> Boolean: ...
     Mute = property(get_Mute, None)
 class PlayToConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.PlayTo.PlayToConnection'
+    _classid_ = 'Windows.Media.PlayTo.PlayToConnection'
     @winrt_mixinmethod
     def get_State(self: Windows.Media.PlayTo.IPlayToConnection) -> Windows.Media.PlayTo.PlayToConnectionState: ...
     @winrt_mixinmethod
@@ -338,7 +338,7 @@ PlayToConnectionError_DeviceLocked: PlayToConnectionError = 3
 PlayToConnectionError_ProtectedPlaybackFailed: PlayToConnectionError = 4
 class PlayToConnectionErrorEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.PlayTo.PlayToConnectionErrorEventArgs'
+    _classid_ = 'Windows.Media.PlayTo.PlayToConnectionErrorEventArgs'
     @winrt_mixinmethod
     def get_Code(self: Windows.Media.PlayTo.IPlayToConnectionErrorEventArgs) -> Windows.Media.PlayTo.PlayToConnectionError: ...
     @winrt_mixinmethod
@@ -351,7 +351,7 @@ PlayToConnectionState_Connected: PlayToConnectionState = 1
 PlayToConnectionState_Rendering: PlayToConnectionState = 2
 class PlayToConnectionStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.PlayTo.PlayToConnectionStateChangedEventArgs'
+    _classid_ = 'Windows.Media.PlayTo.PlayToConnectionStateChangedEventArgs'
     @winrt_mixinmethod
     def get_PreviousState(self: Windows.Media.PlayTo.IPlayToConnectionStateChangedEventArgs) -> Windows.Media.PlayTo.PlayToConnectionState: ...
     @winrt_mixinmethod
@@ -360,7 +360,7 @@ class PlayToConnectionStateChangedEventArgs(ComPtr):
     CurrentState = property(get_CurrentState, None)
 class PlayToConnectionTransferredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.PlayTo.PlayToConnectionTransferredEventArgs'
+    _classid_ = 'Windows.Media.PlayTo.PlayToConnectionTransferredEventArgs'
     @winrt_mixinmethod
     def get_PreviousSource(self: Windows.Media.PlayTo.IPlayToConnectionTransferredEventArgs) -> Windows.Media.PlayTo.PlayToSource: ...
     @winrt_mixinmethod
@@ -369,7 +369,7 @@ class PlayToConnectionTransferredEventArgs(ComPtr):
     CurrentSource = property(get_CurrentSource, None)
 class PlayToManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.PlayTo.PlayToManager'
+    _classid_ = 'Windows.Media.PlayTo.PlayToManager'
     @winrt_mixinmethod
     def add_SourceRequested(self: Windows.Media.PlayTo.IPlayToManager, handler: Windows.Foundation.TypedEventHandler[Windows.Media.PlayTo.PlayToManager, Windows.Media.PlayTo.PlayToSourceRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -389,7 +389,7 @@ class PlayToManager(ComPtr):
     DefaultSourceSelection = property(get_DefaultSourceSelection, put_DefaultSourceSelection)
 class PlayToReceiver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.PlayTo.PlayToReceiver'
+    _classid_ = 'Windows.Media.PlayTo.PlayToReceiver'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.PlayTo.PlayToReceiver: ...
     @winrt_mixinmethod
@@ -481,7 +481,7 @@ class PlayToReceiver(ComPtr):
     Properties = property(get_Properties, None)
 class PlayToSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.PlayTo.PlayToSource'
+    _classid_ = 'Windows.Media.PlayTo.PlayToSource'
     @winrt_mixinmethod
     def get_Connection(self: Windows.Media.PlayTo.IPlayToSource) -> Windows.Media.PlayTo.PlayToConnection: ...
     @winrt_mixinmethod
@@ -499,12 +499,12 @@ class PlayToSource(ComPtr):
     PreferredSourceUri = property(get_PreferredSourceUri, put_PreferredSourceUri)
 class PlayToSourceDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.PlayTo.PlayToSourceDeferral'
+    _classid_ = 'Windows.Media.PlayTo.PlayToSourceDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.Media.PlayTo.IPlayToSourceDeferral) -> Void: ...
 class PlayToSourceRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.PlayTo.PlayToSourceRequest'
+    _classid_ = 'Windows.Media.PlayTo.PlayToSourceRequest'
     @winrt_mixinmethod
     def get_Deadline(self: Windows.Media.PlayTo.IPlayToSourceRequest) -> Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
@@ -516,13 +516,13 @@ class PlayToSourceRequest(ComPtr):
     Deadline = property(get_Deadline, None)
 class PlayToSourceRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.PlayTo.PlayToSourceRequestedEventArgs'
+    _classid_ = 'Windows.Media.PlayTo.PlayToSourceRequestedEventArgs'
     @winrt_mixinmethod
     def get_SourceRequest(self: Windows.Media.PlayTo.IPlayToSourceRequestedEventArgs) -> Windows.Media.PlayTo.PlayToSourceRequest: ...
     SourceRequest = property(get_SourceRequest, None)
 class PlayToSourceSelectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.PlayTo.PlayToSourceSelectedEventArgs'
+    _classid_ = 'Windows.Media.PlayTo.PlayToSourceSelectedEventArgs'
     @winrt_mixinmethod
     def get_FriendlyName(self: Windows.Media.PlayTo.IPlayToSourceSelectedEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -540,13 +540,13 @@ class PlayToSourceSelectedEventArgs(ComPtr):
     SupportsVideo = property(get_SupportsVideo, None)
 class PlaybackRateChangeRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.PlayTo.PlaybackRateChangeRequestedEventArgs'
+    _classid_ = 'Windows.Media.PlayTo.PlaybackRateChangeRequestedEventArgs'
     @winrt_mixinmethod
     def get_Rate(self: Windows.Media.PlayTo.IPlaybackRateChangeRequestedEventArgs) -> Double: ...
     Rate = property(get_Rate, None)
 class SourceChangeRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.PlayTo.SourceChangeRequestedEventArgs'
+    _classid_ = 'Windows.Media.PlayTo.SourceChangeRequestedEventArgs'
     @winrt_mixinmethod
     def get_Stream(self: Windows.Media.PlayTo.ISourceChangeRequestedEventArgs) -> Windows.Storage.Streams.IRandomAccessStreamWithContentType: ...
     @winrt_mixinmethod
@@ -579,7 +579,7 @@ class SourceChangeRequestedEventArgs(ComPtr):
     Properties = property(get_Properties, None)
 class VolumeChangeRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.PlayTo.VolumeChangeRequestedEventArgs'
+    _classid_ = 'Windows.Media.PlayTo.VolumeChangeRequestedEventArgs'
     @winrt_mixinmethod
     def get_Volume(self: Windows.Media.PlayTo.IVolumeChangeRequestedEventArgs) -> Double: ...
     Volume = property(get_Volume, None)

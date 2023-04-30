@@ -25,7 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AnnotationPatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.AnnotationPatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.AnnotationPatternIdentifiers'
     @winrt_classmethod
     def get_AnnotationTypeIdProperty(cls: Windows.UI.Xaml.Automation.IAnnotationPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -80,7 +80,7 @@ AutomationAnimationStyle_Shimmer: AutomationAnimationStyle = 6
 AutomationAnimationStyle_Other: AutomationAnimationStyle = 7
 class AutomationAnnotation(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Automation.AutomationAnnotation'
+    _classid_ = 'Windows.UI.Xaml.Automation.AutomationAnnotation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Automation.AutomationAnnotation: ...
     @winrt_factorymethod
@@ -120,7 +120,7 @@ AutomationCaretPosition_EndOfLine: AutomationCaretPosition = 1
 AutomationCaretPosition_BeginningOfLine: AutomationCaretPosition = 2
 class AutomationElementIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.AutomationElementIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.AutomationElementIdentifiers'
     @winrt_classmethod
     def get_IsDialogProperty(cls: Windows.UI.Xaml.Automation.IAutomationElementIdentifiersStatics8) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -251,7 +251,7 @@ AutomationOutlineStyles_Engraved: AutomationOutlineStyles = 3
 AutomationOutlineStyles_Embossed: AutomationOutlineStyles = 4
 class AutomationProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.AutomationProperties'
+    _classid_ = 'Windows.UI.Xaml.Automation.AutomationProperties'
     @winrt_classmethod
     def get_AutomationControlTypeProperty(cls: Windows.UI.Xaml.Automation.IAutomationPropertiesStatics9) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_classmethod
@@ -447,7 +447,7 @@ class AutomationProperties(ComPtr):
     LiveSettingProperty = property(get_LiveSettingProperty, None)
 class AutomationProperty(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.AutomationProperty'
+    _classid_ = 'Windows.UI.Xaml.Automation.AutomationProperty'
 AutomationStyleId = Int32
 AutomationStyleId_Heading1: AutomationStyleId = 70001
 AutomationStyleId_Heading2: AutomationStyleId = 70002
@@ -491,7 +491,7 @@ AutomationTextEditChangeType_Composition: AutomationTextEditChangeType = 2
 AutomationTextEditChangeType_CompositionFinalized: AutomationTextEditChangeType = 3
 class DockPatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.DockPatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.DockPatternIdentifiers'
     @winrt_classmethod
     def get_DockPositionProperty(cls: Windows.UI.Xaml.Automation.IDockPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     DockPositionProperty = property(get_DockPositionProperty, None)
@@ -504,7 +504,7 @@ DockPosition_Fill: DockPosition = 4
 DockPosition_None: DockPosition = 5
 class DragPatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.DragPatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.DragPatternIdentifiers'
     @winrt_classmethod
     def get_DropEffectProperty(cls: Windows.UI.Xaml.Automation.IDragPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -519,7 +519,7 @@ class DragPatternIdentifiers(ComPtr):
     IsGrabbedProperty = property(get_IsGrabbedProperty, None)
 class DropTargetPatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.DropTargetPatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.DropTargetPatternIdentifiers'
     @winrt_classmethod
     def get_DropTargetEffectProperty(cls: Windows.UI.Xaml.Automation.IDropTargetPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -528,7 +528,7 @@ class DropTargetPatternIdentifiers(ComPtr):
     DropTargetEffectsProperty = property(get_DropTargetEffectsProperty, None)
 class ExpandCollapsePatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.ExpandCollapsePatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.ExpandCollapsePatternIdentifiers'
     @winrt_classmethod
     def get_ExpandCollapseStateProperty(cls: Windows.UI.Xaml.Automation.IExpandCollapsePatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     ExpandCollapseStateProperty = property(get_ExpandCollapseStateProperty, None)
@@ -539,7 +539,7 @@ ExpandCollapseState_PartiallyExpanded: ExpandCollapseState = 2
 ExpandCollapseState_LeafNode: ExpandCollapseState = 3
 class GridItemPatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.GridItemPatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.GridItemPatternIdentifiers'
     @winrt_classmethod
     def get_ColumnProperty(cls: Windows.UI.Xaml.Automation.IGridItemPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -557,7 +557,7 @@ class GridItemPatternIdentifiers(ComPtr):
     RowSpanProperty = property(get_RowSpanProperty, None)
 class GridPatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.GridPatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.GridPatternIdentifiers'
     @winrt_classmethod
     def get_ColumnCountProperty(cls: Windows.UI.Xaml.Automation.IGridPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -1298,7 +1298,7 @@ class IWindowPatternIdentifiersStatics(ComPtr):
     WindowVisualStateProperty = property(get_WindowVisualStateProperty, None)
 class MultipleViewPatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.MultipleViewPatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.MultipleViewPatternIdentifiers'
     @winrt_classmethod
     def get_CurrentViewProperty(cls: Windows.UI.Xaml.Automation.IMultipleViewPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -1307,7 +1307,7 @@ class MultipleViewPatternIdentifiers(ComPtr):
     SupportedViewsProperty = property(get_SupportedViewsProperty, None)
 class RangeValuePatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.RangeValuePatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.RangeValuePatternIdentifiers'
     @winrt_classmethod
     def get_IsReadOnlyProperty(cls: Windows.UI.Xaml.Automation.IRangeValuePatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -1338,7 +1338,7 @@ ScrollAmount_LargeIncrement: ScrollAmount = 3
 ScrollAmount_SmallIncrement: ScrollAmount = 4
 class ScrollPatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.ScrollPatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.ScrollPatternIdentifiers'
     @winrt_classmethod
     def get_HorizontallyScrollableProperty(cls: Windows.UI.Xaml.Automation.IScrollPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -1362,7 +1362,7 @@ class ScrollPatternIdentifiers(ComPtr):
     VerticalViewSizeProperty = property(get_VerticalViewSizeProperty, None)
 class SelectionItemPatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.SelectionItemPatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.SelectionItemPatternIdentifiers'
     @winrt_classmethod
     def get_IsSelectedProperty(cls: Windows.UI.Xaml.Automation.ISelectionItemPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -1371,7 +1371,7 @@ class SelectionItemPatternIdentifiers(ComPtr):
     SelectionContainerProperty = property(get_SelectionContainerProperty, None)
 class SelectionPatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.SelectionPatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.SelectionPatternIdentifiers'
     @winrt_classmethod
     def get_CanSelectMultipleProperty(cls: Windows.UI.Xaml.Automation.ISelectionPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -1383,13 +1383,13 @@ class SelectionPatternIdentifiers(ComPtr):
     SelectionProperty = property(get_SelectionProperty, None)
 class SpreadsheetItemPatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.SpreadsheetItemPatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.SpreadsheetItemPatternIdentifiers'
     @winrt_classmethod
     def get_FormulaProperty(cls: Windows.UI.Xaml.Automation.ISpreadsheetItemPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     FormulaProperty = property(get_FormulaProperty, None)
 class StylesPatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.StylesPatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.StylesPatternIdentifiers'
     @winrt_classmethod
     def get_ExtendedPropertiesProperty(cls: Windows.UI.Xaml.Automation.IStylesPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -1424,7 +1424,7 @@ SynchronizedInputType_RightMouseUp: SynchronizedInputType = 16
 SynchronizedInputType_RightMouseDown: SynchronizedInputType = 32
 class TableItemPatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.TableItemPatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.TableItemPatternIdentifiers'
     @winrt_classmethod
     def get_ColumnHeaderItemsProperty(cls: Windows.UI.Xaml.Automation.ITableItemPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -1433,7 +1433,7 @@ class TableItemPatternIdentifiers(ComPtr):
     RowHeaderItemsProperty = property(get_RowHeaderItemsProperty, None)
 class TablePatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.TablePatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.TablePatternIdentifiers'
     @winrt_classmethod
     def get_ColumnHeadersProperty(cls: Windows.UI.Xaml.Automation.ITablePatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -1445,7 +1445,7 @@ class TablePatternIdentifiers(ComPtr):
     RowOrColumnMajorProperty = property(get_RowOrColumnMajorProperty, None)
 class TogglePatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.TogglePatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.TogglePatternIdentifiers'
     @winrt_classmethod
     def get_ToggleStateProperty(cls: Windows.UI.Xaml.Automation.ITogglePatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     ToggleStateProperty = property(get_ToggleStateProperty, None)
@@ -1455,7 +1455,7 @@ ToggleState_On: ToggleState = 1
 ToggleState_Indeterminate: ToggleState = 2
 class TransformPattern2Identifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.TransformPattern2Identifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.TransformPattern2Identifiers'
     @winrt_classmethod
     def get_CanZoomProperty(cls: Windows.UI.Xaml.Automation.ITransformPattern2IdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -1470,7 +1470,7 @@ class TransformPattern2Identifiers(ComPtr):
     MinZoomProperty = property(get_MinZoomProperty, None)
 class TransformPatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.TransformPatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.TransformPatternIdentifiers'
     @winrt_classmethod
     def get_CanMoveProperty(cls: Windows.UI.Xaml.Automation.ITransformPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -1482,7 +1482,7 @@ class TransformPatternIdentifiers(ComPtr):
     CanRotateProperty = property(get_CanRotateProperty, None)
 class ValuePatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.ValuePatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.ValuePatternIdentifiers'
     @winrt_classmethod
     def get_IsReadOnlyProperty(cls: Windows.UI.Xaml.Automation.IValuePatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod
@@ -1497,7 +1497,7 @@ WindowInteractionState_BlockedByModalWindow: WindowInteractionState = 3
 WindowInteractionState_NotResponding: WindowInteractionState = 4
 class WindowPatternIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Automation.WindowPatternIdentifiers'
+    _classid_ = 'Windows.UI.Xaml.Automation.WindowPatternIdentifiers'
     @winrt_classmethod
     def get_CanMaximizeProperty(cls: Windows.UI.Xaml.Automation.IWindowPatternIdentifiersStatics) -> Windows.UI.Xaml.Automation.AutomationProperty: ...
     @winrt_classmethod

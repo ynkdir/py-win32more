@@ -28,7 +28,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AppListEntry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Core.AppListEntry'
+    _classid_ = 'Windows.ApplicationModel.Core.AppListEntry'
     @winrt_mixinmethod
     def get_DisplayInfo(self: Windows.ApplicationModel.Core.IAppListEntry) -> Windows.ApplicationModel.AppDisplayInfo: ...
     @winrt_mixinmethod
@@ -49,7 +49,7 @@ AppRestartFailureReason_InvalidUser: AppRestartFailureReason = 2
 AppRestartFailureReason_Other: AppRestartFailureReason = 3
 class CoreApplication(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Core.CoreApplication'
+    _classid_ = 'Windows.ApplicationModel.Core.CoreApplication'
     @winrt_classmethod
     def CreateNewViewWithViewSource(cls: Windows.ApplicationModel.Core.ICoreImmersiveApplication3, viewSource: Windows.ApplicationModel.Core.IFrameworkViewSource) -> Windows.ApplicationModel.Core.CoreApplicationView: ...
     @winrt_classmethod
@@ -116,7 +116,7 @@ class CoreApplication(ComPtr):
     Properties = property(get_Properties, None)
 class CoreApplicationView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Core.CoreApplicationView'
+    _classid_ = 'Windows.ApplicationModel.Core.CoreApplicationView'
     @winrt_mixinmethod
     def get_CoreWindow(self: Windows.ApplicationModel.Core.ICoreApplicationView) -> Windows.UI.Core.CoreWindow: ...
     @winrt_mixinmethod
@@ -151,7 +151,7 @@ class CoreApplicationView(ComPtr):
     DispatcherQueue = property(get_DispatcherQueue, None)
 class CoreApplicationViewTitleBar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Core.CoreApplicationViewTitleBar'
+    _classid_ = 'Windows.ApplicationModel.Core.CoreApplicationViewTitleBar'
     @winrt_mixinmethod
     def put_ExtendViewIntoTitleBar(self: Windows.ApplicationModel.Core.ICoreApplicationViewTitleBar, value: Boolean) -> Void: ...
     @winrt_mixinmethod
@@ -179,7 +179,7 @@ class CoreApplicationViewTitleBar(ComPtr):
     IsVisible = property(get_IsVisible, None)
 class HostedViewClosingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Core.HostedViewClosingEventArgs'
+    _classid_ = 'Windows.ApplicationModel.Core.HostedViewClosingEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.Core.IHostedViewClosingEventArgs) -> Windows.Foundation.Deferral: ...
 class IAppListEntry(ComPtr):
@@ -412,7 +412,7 @@ class IUnhandledErrorDetectedEventArgs(ComPtr):
     UnhandledError = property(get_UnhandledError, None)
 class UnhandledError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Core.UnhandledError'
+    _classid_ = 'Windows.ApplicationModel.Core.UnhandledError'
     @winrt_mixinmethod
     def get_Handled(self: Windows.ApplicationModel.Core.IUnhandledError) -> Boolean: ...
     @winrt_mixinmethod
@@ -420,7 +420,7 @@ class UnhandledError(ComPtr):
     Handled = property(get_Handled, None)
 class UnhandledErrorDetectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Core.UnhandledErrorDetectedEventArgs'
+    _classid_ = 'Windows.ApplicationModel.Core.UnhandledErrorDetectedEventArgs'
     @winrt_mixinmethod
     def get_UnhandledError(self: Windows.ApplicationModel.Core.IUnhandledErrorDetectedEventArgs) -> Windows.ApplicationModel.Core.UnhandledError: ...
     UnhandledError = property(get_UnhandledError, None)

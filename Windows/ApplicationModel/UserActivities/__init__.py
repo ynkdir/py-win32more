@@ -241,7 +241,7 @@ class IUserActivityVisualElements2(ComPtr):
     AttributionDisplayText = property(get_AttributionDisplayText, put_AttributionDisplayText)
 class UserActivity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserActivities.UserActivity'
+    _classid_ = 'Windows.ApplicationModel.UserActivities.UserActivity'
     @winrt_factorymethod
     def CreateWithActivityId(cls: Windows.ApplicationModel.UserActivities.IUserActivityFactory, activityId: WinRT_String) -> Windows.ApplicationModel.UserActivities.UserActivity: ...
     @winrt_mixinmethod
@@ -297,7 +297,7 @@ class UserActivity(ComPtr):
     IsRoamable = property(get_IsRoamable, put_IsRoamable)
 class UserActivityAttribution(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserActivities.UserActivityAttribution'
+    _classid_ = 'Windows.ApplicationModel.UserActivities.UserActivityAttribution'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.UserActivities.UserActivityAttribution: ...
     @winrt_factorymethod
@@ -319,7 +319,7 @@ class UserActivityAttribution(ComPtr):
     AddImageQuery = property(get_AddImageQuery, put_AddImageQuery)
 class UserActivityChannel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserActivities.UserActivityChannel'
+    _classid_ = 'Windows.ApplicationModel.UserActivities.UserActivityChannel'
     @winrt_mixinmethod
     def GetOrCreateUserActivityAsync(self: Windows.ApplicationModel.UserActivities.IUserActivityChannel, activityId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserActivities.UserActivity]: ...
     @winrt_mixinmethod
@@ -340,19 +340,19 @@ class UserActivityChannel(ComPtr):
     def GetDefault(cls: Windows.ApplicationModel.UserActivities.IUserActivityChannelStatics) -> Windows.ApplicationModel.UserActivities.UserActivityChannel: ...
 class UserActivityContentInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserActivities.UserActivityContentInfo'
+    _classid_ = 'Windows.ApplicationModel.UserActivities.UserActivityContentInfo'
     @winrt_mixinmethod
     def ToJson(self: Windows.ApplicationModel.UserActivities.IUserActivityContentInfo) -> WinRT_String: ...
     @winrt_classmethod
     def FromJson(cls: Windows.ApplicationModel.UserActivities.IUserActivityContentInfoStatics, value: WinRT_String) -> Windows.ApplicationModel.UserActivities.UserActivityContentInfo: ...
 class UserActivityRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserActivities.UserActivityRequest'
+    _classid_ = 'Windows.ApplicationModel.UserActivities.UserActivityRequest'
     @winrt_mixinmethod
     def SetUserActivity(self: Windows.ApplicationModel.UserActivities.IUserActivityRequest, activity: Windows.ApplicationModel.UserActivities.UserActivity) -> Void: ...
 class UserActivityRequestManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserActivities.UserActivityRequestManager'
+    _classid_ = 'Windows.ApplicationModel.UserActivities.UserActivityRequestManager'
     @winrt_mixinmethod
     def add_UserActivityRequested(self: Windows.ApplicationModel.UserActivities.IUserActivityRequestManager, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.UserActivities.UserActivityRequestManager, Windows.ApplicationModel.UserActivities.UserActivityRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -361,7 +361,7 @@ class UserActivityRequestManager(ComPtr):
     def GetForCurrentView(cls: Windows.ApplicationModel.UserActivities.IUserActivityRequestManagerStatics) -> Windows.ApplicationModel.UserActivities.UserActivityRequestManager: ...
 class UserActivityRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserActivities.UserActivityRequestedEventArgs'
+    _classid_ = 'Windows.ApplicationModel.UserActivities.UserActivityRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.UserActivities.IUserActivityRequestedEventArgs) -> Windows.ApplicationModel.UserActivities.UserActivityRequest: ...
     @winrt_mixinmethod
@@ -369,7 +369,7 @@ class UserActivityRequestedEventArgs(ComPtr):
     Request = property(get_Request, None)
 class UserActivitySession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserActivities.UserActivitySession'
+    _classid_ = 'Windows.ApplicationModel.UserActivities.UserActivitySession'
     @winrt_mixinmethod
     def get_ActivityId(self: Windows.ApplicationModel.UserActivities.IUserActivitySession) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -377,7 +377,7 @@ class UserActivitySession(ComPtr):
     ActivityId = property(get_ActivityId, None)
 class UserActivitySessionHistoryItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserActivities.UserActivitySessionHistoryItem'
+    _classid_ = 'Windows.ApplicationModel.UserActivities.UserActivitySessionHistoryItem'
     @winrt_mixinmethod
     def get_UserActivity(self: Windows.ApplicationModel.UserActivities.IUserActivitySessionHistoryItem) -> Windows.ApplicationModel.UserActivities.UserActivity: ...
     @winrt_mixinmethod
@@ -392,7 +392,7 @@ UserActivityState_New: UserActivityState = 0
 UserActivityState_Published: UserActivityState = 1
 class UserActivityVisualElements(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserActivities.UserActivityVisualElements'
+    _classid_ = 'Windows.ApplicationModel.UserActivities.UserActivityVisualElements'
     @winrt_mixinmethod
     def get_DisplayText(self: Windows.ApplicationModel.UserActivities.IUserActivityVisualElements) -> WinRT_String: ...
     @winrt_mixinmethod

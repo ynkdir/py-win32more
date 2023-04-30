@@ -28,7 +28,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AtomPubClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.AtomPub.AtomPubClient'
+    _classid_ = 'Windows.Web.AtomPub.AtomPubClient'
     @winrt_factorymethod
     def CreateAtomPubClientWithCredentials(cls: Windows.Web.AtomPub.IAtomPubClientFactory, serverCredential: Windows.Security.Credentials.PasswordCredential) -> Windows.Web.AtomPub.AtomPubClient: ...
     @winrt_activatemethod
@@ -146,7 +146,7 @@ class IWorkspace(ComPtr):
     Collections = property(get_Collections, None)
 class ResourceCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.AtomPub.ResourceCollection'
+    _classid_ = 'Windows.Web.AtomPub.ResourceCollection'
     @winrt_mixinmethod
     def get_Title(self: Windows.Web.AtomPub.IResourceCollection) -> Windows.Web.Syndication.ISyndicationText: ...
     @winrt_mixinmethod
@@ -194,7 +194,7 @@ class ResourceCollection(ComPtr):
     ElementExtensions = property(get_ElementExtensions, None)
 class ServiceDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.AtomPub.ServiceDocument'
+    _classid_ = 'Windows.Web.AtomPub.ServiceDocument'
     @winrt_mixinmethod
     def get_Workspaces(self: Windows.Web.AtomPub.IServiceDocument) -> Windows.Foundation.Collections.IVectorView[Windows.Web.AtomPub.Workspace]: ...
     @winrt_mixinmethod
@@ -233,7 +233,7 @@ class ServiceDocument(ComPtr):
     ElementExtensions = property(get_ElementExtensions, None)
 class Workspace(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.AtomPub.Workspace'
+    _classid_ = 'Windows.Web.AtomPub.Workspace'
     @winrt_mixinmethod
     def get_Title(self: Windows.Web.AtomPub.IWorkspace) -> Windows.Web.Syndication.ISyndicationText: ...
     @winrt_mixinmethod

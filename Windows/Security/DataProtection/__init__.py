@@ -74,12 +74,12 @@ UserDataAvailability_AfterFirstUnlock: UserDataAvailability = 1
 UserDataAvailability_WhileUnlocked: UserDataAvailability = 2
 class UserDataAvailabilityStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.DataProtection.UserDataAvailabilityStateChangedEventArgs'
+    _classid_ = 'Windows.Security.DataProtection.UserDataAvailabilityStateChangedEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.Security.DataProtection.IUserDataAvailabilityStateChangedEventArgs) -> Windows.Foundation.Deferral: ...
 class UserDataBufferUnprotectResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.DataProtection.UserDataBufferUnprotectResult'
+    _classid_ = 'Windows.Security.DataProtection.UserDataBufferUnprotectResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Security.DataProtection.IUserDataBufferUnprotectResult) -> Windows.Security.DataProtection.UserDataBufferUnprotectStatus: ...
     @winrt_mixinmethod
@@ -91,7 +91,7 @@ UserDataBufferUnprotectStatus_Succeeded: UserDataBufferUnprotectStatus = 0
 UserDataBufferUnprotectStatus_Unavailable: UserDataBufferUnprotectStatus = 1
 class UserDataProtectionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.DataProtection.UserDataProtectionManager'
+    _classid_ = 'Windows.Security.DataProtection.UserDataProtectionManager'
     @winrt_mixinmethod
     def ProtectStorageItemAsync(self: Windows.Security.DataProtection.IUserDataProtectionManager, storageItem: Windows.Storage.IStorageItem, availability: Windows.Security.DataProtection.UserDataAvailability) -> Windows.Foundation.IAsyncOperation[Windows.Security.DataProtection.UserDataStorageItemProtectionStatus]: ...
     @winrt_mixinmethod
@@ -112,7 +112,7 @@ class UserDataProtectionManager(ComPtr):
     def TryGetForUser(cls: Windows.Security.DataProtection.IUserDataProtectionManagerStatics, user: Windows.System.User) -> Windows.Security.DataProtection.UserDataProtectionManager: ...
 class UserDataStorageItemProtectionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.DataProtection.UserDataStorageItemProtectionInfo'
+    _classid_ = 'Windows.Security.DataProtection.UserDataStorageItemProtectionInfo'
     @winrt_mixinmethod
     def get_Availability(self: Windows.Security.DataProtection.IUserDataStorageItemProtectionInfo) -> Windows.Security.DataProtection.UserDataAvailability: ...
     Availability = property(get_Availability, None)

@@ -22,7 +22,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class HtmlUtilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Html.HtmlUtilities'
+    _classid_ = 'Windows.Data.Html.HtmlUtilities'
     @winrt_classmethod
     def ConvertToText(cls: Windows.Data.Html.IHtmlUtilities, html: WinRT_String) -> WinRT_String: ...
 class IHtmlUtilities(ComPtr):

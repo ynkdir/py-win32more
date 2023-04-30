@@ -26,7 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class HidBooleanControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.HumanInterfaceDevice.HidBooleanControl'
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.HidBooleanControl'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.HumanInterfaceDevice.IHidBooleanControl) -> UInt32: ...
     @winrt_mixinmethod
@@ -46,7 +46,7 @@ class HidBooleanControl(ComPtr):
     ControlDescription = property(get_ControlDescription, None)
 class HidBooleanControlDescription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.HumanInterfaceDevice.HidBooleanControlDescription'
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.HidBooleanControlDescription'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.HumanInterfaceDevice.IHidBooleanControlDescription) -> UInt32: ...
     @winrt_mixinmethod
@@ -70,7 +70,7 @@ class HidBooleanControlDescription(ComPtr):
     IsAbsolute = property(get_IsAbsolute, None)
 class HidCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.HumanInterfaceDevice.HidCollection'
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.HidCollection'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.HumanInterfaceDevice.IHidCollection) -> UInt32: ...
     @winrt_mixinmethod
@@ -94,7 +94,7 @@ HidCollectionType_UsageModifier: HidCollectionType = 6
 HidCollectionType_Other: HidCollectionType = 7
 class HidDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.HumanInterfaceDevice.HidDevice'
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.HidDevice'
     @winrt_mixinmethod
     def get_VendorId(self: Windows.Devices.HumanInterfaceDevice.IHidDevice) -> UInt16: ...
     @winrt_mixinmethod
@@ -148,7 +148,7 @@ class HidDevice(ComPtr):
     UsageId = property(get_UsageId, None)
 class HidFeatureReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.HumanInterfaceDevice.HidFeatureReport'
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.HidFeatureReport'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.HumanInterfaceDevice.IHidFeatureReport) -> UInt16: ...
     @winrt_mixinmethod
@@ -167,7 +167,7 @@ class HidFeatureReport(ComPtr):
     Data = property(get_Data, put_Data)
 class HidInputReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.HumanInterfaceDevice.HidInputReport'
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.HidInputReport'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.HumanInterfaceDevice.IHidInputReport) -> UInt16: ...
     @winrt_mixinmethod
@@ -190,13 +190,13 @@ class HidInputReport(ComPtr):
     TransitionedBooleanControls = property(get_TransitionedBooleanControls, None)
 class HidInputReportReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.HumanInterfaceDevice.HidInputReportReceivedEventArgs'
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.HidInputReportReceivedEventArgs'
     @winrt_mixinmethod
     def get_Report(self: Windows.Devices.HumanInterfaceDevice.IHidInputReportReceivedEventArgs) -> Windows.Devices.HumanInterfaceDevice.HidInputReport: ...
     Report = property(get_Report, None)
 class HidNumericControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.HumanInterfaceDevice.HidNumericControl'
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.HidNumericControl'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.HumanInterfaceDevice.IHidNumericControl) -> UInt32: ...
     @winrt_mixinmethod
@@ -224,7 +224,7 @@ class HidNumericControl(ComPtr):
     ControlDescription = property(get_ControlDescription, None)
 class HidNumericControlDescription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.HumanInterfaceDevice.HidNumericControlDescription'
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.HidNumericControlDescription'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.HumanInterfaceDevice.IHidNumericControlDescription) -> UInt32: ...
     @winrt_mixinmethod
@@ -275,7 +275,7 @@ class HidNumericControlDescription(ComPtr):
     ParentCollections = property(get_ParentCollections, None)
 class HidOutputReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.HumanInterfaceDevice.HidOutputReport'
+    _classid_ = 'Windows.Devices.HumanInterfaceDevice.HidOutputReport'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.HumanInterfaceDevice.IHidOutputReport) -> UInt16: ...
     @winrt_mixinmethod

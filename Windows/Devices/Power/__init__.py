@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class Battery(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Power.Battery'
+    _classid_ = 'Windows.Devices.Power.Battery'
     @winrt_mixinmethod
     def get_DeviceId(self: Windows.Devices.Power.IBattery) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -43,7 +43,7 @@ class Battery(ComPtr):
     AggregateBattery = property(get_AggregateBattery, None)
 class BatteryReport(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Power.BatteryReport'
+    _classid_ = 'Windows.Devices.Power.BatteryReport'
     @winrt_mixinmethod
     def get_ChargeRateInMilliwatts(self: Windows.Devices.Power.IBatteryReport) -> Windows.Foundation.IReference[Int32]: ...
     @winrt_mixinmethod

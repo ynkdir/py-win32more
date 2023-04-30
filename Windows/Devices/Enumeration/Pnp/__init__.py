@@ -94,7 +94,7 @@ class IPnpObjectWatcher(ComPtr):
     Status = property(get_Status, None)
 class PnpObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Enumeration.Pnp.PnpObject'
+    _classid_ = 'Windows.Devices.Enumeration.Pnp.PnpObject'
     @winrt_mixinmethod
     def get_Type(self: Windows.Devices.Enumeration.Pnp.IPnpObject) -> Windows.Devices.Enumeration.Pnp.PnpObjectType: ...
     @winrt_mixinmethod
@@ -118,7 +118,7 @@ class PnpObject(ComPtr):
     Properties = property(get_Properties, None)
 class PnpObjectCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Enumeration.Pnp.PnpObjectCollection'
+    _classid_ = 'Windows.Devices.Enumeration.Pnp.PnpObjectCollection'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVectorView[Windows.Devices.Enumeration.Pnp.PnpObject], index: UInt32) -> Windows.Devices.Enumeration.Pnp.PnpObject: ...
     @winrt_mixinmethod
@@ -142,7 +142,7 @@ PnpObjectType_AssociationEndpointService: PnpObjectType = 7
 PnpObjectType_DevicePanel: PnpObjectType = 8
 class PnpObjectUpdate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Enumeration.Pnp.PnpObjectUpdate'
+    _classid_ = 'Windows.Devices.Enumeration.Pnp.PnpObjectUpdate'
     @winrt_mixinmethod
     def get_Type(self: Windows.Devices.Enumeration.Pnp.IPnpObjectUpdate) -> Windows.Devices.Enumeration.Pnp.PnpObjectType: ...
     @winrt_mixinmethod
@@ -154,7 +154,7 @@ class PnpObjectUpdate(ComPtr):
     Properties = property(get_Properties, None)
 class PnpObjectWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Enumeration.Pnp.PnpObjectWatcher'
+    _classid_ = 'Windows.Devices.Enumeration.Pnp.PnpObjectWatcher'
     @winrt_mixinmethod
     def add_Added(self: Windows.Devices.Enumeration.Pnp.IPnpObjectWatcher, handler: Windows.Foundation.TypedEventHandler[Windows.Devices.Enumeration.Pnp.PnpObjectWatcher, Windows.Devices.Enumeration.Pnp.PnpObject]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod

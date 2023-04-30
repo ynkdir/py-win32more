@@ -31,7 +31,7 @@ AlternateNormalizationFormat_Date: AlternateNormalizationFormat = 4
 AlternateNormalizationFormat_Time: AlternateNormalizationFormat = 5
 class AlternateWordForm(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Text.AlternateWordForm'
+    _classid_ = 'Windows.Data.Text.AlternateWordForm'
     @winrt_mixinmethod
     def get_SourceTextSegment(self: Windows.Data.Text.IAlternateWordForm) -> Windows.Data.Text.TextSegment: ...
     @winrt_mixinmethod
@@ -239,7 +239,7 @@ class IWordsSegmenterFactory(ComPtr):
     def CreateWithLanguage(self, language: WinRT_String) -> Windows.Data.Text.WordsSegmenter: ...
 class SelectableWordSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Text.SelectableWordSegment'
+    _classid_ = 'Windows.Data.Text.SelectableWordSegment'
     @winrt_mixinmethod
     def get_Text(self: Windows.Data.Text.ISelectableWordSegment) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -249,12 +249,12 @@ class SelectableWordSegment(ComPtr):
 class SelectableWordSegmentsTokenizingHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('3a3dfc9c-aede-4dc7-9e-6c-41-c0-44-bd-35-92')
-    ClassId = 'Windows.Data.Text.SelectableWordSegmentsTokenizingHandler'
+    _classid_ = 'Windows.Data.Text.SelectableWordSegmentsTokenizingHandler'
     @winrt_commethod(3)
     def Invoke(self, precedingWords: Windows.Foundation.Collections.IIterable[Windows.Data.Text.SelectableWordSegment], words: Windows.Foundation.Collections.IIterable[Windows.Data.Text.SelectableWordSegment]) -> Void: ...
 class SelectableWordsSegmenter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Text.SelectableWordsSegmenter'
+    _classid_ = 'Windows.Data.Text.SelectableWordsSegmenter'
     @winrt_factorymethod
     def CreateWithLanguage(cls: Windows.Data.Text.ISelectableWordsSegmenterFactory, language: WinRT_String) -> Windows.Data.Text.SelectableWordsSegmenter: ...
     @winrt_mixinmethod
@@ -268,7 +268,7 @@ class SelectableWordsSegmenter(ComPtr):
     ResolvedLanguage = property(get_ResolvedLanguage, None)
 class SemanticTextQuery(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Text.SemanticTextQuery'
+    _classid_ = 'Windows.Data.Text.SemanticTextQuery'
     @winrt_factorymethod
     def Create(cls: Windows.Data.Text.ISemanticTextQueryFactory, aqsFilter: WinRT_String) -> Windows.Data.Text.SemanticTextQuery: ...
     @winrt_factorymethod
@@ -279,7 +279,7 @@ class SemanticTextQuery(ComPtr):
     def FindInProperty(self: Windows.Data.Text.ISemanticTextQuery, propertyContent: WinRT_String, propertyName: WinRT_String) -> Windows.Foundation.Collections.IVectorView[Windows.Data.Text.TextSegment]: ...
 class TextConversionGenerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Text.TextConversionGenerator'
+    _classid_ = 'Windows.Data.Text.TextConversionGenerator'
     @winrt_factorymethod
     def Create(cls: Windows.Data.Text.ITextConversionGeneratorFactory, languageTag: WinRT_String) -> Windows.Data.Text.TextConversionGenerator: ...
     @winrt_mixinmethod
@@ -294,7 +294,7 @@ class TextConversionGenerator(ComPtr):
     LanguageAvailableButNotInstalled = property(get_LanguageAvailableButNotInstalled, None)
 class TextPhoneme(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Text.TextPhoneme'
+    _classid_ = 'Windows.Data.Text.TextPhoneme'
     @winrt_mixinmethod
     def get_DisplayText(self: Windows.Data.Text.ITextPhoneme) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -303,7 +303,7 @@ class TextPhoneme(ComPtr):
     ReadingText = property(get_ReadingText, None)
 class TextPredictionGenerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Text.TextPredictionGenerator'
+    _classid_ = 'Windows.Data.Text.TextPredictionGenerator'
     @winrt_factorymethod
     def Create(cls: Windows.Data.Text.ITextPredictionGeneratorFactory, languageTag: WinRT_String) -> Windows.Data.Text.TextPredictionGenerator: ...
     @winrt_mixinmethod
@@ -331,7 +331,7 @@ TextPredictionOptions_Predictions: TextPredictionOptions = 1
 TextPredictionOptions_Corrections: TextPredictionOptions = 2
 class TextReverseConversionGenerator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Text.TextReverseConversionGenerator'
+    _classid_ = 'Windows.Data.Text.TextReverseConversionGenerator'
     @winrt_factorymethod
     def Create(cls: Windows.Data.Text.ITextReverseConversionGeneratorFactory, languageTag: WinRT_String) -> Windows.Data.Text.TextReverseConversionGenerator: ...
     @winrt_mixinmethod
@@ -349,7 +349,7 @@ class TextSegment(EasyCastStructure):
     Length: UInt32
 class UnicodeCharacters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Text.UnicodeCharacters'
+    _classid_ = 'Windows.Data.Text.UnicodeCharacters'
     @winrt_classmethod
     def GetCodepointFromSurrogatePair(cls: Windows.Data.Text.IUnicodeCharactersStatics, highSurrogate: UInt32, lowSurrogate: UInt32) -> UInt32: ...
     @winrt_classmethod
@@ -422,7 +422,7 @@ UnicodeNumericType_Digit: UnicodeNumericType = 2
 UnicodeNumericType_Numeric: UnicodeNumericType = 3
 class WordSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Text.WordSegment'
+    _classid_ = 'Windows.Data.Text.WordSegment'
     @winrt_mixinmethod
     def get_Text(self: Windows.Data.Text.IWordSegment) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -435,12 +435,12 @@ class WordSegment(ComPtr):
 class WordSegmentsTokenizingHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('a5dd6357-bf2a-4c4f-a3-1f-29-e7-1c-6f-8b-35')
-    ClassId = 'Windows.Data.Text.WordSegmentsTokenizingHandler'
+    _classid_ = 'Windows.Data.Text.WordSegmentsTokenizingHandler'
     @winrt_commethod(3)
     def Invoke(self, precedingWords: Windows.Foundation.Collections.IIterable[Windows.Data.Text.WordSegment], words: Windows.Foundation.Collections.IIterable[Windows.Data.Text.WordSegment]) -> Void: ...
 class WordsSegmenter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Text.WordsSegmenter'
+    _classid_ = 'Windows.Data.Text.WordsSegmenter'
     @winrt_factorymethod
     def CreateWithLanguage(cls: Windows.Data.Text.IWordsSegmenterFactory, language: WinRT_String) -> Windows.Data.Text.WordsSegmenter: ...
     @winrt_mixinmethod

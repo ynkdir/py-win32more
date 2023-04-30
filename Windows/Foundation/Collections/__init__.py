@@ -161,12 +161,12 @@ class IVector(Generic[T], ComPtr):
 class MapChangedEventHandler(Generic[K, V], ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('179517f3-94ee-41f8-bd-dc-76-8a-89-55-44-f3')
-    ClassId = 'Windows.Foundation.Collections.MapChangedEventHandler'
+    _classid_ = 'Windows.Foundation.Collections.MapChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Foundation.Collections.IObservableMap[K, V], event: Windows.Foundation.Collections.IMapChangedEventArgs[K]) -> Void: ...
 class PropertySet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Collections.PropertySet'
+    _classid_ = 'Windows.Foundation.Collections.PropertySet'
     @winrt_activatemethod
     def New(cls) -> Windows.Foundation.Collections.PropertySet: ...
     @winrt_mixinmethod
@@ -192,7 +192,7 @@ class PropertySet(ComPtr):
     Size = property(get_Size, None)
 class StringMap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Collections.StringMap'
+    _classid_ = 'Windows.Foundation.Collections.StringMap'
     @winrt_activatemethod
     def New(cls) -> Windows.Foundation.Collections.StringMap: ...
     @winrt_mixinmethod
@@ -218,7 +218,7 @@ class StringMap(ComPtr):
     Size = property(get_Size, None)
 class ValueSet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Collections.ValueSet'
+    _classid_ = 'Windows.Foundation.Collections.ValueSet'
     @winrt_activatemethod
     def New(cls) -> Windows.Foundation.Collections.ValueSet: ...
     @winrt_mixinmethod
@@ -245,7 +245,7 @@ class ValueSet(ComPtr):
 class VectorChangedEventHandler(Generic[T], ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('0c051752-9fbf-4c70-aa-0c-0e-4c-82-d9-a7-61')
-    ClassId = 'Windows.Foundation.Collections.VectorChangedEventHandler'
+    _classid_ = 'Windows.Foundation.Collections.VectorChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Foundation.Collections.IObservableVector[T], event: Windows.Foundation.Collections.IVectorChangedEventArgs) -> Void: ...
 make_head(_module, 'IIterable')

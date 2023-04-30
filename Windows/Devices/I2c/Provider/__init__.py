@@ -73,7 +73,7 @@ ProviderI2cBusSpeed_StandardMode: ProviderI2cBusSpeed = 0
 ProviderI2cBusSpeed_FastMode: ProviderI2cBusSpeed = 1
 class ProviderI2cConnectionSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.I2c.Provider.ProviderI2cConnectionSettings'
+    _classid_ = 'Windows.Devices.I2c.Provider.ProviderI2cConnectionSettings'
     @winrt_mixinmethod
     def get_SlaveAddress(self: Windows.Devices.I2c.Provider.IProviderI2cConnectionSettings) -> Int32: ...
     @winrt_mixinmethod

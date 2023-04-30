@@ -28,7 +28,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class Clipboard(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.Clipboard'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.Clipboard'
     @winrt_classmethod
     def GetHistoryItemsAsync(cls: Windows.ApplicationModel.DataTransfer.IClipboardStatics2) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.DataTransfer.ClipboardHistoryItemsResult]: ...
     @winrt_classmethod
@@ -69,7 +69,7 @@ class Clipboard(ComPtr):
     def remove_ContentChanged(cls: Windows.ApplicationModel.DataTransfer.IClipboardStatics, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class ClipboardContentOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.ClipboardContentOptions'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.ClipboardContentOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.DataTransfer.ClipboardContentOptions: ...
     @winrt_mixinmethod
@@ -90,10 +90,10 @@ class ClipboardContentOptions(ComPtr):
     HistoryFormats = property(get_HistoryFormats, None)
 class ClipboardHistoryChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.ClipboardHistoryChangedEventArgs'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.ClipboardHistoryChangedEventArgs'
 class ClipboardHistoryItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.ClipboardHistoryItem'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.ClipboardHistoryItem'
     @winrt_mixinmethod
     def get_Id(self: Windows.ApplicationModel.DataTransfer.IClipboardHistoryItem) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -105,7 +105,7 @@ class ClipboardHistoryItem(ComPtr):
     Content = property(get_Content, None)
 class ClipboardHistoryItemsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.ClipboardHistoryItemsResult'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.ClipboardHistoryItemsResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.ApplicationModel.DataTransfer.IClipboardHistoryItemsResult) -> Windows.ApplicationModel.DataTransfer.ClipboardHistoryItemsResultStatus: ...
     @winrt_mixinmethod
@@ -118,7 +118,7 @@ ClipboardHistoryItemsResultStatus_AccessDenied: ClipboardHistoryItemsResultStatu
 ClipboardHistoryItemsResultStatus_ClipboardHistoryDisabled: ClipboardHistoryItemsResultStatus = 2
 class DataPackage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.DataPackage'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DataPackage'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.DataTransfer.DataPackage: ...
     @winrt_mixinmethod
@@ -179,7 +179,7 @@ DataPackageOperation_Move: DataPackageOperation = 2
 DataPackageOperation_Link: DataPackageOperation = 4
 class DataPackagePropertySet(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.DataPackagePropertySet'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DataPackagePropertySet'
     @winrt_mixinmethod
     def get_Title(self: Windows.ApplicationModel.DataTransfer.IDataPackagePropertySet) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -262,7 +262,7 @@ class DataPackagePropertySet(ComPtr):
     ContentSourceUserActivityJson = property(get_ContentSourceUserActivityJson, put_ContentSourceUserActivityJson)
 class DataPackagePropertySetView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.DataPackagePropertySetView'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DataPackagePropertySetView'
     @winrt_mixinmethod
     def get_Title(self: Windows.ApplicationModel.DataTransfer.IDataPackagePropertySetView) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -318,7 +318,7 @@ class DataPackagePropertySetView(ComPtr):
     Size = property(get_Size, None)
 class DataPackageView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.DataPackageView'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DataPackageView'
     @winrt_mixinmethod
     def get_Properties(self: Windows.ApplicationModel.DataTransfer.IDataPackageView) -> Windows.ApplicationModel.DataTransfer.DataPackagePropertySetView: ...
     @winrt_mixinmethod
@@ -364,18 +364,18 @@ class DataPackageView(ComPtr):
     AvailableFormats = property(get_AvailableFormats, None)
 class DataProviderDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.DataProviderDeferral'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DataProviderDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.ApplicationModel.DataTransfer.IDataProviderDeferral) -> Void: ...
 class DataProviderHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('e7ecd720-f2f4-4a2d-92-0e-17-0a-2f-48-2a-27')
-    ClassId = 'Windows.ApplicationModel.DataTransfer.DataProviderHandler'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DataProviderHandler'
     @winrt_commethod(3)
     def Invoke(self, request: Windows.ApplicationModel.DataTransfer.DataProviderRequest) -> Void: ...
 class DataProviderRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.DataProviderRequest'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DataProviderRequest'
     @winrt_mixinmethod
     def get_FormatId(self: Windows.ApplicationModel.DataTransfer.IDataProviderRequest) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -388,7 +388,7 @@ class DataProviderRequest(ComPtr):
     Deadline = property(get_Deadline, None)
 class DataRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.DataRequest'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DataRequest'
     @winrt_mixinmethod
     def get_Data(self: Windows.ApplicationModel.DataTransfer.IDataRequest) -> Windows.ApplicationModel.DataTransfer.DataPackage: ...
     @winrt_mixinmethod
@@ -403,18 +403,18 @@ class DataRequest(ComPtr):
     Deadline = property(get_Deadline, None)
 class DataRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.DataRequestDeferral'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DataRequestDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.ApplicationModel.DataTransfer.IDataRequestDeferral) -> Void: ...
 class DataRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.DataRequestedEventArgs'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DataRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.DataTransfer.IDataRequestedEventArgs) -> Windows.ApplicationModel.DataTransfer.DataRequest: ...
     Request = property(get_Request, None)
 class DataTransferManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.DataTransferManager'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.DataTransferManager'
     @winrt_mixinmethod
     def add_DataRequested(self: Windows.ApplicationModel.DataTransfer.IDataTransferManager, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.DataTransfer.DataTransferManager, Windows.ApplicationModel.DataTransfer.DataRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -437,7 +437,7 @@ class DataTransferManager(ComPtr):
     def GetForCurrentView(cls: Windows.ApplicationModel.DataTransfer.IDataTransferManagerStatics) -> Windows.ApplicationModel.DataTransfer.DataTransferManager: ...
 class HtmlFormatHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.HtmlFormatHelper'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.HtmlFormatHelper'
     @winrt_classmethod
     def GetStaticFragment(cls: Windows.ApplicationModel.DataTransfer.IHtmlFormatHelperStatics, htmlFormat: WinRT_String) -> WinRT_String: ...
     @winrt_classmethod
@@ -1002,7 +1002,7 @@ class ITargetApplicationChosenEventArgs(ComPtr):
     ApplicationName = property(get_ApplicationName, None)
 class OperationCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.OperationCompletedEventArgs'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.OperationCompletedEventArgs'
     @winrt_mixinmethod
     def get_Operation(self: Windows.ApplicationModel.DataTransfer.IOperationCompletedEventArgs) -> Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
     @winrt_mixinmethod
@@ -1015,13 +1015,13 @@ SetHistoryItemAsContentStatus_AccessDenied: SetHistoryItemAsContentStatus = 1
 SetHistoryItemAsContentStatus_ItemDeleted: SetHistoryItemAsContentStatus = 2
 class ShareCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.ShareCompletedEventArgs'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareCompletedEventArgs'
     @winrt_mixinmethod
     def get_ShareTarget(self: Windows.ApplicationModel.DataTransfer.IShareCompletedEventArgs) -> Windows.ApplicationModel.DataTransfer.ShareTargetInfo: ...
     ShareTarget = property(get_ShareTarget, None)
 class ShareProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.ShareProvider'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareProvider'
     @winrt_factorymethod
     def Create(cls: Windows.ApplicationModel.DataTransfer.IShareProviderFactory, title: WinRT_String, displayIcon: Windows.Storage.Streams.RandomAccessStreamReference, backgroundColor: Windows.UI.Color, handler: Windows.ApplicationModel.DataTransfer.ShareProviderHandler) -> Windows.ApplicationModel.DataTransfer.ShareProvider: ...
     @winrt_mixinmethod
@@ -1041,12 +1041,12 @@ class ShareProvider(ComPtr):
 class ShareProviderHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('e7f9d9ba-e1ba-4e4d-bd-65-d4-38-45-d3-21-2f')
-    ClassId = 'Windows.ApplicationModel.DataTransfer.ShareProviderHandler'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareProviderHandler'
     @winrt_commethod(3)
     def Invoke(self, operation: Windows.ApplicationModel.DataTransfer.ShareProviderOperation) -> Void: ...
 class ShareProviderOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.ShareProviderOperation'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareProviderOperation'
     @winrt_mixinmethod
     def get_Data(self: Windows.ApplicationModel.DataTransfer.IShareProviderOperation) -> Windows.ApplicationModel.DataTransfer.DataPackageView: ...
     @winrt_mixinmethod
@@ -1057,7 +1057,7 @@ class ShareProviderOperation(ComPtr):
     Provider = property(get_Provider, None)
 class ShareProvidersRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.ShareProvidersRequestedEventArgs'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareProvidersRequestedEventArgs'
     @winrt_mixinmethod
     def get_Providers(self: Windows.ApplicationModel.DataTransfer.IShareProvidersRequestedEventArgs) -> Windows.Foundation.Collections.IVector[Windows.ApplicationModel.DataTransfer.ShareProvider]: ...
     @winrt_mixinmethod
@@ -1068,7 +1068,7 @@ class ShareProvidersRequestedEventArgs(ComPtr):
     Data = property(get_Data, None)
 class ShareTargetInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.ShareTargetInfo'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareTargetInfo'
     @winrt_mixinmethod
     def get_AppUserModelId(self: Windows.ApplicationModel.DataTransfer.IShareTargetInfo) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1077,7 +1077,7 @@ class ShareTargetInfo(ComPtr):
     ShareProvider = property(get_ShareProvider, None)
 class ShareUIOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.ShareUIOptions'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.ShareUIOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.DataTransfer.ShareUIOptions: ...
     @winrt_mixinmethod
@@ -1096,7 +1096,7 @@ ShareUITheme_Light: ShareUITheme = 1
 ShareUITheme_Dark: ShareUITheme = 2
 class SharedStorageAccessManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.SharedStorageAccessManager'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.SharedStorageAccessManager'
     @winrt_classmethod
     def AddFile(cls: Windows.ApplicationModel.DataTransfer.ISharedStorageAccessManagerStatics, file: Windows.Storage.IStorageFile) -> WinRT_String: ...
     @winrt_classmethod
@@ -1105,7 +1105,7 @@ class SharedStorageAccessManager(ComPtr):
     def RemoveFile(cls: Windows.ApplicationModel.DataTransfer.ISharedStorageAccessManagerStatics, token: WinRT_String) -> Void: ...
 class StandardDataFormats(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.StandardDataFormats'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.StandardDataFormats'
     @winrt_classmethod
     def get_UserActivityJsonArray(cls: Windows.ApplicationModel.DataTransfer.IStandardDataFormatsStatics3) -> WinRT_String: ...
     @winrt_classmethod
@@ -1135,7 +1135,7 @@ class StandardDataFormats(ComPtr):
     StorageItems = property(get_StorageItems, None)
 class TargetApplicationChosenEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.DataTransfer.TargetApplicationChosenEventArgs'
+    _classid_ = 'Windows.ApplicationModel.DataTransfer.TargetApplicationChosenEventArgs'
     @winrt_mixinmethod
     def get_ApplicationName(self: Windows.ApplicationModel.DataTransfer.ITargetApplicationChosenEventArgs) -> WinRT_String: ...
     ApplicationName = property(get_ApplicationName, None)

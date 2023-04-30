@@ -197,7 +197,7 @@ class IWebAccountProviderFactory(ComPtr):
     def CreateWebAccountProvider(self, id: WinRT_String, displayName: WinRT_String, iconUri: Windows.Foundation.Uri) -> Windows.Security.Credentials.WebAccountProvider: ...
 class KeyCredential(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Credentials.KeyCredential'
+    _classid_ = 'Windows.Security.Credentials.KeyCredential'
     @winrt_mixinmethod
     def get_Name(self: Windows.Security.Credentials.IKeyCredential) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -211,7 +211,7 @@ class KeyCredential(ComPtr):
     Name = property(get_Name, None)
 class KeyCredentialAttestationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Credentials.KeyCredentialAttestationResult'
+    _classid_ = 'Windows.Security.Credentials.KeyCredentialAttestationResult'
     @winrt_mixinmethod
     def get_CertificateChainBuffer(self: Windows.Security.Credentials.IKeyCredentialAttestationResult) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
@@ -231,7 +231,7 @@ KeyCredentialCreationOption_ReplaceExisting: KeyCredentialCreationOption = 0
 KeyCredentialCreationOption_FailIfExists: KeyCredentialCreationOption = 1
 class KeyCredentialManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Credentials.KeyCredentialManager'
+    _classid_ = 'Windows.Security.Credentials.KeyCredentialManager'
     @winrt_classmethod
     def IsSupportedAsync(cls: Windows.Security.Credentials.IKeyCredentialManagerStatics) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_classmethod
@@ -244,7 +244,7 @@ class KeyCredentialManager(ComPtr):
     def DeleteAsync(cls: Windows.Security.Credentials.IKeyCredentialManagerStatics, name: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class KeyCredentialOperationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Credentials.KeyCredentialOperationResult'
+    _classid_ = 'Windows.Security.Credentials.KeyCredentialOperationResult'
     @winrt_mixinmethod
     def get_Result(self: Windows.Security.Credentials.IKeyCredentialOperationResult) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
@@ -253,7 +253,7 @@ class KeyCredentialOperationResult(ComPtr):
     Status = property(get_Status, None)
 class KeyCredentialRetrievalResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Credentials.KeyCredentialRetrievalResult'
+    _classid_ = 'Windows.Security.Credentials.KeyCredentialRetrievalResult'
     @winrt_mixinmethod
     def get_Credential(self: Windows.Security.Credentials.IKeyCredentialRetrievalResult) -> Windows.Security.Credentials.KeyCredential: ...
     @winrt_mixinmethod
@@ -270,7 +270,7 @@ KeyCredentialStatus_CredentialAlreadyExists: KeyCredentialStatus = 5
 KeyCredentialStatus_SecurityDeviceLocked: KeyCredentialStatus = 6
 class PasswordCredential(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Credentials.PasswordCredential'
+    _classid_ = 'Windows.Security.Credentials.PasswordCredential'
     @winrt_factorymethod
     def CreatePasswordCredential(cls: Windows.Security.Credentials.ICredentialFactory, resource: WinRT_String, userName: WinRT_String, password: WinRT_String) -> Windows.Security.Credentials.PasswordCredential: ...
     @winrt_activatemethod
@@ -297,7 +297,7 @@ class PasswordCredential(ComPtr):
     Properties = property(get_Properties, None)
 class PasswordCredentialPropertyStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Credentials.PasswordCredentialPropertyStore'
+    _classid_ = 'Windows.Security.Credentials.PasswordCredentialPropertyStore'
     @winrt_activatemethod
     def New(cls) -> Windows.Security.Credentials.PasswordCredentialPropertyStore: ...
     @winrt_mixinmethod
@@ -323,7 +323,7 @@ class PasswordCredentialPropertyStore(ComPtr):
     Size = property(get_Size, None)
 class PasswordVault(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Credentials.PasswordVault'
+    _classid_ = 'Windows.Security.Credentials.PasswordVault'
     @winrt_activatemethod
     def New(cls) -> Windows.Security.Credentials.PasswordVault: ...
     @winrt_mixinmethod
@@ -340,7 +340,7 @@ class PasswordVault(ComPtr):
     def RetrieveAll(self: Windows.Security.Credentials.IPasswordVault) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Credentials.PasswordCredential]: ...
 class WebAccount(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Credentials.WebAccount'
+    _classid_ = 'Windows.Security.Credentials.WebAccount'
     @winrt_factorymethod
     def CreateWebAccount(cls: Windows.Security.Credentials.IWebAccountFactory, webAccountProvider: Windows.Security.Credentials.WebAccountProvider, userName: WinRT_String, state: Windows.Security.Credentials.WebAccountState) -> Windows.Security.Credentials.WebAccount: ...
     @winrt_mixinmethod
@@ -371,7 +371,7 @@ WebAccountPictureSize_Size424x424: WebAccountPictureSize = 424
 WebAccountPictureSize_Size1080x1080: WebAccountPictureSize = 1080
 class WebAccountProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Credentials.WebAccountProvider'
+    _classid_ = 'Windows.Security.Credentials.WebAccountProvider'
     @winrt_factorymethod
     def CreateWebAccountProvider(cls: Windows.Security.Credentials.IWebAccountProviderFactory, id: WinRT_String, displayName: WinRT_String, iconUri: Windows.Foundation.Uri) -> Windows.Security.Credentials.WebAccountProvider: ...
     @winrt_mixinmethod

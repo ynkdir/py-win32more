@@ -27,7 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AdvertisingManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.UserProfile.AdvertisingManager'
+    _classid_ = 'Windows.System.UserProfile.AdvertisingManager'
     @winrt_classmethod
     def GetForUser(cls: Windows.System.UserProfile.IAdvertisingManagerStatics2, user: Windows.System.User) -> Windows.System.UserProfile.AdvertisingManagerForUser: ...
     @winrt_classmethod
@@ -35,7 +35,7 @@ class AdvertisingManager(ComPtr):
     AdvertisingId = property(get_AdvertisingId, None)
 class AdvertisingManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.UserProfile.AdvertisingManagerForUser'
+    _classid_ = 'Windows.System.UserProfile.AdvertisingManagerForUser'
     @winrt_mixinmethod
     def get_AdvertisingId(self: Windows.System.UserProfile.IAdvertisingManagerForUser) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -44,7 +44,7 @@ class AdvertisingManagerForUser(ComPtr):
     User = property(get_User, None)
 class AssignedAccessSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.UserProfile.AssignedAccessSettings'
+    _classid_ = 'Windows.System.UserProfile.AssignedAccessSettings'
     @winrt_mixinmethod
     def get_IsEnabled(self: Windows.System.UserProfile.IAssignedAccessSettings) -> Boolean: ...
     @winrt_mixinmethod
@@ -60,7 +60,7 @@ class AssignedAccessSettings(ComPtr):
     User = property(get_User, None)
 class DiagnosticsSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.UserProfile.DiagnosticsSettings'
+    _classid_ = 'Windows.System.UserProfile.DiagnosticsSettings'
     @winrt_mixinmethod
     def get_CanUseDiagnosticsToTailorExperiences(self: Windows.System.UserProfile.IDiagnosticsSettings) -> Boolean: ...
     @winrt_mixinmethod
@@ -73,7 +73,7 @@ class DiagnosticsSettings(ComPtr):
     User = property(get_User, None)
 class FirstSignInSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.UserProfile.FirstSignInSettings'
+    _classid_ = 'Windows.System.UserProfile.FirstSignInSettings'
     @winrt_mixinmethod
     def Lookup(self: Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head], key: WinRT_String) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
@@ -89,7 +89,7 @@ class FirstSignInSettings(ComPtr):
     Size = property(get_Size, None)
 class GlobalizationPreferences(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.UserProfile.GlobalizationPreferences'
+    _classid_ = 'Windows.System.UserProfile.GlobalizationPreferences'
     @winrt_classmethod
     def GetForUser(cls: Windows.System.UserProfile.IGlobalizationPreferencesStatics3, user: Windows.System.User) -> Windows.System.UserProfile.GlobalizationPreferencesForUser: ...
     @winrt_classmethod
@@ -116,7 +116,7 @@ class GlobalizationPreferences(ComPtr):
     WeekStartsOn = property(get_WeekStartsOn, None)
 class GlobalizationPreferencesForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.UserProfile.GlobalizationPreferencesForUser'
+    _classid_ = 'Windows.System.UserProfile.GlobalizationPreferencesForUser'
     @winrt_mixinmethod
     def get_User(self: Windows.System.UserProfile.IGlobalizationPreferencesForUser) -> Windows.System.User: ...
     @winrt_mixinmethod
@@ -275,7 +275,7 @@ class IUserProfilePersonalizationSettingsStatics(ComPtr):
     Current = property(get_Current, None)
 class UserProfilePersonalizationSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.UserProfile.UserProfilePersonalizationSettings'
+    _classid_ = 'Windows.System.UserProfile.UserProfilePersonalizationSettings'
     @winrt_mixinmethod
     def TrySetLockScreenImageAsync(self: Windows.System.UserProfile.IUserProfilePersonalizationSettings, imageFile: Windows.Storage.StorageFile) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod

@@ -364,7 +364,7 @@ class IVisualElementsRequestedEventArgs(ComPtr):
     Request = property(get_Request, None)
 class JumpList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.StartScreen.JumpList'
+    _classid_ = 'Windows.UI.StartScreen.JumpList'
     @winrt_mixinmethod
     def get_Items(self: Windows.UI.StartScreen.IJumpList) -> Windows.Foundation.Collections.IVector[Windows.UI.StartScreen.JumpListItem]: ...
     @winrt_mixinmethod
@@ -381,7 +381,7 @@ class JumpList(ComPtr):
     SystemGroupKind = property(get_SystemGroupKind, put_SystemGroupKind)
 class JumpListItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.StartScreen.JumpListItem'
+    _classid_ = 'Windows.UI.StartScreen.JumpListItem'
     @winrt_mixinmethod
     def get_Kind(self: Windows.UI.StartScreen.IJumpListItem) -> Windows.UI.StartScreen.JumpListItemKind: ...
     @winrt_mixinmethod
@@ -424,7 +424,7 @@ JumpListSystemGroupKind_Frequent: JumpListSystemGroupKind = 1
 JumpListSystemGroupKind_Recent: JumpListSystemGroupKind = 2
 class SecondaryTile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.StartScreen.SecondaryTile'
+    _classid_ = 'Windows.UI.StartScreen.SecondaryTile'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.StartScreen.SecondaryTile: ...
     @winrt_factorymethod
@@ -540,7 +540,7 @@ class SecondaryTile(ComPtr):
     RoamingEnabled = property(get_RoamingEnabled, put_RoamingEnabled)
 class SecondaryTileVisualElements(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.StartScreen.SecondaryTileVisualElements'
+    _classid_ = 'Windows.UI.StartScreen.SecondaryTileVisualElements'
     @winrt_mixinmethod
     def put_Square30x30Logo(self: Windows.UI.StartScreen.ISecondaryTileVisualElements, value: Windows.Foundation.Uri) -> Void: ...
     @winrt_mixinmethod
@@ -606,7 +606,7 @@ class SecondaryTileVisualElements(ComPtr):
     MixedRealityModel = property(get_MixedRealityModel, None)
 class StartScreenManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.StartScreen.StartScreenManager'
+    _classid_ = 'Windows.UI.StartScreen.StartScreenManager'
     @winrt_mixinmethod
     def get_User(self: Windows.UI.StartScreen.IStartScreenManager) -> Windows.System.User: ...
     @winrt_mixinmethod
@@ -626,7 +626,7 @@ class StartScreenManager(ComPtr):
     User = property(get_User, None)
 class TileMixedRealityModel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.StartScreen.TileMixedRealityModel'
+    _classid_ = 'Windows.UI.StartScreen.TileMixedRealityModel'
     @winrt_mixinmethod
     def put_Uri(self: Windows.UI.StartScreen.ITileMixedRealityModel, value: Windows.Foundation.Uri) -> Void: ...
     @winrt_mixinmethod
@@ -661,7 +661,7 @@ TileSize_Square71x71: TileSize = 6
 TileSize_Square44x44: TileSize = 7
 class VisualElementsRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.StartScreen.VisualElementsRequest'
+    _classid_ = 'Windows.UI.StartScreen.VisualElementsRequest'
     @winrt_mixinmethod
     def get_VisualElements(self: Windows.UI.StartScreen.IVisualElementsRequest) -> Windows.UI.StartScreen.SecondaryTileVisualElements: ...
     @winrt_mixinmethod
@@ -675,12 +675,12 @@ class VisualElementsRequest(ComPtr):
     Deadline = property(get_Deadline, None)
 class VisualElementsRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.StartScreen.VisualElementsRequestDeferral'
+    _classid_ = 'Windows.UI.StartScreen.VisualElementsRequestDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.UI.StartScreen.IVisualElementsRequestDeferral) -> Void: ...
 class VisualElementsRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.StartScreen.VisualElementsRequestedEventArgs'
+    _classid_ = 'Windows.UI.StartScreen.VisualElementsRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.UI.StartScreen.IVisualElementsRequestedEventArgs) -> Windows.UI.StartScreen.VisualElementsRequest: ...
     Request = property(get_Request, None)

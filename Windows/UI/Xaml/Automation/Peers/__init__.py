@@ -82,7 +82,7 @@ class AppBarToggleButtonAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ToggleButtonAutomationPeer
 class AutoSuggestBoxAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
-    ClassId = 'Windows.UI.Xaml.Automation.Peers.AutoSuggestBoxAutomationPeer'
+    _classid_ = 'Windows.UI.Xaml.Automation.Peers.AutoSuggestBoxAutomationPeer'
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IAutoSuggestBoxAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.AutoSuggestBox) -> Windows.UI.Xaml.Automation.Peers.AutoSuggestBoxAutomationPeer: ...
     @winrt_mixinmethod
@@ -419,7 +419,7 @@ class AutomationPeer(ComPtr):
     EventsSource = property(get_EventsSource, put_EventsSource)
 class AutomationPeerAnnotation(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation'
+    _classid_ = 'Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Automation.Peers.AutomationPeerAnnotation: ...
     @winrt_factorymethod
@@ -526,7 +526,7 @@ class DatePickerAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
 class DatePickerFlyoutPresenterAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
-    ClassId = 'Windows.UI.Xaml.Automation.Peers.DatePickerFlyoutPresenterAutomationPeer'
+    _classid_ = 'Windows.UI.Xaml.Automation.Peers.DatePickerFlyoutPresenterAutomationPeer'
 class FlipViewAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.SelectorAutomationPeer
 class FlipViewItemAutomationPeer(ComPtr):
@@ -1562,7 +1562,7 @@ class ImageAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
 class InkToolbarAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
-    ClassId = 'Windows.UI.Xaml.Automation.Peers.InkToolbarAutomationPeer'
+    _classid_ = 'Windows.UI.Xaml.Automation.Peers.InkToolbarAutomationPeer'
 class ItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.AutomationPeer
     @winrt_commethod(116)
@@ -1591,7 +1591,7 @@ class ListBoxItemDataAutomationPeer(ComPtr):
     def ScrollIntoView(self) -> Void: ...
 class ListPickerFlyoutPresenterAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
-    ClassId = 'Windows.UI.Xaml.Automation.Peers.ListPickerFlyoutPresenterAutomationPeer'
+    _classid_ = 'Windows.UI.Xaml.Automation.Peers.ListPickerFlyoutPresenterAutomationPeer'
 class ListViewAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ListViewBaseAutomationPeer
 class ListViewBaseAutomationPeer(ComPtr):
@@ -1614,7 +1614,7 @@ class ListViewItemDataAutomationPeer(ComPtr):
     def ScrollIntoView(self) -> Void: ...
 class LoopingSelectorAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
-    ClassId = 'Windows.UI.Xaml.Automation.Peers.LoopingSelectorAutomationPeer'
+    _classid_ = 'Windows.UI.Xaml.Automation.Peers.LoopingSelectorAutomationPeer'
     @winrt_mixinmethod
     def get_CanSelectMultiple(self: Windows.UI.Xaml.Automation.Provider.ISelectionProvider) -> Boolean: ...
     @winrt_mixinmethod
@@ -1656,7 +1656,7 @@ class LoopingSelectorAutomationPeer(ComPtr):
     VerticalViewSize = property(get_VerticalViewSize, None)
 class LoopingSelectorItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
-    ClassId = 'Windows.UI.Xaml.Automation.Peers.LoopingSelectorItemAutomationPeer'
+    _classid_ = 'Windows.UI.Xaml.Automation.Peers.LoopingSelectorItemAutomationPeer'
     @winrt_mixinmethod
     def ScrollIntoView(self: Windows.UI.Xaml.Automation.Provider.IScrollItemProvider) -> Void: ...
     @winrt_mixinmethod
@@ -1673,12 +1673,12 @@ class LoopingSelectorItemAutomationPeer(ComPtr):
     SelectionContainer = property(get_SelectionContainer, None)
 class LoopingSelectorItemDataAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.AutomationPeer
-    ClassId = 'Windows.UI.Xaml.Automation.Peers.LoopingSelectorItemDataAutomationPeer'
+    _classid_ = 'Windows.UI.Xaml.Automation.Peers.LoopingSelectorItemDataAutomationPeer'
     @winrt_mixinmethod
     def Realize(self: Windows.UI.Xaml.Automation.Provider.IVirtualizedItemProvider) -> Void: ...
 class MapControlAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
-    ClassId = 'Windows.UI.Xaml.Automation.Peers.MapControlAutomationPeer'
+    _classid_ = 'Windows.UI.Xaml.Automation.Peers.MapControlAutomationPeer'
     @winrt_mixinmethod
     def get_HorizontallyScrollable(self: Windows.UI.Xaml.Automation.Provider.IScrollProvider) -> Boolean: ...
     @winrt_mixinmethod
@@ -1800,10 +1800,10 @@ class PersonPictureAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
 class PickerFlyoutPresenterAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
-    ClassId = 'Windows.UI.Xaml.Automation.Peers.PickerFlyoutPresenterAutomationPeer'
+    _classid_ = 'Windows.UI.Xaml.Automation.Peers.PickerFlyoutPresenterAutomationPeer'
 class PivotAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer
-    ClassId = 'Windows.UI.Xaml.Automation.Peers.PivotAutomationPeer'
+    _classid_ = 'Windows.UI.Xaml.Automation.Peers.PivotAutomationPeer'
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IPivotAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.Pivot) -> Windows.UI.Xaml.Automation.Peers.PivotAutomationPeer: ...
     @winrt_mixinmethod
@@ -1838,12 +1838,12 @@ class PivotAutomationPeer(ComPtr):
     VerticalViewSize = property(get_VerticalViewSize, None)
 class PivotItemAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
-    ClassId = 'Windows.UI.Xaml.Automation.Peers.PivotItemAutomationPeer'
+    _classid_ = 'Windows.UI.Xaml.Automation.Peers.PivotItemAutomationPeer'
     @winrt_factorymethod
     def CreateInstanceWithOwner(cls: Windows.UI.Xaml.Automation.Peers.IPivotItemAutomationPeerFactory, owner: Windows.UI.Xaml.Controls.PivotItem) -> Windows.UI.Xaml.Automation.Peers.PivotItemAutomationPeer: ...
 class PivotItemDataAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer
-    ClassId = 'Windows.UI.Xaml.Automation.Peers.PivotItemDataAutomationPeer'
+    _classid_ = 'Windows.UI.Xaml.Automation.Peers.PivotItemDataAutomationPeer'
     @winrt_factorymethod
     def CreateInstanceWithParentAndItem(cls: Windows.UI.Xaml.Automation.Peers.IPivotItemDataAutomationPeerFactory, item: Windows.Win32.System.WinRT.IInspectable_head, parent: Windows.UI.Xaml.Automation.Peers.PivotAutomationPeer) -> Windows.UI.Xaml.Automation.Peers.PivotItemDataAutomationPeer: ...
     @winrt_mixinmethod
@@ -1990,7 +1990,7 @@ class TimePickerAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
 class TimePickerFlyoutPresenterAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
-    ClassId = 'Windows.UI.Xaml.Automation.Peers.TimePickerFlyoutPresenterAutomationPeer'
+    _classid_ = 'Windows.UI.Xaml.Automation.Peers.TimePickerFlyoutPresenterAutomationPeer'
 class ToggleButtonAutomationPeer(ComPtr):
     extends: Windows.UI.Xaml.Automation.Peers.ButtonBaseAutomationPeer
     @winrt_commethod(120)

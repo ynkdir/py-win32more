@@ -29,7 +29,7 @@ DeviceAccountAuthenticationType_OAuth: DeviceAccountAuthenticationType = 1
 DeviceAccountAuthenticationType_SingleSignOn: DeviceAccountAuthenticationType = 2
 class DeviceAccountConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration'
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration: ...
     @winrt_mixinmethod
@@ -523,7 +523,7 @@ class IUserDataAccountSystemAccessManagerStatics2(ComPtr):
     def GetDeviceAccountConfigurationAsync(self, accountId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.UserDataAccounts.SystemAccess.DeviceAccountConfiguration]: ...
 class UserDataAccountSystemAccessManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager'
+    _classid_ = 'Windows.ApplicationModel.UserDataAccounts.SystemAccess.UserDataAccountSystemAccessManager'
     @winrt_classmethod
     def SuppressLocalAccountWithAccountAsync(cls: Windows.ApplicationModel.UserDataAccounts.SystemAccess.IUserDataAccountSystemAccessManagerStatics2, userDataAccountId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod

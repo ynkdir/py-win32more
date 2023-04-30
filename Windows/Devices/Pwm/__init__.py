@@ -85,7 +85,7 @@ class IPwmPin(ComPtr):
     IsStarted = property(get_IsStarted, None)
 class PwmController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Pwm.PwmController'
+    _classid_ = 'Windows.Devices.Pwm.PwmController'
     @winrt_mixinmethod
     def get_PinCount(self: Windows.Devices.Pwm.IPwmController) -> Int32: ...
     @winrt_mixinmethod
@@ -114,7 +114,7 @@ class PwmController(ComPtr):
     MaxFrequency = property(get_MaxFrequency, None)
 class PwmPin(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Pwm.PwmPin'
+    _classid_ = 'Windows.Devices.Pwm.PwmPin'
     @winrt_mixinmethod
     def get_Controller(self: Windows.Devices.Pwm.IPwmPin) -> Windows.Devices.Pwm.PwmController: ...
     @winrt_mixinmethod

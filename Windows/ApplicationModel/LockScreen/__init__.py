@@ -100,7 +100,7 @@ class ILockScreenUnlockingEventArgs(ComPtr):
     Deadline = property(get_Deadline, None)
 class LockApplicationHost(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.LockScreen.LockApplicationHost'
+    _classid_ = 'Windows.ApplicationModel.LockScreen.LockApplicationHost'
     @winrt_mixinmethod
     def RequestUnlock(self: Windows.ApplicationModel.LockScreen.ILockApplicationHost) -> Void: ...
     @winrt_mixinmethod
@@ -111,7 +111,7 @@ class LockApplicationHost(ComPtr):
     def GetForCurrentView(cls: Windows.ApplicationModel.LockScreen.ILockApplicationHostStatics) -> Windows.ApplicationModel.LockScreen.LockApplicationHost: ...
 class LockScreenBadge(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.LockScreen.LockScreenBadge'
+    _classid_ = 'Windows.ApplicationModel.LockScreen.LockScreenBadge'
     @winrt_mixinmethod
     def get_Logo(self: Windows.ApplicationModel.LockScreen.ILockScreenBadge) -> Windows.Storage.Streams.IRandomAccessStream: ...
     @winrt_mixinmethod
@@ -128,7 +128,7 @@ class LockScreenBadge(ComPtr):
     AutomationName = property(get_AutomationName, None)
 class LockScreenInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.LockScreen.LockScreenInfo'
+    _classid_ = 'Windows.ApplicationModel.LockScreen.LockScreenInfo'
     @winrt_mixinmethod
     def add_LockScreenImageChanged(self: Windows.ApplicationModel.LockScreen.ILockScreenInfo, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.LockScreen.LockScreenInfo, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -159,12 +159,12 @@ class LockScreenInfo(ComPtr):
     AlarmIcon = property(get_AlarmIcon, None)
 class LockScreenUnlockingDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.LockScreen.LockScreenUnlockingDeferral'
+    _classid_ = 'Windows.ApplicationModel.LockScreen.LockScreenUnlockingDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.ApplicationModel.LockScreen.ILockScreenUnlockingDeferral) -> Void: ...
 class LockScreenUnlockingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.LockScreen.LockScreenUnlockingEventArgs'
+    _classid_ = 'Windows.ApplicationModel.LockScreen.LockScreenUnlockingEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.ApplicationModel.LockScreen.ILockScreenUnlockingEventArgs) -> Windows.ApplicationModel.LockScreen.LockScreenUnlockingDeferral: ...
     @winrt_mixinmethod

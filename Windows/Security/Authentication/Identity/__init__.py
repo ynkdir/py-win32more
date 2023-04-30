@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class EnterpriseKeyCredentialRegistrationInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationInfo'
+    _classid_ = 'Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationInfo'
     @winrt_mixinmethod
     def get_TenantId(self: Windows.Security.Authentication.Identity.IEnterpriseKeyCredentialRegistrationInfo) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -42,7 +42,7 @@ class EnterpriseKeyCredentialRegistrationInfo(ComPtr):
     KeyName = property(get_KeyName, None)
 class EnterpriseKeyCredentialRegistrationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationManager'
+    _classid_ = 'Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationManager'
     @winrt_mixinmethod
     def GetRegistrationsAsync(self: Windows.Security.Authentication.Identity.IEnterpriseKeyCredentialRegistrationManager) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Security.Authentication.Identity.EnterpriseKeyCredentialRegistrationInfo]]: ...
     @winrt_classmethod

@@ -24,37 +24,37 @@ def __getattr__(name):
 class AsyncActionCompletedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('a4ed5c81-76c9-40bd-8b-e6-b1-d9-0f-b2-0a-e7')
-    ClassId = 'Windows.Foundation.AsyncActionCompletedHandler'
+    _classid_ = 'Windows.Foundation.AsyncActionCompletedHandler'
     @winrt_commethod(3)
     def Invoke(self, asyncInfo: Windows.Foundation.IAsyncAction, asyncStatus: Windows.Foundation.AsyncStatus) -> Void: ...
 class AsyncActionProgressHandler(Generic[TProgress], ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('6d844858-0cff-4590-ae-89-95-a5-a5-c8-b4-b8')
-    ClassId = 'Windows.Foundation.AsyncActionProgressHandler'
+    _classid_ = 'Windows.Foundation.AsyncActionProgressHandler'
     @winrt_commethod(3)
     def Invoke(self, asyncInfo: Windows.Foundation.IAsyncActionWithProgress[TProgress], progressInfo: TProgress) -> Void: ...
 class AsyncActionWithProgressCompletedHandler(Generic[TProgress], ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('9c029f91-cc84-44fd-ac-26-0a-6c-4e-55-52-81')
-    ClassId = 'Windows.Foundation.AsyncActionWithProgressCompletedHandler'
+    _classid_ = 'Windows.Foundation.AsyncActionWithProgressCompletedHandler'
     @winrt_commethod(3)
     def Invoke(self, asyncInfo: Windows.Foundation.IAsyncActionWithProgress[TProgress], asyncStatus: Windows.Foundation.AsyncStatus) -> Void: ...
 class AsyncOperationCompletedHandler(Generic[TResult], ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('fcdcf02c-e5d8-4478-91-5a-4d-90-b7-4b-83-a5')
-    ClassId = 'Windows.Foundation.AsyncOperationCompletedHandler'
+    _classid_ = 'Windows.Foundation.AsyncOperationCompletedHandler'
     @winrt_commethod(3)
     def Invoke(self, asyncInfo: Windows.Foundation.IAsyncOperation[TResult], asyncStatus: Windows.Foundation.AsyncStatus) -> Void: ...
 class AsyncOperationProgressHandler(Generic[TResult, TProgress], ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('55690902-0aab-421a-87-78-f8-ce-50-26-d7-58')
-    ClassId = 'Windows.Foundation.AsyncOperationProgressHandler'
+    _classid_ = 'Windows.Foundation.AsyncOperationProgressHandler'
     @winrt_commethod(3)
     def Invoke(self, asyncInfo: Windows.Foundation.IAsyncOperationWithProgress[TResult, TProgress], progressInfo: TProgress) -> Void: ...
 class AsyncOperationWithProgressCompletedHandler(Generic[TResult, TProgress], ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('e85df41d-6aa7-46e3-a8-e2-f0-09-d8-40-c6-27')
-    ClassId = 'Windows.Foundation.AsyncOperationWithProgressCompletedHandler'
+    _classid_ = 'Windows.Foundation.AsyncOperationWithProgressCompletedHandler'
     @winrt_commethod(3)
     def Invoke(self, asyncInfo: Windows.Foundation.IAsyncOperationWithProgress[TResult, TProgress], asyncStatus: Windows.Foundation.AsyncStatus) -> Void: ...
 AsyncStatus = Int32
@@ -66,7 +66,7 @@ class DateTime(EasyCastStructure):
     UniversalTime: Int64
 class Deferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Deferral'
+    _classid_ = 'Windows.Foundation.Deferral'
     @winrt_factorymethod
     def Create(cls: Windows.Foundation.IDeferralFactory, handler: Windows.Foundation.DeferralCompletedHandler) -> Windows.Foundation.Deferral: ...
     @winrt_mixinmethod
@@ -76,13 +76,13 @@ class Deferral(ComPtr):
 class DeferralCompletedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('ed32a372-f3c8-4faa-9c-fb-47-01-48-da-38-88')
-    ClassId = 'Windows.Foundation.DeferralCompletedHandler'
+    _classid_ = 'Windows.Foundation.DeferralCompletedHandler'
     @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class EventHandler(Generic[T], ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('9de1c535-6ae1-11e0-84-e1-18-a9-05-bc-c5-3f')
-    ClassId = 'Windows.Foundation.EventHandler'
+    _classid_ = 'Windows.Foundation.EventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, args: T) -> Void: ...
 class EventRegistrationToken(EasyCastStructure):
@@ -90,7 +90,7 @@ class EventRegistrationToken(EasyCastStructure):
 FoundationContract: UInt32 = 262144
 class GuidHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.GuidHelper'
+    _classid_ = 'Windows.Foundation.GuidHelper'
     @winrt_classmethod
     def CreateNewGuid(cls: Windows.Foundation.IGuidHelperStatics) -> Guid: ...
     @winrt_classmethod
@@ -493,7 +493,7 @@ class IWwwFormUrlDecoderRuntimeClassFactory(ComPtr):
     def CreateWwwFormUrlDecoder(self, query: WinRT_String) -> Windows.Foundation.WwwFormUrlDecoder: ...
 class MemoryBuffer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.MemoryBuffer'
+    _classid_ = 'Windows.Foundation.MemoryBuffer'
     @winrt_factorymethod
     def Create(cls: Windows.Foundation.IMemoryBufferFactory, capacity: UInt32) -> Windows.Foundation.MemoryBuffer: ...
     @winrt_mixinmethod
@@ -547,7 +547,7 @@ PropertyType_RectArray: PropertyType = 1043
 PropertyType_OtherTypeArray: PropertyType = 1044
 class PropertyValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.PropertyValue'
+    _classid_ = 'Windows.Foundation.PropertyValue'
     @winrt_classmethod
     def CreateEmpty(cls: Windows.Foundation.IPropertyValueStatics) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_classmethod
@@ -639,13 +639,13 @@ class TimeSpan(EasyCastStructure):
 class TypedEventHandler(Generic[TSender, TResult], ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('9de1c534-6ae1-11e0-84-e1-18-a9-05-bc-c5-3f')
-    ClassId = 'Windows.Foundation.TypedEventHandler'
+    _classid_ = 'Windows.Foundation.TypedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: TSender, args: TResult) -> Void: ...
 UniversalApiContract: UInt32 = 983040
 class Uri(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Uri'
+    _classid_ = 'Windows.Foundation.Uri'
     @winrt_factorymethod
     def CreateUri(cls: Windows.Foundation.IUriRuntimeClassFactory, uri: WinRT_String) -> Windows.Foundation.Uri: ...
     @winrt_factorymethod
@@ -713,7 +713,7 @@ class Uri(ComPtr):
     DisplayIri = property(get_DisplayIri, None)
 class WwwFormUrlDecoder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.WwwFormUrlDecoder'
+    _classid_ = 'Windows.Foundation.WwwFormUrlDecoder'
     @winrt_factorymethod
     def CreateWwwFormUrlDecoder(cls: Windows.Foundation.IWwwFormUrlDecoderRuntimeClassFactory, query: WinRT_String) -> Windows.Foundation.WwwFormUrlDecoder: ...
     @winrt_mixinmethod
@@ -731,7 +731,7 @@ class WwwFormUrlDecoder(ComPtr):
     Size = property(get_Size, None)
 class WwwFormUrlDecoderEntry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.WwwFormUrlDecoderEntry'
+    _classid_ = 'Windows.Foundation.WwwFormUrlDecoderEntry'
     @winrt_mixinmethod
     def get_Name(self: Windows.Foundation.IWwwFormUrlDecoderEntry) -> WinRT_String: ...
     @winrt_mixinmethod

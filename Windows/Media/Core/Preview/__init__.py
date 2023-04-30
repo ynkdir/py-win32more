@@ -34,7 +34,7 @@ class ISoundLevelBrokerStatics(ComPtr):
     SoundLevel = property(get_SoundLevel, None)
 class SoundLevelBroker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Core.Preview.SoundLevelBroker'
+    _classid_ = 'Windows.Media.Core.Preview.SoundLevelBroker'
     @winrt_classmethod
     def get_SoundLevel(cls: Windows.Media.Core.Preview.ISoundLevelBrokerStatics) -> Windows.Media.SoundLevel: ...
     @winrt_classmethod

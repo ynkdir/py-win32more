@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CoreUserActivityManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.UserActivities.Core.CoreUserActivityManager'
+    _classid_ = 'Windows.ApplicationModel.UserActivities.Core.CoreUserActivityManager'
     @winrt_classmethod
     def CreateUserActivitySessionInBackground(cls: Windows.ApplicationModel.UserActivities.Core.ICoreUserActivityManagerStatics, activity: Windows.ApplicationModel.UserActivities.UserActivity) -> Windows.ApplicationModel.UserActivities.UserActivitySession: ...
     @winrt_classmethod

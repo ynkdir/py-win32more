@@ -35,12 +35,12 @@ CachedFileTarget_Local: CachedFileTarget = 0
 CachedFileTarget_Remote: CachedFileTarget = 1
 class CachedFileUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Provider.CachedFileUpdater'
+    _classid_ = 'Windows.Storage.Provider.CachedFileUpdater'
     @winrt_classmethod
     def SetUpdateInformation(cls: Windows.Storage.Provider.ICachedFileUpdaterStatics, file: Windows.Storage.IStorageFile, contentId: WinRT_String, readMode: Windows.Storage.Provider.ReadActivationMode, writeMode: Windows.Storage.Provider.WriteActivationMode, options: Windows.Storage.Provider.CachedFileOptions) -> Void: ...
 class CachedFileUpdaterUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Provider.CachedFileUpdaterUI'
+    _classid_ = 'Windows.Storage.Provider.CachedFileUpdaterUI'
     @winrt_mixinmethod
     def get_Title(self: Windows.Storage.Provider.ICachedFileUpdaterUI) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -68,7 +68,7 @@ class CachedFileUpdaterUI(ComPtr):
 CloudFilesContract: UInt32 = 458752
 class FileUpdateRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Provider.FileUpdateRequest'
+    _classid_ = 'Windows.Storage.Provider.FileUpdateRequest'
     @winrt_mixinmethod
     def get_ContentId(self: Windows.Storage.Provider.IFileUpdateRequest) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -91,12 +91,12 @@ class FileUpdateRequest(ComPtr):
     UserInputNeededMessage = property(get_UserInputNeededMessage, put_UserInputNeededMessage)
 class FileUpdateRequestDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Provider.FileUpdateRequestDeferral'
+    _classid_ = 'Windows.Storage.Provider.FileUpdateRequestDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.Storage.Provider.IFileUpdateRequestDeferral) -> Void: ...
 class FileUpdateRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Provider.FileUpdateRequestedEventArgs'
+    _classid_ = 'Windows.Storage.Provider.FileUpdateRequestedEventArgs'
     @winrt_mixinmethod
     def get_Request(self: Windows.Storage.Provider.IFileUpdateRequestedEventArgs) -> Windows.Storage.Provider.FileUpdateRequest: ...
     Request = property(get_Request, None)
@@ -505,7 +505,7 @@ ReadActivationMode_NotNeeded: ReadActivationMode = 0
 ReadActivationMode_BeforeAccess: ReadActivationMode = 1
 class StorageProviderFileTypeInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Provider.StorageProviderFileTypeInfo'
+    _classid_ = 'Windows.Storage.Provider.StorageProviderFileTypeInfo'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.Storage.Provider.IStorageProviderFileTypeInfoFactory, fileExtension: WinRT_String, iconResource: WinRT_String) -> Windows.Storage.Provider.StorageProviderFileTypeInfo: ...
     @winrt_mixinmethod
@@ -516,7 +516,7 @@ class StorageProviderFileTypeInfo(ComPtr):
     IconResource = property(get_IconResource, None)
 class StorageProviderGetContentInfoForPathResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Provider.StorageProviderGetContentInfoForPathResult'
+    _classid_ = 'Windows.Storage.Provider.StorageProviderGetContentInfoForPathResult'
     @winrt_activatemethod
     def New(cls) -> Windows.Storage.Provider.StorageProviderGetContentInfoForPathResult: ...
     @winrt_mixinmethod
@@ -536,7 +536,7 @@ class StorageProviderGetContentInfoForPathResult(ComPtr):
     ContentId = property(get_ContentId, put_ContentId)
 class StorageProviderGetPathForContentUriResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Provider.StorageProviderGetPathForContentUriResult'
+    _classid_ = 'Windows.Storage.Provider.StorageProviderGetPathForContentUriResult'
     @winrt_activatemethod
     def New(cls) -> Windows.Storage.Provider.StorageProviderGetPathForContentUriResult: ...
     @winrt_mixinmethod
@@ -578,12 +578,12 @@ StorageProviderInSyncPolicy_DirectoryLastWriteTime: StorageProviderInSyncPolicy 
 StorageProviderInSyncPolicy_PreserveInsyncForSyncEngine: StorageProviderInSyncPolicy = 2147483648
 class StorageProviderItemProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Provider.StorageProviderItemProperties'
+    _classid_ = 'Windows.Storage.Provider.StorageProviderItemProperties'
     @winrt_classmethod
     def SetAsync(cls: Windows.Storage.Provider.IStorageProviderItemPropertiesStatics, item: Windows.Storage.IStorageItem, itemProperties: Windows.Foundation.Collections.IIterable[Windows.Storage.Provider.StorageProviderItemProperty]) -> Windows.Foundation.IAsyncAction: ...
 class StorageProviderItemProperty(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Provider.StorageProviderItemProperty'
+    _classid_ = 'Windows.Storage.Provider.StorageProviderItemProperty'
     @winrt_activatemethod
     def New(cls) -> Windows.Storage.Provider.StorageProviderItemProperty: ...
     @winrt_mixinmethod
@@ -603,7 +603,7 @@ class StorageProviderItemProperty(ComPtr):
     IconResource = property(get_IconResource, put_IconResource)
 class StorageProviderItemPropertyDefinition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Provider.StorageProviderItemPropertyDefinition'
+    _classid_ = 'Windows.Storage.Provider.StorageProviderItemPropertyDefinition'
     @winrt_activatemethod
     def New(cls) -> Windows.Storage.Provider.StorageProviderItemPropertyDefinition: ...
     @winrt_mixinmethod
@@ -618,7 +618,7 @@ class StorageProviderItemPropertyDefinition(ComPtr):
     DisplayNameResource = property(get_DisplayNameResource, put_DisplayNameResource)
 class StorageProviderMoreInfoUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Provider.StorageProviderMoreInfoUI'
+    _classid_ = 'Windows.Storage.Provider.StorageProviderMoreInfoUI'
     @winrt_activatemethod
     def New(cls) -> Windows.Storage.Provider.StorageProviderMoreInfoUI: ...
     @winrt_mixinmethod
@@ -639,7 +639,7 @@ StorageProviderProtectionMode_Unknown: StorageProviderProtectionMode = 0
 StorageProviderProtectionMode_Personal: StorageProviderProtectionMode = 1
 class StorageProviderQuotaUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Provider.StorageProviderQuotaUI'
+    _classid_ = 'Windows.Storage.Provider.StorageProviderQuotaUI'
     @winrt_activatemethod
     def New(cls) -> Windows.Storage.Provider.StorageProviderQuotaUI: ...
     @winrt_mixinmethod
@@ -671,7 +671,7 @@ StorageProviderState_Warning: StorageProviderState = 4
 StorageProviderState_Offline: StorageProviderState = 5
 class StorageProviderStatusUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Provider.StorageProviderStatusUI'
+    _classid_ = 'Windows.Storage.Provider.StorageProviderStatusUI'
     @winrt_activatemethod
     def New(cls) -> Windows.Storage.Provider.StorageProviderStatusUI: ...
     @winrt_mixinmethod
@@ -716,7 +716,7 @@ class StorageProviderStatusUI(ComPtr):
     ProviderSecondaryCommands = property(get_ProviderSecondaryCommands, put_ProviderSecondaryCommands)
 class StorageProviderSyncRootInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Provider.StorageProviderSyncRootInfo'
+    _classid_ = 'Windows.Storage.Provider.StorageProviderSyncRootInfo'
     @winrt_activatemethod
     def New(cls) -> Windows.Storage.Provider.StorageProviderSyncRootInfo: ...
     @winrt_mixinmethod
@@ -807,7 +807,7 @@ class StorageProviderSyncRootInfo(ComPtr):
     FallbackFileTypeInfo = property(get_FallbackFileTypeInfo, None)
 class StorageProviderSyncRootManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Provider.StorageProviderSyncRootManager'
+    _classid_ = 'Windows.Storage.Provider.StorageProviderSyncRootManager'
     @winrt_classmethod
     def IsSupported(cls: Windows.Storage.Provider.IStorageProviderSyncRootManagerStatics2) -> Boolean: ...
     @winrt_classmethod

@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ErrorReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.SerialCommunication.ErrorReceivedEventArgs'
+    _classid_ = 'Windows.Devices.SerialCommunication.ErrorReceivedEventArgs'
     @winrt_mixinmethod
     def get_Error(self: Windows.Devices.SerialCommunication.IErrorReceivedEventArgs) -> Windows.Devices.SerialCommunication.SerialError: ...
     Error = property(get_Error, None)
@@ -141,13 +141,13 @@ class ISerialDeviceStatics(ComPtr):
     def FromIdAsync(self, deviceId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Devices.SerialCommunication.SerialDevice]: ...
 class PinChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.SerialCommunication.PinChangedEventArgs'
+    _classid_ = 'Windows.Devices.SerialCommunication.PinChangedEventArgs'
     @winrt_mixinmethod
     def get_PinChange(self: Windows.Devices.SerialCommunication.IPinChangedEventArgs) -> Windows.Devices.SerialCommunication.SerialPinChange: ...
     PinChange = property(get_PinChange, None)
 class SerialDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.SerialCommunication.SerialDevice'
+    _classid_ = 'Windows.Devices.SerialCommunication.SerialDevice'
     @winrt_mixinmethod
     def get_BaudRate(self: Windows.Devices.SerialCommunication.ISerialDevice) -> UInt32: ...
     @winrt_mixinmethod

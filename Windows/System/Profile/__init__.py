@@ -26,7 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AnalyticsInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Profile.AnalyticsInfo'
+    _classid_ = 'Windows.System.Profile.AnalyticsInfo'
     @winrt_classmethod
     def GetSystemPropertiesAsync(cls: Windows.System.Profile.IAnalyticsInfoStatics2, attributeNames: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IMapView[WinRT_String, WinRT_String]]: ...
     @winrt_classmethod
@@ -37,7 +37,7 @@ class AnalyticsInfo(ComPtr):
     DeviceForm = property(get_DeviceForm, None)
 class AnalyticsVersionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Profile.AnalyticsVersionInfo'
+    _classid_ = 'Windows.System.Profile.AnalyticsVersionInfo'
     @winrt_mixinmethod
     def get_DeviceFamily(self: Windows.System.Profile.IAnalyticsVersionInfo) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -49,23 +49,23 @@ class AnalyticsVersionInfo(ComPtr):
     ProductName = property(get_ProductName, None)
 class AppApplicability(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Profile.AppApplicability'
+    _classid_ = 'Windows.System.Profile.AppApplicability'
     @winrt_classmethod
     def GetUnsupportedAppRequirements(cls: Windows.System.Profile.IAppApplicabilityStatics, capabilities: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.Collections.IVectorView[Windows.System.Profile.UnsupportedAppRequirement]: ...
 class EducationSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Profile.EducationSettings'
+    _classid_ = 'Windows.System.Profile.EducationSettings'
     @winrt_classmethod
     def get_IsEducationEnvironment(cls: Windows.System.Profile.IEducationSettingsStatics) -> Boolean: ...
     IsEducationEnvironment = property(get_IsEducationEnvironment, None)
 class HardwareIdentification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Profile.HardwareIdentification'
+    _classid_ = 'Windows.System.Profile.HardwareIdentification'
     @winrt_classmethod
     def GetPackageSpecificToken(cls: Windows.System.Profile.IHardwareIdentificationStatics, nonce: Windows.Storage.Streams.IBuffer) -> Windows.System.Profile.HardwareToken: ...
 class HardwareToken(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Profile.HardwareToken'
+    _classid_ = 'Windows.System.Profile.HardwareToken'
     @winrt_mixinmethod
     def get_Id(self: Windows.System.Profile.IHardwareToken) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
@@ -300,7 +300,7 @@ class IWindowsIntegrityPolicyStatics(ComPtr):
     IsDisableSupported = property(get_IsDisableSupported, None)
 class KnownRetailInfoProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Profile.KnownRetailInfoProperties'
+    _classid_ = 'Windows.System.Profile.KnownRetailInfoProperties'
     @winrt_classmethod
     def get_RetailAccessCode(cls: Windows.System.Profile.IKnownRetailInfoPropertiesStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -374,7 +374,7 @@ PlatformDataCollectionLevel_Enhanced: PlatformDataCollectionLevel = 2
 PlatformDataCollectionLevel_Full: PlatformDataCollectionLevel = 3
 class PlatformDiagnosticsAndUsageDataSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings'
+    _classid_ = 'Windows.System.Profile.PlatformDiagnosticsAndUsageDataSettings'
     @winrt_classmethod
     def get_CollectionLevel(cls: Windows.System.Profile.IPlatformDiagnosticsAndUsageDataSettingsStatics) -> Windows.System.Profile.PlatformDataCollectionLevel: ...
     @winrt_classmethod
@@ -389,7 +389,7 @@ ProfileRetailInfoContract: UInt32 = 65536
 ProfileSharedModeContract: UInt32 = 131072
 class RetailInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Profile.RetailInfo'
+    _classid_ = 'Windows.System.Profile.RetailInfo'
     @winrt_classmethod
     def get_IsDemoModeEnabled(cls: Windows.System.Profile.IRetailInfoStatics) -> Boolean: ...
     @winrt_classmethod
@@ -398,7 +398,7 @@ class RetailInfo(ComPtr):
     Properties = property(get_Properties, None)
 class SharedModeSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Profile.SharedModeSettings'
+    _classid_ = 'Windows.System.Profile.SharedModeSettings'
     @winrt_classmethod
     def get_ShouldAvoidLocalStorage(cls: Windows.System.Profile.ISharedModeSettingsStatics2) -> Boolean: ...
     @winrt_classmethod
@@ -407,7 +407,7 @@ class SharedModeSettings(ComPtr):
     IsEnabled = property(get_IsEnabled, None)
 class SmartAppControlPolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Profile.SmartAppControlPolicy'
+    _classid_ = 'Windows.System.Profile.SmartAppControlPolicy'
     @winrt_classmethod
     def get_IsEnabled(cls: Windows.System.Profile.ISmartAppControlPolicyStatics) -> Boolean: ...
     @winrt_classmethod
@@ -417,14 +417,14 @@ class SmartAppControlPolicy(ComPtr):
     IsEnabled = property(get_IsEnabled, None)
 class SystemIdentification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Profile.SystemIdentification'
+    _classid_ = 'Windows.System.Profile.SystemIdentification'
     @winrt_classmethod
     def GetSystemIdForPublisher(cls: Windows.System.Profile.ISystemIdentificationStatics) -> Windows.System.Profile.SystemIdentificationInfo: ...
     @winrt_classmethod
     def GetSystemIdForUser(cls: Windows.System.Profile.ISystemIdentificationStatics, user: Windows.System.User) -> Windows.System.Profile.SystemIdentificationInfo: ...
 class SystemIdentificationInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Profile.SystemIdentificationInfo'
+    _classid_ = 'Windows.System.Profile.SystemIdentificationInfo'
     @winrt_mixinmethod
     def get_Id(self: Windows.System.Profile.ISystemIdentificationInfo) -> Windows.Storage.Streams.IBuffer: ...
     @winrt_mixinmethod
@@ -442,7 +442,7 @@ SystemOutOfBoxExperienceState_InProgress: SystemOutOfBoxExperienceState = 1
 SystemOutOfBoxExperienceState_Completed: SystemOutOfBoxExperienceState = 2
 class SystemSetupInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Profile.SystemSetupInfo'
+    _classid_ = 'Windows.System.Profile.SystemSetupInfo'
     @winrt_classmethod
     def get_OutOfBoxExperienceState(cls: Windows.System.Profile.ISystemSetupInfoStatics) -> Windows.System.Profile.SystemOutOfBoxExperienceState: ...
     @winrt_classmethod
@@ -452,7 +452,7 @@ class SystemSetupInfo(ComPtr):
     OutOfBoxExperienceState = property(get_OutOfBoxExperienceState, None)
 class UnsupportedAppRequirement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Profile.UnsupportedAppRequirement'
+    _classid_ = 'Windows.System.Profile.UnsupportedAppRequirement'
     @winrt_mixinmethod
     def get_Requirement(self: Windows.System.Profile.IUnsupportedAppRequirement) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -464,7 +464,7 @@ UnsupportedAppRequirementReasons_Unknown: UnsupportedAppRequirementReasons = 0
 UnsupportedAppRequirementReasons_DeniedBySystem: UnsupportedAppRequirementReasons = 1
 class WindowsIntegrityPolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Profile.WindowsIntegrityPolicy'
+    _classid_ = 'Windows.System.Profile.WindowsIntegrityPolicy'
     @winrt_classmethod
     def get_IsEnabled(cls: Windows.System.Profile.IWindowsIntegrityPolicyStatics) -> Boolean: ...
     @winrt_classmethod

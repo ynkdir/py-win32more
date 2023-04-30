@@ -23,7 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class GameBar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Gaming.UI.GameBar'
+    _classid_ = 'Windows.Gaming.UI.GameBar'
     @winrt_classmethod
     def add_VisibilityChanged(cls: Windows.Gaming.UI.IGameBarStatics, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
@@ -43,7 +43,7 @@ GameChatMessageOrigin_Voice: GameChatMessageOrigin = 0
 GameChatMessageOrigin_Text: GameChatMessageOrigin = 1
 class GameChatOverlay(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Gaming.UI.GameChatOverlay'
+    _classid_ = 'Windows.Gaming.UI.GameChatOverlay'
     @winrt_mixinmethod
     def get_DesiredPosition(self: Windows.Gaming.UI.IGameChatOverlay) -> Windows.Gaming.UI.GameChatOverlayPosition: ...
     @winrt_mixinmethod

@@ -62,7 +62,7 @@ TokenBindingKeyType_EcdsaP256: TokenBindingKeyType = 1
 TokenBindingKeyType_AnyExisting: TokenBindingKeyType = 2
 class WebAuthenticationBroker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Web.WebAuthenticationBroker'
+    _classid_ = 'Windows.Security.Authentication.Web.WebAuthenticationBroker'
     @winrt_classmethod
     def AuthenticateAndContinue(cls: Windows.Security.Authentication.Web.IWebAuthenticationBrokerStatics2, requestUri: Windows.Foundation.Uri) -> Void: ...
     @winrt_classmethod
@@ -87,7 +87,7 @@ WebAuthenticationOptions_UseHttpPost: WebAuthenticationOptions = 4
 WebAuthenticationOptions_UseCorporateNetwork: WebAuthenticationOptions = 8
 class WebAuthenticationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Web.WebAuthenticationResult'
+    _classid_ = 'Windows.Security.Authentication.Web.WebAuthenticationResult'
     @winrt_mixinmethod
     def get_ResponseData(self: Windows.Security.Authentication.Web.IWebAuthenticationResult) -> WinRT_String: ...
     @winrt_mixinmethod

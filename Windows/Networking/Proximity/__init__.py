@@ -27,20 +27,20 @@ def __getattr__(name):
     return getattr(_module, name)
 class ConnectionRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Proximity.ConnectionRequestedEventArgs'
+    _classid_ = 'Windows.Networking.Proximity.ConnectionRequestedEventArgs'
     @winrt_mixinmethod
     def get_PeerInformation(self: Windows.Networking.Proximity.IConnectionRequestedEventArgs) -> Windows.Networking.Proximity.PeerInformation: ...
     PeerInformation = property(get_PeerInformation, None)
 class DeviceArrivedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('efa9da69-f6e1-49c9-a4-9e-8e-0f-c5-8f-b9-11')
-    ClassId = 'Windows.Networking.Proximity.DeviceArrivedEventHandler'
+    _classid_ = 'Windows.Networking.Proximity.DeviceArrivedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Networking.Proximity.ProximityDevice) -> Void: ...
 class DeviceDepartedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('efa9da69-f6e2-49c9-a4-9e-8e-0f-c5-8f-b9-11')
-    ClassId = 'Windows.Networking.Proximity.DeviceDepartedEventHandler'
+    _classid_ = 'Windows.Networking.Proximity.DeviceDepartedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Networking.Proximity.ProximityDevice) -> Void: ...
 class IConnectionRequestedEventArgs(ComPtr):
@@ -242,13 +242,13 @@ class ITriggeredConnectionStateChangedEventArgs(ComPtr):
 class MessageReceivedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('efab0782-f6e2-4675-a0-45-d8-e3-20-c2-48-08')
-    ClassId = 'Windows.Networking.Proximity.MessageReceivedHandler'
+    _classid_ = 'Windows.Networking.Proximity.MessageReceivedHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Networking.Proximity.ProximityDevice, message: Windows.Networking.Proximity.ProximityMessage) -> Void: ...
 class MessageTransmittedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('efaa0b4a-f6e2-4d7d-85-6c-78-fc-8e-fc-02-1e')
-    ClassId = 'Windows.Networking.Proximity.MessageTransmittedHandler'
+    _classid_ = 'Windows.Networking.Proximity.MessageTransmittedHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Networking.Proximity.ProximityDevice, messageId: Int64) -> Void: ...
 PeerDiscoveryTypes = UInt32
@@ -257,7 +257,7 @@ PeerDiscoveryTypes_Browse: PeerDiscoveryTypes = 1
 PeerDiscoveryTypes_Triggered: PeerDiscoveryTypes = 2
 class PeerFinder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Proximity.PeerFinder'
+    _classid_ = 'Windows.Networking.Proximity.PeerFinder'
     @winrt_classmethod
     def get_Role(cls: Windows.Networking.Proximity.IPeerFinderStatics2) -> Windows.Networking.Proximity.PeerRole: ...
     @winrt_classmethod
@@ -316,7 +316,7 @@ class PeerFinder(ComPtr):
     AlternateIdentities = property(get_AlternateIdentities, None)
 class PeerInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Proximity.PeerInformation'
+    _classid_ = 'Windows.Networking.Proximity.PeerInformation'
     @winrt_mixinmethod
     def get_DisplayName(self: Windows.Networking.Proximity.IPeerInformation) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -338,7 +338,7 @@ PeerRole_Host: PeerRole = 1
 PeerRole_Client: PeerRole = 2
 class PeerWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Proximity.PeerWatcher'
+    _classid_ = 'Windows.Networking.Proximity.PeerWatcher'
     @winrt_mixinmethod
     def add_Added(self: Windows.Networking.Proximity.IPeerWatcher, handler: Windows.Foundation.TypedEventHandler[Windows.Networking.Proximity.PeerWatcher, Windows.Networking.Proximity.PeerInformation]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -375,7 +375,7 @@ PeerWatcherStatus_Stopped: PeerWatcherStatus = 4
 PeerWatcherStatus_Aborted: PeerWatcherStatus = 5
 class ProximityDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Proximity.ProximityDevice'
+    _classid_ = 'Windows.Networking.Proximity.ProximityDevice'
     @winrt_mixinmethod
     def SubscribeForMessage(self: Windows.Networking.Proximity.IProximityDevice, messageType: WinRT_String, messageReceivedHandler: Windows.Networking.Proximity.MessageReceivedHandler) -> Int64: ...
     @winrt_mixinmethod
@@ -419,7 +419,7 @@ class ProximityDevice(ComPtr):
     DeviceId = property(get_DeviceId, None)
 class ProximityMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Proximity.ProximityMessage'
+    _classid_ = 'Windows.Networking.Proximity.ProximityMessage'
     @winrt_mixinmethod
     def get_MessageType(self: Windows.Networking.Proximity.IProximityMessage) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -441,7 +441,7 @@ TriggeredConnectState_Canceled: TriggeredConnectState = 4
 TriggeredConnectState_Failed: TriggeredConnectState = 5
 class TriggeredConnectionStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Proximity.TriggeredConnectionStateChangedEventArgs'
+    _classid_ = 'Windows.Networking.Proximity.TriggeredConnectionStateChangedEventArgs'
     @winrt_mixinmethod
     def get_State(self: Windows.Networking.Proximity.ITriggeredConnectionStateChangedEventArgs) -> Windows.Networking.Proximity.TriggeredConnectState: ...
     @winrt_mixinmethod

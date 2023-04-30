@@ -22,7 +22,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class EasClientDeviceInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation'
+    _classid_ = 'Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation'
     @winrt_activatemethod
     def New(cls) -> Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation: ...
     @winrt_mixinmethod

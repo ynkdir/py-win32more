@@ -113,7 +113,7 @@ class IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo(ComPtr):
     ServiceResponse = property(get_ServiceResponse, None)
 class MicrosoftAccountMultiFactorAuthenticationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager'
+    _classid_ = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager'
     @winrt_mixinmethod
     def GetOneTimePassCodeAsync(self: Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorAuthenticationManager, userAccountId: WinRT_String, codeLength: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorOneTimeCodedInfo]: ...
     @winrt_mixinmethod
@@ -142,7 +142,7 @@ MicrosoftAccountMultiFactorAuthenticationType_User: MicrosoftAccountMultiFactorA
 MicrosoftAccountMultiFactorAuthenticationType_Device: MicrosoftAccountMultiFactorAuthenticationType = 1
 class MicrosoftAccountMultiFactorGetSessionsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorGetSessionsResult'
+    _classid_ = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorGetSessionsResult'
     @winrt_mixinmethod
     def get_Sessions(self: Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorGetSessionsResult) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionInfo]: ...
     @winrt_mixinmethod
@@ -151,7 +151,7 @@ class MicrosoftAccountMultiFactorGetSessionsResult(ComPtr):
     ServiceResponse = property(get_ServiceResponse, None)
 class MicrosoftAccountMultiFactorOneTimeCodedInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorOneTimeCodedInfo'
+    _classid_ = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorOneTimeCodedInfo'
     @winrt_mixinmethod
     def get_Code(self: Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorOneTimeCodedInfo) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -196,7 +196,7 @@ MicrosoftAccountMultiFactorSessionAuthenticationStatus_Authenticated: MicrosoftA
 MicrosoftAccountMultiFactorSessionAuthenticationStatus_Unauthenticated: MicrosoftAccountMultiFactorSessionAuthenticationStatus = 1
 class MicrosoftAccountMultiFactorSessionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionInfo'
+    _classid_ = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionInfo'
     @winrt_mixinmethod
     def get_UserAccountId(self: Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorSessionInfo) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -220,7 +220,7 @@ class MicrosoftAccountMultiFactorSessionInfo(ComPtr):
     ExpirationTime = property(get_ExpirationTime, None)
 class MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo'
+    _classid_ = 'Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo'
     @winrt_mixinmethod
     def get_Sessions(self: Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorSessionInfo]: ...
     @winrt_mixinmethod

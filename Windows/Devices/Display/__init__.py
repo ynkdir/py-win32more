@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class DisplayMonitor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Display.DisplayMonitor'
+    _classid_ = 'Windows.Devices.Display.DisplayMonitor'
     @winrt_mixinmethod
     def get_DeviceId(self: Windows.Devices.Display.IDisplayMonitor) -> WinRT_String: ...
     @winrt_mixinmethod

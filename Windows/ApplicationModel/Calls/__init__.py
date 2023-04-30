@@ -28,19 +28,19 @@ def __getattr__(name):
     return getattr(_module, name)
 class CallAnswerEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.CallAnswerEventArgs'
+    _classid_ = 'Windows.ApplicationModel.Calls.CallAnswerEventArgs'
     @winrt_mixinmethod
     def get_AcceptedMedia(self: Windows.ApplicationModel.Calls.ICallAnswerEventArgs) -> Windows.ApplicationModel.Calls.VoipPhoneCallMedia: ...
     AcceptedMedia = property(get_AcceptedMedia, None)
 class CallRejectEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.CallRejectEventArgs'
+    _classid_ = 'Windows.ApplicationModel.Calls.CallRejectEventArgs'
     @winrt_mixinmethod
     def get_RejectReason(self: Windows.ApplicationModel.Calls.ICallRejectEventArgs) -> Windows.ApplicationModel.Calls.VoipPhoneCallRejectReason: ...
     RejectReason = property(get_RejectReason, None)
 class CallStateChangeEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.CallStateChangeEventArgs'
+    _classid_ = 'Windows.ApplicationModel.Calls.CallStateChangeEventArgs'
     @winrt_mixinmethod
     def get_State(self: Windows.ApplicationModel.Calls.ICallStateChangeEventArgs) -> Windows.ApplicationModel.Calls.VoipPhoneCallState: ...
     State = property(get_State, None)
@@ -773,7 +773,7 @@ class IVoipPhoneCall3(ComPtr):
     def NotifyCallAccepted(self, media: Windows.ApplicationModel.Calls.VoipPhoneCallMedia) -> Void: ...
 class MuteChangeEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.MuteChangeEventArgs'
+    _classid_ = 'Windows.ApplicationModel.Calls.MuteChangeEventArgs'
     @winrt_mixinmethod
     def get_Muted(self: Windows.ApplicationModel.Calls.IMuteChangeEventArgs) -> Boolean: ...
     Muted = property(get_Muted, None)
@@ -783,7 +783,7 @@ PhoneAudioRoutingEndpoint_Bluetooth: PhoneAudioRoutingEndpoint = 1
 PhoneAudioRoutingEndpoint_Speakerphone: PhoneAudioRoutingEndpoint = 2
 class PhoneCall(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneCall'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneCall'
     @winrt_mixinmethod
     def add_StatusChanged(self: Windows.ApplicationModel.Calls.IPhoneCall, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Calls.PhoneCall, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -856,7 +856,7 @@ PhoneCallAudioDevice_LocalDevice: PhoneCallAudioDevice = 1
 PhoneCallAudioDevice_RemoteDevice: PhoneCallAudioDevice = 2
 class PhoneCallBlocking(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneCallBlocking'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallBlocking'
     @winrt_classmethod
     def get_BlockUnknownNumbers(cls: Windows.ApplicationModel.Calls.IPhoneCallBlockingStatics) -> Boolean: ...
     @winrt_classmethod
@@ -875,7 +875,7 @@ PhoneCallDirection_Incoming: PhoneCallDirection = 1
 PhoneCallDirection_Outgoing: PhoneCallDirection = 2
 class PhoneCallHistoryEntry(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneCallHistoryEntry'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallHistoryEntry'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Calls.PhoneCallHistoryEntry: ...
     @winrt_mixinmethod
@@ -966,7 +966,7 @@ class PhoneCallHistoryEntry(ComPtr):
     StartTime = property(get_StartTime, put_StartTime)
 class PhoneCallHistoryEntryAddress(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneCallHistoryEntryAddress'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallHistoryEntryAddress'
     @winrt_factorymethod
     def Create(cls: Windows.ApplicationModel.Calls.IPhoneCallHistoryEntryAddressFactory, rawAddress: WinRT_String, rawAddressKind: Windows.ApplicationModel.Calls.PhoneCallHistoryEntryRawAddressKind) -> Windows.ApplicationModel.Calls.PhoneCallHistoryEntryAddress: ...
     @winrt_activatemethod
@@ -1004,7 +1004,7 @@ PhoneCallHistoryEntryQueryDesiredMedia_Video: PhoneCallHistoryEntryQueryDesiredM
 PhoneCallHistoryEntryQueryDesiredMedia_All: PhoneCallHistoryEntryQueryDesiredMedia = 4294967295
 class PhoneCallHistoryEntryQueryOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneCallHistoryEntryQueryOptions'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallHistoryEntryQueryOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Calls.PhoneCallHistoryEntryQueryOptions: ...
     @winrt_mixinmethod
@@ -1020,19 +1020,19 @@ PhoneCallHistoryEntryRawAddressKind_PhoneNumber: PhoneCallHistoryEntryRawAddress
 PhoneCallHistoryEntryRawAddressKind_Custom: PhoneCallHistoryEntryRawAddressKind = 1
 class PhoneCallHistoryEntryReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneCallHistoryEntryReader'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallHistoryEntryReader'
     @winrt_mixinmethod
     def ReadBatchAsync(self: Windows.ApplicationModel.Calls.IPhoneCallHistoryEntryReader) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.Calls.PhoneCallHistoryEntry]]: ...
 class PhoneCallHistoryManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneCallHistoryManager'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallHistoryManager'
     @winrt_classmethod
     def GetForUser(cls: Windows.ApplicationModel.Calls.IPhoneCallHistoryManagerStatics2, user: Windows.System.User) -> Windows.ApplicationModel.Calls.PhoneCallHistoryManagerForUser: ...
     @winrt_classmethod
     def RequestStoreAsync(cls: Windows.ApplicationModel.Calls.IPhoneCallHistoryManagerStatics, accessType: Windows.ApplicationModel.Calls.PhoneCallHistoryStoreAccessType) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Calls.PhoneCallHistoryStore]: ...
 class PhoneCallHistoryManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneCallHistoryManagerForUser'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallHistoryManagerForUser'
     @winrt_mixinmethod
     def RequestStoreAsync(self: Windows.ApplicationModel.Calls.IPhoneCallHistoryManagerForUser, accessType: Windows.ApplicationModel.Calls.PhoneCallHistoryStoreAccessType) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Calls.PhoneCallHistoryStore]: ...
     @winrt_mixinmethod
@@ -1043,7 +1043,7 @@ PhoneCallHistorySourceIdKind_CellularPhoneLineId: PhoneCallHistorySourceIdKind =
 PhoneCallHistorySourceIdKind_PackageFamilyName: PhoneCallHistorySourceIdKind = 1
 class PhoneCallHistoryStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneCallHistoryStore'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallHistoryStore'
     @winrt_mixinmethod
     def GetEntryAsync(self: Windows.ApplicationModel.Calls.IPhoneCallHistoryStore, callHistoryEntryId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Calls.PhoneCallHistoryEntry]: ...
     @winrt_mixinmethod
@@ -1074,7 +1074,7 @@ PhoneCallHistoryStoreAccessType_AllEntriesLimitedReadWrite: PhoneCallHistoryStor
 PhoneCallHistoryStoreAccessType_AllEntriesReadWrite: PhoneCallHistoryStoreAccessType = 2
 class PhoneCallInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneCallInfo'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallInfo'
     @winrt_mixinmethod
     def get_LineId(self: Windows.ApplicationModel.Calls.IPhoneCallInfo) -> Guid: ...
     @winrt_mixinmethod
@@ -1095,7 +1095,7 @@ class PhoneCallInfo(ComPtr):
     CallDirection = property(get_CallDirection, None)
 class PhoneCallManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneCallManager'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallManager'
     @winrt_classmethod
     def add_CallStateChanged(cls: Windows.ApplicationModel.Calls.IPhoneCallManagerStatics2, handler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
@@ -1131,7 +1131,7 @@ PhoneCallStatus_Held: PhoneCallStatus = 4
 PhoneCallStatus_Ended: PhoneCallStatus = 5
 class PhoneCallStore(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneCallStore'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallStore'
     @winrt_mixinmethod
     def IsEmergencyPhoneNumberAsync(self: Windows.ApplicationModel.Calls.IPhoneCallStore, number: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_mixinmethod
@@ -1140,18 +1140,18 @@ class PhoneCallStore(ComPtr):
     def RequestLineWatcher(self: Windows.ApplicationModel.Calls.IPhoneCallStore) -> Windows.ApplicationModel.Calls.PhoneLineWatcher: ...
 class PhoneCallVideoCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneCallVideoCapabilities'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallVideoCapabilities'
     @winrt_mixinmethod
     def get_IsVideoCallingCapable(self: Windows.ApplicationModel.Calls.IPhoneCallVideoCapabilities) -> Boolean: ...
     IsVideoCallingCapable = property(get_IsVideoCallingCapable, None)
 class PhoneCallVideoCapabilitiesManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneCallVideoCapabilitiesManager'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallVideoCapabilitiesManager'
     @winrt_classmethod
     def GetCapabilitiesAsync(cls: Windows.ApplicationModel.Calls.IPhoneCallVideoCapabilitiesManagerStatics, phoneNumber: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Calls.PhoneCallVideoCapabilities]: ...
 class PhoneCallsResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneCallsResult'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneCallsResult'
     @winrt_mixinmethod
     def get_OperationStatus(self: Windows.ApplicationModel.Calls.IPhoneCallsResult) -> Windows.ApplicationModel.Calls.PhoneLineOperationStatus: ...
     @winrt_mixinmethod
@@ -1160,7 +1160,7 @@ class PhoneCallsResult(ComPtr):
     AllActivePhoneCalls = property(get_AllActivePhoneCalls, None)
 class PhoneDialOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneDialOptions'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneDialOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Calls.PhoneDialOptions: ...
     @winrt_mixinmethod
@@ -1195,7 +1195,7 @@ class PhoneDialOptions(ComPtr):
     AudioEndpoint = property(get_AudioEndpoint, put_AudioEndpoint)
 class PhoneLine(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneLine'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneLine'
     @winrt_mixinmethod
     def add_LineChanged(self: Windows.ApplicationModel.Calls.IPhoneLine, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Calls.PhoneLine, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -1259,7 +1259,7 @@ class PhoneLine(ComPtr):
     TransportDeviceId = property(get_TransportDeviceId, None)
 class PhoneLineCellularDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneLineCellularDetails'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneLineCellularDetails'
     @winrt_mixinmethod
     def get_SimState(self: Windows.ApplicationModel.Calls.IPhoneLineCellularDetails) -> Windows.ApplicationModel.Calls.PhoneSimState: ...
     @winrt_mixinmethod
@@ -1276,7 +1276,7 @@ class PhoneLineCellularDetails(ComPtr):
     RegistrationRejectCode = property(get_RegistrationRejectCode, None)
 class PhoneLineConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneLineConfiguration'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneLineConfiguration'
     @winrt_mixinmethod
     def get_IsVideoCallingEnabled(self: Windows.ApplicationModel.Calls.IPhoneLineConfiguration) -> Boolean: ...
     @winrt_mixinmethod
@@ -1285,7 +1285,7 @@ class PhoneLineConfiguration(ComPtr):
     ExtendedProperties = property(get_ExtendedProperties, None)
 class PhoneLineDialResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneLineDialResult'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneLineDialResult'
     @winrt_mixinmethod
     def get_DialCallStatus(self: Windows.ApplicationModel.Calls.IPhoneLineDialResult) -> Windows.ApplicationModel.Calls.PhoneCallOperationStatus: ...
     @winrt_mixinmethod
@@ -1309,7 +1309,7 @@ PhoneLineTransport_VoipApp: PhoneLineTransport = 1
 PhoneLineTransport_Bluetooth: PhoneLineTransport = 2
 class PhoneLineTransportDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneLineTransportDevice'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneLineTransportDevice'
     @winrt_mixinmethod
     def get_DeviceId(self: Windows.ApplicationModel.Calls.IPhoneLineTransportDevice) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1354,7 +1354,7 @@ class PhoneLineTransportDevice(ComPtr):
     InBandRingingEnabled = property(get_InBandRingingEnabled, None)
 class PhoneLineWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneLineWatcher'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneLineWatcher'
     @winrt_mixinmethod
     def Start(self: Windows.ApplicationModel.Calls.IPhoneLineWatcher) -> Void: ...
     @winrt_mixinmethod
@@ -1384,7 +1384,7 @@ class PhoneLineWatcher(ComPtr):
     Status = property(get_Status, None)
 class PhoneLineWatcherEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneLineWatcherEventArgs'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneLineWatcherEventArgs'
     @winrt_mixinmethod
     def get_LineId(self: Windows.ApplicationModel.Calls.IPhoneLineWatcherEventArgs) -> Guid: ...
     LineId = property(get_LineId, None)
@@ -1413,7 +1413,7 @@ PhoneSimState_Invalid: PhoneSimState = 6
 PhoneSimState_Disabled: PhoneSimState = 7
 class PhoneVoicemail(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.PhoneVoicemail'
+    _classid_ = 'Windows.ApplicationModel.Calls.PhoneVoicemail'
     @winrt_mixinmethod
     def get_Number(self: Windows.ApplicationModel.Calls.IPhoneVoicemail) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1435,7 +1435,7 @@ TransportDeviceAudioRoutingStatus_CanRouteToLocalDevice: TransportDeviceAudioRou
 TransportDeviceAudioRoutingStatus_CannotRouteToLocalDevice: TransportDeviceAudioRoutingStatus = 2
 class VoipCallCoordinator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.VoipCallCoordinator'
+    _classid_ = 'Windows.ApplicationModel.Calls.VoipCallCoordinator'
     @winrt_mixinmethod
     def ReserveCallResourcesAsync(self: Windows.ApplicationModel.Calls.IVoipCallCoordinator, taskEntryPoint: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Calls.VoipPhoneCallResourceReservationStatus]: ...
     @winrt_mixinmethod
@@ -1470,7 +1470,7 @@ class VoipCallCoordinator(ComPtr):
     def GetDefault(cls: Windows.ApplicationModel.Calls.IVoipCallCoordinatorStatics) -> Windows.ApplicationModel.Calls.VoipCallCoordinator: ...
 class VoipPhoneCall(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Calls.VoipPhoneCall'
+    _classid_ = 'Windows.ApplicationModel.Calls.VoipPhoneCall'
     @winrt_mixinmethod
     def add_EndRequested(self: Windows.ApplicationModel.Calls.IVoipPhoneCall, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Calls.VoipPhoneCall, Windows.ApplicationModel.Calls.CallStateChangeEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod

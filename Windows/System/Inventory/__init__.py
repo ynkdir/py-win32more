@@ -44,7 +44,7 @@ class IInstalledDesktopAppStatics(ComPtr):
     def GetInventoryAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.System.Inventory.InstalledDesktopApp]]: ...
 class InstalledDesktopApp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Inventory.InstalledDesktopApp'
+    _classid_ = 'Windows.System.Inventory.InstalledDesktopApp'
     @winrt_mixinmethod
     def get_Id(self: Windows.System.Inventory.IInstalledDesktopApp) -> WinRT_String: ...
     @winrt_mixinmethod

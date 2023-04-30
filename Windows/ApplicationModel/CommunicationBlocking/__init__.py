@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CommunicationBlockingAccessManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager'
+    _classid_ = 'Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAccessManager'
     @winrt_classmethod
     def get_IsBlockingActive(cls: Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAccessManagerStatics) -> Boolean: ...
     @winrt_classmethod
@@ -40,7 +40,7 @@ class CommunicationBlockingAccessManager(ComPtr):
     IsBlockingActive = property(get_IsBlockingActive, None)
 class CommunicationBlockingAppManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAppManager'
+    _classid_ = 'Windows.ApplicationModel.CommunicationBlocking.CommunicationBlockingAppManager'
     @winrt_classmethod
     def RequestSetAsActiveBlockingAppAsync(cls: Windows.ApplicationModel.CommunicationBlocking.ICommunicationBlockingAppManagerStatics2) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
     @winrt_classmethod

@@ -25,7 +25,7 @@ def __getattr__(name):
 class HostMessageReceivedCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('faf26ffa-8ce1-4cc1-b2-78-32-2d-31-a5-e4-a3')
-    ClassId = 'Windows.Security.Isolation.HostMessageReceivedCallback'
+    _classid_ = 'Windows.Security.Isolation.HostMessageReceivedCallback'
     @winrt_commethod(3)
     def Invoke(self, receiverId: Guid, message: Windows.Foundation.Collections.IVectorView[Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
 class IIsolatedWindowsEnvironment(ComPtr):
@@ -360,7 +360,7 @@ class IIsolatedWindowsHostMessengerStatics2(ComPtr):
     def UnregisterHostMessageReceiver(self, receiverId: Guid) -> Void: ...
 class IsolatedWindowsEnvironment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironment'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironment'
     @winrt_mixinmethod
     def get_Id(self: Windows.Security.Isolation.IIsolatedWindowsEnvironment) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -428,7 +428,7 @@ class IsolatedWindowsEnvironmentCreateProgress(EasyCastStructure):
     PercentComplete: UInt32
 class IsolatedWindowsEnvironmentCreateResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentCreateResult'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentCreateResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Security.Isolation.IIsolatedWindowsEnvironmentCreateResult) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentCreateStatus: ...
     @winrt_mixinmethod
@@ -449,7 +449,7 @@ IsolatedWindowsEnvironmentCreationPriority_Low: IsolatedWindowsEnvironmentCreati
 IsolatedWindowsEnvironmentCreationPriority_Normal: IsolatedWindowsEnvironmentCreationPriority = 1
 class IsolatedWindowsEnvironmentFile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentFile'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentFile'
     @winrt_mixinmethod
     def get_Id(self: Windows.Security.Isolation.IIsolatedWindowsEnvironmentFile) -> Guid: ...
     @winrt_mixinmethod
@@ -466,7 +466,7 @@ class IsolatedWindowsEnvironmentFile(ComPtr):
     IsReadOnly = property(get_IsReadOnly, None)
 class IsolatedWindowsEnvironmentHost(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentHost'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentHost'
     @winrt_classmethod
     def get_IsReady(cls: Windows.Security.Isolation.IIsolatedWindowsEnvironmentHostStatics) -> Boolean: ...
     @winrt_classmethod
@@ -481,7 +481,7 @@ IsolatedWindowsEnvironmentHostError_RebootRequired: IsolatedWindowsEnvironmentHo
 IsolatedWindowsEnvironmentHostError_UnknownError: IsolatedWindowsEnvironmentHostError = 4
 class IsolatedWindowsEnvironmentLaunchFileResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentLaunchFileResult'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentLaunchFileResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Security.Isolation.IIsolatedWindowsEnvironmentLaunchFileResult) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentLaunchFileStatus: ...
     @winrt_mixinmethod
@@ -500,7 +500,7 @@ IsolatedWindowsEnvironmentLaunchFileStatus_TimedOut: IsolatedWindowsEnvironmentL
 IsolatedWindowsEnvironmentLaunchFileStatus_AlreadySharedWithConflictingOptions: IsolatedWindowsEnvironmentLaunchFileStatus = 5
 class IsolatedWindowsEnvironmentOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentOptions: ...
     @winrt_mixinmethod
@@ -568,14 +568,14 @@ class IsolatedWindowsEnvironmentOptions(ComPtr):
     CreationPriority = property(get_CreationPriority, put_CreationPriority)
 class IsolatedWindowsEnvironmentOwnerRegistration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistration'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistration'
     @winrt_classmethod
     def Register(cls: Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationStatics, ownerName: WinRT_String, ownerRegistrationData: Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationResult: ...
     @winrt_classmethod
     def Unregister(cls: Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationStatics, ownerName: WinRT_String) -> Void: ...
 class IsolatedWindowsEnvironmentOwnerRegistrationData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData'
     @winrt_activatemethod
     def New(cls) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationData: ...
     @winrt_mixinmethod
@@ -592,7 +592,7 @@ class IsolatedWindowsEnvironmentOwnerRegistrationData(ComPtr):
     ActivationFileExtensions = property(get_ActivationFileExtensions, None)
 class IsolatedWindowsEnvironmentOwnerRegistrationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationResult'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationResult) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentOwnerRegistrationStatus: ...
     @winrt_mixinmethod
@@ -607,7 +607,7 @@ IsolatedWindowsEnvironmentOwnerRegistrationStatus_InsufficientMemory: IsolatedWi
 IsolatedWindowsEnvironmentOwnerRegistrationStatus_UnknownFailure: IsolatedWindowsEnvironmentOwnerRegistrationStatus = 4
 class IsolatedWindowsEnvironmentPostMessageResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageResult'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Security.Isolation.IIsolatedWindowsEnvironmentPostMessageResult) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentPostMessageStatus: ...
     @winrt_mixinmethod
@@ -620,7 +620,7 @@ IsolatedWindowsEnvironmentPostMessageStatus_UnknownFailure: IsolatedWindowsEnvir
 IsolatedWindowsEnvironmentPostMessageStatus_EnvironmentUnavailable: IsolatedWindowsEnvironmentPostMessageStatus = 2
 class IsolatedWindowsEnvironmentProcess(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentProcess'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentProcess'
     @winrt_mixinmethod
     def get_State(self: Windows.Security.Isolation.IIsolatedWindowsEnvironmentProcess) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentProcessState: ...
     @winrt_mixinmethod
@@ -647,7 +647,7 @@ IsolatedWindowsEnvironmentProgressState_Starting: IsolatedWindowsEnvironmentProg
 IsolatedWindowsEnvironmentProgressState_Finalizing: IsolatedWindowsEnvironmentProgressState = 6
 class IsolatedWindowsEnvironmentShareFileRequestOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileRequestOptions'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileRequestOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileRequestOptions: ...
     @winrt_mixinmethod
@@ -657,7 +657,7 @@ class IsolatedWindowsEnvironmentShareFileRequestOptions(ComPtr):
     AllowWrite = property(get_AllowWrite, put_AllowWrite)
 class IsolatedWindowsEnvironmentShareFileResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileResult'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFileResult) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFileStatus: ...
     @winrt_mixinmethod
@@ -676,7 +676,7 @@ IsolatedWindowsEnvironmentShareFileStatus_FileNotFound: IsolatedWindowsEnvironme
 IsolatedWindowsEnvironmentShareFileStatus_AccessDenied: IsolatedWindowsEnvironmentShareFileStatus = 5
 class IsolatedWindowsEnvironmentShareFolderRequestOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderRequestOptions'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderRequestOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderRequestOptions: ...
     @winrt_mixinmethod
@@ -686,7 +686,7 @@ class IsolatedWindowsEnvironmentShareFolderRequestOptions(ComPtr):
     AllowWrite = property(get_AllowWrite, put_AllowWrite)
 class IsolatedWindowsEnvironmentShareFolderResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderResult'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Security.Isolation.IIsolatedWindowsEnvironmentShareFolderResult) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentShareFolderStatus: ...
     @winrt_mixinmethod
@@ -708,7 +708,7 @@ IsolatedWindowsEnvironmentSignInProgress_Finalizing: IsolatedWindowsEnvironmentS
 IsolatedWindowsEnvironmentSignInProgress_Completed: IsolatedWindowsEnvironmentSignInProgress = 5
 class IsolatedWindowsEnvironmentStartProcessResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentStartProcessResult'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentStartProcessResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Security.Isolation.IIsolatedWindowsEnvironmentStartProcessResult) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentStartProcessStatus: ...
     @winrt_mixinmethod
@@ -726,7 +726,7 @@ IsolatedWindowsEnvironmentStartProcessStatus_FileNotFound: IsolatedWindowsEnviro
 IsolatedWindowsEnvironmentStartProcessStatus_AppNotRegistered: IsolatedWindowsEnvironmentStartProcessStatus = 4
 class IsolatedWindowsEnvironmentTelemetryParameters(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters'
     @winrt_activatemethod
     def New(cls) -> Windows.Security.Isolation.IsolatedWindowsEnvironmentTelemetryParameters: ...
     @winrt_mixinmethod
@@ -736,7 +736,7 @@ class IsolatedWindowsEnvironmentTelemetryParameters(ComPtr):
     CorrelationId = property(get_CorrelationId, put_CorrelationId)
 class IsolatedWindowsEnvironmentUserInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentUserInfo'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsEnvironmentUserInfo'
     @winrt_mixinmethod
     def get_EnvironmentUserSid(self: Windows.Security.Isolation.IIsolatedWindowsEnvironmentUserInfo) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -749,7 +749,7 @@ class IsolatedWindowsEnvironmentUserInfo(ComPtr):
     EnvironmentUserName = property(get_EnvironmentUserName, None)
 class IsolatedWindowsHostMessenger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Isolation.IsolatedWindowsHostMessenger'
+    _classid_ = 'Windows.Security.Isolation.IsolatedWindowsHostMessenger'
     @winrt_classmethod
     def RegisterHostMessageReceiver(cls: Windows.Security.Isolation.IIsolatedWindowsHostMessengerStatics2, receiverId: Guid, hostMessageReceivedCallback: Windows.Security.Isolation.HostMessageReceivedCallback) -> Void: ...
     @winrt_classmethod
@@ -761,7 +761,7 @@ class IsolatedWindowsHostMessenger(ComPtr):
 class MessageReceivedCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('f5b4c8ff-1d9d-4995-9f-ea-4d-15-25-7c-07-57')
-    ClassId = 'Windows.Security.Isolation.MessageReceivedCallback'
+    _classid_ = 'Windows.Security.Isolation.MessageReceivedCallback'
     @winrt_commethod(3)
     def Invoke(self, receiverId: Guid, message: Windows.Foundation.Collections.IVectorView[Windows.Win32.System.WinRT.IInspectable_head]) -> Void: ...
 make_head(_module, 'HostMessageReceivedCallback')

@@ -424,7 +424,7 @@ class ISmsWapMessage(ComPtr):
     Headers = property(get_Headers, None)
 class SmsAppMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Sms.SmsAppMessage'
+    _classid_ = 'Windows.Devices.Sms.SmsAppMessage'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Sms.SmsAppMessage: ...
     @winrt_mixinmethod
@@ -500,7 +500,7 @@ class SmsAppMessage(ComPtr):
     SimIccId = property(get_SimIccId, None)
 class SmsBroadcastMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Sms.SmsBroadcastMessage'
+    _classid_ = 'Windows.Devices.Sms.SmsBroadcastMessage'
     @winrt_mixinmethod
     def get_Timestamp(self: Windows.Devices.Sms.ISmsBroadcastMessage) -> Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
@@ -570,7 +570,7 @@ SmsDataFormat_CdmaDeliver: SmsDataFormat = 3
 SmsDataFormat_GsmDeliver: SmsDataFormat = 4
 class SmsDevice2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Sms.SmsDevice2'
+    _classid_ = 'Windows.Devices.Sms.SmsDevice2'
     @winrt_mixinmethod
     def get_SmscAddress(self: Windows.Devices.Sms.ISmsDevice2) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -641,7 +641,7 @@ SmsFilterActionType_Peek: SmsFilterActionType = 2
 SmsFilterActionType_Accept: SmsFilterActionType = 3
 class SmsFilterRule(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Sms.SmsFilterRule'
+    _classid_ = 'Windows.Devices.Sms.SmsFilterRule'
     @winrt_factorymethod
     def CreateFilterRule(cls: Windows.Devices.Sms.ISmsFilterRuleFactory, messageType: Windows.Devices.Sms.SmsMessageType) -> Windows.Devices.Sms.SmsFilterRule: ...
     @winrt_mixinmethod
@@ -687,7 +687,7 @@ class SmsFilterRule(ComPtr):
     BroadcastChannels = property(get_BroadcastChannels, None)
 class SmsFilterRules(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Sms.SmsFilterRules'
+    _classid_ = 'Windows.Devices.Sms.SmsFilterRules'
     @winrt_factorymethod
     def CreateFilterRules(cls: Windows.Devices.Sms.ISmsFilterRulesFactory, actionType: Windows.Devices.Sms.SmsFilterActionType) -> Windows.Devices.Sms.SmsFilterRules: ...
     @winrt_mixinmethod
@@ -710,7 +710,7 @@ SmsMessageClass_Class2: SmsMessageClass = 3
 SmsMessageClass_Class3: SmsMessageClass = 4
 class SmsMessageReceivedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Sms.SmsMessageReceivedTriggerDetails'
+    _classid_ = 'Windows.Devices.Sms.SmsMessageReceivedTriggerDetails'
     @winrt_mixinmethod
     def get_MessageType(self: Windows.Devices.Sms.ISmsMessageReceivedTriggerDetails) -> Windows.Devices.Sms.SmsMessageType: ...
     @winrt_mixinmethod
@@ -738,7 +738,7 @@ class SmsMessageReceivedTriggerDetails(ComPtr):
     StatusMessage = property(get_StatusMessage, None)
 class SmsMessageRegistration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Sms.SmsMessageRegistration'
+    _classid_ = 'Windows.Devices.Sms.SmsMessageRegistration'
     @winrt_mixinmethod
     def get_Id(self: Windows.Devices.Sms.ISmsMessageRegistration) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -776,7 +776,7 @@ SmsModemErrorCode_NetworkFailure: SmsModemErrorCode = 10
 SmsModemErrorCode_FixedDialingNumberRestricted: SmsModemErrorCode = 11
 class SmsSendMessageResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Sms.SmsSendMessageResult'
+    _classid_ = 'Windows.Devices.Sms.SmsSendMessageResult'
     @winrt_mixinmethod
     def get_IsSuccessful(self: Windows.Devices.Sms.ISmsSendMessageResult) -> Boolean: ...
     @winrt_mixinmethod
@@ -800,7 +800,7 @@ class SmsSendMessageResult(ComPtr):
     TransportFailureCause = property(get_TransportFailureCause, None)
 class SmsStatusMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Sms.SmsStatusMessage'
+    _classid_ = 'Windows.Devices.Sms.SmsStatusMessage'
     @winrt_mixinmethod
     def get_To(self: Windows.Devices.Sms.ISmsStatusMessage) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -839,7 +839,7 @@ class SmsStatusMessage(ComPtr):
     SimIccId = property(get_SimIccId, None)
 class SmsTextMessage2(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Sms.SmsTextMessage2'
+    _classid_ = 'Windows.Devices.Sms.SmsTextMessage2'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Sms.SmsTextMessage2: ...
     @winrt_mixinmethod
@@ -901,7 +901,7 @@ class SmsTextMessage2(ComPtr):
     SimIccId = property(get_SimIccId, None)
 class SmsVoicemailMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Sms.SmsVoicemailMessage'
+    _classid_ = 'Windows.Devices.Sms.SmsVoicemailMessage'
     @winrt_mixinmethod
     def get_Timestamp(self: Windows.Devices.Sms.ISmsVoicemailMessage) -> Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
@@ -931,7 +931,7 @@ class SmsVoicemailMessage(ComPtr):
     SimIccId = property(get_SimIccId, None)
 class SmsWapMessage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Sms.SmsWapMessage'
+    _classid_ = 'Windows.Devices.Sms.SmsWapMessage'
     @winrt_mixinmethod
     def get_Timestamp(self: Windows.Devices.Sms.ISmsWapMessage) -> Windows.Foundation.DateTime: ...
     @winrt_mixinmethod

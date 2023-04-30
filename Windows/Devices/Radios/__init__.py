@@ -53,7 +53,7 @@ class IRadioStatics(ComPtr):
     def RequestAccessAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Radios.RadioAccessStatus]: ...
 class Radio(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Radios.Radio'
+    _classid_ = 'Windows.Devices.Radios.Radio'
     @winrt_mixinmethod
     def SetStateAsync(self: Windows.Devices.Radios.IRadio, value: Windows.Devices.Radios.RadioState) -> Windows.Foundation.IAsyncOperation[Windows.Devices.Radios.RadioAccessStatus]: ...
     @winrt_mixinmethod

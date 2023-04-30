@@ -38,7 +38,7 @@ class BandwidthStatistics(EasyCastStructure):
     InboundBandwidthPeaked: Boolean
 class ControlChannelTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.ControlChannelTrigger'
+    _classid_ = 'Windows.Networking.Sockets.ControlChannelTrigger'
     @winrt_factorymethod
     def CreateControlChannelTrigger(cls: Windows.Networking.Sockets.IControlChannelTriggerFactory, channelId: WinRT_String, serverKeepAliveIntervalInMinutes: UInt32) -> Windows.Networking.Sockets.ControlChannelTrigger: ...
     @winrt_factorymethod
@@ -95,7 +95,7 @@ ControlChannelTriggerStatus_TransportDisconnected: ControlChannelTriggerStatus =
 ControlChannelTriggerStatus_ServiceUnavailable: ControlChannelTriggerStatus = 6
 class DatagramSocket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.DatagramSocket'
+    _classid_ = 'Windows.Networking.Sockets.DatagramSocket'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Sockets.DatagramSocket: ...
     @winrt_mixinmethod
@@ -147,7 +147,7 @@ class DatagramSocket(ComPtr):
     OutputStream = property(get_OutputStream, None)
 class DatagramSocketControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.DatagramSocketControl'
+    _classid_ = 'Windows.Networking.Sockets.DatagramSocketControl'
     @winrt_mixinmethod
     def get_QualityOfService(self: Windows.Networking.Sockets.IDatagramSocketControl) -> Windows.Networking.Sockets.SocketQualityOfService: ...
     @winrt_mixinmethod
@@ -175,7 +175,7 @@ class DatagramSocketControl(ComPtr):
     MulticastOnly = property(get_MulticastOnly, put_MulticastOnly)
 class DatagramSocketInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.DatagramSocketInformation'
+    _classid_ = 'Windows.Networking.Sockets.DatagramSocketInformation'
     @winrt_mixinmethod
     def get_LocalAddress(self: Windows.Networking.Sockets.IDatagramSocketInformation) -> Windows.Networking.HostName: ...
     @winrt_mixinmethod
@@ -190,7 +190,7 @@ class DatagramSocketInformation(ComPtr):
     RemotePort = property(get_RemotePort, None)
 class DatagramSocketMessageReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.DatagramSocketMessageReceivedEventArgs'
+    _classid_ = 'Windows.Networking.Sockets.DatagramSocketMessageReceivedEventArgs'
     @winrt_mixinmethod
     def get_RemoteAddress(self: Windows.Networking.Sockets.IDatagramSocketMessageReceivedEventArgs) -> Windows.Networking.HostName: ...
     @winrt_mixinmethod
@@ -975,7 +975,7 @@ class IWebSocketServerCustomValidationRequestedEventArgs(ComPtr):
     ServerIntermediateCertificates = property(get_ServerIntermediateCertificates, None)
 class MessageWebSocket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.MessageWebSocket'
+    _classid_ = 'Windows.Networking.Sockets.MessageWebSocket'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Sockets.MessageWebSocket: ...
     @winrt_mixinmethod
@@ -1013,7 +1013,7 @@ class MessageWebSocket(ComPtr):
     OutputStream = property(get_OutputStream, None)
 class MessageWebSocketControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.MessageWebSocketControl'
+    _classid_ = 'Windows.Networking.Sockets.MessageWebSocketControl'
     @winrt_mixinmethod
     def get_MaxMessageSize(self: Windows.Networking.Sockets.IMessageWebSocketControl) -> UInt32: ...
     @winrt_mixinmethod
@@ -1065,7 +1065,7 @@ class MessageWebSocketControl(ComPtr):
     ClientCertificate = property(get_ClientCertificate, put_ClientCertificate)
 class MessageWebSocketInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.MessageWebSocketInformation'
+    _classid_ = 'Windows.Networking.Sockets.MessageWebSocketInformation'
     @winrt_mixinmethod
     def get_LocalAddress(self: Windows.Networking.Sockets.IWebSocketInformation) -> Windows.Networking.HostName: ...
     @winrt_mixinmethod
@@ -1089,7 +1089,7 @@ class MessageWebSocketInformation(ComPtr):
     ServerIntermediateCertificates = property(get_ServerIntermediateCertificates, None)
 class MessageWebSocketMessageReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.MessageWebSocketMessageReceivedEventArgs'
+    _classid_ = 'Windows.Networking.Sockets.MessageWebSocketMessageReceivedEventArgs'
     @winrt_mixinmethod
     def get_MessageType(self: Windows.Networking.Sockets.IMessageWebSocketMessageReceivedEventArgs) -> Windows.Networking.Sockets.SocketMessageType: ...
     @winrt_mixinmethod
@@ -1110,7 +1110,7 @@ class RoundTripTimeStatistics(EasyCastStructure):
     Sum: UInt32
 class ServerMessageWebSocket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.ServerMessageWebSocket'
+    _classid_ = 'Windows.Networking.Sockets.ServerMessageWebSocket'
     @winrt_mixinmethod
     def add_MessageReceived(self: Windows.Networking.Sockets.IServerMessageWebSocket, value: Windows.Foundation.TypedEventHandler[Windows.Networking.Sockets.ServerMessageWebSocket, Windows.Networking.Sockets.MessageWebSocketMessageReceivedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -1134,7 +1134,7 @@ class ServerMessageWebSocket(ComPtr):
     OutputStream = property(get_OutputStream, None)
 class ServerMessageWebSocketControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.ServerMessageWebSocketControl'
+    _classid_ = 'Windows.Networking.Sockets.ServerMessageWebSocketControl'
     @winrt_mixinmethod
     def get_MessageType(self: Windows.Networking.Sockets.IServerMessageWebSocketControl) -> Windows.Networking.Sockets.SocketMessageType: ...
     @winrt_mixinmethod
@@ -1142,7 +1142,7 @@ class ServerMessageWebSocketControl(ComPtr):
     MessageType = property(get_MessageType, put_MessageType)
 class ServerMessageWebSocketInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.ServerMessageWebSocketInformation'
+    _classid_ = 'Windows.Networking.Sockets.ServerMessageWebSocketInformation'
     @winrt_mixinmethod
     def get_BandwidthStatistics(self: Windows.Networking.Sockets.IServerMessageWebSocketInformation) -> Windows.Networking.Sockets.BandwidthStatistics: ...
     @winrt_mixinmethod
@@ -1154,7 +1154,7 @@ class ServerMessageWebSocketInformation(ComPtr):
     LocalAddress = property(get_LocalAddress, None)
 class ServerStreamWebSocket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.ServerStreamWebSocket'
+    _classid_ = 'Windows.Networking.Sockets.ServerStreamWebSocket'
     @winrt_mixinmethod
     def get_Information(self: Windows.Networking.Sockets.IServerStreamWebSocket) -> Windows.Networking.Sockets.ServerStreamWebSocketInformation: ...
     @winrt_mixinmethod
@@ -1174,7 +1174,7 @@ class ServerStreamWebSocket(ComPtr):
     OutputStream = property(get_OutputStream, None)
 class ServerStreamWebSocketInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.ServerStreamWebSocketInformation'
+    _classid_ = 'Windows.Networking.Sockets.ServerStreamWebSocketInformation'
     @winrt_mixinmethod
     def get_BandwidthStatistics(self: Windows.Networking.Sockets.IServerStreamWebSocketInformation) -> Windows.Networking.Sockets.BandwidthStatistics: ...
     @winrt_mixinmethod
@@ -1189,7 +1189,7 @@ SocketActivityConnectedStandbyAction_DoNotWake: SocketActivityConnectedStandbyAc
 SocketActivityConnectedStandbyAction_Wake: SocketActivityConnectedStandbyAction = 1
 class SocketActivityContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.SocketActivityContext'
+    _classid_ = 'Windows.Networking.Sockets.SocketActivityContext'
     @winrt_factorymethod
     def Create(cls: Windows.Networking.Sockets.ISocketActivityContextFactory, data: Windows.Storage.Streams.IBuffer) -> Windows.Networking.Sockets.SocketActivityContext: ...
     @winrt_mixinmethod
@@ -1197,7 +1197,7 @@ class SocketActivityContext(ComPtr):
     Data = property(get_Data, None)
 class SocketActivityInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.SocketActivityInformation'
+    _classid_ = 'Windows.Networking.Sockets.SocketActivityInformation'
     @winrt_mixinmethod
     def get_TaskId(self: Windows.Networking.Sockets.ISocketActivityInformation) -> Guid: ...
     @winrt_mixinmethod
@@ -1229,7 +1229,7 @@ SocketActivityKind_DatagramSocket: SocketActivityKind = 2
 SocketActivityKind_StreamSocket: SocketActivityKind = 3
 class SocketActivityTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.SocketActivityTriggerDetails'
+    _classid_ = 'Windows.Networking.Sockets.SocketActivityTriggerDetails'
     @winrt_mixinmethod
     def get_Reason(self: Windows.Networking.Sockets.ISocketActivityTriggerDetails) -> Windows.Networking.Sockets.SocketActivityTriggerReason: ...
     @winrt_mixinmethod
@@ -1244,7 +1244,7 @@ SocketActivityTriggerReason_KeepAliveTimerExpired: SocketActivityTriggerReason =
 SocketActivityTriggerReason_SocketClosed: SocketActivityTriggerReason = 4
 class SocketError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.SocketError'
+    _classid_ = 'Windows.Networking.Sockets.SocketError'
     @winrt_classmethod
     def GetStatus(cls: Windows.Networking.Sockets.ISocketErrorStatics, hresult: Int32) -> Windows.Networking.Sockets.SocketErrorStatus: ...
 SocketErrorStatus = Int32
@@ -1302,7 +1302,7 @@ SocketSslErrorSeverity_Ignorable: SocketSslErrorSeverity = 1
 SocketSslErrorSeverity_Fatal: SocketSslErrorSeverity = 2
 class StreamSocket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.StreamSocket'
+    _classid_ = 'Windows.Networking.Sockets.StreamSocket'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Sockets.StreamSocket: ...
     @winrt_mixinmethod
@@ -1349,7 +1349,7 @@ class StreamSocket(ComPtr):
     OutputStream = property(get_OutputStream, None)
 class StreamSocketControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.StreamSocketControl'
+    _classid_ = 'Windows.Networking.Sockets.StreamSocketControl'
     @winrt_mixinmethod
     def get_NoDelay(self: Windows.Networking.Sockets.IStreamSocketControl) -> Boolean: ...
     @winrt_mixinmethod
@@ -1395,7 +1395,7 @@ class StreamSocketControl(ComPtr):
     MinProtectionLevel = property(get_MinProtectionLevel, put_MinProtectionLevel)
 class StreamSocketInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.StreamSocketInformation'
+    _classid_ = 'Windows.Networking.Sockets.StreamSocketInformation'
     @winrt_mixinmethod
     def get_LocalAddress(self: Windows.Networking.Sockets.IStreamSocketInformation) -> Windows.Networking.HostName: ...
     @winrt_mixinmethod
@@ -1440,7 +1440,7 @@ class StreamSocketInformation(ComPtr):
     ServerIntermediateCertificates = property(get_ServerIntermediateCertificates, None)
 class StreamSocketListener(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.StreamSocketListener'
+    _classid_ = 'Windows.Networking.Sockets.StreamSocketListener'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Sockets.StreamSocketListener: ...
     @winrt_mixinmethod
@@ -1475,13 +1475,13 @@ class StreamSocketListener(ComPtr):
     Information = property(get_Information, None)
 class StreamSocketListenerConnectionReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.StreamSocketListenerConnectionReceivedEventArgs'
+    _classid_ = 'Windows.Networking.Sockets.StreamSocketListenerConnectionReceivedEventArgs'
     @winrt_mixinmethod
     def get_Socket(self: Windows.Networking.Sockets.IStreamSocketListenerConnectionReceivedEventArgs) -> Windows.Networking.Sockets.StreamSocket: ...
     Socket = property(get_Socket, None)
 class StreamSocketListenerControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.StreamSocketListenerControl'
+    _classid_ = 'Windows.Networking.Sockets.StreamSocketListenerControl'
     @winrt_mixinmethod
     def get_QualityOfService(self: Windows.Networking.Sockets.IStreamSocketListenerControl) -> Windows.Networking.Sockets.SocketQualityOfService: ...
     @winrt_mixinmethod
@@ -1509,13 +1509,13 @@ class StreamSocketListenerControl(ComPtr):
     OutboundUnicastHopLimit = property(get_OutboundUnicastHopLimit, put_OutboundUnicastHopLimit)
 class StreamSocketListenerInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.StreamSocketListenerInformation'
+    _classid_ = 'Windows.Networking.Sockets.StreamSocketListenerInformation'
     @winrt_mixinmethod
     def get_LocalPort(self: Windows.Networking.Sockets.IStreamSocketListenerInformation) -> WinRT_String: ...
     LocalPort = property(get_LocalPort, None)
 class StreamWebSocket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.StreamWebSocket'
+    _classid_ = 'Windows.Networking.Sockets.StreamWebSocket'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Sockets.StreamWebSocket: ...
     @winrt_mixinmethod
@@ -1548,7 +1548,7 @@ class StreamWebSocket(ComPtr):
     OutputStream = property(get_OutputStream, None)
 class StreamWebSocketControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.StreamWebSocketControl'
+    _classid_ = 'Windows.Networking.Sockets.StreamWebSocketControl'
     @winrt_mixinmethod
     def get_NoDelay(self: Windows.Networking.Sockets.IStreamWebSocketControl) -> Boolean: ...
     @winrt_mixinmethod
@@ -1590,7 +1590,7 @@ class StreamWebSocketControl(ComPtr):
     ClientCertificate = property(get_ClientCertificate, put_ClientCertificate)
 class StreamWebSocketInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.StreamWebSocketInformation'
+    _classid_ = 'Windows.Networking.Sockets.StreamWebSocketInformation'
     @winrt_mixinmethod
     def get_LocalAddress(self: Windows.Networking.Sockets.IWebSocketInformation) -> Windows.Networking.HostName: ...
     @winrt_mixinmethod
@@ -1614,7 +1614,7 @@ class StreamWebSocketInformation(ComPtr):
     ServerIntermediateCertificates = property(get_ServerIntermediateCertificates, None)
 class WebSocketClosedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.WebSocketClosedEventArgs'
+    _classid_ = 'Windows.Networking.Sockets.WebSocketClosedEventArgs'
     @winrt_mixinmethod
     def get_Code(self: Windows.Networking.Sockets.IWebSocketClosedEventArgs) -> UInt16: ...
     @winrt_mixinmethod
@@ -1623,19 +1623,19 @@ class WebSocketClosedEventArgs(ComPtr):
     Reason = property(get_Reason, None)
 class WebSocketError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.WebSocketError'
+    _classid_ = 'Windows.Networking.Sockets.WebSocketError'
     @winrt_classmethod
     def GetStatus(cls: Windows.Networking.Sockets.IWebSocketErrorStatics, hresult: Int32) -> Windows.Web.WebErrorStatus: ...
 class WebSocketKeepAlive(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.WebSocketKeepAlive'
+    _classid_ = 'Windows.Networking.Sockets.WebSocketKeepAlive'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.Sockets.WebSocketKeepAlive: ...
     @winrt_mixinmethod
     def Run(self: Windows.ApplicationModel.Background.IBackgroundTask, taskInstance: Windows.ApplicationModel.Background.IBackgroundTaskInstance) -> Void: ...
 class WebSocketServerCustomValidationRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.Sockets.WebSocketServerCustomValidationRequestedEventArgs'
+    _classid_ = 'Windows.Networking.Sockets.WebSocketServerCustomValidationRequestedEventArgs'
     @winrt_mixinmethod
     def get_ServerCertificate(self: Windows.Networking.Sockets.IWebSocketServerCustomValidationRequestedEventArgs) -> Windows.Security.Cryptography.Certificates.Certificate: ...
     @winrt_mixinmethod

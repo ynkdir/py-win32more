@@ -148,12 +148,12 @@ ApplicationHighContrastAdjustment_Auto: ApplicationHighContrastAdjustment = 4294
 class ApplicationInitializationCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('b6351c55-c284-46e4-83-10-fb-09-67-fa-b7-6f')
-    ClassId = 'Windows.UI.Xaml.ApplicationInitializationCallback'
+    _classid_ = 'Windows.UI.Xaml.ApplicationInitializationCallback'
     @winrt_commethod(3)
     def Invoke(self, p: Windows.UI.Xaml.ApplicationInitializationCallbackParams) -> Void: ...
 class ApplicationInitializationCallbackParams(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.ApplicationInitializationCallbackParams'
+    _classid_ = 'Windows.UI.Xaml.ApplicationInitializationCallbackParams'
 ApplicationRequiresPointerMode = Int32
 ApplicationRequiresPointerMode_Auto: ApplicationRequiresPointerMode = 0
 ApplicationRequiresPointerMode_WhenRequested: ApplicationRequiresPointerMode = 1
@@ -203,19 +203,19 @@ AutomationTextAttributesEnum_CaretPositionAttribute: AutomationTextAttributesEnu
 AutomationTextAttributesEnum_CaretBidiModeAttribute: AutomationTextAttributesEnum = 40039
 class BindingFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.BindingFailedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.BindingFailedEventArgs'
     @winrt_mixinmethod
     def get_Message(self: Windows.UI.Xaml.IBindingFailedEventArgs) -> WinRT_String: ...
     Message = property(get_Message, None)
 class BindingFailedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('136b1782-54ba-420d-a1-aa-82-82-87-21-cd-e6')
-    ClassId = 'Windows.UI.Xaml.BindingFailedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.BindingFailedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.BindingFailedEventArgs) -> Void: ...
 class BringIntoViewOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.BringIntoViewOptions'
+    _classid_ = 'Windows.UI.Xaml.BringIntoViewOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.BringIntoViewOptions: ...
     @winrt_mixinmethod
@@ -250,7 +250,7 @@ class BringIntoViewOptions(ComPtr):
     VerticalOffset = property(get_VerticalOffset, put_VerticalOffset)
 class BringIntoViewRequestedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.BringIntoViewRequestedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.BringIntoViewRequestedEventArgs'
     @winrt_mixinmethod
     def get_TargetElement(self: Windows.UI.Xaml.IBringIntoViewRequestedEventArgs) -> Windows.UI.Xaml.UIElement: ...
     @winrt_mixinmethod
@@ -438,7 +438,7 @@ class CornerRadius(EasyCastStructure):
     BottomLeft: Double
 class CornerRadiusHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.CornerRadiusHelper'
+    _classid_ = 'Windows.UI.Xaml.CornerRadiusHelper'
     @winrt_classmethod
     def FromRadii(cls: Windows.UI.Xaml.ICornerRadiusHelperStatics, topLeft: Double, topRight: Double, bottomRight: Double, bottomLeft: Double) -> Windows.UI.Xaml.CornerRadius: ...
     @winrt_classmethod
@@ -446,12 +446,12 @@ class CornerRadiusHelper(ComPtr):
 class CreateDefaultValueCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('d6ecb12c-15b5-4ec8-b9-5c-cd-d2-08-f0-81-53')
-    ClassId = 'Windows.UI.Xaml.CreateDefaultValueCallback'
+    _classid_ = 'Windows.UI.Xaml.CreateDefaultValueCallback'
     @winrt_commethod(3)
     def Invoke(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class DataContextChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.DataContextChangedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.DataContextChangedEventArgs'
     @winrt_mixinmethod
     def get_NewValue(self: Windows.UI.Xaml.IDataContextChangedEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
@@ -484,7 +484,7 @@ class DataTemplateKey(ComPtr):
     DataType = property(get_DataType, put_DataType)
 class DebugSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.DebugSettings'
+    _classid_ = 'Windows.UI.Xaml.DebugSettings'
     @winrt_mixinmethod
     def get_EnableFrameRateCounter(self: Windows.UI.Xaml.IDebugSettings) -> Boolean: ...
     @winrt_mixinmethod
@@ -573,7 +573,7 @@ class DependencyObjectCollection(ComPtr):
     Size = property(get_Size, None)
 class DependencyProperty(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.DependencyProperty'
+    _classid_ = 'Windows.UI.Xaml.DependencyProperty'
     @winrt_mixinmethod
     def GetMetadata(self: Windows.UI.Xaml.IDependencyProperty, forType: Windows.UI.Xaml.Interop.TypeName) -> Windows.UI.Xaml.PropertyMetadata: ...
     @winrt_classmethod
@@ -586,12 +586,12 @@ class DependencyProperty(ComPtr):
 class DependencyPropertyChangedCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('45883d16-27bf-4bc1-ac-26-94-c1-60-1f-3a-49')
-    ClassId = 'Windows.UI.Xaml.DependencyPropertyChangedCallback'
+    _classid_ = 'Windows.UI.Xaml.DependencyPropertyChangedCallback'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.UI.Xaml.DependencyObject, dp: Windows.UI.Xaml.DependencyProperty) -> Void: ...
 class DependencyPropertyChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.DependencyPropertyChangedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.DependencyPropertyChangedEventArgs'
     @winrt_mixinmethod
     def get_Property(self: Windows.UI.Xaml.IDependencyPropertyChangedEventArgs) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_mixinmethod
@@ -604,7 +604,7 @@ class DependencyPropertyChangedEventArgs(ComPtr):
 class DependencyPropertyChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('09223e5a-75be-4499-81-80-1d-dc-00-54-21-c0')
-    ClassId = 'Windows.UI.Xaml.DependencyPropertyChangedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.DependencyPropertyChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.DependencyPropertyChangedEventArgs) -> Void: ...
 class DispatcherTimer(ComPtr):
@@ -627,7 +627,7 @@ class DispatcherTimer(ComPtr):
     IsEnabled = property(get_IsEnabled, None)
 class DragEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.DragEventArgs'
+    _classid_ = 'Windows.UI.Xaml.DragEventArgs'
     @winrt_mixinmethod
     def get_Handled(self: Windows.UI.Xaml.IDragEventArgs) -> Boolean: ...
     @winrt_mixinmethod
@@ -662,17 +662,17 @@ class DragEventArgs(ComPtr):
 class DragEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('2ab1a205-1e73-4bcf-aa-bc-57-b9-7e-21-96-1d')
-    ClassId = 'Windows.UI.Xaml.DragEventHandler'
+    _classid_ = 'Windows.UI.Xaml.DragEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.DragEventArgs) -> Void: ...
 class DragOperationDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.DragOperationDeferral'
+    _classid_ = 'Windows.UI.Xaml.DragOperationDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.UI.Xaml.IDragOperationDeferral) -> Void: ...
 class DragStartingEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.DragStartingEventArgs'
+    _classid_ = 'Windows.UI.Xaml.DragStartingEventArgs'
     @winrt_mixinmethod
     def get_Cancel(self: Windows.UI.Xaml.IDragStartingEventArgs) -> Boolean: ...
     @winrt_mixinmethod
@@ -695,7 +695,7 @@ class DragStartingEventArgs(ComPtr):
     AllowedOperations = property(get_AllowedOperations, put_AllowedOperations)
 class DragUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.DragUI'
+    _classid_ = 'Windows.UI.Xaml.DragUI'
     @winrt_mixinmethod
     def SetContentFromBitmapImage(self: Windows.UI.Xaml.IDragUI, bitmapImage: Windows.UI.Xaml.Media.Imaging.BitmapImage) -> Void: ...
     @winrt_mixinmethod
@@ -708,7 +708,7 @@ class DragUI(ComPtr):
     def SetContentFromDataPackage(self: Windows.UI.Xaml.IDragUI) -> Void: ...
 class DragUIOverride(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.DragUIOverride'
+    _classid_ = 'Windows.UI.Xaml.DragUIOverride'
     @winrt_mixinmethod
     def get_Caption(self: Windows.UI.Xaml.IDragUIOverride) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -741,7 +741,7 @@ class DragUIOverride(ComPtr):
     IsGlyphVisible = property(get_IsGlyphVisible, put_IsGlyphVisible)
 class DropCompletedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.DropCompletedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.DropCompletedEventArgs'
     @winrt_mixinmethod
     def get_DropResult(self: Windows.UI.Xaml.IDropCompletedEventArgs) -> Windows.ApplicationModel.DataTransfer.DataPackageOperation: ...
     DropResult = property(get_DropResult, None)
@@ -750,7 +750,7 @@ class Duration(EasyCastStructure):
     Type: Windows.UI.Xaml.DurationType
 class DurationHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.DurationHelper'
+    _classid_ = 'Windows.UI.Xaml.DurationHelper'
     @winrt_classmethod
     def get_Automatic(cls: Windows.UI.Xaml.IDurationHelperStatics) -> Windows.UI.Xaml.Duration: ...
     @winrt_classmethod
@@ -775,7 +775,7 @@ DurationType_TimeSpan: DurationType = 1
 DurationType_Forever: DurationType = 2
 class EffectiveViewportChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.EffectiveViewportChangedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.EffectiveViewportChangedEventArgs'
     @winrt_mixinmethod
     def get_EffectiveViewport(self: Windows.UI.Xaml.IEffectiveViewportChangedEventArgs) -> Windows.Foundation.Rect: ...
     @winrt_mixinmethod
@@ -830,7 +830,7 @@ ElementSoundMode_FocusOnly: ElementSoundMode = 1
 ElementSoundMode_Off: ElementSoundMode = 2
 class ElementSoundPlayer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.ElementSoundPlayer'
+    _classid_ = 'Windows.UI.Xaml.ElementSoundPlayer'
     @winrt_classmethod
     def get_SpatialAudioMode(cls: Windows.UI.Xaml.IElementSoundPlayerStatics2) -> Windows.UI.Xaml.ElementSpatialAudioMode: ...
     @winrt_classmethod
@@ -863,12 +863,12 @@ ElementTheme_Dark: ElementTheme = 2
 class EnteredBackgroundEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('93a956ae-1d7f-438b-b7-b8-22-7d-96-b6-09-c0')
-    ClassId = 'Windows.UI.Xaml.EnteredBackgroundEventHandler'
+    _classid_ = 'Windows.UI.Xaml.EnteredBackgroundEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.ApplicationModel.EnteredBackgroundEventArgs) -> Void: ...
 class EventTrigger(ComPtr):
     extends: Windows.UI.Xaml.TriggerBase
-    ClassId = 'Windows.UI.Xaml.EventTrigger'
+    _classid_ = 'Windows.UI.Xaml.EventTrigger'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.EventTrigger: ...
     @winrt_mixinmethod
@@ -887,7 +887,7 @@ class ExceptionRoutedEventArgs(ComPtr):
 class ExceptionRoutedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('68e0e810-f6ea-42bc-85-5b-5d-9b-67-e6-a2-62')
-    ClassId = 'Windows.UI.Xaml.ExceptionRoutedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.ExceptionRoutedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.ExceptionRoutedEventArgs) -> Void: ...
 FlowDirection = Int32
@@ -1222,7 +1222,7 @@ class FrameworkTemplate(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
 class FrameworkView(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.FrameworkView'
+    _classid_ = 'Windows.UI.Xaml.FrameworkView'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.FrameworkView: ...
     @winrt_mixinmethod
@@ -1237,7 +1237,7 @@ class FrameworkView(ComPtr):
     def Uninitialize(self: Windows.ApplicationModel.Core.IFrameworkView) -> Void: ...
 class FrameworkViewSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.FrameworkViewSource'
+    _classid_ = 'Windows.UI.Xaml.FrameworkViewSource'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.FrameworkViewSource: ...
     @winrt_mixinmethod
@@ -1247,7 +1247,7 @@ class GridLength(EasyCastStructure):
     GridUnitType: Windows.UI.Xaml.GridUnitType
 class GridLengthHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.GridLengthHelper'
+    _classid_ = 'Windows.UI.Xaml.GridLengthHelper'
     @winrt_classmethod
     def get_Auto(cls: Windows.UI.Xaml.IGridLengthHelperStatics) -> Windows.UI.Xaml.GridLength: ...
     @winrt_classmethod
@@ -3772,7 +3772,7 @@ class IXamlRootChangedEventArgs(ComPtr):
 class LeavingBackgroundEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('aaad5dad-4fc6-4aa4-b7-cf-87-7e-36-ad-a4-f6')
-    ClassId = 'Windows.UI.Xaml.LeavingBackgroundEventHandler'
+    _classid_ = 'Windows.UI.Xaml.LeavingBackgroundEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.ApplicationModel.LeavingBackgroundEventArgs) -> Void: ...
 LineStackingStrategy = Int32
@@ -3781,7 +3781,7 @@ LineStackingStrategy_BlockLineHeight: LineStackingStrategy = 1
 LineStackingStrategy_BaselineToBaseline: LineStackingStrategy = 2
 class MediaFailedRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.ExceptionRoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.MediaFailedRoutedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.MediaFailedRoutedEventArgs'
     @winrt_mixinmethod
     def get_ErrorTrace(self: Windows.UI.Xaml.IMediaFailedRoutedEventArgs) -> WinRT_String: ...
     ErrorTrace = property(get_ErrorTrace, None)
@@ -3790,13 +3790,13 @@ OpticalMarginAlignment_None: OpticalMarginAlignment = 0
 OpticalMarginAlignment_TrimSideBearings: OpticalMarginAlignment = 1
 class PointHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.PointHelper'
+    _classid_ = 'Windows.UI.Xaml.PointHelper'
     @winrt_classmethod
     def FromCoordinates(cls: Windows.UI.Xaml.IPointHelperStatics, x: Single, y: Single) -> Windows.Foundation.Point: ...
 class PropertyChangedCallback(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('5a9f8a25-d142-44a4-82-31-fd-67-67-24-f2-9b')
-    ClassId = 'Windows.UI.Xaml.PropertyChangedCallback'
+    _classid_ = 'Windows.UI.Xaml.PropertyChangedCallback'
     @winrt_commethod(3)
     def Invoke(self, d: Windows.UI.Xaml.DependencyObject, e: Windows.UI.Xaml.DependencyPropertyChangedEventArgs) -> Void: ...
 class PropertyMetadata(ComPtr):
@@ -3817,7 +3817,7 @@ class PropertyMetadata(ComPtr):
     CreateDefaultValueCallback = property(get_CreateDefaultValueCallback, None)
 class PropertyPath(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.PropertyPath'
+    _classid_ = 'Windows.UI.Xaml.PropertyPath'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.UI.Xaml.IPropertyPathFactory, path: WinRT_String) -> Windows.UI.Xaml.PropertyPath: ...
     @winrt_mixinmethod
@@ -3825,7 +3825,7 @@ class PropertyPath(ComPtr):
     Path = property(get_Path, None)
 class RectHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.RectHelper'
+    _classid_ = 'Windows.UI.Xaml.RectHelper'
     @winrt_classmethod
     def get_Empty(cls: Windows.UI.Xaml.IRectHelperStatics) -> Windows.Foundation.Rect: ...
     @winrt_classmethod
@@ -3887,7 +3887,7 @@ class ResourceDictionary(ComPtr):
     Size = property(get_Size, None)
 class RoutedEvent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.RoutedEvent'
+    _classid_ = 'Windows.UI.Xaml.RoutedEvent'
 class RoutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     @winrt_commethod(6)
@@ -3896,7 +3896,7 @@ class RoutedEventArgs(ComPtr):
 class RoutedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('a856e674-b0b6-4bc3-bb-a8-1b-a0-6e-40-d4-b5')
-    ClassId = 'Windows.UI.Xaml.RoutedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.RoutedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.RoutedEventArgs) -> Void: ...
 class ScalarTransition(ComPtr):
@@ -3908,7 +3908,7 @@ class ScalarTransition(ComPtr):
     Duration = property(get_Duration, put_Duration)
 class Setter(ComPtr):
     extends: Windows.UI.Xaml.SetterBase
-    ClassId = 'Windows.UI.Xaml.Setter'
+    _classid_ = 'Windows.UI.Xaml.Setter'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Setter: ...
     @winrt_factorymethod
@@ -3935,7 +3935,7 @@ class SetterBase(ComPtr):
     IsSealed = property(get_IsSealed, None)
 class SetterBaseCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.SetterBaseCollection'
+    _classid_ = 'Windows.UI.Xaml.SetterBaseCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.SetterBaseCollection: ...
     @winrt_mixinmethod
@@ -3970,7 +3970,7 @@ class SetterBaseCollection(ComPtr):
     Size = property(get_Size, None)
 class SizeChangedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.SizeChangedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.SizeChangedEventArgs'
     @winrt_mixinmethod
     def get_PreviousSize(self: Windows.UI.Xaml.ISizeChangedEventArgs) -> Windows.Foundation.Size: ...
     @winrt_mixinmethod
@@ -3980,12 +3980,12 @@ class SizeChangedEventArgs(ComPtr):
 class SizeChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('1115b13c-25d2-480b-89-dc-eb-3d-cb-d6-b7-fa')
-    ClassId = 'Windows.UI.Xaml.SizeChangedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.SizeChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.SizeChangedEventArgs) -> Void: ...
 class SizeHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.SizeHelper'
+    _classid_ = 'Windows.UI.Xaml.SizeHelper'
     @winrt_classmethod
     def get_Empty(cls: Windows.UI.Xaml.ISizeHelperStatics) -> Windows.Foundation.Size: ...
     @winrt_classmethod
@@ -3997,7 +3997,7 @@ class SizeHelper(ComPtr):
     Empty = property(get_Empty, None)
 class StateTrigger(ComPtr):
     extends: Windows.UI.Xaml.StateTriggerBase
-    ClassId = 'Windows.UI.Xaml.StateTrigger'
+    _classid_ = 'Windows.UI.Xaml.StateTrigger'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.StateTrigger: ...
     @winrt_mixinmethod
@@ -4014,7 +4014,7 @@ class StateTriggerBase(ComPtr):
     def SetActive(self, IsActive: Boolean) -> Void: ...
 class Style(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Style'
+    _classid_ = 'Windows.UI.Xaml.Style'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.UI.Xaml.IStyleFactory, targetType: Windows.UI.Xaml.Interop.TypeName) -> Windows.UI.Xaml.Style: ...
     @winrt_activatemethod
@@ -4040,12 +4040,12 @@ class Style(ComPtr):
 class SuspendingEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('23429465-e36a-40e2-b1-39-a4-70-46-02-a6-e1')
-    ClassId = 'Windows.UI.Xaml.SuspendingEventHandler'
+    _classid_ = 'Windows.UI.Xaml.SuspendingEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.ApplicationModel.SuspendingEventArgs) -> Void: ...
 class TargetPropertyPath(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.TargetPropertyPath'
+    _classid_ = 'Windows.UI.Xaml.TargetPropertyPath'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.UI.Xaml.ITargetPropertyPathFactory, targetProperty: Windows.UI.Xaml.DependencyProperty) -> Windows.UI.Xaml.TargetPropertyPath: ...
     @winrt_activatemethod
@@ -4093,7 +4093,7 @@ class Thickness(EasyCastStructure):
     Bottom: Double
 class ThicknessHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.ThicknessHelper'
+    _classid_ = 'Windows.UI.Xaml.ThicknessHelper'
     @winrt_classmethod
     def FromLengths(cls: Windows.UI.Xaml.IThicknessHelperStatics, left: Double, top: Double, right: Double, bottom: Double) -> Windows.UI.Xaml.Thickness: ...
     @winrt_classmethod
@@ -4102,7 +4102,7 @@ class TriggerAction(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
 class TriggerActionCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.TriggerActionCollection'
+    _classid_ = 'Windows.UI.Xaml.TriggerActionCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.TriggerActionCollection: ...
     @winrt_mixinmethod
@@ -4136,7 +4136,7 @@ class TriggerBase(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
 class TriggerCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.TriggerCollection'
+    _classid_ = 'Windows.UI.Xaml.TriggerCollection'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVector[Windows.UI.Xaml.TriggerBase], index: UInt32) -> Windows.UI.Xaml.TriggerBase: ...
     @winrt_mixinmethod
@@ -4905,7 +4905,7 @@ class UIElementWeakCollection(ComPtr):
     Size = property(get_Size, None)
 class UnhandledExceptionEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.UnhandledExceptionEventArgs'
+    _classid_ = 'Windows.UI.Xaml.UnhandledExceptionEventArgs'
     @winrt_mixinmethod
     def get_Exception(self: Windows.UI.Xaml.IUnhandledExceptionEventArgs) -> Windows.Foundation.HResult: ...
     @winrt_mixinmethod
@@ -4920,7 +4920,7 @@ class UnhandledExceptionEventArgs(ComPtr):
 class UnhandledExceptionEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('9274e6bd-49a1-4958-be-ee-d0-e1-95-87-b6-e3')
-    ClassId = 'Windows.UI.Xaml.UnhandledExceptionEventHandler'
+    _classid_ = 'Windows.UI.Xaml.UnhandledExceptionEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.UnhandledExceptionEventArgs) -> Void: ...
 class Vector3Transition(ComPtr):
@@ -4949,7 +4949,7 @@ Visibility_Visible: Visibility = 0
 Visibility_Collapsed: Visibility = 1
 class VisualState(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.VisualState'
+    _classid_ = 'Windows.UI.Xaml.VisualState'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.VisualState: ...
     @winrt_mixinmethod
@@ -4968,7 +4968,7 @@ class VisualState(ComPtr):
     StateTriggers = property(get_StateTriggers, None)
 class VisualStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.VisualStateChangedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.VisualStateChangedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.VisualStateChangedEventArgs: ...
     @winrt_mixinmethod
@@ -4989,12 +4989,12 @@ class VisualStateChangedEventArgs(ComPtr):
 class VisualStateChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('e6d5bbd5-e029-43a6-b3-6d-84-a8-10-42-d7-74')
-    ClassId = 'Windows.UI.Xaml.VisualStateChangedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.VisualStateChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.VisualStateChangedEventArgs) -> Void: ...
 class VisualStateGroup(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.VisualStateGroup'
+    _classid_ = 'Windows.UI.Xaml.VisualStateGroup'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.VisualStateGroup: ...
     @winrt_mixinmethod
@@ -5065,7 +5065,7 @@ class VisualTransition(ComPtr):
     Storyboard = property(get_Storyboard, put_Storyboard)
 class Window(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Window'
+    _classid_ = 'Windows.UI.Xaml.Window'
     @winrt_mixinmethod
     def get_Bounds(self: Windows.UI.Xaml.IWindow) -> Windows.Foundation.Rect: ...
     @winrt_mixinmethod
@@ -5117,36 +5117,36 @@ class Window(ComPtr):
 class WindowActivatedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('18026348-8619-4c7b-b5-34-ce-d4-5d-9d-e2-19')
-    ClassId = 'Windows.UI.Xaml.WindowActivatedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.WindowActivatedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Core.WindowActivatedEventArgs) -> Void: ...
 class WindowClosedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('0db89161-20d7-45df-91-22-ba-89-57-67-03-ba')
-    ClassId = 'Windows.UI.Xaml.WindowClosedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.WindowClosedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Core.CoreWindowEventArgs) -> Void: ...
 class WindowCreatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.WindowCreatedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.WindowCreatedEventArgs'
     @winrt_mixinmethod
     def get_Window(self: Windows.UI.Xaml.IWindowCreatedEventArgs) -> Windows.UI.Xaml.Window: ...
     Window = property(get_Window, None)
 class WindowSizeChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('5c21c742-2ced-4fd9-ba-38-71-18-d4-0e-96-6b')
-    ClassId = 'Windows.UI.Xaml.WindowSizeChangedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.WindowSizeChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Core.WindowSizeChangedEventArgs) -> Void: ...
 class WindowVisibilityChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('10406ad6-b090-4a4a-b2-ad-d6-82-df-27-13-0f')
-    ClassId = 'Windows.UI.Xaml.WindowVisibilityChangedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.WindowVisibilityChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Core.VisibilityChangedEventArgs) -> Void: ...
 class XamlRoot(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.XamlRoot'
+    _classid_ = 'Windows.UI.Xaml.XamlRoot'
     @winrt_mixinmethod
     def get_Content(self: Windows.UI.Xaml.IXamlRoot) -> Windows.UI.Xaml.UIElement: ...
     @winrt_mixinmethod
@@ -5168,7 +5168,7 @@ class XamlRoot(ComPtr):
     UIContext = property(get_UIContext, None)
 class XamlRootChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.XamlRootChangedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.XamlRootChangedEventArgs'
 make_head(_module, 'AdaptiveTrigger')
 make_head(_module, 'Application')
 make_head(_module, 'ApplicationInitializationCallback')

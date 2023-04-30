@@ -101,12 +101,12 @@ BindingMode_OneTime: BindingMode = 2
 BindingMode_TwoWay: BindingMode = 3
 class BindingOperations(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Data.BindingOperations'
+    _classid_ = 'Windows.UI.Xaml.Data.BindingOperations'
     @winrt_classmethod
     def SetBinding(cls: Windows.UI.Xaml.Data.IBindingOperationsStatics, target: Windows.UI.Xaml.DependencyObject, dp: Windows.UI.Xaml.DependencyProperty, binding: Windows.UI.Xaml.Data.BindingBase) -> Void: ...
 class CollectionViewSource(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Data.CollectionViewSource'
+    _classid_ = 'Windows.UI.Xaml.Data.CollectionViewSource'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Data.CollectionViewSource: ...
     @winrt_mixinmethod
@@ -152,7 +152,7 @@ class CurrentChangingEventArgs(ComPtr):
 class CurrentChangingEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('f3888db8-139f-4dce-8d-c9-f7-f1-44-4d-11-85')
-    ClassId = 'Windows.UI.Xaml.Data.CurrentChangingEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Data.CurrentChangingEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Data.CurrentChangingEventArgs) -> Void: ...
 class IBinding(ComPtr):
@@ -503,7 +503,7 @@ class PropertyChangedEventArgs(ComPtr):
 class PropertyChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('50f19c16-0a22-4d8e-a0-89-1e-a9-95-16-57-d2')
-    ClassId = 'Windows.UI.Xaml.Data.PropertyChangedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Data.PropertyChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Data.PropertyChangedEventArgs) -> Void: ...
 class RelativeSource(ComPtr):

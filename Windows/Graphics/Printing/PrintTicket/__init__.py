@@ -269,7 +269,7 @@ class IWorkflowPrintTicketValidationResult(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class PrintTicketCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Graphics.Printing.PrintTicket.PrintTicketCapabilities'
+    _classid_ = 'Windows.Graphics.Printing.PrintTicket.PrintTicketCapabilities'
     @winrt_mixinmethod
     def get_Name(self: Windows.Graphics.Printing.PrintTicket.IPrintTicketCapabilities) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -330,7 +330,7 @@ class PrintTicketCapabilities(ComPtr):
     PageResolutionFeature = property(get_PageResolutionFeature, None)
 class PrintTicketFeature(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Graphics.Printing.PrintTicket.PrintTicketFeature'
+    _classid_ = 'Windows.Graphics.Printing.PrintTicket.PrintTicketFeature'
     @winrt_mixinmethod
     def get_Name(self: Windows.Graphics.Printing.PrintTicket.IPrintTicketFeature) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -360,7 +360,7 @@ PrintTicketFeatureSelectionType_PickOne: PrintTicketFeatureSelectionType = 0
 PrintTicketFeatureSelectionType_PickMany: PrintTicketFeatureSelectionType = 1
 class PrintTicketOption(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Graphics.Printing.PrintTicket.PrintTicketOption'
+    _classid_ = 'Windows.Graphics.Printing.PrintTicket.PrintTicketOption'
     @winrt_mixinmethod
     def get_Name(self: Windows.Graphics.Printing.PrintTicket.IPrintTicketOption) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -387,7 +387,7 @@ PrintTicketParameterDataType_NumericString: PrintTicketParameterDataType = 1
 PrintTicketParameterDataType_String: PrintTicketParameterDataType = 2
 class PrintTicketParameterDefinition(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Graphics.Printing.PrintTicket.PrintTicketParameterDefinition'
+    _classid_ = 'Windows.Graphics.Printing.PrintTicket.PrintTicketParameterDefinition'
     @winrt_mixinmethod
     def get_Name(self: Windows.Graphics.Printing.PrintTicket.IPrintTicketParameterDefinition) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -411,7 +411,7 @@ class PrintTicketParameterDefinition(ComPtr):
     RangeMax = property(get_RangeMax, None)
 class PrintTicketParameterInitializer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Graphics.Printing.PrintTicket.PrintTicketParameterInitializer'
+    _classid_ = 'Windows.Graphics.Printing.PrintTicket.PrintTicketParameterInitializer'
     @winrt_mixinmethod
     def get_Name(self: Windows.Graphics.Printing.PrintTicket.IPrintTicketParameterInitializer) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -428,7 +428,7 @@ class PrintTicketParameterInitializer(ComPtr):
     Value = property(get_Value, put_Value)
 class PrintTicketValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Graphics.Printing.PrintTicket.PrintTicketValue'
+    _classid_ = 'Windows.Graphics.Printing.PrintTicket.PrintTicketValue'
     @winrt_mixinmethod
     def get_Type(self: Windows.Graphics.Printing.PrintTicket.IPrintTicketValue) -> Windows.Graphics.Printing.PrintTicket.PrintTicketValueType: ...
     @winrt_mixinmethod
@@ -442,7 +442,7 @@ PrintTicketValueType_String: PrintTicketValueType = 1
 PrintTicketValueType_Unknown: PrintTicketValueType = 2
 class WorkflowPrintTicket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket'
+    _classid_ = 'Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket'
     @winrt_mixinmethod
     def get_Name(self: Windows.Graphics.Printing.PrintTicket.IWorkflowPrintTicket) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -515,7 +515,7 @@ class WorkflowPrintTicket(ComPtr):
     PageResolutionFeature = property(get_PageResolutionFeature, None)
 class WorkflowPrintTicketValidationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicketValidationResult'
+    _classid_ = 'Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicketValidationResult'
     @winrt_mixinmethod
     def get_Validated(self: Windows.Graphics.Printing.PrintTicket.IWorkflowPrintTicketValidationResult) -> Boolean: ...
     @winrt_mixinmethod

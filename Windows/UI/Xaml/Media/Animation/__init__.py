@@ -29,12 +29,12 @@ def __getattr__(name):
     return getattr(_module, name)
 class AddDeleteThemeTransition(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Transition
-    ClassId = 'Windows.UI.Xaml.Media.Animation.AddDeleteThemeTransition'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.AddDeleteThemeTransition'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.AddDeleteThemeTransition: ...
 class BackEase(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.EasingFunctionBase
-    ClassId = 'Windows.UI.Xaml.Media.Animation.BackEase'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.BackEase'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.BackEase: ...
     @winrt_mixinmethod
@@ -49,7 +49,7 @@ class BasicConnectedAnimationConfiguration(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.ConnectedAnimationConfiguration
 class BeginStoryboard(ComPtr):
     extends: Windows.UI.Xaml.TriggerAction
-    ClassId = 'Windows.UI.Xaml.Media.Animation.BeginStoryboard'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.BeginStoryboard'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.BeginStoryboard: ...
     @winrt_mixinmethod
@@ -62,7 +62,7 @@ class BeginStoryboard(ComPtr):
     StoryboardProperty = property(get_StoryboardProperty, None)
 class BounceEase(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.EasingFunctionBase
-    ClassId = 'Windows.UI.Xaml.Media.Animation.BounceEase'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.BounceEase'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.BounceEase: ...
     @winrt_mixinmethod
@@ -83,7 +83,7 @@ class BounceEase(ComPtr):
     BouncinessProperty = property(get_BouncinessProperty, None)
 class CircleEase(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.EasingFunctionBase
-    ClassId = 'Windows.UI.Xaml.Media.Animation.CircleEase'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.CircleEase'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.CircleEase: ...
 ClockState = Int32
@@ -92,7 +92,7 @@ ClockState_Filling: ClockState = 1
 ClockState_Stopped: ClockState = 2
 class ColorAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.ColorAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.ColorAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.ColorAnimation: ...
     @winrt_mixinmethod
@@ -137,7 +137,7 @@ class ColorAnimation(ComPtr):
     EnableDependentAnimationProperty = property(get_EnableDependentAnimationProperty, None)
 class ColorAnimationUsingKeyFrames(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.ColorAnimationUsingKeyFrames'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.ColorAnimationUsingKeyFrames'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.ColorAnimationUsingKeyFrames: ...
     @winrt_mixinmethod
@@ -171,7 +171,7 @@ class ColorKeyFrame(ComPtr):
     KeyTimeProperty = property(get_KeyTimeProperty, None)
 class ColorKeyFrameCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.Animation.ColorKeyFrameCollection'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.ColorKeyFrameCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.ColorKeyFrameCollection: ...
     @winrt_mixinmethod
@@ -203,7 +203,7 @@ class ColorKeyFrameCollection(ComPtr):
     Size = property(get_Size, None)
 class CommonNavigationTransitionInfo(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo
-    ClassId = 'Windows.UI.Xaml.Media.Animation.CommonNavigationTransitionInfo'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.CommonNavigationTransitionInfo'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.CommonNavigationTransitionInfo: ...
     @winrt_mixinmethod
@@ -223,7 +223,7 @@ class CommonNavigationTransitionInfo(ComPtr):
     IsStaggerElementProperty = property(get_IsStaggerElementProperty, None)
 class ConnectedAnimation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.Animation.ConnectedAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.ConnectedAnimation'
     @winrt_mixinmethod
     def add_Completed(self: Windows.UI.Xaml.Media.Animation.IConnectedAnimation, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Xaml.Media.Animation.ConnectedAnimation, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -255,7 +255,7 @@ class ConnectedAnimationConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
 class ConnectedAnimationService(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.Animation.ConnectedAnimationService'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.ConnectedAnimationService'
     @winrt_mixinmethod
     def get_DefaultDuration(self: Windows.UI.Xaml.Media.Animation.IConnectedAnimationService) -> Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
@@ -274,7 +274,7 @@ class ConnectedAnimationService(ComPtr):
     DefaultEasingFunction = property(get_DefaultEasingFunction, put_DefaultEasingFunction)
 class ContentThemeTransition(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Transition
-    ClassId = 'Windows.UI.Xaml.Media.Animation.ContentThemeTransition'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.ContentThemeTransition'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.ContentThemeTransition: ...
     @winrt_mixinmethod
@@ -295,7 +295,7 @@ class ContentThemeTransition(ComPtr):
     VerticalOffsetProperty = property(get_VerticalOffsetProperty, None)
 class ContinuumNavigationTransitionInfo(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo
-    ClassId = 'Windows.UI.Xaml.Media.Animation.ContinuumNavigationTransitionInfo'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.ContinuumNavigationTransitionInfo'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.ContinuumNavigationTransitionInfo: ...
     @winrt_mixinmethod
@@ -329,34 +329,34 @@ class ContinuumNavigationTransitionInfo(ComPtr):
     ExitElementContainerProperty = property(get_ExitElementContainerProperty, None)
 class CubicEase(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.EasingFunctionBase
-    ClassId = 'Windows.UI.Xaml.Media.Animation.CubicEase'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.CubicEase'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.CubicEase: ...
 class DirectConnectedAnimationConfiguration(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.ConnectedAnimationConfiguration
 class DiscreteColorKeyFrame(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.ColorKeyFrame
-    ClassId = 'Windows.UI.Xaml.Media.Animation.DiscreteColorKeyFrame'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.DiscreteColorKeyFrame'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.DiscreteColorKeyFrame: ...
 class DiscreteDoubleKeyFrame(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.DoubleKeyFrame
-    ClassId = 'Windows.UI.Xaml.Media.Animation.DiscreteDoubleKeyFrame'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.DiscreteDoubleKeyFrame'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.DiscreteDoubleKeyFrame: ...
 class DiscreteObjectKeyFrame(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.ObjectKeyFrame
-    ClassId = 'Windows.UI.Xaml.Media.Animation.DiscreteObjectKeyFrame'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.DiscreteObjectKeyFrame'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.DiscreteObjectKeyFrame: ...
 class DiscretePointKeyFrame(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.PointKeyFrame
-    ClassId = 'Windows.UI.Xaml.Media.Animation.DiscretePointKeyFrame'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.DiscretePointKeyFrame'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.DiscretePointKeyFrame: ...
 class DoubleAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.DoubleAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.DoubleAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.DoubleAnimation: ...
     @winrt_mixinmethod
@@ -401,7 +401,7 @@ class DoubleAnimation(ComPtr):
     EnableDependentAnimationProperty = property(get_EnableDependentAnimationProperty, None)
 class DoubleAnimationUsingKeyFrames(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.DoubleAnimationUsingKeyFrames'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.DoubleAnimationUsingKeyFrames'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.DoubleAnimationUsingKeyFrames: ...
     @winrt_mixinmethod
@@ -435,7 +435,7 @@ class DoubleKeyFrame(ComPtr):
     KeyTimeProperty = property(get_KeyTimeProperty, None)
 class DoubleKeyFrameCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.Animation.DoubleKeyFrameCollection'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.DoubleKeyFrameCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.DoubleKeyFrameCollection: ...
     @winrt_mixinmethod
@@ -467,7 +467,7 @@ class DoubleKeyFrameCollection(ComPtr):
     Size = property(get_Size, None)
 class DragItemThemeAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.DragItemThemeAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.DragItemThemeAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.DragItemThemeAnimation: ...
     @winrt_mixinmethod
@@ -480,7 +480,7 @@ class DragItemThemeAnimation(ComPtr):
     TargetNameProperty = property(get_TargetNameProperty, None)
 class DragOverThemeAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.DragOverThemeAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.DragOverThemeAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.DragOverThemeAnimation: ...
     @winrt_mixinmethod
@@ -509,12 +509,12 @@ class DragOverThemeAnimation(ComPtr):
     DirectionProperty = property(get_DirectionProperty, None)
 class DrillInNavigationTransitionInfo(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo
-    ClassId = 'Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo: ...
 class DrillInThemeAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.DrillInThemeAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.DrillInThemeAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.DrillInThemeAnimation: ...
     @winrt_mixinmethod
@@ -551,7 +551,7 @@ class DrillInThemeAnimation(ComPtr):
     ExitTargetProperty = property(get_ExitTargetProperty, None)
 class DrillOutThemeAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.DrillOutThemeAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.DrillOutThemeAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.DrillOutThemeAnimation: ...
     @winrt_mixinmethod
@@ -588,7 +588,7 @@ class DrillOutThemeAnimation(ComPtr):
     ExitTargetProperty = property(get_ExitTargetProperty, None)
 class DropTargetItemThemeAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.DropTargetItemThemeAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.DropTargetItemThemeAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.DropTargetItemThemeAnimation: ...
     @winrt_mixinmethod
@@ -601,7 +601,7 @@ class DropTargetItemThemeAnimation(ComPtr):
     TargetNameProperty = property(get_TargetNameProperty, None)
 class EasingColorKeyFrame(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.ColorKeyFrame
-    ClassId = 'Windows.UI.Xaml.Media.Animation.EasingColorKeyFrame'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.EasingColorKeyFrame'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.EasingColorKeyFrame: ...
     @winrt_mixinmethod
@@ -614,7 +614,7 @@ class EasingColorKeyFrame(ComPtr):
     EasingFunctionProperty = property(get_EasingFunctionProperty, None)
 class EasingDoubleKeyFrame(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.DoubleKeyFrame
-    ClassId = 'Windows.UI.Xaml.Media.Animation.EasingDoubleKeyFrame'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.EasingDoubleKeyFrame'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.EasingDoubleKeyFrame: ...
     @winrt_mixinmethod
@@ -643,7 +643,7 @@ EasingMode_EaseIn: EasingMode = 1
 EasingMode_EaseInOut: EasingMode = 2
 class EasingPointKeyFrame(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.PointKeyFrame
-    ClassId = 'Windows.UI.Xaml.Media.Animation.EasingPointKeyFrame'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.EasingPointKeyFrame'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.EasingPointKeyFrame: ...
     @winrt_mixinmethod
@@ -656,7 +656,7 @@ class EasingPointKeyFrame(ComPtr):
     EasingFunctionProperty = property(get_EasingFunctionProperty, None)
 class EdgeUIThemeTransition(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Transition
-    ClassId = 'Windows.UI.Xaml.Media.Animation.EdgeUIThemeTransition'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.EdgeUIThemeTransition'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.EdgeUIThemeTransition: ...
     @winrt_mixinmethod
@@ -669,7 +669,7 @@ class EdgeUIThemeTransition(ComPtr):
     EdgeProperty = property(get_EdgeProperty, None)
 class ElasticEase(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.EasingFunctionBase
-    ClassId = 'Windows.UI.Xaml.Media.Animation.ElasticEase'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.ElasticEase'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.ElasticEase: ...
     @winrt_mixinmethod
@@ -690,7 +690,7 @@ class ElasticEase(ComPtr):
     SpringinessProperty = property(get_SpringinessProperty, None)
 class EntranceNavigationTransitionInfo(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo
-    ClassId = 'Windows.UI.Xaml.Media.Animation.EntranceNavigationTransitionInfo'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.EntranceNavigationTransitionInfo'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.EntranceNavigationTransitionInfo: ...
     @winrt_classmethod
@@ -702,7 +702,7 @@ class EntranceNavigationTransitionInfo(ComPtr):
     IsTargetElementProperty = property(get_IsTargetElementProperty, None)
 class EntranceThemeTransition(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Transition
-    ClassId = 'Windows.UI.Xaml.Media.Animation.EntranceThemeTransition'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.EntranceThemeTransition'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.EntranceThemeTransition: ...
     @winrt_mixinmethod
@@ -731,7 +731,7 @@ class EntranceThemeTransition(ComPtr):
     IsStaggeringEnabledProperty = property(get_IsStaggeringEnabledProperty, None)
 class ExponentialEase(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.EasingFunctionBase
-    ClassId = 'Windows.UI.Xaml.Media.Animation.ExponentialEase'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.ExponentialEase'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.ExponentialEase: ...
     @winrt_mixinmethod
@@ -744,7 +744,7 @@ class ExponentialEase(ComPtr):
     ExponentProperty = property(get_ExponentProperty, None)
 class FadeInThemeAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.FadeInThemeAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.FadeInThemeAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.FadeInThemeAnimation: ...
     @winrt_mixinmethod
@@ -757,7 +757,7 @@ class FadeInThemeAnimation(ComPtr):
     TargetNameProperty = property(get_TargetNameProperty, None)
 class FadeOutThemeAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.FadeOutThemeAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.FadeOutThemeAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.FadeOutThemeAnimation: ...
     @winrt_mixinmethod
@@ -2342,7 +2342,7 @@ class ITransitionFactory(ComPtr):
     _iid_ = Guid('dc9ab2cf-3bc9-44aa-b3-fc-88-3a-83-23-3a-2c')
 class KeySpline(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Media.Animation.KeySpline'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.KeySpline'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.KeySpline: ...
     @winrt_mixinmethod
@@ -2359,27 +2359,27 @@ class KeyTime(EasyCastStructure):
     TimeSpan: Windows.Foundation.TimeSpan
 class KeyTimeHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.Animation.KeyTimeHelper'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.KeyTimeHelper'
     @winrt_classmethod
     def FromTimeSpan(cls: Windows.UI.Xaml.Media.Animation.IKeyTimeHelperStatics, timeSpan: Windows.Foundation.TimeSpan) -> Windows.UI.Xaml.Media.Animation.KeyTime: ...
 class LinearColorKeyFrame(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.ColorKeyFrame
-    ClassId = 'Windows.UI.Xaml.Media.Animation.LinearColorKeyFrame'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.LinearColorKeyFrame'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.LinearColorKeyFrame: ...
 class LinearDoubleKeyFrame(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.DoubleKeyFrame
-    ClassId = 'Windows.UI.Xaml.Media.Animation.LinearDoubleKeyFrame'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.LinearDoubleKeyFrame'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.LinearDoubleKeyFrame: ...
 class LinearPointKeyFrame(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.PointKeyFrame
-    ClassId = 'Windows.UI.Xaml.Media.Animation.LinearPointKeyFrame'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.LinearPointKeyFrame'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.LinearPointKeyFrame: ...
 class NavigationThemeTransition(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Transition
-    ClassId = 'Windows.UI.Xaml.Media.Animation.NavigationThemeTransition'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.NavigationThemeTransition'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.NavigationThemeTransition: ...
     @winrt_mixinmethod
@@ -2398,7 +2398,7 @@ class NavigationTransitionInfo(ComPtr):
     def SetNavigationStateCore(self, navigationState: WinRT_String) -> Void: ...
 class ObjectAnimationUsingKeyFrames(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.ObjectAnimationUsingKeyFrames'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.ObjectAnimationUsingKeyFrames'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.ObjectAnimationUsingKeyFrames: ...
     @winrt_mixinmethod
@@ -2432,7 +2432,7 @@ class ObjectKeyFrame(ComPtr):
     KeyTimeProperty = property(get_KeyTimeProperty, None)
 class ObjectKeyFrameCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.Animation.ObjectKeyFrameCollection'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.ObjectKeyFrameCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.ObjectKeyFrameCollection: ...
     @winrt_mixinmethod
@@ -2464,7 +2464,7 @@ class ObjectKeyFrameCollection(ComPtr):
     Size = property(get_Size, None)
 class PaneThemeTransition(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Transition
-    ClassId = 'Windows.UI.Xaml.Media.Animation.PaneThemeTransition'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.PaneThemeTransition'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.PaneThemeTransition: ...
     @winrt_mixinmethod
@@ -2477,7 +2477,7 @@ class PaneThemeTransition(ComPtr):
     EdgeProperty = property(get_EdgeProperty, None)
 class PointAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.PointAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.PointAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.PointAnimation: ...
     @winrt_mixinmethod
@@ -2522,7 +2522,7 @@ class PointAnimation(ComPtr):
     EnableDependentAnimationProperty = property(get_EnableDependentAnimationProperty, None)
 class PointAnimationUsingKeyFrames(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.PointAnimationUsingKeyFrames'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.PointAnimationUsingKeyFrames'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.PointAnimationUsingKeyFrames: ...
     @winrt_mixinmethod
@@ -2556,7 +2556,7 @@ class PointKeyFrame(ComPtr):
     KeyTimeProperty = property(get_KeyTimeProperty, None)
 class PointKeyFrameCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.Animation.PointKeyFrameCollection'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.PointKeyFrameCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.PointKeyFrameCollection: ...
     @winrt_mixinmethod
@@ -2588,7 +2588,7 @@ class PointKeyFrameCollection(ComPtr):
     Size = property(get_Size, None)
 class PointerDownThemeAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.PointerDownThemeAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.PointerDownThemeAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.PointerDownThemeAnimation: ...
     @winrt_mixinmethod
@@ -2601,7 +2601,7 @@ class PointerDownThemeAnimation(ComPtr):
     TargetNameProperty = property(get_TargetNameProperty, None)
 class PointerUpThemeAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.PointerUpThemeAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.PointerUpThemeAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.PointerUpThemeAnimation: ...
     @winrt_mixinmethod
@@ -2614,7 +2614,7 @@ class PointerUpThemeAnimation(ComPtr):
     TargetNameProperty = property(get_TargetNameProperty, None)
 class PopInThemeAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.PopInThemeAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.PopInThemeAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.PopInThemeAnimation: ...
     @winrt_mixinmethod
@@ -2643,7 +2643,7 @@ class PopInThemeAnimation(ComPtr):
     FromVerticalOffsetProperty = property(get_FromVerticalOffsetProperty, None)
 class PopOutThemeAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.PopOutThemeAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.PopOutThemeAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.PopOutThemeAnimation: ...
     @winrt_mixinmethod
@@ -2656,7 +2656,7 @@ class PopOutThemeAnimation(ComPtr):
     TargetNameProperty = property(get_TargetNameProperty, None)
 class PopupThemeTransition(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Transition
-    ClassId = 'Windows.UI.Xaml.Media.Animation.PopupThemeTransition'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.PopupThemeTransition'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.PopupThemeTransition: ...
     @winrt_mixinmethod
@@ -2677,7 +2677,7 @@ class PopupThemeTransition(ComPtr):
     FromVerticalOffsetProperty = property(get_FromVerticalOffsetProperty, None)
 class PowerEase(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.EasingFunctionBase
-    ClassId = 'Windows.UI.Xaml.Media.Animation.PowerEase'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.PowerEase'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.PowerEase: ...
     @winrt_mixinmethod
@@ -2690,22 +2690,22 @@ class PowerEase(ComPtr):
     PowerProperty = property(get_PowerProperty, None)
 class QuadraticEase(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.EasingFunctionBase
-    ClassId = 'Windows.UI.Xaml.Media.Animation.QuadraticEase'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.QuadraticEase'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.QuadraticEase: ...
 class QuarticEase(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.EasingFunctionBase
-    ClassId = 'Windows.UI.Xaml.Media.Animation.QuarticEase'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.QuarticEase'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.QuarticEase: ...
 class QuinticEase(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.EasingFunctionBase
-    ClassId = 'Windows.UI.Xaml.Media.Animation.QuinticEase'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.QuinticEase'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.QuinticEase: ...
 class ReorderThemeTransition(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Transition
-    ClassId = 'Windows.UI.Xaml.Media.Animation.ReorderThemeTransition'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.ReorderThemeTransition'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.ReorderThemeTransition: ...
 class RepeatBehavior(EasyCastStructure):
@@ -2714,7 +2714,7 @@ class RepeatBehavior(EasyCastStructure):
     Type: Windows.UI.Xaml.Media.Animation.RepeatBehaviorType
 class RepeatBehaviorHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.Animation.RepeatBehaviorHelper'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.RepeatBehaviorHelper'
     @winrt_classmethod
     def get_Forever(cls: Windows.UI.Xaml.Media.Animation.IRepeatBehaviorHelperStatics) -> Windows.UI.Xaml.Media.Animation.RepeatBehavior: ...
     @winrt_classmethod
@@ -2734,7 +2734,7 @@ RepeatBehaviorType_Duration: RepeatBehaviorType = 1
 RepeatBehaviorType_Forever: RepeatBehaviorType = 2
 class RepositionThemeAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.RepositionThemeAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.RepositionThemeAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.RepositionThemeAnimation: ...
     @winrt_mixinmethod
@@ -2763,7 +2763,7 @@ class RepositionThemeAnimation(ComPtr):
     FromVerticalOffsetProperty = property(get_FromVerticalOffsetProperty, None)
 class RepositionThemeTransition(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Transition
-    ClassId = 'Windows.UI.Xaml.Media.Animation.RepositionThemeTransition'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.RepositionThemeTransition'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.RepositionThemeTransition: ...
     @winrt_mixinmethod
@@ -2776,7 +2776,7 @@ class RepositionThemeTransition(ComPtr):
     IsStaggeringEnabledProperty = property(get_IsStaggeringEnabledProperty, None)
 class SineEase(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.EasingFunctionBase
-    ClassId = 'Windows.UI.Xaml.Media.Animation.SineEase'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.SineEase'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.SineEase: ...
 SlideNavigationTransitionEffect = Int32
@@ -2785,7 +2785,7 @@ SlideNavigationTransitionEffect_FromLeft: SlideNavigationTransitionEffect = 1
 SlideNavigationTransitionEffect_FromRight: SlideNavigationTransitionEffect = 2
 class SlideNavigationTransitionInfo(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo
-    ClassId = 'Windows.UI.Xaml.Media.Animation.SlideNavigationTransitionInfo'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.SlideNavigationTransitionInfo'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.SlideNavigationTransitionInfo: ...
     @winrt_mixinmethod
@@ -2798,7 +2798,7 @@ class SlideNavigationTransitionInfo(ComPtr):
     EffectProperty = property(get_EffectProperty, None)
 class SplineColorKeyFrame(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.ColorKeyFrame
-    ClassId = 'Windows.UI.Xaml.Media.Animation.SplineColorKeyFrame'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.SplineColorKeyFrame'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.SplineColorKeyFrame: ...
     @winrt_mixinmethod
@@ -2811,7 +2811,7 @@ class SplineColorKeyFrame(ComPtr):
     KeySplineProperty = property(get_KeySplineProperty, None)
 class SplineDoubleKeyFrame(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.DoubleKeyFrame
-    ClassId = 'Windows.UI.Xaml.Media.Animation.SplineDoubleKeyFrame'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.SplineDoubleKeyFrame'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.SplineDoubleKeyFrame: ...
     @winrt_mixinmethod
@@ -2824,7 +2824,7 @@ class SplineDoubleKeyFrame(ComPtr):
     KeySplineProperty = property(get_KeySplineProperty, None)
 class SplinePointKeyFrame(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.PointKeyFrame
-    ClassId = 'Windows.UI.Xaml.Media.Animation.SplinePointKeyFrame'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.SplinePointKeyFrame'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.SplinePointKeyFrame: ...
     @winrt_mixinmethod
@@ -2837,7 +2837,7 @@ class SplinePointKeyFrame(ComPtr):
     KeySplineProperty = property(get_KeySplineProperty, None)
 class SplitCloseThemeAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.SplitCloseThemeAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.SplitCloseThemeAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.SplitCloseThemeAnimation: ...
     @winrt_mixinmethod
@@ -2930,7 +2930,7 @@ class SplitCloseThemeAnimation(ComPtr):
     ContentTranslationOffsetProperty = property(get_ContentTranslationOffsetProperty, None)
 class SplitOpenThemeAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.SplitOpenThemeAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.SplitOpenThemeAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.SplitOpenThemeAnimation: ...
     @winrt_mixinmethod
@@ -3023,7 +3023,7 @@ class SplitOpenThemeAnimation(ComPtr):
     ContentTranslationOffsetProperty = property(get_ContentTranslationOffsetProperty, None)
 class Storyboard(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.Storyboard'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.Storyboard'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.Storyboard: ...
     @winrt_mixinmethod
@@ -3065,12 +3065,12 @@ class Storyboard(ComPtr):
     TargetNameProperty = property(get_TargetNameProperty, None)
 class SuppressNavigationTransitionInfo(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo
-    ClassId = 'Windows.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo: ...
 class SwipeBackThemeAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.SwipeBackThemeAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.SwipeBackThemeAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.SwipeBackThemeAnimation: ...
     @winrt_mixinmethod
@@ -3099,7 +3099,7 @@ class SwipeBackThemeAnimation(ComPtr):
     FromVerticalOffsetProperty = property(get_FromVerticalOffsetProperty, None)
 class SwipeHintThemeAnimation(ComPtr):
     extends: Windows.UI.Xaml.Media.Animation.Timeline
-    ClassId = 'Windows.UI.Xaml.Media.Animation.SwipeHintThemeAnimation'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.SwipeHintThemeAnimation'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.SwipeHintThemeAnimation: ...
     @winrt_mixinmethod
@@ -3187,7 +3187,7 @@ class Timeline(ComPtr):
     RepeatBehaviorProperty = property(get_RepeatBehaviorProperty, None)
 class TimelineCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.Animation.TimelineCollection'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.TimelineCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.TimelineCollection: ...
     @winrt_mixinmethod
@@ -3221,7 +3221,7 @@ class Transition(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
 class TransitionCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.Animation.TransitionCollection'
+    _classid_ = 'Windows.UI.Xaml.Media.Animation.TransitionCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Animation.TransitionCollection: ...
     @winrt_mixinmethod

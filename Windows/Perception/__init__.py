@@ -48,7 +48,7 @@ class IPerceptionTimestampHelperStatics2(ComPtr):
     def FromSystemRelativeTargetTime(self, targetTime: Windows.Foundation.TimeSpan) -> Windows.Perception.PerceptionTimestamp: ...
 class PerceptionTimestamp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Perception.PerceptionTimestamp'
+    _classid_ = 'Windows.Perception.PerceptionTimestamp'
     @winrt_mixinmethod
     def get_TargetTime(self: Windows.Perception.IPerceptionTimestamp) -> Windows.Foundation.DateTime: ...
     @winrt_mixinmethod
@@ -60,7 +60,7 @@ class PerceptionTimestamp(ComPtr):
     SystemRelativeTargetTime = property(get_SystemRelativeTargetTime, None)
 class PerceptionTimestampHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Perception.PerceptionTimestampHelper'
+    _classid_ = 'Windows.Perception.PerceptionTimestampHelper'
     @winrt_classmethod
     def FromSystemRelativeTargetTime(cls: Windows.Perception.IPerceptionTimestampHelperStatics2, targetTime: Windows.Foundation.TimeSpan) -> Windows.Perception.PerceptionTimestamp: ...
     @winrt_classmethod

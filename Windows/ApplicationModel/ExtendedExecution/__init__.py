@@ -30,7 +30,7 @@ ExtendedExecutionResult_Allowed: ExtendedExecutionResult = 0
 ExtendedExecutionResult_Denied: ExtendedExecutionResult = 1
 class ExtendedExecutionRevokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionRevokedEventArgs'
+    _classid_ = 'Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionRevokedEventArgs'
     @winrt_mixinmethod
     def get_Reason(self: Windows.ApplicationModel.ExtendedExecution.IExtendedExecutionRevokedEventArgs) -> Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionRevokedReason: ...
     Reason = property(get_Reason, None)
@@ -39,7 +39,7 @@ ExtendedExecutionRevokedReason_Resumed: ExtendedExecutionRevokedReason = 0
 ExtendedExecutionRevokedReason_SystemPolicy: ExtendedExecutionRevokedReason = 1
 class ExtendedExecutionSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionSession'
+    _classid_ = 'Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionSession'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.ExtendedExecution.ExtendedExecutionSession: ...
     @winrt_mixinmethod

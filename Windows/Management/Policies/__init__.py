@@ -67,14 +67,14 @@ class INamedPolicyStatics(ComPtr):
     def GetPolicyFromPathForUser(self, user: Windows.System.User, area: WinRT_String, name: WinRT_String) -> Windows.Management.Policies.NamedPolicyData: ...
 class NamedPolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Policies.NamedPolicy'
+    _classid_ = 'Windows.Management.Policies.NamedPolicy'
     @winrt_classmethod
     def GetPolicyFromPath(cls: Windows.Management.Policies.INamedPolicyStatics, area: WinRT_String, name: WinRT_String) -> Windows.Management.Policies.NamedPolicyData: ...
     @winrt_classmethod
     def GetPolicyFromPathForUser(cls: Windows.Management.Policies.INamedPolicyStatics, user: Windows.System.User, area: WinRT_String, name: WinRT_String) -> Windows.Management.Policies.NamedPolicyData: ...
 class NamedPolicyData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Policies.NamedPolicyData'
+    _classid_ = 'Windows.Management.Policies.NamedPolicyData'
     @winrt_mixinmethod
     def get_Area(self: Windows.Management.Policies.INamedPolicyData) -> WinRT_String: ...
     @winrt_mixinmethod

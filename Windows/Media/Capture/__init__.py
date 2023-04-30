@@ -38,7 +38,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AdvancedCapturedPhoto(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.AdvancedCapturedPhoto'
+    _classid_ = 'Windows.Media.Capture.AdvancedCapturedPhoto'
     @winrt_mixinmethod
     def get_Frame(self: Windows.Media.Capture.IAdvancedCapturedPhoto) -> Windows.Media.Capture.CapturedFrame: ...
     @winrt_mixinmethod
@@ -53,7 +53,7 @@ class AdvancedCapturedPhoto(ComPtr):
     FrameBoundsRelativeToReferencePhoto = property(get_FrameBoundsRelativeToReferencePhoto, None)
 class AdvancedPhotoCapture(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.AdvancedPhotoCapture'
+    _classid_ = 'Windows.Media.Capture.AdvancedPhotoCapture'
     @winrt_mixinmethod
     def CaptureAsync(self: Windows.Media.Capture.IAdvancedPhotoCapture) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.AdvancedCapturedPhoto]: ...
     @winrt_mixinmethod
@@ -70,7 +70,7 @@ class AdvancedPhotoCapture(ComPtr):
     def FinishAsync(self: Windows.Media.Capture.IAdvancedPhotoCapture) -> Windows.Foundation.IAsyncAction: ...
 class AppCapture(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.AppCapture'
+    _classid_ = 'Windows.Media.Capture.AppCapture'
     @winrt_mixinmethod
     def get_IsCapturingAudio(self: Windows.Media.Capture.IAppCapture) -> Boolean: ...
     @winrt_mixinmethod
@@ -87,7 +87,7 @@ class AppCapture(ComPtr):
     IsCapturingVideo = property(get_IsCapturingVideo, None)
 class CameraCaptureUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.CameraCaptureUI'
+    _classid_ = 'Windows.Media.Capture.CameraCaptureUI'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Capture.CameraCaptureUI: ...
     @winrt_mixinmethod
@@ -116,7 +116,7 @@ CameraCaptureUIMode_Photo: CameraCaptureUIMode = 1
 CameraCaptureUIMode_Video: CameraCaptureUIMode = 2
 class CameraCaptureUIPhotoCaptureSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.CameraCaptureUIPhotoCaptureSettings'
+    _classid_ = 'Windows.Media.Capture.CameraCaptureUIPhotoCaptureSettings'
     @winrt_mixinmethod
     def get_Format(self: Windows.Media.Capture.ICameraCaptureUIPhotoCaptureSettings) -> Windows.Media.Capture.CameraCaptureUIPhotoFormat: ...
     @winrt_mixinmethod
@@ -148,7 +148,7 @@ CameraCaptureUIPhotoFormat_Png: CameraCaptureUIPhotoFormat = 1
 CameraCaptureUIPhotoFormat_JpegXR: CameraCaptureUIPhotoFormat = 2
 class CameraCaptureUIVideoCaptureSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.CameraCaptureUIVideoCaptureSettings'
+    _classid_ = 'Windows.Media.Capture.CameraCaptureUIVideoCaptureSettings'
     @winrt_mixinmethod
     def get_Format(self: Windows.Media.Capture.ICameraCaptureUIVideoCaptureSettings) -> Windows.Media.Capture.CameraCaptureUIVideoFormat: ...
     @winrt_mixinmethod
@@ -174,7 +174,7 @@ CameraCaptureUIVideoFormat_Mp4: CameraCaptureUIVideoFormat = 0
 CameraCaptureUIVideoFormat_Wmv: CameraCaptureUIVideoFormat = 1
 class CapturedFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.CapturedFrame'
+    _classid_ = 'Windows.Media.Capture.CapturedFrame'
     @winrt_mixinmethod
     def get_Width(self: Windows.Media.Capture.ICapturedFrame) -> UInt32: ...
     @winrt_mixinmethod
@@ -225,7 +225,7 @@ class CapturedFrame(ComPtr):
     BitmapProperties = property(get_BitmapProperties, None)
 class CapturedFrameControlValues(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.CapturedFrameControlValues'
+    _classid_ = 'Windows.Media.Capture.CapturedFrameControlValues'
     @winrt_mixinmethod
     def get_Exposure(self: Windows.Media.Capture.ICapturedFrameControlValues) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_mixinmethod
@@ -270,7 +270,7 @@ class CapturedFrameControlValues(ComPtr):
     WhiteBalanceGain = property(get_WhiteBalanceGain, None)
 class CapturedPhoto(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.CapturedPhoto'
+    _classid_ = 'Windows.Media.Capture.CapturedPhoto'
     @winrt_mixinmethod
     def get_Frame(self: Windows.Media.Capture.ICapturedPhoto) -> Windows.Media.Capture.CapturedFrame: ...
     @winrt_mixinmethod
@@ -1021,7 +1021,7 @@ KnownVideoProfile_VideoHdr8: KnownVideoProfile = 9
 KnownVideoProfile_CompressedCamera: KnownVideoProfile = 10
 class LowLagMediaRecording(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.LowLagMediaRecording'
+    _classid_ = 'Windows.Media.Capture.LowLagMediaRecording'
     @winrt_mixinmethod
     def StartAsync(self: Windows.Media.Capture.ILowLagMediaRecording) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -1038,14 +1038,14 @@ class LowLagMediaRecording(ComPtr):
     def StopWithResultAsync(self: Windows.Media.Capture.ILowLagMediaRecording3) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.MediaCaptureStopResult]: ...
 class LowLagPhotoCapture(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.LowLagPhotoCapture'
+    _classid_ = 'Windows.Media.Capture.LowLagPhotoCapture'
     @winrt_mixinmethod
     def CaptureAsync(self: Windows.Media.Capture.ILowLagPhotoCapture) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.CapturedPhoto]: ...
     @winrt_mixinmethod
     def FinishAsync(self: Windows.Media.Capture.ILowLagPhotoCapture) -> Windows.Foundation.IAsyncAction: ...
 class LowLagPhotoSequenceCapture(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.LowLagPhotoSequenceCapture'
+    _classid_ = 'Windows.Media.Capture.LowLagPhotoSequenceCapture'
     @winrt_mixinmethod
     def StartAsync(self: Windows.Media.Capture.ILowLagPhotoSequenceCapture) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -1058,7 +1058,7 @@ class LowLagPhotoSequenceCapture(ComPtr):
     def remove_PhotoCaptured(self: Windows.Media.Capture.ILowLagPhotoSequenceCapture, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class MediaCapture(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.MediaCapture'
+    _classid_ = 'Windows.Media.Capture.MediaCapture'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Capture.MediaCapture: ...
     @winrt_mixinmethod
@@ -1217,7 +1217,7 @@ MediaCaptureDeviceExclusiveControlStatus_ExclusiveControlAvailable: MediaCapture
 MediaCaptureDeviceExclusiveControlStatus_SharedReadOnlyAvailable: MediaCaptureDeviceExclusiveControlStatus = 1
 class MediaCaptureDeviceExclusiveControlStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.MediaCaptureDeviceExclusiveControlStatusChangedEventArgs'
+    _classid_ = 'Windows.Media.Capture.MediaCaptureDeviceExclusiveControlStatusChangedEventArgs'
     @winrt_mixinmethod
     def get_DeviceId(self: Windows.Media.Capture.IMediaCaptureDeviceExclusiveControlStatusChangedEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1226,7 +1226,7 @@ class MediaCaptureDeviceExclusiveControlStatusChangedEventArgs(ComPtr):
     Status = property(get_Status, None)
 class MediaCaptureFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.MediaCaptureFailedEventArgs'
+    _classid_ = 'Windows.Media.Capture.MediaCaptureFailedEventArgs'
     @winrt_mixinmethod
     def get_Message(self: Windows.Media.Capture.IMediaCaptureFailedEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1236,18 +1236,18 @@ class MediaCaptureFailedEventArgs(ComPtr):
 class MediaCaptureFailedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('2014effb-5cd8-4f08-a3-14-0d-36-0d-a5-9f-14')
-    ClassId = 'Windows.Media.Capture.MediaCaptureFailedEventHandler'
+    _classid_ = 'Windows.Media.Capture.MediaCaptureFailedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Capture.MediaCapture, errorEventArgs: Windows.Media.Capture.MediaCaptureFailedEventArgs) -> Void: ...
 class MediaCaptureFocusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.MediaCaptureFocusChangedEventArgs'
+    _classid_ = 'Windows.Media.Capture.MediaCaptureFocusChangedEventArgs'
     @winrt_mixinmethod
     def get_FocusState(self: Windows.Media.Capture.IMediaCaptureFocusChangedEventArgs) -> Windows.Media.Devices.MediaCaptureFocusState: ...
     FocusState = property(get_FocusState, None)
 class MediaCaptureInitializationSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.MediaCaptureInitializationSettings'
+    _classid_ = 'Windows.Media.Capture.MediaCaptureInitializationSettings'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Capture.MediaCaptureInitializationSettings: ...
     @winrt_mixinmethod
@@ -1345,7 +1345,7 @@ MediaCaptureMemoryPreference_Auto: MediaCaptureMemoryPreference = 0
 MediaCaptureMemoryPreference_Cpu: MediaCaptureMemoryPreference = 1
 class MediaCapturePauseResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.MediaCapturePauseResult'
+    _classid_ = 'Windows.Media.Capture.MediaCapturePauseResult'
     @winrt_mixinmethod
     def get_LastFrame(self: Windows.Media.Capture.IMediaCapturePauseResult) -> Windows.Media.VideoFrame: ...
     @winrt_mixinmethod
@@ -1356,7 +1356,7 @@ class MediaCapturePauseResult(ComPtr):
     RecordDuration = property(get_RecordDuration, None)
 class MediaCaptureRelativePanelWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.MediaCaptureRelativePanelWatcher'
+    _classid_ = 'Windows.Media.Capture.MediaCaptureRelativePanelWatcher'
     @winrt_mixinmethod
     def get_RelativePanel(self: Windows.Media.Capture.IMediaCaptureRelativePanelWatcher) -> Windows.Devices.Enumeration.Panel: ...
     @winrt_mixinmethod
@@ -1372,7 +1372,7 @@ class MediaCaptureRelativePanelWatcher(ComPtr):
     RelativePanel = property(get_RelativePanel, None)
 class MediaCaptureSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.MediaCaptureSettings'
+    _classid_ = 'Windows.Media.Capture.MediaCaptureSettings'
     @winrt_mixinmethod
     def get_AudioDeviceId(self: Windows.Media.Capture.IMediaCaptureSettings) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1420,7 +1420,7 @@ MediaCaptureSharingMode_ExclusiveControl: MediaCaptureSharingMode = 0
 MediaCaptureSharingMode_SharedReadOnly: MediaCaptureSharingMode = 1
 class MediaCaptureStopResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.MediaCaptureStopResult'
+    _classid_ = 'Windows.Media.Capture.MediaCaptureStopResult'
     @winrt_mixinmethod
     def get_LastFrame(self: Windows.Media.Capture.IMediaCaptureStopResult) -> Windows.Media.VideoFrame: ...
     @winrt_mixinmethod
@@ -1434,7 +1434,7 @@ MediaCaptureThermalStatus_Normal: MediaCaptureThermalStatus = 0
 MediaCaptureThermalStatus_Overheated: MediaCaptureThermalStatus = 1
 class MediaCaptureVideoProfile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.MediaCaptureVideoProfile'
+    _classid_ = 'Windows.Media.Capture.MediaCaptureVideoProfile'
     @winrt_mixinmethod
     def get_Id(self: Windows.Media.Capture.IMediaCaptureVideoProfile) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1460,7 +1460,7 @@ class MediaCaptureVideoProfile(ComPtr):
     Properties = property(get_Properties, None)
 class MediaCaptureVideoProfileMediaDescription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.MediaCaptureVideoProfileMediaDescription'
+    _classid_ = 'Windows.Media.Capture.MediaCaptureVideoProfileMediaDescription'
     @winrt_mixinmethod
     def get_Width(self: Windows.Media.Capture.IMediaCaptureVideoProfileMediaDescription) -> UInt32: ...
     @winrt_mixinmethod
@@ -1499,7 +1499,7 @@ MediaStreamType_Photo: MediaStreamType = 3
 MediaStreamType_Metadata: MediaStreamType = 4
 class OptionalReferencePhotoCapturedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.OptionalReferencePhotoCapturedEventArgs'
+    _classid_ = 'Windows.Media.Capture.OptionalReferencePhotoCapturedEventArgs'
     @winrt_mixinmethod
     def get_Frame(self: Windows.Media.Capture.IOptionalReferencePhotoCapturedEventArgs) -> Windows.Media.Capture.CapturedFrame: ...
     @winrt_mixinmethod
@@ -1512,7 +1512,7 @@ PhotoCaptureSource_VideoPreview: PhotoCaptureSource = 1
 PhotoCaptureSource_Photo: PhotoCaptureSource = 2
 class PhotoCapturedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.PhotoCapturedEventArgs'
+    _classid_ = 'Windows.Media.Capture.PhotoCapturedEventArgs'
     @winrt_mixinmethod
     def get_Frame(self: Windows.Media.Capture.IPhotoCapturedEventArgs) -> Windows.Media.Capture.CapturedFrame: ...
     @winrt_mixinmethod
@@ -1524,7 +1524,7 @@ class PhotoCapturedEventArgs(ComPtr):
     CaptureTimeOffset = property(get_CaptureTimeOffset, None)
 class PhotoConfirmationCapturedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.PhotoConfirmationCapturedEventArgs'
+    _classid_ = 'Windows.Media.Capture.PhotoConfirmationCapturedEventArgs'
     @winrt_mixinmethod
     def get_Frame(self: Windows.Media.Capture.IPhotoConfirmationCapturedEventArgs) -> Windows.Media.Capture.CapturedFrame: ...
     @winrt_mixinmethod
@@ -1539,7 +1539,7 @@ PowerlineFrequency_Auto: PowerlineFrequency = 3
 class RecordLimitationExceededEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('3fae8f2e-4fe1-4ffd-aa-ba-e1-f1-33-7d-4e-53')
-    ClassId = 'Windows.Media.Capture.RecordLimitationExceededEventHandler'
+    _classid_ = 'Windows.Media.Capture.RecordLimitationExceededEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Capture.MediaCapture) -> Void: ...
 StreamingCaptureMode = Int32
@@ -1559,7 +1559,7 @@ VideoRotation_Clockwise180Degrees: VideoRotation = 2
 VideoRotation_Clockwise270Degrees: VideoRotation = 3
 class VideoStreamConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.VideoStreamConfiguration'
+    _classid_ = 'Windows.Media.Capture.VideoStreamConfiguration'
     @winrt_mixinmethod
     def get_InputProperties(self: Windows.Media.Capture.IVideoStreamConfiguration) -> Windows.Media.MediaProperties.VideoEncodingProperties: ...
     @winrt_mixinmethod

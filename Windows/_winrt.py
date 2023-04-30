@@ -183,7 +183,7 @@ def winrt_classmethod(prototype):
         if factory_class is None:
             hints = get_type_hints(prototype)
             factory_class = hints["cls"]
-        factory = _winrt_get_activation_factory(cls.ClassId, factory_class)
+        factory = _winrt_get_activation_factory(cls._classid_, factory_class)
         try:
             return getattr(factory, prototype.__name__)(*args, **kwargs)
         finally:
@@ -201,7 +201,7 @@ def winrt_factorymethod(prototype):
         if factory_class is None:
             hints = get_type_hints(prototype)
             factory_class = hints["cls"]
-        factory = _winrt_get_activation_factory(cls.ClassId, factory_class)
+        factory = _winrt_get_activation_factory(cls._classid_, factory_class)
         try:
             return getattr(factory, prototype.__name__)(*args, **kwargs)
         finally:
@@ -213,7 +213,7 @@ def winrt_factorymethod(prototype):
 def winrt_activatemethod(prototype):
     @classmethod
     def wrapper(cls):
-        return _winrt_activate_instance(cls.ClassId, cls)
+        return _winrt_activate_instance(cls._classid_, cls)
 
     return wrapper
 

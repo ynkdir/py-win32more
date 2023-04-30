@@ -49,7 +49,7 @@ class IPreviewBuildsState(ComPtr):
     Properties = property(get_Properties, None)
 class PreviewBuildsManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Update.PreviewBuildsManager'
+    _classid_ = 'Windows.Management.Update.PreviewBuildsManager'
     @winrt_mixinmethod
     def get_ArePreviewBuildsAllowed(self: Windows.Management.Update.IPreviewBuildsManager) -> Boolean: ...
     @winrt_mixinmethod
@@ -65,7 +65,7 @@ class PreviewBuildsManager(ComPtr):
     ArePreviewBuildsAllowed = property(get_ArePreviewBuildsAllowed, put_ArePreviewBuildsAllowed)
 class PreviewBuildsState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Update.PreviewBuildsState'
+    _classid_ = 'Windows.Management.Update.PreviewBuildsState'
     @winrt_mixinmethod
     def get_Properties(self: Windows.Management.Update.IPreviewBuildsState) -> Windows.Foundation.Collections.ValueSet: ...
     Properties = property(get_Properties, None)

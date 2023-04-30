@@ -124,7 +124,7 @@ class IJsonValueStatics2(ComPtr):
     def CreateNullValue(self) -> Windows.Data.Json.JsonValue: ...
 class JsonArray(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Json.JsonArray'
+    _classid_ = 'Windows.Data.Json.JsonArray'
     @winrt_activatemethod
     def New(cls) -> Windows.Data.Json.JsonArray: ...
     @winrt_mixinmethod
@@ -187,7 +187,7 @@ class JsonArray(ComPtr):
     Size = property(get_Size, None)
 class JsonError(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Json.JsonError'
+    _classid_ = 'Windows.Data.Json.JsonError'
     @winrt_classmethod
     def GetJsonStatus(cls: Windows.Data.Json.IJsonErrorStatics2, hresult: Int32) -> Windows.Data.Json.JsonErrorStatus: ...
 JsonErrorStatus = Int32
@@ -198,7 +198,7 @@ JsonErrorStatus_JsonValueNotFound: JsonErrorStatus = 3
 JsonErrorStatus_ImplementationLimit: JsonErrorStatus = 4
 class JsonObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Json.JsonObject'
+    _classid_ = 'Windows.Data.Json.JsonObject'
     @winrt_activatemethod
     def New(cls) -> Windows.Data.Json.JsonObject: ...
     @winrt_mixinmethod
@@ -267,7 +267,7 @@ class JsonObject(ComPtr):
     Size = property(get_Size, None)
 class JsonValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Json.JsonValue'
+    _classid_ = 'Windows.Data.Json.JsonValue'
     @winrt_mixinmethod
     def get_ValueType(self: Windows.Data.Json.IJsonValue) -> Windows.Data.Json.JsonValueType: ...
     @winrt_mixinmethod

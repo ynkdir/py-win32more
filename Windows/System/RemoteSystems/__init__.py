@@ -599,7 +599,7 @@ class IRemoteSystemWebAccountFilterFactory(ComPtr):
     def Create(self, account: Windows.Security.Credentials.WebAccount) -> Windows.System.RemoteSystems.RemoteSystemWebAccountFilter: ...
 class KnownRemoteSystemCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.KnownRemoteSystemCapabilities'
+    _classid_ = 'Windows.System.RemoteSystems.KnownRemoteSystemCapabilities'
     @winrt_classmethod
     def get_AppService(cls: Windows.System.RemoteSystems.IKnownRemoteSystemCapabilitiesStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -614,7 +614,7 @@ class KnownRemoteSystemCapabilities(ComPtr):
     SpatialEntity = property(get_SpatialEntity, None)
 class RemoteSystem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystem'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystem'
     @winrt_mixinmethod
     def get_DisplayName(self: Windows.System.RemoteSystems.IRemoteSystem) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -671,13 +671,13 @@ RemoteSystemAccessStatus_DeniedByUser: RemoteSystemAccessStatus = 2
 RemoteSystemAccessStatus_DeniedBySystem: RemoteSystemAccessStatus = 3
 class RemoteSystemAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemAddedEventArgs'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemAddedEventArgs'
     @winrt_mixinmethod
     def get_RemoteSystem(self: Windows.System.RemoteSystems.IRemoteSystemAddedEventArgs) -> Windows.System.RemoteSystems.RemoteSystem: ...
     RemoteSystem = property(get_RemoteSystem, None)
 class RemoteSystemApp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemApp'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemApp'
     @winrt_mixinmethod
     def get_Id(self: Windows.System.RemoteSystems.IRemoteSystemApp) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -701,7 +701,7 @@ class RemoteSystemApp(ComPtr):
     ConnectionToken = property(get_ConnectionToken, None)
 class RemoteSystemAppRegistration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemAppRegistration'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemAppRegistration'
     @winrt_mixinmethod
     def get_User(self: Windows.System.RemoteSystems.IRemoteSystemAppRegistration) -> Windows.System.User: ...
     @winrt_mixinmethod
@@ -719,7 +719,7 @@ RemoteSystemAuthorizationKind_SameUser: RemoteSystemAuthorizationKind = 0
 RemoteSystemAuthorizationKind_Anonymous: RemoteSystemAuthorizationKind = 1
 class RemoteSystemAuthorizationKindFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemAuthorizationKindFilter'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemAuthorizationKindFilter'
     @winrt_factorymethod
     def Create(cls: Windows.System.RemoteSystems.IRemoteSystemAuthorizationKindFilterFactory, remoteSystemAuthorizationKind: Windows.System.RemoteSystems.RemoteSystemAuthorizationKind) -> Windows.System.RemoteSystems.RemoteSystemAuthorizationKindFilter: ...
     @winrt_mixinmethod
@@ -727,7 +727,7 @@ class RemoteSystemAuthorizationKindFilter(ComPtr):
     RemoteSystemAuthorizationKind = property(get_RemoteSystemAuthorizationKind, None)
 class RemoteSystemConnectionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemConnectionInfo'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemConnectionInfo'
     @winrt_mixinmethod
     def get_IsProximal(self: Windows.System.RemoteSystems.IRemoteSystemConnectionInfo) -> Boolean: ...
     @winrt_classmethod
@@ -735,7 +735,7 @@ class RemoteSystemConnectionInfo(ComPtr):
     IsProximal = property(get_IsProximal, None)
 class RemoteSystemConnectionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemConnectionRequest'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemConnectionRequest'
     @winrt_factorymethod
     def Create(cls: Windows.System.RemoteSystems.IRemoteSystemConnectionRequestFactory, remoteSystem: Windows.System.RemoteSystems.RemoteSystem) -> Windows.System.RemoteSystems.RemoteSystemConnectionRequest: ...
     @winrt_mixinmethod
@@ -760,7 +760,7 @@ RemoteSystemDiscoveryType_Cloud: RemoteSystemDiscoveryType = 2
 RemoteSystemDiscoveryType_SpatiallyProximal: RemoteSystemDiscoveryType = 3
 class RemoteSystemDiscoveryTypeFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemDiscoveryTypeFilter'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemDiscoveryTypeFilter'
     @winrt_factorymethod
     def Create(cls: Windows.System.RemoteSystems.IRemoteSystemDiscoveryTypeFilterFactory, discoveryType: Windows.System.RemoteSystems.RemoteSystemDiscoveryType) -> Windows.System.RemoteSystems.RemoteSystemDiscoveryTypeFilter: ...
     @winrt_mixinmethod
@@ -768,10 +768,10 @@ class RemoteSystemDiscoveryTypeFilter(ComPtr):
     RemoteSystemDiscoveryType = property(get_RemoteSystemDiscoveryType, None)
 class RemoteSystemEnumerationCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemEnumerationCompletedEventArgs'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemEnumerationCompletedEventArgs'
 class RemoteSystemKindFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemKindFilter'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemKindFilter'
     @winrt_factorymethod
     def Create(cls: Windows.System.RemoteSystems.IRemoteSystemKindFilterFactory, remoteSystemKinds: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.System.RemoteSystems.RemoteSystemKindFilter: ...
     @winrt_mixinmethod
@@ -779,7 +779,7 @@ class RemoteSystemKindFilter(ComPtr):
     RemoteSystemKinds = property(get_RemoteSystemKinds, None)
 class RemoteSystemKinds(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemKinds'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemKinds'
     @winrt_classmethod
     def get_Iot(cls: Windows.System.RemoteSystems.IRemoteSystemKindStatics2) -> WinRT_String: ...
     @winrt_classmethod
@@ -812,13 +812,13 @@ RemoteSystemPlatform_Ios: RemoteSystemPlatform = 3
 RemoteSystemPlatform_Linux: RemoteSystemPlatform = 4
 class RemoteSystemRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemRemovedEventArgs'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemRemovedEventArgs'
     @winrt_mixinmethod
     def get_RemoteSystemId(self: Windows.System.RemoteSystems.IRemoteSystemRemovedEventArgs) -> WinRT_String: ...
     RemoteSystemId = property(get_RemoteSystemId, None)
 class RemoteSystemSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSession'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSession'
     @winrt_mixinmethod
     def get_Id(self: Windows.System.RemoteSystems.IRemoteSystemSession) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -842,13 +842,13 @@ class RemoteSystemSession(ComPtr):
     ControllerDisplayName = property(get_ControllerDisplayName, None)
 class RemoteSystemSessionAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionAddedEventArgs'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionAddedEventArgs'
     @winrt_mixinmethod
     def get_SessionInfo(self: Windows.System.RemoteSystems.IRemoteSystemSessionAddedEventArgs) -> Windows.System.RemoteSystems.RemoteSystemSessionInfo: ...
     SessionInfo = property(get_SessionInfo, None)
 class RemoteSystemSessionController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionController'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionController'
     @winrt_factorymethod
     def CreateController(cls: Windows.System.RemoteSystems.IRemoteSystemSessionControllerFactory, displayName: WinRT_String) -> Windows.System.RemoteSystems.RemoteSystemSessionController: ...
     @winrt_factorymethod
@@ -863,7 +863,7 @@ class RemoteSystemSessionController(ComPtr):
     def CreateSessionAsync(self: Windows.System.RemoteSystems.IRemoteSystemSessionController) -> Windows.Foundation.IAsyncOperation[Windows.System.RemoteSystems.RemoteSystemSessionCreationResult]: ...
 class RemoteSystemSessionCreationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionCreationResult'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionCreationResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.System.RemoteSystems.IRemoteSystemSessionCreationResult) -> Windows.System.RemoteSystems.RemoteSystemSessionCreationStatus: ...
     @winrt_mixinmethod
@@ -876,7 +876,7 @@ RemoteSystemSessionCreationStatus_SessionLimitsExceeded: RemoteSystemSessionCrea
 RemoteSystemSessionCreationStatus_OperationAborted: RemoteSystemSessionCreationStatus = 2
 class RemoteSystemSessionDisconnectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionDisconnectedEventArgs'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionDisconnectedEventArgs'
     @winrt_mixinmethod
     def get_Reason(self: Windows.System.RemoteSystems.IRemoteSystemSessionDisconnectedEventArgs) -> Windows.System.RemoteSystems.RemoteSystemSessionDisconnectedReason: ...
     Reason = property(get_Reason, None)
@@ -886,7 +886,7 @@ RemoteSystemSessionDisconnectedReason_RemovedByController: RemoteSystemSessionDi
 RemoteSystemSessionDisconnectedReason_SessionClosed: RemoteSystemSessionDisconnectedReason = 2
 class RemoteSystemSessionInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionInfo'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionInfo'
     @winrt_mixinmethod
     def get_DisplayName(self: Windows.System.RemoteSystems.IRemoteSystemSessionInfo) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -897,7 +897,7 @@ class RemoteSystemSessionInfo(ComPtr):
     ControllerDisplayName = property(get_ControllerDisplayName, None)
 class RemoteSystemSessionInvitation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionInvitation'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionInvitation'
     @winrt_mixinmethod
     def get_Sender(self: Windows.System.RemoteSystems.IRemoteSystemSessionInvitation) -> Windows.System.RemoteSystems.RemoteSystem: ...
     @winrt_mixinmethod
@@ -906,7 +906,7 @@ class RemoteSystemSessionInvitation(ComPtr):
     SessionInfo = property(get_SessionInfo, None)
 class RemoteSystemSessionInvitationListener(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionInvitationListener'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionInvitationListener'
     @winrt_activatemethod
     def New(cls) -> Windows.System.RemoteSystems.RemoteSystemSessionInvitationListener: ...
     @winrt_mixinmethod
@@ -915,13 +915,13 @@ class RemoteSystemSessionInvitationListener(ComPtr):
     def remove_InvitationReceived(self: Windows.System.RemoteSystems.IRemoteSystemSessionInvitationListener, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class RemoteSystemSessionInvitationReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionInvitationReceivedEventArgs'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionInvitationReceivedEventArgs'
     @winrt_mixinmethod
     def get_Invitation(self: Windows.System.RemoteSystems.IRemoteSystemSessionInvitationReceivedEventArgs) -> Windows.System.RemoteSystems.RemoteSystemSessionInvitation: ...
     Invitation = property(get_Invitation, None)
 class RemoteSystemSessionJoinRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionJoinRequest'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionJoinRequest'
     @winrt_mixinmethod
     def get_Participant(self: Windows.System.RemoteSystems.IRemoteSystemSessionJoinRequest) -> Windows.System.RemoteSystems.RemoteSystemSessionParticipant: ...
     @winrt_mixinmethod
@@ -929,7 +929,7 @@ class RemoteSystemSessionJoinRequest(ComPtr):
     Participant = property(get_Participant, None)
 class RemoteSystemSessionJoinRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionJoinRequestedEventArgs'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionJoinRequestedEventArgs'
     @winrt_mixinmethod
     def get_JoinRequest(self: Windows.System.RemoteSystems.IRemoteSystemSessionJoinRequestedEventArgs) -> Windows.System.RemoteSystems.RemoteSystemSessionJoinRequest: ...
     @winrt_mixinmethod
@@ -937,7 +937,7 @@ class RemoteSystemSessionJoinRequestedEventArgs(ComPtr):
     JoinRequest = property(get_JoinRequest, None)
 class RemoteSystemSessionJoinResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionJoinResult'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionJoinResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.System.RemoteSystems.IRemoteSystemSessionJoinResult) -> Windows.System.RemoteSystems.RemoteSystemSessionJoinStatus: ...
     @winrt_mixinmethod
@@ -952,7 +952,7 @@ RemoteSystemSessionJoinStatus_SessionUnavailable: RemoteSystemSessionJoinStatus 
 RemoteSystemSessionJoinStatus_RejectedByController: RemoteSystemSessionJoinStatus = 4
 class RemoteSystemSessionMessageChannel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel'
     @winrt_factorymethod
     def Create(cls: Windows.System.RemoteSystems.IRemoteSystemSessionMessageChannelFactory, session: Windows.System.RemoteSystems.RemoteSystemSession, channelName: WinRT_String) -> Windows.System.RemoteSystems.RemoteSystemSessionMessageChannel: ...
     @winrt_factorymethod
@@ -975,7 +975,7 @@ RemoteSystemSessionMessageChannelReliability_Reliable: RemoteSystemSessionMessag
 RemoteSystemSessionMessageChannelReliability_Unreliable: RemoteSystemSessionMessageChannelReliability = 1
 class RemoteSystemSessionOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionOptions'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.System.RemoteSystems.RemoteSystemSessionOptions: ...
     @winrt_mixinmethod
@@ -985,7 +985,7 @@ class RemoteSystemSessionOptions(ComPtr):
     IsInviteOnly = property(get_IsInviteOnly, put_IsInviteOnly)
 class RemoteSystemSessionParticipant(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionParticipant'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionParticipant'
     @winrt_mixinmethod
     def get_RemoteSystem(self: Windows.System.RemoteSystems.IRemoteSystemSessionParticipant) -> Windows.System.RemoteSystems.RemoteSystem: ...
     @winrt_mixinmethod
@@ -993,19 +993,19 @@ class RemoteSystemSessionParticipant(ComPtr):
     RemoteSystem = property(get_RemoteSystem, None)
 class RemoteSystemSessionParticipantAddedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionParticipantAddedEventArgs'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionParticipantAddedEventArgs'
     @winrt_mixinmethod
     def get_Participant(self: Windows.System.RemoteSystems.IRemoteSystemSessionParticipantAddedEventArgs) -> Windows.System.RemoteSystems.RemoteSystemSessionParticipant: ...
     Participant = property(get_Participant, None)
 class RemoteSystemSessionParticipantRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionParticipantRemovedEventArgs'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionParticipantRemovedEventArgs'
     @winrt_mixinmethod
     def get_Participant(self: Windows.System.RemoteSystems.IRemoteSystemSessionParticipantRemovedEventArgs) -> Windows.System.RemoteSystems.RemoteSystemSessionParticipant: ...
     Participant = property(get_Participant, None)
 class RemoteSystemSessionParticipantWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionParticipantWatcher'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionParticipantWatcher'
     @winrt_mixinmethod
     def Start(self: Windows.System.RemoteSystems.IRemoteSystemSessionParticipantWatcher) -> Void: ...
     @winrt_mixinmethod
@@ -1034,19 +1034,19 @@ RemoteSystemSessionParticipantWatcherStatus_Stopped: RemoteSystemSessionParticip
 RemoteSystemSessionParticipantWatcherStatus_Aborted: RemoteSystemSessionParticipantWatcherStatus = 5
 class RemoteSystemSessionRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionRemovedEventArgs'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionRemovedEventArgs'
     @winrt_mixinmethod
     def get_SessionInfo(self: Windows.System.RemoteSystems.IRemoteSystemSessionRemovedEventArgs) -> Windows.System.RemoteSystems.RemoteSystemSessionInfo: ...
     SessionInfo = property(get_SessionInfo, None)
 class RemoteSystemSessionUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionUpdatedEventArgs'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionUpdatedEventArgs'
     @winrt_mixinmethod
     def get_SessionInfo(self: Windows.System.RemoteSystems.IRemoteSystemSessionUpdatedEventArgs) -> Windows.System.RemoteSystems.RemoteSystemSessionInfo: ...
     SessionInfo = property(get_SessionInfo, None)
 class RemoteSystemSessionValueSetReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionValueSetReceivedEventArgs'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionValueSetReceivedEventArgs'
     @winrt_mixinmethod
     def get_Sender(self: Windows.System.RemoteSystems.IRemoteSystemSessionValueSetReceivedEventArgs) -> Windows.System.RemoteSystems.RemoteSystemSessionParticipant: ...
     @winrt_mixinmethod
@@ -1055,7 +1055,7 @@ class RemoteSystemSessionValueSetReceivedEventArgs(ComPtr):
     Message = property(get_Message, None)
 class RemoteSystemSessionWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemSessionWatcher'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemSessionWatcher'
     @winrt_mixinmethod
     def Start(self: Windows.System.RemoteSystems.IRemoteSystemSessionWatcher) -> Void: ...
     @winrt_mixinmethod
@@ -1092,7 +1092,7 @@ RemoteSystemStatusType_Any: RemoteSystemStatusType = 0
 RemoteSystemStatusType_Available: RemoteSystemStatusType = 1
 class RemoteSystemStatusTypeFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemStatusTypeFilter'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemStatusTypeFilter'
     @winrt_factorymethod
     def Create(cls: Windows.System.RemoteSystems.IRemoteSystemStatusTypeFilterFactory, remoteSystemStatusType: Windows.System.RemoteSystems.RemoteSystemStatusType) -> Windows.System.RemoteSystems.RemoteSystemStatusTypeFilter: ...
     @winrt_mixinmethod
@@ -1100,13 +1100,13 @@ class RemoteSystemStatusTypeFilter(ComPtr):
     RemoteSystemStatusType = property(get_RemoteSystemStatusType, None)
 class RemoteSystemUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemUpdatedEventArgs'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemUpdatedEventArgs'
     @winrt_mixinmethod
     def get_RemoteSystem(self: Windows.System.RemoteSystems.IRemoteSystemUpdatedEventArgs) -> Windows.System.RemoteSystems.RemoteSystem: ...
     RemoteSystem = property(get_RemoteSystem, None)
 class RemoteSystemWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemWatcher'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemWatcher'
     @winrt_mixinmethod
     def Start(self: Windows.System.RemoteSystems.IRemoteSystemWatcher) -> Void: ...
     @winrt_mixinmethod
@@ -1140,13 +1140,13 @@ RemoteSystemWatcherError_InternetNotAvailable: RemoteSystemWatcherError = 1
 RemoteSystemWatcherError_AuthenticationError: RemoteSystemWatcherError = 2
 class RemoteSystemWatcherErrorOccurredEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemWatcherErrorOccurredEventArgs'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemWatcherErrorOccurredEventArgs'
     @winrt_mixinmethod
     def get_Error(self: Windows.System.RemoteSystems.IRemoteSystemWatcherErrorOccurredEventArgs) -> Windows.System.RemoteSystems.RemoteSystemWatcherError: ...
     Error = property(get_Error, None)
 class RemoteSystemWebAccountFilter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteSystems.RemoteSystemWebAccountFilter'
+    _classid_ = 'Windows.System.RemoteSystems.RemoteSystemWebAccountFilter'
     @winrt_factorymethod
     def Create(cls: Windows.System.RemoteSystems.IRemoteSystemWebAccountFilterFactory, account: Windows.Security.Credentials.WebAccount) -> Windows.System.RemoteSystems.RemoteSystemWebAccountFilter: ...
     @winrt_mixinmethod

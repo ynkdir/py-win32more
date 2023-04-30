@@ -26,7 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class FileExtensionVector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Pickers.FileExtensionVector'
+    _classid_ = 'Windows.Storage.Pickers.FileExtensionVector'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVector[WinRT_String], index: UInt32) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -56,7 +56,7 @@ class FileExtensionVector(ComPtr):
     Size = property(get_Size, None)
 class FileOpenPicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Pickers.FileOpenPicker'
+    _classid_ = 'Windows.Storage.Pickers.FileOpenPicker'
     @winrt_activatemethod
     def New(cls) -> Windows.Storage.Pickers.FileOpenPicker: ...
     @winrt_mixinmethod
@@ -104,7 +104,7 @@ class FileOpenPicker(ComPtr):
     User = property(get_User, None)
 class FilePickerFileTypesOrderedMap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Pickers.FilePickerFileTypesOrderedMap'
+    _classid_ = 'Windows.Storage.Pickers.FilePickerFileTypesOrderedMap'
     @winrt_mixinmethod
     def Lookup(self: Windows.Foundation.Collections.IMap[WinRT_String, Windows.Foundation.Collections.IVector[WinRT_String]], key: WinRT_String) -> Windows.Foundation.Collections.IVector[WinRT_String]: ...
     @winrt_mixinmethod
@@ -124,7 +124,7 @@ class FilePickerFileTypesOrderedMap(ComPtr):
     Size = property(get_Size, None)
 class FilePickerSelectedFilesArray(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Pickers.FilePickerSelectedFilesArray'
+    _classid_ = 'Windows.Storage.Pickers.FilePickerSelectedFilesArray'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageFile], index: UInt32) -> Windows.Storage.StorageFile: ...
     @winrt_mixinmethod
@@ -138,7 +138,7 @@ class FilePickerSelectedFilesArray(ComPtr):
     Size = property(get_Size, None)
 class FileSavePicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Pickers.FileSavePicker'
+    _classid_ = 'Windows.Storage.Pickers.FileSavePicker'
     @winrt_activatemethod
     def New(cls) -> Windows.Storage.Pickers.FileSavePicker: ...
     @winrt_mixinmethod
@@ -193,7 +193,7 @@ class FileSavePicker(ComPtr):
     User = property(get_User, None)
 class FolderPicker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Pickers.FolderPicker'
+    _classid_ = 'Windows.Storage.Pickers.FolderPicker'
     @winrt_activatemethod
     def New(cls) -> Windows.Storage.Pickers.FolderPicker: ...
     @winrt_mixinmethod

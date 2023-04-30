@@ -61,7 +61,7 @@ class IVariablePhotoSequenceCapture2(ComPtr):
     def UpdateSettingsAsync(self) -> Windows.Foundation.IAsyncAction: ...
 class VariablePhotoCapturedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Core.VariablePhotoCapturedEventArgs'
+    _classid_ = 'Windows.Media.Capture.Core.VariablePhotoCapturedEventArgs'
     @winrt_mixinmethod
     def get_Frame(self: Windows.Media.Capture.Core.IVariablePhotoCapturedEventArgs) -> Windows.Media.Capture.CapturedFrame: ...
     @winrt_mixinmethod
@@ -76,7 +76,7 @@ class VariablePhotoCapturedEventArgs(ComPtr):
     CapturedFrameControlValues = property(get_CapturedFrameControlValues, None)
 class VariablePhotoSequenceCapture(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Core.VariablePhotoSequenceCapture'
+    _classid_ = 'Windows.Media.Capture.Core.VariablePhotoSequenceCapture'
     @winrt_mixinmethod
     def StartAsync(self: Windows.Media.Capture.Core.IVariablePhotoSequenceCapture) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod

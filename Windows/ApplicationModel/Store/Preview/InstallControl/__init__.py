@@ -26,7 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AppInstallItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem'
+    _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem'
     @winrt_mixinmethod
     def get_ProductId(self: Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallItem) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -99,7 +99,7 @@ class AppInstallItem(ComPtr):
     InstallInProgressToastNotificationMode = property(get_InstallInProgressToastNotificationMode, put_InstallInProgressToastNotificationMode)
 class AppInstallManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager'
+    _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManager: ...
     @winrt_mixinmethod
@@ -205,13 +205,13 @@ class AppInstallManager(ComPtr):
     CanInstallForAllUsers = property(get_CanInstallForAllUsers, None)
 class AppInstallManagerItemEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManagerItemEventArgs'
+    _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallManagerItemEventArgs'
     @winrt_mixinmethod
     def get_Item(self: Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallManagerItemEventArgs) -> Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallItem: ...
     Item = property(get_Item, None)
 class AppInstallOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallOptions'
+    _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallOptions: ...
     @winrt_mixinmethod
@@ -306,7 +306,7 @@ AppInstallState_PausedWiFiRequired: AppInstallState = 12
 AppInstallState_ReadyToDownload: AppInstallState = 13
 class AppInstallStatus(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallStatus'
+    _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallStatus'
     @winrt_mixinmethod
     def get_InstallState(self: Windows.ApplicationModel.Store.Preview.InstallControl.IAppInstallStatus) -> Windows.ApplicationModel.Store.Preview.InstallControl.AppInstallState: ...
     @winrt_mixinmethod
@@ -342,7 +342,7 @@ AppInstallationToastNotificationMode_ToastWithoutPopup: AppInstallationToastNoti
 AppInstallationToastNotificationMode_NoToast: AppInstallationToastNotificationMode = 3
 class AppUpdateOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppUpdateOptions'
+    _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.AppUpdateOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Store.Preview.InstallControl.AppUpdateOptions: ...
     @winrt_mixinmethod
@@ -367,7 +367,7 @@ AutoUpdateSetting_DisabledByPolicy: AutoUpdateSetting = 2
 AutoUpdateSetting_EnabledByPolicy: AutoUpdateSetting = 3
 class GetEntitlementResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Store.Preview.InstallControl.GetEntitlementResult'
+    _classid_ = 'Windows.ApplicationModel.Store.Preview.InstallControl.GetEntitlementResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.ApplicationModel.Store.Preview.InstallControl.IGetEntitlementResult) -> Windows.ApplicationModel.Store.Preview.InstallControl.GetEntitlementStatus: ...
     Status = property(get_Status, None)

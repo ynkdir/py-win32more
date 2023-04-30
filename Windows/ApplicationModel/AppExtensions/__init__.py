@@ -26,7 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AppExtension(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.AppExtensions.AppExtension'
+    _classid_ = 'Windows.ApplicationModel.AppExtensions.AppExtension'
     @winrt_mixinmethod
     def get_Id(self: Windows.ApplicationModel.AppExtensions.IAppExtension) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -51,7 +51,7 @@ class AppExtension(ComPtr):
     AppUserModelId = property(get_AppUserModelId, None)
 class AppExtensionCatalog(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.AppExtensions.AppExtensionCatalog'
+    _classid_ = 'Windows.ApplicationModel.AppExtensions.AppExtensionCatalog'
     @winrt_mixinmethod
     def FindAllAsync(self: Windows.ApplicationModel.AppExtensions.IAppExtensionCatalog) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.ApplicationModel.AppExtensions.AppExtension]]: ...
     @winrt_mixinmethod
@@ -80,7 +80,7 @@ class AppExtensionCatalog(ComPtr):
     def Open(cls: Windows.ApplicationModel.AppExtensions.IAppExtensionCatalogStatics, appExtensionName: WinRT_String) -> Windows.ApplicationModel.AppExtensions.AppExtensionCatalog: ...
 class AppExtensionPackageInstalledEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageInstalledEventArgs'
+    _classid_ = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageInstalledEventArgs'
     @winrt_mixinmethod
     def get_AppExtensionName(self: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageInstalledEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -92,7 +92,7 @@ class AppExtensionPackageInstalledEventArgs(ComPtr):
     Extensions = property(get_Extensions, None)
 class AppExtensionPackageStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageStatusChangedEventArgs'
+    _classid_ = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageStatusChangedEventArgs'
     @winrt_mixinmethod
     def get_AppExtensionName(self: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageStatusChangedEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -101,7 +101,7 @@ class AppExtensionPackageStatusChangedEventArgs(ComPtr):
     Package = property(get_Package, None)
 class AppExtensionPackageUninstallingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageUninstallingEventArgs'
+    _classid_ = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageUninstallingEventArgs'
     @winrt_mixinmethod
     def get_AppExtensionName(self: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageUninstallingEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -110,7 +110,7 @@ class AppExtensionPackageUninstallingEventArgs(ComPtr):
     Package = property(get_Package, None)
 class AppExtensionPackageUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageUpdatedEventArgs'
+    _classid_ = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageUpdatedEventArgs'
     @winrt_mixinmethod
     def get_AppExtensionName(self: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageUpdatedEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -122,7 +122,7 @@ class AppExtensionPackageUpdatedEventArgs(ComPtr):
     Extensions = property(get_Extensions, None)
 class AppExtensionPackageUpdatingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageUpdatingEventArgs'
+    _classid_ = 'Windows.ApplicationModel.AppExtensions.AppExtensionPackageUpdatingEventArgs'
     @winrt_mixinmethod
     def get_AppExtensionName(self: Windows.ApplicationModel.AppExtensions.IAppExtensionPackageUpdatingEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod

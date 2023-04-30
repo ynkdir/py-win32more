@@ -38,13 +38,13 @@ AnimationDirection_Right: AnimationDirection = 2
 AnimationDirection_Bottom: AnimationDirection = 3
 class AppBarButtonTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.AppBarButtonTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.AppBarButtonTemplateSettings'
     @winrt_mixinmethod
     def get_KeyboardAcceleratorTextMinWidth(self: Windows.UI.Xaml.Controls.Primitives.IAppBarButtonTemplateSettings) -> Double: ...
     KeyboardAcceleratorTextMinWidth = property(get_KeyboardAcceleratorTextMinWidth, None)
 class AppBarTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.AppBarTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.AppBarTemplateSettings'
     @winrt_mixinmethod
     def get_ClipRect(self: Windows.UI.Xaml.Controls.Primitives.IAppBarTemplateSettings) -> Windows.Foundation.Rect: ...
     @winrt_mixinmethod
@@ -77,7 +77,7 @@ class AppBarTemplateSettings(ComPtr):
     NegativeHiddenVerticalDelta = property(get_NegativeHiddenVerticalDelta, None)
 class AppBarToggleButtonTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.AppBarToggleButtonTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.AppBarToggleButtonTemplateSettings'
     @winrt_mixinmethod
     def get_KeyboardAcceleratorTextMinWidth(self: Windows.UI.Xaml.Controls.Primitives.IAppBarToggleButtonTemplateSettings) -> Double: ...
     KeyboardAcceleratorTextMinWidth = property(get_KeyboardAcceleratorTextMinWidth, None)
@@ -125,12 +125,12 @@ class ButtonBase(ComPtr):
     CommandParameterProperty = property(get_CommandParameterProperty, None)
 class CalendarPanel(ComPtr):
     extends: Windows.UI.Xaml.Controls.Panel
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.CalendarPanel'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.CalendarPanel'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Controls.Primitives.CalendarPanel: ...
 class CalendarViewTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.CalendarViewTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.CalendarViewTemplateSettings'
     @winrt_mixinmethod
     def get_MinViewWidth(self: Windows.UI.Xaml.Controls.Primitives.ICalendarViewTemplateSettings) -> Double: ...
     @winrt_mixinmethod
@@ -357,7 +357,7 @@ class ColorSpectrum(ComPtr):
     ComponentsProperty = property(get_ComponentsProperty, None)
 class ComboBoxTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.ComboBoxTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ComboBoxTemplateSettings'
     @winrt_mixinmethod
     def get_DropDownOpenedHeight(self: Windows.UI.Xaml.Controls.Primitives.IComboBoxTemplateSettings) -> Double: ...
     @winrt_mixinmethod
@@ -380,7 +380,7 @@ class CommandBarFlyoutCommandBar(ComPtr):
     FlyoutTemplateSettings = property(get_FlyoutTemplateSettings, None)
 class CommandBarFlyoutCommandBarTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.CommandBarFlyoutCommandBarTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.CommandBarFlyoutCommandBarTemplateSettings'
     @winrt_mixinmethod
     def get_OpenAnimationStartPosition(self: Windows.UI.Xaml.Controls.Primitives.ICommandBarFlyoutCommandBarTemplateSettings) -> Double: ...
     @winrt_mixinmethod
@@ -443,7 +443,7 @@ class CommandBarFlyoutCommandBarTemplateSettings(ComPtr):
     OverflowContentClipRect = property(get_OverflowContentClipRect, None)
 class CommandBarTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.CommandBarTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.CommandBarTemplateSettings'
     @winrt_mixinmethod
     def get_ContentHeight(self: Windows.UI.Xaml.Controls.Primitives.ICommandBarTemplateSettings) -> Double: ...
     @winrt_mixinmethod
@@ -497,7 +497,7 @@ class DragCompletedEventArgs(ComPtr):
 class DragCompletedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('36b28888-19ac-4b4e-91-37-a6-cf-2b-02-38-83')
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.DragCompletedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.DragCompletedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.Primitives.DragCompletedEventArgs) -> Void: ...
 class DragDeltaEventArgs(ComPtr):
@@ -511,7 +511,7 @@ class DragDeltaEventArgs(ComPtr):
 class DragDeltaEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('4ac24f9f-ac28-49e9-91-89-dc-cf-fe-b6-64-72')
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.DragDeltaEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.DragDeltaEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.Primitives.DragDeltaEventArgs) -> Void: ...
 class DragStartedEventArgs(ComPtr):
@@ -525,7 +525,7 @@ class DragStartedEventArgs(ComPtr):
 class DragStartedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('d2eea48a-c65a-495d-a2-f1-72-c6-69-89-14-2d')
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.DragStartedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.DragStartedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.Primitives.DragStartedEventArgs) -> Void: ...
 EdgeTransitionLocation = Int32
@@ -672,7 +672,7 @@ class FlyoutBase(ComPtr):
     AttachedFlyoutProperty = property(get_AttachedFlyoutProperty, None)
 class FlyoutBaseClosingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.FlyoutBaseClosingEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.FlyoutBaseClosingEventArgs'
     @winrt_mixinmethod
     def get_Cancel(self: Windows.UI.Xaml.Controls.Primitives.IFlyoutBaseClosingEventArgs) -> Boolean: ...
     @winrt_mixinmethod
@@ -728,7 +728,7 @@ class GeneratorPosition(EasyCastStructure):
     Offset: Int32
 class GeneratorPositionHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.GeneratorPositionHelper'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.GeneratorPositionHelper'
     @winrt_classmethod
     def FromIndexAndOffset(cls: Windows.UI.Xaml.Controls.Primitives.IGeneratorPositionHelperStatics, index: Int32, offset: Int32) -> Windows.UI.Xaml.Controls.Primitives.GeneratorPosition: ...
 class GridViewItemPresenter(ComPtr):
@@ -911,7 +911,7 @@ class GridViewItemPresenter(ComPtr):
     ContentMarginProperty = property(get_ContentMarginProperty, None)
 class GridViewItemTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.GridViewItemTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.GridViewItemTemplateSettings'
     @winrt_mixinmethod
     def get_DragItemsCount(self: Windows.UI.Xaml.Controls.Primitives.IGridViewItemTemplateSettings) -> Int32: ...
     DragItemsCount = property(get_DragItemsCount, None)
@@ -3207,7 +3207,7 @@ class IToolTipTemplateSettings(ComPtr):
     FromVerticalOffset = property(get_FromVerticalOffset, None)
 class ItemsChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.ItemsChangedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ItemsChangedEventArgs'
     @winrt_mixinmethod
     def get_Action(self: Windows.UI.Xaml.Controls.Primitives.IItemsChangedEventArgs) -> Int32: ...
     @winrt_mixinmethod
@@ -3226,12 +3226,12 @@ class ItemsChangedEventArgs(ComPtr):
 class ItemsChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('178257be-a304-482f-8b-f0-b9-d2-e3-96-12-a3')
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.ItemsChangedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ItemsChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.Primitives.ItemsChangedEventArgs) -> Void: ...
 class JumpListItemBackgroundConverter(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.JumpListItemBackgroundConverter'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.JumpListItemBackgroundConverter'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Controls.Primitives.JumpListItemBackgroundConverter: ...
     @winrt_mixinmethod
@@ -3256,7 +3256,7 @@ class JumpListItemBackgroundConverter(ComPtr):
     DisabledProperty = property(get_DisabledProperty, None)
 class JumpListItemForegroundConverter(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.JumpListItemForegroundConverter'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.JumpListItemForegroundConverter'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Controls.Primitives.JumpListItemForegroundConverter: ...
     @winrt_mixinmethod
@@ -3281,7 +3281,7 @@ class JumpListItemForegroundConverter(ComPtr):
     DisabledProperty = property(get_DisabledProperty, None)
 class LayoutInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.LayoutInformation'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.LayoutInformation'
     @winrt_classmethod
     def GetAvailableSize(cls: Windows.UI.Xaml.Controls.Primitives.ILayoutInformationStatics2, element: Windows.UI.Xaml.UIElement) -> Windows.Foundation.Size: ...
     @winrt_classmethod
@@ -3770,13 +3770,13 @@ ListViewItemPresenterSelectionIndicatorMode_Inline: ListViewItemPresenterSelecti
 ListViewItemPresenterSelectionIndicatorMode_Overlay: ListViewItemPresenterSelectionIndicatorMode = 1
 class ListViewItemTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.ListViewItemTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ListViewItemTemplateSettings'
     @winrt_mixinmethod
     def get_DragItemsCount(self: Windows.UI.Xaml.Controls.Primitives.IListViewItemTemplateSettings) -> Int32: ...
     DragItemsCount = property(get_DragItemsCount, None)
 class LoopingSelector(ComPtr):
     extends: Windows.UI.Xaml.Controls.Control
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.LoopingSelector'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.LoopingSelector'
     @winrt_mixinmethod
     def get_ShouldLoop(self: Windows.UI.Xaml.Controls.Primitives.ILoopingSelector) -> Boolean: ...
     @winrt_mixinmethod
@@ -3839,10 +3839,10 @@ class LoopingSelector(ComPtr):
     ItemTemplateProperty = property(get_ItemTemplateProperty, None)
 class LoopingSelectorItem(ComPtr):
     extends: Windows.UI.Xaml.Controls.ContentControl
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.LoopingSelectorItem'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.LoopingSelectorItem'
 class LoopingSelectorPanel(ComPtr):
     extends: Windows.UI.Xaml.Controls.Canvas
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.LoopingSelectorPanel'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.LoopingSelectorPanel'
     @winrt_mixinmethod
     def get_AreHorizontalSnapPointsRegular(self: Windows.UI.Xaml.Controls.Primitives.IScrollSnapPointsInfo) -> Boolean: ...
     @winrt_mixinmethod
@@ -3863,13 +3863,13 @@ class LoopingSelectorPanel(ComPtr):
     AreVerticalSnapPointsRegular = property(get_AreVerticalSnapPointsRegular, None)
 class MenuFlyoutItemTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.MenuFlyoutItemTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.MenuFlyoutItemTemplateSettings'
     @winrt_mixinmethod
     def get_KeyboardAcceleratorTextMinWidth(self: Windows.UI.Xaml.Controls.Primitives.IMenuFlyoutItemTemplateSettings) -> Double: ...
     KeyboardAcceleratorTextMinWidth = property(get_KeyboardAcceleratorTextMinWidth, None)
 class MenuFlyoutPresenterTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.MenuFlyoutPresenterTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.MenuFlyoutPresenterTemplateSettings'
     @winrt_mixinmethod
     def get_FlyoutContentMinWidth(self: Windows.UI.Xaml.Controls.Primitives.IMenuFlyoutPresenterTemplateSettings) -> Double: ...
     FlyoutContentMinWidth = property(get_FlyoutContentMinWidth, None)
@@ -3985,12 +3985,12 @@ class PivotHeaderItem(ComPtr):
     extends: Windows.UI.Xaml.Controls.ContentControl
 class PivotHeaderPanel(ComPtr):
     extends: Windows.UI.Xaml.Controls.Canvas
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.PivotHeaderPanel'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.PivotHeaderPanel'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Controls.Primitives.PivotHeaderPanel: ...
 class PivotPanel(ComPtr):
     extends: Windows.UI.Xaml.Controls.Panel
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.PivotPanel'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.PivotPanel'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Controls.Primitives.PivotPanel: ...
     @winrt_mixinmethod
@@ -4019,7 +4019,7 @@ PlacementMode_Right: PlacementMode = 4
 PlacementMode_Top: PlacementMode = 10
 class Popup(ComPtr):
     extends: Windows.UI.Xaml.FrameworkElement
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.Popup'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.Popup'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Controls.Primitives.Popup: ...
     @winrt_mixinmethod
@@ -4136,7 +4136,7 @@ PopupPlacementMode_RightEdgeAlignedTop: PopupPlacementMode = 11
 PopupPlacementMode_RightEdgeAlignedBottom: PopupPlacementMode = 12
 class ProgressBarTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.ProgressBarTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ProgressBarTemplateSettings'
     @winrt_mixinmethod
     def get_EllipseDiameter(self: Windows.UI.Xaml.Controls.Primitives.IProgressBarTemplateSettings) -> Double: ...
     @winrt_mixinmethod
@@ -4160,7 +4160,7 @@ class ProgressBarTemplateSettings(ComPtr):
     IndicatorLengthDelta = property(get_IndicatorLengthDelta, None)
 class ProgressRingTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.ProgressRingTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ProgressRingTemplateSettings'
     @winrt_mixinmethod
     def get_EllipseDiameter(self: Windows.UI.Xaml.Controls.Primitives.IProgressRingTemplateSettings) -> Double: ...
     @winrt_mixinmethod
@@ -4224,7 +4224,7 @@ class RangeBase(ComPtr):
     ValueProperty = property(get_ValueProperty, None)
 class RangeBaseValueChangedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs'
     @winrt_mixinmethod
     def get_OldValue(self: Windows.UI.Xaml.Controls.Primitives.IRangeBaseValueChangedEventArgs) -> Double: ...
     @winrt_mixinmethod
@@ -4234,12 +4234,12 @@ class RangeBaseValueChangedEventArgs(ComPtr):
 class RangeBaseValueChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('e3906fd9-4d1b-4ac8-a4-3c-c3-b9-08-74-27-99')
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs) -> Void: ...
 class RepeatButton(ComPtr):
     extends: Windows.UI.Xaml.Controls.Primitives.ButtonBase
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.RepeatButton'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.RepeatButton'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Controls.Primitives.RepeatButton: ...
     @winrt_mixinmethod
@@ -4260,7 +4260,7 @@ class RepeatButton(ComPtr):
     IntervalProperty = property(get_IntervalProperty, None)
 class ScrollBar(ComPtr):
     extends: Windows.UI.Xaml.Controls.Primitives.RangeBase
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.ScrollBar'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ScrollBar'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Controls.Primitives.ScrollBar: ...
     @winrt_mixinmethod
@@ -4293,7 +4293,7 @@ class ScrollBar(ComPtr):
     IndicatorModeProperty = property(get_IndicatorModeProperty, None)
 class ScrollEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.ScrollEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ScrollEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Controls.Primitives.ScrollEventArgs: ...
     @winrt_mixinmethod
@@ -4305,7 +4305,7 @@ class ScrollEventArgs(ComPtr):
 class ScrollEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('8860b0a4-a383-4c83-b3-06-a1-c3-9d-7d-b8-7f')
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.ScrollEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ScrollEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Controls.Primitives.ScrollEventArgs) -> Void: ...
 ScrollEventType = Int32
@@ -4382,7 +4382,7 @@ class SelectorItem(ComPtr):
     IsSelectedProperty = property(get_IsSelectedProperty, None)
 class SettingsFlyoutTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.SettingsFlyoutTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.SettingsFlyoutTemplateSettings'
     @winrt_mixinmethod
     def get_HeaderBackground(self: Windows.UI.Xaml.Controls.Primitives.ISettingsFlyoutTemplateSettings) -> Windows.UI.Xaml.Media.Brush: ...
     @winrt_mixinmethod
@@ -4410,7 +4410,7 @@ SnapPointsAlignment_Center: SnapPointsAlignment = 1
 SnapPointsAlignment_Far: SnapPointsAlignment = 2
 class SplitViewTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.SplitViewTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.SplitViewTemplateSettings'
     @winrt_mixinmethod
     def get_OpenPaneLength(self: Windows.UI.Xaml.Controls.Primitives.ISplitViewTemplateSettings) -> Double: ...
     @winrt_mixinmethod
@@ -4431,7 +4431,7 @@ class SplitViewTemplateSettings(ComPtr):
     CompactPaneGridLength = property(get_CompactPaneGridLength, None)
 class Thumb(ComPtr):
     extends: Windows.UI.Xaml.Controls.Control
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.Thumb'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.Thumb'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Controls.Primitives.Thumb: ...
     @winrt_mixinmethod
@@ -4456,7 +4456,7 @@ class Thumb(ComPtr):
     IsDraggingProperty = property(get_IsDraggingProperty, None)
 class TickBar(ComPtr):
     extends: Windows.UI.Xaml.FrameworkElement
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.TickBar'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.TickBar'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Controls.Primitives.TickBar: ...
     @winrt_mixinmethod
@@ -4507,7 +4507,7 @@ class ToggleButton(ComPtr):
     IsThreeStateProperty = property(get_IsThreeStateProperty, None)
 class ToggleSwitchTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.ToggleSwitchTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ToggleSwitchTemplateSettings'
     @winrt_mixinmethod
     def get_KnobCurrentToOnOffset(self: Windows.UI.Xaml.Controls.Primitives.IToggleSwitchTemplateSettings) -> Double: ...
     @winrt_mixinmethod
@@ -4534,7 +4534,7 @@ class ToggleSwitchTemplateSettings(ComPtr):
     CurtainOffToOnOffset = property(get_CurtainOffToOnOffset, None)
 class ToolTipTemplateSettings(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Controls.Primitives.ToolTipTemplateSettings'
+    _classid_ = 'Windows.UI.Xaml.Controls.Primitives.ToolTipTemplateSettings'
     @winrt_mixinmethod
     def get_FromHorizontalOffset(self: Windows.UI.Xaml.Controls.Primitives.IToolTipTemplateSettings) -> Double: ...
     @winrt_mixinmethod

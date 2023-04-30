@@ -28,7 +28,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class HttpCacheDirectiveHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection'
+    _classid_ = 'Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection'
     @winrt_mixinmethod
     def get_MaxAge(self: Windows.Web.Http.Headers.IHttpCacheDirectiveHeaderValueCollection) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_mixinmethod
@@ -84,7 +84,7 @@ class HttpCacheDirectiveHeaderValueCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpChallengeHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpChallengeHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpChallengeHeaderValue'
     @winrt_factorymethod
     def CreateFromScheme(cls: Windows.Web.Http.Headers.IHttpChallengeHeaderValueFactory, scheme: WinRT_String) -> Windows.Web.Http.Headers.HttpChallengeHeaderValue: ...
     @winrt_factorymethod
@@ -106,7 +106,7 @@ class HttpChallengeHeaderValue(ComPtr):
     Token = property(get_Token, None)
 class HttpChallengeHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpChallengeHeaderValueCollection'
+    _classid_ = 'Windows.Web.Http.Headers.HttpChallengeHeaderValueCollection'
     @winrt_mixinmethod
     def ParseAdd(self: Windows.Web.Http.Headers.IHttpChallengeHeaderValueCollection, input: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -142,7 +142,7 @@ class HttpChallengeHeaderValueCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpConnectionOptionHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue'
     @winrt_factorymethod
     def Create(cls: Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValueFactory, token: WinRT_String) -> Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue: ...
     @winrt_mixinmethod
@@ -156,7 +156,7 @@ class HttpConnectionOptionHeaderValue(ComPtr):
     Token = property(get_Token, None)
 class HttpConnectionOptionHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpConnectionOptionHeaderValueCollection'
+    _classid_ = 'Windows.Web.Http.Headers.HttpConnectionOptionHeaderValueCollection'
     @winrt_mixinmethod
     def ParseAdd(self: Windows.Web.Http.Headers.IHttpConnectionOptionHeaderValueCollection, input: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -192,7 +192,7 @@ class HttpConnectionOptionHeaderValueCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpContentCodingHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpContentCodingHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpContentCodingHeaderValue'
     @winrt_factorymethod
     def Create(cls: Windows.Web.Http.Headers.IHttpContentCodingHeaderValueFactory, contentCoding: WinRT_String) -> Windows.Web.Http.Headers.HttpContentCodingHeaderValue: ...
     @winrt_mixinmethod
@@ -206,7 +206,7 @@ class HttpContentCodingHeaderValue(ComPtr):
     ContentCoding = property(get_ContentCoding, None)
 class HttpContentCodingHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpContentCodingHeaderValueCollection'
+    _classid_ = 'Windows.Web.Http.Headers.HttpContentCodingHeaderValueCollection'
     @winrt_mixinmethod
     def ParseAdd(self: Windows.Web.Http.Headers.IHttpContentCodingHeaderValueCollection, input: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -242,7 +242,7 @@ class HttpContentCodingHeaderValueCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpContentCodingWithQualityHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue'
     @winrt_factorymethod
     def CreateFromValue(cls: Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValueFactory, contentCoding: WinRT_String) -> Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue: ...
     @winrt_factorymethod
@@ -261,7 +261,7 @@ class HttpContentCodingWithQualityHeaderValue(ComPtr):
     Quality = property(get_Quality, None)
 class HttpContentCodingWithQualityHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValueCollection'
+    _classid_ = 'Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValueCollection'
     @winrt_mixinmethod
     def ParseAdd(self: Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValueCollection, input: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -297,7 +297,7 @@ class HttpContentCodingWithQualityHeaderValueCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpContentDispositionHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpContentDispositionHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpContentDispositionHeaderValue'
     @winrt_factorymethod
     def Create(cls: Windows.Web.Http.Headers.IHttpContentDispositionHeaderValueFactory, dispositionType: WinRT_String) -> Windows.Web.Http.Headers.HttpContentDispositionHeaderValue: ...
     @winrt_mixinmethod
@@ -336,7 +336,7 @@ class HttpContentDispositionHeaderValue(ComPtr):
     Size = property(get_Size, put_Size)
 class HttpContentHeaderCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpContentHeaderCollection'
+    _classid_ = 'Windows.Web.Http.Headers.HttpContentHeaderCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.Web.Http.Headers.HttpContentHeaderCollection: ...
     @winrt_mixinmethod
@@ -410,7 +410,7 @@ class HttpContentHeaderCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpContentRangeHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpContentRangeHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpContentRangeHeaderValue'
     @winrt_factorymethod
     def CreateFromLength(cls: Windows.Web.Http.Headers.IHttpContentRangeHeaderValueFactory, length: UInt64) -> Windows.Web.Http.Headers.HttpContentRangeHeaderValue: ...
     @winrt_factorymethod
@@ -439,7 +439,7 @@ class HttpContentRangeHeaderValue(ComPtr):
     Unit = property(get_Unit, put_Unit)
 class HttpCookiePairHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpCookiePairHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpCookiePairHeaderValue'
     @winrt_factorymethod
     def CreateFromName(cls: Windows.Web.Http.Headers.IHttpCookiePairHeaderValueFactory, name: WinRT_String) -> Windows.Web.Http.Headers.HttpCookiePairHeaderValue: ...
     @winrt_factorymethod
@@ -460,7 +460,7 @@ class HttpCookiePairHeaderValue(ComPtr):
     Value = property(get_Value, put_Value)
 class HttpCookiePairHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpCookiePairHeaderValueCollection'
+    _classid_ = 'Windows.Web.Http.Headers.HttpCookiePairHeaderValueCollection'
     @winrt_mixinmethod
     def ParseAdd(self: Windows.Web.Http.Headers.IHttpCookiePairHeaderValueCollection, input: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -496,7 +496,7 @@ class HttpCookiePairHeaderValueCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpCredentialsHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpCredentialsHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpCredentialsHeaderValue'
     @winrt_factorymethod
     def CreateFromScheme(cls: Windows.Web.Http.Headers.IHttpCredentialsHeaderValueFactory, scheme: WinRT_String) -> Windows.Web.Http.Headers.HttpCredentialsHeaderValue: ...
     @winrt_factorymethod
@@ -518,7 +518,7 @@ class HttpCredentialsHeaderValue(ComPtr):
     Token = property(get_Token, None)
 class HttpDateOrDeltaHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpDateOrDeltaHeaderValue'
     @winrt_mixinmethod
     def get_Date(self: Windows.Web.Http.Headers.IHttpDateOrDeltaHeaderValue) -> Windows.Foundation.IReference[Windows.Foundation.DateTime]: ...
     @winrt_mixinmethod
@@ -533,7 +533,7 @@ class HttpDateOrDeltaHeaderValue(ComPtr):
     Delta = property(get_Delta, None)
 class HttpExpectationHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpExpectationHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpExpectationHeaderValue'
     @winrt_factorymethod
     def CreateFromName(cls: Windows.Web.Http.Headers.IHttpExpectationHeaderValueFactory, name: WinRT_String) -> Windows.Web.Http.Headers.HttpExpectationHeaderValue: ...
     @winrt_factorymethod
@@ -557,7 +557,7 @@ class HttpExpectationHeaderValue(ComPtr):
     Parameters = property(get_Parameters, None)
 class HttpExpectationHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpExpectationHeaderValueCollection'
+    _classid_ = 'Windows.Web.Http.Headers.HttpExpectationHeaderValueCollection'
     @winrt_mixinmethod
     def ParseAdd(self: Windows.Web.Http.Headers.IHttpExpectationHeaderValueCollection, input: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -593,7 +593,7 @@ class HttpExpectationHeaderValueCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpLanguageHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpLanguageHeaderValueCollection'
+    _classid_ = 'Windows.Web.Http.Headers.HttpLanguageHeaderValueCollection'
     @winrt_mixinmethod
     def ParseAdd(self: Windows.Web.Http.Headers.IHttpLanguageHeaderValueCollection, input: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -629,7 +629,7 @@ class HttpLanguageHeaderValueCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpLanguageRangeWithQualityHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue'
     @winrt_factorymethod
     def CreateFromLanguageRange(cls: Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValueFactory, languageRange: WinRT_String) -> Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue: ...
     @winrt_factorymethod
@@ -648,7 +648,7 @@ class HttpLanguageRangeWithQualityHeaderValue(ComPtr):
     Quality = property(get_Quality, None)
 class HttpLanguageRangeWithQualityHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValueCollection'
+    _classid_ = 'Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValueCollection'
     @winrt_mixinmethod
     def ParseAdd(self: Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValueCollection, input: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -684,7 +684,7 @@ class HttpLanguageRangeWithQualityHeaderValueCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpMediaTypeHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpMediaTypeHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpMediaTypeHeaderValue'
     @winrt_factorymethod
     def Create(cls: Windows.Web.Http.Headers.IHttpMediaTypeHeaderValueFactory, mediaType: WinRT_String) -> Windows.Web.Http.Headers.HttpMediaTypeHeaderValue: ...
     @winrt_mixinmethod
@@ -708,7 +708,7 @@ class HttpMediaTypeHeaderValue(ComPtr):
     Parameters = property(get_Parameters, None)
 class HttpMediaTypeWithQualityHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue'
     @winrt_factorymethod
     def CreateFromMediaType(cls: Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValueFactory, mediaType: WinRT_String) -> Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue: ...
     @winrt_factorymethod
@@ -739,7 +739,7 @@ class HttpMediaTypeWithQualityHeaderValue(ComPtr):
     Quality = property(get_Quality, put_Quality)
 class HttpMediaTypeWithQualityHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValueCollection'
+    _classid_ = 'Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValueCollection'
     @winrt_mixinmethod
     def ParseAdd(self: Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValueCollection, input: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -775,7 +775,7 @@ class HttpMediaTypeWithQualityHeaderValueCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpMethodHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpMethodHeaderValueCollection'
+    _classid_ = 'Windows.Web.Http.Headers.HttpMethodHeaderValueCollection'
     @winrt_mixinmethod
     def ParseAdd(self: Windows.Web.Http.Headers.IHttpMethodHeaderValueCollection, input: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -811,7 +811,7 @@ class HttpMethodHeaderValueCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpNameValueHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpNameValueHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpNameValueHeaderValue'
     @winrt_factorymethod
     def CreateFromName(cls: Windows.Web.Http.Headers.IHttpNameValueHeaderValueFactory, name: WinRT_String) -> Windows.Web.Http.Headers.HttpNameValueHeaderValue: ...
     @winrt_factorymethod
@@ -832,7 +832,7 @@ class HttpNameValueHeaderValue(ComPtr):
     Value = property(get_Value, put_Value)
 class HttpProductHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpProductHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpProductHeaderValue'
     @winrt_factorymethod
     def CreateFromName(cls: Windows.Web.Http.Headers.IHttpProductHeaderValueFactory, productName: WinRT_String) -> Windows.Web.Http.Headers.HttpProductHeaderValue: ...
     @winrt_factorymethod
@@ -851,7 +851,7 @@ class HttpProductHeaderValue(ComPtr):
     Version = property(get_Version, None)
 class HttpProductInfoHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpProductInfoHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpProductInfoHeaderValue'
     @winrt_factorymethod
     def CreateFromComment(cls: Windows.Web.Http.Headers.IHttpProductInfoHeaderValueFactory, productComment: WinRT_String) -> Windows.Web.Http.Headers.HttpProductInfoHeaderValue: ...
     @winrt_factorymethod
@@ -870,7 +870,7 @@ class HttpProductInfoHeaderValue(ComPtr):
     Comment = property(get_Comment, None)
 class HttpProductInfoHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpProductInfoHeaderValueCollection'
+    _classid_ = 'Windows.Web.Http.Headers.HttpProductInfoHeaderValueCollection'
     @winrt_mixinmethod
     def ParseAdd(self: Windows.Web.Http.Headers.IHttpProductInfoHeaderValueCollection, input: WinRT_String) -> Void: ...
     @winrt_mixinmethod
@@ -906,7 +906,7 @@ class HttpProductInfoHeaderValueCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpRequestHeaderCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpRequestHeaderCollection'
+    _classid_ = 'Windows.Web.Http.Headers.HttpRequestHeaderCollection'
     @winrt_mixinmethod
     def get_Accept(self: Windows.Web.Http.Headers.IHttpRequestHeaderCollection) -> Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValueCollection: ...
     @winrt_mixinmethod
@@ -1004,7 +1004,7 @@ class HttpRequestHeaderCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpResponseHeaderCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpResponseHeaderCollection'
+    _classid_ = 'Windows.Web.Http.Headers.HttpResponseHeaderCollection'
     @winrt_mixinmethod
     def get_Age(self: Windows.Web.Http.Headers.IHttpResponseHeaderCollection) -> Windows.Foundation.IReference[Windows.Foundation.TimeSpan]: ...
     @winrt_mixinmethod
@@ -1068,7 +1068,7 @@ class HttpResponseHeaderCollection(ComPtr):
     Size = property(get_Size, None)
 class HttpTransferCodingHeaderValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpTransferCodingHeaderValue'
+    _classid_ = 'Windows.Web.Http.Headers.HttpTransferCodingHeaderValue'
     @winrt_factorymethod
     def Create(cls: Windows.Web.Http.Headers.IHttpTransferCodingHeaderValueFactory, input: WinRT_String) -> Windows.Web.Http.Headers.HttpTransferCodingHeaderValue: ...
     @winrt_mixinmethod
@@ -1085,7 +1085,7 @@ class HttpTransferCodingHeaderValue(ComPtr):
     Value = property(get_Value, None)
 class HttpTransferCodingHeaderValueCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Web.Http.Headers.HttpTransferCodingHeaderValueCollection'
+    _classid_ = 'Windows.Web.Http.Headers.HttpTransferCodingHeaderValueCollection'
     @winrt_mixinmethod
     def ParseAdd(self: Windows.Web.Http.Headers.IHttpTransferCodingHeaderValueCollection, input: WinRT_String) -> Void: ...
     @winrt_mixinmethod

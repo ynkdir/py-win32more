@@ -29,7 +29,7 @@ AdaptiveNotificationContentKind = Int32
 AdaptiveNotificationContentKind_Text: AdaptiveNotificationContentKind = 0
 class AdaptiveNotificationText(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.AdaptiveNotificationText'
+    _classid_ = 'Windows.UI.Notifications.AdaptiveNotificationText'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Notifications.AdaptiveNotificationText: ...
     @winrt_mixinmethod
@@ -50,7 +50,7 @@ class AdaptiveNotificationText(ComPtr):
     Hints = property(get_Hints, None)
 class BadgeNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.BadgeNotification'
+    _classid_ = 'Windows.UI.Notifications.BadgeNotification'
     @winrt_factorymethod
     def CreateBadgeNotification(cls: Windows.UI.Notifications.IBadgeNotificationFactory, content: Windows.Data.Xml.Dom.XmlDocument) -> Windows.UI.Notifications.BadgeNotification: ...
     @winrt_mixinmethod
@@ -66,7 +66,7 @@ BadgeTemplateType_BadgeGlyph: BadgeTemplateType = 0
 BadgeTemplateType_BadgeNumber: BadgeTemplateType = 1
 class BadgeUpdateManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.BadgeUpdateManager'
+    _classid_ = 'Windows.UI.Notifications.BadgeUpdateManager'
     @winrt_classmethod
     def GetForUser(cls: Windows.UI.Notifications.IBadgeUpdateManagerStatics2, user: Windows.System.User) -> Windows.UI.Notifications.BadgeUpdateManagerForUser: ...
     @winrt_classmethod
@@ -79,7 +79,7 @@ class BadgeUpdateManager(ComPtr):
     def GetTemplateContent(cls: Windows.UI.Notifications.IBadgeUpdateManagerStatics, type: Windows.UI.Notifications.BadgeTemplateType) -> Windows.Data.Xml.Dom.XmlDocument: ...
 class BadgeUpdateManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.BadgeUpdateManagerForUser'
+    _classid_ = 'Windows.UI.Notifications.BadgeUpdateManagerForUser'
     @winrt_mixinmethod
     def CreateBadgeUpdaterForApplication(self: Windows.UI.Notifications.IBadgeUpdateManagerForUser) -> Windows.UI.Notifications.BadgeUpdater: ...
     @winrt_mixinmethod
@@ -91,7 +91,7 @@ class BadgeUpdateManagerForUser(ComPtr):
     User = property(get_User, None)
 class BadgeUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.BadgeUpdater'
+    _classid_ = 'Windows.UI.Notifications.BadgeUpdater'
     @winrt_mixinmethod
     def Update(self: Windows.UI.Notifications.IBadgeUpdater, notification: Windows.UI.Notifications.BadgeNotification) -> Void: ...
     @winrt_mixinmethod
@@ -884,7 +884,7 @@ class IUserNotificationChangedEventArgs(ComPtr):
     UserNotificationId = property(get_UserNotificationId, None)
 class KnownAdaptiveNotificationHints(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.KnownAdaptiveNotificationHints'
+    _classid_ = 'Windows.UI.Notifications.KnownAdaptiveNotificationHints'
     @winrt_classmethod
     def get_Style(cls: Windows.UI.Notifications.IKnownAdaptiveNotificationHintsStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -905,7 +905,7 @@ class KnownAdaptiveNotificationHints(ComPtr):
     Align = property(get_Align, None)
 class KnownAdaptiveNotificationTextStyles(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.KnownAdaptiveNotificationTextStyles'
+    _classid_ = 'Windows.UI.Notifications.KnownAdaptiveNotificationTextStyles'
     @winrt_classmethod
     def get_Caption(cls: Windows.UI.Notifications.IKnownAdaptiveNotificationTextStylesStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -965,13 +965,13 @@ class KnownAdaptiveNotificationTextStyles(ComPtr):
     HeaderNumeralSubtle = property(get_HeaderNumeralSubtle, None)
 class KnownNotificationBindings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.KnownNotificationBindings'
+    _classid_ = 'Windows.UI.Notifications.KnownNotificationBindings'
     @winrt_classmethod
     def get_ToastGeneric(cls: Windows.UI.Notifications.IKnownNotificationBindingsStatics) -> WinRT_String: ...
     ToastGeneric = property(get_ToastGeneric, None)
 class Notification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.Notification'
+    _classid_ = 'Windows.UI.Notifications.Notification'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Notifications.Notification: ...
     @winrt_mixinmethod
@@ -986,7 +986,7 @@ class Notification(ComPtr):
     Visual = property(get_Visual, put_Visual)
 class NotificationBinding(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.NotificationBinding'
+    _classid_ = 'Windows.UI.Notifications.NotificationBinding'
     @winrt_mixinmethod
     def get_Template(self: Windows.UI.Notifications.INotificationBinding) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1004,7 +1004,7 @@ class NotificationBinding(ComPtr):
     Hints = property(get_Hints, None)
 class NotificationData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.NotificationData'
+    _classid_ = 'Windows.UI.Notifications.NotificationData'
     @winrt_factorymethod
     def CreateNotificationData(cls: Windows.UI.Notifications.INotificationDataFactory, initialValues: Windows.Foundation.Collections.IIterable[Windows.Foundation.Collections.IKeyValuePair[WinRT_String, WinRT_String]], sequenceNumber: UInt32) -> Windows.UI.Notifications.NotificationData: ...
     @winrt_factorymethod
@@ -1037,7 +1037,7 @@ NotificationUpdateResult_Failed: NotificationUpdateResult = 1
 NotificationUpdateResult_NotificationNotFound: NotificationUpdateResult = 2
 class NotificationVisual(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.NotificationVisual'
+    _classid_ = 'Windows.UI.Notifications.NotificationVisual'
     @winrt_mixinmethod
     def get_Language(self: Windows.UI.Notifications.INotificationVisual) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1056,7 +1056,7 @@ PeriodicUpdateRecurrence_TwelveHours: PeriodicUpdateRecurrence = 3
 PeriodicUpdateRecurrence_Daily: PeriodicUpdateRecurrence = 4
 class ScheduledTileNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.ScheduledTileNotification'
+    _classid_ = 'Windows.UI.Notifications.ScheduledTileNotification'
     @winrt_factorymethod
     def CreateScheduledTileNotification(cls: Windows.UI.Notifications.IScheduledTileNotificationFactory, content: Windows.Data.Xml.Dom.XmlDocument, deliveryTime: Windows.Foundation.DateTime) -> Windows.UI.Notifications.ScheduledTileNotification: ...
     @winrt_mixinmethod
@@ -1082,7 +1082,7 @@ class ScheduledTileNotification(ComPtr):
     Id = property(get_Id, put_Id)
 class ScheduledToastNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.ScheduledToastNotification'
+    _classid_ = 'Windows.UI.Notifications.ScheduledToastNotification'
     @winrt_factorymethod
     def CreateScheduledToastNotification(cls: Windows.UI.Notifications.IScheduledToastNotificationFactory, content: Windows.Data.Xml.Dom.XmlDocument, deliveryTime: Windows.Foundation.DateTime) -> Windows.UI.Notifications.ScheduledToastNotification: ...
     @winrt_factorymethod
@@ -1136,7 +1136,7 @@ class ScheduledToastNotification(ComPtr):
     ExpirationTime = property(get_ExpirationTime, put_ExpirationTime)
 class ScheduledToastNotificationShowingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.ScheduledToastNotificationShowingEventArgs'
+    _classid_ = 'Windows.UI.Notifications.ScheduledToastNotificationShowingEventArgs'
     @winrt_mixinmethod
     def get_Cancel(self: Windows.UI.Notifications.IScheduledToastNotificationShowingEventArgs) -> Boolean: ...
     @winrt_mixinmethod
@@ -1149,13 +1149,13 @@ class ScheduledToastNotificationShowingEventArgs(ComPtr):
     ScheduledToastNotification = property(get_ScheduledToastNotification, None)
 class ShownTileNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.ShownTileNotification'
+    _classid_ = 'Windows.UI.Notifications.ShownTileNotification'
     @winrt_mixinmethod
     def get_Arguments(self: Windows.UI.Notifications.IShownTileNotification) -> WinRT_String: ...
     Arguments = property(get_Arguments, None)
 class TileFlyoutNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.TileFlyoutNotification'
+    _classid_ = 'Windows.UI.Notifications.TileFlyoutNotification'
     @winrt_factorymethod
     def CreateTileFlyoutNotification(cls: Windows.UI.Notifications.ITileFlyoutNotificationFactory, content: Windows.Data.Xml.Dom.XmlDocument) -> Windows.UI.Notifications.TileFlyoutNotification: ...
     @winrt_mixinmethod
@@ -1170,7 +1170,7 @@ TileFlyoutTemplateType = Int32
 TileFlyoutTemplateType_TileFlyoutTemplate01: TileFlyoutTemplateType = 0
 class TileFlyoutUpdateManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.TileFlyoutUpdateManager'
+    _classid_ = 'Windows.UI.Notifications.TileFlyoutUpdateManager'
     @winrt_classmethod
     def CreateTileFlyoutUpdaterForApplication(cls: Windows.UI.Notifications.ITileFlyoutUpdateManagerStatics) -> Windows.UI.Notifications.TileFlyoutUpdater: ...
     @winrt_classmethod
@@ -1181,7 +1181,7 @@ class TileFlyoutUpdateManager(ComPtr):
     def GetTemplateContent(cls: Windows.UI.Notifications.ITileFlyoutUpdateManagerStatics, type: Windows.UI.Notifications.TileFlyoutTemplateType) -> Windows.Data.Xml.Dom.XmlDocument: ...
 class TileFlyoutUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.TileFlyoutUpdater'
+    _classid_ = 'Windows.UI.Notifications.TileFlyoutUpdater'
     @winrt_mixinmethod
     def Update(self: Windows.UI.Notifications.ITileFlyoutUpdater, notification: Windows.UI.Notifications.TileFlyoutNotification) -> Void: ...
     @winrt_mixinmethod
@@ -1197,7 +1197,7 @@ class TileFlyoutUpdater(ComPtr):
     Setting = property(get_Setting, None)
 class TileNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.TileNotification'
+    _classid_ = 'Windows.UI.Notifications.TileNotification'
     @winrt_factorymethod
     def CreateTileNotification(cls: Windows.UI.Notifications.ITileNotificationFactory, content: Windows.Data.Xml.Dom.XmlDocument) -> Windows.UI.Notifications.TileNotification: ...
     @winrt_mixinmethod
@@ -1342,7 +1342,7 @@ TileTemplateType_TileSquare71x71Image: TileTemplateType = 78
 TileTemplateType_TileTall150x310Image: TileTemplateType = 79
 class TileUpdateManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.TileUpdateManager'
+    _classid_ = 'Windows.UI.Notifications.TileUpdateManager'
     @winrt_classmethod
     def GetForUser(cls: Windows.UI.Notifications.ITileUpdateManagerStatics2, user: Windows.System.User) -> Windows.UI.Notifications.TileUpdateManagerForUser: ...
     @winrt_classmethod
@@ -1355,7 +1355,7 @@ class TileUpdateManager(ComPtr):
     def GetTemplateContent(cls: Windows.UI.Notifications.ITileUpdateManagerStatics, type: Windows.UI.Notifications.TileTemplateType) -> Windows.Data.Xml.Dom.XmlDocument: ...
 class TileUpdateManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.TileUpdateManagerForUser'
+    _classid_ = 'Windows.UI.Notifications.TileUpdateManagerForUser'
     @winrt_mixinmethod
     def CreateTileUpdaterForApplication(self: Windows.UI.Notifications.ITileUpdateManagerForUser) -> Windows.UI.Notifications.TileUpdater: ...
     @winrt_mixinmethod
@@ -1367,7 +1367,7 @@ class TileUpdateManagerForUser(ComPtr):
     User = property(get_User, None)
 class TileUpdater(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.TileUpdater'
+    _classid_ = 'Windows.UI.Notifications.TileUpdater'
     @winrt_mixinmethod
     def Update(self: Windows.UI.Notifications.ITileUpdater, notification: Windows.UI.Notifications.TileNotification) -> Void: ...
     @winrt_mixinmethod
@@ -1401,7 +1401,7 @@ class TileUpdater(ComPtr):
     Setting = property(get_Setting, None)
 class ToastActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.ToastActivatedEventArgs'
+    _classid_ = 'Windows.UI.Notifications.ToastActivatedEventArgs'
     @winrt_mixinmethod
     def get_Arguments(self: Windows.UI.Notifications.IToastActivatedEventArgs) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1410,7 +1410,7 @@ class ToastActivatedEventArgs(ComPtr):
     UserInput = property(get_UserInput, None)
 class ToastCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.ToastCollection'
+    _classid_ = 'Windows.UI.Notifications.ToastCollection'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.UI.Notifications.IToastCollectionFactory, collectionId: WinRT_String, displayName: WinRT_String, launchArgs: WinRT_String, iconUri: Windows.Foundation.Uri) -> Windows.UI.Notifications.ToastCollection: ...
     @winrt_mixinmethod
@@ -1433,7 +1433,7 @@ class ToastCollection(ComPtr):
     Icon = property(get_Icon, put_Icon)
 class ToastCollectionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.ToastCollectionManager'
+    _classid_ = 'Windows.UI.Notifications.ToastCollectionManager'
     @winrt_mixinmethod
     def SaveToastCollectionAsync(self: Windows.UI.Notifications.IToastCollectionManager, collection: Windows.UI.Notifications.ToastCollection) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -1456,13 +1456,13 @@ ToastDismissalReason_ApplicationHidden: ToastDismissalReason = 1
 ToastDismissalReason_TimedOut: ToastDismissalReason = 2
 class ToastDismissedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.ToastDismissedEventArgs'
+    _classid_ = 'Windows.UI.Notifications.ToastDismissedEventArgs'
     @winrt_mixinmethod
     def get_Reason(self: Windows.UI.Notifications.IToastDismissedEventArgs) -> Windows.UI.Notifications.ToastDismissalReason: ...
     Reason = property(get_Reason, None)
 class ToastFailedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.ToastFailedEventArgs'
+    _classid_ = 'Windows.UI.Notifications.ToastFailedEventArgs'
     @winrt_mixinmethod
     def get_ErrorCode(self: Windows.UI.Notifications.IToastFailedEventArgs) -> Windows.Foundation.HResult: ...
     ErrorCode = property(get_ErrorCode, None)
@@ -1473,7 +1473,7 @@ ToastHistoryChangedType_Expired: ToastHistoryChangedType = 2
 ToastHistoryChangedType_Added: ToastHistoryChangedType = 3
 class ToastNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.ToastNotification'
+    _classid_ = 'Windows.UI.Notifications.ToastNotification'
     @winrt_factorymethod
     def CreateToastNotification(cls: Windows.UI.Notifications.IToastNotificationFactory, content: Windows.Data.Xml.Dom.XmlDocument) -> Windows.UI.Notifications.ToastNotification: ...
     @winrt_mixinmethod
@@ -1538,7 +1538,7 @@ class ToastNotification(ComPtr):
     ExpiresOnReboot = property(get_ExpiresOnReboot, put_ExpiresOnReboot)
 class ToastNotificationActionTriggerDetail(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.ToastNotificationActionTriggerDetail'
+    _classid_ = 'Windows.UI.Notifications.ToastNotificationActionTriggerDetail'
     @winrt_mixinmethod
     def get_Argument(self: Windows.UI.Notifications.IToastNotificationActionTriggerDetail) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1547,7 +1547,7 @@ class ToastNotificationActionTriggerDetail(ComPtr):
     UserInput = property(get_UserInput, None)
 class ToastNotificationHistory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.ToastNotificationHistory'
+    _classid_ = 'Windows.UI.Notifications.ToastNotificationHistory'
     @winrt_mixinmethod
     def GetHistory(self: Windows.UI.Notifications.IToastNotificationHistory2) -> Windows.Foundation.Collections.IVectorView[Windows.UI.Notifications.ToastNotification]: ...
     @winrt_mixinmethod
@@ -1568,7 +1568,7 @@ class ToastNotificationHistory(ComPtr):
     def ClearWithId(self: Windows.UI.Notifications.IToastNotificationHistory, applicationId: WinRT_String) -> Void: ...
 class ToastNotificationHistoryChangedTriggerDetail(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.ToastNotificationHistoryChangedTriggerDetail'
+    _classid_ = 'Windows.UI.Notifications.ToastNotificationHistoryChangedTriggerDetail'
     @winrt_mixinmethod
     def get_ChangeType(self: Windows.UI.Notifications.IToastNotificationHistoryChangedTriggerDetail) -> Windows.UI.Notifications.ToastHistoryChangedType: ...
     @winrt_mixinmethod
@@ -1577,7 +1577,7 @@ class ToastNotificationHistoryChangedTriggerDetail(ComPtr):
     CollectionId = property(get_CollectionId, None)
 class ToastNotificationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.ToastNotificationManager'
+    _classid_ = 'Windows.UI.Notifications.ToastNotificationManager'
     @winrt_classmethod
     def GetDefault(cls: Windows.UI.Notifications.IToastNotificationManagerStatics5) -> Windows.UI.Notifications.ToastNotificationManagerForUser: ...
     @winrt_classmethod
@@ -1595,7 +1595,7 @@ class ToastNotificationManager(ComPtr):
     History = property(get_History, None)
 class ToastNotificationManagerForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.ToastNotificationManagerForUser'
+    _classid_ = 'Windows.UI.Notifications.ToastNotificationManagerForUser'
     @winrt_mixinmethod
     def CreateToastNotifier(self: Windows.UI.Notifications.IToastNotificationManagerForUser) -> Windows.UI.Notifications.ToastNotifier: ...
     @winrt_mixinmethod
@@ -1630,7 +1630,7 @@ ToastNotificationPriority_Default: ToastNotificationPriority = 0
 ToastNotificationPriority_High: ToastNotificationPriority = 1
 class ToastNotifier(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.ToastNotifier'
+    _classid_ = 'Windows.UI.Notifications.ToastNotifier'
     @winrt_mixinmethod
     def Show(self: Windows.UI.Notifications.IToastNotifier, notification: Windows.UI.Notifications.ToastNotification) -> Void: ...
     @winrt_mixinmethod
@@ -1663,7 +1663,7 @@ ToastTemplateType_ToastText03: ToastTemplateType = 6
 ToastTemplateType_ToastText04: ToastTemplateType = 7
 class UserNotification(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.UserNotification'
+    _classid_ = 'Windows.UI.Notifications.UserNotification'
     @winrt_mixinmethod
     def get_Notification(self: Windows.UI.Notifications.IUserNotification) -> Windows.UI.Notifications.Notification: ...
     @winrt_mixinmethod
@@ -1678,7 +1678,7 @@ class UserNotification(ComPtr):
     CreationTime = property(get_CreationTime, None)
 class UserNotificationChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Notifications.UserNotificationChangedEventArgs'
+    _classid_ = 'Windows.UI.Notifications.UserNotificationChangedEventArgs'
     @winrt_mixinmethod
     def get_ChangeKind(self: Windows.UI.Notifications.IUserNotificationChangedEventArgs) -> Windows.UI.Notifications.UserNotificationChangedKind: ...
     @winrt_mixinmethod

@@ -28,7 +28,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ArcadeStick(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Gaming.Input.ArcadeStick'
+    _classid_ = 'Windows.Gaming.Input.ArcadeStick'
     @winrt_mixinmethod
     def GetButtonLabel(self: Windows.Gaming.Input.IArcadeStick, button: Windows.Gaming.Input.ArcadeStickButtons) -> Windows.Gaming.Input.GameControllerButtonLabel: ...
     @winrt_mixinmethod
@@ -88,7 +88,7 @@ class ArcadeStickReading(EasyCastStructure):
     Buttons: Windows.Gaming.Input.ArcadeStickButtons
 class FlightStick(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Gaming.Input.FlightStick'
+    _classid_ = 'Windows.Gaming.Input.FlightStick'
     @winrt_mixinmethod
     def get_HatSwitchKind(self: Windows.Gaming.Input.IFlightStick) -> Windows.Gaming.Input.GameControllerSwitchKind: ...
     @winrt_mixinmethod
@@ -230,7 +230,7 @@ GameControllerSwitchPosition_Left: GameControllerSwitchPosition = 7
 GameControllerSwitchPosition_UpLeft: GameControllerSwitchPosition = 8
 class Gamepad(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Gaming.Input.Gamepad'
+    _classid_ = 'Windows.Gaming.Input.Gamepad'
     @winrt_mixinmethod
     def get_Vibration(self: Windows.Gaming.Input.IGamepad) -> Windows.Gaming.Input.GamepadVibration: ...
     @winrt_mixinmethod
@@ -312,7 +312,7 @@ class GamepadVibration(EasyCastStructure):
     RightTrigger: Double
 class Headset(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Gaming.Input.Headset'
+    _classid_ = 'Windows.Gaming.Input.Headset'
     @winrt_mixinmethod
     def get_CaptureDeviceId(self: Windows.Gaming.Input.IHeadset) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -588,7 +588,7 @@ OptionalUINavigationButtons_ScrollLeft: OptionalUINavigationButtons = 1024
 OptionalUINavigationButtons_ScrollRight: OptionalUINavigationButtons = 2048
 class RacingWheel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Gaming.Input.RacingWheel'
+    _classid_ = 'Windows.Gaming.Input.RacingWheel'
     @winrt_mixinmethod
     def get_HasClutch(self: Windows.Gaming.Input.IRacingWheel) -> Boolean: ...
     @winrt_mixinmethod
@@ -682,7 +682,7 @@ class RacingWheelReading(EasyCastStructure):
     Handbrake: Double
 class RawGameController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Gaming.Input.RawGameController'
+    _classid_ = 'Windows.Gaming.Input.RawGameController'
     @winrt_mixinmethod
     def get_AxisCount(self: Windows.Gaming.Input.IRawGameController) -> Int32: ...
     @winrt_mixinmethod
@@ -764,7 +764,7 @@ RequiredUINavigationButtons_Left: RequiredUINavigationButtons = 64
 RequiredUINavigationButtons_Right: RequiredUINavigationButtons = 128
 class UINavigationController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Gaming.Input.UINavigationController'
+    _classid_ = 'Windows.Gaming.Input.UINavigationController'
     @winrt_mixinmethod
     def GetCurrentReading(self: Windows.Gaming.Input.IUINavigationController) -> Windows.Gaming.Input.UINavigationReading: ...
     @winrt_mixinmethod

@@ -241,7 +241,7 @@ class ITargetedContentValue(ComPtr):
     Actions = property(get_Actions, None)
 class TargetedContentAction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.TargetedContent.TargetedContentAction'
+    _classid_ = 'Windows.Services.TargetedContent.TargetedContentAction'
     @winrt_mixinmethod
     def InvokeAsync(self: Windows.Services.TargetedContent.ITargetedContentAction) -> Windows.Foundation.IAsyncAction: ...
 TargetedContentAppInstallationState = Int32
@@ -254,12 +254,12 @@ TargetedContentAvailability_Partial: TargetedContentAvailability = 1
 TargetedContentAvailability_All: TargetedContentAvailability = 2
 class TargetedContentAvailabilityChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.TargetedContent.TargetedContentAvailabilityChangedEventArgs'
+    _classid_ = 'Windows.Services.TargetedContent.TargetedContentAvailabilityChangedEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.Services.TargetedContent.ITargetedContentAvailabilityChangedEventArgs) -> Windows.Foundation.Deferral: ...
 class TargetedContentChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.TargetedContent.TargetedContentChangedEventArgs'
+    _classid_ = 'Windows.Services.TargetedContent.TargetedContentChangedEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.Services.TargetedContent.ITargetedContentChangedEventArgs) -> Windows.Foundation.Deferral: ...
     @winrt_mixinmethod
@@ -267,7 +267,7 @@ class TargetedContentChangedEventArgs(ComPtr):
     HasPreviousContentExpired = property(get_HasPreviousContentExpired, None)
 class TargetedContentCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.TargetedContent.TargetedContentCollection'
+    _classid_ = 'Windows.Services.TargetedContent.TargetedContentCollection'
     @winrt_mixinmethod
     def get_Id(self: Windows.Services.TargetedContent.ITargetedContentCollection) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -289,7 +289,7 @@ class TargetedContentCollection(ComPtr):
     Items = property(get_Items, None)
 class TargetedContentContainer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.TargetedContent.TargetedContentContainer'
+    _classid_ = 'Windows.Services.TargetedContent.TargetedContentContainer'
     @winrt_mixinmethod
     def get_Id(self: Windows.Services.TargetedContent.ITargetedContentContainer) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -309,12 +309,12 @@ class TargetedContentContainer(ComPtr):
 TargetedContentContract: UInt32 = 65536
 class TargetedContentFile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.TargetedContent.TargetedContentFile'
+    _classid_ = 'Windows.Services.TargetedContent.TargetedContentFile'
     @winrt_mixinmethod
     def OpenReadAsync(self: Windows.Storage.Streams.IRandomAccessStreamReference) -> Windows.Foundation.IAsyncOperation[Windows.Storage.Streams.IRandomAccessStreamWithContentType]: ...
 class TargetedContentImage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.TargetedContent.TargetedContentImage'
+    _classid_ = 'Windows.Services.TargetedContent.TargetedContentImage'
     @winrt_mixinmethod
     def get_Height(self: Windows.Services.TargetedContent.ITargetedContentImage) -> UInt32: ...
     @winrt_mixinmethod
@@ -339,7 +339,7 @@ TargetedContentInteraction_Conversion: TargetedContentInteraction = 11
 TargetedContentInteraction_Opportunity: TargetedContentInteraction = 12
 class TargetedContentItem(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.TargetedContent.TargetedContentItem'
+    _classid_ = 'Windows.Services.TargetedContent.TargetedContentItem'
     @winrt_mixinmethod
     def get_Path(self: Windows.Services.TargetedContent.ITargetedContentItem) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -358,7 +358,7 @@ class TargetedContentItem(ComPtr):
     Collections = property(get_Collections, None)
 class TargetedContentItemState(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.TargetedContent.TargetedContentItemState'
+    _classid_ = 'Windows.Services.TargetedContent.TargetedContentItemState'
     @winrt_mixinmethod
     def get_ShouldDisplay(self: Windows.Services.TargetedContent.ITargetedContentItemState) -> Boolean: ...
     @winrt_mixinmethod
@@ -367,7 +367,7 @@ class TargetedContentItemState(ComPtr):
     AppInstallationState = property(get_AppInstallationState, None)
 class TargetedContentObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.TargetedContent.TargetedContentObject'
+    _classid_ = 'Windows.Services.TargetedContent.TargetedContentObject'
     @winrt_mixinmethod
     def get_ObjectKind(self: Windows.Services.TargetedContent.ITargetedContentObject) -> Windows.Services.TargetedContent.TargetedContentObjectKind: ...
     @winrt_mixinmethod
@@ -386,12 +386,12 @@ TargetedContentObjectKind_Item: TargetedContentObjectKind = 1
 TargetedContentObjectKind_Value: TargetedContentObjectKind = 2
 class TargetedContentStateChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.TargetedContent.TargetedContentStateChangedEventArgs'
+    _classid_ = 'Windows.Services.TargetedContent.TargetedContentStateChangedEventArgs'
     @winrt_mixinmethod
     def GetDeferral(self: Windows.Services.TargetedContent.ITargetedContentStateChangedEventArgs) -> Windows.Foundation.Deferral: ...
 class TargetedContentSubscription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.TargetedContent.TargetedContentSubscription'
+    _classid_ = 'Windows.Services.TargetedContent.TargetedContentSubscription'
     @winrt_mixinmethod
     def get_Id(self: Windows.Services.TargetedContent.ITargetedContentSubscription) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -415,7 +415,7 @@ class TargetedContentSubscription(ComPtr):
     Id = property(get_Id, None)
 class TargetedContentSubscriptionOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.TargetedContent.TargetedContentSubscriptionOptions'
+    _classid_ = 'Windows.Services.TargetedContent.TargetedContentSubscriptionOptions'
     @winrt_mixinmethod
     def get_SubscriptionId(self: Windows.Services.TargetedContent.ITargetedContentSubscriptionOptions) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -434,7 +434,7 @@ class TargetedContentSubscriptionOptions(ComPtr):
     LocalFilters = property(get_LocalFilters, None)
 class TargetedContentValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.TargetedContent.TargetedContentValue'
+    _classid_ = 'Windows.Services.TargetedContent.TargetedContentValue'
     @winrt_mixinmethod
     def get_ValueKind(self: Windows.Services.TargetedContent.ITargetedContentValue) -> Windows.Services.TargetedContent.TargetedContentValueKind: ...
     @winrt_mixinmethod

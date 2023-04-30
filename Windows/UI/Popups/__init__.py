@@ -103,7 +103,7 @@ class IUICommandFactory(ComPtr):
     def CreateWithHandlerAndId(self, label: WinRT_String, action: Windows.UI.Popups.UICommandInvokedHandler, commandId: Windows.Win32.System.WinRT.IInspectable_head) -> Windows.UI.Popups.UICommand: ...
 class MessageDialog(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Popups.MessageDialog'
+    _classid_ = 'Windows.UI.Popups.MessageDialog'
     @winrt_factorymethod
     def Create(cls: Windows.UI.Popups.IMessageDialogFactory, content: WinRT_String) -> Windows.UI.Popups.MessageDialog: ...
     @winrt_factorymethod
@@ -149,7 +149,7 @@ Placement_Left: Placement = 3
 Placement_Right: Placement = 4
 class PopupMenu(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Popups.PopupMenu'
+    _classid_ = 'Windows.UI.Popups.PopupMenu'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Popups.PopupMenu: ...
     @winrt_mixinmethod
@@ -163,7 +163,7 @@ class PopupMenu(ComPtr):
     Commands = property(get_Commands, None)
 class UICommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Popups.UICommand'
+    _classid_ = 'Windows.UI.Popups.UICommand'
     @winrt_factorymethod
     def Create(cls: Windows.UI.Popups.IUICommandFactory, label: WinRT_String) -> Windows.UI.Popups.UICommand: ...
     @winrt_factorymethod
@@ -190,12 +190,12 @@ class UICommand(ComPtr):
 class UICommandInvokedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('daf77a4f-c27a-4298-9a-c6-29-22-c4-5e-7d-a6')
-    ClassId = 'Windows.UI.Popups.UICommandInvokedHandler'
+    _classid_ = 'Windows.UI.Popups.UICommandInvokedHandler'
     @winrt_commethod(3)
     def Invoke(self, command: Windows.UI.Popups.IUICommand) -> Void: ...
 class UICommandSeparator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Popups.UICommandSeparator'
+    _classid_ = 'Windows.UI.Popups.UICommandSeparator'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Popups.UICommandSeparator: ...
     @winrt_mixinmethod

@@ -86,7 +86,7 @@ class IPaymentTransactionStatics(ComPtr):
     def FromIdAsync(self, id: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Payments.Provider.PaymentTransaction]: ...
 class PaymentAppCanMakePaymentTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Payments.Provider.PaymentAppCanMakePaymentTriggerDetails'
+    _classid_ = 'Windows.ApplicationModel.Payments.Provider.PaymentAppCanMakePaymentTriggerDetails'
     @winrt_mixinmethod
     def get_Request(self: Windows.ApplicationModel.Payments.Provider.IPaymentAppCanMakePaymentTriggerDetails) -> Windows.ApplicationModel.Payments.PaymentRequest: ...
     @winrt_mixinmethod
@@ -94,7 +94,7 @@ class PaymentAppCanMakePaymentTriggerDetails(ComPtr):
     Request = property(get_Request, None)
 class PaymentAppManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Payments.Provider.PaymentAppManager'
+    _classid_ = 'Windows.ApplicationModel.Payments.Provider.PaymentAppManager'
     @winrt_mixinmethod
     def RegisterAsync(self: Windows.ApplicationModel.Payments.Provider.IPaymentAppManager, supportedPaymentMethodIds: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -104,7 +104,7 @@ class PaymentAppManager(ComPtr):
     Current = property(get_Current, None)
 class PaymentTransaction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Payments.Provider.PaymentTransaction'
+    _classid_ = 'Windows.ApplicationModel.Payments.Provider.PaymentTransaction'
     @winrt_mixinmethod
     def get_PaymentRequest(self: Windows.ApplicationModel.Payments.Provider.IPaymentTransaction) -> Windows.ApplicationModel.Payments.PaymentRequest: ...
     @winrt_mixinmethod
@@ -135,7 +135,7 @@ class PaymentTransaction(ComPtr):
     PayerPhoneNumber = property(get_PayerPhoneNumber, put_PayerPhoneNumber)
 class PaymentTransactionAcceptResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Payments.Provider.PaymentTransactionAcceptResult'
+    _classid_ = 'Windows.ApplicationModel.Payments.Provider.PaymentTransactionAcceptResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.ApplicationModel.Payments.Provider.IPaymentTransactionAcceptResult) -> Windows.ApplicationModel.Payments.PaymentRequestCompletionStatus: ...
     Status = property(get_Status, None)

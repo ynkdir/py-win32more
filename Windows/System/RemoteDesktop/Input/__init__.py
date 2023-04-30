@@ -42,7 +42,7 @@ class IRemoteTextConnectionFactory(ComPtr):
     def CreateInstance(self, connectionId: Guid, pduForwarder: Windows.System.RemoteDesktop.Input.RemoteTextConnectionDataHandler) -> Windows.System.RemoteDesktop.Input.RemoteTextConnection: ...
 class RemoteTextConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.RemoteDesktop.Input.RemoteTextConnection'
+    _classid_ = 'Windows.System.RemoteDesktop.Input.RemoteTextConnection'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.System.RemoteDesktop.Input.IRemoteTextConnectionFactory, connectionId: Guid, pduForwarder: Windows.System.RemoteDesktop.Input.RemoteTextConnectionDataHandler) -> Windows.System.RemoteDesktop.Input.RemoteTextConnection: ...
     @winrt_mixinmethod
@@ -61,7 +61,7 @@ class RemoteTextConnection(ComPtr):
 class RemoteTextConnectionDataHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('099ffbc8-8bcb-41b5-b0-56-57-e7-70-21-bf-1b')
-    ClassId = 'Windows.System.RemoteDesktop.Input.RemoteTextConnectionDataHandler'
+    _classid_ = 'Windows.System.RemoteDesktop.Input.RemoteTextConnectionDataHandler'
     @winrt_commethod(3)
     def Invoke(self, pduData: c_char_p_no) -> Boolean: ...
 make_head(_module, 'IRemoteTextConnection')

@@ -25,7 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CurrentApp(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Store.CurrentApp'
+    _classid_ = 'Windows.ApplicationModel.Store.CurrentApp'
     @winrt_classmethod
     def GetCustomerPurchaseIdAsync(cls: Windows.ApplicationModel.Store.ICurrentApp2Statics, serviceTicket: WinRT_String, publisherUserId: WinRT_String) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_classmethod
@@ -67,7 +67,7 @@ class CurrentApp(ComPtr):
     AppId = property(get_AppId, None)
 class CurrentAppSimulator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Store.CurrentAppSimulator'
+    _classid_ = 'Windows.ApplicationModel.Store.CurrentAppSimulator'
     @winrt_classmethod
     def GetAppPurchaseCampaignIdAsync(cls: Windows.ApplicationModel.Store.ICurrentAppSimulatorWithCampaignId) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_classmethod
@@ -387,12 +387,12 @@ class IUnfulfilledConsumable(ComPtr):
 class LicenseChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('d4a50255-1369-4c36-83-2f-6f-2d-88-e3-65-9b')
-    ClassId = 'Windows.ApplicationModel.Store.LicenseChangedEventHandler'
+    _classid_ = 'Windows.ApplicationModel.Store.LicenseChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class LicenseInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Store.LicenseInformation'
+    _classid_ = 'Windows.ApplicationModel.Store.LicenseInformation'
     @winrt_mixinmethod
     def get_ProductLicenses(self: Windows.ApplicationModel.Store.ILicenseInformation) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.ApplicationModel.Store.ProductLicense]: ...
     @winrt_mixinmethod
@@ -411,7 +411,7 @@ class LicenseInformation(ComPtr):
     ExpirationDate = property(get_ExpirationDate, None)
 class ListingInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Store.ListingInformation'
+    _classid_ = 'Windows.ApplicationModel.Store.ListingInformation'
     @winrt_mixinmethod
     def get_CurrentMarket(self: Windows.ApplicationModel.Store.IListingInformation) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -444,7 +444,7 @@ class ListingInformation(ComPtr):
     CurrencyCode = property(get_CurrencyCode, None)
 class ProductLicense(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Store.ProductLicense'
+    _classid_ = 'Windows.ApplicationModel.Store.ProductLicense'
     @winrt_mixinmethod
     def get_ProductId(self: Windows.ApplicationModel.Store.IProductLicense) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -459,7 +459,7 @@ class ProductLicense(ComPtr):
     IsConsumable = property(get_IsConsumable, None)
 class ProductListing(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Store.ProductListing'
+    _classid_ = 'Windows.ApplicationModel.Store.ProductListing'
     @winrt_mixinmethod
     def get_ProductId(self: Windows.ApplicationModel.Store.IProductListing) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -498,7 +498,7 @@ class ProductListing(ComPtr):
     CurrencyCode = property(get_CurrencyCode, None)
 class ProductPurchaseDisplayProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Store.ProductPurchaseDisplayProperties'
+    _classid_ = 'Windows.ApplicationModel.Store.ProductPurchaseDisplayProperties'
     @winrt_factorymethod
     def CreateProductPurchaseDisplayProperties(cls: Windows.ApplicationModel.Store.IProductPurchaseDisplayPropertiesFactory, name: WinRT_String) -> Windows.ApplicationModel.Store.ProductPurchaseDisplayProperties: ...
     @winrt_activatemethod
@@ -529,7 +529,7 @@ ProductType_Durable: ProductType = 1
 ProductType_Consumable: ProductType = 2
 class PurchaseResults(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Store.PurchaseResults'
+    _classid_ = 'Windows.ApplicationModel.Store.PurchaseResults'
     @winrt_mixinmethod
     def get_Status(self: Windows.ApplicationModel.Store.IPurchaseResults) -> Windows.ApplicationModel.Store.ProductPurchaseStatus: ...
     @winrt_mixinmethod
@@ -544,7 +544,7 @@ class PurchaseResults(ComPtr):
     OfferId = property(get_OfferId, None)
 class UnfulfilledConsumable(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Store.UnfulfilledConsumable'
+    _classid_ = 'Windows.ApplicationModel.Store.UnfulfilledConsumable'
     @winrt_mixinmethod
     def get_ProductId(self: Windows.ApplicationModel.Store.IUnfulfilledConsumable) -> WinRT_String: ...
     @winrt_mixinmethod

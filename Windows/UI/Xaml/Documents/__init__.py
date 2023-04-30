@@ -71,7 +71,7 @@ class Block(ComPtr):
     MarginProperty = property(get_MarginProperty, None)
 class BlockCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Documents.BlockCollection'
+    _classid_ = 'Windows.UI.Xaml.Documents.BlockCollection'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVector[Windows.UI.Xaml.Documents.Block], index: UInt32) -> Windows.UI.Xaml.Documents.Block: ...
     @winrt_mixinmethod
@@ -101,17 +101,17 @@ class BlockCollection(ComPtr):
     Size = property(get_Size, None)
 class Bold(ComPtr):
     extends: Windows.UI.Xaml.Documents.Span
-    ClassId = 'Windows.UI.Xaml.Documents.Bold'
+    _classid_ = 'Windows.UI.Xaml.Documents.Bold'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Documents.Bold: ...
 class ContactContentLinkProvider(ComPtr):
     extends: Windows.UI.Xaml.Documents.ContentLinkProvider
-    ClassId = 'Windows.UI.Xaml.Documents.ContactContentLinkProvider'
+    _classid_ = 'Windows.UI.Xaml.Documents.ContactContentLinkProvider'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Documents.ContactContentLinkProvider: ...
 class ContentLink(ComPtr):
     extends: Windows.UI.Xaml.Documents.Inline
-    ClassId = 'Windows.UI.Xaml.Documents.ContentLink'
+    _classid_ = 'Windows.UI.Xaml.Documents.ContentLink'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Documents.ContentLink: ...
     @winrt_mixinmethod
@@ -245,7 +245,7 @@ class ContentLink(ComPtr):
     TabIndexProperty = property(get_TabIndexProperty, None)
 class ContentLinkInvokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Documents.ContentLinkInvokedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Documents.ContentLinkInvokedEventArgs'
     @winrt_mixinmethod
     def get_ContentLinkInfo(self: Windows.UI.Xaml.Documents.IContentLinkInvokedEventArgs) -> Windows.UI.Text.ContentLinkInfo: ...
     @winrt_mixinmethod
@@ -258,7 +258,7 @@ class ContentLinkProvider(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
 class ContentLinkProviderCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Documents.ContentLinkProviderCollection'
+    _classid_ = 'Windows.UI.Xaml.Documents.ContentLinkProviderCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Documents.ContentLinkProviderCollection: ...
     @winrt_mixinmethod
@@ -290,7 +290,7 @@ class ContentLinkProviderCollection(ComPtr):
     Size = property(get_Size, None)
 class Glyphs(ComPtr):
     extends: Windows.UI.Xaml.FrameworkElement
-    ClassId = 'Windows.UI.Xaml.Documents.Glyphs'
+    _classid_ = 'Windows.UI.Xaml.Documents.Glyphs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Documents.Glyphs: ...
     @winrt_mixinmethod
@@ -375,7 +375,7 @@ class Glyphs(ComPtr):
     FillProperty = property(get_FillProperty, None)
 class Hyperlink(ComPtr):
     extends: Windows.UI.Xaml.Documents.Span
-    ClassId = 'Windows.UI.Xaml.Documents.Hyperlink'
+    _classid_ = 'Windows.UI.Xaml.Documents.Hyperlink'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Documents.Hyperlink: ...
     @winrt_mixinmethod
@@ -504,7 +504,7 @@ class Hyperlink(ComPtr):
     NavigateUriProperty = property(get_NavigateUriProperty, None)
 class HyperlinkClickEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Documents.HyperlinkClickEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Documents.HyperlinkClickEventArgs'
 class IBlock(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('4bce0016-dd47-4350-8c-b0-e1-71-60-0a-c8-96')
@@ -1630,7 +1630,7 @@ class Inline(ComPtr):
     extends: Windows.UI.Xaml.Documents.TextElement
 class InlineCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Documents.InlineCollection'
+    _classid_ = 'Windows.UI.Xaml.Documents.InlineCollection'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVector[Windows.UI.Xaml.Documents.Inline], index: UInt32) -> Windows.UI.Xaml.Documents.Inline: ...
     @winrt_mixinmethod
@@ -1660,7 +1660,7 @@ class InlineCollection(ComPtr):
     Size = property(get_Size, None)
 class InlineUIContainer(ComPtr):
     extends: Windows.UI.Xaml.Documents.Inline
-    ClassId = 'Windows.UI.Xaml.Documents.InlineUIContainer'
+    _classid_ = 'Windows.UI.Xaml.Documents.InlineUIContainer'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Documents.InlineUIContainer: ...
     @winrt_mixinmethod
@@ -1670,12 +1670,12 @@ class InlineUIContainer(ComPtr):
     Child = property(get_Child, put_Child)
 class Italic(ComPtr):
     extends: Windows.UI.Xaml.Documents.Span
-    ClassId = 'Windows.UI.Xaml.Documents.Italic'
+    _classid_ = 'Windows.UI.Xaml.Documents.Italic'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Documents.Italic: ...
 class LineBreak(ComPtr):
     extends: Windows.UI.Xaml.Documents.Inline
-    ClassId = 'Windows.UI.Xaml.Documents.LineBreak'
+    _classid_ = 'Windows.UI.Xaml.Documents.LineBreak'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Documents.LineBreak: ...
 LogicalDirection = Int32
@@ -1683,7 +1683,7 @@ LogicalDirection_Backward: LogicalDirection = 0
 LogicalDirection_Forward: LogicalDirection = 1
 class Paragraph(ComPtr):
     extends: Windows.UI.Xaml.Documents.Block
-    ClassId = 'Windows.UI.Xaml.Documents.Paragraph'
+    _classid_ = 'Windows.UI.Xaml.Documents.Paragraph'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Documents.Paragraph: ...
     @winrt_mixinmethod
@@ -1699,12 +1699,12 @@ class Paragraph(ComPtr):
     TextIndentProperty = property(get_TextIndentProperty, None)
 class PlaceContentLinkProvider(ComPtr):
     extends: Windows.UI.Xaml.Documents.ContentLinkProvider
-    ClassId = 'Windows.UI.Xaml.Documents.PlaceContentLinkProvider'
+    _classid_ = 'Windows.UI.Xaml.Documents.PlaceContentLinkProvider'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Documents.PlaceContentLinkProvider: ...
 class Run(ComPtr):
     extends: Windows.UI.Xaml.Documents.Inline
-    ClassId = 'Windows.UI.Xaml.Documents.Run'
+    _classid_ = 'Windows.UI.Xaml.Documents.Run'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Documents.Run: ...
     @winrt_mixinmethod
@@ -1934,7 +1934,7 @@ class TextHighlighterBase(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
 class TextPointer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Documents.TextPointer'
+    _classid_ = 'Windows.UI.Xaml.Documents.TextPointer'
     @winrt_mixinmethod
     def get_Parent(self: Windows.UI.Xaml.Documents.ITextPointer) -> Windows.UI.Xaml.DependencyObject: ...
     @winrt_mixinmethod
@@ -1956,7 +1956,7 @@ class TextRange(EasyCastStructure):
     Length: Int32
 class Typography(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Documents.Typography'
+    _classid_ = 'Windows.UI.Xaml.Documents.Typography'
     @winrt_classmethod
     def get_AnnotationAlternatesProperty(cls: Windows.UI.Xaml.Documents.ITypographyStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_classmethod
@@ -2260,7 +2260,7 @@ class Typography(ComPtr):
     VariantsProperty = property(get_VariantsProperty, None)
 class Underline(ComPtr):
     extends: Windows.UI.Xaml.Documents.Span
-    ClassId = 'Windows.UI.Xaml.Documents.Underline'
+    _classid_ = 'Windows.UI.Xaml.Documents.Underline'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Documents.Underline: ...
 UnderlineStyle = Int32

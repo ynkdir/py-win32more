@@ -29,7 +29,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AppDataPaths(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.AppDataPaths'
+    _classid_ = 'Windows.Storage.AppDataPaths'
     @winrt_mixinmethod
     def get_Cookies(self: Windows.Storage.IAppDataPaths) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -63,7 +63,7 @@ class AppDataPaths(ComPtr):
     RoamingAppData = property(get_RoamingAppData, None)
 class ApplicationData(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.ApplicationData'
+    _classid_ = 'Windows.Storage.ApplicationData'
     @winrt_mixinmethod
     def get_Version(self: Windows.Storage.IApplicationData) -> UInt32: ...
     @winrt_mixinmethod
@@ -116,7 +116,7 @@ class ApplicationData(ComPtr):
     Current = property(get_Current, None)
 class ApplicationDataCompositeValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.ApplicationDataCompositeValue'
+    _classid_ = 'Windows.Storage.ApplicationDataCompositeValue'
     @winrt_activatemethod
     def New(cls) -> Windows.Storage.ApplicationDataCompositeValue: ...
     @winrt_mixinmethod
@@ -142,7 +142,7 @@ class ApplicationDataCompositeValue(ComPtr):
     Size = property(get_Size, None)
 class ApplicationDataContainer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.ApplicationDataContainer'
+    _classid_ = 'Windows.Storage.ApplicationDataContainer'
     @winrt_mixinmethod
     def get_Name(self: Windows.Storage.IApplicationDataContainer) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -163,7 +163,7 @@ class ApplicationDataContainer(ComPtr):
     Containers = property(get_Containers, None)
 class ApplicationDataContainerSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.ApplicationDataContainerSettings'
+    _classid_ = 'Windows.Storage.ApplicationDataContainerSettings'
     @winrt_mixinmethod
     def add_MapChanged(self: Windows.Foundation.Collections.IObservableMap[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head], vhnd: Windows.Foundation.Collections.MapChangedEventHandler[WinRT_String, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -197,12 +197,12 @@ ApplicationDataLocality_SharedLocal: ApplicationDataLocality = 4
 class ApplicationDataSetVersionHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('a05791e6-cc9f-4687-ac-ab-a3-64-fd-78-54-63')
-    ClassId = 'Windows.Storage.ApplicationDataSetVersionHandler'
+    _classid_ = 'Windows.Storage.ApplicationDataSetVersionHandler'
     @winrt_commethod(3)
     def Invoke(self, setVersionRequest: Windows.Storage.SetVersionRequest) -> Void: ...
 class CachedFileManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.CachedFileManager'
+    _classid_ = 'Windows.Storage.CachedFileManager'
     @winrt_classmethod
     def DeferUpdates(cls: Windows.Storage.ICachedFileManagerStatics, file: Windows.Storage.IStorageFile) -> Void: ...
     @winrt_classmethod
@@ -214,7 +214,7 @@ CreationCollisionOption_FailIfExists: CreationCollisionOption = 2
 CreationCollisionOption_OpenIfExists: CreationCollisionOption = 3
 class DownloadsFolder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.DownloadsFolder'
+    _classid_ = 'Windows.Storage.DownloadsFolder'
     @winrt_classmethod
     def CreateFileForUserAsync(cls: Windows.Storage.IDownloadsFolderStatics2, user: Windows.System.User, desiredName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFile]: ...
     @winrt_classmethod
@@ -243,7 +243,7 @@ FileAttributes_Temporary: FileAttributes = 256
 FileAttributes_LocallyIncomplete: FileAttributes = 512
 class FileIO(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.FileIO'
+    _classid_ = 'Windows.Storage.FileIO'
     @winrt_classmethod
     def ReadTextAsync(cls: Windows.Storage.IFileIOStatics, file: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_classmethod
@@ -1166,7 +1166,7 @@ KnownFolderId_CurrentAppMods: KnownFolderId = 15
 KnownFolderId_DownloadsFolder: KnownFolderId = 16
 class KnownFolders(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.KnownFolders'
+    _classid_ = 'Windows.Storage.KnownFolders'
     @winrt_classmethod
     def RequestAccessAsync(cls: Windows.Storage.IKnownFoldersStatics4, folderId: Windows.Storage.KnownFolderId) -> Windows.Foundation.IAsyncOperation[Windows.Storage.KnownFoldersAccessStatus]: ...
     @winrt_classmethod
@@ -1232,7 +1232,7 @@ NameCollisionOption_ReplaceExisting: NameCollisionOption = 1
 NameCollisionOption_FailIfExists: NameCollisionOption = 2
 class PathIO(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.PathIO'
+    _classid_ = 'Windows.Storage.PathIO'
     @winrt_classmethod
     def ReadTextAsync(cls: Windows.Storage.IPathIOStatics, absolutePath: WinRT_String) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
     @winrt_classmethod
@@ -1265,12 +1265,12 @@ class PathIO(ComPtr):
     def WriteBytesAsync(cls: Windows.Storage.IPathIOStatics, absolutePath: WinRT_String, buffer: c_char_p_no) -> Windows.Foundation.IAsyncAction: ...
 class SetVersionDeferral(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.SetVersionDeferral'
+    _classid_ = 'Windows.Storage.SetVersionDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.Storage.ISetVersionDeferral) -> Void: ...
 class SetVersionRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.SetVersionRequest'
+    _classid_ = 'Windows.Storage.SetVersionRequest'
     @winrt_mixinmethod
     def get_CurrentVersion(self: Windows.Storage.ISetVersionRequest) -> UInt32: ...
     @winrt_mixinmethod
@@ -1284,7 +1284,7 @@ StorageDeleteOption_Default: StorageDeleteOption = 0
 StorageDeleteOption_PermanentDelete: StorageDeleteOption = 1
 class StorageFile(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.StorageFile'
+    _classid_ = 'Windows.Storage.StorageFile'
     @winrt_mixinmethod
     def get_FileType(self: Windows.Storage.IStorageFile) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1393,7 +1393,7 @@ class StorageFile(ComPtr):
     IsAvailable = property(get_IsAvailable, None)
 class StorageFolder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.StorageFolder'
+    _classid_ = 'Windows.Storage.StorageFolder'
     @winrt_mixinmethod
     def CreateFileAsyncOverloadDefaultOptions(self: Windows.Storage.IStorageFolder, desiredName: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFile]: ...
     @winrt_mixinmethod
@@ -1517,7 +1517,7 @@ StorageItemTypes_File: StorageItemTypes = 1
 StorageItemTypes_Folder: StorageItemTypes = 2
 class StorageLibrary(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.StorageLibrary'
+    _classid_ = 'Windows.Storage.StorageLibrary'
     @winrt_mixinmethod
     def RequestAddFolderAsync(self: Windows.Storage.IStorageLibrary) -> Windows.Foundation.IAsyncOperation[Windows.Storage.StorageFolder]: ...
     @winrt_mixinmethod
@@ -1543,7 +1543,7 @@ class StorageLibrary(ComPtr):
     ChangeTracker = property(get_ChangeTracker, None)
 class StorageLibraryChange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.StorageLibraryChange'
+    _classid_ = 'Windows.Storage.StorageLibraryChange'
     @winrt_mixinmethod
     def get_ChangeType(self: Windows.Storage.IStorageLibraryChange) -> Windows.Storage.StorageLibraryChangeType: ...
     @winrt_mixinmethod
@@ -1559,7 +1559,7 @@ class StorageLibraryChange(ComPtr):
     PreviousPath = property(get_PreviousPath, None)
 class StorageLibraryChangeReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.StorageLibraryChangeReader'
+    _classid_ = 'Windows.Storage.StorageLibraryChangeReader'
     @winrt_mixinmethod
     def ReadBatchAsync(self: Windows.Storage.IStorageLibraryChangeReader) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageLibraryChange]]: ...
     @winrt_mixinmethod
@@ -1568,7 +1568,7 @@ class StorageLibraryChangeReader(ComPtr):
     def GetLastChangeId(self: Windows.Storage.IStorageLibraryChangeReader2) -> UInt64: ...
 class StorageLibraryChangeTracker(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.StorageLibraryChangeTracker'
+    _classid_ = 'Windows.Storage.StorageLibraryChangeTracker'
     @winrt_mixinmethod
     def GetChangeReader(self: Windows.Storage.IStorageLibraryChangeTracker) -> Windows.Storage.StorageLibraryChangeReader: ...
     @winrt_mixinmethod
@@ -1581,7 +1581,7 @@ class StorageLibraryChangeTracker(ComPtr):
     def Disable(self: Windows.Storage.IStorageLibraryChangeTracker2) -> Void: ...
 class StorageLibraryChangeTrackerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.StorageLibraryChangeTrackerOptions'
+    _classid_ = 'Windows.Storage.StorageLibraryChangeTrackerOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Storage.StorageLibraryChangeTrackerOptions: ...
     @winrt_mixinmethod
@@ -1602,7 +1602,7 @@ StorageLibraryChangeType_EncryptionChanged: StorageLibraryChangeType = 8
 StorageLibraryChangeType_ChangeTrackingLost: StorageLibraryChangeType = 9
 class StorageLibraryLastChangeId(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.StorageLibraryLastChangeId'
+    _classid_ = 'Windows.Storage.StorageLibraryLastChangeId'
     @winrt_classmethod
     def get_Unknown(cls: Windows.Storage.IStorageLibraryLastChangeIdStatics) -> UInt64: ...
     Unknown = property(get_Unknown, None)
@@ -1612,7 +1612,7 @@ StorageOpenOptions_AllowOnlyReaders: StorageOpenOptions = 1
 StorageOpenOptions_AllowReadersAndWriters: StorageOpenOptions = 2
 class StorageProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.StorageProvider'
+    _classid_ = 'Windows.Storage.StorageProvider'
     @winrt_mixinmethod
     def get_Id(self: Windows.Storage.IStorageProvider) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1623,7 +1623,7 @@ class StorageProvider(ComPtr):
     DisplayName = property(get_DisplayName, None)
 class StorageStreamTransaction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.StorageStreamTransaction'
+    _classid_ = 'Windows.Storage.StorageStreamTransaction'
     @winrt_mixinmethod
     def get_Stream(self: Windows.Storage.IStorageStreamTransaction) -> Windows.Storage.Streams.IRandomAccessStream: ...
     @winrt_mixinmethod
@@ -1633,7 +1633,7 @@ class StorageStreamTransaction(ComPtr):
     Stream = property(get_Stream, None)
 class StreamedFileDataRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.StreamedFileDataRequest'
+    _classid_ = 'Windows.Storage.StreamedFileDataRequest'
     @winrt_mixinmethod
     def WriteAsync(self: Windows.Storage.Streams.IOutputStream, buffer: Windows.Storage.Streams.IBuffer) -> Windows.Foundation.IAsyncOperationWithProgress[UInt32, UInt32]: ...
     @winrt_mixinmethod
@@ -1645,7 +1645,7 @@ class StreamedFileDataRequest(ComPtr):
 class StreamedFileDataRequestedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('fef6a824-2fe1-4d07-a3-5b-b7-7c-50-b5-f4-cc')
-    ClassId = 'Windows.Storage.StreamedFileDataRequestedHandler'
+    _classid_ = 'Windows.Storage.StreamedFileDataRequestedHandler'
     @winrt_commethod(3)
     def Invoke(self, stream: Windows.Storage.StreamedFileDataRequest) -> Void: ...
 StreamedFileFailureMode = Int32
@@ -1654,13 +1654,13 @@ StreamedFileFailureMode_CurrentlyUnavailable: StreamedFileFailureMode = 1
 StreamedFileFailureMode_Incomplete: StreamedFileFailureMode = 2
 class SystemAudioProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.SystemAudioProperties'
+    _classid_ = 'Windows.Storage.SystemAudioProperties'
     @winrt_mixinmethod
     def get_EncodingBitrate(self: Windows.Storage.ISystemAudioProperties) -> WinRT_String: ...
     EncodingBitrate = property(get_EncodingBitrate, None)
 class SystemDataPaths(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.SystemDataPaths'
+    _classid_ = 'Windows.Storage.SystemDataPaths'
     @winrt_mixinmethod
     def get_Fonts(self: Windows.Storage.ISystemDataPaths) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1713,7 +1713,7 @@ class SystemDataPaths(ComPtr):
     Windows = property(get_Windows, None)
 class SystemGPSProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.SystemGPSProperties'
+    _classid_ = 'Windows.Storage.SystemGPSProperties'
     @winrt_mixinmethod
     def get_LatitudeDecimal(self: Windows.Storage.ISystemGPSProperties) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1722,7 +1722,7 @@ class SystemGPSProperties(ComPtr):
     LongitudeDecimal = property(get_LongitudeDecimal, None)
 class SystemImageProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.SystemImageProperties'
+    _classid_ = 'Windows.Storage.SystemImageProperties'
     @winrt_mixinmethod
     def get_HorizontalSize(self: Windows.Storage.ISystemImageProperties) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1731,7 +1731,7 @@ class SystemImageProperties(ComPtr):
     VerticalSize = property(get_VerticalSize, None)
 class SystemMediaProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.SystemMediaProperties'
+    _classid_ = 'Windows.Storage.SystemMediaProperties'
     @winrt_mixinmethod
     def get_Duration(self: Windows.Storage.ISystemMediaProperties) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1752,7 +1752,7 @@ class SystemMediaProperties(ComPtr):
     Year = property(get_Year, None)
 class SystemMusicProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.SystemMusicProperties'
+    _classid_ = 'Windows.Storage.SystemMusicProperties'
     @winrt_mixinmethod
     def get_AlbumArtist(self: Windows.Storage.ISystemMusicProperties) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1779,7 +1779,7 @@ class SystemMusicProperties(ComPtr):
     TrackNumber = property(get_TrackNumber, None)
 class SystemPhotoProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.SystemPhotoProperties'
+    _classid_ = 'Windows.Storage.SystemPhotoProperties'
     @winrt_mixinmethod
     def get_CameraManufacturer(self: Windows.Storage.ISystemPhotoProperties) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1797,7 +1797,7 @@ class SystemPhotoProperties(ComPtr):
     PeopleNames = property(get_PeopleNames, None)
 class SystemProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.SystemProperties'
+    _classid_ = 'Windows.Storage.SystemProperties'
     @winrt_classmethod
     def get_Author(cls: Windows.Storage.ISystemProperties) -> WinRT_String: ...
     @winrt_classmethod
@@ -1839,7 +1839,7 @@ class SystemProperties(ComPtr):
     Image = property(get_Image, None)
 class SystemVideoProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.SystemVideoProperties'
+    _classid_ = 'Windows.Storage.SystemVideoProperties'
     @winrt_mixinmethod
     def get_Director(self: Windows.Storage.ISystemVideoProperties) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1857,7 +1857,7 @@ class SystemVideoProperties(ComPtr):
     TotalBitrate = property(get_TotalBitrate, None)
 class UserDataPaths(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.UserDataPaths'
+    _classid_ = 'Windows.Storage.UserDataPaths'
     @winrt_mixinmethod
     def get_CameraRoll(self: Windows.Storage.IUserDataPaths) -> WinRT_String: ...
     @winrt_mixinmethod

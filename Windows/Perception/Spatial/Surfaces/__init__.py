@@ -137,7 +137,7 @@ class ISpatialSurfaceObserverStatics2(ComPtr):
     def IsSupported(self) -> Boolean: ...
 class SpatialSurfaceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceInfo'
+    _classid_ = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceInfo'
     @winrt_mixinmethod
     def get_Id(self: Windows.Perception.Spatial.Surfaces.ISpatialSurfaceInfo) -> Guid: ...
     @winrt_mixinmethod
@@ -152,7 +152,7 @@ class SpatialSurfaceInfo(ComPtr):
     UpdateTime = property(get_UpdateTime, None)
 class SpatialSurfaceMesh(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceMesh'
+    _classid_ = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceMesh'
     @winrt_mixinmethod
     def get_SurfaceInfo(self: Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMesh) -> Windows.Perception.Spatial.Surfaces.SpatialSurfaceInfo: ...
     @winrt_mixinmethod
@@ -173,7 +173,7 @@ class SpatialSurfaceMesh(ComPtr):
     VertexNormals = property(get_VertexNormals, None)
 class SpatialSurfaceMeshBuffer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshBuffer'
+    _classid_ = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshBuffer'
     @winrt_mixinmethod
     def get_Format(self: Windows.Perception.Spatial.Surfaces.ISpatialSurfaceMeshBuffer) -> Windows.Graphics.DirectX.DirectXPixelFormat: ...
     @winrt_mixinmethod
@@ -188,7 +188,7 @@ class SpatialSurfaceMeshBuffer(ComPtr):
     Data = property(get_Data, None)
 class SpatialSurfaceMeshOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions'
+    _classid_ = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions: ...
     @winrt_mixinmethod
@@ -222,7 +222,7 @@ class SpatialSurfaceMeshOptions(ComPtr):
     SupportedVertexNormalFormats = property(get_SupportedVertexNormalFormats, None)
 class SpatialSurfaceObserver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver'
+    _classid_ = 'Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver'
     @winrt_activatemethod
     def New(cls) -> Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver: ...
     @winrt_mixinmethod

@@ -28,7 +28,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AcceleratorKeyEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.AcceleratorKeyEventArgs'
+    _classid_ = 'Windows.UI.Core.AcceleratorKeyEventArgs'
     @winrt_mixinmethod
     def get_EventType(self: Windows.UI.Core.IAcceleratorKeyEventArgs) -> Windows.UI.Core.CoreAcceleratorKeyEventType: ...
     @winrt_mixinmethod
@@ -52,7 +52,7 @@ AppViewBackButtonVisibility_Collapsed: AppViewBackButtonVisibility = 1
 AppViewBackButtonVisibility_Disabled: AppViewBackButtonVisibility = 2
 class AutomationProviderRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.AutomationProviderRequestedEventArgs'
+    _classid_ = 'Windows.UI.Core.AutomationProviderRequestedEventArgs'
     @winrt_mixinmethod
     def get_AutomationProvider(self: Windows.UI.Core.IAutomationProviderRequestedEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
@@ -65,7 +65,7 @@ class AutomationProviderRequestedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class BackRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.BackRequestedEventArgs'
+    _classid_ = 'Windows.UI.Core.BackRequestedEventArgs'
     @winrt_mixinmethod
     def get_Handled(self: Windows.UI.Core.IBackRequestedEventArgs) -> Boolean: ...
     @winrt_mixinmethod
@@ -73,7 +73,7 @@ class BackRequestedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class CharacterReceivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.CharacterReceivedEventArgs'
+    _classid_ = 'Windows.UI.Core.CharacterReceivedEventArgs'
     @winrt_mixinmethod
     def get_KeyCode(self: Windows.UI.Core.ICharacterReceivedEventArgs) -> UInt32: ...
     @winrt_mixinmethod
@@ -87,7 +87,7 @@ class CharacterReceivedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class ClosestInteractiveBoundsRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.ClosestInteractiveBoundsRequestedEventArgs'
+    _classid_ = 'Windows.UI.Core.ClosestInteractiveBoundsRequestedEventArgs'
     @winrt_mixinmethod
     def get_PointerPosition(self: Windows.UI.Core.IClosestInteractiveBoundsRequestedEventArgs) -> Windows.Foundation.Point: ...
     @winrt_mixinmethod
@@ -111,14 +111,14 @@ CoreAcceleratorKeyEventType_SystemKeyUp: CoreAcceleratorKeyEventType = 5
 CoreAcceleratorKeyEventType_UnicodeCharacter: CoreAcceleratorKeyEventType = 8
 class CoreAcceleratorKeys(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.CoreAcceleratorKeys'
+    _classid_ = 'Windows.UI.Core.CoreAcceleratorKeys'
     @winrt_mixinmethod
     def add_AcceleratorKeyActivated(self: Windows.UI.Core.ICoreAcceleratorKeys, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Core.CoreDispatcher, Windows.UI.Core.AcceleratorKeyEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
     def remove_AcceleratorKeyActivated(self: Windows.UI.Core.ICoreAcceleratorKeys, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class CoreComponentInputSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.CoreComponentInputSource'
+    _classid_ = 'Windows.UI.Core.CoreComponentInputSource'
     @winrt_mixinmethod
     def get_Dispatcher(self: Windows.UI.Core.ICoreInputSourceBase) -> Windows.UI.Core.CoreDispatcher: ...
     @winrt_mixinmethod
@@ -214,7 +214,7 @@ class CoreComponentInputSource(ComPtr):
     DispatcherQueue = property(get_DispatcherQueue, None)
 class CoreCursor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.CoreCursor'
+    _classid_ = 'Windows.UI.Core.CoreCursor'
     @winrt_factorymethod
     def CreateCursor(cls: Windows.UI.Core.ICoreCursorFactory, type: Windows.UI.Core.CoreCursorType, id: UInt32) -> Windows.UI.Core.CoreCursor: ...
     @winrt_mixinmethod
@@ -242,7 +242,7 @@ CoreCursorType_Pin: CoreCursorType = 14
 CoreCursorType_Person: CoreCursorType = 15
 class CoreDispatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.CoreDispatcher'
+    _classid_ = 'Windows.UI.Core.CoreDispatcher'
     @winrt_mixinmethod
     def get_HasThreadAccess(self: Windows.UI.Core.ICoreDispatcher) -> Boolean: ...
     @winrt_mixinmethod
@@ -285,7 +285,7 @@ CoreIndependentInputFilters_PenWithBarrel: CoreIndependentInputFilters = 8
 CoreIndependentInputFilters_PenInverted: CoreIndependentInputFilters = 16
 class CoreIndependentInputSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.CoreIndependentInputSource'
+    _classid_ = 'Windows.UI.Core.CoreIndependentInputSource'
     @winrt_mixinmethod
     def get_Dispatcher(self: Windows.UI.Core.ICoreInputSourceBase) -> Windows.UI.Core.CoreDispatcher: ...
     @winrt_mixinmethod
@@ -358,7 +358,7 @@ class CoreIndependentInputSource(ComPtr):
     DispatcherQueue = property(get_DispatcherQueue, None)
 class CoreIndependentInputSourceController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.CoreIndependentInputSourceController'
+    _classid_ = 'Windows.UI.Core.CoreIndependentInputSourceController'
     @winrt_mixinmethod
     def get_IsTransparentForUncontrolledInput(self: Windows.UI.Core.ICoreIndependentInputSourceController) -> Boolean: ...
     @winrt_mixinmethod
@@ -411,7 +411,7 @@ CoreVirtualKeyStates_Down: CoreVirtualKeyStates = 1
 CoreVirtualKeyStates_Locked: CoreVirtualKeyStates = 2
 class CoreWindow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.CoreWindow'
+    _classid_ = 'Windows.UI.Core.CoreWindow'
     @winrt_mixinmethod
     def get_AutomationHostProvider(self: Windows.UI.Core.ICoreWindow) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
@@ -575,7 +575,7 @@ CoreWindowActivationState_Deactivated: CoreWindowActivationState = 1
 CoreWindowActivationState_PointerActivated: CoreWindowActivationState = 2
 class CoreWindowEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.CoreWindowEventArgs'
+    _classid_ = 'Windows.UI.Core.CoreWindowEventArgs'
     @winrt_mixinmethod
     def get_Handled(self: Windows.UI.Core.ICoreWindowEventArgs) -> Boolean: ...
     @winrt_mixinmethod
@@ -586,7 +586,7 @@ CoreWindowFlowDirection_LeftToRight: CoreWindowFlowDirection = 0
 CoreWindowFlowDirection_RightToLeft: CoreWindowFlowDirection = 1
 class CoreWindowResizeManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.CoreWindowResizeManager'
+    _classid_ = 'Windows.UI.Core.CoreWindowResizeManager'
     @winrt_mixinmethod
     def NotifyLayoutCompleted(self: Windows.UI.Core.ICoreWindowResizeManager) -> Void: ...
     @winrt_mixinmethod
@@ -599,7 +599,7 @@ class CoreWindowResizeManager(ComPtr):
 class DispatchedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('d1f276c4-98d8-4636-bf-49-eb-79-50-75-48-e9')
-    ClassId = 'Windows.UI.Core.DispatchedHandler'
+    _classid_ = 'Windows.UI.Core.DispatchedHandler'
     @winrt_commethod(3)
     def Invoke(self) -> Void: ...
 class IAcceleratorKeyEventArgs(ComPtr):
@@ -1162,18 +1162,18 @@ class IWindowSizeChangedEventArgs(ComPtr):
 class IdleDispatchedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('a42b0c24-7f21-4abc-99-c1-8f-01-00-7f-08-80')
-    ClassId = 'Windows.UI.Core.IdleDispatchedHandler'
+    _classid_ = 'Windows.UI.Core.IdleDispatchedHandler'
     @winrt_commethod(3)
     def Invoke(self, e: Windows.UI.Core.IdleDispatchedHandlerArgs) -> Void: ...
 class IdleDispatchedHandlerArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.IdleDispatchedHandlerArgs'
+    _classid_ = 'Windows.UI.Core.IdleDispatchedHandlerArgs'
     @winrt_mixinmethod
     def get_IsDispatcherIdle(self: Windows.UI.Core.IIdleDispatchedHandlerArgs) -> Boolean: ...
     IsDispatcherIdle = property(get_IsDispatcherIdle, None)
 class InputEnabledEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.InputEnabledEventArgs'
+    _classid_ = 'Windows.UI.Core.InputEnabledEventArgs'
     @winrt_mixinmethod
     def get_InputEnabled(self: Windows.UI.Core.IInputEnabledEventArgs) -> Boolean: ...
     @winrt_mixinmethod
@@ -1184,7 +1184,7 @@ class InputEnabledEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class KeyEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.KeyEventArgs'
+    _classid_ = 'Windows.UI.Core.KeyEventArgs'
     @winrt_mixinmethod
     def get_VirtualKey(self: Windows.UI.Core.IKeyEventArgs) -> Windows.System.VirtualKey: ...
     @winrt_mixinmethod
@@ -1201,7 +1201,7 @@ class KeyEventArgs(ComPtr):
     DeviceId = property(get_DeviceId, None)
 class PointerEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.PointerEventArgs'
+    _classid_ = 'Windows.UI.Core.PointerEventArgs'
     @winrt_mixinmethod
     def get_CurrentPoint(self: Windows.UI.Core.IPointerEventArgs) -> Windows.UI.Input.PointerPoint: ...
     @winrt_mixinmethod
@@ -1217,7 +1217,7 @@ class PointerEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class SystemNavigationManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.SystemNavigationManager'
+    _classid_ = 'Windows.UI.Core.SystemNavigationManager'
     @winrt_mixinmethod
     def add_BackRequested(self: Windows.UI.Core.ISystemNavigationManager, handler: Windows.Foundation.EventHandler[Windows.UI.Core.BackRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -1231,7 +1231,7 @@ class SystemNavigationManager(ComPtr):
     AppViewBackButtonVisibility = property(get_AppViewBackButtonVisibility, put_AppViewBackButtonVisibility)
 class TouchHitTestingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.TouchHitTestingEventArgs'
+    _classid_ = 'Windows.UI.Core.TouchHitTestingEventArgs'
     @winrt_mixinmethod
     def get_ProximityEvaluation(self: Windows.UI.Core.ITouchHitTestingEventArgs) -> Windows.UI.Core.CoreProximityEvaluation: ...
     @winrt_mixinmethod
@@ -1254,7 +1254,7 @@ class TouchHitTestingEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class VisibilityChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.VisibilityChangedEventArgs'
+    _classid_ = 'Windows.UI.Core.VisibilityChangedEventArgs'
     @winrt_mixinmethod
     def get_Visible(self: Windows.UI.Core.IVisibilityChangedEventArgs) -> Boolean: ...
     @winrt_mixinmethod
@@ -1265,7 +1265,7 @@ class VisibilityChangedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class WindowActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.WindowActivatedEventArgs'
+    _classid_ = 'Windows.UI.Core.WindowActivatedEventArgs'
     @winrt_mixinmethod
     def get_WindowActivationState(self: Windows.UI.Core.IWindowActivatedEventArgs) -> Windows.UI.Core.CoreWindowActivationState: ...
     @winrt_mixinmethod
@@ -1276,7 +1276,7 @@ class WindowActivatedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class WindowSizeChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Core.WindowSizeChangedEventArgs'
+    _classid_ = 'Windows.UI.Core.WindowSizeChangedEventArgs'
     @winrt_mixinmethod
     def get_Size(self: Windows.UI.Core.IWindowSizeChangedEventArgs) -> Windows.Foundation.Size: ...
     @winrt_mixinmethod

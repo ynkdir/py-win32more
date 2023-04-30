@@ -35,7 +35,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AudioMediaFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.AudioMediaFrame'
+    _classid_ = 'Windows.Media.Capture.Frames.AudioMediaFrame'
     @winrt_mixinmethod
     def get_FrameReference(self: Windows.Media.Capture.Frames.IAudioMediaFrame) -> Windows.Media.Capture.Frames.MediaFrameReference: ...
     @winrt_mixinmethod
@@ -46,7 +46,7 @@ class AudioMediaFrame(ComPtr):
     AudioEncodingProperties = property(get_AudioEncodingProperties, None)
 class BufferMediaFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.BufferMediaFrame'
+    _classid_ = 'Windows.Media.Capture.Frames.BufferMediaFrame'
     @winrt_mixinmethod
     def get_FrameReference(self: Windows.Media.Capture.Frames.IBufferMediaFrame) -> Windows.Media.Capture.Frames.MediaFrameReference: ...
     @winrt_mixinmethod
@@ -55,7 +55,7 @@ class BufferMediaFrame(ComPtr):
     Buffer = property(get_Buffer, None)
 class DepthMediaFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.DepthMediaFrame'
+    _classid_ = 'Windows.Media.Capture.Frames.DepthMediaFrame'
     @winrt_mixinmethod
     def get_FrameReference(self: Windows.Media.Capture.Frames.IDepthMediaFrame) -> Windows.Media.Capture.Frames.MediaFrameReference: ...
     @winrt_mixinmethod
@@ -75,7 +75,7 @@ class DepthMediaFrame(ComPtr):
     MinReliableDepth = property(get_MinReliableDepth, None)
 class DepthMediaFrameFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.DepthMediaFrameFormat'
+    _classid_ = 'Windows.Media.Capture.Frames.DepthMediaFrameFormat'
     @winrt_mixinmethod
     def get_VideoFormat(self: Windows.Media.Capture.Frames.IDepthMediaFrameFormat) -> Windows.Media.Capture.Frames.VideoMediaFrameFormat: ...
     @winrt_mixinmethod
@@ -419,7 +419,7 @@ class IVideoMediaFrameFormat(ComPtr):
     Height = property(get_Height, None)
 class InfraredMediaFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.InfraredMediaFrame'
+    _classid_ = 'Windows.Media.Capture.Frames.InfraredMediaFrame'
     @winrt_mixinmethod
     def get_FrameReference(self: Windows.Media.Capture.Frames.IInfraredMediaFrame) -> Windows.Media.Capture.Frames.MediaFrameReference: ...
     @winrt_mixinmethod
@@ -431,10 +431,10 @@ class InfraredMediaFrame(ComPtr):
     IsIlluminated = property(get_IsIlluminated, None)
 class MediaFrameArrivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.MediaFrameArrivedEventArgs'
+    _classid_ = 'Windows.Media.Capture.Frames.MediaFrameArrivedEventArgs'
 class MediaFrameFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.MediaFrameFormat'
+    _classid_ = 'Windows.Media.Capture.Frames.MediaFrameFormat'
     @winrt_mixinmethod
     def get_MajorType(self: Windows.Media.Capture.Frames.IMediaFrameFormat) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -455,7 +455,7 @@ class MediaFrameFormat(ComPtr):
     AudioEncodingProperties = property(get_AudioEncodingProperties, None)
 class MediaFrameReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.MediaFrameReader'
+    _classid_ = 'Windows.Media.Capture.Frames.MediaFrameReader'
     @winrt_mixinmethod
     def add_FrameArrived(self: Windows.Media.Capture.Frames.IMediaFrameReader, handler: Windows.Foundation.TypedEventHandler[Windows.Media.Capture.Frames.MediaFrameReader, Windows.Media.Capture.Frames.MediaFrameArrivedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -484,7 +484,7 @@ MediaFrameReaderStartStatus_OutputFormatNotSupported: MediaFrameReaderStartStatu
 MediaFrameReaderStartStatus_ExclusiveControlNotAvailable: MediaFrameReaderStartStatus = 4
 class MediaFrameReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.MediaFrameReference'
+    _classid_ = 'Windows.Media.Capture.Frames.MediaFrameReference'
     @winrt_mixinmethod
     def get_SourceKind(self: Windows.Media.Capture.Frames.IMediaFrameReference) -> Windows.Media.Capture.Frames.MediaFrameSourceKind: ...
     @winrt_mixinmethod
@@ -516,7 +516,7 @@ class MediaFrameReference(ComPtr):
     AudioMediaFrame = property(get_AudioMediaFrame, None)
 class MediaFrameSource(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.MediaFrameSource'
+    _classid_ = 'Windows.Media.Capture.Frames.MediaFrameSource'
     @winrt_mixinmethod
     def get_Info(self: Windows.Media.Capture.Frames.IMediaFrameSource) -> Windows.Media.Capture.Frames.MediaFrameSourceInfo: ...
     @winrt_mixinmethod
@@ -539,7 +539,7 @@ class MediaFrameSource(ComPtr):
     CurrentFormat = property(get_CurrentFormat, None)
 class MediaFrameSourceController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.MediaFrameSourceController'
+    _classid_ = 'Windows.Media.Capture.Frames.MediaFrameSourceController'
     @winrt_mixinmethod
     def GetPropertyAsync(self: Windows.Media.Capture.Frames.IMediaFrameSourceController, propertyId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.Media.Capture.Frames.MediaFrameSourceGetPropertyResult]: ...
     @winrt_mixinmethod
@@ -556,7 +556,7 @@ class MediaFrameSourceController(ComPtr):
     AudioDeviceController = property(get_AudioDeviceController, None)
 class MediaFrameSourceGetPropertyResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.MediaFrameSourceGetPropertyResult'
+    _classid_ = 'Windows.Media.Capture.Frames.MediaFrameSourceGetPropertyResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Media.Capture.Frames.IMediaFrameSourceGetPropertyResult) -> Windows.Media.Capture.Frames.MediaFrameSourceGetPropertyStatus: ...
     @winrt_mixinmethod
@@ -572,7 +572,7 @@ MediaFrameSourceGetPropertyStatus_MaxPropertyValueSizeTooSmall: MediaFrameSource
 MediaFrameSourceGetPropertyStatus_MaxPropertyValueSizeRequired: MediaFrameSourceGetPropertyStatus = 5
 class MediaFrameSourceGroup(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.MediaFrameSourceGroup'
+    _classid_ = 'Windows.Media.Capture.Frames.MediaFrameSourceGroup'
     @winrt_mixinmethod
     def get_Id(self: Windows.Media.Capture.Frames.IMediaFrameSourceGroup) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -590,7 +590,7 @@ class MediaFrameSourceGroup(ComPtr):
     SourceInfos = property(get_SourceInfos, None)
 class MediaFrameSourceInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.MediaFrameSourceInfo'
+    _classid_ = 'Windows.Media.Capture.Frames.MediaFrameSourceInfo'
     @winrt_mixinmethod
     def get_Id(self: Windows.Media.Capture.Frames.IMediaFrameSourceInfo) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -640,10 +640,10 @@ MediaFrameSourceSetPropertyStatus_DeviceNotAvailable: MediaFrameSourceSetPropert
 MediaFrameSourceSetPropertyStatus_NotInControl: MediaFrameSourceSetPropertyStatus = 5
 class MultiSourceMediaFrameArrivedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.MultiSourceMediaFrameArrivedEventArgs'
+    _classid_ = 'Windows.Media.Capture.Frames.MultiSourceMediaFrameArrivedEventArgs'
 class MultiSourceMediaFrameReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.MultiSourceMediaFrameReader'
+    _classid_ = 'Windows.Media.Capture.Frames.MultiSourceMediaFrameReader'
     @winrt_mixinmethod
     def add_FrameArrived(self: Windows.Media.Capture.Frames.IMultiSourceMediaFrameReader, handler: Windows.Foundation.TypedEventHandler[Windows.Media.Capture.Frames.MultiSourceMediaFrameReader, Windows.Media.Capture.Frames.MultiSourceMediaFrameArrivedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -669,14 +669,14 @@ MultiSourceMediaFrameReaderStartStatus_DeviceNotAvailable: MultiSourceMediaFrame
 MultiSourceMediaFrameReaderStartStatus_UnknownFailure: MultiSourceMediaFrameReaderStartStatus = 4
 class MultiSourceMediaFrameReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.MultiSourceMediaFrameReference'
+    _classid_ = 'Windows.Media.Capture.Frames.MultiSourceMediaFrameReference'
     @winrt_mixinmethod
     def TryGetFrameReferenceBySourceId(self: Windows.Media.Capture.Frames.IMultiSourceMediaFrameReference, sourceId: WinRT_String) -> Windows.Media.Capture.Frames.MediaFrameReference: ...
     @winrt_mixinmethod
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
 class VideoMediaFrame(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.VideoMediaFrame'
+    _classid_ = 'Windows.Media.Capture.Frames.VideoMediaFrame'
     @winrt_mixinmethod
     def get_FrameReference(self: Windows.Media.Capture.Frames.IVideoMediaFrame) -> Windows.Media.Capture.Frames.MediaFrameReference: ...
     @winrt_mixinmethod
@@ -702,7 +702,7 @@ class VideoMediaFrame(ComPtr):
     DepthMediaFrame = property(get_DepthMediaFrame, None)
 class VideoMediaFrameFormat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Capture.Frames.VideoMediaFrameFormat'
+    _classid_ = 'Windows.Media.Capture.Frames.VideoMediaFrameFormat'
     @winrt_mixinmethod
     def get_MediaFrameFormat(self: Windows.Media.Capture.Frames.IVideoMediaFrameFormat) -> Windows.Media.Capture.Frames.MediaFrameFormat: ...
     @winrt_mixinmethod

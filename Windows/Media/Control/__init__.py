@@ -26,10 +26,10 @@ def __getattr__(name):
     return getattr(_module, name)
 class CurrentSessionChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Control.CurrentSessionChangedEventArgs'
+    _classid_ = 'Windows.Media.Control.CurrentSessionChangedEventArgs'
 class GlobalSystemMediaTransportControlsSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSession'
+    _classid_ = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSession'
     @winrt_mixinmethod
     def get_SourceAppUserModelId(self: Windows.Media.Control.IGlobalSystemMediaTransportControlsSession) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -83,7 +83,7 @@ class GlobalSystemMediaTransportControlsSession(ComPtr):
     SourceAppUserModelId = property(get_SourceAppUserModelId, None)
 class GlobalSystemMediaTransportControlsSessionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSessionManager'
+    _classid_ = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSessionManager'
     @winrt_mixinmethod
     def GetCurrentSession(self: Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionManager) -> Windows.Media.Control.GlobalSystemMediaTransportControlsSession: ...
     @winrt_mixinmethod
@@ -100,7 +100,7 @@ class GlobalSystemMediaTransportControlsSessionManager(ComPtr):
     def RequestAsync(cls: Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionManagerStatics) -> Windows.Foundation.IAsyncOperation[Windows.Media.Control.GlobalSystemMediaTransportControlsSessionManager]: ...
 class GlobalSystemMediaTransportControlsSessionMediaProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSessionMediaProperties'
+    _classid_ = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSessionMediaProperties'
     @winrt_mixinmethod
     def get_Title(self: Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionMediaProperties) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -133,7 +133,7 @@ class GlobalSystemMediaTransportControlsSessionMediaProperties(ComPtr):
     Thumbnail = property(get_Thumbnail, None)
 class GlobalSystemMediaTransportControlsSessionPlaybackControls(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSessionPlaybackControls'
+    _classid_ = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSessionPlaybackControls'
     @winrt_mixinmethod
     def get_IsPlayEnabled(self: Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionPlaybackControls) -> Boolean: ...
     @winrt_mixinmethod
@@ -181,7 +181,7 @@ class GlobalSystemMediaTransportControlsSessionPlaybackControls(ComPtr):
     IsPlaybackPositionEnabled = property(get_IsPlaybackPositionEnabled, None)
 class GlobalSystemMediaTransportControlsSessionPlaybackInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSessionPlaybackInfo'
+    _classid_ = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSessionPlaybackInfo'
     @winrt_mixinmethod
     def get_Controls(self: Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionPlaybackInfo) -> Windows.Media.Control.GlobalSystemMediaTransportControlsSessionPlaybackControls: ...
     @winrt_mixinmethod
@@ -209,7 +209,7 @@ GlobalSystemMediaTransportControlsSessionPlaybackStatus_Playing: GlobalSystemMed
 GlobalSystemMediaTransportControlsSessionPlaybackStatus_Paused: GlobalSystemMediaTransportControlsSessionPlaybackStatus = 5
 class GlobalSystemMediaTransportControlsSessionTimelineProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSessionTimelineProperties'
+    _classid_ = 'Windows.Media.Control.GlobalSystemMediaTransportControlsSessionTimelineProperties'
     @winrt_mixinmethod
     def get_StartTime(self: Windows.Media.Control.IGlobalSystemMediaTransportControlsSessionTimelineProperties) -> Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
@@ -442,16 +442,16 @@ class ITimelinePropertiesChangedEventArgs(ComPtr):
     _iid_ = Guid('29033a2f-c923-5a77-bc-af-05-5f-f4-15-ad-32')
 class MediaPropertiesChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Control.MediaPropertiesChangedEventArgs'
+    _classid_ = 'Windows.Media.Control.MediaPropertiesChangedEventArgs'
 class PlaybackInfoChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Control.PlaybackInfoChangedEventArgs'
+    _classid_ = 'Windows.Media.Control.PlaybackInfoChangedEventArgs'
 class SessionsChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Control.SessionsChangedEventArgs'
+    _classid_ = 'Windows.Media.Control.SessionsChangedEventArgs'
 class TimelinePropertiesChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Control.TimelinePropertiesChangedEventArgs'
+    _classid_ = 'Windows.Media.Control.TimelinePropertiesChangedEventArgs'
 make_head(_module, 'CurrentSessionChangedEventArgs')
 make_head(_module, 'GlobalSystemMediaTransportControlsSession')
 make_head(_module, 'GlobalSystemMediaTransportControlsSessionManager')

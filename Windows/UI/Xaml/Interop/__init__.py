@@ -24,7 +24,7 @@ def __getattr__(name):
 class BindableVectorChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('624cd4e1-d007-43b1-9c-03-af-4d-3e-62-58-c4')
-    ClassId = 'Windows.UI.Xaml.Interop.BindableVectorChangedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Interop.BindableVectorChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, vector: Windows.UI.Xaml.Interop.IBindableObservableVector, e: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
 class IBindableIterable(ComPtr):
@@ -140,7 +140,7 @@ class NotifyCollectionChangedEventArgs(ComPtr):
 class NotifyCollectionChangedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('ca10b37c-f382-4591-85-57-5e-24-96-52-79-b0')
-    ClassId = 'Windows.UI.Xaml.Interop.NotifyCollectionChangedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Interop.NotifyCollectionChangedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Interop.NotifyCollectionChangedEventArgs) -> Void: ...
 TypeKind = Int32

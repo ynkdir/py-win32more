@@ -201,7 +201,7 @@ class ITensorVariableDescriptorPreview(ComPtr):
     Shape = property(get_Shape, None)
 class ImageVariableDescriptorPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.Preview.ImageVariableDescriptorPreview'
+    _classid_ = 'Windows.AI.MachineLearning.Preview.ImageVariableDescriptorPreview'
     @winrt_mixinmethod
     def get_BitmapPixelFormat(self: Windows.AI.MachineLearning.Preview.IImageVariableDescriptorPreview) -> Windows.Graphics.Imaging.BitmapPixelFormat: ...
     @winrt_mixinmethod
@@ -225,7 +225,7 @@ class ImageVariableDescriptorPreview(ComPtr):
     IsRequired = property(get_IsRequired, None)
 class InferencingOptionsPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.Preview.InferencingOptionsPreview'
+    _classid_ = 'Windows.AI.MachineLearning.Preview.InferencingOptionsPreview'
     @winrt_mixinmethod
     def get_PreferredDeviceKind(self: Windows.AI.MachineLearning.Preview.IInferencingOptionsPreview) -> Windows.AI.MachineLearning.Preview.LearningModelDeviceKindPreview: ...
     @winrt_mixinmethod
@@ -253,7 +253,7 @@ class InferencingOptionsPreview(ComPtr):
     ReclaimMemoryAfterEvaluation = property(get_ReclaimMemoryAfterEvaluation, put_ReclaimMemoryAfterEvaluation)
 class LearningModelBindingPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.Preview.LearningModelBindingPreview'
+    _classid_ = 'Windows.AI.MachineLearning.Preview.LearningModelBindingPreview'
     @winrt_factorymethod
     def CreateFromModel(cls: Windows.AI.MachineLearning.Preview.ILearningModelBindingPreviewFactory, model: Windows.AI.MachineLearning.Preview.LearningModelPreview) -> Windows.AI.MachineLearning.Preview.LearningModelBindingPreview: ...
     @winrt_mixinmethod
@@ -275,7 +275,7 @@ class LearningModelBindingPreview(ComPtr):
     Size = property(get_Size, None)
 class LearningModelDescriptionPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.Preview.LearningModelDescriptionPreview'
+    _classid_ = 'Windows.AI.MachineLearning.Preview.LearningModelDescriptionPreview'
     @winrt_mixinmethod
     def get_Author(self: Windows.AI.MachineLearning.Preview.ILearningModelDescriptionPreview) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -309,7 +309,7 @@ LearningModelDeviceKindPreview_LearningDeviceDsp: LearningModelDeviceKindPreview
 LearningModelDeviceKindPreview_LearningDeviceFpga: LearningModelDeviceKindPreview = 5
 class LearningModelEvaluationResultPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.Preview.LearningModelEvaluationResultPreview'
+    _classid_ = 'Windows.AI.MachineLearning.Preview.LearningModelEvaluationResultPreview'
     @winrt_mixinmethod
     def get_CorrelationId(self: Windows.AI.MachineLearning.Preview.ILearningModelEvaluationResultPreview) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -324,7 +324,7 @@ LearningModelFeatureKindPreview_Map: LearningModelFeatureKindPreview = 3
 LearningModelFeatureKindPreview_Image: LearningModelFeatureKindPreview = 4
 class LearningModelPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.Preview.LearningModelPreview'
+    _classid_ = 'Windows.AI.MachineLearning.Preview.LearningModelPreview'
     @winrt_mixinmethod
     def EvaluateAsync(self: Windows.AI.MachineLearning.Preview.ILearningModelPreview, binding: Windows.AI.MachineLearning.Preview.LearningModelBindingPreview, correlationId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.AI.MachineLearning.Preview.LearningModelEvaluationResultPreview]: ...
     @winrt_mixinmethod
@@ -343,7 +343,7 @@ class LearningModelPreview(ComPtr):
     InferencingOptions = property(get_InferencingOptions, put_InferencingOptions)
 class LearningModelVariableDescriptorPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.Preview.LearningModelVariableDescriptorPreview'
+    _classid_ = 'Windows.AI.MachineLearning.Preview.LearningModelVariableDescriptorPreview'
     @winrt_mixinmethod
     def get_Name(self: Windows.AI.MachineLearning.Preview.ILearningModelVariableDescriptorPreview) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -359,7 +359,7 @@ class LearningModelVariableDescriptorPreview(ComPtr):
 MachineLearningPreviewContract: UInt32 = 131072
 class MapVariableDescriptorPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.Preview.MapVariableDescriptorPreview'
+    _classid_ = 'Windows.AI.MachineLearning.Preview.MapVariableDescriptorPreview'
     @winrt_mixinmethod
     def get_KeyKind(self: Windows.AI.MachineLearning.Preview.IMapVariableDescriptorPreview) -> Windows.AI.MachineLearning.Preview.FeatureElementKindPreview: ...
     @winrt_mixinmethod
@@ -386,7 +386,7 @@ class MapVariableDescriptorPreview(ComPtr):
     IsRequired = property(get_IsRequired, None)
 class SequenceVariableDescriptorPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.Preview.SequenceVariableDescriptorPreview'
+    _classid_ = 'Windows.AI.MachineLearning.Preview.SequenceVariableDescriptorPreview'
     @winrt_mixinmethod
     def get_ElementType(self: Windows.AI.MachineLearning.Preview.ISequenceVariableDescriptorPreview) -> Windows.AI.MachineLearning.Preview.ILearningModelVariableDescriptorPreview: ...
     @winrt_mixinmethod
@@ -404,7 +404,7 @@ class SequenceVariableDescriptorPreview(ComPtr):
     IsRequired = property(get_IsRequired, None)
 class TensorVariableDescriptorPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.Preview.TensorVariableDescriptorPreview'
+    _classid_ = 'Windows.AI.MachineLearning.Preview.TensorVariableDescriptorPreview'
     @winrt_mixinmethod
     def get_DataType(self: Windows.AI.MachineLearning.Preview.ITensorVariableDescriptorPreview) -> Windows.AI.MachineLearning.Preview.FeatureElementKindPreview: ...
     @winrt_mixinmethod

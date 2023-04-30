@@ -563,7 +563,7 @@ class ITensorUInt8BitStatics2(ComPtr):
     def CreateFromBuffer(self, shape: POINTER(Int64), buffer: Windows.Storage.Streams.IBuffer) -> Windows.AI.MachineLearning.TensorUInt8Bit: ...
 class ImageFeatureDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.ImageFeatureDescriptor'
+    _classid_ = 'Windows.AI.MachineLearning.ImageFeatureDescriptor'
     @winrt_mixinmethod
     def get_BitmapPixelFormat(self: Windows.AI.MachineLearning.IImageFeatureDescriptor) -> Windows.Graphics.Imaging.BitmapPixelFormat: ...
     @winrt_mixinmethod
@@ -593,7 +593,7 @@ class ImageFeatureDescriptor(ComPtr):
     IsRequired = property(get_IsRequired, None)
 class ImageFeatureValue(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.ImageFeatureValue'
+    _classid_ = 'Windows.AI.MachineLearning.ImageFeatureValue'
     @winrt_mixinmethod
     def get_VideoFrame(self: Windows.AI.MachineLearning.IImageFeatureValue) -> Windows.Media.VideoFrame: ...
     @winrt_mixinmethod
@@ -604,7 +604,7 @@ class ImageFeatureValue(ComPtr):
     Kind = property(get_Kind, None)
 class LearningModel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.LearningModel'
+    _classid_ = 'Windows.AI.MachineLearning.LearningModel'
     @winrt_mixinmethod
     def get_Author(self: Windows.AI.MachineLearning.ILearningModel) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -649,7 +649,7 @@ class LearningModel(ComPtr):
     OutputFeatures = property(get_OutputFeatures, None)
 class LearningModelBinding(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.LearningModelBinding'
+    _classid_ = 'Windows.AI.MachineLearning.LearningModelBinding'
     @winrt_factorymethod
     def CreateFromSession(cls: Windows.AI.MachineLearning.ILearningModelBindingFactory, session: Windows.AI.MachineLearning.LearningModelSession) -> Windows.AI.MachineLearning.LearningModelBinding: ...
     @winrt_mixinmethod
@@ -671,7 +671,7 @@ class LearningModelBinding(ComPtr):
     Size = property(get_Size, None)
 class LearningModelDevice(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.LearningModelDevice'
+    _classid_ = 'Windows.AI.MachineLearning.LearningModelDevice'
     @winrt_factorymethod
     def Create(cls: Windows.AI.MachineLearning.ILearningModelDeviceFactory, deviceKind: Windows.AI.MachineLearning.LearningModelDeviceKind) -> Windows.AI.MachineLearning.LearningModelDevice: ...
     @winrt_mixinmethod
@@ -690,7 +690,7 @@ LearningModelDeviceKind_DirectXHighPerformance: LearningModelDeviceKind = 3
 LearningModelDeviceKind_DirectXMinPower: LearningModelDeviceKind = 4
 class LearningModelEvaluationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.LearningModelEvaluationResult'
+    _classid_ = 'Windows.AI.MachineLearning.LearningModelEvaluationResult'
     @winrt_mixinmethod
     def get_CorrelationId(self: Windows.AI.MachineLearning.ILearningModelEvaluationResult) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -714,7 +714,7 @@ LearningModelPixelRange_ZeroToOne: LearningModelPixelRange = 1
 LearningModelPixelRange_MinusOneToOne: LearningModelPixelRange = 2
 class LearningModelSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.LearningModelSession'
+    _classid_ = 'Windows.AI.MachineLearning.LearningModelSession'
     @winrt_factorymethod
     def CreateFromModelOnDeviceWithSessionOptions(cls: Windows.AI.MachineLearning.ILearningModelSessionFactory2, model: Windows.AI.MachineLearning.LearningModel, deviceToRunOn: Windows.AI.MachineLearning.LearningModelDevice, learningModelSessionOptions: Windows.AI.MachineLearning.LearningModelSessionOptions) -> Windows.AI.MachineLearning.LearningModelSession: ...
     @winrt_factorymethod
@@ -742,7 +742,7 @@ class LearningModelSession(ComPtr):
     EvaluationProperties = property(get_EvaluationProperties, None)
 class LearningModelSessionOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.LearningModelSessionOptions'
+    _classid_ = 'Windows.AI.MachineLearning.LearningModelSessionOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.AI.MachineLearning.LearningModelSessionOptions: ...
     @winrt_mixinmethod
@@ -760,7 +760,7 @@ class LearningModelSessionOptions(ComPtr):
 MachineLearningContract: UInt32 = 327680
 class MapFeatureDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.MapFeatureDescriptor'
+    _classid_ = 'Windows.AI.MachineLearning.MapFeatureDescriptor'
     @winrt_mixinmethod
     def get_KeyKind(self: Windows.AI.MachineLearning.IMapFeatureDescriptor) -> Windows.AI.MachineLearning.TensorKind: ...
     @winrt_mixinmethod
@@ -781,7 +781,7 @@ class MapFeatureDescriptor(ComPtr):
     IsRequired = property(get_IsRequired, None)
 class SequenceFeatureDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.SequenceFeatureDescriptor'
+    _classid_ = 'Windows.AI.MachineLearning.SequenceFeatureDescriptor'
     @winrt_mixinmethod
     def get_ElementDescriptor(self: Windows.AI.MachineLearning.ISequenceFeatureDescriptor) -> Windows.AI.MachineLearning.ILearningModelFeatureDescriptor: ...
     @winrt_mixinmethod
@@ -799,7 +799,7 @@ class SequenceFeatureDescriptor(ComPtr):
     IsRequired = property(get_IsRequired, None)
 class TensorBoolean(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.TensorBoolean'
+    _classid_ = 'Windows.AI.MachineLearning.TensorBoolean'
     @winrt_mixinmethod
     def GetAsVectorView(self: Windows.AI.MachineLearning.ITensorBoolean) -> Windows.Foundation.Collections.IVectorView[Boolean]: ...
     @winrt_mixinmethod
@@ -829,7 +829,7 @@ class TensorBoolean(ComPtr):
     Kind = property(get_Kind, None)
 class TensorDouble(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.TensorDouble'
+    _classid_ = 'Windows.AI.MachineLearning.TensorDouble'
     @winrt_mixinmethod
     def GetAsVectorView(self: Windows.AI.MachineLearning.ITensorDouble) -> Windows.Foundation.Collections.IVectorView[Double]: ...
     @winrt_mixinmethod
@@ -859,7 +859,7 @@ class TensorDouble(ComPtr):
     Kind = property(get_Kind, None)
 class TensorFeatureDescriptor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.TensorFeatureDescriptor'
+    _classid_ = 'Windows.AI.MachineLearning.TensorFeatureDescriptor'
     @winrt_mixinmethod
     def get_TensorKind(self: Windows.AI.MachineLearning.ITensorFeatureDescriptor) -> Windows.AI.MachineLearning.TensorKind: ...
     @winrt_mixinmethod
@@ -880,7 +880,7 @@ class TensorFeatureDescriptor(ComPtr):
     IsRequired = property(get_IsRequired, None)
 class TensorFloat(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.TensorFloat'
+    _classid_ = 'Windows.AI.MachineLearning.TensorFloat'
     @winrt_mixinmethod
     def GetAsVectorView(self: Windows.AI.MachineLearning.ITensorFloat) -> Windows.Foundation.Collections.IVectorView[Single]: ...
     @winrt_mixinmethod
@@ -910,7 +910,7 @@ class TensorFloat(ComPtr):
     Kind = property(get_Kind, None)
 class TensorFloat16Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.TensorFloat16Bit'
+    _classid_ = 'Windows.AI.MachineLearning.TensorFloat16Bit'
     @winrt_mixinmethod
     def GetAsVectorView(self: Windows.AI.MachineLearning.ITensorFloat16Bit) -> Windows.Foundation.Collections.IVectorView[Single]: ...
     @winrt_mixinmethod
@@ -940,7 +940,7 @@ class TensorFloat16Bit(ComPtr):
     Kind = property(get_Kind, None)
 class TensorInt16Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.TensorInt16Bit'
+    _classid_ = 'Windows.AI.MachineLearning.TensorInt16Bit'
     @winrt_mixinmethod
     def GetAsVectorView(self: Windows.AI.MachineLearning.ITensorInt16Bit) -> Windows.Foundation.Collections.IVectorView[Int16]: ...
     @winrt_mixinmethod
@@ -970,7 +970,7 @@ class TensorInt16Bit(ComPtr):
     Kind = property(get_Kind, None)
 class TensorInt32Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.TensorInt32Bit'
+    _classid_ = 'Windows.AI.MachineLearning.TensorInt32Bit'
     @winrt_mixinmethod
     def GetAsVectorView(self: Windows.AI.MachineLearning.ITensorInt32Bit) -> Windows.Foundation.Collections.IVectorView[Int32]: ...
     @winrt_mixinmethod
@@ -1000,7 +1000,7 @@ class TensorInt32Bit(ComPtr):
     Kind = property(get_Kind, None)
 class TensorInt64Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.TensorInt64Bit'
+    _classid_ = 'Windows.AI.MachineLearning.TensorInt64Bit'
     @winrt_mixinmethod
     def GetAsVectorView(self: Windows.AI.MachineLearning.ITensorInt64Bit) -> Windows.Foundation.Collections.IVectorView[Int64]: ...
     @winrt_mixinmethod
@@ -1030,7 +1030,7 @@ class TensorInt64Bit(ComPtr):
     Kind = property(get_Kind, None)
 class TensorInt8Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.TensorInt8Bit'
+    _classid_ = 'Windows.AI.MachineLearning.TensorInt8Bit'
     @winrt_mixinmethod
     def GetAsVectorView(self: Windows.AI.MachineLearning.ITensorInt8Bit) -> Windows.Foundation.Collections.IVectorView[Byte]: ...
     @winrt_mixinmethod
@@ -1077,7 +1077,7 @@ TensorKind_Complex64: TensorKind = 14
 TensorKind_Complex128: TensorKind = 15
 class TensorString(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.TensorString'
+    _classid_ = 'Windows.AI.MachineLearning.TensorString'
     @winrt_mixinmethod
     def GetAsVectorView(self: Windows.AI.MachineLearning.ITensorString) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_mixinmethod
@@ -1105,7 +1105,7 @@ class TensorString(ComPtr):
     Kind = property(get_Kind, None)
 class TensorUInt16Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.TensorUInt16Bit'
+    _classid_ = 'Windows.AI.MachineLearning.TensorUInt16Bit'
     @winrt_mixinmethod
     def GetAsVectorView(self: Windows.AI.MachineLearning.ITensorUInt16Bit) -> Windows.Foundation.Collections.IVectorView[UInt16]: ...
     @winrt_mixinmethod
@@ -1135,7 +1135,7 @@ class TensorUInt16Bit(ComPtr):
     Kind = property(get_Kind, None)
 class TensorUInt32Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.TensorUInt32Bit'
+    _classid_ = 'Windows.AI.MachineLearning.TensorUInt32Bit'
     @winrt_mixinmethod
     def GetAsVectorView(self: Windows.AI.MachineLearning.ITensorUInt32Bit) -> Windows.Foundation.Collections.IVectorView[UInt32]: ...
     @winrt_mixinmethod
@@ -1165,7 +1165,7 @@ class TensorUInt32Bit(ComPtr):
     Kind = property(get_Kind, None)
 class TensorUInt64Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.TensorUInt64Bit'
+    _classid_ = 'Windows.AI.MachineLearning.TensorUInt64Bit'
     @winrt_mixinmethod
     def GetAsVectorView(self: Windows.AI.MachineLearning.ITensorUInt64Bit) -> Windows.Foundation.Collections.IVectorView[UInt64]: ...
     @winrt_mixinmethod
@@ -1195,7 +1195,7 @@ class TensorUInt64Bit(ComPtr):
     Kind = property(get_Kind, None)
 class TensorUInt8Bit(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.AI.MachineLearning.TensorUInt8Bit'
+    _classid_ = 'Windows.AI.MachineLearning.TensorUInt8Bit'
     @winrt_mixinmethod
     def GetAsVectorView(self: Windows.AI.MachineLearning.ITensorUInt8Bit) -> Windows.Foundation.Collections.IVectorView[Byte]: ...
     @winrt_mixinmethod

@@ -92,7 +92,7 @@ AlignmentY_Center: AlignmentY = 1
 AlignmentY_Bottom: AlignmentY = 2
 class ArcSegment(ComPtr):
     extends: Windows.UI.Xaml.Media.PathSegment
-    ClassId = 'Windows.UI.Xaml.Media.ArcSegment'
+    _classid_ = 'Windows.UI.Xaml.Media.ArcSegment'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.ArcSegment: ...
     @winrt_mixinmethod
@@ -154,7 +154,7 @@ AudioDeviceType_Multimedia: AudioDeviceType = 1
 AudioDeviceType_Communications: AudioDeviceType = 2
 class BezierSegment(ComPtr):
     extends: Windows.UI.Xaml.Media.PathSegment
-    ClassId = 'Windows.UI.Xaml.Media.BezierSegment'
+    _classid_ = 'Windows.UI.Xaml.Media.BezierSegment'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.BezierSegment: ...
     @winrt_mixinmethod
@@ -183,7 +183,7 @@ class BezierSegment(ComPtr):
     Point3Property = property(get_Point3Property, None)
 class BitmapCache(ComPtr):
     extends: Windows.UI.Xaml.Media.CacheMode
-    ClassId = 'Windows.UI.Xaml.Media.BitmapCache'
+    _classid_ = 'Windows.UI.Xaml.Media.BitmapCache'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.BitmapCache: ...
 class Brush(ComPtr):
@@ -218,7 +218,7 @@ class Brush(ComPtr):
     RelativeTransformProperty = property(get_RelativeTransformProperty, None)
 class BrushCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.BrushCollection'
+    _classid_ = 'Windows.UI.Xaml.Media.BrushCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.BrushCollection: ...
     @winrt_mixinmethod
@@ -258,7 +258,7 @@ ColorInterpolationMode_ScRgbLinearInterpolation: ColorInterpolationMode = 0
 ColorInterpolationMode_SRgbLinearInterpolation: ColorInterpolationMode = 1
 class CompositeTransform(ComPtr):
     extends: Windows.UI.Xaml.Media.Transform
-    ClassId = 'Windows.UI.Xaml.Media.CompositeTransform'
+    _classid_ = 'Windows.UI.Xaml.Media.CompositeTransform'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.CompositeTransform: ...
     @winrt_mixinmethod
@@ -335,7 +335,7 @@ class CompositeTransform(ComPtr):
     TranslateYProperty = property(get_TranslateYProperty, None)
 class CompositionTarget(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.CompositionTarget'
+    _classid_ = 'Windows.UI.Xaml.Media.CompositionTarget'
     @winrt_classmethod
     def add_Rendered(cls: Windows.UI.Xaml.Media.ICompositionTargetStatics3, handler: Windows.Foundation.EventHandler[Windows.UI.Xaml.Media.RenderedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_classmethod
@@ -350,7 +350,7 @@ class CompositionTarget(ComPtr):
     def remove_SurfaceContentsLost(cls: Windows.UI.Xaml.Media.ICompositionTargetStatics, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
 class DoubleCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.DoubleCollection'
+    _classid_ = 'Windows.UI.Xaml.Media.DoubleCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.DoubleCollection: ...
     @winrt_mixinmethod
@@ -386,7 +386,7 @@ ElementCompositeMode_SourceOver: ElementCompositeMode = 1
 ElementCompositeMode_MinBlend: ElementCompositeMode = 2
 class EllipseGeometry(ComPtr):
     extends: Windows.UI.Xaml.Media.Geometry
-    ClassId = 'Windows.UI.Xaml.Media.EllipseGeometry'
+    _classid_ = 'Windows.UI.Xaml.Media.EllipseGeometry'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.EllipseGeometry: ...
     @winrt_mixinmethod
@@ -467,7 +467,7 @@ class Geometry(ComPtr):
     TransformProperty = property(get_TransformProperty, None)
 class GeometryCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.GeometryCollection'
+    _classid_ = 'Windows.UI.Xaml.Media.GeometryCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.GeometryCollection: ...
     @winrt_mixinmethod
@@ -499,7 +499,7 @@ class GeometryCollection(ComPtr):
     Size = property(get_Size, None)
 class GeometryGroup(ComPtr):
     extends: Windows.UI.Xaml.Media.Geometry
-    ClassId = 'Windows.UI.Xaml.Media.GeometryGroup'
+    _classid_ = 'Windows.UI.Xaml.Media.GeometryGroup'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.GeometryGroup: ...
     @winrt_mixinmethod
@@ -558,7 +558,7 @@ GradientSpreadMethod_Reflect: GradientSpreadMethod = 1
 GradientSpreadMethod_Repeat: GradientSpreadMethod = 2
 class GradientStop(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Media.GradientStop'
+    _classid_ = 'Windows.UI.Xaml.Media.GradientStop'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.GradientStop: ...
     @winrt_mixinmethod
@@ -579,7 +579,7 @@ class GradientStop(ComPtr):
     OffsetProperty = property(get_OffsetProperty, None)
 class GradientStopCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.GradientStopCollection'
+    _classid_ = 'Windows.UI.Xaml.Media.GradientStopCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.GradientStopCollection: ...
     @winrt_mixinmethod
@@ -1970,7 +1970,7 @@ class IXamlLightStatics(ComPtr):
     def RemoveTargetBrush(self, lightId: WinRT_String, brush: Windows.UI.Xaml.Media.Brush) -> Void: ...
 class ImageBrush(ComPtr):
     extends: Windows.UI.Xaml.Media.TileBrush
-    ClassId = 'Windows.UI.Xaml.Media.ImageBrush'
+    _classid_ = 'Windows.UI.Xaml.Media.ImageBrush'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.ImageBrush: ...
     @winrt_mixinmethod
@@ -1993,7 +1993,7 @@ class ImageSource(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
 class LineGeometry(ComPtr):
     extends: Windows.UI.Xaml.Media.Geometry
-    ClassId = 'Windows.UI.Xaml.Media.LineGeometry'
+    _classid_ = 'Windows.UI.Xaml.Media.LineGeometry'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.LineGeometry: ...
     @winrt_mixinmethod
@@ -2014,7 +2014,7 @@ class LineGeometry(ComPtr):
     EndPointProperty = property(get_EndPointProperty, None)
 class LineSegment(ComPtr):
     extends: Windows.UI.Xaml.Media.PathSegment
-    ClassId = 'Windows.UI.Xaml.Media.LineSegment'
+    _classid_ = 'Windows.UI.Xaml.Media.LineSegment'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.LineSegment: ...
     @winrt_mixinmethod
@@ -2027,7 +2027,7 @@ class LineSegment(ComPtr):
     PointProperty = property(get_PointProperty, None)
 class LinearGradientBrush(ComPtr):
     extends: Windows.UI.Xaml.Media.GradientBrush
-    ClassId = 'Windows.UI.Xaml.Media.LinearGradientBrush'
+    _classid_ = 'Windows.UI.Xaml.Media.LinearGradientBrush'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.LinearGradientBrush: ...
     @winrt_factorymethod
@@ -2050,7 +2050,7 @@ class LinearGradientBrush(ComPtr):
     EndPointProperty = property(get_EndPointProperty, None)
 class LoadedImageSourceLoadCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.LoadedImageSourceLoadCompletedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Media.LoadedImageSourceLoadCompletedEventArgs'
     @winrt_mixinmethod
     def get_Status(self: Windows.UI.Xaml.Media.ILoadedImageSourceLoadCompletedEventArgs) -> Windows.UI.Xaml.Media.LoadedImageSourceLoadStatus: ...
     Status = property(get_Status, None)
@@ -2061,7 +2061,7 @@ LoadedImageSourceLoadStatus_InvalidFormat: LoadedImageSourceLoadStatus = 2
 LoadedImageSourceLoadStatus_Other: LoadedImageSourceLoadStatus = 3
 class LoadedImageSurface(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.LoadedImageSurface'
+    _classid_ = 'Windows.UI.Xaml.Media.LoadedImageSurface'
     @winrt_mixinmethod
     def get_DecodedPhysicalSize(self: Windows.UI.Xaml.Media.ILoadedImageSurface) -> Windows.Foundation.Size: ...
     @winrt_mixinmethod
@@ -2094,7 +2094,7 @@ class Matrix(EasyCastStructure):
     OffsetY: Double
 class Matrix3DProjection(ComPtr):
     extends: Windows.UI.Xaml.Media.Projection
-    ClassId = 'Windows.UI.Xaml.Media.Matrix3DProjection'
+    _classid_ = 'Windows.UI.Xaml.Media.Matrix3DProjection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.Matrix3DProjection: ...
     @winrt_mixinmethod
@@ -2107,7 +2107,7 @@ class Matrix3DProjection(ComPtr):
     ProjectionMatrixProperty = property(get_ProjectionMatrixProperty, None)
 class MatrixHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.MatrixHelper'
+    _classid_ = 'Windows.UI.Xaml.Media.MatrixHelper'
     @winrt_classmethod
     def get_Identity(cls: Windows.UI.Xaml.Media.IMatrixHelperStatics) -> Windows.UI.Xaml.Media.Matrix: ...
     @winrt_classmethod
@@ -2119,7 +2119,7 @@ class MatrixHelper(ComPtr):
     Identity = property(get_Identity, None)
 class MatrixTransform(ComPtr):
     extends: Windows.UI.Xaml.Media.Transform
-    ClassId = 'Windows.UI.Xaml.Media.MatrixTransform'
+    _classid_ = 'Windows.UI.Xaml.Media.MatrixTransform'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.MatrixTransform: ...
     @winrt_mixinmethod
@@ -2143,14 +2143,14 @@ MediaElementState_Paused: MediaElementState = 4
 MediaElementState_Stopped: MediaElementState = 5
 class MediaTransportControlsThumbnailRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.MediaTransportControlsThumbnailRequestedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Media.MediaTransportControlsThumbnailRequestedEventArgs'
     @winrt_mixinmethod
     def SetThumbnailImage(self: Windows.UI.Xaml.Media.IMediaTransportControlsThumbnailRequestedEventArgs, source: Windows.Storage.Streams.IInputStream) -> Void: ...
     @winrt_mixinmethod
     def GetDeferral(self: Windows.UI.Xaml.Media.IMediaTransportControlsThumbnailRequestedEventArgs) -> Windows.Foundation.Deferral: ...
 class PartialMediaFailureDetectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.PartialMediaFailureDetectedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Media.PartialMediaFailureDetectedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.PartialMediaFailureDetectedEventArgs: ...
     @winrt_mixinmethod
@@ -2161,7 +2161,7 @@ class PartialMediaFailureDetectedEventArgs(ComPtr):
     ExtendedError = property(get_ExtendedError, None)
 class PathFigure(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Media.PathFigure'
+    _classid_ = 'Windows.UI.Xaml.Media.PathFigure'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.PathFigure: ...
     @winrt_mixinmethod
@@ -2198,7 +2198,7 @@ class PathFigure(ComPtr):
     IsFilledProperty = property(get_IsFilledProperty, None)
 class PathFigureCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.PathFigureCollection'
+    _classid_ = 'Windows.UI.Xaml.Media.PathFigureCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.PathFigureCollection: ...
     @winrt_mixinmethod
@@ -2230,7 +2230,7 @@ class PathFigureCollection(ComPtr):
     Size = property(get_Size, None)
 class PathGeometry(ComPtr):
     extends: Windows.UI.Xaml.Media.Geometry
-    ClassId = 'Windows.UI.Xaml.Media.PathGeometry'
+    _classid_ = 'Windows.UI.Xaml.Media.PathGeometry'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.PathGeometry: ...
     @winrt_mixinmethod
@@ -2253,7 +2253,7 @@ class PathSegment(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
 class PathSegmentCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.PathSegmentCollection'
+    _classid_ = 'Windows.UI.Xaml.Media.PathSegmentCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.PathSegmentCollection: ...
     @winrt_mixinmethod
@@ -2294,7 +2294,7 @@ PenLineJoin_Bevel: PenLineJoin = 1
 PenLineJoin_Round: PenLineJoin = 2
 class PlaneProjection(ComPtr):
     extends: Windows.UI.Xaml.Media.Projection
-    ClassId = 'Windows.UI.Xaml.Media.PlaneProjection'
+    _classid_ = 'Windows.UI.Xaml.Media.PlaneProjection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.PlaneProjection: ...
     @winrt_mixinmethod
@@ -2401,7 +2401,7 @@ class PlaneProjection(ComPtr):
     ProjectionMatrixProperty = property(get_ProjectionMatrixProperty, None)
 class PointCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.PointCollection'
+    _classid_ = 'Windows.UI.Xaml.Media.PointCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.PointCollection: ...
     @winrt_mixinmethod
@@ -2433,7 +2433,7 @@ class PointCollection(ComPtr):
     Size = property(get_Size, None)
 class PolyBezierSegment(ComPtr):
     extends: Windows.UI.Xaml.Media.PathSegment
-    ClassId = 'Windows.UI.Xaml.Media.PolyBezierSegment'
+    _classid_ = 'Windows.UI.Xaml.Media.PolyBezierSegment'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.PolyBezierSegment: ...
     @winrt_mixinmethod
@@ -2446,7 +2446,7 @@ class PolyBezierSegment(ComPtr):
     PointsProperty = property(get_PointsProperty, None)
 class PolyLineSegment(ComPtr):
     extends: Windows.UI.Xaml.Media.PathSegment
-    ClassId = 'Windows.UI.Xaml.Media.PolyLineSegment'
+    _classid_ = 'Windows.UI.Xaml.Media.PolyLineSegment'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.PolyLineSegment: ...
     @winrt_mixinmethod
@@ -2459,7 +2459,7 @@ class PolyLineSegment(ComPtr):
     PointsProperty = property(get_PointsProperty, None)
 class PolyQuadraticBezierSegment(ComPtr):
     extends: Windows.UI.Xaml.Media.PathSegment
-    ClassId = 'Windows.UI.Xaml.Media.PolyQuadraticBezierSegment'
+    _classid_ = 'Windows.UI.Xaml.Media.PolyQuadraticBezierSegment'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.PolyQuadraticBezierSegment: ...
     @winrt_mixinmethod
@@ -2474,7 +2474,7 @@ class Projection(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
 class QuadraticBezierSegment(ComPtr):
     extends: Windows.UI.Xaml.Media.PathSegment
-    ClassId = 'Windows.UI.Xaml.Media.QuadraticBezierSegment'
+    _classid_ = 'Windows.UI.Xaml.Media.QuadraticBezierSegment'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.QuadraticBezierSegment: ...
     @winrt_mixinmethod
@@ -2495,18 +2495,18 @@ class QuadraticBezierSegment(ComPtr):
     Point2Property = property(get_Point2Property, None)
 class RateChangedRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Media.RateChangedRoutedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Media.RateChangedRoutedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.RateChangedRoutedEventArgs: ...
 class RateChangedRoutedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('08e9a257-ae05-489b-88-39-28-c6-22-5d-23-49')
-    ClassId = 'Windows.UI.Xaml.Media.RateChangedRoutedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Media.RateChangedRoutedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Media.RateChangedRoutedEventArgs) -> Void: ...
 class RectangleGeometry(ComPtr):
     extends: Windows.UI.Xaml.Media.Geometry
-    ClassId = 'Windows.UI.Xaml.Media.RectangleGeometry'
+    _classid_ = 'Windows.UI.Xaml.Media.RectangleGeometry'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.RectangleGeometry: ...
     @winrt_mixinmethod
@@ -2519,13 +2519,13 @@ class RectangleGeometry(ComPtr):
     RectProperty = property(get_RectProperty, None)
 class RenderedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.RenderedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Media.RenderedEventArgs'
     @winrt_mixinmethod
     def get_FrameDuration(self: Windows.UI.Xaml.Media.IRenderedEventArgs) -> Windows.Foundation.TimeSpan: ...
     FrameDuration = property(get_FrameDuration, None)
 class RenderingEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.RenderingEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Media.RenderingEventArgs'
     @winrt_mixinmethod
     def get_RenderingTime(self: Windows.UI.Xaml.Media.IRenderingEventArgs) -> Windows.Foundation.TimeSpan: ...
     RenderingTime = property(get_RenderingTime, None)
@@ -2572,7 +2572,7 @@ RevealBrushState_PointerOver: RevealBrushState = 1
 RevealBrushState_Pressed: RevealBrushState = 2
 class RotateTransform(ComPtr):
     extends: Windows.UI.Xaml.Media.Transform
-    ClassId = 'Windows.UI.Xaml.Media.RotateTransform'
+    _classid_ = 'Windows.UI.Xaml.Media.RotateTransform'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.RotateTransform: ...
     @winrt_mixinmethod
@@ -2601,7 +2601,7 @@ class RotateTransform(ComPtr):
     AngleProperty = property(get_AngleProperty, None)
 class ScaleTransform(ComPtr):
     extends: Windows.UI.Xaml.Media.Transform
-    ClassId = 'Windows.UI.Xaml.Media.ScaleTransform'
+    _classid_ = 'Windows.UI.Xaml.Media.ScaleTransform'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.ScaleTransform: ...
     @winrt_mixinmethod
@@ -2640,7 +2640,7 @@ class Shadow(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
 class SkewTransform(ComPtr):
     extends: Windows.UI.Xaml.Media.Transform
-    ClassId = 'Windows.UI.Xaml.Media.SkewTransform'
+    _classid_ = 'Windows.UI.Xaml.Media.SkewTransform'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.SkewTransform: ...
     @winrt_mixinmethod
@@ -2677,7 +2677,7 @@ class SkewTransform(ComPtr):
     AngleYProperty = property(get_AngleYProperty, None)
 class SolidColorBrush(ComPtr):
     extends: Windows.UI.Xaml.Media.Brush
-    ClassId = 'Windows.UI.Xaml.Media.SolidColorBrush'
+    _classid_ = 'Windows.UI.Xaml.Media.SolidColorBrush'
     @winrt_factorymethod
     def CreateInstanceWithColor(cls: Windows.UI.Xaml.Media.ISolidColorBrushFactory, color: Windows.UI.Color) -> Windows.UI.Xaml.Media.SolidColorBrush: ...
     @winrt_activatemethod
@@ -2743,7 +2743,7 @@ class TileBrush(ComPtr):
     StretchProperty = property(get_StretchProperty, None)
 class TimelineMarker(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Media.TimelineMarker'
+    _classid_ = 'Windows.UI.Xaml.Media.TimelineMarker'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.TimelineMarker: ...
     @winrt_mixinmethod
@@ -2772,7 +2772,7 @@ class TimelineMarker(ComPtr):
     TextProperty = property(get_TextProperty, None)
 class TimelineMarkerCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.TimelineMarkerCollection'
+    _classid_ = 'Windows.UI.Xaml.Media.TimelineMarkerCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.TimelineMarkerCollection: ...
     @winrt_mixinmethod
@@ -2804,7 +2804,7 @@ class TimelineMarkerCollection(ComPtr):
     Size = property(get_Size, None)
 class TimelineMarkerRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Media.TimelineMarkerRoutedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Media.TimelineMarkerRoutedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.TimelineMarkerRoutedEventArgs: ...
     @winrt_mixinmethod
@@ -2815,14 +2815,14 @@ class TimelineMarkerRoutedEventArgs(ComPtr):
 class TimelineMarkerRoutedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('72e2fa9c-6dea-4cbe-a1-59-06-ce-95-fb-ec-ed')
-    ClassId = 'Windows.UI.Xaml.Media.TimelineMarkerRoutedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Media.TimelineMarkerRoutedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Media.TimelineMarkerRoutedEventArgs) -> Void: ...
 class Transform(ComPtr):
     extends: Windows.UI.Xaml.Media.GeneralTransform
 class TransformCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.TransformCollection'
+    _classid_ = 'Windows.UI.Xaml.Media.TransformCollection'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.TransformCollection: ...
     @winrt_mixinmethod
@@ -2854,7 +2854,7 @@ class TransformCollection(ComPtr):
     Size = property(get_Size, None)
 class TransformGroup(ComPtr):
     extends: Windows.UI.Xaml.Media.Transform
-    ClassId = 'Windows.UI.Xaml.Media.TransformGroup'
+    _classid_ = 'Windows.UI.Xaml.Media.TransformGroup'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.TransformGroup: ...
     @winrt_mixinmethod
@@ -2870,7 +2870,7 @@ class TransformGroup(ComPtr):
     ChildrenProperty = property(get_ChildrenProperty, None)
 class TranslateTransform(ComPtr):
     extends: Windows.UI.Xaml.Media.Transform
-    ClassId = 'Windows.UI.Xaml.Media.TranslateTransform'
+    _classid_ = 'Windows.UI.Xaml.Media.TranslateTransform'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Media.TranslateTransform: ...
     @winrt_mixinmethod
@@ -2891,7 +2891,7 @@ class TranslateTransform(ComPtr):
     YProperty = property(get_YProperty, None)
 class VisualTreeHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Media.VisualTreeHelper'
+    _classid_ = 'Windows.UI.Xaml.Media.VisualTreeHelper'
     @winrt_classmethod
     def GetOpenPopupsForXamlRoot(cls: Windows.UI.Xaml.Media.IVisualTreeHelperStatics3, xamlRoot: Windows.UI.Xaml.XamlRoot) -> Windows.Foundation.Collections.IVectorView[Windows.UI.Xaml.Controls.Primitives.Popup]: ...
     @winrt_classmethod

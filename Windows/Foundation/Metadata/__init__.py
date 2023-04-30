@@ -22,7 +22,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ApiInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Metadata.ApiInformation'
+    _classid_ = 'Windows.Foundation.Metadata.ApiInformation'
     @winrt_classmethod
     def IsTypePresent(cls: Windows.Foundation.Metadata.IApiInformationStatics, typeName: WinRT_String) -> Boolean: ...
     @winrt_classmethod

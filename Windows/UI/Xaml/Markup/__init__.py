@@ -236,7 +236,7 @@ class MarkupExtension(ComPtr):
     def ProvideValue(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class XamlBinaryWriter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Markup.XamlBinaryWriter'
+    _classid_ = 'Windows.UI.Xaml.Markup.XamlBinaryWriter'
     @winrt_classmethod
     def Write(cls: Windows.UI.Xaml.Markup.IXamlBinaryWriterStatics, inputStreams: Windows.Foundation.Collections.IVector[Windows.Storage.Streams.IRandomAccessStream], outputStreams: Windows.Foundation.Collections.IVector[Windows.Storage.Streams.IRandomAccessStream], xamlMetadataProvider: Windows.UI.Xaml.Markup.IXamlMetadataProvider) -> Windows.UI.Xaml.Markup.XamlBinaryWriterErrorInformation: ...
 class XamlBinaryWriterErrorInformation(EasyCastStructure):
@@ -245,7 +245,7 @@ class XamlBinaryWriterErrorInformation(EasyCastStructure):
     LinePosition: UInt32
 class XamlBindingHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Markup.XamlBindingHelper'
+    _classid_ = 'Windows.UI.Xaml.Markup.XamlBindingHelper'
     @winrt_classmethod
     def get_DataTemplateComponentProperty(cls: Windows.UI.Xaml.Markup.IXamlBindingHelperStatics) -> Windows.UI.Xaml.DependencyProperty: ...
     @winrt_classmethod
@@ -295,12 +295,12 @@ class XamlBindingHelper(ComPtr):
     DataTemplateComponentProperty = property(get_DataTemplateComponentProperty, None)
 class XamlMarkupHelper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Markup.XamlMarkupHelper'
+    _classid_ = 'Windows.UI.Xaml.Markup.XamlMarkupHelper'
     @winrt_classmethod
     def UnloadObject(cls: Windows.UI.Xaml.Markup.IXamlMarkupHelperStatics, element: Windows.UI.Xaml.DependencyObject) -> Void: ...
 class XamlReader(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Markup.XamlReader'
+    _classid_ = 'Windows.UI.Xaml.Markup.XamlReader'
     @winrt_classmethod
     def Load(cls: Windows.UI.Xaml.Markup.IXamlReaderStatics, xaml: WinRT_String) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_classmethod

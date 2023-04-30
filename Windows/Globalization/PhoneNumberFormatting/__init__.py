@@ -85,7 +85,7 @@ PhoneNumberFormat_National: PhoneNumberFormat = 2
 PhoneNumberFormat_Rfc3966: PhoneNumberFormat = 3
 class PhoneNumberFormatter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter'
+    _classid_ = 'Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter'
     @winrt_activatemethod
     def New(cls) -> Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter: ...
     @winrt_mixinmethod
@@ -108,7 +108,7 @@ class PhoneNumberFormatter(ComPtr):
     def WrapWithLeftToRightMarkers(cls: Windows.Globalization.PhoneNumberFormatting.IPhoneNumberFormatterStatics, number: WinRT_String) -> WinRT_String: ...
 class PhoneNumberInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo'
+    _classid_ = 'Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo'
     @winrt_factorymethod
     def Create(cls: Windows.Globalization.PhoneNumberFormatting.IPhoneNumberInfoFactory, number: WinRT_String) -> Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo: ...
     @winrt_mixinmethod

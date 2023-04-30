@@ -133,7 +133,7 @@ SpeechPunctuationSilence_Default: SpeechPunctuationSilence = 0
 SpeechPunctuationSilence_Min: SpeechPunctuationSilence = 1
 class SpeechSynthesisStream(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.SpeechSynthesis.SpeechSynthesisStream'
+    _classid_ = 'Windows.Media.SpeechSynthesis.SpeechSynthesisStream'
     @winrt_mixinmethod
     def get_Markers(self: Windows.Media.SpeechSynthesis.ISpeechSynthesisStream) -> Windows.Foundation.Collections.IVectorView[Windows.Media.IMediaMarker]: ...
     @winrt_mixinmethod
@@ -175,7 +175,7 @@ class SpeechSynthesisStream(ComPtr):
     TimedMetadataTracks = property(get_TimedMetadataTracks, None)
 class SpeechSynthesizer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.SpeechSynthesis.SpeechSynthesizer'
+    _classid_ = 'Windows.Media.SpeechSynthesis.SpeechSynthesizer'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.SpeechSynthesis.SpeechSynthesizer: ...
     @winrt_mixinmethod
@@ -202,7 +202,7 @@ class SpeechSynthesizer(ComPtr):
     DefaultVoice = property(get_DefaultVoice, None)
 class SpeechSynthesizerOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.SpeechSynthesis.SpeechSynthesizerOptions'
+    _classid_ = 'Windows.Media.SpeechSynthesis.SpeechSynthesizerOptions'
     @winrt_mixinmethod
     def get_IncludeWordBoundaryMetadata(self: Windows.Media.SpeechSynthesis.ISpeechSynthesizerOptions) -> Boolean: ...
     @winrt_mixinmethod
@@ -243,7 +243,7 @@ VoiceGender_Male: VoiceGender = 0
 VoiceGender_Female: VoiceGender = 1
 class VoiceInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.SpeechSynthesis.VoiceInformation'
+    _classid_ = 'Windows.Media.SpeechSynthesis.VoiceInformation'
     @winrt_mixinmethod
     def get_DisplayName(self: Windows.Media.SpeechSynthesis.IVoiceInformation) -> WinRT_String: ...
     @winrt_mixinmethod

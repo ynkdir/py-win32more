@@ -30,12 +30,12 @@ def __getattr__(name):
     return getattr(_module, name)
 class AccessKeyDisplayDismissedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.AccessKeyDisplayDismissedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.AccessKeyDisplayDismissedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Input.AccessKeyDisplayDismissedEventArgs: ...
 class AccessKeyDisplayRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.AccessKeyDisplayRequestedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.AccessKeyDisplayRequestedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Input.AccessKeyDisplayRequestedEventArgs: ...
     @winrt_mixinmethod
@@ -43,7 +43,7 @@ class AccessKeyDisplayRequestedEventArgs(ComPtr):
     PressedKeys = property(get_PressedKeys, None)
 class AccessKeyInvokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.AccessKeyInvokedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.AccessKeyInvokedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Input.AccessKeyInvokedEventArgs: ...
     @winrt_mixinmethod
@@ -53,7 +53,7 @@ class AccessKeyInvokedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class AccessKeyManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.AccessKeyManager'
+    _classid_ = 'Windows.UI.Xaml.Input.AccessKeyManager'
     @winrt_classmethod
     def get_AreKeyTipsEnabled(cls: Windows.UI.Xaml.Input.IAccessKeyManagerStatics2) -> Boolean: ...
     @winrt_classmethod
@@ -70,7 +70,7 @@ class AccessKeyManager(ComPtr):
     IsDisplayModeEnabled = property(get_IsDisplayModeEnabled, None)
 class CanExecuteRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.CanExecuteRequestedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.CanExecuteRequestedEventArgs'
     @winrt_mixinmethod
     def get_Parameter(self: Windows.UI.Xaml.Input.ICanExecuteRequestedEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
@@ -81,7 +81,7 @@ class CanExecuteRequestedEventArgs(ComPtr):
     CanExecute = property(get_CanExecute, put_CanExecute)
 class CharacterReceivedRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Input.CharacterReceivedRoutedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.CharacterReceivedRoutedEventArgs'
     @winrt_mixinmethod
     def get_Character(self: Windows.UI.Xaml.Input.ICharacterReceivedRoutedEventArgs) -> Char: ...
     @winrt_mixinmethod
@@ -95,7 +95,7 @@ class CharacterReceivedRoutedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class ContextRequestedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Input.ContextRequestedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.ContextRequestedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Input.ContextRequestedEventArgs: ...
     @winrt_mixinmethod
@@ -108,12 +108,12 @@ class ContextRequestedEventArgs(ComPtr):
 class DoubleTappedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('3124d025-04a7-4d45-82-5e-82-04-a6-24-db-f4')
-    ClassId = 'Windows.UI.Xaml.Input.DoubleTappedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Input.DoubleTappedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs) -> Void: ...
 class DoubleTappedRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Input.DoubleTappedRoutedEventArgs: ...
     @winrt_mixinmethod
@@ -128,13 +128,13 @@ class DoubleTappedRoutedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class ExecuteRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.ExecuteRequestedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.ExecuteRequestedEventArgs'
     @winrt_mixinmethod
     def get_Parameter(self: Windows.UI.Xaml.Input.IExecuteRequestedEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     Parameter = property(get_Parameter, None)
 class FindNextElementOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.FindNextElementOptions'
+    _classid_ = 'Windows.UI.Xaml.Input.FindNextElementOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Input.FindNextElementOptions: ...
     @winrt_mixinmethod
@@ -166,7 +166,7 @@ FocusInputDeviceKind_Keyboard: FocusInputDeviceKind = 4
 FocusInputDeviceKind_GameController: FocusInputDeviceKind = 5
 class FocusManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.FocusManager'
+    _classid_ = 'Windows.UI.Xaml.Input.FocusManager'
     @winrt_classmethod
     def GetFocusedElement(cls: Windows.UI.Xaml.Input.IFocusManagerStatics7, xamlRoot: Windows.UI.Xaml.XamlRoot) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_classmethod
@@ -211,7 +211,7 @@ class FocusManager(ComPtr):
     def GetFocusedElement(cls: Windows.UI.Xaml.Input.IFocusManagerStatics7) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class FocusManagerGotFocusEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.FocusManagerGotFocusEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.FocusManagerGotFocusEventArgs'
     @winrt_mixinmethod
     def get_NewFocusedElement(self: Windows.UI.Xaml.Input.IFocusManagerGotFocusEventArgs) -> Windows.UI.Xaml.DependencyObject: ...
     @winrt_mixinmethod
@@ -220,7 +220,7 @@ class FocusManagerGotFocusEventArgs(ComPtr):
     CorrelationId = property(get_CorrelationId, None)
 class FocusManagerLostFocusEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.FocusManagerLostFocusEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.FocusManagerLostFocusEventArgs'
     @winrt_mixinmethod
     def get_OldFocusedElement(self: Windows.UI.Xaml.Input.IFocusManagerLostFocusEventArgs) -> Windows.UI.Xaml.DependencyObject: ...
     @winrt_mixinmethod
@@ -229,7 +229,7 @@ class FocusManagerLostFocusEventArgs(ComPtr):
     CorrelationId = property(get_CorrelationId, None)
 class FocusMovementResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.FocusMovementResult'
+    _classid_ = 'Windows.UI.Xaml.Input.FocusMovementResult'
     @winrt_mixinmethod
     def get_Succeeded(self: Windows.UI.Xaml.Input.IFocusMovementResult) -> Boolean: ...
     Succeeded = property(get_Succeeded, None)
@@ -243,7 +243,7 @@ FocusNavigationDirection_Right: FocusNavigationDirection = 5
 FocusNavigationDirection_None: FocusNavigationDirection = 6
 class GettingFocusEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Input.GettingFocusEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.GettingFocusEventArgs'
     @winrt_mixinmethod
     def get_OldFocusedElement(self: Windows.UI.Xaml.Input.IGettingFocusEventArgs) -> Windows.UI.Xaml.DependencyObject: ...
     @winrt_mixinmethod
@@ -281,12 +281,12 @@ class GettingFocusEventArgs(ComPtr):
 class HoldingEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('ecae8ccd-8e5e-4fbe-98-46-30-a6-37-0a-fc-df')
-    ClassId = 'Windows.UI.Xaml.Input.HoldingEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Input.HoldingEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.HoldingRoutedEventArgs) -> Void: ...
 class HoldingRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Input.HoldingRoutedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.HoldingRoutedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Input.HoldingRoutedEventArgs: ...
     @winrt_mixinmethod
@@ -1120,7 +1120,7 @@ class IXamlUICommandStatics(ComPtr):
     CommandProperty = property(get_CommandProperty, None)
 class InertiaExpansionBehavior(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.InertiaExpansionBehavior'
+    _classid_ = 'Windows.UI.Xaml.Input.InertiaExpansionBehavior'
     @winrt_mixinmethod
     def get_DesiredDeceleration(self: Windows.UI.Xaml.Input.IInertiaExpansionBehavior) -> Double: ...
     @winrt_mixinmethod
@@ -1133,7 +1133,7 @@ class InertiaExpansionBehavior(ComPtr):
     DesiredExpansion = property(get_DesiredExpansion, put_DesiredExpansion)
 class InertiaRotationBehavior(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.InertiaRotationBehavior'
+    _classid_ = 'Windows.UI.Xaml.Input.InertiaRotationBehavior'
     @winrt_mixinmethod
     def get_DesiredDeceleration(self: Windows.UI.Xaml.Input.IInertiaRotationBehavior) -> Double: ...
     @winrt_mixinmethod
@@ -1146,7 +1146,7 @@ class InertiaRotationBehavior(ComPtr):
     DesiredRotation = property(get_DesiredRotation, put_DesiredRotation)
 class InertiaTranslationBehavior(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.InertiaTranslationBehavior'
+    _classid_ = 'Windows.UI.Xaml.Input.InertiaTranslationBehavior'
     @winrt_mixinmethod
     def get_DesiredDeceleration(self: Windows.UI.Xaml.Input.IInertiaTranslationBehavior) -> Double: ...
     @winrt_mixinmethod
@@ -1159,7 +1159,7 @@ class InertiaTranslationBehavior(ComPtr):
     DesiredDisplacement = property(get_DesiredDisplacement, put_DesiredDisplacement)
 class InputScope(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Input.InputScope'
+    _classid_ = 'Windows.UI.Xaml.Input.InputScope'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Input.InputScope: ...
     @winrt_mixinmethod
@@ -1167,7 +1167,7 @@ class InputScope(ComPtr):
     Names = property(get_Names, None)
 class InputScopeName(ComPtr):
     extends: Windows.UI.Xaml.DependencyObject
-    ClassId = 'Windows.UI.Xaml.Input.InputScopeName'
+    _classid_ = 'Windows.UI.Xaml.Input.InputScopeName'
     @winrt_factorymethod
     def CreateInstance(cls: Windows.UI.Xaml.Input.IInputScopeNameFactory, nameValue: Windows.UI.Xaml.Input.InputScopeNameValue) -> Windows.UI.Xaml.Input.InputScopeName: ...
     @winrt_activatemethod
@@ -1225,12 +1225,12 @@ InputScopeNameValue_ChatWithoutEmoji: InputScopeNameValue = 68
 class KeyEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('7c63d2e5-7a0e-4e12-b9-6a-77-15-aa-6f-f1-c8')
-    ClassId = 'Windows.UI.Xaml.Input.KeyEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Input.KeyEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.KeyRoutedEventArgs) -> Void: ...
 class KeyRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Input.KeyRoutedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.KeyRoutedEventArgs'
     @winrt_mixinmethod
     def get_Key(self: Windows.UI.Xaml.Input.IKeyRoutedEventArgs) -> Windows.System.VirtualKey: ...
     @winrt_mixinmethod
@@ -1296,7 +1296,7 @@ class KeyboardAccelerator(ComPtr):
     ScopeOwnerProperty = property(get_ScopeOwnerProperty, None)
 class KeyboardAcceleratorInvokedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.KeyboardAcceleratorInvokedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.KeyboardAcceleratorInvokedEventArgs'
     @winrt_mixinmethod
     def get_Handled(self: Windows.UI.Xaml.Input.IKeyboardAcceleratorInvokedEventArgs) -> Boolean: ...
     @winrt_mixinmethod
@@ -1317,7 +1317,7 @@ KeyboardNavigationMode_Cycle: KeyboardNavigationMode = 1
 KeyboardNavigationMode_Once: KeyboardNavigationMode = 2
 class LosingFocusEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Input.LosingFocusEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.LosingFocusEventArgs'
     @winrt_mixinmethod
     def get_OldFocusedElement(self: Windows.UI.Xaml.Input.ILosingFocusEventArgs) -> Windows.UI.Xaml.DependencyObject: ...
     @winrt_mixinmethod
@@ -1355,12 +1355,12 @@ class LosingFocusEventArgs(ComPtr):
 class ManipulationCompletedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('38ef4b0f-14f8-42df-9a-1e-a4-bc-c4-af-77-f4')
-    ClassId = 'Windows.UI.Xaml.Input.ManipulationCompletedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Input.ManipulationCompletedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.ManipulationCompletedRoutedEventArgs) -> Void: ...
 class ManipulationCompletedRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Input.ManipulationCompletedRoutedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.ManipulationCompletedRoutedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Input.ManipulationCompletedRoutedEventArgs: ...
     @winrt_mixinmethod
@@ -1389,12 +1389,12 @@ class ManipulationCompletedRoutedEventArgs(ComPtr):
 class ManipulationDeltaEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('aa1160cb-dfb9-4c56-ab-dc-71-1b-63-c8-eb-94')
-    ClassId = 'Windows.UI.Xaml.Input.ManipulationDeltaEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Input.ManipulationDeltaEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.ManipulationDeltaRoutedEventArgs) -> Void: ...
 class ManipulationDeltaRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Input.ManipulationDeltaRoutedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.ManipulationDeltaRoutedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Input.ManipulationDeltaRoutedEventArgs: ...
     @winrt_mixinmethod
@@ -1428,12 +1428,12 @@ class ManipulationDeltaRoutedEventArgs(ComPtr):
 class ManipulationInertiaStartingEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('d39d6322-7c9c-481b-82-7b-c8-b2-d9-bb-6f-c7')
-    ClassId = 'Windows.UI.Xaml.Input.ManipulationInertiaStartingEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Input.ManipulationInertiaStartingEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.ManipulationInertiaStartingRoutedEventArgs) -> Void: ...
 class ManipulationInertiaStartingRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Input.ManipulationInertiaStartingRoutedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.ManipulationInertiaStartingRoutedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Input.ManipulationInertiaStartingRoutedEventArgs: ...
     @winrt_mixinmethod
@@ -1486,7 +1486,7 @@ ManipulationModes_All: ManipulationModes = 65535
 ManipulationModes_System: ManipulationModes = 65536
 class ManipulationPivot(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.ManipulationPivot'
+    _classid_ = 'Windows.UI.Xaml.Input.ManipulationPivot'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Input.ManipulationPivot: ...
     @winrt_factorymethod
@@ -1504,7 +1504,7 @@ class ManipulationPivot(ComPtr):
 class ManipulationStartedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('f88345f8-e0a3-4be2-b9-0c-dc-20-e6-d8-be-b0')
-    ClassId = 'Windows.UI.Xaml.Input.ManipulationStartedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Input.ManipulationStartedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.ManipulationStartedRoutedEventArgs) -> Void: ...
 class ManipulationStartedRoutedEventArgs(ComPtr):
@@ -1531,12 +1531,12 @@ class ManipulationStartedRoutedEventArgs(ComPtr):
 class ManipulationStartingEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('10d0b04e-bfe4-42cb-82-3c-3f-ec-d8-77-0e-f8')
-    ClassId = 'Windows.UI.Xaml.Input.ManipulationStartingEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Input.ManipulationStartingEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.ManipulationStartingRoutedEventArgs) -> Void: ...
 class ManipulationStartingRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Input.ManipulationStartingRoutedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.ManipulationStartingRoutedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Input.ManipulationStartingRoutedEventArgs: ...
     @winrt_mixinmethod
@@ -1561,7 +1561,7 @@ class ManipulationStartingRoutedEventArgs(ComPtr):
     Handled = property(get_Handled, put_Handled)
 class NoFocusCandidateFoundEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Input.NoFocusCandidateFoundEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.NoFocusCandidateFoundEventArgs'
     @winrt_mixinmethod
     def get_Direction(self: Windows.UI.Xaml.Input.INoFocusCandidateFoundEventArgs) -> Windows.UI.Xaml.Input.FocusNavigationDirection: ...
     @winrt_mixinmethod
@@ -1575,7 +1575,7 @@ class NoFocusCandidateFoundEventArgs(ComPtr):
     InputDevice = property(get_InputDevice, None)
 class Pointer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.Pointer'
+    _classid_ = 'Windows.UI.Xaml.Input.Pointer'
     @winrt_mixinmethod
     def get_PointerId(self: Windows.UI.Xaml.Input.IPointer) -> UInt32: ...
     @winrt_mixinmethod
@@ -1591,12 +1591,12 @@ class Pointer(ComPtr):
 class PointerEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('e4385929-c004-4bcf-89-70-35-94-86-e3-9f-88')
-    ClassId = 'Windows.UI.Xaml.Input.PointerEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Input.PointerEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.PointerRoutedEventArgs) -> Void: ...
 class PointerRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Input.PointerRoutedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.PointerRoutedEventArgs'
     @winrt_mixinmethod
     def get_Pointer(self: Windows.UI.Xaml.Input.IPointerRoutedEventArgs) -> Windows.UI.Xaml.Input.Pointer: ...
     @winrt_mixinmethod
@@ -1617,7 +1617,7 @@ class PointerRoutedEventArgs(ComPtr):
     IsGenerated = property(get_IsGenerated, None)
 class ProcessKeyboardAcceleratorEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Input.ProcessKeyboardAcceleratorEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.ProcessKeyboardAcceleratorEventArgs'
     @winrt_mixinmethod
     def get_Key(self: Windows.UI.Xaml.Input.IProcessKeyboardAcceleratorEventArgs) -> Windows.System.VirtualKey: ...
     @winrt_mixinmethod
@@ -1632,12 +1632,12 @@ class ProcessKeyboardAcceleratorEventArgs(ComPtr):
 class RightTappedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('2532a062-f447-4950-9c-46-f1-e3-4a-2c-22-38')
-    ClassId = 'Windows.UI.Xaml.Input.RightTappedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Input.RightTappedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.RightTappedRoutedEventArgs) -> Void: ...
 class RightTappedRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Input.RightTappedRoutedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.RightTappedRoutedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Input.RightTappedRoutedEventArgs: ...
     @winrt_mixinmethod
@@ -1681,12 +1681,12 @@ StandardUICommandKind_Redo: StandardUICommandKind = 16
 class TappedEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('68d940cc-9ff0-49ce-b1-41-3f-07-ec-47-7b-97')
-    ClassId = 'Windows.UI.Xaml.Input.TappedEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Input.TappedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Input.TappedRoutedEventArgs) -> Void: ...
 class TappedRoutedEventArgs(ComPtr):
     extends: Windows.UI.Xaml.RoutedEventArgs
-    ClassId = 'Windows.UI.Xaml.Input.TappedRoutedEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Input.TappedRoutedEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Input.TappedRoutedEventArgs: ...
     @winrt_mixinmethod

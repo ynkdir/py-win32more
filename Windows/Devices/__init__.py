@@ -62,7 +62,7 @@ class ILowLevelDevicesControllerStatics(ComPtr):
     DefaultProvider = property(get_DefaultProvider, put_DefaultProvider)
 class LowLevelDevicesAggregateProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.LowLevelDevicesAggregateProvider'
+    _classid_ = 'Windows.Devices.LowLevelDevicesAggregateProvider'
     @winrt_factorymethod
     def Create(cls: Windows.Devices.ILowLevelDevicesAggregateProviderFactory, adc: Windows.Devices.Adc.Provider.IAdcControllerProvider, pwm: Windows.Devices.Pwm.Provider.IPwmControllerProvider, gpio: Windows.Devices.Gpio.Provider.IGpioControllerProvider, i2c: Windows.Devices.I2c.Provider.II2cControllerProvider, spi: Windows.Devices.Spi.Provider.ISpiControllerProvider) -> Windows.Devices.LowLevelDevicesAggregateProvider: ...
     @winrt_mixinmethod
@@ -82,7 +82,7 @@ class LowLevelDevicesAggregateProvider(ComPtr):
     SpiControllerProvider = property(get_SpiControllerProvider, None)
 class LowLevelDevicesController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.LowLevelDevicesController'
+    _classid_ = 'Windows.Devices.LowLevelDevicesController'
     @winrt_classmethod
     def get_DefaultProvider(cls: Windows.Devices.ILowLevelDevicesControllerStatics) -> Windows.Devices.ILowLevelDevicesAggregateProvider: ...
     @winrt_classmethod

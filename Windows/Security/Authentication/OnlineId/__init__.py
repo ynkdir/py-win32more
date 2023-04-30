@@ -146,7 +146,7 @@ class IUserIdentity(ComPtr):
     IsConfirmedPC = property(get_IsConfirmedPC, None)
 class OnlineIdAuthenticator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator'
+    _classid_ = 'Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator'
     @winrt_activatemethod
     def New(cls) -> Windows.Security.Authentication.OnlineId.OnlineIdAuthenticator: ...
     @winrt_mixinmethod
@@ -168,7 +168,7 @@ class OnlineIdAuthenticator(ComPtr):
     AuthenticatedSafeCustomerId = property(get_AuthenticatedSafeCustomerId, None)
 class OnlineIdServiceTicket(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.OnlineId.OnlineIdServiceTicket'
+    _classid_ = 'Windows.Security.Authentication.OnlineId.OnlineIdServiceTicket'
     @winrt_mixinmethod
     def get_Value(self: Windows.Security.Authentication.OnlineId.IOnlineIdServiceTicket) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -180,7 +180,7 @@ class OnlineIdServiceTicket(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
 class OnlineIdServiceTicketRequest(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest'
+    _classid_ = 'Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest'
     @winrt_factorymethod
     def CreateOnlineIdServiceTicketRequest(cls: Windows.Security.Authentication.OnlineId.IOnlineIdServiceTicketRequestFactory, service: WinRT_String, policy: WinRT_String) -> Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest: ...
     @winrt_factorymethod
@@ -193,7 +193,7 @@ class OnlineIdServiceTicketRequest(ComPtr):
     Policy = property(get_Policy, None)
 class OnlineIdSystemAuthenticator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticator'
+    _classid_ = 'Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticator'
     @winrt_classmethod
     def get_Default(cls: Windows.Security.Authentication.OnlineId.IOnlineIdSystemAuthenticatorStatics) -> Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser: ...
     @winrt_classmethod
@@ -201,7 +201,7 @@ class OnlineIdSystemAuthenticator(ComPtr):
     Default = property(get_Default, None)
 class OnlineIdSystemAuthenticatorForUser(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser'
+    _classid_ = 'Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser'
     @winrt_mixinmethod
     def GetTicketAsync(self: Windows.Security.Authentication.OnlineId.IOnlineIdSystemAuthenticatorForUser, request: Windows.Security.Authentication.OnlineId.OnlineIdServiceTicketRequest) -> Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.OnlineId.OnlineIdSystemTicketResult]: ...
     @winrt_mixinmethod
@@ -214,7 +214,7 @@ class OnlineIdSystemAuthenticatorForUser(ComPtr):
     User = property(get_User, None)
 class OnlineIdSystemIdentity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.OnlineId.OnlineIdSystemIdentity'
+    _classid_ = 'Windows.Security.Authentication.OnlineId.OnlineIdSystemIdentity'
     @winrt_mixinmethod
     def get_Ticket(self: Windows.Security.Authentication.OnlineId.IOnlineIdSystemIdentity) -> Windows.Security.Authentication.OnlineId.OnlineIdServiceTicket: ...
     @winrt_mixinmethod
@@ -223,7 +223,7 @@ class OnlineIdSystemIdentity(ComPtr):
     Id = property(get_Id, None)
 class OnlineIdSystemTicketResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.OnlineId.OnlineIdSystemTicketResult'
+    _classid_ = 'Windows.Security.Authentication.OnlineId.OnlineIdSystemTicketResult'
     @winrt_mixinmethod
     def get_Identity(self: Windows.Security.Authentication.OnlineId.IOnlineIdSystemTicketResult) -> Windows.Security.Authentication.OnlineId.OnlineIdSystemIdentity: ...
     @winrt_mixinmethod
@@ -239,7 +239,7 @@ OnlineIdSystemTicketStatus_Error: OnlineIdSystemTicketStatus = 1
 OnlineIdSystemTicketStatus_ServiceConnectionError: OnlineIdSystemTicketStatus = 2
 class SignOutUserOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.OnlineId.SignOutUserOperation'
+    _classid_ = 'Windows.Security.Authentication.OnlineId.SignOutUserOperation'
     @winrt_mixinmethod
     def put_Completed(self: Windows.Foundation.IAsyncAction, handler: Windows.Foundation.AsyncActionCompletedHandler) -> Void: ...
     @winrt_mixinmethod
@@ -262,7 +262,7 @@ class SignOutUserOperation(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
 class UserAuthenticationOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.OnlineId.UserAuthenticationOperation'
+    _classid_ = 'Windows.Security.Authentication.OnlineId.UserAuthenticationOperation'
     @winrt_mixinmethod
     def put_Completed(self: Windows.Foundation.IAsyncOperation[Windows.Security.Authentication.OnlineId.UserIdentity], handler: Windows.Foundation.AsyncOperationCompletedHandler[Windows.Security.Authentication.OnlineId.UserIdentity]) -> Void: ...
     @winrt_mixinmethod
@@ -285,7 +285,7 @@ class UserAuthenticationOperation(ComPtr):
     ErrorCode = property(get_ErrorCode, None)
 class UserIdentity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Security.Authentication.OnlineId.UserIdentity'
+    _classid_ = 'Windows.Security.Authentication.OnlineId.UserIdentity'
     @winrt_mixinmethod
     def get_Tickets(self: Windows.Security.Authentication.OnlineId.IUserIdentity) -> Windows.Foundation.Collections.IVectorView[Windows.Security.Authentication.OnlineId.OnlineIdServiceTicket]: ...
     @winrt_mixinmethod

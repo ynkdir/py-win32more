@@ -29,7 +29,7 @@ AddContactResult_AlreadyAdded: AddContactResult = 1
 AddContactResult_Unavailable: AddContactResult = 2
 class ContactPickerUI(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Contacts.Provider.ContactPickerUI'
+    _classid_ = 'Windows.ApplicationModel.Contacts.Provider.ContactPickerUI'
     @winrt_mixinmethod
     def AddContact(self: Windows.ApplicationModel.Contacts.Provider.IContactPickerUI, id: WinRT_String, contact: Windows.ApplicationModel.Contacts.Contact) -> Windows.ApplicationModel.Contacts.Provider.AddContactResult: ...
     @winrt_mixinmethod
@@ -53,7 +53,7 @@ class ContactPickerUI(ComPtr):
     DesiredFieldsWithContactFieldType = property(get_DesiredFieldsWithContactFieldType, None)
 class ContactRemovedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Contacts.Provider.ContactRemovedEventArgs'
+    _classid_ = 'Windows.ApplicationModel.Contacts.Provider.ContactRemovedEventArgs'
     @winrt_mixinmethod
     def get_Id(self: Windows.ApplicationModel.Contacts.Provider.IContactRemovedEventArgs) -> WinRT_String: ...
     Id = property(get_Id, None)

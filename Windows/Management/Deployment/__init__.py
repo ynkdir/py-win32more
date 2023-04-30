@@ -31,7 +31,7 @@ AddPackageByAppInstallerOptions_RequiredContentGroupOnly: AddPackageByAppInstall
 AddPackageByAppInstallerOptions_LimitToExistingPackages: AddPackageByAppInstallerOptions = 512
 class AddPackageOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Deployment.AddPackageOptions'
+    _classid_ = 'Windows.Management.Deployment.AddPackageOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Deployment.AddPackageOptions: ...
     @winrt_mixinmethod
@@ -121,7 +121,7 @@ class AddPackageOptions(ComPtr):
     LimitToExistingPackages = property(get_LimitToExistingPackages, put_LimitToExistingPackages)
 class AppInstallerManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Deployment.AppInstallerManager'
+    _classid_ = 'Windows.Management.Deployment.AppInstallerManager'
     @winrt_mixinmethod
     def SetAutoUpdateSettings(self: Windows.Management.Deployment.IAppInstallerManager, packageFamilyName: WinRT_String, appInstallerInfo: Windows.Management.Deployment.AutoUpdateSettingsOptions) -> Void: ...
     @winrt_mixinmethod
@@ -134,7 +134,7 @@ class AppInstallerManager(ComPtr):
     def GetForSystem(cls: Windows.Management.Deployment.IAppInstallerManagerStatics) -> Windows.Management.Deployment.AppInstallerManager: ...
 class AutoUpdateSettingsOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Deployment.AutoUpdateSettingsOptions'
+    _classid_ = 'Windows.Management.Deployment.AutoUpdateSettingsOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Deployment.AutoUpdateSettingsOptions: ...
     @winrt_mixinmethod
@@ -214,7 +214,7 @@ DeploymentProgressState_Queued: DeploymentProgressState = 0
 DeploymentProgressState_Processing: DeploymentProgressState = 1
 class DeploymentResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Deployment.DeploymentResult'
+    _classid_ = 'Windows.Management.Deployment.DeploymentResult'
     @winrt_mixinmethod
     def get_ErrorText(self: Windows.Management.Deployment.IDeploymentResult) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -790,7 +790,7 @@ class IStagePackageOptions2(ComPtr):
     ExpectedDigests = property(get_ExpectedDigests, None)
 class PackageAllUserProvisioningOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Deployment.PackageAllUserProvisioningOptions'
+    _classid_ = 'Windows.Management.Deployment.PackageAllUserProvisioningOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Deployment.PackageAllUserProvisioningOptions: ...
     @winrt_mixinmethod
@@ -806,7 +806,7 @@ PackageInstallState_Installed: PackageInstallState = 2
 PackageInstallState_Paused: PackageInstallState = 6
 class PackageManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Deployment.PackageManager'
+    _classid_ = 'Windows.Management.Deployment.PackageManager'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Deployment.PackageManager: ...
     @winrt_mixinmethod
@@ -936,7 +936,7 @@ class PackageManager(ComPtr):
     DebugSettings = property(get_DebugSettings, None)
 class PackageManagerDebugSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Deployment.PackageManagerDebugSettings'
+    _classid_ = 'Windows.Management.Deployment.PackageManagerDebugSettings'
     @winrt_mixinmethod
     def SetContentGroupStateAsync(self: Windows.Management.Deployment.IPackageManagerDebugSettings, package: Windows.ApplicationModel.Package, contentGroupName: WinRT_String, state: Windows.ApplicationModel.PackageContentGroupState) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -966,7 +966,7 @@ PackageTypes_Optional: PackageTypes = 32
 PackageTypes_All: PackageTypes = 4294967295
 class PackageUserInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Deployment.PackageUserInformation'
+    _classid_ = 'Windows.Management.Deployment.PackageUserInformation'
     @winrt_mixinmethod
     def get_UserSecurityId(self: Windows.Management.Deployment.IPackageUserInformation) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -975,7 +975,7 @@ class PackageUserInformation(ComPtr):
     InstallState = property(get_InstallState, None)
 class PackageVolume(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Deployment.PackageVolume'
+    _classid_ = 'Windows.Management.Deployment.PackageVolume'
     @winrt_mixinmethod
     def get_IsOffline(self: Windows.Management.Deployment.IPackageVolume) -> Boolean: ...
     @winrt_mixinmethod
@@ -1032,7 +1032,7 @@ class PackageVolume(ComPtr):
     IsAppxInstallSupported = property(get_IsAppxInstallSupported, None)
 class RegisterPackageOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Deployment.RegisterPackageOptions'
+    _classid_ = 'Windows.Management.Deployment.RegisterPackageOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Deployment.RegisterPackageOptions: ...
     @winrt_mixinmethod
@@ -1101,7 +1101,7 @@ RemovalOptions_PreserveRoamableApplicationData: RemovalOptions = 128
 RemovalOptions_RemoveForAllUsers: RemovalOptions = 524288
 class StagePackageOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Deployment.StagePackageOptions'
+    _classid_ = 'Windows.Management.Deployment.StagePackageOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Management.Deployment.StagePackageOptions: ...
     @winrt_mixinmethod

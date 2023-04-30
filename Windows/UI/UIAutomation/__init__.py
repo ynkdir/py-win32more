@@ -22,7 +22,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AutomationConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.UIAutomation.AutomationConnection'
+    _classid_ = 'Windows.UI.UIAutomation.AutomationConnection'
     @winrt_mixinmethod
     def get_IsRemoteSystem(self: Windows.UI.UIAutomation.IAutomationConnection) -> Boolean: ...
     @winrt_mixinmethod
@@ -34,13 +34,13 @@ class AutomationConnection(ComPtr):
     ExecutableFileName = property(get_ExecutableFileName, None)
 class AutomationConnectionBoundObject(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.UIAutomation.AutomationConnectionBoundObject'
+    _classid_ = 'Windows.UI.UIAutomation.AutomationConnectionBoundObject'
     @winrt_mixinmethod
     def get_Connection(self: Windows.UI.UIAutomation.IAutomationConnectionBoundObject) -> Windows.UI.UIAutomation.AutomationConnection: ...
     Connection = property(get_Connection, None)
 class AutomationElement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.UIAutomation.AutomationElement'
+    _classid_ = 'Windows.UI.UIAutomation.AutomationElement'
     @winrt_mixinmethod
     def get_IsRemoteSystem(self: Windows.UI.UIAutomation.IAutomationElement) -> Boolean: ...
     @winrt_mixinmethod
@@ -52,7 +52,7 @@ class AutomationElement(ComPtr):
     ExecutableFileName = property(get_ExecutableFileName, None)
 class AutomationTextRange(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.UIAutomation.AutomationTextRange'
+    _classid_ = 'Windows.UI.UIAutomation.AutomationTextRange'
 class IAutomationConnection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('aad262ed-0ef4-5d43-97-be-a8-34-e2-7b-65-b9')

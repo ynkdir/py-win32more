@@ -23,7 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ApplicationDataManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Management.Core.ApplicationDataManager'
+    _classid_ = 'Windows.Management.Core.ApplicationDataManager'
     @winrt_classmethod
     def CreateForPackageFamily(cls: Windows.Management.Core.IApplicationDataManagerStatics, packageFamilyName: WinRT_String) -> Windows.Storage.ApplicationData: ...
 class IApplicationDataManager(ComPtr):

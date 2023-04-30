@@ -54,7 +54,7 @@ class IThreadPoolTimerStatics(ComPtr):
     def CreateTimerWithCompletion(self, handler: Windows.System.Threading.TimerElapsedHandler, delay: Windows.Foundation.TimeSpan, destroyed: Windows.System.Threading.TimerDestroyedHandler) -> Windows.System.Threading.ThreadPoolTimer: ...
 class ThreadPool(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Threading.ThreadPool'
+    _classid_ = 'Windows.System.Threading.ThreadPool'
     @winrt_classmethod
     def RunAsync(cls: Windows.System.Threading.IThreadPoolStatics, handler: Windows.System.Threading.WorkItemHandler) -> Windows.Foundation.IAsyncAction: ...
     @winrt_classmethod
@@ -63,7 +63,7 @@ class ThreadPool(ComPtr):
     def RunWithPriorityAndOptionsAsync(cls: Windows.System.Threading.IThreadPoolStatics, handler: Windows.System.Threading.WorkItemHandler, priority: Windows.System.Threading.WorkItemPriority, options: Windows.System.Threading.WorkItemOptions) -> Windows.Foundation.IAsyncAction: ...
 class ThreadPoolTimer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Threading.ThreadPoolTimer'
+    _classid_ = 'Windows.System.Threading.ThreadPoolTimer'
     @winrt_mixinmethod
     def get_Period(self: Windows.System.Threading.IThreadPoolTimer) -> Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
@@ -83,19 +83,19 @@ class ThreadPoolTimer(ComPtr):
 class TimerDestroyedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('34ed19fa-8384-4eb9-82-09-fb-50-94-ee-ec-35')
-    ClassId = 'Windows.System.Threading.TimerDestroyedHandler'
+    _classid_ = 'Windows.System.Threading.TimerDestroyedHandler'
     @winrt_commethod(3)
     def Invoke(self, timer: Windows.System.Threading.ThreadPoolTimer) -> Void: ...
 class TimerElapsedHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('faaea667-fbeb-49cb-ad-b2-71-18-4c-55-6e-43')
-    ClassId = 'Windows.System.Threading.TimerElapsedHandler'
+    _classid_ = 'Windows.System.Threading.TimerElapsedHandler'
     @winrt_commethod(3)
     def Invoke(self, timer: Windows.System.Threading.ThreadPoolTimer) -> Void: ...
 class WorkItemHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('1d1a8b8b-fa66-414f-9c-bd-b6-5f-c9-9d-17-fa')
-    ClassId = 'Windows.System.Threading.WorkItemHandler'
+    _classid_ = 'Windows.System.Threading.WorkItemHandler'
     @winrt_commethod(3)
     def Invoke(self, operation: Windows.Foundation.IAsyncAction) -> Void: ...
 WorkItemOptions = UInt32

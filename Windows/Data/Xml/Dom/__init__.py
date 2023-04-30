@@ -26,7 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class DtdEntity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Xml.Dom.DtdEntity'
+    _classid_ = 'Windows.Data.Xml.Dom.DtdEntity'
     @winrt_mixinmethod
     def get_PublicId(self: Windows.Data.Xml.Dom.IDtdEntity) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
@@ -113,7 +113,7 @@ class DtdEntity(ComPtr):
     InnerText = property(get_InnerText, put_InnerText)
 class DtdNotation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Xml.Dom.DtdNotation'
+    _classid_ = 'Windows.Data.Xml.Dom.DtdNotation'
     @winrt_mixinmethod
     def get_PublicId(self: Windows.Data.Xml.Dom.IDtdNotation) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
@@ -550,7 +550,7 @@ NodeType_DocumentFragmentNode: NodeType = 11
 NodeType_NotationNode: NodeType = 12
 class XmlAttribute(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Xml.Dom.XmlAttribute'
+    _classid_ = 'Windows.Data.Xml.Dom.XmlAttribute'
     @winrt_mixinmethod
     def get_Name(self: Windows.Data.Xml.Dom.IXmlAttribute) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -639,7 +639,7 @@ class XmlAttribute(ComPtr):
     InnerText = property(get_InnerText, put_InnerText)
 class XmlCDataSection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Xml.Dom.XmlCDataSection'
+    _classid_ = 'Windows.Data.Xml.Dom.XmlCDataSection'
     @winrt_mixinmethod
     def SplitText(self: Windows.Data.Xml.Dom.IXmlText, offset: UInt32) -> Windows.Data.Xml.Dom.IXmlText: ...
     @winrt_mixinmethod
@@ -737,7 +737,7 @@ class XmlCDataSection(ComPtr):
     InnerText = property(get_InnerText, put_InnerText)
 class XmlComment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Xml.Dom.XmlComment'
+    _classid_ = 'Windows.Data.Xml.Dom.XmlComment'
     @winrt_mixinmethod
     def get_Data(self: Windows.Data.Xml.Dom.IXmlCharacterData) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -833,7 +833,7 @@ class XmlComment(ComPtr):
     InnerText = property(get_InnerText, put_InnerText)
 class XmlDocument(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Xml.Dom.XmlDocument'
+    _classid_ = 'Windows.Data.Xml.Dom.XmlDocument'
     @winrt_activatemethod
     def New(cls) -> Windows.Data.Xml.Dom.XmlDocument: ...
     @winrt_mixinmethod
@@ -969,7 +969,7 @@ class XmlDocument(ComPtr):
     InnerText = property(get_InnerText, put_InnerText)
 class XmlDocumentFragment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Xml.Dom.XmlDocumentFragment'
+    _classid_ = 'Windows.Data.Xml.Dom.XmlDocumentFragment'
     @winrt_mixinmethod
     def get_NodeValue(self: Windows.Data.Xml.Dom.IXmlNode) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
@@ -1047,7 +1047,7 @@ class XmlDocumentFragment(ComPtr):
     InnerText = property(get_InnerText, put_InnerText)
 class XmlDocumentType(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Xml.Dom.XmlDocumentType'
+    _classid_ = 'Windows.Data.Xml.Dom.XmlDocumentType'
     @winrt_mixinmethod
     def get_Name(self: Windows.Data.Xml.Dom.IXmlDocumentType) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1134,12 +1134,12 @@ class XmlDocumentType(ComPtr):
     InnerText = property(get_InnerText, put_InnerText)
 class XmlDomImplementation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Xml.Dom.XmlDomImplementation'
+    _classid_ = 'Windows.Data.Xml.Dom.XmlDomImplementation'
     @winrt_mixinmethod
     def HasFeature(self: Windows.Data.Xml.Dom.IXmlDomImplementation, feature: WinRT_String, version: Windows.Win32.System.WinRT.IInspectable_head) -> Boolean: ...
 class XmlElement(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Xml.Dom.XmlElement'
+    _classid_ = 'Windows.Data.Xml.Dom.XmlElement'
     @winrt_mixinmethod
     def get_TagName(self: Windows.Data.Xml.Dom.IXmlElement) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1244,7 +1244,7 @@ class XmlElement(ComPtr):
     InnerText = property(get_InnerText, put_InnerText)
 class XmlEntityReference(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Xml.Dom.XmlEntityReference'
+    _classid_ = 'Windows.Data.Xml.Dom.XmlEntityReference'
     @winrt_mixinmethod
     def get_NodeValue(self: Windows.Data.Xml.Dom.IXmlNode) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     @winrt_mixinmethod
@@ -1322,7 +1322,7 @@ class XmlEntityReference(ComPtr):
     InnerText = property(get_InnerText, put_InnerText)
 class XmlLoadSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Xml.Dom.XmlLoadSettings'
+    _classid_ = 'Windows.Data.Xml.Dom.XmlLoadSettings'
     @winrt_activatemethod
     def New(cls) -> Windows.Data.Xml.Dom.XmlLoadSettings: ...
     @winrt_mixinmethod
@@ -1352,7 +1352,7 @@ class XmlLoadSettings(ComPtr):
     ElementContentWhiteSpace = property(get_ElementContentWhiteSpace, put_ElementContentWhiteSpace)
 class XmlNamedNodeMap(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Xml.Dom.XmlNamedNodeMap'
+    _classid_ = 'Windows.Data.Xml.Dom.XmlNamedNodeMap'
     @winrt_mixinmethod
     def get_Length(self: Windows.Data.Xml.Dom.IXmlNamedNodeMap) -> UInt32: ...
     @winrt_mixinmethod
@@ -1383,7 +1383,7 @@ class XmlNamedNodeMap(ComPtr):
     Size = property(get_Size, None)
 class XmlNodeList(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Xml.Dom.XmlNodeList'
+    _classid_ = 'Windows.Data.Xml.Dom.XmlNodeList'
     @winrt_mixinmethod
     def get_Length(self: Windows.Data.Xml.Dom.IXmlNodeList) -> UInt32: ...
     @winrt_mixinmethod
@@ -1402,7 +1402,7 @@ class XmlNodeList(ComPtr):
     Size = property(get_Size, None)
 class XmlProcessingInstruction(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Xml.Dom.XmlProcessingInstruction'
+    _classid_ = 'Windows.Data.Xml.Dom.XmlProcessingInstruction'
     @winrt_mixinmethod
     def get_Target(self: Windows.Data.Xml.Dom.IXmlProcessingInstruction) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -1488,7 +1488,7 @@ class XmlProcessingInstruction(ComPtr):
     InnerText = property(get_InnerText, put_InnerText)
 class XmlText(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Data.Xml.Dom.XmlText'
+    _classid_ = 'Windows.Data.Xml.Dom.XmlText'
     @winrt_mixinmethod
     def SplitText(self: Windows.Data.Xml.Dom.IXmlText, offset: UInt32) -> Windows.Data.Xml.Dom.IXmlText: ...
     @winrt_mixinmethod

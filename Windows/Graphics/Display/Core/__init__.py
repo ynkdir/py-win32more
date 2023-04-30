@@ -47,7 +47,7 @@ HdmiDisplayHdrOption_Eotf2084: HdmiDisplayHdrOption = 2
 HdmiDisplayHdrOption_DolbyVisionLowLatency: HdmiDisplayHdrOption = 3
 class HdmiDisplayInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Graphics.Display.Core.HdmiDisplayInformation'
+    _classid_ = 'Windows.Graphics.Display.Core.HdmiDisplayInformation'
     @winrt_mixinmethod
     def GetSupportedDisplayModes(self: Windows.Graphics.Display.Core.IHdmiDisplayInformation) -> Windows.Foundation.Collections.IVectorView[Windows.Graphics.Display.Core.HdmiDisplayMode]: ...
     @winrt_mixinmethod
@@ -68,7 +68,7 @@ class HdmiDisplayInformation(ComPtr):
     def GetForCurrentView(cls: Windows.Graphics.Display.Core.IHdmiDisplayInformationStatics) -> Windows.Graphics.Display.Core.HdmiDisplayInformation: ...
 class HdmiDisplayMode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Graphics.Display.Core.HdmiDisplayMode'
+    _classid_ = 'Windows.Graphics.Display.Core.HdmiDisplayMode'
     @winrt_mixinmethod
     def get_ResolutionWidthInRawPixels(self: Windows.Graphics.Display.Core.IHdmiDisplayMode) -> UInt32: ...
     @winrt_mixinmethod

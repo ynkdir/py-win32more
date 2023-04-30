@@ -1294,7 +1294,7 @@ class PyGenerator:
             guid = td.custom_attributes.get_guid()
             writer.write(f"    _iid_ = Guid('{guid}')\n")
         if "Sealed" in td.attributes:
-            writer.write(f"    ClassId = '{td.namespace}.{name}'\n")
+            writer.write(f"    _classid_ = '{td.namespace}.{name}'\n")
         for ca in td.custom_attributes.get_activatable():
             if ca.fixed_arguments[0].type.kind == "Type":
                 factory = ca["_typedef"]

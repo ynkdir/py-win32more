@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CompositorController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Composition.Core.CompositorController'
+    _classid_ = 'Windows.UI.Composition.Core.CompositorController'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Composition.Core.CompositorController: ...
     @winrt_mixinmethod

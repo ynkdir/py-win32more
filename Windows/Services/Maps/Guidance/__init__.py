@@ -38,7 +38,7 @@ GuidanceAudioNotificationKind_Traffic: GuidanceAudioNotificationKind = 4
 GuidanceAudioNotificationKind_TrafficCamera: GuidanceAudioNotificationKind = 5
 class GuidanceAudioNotificationRequestedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.Guidance.GuidanceAudioNotificationRequestedEventArgs'
+    _classid_ = 'Windows.Services.Maps.Guidance.GuidanceAudioNotificationRequestedEventArgs'
     @winrt_mixinmethod
     def get_AudioNotification(self: Windows.Services.Maps.Guidance.IGuidanceAudioNotificationRequestedEventArgs) -> Windows.Services.Maps.Guidance.GuidanceAudioNotificationKind: ...
     @winrt_mixinmethod
@@ -58,7 +58,7 @@ GuidanceAudioNotifications_Traffic: GuidanceAudioNotifications = 16
 GuidanceAudioNotifications_TrafficCamera: GuidanceAudioNotifications = 32
 class GuidanceLaneInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.Guidance.GuidanceLaneInfo'
+    _classid_ = 'Windows.Services.Maps.Guidance.GuidanceLaneInfo'
     @winrt_mixinmethod
     def get_LaneMarkers(self: Windows.Services.Maps.Guidance.IGuidanceLaneInfo) -> Windows.Services.Maps.Guidance.GuidanceLaneMarkers: ...
     @winrt_mixinmethod
@@ -79,7 +79,7 @@ GuidanceLaneMarkers_UTurnRight: GuidanceLaneMarkers = 256
 GuidanceLaneMarkers_Unknown: GuidanceLaneMarkers = 4294967295
 class GuidanceManeuver(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.Guidance.GuidanceManeuver'
+    _classid_ = 'Windows.Services.Maps.Guidance.GuidanceManeuver'
     @winrt_mixinmethod
     def get_StartLocation(self: Windows.Services.Maps.Guidance.IGuidanceManeuver) -> Windows.Devices.Geolocation.Geopoint: ...
     @winrt_mixinmethod
@@ -167,7 +167,7 @@ GuidanceManeuverKind_PassTransitStation: GuidanceManeuverKind = 46
 GuidanceManeuverKind_LeaveTransitStation: GuidanceManeuverKind = 47
 class GuidanceMapMatchedCoordinate(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.Guidance.GuidanceMapMatchedCoordinate'
+    _classid_ = 'Windows.Services.Maps.Guidance.GuidanceMapMatchedCoordinate'
     @winrt_mixinmethod
     def get_Location(self: Windows.Services.Maps.Guidance.IGuidanceMapMatchedCoordinate) -> Windows.Devices.Geolocation.Geopoint: ...
     @winrt_mixinmethod
@@ -190,7 +190,7 @@ GuidanceMode_Navigation: GuidanceMode = 2
 GuidanceMode_Tracking: GuidanceMode = 3
 class GuidanceNavigator(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.Guidance.GuidanceNavigator'
+    _classid_ = 'Windows.Services.Maps.Guidance.GuidanceNavigator'
     @winrt_mixinmethod
     def StartNavigating(self: Windows.Services.Maps.Guidance.IGuidanceNavigator, route: Windows.Services.Maps.Guidance.GuidanceRoute) -> Void: ...
     @winrt_mixinmethod
@@ -265,13 +265,13 @@ class GuidanceNavigator(ComPtr):
     UseAppProvidedVoice = property(get_UseAppProvidedVoice, None)
 class GuidanceReroutedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.Guidance.GuidanceReroutedEventArgs'
+    _classid_ = 'Windows.Services.Maps.Guidance.GuidanceReroutedEventArgs'
     @winrt_mixinmethod
     def get_Route(self: Windows.Services.Maps.Guidance.IGuidanceReroutedEventArgs) -> Windows.Services.Maps.Guidance.GuidanceRoute: ...
     Route = property(get_Route, None)
 class GuidanceRoadSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.Guidance.GuidanceRoadSegment'
+    _classid_ = 'Windows.Services.Maps.Guidance.GuidanceRoadSegment'
     @winrt_mixinmethod
     def get_RoadName(self: Windows.Services.Maps.Guidance.IGuidanceRoadSegment) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -304,7 +304,7 @@ class GuidanceRoadSegment(ComPtr):
     IsScenic = property(get_IsScenic, None)
 class GuidanceRoadSignpost(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.Guidance.GuidanceRoadSignpost'
+    _classid_ = 'Windows.Services.Maps.Guidance.GuidanceRoadSignpost'
     @winrt_mixinmethod
     def get_ExitNumber(self: Windows.Services.Maps.Guidance.IGuidanceRoadSignpost) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -322,7 +322,7 @@ class GuidanceRoadSignpost(ComPtr):
     ExitDirections = property(get_ExitDirections, None)
 class GuidanceRoute(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.Guidance.GuidanceRoute'
+    _classid_ = 'Windows.Services.Maps.Guidance.GuidanceRoute'
     @winrt_mixinmethod
     def get_Duration(self: Windows.Services.Maps.Guidance.IGuidanceRoute) -> Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
@@ -349,7 +349,7 @@ class GuidanceRoute(ComPtr):
     RoadSegments = property(get_RoadSegments, None)
 class GuidanceTelemetryCollector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.Guidance.GuidanceTelemetryCollector'
+    _classid_ = 'Windows.Services.Maps.Guidance.GuidanceTelemetryCollector'
     @winrt_mixinmethod
     def get_Enabled(self: Windows.Services.Maps.Guidance.IGuidanceTelemetryCollector) -> Boolean: ...
     @winrt_mixinmethod
@@ -371,7 +371,7 @@ class GuidanceTelemetryCollector(ComPtr):
     UploadFrequency = property(get_UploadFrequency, put_UploadFrequency)
 class GuidanceUpdatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs'
+    _classid_ = 'Windows.Services.Maps.Guidance.GuidanceUpdatedEventArgs'
     @winrt_mixinmethod
     def get_Mode(self: Windows.Services.Maps.Guidance.IGuidanceUpdatedEventArgs) -> Windows.Services.Maps.Guidance.GuidanceMode: ...
     @winrt_mixinmethod

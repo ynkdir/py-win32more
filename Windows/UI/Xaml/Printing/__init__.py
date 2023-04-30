@@ -25,7 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AddPagesEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Printing.AddPagesEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Printing.AddPagesEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Printing.AddPagesEventArgs: ...
     @winrt_mixinmethod
@@ -34,12 +34,12 @@ class AddPagesEventArgs(ComPtr):
 class AddPagesEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('d4b57970-57a0-4209-84-7c-c0-93-b5-4b-c7-29')
-    ClassId = 'Windows.UI.Xaml.Printing.AddPagesEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Printing.AddPagesEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Printing.AddPagesEventArgs) -> Void: ...
 class GetPreviewPageEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Printing.GetPreviewPageEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Printing.GetPreviewPageEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Printing.GetPreviewPageEventArgs: ...
     @winrt_mixinmethod
@@ -48,7 +48,7 @@ class GetPreviewPageEventArgs(ComPtr):
 class GetPreviewPageEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('ccb3e9ed-9c11-4e50-ab-49-e9-80-86-bb-fd-ef')
-    ClassId = 'Windows.UI.Xaml.Printing.GetPreviewPageEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Printing.GetPreviewPageEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Printing.GetPreviewPageEventArgs) -> Void: ...
 class IAddPagesEventArgs(ComPtr):
@@ -113,7 +113,7 @@ class IPrintDocumentStatics(ComPtr):
     DocumentSourceProperty = property(get_DocumentSourceProperty, None)
 class PaginateEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Printing.PaginateEventArgs'
+    _classid_ = 'Windows.UI.Xaml.Printing.PaginateEventArgs'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Printing.PaginateEventArgs: ...
     @winrt_mixinmethod
@@ -125,7 +125,7 @@ class PaginateEventArgs(ComPtr):
 class PaginateEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('0cc05b61-811b-4a32-99-65-13-eb-78-db-b0-1b')
-    ClassId = 'Windows.UI.Xaml.Printing.PaginateEventHandler'
+    _classid_ = 'Windows.UI.Xaml.Printing.PaginateEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Win32.System.WinRT.IInspectable_head, e: Windows.UI.Xaml.Printing.PaginateEventArgs) -> Void: ...
 PreviewPageCountType = Int32

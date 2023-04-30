@@ -30,7 +30,7 @@ ContentAccessRestrictionLevel_Block: ContentAccessRestrictionLevel = 2
 ContentAccessRestrictionLevel_Hide: ContentAccessRestrictionLevel = 3
 class ContentRestrictionsBrowsePolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.ContentRestrictions.ContentRestrictionsBrowsePolicy'
+    _classid_ = 'Windows.Media.ContentRestrictions.ContentRestrictionsBrowsePolicy'
     @winrt_mixinmethod
     def get_GeographicRegion(self: Windows.Media.ContentRestrictions.IContentRestrictionsBrowsePolicy) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -112,7 +112,7 @@ RatedContentCategory_Television: RatedContentCategory = 4
 RatedContentCategory_Music: RatedContentCategory = 5
 class RatedContentDescription(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.ContentRestrictions.RatedContentDescription'
+    _classid_ = 'Windows.Media.ContentRestrictions.RatedContentDescription'
     @winrt_factorymethod
     def Create(cls: Windows.Media.ContentRestrictions.IRatedContentDescriptionFactory, id: WinRT_String, title: WinRT_String, category: Windows.Media.ContentRestrictions.RatedContentCategory) -> Windows.Media.ContentRestrictions.RatedContentDescription: ...
     @winrt_mixinmethod
@@ -142,7 +142,7 @@ class RatedContentDescription(ComPtr):
     Ratings = property(get_Ratings, put_Ratings)
 class RatedContentRestrictions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.ContentRestrictions.RatedContentRestrictions'
+    _classid_ = 'Windows.Media.ContentRestrictions.RatedContentRestrictions'
     @winrt_factorymethod
     def CreateWithMaxAgeRating(cls: Windows.Media.ContentRestrictions.IRatedContentRestrictionsFactory, maxAgeRating: UInt32) -> Windows.Media.ContentRestrictions.RatedContentRestrictions: ...
     @winrt_activatemethod

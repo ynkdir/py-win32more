@@ -23,7 +23,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class BackgroundEnergyManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Power.BackgroundEnergyManager'
+    _classid_ = 'Windows.System.Power.BackgroundEnergyManager'
     @winrt_classmethod
     def get_LowUsageLevel(cls: Windows.System.Power.IBackgroundEnergyManagerStatics) -> UInt32: ...
     @winrt_classmethod
@@ -67,7 +67,7 @@ EnergySaverStatus_Off: EnergySaverStatus = 1
 EnergySaverStatus_On: EnergySaverStatus = 2
 class ForegroundEnergyManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Power.ForegroundEnergyManager'
+    _classid_ = 'Windows.System.Power.ForegroundEnergyManager'
     @winrt_classmethod
     def get_LowUsageLevel(cls: Windows.System.Power.IForegroundEnergyManagerStatics) -> UInt32: ...
     @winrt_classmethod
@@ -198,7 +198,7 @@ class IPowerManagerStatics(ComPtr):
     RemainingDischargeTime = property(get_RemainingDischargeTime, None)
 class PowerManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Power.PowerManager'
+    _classid_ = 'Windows.System.Power.PowerManager'
     @winrt_classmethod
     def get_EnergySaverStatus(cls: Windows.System.Power.IPowerManagerStatics) -> Windows.System.Power.EnergySaverStatus: ...
     @winrt_classmethod

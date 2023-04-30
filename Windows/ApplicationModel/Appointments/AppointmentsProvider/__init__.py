@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AddAppointmentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.AddAppointmentOperation'
+    _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.AddAppointmentOperation'
     @winrt_mixinmethod
     def get_AppointmentInformation(self: Windows.ApplicationModel.Appointments.AppointmentsProvider.IAddAppointmentOperation) -> Windows.ApplicationModel.Appointments.Appointment: ...
     @winrt_mixinmethod
@@ -41,7 +41,7 @@ class AddAppointmentOperation(ComPtr):
     SourcePackageFamilyName = property(get_SourcePackageFamilyName, None)
 class AppointmentsProviderLaunchActionVerbs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.AppointmentsProviderLaunchActionVerbs'
+    _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.AppointmentsProviderLaunchActionVerbs'
     @winrt_classmethod
     def get_ShowAppointmentDetails(cls: Windows.ApplicationModel.Appointments.AppointmentsProvider.IAppointmentsProviderLaunchActionVerbsStatics2) -> WinRT_String: ...
     @winrt_classmethod
@@ -140,7 +140,7 @@ class IReplaceAppointmentOperation(ComPtr):
     SourcePackageFamilyName = property(get_SourcePackageFamilyName, None)
 class RemoveAppointmentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.RemoveAppointmentOperation'
+    _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.RemoveAppointmentOperation'
     @winrt_mixinmethod
     def get_AppointmentId(self: Windows.ApplicationModel.Appointments.AppointmentsProvider.IRemoveAppointmentOperation) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -160,7 +160,7 @@ class RemoveAppointmentOperation(ComPtr):
     SourcePackageFamilyName = property(get_SourcePackageFamilyName, None)
 class ReplaceAppointmentOperation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.ReplaceAppointmentOperation'
+    _classid_ = 'Windows.ApplicationModel.Appointments.AppointmentsProvider.ReplaceAppointmentOperation'
     @winrt_mixinmethod
     def get_AppointmentId(self: Windows.ApplicationModel.Appointments.AppointmentsProvider.IReplaceAppointmentOperation) -> WinRT_String: ...
     @winrt_mixinmethod

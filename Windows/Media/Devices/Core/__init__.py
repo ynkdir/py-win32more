@@ -27,7 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class CameraIntrinsics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Devices.Core.CameraIntrinsics'
+    _classid_ = 'Windows.Media.Devices.Core.CameraIntrinsics'
     @winrt_factorymethod
     def Create(cls: Windows.Media.Devices.Core.ICameraIntrinsicsFactory, focalLength: Windows.Foundation.Numerics.Vector2, principalPoint: Windows.Foundation.Numerics.Vector2, radialDistortion: Windows.Foundation.Numerics.Vector3, tangentialDistortion: Windows.Foundation.Numerics.Vector2, imageWidth: UInt32, imageHeight: UInt32) -> Windows.Media.Devices.Core.CameraIntrinsics: ...
     @winrt_mixinmethod
@@ -69,7 +69,7 @@ class CameraIntrinsics(ComPtr):
     UndistortedProjectionTransform = property(get_UndistortedProjectionTransform, None)
 class DepthCorrelatedCoordinateMapper(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Devices.Core.DepthCorrelatedCoordinateMapper'
+    _classid_ = 'Windows.Media.Devices.Core.DepthCorrelatedCoordinateMapper'
     @winrt_mixinmethod
     def UnprojectPoint(self: Windows.Media.Devices.Core.IDepthCorrelatedCoordinateMapper, sourcePoint: Windows.Foundation.Point, targetCoordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem) -> Windows.Foundation.Numerics.Vector3: ...
     @winrt_mixinmethod
@@ -82,7 +82,7 @@ class DepthCorrelatedCoordinateMapper(ComPtr):
     def Close(self: Windows.Foundation.IClosable) -> Void: ...
 class FrameControlCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Devices.Core.FrameControlCapabilities'
+    _classid_ = 'Windows.Media.Devices.Core.FrameControlCapabilities'
     @winrt_mixinmethod
     def get_Exposure(self: Windows.Media.Devices.Core.IFrameControlCapabilities) -> Windows.Media.Devices.Core.FrameExposureCapabilities: ...
     @winrt_mixinmethod
@@ -103,7 +103,7 @@ class FrameControlCapabilities(ComPtr):
     Flash = property(get_Flash, None)
 class FrameController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Devices.Core.FrameController'
+    _classid_ = 'Windows.Media.Devices.Core.FrameController'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Devices.Core.FrameController: ...
     @winrt_mixinmethod
@@ -128,7 +128,7 @@ class FrameController(ComPtr):
     FlashControl = property(get_FlashControl, None)
 class FrameExposureCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Devices.Core.FrameExposureCapabilities'
+    _classid_ = 'Windows.Media.Devices.Core.FrameExposureCapabilities'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.Core.IFrameExposureCapabilities) -> Boolean: ...
     @winrt_mixinmethod
@@ -143,7 +143,7 @@ class FrameExposureCapabilities(ComPtr):
     Step = property(get_Step, None)
 class FrameExposureCompensationCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Devices.Core.FrameExposureCompensationCapabilities'
+    _classid_ = 'Windows.Media.Devices.Core.FrameExposureCompensationCapabilities'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.Core.IFrameExposureCompensationCapabilities) -> Boolean: ...
     @winrt_mixinmethod
@@ -158,7 +158,7 @@ class FrameExposureCompensationCapabilities(ComPtr):
     Step = property(get_Step, None)
 class FrameExposureCompensationControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Devices.Core.FrameExposureCompensationControl'
+    _classid_ = 'Windows.Media.Devices.Core.FrameExposureCompensationControl'
     @winrt_mixinmethod
     def get_Value(self: Windows.Media.Devices.Core.IFrameExposureCompensationControl) -> Windows.Foundation.IReference[Single]: ...
     @winrt_mixinmethod
@@ -166,7 +166,7 @@ class FrameExposureCompensationControl(ComPtr):
     Value = property(get_Value, put_Value)
 class FrameExposureControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Devices.Core.FrameExposureControl'
+    _classid_ = 'Windows.Media.Devices.Core.FrameExposureControl'
     @winrt_mixinmethod
     def get_Auto(self: Windows.Media.Devices.Core.IFrameExposureControl) -> Boolean: ...
     @winrt_mixinmethod
@@ -179,7 +179,7 @@ class FrameExposureControl(ComPtr):
     Value = property(get_Value, put_Value)
 class FrameFlashCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Devices.Core.FrameFlashCapabilities'
+    _classid_ = 'Windows.Media.Devices.Core.FrameFlashCapabilities'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.Core.IFrameFlashCapabilities) -> Boolean: ...
     @winrt_mixinmethod
@@ -191,7 +191,7 @@ class FrameFlashCapabilities(ComPtr):
     PowerSupported = property(get_PowerSupported, None)
 class FrameFlashControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Devices.Core.FrameFlashControl'
+    _classid_ = 'Windows.Media.Devices.Core.FrameFlashControl'
     @winrt_mixinmethod
     def get_Mode(self: Windows.Media.Devices.Core.IFrameFlashControl) -> Windows.Media.Devices.Core.FrameFlashMode: ...
     @winrt_mixinmethod
@@ -218,7 +218,7 @@ FrameFlashMode_Enable: FrameFlashMode = 1
 FrameFlashMode_Global: FrameFlashMode = 2
 class FrameFocusCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Devices.Core.FrameFocusCapabilities'
+    _classid_ = 'Windows.Media.Devices.Core.FrameFocusCapabilities'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.Core.IFrameFocusCapabilities) -> Boolean: ...
     @winrt_mixinmethod
@@ -233,7 +233,7 @@ class FrameFocusCapabilities(ComPtr):
     Step = property(get_Step, None)
 class FrameFocusControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Devices.Core.FrameFocusControl'
+    _classid_ = 'Windows.Media.Devices.Core.FrameFocusControl'
     @winrt_mixinmethod
     def get_Value(self: Windows.Media.Devices.Core.IFrameFocusControl) -> Windows.Foundation.IReference[UInt32]: ...
     @winrt_mixinmethod
@@ -241,7 +241,7 @@ class FrameFocusControl(ComPtr):
     Value = property(get_Value, put_Value)
 class FrameIsoSpeedCapabilities(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Devices.Core.FrameIsoSpeedCapabilities'
+    _classid_ = 'Windows.Media.Devices.Core.FrameIsoSpeedCapabilities'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.Core.IFrameIsoSpeedCapabilities) -> Boolean: ...
     @winrt_mixinmethod
@@ -256,7 +256,7 @@ class FrameIsoSpeedCapabilities(ComPtr):
     Step = property(get_Step, None)
 class FrameIsoSpeedControl(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Devices.Core.FrameIsoSpeedControl'
+    _classid_ = 'Windows.Media.Devices.Core.FrameIsoSpeedControl'
     @winrt_mixinmethod
     def get_Auto(self: Windows.Media.Devices.Core.IFrameIsoSpeedControl) -> Boolean: ...
     @winrt_mixinmethod
@@ -539,7 +539,7 @@ class IVariablePhotoSequenceController(ComPtr):
     DesiredFrameControllers = property(get_DesiredFrameControllers, None)
 class VariablePhotoSequenceController(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Devices.Core.VariablePhotoSequenceController'
+    _classid_ = 'Windows.Media.Devices.Core.VariablePhotoSequenceController'
     @winrt_mixinmethod
     def get_Supported(self: Windows.Media.Devices.Core.IVariablePhotoSequenceController) -> Boolean: ...
     @winrt_mixinmethod

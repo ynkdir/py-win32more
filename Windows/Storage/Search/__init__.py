@@ -49,7 +49,7 @@ CommonFolderQuery_GroupByAuthor: CommonFolderQuery = 110
 CommonFolderQuery_GroupByType: CommonFolderQuery = 111
 class ContentIndexer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Search.ContentIndexer'
+    _classid_ = 'Windows.Storage.Search.ContentIndexer'
     @winrt_mixinmethod
     def AddAsync(self: Windows.Storage.Search.IContentIndexer, indexableContent: Windows.Storage.Search.IIndexableContent) -> Windows.Foundation.IAsyncAction: ...
     @winrt_mixinmethod
@@ -77,7 +77,7 @@ class ContentIndexer(ComPtr):
     Revision = property(get_Revision, None)
 class ContentIndexerQuery(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Search.ContentIndexerQuery'
+    _classid_ = 'Windows.Storage.Search.ContentIndexerQuery'
     @winrt_mixinmethod
     def GetCountAsync(self: Windows.Storage.Search.IContentIndexerQuery) -> Windows.Foundation.IAsyncOperation[UInt32]: ...
     @winrt_mixinmethod
@@ -347,7 +347,7 @@ class IValueAndLanguage(ComPtr):
     Value = property(get_Value, put_Value)
 class IndexableContent(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Search.IndexableContent'
+    _classid_ = 'Windows.Storage.Search.IndexableContent'
     @winrt_activatemethod
     def New(cls) -> Windows.Storage.Search.IndexableContent: ...
     @winrt_mixinmethod
@@ -380,7 +380,7 @@ IndexerOption_DoNotUseIndexer: IndexerOption = 2
 IndexerOption_OnlyUseIndexerAndOptimizeForIndexedProperties: IndexerOption = 3
 class QueryOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Search.QueryOptions'
+    _classid_ = 'Windows.Storage.Search.QueryOptions'
     @winrt_factorymethod
     def CreateCommonFileQuery(cls: Windows.Storage.Search.IQueryOptionsFactory, query: Windows.Storage.Search.CommonFileQuery, fileTypeFilter: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Storage.Search.QueryOptions: ...
     @winrt_factorymethod
@@ -440,7 +440,7 @@ class SortEntry(EasyCastStructure):
     AscendingOrder: Boolean
 class SortEntryVector(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Search.SortEntryVector'
+    _classid_ = 'Windows.Storage.Search.SortEntryVector'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVector[Windows.Storage.Search.SortEntry], index: UInt32) -> Windows.Storage.Search.SortEntry: ...
     @winrt_mixinmethod
@@ -470,7 +470,7 @@ class SortEntryVector(ComPtr):
     Size = property(get_Size, None)
 class StorageFileQueryResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Search.StorageFileQueryResult'
+    _classid_ = 'Windows.Storage.Search.StorageFileQueryResult'
     @winrt_mixinmethod
     def GetFilesAsync(self: Windows.Storage.Search.IStorageFileQueryResult, startIndex: UInt32, maxNumberOfItems: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageFile]]: ...
     @winrt_mixinmethod
@@ -498,7 +498,7 @@ class StorageFileQueryResult(ComPtr):
     Folder = property(get_Folder, None)
 class StorageFolderQueryResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Search.StorageFolderQueryResult'
+    _classid_ = 'Windows.Storage.Search.StorageFolderQueryResult'
     @winrt_mixinmethod
     def GetFoldersAsync(self: Windows.Storage.Search.IStorageFolderQueryResult, startIndex: UInt32, maxNumberOfItems: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Storage.StorageFolder]]: ...
     @winrt_mixinmethod
@@ -524,7 +524,7 @@ class StorageFolderQueryResult(ComPtr):
     Folder = property(get_Folder, None)
 class StorageItemQueryResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Search.StorageItemQueryResult'
+    _classid_ = 'Windows.Storage.Search.StorageItemQueryResult'
     @winrt_mixinmethod
     def GetItemsAsync(self: Windows.Storage.Search.IStorageItemQueryResult, startIndex: UInt32, maxNumberOfItems: UInt32) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Collections.IVectorView[Windows.Storage.IStorageItem]]: ...
     @winrt_mixinmethod
@@ -550,7 +550,7 @@ class StorageItemQueryResult(ComPtr):
     Folder = property(get_Folder, None)
 class StorageLibraryChangeTrackerTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Search.StorageLibraryChangeTrackerTriggerDetails'
+    _classid_ = 'Windows.Storage.Search.StorageLibraryChangeTrackerTriggerDetails'
     @winrt_mixinmethod
     def get_Folder(self: Windows.Storage.Search.IStorageLibraryChangeTrackerTriggerDetails) -> Windows.Storage.StorageFolder: ...
     @winrt_mixinmethod
@@ -559,7 +559,7 @@ class StorageLibraryChangeTrackerTriggerDetails(ComPtr):
     ChangeTracker = property(get_ChangeTracker, None)
 class StorageLibraryContentChangedTriggerDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Search.StorageLibraryContentChangedTriggerDetails'
+    _classid_ = 'Windows.Storage.Search.StorageLibraryContentChangedTriggerDetails'
     @winrt_mixinmethod
     def get_Folder(self: Windows.Storage.Search.IStorageLibraryContentChangedTriggerDetails) -> Windows.Storage.StorageFolder: ...
     @winrt_mixinmethod
@@ -567,7 +567,7 @@ class StorageLibraryContentChangedTriggerDetails(ComPtr):
     Folder = property(get_Folder, None)
 class ValueAndLanguage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.Search.ValueAndLanguage'
+    _classid_ = 'Windows.Storage.Search.ValueAndLanguage'
     @winrt_activatemethod
     def New(cls) -> Windows.Storage.Search.ValueAndLanguage: ...
     @winrt_mixinmethod

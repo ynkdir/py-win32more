@@ -25,7 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class Ellipse(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
-    ClassId = 'Windows.UI.Xaml.Shapes.Ellipse'
+    _classid_ = 'Windows.UI.Xaml.Shapes.Ellipse'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Shapes.Ellipse: ...
 class IEllipse(ComPtr):
@@ -263,7 +263,7 @@ class IShapeStatics(ComPtr):
     StretchProperty = property(get_StretchProperty, None)
 class Line(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
-    ClassId = 'Windows.UI.Xaml.Shapes.Line'
+    _classid_ = 'Windows.UI.Xaml.Shapes.Line'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Shapes.Line: ...
     @winrt_mixinmethod
@@ -310,7 +310,7 @@ class Path(ComPtr):
     DataProperty = property(get_DataProperty, None)
 class Polygon(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
-    ClassId = 'Windows.UI.Xaml.Shapes.Polygon'
+    _classid_ = 'Windows.UI.Xaml.Shapes.Polygon'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Shapes.Polygon: ...
     @winrt_mixinmethod
@@ -331,7 +331,7 @@ class Polygon(ComPtr):
     PointsProperty = property(get_PointsProperty, None)
 class Polyline(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
-    ClassId = 'Windows.UI.Xaml.Shapes.Polyline'
+    _classid_ = 'Windows.UI.Xaml.Shapes.Polyline'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Shapes.Polyline: ...
     @winrt_mixinmethod
@@ -352,7 +352,7 @@ class Polyline(ComPtr):
     PointsProperty = property(get_PointsProperty, None)
 class Rectangle(ComPtr):
     extends: Windows.UI.Xaml.Shapes.Shape
-    ClassId = 'Windows.UI.Xaml.Shapes.Rectangle'
+    _classid_ = 'Windows.UI.Xaml.Shapes.Rectangle'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Xaml.Shapes.Rectangle: ...
     @winrt_mixinmethod

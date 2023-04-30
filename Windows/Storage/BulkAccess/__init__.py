@@ -28,7 +28,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class FileInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.BulkAccess.FileInformation'
+    _classid_ = 'Windows.Storage.BulkAccess.FileInformation'
     @winrt_mixinmethod
     def get_MusicProperties(self: Windows.Storage.BulkAccess.IStorageItemInformation) -> Windows.Storage.FileProperties.MusicProperties: ...
     @winrt_mixinmethod
@@ -143,7 +143,7 @@ class FileInformation(ComPtr):
     IsAvailable = property(get_IsAvailable, None)
 class FileInformationFactory(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.BulkAccess.FileInformationFactory'
+    _classid_ = 'Windows.Storage.BulkAccess.FileInformationFactory'
     @winrt_factorymethod
     def CreateWithMode(cls: Windows.Storage.BulkAccess.IFileInformationFactoryFactory, queryResult: Windows.Storage.Search.IStorageQueryResultBase, mode: Windows.Storage.FileProperties.ThumbnailMode) -> Windows.Storage.BulkAccess.FileInformationFactory: ...
     @winrt_factorymethod
@@ -172,7 +172,7 @@ class FileInformationFactory(ComPtr):
     def GetVirtualizedFoldersVector(self: Windows.Storage.BulkAccess.IFileInformationFactory) -> Windows.Win32.System.WinRT.IInspectable_head: ...
 class FolderInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Storage.BulkAccess.FolderInformation'
+    _classid_ = 'Windows.Storage.BulkAccess.FolderInformation'
     @winrt_mixinmethod
     def get_MusicProperties(self: Windows.Storage.BulkAccess.IStorageItemInformation) -> Windows.Storage.FileProperties.MusicProperties: ...
     @winrt_mixinmethod

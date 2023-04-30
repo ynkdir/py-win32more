@@ -86,7 +86,7 @@ class IPrepareTranscodeResult(ComPtr):
     FailureReason = property(get_FailureReason, None)
 class MediaTranscoder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Transcoding.MediaTranscoder'
+    _classid_ = 'Windows.Media.Transcoding.MediaTranscoder'
     @winrt_activatemethod
     def New(cls) -> Windows.Media.Transcoding.MediaTranscoder: ...
     @winrt_mixinmethod
@@ -135,7 +135,7 @@ MediaVideoProcessingAlgorithm_Default: MediaVideoProcessingAlgorithm = 0
 MediaVideoProcessingAlgorithm_MrfCrf444: MediaVideoProcessingAlgorithm = 1
 class PrepareTranscodeResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Media.Transcoding.PrepareTranscodeResult'
+    _classid_ = 'Windows.Media.Transcoding.PrepareTranscodeResult'
     @winrt_mixinmethod
     def get_CanTranscode(self: Windows.Media.Transcoding.IPrepareTranscodeResult) -> Boolean: ...
     @winrt_mixinmethod

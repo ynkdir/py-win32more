@@ -26,7 +26,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ElementCompositionPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Xaml.Hosting.ElementCompositionPreview'
+    _classid_ = 'Windows.UI.Xaml.Hosting.ElementCompositionPreview'
     @winrt_classmethod
     def SetAppWindowContent(cls: Windows.UI.Xaml.Hosting.IElementCompositionPreviewStatics3, appWindow: Windows.UI.WindowManagement.AppWindow, xamlContent: Windows.UI.Xaml.UIElement) -> Void: ...
     @winrt_classmethod

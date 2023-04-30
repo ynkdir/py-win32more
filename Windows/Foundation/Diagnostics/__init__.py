@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class AsyncCausalityTracer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Diagnostics.AsyncCausalityTracer'
+    _classid_ = 'Windows.Foundation.Diagnostics.AsyncCausalityTracer'
     @winrt_classmethod
     def TraceOperationCreation(cls: Windows.Foundation.Diagnostics.IAsyncCausalityTracerStatics, traceLevel: Windows.Foundation.Diagnostics.CausalityTraceLevel, source: Windows.Foundation.Diagnostics.CausalitySource, platformId: Guid, operationId: UInt64, operationName: WinRT_String, relatedContext: UInt64) -> Void: ...
     @winrt_classmethod
@@ -59,7 +59,7 @@ CausalityTraceLevel_Important: CausalityTraceLevel = 1
 CausalityTraceLevel_Verbose: CausalityTraceLevel = 2
 class ErrorDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Diagnostics.ErrorDetails'
+    _classid_ = 'Windows.Foundation.Diagnostics.ErrorDetails'
     @winrt_mixinmethod
     def get_Description(self: Windows.Foundation.Diagnostics.IErrorDetails) -> WinRT_String: ...
     @winrt_mixinmethod
@@ -79,7 +79,7 @@ ErrorOptions_UseSetErrorInfo: ErrorOptions = 4
 ErrorOptions_SuppressSetErrorInfo: ErrorOptions = 8
 class FileLoggingSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Diagnostics.FileLoggingSession'
+    _classid_ = 'Windows.Foundation.Diagnostics.FileLoggingSession'
     @winrt_factorymethod
     def Create(cls: Windows.Foundation.Diagnostics.IFileLoggingSessionFactory, name: WinRT_String) -> Windows.Foundation.Diagnostics.FileLoggingSession: ...
     @winrt_mixinmethod
@@ -578,13 +578,13 @@ class ITracingStatusChangedEventArgs(ComPtr):
     TraceLevel = property(get_TraceLevel, None)
 class LogFileGeneratedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Diagnostics.LogFileGeneratedEventArgs'
+    _classid_ = 'Windows.Foundation.Diagnostics.LogFileGeneratedEventArgs'
     @winrt_mixinmethod
     def get_File(self: Windows.Foundation.Diagnostics.ILogFileGeneratedEventArgs) -> Windows.Storage.StorageFile: ...
     File = property(get_File, None)
 class LoggingActivity(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Diagnostics.LoggingActivity'
+    _classid_ = 'Windows.Foundation.Diagnostics.LoggingActivity'
     @winrt_factorymethod
     def CreateLoggingActivity(cls: Windows.Foundation.Diagnostics.ILoggingActivityFactory, activityName: WinRT_String, loggingChannel: Windows.Foundation.Diagnostics.ILoggingChannel) -> Windows.Foundation.Diagnostics.LoggingActivity: ...
     @winrt_factorymethod
@@ -630,7 +630,7 @@ class LoggingActivity(ComPtr):
     Channel = property(get_Channel, None)
 class LoggingChannel(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Diagnostics.LoggingChannel'
+    _classid_ = 'Windows.Foundation.Diagnostics.LoggingChannel'
     @winrt_factorymethod
     def Create(cls: Windows.Foundation.Diagnostics.ILoggingChannelFactory, name: WinRT_String) -> Windows.Foundation.Diagnostics.LoggingChannel: ...
     @winrt_factorymethod
@@ -687,7 +687,7 @@ class LoggingChannel(ComPtr):
     Id = property(get_Id, None)
 class LoggingChannelOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Diagnostics.LoggingChannelOptions'
+    _classid_ = 'Windows.Foundation.Diagnostics.LoggingChannelOptions'
     @winrt_activatemethod
     def New(cls) -> Windows.Foundation.Diagnostics.LoggingChannelOptions: ...
     @winrt_factorymethod
@@ -719,7 +719,7 @@ LoggingFieldFormat_Signed: LoggingFieldFormat = 17
 LoggingFieldFormat_Unsigned: LoggingFieldFormat = 18
 class LoggingFields(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Diagnostics.LoggingFields'
+    _classid_ = 'Windows.Foundation.Diagnostics.LoggingFields'
     @winrt_activatemethod
     def New(cls) -> Windows.Foundation.Diagnostics.LoggingFields: ...
     @winrt_mixinmethod
@@ -968,7 +968,7 @@ LoggingOpcode_Suspend: LoggingOpcode = 8
 LoggingOpcode_Send: LoggingOpcode = 9
 class LoggingOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Diagnostics.LoggingOptions'
+    _classid_ = 'Windows.Foundation.Diagnostics.LoggingOptions'
     @winrt_factorymethod
     def CreateWithKeywords(cls: Windows.Foundation.Diagnostics.ILoggingOptionsFactory, keywords: Int64) -> Windows.Foundation.Diagnostics.LoggingOptions: ...
     @winrt_activatemethod
@@ -1005,7 +1005,7 @@ class LoggingOptions(ComPtr):
     RelatedActivityId = property(get_RelatedActivityId, put_RelatedActivityId)
 class LoggingSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Diagnostics.LoggingSession'
+    _classid_ = 'Windows.Foundation.Diagnostics.LoggingSession'
     @winrt_factorymethod
     def Create(cls: Windows.Foundation.Diagnostics.ILoggingSessionFactory, name: WinRT_String) -> Windows.Foundation.Diagnostics.LoggingSession: ...
     @winrt_mixinmethod
@@ -1023,7 +1023,7 @@ class LoggingSession(ComPtr):
     Name = property(get_Name, None)
 class RuntimeBrokerErrorSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Diagnostics.RuntimeBrokerErrorSettings'
+    _classid_ = 'Windows.Foundation.Diagnostics.RuntimeBrokerErrorSettings'
     @winrt_activatemethod
     def New(cls) -> Windows.Foundation.Diagnostics.RuntimeBrokerErrorSettings: ...
     @winrt_mixinmethod
@@ -1032,7 +1032,7 @@ class RuntimeBrokerErrorSettings(ComPtr):
     def GetErrorOptions(self: Windows.Foundation.Diagnostics.IErrorReportingSettings) -> Windows.Foundation.Diagnostics.ErrorOptions: ...
 class TracingStatusChangedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Foundation.Diagnostics.TracingStatusChangedEventArgs'
+    _classid_ = 'Windows.Foundation.Diagnostics.TracingStatusChangedEventArgs'
     @winrt_mixinmethod
     def get_Enabled(self: Windows.Foundation.Diagnostics.ITracingStatusChangedEventArgs) -> Boolean: ...
     @winrt_mixinmethod

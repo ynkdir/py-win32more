@@ -27,7 +27,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class DnssdRegistrationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdRegistrationResult'
+    _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdRegistrationResult'
     @winrt_activatemethod
     def New(cls) -> Windows.Networking.ServiceDiscovery.Dnssd.DnssdRegistrationResult: ...
     @winrt_mixinmethod
@@ -48,7 +48,7 @@ DnssdRegistrationStatus_ServerError: DnssdRegistrationStatus = 2
 DnssdRegistrationStatus_SecurityError: DnssdRegistrationStatus = 3
 class DnssdServiceInstance(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance'
+    _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance'
     @winrt_factorymethod
     def Create(cls: Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceInstanceFactory, dnssdServiceInstanceName: WinRT_String, hostName: Windows.Networking.HostName, port: UInt16) -> Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance: ...
     @winrt_mixinmethod
@@ -91,7 +91,7 @@ class DnssdServiceInstance(ComPtr):
     TextAttributes = property(get_TextAttributes, None)
 class DnssdServiceInstanceCollection(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstanceCollection'
+    _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstanceCollection'
     @winrt_mixinmethod
     def GetAt(self: Windows.Foundation.Collections.IVectorView[Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance], index: UInt32) -> Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance: ...
     @winrt_mixinmethod
@@ -105,7 +105,7 @@ class DnssdServiceInstanceCollection(ComPtr):
     Size = property(get_Size, None)
 class DnssdServiceWatcher(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher'
+    _classid_ = 'Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher'
     @winrt_mixinmethod
     def add_Added(self: Windows.Networking.ServiceDiscovery.Dnssd.IDnssdServiceWatcher, handler: Windows.Foundation.TypedEventHandler[Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceWatcher, Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod

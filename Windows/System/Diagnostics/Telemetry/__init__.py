@@ -48,20 +48,20 @@ class IPlatformTelemetryRegistrationSettings(ComPtr):
     UploadQuotaSize = property(get_UploadQuotaSize, put_UploadQuotaSize)
 class PlatformTelemetryClient(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Diagnostics.Telemetry.PlatformTelemetryClient'
+    _classid_ = 'Windows.System.Diagnostics.Telemetry.PlatformTelemetryClient'
     @winrt_classmethod
     def Register(cls: Windows.System.Diagnostics.Telemetry.IPlatformTelemetryClientStatics, id: WinRT_String) -> Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult: ...
     @winrt_classmethod
     def RegisterWithSettings(cls: Windows.System.Diagnostics.Telemetry.IPlatformTelemetryClientStatics, id: WinRT_String, settings: Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings) -> Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult: ...
 class PlatformTelemetryRegistrationResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult'
+    _classid_ = 'Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.System.Diagnostics.Telemetry.IPlatformTelemetryRegistrationResult) -> Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationStatus: ...
     Status = property(get_Status, None)
 class PlatformTelemetryRegistrationSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings'
+    _classid_ = 'Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings'
     @winrt_activatemethod
     def New(cls) -> Windows.System.Diagnostics.Telemetry.PlatformTelemetryRegistrationSettings: ...
     @winrt_mixinmethod

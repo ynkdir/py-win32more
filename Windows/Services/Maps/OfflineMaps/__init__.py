@@ -70,7 +70,7 @@ class IOfflineMapPackageStatics(ComPtr):
     def FindPackagesInGeocircleAsync(self, queryCircle: Windows.Devices.Geolocation.Geocircle) -> Windows.Foundation.IAsyncOperation[Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryResult]: ...
 class OfflineMapPackage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.OfflineMaps.OfflineMapPackage'
+    _classid_ = 'Windows.Services.Maps.OfflineMaps.OfflineMapPackage'
     @winrt_mixinmethod
     def get_Status(self: Windows.Services.Maps.OfflineMaps.IOfflineMapPackage) -> Windows.Services.Maps.OfflineMaps.OfflineMapPackageStatus: ...
     @winrt_mixinmethod
@@ -97,7 +97,7 @@ class OfflineMapPackage(ComPtr):
     EstimatedSizeInBytes = property(get_EstimatedSizeInBytes, None)
 class OfflineMapPackageQueryResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryResult'
+    _classid_ = 'Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Services.Maps.OfflineMaps.IOfflineMapPackageQueryResult) -> Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryStatus: ...
     @winrt_mixinmethod
@@ -111,7 +111,7 @@ OfflineMapPackageQueryStatus_InvalidCredentials: OfflineMapPackageQueryStatus = 
 OfflineMapPackageQueryStatus_NetworkFailure: OfflineMapPackageQueryStatus = 3
 class OfflineMapPackageStartDownloadResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Services.Maps.OfflineMaps.OfflineMapPackageStartDownloadResult'
+    _classid_ = 'Windows.Services.Maps.OfflineMaps.OfflineMapPackageStartDownloadResult'
     @winrt_mixinmethod
     def get_Status(self: Windows.Services.Maps.OfflineMaps.IOfflineMapPackageStartDownloadResult) -> Windows.Services.Maps.OfflineMaps.OfflineMapPackageStartDownloadStatus: ...
     Status = property(get_Status, None)

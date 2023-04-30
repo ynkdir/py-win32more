@@ -650,7 +650,7 @@ class IPenAndInkSettingsStatics(ComPtr):
     def GetDefault(self) -> Windows.UI.Input.Inking.PenAndInkSettings: ...
 class InkDrawingAttributes(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkDrawingAttributes'
+    _classid_ = 'Windows.UI.Input.Inking.InkDrawingAttributes'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Input.Inking.InkDrawingAttributes: ...
     @winrt_mixinmethod
@@ -709,7 +709,7 @@ InkDrawingAttributesKind_Default: InkDrawingAttributesKind = 0
 InkDrawingAttributesKind_Pencil: InkDrawingAttributesKind = 1
 class InkDrawingAttributesPencilProperties(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkDrawingAttributesPencilProperties'
+    _classid_ = 'Windows.UI.Input.Inking.InkDrawingAttributesPencilProperties'
     @winrt_mixinmethod
     def get_Opacity(self: Windows.UI.Input.Inking.IInkDrawingAttributesPencilProperties) -> Double: ...
     @winrt_mixinmethod
@@ -721,7 +721,7 @@ InkHighContrastAdjustment_UseSystemColors: InkHighContrastAdjustment = 1
 InkHighContrastAdjustment_UseOriginalColors: InkHighContrastAdjustment = 2
 class InkInputConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkInputConfiguration'
+    _classid_ = 'Windows.UI.Input.Inking.InkInputConfiguration'
     @winrt_mixinmethod
     def get_IsPrimaryBarrelButtonInputEnabled(self: Windows.UI.Input.Inking.IInkInputConfiguration) -> Boolean: ...
     @winrt_mixinmethod
@@ -739,7 +739,7 @@ class InkInputConfiguration(ComPtr):
     IsPenHapticFeedbackEnabled = property(get_IsPenHapticFeedbackEnabled, put_IsPenHapticFeedbackEnabled)
 class InkInputProcessingConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkInputProcessingConfiguration'
+    _classid_ = 'Windows.UI.Input.Inking.InkInputProcessingConfiguration'
     @winrt_mixinmethod
     def get_Mode(self: Windows.UI.Input.Inking.IInkInputProcessingConfiguration) -> Windows.UI.Input.Inking.InkInputProcessingMode: ...
     @winrt_mixinmethod
@@ -759,7 +759,7 @@ InkInputRightDragAction_LeaveUnprocessed: InkInputRightDragAction = 0
 InkInputRightDragAction_AllowProcessing: InkInputRightDragAction = 1
 class InkManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkManager'
+    _classid_ = 'Windows.UI.Input.Inking.InkManager'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Input.Inking.InkManager: ...
     @winrt_mixinmethod
@@ -818,7 +818,7 @@ InkManipulationMode_Erasing: InkManipulationMode = 1
 InkManipulationMode_Selecting: InkManipulationMode = 2
 class InkModelerAttributes(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkModelerAttributes'
+    _classid_ = 'Windows.UI.Input.Inking.InkModelerAttributes'
     @winrt_mixinmethod
     def get_PredictionTime(self: Windows.UI.Input.Inking.IInkModelerAttributes) -> Windows.Foundation.TimeSpan: ...
     @winrt_mixinmethod
@@ -839,7 +839,7 @@ InkPersistenceFormat_GifWithEmbeddedIsf: InkPersistenceFormat = 0
 InkPersistenceFormat_Isf: InkPersistenceFormat = 1
 class InkPoint(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkPoint'
+    _classid_ = 'Windows.UI.Input.Inking.InkPoint'
     @winrt_factorymethod
     def CreateInkPoint(cls: Windows.UI.Input.Inking.IInkPointFactory, position: Windows.Foundation.Point, pressure: Single) -> Windows.UI.Input.Inking.InkPoint: ...
     @winrt_factorymethod
@@ -861,7 +861,7 @@ class InkPoint(ComPtr):
     Timestamp = property(get_Timestamp, None)
 class InkPresenter(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkPresenter'
+    _classid_ = 'Windows.UI.Input.Inking.InkPresenter'
     @winrt_mixinmethod
     def get_IsInputEnabled(self: Windows.UI.Input.Inking.IInkPresenter) -> Boolean: ...
     @winrt_mixinmethod
@@ -915,7 +915,7 @@ InkPresenterPredefinedConfiguration_SimpleSinglePointer: InkPresenterPredefinedC
 InkPresenterPredefinedConfiguration_SimpleMultiplePointer: InkPresenterPredefinedConfiguration = 1
 class InkPresenterProtractor(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkPresenterProtractor'
+    _classid_ = 'Windows.UI.Input.Inking.InkPresenterProtractor'
     @winrt_factorymethod
     def Create(cls: Windows.UI.Input.Inking.IInkPresenterProtractorFactory, inkPresenter: Windows.UI.Input.Inking.InkPresenter) -> Windows.UI.Input.Inking.InkPresenterProtractor: ...
     @winrt_mixinmethod
@@ -978,7 +978,7 @@ class InkPresenterProtractor(ComPtr):
     Transform = property(get_Transform, put_Transform)
 class InkPresenterRuler(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkPresenterRuler'
+    _classid_ = 'Windows.UI.Input.Inking.InkPresenterRuler'
     @winrt_factorymethod
     def Create(cls: Windows.UI.Input.Inking.IInkPresenterRulerFactory, inkPresenter: Windows.UI.Input.Inking.InkPresenter) -> Windows.UI.Input.Inking.InkPresenterRuler: ...
     @winrt_mixinmethod
@@ -1030,7 +1030,7 @@ InkPresenterStencilKind_Ruler: InkPresenterStencilKind = 1
 InkPresenterStencilKind_Protractor: InkPresenterStencilKind = 2
 class InkRecognitionResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkRecognitionResult'
+    _classid_ = 'Windows.UI.Input.Inking.InkRecognitionResult'
     @winrt_mixinmethod
     def get_BoundingRect(self: Windows.UI.Input.Inking.IInkRecognitionResult) -> Windows.Foundation.Rect: ...
     @winrt_mixinmethod
@@ -1044,13 +1044,13 @@ InkRecognitionTarget_Selected: InkRecognitionTarget = 1
 InkRecognitionTarget_Recent: InkRecognitionTarget = 2
 class InkRecognizer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkRecognizer'
+    _classid_ = 'Windows.UI.Input.Inking.InkRecognizer'
     @winrt_mixinmethod
     def get_Name(self: Windows.UI.Input.Inking.IInkRecognizer) -> WinRT_String: ...
     Name = property(get_Name, None)
 class InkRecognizerContainer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkRecognizerContainer'
+    _classid_ = 'Windows.UI.Input.Inking.InkRecognizerContainer'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Input.Inking.InkRecognizerContainer: ...
     @winrt_mixinmethod
@@ -1061,7 +1061,7 @@ class InkRecognizerContainer(ComPtr):
     def GetRecognizers(self: Windows.UI.Input.Inking.IInkRecognizerContainer) -> Windows.Foundation.Collections.IVectorView[Windows.UI.Input.Inking.InkRecognizer]: ...
 class InkStroke(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkStroke'
+    _classid_ = 'Windows.UI.Input.Inking.InkStroke'
     @winrt_mixinmethod
     def get_DrawingAttributes(self: Windows.UI.Input.Inking.IInkStroke) -> Windows.UI.Input.Inking.InkDrawingAttributes: ...
     @winrt_mixinmethod
@@ -1107,7 +1107,7 @@ class InkStroke(ComPtr):
     PointerId = property(get_PointerId, None)
 class InkStrokeBuilder(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkStrokeBuilder'
+    _classid_ = 'Windows.UI.Input.Inking.InkStrokeBuilder'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Input.Inking.InkStrokeBuilder: ...
     @winrt_mixinmethod
@@ -1126,7 +1126,7 @@ class InkStrokeBuilder(ComPtr):
     def CreateStrokeFromInkPoints(self: Windows.UI.Input.Inking.IInkStrokeBuilder2, inkPoints: Windows.Foundation.Collections.IIterable[Windows.UI.Input.Inking.InkPoint], transform: Windows.Foundation.Numerics.Matrix3x2, strokeStartedTime: Windows.Foundation.IReference[Windows.Foundation.DateTime], strokeDuration: Windows.Foundation.IReference[Windows.Foundation.TimeSpan]) -> Windows.UI.Input.Inking.InkStroke: ...
 class InkStrokeContainer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkStrokeContainer'
+    _classid_ = 'Windows.UI.Input.Inking.InkStrokeContainer'
     @winrt_activatemethod
     def New(cls) -> Windows.UI.Input.Inking.InkStrokeContainer: ...
     @winrt_mixinmethod
@@ -1168,7 +1168,7 @@ class InkStrokeContainer(ComPtr):
     BoundingRect = property(get_BoundingRect, None)
 class InkStrokeInput(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkStrokeInput'
+    _classid_ = 'Windows.UI.Input.Inking.InkStrokeInput'
     @winrt_mixinmethod
     def add_StrokeStarted(self: Windows.UI.Input.Inking.IInkStrokeInput, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Input.Inking.InkStrokeInput, Windows.UI.Core.PointerEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -1190,7 +1190,7 @@ class InkStrokeInput(ComPtr):
     InkPresenter = property(get_InkPresenter, None)
 class InkStrokeRenderingSegment(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkStrokeRenderingSegment'
+    _classid_ = 'Windows.UI.Input.Inking.InkStrokeRenderingSegment'
     @winrt_mixinmethod
     def get_Position(self: Windows.UI.Input.Inking.IInkStrokeRenderingSegment) -> Windows.Foundation.Point: ...
     @winrt_mixinmethod
@@ -1214,26 +1214,26 @@ class InkStrokeRenderingSegment(ComPtr):
     Twist = property(get_Twist, None)
 class InkStrokesCollectedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkStrokesCollectedEventArgs'
+    _classid_ = 'Windows.UI.Input.Inking.InkStrokesCollectedEventArgs'
     @winrt_mixinmethod
     def get_Strokes(self: Windows.UI.Input.Inking.IInkStrokesCollectedEventArgs) -> Windows.Foundation.Collections.IVectorView[Windows.UI.Input.Inking.InkStroke]: ...
     Strokes = property(get_Strokes, None)
 class InkStrokesErasedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkStrokesErasedEventArgs'
+    _classid_ = 'Windows.UI.Input.Inking.InkStrokesErasedEventArgs'
     @winrt_mixinmethod
     def get_Strokes(self: Windows.UI.Input.Inking.IInkStrokesErasedEventArgs) -> Windows.Foundation.Collections.IVectorView[Windows.UI.Input.Inking.InkStroke]: ...
     Strokes = property(get_Strokes, None)
 class InkSynchronizer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkSynchronizer'
+    _classid_ = 'Windows.UI.Input.Inking.InkSynchronizer'
     @winrt_mixinmethod
     def BeginDry(self: Windows.UI.Input.Inking.IInkSynchronizer) -> Windows.Foundation.Collections.IVectorView[Windows.UI.Input.Inking.InkStroke]: ...
     @winrt_mixinmethod
     def EndDry(self: Windows.UI.Input.Inking.IInkSynchronizer) -> Void: ...
 class InkUnprocessedInput(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.InkUnprocessedInput'
+    _classid_ = 'Windows.UI.Input.Inking.InkUnprocessedInput'
     @winrt_mixinmethod
     def add_PointerEntered(self: Windows.UI.Input.Inking.IInkUnprocessedInput, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Input.Inking.InkUnprocessedInput, Windows.UI.Core.PointerEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
     @winrt_mixinmethod
@@ -1267,7 +1267,7 @@ class InkUnprocessedInput(ComPtr):
     InkPresenter = property(get_InkPresenter, None)
 class PenAndInkSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.UI.Input.Inking.PenAndInkSettings'
+    _classid_ = 'Windows.UI.Input.Inking.PenAndInkSettings'
     @winrt_mixinmethod
     def get_IsHandwritingDirectlyIntoTextFieldEnabled(self: Windows.UI.Input.Inking.IPenAndInkSettings) -> Boolean: ...
     @winrt_mixinmethod

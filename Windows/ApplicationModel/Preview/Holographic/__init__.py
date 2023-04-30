@@ -25,14 +25,14 @@ def __getattr__(name):
     return getattr(_module, name)
 class HolographicApplicationPreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Preview.Holographic.HolographicApplicationPreview'
+    _classid_ = 'Windows.ApplicationModel.Preview.Holographic.HolographicApplicationPreview'
     @winrt_classmethod
     def IsCurrentViewPresentedOnHolographicDisplay(cls: Windows.ApplicationModel.Preview.Holographic.IHolographicApplicationPreviewStatics) -> Boolean: ...
     @winrt_classmethod
     def IsHolographicActivation(cls: Windows.ApplicationModel.Preview.Holographic.IHolographicApplicationPreviewStatics, activatedEventArgs: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Boolean: ...
 class HolographicKeyboardPlacementOverridePreview(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.ApplicationModel.Preview.Holographic.HolographicKeyboardPlacementOverridePreview'
+    _classid_ = 'Windows.ApplicationModel.Preview.Holographic.HolographicKeyboardPlacementOverridePreview'
     @winrt_mixinmethod
     def SetPlacementOverride(self: Windows.ApplicationModel.Preview.Holographic.IHolographicKeyboardPlacementOverridePreview, coordinateSystem: Windows.Perception.Spatial.SpatialCoordinateSystem, topCenterPosition: Windows.Foundation.Numerics.Vector3, normal: Windows.Foundation.Numerics.Vector3) -> Void: ...
     @winrt_mixinmethod

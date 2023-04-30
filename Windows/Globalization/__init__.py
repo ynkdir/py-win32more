@@ -25,7 +25,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class ApplicationLanguages(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Globalization.ApplicationLanguages'
+    _classid_ = 'Windows.Globalization.ApplicationLanguages'
     @winrt_classmethod
     def GetLanguagesForUser(cls: Windows.Globalization.IApplicationLanguagesStatics2, user: Windows.System.User) -> Windows.Foundation.Collections.IVectorView[WinRT_String]: ...
     @winrt_classmethod
@@ -41,7 +41,7 @@ class ApplicationLanguages(ComPtr):
     ManifestLanguages = property(get_ManifestLanguages, None)
 class Calendar(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Globalization.Calendar'
+    _classid_ = 'Windows.Globalization.Calendar'
     @winrt_factorymethod
     def CreateCalendarWithTimeZone(cls: Windows.Globalization.ICalendarFactory2, languages: Windows.Foundation.Collections.IIterable[WinRT_String], calendar: WinRT_String, clock: WinRT_String, timeZoneId: WinRT_String) -> Windows.Globalization.Calendar: ...
     @winrt_activatemethod
@@ -294,7 +294,7 @@ class Calendar(ComPtr):
     IsDaylightSavingTime = property(get_IsDaylightSavingTime, None)
 class CalendarIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Globalization.CalendarIdentifiers'
+    _classid_ = 'Windows.Globalization.CalendarIdentifiers'
     @winrt_classmethod
     def get_ChineseLunar(cls: Windows.Globalization.ICalendarIdentifiersStatics3) -> WinRT_String: ...
     @winrt_classmethod
@@ -342,7 +342,7 @@ class CalendarIdentifiers(ComPtr):
     UmAlQura = property(get_UmAlQura, None)
 class ClockIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Globalization.ClockIdentifiers'
+    _classid_ = 'Windows.Globalization.ClockIdentifiers'
     @winrt_classmethod
     def get_TwelveHour(cls: Windows.Globalization.IClockIdentifiersStatics) -> WinRT_String: ...
     @winrt_classmethod
@@ -351,7 +351,7 @@ class ClockIdentifiers(ComPtr):
     TwentyFourHour = property(get_TwentyFourHour, None)
 class CurrencyAmount(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Globalization.CurrencyAmount'
+    _classid_ = 'Windows.Globalization.CurrencyAmount'
     @winrt_factorymethod
     def Create(cls: Windows.Globalization.ICurrencyAmountFactory, amount: WinRT_String, currency: WinRT_String) -> Windows.Globalization.CurrencyAmount: ...
     @winrt_mixinmethod
@@ -362,7 +362,7 @@ class CurrencyAmount(ComPtr):
     Currency = property(get_Currency, None)
 class CurrencyIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Globalization.CurrencyIdentifiers'
+    _classid_ = 'Windows.Globalization.CurrencyIdentifiers'
     @winrt_classmethod
     def get_MRU(cls: Windows.Globalization.ICurrencyIdentifiersStatics3) -> WinRT_String: ...
     @winrt_classmethod
@@ -859,7 +859,7 @@ DayOfWeek_Friday: DayOfWeek = 5
 DayOfWeek_Saturday: DayOfWeek = 6
 class GeographicRegion(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Globalization.GeographicRegion'
+    _classid_ = 'Windows.Globalization.GeographicRegion'
     @winrt_activatemethod
     def New(cls) -> Windows.Globalization.GeographicRegion: ...
     @winrt_factorymethod
@@ -1979,7 +1979,7 @@ class ITimeZoneOnCalendar(ComPtr):
     def TimeZoneAsString(self, idealLength: Int32) -> WinRT_String: ...
 class Language(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Globalization.Language'
+    _classid_ = 'Windows.Globalization.Language'
     @winrt_factorymethod
     def CreateLanguage(cls: Windows.Globalization.ILanguageFactory, languageTag: WinRT_String) -> Windows.Globalization.Language: ...
     @winrt_mixinmethod
@@ -2018,7 +2018,7 @@ LanguageLayoutDirection_TtbLtr: LanguageLayoutDirection = 2
 LanguageLayoutDirection_TtbRtl: LanguageLayoutDirection = 3
 class NumeralSystemIdentifiers(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Globalization.NumeralSystemIdentifiers'
+    _classid_ = 'Windows.Globalization.NumeralSystemIdentifiers'
     @winrt_classmethod
     def get_Brah(cls: Windows.Globalization.INumeralSystemIdentifiersStatics2) -> WinRT_String: ...
     @winrt_classmethod

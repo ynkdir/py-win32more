@@ -24,7 +24,7 @@ def __getattr__(name):
     return getattr(_module, name)
 class GeolocationProvider(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
-    ClassId = 'Windows.Devices.Geolocation.Provider.GeolocationProvider'
+    _classid_ = 'Windows.Devices.Geolocation.Provider.GeolocationProvider'
     @winrt_activatemethod
     def New(cls) -> Windows.Devices.Geolocation.Provider.GeolocationProvider: ...
     @winrt_mixinmethod
