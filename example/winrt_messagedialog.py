@@ -5,9 +5,9 @@ from ctypes import (
     WINFUNCTYPE,
     Structure,
     WinError,
+    addressof,
     c_void_p,
     cast,
-    pointer,
     py_object,
 )
 from typing import Generic, TypeVar
@@ -59,109 +59,119 @@ from Windows.Win32.UI.WindowsAndMessaging import (
 T = TypeVar("T")
 
 
-class AsyncOperationCompletedHandlerImpl(Generic[T], Structure):
+class PyAsyncOperationCompletedHandlerImpl(Generic[T], Structure):
+    _fields_ = [("lpvtbl", POINTER(c_void_p)), ("comptr", py_object)]
+
+    def __init__(self, comptr):
+        self.lpvtbl = (c_void_p * 4)()
+        self.lpvtbl[0] = cast(self.QueryInterface, c_void_p)
+        self.lpvtbl[1] = cast(self.AddRef, c_void_p)
+        self.lpvtbl[2] = cast(self.Release, c_void_p)
+        self.lpvtbl[3] = cast(self.Invoke, c_void_p)
+        self.comptr = py_object(comptr)
+
+    @WINFUNCTYPE(HRESULT, c_void_p, POINTER(Guid), POINTER(c_void_p))
+    def QueryInterface(this, riid, ppvObject):
+        print(this)
+        self = cast(this, POINTER(PyAsyncOperationCompletedHandlerImpl)).contents
+        return self.comptr.QueryInterface(riid, ppvObject)
+
+    @WINFUNCTYPE(UInt32, c_void_p)
+    def AddRef(this):
+        print(this)
+        self = cast(this, POINTER(PyAsyncOperationCompletedHandlerImpl)).contents
+        return self.comptr.AddRef()
+
+    @WINFUNCTYPE(UInt32, c_void_p)
+    def Release(this):
+        print(this)
+        self = cast(this, POINTER(PyAsyncOperationCompletedHandlerImpl)).contents
+        return self.comptr.Release()
+
+    @WINFUNCTYPE(HRESULT, c_void_p, IAsyncOperation, AsyncStatus)
+    def Invoke(this, asyncInfo, asyncStatus):
+        print(this)
+        self = cast(this, POINTER(PyAsyncOperationCompletedHandlerImpl)).contents
+        return self.comptr.Invoke(asyncInfo, asyncStatus)
+
+
+class PyAsyncOperationCompletedHandler(Generic[T], AsyncOperationCompletedHandler[T]):
     _iid_ = AsyncOperationCompletedHandler._iid_
 
-    _fields_ = [("vtable", POINTER(c_void_p)), ("self", py_object)]
+    _keep_reference_in_python_world_ = {}
 
-    def __init__(self, event):
-        print("AsyncOperationCompletedHandler.__init__()", self)
-        self.vtable = (c_void_p * 4)()
-        self.vtable[0] = cast(self._QueryInterface, c_void_p)
-        self.vtable[1] = cast(self._AddRef, c_void_p)
-        self.vtable[2] = cast(self._Release, c_void_p)
-        self.vtable[3] = cast(self._Invoke, c_void_p)
-        self.self = py_object(self)
+    def __init__(self):
+        print("PyAsyncOperationCompletedHandler.__init__()", self)
+
+    def __del__(self):
+        print("PyAsyncOperationCompletedHandler.__del__()", self)
+
+    # FIXME: How to get __orig_class__.__args__ in class method?
+    # @classmethod
+    def CreateInstance(self, event):
+        self.comobj = PyAsyncOperationCompletedHandlerImpl[self.__orig_class__.__args__[0]](self)
+        self.value = addressof(self.comobj)
+        self._generic_iid_ = _ro_get_parameterized_type_instance_iid(self.__orig_class__)
         self.refcount = 0
         self.event = event
         self.AddRef()
+        self._keep_reference_in_python_world_[id(self)] = self
+        return self
 
-    def __del__(self):
-        print("AsyncOperationCompletedHandler.__del__()", self)
-
-    def __setattr__(self, key, value):
-        # FIXME: Depends on implementation detail.
-        # _GenericAlias.__init__() sets __orig_class__ after instantiate self.
-        if key == "__orig_class__":
-            self.guid_t = _ro_get_parameterized_type_instance_iid(value)
-        return super().__setattr__(key, value)
-
-    @WINFUNCTYPE(HRESULT, c_void_p, POINTER(Guid), POINTER(c_void_p))
-    def _QueryInterface(this, riid, ppvObject):
-        print(this)
-        self = cast(this, POINTER(AsyncOperationCompletedHandlerImpl)).contents.self
-        return self.QueryInterface(this, riid, ppvObject)
-
-    def QueryInterface(self, this, riid, ppvObject):
+    def QueryInterface(self, riid, ppvObject):
         print(
-            "AsyncOperationCompletedHandlerImpl.QueryInterface()",
+            "PyAsyncOperationCompletedHandler.QueryInterface()",
             riid.contents,
             ppvObject.contents,
         )
-        if str(riid.contents) == str(self.guid_t):
-            ppvObject.contents.value = this
+        if str(riid.contents) == str(self._generic_iid_):
+            ppvObject.contents.value = self.value
             self.AddRef()
             return S_OK
         elif str(riid.contents) == "{00000000-0000-0000-c000-000000000046}":  # IUnknown
-            ppvObject.contents.value = this
+            ppvObject.contents.value = self.value
             self.AddRef()
             return S_OK
         return E_NOINTERFACE
 
-    @WINFUNCTYPE(UInt32, c_void_p)
-    def _AddRef(this):
-        print(this)
-        self = cast(this, POINTER(AsyncOperationCompletedHandlerImpl)).contents.self
-        return self.AddRef()
-
     def AddRef(self):
         self.refcount += 1
-        print("AsyncOperationCompletedHandlerImpl.AddRef()", self.refcount)
+        print("PyAsyncOperationCompletedHandler.AddRef()", self.refcount)
         return self.refcount
-
-    @WINFUNCTYPE(UInt32, c_void_p)
-    def _Release(this):
-        print(this)
-        self = cast(this, POINTER(AsyncOperationCompletedHandlerImpl)).contents.self
-        return self.Release()
 
     def Release(self):
         self.refcount -= 1
         if self.refcount == 0:
-            self.self = None
-        print("AsyncOperationCompletedHandlerImpl.Release()", self.refcount)
+            self.comobj.comptr = None
+            del self._keep_reference_in_python_world_[id(self)]
+        print("PyAsyncOperationCompletedHandler.Release()", self.refcount)
         return self.refcount
 
-    @WINFUNCTYPE(HRESULT, c_void_p, IAsyncOperation, AsyncStatus)
-    def _Invoke(this, asyncInfo, asyncStatus):
-        print(this)
-        self = cast(this, POINTER(AsyncOperationCompletedHandlerImpl)).contents.self
-        return self.Invoke(asyncInfo, asyncStatus)
-
     def Invoke(self, asyncInfo, asyncStatus):
-        print("AsyncOperationCompletedHandlerImpl.Invoke()", asyncStatus)
+        print("PyAsyncOperationCompletedHandler.Invoke()", asyncStatus)
         self.event.set()
         return S_OK
 
 
-async def await_i_async_operation(iasync: IAsyncOperation[T]) -> T:
-    event = asyncio.Event()
-    handler = AsyncOperationCompletedHandlerImpl[iasync.__orig_class__.__args__[0]](
-        event
-    )
-    iasync.Completed = cast(pointer(handler), AsyncOperationCompletedHandler)
-    await event.wait()
-    r = iasync.GetResults()
-    iasync.Release()
-    handler.Release()
-    return r
+class AwaitAsyncOperation(Generic[T]):
+    def __init__(self, iasync: IAsyncOperation[T]):
+        self.iasync = iasync
+
+    # TODO: Move to IAsyncOperation
+    def __await__(self) -> T:
+        event = asyncio.Event()
+        handler = PyAsyncOperationCompletedHandler[self.iasync.__orig_class__.__args__[0]]().CreateInstance(event)
+        self.iasync.Completed = handler
+        yield from event.wait().__await__()
+        r = self.iasync.GetResults()
+        self.iasync.Release()
+        handler.Release()
+        return r
 
 
 async def winrt_dialog(hwnd):
     with ExitStack() as defer:
-        dialog = MessageDialog.CreateWithTitle(
-            "This is WinRT MessageDialog", "WinRT MessageDialog"
-        )
+        dialog = MessageDialog.CreateWithTitle("This is WinRT MessageDialog", "WinRT MessageDialog")
         defer.callback(dialog.Release)
 
         ii = IInitializeWithWindow()
@@ -173,7 +183,7 @@ async def winrt_dialog(hwnd):
 
         iasync = dialog.ShowAsync()
 
-        uicommand = await await_i_async_operation(iasync)
+        uicommand = await AwaitAsyncOperation(iasync)
         defer.callback(uicommand.Release)
 
         print(uicommand, uicommand.Label)
