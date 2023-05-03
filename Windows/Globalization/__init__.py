@@ -887,6 +887,7 @@ class GeographicRegion(ComPtr):
     DisplayName = property(get_DisplayName, None)
     NativeName = property(get_NativeName, None)
     CurrenciesInUse = property(get_CurrenciesInUse, None)
+GlobalizationJapanesePhoneticAnalyzerContract: UInt32 = 65536
 class IApplicationLanguagesStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('75b40847-0a4c-4a92-95-65-fd-63-c9-5f-7a-ed')
@@ -1761,6 +1762,25 @@ class IGeographicRegionStatics(ComPtr):
     _iid_ = Guid('29e28974-7ad9-4ef4-87-99-b3-b4-4f-ad-ec-08')
     @winrt_commethod(6)
     def IsSupported(self, geographicRegionCode: WinRT_String) -> Boolean: ...
+class IJapanesePhoneme(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('2f6a9300-e85b-43e6-89-7d-5d-82-f8-62-df-21')
+    @winrt_commethod(6)
+    def get_DisplayText(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_YomiText(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_IsPhraseStart(self) -> Boolean: ...
+    DisplayText = property(get_DisplayText, None)
+    YomiText = property(get_YomiText, None)
+    IsPhraseStart = property(get_IsPhraseStart, None)
+class IJapanesePhoneticAnalyzerStatics(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('88ab9e90-93de-41b2-b4-d5-8e-db-22-7f-d1-c2')
+    @winrt_commethod(6)
+    def GetWords(self, input: WinRT_String) -> Windows.Foundation.Collections.IVectorView[Windows.Globalization.JapanesePhoneme]: ...
+    @winrt_commethod(7)
+    def GetWordsWithMonoRubyOption(self, input: WinRT_String, monoRuby: Boolean) -> Windows.Foundation.Collections.IVectorView[Windows.Globalization.JapanesePhoneme]: ...
 class ILanguage(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('ea79a752-f7c2-4265-b1-bd-c4-de-c4-e4-f0-80')
@@ -1977,6 +1997,25 @@ class ITimeZoneOnCalendar(ComPtr):
     def TimeZoneAsFullString(self) -> WinRT_String: ...
     @winrt_commethod(9)
     def TimeZoneAsString(self, idealLength: Int32) -> WinRT_String: ...
+class JapanesePhoneme(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.JapanesePhoneme'
+    @winrt_mixinmethod
+    def get_DisplayText(self: Windows.Globalization.IJapanesePhoneme) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_YomiText(self: Windows.Globalization.IJapanesePhoneme) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_IsPhraseStart(self: Windows.Globalization.IJapanesePhoneme) -> Boolean: ...
+    DisplayText = property(get_DisplayText, None)
+    YomiText = property(get_YomiText, None)
+    IsPhraseStart = property(get_IsPhraseStart, None)
+class JapanesePhoneticAnalyzer(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Globalization.JapanesePhoneticAnalyzer'
+    @winrt_classmethod
+    def GetWords(cls: Windows.Globalization.IJapanesePhoneticAnalyzerStatics, input: WinRT_String) -> Windows.Foundation.Collections.IVectorView[Windows.Globalization.JapanesePhoneme]: ...
+    @winrt_classmethod
+    def GetWordsWithMonoRubyOption(cls: Windows.Globalization.IJapanesePhoneticAnalyzerStatics, input: WinRT_String, monoRuby: Boolean) -> Windows.Foundation.Collections.IVectorView[Windows.Globalization.JapanesePhoneme]: ...
 class Language(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Globalization.Language'
@@ -2187,6 +2226,8 @@ make_head(_module, 'ICurrencyIdentifiersStatics3')
 make_head(_module, 'IGeographicRegion')
 make_head(_module, 'IGeographicRegionFactory')
 make_head(_module, 'IGeographicRegionStatics')
+make_head(_module, 'IJapanesePhoneme')
+make_head(_module, 'IJapanesePhoneticAnalyzerStatics')
 make_head(_module, 'ILanguage')
 make_head(_module, 'ILanguage2')
 make_head(_module, 'ILanguage3')
@@ -2198,5 +2239,7 @@ make_head(_module, 'ILanguageStatics3')
 make_head(_module, 'INumeralSystemIdentifiersStatics')
 make_head(_module, 'INumeralSystemIdentifiersStatics2')
 make_head(_module, 'ITimeZoneOnCalendar')
+make_head(_module, 'JapanesePhoneme')
+make_head(_module, 'JapanesePhoneticAnalyzer')
 make_head(_module, 'Language')
 make_head(_module, 'NumeralSystemIdentifiers')

@@ -354,6 +354,11 @@ ESimWatcherStatus_Started: ESimWatcherStatus = 1
 ESimWatcherStatus_EnumerationCompleted: ESimWatcherStatus = 2
 ESimWatcherStatus_Stopping: ESimWatcherStatus = 3
 ESimWatcherStatus_Stopped: ESimWatcherStatus = 4
+class FdnAccessManager(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.FdnAccessManager'
+    @winrt_classmethod
+    def RequestUnlockAsync(cls: Windows.Networking.NetworkOperators.IFdnAccessManagerStatics, contactListId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class HotspotAuthenticationContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.HotspotAuthenticationContext'
@@ -658,6 +663,11 @@ class IESimWatcher(ComPtr):
     @winrt_commethod(18)
     def remove_Updated(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
     Status = property(get_Status, None)
+class IFdnAccessManagerStatics(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('f2aa4395-f1e6-4319-aa-3e-47-7c-a6-4b-2b-df')
+    @winrt_commethod(6)
+    def RequestUnlockAsync(self, contactListId: WinRT_String) -> Windows.Foundation.IAsyncOperation[Boolean]: ...
 class IHotspotAuthenticationContext(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('e756c791-1003-4de5-83-c7-de-61-d8-88-31-d0')
@@ -1651,6 +1661,27 @@ class INetworkOperatorDataUsageTriggerDetails(ComPtr):
     @winrt_commethod(6)
     def get_NotificationKind(self) -> Windows.Networking.NetworkOperators.NetworkOperatorDataUsageNotificationKind: ...
     NotificationKind = property(get_NotificationKind, None)
+class INetworkOperatorNotificationEventDetails(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('bc68a9d1-82e1-4488-9f-2c-12-76-c2-46-8f-ac')
+    @winrt_commethod(6)
+    def get_NotificationType(self) -> Windows.Networking.NetworkOperators.NetworkOperatorEventMessageType: ...
+    @winrt_commethod(7)
+    def get_NetworkAccountId(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_EncodingType(self) -> Byte: ...
+    @winrt_commethod(9)
+    def get_Message(self) -> WinRT_String: ...
+    @winrt_commethod(10)
+    def get_RuleId(self) -> WinRT_String: ...
+    @winrt_commethod(11)
+    def get_SmsMessage(self) -> Windows.Devices.Sms.ISmsMessage: ...
+    NotificationType = property(get_NotificationType, None)
+    NetworkAccountId = property(get_NetworkAccountId, None)
+    EncodingType = property(get_EncodingType, None)
+    Message = property(get_Message, None)
+    RuleId = property(get_RuleId, None)
+    SmsMessage = property(get_SmsMessage, None)
 class INetworkOperatorTetheringAccessPointConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('0bcc0284-412e-403d-ac-c6-b7-57-e3-47-74-a4')
@@ -1690,6 +1721,11 @@ class INetworkOperatorTetheringClientManager(ComPtr):
     _iid_ = Guid('91b14016-8dca-4225-bb-ed-ee-f8-b8-d7-18-d7')
     @winrt_commethod(6)
     def GetTetheringClients(self) -> Windows.Foundation.Collections.IVectorView[Windows.Networking.NetworkOperators.NetworkOperatorTetheringClient]: ...
+class INetworkOperatorTetheringEntitlementCheck(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('0108916d-9e9a-4af6-8d-a3-60-49-3b-19-c2-04')
+    @winrt_commethod(6)
+    def AuthorizeTethering(self, allow: Boolean, entitlementFailureReason: WinRT_String) -> Void: ...
 class INetworkOperatorTetheringManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('d45a8da0-0e86-4d98-8b-a4-dd-70-d4-b7-64-d3')
@@ -1891,6 +1927,7 @@ class KnownUSimFilePaths(ComPtr):
     EFPnn = property(get_EFPnn, None)
     Gid1 = property(get_Gid1, None)
     Gid2 = property(get_Gid2, None)
+LegacyNetworkOperatorsContract: UInt32 = 65536
 class MobileBroadbandAccount(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.MobileBroadbandAccount'
@@ -2799,6 +2836,29 @@ NetworkOperatorEventMessageType_RegisteredHome: NetworkOperatorEventMessageType 
 NetworkOperatorEventMessageType_TetheringEntitlementCheck: NetworkOperatorEventMessageType = 10
 NetworkOperatorEventMessageType_TetheringOperationalStateChanged: NetworkOperatorEventMessageType = 11
 NetworkOperatorEventMessageType_TetheringNumberOfClientsChanged: NetworkOperatorEventMessageType = 12
+class NetworkOperatorNotificationEventDetails(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Networking.NetworkOperators.NetworkOperatorNotificationEventDetails'
+    @winrt_mixinmethod
+    def get_NotificationType(self: Windows.Networking.NetworkOperators.INetworkOperatorNotificationEventDetails) -> Windows.Networking.NetworkOperators.NetworkOperatorEventMessageType: ...
+    @winrt_mixinmethod
+    def get_NetworkAccountId(self: Windows.Networking.NetworkOperators.INetworkOperatorNotificationEventDetails) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_EncodingType(self: Windows.Networking.NetworkOperators.INetworkOperatorNotificationEventDetails) -> Byte: ...
+    @winrt_mixinmethod
+    def get_Message(self: Windows.Networking.NetworkOperators.INetworkOperatorNotificationEventDetails) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_RuleId(self: Windows.Networking.NetworkOperators.INetworkOperatorNotificationEventDetails) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_SmsMessage(self: Windows.Networking.NetworkOperators.INetworkOperatorNotificationEventDetails) -> Windows.Devices.Sms.ISmsMessage: ...
+    @winrt_mixinmethod
+    def AuthorizeTethering(self: Windows.Networking.NetworkOperators.INetworkOperatorTetheringEntitlementCheck, allow: Boolean, entitlementFailureReason: WinRT_String) -> Void: ...
+    NotificationType = property(get_NotificationType, None)
+    NetworkAccountId = property(get_NetworkAccountId, None)
+    EncodingType = property(get_EncodingType, None)
+    Message = property(get_Message, None)
+    RuleId = property(get_RuleId, None)
+    SmsMessage = property(get_SmsMessage, None)
 class NetworkOperatorTetheringAccessPointConfiguration(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Networking.NetworkOperators.NetworkOperatorTetheringAccessPointConfiguration'
@@ -2883,6 +2943,7 @@ class NetworkOperatorTetheringOperationResult(ComPtr):
     def get_AdditionalErrorMessage(self: Windows.Networking.NetworkOperators.INetworkOperatorTetheringOperationResult) -> WinRT_String: ...
     Status = property(get_Status, None)
     AdditionalErrorMessage = property(get_AdditionalErrorMessage, None)
+NetworkOperatorsFdnContract: UInt32 = 65536
 NetworkRegistrationState = Int32
 NetworkRegistrationState_None: NetworkRegistrationState = 0
 NetworkRegistrationState_Deregistered: NetworkRegistrationState = 1
@@ -3045,6 +3106,7 @@ make_head(_module, 'ESimRemovedEventArgs')
 make_head(_module, 'ESimServiceInfo')
 make_head(_module, 'ESimUpdatedEventArgs')
 make_head(_module, 'ESimWatcher')
+make_head(_module, 'FdnAccessManager')
 make_head(_module, 'HotspotAuthenticationContext')
 make_head(_module, 'HotspotAuthenticationEventDetails')
 make_head(_module, 'HotspotCredentialsAuthenticationResult')
@@ -3065,6 +3127,7 @@ make_head(_module, 'IESimRemovedEventArgs')
 make_head(_module, 'IESimServiceInfo')
 make_head(_module, 'IESimUpdatedEventArgs')
 make_head(_module, 'IESimWatcher')
+make_head(_module, 'IFdnAccessManagerStatics')
 make_head(_module, 'IHotspotAuthenticationContext')
 make_head(_module, 'IHotspotAuthenticationContext2')
 make_head(_module, 'IHotspotAuthenticationContextStatics')
@@ -3139,10 +3202,12 @@ make_head(_module, 'IMobileBroadbandUiccAppReadRecordResult')
 make_head(_module, 'IMobileBroadbandUiccAppRecordDetailsResult')
 make_head(_module, 'IMobileBroadbandUiccAppsResult')
 make_head(_module, 'INetworkOperatorDataUsageTriggerDetails')
+make_head(_module, 'INetworkOperatorNotificationEventDetails')
 make_head(_module, 'INetworkOperatorTetheringAccessPointConfiguration')
 make_head(_module, 'INetworkOperatorTetheringAccessPointConfiguration2')
 make_head(_module, 'INetworkOperatorTetheringClient')
 make_head(_module, 'INetworkOperatorTetheringClientManager')
+make_head(_module, 'INetworkOperatorTetheringEntitlementCheck')
 make_head(_module, 'INetworkOperatorTetheringManager')
 make_head(_module, 'INetworkOperatorTetheringManagerStatics')
 make_head(_module, 'INetworkOperatorTetheringManagerStatics2')
@@ -3210,6 +3275,7 @@ make_head(_module, 'MobileBroadbandUiccAppReadRecordResult')
 make_head(_module, 'MobileBroadbandUiccAppRecordDetailsResult')
 make_head(_module, 'MobileBroadbandUiccAppsResult')
 make_head(_module, 'NetworkOperatorDataUsageTriggerDetails')
+make_head(_module, 'NetworkOperatorNotificationEventDetails')
 make_head(_module, 'NetworkOperatorTetheringAccessPointConfiguration')
 make_head(_module, 'NetworkOperatorTetheringClient')
 make_head(_module, 'NetworkOperatorTetheringManager')

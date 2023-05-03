@@ -310,6 +310,7 @@ class GamepadVibration(EasyCastStructure):
     RightMotor: Double
     LeftTrigger: Double
     RightTrigger: Double
+GamingInputPreviewContract: UInt32 = 65536
 class Headset(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Gaming.Input.Headset'

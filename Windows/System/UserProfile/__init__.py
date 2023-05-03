@@ -14,6 +14,7 @@ import Windows.Foundation
 import Windows.Foundation.Collections
 import Windows.Globalization
 import Windows.Storage
+import Windows.Storage.Streams
 import Windows.System
 import Windows.System.UserProfile
 import sys
@@ -25,6 +26,10 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
+AccountPictureKind = Int32
+AccountPictureKind_SmallImage: AccountPictureKind = 0
+AccountPictureKind_LargeImage: AccountPictureKind = 1
+AccountPictureKind_Video: AccountPictureKind = 2
 class AdvertisingManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.UserProfile.AdvertisingManager'
@@ -258,6 +263,60 @@ class IGlobalizationPreferencesStatics3(ComPtr):
     _iid_ = Guid('1e059733-35f5-40d8-b9-e8-ae-f3-ef-85-6f-ce')
     @winrt_commethod(6)
     def GetForUser(self, user: Windows.System.User) -> Windows.System.UserProfile.GlobalizationPreferencesForUser: ...
+class ILockScreenImageFeedStatics(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('2c0d73f6-03a9-41a6-9b-01-49-52-51-ff-51-d5')
+    @winrt_commethod(6)
+    def RequestSetImageFeedAsync(self, syndicationFeedUri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperation[Windows.System.UserProfile.SetImageFeedResult]: ...
+    @winrt_commethod(7)
+    def TryRemoveImageFeed(self) -> Boolean: ...
+class ILockScreenStatics(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('3ee9d3ad-b607-40ae-b4-26-76-31-d9-82-12-69')
+    @winrt_commethod(6)
+    def get_OriginalImageFile(self) -> Windows.Foundation.Uri: ...
+    @winrt_commethod(7)
+    def GetImageStream(self) -> Windows.Storage.Streams.IRandomAccessStream: ...
+    @winrt_commethod(8)
+    def SetImageFileAsync(self, value: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncAction: ...
+    @winrt_commethod(9)
+    def SetImageStreamAsync(self, value: Windows.Storage.Streams.IRandomAccessStream) -> Windows.Foundation.IAsyncAction: ...
+    OriginalImageFile = property(get_OriginalImageFile, None)
+class IUserInformationStatics(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('77f3a910-48fa-489c-93-4e-2a-e8-5b-a8-f7-72')
+    @winrt_commethod(6)
+    def get_AccountPictureChangeEnabled(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def get_NameAccessAllowed(self) -> Boolean: ...
+    @winrt_commethod(8)
+    def GetAccountPicture(self, kind: Windows.System.UserProfile.AccountPictureKind) -> Windows.Storage.IStorageFile: ...
+    @winrt_commethod(9)
+    def SetAccountPictureAsync(self, image: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Windows.System.UserProfile.SetAccountPictureResult]: ...
+    @winrt_commethod(10)
+    def SetAccountPicturesAsync(self, smallImage: Windows.Storage.IStorageFile, largeImage: Windows.Storage.IStorageFile, video: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Windows.System.UserProfile.SetAccountPictureResult]: ...
+    @winrt_commethod(11)
+    def SetAccountPictureFromStreamAsync(self, image: Windows.Storage.Streams.IRandomAccessStream) -> Windows.Foundation.IAsyncOperation[Windows.System.UserProfile.SetAccountPictureResult]: ...
+    @winrt_commethod(12)
+    def SetAccountPicturesFromStreamsAsync(self, smallImage: Windows.Storage.Streams.IRandomAccessStream, largeImage: Windows.Storage.Streams.IRandomAccessStream, video: Windows.Storage.Streams.IRandomAccessStream) -> Windows.Foundation.IAsyncOperation[Windows.System.UserProfile.SetAccountPictureResult]: ...
+    @winrt_commethod(13)
+    def add_AccountPictureChanged(self, changeHandler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(14)
+    def remove_AccountPictureChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(15)
+    def GetDisplayNameAsync(self) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
+    @winrt_commethod(16)
+    def GetFirstNameAsync(self) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
+    @winrt_commethod(17)
+    def GetLastNameAsync(self) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
+    @winrt_commethod(18)
+    def GetPrincipalNameAsync(self) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
+    @winrt_commethod(19)
+    def GetSessionInitiationProtocolUriAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Uri]: ...
+    @winrt_commethod(20)
+    def GetDomainNameAsync(self) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
+    AccountPictureChangeEnabled = property(get_AccountPictureChangeEnabled, None)
+    NameAccessAllowed = property(get_NameAccessAllowed, None)
 class IUserProfilePersonalizationSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('8ceddab4-7998-46d5-8d-d3-18-4f-1c-5f-9a-b9')
@@ -273,6 +332,70 @@ class IUserProfilePersonalizationSettingsStatics(ComPtr):
     @winrt_commethod(7)
     def IsSupported(self) -> Boolean: ...
     Current = property(get_Current, None)
+class LockScreen(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.UserProfile.LockScreen'
+    @winrt_classmethod
+    def RequestSetImageFeedAsync(cls: Windows.System.UserProfile.ILockScreenImageFeedStatics, syndicationFeedUri: Windows.Foundation.Uri) -> Windows.Foundation.IAsyncOperation[Windows.System.UserProfile.SetImageFeedResult]: ...
+    @winrt_classmethod
+    def TryRemoveImageFeed(cls: Windows.System.UserProfile.ILockScreenImageFeedStatics) -> Boolean: ...
+    @winrt_classmethod
+    def get_OriginalImageFile(cls: Windows.System.UserProfile.ILockScreenStatics) -> Windows.Foundation.Uri: ...
+    @winrt_classmethod
+    def GetImageStream(cls: Windows.System.UserProfile.ILockScreenStatics) -> Windows.Storage.Streams.IRandomAccessStream: ...
+    @winrt_classmethod
+    def SetImageFileAsync(cls: Windows.System.UserProfile.ILockScreenStatics, value: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncAction: ...
+    @winrt_classmethod
+    def SetImageStreamAsync(cls: Windows.System.UserProfile.ILockScreenStatics, value: Windows.Storage.Streams.IRandomAccessStream) -> Windows.Foundation.IAsyncAction: ...
+    OriginalImageFile = property(get_OriginalImageFile, None)
+SetAccountPictureResult = Int32
+SetAccountPictureResult_Success: SetAccountPictureResult = 0
+SetAccountPictureResult_ChangeDisabled: SetAccountPictureResult = 1
+SetAccountPictureResult_LargeOrDynamicError: SetAccountPictureResult = 2
+SetAccountPictureResult_VideoFrameSizeError: SetAccountPictureResult = 3
+SetAccountPictureResult_FileSizeError: SetAccountPictureResult = 4
+SetAccountPictureResult_Failure: SetAccountPictureResult = 5
+SetImageFeedResult = Int32
+SetImageFeedResult_Success: SetImageFeedResult = 0
+SetImageFeedResult_ChangeDisabled: SetImageFeedResult = 1
+SetImageFeedResult_UserCanceled: SetImageFeedResult = 2
+class UserInformation(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.System.UserProfile.UserInformation'
+    @winrt_classmethod
+    def get_AccountPictureChangeEnabled(cls: Windows.System.UserProfile.IUserInformationStatics) -> Boolean: ...
+    @winrt_classmethod
+    def get_NameAccessAllowed(cls: Windows.System.UserProfile.IUserInformationStatics) -> Boolean: ...
+    @winrt_classmethod
+    def GetAccountPicture(cls: Windows.System.UserProfile.IUserInformationStatics, kind: Windows.System.UserProfile.AccountPictureKind) -> Windows.Storage.IStorageFile: ...
+    @winrt_classmethod
+    def SetAccountPictureAsync(cls: Windows.System.UserProfile.IUserInformationStatics, image: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Windows.System.UserProfile.SetAccountPictureResult]: ...
+    @winrt_classmethod
+    def SetAccountPicturesAsync(cls: Windows.System.UserProfile.IUserInformationStatics, smallImage: Windows.Storage.IStorageFile, largeImage: Windows.Storage.IStorageFile, video: Windows.Storage.IStorageFile) -> Windows.Foundation.IAsyncOperation[Windows.System.UserProfile.SetAccountPictureResult]: ...
+    @winrt_classmethod
+    def SetAccountPictureFromStreamAsync(cls: Windows.System.UserProfile.IUserInformationStatics, image: Windows.Storage.Streams.IRandomAccessStream) -> Windows.Foundation.IAsyncOperation[Windows.System.UserProfile.SetAccountPictureResult]: ...
+    @winrt_classmethod
+    def SetAccountPicturesFromStreamsAsync(cls: Windows.System.UserProfile.IUserInformationStatics, smallImage: Windows.Storage.Streams.IRandomAccessStream, largeImage: Windows.Storage.Streams.IRandomAccessStream, video: Windows.Storage.Streams.IRandomAccessStream) -> Windows.Foundation.IAsyncOperation[Windows.System.UserProfile.SetAccountPictureResult]: ...
+    @winrt_classmethod
+    def add_AccountPictureChanged(cls: Windows.System.UserProfile.IUserInformationStatics, changeHandler: Windows.Foundation.EventHandler[Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_classmethod
+    def remove_AccountPictureChanged(cls: Windows.System.UserProfile.IUserInformationStatics, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_classmethod
+    def GetDisplayNameAsync(cls: Windows.System.UserProfile.IUserInformationStatics) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
+    @winrt_classmethod
+    def GetFirstNameAsync(cls: Windows.System.UserProfile.IUserInformationStatics) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
+    @winrt_classmethod
+    def GetLastNameAsync(cls: Windows.System.UserProfile.IUserInformationStatics) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
+    @winrt_classmethod
+    def GetPrincipalNameAsync(cls: Windows.System.UserProfile.IUserInformationStatics) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
+    @winrt_classmethod
+    def GetSessionInitiationProtocolUriAsync(cls: Windows.System.UserProfile.IUserInformationStatics) -> Windows.Foundation.IAsyncOperation[Windows.Foundation.Uri]: ...
+    @winrt_classmethod
+    def GetDomainNameAsync(cls: Windows.System.UserProfile.IUserInformationStatics) -> Windows.Foundation.IAsyncOperation[WinRT_String]: ...
+    AccountPictureChangeEnabled = property(get_AccountPictureChangeEnabled, None)
+    NameAccessAllowed = property(get_NameAccessAllowed, None)
+UserProfileContract: UInt32 = 131072
+UserProfileLockScreenContract: UInt32 = 65536
 class UserProfilePersonalizationSettings(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.System.UserProfile.UserProfilePersonalizationSettings'
@@ -305,6 +428,11 @@ make_head(_module, 'IGlobalizationPreferencesForUser')
 make_head(_module, 'IGlobalizationPreferencesStatics')
 make_head(_module, 'IGlobalizationPreferencesStatics2')
 make_head(_module, 'IGlobalizationPreferencesStatics3')
+make_head(_module, 'ILockScreenImageFeedStatics')
+make_head(_module, 'ILockScreenStatics')
+make_head(_module, 'IUserInformationStatics')
 make_head(_module, 'IUserProfilePersonalizationSettings')
 make_head(_module, 'IUserProfilePersonalizationSettingsStatics')
+make_head(_module, 'LockScreen')
+make_head(_module, 'UserInformation')
 make_head(_module, 'UserProfilePersonalizationSettings')

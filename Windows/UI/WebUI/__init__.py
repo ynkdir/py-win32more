@@ -14,12 +14,17 @@ import Windows.ApplicationModel
 import Windows.ApplicationModel.Activation
 import Windows.ApplicationModel.Appointments.AppointmentsProvider
 import Windows.ApplicationModel.Background
+import Windows.ApplicationModel.Calls
 import Windows.ApplicationModel.Contacts
+import Windows.ApplicationModel.Contacts.Provider
 import Windows.ApplicationModel.Core
 import Windows.ApplicationModel.DataTransfer
 import Windows.ApplicationModel.DataTransfer.ShareTarget
+import Windows.ApplicationModel.Search
 import Windows.ApplicationModel.UserDataAccounts.Provider
+import Windows.ApplicationModel.Wallet
 import Windows.Devices.Enumeration
+import Windows.Devices.Printers.Extensions
 import Windows.Foundation
 import Windows.Foundation.Collections
 import Windows.Graphics.Printing
@@ -635,6 +640,27 @@ class WebUICachedFileUpdaterActivatedEventArgs(ComPtr):
     SplashScreen = property(get_SplashScreen, None)
     ActivatedOperation = property(get_ActivatedOperation, None)
     User = property(get_User, None)
+class WebUICameraSettingsActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WebUI.WebUICameraSettingsActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_VideoDeviceController(self: Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
+    @winrt_mixinmethod
+    def get_VideoDeviceExtension(self: Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    @winrt_mixinmethod
+    def get_ActivatedOperation(self: Windows.UI.WebUI.IActivatedEventArgsDeferral) -> Windows.UI.WebUI.ActivatedOperation: ...
+    VideoDeviceController = property(get_VideoDeviceController, None)
+    VideoDeviceExtension = property(get_VideoDeviceExtension, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+    ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUICommandLineActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.WebUI.WebUICommandLineActivatedEventArgs'
@@ -655,6 +681,84 @@ class WebUICommandLineActivatedEventArgs(ComPtr):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
+    ActivatedOperation = property(get_ActivatedOperation, None)
+class WebUIContactCallActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WebUI.WebUIContactCallActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_ServiceId(self: Windows.ApplicationModel.Activation.IContactCallActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_ServiceUserId(self: Windows.ApplicationModel.Activation.IContactCallActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Contact(self: Windows.ApplicationModel.Activation.IContactCallActivatedEventArgs) -> Windows.ApplicationModel.Contacts.Contact: ...
+    @winrt_mixinmethod
+    def get_Verb(self: Windows.ApplicationModel.Activation.IContactActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    @winrt_mixinmethod
+    def get_ActivatedOperation(self: Windows.UI.WebUI.IActivatedEventArgsDeferral) -> Windows.UI.WebUI.ActivatedOperation: ...
+    ServiceId = property(get_ServiceId, None)
+    ServiceUserId = property(get_ServiceUserId, None)
+    Contact = property(get_Contact, None)
+    Verb = property(get_Verb, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+    ActivatedOperation = property(get_ActivatedOperation, None)
+class WebUIContactMapActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WebUI.WebUIContactMapActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_Address(self: Windows.ApplicationModel.Activation.IContactMapActivatedEventArgs) -> Windows.ApplicationModel.Contacts.ContactAddress: ...
+    @winrt_mixinmethod
+    def get_Contact(self: Windows.ApplicationModel.Activation.IContactMapActivatedEventArgs) -> Windows.ApplicationModel.Contacts.Contact: ...
+    @winrt_mixinmethod
+    def get_Verb(self: Windows.ApplicationModel.Activation.IContactActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    @winrt_mixinmethod
+    def get_ActivatedOperation(self: Windows.UI.WebUI.IActivatedEventArgsDeferral) -> Windows.UI.WebUI.ActivatedOperation: ...
+    Address = property(get_Address, None)
+    Contact = property(get_Contact, None)
+    Verb = property(get_Verb, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+    ActivatedOperation = property(get_ActivatedOperation, None)
+class WebUIContactMessageActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WebUI.WebUIContactMessageActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_ServiceId(self: Windows.ApplicationModel.Activation.IContactMessageActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_ServiceUserId(self: Windows.ApplicationModel.Activation.IContactMessageActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Contact(self: Windows.ApplicationModel.Activation.IContactMessageActivatedEventArgs) -> Windows.ApplicationModel.Contacts.Contact: ...
+    @winrt_mixinmethod
+    def get_Verb(self: Windows.ApplicationModel.Activation.IContactActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    @winrt_mixinmethod
+    def get_ActivatedOperation(self: Windows.UI.WebUI.IActivatedEventArgsDeferral) -> Windows.UI.WebUI.ActivatedOperation: ...
+    ServiceId = property(get_ServiceId, None)
+    ServiceUserId = property(get_ServiceUserId, None)
+    Contact = property(get_Contact, None)
+    Verb = property(get_Verb, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIContactPanelActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -680,6 +784,78 @@ class WebUIContactPanelActivatedEventArgs(ComPtr):
     SplashScreen = property(get_SplashScreen, None)
     ActivatedOperation = property(get_ActivatedOperation, None)
     User = property(get_User, None)
+class WebUIContactPickerActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WebUI.WebUIContactPickerActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_ContactPickerUI(self: Windows.ApplicationModel.Activation.IContactPickerActivatedEventArgs) -> Windows.ApplicationModel.Contacts.Provider.ContactPickerUI: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    @winrt_mixinmethod
+    def get_ActivatedOperation(self: Windows.UI.WebUI.IActivatedEventArgsDeferral) -> Windows.UI.WebUI.ActivatedOperation: ...
+    ContactPickerUI = property(get_ContactPickerUI, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+    ActivatedOperation = property(get_ActivatedOperation, None)
+class WebUIContactPostActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WebUI.WebUIContactPostActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_ServiceId(self: Windows.ApplicationModel.Activation.IContactPostActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_ServiceUserId(self: Windows.ApplicationModel.Activation.IContactPostActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Contact(self: Windows.ApplicationModel.Activation.IContactPostActivatedEventArgs) -> Windows.ApplicationModel.Contacts.Contact: ...
+    @winrt_mixinmethod
+    def get_Verb(self: Windows.ApplicationModel.Activation.IContactActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    @winrt_mixinmethod
+    def get_ActivatedOperation(self: Windows.UI.WebUI.IActivatedEventArgsDeferral) -> Windows.UI.WebUI.ActivatedOperation: ...
+    ServiceId = property(get_ServiceId, None)
+    ServiceUserId = property(get_ServiceUserId, None)
+    Contact = property(get_Contact, None)
+    Verb = property(get_Verb, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+    ActivatedOperation = property(get_ActivatedOperation, None)
+class WebUIContactVideoCallActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WebUI.WebUIContactVideoCallActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_ServiceId(self: Windows.ApplicationModel.Activation.IContactVideoCallActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_ServiceUserId(self: Windows.ApplicationModel.Activation.IContactVideoCallActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Contact(self: Windows.ApplicationModel.Activation.IContactVideoCallActivatedEventArgs) -> Windows.ApplicationModel.Contacts.Contact: ...
+    @winrt_mixinmethod
+    def get_Verb(self: Windows.ApplicationModel.Activation.IContactActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    @winrt_mixinmethod
+    def get_ActivatedOperation(self: Windows.UI.WebUI.IActivatedEventArgsDeferral) -> Windows.UI.WebUI.ActivatedOperation: ...
+    ServiceId = property(get_ServiceId, None)
+    ServiceUserId = property(get_ServiceUserId, None)
+    Contact = property(get_Contact, None)
+    Verb = property(get_Verb, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+    ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIDeviceActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.WebUI.WebUIDeviceActivatedEventArgs'
@@ -968,6 +1144,33 @@ class WebUILockScreenActivatedEventArgs(ComPtr):
     CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
     ActivatedOperation = property(get_ActivatedOperation, None)
     User = property(get_User, None)
+class WebUILockScreenCallActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WebUI.WebUILockScreenCallActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_CallUI(self: Windows.ApplicationModel.Activation.ILockScreenCallActivatedEventArgs) -> Windows.ApplicationModel.Calls.LockScreenCallUI: ...
+    @winrt_mixinmethod
+    def get_Arguments(self: Windows.ApplicationModel.Activation.ILaunchActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_TileId(self: Windows.ApplicationModel.Activation.ILaunchActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    @winrt_mixinmethod
+    def get_CurrentlyShownApplicationViewId(self: Windows.ApplicationModel.Activation.IApplicationViewActivatedEventArgs) -> Int32: ...
+    @winrt_mixinmethod
+    def get_ActivatedOperation(self: Windows.UI.WebUI.IActivatedEventArgsDeferral) -> Windows.UI.WebUI.ActivatedOperation: ...
+    CallUI = property(get_CallUI, None)
+    Arguments = property(get_Arguments, None)
+    TileId = property(get_TileId, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
+    ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUILockScreenComponentActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.WebUI.WebUILockScreenComponentActivatedEventArgs'
@@ -1019,6 +1222,42 @@ class WebUIPhoneCallActivatedEventArgs(ComPtr):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
+    ActivatedOperation = property(get_ActivatedOperation, None)
+class WebUIPrint3DWorkflowActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WebUI.WebUIPrint3DWorkflowActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_Workflow(self: Windows.ApplicationModel.Activation.IPrint3DWorkflowActivatedEventArgs) -> Windows.Devices.Printers.Extensions.Print3DWorkflow: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    @winrt_mixinmethod
+    def get_ActivatedOperation(self: Windows.UI.WebUI.IActivatedEventArgsDeferral) -> Windows.UI.WebUI.ActivatedOperation: ...
+    Workflow = property(get_Workflow, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+    ActivatedOperation = property(get_ActivatedOperation, None)
+class WebUIPrintTaskSettingsActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WebUI.WebUIPrintTaskSettingsActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_Configuration(self: Windows.ApplicationModel.Activation.IPrintTaskSettingsActivatedEventArgs) -> Windows.Devices.Printers.Extensions.PrintTaskConfiguration: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    @winrt_mixinmethod
+    def get_ActivatedOperation(self: Windows.UI.WebUI.IActivatedEventArgsDeferral) -> Windows.UI.WebUI.ActivatedOperation: ...
+    Configuration = property(get_Configuration, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
     ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIPrintWorkflowForegroundTaskActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
@@ -1119,6 +1358,33 @@ class WebUIRestrictedLaunchActivatedEventArgs(ComPtr):
     SplashScreen = property(get_SplashScreen, None)
     ActivatedOperation = property(get_ActivatedOperation, None)
     User = property(get_User, None)
+class WebUISearchActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WebUI.WebUISearchActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_QueryText(self: Windows.ApplicationModel.Activation.ISearchActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Language(self: Windows.ApplicationModel.Activation.ISearchActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    @winrt_mixinmethod
+    def get_LinguisticDetails(self: Windows.ApplicationModel.Activation.ISearchActivatedEventArgsWithLinguisticDetails) -> Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails: ...
+    @winrt_mixinmethod
+    def get_CurrentlyShownApplicationViewId(self: Windows.ApplicationModel.Activation.IApplicationViewActivatedEventArgs) -> Int32: ...
+    @winrt_mixinmethod
+    def get_ActivatedOperation(self: Windows.UI.WebUI.IActivatedEventArgsDeferral) -> Windows.UI.WebUI.ActivatedOperation: ...
+    QueryText = property(get_QueryText, None)
+    Language = property(get_Language, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+    LinguisticDetails = property(get_LinguisticDetails, None)
+    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
+    ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIShareTargetActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.WebUI.WebUIShareTargetActivatedEventArgs'
@@ -1371,6 +1637,30 @@ class WebUIVoiceCommandActivatedEventArgs(ComPtr):
     SplashScreen = property(get_SplashScreen, None)
     ActivatedOperation = property(get_ActivatedOperation, None)
     User = property(get_User, None)
+class WebUIWalletActionActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.WebUI.WebUIWalletActionActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_ItemId(self: Windows.ApplicationModel.Activation.IWalletActionActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_ActionKind(self: Windows.ApplicationModel.Activation.IWalletActionActivatedEventArgs) -> Windows.ApplicationModel.Wallet.WalletActionKind: ...
+    @winrt_mixinmethod
+    def get_ActionId(self: Windows.ApplicationModel.Activation.IWalletActionActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    @winrt_mixinmethod
+    def get_ActivatedOperation(self: Windows.UI.WebUI.IActivatedEventArgsDeferral) -> Windows.UI.WebUI.ActivatedOperation: ...
+    ItemId = property(get_ItemId, None)
+    ActionKind = property(get_ActionKind, None)
+    ActionId = property(get_ActionId, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+    ActivatedOperation = property(get_ActivatedOperation, None)
 class WebUIWebAccountProviderActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.WebUI.WebUIWebAccountProviderActivatedEventArgs'
@@ -1456,8 +1746,15 @@ make_head(_module, 'WebUIBackgroundTaskInstance')
 make_head(_module, 'WebUIBackgroundTaskInstanceRuntimeClass')
 make_head(_module, 'WebUIBarcodeScannerPreviewActivatedEventArgs')
 make_head(_module, 'WebUICachedFileUpdaterActivatedEventArgs')
+make_head(_module, 'WebUICameraSettingsActivatedEventArgs')
 make_head(_module, 'WebUICommandLineActivatedEventArgs')
+make_head(_module, 'WebUIContactCallActivatedEventArgs')
+make_head(_module, 'WebUIContactMapActivatedEventArgs')
+make_head(_module, 'WebUIContactMessageActivatedEventArgs')
 make_head(_module, 'WebUIContactPanelActivatedEventArgs')
+make_head(_module, 'WebUIContactPickerActivatedEventArgs')
+make_head(_module, 'WebUIContactPostActivatedEventArgs')
+make_head(_module, 'WebUIContactVideoCallActivatedEventArgs')
 make_head(_module, 'WebUIDeviceActivatedEventArgs')
 make_head(_module, 'WebUIDevicePairingActivatedEventArgs')
 make_head(_module, 'WebUIDialReceiverActivatedEventArgs')
@@ -1469,20 +1766,25 @@ make_head(_module, 'WebUIFileSavePickerContinuationEventArgs')
 make_head(_module, 'WebUIFolderPickerContinuationEventArgs')
 make_head(_module, 'WebUILaunchActivatedEventArgs')
 make_head(_module, 'WebUILockScreenActivatedEventArgs')
+make_head(_module, 'WebUILockScreenCallActivatedEventArgs')
 make_head(_module, 'WebUILockScreenComponentActivatedEventArgs')
 make_head(_module, 'WebUINavigatedDeferral')
 make_head(_module, 'WebUINavigatedEventArgs')
 make_head(_module, 'WebUINavigatedOperation')
 make_head(_module, 'WebUIPhoneCallActivatedEventArgs')
+make_head(_module, 'WebUIPrint3DWorkflowActivatedEventArgs')
+make_head(_module, 'WebUIPrintTaskSettingsActivatedEventArgs')
 make_head(_module, 'WebUIPrintWorkflowForegroundTaskActivatedEventArgs')
 make_head(_module, 'WebUIProtocolActivatedEventArgs')
 make_head(_module, 'WebUIProtocolForResultsActivatedEventArgs')
 make_head(_module, 'WebUIRestrictedLaunchActivatedEventArgs')
+make_head(_module, 'WebUISearchActivatedEventArgs')
 make_head(_module, 'WebUIShareTargetActivatedEventArgs')
 make_head(_module, 'WebUIStartupTaskActivatedEventArgs')
 make_head(_module, 'WebUIToastNotificationActivatedEventArgs')
 make_head(_module, 'WebUIUserDataAccountProviderActivatedEventArgs')
 make_head(_module, 'WebUIView')
 make_head(_module, 'WebUIVoiceCommandActivatedEventArgs')
+make_head(_module, 'WebUIWalletActionActivatedEventArgs')
 make_head(_module, 'WebUIWebAccountProviderActivatedEventArgs')
 make_head(_module, 'WebUIWebAuthenticationBrokerContinuationEventArgs')

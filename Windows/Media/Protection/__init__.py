@@ -38,6 +38,11 @@ class ComponentLoadFailedEventHandler(ComPtr):
     _classid_ = 'Windows.Media.Protection.ComponentLoadFailedEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Protection.MediaProtectionManager, e: Windows.Media.Protection.ComponentLoadFailedEventArgs) -> Void: ...
+class ComponentRenewal(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.Protection.ComponentRenewal'
+    @winrt_classmethod
+    def RenewSystemComponentsAsync(cls: Windows.Media.Protection.IComponentRenewalStatics, information: Windows.Media.Protection.RevocationAndRenewalInformation) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Media.Protection.RenewalStatus, UInt32]: ...
 GraphicsTrustStatus = Int32
 GraphicsTrustStatus_TrustNotRequired: GraphicsTrustStatus = 0
 GraphicsTrustStatus_TrustEstablished: GraphicsTrustStatus = 1
@@ -80,6 +85,11 @@ class IComponentLoadFailedEventArgs(ComPtr):
     def get_Completion(self) -> Windows.Media.Protection.MediaProtectionServiceCompletion: ...
     Information = property(get_Information, None)
     Completion = property(get_Completion, None)
+class IComponentRenewalStatics(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('6ffbcd67-b795-48c5-8b-7b-a7-c4-ef-e2-02-e3')
+    @winrt_commethod(6)
+    def RenewSystemComponentsAsync(self, information: Windows.Media.Protection.RevocationAndRenewalInformation) -> Windows.Foundation.IAsyncOperationWithProgress[Windows.Media.Protection.RenewalStatus, UInt32]: ...
 class IHdcpSession(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('718845e9-64d7-426d-80-9b-1b-e4-61-94-1a-2a')
@@ -224,12 +234,19 @@ ProtectionCapabilityResult = Int32
 ProtectionCapabilityResult_NotSupported: ProtectionCapabilityResult = 0
 ProtectionCapabilityResult_Maybe: ProtectionCapabilityResult = 1
 ProtectionCapabilityResult_Probably: ProtectionCapabilityResult = 2
+ProtectionRenewalContract: UInt32 = 65536
 class RebootNeededEventHandler(ComPtr):
     extends: Windows.Win32.System.Com.IUnknown
     _iid_ = Guid('64e12a45-973b-4a3a-b2-60-91-89-8a-49-a8-2c')
     _classid_ = 'Windows.Media.Protection.RebootNeededEventHandler'
     @winrt_commethod(3)
     def Invoke(self, sender: Windows.Media.Protection.MediaProtectionManager) -> Void: ...
+RenewalStatus = Int32
+RenewalStatus_NotStarted: RenewalStatus = 0
+RenewalStatus_UpdatesInProgress: RenewalStatus = 1
+RenewalStatus_UserCancelled: RenewalStatus = 2
+RenewalStatus_AppComponentsMayNeedUpdating: RenewalStatus = 3
+RenewalStatus_NoComponentsFound: RenewalStatus = 4
 class RevocationAndRenewalInformation(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.Protection.RevocationAndRenewalInformation'
@@ -290,8 +307,10 @@ class ServiceRequestedEventHandler(ComPtr):
     def Invoke(self, sender: Windows.Media.Protection.MediaProtectionManager, e: Windows.Media.Protection.ServiceRequestedEventArgs) -> Void: ...
 make_head(_module, 'ComponentLoadFailedEventArgs')
 make_head(_module, 'ComponentLoadFailedEventHandler')
+make_head(_module, 'ComponentRenewal')
 make_head(_module, 'HdcpSession')
 make_head(_module, 'IComponentLoadFailedEventArgs')
+make_head(_module, 'IComponentRenewalStatics')
 make_head(_module, 'IHdcpSession')
 make_head(_module, 'IMediaProtectionManager')
 make_head(_module, 'IMediaProtectionPMPServer')

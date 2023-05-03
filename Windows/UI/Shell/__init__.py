@@ -104,6 +104,15 @@ class IFocusSessionManagerStatics(ComPtr):
     @winrt_commethod(7)
     def get_IsSupported(self) -> Boolean: ...
     IsSupported = property(get_IsSupported, None)
+class ISecurityAppManager(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('96ac500c-aed4-561d-bd-e8-95-35-20-34-3a-2d')
+    @winrt_commethod(6)
+    def Register(self, kind: Windows.UI.Shell.SecurityAppKind, displayName: WinRT_String, detailsUri: Windows.Foundation.Uri, registerPerUser: Boolean) -> Guid: ...
+    @winrt_commethod(7)
+    def Unregister(self, kind: Windows.UI.Shell.SecurityAppKind, guidRegistration: Guid) -> Void: ...
+    @winrt_commethod(8)
+    def UpdateState(self, kind: Windows.UI.Shell.SecurityAppKind, guidRegistration: Guid, state: Windows.UI.Shell.SecurityAppState, substatus: Windows.UI.Shell.SecurityAppSubstatus, detailsUri: Windows.Foundation.Uri) -> Void: ...
 class IShareWindowCommandEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('4578dc09-a523-5756-a9-95-e4-fe-b9-91-ff-f0')
@@ -168,6 +177,28 @@ class ITaskbarManagerStatics(ComPtr):
     _iid_ = Guid('db32ab74-de52-4fe6-b7-b6-95-ff-9f-83-95-df')
     @winrt_commethod(6)
     def GetDefault(self) -> Windows.UI.Shell.TaskbarManager: ...
+SecurityAppKind = Int32
+SecurityAppKind_WebProtection: SecurityAppKind = 0
+class SecurityAppManager(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Shell.SecurityAppManager'
+    @winrt_activatemethod
+    def New(cls) -> Windows.UI.Shell.SecurityAppManager: ...
+    @winrt_mixinmethod
+    def Register(self: Windows.UI.Shell.ISecurityAppManager, kind: Windows.UI.Shell.SecurityAppKind, displayName: WinRT_String, detailsUri: Windows.Foundation.Uri, registerPerUser: Boolean) -> Guid: ...
+    @winrt_mixinmethod
+    def Unregister(self: Windows.UI.Shell.ISecurityAppManager, kind: Windows.UI.Shell.SecurityAppKind, guidRegistration: Guid) -> Void: ...
+    @winrt_mixinmethod
+    def UpdateState(self: Windows.UI.Shell.ISecurityAppManager, kind: Windows.UI.Shell.SecurityAppKind, guidRegistration: Guid, state: Windows.UI.Shell.SecurityAppState, substatus: Windows.UI.Shell.SecurityAppSubstatus, detailsUri: Windows.Foundation.Uri) -> Void: ...
+SecurityAppManagerContract: UInt32 = 65536
+SecurityAppState = Int32
+SecurityAppState_Disabled: SecurityAppState = 0
+SecurityAppState_Enabled: SecurityAppState = 1
+SecurityAppSubstatus = Int32
+SecurityAppSubstatus_Undetermined: SecurityAppSubstatus = 0
+SecurityAppSubstatus_NoActionNeeded: SecurityAppSubstatus = 1
+SecurityAppSubstatus_ActionRecommended: SecurityAppSubstatus = 2
+SecurityAppSubstatus_ActionNeeded: SecurityAppSubstatus = 3
 ShareWindowCommand = Int32
 ShareWindowCommand_None: ShareWindowCommand = 0
 ShareWindowCommand_StartSharing: ShareWindowCommand = 1
@@ -235,12 +266,14 @@ make_head(_module, 'IAdaptiveCardBuilderStatics')
 make_head(_module, 'IFocusSession')
 make_head(_module, 'IFocusSessionManager')
 make_head(_module, 'IFocusSessionManagerStatics')
+make_head(_module, 'ISecurityAppManager')
 make_head(_module, 'IShareWindowCommandEventArgs')
 make_head(_module, 'IShareWindowCommandSource')
 make_head(_module, 'IShareWindowCommandSourceStatics')
 make_head(_module, 'ITaskbarManager')
 make_head(_module, 'ITaskbarManager2')
 make_head(_module, 'ITaskbarManagerStatics')
+make_head(_module, 'SecurityAppManager')
 make_head(_module, 'ShareWindowCommandEventArgs')
 make_head(_module, 'ShareWindowCommandSource')
 make_head(_module, 'TaskbarManager')

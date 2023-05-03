@@ -21,6 +21,7 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
+ExtensionsContract: UInt32 = 131072
 class IPrint3DWorkflow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('c56f74bd-3669-4a66-ab-42-c8-15-19-30-cd-34')
@@ -63,6 +64,55 @@ class IPrint3DWorkflowPrinterChangedEventArgs(ComPtr):
     @winrt_commethod(6)
     def get_NewDeviceId(self) -> WinRT_String: ...
     NewDeviceId = property(get_NewDeviceId, None)
+class IPrintExtensionContextStatic(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('e70d9fc1-ff79-4aa4-8c-9b-0c-93-ae-df-de-8a')
+    @winrt_commethod(6)
+    def FromDeviceId(self, deviceId: WinRT_String) -> Windows.Win32.System.WinRT.IInspectable_head: ...
+class IPrintNotificationEventDetails(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('e00e4c8a-4828-4da1-8b-b8-86-72-df-85-15-e7')
+    @winrt_commethod(6)
+    def get_PrinterName(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_EventData(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def put_EventData(self, value: WinRT_String) -> Void: ...
+    PrinterName = property(get_PrinterName, None)
+    EventData = property(get_EventData, put_EventData)
+class IPrintTaskConfiguration(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('e3c22451-3aa4-4885-92-40-31-1f-5f-8f-be-9d')
+    @winrt_commethod(6)
+    def get_PrinterExtensionContext(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
+    @winrt_commethod(7)
+    def add_SaveRequested(self, eventHandler: Windows.Foundation.TypedEventHandler[Windows.Devices.Printers.Extensions.PrintTaskConfiguration, Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(8)
+    def remove_SaveRequested(self, eventCookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    PrinterExtensionContext = property(get_PrinterExtensionContext, None)
+class IPrintTaskConfigurationSaveRequest(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('eeaf2fcb-621e-4b62-ac-77-b2-81-cc-e0-8d-60')
+    @winrt_commethod(6)
+    def Cancel(self) -> Void: ...
+    @winrt_commethod(7)
+    def Save(self, printerExtensionContext: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    @winrt_commethod(8)
+    def GetDeferral(self) -> Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequestedDeferral: ...
+    @winrt_commethod(9)
+    def get_Deadline(self) -> Windows.Foundation.DateTime: ...
+    Deadline = property(get_Deadline, None)
+class IPrintTaskConfigurationSaveRequestedDeferral(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('e959d568-f729-44a4-87-1d-bd-06-28-69-6a-33')
+    @winrt_commethod(6)
+    def Complete(self) -> Void: ...
+class IPrintTaskConfigurationSaveRequestedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('e06c2879-0d61-4938-91-d0-96-a4-5b-ee-84-79')
+    @winrt_commethod(6)
+    def get_Request(self) -> Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequest: ...
+    Request = property(get_Request, None)
 class Print3DWorkflow(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Devices.Printers.Extensions.Print3DWorkflow'
@@ -116,10 +166,71 @@ Print3DWorkflowStatus_Canceled: Print3DWorkflowStatus = 1
 Print3DWorkflowStatus_Failed: Print3DWorkflowStatus = 2
 Print3DWorkflowStatus_Slicing: Print3DWorkflowStatus = 3
 Print3DWorkflowStatus_Submitted: Print3DWorkflowStatus = 4
+class PrintExtensionContext(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.Extensions.PrintExtensionContext'
+    @winrt_classmethod
+    def FromDeviceId(cls: Windows.Devices.Printers.Extensions.IPrintExtensionContextStatic, deviceId: WinRT_String) -> Windows.Win32.System.WinRT.IInspectable_head: ...
+class PrintNotificationEventDetails(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.Extensions.PrintNotificationEventDetails'
+    @winrt_mixinmethod
+    def get_PrinterName(self: Windows.Devices.Printers.Extensions.IPrintNotificationEventDetails) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_EventData(self: Windows.Devices.Printers.Extensions.IPrintNotificationEventDetails) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_EventData(self: Windows.Devices.Printers.Extensions.IPrintNotificationEventDetails, value: WinRT_String) -> Void: ...
+    PrinterName = property(get_PrinterName, None)
+    EventData = property(get_EventData, put_EventData)
+class PrintTaskConfiguration(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.Extensions.PrintTaskConfiguration'
+    @winrt_mixinmethod
+    def get_PrinterExtensionContext(self: Windows.Devices.Printers.Extensions.IPrintTaskConfiguration) -> Windows.Win32.System.WinRT.IInspectable_head: ...
+    @winrt_mixinmethod
+    def add_SaveRequested(self: Windows.Devices.Printers.Extensions.IPrintTaskConfiguration, eventHandler: Windows.Foundation.TypedEventHandler[Windows.Devices.Printers.Extensions.PrintTaskConfiguration, Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_SaveRequested(self: Windows.Devices.Printers.Extensions.IPrintTaskConfiguration, eventCookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    PrinterExtensionContext = property(get_PrinterExtensionContext, None)
+class PrintTaskConfigurationSaveRequest(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequest'
+    @winrt_mixinmethod
+    def Cancel(self: Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequest) -> Void: ...
+    @winrt_mixinmethod
+    def Save(self: Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequest, printerExtensionContext: Windows.Win32.System.WinRT.IInspectable_head) -> Void: ...
+    @winrt_mixinmethod
+    def GetDeferral(self: Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequest) -> Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequestedDeferral: ...
+    @winrt_mixinmethod
+    def get_Deadline(self: Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequest) -> Windows.Foundation.DateTime: ...
+    Deadline = property(get_Deadline, None)
+class PrintTaskConfigurationSaveRequestedDeferral(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequestedDeferral'
+    @winrt_mixinmethod
+    def Complete(self: Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequestedDeferral) -> Void: ...
+class PrintTaskConfigurationSaveRequestedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequestedEventArgs'
+    @winrt_mixinmethod
+    def get_Request(self: Windows.Devices.Printers.Extensions.IPrintTaskConfigurationSaveRequestedEventArgs) -> Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequest: ...
+    Request = property(get_Request, None)
 make_head(_module, 'IPrint3DWorkflow')
 make_head(_module, 'IPrint3DWorkflow2')
 make_head(_module, 'IPrint3DWorkflowPrintRequestedEventArgs')
 make_head(_module, 'IPrint3DWorkflowPrinterChangedEventArgs')
+make_head(_module, 'IPrintExtensionContextStatic')
+make_head(_module, 'IPrintNotificationEventDetails')
+make_head(_module, 'IPrintTaskConfiguration')
+make_head(_module, 'IPrintTaskConfigurationSaveRequest')
+make_head(_module, 'IPrintTaskConfigurationSaveRequestedDeferral')
+make_head(_module, 'IPrintTaskConfigurationSaveRequestedEventArgs')
 make_head(_module, 'Print3DWorkflow')
 make_head(_module, 'Print3DWorkflowPrintRequestedEventArgs')
 make_head(_module, 'Print3DWorkflowPrinterChangedEventArgs')
+make_head(_module, 'PrintExtensionContext')
+make_head(_module, 'PrintNotificationEventDetails')
+make_head(_module, 'PrintTaskConfiguration')
+make_head(_module, 'PrintTaskConfigurationSaveRequest')
+make_head(_module, 'PrintTaskConfigurationSaveRequestedDeferral')
+make_head(_module, 'PrintTaskConfigurationSaveRequestedEventArgs')

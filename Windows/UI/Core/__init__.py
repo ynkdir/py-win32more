@@ -17,6 +17,7 @@ import Windows.UI
 import Windows.UI.Composition
 import Windows.UI.Core
 import Windows.UI.Input
+import Windows.UI.Popups
 import sys
 _module = sys.modules[__name__]
 def __getattr__(name):
@@ -573,6 +574,54 @@ CoreWindowActivationState = Int32
 CoreWindowActivationState_CodeActivated: CoreWindowActivationState = 0
 CoreWindowActivationState_Deactivated: CoreWindowActivationState = 1
 CoreWindowActivationState_PointerActivated: CoreWindowActivationState = 2
+class CoreWindowDialog(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Core.CoreWindowDialog'
+    @winrt_activatemethod
+    def New(cls) -> Windows.UI.Core.CoreWindowDialog: ...
+    @winrt_factorymethod
+    def CreateWithTitle(cls: Windows.UI.Core.ICoreWindowDialogFactory, title: WinRT_String) -> Windows.UI.Core.CoreWindowDialog: ...
+    @winrt_mixinmethod
+    def add_Showing(self: Windows.UI.Core.ICoreWindowDialog, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Core.CoreWindow, Windows.UI.Core.CoreWindowPopupShowingEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_Showing(self: Windows.UI.Core.ICoreWindowDialog, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def get_MaxSize(self: Windows.UI.Core.ICoreWindowDialog) -> Windows.Foundation.Size: ...
+    @winrt_mixinmethod
+    def get_MinSize(self: Windows.UI.Core.ICoreWindowDialog) -> Windows.Foundation.Size: ...
+    @winrt_mixinmethod
+    def get_Title(self: Windows.UI.Core.ICoreWindowDialog) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_Title(self: Windows.UI.Core.ICoreWindowDialog, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_IsInteractionDelayed(self: Windows.UI.Core.ICoreWindowDialog) -> Int32: ...
+    @winrt_mixinmethod
+    def put_IsInteractionDelayed(self: Windows.UI.Core.ICoreWindowDialog, value: Int32) -> Void: ...
+    @winrt_mixinmethod
+    def get_Commands(self: Windows.UI.Core.ICoreWindowDialog) -> Windows.Foundation.Collections.IVector[Windows.UI.Popups.IUICommand]: ...
+    @winrt_mixinmethod
+    def get_DefaultCommandIndex(self: Windows.UI.Core.ICoreWindowDialog) -> UInt32: ...
+    @winrt_mixinmethod
+    def put_DefaultCommandIndex(self: Windows.UI.Core.ICoreWindowDialog, value: UInt32) -> Void: ...
+    @winrt_mixinmethod
+    def get_CancelCommandIndex(self: Windows.UI.Core.ICoreWindowDialog) -> UInt32: ...
+    @winrt_mixinmethod
+    def put_CancelCommandIndex(self: Windows.UI.Core.ICoreWindowDialog, value: UInt32) -> Void: ...
+    @winrt_mixinmethod
+    def get_BackButtonCommand(self: Windows.UI.Core.ICoreWindowDialog) -> Windows.UI.Popups.UICommandInvokedHandler: ...
+    @winrt_mixinmethod
+    def put_BackButtonCommand(self: Windows.UI.Core.ICoreWindowDialog, value: Windows.UI.Popups.UICommandInvokedHandler) -> Void: ...
+    @winrt_mixinmethod
+    def ShowAsync(self: Windows.UI.Core.ICoreWindowDialog) -> Windows.Foundation.IAsyncOperation[Windows.UI.Popups.IUICommand]: ...
+    MaxSize = property(get_MaxSize, None)
+    MinSize = property(get_MinSize, None)
+    Title = property(get_Title, put_Title)
+    IsInteractionDelayed = property(get_IsInteractionDelayed, put_IsInteractionDelayed)
+    Commands = property(get_Commands, None)
+    DefaultCommandIndex = property(get_DefaultCommandIndex, put_DefaultCommandIndex)
+    CancelCommandIndex = property(get_CancelCommandIndex, put_CancelCommandIndex)
+    BackButtonCommand = property(get_BackButtonCommand, put_BackButtonCommand)
+CoreWindowDialogsContract: UInt32 = 65536
 class CoreWindowEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Core.CoreWindowEventArgs'
@@ -584,6 +633,53 @@ class CoreWindowEventArgs(ComPtr):
 CoreWindowFlowDirection = Int32
 CoreWindowFlowDirection_LeftToRight: CoreWindowFlowDirection = 0
 CoreWindowFlowDirection_RightToLeft: CoreWindowFlowDirection = 1
+class CoreWindowFlyout(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Core.CoreWindowFlyout'
+    @winrt_factorymethod
+    def Create(cls: Windows.UI.Core.ICoreWindowFlyoutFactory, position: Windows.Foundation.Point) -> Windows.UI.Core.CoreWindowFlyout: ...
+    @winrt_factorymethod
+    def CreateWithTitle(cls: Windows.UI.Core.ICoreWindowFlyoutFactory, position: Windows.Foundation.Point, title: WinRT_String) -> Windows.UI.Core.CoreWindowFlyout: ...
+    @winrt_mixinmethod
+    def add_Showing(self: Windows.UI.Core.ICoreWindowFlyout, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Core.CoreWindow, Windows.UI.Core.CoreWindowPopupShowingEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_Showing(self: Windows.UI.Core.ICoreWindowFlyout, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def get_MaxSize(self: Windows.UI.Core.ICoreWindowFlyout) -> Windows.Foundation.Size: ...
+    @winrt_mixinmethod
+    def get_MinSize(self: Windows.UI.Core.ICoreWindowFlyout) -> Windows.Foundation.Size: ...
+    @winrt_mixinmethod
+    def get_Title(self: Windows.UI.Core.ICoreWindowFlyout) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_Title(self: Windows.UI.Core.ICoreWindowFlyout, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_IsInteractionDelayed(self: Windows.UI.Core.ICoreWindowFlyout) -> Int32: ...
+    @winrt_mixinmethod
+    def put_IsInteractionDelayed(self: Windows.UI.Core.ICoreWindowFlyout, value: Int32) -> Void: ...
+    @winrt_mixinmethod
+    def get_Commands(self: Windows.UI.Core.ICoreWindowFlyout) -> Windows.Foundation.Collections.IVector[Windows.UI.Popups.IUICommand]: ...
+    @winrt_mixinmethod
+    def get_DefaultCommandIndex(self: Windows.UI.Core.ICoreWindowFlyout) -> UInt32: ...
+    @winrt_mixinmethod
+    def put_DefaultCommandIndex(self: Windows.UI.Core.ICoreWindowFlyout, value: UInt32) -> Void: ...
+    @winrt_mixinmethod
+    def get_BackButtonCommand(self: Windows.UI.Core.ICoreWindowFlyout) -> Windows.UI.Popups.UICommandInvokedHandler: ...
+    @winrt_mixinmethod
+    def put_BackButtonCommand(self: Windows.UI.Core.ICoreWindowFlyout, value: Windows.UI.Popups.UICommandInvokedHandler) -> Void: ...
+    @winrt_mixinmethod
+    def ShowAsync(self: Windows.UI.Core.ICoreWindowFlyout) -> Windows.Foundation.IAsyncOperation[Windows.UI.Popups.IUICommand]: ...
+    MaxSize = property(get_MaxSize, None)
+    MinSize = property(get_MinSize, None)
+    Title = property(get_Title, put_Title)
+    IsInteractionDelayed = property(get_IsInteractionDelayed, put_IsInteractionDelayed)
+    Commands = property(get_Commands, None)
+    DefaultCommandIndex = property(get_DefaultCommandIndex, put_DefaultCommandIndex)
+    BackButtonCommand = property(get_BackButtonCommand, put_BackButtonCommand)
+class CoreWindowPopupShowingEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.Core.CoreWindowPopupShowingEventArgs'
+    @winrt_mixinmethod
+    def SetDesiredSize(self: Windows.UI.Core.ICoreWindowPopupShowingEventArgs, value: Windows.Foundation.Size) -> Void: ...
 class CoreWindowResizeManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.Core.CoreWindowResizeManager'
@@ -1023,6 +1119,54 @@ class ICoreWindow5(ComPtr):
     def get_ActivationMode(self) -> Windows.UI.Core.CoreWindowActivationMode: ...
     DispatcherQueue = property(get_DispatcherQueue, None)
     ActivationMode = property(get_ActivationMode, None)
+class ICoreWindowDialog(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('e7392ce0-c78d-427e-8b-2c-01-ff-42-0c-69-d5')
+    @winrt_commethod(6)
+    def add_Showing(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Core.CoreWindow, Windows.UI.Core.CoreWindowPopupShowingEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(7)
+    def remove_Showing(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(8)
+    def get_MaxSize(self) -> Windows.Foundation.Size: ...
+    @winrt_commethod(9)
+    def get_MinSize(self) -> Windows.Foundation.Size: ...
+    @winrt_commethod(10)
+    def get_Title(self) -> WinRT_String: ...
+    @winrt_commethod(11)
+    def put_Title(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(12)
+    def get_IsInteractionDelayed(self) -> Int32: ...
+    @winrt_commethod(13)
+    def put_IsInteractionDelayed(self, value: Int32) -> Void: ...
+    @winrt_commethod(14)
+    def get_Commands(self) -> Windows.Foundation.Collections.IVector[Windows.UI.Popups.IUICommand]: ...
+    @winrt_commethod(15)
+    def get_DefaultCommandIndex(self) -> UInt32: ...
+    @winrt_commethod(16)
+    def put_DefaultCommandIndex(self, value: UInt32) -> Void: ...
+    @winrt_commethod(17)
+    def get_CancelCommandIndex(self) -> UInt32: ...
+    @winrt_commethod(18)
+    def put_CancelCommandIndex(self, value: UInt32) -> Void: ...
+    @winrt_commethod(19)
+    def get_BackButtonCommand(self) -> Windows.UI.Popups.UICommandInvokedHandler: ...
+    @winrt_commethod(20)
+    def put_BackButtonCommand(self, value: Windows.UI.Popups.UICommandInvokedHandler) -> Void: ...
+    @winrt_commethod(21)
+    def ShowAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.UI.Popups.IUICommand]: ...
+    MaxSize = property(get_MaxSize, None)
+    MinSize = property(get_MinSize, None)
+    Title = property(get_Title, put_Title)
+    IsInteractionDelayed = property(get_IsInteractionDelayed, put_IsInteractionDelayed)
+    Commands = property(get_Commands, None)
+    DefaultCommandIndex = property(get_DefaultCommandIndex, put_DefaultCommandIndex)
+    CancelCommandIndex = property(get_CancelCommandIndex, put_CancelCommandIndex)
+    BackButtonCommand = property(get_BackButtonCommand, put_BackButtonCommand)
+class ICoreWindowDialogFactory(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('cfb2a855-1c59-4b13-b1-e5-16-e2-98-05-f7-c4')
+    @winrt_commethod(6)
+    def CreateWithTitle(self, title: WinRT_String) -> Windows.UI.Core.CoreWindowDialog: ...
 class ICoreWindowEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('272b1ef3-c633-4da5-a2-6c-c6-d0-f5-6b-29-da')
@@ -1031,6 +1175,56 @@ class ICoreWindowEventArgs(ComPtr):
     @winrt_commethod(7)
     def put_Handled(self, value: Boolean) -> Void: ...
     Handled = property(get_Handled, put_Handled)
+class ICoreWindowFlyout(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('e89d854d-2050-40bb-b3-44-f6-f3-55-ee-b3-14')
+    @winrt_commethod(6)
+    def add_Showing(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.Core.CoreWindow, Windows.UI.Core.CoreWindowPopupShowingEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(7)
+    def remove_Showing(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(8)
+    def get_MaxSize(self) -> Windows.Foundation.Size: ...
+    @winrt_commethod(9)
+    def get_MinSize(self) -> Windows.Foundation.Size: ...
+    @winrt_commethod(10)
+    def get_Title(self) -> WinRT_String: ...
+    @winrt_commethod(11)
+    def put_Title(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(12)
+    def get_IsInteractionDelayed(self) -> Int32: ...
+    @winrt_commethod(13)
+    def put_IsInteractionDelayed(self, value: Int32) -> Void: ...
+    @winrt_commethod(14)
+    def get_Commands(self) -> Windows.Foundation.Collections.IVector[Windows.UI.Popups.IUICommand]: ...
+    @winrt_commethod(15)
+    def get_DefaultCommandIndex(self) -> UInt32: ...
+    @winrt_commethod(16)
+    def put_DefaultCommandIndex(self, value: UInt32) -> Void: ...
+    @winrt_commethod(17)
+    def get_BackButtonCommand(self) -> Windows.UI.Popups.UICommandInvokedHandler: ...
+    @winrt_commethod(18)
+    def put_BackButtonCommand(self, value: Windows.UI.Popups.UICommandInvokedHandler) -> Void: ...
+    @winrt_commethod(19)
+    def ShowAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.UI.Popups.IUICommand]: ...
+    MaxSize = property(get_MaxSize, None)
+    MinSize = property(get_MinSize, None)
+    Title = property(get_Title, put_Title)
+    IsInteractionDelayed = property(get_IsInteractionDelayed, put_IsInteractionDelayed)
+    Commands = property(get_Commands, None)
+    DefaultCommandIndex = property(get_DefaultCommandIndex, put_DefaultCommandIndex)
+    BackButtonCommand = property(get_BackButtonCommand, put_BackButtonCommand)
+class ICoreWindowFlyoutFactory(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('dec4c6c4-93e8-4f7c-be-27-ce-fa-a1-af-68-a7')
+    @winrt_commethod(6)
+    def Create(self, position: Windows.Foundation.Point) -> Windows.UI.Core.CoreWindowFlyout: ...
+    @winrt_commethod(7)
+    def CreateWithTitle(self, position: Windows.Foundation.Point, title: WinRT_String) -> Windows.UI.Core.CoreWindowFlyout: ...
+class ICoreWindowPopupShowingEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('26155fa2-5ba5-4ea4-a3-b4-2d-c7-d6-3c-8e-26')
+    @winrt_commethod(6)
+    def SetDesiredSize(self, value: Windows.Foundation.Size) -> Void: ...
 class ICoreWindowResizeManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('b8f0b925-b350-48b3-a1-98-5c-1a-84-70-02-43')
@@ -1299,7 +1493,10 @@ make_head(_module, 'CoreIndependentInputSourceController')
 make_head(_module, 'CorePhysicalKeyStatus')
 make_head(_module, 'CoreProximityEvaluation')
 make_head(_module, 'CoreWindow')
+make_head(_module, 'CoreWindowDialog')
 make_head(_module, 'CoreWindowEventArgs')
+make_head(_module, 'CoreWindowFlyout')
+make_head(_module, 'CoreWindowPopupShowingEventArgs')
 make_head(_module, 'CoreWindowResizeManager')
 make_head(_module, 'DispatchedHandler')
 make_head(_module, 'IAcceleratorKeyEventArgs')
@@ -1330,7 +1527,12 @@ make_head(_module, 'ICoreWindow2')
 make_head(_module, 'ICoreWindow3')
 make_head(_module, 'ICoreWindow4')
 make_head(_module, 'ICoreWindow5')
+make_head(_module, 'ICoreWindowDialog')
+make_head(_module, 'ICoreWindowDialogFactory')
 make_head(_module, 'ICoreWindowEventArgs')
+make_head(_module, 'ICoreWindowFlyout')
+make_head(_module, 'ICoreWindowFlyoutFactory')
+make_head(_module, 'ICoreWindowPopupShowingEventArgs')
 make_head(_module, 'ICoreWindowResizeManager')
 make_head(_module, 'ICoreWindowResizeManagerLayoutCapability')
 make_head(_module, 'ICoreWindowResizeManagerStatics')

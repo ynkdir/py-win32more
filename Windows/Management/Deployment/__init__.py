@@ -196,6 +196,60 @@ class AutoUpdateSettingsOptions(ComPtr):
     RepairUris = property(get_RepairUris, None)
     DependencyPackageUris = property(get_DependencyPackageUris, None)
     OptionalPackageUris = property(get_OptionalPackageUris, None)
+class CreateSharedPackageContainerOptions(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.CreateSharedPackageContainerOptions'
+    @winrt_activatemethod
+    def New(cls) -> Windows.Management.Deployment.CreateSharedPackageContainerOptions: ...
+    @winrt_mixinmethod
+    def get_Members(self: Windows.Management.Deployment.ICreateSharedPackageContainerOptions) -> Windows.Foundation.Collections.IVector[Windows.Management.Deployment.SharedPackageContainerMember]: ...
+    @winrt_mixinmethod
+    def get_ForceAppShutdown(self: Windows.Management.Deployment.ICreateSharedPackageContainerOptions) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_ForceAppShutdown(self: Windows.Management.Deployment.ICreateSharedPackageContainerOptions, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_CreateCollisionOption(self: Windows.Management.Deployment.ICreateSharedPackageContainerOptions) -> Windows.Management.Deployment.SharedPackageContainerCreationCollisionOptions: ...
+    @winrt_mixinmethod
+    def put_CreateCollisionOption(self: Windows.Management.Deployment.ICreateSharedPackageContainerOptions, value: Windows.Management.Deployment.SharedPackageContainerCreationCollisionOptions) -> Void: ...
+    Members = property(get_Members, None)
+    ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
+    CreateCollisionOption = property(get_CreateCollisionOption, put_CreateCollisionOption)
+class CreateSharedPackageContainerResult(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.CreateSharedPackageContainerResult'
+    @winrt_mixinmethod
+    def get_Container(self: Windows.Management.Deployment.ICreateSharedPackageContainerResult) -> Windows.Management.Deployment.SharedPackageContainer: ...
+    @winrt_mixinmethod
+    def get_Status(self: Windows.Management.Deployment.ICreateSharedPackageContainerResult) -> Windows.Management.Deployment.SharedPackageContainerOperationStatus: ...
+    @winrt_mixinmethod
+    def get_ExtendedError(self: Windows.Management.Deployment.ICreateSharedPackageContainerResult) -> Windows.Foundation.HResult: ...
+    Container = property(get_Container, None)
+    Status = property(get_Status, None)
+    ExtendedError = property(get_ExtendedError, None)
+class DeleteSharedPackageContainerOptions(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.DeleteSharedPackageContainerOptions'
+    @winrt_activatemethod
+    def New(cls) -> Windows.Management.Deployment.DeleteSharedPackageContainerOptions: ...
+    @winrt_mixinmethod
+    def get_ForceAppShutdown(self: Windows.Management.Deployment.IDeleteSharedPackageContainerOptions) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_ForceAppShutdown(self: Windows.Management.Deployment.IDeleteSharedPackageContainerOptions, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_AllUsers(self: Windows.Management.Deployment.IDeleteSharedPackageContainerOptions) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_AllUsers(self: Windows.Management.Deployment.IDeleteSharedPackageContainerOptions, value: Boolean) -> Void: ...
+    ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
+    AllUsers = property(get_AllUsers, put_AllUsers)
+class DeleteSharedPackageContainerResult(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.DeleteSharedPackageContainerResult'
+    @winrt_mixinmethod
+    def get_Status(self: Windows.Management.Deployment.IDeleteSharedPackageContainerResult) -> Windows.Management.Deployment.SharedPackageContainerOperationStatus: ...
+    @winrt_mixinmethod
+    def get_ExtendedError(self: Windows.Management.Deployment.IDeleteSharedPackageContainerResult) -> Windows.Foundation.HResult: ...
+    Status = property(get_Status, None)
+    ExtendedError = property(get_ExtendedError, None)
 DeploymentOptions = UInt32
 DeploymentOptions_None: DeploymentOptions = 0
 DeploymentOptions_ForceApplicationShutdown: DeploymentOptions = 1
@@ -227,6 +281,21 @@ class DeploymentResult(ComPtr):
     ActivityId = property(get_ActivityId, None)
     ExtendedErrorCode = property(get_ExtendedErrorCode, None)
     IsRegistered = property(get_IsRegistered, None)
+class FindSharedPackageContainerOptions(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.FindSharedPackageContainerOptions'
+    @winrt_activatemethod
+    def New(cls) -> Windows.Management.Deployment.FindSharedPackageContainerOptions: ...
+    @winrt_mixinmethod
+    def get_Name(self: Windows.Management.Deployment.IFindSharedPackageContainerOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_Name(self: Windows.Management.Deployment.IFindSharedPackageContainerOptions, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_PackageFamilyName(self: Windows.Management.Deployment.IFindSharedPackageContainerOptions) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_PackageFamilyName(self: Windows.Management.Deployment.IFindSharedPackageContainerOptions, value: WinRT_String) -> Void: ...
+    Name = property(get_Name, put_Name)
+    PackageFamilyName = property(get_PackageFamilyName, put_PackageFamilyName)
 class IAddPackageOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('05cee018-f68f-422b-95-a4-66-67-9e-c7-7f-c0')
@@ -399,6 +468,56 @@ class IAutoUpdateSettingsOptionsStatics(ComPtr):
     _iid_ = Guid('887b337d-0c05-54d0-bd-49-3b-b7-a2-c0-84-cb')
     @winrt_commethod(6)
     def CreateFromAppInstallerInfo(self, appInstallerInfo: Windows.ApplicationModel.AppInstallerInfo) -> Windows.Management.Deployment.AutoUpdateSettingsOptions: ...
+class ICreateSharedPackageContainerOptions(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('c2ab6ece-f664-5c8e-a4-b3-2a-33-27-6d-3d-de')
+    @winrt_commethod(6)
+    def get_Members(self) -> Windows.Foundation.Collections.IVector[Windows.Management.Deployment.SharedPackageContainerMember]: ...
+    @winrt_commethod(7)
+    def get_ForceAppShutdown(self) -> Boolean: ...
+    @winrt_commethod(8)
+    def put_ForceAppShutdown(self, value: Boolean) -> Void: ...
+    @winrt_commethod(9)
+    def get_CreateCollisionOption(self) -> Windows.Management.Deployment.SharedPackageContainerCreationCollisionOptions: ...
+    @winrt_commethod(10)
+    def put_CreateCollisionOption(self, value: Windows.Management.Deployment.SharedPackageContainerCreationCollisionOptions) -> Void: ...
+    Members = property(get_Members, None)
+    ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
+    CreateCollisionOption = property(get_CreateCollisionOption, put_CreateCollisionOption)
+class ICreateSharedPackageContainerResult(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('ce8810bf-151c-5707-b9-36-49-7e-56-4a-fc-7a')
+    @winrt_commethod(6)
+    def get_Container(self) -> Windows.Management.Deployment.SharedPackageContainer: ...
+    @winrt_commethod(7)
+    def get_Status(self) -> Windows.Management.Deployment.SharedPackageContainerOperationStatus: ...
+    @winrt_commethod(8)
+    def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
+    Container = property(get_Container, None)
+    Status = property(get_Status, None)
+    ExtendedError = property(get_ExtendedError, None)
+class IDeleteSharedPackageContainerOptions(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('9d81865f-986e-5138-8b-5d-38-4d-8e-66-ed-6c')
+    @winrt_commethod(6)
+    def get_ForceAppShutdown(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_ForceAppShutdown(self, value: Boolean) -> Void: ...
+    @winrt_commethod(8)
+    def get_AllUsers(self) -> Boolean: ...
+    @winrt_commethod(9)
+    def put_AllUsers(self, value: Boolean) -> Void: ...
+    ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
+    AllUsers = property(get_AllUsers, put_AllUsers)
+class IDeleteSharedPackageContainerResult(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('35398884-5736-517b-85-bc-e5-98-c8-1a-b2-84')
+    @winrt_commethod(6)
+    def get_Status(self) -> Windows.Management.Deployment.SharedPackageContainerOperationStatus: ...
+    @winrt_commethod(7)
+    def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
+    Status = property(get_Status, None)
+    ExtendedError = property(get_ExtendedError, None)
 class IDeploymentResult(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('2563b9ae-b77d-4c1f-8a-7b-20-e6-ad-51-5e-f3')
@@ -417,6 +536,19 @@ class IDeploymentResult2(ComPtr):
     @winrt_commethod(6)
     def get_IsRegistered(self) -> Boolean: ...
     IsRegistered = property(get_IsRegistered, None)
+class IFindSharedPackageContainerOptions(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('b40fc8fe-8384-54cc-81-7d-ae-09-d3-b6-a6-06')
+    @winrt_commethod(6)
+    def get_Name(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def put_Name(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(8)
+    def get_PackageFamilyName(self) -> WinRT_String: ...
+    @winrt_commethod(9)
+    def put_PackageFamilyName(self, value: WinRT_String) -> Void: ...
+    Name = property(get_Name, put_Name)
+    PackageFamilyName = property(get_PackageFamilyName, put_PackageFamilyName)
 class IPackageAllUserProvisioningOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('da35aa22-1de0-5d3e-99-ff-d2-4f-31-18-bf-5e')
@@ -722,6 +854,54 @@ class IRegisterPackageOptions2(ComPtr):
     @winrt_commethod(6)
     def get_ExpectedDigests(self) -> Windows.Foundation.Collections.IMap[Windows.Foundation.Uri, WinRT_String]: ...
     ExpectedDigests = property(get_ExpectedDigests, None)
+class ISharedPackageContainer(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('177f1aa9-151e-5ef7-b1-d9-2f-ba-0b-4b-0d-17')
+    @winrt_commethod(6)
+    def get_Name(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_Id(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def GetMembers(self) -> Windows.Foundation.Collections.IVector[Windows.Management.Deployment.SharedPackageContainerMember]: ...
+    @winrt_commethod(9)
+    def RemovePackageFamily(self, packageFamilyName: WinRT_String, options: Windows.Management.Deployment.UpdateSharedPackageContainerOptions) -> Windows.Management.Deployment.UpdateSharedPackageContainerResult: ...
+    @winrt_commethod(10)
+    def ResetData(self) -> Windows.Management.Deployment.UpdateSharedPackageContainerResult: ...
+    Name = property(get_Name, None)
+    Id = property(get_Id, None)
+class ISharedPackageContainerManager(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('be353068-1ef7-5ac8-ab-3f-0b-9f-61-2f-02-74')
+    @winrt_commethod(6)
+    def CreateContainer(self, name: WinRT_String, options: Windows.Management.Deployment.CreateSharedPackageContainerOptions) -> Windows.Management.Deployment.CreateSharedPackageContainerResult: ...
+    @winrt_commethod(7)
+    def DeleteContainer(self, id: WinRT_String, options: Windows.Management.Deployment.DeleteSharedPackageContainerOptions) -> Windows.Management.Deployment.DeleteSharedPackageContainerResult: ...
+    @winrt_commethod(8)
+    def GetContainer(self, id: WinRT_String) -> Windows.Management.Deployment.SharedPackageContainer: ...
+    @winrt_commethod(9)
+    def FindContainers(self) -> Windows.Foundation.Collections.IVector[Windows.Management.Deployment.SharedPackageContainer]: ...
+    @winrt_commethod(10)
+    def FindContainersWithOptions(self, options: Windows.Management.Deployment.FindSharedPackageContainerOptions) -> Windows.Foundation.Collections.IVector[Windows.Management.Deployment.SharedPackageContainer]: ...
+class ISharedPackageContainerManagerStatics(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('2ef56348-838a-5f55-a8-9e-11-98-a2-c6-27-e6')
+    @winrt_commethod(6)
+    def GetDefault(self) -> Windows.Management.Deployment.SharedPackageContainerManager: ...
+    @winrt_commethod(7)
+    def GetForUser(self, userSid: WinRT_String) -> Windows.Management.Deployment.SharedPackageContainerManager: ...
+    @winrt_commethod(8)
+    def GetForProvisioning(self) -> Windows.Management.Deployment.SharedPackageContainerManager: ...
+class ISharedPackageContainerMember(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('fe0d0438-43c9-5426-b8-9c-f7-9b-f8-5d-df-f4')
+    @winrt_commethod(6)
+    def get_PackageFamilyName(self) -> WinRT_String: ...
+    PackageFamilyName = property(get_PackageFamilyName, None)
+class ISharedPackageContainerMemberFactory(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('49b0ceeb-498f-5a62-b7-38-b3-ca-0d-43-67-04')
+    @winrt_commethod(6)
+    def CreateInstance(self, packageFamilyName: WinRT_String) -> Windows.Management.Deployment.SharedPackageContainerMember: ...
 class IStagePackageOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('0b110c9c-b95d-4c56-bd-36-6d-65-68-00-d0-6b')
@@ -788,6 +968,28 @@ class IStagePackageOptions2(ComPtr):
     @winrt_commethod(6)
     def get_ExpectedDigests(self) -> Windows.Foundation.Collections.IMap[Windows.Foundation.Uri, WinRT_String]: ...
     ExpectedDigests = property(get_ExpectedDigests, None)
+class IUpdateSharedPackageContainerOptions(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('80672e83-7194-59f9-b5-b9-da-a5-37-5f-13-0a')
+    @winrt_commethod(6)
+    def get_ForceAppShutdown(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def put_ForceAppShutdown(self, value: Boolean) -> Void: ...
+    @winrt_commethod(8)
+    def get_RequirePackagesPresent(self) -> Boolean: ...
+    @winrt_commethod(9)
+    def put_RequirePackagesPresent(self, value: Boolean) -> Void: ...
+    ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
+    RequirePackagesPresent = property(get_RequirePackagesPresent, put_RequirePackagesPresent)
+class IUpdateSharedPackageContainerResult(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('aa407df7-c72d-5458-ae-a3-46-45-b6-a8-ee-99')
+    @winrt_commethod(6)
+    def get_Status(self) -> Windows.Management.Deployment.SharedPackageContainerOperationStatus: ...
+    @winrt_commethod(7)
+    def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
+    Status = property(get_Status, None)
+    ExtendedError = property(get_ExtendedError, None)
 class PackageAllUserProvisioningOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.PackageAllUserProvisioningOptions'
@@ -1099,6 +1301,60 @@ RemovalOptions_None: RemovalOptions = 0
 RemovalOptions_PreserveApplicationData: RemovalOptions = 4096
 RemovalOptions_PreserveRoamableApplicationData: RemovalOptions = 128
 RemovalOptions_RemoveForAllUsers: RemovalOptions = 524288
+class SharedPackageContainer(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.SharedPackageContainer'
+    @winrt_mixinmethod
+    def get_Name(self: Windows.Management.Deployment.ISharedPackageContainer) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Id(self: Windows.Management.Deployment.ISharedPackageContainer) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def GetMembers(self: Windows.Management.Deployment.ISharedPackageContainer) -> Windows.Foundation.Collections.IVector[Windows.Management.Deployment.SharedPackageContainerMember]: ...
+    @winrt_mixinmethod
+    def RemovePackageFamily(self: Windows.Management.Deployment.ISharedPackageContainer, packageFamilyName: WinRT_String, options: Windows.Management.Deployment.UpdateSharedPackageContainerOptions) -> Windows.Management.Deployment.UpdateSharedPackageContainerResult: ...
+    @winrt_mixinmethod
+    def ResetData(self: Windows.Management.Deployment.ISharedPackageContainer) -> Windows.Management.Deployment.UpdateSharedPackageContainerResult: ...
+    Name = property(get_Name, None)
+    Id = property(get_Id, None)
+SharedPackageContainerContract: UInt32 = 65536
+SharedPackageContainerCreationCollisionOptions = Int32
+SharedPackageContainerCreationCollisionOptions_FailIfExists: SharedPackageContainerCreationCollisionOptions = 0
+SharedPackageContainerCreationCollisionOptions_MergeWithExisting: SharedPackageContainerCreationCollisionOptions = 1
+SharedPackageContainerCreationCollisionOptions_ReplaceExisting: SharedPackageContainerCreationCollisionOptions = 2
+class SharedPackageContainerManager(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.SharedPackageContainerManager'
+    @winrt_mixinmethod
+    def CreateContainer(self: Windows.Management.Deployment.ISharedPackageContainerManager, name: WinRT_String, options: Windows.Management.Deployment.CreateSharedPackageContainerOptions) -> Windows.Management.Deployment.CreateSharedPackageContainerResult: ...
+    @winrt_mixinmethod
+    def DeleteContainer(self: Windows.Management.Deployment.ISharedPackageContainerManager, id: WinRT_String, options: Windows.Management.Deployment.DeleteSharedPackageContainerOptions) -> Windows.Management.Deployment.DeleteSharedPackageContainerResult: ...
+    @winrt_mixinmethod
+    def GetContainer(self: Windows.Management.Deployment.ISharedPackageContainerManager, id: WinRT_String) -> Windows.Management.Deployment.SharedPackageContainer: ...
+    @winrt_mixinmethod
+    def FindContainers(self: Windows.Management.Deployment.ISharedPackageContainerManager) -> Windows.Foundation.Collections.IVector[Windows.Management.Deployment.SharedPackageContainer]: ...
+    @winrt_mixinmethod
+    def FindContainersWithOptions(self: Windows.Management.Deployment.ISharedPackageContainerManager, options: Windows.Management.Deployment.FindSharedPackageContainerOptions) -> Windows.Foundation.Collections.IVector[Windows.Management.Deployment.SharedPackageContainer]: ...
+    @winrt_classmethod
+    def GetDefault(cls: Windows.Management.Deployment.ISharedPackageContainerManagerStatics) -> Windows.Management.Deployment.SharedPackageContainerManager: ...
+    @winrt_classmethod
+    def GetForUser(cls: Windows.Management.Deployment.ISharedPackageContainerManagerStatics, userSid: WinRT_String) -> Windows.Management.Deployment.SharedPackageContainerManager: ...
+    @winrt_classmethod
+    def GetForProvisioning(cls: Windows.Management.Deployment.ISharedPackageContainerManagerStatics) -> Windows.Management.Deployment.SharedPackageContainerManager: ...
+class SharedPackageContainerMember(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.SharedPackageContainerMember'
+    @winrt_factorymethod
+    def CreateInstance(cls: Windows.Management.Deployment.ISharedPackageContainerMemberFactory, packageFamilyName: WinRT_String) -> Windows.Management.Deployment.SharedPackageContainerMember: ...
+    @winrt_mixinmethod
+    def get_PackageFamilyName(self: Windows.Management.Deployment.ISharedPackageContainerMember) -> WinRT_String: ...
+    PackageFamilyName = property(get_PackageFamilyName, None)
+SharedPackageContainerOperationStatus = Int32
+SharedPackageContainerOperationStatus_Success: SharedPackageContainerOperationStatus = 0
+SharedPackageContainerOperationStatus_BlockedByPolicy: SharedPackageContainerOperationStatus = 1
+SharedPackageContainerOperationStatus_AlreadyExists: SharedPackageContainerOperationStatus = 2
+SharedPackageContainerOperationStatus_PackageFamilyExistsInAnotherContainer: SharedPackageContainerOperationStatus = 3
+SharedPackageContainerOperationStatus_NotFound: SharedPackageContainerOperationStatus = 4
+SharedPackageContainerOperationStatus_UnknownFailure: SharedPackageContainerOperationStatus = 5
 class StagePackageOptions(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Deployment.StagePackageOptions'
@@ -1169,19 +1425,53 @@ StubPackageOption_Default: StubPackageOption = 0
 StubPackageOption_InstallFull: StubPackageOption = 1
 StubPackageOption_InstallStub: StubPackageOption = 2
 StubPackageOption_UsePreference: StubPackageOption = 3
+class UpdateSharedPackageContainerOptions(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.UpdateSharedPackageContainerOptions'
+    @winrt_activatemethod
+    def New(cls) -> Windows.Management.Deployment.UpdateSharedPackageContainerOptions: ...
+    @winrt_mixinmethod
+    def get_ForceAppShutdown(self: Windows.Management.Deployment.IUpdateSharedPackageContainerOptions) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_ForceAppShutdown(self: Windows.Management.Deployment.IUpdateSharedPackageContainerOptions, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_RequirePackagesPresent(self: Windows.Management.Deployment.IUpdateSharedPackageContainerOptions) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_RequirePackagesPresent(self: Windows.Management.Deployment.IUpdateSharedPackageContainerOptions, value: Boolean) -> Void: ...
+    ForceAppShutdown = property(get_ForceAppShutdown, put_ForceAppShutdown)
+    RequirePackagesPresent = property(get_RequirePackagesPresent, put_RequirePackagesPresent)
+class UpdateSharedPackageContainerResult(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Deployment.UpdateSharedPackageContainerResult'
+    @winrt_mixinmethod
+    def get_Status(self: Windows.Management.Deployment.IUpdateSharedPackageContainerResult) -> Windows.Management.Deployment.SharedPackageContainerOperationStatus: ...
+    @winrt_mixinmethod
+    def get_ExtendedError(self: Windows.Management.Deployment.IUpdateSharedPackageContainerResult) -> Windows.Foundation.HResult: ...
+    Status = property(get_Status, None)
+    ExtendedError = property(get_ExtendedError, None)
 make_head(_module, 'AddPackageOptions')
 make_head(_module, 'AppInstallerManager')
 make_head(_module, 'AutoUpdateSettingsOptions')
+make_head(_module, 'CreateSharedPackageContainerOptions')
+make_head(_module, 'CreateSharedPackageContainerResult')
+make_head(_module, 'DeleteSharedPackageContainerOptions')
+make_head(_module, 'DeleteSharedPackageContainerResult')
 make_head(_module, 'DeploymentProgress')
 make_head(_module, 'DeploymentResult')
+make_head(_module, 'FindSharedPackageContainerOptions')
 make_head(_module, 'IAddPackageOptions')
 make_head(_module, 'IAddPackageOptions2')
 make_head(_module, 'IAppInstallerManager')
 make_head(_module, 'IAppInstallerManagerStatics')
 make_head(_module, 'IAutoUpdateSettingsOptions')
 make_head(_module, 'IAutoUpdateSettingsOptionsStatics')
+make_head(_module, 'ICreateSharedPackageContainerOptions')
+make_head(_module, 'ICreateSharedPackageContainerResult')
+make_head(_module, 'IDeleteSharedPackageContainerOptions')
+make_head(_module, 'IDeleteSharedPackageContainerResult')
 make_head(_module, 'IDeploymentResult')
 make_head(_module, 'IDeploymentResult2')
+make_head(_module, 'IFindSharedPackageContainerOptions')
 make_head(_module, 'IPackageAllUserProvisioningOptions')
 make_head(_module, 'IPackageManager')
 make_head(_module, 'IPackageManager10')
@@ -1199,12 +1489,24 @@ make_head(_module, 'IPackageVolume')
 make_head(_module, 'IPackageVolume2')
 make_head(_module, 'IRegisterPackageOptions')
 make_head(_module, 'IRegisterPackageOptions2')
+make_head(_module, 'ISharedPackageContainer')
+make_head(_module, 'ISharedPackageContainerManager')
+make_head(_module, 'ISharedPackageContainerManagerStatics')
+make_head(_module, 'ISharedPackageContainerMember')
+make_head(_module, 'ISharedPackageContainerMemberFactory')
 make_head(_module, 'IStagePackageOptions')
 make_head(_module, 'IStagePackageOptions2')
+make_head(_module, 'IUpdateSharedPackageContainerOptions')
+make_head(_module, 'IUpdateSharedPackageContainerResult')
 make_head(_module, 'PackageAllUserProvisioningOptions')
 make_head(_module, 'PackageManager')
 make_head(_module, 'PackageManagerDebugSettings')
 make_head(_module, 'PackageUserInformation')
 make_head(_module, 'PackageVolume')
 make_head(_module, 'RegisterPackageOptions')
+make_head(_module, 'SharedPackageContainer')
+make_head(_module, 'SharedPackageContainerManager')
+make_head(_module, 'SharedPackageContainerMember')
 make_head(_module, 'StagePackageOptions')
+make_head(_module, 'UpdateSharedPackageContainerOptions')
+make_head(_module, 'UpdateSharedPackageContainerResult')

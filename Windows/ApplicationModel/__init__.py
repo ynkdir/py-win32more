@@ -153,6 +153,11 @@ class AppInstance(ComPtr):
     Key = property(get_Key, None)
     IsCurrentInstance = property(get_IsCurrentInstance, None)
     RecommendedInstance = property(get_RecommendedInstance, None)
+class CameraApplicationManager(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.CameraApplicationManager'
+    @winrt_classmethod
+    def ShowInstalledApplicationsUI(cls: Windows.ApplicationModel.ICameraApplicationManagerStatics) -> Void: ...
 class DesignMode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.DesignMode'
@@ -197,6 +202,36 @@ class FindRelatedPackagesOptions(ComPtr):
     IncludeHostRuntimes = property(get_IncludeHostRuntimes, put_IncludeHostRuntimes)
     IncludeOptionals = property(get_IncludeOptionals, put_IncludeOptionals)
     IncludeResources = property(get_IncludeResources, put_IncludeResources)
+FullTrustAppContract: UInt32 = 131072
+FullTrustLaunchResult = Int32
+FullTrustLaunchResult_Success: FullTrustLaunchResult = 0
+FullTrustLaunchResult_AccessDenied: FullTrustLaunchResult = 1
+FullTrustLaunchResult_FileNotFound: FullTrustLaunchResult = 2
+FullTrustLaunchResult_Unknown: FullTrustLaunchResult = 3
+class FullTrustProcessLaunchResult(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.FullTrustProcessLaunchResult'
+    @winrt_mixinmethod
+    def get_LaunchResult(self: Windows.ApplicationModel.IFullTrustProcessLaunchResult) -> Windows.ApplicationModel.FullTrustLaunchResult: ...
+    @winrt_mixinmethod
+    def get_ExtendedError(self: Windows.ApplicationModel.IFullTrustProcessLaunchResult) -> Windows.Foundation.HResult: ...
+    LaunchResult = property(get_LaunchResult, None)
+    ExtendedError = property(get_ExtendedError, None)
+class FullTrustProcessLauncher(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.FullTrustProcessLauncher'
+    @winrt_classmethod
+    def LaunchFullTrustProcessForCurrentAppWithArgumentsAsync(cls: Windows.ApplicationModel.IFullTrustProcessLauncherStatics2, commandLine: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.FullTrustProcessLaunchResult]: ...
+    @winrt_classmethod
+    def LaunchFullTrustProcessForAppWithArgumentsAsync(cls: Windows.ApplicationModel.IFullTrustProcessLauncherStatics2, fullTrustPackageRelativeAppId: WinRT_String, commandLine: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.FullTrustProcessLaunchResult]: ...
+    @winrt_classmethod
+    def LaunchFullTrustProcessForCurrentAppAsync(cls: Windows.ApplicationModel.IFullTrustProcessLauncherStatics) -> Windows.Foundation.IAsyncAction: ...
+    @winrt_classmethod
+    def LaunchFullTrustProcessForCurrentAppWithParametersAsync(cls: Windows.ApplicationModel.IFullTrustProcessLauncherStatics, parameterGroupId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
+    @winrt_classmethod
+    def LaunchFullTrustProcessForAppAsync(cls: Windows.ApplicationModel.IFullTrustProcessLauncherStatics, fullTrustPackageRelativeAppId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
+    @winrt_classmethod
+    def LaunchFullTrustProcessForAppWithParametersAsync(cls: Windows.ApplicationModel.IFullTrustProcessLauncherStatics, fullTrustPackageRelativeAppId: WinRT_String, parameterGroupId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
 class IAppDisplayInfo(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('1aeb1103-e4d4-41aa-a4-f6-c4-a2-76-e7-9e-ac')
@@ -330,6 +365,11 @@ class IAppInstanceStatics(ComPtr):
     @winrt_commethod(10)
     def GetInstances(self) -> Windows.Foundation.Collections.IVector[Windows.ApplicationModel.AppInstance]: ...
     RecommendedInstance = property(get_RecommendedInstance, None)
+class ICameraApplicationManagerStatics(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('9599ddce-9bd3-435c-80-54-c1-ad-d5-00-28-fe')
+    @winrt_commethod(6)
+    def ShowInstalledApplicationsUI(self) -> Void: ...
 class IDesignModeStatics(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('2c3893cc-f81a-4e7a-b8-57-76-a8-08-87-e1-85')
@@ -380,6 +420,33 @@ class IFindRelatedPackagesOptionsFactory(ComPtr):
     _iid_ = Guid('d7d17254-a4fd-55c4-98-cf-f2-71-0b-7d-8b-e2')
     @winrt_commethod(6)
     def CreateInstance(self, Relationship: Windows.ApplicationModel.PackageRelationship) -> Windows.ApplicationModel.FindRelatedPackagesOptions: ...
+class IFullTrustProcessLaunchResult(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('8917d888-edfb-515f-8e-22-5e-bc-eb-69-df-d9')
+    @winrt_commethod(6)
+    def get_LaunchResult(self) -> Windows.ApplicationModel.FullTrustLaunchResult: ...
+    @winrt_commethod(7)
+    def get_ExtendedError(self) -> Windows.Foundation.HResult: ...
+    LaunchResult = property(get_LaunchResult, None)
+    ExtendedError = property(get_ExtendedError, None)
+class IFullTrustProcessLauncherStatics(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('d784837f-1100-3c6b-a4-55-f6-26-2c-c3-31-b6')
+    @winrt_commethod(6)
+    def LaunchFullTrustProcessForCurrentAppAsync(self) -> Windows.Foundation.IAsyncAction: ...
+    @winrt_commethod(7)
+    def LaunchFullTrustProcessForCurrentAppWithParametersAsync(self, parameterGroupId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
+    @winrt_commethod(8)
+    def LaunchFullTrustProcessForAppAsync(self, fullTrustPackageRelativeAppId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
+    @winrt_commethod(9)
+    def LaunchFullTrustProcessForAppWithParametersAsync(self, fullTrustPackageRelativeAppId: WinRT_String, parameterGroupId: WinRT_String) -> Windows.Foundation.IAsyncAction: ...
+class IFullTrustProcessLauncherStatics2(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('8b8ed72f-b65c-56cf-a1-a7-2b-f7-7c-bc-6e-a8')
+    @winrt_commethod(6)
+    def LaunchFullTrustProcessForCurrentAppWithArgumentsAsync(self, commandLine: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.FullTrustProcessLaunchResult]: ...
+    @winrt_commethod(7)
+    def LaunchFullTrustProcessForAppWithArgumentsAsync(self, fullTrustPackageRelativeAppId: WinRT_String, commandLine: WinRT_String) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.FullTrustProcessLaunchResult]: ...
 class ILeavingBackgroundEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('39c6ec9a-ae6e-46f9-a0-7a-cf-c2-3f-88-73-3e')
@@ -1411,9 +1478,12 @@ make_head(_module, 'AppDisplayInfo')
 make_head(_module, 'AppInfo')
 make_head(_module, 'AppInstallerInfo')
 make_head(_module, 'AppInstance')
+make_head(_module, 'CameraApplicationManager')
 make_head(_module, 'DesignMode')
 make_head(_module, 'EnteredBackgroundEventArgs')
 make_head(_module, 'FindRelatedPackagesOptions')
+make_head(_module, 'FullTrustProcessLaunchResult')
+make_head(_module, 'FullTrustProcessLauncher')
 make_head(_module, 'IAppDisplayInfo')
 make_head(_module, 'IAppInfo')
 make_head(_module, 'IAppInfo2')
@@ -1424,11 +1494,15 @@ make_head(_module, 'IAppInstallerInfo')
 make_head(_module, 'IAppInstallerInfo2')
 make_head(_module, 'IAppInstance')
 make_head(_module, 'IAppInstanceStatics')
+make_head(_module, 'ICameraApplicationManagerStatics')
 make_head(_module, 'IDesignModeStatics')
 make_head(_module, 'IDesignModeStatics2')
 make_head(_module, 'IEnteredBackgroundEventArgs')
 make_head(_module, 'IFindRelatedPackagesOptions')
 make_head(_module, 'IFindRelatedPackagesOptionsFactory')
+make_head(_module, 'IFullTrustProcessLaunchResult')
+make_head(_module, 'IFullTrustProcessLauncherStatics')
+make_head(_module, 'IFullTrustProcessLauncherStatics2')
 make_head(_module, 'ILeavingBackgroundEventArgs')
 make_head(_module, 'ILimitedAccessFeatureRequestResult')
 make_head(_module, 'ILimitedAccessFeaturesStatics')

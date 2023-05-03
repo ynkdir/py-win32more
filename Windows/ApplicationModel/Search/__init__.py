@@ -11,6 +11,7 @@ from Windows import ARCH, MissingType, c_char_p_no, c_wchar_p_no, Byte, SByte, C
 from Windows._winrt import WinRT_String, winrt_commethod, winrt_mixinmethod, winrt_classmethod, winrt_factorymethod, winrt_activatemethod
 import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Search
+import Windows.Foundation
 import Windows.Foundation.Collections
 import Windows.Storage
 import Windows.Storage.Streams
@@ -42,6 +43,78 @@ class ILocalContentSuggestionSettings(ComPtr):
     Locations = property(get_Locations, None)
     AqsFilter = property(get_AqsFilter, put_AqsFilter)
     PropertiesToMatch = property(get_PropertiesToMatch, None)
+class ISearchPane(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('fdacec38-3700-4d73-91-a1-2f-99-86-74-23-8a')
+    @winrt_commethod(6)
+    def put_SearchHistoryEnabled(self, value: Boolean) -> Void: ...
+    @winrt_commethod(7)
+    def get_SearchHistoryEnabled(self) -> Boolean: ...
+    @winrt_commethod(8)
+    def put_SearchHistoryContext(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(9)
+    def get_SearchHistoryContext(self) -> WinRT_String: ...
+    @winrt_commethod(10)
+    def put_PlaceholderText(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(11)
+    def get_PlaceholderText(self) -> WinRT_String: ...
+    @winrt_commethod(12)
+    def get_QueryText(self) -> WinRT_String: ...
+    @winrt_commethod(13)
+    def get_Language(self) -> WinRT_String: ...
+    @winrt_commethod(14)
+    def get_Visible(self) -> Boolean: ...
+    @winrt_commethod(15)
+    def add_VisibilityChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Search.SearchPane, Windows.ApplicationModel.Search.SearchPaneVisibilityChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(16)
+    def remove_VisibilityChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(17)
+    def add_QueryChanged(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Search.SearchPane, Windows.ApplicationModel.Search.SearchPaneQueryChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(18)
+    def remove_QueryChanged(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(19)
+    def add_SuggestionsRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Search.SearchPane, Windows.ApplicationModel.Search.SearchPaneSuggestionsRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(20)
+    def remove_SuggestionsRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(21)
+    def add_QuerySubmitted(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Search.SearchPane, Windows.ApplicationModel.Search.SearchPaneQuerySubmittedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(22)
+    def remove_QuerySubmitted(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(23)
+    def add_ResultSuggestionChosen(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Search.SearchPane, Windows.ApplicationModel.Search.SearchPaneResultSuggestionChosenEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(24)
+    def remove_ResultSuggestionChosen(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(25)
+    def SetLocalContentSuggestionSettings(self, settings: Windows.ApplicationModel.Search.LocalContentSuggestionSettings) -> Void: ...
+    @winrt_commethod(26)
+    def ShowOverloadDefault(self) -> Void: ...
+    @winrt_commethod(27)
+    def ShowOverloadWithQuery(self, query: WinRT_String) -> Void: ...
+    @winrt_commethod(28)
+    def put_ShowOnKeyboardInput(self, value: Boolean) -> Void: ...
+    @winrt_commethod(29)
+    def get_ShowOnKeyboardInput(self) -> Boolean: ...
+    @winrt_commethod(30)
+    def TrySetQueryText(self, query: WinRT_String) -> Boolean: ...
+    SearchHistoryEnabled = property(get_SearchHistoryEnabled, put_SearchHistoryEnabled)
+    SearchHistoryContext = property(get_SearchHistoryContext, put_SearchHistoryContext)
+    PlaceholderText = property(get_PlaceholderText, put_PlaceholderText)
+    QueryText = property(get_QueryText, None)
+    Language = property(get_Language, None)
+    Visible = property(get_Visible, None)
+    ShowOnKeyboardInput = property(get_ShowOnKeyboardInput, put_ShowOnKeyboardInput)
+class ISearchPaneQueryChangedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('3c064fe9-2351-4248-a5-29-71-10-f4-64-a7-85')
+    @winrt_commethod(6)
+    def get_QueryText(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_Language(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_LinguisticDetails(self) -> Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails: ...
+    QueryText = property(get_QueryText, None)
+    Language = property(get_Language, None)
+    LinguisticDetails = property(get_LinguisticDetails, None)
 class ISearchPaneQueryLinguisticDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('82fb460e-0940-4b6d-b8-d0-64-2b-30-98-9e-15')
@@ -54,6 +127,65 @@ class ISearchPaneQueryLinguisticDetails(ComPtr):
     QueryTextAlternatives = property(get_QueryTextAlternatives, None)
     QueryTextCompositionStart = property(get_QueryTextCompositionStart, None)
     QueryTextCompositionLength = property(get_QueryTextCompositionLength, None)
+class ISearchPaneQuerySubmittedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('143ba4fc-e9c5-4736-91-b2-e8-eb-9c-b8-83-56')
+    @winrt_commethod(6)
+    def get_QueryText(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_Language(self) -> WinRT_String: ...
+    QueryText = property(get_QueryText, None)
+    Language = property(get_Language, None)
+class ISearchPaneQuerySubmittedEventArgsWithLinguisticDetails(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('460c92e5-4c32-4538-a4-d4-b6-b4-40-0d-14-0f')
+    @winrt_commethod(6)
+    def get_LinguisticDetails(self) -> Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails: ...
+    LinguisticDetails = property(get_LinguisticDetails, None)
+class ISearchPaneResultSuggestionChosenEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('c8316cc0-aed2-41e0-bc-e0-c2-6c-a7-4f-85-ec')
+    @winrt_commethod(6)
+    def get_Tag(self) -> WinRT_String: ...
+    Tag = property(get_Tag, None)
+class ISearchPaneStatics(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('9572adf1-8f1d-481f-a1-5b-c6-16-55-f1-6a-0e')
+    @winrt_commethod(6)
+    def GetForCurrentView(self) -> Windows.ApplicationModel.Search.SearchPane: ...
+class ISearchPaneStaticsWithHideThisApplication(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('00732830-50f1-4d03-99-ac-c6-64-4c-8e-d8-b5')
+    @winrt_commethod(6)
+    def HideThisApplication(self) -> Void: ...
+class ISearchPaneSuggestionsRequest(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('81b10b1c-e561-4093-9b-4d-2a-d4-82-79-4a-53')
+    @winrt_commethod(6)
+    def get_IsCanceled(self) -> Boolean: ...
+    @winrt_commethod(7)
+    def get_SearchSuggestionCollection(self) -> Windows.ApplicationModel.Search.SearchSuggestionCollection: ...
+    @winrt_commethod(8)
+    def GetDeferral(self) -> Windows.ApplicationModel.Search.SearchPaneSuggestionsRequestDeferral: ...
+    IsCanceled = property(get_IsCanceled, None)
+    SearchSuggestionCollection = property(get_SearchSuggestionCollection, None)
+class ISearchPaneSuggestionsRequestDeferral(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('a0d009f7-8748-4ee2-ad-44-af-a6-be-99-7c-51')
+    @winrt_commethod(6)
+    def Complete(self) -> Void: ...
+class ISearchPaneSuggestionsRequestedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('c89b8a2f-ac56-4460-8d-2f-80-02-3b-ec-4f-c5')
+    @winrt_commethod(6)
+    def get_Request(self) -> Windows.ApplicationModel.Search.SearchPaneSuggestionsRequest: ...
+    Request = property(get_Request, None)
+class ISearchPaneVisibilityChangedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('3c4d3046-ac4b-49f2-97-d6-02-0e-61-82-cb-9c')
+    @winrt_commethod(6)
+    def get_Visible(self) -> Boolean: ...
+    Visible = property(get_Visible, None)
 class ISearchQueryLinguisticDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('46a1205b-69c9-4745-b7-2f-a8-a4-fc-8f-24-ae')
@@ -122,6 +254,83 @@ class LocalContentSuggestionSettings(ComPtr):
     Locations = property(get_Locations, None)
     AqsFilter = property(get_AqsFilter, put_AqsFilter)
     PropertiesToMatch = property(get_PropertiesToMatch, None)
+SearchContract: UInt32 = 65536
+class SearchPane(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Search.SearchPane'
+    @winrt_mixinmethod
+    def put_SearchHistoryEnabled(self: Windows.ApplicationModel.Search.ISearchPane, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_SearchHistoryEnabled(self: Windows.ApplicationModel.Search.ISearchPane) -> Boolean: ...
+    @winrt_mixinmethod
+    def put_SearchHistoryContext(self: Windows.ApplicationModel.Search.ISearchPane, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_SearchHistoryContext(self: Windows.ApplicationModel.Search.ISearchPane) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_PlaceholderText(self: Windows.ApplicationModel.Search.ISearchPane, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_PlaceholderText(self: Windows.ApplicationModel.Search.ISearchPane) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_QueryText(self: Windows.ApplicationModel.Search.ISearchPane) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Language(self: Windows.ApplicationModel.Search.ISearchPane) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Visible(self: Windows.ApplicationModel.Search.ISearchPane) -> Boolean: ...
+    @winrt_mixinmethod
+    def add_VisibilityChanged(self: Windows.ApplicationModel.Search.ISearchPane, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Search.SearchPane, Windows.ApplicationModel.Search.SearchPaneVisibilityChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_VisibilityChanged(self: Windows.ApplicationModel.Search.ISearchPane, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_QueryChanged(self: Windows.ApplicationModel.Search.ISearchPane, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Search.SearchPane, Windows.ApplicationModel.Search.SearchPaneQueryChangedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_QueryChanged(self: Windows.ApplicationModel.Search.ISearchPane, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_SuggestionsRequested(self: Windows.ApplicationModel.Search.ISearchPane, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Search.SearchPane, Windows.ApplicationModel.Search.SearchPaneSuggestionsRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_SuggestionsRequested(self: Windows.ApplicationModel.Search.ISearchPane, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_QuerySubmitted(self: Windows.ApplicationModel.Search.ISearchPane, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Search.SearchPane, Windows.ApplicationModel.Search.SearchPaneQuerySubmittedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_QuerySubmitted(self: Windows.ApplicationModel.Search.ISearchPane, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_ResultSuggestionChosen(self: Windows.ApplicationModel.Search.ISearchPane, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Search.SearchPane, Windows.ApplicationModel.Search.SearchPaneResultSuggestionChosenEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_ResultSuggestionChosen(self: Windows.ApplicationModel.Search.ISearchPane, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def SetLocalContentSuggestionSettings(self: Windows.ApplicationModel.Search.ISearchPane, settings: Windows.ApplicationModel.Search.LocalContentSuggestionSettings) -> Void: ...
+    @winrt_mixinmethod
+    def ShowOverloadDefault(self: Windows.ApplicationModel.Search.ISearchPane) -> Void: ...
+    @winrt_mixinmethod
+    def ShowOverloadWithQuery(self: Windows.ApplicationModel.Search.ISearchPane, query: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def put_ShowOnKeyboardInput(self: Windows.ApplicationModel.Search.ISearchPane, value: Boolean) -> Void: ...
+    @winrt_mixinmethod
+    def get_ShowOnKeyboardInput(self: Windows.ApplicationModel.Search.ISearchPane) -> Boolean: ...
+    @winrt_mixinmethod
+    def TrySetQueryText(self: Windows.ApplicationModel.Search.ISearchPane, query: WinRT_String) -> Boolean: ...
+    @winrt_classmethod
+    def HideThisApplication(cls: Windows.ApplicationModel.Search.ISearchPaneStaticsWithHideThisApplication) -> Void: ...
+    @winrt_classmethod
+    def GetForCurrentView(cls: Windows.ApplicationModel.Search.ISearchPaneStatics) -> Windows.ApplicationModel.Search.SearchPane: ...
+    SearchHistoryEnabled = property(get_SearchHistoryEnabled, put_SearchHistoryEnabled)
+    SearchHistoryContext = property(get_SearchHistoryContext, put_SearchHistoryContext)
+    PlaceholderText = property(get_PlaceholderText, put_PlaceholderText)
+    QueryText = property(get_QueryText, None)
+    Language = property(get_Language, None)
+    Visible = property(get_Visible, None)
+    ShowOnKeyboardInput = property(get_ShowOnKeyboardInput, put_ShowOnKeyboardInput)
+class SearchPaneQueryChangedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Search.SearchPaneQueryChangedEventArgs'
+    @winrt_mixinmethod
+    def get_QueryText(self: Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Language(self: Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_LinguisticDetails(self: Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs) -> Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails: ...
+    QueryText = property(get_QueryText, None)
+    Language = property(get_Language, None)
+    LinguisticDetails = property(get_LinguisticDetails, None)
 class SearchPaneQueryLinguisticDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails'
@@ -134,6 +343,61 @@ class SearchPaneQueryLinguisticDetails(ComPtr):
     QueryTextAlternatives = property(get_QueryTextAlternatives, None)
     QueryTextCompositionStart = property(get_QueryTextCompositionStart, None)
     QueryTextCompositionLength = property(get_QueryTextCompositionLength, None)
+class SearchPaneQuerySubmittedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Search.SearchPaneQuerySubmittedEventArgs'
+    @winrt_mixinmethod
+    def get_QueryText(self: Windows.ApplicationModel.Search.ISearchPaneQuerySubmittedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Language(self: Windows.ApplicationModel.Search.ISearchPaneQuerySubmittedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_LinguisticDetails(self: Windows.ApplicationModel.Search.ISearchPaneQuerySubmittedEventArgsWithLinguisticDetails) -> Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails: ...
+    QueryText = property(get_QueryText, None)
+    Language = property(get_Language, None)
+    LinguisticDetails = property(get_LinguisticDetails, None)
+class SearchPaneResultSuggestionChosenEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Search.SearchPaneResultSuggestionChosenEventArgs'
+    @winrt_mixinmethod
+    def get_Tag(self: Windows.ApplicationModel.Search.ISearchPaneResultSuggestionChosenEventArgs) -> WinRT_String: ...
+    Tag = property(get_Tag, None)
+class SearchPaneSuggestionsRequest(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Search.SearchPaneSuggestionsRequest'
+    @winrt_mixinmethod
+    def get_IsCanceled(self: Windows.ApplicationModel.Search.ISearchPaneSuggestionsRequest) -> Boolean: ...
+    @winrt_mixinmethod
+    def get_SearchSuggestionCollection(self: Windows.ApplicationModel.Search.ISearchPaneSuggestionsRequest) -> Windows.ApplicationModel.Search.SearchSuggestionCollection: ...
+    @winrt_mixinmethod
+    def GetDeferral(self: Windows.ApplicationModel.Search.ISearchPaneSuggestionsRequest) -> Windows.ApplicationModel.Search.SearchPaneSuggestionsRequestDeferral: ...
+    IsCanceled = property(get_IsCanceled, None)
+    SearchSuggestionCollection = property(get_SearchSuggestionCollection, None)
+class SearchPaneSuggestionsRequestDeferral(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Search.SearchPaneSuggestionsRequestDeferral'
+    @winrt_mixinmethod
+    def Complete(self: Windows.ApplicationModel.Search.ISearchPaneSuggestionsRequestDeferral) -> Void: ...
+class SearchPaneSuggestionsRequestedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Search.SearchPaneSuggestionsRequestedEventArgs'
+    @winrt_mixinmethod
+    def get_Request(self: Windows.ApplicationModel.Search.ISearchPaneSuggestionsRequestedEventArgs) -> Windows.ApplicationModel.Search.SearchPaneSuggestionsRequest: ...
+    @winrt_mixinmethod
+    def get_QueryText(self: Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Language(self: Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_LinguisticDetails(self: Windows.ApplicationModel.Search.ISearchPaneQueryChangedEventArgs) -> Windows.ApplicationModel.Search.SearchPaneQueryLinguisticDetails: ...
+    Request = property(get_Request, None)
+    QueryText = property(get_QueryText, None)
+    Language = property(get_Language, None)
+    LinguisticDetails = property(get_LinguisticDetails, None)
+class SearchPaneVisibilityChangedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Search.SearchPaneVisibilityChangedEventArgs'
+    @winrt_mixinmethod
+    def get_Visible(self: Windows.ApplicationModel.Search.ISearchPaneVisibilityChangedEventArgs) -> Boolean: ...
+    Visible = property(get_Visible, None)
 class SearchQueryLinguisticDetails(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Search.SearchQueryLinguisticDetails'
@@ -179,14 +443,33 @@ class SearchSuggestionsRequestDeferral(ComPtr):
     @winrt_mixinmethod
     def Complete(self: Windows.ApplicationModel.Search.ISearchSuggestionsRequestDeferral) -> Void: ...
 make_head(_module, 'ILocalContentSuggestionSettings')
+make_head(_module, 'ISearchPane')
+make_head(_module, 'ISearchPaneQueryChangedEventArgs')
 make_head(_module, 'ISearchPaneQueryLinguisticDetails')
+make_head(_module, 'ISearchPaneQuerySubmittedEventArgs')
+make_head(_module, 'ISearchPaneQuerySubmittedEventArgsWithLinguisticDetails')
+make_head(_module, 'ISearchPaneResultSuggestionChosenEventArgs')
+make_head(_module, 'ISearchPaneStatics')
+make_head(_module, 'ISearchPaneStaticsWithHideThisApplication')
+make_head(_module, 'ISearchPaneSuggestionsRequest')
+make_head(_module, 'ISearchPaneSuggestionsRequestDeferral')
+make_head(_module, 'ISearchPaneSuggestionsRequestedEventArgs')
+make_head(_module, 'ISearchPaneVisibilityChangedEventArgs')
 make_head(_module, 'ISearchQueryLinguisticDetails')
 make_head(_module, 'ISearchQueryLinguisticDetailsFactory')
 make_head(_module, 'ISearchSuggestionCollection')
 make_head(_module, 'ISearchSuggestionsRequest')
 make_head(_module, 'ISearchSuggestionsRequestDeferral')
 make_head(_module, 'LocalContentSuggestionSettings')
+make_head(_module, 'SearchPane')
+make_head(_module, 'SearchPaneQueryChangedEventArgs')
 make_head(_module, 'SearchPaneQueryLinguisticDetails')
+make_head(_module, 'SearchPaneQuerySubmittedEventArgs')
+make_head(_module, 'SearchPaneResultSuggestionChosenEventArgs')
+make_head(_module, 'SearchPaneSuggestionsRequest')
+make_head(_module, 'SearchPaneSuggestionsRequestDeferral')
+make_head(_module, 'SearchPaneSuggestionsRequestedEventArgs')
+make_head(_module, 'SearchPaneVisibilityChangedEventArgs')
 make_head(_module, 'SearchQueryLinguisticDetails')
 make_head(_module, 'SearchSuggestionCollection')
 make_head(_module, 'SearchSuggestionsRequest')

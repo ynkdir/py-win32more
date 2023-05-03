@@ -13,11 +13,15 @@ import Windows.Win32.System.WinRT
 import Windows.ApplicationModel.Activation
 import Windows.ApplicationModel.Appointments.AppointmentsProvider
 import Windows.ApplicationModel.Background
+import Windows.ApplicationModel.Calls
 import Windows.ApplicationModel.Contacts
+import Windows.ApplicationModel.Contacts.Provider
 import Windows.ApplicationModel.DataTransfer.ShareTarget
 import Windows.ApplicationModel.Search
 import Windows.ApplicationModel.UserDataAccounts.Provider
+import Windows.ApplicationModel.Wallet
 import Windows.Devices.Enumeration
+import Windows.Devices.Printers.Extensions
 import Windows.Foundation
 import Windows.Foundation.Collections
 import Windows.Media.SpeechRecognition
@@ -39,6 +43,8 @@ def __getattr__(name):
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
     setattr(_module, name, press(prototype))
     return getattr(_module, name)
+ActivatedEventsContract: UInt32 = 65536
+ActivationCameraSettingsContract: UInt32 = 65536
 ActivationKind = Int32
 ActivationKind_Launch: ActivationKind = 0
 ActivationKind_Search: ActivationKind = 1
@@ -246,6 +252,24 @@ class CachedFileUpdaterActivatedEventArgs(ComPtr):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
+class CameraSettingsActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Activation.CameraSettingsActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_VideoDeviceController(self: Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
+    @winrt_mixinmethod
+    def get_VideoDeviceExtension(self: Windows.ApplicationModel.Activation.ICameraSettingsActivatedEventArgs) -> Windows.Win32.System.WinRT.IInspectable_head: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    VideoDeviceController = property(get_VideoDeviceController, None)
+    VideoDeviceExtension = property(get_VideoDeviceExtension, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
 class CommandLineActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Activation.CommandLineActivatedEventArgs'
@@ -280,6 +304,76 @@ class CommandLineActivationOperation(ComPtr):
     Arguments = property(get_Arguments, None)
     CurrentDirectoryPath = property(get_CurrentDirectoryPath, None)
     ExitCode = property(get_ExitCode, put_ExitCode)
+ContactActivatedEventsContract: UInt32 = 65536
+class ContactCallActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Activation.ContactCallActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_ServiceId(self: Windows.ApplicationModel.Activation.IContactCallActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_ServiceUserId(self: Windows.ApplicationModel.Activation.IContactCallActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Contact(self: Windows.ApplicationModel.Activation.IContactCallActivatedEventArgs) -> Windows.ApplicationModel.Contacts.Contact: ...
+    @winrt_mixinmethod
+    def get_Verb(self: Windows.ApplicationModel.Activation.IContactActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    ServiceId = property(get_ServiceId, None)
+    ServiceUserId = property(get_ServiceUserId, None)
+    Contact = property(get_Contact, None)
+    Verb = property(get_Verb, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+class ContactMapActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Activation.ContactMapActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_Address(self: Windows.ApplicationModel.Activation.IContactMapActivatedEventArgs) -> Windows.ApplicationModel.Contacts.ContactAddress: ...
+    @winrt_mixinmethod
+    def get_Contact(self: Windows.ApplicationModel.Activation.IContactMapActivatedEventArgs) -> Windows.ApplicationModel.Contacts.Contact: ...
+    @winrt_mixinmethod
+    def get_Verb(self: Windows.ApplicationModel.Activation.IContactActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    Address = property(get_Address, None)
+    Contact = property(get_Contact, None)
+    Verb = property(get_Verb, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+class ContactMessageActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Activation.ContactMessageActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_ServiceId(self: Windows.ApplicationModel.Activation.IContactMessageActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_ServiceUserId(self: Windows.ApplicationModel.Activation.IContactMessageActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Contact(self: Windows.ApplicationModel.Activation.IContactMessageActivatedEventArgs) -> Windows.ApplicationModel.Contacts.Contact: ...
+    @winrt_mixinmethod
+    def get_Verb(self: Windows.ApplicationModel.Activation.IContactActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    ServiceId = property(get_ServiceId, None)
+    ServiceUserId = property(get_ServiceUserId, None)
+    Contact = property(get_Contact, None)
+    Verb = property(get_Verb, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
 class ContactPanelActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Activation.ContactPanelActivatedEventArgs'
@@ -301,6 +395,69 @@ class ContactPanelActivatedEventArgs(ComPtr):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
+class ContactPickerActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Activation.ContactPickerActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_ContactPickerUI(self: Windows.ApplicationModel.Activation.IContactPickerActivatedEventArgs) -> Windows.ApplicationModel.Contacts.Provider.ContactPickerUI: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    ContactPickerUI = property(get_ContactPickerUI, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+class ContactPostActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Activation.ContactPostActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_ServiceId(self: Windows.ApplicationModel.Activation.IContactPostActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_ServiceUserId(self: Windows.ApplicationModel.Activation.IContactPostActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Contact(self: Windows.ApplicationModel.Activation.IContactPostActivatedEventArgs) -> Windows.ApplicationModel.Contacts.Contact: ...
+    @winrt_mixinmethod
+    def get_Verb(self: Windows.ApplicationModel.Activation.IContactActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    ServiceId = property(get_ServiceId, None)
+    ServiceUserId = property(get_ServiceUserId, None)
+    Contact = property(get_Contact, None)
+    Verb = property(get_Verb, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+class ContactVideoCallActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Activation.ContactVideoCallActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_ServiceId(self: Windows.ApplicationModel.Activation.IContactVideoCallActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_ServiceUserId(self: Windows.ApplicationModel.Activation.IContactVideoCallActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Contact(self: Windows.ApplicationModel.Activation.IContactVideoCallActivatedEventArgs) -> Windows.ApplicationModel.Contacts.Contact: ...
+    @winrt_mixinmethod
+    def get_Verb(self: Windows.ApplicationModel.Activation.IContactActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    ServiceId = property(get_ServiceId, None)
+    ServiceUserId = property(get_ServiceUserId, None)
+    Contact = property(get_Contact, None)
+    Verb = property(get_Verb, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
 class DeviceActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Activation.DeviceActivatedEventArgs'
@@ -604,6 +761,15 @@ class ICachedFileUpdaterActivatedEventArgs(ComPtr):
     @winrt_commethod(6)
     def get_CachedFileUpdaterUI(self) -> Windows.Storage.Provider.CachedFileUpdaterUI: ...
     CachedFileUpdaterUI = property(get_CachedFileUpdaterUI, None)
+class ICameraSettingsActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('fb67a508-2dad-490a-91-70-dc-a0-36-eb-11-4b')
+    @winrt_commethod(6)
+    def get_VideoDeviceController(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
+    @winrt_commethod(7)
+    def get_VideoDeviceExtension(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
+    VideoDeviceController = property(get_VideoDeviceController, None)
+    VideoDeviceExtension = property(get_VideoDeviceExtension, None)
 class ICommandLineActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('4506472c-006a-48eb-8a-fb-d0-7a-b2-5e-33-66')
@@ -626,6 +792,45 @@ class ICommandLineActivationOperation(ComPtr):
     Arguments = property(get_Arguments, None)
     CurrentDirectoryPath = property(get_CurrentDirectoryPath, None)
     ExitCode = property(get_ExitCode, put_ExitCode)
+class IContactActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('d627a1c4-c025-4c41-9d-ef-f1-ea-fa-d0-75-e7')
+    @winrt_commethod(6)
+    def get_Verb(self) -> WinRT_String: ...
+    Verb = property(get_Verb, None)
+class IContactCallActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('c2df14c7-30eb-41c6-b3-bc-5b-16-94-f9-da-b3')
+    @winrt_commethod(6)
+    def get_ServiceId(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_ServiceUserId(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_Contact(self) -> Windows.ApplicationModel.Contacts.Contact: ...
+    ServiceId = property(get_ServiceId, None)
+    ServiceUserId = property(get_ServiceUserId, None)
+    Contact = property(get_Contact, None)
+class IContactMapActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('b32bf870-eee7-4ad2-aa-f1-a8-7e-ff-cf-00-a4')
+    @winrt_commethod(6)
+    def get_Address(self) -> Windows.ApplicationModel.Contacts.ContactAddress: ...
+    @winrt_commethod(7)
+    def get_Contact(self) -> Windows.ApplicationModel.Contacts.Contact: ...
+    Address = property(get_Address, None)
+    Contact = property(get_Contact, None)
+class IContactMessageActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('de598db2-0e03-43b0-bf-56-bc-c4-0b-31-62-df')
+    @winrt_commethod(6)
+    def get_ServiceId(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_ServiceUserId(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_Contact(self) -> Windows.ApplicationModel.Contacts.Contact: ...
+    ServiceId = property(get_ServiceId, None)
+    ServiceUserId = property(get_ServiceUserId, None)
+    Contact = property(get_Contact, None)
 class IContactPanelActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('52bb63e4-d3d4-4b63-80-51-4a-f2-08-2c-ab-80')
@@ -635,6 +840,42 @@ class IContactPanelActivatedEventArgs(ComPtr):
     def get_Contact(self) -> Windows.ApplicationModel.Contacts.Contact: ...
     ContactPanel = property(get_ContactPanel, None)
     Contact = property(get_Contact, None)
+class IContactPickerActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('ce57aae7-6449-45a7-97-1f-d1-13-be-7a-89-36')
+    @winrt_commethod(6)
+    def get_ContactPickerUI(self) -> Windows.ApplicationModel.Contacts.Provider.ContactPickerUI: ...
+    ContactPickerUI = property(get_ContactPickerUI, None)
+class IContactPostActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('b35a3c67-f1e7-4655-ad-6e-48-57-58-8f-55-2f')
+    @winrt_commethod(6)
+    def get_ServiceId(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_ServiceUserId(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_Contact(self) -> Windows.ApplicationModel.Contacts.Contact: ...
+    ServiceId = property(get_ServiceId, None)
+    ServiceUserId = property(get_ServiceUserId, None)
+    Contact = property(get_Contact, None)
+class IContactVideoCallActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('61079db8-e3e7-4b4f-85-8d-5c-63-a9-6e-f6-84')
+    @winrt_commethod(6)
+    def get_ServiceId(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_ServiceUserId(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def get_Contact(self) -> Windows.ApplicationModel.Contacts.Contact: ...
+    ServiceId = property(get_ServiceId, None)
+    ServiceUserId = property(get_ServiceUserId, None)
+    Contact = property(get_Contact, None)
+class IContactsProviderActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('4580dca8-5750-4916-aa-52-c0-82-95-21-eb-94')
+    @winrt_commethod(6)
+    def get_Verb(self) -> WinRT_String: ...
+    Verb = property(get_Verb, None)
 class IContinuationActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('e58106b5-155f-4a94-a7-42-c7-e0-8f-4e-18-8c')
@@ -749,6 +990,12 @@ class ILockScreenActivatedEventArgs(ComPtr):
     @winrt_commethod(6)
     def get_Info(self) -> Windows.Win32.System.WinRT.IInspectable_head: ...
     Info = property(get_Info, None)
+class ILockScreenCallActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('06f37fbe-b5f2-448b-b1-3e-e3-28-ac-1c-51-6a')
+    @winrt_commethod(6)
+    def get_CallUI(self) -> Windows.ApplicationModel.Calls.LockScreenCallUI: ...
+    CallUI = property(get_CallUI, None)
 class IPhoneCallActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('54615221-a3c1-4ced-b6-2f-8c-60-52-36-19-ad')
@@ -767,6 +1014,18 @@ class IPrelaunchActivatedEventArgs(ComPtr):
     @winrt_commethod(6)
     def get_PrelaunchActivated(self) -> Boolean: ...
     PrelaunchActivated = property(get_PrelaunchActivated, None)
+class IPrint3DWorkflowActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('3f57e78b-f2ac-4619-83-02-ef-85-5e-1c-9b-90')
+    @winrt_commethod(6)
+    def get_Workflow(self) -> Windows.Devices.Printers.Extensions.Print3DWorkflow: ...
+    Workflow = property(get_Workflow, None)
+class IPrintTaskSettingsActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('ee30a0c9-ce56-4865-ba-8e-89-54-ac-27-11-07')
+    @winrt_commethod(6)
+    def get_Configuration(self) -> Windows.Devices.Printers.Extensions.PrintTaskConfiguration: ...
+    Configuration = property(get_Configuration, None)
 class IProtocolActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('6095f4dd-b7c0-46ab-81-fe-d9-0f-36-d0-0d-24')
@@ -864,6 +1123,18 @@ class IVoiceCommandActivatedEventArgs(ComPtr):
     @winrt_commethod(6)
     def get_Result(self) -> Windows.Media.SpeechRecognition.SpeechRecognitionResult: ...
     Result = property(get_Result, None)
+class IWalletActionActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('fcfc027b-1a1a-4d22-92-3f-ae-6f-45-fa-52-d9')
+    @winrt_commethod(6)
+    def get_ItemId(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_ActionKind(self) -> Windows.ApplicationModel.Wallet.WalletActionKind: ...
+    @winrt_commethod(8)
+    def get_ActionId(self) -> WinRT_String: ...
+    ItemId = property(get_ItemId, None)
+    ActionKind = property(get_ActionKind, None)
+    ActionId = property(get_ActionId, None)
 class IWebAccountProviderActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('72b71774-98ea-4ccf-97-52-46-d9-05-10-04-f1')
@@ -927,6 +1198,33 @@ class LockScreenActivatedEventArgs(ComPtr):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
+class LockScreenCallActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Activation.LockScreenCallActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_CallUI(self: Windows.ApplicationModel.Activation.ILockScreenCallActivatedEventArgs) -> Windows.ApplicationModel.Calls.LockScreenCallUI: ...
+    @winrt_mixinmethod
+    def get_Arguments(self: Windows.ApplicationModel.Activation.ILaunchActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_TileId(self: Windows.ApplicationModel.Activation.ILaunchActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    @winrt_mixinmethod
+    def get_CurrentlyShownApplicationViewId(self: Windows.ApplicationModel.Activation.IApplicationViewActivatedEventArgs) -> Int32: ...
+    @winrt_mixinmethod
+    def get_ViewSwitcher(self: Windows.ApplicationModel.Activation.IViewSwitcherProvider) -> Windows.UI.ViewManagement.ActivationViewSwitcher: ...
+    CallUI = property(get_CallUI, None)
+    Arguments = property(get_Arguments, None)
+    TileId = property(get_TileId, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+    CurrentlyShownApplicationViewId = property(get_CurrentlyShownApplicationViewId, None)
+    ViewSwitcher = property(get_ViewSwitcher, None)
 class LockScreenComponentActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Activation.LockScreenComponentActivatedEventArgs'
@@ -969,6 +1267,36 @@ class PickerReturnedActivatedEventArgs(ComPtr):
     @winrt_mixinmethod
     def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
     PickerOperationId = property(get_PickerOperationId, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+class Print3DWorkflowActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Activation.Print3DWorkflowActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_Workflow(self: Windows.ApplicationModel.Activation.IPrint3DWorkflowActivatedEventArgs) -> Windows.Devices.Printers.Extensions.Print3DWorkflow: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    Workflow = property(get_Workflow, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
+class PrintTaskSettingsActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Activation.PrintTaskSettingsActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_Configuration(self: Windows.ApplicationModel.Activation.IPrintTaskSettingsActivatedEventArgs) -> Windows.Devices.Printers.Extensions.PrintTaskConfiguration: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    Configuration = property(get_Configuration, None)
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
@@ -1192,6 +1520,27 @@ class VoiceCommandActivatedEventArgs(ComPtr):
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
     User = property(get_User, None)
+class WalletActionActivatedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Activation.WalletActionActivatedEventArgs'
+    @winrt_mixinmethod
+    def get_ItemId(self: Windows.ApplicationModel.Activation.IWalletActionActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_ActionKind(self: Windows.ApplicationModel.Activation.IWalletActionActivatedEventArgs) -> Windows.ApplicationModel.Wallet.WalletActionKind: ...
+    @winrt_mixinmethod
+    def get_ActionId(self: Windows.ApplicationModel.Activation.IWalletActionActivatedEventArgs) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Kind(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ActivationKind: ...
+    @winrt_mixinmethod
+    def get_PreviousExecutionState(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.ApplicationExecutionState: ...
+    @winrt_mixinmethod
+    def get_SplashScreen(self: Windows.ApplicationModel.Activation.IActivatedEventArgs) -> Windows.ApplicationModel.Activation.SplashScreen: ...
+    ItemId = property(get_ItemId, None)
+    ActionKind = property(get_ActionKind, None)
+    ActionId = property(get_ActionId, None)
+    Kind = property(get_Kind, None)
+    PreviousExecutionState = property(get_PreviousExecutionState, None)
+    SplashScreen = property(get_SplashScreen, None)
 class WebAccountProviderActivatedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Activation.WebAccountProviderActivatedEventArgs'
@@ -1228,6 +1577,7 @@ class WebAuthenticationBrokerContinuationEventArgs(ComPtr):
     Kind = property(get_Kind, None)
     PreviousExecutionState = property(get_PreviousExecutionState, None)
     SplashScreen = property(get_SplashScreen, None)
+WebUISearchActivatedEventsContract: UInt32 = 65536
 make_head(_module, 'AppointmentsProviderAddAppointmentActivatedEventArgs')
 make_head(_module, 'AppointmentsProviderRemoveAppointmentActivatedEventArgs')
 make_head(_module, 'AppointmentsProviderReplaceAppointmentActivatedEventArgs')
@@ -1236,9 +1586,16 @@ make_head(_module, 'AppointmentsProviderShowTimeFrameActivatedEventArgs')
 make_head(_module, 'BackgroundActivatedEventArgs')
 make_head(_module, 'BarcodeScannerPreviewActivatedEventArgs')
 make_head(_module, 'CachedFileUpdaterActivatedEventArgs')
+make_head(_module, 'CameraSettingsActivatedEventArgs')
 make_head(_module, 'CommandLineActivatedEventArgs')
 make_head(_module, 'CommandLineActivationOperation')
+make_head(_module, 'ContactCallActivatedEventArgs')
+make_head(_module, 'ContactMapActivatedEventArgs')
+make_head(_module, 'ContactMessageActivatedEventArgs')
 make_head(_module, 'ContactPanelActivatedEventArgs')
+make_head(_module, 'ContactPickerActivatedEventArgs')
+make_head(_module, 'ContactPostActivatedEventArgs')
+make_head(_module, 'ContactVideoCallActivatedEventArgs')
 make_head(_module, 'DeviceActivatedEventArgs')
 make_head(_module, 'DevicePairingActivatedEventArgs')
 make_head(_module, 'DialReceiverActivatedEventArgs')
@@ -1260,9 +1617,18 @@ make_head(_module, 'IAppointmentsProviderShowTimeFrameActivatedEventArgs')
 make_head(_module, 'IBackgroundActivatedEventArgs')
 make_head(_module, 'IBarcodeScannerPreviewActivatedEventArgs')
 make_head(_module, 'ICachedFileUpdaterActivatedEventArgs')
+make_head(_module, 'ICameraSettingsActivatedEventArgs')
 make_head(_module, 'ICommandLineActivatedEventArgs')
 make_head(_module, 'ICommandLineActivationOperation')
+make_head(_module, 'IContactActivatedEventArgs')
+make_head(_module, 'IContactCallActivatedEventArgs')
+make_head(_module, 'IContactMapActivatedEventArgs')
+make_head(_module, 'IContactMessageActivatedEventArgs')
 make_head(_module, 'IContactPanelActivatedEventArgs')
+make_head(_module, 'IContactPickerActivatedEventArgs')
+make_head(_module, 'IContactPostActivatedEventArgs')
+make_head(_module, 'IContactVideoCallActivatedEventArgs')
+make_head(_module, 'IContactsProviderActivatedEventArgs')
 make_head(_module, 'IContinuationActivatedEventArgs')
 make_head(_module, 'IDeviceActivatedEventArgs')
 make_head(_module, 'IDevicePairingActivatedEventArgs')
@@ -1280,9 +1646,12 @@ make_head(_module, 'IFolderPickerContinuationEventArgs')
 make_head(_module, 'ILaunchActivatedEventArgs')
 make_head(_module, 'ILaunchActivatedEventArgs2')
 make_head(_module, 'ILockScreenActivatedEventArgs')
+make_head(_module, 'ILockScreenCallActivatedEventArgs')
 make_head(_module, 'IPhoneCallActivatedEventArgs')
 make_head(_module, 'IPickerReturnedActivatedEventArgs')
 make_head(_module, 'IPrelaunchActivatedEventArgs')
+make_head(_module, 'IPrint3DWorkflowActivatedEventArgs')
+make_head(_module, 'IPrintTaskSettingsActivatedEventArgs')
 make_head(_module, 'IProtocolActivatedEventArgs')
 make_head(_module, 'IProtocolActivatedEventArgsWithCallerPackageFamilyNameAndData')
 make_head(_module, 'IProtocolForResultsActivatedEventArgs')
@@ -1297,13 +1666,17 @@ make_head(_module, 'IToastNotificationActivatedEventArgs')
 make_head(_module, 'IUserDataAccountProviderActivatedEventArgs')
 make_head(_module, 'IViewSwitcherProvider')
 make_head(_module, 'IVoiceCommandActivatedEventArgs')
+make_head(_module, 'IWalletActionActivatedEventArgs')
 make_head(_module, 'IWebAccountProviderActivatedEventArgs')
 make_head(_module, 'IWebAuthenticationBrokerContinuationEventArgs')
 make_head(_module, 'LaunchActivatedEventArgs')
 make_head(_module, 'LockScreenActivatedEventArgs')
+make_head(_module, 'LockScreenCallActivatedEventArgs')
 make_head(_module, 'LockScreenComponentActivatedEventArgs')
 make_head(_module, 'PhoneCallActivatedEventArgs')
 make_head(_module, 'PickerReturnedActivatedEventArgs')
+make_head(_module, 'Print3DWorkflowActivatedEventArgs')
+make_head(_module, 'PrintTaskSettingsActivatedEventArgs')
 make_head(_module, 'ProtocolActivatedEventArgs')
 make_head(_module, 'ProtocolForResultsActivatedEventArgs')
 make_head(_module, 'RestrictedLaunchActivatedEventArgs')
@@ -1315,5 +1688,6 @@ make_head(_module, 'TileActivatedInfo')
 make_head(_module, 'ToastNotificationActivatedEventArgs')
 make_head(_module, 'UserDataAccountProviderActivatedEventArgs')
 make_head(_module, 'VoiceCommandActivatedEventArgs')
+make_head(_module, 'WalletActionActivatedEventArgs')
 make_head(_module, 'WebAccountProviderActivatedEventArgs')
 make_head(_module, 'WebAuthenticationBrokerContinuationEventArgs')

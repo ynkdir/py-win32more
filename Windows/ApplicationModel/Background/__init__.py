@@ -55,6 +55,61 @@ class ActivitySensorTrigger(ComPtr):
     ReportInterval = property(get_ReportInterval, None)
     SupportedActivities = property(get_SupportedActivities, None)
     MinimumReportInterval = property(get_MinimumReportInterval, None)
+AlarmAccessStatus = Int32
+AlarmAccessStatus_Unspecified: AlarmAccessStatus = 0
+AlarmAccessStatus_AllowedWithWakeupCapability: AlarmAccessStatus = 1
+AlarmAccessStatus_AllowedWithoutWakeupCapability: AlarmAccessStatus = 2
+AlarmAccessStatus_Denied: AlarmAccessStatus = 3
+class AlarmApplicationManager(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Background.AlarmApplicationManager'
+    @winrt_classmethod
+    def RequestAccessAsync(cls: Windows.ApplicationModel.Background.IAlarmApplicationManagerStatics) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.AlarmAccessStatus]: ...
+    @winrt_classmethod
+    def GetAccessStatus(cls: Windows.ApplicationModel.Background.IAlarmApplicationManagerStatics) -> Windows.ApplicationModel.Background.AlarmAccessStatus: ...
+class AppBroadcastTrigger(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Background.AppBroadcastTrigger'
+    @winrt_factorymethod
+    def CreateAppBroadcastTrigger(cls: Windows.ApplicationModel.Background.IAppBroadcastTriggerFactory, providerKey: WinRT_String) -> Windows.ApplicationModel.Background.AppBroadcastTrigger: ...
+    @winrt_mixinmethod
+    def put_ProviderInfo(self: Windows.ApplicationModel.Background.IAppBroadcastTrigger, value: Windows.ApplicationModel.Background.AppBroadcastTriggerProviderInfo) -> Void: ...
+    @winrt_mixinmethod
+    def get_ProviderInfo(self: Windows.ApplicationModel.Background.IAppBroadcastTrigger) -> Windows.ApplicationModel.Background.AppBroadcastTriggerProviderInfo: ...
+    ProviderInfo = property(get_ProviderInfo, put_ProviderInfo)
+class AppBroadcastTriggerProviderInfo(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Background.AppBroadcastTriggerProviderInfo'
+    @winrt_mixinmethod
+    def put_DisplayNameResource(self: Windows.ApplicationModel.Background.IAppBroadcastTriggerProviderInfo, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_DisplayNameResource(self: Windows.ApplicationModel.Background.IAppBroadcastTriggerProviderInfo) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_LogoResource(self: Windows.ApplicationModel.Background.IAppBroadcastTriggerProviderInfo, value: WinRT_String) -> Void: ...
+    @winrt_mixinmethod
+    def get_LogoResource(self: Windows.ApplicationModel.Background.IAppBroadcastTriggerProviderInfo) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_VideoKeyFrameInterval(self: Windows.ApplicationModel.Background.IAppBroadcastTriggerProviderInfo, value: Windows.Foundation.TimeSpan) -> Void: ...
+    @winrt_mixinmethod
+    def get_VideoKeyFrameInterval(self: Windows.ApplicationModel.Background.IAppBroadcastTriggerProviderInfo) -> Windows.Foundation.TimeSpan: ...
+    @winrt_mixinmethod
+    def put_MaxVideoBitrate(self: Windows.ApplicationModel.Background.IAppBroadcastTriggerProviderInfo, value: UInt32) -> Void: ...
+    @winrt_mixinmethod
+    def get_MaxVideoBitrate(self: Windows.ApplicationModel.Background.IAppBroadcastTriggerProviderInfo) -> UInt32: ...
+    @winrt_mixinmethod
+    def put_MaxVideoWidth(self: Windows.ApplicationModel.Background.IAppBroadcastTriggerProviderInfo, value: UInt32) -> Void: ...
+    @winrt_mixinmethod
+    def get_MaxVideoWidth(self: Windows.ApplicationModel.Background.IAppBroadcastTriggerProviderInfo) -> UInt32: ...
+    @winrt_mixinmethod
+    def put_MaxVideoHeight(self: Windows.ApplicationModel.Background.IAppBroadcastTriggerProviderInfo, value: UInt32) -> Void: ...
+    @winrt_mixinmethod
+    def get_MaxVideoHeight(self: Windows.ApplicationModel.Background.IAppBroadcastTriggerProviderInfo) -> UInt32: ...
+    DisplayNameResource = property(get_DisplayNameResource, put_DisplayNameResource)
+    LogoResource = property(get_LogoResource, put_LogoResource)
+    VideoKeyFrameInterval = property(get_VideoKeyFrameInterval, put_VideoKeyFrameInterval)
+    MaxVideoBitrate = property(get_MaxVideoBitrate, put_MaxVideoBitrate)
+    MaxVideoWidth = property(get_MaxVideoWidth, put_MaxVideoWidth)
+    MaxVideoHeight = property(get_MaxVideoHeight, put_MaxVideoHeight)
 class ApplicationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.ApplicationTrigger'
@@ -92,6 +147,7 @@ BackgroundAccessStatus_AlwaysAllowed: BackgroundAccessStatus = 4
 BackgroundAccessStatus_AllowedSubjectToSystemPolicy: BackgroundAccessStatus = 5
 BackgroundAccessStatus_DeniedBySystemPolicy: BackgroundAccessStatus = 6
 BackgroundAccessStatus_DeniedByUser: BackgroundAccessStatus = 7
+BackgroundAlarmApplicationContract: UInt32 = 65536
 class BackgroundExecutionManager(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.BackgroundExecutionManager'
@@ -525,6 +581,59 @@ class IActivitySensorTriggerFactory(ComPtr):
     _iid_ = Guid('a72691c3-3837-44f7-83-1b-01-32-cc-87-2b-c3')
     @winrt_commethod(6)
     def Create(self, reportIntervalInMilliseconds: UInt32) -> Windows.ApplicationModel.Background.ActivitySensorTrigger: ...
+class IAlarmApplicationManagerStatics(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('ca03fa3b-cce6-4de2-b0-9b-96-28-bd-33-bb-be')
+    @winrt_commethod(6)
+    def RequestAccessAsync(self) -> Windows.Foundation.IAsyncOperation[Windows.ApplicationModel.Background.AlarmAccessStatus]: ...
+    @winrt_commethod(7)
+    def GetAccessStatus(self) -> Windows.ApplicationModel.Background.AlarmAccessStatus: ...
+class IAppBroadcastTrigger(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('74d4f496-8d37-44ec-94-81-2a-0b-98-54-eb-48')
+    @winrt_commethod(6)
+    def put_ProviderInfo(self, value: Windows.ApplicationModel.Background.AppBroadcastTriggerProviderInfo) -> Void: ...
+    @winrt_commethod(7)
+    def get_ProviderInfo(self) -> Windows.ApplicationModel.Background.AppBroadcastTriggerProviderInfo: ...
+    ProviderInfo = property(get_ProviderInfo, put_ProviderInfo)
+class IAppBroadcastTriggerFactory(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('280b9f44-22f4-4618-a0-2e-e7-e4-11-eb-72-38')
+    @winrt_commethod(6)
+    def CreateAppBroadcastTrigger(self, providerKey: WinRT_String) -> Windows.ApplicationModel.Background.AppBroadcastTrigger: ...
+class IAppBroadcastTriggerProviderInfo(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('f219352d-9de8-4420-9c-e2-5e-ff-8f-17-37-6b')
+    @winrt_commethod(6)
+    def put_DisplayNameResource(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(7)
+    def get_DisplayNameResource(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def put_LogoResource(self, value: WinRT_String) -> Void: ...
+    @winrt_commethod(9)
+    def get_LogoResource(self) -> WinRT_String: ...
+    @winrt_commethod(10)
+    def put_VideoKeyFrameInterval(self, value: Windows.Foundation.TimeSpan) -> Void: ...
+    @winrt_commethod(11)
+    def get_VideoKeyFrameInterval(self) -> Windows.Foundation.TimeSpan: ...
+    @winrt_commethod(12)
+    def put_MaxVideoBitrate(self, value: UInt32) -> Void: ...
+    @winrt_commethod(13)
+    def get_MaxVideoBitrate(self) -> UInt32: ...
+    @winrt_commethod(14)
+    def put_MaxVideoWidth(self, value: UInt32) -> Void: ...
+    @winrt_commethod(15)
+    def get_MaxVideoWidth(self) -> UInt32: ...
+    @winrt_commethod(16)
+    def put_MaxVideoHeight(self, value: UInt32) -> Void: ...
+    @winrt_commethod(17)
+    def get_MaxVideoHeight(self) -> UInt32: ...
+    DisplayNameResource = property(get_DisplayNameResource, put_DisplayNameResource)
+    LogoResource = property(get_LogoResource, put_LogoResource)
+    VideoKeyFrameInterval = property(get_VideoKeyFrameInterval, put_VideoKeyFrameInterval)
+    MaxVideoBitrate = property(get_MaxVideoBitrate, put_MaxVideoBitrate)
+    MaxVideoWidth = property(get_MaxVideoWidth, put_MaxVideoWidth)
+    MaxVideoHeight = property(get_MaxVideoHeight, put_MaxVideoHeight)
 class IApplicationTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('0b468630-9574-492c-9e-93-1a-3a-e6-33-5f-e9')
@@ -1428,10 +1537,10 @@ class ToastNotificationActionTrigger(ComPtr):
 class ToastNotificationHistoryChangedTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger'
-    @winrt_factorymethod
-    def Create(cls: Windows.ApplicationModel.Background.IToastNotificationHistoryChangedTriggerFactory, applicationId: WinRT_String) -> Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger: ...
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger: ...
+    @winrt_factorymethod
+    def Create(cls: Windows.ApplicationModel.Background.IToastNotificationHistoryChangedTriggerFactory, applicationId: WinRT_String) -> Windows.ApplicationModel.Background.ToastNotificationHistoryChangedTrigger: ...
 class UserNotificationChangedTrigger(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Background.UserNotificationChangedTrigger'
@@ -1448,6 +1557,9 @@ class WiFiOnDemandHotspotUpdateMetadataTrigger(ComPtr):
     @winrt_activatemethod
     def New(cls) -> Windows.ApplicationModel.Background.WiFiOnDemandHotspotUpdateMetadataTrigger: ...
 make_head(_module, 'ActivitySensorTrigger')
+make_head(_module, 'AlarmApplicationManager')
+make_head(_module, 'AppBroadcastTrigger')
+make_head(_module, 'AppBroadcastTriggerProviderInfo')
 make_head(_module, 'ApplicationTrigger')
 make_head(_module, 'ApplicationTriggerDetails')
 make_head(_module, 'AppointmentStoreNotificationTrigger')
@@ -1485,6 +1597,10 @@ make_head(_module, 'GattServiceProviderTriggerResult')
 make_head(_module, 'GeovisitTrigger')
 make_head(_module, 'IActivitySensorTrigger')
 make_head(_module, 'IActivitySensorTriggerFactory')
+make_head(_module, 'IAlarmApplicationManagerStatics')
+make_head(_module, 'IAppBroadcastTrigger')
+make_head(_module, 'IAppBroadcastTriggerFactory')
+make_head(_module, 'IAppBroadcastTriggerProviderInfo')
 make_head(_module, 'IApplicationTrigger')
 make_head(_module, 'IApplicationTriggerDetails')
 make_head(_module, 'IAppointmentStoreNotificationTrigger')

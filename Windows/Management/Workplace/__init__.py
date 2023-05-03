@@ -36,6 +36,12 @@ class IMdmPolicyStatics2(ComPtr):
     _iid_ = Guid('c99c7526-03d4-49f9-a9-93-43-ef-cc-d2-65-c4')
     @winrt_commethod(6)
     def GetMessagingSyncPolicy(self) -> Windows.Management.Workplace.MessagingSyncPolicy: ...
+class IWorkplaceSettingsStatics(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('e4676ffd-2d92-4c08-ba-d4-f6-59-0b-54-a6-d3')
+    @winrt_commethod(6)
+    def get_IsMicrosoftAccountOptional(self) -> Boolean: ...
+    IsMicrosoftAccountOptional = property(get_IsMicrosoftAccountOptional, None)
 class MdmPolicy(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Management.Workplace.MdmPolicy'
@@ -53,6 +59,15 @@ MessagingSyncPolicy = Int32
 MessagingSyncPolicy_Disallowed: MessagingSyncPolicy = 0
 MessagingSyncPolicy_Allowed: MessagingSyncPolicy = 1
 MessagingSyncPolicy_Required: MessagingSyncPolicy = 2
+class WorkplaceSettings(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Management.Workplace.WorkplaceSettings'
+    @winrt_classmethod
+    def get_IsMicrosoftAccountOptional(cls: Windows.Management.Workplace.IWorkplaceSettingsStatics) -> Boolean: ...
+    IsMicrosoftAccountOptional = property(get_IsMicrosoftAccountOptional, None)
+WorkplaceSettingsContract: UInt32 = 65536
 make_head(_module, 'IMdmAllowPolicyStatics')
 make_head(_module, 'IMdmPolicyStatics2')
+make_head(_module, 'IWorkplaceSettingsStatics')
 make_head(_module, 'MdmPolicy')
+make_head(_module, 'WorkplaceSettings')

@@ -311,6 +311,12 @@ class IWalletVerbFactory(ComPtr):
     _iid_ = Guid('76012771-be58-4d5e-83-ed-58-b1-66-9c-7a-d9')
     @winrt_commethod(6)
     def CreateWalletVerb(self, name: WinRT_String) -> Windows.ApplicationModel.Wallet.WalletVerb: ...
+WalletActionKind = Int32
+WalletActionKind_OpenItem: WalletActionKind = 0
+WalletActionKind_Transaction: WalletActionKind = 1
+WalletActionKind_MoreTransactions: WalletActionKind = 2
+WalletActionKind_Message: WalletActionKind = 3
+WalletActionKind_Verb: WalletActionKind = 4
 class WalletBarcode(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Wallet.WalletBarcode'
@@ -339,6 +345,7 @@ WalletBarcodeSymbology_Qr: WalletBarcodeSymbology = 8
 WalletBarcodeSymbology_Pdf417: WalletBarcodeSymbology = 9
 WalletBarcodeSymbology_Aztec: WalletBarcodeSymbology = 10
 WalletBarcodeSymbology_Custom: WalletBarcodeSymbology = 100000
+WalletContract: UInt32 = 131072
 WalletDetailViewPosition = Int32
 WalletDetailViewPosition_Hidden: WalletDetailViewPosition = 0
 WalletDetailViewPosition_HeaderField1: WalletDetailViewPosition = 1

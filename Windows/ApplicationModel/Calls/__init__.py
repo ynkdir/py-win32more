@@ -83,6 +83,37 @@ class ICallStateChangeEventArgs(ComPtr):
     @winrt_commethod(6)
     def get_State(self) -> Windows.ApplicationModel.Calls.VoipPhoneCallState: ...
     State = property(get_State, None)
+class ILockScreenCallEndCallDeferral(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('2dd7ed0d-98ed-4041-96-32-50-ff-81-2b-77-3f')
+    @winrt_commethod(6)
+    def Complete(self) -> Void: ...
+class ILockScreenCallEndRequestedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('8190a363-6f27-46e9-ae-b6-c0-ae-83-e4-7d-c7')
+    @winrt_commethod(6)
+    def GetDeferral(self) -> Windows.ApplicationModel.Calls.LockScreenCallEndCallDeferral: ...
+    @winrt_commethod(7)
+    def get_Deadline(self) -> Windows.Foundation.DateTime: ...
+    Deadline = property(get_Deadline, None)
+class ILockScreenCallUI(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('c596fd8d-73c9-4a14-b0-21-ec-1c-50-a3-b7-27')
+    @winrt_commethod(6)
+    def Dismiss(self) -> Void: ...
+    @winrt_commethod(7)
+    def add_EndRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Calls.LockScreenCallUI, Windows.ApplicationModel.Calls.LockScreenCallEndRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(8)
+    def remove_EndRequested(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(9)
+    def add_Closed(self, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Calls.LockScreenCallUI, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(10)
+    def remove_Closed(self, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_commethod(11)
+    def get_CallTitle(self) -> WinRT_String: ...
+    @winrt_commethod(12)
+    def put_CallTitle(self, value: WinRT_String) -> Void: ...
+    CallTitle = property(get_CallTitle, put_CallTitle)
 class IMuteChangeEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('8585e159-0c41-432c-81-4d-c5-f1-fd-f5-30-be')
@@ -771,6 +802,38 @@ class IVoipPhoneCall3(ComPtr):
     _iid_ = Guid('0d891522-e258-4aa9-90-7a-1a-a4-13-c2-55-23')
     @winrt_commethod(6)
     def NotifyCallAccepted(self, media: Windows.ApplicationModel.Calls.VoipPhoneCallMedia) -> Void: ...
+LockScreenCallContract: UInt32 = 65536
+class LockScreenCallEndCallDeferral(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.LockScreenCallEndCallDeferral'
+    @winrt_mixinmethod
+    def Complete(self: Windows.ApplicationModel.Calls.ILockScreenCallEndCallDeferral) -> Void: ...
+class LockScreenCallEndRequestedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.LockScreenCallEndRequestedEventArgs'
+    @winrt_mixinmethod
+    def GetDeferral(self: Windows.ApplicationModel.Calls.ILockScreenCallEndRequestedEventArgs) -> Windows.ApplicationModel.Calls.LockScreenCallEndCallDeferral: ...
+    @winrt_mixinmethod
+    def get_Deadline(self: Windows.ApplicationModel.Calls.ILockScreenCallEndRequestedEventArgs) -> Windows.Foundation.DateTime: ...
+    Deadline = property(get_Deadline, None)
+class LockScreenCallUI(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.ApplicationModel.Calls.LockScreenCallUI'
+    @winrt_mixinmethod
+    def Dismiss(self: Windows.ApplicationModel.Calls.ILockScreenCallUI) -> Void: ...
+    @winrt_mixinmethod
+    def add_EndRequested(self: Windows.ApplicationModel.Calls.ILockScreenCallUI, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Calls.LockScreenCallUI, Windows.ApplicationModel.Calls.LockScreenCallEndRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_EndRequested(self: Windows.ApplicationModel.Calls.ILockScreenCallUI, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def add_Closed(self: Windows.ApplicationModel.Calls.ILockScreenCallUI, handler: Windows.Foundation.TypedEventHandler[Windows.ApplicationModel.Calls.LockScreenCallUI, Windows.Win32.System.WinRT.IInspectable_head]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_Closed(self: Windows.ApplicationModel.Calls.ILockScreenCallUI, token: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_mixinmethod
+    def get_CallTitle(self: Windows.ApplicationModel.Calls.ILockScreenCallUI) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def put_CallTitle(self: Windows.ApplicationModel.Calls.ILockScreenCallUI, value: WinRT_String) -> Void: ...
+    CallTitle = property(get_CallTitle, put_CallTitle)
 class MuteChangeEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.ApplicationModel.Calls.MuteChangeEventArgs'
@@ -1543,6 +1606,9 @@ make_head(_module, 'CallStateChangeEventArgs')
 make_head(_module, 'ICallAnswerEventArgs')
 make_head(_module, 'ICallRejectEventArgs')
 make_head(_module, 'ICallStateChangeEventArgs')
+make_head(_module, 'ILockScreenCallEndCallDeferral')
+make_head(_module, 'ILockScreenCallEndRequestedEventArgs')
+make_head(_module, 'ILockScreenCallUI')
 make_head(_module, 'IMuteChangeEventArgs')
 make_head(_module, 'IPhoneCall')
 make_head(_module, 'IPhoneCallBlockingStatics')
@@ -1585,6 +1651,9 @@ make_head(_module, 'IVoipCallCoordinatorStatics')
 make_head(_module, 'IVoipPhoneCall')
 make_head(_module, 'IVoipPhoneCall2')
 make_head(_module, 'IVoipPhoneCall3')
+make_head(_module, 'LockScreenCallEndCallDeferral')
+make_head(_module, 'LockScreenCallEndRequestedEventArgs')
+make_head(_module, 'LockScreenCallUI')
 make_head(_module, 'MuteChangeEventArgs')
 make_head(_module, 'PhoneCall')
 make_head(_module, 'PhoneCallBlocking')

@@ -74,6 +74,7 @@ class AccountsSettingsPaneEventDeferral(ComPtr):
     _classid_ = 'Windows.UI.ApplicationSettings.AccountsSettingsPaneEventDeferral'
     @winrt_mixinmethod
     def Complete(self: Windows.UI.ApplicationSettings.IAccountsSettingsPaneEventDeferral) -> Void: ...
+ApplicationsSettingsContract: UInt32 = 65536
 class CredentialCommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.UI.ApplicationSettings.CredentialCommand'
@@ -181,6 +182,35 @@ class ISettingsCommandStatics(ComPtr):
     @winrt_commethod(6)
     def get_AccountsCommand(self) -> Windows.UI.ApplicationSettings.SettingsCommand: ...
     AccountsCommand = property(get_AccountsCommand, None)
+class ISettingsPane(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('b1cd0932-4570-4c69-8d-38-89-44-65-61-ac-e0')
+    @winrt_commethod(6)
+    def add_CommandsRequested(self, handler: Windows.Foundation.TypedEventHandler[Windows.UI.ApplicationSettings.SettingsPane, Windows.UI.ApplicationSettings.SettingsPaneCommandsRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_commethod(7)
+    def remove_CommandsRequested(self, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
+class ISettingsPaneCommandsRequest(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('44df23ae-5d6e-4068-a1-68-f4-76-43-18-21-14')
+    @winrt_commethod(6)
+    def get_ApplicationCommands(self) -> Windows.Foundation.Collections.IVector[Windows.UI.ApplicationSettings.SettingsCommand]: ...
+    ApplicationCommands = property(get_ApplicationCommands, None)
+class ISettingsPaneCommandsRequestedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('205f5d24-1b48-4629-a6-ca-2f-df-ed-af-b7-5d')
+    @winrt_commethod(6)
+    def get_Request(self) -> Windows.UI.ApplicationSettings.SettingsPaneCommandsRequest: ...
+    Request = property(get_Request, None)
+class ISettingsPaneStatics(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('1c6a52c5-ff19-471b-ba-6b-f8-f3-56-94-ad-9a')
+    @winrt_commethod(6)
+    def GetForCurrentView(self) -> Windows.UI.ApplicationSettings.SettingsPane: ...
+    @winrt_commethod(7)
+    def Show(self) -> Void: ...
+    @winrt_commethod(8)
+    def get_Edge(self) -> Windows.UI.ApplicationSettings.SettingsEdgeLocation: ...
+    Edge = property(get_Edge, None)
 class IWebAccountCommand(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _iid_ = Guid('caa39398-9cfa-4246-b0-c4-a9-13-a3-89-65-41')
@@ -241,6 +271,35 @@ class SettingsCommand(ComPtr):
     Invoked = property(get_Invoked, put_Invoked)
     Id = property(get_Id, put_Id)
     AccountsCommand = property(get_AccountsCommand, None)
+SettingsEdgeLocation = Int32
+SettingsEdgeLocation_Right: SettingsEdgeLocation = 0
+SettingsEdgeLocation_Left: SettingsEdgeLocation = 1
+class SettingsPane(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.ApplicationSettings.SettingsPane'
+    @winrt_mixinmethod
+    def add_CommandsRequested(self: Windows.UI.ApplicationSettings.ISettingsPane, handler: Windows.Foundation.TypedEventHandler[Windows.UI.ApplicationSettings.SettingsPane, Windows.UI.ApplicationSettings.SettingsPaneCommandsRequestedEventArgs]) -> Windows.Foundation.EventRegistrationToken: ...
+    @winrt_mixinmethod
+    def remove_CommandsRequested(self: Windows.UI.ApplicationSettings.ISettingsPane, cookie: Windows.Foundation.EventRegistrationToken) -> Void: ...
+    @winrt_classmethod
+    def GetForCurrentView(cls: Windows.UI.ApplicationSettings.ISettingsPaneStatics) -> Windows.UI.ApplicationSettings.SettingsPane: ...
+    @winrt_classmethod
+    def Show(cls: Windows.UI.ApplicationSettings.ISettingsPaneStatics) -> Void: ...
+    @winrt_classmethod
+    def get_Edge(cls: Windows.UI.ApplicationSettings.ISettingsPaneStatics) -> Windows.UI.ApplicationSettings.SettingsEdgeLocation: ...
+    Edge = property(get_Edge, None)
+class SettingsPaneCommandsRequest(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.ApplicationSettings.SettingsPaneCommandsRequest'
+    @winrt_mixinmethod
+    def get_ApplicationCommands(self: Windows.UI.ApplicationSettings.ISettingsPaneCommandsRequest) -> Windows.Foundation.Collections.IVector[Windows.UI.ApplicationSettings.SettingsCommand]: ...
+    ApplicationCommands = property(get_ApplicationCommands, None)
+class SettingsPaneCommandsRequestedEventArgs(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.UI.ApplicationSettings.SettingsPaneCommandsRequestedEventArgs'
+    @winrt_mixinmethod
+    def get_Request(self: Windows.UI.ApplicationSettings.ISettingsPaneCommandsRequestedEventArgs) -> Windows.UI.ApplicationSettings.SettingsPaneCommandsRequest: ...
+    Request = property(get_Request, None)
 SupportedWebAccountActions = UInt32
 SupportedWebAccountActions_None: SupportedWebAccountActions = 0
 SupportedWebAccountActions_Reconnect: SupportedWebAccountActions = 1
@@ -313,12 +372,19 @@ make_head(_module, 'ICredentialCommand')
 make_head(_module, 'ICredentialCommandFactory')
 make_head(_module, 'ISettingsCommandFactory')
 make_head(_module, 'ISettingsCommandStatics')
+make_head(_module, 'ISettingsPane')
+make_head(_module, 'ISettingsPaneCommandsRequest')
+make_head(_module, 'ISettingsPaneCommandsRequestedEventArgs')
+make_head(_module, 'ISettingsPaneStatics')
 make_head(_module, 'IWebAccountCommand')
 make_head(_module, 'IWebAccountCommandFactory')
 make_head(_module, 'IWebAccountInvokedArgs')
 make_head(_module, 'IWebAccountProviderCommand')
 make_head(_module, 'IWebAccountProviderCommandFactory')
 make_head(_module, 'SettingsCommand')
+make_head(_module, 'SettingsPane')
+make_head(_module, 'SettingsPaneCommandsRequest')
+make_head(_module, 'SettingsPaneCommandsRequestedEventArgs')
 make_head(_module, 'WebAccountCommand')
 make_head(_module, 'WebAccountCommandInvokedHandler')
 make_head(_module, 'WebAccountInvokedArgs')

@@ -308,6 +308,25 @@ class ISpeechRecognizerUIOptions(ComPtr):
     AudiblePrompt = property(get_AudiblePrompt, put_AudiblePrompt)
     IsReadBackEnabled = property(get_IsReadBackEnabled, put_IsReadBackEnabled)
     ShowConfirmation = property(get_ShowConfirmation, put_ShowConfirmation)
+class IVoiceCommandManager(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('aa3a8dd5-b6e7-4ee2-ba-a9-dd-6b-ac-ed-0a-2b')
+    @winrt_commethod(6)
+    def InstallCommandSetsFromStorageFileAsync(self, file: Windows.Storage.StorageFile) -> Windows.Foundation.IAsyncAction: ...
+    @winrt_commethod(7)
+    def get_InstalledCommandSets(self) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Media.SpeechRecognition.VoiceCommandSet]: ...
+    InstalledCommandSets = property(get_InstalledCommandSets, None)
+class IVoiceCommandSet(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _iid_ = Guid('0bedda75-46e6-4b11-a0-88-5c-68-63-28-99-b5')
+    @winrt_commethod(6)
+    def get_Language(self) -> WinRT_String: ...
+    @winrt_commethod(7)
+    def get_Name(self) -> WinRT_String: ...
+    @winrt_commethod(8)
+    def SetPhraseListAsync(self, phraseListName: WinRT_String, phraseList: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncAction: ...
+    Language = property(get_Language, None)
+    Name = property(get_Name, None)
 class SpeechContinuousRecognitionCompletedEventArgs(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechContinuousRecognitionCompletedEventArgs'
@@ -562,10 +581,10 @@ class SpeechRecognitionVoiceCommandDefinitionConstraint(ComPtr):
 class SpeechRecognizer(ComPtr):
     extends: Windows.Win32.System.WinRT.IInspectable
     _classid_ = 'Windows.Media.SpeechRecognition.SpeechRecognizer'
-    @winrt_activatemethod
-    def New(cls) -> Windows.Media.SpeechRecognition.SpeechRecognizer: ...
     @winrt_factorymethod
     def Create(cls: Windows.Media.SpeechRecognition.ISpeechRecognizerFactory, language: Windows.Globalization.Language) -> Windows.Media.SpeechRecognition.SpeechRecognizer: ...
+    @winrt_activatemethod
+    def New(cls) -> Windows.Media.SpeechRecognition.SpeechRecognizer: ...
     @winrt_mixinmethod
     def get_CurrentLanguage(self: Windows.Media.SpeechRecognition.ISpeechRecognizer) -> Windows.Globalization.Language: ...
     @winrt_mixinmethod
@@ -672,6 +691,25 @@ class SpeechRecognizerUIOptions(ComPtr):
     AudiblePrompt = property(get_AudiblePrompt, put_AudiblePrompt)
     IsReadBackEnabled = property(get_IsReadBackEnabled, put_IsReadBackEnabled)
     ShowConfirmation = property(get_ShowConfirmation, put_ShowConfirmation)
+class VoiceCommandManager(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.SpeechRecognition.VoiceCommandManager'
+    @winrt_classmethod
+    def InstallCommandSetsFromStorageFileAsync(cls: Windows.Media.SpeechRecognition.IVoiceCommandManager, file: Windows.Storage.StorageFile) -> Windows.Foundation.IAsyncAction: ...
+    @winrt_classmethod
+    def get_InstalledCommandSets(cls: Windows.Media.SpeechRecognition.IVoiceCommandManager) -> Windows.Foundation.Collections.IMapView[WinRT_String, Windows.Media.SpeechRecognition.VoiceCommandSet]: ...
+    InstalledCommandSets = property(get_InstalledCommandSets, None)
+class VoiceCommandSet(ComPtr):
+    extends: Windows.Win32.System.WinRT.IInspectable
+    _classid_ = 'Windows.Media.SpeechRecognition.VoiceCommandSet'
+    @winrt_mixinmethod
+    def get_Language(self: Windows.Media.SpeechRecognition.IVoiceCommandSet) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def get_Name(self: Windows.Media.SpeechRecognition.IVoiceCommandSet) -> WinRT_String: ...
+    @winrt_mixinmethod
+    def SetPhraseListAsync(self: Windows.Media.SpeechRecognition.IVoiceCommandSet, phraseListName: WinRT_String, phraseList: Windows.Foundation.Collections.IIterable[WinRT_String]) -> Windows.Foundation.IAsyncAction: ...
+    Language = property(get_Language, None)
+    Name = property(get_Name, None)
 make_head(_module, 'ISpeechContinuousRecognitionCompletedEventArgs')
 make_head(_module, 'ISpeechContinuousRecognitionResultGeneratedEventArgs')
 make_head(_module, 'ISpeechContinuousRecognitionSession')
@@ -698,6 +736,8 @@ make_head(_module, 'ISpeechRecognizerStatics')
 make_head(_module, 'ISpeechRecognizerStatics2')
 make_head(_module, 'ISpeechRecognizerTimeouts')
 make_head(_module, 'ISpeechRecognizerUIOptions')
+make_head(_module, 'IVoiceCommandManager')
+make_head(_module, 'IVoiceCommandSet')
 make_head(_module, 'SpeechContinuousRecognitionCompletedEventArgs')
 make_head(_module, 'SpeechContinuousRecognitionResultGeneratedEventArgs')
 make_head(_module, 'SpeechContinuousRecognitionSession')
@@ -715,3 +755,5 @@ make_head(_module, 'SpeechRecognizer')
 make_head(_module, 'SpeechRecognizerStateChangedEventArgs')
 make_head(_module, 'SpeechRecognizerTimeouts')
 make_head(_module, 'SpeechRecognizerUIOptions')
+make_head(_module, 'VoiceCommandManager')
+make_head(_module, 'VoiceCommandSet')
