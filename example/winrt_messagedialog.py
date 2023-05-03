@@ -1,4 +1,5 @@
 import asyncio
+import tkinter as tk
 from contextlib import ExitStack
 from ctypes import (
     POINTER,
@@ -20,41 +21,13 @@ from Windows.Foundation import (
     IAsyncOperation,
 )
 from Windows.UI.Popups import MessageDialog
-from Windows.Win32.Foundation import E_NOINTERFACE, HRESULT, HWND, LPARAM, S_OK, WPARAM
-from Windows.Win32.Graphics.Gdi import (
-    COLOR_WINDOW,
-    HBRUSH,
-    PAINTSTRUCT,
-    BeginPaint,
-    EndPaint,
-    FillRect,
-)
-from Windows.Win32.System.LibraryLoader import GetModuleHandleW
+from Windows.Win32.Foundation import E_NOINTERFACE, HRESULT, S_OK
 from Windows.Win32.System.WinRT import (
     RO_INIT_SINGLETHREADED,
     RoInitialize,
     RoUninitialize,
 )
 from Windows.Win32.UI.Shell import IInitializeWithWindow
-from Windows.Win32.UI.WindowsAndMessaging import (
-    CW_USEDEFAULT,
-    MSG,
-    SW_SHOWNORMAL,
-    WM_DESTROY,
-    WM_KEYDOWN,
-    WM_PAINT,
-    WNDCLASSW,
-    WNDPROC,
-    WS_OVERLAPPEDWINDOW,
-    CreateWindowExW,
-    DefWindowProcW,
-    DispatchMessageW,
-    GetMessageW,
-    PostQuitMessage,
-    RegisterClassW,
-    ShowWindow,
-    TranslateMessage,
-)
 
 T = TypeVar("T")
 
@@ -169,17 +142,21 @@ class AwaitAsyncOperation(Generic[T]):
         return r
 
 
+def initialize_with_window(obj, hwnd):
+    ii = IInitializeWithWindow()
+    hr = obj.QueryInterface(IInitializeWithWindow._iid_, ii)
+    if FAILED(hr):
+        raise WinError(hr)
+    ii.Initialize(hwnd)
+    ii.Release()
+
+
 async def winrt_dialog(hwnd):
     with ExitStack() as defer:
         dialog = MessageDialog.CreateWithTitle("This is WinRT MessageDialog", "WinRT MessageDialog")
         defer.callback(dialog.Release)
 
-        ii = IInitializeWithWindow()
-        hr = dialog.QueryInterface(IInitializeWithWindow._iid_, ii)
-        if FAILED(hr):
-            raise WinError(hr)
-        defer.callback(ii.Release)
-        ii.Initialize(hwnd)
+        initialize_with_window(dialog, hwnd)
 
         iasync = dialog.ShowAsync()
 
@@ -189,85 +166,32 @@ async def winrt_dialog(hwnd):
         print(uicommand, uicommand.Label)
 
 
-async def WinMain():
-    hInstance = GetModuleHandleW(None)
-    nCmdShow = SW_SHOWNORMAL
+async def main() -> None:
+    hr = RoInitialize(RO_INIT_SINGLETHREADED)
+    if FAILED(hr):
+        raise WinError(hr)
 
-    # Register the window class.
-    CLASS_NAME = "Sample Window Class"
+    is_running = True
 
-    wc = WNDCLASSW()
+    def on_delete():
+        nonlocal is_running
+        is_running = False
 
-    wc.lpfnWndProc = WNDPROC(WindowProc)
-    wc.hInstance = hInstance
-    wc.lpszClassName = CLASS_NAME
+    root = tk.Tk()
+    root.protocol("WM_DELETE_WINDOW", on_delete)
+    root.eval("tk::PlaceWindow . center")
 
-    RegisterClassW(wc)
+    hwnd = root.winfo_id()
 
-    # Create the window.
+    button = tk.Button(root, text="Popup WinRT dialog", command=lambda: asyncio.create_task(winrt_dialog(hwnd)))
+    button.pack(padx=10, pady=10, fill="both", expand=True)
 
-    hwnd = CreateWindowExW(
-        0,  # Optional window styles.
-        CLASS_NAME,  # Window class
-        "Press key to popup WinRT dialog",  # Window text
-        WS_OVERLAPPEDWINDOW,  # Window style
-        # Size and position
-        CW_USEDEFAULT,
-        CW_USEDEFAULT,
-        CW_USEDEFAULT,
-        CW_USEDEFAULT,
-        0,  # Parent window
-        0,  # Menu
-        hInstance,  # Instance handle
-        0,  # Additional application data
-    )
-
-    if hwnd == 0:
-        return 0
-
-    ShowWindow(hwnd, nCmdShow)
-
-    # Run the message loop.
-
-    msg = MSG()
-    while GetMessageW(msg, 0, 0, 0) > 0:
-        TranslateMessage(msg)
-        DispatchMessageW(msg)
+    while is_running:
+        root.after(100, root.quit)
+        root.mainloop()
         await asyncio.sleep(0)
 
-    return 0
-
-
-def WindowProc(hwnd: HWND, uMsg: UInt32, wParam: WPARAM, lParam: LPARAM):
-    if uMsg == WM_DESTROY:
-        PostQuitMessage(0)
-        return 0
-    elif uMsg == WM_PAINT:
-        ps = PAINTSTRUCT()
-        hdc = BeginPaint(hwnd, ps)
-
-        # All painting occurs here, between BeginPaint and EndPaint.
-
-        FillRect(hdc, ps.rcPaint, HBRUSH(COLOR_WINDOW + 1))
-
-        EndPaint(hwnd, ps)
-
-        return 0
-    elif uMsg == WM_KEYDOWN:
-        print("WM_KEYDOWN")
-        asyncio.create_task(winrt_dialog(hwnd))
-        return 0
-    return DefWindowProcW(hwnd, uMsg, wParam, lParam)
-
-
-async def main() -> None:
-    with ExitStack() as defer:
-        hr = RoInitialize(RO_INIT_SINGLETHREADED)
-        if FAILED(hr):
-            raise WinError(hr)
-        defer.callback(RoUninitialize)
-
-        await WinMain()
+    RoUninitialize()
 
 
 if __name__ == "__main__":
